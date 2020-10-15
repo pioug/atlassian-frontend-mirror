@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,8 @@
     "jest-axe": "^4.0.0",
     "jest-emotion": "^10.0.32",
     "react": "^16.8.0",
-    "react-intl": "^2.6.0"
+    "react-intl": "^2.6.0",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

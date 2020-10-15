@@ -1,4 +1,4 @@
-export {
+export type {
   ProsemirrorGetPosHandler,
   ReactNodeProps,
   ReactComponentProps,
@@ -10,4 +10,5 @@ export {
   default as ReactNodeView,
   SelectionBasedNodeView,
 } from './ReactNodeView';
-export { ContextAdapter, createContextAdapter } from './context-adapter';
+export { createContextAdapter } from './context-adapter';
+export type { ContextAdapter } from './context-adapter';

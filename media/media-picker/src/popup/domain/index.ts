@@ -2,15 +2,15 @@ import { MediaClient, MediaCollectionItem } from '@atlaskit/media-client';
 import { Subscription } from 'rxjs/Subscription';
 import { LocalUploads } from './local-upload';
 
-export { AuthHeaders } from './auth';
-export {
+export type { AuthHeaders } from './auth';
+export type {
   SourceFile,
   SourceFileOwner,
   ClientBasedSourceFileOwner,
   AsapBasedSourceFileOwner,
 } from './source-file';
 
-export {
+export type {
   LocalUpload,
   LocalUploads,
   LocalUploadFile,

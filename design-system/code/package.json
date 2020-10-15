@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,8 @@
     "@types/jscodeshift": "^0.6.3",
     "enzyme": "^3.10.0",
     "jscodeshift": "^0.7.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

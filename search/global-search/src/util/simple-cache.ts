@@ -1,3 +1,5 @@
+import { Varargs } from '../types';
+
 /**
  * Simple cache that caches exactly one item.
  */

@@ -117,7 +117,8 @@ const annotationPlugin = (
 };
 
 export default annotationPlugin;
-export {
+export { AnnotationUpdateEmitter };
+export type {
   AnnotationProviders,
   InlineCommentAnnotationProvider,
   InlineCommentCreateComponentProps,
@@ -127,5 +128,4 @@ export {
   AnnotationState,
   InlineCommentState,
   UpdateEvent,
-  AnnotationUpdateEmitter,
 };

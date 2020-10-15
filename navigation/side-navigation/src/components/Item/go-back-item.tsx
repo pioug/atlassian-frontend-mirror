@@ -8,7 +8,7 @@ import { backItemStyle, overrideStyleFunction } from '../../common/styles';
 
 import ButtonItem from './button-item';
 
-export { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
+export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
 
 const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
   (

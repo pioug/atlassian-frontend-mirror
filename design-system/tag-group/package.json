@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag-group",
-  "version": "10.0.2",
+  "version": "10.0.3",
   "description": "A React component used for grouping and controlling @atlskit/tag components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,6 +44,7 @@
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "0.12.0",
+    "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-notifications",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Notifications for Atlassian products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,8 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

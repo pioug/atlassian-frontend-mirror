@@ -7,7 +7,7 @@ import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { Dispatch } from '../../event-dispatcher';
 
 // Re-export typeahead types
-export {
+export type {
   TypeAheadItem,
   TypeAheadItemRenderProps,
 } from '@atlaskit/editor-common/provider-factory';

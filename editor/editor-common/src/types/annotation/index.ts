@@ -11,7 +11,7 @@ import {
   AnnotationUpdateEventPayloads,
 } from './emitter';
 
-export { AnnotationState };
+export type { AnnotationState };
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 
@@ -86,8 +86,5 @@ export type AnnotationProviders = {
   inlineComment: InlineCommentAnnotationProvider;
 };
 
-export {
-  AnnotationUpdateEmitter,
-  AnnotationUpdateEvent,
-  AnnotationUpdateEventPayloads,
-};
+export { AnnotationUpdateEmitter, AnnotationUpdateEvent };
+export type { AnnotationUpdateEventPayloads };

@@ -1,2 +1,3 @@
 export { ReactionConsumer } from './ReactionConsumer';
-export { MemoryReactionsStore, ReactionsStore } from './ReactionsStore';
+export { MemoryReactionsStore } from './ReactionsStore';
+export type { ReactionsStore } from './ReactionsStore';

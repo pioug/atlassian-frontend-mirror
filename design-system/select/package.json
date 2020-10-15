@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "13.0.5",
+  "version": "13.0.6",
   "description": "Select gives users the ability to make a single selection, or multiple selections from a number of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -64,6 +64,7 @@
     "react-dom": "^16.8.0",
     "react-value": "^0.2.0",
     "styled-components": "^3.2.6",
+    "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
   "homepage": "https://atlassian.design/components/select/"

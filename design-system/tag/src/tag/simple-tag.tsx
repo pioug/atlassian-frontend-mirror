@@ -1,2 +1,2 @@
 export { default } from './internal/simple';
-export { SimpleTagProps } from './internal/shared/types';
+export type { SimpleTagProps } from './internal/shared/types';

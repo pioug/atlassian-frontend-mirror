@@ -2,13 +2,9 @@ export {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
 } from './annotation';
-export { Params, getExtensionLozengeData } from './macro';
+export { getExtensionLozengeData } from './macro';
+export type { Params } from './macro';
 export {
-  ADDoc,
-  ADFStage,
-  ADMark,
-  ADMarkSimple,
-  ADNode,
   getMarksByOrder,
   getValidContent,
   getValidDocument,
@@ -19,13 +15,17 @@ export {
   isSubSupType,
   markOrder,
 } from './validator';
+export type {
+  ADDoc,
+  ADFStage,
+  ADMark,
+  ADMarkSimple,
+  ADNode,
+} from './validator';
 export { default as browser } from './browser';
+export { default as ErrorReporter } from './error-reporter';
+export type { ErrorReportingHandler } from './error-reporter';
 export {
-  default as ErrorReporter,
-  ErrorReportingHandler,
-} from './error-reporter';
-export {
-  Date,
   isPastDate,
   timestampToIsoFormat,
   timestampToString,
@@ -33,11 +33,12 @@ export {
   timestampToUTCDate,
   todayTimestampInUTC,
 } from './date';
-export {
+export type { Date } from './date';
+export { withImageLoader } from './imageLoader';
+export type {
   ImageLoaderProps,
   ImageLoaderState,
   ImageStatus,
-  withImageLoader,
 } from './imageLoader';
 export {
   absoluteBreakoutWidth,
@@ -46,11 +47,8 @@ export {
   breakoutConsts,
 } from './breakout';
 export { default as ADFTraversor } from './traversor';
-export {
-  getAnalyticsAppearance,
-  analyticsEventKey,
-  UnsupportedContentPayload,
-} from './analytics';
+export { getAnalyticsAppearance, analyticsEventKey } from './analytics';
+export type { UnsupportedContentPayload } from './analytics';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { measureRender } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
@@ -71,4 +69,4 @@ export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
 export { ZERO_WIDTH_SPACE } from './whitespace';
 
-export { Diff } from './types';
+export type { Diff } from './types';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-switcher",
-  "version": "8.5.3",
+  "version": "8.5.4",
   "description": "App switcher component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -66,6 +66,7 @@
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
     "react-intl": "^2.6.0",
+    "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   }
 }

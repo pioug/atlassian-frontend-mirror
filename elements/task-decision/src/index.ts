@@ -5,7 +5,8 @@ import TaskDecisionResource from './api/TaskDecisionResource';
 import TaskItem from './components/TaskItem';
 import TaskList from './components/TaskList';
 
-export {
+export { PubSubSpecialEventType } from './types';
+export type {
   Appearance,
   ARI,
   AVI,
@@ -23,7 +24,6 @@ export {
   OnUpdate,
   PubSubClient,
   PubSubOnEvent,
-  PubSubSpecialEventType,
   RecentUpdateContext,
   RecentUpdatesId,
   RecentUpdatesListener,

@@ -9,7 +9,7 @@ export {
   PopupMenuGroup,
   Section,
 } from './components';
-export {
+export type {
   ButtonItemProps,
   CSSFn,
   StatelessCSSFn,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-switcher-test-utils",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "App switcher test utilities.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,5 +27,8 @@
     "fetch-mock": "^8.0.0",
     "memoize-one": "^5.1.0",
     "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "3.9.6"
   }
 }

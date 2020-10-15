@@ -1,4 +1,4 @@
-export {
+export type {
   InsertedImageProperties,
   ImageUploadProvider as ImageUploadHandler,
 } from '@atlaskit/editor-common/provider-factory';

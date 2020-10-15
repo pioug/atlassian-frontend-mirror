@@ -63,7 +63,7 @@ export {
   isValidPosition,
 } from './selection';
 
-export { JSONDocNode, JSONNode };
+export type { JSONDocNode, JSONNode };
 
 export { containsClassName } from './dom';
 

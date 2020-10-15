@@ -8,7 +8,8 @@ import {
 } from 'prosemirror-model';
 import { paragraph, createSchema } from '../src/schema';
 
-export { AttributeSpec, MarkSpec, Node, NodeSpec, ParseRule, Schema };
+export { Node, Schema };
+export type { AttributeSpec, MarkSpec, NodeSpec, ParseRule };
 export default createSchema({
   nodes: [
     'doc',

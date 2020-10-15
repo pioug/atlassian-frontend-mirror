@@ -49,7 +49,7 @@ export interface Extension<T> {
   content?: any; // This would be the original Atlassian Document Format
 }
 
-export { RendererProps as Props };
+export type { RendererProps as Props };
 export class Renderer extends PureComponent<RendererProps> {
   private providerFactory: ProviderFactory;
   private serializer: ReactSerializer;

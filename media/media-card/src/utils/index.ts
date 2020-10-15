@@ -1,13 +1,17 @@
-export { ErrorIcon, ErrorIconProps } from './errorIcon';
-export { FileIcon, FileIconProps } from './fileIcon';
+export { ErrorIcon } from './errorIcon';
+export type { ErrorIconProps } from './errorIcon';
+export { FileIcon } from './fileIcon';
+export type { FileIconProps } from './fileIcon';
 export {
   CardActionIconButton,
-  CardActionIconButtonProps,
   CardActionsDropdownMenu,
-  CardActionsDropdownMenuProps,
   CardActionsView,
-  CardActionsViewProps,
   default,
+} from './cardActions';
+export type {
+  CardActionIconButtonProps,
+  CardActionsDropdownMenuProps,
+  CardActionsViewProps,
 } from './cardActions';
 export { isRetina } from './isRetina';
 export {
@@ -28,13 +32,16 @@ export {
   minSquareCardDimensions,
 } from './cardDimensions';
 export {
-  BreakpointProps,
-  BreakpointSizeValue,
-  CardBreakpoint,
   breakpointSize,
   breakpointStyles,
   cardBreakpointSizes,
 } from './breakpoint';
+export type {
+  BreakpointProps,
+  BreakpointSizeValue,
+  CardBreakpoint,
+} from './breakpoint';
 export { isValidPercentageUnit } from './isValidPercentageUnit';
-export { ElementDimension, getElementDimension } from './getElementDimension';
+export { getElementDimension } from './getElementDimension';
+export type { ElementDimension } from './getElementDimension';
 export { containsPixelUnit } from './containsPixelUnit';

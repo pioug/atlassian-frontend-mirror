@@ -3,7 +3,7 @@ import { messages } from './components/i18n';
 import { CategoryId } from './components/picker/categories';
 import { Provider } from '@atlaskit/util-service-support/types';
 
-export { CategoryId } from './components/picker/categories';
+export type { CategoryId } from './components/picker/categories';
 
 export interface EmojiProvider
   extends Provider<string, EmojiSearchResult, any, undefined, SearchOptions> {

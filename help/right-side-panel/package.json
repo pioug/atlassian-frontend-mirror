@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/right-side-panel",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A cross-product right-side-panel component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,8 @@
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/section-message": "^5.0.0",
     "enzyme": "^3.10.0",
-    "react-test-renderer": "^16.8.0"
+    "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

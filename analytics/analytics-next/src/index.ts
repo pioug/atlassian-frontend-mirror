@@ -1,13 +1,13 @@
-export { CreateUIAnalyticsEvent } from './types';
+export type { CreateUIAnalyticsEvent } from './types';
 
 // Analytics event classes
-export {
-  default as AnalyticsEvent,
+export { default as AnalyticsEvent } from './events/AnalyticsEvent';
+export type {
   AnalyticsEventPayload,
   AnalyticsEventProps,
 } from './events/AnalyticsEvent';
-export {
-  default as UIAnalyticsEvent,
+export { default as UIAnalyticsEvent } from './events/UIAnalyticsEvent';
+export type {
   UIAnalyticsEventProps,
   UIAnalyticsEventHandler,
 } from './events/UIAnalyticsEvent';
@@ -17,44 +17,31 @@ export { default as AnalyticsListener } from './components/AnalyticsListener/ind
 
 // AnalyticsContext component and HOC
 export { default as AnalyticsContext } from './components/AnalyticsContext/index';
-export {
-  default as withAnalyticsContext,
-  WithContextProps,
-} from './hocs/withAnalyticsContext';
+export { default as withAnalyticsContext } from './hocs/withAnalyticsContext';
+export type { WithContextProps } from './hocs/withAnalyticsContext';
 
 // AnalyticsErrorBoundary component
-export {
-  default as AnalyticsErrorBoundary,
-  AnalyticsErrorBoundaryProps,
-} from './components/AnalyticsErrorBoundary';
+export { default as AnalyticsErrorBoundary } from './components/AnalyticsErrorBoundary';
+export type { AnalyticsErrorBoundaryProps } from './components/AnalyticsErrorBoundary';
 
 // createAnalyticsEvent HOC
-export {
-  default as withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-} from './hocs/withAnalyticsEvents';
+export { default as withAnalyticsEvents } from './hocs/withAnalyticsEvents';
+export type { WithAnalyticsEventsProps } from './hocs/withAnalyticsEvents';
 
 // React context
-export {
-  default as AnalyticsReactContext,
-  AnalyticsReactContextInterface,
-} from '@atlaskit/analytics-next-stable-react-context';
+export { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
+export type { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
 
 // Hook for creating and firing analytics events
-export {
-  useAnalyticsEvents,
-  UseAnalyticsEventsHook,
-} from './hooks/useAnalyticsEvents';
+export { useAnalyticsEvents } from './hooks/useAnalyticsEvents';
+export type { UseAnalyticsEventsHook } from './hooks/useAnalyticsEvents';
 
-export {
-  useCallbackWithAnalytics,
-  UseCallbackWithAnalyticsHook,
-} from './hooks/useCallbackWithAnalytics';
-
-export {
+export { useCallbackWithAnalytics } from './hooks/useCallbackWithAnalytics';
+export type { UseCallbackWithAnalyticsHook } from './hooks/useCallbackWithAnalytics';
+export { usePlatformLeafEventHandler } from './hooks/usePlatformLeafEventHandler';
+export type {
   UsePlatformLeafEventHandlerHookArgs,
   UsePlatformLeafEventHandlerHook,
-  usePlatformLeafEventHandler,
 } from './hooks/usePlatformLeafEventHandler';
 
 // Helper functions

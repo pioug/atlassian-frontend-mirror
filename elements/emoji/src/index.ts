@@ -52,20 +52,26 @@ export {
   toOptionalEmojiId,
   recordSelectionFailedSli,
   recordSelectionSucceededSli,
-  // interfaces
-  EmojiProvider,
-  UploadingEmojiProvider,
   // Constants
   emojiPickerWidth,
   emojiPickerHeight,
   defaultEmojiHeight,
   customCategory,
-  EmojiResourceConfig,
   UsageFrequencyTracker,
   EmojiTypeAheadItem,
 };
+export type {
+  // interfaces
+  EmojiProvider,
+  UploadingEmojiProvider,
+  EmojiResourceConfig,
+};
 
 export {
+  // Enums
+  SearchSort,
+} from './types';
+export type {
   // Types
   CategoryId,
   EmojiRepresentation,
@@ -106,8 +112,6 @@ export {
   SpriteSheets,
   Styles,
   User,
-  // Enums
-  SearchSort,
 } from './types';
 
 export default EmojiPicker;

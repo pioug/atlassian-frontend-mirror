@@ -6,58 +6,48 @@ export {
   INPUT_METHOD,
   TRIGGER_METHOD,
 } from './enums';
-export {
+export type {
   AnalyticsDispatch,
   AnalyticsEventPayload,
   AnalyticsEventPayloadWithChannel,
   ErrorEventPayload,
 } from './events';
+export { INDENT_DIRECTION, INDENT_TYPE } from './format-events';
+export type { FormatEventPayload } from './format-events';
+export { PUNC, SYMBOL } from './substitute-events';
+export type { SubstituteEventPayload } from './substitute-events';
+export { FULL_WIDTH_MODE, MODE, PLATFORMS } from './general-events';
+export type { GeneralEventPayload } from './general-events';
 export {
-  FormatEventPayload,
-  INDENT_DIRECTION,
-  INDENT_TYPE,
-} from './format-events';
-export { PUNC, SYMBOL, SubstituteEventPayload } from './substitute-events';
-export {
-  FULL_WIDTH_MODE,
-  GeneralEventPayload,
-  MODE,
-  PLATFORMS,
-} from './general-events';
-export {
-  InputMethodInsertLink,
-  InputMethodInsertMedia,
-  InsertEventPayload,
   LINK_REPRESENTATION,
   LINK_RESOURCE,
   LINK_STATUS,
   USER_CONTEXT,
 } from './insert-events';
-export {
-  TABLE_ACTION,
-  TABLE_BREAKOUT,
-  TableEventPayload,
-} from './table-events';
-export {
+export type {
+  InputMethodInsertLink,
+  InputMethodInsertMedia,
+  InsertEventPayload,
+} from './insert-events';
+export { TABLE_ACTION, TABLE_BREAKOUT } from './table-events';
+export type { TableEventPayload } from './table-events';
+export { PasteContents, PasteSources, PasteTypes } from './paste-events';
+export type {
   PASTE_ACTION_SUBJECT_ID,
   PasteContent,
-  PasteContents,
   PasteEventPayload,
   PasteSource,
-  PasteSources,
   PasteType,
-  PasteTypes,
 } from './paste-events';
-export { HistoryEventPayload } from './history-events';
-export { MediaAltTextActionType, MediaEventPayload } from './media-events';
-export { DispatchAnalyticsEvent } from './dispatch-analytics-event';
-export {
+export type { HistoryEventPayload } from './history-events';
+export type { MediaAltTextActionType, MediaEventPayload } from './media-events';
+export type { DispatchAnalyticsEvent } from './dispatch-analytics-event';
+export { DELETE_DIRECTION, LIST_TEXT_SCENARIOS } from './list-events';
+export type {
   ListEventPayload,
   CommonListAnalyticsAttributes,
-  DELETE_DIRECTION,
-  LIST_TEXT_SCENARIOS,
 } from './list-events';
-export {
+export type {
   CreateLinkInlineDialogActionType,
   CreateLinkInlineDialogEventPayload,
 } from './link-tool-bar-events';

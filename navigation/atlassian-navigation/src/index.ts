@@ -1,54 +1,53 @@
 export { AtlassianNavigation } from './components/AtlassianNavigation';
-export { AtlassianNavigationProps } from './components/AtlassianNavigation/types';
+export type { AtlassianNavigationProps } from './components/AtlassianNavigation/types';
 
 export { AppSwitcher } from './components/AppSwitcher';
-export { AppSwitcherProps } from './components/AppSwitcher/types';
+export type { AppSwitcherProps } from './components/AppSwitcher/types';
 
 export { Create } from './components/Create';
-export { CreateProps } from './components/Create/types';
+export type { CreateProps } from './components/Create/types';
 
 export { Help } from './components/Help';
-export { HelpProps } from './components/Help/types';
+export type { HelpProps } from './components/Help/types';
 
 export { Notifications } from './components/Notifications';
-export { NotificationsProps } from './components/Notifications/types';
+export type { NotificationsProps } from './components/Notifications/types';
 
 export { PrimaryButton } from './components/PrimaryButton';
-export { PrimaryButtonProps } from './components/PrimaryButton/types';
+export type { PrimaryButtonProps } from './components/PrimaryButton/types';
 
 export { PrimaryDropdownButton } from './components/PrimaryDropdownButton';
-export { PrimaryDropdownButtonProps } from './components/PrimaryDropdownButton/types';
+export type { PrimaryDropdownButtonProps } from './components/PrimaryDropdownButton/types';
 
 export { IconButton } from './components/IconButton';
-export { IconButtonProps } from './components/IconButton/types';
+export type { IconButtonProps } from './components/IconButton/types';
 
 export { CustomProductHome, ProductHome } from './components/ProductHome';
-export {
+export type {
   CustomProductHomeProps,
   ProductHomeProps,
 } from './components/ProductHome/types';
 
 export { Profile } from './components/Profile';
-export { ProfileProps } from './components/Profile/types';
+export type { ProfileProps } from './components/Profile/types';
 
 export { Search } from './components/Search';
-export { SearchProps } from './components/Search/types';
+export type { SearchProps } from './components/Search/types';
 
 export { Settings } from './components/Settings';
-export { SettingsProps } from './components/Settings/types';
+export type { SettingsProps } from './components/Settings/types';
 
 export { SignIn } from './components/SignIn';
-export { SignInProps } from './components/SignIn/types';
+export type { SignInProps } from './components/SignIn/types';
 
 export { useOverflowStatus } from './controllers/overflow';
 
 export { HORIZONTAL_GLOBAL_NAV_HEIGHT } from './common/constants';
 
-export {
-  atlassianTheme,
+export { atlassianTheme, generateTheme, ThemeProvider } from './theme';
+export type {
   Colors,
   CreateCSS,
-  generateTheme,
   GenerateThemeArgs,
   IconButtonCSS,
   Mode,
@@ -57,5 +56,4 @@ export {
   PrimaryButtonCSS,
   SearchCSS,
   SkeletonCSS,
-  ThemeProvider,
 } from './theme';

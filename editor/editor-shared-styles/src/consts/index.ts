@@ -1,4 +1,4 @@
-export { EditorTheme } from './types';
+export type { EditorTheme } from './types';
 export {
   akEditorActiveBackground,
   akEditorActiveForeground,

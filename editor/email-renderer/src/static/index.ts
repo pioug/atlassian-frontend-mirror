@@ -9,7 +9,6 @@ import { CS_CONTENT_PREFIX } from '../styles/util';
 
 export {
   IconName,
-  IconString,
   archiveAttachment,
   audioAttachment,
   decision,
@@ -26,6 +25,7 @@ export {
   videoAttachment,
   warning,
 } from './icons';
+export type { IconString } from './icons';
 
 const cidPrefix = 'cid:';
 const pfcsPrefix = CS_CONTENT_PREFIX;

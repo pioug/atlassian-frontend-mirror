@@ -26,7 +26,8 @@ import EmojiLoader from './EmojiLoader';
 import EmojiRepository from './EmojiRepository';
 import SiteEmojiResource from './media/SiteEmojiResource';
 
-export { EmojiProvider, UploadingEmojiProvider } from '../types'; // Re-exporting to not cause a breaking change
+export type { EmojiProvider, UploadingEmojiProvider } from '../types'; // Re-exporting to not cause a breaking change
+// Re-exporting to not cause a breaking change
 
 export interface EmojiResourceConfig {
   /**

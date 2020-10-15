@@ -1,2 +1,3 @@
 export { extractImage } from './extractImage';
-export { extractPreview, LinkPreview } from './extractPreview';
+export { extractPreview } from './extractPreview';
+export type { LinkPreview } from './extractPreview';

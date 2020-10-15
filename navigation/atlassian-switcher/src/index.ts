@@ -8,9 +8,9 @@ export {
   createJoinableSitesProvider,
   defaultJoinableSitesFetch,
 } from './create-custom-provider';
-export {
-  createProviderWithCustomFetchData,
+export { createProviderWithCustomFetchData } from './common/providers/create-data-provider';
+export type {
   DataProvider,
   ExportedDataProvider,
 } from './common/providers/create-data-provider';
-export { TriggerXFlowCallback, DiscoverMoreCallback } from './types';
+export type { TriggerXFlowCallback, DiscoverMoreCallback } from './types';

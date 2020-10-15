@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/rating",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An accessible rating component that can be heavily customized.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,8 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^8.0.1"
+    "@testing-library/react": "^8.0.1",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

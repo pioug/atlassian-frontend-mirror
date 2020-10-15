@@ -1,24 +1,12 @@
-export {
-  EmbedCardForbiddenView,
-  EmbedCardForbiddenViewProps,
-} from './EmbedCard/views/ForbiddenView';
-export {
-  EmbedCardNotFoundView,
-  EmbedCardNotFoundViewProps,
-} from './EmbedCard/views/NotFoundView';
-export {
-  EmbedCardResolvedView,
-  EmbedCardResolvedViewProps,
-} from './EmbedCard/views/ResolvedView';
-export {
-  EmbedCardUnauthorisedView,
-  EmbedCardUnauthorisedViewProps,
-} from './EmbedCard/views/UnauthorisedView';
-export {
-  EmbedCardUnresolvedView,
-  EmbedCardUnresolvedViewProps,
-} from './EmbedCard/views/UnresolvedView';
-export {
-  ErroredView as EmbedCardErroredView,
-  ErroredViewProps as EmbedCardErroredViewProps,
-} from './EmbedCard/views/ErroredView';
+export { EmbedCardForbiddenView } from './EmbedCard/views/ForbiddenView';
+export type { EmbedCardForbiddenViewProps } from './EmbedCard/views/ForbiddenView';
+export { EmbedCardNotFoundView } from './EmbedCard/views/NotFoundView';
+export type { EmbedCardNotFoundViewProps } from './EmbedCard/views/NotFoundView';
+export { EmbedCardResolvedView } from './EmbedCard/views/ResolvedView';
+export type { EmbedCardResolvedViewProps } from './EmbedCard/views/ResolvedView';
+export { EmbedCardUnauthorisedView } from './EmbedCard/views/UnauthorisedView';
+export type { EmbedCardUnauthorisedViewProps } from './EmbedCard/views/UnauthorisedView';
+export { EmbedCardUnresolvedView } from './EmbedCard/views/UnresolvedView';
+export type { EmbedCardUnresolvedViewProps } from './EmbedCard/views/UnresolvedView';
+export { ErroredView as EmbedCardErroredView } from './EmbedCard/views/ErroredView';
+export type { ErroredViewProps as EmbedCardErroredViewProps } from './EmbedCard/views/ErroredView';

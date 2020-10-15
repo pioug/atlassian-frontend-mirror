@@ -1,3 +1,3 @@
 import { ProfileCardAction } from '@atlaskit/profilecard';
 
-export { ProfileCardAction };
+export type { ProfileCardAction };

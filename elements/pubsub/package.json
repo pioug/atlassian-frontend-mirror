@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pubsub",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Interacts with Atlassian Frontend PubSub service to receive pubsub events.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
     "@atlaskit/theme": "^11.0.0",
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",
-    "jest-fetch-mock": "^2.1.2"
+    "jest-fetch-mock": "^2.1.2",
+    "typescript": "3.9.6"
   }
 }

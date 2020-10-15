@@ -86,7 +86,7 @@ const expandPlugin = (options: ExpandPluginOptions = {}): EditorPlugin => ({
 });
 
 export default expandPlugin;
-export { ExpandPluginState } from './types';
+export type { ExpandPluginState } from './types';
 export function isExpandInsertionEnabled({ allowExpand }: EditorProps) {
   if (allowExpand && typeof allowExpand === 'object') {
     return !!allowExpand.allowInsertion;

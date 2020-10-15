@@ -1,6 +1,6 @@
 import { Popup } from './Popup';
 
-export {
+export type {
   ContentProps,
   PopupComponentProps,
   PopupProps,

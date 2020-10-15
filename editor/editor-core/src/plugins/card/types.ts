@@ -5,7 +5,7 @@ import {
   CardAppearance,
 } from '@atlaskit/editor-common/provider-factory';
 
-export {
+export type {
   CardAppearance,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';

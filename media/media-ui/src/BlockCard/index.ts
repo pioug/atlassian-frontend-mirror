@@ -2,10 +2,8 @@ export { default as PreviewAction } from './actions/PreviewAction';
 export { AuthorizeAction } from './actions/AuthorizeAction';
 export { ForbiddenAction } from './actions/ForbiddenAction';
 
-export {
-  ResolvedView as BlockCardResolvedView,
-  ResolvedViewProps as BlockCardResolvedViewProps,
-} from './views/ResolvedView';
+export { ResolvedView as BlockCardResolvedView } from './views/ResolvedView';
+export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
 export { NotFoundView as BlockCardNotFoundView } from './views/NotFoundView';
 export { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
 export { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';

@@ -60,9 +60,9 @@ export {
   getRowDeleteButtonParams,
   getRowsParams,
   getRowClassNames,
-  RowParams,
   copyPreviousRow,
 } from './row-controls';
+export type { RowParams } from './row-controls';
 export { getSelectedTableInfo, getSelectedCellInfo } from './analytics';
 export { getMergedCellsPositions } from './table';
 export { TableSortStep } from './sort-step';

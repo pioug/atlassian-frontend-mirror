@@ -27,6 +27,12 @@ export {
   PresenceResource,
   AbstractMentionResource,
   AbstractPresenceResource,
+  // Functions
+  isSpecialMention,
+  // Constants
+  ELEMENTS_CHANNEL,
+};
+export type {
   // Interfaces
   MentionProvider,
   PresenceProvider,
@@ -37,8 +43,4 @@ export {
   MentionStats,
   TeamMember,
   MentionResourceConfig,
-  // Functions
-  isSpecialMention,
-  // Constants
-  ELEMENTS_CHANNEL,
 };

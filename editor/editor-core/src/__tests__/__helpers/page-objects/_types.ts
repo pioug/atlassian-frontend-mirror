@@ -9,7 +9,7 @@ import { isVisualRegression } from '../utils';
 // to that platform's Page type.
 export type TestPage = WebDriverPage | PuppeteerPage;
 
-export { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+export type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 export { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 export function isPuppeteer(page: TestPage): page is PuppeteerPage {

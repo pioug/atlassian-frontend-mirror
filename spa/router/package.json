@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/router",
-  "version": "0.13.3",
+  "version": "0.13.4",
   "description": "SPA Router",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,8 @@
   },
   "devDependencies": {
     "enzyme": "^3.10.0",
-    "markdown-toc": "^1.2.0"
+    "markdown-toc": "^1.2.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

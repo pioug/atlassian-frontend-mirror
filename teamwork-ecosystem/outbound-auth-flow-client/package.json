@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/outbound-auth-flow-client",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Front-end library for starting outbound auth flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,8 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*"
+    "@atlaskit/docs": "*",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "fabric",

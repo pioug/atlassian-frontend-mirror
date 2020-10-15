@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "67.0.1",
+  "version": "67.0.2",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -54,8 +54,8 @@
     "url-parse": "^1.4.5"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.1.0",
-    "@atlaskit/smart-card": "^14.4.2",
+    "@atlaskit/media-core": "^32.1.1",
+    "@atlaskit/smart-card": "^14.4.3",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "styled-components": "^3.2.6"
@@ -92,6 +92,7 @@
     "react-dom": "^16.8.0",
     "react-live-clock": "^2.0.3",
     "react-test-renderer": "^16.8.0",
-    "sinon": "^2.2.0"
+    "sinon": "^2.2.0",
+    "typescript": "3.9.6"
   }
 }

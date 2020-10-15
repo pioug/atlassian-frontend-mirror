@@ -1,4 +1,5 @@
-export {
+export { PubSubSpecialEventType } from './types';
+export type {
   ARI,
   AVI,
   CollabEditProvider,
@@ -10,7 +11,6 @@ export {
   Participant,
   PubSubClient,
   PubSubOnEvent,
-  PubSubSpecialEventType,
   StepResponse,
   TelepointerData,
 } from './types';

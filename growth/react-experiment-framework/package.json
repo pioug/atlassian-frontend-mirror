@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/react-experiment-framework",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Experimentation React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "enzyme": "^3.10.0"
+    "enzyme": "^3.10.0",
+    "typescript": "3.9.6"
   }
 }

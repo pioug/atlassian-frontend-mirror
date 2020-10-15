@@ -12,7 +12,7 @@ import {
 } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
-export { CustomItemComponentProps, CustomItemProps } from '@atlaskit/menu';
+export type { CustomItemComponentProps, CustomItemProps } from '@atlaskit/menu';
 
 // Dirty hack to get generics working with forward ref [1/2]
 interface CustomItemType {

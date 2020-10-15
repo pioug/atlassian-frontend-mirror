@@ -5,13 +5,13 @@ import {
   CollabParticipant as Participant,
 } from '@atlaskit/editor-common';
 
-export {
+export type {
   CollabEvent,
   CollabEventData,
   CollabEditProvider,
 } from '@atlaskit/editor-common';
 
-export { TelepointerData, Participant };
+export type { TelepointerData, Participant };
 
 export interface DocumentResponse {
   version: number;

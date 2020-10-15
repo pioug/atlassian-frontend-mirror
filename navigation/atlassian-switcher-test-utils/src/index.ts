@@ -1,5 +1,4 @@
 export {
-  DataTransformer,
   mockJoinableSitesEndpoint,
   mockAvailableProductsEndpoint,
   mockEndpoints,
@@ -10,3 +9,4 @@ export {
   availableProductsUrlRegex,
   joinableSitesUrlRegex,
 } from './mocks/mock-endpoints';
+export type { DataTransformer } from './mocks/mock-endpoints';

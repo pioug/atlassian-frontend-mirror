@@ -46,22 +46,7 @@ export {
   DefaultMentionNameResolver,
   AbstractMentionResource,
   AbstractPresenceResource,
-  // Interfaces
-  ResolvingMentionProvider,
-  MentionProvider,
-  PresenceProvider,
-  MentionDescription,
-  MentionsResult,
-  MentionNameResolver,
-  MentionNameClient,
   MentionNameStatus,
-  MentionNameDetails,
-  // types
-  MentionContextIdentifier,
-  MentionStats,
-  TeamMember,
-  MentionResourceConfig,
-  TeamMentionResourceConfig,
   // Components
   MentionItem,
   MentionList,
@@ -76,6 +61,23 @@ export {
   isResolvingMentionProvider,
   // Constants
   ELEMENTS_CHANNEL,
+};
+export type {
+  // Interfaces
+  ResolvingMentionProvider,
+  MentionProvider,
+  PresenceProvider,
+  MentionDescription,
+  MentionsResult,
+  MentionNameResolver,
+  MentionNameClient,
+  MentionNameDetails,
+  // types
+  MentionContextIdentifier,
+  MentionStats,
+  TeamMember,
+  MentionResourceConfig,
+  TeamMentionResourceConfig,
 };
 
 export default MentionPicker;

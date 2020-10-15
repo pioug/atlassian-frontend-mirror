@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-listeners",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "Fabric analytics listeners to be used by the products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,8 @@
     "@atlaskit/docs": "*",
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "fabric",

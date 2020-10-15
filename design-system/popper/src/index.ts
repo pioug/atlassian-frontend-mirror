@@ -1,5 +1,5 @@
-export {
-  Popper,
+export { Popper } from './Popper';
+export type {
   ManagerProps,
   ReferenceProps,
   PopperProps,

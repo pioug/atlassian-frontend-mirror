@@ -8,7 +8,7 @@ import {
 import { overrideStyleFunction, sectionHeaderStyle } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
-export { HeadingItemProps } from '@atlaskit/menu';
+export type { HeadingItemProps } from '@atlaskit/menu';
 
 const HeadingItem = (props: HeadingItemProps) => {
   const { shouldRender } = useShouldNestedElementRender();

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,8 @@
     "@testing-library/react": "^8.0.1",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

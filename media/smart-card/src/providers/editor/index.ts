@@ -94,4 +94,4 @@ export class EditorCardProvider implements CardProvider {
 }
 
 export const editorCardProvider = new EditorCardProvider();
-export { CardProvider, ORSCheckResponse } from './types';
+export type { CardProvider, ORSCheckResponse } from './types';

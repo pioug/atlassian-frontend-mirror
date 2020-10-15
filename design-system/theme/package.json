@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "11.0.0",
+  "version": "11.0.1",
   "description": "The Atlaskit theme framework",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,6 +49,7 @@
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
+    "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
   "keywords": [

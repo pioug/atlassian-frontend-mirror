@@ -34,7 +34,6 @@ const GlobalNav = () => (
     helpItems={ExampleDropdown}
     helpBadge={HelpBadge}
     profileItems={ExampleDropdown}
-    profileIconUrl="https://api.adorable.io/avatars/285/bruh@adorable.io.png"
   />
 );
 

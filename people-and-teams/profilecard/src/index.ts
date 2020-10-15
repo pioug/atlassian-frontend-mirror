@@ -7,7 +7,8 @@ import ProfileCardTrigger, {
 } from './components/ProfileCardTrigger';
 import withOuterListeners from './components/withOuterListeners';
 
-export {
+export type {
+  // Types
   // Types
   Elevation,
   ProfileCardErrorType,

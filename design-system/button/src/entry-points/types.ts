@@ -1,8 +1,8 @@
 // A seperate export which is only types
-export { Appearance, Spacing, BaseOwnProps } from '../types';
-export { ButtonProps } from './standard-button';
-export { LoadingButtonProps } from './loading-button';
-export {
+export type { Appearance, Spacing, BaseOwnProps } from '../types';
+export type { ButtonProps } from './standard-button';
+export type { LoadingButtonProps } from './loading-button';
+export type {
   ThemeTokens,
   ThemeProps,
   InteractionState,

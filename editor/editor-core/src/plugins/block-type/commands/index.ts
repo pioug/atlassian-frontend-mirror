@@ -1,5 +1,4 @@
 export {
-  InputMethod,
   cleanUpAtTheStartOfDocument,
   insertBlockType,
   insertBlockTypesWithAnalytics,
@@ -10,6 +9,7 @@ export {
   setNormalText,
   setNormalTextWithAnalytics,
 } from './block-type';
+export type { InputMethod } from './block-type';
 export { insertBlock } from './insert-block';
 export {
   isConvertableToCodeBlock,

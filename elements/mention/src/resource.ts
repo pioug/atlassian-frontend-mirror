@@ -36,6 +36,17 @@ export {
   AbstractMentionResource,
   AbstractPresenceResource,
   DefaultMentionNameResolver,
+  MentionNameStatus,
+  // Functions
+  isSpecialMention,
+  isResolvingMentionProvider,
+  // Constants
+  ELEMENTS_CHANNEL,
+  // ANALYTICS
+  SLI_EVENT_TYPE,
+  buildSliPayload,
+};
+export type {
   // Interfaces
   ResolvingMentionProvider,
   MentionProvider,
@@ -49,14 +60,5 @@ export {
   MentionContextIdentifier,
   MentionStats,
   MentionResourceConfig,
-  MentionNameStatus,
   MentionNameDetails,
-  // Functions
-  isSpecialMention,
-  isResolvingMentionProvider,
-  // Constants
-  ELEMENTS_CHANNEL,
-  // ANALYTICS
-  SLI_EVENT_TYPE,
-  buildSliPayload,
 };

@@ -11,7 +11,7 @@ interface Callback {
   (value?: MentionNameDetails): void;
 }
 
-export { MentionNameResolver } from '../types';
+export type { MentionNameResolver } from '../types';
 
 export class DefaultMentionNameResolver implements MentionNameResolver {
   public static waitForBatch = 100; // ms

@@ -15,10 +15,12 @@ import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 
 export { createCollection } from './collection';
 export {
-  CollectionItem,
-  CreateCollectionItemOptions,
   createCollectionItem,
   createEmptyCollectionItem,
+} from './collection-item';
+export type {
+  CollectionItem,
+  CreateCollectionItemOptions,
 } from './collection-item';
 
 export const tenantAuth: ClientBasedAuth = {

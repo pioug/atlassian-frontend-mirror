@@ -1,5 +1,5 @@
 export { default, Theme } from '../custom-theme-button';
-export {
+export type {
   ThemeTokens,
   ThemeProps,
   InteractionState,

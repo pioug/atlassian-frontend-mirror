@@ -101,5 +101,6 @@ const typeAheadPlugin = (): EditorPlugin => ({
   },
 });
 
-export { typeAheadPluginKey, TypeAheadPluginState };
+export { typeAheadPluginKey };
+export type { TypeAheadPluginState };
 export default typeAheadPlugin;

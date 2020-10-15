@@ -1,87 +1,85 @@
-export { expand, ExpandDefinition, toJSON as expandToJSON } from './expand';
+export { expand, toJSON as expandToJSON } from './expand';
+export type { ExpandDefinition } from './expand';
 export { confluenceJiraIssue } from './confluence-jira-issue';
 export { confluenceUnsupportedBlock } from './confluence-unsupported-block';
 export { confluenceUnsupportedInline } from './confluence-unsupported-inline';
-export { doc, DocNode } from './doc';
-export { blockquote, BlockQuoteDefinition } from './blockquote';
-export {
-  bulletList,
-  BulletListDefinition,
-  bulletListSelector,
-} from './bullet-list';
-export {
-  codeBlock,
-  toJSON as codeBlockToJSON,
+export { doc } from './doc';
+export type { DocNode } from './doc';
+export { blockquote } from './blockquote';
+export type { BlockQuoteDefinition } from './blockquote';
+export { bulletList, bulletListSelector } from './bullet-list';
+export type { BulletListDefinition } from './bullet-list';
+export { codeBlock, toJSON as codeBlockToJSON } from './code-block';
+export type {
   CodeBlockDefinition,
   CodeBlockAttrs,
   CodeBlockBaseDefinition,
   CodeBlockWithMarksDefinition,
 } from './code-block';
-export { hardBreak, HardBreakDefinition } from './hard-break';
-export {
-  heading,
+export { hardBreak } from './hard-break';
+export type { HardBreakDefinition } from './hard-break';
+export { heading } from './heading';
+export type {
   HeadingDefinition,
   HeadingBaseDefinition,
   HeadingWithAlignmentDefinition,
   HeadingWithIndentationDefinition,
   HeadingWithMarksDefinition,
 } from './heading';
-export { rule, RuleDefinition } from './rule';
-export {
-  orderedList,
-  OrderedListDefinition,
-  orderedListSelector,
-} from './ordered-list';
-export {
-  paragraph,
+export { rule } from './rule';
+export type { RuleDefinition } from './rule';
+export { orderedList, orderedListSelector } from './ordered-list';
+export type { OrderedListDefinition } from './ordered-list';
+export { paragraph } from './paragraph';
+export type {
   ParagraphDefinition,
   ParagraphBaseDefinition,
   ParagraphWithAlignmentDefinition,
   ParagraphWithIndentationDefinition,
   ParagraphWithMarksDefinition,
 } from './paragraph';
-export { emoji, EmojiAttributes, EmojiDefinition } from './emoji';
+export { emoji } from './emoji';
+export type { EmojiAttributes, EmojiDefinition } from './emoji';
 export { image } from './image';
-export {
-  mention,
+export { mention, toJSON as mentionToJSON } from './mention';
+export type {
   MentionAttributes,
-  toJSON as mentionToJSON,
   UserType as MentionUserType,
   MentionDefinition,
 } from './mention';
-export { listItem, ListItemArray, ListItemDefinition } from './list-item';
-export {
-  panel,
-  customPanel,
-  PanelAttributes,
-  PanelDefinition,
-  PanelType,
-} from './panel';
-export { text, TextDefinition } from './text';
+export { listItem } from './list-item';
+export type { ListItemArray, ListItemDefinition } from './list-item';
+export { panel, customPanel, PanelType } from './panel';
+export type { PanelAttributes, PanelDefinition } from './panel';
+export { text } from './text';
+export type { TextDefinition } from './text';
 export { default as unknownBlock } from './unknown-block';
-export { CaptionDefinition, caption } from './caption';
+export { caption } from './caption';
+export type { CaptionDefinition } from './caption';
 export {
   media,
+  copyPrivateAttributes as copyPrivateMediaAttributes,
+  toJSON as mediaToJSON,
+} from './media';
+export type {
   MediaType,
   MediaBaseAttributes,
   MediaAttributes,
   ExternalMediaAttributes,
   DisplayType as MediaDisplayType,
-  copyPrivateAttributes as copyPrivateMediaAttributes,
-  toJSON as mediaToJSON,
   MediaDefinition,
   MediaADFAttrs,
 } from './media';
-export { mediaGroup, MediaGroupDefinition } from './media-group';
+export { mediaGroup } from './media-group';
+export type { MediaGroupDefinition } from './media-group';
 export {
   mediaSingle,
   mediaSingleWithCaption,
-  MediaSingleDefinition,
   toJSON as mediaSingleToJSON,
 } from './media-single';
+export type { MediaSingleDefinition } from './media-single';
 export {
   table,
-  TableAttributes,
   tableToJSON,
   tableCell,
   toJSONTableCell,
@@ -91,12 +89,6 @@ export {
   tableBackgroundColorPalette,
   tableBackgroundBorderColor,
   tableBackgroundColorNames,
-  CellAttributes,
-  Layout as TableLayout,
-  TableDefinition,
-  TableCell as TableCellDefinition,
-  TableHeader as TableHeaderDefinition,
-  TableRow as TableRowDefinition,
   setCellAttrs,
   tablePrefixSelector,
   tableCellSelector,
@@ -104,41 +96,47 @@ export {
   tableCellContentWrapperSelector,
   tableCellContentDomSelector,
 } from './tableNodes';
-export {
-  decisionList,
-  DecisionListDefinition,
-  decisionListSelector,
-} from './decision-list';
-export { decisionItem, DecisionItemDefinition } from './decision-item';
-export {
-  taskList,
-  TaskListDefinition,
-  taskListSelector,
-  TaskListContent,
-} from './task-list';
-export { taskItem, TaskItemDefinition } from './task-item';
-export {
-  extension,
-  extensionWithLocalId,
-  ExtensionDefinition,
-} from './extension';
+export type {
+  TableAttributes,
+  CellAttributes,
+  Layout as TableLayout,
+  TableDefinition,
+  TableCell as TableCellDefinition,
+  TableHeader as TableHeaderDefinition,
+  TableRow as TableRowDefinition,
+} from './tableNodes';
+export { decisionList, decisionListSelector } from './decision-list';
+export type { DecisionListDefinition } from './decision-list';
+export { decisionItem } from './decision-item';
+export type { DecisionItemDefinition } from './decision-item';
+export { taskList, taskListSelector } from './task-list';
+export type { TaskListDefinition, TaskListContent } from './task-list';
+export { taskItem } from './task-item';
+export type { TaskItemDefinition } from './task-item';
+export { extension, extensionWithLocalId } from './extension';
+export type { ExtensionDefinition } from './extension';
 export {
   inlineExtension,
   inlineExtensionWithLocalId,
-  InlineExtensionDefinition,
 } from './inline-extension';
+export type { InlineExtensionDefinition } from './inline-extension';
 export {
   bodiedExtension,
   bodiedExtensionWithLocalId,
-  BodiedExtensionDefinition,
 } from './bodied-extension';
-export { date, DateDefinition } from './date';
-export { placeholder, PlaceholderDefinition } from './placeholder';
-export { layoutSection, LayoutSectionDefinition } from './layout-section';
-export { layoutColumn, LayoutColumnDefinition } from './layout-column';
-export { inlineCard, InlineCardDefinition } from './inline-card';
-export {
-  blockCard,
+export type { BodiedExtensionDefinition } from './bodied-extension';
+export { date } from './date';
+export type { DateDefinition } from './date';
+export { placeholder } from './placeholder';
+export type { PlaceholderDefinition } from './placeholder';
+export { layoutSection } from './layout-section';
+export type { LayoutSectionDefinition } from './layout-section';
+export { layoutColumn } from './layout-column';
+export type { LayoutColumnDefinition } from './layout-column';
+export { inlineCard } from './inline-card';
+export type { InlineCardDefinition } from './inline-card';
+export { blockCard } from './block-card';
+export type {
   UrlType,
   DataType,
   CardAttributes,
@@ -146,25 +144,24 @@ export {
 } from './block-card';
 export { unsupportedBlock } from './unsupported-block';
 export { unsupportedInline } from './unsupported-inline';
-export { status, StatusDefinition } from './status';
-export { nestedExpand, NestedExpandDefinition } from './nested-expand';
-export { NoMark } from './types/mark';
-export { MarksObject } from './types/mark';
-export { BlockContent } from './types/block-content';
-export { NonNestableBlockContent } from './types/non-nestable-block-content';
-export { InlineAtomic } from './types/inline-content';
-export { InlineCode } from './types/inline-content';
-export { InlineLinkText } from './types/inline-content';
-export { InlineFormattedText } from './types/inline-content';
-export { Inline } from './types/inline-content';
-export { NestedExpandContent } from './nested-expand';
-export { Layout as ExtensionLayout } from './types/extensions';
-export {
-  embedCard,
-  EmbedCardDefinition,
-  EmbedCardAttributes,
-} from './embed-card';
-export {
+export { status } from './status';
+export type { StatusDefinition } from './status';
+export { nestedExpand } from './nested-expand';
+export type { NestedExpandDefinition } from './nested-expand';
+export type { NoMark } from './types/mark';
+export type { MarksObject } from './types/mark';
+export type { BlockContent } from './types/block-content';
+export type { NonNestableBlockContent } from './types/non-nestable-block-content';
+export type { InlineAtomic } from './types/inline-content';
+export type { InlineCode } from './types/inline-content';
+export type { InlineLinkText } from './types/inline-content';
+export type { InlineFormattedText } from './types/inline-content';
+export type { Inline } from './types/inline-content';
+export type { NestedExpandContent } from './nested-expand';
+export type { Layout as ExtensionLayout } from './types/extensions';
+export { embedCard } from './embed-card';
+export type { EmbedCardDefinition, EmbedCardAttributes } from './embed-card';
+export type {
   RichMediaAttributes,
   Layout as RichMediaLayout,
 } from './types/rich-media-common';

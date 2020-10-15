@@ -336,7 +336,6 @@ const isEmojiBlock = (pnode: Fragment): boolean => {
 export {
   Blockquote,
   BodiedExtension,
-  BodiedExtensionProps,
   BulletList,
   BlockCard,
   Caption,
@@ -347,14 +346,12 @@ export {
   Doc,
   Emoji,
   Extension,
-  ExtensionProps,
   Expand,
   HardBreak,
   Heading,
   ListItem,
   InlineCard,
   InlineExtension,
-  InlineExtensionProps,
   LayoutSection,
   LayoutColumn,
   Media,
@@ -375,3 +372,4 @@ export {
   UnknownBlock,
   EmbedCard,
 };
+export type { BodiedExtensionProps, ExtensionProps, InlineExtensionProps };

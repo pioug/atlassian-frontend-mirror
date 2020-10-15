@@ -1,6 +1,4 @@
-export {
-  default as AvatarPickerDialog,
-  AsyncAvatarPickerDialogProps,
-} from './avatar-picker-dialog/avatar-picker-dialog-loader';
+export { default as AvatarPickerDialog } from './avatar-picker-dialog/avatar-picker-dialog-loader';
+export type { AsyncAvatarPickerDialogProps } from './avatar-picker-dialog/avatar-picker-dialog-loader';
 
-export { Avatar } from './avatar-list';
+export type { Avatar } from './avatar-list';

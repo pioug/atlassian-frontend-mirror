@@ -1,6 +1,6 @@
 export { ContainerPicker, SpacePicker, ProjectPicker } from './components';
 export { setEnv } from './config';
-export {
+export type {
   SearchContext as Context,
   ContainerPickerProps,
   ProductProps,

@@ -58,7 +58,7 @@ export interface SelectProps<OptionType>
   validationState?: ValidationState;
 }
 
-export {
+export type {
   ActionMeta,
   ControlProps,
   FormatOptionLabelMeta,

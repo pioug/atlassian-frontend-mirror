@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -54,7 +54,8 @@
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
-    "raf-stub": "^2.0.1"
+    "raf-stub": "^2.0.1",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

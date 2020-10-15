@@ -15,9 +15,11 @@ export {
   SkeletonItem,
   Footer,
   NavigationFooter,
+  LoadingItems,
+} from './components';
+export type {
   CustomItemComponentProps,
   CustomItemProps,
-  LoadingItems,
   LoadingItemsProps,
   ButtonItemProps,
   FooterProps,

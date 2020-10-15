@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/notification-log-client",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Client APIs for notification-log service",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/notification-indicator": "^8.0.0",
     "fetch-mock": "^8.0.0",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "typescript": "3.9.6"
   }
 }

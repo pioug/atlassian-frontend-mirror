@@ -31,10 +31,6 @@ export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
 
 export { default as schema } from './schema';
 export {
-  BuilderContent,
-  Refs,
-  RefsContentItem,
-  RefsNode,
   RefsTracker,
   a,
   blockquote,
@@ -78,7 +74,6 @@ export {
   panel,
   panelNote,
   plain,
-  position,
   sequence,
   slice,
   strike,
@@ -102,4 +97,11 @@ export {
   underline,
   unsupportedBlock,
   unsupportedInline,
+} from './schema-builder';
+export type {
+  BuilderContent,
+  Refs,
+  RefsContentItem,
+  RefsNode,
+  position,
 } from './schema-builder';

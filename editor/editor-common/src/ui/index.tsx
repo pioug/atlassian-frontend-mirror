@@ -1,17 +1,16 @@
-export { default as Emoji, EmojiProps } from './Emoji';
+export { default as Emoji } from './Emoji';
+export type { EmojiProps } from './Emoji';
 export {
   default as MediaSingle,
-  Props as MediaSingleProps,
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
 } from './MediaSingle';
+export type { Props as MediaSingleProps } from './MediaSingle';
 
-export {
-  MediaSingleDimensionHelper,
-  MediaSingleWrapperProps as MediaSingleDimensionHelperProps,
-} from './MediaSingle/styled';
+export { MediaSingleDimensionHelper } from './MediaSingle/styled';
+export type { MediaSingleWrapperProps as MediaSingleDimensionHelperProps } from './MediaSingle/styled';
 
 export {
   layoutSupportsWidth,
@@ -25,18 +24,14 @@ export {
 export { MediaLink } from './MediaSingle/link';
 
 export { default as Mention } from './Mention';
-export {
-  default as Popup,
-  findOverflowScrollParent,
-  Position as PopupPosition,
-  Props as PopupProps,
-} from './Popup';
+export { default as Popup, findOverflowScrollParent } from './Popup';
+export type { Position as PopupPosition, Props as PopupProps } from './Popup';
 export { default as UnsupportedBlock } from './UnsupportedBlock';
 export { default as UnsupportedInline } from './UnsupportedInline';
 export { BaseTheme, mapBreakpointToLayoutMaxWidth } from './BaseTheme';
 
 export { default as withOuterListeners } from './with-outer-listeners';
-export {
+export type {
   CardEventClickHandler,
   CardSurroundings,
   EventHandlers,
@@ -45,19 +40,14 @@ export {
   MentionEventHandlers,
   SmartCardEventClickHandler,
 } from './EventHandlers';
-export {
-  WidthConsumerContext,
-  WidthConsumer,
-  WidthProvider,
-  getBreakpoint,
-} from './WidthProvider';
+export { WidthConsumer, WidthProvider, getBreakpoint } from './WidthProvider';
+export type { WidthConsumerContext } from './WidthProvider';
 
-export {
-  default as overflowShadow,
+export { default as overflowShadow, shadowClassNames } from './OverflowShadow';
+export type {
   OverflowShadowOptions,
   OverflowShadowProps,
   OverflowShadowState,
-  shadowClassNames,
 } from './OverflowShadow';
 
 export { WithCreateAnalyticsEvent } from './WithCreateAnalyticsEvent';
@@ -67,8 +57,8 @@ export {
   sharedExpandStyles,
   ExpandIconWrapper,
   ExpandLayoutWrapper,
-  StyleProps as ExpandStyleProps,
 } from './Expand';
+export type { StyleProps as ExpandStyleProps } from './Expand';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
 export { ClearNextSiblingMarginTop } from './clear-next-sibling-margin-top';

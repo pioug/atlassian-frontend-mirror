@@ -1,6 +1,6 @@
 export { validateAttrs, validator } from './validator/validator';
 
-export {
+export type {
   Content,
   ErrorCallback,
   Output,

@@ -51,7 +51,7 @@ import {
   QuickInsertOptions,
 } from './plugins/quick-insert/types';
 
-export {
+export type {
   AllowedBlockTypes,
   Command,
   CommandDispatch,

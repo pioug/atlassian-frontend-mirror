@@ -5,7 +5,7 @@ import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
 import { CardOptions } from './types';
 
-export { CardOptions } from './types';
+export type { CardOptions } from './types';
 
 export const stateKey = new PluginKey('cardPlugin');
 

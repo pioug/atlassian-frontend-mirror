@@ -74,7 +74,7 @@ export const {
   getPluginState: getMediaLinkingState,
 } = mediaLinkingPluginFactory;
 
-export { MediaLinkingState } from './types';
+export type { MediaLinkingState } from './types';
 
 export default (dispatch: Dispatch) =>
   new Plugin({

@@ -1,5 +1,5 @@
-export {
-  default as SmartUserPicker,
+export { default as SmartUserPicker } from './components';
+export type {
   SupportedProduct,
   Props as SmartUserPickerProps,
   State as SmartUserPickerState,

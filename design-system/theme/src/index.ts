@@ -40,16 +40,13 @@ export {
   skeletonShimmer,
   visuallyHidden,
 } from './constants';
-export {
-  Reset,
-  ResetTheme,
-  ResetThemeProps,
-  ResetThemeTokens,
-} from './components/Reset';
+export { Reset, ResetTheme } from './components/Reset';
+export type { ResetThemeProps, ResetThemeTokens } from './components/Reset';
 export { default } from './components/Theme';
 export { withTheme } from './hoc';
-export { ThemeProp, createTheme } from './utils/createTheme';
-export {
+export { createTheme } from './utils/createTheme';
+export type { ThemeProp } from './utils/createTheme';
+export type {
   AtlaskitThemeProps,
   CustomThemeProps,
   DefaultValue,

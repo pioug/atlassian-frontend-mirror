@@ -8,7 +8,8 @@ import { PluginState } from './plugin-state';
 import { pluginKey } from './plugin-key';
 import { addSynchronyErrorAnalytics } from './analytics';
 
-export { CollabEditProvider, PluginState, pluginKey };
+export { PluginState, pluginKey };
+export type { CollabEditProvider };
 
 export const createPlugin = (
   dispatch: Dispatch,

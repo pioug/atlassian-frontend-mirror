@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { CollabEditProvider } from '@atlaskit/editor-common';
 
-export {
+export type {
   CollabParticipant,
   CollabEventInitData,
   CollabEventRemoteData,

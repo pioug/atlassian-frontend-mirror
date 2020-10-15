@@ -2,7 +2,7 @@ import { TestPage } from './_types';
 import { clickToolbarMenu, ToolbarMenuItem } from './_toolbar';
 import { selectors } from './_editor';
 
-export const enum STATUS_SELECTORS {
+export enum STATUS_SELECTORS {
   STATUS_NODE = '.statusView-content-wrap',
   STATUS_POPUP_INPUT = '[aria-label="Popup"] input',
 }

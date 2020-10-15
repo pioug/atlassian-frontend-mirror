@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/status",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "Fabric Status React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,8 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "react": "^16.8.0",
-    "react-intl": "^2.6.0"
+    "react-intl": "^2.6.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "ui",

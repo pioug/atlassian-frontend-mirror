@@ -1,9 +1,4 @@
 export {
-  ADDoc,
-  ADFStage,
-  ADMark,
-  ADMarkSimple,
-  ADNode,
   getMarksByOrder,
   getValidContent,
   getValidDocument,
@@ -13,4 +8,11 @@ export {
   isSameMark,
   isSubSupType,
   markOrder,
+} from './utils/validator';
+export type {
+  ADDoc,
+  ADFStage,
+  ADMark,
+  ADMarkSimple,
+  ADNode,
 } from './utils/validator';

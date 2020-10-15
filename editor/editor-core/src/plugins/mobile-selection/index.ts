@@ -1,4 +1,4 @@
-export { SelectionData, SelectionDataState } from './types';
+export type { SelectionData, SelectionDataState } from './types';
 export {
   mobileSelectionPlugin as default,
   selectionPluginKey,

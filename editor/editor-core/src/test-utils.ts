@@ -14,8 +14,8 @@ import { MarkConfig, NodeConfig } from './types/pm-config';
 import basePlugin from './plugins/base';
 
 export { Preset } from './labs/next/presets/preset';
-export { LightEditorPlugin } from './create-editor/get-plugins';
-export { DispatchAnalyticsEvent } from './plugins/analytics/types';
+export type { LightEditorPlugin } from './create-editor/get-plugins';
+export type { DispatchAnalyticsEvent } from './plugins/analytics/types';
 
 export interface LightEditorConfig {
   nodes: NodeConfig[];
@@ -113,7 +113,8 @@ export const createPMSchemaAndPlugins = (
 };
 
 export { PortalProviderAPI } from './ui/PortalProvider';
-export { EventDispatcher, Dispatch } from './event-dispatcher';
+export { EventDispatcher } from './event-dispatcher';
+export type { Dispatch } from './event-dispatcher';
 export {
   GapCursorSelection,
   Side as GapCursorSide,

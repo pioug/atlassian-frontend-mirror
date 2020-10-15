@@ -6,7 +6,6 @@ import { fadeIn } from '@atlaskit/media-ui';
 
 export { defaultTransitionDuration } from './config';
 export {
-  WithAppearanceProps,
   antialiased,
   borderRadiusLeft,
   capitalize,
@@ -20,6 +19,7 @@ export {
   transition,
   withAppearance,
 } from './mixins';
+export type { WithAppearanceProps } from './mixins';
 export { easeOutCubic, easeOutExpo } from './easing';
 export { spin } from './animations';
 

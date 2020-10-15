@@ -1,2 +1,2 @@
 export { default } from './Lozenge';
-export { ThemeAppearance, ThemeProps } from './theme';
+export type { ThemeAppearance, ThemeProps } from './theme';

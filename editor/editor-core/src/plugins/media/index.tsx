@@ -41,7 +41,7 @@ import { MediaPickerComponents } from './ui/MediaPicker';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
 
-export { MediaState, MediaProvider, CustomMediaPicker };
+export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
 
 const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({

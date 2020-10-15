@@ -20,4 +20,4 @@ export function useSmartCardState(url: string): CardState {
   return state;
 }
 
-export { CardType } from './types';
+export type { CardType } from './types';

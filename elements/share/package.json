@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.23.4",
+  "version": "0.23.5",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -58,7 +58,8 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "jest-fetch-mock": "^2.1.2",
     "react": "^16.8.0",
-    "react-intl": "^2.6.0"
+    "react-intl": "^2.6.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "ui",

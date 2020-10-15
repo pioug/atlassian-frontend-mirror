@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-tracker",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "A progress tracker displays the steps and progress through a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,8 @@
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
-    "react-test-renderer": "^16.8.0"
+    "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

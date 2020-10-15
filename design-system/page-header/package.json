@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-header",
-  "version": "10.0.4",
+  "version": "10.0.5",
   "description": "A React component that represents Header of an application page",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,8 @@
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
-    "react-test-renderer": "^16.8.0"
+    "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

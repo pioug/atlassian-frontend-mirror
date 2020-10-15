@@ -1,8 +1,8 @@
 export { default } from './components/Tree';
 
-export { RenderItemParams } from './components/TreeItem/TreeItem-types';
+export type { RenderItemParams } from './components/TreeItem/TreeItem-types';
 
-export {
+export type {
   ItemId,
   Path,
   TreeData,

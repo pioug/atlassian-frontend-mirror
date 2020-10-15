@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "14.4.2",
+  "version": "14.4.3",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -75,6 +75,7 @@
     "react-ace": "^6.1.0",
     "react-intl": "^2.6.0",
     "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6",
     "xhr-mock": "^2.4.0"
   }
 }

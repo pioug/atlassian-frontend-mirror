@@ -1,40 +1,35 @@
-export {
+export type {
   ConfigResponse,
   ConfigResponseMode,
   ShareClient,
   ShareRequest,
   ShareResponse,
 } from '../clients/ShareServiceClient';
-export { FormChildrenArgs } from './form';
-export {
-  Flag,
-  FlagType,
-  MessageDescriptor,
-  ADMIN_NOTIFIED,
-  OBJECT_SHARED,
-} from './Flag';
-export {
+export type { FormChildrenArgs } from './form';
+export { ADMIN_NOTIFIED, OBJECT_SHARED } from './Flag';
+export type { Flag, FlagType, MessageDescriptor } from './Flag';
+export type {
   OriginAnalyticAttributes,
   OriginTracing,
   OriginTracingFactory,
   OriginTracingForSubSequentEvents,
   OriginTracingWithIdGenerated,
 } from './OriginTracing';
-export { ProductId, ProductName } from './Products';
-export { ShareButtonStyle, TooltipPosition } from './ShareButton';
-export {
+export type { ProductId, ProductName } from './Products';
+export type { ShareButtonStyle, TooltipPosition } from './ShareButton';
+export type {
   DialogContentState,
   ShareContentState,
   ShareError,
 } from './ShareContentState';
-export {
+export type {
   DialogPlacement,
   DialogBoundariesElement,
   RenderCustomTriggerButton,
 } from './ShareDialogWithTrigger';
-export { Comment, Content, MetaData } from './ShareEntities';
-export { User, UserWithEmail, UserWithId } from './User';
-export {
+export type { Comment, Content, MetaData } from './ShareEntities';
+export type { User, UserWithEmail, UserWithId } from './User';
+export type {
   ShareToSlackResponse,
   SlackTeamsResponse,
   SlackTeamsServiceResponse,
@@ -48,7 +43,7 @@ export {
   Team,
   Conversation,
 } from './ShareToSlackEntities';
-export { ShareToSlackClient } from '../clients/ShareToSlackClient';
+export type { ShareToSlackClient } from '../clients/ShareToSlackClient';
 
 export type KeysOfType<T, TProp> = {
   [P in keyof T]: T[P] extends TProp ? P : never;

@@ -1,9 +1,8 @@
 export {
-  CardContext,
-  ProviderProps,
   SmartCardContext,
   SmartCardProvider,
   useSmartLinkContext,
 } from './context';
+export type { CardContext, ProviderProps } from './context';
 export { useSmartLink, usePrefetch } from './hooks';
-export { CardType } from './store/types';
+export type { CardType } from './store/types';

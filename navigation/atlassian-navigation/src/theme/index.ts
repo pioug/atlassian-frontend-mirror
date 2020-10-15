@@ -1,7 +1,7 @@
 export { generateTheme } from './themeGenerator';
 export { ThemeProvider } from './ThemeProvider';
 export { atlassianTheme, defaultTheme } from './themes';
-export {
+export type {
   CreateCSS,
   IconButtonCSS,
   Mode,

@@ -1,5 +1,4 @@
 export {
-  EditorTheme,
   akEditorActiveBackground,
   akEditorActiveForeground,
   akEditorBlockquoteBorderColor,
@@ -84,6 +83,7 @@ export {
   VIEWPORT_SIZES,
   akEditorMobileMaxWidth,
 } from './consts';
+export type { EditorTheme } from './consts';
 
 export {
   SelectionStyle,

@@ -97,4 +97,4 @@ export interface PageLayoutProps extends SidebarResizeControllerProps {
   testId?: string;
 }
 
-export { LeftSidebarState } from '../controllers/sidebar-resize-context';
+export type { LeftSidebarState } from '../controllers/sidebar-resize-context';

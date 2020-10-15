@@ -34,7 +34,7 @@ import { INPUT_METHOD, InputMethodInsertMedia } from '../../analytics/types';
 import { isImage } from '../utils/is-image';
 import { MediaNodeWithPosHandler, MediaPluginState } from './types';
 
-export { MediaState, MediaProvider, MediaStateStatus };
+export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
 
 const createDropPlaceholder = (allowDropLine?: boolean) => {

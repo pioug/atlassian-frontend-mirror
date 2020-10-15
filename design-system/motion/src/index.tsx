@@ -17,4 +17,4 @@ export {
 } from './entering/zoom-in';
 export { default as SlideIn, slideInAnimation } from './entering/slide-in';
 export { default as ShrinkOut } from './entering/shrink-out';
-export { Transition, Direction } from './entering/types';
+export type { Transition, Direction } from './entering/types';

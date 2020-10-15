@@ -1,12 +1,12 @@
 import { Client } from './client';
 
-export {
+export { SpecialEventType } from './apiTypes';
+export type {
   ARI,
   AVI,
   PubSubClient,
   ActionablePubSubClient,
   OnEvent,
-  SpecialEventType,
   PubSubClientConfig,
 } from './apiTypes';
 

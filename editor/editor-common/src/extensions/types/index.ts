@@ -1,4 +1,4 @@
-export {
+export type {
   ExtensionParams,
   ExtensionHandler,
   UpdateExtension,
@@ -13,9 +13,9 @@ export {
   AsyncParametersGetter,
 } from './extension-handler';
 
-export { ExtensionProvider } from './extension-provider';
+export type { ExtensionProvider } from './extension-provider';
 
-export {
+export type {
   ExtensionAutoConvertHandler,
   ExtensionComponentProps,
   ExtensionKey,
@@ -38,11 +38,12 @@ export {
   Serializer,
 } from './extension-manifest';
 
-export { Parameters } from './extension-parameters';
+export type { Parameters } from './extension-parameters';
 
-export { MenuItem, MenuItemMap } from './utils';
+export type { MenuItem, MenuItemMap } from './utils';
 
-export {
+export { isFieldset } from './field-definitions';
+export type {
   BooleanField,
   CustomField,
   DateField,
@@ -58,6 +59,5 @@ export {
   StringField,
   StringOneLineField,
   StringMultilineField,
-  isFieldset,
   FieldHandlerLink,
 } from './field-definitions';

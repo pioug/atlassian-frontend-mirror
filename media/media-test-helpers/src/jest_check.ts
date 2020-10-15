@@ -9,3 +9,6 @@ if (typeof jest === 'undefined') {
     spyOn: () => ({ mockImplementation() {} }),
   };
 }
+
+// Required to treat the file as a module for the --isolatedModules flag
+export {};

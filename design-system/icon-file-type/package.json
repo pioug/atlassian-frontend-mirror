@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "6.0.5",
+  "version": "6.0.6",
   "description": "A React package that contains file-type icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

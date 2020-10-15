@@ -1,6 +1,6 @@
 import { Node as ProsemirrorNode } from 'prosemirror-model';
 
-export {
+export type {
   AutoformatHandler,
   AutoformatReplacement,
   AutoformattingProvider,

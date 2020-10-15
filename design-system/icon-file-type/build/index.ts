@@ -46,3 +46,5 @@ tidy(config16)
     console.log('@atlaskit/icon-file-type built');
     return fs.outputFile(path.resolve(root, 'src/metadata.ts'), iconDocs);
   });
+
+export {};

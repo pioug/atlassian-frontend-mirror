@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-search",
-  "version": "13.0.6",
+  "version": "13.0.7",
   "description": "A cross-product search component (batteries included)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -69,6 +69,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
-    "seedrandom": "^2.4.4"
+    "seedrandom": "^2.4.4",
+    "typescript": "3.9.6"
   }
 }

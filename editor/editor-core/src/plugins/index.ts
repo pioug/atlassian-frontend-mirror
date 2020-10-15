@@ -1,9 +1,11 @@
 export { default as basePlugin } from './base';
 export { default as blockTypePlugin } from './block-type';
-export { pluginKey as blockPluginStateKey, BlockTypeState } from './block-type';
+export { pluginKey as blockPluginStateKey } from './block-type';
+export type { BlockTypeState } from './block-type';
 export { default as clearMarksOnChangeToEmptyDocumentPlugin } from './clear-marks-on-change-to-empty-document';
 export { default as codeBlockPlugin } from './code-block';
-export { default as collabEditPlugin, CollabEditProvider } from './collab-edit';
+export { default as collabEditPlugin } from './collab-edit';
+export type { CollabEditProvider } from './collab-edit';
 export { default as datePlugin } from './date';
 export { default as emojiPlugin } from './emoji';
 export { default as extensionPlugin } from './extension';

@@ -1,1 +1,1 @@
-export { PaletteColor } from './type';
+export type { PaletteColor } from './type';

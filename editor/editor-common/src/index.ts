@@ -1,18 +1,6 @@
 export {
-  ADDoc,
-  ADFStage,
   ADFTraversor,
-  ADMark,
-  ADMarkSimple,
-  ADNode,
-  Date,
-  Diff,
   ErrorReporter,
-  ErrorReportingHandler,
-  ImageLoaderProps,
-  ImageLoaderState,
-  ImageStatus,
-  Params,
   ZERO_WIDTH_SPACE,
   absoluteBreakoutWidth,
   browser,
@@ -27,7 +15,6 @@ export {
   findAndTrackUnsupportedContentNodes,
   getAnalyticsAppearance,
   analyticsEventKey,
-  UnsupportedContentPayload,
   getExtensionLozengeData,
   getExtensionRenderer,
   getMarksByOrder,
@@ -57,21 +44,38 @@ export {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
 } from './utils';
+export type {
+  ADDoc,
+  ADFStage,
+  ADMark,
+  ADMarkSimple,
+  ADNode,
+  Date,
+  Diff,
+  ErrorReportingHandler,
+  ImageLoaderProps,
+  ImageLoaderState,
+  ImageStatus,
+  Params,
+  UnsupportedContentPayload,
+} from './utils';
 
 export {
-  Transformer,
   SortOrder,
-  AnnotationState,
-  AnnotationProviders,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
+} from './types';
+export type {
+  Transformer,
+  AnnotationState,
+  AnnotationProviders,
   AnnotationUpdateEventPayloads,
   InlineCommentSelectionComponentProps,
   InlineCommentViewComponentProps,
   InlineCommentAnnotationProvider,
 } from './types';
 
-export {
+export type {
   CollabEditProvider,
   CollabEvent,
   CollabEventData,
@@ -82,11 +86,19 @@ export {
   CollabEventLocalStepData,
   CollabEventRemoteData,
   CollabSendableSelection,
-  CollabEventTelepointerData, // End Collab Types
+  CollabEventTelepointerData,
 } from './collab/types';
 
 export {
   DefaultExtensionProvider,
+  combineExtensionProviders,
+  getExtensionKeyAndNodeKey,
+  getExtensionModuleNode,
+  getQuickInsertItemsFromModule,
+  getNodeRenderer,
+  resolveImport,
+} from './extensions';
+export type {
   Extension,
   ExtensionComponentProps,
   ExtensionHandler,
@@ -109,19 +121,12 @@ export {
   MenuItem,
   MenuItemMap,
   UpdateExtension,
-  combineExtensionProviders,
-  getExtensionKeyAndNodeKey,
-  getExtensionModuleNode,
-  getQuickInsertItemsFromModule,
-  getNodeRenderer,
-  resolveImport,
 } from './extensions';
 
-export { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';
+export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';
 
-export {
-  ProviderFactory,
-  WithProviders,
+export { ProviderFactory, WithProviders } from './provider-factory';
+export type {
   Providers,
   MediaProvider,
   SearchProvider,
@@ -177,37 +182,21 @@ export {
 
 export {
   BaseTheme,
-  CardEventClickHandler,
-  CardSurroundings,
   ClearNextSiblingMarginTop,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
   Emoji,
-  EmojiProps,
   ErrorMessage,
-  EventHandlers,
   ExpandIconWrapper,
   ExpandLayoutWrapper,
   HelperMessage,
-  LinkEventClickHandler,
   MediaSingle,
   MediaSingleDimensionHelper,
-  MediaSingleDimensionHelperProps,
-  MediaSingleProps,
   Mention,
-  MentionEventHandler,
-  MentionEventHandlers,
-  OverflowShadowOptions,
-  OverflowShadowProps,
-  OverflowShadowState,
   Popup,
-  PopupPosition,
-  PopupProps,
-  SmartCardEventClickHandler,
   UnsupportedBlock,
   UnsupportedInline,
   ValidMessage,
-  WidthConsumerContext,
   WidthConsumer,
   WidthProvider,
   WithCreateAnalyticsEvent,
@@ -228,6 +217,24 @@ export {
   MediaLink,
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
+} from './ui';
+export type {
+  CardEventClickHandler,
+  CardSurroundings,
+  EmojiProps,
+  EventHandlers,
+  LinkEventClickHandler,
+  MediaSingleDimensionHelperProps,
+  MediaSingleProps,
+  MentionEventHandler,
+  MentionEventHandlers,
+  OverflowShadowOptions,
+  OverflowShadowProps,
+  OverflowShadowState,
+  PopupPosition,
+  PopupProps,
+  SmartCardEventClickHandler,
+  WidthConsumerContext,
   ExpandStyleProps,
 } from './ui';
 

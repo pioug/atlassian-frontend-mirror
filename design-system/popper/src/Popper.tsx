@@ -9,8 +9,8 @@ import {
 } from 'react-popper';
 
 // Export types from PopperJS / React Popper
-export { Placement, VirtualElement } from '@popperjs/core';
-export {
+export type { Placement, VirtualElement } from '@popperjs/core';
+export type {
   ManagerProps,
   ReferenceProps,
   PopperProps,

@@ -11,7 +11,7 @@ export type MediaType =
 
 // Media Feature Flags
 export {
-  MediaFeatureFlags,
   getMediaFeatureFlag,
   defaultMediaFeatureFlags,
 } from './mediaFeatureFlags';
+export type { MediaFeatureFlags } from './mediaFeatureFlags';

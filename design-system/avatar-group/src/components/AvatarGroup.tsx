@@ -6,6 +6,7 @@ import { jsx } from '@emotion/core';
 import Avatar, { SizeType } from '@atlaskit/avatar';
 import { PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
+import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './AvatarGroupItem';
@@ -201,6 +202,7 @@ const AvatarGroup = ({
         boundary={boundary}
         rootBoundary={rootBoundary}
         shouldFlip
+        zIndex={layers.modal()}
         content={() => (
           <PopupMenuGroup
             onClick={e => e.stopPropagation()}

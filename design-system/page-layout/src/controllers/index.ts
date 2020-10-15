@@ -1,4 +1,4 @@
-export { SkipLinkData } from './types';
+export type { SkipLinkData } from './types';
 export { default as publishGridState } from './use-page-layout-grid';
 export {
   SidebarResizeContext,

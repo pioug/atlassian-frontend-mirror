@@ -73,5 +73,5 @@ export {
   TrelloLogo,
   TrelloIcon,
   TrelloWordmark,
-  LogoProps,
 };
+export type { LogoProps };

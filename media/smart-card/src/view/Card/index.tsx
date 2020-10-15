@@ -17,4 +17,4 @@ class PlainCard extends React.PureComponent<CardProps> {
 
 export const Card = withAnalyticsEvents()(PlainCard);
 
-export { CardAppearance, CardProps, CardPlatform };
+export type { CardAppearance, CardProps, CardPlatform };

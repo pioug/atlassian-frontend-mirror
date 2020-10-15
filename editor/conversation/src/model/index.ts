@@ -1,3 +1,3 @@
-export { Comment } from './Comment';
-export { Conversation } from './Conversation';
-export { User } from './User';
+export type { Comment } from './Comment';
+export type { Conversation } from './Conversation';
+export type { User } from './User';

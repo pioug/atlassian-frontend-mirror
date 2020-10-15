@@ -19,19 +19,13 @@ export { resultTypes as quickSearchResultTypes };
 // API v1 Exports:
 export { default as QuickSearch } from './components/QuickSearch';
 export { default as ResultItemGroup } from './components/ResultItem/ResultItemGroup';
-export {
-  default as ObjectResult,
-  Props as ObjectResultProps,
-} from './components/Results/ObjectResult';
-export {
-  default as PersonResult,
-  Props as PersonResultProps,
-} from './components/Results/PersonResult';
-export {
-  default as ContainerResult,
-  Props as ContainerResultProps,
-} from './components/Results/ContainerResult';
+export { default as ObjectResult } from './components/Results/ObjectResult';
+export type { Props as ObjectResultProps } from './components/Results/ObjectResult';
+export { default as PersonResult } from './components/Results/PersonResult';
+export type { Props as PersonResultProps } from './components/Results/PersonResult';
+export { default as ContainerResult } from './components/Results/ContainerResult';
+export type { Props as ContainerResultProps } from './components/Results/ContainerResult';
 export { default as ResultBase } from './components/Results/ResultBase';
 // types
-export { Props as ResultBaseProps } from './components/Results/ResultBase';
-export { CancelableEvent, ResultData } from './components/Results/types';
+export type { Props as ResultBaseProps } from './components/Results/ResultBase';
+export type { CancelableEvent, ResultData } from './components/Results/types';

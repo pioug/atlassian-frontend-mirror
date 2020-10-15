@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-dialog",
-  "version": "13.0.7",
+  "version": "13.0.8",
   "description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,6 +49,7 @@
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.12.2",
+    "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
   "keywords": [

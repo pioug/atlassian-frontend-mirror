@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/date",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Fabric Date React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,8 @@
     "@types/date-fns": "^2.6.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "ui",

@@ -1,1 +1,2 @@
-export { default, PopupSelectProps } from './PopupSelect';
+export { default } from './PopupSelect';
+export type { PopupSelectProps } from './PopupSelect';

@@ -1,21 +1,17 @@
-export {
-  default as GlobalQuickSearch,
-  Props,
-} from './components/GlobalQuickSearchWrapper';
+export { default as GlobalQuickSearch } from './components/GlobalQuickSearchWrapper';
+export type { Props } from './components/GlobalQuickSearchWrapper';
 
-export { Config } from './api/configureSearchClients';
+export type { Config } from './api/configureSearchClients';
 
-export { GlobalSearchPrefetchedResults } from './api/prefetchResults';
+export type { GlobalSearchPrefetchedResults } from './api/prefetchResults';
 
 export { default as GlobalSearchPrefetchedResultsProvider } from './components/PrefetchedResultsProvider';
 
-export {
-  withFeedbackButton,
-  FeedbackCollectorProps,
-} from './components/feedback/withFeedbackButton';
+export { withFeedbackButton } from './components/feedback/withFeedbackButton';
+export type { FeedbackCollectorProps } from './components/feedback/withFeedbackButton';
 
 export {
   default as SearchSessionProvider,
-  SearchSessionProps,
   injectSearchSession,
 } from './components/SearchSessionProvider';
+export type { SearchSessionProps } from './components/SearchSessionProvider';

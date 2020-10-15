@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/range",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "A styled version of the native input[range] element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,7 +45,8 @@
     "jscodeshift": "^0.7.0",
     "lodash": "^4.17.15",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "0.12.0"
+    "storybook-addon-performance": "0.12.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

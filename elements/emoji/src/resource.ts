@@ -1,6 +1,6 @@
 export { AbstractResource } from '@atlaskit/util-service-support';
-export {
-  default as EmojiResource,
+export { default as EmojiResource } from './api/EmojiResource';
+export type {
   EmojiProvider,
   UploadingEmojiProvider,
   EmojiResourceConfig,

@@ -9,20 +9,16 @@ export {
   MockEmojiResource,
   MockNonUploadingEmojiResource,
   mockNonUploadingEmojiResourceFactory,
-  MockEmojiResourceConfig,
   UsageClearEmojiResource,
 } from './emoji/MockEmojiResource';
+export type { MockEmojiResourceConfig } from './emoji/MockEmojiResource';
 
-export {
-  MockTaskDecisionResource,
-  MockTaskDecisionResourceConfig,
-} from './task-decision/MockTaskDecisionResource';
+export { MockTaskDecisionResource } from './task-decision/MockTaskDecisionResource';
+export type { MockTaskDecisionResourceConfig } from './task-decision/MockTaskDecisionResource';
 
 export { MockPresenceResource } from './mention/MockPresenceResource';
-export {
-  MockMentionResource,
-  MockMentionConfig,
-} from './mention/MockMentionResource';
+export { MockMentionResource } from './mention/MockMentionResource';
+export type { MockMentionConfig } from './mention/MockMentionResource';
 export { MockMentionResourceWithInfoHints } from './mention/MockMentionResourceWithInfoHints';
 
 export {

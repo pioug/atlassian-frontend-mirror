@@ -10,7 +10,7 @@ import {
 } from './MentionResource';
 import { padArray } from '../util';
 import { MentionDescription } from '../types';
-export { MentionDescription };
+export type { MentionDescription };
 
 export type MentionProviderFunctions = {
   [Key in keyof MentionProvider]: MentionProvider[Key] extends Function

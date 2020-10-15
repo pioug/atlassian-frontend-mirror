@@ -18,7 +18,7 @@ import { StatusPluginOptions, StatusState } from './types';
 import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
 
 export { pluginKey, pluginKeyName } from './plugin-key';
-export { StatusState, StatusType } from './types';
+export type { StatusState, StatusType } from './types';
 
 const createPlugin = (
   dispatch: Dispatch,

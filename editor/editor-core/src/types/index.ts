@@ -1,33 +1,36 @@
-export { EditorInstance } from './editor-instance';
+export type { EditorInstance } from './editor-instance';
 // eslint-disable-next-line import/no-cycle
-export { EditorConfig } from './editor-config';
+export type { EditorConfig } from './editor-config';
 // eslint-disable-next-line import/no-cycle
-export { EditorPlugin, PluginsOptions } from './editor-plugin';
-export { EditorReactContext } from './editor-react-context';
-export {
+export type { EditorPlugin, PluginsOptions } from './editor-plugin';
+export type { EditorReactContext } from './editor-react-context';
+export type {
   EditorProps,
   FeedbackInfo,
   ReactComponents,
   ExtensionProvidersProp,
 } from './editor-props';
 // eslint-disable-next-line import/no-cycle
-export { EditorAppearanceComponentProps } from './editor-appearance-component';
-export { Command, CommandDispatch } from './command';
-export { MessageDescriptor } from './i18n';
-export { DomAtPos } from './dom-at-pos';
-export { AllowedBlockTypes } from './allowed-block-types';
-export { ExtensionConfig } from './extension-config';
-export { EditorAppearance } from './editor-appearance';
-export {
+export type { EditorAppearanceComponentProps } from './editor-appearance-component';
+export type { Command, CommandDispatch } from './command';
+export type { MessageDescriptor } from './i18n';
+export type { DomAtPos } from './dom-at-pos';
+export type { AllowedBlockTypes } from './allowed-block-types';
+export type { ExtensionConfig } from './extension-config';
+export type { EditorAppearance } from './editor-appearance';
+export type {
   ToolbarUIComponentFactory,
   ToolbarUiComponentFactoryParams,
 } from '../ui/Toolbar/types';
 // eslint-disable-next-line import/no-cycle
-export {
+export type {
   PMPlugin,
   PMPluginFactory,
   PMPluginCreateConfig,
   PMPluginFactoryParams,
 } from './pm-plugin';
-export { NodeViewConfig, MarkConfig, NodeConfig } from './pm-config';
-export { UIComponentFactory, UiComponentFactoryParams } from './ui-components';
+export type { NodeViewConfig, MarkConfig, NodeConfig } from './pm-config';
+export type {
+  UIComponentFactory,
+  UiComponentFactoryParams,
+} from './ui-components';

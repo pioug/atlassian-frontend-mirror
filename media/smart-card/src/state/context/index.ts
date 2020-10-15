@@ -13,5 +13,6 @@ export function useSmartLinkContext() {
   }
   return context;
 }
-export { SmartCardProvider, ProviderProps, CardContext };
+export { SmartCardProvider };
+export type { ProviderProps, CardContext };
 export default SmartCardContext;

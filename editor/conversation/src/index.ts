@@ -1,6 +1,6 @@
-export {
+export { ConversationResource } from './api/ConversationResource';
+export type {
   ConversationResourceConfig,
-  ConversationResource,
   ResourceProvider,
 } from './api/ConversationResource';
 

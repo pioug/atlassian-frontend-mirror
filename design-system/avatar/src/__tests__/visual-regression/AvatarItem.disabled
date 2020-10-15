@@ -1,3 +1,6 @@
+/** This test is disabled due to flakiness
+ * TODO: Fix flakiness DS-7541
+ */
 import {
   getExampleUrl,
   takeElementScreenShot,

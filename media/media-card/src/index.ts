@@ -12,14 +12,14 @@ import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 
 import { CardPreview } from './root/card/getCardPreview';
 
-export {
+export type {
   MediaCardAnalyticsPayload,
   MediaCardAnalyticsFileAttributes,
 } from './utils/analytics';
 
 export { default as Card } from './root/card/cardLoader';
 
-export { CardAction, CardEventHandler } from './actions';
+export type { CardAction, CardEventHandler } from './actions';
 
 export type CardStatus =
   | 'uploading'

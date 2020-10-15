@@ -1,17 +1,19 @@
 export {
-  ArrowProps,
-  ChildOffset,
   FilmstripView,
-  FilmstripViewProps,
-  FilmstripViewState,
   LeftArrow,
   MUTATION_CONFIG,
   RightArrow,
+} from './filmstripView';
+export type {
+  ArrowProps,
+  ChildOffset,
+  FilmstripViewProps,
+  FilmstripViewState,
   ScrollEvent,
   SizeEvent,
 } from './filmstripView';
-export {
-  Filmstrip,
+export { Filmstrip } from './filmstrip';
+export type {
   FilmstripItem,
   FilmstripProps,
   FilmstripState,

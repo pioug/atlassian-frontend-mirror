@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "16.0.8",
+  "version": "16.0.9",
   "description": "Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,6 +50,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/single-select": "^10.0.0",
     "@atlaskit/util-data-test": "^14.0.0",
-    "enzyme": "^3.10.0"
+    "enzyme": "^3.10.0",
+    "typescript": "3.9.6"
   }
 }

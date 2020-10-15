@@ -1,1 +1,1 @@
-export { PopupUrls } from './popupUrls';
+export type { PopupUrls } from './popupUrls';

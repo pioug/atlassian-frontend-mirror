@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/mobile-header",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "A React component rendering a mobile header",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,8 @@
     "@atlaskit/navigation": "^37.0.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
-    "react-test-renderer": "^16.8.0"
+    "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

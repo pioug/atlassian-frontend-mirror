@@ -10,7 +10,7 @@ import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import { pluginKey } from './plugin-key';
 
-export {
+export type {
   MacroProvider,
   MacroAttributes,
   ExtensionType,

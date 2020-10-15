@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,8 @@
     "@atlaskit/right-side-panel": "^0.4.0",
     "algoliasearch": "^3.33.0",
     "enzyme": "^3.10.0",
-    "react-test-renderer": "^16.8.0"
+    "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "atlaskit",

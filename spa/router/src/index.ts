@@ -7,7 +7,6 @@ export {
   Redirect,
   RouterActions,
   withRouter,
-  WithRouterProps,
   ResourceSubscriber,
   useResource,
   useRouter,
@@ -15,6 +14,7 @@ export {
   createResource,
   useRouterActions,
 } from './controllers';
+export type { WithRouterProps } from './controllers';
 export { RouteComponent, Link, noopRouterDecorator } from './ui';
 export {
   matchRoute,
@@ -23,7 +23,7 @@ export {
   getRouteContext,
 } from './common/utils';
 
-export {
+export type {
   Location,
   Route,
   Routes,
@@ -42,7 +42,7 @@ export {
   BrowserHistory,
 } from './common/types';
 
-export {
+export type {
   RouterActionsType,
   RouterActionPush,
   RouterActionReplace,

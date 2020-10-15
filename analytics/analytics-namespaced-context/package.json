@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-namespaced-context",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,8 @@
     "@atlaskit/docs": "*",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "fabric",

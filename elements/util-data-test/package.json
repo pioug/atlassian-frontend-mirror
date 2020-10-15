@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "14.0.3",
+  "version": "14.0.4",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,8 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^9.0.0"
+    "@atlaskit/docs": "^9.0.0",
+    "typescript": "3.9.6"
   },
   "keywords": [
     "fabric",

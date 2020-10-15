@@ -1,5 +1,5 @@
-export {
-  MediaStore,
+export { MediaStore } from './client/media-store';
+export type {
   ResponseFileItem,
   ItemsPayload,
   ImageMetadataArtifact,
@@ -26,9 +26,10 @@ export {
   EmptyFile,
 } from './client/media-store';
 
-export { AbortFunction, UploadController } from './upload-controller';
+export { UploadController } from './upload-controller';
+export type { AbortFunction } from './upload-controller';
 
-export {
+export type {
   MediaItemType,
   FileItem,
   FileProcessingStatus,
@@ -38,56 +39,57 @@ export {
 } from './models/item';
 
 export {
+  isPreviewableType,
+  isMediaCollectionItemFullDetails,
+} from './models/media';
+export type {
   MediaFileProcessingStatus,
   MediaType,
-  isPreviewableType,
   MediaFile,
   MediaCollection,
   MediaCollectionItems,
   MediaCollectionItem,
   MediaCollectionItemMinimalDetails,
   MediaCollectionItemFullDetails,
-  isMediaCollectionItemFullDetails,
   MediaRepresentations,
   MediaCollectionItemDetails,
   MediaUpload,
   MediaChunksProbe,
 } from './models/media';
 
-export {
-  MediaFileArtifact,
-  MediaFileArtifacts,
-  getArtifactUrl,
-} from './models/artifacts';
+export { getArtifactUrl } from './models/artifacts';
+export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
 
 export {
-  FileStatus,
-  FilePreview,
-  PreviewOptions,
-  GetFileOptions,
-  UploadingFileState,
   isUploadingFileState,
-  ProcessingFileState,
   isProcessingFileState,
-  ProcessedFileState,
   isProcessedFileState,
-  ProcessingFailedState,
-  ErrorFileState,
-  NonErrorFileState,
   isErrorFileState,
-  PreviewableFileState,
   isPreviewableFileState,
-  FileState,
   isFinalFileState,
   isImageRepresentationReady,
   mapMediaFileToFileState,
   mapMediaItemToFileState,
 } from './models/file-state';
+export type {
+  FileStatus,
+  FilePreview,
+  PreviewOptions,
+  GetFileOptions,
+  UploadingFileState,
+  ProcessingFileState,
+  ProcessedFileState,
+  ProcessingFailedState,
+  ErrorFileState,
+  NonErrorFileState,
+  PreviewableFileState,
+  FileState,
+} from './models/file-state';
 
 export { getFileStreamsCache, StreamsCache } from './file-streams-cache';
 
-export {
-  uploadFile,
+export { uploadFile } from './uploader';
+export type {
   UploadableFile,
   UploadableFileUpfrontIds,
   UploadFileCallbacks,
@@ -96,30 +98,33 @@ export {
 
 export {
   isAbortedRequestError,
-  RequestMethod,
-  RequestParams,
-  RequestHeaders,
-  RequestOptions,
   request,
   mapResponseToJson,
   mapResponseToBlob,
   mapResponseToVoid,
-  CreateUrlOptions,
   createUrl,
+} from './utils/request';
+export type {
+  RequestMethod,
+  RequestParams,
+  RequestHeaders,
+  RequestOptions,
+  CreateUrlOptions,
 } from './utils/request';
 
 export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
 
-export {
+export { FileFetcherImpl } from './client/file-fetcher';
+export type {
   CopySourceFile,
   CopyDestination,
   CopyFileOptions,
-  FileFetcherImpl,
   FileFetcher,
 } from './client/file-fetcher';
 export { CollectionFetcher } from './client/collection-fetcher';
 export { MediaClient } from './client/media-client';
-export { StargateClient, EdgeData } from './client/stargate-client';
+export { StargateClient } from './client/stargate-client';
+export type { EdgeData } from './client/stargate-client';
 
 export { isImageRemote } from './utils/isImageRemote';
 export { checkWebpSupport } from './utils/checkWebpSupport';
@@ -146,24 +151,25 @@ export { createFileStateSubject } from './utils/createFileStateSubject';
 export { safeUnsubscribe } from './utils/safeUnsubscribe';
 
 export {
-  Identifier,
-  FileIdentifier,
-  ExternalImageIdentifier,
   isFileIdentifier,
   isExternalImageIdentifier,
   isDifferentIdentifier,
 } from './identifier';
+export type {
+  Identifier,
+  FileIdentifier,
+  ExternalImageIdentifier,
+} from './identifier';
 
-export {
+export type {
   EventPayloadListener,
   UploadEventPayloadMap,
   MediaViewedEventPayload,
 } from './client/events';
 
-export {
-  withMediaClient,
+export { withMediaClient, getMediaClient } from './utils/with-media-client-hoc';
+export type {
   WithMediaClientConfig,
-  getMediaClient,
   WithMediaClientConfigProps,
 } from './utils/with-media-client-hoc';
 
@@ -173,8 +179,8 @@ export {
   isMediaBlobUrl,
   getAttrsFromUrl,
   addFileAttrsToUrl,
-  MediaBlobUrlAttrs,
   objectToQueryString,
 } from './utils/url';
+export type { MediaBlobUrlAttrs } from './utils/url';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';

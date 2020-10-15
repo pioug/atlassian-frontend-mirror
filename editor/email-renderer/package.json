@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/email-renderer",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Email renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
     "react": "^16.8.0",
     "rimraf": "^2.6.3",
     "svgexport": "^0.4.0",
-    "ts-node": "^6.1.1"
+    "ts-node": "^6.1.1",
+    "typescript": "3.9.6"
   }
 }

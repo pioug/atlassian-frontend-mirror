@@ -8,7 +8,7 @@ import {
 } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
-export { LinkItemProps } from '@atlaskit/menu';
+export type { LinkItemProps } from '@atlaskit/menu';
 
 const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
   // Type needed on props to extract types with extract react types.

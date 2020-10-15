@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,8 @@
     "exenv": "^1.2.2",
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
-    "react-test-renderer": "^16.8.0"
+    "react-test-renderer": "^16.8.0",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

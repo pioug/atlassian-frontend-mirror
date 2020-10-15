@@ -1,5 +1,5 @@
 export { default as MediaViewer } from './components/media-viewer-loader';
-export {
+export type {
   MediaViewerDataSource,
   MediaViewerExtensions,
   MediaViewerExtensionsActions,

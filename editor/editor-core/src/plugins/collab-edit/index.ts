@@ -8,11 +8,13 @@ import {
   ProviderCallback,
   PrivateCollabEditOptions,
 } from './types';
-export { CollabProvider, CollabEditProvider } from './provider';
+export { CollabProvider } from './provider';
+export type { CollabEditProvider } from './provider';
 import { sendTransaction } from './events/send-transaction';
 import { addSynchronyErrorAnalytics } from './analytics';
 
-export { CollabEditOptions, pluginKey };
+export { pluginKey };
+export type { CollabEditOptions };
 
 const providerBuilder: ProviderBuilder = (
   collabEditProviderPromise: Promise<CollabEditProvider>,

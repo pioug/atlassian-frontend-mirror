@@ -1,10 +1,10 @@
 export {
-  NameToEmoji,
   acNameToEmoji,
   acShortcutToEmoji,
   emojiIdToAcName,
   getEmojiAcName,
 } from './confluence/emoji';
+export type { NameToEmoji } from './confluence/emoji';
 export { generateUuid, uuid } from './uuid';
 export {
   B100,
@@ -59,12 +59,13 @@ export {
   normalizeHexColor,
   rgbToHex,
 } from './colors';
-export { Match, getLinkMatch, isSafeUrl, normalizeUrl } from './url';
+export { getLinkMatch, isSafeUrl, normalizeUrl } from './url';
+export type { Match } from './url';
 export {
   DEFAULT_LANGUAGES,
-  Language,
   createLanguageList,
   filterSupportedLanguages,
   findMatchedLanguage,
   getLanguageIdentifier,
 } from './languageList';
+export type { Language } from './languageList';

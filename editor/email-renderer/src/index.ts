@@ -173,7 +173,7 @@ export class EmailSerializer implements SerializerWithImages<string> {
   }
 }
 
-export {
+export type {
   Attrs,
   EmailSerializerOpts,
   MarkSerializer,

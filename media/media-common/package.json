@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,6 +39,7 @@
     "@atlaskit/docs": "*",
     "lodash": "^4.17.15",
     "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "typescript": "3.9.6"
   }
 }

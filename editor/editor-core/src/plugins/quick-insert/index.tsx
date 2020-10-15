@@ -30,7 +30,11 @@ import {
 
 import ModalElementBrowser from './ui/ModalElementBrowser';
 
-export { QuickInsertHandler, QuickInsertPluginState, QuickInsertPluginOptions };
+export type {
+  QuickInsertHandler,
+  QuickInsertPluginState,
+  QuickInsertPluginOptions,
+};
 export { pluginKey };
 
 const quickInsertPlugin = (

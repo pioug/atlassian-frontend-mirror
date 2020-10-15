@@ -320,8 +320,8 @@ export const getItemAnalyticsContext = (
 
 export {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
   NavigationAnalyticsContext,
   OPERATIONAL_EVENT_TYPE,
   UI_EVENT_TYPE,
 };
+export type { WithAnalyticsEventsProps };

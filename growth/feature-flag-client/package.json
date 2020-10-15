@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feature-flag-client",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A client to take care of feature flag evaluation and tracking of exposure events",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "enzyme": "^3.10.0"
+    "enzyme": "^3.10.0",
+    "typescript": "3.9.6"
   }
 }

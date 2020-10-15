@@ -1,1 +1,2 @@
-export { Status, StatusStyle, Props, Color } from './components/Status';
+export { Status } from './components/Status';
+export type { StatusStyle, Props, Color } from './components/Status';

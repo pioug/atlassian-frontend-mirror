@@ -7,7 +7,7 @@ export {
   DrawerItem,
 } from './components';
 
-export {
+export type {
   BaseProps,
   CloseTrigger,
   ContentCSSProps,

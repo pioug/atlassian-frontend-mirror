@@ -5,7 +5,7 @@ import {
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 
-export {
+export type {
   QuickInsertActionInsert,
   QuickInsertItem,
   QuickInsertProvider,

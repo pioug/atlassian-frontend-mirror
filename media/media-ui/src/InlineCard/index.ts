@@ -1,20 +1,10 @@
-export {
-  InlineCardResolvingView,
-  InlineCardResolvingViewProps,
-} from './ResolvingView';
-export {
-  InlineCardResolvedView,
-  InlineCardResolvedViewProps,
-} from './ResolvedView';
-export {
-  InlineCardErroredView,
-  InlineCardErroredViewProps,
-} from './ErroredView';
-export {
-  InlineCardForbiddenView,
-  InlineCardForbiddenViewProps,
-} from './ForbiddenView';
-export {
-  InlineCardUnauthorizedView,
-  InlineCardUnauthorizedViewProps,
-} from './UnauthorisedView';
+export { InlineCardResolvingView } from './ResolvingView';
+export type { InlineCardResolvingViewProps } from './ResolvingView';
+export { InlineCardResolvedView } from './ResolvedView';
+export type { InlineCardResolvedViewProps } from './ResolvedView';
+export { InlineCardErroredView } from './ErroredView';
+export type { InlineCardErroredViewProps } from './ErroredView';
+export { InlineCardForbiddenView } from './ForbiddenView';
+export type { InlineCardForbiddenViewProps } from './ForbiddenView';
+export { InlineCardUnauthorizedView } from './UnauthorisedView';
+export type { InlineCardUnauthorizedViewProps } from './UnauthorisedView';

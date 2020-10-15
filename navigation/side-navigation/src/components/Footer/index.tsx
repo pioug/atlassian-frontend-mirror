@@ -11,7 +11,7 @@ const Container: React.FC<CustomItemComponentProps> = props => {
   return <div {...props} />;
 };
 
-export { HeaderProps as FooterProps } from '../Header';
+export type { HeaderProps as FooterProps } from '../Header';
 
 const Footer = (props: HeaderProps) => {
   const cssFn = overrideStyleFunction(

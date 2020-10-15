@@ -213,4 +213,5 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
 });
 
 export default blockTypePlugin;
-export { pluginKey, BlockTypeState } from './pm-plugins/main';
+export { pluginKey } from './pm-plugins/main';
+export type { BlockTypeState } from './pm-plugins/main';

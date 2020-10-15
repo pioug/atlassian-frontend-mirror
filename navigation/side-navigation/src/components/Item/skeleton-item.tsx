@@ -5,7 +5,7 @@ import { SkeletonItemProps, SkeletonItem as SkelItem } from '@atlaskit/menu';
 import { ITEM_SIDE_PADDING } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
-export { SkeletonItemProps } from '@atlaskit/menu';
+export type { SkeletonItemProps } from '@atlaskit/menu';
 
 const SkeletonItem = (props: SkeletonItemProps) => {
   const { shouldRender } = useShouldNestedElementRender();

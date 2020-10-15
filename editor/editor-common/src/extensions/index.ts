@@ -1,4 +1,5 @@
-export {
+export { isFieldset } from './types';
+export type {
   Extension,
   ExtensionAutoConvertHandler,
   ExtensionComponentProps,
@@ -39,7 +40,6 @@ export {
   StringField,
   StringOneLineField,
   StringMultilineField,
-  isFieldset,
   FieldHandlerLink,
   OnSaveCallback,
   UpdateContextActions,

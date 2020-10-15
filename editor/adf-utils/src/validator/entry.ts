@@ -1,2 +1,2 @@
 // Entry-point for extracting specs
-export { DocNode } from '@atlaskit/adf-schema';
+export type { DocNode } from '@atlaskit/adf-schema';

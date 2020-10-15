@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "10.1.7",
+  "version": "10.1.8",
   "description": "Highlight elements of the UI to the user and display a complementary dialog.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -57,7 +57,8 @@
     "enzyme": "^3.10.0",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
-    "react-lorem-component": "^0.12.2"
+    "react-lorem-component": "^0.12.2",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

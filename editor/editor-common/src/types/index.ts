@@ -11,15 +11,14 @@ export enum SortOrder {
   NO_ORDER = 'no_order',
 }
 
-export {
+export { AnnotationUpdateEmitter, AnnotationUpdateEvent } from './annotation';
+export type {
   AnnotationState,
   AnnotationProviders,
-  AnnotationUpdateEmitter,
-  AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
   InlineCommentSelectionComponentProps,
   InlineCommentViewComponentProps,
   InlineCommentAnnotationProvider,
 } from './annotation';
 
-export { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';
+export type { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';

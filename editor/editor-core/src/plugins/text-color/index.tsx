@@ -78,5 +78,6 @@ const textColorPlugin = (
   },
 });
 
-export { TextColorPluginState, textColorPluginKey };
+export { textColorPluginKey };
+export type { TextColorPluginState };
 export default textColorPlugin;

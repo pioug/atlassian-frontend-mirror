@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/panel",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "A React component rendering a collapsible panel",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,8 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/page": "^12.0.0",
-    "enzyme": "^3.10.0"
+    "enzyme": "^3.10.0",
+    "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {

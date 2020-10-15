@@ -332,9 +332,6 @@ const selectNode = (pos: number): Command => (state, dispatch) => {
 };
 
 export {
-  // https://github.com/typescript-eslint/typescript-eslint/issues/131
-  // eslint-disable-next-line no-undef
-  Predicate,
   filter,
   isEmptySelectionAtStart,
   isEmptySelectionAtEnd,
@@ -348,4 +345,9 @@ export {
   walkPrevNode,
   insertContentDeleteRange,
   selectNode,
+};
+export type {
+  // https://github.com/typescript-eslint/typescript-eslint/issues/131
+  // eslint-disable-next-line no-undef
+  Predicate,
 };

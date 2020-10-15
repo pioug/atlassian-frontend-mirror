@@ -85,3 +85,5 @@ process.stdin.on('end', () => {
   process.stdout.write(outputJSON);
   process.stdout.write('\n');
 });
+
+export {};

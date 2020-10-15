@@ -1,5 +1,6 @@
-export { default, CalendarProps } from './components/Calendar';
-export { ChangeEvent, ArrowKeys } from './types';
+export { default } from './components/Calendar';
+export type { CalendarProps } from './components/Calendar';
+export type { ChangeEvent, ArrowKeys } from './types';
 
 import { CalendarWithoutAnalytics } from './components/Calendar';
 

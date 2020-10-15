@@ -245,4 +245,5 @@ export default class Popup extends React.Component<Props, State> {
   }
 }
 
-export { findOverflowScrollParent, Position } from './utils';
+export { findOverflowScrollParent } from './utils';
+export type { Position } from './utils';

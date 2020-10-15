@@ -63,6 +63,8 @@ export {
   EditorContent,
   EditorSharedConfigConsumer,
   useEditorSharedConfig,
+};
+export type {
   // Types
   EditorProps,
   EditorSharedConfig,

@@ -25,7 +25,7 @@ import debug from '../util/logger';
 const MAX_QUERY_ITEMS = 100;
 const MAX_NOTIFIED_ITEMS = 20;
 
-export {
+export type {
   MentionStats,
   ResultCallback,
   ErrorCallback,
@@ -35,6 +35,7 @@ export {
   MentionContextIdentifier,
   MentionProvider,
 } from '../types'; // Re-exporting types to prevent breaking change
+// Re-exporting types to prevent breaking change
 
 import { SLI_EVENT_TYPE, Actions, SliNames } from '../util/analytics';
 export interface TeamMentionResourceConfig extends MentionResourceConfig {

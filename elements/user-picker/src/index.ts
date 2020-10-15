@@ -1,18 +1,27 @@
-export {
+export { isValidEmail } from './components/emailValidation';
+export type {
   EmailValidationResponse,
   EmailValidator,
-  isValidEmail,
 } from './components/emailValidation';
 export { UserPicker as default } from './components/UserPicker';
 export {
   SmartUserPicker,
+  setSmartUserPickerEnv,
+} from './components/smart-user-picker/index';
+export type {
   SmartUserPickerProps,
   SupportedProduct,
-  setSmartUserPickerEnv,
 } from './components/smart-user-picker/index';
 export { PopupUserPicker } from './components/PopupUserPicker';
 export { isEmail, isTeam, isUser } from './components/utils';
 export {
+  // Constants
+  EmailType,
+  GroupType,
+  TeamType,
+  UserType,
+} from './types';
+export type {
   // Types
   ActionTypes,
   Appearance,
@@ -41,9 +50,4 @@ export {
   TeamHighlight,
   User,
   UserHighlight,
-  // Constants
-  EmailType,
-  GroupType,
-  TeamType,
-  UserType,
 } from './types';

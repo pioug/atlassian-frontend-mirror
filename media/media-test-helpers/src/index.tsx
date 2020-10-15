@@ -12,7 +12,8 @@ export {
   defaultBaseUrl,
   defaultParams,
 } from './mediaClientProvider';
-export { StoryList, StoryListItem, StoryListProps } from './story-list';
+export { StoryList } from './story-list';
+export type { StoryListItem, StoryListProps } from './story-list';
 export {
   remoteImage,
   smallImage,
@@ -74,8 +75,10 @@ export {
   zipJiraArchiveFileId,
   zipEncryptedFileId,
 } from './exampleMediaItems';
-export { MouseEventProps, createMouseEvent } from './createMouseEvent';
-export { TouchEventProps, createTouchEvent } from './createTouchEvent';
+export { createMouseEvent } from './createMouseEvent';
+export type { MouseEventProps } from './createMouseEvent';
+export { createTouchEvent } from './createTouchEvent';
+export type { TouchEventProps } from './createTouchEvent';
 export {
   createUserMediaClient,
   userAuthProvider,
@@ -88,21 +91,21 @@ export {
 export {
   generateFilesFromTestData,
   MediaMock,
-  MockCollections,
   mediaMock,
+  isMediaMockOptedIn,
+  mediaMockQueryOptInFlag,
+} from './mocks/media-mock';
+export type {
+  MockCollections,
   MockFile,
   MockFileInputParams,
   MediaMockConfig,
   MediaMockControlsBackdoor,
-  isMediaMockOptedIn,
-  mediaMockQueryOptInFlag,
 } from './mocks/media-mock';
 export { awaitError } from './await-error';
 export { nextTick, sleep } from './nextTick';
 export { timeoutPromise } from './timeoutPromise';
 export {
-  ExpectConstructorToHaveBeenCalledWith,
-  ExpectFunctionToHaveBeenCalledWith,
   asMock,
   asMockFunction,
   asMockReturnValue,
@@ -111,7 +114,12 @@ export {
   expectFunctionToHaveBeenCalledWith,
   expectToEqual,
 } from './jestHelpers';
-export { I18NWrapper, I18NWrapperProps, I18NWrapperState } from './I18nWrapper';
+export type {
+  ExpectConstructorToHaveBeenCalledWith,
+  ExpectFunctionToHaveBeenCalledWith,
+} from './jestHelpers';
+export { I18NWrapper } from './I18nWrapper';
+export type { I18NWrapperProps, I18NWrapperState } from './I18nWrapper';
 export { mountWithIntlContext } from './mountWithIntlContext';
 export { fakeIntl } from './fakeI18n';
 export { mockCanvas } from './mockCanvas';
@@ -129,7 +137,6 @@ export {
   unMockLoadImage,
 } from './mockLoadImage';
 export {
-  PropsWithStore,
   getComponentClassWithStore,
   mockEventEmiter,
   mockFetcher,
@@ -139,6 +146,7 @@ export {
   mockStore,
   mockWsConnectionHolder,
 } from './mediaPickerMocks';
+export type { PropsWithStore } from './mediaPickerMocks';
 export {
   ClipboardMockFile,
   MockDataTransfer,

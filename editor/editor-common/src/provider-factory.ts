@@ -1,6 +1,6 @@
 export { WithProviders } from './provider-factory/with-providers';
 
-export { Providers, ProviderName } from './provider-factory/types';
+export type { Providers, ProviderName } from './provider-factory/types';
 
 export {
   ProviderFactoryProvider,
@@ -9,36 +9,42 @@ export {
 } from './provider-factory/context';
 export { default as ProviderFactory } from './provider-factory/provider-factory';
 
-export { MediaProvider } from './provider-factory/media-provider';
-export {
+export type { MediaProvider } from './provider-factory/media-provider';
+export type {
   ImageUploadProvider,
   InsertedImageProperties,
 } from './provider-factory/image-upload-provider';
 
-export {
+export type {
   MacroProvider,
   MacroAttributes,
   ExtensionType,
 } from './provider-factory/macro-provider';
 
-export {
+export type {
   SearchProvider,
   LinkContentType,
   QuickSearchResult,
 } from './provider-factory/search-provider';
 
-export { CardProvider, CardAppearance } from './provider-factory/card-provider';
+export type {
+  CardProvider,
+  CardAppearance,
+} from './provider-factory/card-provider';
 
-export {
+export type {
   QuickInsertItem,
   QuickInsertItemId,
   QuickInsertActionInsert,
   QuickInsertProvider,
 } from './provider-factory/quick-insert-provider';
 
-export { TypeAheadItem, TypeAheadItemRenderProps } from './types/typeAhead';
+export type {
+  TypeAheadItem,
+  TypeAheadItemRenderProps,
+} from './types/typeAhead';
 
-export {
+export type {
   AutoformatReplacement,
   AutoformattingProvider,
   AutoformatHandler,

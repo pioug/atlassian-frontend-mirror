@@ -6,7 +6,7 @@ import { MediaFileArtifacts } from './artifacts';
 // See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts
 export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
-export { MediaType } from '@atlaskit/media-common';
+export type { MediaType } from '@atlaskit/media-common';
 
 export const isPreviewableType = (type: MediaType): boolean => {
   return ['audio', 'video', 'image', 'doc'].indexOf(type) > -1;

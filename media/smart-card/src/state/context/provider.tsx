@@ -61,5 +61,5 @@ export function SmartCardProvider({
     </SmartCardContext.Provider>
   );
 }
-export { CardProviderProps as ProviderProps };
+export type { CardProviderProps as ProviderProps };
 export default SmartCardProvider;

@@ -1,5 +1,12 @@
 # @atlaskit/reduced-ui-pack
 
+## 13.0.5
+
+### Patch Changes
+
+- [`cdfd30ef56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfd30ef56) - Bumping dep for fbjs util and moving it to a devDep for css-reset
+- Updated dependencies
+
 ## 13.0.4
 
 ### Patch Changes

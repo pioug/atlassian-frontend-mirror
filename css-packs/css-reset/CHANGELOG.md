@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.0.4
+
+### Patch Changes
+
+- [`cdfd30ef56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfd30ef56) - Bumping dep for fbjs util and moving it to a devDep for css-reset
+
 ## 6.0.3
 
 ### Patch Changes

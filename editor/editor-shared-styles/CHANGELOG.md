@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 1.1.3
+
+### Patch Changes
+
+- [`a2634b5390`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2634b5390) - [ux] ED-10780 reduced the threshold for responcive toolbar oayout;fixed problem with italic button not working when it is in collapse menu.
+
 ## 1.1.2
 
 ### Patch Changes

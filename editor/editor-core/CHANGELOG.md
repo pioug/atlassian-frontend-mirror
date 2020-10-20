@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 131.0.8
+
+### Patch Changes
+
+- [`a2634b5390`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2634b5390) - [ux] ED-10780 reduced the threshold for responcive toolbar oayout;fixed problem with italic button not working when it is in collapse menu.
+- Updated dependencies
+
 ## 131.0.7
 
 ### Patch Changes

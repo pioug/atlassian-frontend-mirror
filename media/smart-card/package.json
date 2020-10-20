@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "14.4.3",
+  "version": "14.4.4",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

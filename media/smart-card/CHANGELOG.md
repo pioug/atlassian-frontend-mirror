@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 14.4.4
+
+### Patch Changes
+
+- [`676241b24e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/676241b24e) - HOT-93133: fix analytics for Smart Links
+
 ## 14.4.3
 
 ### Patch Changes

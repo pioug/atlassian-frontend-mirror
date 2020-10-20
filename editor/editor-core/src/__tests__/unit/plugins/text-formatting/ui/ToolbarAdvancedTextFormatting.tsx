@@ -118,7 +118,7 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
       editorView.state,
     );
     widthPluginGetStateMock.mockReturnValue({
-      width: VIEWPORT_SIZES.mobileM.width,
+      width: VIEWPORT_SIZES.mobileM.width - 1,
     });
     const toolbarOption = mountWithIntl(
       <ToolbarAdvancedTextFormatting

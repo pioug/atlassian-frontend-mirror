@@ -96,7 +96,7 @@ describe('Find/replace:', () => {
   });
 
   it('should render find/replace popup below any other editor popups', async () => {
-    await initEditor(findReplaceAdf, { width: 600, height: 300 });
+    await initEditor(findReplaceAdf, { width: 1000, height: 300 });
 
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.emoji]);
     const emojiPickerSelector = 'div[data-emoji-picker-container="true"]';

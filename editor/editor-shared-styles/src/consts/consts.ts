@@ -144,4 +144,5 @@ export const VIEWPORT_SIZES = {
   mobileXS: { width: 320, height: 568 },
 };
 
-export const akEditorMobileMaxWidth = VIEWPORT_SIZES.tabletS.width;
+// to be updated in ED-10790: this should be variable threshold based on how many buttons enabled on main toolbar
+export const akEditorMobileMaxWidth = VIEWPORT_SIZES.mobileM.width;

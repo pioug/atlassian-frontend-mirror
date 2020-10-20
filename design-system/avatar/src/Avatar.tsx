@@ -44,7 +44,7 @@ export interface AvatarPropTypes {
   appearance?: AppearanceType;
   /** Defines the size of the avatar */
   size?: SizeType;
-  /** Used to override the default border color of the presence indicator.
+  /** Used to override the default border color around the avatar body.
    Accepts any color argument that the border-color CSS property accepts. */
   borderColor?: string;
   /** Supply a custom avatar component instead of the default */

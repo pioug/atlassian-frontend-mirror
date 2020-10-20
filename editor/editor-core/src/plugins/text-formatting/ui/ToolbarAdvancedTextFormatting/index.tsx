@@ -321,7 +321,7 @@ class ToolbarAdvancedTextFormatting extends PureComponent<
         })(state, dispatch);
         break;
       case 'em':
-        commands.toggleItalicWithAnalytics({
+        commands.toggleEmWithAnalytics({
           inputMethod: INPUT_METHOD.TOOLBAR,
         })(state, dispatch);
         break;

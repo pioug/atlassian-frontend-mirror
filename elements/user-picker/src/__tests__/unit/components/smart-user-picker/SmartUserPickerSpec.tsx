@@ -71,14 +71,14 @@ const mockReturnOptions: OptionData[] = [
 
 const usersById = [
   {
-    id: 'abc-123',
+    id: 'id1',
     type: 'user',
     avatarUrl: 'someavatar.com',
     name: 'Oliver Oldfield-Hodge',
     email: 'a@b.com',
   },
   {
-    id: '123-abc',
+    id: 'id2',
     type: 'user',
     avatarUrl: 'someavatar1.com',
     name: 'Ann Other',
@@ -87,7 +87,7 @@ const usersById = [
 ];
 const userById = [
   {
-    id: 'abc-123',
+    id: 'id1',
     type: 'user',
     avatarUrl: 'someavatar.com',
     name: 'Oliver Oldfield-Hodge',
@@ -96,30 +96,30 @@ const userById = [
 ];
 const defaultValue: DefaultValue = [
   {
-    id: 'abc-123',
+    id: 'id2',
     type: 'user',
   },
   {
-    id: '123-abc',
+    id: 'id1',
     type: 'user',
   },
 ];
 
-const mockDefaultValueOptions: OptionData[] = [
+const mockOnValueErrorDefaultValues: OptionData[] = [
   {
-    id: 'abc-123',
+    id: 'id1',
     name: 'Hydrated User 1',
     type: 'user',
   },
   {
-    id: '123-abc',
+    id: 'id2',
     name: 'Hydrated User 2',
     type: 'user',
   },
 ];
 
 const singleDefaultValue: DefaultValue = {
-  id: 'abc-123',
+  id: 'id1',
   type: 'user',
 };
 
@@ -158,31 +158,31 @@ describe('SmartUserPicker', () => {
     const select = component.find(Select);
     expect(select.prop('value')).toEqual([
       {
-        label: 'Oliver Oldfield-Hodge',
-        value: 'abc-123',
-        data: {
-          id: 'abc-123',
-          type: 'user',
-          avatarUrl: 'someavatar.com',
-          name: 'Oliver Oldfield-Hodge',
-          email: 'a@b.com',
-        },
-      },
-      {
         label: 'Ann Other',
-        value: '123-abc',
+        value: 'id2',
         data: {
-          id: '123-abc',
+          id: 'id2',
           type: 'user',
           avatarUrl: 'someavatar1.com',
           name: 'Ann Other',
           email: 'b@b.com',
         },
       },
+      {
+        label: 'Oliver Oldfield-Hodge',
+        value: 'id1',
+        data: {
+          id: 'id1',
+          type: 'user',
+          avatarUrl: 'someavatar.com',
+          name: 'Oliver Oldfield-Hodge',
+          email: 'a@b.com',
+        },
+      },
     ]);
   });
 
-  it('should hydrate defaultValue for confluence on mount', async () => {
+  it('should hydrate single defaultValue for confluence on mount', async () => {
     getUsersByIdMock.mockReturnValue(Promise.resolve(userById));
 
     const component = smartUserPickerWrapper({
@@ -197,9 +197,102 @@ describe('SmartUserPicker', () => {
     expect(select.prop('value')).toEqual([
       {
         label: 'Oliver Oldfield-Hodge',
-        value: 'abc-123',
+        value: 'id1',
         data: {
-          id: 'abc-123',
+          id: 'id1',
+          type: 'user',
+          avatarUrl: 'someavatar.com',
+          name: 'Oliver Oldfield-Hodge',
+          email: 'a@b.com',
+        },
+      },
+    ]);
+  });
+
+  it('should hydrate multiple defaultValue for confluence on mount', async () => {
+    getUsersByIdMock.mockReturnValue(Promise.resolve(usersById));
+
+    const component = smartUserPickerWrapper({
+      defaultValue: defaultValue,
+      productKey: 'confluence',
+    });
+
+    await flushPromises();
+    component.update();
+    expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
+    const select = component.find(Select);
+    //Note the order from defaultValue should be preserved despite the order of the returned usersById
+    expect(select.prop('value')).toEqual([
+      {
+        label: 'Ann Other',
+        value: 'id2',
+        data: {
+          id: 'id2',
+          type: 'user',
+          avatarUrl: 'someavatar1.com',
+          name: 'Ann Other',
+          email: 'b@b.com',
+        },
+      },
+      {
+        label: 'Oliver Oldfield-Hodge',
+        value: 'id1',
+        data: {
+          id: 'id1',
+          type: 'user',
+          avatarUrl: 'someavatar.com',
+          name: 'Oliver Oldfield-Hodge',
+          email: 'a@b.com',
+        },
+      },
+    ]);
+  });
+
+  it('should return Unknown user if the id is not known', async () => {
+    getUsersByIdMock.mockReturnValue(Promise.resolve(usersById));
+
+    const component = smartUserPickerWrapper({
+      defaultValue: [
+        {
+          id: 'idunknown',
+          type: 'user',
+        },
+        ...defaultValue,
+      ],
+      productKey: 'confluence',
+    });
+
+    await flushPromises();
+    component.update();
+    expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
+    const select = component.find(Select);
+    //Note the order from defaultValue should be preserved despite the order of the returned usersById
+    expect(select.prop('value')).toEqual([
+      {
+        label: 'Unknown',
+        value: 'idunknown',
+        data: {
+          id: 'idunknown',
+          type: 'user',
+          name: 'Unknown',
+        },
+      },
+      {
+        label: 'Ann Other',
+        value: 'id2',
+        data: {
+          id: 'id2',
+          type: 'user',
+          avatarUrl: 'someavatar1.com',
+          name: 'Ann Other',
+          email: 'b@b.com',
+        },
+      },
+      {
+        label: 'Oliver Oldfield-Hodge',
+        value: 'id1',
+        data: {
+          id: 'id1',
           type: 'user',
           avatarUrl: 'someavatar.com',
           name: 'Oliver Oldfield-Hodge',
@@ -223,21 +316,21 @@ describe('SmartUserPicker', () => {
     const select = component.find(Select);
     expect(select.prop('value')).toEqual([
       {
-        label: 'abc-123',
-        value: 'abc-123',
+        label: 'id2',
+        value: 'id2',
         data: {
-          id: 'abc-123',
+          id: 'id2',
           type: 'user',
-          name: 'abc-123',
+          name: 'id2',
         },
       },
       {
-        label: '123-abc',
-        value: '123-abc',
+        label: 'id1',
+        value: 'id1',
         data: {
-          id: '123-abc',
+          id: 'id1',
           type: 'user',
-          name: '123-abc',
+          name: 'id1',
         },
       },
     ]);
@@ -264,7 +357,7 @@ describe('SmartUserPicker', () => {
 
     const onValueError = jest.fn(error => {
       expect(error).toEqual(mockError);
-      return Promise.resolve(mockDefaultValueOptions);
+      return Promise.resolve(mockOnValueErrorDefaultValues);
     });
 
     const component = smartUserPickerWrapper({ defaultValue, onValueError });
@@ -276,18 +369,18 @@ describe('SmartUserPicker', () => {
     expect(select.prop('value')).toEqual([
       {
         label: 'Hydrated User 1',
-        value: 'abc-123',
+        value: 'id1',
         data: {
-          id: 'abc-123',
+          id: 'id1',
           type: 'user',
           name: 'Hydrated User 1',
         },
       },
       {
         label: 'Hydrated User 2',
-        value: '123-abc',
+        value: 'id2',
         data: {
-          id: '123-abc',
+          id: 'id2',
           type: 'user',
           name: 'Hydrated User 2',
         },

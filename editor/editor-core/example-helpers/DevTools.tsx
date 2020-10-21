@@ -3,7 +3,6 @@ import { WithEditorActions } from '../src';
 
 export function DevTools() {
   if (process.env.NODE_ENV !== 'test') {
-    // eslint-disable-next-line import/no-extraneous-dependencies
     const workerFile = require('worker-plugin/loader!prosemirror-dev-tools/json-diff.worker');
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const diffWorker = React.useMemo(

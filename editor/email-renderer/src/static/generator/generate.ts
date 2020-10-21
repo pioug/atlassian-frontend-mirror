@@ -1,5 +1,4 @@
 // TODO: Move this file out of src if it is a build script
-/* eslint-disable import/no-extraneous-dependencies */
 import * as svgexport from 'svgexport';
 import { resolve } from 'path';
 import { writeFileSync, readFileSync } from 'fs';

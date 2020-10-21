@@ -15,7 +15,7 @@ const LOCAL_CONFIG: Config = {
   getUsersServiceUrl(productKey: string) {
     return productKey === 'jira'
       ? `https://jdog.jira-dev.com/rest/api/3/user/bulk`
-      : `https://sdog.jira-dev.com/wiki/rest/api/user/bulk`;
+      : `https://pug.jira-dev.com/wiki/rest/api/user/bulk`;
   },
 };
 

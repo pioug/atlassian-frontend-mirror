@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 3.3.2
+
+### Patch Changes
+
+- [`ac54a7870c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac54a7870c) - Remove extraneous dependencies rule suppression
+
 ## 3.3.1
 
 ### Patch Changes

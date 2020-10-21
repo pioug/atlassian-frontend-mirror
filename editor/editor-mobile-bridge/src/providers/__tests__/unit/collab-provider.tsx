@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { act, create, ReactTestRenderer } from 'react-test-renderer';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 

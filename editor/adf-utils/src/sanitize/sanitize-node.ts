@@ -1,5 +1,4 @@
 import { traverse } from '../traverse/traverse';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 import { removeMarks } from './remove-marks';

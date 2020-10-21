@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 131.0.9
+
+### Patch Changes
+
+- [`ac54a7870c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac54a7870c) - Remove extraneous dependencies rule suppression
+
 ## 131.0.8
 
 ### Patch Changes

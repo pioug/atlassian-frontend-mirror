@@ -24,6 +24,7 @@ import {
   OnInputChange,
   OptionIdentifier,
   User,
+  UserType,
 } from '../../../types';
 import { UserPicker } from '../../UserPicker';
 import getUserRecommendations from '../service/recommendationClient';
@@ -290,10 +291,31 @@ class SmartUserPicker extends React.Component<Props, State> {
       accountIds = [value.id];
     }
 
-    return await getUsersById({
+    let results = await getUsersById({
       productKey,
       accountIds,
     });
+
+    return this.sortResults(results, accountIds);
+  };
+
+  sortResults = (users: User[], sortIds: string[]): User[] => {
+    let sortedUsers: User[] = [];
+    const resultsMap = new Map<string, User>(
+      users.map(user => [user.id, user] as [string, User]),
+    );
+    sortIds.forEach(id => {
+      let u = resultsMap.get(id);
+      if (u === undefined) {
+        u = {
+          id: id,
+          type: UserType,
+          name: 'Unknown',
+        };
+      }
+      sortedUsers.push(u);
+    });
+    return sortedUsers;
   };
 
   getUsers = async () => {

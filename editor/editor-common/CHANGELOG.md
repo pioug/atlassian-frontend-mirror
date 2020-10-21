@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 51.1.2
+
+### Patch Changes
+
+- [`ac54a7870c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac54a7870c) - Remove extraneous dependencies rule suppression
+
 ## 51.1.1
 
 ### Patch Changes

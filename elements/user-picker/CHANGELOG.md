@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 6.8.0
+
+### Minor Changes
+
+- [`57ef50f4d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57ef50f4d4) - Retain requested order for defaultValue hydration.
+  Hydrate an "Unknown" user if no result from hydration.
+  Converted example to a function component.
+
 ## 6.7.2
 
 ### Patch Changes

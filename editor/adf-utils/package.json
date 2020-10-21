@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^13.0.0",
+    "@atlaskit/editor-json-transformer": "^8.4.1",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

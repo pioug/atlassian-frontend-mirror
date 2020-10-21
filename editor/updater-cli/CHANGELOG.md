@@ -1,5 +1,19 @@
 # @atlaskit/updater-cli
 
+## 2.0.12
+
+### Patch Changes
+
+- [`c709b5e800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c709b5e800) - Fixing Denial Of Service (DoS) vulnerability found in node-fetch - bump node fetch 2.6.1.
+
+  - Bump `node-fetch` to 2.6.1 - we were already resolving to 2.6.0
+  - Run `yarn-deduplicate --packages node-fetch` in all 4 yarn.lock
+  - Bump `cross-fetch` to 3.0.6 that has the latest version of `node-fetch`
+  - Run `yarn-deduplicate --packages cross-fetch`
+  - Bump `jest-fetch-mock` to 3.0.3 that has the latest version of node-fetch
+
+  Unfortunately due to styled-components bring `fbjs` and an old version of `node-fetch` we had to force the resolutions in lot of places.
+
 ## 2.0.11
 
 ### Patch Changes

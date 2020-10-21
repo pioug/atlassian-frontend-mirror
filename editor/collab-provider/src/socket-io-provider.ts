@@ -1,6 +1,5 @@
 import { Provider } from './provider';
 import io from 'socket.io-client';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import urlParse from 'url-parse';
 import { Socket, Config } from './types';
 

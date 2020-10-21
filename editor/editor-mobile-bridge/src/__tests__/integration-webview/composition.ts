@@ -90,6 +90,8 @@ MobileTestCase(
     // Samsung keyboards don't auto complete
     skipKeyboard: ['samsung'],
     skipFormFactor: ['tablet'],
+    // Android 11 isn't working
+    skipVersion: [{ platform: 'android', version: '11' }],
   },
   async (client: any, testName: string) => {
     const page = await Page.create(client);

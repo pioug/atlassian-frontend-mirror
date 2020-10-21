@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { EventEmitter2 } from 'eventemitter2';
 import {
   EventHandler,

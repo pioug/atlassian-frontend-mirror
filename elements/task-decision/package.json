@@ -54,7 +54,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "fetch-mock": "^8.0.0",
-    "jest-fetch-mock": "^2.1.2",
+    "jest-fetch-mock": "^3.0.3",
     "react": "^16.8.0",
     "rxjs": "^5.5.0",
     "sinon": "^2.2.0",

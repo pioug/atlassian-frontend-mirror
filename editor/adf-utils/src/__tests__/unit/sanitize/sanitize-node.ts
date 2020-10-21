@@ -1,6 +1,5 @@
 import { name } from '../../../version.json';
 import { sanitizeNode } from '../../../sanitize/sanitize-node';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { doc, p, strong, emoji, br } from '../../../builders';
 

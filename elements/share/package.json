@@ -56,7 +56,7 @@
     "@atlaskit/util-data-test": "^14.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "jest-fetch-mock": "^2.1.2",
+    "jest-fetch-mock": "^3.0.3",
     "react": "^16.8.0",
     "react-intl": "^2.6.0",
     "typescript": "3.9.6"

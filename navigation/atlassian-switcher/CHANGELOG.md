@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.5.5
+
+### Patch Changes
+
+- [`bc52618a88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc52618a88) - [ux] EXPO-274: Add Git Tools link to Discover more section of AppSwitcher
+
 ## 8.5.4
 
 ### Patch Changes

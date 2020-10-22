@@ -393,7 +393,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                       role="button"
                                       shouldAllowMultiline={false}
                                     >
-                                      <styled.a
+                                      <Item
                                         aria-disabled={false}
                                         autoFocus={false}
                                         createAnalyticsEvent={[Function]}
@@ -426,10 +426,10 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                           role="button"
                                           tabIndex={null}
                                         >
-                                          <Styled(styled.span)
+                                          <ItemParts__Before
                                             isCompact={false}
                                           >
-                                            <styled.span
+                                            <ItemParts__BeforeAfterBase
                                               className="c4"
                                               isCompact={false}
                                             >
@@ -484,13 +484,13 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                   </styled.div>
                                                 </Component>
                                               </span>
-                                            </styled.span>
-                                          </Styled(styled.span)>
-                                          <styled.span>
+                                            </ItemParts__BeforeAfterBase>
+                                          </ItemParts__Before>
+                                          <ItemParts__ContentWrapper>
                                             <span
                                               className="c8"
                                             >
-                                              <styled.span
+                                              <ItemParts__Content
                                                 allowMultiline={false}
                                               >
                                                 <span
@@ -498,11 +498,11 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                 >
                                                   Administration
                                                 </span>
-                                              </styled.span>
+                                              </ItemParts__Content>
                                             </span>
-                                          </styled.span>
+                                          </ItemParts__ContentWrapper>
                                         </a>
-                                      </styled.a>
+                                      </Item>
                                     </Item>
                                   </div>
                                 </styled.div>
@@ -1449,7 +1449,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                       role="button"
                                       shouldAllowMultiline={false}
                                     >
-                                      <styled.a
+                                      <Item
                                         aria-disabled={false}
                                         autoFocus={false}
                                         createAnalyticsEvent={[Function]}
@@ -1482,10 +1482,10 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                           role="button"
                                           tabIndex={null}
                                         >
-                                          <Styled(styled.span)
+                                          <ItemParts__Before
                                             isCompact={false}
                                           >
-                                            <styled.span
+                                            <ItemParts__BeforeAfterBase
                                               className="c6"
                                               isCompact={false}
                                             >
@@ -1540,13 +1540,13 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                   </styled.div>
                                                 </Component>
                                               </span>
-                                            </styled.span>
-                                          </Styled(styled.span)>
-                                          <styled.span>
+                                            </ItemParts__BeforeAfterBase>
+                                          </ItemParts__Before>
+                                          <ItemParts__ContentWrapper>
                                             <span
                                               className="c10"
                                             >
-                                              <styled.span
+                                              <ItemParts__Content
                                                 allowMultiline={false}
                                               >
                                                 <span
@@ -1554,11 +1554,11 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                 >
                                                   Administration
                                                 </span>
-                                              </styled.span>
+                                              </ItemParts__Content>
                                             </span>
-                                          </styled.span>
+                                          </ItemParts__ContentWrapper>
                                         </a>
-                                      </styled.a>
+                                      </Item>
                                     </Item>
                                   </div>
                                 </styled.div>
@@ -1918,7 +1918,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                       role="button"
                                       shouldAllowMultiline={false}
                                     >
-                                      <styled.a
+                                      <Item
                                         aria-disabled={false}
                                         autoFocus={false}
                                         createAnalyticsEvent={[Function]}
@@ -1951,10 +1951,10 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                           role="button"
                                           tabIndex={null}
                                         >
-                                          <Styled(styled.span)
+                                          <ItemParts__Before
                                             isCompact={false}
                                           >
-                                            <styled.span
+                                            <ItemParts__BeforeAfterBase
                                               className="c3"
                                               isCompact={false}
                                             >
@@ -2009,13 +2009,13 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                   </styled.div>
                                                 </Component>
                                               </span>
-                                            </styled.span>
-                                          </Styled(styled.span)>
-                                          <styled.span>
+                                            </ItemParts__BeforeAfterBase>
+                                          </ItemParts__Before>
+                                          <ItemParts__ContentWrapper>
                                             <span
                                               className="c7"
                                             >
-                                              <styled.span
+                                              <ItemParts__Content
                                                 allowMultiline={false}
                                               >
                                                 <span
@@ -2023,11 +2023,11 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                 >
                                                   Administration
                                                 </span>
-                                              </styled.span>
+                                              </ItemParts__Content>
                                             </span>
-                                          </styled.span>
+                                          </ItemParts__ContentWrapper>
                                         </a>
-                                      </styled.a>
+                                      </Item>
                                     </Item>
                                   </div>
                                 </styled.div>
@@ -2922,7 +2922,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                       role="button"
                                       shouldAllowMultiline={false}
                                     >
-                                      <styled.a
+                                      <Item
                                         aria-disabled={false}
                                         autoFocus={false}
                                         createAnalyticsEvent={[Function]}
@@ -2955,10 +2955,10 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                           role="button"
                                           tabIndex={null}
                                         >
-                                          <Styled(styled.span)
+                                          <ItemParts__Before
                                             isCompact={false}
                                           >
-                                            <styled.span
+                                            <ItemParts__BeforeAfterBase
                                               className="c5"
                                               isCompact={false}
                                             >
@@ -3013,13 +3013,13 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                   </styled.div>
                                                 </Component>
                                               </span>
-                                            </styled.span>
-                                          </Styled(styled.span)>
-                                          <styled.span>
+                                            </ItemParts__BeforeAfterBase>
+                                          </ItemParts__Before>
+                                          <ItemParts__ContentWrapper>
                                             <span
                                               className="c9"
                                             >
-                                              <styled.span
+                                              <ItemParts__Content
                                                 allowMultiline={false}
                                               >
                                                 <span
@@ -3027,11 +3027,11 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                 >
                                                   Administration
                                                 </span>
-                                              </styled.span>
+                                              </ItemParts__Content>
                                             </span>
-                                          </styled.span>
+                                          </ItemParts__ContentWrapper>
                                         </a>
-                                      </styled.a>
+                                      </Item>
                                     </Item>
                                   </div>
                                 </styled.div>

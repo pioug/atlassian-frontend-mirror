@@ -19,6 +19,8 @@ export function useStateFromPromise<S>(
   deps: React.DependencyList,
   initialValue?: S,
 ): [S | undefined, React.Dispatch<React.SetStateAction<S | undefined>>] {
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fn = useCallback(callback, deps);
   const [value, setValue] = useState<S | undefined>(initialValue);
 

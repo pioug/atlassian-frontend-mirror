@@ -74,6 +74,8 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
   // Storing a couple of width + items count in order to stabilize
   const hashRef = useRef<string[]>([]);
 
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttleSetWidth = useCallback(throttle(setWidth, THROTTLE_INTERVAL), [
     setWidth,
   ]);

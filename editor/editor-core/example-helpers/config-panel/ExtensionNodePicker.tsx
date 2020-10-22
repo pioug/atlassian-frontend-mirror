@@ -33,6 +33,8 @@ export default function ExtensionNodePicker({
 }) {
   const [hasSelection, setHasSelection] = useState<boolean>(false);
 
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const [extensions] = useStateFromPromise(extensionProvider.getExtensions, [
     extensionProvider,
   ]);

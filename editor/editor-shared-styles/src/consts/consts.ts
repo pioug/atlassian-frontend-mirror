@@ -145,4 +145,4 @@ export const VIEWPORT_SIZES = {
 };
 
 // to be updated in ED-10790: this should be variable threshold based on how many buttons enabled on main toolbar
-export const akEditorMobileMaxWidth = VIEWPORT_SIZES.mobileM.width;
+export const akEditorMobileMaxWidth = 0;

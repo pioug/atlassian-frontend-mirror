@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 131.0.10
+
+### Patch Changes
+
+- [`34674fa4cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34674fa4cd) - [ux] ED-10780 removed the threshold that enabled responsive changes
+
 ## 131.0.9
 
 ### Patch Changes

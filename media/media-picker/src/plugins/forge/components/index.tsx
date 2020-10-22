@@ -27,6 +27,8 @@ export const ForgeView = ({
   const [error, setError] = useState<Error>();
   const [items, setItems] = useState<JsonLd.Collection>(JsonLdCollectionEmpty);
 
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onUpdateItems = useCallback(
     debounce(async (query: string, folderId?: string) => {
       try {

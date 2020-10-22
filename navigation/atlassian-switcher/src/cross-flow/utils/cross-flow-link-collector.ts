@@ -9,6 +9,7 @@ import {
   Product,
   ProviderResults,
   SyntheticProviderResults,
+  RecommendationsFeatureFlags,
 } from '../../types';
 
 export function collectDiscoverSectionLinks(
@@ -17,6 +18,7 @@ export function collectDiscoverSectionLinks(
   isDiscoverMoreForEveryoneEnabled: boolean,
   isEmceeLinkEnabled: boolean,
   product?: Product,
+  recommendationsFeatureFlags?: RecommendationsFeatureFlags,
 ) {
   const canManagePermission =
     !isError(managePermission) &&
@@ -35,6 +37,7 @@ export function collectDiscoverSectionLinks(
     product,
     canManagePermission,
     canAddProducts,
+    recommendationsFeatureFlags,
   });
 }
 

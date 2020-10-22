@@ -169,6 +169,8 @@ export const HelpContextProvider: React.FC<
     REQUEST_STATE.done,
   );
 
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedDoSearch = useCallback(
     debounce(async (value: string = '') => {
       const { onSearch } = props;

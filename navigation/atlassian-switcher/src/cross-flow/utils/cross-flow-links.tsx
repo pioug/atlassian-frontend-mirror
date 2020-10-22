@@ -4,12 +4,14 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 import { createIcon } from '../../common/utils/icon-themes';
 import messages from '../../common/utils/messages';
 import DiscoverFilledGlyph from '@atlaskit/icon/glyph/discover-filled';
+import CodeIcon from '@atlaskit/icon/glyph/code';
 import {
   Product,
   ProvisionedProducts,
   RecommendationsEngineResponse,
   JoinableSite,
   SwitcherProductType,
+  RecommendationsFeatureFlags,
 } from '../../types';
 import {
   AVAILABLE_PRODUCT_DATA_MAP,
@@ -19,6 +21,7 @@ import {
   getEmceeLink,
 } from '../../common/utils/links';
 import { mapLegacyProductTypeToSwitcherType } from '../../common/utils/map-to-switcher-props-with-mystique-ff';
+import { SHOW_GIT_TOOLS_KEY } from '../providers/recommendations/constants';
 
 export const getFixedProductLinks = (params: {
   isDiscoverMoreForEveryoneEnabled: boolean;
@@ -39,18 +42,31 @@ const getDiscoverMoreLink = (
   };
 };
 
+const getGitToolsLink = (): SwitcherItemType => {
+  const icon = CodeIcon;
+  return {
+    key: SHOW_GIT_TOOLS_KEY,
+    label: <FormattedMessage {...messages.gitToolsLabel} />,
+    description: <FormattedMessage {...messages.gitToolsDescription} />,
+    Icon: createIcon(icon, { size: 'medium' }),
+    href: '',
+  };
+};
+
 export function getDiscoverSectionLinks({
   isDiscoverMoreForEveryoneEnabled,
   isEmceeLinkEnabled,
   product,
   canManagePermission,
   canAddProducts,
+  recommendationsFeatureFlags,
 }: {
   isDiscoverMoreForEveryoneEnabled: boolean;
   isEmceeLinkEnabled: boolean;
   product?: Product;
   canManagePermission: boolean;
   canAddProducts: boolean;
+  recommendationsFeatureFlags?: RecommendationsFeatureFlags;
 }) {
   const discoverLinks: SwitcherItemType[] = [];
   const discoverMoreLink =
@@ -61,6 +77,15 @@ export function getDiscoverSectionLinks({
     (canManagePermission || canAddProducts) &&
     isEmceeLinkEnabled &&
     getEmceeLink(product);
+
+  const gitToolsLink =
+    recommendationsFeatureFlags &&
+    recommendationsFeatureFlags[SHOW_GIT_TOOLS_KEY] &&
+    getGitToolsLink();
+
+  if (gitToolsLink) {
+    discoverLinks.push(gitToolsLink);
+  }
 
   if (discoverMoreLink) {
     discoverLinks.push(discoverMoreLink);

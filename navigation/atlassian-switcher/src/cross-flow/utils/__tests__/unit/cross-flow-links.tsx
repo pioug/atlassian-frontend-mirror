@@ -1,15 +1,19 @@
 import {
   getFixedProductLinks,
   getSuggestedProductLink,
+  getDiscoverSectionLinks,
 } from '../../cross-flow-links';
 import {
   ProvisionedProducts,
   ProductKey,
   SwitcherProductType,
   JoinableSite,
+  Product,
 } from '../../../../types';
 
 import { resolveRecommendations } from '../../../../cross-flow/providers/recommendations';
+import { SHOW_GIT_TOOLS_KEY } from '../../../../cross-flow/providers/recommendations/constants';
+
 import mockJoinableSites from '../../../../../test-helpers/mockJoinableSites';
 
 const generateProvisionedProducts = (
@@ -202,6 +206,42 @@ describe('cross-flow-links', () => {
       expect(
         result.filter(product => product.key === ProductKey.OPSGENIE),
       ).toHaveLength(1);
+    });
+  });
+
+  describe('getDiscoverSectionLinks', () => {
+    it('should return git tools link', () => {
+      const result = getDiscoverSectionLinks({
+        isDiscoverMoreForEveryoneEnabled: true,
+        isEmceeLinkEnabled: true,
+        product: Product.BITBUCKET,
+        canManagePermission: true,
+        canAddProducts: true,
+        recommendationsFeatureFlags: {
+          [SHOW_GIT_TOOLS_KEY]: true,
+        },
+      });
+
+      expect(
+        result.filter(link => link.key === SHOW_GIT_TOOLS_KEY),
+      ).toHaveLength(1);
+    });
+
+    it('should not return git tools link', () => {
+      const result = getDiscoverSectionLinks({
+        isDiscoverMoreForEveryoneEnabled: true,
+        isEmceeLinkEnabled: true,
+        product: Product.BITBUCKET,
+        canManagePermission: true,
+        canAddProducts: true,
+        recommendationsFeatureFlags: {
+          [SHOW_GIT_TOOLS_KEY]: false,
+        },
+      });
+
+      expect(
+        result.filter(link => link.key === SHOW_GIT_TOOLS_KEY),
+      ).toHaveLength(0);
     });
   });
 });

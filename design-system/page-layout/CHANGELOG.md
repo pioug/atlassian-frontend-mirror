@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.8
+
+### Patch Changes
+
+- [`1757dec0ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1757dec0ee) - [ux] Fixed bug where skip link menu was moving on scroll. Skip link menu is now using fixed positioning instead of absolute
+
 ## 0.10.7
 
 ### Patch Changes

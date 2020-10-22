@@ -59,6 +59,8 @@ export function useAnalyticsHandler(
 export function useCreateAnalyticsHandler(
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) {
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return React.useCallback(fireAnalyticsEvent(createAnalyticsEvent), [
     createAnalyticsEvent,
   ]);

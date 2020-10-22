@@ -17,6 +17,7 @@ import {
   Product,
   ProviderResults,
   SyntheticProviderResults,
+  RecommendationsFeatureFlags,
 } from '../../types';
 import { createCollector } from './create-collector';
 import { collectAdminLinks } from '../../admin/utils/admin-link-collector';
@@ -180,6 +181,7 @@ export function mapResultsToSwitcherProps(
   features: FeatureMap,
   product?: Product,
   adminUrl?: string,
+  recommendationsFeatureFlags?: RecommendationsFeatureFlags,
 ) {
   const collect = createCollector();
 
@@ -281,6 +283,7 @@ export function mapResultsToSwitcherProps(
             features.isDiscoverMoreForEveryoneEnabled,
             features.isEmceeLinkEnabled,
             product,
+            recommendationsFeatureFlags,
           ),
           [],
         )

@@ -56,7 +56,7 @@
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "redux": "^3.7.2",
-    "storybook-addon-performance": "0.12.0",
+    "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6"
   },
   "techstack": {

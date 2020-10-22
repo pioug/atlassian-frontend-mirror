@@ -5,6 +5,21 @@
   <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <style>
+    /*
+      ED-10813: Temporary disablement of heading link buttons (copy link to clipboard)
+      until the full UX flow is supported on mobile.
+
+      Confluence enables the `?allowHeadingAnchorLinks=true` to support scrolling to headings
+      nested inside an expand node, but this feature flag also opts into displaying the new
+      copy link UI/UX which isn't functional on mobile yet.
+      
+      For now we remove it from the DOM via CSS to avoid impact to customers.
+    */
+    .heading-anchor-wrapper {
+      display: none !important;
+    }
+  </style>
+  <style>
     /**
     * From @atlaskit/css-reset
     */

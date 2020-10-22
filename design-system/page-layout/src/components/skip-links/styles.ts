@@ -6,7 +6,7 @@ import { N30A, N60A } from '@atlaskit/theme/colors';
 export const skipLinkStyles: CSSObject = {
   zIndex: -1,
   left: -999999,
-  position: 'absolute',
+  position: 'fixed',
   opacity: 0,
 
   background: 'white',

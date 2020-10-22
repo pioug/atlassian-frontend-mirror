@@ -371,7 +371,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                       </span>
                                     }
                                   >
-                                    <styled.a
+                                    <Item
                                       aria-disabled={false}
                                       autoFocus={false}
                                       createAnalyticsEvent={[Function]}
@@ -410,10 +410,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                         role="button"
                                         tabIndex={null}
                                       >
-                                        <Styled(styled.span)
+                                        <ItemParts__Before
                                           isCompact={false}
                                         >
-                                          <styled.span
+                                          <ItemParts__BeforeAfterBase
                                             className="c5"
                                             isCompact={false}
                                           >
@@ -504,13 +504,13 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                                 </styled.div>
                                               </Component>
                                             </span>
-                                          </styled.span>
-                                        </Styled(styled.span)>
-                                        <styled.span>
+                                          </ItemParts__BeforeAfterBase>
+                                        </ItemParts__Before>
+                                        <ItemParts__ContentWrapper>
                                           <span
                                             className="c9"
                                           >
-                                            <styled.span
+                                            <ItemParts__Content
                                               allowMultiline={false}
                                             >
                                               <span
@@ -518,11 +518,11 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                                               >
                                                 Bitbucket
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__Content>
                                           </span>
-                                        </styled.span>
+                                        </ItemParts__ContentWrapper>
                                       </a>
-                                    </styled.a>
+                                    </Item>
                                   </Item>
                                 </div>
                               </styled.div>
@@ -1071,7 +1071,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                       </span>
                                     }
                                   >
-                                    <styled.a
+                                    <Item
                                       aria-disabled={false}
                                       autoFocus={false}
                                       createAnalyticsEvent={[Function]}
@@ -1110,10 +1110,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                         role="button"
                                         tabIndex={null}
                                       >
-                                        <Styled(styled.span)
+                                        <ItemParts__Before
                                           isCompact={false}
                                         >
-                                          <styled.span
+                                          <ItemParts__BeforeAfterBase
                                             className="c5"
                                             isCompact={false}
                                           >
@@ -1214,13 +1214,13 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                 </styled.div>
                                               </Component>
                                             </span>
-                                          </styled.span>
-                                        </Styled(styled.span)>
-                                        <styled.span>
+                                          </ItemParts__BeforeAfterBase>
+                                        </ItemParts__Before>
+                                        <ItemParts__ContentWrapper>
                                           <span
                                             className="c9"
                                           >
-                                            <styled.span
+                                            <ItemParts__Content
                                               allowMultiline={false}
                                             >
                                               <span
@@ -1228,8 +1228,8 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                               >
                                                 Jira Software
                                               </span>
-                                            </styled.span>
-                                            <styled.span
+                                            </ItemParts__Content>
+                                            <ItemParts__Description
                                               isCompact={false}
                                               isDisabled={false}
                                             >
@@ -1238,11 +1238,11 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                               >
                                                 some-instance
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__Description>
                                           </span>
-                                        </styled.span>
+                                        </ItemParts__ContentWrapper>
                                       </a>
-                                    </styled.a>
+                                    </Item>
                                   </Item>
                                 </div>
                               </styled.div>
@@ -1379,7 +1379,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                         role="button"
                                         shouldAllowMultiline={false}
                                       >
-                                        <styled.span
+                                        <Item
                                           aria-disabled={false}
                                           autoFocus={false}
                                           data-test-id="switcher-expand-toggle"
@@ -1413,10 +1413,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                             role="button"
                                             tabIndex={0}
                                           >
-                                            <Styled(styled.span)
+                                            <ItemParts__Before
                                               isCompact={false}
                                             >
-                                              <styled.span
+                                              <ItemParts__BeforeAfterBase
                                                 className="c5"
                                                 isCompact={false}
                                               >
@@ -1459,23 +1459,23 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                     </div>
                                                   </styled.div>
                                                 </span>
-                                              </styled.span>
-                                            </Styled(styled.span)>
-                                            <styled.span>
+                                              </ItemParts__BeforeAfterBase>
+                                            </ItemParts__Before>
+                                            <ItemParts__ContentWrapper>
                                               <span
                                                 className="c9"
                                               >
-                                                <styled.span
+                                                <ItemParts__Content
                                                   allowMultiline={false}
                                                 >
                                                   <span
                                                     className="c10"
                                                   />
-                                                </styled.span>
+                                                </ItemParts__Content>
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__ContentWrapper>
                                           </span>
-                                        </styled.span>
+                                        </Item>
                                       </Item>
                                     </div>
                                   </styled.div>
@@ -2026,7 +2026,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                       </span>
                                     }
                                   >
-                                    <styled.a
+                                    <Item
                                       aria-disabled={false}
                                       autoFocus={false}
                                       createAnalyticsEvent={[Function]}
@@ -2065,10 +2065,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                         role="button"
                                         tabIndex={null}
                                       >
-                                        <Styled(styled.span)
+                                        <ItemParts__Before
                                           isCompact={false}
                                         >
-                                          <styled.span
+                                          <ItemParts__BeforeAfterBase
                                             className="c5"
                                             isCompact={false}
                                           >
@@ -2169,13 +2169,13 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                 </styled.div>
                                               </Component>
                                             </span>
-                                          </styled.span>
-                                        </Styled(styled.span)>
-                                        <styled.span>
+                                          </ItemParts__BeforeAfterBase>
+                                        </ItemParts__Before>
+                                        <ItemParts__ContentWrapper>
                                           <span
                                             className="c9"
                                           >
-                                            <styled.span
+                                            <ItemParts__Content
                                               allowMultiline={false}
                                             >
                                               <span
@@ -2183,8 +2183,8 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                               >
                                                 Jira Software
                                               </span>
-                                            </styled.span>
-                                            <styled.span
+                                            </ItemParts__Content>
+                                            <ItemParts__Description
                                               isCompact={false}
                                               isDisabled={false}
                                             >
@@ -2193,11 +2193,11 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                               >
                                                 some-instance
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__Description>
                                           </span>
-                                        </styled.span>
+                                        </ItemParts__ContentWrapper>
                                       </a>
-                                    </styled.a>
+                                    </Item>
                                   </Item>
                                 </div>
                               </styled.div>
@@ -2334,7 +2334,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                         role="button"
                                         shouldAllowMultiline={false}
                                       >
-                                        <styled.span
+                                        <Item
                                           aria-disabled={false}
                                           autoFocus={false}
                                           data-test-id="switcher-expand-toggle"
@@ -2368,10 +2368,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                             role="button"
                                             tabIndex={0}
                                           >
-                                            <Styled(styled.span)
+                                            <ItemParts__Before
                                               isCompact={false}
                                             >
-                                              <styled.span
+                                              <ItemParts__BeforeAfterBase
                                                 className="c5"
                                                 isCompact={false}
                                               >
@@ -2414,23 +2414,23 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                     </div>
                                                   </styled.div>
                                                 </span>
-                                              </styled.span>
-                                            </Styled(styled.span)>
-                                            <styled.span>
+                                              </ItemParts__BeforeAfterBase>
+                                            </ItemParts__Before>
+                                            <ItemParts__ContentWrapper>
                                               <span
                                                 className="c9"
                                               >
-                                                <styled.span
+                                                <ItemParts__Content
                                                   allowMultiline={false}
                                                 >
                                                   <span
                                                     className="c10"
                                                   />
-                                                </styled.span>
+                                                </ItemParts__Content>
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__ContentWrapper>
                                           </span>
-                                        </styled.span>
+                                        </Item>
                                       </Item>
                                     </div>
                                   </styled.div>
@@ -2981,7 +2981,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                       </span>
                                     }
                                   >
-                                    <styled.a
+                                    <Item
                                       aria-disabled={false}
                                       autoFocus={false}
                                       createAnalyticsEvent={[Function]}
@@ -3020,10 +3020,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                         role="button"
                                         tabIndex={null}
                                       >
-                                        <Styled(styled.span)
+                                        <ItemParts__Before
                                           isCompact={false}
                                         >
-                                          <styled.span
+                                          <ItemParts__BeforeAfterBase
                                             className="c5"
                                             isCompact={false}
                                           >
@@ -3124,13 +3124,13 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                 </styled.div>
                                               </Component>
                                             </span>
-                                          </styled.span>
-                                        </Styled(styled.span)>
-                                        <styled.span>
+                                          </ItemParts__BeforeAfterBase>
+                                        </ItemParts__Before>
+                                        <ItemParts__ContentWrapper>
                                           <span
                                             className="c9"
                                           >
-                                            <styled.span
+                                            <ItemParts__Content
                                               allowMultiline={false}
                                             >
                                               <span
@@ -3138,8 +3138,8 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                               >
                                                 Jira Software
                                               </span>
-                                            </styled.span>
-                                            <styled.span
+                                            </ItemParts__Content>
+                                            <ItemParts__Description
                                               isCompact={false}
                                               isDisabled={false}
                                             >
@@ -3148,11 +3148,11 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                               >
                                                 some-instance
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__Description>
                                           </span>
-                                        </styled.span>
+                                        </ItemParts__ContentWrapper>
                                       </a>
-                                    </styled.a>
+                                    </Item>
                                   </Item>
                                 </div>
                               </styled.div>
@@ -3289,7 +3289,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                         role="button"
                                         shouldAllowMultiline={false}
                                       >
-                                        <styled.span
+                                        <Item
                                           aria-disabled={false}
                                           autoFocus={false}
                                           data-test-id="switcher-expand-toggle"
@@ -3323,10 +3323,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                             role="button"
                                             tabIndex={0}
                                           >
-                                            <Styled(styled.span)
+                                            <ItemParts__Before
                                               isCompact={false}
                                             >
-                                              <styled.span
+                                              <ItemParts__BeforeAfterBase
                                                 className="c5"
                                                 isCompact={false}
                                               >
@@ -3369,23 +3369,23 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                     </div>
                                                   </styled.div>
                                                 </span>
-                                              </styled.span>
-                                            </Styled(styled.span)>
-                                            <styled.span>
+                                              </ItemParts__BeforeAfterBase>
+                                            </ItemParts__Before>
+                                            <ItemParts__ContentWrapper>
                                               <span
                                                 className="c9"
                                               >
-                                                <styled.span
+                                                <ItemParts__Content
                                                   allowMultiline={false}
                                                 >
                                                   <span
                                                     className="c10"
                                                   />
-                                                </styled.span>
+                                                </ItemParts__Content>
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__ContentWrapper>
                                           </span>
-                                        </styled.span>
+                                        </Item>
                                       </Item>
                                     </div>
                                   </styled.div>
@@ -3779,7 +3779,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                       </span>
                                     }
                                   >
-                                    <styled.a
+                                    <Item
                                       aria-disabled={false}
                                       autoFocus={false}
                                       createAnalyticsEvent={[Function]}
@@ -3818,10 +3818,10 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                         role="button"
                                         tabIndex={null}
                                       >
-                                        <Styled(styled.span)
+                                        <ItemParts__Before
                                           isCompact={false}
                                         >
-                                          <styled.span
+                                          <ItemParts__BeforeAfterBase
                                             className="c5"
                                             isCompact={false}
                                           >
@@ -3950,13 +3950,13 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                                 </styled.div>
                                               </Component>
                                             </span>
-                                          </styled.span>
-                                        </Styled(styled.span)>
-                                        <styled.span>
+                                          </ItemParts__BeforeAfterBase>
+                                        </ItemParts__Before>
+                                        <ItemParts__ContentWrapper>
                                           <span
                                             className="c9"
                                           >
-                                            <styled.span
+                                            <ItemParts__Content
                                               allowMultiline={false}
                                             >
                                               <span
@@ -3964,11 +3964,11 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                                               >
                                                 Opsgenie
                                               </span>
-                                            </styled.span>
+                                            </ItemParts__Content>
                                           </span>
-                                        </styled.span>
+                                        </ItemParts__ContentWrapper>
                                       </a>
-                                    </styled.a>
+                                    </Item>
                                   </Item>
                                 </div>
                               </styled.div>

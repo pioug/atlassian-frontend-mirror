@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import messages from '../../common/utils/messages';
 import {
   Section,
@@ -65,8 +66,13 @@ export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = props 
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme="discover" />}
             href={item.href}
+            description={item.description}
             onClick={
-              item.key === 'discover-more' ? onDiscoverMoreClicked : noop
+              item.href
+                ? noop
+                : (event: any, analyticsEvent: UIAnalyticsEvent) => {
+                    onDiscoverMoreClicked(event, analyticsEvent, item.key);
+                  }
             }
           >
             {item.label}

@@ -257,6 +257,18 @@ const messages = defineMessages({
     description:
       'Text in the button used to dismiss the Trello has new friends banner.',
   },
+  gitToolsLabel: {
+    id: 'fabric.atlassianSwitcher.gittools.label',
+    defaultMessage: 'Git integrations for Jira',
+    description:
+      'The text of a link redirecting the user to Git integrations benefits page',
+  },
+  gitToolsDescription: {
+    id: 'fabric.atlassianSwitcher.gittools.description',
+    defaultMessage: 'Bitbucket, Github, and more',
+    description:
+      'The description of a link redirecting the user to Git integrations benefits page',
+  },
 });
 
 export const SwitchToTooltipText = (

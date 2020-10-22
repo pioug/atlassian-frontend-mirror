@@ -15,7 +15,7 @@ export interface TriggerXFlowCallback {
   ): void;
 }
 export interface DiscoverMoreCallback {
-  (event: any, analyticsEvent: UIAnalyticsEvent): void;
+  (event: any, analyticsEvent: UIAnalyticsEvent, key?: string): void;
 }
 
 export interface WithCloudId {

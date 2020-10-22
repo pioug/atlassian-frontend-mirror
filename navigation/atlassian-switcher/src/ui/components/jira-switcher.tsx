@@ -73,6 +73,8 @@ export default (props: JiraSwitcherProps) => (
                     },
                     props.features,
                     Product.JIRA,
+                    undefined,
+                    props.recommendationsFeatureFlags,
                   );
 
                   return (

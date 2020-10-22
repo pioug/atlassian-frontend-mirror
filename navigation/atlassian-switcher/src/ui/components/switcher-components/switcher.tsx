@@ -112,9 +112,13 @@ export default class Switcher extends React.Component<SwitcherProps> {
    *  href is not valid for this case the item will instead call the onClick callback provided.
    *  */
 
-  onDiscoverMoreClicked = (event: any, analyticsEvent: UIAnalyticsEvent) => {
+  onDiscoverMoreClicked = (
+    event: any,
+    analyticsEvent: UIAnalyticsEvent,
+    key?: string,
+  ) => {
     const { onDiscoverMoreClicked } = this.props;
-    onDiscoverMoreClicked(event, analyticsEvent);
+    onDiscoverMoreClicked(event, analyticsEvent, key);
   };
 
   render() {

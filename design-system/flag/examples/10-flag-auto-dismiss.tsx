@@ -38,6 +38,8 @@ const AutoDismissExample = () => {
     setFlags(flags.slice(1));
   };
 
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(addFlag, []);
 
   return (

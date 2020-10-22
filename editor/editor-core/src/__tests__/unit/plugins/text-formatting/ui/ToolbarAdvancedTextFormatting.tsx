@@ -112,7 +112,7 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     toolbarOption.unmount();
   });
 
-  it('should have 8 items for mobile view', () => {
+  it('should have 6 items for mobile view', () => {
     const { editorView, pluginState } = editor(doc(p('text')));
     const clearFormattingState = clearFormattingPluginKey.getState(
       editorView.state,
@@ -129,7 +129,7 @@ describe('@atlaskit/editor-core/ui/ToolbarAdvancedTextFormatting', () => {
     );
     toolbarOption.find('button').simulate('click');
     const items = toolbarOption.find(DropList).find(Item);
-    expect(items.length).toEqual(8);
+    expect(items.length).toEqual(6);
     toolbarOption.unmount();
   });
 

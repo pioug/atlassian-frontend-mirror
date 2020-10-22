@@ -1,5 +1,29 @@
 # @atlaskit/editor-mobile-bridge
 
+## 19.0.14
+
+### Patch Changes
+
+- [`a2092945b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2092945b1) - [ux] ED-10813 Disable heading link buttons (copy link to clipboard) on mobile.
+
+  Nested header links is enabled using the `allowHeadingAnchorLinks` editor prop. This prop is overloaded because it also opts into using the new UI/UX for the copy link button.
+
+  On mobile this is controled via a url query string `?allowHeadingAnchorLinks=true` which maps to the matching editor prop.
+
+  > This feature is only used by Confluence.
+
+  Previous mobile releases had heading anchor links disabled because the ability to scroll to a heading wasn't coupled to displaying the copy link button.
+
+  Unfortunately it's now linked, but the copy link button UX isn't fully functional on mobile yet.
+
+  This change hides the copy link button on mobile to effectively decouple the features despite sharing the same feature flag.
+
+## 19.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.12
 
 ### Patch Changes

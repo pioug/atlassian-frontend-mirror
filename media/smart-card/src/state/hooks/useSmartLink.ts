@@ -26,6 +26,8 @@ export function useSmartLink(
       }),
     );
   };
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(register, [url]);
 
   // Provide the state and card actions to consumers.

@@ -69,6 +69,8 @@ export function MobileEditor(props: MobileEditorProps) {
   const taskDecisionProvider = useTaskAndDecision();
 
   // Create the handle change only once
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChange = React.useCallback(
     throttle(
       () => {

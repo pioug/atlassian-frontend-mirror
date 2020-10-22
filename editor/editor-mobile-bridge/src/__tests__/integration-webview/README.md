@@ -37,15 +37,13 @@ For local testing, you can run the `test:webdriver:browserstack:mobile` script a
 - `yarn test:webdriver:browserstack:mobile packages/editor/editor-mobile-bridge/src/__tests__/integration-webview/composition.ts`
 - `yarn test:webdriver:browserstack:mobile editor-mobile-bridge`
 
-> You need to upload the app binaries into your BrowserStack account. See [Troubleshooting](#troubleshooting) to learn how to upload.
-
 ### Test Suite Efficiency
 
 **_As you can imagine, testing on handheld devices is significantly slower than testing on desktop browsers!_**
 
 Handhelds typically run slower hardware with less system resources (_particularly older devices_), and we support a wider range of devices in terms of backwards compatibility compared to desktop.
 
-> You can view the supported mobile OS versions [here](https://product-fabric.atlassian.net/wiki/spaces/MK/pages/1261182737/Tech+Stack), which is driven by our analytics OS usage statistics [here](https://analytics.amplitude.com/atlassian/dashboard/aiv9477). These change over time.
+> You can view the supported mobile OS versions [here](https://hello.atlassian.net/wiki/spaces/MOBILEKIT/pages/907164712/Tech+Stack), which is driven by our analytics OS usage statistics [here](https://analytics.amplitude.com/atlassian/dashboard/aiv9477). These change over time.
 
 A test can skip running on a device based on the platform, operating system version, form factor, or software keyboard it uses. Consult the `MobileTestCaseOptions` to learn the syntax and combinations available.
 
@@ -75,15 +73,24 @@ MobileTestCase(
 
 ### Troubleshooting
 
-> **BrowserStack automatically delete uploaded app binaries after 30 days.** > _The `upload-webdriver-webview-binaries` pipeline is automatically run every 30 days in CI._
+> **BrowserStack automatically delete uploaded app binaries after 30 days.** > _The `upload-webdriver-webview-binaries` Pipeline is automatically run every 30 days in CI so this shouldn't be a problem._
 
-If you encounter the below error, you'll need to upload (or re-upload) them into your account via the custom pipeline.
+This error indicates it couldn't find the app binaries in the provided BrowserStack account:
 
 ```
 ERROR webdriver: Request failed with status 200 due to Error:
 [BROWSERSTACK_INVALID_APP_CAP] The app_url/ custom_id/ shareable_id specified in the 'app' capability in your test script is invalid.
 Please update the 'app' capability with a valid value and try again.
 ```
+
+You you encounter this error:
+
+- In CI, then ping `!disturbed` in [#atlassian-frontend](https://atlassian.slack.com/archives/CL6HC337Z) for help.
+- Locally, you'll need to upload (or re-upload) them into your account via the custom pipeline.
+  - First double check that you haven't accidentally set a value for `BROWSERSTACK_MOBILE_USERNAME` in your bash profile.
+    - This is only for use when you're intending to alter the native application.
+
+To upload the app binaries into your account:
 
 1. Visit the [branches](https://bitbucket.org/atlassian/atlassian-frontend/branches/) page on BitBucket.
 1. Click the `...` icon in the far right to view available Actions.

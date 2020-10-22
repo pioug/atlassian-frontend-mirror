@@ -41,6 +41,8 @@ export function useAbortableEffect(
     deps,
   );
   const abort = useCallback(() => abortController.abort(), [abortController]);
+  // AFP-2511 TODO: Fix automatic suppressions below
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fn = useCallback(callback, deps);
 
   useEffect(() => {

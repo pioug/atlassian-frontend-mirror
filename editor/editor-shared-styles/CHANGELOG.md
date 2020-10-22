@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 1.1.4
+
+### Patch Changes
+
+- [`34674fa4cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34674fa4cd) - [ux] ED-10780 removed the threshold that enabled responsive changes
+
 ## 1.1.3
 
 ### Patch Changes

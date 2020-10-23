@@ -4,7 +4,7 @@ describe('Breakout SSR', () => {
   it('should create working context for inline script', () => {
     const inlineScript = `(() => {
         ${breakoutInlineScriptContext};
-        return calcBreakoutWidth("full-width", 1000);
+        return breakoutConsts.calcBreakoutWidth("full-width", 1000);
       })();`;
 
     // eslint-disable-next-line no-eval

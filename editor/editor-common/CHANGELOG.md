@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 51.1.3
+
+### Patch Changes
+
+- [`679a66bd92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/679a66bd92) - Fix for renderer SSR inline script when server side bundle is minimized
+
 ## 51.1.2
 
 ### Patch Changes

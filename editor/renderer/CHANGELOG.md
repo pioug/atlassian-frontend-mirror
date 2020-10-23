@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 67.0.3
+
+### Patch Changes
+
+- [`679a66bd92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/679a66bd92) - Fix for renderer SSR inline script when server side bundle is minimized
+
 ## 67.0.2
 
 ### Patch Changes

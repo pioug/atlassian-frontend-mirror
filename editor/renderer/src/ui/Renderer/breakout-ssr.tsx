@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  calcBreakoutWidth as exportedBreakoutWidth,
-  mapBreakpointToLayoutMaxWidth as exportedMapBreakpointToLayoutMaxWidth,
-  getBreakpoint as exportedGetBreakpoint,
-  breakoutConsts as exportedBreakoutConsts,
-  calcWideWidth,
-} from '@atlaskit/editor-common';
+import { breakoutConsts } from '@atlaskit/editor-common';
 
 /**
  * Inline Script that updates breakout node width on client side,
@@ -47,44 +41,25 @@ export function createBreakoutInlineScript(
   return `
   (function(window){
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", ${allowDynamicTextSizing});
+    (${applyBreakoutAfterSSR.toString()})("${id}", ${allowDynamicTextSizing}, breakoutConsts);
   })(window);
 `;
 }
 
-/**
- * Need a reasignment to have a cleaner variable name:
- * calcBreakoutWidth instead of ModuleName.calcBreakoutWidth,
- * etc...
- */
-const calcBreakoutWidth = exportedBreakoutWidth;
-const mapBreakpointToLayoutMaxWidth = exportedMapBreakpointToLayoutMaxWidth;
-const getBreakpoint = exportedGetBreakpoint;
-const breakoutConsts = exportedBreakoutConsts;
-
-/**
- * Creates all variables that need to be available in scope for calcBreakoutWidth.
- */
-const calcLineLength = (
-  containerWidth?: number,
-  allowDynamicTextSizing?: boolean,
-) =>
-  allowDynamicTextSizing && containerWidth
-    ? mapBreakpointToLayoutMaxWidth(getBreakpoint(containerWidth))
-    : breakoutConsts.defaultLayoutWidth;
-
 export const breakoutInlineScriptContext = `
   var breakoutConsts = ${JSON.stringify(breakoutConsts)};
-  var calcWideWidth = ${calcWideWidth.toString()};
-  var calcBreakoutWidth = ${calcBreakoutWidth.toString()};
-  var calcLineLength = ${calcLineLength.toString()};
-
-  // TODO: remove after dynamic text sizing is fully unshipped: https://product-fabric.atlassian.net/browse/ED-8942
-  var mapBreakpointToLayoutMaxWidth = ${mapBreakpointToLayoutMaxWidth.toString()};
-  var getBreakpoint = ${getBreakpoint.toString()};
+  breakoutConsts.mapBreakpointToLayoutMaxWidth = ${breakoutConsts.mapBreakpointToLayoutMaxWidth.toString()};
+  breakoutConsts.getBreakpoint = ${breakoutConsts.getBreakpoint.toString()};
+  breakoutConsts.calcBreakoutWidth = ${breakoutConsts.calcBreakoutWidth.toString()};
+  breakoutConsts.calcLineLength = ${breakoutConsts.calcLineLength.toString()};
+  breakoutConsts.calcWideWidth = ${breakoutConsts.calcWideWidth.toString()};
 `;
 
-function applyBreakoutAfterSSR(id: string, allowDynamicTextSizing: boolean) {
+function applyBreakoutAfterSSR(
+  id: string,
+  allowDynamicTextSizing: boolean,
+  breakoutConsts: any,
+) {
   function findUp(element: HTMLElement | null, selector: string) {
     if (!element) {
       return;
@@ -124,7 +99,10 @@ function applyBreakoutAfterSSR(id: string, allowDynamicTextSizing: boolean) {
             return;
           }
 
-          const width = calcBreakoutWidth(mode, renderer!.offsetWidth);
+          const width = breakoutConsts.calcBreakoutWidth(
+            mode,
+            renderer!.offsetWidth,
+          );
           if (node.style.width === width) {
             return;
           }
@@ -134,7 +112,7 @@ function applyBreakoutAfterSSR(id: string, allowDynamicTextSizing: boolean) {
           // because it breaks with sticky headers. This logic is copied from a table node:
           // https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
           if (node.classList.contains('pm-table-container')) {
-            const lineLength = calcLineLength(
+            const lineLength = breakoutConsts.calcLineLength(
               renderer!.offsetWidth,
               allowDynamicTextSizing,
             );
@@ -170,4 +148,4 @@ function applyBreakoutAfterSSR(id: string, allowDynamicTextSizing: boolean) {
   window.addEventListener('load', disconnect);
 }
 
-export { calcLineLength };
+export const calcLineLength = breakoutConsts.calcLineLength;

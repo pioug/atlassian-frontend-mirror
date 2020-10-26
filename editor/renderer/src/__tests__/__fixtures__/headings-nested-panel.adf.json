@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "rule"
+    },
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 4
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Panel Heading"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

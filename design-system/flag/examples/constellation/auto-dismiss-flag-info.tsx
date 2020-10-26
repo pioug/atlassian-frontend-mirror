@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';

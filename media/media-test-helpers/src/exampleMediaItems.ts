@@ -121,6 +121,23 @@ export const passwordProtectedPdfFileId: FileIdentifier = {
   collectionName,
 };
 
+export const codeFileId: FileIdentifier = {
+  id: '4bc95dd5-a7a2-4cbd-ac46-f9b9f0e0941a',
+  mediaItemType: fileType,
+  collectionName,
+};
+
+export const emailFileId: FileIdentifier = {
+  id: '79bb7327-fa6c-4e6f-8a7a-4ebd3607f481',
+  mediaItemType: fileType,
+  collectionName,
+};
+export const emailUnsupportedFileId: FileIdentifier = {
+  id: '3a2ae022-212a-4dca-a7d3-86eb016a0ed2',
+  mediaItemType: fileType,
+  collectionName,
+};
+
 export const archiveFileId: FileIdentifier = {
   id: '1abbae6b-f507-4b4f-b181-21016bf3b7cc',
   mediaItemType: fileType,

@@ -30,7 +30,7 @@ import {
   endPositionOfParent,
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
-import { GapCursorSelection } from '../../gap-cursor/selection';
+import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 

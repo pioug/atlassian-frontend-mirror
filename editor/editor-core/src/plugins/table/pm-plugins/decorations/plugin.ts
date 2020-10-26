@@ -1,5 +1,5 @@
 import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { DecorationSet } from 'prosemirror-view';
 
 import { pluginKey as tablePluginKey } from '../plugin-factory';

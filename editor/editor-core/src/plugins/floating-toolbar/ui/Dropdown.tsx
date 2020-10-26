@@ -35,6 +35,7 @@ export interface Props {
   scrollableElement?: HTMLElement;
   disabled?: boolean;
   tooltip?: string;
+  buttonTestId?: string;
 }
 
 export interface State {
@@ -57,6 +58,7 @@ export default class Dropdown extends Component<Props, State> {
       hideExpandIcon,
       disabled,
       tooltip,
+      buttonTestId,
     } = this.props;
 
     let trigger;
@@ -64,6 +66,7 @@ export default class Dropdown extends Component<Props, State> {
       const TriggerIcon = hideExpandIcon ? icon : <CompositeIcon icon={icon} />;
       trigger = (
         <Button
+          testId={buttonTestId}
           title={title}
           icon={TriggerIcon}
           onClick={this.toggleOpen}
@@ -75,6 +78,7 @@ export default class Dropdown extends Component<Props, State> {
     } else {
       trigger = (
         <Button
+          testId={buttonTestId}
           iconAfter={
             <DropdownExpandContainer>
               <ExpandIcon label="Expand dropdown menu" />

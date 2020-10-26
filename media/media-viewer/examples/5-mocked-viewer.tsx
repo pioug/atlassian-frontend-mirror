@@ -1,6 +1,9 @@
 import React from 'react';
 import { canUseDOM } from 'exenv';
 
+import Button from '@atlaskit/button/src/custom-theme-button/custom-theme-button';
+import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
+import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 import { MediaClient, Identifier } from '@atlaskit/media-client';
 import {
   MediaMock,
@@ -14,6 +17,8 @@ import {
 
 import { wideImage } from '../example-helpers/assets/wide-image';
 import { MediaViewer } from '../src/components/media-viewer';
+import { MediaViewerExtensionsActions } from '../src';
+import { MVSidebar, MVSidebarHeader } from '../example-helpers/styled';
 
 let files: MockFile[] = [];
 
@@ -71,6 +76,24 @@ export default class Example extends React.Component<{}, State> {
     this.setState({ isMediaViewerActive: false });
   };
 
+  sidebarRenderer = (
+    selectedIdentifier: Identifier,
+    actions: MediaViewerExtensionsActions,
+  ) => {
+    let id = '';
+    if (selectedIdentifier.mediaItemType === 'file') {
+      id = selectedIdentifier.id;
+    }
+
+    return (
+      <Sidebar
+        identifier={selectedIdentifier}
+        actions={actions}
+        fileData={files.find((file: MockFile) => file.id === id)}
+      />
+    );
+  };
+
   render() {
     const { isMediaViewerActive } = this.state;
 
@@ -103,9 +126,68 @@ export default class Example extends React.Component<{}, State> {
             collectionName={defaultCollectionName}
             mediaClient={mediaClient}
             onClose={this.deactivate}
+            extensions={{
+              sidebar: {
+                renderer: this.sidebarRenderer,
+                icon: <DetailViewIcon label="sidebar" />,
+              },
+            }}
           />
         )}
       </div>
     );
   }
 }
+
+interface SidebarProps {
+  identifier: Identifier;
+  actions: MediaViewerExtensionsActions;
+  fileData?: MockFile;
+}
+
+const Sidebar = (props: SidebarProps) => {
+  const { actions, fileData } = props;
+
+  const renderFileStateItem = <FileState, K extends keyof FileState>(
+    fileState: FileState,
+    item: K,
+  ) => {
+    return (
+      <tr>
+        <td>{item}: </td>
+        <td>{(fileState && fileState[item]) || <i>Unknown</i>}</td>
+      </tr>
+    );
+  };
+
+  const renderFileState = () => {
+    if (!fileData) {
+      return null;
+    }
+    return (
+      <table>
+        <tbody>
+          {renderFileStateItem(fileData, 'id')}
+          {renderFileStateItem(fileData, 'mediaType')}
+          {renderFileStateItem(fileData, 'mimeType')}
+          {renderFileStateItem(fileData, 'name')}
+          {renderFileStateItem(fileData, 'size')}
+        </tbody>
+      </table>
+    );
+  };
+
+  return (
+    <MVSidebar>
+      <MVSidebarHeader>
+        <h2>Attachment details</h2>
+        <Button
+          onClick={actions.close}
+          aria-label="Close panel"
+          iconBefore={<ArrowRightIcon primaryColor="white" label="return" />}
+        />
+      </MVSidebarHeader>
+      {renderFileState()}
+    </MVSidebar>
+  );
+};

@@ -3,7 +3,10 @@ import { mount } from 'enzyme';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
 import { ClickAreaBlock } from '../../../../ui/Addon';
-import { GapCursorSelection, Side } from '../../../../plugins/gap-cursor';
+import {
+  GapCursorSelection,
+  Side,
+} from '../../../../plugins/selection/gap-cursor-selection';
 import * as utils from '../../../../utils/dom';
 
 describe('ClickAreaBlock', () => {

@@ -136,6 +136,7 @@ export interface Fieldset extends BaseFieldDefinition {
   options: {
     isDynamic?: boolean;
     transformer: FieldHandlerLink;
+    showTitle?: boolean;
   };
 }
 

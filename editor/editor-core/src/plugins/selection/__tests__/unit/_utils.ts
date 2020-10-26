@@ -10,7 +10,6 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import panelPlugin from '../../../panel';
 import layoutPlugin from '../../../layout';
-import gapCursorPlugin from '../../../gap-cursor';
 import datePlugin from '../../../date';
 import tasksDecisionsPlugin from '../../../tasks-and-decisions';
 import selectionPlugin from '../../index';
@@ -19,7 +18,6 @@ import { selectionPluginKey, SelectionPluginState } from '../../types';
 const createEditor = createProsemirrorEditorFactory();
 const preset = new Preset<LightEditorPlugin>()
   .add(selectionPlugin)
-  .add(gapCursorPlugin)
   .add(layoutPlugin)
   .add(datePlugin)
   .add(tasksDecisionsPlugin)

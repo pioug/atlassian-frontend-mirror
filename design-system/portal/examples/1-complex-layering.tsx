@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, { ReactNode } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';

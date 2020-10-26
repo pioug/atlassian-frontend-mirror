@@ -143,7 +143,7 @@ describe('Annotations: Hooks/useEvents', () => {
     });
 
     describe('when SET_ANNOTATION_FOCUS is emitted', () => {
-      it('should not set hasFOcus when the id is different', () => {
+      it('should not set hasFocus when the id is different', () => {
         expect(fakeFunction).toHaveBeenCalledTimes(0);
 
         render(<CustomComp />, container);
@@ -325,16 +325,20 @@ describe('Annotations: Hooks/useEvents', () => {
         expect(fakeFunction).toHaveBeenCalledWith(null);
 
         act(() => {
-          updateSubscriberFake.emit(
-            AnnotationUpdateEvent.ON_ANNOTATION_CLICK,
+          updateSubscriberFake.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
             annotationIds,
-          );
+            eventTarget: container!, // The container is created before each test and destroyed after
+          });
         });
 
-        const expected = annotationIds.map(id => ({
-          id,
-          type: AnnotationTypes.INLINE_COMMENT,
-        }));
+        const expected = {
+          annotations: annotationIds.map(id => ({
+            id,
+            type: AnnotationTypes.INLINE_COMMENT,
+          })),
+          clickElementTarget: container!,
+        };
+
         expect(fakeFunction).toHaveBeenCalledWith(expected);
       });
     });

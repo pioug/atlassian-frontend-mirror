@@ -17,7 +17,7 @@ import {
 import { OnBlur } from '../types';
 import UnhandledType from './UnhandledType';
 import FieldMessages from '../FieldMessages';
-import { validate } from '../utils';
+import { validate, getSafeParentedName } from '../utils';
 
 type Props = {
   field: CustomField;
@@ -25,6 +25,7 @@ type Props = {
   onBlur: OnBlur;
   autoFocus?: boolean;
   placeholder?: string;
+  parentName?: string;
 } & InjectedIntlProps;
 
 type State = {
@@ -125,14 +126,14 @@ class CustomSelect extends React.Component<Props, State> {
   }
 
   render() {
-    const { field, onBlur, autoFocus, placeholder } = this.props;
+    const { field, onBlur, autoFocus, placeholder, parentName } = this.props;
     const { defaultValue, resolver, isMissingResolver } = this.state;
     const { name, label, description, isMultiple, isRequired, options } = field;
     const { isCreatable } = options;
 
     return (
       <Field<ValueType<Option>>
-        name={name}
+        name={getSafeParentedName(name, parentName)}
         label={label}
         isRequired={isRequired}
         defaultValue={defaultValue}

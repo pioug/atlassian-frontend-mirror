@@ -26,6 +26,7 @@ import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-me
 import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
 import { Node as PMNode } from 'prosemirror-model';
+import { AnalyticsEventPayload } from '../../../analytics/events';
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
 const nestedHeadingsDocFromSchema = schema.nodeFromJSON(nestedHeadingsDoc);
@@ -79,7 +80,7 @@ describe('Renderer - ReactSerializer', () => {
       reactDoc.unmount();
     });
     describe('unsupported nodes', () => {
-      it('should pass node value for unsupported block', () => {
+      describe('block nodes', () => {
         const unsupportedNodeJson = {
           type: 'unsupportedBlock',
           attrs: {
@@ -107,16 +108,58 @@ describe('Renderer - ReactSerializer', () => {
           content: [unsupportedNodeJson],
         };
         const unsupportBlockNode = schema.nodeFromJSON(unsupportedBlockJSON);
-        const reactSerializer = new ReactSerializer({});
-        const reactDoc = mountWithIntl(
-          reactSerializer.serializeFragment(unsupportBlockNode.content) as any,
-        );
-        const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
-        const unspportedBlockNodeProp = unsupportedBlock.prop('node') as PMNode;
-        expect(unspportedBlockNodeProp.toJSON()).toEqual(unsupportedNodeJson);
+
+        it('should pass node value for unsupported block', () => {
+          const reactSerializer = new ReactSerializer({});
+          const reactDoc = mountWithIntl(
+            reactSerializer.serializeFragment(
+              unsupportBlockNode.content,
+            ) as any,
+          );
+          const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+          const unspportedBlockNodeProp = unsupportedBlock.prop(
+            'node',
+          ) as PMNode;
+          expect(unspportedBlockNodeProp.toJSON()).toEqual(unsupportedNodeJson);
+        });
+
+        it(`should have dispatchAnalyticsEvent as prop for unsupported
+              block when serializer is enabled with analytics `, () => {
+          const mockFireAnalyticsEvent = jest.fn(
+            (event: AnalyticsEventPayload) => {},
+          );
+          const reactSerializer = new ReactSerializer({
+            fireAnalyticsEvent: mockFireAnalyticsEvent,
+          });
+          const reactDoc = mountWithIntl(
+            reactSerializer.serializeFragment(
+              unsupportBlockNode.content,
+            ) as any,
+          );
+          const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+          const dispatchAnalyticsEventProp = unsupportedBlock.prop(
+            'dispatchAnalyticsEvent',
+          );
+          expect(dispatchAnalyticsEventProp).toEqual(mockFireAnalyticsEvent);
+        });
+
+        it(`should have not dispatchAnalyticsEvent as prop for unsupported
+              block when serializer is not enabled with analytics `, () => {
+          const reactSerializer = new ReactSerializer({});
+          const reactDoc = mountWithIntl(
+            reactSerializer.serializeFragment(
+              unsupportBlockNode.content,
+            ) as any,
+          );
+          const unsupportedBlock = reactDoc.find('UnsupportedBlockNode');
+          const dispatchAnalyticsEventProp = unsupportedBlock.prop(
+            'dispatchAnalyticsEvent',
+          );
+          expect(dispatchAnalyticsEventProp).toBeUndefined();
+        });
       });
 
-      it('should pass node value for unsupported inline', () => {
+      describe('inline nodes', () => {
         const unsupportedNodeJson = {
           type: 'unsupportedInline',
           attrs: {
@@ -133,15 +176,57 @@ describe('Renderer - ReactSerializer', () => {
           content: [unsupportedNodeJson],
         };
         const unsupportInlineNode = schema.nodeFromJSON(unsupportedInlineJSON);
-        const reactSerializer = new ReactSerializer({});
-        const reactDoc = mountWithIntl(
-          reactSerializer.serializeFragment(unsupportInlineNode.content) as any,
-        );
-        const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
-        const unspportedInlineNodeProp = unsupportedInline.prop(
-          'node',
-        ) as PMNode;
-        expect(unspportedInlineNodeProp.toJSON()).toEqual(unsupportedNodeJson);
+
+        it('should pass node value for unsupported inline', () => {
+          const reactSerializer = new ReactSerializer({});
+          const reactDoc = mountWithIntl(
+            reactSerializer.serializeFragment(
+              unsupportInlineNode.content,
+            ) as any,
+          );
+          const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+          const unspportedInlineNodeProp = unsupportedInline.prop(
+            'node',
+          ) as PMNode;
+          expect(unspportedInlineNodeProp.toJSON()).toEqual(
+            unsupportedNodeJson,
+          );
+        });
+
+        it(`should have dispatchAnalyticsEvent as prop for unsupported
+                Inline when serializer is enabled with analytics `, () => {
+          const mockFireAnalyticsEvent = jest.fn(
+            (event: AnalyticsEventPayload) => {},
+          );
+          const reactSerializer = new ReactSerializer({
+            fireAnalyticsEvent: mockFireAnalyticsEvent,
+          });
+          const reactDoc = mountWithIntl(
+            reactSerializer.serializeFragment(
+              unsupportInlineNode.content,
+            ) as any,
+          );
+          const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+          const dispatchAnalyticsEventProp = unsupportedInline.prop(
+            'dispatchAnalyticsEvent',
+          );
+          expect(dispatchAnalyticsEventProp).toEqual(mockFireAnalyticsEvent);
+        });
+
+        it(`should have not dispatchAnalyticsEvent as prop for unsupported
+                Inline when serializer is not enabled with analytics `, () => {
+          const reactSerializer = new ReactSerializer({});
+          const reactDoc = mountWithIntl(
+            reactSerializer.serializeFragment(
+              unsupportInlineNode.content,
+            ) as any,
+          );
+          const unsupportedInline = reactDoc.find('UnsupportedInlineNode');
+          const dispatchAnalyticsEventProp = unsupportedInline.prop(
+            'dispatchAnalyticsEvent',
+          );
+          expect(dispatchAnalyticsEventProp).toBeUndefined();
+        });
       });
     });
   });

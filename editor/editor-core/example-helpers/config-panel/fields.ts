@@ -216,6 +216,11 @@ export const nativeFields: FieldDefinition[] = [
     type: 'foobar' as any,
   },
   {
+    name: 'Q',
+    label: 'Search term',
+    type: 'string',
+  },
+  {
     name: 'cql',
     label: 'CQL',
     type: 'fieldset',
@@ -277,10 +282,35 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
+    name: 'fieldset-without-label',
+    label: 'Fieldset without label',
+    type: 'fieldset',
+    options: {
+      isDynamic: true,
+      showTitle: false,
+      transformer: {
+        type: 'cql',
+      },
+    },
+    fields: [
+      {
+        name: 'Q',
+        label: 'Search term',
+        type: 'string',
+      },
+      {
+        name: 'keywords',
+        label: 'Keywords',
+        type: 'string',
+      },
+    ],
+  },
+  {
     name: 'jira-filter',
     label: 'Issues filter',
     type: 'fieldset',
     options: {
+      isDynamic: true,
       transformer: {
         type: 'cql',
       },

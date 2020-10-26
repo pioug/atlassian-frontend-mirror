@@ -10,6 +10,16 @@ import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
 import { Node, Schema, Mark } from 'prosemirror-model';
 import { Step, RemoveMarkStep } from 'prosemirror-transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
+import {
+  AnalyticsEventPayload,
+  AnnotationDeleteAEP,
+} from '../analytics/events';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  ACTION_SUBJECT_ID,
+} from '../analytics/enums';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
@@ -57,6 +67,7 @@ export default class RendererActions
   private schema?: Schema;
   // Any kind of refence is allowed
   private ref?: any;
+  private onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 
   constructor(initFromContext: boolean = false) {
     this.initFromContext = initFromContext;
@@ -68,6 +79,7 @@ export default class RendererActions
     ref: React.MutableRefObject<null>,
     doc: Node,
     schema: Schema,
+    onAnalyticsEvent?: (event: AnalyticsEventPayload) => void,
   ): void {
     if (!this.initFromContext) {
       return;
@@ -80,6 +92,7 @@ export default class RendererActions
     }
     this.doc = doc;
     this.schema = schema;
+    this.onAnalyticsEvent = onAnalyticsEvent;
   }
 
   _privateUnregisterRenderer(): void {
@@ -133,6 +146,17 @@ export default class RendererActions
 
     const step = new RemoveMarkStep(from, to, mark);
     const { doc, failed } = step.apply(this.doc);
+
+    if (this.onAnalyticsEvent) {
+      const payload: AnnotationDeleteAEP = {
+        action: ACTION.DELETED,
+        actionSubject: ACTION_SUBJECT.ANNOTATION,
+        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+        eventType: EVENT_TYPE.TRACK,
+      };
+
+      this.onAnalyticsEvent(payload);
+    }
 
     if (!failed && doc) {
       return {

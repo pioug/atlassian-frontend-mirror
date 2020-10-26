@@ -1,6 +1,6 @@
 import React, { Component, ComponentType } from 'react';
 import { N400, N0, R300, B300 } from '@atlaskit/theme/colors';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import CheckboxIcon from '../glyph/checkbox';
 import RadioIcon from '../glyph/radio';

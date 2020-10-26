@@ -1,6 +1,5 @@
 import { traverse } from '../traverse/traverse';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-
 import { removeMarks } from './remove-marks';
 
 export function sanitizeNode(json: JSONDocNode): JSONDocNode {

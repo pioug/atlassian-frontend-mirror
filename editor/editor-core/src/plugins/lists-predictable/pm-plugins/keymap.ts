@@ -47,6 +47,13 @@ export function keymapPlugin(): Plugin | undefined {
     list,
   );
 
+  // This shortcut is Mac only
+  keymaps.bindKeymapWithCommand(
+    keymaps.findKeyMapForBrowser(keymaps.forwardDelete) as string,
+    deleteKeyCommand,
+    list,
+  );
+
   return keymap(list);
 }
 

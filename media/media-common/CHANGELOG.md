@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.3.0
+
+### Minor Changes
+
+- [`bf98a47a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf98a47a0f) - Enhance polling strategy to limit to finite attempts with timing backoff
+- [`73613210d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73613210d4) - Adding support for Code and Email files so that they are now able to be previewed in the viewer.
+
 ## 2.2.1
 
 ### Patch Changes

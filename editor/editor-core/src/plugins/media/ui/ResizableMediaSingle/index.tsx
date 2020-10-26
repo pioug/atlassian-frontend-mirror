@@ -36,14 +36,24 @@ export default class ResizableMediaSingle extends React.Component<
   State
 > {
   state: State = {
-    offsetLeft: this.calcOffsetLeft(),
+    offsetLeft: calcOffsetLeft(
+      this.insideInlineLike,
+      this.insideLayout,
+      this.props.view.dom,
+      undefined,
+    ),
 
     // We default to true until we resolve the file type
     isVideoFile: true,
   };
 
   componentDidUpdate() {
-    const offsetLeft = this.calcOffsetLeft();
+    const offsetLeft = calcOffsetLeft(
+      this.insideInlineLike,
+      this.insideLayout,
+      this.props.view.dom,
+      this.wrapper,
+    );
     if (offsetLeft !== this.state.offsetLeft && offsetLeft >= 0) {
       this.setState({ offsetLeft });
     }
@@ -180,17 +190,6 @@ export default class ResizableMediaSingle extends React.Component<
     return !(this.wrappedLayout || this.insideInlineLike)
       ? gridSize / 2
       : gridSize;
-  }
-
-  calcOffsetLeft() {
-    let offsetLeft = 0;
-    if (this.wrapper && this.insideInlineLike) {
-      const currentNode: HTMLElement = this.wrapper;
-      const boundingRect = currentNode.getBoundingClientRect();
-      const pmRect = this.props.view.dom.getBoundingClientRect();
-      offsetLeft = boundingRect.left - pmRect.left;
-    }
-    return offsetLeft;
   }
 
   calcColumnLeftOffset = () => {
@@ -387,4 +386,19 @@ export default class ResizableMediaSingle extends React.Component<
       </Wrapper>
     );
   }
+}
+
+export function calcOffsetLeft(
+  insideInlineLike: boolean,
+  insideLayout: boolean,
+  pmViewDom: Element,
+  wrapper?: HTMLElement,
+) {
+  let offsetLeft = 0;
+  if (wrapper && insideInlineLike && !insideLayout) {
+    const currentNode: HTMLElement = wrapper;
+    const boundingRect = currentNode.getBoundingClientRect();
+    offsetLeft = boundingRect.left - pmViewDom.getBoundingClientRect().left;
+  }
+  return offsetLeft;
 }

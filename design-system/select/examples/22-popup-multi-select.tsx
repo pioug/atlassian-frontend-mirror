@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import DownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import { PopupSelect, OptionType, OptionsType, ValueType } from '../src';

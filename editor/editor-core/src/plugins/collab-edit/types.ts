@@ -27,11 +27,19 @@ export interface CollabInviteToEditProps {
   inviteToEditComponent?: React.ComponentType<InviteToEditComponentProps>;
 }
 
+export interface CollabAnalyticsProps {
+  /**
+   * @description Control wether Synchrony entity error events are tracked
+   */
+  EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
+}
+
 export type CollabEditOptions = {
   provider?: Providers['collabEditProvider'];
   userId?: string;
   useNativePlugin?: boolean;
-} & CollabInviteToEditProps;
+} & CollabInviteToEditProps &
+  CollabAnalyticsProps;
 
 export type PrivateCollabEditOptions = CollabEditOptions & {
   sanitizePrivateContent?: boolean;

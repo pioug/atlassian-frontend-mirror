@@ -1,6 +1,6 @@
 import Loadable from 'react-loadable';
 import LoadingState from './LoadingState';
-import { PublicProps } from './types';
+import type { PublicProps } from './FieldsLoader';
 
 export default Loadable<PublicProps, any>({
   loader: () =>

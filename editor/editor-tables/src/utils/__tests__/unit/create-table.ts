@@ -1,0 +1,78 @@
+import { defaultSchema } from '@atlaskit/adf-schema';
+import {
+  p,
+  tr as row,
+  table,
+  td,
+  th,
+} from '@atlaskit/editor-test-helpers/schema-builder';
+
+import { cEmpty, hEmpty } from '../../../__tests__/__helpers/doc-builder';
+import { createTable } from '../../create-table';
+
+describe('createTable', () => {
+  it('should create a table node of size 3x3 by default', () => {
+    const table = createTable(defaultSchema);
+    expect(table.content.childCount).toEqual(3);
+    expect(table.content.child(0).childCount).toEqual(3);
+    expect(table.content.child(0).child(0).type).toEqual(
+      defaultSchema.nodes.tableHeader,
+    );
+  });
+
+  describe('when rowsCount = 4 and colsCount = 5', () => {
+    it('should create a table node of size 4x5', () => {
+      const table = createTable(defaultSchema, 4, 5);
+      expect(table.content.childCount).toEqual(4);
+      expect(table.content.child(0).childCount).toEqual(5);
+    });
+  });
+
+  describe('when withHeaderRow = false', () => {
+    it('should create a table node without header rows', () => {
+      const table = createTable(defaultSchema, 3, 3, false);
+      expect(table.content.child(0).child(0).type).toEqual(
+        defaultSchema.nodes.tableCell,
+      );
+    });
+  });
+
+  describe('when cellContent is a node', () => {
+    it('should set the content of each cell equal to the given `cellContent` node', () => {
+      const tableResult = createTable(
+        defaultSchema,
+        3,
+        3,
+        true,
+        p('random')(defaultSchema),
+      );
+
+      const thWithRandomText = th()(p('random'));
+      const tdWithRandomText = td()(p('random'));
+
+      expect(tableResult.content.childCount).toEqual(3);
+
+      expect(tableResult).toEqualDocument(
+        table()(
+          row(thWithRandomText, thWithRandomText, thWithRandomText),
+          row(tdWithRandomText, tdWithRandomText, tdWithRandomText),
+          row(tdWithRandomText, tdWithRandomText, tdWithRandomText),
+        ),
+      );
+    });
+  });
+
+  describe('when cellContent is null', () => {
+    it('should adds empty paragraph to all cells', () => {
+      const tableResult = createTable(defaultSchema, 3, 3, true);
+      expect(tableResult.content.childCount).toEqual(3);
+      expect(tableResult).toEqualDocument(
+        table()(
+          row(hEmpty, hEmpty, hEmpty),
+          row(cEmpty, cEmpty, cEmpty),
+          row(cEmpty, cEmpty, cEmpty),
+        ),
+      );
+    });
+  });
+});

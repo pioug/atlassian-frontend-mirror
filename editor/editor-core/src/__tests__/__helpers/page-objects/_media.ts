@@ -291,3 +291,65 @@ export class FullPageEditor extends Page {
     await this.keys(['Backspace'], true);
   }
 }
+
+interface ResizeMediaSingleOptions {
+  resizeBy: number;
+}
+
+export interface ResizeMediaSingleResult {
+  startWidth: number;
+  endWidth: number;
+}
+
+export const resizeMediaSingle = async (
+  page: Page,
+  { resizeBy }: ResizeMediaSingleOptions,
+): Promise<ResizeMediaSingleResult> => {
+  const mediaSingleSelector = '.mediaSingleView-content-wrap';
+  await page.waitForSelector(mediaSingleSelector);
+  const mediaSingleElement = await page.$(mediaSingleSelector);
+
+  const mediaCardInMediaSingleSelector = `${mediaSingleSelector} [data-testid="media-card-view"]`;
+  await page.waitForSelector(mediaCardInMediaSingleSelector);
+  const cardViewElement = await page.$(mediaCardInMediaSingleSelector);
+
+  await page.click(mediaCardInMediaSingleSelector);
+  await page.waitForSelector(
+    '[data-testid="media-card-view"] [data-test-selected]',
+  );
+  const startWidth = await cardViewElement.getSize('width');
+  await moveRightResizeHandler(page, mediaSingleElement, resizeBy);
+
+  // Wait for animation to finish and new size settle. Change this to be more deterministic
+  await page.pause(1000);
+
+  const endWidth = await cardViewElement.getSize('width');
+  return {
+    startWidth,
+    endWidth,
+  };
+};
+
+const moveRightResizeHandler = async (
+  page: Page,
+  mediaSingle: WebdriverIO.Element,
+  offset: number,
+) => {
+  // TODO add data-testid for handlers
+  const handleElement = await mediaSingle.$('.richMedia-resize-handle-right');
+  await handleElement.waitForDisplayed();
+
+  const location = await handleElement.getLocation();
+  const size = await handleElement.getSize();
+
+  const startX = location.x + size.width / 2;
+  const startY = location.y + size.height / 2;
+
+  return page.simulateUserDragAndDrop(
+    startX,
+    startY,
+    startX + offset,
+    startY,
+    100,
+  );
+};

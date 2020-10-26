@@ -2,7 +2,7 @@ import { findWrapping } from 'prosemirror-transform';
 import { Schema, ResolvedPos, NodeType } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { hasParentNodeOfType } from 'prosemirror-utils';
-import { GapCursorSelection } from '../gap-cursor';
+import { GapCursorSelection } from '../selection/gap-cursor-selection';
 
 export const isWrappingPossible = (nodeType: NodeType, state: EditorState) => {
   const { $from, $to } = state.selection;

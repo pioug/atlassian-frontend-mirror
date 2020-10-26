@@ -10,12 +10,13 @@ import {
   documentWithExpandAndTables,
   tableWithPanel,
 } from './__fixtures__/document-with-expand';
+import { panelSelectors } from '../../__helpers/page-objects/_panel';
 
 const editorSelector = '.ProseMirror';
 const expandSelector = '[data-node-type="expand"]';
 const nestedExpandSelector = '[data-node-type="nestedExpand"]';
 const controlSelector = 'tbody tr:first-child th:nth-child(1)';
-const panelSelector = '.ak-editor-panel__content';
+const panelSelector = panelSelectors.panelContent;
 
 // TODO: https://product-fabric.atlassian.net/browse/ED-9831
 // Selection in Catalina Safari isn't working properly.

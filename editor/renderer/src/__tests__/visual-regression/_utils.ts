@@ -7,6 +7,7 @@ import {
   PuppeteerScreenshotOptions,
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
+import { ThemeModes } from '@atlaskit/theme';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
 
@@ -42,7 +43,6 @@ export async function goToRendererTestingExample(page: PuppeteerPage) {
     'testing',
     global.__BASEURL__,
   );
-
   await navigateToUrl(page, url);
 }
 
@@ -85,6 +85,7 @@ type InitRendererWithADFOptions = {
   viewport?: ViewPortOptions;
   rendererProps?: RendererPropsOverrides;
   allowSideEffects?: SideEffectOptions;
+  themeMode?: ThemeModes;
 };
 
 export async function initRendererWithADF(
@@ -96,6 +97,7 @@ export async function initRendererWithADF(
     viewport,
     rendererProps,
     allowSideEffects,
+    themeMode,
   }: InitRendererWithADFOptions,
 ) {
   await goToRendererTestingExample(page);
@@ -113,7 +115,7 @@ export async function initRendererWithADF(
   await disableAllSideEffects(page, allowSideEffects);
 
   // Mount the renderer with the right attributes
-  await mountRenderer(page, { appearance, ...rendererProps }, adf);
+  await mountRenderer(page, { appearance, themeMode, ...rendererProps }, adf);
 }
 
 export async function snapshot(

@@ -1,4 +1,7 @@
-import { FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS } from '../../constants';
+import {
+  ELEMENT_LIST_PADDING,
+  FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS,
+} from '../../constants';
 
 export function getColumnCount(clientWidth: number): number {
   const { small, medium, large } = FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS;
@@ -28,11 +31,10 @@ export function generateVirtualizedContainerDatum(
   containerWidth: number,
   options: Options,
 ): DatumReturnType {
-  const { gutterSize, scrollbarWidth } = options;
+  const { scrollbarWidth } = options;
   const columnCount = getColumnCount(containerWidth);
-  const extraSpace = columnCount * gutterSize;
-  const innerContainerWidth = containerWidth - (scrollbarWidth + gutterSize);
-  const availableWidth = innerContainerWidth - extraSpace;
+  const availableWidth =
+    containerWidth - (scrollbarWidth + ELEMENT_LIST_PADDING * 2);
   return {
     availableWidth,
     columnCount,

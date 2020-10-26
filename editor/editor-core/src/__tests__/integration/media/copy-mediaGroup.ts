@@ -1,11 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { testMediaGroup } from '@atlaskit/editor-test-helpers';
+import { sleep } from '@atlaskit/media-test-helpers';
 import { editable, getDocFromElement, fullpage } from '../_helpers';
 import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
-import { waitForNumImages } from './_utils';
+import { waitForAtLeastNumFileCards } from './_utils';
 
 const baseADF = {
   version: 1,
@@ -45,14 +46,16 @@ BrowserTestCase(
     });
 
     const fileCardSelector =
-      '.ProseMirror [data-testid="media-filmstrip"] [data-testid="media-file-card-view"][data-test-status="complete"]';
+      '[data-testid="media-file-card-view"][data-test-status="complete"]';
 
     await page.waitForSelector(fileCardSelector);
+    await page.keys(['ArrowDown']);
     await page.click(fileCardSelector);
     await page.copy();
     await page.keys(['ArrowDown']);
     await page.paste();
-    await waitForNumImages(page, 2);
+    await sleep(0);
+    await waitForAtLeastNumFileCards(page, 2);
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testCase);

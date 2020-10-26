@@ -1,8 +1,4 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
-
-import { gridSize } from '@atlaskit/theme/constants';
-import { multiply } from '@atlaskit/theme/math';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 
 import {
@@ -24,25 +20,9 @@ import UnhandledType from './Fields/UnhandledType';
 import RemovableField from './NestedForms/RemovableField';
 import { OnBlur } from './types';
 
-const FieldWrapper = styled.div`
-  margin-bottom: ${multiply(gridSize, 3)}px;
-`;
-
-const pickUsedParameters = (
-  parameters: Parameters = {},
-  fields: FieldDefinition[],
-) => {
-  return fields.reduce<Parameters>((curr, next) => {
-    if (typeof parameters[next.name] !== 'undefined') {
-      curr[next.name] = parameters[next.name];
-    }
-
-    return curr;
-  }, {});
-};
-
 type FormProps = {
   fields: FieldDefinition[];
+  parentName?: string;
   parameters?: Parameters;
   extensionManifest: ExtensionManifest;
   canRemoveFields?: boolean;
@@ -53,6 +33,7 @@ type FormProps = {
 
 type FieldProps = {
   field: FieldDefinition;
+  parentName?: string;
   parameters?: Parameters;
   extensionManifest: ExtensionManifest;
   firstVisibleFieldName?: string;
@@ -61,6 +42,7 @@ type FieldProps = {
 
 function FieldComponent({
   field,
+  parentName,
   parameters,
   extensionManifest,
   firstVisibleFieldName,
@@ -77,6 +59,7 @@ function FieldComponent({
     case 'string':
       return (
         <String
+          parentName={parentName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -87,6 +70,7 @@ function FieldComponent({
     case 'number':
       return (
         <Number
+          parentName={parentName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -95,11 +79,12 @@ function FieldComponent({
       );
 
     case 'boolean':
-      return <Boolean field={field} onBlur={onBlur} />;
+      return <Boolean parentName={parentName} field={field} onBlur={onBlur} />;
 
     case 'date':
       return (
         <Date
+          parentName={parentName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -108,11 +93,19 @@ function FieldComponent({
       );
 
     case 'enum':
-      return <Enum field={field} autoFocus={autoFocus} onBlur={onBlur} />;
+      return (
+        <Enum
+          parentName={parentName}
+          field={field}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+        />
+      );
 
     case 'custom':
       return (
         <CustomSelect
+          parentName={parentName}
           field={field}
           extensionManifest={extensionManifest}
           placeholder={field.placeholder}
@@ -128,7 +121,7 @@ function FieldComponent({
           onFieldBlur={onBlur}
           field={field}
           extensionManifest={extensionManifest}
-          parameters={pickUsedParameters(parameters, field.fields)}
+          parameters={(parameters && parameters[field.name]) || {}}
         />
       );
 
@@ -149,6 +142,7 @@ function Hidden({ children }: { children: React.ReactNode }) {
 
 export default function FormContent({
   fields,
+  parentName,
   parameters,
   extensionManifest,
   canRemoveFields,
@@ -160,9 +154,11 @@ export default function FormContent({
     <Fragment>
       {fields.map((field: FieldDefinition) => {
         const { name } = field;
+
         let fieldElement = (
           <FieldComponent
             field={field}
+            parentName={parentName}
             parameters={parameters}
             extensionManifest={extensionManifest}
             firstVisibleFieldName={firstVisibleFieldName}
@@ -175,23 +171,16 @@ export default function FormContent({
           fieldElement = <Hidden>{fieldElement}</Hidden>;
         }
 
-        if (canRemoveFields) {
-          if (!onClickRemove) {
-            return <Fragment key={name}>{fieldElement}</Fragment>;
-          }
-
-          return (
-            <RemovableField
-              key={name}
-              name={name}
-              onClickRemove={() => onClickRemove(name)}
-            >
-              {fieldElement}
-            </RemovableField>
-          );
-        }
-
-        return <FieldWrapper key={name}>{fieldElement}</FieldWrapper>;
+        return (
+          <RemovableField
+            key={name}
+            name={name}
+            canRemoveField={canRemoveFields}
+            onClickRemove={onClickRemove}
+          >
+            {fieldElement}
+          </RemovableField>
+        );
       })}
     </Fragment>
   );

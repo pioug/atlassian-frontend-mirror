@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 19.0.9
+
+### Patch Changes
+
+- [`dcd6b0ecfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd6b0ecfb) - Fix React warning: should not setState on unmounted component
+- Updated dependencies
+
 ## 19.0.8
 
 ### Patch Changes

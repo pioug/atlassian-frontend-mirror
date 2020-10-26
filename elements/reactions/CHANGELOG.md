@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 18.1.8
+
+### Patch Changes
+
+- [`99abe1f917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99abe1f917) - Fix SLO of get reactions
+- Updated dependencies
+
 ## 18.1.7
 
 ### Patch Changes

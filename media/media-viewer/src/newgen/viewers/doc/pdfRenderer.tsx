@@ -86,7 +86,6 @@ const fetchPdf = (url: string): Promise<PDFDocumentProxy> => {
 
 export type Props = {
   src: string;
-  isSidebarVisible?: boolean;
   onClose?: () => void;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
@@ -164,15 +163,12 @@ export class PDFRenderer extends React.Component<Props, State> {
   };
 
   render() {
-    const { isSidebarVisible } = this.props;
-
     return this.state.doc.match({
       pending: () => <Spinner />,
       successful: () => (
         <PDFWrapper
           data-testid="media-viewer-pdf-content"
           innerRef={this.savePdfElement}
-          isSidebarVisible={isSidebarVisible}
         >
           <div
             className={pdfViewerClassName}

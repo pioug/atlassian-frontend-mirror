@@ -16,6 +16,15 @@ import Tooltip from '@atlaskit/tooltip';
 import * as Hooks from '../../../ui/unsupported-content-helper';
 import UnsupportedBlockNode from '../../../ui/UnsupportedBlock';
 import UnsupportedInlineNode from '../../../ui/UnsupportedInline';
+import { ACTION_SUBJECT_ID } from '../../../utils/analytics';
+import { trackUnsupportedContentTooltipDisplayedFor } from '../../../utils/track-unsupported-content';
+
+jest.mock('../../../utils/track-unsupported-content', () => {
+  return {
+    trackUnsupportedContentTooltipDisplayedFor: jest.fn(),
+    trackUnsupportedContentTooltipHiddenFor: jest.fn(),
+  };
+});
 
 describe('Unsupported Content', () => {
   describe('Block Node', () => {
@@ -275,6 +284,56 @@ describe('Unsupported Content', () => {
         expect(wrapper.text()).toEqual('Some text');
       });
     });
+
+    describe('tooltip analytics', () => {
+      const setUp = (dispatchEvent?: () => void) => {
+        const node = doc(
+          unsupportedBlock({
+            originalValue: {
+              attrs: { text: '' },
+              type: 'SomeNode',
+            },
+          })(),
+        );
+        const { editorView: view } = editor(node);
+
+        wrapper = mountWithIntl(
+          <UnsupportedBlockNode
+            node={view.state.doc.nodeAt(view.state.selection.$from.pos)!}
+            dispatchAnalyticsEvent={dispatchEvent}
+          />,
+        );
+      };
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      it(`should invoke the method trackUnsupportedContentTooltipDisplayedFor
+            when the tooltip is displayed and dispatchAnalyticsEvent is passed as prop`, async () => {
+        const dispatchAnalyticsEvent = jest.fn();
+        setUp(dispatchAnalyticsEvent);
+        const onShow = wrapper.find(Tooltip).prop('onShow');
+        onShow && onShow();
+
+        expect(trackUnsupportedContentTooltipDisplayedFor).toHaveBeenCalledWith(
+          dispatchAnalyticsEvent,
+          ACTION_SUBJECT_ID.ON_UNSUPPORTED_BLOCK,
+          'SomeNode',
+        );
+      });
+
+      it(`should not invoke the method trackUnsupportedContentTooltipDisplayedFor
+          when the tooltip is displayed and  dispatchAnalyticsEvent is not passed as prop `, async () => {
+        setUp();
+        const onShow = wrapper.find(Tooltip).prop('onShow');
+        onShow && onShow();
+
+        expect(
+          trackUnsupportedContentTooltipDisplayedFor,
+        ).toHaveBeenCalledTimes(0);
+      });
+    });
   });
   describe('Inline Node', () => {
     let wrapper: ReactWrapper<any & InjectedIntlProps, any, any>;
@@ -532,6 +591,58 @@ describe('Unsupported Content', () => {
           <UnsupportedInlineNode node={view.state.doc.nodeAt(refs['<>'])!} />,
         );
         expect(wrapper.text()).toEqual(`Some text`);
+      });
+    });
+    describe('tooltip analytics', () => {
+      const setUp = (dispatchEvent?: () => void) => {
+        const node = doc(
+          p(
+            '{<>}',
+            unsupportedInline({
+              originalValue: {
+                attrs: { url: 'https://atlassian.net' },
+                type: 'SomeNode',
+              },
+            })(),
+          ),
+        );
+        const { editorView: view, refs } = editor(node);
+        wrapper = mountWithIntl(
+          <UnsupportedInlineNode
+            node={view.state.doc.nodeAt(refs['<>'])!}
+            dispatchAnalyticsEvent={dispatchEvent}
+          />,
+        );
+      };
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      it(`should invoke the method trackUnsupportedContentTooltipDisplayedFor
+            when the tooltip is displayed and dispatchAnalyticsEvent is passed as prop`, async () => {
+        const dispatchAnalyticsEvent = jest.fn();
+        setUp(dispatchAnalyticsEvent);
+
+        const onShow = wrapper.find(Tooltip).prop('onShow');
+        onShow && onShow();
+
+        expect(trackUnsupportedContentTooltipDisplayedFor).toHaveBeenCalledWith(
+          dispatchAnalyticsEvent,
+          ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
+          'SomeNode',
+        );
+      });
+
+      it(`should not invoke the method trackUnsupportedContentTooltipDisplayedFor
+          when the tooltip is displayed and  dispatchAnalyticsEvent is not passed as prop `, async () => {
+        setUp();
+        const onShow = wrapper.find(Tooltip).prop('onShow');
+        onShow && onShow();
+
+        expect(
+          trackUnsupportedContentTooltipDisplayedFor,
+        ).toHaveBeenCalledTimes(0);
       });
     });
   });

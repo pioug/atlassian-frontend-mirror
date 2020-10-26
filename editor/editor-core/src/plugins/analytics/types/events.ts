@@ -99,8 +99,20 @@ type SynchronyErrorAEP = OperationalAEP<
   undefined
 >;
 
+type SynchronyEntityErrorAEP = OperationalAEP<
+  ACTION.SYNCHRONY_ENTITY_ERROR | ACTION.SYNCHRONY_DISCONNECTED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    onLine: boolean;
+    visibilityState: string;
+  },
+  undefined
+>;
+
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
   | InvalidTransactionStepErrorAEP
   | FailedToUnmountErrorAEP
-  | SynchronyErrorAEP;
+  | SynchronyErrorAEP
+  | SynchronyEntityErrorAEP;

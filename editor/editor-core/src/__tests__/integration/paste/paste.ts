@@ -1,5 +1,6 @@
 import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 import { documentWithDecision } from './__fixtures__/document-with-decision';
+import { documentWithInlineCard } from './__fixtures__/document-with-inline-card';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import {
@@ -12,6 +13,7 @@ import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
+import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 
 const editorSelector = '.ProseMirror';
 
@@ -24,6 +26,7 @@ async function mountRenderer(
   page: WebdriverPage,
   props?: {
     withRendererActions?: boolean;
+    UNSAFE_cards?: any;
   },
   adf?: Object,
 ): Promise<boolean> {
@@ -202,6 +205,76 @@ BrowserTestCase(
 
       await page.paste();
       await page.waitForSelector(decisionListSelector);
+
+      const doc = await page.$eval(editorSelector, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    }
+  },
+);
+
+BrowserTestCase(
+  'paste.ts: inline card copied from renderer and pasted',
+  /* NOTE: https://product-fabric.atlassian.net/browse/EDM-1249
+     we've got this bug in Firefox where it doubles up the items when pasting
+  */
+  /**
+   * We are skipping Chrome because we are using ['Shift', 'Insert'] in page.paste()
+   * which would actually paste the text.
+   */
+  { skip: ['chrome', 'edge', 'safari', 'firefox'] },
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
+    let page = new WebdriverPage(client);
+    let url = getExampleUrl(
+      'editor',
+      'renderer',
+      'testing',
+      // @ts-ignore
+      global.__BASEURL__,
+    );
+
+    await page.goto(url);
+    await page.maximizeWindow();
+
+    const cardProviderPromise = Promise.resolve(
+      new ConfluenceCardProvider('prod'),
+    );
+
+    const rendererMounted = await mountRenderer(
+      page,
+      {
+        withRendererActions: true,
+        UNSAFE_cards: {
+          provider: cardProviderPromise,
+          allowBlockCards: true,
+        },
+      },
+      documentWithInlineCard,
+    );
+
+    // Only run the test assertions when the example is available.
+    // When unavailable, gracefully pass the test to avoid blocking CI.
+    if (rendererMounted) {
+      const selectorStart = 'p[data-renderer-start-pos]';
+      const selectorEnd = 'p[data-renderer-start-pos]';
+      const inlineCardSelector = 'a[data-testid="inline-card-resolved-view"]';
+
+      await page.waitForSelector(selectorStart);
+      await page.waitForSelector(selectorEnd);
+      await page.waitForSelector(inlineCardSelector);
+      await page.simulateUserSelection(selectorStart, selectorEnd);
+      await page.copy();
+
+      page = await goToEditorTestingExample(client);
+      await mountEditor(page, {
+        appearance: fullpage.appearance,
+        UNSAFE_cards: {
+          provider: cardProviderPromise,
+          allowBlockCards: true,
+        },
+      });
+
+      await page.paste();
+      await page.waitForSelector(inlineCardSelector);
 
       const doc = await page.$eval(editorSelector, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);

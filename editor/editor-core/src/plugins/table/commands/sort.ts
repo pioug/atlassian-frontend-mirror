@@ -1,14 +1,14 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
-import { TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
 import {
   convertArrayOfRowsToTableNode,
   convertTableNodeToArrayOfRows,
-  findCellRectClosestToPos,
   findTable,
   getSelectionRect,
-  isCellSelection,
-} from 'prosemirror-utils';
+  isSelectionType,
+} from '@atlaskit/editor-tables/utils';
 
 import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
 import { createCompareNodes } from '@atlaskit/editor-common';
@@ -59,7 +59,7 @@ export const sortByColumn = (
         return tr;
       }
 
-      const selectionRect = isCellSelection(tr.selection)
+      const selectionRect = isSelectionType(tr.selection, 'cell')
         ? getSelectionRect(tr.selection)!
         : findCellRectClosestToPos(tr.selection.$from);
 

@@ -12,6 +12,7 @@ import { Outcome } from './domain';
 import { ImageViewer } from './viewers/image';
 import { VideoViewer } from './viewers/video';
 import { DocViewer } from './viewers/doc';
+import { CodeViewer, isCodeViewerItem } from './viewers/codeViewer';
 import { Spinner } from './loading';
 import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
@@ -46,7 +47,6 @@ export type Props = Readonly<{
   mediaClient: MediaClient;
   onClose?: () => void;
   previewCount: number;
-  isSidebarVisible?: boolean;
   contextId?: string;
   featureFlags?: MediaFeatureFlags;
 }> &
@@ -153,7 +153,6 @@ export class ItemViewerBase extends React.Component<Props, State> {
       showControls,
       onClose,
       previewCount,
-      isSidebarVisible,
       contextId,
       featureFlags,
     } = this.props;
@@ -167,6 +166,19 @@ export class ItemViewerBase extends React.Component<Props, State> {
       onClose,
       previewCount,
     };
+
+    if (
+      getMediaFeatureFlag('codeViewer', featureFlags) &&
+      isCodeViewerItem(item)
+    ) {
+      return (
+        <CodeViewer
+          onSuccess={this.onCanPlay(item)}
+          onError={this.onDocError(item)}
+          {...viewerProps}
+        />
+      );
+    }
 
     switch (item.mediaType) {
       case 'image':
@@ -200,7 +212,6 @@ export class ItemViewerBase extends React.Component<Props, State> {
           <DocViewer
             onSuccess={this.onCanPlay(item)}
             onError={this.onDocError(item)}
-            isSidebarVisible={isSidebarVisible}
             {...viewerProps}
           />
         );

@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { RadioGroup } from '@atlaskit/radio';
 
 import Popup from '../src';

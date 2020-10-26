@@ -21,6 +21,7 @@ import {
   MediaClient,
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
+  isPreviewableType,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
@@ -323,7 +324,12 @@ export class CardBase extends Component<
     fileState: FileState,
     metadata: FileDetails,
   ): Promise<CardPreview | undefined> => {
-    const { dimensions = {}, originalDimensions, resizeMode } = this.props;
+    const {
+      dimensions = {},
+      originalDimensions,
+      resizeMode,
+      featureFlags,
+    } = this.props;
     const { id, collectionName } = identifier;
 
     // We aren't using the component state here, as cardPreviewCache has a shorter lifecycle
@@ -345,16 +351,19 @@ export class CardBase extends Component<
       !!mimeType &&
       isMimeTypeSupportedByBrowser(mimeType);
 
+    const previewableType = isPreviewableType(mediaType, featureFlags);
+
     const cardPreview =
       (shouldUseLocalPreview &&
         (await getCardPreviewFromFileState(fileState))) ||
-      (await getCardPreviewFromBackend(
-        mediaClient,
-        identifier,
-        fileState,
-        requestedDimensions,
-        resizeMode,
-      ));
+      (previewableType &&
+        (await getCardPreviewFromBackend(
+          mediaClient,
+          identifier,
+          fileState,
+          requestedDimensions,
+          resizeMode,
+        )));
 
     if (cardPreview) {
       if (cardPreview.dataURI) {
@@ -707,6 +716,8 @@ export class CardBase extends Component<
       alt,
       testId,
       featureFlags,
+      titleBoxBgColor,
+      titleBoxIcon,
     } = this.props;
     const { mediaItemType } = identifier;
     const {
@@ -749,6 +760,8 @@ export class CardBase extends Component<
         ref={this.cardRef}
         testId={testId}
         featureFlags={featureFlags}
+        titleBoxBgColor={titleBoxBgColor}
+        titleBoxIcon={titleBoxIcon}
       />
     );
     const shouldUseLazyContent = isLazy && !isIntersectionObserverSupported(); // We use LazyContent for old browsers

@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import { borderRadius, colors } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from '../constants';
 
+import { darken } from 'polished';
+
 type ColorCardProps = {
   focused?: boolean;
 };
@@ -67,8 +69,9 @@ export const ColorCardContent = styled.div<ColorCardContentProps>`
   position: absolute;
   top: 1px;
   left: 1px;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: ${borderRadius()}px;
   background: ${props => props.color};
+  border: solid 1px ${props => darken(0.1, props.color)};
 `;

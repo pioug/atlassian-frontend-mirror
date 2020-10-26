@@ -38,7 +38,7 @@ import { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { FigureWrapper } from './styles';
 import {
   floatingLayouts,

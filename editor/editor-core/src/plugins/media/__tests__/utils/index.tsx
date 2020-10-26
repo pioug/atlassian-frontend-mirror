@@ -39,7 +39,7 @@ import {
   setNodeSelection,
   setTextSelection,
 } from '../../../../utils';
-import { Side } from '../../../gap-cursor';
+import { Side } from '../../../selection/gap-cursor-selection';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import { alignAttributes } from '../../../../utils/rich-media-utils';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -69,7 +69,7 @@ import MediaItem, {
   MediaNodeProps,
   MediaNode,
 } from '../../nodeviews/mediaNodeView/media';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { MediaPluginState } from '../../pm-plugins/types';
 

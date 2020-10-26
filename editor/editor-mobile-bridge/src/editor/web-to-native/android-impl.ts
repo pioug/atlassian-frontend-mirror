@@ -15,6 +15,7 @@ import {
   TextFormattingBridge,
   UndoRedoBridge,
   ContentBridge,
+  PageTitleBridge,
 } from './bridge';
 
 import { sendToBridge } from '../../bridge-utils';
@@ -37,6 +38,7 @@ export default class AndroidBridge implements NativeBridge {
   collabBridge: CollabBridge;
   lifecycleBridge?: LifecycleBridge;
   contentBridge: ContentBridge;
+  pageTitleBridge?: PageTitleBridge;
 
   private _editorReady: boolean = false;
   private _startWebBundle: boolean = false;
@@ -54,6 +56,7 @@ export default class AndroidBridge implements NativeBridge {
     this.collabBridge = win.collabBridge!;
     this.lifecycleBridge = win.lifecycleBridge;
     this.contentBridge = win.contentBridge as ContentBridge;
+    this.pageTitleBridge = win.pageTitleBridge;
   }
 
   showMentions(query: string) {
@@ -229,6 +232,12 @@ export default class AndroidBridge implements NativeBridge {
   onRenderedContentHeightChanged(height: number) {
     if (this.contentBridge) {
       this.contentBridge.onRenderedContentHeightChanged(height);
+    }
+  }
+
+  updateTitle(title: string) {
+    if (this.pageTitleBridge) {
+      this.pageTitleBridge.updateTitle(title);
     }
   }
 }

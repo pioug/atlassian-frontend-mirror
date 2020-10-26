@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import { AkFieldRadioGroup as StatelessRadioGroup } from '@atlaskit/field-radio-group';
 import { AtlassianIcon } from '@atlaskit/logo';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';

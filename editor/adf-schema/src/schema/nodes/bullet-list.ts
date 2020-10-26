@@ -20,7 +20,7 @@ export const bulletList: NodeSpec = {
   content: 'listItem+',
   selectable: false,
   parseDOM: [{ tag: 'ul' }],
-  marks: 'unsupportedMark',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   toDOM() {
     const attrs = {
       class: bulletListSelector.substr(1),

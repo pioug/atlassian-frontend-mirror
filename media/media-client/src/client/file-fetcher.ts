@@ -45,8 +45,12 @@ import { getMediaTypeFromMimeType } from '../utils/getMediaTypeFromMimeType';
 import { createFileStateSubject } from '../utils/createFileStateSubject';
 import { isMimeTypeSupportedByBrowser } from '../utils/isMimeTypeSupportedByBrowser';
 import { shouldFetchRemoteFileStates } from '../utils/shouldFetchRemoteFileStates';
+import { PollingFunction } from '../utils/polling';
+import {
+  PollingOptions,
+  getMediaFeatureFlag,
+} from '@atlaskit/media-common/mediaFeatureFlags';
 
-const POLLING_INTERVAL = 6000;
 const maxNumberOfItemsPerCall = 100;
 const makeCacheKey = (id: string, collection?: string) =>
   collection ? `${id}-${collection}` : id;
@@ -251,36 +255,60 @@ export class FileFetcherImpl implements FileFetcher {
     collection?: string,
   ): ReplaySubject<FileState> => {
     const subject = createFileStateSubject();
-    let timeoutId: number;
 
-    const fetchFile = async () => {
-      try {
-        const response = await this.dataloader.load({ id, collection });
+    const featureFlags = this.mediaStore.featureFlags;
 
-        if (!response) {
-          return;
-        }
-
-        if (isDataloaderErrorResult(response)) {
-          subject.error(response);
-          return;
-        }
-
-        const fileState = mapMediaItemToFileState(id, response);
-        subject.next(fileState);
-
-        if (fileState.status === 'processing') {
-          timeoutId = window.setTimeout(fetchFile, POLLING_INTERVAL);
-        } else {
-          subject.complete();
-        }
-      } catch (e) {
-        window.clearTimeout(timeoutId);
-        subject.error(e);
-      }
+    const pollOptions: PollingOptions = {
+      poll_intervalMs: getMediaFeatureFlag<number>(
+        'poll_intervalMs',
+        featureFlags,
+      ),
+      poll_maxAttempts: getMediaFeatureFlag<number>(
+        'poll_maxAttempts',
+        featureFlags,
+      ),
+      poll_backoffFactor: getMediaFeatureFlag<number>(
+        'poll_backoffFactor',
+        featureFlags,
+      ),
+      poll_maxIntervalMs: getMediaFeatureFlag<number>(
+        'poll_maxIntervalMs',
+        featureFlags,
+      ),
+      poll_maxGlobalFailures:
+        featureFlags && featureFlags.poll_maxGlobalFailures,
     };
 
-    fetchFile();
+    const poll = new PollingFunction(pollOptions);
+
+    // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
+    poll.onError = (error: Error) => subject.error(error);
+
+    poll.execute(async () => {
+      const response = await this.dataloader.load({ id, collection });
+
+      if (!response) {
+        return;
+      }
+
+      if (isDataloaderErrorResult(response)) {
+        subject.error(response);
+        return;
+      }
+
+      const fileState = mapMediaItemToFileState(id, response);
+      subject.next(fileState);
+
+      switch (fileState.status) {
+        case 'processing':
+          // the only case for continuing polling, otherwise this function is run once only
+          poll.next();
+          break;
+        case 'processed':
+          subject.complete();
+          break;
+      }
+    });
 
     return subject;
   };

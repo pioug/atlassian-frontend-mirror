@@ -1,5 +1,7 @@
 import { PluginKey } from 'prosemirror-state';
-import { ContentNodeWithPos, getCellsInColumn } from 'prosemirror-utils';
+import { ContentNodeWithPos } from 'prosemirror-utils';
+import { getCellsInColumn } from '@atlaskit/editor-tables/utils';
+
 import { DecorationSet, EditorView } from 'prosemirror-view';
 
 import {

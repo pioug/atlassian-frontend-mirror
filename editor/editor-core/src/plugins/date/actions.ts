@@ -22,7 +22,7 @@ import {
 } from '../analytics';
 import { isToday } from './utils/internal';
 import { DatePluginState } from './pm-plugins/types';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import { canInsert } from 'prosemirror-utils';
 
 export const createDate = () => (
   insert: (node: Node | Object | string, opts?: any) => Transaction,
@@ -122,14 +122,14 @@ export const insertDate = (
     const fragment = Fragment.fromArray([dateNode, textNode]);
     const { from, to } = state.selection;
 
-    // if cursor is inside codeBlock, create date after codeBlock in a new paragraph
-    const codeBlock = findParentNodeOfType(state.schema.nodes.codeBlock)(
-      tr.selection,
-    );
-    if (codeBlock) {
-      const nodeSelectionPos = tr.doc.resolve(codeBlock.start).end() + 1;
-      tr.insert(nodeSelectionPos, fragment).setSelection(
-        NodeSelection.create(tr.doc, nodeSelectionPos + 1),
+    const insertable = canInsert(tr.selection.$from, fragment);
+    if (!insertable) {
+      const parentSelection = NodeSelection.create(
+        tr.doc,
+        tr.selection.from - tr.selection.$anchor.parentOffset - 1,
+      );
+      tr.insert(parentSelection.to, fragment).setSelection(
+        NodeSelection.create(tr.doc, parentSelection.to + 1),
       );
     } else {
       tr.replaceWith(from, to, fragment).setSelection(

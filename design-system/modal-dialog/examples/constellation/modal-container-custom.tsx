@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 

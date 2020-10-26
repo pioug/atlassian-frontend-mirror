@@ -6,6 +6,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   UnsupportedContentPayload,
+  UnsupportedContentTooltipPayload,
 } from './analytics';
 
 const whitelistedAttributes = [
@@ -65,6 +66,27 @@ const sanitizeAttributes = (attrs: {} = {}) => {
     .filter(key => !whitelistedAttributes.includes(key))
     .forEach(key => (sanitizedAttrs[key] = ''));
   return sanitizedAttrs;
+};
+
+type DispatchAnalyticsEventTooltip = (
+  payload: UnsupportedContentTooltipPayload,
+) => void;
+
+const trackUnsupportedContentTooltipActionFor = (
+  action: UnsupportedContentTooltipPayload['action'],
+  dispatchAnalyticsEvent: DispatchAnalyticsEventTooltip,
+  unsupportedContentType: UnsupportedContentTooltipPayload['actionSubjectId'],
+  originalNodeType?: string,
+) => {
+  dispatchAnalyticsEvent({
+    action: action,
+    actionSubjectId: unsupportedContentType,
+    actionSubject: ACTION_SUBJECT.TOOLTIP,
+    eventType: EVENT_TYPE.UI,
+    attributes: {
+      unsupportedNodeType: originalNodeType,
+    },
+  });
 };
 
 export const findAndTrackUnsupportedContentNodes = (
@@ -170,4 +192,17 @@ export const fireUnsupportedEvent = (
     eventType: EVENT_TYPE.TRACK,
   };
   dispatchAnalyticsEvent(payload);
+};
+
+export const trackUnsupportedContentTooltipDisplayedFor = (
+  dispatchAnalyticsEvent: DispatchAnalyticsEventTooltip,
+  unsupportedContentType: UnsupportedContentTooltipPayload['actionSubjectId'],
+  originalNodeType?: string,
+) => {
+  trackUnsupportedContentTooltipActionFor(
+    ACTION.UNSUPPORTED_TOOLTIP_VIEWED,
+    dispatchAnalyticsEvent,
+    unsupportedContentType,
+    originalNodeType,
+  );
 };

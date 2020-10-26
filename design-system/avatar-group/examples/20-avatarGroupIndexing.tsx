@@ -5,7 +5,7 @@ import shuffle from 'lodash/shuffle';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import { Note } from '../examples-util/helpers';

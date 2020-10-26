@@ -3,7 +3,7 @@ import { forwardRef, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { N700 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';

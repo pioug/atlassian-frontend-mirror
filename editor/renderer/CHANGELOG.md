@@ -1,5 +1,51 @@
 # @atlaskit/renderer
 
+## 68.0.0
+
+### Minor Changes
+
+- [`b6b8b7ab25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b8b7ab25) - ED-10678 | Add analytics to bodiedExtension to determine if ADF content is passed to it
+- [`1bd404254e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bd404254e) - ED-10547 Analytics for delete annotations
+
+### Patch Changes
+
+- [`4b2c7ce81c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b2c7ce81c) - ED-10580: Fix duplicate i18n ids
+- [`e4abda244e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abda244e) - ED-9912: replace prosemirror-tables with editor-tables
+- [`03d3e74853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03d3e74853) - [ux] ED-10540, ED-10149 Improve Heading Alignment when Heading Links are enabled.
+
+  The following changes only apply when these feature flags are enabled:
+
+  1. `confluence.frontend.fabric.renderer.heading.anchor` which shows copy anchor link buttons next to heading text within the renderer.
+  2. `confluence.frontend.open.expand.when.following.link` which opts into the new copy anchor link UI/UX as well as supporting them within expand nodes.
+
+  When a heading is **left aligned**:
+
+  - No change.
+
+  When a heading is **center aligned**:
+
+  - The copy link button is now detached from the text so that it doesn't impact centering.
+  - This respects the user's intention and resembles how it behaves in the legacy copy link button UI/UX.
+
+  When a heading is **right aligned**:
+
+  - The copy link button is now flipped to the left of the right aligned heading text.
+  - The heading text is now flush against the edge of the content area.
+  - This respects the user's intention and resembles how it behaves in the legacy copy link button UI/UX.
+
+  When a heading is **inside a table header cell** and table _column sorting is enabled_:
+
+  - Headings inside a table header cell now wrap once they reach the column sorting button instead of going behind it.
+
+- [`d99590d680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d99590d680) - [ux] ED-10376: added support for custom panels in renderer
+
+  - convert Panel to functional component
+  - added support for dark mode in renderer 99-testing.tsx
+
+- [`02ea8214a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ea8214a0) - EDM-1320 fixed linked image overlaps table sorting button
+- [`56fe4bb199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56fe4bb199) - TWISTA-367 Add new method for annotation bounding rect for mobile bridge renderer
+- Updated dependencies
+
 ## 67.0.3
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import { EditorView } from 'prosemirror-view';
 import {
   createMediaLinkingCommand,
   getMediaLinkingState,
+  mediaLinkingPluginKey,
 } from '../pm-plugins/linking';
 import { Node, MarkType } from 'prosemirror-model';
 import { normalizeUrl } from '../../hyperlink/utils';
@@ -18,6 +19,10 @@ import {
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
 } from '../../analytics';
+import { currentMediaNode } from '../utils/current-media-node';
+import { checkMediaType } from '../utils/check-media-type';
+import { getMediaPluginState } from '../pm-plugins/main';
+import { Command } from '../../../types';
 
 export const showLinkingToolbar = createMediaLinkingCommand(state => {
   const mediaLinkingState = getMediaLinkingState(state);
@@ -31,6 +36,41 @@ export const showLinkingToolbar = createMediaLinkingCommand(state => {
   }
   return false;
 });
+
+export const showLinkingToolbarWithMediaTypeCheck: Command = (
+  editorState,
+  dispatch,
+  editorView,
+) => {
+  if (dispatch && editorView) {
+    const mediaNode = currentMediaNode(editorState);
+
+    if (!mediaNode) {
+      return false;
+    }
+
+    const { mediaClientConfig } = getMediaPluginState(editorState);
+
+    if (!mediaClientConfig) {
+      return false;
+    }
+
+    checkMediaType(mediaNode, mediaClientConfig).then(mediaType => {
+      if (
+        (mediaType === 'external' || mediaType === 'image') &&
+        // We make sure the selection and the node hasn't changed.
+        currentMediaNode(editorView.state) === mediaNode
+      ) {
+        dispatch(
+          editorView.state.tr.setMeta(mediaLinkingPluginKey, {
+            type: MediaLinkingActionsTypes.showToolbar,
+          }),
+        );
+      }
+    });
+  }
+  return true;
+};
 
 const hideLinkingToolbarCommand = createMediaLinkingCommand({
   type: MediaLinkingActionsTypes.hideToolbar,

@@ -1,6 +1,6 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-import { Rect } from 'prosemirror-tables';
+import { Rect } from '@atlaskit/editor-tables/table-map';
 import { DecorationSet } from 'prosemirror-view';
 import { InjectedIntl } from 'react-intl';
 

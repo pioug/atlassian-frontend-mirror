@@ -6,6 +6,7 @@ import { CheckboxField, FieldProps } from '@atlaskit/form';
 import { BooleanField } from '@atlaskit/editor-common/extensions';
 import Toggle from '@atlaskit/toggle';
 
+import { getSafeParentedName } from '../utils';
 import { OnBlur } from '../types';
 
 import FieldMessages from '../FieldMessages';
@@ -56,9 +57,11 @@ function BooleanToggle({ label, ...fieldProps }: Props) {
 export default function Boolean({
   field,
   onBlur,
+  parentName,
 }: {
   field: BooleanField;
   onBlur: OnBlur;
+  parentName?: string;
 }) {
   const { name, label, description, isRequired, defaultValue } = field;
   const showToggle = field.style === 'toggle';
@@ -66,7 +69,7 @@ export default function Boolean({
   return (
     <CheckboxField
       key={name}
-      name={name}
+      name={getSafeParentedName(name, parentName)}
       isRequired={isRequired}
       defaultIsChecked={isChecked(defaultValue)}
     >

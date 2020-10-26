@@ -12,6 +12,7 @@ jest.mock('../../../../hooks/use-container-width', () => {
 
 import React from 'react';
 import { ReactWrapper, mount } from 'enzyme';
+import { ELEMENT_LIST_PADDING } from '../../../../constants';
 import ElementList from '../../ElementList';
 import { Modes } from '../../../../types';
 
@@ -46,7 +47,9 @@ describe('ElementList', () => {
       wrapper = mount(<ElementList {...props} />);
       const Collection = wrapper.find('Collection');
       expect(Collection).toHaveLength(1);
-      expect(Collection.props().width).toStrictEqual(660);
+      expect(Collection.props().width).toStrictEqual(
+        660 - ELEMENT_LIST_PADDING * 2,
+      );
     });
     /**
      * Needs validation as there's a hack to remove tabIndex from react-virtualized/Collection.

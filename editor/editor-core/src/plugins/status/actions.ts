@@ -21,7 +21,7 @@ import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
 import { pluginKey } from './plugin-key';
 import { StatusType } from './types';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import { canInsert } from 'prosemirror-utils';
 
 export const DEFAULT_STATUS: StatusType = {
   text: '',
@@ -73,23 +73,22 @@ export const updateStatus = (status?: StatusType): Command => (
     const statusNode = schema.nodes.status.createChecked(statusProps);
     const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
 
-    // if cursor is inside codeBlock, create status after codeBlock in a new paragraph
-    let newStatusPos;
-    const codeBlock = findParentNodeOfType(state.schema.nodes.codeBlock)(
-      tr.selection,
-    );
-    if (codeBlock) {
-      newStatusPos = tr.doc.resolve(codeBlock.start).end() + 1;
+    const insertable = canInsert(tr.selection.$from, fragment);
+    if (!insertable) {
+      const parentSelection = NodeSelection.create(
+        tr.doc,
+        tr.selection.from - tr.selection.$anchor.parentOffset - 1,
+      );
+      tr.insert(parentSelection.to, fragment).setSelection(
+        NodeSelection.create(tr.doc, parentSelection.to + 1),
+      );
     } else {
-      newStatusPos = tr.selection.from;
+      tr.insert(tr.selection.from, fragment).setSelection(
+        NodeSelection.create(tr.doc, tr.selection.from - fragment.size),
+      );
     }
-    tr.insert(newStatusPos, fragment);
-    if (codeBlock) {
-      newStatusPos += 1;
-    }
-    tr.setSelection(NodeSelection.create(tr.doc, newStatusPos));
     tr.setMeta(pluginKey, {
-      showStatusPickerAt: newStatusPos,
+      showStatusPickerAt: tr.selection.from,
       isNew: true,
     }).scrollIntoView();
     if (dispatch) {

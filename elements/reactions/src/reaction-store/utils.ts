@@ -78,3 +78,8 @@ export const getReactionsSortFunction = (reactions?: ReactionSummary[]) =>
     : sortByRelevance;
 
 export const flattenAris = (a: string[], b: string[]): string[] => a.concat(b);
+
+export function isRealErrorFromService(errorCode?: number) {
+  // we don't count 401 or 403 as a real error from services
+  return !errorCode || !(errorCode === 401 || errorCode === 403);
+}

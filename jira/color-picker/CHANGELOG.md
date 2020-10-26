@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 1.1.0
+
+### Minor Changes
+
+- [`6d45a6aad7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d45a6aad7) - [ux] Added a slightly darker border to each color block so that white is visible
+
 ## 1.0.7
 
 ### Patch Changes

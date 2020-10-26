@@ -5,11 +5,13 @@ import { CardOptions } from '../card';
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
+  predictableLists?: boolean;
 };
 
 const pastePlugin = ({
   cardOptions,
   sanitizePrivateContent,
+  predictableLists,
 }: PastePluginOptions): EditorPlugin => ({
   name: 'paste',
 
@@ -22,6 +24,7 @@ const pastePlugin = ({
             schema,
             cardOptions,
             sanitizePrivateContent,
+            predictableLists,
             providerFactory,
           ),
       },

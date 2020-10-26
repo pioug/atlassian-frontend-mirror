@@ -27,11 +27,12 @@ import {
   linkToolbarMessages as linkToolbarCommonMessages,
   linkMessages,
 } from '../../messages';
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl, LinkAttributes } from '@atlaskit/adf-schema';
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../ui/LinkSearch/ToolbarComponents';
+import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
 
 /* type guard for edit links */
 function isEditLink(
@@ -111,9 +112,11 @@ const handleBlur = (
 
 export const getToolbarConfig: FloatingToolbarHandler = (
   state,
-  { formatMessage },
+  intl,
   providerFactory,
+  cardOptions,
 ) => {
+  const { formatMessage } = intl;
   const linkState: HyperlinkState | undefined = stateKey.getState(state);
 
   if (linkState && linkState.activeLinkMark) {
@@ -140,16 +143,14 @@ export const getToolbarConfig: FloatingToolbarHandler = (
         const linkMark = node.marks.filter(
           mark => mark.type === state.schema.marks.link,
         );
-        const link = linkMark[0] && linkMark[0].attrs.href;
+        const link = linkMark[0] && (linkMark[0].attrs as LinkAttributes).href;
         const isValidUrl = isSafeUrl(link);
-
         const labelOpenLink = formatMessage(
           isValidUrl
             ? linkMessages.openLink
             : linkToolbarCommonMessages.unableToOpenLink,
         );
         const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
-
         const editLink = formatMessage(linkToolbarCommonMessages.editLink);
 
         return {
@@ -157,6 +158,23 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           height: 32,
           width: 250,
           items: [
+            {
+              type: 'custom',
+              render: editorView => {
+                return (
+                  <HyperlinkToolbarAppearance
+                    key="link-appearance"
+                    url={link}
+                    intl={intl}
+                    editorView={editorView}
+                    editorState={state}
+                    cardOptions={cardOptions}
+                    providerFactory={providerFactory}
+                    // platform={} // TODO: pass platform
+                  />
+                );
+              },
+            },
             {
               type: 'button',
               onClick: editInsertedLink(),
@@ -171,7 +189,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               type: 'button',
               disabled: !isValidUrl,
               target: '_blank',
-              href: isValidUrl ? link : null,
+              href: isValidUrl ? link : undefined,
               onClick: () => true,
               selected: false,
               title: labelOpenLink,

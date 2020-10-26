@@ -1,7 +1,7 @@
 import React, { Component, Fragment, MouseEvent, ReactNode } from 'react';
 import styled from 'styled-components';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 const Cell = styled.td`
   font-size: 90%;

@@ -167,7 +167,7 @@ const transformLegacyMacrosToExtensionManifest = (
       );
     }
 
-    editorActions.replaceSelection(node);
+    editorActions.replaceSelection(node, true);
     editSelectedExtension(editorActions);
   };
 
@@ -232,7 +232,7 @@ const transformLegacyMacrosToExtensionManifest = (
 
   const nodes = {
     default: {
-      type: 'extension',
+      type: getExtensionBodyType(macro),
       render: () =>
         import(
           /* webpackChunkName:"@atlaskit-internal-editor-example-macro-component" */
@@ -540,8 +540,8 @@ const transformFormDetailsIntoFields = (
         'label',
       ),
       name: params.name || 'defaultParameterValue',
-      fields: cqlFields,
       type: 'fieldset',
+      fields: cqlFields,
       options: {
         isDynamic: true,
         transformer: {

@@ -5,7 +5,7 @@ import TextField from '@atlaskit/textfield';
 import { NumberField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
-import { validate } from '../utils';
+import { validate, getSafeParentedName } from '../utils';
 import { OnBlur } from '../types';
 
 export default function Number({
@@ -13,16 +13,18 @@ export default function Number({
   autoFocus,
   onBlur,
   placeholder,
+  parentName,
 }: {
   field: NumberField;
   autoFocus?: boolean;
   onBlur: OnBlur;
   placeholder?: string;
+  parentName?: string;
 }) {
   const { name, label, description, defaultValue, isRequired } = field;
   return (
     <Field
-      name={name}
+      name={getSafeParentedName(name, parentName)}
       label={label}
       defaultValue={defaultValue || ''}
       isRequired={isRequired}

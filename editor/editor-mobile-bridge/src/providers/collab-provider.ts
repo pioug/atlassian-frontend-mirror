@@ -36,6 +36,7 @@ export function createCollabProviderFactory(fetchProxy: FetchProxy) {
       userId,
       lifecycle: bridge.lifecycle,
       storage: new StorageImpl(),
+
       createSocket(path: string): Socket {
         return bridge.createCollabSocket(path);
       },

@@ -24,6 +24,7 @@ export const StyledTitle = styled.h1<StyledProps>`
   ${h700()};
   ${getTruncationStyles} line-height: ${gridSize() * 4}px;
   margin-top: 0;
+  outline: none;
 `;
 
 export const TitleWrapper = styled.div<StyledProps>`

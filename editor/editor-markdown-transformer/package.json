@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^13.0.0",
-    "@atlaskit/editor-common": "^51.0.0",
+    "@atlaskit/adf-schema": "^13.1.0",
+    "@atlaskit/editor-common": "^51.2.0",
     "markdown-it": "^10.0.0",
     "markdown-it-table": "^2.0.4",
     "prosemirror-markdown": "^1.4.2",
@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^131.0.0",
-    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/editor-core": "^132.0.0",
+    "@atlaskit/editor-test-helpers": "^13.1.0",
     "@atlaskit/util-data-test": "^14.0.0",
     "react": "^16.8.0",
     "typescript": "3.9.6"

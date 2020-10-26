@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { EditorState } from 'prosemirror-state';
+import { findDomRefAtPos } from 'prosemirror-utils';
 import {
   findCellRectClosestToPos,
-  findDomRefAtPos,
   getSelectionRect,
-  isCellSelection,
-} from 'prosemirror-utils';
+  isSelectionType,
+} from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import styled from 'styled-components';
 
@@ -72,7 +72,7 @@ const FloatingContextualMenu = ({
   }
 
   const { selection } = editorView.state;
-  const selectionRect = isCellSelection(selection)
+  const selectionRect = isSelectionType(selection, 'cell')
     ? getSelectionRect(selection)!
     : findCellRectClosestToPos(selection.$from);
 

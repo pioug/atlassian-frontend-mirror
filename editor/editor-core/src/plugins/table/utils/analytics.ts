@@ -1,6 +1,6 @@
 import { Selection } from 'prosemirror-state';
-import { TableMap } from 'prosemirror-tables';
-import { findTable, getSelectionRect } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 export function getSelectedTableInfo(selection: Selection) {
   let map;

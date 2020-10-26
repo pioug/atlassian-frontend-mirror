@@ -1,10 +1,10 @@
 import { Step } from 'prosemirror-transform';
 import { findParentNode } from 'prosemirror-utils';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { InputRuleWithHandler } from '../../utils/input-rules';
-import { GapCursorSelection, Side } from '../gap-cursor/selection';
+import { GapCursorSelection, Side } from '../selection/gap-cursor/selection';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { editorAnalyticsChannel } from './consts';
 import {
@@ -13,6 +13,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   TABLE_ACTION,
+  SEVERITY,
 } from './types';
 import { SELECTION_TYPE, SELECTION_POSITION } from './types/utils';
 import { analyticsPluginKey } from './plugin-key';
@@ -224,3 +225,18 @@ export function getAnalyticsEventsFromTransaction(
       [],
     );
 }
+
+export const getAnalyticsEventSeverity = (
+  duration: number,
+  normalThreshold: number,
+  degradedThreshold: number,
+) => {
+  if (duration > normalThreshold && duration <= degradedThreshold) {
+    return SEVERITY.DEGRADED;
+  }
+  if (duration > degradedThreshold) {
+    return SEVERITY.BLOCKING;
+  }
+
+  return SEVERITY.NORMAL;
+};

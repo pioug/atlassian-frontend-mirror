@@ -21,6 +21,7 @@ import {
   fakeMediaClient,
   imageFileId,
   audioFileId,
+  docFileId,
   nextTick,
   asMockFunction,
   expectFunctionToHaveBeenCalledWith,
@@ -402,17 +403,28 @@ describe('MediaTable', () => {
     expect(tableLength).toEqual(2);
   });
 
-  it('should apply row props to all of the generated rows', async () => {
+  it('should apply row props to specified rows', async () => {
     const { mediaTable } = await setup(true, {
       ...defaultProps,
-      rowProps: { className: 'test-class' },
+      items: [
+        ...defaultItems,
+        {
+          identifier: docFileId,
+          rowProps: { className: 'test-class' },
+          data: {
+            file: createMockFileData('file_name', 'doc'),
+            size: toHumanReadableMediaSize(10),
+            date: 'some date',
+          },
+        },
+      ],
     });
 
     const tableRows = mediaTable.find(DynamicTableStateless).prop('rows');
 
-    tableRows.forEach((row: { className: string }) => {
-      expect(row.className).toEqual('test-class');
-    });
+    expect(tableRows[0].className).toEqual(undefined);
+    expect(tableRows[1].className).toEqual(undefined);
+    expect(tableRows[2].className).toEqual('test-class');
   });
 
   describe('loading spinner', () => {

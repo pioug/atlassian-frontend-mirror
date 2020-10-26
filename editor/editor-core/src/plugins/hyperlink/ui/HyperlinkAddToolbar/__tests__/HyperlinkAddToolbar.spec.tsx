@@ -228,6 +228,59 @@ describe('HyperlinkAddToolbar', () => {
     };
   };
 
+  describe('when there is no activity provider and search provider given', () => {
+    const setup2 = async (config: SetupArgumentObject = {}) => {
+      return setup({
+        ...config,
+        provideActivityProvider: false,
+        provideSearchProvider: false,
+      });
+    };
+
+    it('should submit with valid url in the input field', async () => {
+      const {
+        component,
+        onSubmit,
+        pressReturnInputField,
+        updateInputFieldWithStateUpdated,
+      } = await setup2();
+
+      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
+      pressReturnInputField('link-url');
+      component.update();
+
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit).toHaveBeenCalledWith(
+        'http://www.atlassian.com',
+        'www.atlassian.com',
+        undefined,
+        'manual',
+      );
+    });
+
+    it('should submit with valid url and title in the input field', async () => {
+      const {
+        component,
+        onSubmit,
+        pressReturnInputField,
+        updateInputFieldWithStateUpdated,
+      } = await setup2();
+
+      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
+      await updateInputFieldWithStateUpdated('link-label', 'link');
+      pressReturnInputField('link-label');
+      component.update();
+
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit).toHaveBeenCalledWith(
+        'http://www.atlassian.com',
+        'www.atlassian.com',
+        'link',
+        'manual',
+      );
+    });
+  });
+
   describe('when activity provider returns 5 or more results initially', () => {
     it('should have isLoading before recent activity results are resolved', async () => {
       const {

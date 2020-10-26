@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import { ExtensionManifest } from '@atlaskit/editor-common';
@@ -19,71 +19,65 @@ type Props = {
   fields: FieldDefinition[];
   parameters?: Parameters;
   autoSave?: boolean;
+  autoSaveTrigger?: unknown;
   submitting?: boolean;
   onCancel: () => void;
   firstVisibleFieldName?: string;
 } & InjectedIntlProps;
 
-class Form extends React.Component<Props> {
-  private submitButton: React.RefObject<HTMLButtonElement>;
-
-  constructor(props: Props) {
-    super(props);
-    this.submitButton = React.createRef<HTMLButtonElement>();
-  }
-
-  onFieldBlur = () => {
-    const { autoSave } = this.props;
-
-    if (autoSave && this.submitButton.current) {
-      this.submitButton.current.click();
+function Form({
+  intl,
+  fields,
+  onCancel,
+  extensionManifest,
+  parameters,
+  autoSave,
+  autoSaveTrigger,
+  submitting,
+  firstVisibleFieldName,
+}: Props) {
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const tryAutoSave = useCallback(() => {
+    if (!autoSave) {
+      return;
     }
-  };
 
-  render() {
-    const {
-      intl,
-      fields,
-      onCancel,
-      extensionManifest,
-      parameters,
-      autoSave,
-      submitting,
-      firstVisibleFieldName,
-    } = this.props;
+    if (submitButtonRef.current) {
+      submitButtonRef.current.click();
+    }
+  }, [autoSave, submitButtonRef]);
 
-    return (
-      <React.Fragment>
-        <FormContent
-          fields={fields}
-          parameters={parameters}
-          extensionManifest={extensionManifest}
-          onFieldBlur={this.onFieldBlur}
-          firstVisibleFieldName={firstVisibleFieldName}
-        />
-        <div style={autoSave ? { display: 'none' } : {}}>
-          <FormFooter align="start">
-            <ButtonGroup>
-              <Button
-                type="submit"
-                appearance="primary"
-                ref={this.submitButton}
-              >
-                {intl.formatMessage(messages.submit)}
-              </Button>
-              <Button
-                appearance="default"
-                isDisabled={submitting}
-                onClick={onCancel}
-              >
-                {intl.formatMessage(messages.cancel)}
-              </Button>
-            </ButtonGroup>
-          </FormFooter>
-        </div>
-      </React.Fragment>
-    );
-  }
+  useEffect(() => {
+    tryAutoSave();
+  }, [autoSaveTrigger, tryAutoSave]);
+
+  return (
+    <React.Fragment>
+      <FormContent
+        fields={fields}
+        parameters={parameters}
+        extensionManifest={extensionManifest}
+        onFieldBlur={tryAutoSave}
+        firstVisibleFieldName={firstVisibleFieldName}
+      />
+      <div style={autoSave ? { display: 'none' } : {}}>
+        <FormFooter align="start">
+          <ButtonGroup>
+            <Button type="submit" appearance="primary" ref={submitButtonRef}>
+              {intl.formatMessage(messages.submit)}
+            </Button>
+            <Button
+              appearance="default"
+              isDisabled={submitting}
+              onClick={onCancel}
+            >
+              {intl.formatMessage(messages.cancel)}
+            </Button>
+          </ButtonGroup>
+        </FormFooter>
+      </div>
+    </React.Fragment>
+  );
 }
 
 export default injectIntl(Form);

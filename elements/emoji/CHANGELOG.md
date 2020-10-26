@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 63.0.11
+
+### Patch Changes
+
+- [`401be935e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/401be935e9) - Fix bug with emoji category selector not working inside forms
+- Updated dependencies
+
 ## 63.0.10
 
 ### Patch Changes

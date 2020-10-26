@@ -64,10 +64,6 @@ const getSelectionStyle = (style: SelectionStyle): string => {
           pointer-events: none;
           background-color: ${akEditorSelectedBlanketColor}
         }`;
-    case SelectionStyle.ResetBorder:
-      return ` border: none;`;
-    case SelectionStyle.ResetOpacity:
-      return `opacity: ${akEditorSelectedBlanketOpacity};`;
     default:
       return '';
   }

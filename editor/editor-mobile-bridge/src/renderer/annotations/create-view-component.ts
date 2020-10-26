@@ -1,30 +1,53 @@
-import { memo, useLayoutEffect } from 'react';
-import { InlineCommentViewComponentProps } from '@atlaskit/editor-common';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
+import { InlineCommentViewComponentProps } from '@atlaskit/editor-common';
+import { memo, useLayoutEffect } from 'react';
 import {
-  eventDispatcher as mobileBridgeEventDispatcher,
   EmitterEvents,
+  eventDispatcher as mobileBridgeEventDispatcher,
 } from '../dispatcher';
-import { AnnotationPayload } from '../types';
 import RendererBridge from '../native-to-web/bridge';
+import { AnnotationPayload } from '../types';
+import {
+  AnnotationPayloadsByType,
+  AnnotationWithRectPayloadsByType,
+} from '../web-to-native/bridge';
+import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
 
 export const createViewComponent = (nativeToWebAPI: RendererBridge) =>
   memo((props: InlineCommentViewComponentProps) => {
-    const { annotations, deleteAnnotation } = props;
+    const { annotations, clickElementTarget, deleteAnnotation } = props;
 
     useLayoutEffect(() => {
       if (!annotations || annotations.length === 0) {
         webToNativeBridgeAPI.onAnnotationClick();
+        webToNativeBridgeAPI.onAnnotationClickWithRect();
+        return;
       }
 
-      const payload = [
+      const payload: AnnotationPayloadsByType[] = [
         {
           annotationType: AnnotationTypes.INLINE_COMMENT,
-          annotationIds: (annotations || []).map(annotation => annotation.id),
+          annotationIds: annotations.map(annotation => annotation.id),
         },
       ];
       webToNativeBridgeAPI.onAnnotationClick(payload);
+
+      if (clickElementTarget) {
+        const rect = clickElementTarget.getBoundingClientRect();
+        const text = clickElementTarget.innerText;
+
+        const geomPayload: AnnotationWithRectPayloadsByType[] = [
+          {
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            annotations: annotations.map(annotation => ({
+              id: annotation.id,
+              rect,
+              text,
+            })),
+          },
+        ];
+        webToNativeBridgeAPI.onAnnotationClickWithRect(geomPayload);
+      }
 
       const callback = (payload?: AnnotationPayload) => {
         if (payload) {
@@ -49,7 +72,7 @@ export const createViewComponent = (nativeToWebAPI: RendererBridge) =>
           callback,
         );
       };
-    }, [annotations, deleteAnnotation]);
+    }, [annotations, clickElementTarget, deleteAnnotation]);
 
     return null;
   });

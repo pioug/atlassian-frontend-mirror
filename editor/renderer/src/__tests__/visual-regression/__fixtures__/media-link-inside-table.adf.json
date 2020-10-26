@@ -17,8 +17,28 @@
               "attrs": {},
               "content": [
                 {
-                  "type": "paragraph",
-                  "content": []
+                  "type": "mediaSingle",
+                  "attrs": {
+                    "layout": "center"
+                  },
+                  "content": [
+                    {
+                      "type": "media",
+                      "attrs": {
+                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                        "type": "file",
+                        "collection": "MediaServicesSample"
+                      }
+                    }
+                  ],
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://www.atlassian.com/"
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -72,9 +92,7 @@
                       "attrs": {
                         "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
-                        "collection": "MediaServicesSample",
-                        "width": 225,
-                        "height": 224
+                        "collection": "MediaServicesSample"
                       }
                     }
                   ],

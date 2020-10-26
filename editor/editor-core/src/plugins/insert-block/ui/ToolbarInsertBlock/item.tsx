@@ -1,6 +1,5 @@
-import React, { ReactElement, ComponentClass } from 'react';
+import React from 'react';
 import memoizeOne from 'memoize-one';
-import { Transaction } from 'prosemirror-state';
 
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
@@ -19,18 +18,6 @@ import HorizontalRuleIcon from '@atlaskit/icon/glyph/editor/horizontal-rule';
 import CodeIcon from '@atlaskit/icon/glyph/editor/code';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-
-import {
-  IconCode,
-  IconDate,
-  IconDecision,
-  IconDivider,
-  IconExpand,
-  IconPanel,
-  IconQuote,
-  IconStatus,
-} from '../../../quick-insert/assets';
 
 import { Shortcut } from '../../../../ui/styles';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
@@ -255,52 +242,3 @@ export const more = mem((init: CreateInit) =>
     Icon: EditorMoreIcon,
   }),
 );
-
-export type OnInsert = ({ item }: { item: MenuItem }) => Transaction;
-
-export const convertMenuToQuickInsertItem = mem(
-  (onInsert: OnInsert) => (item: MenuItem): QuickInsertItem => {
-    return {
-      title: item.content as string,
-      description: item.tooltipDescription,
-      keyshortcut: item.shortcut,
-      icon: () =>
-        getSvgIconForItem({
-          name: item.value.name,
-          content: item.content as string,
-        }) || (item.elemBefore as ReactElement),
-      action: () => onInsert({ item }),
-      // "insertInsertMenuItem" function in insert-block/ui/ToolbarInsertBlock/index.tsx expects these 2 properties.
-      onClick: item.onClick,
-      value: item.value,
-    };
-  },
-);
-
-type SvgGetterParams = {
-  name: string;
-  content: string;
-};
-
-/**
- * we only get the updated svg icons for InlineElementBrowser
- */
-const getSvgIconForItem = ({
-  name,
-  content,
-}: SvgGetterParams): ReactElement | undefined => {
-  type IconType = { [key: string]: ComponentClass<{ label: string }> };
-
-  const Icon = ({
-    codeblock: IconCode,
-    panel: IconPanel,
-    blockquote: IconQuote,
-    decision: IconDecision,
-    horizontalrule: IconDivider,
-    expand: IconExpand,
-    date: IconDate,
-    status: IconStatus,
-  } as IconType)[name];
-
-  return Icon ? <Icon label={content} /> : undefined;
-};

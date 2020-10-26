@@ -365,6 +365,7 @@ describe('validate Attribute', () => {
       'hardBreak',
       'taskList',
       'taskItem',
+      'blockquote',
     ]);
 
     let errorCallbackMock: jest.Mock;
@@ -374,6 +375,41 @@ describe('validate Attribute', () => {
     });
 
     afterEach(() => errorCallbackMock.mockRestore());
+
+    it(`should invoke error callback with UNSUPPORTED_ATTRIBUTES error code when node
+        does not support any attribute and an attribute property is passed`, () => {
+      const unsupportedNodeAttribute = {
+        some: 'value',
+      };
+
+      const initialEntity = {
+        type: 'blockquote',
+        content: [
+          {
+            type: 'paragraph',
+            content: [],
+          },
+        ],
+        attrs: unsupportedNodeAttribute,
+      };
+
+      validate(initialEntity, errorCallbackMock);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+      expect(errorCallbackMock).toHaveBeenCalledWith(
+        { type: 'blockquote' },
+        expect.objectContaining({
+          code: 'UNSUPPORTED_ATTRIBUTES',
+          message: `blockquote: 'attrs' validation failed.`,
+          meta: { some: 'value' },
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: false,
+          isNodeAttribute: true,
+        }),
+      );
+    });
 
     it(`should invoke error callback with UNSUPPORTED_ATTRIBUTES error code
       when unknown attribute appears along with known attribute(s) and node type is Status`, () => {

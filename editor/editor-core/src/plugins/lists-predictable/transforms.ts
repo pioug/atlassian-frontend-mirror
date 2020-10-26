@@ -5,6 +5,7 @@ import {
   Schema,
   Node,
   NodeType,
+  Mark,
 } from 'prosemirror-model';
 import {
   EditorState,
@@ -14,6 +15,7 @@ import {
 } from 'prosemirror-state';
 import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import { autoJoin } from 'prosemirror-commands';
+import { isListNode } from './utils/node';
 import { mapSlice, mapChildren } from '../../utils/slice';
 import { getListLiftTarget } from './utils/indentation';
 
@@ -158,7 +160,7 @@ const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {
   }, null);
 };
 
-const extractListFromParagaph = (
+const extractListFromParagraph = (
   node: Node,
   parent: Node | null,
   schema: Schema,
@@ -234,9 +236,9 @@ const extractListFromParagaph = (
     schema,
   });
 
-  let lastTr: Transaction | undefined;
+  let joinedListsTr: Transaction | undefined;
   const mockDispatch = (tr: Transaction) => {
-    lastTr = tr;
+    joinedListsTr = tr;
   };
 
   autoJoin(
@@ -245,13 +247,22 @@ const extractListFromParagaph = (
         return false;
       }
 
+      // Return false to prevent replaceWith from wrapping the text node in a paragraph
+      // paragraph since that will be done later. If it's done here, it will fail
+      // the paragraph.validContent check.
+      if (listified.some(node => node.isText)) {
+        return false;
+      }
+
       dispatch(state.tr.replaceWith(0, 2, listified));
       return true;
     },
-    () => true,
+    (before, after) => isListNode(before) && isListNode(after),
   )(mockState, mockDispatch);
 
-  const fragment = lastTr ? lastTr.doc.content : Fragment.from(listified);
+  const fragment = joinedListsTr
+    ? joinedListsTr.doc.content
+    : Fragment.from(listified);
 
   // try to re-wrap fragment in paragraph (which is the original node we unwrapped)
   const { paragraph } = schema.nodes;
@@ -265,11 +276,17 @@ const extractListFromParagaph = (
 
 /**
  * Walks the slice, creating paragraphs that were previously separated by hardbreaks.
- * @param slice
- * @param schema
- * @returns the original paragraph node (as a fragment), or a fragment containing multiple nodes
+ * Returns the original paragraph node (as a fragment), or a fragment containing multiple nodes.
  */
-const splitIntoParagraphs = (fragment: Fragment, schema: Schema): Fragment => {
+const splitIntoParagraphs = ({
+  fragment,
+  blockMarks = [],
+  schema,
+}: {
+  fragment: Fragment;
+  blockMarks?: Mark[];
+  schema: Schema;
+}): Fragment => {
   const paragraphs = [];
   let curChildren: Array<Node> = [];
   let lastNode: Node | null = null;
@@ -284,7 +301,9 @@ const splitIntoParagraphs = (fragment: Fragment, schema: Schema): Fragment => {
       curChildren.pop();
 
       // create a new paragraph
-      paragraphs.push(paragraph.createChecked(undefined, curChildren));
+      paragraphs.push(
+        paragraph.createChecked(undefined, curChildren, [...blockMarks]),
+      );
       curChildren = [];
       return;
     }
@@ -295,11 +314,15 @@ const splitIntoParagraphs = (fragment: Fragment, schema: Schema): Fragment => {
   });
 
   if (curChildren.length) {
-    paragraphs.push(paragraph.createChecked(undefined, curChildren));
+    paragraphs.push(
+      paragraph.createChecked(undefined, curChildren, [...blockMarks]),
+    );
   }
 
   return Fragment.from(
-    paragraphs.length ? paragraphs : [paragraph.createAndFill()!],
+    paragraphs.length
+      ? paragraphs
+      : [paragraph.createAndFill(undefined, undefined, [...blockMarks])!],
   );
 };
 
@@ -314,13 +337,17 @@ export const splitParagraphs = (slice: Slice, schema: Schema): Slice => {
 
   // slice might just be a raw text string
   if (schema.nodes.paragraph.validContent(slice.content) && !hasCodeMark) {
-    const replSlice = splitIntoParagraphs(slice.content, schema);
+    const replSlice = splitIntoParagraphs({ fragment: slice.content, schema });
     return new Slice(replSlice, slice.openStart + 1, slice.openEnd + 1);
   }
 
-  return mapSlice(slice, (node, parent) => {
+  return mapSlice(slice, node => {
     if (node.type === schema.nodes.paragraph) {
-      return splitIntoParagraphs(node.content, schema);
+      return splitIntoParagraphs({
+        fragment: node.content,
+        blockMarks: node.marks,
+        schema,
+      });
     }
 
     return node;
@@ -331,7 +358,7 @@ export const splitParagraphs = (slice: Slice, schema: Schema): Slice => {
 export const upgradeTextToLists = (slice: Slice, schema: Schema): Slice => {
   return mapSlice(slice, (node, parent) => {
     if (node.type === schema.nodes.paragraph) {
-      return extractListFromParagaph(node, parent, schema);
+      return extractListFromParagraph(node, parent, schema);
     }
 
     return node;

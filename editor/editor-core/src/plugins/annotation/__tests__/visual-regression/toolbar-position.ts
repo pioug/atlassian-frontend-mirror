@@ -7,7 +7,6 @@ import {
   evaluateCoordinates,
   scrollToBottom,
   scrollToElement,
-  selectAtPos,
   selectAtPosWithProseMirror,
 } from '../../../../__tests__/__helpers/page-objects/_editor';
 import {
@@ -124,7 +123,7 @@ describe('Annotation toolbar positioning', () => {
     });
 
     it(`text selection in wide breakout node`, async () => {
-      await selectAtPos(page, 1, 2);
+      await selectAtPosWithProseMirror(page, 1, 2);
       await scrollToBottom(page);
       await selectAtPosWithProseMirror(page, 1712, 1686);
       await snapshot(page);

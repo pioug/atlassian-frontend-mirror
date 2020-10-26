@@ -51,6 +51,7 @@ export class BrowserLoader extends React.PureComponent<
 
       BrowserLoader.Browser = mediaClient.withMediaClient(
         browserModule.Browser,
+        this.props.featureFlags,
       );
 
       if (this.mounted) {

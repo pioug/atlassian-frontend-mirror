@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import FieldText from '../src';
 
 const formTestUrl = '//httpbin.org/get';

@@ -63,6 +63,7 @@ export interface CreateItemsConfig {
   schema: Schema;
   numberOfButtons: number;
   formatMessage: InjectedIntlProps['intl']['formatMessage'];
+  isNewMenuEnabled?: boolean;
 }
 
 export interface BlockMenuItem extends MenuItem {
@@ -121,6 +122,7 @@ const createInsertBlockItems = (
     numberOfButtons,
     schema,
     formatMessage,
+    isNewMenuEnabled,
   } = config;
 
   const items: MenuItem[] = [];
@@ -324,9 +326,11 @@ const createInsertBlockItems = (
 
   const buttonItems = items.slice(0, numberOfButtons).map(buttonToItem);
 
-  const dropdownItems = sortItems(items.slice(numberOfButtons)).map(
-    buttonToDropdownItem(formatMessage(messages.insertMenu)),
-  );
+  const remainingItems = items.slice(numberOfButtons);
+  const dropdownItems = (!isNewMenuEnabled
+    ? sortItems(remainingItems)
+    : remainingItems
+  ).map(buttonToDropdownItem(formatMessage(messages.insertMenu)));
 
   return [buttonItems, dropdownItems] as const;
 };

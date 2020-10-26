@@ -9,11 +9,10 @@ import {
   td,
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { selectTable } from 'prosemirror-utils';
+import { findTable, selectTable } from '@atlaskit/editor-tables/utils';
 import { TableCssClassName as ClassName } from '../../../../../plugins/table/types';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import TableComponent from '../../../../../plugins/table/nodeviews/TableComponent';
-import { findTable } from 'prosemirror-utils';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 import { EventDispatcher } from '../../../../../event-dispatcher';
 

@@ -20,7 +20,7 @@ import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import { isVisualRegression } from '../utils';
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../../../plugins/table/types';
-import { TestPage, isPuppeteer } from './_types';
+import { TestPage, WebDriverPage, isPuppeteer } from './_types';
 
 export const tableSelectors = {
   contextualMenu: `.${ClassName.CONTEXTUAL_MENU_BUTTON}`,
@@ -58,9 +58,6 @@ export const tableSelectors = {
   wideState: `.ProseMirror table[data-layout="wide"]`,
   fullWidthState: `.ProseMirror table[data-layout="full-width"]`,
   defaultState: `.ProseMirror table[data-layout="default"]`,
-  fullWidthSelector: `div[aria-label="${messages.layoutFullWidth.defaultMessage}"]`,
-  wideSelector: `div[aria-label="${messages.layoutWide.defaultMessage}"]`,
-  defaultSelector: `div[aria-label="${messages.layoutFixedWidth.defaultMessage}"]`,
   tableTd: 'table td',
   tableTh: 'table th',
   cellBackgroundText: 'Cell background',
@@ -68,6 +65,15 @@ export const tableSelectors = {
   floatingToolbar: '[aria-label*="Table floating controls"]',
   tableColSelected: '.pm-table-column__selected',
 };
+
+type LayoutType = 'fixed' | 'wide' | 'fullWidth';
+const layoutSelectors = {
+  fixed: `div[aria-label="${messages.layoutFixedWidth.defaultMessage}"]`,
+  wide: `div[aria-label="${messages.layoutWide.defaultMessage}"]`,
+  fullWidth: `div[aria-label="${messages.layoutFullWidth.defaultMessage}"]`,
+};
+const allLayoutTypes = Object.keys(layoutSelectors) as LayoutType[];
+
 // insert table from menu
 export const insertTable = async (page: any) => {
   await clickToolbarMenu(page, ToolbarMenuItem.table);
@@ -106,7 +112,7 @@ export const clickFirstCell = async (
   }
 };
 
-export const selectTable = async (page: any) => {
+export const selectTable = async (page: TestPage) => {
   await page.waitForSelector(tableSelectors.cornerButton);
   await page.click(tableSelectors.cornerButton);
   await page.waitForSelector(tableSelectors.selectedCell);
@@ -185,30 +191,55 @@ export const selectCellBackground = async ({
   await animationFrame(page);
 };
 
-// support for table layout
+export const navigateToTableCell = async (
+  page: WebDriverPage,
+  gotoRow: number,
+  gotoColumn: number,
+) => {
+  await page.click(
+    getSelectorForTableCell({
+      row: gotoRow,
+      cell: gotoColumn,
+    }),
+  );
+};
+
 export const setTableLayoutWide = async (page: any) => {
-  await page.waitForSelector(tableSelectors.wideSelector);
-  await page.click(tableSelectors.wideSelector);
-  await page.waitForSelector(tableSelectors.wideState);
+  await setTableLayout(page, 'wide');
 };
 
 export const setTableLayoutFullWidth = async (page: any) => {
-  await setTableLayoutWide(page);
-  await page.click(tableSelectors.fullWidthSelector);
-  await page.waitForSelector(tableSelectors.fullWidthState);
+  await setTableLayout(page, 'fullWidth');
 };
 
 export const resetTableLayoutDefault = async (page: any) => {
-  await page.waitForSelector(tableSelectors.defaultSelector);
-  await page.click(tableSelectors.defaultSelector);
-  await page.waitForSelector(tableSelectors.defaultState);
+  await setTableLayout(page, 'fixed');
 };
 
-export const setTableLayout = async (page: any, layout: string) => {
-  if (layout === 'wide') {
-    await setTableLayoutWide(page);
-  } else if (layout === 'full-width') {
-    await setTableLayoutFullWidth(page);
+export const setTableLayout = async (
+  page: TestPage,
+  desiredLayoutType: LayoutType,
+) => {
+  const isCurrentLayoutTypeWide = !!(await page.$$(tableSelectors.wideState))
+    .length;
+  const isCurrentLayoutTypeFullWidth = !!(
+    await page.$$(tableSelectors.fullWidthState)
+  ).length;
+  let currentLayoutTypeIndex: number = isCurrentLayoutTypeFullWidth
+    ? 2
+    : isCurrentLayoutTypeWide
+    ? 1
+    : 0;
+
+  while (allLayoutTypes[currentLayoutTypeIndex] !== desiredLayoutType) {
+    const nextLayoutTypeIndex =
+      (currentLayoutTypeIndex + 1) % allLayoutTypes.length;
+    const nextLayoutSelector =
+      layoutSelectors[allLayoutTypes[nextLayoutTypeIndex]];
+    await page.waitForSelector(nextLayoutSelector);
+    await page.click(nextLayoutSelector);
+
+    currentLayoutTypeIndex = nextLayoutTypeIndex;
   }
 };
 
@@ -291,12 +322,12 @@ export const insertColumn = async (
   }
 };
 
-export const deleteRow = async (page: any, atIndex: number) => {
+export const deleteRow = async (page: TestPage, atIndex: number) => {
   const controlSelector = `.${tableSelectors.rowControls} .${ClassName.ROW_CONTROLS_BUTTON_WRAP}:nth-child(${atIndex}) .${ClassName.CONTROLS_BUTTON}`;
   await deleteRowOrColumn(page, controlSelector);
 };
 
-export const deleteColumn = async (page: any, atIndex: number) => {
+export const deleteColumn = async (page: TestPage, atIndex: number) => {
   const controlSelector = `.${ClassName.COLUMN_CONTROLS_DECORATIONS}[data-start-index="${atIndex}"]`;
   await deleteRowOrColumn(page, controlSelector);
 };

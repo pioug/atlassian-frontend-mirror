@@ -114,4 +114,8 @@ export default class DummyBridge implements NativeBridge {
   onRenderedContentHeightChanged(height: number) {
     this.call('contentBridge', 'onRenderedContentHeightChanged', height);
   }
+
+  updateTitle(title: string): void {
+    this.log(`updateTitle(title=${title})`);
+  }
 }

@@ -8,7 +8,8 @@ import {
 } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
-import { CellSelection, selectedRect } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { selectedRect } from '@atlaskit/editor-tables/utils';
 import {
   flatten,
   ContentNodeWithPos,
@@ -31,7 +32,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '../analytics';
-import { isIgnored as isIgnoredByGapCursor } from '../gap-cursor/utils/is-ignored';
+import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
 
 import { SelectionPluginState } from './types';
 

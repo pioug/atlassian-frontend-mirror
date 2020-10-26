@@ -1,6 +1,11 @@
 // #region Constants
-import { goToNextCell as baseGotoNextCell, TableMap } from 'prosemirror-tables';
-import { findParentNodeOfType, findTable } from 'prosemirror-utils';
+import {
+  findTable,
+  goToNextCell as baseGotoNextCell,
+} from '@atlaskit/editor-tables/utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { Direction } from '@atlaskit/editor-tables/types';
+import { findParentNodeOfType } from 'prosemirror-utils';
 
 import { Command } from '../../../types/command';
 import { INPUT_METHOD } from '../../analytics/types';
@@ -9,7 +14,7 @@ import { insertRowWithAnalytics } from '../commands-with-analytics';
 const TAB_FORWARD_DIRECTION = 1;
 const TAB_BACKWARD_DIRECTION = -1;
 
-export const goToNextCell = (direction: number): Command => (
+export const goToNextCell = (direction: Direction): Command => (
   state,
   dispatch,
 ) => {
@@ -29,7 +34,6 @@ export const goToNextCell = (direction: number): Command => (
       index: 0,
       moveCursorToInsertedRow: true,
     })(state, dispatch);
-    return true;
   }
 
   if (lastCellPos === cell.pos && direction === TAB_FORWARD_DIRECTION) {
@@ -37,8 +41,10 @@ export const goToNextCell = (direction: number): Command => (
       index: map.height,
       moveCursorToInsertedRow: true,
     })(state, dispatch);
-    return true;
+  }
+  if (dispatch) {
+    return baseGotoNextCell(direction)(state, dispatch);
   }
 
-  return baseGotoNextCell(direction)(state, dispatch);
+  return true;
 };

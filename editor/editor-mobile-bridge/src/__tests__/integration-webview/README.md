@@ -92,7 +92,7 @@ You you encounter this error:
 
 To upload the app binaries into your account:
 
-1. Visit the [branches](https://bitbucket.org/atlassian/atlassian-frontend/branches/) page on BitBucket.
+1. Visit the [branches](https://bitbucket.org/atlassian/atlassian-frontend/branches/) page on Bitbucket.
 1. Click the `...` icon in the far right to view available Actions.
 1. Click `Run pipeline for a branch` from the drop down list (_it may take a few moments to appear_).
 1. Search for and select `custom: upload-webdriver-webview-binaries` for the Pipeline input.

@@ -58,3 +58,17 @@ export const getOptionFromValue = (
 
   return options.find(option => value === option.value);
 };
+
+// Atlaskit uses final-form to power the form.
+// Final-form will create nesting in the tree if a dot (.) is used in the name of the field.
+// A parent is provided from a <Fieldset /> and is appended to the name here for simplicity
+export const getSafeParentedName = (
+  name: string,
+  parentName?: string,
+): string => {
+  if (parentName && name.indexOf(`${parentName}.`) === -1) {
+    return `${parentName}.${name}`;
+  }
+
+  return name;
+};

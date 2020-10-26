@@ -44,7 +44,7 @@ import {
   INPUT_METHOD,
   withAnalytics,
 } from '../../analytics';
-import { GapCursorSelection } from '../../gap-cursor';
+import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import { liftFollowingList, liftSelectionList } from '../transforms';
 import {
   canJoinToPreviousListItem,

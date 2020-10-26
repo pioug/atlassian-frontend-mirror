@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';

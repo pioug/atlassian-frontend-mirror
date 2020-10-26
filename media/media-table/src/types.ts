@@ -19,9 +19,15 @@ export interface RowData {
   [key: string]: string | React.ReactNode;
 }
 
+export interface RowProps {
+  className?: string;
+}
+
 export interface MediaTableItem {
   data: RowData;
   identifier: FileIdentifier;
+  /** An object containing props that will be applied to the row component */
+  rowProps?: RowProps;
 }
 
 // The dynamic-table doesn't expose a proper type, so here we define our own as a workaround
@@ -34,10 +40,6 @@ export interface OnSortData {
     key: string;
     width: number;
   };
-}
-
-interface RowProps {
-  [key: string]: any;
 }
 
 export interface MediaTableProps {
@@ -58,8 +60,6 @@ export interface MediaTableProps {
   sortOrder?: SortOrderType;
   /** Whether to show the loading state or not */
   isLoading?: boolean;
-  /** An object containing props that will be applied to the row component */
-  rowProps?: RowProps;
   /** Called when a pagination control is clicked. Provides the new page number to paginate by */
   onSetPage?: (pageNumber: number) => void;
   /** Called when a column header is clicked. Provides the key of the column and the new sortOrder to sort by */

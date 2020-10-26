@@ -1,7 +1,5 @@
-import { EditorState } from 'prosemirror-state';
 import { Schema, NodeType } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
 import {
   doc,
   p,
@@ -10,6 +8,7 @@ import {
   ol,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { convertListType } from '../../../actions/conversions';
 
 /**
@@ -21,15 +20,6 @@ import { convertListType } from '../../../actions/conversions';
  */
 
 describe('list conversion', () => {
-  function createEditorState(documentNode: RefsNode) {
-    const myState = EditorState.create({
-      doc: documentNode,
-    });
-    const { tr } = myState;
-    setSelectionTransform(documentNode, tr);
-    return myState.apply(tr);
-  }
-
   const {
     nodes: { bulletList: bulletListNodeType, orderedList: orderedListNodeType },
   } = sampleSchema;
@@ -40,10 +30,10 @@ describe('list conversion', () => {
     convertedDoc: DocToRefsNodeType,
     nodeType: NodeType,
   ) => {
-    const editorState = createEditorState(originalDoc(sampleSchema));
+    const editorState = createEditorState(originalDoc);
     const tr = editorState.tr;
     convertListType({ tr, nextListNodeType: nodeType });
-    expect(tr.doc).toEqualDocument(convertedDoc(sampleSchema));
+    expect(tr.doc).toEqualDocument(convertedDoc);
   };
   const testOrderedToBullet = (
     originalDoc: DocToRefsNodeType,
@@ -60,24 +50,48 @@ describe('list conversion', () => {
 
   describe('in caret selection', () => {
     it('converts all siblings', () => {
-      const originalDoc = doc(ol(li(p('A')), li(p('{<>}B'))));
-      const convertedDoc = doc(ul(li(p('A')), li(p('{<>}B'))));
+      // prettier-ignore
+      const originalDoc = doc(
+        ol(
+          li(p('A')),
+          li(p('{<>}B'))
+        )
+      );
+      // prettier-ignore
+      const convertedDoc = doc(
+        ul(
+          li(p('A')),
+          li(p('{<>}B'))
+        )
+      );
       testOrderedToBullet(originalDoc, convertedDoc);
       testBulletToOrdered(convertedDoc, originalDoc);
     });
 
     it('converts siblings but leaves cousins alone', () => {
+      // prettier-ignore
       const originalDoc = doc(
         ul(
           li(p('A')),
-          li(p('B'), ol(li(p('B1{<>}')))),
+          li(
+            p('B'),
+            ol(
+              li(p('B1{<>}'))
+            )
+          ),
           li(p('C'), ul(li(p('C-1')))),
         ),
       );
+      // prettier-ignore
       const convertedDoc = doc(
         ul(
           li(p('A')),
-          li(p('B'), ul(li(p('B1{<>}')))),
+          li(
+            p('B'),
+            ul(
+              li(p('B1{<>}'))
+            )
+          ),
           li(p('C'), ul(li(p('C-1')))),
         ),
       );
@@ -86,11 +100,39 @@ describe('list conversion', () => {
     });
 
     it('converts siblings but leaves children alone', () => {
+      // prettier-ignore
       const originalDoc = doc(
-        ol(li(p('A{<>}'), ol(li(p('A-1'), ol(li(p('A-1-1')))))), li(p('B'))),
+        ol(
+          li(
+            p('A{<>}'),
+            ol(
+              li(
+                p('A-1'),
+                ol(
+                  li(p('A-1-1'))
+                )
+              )
+            )
+          ),
+          li(p('B'))
+        ),
       );
+      // prettier-ignore
       const convertedDoc = doc(
-        ul(li(p('A{<>}'), ol(li(p('A-1'), ol(li(p('A-1-1')))))), li(p('B'))),
+        ul(
+          li(
+            p('A{<>}'),
+            ol(
+              li(
+                p('A-1'),
+                ol(
+                  li(p('A-1-1'))
+                )
+              )
+            )
+          ),
+          li(p('B'))
+        ),
       );
       testOrderedToBullet(originalDoc, convertedDoc);
       testBulletToOrdered(convertedDoc, originalDoc);
@@ -99,11 +141,23 @@ describe('list conversion', () => {
 
   describe('in range selection', () => {
     it('converts all siblings even if selection only covers some of them', () => {
+      // prettier-ignore
       const originalDoc = doc(
-        ol(li(p('AAA')), li(p('B{<}BB')), li(p('CC{>}C')), li(p('DDD'))),
+        ol(
+          li(p('AAA')),
+          li(p('B{<}BB')),
+          li(p('CC{>}C')),
+          li(p('DDD'))
+        ),
       );
+      // prettier-ignore
       const convertedDoc = doc(
-        ul(li(p('AAA')), li(p('B{<}BB')), li(p('CC{>}C')), li(p('DDD'))),
+        ul(
+          li(p('AAA')),
+          li(p('B{<}BB')),
+          li(p('CC{>}C')),
+          li(p('DDD'))
+        ),
       );
       testOrderedToBullet(originalDoc, convertedDoc);
       testBulletToOrdered(convertedDoc, originalDoc);
@@ -111,22 +165,44 @@ describe('list conversion', () => {
 
     describe('in a nested list, only converts siblings at the levels that are selected', () => {
       it('scenario 1', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
             li(
               p('{<}AAA'),
               ol(
-                li(p('AAA-1{>}'), ol(li(p('AAA-1-1'), ol(li(p('AAA-1-1-1')))))),
+                li(
+                  p('AAA-1{>}'),
+                  ol(
+                    li(
+                      p('AAA-1-1'),
+                      ol(
+                        li(p('AAA-1-1-1'))
+                      )
+                    )
+                  )
+                ),
               ),
             ),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ul(
             li(
               p('{<}AAA'),
               ul(
-                li(p('AAA-1{>}'), ol(li(p('AAA-1-1'), ol(li(p('AAA-1-1-1')))))),
+                li(
+                  p('AAA-1{>}'),
+                  ol(
+                    li(
+                      p('AAA-1-1'),
+                      ol(
+                        li(p('AAA-1-1-1'))
+                      )
+                    )
+                  )
+                ),
               ),
             ),
           ),
@@ -136,24 +212,46 @@ describe('list conversion', () => {
       });
 
       it('scenario 2', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
             li(
               p('{<}AAA'),
               ol(
-                li(p('AAA-1{>}'), ol(li(p('AAA-1-1'), ol(li(p('AAA-1-1-1')))))),
+                li(
+                  p('AAA-1{>}'),
+                  ol(
+                    li(
+                      p('AAA-1-1'),
+                      ol(
+                        li(p('AAA-1-1-1'))
+                      )
+                    )
+                  )
+                ),
                 li(p('AAA-2')),
               ),
             ),
             li(p('BBB')),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ul(
             li(
               p('{<}AAA'),
               ul(
-                li(p('AAA-1{>}'), ol(li(p('AAA-1-1'), ol(li(p('AAA-1-1-1')))))),
+                li(
+                  p('AAA-1{>}'),
+                  ol(
+                    li(
+                      p('AAA-1-1'),
+                      ol(
+                        li(p('AAA-1-1-1'))
+                      )
+                    )
+                  )
+                ),
                 li(p('AAA-2')),
               ),
             ),
@@ -165,6 +263,7 @@ describe('list conversion', () => {
       });
 
       it('scenario 3', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
             li(
@@ -172,7 +271,14 @@ describe('list conversion', () => {
               ol(
                 li(
                   p('AAA-1'),
-                  ol(li(p('AA{<}A-1-1'), ol(li(p('AAA-1{>}-1-1'))))),
+                  ol(
+                    li(
+                      p('AA{<}A-1-1'),
+                      ol(
+                        li(p('AAA-1{>}-1-1'))
+                      )
+                    )
+                  ),
                 ),
                 li(p('AAA-2')),
               ),
@@ -180,6 +286,7 @@ describe('list conversion', () => {
             li(p('BBB')),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ol(
             li(
@@ -187,7 +294,14 @@ describe('list conversion', () => {
               ol(
                 li(
                   p('AAA-1'),
-                  ul(li(p('AA{<}A-1-1'), ul(li(p('AAA-1{>}-1-1'))))),
+                  ul(
+                    li(
+                      p('AA{<}A-1-1'),
+                      ul(
+                        li(p('AAA-1{>}-1-1'))
+                      )
+                    )
+                  ),
                 ),
                 li(p('AAA-2')),
               ),
@@ -200,15 +314,29 @@ describe('list conversion', () => {
       });
 
       it('scenario 4', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
-            li(p('AAA'), ol(li(p('AAA-1')), li(p('AA{<}A-2')))),
+            li(
+              p('AAA'),
+              ol(
+                li(p('AAA-1')),
+                li(p('AA{<}A-2'))
+              )
+            ),
             li(p('BBB{>}')),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ul(
-            li(p('AAA'), ul(li(p('AAA-1')), li(p('AA{<}A-2')))),
+            li(
+              p('AAA'),
+              ul(
+                li(p('AAA-1')),
+                li(p('AA{<}A-2'))
+              )
+            ),
             li(p('BBB{>}')),
           ),
         );
@@ -217,15 +345,29 @@ describe('list conversion', () => {
       });
 
       it('scenario 5', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
-            li(p('AAA'), ol(li(p('AAA-1')), li(p('{<}AA{>}A-2')))),
+            li(
+              p('AAA'),
+              ol(
+                li(p('AAA-1')),
+                li(p('{<}AA{>}A-2'))
+              )
+            ),
             li(p('BBB')),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ol(
-            li(p('AAA'), ul(li(p('AAA-1')), li(p('{<}AA{>}A-2')))),
+            li(
+              p('AAA'),
+              ul(
+                li(p('AAA-1')),
+                li(p('{<}AA{>}A-2'))
+              )
+            ),
             li(p('BBB{>}')),
           ),
         );
@@ -236,22 +378,44 @@ describe('list conversion', () => {
 
     describe('in a nested list, converts the entire list if it is covered by the selection', () => {
       it('scenario 1', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
             li(
               p('{<}AAA'),
               ol(
-                li(p('AAA-1'), ol(li(p('AAA-1-1'), ol(li(p('AAA-1-1-1{>}')))))),
+                li(
+                  p('AAA-1'),
+                  ol(
+                    li(
+                      p('AAA-1-1'),
+                      ol(
+                        li(p('AAA-1-1-1{>}'))
+                      )
+                    )
+                  )
+                ),
               ),
             ),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ul(
             li(
               p('{<}AAA'),
               ul(
-                li(p('AAA-1'), ul(li(p('AAA-1-1'), ul(li(p('AAA-1-1-1{>}')))))),
+                li(
+                  p('AAA-1'),
+                  ul(
+                    li(
+                      p('AAA-1-1'),
+                      ul(
+                        li(p('AAA-1-1-1{>}'))
+                      )
+                    )
+                  )
+                ),
               ),
             ),
           ),
@@ -261,18 +425,46 @@ describe('list conversion', () => {
       });
 
       it('scenario 2', () => {
+        // prettier-ignore
         const originalDoc = doc(
           ol(
-            li(p('{<}AAA'), ol(li(p('AAA-1')), li(p('AAA-2')), li(p('AAA-3')))),
-            li(p('BBB'), ol(li(p('BBB-1')), li(p('BBB-2')))),
+            li(
+              p('{<}AAA'),
+              ol(
+                li(p('AAA-1')),
+                li(p('AAA-2')),
+                li(p('AAA-3'))
+              )
+            ),
+            li(
+              p('BBB'),
+              ol(
+                li(p('BBB-1')),
+                li(p('BBB-2'))
+              )
+            ),
             li(p('CCC')),
             li(p('DDD{>}')),
           ),
         );
+        // prettier-ignore
         const convertedDoc = doc(
           ul(
-            li(p('{<}AAA'), ul(li(p('AAA-1')), li(p('AAA-2')), li(p('AAA-3')))),
-            li(p('BBB'), ul(li(p('BBB-1')), li(p('BBB-2')))),
+            li(
+              p('{<}AAA'),
+              ul(
+                li(p('AAA-1')),
+                li(p('AAA-2')),
+                li(p('AAA-3'))
+              )
+            ),
+            li(
+              p('BBB'),
+              ul(
+                li(p('BBB-1')),
+                li(p('BBB-2'))
+              )
+            ),
             li(p('CCC')),
             li(p('DDD{>}')),
           ),

@@ -13,6 +13,7 @@ import {
   ExtensionHandlers,
   EventHandlers,
   AnnotationProviders,
+  ADFStage,
 } from '@atlaskit/editor-common';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -152,9 +153,11 @@ export interface DemoRendererProps {
   allowColumnSorting?: boolean;
   allowAnnotations?: boolean;
   allowCopyToClipboard?: boolean;
+  allowCustomPanels?: boolean;
   copies?: number;
   schema?: Schema;
-  actionButtons?: any;
+  adfStage?: ADFStage;
+  actionButtons?: React.ReactNode;
   annotationProvider?: AnnotationProviders | null;
   useSpecBasedValidator?: boolean;
   onDocumentChange?: () => void;
@@ -286,7 +289,7 @@ export default class RendererDemo extends React.Component<
               value={this.state.copies}
             />
           )}
-          {this.props.actionButtons ? this.props.actionButtons : null}
+          {this.props.actionButtons}
         </fieldset>
 
         <IframeWidthObserverFallbackWrapper>
@@ -306,6 +309,7 @@ export default class RendererDemo extends React.Component<
     try {
       let props: RendererProps = {
         document: JSON.parse(this.state.input),
+        adfStage: this.props.adfStage,
         schema: this.props.schema ? this.props.schema : defaultSchema,
       };
 
@@ -333,6 +337,7 @@ export default class RendererDemo extends React.Component<
       props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
       props.useSpecBasedValidator = this.props.useSpecBasedValidator;
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
+      props.UNSAFE_allowCustomPanels = this.props.allowCustomPanels;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

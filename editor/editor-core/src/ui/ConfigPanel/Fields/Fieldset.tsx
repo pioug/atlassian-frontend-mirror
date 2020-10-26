@@ -217,10 +217,13 @@ class FieldsetField extends React.Component<Props, State> {
     } = this.props;
 
     const { selectedFields, currentParameters, visibleFields } = this.state;
+
     return (
       <FormWrapper
         canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
+        showTitle={field.options.showTitle}
         extensionManifest={extensionManifest}
+        parentName={field.name}
         fields={selectedFields}
         label={field.label}
         parameters={currentParameters}

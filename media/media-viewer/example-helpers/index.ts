@@ -24,6 +24,9 @@ import {
   zipItemLargeInnerFileId,
   zipJiraArchiveFileId,
   zipEncryptedFileId,
+  codeFileId,
+  emailFileId,
+  emailUnsupportedFileId,
 } from '@atlaskit/media-test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
 
@@ -179,5 +182,20 @@ export const zipItemMultipleFoldersAtRoot = {
 
 export const zipItemLargeInnerFile = {
   ...zipItemLargeInnerFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const codeItem = {
+  ...codeFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const emailItem = {
+  ...emailFileId,
+  occurrenceKey: 'testOccurrenceKey',
+};
+
+export const emailFailedItem = {
+  ...emailUnsupportedFileId,
   occurrenceKey: 'testOccurrenceKey',
 };

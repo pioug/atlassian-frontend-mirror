@@ -5,6 +5,15 @@ import { rgba } from '../../../styles/mixins';
 
 export type TitleBoxWrapperProps = {
   breakpoint: Breakpoint;
+  titleBoxBgColor?: string;
+};
+
+type TitleBoxFooterProps = {
+  hasIconOverlap: boolean;
+};
+
+type TitleBoxHeaderProps = {
+  hasIconOverlap: boolean;
 };
 
 const generateResponsiveStyles = (
@@ -20,12 +29,16 @@ const generateResponsiveStyles = (
   `;
 };
 
+const HEX_REGEX = /^#[0-9A-F]{6}$/i;
 export const TitleBoxWrapper = styled.div`
-  ${({ breakpoint }: TitleBoxWrapperProps) => `
+  ${({ breakpoint, titleBoxBgColor }: TitleBoxWrapperProps) => `
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: ${rgba(N0, 0.8)};
+    background-color: ${rgba(
+      titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0,
+      0.8,
+    )};
     color: inherit;
     display: flex;
     flex-direction: column;
@@ -41,19 +54,37 @@ const infoStyles = `
   overflow: hidden;
 `;
 
+const iconOverlapStyles = `
+  padding-right: 10px;
+`;
+
 export const TitleBoxHeader = styled.div`
-  font-weight: 600;
-  ${infoStyles}
+  ${({ hasIconOverlap }: TitleBoxHeaderProps) => `
+    font-weight: 600;
+    ${infoStyles}
+    ${hasIconOverlap && iconOverlapStyles}
+  `}
 `;
 
 TitleBoxHeader.displayName = 'FailedTitleBoxHeader';
 
 export const TitleBoxFooter = styled.div`
-  text-overflow: ellipsis;
-  ${infoStyles}
+  ${({ hasIconOverlap }: TitleBoxFooterProps) => `
+    text-overflow: ellipsis;
+    ${infoStyles}
+    ${hasIconOverlap && iconOverlapStyles}
+  `}
 `;
 
 TitleBoxFooter.displayName = 'TitleBoxFooter';
+
+export const TitleBoxIcon = styled.div`
+  position: absolute;
+  right: 4px;
+  bottom: 0px;
+`;
+
+TitleBoxIcon.displayName = 'TitleBoxIcon';
 
 export const ErrorMessageWrapper = styled.div`
   display: flex;

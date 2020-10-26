@@ -1,13 +1,14 @@
 // #region Imports
 import { Selection, Transaction } from 'prosemirror-state';
-import { selectedRect, TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   addColumnAt as addColumnAtPMUtils,
   addRowAt,
   createTable as createTableNode,
   findTable,
-  safeInsert,
-} from 'prosemirror-utils';
+  selectedRect,
+} from '@atlaskit/editor-tables/utils';
+import { safeInsert } from 'prosemirror-utils';
 
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
 

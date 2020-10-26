@@ -5,13 +5,15 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
-import { cellAround, CellSelection, TableMap } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
+  cellAround,
   findCellRectClosestToPos,
   findTable,
   getSelectionRect,
   removeTable,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
@@ -393,8 +395,7 @@ export const handleCut = (
       oldTr.mapping.map(oldSelection.$headCell.pos),
     );
 
-    // We need to fix the type of CellSelection in `prosemirror-tables'
-    const cellSelection = new CellSelection($anchorCell, $headCell) as any;
+    const cellSelection = new CellSelection($anchorCell, $headCell);
     tr.setSelection(cellSelection);
 
     if (tr.selection instanceof CellSelection) {

@@ -71,6 +71,7 @@ export const indent = makeKeyMapWithCommon('Indent', 'Tab');
 export const outdent = makeKeyMapWithCommon('Outdent', 'Shift-Tab');
 export const backspace = makeKeyMapWithCommon('Backspace', 'Backspace');
 export const deleteKey = makeKeyMapWithCommon('Delete', 'Delete');
+export const forwardDelete = makeKeymap('Forward Delete', '', 'Ctrl-d');
 export const space = makeKeyMapWithCommon('Space', 'Space');
 export const escape = makeKeyMapWithCommon('Escape', 'Escape');
 export const nextCell = makeKeyMapWithCommon('Next cell', 'Tab');

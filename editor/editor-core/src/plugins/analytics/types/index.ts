@@ -12,12 +12,18 @@ export type {
   AnalyticsEventPayloadWithChannel,
   ErrorEventPayload,
 } from './events';
-export { INDENT_DIRECTION, INDENT_TYPE } from './format-events';
 export type { FormatEventPayload } from './format-events';
-export { PUNC, SYMBOL } from './substitute-events';
 export type { SubstituteEventPayload } from './substitute-events';
-export { FULL_WIDTH_MODE, MODE, PLATFORMS } from './general-events';
 export type { GeneralEventPayload } from './general-events';
+export { INDENT_DIRECTION, INDENT_TYPE } from './format-events';
+export { PUNC, SYMBOL } from './substitute-events';
+export {
+  BROWSER_FREEZE_INTERACTION_TYPE,
+  FULL_WIDTH_MODE,
+  MODE,
+  PLATFORMS,
+  SEVERITY,
+} from './general-events';
 export {
   LINK_REPRESENTATION,
   LINK_RESOURCE,

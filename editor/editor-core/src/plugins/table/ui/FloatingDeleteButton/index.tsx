@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
 import { Selection } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
-import { getSelectionRect, isTableSelected } from 'prosemirror-utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import {
+  getSelectionRect,
+  isTableSelected,
+} from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import { createPortal } from 'react-dom';
 

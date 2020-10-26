@@ -5,4 +5,5 @@ export const ImageComponent = styled.img`
   left: 50%;
   top: 50%;
   object-fit: contain;
+  image-orientation: none;
 `;

@@ -41,7 +41,10 @@ import {
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
 import { RendererProps } from '../renderer-props';
 import { AnnotationsWrapper } from '../annotations';
-import { getActiveHeadingId } from '../../react/utils/links';
+import {
+  getActiveHeadingId,
+  isNestedHeaderLinksEnabled,
+} from '../../react/utils/links';
 
 export interface Extension<T> {
   extensionKey: string;
@@ -180,6 +183,7 @@ export class Renderer extends PureComponent<RendererProps> {
       surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
       media: props.media,
       allowCopyToClipboard: props.allowCopyToClipboard,
+      allowCustomPanels: props.UNSAFE_allowCustomPanels,
       allowAnnotations: props.allowAnnotations,
     };
   }
@@ -215,8 +219,14 @@ export class Renderer extends PureComponent<RendererProps> {
       fadeOutHeight,
       enableSsrInlineScripts,
       allowHeadingAnchorLinks,
+      allowColumnSorting,
       allowCopyToClipboard,
+      UNSAFE_allowCustomPanels,
     } = this.props;
+
+    const newHeadingAnchorLinks = isNestedHeaderLinksEnabled(
+      allowHeadingAnchorLinks,
+    );
 
     try {
       const schema = this.getSchema();
@@ -249,7 +259,10 @@ export class Renderer extends PureComponent<RendererProps> {
                   <RendererWrapper
                     appearance={appearance}
                     dynamicTextSizing={!!allowDynamicTextSizing}
+                    newHeadingAnchorLinks={newHeadingAnchorLinks}
+                    allowColumnSorting={allowColumnSorting}
                     allowCopyToClipboard={allowCopyToClipboard}
+                    allowCustomPanels={UNSAFE_allowCustomPanels}
                     innerRef={this.editorRef}
                   >
                     {enableSsrInlineScripts ? (
@@ -257,7 +270,11 @@ export class Renderer extends PureComponent<RendererProps> {
                         allowDynamicTextSizing={!!allowDynamicTextSizing}
                       />
                     ) : null}
-                    <RendererActionsInternalUpdater doc={pmDoc} schema={schema}>
+                    <RendererActionsInternalUpdater
+                      doc={pmDoc}
+                      schema={schema}
+                      onAnalyticsEvent={this.fireAnalyticsEvent}
+                    >
                       {result}
                     </RendererActionsInternalUpdater>
                   </RendererWrapper>
@@ -284,6 +301,8 @@ export class Renderer extends PureComponent<RendererProps> {
           appearance={appearance}
           dynamicTextSizing={!!allowDynamicTextSizing}
           allowCopyToClipboard={allowCopyToClipboard}
+          allowColumnSorting={allowColumnSorting}
+          newHeadingAnchorLinks={newHeadingAnchorLinks}
         >
           <UnsupportedBlock />
         </RendererWrapper>
@@ -327,13 +346,18 @@ type RendererWrapperProps = {
   appearance: RendererAppearance;
   dynamicTextSizing: boolean;
   innerRef?: React.RefObject<HTMLDivElement>;
+  allowColumnSorting?: boolean;
   allowCopyToClipboard?: boolean;
+  allowCustomPanels?: boolean;
+  newHeadingAnchorLinks: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWithIframeFallbackWrapper = React.memo(
   (props: RendererWrapperProps & { subscribe: Function | null }) => {
     const {
+      allowColumnSorting,
       dynamicTextSizing,
+      newHeadingAnchorLinks,
       innerRef,
       appearance,
       children,
@@ -349,7 +373,12 @@ const RendererWithIframeFallbackWrapper = React.memo(
               : undefined
           }
         >
-          <Wrapper innerRef={innerRef} appearance={appearance}>
+          <Wrapper
+            innerRef={innerRef}
+            appearance={appearance}
+            newHeadingAnchorLinks={newHeadingAnchorLinks}
+            allowColumnSorting={!!allowColumnSorting}
+          >
             {children}
           </Wrapper>
         </BaseTheme>
@@ -389,22 +418,29 @@ function RendererActionsInternalUpdater({
   children,
   doc,
   schema,
+  onAnalyticsEvent,
 }: {
   doc?: PMNode;
   schema: Schema;
   children: JSX.Element | null;
+  onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 }) {
   const actions = useContext(ActionsContext);
   const rendererRef = useRef(null);
   useLayoutEffect(() => {
     if (doc) {
-      actions._privateRegisterRenderer(rendererRef, doc, schema);
+      actions._privateRegisterRenderer(
+        rendererRef,
+        doc,
+        schema,
+        onAnalyticsEvent,
+      );
     } else {
       actions._privateUnregisterRenderer();
     }
 
     return () => actions._privateUnregisterRenderer();
-  }, [actions, schema, doc]);
+  }, [actions, schema, doc, onAnalyticsEvent]);
 
   return children;
 }

@@ -2,7 +2,9 @@ import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { Cell } from './cells-at-column';
 import { CellStep } from '../types';
 import { Transform, StepMap } from 'prosemirror-transform';
-import { addColSpan, removeColSpan, TableRect } from 'prosemirror-tables';
+import { TableRect } from '@atlaskit/editor-tables/table-map';
+import { addColSpan, removeColSpan } from '@atlaskit/editor-tables/utils';
+import { CellAttributesWithColSpan } from '@atlaskit/editor-tables/types';
 import { CellAttributes } from '../../../schema/nodes/tableNodes';
 
 const EmptyCellNodeSize = 4;
@@ -43,8 +45,8 @@ export function applyCellStep(
       column -
       tableRect.map.colCount(cellStep.mergeWith - tableRect.tableStart);
     const cellAttrs = isDelete
-      ? removeColSpan(cellNode.attrs as CellAttributes, columns)
-      : addColSpan(cellNode.attrs as CellAttributes, columns);
+      ? removeColSpan(cellNode.attrs as CellAttributesWithColSpan, columns)
+      : addColSpan(cellNode.attrs as CellAttributesWithColSpan, columns);
 
     if (cellAttrs.colspan! > 0) {
       // When colspan is 0 should remove the cell

@@ -1,11 +1,11 @@
 // #region Imports
 import { Selection } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
-  emptyCell,
   findCellClosestToPos,
-  isCellSelection,
-} from 'prosemirror-utils';
+  emptyCell,
+  isSelectionType,
+} from '@atlaskit/editor-tables/utils';
 
 import { Command } from '../../../types';
 // #endregion
@@ -18,7 +18,7 @@ export const clearMultipleCells = (targetCellPosition?: number): Command => (
   let cursorPos: number | undefined;
   let { tr } = state;
 
-  if (isCellSelection(tr.selection)) {
+  if (isSelectionType(tr.selection, 'cell')) {
     const selection = (tr.selection as any) as CellSelection;
     selection.forEachCell((_node, pos) => {
       const $pos = tr.doc.resolve(tr.mapping.map(pos + 1));

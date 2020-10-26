@@ -1,0 +1,368 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "info"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Info panel"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "note"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Note panel"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "error"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Error panel"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "success"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Success panel"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "warning"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Warning panel"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "success"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "r"
+                    },
+                    {
+                      "type": "text",
+                      "text": "a",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#4c9aff"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "i",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#00b8d9"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "n",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#36b37e"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "b",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#ffc400"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "o",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#ff5630"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "w",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#6554c0"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "custom"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Custom panel - missing defaults"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "custom",
+                "panelColor": "#6554c0"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Custom panel - only background"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "custom",
+                "panelIcon": ":poop:"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Custom panel - only emoji"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "custom",
+                "panelIcon": ":heart:",
+                "panelColor": "#ff991f"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Hello custom panel!"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "custom",
+                "panelColor": "#baf7ef",
+                "panelIcon": ":rainbow:"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "r"
+                    },
+                    {
+                      "type": "text",
+                      "text": "a",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#4c9aff"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "i",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#00b8d9"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "n",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#36b37e"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "b",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#ffc400"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "o",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#ff5630"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "w",
+                      "marks": [
+                        {
+                          "type": "textColor",
+                          "attrs": {
+                            "color": "#6554c0"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

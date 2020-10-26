@@ -504,4 +504,51 @@ describe('<Header />', () => {
       ).toEqual(EditorPanelIcon);
     });
   });
+
+  describe('CodeViewer Support', () => {
+    const getCodeViewerHeaderText = (name: string, featureFlag: boolean) => {
+      const testItem: FileState = {
+        id: '123',
+        mediaType: 'unknown',
+        mimeType: '',
+        status: 'processed',
+        name: name,
+        size: 12222222,
+        artifacts: {},
+        representations: {
+          image: {},
+        },
+      };
+      const mediaClient = fakeMediaClient();
+      asMockReturnValue(
+        mediaClient.file.getFileState,
+        createFileStateSubject(testItem),
+      );
+      const el = mountWithIntlContext(
+        <Header
+          intl={fakeIntl}
+          mediaClient={mediaClient}
+          identifier={identifier}
+          featureFlags={{ codeViewer: featureFlag }}
+        />,
+      );
+      el.update();
+      return el.find(MetadataSubText).text();
+    };
+
+    it.each([
+      ['item.html', 'html'],
+      ['item.json', 'json'],
+      ['item.xml', 'xml'],
+    ])(
+      'Should render the corresponding header text for a %p filename if the feature flag for codeviewer is on, else default to mediaType',
+      (filename, expectedHeaderText) => {
+        const text = getCodeViewerHeaderText(filename, true);
+        expect(text).toEqual(`${expectedHeaderText} · 11.7 MB`);
+
+        const ffOffText = getCodeViewerHeaderText(filename, false);
+        expect(ffOffText).toEqual(`unknown · 11.7 MB`);
+      },
+    );
+  });
 });

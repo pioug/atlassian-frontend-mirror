@@ -1,6 +1,6 @@
 import { Node, NodeType } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { liftTarget } from 'prosemirror-transform';
 
 import { Command } from '../../../types';

@@ -53,6 +53,7 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
     [onInsertItem, selectedItem],
   );
 
+  // Since Modal uses stackIndex it's shouldCloseOnEscapePress prop doesn't work.
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -64,7 +65,7 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
 
   const RenderBody = useCallback(
     () => (
-      <Wrapper onKeyDown={onKeyDown}>
+      <Wrapper>
         <ElementBrowser
           categories={getCategories(props.intl)}
           getItems={props.getItems}
@@ -76,7 +77,7 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
         />
       </Wrapper>
     ),
-    [onKeyDown, props.intl, props.getItems, onSelectItem, onInsertItem],
+    [props.intl, props.getItems, onSelectItem, onInsertItem],
   );
 
   const components = {
@@ -85,25 +86,33 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
   };
 
   return (
-    <ModalTransition>
-      {props.isOpen && (
-        <Modal
-          stackIndex={
-            1 /** setting stackIndex 1 disables focus control in the modal dialog which was causing conflicts with insertion methods from prosemirror */
-          }
-          key="element-browser-modal"
-          onClose={props.onClose}
-          height="692px"
-          width="x-large"
-          autoFocus={false}
-          components={components}
-        />
-      )}
-    </ModalTransition>
+    <div data-editor-popup={true} onClick={onModalClick} onKeyDown={onKeyDown}>
+      <ModalTransition>
+        {props.isOpen && (
+          <Modal
+            stackIndex={
+              1 /** setting stackIndex 1 disables focus control in the modal dialog which was causing conflicts with insertion methods from prosemirror */
+            }
+            key="element-browser-modal"
+            onClose={props.onClose}
+            height="664px"
+            width="x-large"
+            autoFocus={false}
+            components={components}
+            // defaults to true and doesn't work along with stackIndex=1.
+            // packages/design-system/modal-dialog/src/components/Content.tsx Line 287
+            shouldCloseOnEscapePress={false}
+          />
+        )}
+      </ModalTransition>
+    </div>
   );
 };
 
 ModalElementBrowser.displayName = 'ModalElementBrowser';
+
+// Prevent ModalElementBrowser click propagation through to the editor.
+const onModalClick = (e: React.MouseEvent) => e.stopPropagation();
 
 const Footer = ({
   onInsert,
@@ -151,8 +160,9 @@ const ActionItem = styled.div`
 `;
 
 const Wrapper = styled.div`
+  display: flex;
   flex: 1 1 auto;
-  height: 100%;
+  box-sizing: border-box;
   padding: ${MODAL_WRAPPER_PADDING}px ${MODAL_WRAPPER_PADDING}px 0 10px;
   overflow: hidden;
   background-color: ${themed({ light: N0, dark: DN50 })()};

@@ -56,7 +56,8 @@ export type CollabEvent =
   | 'error'
   | 'local-steps'
   | 'editor-appearance'
-  | 'title:changed';
+  | 'title:changed'
+  | 'entity';
 
 export interface CollabEventData {
   init: CollabEventInitData;

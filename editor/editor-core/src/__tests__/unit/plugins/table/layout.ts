@@ -1,4 +1,4 @@
-import { findTable } from 'prosemirror-utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { bodiedExtensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
 

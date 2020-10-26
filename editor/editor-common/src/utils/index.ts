@@ -48,6 +48,7 @@ export {
 } from './breakout';
 export { default as ADFTraversor } from './traversor';
 export { getAnalyticsAppearance, analyticsEventKey } from './analytics';
+export type { UnsupportedContentTooltipPayload } from './analytics';
 export type { UnsupportedContentPayload } from './analytics';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { measureRender } from './performance/measure-render';

@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Content Services",
+    "team": "ADF Systems",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^13.0.0",
+    "@atlaskit/adf-schema": "^13.1.0",
     "@atlaskit/editor-json-transformer": "^8.4.0",
     "prosemirror-model": "^1.11.0",
     "tslib": "^2.0.0"
@@ -32,12 +32,12 @@
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^51.1.0",
-    "@atlaskit/editor-core": "^131.0.0",
-    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/editor-common": "^51.2.0",
+    "@atlaskit/editor-core": "^132.0.0",
+    "@atlaskit/editor-test-helpers": "^13.1.0",
     "@atlaskit/mention": "^19.0.0",
     "@atlaskit/profilecard": "^13.0.0",
-    "@atlaskit/renderer": "^67.0.0",
+    "@atlaskit/renderer": "^68.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/util-data-test": "^14.0.0",
     "@types/prosemirror-model": "^1.7.2",

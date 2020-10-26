@@ -4,7 +4,7 @@ import Select, { ValueType } from '@atlaskit/select';
 import { EnumSelectField, Option } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
-import { validate, getOptionFromValue } from '../utils';
+import { validate, getOptionFromValue, getSafeParentedName } from '../utils';
 import { OnBlur } from '../types';
 import { formatOptionLabel } from './SelectItem';
 
@@ -13,15 +13,17 @@ export default function SelectField({
   onBlur,
   autoFocus,
   placeholder,
+  parentName,
 }: {
   field: EnumSelectField;
   onBlur: OnBlur;
   autoFocus?: boolean;
   placeholder?: string;
+  parentName?: string;
 }) {
   return (
     <Field<ValueType<Option>>
-      name={field.name}
+      name={getSafeParentedName(field.name, parentName)}
       label={field.label}
       defaultValue={getOptionFromValue(field.items, field.defaultValue)}
       isRequired={field.isRequired}

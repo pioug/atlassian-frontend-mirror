@@ -46,6 +46,20 @@ describe('getCardStatus()', () => {
 
     expect(getCardStatus(state, props)).toEqual('processing');
   });
+
+  it('should return error status if state has error', () => {
+    const state = {
+      error: new Error('some-error'),
+      status: 'uploading',
+    } as CardState;
+    const props = {
+      identifier: {
+        mediaItemType: 'file',
+      },
+    } as CardProps;
+
+    expect(getCardStatus(state, props)).toEqual('error');
+  });
 });
 
 describe('getAnalyticsLoadingStatus', () => {

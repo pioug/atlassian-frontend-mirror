@@ -10,6 +10,7 @@ import {
   MentionNameStatus,
 } from '../../types';
 import Mention, { UNKNOWN_USER_ID } from './';
+import debug from '../../util/logger';
 
 export interface Props {
   id: string;
@@ -30,9 +31,11 @@ export default class ResourcedMention extends React.PureComponent<
   Props,
   State
 > {
+  _isMounted: boolean;
+
   constructor(props: Props) {
     super(props);
-
+    this._isMounted = false;
     this.state = {
       isHighlighted: false,
     };
@@ -40,6 +43,11 @@ export default class ResourcedMention extends React.PureComponent<
 
   componentDidMount() {
     this.handleMentionProvider(this.props);
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -50,6 +58,15 @@ export default class ResourcedMention extends React.PureComponent<
     ) {
       this.handleMentionProvider(nextProps);
     }
+  }
+
+  private setStateSafely<K extends keyof State>(newState: any) {
+    if (!this._isMounted) {
+      debug('[ResourcedMention]: cannot setState when component is unmounted.');
+      return;
+    }
+
+    this.setState(newState);
   }
 
   private processName(name: MentionNameDetails): string {
@@ -79,7 +96,7 @@ export default class ResourcedMention extends React.PureComponent<
             const nameDetail = provider.resolveMentionName(id);
             if (isPromise(nameDetail)) {
               nameDetail.then(nameDetailResult => {
-                this.setState({
+                this.setStateSafely({
                   resolvedMentionName: this.processName(nameDetailResult),
                 });
               });
@@ -87,15 +104,16 @@ export default class ResourcedMention extends React.PureComponent<
               newState.resolvedMentionName = this.processName(nameDetail);
             }
           }
-          this.setState(newState);
+
+          this.setStateSafely(newState);
         })
         .catch(() => {
-          this.setState({
+          this.setStateSafely({
             isHighlighted: false,
           });
         });
     } else {
-      this.setState({
+      this.setStateSafely({
         isHighlighted: false,
       });
     }

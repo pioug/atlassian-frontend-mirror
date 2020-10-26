@@ -1,13 +1,14 @@
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
-import { CellSelection, TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { safeInsert } from 'prosemirror-utils';
 import {
   findTable,
   getSelectionRect,
   isRowSelected,
   isTableSelected,
-  safeInsert,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-tables/utils';
 
 import { parsePx } from '../../../utils/dom';
 import { TableCssClassName as ClassName } from '../types';

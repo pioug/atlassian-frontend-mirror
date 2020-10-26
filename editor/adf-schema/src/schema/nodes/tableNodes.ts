@@ -1,4 +1,5 @@
 import { Node as PmNode } from 'prosemirror-model';
+import { CellAttributes } from '@atlaskit/editor-tables/types';
 import {
   B100,
   B50,
@@ -50,6 +51,7 @@ import { BlockCardDefinition as BlockCard } from './block-card';
 import { EmbedCardDefinition as EmbedCard } from './embed-card';
 import { NestedExpandDefinition as NestedExpand } from './nested-expand';
 
+export type { CellAttributes };
 export const tablePrefixSelector = 'pm-table';
 
 export const tableCellSelector = `${tablePrefixSelector}-cell-content-wrap`;
@@ -244,13 +246,6 @@ export interface TableHeader {
   type: 'tableHeader';
   attrs?: CellAttributes;
   content: TableCellContent;
-}
-
-export interface CellAttributes {
-  colspan?: number;
-  rowspan?: number;
-  colwidth?: number[];
-  background?: string;
 }
 
 // TODO: Fix any, potential issue. ED-5048

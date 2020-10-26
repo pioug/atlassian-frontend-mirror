@@ -28,6 +28,8 @@ import { useEditorReady } from './hooks/use-editor-ready';
 import { useEditorDestroyed } from './hooks/use-editor-destroyed';
 import { useReflowDectector } from './hooks/use-reflow-detector';
 import throttle from 'lodash/throttle';
+import { withIntlProvider } from '../i18n/with-intl-provider';
+import { InjectedIntl, injectIntl } from 'react-intl';
 
 const MOBILE_SAMPLING_LIMIT = 10;
 
@@ -43,6 +45,7 @@ export interface MobileEditorProps extends EditorProps {
   emojiProvider: Promise<EmojiResource>;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
+  intl: InjectedIntl;
 }
 
 // Editor options. Keep as external cost to prevent unnecesary re-renders;
@@ -82,7 +85,7 @@ export function MobileEditor(props: MobileEditorProps) {
     [bridge],
   );
 
-  const handleEditorReady = useEditorReady(bridge, mediaOptions);
+  const handleEditorReady = useEditorReady(bridge, props.intl, mediaOptions);
   const handleEditorDestroyed = useEditorDestroyed(bridge);
 
   const mode = props.mode || 'light';
@@ -138,4 +141,4 @@ const MobileEditorWithBridge: React.FC<Omit<
   return <MobileEditor {...props} bridge={bridge} />;
 };
 
-export default MobileEditorWithBridge;
+export default withIntlProvider(injectIntl(MobileEditorWithBridge));

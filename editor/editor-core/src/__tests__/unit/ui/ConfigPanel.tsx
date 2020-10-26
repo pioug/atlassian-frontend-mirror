@@ -149,7 +149,7 @@ const eventuallyFind = async (
     },
     {
       retries: 10,
-      maxTimeout: 1000,
+      minTimeout: 25,
     },
   );
 };
@@ -1133,6 +1133,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
         }
 
+        const getAllExistingVisibleFieldNames = (wrapper: Wrapper) => {
+          return wrapper.find('Field').map(node => node.prop('name'));
+        };
+
         describe('All', () => {
           it('should create a group of fields', async () => {
             const { wrapper } = await mountFieldSet(false);
@@ -1222,6 +1226,64 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             consoleError.mockClear();
           });
+
+          it('should not have name collision between fields when a fieldset contain a field with the same name as another outside of the fieldset', async () => {
+            const { wrapper, doSubmitForm } = await mountWithProviders({
+              ...defaultProps,
+              extensionProvider: createProvider([
+                {
+                  label: 'Text',
+                  type: 'string',
+                  name: 'text',
+                },
+                {
+                  label: 'Nesting test',
+                  name: 'nested',
+                  type: 'fieldset',
+                  options: {
+                    transformer: {
+                      type: 'piped-group',
+                    },
+                  },
+                  fields: [
+                    {
+                      label: 'Text',
+                      type: 'string',
+                      name: 'text',
+                    },
+                  ],
+                },
+              ]),
+              parameters: {
+                text: 'hello',
+                nested: 'text = world',
+              },
+            });
+
+            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
+              'text',
+              'nested.text',
+            ]);
+
+            await doSubmitForm();
+
+            expect(onChange).toHaveBeenCalledWith({
+              text: 'hello',
+              nested: 'text = world',
+            });
+
+            const textfields = wrapper.find('Textfield');
+
+            typeInField(textfields.at(0).find('input'), 'bye');
+            typeInField(textfields.at(1).find('input'), 'editor');
+
+            await doSubmitForm();
+
+            expect(onChange).toHaveBeenCalledWith({
+              text: 'bye',
+              nested: 'text = editor',
+            });
+          });
         });
 
         describe('Dynamic', () => {
@@ -1234,20 +1296,21 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             return wrapper.find('[data-testid="add-more"]').exists();
           };
 
-          const getAllExistingVisibleFieldNames = (wrapper: Wrapper) => {
-            return wrapper.find('Field').map(node => node.prop('name'));
-          };
-
           it('should show only 1 field when first rendering', async () => {
             const { wrapper } = await mountFieldSet(true);
-            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual(['Q']);
+            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
+              'settings.Q',
+            ]);
           });
 
           it('should allow adding more fields when clicking the + button', async () => {
             const { wrapper } = await mountFieldSet(true);
-            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual(['Q']);
+            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
+              'settings.Q',
+            ]);
 
             clickAddFieldButton(wrapper);
+
             expect(
               await selectOption(
                 wrapper.find('[testId="fieldset-actions"]').find('Select'),
@@ -1257,8 +1320,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             wrapper.update();
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'USER',
+              'settings.Q',
+              'settings.USER',
             ]);
 
             expect(hasAddButton(wrapper)).toBe(true);
@@ -1272,8 +1335,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'USER',
+              'settings.Q',
+              'settings.USER',
             ]);
 
             expect(hasAddButton(wrapper)).toBe(true);
@@ -1288,9 +1351,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             wrapper.update();
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'USER',
-              'depth',
+              'settings.Q',
+              'settings.USER',
+              'settings.depth',
             ]);
 
             expect(hasAddButton(wrapper)).toBe(false);
@@ -1304,9 +1367,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'depth',
-              'USER',
+              'settings.Q',
+              'settings.depth',
+              'settings.USER',
             ]);
 
             expect(hasAddButton(wrapper)).toBe(false);
@@ -1320,9 +1383,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'depth',
-              'USER',
+              'settings.Q',
+              'settings.depth',
+              'settings.USER',
             ]);
 
             expect(hasAddButton(wrapper)).toBe(false);
@@ -1335,8 +1398,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             wrapper.update();
 
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'depth',
+              'settings.Q',
+              'settings.depth',
             ]);
 
             expect(hasAddButton(wrapper)).toBe(true);
@@ -1364,14 +1427,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               wrapper.update();
             };
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'Q',
-              'depth',
-              'USER',
+              'settings.Q',
+              'settings.depth',
+              'settings.USER',
             ]);
             removeFields(['Q', 'depth', 'USER']);
-            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual(['USER']);
+            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
+              'settings.USER',
+            ]);
             removeFields(['USER']);
-            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual(['USER']);
+            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
+              'settings.USER',
+            ]);
           });
         });
       });
@@ -1811,7 +1878,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           const focusedField = wrapper.find('input[autoFocus=true]');
 
-          expect(focusedField.prop('name')).toBe('label');
+          expect(focusedField.prop('name')).toBe('cql.label');
         });
       });
     });

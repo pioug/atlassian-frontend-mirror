@@ -58,6 +58,9 @@ describe('card', () => {
             promises.push(promise);
             return promise;
           }
+          async findPattern(): Promise<boolean> {
+            return true;
+          }
         })();
       });
 

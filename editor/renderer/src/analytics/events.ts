@@ -6,6 +6,7 @@ import {
   ACTION_SUBJECT_ID,
 } from './enums';
 import { SortOrder, UnsupportedContentPayload } from '@atlaskit/editor-common';
+import { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/src/utils/analytics';
 
 export enum PLATFORM {
   NATIVE = 'mobileNative',
@@ -112,6 +113,14 @@ type VisitMediaLinkAEP = AEP<
   EVENT_TYPE.TRACK
 >;
 
+type BodiedExtensionOperationalAEP = AEP<
+  ACTION.RENDERED,
+  ACTION_SUBJECT.BODIED_EXTENSION,
+  undefined,
+  { [key: string]: any },
+  EVENT_TYPE.OPERATIONAL
+>;
+
 type ExpandAEP = AEP<
   ACTION.TOGGLE_EXPAND,
   ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,
@@ -147,6 +156,14 @@ export type AnnotationResolvedAEPAttributes = {
   method?: RESOLVE_METHOD;
 };
 
+export type AnnotationDeleteAEP = AEP<
+  AnnotationActionType,
+  ACTION_SUBJECT.ANNOTATION,
+  ACTION_SUBJECT_ID,
+  undefined,
+  EVENT_TYPE.TRACK
+>;
+
 export enum RESOLVE_METHOD {
   COMPONENT = 'component',
   CONSUMER = 'consumer',
@@ -172,4 +189,7 @@ export type AnalyticsEventPayload =
   | VisitMediaLinkAEP
   | ExpandAEP
   | UnsupportedContentPayload
-  | AnnotationAEP;
+  | UnsupportedContentTooltipPayload
+  | AnnotationAEP
+  | AnnotationDeleteAEP
+  | BodiedExtensionOperationalAEP;

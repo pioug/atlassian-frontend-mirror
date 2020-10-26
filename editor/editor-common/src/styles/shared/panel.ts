@@ -8,6 +8,7 @@ import {
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 const lightPanelColor = {
   info: colors.B50,
@@ -76,7 +77,7 @@ export const PanelSharedSelectors = {
 };
 
 const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
-  props: any,
+  props: ThemeProps,
 ) => {
   const light = lightIconColor[panelType];
   const dark = darkIconColor[panelType];
@@ -86,13 +87,21 @@ const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
   `;
 };
 
-const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
-  props: any,
-) => {
+export const getPanelTypeBackground = (
+  panelType: Exclude<PanelType, PanelType.CUSTOM>,
+  props: ThemeProps,
+): string => {
   const light = lightPanelColor[panelType];
   const dark = hexToRgba(darkPanelColor[panelType], darkPanelOpacity);
-  const darkText = darkTextColor[panelType];
   const background = themed({ light, dark })(props);
+  return background || 'none';
+};
+
+const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
+  props: ThemeProps,
+) => {
+  const background = getPanelTypeBackground(panelType, props);
+  const darkText = darkTextColor[panelType];
   const darkBorder = '1px solid ' + darkPanelBorderColor[panelType];
   const border = themed({ light: 'none', dark: darkBorder })(props);
   const text = themed({ light: 'inherit', dark: darkText })(props);

@@ -31,28 +31,43 @@ const RemoveButtonWrapper = styled.div<{ testId: string }>`
 
 type Props = {
   name: string;
-  onClickRemove: () => void;
+  onClickRemove?: (fieldName: string) => void;
+  canRemoveField?: boolean;
   children: React.ReactNode;
 } & InjectedIntlProps;
 
-const RemovableField = ({ name, onClickRemove, children, intl }: Props) => (
-  <RemovableFieldWrapper>
-    {children}
-    <RemoveButtonWrapper
-      testId={`remove-field-${name}`}
-      onClick={onClickRemove}
-    >
-      <Tooltip
-        content={intl.formatMessage(messages.removeField)}
-        position="left"
-      >
-        <CrossCircleIcon
-          size="small"
-          label={intl.formatMessage(messages.removeField)}
-        />
-      </Tooltip>
-    </RemoveButtonWrapper>
-  </RemovableFieldWrapper>
-);
+const RemovableField = ({
+  name,
+  canRemoveField,
+  onClickRemove,
+  children,
+  intl,
+}: Props) => {
+  const onClickCallback = React.useCallback(
+    () => onClickRemove && onClickRemove(name),
+    [name, onClickRemove],
+  );
+  return (
+    <RemovableFieldWrapper>
+      {children}
+      {canRemoveField && (
+        <RemoveButtonWrapper
+          testId={`remove-field-${name}`}
+          onClick={onClickCallback}
+        >
+          <Tooltip
+            content={intl.formatMessage(messages.removeField)}
+            position="left"
+          >
+            <CrossCircleIcon
+              size="small"
+              label={intl.formatMessage(messages.removeField)}
+            />
+          </Tooltip>
+        </RemoveButtonWrapper>
+      )}
+    </RemovableFieldWrapper>
+  );
+};
 
 export default injectIntl(RemovableField);

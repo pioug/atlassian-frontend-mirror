@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import fetchMock from 'fetch-mock/cjs/client';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import { LayoutManager, NavigationProvider } from '@atlaskit/navigation-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 

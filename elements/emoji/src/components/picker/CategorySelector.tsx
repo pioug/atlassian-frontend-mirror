@@ -119,6 +119,7 @@ export default class CategorySelector extends PureComponent<Props, State> {
                       className={classNames(categoryClasses)}
                       onClick={this.onClick}
                       title={categoryName as string}
+                      type="button"
                     >
                       <Icon label={categoryName} />
                     </button>

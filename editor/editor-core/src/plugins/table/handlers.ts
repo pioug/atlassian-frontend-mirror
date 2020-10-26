@@ -1,10 +1,7 @@
 // #region Imports
 import { Transaction } from 'prosemirror-state';
-import {
-  ContentNodeWithPos,
-  findParentNodeOfType,
-  findTable,
-} from 'prosemirror-utils';
+import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { isTextInput } from '../../utils/is-text-input';
 

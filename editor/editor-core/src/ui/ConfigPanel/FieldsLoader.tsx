@@ -3,9 +3,26 @@ import React, { useState } from 'react';
 import {
   ExtensionManifest,
   FieldDefinition,
+  ExtensionProvider,
+  ExtensionType,
+  ExtensionKey,
+  Parameters,
 } from '@atlaskit/editor-common/extensions';
 
-import { PublicProps } from './types';
+export type PublicProps = {
+  extensionProvider: ExtensionProvider;
+  extensionType: ExtensionType;
+  extensionKey: ExtensionKey;
+  nodeKey: string;
+  extensionParameters?: Parameters;
+  parameters?: Parameters;
+  autoSave?: boolean;
+  autoSaveTrigger?: unknown;
+  closeOnEsc?: boolean;
+  showHeader?: boolean;
+  onChange: (data: Parameters) => void;
+  onCancel: () => void;
+};
 
 import { useStateFromPromise } from '../../utils/react-hooks/use-state-from-promise';
 import ConfigPanel from './ConfigPanel';
@@ -35,6 +52,7 @@ export default function FieldsLoader({
   extensionParameters = defaultEmptyObject,
   parameters = defaultEmptyObject,
   autoSave,
+  autoSaveTrigger,
   closeOnEsc,
   showHeader,
   onChange,
@@ -76,6 +94,7 @@ export default function FieldsLoader({
       fields={fields}
       parameters={parameters}
       autoSave={autoSave}
+      autoSaveTrigger={autoSaveTrigger}
       closeOnEsc={closeOnEsc}
       showHeader={showHeader}
       onChange={onChange}

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import ModalDialog, { ModalTransition } from '../src';

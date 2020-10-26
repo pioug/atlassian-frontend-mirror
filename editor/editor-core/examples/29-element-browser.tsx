@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import styled from 'styled-components';
 import { IntlProvider, injectIntl, InjectedIntlProps } from 'react-intl';
 import {
   AnalyticsEventPayload,
@@ -56,16 +57,23 @@ const RenderElementBrowser = (
     getItems: (query?: string, category?: string) => QuickInsertItem[];
   } & InjectedIntlProps,
 ) => (
-  <ElementBrowser
-    categories={getCategories(props.intl)}
-    getItems={props.getItems}
-    showSearch={true}
-    showCategories={true}
-    mode="full"
-    defaultCategory="all"
-    onInsertItem={onInsertItem}
-  />
+  <Wrapper>
+    <ElementBrowser
+      categories={getCategories(props.intl)}
+      getItems={props.getItems}
+      showSearch={true}
+      showCategories={true}
+      mode="full"
+      defaultCategory="all"
+      onInsertItem={onInsertItem}
+    />
+  </Wrapper>
 );
+
+const Wrapper = styled.div`
+  display: flex;
+  height: 100%;
+`;
 
 const onInsertItem = (item: QuickInsertItem) => {
   console.log('Inserting item ', item);

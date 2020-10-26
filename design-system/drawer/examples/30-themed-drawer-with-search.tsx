@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { ObjectResult, ResultItemGroup } from '@atlaskit/quick-search';
 
 import Drawer, { DrawerItemTheme } from '../src';

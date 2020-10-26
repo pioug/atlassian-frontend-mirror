@@ -1,5 +1,12 @@
+jest.mock('../../pm-plugins/doc', () => {
+  const doc = jest.requireActual('../../pm-plugins/doc');
+  return {
+    ...doc,
+    changeSelectedCardToLink: jest.fn().mockReturnValue(() => () => {}),
+  };
+});
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { EditorState } from 'prosemirror-state';
@@ -16,6 +23,7 @@ import {
 import { pluginKey } from '../../pm-plugins/main';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common';
+import { changeSelectedCardToLink } from '../../pm-plugins/doc';
 
 describe('LinkToolbarAppearance', () => {
   const createEditor = createEditorFactory();
@@ -31,6 +39,16 @@ describe('LinkToolbarAppearance', () => {
       pluginKey,
     });
   };
+  const getDropdownOptions = (toolbar: ShallowWrapper) => {
+    const dropdown = toolbar.find(Dropdown);
+    const options = (dropdown.prop('options') as unknown) as {
+      testId: string;
+      onClick: (state: EditorState, dispath: Function) => void;
+      selected: boolean;
+    }[];
+
+    return options;
+  };
 
   it('should render default options', () => {
     const editorState = EditorState.create({ schema: defaultSchema });
@@ -42,9 +60,14 @@ describe('LinkToolbarAppearance', () => {
         url="some-url"
       />,
     );
+    const dropdown = toolbar.find(Dropdown);
 
-    expect(toolbar.find(Dropdown)).toHaveLength(1);
-    expect(toolbar.find(Dropdown).prop('options')).toHaveLength(2);
+    expect(dropdown).toHaveLength(1);
+    expect(dropdown.prop('options')).toEqual([
+      expect.objectContaining({ testId: 'url-appearance' }),
+      expect.objectContaining({ testId: 'inline-appearance' }),
+      expect.objectContaining({ testId: 'block-appearance' }),
+    ]);
   });
 
   it('should render embed option when available', () => {
@@ -77,8 +100,14 @@ describe('LinkToolbarAppearance', () => {
     toolbar.update();
 
     expect(getPreview).toBeCalledWith('some-url', 'web');
-    expect(toolbar.find(Dropdown)).toHaveLength(1);
-    expect(toolbar.find(Dropdown).prop('options')).toHaveLength(3);
+    const dropdown = toolbar.find(Dropdown);
+    expect(dropdown).toHaveLength(1);
+    expect(dropdown.prop('options')).toEqual([
+      expect.objectContaining({ testId: 'url-appearance' }),
+      expect.objectContaining({ testId: 'inline-appearance' }),
+      expect.objectContaining({ testId: 'block-appearance' }),
+      expect.objectContaining({ testId: 'embed-appearance' }),
+    ]);
   });
 
   it('should not render embed option by default', () => {
@@ -109,8 +138,13 @@ describe('LinkToolbarAppearance', () => {
     toolbar.update();
 
     expect(getPreview).not.toBeCalled();
-    expect(toolbar.find(Dropdown)).toHaveLength(1);
-    expect(toolbar.find(Dropdown).prop('options')).toHaveLength(2);
+    const dropdown = toolbar.find(Dropdown);
+    expect(dropdown).toHaveLength(1);
+    expect(dropdown.prop('options')).toEqual([
+      expect.objectContaining({ testId: 'url-appearance' }),
+      expect.objectContaining({ testId: 'inline-appearance' }),
+      expect.objectContaining({ testId: 'block-appearance' }),
+    ]);
   });
 
   it('should render selected option', () => {
@@ -124,17 +158,23 @@ describe('LinkToolbarAppearance', () => {
       />,
     );
 
-    expect(
-      (toolbar.find(Dropdown).prop('options') as any)[1].selected,
-    ).toBeTruthy();
+    expect(toolbar.find(Dropdown).prop('options')).toContainEqual(
+      expect.objectContaining({
+        testId: 'block-appearance',
+        selected: true,
+      }),
+    );
 
     toolbar.setProps({
       currentAppearance: 'inline',
     });
 
-    expect(
-      (toolbar.find(Dropdown).prop('options') as any)[0].selected,
-    ).toBeTruthy();
+    expect(toolbar.find(Dropdown).prop('options')).toContainEqual(
+      expect.objectContaining({
+        testId: 'inline-appearance',
+        selected: true,
+      }),
+    );
   });
 
   it('dropdown is disabled when inside parent nodes which dont support block cards', () => {
@@ -185,12 +225,11 @@ describe('LinkToolbarAppearance', () => {
         url="some-url"
       />,
     );
-    const dropdown = toolbar.find(Dropdown);
+    const options = getDropdownOptions(toolbar);
 
-    (dropdown.prop('options') as any)[1].onClick(
-      editorView.state,
-      editorView.dispatch,
-    );
+    options
+      .find(option => option.testId === 'block-appearance')!
+      .onClick(editorView.state, editorView.dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -215,7 +254,6 @@ describe('LinkToolbarAppearance', () => {
         ),
       ),
     );
-
     const toolbar = shallow(
       <LinkToolbarAppearance
         intl={fakeIntl}
@@ -224,12 +262,10 @@ describe('LinkToolbarAppearance', () => {
         url="some-url"
       />,
     );
-    const dropdown = toolbar.find(Dropdown);
-
-    (dropdown.prop('options') as any)[1].onClick(
-      editorView.state,
-      editorView.dispatch,
-    );
+    const options = getDropdownOptions(toolbar);
+    options
+      .find(option => option.testId === 'block-appearance')!
+      .onClick(editorView.state, editorView.dispatch);
 
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -241,5 +277,64 @@ describe('LinkToolbarAppearance', () => {
         ),
       ),
     );
+  });
+
+  it('should switch smart card into link when clicking on "Display URL"', () => {
+    const { editorView } = editor(
+      doc(
+        p(
+          '{<node>}',
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+        ),
+      ),
+    );
+
+    const toolbar = shallow(
+      <LinkToolbarAppearance
+        intl={fakeIntl}
+        currentAppearance="inline"
+        editorState={editorView.state}
+        url="some-url"
+      />,
+    );
+    const options = getDropdownOptions(toolbar);
+    options
+      .find(option => option.testId === 'url-appearance')!
+      .onClick(editorView.state, editorView.dispatch);
+
+    expect(changeSelectedCardToLink).toBeCalledTimes(1);
+    expect(changeSelectedCardToLink).toBeCalledWith(
+      'some-url',
+      'some-url',
+      true,
+    );
+  });
+
+  it('should render URL appearance as selected if no currentAppearance is provided', () => {
+    const { editorView } = editor(
+      doc(
+        p(
+          '{<node>}',
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+        ),
+      ),
+    );
+
+    const toolbar = shallow(
+      <LinkToolbarAppearance
+        intl={fakeIntl}
+        editorState={editorView.state}
+        url="some-url"
+      />,
+    );
+    const options = getDropdownOptions(toolbar);
+    const urlAppearance = options.find(
+      option => option.testId === 'url-appearance',
+    );
+    expect(urlAppearance!.selected).toBeTruthy();
   });
 });

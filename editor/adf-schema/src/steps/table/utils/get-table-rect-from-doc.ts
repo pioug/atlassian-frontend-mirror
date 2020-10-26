@@ -1,5 +1,5 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { TableMap, TableRect } from 'prosemirror-tables';
+import { TableRect, TableMap } from '@atlaskit/editor-tables/table-map';
 
 /**
  * Util to get the table rect from the docs

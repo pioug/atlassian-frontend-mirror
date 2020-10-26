@@ -92,4 +92,9 @@ export interface TooltipProps {
 
   /** Analytics context metadata */
   analyticsContext?: Record<string, any>;
+
+  /**
+   * Used to define the strategy of popper.
+   */
+  strategy?: 'absolute' | 'fixed' | undefined;
 }

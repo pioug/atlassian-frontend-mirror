@@ -56,6 +56,8 @@ export const FullPagePadding = 32;
 export type RendererWrapperProps = {
   appearance?: RendererAppearance;
   theme?: any;
+  newHeadingAnchorLinks: boolean;
+  allowColumnSorting: boolean;
 };
 
 type HeadingSizes = keyof typeof headingSizesImport;
@@ -86,8 +88,15 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 
 const headingAnchorStyle = (headingTag: string) =>
   css`
-    & .${HeadingAnchorWrapperClassName} {
+    .${HeadingAnchorWrapperClassName} {
       height: ${headingSizes[headingTag].lineHeight}em;
+
+      margin-left: 6px;
+
+      button {
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
 
     .${HeadingAnchorWrapperLegacyClassName} {
@@ -121,7 +130,7 @@ const headingAnchorStyle = (headingTag: string) =>
      */
     @media (hover: hover) and (pointer: fine) {
       .${HeadingAnchorWrapperClassName} {
-        & button {
+        > button {
           opacity: 0;
           transform: translate(-8px, 0px);
           transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
@@ -129,40 +138,104 @@ const headingAnchorStyle = (headingTag: string) =>
       }
 
       &:hover {
-        .${HeadingAnchorWrapperClassName} button {
+        .${HeadingAnchorWrapperClassName} > button {
           opacity: 1;
-          transform: none;
+          transform: none !important;
         }
       }
     }
   `;
 
-const tableSortableColumnStyle = `
-  .${RendererCssClassName.SORTABLE_COLUMN} {
-    cursor: pointer;
-    padding-right: 18px;
-
-    &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED} {
-      cursor: default;
-    }
-
-    .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
-      margin: 0;
-      opacity: 1;
-      transition: opacity 0.2s ease-in-out;
-    }
-
-    .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-      opacity: 0;
-    }
-
-    &:hover {
-      .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-        opacity: 1;
+const alignedHeadingAnchorStyle = ({
+  newHeadingAnchorLinks,
+}: RendererWrapperProps) => {
+  if (!newHeadingAnchorLinks) {
+    // The below CSS negatively impacts the original UX so we skip it.
+    return '';
+  }
+  return `
+    /**
+     * For right-alignment we flip the link to be before the heading
+     * text so that the text is flush up against the edge of the editor's
+     * container edge.
+     */
+    .fabric-editor-block-mark:not([data-align='center'])[data-align] {
+        > {
+          h1, h2, h3, h4, h5, h6 {
+            direction: rtl;
+          }
+        }
+        .${HeadingAnchorWrapperClassName} {
+          margin: 0 6px 0 0;
+        }
+        
+        @media (hover: hover) and (pointer: fine) {
+          .${HeadingAnchorWrapperClassName} > button {
+            transform: translate(8px, 0px);
+          }
+        }
       }
     }
+
+    /**
+     * For center-alignment we ensure it doesn't reserve space in the
+     * DOM so that the text is centre aligned without the icon impacting it.
+     */
+    .fabric-editor-block-mark[data-align='center'] {
+      > {
+        h1, h2, h3, h4, h5, h6 {
+          position: relative;
+        }
+      }
+      .${HeadingAnchorWrapperClassName} {
+        position: absolute;
+      }
+    }
+  `;
+};
+
+const tableSortableColumnStyle = ({
+  allowColumnSorting,
+  newHeadingAnchorLinks,
+}: RendererWrapperProps) => {
+  let headingsCss = '';
+  if (allowColumnSorting && newHeadingAnchorLinks) {
+    headingsCss = `
+      > {
+        h1, h2, h3, h4, h5, h6 {
+          margin-right: 30px;
+        }
+      }
+    `;
   }
-`;
+  return `
+    .${RendererCssClassName.SORTABLE_COLUMN} {
+      cursor: pointer;
+
+      ${headingsCss}
+
+      &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED} {
+        cursor: default;
+      }
+
+      .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+        margin: 0;
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+        opacity: 0;
+      }
+
+      &:hover {
+        .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+          opacity: 1;
+        }
+      }
+    }
+  `;
+};
 
 const tableStyles = ({ appearance }: RendererWrapperProps) => {
   if (appearance === 'mobile') {
@@ -320,18 +393,15 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     }
   }
 
-  & .fabric-editor-block-mark[data-align='end'],
-  & .fabric-editor-block-mark[data-align='center'],
-  & .fabric-editor-block-mark[data-align='right'] {
-    & > h1,
-    & > h2,
-    & > h3,
-    & > h4,
-    & > h5,
-    & > h6 {
+  /* Legacy UX */
+  .fabric-editor-block-mark[data-align] > {
+    h1, h2, h3, h4, h5, h6 {
       display: inline-block;
     }
   }
+
+  /* New UX */
+  ${alignedHeadingAnchorStyle}
 
   ${mediaSingleSharedStyle} &
   div[class^='image-wrap-'] + div[class^='image-wrap-'] {

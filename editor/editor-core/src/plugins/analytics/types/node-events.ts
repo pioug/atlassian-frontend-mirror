@@ -18,6 +18,7 @@ export enum LAYOUT_TYPE {
 export enum SMART_LINK_TYPE {
   INLINE_CARD = 'inline',
   BLOCK_CARD = 'block',
+  URL = 'url',
 }
 
 type DeletePanelAEP = TrackAEP<

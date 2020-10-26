@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
 

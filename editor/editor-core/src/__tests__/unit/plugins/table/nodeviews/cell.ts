@@ -1,4 +1,7 @@
-import { setCellAttrs, findCellClosestToPos } from 'prosemirror-utils';
+import {
+  setCellAttrs,
+  findCellClosestToPos,
+} from '@atlaskit/editor-tables/utils';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,

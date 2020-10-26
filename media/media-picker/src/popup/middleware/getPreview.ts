@@ -43,7 +43,11 @@ const dispatchPreviewUpdate = (
 
 export function getPreview(store: Store<State>, action: GetPreviewAction) {
   const { file, collection } = action;
-  const { userMediaClient } = store.getState();
+  const {
+    config: { featureFlags },
+    userMediaClient,
+  } = store.getState();
+
   userMediaClient.file
     .getFileState(file.id, { collectionName: collection })
     .subscribe({
@@ -60,7 +64,10 @@ export function getPreview(store: Store<State>, action: GetPreviewAction) {
 
         this.unsubscribe();
 
-        if (isPreviewableType(mediaType) && isImageRepresentationReady(state)) {
+        if (
+          isPreviewableType(mediaType, featureFlags) &&
+          isImageRepresentationReady(state)
+        ) {
           const metadata = await userMediaClient.getImageMetadata(file.id, {
             collection,
           });

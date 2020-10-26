@@ -1,6 +1,6 @@
 import { ResolvedPos } from 'prosemirror-model';
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { GapCursorSelection } from '../../plugins/gap-cursor/selection';
+import { GapCursorSelection } from '../../plugins/selection/gap-cursor/selection';
 
 export function atTheEndOfDoc(state: EditorState): boolean {
   const { selection, doc } = state;

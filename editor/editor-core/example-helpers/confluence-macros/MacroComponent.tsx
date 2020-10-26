@@ -1,46 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Spinner from '@atlaskit/spinner';
 import {
   Parameters,
   ExtensionParams,
 } from '@atlaskit/editor-common/extensions';
-type Props = {
-  node: ExtensionParams<Parameters>;
-};
-export default ({ node }: Props) => {
-  const [isVisible, setVisible] = React.useState(false);
-  let timer = React.useRef<NodeJS.Timeout>();
-  React.useEffect(() => {
-    timer.current = setTimeout(() => setVisible(true), 1000);
+import styled from 'styled-components';
+
+// WARNING: this is >=1000ms to enforce extension reloads are difficult to miss visually
+const DELAY_VISIBILITY_MS = 1000;
+const Rdiv = styled.div`
+  text-align: right;
+`;
+
+export default ({ node }: { node: ExtensionParams<Parameters> }) => {
+  const [isVisible, setVisible] = useState(false);
+  const timer = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    timer.current = setTimeout(() => setVisible(true), DELAY_VISIBILITY_MS);
     return () => timer.current && clearTimeout(timer.current);
   }, []);
-  return !isVisible ? (
-    <Spinner />
-  ) : (
+
+  if (!isVisible) {
+    return <Spinner />;
+  }
+
+  return (
     <div>
-      <p>THIS IS A FAKE VIEW FOR EXTENSIONS</p>
-      <table>
-        <thead style={{ fontWeight: 'bold' }}>
-          <tr>
-            {Object.keys(node).map(key => (
-              <td key={key}>{key}</td>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {Object.entries(node).map(([key, value]) => {
-              return (
-                <td key={key}>
-                  {typeof value === 'object'
-                    ? JSON.stringify(value, null, 3)
-                    : value}
-                </td>
-              );
-            })}
-          </tr>
-        </tbody>
-      </table>
+      <Rdiv>
+        <small>(this is a mock extension, full width)</small>
+      </Rdiv>
+      {Object.entries(node).map(([key, value]) => {
+        return (
+          <div key={key}>
+            <b>{key}: </b>
+            {typeof value === 'object' && value ? (
+              <pre>{JSON.stringify(value, null, 3)}</pre>
+            ) : (
+              <code>{value}</code>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

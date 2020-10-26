@@ -43,6 +43,7 @@ export class ClipboardLoader extends React.PureComponent<
 
       ClipboardLoader.Clipboard = mediaClient.withMediaClient(
         clipboardModule.Clipboard,
+        this.props.featureFlags,
       );
 
       this.setState({

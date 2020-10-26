@@ -20,7 +20,11 @@ export enum AnnotationUpdateEvent {
 }
 
 type SetFocusPayload = Record<'annotationId', AnnotationId>;
-type OnAnnotationClickPayload = Array<AnnotationId>;
+export type OnAnnotationClickPayload = {
+  annotationIds: Array<AnnotationId>;
+  eventTarget: HTMLElement;
+};
+
 type SetStatePayload = Record<
   AnnotationId,
   AnnotationState<AnnotationTypes.INLINE_COMMENT>

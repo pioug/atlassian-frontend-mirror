@@ -19,7 +19,7 @@ import {
   setGapCursorSelection,
   setCellSelection,
 } from '../../../utils/selection';
-import { Side as GapCursorSide } from '../../../plugins/gap-cursor';
+import { Side as GapCursorSide } from '../../../plugins/selection/gap-cursor-selection';
 import rulePlugin from '../../../plugins/rule';
 import tablePlugin from '../../../plugins/table';
 

@@ -9,6 +9,7 @@ import {
 
 export type ExtensionState<T extends Parameters = Parameters> = {
   layout: ExtensionLayout;
+  autoSaveResolve?: () => void;
   showEditButton: boolean;
   showContextPanel: boolean;
   updateExtension?: Promise<UpdateExtension<T> | void>;
@@ -16,6 +17,7 @@ export type ExtensionState<T extends Parameters = Parameters> = {
   extensionProvider?: ExtensionProvider<T>;
   processParametersBefore?: TransformBefore<T>;
   processParametersAfter?: TransformAfter<T>;
+  positions?: Record<number, number>;
 };
 
 export type ExtensionAction<T extends Parameters = Parameters> = {

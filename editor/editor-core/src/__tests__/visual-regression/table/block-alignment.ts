@@ -64,7 +64,7 @@ describe('Table with block looks correct for fullpage:', () => {
   it('full-width layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
-    await setTableLayout(page, 'full-width');
+    await setTableLayout(page, 'fullWidth');
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 });

@@ -4,11 +4,11 @@ import {
   MediaClient,
   FileState,
   MediaType,
-  ProcessedFileState,
   ProcessingFileState,
   Identifier,
   isExternalImageIdentifier,
   isErrorFileState,
+  ErrorFileState,
 } from '@atlaskit/media-client';
 import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
@@ -38,6 +38,12 @@ import {
 import { MediaViewerExtensions } from '../components/types';
 import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
+import {
+  getLanguage,
+  getExtension,
+  getFormat,
+  isCodeViewerItem,
+} from './viewers/codeViewer/util';
 
 export type Props = {
   readonly identifier: Identifier;
@@ -186,7 +192,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
   }
 
   private renderMetadataLayout(item: FileState) {
-    if (item.status === 'processed' || item.status === 'processing') {
+    if (!isErrorFileState(item)) {
       return (
         <MetadataWrapper>
           <MetadataIconWrapper>
@@ -197,7 +203,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
               {item.name || <FormattedMessage {...messages.unknown} />}
             </MetadataFileName>
             <MetadataSubText data-testid="media-viewer-file-metadata-text">
-              {this.renderFileTypeText(item.mediaType)}
+              {this.renderFileTypeText(item)}
               {this.renderSize(item)}
             </MetadataSubText>
           </MedatadataTextWrapper>
@@ -208,7 +214,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
     }
   }
 
-  private renderSize = (item: ProcessedFileState | ProcessingFileState) => {
+  private renderSize = (item: Exclude<FileState, ErrorFileState>) => {
     if (item.size) {
       return this.renderSeparator() + toHumanReadableMediaSize(item.size);
     } else {
@@ -220,7 +226,33 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
     return ' · ';
   };
 
-  private renderFileTypeText = (mediaType?: MediaType): ReactNode => {
+  private renderFileTypeText = (
+    item: Exclude<FileState, ErrorFileState>,
+  ): ReactNode => {
+    const { featureFlags } = this.props;
+    // render appropriate header if its a code/email item and the feature flag is enabled
+    if (
+      getMediaFeatureFlag('codeViewer', featureFlags) &&
+      isCodeViewerItem(item)
+    ) {
+      // gather language and extension
+      // i.e test.py would have a language of 'python' and an extension of 'py'
+      const language = getLanguage(item);
+      const ext = getExtension(item);
+
+      // specific cases for if we want a certain word translated in other languages
+      switch (ext) {
+        case 'msg':
+          return <FormattedMessage {...messages.email} />;
+        case 'txt':
+          return <FormattedMessage {...messages.text} />;
+      }
+
+      // no need for translations in other languages
+      return <>{getFormat(language || 'unknown', ext)}</>;
+    }
+
+    const { mediaType } = item;
     const mediaTypeTranslationMap = {
       doc: messages.document,
       audio: messages.audio,

@@ -18,6 +18,7 @@ export type LayoutSectionDefinition = {
 
 export const layoutSection: NodeSpec = {
   content: 'layoutColumn{2,3}',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [
     {

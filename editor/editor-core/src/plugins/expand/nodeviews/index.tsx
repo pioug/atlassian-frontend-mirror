@@ -21,7 +21,10 @@ import {
   setSelectionInsideExpand,
 } from '../commands';
 import { expandClassNames } from '../ui/class-names';
-import { GapCursorSelection, Side } from '../../../plugins/gap-cursor';
+import {
+  GapCursorSelection,
+  Side,
+} from '../../../plugins/selection/gap-cursor-selection';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { closestElement } from '../../../utils/dom';
 import { RelativeSelectionPos } from '../../selection/types';

@@ -4,17 +4,19 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers';
 import ModalElementBrowser from '../../ModalElementBrowser';
 import Button from '@atlaskit/button/custom-theme-button';
 
-const testProps = {
-  getItems: jest.fn(() => []),
-  onInsertItem: jest.fn(),
-  onClose: jest.fn(),
-  isOpen: true,
-};
+let testProps = {} as any;
 
 describe('ModalElementBrowser', () => {
   let wrapper: ReactWrapper;
 
   beforeEach(() => {
+    // clean jest.Fn calls for both close/escape test cases.
+    testProps = {
+      getItems: jest.fn(() => []),
+      onInsertItem: jest.fn(),
+      onClose: jest.fn(),
+      isOpen: true,
+    };
     wrapper = mountWithIntl(<ModalElementBrowser {...testProps} />);
   });
 
@@ -33,8 +35,7 @@ describe('ModalElementBrowser', () => {
     expect(testProps.onClose).toBeCalledTimes(1);
   });
   it('closes the modal on escape key down', () => {
-    const CancelButton = getButtonWrapper(wrapper, 'close');
-    CancelButton.simulate('keydown', { key: 'Escape' });
+    wrapper.simulate('keydown', { key: 'Escape' });
     expect(testProps.onClose).toBeCalledTimes(1);
   });
 });

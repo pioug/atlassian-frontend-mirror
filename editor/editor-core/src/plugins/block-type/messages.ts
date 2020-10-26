@@ -73,7 +73,7 @@ export const messages = defineMessages({
     description: '',
   },
   blockquote: {
-    id: 'fabric.editor.blockquote',
+    id: 'fabric.editor.blockquote2',
     defaultMessage: 'Quote',
     description: 'Quote some text',
   },

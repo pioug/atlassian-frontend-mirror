@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import dateformat from 'dateformat';
 import { MediaType } from '@atlaskit/media-client';
-import { ExampleWrapper } from './styled';
+import { ExampleWrapper, ROW_HIGHLIGHT_CLASSNAME } from './styled';
 import FieldRange from '@atlaskit/field-range';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import {
@@ -13,6 +13,8 @@ import {
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
 import { MediaTableItem, NameCell } from '../src';
+
+export { ROW_HIGHLIGHT_CLASSNAME } from './styled';
 
 export const createMockFileData = (name: string, mediaType: MediaType) => {
   return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;
@@ -62,6 +64,7 @@ export const items: MediaTableItem[] = [
       date: dateformat(123123232, 'mmm dd, yyyy, h:mmtt'),
     },
     identifier: audioFileId,
+    rowProps: { className: ROW_HIGHLIGHT_CLASSNAME },
   },
   {
     data: {

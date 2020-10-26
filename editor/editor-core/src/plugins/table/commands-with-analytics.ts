@@ -1,9 +1,10 @@
-import { CellSelection, Rect } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { Rect } from '@atlaskit/editor-tables/table-map';
 import {
   findCellClosestToPos,
   findCellRectClosestToPos,
   getSelectionRect,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-tables/utils';
 import { Selection } from 'prosemirror-state';
 
 import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';

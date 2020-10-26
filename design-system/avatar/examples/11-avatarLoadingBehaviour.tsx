@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { gridSize } from '@atlaskit/theme/constants';
 

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "invalidNode",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": []
+    }
+  ]
+}

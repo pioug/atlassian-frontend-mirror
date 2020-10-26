@@ -70,6 +70,7 @@ export class PopupImpl
       singleSelect,
       uploadParams: tenantUploadParams,
       plugins,
+      featureFlags,
     });
 
     this.tenantUploadParams = tenantUploadParams;

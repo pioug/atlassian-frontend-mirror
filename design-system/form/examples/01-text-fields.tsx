@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 

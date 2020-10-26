@@ -6,7 +6,7 @@ import { DatePicker } from '@atlaskit/datetime-picker';
 import { DateField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
-import { validate } from '../utils';
+import { validate, getSafeParentedName } from '../utils';
 import { OnBlur } from '../types';
 
 const Date = function ({
@@ -15,15 +15,17 @@ const Date = function ({
   autoFocus,
   intl,
   placeholder,
+  parentName,
 }: {
   field: DateField;
   onBlur: OnBlur;
   autoFocus?: boolean;
   placeholder?: string;
+  parentName?: string;
 } & InjectedIntlProps) {
   const element = (
     <Field
-      name={field.name}
+      name={getSafeParentedName(field.name, parentName)}
       label={field.label}
       defaultValue={field.defaultValue || ''}
       isRequired={field.isRequired}

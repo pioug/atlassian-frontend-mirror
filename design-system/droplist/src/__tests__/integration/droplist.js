@@ -20,19 +20,8 @@ BrowserTestCase(
 
     expect(await droplistTest.isExisting(droplist)).toBe(true);
     await droplistTest.keys('Escape');
-    if (await droplistTest.isBrowser('internet explorer')) {
-      // in IE11, after hitting escape, the element disappears from the DOM and can't be queried.
-      try {
-        await droplistTest.isExisting(droplist);
-      } catch (err) {
-        expect(err.toString()).toContain(
-          `Error: Unable to find element with css selector == ${droplist}`,
-        );
-      }
-    } else {
-      await droplistTest.waitForSelector(droplist, { timeout: 1000 }, true);
-      expect(await droplistTest.isExisting(droplist)).toBe(false);
-      await droplistTest.checkConsoleErrors();
-    }
+    await droplistTest.waitForSelector(droplist, { timeout: 1000 }, true);
+    expect(await droplistTest.isExisting(droplist)).toBe(false);
+    await droplistTest.checkConsoleErrors();
   },
 );

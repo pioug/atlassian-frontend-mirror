@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import styled from 'styled-components';
 import { N200, N500, B400 } from '@atlaskit/theme/colors';
 import LinkIcon from '@atlaskit/icon/glyph/link';
@@ -10,15 +10,16 @@ import { MessageDescriptor } from '../../types/i18n';
 export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
 export const HeadingAnchorWrapperLegacyClassName = 'heading-anchor-wrapper-old';
 
-const CopyAnchorWrapper = styled.span`
-  display: inline;
-  align-items: center;
-  overflow: hidden;
-
-  & > div {
-    display: inline;
-  }
-`;
+const CopyAnchorWrapperWithRef = React.forwardRef(
+  (props, ref: Ref<HTMLElement>) => {
+    const { children, ...rest } = props;
+    return (
+      <span {...rest} className={HeadingAnchorWrapperClassName} ref={ref}>
+        {children}
+      </span>
+    );
+  },
+);
 
 const CopyAnchorWrapperLegacy = styled.div`
   display: flex;
@@ -120,44 +121,46 @@ class HeadingAnchor extends React.PureComponent<
     );
   };
 
-  private renderOptionalTooltip = (
-    renderMethod: () => JSX.Element,
-    enableNestedHeaderLinks?: boolean,
-  ) => {
+  private renderWithOptionalTooltip = (renderMethod: () => JSX.Element) => {
     const { tooltipMessage: message } = this.state;
-    // We set the key to the message to ensure it remounts when the message
-    // changes, so that it correctly repositions.
-    // @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
-    return message ? (
-      <Tooltip content={message} position="top" delay={0} key={message}>
-        {renderMethod()}
-      </Tooltip>
-    ) : enableNestedHeaderLinks ? (
-      <span>{renderMethod()}</span>
-    ) : (
-      <div>{renderMethod()}</div>
-    );
+
+    if (message) {
+      const tag =
+        renderMethod === this.renderAnchorButtonLegacy
+          ? 'span'
+          : CopyAnchorWrapperWithRef;
+      // We set the key to the message to ensure it remounts when the message
+      // changes, so that it correctly repositions.
+      // @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
+      return (
+        <Tooltip
+          tag={tag}
+          content={message}
+          position="top"
+          delay={0}
+          key={message}
+        >
+          {renderMethod()}
+        </Tooltip>
+      );
+    }
+
+    return renderMethod();
   };
 
   render() {
     const { enableNestedHeaderLinks } = this.props;
 
-    return enableNestedHeaderLinks ? (
-      <span className={HeadingAnchorWrapperClassName}>
-        <CopyAnchorWrapper>
-          {this.renderOptionalTooltip(
-            this.renderAnchorButton,
-            enableNestedHeaderLinks,
-          )}
-        </CopyAnchorWrapper>
-      </span>
-    ) : (
+    // New UX
+    if (enableNestedHeaderLinks) {
+      return this.renderWithOptionalTooltip(this.renderAnchorButton);
+    }
+
+    // Legacy UX
+    return (
       <div className={HeadingAnchorWrapperLegacyClassName}>
         <CopyAnchorWrapperLegacy>
-          {this.renderOptionalTooltip(
-            this.renderAnchorButtonLegacy,
-            enableNestedHeaderLinks,
-          )}
+          {this.renderWithOptionalTooltip(this.renderAnchorButtonLegacy)}
         </CopyAnchorWrapperLegacy>
       </div>
     );

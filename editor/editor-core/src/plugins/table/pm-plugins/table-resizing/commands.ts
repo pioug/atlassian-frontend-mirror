@@ -1,6 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-import { isTableSelected } from 'prosemirror-utils';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { Command, DomAtPos } from '../../../../types';
 import { updateColumnWidths } from '../../transforms';

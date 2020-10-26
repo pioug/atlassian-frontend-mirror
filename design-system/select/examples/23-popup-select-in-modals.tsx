@@ -2,7 +2,7 @@ import React from 'react';
 import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import Drawer from '@atlaskit/drawer';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { PopupSelect } from '../src';
 
 const options = [

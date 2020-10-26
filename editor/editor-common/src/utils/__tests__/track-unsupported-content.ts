@@ -2,10 +2,15 @@ import { Node as PMNode } from 'prosemirror-model';
 
 import { createSchema } from '@atlaskit/adf-schema';
 
-import { ACTION_SUBJECT_ID } from '../../utils/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+} from '../../utils/analytics';
 import {
   findAndTrackUnsupportedContentNodes,
   fireUnsupportedEvent,
+  trackUnsupportedContentTooltipDisplayedFor,
 } from '../track-unsupported-content';
 
 let dispatchAnalyticsEventMock: any;
@@ -1400,6 +1405,96 @@ describe('Track unsupported contents', () => {
           },
         },
         eventType: 'track',
+      }),
+    );
+  });
+});
+
+describe('track unsupported content tooltip', () => {
+  let dispatchAnalticsEventForTooltip: jest.Mock<any, any>;
+  beforeEach(() => {
+    dispatchAnalticsEventForTooltip = jest.fn();
+  });
+  afterEach(() => {
+    dispatchAnalticsEventForTooltip.mockRestore();
+  });
+
+  it('should dispatch the ui analytics event for tooltip displayed on unsupportedBlock', () => {
+    trackUnsupportedContentTooltipDisplayedFor(
+      dispatchAnalticsEventForTooltip,
+      ACTION_SUBJECT_ID.ON_UNSUPPORTED_BLOCK,
+    );
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledTimes(1);
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: ACTION.UNSUPPORTED_TOOLTIP_VIEWED,
+        actionSubject: ACTION_SUBJECT.TOOLTIP,
+        actionSubjectId: ACTION_SUBJECT_ID.ON_UNSUPPORTED_BLOCK,
+        eventType: 'ui',
+        attributes: {
+          unsupportedNodeType: undefined,
+        },
+      }),
+    );
+  });
+
+  it(`should dispatch the ui analytics event for tooltip displayed on unsupportedBlock with
+    unsupportedNodeType attribute when original node type is passed`, () => {
+    trackUnsupportedContentTooltipDisplayedFor(
+      dispatchAnalticsEventForTooltip,
+      ACTION_SUBJECT_ID.ON_UNSUPPORTED_BLOCK,
+      'someUnsupportedBlock',
+    );
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledTimes(1);
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: ACTION.UNSUPPORTED_TOOLTIP_VIEWED,
+        actionSubject: ACTION_SUBJECT.TOOLTIP,
+        actionSubjectId: ACTION_SUBJECT_ID.ON_UNSUPPORTED_BLOCK,
+        eventType: 'ui',
+        attributes: {
+          unsupportedNodeType: 'someUnsupportedBlock',
+        },
+      }),
+    );
+  });
+
+  it('should dispatch the ui analytics event for tooltip displayed on unsupportedInline', () => {
+    trackUnsupportedContentTooltipDisplayedFor(
+      dispatchAnalticsEventForTooltip,
+      ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
+    );
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledTimes(1);
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: ACTION.UNSUPPORTED_TOOLTIP_VIEWED,
+        actionSubject: ACTION_SUBJECT.TOOLTIP,
+        actionSubjectId: ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
+        eventType: 'ui',
+        attributes: {
+          unsupportedNodeType: undefined,
+        },
+      }),
+    );
+  });
+
+  it(`should dispatch the ui analytics event for tooltip displayed on unsupportedInline with
+    unsupportedNodeType attribute when original node type is passed`, () => {
+    trackUnsupportedContentTooltipDisplayedFor(
+      dispatchAnalticsEventForTooltip,
+      ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
+      'someUnsupportedInline',
+    );
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledTimes(1);
+    expect(dispatchAnalticsEventForTooltip).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: ACTION.UNSUPPORTED_TOOLTIP_VIEWED,
+        actionSubject: ACTION_SUBJECT.TOOLTIP,
+        actionSubjectId: ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
+        eventType: 'ui',
+        attributes: {
+          unsupportedNodeType: 'someUnsupportedInline',
+        },
       }),
     );
   });

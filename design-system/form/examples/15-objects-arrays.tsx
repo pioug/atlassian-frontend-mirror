@@ -1,7 +1,8 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import LoadingButton from '@atlaskit/button/loading-button';
+import Button from '@atlaskit/button/standard-button';
 import TextField from '@atlaskit/textfield';
 
 import Form, { Field, FormFooter } from '../src';
@@ -64,9 +65,13 @@ export default () => (
           <FormFooter>
             <ButtonGroup>
               <Button appearance="subtle">Cancel</Button>
-              <Button type="submit" appearance="primary" isLoading={submitting}>
+              <LoadingButton
+                type="submit"
+                appearance="primary"
+                isLoading={submitting}
+              >
                 Sign up
-              </Button>
+              </LoadingButton>
             </ButtonGroup>
           </FormFooter>
         </form>

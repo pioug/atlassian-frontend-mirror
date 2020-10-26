@@ -64,8 +64,14 @@ export default class Dropdown extends Component<Props> {
                 isCompact={true}
                 elemBefore={this.renderSelected(item)}
                 onClick={() => {
-                  hide();
+                  /**
+                   * The order of dispatching the event and hide() is important, because
+                   * the ClickAreaBlock will be relying on the element to calculate the
+                   * click coordinate.
+                   * For more details, please visit the comment in this PR https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5328/edm-1321-set-selection-near-smart-link?link_source=email#chg-packages/editor/editor-core/src/plugins/floating-toolbar/ui/DropdownMenu.tsx
+                   */
                   dispatchCommand(item.onClick);
+                  hide();
                 }}
                 data-testid={item.testId}
                 isDisabled={item.disabled}

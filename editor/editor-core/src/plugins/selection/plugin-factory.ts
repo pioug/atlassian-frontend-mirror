@@ -1,6 +1,6 @@
 import { Transaction, NodeSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
 

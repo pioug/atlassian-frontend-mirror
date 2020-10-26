@@ -239,9 +239,11 @@ function createProviders(
     providers.mediaProvider = storyMediaProviderFactory({
       useMediaPickerAuthProvider: false,
     });
-  } else if (opts.cards || (props && props.UNSAFE_cards)) {
+  }
+  if (opts.cards || (props && props.UNSAFE_cards)) {
     providers.cardsProvider = Promise.resolve(cardProvider);
-  } else if (opts.collab) {
+  }
+  if (opts.collab) {
     providers.collabEditProvider = createCollabEditProvider(opts.collab);
   }
 

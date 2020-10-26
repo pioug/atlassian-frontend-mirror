@@ -11,6 +11,7 @@ import { SelectOption } from './ui/Select';
 import React from 'react';
 import { DropdownOptions, RenderOptionsPropsT } from './ui/types';
 import { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
+import { CardOptions } from '../card/types';
 
 export type Icon = React.ComponentType<{ label: string }>;
 export type RenderOptionsProps = RenderOptionsPropsT<Command>;
@@ -124,4 +125,5 @@ export type FloatingToolbarHandler = (
   state: EditorState,
   intl: InjectedIntl,
   providerFactory: ProviderFactory,
+  cardOptions?: CardOptions,
 ) => FloatingToolbarConfig | undefined;

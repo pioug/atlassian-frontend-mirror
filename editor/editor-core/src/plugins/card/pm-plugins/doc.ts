@@ -1,5 +1,4 @@
 import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
-
 import { pluginKey } from './plugin-key';
 import {
   CardAppearance,
@@ -13,7 +12,6 @@ import { appearanceForNodeType } from '../utils';
 import { Command } from '../../../types';
 import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import { Fragment, Node, Schema, Slice, NodeType } from 'prosemirror-model';
-import { md } from '../../paste/md';
 import { closeHistory } from 'prosemirror-history';
 import {
   ACTION,
@@ -25,44 +23,10 @@ import {
   INPUT_METHOD,
 } from '../../../plugins/analytics';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
-import { isSafeUrl, normalizeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema';
 import { isFromCurrentDomain } from '../../hyperlink/utils';
-
-export function shouldReplace(
-  node: Node,
-  compareLinkText: boolean = true,
-  compareToUrl?: string,
-) {
-  const linkMark = node.marks.find(mark => mark.type.name === 'link');
-  if (!linkMark) {
-    // not a link anymore
-    return false;
-  }
-
-  // ED-6041: compare normalised link text after linkfy from Markdown transformer
-  // instead, since it always decodes URL ('%20' -> ' ') on the link text
-
-  const normalisedHref = normalizeUrl(
-    md.normalizeLinkText(linkMark.attrs.href),
-  );
-
-  const normalizedLinkText = normalizeUrl(
-    md.normalizeLinkText(node.text || ''),
-  );
-
-  if (compareLinkText && normalisedHref !== normalizedLinkText) {
-    return false;
-  }
-
-  if (compareToUrl) {
-    const normalizedUrl = normalizeUrl(md.normalizeLinkText(compareToUrl));
-    if (normalizedUrl !== normalisedHref) {
-      return false;
-    }
-  }
-
-  return true;
-}
+import { shouldReplaceLink } from './shouldReplaceLink';
+import { SMART_LINK_TYPE } from '../../../plugins/analytics/types/node-events';
 
 export function insertCard(tr: Transaction, cardAdf: Node, schema: Schema) {
   const { inlineCard } = schema.nodes;
@@ -100,8 +64,11 @@ function replaceLinksToCards(
   if (!node || !node.type.isText) {
     return;
   }
+  const replaceLink =
+    request.shouldReplaceLink ||
+    shouldReplaceLink(node, request.compareLinkText, url);
 
-  if (!shouldReplace(node, request.compareLinkText, url)) {
+  if (!replaceLink) {
     return;
   }
 
@@ -119,6 +86,7 @@ function replaceLinksToCards(
 export const replaceQueuedUrlWithCard = (
   url: string,
   cardData: any,
+  analyticsAction?: ACTION,
 ): Command => (editorState, dispatch) => {
   const state = pluginKey.getState(editorState) as CardPluginState | undefined;
   if (!state) {
@@ -153,7 +121,7 @@ export const replaceQueuedUrlWithCard = (
       const [, , domainName] = url.split('/');
 
       addAnalytics(editorState, tr, {
-        action: ACTION.INSERTED,
+        action: (analyticsAction as any) || ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.SMART_LINK,
         eventType: EVENT_TYPE.TRACK,
@@ -197,7 +165,7 @@ export const queueCardsFromChangedTr = (
     const linkMark = node.marks.find(mark => mark.type === link);
 
     if (linkMark) {
-      if (!shouldReplace(node, normalizeLinkText)) {
+      if (!shouldReplaceLink(node, normalizeLinkText)) {
         return false;
       }
 
@@ -216,11 +184,56 @@ export const queueCardsFromChangedTr = (
   return queueCards(requests)(tr);
 };
 
+export const convertHyperlinkToSmartCard = (
+  state: EditorState,
+  source: CardReplacementInputMethod,
+  appearance: CardAppearance,
+  normalizeLinkText: boolean = true,
+): Transaction => {
+  const { schema } = state;
+  const { link } = schema.marks;
+  const requests: Request[] = [];
+
+  state.tr.doc.nodesBetween(
+    state.selection.from,
+    state.selection.to,
+    (node, pos) => {
+      const linkMark = node.marks.find(mark => mark.type === link);
+      if (linkMark) {
+        const request: Request = {
+          url: linkMark.attrs.href,
+          pos,
+          appearance,
+          compareLinkText: normalizeLinkText,
+          source,
+          analyticsAction: ACTION.CHANGED_TYPE,
+          shouldReplaceLink: true,
+        };
+        requests.push(request);
+      }
+    },
+  );
+
+  return queueCards(requests)(state.tr);
+};
+
 export const changeSelectedCardToLink = (
   text?: string,
   href?: string,
+  sendAnalytics?: boolean,
 ): Command => (state, dispatch) => {
   const tr = cardToLinkWithTransaction(state, text, href);
+
+  if (sendAnalytics) {
+    addAnalytics(state, tr, {
+      action: ACTION.CHANGED_TYPE,
+      actionSubject: ACTION_SUBJECT.SMART_LINK,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        newType: SMART_LINK_TYPE.URL,
+      },
+    } as AnalyticsEventPayload);
+  }
 
   if (dispatch) {
     dispatch(tr.scrollIntoView());
@@ -290,7 +303,19 @@ export const setSelectedCardAppearance: (
 ) => Command = appearance => (state, dispatch) => {
   const selectedNode =
     state.selection instanceof NodeSelection && state.selection.node;
+
   if (!selectedNode) {
+    // When there is no selected node, we insert a new one
+    // and replace the existing blue link
+    const tr = convertHyperlinkToSmartCard(
+      state,
+      INPUT_METHOD.MANUAL,
+      appearance,
+    );
+    if (dispatch) {
+      dispatch(tr.scrollIntoView());
+    }
+
     return false;
   }
 

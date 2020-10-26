@@ -95,26 +95,42 @@ export const waitForFloatingControl = async (
   }
 };
 
+const getTextSelection = (page: PuppeteerPage) =>
+  page.evaluate(() => document.getSelection()?.toString());
+
 export const retryUntilStablePosition = async (
   page: any,
   callback: () => Promise<any>,
   stablePosTargetSelector: string,
   stableDuration: number,
+  // ED:10448 - Because retries may involve click-based
+  // and other operations that modify text selection, we
+  // now support consumers explicitly declaring whether
+  // they expect text selection to remain stable between
+  // retries too.
+  stableTextSelection?: boolean,
 ) => {
   return new Promise(async resolve => {
     let [prevLeft, prevTop] = [0, 0];
+    let textSelection = await getTextSelection(page);
     const intervalId = setInterval(async () => {
       await callback();
-      const { left, top } = await getBoundingRect(
-        page,
-        stablePosTargetSelector,
-      );
-      if (left === prevLeft && top === prevTop) {
-        clearInterval(intervalId);
-        resolve();
-      } else {
-        prevLeft = left;
-        prevTop = top;
+      if (
+        (stableTextSelection === true &&
+          textSelection === (await getTextSelection(page))) ||
+        stableTextSelection !== true
+      ) {
+        const { left, top } = await getBoundingRect(
+          page,
+          stablePosTargetSelector,
+        );
+        if (left === prevLeft && top === prevTop) {
+          clearInterval(intervalId);
+          resolve();
+        } else {
+          prevLeft = left;
+          prevTop = top;
+        }
       }
     }, stableDuration);
   });

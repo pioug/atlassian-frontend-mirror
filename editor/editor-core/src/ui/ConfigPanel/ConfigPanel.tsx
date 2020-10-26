@@ -32,6 +32,7 @@ type Props = {
   fields?: FieldDefinition[];
   parameters?: Parameters;
   autoSave?: boolean;
+  autoSaveTrigger?: unknown;
   showHeader?: boolean;
   closeOnEsc?: boolean;
   onChange: OnSaveCallback;
@@ -180,7 +181,14 @@ class ConfigPanel extends React.Component<Props, State> {
   });
 
   renderBody = (extensionManifest: ExtensionManifest, submitting: boolean) => {
-    const { fields, onCancel, autoSave, errorMessage, isLoading } = this.props;
+    const {
+      autoSave,
+      autoSaveTrigger,
+      errorMessage,
+      fields,
+      isLoading,
+      onCancel,
+    } = this.props;
 
     const {
       currentParameters,
@@ -201,6 +209,7 @@ class ConfigPanel extends React.Component<Props, State> {
         parameters={currentParameters}
         onCancel={onCancel}
         autoSave={autoSave}
+        autoSaveTrigger={autoSaveTrigger}
         submitting={submitting}
         firstVisibleFieldName={firstVisibleFieldName}
       />

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BreadcrumbsItem, BreadcrumbsStateless } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 

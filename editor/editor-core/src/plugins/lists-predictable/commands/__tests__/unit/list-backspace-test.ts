@@ -1,6 +1,4 @@
-import { EditorState } from 'prosemirror-state';
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
+import { Schema } from 'prosemirror-model';
 import {
   p,
   ul,
@@ -8,6 +6,7 @@ import {
   doc,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { calcJoinListScenario, listBackspace } from '../../listBackspace';
 import { walkPrevNode } from '../../../../../utils/commands';
 import {
@@ -22,15 +21,6 @@ import {
 } from '../../../../analytics';
 jest.mock('../../../../analytics');
 
-function createEditorState(documentNode: RefsNode) {
-  const myState = EditorState.create({
-    doc: documentNode,
-  });
-  const { tr } = myState;
-  setSelectionTransform(documentNode, tr);
-  return myState.apply(tr);
-}
-
 describe('list-predictable-backspace', () => {
   // prettier-ignore
   const documentCase2 = doc(
@@ -42,7 +32,7 @@ describe('list-predictable-backspace', () => {
         p('{<>}A2'),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase3 = doc(
@@ -59,7 +49,7 @@ describe('list-predictable-backspace', () => {
         ),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase4 = doc(
@@ -81,13 +71,13 @@ describe('list-predictable-backspace', () => {
         ),
       ),
     ),
-  )(sampleSchema);
+  );
 
   afterEach(() => {
     (addAnalytics as jest.Mock).mockReset();
   });
 
-  describe.each<[string, RefsNode, string]>([
+  describe.each<[string, (schema: Schema) => RefsNode, string]>([
     ['joining sibling itens', documentCase2, LIST_TEXT_SCENARIOS.JOIN_SIBLINGS],
     [
       'joining descendant itens into the parent',

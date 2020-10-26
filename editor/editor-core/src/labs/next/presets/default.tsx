@@ -10,7 +10,6 @@ import unsupportedContentPlugin from '../../../plugins/unsupported-content';
 import basePlugin, { BasePluginOptions } from '../../../plugins/base';
 import editorDisabledPlugin from '../../../plugins/editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';
-import gapCursorPlugin from '../../../plugins/gap-cursor';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
@@ -35,6 +34,7 @@ import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import { CodeBlockOptions } from '../../../plugins/code-block/types';
 import { SelectionPluginOptions } from '../../../plugins/selection/types';
+import { CardOptions } from '../../../plugins/card';
 // #endregion
 
 interface EditorPresetDefaultProps {
@@ -52,6 +52,7 @@ export type DefaultPresetPluginOptions = {
   quickInsert?: QuickInsertPluginOptions;
   codeBlock?: CodeBlockOptions;
   selection?: SelectionPluginOptions;
+  cardOptions?: CardOptions;
 };
 
 export function createDefaultPreset(
@@ -69,14 +70,13 @@ export function createDefaultPreset(
     preset.add([annotationPlugin, options.annotationProviders]);
   }
 
-  preset.add(hyperlinkPlugin);
+  preset.add([hyperlinkPlugin, options.cardOptions]);
   preset.add([textFormattingPlugin, options.textFormatting]);
   preset.add(widthPlugin);
   preset.add([quickInsertPlugin, options.quickInsert]);
   preset.add(typeAheadPlugin);
   preset.add(unsupportedContentPlugin);
   preset.add(editorDisabledPlugin);
-  preset.add(gapCursorPlugin);
   preset.add([submitEditorPlugin, options.submitEditor]);
   preset.add(fakeTextCursorPlugin);
   preset.add(floatingToolbarPlugin);

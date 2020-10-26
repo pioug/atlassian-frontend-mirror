@@ -17,8 +17,9 @@ import { getToolbarConfig } from './Toolbar';
 import { tooltip, addLink } from '../../keymaps';
 import { IconLink } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { CardOptions } from '../card';
 
-const hyperlinkPlugin = (): EditorPlugin => ({
+const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
   name: 'hyperlink',
 
   marks() {
@@ -73,7 +74,9 @@ const hyperlinkPlugin = (): EditorPlugin => ({
         },
       },
     ],
-    floatingToolbar: getToolbarConfig,
+    floatingToolbar: (state, intl, providerFactory) => {
+      return getToolbarConfig(state, intl, providerFactory, options);
+    },
   },
 });
 

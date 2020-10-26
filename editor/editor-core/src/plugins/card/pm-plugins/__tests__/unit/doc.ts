@@ -1,3 +1,5 @@
+jest.mock('../../shouldReplaceLink');
+import { shouldReplaceLink } from '../../shouldReplaceLink';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 
@@ -6,7 +8,6 @@ import {
   blockCard,
   blockquote,
   bodiedExtension,
-  cleanOne,
   decisionItem,
   decisionList,
   doc,
@@ -18,13 +19,11 @@ import {
   taskItem,
   taskList,
   td,
-  text,
   th,
   tr,
   ul,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
-import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
 import { Fragment, Node, Slice } from 'prosemirror-model';
@@ -37,9 +36,9 @@ import { setTextSelection } from '../../../../../utils';
 import {
   insertCard,
   queueCardsFromChangedTr,
-  shouldReplace,
   updateCard,
   setSelectedCardAppearance,
+  convertHyperlinkToSmartCard,
 } from '../../doc';
 import { INPUT_METHOD } from '../../../../analytics';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -50,6 +49,7 @@ import {
 } from '../../../../../__tests__/unit/plugins/card/_helpers';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { NodeSelection } from 'prosemirror-state';
+import { asMock } from '@atlaskit/media-test-helpers';
 
 const cardAdfAttrs = {
   url: '',
@@ -95,6 +95,10 @@ describe('card', () => {
 
     return editorWrapper;
   };
+
+  beforeEach(() => {
+    asMock(shouldReplaceLink).mockReturnValue(true);
+  });
 
   describe('doc', () => {
     describe('#state.update', () => {
@@ -335,6 +339,9 @@ describe('card', () => {
           resolve(): Promise<any> {
             return Promise.reject('error').catch(() => {});
           }
+          async findPattern(): Promise<boolean> {
+            return true;
+          }
         })();
 
         dispatch(setProvider(provider)(view.state.tr));
@@ -356,6 +363,7 @@ describe('card', () => {
       });
 
       it('does not replace if link text changes', async () => {
+        asMock(shouldReplaceLink).mockReturnValue(false);
         const href = 'http://www.sick.com/';
         const { editorView } = editor(
           doc(p('hello have a link ', a({ href })('{<>}' + href))),
@@ -501,6 +509,7 @@ describe('card', () => {
       });
 
       it('does not replace if position is some other content', async () => {
+        asMock(shouldReplaceLink).mockReturnValue(false);
         const initialDoc = doc(
           p('hello have a link '),
           p('{<>}' + atlassianUrl),
@@ -678,6 +687,43 @@ describe('card', () => {
           (editorView.state.selection as NodeSelection).node.attrs,
           (editorView.state.selection as NodeSelection).node.marks,
         );
+      });
+    });
+
+    describe('convertHyperlinkToSmartCard()', () => {
+      it('should create a transaction with the right request', () => {
+        const { editorView } = editor(
+          doc(p('hello ', '{<node>}', inlineCard(cardAdfAttrs)())),
+        );
+        editorView.state.tr.doc.nodesBetween = jest
+          .fn()
+          .mockImplementation((from, to, callback) => {
+            const node = {
+              marks: [
+                {
+                  type: editorView.state.schema.marks.link,
+                  attrs: { href: 'some-href' },
+                },
+              ],
+            };
+            callback(node);
+          });
+        const tr = convertHyperlinkToSmartCard(
+          editorView.state,
+          INPUT_METHOD.MANUAL,
+          'block',
+        );
+        expect(tr.getMeta(pluginKey).requests).toEqual([
+          {
+            analyticsAction: 'changedType',
+            url: 'some-href',
+            pos: undefined,
+            shouldReplaceLink: true,
+            appearance: 'block',
+            compareLinkText: true,
+            source: 'manual',
+          },
+        ]);
       });
     });
 
@@ -923,141 +969,6 @@ describe('card', () => {
       ].forEach(({ initialDoc, expectedContext }) =>
         testWithContext(initialDoc, expectedContext),
       );
-    });
-
-    describe('shouldReplace', () => {
-      it('returns true for regular link, same href and text', () => {
-        const link = cleanOne(
-          a({ href: 'https://invis.io/P8OKINLRQEH' })(
-            'https://invis.io/P8OKINLRQEH',
-          ),
-        )(defaultSchema);
-
-        expect(shouldReplace(link)).toBe(true);
-      });
-
-      it('returns false for regular link, differing href and text', () => {
-        const link = cleanOne(
-          a({ href: 'https://invis.io/P8OKINLRQEH' })(
-            'https://invis.io/P8OKINLRQE',
-          ),
-        )(defaultSchema);
-
-        expect(shouldReplace(link)).toBe(false);
-      });
-
-      it('returns true for differing href and text if compare is skipped', () => {
-        const link = cleanOne(
-          a({ href: 'https://invis.io/P8OKINLRQEH' })(
-            'https://www.atlassian.com/',
-          ),
-        )(defaultSchema);
-
-        expect(shouldReplace(link, false)).toBe(true);
-      });
-
-      it('returns false for same href and text if compare url differs', () => {
-        const link = cleanOne(
-          a({
-            href: 'https://invis.io/P8OKINLRQEH',
-          })('https://invis.io/P8OKINLRQEH'),
-        )(defaultSchema);
-
-        expect(shouldReplace(link, true, 'http://www.atlassian.com/')).toBe(
-          false,
-        );
-      });
-
-      it('returns true for same href and text if compare url matches', () => {
-        const link = cleanOne(
-          a({
-            href: 'https://invis.io/P8OKINLRQEH',
-          })('https://invis.io/P8OKINLRQEH'),
-        )(defaultSchema);
-
-        expect(shouldReplace(link, true, 'https://invis.io/P8OKINLRQEH')).toBe(
-          true,
-        );
-      });
-
-      it('returns true for link with encoded spaces in url and text', () => {
-        const link = cleanOne(
-          a({
-            href:
-              'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
-          })(
-            'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
-          ),
-        )(defaultSchema);
-
-        expect(shouldReplace(link)).toBe(true);
-      });
-
-      it('returns true for link with url encoded spaces, text unencoded', () => {
-        const link = cleanOne(
-          a({
-            href:
-              'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
-          })(
-            'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get Started with Dropbox.pdf?dl=0',
-          ),
-        )(defaultSchema);
-
-        expect(shouldReplace(link)).toBe(true);
-      });
-
-      it('returns true for link with text encoded spaces, url unencoded', () => {
-        const link = cleanOne(
-          a({
-            href:
-              'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get Started with Dropbox.pdf?dl=0',
-          })(
-            'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
-          ),
-        )(defaultSchema);
-
-        expect(shouldReplace(link)).toBe(true);
-      });
-
-      it('returns true for link with slash', () => {
-        const link = cleanOne(
-          a({
-            href: 'https://invis.io/P8OKINLRQEH/',
-          })('https://invis.io/P8OKINLRQEH/'),
-        )(defaultSchema);
-
-        expect(shouldReplace(link, true, 'https://invis.io/P8OKINLRQEH/')).toBe(
-          true,
-        );
-      });
-
-      it('returns true for link which ends with a full stop', () => {
-        const link = cleanOne(
-          a({
-            href:
-              'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
-          })(
-            'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
-          ),
-        )(defaultSchema);
-        expect(
-          shouldReplace(
-            link,
-            true,
-            'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
-          ),
-        ).toBe(true);
-      });
-
-      it('returns false for text node', () => {
-        const textRefNode = text('https://invis.io/P8OKINLRQEH', defaultSchema);
-        const textNode = Node.fromJSON(
-          defaultSchema,
-          (textRefNode as Node).toJSON(),
-        );
-
-        expect(shouldReplace(textNode)).toBe(false);
-      });
     });
 
     describe('#insertCard', () => {

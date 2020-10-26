@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Heading with applied link",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "http://www.google.com"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

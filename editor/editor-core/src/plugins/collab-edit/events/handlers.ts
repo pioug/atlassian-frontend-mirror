@@ -17,9 +17,16 @@ import {
   handleTelePointer,
   applyRemoteData,
 } from '../actions';
-import { addSynchronyErrorAnalytics } from '../analytics';
+import {
+  addSynchronyEntityAnalytics,
+  addSynchronyErrorAnalytics,
+} from '../analytics';
 import { PrivateCollabEditOptions } from '../types';
 
+export type SynchronyEntity = {
+  on: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
+  off: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
+};
 export interface CollabHandlers {
   initHandler: (data: CollabEventInitData) => void;
   connectedHandler: (data: CollabEventConnectionData) => void;
@@ -28,6 +35,7 @@ export interface CollabHandlers {
   telepointerHandler: (data: CollabEventTelepointerData) => void;
   localStepsHandler: (data: CollabEventLocalStepData) => void;
   errorHandler: (error: any) => void;
+  entityHandler: ({ entity }: { entity: SynchronyEntity }) => void;
 }
 
 export type Cleanup = () => void;
@@ -52,7 +60,24 @@ const effect = <TArgs extends any[]>(fn: Setup<TArgs>, eq: Eq<TArgs>) => {
 export const subscribe = effect<
   [EditorView, CollabEditProvider, PrivateCollabEditOptions, ProviderFactory?]
 >(
-  (view, provider, options, providerFactory) => {
+  (view, provider, options, _providerFactory) => {
+    let entityRef: SynchronyEntity;
+    const entityHandlers = {
+      disconnectedHandler: () => {
+        addSynchronyEntityAnalytics(view.state, view.state.tr)('disconnected');
+      },
+      errorHandler: () => {
+        addSynchronyEntityAnalytics(view.state, view.state.tr)('error');
+      },
+    };
+
+    const unsubscribeSynchronyEntity = () => {
+      if (entityRef) {
+        entityRef.off('disconnected', entityHandlers.disconnectedHandler);
+        entityRef.off('error', entityHandlers.errorHandler);
+      }
+    };
+
     const handlers: CollabHandlers = {
       initHandler: data => {
         view.dispatch(view.state.tr.setMeta('collabInitialised', true));
@@ -72,6 +97,14 @@ export const subscribe = effect<
       errorHandler: error => {
         addSynchronyErrorAnalytics(view.state, view.state.tr)(error);
       },
+      entityHandler: ({ entity }) => {
+        unsubscribeSynchronyEntity();
+        if (options.EXPERIMENTAL_allowInternalErrorAnalytics) {
+          entity.on('disconnected', entityHandlers.disconnectedHandler);
+          entity.on('error', entityHandlers.errorHandler);
+          entityRef = entity;
+        }
+      },
     };
 
     provider
@@ -81,9 +114,12 @@ export const subscribe = effect<
       .on('presence', handlers.presenceHandler)
       .on('telepointer', handlers.telepointerHandler)
       .on('local-steps', handlers.localStepsHandler)
-      .on('error', handlers.errorHandler);
+      .on('error', handlers.errorHandler)
+      .on('entity', handlers.entityHandler);
 
     return () => {
+      unsubscribeSynchronyEntity();
+
       provider
         .off('init', handlers.initHandler)
         .off('connected', handlers.connectedHandler)
@@ -91,7 +127,8 @@ export const subscribe = effect<
         .off('presence', handlers.presenceHandler)
         .off('telepointer', handlers.telepointerHandler)
         .off('local-steps', handlers.localStepsHandler)
-        .off('error', handlers.errorHandler);
+        .off('error', handlers.errorHandler)
+        .off('entity', handlers.entityHandler);
     };
   },
   (previousDeps, currentDeps) =>

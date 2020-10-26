@@ -60,6 +60,9 @@ function createAndroidMockBridge(): [AndroidBridge, Window] {
     undoRedoBridge: {
       stateChanged: jest.fn(),
     },
+    pageTitleBridge: {
+      updateTitle: jest.fn(),
+    },
   } as any) as Window;
   return [new AndroidBridge(mockWindow), mockWindow];
 }
@@ -253,6 +256,16 @@ describe('Web To Native', () => {
         expect(
           windowWithMockBridges.lifecycleBridge!.editorDestroyed,
         ).toHaveBeenCalled();
+      });
+    });
+
+    describe('PageTitle Bridge', () => {
+      it('should call updateTitle in native', function () {
+        const title = 'foo';
+        androidBridge.updateTitle(title);
+        expect(
+          windowWithMockBridges.pageTitleBridge!.updateTitle,
+        ).toHaveBeenCalledWith(title);
       });
     });
   });

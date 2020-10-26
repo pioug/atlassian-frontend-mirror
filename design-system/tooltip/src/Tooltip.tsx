@@ -42,6 +42,7 @@ function Tooltip({
   hideTooltipOnClick = false,
   hideTooltipOnMouseDown = false,
   analyticsContext,
+  strategy = 'fixed',
 }: TooltipProps) {
   const tooltipPosition = position === 'mouse' ? mousePosition : position;
   const onShowHandler = usePlatformLeafEventHandler<void>({
@@ -316,6 +317,7 @@ function Tooltip({
           <Popper
             placement={tooltipPosition}
             referenceElement={getReferentElement()}
+            strategy={strategy}
           >
             {({ ref, style }) => (
               <ExitingPersistence appear>

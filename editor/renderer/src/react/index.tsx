@@ -59,6 +59,7 @@ export interface ReactSerializerInit {
   surroundTextNodesWithTextWrapper?: boolean;
   media?: MediaOptions;
   allowCopyToClipboard?: boolean;
+  allowCustomPanels?: boolean;
   allowAnnotations?: boolean;
 }
 
@@ -137,6 +138,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   private allowColumnSorting?: boolean;
   private allowCopyToClipboard?: boolean = false;
+  private allowCustomPanels?: boolean = false;
   private fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   private shouldOpenMediaViewer?: boolean;
   private allowAltTextOnImages?: boolean;
@@ -159,6 +161,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.allowDynamicTextSizing = init.allowDynamicTextSizing;
     this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
     this.allowCopyToClipboard = init.allowCopyToClipboard;
+    this.allowCustomPanels = init.allowCustomPanels;
     this.allowColumnSorting = init.allowColumnSorting;
     this.fireAnalyticsEvent = init.fireAnalyticsEvent;
     this.shouldOpenMediaViewer = init.shouldOpenMediaViewer;
@@ -206,9 +209,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         return this.getExpandProps(node, path);
       case 'unsupportedBlock':
       case 'unsupportedInline':
-        return { node };
+        return this.getUnsupportedContentProps(node);
       case 'codeBlock':
         return this.getCodeBlockProps(node);
+      case 'panel':
+        return this.getPanelProps(node);
       default:
         return this.getProps(node, path);
     }
@@ -505,6 +510,20 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       text: node.textContent,
     };
   }
+
+  private getPanelProps(node: Node): NodeMeta {
+    return {
+      ...this.getProps(node),
+      allowCustomPanels: this.allowCustomPanels,
+    };
+  }
+
+  private getUnsupportedContentProps = (node: Node) => {
+    return {
+      node,
+      dispatchAnalyticsEvent: this.fireAnalyticsEvent,
+    };
+  };
 
   private getProps(node: Node, path: Array<Node> = []): NodeMeta {
     return {

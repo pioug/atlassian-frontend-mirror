@@ -6,11 +6,10 @@ import ModalDialog, {
 import { Header } from './ModalHeader';
 import { IconProps } from './Icon';
 import { MetadataListProps } from './MetadataList';
-import { gs } from '../utils';
 
 const iframeStyles = {
   width: `100%`,
-  height: `calc(100% - ${gs(3)})`,
+  height: 'calc(100vh - 248px)',
 };
 
 export interface ModalProps {

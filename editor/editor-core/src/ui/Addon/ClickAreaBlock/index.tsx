@@ -3,7 +3,7 @@ import { HTMLAttributes, ComponentClass } from 'react';
 import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
 import { createParagraphAtEnd } from '../../../commands';
-import { setCursorForTopLevelBlocks } from '../../../plugins/gap-cursor';
+import { setCursorForTopLevelBlocks } from '../../../plugins/selection/gap-cursor-selection';
 import { closestElement } from '../../../utils/dom';
 
 const ClickWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`

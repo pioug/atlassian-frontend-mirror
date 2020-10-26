@@ -6,7 +6,7 @@ import {
   StepResult,
   Transform,
 } from 'prosemirror-transform';
-import { TableRect } from 'prosemirror-tables';
+import { TableRect } from '@atlaskit/editor-tables/table-map';
 
 import { Cell, cellsAtColumn } from './utils/cells-at-column';
 import { findColumn } from './utils/find-column';

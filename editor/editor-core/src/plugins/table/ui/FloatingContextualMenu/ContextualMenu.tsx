@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import { Rect, splitCell } from 'prosemirror-tables';
+import { Rect } from '@atlaskit/editor-tables/table-map';
+import { splitCell } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
 

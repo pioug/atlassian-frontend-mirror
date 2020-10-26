@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 1.1.5
+
+### Patch Changes
+
+- [`7895bfa4f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7895bfa4f3) - [ux] ED-10562 Update selection styles for unsupported content
+
+  Use background colour instead of blanket styling
+  Fix an issue on Safari where text inside unsupported content appeared selected when node was selected
+
 ## 1.1.4
 
 ### Patch Changes

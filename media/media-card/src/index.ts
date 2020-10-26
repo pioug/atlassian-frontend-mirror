@@ -33,6 +33,8 @@ export type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
 
 export type CardDimensionValue = number | string;
 
+export type TitleBoxIcon = 'LockFilledIcon';
+
 export interface CardDimensions {
   width?: CardDimensionValue;
   height?: CardDimensionValue;
@@ -62,6 +64,8 @@ export interface SharedCardProps {
   readonly selected?: boolean;
   readonly alt?: string;
   readonly testId?: string;
+  readonly titleBoxBgColor?: string;
+  readonly titleBoxIcon?: TitleBoxIcon;
 }
 
 export interface CardOnClickCallback {

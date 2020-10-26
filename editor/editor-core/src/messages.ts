@@ -46,7 +46,7 @@ export const linkToolbarMessages = defineMessages({
     description: 'Please enter a valid link.',
   },
   emptyLink: {
-    id: 'fabric.editor.invalidLink',
+    id: 'fabric.editor.emptyLink',
     defaultMessage: 'Please enter a link.',
     description: 'Please enter a link.',
   },

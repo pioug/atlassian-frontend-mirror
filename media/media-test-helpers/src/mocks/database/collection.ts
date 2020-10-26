@@ -1,5 +1,5 @@
 import { MediaCollection } from '@atlaskit/media-client';
-import { getHackerNoun } from './mockData';
+import { getHackerNoun } from '../../utils/mockData';
 
 export function createCollection(name?: string): MediaCollection {
   return {

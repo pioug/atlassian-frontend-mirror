@@ -1,9 +1,10 @@
 import { TextSelection, Selection } from 'prosemirror-state';
-import { CellSelection, TableMap } from 'prosemirror-tables';
-import { findTable, isTableSelected } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ResolvedPos, Node as PmNode } from 'prosemirror-model';
 
-import { GapCursorSelection, Side } from '../../gap-cursor';
+import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
 import { setSelectionRelativeToNode } from '../../selection/commands';
 import { RelativeSelectionPos } from '../../selection/types';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';

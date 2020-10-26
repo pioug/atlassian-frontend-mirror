@@ -1,6 +1,6 @@
 export type TTITracking = {
   /**
-   * @description Wether ttiTracking should be enabled
+   * @description Whether ttiTracking should be enabled
    * @default: false
    */
   enabled: boolean;
@@ -20,7 +20,7 @@ export type TTITracking = {
 
 export type TransactionTracking = {
   /**
-   * @description Wether transactionTracking should be enabled. When this is false no measurements are taken and no events are sent.
+   * @description Whether transactionTracking should be enabled. When this is false no measurements are taken and no events are sent.
    * @default false
    **/
   enabled: boolean;
@@ -52,7 +52,7 @@ export type TransactionTracking = {
 
 export type UITracking = {
   /**
-   * @description Wether tracking of WithPluginState should be enabled. When this is false no measurements are taken and no events are sent.
+   * @description Whether tracking of WithPluginState should be enabled. When this is false no measurements are taken and no events are sent.
    * @default false
    **/
   enabled: boolean;
@@ -72,7 +72,8 @@ export type UITracking = {
 
 export type NodeViewTracking = {
   /**
-   * @description Control wether NodeView performance is tracked. When this is false no measurements are taken and no events are sent.
+   * @description Control whether
+    NodeView performance is tracked. When this is false no measurements are taken and no events are sent.
    * @default false
    */
   enabled: boolean;
@@ -90,15 +91,25 @@ export type NodeViewTracking = {
   slowThreshold?: number;
 };
 
+export type BFreezeTracking = {
+  enabled?: boolean; // not implemented
+
+  /**
+   * @description Control whether browser freeze interaction type is tracked. When this is false the interaction type is not recorded.
+   * @default false
+   */
+  trackInteractionType: boolean;
+};
+
 export interface InputTracking {
   /**
-   * @description Control wether samples of typing performance are taken. When this is false no measurements are taken and no events are sent.
+   * @description Control whether samples of typing performance are taken. When this is false no measurements are taken and no events are sent.
    * @default false
    */
   enabled: boolean;
 
   /**
-   * @description Control wether samples of typing performance are taken. Depends on enabled being true.
+   * @description Control whether samples of typing performance are taken. Depends on enabled being true.
    * @default false
    */
   countNodes?: boolean;
@@ -124,27 +135,33 @@ export interface InputTracking {
 
 export type PerformanceTracking = {
   /**
-   * @description Control wether time to interactive is tracked
+   * @description Control whether time to interactive is tracked
    */
   ttiTracking?: TTITracking;
 
   /**
-   * @description Control wether transactions are tracked
+   * @description Control whether transactions are tracked
    */
   inputTracking?: InputTracking;
 
   /**
-   * @description Control wether transactions are tracked
+   * @description Control whether transactions are tracked
    */
   transactionTracking?: TransactionTracking;
 
   /**
-   * @description Control wether editor ui is tracked
+   * @description Control whether editor ui is tracked
    */
   uiTracking?: UITracking;
 
   /**
-   * @description Control wether nodeviews are tracked
+   * @description Control whether nodeviews are tracked
    */
   nodeViewTracking?: NodeViewTracking;
+
+  /**
+   * @description Control whether browser freezes / long tasks are tracked
+   */
+
+  bFreezeTracking?: BFreezeTracking;
 };

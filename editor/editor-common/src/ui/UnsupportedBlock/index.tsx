@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { Node as PMNode } from 'prosemirror-model';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
@@ -10,6 +10,9 @@ import { borderRadius, fontSize } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
 import { unsupportedContentMessages } from '../../messages/unsupportedContent';
+import { UnsupportedContentTooltipPayload } from '../../utils';
+import { ACTION_SUBJECT_ID } from '../../utils/analytics';
+import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-unsupported-content';
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
 const BlockNode = styled.div`
@@ -25,7 +28,6 @@ const BlockNode = styled.div`
   min-height: 24px;
   padding: 10px;
   text-align: center;
-  user-select: all;
   vertical-align: text-bottom;
   min-width: 120px;
   align-items: center;
@@ -35,11 +37,13 @@ const BlockNode = styled.div`
 export interface Props {
   node?: PMNode;
   children?: React.ReactNode;
+  dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
 }
 
 const UnsupportedBlockNode: React.FC<Props & InjectedIntlProps> = ({
   node,
   intl,
+  dispatchAnalyticsEvent,
 }) => {
   const message = getUnsupportedContent(
     unsupportedContentMessages.unsupportedBlockContent,
@@ -54,6 +58,18 @@ const UnsupportedBlockNode: React.FC<Props & InjectedIntlProps> = ({
 
   const { current: style } = useRef({ padding: '4px' });
 
+  const originalNodeType = node?.attrs.originalValue.type;
+
+  const tooltipOnShowHandler = useCallback(
+    () =>
+      dispatchAnalyticsEvent &&
+      trackUnsupportedContentTooltipDisplayedFor(
+        dispatchAnalyticsEvent,
+        ACTION_SUBJECT_ID.ON_UNSUPPORTED_BLOCK,
+        originalNodeType,
+      ),
+    [dispatchAnalyticsEvent, originalNodeType],
+  );
   return (
     <BlockNode>
       {message}
@@ -61,6 +77,7 @@ const UnsupportedBlockNode: React.FC<Props & InjectedIntlProps> = ({
         content={tooltipContent}
         hideTooltipOnClick={false}
         position="bottom"
+        onShow={tooltipOnShowHandler}
       >
         <span style={style}>
           <QuestionsIcon label="?" size="small" />

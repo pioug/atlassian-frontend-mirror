@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import Select from '../src';
 
 const cities = [

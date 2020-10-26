@@ -29,7 +29,7 @@ import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
 import { insertCard, queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { CardOptions } from '../card/types';
-import { GapCursorSelection, Side } from '../gap-cursor/';
+import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { linkifyContent } from '../hyperlink/utils';
 import { runMacroAutoConvert } from '../macro';
 import { insertMediaAsMediaSingle } from '../media/utils/media-single';
@@ -523,6 +523,72 @@ function shouldFlattenList(state: EditorState, slice: Slice) {
     isList(state.schema, node) &&
     slice.openStart > slice.openEnd
   );
+}
+
+function sliceHasAlignmentOrIndentationMarks(slice: Slice) {
+  for (let i = 0; i < slice.content.childCount; i++) {
+    const node = slice.content.child(i);
+    const marks = node.marks.map(mark => mark.type.name);
+    if (marks.includes('alignment') || marks.includes('indentation')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
+  if (slice.content.size === 0) {
+    return slice;
+  }
+
+  const {
+    schema,
+    selection: { $from },
+  } = state;
+
+  // If no paragraph in the slice contains alignment or indentation marks, there's no need
+  // for special handling
+  if (!sliceHasAlignmentOrIndentationMarks(slice)) {
+    return slice;
+  }
+
+  // If pasting a single paragraph into pre-existing content, match destination formatting
+  const destinationHasContent = $from.parent.textContent.length > 0;
+  if (slice.content.childCount === 1 && destinationHasContent) {
+    return slice;
+  }
+
+  // Check the parent of (paragraph -> text) because block marks are assigned to a wrapper
+  // element around the paragraph node
+  const grandparent = $from.node(Math.max(0, $from.depth - 1));
+  if (
+    grandparent.type.allowsMarkType(schema.marks.alignment) ||
+    grandparent.type.allowsMarkType(schema.marks.indentation)
+  ) {
+    // In a slice containing one or more paragraphs at the document level (not wrapped in
+    // another node), the first paragraph will only have its text content captured and pasted
+    // since openStart is 1. We decrement the open depth of the slice so it retains any block
+    // marks applied to it. We only care about the depth at the start of the selection so
+    // there's no need to change openEnd - the rest of the slice gets pasted correctly.
+    const openStart = Math.max(0, slice.openStart - 1);
+    return new Slice(slice.content, openStart, slice.openEnd);
+  }
+
+  // If the paragraph's parent node doesn't support alignment or indentation, drop those
+  // marks from the slice
+  return mapSlice(slice, node => {
+    if (node.type === schema.nodes.paragraph) {
+      return schema.nodes.paragraph.createChecked(
+        undefined,
+        node.content,
+        node.marks.filter(
+          mark =>
+            mark.type.name !== 'alignment' && mark.type.name !== 'indentation',
+        ),
+      );
+    }
+    return node;
+  });
 }
 
 export function handleRichText(slice: Slice): Command {

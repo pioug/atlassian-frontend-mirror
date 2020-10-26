@@ -3,7 +3,7 @@ import React from 'react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import Modal, { ModalTransition } from '../src';
 import { AppearanceType } from '../src/types';

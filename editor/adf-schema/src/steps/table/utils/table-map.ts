@@ -1,4 +1,4 @@
-import { TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 export const getCellIndex = (map: TableMap, row: number, col: number) => {
   return row * map.width + col;

@@ -1,21 +1,24 @@
 // #region Imports
 import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
 import { Selection, TextSelection, Transaction } from 'prosemirror-state';
-import { CellSelection, selectionCell, TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
-  ContentNodeWithPos,
+  selectionCell,
   findCellClosestToPos,
   findTable,
   getCellsInColumn,
   getCellsInRow,
   getSelectionRect,
-  isCellSelection,
+  isSelectionType,
   removeTable,
   selectColumn as selectColumnTransform,
   selectRow as selectRowTransform,
   setCellAttrs,
   isTableSelected,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-tables/utils';
+import { ContentNodeWithPos } from 'prosemirror-utils';
+
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
@@ -108,12 +111,12 @@ export const setCellAttr = (name: string, value: any): Command => (
       return true;
     }
   } else {
-    const cell: any = selectionCell(state);
+    const cell = selectionCell(state.selection);
     if (cell) {
       if (dispatch) {
         dispatch(
-          tr.setNodeMarkup(cell.pos, cell.nodeAfter.type, {
-            ...cell.nodeAfter.attrs,
+          tr.setNodeMarkup(cell.pos, cell.nodeAfter?.type, {
+            ...cell.nodeAfter?.attrs,
             [name]: value,
           }),
         );
@@ -323,7 +326,7 @@ export const setMultipleCellAttrs = (
   let cursorPos: number | undefined;
   let { tr } = state;
 
-  if (isCellSelection(tr.selection)) {
+  if (isSelectionType(tr.selection, 'cell')) {
     const selection = (tr.selection as any) as CellSelection;
     selection.forEachCell((_cell, pos) => {
       const $pos = tr.doc.resolve(tr.mapping.map(pos + 1));

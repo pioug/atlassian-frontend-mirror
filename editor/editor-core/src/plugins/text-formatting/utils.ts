@@ -1,6 +1,6 @@
 import { MarkType, Mark as PMMark } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import {
   FORMATTING_MARK_TYPES,

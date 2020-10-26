@@ -1,5 +1,20 @@
 # @atlaskit/adf-schema
 
+## 13.1.0
+
+### Minor Changes
+
+- [`a41378f853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41378f853) - Refactor & fix few cases of unsupported node attributes:
+
+  - Preseve attributes on nodes which do not support any attributes
+  - Add unsupportedNodeAttribute to bulletList, layoutSection etc.
+
+### Patch Changes
+
+- [`e4abda244e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abda244e) - ED-9912: replace prosemirror-tables with editor-tables
+- [`3e652479cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e652479cc) - ED-9912: use CellAttributes from editor-tables in adf-schema
+- [`be142eec6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be142eec6e) - Refactor attributes validation and add unsupportedNodeAttribute mark in layoutsection
+
 ## 13.0.1
 
 ### Patch Changes

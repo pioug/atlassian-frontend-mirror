@@ -21,10 +21,12 @@ const AnnotationView: React.FC<Props> = props => {
 
   const updateSubscriber =
     (inlineCommentProvider && inlineCommentProvider.updateSubscriber) || null;
-  const annotationsByType = useAnnotationClickEvent({
+
+  const viewComponentProps = useAnnotationClickEvent({
     updateSubscriber,
     createAnalyticsEvent: props.createAnalyticsEvent,
   });
+
   const ViewComponent =
     inlineCommentProvider && inlineCommentProvider.viewComponent;
 
@@ -34,10 +36,12 @@ const AnnotationView: React.FC<Props> = props => {
     [actionContext],
   );
 
-  if (ViewComponent && annotationsByType) {
+  if (ViewComponent && viewComponentProps) {
+    const { annotations, clickElementTarget } = viewComponentProps;
     return (
       <ViewComponent
-        annotations={annotationsByType}
+        annotations={annotations}
+        clickElementTarget={clickElementTarget}
         deleteAnnotation={deleteAnnotation}
       />
     );

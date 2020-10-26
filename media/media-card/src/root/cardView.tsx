@@ -238,7 +238,7 @@ export class CardViewBase extends React.Component<
   }
 
   private renderTitleBox() {
-    const { metadata } = this.props;
+    const { metadata, titleBoxBgColor, titleBoxIcon } = this.props;
     const { name, createdAt } = metadata || {};
     if (this.isTitleBoxHidden() || !name) {
       return null;
@@ -248,6 +248,8 @@ export class CardViewBase extends React.Component<
         name={name}
         createdAt={createdAt}
         breakpoint={this.breakpoint}
+        titleBoxBgColor={titleBoxBgColor}
+        titleBoxIcon={titleBoxIcon}
       />
     );
   }

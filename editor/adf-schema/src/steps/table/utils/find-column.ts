@@ -1,4 +1,4 @@
-import { TableRect } from 'prosemirror-tables';
+import { TableRect } from '@atlaskit/editor-tables/table-map';
 import { CellStep, ColumnInfo } from '../types';
 
 /**

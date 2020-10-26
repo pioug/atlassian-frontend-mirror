@@ -2,8 +2,13 @@ import { Node } from 'prosemirror-model';
 import { EditorState, Transaction, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { stateKey as mediaStateKey } from '../plugins/media/pm-plugins/plugin-key';
+import { pluginKey as extensionPluginKey } from '../plugins/extension/plugin-key';
+import { ExtensionState } from '../plugins/extension/types';
+import { forceAutoSave } from '../plugins/extension/commands';
+
 import { Command, CommandDispatch } from '../types/command';
+
+import { stateKey as mediaPluginKey } from '../plugins/media/pm-plugins/plugin-key';
 import { MediaPluginState } from '../plugins/media/pm-plugins/types';
 
 export async function getEditorValueWithMedia(
@@ -13,10 +18,20 @@ export async function getEditorValueWithMedia(
     return;
   }
 
-  const { state } = editorView;
+  // WARNING: editorView.state suffers from reference changes, never unpack
+  const extensionPluginState =
+    editorView.state &&
+    (extensionPluginKey.getState(editorView.state) as ExtensionState);
+
+  if (extensionPluginState && extensionPluginState.showContextPanel) {
+    await new Promise(resolve => {
+      forceAutoSave(resolve)(editorView.state, editorView.dispatch);
+    });
+  }
 
   const mediaPluginState =
-    state && (mediaStateKey.getState(state) as MediaPluginState);
+    editorView.state &&
+    (mediaPluginKey.getState(editorView.state) as MediaPluginState);
 
   if (mediaPluginState && mediaPluginState.waitForMediaUpload) {
     await mediaPluginState.waitForPendingTasks();

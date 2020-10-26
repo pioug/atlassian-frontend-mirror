@@ -1,5 +1,5 @@
 import { TextSelection } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { Command } from '../../../types';
 import { ACTIONS, pluginKey } from '../pm-plugins/main';

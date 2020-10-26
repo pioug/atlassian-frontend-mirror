@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import {
   Spotlight,
   SpotlightManager,

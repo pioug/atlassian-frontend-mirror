@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 69.5.0
+
+### Minor Changes
+
+- [`669b5e4240`](https://bitbucket.org/atlassian/atlassian-frontend/commits/669b5e4240) - Add support for specifying background colour and icon for the title box
+
+### Patch Changes
+
+- [`3f0dd38c9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f0dd38c9d) - BMPT-626 Fixed fetching remote preview for non-supported documents in classic Media Card experience
+- [`bf98a47a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf98a47a0f) - Enhance polling strategy to limit to finite attempts with timing backoff
+- Updated dependencies
+
 ## 69.4.2
 
 ### Patch Changes

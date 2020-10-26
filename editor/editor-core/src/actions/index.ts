@@ -1,8 +1,9 @@
 import { Node } from 'prosemirror-model';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { TextSelection, Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Transformer } from '@atlaskit/editor-common';
-import { compose, toJSON } from '../utils';
+import { toJSON } from '../utils';
 import { processRawValue, isEmptyDocument } from '../utils/document';
 import { getEditorValueWithMedia } from '../utils/action';
 import { sanitizeNode } from '@atlaskit/adf-utils';
@@ -16,30 +17,30 @@ export type ContextUpdateHandler = (
   eventDispatcher: EventDispatcher,
 ) => void;
 
-export interface EditorActionsOptions {
+export interface EditorActionsOptions<T> {
   focus(): boolean;
   blur(): boolean;
   clear(): boolean;
-  getValue(): Promise<any | undefined>;
+  getValue(): Promise<T | JSONDocNode | undefined>;
   replaceDocument(rawValue: any): boolean;
   replaceSelection(rawValue: Node | Object | string): boolean;
   appendText(text: string): boolean;
   isDocumentEmpty(): boolean;
 }
 
-export default class EditorActions implements EditorActionsOptions {
+export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   private editorView?: EditorView;
-  private contentTransformer?: Transformer<any>;
-  private contentEncode?: Transformer<any>['encode'];
+  private contentTransformer?: Transformer<T>;
+  private contentEncode?: Transformer<T>['encode'];
   private eventDispatcher?: EventDispatcher;
   private listeners: Array<ContextUpdateHandler> = [];
 
-  static from(
+  static from<T>(
     view: EditorView,
     eventDispatcher: EventDispatcher,
-    transformer?: Transformer<any>,
+    transformer?: Transformer<T>,
   ) {
-    const editorActions = new EditorActions();
+    const editorActions = new EditorActions<T>();
     editorActions._privateRegisterEditor(view, eventDispatcher, transformer);
     return editorActions;
   }
@@ -58,7 +59,7 @@ export default class EditorActions implements EditorActionsOptions {
   _privateRegisterEditor(
     editorView: EditorView,
     eventDispatcher: EventDispatcher,
-    contentTransformer?: Transformer<any>,
+    contentTransformer?: Transformer<T>,
   ): void {
     this.contentTransformer = contentTransformer;
     this.eventDispatcher = eventDispatcher;
@@ -137,23 +138,23 @@ export default class EditorActions implements EditorActionsOptions {
     return true;
   }
 
-  async getValue(): Promise<any | undefined> {
+  async getValue() {
     const doc = await getEditorValueWithMedia(this.editorView);
-
     if (!doc) {
       return;
     }
 
-    return compose(
-      doc =>
-        this.contentEncode
-          ? this.contentEncode(
-              Node.fromJSON(this.editorView!.state.schema, doc),
-            )
-          : doc,
-      sanitizeNode,
-      toJSON,
-    )(doc);
+    const json = toJSON(doc);
+    const jsonSanitized = sanitizeNode(json);
+    if (!this.contentEncode) {
+      return jsonSanitized;
+    }
+
+    const nodeSanitized = Node.fromJSON(
+      this.editorView!.state.schema,
+      jsonSanitized,
+    );
+    return this.contentEncode(nodeSanitized);
   }
 
   isDocumentEmpty(): boolean {
@@ -183,7 +184,7 @@ export default class EditorActions implements EditorActionsOptions {
       rawValue,
       undefined,
       undefined,
-      this.contentTransformer,
+      this.contentTransformer as Transformer<any>,
       this.dispatchAnalyticsEvent,
     );
 

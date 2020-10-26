@@ -8,21 +8,47 @@ import {
   getFieldDeserializer,
 } from '@atlaskit/editor-common/extensions';
 
-import { FormResult } from './types';
-
-import { fromEntries } from './utils';
-
 const isOption = (option: any): option is Option => {
-  return typeof option === 'object' && 'label' in option && 'value' in option;
+  return (
+    option &&
+    typeof option === 'object' &&
+    'label' in option &&
+    'value' in option
+  );
 };
 
 const isOptions = (options: any): options is Option[] => {
   return Array.isArray(options) && options.every(isOption);
 };
 
-const getParametersFromFormData = (formData: FormData): FormResult => {
-  return Object.entries(formData).reduce<FormResult>((prev, entry) => {
+/**
+ * Extracts the values from the full form serialization.
+ *
+ * example:
+ * ```
+ * {
+ *   selectFieldName: {
+ *    value: 'foo',
+ *    label: 'Foo'
+ *   }
+ * }
+ * ```
+ * will turn into
+ * ```
+ * {
+ *  selectFieldName: 'foo'
+ * }
+ * ```
+ * @param formData
+ */
+
+const extractValues = (formData: Parameters): Parameters => {
+  return Object.entries(formData).reduce<Parameters>((prev, entry) => {
     const [key, value] = entry;
+
+    if (typeof value === 'undefined') {
+      return prev;
+    }
 
     if (isOptions(value)) {
       const values = value.map(item => item.value);
@@ -42,10 +68,10 @@ const getSerializableFields = (fields: FieldDefinition[]) =>
 
 export const serialize = async (
   manifest: ExtensionManifest,
-  formData: FormData,
+  formData: Parameters,
   fields: FieldDefinition[],
 ) => {
-  const parameters = getParametersFromFormData(formData);
+  const parameters = extractValues(formData);
 
   const processedParameters = { ...parameters };
 
@@ -53,25 +79,15 @@ export const serialize = async (
 
   for (const serializableField of serializableFields) {
     if (serializableField.options && serializableField.options.transformer) {
-      const fieldNames = serializableField.fields.map(field => field.name);
-
       const serializer = await getFieldSerializer(
         manifest,
         serializableField.options.transformer,
       );
 
       if (serializer) {
-        serializableField.fields.forEach(field => {
-          delete processedParameters[field.name];
-        });
-
-        const values = fromEntries(
-          fieldNames.map(fieldName => {
-            return [fieldName, parameters[fieldName]];
-          }),
+        processedParameters[serializableField.name] = serializer(
+          extractValues(parameters[serializableField.name]),
         );
-
-        processedParameters[serializableField.name] = serializer(values);
       }
     }
   }
@@ -94,8 +110,6 @@ export const deserialize = async (
       serializableField.options.transformer &&
       parsedParameters[serializableField.name]
     ) {
-      delete parsedParameters[serializableField.name];
-
       const deserializer = await getFieldDeserializer(
         manifest,
         serializableField.options.transformer,
@@ -108,7 +122,7 @@ export const deserialize = async (
 
         parsedParameters = {
           ...parsedParameters,
-          ...deserializationResult,
+          [serializableField.name]: deserializationResult,
         };
       }
     }

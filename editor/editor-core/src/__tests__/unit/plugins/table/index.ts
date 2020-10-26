@@ -1,6 +1,11 @@
 import { TextSelection } from 'prosemirror-state';
-import { CellSelection, TableMap } from 'prosemirror-tables';
-import { selectRow, selectColumn, selectTable } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import {
+  selectRow,
+  selectColumn,
+  selectTable,
+} from '@atlaskit/editor-tables/utils';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 

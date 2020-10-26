@@ -1,5 +1,66 @@
 # @atlaskit/editor-core
 
+## 132.0.0
+
+### Minor Changes
+
+- [`8904f49fe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8904f49fe0) - [EDM-1235] Add Display URL option
+- [`88e836d94d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88e836d94d) - ED-10462 Disabled linking keyboard shortcut for video
+- [`a41378f853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41378f853) - Refactor & fix few cases of unsupported node attributes:
+
+  - Preseve attributes on nodes which do not support any attributes
+  - Add unsupportedNodeAttribute to bulletList, layoutSection etc.
+
+- [`0bbaa4a976`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bbaa4a976) - ED-10553 added an option to enable analytics for synchrony entity
+- [`1ef25b01ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ef25b01ce) - ED-9757 Refactor selection editor plugin to include both gap cursor and selection prosemirror plugins
+- [`4b97e793af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b97e793af) - Add Tootltip Analytics for unsupported block and inline nodes
+- [`522ef99af5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/522ef99af5) - Add analytics event to track tooltip for unsupported content
+- [`28ada06e31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28ada06e31) - [ux] ED-10444 Preserve block marks when pasting paragraphs into a destination that supports them
+
+  Paragraph nodes support block marks such as alignment and indentation. When pasting into a destination that supports these marks, like a table cell or another paragraph, these marks are now preserved. For other types of destinations, like panels or expands, these marks get dropped so only the text gets pasted.
+
+- [`76cc1d3959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76cc1d3959) - [ux][ed-10182] New indentation system for Predictable Lists
+
+### Patch Changes
+
+- [`863e781954`](https://bitbucket.org/atlassian/atlassian-frontend/commits/863e781954) - ED-10563: Fix bug where clearing up a custom field could thrown an exception
+- [`4b2c7ce81c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b2c7ce81c) - ED-10580: Fix duplicate i18n ids
+- [`e0b454499d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0b454499d) - ED-10469 improve status and date in uninsertable block node
+- [`f0fbab604a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0fbab604a) - ED-10552: browser freeze interaction types
+- [`7895bfa4f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7895bfa4f3) - [ux] ED-10562 Update selection styles for unsupported content
+
+  Use background colour instead of blanket styling
+  Fix an issue on Safari where text inside unsupported content appeared selected when node was selected
+
+- [`ef432e6288`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef432e6288) - ED-10544: Remove type restrictions to keep api backwards compatible"
+- [`7ff0c42478`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ff0c42478) - Fix the cursor position after switch inline/block card
+- [`fb417cad7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb417cad7d) - [ED-10202] Add delete key behaviour for ctrl-d shortcut
+- [`b3025820d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3025820d3) - [ux] ED-10700 Prevent single paragraph with block marks from being pasted onto new line
+- [`10cdbcacae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10cdbcacae) - Stopping ElementBrowser click event propagation
+- [`fc5535b5a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc5535b5a6) - Fix Config autoSave when deselecting an extension
+- [`23452586c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23452586c4) - Reverting elementBrowser click propagation PR
+- [`e4abda244e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abda244e) - ED-9912: replace prosemirror-tables with editor-tables
+- [`c5cf85e1b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5cf85e1b0) - [ux] Design review changes from 17th sept 2020 for plus menu (InlineElementBrowser)
+- [`9e06c6e2d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e06c6e2d6) - [ux] ED-10651: custom panels - renderer and editor consistency
+- [`8b303ade9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b303ade9f) - EDM-1416 Disable useLongPress FF
+- [`b596fcb672`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b596fcb672) - [ED-10716] Fix forward delete before a list item with inline code and text
+- [`d271b899c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d271b899c2) - [ux] ED-10548 dont try to refetch state of annotation with invalid ids, and don't show annotations with invalid ids
+- [`1b89e3e0ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b89e3e0ab) - Fixes an issue when activity provider is not provided to editor, the link cannot be inserted from Cmd + K
+- [`15f7b4ae78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15f7b4ae78) - [ux] ED-10433 made custom icon and color applied on a panel based on node attributes (UI change). Changes are behind UNSAFE_allowCustomPanel feature flag.
+- [`2a4d918b5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a4d918b5b) - [ux][ed-10663] Indentation on Predictable Lists will consider only visual selections.
+- [`b724239b57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b724239b57) - EDM-1318: fix nested image resizing in layout
+- [`51d499862a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51d499862a) - [ux] ED-10641 Fix inconsistent plus menu insertion behavior
+- [`d0d4f926a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0d4f926a2) - [ux] ED-10232 Removing frame around CQL FieldSet
+- [`5a473547f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a473547f3) - [ux] PlusMenu design review changes from 25th Sept 2020
+- [`beda28c596`](https://bitbucket.org/atlassian/atlassian-frontend/commits/beda28c596) - [ux] ED-10354: added a colour picker to panels toolbar
+- [`1ef54456a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ef54456a2) - ED-10563: Fix examples to show the right type if of extension node for macros"
+- [`fa538b8313`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa538b8313) - ED-10432 add example page for beautiful emoji panels
+- [`fe34558349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe34558349) - Fix ConfigPanel losing data when publishing with autosave
+- [`976367a939`](https://bitbucket.org/atlassian/atlassian-frontend/commits/976367a939) - [ux] ED-10355 add emoji picker to panel toolbar
+- [`3d0b51445a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d0b51445a) - ED-10544: Fix name collision between nested fields and top level fields
+- [`0f824df74f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f824df74f) - [ED-10545] Fix predictable list delete functionality when first list item is empty
+- Updated dependencies
+
 ## 131.0.10
 
 ### Patch Changes

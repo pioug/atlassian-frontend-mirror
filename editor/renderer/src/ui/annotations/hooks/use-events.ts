@@ -3,6 +3,8 @@ import {
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
   AnnotationUpdateEmitter,
+  InlineCommentViewComponentProps,
+  OnAnnotationClickPayload,
 } from '@atlaskit/editor-common';
 import {
   AnnotationMarkStates,
@@ -113,15 +115,17 @@ export const useHasFocusEvent = ({
   return hasFocus;
 };
 
-type AnnotationInfo = {
-  id: AnnotationId;
-  type: AnnotationTypes.INLINE_COMMENT;
-};
+type AnnotationsWithClickTarget = Pick<
+  InlineCommentViewComponentProps,
+  'annotations' | 'clickElementTarget'
+> | null;
 
 export const useAnnotationClickEvent = (
   props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'>,
-) => {
-  const [annotations, setAnnotations] = useState<AnnotationInfo[] | null>(null);
+): AnnotationsWithClickTarget => {
+  const [annotationClickEvent, setAnnotationClickEvent] = useState<
+    AnnotationsWithClickTarget
+  >(null);
   const { updateSubscriber, createAnalyticsEvent } = props;
 
   useLayoutEffect(() => {
@@ -129,8 +133,8 @@ export const useAnnotationClickEvent = (
       return;
     }
 
-    const cb = (payload: Array<AnnotationId>) => {
-      const annotationsByType = payload.map(id => ({
+    const cb = ({ annotationIds, eventTarget }: OnAnnotationClickPayload) => {
+      const annotationsByType = annotationIds.map(id => ({
         id,
         type: AnnotationTypes.INLINE_COMMENT,
       }));
@@ -146,7 +150,11 @@ export const useAnnotationClickEvent = (
           },
         }).fire(FabricChannel.editor);
       }
-      setAnnotations(annotationsByType);
+
+      setAnnotationClickEvent({
+        annotations: annotationsByType,
+        clickElementTarget: eventTarget,
+      });
     };
 
     updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, cb);
@@ -156,5 +164,5 @@ export const useAnnotationClickEvent = (
     };
   }, [updateSubscriber, createAnalyticsEvent]);
 
-  return annotations;
+  return annotationClickEvent;
 };

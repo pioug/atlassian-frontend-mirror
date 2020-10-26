@@ -5,20 +5,17 @@ import {
   textWithOverlappingAnnotations,
   annotationSpanningMultiText,
 } from '../../../__tests__/__fixtures__/annotation';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  ACTION_SUBJECT_ID,
+} from '../../../analytics/enums';
+import { AnalyticsEventPayload } from '../../../analytics/events';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;
 const annotationId = '<<<ANNOTATION-ID>>>';
-
-function initActions(doc: any) {
-  let actions = new RendererActions(true);
-  actions._privateRegisterRenderer(
-    mockArg,
-    defaultSchema.nodeFromJSON(doc),
-    defaultSchema,
-  );
-  return actions;
-}
 
 describe('RendererActions', () => {
   it(`can't register the same RendererActions instance on more than one ref`, () => {
@@ -42,6 +39,25 @@ describe('RendererActions', () => {
   });
 
   describe('deleteAnnotation', () => {
+    let onAnalyticsEvent:
+      | jest.Mock<any, any>
+      | ((event: AnalyticsEventPayload) => void)
+      | undefined;
+
+    beforeEach(() => {
+      onAnalyticsEvent = jest.fn();
+    });
+
+    function initActions(doc: any) {
+      let actions = new RendererActions(true);
+      actions._privateRegisterRenderer(
+        mockArg,
+        defaultSchema.nodeFromJSON(doc),
+        defaultSchema,
+        onAnalyticsEvent,
+      );
+      return actions;
+    }
     it('should delete the annotaion with provided ID', () => {
       let actions = initActions(simpleTextWithAnnotation(annotationId));
       expect(
@@ -61,6 +77,25 @@ describe('RendererActions', () => {
       expect(
         actions.deleteAnnotation(annotationId, 'inlineComment'),
       ).toMatchSnapshot();
+    });
+
+    it('should trigger the analytics event when annotation is deteted', () => {
+      let actions = initActions(simpleTextWithAnnotation(annotationId));
+      actions.deleteAnnotation(annotationId, 'inlineComment');
+
+      expect(onAnalyticsEvent).toBeCalledWith({
+        action: ACTION.DELETED,
+        actionSubject: ACTION_SUBJECT.ANNOTATION,
+        actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+        eventType: EVENT_TYPE.TRACK,
+      });
+    });
+
+    it('should not trigger the analytics event when annotation is not deteted', () => {
+      let actions = initActions(simpleTextWithAnnotation(annotationId));
+      actions.deleteAnnotation('noAnnotation', 'inlineComment');
+
+      expect(onAnalyticsEvent).toBeCalledTimes(0);
     });
   });
 });

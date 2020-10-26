@@ -6,14 +6,16 @@ import { EnumRadioField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { FieldTypeError, OnBlur } from '../types';
-import { validate } from '../utils';
+import { validate, getSafeParentedName } from '../utils';
 
 export default function RadioField({
   field,
   onBlur,
+  parentName,
 }: {
   field: EnumRadioField;
   onBlur: OnBlur;
+  parentName?: string;
 }) {
   if (field.isMultiple) {
     return <FieldMessages error={FieldTypeError.isMultipleAndRadio} />;
@@ -21,7 +23,7 @@ export default function RadioField({
 
   return (
     <Field
-      name={field.name}
+      name={getSafeParentedName(field.name, parentName)}
       label={field.label}
       defaultValue={field.defaultValue}
       isRequired={field.isRequired}

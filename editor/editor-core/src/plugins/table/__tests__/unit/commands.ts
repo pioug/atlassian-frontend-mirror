@@ -1,7 +1,8 @@
 import { Fragment, Slice } from 'prosemirror-model';
 import { TextSelection } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
-import { findParentNodeOfType, isRowSelected } from 'prosemirror-utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { findParentNodeOfType } from 'prosemirror-utils';
+import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { defaultSchema } from '@atlaskit/adf-schema';

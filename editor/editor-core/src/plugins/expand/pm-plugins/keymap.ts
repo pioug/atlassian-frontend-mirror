@@ -6,7 +6,7 @@ import {
   NodeSelection,
 } from 'prosemirror-state';
 import * as keymaps from '../../../keymaps';
-import { GapCursorSelection, Side } from '../../gap-cursor';
+import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
 import { findExpand } from '../utils';
 import { findTypeAheadQuery } from '../../type-ahead/utils/find-query-mark';
 import { isEmptyNode } from '../../../utils';

@@ -1,5 +1,16 @@
 # @atlaskit/media-test-helpers
 
+## 28.3.0
+
+### Minor Changes
+
+- [`52b1353be9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52b1353be9) - BMT-611 Added integration test for Giphy cloud files
+- [`73613210d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73613210d4) - Adding support for Code and Email files so that they are now able to be previewed in the viewer.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.2.2
 
 ### Patch Changes

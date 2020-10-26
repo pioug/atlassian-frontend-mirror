@@ -1,4 +1,8 @@
-import { MediaType } from '@atlaskit/media-common';
+import {
+  getMediaFeatureFlag,
+  MediaFeatureFlags,
+  MediaType,
+} from '@atlaskit/media-common';
 
 import { MediaFileArtifacts } from './artifacts';
 
@@ -8,8 +12,19 @@ export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
 export type { MediaType } from '@atlaskit/media-common';
 
-export const isPreviewableType = (type: MediaType): boolean => {
-  return ['audio', 'video', 'image', 'doc'].indexOf(type) > -1;
+export const isPreviewableType = (
+  type: MediaType,
+  featureFlags?: MediaFeatureFlags,
+): boolean => {
+  // in classic experience, only audio/video/image are previewable
+  const defaultPreviewableTypes = ['audio', 'video', 'image'];
+
+  // in the new experience, docs are previewable too
+  if (getMediaFeatureFlag('newCardExperience', featureFlags)) {
+    return [...defaultPreviewableTypes, 'doc'].indexOf(type) > -1;
+  }
+
+  return defaultPreviewableTypes.indexOf(type) > -1;
 };
 
 export type MediaFile = {

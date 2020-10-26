@@ -1,7 +1,7 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
-import { Rect, TableMap } from 'prosemirror-tables';
-import { findTable } from 'prosemirror-utils';
+import { TableMap, Rect } from '@atlaskit/editor-tables/table-map';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
 

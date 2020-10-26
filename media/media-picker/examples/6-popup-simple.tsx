@@ -13,7 +13,7 @@ import { MediaPicker } from '../src';
 import { Popup } from '../src/types';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
-mediaMock.enable();
+mediaMock.enable({ mockRemoteUploadActivity: true });
 
 const mediaClientConfig: MediaClientConfig = {
   authProvider: defaultMediaPickerAuthProvider,

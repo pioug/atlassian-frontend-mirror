@@ -64,20 +64,20 @@ export class EditorCardProvider implements CardProvider {
     }
   }
 
-  private findPattern(url: string): boolean {
-    const patterns = this.patterns;
+  async findPattern(url: string): Promise<boolean> {
+    const patterns = this.patterns || (await this.fetchPatterns());
     if (patterns) {
+      this.patterns = patterns;
       return patterns.some(pattern => url.match(pattern));
     }
+
     return false;
   }
 
   async resolve(url: string, appearance: CardAppearance): Promise<any> {
     try {
-      if (!this.patterns) {
-        this.patterns = await this.fetchPatterns();
-      }
-      let isSupported = this.findPattern(url) || (await this.check(url));
+      let isSupported =
+        (await this.findPattern(url)) || (await this.check(url));
       if (isSupported) {
         return this.transformer.toAdf(url, appearance);
       }

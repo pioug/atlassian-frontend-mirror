@@ -1,14 +1,17 @@
 import { AnchorHTMLAttributes, ComponentClass } from 'react';
 import styled from 'styled-components';
-import { B100, N20, B50 } from '@atlaskit/theme/colors';
+import { B100, B400, B50, N20 } from '@atlaskit/theme/colors';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 import { e100 } from '@atlaskit/theme/elevation';
+import { themed } from '@atlaskit/theme/components';
 
 export interface WrapperProps {
   isSelected?: boolean;
   isInteractive?: boolean;
   withoutBackground?: boolean;
 }
+
+const BACKGROUND_COLOR_DARK = '#262B31';
 
 const selected = `
   cursor: pointer;
@@ -25,11 +28,17 @@ const isInteractive = ({ isInteractive }: WrapperProps) => {
     return `
       cursor: pointer;
       :hover {
-        background-color: ${N20};
+        background-color: ${themed({
+          light: N20,
+          dark: BACKGROUND_COLOR_DARK,
+        })};
         text-decoration: none;
       }
       :active {
-        background-color: ${B50};
+        background-color: ${themed({
+          light: B50,
+          dark: BACKGROUND_COLOR_DARK,
+        })};
         text-decoration: none;
       }
       :focus {
@@ -42,15 +51,6 @@ const isInteractive = ({ isInteractive }: WrapperProps) => {
   }
 };
 
-const background = ({ withoutBackground }: WrapperProps) => {
-  return withoutBackground
-    ? ``
-    : `
-    background-color: white; 
-    ${e100()}
-  `;
-};
-
 const isSelected = ({ isSelected }: WrapperProps) => {
   if (isSelected) {
     return selected;
@@ -59,7 +59,7 @@ const isSelected = ({ isSelected }: WrapperProps) => {
   }
 };
 
-/* 
+/*
   Inline smart cards should have the following layout:
   ------------------------------------
   | icon | title | action OR lozenge |
@@ -79,8 +79,14 @@ export const Wrapper: ComponentClass<
   display: inline;
   box-decoration-break: clone;
   border-radius: ${akBorderRadius()}px;
-  ${background};
+  color: ${themed({ light: B400, dark: '#4794FF' })};
+  background-color: ${props =>
+    props.withoutBackground
+      ? ''
+      : themed({ light: 'white', dark: BACKGROUND_COLOR_DARK })};
+  ${props => (props.withoutBackground ? '' : e100())};
   ${isInteractive}
   ${isSelected};
   transition: 0.1s all ease-in-out;
+  -moz-user-select: none;
 `;

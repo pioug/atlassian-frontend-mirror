@@ -1,4 +1,4 @@
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorView } from 'prosemirror-view';
 import {
   EditorState,
@@ -11,7 +11,10 @@ import { ContentNodeWithPos } from 'prosemirror-utils';
 
 import { browser } from '@atlaskit/editor-common';
 
-import { GapCursorSelection, Side } from '../plugins/gap-cursor/selection';
+import {
+  GapCursorSelection,
+  Side,
+} from '../plugins/selection/gap-cursor/selection';
 
 export const setNodeSelection = (view: EditorView, pos: number) => {
   const { state, dispatch } = view;

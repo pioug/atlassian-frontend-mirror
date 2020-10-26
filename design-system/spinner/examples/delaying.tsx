@@ -10,7 +10,7 @@ import React, {
 import { css, jsx } from '@emotion/core';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import Select, { ValueType } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';

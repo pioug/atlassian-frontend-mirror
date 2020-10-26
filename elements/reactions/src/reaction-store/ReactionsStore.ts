@@ -15,6 +15,7 @@ import {
 } from '../types';
 import { batch, batchByKey } from './batched';
 import * as utils from './utils';
+import { isRealErrorFromService } from './utils';
 
 export type State = {
   reactions: {
@@ -268,7 +269,7 @@ export class MemoryReactionsStore implements ReactionsStore {
         }
       })
       .catch(error => {
-        if (this.createAnalyticsEvent) {
+        if (this.createAnalyticsEvent && isRealErrorFromService(error.code)) {
           createAndFireSafe(
             this.createAnalyticsEvent,
             createRestFailedEvent,
@@ -322,7 +323,7 @@ export class MemoryReactionsStore implements ReactionsStore {
         }
       })
       .catch(error => {
-        if (this.createAnalyticsEvent) {
+        if (this.createAnalyticsEvent && isRealErrorFromService(error.code)) {
           createAndFireSafe(
             this.createAnalyticsEvent,
             createRestFailedEvent,

@@ -1,11 +1,16 @@
 import { findWrapping } from 'prosemirror-transform';
 import { Node as PMNode, ResolvedPos, NodeType } from 'prosemirror-model';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
+import {
+  EditorState,
+  Selection,
+  Transaction,
+  TextSelection,
+} from 'prosemirror-state';
 import {
   findParentNodeClosestToPos,
   hasParentNodeOfType,
 } from 'prosemirror-utils';
-import { GapCursorSelection } from '../../gap-cursor';
+import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import { isListItemNode, isListNode, isParagraphNode } from './node';
 
 export const isPosInsideParagraph = ($pos: ResolvedPos) => {
@@ -105,4 +110,33 @@ export const getListItemAttributes = ($pos: ResolvedPos) => {
   // Get the index of the current item relative to parent (parent is at item depth - 1)
   const itemIndex = $pos.index(itemAtPos ? itemAtPos.depth - 1 : undefined);
   return { indentLevel, itemIndex };
+};
+
+type NormalizeListItemsSelection = (props: {
+  selection: Selection;
+  doc: PMNode;
+}) => Selection;
+export const normalizeListItemsSelection: NormalizeListItemsSelection = ({
+  selection,
+  doc,
+}) => {
+  if (selection.empty) {
+    return selection;
+  }
+
+  const { $from, $to } = selection;
+
+  const toRange = $to.blockRange($to, isListItemNode);
+  const toPosition =
+    toRange && $to.textOffset === 0 && toRange.start + 1 === $to.pos
+      ? Selection.near(doc.resolve(toRange.start - 1), -1).$to
+      : $to;
+
+  const fromRange = $from.blockRange($from, isListItemNode);
+  const fromPosition =
+    fromRange && $from.textOffset === 0 && fromRange.end - 1 === $from.pos
+      ? Selection.near(doc.resolve(fromRange.end + 1), 1).$from
+      : $from;
+
+  return new TextSelection(toPosition, fromPosition);
 };

@@ -863,6 +863,168 @@ describe(name, () => {
       describe('unsupportedNodeAttribute', () => {
         it.each<[string, object, object]>([
           [
+            `should wrap a node's child attributes into unsupportedNodeAttribute mark when the node is missing a required attr
+             but is supplied other unsupported attr, and its child does not support attrs but attrs are passed `,
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'layoutSection',
+                  content: [
+                    {
+                      type: 'layoutColumn',
+                      attrs: {
+                        newAttribute1: 'someVal',
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'safasfsafsa',
+                            },
+                          ],
+                          attrs: {
+                            newAttribute1: 'someVal',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'layoutColumn',
+                      attrs: {
+                        width: 50,
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                          attrs: {
+                            newAttribute2: 'someVal',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'layoutSection',
+                  content: [
+                    {
+                      type: 'layoutColumn',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [{ type: 'text', text: 'safasfsafsa' }],
+                          marks: [
+                            {
+                              type: 'unsupportedNodeAttribute',
+                              attrs: {
+                                type: { nodeType: 'paragraph' },
+                                unsupported: { newAttribute1: 'someVal' },
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                      marks: [
+                        {
+                          type: 'unsupportedNodeAttribute',
+                          attrs: {
+                            type: { nodeType: 'layoutColumn' },
+                            unsupported: { newAttribute1: 'someVal' },
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'layoutColumn',
+                      attrs: { width: 50 },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          marks: [
+                            {
+                              type: 'unsupportedNodeAttribute',
+                              attrs: {
+                                type: { nodeType: 'paragraph' },
+                                unsupported: { newAttribute2: 'someVal' },
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
+            'should wrap a node attribute into unsupportedNodeAttribute mark when the node does not support any attributes',
+            {
+              version: 1,
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'No Attrs supported by text and paragraph',
+                      attrs: {
+                        some: 'value',
+                      },
+                    },
+                  ],
+                  attrs: {
+                    someOther: 'valueOther',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'doc',
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      marks: [
+                        {
+                          type: 'unsupportedNodeAttribute',
+                          attrs: {
+                            type: { nodeType: 'text' },
+                            unsupported: { some: 'value' },
+                          },
+                        },
+                      ],
+                      text: 'No Attrs supported by text and paragraph',
+                    },
+                  ],
+                  marks: [
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: { nodeType: 'paragraph' },
+                        unsupported: { someOther: 'valueOther' },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          [
             'should wrap a redundant node attribute into unsupportedNodeAttribute mark',
             {
               version: 1,

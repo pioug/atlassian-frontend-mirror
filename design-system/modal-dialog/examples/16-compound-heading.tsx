@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { R400 } from '@atlaskit/theme/colors';
 

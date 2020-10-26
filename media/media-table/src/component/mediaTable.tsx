@@ -124,11 +124,10 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     validPageNumber: number,
     validTotalItems: number,
   ) => {
-    const { items, columns, rowProps } = this.props;
+    const { items, columns } = this.props;
 
     const rowValues: RowType[] = items.map(item => {
-      const { data, identifier } = item;
-
+      const { data, identifier, rowProps } = item;
       return {
         cells: this.generateCellValues(data, identifier),
         key: identifier.id,

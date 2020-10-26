@@ -1,13 +1,15 @@
 import { Selection } from 'prosemirror-state';
-import { CellSelection, TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { findDomRefAtPos } from 'prosemirror-utils';
 import {
-  findDomRefAtPos,
   findTable,
   getCellsInColumn,
   getSelectionRect,
   isColumnSelected,
   isTableSelected,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-tables/utils';
+
 import { EditorView } from 'prosemirror-view';
 
 import { maphElem } from '../../../utils/dom';

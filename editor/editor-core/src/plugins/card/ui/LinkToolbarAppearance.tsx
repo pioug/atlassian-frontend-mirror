@@ -5,7 +5,10 @@ import { EditorState } from 'prosemirror-state';
 import { CardContext, CardPlatform } from '@atlaskit/smart-card';
 import { EditorView } from 'prosemirror-view';
 import { Fragment } from 'prosemirror-model';
-import { setSelectedCardAppearance } from '../pm-plugins/doc';
+import {
+  setSelectedCardAppearance,
+  changeSelectedCardToLink,
+} from '../pm-plugins/doc';
 import { CardAppearance } from '../types';
 import { isSupportedInParent } from '../../../utils/nodes';
 import Dropdown from '../../floating-toolbar/ui/Dropdown';
@@ -15,7 +18,7 @@ import { DropdownOptions } from '../../../plugins/floating-toolbar/ui/types';
 
 export interface LinkToolbarAppearanceProps {
   intl: InjectedIntl;
-  currentAppearance: CardAppearance;
+  currentAppearance?: CardAppearance;
   editorState: EditorState;
   editorView?: EditorView;
   url?: string;
@@ -55,6 +58,13 @@ export class LinkToolbarAppearance extends React.Component<
       };
     const options: DropdownOptions<Function> = [
       {
+        title: intl.formatMessage(messages.url),
+        onClick: () =>
+          changeSelectedCardToLink(url, url, true)(editorState, view?.dispatch),
+        selected: !currentAppearance,
+        testId: 'url-appearance',
+      },
+      {
         title: intl.formatMessage(messages.inline),
         onClick: setSelectedCardAppearance('inline'),
         selected: currentAppearance === 'inline',
@@ -69,7 +79,9 @@ export class LinkToolbarAppearance extends React.Component<
         testId: 'block-appearance',
       },
     ];
-    const title = intl.formatMessage(messages[currentAppearance]);
+    const title = intl.formatMessage(
+      currentAppearance ? messages[currentAppearance] : messages.url,
+    );
     const dispatchCommand = (fn?: Function) => {
       fn && fn(editorState, view && view.dispatch);
     };
@@ -88,6 +100,7 @@ export class LinkToolbarAppearance extends React.Component<
     return (
       <Dropdown
         key={'link-toolbar'}
+        buttonTestId="link-toolbar-appearance-button"
         title={title}
         dispatchCommand={dispatchCommand}
         options={options}

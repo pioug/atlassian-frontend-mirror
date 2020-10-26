@@ -18,7 +18,7 @@
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "continuous",
+    "releaseModel": "scheduled",
     "website": {
       "name": "Popup"
     }

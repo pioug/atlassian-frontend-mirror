@@ -15,9 +15,9 @@ import {
   closeElementBrowserModal,
   insertItem,
 } from '../../../../plugins/quick-insert/commands';
+import { selectNode } from '../../../../utils/commands';
 
 import { pluginKey } from '../../../../plugins/quick-insert/plugin-key';
-
 import { datePlugin } from '../../../../plugins';
 
 describe('Quick Insert Commands', () => {
@@ -247,6 +247,87 @@ describe('Quick Insert Commands', () => {
               extensionKey: '',
               extensionType: '',
               layout: 'default',
+            })(),
+          ),
+        ),
+      );
+    });
+
+    it('should replace a selected block node', () => {
+      const { editorView, refs } = createEditor({
+        doc: doc(
+          '{extensionStart}',
+          bodiedExtension({
+            extensionKey: 'fake.extension',
+            extensionType: 'atlassian.com.editor',
+          })(p()),
+        ),
+        editorProps: {
+          allowExtension: true,
+        },
+      });
+
+      selectNode(refs['extensionStart'])(editorView.state, editorView.dispatch);
+      editorView.focus();
+
+      insertItem({
+        title: 'Another fake extension',
+        action: (insert, state) => {
+          return insert(
+            state.schema.nodes.extension.createChecked({
+              extensionKey: 'fake.extension.two',
+              extensionType: 'atlassian.com.editor',
+            }),
+          );
+        },
+      })(editorView.state, editorView.dispatch);
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          extension({
+            extensionKey: 'fake.extension.two',
+            extensionType: 'atlassian.com.editor',
+          })(),
+        ),
+      );
+    });
+
+    it('should not replace bodied extension when selection is inside', () => {
+      const { editorView } = createEditor({
+        doc: doc(
+          bodiedExtension({
+            extensionKey: 'fake.extension',
+            extensionType: 'atlassian.com.editor',
+          })(p('{<>}')),
+        ),
+        editorProps: {
+          allowExtension: true,
+        },
+      });
+
+      editorView.focus();
+
+      insertItem({
+        title: 'Another fake extension',
+        action: (insert, state) => {
+          return insert(
+            state.schema.nodes.extension.createChecked({
+              extensionKey: 'fake.extension.two',
+              extensionType: 'atlassian.com.editor',
+            }),
+          );
+        },
+      })(editorView.state, editorView.dispatch);
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          bodiedExtension({
+            extensionKey: 'fake.extension',
+            extensionType: 'atlassian.com.editor',
+          })(
+            extension({
+              extensionKey: 'fake.extension.two',
+              extensionType: 'atlassian.com.editor',
             })(),
           ),
         ),

@@ -7,10 +7,17 @@ import {
 import { p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { CollabEditProvider } from '@atlaskit/editor-common';
 import collabEditPlugin from '../../../index';
-import { subscribe } from '../../../events/handlers';
+import { Cleanup, subscribe } from '../../../events/handlers';
 import { applyRemoteData } from '../../../actions';
 import { PrivateCollabEditOptions } from '../../../types';
 import { MockCollabEditProvider } from '@atlaskit/synchrony-test-helpers/mock-collab-provider';
+import { EventEmitter } from 'events';
+
+const synchronyEntityAnalyticsMock = jest.fn();
+jest.mock('../../../analytics', () => ({
+  ...jest.requireActual<Object>('../../../analytics'),
+  addSynchronyEntityAnalytics: () => synchronyEntityAnalyticsMock,
+}));
 
 jest.mock('../../../actions');
 
@@ -19,7 +26,9 @@ const collabProvider = createMockCollabEditProvider();
 describe('collab-edit: handlers.ts', () => {
   const collabPreset = new Preset<LightEditorPlugin>().add([
     collabEditPlugin,
-    { provider: collabProvider },
+    {
+      provider: collabProvider,
+    },
   ]);
 
   const createEditor = createProsemirrorEditorFactory();
@@ -37,6 +46,86 @@ describe('collab-edit: handlers.ts', () => {
     telepointer: jest.fn(),
   };
 
+  describe('subscribe', () => {
+    const setup = (
+      collabOptions: PrivateCollabEditOptions,
+    ): {
+      cleanup: Cleanup;
+      onSpy: jest.SpyInstance<void>;
+      offSpy: jest.SpyInstance<void>;
+      entity: EventEmitter.EventEmitter;
+    } => {
+      const entity = new EventEmitter();
+      // default handlers to avoid unhandled exception
+      entity.on('error', () => {});
+      entity.on('disconnected', () => {});
+      const onSpy = jest.spyOn(entity, 'on');
+      const offSpy = jest.spyOn(entity, 'off');
+      const { editorView } = editor(p('Hello'));
+      const cleanup = subscribe(editorView, provider, {
+        ...collabOptions,
+      });
+
+      provider.sendMessage({
+        type: 'entity',
+        entity,
+      });
+
+      return { cleanup, onSpy, offSpy, entity };
+    };
+
+    beforeEach(async () => {
+      provider = await collabProvider;
+      synchronyEntityAnalyticsMock.mockClear();
+    });
+
+    it('should subscribe and unsubscribe entity events', () => {
+      const { cleanup, onSpy, offSpy } = setup({
+        EXPERIMENTAL_allowInternalErrorAnalytics: true,
+      });
+
+      expect(onSpy).toHaveBeenCalledWith('disconnected', expect.anything());
+      expect(onSpy).toHaveBeenCalledWith('error', expect.anything());
+      cleanup();
+      expect(offSpy).toHaveBeenCalledWith('disconnected', expect.anything());
+      expect(offSpy).toHaveBeenCalledWith('error', expect.anything());
+    });
+
+    it('should not subscribe and unsubscribe entity events if FF is turned off', () => {
+      const { cleanup, onSpy, offSpy } = setup({
+        EXPERIMENTAL_allowInternalErrorAnalytics: false,
+      });
+
+      cleanup();
+
+      expect(onSpy).not.toHaveBeenCalled();
+      expect(offSpy).not.toHaveBeenCalled();
+    });
+
+    it('calls correct analytics function', () => {
+      const { cleanup, entity } = setup({
+        EXPERIMENTAL_allowInternalErrorAnalytics: true,
+      });
+
+      entity.emit('error', {});
+      entity.emit('disconnected', {});
+      expect(synchronyEntityAnalyticsMock).toHaveBeenCalledWith('error');
+      expect(synchronyEntityAnalyticsMock).toHaveBeenCalledWith('disconnected');
+      cleanup();
+    });
+
+    it('does not call analytics function after cleanup', () => {
+      const { cleanup, entity } = setup({
+        EXPERIMENTAL_allowInternalErrorAnalytics: true,
+      });
+      cleanup();
+
+      entity.emit('error', {});
+      entity.emit('disconnected', {});
+      expect(synchronyEntityAnalyticsMock).not.toHaveBeenCalled();
+    });
+  });
+
   describe('unsubscribe', () => {
     beforeAll(async () => {
       const { editorView } = editor(p('Hello'));
@@ -50,11 +139,12 @@ describe('collab-edit: handlers.ts', () => {
       provider.on('presence', externalSpies.presence);
       provider.on('telepointer', externalSpies.telepointer);
 
+      spy.mockClear();
       cleanup();
     });
 
     it('unsubscribes only local listeners', () => {
-      expect(spy).toHaveBeenCalledTimes(7);
+      expect(spy).toHaveBeenCalledTimes(8);
     });
 
     it.each(['connected', 'presence', 'telepointer'])(

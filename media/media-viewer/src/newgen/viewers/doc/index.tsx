@@ -27,7 +27,6 @@ export type Props = {
   onClose?: () => void;
   onError?: (error: Error) => void;
   onSuccess?: () => void;
-  isSidebarVisible?: boolean;
 };
 
 export type State = {
@@ -97,7 +96,7 @@ export class DocViewer extends BaseViewer<string, Props> {
   }
 
   protected renderSuccessful(content: string) {
-    const { onClose, onSuccess, onError, isSidebarVisible } = this.props;
+    const { onClose, onSuccess, onError } = this.props;
     const { PDFComponent } = DocViewer;
 
     if (!PDFComponent) {
@@ -109,7 +108,6 @@ export class DocViewer extends BaseViewer<string, Props> {
         onSuccess={onSuccess}
         onError={onError}
         onClose={onClose}
-        isSidebarVisible={isSidebarVisible}
       />
     );
   }

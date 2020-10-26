@@ -15,7 +15,7 @@ describe('ElementBrowser', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    const selector = "[data-testid='ElementBrowser']";
+    const selector = "[data-testid='element-browser']";
 
     await loadPage(page, url);
     await waitForElementCount(page, selector, 1);

@@ -50,7 +50,6 @@ export enum ACTIONS {
   FOCUS_SEARCH = 'focusOnSearch',
   UPDATE_STATE = 'updateState',
   MOVE = 'move',
-  TAB = 'tab',
 }
 
 export type ReducerAction = {
@@ -78,14 +77,6 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
 
     case ACTIONS.MOVE:
       return moveReducer(state, action);
-
-    case ACTIONS.TAB:
-      if (state.focusOnSearch) {
-        return {
-          ...state,
-          focusOnSearch: false,
-        };
-      }
   }
   return state;
 };
@@ -225,9 +216,6 @@ function useSelectAndFocusOnArrowNavigation(
         return;
       }
       switch (e.key) {
-        case 'Tab':
-          dispatch({ type: ACTIONS.TAB, payload: {} });
-          break;
         case '/':
           e.preventDefault();
           e.stopPropagation();

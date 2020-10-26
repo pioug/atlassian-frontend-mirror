@@ -11,7 +11,7 @@ import { MediaLinkingState, InitialState } from './types';
 import reducer from './reducer';
 import { LinkAttributes } from '@atlaskit/adf-schema';
 
-const mediaLinkingPluginKey = new PluginKey('mediaLinking');
+export const mediaLinkingPluginKey = new PluginKey('mediaLinking');
 
 const initialState: InitialState = {
   visible: false,

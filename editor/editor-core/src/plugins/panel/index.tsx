@@ -64,8 +64,8 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
     return [
       {
         name: 'panel',
-        plugin: ({ dispatch }) =>
-          createPlugin(dispatch, options.useLongPressSelection),
+        plugin: ({ providerFactory, dispatch }) =>
+          createPlugin(dispatch, providerFactory, options),
       },
       {
         name: 'panelKeyMap',
@@ -135,7 +135,8 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
         },
       },
     ],
-    floatingToolbar: (state, intl) => getToolbarConfig(state, intl, options),
+    floatingToolbar: (state, intl, providerFactory) =>
+      getToolbarConfig(state, intl, options, providerFactory),
   },
 });
 

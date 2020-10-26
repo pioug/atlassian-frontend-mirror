@@ -52,6 +52,7 @@ import quickInsertProviderFactory from '../example-helpers/quick-insert-provider
 import { DevTools } from '../example-helpers/DevTools';
 import { TitleInput } from '../example-helpers/PageElements';
 import { EditorActions, MentionProvider } from './../src';
+import { PanelPluginConfig } from '../src/plugins/panel/types';
 import withSentry from '../example-helpers/withSentry';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {
@@ -101,22 +102,27 @@ const SAVE_ACTION = () => console.log('Save');
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
 export const LOCALSTORAGE_defaultTitleKey =
   'fabric.editor.example.full-page.title';
-export const saveChanges = (props: {
+
+export const saveChanges = ({
+  editorActions,
+  setMode,
+}: {
   editorActions?: EditorActions;
   setMode?: (mode: boolean) => void;
-}) => () => {
-  if (!props.editorActions) {
+}) => async () => {
+  if (!editorActions) {
     return;
   }
 
-  props.editorActions.getValue().then(value => {
-    // eslint-disable-next-line no-console
-    console.log(value);
-    localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
-    if (props.setMode) {
-      props.setMode(false);
-    }
-  });
+  const value = await editorActions.getValue();
+
+  // eslint-disable-next-line no-console
+  console.log(value);
+
+  localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
+  if (setMode) {
+    setMode(false);
+  }
 };
 
 export const SaveAndCancelButtons = (props: {
@@ -247,6 +253,10 @@ export class ExampleEditorComponent extends React.Component<
     }
 
     const value = await this.editorActions.getValue();
+    if (!value) {
+      return;
+    }
+
     const encoded = encode(value);
     const url = amend(window.parent.location, encoded);
 
@@ -282,9 +292,7 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
-                allowPanel={{
-                  UNSAFE_allowCustomPanel: true,
-                }}
+                allowPanel
                 allowExtension={{
                   allowBreakout: true,
                 }}
@@ -420,6 +428,7 @@ export class ExampleEditorComponent extends React.Component<
                   uiTracking: { enabled: true },
                   nodeViewTracking: { enabled: true },
                   inputTracking: { enabled: true, countNodes: true },
+                  bFreezeTracking: { trackInteractionType: true },
                 }}
                 {...this.props}
                 appearance={this.state.appearance}
@@ -548,9 +557,10 @@ const providerFactory = ProviderFactory.create({
 });
 
 const Renderer = (props: {
-  document: any;
+  document?: string | object;
   setMode: (mode: boolean) => void;
   extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[];
+  allowCustomPanel?: boolean;
 }) => {
   if (props.extensionProviders && props.extensionProviders.length > 0) {
     providerFactory.setProvider(
@@ -558,6 +568,12 @@ const Renderer = (props: {
       Promise.resolve(combineExtensionProviders(props.extensionProviders)),
     );
   }
+
+  const document = !props.document
+    ? undefined
+    : typeof props.document === 'string'
+    ? JSON.parse(props.document)
+    : props.document;
 
   return (
     <div
@@ -586,11 +602,12 @@ const Renderer = (props: {
           adfStage="stage0"
           dataProviders={providerFactory}
           extensionHandlers={extensionHandlers}
-          document={props.document && JSON.parse(props.document)}
+          document={document}
           appearance={getAppearance()}
           media={{
             featureFlags: exampleMediaFeatureFlags,
           }}
+          UNSAFE_allowCustomPanels={props.allowCustomPanel}
         />
       </SmartCardProvider>
     </div>
@@ -603,27 +620,36 @@ export default function Example(props: EditorProps & ExampleProps) {
   const maybeDoc =
     props.defaultValue || fromLocation<object>(window.parent.location);
   const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
-
-  const document =
-    doc ||
+  const localDraft =
     (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
     undefined;
+
+  let allowCustomPanel = false;
+  if (props.allowPanel && typeof props.allowPanel === 'object') {
+    allowCustomPanel =
+      (props.allowPanel as PanelPluginConfig).UNSAFE_allowCustomPanel || false;
+  }
 
   return (
     <EditorContext>
       <div style={{ height: '100%' }}>
         <DevTools />
         {isEditingMode ? (
-          <ExampleEditor {...props} defaultValue={document} setMode={setMode} />
+          <ExampleEditor
+            {...props}
+            defaultValue={doc || localDraft}
+            setMode={setMode}
+          />
         ) : (
           <Renderer
-            document={document}
+            document={localDraft || doc}
             setMode={setMode}
             extensionProviders={
               typeof props.extensionProviders === 'function'
                 ? props.extensionProviders()
                 : props.extensionProviders
             }
+            allowCustomPanel={allowCustomPanel}
           />
         )}
       </div>

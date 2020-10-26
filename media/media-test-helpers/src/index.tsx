@@ -74,6 +74,9 @@ export {
   zipItemMultipleFoldersAtRootId,
   zipJiraArchiveFileId,
   zipEncryptedFileId,
+  codeFileId,
+  emailFileId,
+  emailUnsupportedFileId,
 } from './exampleMediaItems';
 export { createMouseEvent } from './createMouseEvent';
 export type { MouseEventProps } from './createMouseEvent';
@@ -156,7 +159,7 @@ export {
 } from './clipboardEventMocks';
 export { getAuthFromContextProvider } from './getAuthFromContextProvider';
 export { addGlobalEventEmitterListeners } from './globalEventEmitterListeners';
-export { fakeImage } from './mocks/database/mockData';
+export { fakeImage } from './utils/mockData';
 
 export {
   enableMockGlobalImage,

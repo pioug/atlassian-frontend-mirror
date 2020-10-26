@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import { Label } from '@atlaskit/field-base';
 import Item, { ItemGroup } from '@atlaskit/item';
 

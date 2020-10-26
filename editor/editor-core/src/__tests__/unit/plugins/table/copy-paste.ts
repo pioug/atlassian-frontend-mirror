@@ -1,5 +1,9 @@
-import { getCellsInTable, selectColumn, selectTable } from 'prosemirror-utils';
-import { CellSelection } from 'prosemirror-tables';
+import {
+  getCellsInTable,
+  selectColumn,
+  selectTable,
+} from '@atlaskit/editor-tables/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { Node as ProsemirrorNode, Fragment, Slice } from 'prosemirror-model';
 import { TextSelection, Transaction } from 'prosemirror-state';
 // @ts-ignore

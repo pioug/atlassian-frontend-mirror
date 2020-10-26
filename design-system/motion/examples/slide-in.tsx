@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, SlideIn } from '../src';

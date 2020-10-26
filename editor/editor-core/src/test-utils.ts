@@ -118,7 +118,7 @@ export type { Dispatch } from './event-dispatcher';
 export {
   GapCursorSelection,
   Side as GapCursorSide,
-} from './plugins/gap-cursor/selection';
+} from './plugins/selection/gap-cursor/selection';
 
 export function setTextSelection(
   view: EditorView,

@@ -27,20 +27,25 @@ const Modal = ({
     [quickInsertState],
   );
 
+  const focusInEditor = useCallback(() => {
+    if (!editorView.hasFocus()) {
+      editorView.focus();
+    }
+  }, [editorView]);
+
   const onInsertItem = useCallback(
     item => {
       closeElementBrowserModal()(editorView.state, editorView.dispatch);
-      if (!editorView.hasFocus()) {
-        editorView.focus();
-      }
+      focusInEditor();
       insertItem(item)(editorView.state, editorView.dispatch);
     },
-    [editorView],
+    [editorView.dispatch, editorView.state, focusInEditor],
   );
 
   const onClose = useCallback(() => {
     closeElementBrowserModal()(editorView.state, editorView.dispatch);
-  }, [editorView]);
+    focusInEditor();
+  }, [editorView.dispatch, editorView.state, focusInEditor]);
 
   return (
     <ModalElementBrowser

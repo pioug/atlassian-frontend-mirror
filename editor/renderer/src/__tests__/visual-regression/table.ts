@@ -16,6 +16,25 @@ async function waitForTableWithCards(page: PuppeteerPage) {
   await page.waitForSelector(tableContainerSelector);
 }
 
+const waitForMinimumTableSize = (
+  page: PuppeteerPage,
+  width: number,
+  height: number,
+) =>
+  page.waitForFunction(
+    (selector: string, width: number, height: number) => {
+      const table = document.querySelector(selector);
+      if (table) {
+        const rect = table.getBoundingClientRect();
+        return rect.width >= width && rect.height >= height;
+      }
+    },
+    {},
+    tableContainerSelector,
+    width,
+    height,
+  );
+
 const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
@@ -75,6 +94,12 @@ describe('Snapshot Test: Table scaling', () => {
     }
     `;
     await page.addStyleTag({ content: css });
+    // ED-10446: If we assume that the table is occasionally
+    // not given enough time to render and scale out to it's
+    // layout in the viewport, this should resolve flakiness.
+    // If instead, the tests fail with timeouts, then the
+    // issue has not been resolved.
+    await waitForMinimumTableSize(page, 750, 880);
   });
 
   it('should render table content correctly in mobile appearance', async () => {
@@ -101,6 +126,8 @@ describe('Snapshot Test: wrapping inline nodes inside table cells', () => {
   it(`should NOT overflow inline nodes when table columns are narrow`, async () => {
     await initRenderer(page, tableWithWrappedNodesAdf);
     const mentionSelector = 'span[data-mention-id]>span';
+    const dateSelector = 'span[data-node-type="date"]';
     await waitForText(page, mentionSelector, '@Erwin Petrovich');
+    await waitForText(page, dateSelector, 'Jun 30, 2020');
   });
 });

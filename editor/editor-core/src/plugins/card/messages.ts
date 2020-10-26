@@ -1,9 +1,14 @@
 import { defineMessages } from 'react-intl';
 
 export const messages = defineMessages({
+  url: {
+    id: 'fabric.editor.url',
+    defaultMessage: 'Display URL',
+    description: 'Convert the card to become a regular text-based hyperlink.',
+  },
   block: {
     id: 'fabric.editor.displayBlock',
-    defaultMessage: 'Display as card',
+    defaultMessage: 'Display card',
     description:
       'Display link as a card with a rich preview similar to in a Facebook feed with page title, description, and potentially an image.',
   },
@@ -14,7 +19,7 @@ export const messages = defineMessages({
   },
   embed: {
     id: 'fabric.editor.displayEmbed',
-    defaultMessage: 'Display as embed',
+    defaultMessage: 'Display embed',
     description: 'Display link as an embedded object',
   },
   link: {

@@ -10,7 +10,6 @@ export const MediaLink = styled.a`
   cursor: pointer;
   width: 100%;
   height: 100%;
-  z-index: 1;
 `;
 
 MediaLink.displayName = 'MediaLink';

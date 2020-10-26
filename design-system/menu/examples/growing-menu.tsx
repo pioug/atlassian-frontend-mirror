@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { N40, N800 } from '@atlaskit/theme/colors';
 
 import { ButtonItem, PopupMenuGroup, Section } from '../src';

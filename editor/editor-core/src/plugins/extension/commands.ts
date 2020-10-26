@@ -49,6 +49,15 @@ export const clearEditingContext = createCommand(
   applyChange,
 );
 
+export const forceAutoSave = (value: () => void) =>
+  createCommand(
+    {
+      type: 'UPDATE_STATE',
+      data: { autoSaveResolve: value },
+    },
+    applyChange,
+  );
+
 export const showContextPanel = createCommand(
   {
     type: 'UPDATE_STATE',

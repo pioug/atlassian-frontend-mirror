@@ -1,5 +1,16 @@
 # @atlaskit/media-table
 
+## 7.0.0
+
+### Major Changes
+
+- [`4fe0ee2c04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fe0ee2c04) - API change: Move rowProps prop to each individual row item to allow different props to be applied to each table row
+
+### Patch Changes
+
+- [`0135387fdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0135387fdd) - BENTO-7391 Add eventType in media-table DownloadButton analytics call
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

@@ -30,6 +30,7 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
         analyticsEvent
           .update(payload => ({
             ...payload,
+            eventType: 'ui',
             actionSubjectId: 'mediaTableDownload',
           }))
           .fire(ANALYTICS_MEDIA_CHANNEL);

@@ -1,6 +1,11 @@
-import { TableMap, CellSelection } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorView } from 'prosemirror-view';
-import { selectRow, selectColumn, findTable } from 'prosemirror-utils';
+import {
+  selectRow,
+  selectColumn,
+  findTable,
+} from '@atlaskit/editor-tables/utils';
 import { PluginKey } from 'prosemirror-state';
 
 import {
@@ -29,7 +34,6 @@ import {
 
 import panelPlugin from '../../../../plugins/panel';
 import expandPlugin from '../../../../plugins/expand';
-import gapCursorPlugin from '../../../../plugins/gap-cursor';
 import tasksDecisionsPlugin from '../../../../plugins/tasks-and-decisions';
 import selectionPlugin from '../../../../plugins/selection';
 import mediaPlugin from '../../../../plugins/media';
@@ -57,7 +61,6 @@ describe('table keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
-    .add(gapCursorPlugin)
     .add(tablePlugin)
     .add(expandPlugin)
     .add(tasksDecisionsPlugin)

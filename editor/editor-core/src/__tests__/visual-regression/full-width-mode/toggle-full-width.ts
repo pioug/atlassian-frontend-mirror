@@ -20,6 +20,7 @@ import resizedTableFWM from './__fixtures__/resized-table-fwm.adf.json';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { clickFirstCell } from '../../../__tests__/__helpers/page-objects/_table';
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+import { panelSelectors } from '../../__helpers/page-objects/_panel';
 
 type ToggleFullWidthOptions = {
   // Focus is lost after toggling full width mode so if your test
@@ -116,7 +117,7 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
     });
 
     it('handles breakout mode + gap cursor', async () => {
-      const panelContentSelector = '.ak-editor-panel__content p';
+      const panelContentSelector = `${panelSelectors.panelContent} p`;
       await initEditor(layoutWithBreakoutAdf, { width: 1440, height: 500 });
       await page.click(panelContentSelector);
       await pressKey(page, ['ArrowRight', 'ArrowRight']);

@@ -10,7 +10,7 @@ import {
   fakeImage,
   getFakeFileName,
   getTextFileType,
-} from './mockData';
+} from '../../utils/mockData';
 
 import { mapDataUriToBlob } from '../../utils';
 

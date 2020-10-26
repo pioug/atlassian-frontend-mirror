@@ -1,5 +1,7 @@
 import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import { bridge } from '../../../mobile-editor-element';
+import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import NativeBridge from '../../../web-to-native/bridge';
 jest.mock('../../../web-to-native');
 
 describe('Collab Web Bridge', () => {
@@ -103,6 +105,88 @@ describe('AllowList Bridge methods', () => {
     bridgeVer.removeQuickInsertAllowListItem(JSON.stringify(removeList));
     expect(bridgeVer.getQuickInsertAllowList()).toBe(
       JSON.stringify(newListExpected),
+    );
+  });
+});
+
+describe('PageTitle Bridge', () => {
+  let bridgeVer: WebBridgeImpl;
+  let toNativeBridge: jest.Mocked<NativeBridge>;
+
+  const createMockCollabProvider = () => {
+    return ({
+      setTitle: jest.fn(),
+      on: jest.fn(),
+      off: jest.fn(),
+    } as unknown) as CollabProvider;
+  };
+
+  beforeEach(async () => {
+    ({ toNativeBridge } = ((await import('../../../web-to-native')) as any) as {
+      toNativeBridge: jest.Mocked<NativeBridge>;
+    });
+    bridgeVer = new WebBridgeImpl();
+  });
+
+  it('should invoke collabProvider setTitle method', async function () {
+    const provider = createMockCollabProvider();
+    const title = 'foo';
+
+    bridgeVer.setupTitle(Promise.resolve(provider));
+
+    bridgeVer.setTitle(title);
+
+    await new Promise(resolve => process.nextTick(() => resolve()));
+
+    expect(provider.setTitle).toHaveBeenCalledWith(title, true);
+  });
+
+  it('should not invoke collabProvider setTitle method when the setupTitle method has not been called', async function () {
+    const provider = createMockCollabProvider();
+    const title = 'foo';
+
+    bridgeVer.setTitle(title);
+
+    await new Promise(resolve => process.nextTick(() => resolve()));
+
+    expect(provider.setTitle).not.toHaveBeenCalledWith(title, true);
+  });
+
+  it('should update title in native when title:change event is received', async function () {
+    const provider = createMockCollabProvider();
+    const title = 'foo';
+
+    bridgeVer.setupTitle(Promise.resolve(provider));
+    await new Promise(resolve => process.nextTick(() => resolve()));
+
+    // Simulate the emit event from collab provider
+    (provider.on as jest.MockedFunction<any>).mock.calls[0][1]({ title });
+
+    expect(toNativeBridge.updateTitle).toHaveBeenCalledWith(title);
+  });
+
+  it('should subscribe to title:change event', async function () {
+    const provider = createMockCollabProvider();
+
+    bridgeVer.setupTitle(Promise.resolve(provider));
+    await new Promise(resolve => process.nextTick(() => resolve()));
+
+    expect(provider.on).toHaveBeenCalledWith(
+      'title:changed',
+      expect.anything(),
+    );
+  });
+
+  it('should unsubscribe to title:change event', async function () {
+    const provider = createMockCollabProvider();
+
+    const destroy = bridgeVer.setupTitle(Promise.resolve(provider));
+    destroy();
+    await new Promise(resolve => process.nextTick(() => resolve()));
+
+    expect(provider.off).toHaveBeenCalledWith(
+      'title:changed',
+      expect.anything(),
     );
   });
 });

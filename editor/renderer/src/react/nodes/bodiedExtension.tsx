@@ -9,7 +9,8 @@ import {
 } from '@atlaskit/editor-common';
 import { renderExtension } from './extension';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
-
+import { AnalyticsEventPayload } from '../../analytics/events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 export interface Props {
   serializer: Serializer<any>;
   extensionHandlers?: ExtensionHandlers;
@@ -21,6 +22,7 @@ export interface Props {
   parameters?: any;
   content?: any;
   layout?: ExtensionLayout;
+  fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 }
 
 const BodiedExtension: React.StatelessComponent<Props> = props => {
@@ -40,6 +42,17 @@ const BodiedExtension: React.StatelessComponent<Props> = props => {
               return renderExtension(result, layout, undefined, removeOverflow);
             case !!result:
               // We expect it to be Atlassian Document here
+              props.fireAnalyticsEvent &&
+                props.fireAnalyticsEvent({
+                  action: ACTION.RENDERED,
+                  actionSubject: ACTION_SUBJECT.BODIED_EXTENSION,
+                  eventType: EVENT_TYPE.OPERATIONAL,
+                  attributes: {
+                    isADFContent: true,
+                    extensionType: props.extensionType,
+                    extensionKey: props.extensionKey,
+                  },
+                });
               const nodes = Array.isArray(result) ? result : [result];
               return renderNodes(
                 nodes as ADNode[],

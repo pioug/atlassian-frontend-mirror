@@ -8,6 +8,15 @@ export type AnnotationPayloadsByType = {
   annotationType: AnnotationTypes;
 };
 
+export type AnnotationWithRectPayloadsByType = {
+  annotations: {
+    rect: ClientRect;
+    id: AnnotationId;
+    text: string;
+  }[];
+  annotationType: AnnotationTypes;
+};
+
 export type AnnotationTypesAvailableOnCurrentSelection = {
   type: AnnotationTypes;
   canAnnotate: boolean;
@@ -16,6 +25,12 @@ export type AnnotationTypesAvailableOnCurrentSelection = {
 export interface AnnotationBridge {
   onAnnotationClick(
     annotationClickPayload?: Serialized<AnnotationPayloadsByType[]>,
+  ): void;
+
+  onAnnotationClickWithRect(
+    annotationClickWithGeometryPayload?: Serialized<
+      AnnotationWithRectPayloadsByType[]
+    >,
   ): void;
 
   fetchAnnotationStates(

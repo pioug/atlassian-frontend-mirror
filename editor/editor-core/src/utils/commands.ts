@@ -5,7 +5,7 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
   ResolvedPos,
   MarkType,
@@ -14,7 +14,7 @@ import {
   Fragment,
 } from 'prosemirror-model';
 import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
-import { GapCursorSelection } from '../plugins/gap-cursor';
+import { GapCursorSelection } from '../plugins/selection/gap-cursor-selection';
 import { Command, HigherOrderCommand } from '../types/command';
 
 type Predicate = (state: EditorState, view?: EditorView) => boolean;

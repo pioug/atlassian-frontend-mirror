@@ -12,6 +12,10 @@ import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
 } from '@atlaskit/editor-common';
+import {
+  AnnotationMarkAttributes,
+  AnnotationTypes,
+} from '@atlaskit/adf-schema';
 import { AnnotationInfo, AnnotationSelectionType } from './types';
 import { sum } from '../../utils';
 import { InlineCommentPluginState } from './pm-plugins/types';
@@ -87,11 +91,40 @@ export const getAllAnnotations = (doc: Node): string[] => {
   doc.descendants(node => {
     node.marks
       .filter(mark => mark.type.name === 'annotation')
+      // filter out annotations with invalid attribues as they cause errors when interacting with them
+      .filter(validateAnnotationMark)
       .forEach(m => allAnnotationIds.add(m.attrs.id));
     return true;
   });
 
   return Array.from(allAnnotationIds);
+};
+
+/*
+ * verifies if annotation mark contains valid attributes
+ */
+const validateAnnotationMark = (annotationMark: Mark): boolean => {
+  const {
+    id,
+    annotationType,
+  } = annotationMark.attrs as AnnotationMarkAttributes;
+  return validateAnnotationId(id) && validateAnnotationType(annotationType);
+
+  function validateAnnotationId(id: string): boolean {
+    if (!id || typeof id !== 'string') {
+      return false;
+    }
+    const invalidIds = ['null', 'undefined'];
+    return !invalidIds.includes(id.toLowerCase());
+  }
+
+  function validateAnnotationType(type: AnnotationTypes): boolean {
+    if (!type || typeof type !== 'string') {
+      return false;
+    }
+    const allowedTypes = Object.values(AnnotationTypes);
+    return allowedTypes.includes(type);
+  }
 };
 
 // helper function: return the first selection range for the window

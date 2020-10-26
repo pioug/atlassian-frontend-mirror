@@ -73,6 +73,8 @@ import {
   EventTypes,
 } from '../event-dispatch';
 import { Serialized } from '../../types';
+import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import { toNativeBridge } from '../web-to-native';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -134,6 +136,7 @@ export default class WebBridgeImpl
   lifecycle: LifecycleImpl = new LifecycleImpl();
   eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();
   allowList: allowListPayloadType = new Set(defaultSetList);
+  private collabProviderPromise: Promise<CollabProvider> | undefined;
 
   setPadding(
     top: number = 0,
@@ -737,5 +740,29 @@ export default class WebBridgeImpl
       EventTypes.SET_DOCUMENT_REFLOW_DETECTOR_STATUS,
       enabled,
     );
+  }
+
+  setTitle(title: string) {
+    if (this.collabProviderPromise) {
+      this.collabProviderPromise.then(collabProvider =>
+        collabProvider.setTitle(title, true),
+      );
+    }
+  }
+
+  setupTitle(provider: Promise<CollabProvider>) {
+    this.collabProviderPromise = provider;
+    const onTitleChange = (payload: { title: string; clientId: string }) => {
+      toNativeBridge.updateTitle(payload.title);
+    };
+    const setupPromise = provider.then(provider => {
+      provider.on('title:changed', onTitleChange);
+      return () => {
+        provider.off('title:changed', onTitleChange);
+      };
+    });
+    return () => {
+      setupPromise.then(destroy => destroy());
+    };
   }
 }

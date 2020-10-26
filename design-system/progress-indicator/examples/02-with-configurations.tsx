@@ -4,7 +4,7 @@ import Lorem from 'react-lorem-component';
 import styled from 'styled-components';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Appearance as ButtonAppearance } from '@atlaskit/button/types';
 import { DN30, N0, subtleText } from '@atlaskit/theme/colors';
 import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';

@@ -47,7 +47,7 @@ import {
   createQuickInsertProvider,
 } from '../providers';
 import { getEnableQuickInsertValue } from '../query-param-reader';
-import useTranslations from '../editor/hooks/use-translations';
+import { useTranslations } from '../i18n/use-translations';
 import { useCollabProvider } from '../providers/collab-provider';
 
 // Expose WebBridge instance for use by native side

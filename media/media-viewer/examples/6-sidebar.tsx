@@ -208,6 +208,7 @@ const Sidebar = (props: SidebarProps) => {
         <h2>Attachment details</h2>
         <Button
           onClick={actions.close}
+          aria-label="Close panel"
           iconBefore={<ArrowRightIcon primaryColor="white" label="return" />}
         />
       </MVSidebarHeader>

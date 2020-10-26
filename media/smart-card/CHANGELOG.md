@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 14.5.0
+
+### Minor Changes
+
+- [`09de4533b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09de4533b0) - Make findPattern available to consumers
+- [`3ae1d5929f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ae1d5929f) - [ux] Jira roadmap of classic projects will now be an embedCard by default
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.4
 
 ### Patch Changes

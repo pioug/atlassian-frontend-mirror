@@ -1,4 +1,4 @@
-import { Rect } from 'prosemirror-tables';
+import { Rect } from '@atlaskit/editor-tables/table-map';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { deleteColumns } from '../../../../../plugins/table/transforms';
-import { getSelectionRect } from 'prosemirror-utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({

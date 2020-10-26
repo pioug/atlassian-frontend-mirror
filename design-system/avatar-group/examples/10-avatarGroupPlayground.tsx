@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { AVATAR_SIZES, SizeType } from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 // eslint-disable-next-line
 import { Label } from '@atlaskit/field-base';
 import ArrowDown from '@atlaskit/icon/glyph/arrow-down';

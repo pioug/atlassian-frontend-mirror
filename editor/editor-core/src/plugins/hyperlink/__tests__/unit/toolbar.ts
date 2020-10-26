@@ -13,6 +13,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { getToolbarConfig } from '../../Toolbar';
 import hyperlinkPlugin from '../../';
+import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
 
 describe('linking', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -89,7 +90,46 @@ describe('linking', () => {
 
       expect(linkItem.disabled).toBeTruthy();
       expect(linkItem.title).toEqual('Unable to open this link');
-      expect(linkItem.href).toEqual(null);
+      expect(linkItem.href).toBeUndefined();
+    });
+
+    it('should render HyperlinkToolbarAppearance with right props', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            link({ href: 'https://www.atlassian.com' })(
+              'www.{<}atlassian{>}.com',
+            ),
+          ),
+        ),
+      );
+
+      const toolbarConfig = getToolbarConfig(
+        editorView.state,
+        intl,
+        providerFactory,
+        {
+          allowEmbeds: true,
+        },
+      );
+
+      const items = (toolbarConfig && toolbarConfig.items) || [];
+      const toolbarAppearanceItem: any = (items as []).find(
+        (item: any) => item.type === 'custom',
+      );
+      const hyperlinkToolbarAppearanceInstance = toolbarAppearanceItem.render();
+
+      expect(hyperlinkToolbarAppearanceInstance.type).toEqual(
+        HyperlinkToolbarAppearance,
+      );
+      expect(hyperlinkToolbarAppearanceInstance.props).toEqual(
+        expect.objectContaining({
+          url: 'https://www.atlassian.com',
+          cardOptions: {
+            allowEmbeds: true,
+          },
+        }),
+      );
     });
   });
 });

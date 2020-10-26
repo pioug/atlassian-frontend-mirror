@@ -6,6 +6,7 @@ import { MediaFile } from '@atlaskit/media-client';
 
 import { createApiRouter, createMediaPlaygroundRouter } from './routers';
 import { createDatabase, MediaDatabaseSchema } from './database';
+import { RemoteUploadActivityServer, WebSocketServer } from './websockets';
 import { mapDataUriToBlob } from '../utils';
 import { dataURItoFile } from '@atlaskit/media-ui';
 import { smallImage } from '../dataURIs/smallImageURI';
@@ -26,28 +27,46 @@ export type MockCollections = {
 export interface MediaMockConfig {
   isSlowServer?: boolean;
   urlsReturnErrorsTo?: string[]; // Handler urls in createApiRouter (like /upload/:uploadId/chunks for ex)
+  mockRemoteUploadActivity?: boolean;
 }
 
 export class MediaMock {
   private server = new Server<MediaDatabaseSchema>();
   private routers: Router<MediaDatabaseSchema>[] = [];
   private dbs: Database<MediaDatabaseSchema>[] = [];
+  private websockets: Array<WebSocketServer> = [];
 
   constructor(readonly collections?: MockCollections) {}
 
   enable(config: MediaMockConfig = {}): void {
-    const { isSlowServer, urlsReturnErrorsTo } = config;
+    const {
+      isSlowServer,
+      urlsReturnErrorsTo,
+      mockRemoteUploadActivity,
+    } = config;
+
     if (!exenv.canUseDOM) {
       return;
     }
+
     this.routers = [
       createMediaPlaygroundRouter(),
       createApiRouter(isSlowServer, urlsReturnErrorsTo),
     ];
 
-    this.dbs = [createDatabase(this.collections)];
+    const database = createDatabase(this.collections);
+    this.dbs = [database];
 
     [...this.routers, ...this.dbs].forEach(this.server.use.bind(this.server));
+
+    if (mockRemoteUploadActivity) {
+      const wsServer = new RemoteUploadActivityServer({
+        database,
+        isSlowServer,
+      });
+      wsServer.start();
+      this.websockets = [wsServer];
+    }
 
     if (window) {
       (window as any).mediaMockControlsBackdoor = mediaMockControlsBackdoor;
@@ -62,6 +81,8 @@ export class MediaMock {
     this.dbs.forEach(db => db.reset());
     this.routers = [];
     this.dbs = [];
+    this.websockets.forEach(ws => ws.stop());
+    this.websockets = [];
   }
 }
 

@@ -1,5 +1,5 @@
 // @ts-ignore: outdated type definitions
-import { handlePaste as handlePasteTable } from 'prosemirror-tables';
+import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
@@ -32,7 +32,11 @@ import {
   transformSliceToFixHardBreakProblemOnCopyFromCell,
 } from '../../table/utils';
 import { transformSliceToAddTableHeaders } from '../../table/commands';
-import { handleMacroAutoConvert, handleMention } from '../handlers';
+import {
+  handleMacroAutoConvert,
+  handleMention,
+  handleParagraphBlockMarks,
+} from '../handlers';
 import {
   transformSliceToJoinAdjacentCodeBlocks,
   transformSingleLineCodeBlockToCodeMark,
@@ -61,6 +65,10 @@ import {
   transformSliceRemoveCellBackgroundColor,
 } from '../../table/commands/misc';
 import { upgradeTextToLists, splitParagraphs } from '../../lists/transforms';
+import {
+  upgradeTextToLists as upgradeTextToListsPredictable,
+  splitParagraphs as splitParagraphsPredictable,
+} from '../../lists-predictable/transforms';
 import { md } from '../md';
 import { getPluginState as getTablePluginState } from '../../table/pm-plugins/plugin-factory';
 import { transformUnsupportedBlockCardToInline } from '../../card/utils';
@@ -93,6 +101,7 @@ export function createPlugin(
   schema: Schema,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
+  predictableLists?: boolean,
   providerFactory?: ProviderFactory,
 ) {
   const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
@@ -183,6 +192,8 @@ export function createPlugin(
         }
 
         const { state, dispatch } = view;
+
+        slice = handleParagraphBlockMarks(state, slice);
 
         if (
           handlePasteAsPlainTextWithAnalytics(view, event, slice)(
@@ -325,7 +336,7 @@ export function createPlugin(
             );
           }
 
-          // get prosemirror-tables to handle pasting tables if it can
+          // get editor-tables to handle pasting tables if it can
           // otherwise, just the replace the selection with the content
           if (handlePasteTable(view, null, slice)) {
             sendPasteAnalyticsEvent(view, event, slice, {
@@ -405,10 +416,15 @@ export function createPlugin(
 
         slice = transformSliceToDecisionList(slice, schema);
 
-        // this must happen before upgrading text to lists
-        slice = splitParagraphs(slice, schema);
-
-        slice = upgradeTextToLists(slice, schema);
+        // splitting linebreaks into paragraphs must happen before upgrading text to lists
+        // TODO: remove predictableLists check during rollout - https://product-fabric.atlassian.net/browse/ED-10611
+        if (predictableLists) {
+          slice = splitParagraphsPredictable(slice, schema);
+          slice = upgradeTextToListsPredictable(slice, schema);
+        } else {
+          slice = splitParagraphs(slice, schema);
+          slice = upgradeTextToLists(slice, schema);
+        }
 
         if (
           slice.content.childCount &&

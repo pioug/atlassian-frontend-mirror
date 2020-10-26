@@ -53,6 +53,7 @@ import {
   DefaultPresetPluginOptions,
 } from '../labs/next/presets/default';
 import { EditorPresetProps } from '../labs/next/presets/types';
+import { shouldForceTracking } from './should-force-tracking';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -107,20 +108,17 @@ export function getDefaultPresetOptionsFromEditorProps(
 
   // If the feature prop is not explicitly defined AND we are on a product-fabric branch deploy we force-enable node counting
   // START: temporary code https://product-fabric.atlassian.net/browse/ED-10260
-  if (!(props.performanceTracking && props.performanceTracking.inputTracking)) {
-    try {
-      const { FRONTEND_VERSION = '' } = (window as any).__buildInfo || {
-        FRONTEND_VERSION: '',
-      };
+  const hasInputTracking =
+    typeof props.performanceTracking?.inputTracking !== 'undefined';
+  inputTracking.countNodes =
+    !hasInputTracking && shouldForceTracking()
+      ? true
+      : inputTracking.countNodes;
 
-      inputTracking.countNodes =
-        window.location.hostname === 'product-fabric.atlassian.net' &&
-        FRONTEND_VERSION.includes('branch-deploy');
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn(err);
-    }
-  }
+  const allowBrowserFreezeInteractionType =
+    typeof props.performanceTracking?.bFreezeTracking === 'undefined'
+      ? shouldForceTracking()
+      : props.performanceTracking?.bFreezeTracking?.trackInteractionType;
   // END:  temporary code  https://product-fabric.atlassian.net/browse/ED-10260
 
   return {
@@ -128,11 +126,13 @@ export function getDefaultPresetOptionsFromEditorProps(
     paste: {
       cardOptions: props.UNSAFE_cards,
       sanitizePrivateContent: props.sanitizePrivateContent,
+      predictableLists: props.UNSAFE_predictableLists,
     },
     base: {
       allowInlineCursorTarget: !isMobile,
       allowScrollGutter: getScrollGutterOptions(props),
       inputTracking,
+      allowBrowserFreezeInteractionType,
     },
     blockType: {
       lastNodeMustBeParagraph:
@@ -153,8 +153,9 @@ export function getDefaultPresetOptionsFromEditorProps(
       disableDefaultItems: isMobile,
       headless: isMobile,
     },
-    codeBlock: { ...props.codeBlock, useLongPressSelection: false },
     selection: { useLongPressSelection: false },
+    cardOptions: props.UNSAFE_cards,
+    codeBlock: { ...props.codeBlock, useLongPressSelection: false },
   };
 }
 
@@ -348,13 +349,23 @@ export default function createPluginsList(
     let collabEditOptions: PrivateCollabEditOptions = {
       sanitizePrivateContent: props.sanitizePrivateContent,
     };
+
     if (props.collabEdit) {
       collabEditOptions = {
         ...props.collabEdit,
         ...collabEditOptions,
       };
     }
-    preset.add([collabEditPlugin, collabEditOptions]);
+
+    preset.add([
+      collabEditPlugin,
+      {
+        ...collabEditOptions,
+        EXPERIMENTAL_allowInternalErrorAnalytics:
+          collabEditOptions.EXPERIMENTAL_allowInternalErrorAnalytics ??
+          shouldForceTracking(),
+      },
+    ]);
   }
 
   if (props.maxContentSize) {

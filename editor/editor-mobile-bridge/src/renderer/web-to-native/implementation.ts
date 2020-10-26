@@ -2,6 +2,7 @@ import {
   ContentBridge,
   AnnotationBridge,
   AnnotationPayloadsByType,
+  AnnotationWithRectPayloadsByType,
   AnnotationTypesAvailableOnCurrentSelection,
 } from './bridge';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -19,6 +20,16 @@ class Bridge implements AnnotationBridge, ContentBridge {
       });
     } else {
       sendToBridge('annotationBridge', 'onAnnotationClick');
+    }
+  }
+
+  onAnnotationClickWithRect(annotations?: AnnotationWithRectPayloadsByType[]) {
+    if (annotations && annotations.length) {
+      sendToBridge('annotationBridge', 'onAnnotationClickWithRect', {
+        payload: JSON.stringify(annotations),
+      });
+    } else {
+      sendToBridge('annotationBridge', 'onAnnotationClickWithRect');
     }
   }
 

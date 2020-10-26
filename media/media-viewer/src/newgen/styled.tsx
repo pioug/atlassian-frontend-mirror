@@ -71,6 +71,11 @@ export const CloseButtonWrapper = styled.div`
   z-index: ${overlayZindex + 2};
 `;
 
+export const ContentWrapper = styled.div`
+  width: ${(props: { isSidebarVisible?: boolean }) =>
+    props.isSidebarVisible ? `calc(100% - ${sidebarWidth}px)` : '100%'};
+`;
+
 export const ZoomWrapper = styled.div`
   width: 100%;
   position: absolute;
@@ -142,8 +147,6 @@ export const PDFWrapper = styled.div`
 
   .${hideControlsClassName} {
     position: fixed;
-    width: ${(props: { isSidebarVisible?: boolean }) =>
-      props.isSidebarVisible ? `calc(100% - ${sidebarWidth}px)` : '100%'};
   }
 `;
 

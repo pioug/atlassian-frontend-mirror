@@ -132,6 +132,10 @@ const getPreviewByService = (
   fileId: string,
   userFileState?: FileState,
 ): FilePreview | Promise<FilePreview> | undefined => {
+  const {
+    config: { featureFlags },
+  } = store.getState();
+
   if (serviceName === 'giphy') {
     const { giphy } = store.getState();
     const selectedGiphy = giphy.imageCardModels.find(
@@ -145,7 +149,7 @@ const getPreviewByService = (
     }
   } else if (
     (serviceName === 'upload' || serviceName === 'recent_files') &&
-    isPreviewableType(mediaType)
+    isPreviewableType(mediaType, featureFlags)
   ) {
     if (userFileState && !isErrorFileState(userFileState)) {
       if (isPreviewableFileState(userFileState)) {

@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { Node as PmNode } from 'prosemirror-model';
-import { CellSelection, TableMap } from 'prosemirror-tables';
-import { findDomRefAtPos, findTable } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { findDomRefAtPos } from 'prosemirror-utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 

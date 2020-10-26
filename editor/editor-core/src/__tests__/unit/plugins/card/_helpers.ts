@@ -49,6 +49,9 @@ export function setupProvider(cardAdf: object = paragraphAdf): ProviderWrapper {
       promises.push(promise);
       return promise;
     }
+    async findPattern(): Promise<boolean> {
+      return true;
+    }
   })();
 
   return {

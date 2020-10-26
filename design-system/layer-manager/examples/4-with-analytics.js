@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AnalyticsListener, AnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 import LayerManager from '../src';
 

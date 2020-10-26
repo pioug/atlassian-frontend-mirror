@@ -1,5 +1,5 @@
-import { TableMap } from 'prosemirror-tables';
-import { getSelectionRect } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';

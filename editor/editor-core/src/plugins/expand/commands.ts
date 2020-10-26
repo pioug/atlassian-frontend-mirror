@@ -1,6 +1,7 @@
 import { EditorState, TextSelection } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
-import { safeInsert, findTable } from 'prosemirror-utils';
+import { safeInsert } from 'prosemirror-utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { Command } from '../../types';
 import {
@@ -14,7 +15,7 @@ import {
   PLATFORMS,
   MODE,
 } from '../analytics';
-import { GapCursorSelection, Side } from '../gap-cursor';
+import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 
 import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';

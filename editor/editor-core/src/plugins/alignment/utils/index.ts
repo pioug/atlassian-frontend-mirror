@@ -1,5 +1,5 @@
 import { findParentNodeOfType } from 'prosemirror-utils';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorState } from 'prosemirror-state';
 import { AlignmentState } from '../pm-plugins/types';
 

@@ -60,6 +60,7 @@ import {
 import { InteractiveImg } from '../../../newgen/viewers/image/interactive-img';
 import ArchiveViewerLoader from '../../../newgen/viewers/archiveSidebar/archiveViewerLoader';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { CodeViewer } from '../../../newgen/viewers/codeViewer';
 
 const identifier: Identifier = {
   id: 'some-id',
@@ -783,5 +784,62 @@ describe('<ItemViewer />', () => {
         });
       },
     );
+  });
+
+  describe('CodeViewer', () => {
+    // should only show codeviewer if (1) FF for codeviewer is on (2) It's a code-viewable item
+    it('should load codeViewer if the file is code type AND the FF for codeViewer is on', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'unknown',
+        status: 'processed',
+        artifacts: {},
+        name: 'file.c',
+        size: 10,
+        mimeType: '',
+      };
+      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const { el } = mountComponent(mediaClient, identifier, {
+        codeViewer: true,
+      });
+      el.update();
+      expect(el.find(CodeViewer)).toHaveLength(1);
+    });
+
+    it('should not load codeViewer if codeViewer FF is off even IF the file is a code type', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'unknown',
+        status: 'processed',
+        artifacts: {},
+        name: 'file.c',
+        size: 10,
+        mimeType: '',
+      };
+      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const { el } = mountComponent(mediaClient, identifier, {
+        codeViewer: false,
+      });
+      el.update();
+      expect(el.find(CodeViewer)).toHaveLength(0);
+    });
+
+    it('should not load codeViewer if the file is not a code type and the FF for codeViewer is on', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'unknown',
+        status: 'processed',
+        artifacts: {},
+        name: 'file.pdf',
+        size: 10,
+        mimeType: '',
+      };
+      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const { el } = mountComponent(mediaClient, identifier, {
+        codeViewer: true,
+      });
+      el.update();
+      expect(el.find(CodeViewer)).toHaveLength(0);
+    });
   });
 });

@@ -1,21 +1,32 @@
+import { doc, ul, li, p, code_block } from '@atlaskit/editor-test-helpers';
 import {
-  doc,
-  ul,
-  li,
-  p,
-  code_block,
-  createEditorFactory,
-} from '@atlaskit/editor-test-helpers';
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { backspaceKeyCommand } from '../../../commands';
 import { listBackspace } from '../../../commands/listBackspace';
+import listPredictablePlugin from '../../..';
+import codeBlockPlugin from '../../../../code-block';
 
 describe('backspaceKeyCommand', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
+
+  const editor = (doc: any) => {
+    const preset = new Preset<LightEditorPlugin>()
+      .add(listPredictablePlugin)
+      .add(codeBlockPlugin);
+
+    return createEditor({
+      doc,
+      preset,
+    });
+  };
 
   describe("when case isn't a list backspace case", () => {
     it('should ignore when there is no previous node', () => {
       const unchangedDoc = doc(ul(li(p('{<>}a'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -26,7 +37,7 @@ describe('backspaceKeyCommand', () => {
 
     it('should ignore when previous node is not in a list', () => {
       const unchangedDoc = doc(p('a'), ul(li(p('{<>}b'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -37,7 +48,7 @@ describe('backspaceKeyCommand', () => {
 
     it('should ignore when selection is not in a paragraph', () => {
       const unchangedDoc = doc(ul(li(p('a')), li(code_block()('{<>}b'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -48,7 +59,7 @@ describe('backspaceKeyCommand', () => {
 
     it('should ignore when selection is not the first child of its parent', () => {
       const unchangedDoc = doc(ul(li(p('a')), li(p('b'), p('{<>}c'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -59,7 +70,7 @@ describe('backspaceKeyCommand', () => {
 
     it('should ignore when selection is not empty and at the start', () => {
       const unchangedDoc = doc(ul(li(p('a')), li(p('b{<>}c'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -71,7 +82,7 @@ describe('backspaceKeyCommand', () => {
     //Case 1 is already handled, this test case may need to be changed if listBackspace will eventually recognise case 1
     it('should ignore when selection is not in a list', () => {
       const unchangedDoc = doc(ul(li(p('a'))), p('{<>}b'));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -86,7 +97,7 @@ describe('backspaceKeyCommand', () => {
         p('{<>}c'),
         code_block()('d'),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -99,7 +110,7 @@ describe('backspaceKeyCommand', () => {
       const unchangedDoc = doc(
         ul(li(p('a'), code_block()('b')), li(p('{<>}c'), code_block()('d'))),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -123,7 +134,7 @@ describe('backspaceKeyCommand', () => {
           ),
         ),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -139,7 +150,7 @@ describe('backspaceKeyCommand', () => {
           li(p('{<>}d'), code_block()('e')),
         ),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = editor(unchangedDoc);
       const commandReturn = listBackspace(
         editorView.state,
         editorView.dispatch,
@@ -155,7 +166,7 @@ describe('backspaceKeyCommand', () => {
       const initialDoc = doc(ul(li(p(''))), p('{<>}'));
       const expectedDoc = doc(ul(li(p('{<>}'))));
 
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
 
       backspaceKeyCommand(editorView.state, editorView.dispatch);
 
@@ -170,7 +181,7 @@ describe('backspaceKeyCommand', () => {
       );
       const expectedDoc = doc(ul(li(code_block()('a'), p('b{<>}c'))), p('d'));
 
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
 
       backspaceKeyCommand(editorView.state, editorView.dispatch);
 
@@ -182,7 +193,7 @@ describe('backspaceKeyCommand', () => {
     it('should lift the next listitem into the previous when they both have empty paragraphs', () => {
       const initialDoc = doc(ul(li(p('')), li(p('{<>}'))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -201,7 +212,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('g'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -211,7 +222,7 @@ describe('backspaceKeyCommand', () => {
     it('should lift the indented listItem into the previous when they both have empty paragraphs', () => {
       const initialDoc = doc(ul(li(p(''), ul(li(p('{<>}'))))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -228,7 +239,7 @@ describe('backspaceKeyCommand', () => {
         ul(li(code_block()('a'), p('b{<>}c'), code_block()('d'))),
         p('e'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -256,7 +267,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('g'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -284,7 +295,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('g'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -316,7 +327,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('i'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -326,7 +337,7 @@ describe('backspaceKeyCommand', () => {
     it('should lift the unindented listItem into the previous when both contain blank paragraphs', () => {
       const initialDoc = doc(ul(li(p(''), ul(li(p('')))), li(p('{<>}'))));
       const expectedDoc = doc(ul(li(p(''), ul(li(p(''))))));
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -346,7 +357,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('f'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -373,7 +384,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('h'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -411,7 +422,7 @@ describe('backspaceKeyCommand', () => {
         ),
         p('j'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = editor(initialDoc);
       backspaceKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });

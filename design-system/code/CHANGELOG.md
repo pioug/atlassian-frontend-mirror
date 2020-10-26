@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 13.1.0
+
+### Minor Changes
+
+- [`17162a77f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17162a77f2) - types of Supported Languages for @atlaskit/code is maintained by the package itself. Useful for when one references Supported Languages, wanting to know what types of languages are supported by @atlaskit/code.
+
 ## 13.0.3
 
 ### Patch Changes

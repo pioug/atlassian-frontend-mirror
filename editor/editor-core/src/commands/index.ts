@@ -12,7 +12,7 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { canMoveDown, canMoveUp } from '../utils';
 import { Command } from '../types';
 import {

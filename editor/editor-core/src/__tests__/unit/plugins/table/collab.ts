@@ -7,7 +7,7 @@ import {
   td,
   th,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { removeColumnAt } from 'prosemirror-utils';
+import { removeColumnAt } from '@atlaskit/editor-tables/utils';
 import {
   TablePluginState,
   PluginConfig,

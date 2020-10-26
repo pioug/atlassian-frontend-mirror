@@ -10,7 +10,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(infoPanel.name()).toEqual('div');
+      expect(infoPanel.name()).toEqual('styled.div');
     });
 
     it('should have two children', () => {
@@ -24,7 +24,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(notePanel.name()).toEqual('div');
+      expect(notePanel.name()).toEqual('styled.div');
     });
 
     it('should have two children', () => {
@@ -38,7 +38,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(tipPanel.name()).toEqual('div');
+      expect(tipPanel.name()).toEqual('styled.div');
     });
 
     it('should have two children', () => {
@@ -52,7 +52,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(warningPanel.name()).toEqual('div');
+      expect(warningPanel.name()).toEqual('styled.div');
     });
 
     it('should have two children', () => {

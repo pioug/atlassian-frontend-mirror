@@ -50,10 +50,7 @@ export const copyToClipboardLegacy = (
 
 export const copyToClipboard = (textToCopy: string): Promise<void> =>
   new Promise<void>((resolve: () => void, reject: (str: string) => void) => {
-    if (
-      navigator.clipboard &&
-      typeof navigator.clipboard.writeText === 'function'
-    ) {
+    if (clipboardApiSupported()) {
       navigator.clipboard.writeText(textToCopy).then(
         () => resolve(),
         e => reject(e),

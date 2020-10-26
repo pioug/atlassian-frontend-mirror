@@ -18,7 +18,7 @@ import {
 import { sanitiseMarksInSelection } from '../../../utils';
 import { liftFollowingList, liftSelectionList } from '../transforms';
 import { Command } from '../../../types';
-import { GapCursorSelection } from '../../gap-cursor';
+import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import {
   ACTION,
   ACTION_SUBJECT,

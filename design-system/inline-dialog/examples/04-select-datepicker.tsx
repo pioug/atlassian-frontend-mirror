@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import Select from '@atlaskit/select';
 

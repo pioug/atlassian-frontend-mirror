@@ -4,7 +4,7 @@ import { Component, FC, SyntheticEvent } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { N500 } from '@atlaskit/theme/colors';
 
 import Drawer from '../src';

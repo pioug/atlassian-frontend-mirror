@@ -26,6 +26,19 @@ export enum FULL_WIDTH_MODE {
   FULL_WIDTH = 'fullWidth',
 }
 
+export enum BROWSER_FREEZE_INTERACTION_TYPE {
+  LOADING = 'loading',
+  TYPING = 'typing',
+  CLICKING = 'clicking',
+  PASTING = 'pasting',
+}
+
+export enum SEVERITY {
+  NORMAL = 'normal',
+  DEGRADED = 'degraded',
+  BLOCKING = 'blocking',
+}
+
 type ButtonAEP<ActionSubjectID, Attributes> = UIAEP<
   ACTION.CLICKED,
   ACTION_SUBJECT.BUTTON,
@@ -103,6 +116,7 @@ type BrowserFreezePayload = OperationalAEP<
     nodeSize: number;
     participants: number;
     nodeCount?: Record<string, number>;
+    interactionType?: BROWSER_FREEZE_INTERACTION_TYPE;
   },
   undefined
 >;

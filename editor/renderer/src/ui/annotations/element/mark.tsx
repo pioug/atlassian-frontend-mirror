@@ -1,5 +1,8 @@
-import React, { useMemo, useCallback } from 'react';
-import { AnnotationSharedCSSByState } from '@atlaskit/editor-common';
+import React, { useMemo, useCallback, MouseEvent } from 'react';
+import {
+  AnnotationSharedCSSByState,
+  OnAnnotationClickPayload,
+} from '@atlaskit/editor-common';
 import {
   AnnotationMarkStates,
   AnnotationId,
@@ -28,7 +31,7 @@ type MarkComponentProps = {
   dataAttributes: AnnotationDataAttributes;
   state: AnnotationMarkStates | null;
   hasFocus: boolean;
-  onClick: (annotationIds: AnnotationId[]) => void;
+  onClick: (props: OnAnnotationClickPayload) => void;
 };
 export const MarkComponent: React.FC<MarkComponentProps> = ({
   annotationParentIds,
@@ -44,13 +47,13 @@ export const MarkComponent: React.FC<MarkComponentProps> = ({
     [id, annotationParentIds],
   );
   const onMarkClick = useCallback(
-    event => {
+    (event: MouseEvent) => {
       if (state !== AnnotationMarkStates.ACTIVE) {
         return;
       }
 
       event.stopPropagation();
-      onClick(annotationIds);
+      onClick({ eventTarget: event.target as HTMLElement, annotationIds });
     },
     [annotationIds, onClick, state],
   );

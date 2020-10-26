@@ -850,7 +850,7 @@ describe('Card', () => {
     });
   });
 
-  it('should fetch remote preview for documents', async () => {
+  it('should fetch remote preview for documents with new design', async () => {
     const mediaClient = createMediaClientWithGetFile({
       ...defaultFileState,
       status: 'processing',
@@ -864,7 +864,7 @@ describe('Card', () => {
         image: {},
       },
     });
-    setup(mediaClient, undefined);
+    setup(mediaClient, { featureFlags: { newCardExperience: true } });
 
     await nextTick();
 
@@ -876,6 +876,27 @@ describe('Card', () => {
       allowAnimated: true,
       mode: 'crop',
     });
+  });
+
+  it('should not fetch remote preview for documents with classic design', async () => {
+    const mediaClient = createMediaClientWithGetFile({
+      ...defaultFileState,
+      status: 'processing',
+      mediaType: 'doc',
+      mimeType: 'application/pdf',
+      preview: {
+        value: new Blob([], { type: 'application/pdf' }),
+        origin: 'local',
+      },
+      representations: {
+        image: {},
+      },
+    });
+    setup(mediaClient);
+
+    await nextTick();
+
+    expect(mediaClient.getImage).toHaveBeenCalledTimes(0);
   });
 
   it('should not fetch remote preview when there is local preview', async () => {

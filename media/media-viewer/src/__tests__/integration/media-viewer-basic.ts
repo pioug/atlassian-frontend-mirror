@@ -83,3 +83,13 @@ BetaBrowserTestCase(
     await mediaViewer.closeMediaViewer(true);
   },
 );
+
+BetaBrowserTestCase(
+  'media-viewer-basic.ts: Should open and close sidebar',
+  { skip: ['edge'] },
+  async (client: ConstructorParameters<typeof Page>[0]) => {
+    const mediaViewer = await openMediaViewer(client);
+    await mediaViewer.openSidebar();
+    await mediaViewer.closeSidebar();
+  },
+);

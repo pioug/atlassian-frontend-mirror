@@ -437,11 +437,13 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
   private updateInput = async (input: string) => {
     const { activityProvider, searchProvider } = this.state;
+    this.setState({
+      displayUrl: input,
+    });
     if (activityProvider) {
       if (input.length === 0) {
         this.setState({
           items: await this.getRecentItems(activityProvider),
-          displayUrl: input,
           selectedIndex: -1,
         });
       } else {
@@ -452,7 +454,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
         this.setState({
           items,
-          displayUrl: input,
           isLoading: shouldQuerySearchProvider,
         });
 
@@ -593,11 +594,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     inputType: LinkInputType,
     interaction: 'click' | 'keyboard' | 'notselected',
   ) => {
-    const { pluginState } = this.props;
-    const { items, selectedIndex } = this.state;
-    if (this.props.onSubmit) {
+    const { pluginState, onSubmit } = this.props;
+    const { items, selectedIndex, displayText } = this.state;
+    if (onSubmit) {
       this.submitted = true;
-      this.props.onSubmit(href, title, this.state.displayText, inputType);
+      onSubmit(href, title, displayText, inputType);
     }
 
     const selectedItem = items[selectedIndex];

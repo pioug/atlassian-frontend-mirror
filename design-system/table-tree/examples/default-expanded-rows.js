@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 

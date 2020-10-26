@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { N300, B500 } from '@atlaskit/theme/colors';
 import styled from 'styled-components';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import BookIcon from '../glyph/book';
 import ArrowUpIcon from '../glyph/arrow-up';

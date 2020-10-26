@@ -6,6 +6,7 @@ import { MediaTable } from '../src';
 import {
   RenderMediaTableWithFieldRange,
   generateItems,
+  ROW_HIGHLIGHT_CLASSNAME,
 } from '../example-helpers/helpers';
 
 const ROW_CLASSNAME = 'media-table-row';
@@ -20,11 +21,16 @@ const GreenOnHover = styled.div`
 `;
 
 const NUM_ITEMS = 50;
-const items = generateItems(NUM_ITEMS).map(item => ({
+const items = generateItems(NUM_ITEMS).map((item, index) => ({
   ...item,
   data: {
     ...item.data,
     hover: <GreenOnHover />,
+  },
+  rowProps: {
+    className: `${ROW_CLASSNAME}${
+      index === 2 ? ` ${ROW_HIGHLIGHT_CLASSNAME}` : ''
+    }`,
   },
 }));
 
@@ -72,7 +78,6 @@ export default () => {
       onSort={(key, sortOrder) => console.log('onSort', key, sortOrder)}
       onPreviewOpen={() => console.log('onPreviewOpen')}
       onPreviewClose={() => console.log('onPreviewClose')}
-      rowProps={{ className: ROW_CLASSNAME }}
     />,
   );
 };

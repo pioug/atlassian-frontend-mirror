@@ -7,8 +7,8 @@ import {
 import {
   findParentDomRefOfType,
   findParentNodeOfType,
-  findTable,
 } from 'prosemirror-utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';

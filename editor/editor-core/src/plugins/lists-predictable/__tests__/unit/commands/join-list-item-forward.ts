@@ -2,7 +2,11 @@ import {
   p,
   ul,
   li,
+  br,
   doc,
+  code,
+  status,
+  panel,
   code_block,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
@@ -22,6 +26,9 @@ import listPredictablePlugin from '../../..';
 import basePlugins from '../../../../../plugins/base';
 import blockType from '../../../../../plugins/block-type';
 import codeBlockTypePlugin from '../../../../../plugins/code-block';
+import statusInlineBlockTypePlugin from '../../../../../plugins/status';
+import panelBlockTypePlugin from '../../../../../plugins/panel';
+import textFormattingPlugin from '../../../../text-formatting';
 import analyticsPlugin, {
   LIST_TEXT_SCENARIOS,
   ACTION,
@@ -46,6 +53,9 @@ describe('join-list-item-forward', () => {
       .add(basePlugins)
       .add(blockType)
       .add(codeBlockTypePlugin)
+      .add(panelBlockTypePlugin)
+      .add([statusInlineBlockTypePlugin, { menuDisabled: false }])
+      .add(textFormattingPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
@@ -54,209 +64,533 @@ describe('join-list-item-forward', () => {
     });
   };
 
-  // prettier-ignore
-  const documentCase1 = doc(
-    ul(
-      li(
-        p('A{<>}'),
+  const case1: [string, (schema: Schema) => RefsNode, string] = [
+    'joining a list item with a paragraph',
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p('A{<>}'),
+        ),
       ),
+      p('B'),
     ),
-    p('B'),
-  );
+    LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST,
+  ];
 
-  // prettier-ignore
-  const documentCase2 = doc(
-    ul(
-      li(
-        p('A{<>}'),
+  const case2: [string, (schema: Schema) => RefsNode, string] = [
+    'joining a sibling list item',
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p('A{<>}'),
+        ),
+        li(
+          p('B'),
+        )
       ),
-      li(
-        p('B'),
-      )
+      p('B'),
     ),
-    p('B'),
-  );
+    LIST_TEXT_SCENARIOS.JOIN_SIBLINGS,
+  ];
 
-  // prettier-ignore
-  const documentCase3 = doc(
-    ul(
-      li(
-        p('A{<>}'),
-        ul(
-          li(
-            p('A1'),
-            ul(
-              li(
-                p('A1.sub1'),
+  const case3: [string, (schema: Schema) => RefsNode, string] = [
+    'joining a sub list descendants into the parent',
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p('A{<>}'),
+          ul(
+            li(
+              p('A1'),
+              ul(
+                li(
+                  p('A1.sub1'),
+                ),
               ),
             ),
           ),
         ),
       ),
     ),
-  );
+    LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT,
+  ];
 
-  // prettier-ignore
-  const documentCase4 = doc(
-    ul(
-      li(
-        p('A'),
-        ul(
-          li(
-            p('A1{<>}')
+  const case4: [string, (schema: Schema) => RefsNode, string] = [
+    'joining a parent sibling to the current level',
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p('A'),
+          ul(
+            li(
+              p('A1{<>}')
+            )
           )
-        )
-      ),
-      li(
-        p('B'),
-        ul(
-          li(
-            p('B1'),
-          ),
         ),
-      ),
-    ),
-  );
-
-  // prettier-ignore
-  const documentEmptyParagraphFollowedBySingleLevelList = doc(
-    p('{<>}'),
-    ul(
-      li(
-        p('A'),
-      ),
-      li(
-        p('B'),
-      ),
-    ),
-  );
-
-  // prettier-ignore
-  const documentEmptyParagraphFollowedByNestedList = doc(
-    p('{<>}'),
-    ul(
-      li(
-        p('A'),
-        ul(
-          li(
-            p('child 1'),
-          ),
-          li(
-            p('child 2'),
-          ),
-        ),
-      ),
-      li(
-        p('B'),
-      ),
-    ),
-  );
-
-  // prettier-ignore
-  const documentParagraphFollowedBySingleLevelList = doc(
-    p('some text {<>}'),
-    ul(
-      li(
-        p('A'),
-      ),
-      li(
-        p('B'),
-      ),
-    ),
-  );
-
-  // prettier-ignore
-  const documentParagraphFollowedByNestedList = doc(
-    p('some text {<>}'),
-    ul(
-      li(
-        p('A'),
-        ul(
-          li(
-            p('child 1'),
-            ul(
-              li(
-                p('third level child'),
-              ),
+        li(
+          p('B'),
+          ul(
+            li(
+              p('B1'),
             ),
           ),
-          li(
-            p('child 2'),
-          ),
         ),
       ),
-      li(
-        p('B'),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD,
+  ];
+
+  const case5: [string, (schema: Schema) => RefsNode, string] = [
+    'Empty paragraph followed by a single level list',
+    // prettier-ignore
+    doc(
+      p('{<>}'),
+      ul(
+        li(
+          p('A'),
+        ),
+        li(
+          p('B'),
+        ),
       ),
     ),
-  );
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
 
-  // prettier-ignore
-  const documentParagraphFollowedBySingleListItem = doc(
-    p('some text {<>}'),
-    ul(
-      li(
-        p('A'),
+  const case6: [string, (schema: Schema) => RefsNode, string] = [
+    'Empty paragraph followed by a nested list',
+    // prettier-ignore
+    doc(
+      p('{<>}'),
+      ul(
+        li(
+          p('A'),
+          ul(
+            li(
+              p('child 1'),
+            ),
+            li(
+              p('child 2'),
+            ),
+          ),
+        ),
+        li(
+          p('B'),
+        ),
       ),
     ),
-  );
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
 
-  // prettier-ignore
-  const documentParagraphFollowedByEmptyListItem = doc(
-    p('some text {<>}'),
-    ul(
-      li(
-        p(''),
-        ul(
-          li(
-            p('A')
+  const case7: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a single level list',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p('A'),
+        ),
+        li(
+          p('B'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case8: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a nested list',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p('A'),
+          ul(
+            li(
+              p('child 1'),
+              ul(
+                li(
+                  p('third level child'),
+                ),
+              ),
+            ),
+            li(
+              p('child 2'),
+            ),
+          ),
+        ),
+        li(
+          p('B'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case9: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a single list item',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p('A'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case10: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by an empty list item',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(''),
+          ul(
+            li(
+              p('A')
+            )
           )
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case11: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by an empty list item with no nested lists',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(''),
+        ),
+        li(
+          p('B'),
+        ),
+        li(
+          p('C'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case12: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by an empty list with nested lists and siblings',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(''),
+          ul(
+            li(
+              p('B'),
+              ul(
+                li(
+                  p('C')
+                ),
+                li(
+                  p('D')
+                ),
+              ),
+            ),
+            li(
+              p('E')
+            )
+          )
+        ),
+        li(
+          p('F')
+        ),
+        li(
+          p('G')
         )
       ),
     ),
-  );
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case13: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with a paragraph and its first child is a hard break',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(br(), 'A', br(), 'B', br(), 'C'),
+        ),
+        li(
+          p('D'),
+        ),
+        li(
+          p('E'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case14: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with multiple paragraphs, and siblings',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p('A'),
+          p('B'),
+          p('C'),
+        ),
+        li(
+          p('D'),
+        ),
+        li(
+          p('E'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case15: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with multiple paragraphs, the first is empty, and siblings',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(''),
+          p('B'),
+          p('C'),
+        ),
+        li(
+          p('D'),
+        ),
+        li(
+          p('E'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case16: [string, (schema: Schema) => RefsNode, string] = [
+    'Status node followed by a list item with inline code and text',
+    // prettier-ignore
+    doc(
+      p(
+        status({ text: 'test', color: '#FFF', localId: 'a' }),
+        '{<>}',
+      ),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case17: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with inline code and text, and siblings',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+        ),
+        li(p('A')),
+        li(p('B')),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case18: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with multiple paragraphs (the first with inline code and text), and siblings',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+          p('multi paragraph'),
+        ),
+        li(p('A')),
+        li(p('B')),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case19: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with multiple paragraphs (the first with inline code and text)',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+          p('multi paragraph with out siblings'),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case20: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with inline code and text, and a nested list',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+          ul(
+            li(p('what about nested item')),
+          ),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case21: [string, (schema: Schema) => RefsNode, string] = [
+    'Paragraph followed by a list item with inline code and text, a nested list, and siblings',
+    // prettier-ignore
+    doc(
+      p('some text {<>}'),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+          ul(
+            li(p('what about nested item with sibling')),
+          ),
+        ),
+        li(p('hey')),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case22: [string, (schema: Schema) => RefsNode, string] = [
+    'Panel node followed by a list item with inline code and text',
+    // prettier-ignore
+    doc(
+      panel()(
+        p('some text inside panel{<>}'),
+      ),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+        ),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case23: [string, (schema: Schema) => RefsNode, string] = [
+    'Panel node followed by a list item with inline code and text, and siblings',
+    // prettier-ignore
+    doc(
+      panel()(
+        p('some text inside panel{<>}'),
+      ),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+        ),
+        li(p('with sibling')),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
+
+  const case24: [string, (schema: Schema) => RefsNode, string] = [
+    'Panel node followed by a list item with inline code and text, and a nested list, and siblings',
+    // prettier-ignore
+    doc(
+      panel()(
+        p('some text inside panel{<>}'),
+      ),
+      ul(
+        li(
+          p(
+            code('hello'),
+            'world',
+          ),
+          ul(
+            li(p('what about nested item with sibling')),
+          ),
+        ),
+        li(p('with sibling')),
+      ),
+    ),
+    LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
+  ];
 
   describe.each<[string, (schema: Schema) => RefsNode, string]>([
-    [
-      'joining a list item with a paragraph',
-      documentCase1,
-      LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST,
-    ],
-    [
-      'joining a sibling list item',
-      documentCase2,
-      LIST_TEXT_SCENARIOS.JOIN_SIBLINGS,
-    ],
-    [
-      'joining a sub list descendants into the parent',
-      documentCase3,
-      LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT,
-    ],
-    [
-      'joining a parent sibling to the current level',
-      documentCase4,
-      LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD,
-    ],
-    [
-      'removing the empty paragraph when followed by single level list',
-      documentEmptyParagraphFollowedBySingleLevelList,
-      LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
-    ],
-    [
-      'removing the empty paragraph when followed by a nested list',
-      documentEmptyParagraphFollowedByNestedList,
-      LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
-    ],
-    [
-      'joining the first list item to paragraph containing text',
-      documentParagraphFollowedBySingleLevelList,
-      LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
-    ],
-    [
-      'joining the first list item to paragraph containing text, and joining child list to top level of list',
-      documentParagraphFollowedByNestedList,
-      LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
-    ],
+    case1,
+    case2,
+    case3,
+    case4,
+    case5,
+    case6,
+    case7,
+    case8,
+    case9,
+    case10,
+    case11,
+    case12,
+    case13,
+    case14,
+    case15,
+    case16,
+    case17,
+    case18,
+    case19,
+    case20,
+    case21,
+    case22,
+    case23,
+    case24,
   ])('when the next state is to %s', (_scenario, documentNode, eventName) => {
     describe('#joinListItemForward', () => {
       it('should call the createAnalyticsEvent with the proper event payload', () => {
@@ -667,7 +1001,7 @@ describe('join-list-item-forward', () => {
 
   describe('empty paragraph followed by single level list', () => {
     it('should delete the empty paragraph', () => {
-      const initialDoc = documentEmptyParagraphFollowedBySingleLevelList;
+      const initialDoc = case5[1];
       // prettier-ignore
       const expectedDoc = doc(
         ul(
@@ -687,7 +1021,7 @@ describe('join-list-item-forward', () => {
 
   describe('empty paragraph followed by nested list', () => {
     it('should delete the empty paragraph', () => {
-      const initialDoc = documentEmptyParagraphFollowedByNestedList;
+      const initialDoc = case6[1];
       // prettier-ignore
       const expectedDoc = doc(
         ul(
@@ -715,7 +1049,7 @@ describe('join-list-item-forward', () => {
 
   describe('paragraph with text followed by single level list', () => {
     it('should merge the first list items content into the paragraph', () => {
-      const initialDoc = documentParagraphFollowedBySingleLevelList;
+      const initialDoc = case7[1];
       // prettier-ignore
       const expectedDoc = doc(
         p('some text {<>}A'),
@@ -733,7 +1067,7 @@ describe('join-list-item-forward', () => {
 
   describe('paragraph with text followed by nested list', () => {
     it('should merge the first list items content into the paragraph, and merge the nested list items into the top level of the list', () => {
-      const initialDoc = documentParagraphFollowedByNestedList;
+      const initialDoc = case8[1];
       // prettier-ignore
       const expectedDoc = doc(
         p('some text {<>}A'),
@@ -762,7 +1096,7 @@ describe('join-list-item-forward', () => {
 
   describe('paragraph with text followed by single list item', () => {
     it('should merge the first list items content into the paragraph and delete the remaining empty list', () => {
-      const initialDoc = documentParagraphFollowedBySingleListItem;
+      const initialDoc = case9[1];
       // prettier-ignore
       const expectedDoc = doc(
         p('some text {<>}A')
@@ -775,7 +1109,7 @@ describe('join-list-item-forward', () => {
 
   describe('paragraph with text followed by a list item with no content but a nested list', () => {
     it('should merge the first (empty) list items content into the paragraph and and merge the nested list items into the top level of the list', () => {
-      const initialDoc = documentParagraphFollowedByEmptyListItem;
+      const initialDoc = case10[1];
       // prettier-ignore
       const expectedDoc = doc(
         p('some text {<>}'),
@@ -783,6 +1117,322 @@ describe('join-list-item-forward', () => {
           li(
             p('A')
           )
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph with text followed by a list item with no content and no nested lists', () => {
+    it('should merge the first (empty) list items content into the paragraph and leave the rest of the list items', () => {
+      const initialDoc = case11[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p('some text {<>}'),
+        ul(
+          li(
+            p('B')
+          ),
+          li(
+            p('C')
+          )
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph with text followed by a list item with no content but a nested list AND siblings', () => {
+    it('should merge the first (empty) list items content into the paragraph and and merge the nested list items into the top level of the list', () => {
+      const initialDoc = case12[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p('some text {<>}'),
+        ul(
+          li(
+            p('B'),
+            ul(
+              li(
+                p('C')
+              ),
+              li(
+                p('D')
+              ),
+            ),
+          ),
+          li(
+            p('E')
+          ),
+          li(
+            p('F')
+          ),
+          li(
+            p('G')
+          )
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph with text followed by a list item with one paragraphs and its first child is a hardbreak', () => {
+    it('should delete the first hardbreak and leave the rest of the paragraph', () => {
+      const initialDoc = case13[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p('some text {<>}'),
+        ul(
+          li(
+            p('A', br(), 'B', br(), 'C'),
+          ),
+          li(
+            p('D')
+          ),
+          li(
+            p('E')
+          )
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph with text followed by a list item with multiple paragraphs', () => {
+    it('should merge the first paragraph in the list to the paragraph before, but leave the remaining paragraphs in the list item', () => {
+      const initialDoc = case14[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p('some text {<>}A'),
+        ul(
+          li(
+            p('B'),
+            p('C'),
+          ),
+          li(
+            p('D')
+          ),
+          li(
+            p('E')
+          )
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph with text followed by a list item with multiple paragraphs, the first empty', () => {
+    it('should delete the empty paragraph in the first list item, but leave any remaining', () => {
+      const initialDoc = case15[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p('some text {<>}'),
+        ul(
+          li(
+            p('B'),
+            p('C'),
+          ),
+          li(
+            p('D')
+          ),
+          li(
+            p('E')
+          )
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('status node followed by a list item with an inline code block and text', () => {
+    it('should merge the inline code block and text with the status nodes paragraph', () => {
+      const initialDoc = case16[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p(
+          status({ text: 'test', color: '#FFF', localId: 'a' }),
+          '{<>}',
+          code('hello'),
+          'world',
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph followed by multiple list items, the first with an inline code block and text', () => {
+    it('should merge the inline code block and text with the paragraph', () => {
+      const initialDoc = case17[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p(
+          'some text {<>}',
+          code('hello'),
+          'world',
+        ),
+        ul(
+          li(p('A')),
+          li(p('B')),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph followed by multiple list items, the first with a multiple paragraphs', () => {
+    it('should merge the inline code block and text with the paragraph, leave the second paragraph', () => {
+      const initialDoc = case18[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p(
+          'some text {<>}',
+          code('hello'),
+          'world',
+        ),
+        ul(
+          li(p('multi paragraph')),
+          li(p('A')),
+          li(p('B')),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph followed by a list items with multiple paragraphs, the first with marks', () => {
+    it('should merge the inline code block and text with the paragraph, leave the second paragraph', () => {
+      const initialDoc = case19[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p(
+          'some text {<>}',
+          code('hello'),
+          'world',
+        ),
+        ul(
+          li(p('multi paragraph with out siblings')),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph followed by a list items with inline code, text, and a nested list', () => {
+    it('should merge the inline code block and text with the paragraph, merge the nested list into the top level of list', () => {
+      const initialDoc = case20[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p(
+          'some text {<>}',
+          code('hello'),
+          'world',
+        ),
+        ul(
+          li(p('what about nested item')),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('paragraph followed by multiple list items, the first with marks and nested list', () => {
+    it('should merge the inline code block and text with the paragraph, merge the nested list into the top level of list', () => {
+      const initialDoc = case21[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        p(
+          'some text {<>}',
+          code('hello'),
+          'world',
+        ),
+        ul(
+          li(p('what about nested item with sibling')),
+          li(p('hey')),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('panel followed by a single list item with inline code and text', () => {
+    it('should merge the inline code block and text with the paragraph inside the panel, delete the remaining empty list', () => {
+      const initialDoc = case22[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        panel()(
+          p(
+            'some text inside panel{<>}',
+            code('hello'),
+            'world',
+          ),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('panel followed by multiple list items, first with inline code and text', () => {
+    it('should merge the inline code block and text with the paragraph inside the panel, leave the remaining list items', () => {
+      const initialDoc = case23[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        panel()(
+          p(
+            'some text inside panel{<>}',
+            code('hello'),
+            'world',
+          ),
+        ),
+        ul(
+          li(p('with sibling')),
+        ),
+      );
+      const { editorView } = editor(initialDoc);
+      deleteKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+    });
+  });
+
+  describe('panel followed by multiple list items, first with inline code and text, and a nested list', () => {
+    it('should merge the inline code block and text with the paragraph inside the panel, merge nested list to top level, and leave the remaining list items', () => {
+      const initialDoc = case24[1];
+      // prettier-ignore
+      const expectedDoc = doc(
+        panel()(
+          p(
+            'some text inside panel{<>}',
+            code('hello'),
+            'world',
+          ),
+        ),
+        ul(
+          li(p('what about nested item with sibling')),
+          li(p('with sibling')),
         ),
       );
       const { editorView } = editor(initialDoc);

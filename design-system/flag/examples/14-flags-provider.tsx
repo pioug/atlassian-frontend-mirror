@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Info from '@atlaskit/icon/glyph/info';
 import { P300 } from '@atlaskit/theme/colors';
 

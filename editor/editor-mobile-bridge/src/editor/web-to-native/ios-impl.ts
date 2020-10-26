@@ -331,4 +331,11 @@ export default class IosBridge implements NativeBridge {
       });
     }
   }
+
+  updateTitle(title: string) {
+    this.window.webkit?.messageHandlers.pageTitleBridge?.postMessage({
+      name: 'updateTitle',
+      title,
+    });
+  }
 }

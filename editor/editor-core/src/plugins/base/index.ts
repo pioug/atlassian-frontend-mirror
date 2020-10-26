@@ -19,6 +19,7 @@ export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
   allowInlineCursorTarget?: boolean;
   inputTracking?: InputTracking;
+  allowBrowserFreezeInteractionType?: boolean;
 }
 
 const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
@@ -51,7 +52,11 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
         name: 'frozenEditor',
         plugin: ({ dispatchAnalyticsEvent }) =>
           options && options.inputTracking && options.inputTracking.enabled
-            ? frozenEditor(dispatchAnalyticsEvent, options.inputTracking)
+            ? frozenEditor(
+                dispatchAnalyticsEvent,
+                options.inputTracking,
+                options.allowBrowserFreezeInteractionType,
+              )
             : undefined,
       },
       { name: 'decorationPlugin', plugin: () => decorationPlugin() },

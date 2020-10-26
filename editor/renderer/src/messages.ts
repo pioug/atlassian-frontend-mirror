@@ -25,7 +25,7 @@ export const codeBlockCopyButtonMessages = defineMessages({
     description: 'Copy the whole content of the element to your clipboard',
   },
   copiedCodeToClipboard: {
-    id: 'fabric.editor.codeBlockCopyButton.copyToClipboard',
+    id: 'fabric.editor.codeBlockCopyButton.copiedToClipboard',
     defaultMessage: 'Copied!',
     description: 'Copied the whole content of the element to clipboard',
   },

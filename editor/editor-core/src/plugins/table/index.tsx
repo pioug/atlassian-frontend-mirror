@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { tableEditing } from 'prosemirror-tables';
-import { createTable } from 'prosemirror-utils';
+import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
+import { createTable } from '@atlaskit/editor-tables/utils';
 
 import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 
@@ -105,7 +105,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         },
       },
       { name: 'tableEditing', plugin: () => createDecorationsPlugin() },
-      // Needs to be lower priority than prosemirror-tables.tableEditing
+      // Needs to be lower priority than editor-tables.tableEditing
       // plugin as it is currently swallowing backspace events inside tables
       { name: 'tableKeymap', plugin: () => keymapPlugin() },
       {

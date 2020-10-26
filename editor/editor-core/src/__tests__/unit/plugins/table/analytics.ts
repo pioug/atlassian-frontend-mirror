@@ -1,4 +1,4 @@
-import { Rect } from 'prosemirror-tables';
+import { Rect } from '@atlaskit/editor-tables/table-map';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,

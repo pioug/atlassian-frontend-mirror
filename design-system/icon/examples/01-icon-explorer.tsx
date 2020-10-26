@@ -1,7 +1,7 @@
 import React, { Component, SyntheticEvent, ComponentType } from 'react';
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Textfield from '@atlaskit/textfield';
 import { metadata as objectIconMetadata } from '@atlaskit/icon-object';
 import { metadata as fileTypeIconMetadata } from '@atlaskit/icon-file-type';

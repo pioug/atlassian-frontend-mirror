@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component, Fragment } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 
 import TableTree from '../src';
 

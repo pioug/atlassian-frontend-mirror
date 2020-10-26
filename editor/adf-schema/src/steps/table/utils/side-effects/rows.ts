@@ -1,6 +1,6 @@
 import { Node as ProseMirrorNode, Schema } from 'prosemirror-model';
 import { Mappable, StepMap, Transform } from 'prosemirror-transform';
-import { TableRect } from 'prosemirror-tables';
+import { TableRect } from '@atlaskit/editor-tables/table-map';
 import { hasMergedColumns } from '../table-map';
 import { RowSideEffect, RowSideEffectJSON } from './types';
 import { Cell } from '../cells-at-column';

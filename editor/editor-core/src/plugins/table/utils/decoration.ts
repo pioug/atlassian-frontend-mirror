@@ -1,12 +1,13 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
-import { TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { ContentNodeWithPos } from 'prosemirror-utils';
 import {
-  ContentNodeWithPos,
   findTable,
   getCellsInRow,
   getSelectionRect,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-tables/utils';
+
 import { Decoration, DecorationSet } from 'prosemirror-view';
 
 import { CellAttributes } from '@atlaskit/adf-schema';

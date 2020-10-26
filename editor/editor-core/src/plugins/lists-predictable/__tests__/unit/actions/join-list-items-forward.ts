@@ -1,6 +1,4 @@
-import { EditorState } from 'prosemirror-state';
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
+import { Schema } from 'prosemirror-model';
 import {
   p,
   ul,
@@ -8,18 +6,10 @@ import {
   doc,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { calcJoinListScenario } from '../../../actions/join-list-items-forward';
 import { walkNextNode } from '../../../../../utils/commands';
 import { LIST_TEXT_SCENARIOS } from '../../../../analytics';
-
-function createEditorState(documentNode: RefsNode) {
-  const myState = EditorState.create({
-    doc: documentNode,
-  });
-  const { tr } = myState;
-  setSelectionTransform(documentNode, tr);
-  return myState.apply(tr);
-}
 
 describe('list-predictable-delete', () => {
   // prettier-ignore
@@ -30,7 +20,7 @@ describe('list-predictable-delete', () => {
       ),
     ),
     p('B'),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase2 = doc(
@@ -43,7 +33,7 @@ describe('list-predictable-delete', () => {
       )
     ),
     p('B'),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase3 = doc(
@@ -62,7 +52,7 @@ describe('list-predictable-delete', () => {
         ),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase4 = doc(
@@ -84,7 +74,7 @@ describe('list-predictable-delete', () => {
         ),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentEmptyParagraphFollowedBySingleLevelList = doc(
@@ -97,28 +87,28 @@ describe('list-predictable-delete', () => {
         p('B'),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentEmptyParagraphFollowedByNestedList = doc(
-      p('{<>}'),
-      ul(
-        li(
-          p('A'),
-          ul(
-            li(
-              p('child 1'),
-            ),
-            li(
-              p('child 2'),
-            ),
+    p('{<>}'),
+    ul(
+      li(
+        p('A'),
+        ul(
+          li(
+            p('child 1'),
+          ),
+          li(
+            p('child 2'),
           ),
         ),
-        li(
-          p('B'),
-        ),
       ),
-    )(sampleSchema);
+      li(
+        p('B'),
+      ),
+    ),
+  );
 
   // prettier-ignore
   const documentParagraphFollowedBySingleLevelList = doc(
@@ -131,35 +121,35 @@ describe('list-predictable-delete', () => {
         p('B'),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentParagraphFollowedByNestedList = doc(
-      p('{some text <>}'),
-      ul(
-        li(
-          p('A'),
-          ul(
-            li(
-              p('child 1'),
-              ul(
-                li(
-                  p('third level child'),
-                ),
+    p('{some text <>}'),
+    ul(
+      li(
+        p('A'),
+        ul(
+          li(
+            p('child 1'),
+            ul(
+              li(
+                p('third level child'),
               ),
             ),
-            li(
-              p('child 2'),
-            ),
+          ),
+          li(
+            p('child 2'),
           ),
         ),
-        li(
-          p('B'),
-        ),
       ),
-    )(sampleSchema);
+      li(
+        p('B'),
+      ),
+    ),
+  );
 
-  describe.each<[string, RefsNode, string]>([
+  describe.each<[string, (schema: Schema) => RefsNode, string]>([
     [
       'joining a list item with a paragraph',
       documentCase1,
@@ -203,10 +193,10 @@ describe('list-predictable-delete', () => {
   ])('when the next state is to %s', (_scenario, documentNode, eventName) => {
     describe('#calcJoinListScenario', () => {
       it(`should return the event ${eventName}`, () => {
-        const myState = createEditorState(documentNode);
+        const editorState = createEditorState(documentNode);
         const {
           selection: { $head },
-        } = myState;
+        } = editorState;
         const walkNode = walkNextNode($head);
 
         const scenario = calcJoinListScenario(walkNode, $head);

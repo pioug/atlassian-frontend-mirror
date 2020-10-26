@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import Button from '@atlaskit/button';
 
-import OpenIcon from '@atlaskit/icon/glyph/open';
 import NotFoundIllustration from './NotFoundIllustration';
 
 type Props = {
@@ -23,24 +23,27 @@ export default function EmptyState({
         />
       </EmptyStateHeading>
       <EmptyStateSubHeading>
-        <FormattedMessage
-          id="fabric.editor.elementbrowser.search.empty-state.sub-heading"
-          defaultMessage="Try searching again using different terms or"
-          description="Empty state sub-heading"
-        />
-        <br />
-        <ExternalLink
-          target="_blank"
-          href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
-          onClick={onExternalLinkClick}
-        >
+        <p>
           <FormattedMessage
-            id="fabric.editor.elementbrowser.search.empty-state.sub-heading.link"
-            defaultMessage="explore apps from Atlassian Marketplace"
-            description="Empty state sub-heading external link"
+            id="fabric.editor.elementbrowser.search.empty-state.sub-heading"
+            defaultMessage="Try searching with a different term or discover new apps for Atlassian products."
+            description="Empty state sub-heading"
           />
-          <OpenIcon label="external-link" />
-        </ExternalLink>
+        </p>
+        <ExternalLinkWrapper>
+          <Button
+            appearance="primary"
+            target="_blank"
+            href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
+            onClick={onExternalLinkClick}
+          >
+            <FormattedMessage
+              id="fabric.editor.elementbrowser.search.empty-state.sub-heading.link"
+              defaultMessage="Explore Atlassian Marketplace"
+              description="Empty state sub-heading external link"
+            />
+          </Button>
+        </ExternalLinkWrapper>
       </EmptyStateSubHeading>
     </EmptyStateWrapper>
   );
@@ -55,7 +58,8 @@ const EmptyStateHeading = styled.div`
   margin-top: 28px;
 `;
 
-const EmptyStateSubHeading = styled.p`
+const EmptyStateSubHeading = styled.div`
+  margin-top: 16px;
   max-width: 400px;
   text-align: center;
 `;
@@ -68,7 +72,6 @@ const EmptyStateWrapper = styled.div`
   width: 100%;
 `;
 
-const ExternalLink = styled.a`
-  display: inline-flex;
-  align-items: center;
+const ExternalLinkWrapper = styled.div`
+  margin-top: 14px;
 `;

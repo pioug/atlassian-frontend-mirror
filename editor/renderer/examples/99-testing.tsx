@@ -20,6 +20,8 @@ import {
 import { document as defaultDoc } from './helper/story-data';
 import Sidebar from './helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { ThemeModes } from '@atlaskit/theme';
 
 import { RendererActionsContext as RendererContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
@@ -49,6 +51,7 @@ type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
   mockInlineComments?: boolean;
+  themeMode?: ThemeModes;
 };
 
 interface WindowBindings {
@@ -70,13 +73,15 @@ function renderRenderer({ adf, props }: { props: MountProps; adf: any }) {
     <SmartCardProvider client={cardClient}>
       <Sidebar showSidebar={!!showSidebar}>
         {(additionalRendererProps: any) => (
-          <Renderer
-            dataProviders={providerFactory}
-            document={adf}
-            extensionHandlers={extensionHandlers}
-            {...reactProps}
-            {...additionalRendererProps}
-          />
+          <AtlaskitThemeProvider mode={props.themeMode}>
+            <Renderer
+              dataProviders={providerFactory}
+              document={adf}
+              extensionHandlers={extensionHandlers}
+              {...reactProps}
+              {...additionalRendererProps}
+            />
+          </AtlaskitThemeProvider>
         )}
       </Sidebar>
     </SmartCardProvider>

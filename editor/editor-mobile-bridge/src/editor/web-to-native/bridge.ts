@@ -1,5 +1,6 @@
 import { Serialized } from '../../types';
-
+import { Color as StatusColor } from '@atlaskit/status/element';
+import { CollabAnalyticsEvents } from '../../analytics/collab';
 export default interface NativeBridge
   extends MentionBridge,
     TextFormattingBridge,
@@ -12,16 +13,14 @@ export default interface NativeBridge
     SelectionBridge,
     CollabEditNativeBridge,
     LifecycleBridge,
-    ContentBridge {
+    ContentBridge,
+    PageTitleBridge {
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Required<EditorBridges>[T],
     ...args: any[]
   ): void;
 }
-
-import { Color as StatusColor } from '@atlaskit/status/element';
-import { CollabAnalyticsEvents } from '../../analytics/collab';
 
 export interface EditorBridges {
   mentionsBridge?: MentionBridge;
@@ -40,6 +39,7 @@ export interface EditorBridges {
   collabBridge?: CollabBridge;
   lifecycleBridge?: LifecycleBridge;
   contentBridge?: ContentBridge;
+  pageTitleBridge?: PageTitleBridge;
 }
 
 export type EditorBridgeNames = keyof EditorBridges;
@@ -127,4 +127,8 @@ export interface CollabEditNativeBridge {
 
 export interface ContentBridge {
   onRenderedContentHeightChanged(height: number): void;
+}
+
+export interface PageTitleBridge {
+  updateTitle(title: string): void;
 }

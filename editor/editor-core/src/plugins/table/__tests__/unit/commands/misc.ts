@@ -1,4 +1,4 @@
-import { isColumnSelected } from 'prosemirror-utils';
+import { isColumnSelected } from '@atlaskit/editor-tables/utils';
 
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {

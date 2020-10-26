@@ -129,10 +129,16 @@ export class MediaViewerComponent extends React.Component<Props, State> {
   };
 
   render() {
+    const { isSidebarVisible } = this.state;
     const content = (
       <Blanket data-testid="media-viewer-popup">
         <Shortcut keyCode={27} handler={this.onShortcutClosed} />
-        <Content onClose={this.onContentClose}>{this.renderContent()}</Content>
+        <Content
+          isSidebarVisible={isSidebarVisible}
+          onClose={this.onContentClose}
+        >
+          {this.renderContent()}
+        </Content>
         {this.renderSidebar()}
       </Blanket>
     );

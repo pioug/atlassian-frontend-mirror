@@ -19,6 +19,7 @@ const loadAdf = async (page: Page, adf: any) => {
       media: {
         allowLinking: true,
       },
+      allowColumnSorting: true,
     },
   });
 };
@@ -115,13 +116,13 @@ describe('media link:', () => {
   it(`should render a linked media image inside a table correctly`, async () => {
     await loadAdf(page, mediaLinkInsideTable);
 
-    await waitForAllMedia(page, 1);
+    await waitForAllMedia(page, 2);
 
     await page.waitForSelector('a[href="https://www.atlassian.com/"]', {
       visible: true,
     });
     await page.focus('a[href="https://www.atlassian.com/"]');
-    await page.hover(mediaSingleSelector);
+    await page.hover('a[href="https://www.atlassian.com/"]');
 
     await animationFrame(page);
     await snapshot(page);

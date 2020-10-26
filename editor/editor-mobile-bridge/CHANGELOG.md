@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 19.1.0
+
+### Minor Changes
+
+- [`7056ac94b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7056ac94b0) - TWISTA-4 Enabling I18N on mobile editor
+- [`8c13867014`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c13867014) - TWISTA-438 Add new PageTitle bridge. This bridge will serve as a middle ware between collab provider and native side.
+
+### Patch Changes
+
+- [`56fe4bb199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56fe4bb199) - TWISTA-367 Add new method for annotation bounding rect for mobile bridge renderer
+- Updated dependencies
+
 ## 19.0.15
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   MediaStore,
   MediaStoreGetFileImageParams,
@@ -19,10 +20,16 @@ export class MediaClient {
   // Deprecated value introduced for backward compatibility with Context
   public readonly config: MediaClientConfig;
 
-  constructor(readonly mediaClientConfig: MediaClientConfig) {
-    this.mediaStore = new MediaStore({
-      authProvider: mediaClientConfig.authProvider,
-    });
+  constructor(
+    readonly mediaClientConfig: MediaClientConfig,
+    readonly featureFlags?: MediaFeatureFlags,
+  ) {
+    this.mediaStore = new MediaStore(
+      {
+        authProvider: mediaClientConfig.authProvider,
+      },
+      featureFlags,
+    );
     this.config = mediaClientConfig;
     this.collection = new CollectionFetcher(this.mediaStore);
     this.file = new FileFetcherImpl(this.mediaStore);

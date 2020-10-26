@@ -4,7 +4,7 @@ import React, { Component, ComponentType } from 'react';
 import styled from 'styled-components';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import RadioGroup from '@atlaskit/field-radio-group';
 import * as colors from '@atlaskit/theme/colors';
 

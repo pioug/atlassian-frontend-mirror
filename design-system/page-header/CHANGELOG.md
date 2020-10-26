@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.6
+
+### Patch Changes
+
+- [`be0acecf54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be0acecf54) - [ux] page-header is a non interactive element and it was getting focus ring while clicking on it. Now focus ring has been removed to fix this issue.
+
 ## 10.0.5
 
 ### Patch Changes

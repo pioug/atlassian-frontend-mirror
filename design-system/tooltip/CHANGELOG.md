@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.1.0
+
+### Minor Changes
+
+- [`4a9b4d8808`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a9b4d8808) - DS-7523 Extends Tooltip to accept strategy as prop
+
 ## 17.0.3
 
 ### Patch Changes

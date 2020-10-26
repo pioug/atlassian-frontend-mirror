@@ -7,22 +7,24 @@ import {
 import {
   ACTION,
   ACTION_SUBJECT,
+  BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
   DispatchAnalyticsEvent,
 } from '../../analytics';
 import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 import { countNodes } from '../../../utils/count-nodes';
 import { InputTracking } from '../../../types/performance-tracking';
-
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
-const DEFAULT_FREEZE_THRESHOLD = 600;
+export const DEFAULT_FREEZE_THRESHOLD = 600;
 
 const dispatchLongTaskEvent = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   view: EditorView,
   time: number,
   allowCountNodes?: boolean,
+  interactionType?: BROWSER_FREEZE_INTERACTION_TYPE,
+  allowBrowserFreezeInteractionType?: boolean,
 ) => {
   const { state } = view;
 
@@ -34,16 +36,32 @@ const dispatchLongTaskEvent = (
       nodeSize: state.doc.nodeSize,
       nodeCount: allowCountNodes ? countNodes(view.state) : undefined,
       participants: getParticipantsCount(view.state),
+      interactionType:
+        allowBrowserFreezeInteractionType && interactionType
+          ? interactionType
+          : undefined,
     },
     eventType: EVENT_TYPE.OPERATIONAL,
   });
 };
 
+export const setInteractionType = (
+  interactionType: BROWSER_FREEZE_INTERACTION_TYPE = BROWSER_FREEZE_INTERACTION_TYPE.LOADING,
+) => interactionType;
+
 export default (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   inputTracking?: InputTracking,
+  allowBrowserFreezeInteractionType?: boolean,
 ) => {
   let keystrokeCount = 0;
+  let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
+
+  if (allowBrowserFreezeInteractionType) {
+    interactionType = setInteractionType(
+      BROWSER_FREEZE_INTERACTION_TYPE.LOADING,
+    );
+  }
 
   const samplingRate =
     inputTracking && typeof inputTracking.samplingRate === 'number'
@@ -67,6 +85,9 @@ export default (
           handleTextInput(view) {
             const { state } = view;
             const now = performance.now();
+            if (allowBrowserFreezeInteractionType) {
+              interactionType = BROWSER_FREEZE_INTERACTION_TYPE.TYPING;
+            }
 
             requestAnimationFrame(() => {
               const diff = performance.now() - now;
@@ -106,6 +127,22 @@ export default (
             });
             return false;
           },
+          handleDOMEvents: allowBrowserFreezeInteractionType
+            ? {
+                click: () => {
+                  interactionType = setInteractionType(
+                    BROWSER_FREEZE_INTERACTION_TYPE.CLICKING,
+                  );
+                  return false;
+                },
+                paste: () => {
+                  interactionType = setInteractionType(
+                    BROWSER_FREEZE_INTERACTION_TYPE.PASTING,
+                  );
+                  return false;
+                },
+              }
+            : undefined,
         }
       : undefined,
     view(view) {
@@ -124,6 +161,8 @@ export default (
                 view,
                 duration,
                 allowCountNodes,
+                interactionType,
+                allowBrowserFreezeInteractionType,
               );
             }
           }

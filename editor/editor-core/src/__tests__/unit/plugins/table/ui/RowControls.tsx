@@ -11,7 +11,7 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
-import { getSelectionRect, selectRow } from 'prosemirror-utils';
+import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
 import React from 'react';
 import { setTextSelection } from '../../../../../index';
 import { hoverRows } from '../../../../../plugins/table/commands';

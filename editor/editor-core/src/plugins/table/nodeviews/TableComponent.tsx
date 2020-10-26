@@ -2,7 +2,7 @@ import React from 'react';
 
 import classnames from 'classnames';
 import { Node as PmNode } from 'prosemirror-model';
-import { isTableSelected } from 'prosemirror-utils';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 

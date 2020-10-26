@@ -8,7 +8,7 @@ import {
   createMentionProvider,
   createCardProvider,
 } from '../../../providers';
-import { IntlProvider } from 'react-intl';
+import { InjectedIntl } from 'react-intl';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
 import WebBridgeImpl from '../../native-to-web';
@@ -41,6 +41,10 @@ describe('mobile editor element', () => {
     _bridge: WebBridgeImpl = new WebBridgeImpl(),
   ): ReactWrapper<typeof MobileEditor> => {
     bridge = _bridge;
+    const intlMock = {
+      formatMessage: messageDescriptor =>
+        messageDescriptor && messageDescriptor.defaultMessage,
+    } as InjectedIntl;
     mobileEditor = mount(
       <MobileEditor
         mode="light"
@@ -52,6 +56,7 @@ describe('mobile editor element', () => {
         emojiProvider={createEmojiProvider(fetchProxy)}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
+        intl={intlMock}
       />,
     );
 
@@ -146,45 +151,6 @@ describe('mobile editor element', () => {
       mobileEditor.unmount();
 
       expect(toNativeBridge.editorDestroyed).toHaveBeenCalled();
-    });
-  });
-
-  describe.skip('i18n', () => {
-    it('should load en locale by default', () => {
-      initEditor();
-      expect(mobileEditor.find(IntlProvider).prop('locale')).toBe('en');
-    });
-
-    describe('with locale query params set', () => {
-      const get = jest.fn();
-
-      beforeEach(() => {
-        // @ts-ignore
-        global.URLSearchParams = jest.fn(() => ({
-          get,
-        }));
-      });
-
-      it('should load proper locale', () => {
-        get.mockImplementation(() => 'es');
-        initEditor();
-
-        expect(mobileEditor.find(IntlProvider).prop('locale')).toBe('es');
-      });
-
-      it('should load locale with region that is on whitelist', () => {
-        get.mockImplementation(() => 'pt-BR');
-        initEditor();
-
-        expect(mobileEditor.find(IntlProvider).prop('locale')).toBe('pt-BR');
-      });
-
-      it('should fallback to english when translation is not loaded', () => {
-        get.mockImplementation(() => 'xx');
-        initEditor();
-
-        expect(mobileEditor.find(IntlProvider).prop('locale')).toBe('en');
-      });
     });
   });
 });

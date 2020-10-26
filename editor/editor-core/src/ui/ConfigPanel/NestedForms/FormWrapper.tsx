@@ -21,19 +21,9 @@ const ActionsWrapper = styled.div`
   padding-top: ${multiply(gridSize, 2)}px;
 `;
 
-const NestedFormWrapper = styled.div`
-  margin: ${multiply(gridSize, 2)}px 0;
-  padding: ${multiply(gridSize, 2)}px;
-  border: 1px solid ${N40A};
-  border-radius: 4px;
-
-  &:first-child {
-    margin-top: 0;
-  }
-`;
-
 type Props = {
   label: string;
+  parentName?: string;
   extensionManifest: ExtensionManifest;
   fields: FieldDefinition[];
   parameters?: Parameters;
@@ -42,11 +32,13 @@ type Props = {
   children?: React.ReactNode;
   onFieldBlur: OnBlur;
   firstVisibleFieldName?: string;
+  showTitle?: boolean;
 };
 
 const FormWrapper = ({
   label,
   fields,
+  parentName,
   parameters,
   extensionManifest,
   canRemoveFields,
@@ -54,13 +46,15 @@ const FormWrapper = ({
   children,
   onFieldBlur,
   firstVisibleFieldName,
+  showTitle = true,
 }: Props) => {
   return (
-    <NestedFormWrapper>
-      <h5>{label}</h5>
+    <div>
+      {showTitle && <h5>{label}</h5>}
 
       <FormContent
         fields={fields}
+        parentName={parentName}
         extensionManifest={extensionManifest}
         parameters={parameters}
         canRemoveFields={canRemoveFields}
@@ -72,7 +66,7 @@ const FormWrapper = ({
       {children && (
         <ActionsWrapper testId="fieldset-actions">{children}</ActionsWrapper>
       )}
-    </NestedFormWrapper>
+    </div>
   );
 };
 

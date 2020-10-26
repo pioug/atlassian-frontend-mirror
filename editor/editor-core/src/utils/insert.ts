@@ -20,7 +20,10 @@ import {
 import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 
 import { isEmptyParagraph } from './document';
-import { GapCursorSelection, Side } from '../plugins/gap-cursor';
+import {
+  GapCursorSelection,
+  Side,
+} from '../plugins/selection/gap-cursor-selection';
 
 import { isChromeWithSelectionBug, normaliseNestedLayout } from './selection';
 
@@ -248,7 +251,7 @@ export const insertSelectedItem = (
      *
      */
   } else if (node.isBlock) {
-    tr = pmSafeInsert(normaliseNestedLayout(state, node))(tr);
+    tr = pmSafeInsert(normaliseNestedLayout(state, node), undefined, true)(tr);
 
     /**
      *

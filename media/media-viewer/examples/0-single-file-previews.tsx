@@ -31,6 +31,9 @@ import {
   zipItemLargeInnerFile,
   zipJiraArchiveItem,
   zipEncryptedItem,
+  codeItem,
+  emailItem,
+  emailFailedItem,
 } from '../example-helpers';
 import { MediaViewer } from '../src';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';
@@ -138,9 +141,25 @@ export default class Example extends React.Component<{}, State> {
             </ButtonList>
           </Group>
           <Group>
+            <h2>Code item</h2>
+            <ButtonList>
+              <li>{this.createItem(codeItem, 'Normal')}</li>
+            </ButtonList>
+          </Group>
+          <Group>
+            <h2>Email item</h2>
+            <ButtonList>
+              <li>{this.createItem(emailItem, 'Normal')}</li>
+            </ButtonList>
+          </Group>
+          å
+          <Group>
             <h2>Errors</h2>
             <ButtonList>
               <li>{this.createItem(unsupportedItem, 'Unsupported item')}</li>
+              <li>
+                {this.createItem(emailFailedItem, 'Unsupported email item')}
+              </li>
               <li>{this.createItem(archiveItem, 'Archive has no preview')}</li>
               <li>
                 {this.createItem(

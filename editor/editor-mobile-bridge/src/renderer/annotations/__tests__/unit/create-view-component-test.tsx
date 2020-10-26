@@ -35,6 +35,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
       ViewComponent = createViewComponent(nativeToWebAPI);
       deleteAnnotationMock = jest.fn();
       jest.spyOn(webToNativeBridgeAPI, 'onAnnotationClick');
+      jest.spyOn(webToNativeBridgeAPI, 'onAnnotationClickWithRect');
     });
 
     afterEach(() => {
@@ -42,7 +43,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
     });
 
     describe('when annotations is empty', () => {
-      it('should call onAnnotationClick without parameters', () => {
+      it('onAnnotationClick should call without parameters', () => {
         expect(webToNativeBridgeAPI.onAnnotationClick).toHaveBeenCalledTimes(0);
         render(
           <ViewComponent
@@ -57,7 +58,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
     });
 
     describe('when annotations is not empty', () => {
-      it('should call onAnnotationClick with the mobile bridge annotation format', () => {
+      it('onAnnotationClick should call with bridge annotation format', () => {
         expect(webToNativeBridgeAPI.onAnnotationClick).toHaveBeenCalledTimes(0);
         const annotations = [
           { id: 'lol1', type: AnnotationTypes.INLINE_COMMENT },
@@ -66,6 +67,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
         render(
           <ViewComponent
             annotations={annotations}
+            clickElementTarget={container!}
             deleteAnnotation={deleteAnnotationMock}
           />,
           container,
@@ -81,6 +83,42 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
           payload,
         );
       });
+
+      it('onAnnotationClickWithRect should call with bridge annotation format', () => {
+        expect(
+          webToNativeBridgeAPI.onAnnotationClickWithRect,
+        ).toHaveBeenCalledTimes(0);
+        const annotations = [
+          { id: 'lol1', type: AnnotationTypes.INLINE_COMMENT },
+          { id: 'lol2', type: AnnotationTypes.INLINE_COMMENT },
+        ];
+        render(
+          <ViewComponent
+            annotations={annotations}
+            clickElementTarget={container!}
+            deleteAnnotation={() => false}
+          />,
+          container,
+        );
+
+        const expectedPayload = [
+          {
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            annotations: [
+              expect.objectContaining({
+                id: annotations[0].id,
+              }),
+              expect.objectContaining({
+                id: annotations[1].id,
+              }),
+            ],
+          },
+        ];
+
+        expect(
+          webToNativeBridgeAPI.onAnnotationClickWithRect,
+        ).toHaveBeenCalledWith(expectedPayload);
+      });
     });
 
     describe('delete annotations', () => {
@@ -93,15 +131,13 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
         jest.spyOn(nativeToWebAPI, 'setContent');
       });
 
-      afterEach(() => {
-        jest.restoreAllMocks();
-      });
-
       const renderViewComponent = () => {
         act(() => {
           render(
             <ViewComponent
-              annotations={[]}
+              annotations={[
+                { id: 'fake-id-1', type: AnnotationTypes.INLINE_COMMENT },
+              ]}
               deleteAnnotation={deleteAnnotationMock}
             />,
             container,
@@ -151,7 +187,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
         expect(webToNativeBridgeAPI.setContent).not.toHaveBeenCalled();
       });
 
-      it(`should invoke method setcontent of web to native bridge
+      it(`should invoke method setContent of web to native bridge
         after delete annotation method called`, () => {
         const adfDoc: JSONDocNode = {
           version: 1,
@@ -176,7 +212,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
         expect(webToNativeBridgeAPI.setContent).toHaveBeenCalledWith(adfDoc);
       });
 
-      it(`should not invoke method setcontent of web to native bridge
+      it(`should not invoke method setContent of web to native bridge
       if delete annotation method returns false`, () => {
         deleteAnnotationMock.mockReturnValue(false);
         renderViewComponent();

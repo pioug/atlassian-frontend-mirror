@@ -21,6 +21,7 @@ exports[`ElementList should match snapshot 1`] = `
   -ms-flex-pack: start;
   justify-content: flex-start;
   overflow: hidden;
+  padding: 2px;
 }
 
 .c1 .ReactVirtualized__Collection {
@@ -29,6 +30,8 @@ exports[`ElementList should match snapshot 1`] = `
   -ms-scrollbar-color: #eeeeee rgba(255,255,255,0);
   scrollbar-color: #eeeeee rgba(255,255,255,0);
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  border-radius: 3px;
+  outline: none;
 }
 
 .c1 .ReactVirtualized__Collection::-webkit-scrollbar {
@@ -41,6 +44,10 @@ exports[`ElementList should match snapshot 1`] = `
 
 .c1 .ReactVirtualized__Collection::-webkit-scrollbar-thumb {
   background: #eeeeee;
+}
+
+.c1 .ReactVirtualized__Collection:focus {
+  box-shadow: 0 0 0 2px #4C9AFF;
 }
 
 .c1 .ReactVirtualized__Collection__innerScrollContainer div[class='element-item-wrapper']:last-child {
@@ -167,13 +174,11 @@ exports[`ElementList should match snapshot 1`] = `
         </WidthObserverWrapper>
       </Memo()>
       <styled.div
-        data-testid="ElementItems"
-        tabIndex={-1}
+        data-testid="element-items"
       >
         <div
           className="c1"
-          data-testid="ElementItems"
-          tabIndex={-1}
+          data-testid="element-items"
         >
           <ThemeProvider
             theme={
@@ -186,7 +191,7 @@ exports[`ElementList should match snapshot 1`] = `
                   "borderRadius": 4,
                   "boxSizing": "border-box",
                   "height": Object {
-                    "default": 64,
+                    "default": 75,
                   },
                   "hover": Object {
                     "background": "rgb(244, 245, 247)",

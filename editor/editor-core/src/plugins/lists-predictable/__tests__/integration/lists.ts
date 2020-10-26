@@ -15,6 +15,8 @@ import { KEY } from '../../../../__tests__/__helpers/page-objects/_keyboard';
 
 import floatsAdf from './__fixtures__/lists-adjacent-floats.adf.json';
 import listsAdf from './__fixtures__/lists-indentation-paragraphs.json';
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import { Node } from 'prosemirror-model';
 
 const PM_FOCUS_SELECTOR = '.ProseMirror-focused';
 
@@ -279,5 +281,51 @@ BrowserTestCase(
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'list: ctrl-d shortcut should behave the same as delete key (Mac)',
+  { skip: ['edge', 'chrome', 'firefox'] },
+  async (client: any) => {
+    const page = await goToEditorTestingExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      UNSAFE_predictableLists: true,
+      defaultValue: listsAdf,
+      shouldFocus: true,
+    });
+    await setProseMirrorTextSelection(page, { anchor: 11, head: 11 });
+    // Use unicode keys for Control & d
+    await page.keys('\uE009\u0064');
+
+    const jsonDocument = await page.$eval(editable, getDocFromElement);
+    const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
+    const firstListItem = pmDocument.nodeAt(3);
+    const textContentFirstListItem = firstListItem!.textContent;
+    expect(textContentFirstListItem).toEqual('wefwef1wefwef2');
+  },
+);
+
+BrowserTestCase(
+  'list: ctrl-d shortcut should not change editable content (Windows)',
+  { skip: ['edge', 'safari', 'firefox'] },
+  async (client: any) => {
+    const page = await goToEditorTestingExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      UNSAFE_predictableLists: true,
+      defaultValue: listsAdf,
+      shouldFocus: true,
+    });
+    await setProseMirrorTextSelection(page, { anchor: 11, head: 11 });
+    // Use unicode keys for Control & d
+    await page.keys('\uE009\u0064');
+
+    const jsonDocument = await page.$eval(editable, getDocFromElement);
+    const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
+    const firstListItem = pmDocument.nodeAt(3);
+    const textContentFirstListItem = firstListItem!.textContent;
+    expect(textContentFirstListItem).toEqual('wefwef1');
   },
 );

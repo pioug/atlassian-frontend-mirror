@@ -139,6 +139,13 @@ export const fullpage: EditorHelper = {
   placeholder: '.ProseMirror',
 };
 
+export const basic: EditorHelper = {
+  name: 'basic',
+  appearance: 'comment',
+  path: getExampleUrl('editor', 'editor-core', 'basic'),
+  placeholder: '.ProseMirror',
+};
+
 export const fullpageDisabled: EditorHelper = {
   name: 'fullpage-disabled',
   appearance: 'full-page',

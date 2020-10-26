@@ -1,6 +1,6 @@
 import { Transaction } from 'prosemirror-state';
-import { TableMap } from 'prosemirror-tables';
-import { findTable } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 export const getMergedCellsPositions = (tr: Transaction): number[] => {
   const table = findTable(tr.selection);

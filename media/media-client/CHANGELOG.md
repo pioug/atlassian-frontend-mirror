@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 11.1.0
+
+### Minor Changes
+
+- [`3f0dd38c9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f0dd38c9d) - BMPT-626 Fixed fetching remote preview for non-supported documents in classic Media Card experience
+
+### Patch Changes
+
+- [`bf98a47a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf98a47a0f) - Enhance polling strategy to limit to finite attempts with timing backoff
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

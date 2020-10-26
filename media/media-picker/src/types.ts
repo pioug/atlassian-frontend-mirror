@@ -1,4 +1,5 @@
 import { MediaClient } from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { UploadEventEmitter } from './components/component';
 import { LocalUploadConfig } from './components/types';
 import { AppProxyReactContext } from './popup/components/app';
@@ -81,6 +82,7 @@ export interface PopupConfig extends LocalUploadConfig {
   readonly singleSelect?: boolean;
   readonly plugins?: MediaPickerPlugin[];
   readonly useForgePlugins?: boolean;
+  readonly featureFlags?: MediaFeatureFlags;
 }
 
 export interface PopupConstructor {

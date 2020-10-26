@@ -68,8 +68,8 @@ const shouldMatchSnapshotFor = async (
   await page.waitFor(5000);
 
   // Wait for the ElementBrowser to be loaded on page
-  await waitForElementCount(page, "[data-testid='ElementBrowser']", 1);
-  await waitForElementCount(page, "[data-testid='ElementItems']", 1);
+  await waitForElementCount(page, "[data-testid='element-browser']", 1);
+  await waitForElementCount(page, "[data-testid='element-items']", 1);
   const image = await page.screenshot();
   expect(image).toMatchProdImageSnapshot();
 };

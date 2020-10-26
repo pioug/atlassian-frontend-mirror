@@ -6,7 +6,7 @@ import TextField from '@atlaskit/textfield';
 import { StringField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
-import { validate } from '../utils';
+import { validate, getSafeParentedName } from '../utils';
 import { OnBlur } from '../types';
 
 export default function String({
@@ -14,17 +14,19 @@ export default function String({
   autoFocus,
   onBlur,
   placeholder,
+  parentName,
 }: {
   field: StringField;
   autoFocus?: boolean;
   onBlur: OnBlur;
   placeholder?: string;
+  parentName?: string;
 }) {
   const { name, label, description, defaultValue, isRequired } = field;
 
   return (
     <Field
-      name={name}
+      name={getSafeParentedName(name, parentName)}
       label={label}
       defaultValue={defaultValue || ''}
       isRequired={isRequired}

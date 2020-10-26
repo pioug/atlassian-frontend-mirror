@@ -13,10 +13,14 @@ export interface EmojiProps extends EmojiId {
   allowTextFallback?: boolean;
   providers?: ProviderFactory;
   fitToHeight?: number;
+  showTooltip?: boolean;
 }
 
 export default class EmojiNode extends PureComponent<EmojiProps, {}> {
   static displayName = 'EmojiNode';
+  static defaultProps = {
+    showTooltip: true,
+  };
 
   private providerFactory: ProviderFactory;
 
@@ -40,6 +44,7 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
       id,
       fallback,
       fitToHeight,
+      showTooltip,
     } = this.props;
 
     if (allowTextFallback && !providers.emojiProvider) {
@@ -62,7 +67,7 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
       <ResourcedEmoji
         emojiId={{ id, fallback, shortName }}
         emojiProvider={providers.emojiProvider}
-        showTooltip={true}
+        showTooltip={showTooltip}
         fitToHeight={fitToHeight}
       />
     );

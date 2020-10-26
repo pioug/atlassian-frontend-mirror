@@ -81,4 +81,6 @@ export default {
   'fabric.media.audio': 'audio',
   'fabric.media.video': 'video',
   'fabric.media.image': 'image',
+  'fabric.media.email': 'email',
+  'fabric.media.text': 'text',
 };

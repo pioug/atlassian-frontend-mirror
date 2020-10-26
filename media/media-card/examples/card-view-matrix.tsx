@@ -10,6 +10,7 @@ import { CardAction, CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl';
+import { Y75 } from '@atlaskit/theme/colors';
 
 type WrapperDimensions = {
   width: string;
@@ -63,6 +64,7 @@ interface State {
   newCardExperience: boolean;
   useBigCard: boolean;
   shouldRenderCard: boolean;
+  withBgColorAndIcon: boolean;
 }
 
 class Example extends React.Component<{}, State> {
@@ -79,6 +81,7 @@ class Example extends React.Component<{}, State> {
     newCardExperience: true,
     useBigCard: false,
     shouldRenderCard: true,
+    withBgColorAndIcon: false,
   };
 
   render() {
@@ -187,6 +190,15 @@ class Example extends React.Component<{}, State> {
             }}
             name="useBigCard"
           />
+          {this.state.newCardExperience && (
+            <Checkbox
+              value="withBgColorAndIcon"
+              label="Highlight title box?"
+              isChecked={this.state.withBgColorAndIcon}
+              onChange={this.onCheckboxChange}
+              name="withBgColorAndIcon"
+            />
+          )}
         </CheckboxesContainer>
         <StyledTable>
           <thead>
@@ -262,6 +274,7 @@ class Example extends React.Component<{}, State> {
       hasActions,
       hasManyActions,
       isExternalImage,
+      withBgColorAndIcon,
     } = this.state;
     const actions: CardAction[] = [
       {
@@ -330,6 +343,8 @@ class Example extends React.Component<{}, State> {
           dataURI={dataURI}
           onRetry={hasRetry ? () => console.log('retrying...') : undefined}
           dimensions={dimensions}
+          titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
+          titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
         />
       </CardWrapper>
     );

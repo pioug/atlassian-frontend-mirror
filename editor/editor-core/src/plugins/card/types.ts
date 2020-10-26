@@ -1,4 +1,4 @@
-import { INPUT_METHOD } from '../analytics/types/enums';
+import { INPUT_METHOD, ACTION } from '../analytics/types/enums';
 import {
   Providers,
   CardProvider,
@@ -30,6 +30,8 @@ export type Request = {
   appearance: CardAppearance;
   compareLinkText: boolean;
   source: CardReplacementInputMethod;
+  analyticsAction?: ACTION;
+  shouldReplaceLink?: boolean;
 };
 
 export type CardPluginState = {

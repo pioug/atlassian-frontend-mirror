@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
 import classnames from 'classnames';
-import { TableMap } from 'prosemirror-tables';
-import { findTable, isTableSelected, selectTable } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import {
+  findTable,
+  isTableSelected,
+  selectTable,
+} from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { clearHoverSelection, hoverTable } from '../../../commands';

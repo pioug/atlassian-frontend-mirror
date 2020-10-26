@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import { HTMLAttributes, ComponentClass } from 'react';
+import { ComponentClass, HTMLAttributes } from 'react';
 import { B400, N200 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+
+const LINK_COLOR_DARK = '#4794FF';
 
 // By default buttons will hide overflow and ellipsis content instead of wrapping.
 // This basically turns the button back into inline content
@@ -24,7 +27,7 @@ export const IconStyledButton: ComponentClass<HTMLAttributes<{}>> = styled.span`
 `;
 
 export const NoLinkAppearance: ComponentClass<HTMLAttributes<{}>> = styled.span`
-  color: ${N200};
+  color: ${themed({ light: N200, dark: LINK_COLOR_DARK })};
 `;
 
 export const LowercaseAppearance = styled.span`
@@ -32,5 +35,5 @@ export const LowercaseAppearance = styled.span`
 `;
 
 export const LinkAppearance: ComponentClass<HTMLAttributes<{}>> = styled.span`
-  color: ${B400};
+  color: ${themed({ light: B400, dark: LINK_COLOR_DARK })};
 `;

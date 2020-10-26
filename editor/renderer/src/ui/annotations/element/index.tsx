@@ -12,7 +12,10 @@ import {
   useInlineCommentsFilter,
 } from '../hooks';
 import { InlineCommentsStateContext } from '../context';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common';
+import {
+  AnnotationUpdateEvent,
+  OnAnnotationClickPayload,
+} from '@atlaskit/editor-common';
 
 type MarkElementProps = {
   id: AnnotationId;
@@ -26,7 +29,6 @@ const MarkElement: React.FC<MarkElementProps> = ({
   children,
   dataAttributes,
   id,
-  annotationType,
 }) => {
   const updateSubscriber = useInlineCommentSubscriberContext();
   const states = useContext(InlineCommentsStateContext);
@@ -35,18 +37,20 @@ const MarkElement: React.FC<MarkElementProps> = ({
     dataAttributes,
   ]);
   const onClick = useCallback(
-    (annotationIds: AnnotationId[]) => {
+    (props: OnAnnotationClickPayload) => {
       if (!updateSubscriber) {
         return;
       }
 
-      updateSubscriber.emit(
-        AnnotationUpdateEvent.ON_ANNOTATION_CLICK,
+      const { eventTarget, annotationIds } = props;
+      updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
         annotationIds,
-      );
+        eventTarget,
+      });
     },
     [updateSubscriber],
   );
+
   const activeParentIds = useInlineCommentsFilter({
     annotationIds: annotationParentIds,
     filter: {

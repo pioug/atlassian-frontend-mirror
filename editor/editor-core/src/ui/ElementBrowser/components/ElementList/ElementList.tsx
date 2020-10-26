@@ -5,7 +5,7 @@ import { AutoSizer, Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Item from '@atlaskit/item';
-import { N20, N200 } from '@atlaskit/theme/colors';
+import { B100, N20, N200 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
@@ -23,6 +23,8 @@ import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
 import { ItemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadItemsList';
 import { Shortcut } from '../../../styles';
 import {
+  ELEMENT_ITEM_HEIGHT,
+  ELEMENT_LIST_PADDING,
   GRID_SIZE,
   SCROLLBAR_THUMB_COLOR,
   SCROLLBAR_TRACK_COLOR,
@@ -64,7 +66,6 @@ function ElementList({
     if (fullMode && containerWidth > 0) {
       setColumnCount(getColumnCount(containerWidth));
     }
-    removeCollectionTabIndex();
   }, [fullMode, containerWidth, setColumnCount]);
 
   const onExternalLinkClick = useCallback(() => {
@@ -98,7 +99,11 @@ function ElementList({
       }
 
       return (
-        <div style={style} key={key} className="element-item-wrapper">
+        <ElementItemWrapper
+          style={style}
+          key={key}
+          className="element-item-wrapper"
+        >
           <MemoizedElementItem
             inlineMode={!fullMode}
             index={index}
@@ -107,7 +112,7 @@ function ElementList({
             focus={focusedItemIndex === index}
             {...props}
           />
-        </div>
+        </ElementItemWrapper>
       );
     },
     [items, fullMode, selectedItemIndex, focusedItemIndex, props],
@@ -118,7 +123,7 @@ function ElementList({
       {!items.length ? (
         <EmptyState onExternalLinkClick={onExternalLinkClick} />
       ) : (
-        <ElementItemsWrapper tabIndex={-1} data-testid="ElementItems">
+        <ElementItemsWrapper data-testid="element-items">
           <ThemeProvider theme={theme}>
             <>
               {containerWidth > 0 && (
@@ -131,7 +136,7 @@ function ElementList({
                         containerWidth,
                       )}
                       height={height}
-                      width={containerWidth}
+                      width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
                       key={containerWidth} // Refresh Collection on WidthObserver value change.
                       scrollToCell={selectedItemIndex}
                     />
@@ -154,7 +159,7 @@ const getStyles = memoizeOne(mode => {
       boxSizing: 'border-box',
     }),
     height: {
-      default: GRID_SIZE * GRID_SIZE,
+      default: ELEMENT_ITEM_HEIGHT,
     },
     padding: {
       default: {
@@ -259,6 +264,8 @@ function ElementItem({
       innerRef={ref}
       onKeyPress={onKeyPress}
       data-testid={`element-item-${index}`}
+      tabIndex={-1}
+      style={inlineMode ? null : itemStyleOverrides}
     >
       <ItemContent
         title={title}
@@ -269,6 +276,16 @@ function ElementItem({
   );
 }
 
+/**
+ * Some properties (specified in 'BaseItem' packages/design-system/item/src/styled/Item.js) cannot be changed with
+ * ThemeProvider as they are of higher specificity.
+ *
+ * Inline mode should use the existing Align-items:center value.
+ */
+const itemStyleOverrides = {
+  alignItems: 'flex-start',
+};
+
 const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
   <StyledItemIcon>
     {icon ? icon() : <IconFallback label={title} />}
@@ -278,14 +295,16 @@ const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
 const ItemContent = memo(
   ({ title, description, keyshortcut }: Partial<QuickInsertItem>) => (
     <Tooltip content={description}>
-      <ItemBody>
+      <ItemBody className="item-body">
         <ItemText>
-          <div>{title}</div>
+          <ItemTitleWrapper>
+            <ItemTitle>{title}</ItemTitle>
+            <ItemAfter>
+              {keyshortcut && <Shortcut>{keyshortcut}</Shortcut>}
+            </ItemAfter>
+          </ItemTitleWrapper>
           {description && <ItemDescription>{description}</ItemDescription>}
         </ItemText>
-        <ItemAfter>
-          {keyshortcut && <Shortcut>{keyshortcut}</Shortcut>}
-        </ItemAfter>
       </ItemBody>
     </Tooltip>
   ),
@@ -314,13 +333,33 @@ const ElementItemsWrapper = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   overflow: hidden;
+  padding: ${ELEMENT_LIST_PADDING}px; // For Focus outline
 
   .ReactVirtualized__Collection {
     ${scrollbarStyle};
+    border-radius: 3px; // Standard border-radius across other components like Search or Item.
+    outline: none;
+
+    :focus {
+      box-shadow: 0 0 0 ${ELEMENT_LIST_PADDING}px ${B100};
+    }
   }
   .ReactVirtualized__Collection__innerScrollContainer {
     div[class='element-item-wrapper']:last-child {
       padding-bottom: 4px;
+    }
+  }
+`;
+
+const ElementItemWrapper = styled.div`
+  /**
+     * Since we are using "Item" component's content itself for description,
+     * the height of description overflows the parent container padding/margin.
+     * manually setting it to take 100% of parent.
+     */
+  span {
+    span:nth-child(2) {
+      max-height: 100%;
     }
   }
 `;
@@ -332,20 +371,45 @@ const ItemBody = styled.div`
   justify-content: space-between;
   line-height: 1.4;
   width: 100%;
+
+  margin-top: -2px; // Fixes the Item Icon and text's alignment issue
 `;
 
-const ItemDescription = styled.div`
-  white-space: nowrap;
+/*
+ * -webkit-line-clamp is also supported by firefox 🎉
+ * https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/68#CSS
+ */
+const multilineStyle = css`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
+
+const ItemDescription = styled.p`
+  ${multilineStyle};
+
   overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 11.67px;
   color: ${N200};
-  margin-top: ${GRID_SIZE / 2}px;
+  margin-top: 2px;
 `;
 
 const ItemText = styled.div`
   width: inherit;
   white-space: initial;
+`;
+
+const ItemTitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between; // Title and keyboardshortcut are rendered in the same block
+`;
+
+const ItemTitle = styled.p`
+  width: 100%;
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const ItemAfter = styled.div`
@@ -359,22 +423,6 @@ const StyledItemIcon = styled(ItemIcon)`
     object-fit: cover;
   }
 `;
-
-/**
- *
- * Internally, the Collection component has a tabIndex of 0 and we don't wanna focus on the entire Collection area,
- * so manually removing it until the below PR has been approved/merged.
- * https://product-fabric.atlassian.net/browse/ED-9919
- * https://github.com/bvaughn/react-virtualized/pull/1555
- */
-const removeCollectionTabIndex = () => {
-  const element = document.getElementsByClassName(
-    'ReactVirtualized__Collection',
-  )[0] as HTMLElement;
-  if (element && element.tabIndex !== -1) {
-    element.tabIndex = -1;
-  }
-};
 
 const MemoizedElementListWithAnalytics = memo(
   withAnalyticsContext({ component: 'ElementList' })(ElementList),

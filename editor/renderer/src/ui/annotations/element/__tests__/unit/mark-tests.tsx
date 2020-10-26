@@ -78,7 +78,11 @@ describe('Annotations/Mark', () => {
     it('should call onClick prop when clicked', async () => {
       const markWrapper = container.querySelector('mark');
       markWrapper!.click();
-      expect(onClick).toHaveBeenCalledWith([...annotationParentIds, fakeId]);
+      expect(onClick).toHaveBeenCalledWith(
+        expect.objectContaining({
+          annotationIds: [...annotationParentIds, fakeId],
+        }),
+      );
     });
   });
 

@@ -58,6 +58,7 @@ export type {
   ImageStatus,
   Params,
   UnsupportedContentPayload,
+  UnsupportedContentTooltipPayload,
 } from './utils';
 
 export {
@@ -241,3 +242,4 @@ export type {
 export { linkMessages } from './messages/link';
 
 export { validateADFEntity } from './utils/validate-using-spec';
+export type { OnAnnotationClickPayload } from './types/annotation/emitter';

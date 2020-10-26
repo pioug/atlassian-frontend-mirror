@@ -22,6 +22,7 @@ function createiOSMockBridge(): [IosBridge, Window] {
       mediaBridge: { postMessage: jest.fn() },
       renderBridge: { postMessage: jest.fn() },
       taskDecisionBridge: { postMessage: jest.fn() },
+      pageTitleBridge: { postMessage: jest.fn() },
     },
   };
   const mockWindow = ({
@@ -260,6 +261,21 @@ describe('Web To Native', () => {
           windowWithMockBridges.webkit!.messageHandlers.lifecycleBridge!
             .postMessage,
         ).toHaveBeenCalledWith({ name: 'editorDestroyed' });
+      });
+    });
+
+    describe('PageTitle bridge', () => {
+      it('should call updateTitle in native', function () {
+        const title = 'foo';
+        iosBridge.updateTitle(title);
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.pageTitleBridge
+            ?.postMessage,
+        ).toHaveBeenCalledWith({
+          name: 'updateTitle',
+          title,
+        });
       });
     });
   });

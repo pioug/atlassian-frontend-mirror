@@ -1,21 +1,23 @@
 import { Selection, Transaction } from 'prosemirror-state';
-import { CellSelection, Rect, TableMap } from 'prosemirror-tables';
+import { TableMap, Rect } from '@atlaskit/editor-tables/table-map';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
   findTable,
   getSelectionRangeInColumn,
   getSelectionRangeInRow,
   getSelectionRect,
-  isCellSelection,
-} from 'prosemirror-utils';
+  isSelectionType,
+} from '@atlaskit/editor-tables/utils';
 
 export const isSelectionUpdated = (
   oldSelection: Selection,
   newSelection?: Selection,
 ) =>
   !!(!newSelection && oldSelection) ||
-  isCellSelection(oldSelection) !== isCellSelection(newSelection!) ||
-  (isCellSelection(oldSelection) &&
-    isCellSelection(newSelection!) &&
+  isSelectionType(oldSelection, 'cell') !==
+    isSelectionType(newSelection!, 'cell') ||
+  (isSelectionType(oldSelection, 'cell') &&
+    isSelectionType(newSelection!, 'cell') &&
     oldSelection.ranges !== newSelection!.ranges);
 
 const isRectangularCellSelection = (
@@ -70,15 +72,19 @@ export const normalizeSelection = (tr: Transaction): Transaction => {
   }
 
   if (selection.isColSelection()) {
-    const { $anchor } = getSelectionRangeInColumn(rect.left)(tr);
-    const { $head } = getSelectionRangeInColumn(rect.right - 1)(tr);
-    return tr.setSelection(new CellSelection($anchor, $head) as any);
+    const $anchor = getSelectionRangeInColumn(rect.left)(tr)?.$anchor;
+    const $head = getSelectionRangeInColumn(rect.right - 1)(tr)?.$head;
+    if ($anchor && $head) {
+      return tr.setSelection(new CellSelection($anchor, $head) as any);
+    }
   }
 
   if (selection.isRowSelection()) {
-    const { $anchor } = getSelectionRangeInRow(rect.top)(tr);
-    const { $head } = getSelectionRangeInRow(rect.bottom - 1)(tr);
-    return tr.setSelection(new CellSelection($anchor, $head) as any);
+    const $anchor = getSelectionRangeInRow(rect.top)(tr)?.$anchor;
+    const $head = getSelectionRangeInRow(rect.bottom - 1)(tr)?.$head;
+    if ($anchor && $head) {
+      return tr.setSelection(new CellSelection($anchor, $head) as any);
+    }
   }
 
   return tr;

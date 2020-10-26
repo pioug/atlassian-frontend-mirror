@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "info"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "before "
+            },
+            {
+              "type": "notanemoji",
+              "attrs": {
+                "shortName": ":grinning:",
+                "id": "1f600",
+                "text": "😀"
+              }
+            },
+            {
+              "type": "text",
+              "text": " after"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

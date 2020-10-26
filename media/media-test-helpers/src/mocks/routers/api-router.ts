@@ -27,11 +27,12 @@ import {
 } from '../database';
 import { defaultBaseUrl } from '../..';
 import { createUpload } from '../database/upload';
+import { logRequest } from '../../utils/logging';
 import {
   getTextFileType,
   getFakeFileName,
   mockDataUri,
-} from '../database/mockData';
+} from '../../utils/mockData';
 import { mapDataUriToBlob } from '../../utils';
 
 class RouterWithLogging<MediaDatabaseSchema> extends Router<
@@ -61,8 +62,8 @@ class RouterWithLogging<MediaDatabaseSchema> extends Router<
         error = e;
       }
 
-      // eslint-disable-next-line no-console
-      console.log('MOCK', path, {
+      logRequest({
+        path,
         method,
         request: requestWithBodyObject,
         response: response!,

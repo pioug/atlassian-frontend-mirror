@@ -33,6 +33,7 @@ export enum ACTION_SUBJECT {
   MEDIA_SINGLE = 'mediaSingle',
   LINK = 'link',
   ANNOTATION = 'annotation',
+  BODIED_EXTENSION = 'bodiedExtension',
 }
 
 export enum ACTION_SUBJECT_ID {

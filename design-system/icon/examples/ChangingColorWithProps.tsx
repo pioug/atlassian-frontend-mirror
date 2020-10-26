@@ -2,7 +2,7 @@ import React, { Component, ComponentType } from 'react';
 import { B500, N300 } from '@atlaskit/theme/colors';
 import styled from 'styled-components';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import BookIcon from '../glyph/book';
 import ArrowUpIcon from '../glyph/arrow-up';
 import ArrowDownIcon from '../glyph/arrow-down';

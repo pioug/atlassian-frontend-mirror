@@ -8,7 +8,7 @@ import {
   addAnalytics,
 } from '../../analytics';
 import { hasValidListIndentationLevel } from '../utils/indentation';
-import { indentSelectedListItems } from '../actions';
+import { indentListItemsSelected as indentListAction } from '../actions/indent-list-items-selected';
 import { isBulletList } from '../utils/node';
 import { findFirstParentListNode } from '../utils/find';
 import { MAX_NESTED_LIST_INDENTATION } from '../types';
@@ -45,7 +45,7 @@ export function indentList(
     const actionSubjectId = isBulletList(currentListNode)
       ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
       : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
-    indentSelectedListItems(tr);
+    indentListAction(tr);
 
     const maximimunNestedLevelReached = !hasValidListIndentationLevel({
       tr,

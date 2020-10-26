@@ -34,7 +34,7 @@ export default function cellSizeAndPositionGetter(
 
     const columnPosition = index % (columnCount || 1);
 
-    const x = columnPosition * (GUTTER_SIZE + width);
+    const x = columnPosition * width;
     const y = columnYMap[columnPosition] || 0;
 
     columnYMap[columnPosition] = y + height;

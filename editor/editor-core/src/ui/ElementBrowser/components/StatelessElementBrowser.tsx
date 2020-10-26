@@ -110,7 +110,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   }, [onSelectItem, selectedItem]);
 
   return (
-    <Wrapper data-testid="ElementBrowser">
+    <Wrapper data-testid="element-browser">
       <ContainerWidthMonitor />
       {containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
         <MobileBrowser
@@ -143,7 +143,6 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   max-height: inherit;
   overflow: hidden;
 `;
@@ -196,7 +195,7 @@ function MobileBrowser({
           />
         )}
         {showCategories && (
-          <MobileCategoryListWrapper>
+          <MobileCategoryListWrapper tabIndex={-1}>
             <CategoryList
               categories={categories}
               onSelectCategory={onSelectCategory}

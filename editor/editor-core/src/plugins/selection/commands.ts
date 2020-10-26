@@ -1,8 +1,8 @@
 import { NodeSelection, TextSelection, Selection } from 'prosemirror-state';
 import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
 
-import { GapCursorSelection, Side } from '../gap-cursor';
-import { isIgnored as isIgnoredByGapCursor } from '../gap-cursor/utils/is-ignored';
+import { GapCursorSelection, Side } from './gap-cursor-selection';
+import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
 import { isNodeEmpty, isEmptyParagraph } from '../../utils/document';
 import { Command } from '../../types';
 

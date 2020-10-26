@@ -8,6 +8,7 @@ exports[`Wrapper it should have interactive styles 1`] = `
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   border-radius: 3px;
+  color: #0052CC;
   background-color: white;
   box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
   cursor: pointer;
@@ -17,18 +18,55 @@ exports[`Wrapper it should have interactive styles 1`] = `
   user-select: text;
   -webkit-transition: 0.1s all ease-in-out;
   transition: 0.1s all ease-in-out;
+  -moz-user-select: none;
 }
 
 .c0:hover {
-  background-color: #F4F5F7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
+.c0:hover background-color:function (props) {
+  -webkit-var: theme = getTheme_1.default(props);
+  -moz-var: theme = getTheme_1.default(props);
+  -ms-var: theme = getTheme_1.default(props);
+  var: theme = getTheme_1.default(props);
+  return: '';
+}
+
+.c0:hover background-color:function (props) if (theme.mode in modes) {
+  -webkit-var: value = modes[theme.mode];
+  -moz-var: value = modes[theme.mode];
+  -ms-var: value = modes[theme.mode];
+  var: value = modes[theme.mode];
+}
+
+.c0:hover background-color:function (props) if (theme.mode in modes) if (value) {
+  return: value;
+}
+
 .c0:active {
-  background-color: #DEEBFF;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c0:active background-color:function (props) {
+  -webkit-var: theme = getTheme_1.default(props);
+  -moz-var: theme = getTheme_1.default(props);
+  -ms-var: theme = getTheme_1.default(props);
+  var: theme = getTheme_1.default(props);
+  return: '';
+}
+
+.c0:active background-color:function (props) if (theme.mode in modes) {
+  -webkit-var: value = modes[theme.mode];
+  -moz-var: value = modes[theme.mode];
+  -ms-var: value = modes[theme.mode];
+  var: value = modes[theme.mode];
+}
+
+.c0:active background-color:function (props) if (theme.mode in modes) if (value) {
+  return: value;
 }
 
 .c0:focus {
@@ -64,6 +102,7 @@ exports[`Wrapper it should have selected styles 1`] = `
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   border-radius: 3px;
+  color: #0052CC;
   background-color: white;
   box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
   cursor: pointer;
@@ -75,6 +114,7 @@ exports[`Wrapper it should have selected styles 1`] = `
   user-select: none;
   -webkit-transition: 0.1s all ease-in-out;
   transition: 0.1s all ease-in-out;
+  -moz-user-select: none;
 }
 
 .c0,
@@ -98,6 +138,7 @@ exports[`Wrapper it should not have interactive or selected styles 1`] = `
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   border-radius: 3px;
+  color: #0052CC;
   background-color: white;
   box-shadow: 0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13);
   -webkit-user-select: text;
@@ -106,6 +147,7 @@ exports[`Wrapper it should not have interactive or selected styles 1`] = `
   user-select: text;
   -webkit-transition: 0.1s all ease-in-out;
   transition: 0.1s all ease-in-out;
+  -moz-user-select: none;
 }
 
 <a

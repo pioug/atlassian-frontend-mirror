@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 import { Spotlight, SpotlightManager } from '@atlaskit/onboarding';

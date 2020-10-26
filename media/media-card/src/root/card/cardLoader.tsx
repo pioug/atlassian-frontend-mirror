@@ -51,7 +51,10 @@ export default class CardLoader extends React.PureComponent<
           ),
         ]);
 
-        CardLoader.Card = mediaClient.withMediaClient(cardModule.Card);
+        CardLoader.Card = mediaClient.withMediaClient(
+          cardModule.Card,
+          this.props.featureFlags,
+        );
         CardLoader.MediaCardErrorBoundary =
           mediaCardErrorBoundaryModule.default;
 

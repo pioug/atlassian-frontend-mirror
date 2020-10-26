@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
 import { ReactWrapper } from 'enzyme';
-import { selectTable } from 'prosemirror-utils';
+import { selectTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-viewer",
-  "version": "45.3.2",
+  "version": "45.4.0",
   "description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,7 +14,6 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "af:exports": {},
   "atlassian": {
     "team": "Media Platform",
     "inPublicMirror": true,
@@ -27,14 +26,16 @@
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
+    "@atlaskit/code": "^13.1.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/icon-file-type": "^6.0.0",
-    "@atlaskit/media-client": "^11.0.0",
-    "@atlaskit/media-common": "^2.2.0",
-    "@atlaskit/media-ui": "^14.1.0",
+    "@atlaskit/media-client": "^11.1.0",
+    "@atlaskit/media-common": "^2.3.0",
+    "@atlaskit/media-ui": "^14.2.0",
     "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@kenjiuno/msgreader": "^1.2.6",
     "deep-equal": "^1.0.1",
     "exenv": "^1.2.2",
     "mime": "^2.4.6",
@@ -53,10 +54,10 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^69.4.0",
+    "@atlaskit/media-card": "^69.5.0",
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/media-integration-test-helpers": "^2.2.0",
-    "@atlaskit/media-test-helpers": "^28.2.0",
+    "@atlaskit/media-test-helpers": "^28.3.0",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -70,5 +71,6 @@
     "react-intl": "^2.6.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
-  }
+  },
+  "af:exports": {}
 }

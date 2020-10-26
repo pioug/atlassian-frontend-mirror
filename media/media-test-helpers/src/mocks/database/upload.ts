@@ -1,7 +1,7 @@
 import { MediaUpload } from '@atlaskit/media-client';
 import * as uuid from 'uuid';
 import { ChunkId } from './chunk';
-import { getFutureDate } from './mockData';
+import { getFutureDate } from '../../utils/mockData';
 
 export type Upload = MediaUpload & {
   chunks: ChunkId[];

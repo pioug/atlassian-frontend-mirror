@@ -1,5 +1,20 @@
 # @atlaskit/media-ui
 
+## 14.2.0
+
+### Minor Changes
+
+- [`73613210d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73613210d4) - Adding support for Code and Email files so that they are now able to be previewed in the viewer.
+
+### Patch Changes
+
+- [`7d5c00e638`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d5c00e638) - EDM-1252: Use viewport height rather than percentage
+- [`4b2c7ce81c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b2c7ce81c) - ED-10580: Fix duplicate i18n ids
+- [`2992f6d3d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2992f6d3d3) - Work around an issue in Firefox when copy paste smart link from renderer to editor
+- [`8aeda5d89f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aeda5d89f) - add image-orientation rule to media-image to standardise exif rotation
+- [`47ebd1cd77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47ebd1cd77) - [ux] Added dark mode colors to inline smart cards
+- Updated dependencies
+
 ## 14.1.3
 
 ### Patch Changes

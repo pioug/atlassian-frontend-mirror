@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 export type { EditorInstance } from './editor-instance';
 // eslint-disable-next-line import/no-cycle
 export type { EditorConfig } from './editor-config';

@@ -1,7 +1,9 @@
 // TODO: Move this file out of src if it is a build script
+// eslint-disable-next-line import/no-extraneous-dependencies
 import * as svgexport from 'svgexport';
 import { resolve } from 'path';
 import { writeFileSync, readFileSync } from 'fs';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import rimraf from 'rimraf';
 import imageSources from './image-sources';
 import { imageOutputType } from './constants';

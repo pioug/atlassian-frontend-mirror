@@ -1,5 +1,5 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { TableMap } from 'prosemirror-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findDomRefAtPos } from 'prosemirror-utils';
 
 import { tableNewColumnMinWidth } from '@atlaskit/editor-common';

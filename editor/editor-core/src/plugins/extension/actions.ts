@@ -23,22 +23,22 @@ import { setEditingContextToContextPanel } from './commands';
 
 import { getPluginState } from './pm-plugins/main';
 
-const resolveExtension = (
+export const buildExtensionNode = <S extends Schema>(
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
+  schema: S,
   attrs: object,
-  state: EditorState,
   content?: object,
 ) => {
-  const { schema } = state;
-
   switch (type) {
     case 'extension':
       return schema.nodes.extension.createChecked(attrs);
     case 'inlineExtension':
       return schema.nodes.inlineExtension.createChecked(attrs);
     case 'bodiedExtension':
-      return schema.nodes.bodiedExtension.create(attrs, content);
+      return schema.nodes.bodiedExtension.create(attrs, content as any);
   }
+
+  return undefined;
 };
 
 export const performNodeUpdate = (
@@ -47,7 +47,7 @@ export const performNodeUpdate = (
   content: object,
   shouldScrollIntoView: boolean,
 ) => (state: EditorState, dispatch?: CommandDispatch) => {
-  const newNode = resolveExtension(type, newAttrs, state, content);
+  const newNode = buildExtensionNode(type, state.schema, newAttrs, content);
 
   if (!newNode) {
     return;

@@ -2,7 +2,7 @@ import React, { forwardRef, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { N30 } from '@atlaskit/theme/colors';
 
 import Modal, { BodyComponentProps, ModalTransition } from '../../src';

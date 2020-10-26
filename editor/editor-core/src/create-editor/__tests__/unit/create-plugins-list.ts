@@ -18,7 +18,6 @@ const mockPlugins: { [name: string]: jest.Mock } = {
   typeAheadPlugin: jest.fn(),
   unsupportedContentPlugin: jest.fn(),
   editorDisabledPlugin: jest.fn(),
-  gapCursorPlugin: jest.fn(),
   gridPlugin: jest.fn(),
   submitEditorPlugin: jest.fn(),
   helpDialogPlugin: jest.fn(),
@@ -43,7 +42,10 @@ jest.mock('../../../plugins/placeholder', () => ({
   default: mockPlugins.placeholderPlugin,
 }));
 jest.mock('../../../plugins', () => mockPlugins);
-
+jest.mock('../../../plugins/selection', () => ({
+  __esModule: true,
+  default: mockPlugins.selectionPlugin,
+}));
 import {
   analyticsPlugin,
   tablesPlugin,
@@ -107,6 +109,14 @@ describe('createPluginsList', () => {
         headless: true,
       }),
     );
+  });
+
+  it('should add selectionPlugin with useLongPressSelection disable when appearance === "mobile"', () => {
+    createPluginsList({ appearance: 'mobile' });
+
+    expect(mockPlugins.selectionPlugin).toHaveBeenCalledWith({
+      useLongPressSelection: false,
+    });
   });
 
   it('should add mediaPlugin if media prop is provided', () => {

@@ -1,6 +1,4 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-
 import {
   doc,
   ol,
@@ -42,19 +40,37 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPredictablePlugin from '../../..';
+import blockTypePlugin from '../../../../block-type';
+import datePlugin from '../../../../date';
+import codeBlockPlugin from '../../../../code-block';
+import panelPlugin from '../../../../panel';
+import indentationPlugin from '../../../../indentation';
+import breakoutPlugin from '../../../../breakout';
+import widthPlugin from '../../../../width';
+import expandPlugin from '../../../../expand';
+import layoutPlugin from '../../../../layout';
+import textFormattingPlugin from '../../../../text-formatting';
 
 describe('lists plugin -> commands', () => {
-  const createEditor = createEditorFactory();
-
-  const createProseMirrorEditor = createProsemirrorEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }]);
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add(blockTypePlugin)
+      .add(datePlugin)
+      .add(codeBlockPlugin)
+      .add(panelPlugin)
+      .add(indentationPlugin)
+      .add(breakoutPlugin)
+      .add(widthPlugin)
+      .add(expandPlugin)
+      .add([layoutPlugin, { allowBreakout: true }])
+      .add(textFormattingPlugin);
 
-    return createProseMirrorEditor({
+    return createEditor({
       doc,
       preset,
     });
@@ -63,15 +79,9 @@ describe('lists plugin -> commands', () => {
   describe('enterKeyCommand', () => {
     it('should not outdent a list when list item has visible content', () => {
       const timestamp = Date.now();
-      const { editorView } = createEditor({
-        doc: doc(
-          ol(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp })))),
-        ),
-        editorProps: {
-          allowDate: true,
-          UNSAFE_predictableLists: true,
-        },
-      });
+      const { editorView } = editor(
+        doc(ol(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp }))))),
+      );
       enterKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -88,9 +98,7 @@ describe('lists plugin -> commands', () => {
   describe('backspaceKeyCommand', () => {
     describe('when cursor is inside nested node', () => {
       it('should not outdent a list', () => {
-        const { editorView } = createEditor({
-          doc: doc(ol(li(code_block()('{<>}text')))),
-        });
+        const { editorView } = editor(doc(ol(li(code_block()('{<>}text')))));
 
         backspaceKeyCommand(editorView.state, editorView.dispatch);
 
@@ -102,9 +110,9 @@ describe('lists plugin -> commands', () => {
 
     describe('when GapCursor is inside a listItem and before the nested codeBlock', () => {
       it('should outdent a list', () => {
-        const { editorView } = createEditor({
-          doc: doc(ol(li('{<gap|>}', code_block()('text')))),
-        });
+        const { editorView } = editor(
+          doc(ol(li('{<gap|>}', code_block()('text')))),
+        );
 
         backspaceKeyCommand(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(doc(code_block()('text')));
@@ -113,9 +121,9 @@ describe('lists plugin -> commands', () => {
 
     describe('when GapCursor is before a codeBlock and after a list', () => {
       it('should join codeBlock with the list', () => {
-        const { editorView } = createEditor({
-          doc: doc(ol(li(p('text'))), '{<gap|>}', code_block()('code')),
-        });
+        const { editorView } = editor(
+          doc(ol(li(p('text'))), '{<gap|>}', code_block()('code')),
+        );
 
         backspaceKeyCommand(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
@@ -241,13 +249,7 @@ describe('lists plugin -> commands', () => {
           },
         ],
       ])('%s', (name, { listType, content, expected }) => {
-        const { editorView } = createEditor({
-          doc: doc(content),
-          editorProps: {
-            allowIndentation: true,
-            UNSAFE_predictableLists: true,
-          },
-        });
+        const { editorView } = editor(doc(content));
 
         toggleList(
           editorView.state,
@@ -261,13 +263,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should be able to toggle ol to ul inside a panel', () => {
-      const { editorView } = createEditor({
-        doc: doc(panel()(ol(li(p('text{<>}'))))),
-        editorProps: {
-          allowPanel: true,
-          UNSAFE_predictableLists: true,
-        },
-      });
+      const { editorView } = editor(doc(panel()(ol(li(p('text{<>}'))))));
 
       toggleList(
         editorView.state,
@@ -283,13 +279,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should be able to toggle ul to ol inside a panel', () => {
-      const { editorView } = createEditor({
-        doc: doc(panel()(ul(li(p('text{<>}'))))),
-        editorProps: {
-          allowPanel: true,
-          UNSAFE_predictableLists: true,
-        },
-      });
+      const { editorView } = editor(doc(panel()(ul(li(p('text{<>}'))))));
 
       toggleList(
         editorView.state,
@@ -305,15 +295,9 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should keep breakout marks where they are valid on expands', () => {
-      const { editorView } = createEditor({
-        doc: doc(breakout({ mode: 'wide' })(expand()(p('{<>}')))),
-        editorProps: {
-          allowExpand: true,
-          allowBreakout: true,
-          appearance: 'full-page',
-          UNSAFE_predictableLists: true,
-        },
-      });
+      const { editorView } = editor(
+        doc(breakout({ mode: 'wide' })(expand()(p('{<>}')))),
+      );
 
       const { state, dispatch } = editorView;
 
@@ -331,8 +315,8 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should keep breakout marks where they are valid on layouts', () => {
-      const { editorView } = createEditor({
-        doc: doc(
+      const { editorView } = editor(
+        doc(
           breakout({ mode: 'wide' })(
             layoutSection(
               layoutColumn({ width: 50 })(p('{<>}')),
@@ -340,13 +324,7 @@ describe('lists plugin -> commands', () => {
             ),
           ),
         ),
-        editorProps: {
-          allowLayouts: true,
-          allowBreakout: true,
-          appearance: 'full-page',
-          UNSAFE_predictableLists: true,
-        },
-      });
+      );
 
       const { state, dispatch } = editorView;
 
@@ -371,12 +349,10 @@ describe('lists plugin -> commands', () => {
     });
   });
 
-  describe('Copy Paste', () => {
+  describe('Copy and paste', () => {
     it('should not create list item when text with marks is pasted', () => {
       const text = `<b>Marked Text</b> 1. item`;
-      const { editorView } = createEditor({
-        doc: doc(p('{<>}')),
-      });
+      const { editorView } = editor(doc(p('{<>}')));
 
       dispatchPasteEvent(editorView, { html: text });
       expect(editorView.state.doc).toEqualDocument(

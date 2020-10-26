@@ -5,7 +5,7 @@ import { Component, Fragment, SyntheticEvent } from 'react';
 import { jsx } from '@emotion/core';
 import throttle from 'lodash/throttle';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import StarLargeIcon from '@atlaskit/icon/glyph/star-large';
 

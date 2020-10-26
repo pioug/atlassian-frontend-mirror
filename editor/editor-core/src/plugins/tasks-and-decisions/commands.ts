@@ -29,7 +29,7 @@ import {
   INPUT_METHOD,
   USER_CONTEXT,
 } from '../analytics';
-import { GapCursorSelection } from '../gap-cursor';
+import { GapCursorSelection } from '../selection/gap-cursor-selection';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';

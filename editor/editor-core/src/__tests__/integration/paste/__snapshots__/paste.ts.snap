@@ -63,6 +63,34 @@ Object {
 }
 `;
 
+exports[`paste.ts: inline card copied from renderer and pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is an inline cardbirdman.jpg. This is end of sentence.This is an inline card",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "data": null,
+            "url": "https://inlineCardTestUrl",
+          },
+          "type": "inlineCard",
+        },
+        Object {
+          "text": ". This is end of sentence.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`paste.ts: paste tests on fullpage editor: bullet list 1`] = `
 Object {
   "content": Array [

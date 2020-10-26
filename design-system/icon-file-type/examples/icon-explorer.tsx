@@ -1,7 +1,7 @@
 import React, { Component, FormEvent, ElementType } from 'react';
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import TextField from '@atlaskit/textfield';
 
 import { metadata } from '../src';

@@ -49,4 +49,5 @@ export interface RendererProps {
   innerRef?: React.RefObject<HTMLDivElement>;
   useSpecBasedValidator?: boolean;
   allowCopyToClipboard?: boolean;
+  UNSAFE_allowCustomPanels?: boolean;
 }

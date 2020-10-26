@@ -1,5 +1,16 @@
 # @atlaskit/media-viewer
 
+## 45.4.0
+
+### Minor Changes
+
+- [`f2308ddb6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2308ddb6d) - COREX-2800 Fixed sidebar opening
+- [`73613210d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73613210d4) - Adding support for Code and Email files so that they are now able to be previewed in the viewer.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.3.2
 
 ### Patch Changes

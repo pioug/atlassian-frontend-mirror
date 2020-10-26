@@ -1,6 +1,10 @@
 // #region Imports
-import { TableMap } from 'prosemirror-tables';
-import { findTable, getCellsInColumn, getCellsInRow } from 'prosemirror-utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import {
+  findTable,
+  getCellsInColumn,
+  getCellsInRow,
+} from '@atlaskit/editor-tables/utils';
 
 import { createCommand } from '../pm-plugins/plugin-factory';
 import { Cell, CellColumnPositioning, TableDecorations } from '../types';

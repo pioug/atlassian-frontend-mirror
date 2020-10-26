@@ -69,6 +69,7 @@ describe('Layouts:', () => {
           () => page.click(layoutSelectors.column),
           '[aria-label*="Layout floating controls"]',
           1000,
+          true,
         );
       });
 

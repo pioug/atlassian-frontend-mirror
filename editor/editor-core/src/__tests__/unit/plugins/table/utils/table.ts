@@ -8,7 +8,7 @@ import {
   tr as row,
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { getCellsInRow } from 'prosemirror-utils';
+import { getCellsInRow } from '@atlaskit/editor-tables/utils';
 import { getMergedCellsPositions } from '../../../../../plugins/table/utils';
 
 describe('table utils', () => {

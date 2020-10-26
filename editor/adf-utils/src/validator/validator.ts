@@ -641,95 +641,156 @@ export function validator(
     isMark: boolean,
     errorCallback: ErrorCallback | undefined,
   ): NodeValidationResult {
-    let validatorAttrs: Record<string, any> = {};
-    let result: NodeValidationResult = { valid: true, entity: prevEntity };
-
-    const hasValidatorSpecAttrs =
+    const validatorSpecAllowsAttributes =
       validatorSpec.props && validatorSpec.props.attrs;
     if (prevEntity.attrs) {
-      if (isMark && !hasValidatorSpecAttrs) {
-        const message = errorMessageFor(
-          'redundant attributes found',
-          Object.keys(prevEntity.attrs).join(', '),
+      if (!validatorSpecAllowsAttributes) {
+        if (isMark) {
+          return handleNoAttibutesAllowedInSpecForMark(
+            prevEntity,
+            prevEntity.attrs,
+          );
+        }
+        const attrs = Object.keys(prevEntity.attrs);
+        return handleUnsupportedNodeAttributes(
+          prevEntity,
+          newEntity,
+          [],
+          attrs,
+          errorCallback,
         );
-        const errorCode: ValidationErrorType = 'REDUNDANT_ATTRIBUTES';
-        const markValidationResult = {
-          valid: true,
-          originalMark: prevEntity,
-          errorCode: errorCode,
-          message: message,
-        };
-        return {
-          valid: false,
-          marksValidationOutput: [markValidationResult],
-        };
       }
 
-      let invalidAttributesResult = invalidAttributesFor(
-        validatorSpec,
-        prevEntity,
-      );
-      let { invalidAttrs } = invalidAttributesResult;
-      validatorAttrs = invalidAttributesResult.validatorAttrs;
-
-      const attrs = Object.keys(prevEntity.attrs).filter(
-        k => !(allowPrivateAttributes && k.startsWith('__')),
-      );
-
-      const hasRedundantAttrs =
-        !validatorAttrs || !attrs.every(a => !!validatorAttrs.props[a]);
-      let hasUnsupportedAttrs = invalidAttrs.length || hasRedundantAttrs;
+      const {
+        hasUnsupportedAttrs,
+        redundantAttrs,
+        invalidAttrs,
+      } = validateAttributes(validatorSpec, prevEntity, prevEntity.attrs);
 
       if (hasUnsupportedAttrs) {
-        const redundantAttrs = attrs.filter(a => !validatorAttrs.props![a]);
-        let errorCode: ValidationErrorType = 'INVALID_ATTRIBUTES';
-        let message = errorMessageFor(
-          prevEntity.type,
-          `'attrs' validation failed`,
-        );
-        let attr: Array<string> = invalidAttrs;
-
-        if (invalidAttrs.length && hasRedundantAttrs) {
-          attr = attr.concat(redundantAttrs);
-        } else if (hasRedundantAttrs) {
-          errorCode = 'REDUNDANT_ATTRIBUTES';
-          message = errorMessageFor(
-            'redundant attributes found',
-            redundantAttrs.join(', '),
-          );
-          attr = redundantAttrs;
-        }
-
         if (isMark) {
-          const markValidationResult = {
-            valid: true,
-            originalMark: prevEntity,
-            errorCode: errorCode,
-            message: message,
-          };
-          return {
-            valid: false,
-            marksValidationOutput: [markValidationResult],
-          };
-        } else {
-          message = errorMessageFor(
-            prevEntity.type,
-            `'attrs' validation failed`,
-          );
-          errorCode = 'UNSUPPORTED_ATTRIBUTES';
-          newEntity.marks = wrapUnSupportedNodeAttributes(
+          return handleUnsupportedMarkAttributes(
             prevEntity,
-            newEntity,
-            attr,
-            errorCode,
-            message,
-            errorCallback,
+            invalidAttrs,
+            redundantAttrs,
           );
-          result = { valid: true, entity: newEntity };
         }
+        return handleUnsupportedNodeAttributes(
+          prevEntity,
+          newEntity,
+          invalidAttrs,
+          redundantAttrs,
+          errorCallback,
+        );
       }
     }
+    return { valid: true, entity: prevEntity };
+  }
+
+  function validateAttributes(
+    validatorSpec: ValidatorSpec,
+    prevEntity: ADFEntity,
+    attributes: { [name: string]: any },
+  ) {
+    const invalidAttributesResult = invalidAttributesFor(
+      validatorSpec,
+      prevEntity,
+    );
+    const { invalidAttrs } = invalidAttributesResult;
+
+    const validatorAttrs = invalidAttributesResult.validatorAttrs;
+
+    const attrs = Object.keys(attributes).filter(
+      k => !(allowPrivateAttributes && k.startsWith('__')),
+    );
+
+    const redundantAttrs = attrs.filter(a => !validatorAttrs.props![a]);
+    const hasRedundantAttrs = redundantAttrs.length > 0;
+
+    const hasUnsupportedAttrs = invalidAttrs.length || hasRedundantAttrs;
+
+    return {
+      hasUnsupportedAttrs,
+      invalidAttrs,
+      redundantAttrs,
+    };
+  }
+
+  function handleUnsupportedNodeAttributes(
+    prevEntity: ADFEntity,
+    newEntity: ADFEntity,
+    invalidAttrs: Array<string>,
+    redundantAttrs: Array<string>,
+    errorCallback: ErrorCallback | undefined,
+  ) {
+    const attr: Array<string> = invalidAttrs.concat(redundantAttrs);
+
+    let result: NodeValidationResult = { valid: true, entity: prevEntity };
+    const message = errorMessageFor(
+      prevEntity.type,
+      `'attrs' validation failed`,
+    );
+    const errorCode = 'UNSUPPORTED_ATTRIBUTES';
+    newEntity.marks = wrapUnSupportedNodeAttributes(
+      prevEntity,
+      newEntity,
+      attr,
+      errorCode,
+      message,
+      errorCallback,
+    );
+    result = { valid: true, entity: newEntity };
     return result;
+  }
+
+  function handleUnsupportedMarkAttributes(
+    prevEntity: ADFEntity,
+    invalidAttrs: Array<string>,
+    redundantAttrs: Array<string>,
+  ) {
+    let errorCode: ValidationErrorType = 'INVALID_ATTRIBUTES';
+    let message = errorMessageFor(prevEntity.type, `'attrs' validation failed`);
+    const hasRedundantAttrs = redundantAttrs.length;
+    const hasBothInvalidAndRedundantAttrs =
+      hasRedundantAttrs && invalidAttrs.length;
+    if (!hasBothInvalidAndRedundantAttrs && hasRedundantAttrs) {
+      errorCode = 'REDUNDANT_ATTRIBUTES';
+      message = errorMessageFor(
+        'redundant attributes found',
+        redundantAttrs.join(', '),
+      );
+    }
+    const markValidationResult = {
+      valid: true,
+      originalMark: prevEntity,
+      errorCode: errorCode,
+      message: message,
+    };
+    return {
+      valid: false,
+      marksValidationOutput: [markValidationResult],
+    };
+  }
+
+  function handleNoAttibutesAllowedInSpecForMark(
+    prevEntity: ADFEntity,
+    attributes: { [name: string]: any },
+  ) {
+    const message = errorMessageFor(
+      'redundant attributes found',
+      Object.keys(attributes).join(', '),
+    );
+    const errorCode: ValidationErrorType = 'REDUNDANT_ATTRIBUTES';
+    const markValidationResult = {
+      valid: true,
+      originalMark: prevEntity,
+      errorCode: errorCode,
+      message: message,
+    };
+    return {
+      valid: false,
+      marksValidationOutput: [markValidationResult],
+    };
   }
 
   function wrapUnSupportedNodeAttributes(
@@ -783,7 +844,11 @@ export function validator(
         requiredProps.reduce((acc, p) => copy(prevEntity, acc, p), newEntity);
       } else {
         if (
-          !(redundantProps.indexOf('marks') > -1 && redundantProps.length === 1)
+          !(
+            (redundantProps.indexOf('marks') > -1 ||
+              redundantProps.indexOf('attrs') > -1) &&
+            redundantProps.length === 1
+          )
         ) {
           return err(
             'REDUNDANT_PROPERTIES',

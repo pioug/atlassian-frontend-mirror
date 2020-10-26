@@ -9,8 +9,12 @@ export const getCardStatus = (
   state: CardState,
   props: CardProps,
 ): CardStatus => {
-  const { status, metadata } = state;
+  const { status, metadata, error } = state;
   const { identifier } = props;
+
+  if (error) {
+    return 'error';
+  }
 
   if (identifier.mediaItemType !== 'file') {
     return status;

@@ -2,7 +2,7 @@ import { CardAppearance } from '../../view/Card';
 
 const isJiraRoadMap = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/software\/projects\/[^\/]+?\/boards\/.*?\/roadmap\/?$/,
+    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?$/,
   );
 
 export class Transformer {

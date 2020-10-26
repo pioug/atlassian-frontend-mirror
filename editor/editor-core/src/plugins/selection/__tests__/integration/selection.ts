@@ -11,8 +11,8 @@ import {
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
-import selectionAdf from '../__fixtures__/selectable-nodes-adf.json';
-import selectionAdfNoDecisions from '../__fixtures__/selectable-nodes-no-decisions-adf.json';
+import selectionAdf from './__fixtures__/selectable-nodes-adf.json';
+import selectionAdfNoDecisions from './__fixtures__/selectable-nodes-no-decisions-adf.json';
 
 const rightArrowExpectedSelections: SelectionMatch[] = [
   // panel

@@ -19,6 +19,7 @@ export const pluginKey = new PluginKey('unsupportedContentPlugin');
 const createPlugin: PMPluginFactory = ({
   portalProviderAPI,
   eventDispatcher,
+  dispatchAnalyticsEvent,
 }) => {
   return new Plugin({
     key: pluginKey,
@@ -28,21 +29,25 @@ const createPlugin: PMPluginFactory = ({
           UnsupportedBlock,
           portalProviderAPI,
           eventDispatcher,
+          { dispatchAnalyticsEvent },
         ),
         confluenceUnsupportedInline: ReactNodeView.fromComponent(
           UnsupportedInline,
           portalProviderAPI,
           eventDispatcher,
+          { dispatchAnalyticsEvent },
         ),
         unsupportedBlock: ReactNodeView.fromComponent(
           UnsupportedBlock,
           portalProviderAPI,
           eventDispatcher,
+          { dispatchAnalyticsEvent },
         ),
         unsupportedInline: ReactNodeView.fromComponent(
           UnsupportedInline,
           portalProviderAPI,
           eventDispatcher,
+          { dispatchAnalyticsEvent },
         ),
       },
     },

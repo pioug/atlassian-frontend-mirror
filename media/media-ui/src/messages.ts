@@ -93,6 +93,8 @@ export type MessageKey =
   | 'video'
   | 'image'
   | 'archive'
+  | 'email'
+  | 'text'
   | 'search'
   | 'view'
   | 'viewIn'
@@ -130,7 +132,7 @@ export const messages = defineMessages<Messages>({
       'Used to describe the area where the user can drag and drop files to upload',
   },
   drag_and_drop_your_files_and_folders: {
-    id: 'fabric.media.drag_and_drop_your_files',
+    id: 'fabric.media.drag_and_drop_your_files_and_folders',
     defaultMessage: 'Drag and drop your files and folders anywhere or',
     description:
       'Used to describe the area where the user can drag and drop files AND folders to upload',
@@ -600,6 +602,16 @@ export const messages = defineMessages<Messages>({
   archive: {
     id: 'fabric.media.archive',
     defaultMessage: 'archive',
+    description: '',
+  },
+  email: {
+    id: 'fabric.media.email',
+    defaultMessage: 'email',
+    description: '',
+  },
+  text: {
+    id: 'fabric.media.text',
+    defaultMessage: 'text',
     description: '',
   },
   search: {

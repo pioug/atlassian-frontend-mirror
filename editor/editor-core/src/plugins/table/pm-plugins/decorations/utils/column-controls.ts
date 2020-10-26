@@ -1,6 +1,6 @@
 import { Transaction } from 'prosemirror-state';
-import { CellSelection } from 'prosemirror-tables';
-import { findTable } from 'prosemirror-utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { findTable } from '@atlaskit/editor-tables/utils';
 import { DecorationSet } from 'prosemirror-view';
 
 import { TableDecorations } from '../../../types';

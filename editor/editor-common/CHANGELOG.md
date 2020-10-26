@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 51.2.0
+
+### Minor Changes
+
+- [`848f187b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/848f187b49) - Extend CardProvider interface with findPattern
+- [`0bbaa4a976`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bbaa4a976) - ED-10553 added an option to enable analytics for synchrony entity
+
+### Patch Changes
+
+- [`4b2c7ce81c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b2c7ce81c) - ED-10580: Fix duplicate i18n ids
+- [`7895bfa4f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7895bfa4f3) - [ux] ED-10562 Update selection styles for unsupported content
+
+  Use background colour instead of blanket styling
+  Fix an issue on Safari where text inside unsupported content appeared selected when node was selected
+
+- [`ef432e6288`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef432e6288) - ED-10544: Remove type restrictions to keep api backwards compatible"
+- [`d99590d680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d99590d680) - [ux] ED-10376: added support for custom panels in renderer
+
+  - convert Panel to functional component
+  - added support for dark mode in renderer 99-testing.tsx
+
+- [`15f7b4ae78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15f7b4ae78) - [ux] ED-10433 made custom icon and color applied on a panel based on node attributes (UI change). Changes are behind UNSAFE_allowCustomPanel feature flag.
+- [`02ea8214a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ea8214a0) - EDM-1320 fixed linked image overlaps table sorting button
+- [`56fe4bb199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56fe4bb199) - TWISTA-367 Add new method for annotation bounding rect for mobile bridge renderer
+- [`3d0b51445a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d0b51445a) - ED-10544: Fix name collision between nested fields and top level fields
+- Updated dependencies
+
 ## 51.1.3
 
 ### Patch Changes

@@ -15,7 +15,7 @@ import {
 import { Identifier } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { Node as PMNode } from 'prosemirror-model';
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorView } from 'prosemirror-view';
 import React, { Component } from 'react';
 import {

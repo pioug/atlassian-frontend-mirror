@@ -1,6 +1,6 @@
 import { Transaction, EditorState, TextSelection } from 'prosemirror-state';
 import { Slice, Fragment } from 'prosemirror-model';
-import { findTable, isTableSelected } from 'prosemirror-utils';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import {
   addAnalytics,

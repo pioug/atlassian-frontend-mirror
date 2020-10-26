@@ -712,4 +712,52 @@ describe('Tooltip', () => {
       'atlaskit',
     );
   });
+  it('should have strategy as fixed by default', () => {
+    const { getByTestId } = render(
+      <Tooltip
+        testId="tooltip"
+        content="hello world"
+        position="mouse"
+        mousePosition="left"
+      >
+        <button data-testid="trigger">focus me</button>
+      </Tooltip>,
+    );
+
+    const trigger = getByTestId('trigger');
+
+    act(() => {
+      fireEvent.mouseOver(trigger);
+      jest.runAllTimers();
+    });
+
+    expect(getByTestId('tooltip').getAttribute('style')).toEqual(
+      'position: fixed; left: 0px; top: 0px;',
+    );
+  });
+
+  it('should have strategy as absolute for popper', () => {
+    const { getByTestId } = render(
+      <Tooltip
+        testId="tooltip"
+        content="hello world"
+        position="mouse"
+        mousePosition="left"
+        strategy="absolute"
+      >
+        <button data-testid="trigger">focus me</button>
+      </Tooltip>,
+    );
+
+    const trigger = getByTestId('trigger');
+
+    act(() => {
+      fireEvent.mouseOver(trigger);
+      jest.runAllTimers();
+    });
+
+    expect(getByTestId('tooltip').getAttribute('style')).toEqual(
+      'position: absolute; left: 0px; top: 0px;',
+    );
+  });
 });

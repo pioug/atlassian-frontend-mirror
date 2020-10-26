@@ -2,11 +2,13 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import { Props } from '../../ui/Renderer';
 import { selectors } from './page-objects/_renderer';
+import { ThemeModes } from '@atlaskit/theme';
 
 export type RendererPropsOverrides = { [T in keyof Props]?: Props[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
   mockInlineComments?: boolean;
+  themeMode?: ThemeModes;
 };
 
 export async function mountRenderer(

@@ -20,7 +20,10 @@ import {
 } from '../../../../plugins/media/pm-plugins/alt-text/commands';
 import { getPluginState } from '../../../../plugins/media/pm-plugins/alt-text';
 import { setGapCursorSelection } from '../../../../utils';
-import { Side, GapCursorSelection } from '../../../../plugins/gap-cursor';
+import {
+  Side,
+  GapCursorSelection,
+} from '../../../../plugins/selection/gap-cursor-selection';
 import { pmHistoryPluginKey } from '../../../../plugins/history/pm-history-types';
 import { PluginKey } from 'prosemirror-state';
 

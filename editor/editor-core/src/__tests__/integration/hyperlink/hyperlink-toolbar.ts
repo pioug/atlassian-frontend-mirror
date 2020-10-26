@@ -1,13 +1,19 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
-import { comment, fullpage, editable, linkToolbar } from '../_helpers';
+import {
+  comment,
+  fullpage,
+  basic,
+  editable,
+  linkUrlSelector,
+} from '../_helpers';
 import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 const linkText = 'https://google.com/';
 const editLinkSelector = 'button[aria-label="Edit link"]';
 const textDisplaySelector = 'input[data-testid="link-label"]';
 
-[comment, fullpage].forEach(editor => {
+[comment, fullpage, basic].forEach(editor => {
   BrowserTestCase(
     `hyperlink-toolbar.ts: Link: Empty text to display when link href is same as text`,
     {
@@ -21,9 +27,9 @@ const textDisplaySelector = 'input[data-testid="link-label"]';
       await browser.waitForSelector(editable);
 
       await browser.click(`[aria-label="${messages.link.defaultMessage}"]`);
-      await browser.waitForSelector(linkToolbar);
+      await browser.waitForSelector(linkUrlSelector);
 
-      await browser.type(linkToolbar, linkText);
+      await browser.type(linkUrlSelector, linkText);
       await browser.keys(['Return']);
       await browser.keys(['ArrowLeft', 'ArrowLeft', 'ArrowLeft']);
 

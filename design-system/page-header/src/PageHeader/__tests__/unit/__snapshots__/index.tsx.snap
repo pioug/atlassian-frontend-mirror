@@ -18,6 +18,7 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
   margin-top: 40px;
   line-height: 32px;
   margin-top: 0;
+  outline: none;
 }
 
 .c1 {

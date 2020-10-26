@@ -1,6 +1,9 @@
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const webpack = require('webpack');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const moduleResolveMapBuilder = require('@atlaskit/multi-entry-tools/module-resolve-map-builder');
 const { PORT } = require('./build/utils');
 

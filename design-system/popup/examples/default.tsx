@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 
 import Popup from '../src';

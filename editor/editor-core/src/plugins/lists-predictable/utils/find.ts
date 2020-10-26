@@ -1,4 +1,7 @@
-import { findParentNodeClosestToPos } from 'prosemirror-utils';
+import {
+  findParentNodeClosestToPos,
+  ContentNodeWithPos,
+} from 'prosemirror-utils';
 import { ResolvedPos, Node as PMNode } from 'prosemirror-model';
 import { isListNode, isListItemNode } from './node';
 
@@ -53,4 +56,32 @@ export function findFirstParentListNode($pos: ResolvedPos): PMNode | null {
   const node = $pos.doc.nodeAt(listNodePosition);
 
   return node || null;
+}
+
+export function findFirstParentListItemNode(
+  $pos: ResolvedPos,
+): {
+  pos: number;
+  node: PMNode;
+} | null {
+  const currentNode = $pos.doc.nodeAt($pos.pos);
+
+  const listItemNodePosition:
+    | ResolvedPos
+    | ContentNodeWithPos
+    | undefined = isListItemNode(currentNode)
+    ? $pos
+    : findParentNodeClosestToPos($pos, isListItemNode);
+
+  if (!listItemNodePosition || listItemNodePosition.pos === null) {
+    return null;
+  }
+
+  const node = $pos.doc.nodeAt(listItemNodePosition.pos);
+
+  if (!node) {
+    return null;
+  }
+
+  return { node: node, pos: listItemNodePosition.pos };
 }

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "mediaSingle",
+                      "attrs": {
+                        "width": 50,
+                        "layout": "center"
+                      },
+                      "content": [
+                        {
+                          "type": "media",
+                          "attrs": {
+                            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                            "type": "file",
+                            "collection": "MediaServicesSample",
+                            "width": 500,
+                            "height": 500
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

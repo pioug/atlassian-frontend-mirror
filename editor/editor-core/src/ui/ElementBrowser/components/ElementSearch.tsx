@@ -96,8 +96,8 @@ const elementAfterInputMessage = {
 
 const placeHolderMessage = {
   id: 'fabric.editor.elementbrowser.searchbar.placeholder',
-  defaultMessage: 'Type to insert',
-  description: 'Search placeholder',
+  defaultMessage: 'Search',
+  description: 'Search field placeholder',
 };
 
 const StyledShortcut = styled(Shortcut)`

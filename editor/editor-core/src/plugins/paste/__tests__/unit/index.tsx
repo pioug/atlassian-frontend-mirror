@@ -72,7 +72,10 @@ import macroPlugin, { setMacroProvider } from '../../../macro';
 import { EditorView } from 'prosemirror-view';
 import analyticsPlugin, { ACTION_SUBJECT_ID } from '../../../analytics';
 
-import { GapCursorSelection, Side } from '../../../gap-cursor';
+import {
+  GapCursorSelection,
+  Side,
+} from '../../../selection/gap-cursor-selection';
 
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import {
@@ -1492,6 +1495,9 @@ describe('paste plugins', () => {
           type: 'inlineCard',
           attrs: { url: 'https://jdog.jira-dev.com/browse/BENTO-3677' },
         }),
+      async findPattern(): Promise<boolean> {
+        return true;
+      },
     } as CardProvider);
 
     const extensionProps = (cardOptions: CardOptions = {}): PluginsOptions => {

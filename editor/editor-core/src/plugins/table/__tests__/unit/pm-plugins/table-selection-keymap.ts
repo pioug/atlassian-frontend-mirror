@@ -1,4 +1,4 @@
-import { CellSelection } from 'prosemirror-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorView } from 'prosemirror-view';
 import { PluginKey } from 'prosemirror-state';
 
@@ -18,7 +18,6 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
-import gapCursorPlugin from '../../../../gap-cursor';
 import selectionPlugin from '../../../../selection';
 import panelPlugin from '../../../../panel';
 import codeBlockPlugin from '../../../../code-block';
@@ -30,7 +29,6 @@ describe('table selection keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
-    .add(gapCursorPlugin)
     .add(tablePlugin)
     .add(panelPlugin)
     .add(codeBlockPlugin);

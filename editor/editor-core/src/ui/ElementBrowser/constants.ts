@@ -28,6 +28,8 @@ export const SCROLLBAR_WIDTH = GRID_SIZE;
 export const SCROLLBAR_THUMB_COLOR = '#eeeeee';
 export const SCROLLBAR_TRACK_COLOR = 'rgba(255, 255, 255, 0)';
 
+export const ELEMENT_LIST_PADDING = 2;
+
 export const MODAL_WRAPPER_PADDING = 16;
 
-export const ELEMENT_ITEM_HEIGHT = 64;
+export const ELEMENT_ITEM_HEIGHT = 75;

@@ -214,6 +214,42 @@ describe('annotation', () => {
       const annotations = getAllAnnotations(testDoc);
       expect(annotations).toEqual(['alpaca']);
     });
+
+    it('annotations with invalid data', () => {
+      const testDoc = doc(
+        p(
+          'text',
+          annotation({
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            id: 'null',
+          })('text-alpaca-1'),
+        ),
+        p(
+          'text',
+          annotation({
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            id: 'undefined',
+          })('text-alpaca-2'),
+        ),
+        p(
+          'text',
+          annotation({
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            id: 'test',
+          })('test-annotation-2'),
+        ),
+        p(
+          'text',
+          annotation({
+            annotationType: 'unknown' as AnnotationTypes,
+            id: 'test2',
+          })('test-annotation-3'),
+        ),
+      )(defaultSchema);
+
+      const annotations = getAllAnnotations(testDoc);
+      expect(annotations).toEqual(['test']);
+    });
   });
 
   describe('addDraftDecoration', () => {

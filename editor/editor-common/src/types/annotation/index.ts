@@ -63,6 +63,11 @@ export type InlineCommentViewComponentProps = {
    */
   annotations: Array<AnnotationInfo>;
 
+  /**
+   * eventTarget of the tapped annotation. Useful for UI positioning.
+   */
+  clickElementTarget?: HTMLElement;
+
   deleteAnnotation: (annotationInfo: AnnotationInfo) => ActionResult;
 };
 

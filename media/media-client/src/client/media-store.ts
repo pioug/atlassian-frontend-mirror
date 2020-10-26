@@ -4,6 +4,7 @@ import {
   ClientAltBasedAuth,
   MediaApiConfig,
 } from '@atlaskit/media-core';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   MediaFile,
   MediaCollectionItems,
@@ -51,7 +52,10 @@ const jsonHeaders = {
 };
 
 export class MediaStore {
-  constructor(private readonly config: MediaApiConfig) {}
+  constructor(
+    private readonly config: MediaApiConfig,
+    readonly featureFlags?: MediaFeatureFlags,
+  ) {}
 
   async getCollectionItems(
     collectionName: string,

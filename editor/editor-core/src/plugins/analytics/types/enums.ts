@@ -66,6 +66,8 @@ export enum ACTION {
   VISITED = 'visited',
   WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
   SYNCHRONY_ERROR = 'synchronyError',
+  SYNCHRONY_DISCONNECTED = 'synchronyDisconnected',
+  SYNCHRONY_ENTITY_ERROR = 'synchronyEntityError',
   LIST_ITEM_JOINED = 'listItemJoined',
   INDENTED = 'indented',
   OUTDENTED = 'outdented',

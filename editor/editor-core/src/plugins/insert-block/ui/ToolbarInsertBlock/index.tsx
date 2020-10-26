@@ -2,20 +2,12 @@ import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
-import styled, { ThemeProvider } from 'styled-components';
-import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
-
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
-import Item, { itemThemeNamespace } from '@atlaskit/item';
 import { Popup } from '@atlaskit/editor-common';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import InsertMenu from '../../../../ui/ElementBrowser/InsertMenu';
 import { Separator, ButtonGroup, Wrapper } from '../../../../ui/styles';
 import { createTable } from '../../../table/commands';
 import { insertDate, openDatePicker } from '../../../date/actions';
@@ -38,7 +30,10 @@ import {
 } from '../../../analytics';
 import { insertEmoji } from '../../../emoji/commands/insert-emoji';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
-import { convertMenuToQuickInsertItem, OnInsert } from './item';
+
+import InsertMenu from '../../../../ui/ElementBrowser/InsertMenu';
+import { OnInsert } from '../../../../ui/ElementBrowser/types';
+
 import { messages } from './messages';
 import { Props, State, TOOLBAR_MENU_TYPE } from './types';
 import { createItems, BlockMenuItem } from './create-items';
@@ -98,6 +93,7 @@ class ToolbarInsertBlock extends React.PureComponent<
       schema: props.editorView.state.schema,
       numberOfButtons: props.buttons,
       formatMessage: props.intl.formatMessage,
+      isNewMenuEnabled: props.replacePlusMenuWithElementBrowser,
     });
 
     return {
@@ -251,18 +247,6 @@ class ToolbarInsertBlock extends React.PureComponent<
     );
   }
 
-  private onInsertMenuViewMoreKeyPress = (
-    e: React.KeyboardEvent,
-    item: any,
-  ) => {
-    const SPACE_KEY = 32;
-    const ENTER_KEY = 13;
-
-    if (e.which === ENTER_KEY || e.which === SPACE_KEY) {
-      this.insertInsertMenuItem({ item });
-    }
-  };
-
   private getElementBrowserForInsertMenu() {
     const { isPlusMenuOpen, dropdownItems } = this.state;
     const {
@@ -279,12 +263,6 @@ class ToolbarInsertBlock extends React.PureComponent<
 
     const spacing = isReducedSpacing ? 'none' : 'default';
 
-    const quickInsertDropdownItems: QuickInsertItem[] = dropdownItems.map(
-      convertMenuToQuickInsertItem(this.insertInsertMenuItem as OnInsert),
-    );
-
-    const viewMoreItem = quickInsertDropdownItems.pop() as QuickInsertItem;
-
     return (
       <>
         {isPlusMenuOpen && (
@@ -297,26 +275,12 @@ class ToolbarInsertBlock extends React.PureComponent<
             boundariesElement={popupsBoundariesElement}
             scrollableElement={popupsScrollableElement}
           >
-            <InsertMenuWrapper>
-              <InsertMenu
-                editorView={editorView}
-                quickInsertDropdownItems={quickInsertDropdownItems}
-                onClose={this.togglePlusMenuVisibility}
-              />
-              <ThemeProvider theme={insertMenuViewMoreItemTheme}>
-                <Item
-                  onClick={viewMoreItem.action}
-                  elemBefore={<ItemBefore>{viewMoreItem.icon!()}</ItemBefore>}
-                  aria-describedby={viewMoreItem.title}
-                  data-testid={`element-item-${viewMoreItem.title}`}
-                  onKeyPress={(e: React.KeyboardEvent) =>
-                    this.onInsertMenuViewMoreKeyPress(e, viewMoreItem)
-                  }
-                >
-                  {viewMoreItem.title}
-                </Item>
-              </ThemeProvider>
-            </InsertMenuWrapper>
+            <InsertMenu
+              editorView={editorView}
+              dropdownItems={dropdownItems}
+              onInsert={this.insertInsertMenuItem as OnInsert}
+              toggleVisiblity={this.togglePlusMenuVisibility}
+            />
           </Popup>
         )}
         <DropDownButton
@@ -679,37 +643,5 @@ class ToolbarInsertBlock extends React.PureComponent<
       inputMethod: INPUT_METHOD.INSERT_MENU,
     });
 }
-
-const InsertMenuWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  background-color: ${themed({ light: N0, dark: DN50 })()};
-  border-radius: ${borderRadius()}px;
-  box-shadow: 0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A};
-`;
-
-const ItemBefore = styled.div`
-  width: 40px;
-  height: 40px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const PADDING_LEFT = 12;
-const HEIGHT = 40;
-
-const insertMenuViewMoreItemTheme = {
-  [itemThemeNamespace]: {
-    padding: {
-      default: {
-        left: PADDING_LEFT,
-      },
-    },
-    height: HEIGHT,
-  },
-};
 
 export default injectIntl(ToolbarInsertBlock);

@@ -1,6 +1,6 @@
 import React, { Component, SyntheticEvent } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import Drawer from '../src';
 

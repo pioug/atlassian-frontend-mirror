@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import LoadingButton from '@atlaskit/button/loading-button';
 import TextField from '@atlaskit/textfield';
 
 import Form, {
@@ -130,13 +130,13 @@ export default class extends Component<{}> {
                 )}
               </Field>
               <FormFooter>
-                <Button
+                <LoadingButton
                   appearance="primary"
                   type="submit"
                   isLoading={submitting}
                 >
                   Create account
-                </Button>
+                </LoadingButton>
               </FormFooter>
             </form>
           )}

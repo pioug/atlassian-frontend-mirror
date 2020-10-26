@@ -6,12 +6,13 @@ import {
   hideControlsClassName,
   InactivityDetector,
 } from '@atlaskit/media-ui';
-import { CloseButtonWrapper } from './styled';
+import { CloseButtonWrapper, ContentWrapper } from './styled';
 import { WithShowControlMethodProp } from '@atlaskit/media-ui';
 
 export interface ContentProps {
   onClose?: () => void;
   children: ReactElement<WithShowControlMethodProp>;
+  isSidebarVisible?: boolean;
 }
 
 export class Content extends Component<ContentProps> {
@@ -20,28 +21,30 @@ export class Content extends Component<ContentProps> {
    * pass down as "showControls" to out children.
    */
   render() {
-    const { onClose } = this.props;
+    const { onClose, isSidebarVisible } = this.props;
 
     return (
-      <InactivityDetector>
-        {triggerActivityCallback => {
-          const children = React.cloneElement(this.props.children, {
-            showControls: triggerActivityCallback,
-          });
-          return (
-            <>
-              <CloseButtonWrapper className={hideControlsClassName}>
-                <MediaButton
-                  testId="media-viewer-close-button"
-                  onClick={onClose}
-                  iconBefore={<CrossIcon label="Close" />}
-                />
-              </CloseButtonWrapper>
-              {children}
-            </>
-          );
-        }}
-      </InactivityDetector>
+      <ContentWrapper isSidebarVisible={isSidebarVisible}>
+        <InactivityDetector>
+          {triggerActivityCallback => {
+            const children = React.cloneElement(this.props.children, {
+              showControls: triggerActivityCallback,
+            });
+            return (
+              <>
+                <CloseButtonWrapper className={hideControlsClassName}>
+                  <MediaButton
+                    testId="media-viewer-close-button"
+                    onClick={onClose}
+                    iconBefore={<CrossIcon label="Close" />}
+                  />
+                </CloseButtonWrapper>
+                {children}
+              </>
+            );
+          }}
+        </InactivityDetector>
+      </ContentWrapper>
     );
   }
 }

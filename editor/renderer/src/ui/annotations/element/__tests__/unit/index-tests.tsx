@@ -43,11 +43,14 @@ describe('Annotations/Mark', () => {
 
       expect(onClick).toBeDefined();
 
-      const ids = ['lol'];
-      onClick(ids);
+      const annotationIds = ['lol'];
+      onClick({ annotationIds, eventTarget: testRenderer });
       expect(updateSubscriberFake.emit).toHaveBeenCalledWith(
         AnnotationUpdateEvent.ON_ANNOTATION_CLICK,
-        ids,
+        {
+          annotationIds,
+          eventTarget: testRenderer,
+        },
       );
     });
   });

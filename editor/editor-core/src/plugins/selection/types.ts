@@ -2,6 +2,7 @@ import { PluginKey, Selection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 
 export const selectionPluginKey = new PluginKey('selection');
+export const gapCursorPluginKey = new PluginKey('gapCursorPlugin');
 
 export enum RelativeSelectionPos {
   Before = 'Before',

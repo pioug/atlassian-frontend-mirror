@@ -17,6 +17,7 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more':
     'aggiungi altre persone...',
   'fabric.elements.user-picker.single.clear': 'Svuota',
+  'fabric.elements.user-picker.team.member.50plus': 'Oltre 50 membri',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Oltre 50 membri, te compreso',
   'fabric.elements.user-picker.team.member.count':

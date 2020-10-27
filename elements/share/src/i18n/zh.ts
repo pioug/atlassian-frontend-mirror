@@ -11,6 +11,7 @@ export default {
   'fabric.elements.share.copied.to.clipboard.message': '链接已复制到剪贴板',
   'fabric.elements.share.copylink.button.icon.label': '复制链接图标',
   'fabric.elements.share.copylink.button.text': '复制链接',
+  'fabric.elements.share.copypubliclink.button.text': '复制公共链接',
   'fabric.elements.share.failure.icon.label': '错误图标',
   'fabric.elements.share.failure.message': '无法共享',
   'fabric.elements.share.form.comment.placeholder': '添加消息',
@@ -18,6 +19,7 @@ export default {
     '将向没有访问权限的人发送加入邀请',
   'fabric.elements.share.form.info.message.pending.invite':
     '您的邀请将发送到管理员处进行审批',
+  'fabric.elements.share.form.public.send': '发送公共链接',
   'fabric.elements.share.form.retry': '重试',
   'fabric.elements.share.form.send': '发送',
   'fabric.elements.share.form.title': '共享',

@@ -15,6 +15,8 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     'Symbol für Link kopieren',
   'fabric.elements.share.copylink.button.text': 'Link kopieren',
+  'fabric.elements.share.copypubliclink.button.text':
+    'Öffentlichen Link kopieren',
   'fabric.elements.share.failure.icon.label': 'Fehler-Symbol',
   'fabric.elements.share.failure.message': 'Teilen nicht möglich',
   'fabric.elements.share.form.comment.placeholder': 'Nachricht hinzufügen',
@@ -22,6 +24,7 @@ export default {
     'Personen ohne Zugangsrechte erhalten eine Einladung, um beizutreten.',
   'fabric.elements.share.form.info.message.pending.invite':
     'Ihre Einladung wird zur Genehmigung an einen Administrator gesendet.',
+  'fabric.elements.share.form.public.send': 'Öffentlichen Link senden',
   'fabric.elements.share.form.retry': 'Erneut versuchen',
   'fabric.elements.share.form.send': 'Senden',
   'fabric.elements.share.form.title': 'Teilen',

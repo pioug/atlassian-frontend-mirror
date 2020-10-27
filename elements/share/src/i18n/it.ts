@@ -14,6 +14,7 @@ export default {
     'Link copiato negli appunti',
   'fabric.elements.share.copylink.button.icon.label': 'Icona Copia link',
   'fabric.elements.share.copylink.button.text': 'Copia link',
+  'fabric.elements.share.copypubliclink.button.text': 'Copia link pubblico',
   'fabric.elements.share.failure.icon.label': 'Icona Errore',
   'fabric.elements.share.failure.message':
     'Impossibile effettuare la condivisione',
@@ -22,6 +23,7 @@ export default {
     'Le persone senza accesso riceveranno un invito a partecipare',
   'fabric.elements.share.form.info.message.pending.invite':
     'Il tuo invito verrà mandato a un amministratore per l’approvazione',
+  'fabric.elements.share.form.public.send': 'Invia link pubblico',
   'fabric.elements.share.form.retry': 'Riprova',
   'fabric.elements.share.form.send': 'Invia',
   'fabric.elements.share.form.title': 'Condividi',

@@ -22,143 +22,161 @@
 
 ### Major Changes
 
-- [`f75fedbf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75fedbf16) - In this version we made button dramatically faster and lighter and improved buttons internal spacing 🤩
+[`f75fedbf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75fedbf16) - In this version we made button dramatically faster and lighter and improved buttons internal spacing 🤩
 
-  There are now 3 button variants. We highly recommend you only install button through entry points to ensure minimum kbs. Our codemod will automatically shift you over to the entry point format
+There are now 3 button variants. We highly recommend you only install button through entry points to ensure minimum kbs. Our codemod will automatically shift you over to the entry point format
 
-  ```js
-  // button variants
-  import Button from '@atlaskit/button/standard-button';
-  import LoadingButton from '@atlaskit/button/loading-button';
-  import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+```js
+// button variants
+import Button from '@atlaskit/button/standard-button';
+import LoadingButton from '@atlaskit/button/loading-button';
+import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 
-  // other entry points
-  import ButtonGroup from '@atlaskit/button/button-group';
-  import { CustomThemeButtonProps } from '@atlaskit/button/types';
-  ```
+// other entry points
+import ButtonGroup from '@atlaskit/button/button-group';
+import { CustomThemeButtonProps } from '@atlaskit/button/types';
+```
 
-  ### Spacing changes
+### Spacing changes
 
-  We have made some intentional changes to button spacing:
+We have made some intentional changes to button spacing:
 
-  - There is now a smaller gap between button text and icons (`8px` → `4px`). This makes a buttons text and icon feel more connected
-  - Icon only buttons are now square, rather than _almost_ being square (`36px` x `32px` → `32px` x `32px`)
+- There is now a smaller gap between button text and icons (`8px` → `4px`). This makes a buttons text and icon feel more connected
+- Icon only buttons are now square, rather than _almost_ being square (`36px` x `32px` → `32px` x `32px`)
 
-  ### 1 → 3 button variants
+### 1 → 3 button variants
 
-  `<Button/>` as we know and love it today, has been split into three variants so that consumers only pay for the features that they use
+`<Button/>` as we know and love it today, has been split into three variants so that consumers only pay for the features that they use
 
-  1. **Standard button (`<Button/>`)**: The standard button that is as fast as possible which is for most usages
+1. **Standard button (`<Button/>`)**: The standard button that is as fast as possible which is for most usages
 
-  - ✅ Supports the existing (discouraged) `GlobalTheme` dark mode pattern
+- ✅ Supports the existing (discouraged) `GlobalTheme` dark mode pattern
 
-  2. **Loading button (`<LoadingButton/>`)**: A small wrapper around `<Button/>` that allows you to show a `@atlaskit/spinner` as an overlay on the button when you set an `isLoading` prop to `true`
+2. **Loading button (`<LoadingButton/>`)**: A small wrapper around `<Button/>` that allows you to show a `@atlaskit/spinner` as an overlay on the button when you set an `isLoading` prop to `true`
 
-  - ✅ Supports the existing (discouraged) `GlobalTheme` dark mode pattern
+- ✅ Supports the existing (discouraged) `GlobalTheme` dark mode pattern
 
-  3. **Custom theme button (`<CustomThemeButton/>`)**: This is a 1:1 of what `<Button/>` was previously
+3. **Custom theme button (`<CustomThemeButton/>`)**: This is a 1:1 of what `<Button/>` was previously
 
-  - ✅ Supports the same `isLoading` behavior as `<LoadingButton/>`
-  - ✅ Supports our (discouraged) experimental component theming API. This API has been identified as a performance problem
-  - ✅ Supports the existing (discouraged) `GlobalTheme` dark mode pattern
+- ✅ Supports the same `isLoading` behavior as `<LoadingButton/>`
+- ✅ Supports our (discouraged) experimental component theming API. This API has been identified as a performance problem
+- ✅ Supports the existing (discouraged) `GlobalTheme` dark mode pattern
 
-  ### Installing
+### Installing
 
-  **All of the variants are all available through separate entry points to ensure minimum bundle size**
+**All of the variants are all available through separate entry points to ensure minimum bundle size**
 
-  ```js
-  import Button from '@atlaskit/button/standard-button';
-  import LoadingButton from '@atlaskit/button/loading-button';
-  import CustomThemeButton from '@atlaskit/button/custom-theme-button';
-  ```
+```js
+import Button from '@atlaskit/button/standard-button';
+import LoadingButton from '@atlaskit/button/loading-button';
+import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+```
 
-  You can also import them all from the root entry point if you like! Heads up though, **if your bundler does not support tree shaking then you will not get the minimum possible bundle size**
+You can also import them all from the root entry point if you like! Heads up though, **if your bundler does not support tree shaking then you will not get the minimum possible bundle size**
 
-  ```js
-  import Button, { LoadingButton, CustomThemeButton } from '@atlaskit/button';
-  ```
+We have a **automated codemod** you can run to perform many upgrade processes for you. It comes in two flavours:
 
-  ### Change: default export
+- `optimistic-15.0.0-lite-mode.ts`: An "optimistic" codemod that moves your buttons to the correct version based on the props you've provided. If you use the `isLoading` prop, it will change the import to use `loading-button`. If you use `theme` prop, imports to `custom-theme-button` will be used. If you have a ThemeProvider above your buttons in the React tree the optimistic codemod can't tell, and this could lead to regressions. Use this codemod with care!
+- `15.0.0-lite-mode.ts`: If you wrap your application in a ThemeProvider, you can use this "safe" codemod to change all usages of button to the `custom-theme-button`.
 
-  Previously the default export of the button package was a button that supported `theme`
+**Running the codemod cli**
 
-  ```js
-  import Button from '@atlaskit/button';
-  ```
+To run the codemod: **You first need to have the latest version of button installed before you can run the codemod**
 
-  Now the default export is our 'standard button' which does not support the `theme` prop.
+`yarn upgrade @atlaskit/button@^15.0.0`
 
-  Don't worry though, our codemode will automatically move all your usages of button over to `CustomThemeButton` so your version of button won't be changing during an upgrade
+Once upgraded, use the Atlaskit codemod-cli;
 
-  ```js
-  // before codemod
-  import Button from '@atlaskit/button';
+`npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
 
-  // after codemod
-  import Button from '@atlaskit/button/custom-theme-button';
-  ```
+Or run `npx @atlaskit/codemod-cli -h` for more details on usage.
+For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
 
-  ### Improved behaviour: disabled buttons
+```js
+import Button, { LoadingButton, CustomThemeButton } from '@atlaskit/button';
+```
 
-  Previously disabled buttons had fairly simple behaviour. They would call `event.stopPropagation()` on an inner element in the _bubble_ phase. This would prevent `onClick` handlers from being called, but not other event types.
+### Change: default export
 
-  We have invested a lot of effort to make a more robust disabled button experience regardless of element type.
+Previously the default export of the button package was a button that supported `theme`
 
-  #### New disabled button approach
+```js
+import Button from '@atlaskit/button';
+```
 
-  A disabled `<button>` is a native HTML concept, but disabled is not a native concept for other element types such as `<a>` and `<span>`.
+Now the default export is our 'standard button' which does not support the `theme` prop.
 
-  The behavior of a disabled `<button>` is imitated as much as possible regardless of element type.
+Don't worry if you do use the theming API – our codemods will help move your usages to the correct version.
 
-  A disabled `<button>` will not fire any user events. We imitate this by:
+```js
+// before codemod
+import Button from '@atlaskit/button';
 
-  - Applying `pointer-events: none` to all children elements of the button element. This prevents inner elements publishing events.
-  - Calling `event.preventDefault()` and `event.stopPropagation()` in the [capture phase](https://javascript.info/bubbling-and-capturing) for the following events: `'mousedown'`,`'mouseup'`, `'keydown'`, `'keyup'`, `'touchstart'`, `'touchend'`, `'pointerdown'`, `'pointerup'`, and `'click`'. This prevents the event performing its default browser behavior and stops the event from proceeding to the bubble phase.
-  - Not calling provided bubble and capture event listeners.
+// after codemod
+import Button from '@atlaskit/button/custom-theme-button';
+```
 
-  For a disabled button we also set `tabIndex={-1}`, and if the element has focus, we call `element.blur()`.
+### Improved behaviour: disabled buttons
 
-  ### New prop: `overlay` (Standard button only)
+Previously disabled buttons had fairly simple behaviour. They would call `event.stopPropagation()` on an inner element in the _bubble_ phase. This would prevent `onClick` handlers from being called, but not other event types.
 
-  The `overlay` prop allows you to render a `React.ReactNode` over the top of the content inside of a button. This prop is only available for the standard button. `LoadingButton` and `CustomThemeButton` use the `overlay` prop for displaying a `@atlaskit/spinner` as needed.
+We have invested a lot of effort to make a more robust disabled button experience regardless of element type.
 
-  ### Improved behavior: overlays
+#### New disabled button approach
 
-  When an overlay is being used (such as for a `@atlaskit/spinner` for `LoadingButton`), then these changes are applied:
+A disabled `<button>` is a native HTML concept, but disabled is not a native concept for other element types such as `<a>` and `<span>`.
 
-  - block events as if it is disabled
-  - won’t lose focus automatically when the overlay is shown (unlike when it is disabled, where the focus is lost)
-  - allows focus to be given and removed from the element
-  - won't show `:active` and `:hover` styles (otherwise keeps the same visual and cursor experience as if it did not have an overlay)
+The behavior of a disabled `<button>` is imitated as much as possible regardless of element type.
 
-  Previously, when an overlay was used, the button simply applied `pointer-events: none` to the button content. This approach had a number of shortcomings.
+A disabled `<button>` will not fire any user events. We imitate this by:
 
-  ### Other changes
+- Applying `pointer-events: none` to all children elements of the button element. This prevents inner elements publishing events.
+- Calling `event.preventDefault()` and `event.stopPropagation()` in the [capture phase](https://javascript.info/bubbling-and-capturing) for the following events: `'mousedown'`,`'mouseup'`, `'keydown'`, `'keyup'`, `'touchstart'`, `'touchend'`, `'pointerdown'`, `'pointerup'`, and `'click`'. This prevents the event performing its default browser behavior and stops the event from proceeding to the bubble phase.
+- Not calling provided bubble and capture event listeners.
 
-  - Adding `font-family: inherit` style rule. Recently, Chrome decided to add `font-family: arial` to the default `<button>` style rules. We fixed this issue by releasing a patch version of `@atlaskit/css-reset`. We have now added the fix into this package as well
-  - Renaming the `ButtonAppearance` `type` to `Appearance` (the codemod will safely upgrade usages)
-  - Documentation cleanup
-  - Examples cleanup
+For a disabled button we also set `tabIndex={-1}`, and if the element has focus, we call `element.blur()`.
 
-  ## Automatic upgrading
+### New prop: `overlay` (Standard button only)
 
-  We have created some tooling to automatically upgrade your usage of Button!
+The `overlay` prop allows you to render a `React.ReactNode` over the top of the content inside of a button. This prop is only available for the standard button. `LoadingButton` and `CustomThemeButton` use the `overlay` prop for displaying a `@atlaskit/spinner` as needed.
 
-  ```
-  # You first need to have the latest button installed before you can run the codemod
-  yarn add @atlaskit/button@^15.0.0
+### Improved behavior: overlays
 
-  # Run the codemod cli
-  # Pass in a parser for your codebase
-  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
-  ```
+When an overlay is being used (such as for a `@atlaskit/spinner` for `LoadingButton`), then these changes are applied:
 
-  We have created **two** different codemods for you to choose from:
+- block events as if it is disabled
+- won’t lose focus automatically when the overlay is shown (unlike when it is disabled, where the focus is lost)
+- allows focus to be given and removed from the element
+- won't show `:active` and `:hover` styles (otherwise keeps the same visual and cursor experience as if it did not have an overlay)
 
-  1. **Safe codemod**: This codemod will shift everything over to `CustomThemeButton` which is a 1:1 of what exists today. This is super safe and you don’t need to do anything but sit back and enjoy. You get some nice performance wins for just doing this. You can then opportunistically move to the other `button` variants at your future convenience.
-  2. **Optimistic codemod**: The codemod will try it’s hardest to move to the best `button` variant in a module based on usage. This is pretty tricky because we are splitting one thing into three. It can also be a bit dangerous because technically you can use a `ButtonTheme.Provider` higher in the React tree and all buttons will pick up that theme. The codemod cannot know about that nuance. This codemod will add comments to any files where it thinks you will need to make a decision and also point out when you might run into any `ButtonTheme.Provider` issues.
+Previously, when an overlay was used, the button simply applied `pointer-events: none` to the button content. This approach had a number of shortcomings.
 
-  _When you use `@atlaskit/codemod-cli` you will be able to select which codemod you want to run_
+### Other changes
+
+- Adding `font-family: inherit` style rule. Recently, Chrome decided to add `font-family: arial` to the default `<button>` style rules. We fixed this issue by releasing a patch version of `@atlaskit/css-reset`. We have now added the fix into this package as well
+- Renaming the `ButtonAppearance` `type` to `Appearance` (the codemod will safely upgrade usages)
+- Documentation cleanup
+- Examples cleanup
+
+## Automatic upgrading
+
+We have created some tooling to automatically upgrade your usage of Button!
+
+```
+# You first need to have the latest button installed before you can run the codemod
+yarn add @atlaskit/button@^15.0.0
+
+# Run the codemod cli
+# Pass in a parser for your codebase
+npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+```
+
+We have created **two** different codemods for you to choose from:
+
+1. **Safe codemod**: This codemod will shift everything over to `CustomThemeButton` which is a 1:1 of what exists today. This is super safe and you don’t need to do anything but sit back and enjoy. You get some nice performance wins for just doing this. You can then opportunistically move to the other `button` variants at your future convenience.
+2. **Optimistic codemod**: The codemod will try it’s hardest to move to the best `button` variant in a module based on usage. This is pretty tricky because we are splitting one thing into three. It can also be a bit dangerous because technically you can use a `ButtonTheme.Provider` higher in the React tree and all buttons will pick up that theme. The codemod cannot know about that nuance. This codemod will add comments to any files where it thinks you will need to make a decision and also point out when you might run into any `ButtonTheme.Provider` issues.
+
+_When you use `@atlaskit/codemod-cli` you will be able to select which codemod you want to run_
 
 ### Patch Changes
 

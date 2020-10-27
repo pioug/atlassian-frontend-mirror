@@ -18,6 +18,7 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more':
     'weitere Personen hinzufügen …',
   'fabric.elements.user-picker.single.clear': 'Löschen',
+  'fabric.elements.user-picker.team.member.50plus': 'Über 50 Mitglieder',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Über 50 Mitglieder, einschließlich Ihnen',
   'fabric.elements.user-picker.team.member.count':

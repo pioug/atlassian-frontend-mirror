@@ -19,8 +19,6 @@ export default {
     'Несколько людей и один робот уже всё чинят.',
   'fabric.atlassianSwitcher.errorText':
     'Мы стараемся отслеживать все ошибки. Если обновление страницы не поможет, обязательно сообщите нам об этом.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Чтобы использовать переключатель продуктов Atlassian, выполните вход повторно.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Не удалось загрузить список. Обновите страницу и повторите попытку.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -29,6 +27,8 @@ export default {
     'Совместная работа с документами — до 10 пользователей бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'ИТ-сервис и служба поддержки клиентов — до 3 агентов бесплатно',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Управление ИТ-услугами с поддержкой совместной работы. До 3 агентов — бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Отслеживание проектов и задач — до 10 пользователей бесплатно',
   'fabric.atlassianSwitcher.jiraProject': 'Проект Jira',
@@ -40,6 +40,8 @@ export default {
     'Совместная работа над документами',
   'fabric.atlassianSwitcher.product.description.jsd':
     'ИТ-поддержка и обслуживание клиентов',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Управление ИТ-услугами с поддержкой совместной работы',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Отслеживание задач и проектов',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
     'Подключить {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Команда смотрит на несколько голографических экранов',
+  'fabric.atlassianSwitcher.start': 'Начальная страница Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Переключиться на',
   'fabric.atlassianSwitcher.switchToTooltip': 'Переключиться на…',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

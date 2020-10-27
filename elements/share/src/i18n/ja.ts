@@ -14,6 +14,7 @@ export default {
     'リンクをクリップボードにコピーしました',
   'fabric.elements.share.copylink.button.icon.label': 'リンクをコピー アイコン',
   'fabric.elements.share.copylink.button.text': 'リンクをコピー',
+  'fabric.elements.share.copypubliclink.button.text': '公開リンクをコピー',
   'fabric.elements.share.failure.icon.label': 'エラー アイコン',
   'fabric.elements.share.failure.message': '共有できません',
   'fabric.elements.share.form.comment.placeholder': 'メッセージを追加',
@@ -21,6 +22,7 @@ export default {
     'アクセス権限のないユーザーには参加用の招待が送信されます',
   'fabric.elements.share.form.info.message.pending.invite':
     '招待は、承認のため管理者に送信されます',
+  'fabric.elements.share.form.public.send': '公開リンクを送信',
   'fabric.elements.share.form.retry': '再試行',
   'fabric.elements.share.form.send': '送信',
   'fabric.elements.share.form.title': '共有',

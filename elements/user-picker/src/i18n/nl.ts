@@ -17,6 +17,7 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more':
     'meer gebruikers toevoegen...',
   'fabric.elements.user-picker.single.clear': 'Wissen',
+  'fabric.elements.user-picker.team.member.50plus': 'Meer dan 50 leden',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Meer dan 50 leden, met jou erbij',
   'fabric.elements.user-picker.team.member.count':

@@ -15,6 +15,8 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     'Піктограма копіювання посилання',
   'fabric.elements.share.copylink.button.text': 'Копіювати посилання',
+  'fabric.elements.share.copypubliclink.button.text':
+    'Копіювати загальнодоступне посилання',
   'fabric.elements.share.failure.icon.label': 'Піктограма помилки',
   'fabric.elements.share.failure.message': 'Помилка надсилання',
   'fabric.elements.share.form.comment.placeholder': 'Додайте коментар',
@@ -22,6 +24,8 @@ export default {
     'Користувачі без доступу отримають запрошення приєднатися',
   'fabric.elements.share.form.info.message.pending.invite':
     'Ваше запрошення буде надіслано адміністратору для схвалення',
+  'fabric.elements.share.form.public.send':
+    'Надіслати загальнодоступне посилання',
   'fabric.elements.share.form.retry': 'Повторити спробу',
   'fabric.elements.share.form.send': 'Надіслати',
   'fabric.elements.share.form.title': 'Поділитися',

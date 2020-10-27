@@ -20,8 +20,6 @@ export default {
     'Un robot estropeado y varias personas arreglándolo.',
   'fabric.atlassianSwitcher.errorText':
     'Aunque nos encargamos de supervisar estos errores, no dudes en contactar con nosotros si se repiten después de actualizar la página.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Vuelve a iniciar sesión para utilizar el alternador de Atlassian.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'No hemos podido cargar esta lista. Vuelve a cargar la página e inténtalo de nuevo.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Colaboración en documentos gratuita para un máximo de 10 usuarios',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Servicio de asistencia de TI y de atención al cliente gratuito para un máximo de 3 agentes',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gestión de servicios de TI de colaboración gratuitos para un máximo de 3 agentes',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Seguimiento de proyectos e incidencias gratuito para un máximo de 10 usuarios',
   'fabric.atlassianSwitcher.jiraProject': 'Proyecto Jira',
@@ -41,6 +41,8 @@ export default {
     'Colaboración en documentos',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Centro de asistencia de TI y atención al cliente',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Gestión de servicios de TI de colaboración',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Seguimiento de proyectos e incidencias',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Únete a {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Un equipo mirando a varias pantallas holográficas',
+  'fabric.atlassianSwitcher.start': 'Inicio de Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Cambiar a',
   'fabric.atlassianSwitcher.switchToTooltip': 'Cambiar a…',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

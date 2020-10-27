@@ -20,8 +20,6 @@ export default {
     'En ødelagt robot og en flok mennesker er i gang med at ordne det.',
   'fabric.atlassianSwitcher.errorText':
     'Vi registrerer disse fejl, men du er velkommen til at kontakte os, hvis problemet ikke løses, når du genindlæser',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    ' Log ind igen for at bruge Atlassian -brugerskifter.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'We couldn’t load this list. Please reload the page and try again.',
   'fabric.atlassianSwitcher.errorTextUnverified':

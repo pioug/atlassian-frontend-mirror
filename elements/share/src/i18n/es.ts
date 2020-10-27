@@ -14,6 +14,7 @@ export default {
     'Enlace copiado en el portapapeles',
   'fabric.elements.share.copylink.button.icon.label': 'Icono de enlace copiado',
   'fabric.elements.share.copylink.button.text': 'Copiar enlace',
+  'fabric.elements.share.copypubliclink.button.text': 'Copiar enlace público',
   'fabric.elements.share.failure.icon.label': 'Icono de error',
   'fabric.elements.share.failure.message': 'No se puede compartir',
   'fabric.elements.share.form.comment.placeholder': 'Añade un mensaje',
@@ -21,6 +22,7 @@ export default {
     'Se enviará una invitación a unirse a los usuarios sin acceso',
   'fabric.elements.share.form.info.message.pending.invite':
     'Se enviará tu invitación a un administrador para que la apruebe',
+  'fabric.elements.share.form.public.send': 'Enviar enlace público',
   'fabric.elements.share.form.retry': 'Reintentar',
   'fabric.elements.share.form.send': 'Enviar',
   'fabric.elements.share.form.title': 'Compartir',

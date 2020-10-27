@@ -14,6 +14,7 @@ export default {
     'Länk kopierad till urklipp',
   'fabric.elements.share.copylink.button.icon.label': 'Kopiera länk-ikon',
   'fabric.elements.share.copylink.button.text': 'Kopiera länk',
+  'fabric.elements.share.copypubliclink.button.text': 'Kopiera offentlig länk',
   'fabric.elements.share.failure.icon.label': 'Fel-ikon',
   'fabric.elements.share.failure.message': 'Det gick inte att dela',
   'fabric.elements.share.form.comment.placeholder': 'Lägg till ett meddelande',
@@ -21,6 +22,7 @@ export default {
     'Personer utan åtkomst kommer att få en inbjudan om att gå med',
   'fabric.elements.share.form.info.message.pending.invite':
     'Din inbjudan kommer att skickas till en administratör för godkännande',
+  'fabric.elements.share.form.public.send': 'Skicka offentlig länk',
   'fabric.elements.share.form.retry': 'Försök igen',
   'fabric.elements.share.form.send': 'Skicka',
   'fabric.elements.share.form.title': 'Dela',

@@ -13,6 +13,7 @@ export default {
     'Lien copié dans le presse-papier',
   'fabric.elements.share.copylink.button.icon.label': 'Icône de copie du lien',
   'fabric.elements.share.copylink.button.text': 'Copier le lien',
+  'fabric.elements.share.copypubliclink.button.text': 'Copier le lien public',
   'fabric.elements.share.failure.icon.label': "Icône d'erreur",
   'fabric.elements.share.failure.message': 'Partage impossible',
   'fabric.elements.share.form.comment.placeholder': 'Ajouter un message',
@@ -20,6 +21,7 @@ export default {
     "Les personnes ne disposant d'aucun accès recevront une invitation",
   'fabric.elements.share.form.info.message.pending.invite':
     'Votre invitation sera envoyée à un administrateur pour approbation',
+  'fabric.elements.share.form.public.send': 'Envoyer le lien public',
   'fabric.elements.share.form.retry': 'Réessayer',
   'fabric.elements.share.form.send': 'Envoyer',
   'fabric.elements.share.form.title': 'Partager',

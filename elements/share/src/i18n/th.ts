@@ -14,6 +14,7 @@ export default {
     'คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว',
   'fabric.elements.share.copylink.button.icon.label': 'คัดลอกไอคอนลิงก์',
   'fabric.elements.share.copylink.button.text': 'คัดลอกลิงก์',
+  'fabric.elements.share.copypubliclink.button.text': 'คัดลอกลิงก์สาธารณะ',
   'fabric.elements.share.failure.icon.label': 'ไอคอนข้อผิดพลาด',
   'fabric.elements.share.failure.message': 'ไม่สามารถแชร์ได้',
   'fabric.elements.share.form.comment.placeholder': 'เพิ่มข้อความ',
@@ -21,6 +22,7 @@ export default {
     'คำเชิญจะส่งไปยังผู้ที่ไม่มีสิทธิ์การเข้าถึงให้เข้าร่วม',
   'fabric.elements.share.form.info.message.pending.invite':
     'คำเชิญของคุณได้ส่งไปยังผู้ดูแลระบบเพื่อรอการอนุมัติ',
+  'fabric.elements.share.form.public.send': 'ส่งลิงก์สาธารณะ',
   'fabric.elements.share.form.retry': 'ลองอีกครั้ง',
   'fabric.elements.share.form.send': 'ส่ง',
   'fabric.elements.share.form.title': 'แชร์',

@@ -13,6 +13,7 @@ export default {
     '링크를 클립보드에 복사함',
   'fabric.elements.share.copylink.button.icon.label': '링크 복사 아이콘',
   'fabric.elements.share.copylink.button.text': '링크 복사',
+  'fabric.elements.share.copypubliclink.button.text': '공개 링크 복사',
   'fabric.elements.share.failure.icon.label': '오류 아이콘',
   'fabric.elements.share.failure.message': '공유할 수 없음',
   'fabric.elements.share.form.comment.placeholder': '메시지 추가',
@@ -20,6 +21,7 @@ export default {
     '액세스 권한이 없는 사용자는 가입 초대를 받습니다.',
   'fabric.elements.share.form.info.message.pending.invite':
     '승인을 위해 초대를 관리자에게 보낼 것입니다.',
+  'fabric.elements.share.form.public.send': '공개 링크 보내기',
   'fabric.elements.share.form.retry': '다시 시도',
   'fabric.elements.share.form.send': '보내기',
   'fabric.elements.share.form.title': '공유',

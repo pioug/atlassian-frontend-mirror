@@ -20,8 +20,6 @@ export default {
     'Зламаний робот і люди, які намагаються його полагодити',
   'fabric.atlassianSwitcher.errorText':
     'Ми стежимо за цими помилками, але якщо оновлення сторінки не вирішило проблеми, зверніться до нас',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Увійдіть знову, щоб скористатися засобом Atlassian для переходу.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Список не завантажено. Оновіть сторінку та спробуйте знову.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Безкоштовна спільна робота з документами (до 10 користувачів)',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Безкоштовна ІТ-підтримка та підтримка користувачів (до 3 агентів)',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Об’єднана служба ІТ-підтримки — безкоштовно до 3 агентів',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Безкоштовне відстеження стану проекту та проблемних питань (до 10 користувачів)',
   'fabric.atlassianSwitcher.jiraProject': 'Проект у Jira',
@@ -41,6 +41,8 @@ export default {
     'Спільна робота з документами',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT Service Desk і служба обслуговування клієнтів',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Об’єднана служба ІТ-підтримки',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Відстеження статусу проектів і задач',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -55,6 +57,7 @@ export default {
     'Використовувати {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Команда, яка дивиться на кілька голографічних екранів',
+  'fabric.atlassianSwitcher.start': 'Головна сторінка Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Перейти:',
   'fabric.atlassianSwitcher.switchToTooltip': 'Перехід на інший продукт',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

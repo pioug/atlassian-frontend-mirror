@@ -20,8 +20,6 @@ export default {
     'Plusieurs personnes occupées à réparer un robot cassé.',
   'fabric.atlassianSwitcher.errorText':
     'Nous suivons ces erreurs, mais n’hésitez pas à nous contacter si elles persistent même après avoir actualisé la page.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    "Reconnectez-vous pour utiliser le sélecteur d'apps Atlassian.",
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Impossible de charger la liste. Actualisez la page, puis réessayez.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Collaboration documentaire gratuite pour un maximum de 10 utilisateurs',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Centre de services informatiques et client gratuit pour un maximum de 3 agents',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gestion des services informatiques collaborative et gratuite, pour un maximum de 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Outil gratuit de suivi des projets et des tickets pour un maximum de 10 utilisateurs',
   'fabric.atlassianSwitcher.jiraProject': 'Projet Jira',
@@ -41,6 +41,8 @@ export default {
     'Collaboration documentaire',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Centre de services informatiques et client',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Gestion des services informatiques collaborative',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Suivi des projets et des tickets',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -53,6 +55,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Rejoindre {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Une équipe regardant plusieurs écrans holographiques',
+  'fabric.atlassianSwitcher.start': "Page d'accueil Atlassian",
   'fabric.atlassianSwitcher.switchTo': 'Passer à',
   'fabric.atlassianSwitcher.switchToTooltip': 'Basculer vers…',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

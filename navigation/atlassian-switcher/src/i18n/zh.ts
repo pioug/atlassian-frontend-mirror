@@ -18,8 +18,6 @@ export default {
     '一个损坏的机器人和一些人员正在繁忙修理中。',
   'fabric.atlassianSwitcher.errorText':
     '我们会跟踪这些错误，但是如果刷新不能修复问题，请随时与我们联系',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    '重新登录，使用 Atlassian 切换器。',
   'fabric.atlassianSwitcher.errorTextNetwork':
     '无法加载此列表。请重新加载页面，然后重试。',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -28,6 +26,8 @@ export default {
     '免费文档协作（最多 10 个用户）',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     '免费的 IT 服务和客户服务台（最多 3 个支持人员）',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    '为多达三名支持人员提供免费的协作式 IT 服务管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '免费项目和事务跟踪（最多 10 个用户）',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 项目',
@@ -37,6 +37,7 @@ export default {
   'fabric.atlassianSwitcher.more': '更多',
   'fabric.atlassianSwitcher.product.description.confluence': '文档协作',
   'fabric.atlassianSwitcher.product.description.jsd': 'IT 服务台和客户服务',
+  'fabric.atlassianSwitcher.product.description.jsm': '协作式 IT 服务管理',
   'fabric.atlassianSwitcher.product.description.jsw': '项目和事务跟踪',
   'fabric.atlassianSwitcher.product.description.opsgenie': '现代事件管理',
   'fabric.atlassianSwitcher.recent': '最近',
@@ -46,6 +47,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.cta': '使用您的电子邮件加入',
   'fabric.atlassianSwitcher.sign.up.to.join.header': '加入 {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image': '查看多个全息屏幕的团队',
+  'fabric.atlassianSwitcher.start': 'Atlassian 开始',
   'fabric.atlassianSwitcher.switchTo': '切换到',
   'fabric.atlassianSwitcher.switchToTooltip': '切换到...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

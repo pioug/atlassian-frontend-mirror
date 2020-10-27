@@ -14,6 +14,7 @@ export default {
   'fabric.elements.user-picker.placeholder': '사용자 또는 팀 입력...',
   'fabric.elements.user-picker.placeholder.add-more': '사람 더 추가...',
   'fabric.elements.user-picker.single.clear': '지우기',
+  'fabric.elements.user-picker.team.member.50plus': '50명 이상 구성원',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     '자신을 포함하여 50명 이상의 구성원',
   'fabric.elements.user-picker.team.member.count':

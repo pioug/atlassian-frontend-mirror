@@ -91,7 +91,8 @@ export type State = {
 };
 
 const getQueryParam = (param: string) => {
-  const urlParams = new URLSearchParams(document.location.search);
+  const win = window.parent || window;
+  const urlParams = new URLSearchParams(win.document.location.search);
   return urlParams.get(param);
 };
 
@@ -240,11 +241,11 @@ export default class Example extends React.Component<Props, State> {
         (collabUrlInput! as HTMLInputElement).value || defaultCollabUrl;
       if (documentId) {
         try {
-          history.pushState(
-            {},
-            '',
-            `${document.location.href}&documentId=${documentId}&collabUrl=${collabUrl}`,
-          );
+          const win = window.parent || window;
+          const url = new URL(win.location.href);
+          url.searchParams.set('documentId', documentId);
+          url.searchParams.set('collabUrl', collabUrl);
+          win.history.pushState({}, '', url.toString());
         } catch (err) {}
         this.setState({
           documentId,
@@ -260,7 +261,7 @@ export default class Example extends React.Component<Props, State> {
     }
 
     return (
-      <div>
+      <form onSubmit={this.onJoin}>
         Document name:
         <input name="documentId" ref={this.handleRef} />
         Collab url:
@@ -270,8 +271,8 @@ export default class Example extends React.Component<Props, State> {
           Default to <b>{defaultCollabUrl}</b>
         </label>
         <br />
-        <button onClick={this.onJoin}>Join</button>
-      </div>
+        <button type="submit">Join</button>
+      </form>
     );
   }
 

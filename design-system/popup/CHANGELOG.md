@@ -54,6 +54,19 @@
 
   - For more information on the change, see [the popper.js docs](https://popper.js.org/docs/v2/utils/detect-overflow/#boundary)
 
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version of popup installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/popup@^1.0.0`
+
+  Once upgraded, use the Atlaskit codemod-cli;
+
+  `npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
+
+  Or run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
 ### Patch Changes
 
 - Updated dependencies

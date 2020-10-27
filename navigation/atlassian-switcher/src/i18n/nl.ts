@@ -20,8 +20,6 @@ export default {
     'Een defecte robot en een aantal mensen die bezig zijn hem te repareren.',
   'fabric.atlassianSwitcher.errorText':
     'We houden deze fouten bij, maar aarzel niet om contact met ons op te nemen als pagina vernieuwen het probleem niet oplost.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Log opnieuw in om de Atlassian-swither te gebruiken.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'De lijst met artikelen kan niet worden geladen. Laad de pagina opnieuw en probeer het nog eens.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Gratis samenwerken aan bestanden voor maximaal 10 gebruikers',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Gratis IT-service en servicedesk voor klanten voor maximaal 3 agents',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gratis coöperatief IT-servicebeheer voor tot 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projecten en issues volgen voor maximaal 10 gebruikers',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-project',
@@ -41,6 +41,8 @@ export default {
     'Samenwerken aan documenten',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT-servicedesk en klantenservice',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Coöperatief IT-servicebeheer',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Projecten en issues volgen',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
     'Neem deel aan {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Een team dat naar verschillende holografische schermen kijkt',
+  'fabric.atlassianSwitcher.start': 'Atlassian-startpagina',
   'fabric.atlassianSwitcher.switchTo': 'Overschakelen naar',
   'fabric.atlassianSwitcher.switchToTooltip': 'Overschakelen naar...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

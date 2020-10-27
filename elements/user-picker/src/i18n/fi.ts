@@ -16,6 +16,7 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more':
     'lisää muita henkilöitä...',
   'fabric.elements.user-picker.single.clear': 'Tyhjennä',
+  'fabric.elements.user-picker.team.member.50plus': '50+ jäsentä',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     '50+ jäsentä sinä mukaan lukien',
   'fabric.elements.user-picker.team.member.count':

@@ -15,6 +15,7 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     "Pictogram 'Link kopiëren'",
   'fabric.elements.share.copylink.button.text': 'Link kopiëren',
+  'fabric.elements.share.copypubliclink.button.text': 'Openbare link kopiëren',
   'fabric.elements.share.failure.icon.label': "Pictogram 'Fout'",
   'fabric.elements.share.failure.message': 'Kan niet delen',
   'fabric.elements.share.form.comment.placeholder': 'Voeg een bericht toe',
@@ -22,6 +23,7 @@ export default {
     'Mensen zonder toegang ontvangen een uitnodiging om deel te nemen',
   'fabric.elements.share.form.info.message.pending.invite':
     'Je uitnodiging wordt naar een beheerder gestuurd ter goedkeuring',
+  'fabric.elements.share.form.public.send': 'Openbare link verzenden',
   'fabric.elements.share.form.retry': 'Opnieuw proberen',
   'fabric.elements.share.form.send': 'Verzenden',
   'fabric.elements.share.form.title': 'Delen',

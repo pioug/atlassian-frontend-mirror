@@ -19,8 +19,6 @@ export default {
     'Pracujeme na odstránení chyby.',
   'fabric.atlassianSwitcher.errorText':
     'Tieto chyby sledujeme, ale ak obnovenie neodstráni problém, neváhajte nás kontaktovať',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Ak chcete používať prepínač produktov Atlassian, znova sa prihláste.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Nepodarilo sa načítať tento zoznam. Obnovte stránku a skúste to znova.',
   'fabric.atlassianSwitcher.errorTextUnverified':

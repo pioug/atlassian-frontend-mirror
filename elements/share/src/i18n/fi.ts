@@ -14,6 +14,7 @@ export default {
     'Linkki kopioitu leikepöydälle',
   'fabric.elements.share.copylink.button.icon.label': 'Kopioi linkin kuvake',
   'fabric.elements.share.copylink.button.text': 'Kopioi linkki',
+  'fabric.elements.share.copypubliclink.button.text': 'Kopioi julkinen linkki',
   'fabric.elements.share.failure.icon.label': 'Virhekuvake',
   'fabric.elements.share.failure.message': 'Ei voitu jakaa',
   'fabric.elements.share.form.comment.placeholder': 'Lisää viesti',
@@ -21,6 +22,7 @@ export default {
     'Henkilöille, joilla ei ole käyttöoikeutta, lähetetään liittymiskutsu',
   'fabric.elements.share.form.info.message.pending.invite':
     'Kutsusi lähetetään ylläpitäjälle hyväksyttäväksi',
+  'fabric.elements.share.form.public.send': 'Lähetä julkinen linkki',
   'fabric.elements.share.form.retry': 'Yritä uudelleen',
   'fabric.elements.share.form.send': 'Lähetä',
   'fabric.elements.share.form.title': 'Jaa',

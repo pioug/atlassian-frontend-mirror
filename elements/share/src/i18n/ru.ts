@@ -15,6 +15,8 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     'Значок «Копировать ссылку»',
   'fabric.elements.share.copylink.button.text': 'Копировать ссылку',
+  'fabric.elements.share.copypubliclink.button.text':
+    'Копировать публичную ссылку',
   'fabric.elements.share.failure.icon.label': 'Значок ошибки',
   'fabric.elements.share.failure.message': 'Не удается поделиться',
   'fabric.elements.share.form.comment.placeholder': 'Введите сообщение',
@@ -22,6 +24,7 @@ export default {
     'Пользователям без доступа будет отправлено приглашение присоединиться',
   'fabric.elements.share.form.info.message.pending.invite':
     'Приглашение будет отправлено на рассмотрение администратору',
+  'fabric.elements.share.form.public.send': 'Отправить публичную ссылку',
   'fabric.elements.share.form.retry': 'Повторить',
   'fabric.elements.share.form.send': 'Отправить',
   'fabric.elements.share.form.title': 'Поделиться',

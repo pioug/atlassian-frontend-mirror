@@ -20,8 +20,6 @@ export default {
     'Rikkoutunut robotti ja monta ihmistä korjaamassa sitä.',
   'fabric.atlassianSwitcher.errorText':
     'Huomioimme nämä virheet, mutta ota meihin yhteyttä, jos sivun lataus ei paranna asiaa',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Kirjaudu uudelleen sisään käyttääksesi Atlassian Switcheriä.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Tätä luetteloa ei voitu ladata. Lataa sivu ja yritä uudelleen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Ilmainen asiakirjojen yhteismuokkaus enintään kymmenelle käyttäjälle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Ilmainen IT-palvelu ja Service Desk enintään kolmelle asiakaspalvelijalle',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Maksuton yhteistyöpohjainen IT-palveluiden hallinta enintään kolmelle asiakaspalvelijalle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Ilmainen projektien ja asioiden seuranta enintään kymmenelle käyttäjälle',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekti',
@@ -41,6 +41,8 @@ export default {
     'Asiakirjojen yhteiskäyttö',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT service desk ja asiakaspalvelu',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Yhteistyöpohjainen IT-palveluiden hallinta',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Projektien ja asioiden seuranta',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
     'Liity käyttämään tuotetta {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Tiimi katselemassa useita hologramminäyttöjä',
+  'fabric.atlassianSwitcher.start': 'Atlassian-aloitussivu',
   'fabric.atlassianSwitcher.switchTo': 'Vaihda kohteeseen',
   'fabric.atlassianSwitcher.switchToTooltip': 'Vaihda kohteeseen...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

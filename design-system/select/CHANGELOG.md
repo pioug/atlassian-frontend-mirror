@@ -63,6 +63,19 @@
 
   Note: due to a bug in `react-popper`, a console.error message relating to React `act()` may be raised on some tests using PopupSelect. It should not cause test failures. This issue has been raised in [the React Popper issue tracker](https://github.com/popperjs/react-popper/issues/368)
 
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version of select installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/select@^13.0.0`
+
+  Once upgraded, use the Atlaskit codemod-cli;
+
+  `npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
+
+  Or run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
 ### Patch Changes
 
 - [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set

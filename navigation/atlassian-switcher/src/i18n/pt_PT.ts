@@ -20,8 +20,6 @@ export default {
     'Um problema e várias pessoas a tentar corrigi-lo.',
   'fabric.atlassianSwitcher.errorText':
     'Temos conhecimento destes erros, mas contacte-nos se atualizar a página não solucionar o problema.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Inicie sessão novamente para utilizar o comutador Atlassian.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Não foi possível carregar esta lista. Recarregue a página e tente novamente.',
   'fabric.atlassianSwitcher.errorTextUnverified':

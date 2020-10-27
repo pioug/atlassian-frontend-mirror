@@ -20,8 +20,6 @@ export default {
     'Meghibásodott robot, és számos ember, aki a javításán szorgoskodik.',
   'fabric.atlassianSwitcher.errorText':
     'Nyomon követjük az ilyen hibákat, de bátran vegye fel velünk a kapcsolatot, ha az oldal frissítésével sem oldódnak meg a problémák.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Jelentkezz be ismét, hogy használhasd az Atlassian switchert.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Nem sikerült betölteni ezt a listát. Frissítsd az oldalt, és próbáld meg újra.',
   'fabric.atlassianSwitcher.errorTextUnverified':

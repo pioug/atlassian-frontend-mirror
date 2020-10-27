@@ -20,8 +20,6 @@ export default {
     'Ein kaputter Roboter und viele Menschen, die ihn reparieren.',
   'fabric.atlassianSwitcher.errorText':
     'Wir verfolgen diese Fehler, aber Sie können uns gerne kontaktieren, wenn das Problem nach dem Aktualisieren weiterhin besteht.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Loggen Sie sich wieder ein, um den Atlassian-Switcher verwenden zu können.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Diese Liste konnte nicht geladen werden. Bitte laden Sie diese Seite neu und versuchen Sie es erneut.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Kostenlose Zusammenarbeit an Dokumenten für bis zu zehn Benutzer',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Kostenloser IT-Service und -Kundenservicedesk für bis zu drei Agenten',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Kostenloses, kollaboratives IT Service Management für bis zu 3 Agenten',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Kostenloses Verfolgen von Projekten und Vorgängen für bis zu zehn Benutzer',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-Projekt',
@@ -41,6 +41,8 @@ export default {
     'Zusammenarbeit an Dokumenten',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT-Servicedesk und -Kundenservice',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Kollaboratives IT Service Management',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Projekt- und Vorgangsnachverfolgung',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -55,6 +57,7 @@ export default {
     'Werden Sie ein Teil von {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Ein Team, das sich mehrere holografische Bildschirme anschaut',
+  'fabric.atlassianSwitcher.start': 'Atlassian-Startseite',
   'fabric.atlassianSwitcher.switchTo': 'Wechseln zu',
   'fabric.atlassianSwitcher.switchToTooltip': 'Wechseln zu …',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

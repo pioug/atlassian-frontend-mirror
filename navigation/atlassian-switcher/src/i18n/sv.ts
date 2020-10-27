@@ -20,8 +20,6 @@ export default {
     'En trasig robot och ett antal personer arbetar för att åtgärda felet.',
   'fabric.atlassianSwitcher.errorText':
     'Vi håller koll på dessa fel, men tveka inte att kontakta oss om en uppdatering inte åtgärdar problemen.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Logga in igen för att använda Atlassian-växlaren.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Vi kunde inte läsa in listan. Uppdatera sidan och försök igen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Gratis dokumentsamarbete för upp till 10 användare',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Gratis servicedesk för IT-tjänster och kundtjänst för upp till 3 agenter',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gratis samarbetsorienterad IT-tjänsthantering för upp till 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projekt- och ärendespårning för upp till 10 användare',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',
@@ -41,6 +41,8 @@ export default {
     'Dokumentsamarbete',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT-servicedesk och kundtjänst',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Samarbetsorienterad IT-tjänsthantering',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Projekt- och ärendespårning',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Gå med i {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Ett team som tittar på flera holografiska skärmar',
+  'fabric.atlassianSwitcher.start': 'Atlassian Start',
   'fabric.atlassianSwitcher.switchTo': 'Byt till',
   'fabric.atlassianSwitcher.switchToTooltip': 'Växla till ...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

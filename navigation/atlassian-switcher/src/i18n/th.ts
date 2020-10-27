@@ -20,8 +20,6 @@ export default {
     'เกิดข้อผิดพลาดบางประการ และเรากำลังทำการแก้ไขข้อผิดพลาดเหล่านั้น',
   'fabric.atlassianSwitcher.errorText':
     'เราจะติดตามข้อผิดพลาดเหล่านี้ แต่โปรดอย่าลังเลที่จะติดต่อเราหากการรีเฟรชไม่สามารถแก้ไขข้อผิดพลาดได้',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'โปรดเข้าสู่ระบบอีกครั้งเพื่อใช้ Atlassian switcher',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'เราไม่สามารถดาวน์โหลดรายการนี้ได้ โปรดดาวน์โหลดหน้าข้อมูลใหม่แล้วลองอีกครั้ง',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'การรวบรวมเอกสารฟรีสำหรับผู้ใช้มากถึง 10 คน',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Service Desk ด้าน IT และด้านการบริการลูกค้าฟรีสำหรับผู้ดูแลระบบมากถึง 3 คน',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'การจัดการบริการด้าน IT แบบร่วมกันฟรีสำหรับพนักงานบริการลูกค้าสูงสุด 3 ราย',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'การติดตามโปรเจ็กต์และปัญหาฟรีสำหรับผู้ใช้มากถึง 10 คน',
   'fabric.atlassianSwitcher.jiraProject': 'โปรเจกต์ Jira',
@@ -40,6 +40,8 @@ export default {
   'fabric.atlassianSwitcher.product.description.confluence': 'การรวบรวมเอกสาร',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Service Desk ด้าน IT และการบริการลูกค้า',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'การจัดการบริการด้าน IT แบบร่วมกัน',
   'fabric.atlassianSwitcher.product.description.jsw':
     'การติดตามโปรเจ็กต์และปัญหา',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -52,6 +54,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'เข้าร่วม {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'กลุ่มคนที่กำลังมองดูและจัดการหน้าจอฮอโลแกรมหลายหน้า',
+  'fabric.atlassianSwitcher.start': 'หน้าแรกของ Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'เปลี่ยนเป็น',
   'fabric.atlassianSwitcher.switchToTooltip': 'เปลี่ยนเป็น...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

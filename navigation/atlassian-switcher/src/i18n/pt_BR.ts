@@ -20,8 +20,6 @@ export default {
     'Um robô quebrado e várias pessoas ocupadas no conserto dele.',
   'fabric.atlassianSwitcher.errorText':
     'Nós acompanhamos esses erros, mas fique à vontade para entrar em contato conosco caso a atualização não resolva as coisas',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Entre de novo para usar o switcher da Atlassian.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Não foi possível carregar esta lista. Recarregue a página e tente novamente.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Colaboração em documentos gratuita para até 10 usuários',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Serviço de TI e central de atendimento ao cliente gratuitos para até 3 agentes',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gerenciamento de serviço de TI colaborativo grátis para até três agentes',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Acompanhamento de projetos e itens gratuito para até 10 usuários',
   'fabric.atlassianSwitcher.jiraProject': 'Projeto do Jira',
@@ -41,6 +41,8 @@ export default {
     'Colaboração de documentos',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Central de atendimento de TI e atendimento ao cliente',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Gerenciamento de serviço de TI colaborativo',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Monitoramento de projetos e itens',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -53,6 +55,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Entrar no {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Equipe olhando para diversas telas holográficas',
+  'fabric.atlassianSwitcher.start': 'Página inicial da Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Alternar para',
   'fabric.atlassianSwitcher.switchToTooltip': 'Alternar para…',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

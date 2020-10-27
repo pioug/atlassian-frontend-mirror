@@ -14,6 +14,7 @@ export default {
     'Łącze skopiowano do schowka',
   'fabric.elements.share.copylink.button.icon.label': 'Ikona kopiowania łącza',
   'fabric.elements.share.copylink.button.text': 'Kopiuj łącze',
+  'fabric.elements.share.copypubliclink.button.text': 'Kopiuj łącze publiczne',
   'fabric.elements.share.failure.icon.label': 'Ikona błędu',
   'fabric.elements.share.failure.message': 'Nie można udostępnić',
   'fabric.elements.share.form.comment.placeholder': 'Dodaj wiadomość',
@@ -21,6 +22,7 @@ export default {
     'Osoby bez dostępu otrzymają zaproszenie do dołączenia',
   'fabric.elements.share.form.info.message.pending.invite':
     'Twoje zaproszenie zostanie wysłane do administratora w celu zatwierdzenia',
+  'fabric.elements.share.form.public.send': 'Wyślij łącze publiczne',
   'fabric.elements.share.form.retry': 'Spróbuj ponownie',
   'fabric.elements.share.form.send': 'Wyślij',
   'fabric.elements.share.form.title': 'Udostępnij',

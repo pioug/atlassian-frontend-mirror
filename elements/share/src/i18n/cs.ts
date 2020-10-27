@@ -15,6 +15,7 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     'Ikona zkopírování propojení',
   'fabric.elements.share.copylink.button.text': 'Zkopírovat odkaz',
+  'fabric.elements.share.copypubliclink.button.text': 'Kopírovat veřejný odkaz',
   'fabric.elements.share.failure.icon.label': 'Ikona chyby',
   'fabric.elements.share.failure.message': 'Nelze sdílet',
   'fabric.elements.share.form.comment.placeholder': 'Přidat zprávu',
@@ -22,6 +23,7 @@ export default {
     'Lidem, kteří nemají přístup, bude poslána pozvánka',
   'fabric.elements.share.form.info.message.pending.invite':
     'Svou pozvánku musíte poslat administrátorovi ke schválení',
+  'fabric.elements.share.form.public.send': 'Odeslat veřejný odkaz',
   'fabric.elements.share.form.retry': 'Zkusit znovu',
   'fabric.elements.share.form.send': 'Odeslat',
   'fabric.elements.share.form.title': 'Sdílet',

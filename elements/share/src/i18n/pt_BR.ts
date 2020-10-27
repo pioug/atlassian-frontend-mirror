@@ -14,6 +14,7 @@ export default {
     'Link copiado para a área de transferência',
   'fabric.elements.share.copylink.button.icon.label': 'Ícone de cópia de link',
   'fabric.elements.share.copylink.button.text': 'Copiar link',
+  'fabric.elements.share.copypubliclink.button.text': 'Copiar link público',
   'fabric.elements.share.failure.icon.label': 'Ícone de erro',
   'fabric.elements.share.failure.message': 'Não foi possível compartilhar',
   'fabric.elements.share.form.comment.placeholder': 'Adicione uma mensagem',
@@ -21,6 +22,7 @@ export default {
     'Pessoas que não têm acesso vão receber um convite para participar',
   'fabric.elements.share.form.info.message.pending.invite':
     'Seu convite será enviado para a aprovação de um administrador',
+  'fabric.elements.share.form.public.send': 'Enviar link público',
   'fabric.elements.share.form.retry': 'Tentar novamente',
   'fabric.elements.share.form.send': 'Enviar',
   'fabric.elements.share.form.title': 'Compartilhar',

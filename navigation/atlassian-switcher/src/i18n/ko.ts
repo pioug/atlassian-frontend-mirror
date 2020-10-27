@@ -20,8 +20,6 @@ export default {
     '고장 난 로봇과 이를 고치는 여러 사람들입니다.',
   'fabric.atlassianSwitcher.errorText':
     '이 오류를 추적하고 있습니다. 페이지를 새로 고쳐도 문제가 해결되지 않는 경우 저희에게 문의해 주시기 바랍니다.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    '다시 로그인하여 Atlassian 전환기를 사용하세요.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     '이 목록을 로드하지 못했습니다. 새로 고치고 다시 시도해주세요.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     '무료 문서 협업 - 최대 10명 사용자까지',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     '무료 IT 서비스 및 고객 service desk - 최대 3명 에이전트까지',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    '최대 3명의 에이전트를 위한 협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '무료 프로젝트 및 이슈 추적 - 최대 10명 사용자까지',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 프로젝트',
@@ -40,6 +40,7 @@ export default {
   'fabric.atlassianSwitcher.product.description.confluence': '문서 공동 작업',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT 서비스 데스크 및 고객 서비스',
+  'fabric.atlassianSwitcher.product.description.jsm': '협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.product.description.jsw': '프로젝트 및 이슈 추적',
   'fabric.atlassianSwitcher.product.description.opsgenie': '최신 인시던트 관리',
   'fabric.atlassianSwitcher.recent': '최근 항목',
@@ -51,6 +52,7 @@ export default {
     '{productLabel}에 가입하기',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     '여러 홀로그램 화면을 보고 있는 팀',
+  'fabric.atlassianSwitcher.start': 'Atlassian 시작',
   'fabric.atlassianSwitcher.switchTo': '다음으로 전환',
   'fabric.atlassianSwitcher.switchToTooltip': '다음으로 전환...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

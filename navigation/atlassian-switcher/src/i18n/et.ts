@@ -20,8 +20,6 @@ export default {
     'Robot on katki ja mitu inimest tegelevad praegu selle parandamisega.',
   'fabric.atlassianSwitcher.errorText':
     'Hoiame neil vigadel silma peal, ent võid ka meiega ühendust võtta, kui värskendamine ei tee asju paremaks.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Atlassiani vaheti kasutamiseks logige uuesti sisse.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Meil ei õnnestunud seda loendit laadida. Laadi lehte ja proovi uuesti.',
   'fabric.atlassianSwitcher.errorTextUnverified':

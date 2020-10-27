@@ -19,8 +19,6 @@ export default {
     'Bozuk bir robot ve robotu tamir etmeye çalışan insanlar.',
   'fabric.atlassianSwitcher.errorText':
     'Bu hataları takip ediyoruz, ancak sayfayı yenilemek sorunu çözmezse lütfen bizimle iletişime geçmekten çekinmeyin',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Atlassian uygulama değiştiriciyi kullanmak için yeniden oturum açın.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Bu liste yüklenemedi. Lütfen sayfayı yeniden yükleyin ve tekrar deneyin.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -29,6 +27,8 @@ export default {
     '10 kullanıcıya kadar ücretsiz belge paylaşımı',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     '3 temsilciye kadar ücretsiz BT hizmet masası ve müşteri hizmet masası desteği',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'En fazla 3 temsilcinin yararlanabileceği, ücretsiz, iş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '10 kullanıcıya kadar ücretsiz proje ve sorun takibi',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projesi',
@@ -39,6 +39,8 @@ export default {
   'fabric.atlassianSwitcher.product.description.confluence': 'Belge paylaşımı',
   'fabric.atlassianSwitcher.product.description.jsd':
     'BT hizmet masası ve müşteri hizmetleri',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'İş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.product.description.jsw': 'Proje ve sorun takibi',
   'fabric.atlassianSwitcher.product.description.opsgenie':
     'Modern olay yönetimi',
@@ -51,6 +53,7 @@ export default {
     '{productLabel} ürününe katılın',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Birden fazla holografik ekrana bakan bir ekip',
+  'fabric.atlassianSwitcher.start': 'Atlassian Başlangıç',
   'fabric.atlassianSwitcher.switchTo': 'Şuna geçin',
   'fabric.atlassianSwitcher.switchToTooltip': 'Şuna geçin…',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

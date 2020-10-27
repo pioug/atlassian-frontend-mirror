@@ -17,6 +17,7 @@ export default {
   'fabric.elements.user-picker.placeholder': 'Zadejte osoby nebo týmy...',
   'fabric.elements.user-picker.placeholder.add-more': 'přidat více lidí...',
   'fabric.elements.user-picker.single.clear': 'Vymazat',
+  'fabric.elements.user-picker.team.member.50plus': '50+ členů',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Přes 50 členů, včetně vás',
   'fabric.elements.user-picker.team.member.count':

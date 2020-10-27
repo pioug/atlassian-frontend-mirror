@@ -16,6 +16,7 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more':
     'lägg till fler personer ...',
   'fabric.elements.user-picker.single.clear': 'Rensa',
+  'fabric.elements.user-picker.team.member.50plus': '50+ medlemmar',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     '50+ medlemmar, inklusive dig',
   'fabric.elements.user-picker.team.member.count':

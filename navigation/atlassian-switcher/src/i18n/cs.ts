@@ -19,8 +19,6 @@ export default {
     'Rozbitý robot a několik lidí se ho snaží opravit.',
   'fabric.atlassianSwitcher.errorText':
     'Tyto chyby zaznamenáváme, ale nebojte se nás kontaktovat, pokud obnovení stránky problém nevyřeší.',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Chcete-li používat přepínač produktů Atlassian, znovu se přihlaste.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Tento seznam se nám nepodařilo načíst. Obnovte stránku a zkuste to znova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -29,6 +27,8 @@ export default {
     'Bezplatná spolupráce na dokumentech pro až 10 uživatelů',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Bezplatná IT služba a zákaznická služba Service Desk pro až 3 agenty',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Kolaborativní správa IT služeb zdarma pro až tři agenty',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Bezplatné sledování projektů a požadavků pro až 10 uživatelů',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
@@ -40,6 +40,8 @@ export default {
     'Spolupráce na dokumentech',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT Service Desk a zákaznický servis',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Kolaborativní správa IT služeb',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Sledování projektů a požadavků',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
     'Připojte se k {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Tým sleduje několik holografických obrazovek',
+  'fabric.atlassianSwitcher.start': 'Výchozí web Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Přepnout na',
   'fabric.atlassianSwitcher.switchToTooltip': 'Přepnout na...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

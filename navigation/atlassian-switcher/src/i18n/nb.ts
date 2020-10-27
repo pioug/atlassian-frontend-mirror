@@ -20,8 +20,6 @@ export default {
     'En robot som har brutt sammen, og en rekke personer som er opptatt med å fikse den.',
   'fabric.atlassianSwitcher.errorText':
     'Vi registrerer disse feilene, men ta gjerne kontakt hvis det ikke hjelper å oppdatere',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Logg på igjen for å bruke Atlassian-appbytteren.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Vi kunne ikke laste denne listen. Last inn siden på nytt og prøv igjen.',
   'fabric.atlassianSwitcher.errorTextUnverified':

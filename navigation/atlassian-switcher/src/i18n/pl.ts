@@ -19,8 +19,6 @@ export default {
     'Zepsuty robot i wiele osób pracuje, aby usunąć błąd.',
   'fabric.atlassianSwitcher.errorText':
     'Monitorujemy te błędy, ale nie wahaj się skontaktować z nami, jeśli odświeżanie nie rozwiąże problemów',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Zaloguj się ponownie, aby skorzystać z narzędzia Atlassian Switcher.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Nie udało się załadować tej listy. Załaduj stronę ponownie i spróbuj ponownie.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -29,6 +27,8 @@ export default {
     'Bezpłatna współpraca nad dokumentami — do 10 użytkowników',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Bezpłatne oprogramowanie dla działów pomocy technicznej i zespołów świadczących usługi IT — do 3 agentów',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Bezpłatne i oparte na współpracy zarządzanie usługami IT dla maksymalnie 3 agentów',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Bezpłatne śledzenie projektów i zgłoszeń — do 10 użytkowników',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
@@ -40,6 +40,8 @@ export default {
     'Współpraca nad dokumentami',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Dział pomocy technicznej i obsługa klienta',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Oparte na współpracy zarządzanie usługami IT',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Śledzenie projektów i zgłoszeń',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
     'Zacznij korzystać z {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Zespół patrzący na wiele holograficznych ekranów',
+  'fabric.atlassianSwitcher.start': 'Witryna startowa Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Przełącz na',
   'fabric.atlassianSwitcher.switchToTooltip': 'Przełącz na...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

@@ -15,6 +15,8 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     'Bağlantıyı kopyalama simgesi',
   'fabric.elements.share.copylink.button.text': 'Bağlantıyı kopyala',
+  'fabric.elements.share.copypubliclink.button.text':
+    'Herkese açık bağlantıyı kopyalayın',
   'fabric.elements.share.failure.icon.label': 'Hata simgesi',
   'fabric.elements.share.failure.message': 'Paylaşılamadı',
   'fabric.elements.share.form.comment.placeholder': 'Mesaj ekleyin',
@@ -22,6 +24,7 @@ export default {
     'Erişimi olmayan kişilere katılmaları için davet gönderilecek',
   'fabric.elements.share.form.info.message.pending.invite':
     'Davetiniz, onaylaması için bir yöneticiye gönderilecek',
+  'fabric.elements.share.form.public.send': 'Herkese açık bağlantıyı gönderin',
   'fabric.elements.share.form.retry': 'Yeniden Dene',
   'fabric.elements.share.form.send': 'Gönder',
   'fabric.elements.share.form.title': 'Paylaş',

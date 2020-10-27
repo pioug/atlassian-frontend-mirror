@@ -20,8 +20,6 @@ export default {
     '鋭意問題の修正に当たっています。',
   'fabric.atlassianSwitcher.errorText':
     'エラーはすべて記録されていますが、リフレッシュしても問題が修正されない場合はお気軽にお問い合わせください。',
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'アトラシアン スイッチャーを使用するには、再度ログインしてください。',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'このリストを読み込めませんでした。ページを読み込み直してもう一度お試しください。',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     '最大 10 ユーザーまで使用できる無料のドキュメント コラボレーション',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     '最大 3 エージェントまで使用できる無料の IT サービス デスクとカスタマー サービス デスク',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    '最大 3 エージェントまで無料でコラボレーション可能な IT サービス管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '最大 10 ユーザーまで使用できる無料のプロジェクトと課題トラッキング',
   'fabric.atlassianSwitcher.jiraProject': 'Jira プロジェクト',
@@ -41,6 +41,8 @@ export default {
     'ドキュメント コラボレーション',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT サービス デスクとカスタマー サービス',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'コラボレーション可能な IT サービス管理',
   'fabric.atlassianSwitcher.product.description.jsw':
     'プロジェクトと課題トラッキング',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -54,6 +56,7 @@ export default {
     '{productLabel} に参加する',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     '複数のホログラフィック画面を見ているチーム',
+  'fabric.atlassianSwitcher.start': 'Atlassian を開始',
   'fabric.atlassianSwitcher.switchTo': '切り替え先',
   'fabric.atlassianSwitcher.switchToTooltip': '切り替え先...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

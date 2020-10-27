@@ -20,8 +20,6 @@ export default {
     'Problema con il robot e diverse persone sono impegnate nella sua risoluzione.',
   'fabric.atlassianSwitcher.errorText':
     "Teniamo traccia di questi errori, ma puoi contattarci se l'aggiornamento non risolve il problema",
-  'fabric.atlassianSwitcher.errorTextLoggedOut':
-    'Accedi nuovamente per utilizzare il selettore Atlassian.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Impossibile caricare la lista. Ricarica la pagina e riprova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -30,6 +28,8 @@ export default {
     'Collaborazione sui documenti gratuita (fino a 10 utenti)',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Servizi IT e service desk di assistenza clienti gratuiti (fino a 3 agenti)',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gestione collaborativa e gratuita del servizio IT per un massimo di 3 agenti',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Monitoraggio di progetti e ticket gratuito (fino a 10 utenti)',
   'fabric.atlassianSwitcher.jiraProject': 'Progetto Jira',
@@ -41,6 +41,8 @@ export default {
     'Collaborazione ai documenti',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Service desk IT e assistenza clienti',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Gestione collaborativa del servizio IT',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Monitoraggio di progetti e ticket',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -55,6 +57,7 @@ export default {
     'Unisciti a {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Un team che guarda più schermate olografiche',
+  'fabric.atlassianSwitcher.start': 'Atlassian - Sito iniziale',
   'fabric.atlassianSwitcher.switchTo': 'Passa a',
   'fabric.atlassianSwitcher.switchToTooltip': 'Passa a...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

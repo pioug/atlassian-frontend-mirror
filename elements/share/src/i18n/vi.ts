@@ -14,6 +14,8 @@ export default {
   'fabric.elements.share.copylink.button.icon.label':
     'Biểu tượng sao chép liên kết',
   'fabric.elements.share.copylink.button.text': 'Sao chép liên kết',
+  'fabric.elements.share.copypubliclink.button.text':
+    'Sao chép liên kết công khai',
   'fabric.elements.share.failure.icon.label': 'Biểu tượng lỗi',
   'fabric.elements.share.failure.message': 'Không thể chia sẻ',
   'fabric.elements.share.form.comment.placeholder': 'Thêm thông báo',
@@ -21,6 +23,7 @@ export default {
     'Người chưa có quyền truy cập sẽ được gửi lời mời tham gia',
   'fabric.elements.share.form.info.message.pending.invite':
     'Lời mời của bạn sẽ được gửi tới quản trị viên để được phê duyệt',
+  'fabric.elements.share.form.public.send': 'Gửi liên kết công khai',
   'fabric.elements.share.form.retry': 'Thử lại',
   'fabric.elements.share.form.send': 'Gửi',
   'fabric.elements.share.form.title': 'Chia sẻ',

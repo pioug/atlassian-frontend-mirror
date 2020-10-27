@@ -69,15 +69,18 @@
 
   Since there are significant prop and API changes we provided a codemod to help consumers upgrade their components.
 
+  **Running the codemod cli**
+
   To run the codemod: **You first need to have the latest avatar installed before you can run the codemod**
 
   `yarn upgrade @atlaskit/avatar@^19.0.0`
 
-  **Run the codemod cli**
+  Once upgraded, use the Atlaskit codemod-cli;
 
-  `npx @atlaskit/codemod-cli /path/to/target/directory`
+  `npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
 
-  For more information on `@atlaskit/codemod-cli` please refer to [this doc](https://atlaskit.atlassian.com/docs/guides/atlassian-codemods)
+  Or run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
 
   **Change summary:**
 

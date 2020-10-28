@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.9
+
+### Patch Changes
+
+- [`abfb2146c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abfb2146c6) - [ux] Earlier left sidebar was not expanding on resize button click, Now this issue has been fixed.
+
 ## 0.10.8
 
 ### Patch Changes

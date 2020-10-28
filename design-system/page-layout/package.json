@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,6 @@
     "@atlaskit/theme": "^11.0.0",
     "@emotion/core": "^10.0.9",
     "css-vars-ponyfill": "^2.2.0",
-    "lodash": "^4.17.15",
     "raf-schd": "^2.1.0",
     "tslib": "^2.0.0"
   },
@@ -52,6 +51,7 @@
     "@atlaskit/side-navigation": "^0.7.0",
     "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
     "raf-stub": "^2.0.1",

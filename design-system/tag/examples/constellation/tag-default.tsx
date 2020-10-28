@@ -1,5 +1,5 @@
 import React from 'react';
 
-import Tag from '../../src/tag/simple-tag';
+import { SimpleTag as Tag } from '../../src';
 
 export default () => <Tag text="Tag" />;

@@ -3,7 +3,11 @@ export type Reason =
   | 'FALLTHROUGH'
   | 'RULE_MATCH'
   | 'TARGET_MATCH'
-  | 'INELIGIBLE';
+  | 'INELIGIBLE'
+  | 'SIMPLE_EVAL'
+  | 'ERROR';
+
+export type ErrorKind = 'WRONG_TYPE' | 'FLAG_NOT_FOUND';
 
 export type RuleId = string;
 
@@ -13,6 +17,7 @@ export type FlagShape = {
     kind: Reason;
     ruleId?: RuleId;
     ruleIndex?: number;
+    errorKind?: ErrorKind;
   };
 };
 
@@ -25,10 +30,11 @@ export type ReservedAttributes = {
   reason: Reason;
   ruleId?: string;
   value: boolean | string | object;
+  errorKind?: ErrorKind;
 };
 
 export type CustomAttributes = {
-  [attributeName: string]: string | number | boolean;
+  [attributeName: string]: string | number | boolean | object;
 };
 
 export type ExposureEventAttributes = ReservedAttributes & CustomAttributes;
@@ -38,6 +44,8 @@ export type ExposureEvent = {
   actionSubject: string;
   attributes: ExposureEventAttributes;
   source: string;
+  tags?: string[];
+  highPriority?: boolean;
 };
 
 export interface FlagConstructor {
@@ -65,3 +73,7 @@ export interface Flag {
 }
 
 export type AnalyticsHandler = (event: ExposureEvent) => void;
+
+export interface AutomaticAnalyticsHandler {
+  sendOperationalEvent(event: ExposureEvent): void;
+}

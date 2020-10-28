@@ -1,5 +1,12 @@
 # @atlaskit/feature-flag-client
 
+## 4.1.0
+
+### Minor Changes
+
+- [`0206cc79b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0206cc79b8) - - Feature Flag Client now includes a client method `setAutomaticExposuresMode` which can be enabled to automatically fire exposure events whenever a flag is evaluated. These automatic events can be identified by the tag `['autoExposure']`.
+  - Feature Flag Client will now set the `highPriority` field to false on all exposure events. This means that when the analytics web client starts its new delay mechanism, the sending of exposure events will be delayed.
+
 ## 4.0.3
 
 ### Patch Changes

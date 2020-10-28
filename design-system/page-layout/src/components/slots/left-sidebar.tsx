@@ -223,6 +223,13 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   }
 
   const onMouseLeave = (event: ReactMouseEvent) => {
+    const isMouseOnResizeButton =
+      (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}]`) ||
+      (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}] *`);
+
+    if (isMouseOnResizeButton || !isLeftSidebarCollapsed) {
+      return;
+    }
     onFlyoutCollapse && onFlyoutCollapse();
     setTimeout(() => {
       setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });

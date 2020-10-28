@@ -46,7 +46,6 @@ describe('Headings with links on mobile', () => {
       await page.waitForSelector('.heading-anchor-wrapper > button', {
         visible: true,
       });
-      // await snapshot(page);
       await snapshot(page, undefined, selectors.container);
 
       // Remove emulation so that it doesn't impact subsequent tests

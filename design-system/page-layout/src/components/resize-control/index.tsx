@@ -225,6 +225,7 @@ const ResizeControl = ({
     const isSpaceOrEnter = key === 'Enter' || key === 'Spacebar' || key === ' ';
     if (isSpaceOrEnter) {
       toggleSideBar(event);
+      event.preventDefault();
     }
 
     if (isLeftOrTopArrow || isRightOrBottomArrow) {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "19.1.0",
+  "version": "19.1.1",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@atlaskit/editor-json-transformer": "8.4.1",
     "@atlaskit/emoji": "63.0.11",
     "@atlaskit/mention": "19.0.9",
-    "@atlaskit/renderer": "68.0.0",
+    "@atlaskit/renderer": "68.0.1",
     "@atlaskit/smart-card": "14.5.0",
     "@atlaskit/status": "0.10.5",
     "@atlaskit/task-decision": "17.0.8",

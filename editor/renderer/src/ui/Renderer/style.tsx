@@ -159,6 +159,7 @@ const alignedHeadingAnchorStyle = ({
      * text so that the text is flush up against the edge of the editor's
      * container edge.
      */
+    /* FIXME: ED-10839 RTL nor flex-box are appropriate, we need to use an alternate approach.
     .fabric-editor-block-mark:not([data-align='center'])[data-align] {
         > {
           h1, h2, h3, h4, h5, h6 {
@@ -176,12 +177,15 @@ const alignedHeadingAnchorStyle = ({
         }
       }
     }
+    */
 
     /**
      * For center-alignment we ensure it doesn't reserve space in the
      * DOM so that the text is centre aligned without the icon impacting it.
      */
-    .fabric-editor-block-mark[data-align='center'] {
+    // FIXME: ED-10839 temporarily aplying to right alignment too
+    // .fabric-editor-block-mark[data-align='center'] {
+    .fabric-editor-block-mark[data-align] {
       > {
         h1, h2, h3, h4, h5, h6 {
           position: relative;

@@ -456,6 +456,38 @@ describe('Left sidebar', () => {
       ).toBe(240);
     });
 
+    it('should expand and collapse left sidebar on resize button click', () => {
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar testId="left-sidebar" width={200} shouldPersistWidth>
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      const leftSidebarResizeButton = 'left-sidebar-resize-button';
+
+      act(() => {
+        fireEvent.click(getByTestId(leftSidebarResizeButton));
+        fireEvent.mouseLeave(getByTestId(leftSidebarResizeButton));
+        jest.runAllTimers();
+      });
+
+      expect(
+        JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!).gridState
+          .leftSidebarWidth,
+      ).toBe(20);
+
+      fireEvent.click(getByTestId(leftSidebarResizeButton));
+      expect(
+        JSON.parse(localStorage.getItem(PAGE_LAYOUT_LS_KEY)!).gridState
+          .leftSidebarWidth,
+      ).toBe(240);
+    });
+
     it('should update leftSideBar collapsed state in localStorage when collapsed', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">

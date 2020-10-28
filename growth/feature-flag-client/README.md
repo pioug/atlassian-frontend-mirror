@@ -84,9 +84,19 @@ client.setFlags({
 });
 ```
 
+### How to send exposure events for all feature flags?
+
+You can call the `setAutomaticExposuresMode(enableAutomaticExposures: boolean, automaticAnalyticsHandler: AutomaticAnalyticsHandler) ` method after initialising the client in your app. When this mode is enabled, exposure events will be handled in the following circumstances: sent for all simple flags (ie. flags without an explanation), and for all evalulated (ie. flags with evalauation details) with the `shouldTrackExposureEvent` option set to false.
+
+- Simple Flags: Automatic exposure events will always be fired with the flag key and value
+- Evaluated Flags with `shouldTrackExposureEvent: false`: Automatic exposure events will fire with explanation details
+- Evaluated Flags with `shouldTrackExposureEvent: true`: Automatic exposure events will not fire, but the regular ones will.
+
+The exposure events that are fired in this fashion will be tagged with an additional tag on the event `tags: ['autoExposure']` to make it easier to differientiate between those exposures fired manually and those fired automatically.
+
 ### How to avoid firing the exposure event?
 
-You can skip the exposure event by setting 'shouldTrackExposureEvent' to 'false'
+You can skip the exposure event by setting 'shouldTrackExposureEvent' to 'false'. Note: this will not disable the automatic exposure event from firing when the Automode is enabled.
 
 ```javascript
 client.getBooleanValue('my.detailed.boolean.flag', {

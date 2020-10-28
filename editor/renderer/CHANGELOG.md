@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 68.0.1
+
+### Patch Changes
+
+- [`240dd9bdbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/240dd9bdbb) - [ux] ED-10839 Revert RTL text to restore predictability of right aligned heading text
+
 ## 68.0.0
 
 ### Minor Changes

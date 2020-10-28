@@ -1,14 +1,36 @@
 import { Flag, FlagShape, CustomAttributes } from './types';
 
-import { isBoolean, isObject, isOneOf, isString } from './lib';
+import {
+  isBoolean,
+  isObject,
+  isOneOf,
+  isString,
+  validateFlagExplanation,
+} from './lib';
 
 export default class UntrackedFlag implements Flag {
   flagKey: string;
   value: string | boolean | object;
+  flag: FlagShape;
+  sendAutomaticExposure: (
+    flagKey: string,
+    value: string | boolean | object,
+    flagExplanation?: FlagShape['explanation'],
+  ) => void;
 
-  constructor(flagKey: string, flag: FlagShape) {
+  constructor(
+    flagKey: string,
+    flag: FlagShape,
+    sendAutomaticExposure: (
+      flagKey: string,
+      value: string | boolean | object,
+      flagExplanation?: FlagShape['explanation'],
+    ) => void,
+  ) {
     this.flagKey = flagKey;
     this.value = flag.value;
+    this.flag = flag;
+    this.sendAutomaticExposure = sendAutomaticExposure;
   }
 
   getBooleanValue(options: {
@@ -16,11 +38,17 @@ export default class UntrackedFlag implements Flag {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): boolean {
-    if (!isBoolean(this.value)) {
-      return options.default;
+    let value = options.default;
+
+    if (isBoolean(this.value)) {
+      value = this.value as boolean;
     }
 
-    return this.value as boolean;
+    const flagExplanation = validateFlagExplanation(this.flag, options.default);
+
+    this.sendAutomaticExposure(this.flagKey, value, flagExplanation);
+
+    return value;
   }
 
   getVariantValue(options: {
@@ -29,21 +57,27 @@ export default class UntrackedFlag implements Flag {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): string {
-    if (
-      !isString(this.value) ||
-      !isOneOf(this.value as string, options.oneOf)
-    ) {
-      return options.default;
+    let value = options.default;
+
+    if (isString(this.value) && isOneOf(this.value as string, options.oneOf)) {
+      value = this.value as string;
     }
 
-    return this.value as string;
+    const flagExplanation = validateFlagExplanation(this.flag, options.default);
+
+    this.sendAutomaticExposure(this.flagKey, value, flagExplanation);
+
+    return value;
   }
 
   getJSONValue(): object {
-    if (!isObject(this.value)) {
-      return {};
+    let value = {};
+    if (isObject(this.value)) {
+      value = this.value as object;
     }
 
-    return this.value as object;
+    this.sendAutomaticExposure(this.flagKey, value);
+
+    return value;
   }
 }

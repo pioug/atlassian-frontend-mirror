@@ -5,6 +5,8 @@ import {
   FlagShape,
   CustomAttributes,
   ReservedAttributes,
+  AutomaticAnalyticsHandler,
+  ExposureEventAttributes,
 } from './types';
 import {
   isObject,
@@ -22,6 +24,9 @@ export default class FeatureFlagClient {
   flags: Readonly<Flags> = {};
   trackedFlags: { [flagKey: string]: boolean } = {};
   analyticsHandler?: AnalyticsHandler;
+  automaticAnalyticsHandler?: AutomaticAnalyticsHandler;
+  isAutomaticExposuresEnabled: boolean = false;
+  automaticExposuresCache: { [flagKey: string]: boolean } = {};
 
   constructor(options: {
     flags?: Flags;
@@ -55,15 +60,38 @@ export default class FeatureFlagClient {
     this.analyticsHandler = analyticsHandler;
   }
 
+  setAutomaticAnalyticsHandler(
+    automaticAnalyticsHandler: AutomaticAnalyticsHandler,
+  ) {
+    this.automaticAnalyticsHandler = automaticAnalyticsHandler;
+  }
+
+  setIsAutomaticExposuresEnabled(isEnabled: boolean) {
+    this.isAutomaticExposuresEnabled = isEnabled;
+  }
+
+  setAutomaticExposuresMode(
+    enableAutomaticExposures: boolean,
+    automaticAnalyticsHandler: AutomaticAnalyticsHandler,
+  ) {
+    this.setIsAutomaticExposuresEnabled(enableAutomaticExposures);
+    this.setAutomaticAnalyticsHandler(automaticAnalyticsHandler);
+  }
+
   getFlag(flagKey: string): TrackedFlag | UntrackedFlag | null {
     const flag = this.flags[flagKey];
 
     if (isFlagWithEvaluationDetails(flag)) {
-      return new TrackedFlag(flagKey, flag, this.trackExposure);
+      return new TrackedFlag(
+        flagKey,
+        flag,
+        this.trackExposure,
+        this.sendAutomaticExposure,
+      );
     }
 
     if (isSimpleFlag(flag)) {
-      return new UntrackedFlag(flagKey, flag);
+      return new UntrackedFlag(flagKey, flag, this.sendAutomaticExposure);
     }
 
     return null;
@@ -160,11 +188,53 @@ export default class FeatureFlagClient {
       action: 'exposed',
       actionSubject: 'feature',
       attributes: Object.assign(exposureData, flagAttributes),
+      tags: ['measurement'],
+      highPriority: false,
       source: '@atlaskit/feature-flag-client',
     };
 
     this.analyticsHandler(exposureEvent);
 
     this.trackedFlags[flagKey] = true;
+  };
+
+  private sendAutomaticExposure = (
+    flagKey: string,
+    value: string | boolean | object,
+    flagExplanation?: FlagShape['explanation'],
+  ) => {
+    if (
+      this.trackedFlags[flagKey] ||
+      this.automaticExposuresCache[flagKey] ||
+      !this.automaticAnalyticsHandler ||
+      !this.isAutomaticExposuresEnabled
+    ) {
+      return;
+    }
+
+    const flagAttributes: ReservedAttributes = {
+      flagKey,
+      value,
+      reason: 'SIMPLE_EVAL',
+    };
+
+    if (flagExplanation) {
+      flagAttributes.reason = flagExplanation.kind;
+      flagAttributes.ruleId = flagExplanation.ruleId;
+      flagAttributes.errorKind = flagExplanation.errorKind;
+    }
+
+    const exposureEvent: ExposureEvent = {
+      action: 'exposed',
+      actionSubject: 'feature',
+      attributes: flagAttributes as ExposureEventAttributes,
+      tags: ['autoExposure', 'measurement'],
+      highPriority: false,
+      source: '@atlaskit/feature-flag-client',
+    };
+
+    this.automaticAnalyticsHandler.sendOperationalEvent(exposureEvent);
+
+    this.automaticExposuresCache[flagKey] = true;
   };
 }

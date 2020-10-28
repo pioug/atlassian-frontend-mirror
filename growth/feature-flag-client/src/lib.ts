@@ -1,4 +1,4 @@
-import { FlagShape, Flags, CustomAttributes } from './types';
+import { FlagShape, Flags, CustomAttributes, Reason, ErrorKind } from './types';
 
 export const isType = (value: any, type: string): boolean => {
   return value !== null && typeof value === type;
@@ -35,7 +35,13 @@ export const enforceAttributes = (
 export const checkForReservedAttributes = (
   customAttributes: CustomAttributes,
 ) => {
-  const reservedAttributes = ['flagKey', 'ruleId', 'reason', 'value'];
+  const reservedAttributes = [
+    'flagKey',
+    'ruleId',
+    'reason',
+    'value',
+    'errorKind',
+  ];
   const keys = Object.keys(customAttributes);
 
   if (reservedAttributes.some(attribute => keys.includes(attribute))) {
@@ -62,4 +68,28 @@ const validateFlag: any = (flagKey: string, flag: FlagShape) => {
 
 export const validateFlags = (flags: Flags) => {
   Object.keys(flags).forEach(key => validateFlag(key, flags[key]));
+};
+
+const setReasonAndKindErrors = (flag: FlagShape): FlagShape['explanation'] => {
+  let explanation = {
+    kind: 'ERROR' as Reason,
+    errorKind: 'WRONG_TYPE' as ErrorKind,
+  };
+  if (flag.explanation) {
+    explanation = {
+      ...flag.explanation,
+      ...explanation,
+    };
+  }
+  return explanation;
+};
+
+export const validateFlagExplanation = (
+  flag: FlagShape,
+  defaultValue: boolean | string | object,
+): FlagShape['explanation'] => {
+  if (typeof flag.value !== typeof defaultValue) {
+    return setReasonAndKindErrors(flag);
+  }
+  return flag.explanation;
 };

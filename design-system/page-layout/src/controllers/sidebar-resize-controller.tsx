@@ -8,8 +8,6 @@ import React, {
   useState,
 } from 'react';
 
-import debounce from 'lodash/debounce';
-
 import { isReducedMotion } from '@atlaskit/motion';
 
 import {
@@ -95,74 +93,73 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     transitionEventHandler,
   ]);
 
+  const expandLeftSidebar = useCallback(() => {
+    const { lastLeftSidebarWidth, isResizing } = leftSidebarState;
+
+    if (isResizing) {
+      return;
+    }
+
+    const width = Math.max(lastLeftSidebarWidth, DEFAULT_LEFT_SIDEBAR_WIDTH);
+
+    const updatedLeftSidebarState = {
+      isLeftSidebarCollapsed: false,
+      isFlyoutOpen: false,
+      leftSidebarWidth: width,
+      lastLeftSidebarWidth,
+      isResizing,
+    };
+    setLeftSidebarState(updatedLeftSidebarState);
+
+    // onTransitionEnd isn't triggered when a user prefers reduced motion
+    if (isReducedMotion()) {
+      handleDataAttributesAndCb(onExpand, false, updatedLeftSidebarState);
+    }
+  }, [leftSidebarState, onExpand]);
+
+  const collapseLeftSidebar = useCallback(
+    (
+      event?: MouseEvent | KeyboardEvent,
+      collapseWithoutTransition?: boolean,
+    ) => {
+      const { leftSidebarWidth, isResizing } = leftSidebarState;
+      if (isResizing) {
+        return;
+      }
+      // data-attribute is used as a CSS selector to sync the hiding/showing
+      // of the nav contents with expand/collapse animation
+      document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
+      const updatedLeftSidebarState = {
+        isLeftSidebarCollapsed: true,
+        isFlyoutOpen: false,
+        leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+        lastLeftSidebarWidth: leftSidebarWidth,
+        isResizing,
+      };
+      setLeftSidebarState(updatedLeftSidebarState);
+
+      // onTransitionEnd isn't triggered when a user prefers reduced motion
+      if (collapseWithoutTransition || isReducedMotion()) {
+        handleDataAttributesAndCb(onCollapse, true, updatedLeftSidebarState);
+      }
+    },
+    [leftSidebarState, onCollapse],
+  );
+
   const context: SidebarResizeContextValue = useMemo(
     () => ({
       isLeftSidebarCollapsed,
-
-      expandLeftSidebar: debounce(() => {
-        const { lastLeftSidebarWidth, isResizing } = leftSidebarState;
-
-        if (isResizing) {
-          return;
-        }
-
-        const width = Math.max(
-          lastLeftSidebarWidth,
-          DEFAULT_LEFT_SIDEBAR_WIDTH,
-        );
-
-        const updatedLeftSidebarState = {
-          isLeftSidebarCollapsed: false,
-          isFlyoutOpen: false,
-          leftSidebarWidth: width,
-          lastLeftSidebarWidth,
-          isResizing,
-        };
-        setLeftSidebarState(updatedLeftSidebarState);
-
-        // onTransitionEnd isn't triggered when a user prefers reduced motion
-        if (isReducedMotion()) {
-          handleDataAttributesAndCb(onExpand, false, updatedLeftSidebarState);
-        }
-      }, 200),
-
-      collapseLeftSidebar: debounce(
-        (
-          event?: MouseEvent | KeyboardEvent,
-          collapseWithoutTransition?: boolean,
-        ) => {
-          const { leftSidebarWidth, isResizing } = leftSidebarState;
-          if (isResizing) {
-            return;
-          }
-          // data-attribute is used as a CSS selector to sync the hiding/showing
-          // of the nav contents with expand/collapse animation
-          document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');
-          const updatedLeftSidebarState = {
-            isLeftSidebarCollapsed: true,
-            isFlyoutOpen: false,
-            leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
-            lastLeftSidebarWidth: leftSidebarWidth,
-            isResizing,
-          };
-          setLeftSidebarState(updatedLeftSidebarState);
-
-          // onTransitionEnd isn't triggered when a user prefers reduced motion
-          if (collapseWithoutTransition || isReducedMotion()) {
-            handleDataAttributesAndCb(
-              onCollapse,
-              true,
-              updatedLeftSidebarState,
-            );
-          }
-        },
-        200,
-      ),
-
+      expandLeftSidebar,
+      collapseLeftSidebar,
       leftSidebarState,
       setLeftSidebarState,
     }),
-    [isLeftSidebarCollapsed, leftSidebarState, onExpand, onCollapse],
+    [
+      isLeftSidebarCollapsed,
+      expandLeftSidebar,
+      collapseLeftSidebar,
+      leftSidebarState,
+    ],
   );
 
   return (

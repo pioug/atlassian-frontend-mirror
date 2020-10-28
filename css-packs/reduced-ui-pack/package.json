@@ -41,7 +41,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/section-message": "^5.0.0",
-    "@babel/node": "^7.0.0",
+    "@babel/node": "^7.12.1",
     "cheerio": "^0.22.0",
     "glob": "^7.1.2",
     "mkdirp": "^0.5.1",

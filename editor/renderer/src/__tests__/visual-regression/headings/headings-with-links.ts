@@ -75,6 +75,9 @@ describe('Headings with links', () => {
         await hoverOnHeadingWithLinkThenSnapshot(
           page,
           `h${headingLevel}:first-of-type`,
+          alignment === 'right'
+            ? { snapshotMargin: true, screenshotOnHeadingHover: true }
+            : undefined,
         );
       },
     );

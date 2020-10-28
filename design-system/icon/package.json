@@ -51,7 +51,7 @@
     "@atlaskit/textfield": "^4.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
-    "@babel/core": "^7.1.0",
+    "@babel/core": "^7.12.3",
     "classnames": "^2.2.5",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",

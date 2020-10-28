@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 
-import Tag from '../../src/tag/removable-tag';
+import Tag from '../../src';
 
 export default () => (
   <Tag

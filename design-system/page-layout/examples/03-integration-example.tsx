@@ -39,6 +39,7 @@ export default function ProductLayout() {
           width={450}
           id="project-navigation"
           skipLinkTitle="Project Navigation"
+          testId="left-sidebar"
         >
           <SideNavigationContent />
         </LeftSidebar>

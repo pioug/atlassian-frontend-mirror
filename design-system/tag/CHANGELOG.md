@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.0.3
+
+### Patch Changes
+
+- [`c46e5e022f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c46e5e022f) - Fixed props table missing and relative path in examples issue
+
 ## 11.0.2
 
 ### Patch Changes

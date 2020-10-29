@@ -40,7 +40,7 @@ export class UserPickerWithoutAnalytics extends React.Component<
         {...this.props}
         width={width}
         SelectComponent={SelectComponent}
-        styles={getStyles(width, isMulti)}
+        styles={getStyles(width, isMulti, this.props.styles)}
         components={getComponents(isMulti, anchor)}
         pickerProps={pickerPropsWithPortal}
       />

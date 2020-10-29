@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 import { EmailValidator } from './components/emailValidation';
+import { StylesConfig } from '@atlaskit/select';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {
   /**
@@ -69,6 +70,12 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   subtle?: boolean;
   /** Display the picker with no border. */
   noBorder?: boolean;
+  /**
+   * You may pass through a `StylesConfig` to be merged with the picker default styles if a custom override is required.
+   * Consider using noBorder, subtle before customising further.
+   * See https://react-select.com/styles
+   */
+  styles?: StylesConfig;
   /** Default value for the field to be used on initial render.
    * If the `DefaultValue` contains only an `id` and `type` (it conforms to an `OptionIdentifier`)
    * then the values will be automatically hydrated from the backend.

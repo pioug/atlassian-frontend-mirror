@@ -47,12 +47,12 @@ describe('UserPicker', () => {
       const component = shallowUserPicker({ options });
       const select = component.find(Select);
       expect(select).toHaveLength(1);
-      expect(getStyles).toHaveBeenCalledWith(350, false);
+      expect(getStyles).toHaveBeenCalledWith(350, false, undefined);
     });
 
     it('should set width', () => {
       shallowUserPicker({ width: 500 });
-      expect(getStyles).toHaveBeenCalledWith(500, false);
+      expect(getStyles).toHaveBeenCalledWith(500, false, undefined);
     });
 
     it('should call getComponents with false if single picker', () => {

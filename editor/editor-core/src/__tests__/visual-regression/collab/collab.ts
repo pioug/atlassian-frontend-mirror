@@ -17,7 +17,7 @@ async function waitForCollabAvatars(page: PuppeteerPage) {
 
   // Wait for avatar image downloads
   const avatarSelector = `span[class$="AvatarImage"][role="img"]`;
-  await waitForElementCount(page, avatarSelector, 4); // 2 images x 2 editor instances
+  await waitForElementCount(page, avatarSelector, 6); // 3 images x 2 editor instances
   await waitForLoadedBackgroundImages(page, avatarSelector);
 }
 

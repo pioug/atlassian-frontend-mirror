@@ -156,7 +156,7 @@
     "@atlaskit/util-data-test": "^14.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/search-provider": "2.1.4",
+    "@atlassian/search-provider": "2.1.5",
     "@sentry/browser": "^5.11.0",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/dompurify": "^2.0.4",

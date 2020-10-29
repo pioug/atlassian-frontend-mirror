@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 6.9.0
+
+### Minor Changes
+
+- [`c8061b65de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8061b65de) - Allow style passthrough to mergeStyles in atlaskit select
+
 ## 6.8.0
 
 ### Minor Changes

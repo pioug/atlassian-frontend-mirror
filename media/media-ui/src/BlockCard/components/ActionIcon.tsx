@@ -2,7 +2,7 @@ import React from 'react';
 import CheckIcon from '@atlaskit/icon/glyph/check';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 
-import { ActionState } from './Action';
+import type { ActionState } from './Action';
 
 /*
   These styles are taken fro the spinner style for button. There was not an

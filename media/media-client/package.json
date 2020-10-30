@@ -15,7 +15,8 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    "./constants": "./src/constants.ts"
+    "./constants": "./src/constants.ts",
+    ".": "./src/index.ts"
   },
   "atlassian": {
     "team": "Media Platform",
@@ -25,6 +26,7 @@
       "name": "Media Client"
     }
   },
+
   "dependencies": {
     "@atlaskit/chunkinator": "^2.1.0",
     "@atlaskit/media-common": "^2.3.0",
@@ -64,5 +66,12 @@
   },
   "resolutions": {
     "lru-fast": "0.2.2"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ]
+    }
   }
 }

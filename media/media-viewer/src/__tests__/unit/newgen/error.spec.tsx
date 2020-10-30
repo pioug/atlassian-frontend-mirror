@@ -1,23 +1,21 @@
-const itemViewerModule = jest.requireActual(
-  '../../../newgen/analytics/item-viewer',
-);
-const archiveViewerModule = jest.requireActual(
-  '../../../newgen/analytics/archive-viewer',
-);
-const mediaPreviewFailedEventSpy = jest.fn();
-const zipEntryLoadFailedEventSpy = jest.fn();
-const mockItemViewer = {
-  ...itemViewerModule,
-  mediaPreviewFailedEvent: mediaPreviewFailedEventSpy,
-};
-
-const mockArchiveViewer = {
-  ...archiveViewerModule,
-  zipEntryLoadFailedEvent: zipEntryLoadFailedEventSpy,
-};
-
-jest.mock('../../../newgen/analytics/item-viewer', () => mockItemViewer);
-jest.mock('../../../newgen/analytics/archive-viewer', () => mockArchiveViewer);
+jest.mock('../../../newgen/analytics/item-viewer', () => {
+  const itemViewer = jest.requireActual(
+    '../../../newgen/analytics/item-viewer',
+  );
+  return {
+    ...itemViewer,
+    mediaPreviewFailedEvent: jest.fn(),
+  };
+});
+jest.mock('../../../newgen/analytics/archive-viewer', () => {
+  const archiveViewer = jest.requireActual(
+    '../../../newgen/analytics/archive-viewer',
+  );
+  return {
+    ...archiveViewer,
+    zipEntryLoadFailedEvent: jest.fn(),
+  };
+});
 
 import React from 'react';
 import { mount } from 'enzyme';
@@ -26,6 +24,8 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { FileState } from '@atlaskit/media-client';
 import { ZipEntry } from 'unzipit';
+import { mediaPreviewFailedEvent } from '../../../newgen/analytics/item-viewer';
+import { zipEntryLoadFailedEvent } from '../../../newgen/analytics/archive-viewer';
 
 describe('Error Message', () => {
   it('should render the right error for retrieving metadata', () => {
@@ -96,7 +96,7 @@ describe('Error Message', () => {
           <Button />
         </ErrorMessage>,
       );
-      expect(mediaPreviewFailedEventSpy).toHaveBeenCalledWith(
+      expect(mediaPreviewFailedEvent).toHaveBeenCalledWith(
         'unsupported',
         undefined,
       );
@@ -120,7 +120,7 @@ describe('Error Message', () => {
           <Button />
         </ErrorMessage>,
       );
-      expect(mediaPreviewFailedEventSpy).toHaveBeenCalledWith(
+      expect(mediaPreviewFailedEvent).toHaveBeenCalledWith(
         'unsupported',
         fileState,
       );
@@ -138,7 +138,7 @@ describe('Error Message', () => {
           <Button />
         </ErrorMessage>,
       );
-      expect(zipEntryLoadFailedEventSpy).toHaveBeenCalledWith(
+      expect(zipEntryLoadFailedEvent).toHaveBeenCalledWith(
         innerError,
         zipEntry,
         undefined,

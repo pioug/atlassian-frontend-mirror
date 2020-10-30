@@ -5,24 +5,25 @@ import {
   MediaApiConfig,
 } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../constants';
+import { getArtifactUrl, MediaFileArtifacts } from '../models/artifacts';
 import {
-  MediaFile,
-  MediaCollectionItems,
-  MediaUpload,
   MediaChunksProbe,
   MediaCollectionItemFullDetails,
-  request,
+  MediaCollectionItems,
+  MediaFile,
+  MediaUpload,
+} from '../models/media';
+import {
   createUrl,
+  mapResponseToBlob,
   mapResponseToJson,
+  mapResponseToVoid,
+  request,
+  RequestHeaders,
   RequestMethod,
   RequestParams,
-  RequestHeaders,
-  mapResponseToVoid,
-  mapResponseToBlob,
-  MediaFileArtifacts,
-  getArtifactUrl,
-} from '..';
-import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../constants';
+} from '../utils/request';
 
 const defaultImageOptions: MediaStoreGetFileImageParams = {
   'max-age': FILE_CACHE_MAX_AGE,

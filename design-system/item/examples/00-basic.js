@@ -5,6 +5,8 @@ import styled, { ThemeProvider } from 'styled-components';
 import { darken, mix } from 'polished';
 
 import Avatar from '@atlaskit/avatar';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, gridSize, math } from '@atlaskit/theme';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 

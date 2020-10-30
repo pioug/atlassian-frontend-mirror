@@ -23,10 +23,10 @@ import { CardDimensionValue } from '../../index';
 import { FormattedMessage } from 'react-intl';
 import * as mediaUi from '@atlaskit/media-ui';
 
-const humanReadableMediaSize = 'some KB';
+const mockHumanReadableMediaSize = 'some KB';
 jest.mock('@atlaskit/media-ui', () => ({
   ...jest.requireActual<Object>('@atlaskit/media-ui'),
-  toHumanReadableMediaSize: jest.fn(() => humanReadableMediaSize),
+  toHumanReadableMediaSize: jest.fn(() => mockHumanReadableMediaSize),
 }));
 
 describe('CardView', () => {
@@ -84,7 +84,7 @@ describe('CardView', () => {
 
         mediaName: details.name,
         mediaType: details.mediaType,
-        fileSize: humanReadableMediaSize,
+        fileSize: mockHumanReadableMediaSize,
       };
       const card = shallowCardViewBaseElement({
         metadata: details,

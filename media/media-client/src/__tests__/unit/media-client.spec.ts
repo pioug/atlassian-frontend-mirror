@@ -1,8 +1,4 @@
-const uploadFileMock = jest.fn();
-
-jest.mock('../../uploader', () => ({
-  uploadFile: uploadFileMock,
-}));
+jest.mock('../../uploader');
 
 import uuid from 'uuid/v4';
 import { AuthProvider } from '@atlaskit/media-core';
@@ -20,8 +16,10 @@ import {
   FileState,
   isErrorFileState,
 } from '../..';
+import { uploadFile } from '../../uploader';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
 
 const getOrInsertSpy = jest.spyOn(getFileStreamsCache(), 'getOrInsert');
 const authProvider: AuthProvider = () =>
@@ -35,9 +33,11 @@ const createMediaClient = () => {
   return new MediaClient({ authProvider });
 };
 
+const mockUploadFile = asMockFunction(uploadFile);
+
 describe('MediaClient', () => {
   afterEach(() => {
-    uploadFileMock.mockReset();
+    mockUploadFile.mockReset();
   });
 
   describe('.file.getFileState()', () => {
@@ -164,7 +164,7 @@ describe('MediaClient', () => {
       (mediaClient as any).mediaStore = {
         getFile,
       };
-      uploadFileMock.mockReturnValue({ cancel: jest.fn() });
+      mockUploadFile.mockReturnValue({ cancel: jest.fn() });
 
       const subscription = mediaClient.file
         .upload(file, controller, uploadableFileUpfrontIds)
@@ -211,7 +211,7 @@ describe('MediaClient', () => {
         content: 'data:image/gif;base64,R0lGODlhAQABAAAAACw=',
       };
       (mediaClient as any).mediaStore = { getFile };
-      uploadFileMock.mockImplementation((_, __, ___, callbacks) => {
+      mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
         callbacks && callbacks.onUploadFinish();
         return {
           cancel: jest.fn(),
@@ -265,7 +265,7 @@ describe('MediaClient', () => {
     it('should call media-client uploadFile with given arguments', () => {
       const mediaClient = createMediaClient();
       const file: UploadableFile = {} as any;
-      uploadFileMock.mockImplementation((_, __, ___, callbacks) => {
+      mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
         callbacks && callbacks.onProgress(0.1);
         return {
           cancel: jest.fn(),
@@ -281,10 +281,10 @@ describe('MediaClient', () => {
 
       const subscription = mediaClient.file.upload(file).subscribe({
         next() {
-          expect(uploadFileMock).toHaveBeenCalled();
-          expect(uploadFileMock.mock.calls[0][0]).toBe(file);
-          expect(uploadFileMock.mock.calls[0][1]).toEqual(fakeStore);
-          expect(uploadFileMock.mock.calls[0][2]).toEqual({
+          expect(uploadFile).toHaveBeenCalled();
+          expect(mockUploadFile.mock.calls[0][0]).toBe(file);
+          expect(mockUploadFile.mock.calls[0][1]).toEqual(fakeStore);
+          expect(mockUploadFile.mock.calls[0][2]).toEqual({
             id: expect.any(String),
             occurrenceKey: expect.any(String),
             deferredUploadId: expect.any(Promise),
@@ -303,7 +303,7 @@ describe('MediaClient', () => {
         mimeType: 'some-mime-type',
         content: {} as any,
       };
-      uploadFileMock.mockImplementation((_, __, ___, callbacks) => {
+      mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
         callbacks && callbacks.onProgress(0.1);
         return {
           cancel: jest.fn(),
@@ -345,7 +345,7 @@ describe('MediaClient', () => {
               collection: 'some-collection',
             },
           );
-          const uploadableFileUpfrontIds = uploadFileMock.mock
+          const uploadableFileUpfrontIds = mockUploadFile.mock
             .calls[0][2] as UploadableFileUpfrontIds;
           const actualUploadId = await uploadableFileUpfrontIds.deferredUploadId;
           expect(actualUploadId).toEqual('some-upload-id');
@@ -374,7 +374,7 @@ describe('MediaClient', () => {
       const cancelMock = jest.fn();
       (mediaClient as any).mediaStore = { getFile };
       (mediaClient as any).createDownloadFileStream = createDownloadFileStream;
-      uploadFileMock.mockImplementation((_, __, ___, callbacks) => {
+      mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
         callbacks && callbacks.onProgress(0.1);
         return {
           cancel() {
@@ -403,7 +403,7 @@ describe('MediaClient', () => {
         content: new Blob([]),
       };
 
-      uploadFileMock.mockImplementation((_, __, ___, callbacks) => {
+      mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
         callbacks &&
           callbacks.onUploadFinish(new Error('some-error-description'));
         return {
@@ -439,7 +439,7 @@ describe('MediaClient', () => {
         content: new Blob([]),
       };
 
-      uploadFileMock.mockImplementation((_, __, ___, callbacks) => {
+      mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
         callbacks && callbacks.onUploadFinish('canceled');
         return {
           cancel: jest.fn(),
@@ -482,7 +482,7 @@ describe('MediaClient', () => {
         name: 'file-name.png',
       };
 
-      uploadFileMock.mockImplementation(() => {
+      mockUploadFile.mockImplementation(() => {
         return {
           cancel: jest.fn(),
         };
@@ -519,7 +519,7 @@ describe('MediaClient', () => {
       const file = {
         content: new File([], '', { type: 'image/png' }),
       };
-      uploadFileMock.mockImplementation(() => {
+      mockUploadFile.mockImplementation(() => {
         return {
           cancel: jest.fn(),
         };

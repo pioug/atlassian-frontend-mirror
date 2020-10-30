@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import IssueIcon from '@atlaskit/icon/glyph/issue';
 import FilterIcon from '@atlaskit/icon/glyph/filter';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize } from '@atlaskit/theme';
 import { ContentType } from '../model/Result';
 

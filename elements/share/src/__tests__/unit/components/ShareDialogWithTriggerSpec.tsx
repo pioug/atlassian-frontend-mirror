@@ -4,6 +4,8 @@ import WorldIcon from '@atlaskit/icon/glyph/world';
 import Popup from '@atlaskit/popup';
 import Aktooltip from '@atlaskit/tooltip';
 import { shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { layers } from '@atlaskit/theme';
 import React from 'react';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';

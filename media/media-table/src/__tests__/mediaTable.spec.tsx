@@ -33,11 +33,11 @@ import { MediaTableProps, MediaTableItem } from '../types';
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
 
-let mediaClientMock: MediaClient;
+let mockMediaClient: MediaClient;
 
 jest.mock('@atlaskit/media-client', () => ({
   ...jest.requireActual<Object>('@atlaskit/media-client'),
-  getMediaClient: jest.fn(() => mediaClientMock),
+  getMediaClient: jest.fn(() => mockMediaClient),
 }));
 
 describe('MediaTable', () => {
@@ -66,7 +66,7 @@ describe('MediaTable', () => {
     fileStateSubject: ReplaySubject<FileState> = defaultFileState,
   ): MediaClient => {
     const mediaClient = fakeMediaClient();
-    mediaClientMock = mediaClient;
+    mockMediaClient = mediaClient;
 
     asMockFunction(mediaClient.file.getFileState).mockReturnValue(
       fileStateSubject,

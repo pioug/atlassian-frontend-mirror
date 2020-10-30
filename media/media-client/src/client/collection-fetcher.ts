@@ -1,16 +1,13 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { getFileStreamsCache } from '../file-streams-cache';
+import { FileState, mapMediaFileToFileState } from '../models/file-state';
+import { FileDetails, FileItem } from '../models/item';
 import {
-  MediaStore,
-  MediaStoreGetCollectionItemsParams,
   MediaCollectionItem,
   MediaCollectionItemFullDetails,
   MediaFile,
-  FileState,
-  mapMediaFileToFileState,
-  FileItem,
-  FileDetails,
-  getFileStreamsCache,
-} from '..';
+} from '../models/media';
+import { MediaStore, MediaStoreGetCollectionItemsParams } from './media-store';
 
 export interface MediaCollectionFileItemDetails extends FileDetails {
   occurrenceKey: string;

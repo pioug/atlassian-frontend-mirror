@@ -1,13 +1,19 @@
 import memoizeOne from 'memoize-one';
-import { Target } from '../types';
+import { Placement } from '@atlaskit/popper';
+
+import { Target, BoundariesElement, RootBoundary } from '../types';
 
 export const getPopupProps = memoizeOne(
   (
     width: string | number,
     target: Target,
     onFlip: (data: any) => any,
+    boundariesElement?: BoundariesElement,
+    offset?: number[],
+    placement?: Placement,
+    rootBoundary?: RootBoundary,
+    shouldFlip?: boolean,
     popupTitle?: string,
-    boundariesElement?: HTMLElement,
   ) => ({
     searchThreshold: -1,
     controlShouldRenderValue: true,
@@ -17,16 +23,33 @@ export const getPopupProps = memoizeOne(
     target,
     popupTitle,
     popperProps: {
-      modifiers: {
-        handleFlipStyle: {
+      placement: placement || 'auto',
+      strategy: 'fixed',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset,
+          },
+        },
+        {
+          name: 'handleFlipStyle',
           enabled: true,
           order: 910,
           fn: (data: any) => onFlip(data),
         },
-        preventOverflow: {
-          boundariesElement: boundariesElement || 'viewport',
+        {
+          name: 'preventOverflow',
+          options: {
+            rootBoundary: rootBoundary,
+            boundary: boundariesElement,
+          },
         },
-      },
+        {
+          name: 'flip',
+          enabled: shouldFlip,
+        },
+      ],
     },
   }),
 );

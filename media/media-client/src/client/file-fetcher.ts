@@ -6,32 +6,35 @@ import { AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import {
   MediaStore,
-  UploadableFile,
-  UploadController,
-  uploadFile,
-  MediaCollectionItemFullDetails,
-  ResponseFileItem,
-  MediaFileArtifacts,
-  TouchFileDescriptor,
-  TouchedFiles,
-  UploadableFileUpfrontIds,
-  FilePreview,
-  FileState,
-  ProcessingFileState,
-  isProcessingFileState,
-  ErrorFileState,
-  isErrorFileState,
-  isFinalFileState,
-  GetFileOptions,
-  mapMediaItemToFileState,
-  getFileStreamsCache,
-  MediaFile,
   MediaStoreCopyFileWithTokenBody,
   MediaStoreCopyFileWithTokenParams,
+  ResponseFileItem,
+  TouchedFiles,
+  TouchFileDescriptor,
+} from './media-store';
+import {
+  ErrorFileState,
+  FilePreview,
+  FileState,
+  GetFileOptions,
+  isErrorFileState,
+  isFinalFileState,
+  isProcessingFileState,
   mapMediaFileToFileState,
-  globalMediaEventEmitter,
-  RECENTS_COLLECTION,
-} from '..';
+  mapMediaItemToFileState,
+  ProcessingFileState,
+} from '../models/file-state';
+import { MediaCollectionItemFullDetails, MediaFile } from '../models/media';
+import {
+  UploadableFile,
+  UploadableFileUpfrontIds,
+  uploadFile,
+} from '../uploader';
+import { MediaFileArtifacts } from '../models/artifacts';
+import { UploadController } from '../upload-controller';
+import { getFileStreamsCache } from '../file-streams-cache';
+import { globalMediaEventEmitter } from '../globalMediaEventEmitter';
+import { RECENTS_COLLECTION } from '../constants';
 import isValidId from 'uuid-validate';
 import { getMediaTypeFromUploadableFile } from '../utils/getMediaTypeFromUploadableFile';
 import { overrideMediaTypeIfUnknown } from '../utils/overrideMediaTypeIfUnknown';

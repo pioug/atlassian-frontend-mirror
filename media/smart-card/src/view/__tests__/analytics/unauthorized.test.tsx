@@ -1,20 +1,7 @@
-import { mockEvents } from '../../__mocks__/events';
-import { AuthError } from '@atlaskit/outbound-auth-flow-client';
-const mockAuthFlow = jest.fn();
-
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock('react-transition-group/Transition', () => (data: any) =>
-  data.children,
-);
-jest.doMock('../../../utils/analytics', () => mockEvents);
-jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
-  auth: mockAuthFlow,
-  AuthError,
-}));
-const mockAPIError = jest.fn();
-jest.doMock('../../../client/errors', () => ({
-  APIError: mockAPIError,
-}));
+import './unauthorized.test.mock';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
+import * as analytics from '../../../utils/analytics';
 import CardClient from '../../../client';
 import React from 'react';
 import { Card } from '../../Card';
@@ -63,7 +50,7 @@ describe('smart-card: unauthorized analytics', () => {
       expect(unauthorizedLinkButton).toBeTruthy();
       expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
       // Mock out auth flow, & click connect.
-      mockAuthFlow.mockImplementationOnce(async () => ({}));
+      asMockFunction(auth).mockImplementationOnce(async () => {});
       fireEvent.click(unauthorizedLinkButton!);
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
@@ -71,12 +58,12 @@ describe('smart-card: unauthorized analytics', () => {
         getByTestId('unauthorizedCard1-resolved-view'),
       );
       expect(resolvedView).toBeTruthy();
-      expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiAuthEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.trackAppAccountConnected).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
+      expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.trackAppAccountConnected).toHaveBeenCalledTimes(1);
+      expect(analytics.connectSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.fireSmartLinkEvent).toBeCalledWith(
         {
           action: 'unresolved',
           attributes: {
@@ -117,7 +104,7 @@ describe('smart-card: unauthorized analytics', () => {
         expect(unauthorizedLinkButton).toBeTruthy();
         expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
         // Mock out auth flow, & click connect.
-        mockAuthFlow.mockImplementationOnce(() =>
+        asMockFunction(auth).mockImplementationOnce(() =>
           Promise.reject(new AuthError('', errorType)),
         );
         fireEvent.click(unauthorizedLinkButton!);
@@ -129,11 +116,11 @@ describe('smart-card: unauthorized analytics', () => {
           },
         );
         expect(unresolvedView).toBeTruthy();
-        expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-        expect(mockEvents.uiAuthEvent).toHaveBeenCalledTimes(1);
-        expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-        expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
-        expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
+        expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.connectFailedEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.connectFailedEvent).toHaveBeenCalledWith(
           'd1',
           'object-provider',
           errorType,
@@ -158,7 +145,7 @@ describe('smart-card: unauthorized analytics', () => {
       expect(unauthorizedLinkButton).toBeTruthy();
       expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
       // Mock out auth flow, & click connect.
-      mockAuthFlow.mockImplementationOnce(() =>
+      asMockFunction(auth).mockImplementationOnce(() =>
         Promise.reject(new AuthError('', 'auth_window_closed')),
       );
       fireEvent.click(unauthorizedLinkButton!);
@@ -170,12 +157,12 @@ describe('smart-card: unauthorized analytics', () => {
         },
       );
       expect(resolvedView).toBeTruthy();
-      expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiAuthEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiClosedAuthEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
+      expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiClosedAuthEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.connectFailedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.connectFailedEvent).toHaveBeenCalledWith(
         'd1',
         'object-provider',
         'auth_window_closed',

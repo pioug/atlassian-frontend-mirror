@@ -1,11 +1,11 @@
+import { MediaStoreResponse } from '../client/media-store';
+import { MediaFileArtifacts } from './artifacts';
 import {
-  MediaFile,
-  MediaStoreResponse,
-  MediaType,
-  MediaFileArtifacts,
   MediaCollectionItemFullDetails,
+  MediaFile,
   MediaRepresentations,
-} from '..';
+  MediaType,
+} from './media';
 
 export type FileStatus =
   | 'uploading'

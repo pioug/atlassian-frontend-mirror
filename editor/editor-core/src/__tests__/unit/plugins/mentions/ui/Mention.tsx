@@ -4,6 +4,8 @@ import { ResourcedMention } from '@atlaskit/mention/element';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import Mention from '../../../../../plugins/mentions/ui/Mention';
 import { MentionProvider } from '@atlaskit/mention/types';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
 // avoid polluting test logs with error message in console
 // please ensure you fix it if you expect console.error to be thrown

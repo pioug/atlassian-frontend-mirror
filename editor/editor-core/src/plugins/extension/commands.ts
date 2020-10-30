@@ -5,6 +5,8 @@ import { applyChange } from '../context-panel/transforms';
 import { createCommand } from './plugin-factory';
 import { ExtensionAction, ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   Parameters,
   TransformBefore,

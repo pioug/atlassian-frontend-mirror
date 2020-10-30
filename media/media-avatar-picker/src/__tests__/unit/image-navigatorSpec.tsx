@@ -1,18 +1,4 @@
-declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader
-jest.mock('../../util', () => ({
-  ...jest.requireActual<Object>('../../util'),
-  fileSizeMb: jest.fn().mockReturnValue(11),
-}));
-
-const fileToDataURIPromise = Promise.resolve('some-data-uri');
-const getOrientationPromise = Promise.resolve(7);
-
-jest.mock('@atlaskit/media-ui', () => ({
-  ...jest.requireActual<Object>('@atlaskit/media-ui'),
-  fileToDataURI: jest.fn(() => fileToDataURIPromise),
-  getOrientation: jest.fn(() => getOrientationPromise),
-}));
-
+import * as mocks from './image-navigatorSpec.mock';
 import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -38,6 +24,8 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { errorIcon } from '../../image-navigator/images';
 import { ReactWrapper } from 'enzyme';
+
+declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader
 
 describe('Image navigator', () => {
   let component: any;
@@ -197,8 +185,8 @@ describe('Image navigator', () => {
 
         onDrop!(mockDropEvent(droppedImage));
 
-        await fileToDataURIPromise;
-        await getOrientationPromise;
+        await mocks.mockFileToDataURIPromise;
+        await mocks.mockGetOrientationPromise;
 
         expect(viewComponent.state('imageFile')).toBe(droppedImage);
         expect(viewComponent.state('fileImageSource')).toBe('some-data-uri');

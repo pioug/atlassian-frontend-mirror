@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@atlaskit/button/custom-theme-button';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize, math } from '@atlaskit/theme';
 import styled from 'styled-components';
 import { messages } from '../messages';

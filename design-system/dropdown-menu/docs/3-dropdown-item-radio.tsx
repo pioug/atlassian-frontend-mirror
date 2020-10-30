@@ -19,9 +19,9 @@ import DropdownMenu, { DropdownItemGroupRadio, DropdownItemRadio } from @atlaski
   ${(
     <Example
       packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/dropdown-item-radio').default}
+      Component={require('../examples/07-dropdown-item-radio').default}
       title=""
-      source={require('!!raw-loader!../examples/dropdown-item-radio')}
+      source={require('!!raw-loader!../examples/07-dropdown-item-radio')}
     />
   )}
 

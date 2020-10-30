@@ -3,13 +3,13 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemMultilineExample = () => (
-  <DropdownMenu triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
+      <DropdownItem>Edit</DropdownItem>
       <DropdownItem shouldAllowMultiline>
-        Sydney is capital of New South Wales and one of Australia's largest
-        cities.
+        Lorem ipsum: In quis ligula ut massa scelerisque cursus. Nulla et dolor
+        felis. Mauris euismod neque at venenatis tempor.
       </DropdownItem>
-      <DropdownItem>Brisbane</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

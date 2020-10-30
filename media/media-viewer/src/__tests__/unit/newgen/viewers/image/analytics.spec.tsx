@@ -1,16 +1,4 @@
-import {
-  setState as setInteractiveImgState,
-  InteractiveImg as InteractiveImgMock,
-} from '../../../../mocks/_interactive-img';
-
-const mockInteractiveImg = {
-  InteractiveImg: InteractiveImgMock,
-};
-jest.mock(
-  '../../../../../newgen/viewers/image/interactive-img',
-  () => mockInteractiveImg,
-);
-
+import * as mocks from './analytics.mock';
 import React from 'react';
 import {
   globalMediaEventEmitter,
@@ -69,7 +57,7 @@ describe('ImageViewer analytics', () => {
   });
 
   it('should trigger media-viewed when image is displayed', async () => {
-    setInteractiveImgState('success');
+    mocks.setInteractiveImgState('success');
     const response = Promise.resolve(new Blob());
     createFixture(response);
 
@@ -87,7 +75,7 @@ describe('ImageViewer analytics', () => {
   });
 
   it('should call onLoad with success', async () => {
-    setInteractiveImgState('success');
+    mocks.setInteractiveImgState('success');
     const response = Promise.resolve(new Blob());
     const { el } = createFixture(response);
 
@@ -97,7 +85,7 @@ describe('ImageViewer analytics', () => {
   });
 
   it('should call onLoad with error if interactive-img fails', async () => {
-    setInteractiveImgState('error');
+    mocks.setInteractiveImgState('error');
     const response = Promise.resolve(new Blob());
     const { el } = createFixture(response);
 

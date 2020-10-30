@@ -1,4 +1,4 @@
-import { MediaFileProcessingStatus } from './media';
+import type { MediaFileProcessingStatus } from './media';
 
 export type MediaFileArtifact = {
   readonly url: string;

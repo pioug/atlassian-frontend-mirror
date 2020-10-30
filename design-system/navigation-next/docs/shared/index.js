@@ -3,6 +3,8 @@
 import React, { Component, createContext, Fragment } from 'react';
 
 import { Example } from '@atlaskit/docs';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
 /**

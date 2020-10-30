@@ -19,9 +19,9 @@ import DropdownMenu, { DropdownItemGroupCheckbox, DropdownItemCheckbox } from @a
   ${(
     <Example
       packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/dropdown-item-checkbox').default}
+      Component={require('../examples/05-dropdown-item-checkbox').default}
       title=""
-      source={require('!!raw-loader!../examples/dropdown-item-checkbox')}
+      source={require('!!raw-loader!../examples/05-dropdown-item-checkbox')}
     />
   )}
 

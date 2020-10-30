@@ -4,6 +4,8 @@ order: 0
 
 import DropdownMenuDefault from '../../examples/constellation/dropdown-menu-default';
 import DropdownMenuTall from '../../examples/constellation/dropdown-menu-tall';
+import DropdownMenuCustomTrigger from '../../examples/constellation/dropdown-menu-custom-trigger';
+import DropdownMenuCustomTriggerButton from '../../examples/constellation/dropdown-menu-custom-trigger-button';
 import DropdownMenuShouldFitContainer from '../../examples/constellation/dropdown-menu-should-fit-container';
 import DropdownMenuDefaultOpen from '../../examples/constellation/dropdown-menu-default-open';
 import DropdownMenuLoading from '../../examples/constellation/dropdown-menu-loading';
@@ -18,7 +20,7 @@ import DropdownMenuShouldFlip from '../../examples/constellation/dropdown-menu-s
 
 ### Default
 
-Use `default` for the default dropdown menu appearance. The default menu will scroll after its height exceeds the pre-defined amount. 
+Use `default` for the default dropdown menu appearance. The default menu will scroll after its height exceeds the pre-defined amount.
 
 <Example
   Component={DropdownMenuDefault}
@@ -29,10 +31,7 @@ Use `default` for the default dropdown menu appearance. The default menu will sc
 
 Use `tall` to control the height of the menu. The tall menu will not scroll until the height exceeds the height of the viewport.
 
-<Example
-  Component={DropdownMenuTall}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuTall} packageName="@atlaskit/dropdown-menu" />
 
 ## Should fit container
 
@@ -40,6 +39,28 @@ Use `shouldFitContainer` to fit the width of the dropdown menu to its parent wid
 
 <Example
   Component={DropdownMenuShouldFitContainer}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+## Custom triggers
+
+There are two recommended ways to customize a trigger.
+
+### Using triggerType and buttonProps
+
+Set `triggerType` to `button` and customize the button using `buttonProps`.
+
+<Example
+  Component={DropdownMenuCustomTriggerButton}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Using trigger
+
+Use the `trigger` prop and pass in a custom trigger.
+
+<Example
+  Component={DropdownMenuCustomTrigger}
   packageName="@atlaskit/dropdown-menu"
 />
 
@@ -67,10 +88,7 @@ If `isLoading` is true, a spinner is rendered instead of the dropdown items.
 
 Use `isOpen` to control the open state of the dropdown menu.
 
-<Example
-  Component={DropdownMenuOpen}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuOpen} packageName="@atlaskit/dropdown-menu" />
 
 ## Positioning
 
@@ -103,13 +121,10 @@ Use `boundariesElement` to keep the menu inside the viewport.
 
 ### Is menu fixed
 
-Use `isMenuFixed` to determine if the menu should be in a fixed position. This is useful for breaking out of overflow scroll or hidden containers. 
+Use `isMenuFixed` to determine if the menu should be in a fixed position. This is useful for breaking out of overflow scroll or hidden containers.
 Extra layout management is needed to control scroll behavior when this property is enabled as the menu will not update the position with the target on scroll.
 
-<Example
-  Component={DropdownMenuFixed}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuFixed} packageName="@atlaskit/dropdown-menu" />
 
 ### Should flip
 

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 6.9.1
+
+### Patch Changes
+
+- [`d46c67b902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d46c67b902) - [ux] Added further props to the PopupUserPicker for enabling offsets/shouldFlip/boundary settings. This change is backwards compatible. PopperProps have been updated to conform with Popper2.0 change
+
 ## 6.9.0
 
 ### Minor Changes

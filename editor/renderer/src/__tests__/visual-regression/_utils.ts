@@ -7,6 +7,8 @@ import {
   PuppeteerScreenshotOptions,
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';

@@ -31,6 +31,7 @@ export type GasPurePayload = {
   };
   tags?: Array<string>;
   source?: string;
+  action?: string;
 };
 
 export type WithEventType = {

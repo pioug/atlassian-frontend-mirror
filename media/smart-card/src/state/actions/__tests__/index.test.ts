@@ -1,54 +1,9 @@
-jest.doMock('react', () => mockMemo);
-
-const mockAuthFlow = jest.fn();
-const mockMemo = {
-  useMemo: jest.fn().mockImplementation(fn => fn()),
-  useCallback: jest.fn().mockImplementation(fn => fn),
-};
-import { mockEvents } from '../../../view/__mocks__/events';
-
-// eslint-disable-next-line no-global-assign
-performance = ({
-  mark: jest.fn(),
-  measure: jest.fn(),
-  clearMarks: jest.fn(),
-} as unknown) as Performance;
-
-jest.doMock('../../../utils/analytics', () => mockEvents);
-jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
-  auth: mockAuthFlow,
-}));
-
-const getMockContext = (): CardContext => ({
-  config: { maxAge: 100, maxLoadingDelay: 100 },
-  connections: {
-    client: {
-      prefetchData: jest.fn(),
-      fetchData: jest.fn(),
-      postData: jest.fn(),
-    },
-  },
-  store: {
-    getState: jest.fn(() => ({})),
-    dispatch: jest.fn(),
-    subscribe: jest.fn(),
-    replaceReducer: jest.fn(),
-  },
-  prefetchStore: {},
-  extractors: {
-    getPreview: jest.fn(),
-  },
-});
-
-let mockContext: CardContext;
-jest.doMock('../../context', () => ({
-  useSmartLinkContext: jest.fn(() => mockContext),
-}));
-
+import * as testMocks from './index.test.mock';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { useSmartCardActions } from '..';
 import { mocks } from '../../../utils/mocks';
 import { APIError } from '../../../client/errors';
-import { CardContext } from '../../context';
+import { useSmartLinkContext, CardContext } from '../../context';
 import { CardState } from '../../types';
 import { useSmartLinkAnalytics } from '../../analytics';
 import { JsonLd } from 'json-ld-types';
@@ -57,6 +12,7 @@ describe('Smart Card: Actions', () => {
   let url: string;
   let id: string;
   let dispatchAnalytics: jest.Mock;
+  let mockContext: CardContext;
   const mockFetchData = (response: Promise<JsonLd.Response | undefined>) => {
     (mockContext.connections.client
       .fetchData as jest.Mock).mockImplementationOnce(() => response);
@@ -68,7 +24,8 @@ describe('Smart Card: Actions', () => {
   };
 
   beforeEach(() => {
-    mockContext = getMockContext();
+    mockContext = testMocks.mockGetContext();
+    asMockFunction(useSmartLinkContext).mockImplementation(() => mockContext);
     url = 'https://some/url';
     id = 'my-id';
     dispatchAnalytics = jest.fn();

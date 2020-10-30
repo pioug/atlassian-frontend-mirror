@@ -6,7 +6,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
   <div onClick={e => e.preventDefault()}>
-    <DropdownMenu trigger="Cities" triggerType="button">
+    <DropdownMenu trigger="Filter cities" triggerType="button">
       <DropdownItemGroup>
         <DropdownItem isHidden>Not visible</DropdownItem>
         <DropdownItem>Adelaide</DropdownItem>

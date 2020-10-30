@@ -3,9 +3,13 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemDescriptionExample = () => (
-  <DropdownMenu triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem description="Sydney is awesome">Sydney</DropdownItem>
+      <DropdownItem description="Previous versions are saved">
+        Edit
+      </DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

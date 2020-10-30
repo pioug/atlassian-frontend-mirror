@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ResultBase } from '@atlaskit/quick-search';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize } from '@atlaskit/theme';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import styled from 'styled-components';

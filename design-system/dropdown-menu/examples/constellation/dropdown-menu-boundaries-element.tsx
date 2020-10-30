@@ -6,10 +6,13 @@ const DropdownMenuBoundariesExample = () => (
   <DropdownMenu
     boundariesElement="viewport"
     appearance="tall"
+    trigger="Page actions"
     triggerType="button"
   >
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
+      <DropdownItem>Edit</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

@@ -19,6 +19,8 @@ export default {
     'Bozuk bir robot ve robotu tamir etmeye çalışan insanlar.',
   'fabric.atlassianSwitcher.errorText':
     'Bu hataları takip ediyoruz, ancak sayfayı yenilemek sorunu çözmezse lütfen bizimle iletişime geçmekten çekinmeyin',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Atlassian uygulama değiştiriciyi kullanmak için yeniden oturum açın.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Bu liste yüklenemedi. Lütfen sayfayı yeniden yükleyin ve tekrar deneyin.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -31,6 +33,9 @@ export default {
     'En fazla 3 temsilcinin yararlanabileceği, ücretsiz, iş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '10 kullanıcıya kadar ücretsiz proje ve sorun takibi',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, GitHub ve daha fazlası',
+  'fabric.atlassianSwitcher.gittools.label': 'Jira için Git tümleştirmeleri',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projesi',
   'fabric.atlassianSwitcher.join': 'Katılın',
   'fabric.atlassianSwitcher.login': 'Oturum aç',

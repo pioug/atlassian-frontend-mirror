@@ -1,20 +1,27 @@
-import { AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { mockEvents } from '../../__mocks__/events';
-const mockAuthFlow = jest.fn();
-
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
 );
-jest.doMock('../../../utils/analytics', () => mockEvents);
-jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
-  auth: mockAuthFlow,
-  AuthError,
+jest.mock('../../../utils/analytics', () => {
+  const { mockEvents } = require('../../__mocks__/events');
+  return mockEvents;
+});
+jest.mock('@atlaskit/outbound-auth-flow-client', () => {
+  const { AuthError } = jest.requireActual(
+    '@atlaskit/outbound-auth-flow-client',
+  );
+  return {
+    auth: jest.fn(),
+    AuthError,
+  };
+});
+jest.mock('../../../client/errors', () => ({
+  APIError: jest.fn(),
 }));
-const mockAPIError = jest.fn();
-jest.doMock('../../../client/errors', () => ({
-  APIError: mockAPIError,
-}));
+
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import * as analyticsEvents from '../../../utils/analytics';
+import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import CardClient from '../../../client';
 import React from 'react';
 import { Card } from '../../Card';
@@ -64,7 +71,7 @@ describe('smart-card: forbidden analytics', () => {
       expect(forbiddenLinkButton).toBeTruthy();
       expect(forbiddenLinkButton!.innerHTML).toContain('Try another');
       // Mock out auth flow, & click connect.
-      mockAuthFlow.mockImplementationOnce(async () => ({}));
+      asMockFunction(auth).mockImplementationOnce(async () => {});
       fireEvent.click(forbiddenLinkButton!);
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
@@ -75,12 +82,14 @@ describe('smart-card: forbidden analytics', () => {
         },
       );
       expect(resolvedView).toBeTruthy();
-      expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.trackAppAccountConnected).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
+      expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(
+        1,
+      );
+      expect(analyticsEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.trackAppAccountConnected).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.fireSmartLinkEvent).toBeCalledWith(
         {
           action: 'unresolved',
           attributes: {
@@ -110,7 +119,7 @@ describe('smart-card: forbidden analytics', () => {
       expect(forbiddenLinkButton).toBeTruthy();
       expect(forbiddenLinkButton!.innerHTML).toContain('Try another');
       // Mock out auth flow, & click connect.
-      mockAuthFlow.mockImplementationOnce(() =>
+      asMockFunction(auth).mockImplementationOnce(() =>
         Promise.reject(new AuthError('')),
       );
       fireEvent.click(forbiddenLinkButton!);
@@ -123,11 +132,13 @@ describe('smart-card: forbidden analytics', () => {
         },
       );
       expect(unresolvedView).toBeTruthy();
-      expect(mockEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.connectFailedEvent).toHaveBeenCalledWith(
+      expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(
+        1,
+      );
+      expect(analyticsEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
+      expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledWith(
         'd1',
         'object-provider',
         undefined,

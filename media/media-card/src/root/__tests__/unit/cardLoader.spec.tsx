@@ -28,7 +28,7 @@ const props = {
 };
 
 describe('Async Card Loader', () => {
-  const CardModule = () => <div />;
+  const mockCardModule = () => <div />;
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -73,7 +73,7 @@ describe('Async Card Loader', () => {
     beforeEach(() => {
       jest.mock('../../card/index', () => ({
         __esModule: true,
-        Card: CardModule,
+        Card: mockCardModule,
       }));
       jest.unmock('../../media-card-analytics-error-boundary');
       MediaPickerAnalyticsErrorBoundary = jest.requireActual(
@@ -87,7 +87,7 @@ describe('Async Card Loader', () => {
       );
 
       await nextTick();
-      await CardModule;
+      await mockCardModule;
       await nextTick();
       wrapper.update();
       expect(wrapper.state().Card).not.toBeUndefined();
@@ -118,7 +118,7 @@ describe('Async Card Loader', () => {
       );
 
       await nextTick();
-      await CardModule;
+      await mockCardModule;
       wrapper.update();
       expect(wrapper.find(CardLoading)).toHaveLength(1);
     });

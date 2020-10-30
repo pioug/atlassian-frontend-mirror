@@ -1,11 +1,10 @@
 jest.mock('@atlaskit/media-ui', () => {
   const actualModule = jest.requireActual('@atlaskit/media-ui');
-  type CustomMediaPlayerType = typeof actualModule.CustomMediaPlayer;
   return {
     ...actualModule,
     CustomMediaPlayer: jest.fn<
-      ReturnType<CustomMediaPlayerType>,
-      Parameters<CustomMediaPlayerType>
+      ReturnType<typeof actualModule.CustomMediaPlayer>,
+      Parameters<typeof actualModule.CustomMediaPlayer>
     >(() => null),
   };
 });

@@ -5,7 +5,7 @@ class FakeKeyboardEvent {
 }
 class KeyboardEventWithKeyCode extends (exenv.canUseDOM
   ? KeyboardEvent
-  : ({} as any)) {
+  : Object) {
   constructor(type: string, options: any) {
     super(type, options);
   }

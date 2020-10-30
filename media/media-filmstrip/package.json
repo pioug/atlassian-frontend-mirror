@@ -15,7 +15,8 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
-    "./filmstrip": "./src/filmstrip.tsx"
+    "./filmstrip": "./src/filmstrip.tsx",
+    ".": "./src/index.tsx"
   },
   "atlassian": {
     "team": "Media Platform",

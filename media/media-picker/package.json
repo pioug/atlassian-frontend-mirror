@@ -14,7 +14,8 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
   },
   "atlassian": {
     "team": "Media Platform",

@@ -19,6 +19,8 @@ export default {
     'Rozbitý robot a několik lidí se ho snaží opravit.',
   'fabric.atlassianSwitcher.errorText':
     'Tyto chyby zaznamenáváme, ale nebojte se nás kontaktovat, pokud obnovení stránky problém nevyřeší.',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Chcete-li použít přepínač produktů Atlassian, znovu se přihlaste.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Tento seznam se nám nepodařilo načíst. Obnovte stránku a zkuste to znova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -31,6 +33,8 @@ export default {
     'Kolaborativní správa IT služeb zdarma pro až tři agenty',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Bezplatné sledování projektů a požadavků pro až 10 uživatelů',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub a další',
+  'fabric.atlassianSwitcher.gittools.label': 'Integrace Git pro Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
   'fabric.atlassianSwitcher.join': 'Připojit',
   'fabric.atlassianSwitcher.login': 'Přihlášení',

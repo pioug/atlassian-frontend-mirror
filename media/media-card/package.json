@@ -14,7 +14,9 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "af:exports": {},
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Media Platform",
     "inPublicMirror": true,

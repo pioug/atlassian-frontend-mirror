@@ -5,6 +5,8 @@ import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
 import { Toggle, ItemWrapper } from './themed-top-level-item';
 import SwitcherThemedItem from './themed-item';
 import SwitcherThemedChildItem from './themed-child-item';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize } from '@atlaskit/theme';
 import * as colors from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';

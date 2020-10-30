@@ -4,29 +4,31 @@ import {
   getMsgDate,
 } from '../../../../../newgen/viewers/codeViewer/msg-parser';
 
-jest.mock('@kenjiuno/msgreader', () => ({
-  __esModule: true,
+jest.mock('@kenjiuno/msgreader', () => {
+  //ArrayBuffer to String
+  function ab2str(buf: ArrayBuffer) {
+    return String.fromCharCode.apply(null, new Uint16Array(buf) as any);
+  }
 
-  default: jest.fn().mockImplementation((object: ArrayBuffer) => {
-    const fileData = JSON.parse(ab2str(object));
-    return {
-      getFileData: () => {
-        return fileData;
-      },
-      getAttachment: () => {
-        if (fileData.attachments) {
-          return Array(fileData.attachments.length).fill('');
-        }
-        return;
-      },
-    };
-  }),
-}));
+  return {
+    __esModule: true,
 
-//ArrayBuffer to String
-function ab2str(buf: ArrayBuffer) {
-  return String.fromCharCode.apply(null, new Uint16Array(buf) as any);
-}
+    default: jest.fn((object: ArrayBuffer) => {
+      const fileData = JSON.parse(ab2str(object));
+      return {
+        getFileData: () => {
+          return fileData;
+        },
+        getAttachment: () => {
+          if (fileData.attachments) {
+            return Array(fileData.attachments.length).fill('');
+          }
+          return;
+        },
+      };
+    }),
+  };
+});
 
 //String to ArrayBuffer
 function str2ab(str: string) {

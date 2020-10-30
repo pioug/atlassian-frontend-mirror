@@ -21,9 +21,9 @@ ${code`
   ${(
     <Example
       packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/12-with-keyboard-interaction').default}
+      Component={require('../examples/14-with-keyboard-interaction').default}
       title=""
-      source={require('!!raw-loader!../examples/12-with-keyboard-interaction')}
+      source={require('!!raw-loader!../examples/14-with-keyboard-interaction')}
     />
   )}
 `;

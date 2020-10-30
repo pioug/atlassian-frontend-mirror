@@ -27,7 +27,8 @@
     "./custom-theme-button": "./src/entry-points/custom-theme-button.ts",
     "./loading-button": "./src/entry-points/loading-button.ts",
     "./standard-button": "./src/entry-points/standard-button.ts",
-    "./types": "./src/entry-points/types.ts"
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",

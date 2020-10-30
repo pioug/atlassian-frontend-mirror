@@ -14,14 +14,14 @@ interface SetupParams {
   altText?: string;
 }
 
-let isRotatedMock: jest.Mock | typeof isRotated = jest.fn();
+let mockIsRotated: jest.Mock | typeof isRotated = jest.fn();
 
 jest.mock('../../imageMetaData/imageOrientationUtil', () => ({
   ...jest.requireActual<Object>('../../imageMetaData/imageOrientationUtil'),
   isRotated: jest.fn<
     ReturnType<typeof isRotated>,
     Parameters<typeof isRotated>
-  >(orientation => isRotatedMock(orientation)),
+  >(orientation => mockIsRotated(orientation)),
 }));
 
 describe('MediaImage', () => {
@@ -106,7 +106,7 @@ describe('MediaImage', () => {
   beforeEach(() => {
     onImageLoad = jest.fn();
     onImageError = jest.fn();
-    isRotatedMock = jest.requireActual(
+    mockIsRotated = jest.requireActual(
       '../../imageMetaData/imageOrientationUtil',
     ).isRotated;
   });
@@ -260,7 +260,7 @@ describe('MediaImage', () => {
 
     describe('when image is rotated', () => {
       it('should choose appropriate width when cover strategy chosen', () => {
-        isRotatedMock = jest.fn().mockReturnValue(true);
+        mockIsRotated = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage
@@ -279,7 +279,7 @@ describe('MediaImage', () => {
       });
 
       it('should choose appropriate height when fit strategy chosen', () => {
-        isRotatedMock = jest.fn().mockReturnValue(true);
+        mockIsRotated = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage
@@ -366,7 +366,7 @@ describe('MediaImage', () => {
       });
 
       it('should rotate the image and revert width and height when image is rotated 90deg', async () => {
-        isRotatedMock = jest.fn().mockReturnValue(true);
+        mockIsRotated = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage
@@ -390,7 +390,7 @@ describe('MediaImage', () => {
       });
 
       it('should choose appropriate width when cover strategy chosen', () => {
-        isRotatedMock = jest.fn().mockReturnValue(true);
+        mockIsRotated = jest.fn().mockReturnValue(true);
 
         const component = mount<MediaImageProps, MediaImageState>(
           <MediaImage

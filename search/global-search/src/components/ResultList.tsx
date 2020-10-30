@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import {

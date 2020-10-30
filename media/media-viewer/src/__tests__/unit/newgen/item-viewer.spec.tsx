@@ -1,21 +1,4 @@
-import {
-  setViewerPayload,
-  ImageViewer as ImageViewerMock,
-} from '../../mocks/_image-viewer';
-
-const mockImageViewer = {
-  ImageViewer: ImageViewerMock,
-};
-jest.mock('../../../newgen/viewers/image', () => mockImageViewer);
-jest.mock('unzipit', () => ({
-  unzip: () => {
-    return {
-      archive: 'file',
-      entries: { 'file_a.jpeg': { name: 'file_a.jpeg' } },
-    };
-  },
-  HTTPRangeReader: () => 'reader',
-}));
+import * as mocks from './item-viewer.mock';
 
 import React from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -120,7 +103,7 @@ function mountBaseComponent(
 
 describe('<ItemViewer />', () => {
   beforeEach(() => {
-    setViewerPayload({ status: 'success' });
+    mocks.setViewerPayload({ status: 'success' });
   });
 
   it('shows an indicator while loading', () => {
@@ -561,7 +544,7 @@ describe('<ItemViewer />', () => {
     });
 
     it('should trigger analytics when viewer returned an error', () => {
-      setViewerPayload({
+      mocks.setViewerPayload({
         status: 'error',
         errorMessage: 'Image viewer failed :(',
       });

@@ -4,7 +4,7 @@ import {
   MediaType,
 } from '@atlaskit/media-common';
 
-import { MediaFileArtifacts } from './artifacts';
+import type { MediaFileArtifacts } from './artifacts';
 
 // Warning! You can't add new media file processing status!
 // See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts

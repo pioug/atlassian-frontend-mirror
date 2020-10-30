@@ -8,6 +8,8 @@ import {
   zIndexAddition,
   getMenuPortalTargetCurrentHTML,
 } from '../../../components/utils';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { layers } from '@atlaskit/theme';
 import { ConfigResponse, ConfigResponseMode } from '../../../types';
 

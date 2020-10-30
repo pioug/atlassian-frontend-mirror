@@ -3,9 +3,58 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuTallExample = () => (
-  <DropdownMenu appearance="tall" triggerType="button">
+  <DropdownMenu trigger="Page actions" appearance="tall" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
+      <DropdownItem>One of many items</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

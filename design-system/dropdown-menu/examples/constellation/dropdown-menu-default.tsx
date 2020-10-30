@@ -3,16 +3,14 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuDefaultExample = () => (
-  <DropdownMenu trigger="Cities in Australia" triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
-      <DropdownItem>Melbourne</DropdownItem>
-      <DropdownItem>Adelaide</DropdownItem>
-      <DropdownItem>Perth</DropdownItem>
-      <DropdownItem>Brisbane</DropdownItem>
-      <DropdownItem>Canberra</DropdownItem>
-      <DropdownItem>Hobart</DropdownItem>
-      <DropdownItem>Darwin</DropdownItem>
+      <DropdownItem>Edit</DropdownItem>
+      <DropdownItem>Share</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
+      <DropdownItem>Delete</DropdownItem>
+      <DropdownItem>Report</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

@@ -16,8 +16,13 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<
   State
 > {
   static defaultProps = {
+    boundariesElement: 'viewport',
     width: 300,
     isMulti: false,
+    offset: [0, 0],
+    placement: 'auto',
+    rootBoundary: 'viewport',
+    shouldFlip: true,
   };
   state = {
     flipped: false,
@@ -40,7 +45,16 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<
   };
 
   render() {
-    const { target, popupTitle, boundariesElement, isMulti } = this.props;
+    const {
+      target,
+      popupTitle,
+      boundariesElement,
+      isMulti,
+      offset,
+      placement,
+      rootBoundary,
+      shouldFlip,
+    } = this.props;
     const { flipped } = this.state;
     const width = this.props.width as string | number;
     const styles = getPopupStyles(width, flipped, isMulti);
@@ -56,8 +70,12 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<
           width,
           target,
           this.handleFlipStyle,
-          popupTitle,
           boundariesElement,
+          offset,
+          placement,
+          rootBoundary,
+          shouldFlip,
+          popupTitle,
         )}
       />
     );

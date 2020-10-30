@@ -4,6 +4,8 @@ import { ThemeContext } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 //TODO: This import is bad but because of all the export *'s I can't fix it
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import Theme from '@atlaskit/theme';
 
 import { DatePicker } from '../src';

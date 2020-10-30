@@ -1,5 +1,11 @@
 # @atlaskit/analytics-gas-types
 
+## 5.0.4
+
+### Patch Changes
+
+- [`fee301414d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fee301414d) - Updated Gasv3 operational event payload
+
 ## 5.0.3
 
 ### Patch Changes

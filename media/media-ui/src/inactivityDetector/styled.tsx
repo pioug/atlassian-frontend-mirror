@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { hideControlsClassName } from '..';
+import { hideControlsClassName } from '../classNames';
 
 export interface ContentWrapperProps {
   controlsAreVisible: boolean;

@@ -1,17 +1,16 @@
-const mockXMPMetaData = {};
-const mockReadJPEGExifMetaData = jest.fn().mockReturnValue('jpgMetaData');
-const mockReadPNGXMPMetaData = jest.fn().mockReturnValue('pngMetaData');
-const mockParseXMPMetaData = jest.fn().mockReturnValue(mockXMPMetaData);
-
 jest.mock('../../imageMetaData/parseJPEG', () => ({
-  readJPEGExifMetaData: mockReadJPEGExifMetaData,
+  readJPEGExifMetaData: jest.fn(() => 'jpgMetaData'),
 }));
 jest.mock('../../imageMetaData/parsePNG', () => ({
-  readPNGXMPMetaData: mockReadPNGXMPMetaData,
+  readPNGXMPMetaData: jest.fn(() => 'pngMetaData'),
 }));
 jest.mock('../../imageMetaData/parsePNGXMP', () => ({
-  parseXMPMetaData: mockParseXMPMetaData,
+  parseXMPMetaData: jest.fn(() => ({})),
 }));
+
+import { readJPEGExifMetaData } from '../../imageMetaData/parseJPEG';
+import { readPNGXMPMetaData } from '../../imageMetaData/parsePNG';
+import { parseXMPMetaData } from '../../imageMetaData/parsePNGXMP';
 
 import { readImageMetaTags } from '../../imageMetaData/metatags';
 
@@ -22,19 +21,19 @@ describe('Image Meta Tags', () => {
   describe('readImageMetaTags()', () => {
     it('should use PNG parser on PNG file', async () => {
       const metaData = await readImageMetaTags(pngFile);
-      expect(mockReadPNGXMPMetaData).toBeCalledWith(pngFile);
-      expect(mockParseXMPMetaData).toBeCalled();
-      expect(metaData).toEqual(mockXMPMetaData);
+      expect(readPNGXMPMetaData).toBeCalledWith(pngFile);
+      expect(parseXMPMetaData).toBeCalled();
+      expect(metaData).toEqual({});
     });
 
     it('should use JPEG parser on JPEG file', async () => {
       const metaData = await readImageMetaTags(jpegFile);
-      expect(mockReadJPEGExifMetaData).toBeCalledWith(jpegFile);
+      expect(readJPEGExifMetaData).toBeCalledWith(jpegFile);
       expect(metaData).toEqual('jpgMetaData');
     });
 
     it('should return null if JPEG parsing causes error', async () => {
-      mockReadJPEGExifMetaData.mockImplementation(() => {
+      (readJPEGExifMetaData as jest.Mock).mockImplementation(() => {
         throw new Error('Boom!');
       });
       const metaData = await readImageMetaTags(jpegFile);
@@ -42,7 +41,7 @@ describe('Image Meta Tags', () => {
     });
 
     it('should return null if PNG parsing causes error', async () => {
-      mockReadPNGXMPMetaData.mockImplementation(() => {
+      (readPNGXMPMetaData as jest.Mock).mockImplementation(() => {
         throw new Error('Boom!');
       });
       const metaData = await readImageMetaTags(pngFile);

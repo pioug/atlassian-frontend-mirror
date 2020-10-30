@@ -13,9 +13,9 @@ interface State {
 }
 
 const ReallyBigDiv = styled.div`
-  height: 800px;
+  height: 400px;
   width: 400px;
-  background-color: blue;
+  border: 2px dotted blue;
 `;
 
 export default class StatelessMenuExample extends Component<{}, State> {
@@ -30,7 +30,7 @@ export default class StatelessMenuExample extends Component<{}, State> {
           onOpenChange={attrs => {
             this.setState({ isDropdownOpen: attrs.isOpen });
           }}
-          trigger="Choose"
+          trigger="Filter cities"
           triggerType="button"
           isMenuFixed
         >

@@ -6,6 +6,8 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import Navigation from '@atlaskit/navigation';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 
 import MobileHeader from '../src';

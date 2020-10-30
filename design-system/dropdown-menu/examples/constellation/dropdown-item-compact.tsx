@@ -3,9 +3,11 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemCompactExample = () => (
-  <DropdownMenu triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem isCompact>Sydney</DropdownItem>
+      <DropdownItem isCompact>Edit</DropdownItem>
+      <DropdownItem isCompact>Move</DropdownItem>
+      <DropdownItem isCompact>Clone</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

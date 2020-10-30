@@ -14,6 +14,8 @@ import PdfDocumentIcon from '@atlaskit/icon-file-type/glyph/pdf-document/24';
 import GenericIcon from '@atlaskit/icon-file-type/glyph/generic/24';
 
 import Avatar from '@atlaskit/avatar';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
 export interface ExtensionMatcher {

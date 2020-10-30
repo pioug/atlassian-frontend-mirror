@@ -1,17 +1,4 @@
-const formattedParts = {
-  day: '02',
-  month: 'Apr',
-  year: '2315',
-  hour: '01',
-  minute: '02',
-  dayPeriod: 'PM',
-};
-const formatToParts = jest.fn().mockReturnValue(formattedParts);
-jest.mock('@atlaskit/locale', () => ({
-  createLocalizationProvider: jest.fn().mockReturnValue({
-    formatToParts,
-  }),
-}));
+import * as mocks from './formattedDate.spec.mock';
 import React from 'react';
 import { mount } from 'enzyme';
 import {
@@ -21,8 +8,6 @@ import {
 } from '../formattedDate';
 import { createLocalizationProvider } from '@atlaskit/locale';
 import { IntlProvider } from 'react-intl';
-
-createLocalizationProvider as jest.Mock;
 
 describe('FormattedDate', () => {
   it('should render a formatted date using LocalizationProvider', () => {
@@ -34,13 +19,13 @@ describe('FormattedDate', () => {
       </IntlProvider>,
     );
     expect(createLocalizationProvider).toBeCalledWith(locale, formatterOptions);
-    expect(formatToParts).toBeCalledWith(timestamp);
+    expect(mocks.mockFormatToParts).toBeCalledWith(timestamp);
 
     const formatted = component.find(FormattedDate);
     expect(formatted).toHaveLength(1);
-    expect(formatted.first().contains(partsFormatter(formattedParts))).toBe(
-      true,
-    );
+    expect(
+      formatted.first().contains(partsFormatter(mocks.formattedParts)),
+    ).toBe(true);
   });
 
   it('should set formatterOptions', () => {
@@ -55,6 +40,6 @@ describe('FormattedDate', () => {
   });
 
   it('should format date parts', () => {
-    expect(partsFormatter(formattedParts)).toBe(`02 Apr 2315, 01:02 PM`);
+    expect(partsFormatter(mocks.formattedParts)).toBe(`02 Apr 2315, 01:02 PM`);
   });
 });

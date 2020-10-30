@@ -6,6 +6,8 @@ import {
   ACTION_SUBJECT_ID,
 } from './enums';
 import { SortOrder, UnsupportedContentPayload } from '@atlaskit/editor-common';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/src/utils/analytics';
 
 export enum PLATFORM {

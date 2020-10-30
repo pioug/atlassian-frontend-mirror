@@ -35,12 +35,14 @@ let innerSetWidth: Function | undefined;
 const setWidth = (width: number) =>
   typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined;
 
+type mockWidthObserver = typeof WidthObserver;
+
 jest.mock('@atlaskit/width-detector', () => {
   return {
     WidthObserver: (props => {
       innerSetWidth = props.setWidth;
       return null;
-    }) as typeof WidthObserver,
+    }) as mockWidthObserver,
   };
 });
 

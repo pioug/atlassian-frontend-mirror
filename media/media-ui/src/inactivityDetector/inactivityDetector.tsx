@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component, SyntheticEvent, ReactElement } from 'react';
+import { hideControlsClassName } from '../classNames';
+import { findParentByClassname } from '../util';
 import { InactivityDetectorWrapper } from './styled';
-import { findParentByClassname, hideControlsClassName } from '..';
 
 export interface InactivityDetectorProps {
   children: (triggerActivityCallback: () => void) => ReactElement;

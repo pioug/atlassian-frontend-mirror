@@ -20,6 +20,8 @@ export default {
     '고장 난 로봇과 이를 고치는 여러 사람들입니다.',
   'fabric.atlassianSwitcher.errorText':
     '이 오류를 추적하고 있습니다. 페이지를 새로 고쳐도 문제가 해결되지 않는 경우 저희에게 문의해 주시기 바랍니다.',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Atlassian 전환기를 사용하려면 다시 로그인하세요.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     '이 목록을 로드하지 못했습니다. 새로 고치고 다시 시도해주세요.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,8 @@ export default {
     '최대 3명의 에이전트를 위한 협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '무료 프로젝트 및 이슈 추적 - 최대 10명 사용자까지',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github 등',
+  'fabric.atlassianSwitcher.gittools.label': 'Jira용 Git 통합',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 프로젝트',
   'fabric.atlassianSwitcher.join': '참가',
   'fabric.atlassianSwitcher.login': '로그인',

@@ -17,7 +17,7 @@ export default function StatelessMenuExample() {
         onOpenChange={(attrs: OnOpenChangeArgs) => {
           setIsOpen(attrs.isOpen);
         }}
-        trigger="Filter City"
+        trigger="Filter cities"
         triggerType="button"
       >
         <DropdownItemGroupRadio id="cities">

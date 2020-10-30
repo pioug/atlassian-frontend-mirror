@@ -23,7 +23,8 @@
     "./collab": "./src/collab.ts",
     "./extensions": "./src/extensions.ts",
     "./provider-factory": "./src/provider-factory.ts",
-    "./validator": "./src/validator.ts"
+    "./validator": "./src/validator.ts",
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.3.0",

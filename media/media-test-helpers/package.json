@@ -15,7 +15,8 @@
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
     "./fakeMediaClient": "./src/fakeMediaClient.ts",
-    "./jestHelpers": "./src/jestHelpers.ts"
+    "./jestHelpers": "./src/jestHelpers.ts",
+    ".": "./src/index.tsx"
   },
   "atlassian": {
     "team": "Media Platform",

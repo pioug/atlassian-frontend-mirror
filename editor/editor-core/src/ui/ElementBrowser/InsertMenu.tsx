@@ -8,6 +8,8 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Item, { itemThemeNamespace } from '@atlaskit/item';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
 import { themed } from '@atlaskit/theme/components';
 import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';

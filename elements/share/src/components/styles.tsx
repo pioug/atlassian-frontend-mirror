@@ -1,5 +1,7 @@
 import React from 'react';
 
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize } from '@atlaskit/theme';
 import { multiply } from '@atlaskit/theme/math';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';

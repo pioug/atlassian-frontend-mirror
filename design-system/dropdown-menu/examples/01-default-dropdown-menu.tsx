@@ -4,13 +4,14 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
   <DropdownMenu
-    trigger="Australian Cities"
+    trigger="Page actions"
     triggerType="button"
     onOpenChange={e => console.log('dropdown opened', e)}
   >
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
-      <DropdownItem>Melbourne</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
+      <DropdownItem>Delete</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

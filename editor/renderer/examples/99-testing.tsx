@@ -21,6 +21,8 @@ import { document as defaultDoc } from './helper/story-data';
 import Sidebar from './helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';
 
 import { RendererActionsContext as RendererContext } from '../src/ui/RendererActionsContext';

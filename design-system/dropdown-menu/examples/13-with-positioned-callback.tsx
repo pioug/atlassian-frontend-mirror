@@ -60,7 +60,7 @@ export default class PositionCallbackExample extends Component<{}, State> {
         </CoordWrapper>
         <DropdownMenuStateless
           triggerType="button"
-          trigger="Choices"
+          trigger="Page action"
           isOpen
           onPositioned={this.onPositioned}
         >
@@ -70,8 +70,9 @@ export default class PositionCallbackExample extends Component<{}, State> {
             }}
           >
             <DropdownItemGroup>
-              <DropdownItem>Sydney</DropdownItem>
-              <DropdownItem>Melbourne</DropdownItem>
+              <DropdownItem>Move</DropdownItem>
+              <DropdownItem>Clone</DropdownItem>
+              <DropdownItem>Delete</DropdownItem>
             </DropdownItemGroup>
           </div>
         </DropdownMenuStateless>

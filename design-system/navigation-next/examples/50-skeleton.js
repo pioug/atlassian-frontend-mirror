@@ -4,6 +4,8 @@ import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import DashboardIcon from '@atlaskit/icon/glyph/dashboard';
 import ReportsIcon from '@atlaskit/icon/glyph/graph-line';
 import IssuesIcon from '@atlaskit/icon/glyph/issue';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, gridSize as gridSizeFn } from '@atlaskit/theme';
 
 import {

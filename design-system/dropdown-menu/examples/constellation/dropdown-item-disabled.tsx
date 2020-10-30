@@ -3,10 +3,11 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemDisabledExample = () => (
-  <DropdownMenu triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem isDisabled>Sydney</DropdownItem>
-      <DropdownItem>Brisbane</DropdownItem>
+      <DropdownItem isDisabled>Edit</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

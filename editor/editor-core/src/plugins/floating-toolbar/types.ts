@@ -3,6 +3,8 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { NodeType, Node } from 'prosemirror-model';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 
 import { Command } from '../../types/command';

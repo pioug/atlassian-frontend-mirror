@@ -1,5 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   gridSize as akGridSize,
   layers as akLayers,

@@ -1,4 +1,6 @@
 import React from 'react';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize, typography } from '@atlaskit/theme';
 import styled from 'styled-components';
 import {

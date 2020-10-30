@@ -20,6 +20,8 @@ export default {
     'En trasig robot och ett antal personer arbetar för att åtgärda felet.',
   'fabric.atlassianSwitcher.errorText':
     'Vi håller koll på dessa fel, men tveka inte att kontakta oss om en uppdatering inte åtgärdar problemen.',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Logga in igen för att använda Atlassian-växlaren.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Vi kunde inte läsa in listan. Uppdatera sidan och försök igen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,8 @@ export default {
     'Gratis samarbetsorienterad IT-tjänsthantering för upp till 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projekt- och ärendespårning för upp till 10 användare',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github med mera',
+  'fabric.atlassianSwitcher.gittools.label': 'Git-integrationer för Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',
   'fabric.atlassianSwitcher.join': 'Delta',
   'fabric.atlassianSwitcher.login': 'Logga in',

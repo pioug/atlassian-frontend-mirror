@@ -1,14 +1,15 @@
 import forEach from 'lodash/forEach';
-const mockGetLocalMediaFeatureFlag = jest.fn().mockReturnValue(null);
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 
 jest.mock('../../mediaFeatureFlag-local', () => ({
-  getLocalMediaFeatureFlag: mockGetLocalMediaFeatureFlag,
+  getLocalMediaFeatureFlag: jest.fn().mockReturnValue(null),
 }));
 
 import {
   defaultMediaFeatureFlags,
   getMediaFeatureFlag,
 } from '../../mediaFeatureFlags';
+import { getLocalMediaFeatureFlag } from '../../mediaFeatureFlag-local';
 
 describe('Media Feature Flags', () => {
   describe('shoud return default if no value passed', () => {
@@ -39,7 +40,7 @@ describe('Media Feature Flags', () => {
   });
 
   it('should use localStorage override if available even if flags passed', () => {
-    mockGetLocalMediaFeatureFlag.mockReturnValue('true');
+    asMockFunction(getLocalMediaFeatureFlag).mockReturnValue('true');
     expect(
       getMediaFeatureFlag('newCardExperience', {
         newCardExperience: false,
@@ -53,7 +54,7 @@ describe('Media Feature Flags', () => {
   });
 
   it('should use localStorage override if available even if default exists', () => {
-    mockGetLocalMediaFeatureFlag.mockReturnValue('true');
+    asMockFunction(getLocalMediaFeatureFlag).mockReturnValue('true');
     expect(getMediaFeatureFlag('newCardExperience')).toEqual(true);
     expect(getMediaFeatureFlag('zipPreviews')).toEqual(true);
   });

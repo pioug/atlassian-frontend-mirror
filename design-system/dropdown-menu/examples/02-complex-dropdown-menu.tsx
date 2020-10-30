@@ -7,7 +7,7 @@ import DropdownMenu, {
 
 export default () => (
   <DropdownMenu
-    trigger="Choices"
+    trigger="Filter cities"
     triggerType="button"
     onOpenChange={e => console.log('dropdown opened', e)}
   >

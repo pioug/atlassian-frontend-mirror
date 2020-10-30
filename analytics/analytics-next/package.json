@@ -35,7 +35,8 @@
     "./usePatchedProps": "./src/hooks/usePatchedProps.ts",
     "./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
     "./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
-    "./createAndFireEvents": "./src/utils/createAndFireEvent.ts"
+    "./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",

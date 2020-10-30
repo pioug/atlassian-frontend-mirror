@@ -14,7 +14,8 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    "./auth": "./src/auth.ts"
+    "./auth": "./src/auth.ts",
+    ".": "./src/index.ts"
   },
   "atlassian": {
     "team": "Media Platform",

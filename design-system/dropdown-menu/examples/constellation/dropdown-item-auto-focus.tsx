@@ -3,10 +3,11 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemAutoFocusExample = () => (
-  <DropdownMenu triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem autoFocus>Sydney</DropdownItem>
-      <DropdownItem>Brisbane</DropdownItem>
+      <DropdownItem autoFocus>Edit</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

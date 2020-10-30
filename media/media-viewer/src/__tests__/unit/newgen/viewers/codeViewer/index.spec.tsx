@@ -11,6 +11,7 @@ import {
   expectFunctionToHaveBeenCalledWith,
   nextTick,
   sleep,
+  asMockFunction,
 } from '@atlaskit/media-test-helpers';
 import { Spinner } from '../../../../../newgen/loading';
 import { BaseState } from '../../../../../newgen/viewers/base-viewer';
@@ -19,12 +20,11 @@ import {
   CodeViewer,
   Props,
 } from '../../../../../newgen/viewers/codeViewer/index';
-
-let msgToTextMock = jest.fn();
+import { msgToText } from '../../../../../newgen/viewers/codeViewer/msg-parser';
 
 jest.mock('../../../../../newgen/viewers/codeViewer/msg-parser', () => ({
   __esModule: true,
-  msgToText: () => msgToTextMock(),
+  msgToText: jest.fn(),
 }));
 
 function createFixture(
@@ -183,7 +183,7 @@ describe('EmailViewer', () => {
 
   describe('when email contents have FAILED to parse', () => {
     it('should not emit media-viewed', async () => {
-      msgToTextMock.mockImplementation(() => {
+      asMockFunction(msgToText).mockImplementation(() => {
         return { error: 'error message here' };
       });
       await getDocument(emailItem);
@@ -198,7 +198,7 @@ describe('EmailViewer', () => {
 
   describe('when email contents have SUCCESSFULLY parsed', () => {
     it('should email media-viewed', async () => {
-      msgToTextMock.mockImplementation(() => {
+      asMockFunction(msgToText).mockImplementation(() => {
         return 'sample email message here';
       });
       await getDocument(emailItem);

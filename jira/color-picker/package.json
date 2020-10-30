@@ -50,6 +50,7 @@
     "palette"
   ],
   "af:exports": {
-    "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx"
+    "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
+    ".": "./src/index.ts"
   }
 }

@@ -1,5 +1,4 @@
-import { MediaType } from '..';
-
+import { MediaType } from '../models/media';
 import { isArchive } from './isArchive';
 
 import {

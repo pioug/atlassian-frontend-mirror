@@ -21,7 +21,8 @@
     "./truncateText": "./src/truncateText.tsx",
     "./messages": "./src/messages.ts",
     "./modalSpinner": "./src/modalSpinner.tsx",
-    "./browser": "./src/browser.tsx"
+    "./browser": "./src/browser.tsx",
+    ".": "./src/index.ts"
   },
   "atlassian": {
     "team": "Media Platform",
@@ -86,5 +87,12 @@
     "react-intl": "^2.6.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ]
+    }
   }
 }

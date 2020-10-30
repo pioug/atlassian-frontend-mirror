@@ -1,22 +1,14 @@
+import './image-placer.mock';
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import {
   nextTick,
-  mockCanvas,
-  loadImageMockSetup,
   mockLoadImage,
   mockLoadImageError,
   unMockLoadImage,
 } from '@atlaskit/media-test-helpers';
 
-loadImageMockSetup(); // setup calls jest.mock('@atlaskit/media-ui') that hoists mocked package so it should go before actual import
-
 import { Vector2, Rectangle, FileInfo } from '@atlaskit/media-ui';
-
-jest.mock('../../util', () => ({
-  ...jest.requireActual<Object>('../../util'),
-  getCanvas: mockCanvas,
-}));
 
 import {
   ImagePlacer,
@@ -129,10 +121,14 @@ describe('Image Placer', () => {
       setup({
         ...defaultProps,
         onImageActions: (api: ImageActions) => {
-          expect(api).toHaveProperty('toCanvas');
-          expect(api).toHaveProperty('toDataURL');
-          expect(api).toHaveProperty('toFile');
-          done();
+          try {
+            expect(api).toHaveProperty('toCanvas');
+            expect(api).toHaveProperty('toDataURL');
+            expect(api).toHaveProperty('toFile');
+            done();
+          } catch (error) {
+            done(error);
+          }
         },
       });
     });
@@ -440,7 +436,7 @@ describe('Image Placer', () => {
         expect(sourceBounds.height).toEqual(mediumSize);
       });
 
-      it('should map coords correctly when zoomed in', async done => {
+      it('should map coords correctly when zoomed in', async () => {
         const { instance } = setup(defaultProps, ...imageSizeMedium);
         instance.setZoom(1);
         await nextTick();
@@ -450,7 +446,6 @@ describe('Image Placer', () => {
         expect(sourceBounds.top).toEqual(Math.round(mediumSize / 4));
         expect(sourceBounds.width).toEqual(mediumSize / defaultMaxZoom);
         expect(sourceBounds.height).toEqual(mediumSize / defaultMaxZoom);
-        done();
       });
     });
   });
@@ -522,7 +517,7 @@ describe('Image Placer', () => {
       expect(wrapper.state('zoom')).toEqual(0);
     });
 
-    it('should preprocess image when src prop changes', async done => {
+    it('should preprocess image when src prop changes', async () => {
       const { instance, wrapper } = setup();
       instance.preprocessFile = jest.fn().mockResolvedValue(null);
       wrapper.setProps({
@@ -531,10 +526,9 @@ describe('Image Placer', () => {
       await nextTick();
       await nextTick();
       expect(instance.preprocessFile).toHaveBeenCalled();
-      done();
     });
 
-    it('should preprocess image when file prop changes', async done => {
+    it('should preprocess image when file prop changes', async () => {
       const { instance, wrapper } = setup();
       instance.preprocessFile = jest.fn().mockResolvedValue(null);
       wrapper.setProps({
@@ -543,17 +537,14 @@ describe('Image Placer', () => {
       await nextTick();
       await nextTick();
       expect(instance.preprocessFile).toHaveBeenCalled();
-      done();
     });
 
-    it('should clear error state when new src or file given', async done => {
+    it('should clear error state when new src or file given', async () => {
       const { wrapper, instance } = setup();
       instance.onImageError('some-error');
       expect(wrapper.state('errorMessage')).not.toBeUndefined();
       instance.setSrc({ file: {} as File, src: 'some-src' });
       expect(wrapper.state('errorMessage')).toBeUndefined();
-
-      done();
     });
   });
 
@@ -579,7 +570,7 @@ describe('Image Placer', () => {
       expect(imageInfo).toBeNull();
     });
 
-    it('should scale down image to fit largest zoom size required', async done => {
+    it('should scale down image to fit largest zoom size required', async () => {
       mockLoadImage(extraLargeSize, extraLargeSize);
 
       const imageInfo = await initialiseImagePreview(
@@ -587,6 +578,7 @@ describe('Image Placer', () => {
         containerRect,
         defaultProps.maxZoom,
       );
+      expect(imageInfo).not.toBeNull();
       if (imageInfo !== null) {
         expect(imageInfo.width).toEqual(
           defaultProps.containerWidth * defaultProps.maxZoom,
@@ -594,7 +586,6 @@ describe('Image Placer', () => {
         expect(imageInfo.height).toEqual(
           defaultProps.containerHeight * defaultProps.maxZoom,
         );
-        done();
       }
     });
 
@@ -620,22 +611,20 @@ describe('Image Placer', () => {
         throw new Error();
       };
 
-      it('orientation 1', async done => {
+      it('orientation 1', async () => {
         const orientations = [1, 2, 3, 4];
         for (const orientation of orientations) {
           const { imageWidth, imageHeight } = await tearUp(orientation);
           expect(imageWidth).toBeLessThan(imageHeight);
         }
-        done();
       });
 
-      it('orientation > 5', async done => {
+      it('orientation > 5', async () => {
         const orientations = [5, 6, 7, 8];
         for (const orientation of orientations) {
           const { imageWidth, imageHeight } = await tearUp(orientation);
           expect(imageWidth).toBeGreaterThan(imageHeight);
         }
-        done();
       });
     });
   });
@@ -679,8 +668,12 @@ describe('Image Placer', () => {
       const { instance } = setup({
         ...defaultProps,
         onZoomChange(zoom: number) {
-          expect(zoom).toBe(0.1);
-          done();
+          try {
+            expect(zoom).toBe(0.1);
+            done();
+          } catch (error) {
+            done(error);
+          }
         },
       });
       instance.onWheel(10);

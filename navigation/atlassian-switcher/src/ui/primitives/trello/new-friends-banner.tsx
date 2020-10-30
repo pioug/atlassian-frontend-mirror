@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import withAnalyticsEvents, {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, gridSize } from '@atlaskit/theme';
 
 import {

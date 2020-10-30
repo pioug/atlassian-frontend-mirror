@@ -20,6 +20,8 @@ export default {
     'เกิดข้อผิดพลาดบางประการ และเรากำลังทำการแก้ไขข้อผิดพลาดเหล่านั้น',
   'fabric.atlassianSwitcher.errorText':
     'เราจะติดตามข้อผิดพลาดเหล่านี้ แต่โปรดอย่าลังเลที่จะติดต่อเราหากการรีเฟรชไม่สามารถแก้ไขข้อผิดพลาดได้',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'เข้าสู่ระบบอีกครั้งเพื่อใช้ตัวสลับ Atlassian',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'เราไม่สามารถดาวน์โหลดรายการนี้ได้ โปรดดาวน์โหลดหน้าข้อมูลใหม่แล้วลองอีกครั้ง',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,9 @@ export default {
     'การจัดการบริการด้าน IT แบบร่วมกันฟรีสำหรับพนักงานบริการลูกค้าสูงสุด 3 ราย',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'การติดตามโปรเจ็กต์และปัญหาฟรีสำหรับผู้ใช้มากถึง 10 คน',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, Github และอีกมากมาย',
+  'fabric.atlassianSwitcher.gittools.label': 'การผสานรวม Git สำหรับ Jira',
   'fabric.atlassianSwitcher.jiraProject': 'โปรเจกต์ Jira',
   'fabric.atlassianSwitcher.join': 'เข้าร่วม',
   'fabric.atlassianSwitcher.login': 'เข้าสู่ระบบ',

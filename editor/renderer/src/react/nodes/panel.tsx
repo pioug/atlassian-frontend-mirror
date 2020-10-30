@@ -13,6 +13,8 @@ import {
 } from '@atlaskit/editor-common';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
 import EmojiItem from './emoji';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { themed } from '@atlaskit/theme';
 
 interface PanelStyledProps {

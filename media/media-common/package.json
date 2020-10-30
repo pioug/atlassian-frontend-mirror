@@ -16,7 +16,8 @@
   "atlaskit:src": "src/index.ts",
   "af:exports": {
     "./downloadUrl": "./src/downloadUrl.ts",
-    "./mediaFeatureFlags": "./src/mediaFeatureFlags.ts"
+    "./mediaFeatureFlags": "./src/mediaFeatureFlags.ts",
+    ".": "./src/index.ts"
   },
   "atlassian": {
     "team": "Media Platform",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
+    "@atlaskit/media-test-helpers": "^28.3.0",
     "lodash": "^4.17.15",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

@@ -1,4 +1,8 @@
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { State } from '@atlaskit/media-picker/src/popup/domain';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { PopupUploadEventEmitter } from '@atlaskit/media-picker/src/components/types';
 //TODO: Remove access to src directly. Can move these to media-picker or add special "internal" entrypoint
 import { Store } from 'react-redux';

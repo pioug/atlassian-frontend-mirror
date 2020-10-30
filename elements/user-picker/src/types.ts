@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { Placement } from '@atlaskit/popper';
 
 import { EmailValidator } from './components/emailValidation';
 import { StylesConfig } from '@atlaskit/select';
@@ -125,11 +126,40 @@ export type PopupUserPickerProps = UserPickerProps & {
   /** Optional title assigned to popup picker */
   popupTitle?: string;
   /**
-   *  Reference to the HTMLElement that should be used as a boundary for the popup.
-   *  Viewport is used by default.
+   * The boundary element that the popup will check for overflow.
+   * Defaults to `"viewport"` which are parent scroll containers,
+   * but can be set to any element.
    */
-  boundariesElement?: HTMLElement;
+  boundariesElement?: BoundariesElement;
+  /**
+   * Distance the popup should be offset from the reference in the format of [along, away] (units in px).
+   */
+  offset?: [number, number];
+  /**
+   * Placement of where the popup should be displayed relative to the trigger element.
+   * Defaults to `"auto"`.
+   */
+  placement?: Placement;
+  /**
+   * The root boundary that the popup will check for overflow.
+   * Defaults to `"viewport"` but can be set to `"document"`.
+   * See `@atlaskit/popper` for further details.
+   */
+  rootBoundary?: RootBoundary;
+  /**
+   * Allows the dropdown menu to be placed on the opposite side of its trigger if it does not
+   * fit in the viewport.
+   */
+  shouldFlip?: boolean;
 };
+
+export type BoundariesElement =
+  | 'scrollParent'
+  | 'window'
+  | 'viewport'
+  | HTMLElement;
+
+export type RootBoundary = 'viewport' | 'document';
 
 export type UserPickerState = {
   options: OptionData[];

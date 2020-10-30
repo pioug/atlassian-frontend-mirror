@@ -4,7 +4,8 @@ import { Dropzone, DropzoneBase } from '../../dropzone/dropzone';
 import { mount, ReactWrapper } from 'enzyme';
 import { DropzoneDragEnterEventPayload } from '../../types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 
 async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
   return new Promise(tickFinished => {
@@ -36,11 +37,9 @@ jest.mock('flat-files', () => ({
     }),
 }));
 
-let isWebkitSupportedMock = jest.fn();
-
 jest.mock('@atlaskit/media-ui/browser', () => ({
   __esModule: true,
-  isWebkitSupported: () => isWebkitSupportedMock(),
+  isWebkitSupported: jest.fn(),
 }));
 
 const files = [new File([], '')];
@@ -107,7 +106,7 @@ const container = document.createElement('div');
     let component: ReactWrapper;
     const { config, expectedContainer } = data;
     beforeEach(() => {
-      isWebkitSupportedMock = jest.fn();
+      asMockFunction(isWebkitSupported).mockReset();
     });
 
     afterEach(() => {
@@ -241,7 +240,7 @@ const container = document.createElement('div');
     });
 
     it('should filter files uploaded against a blocked list (when folder uploading is enabled)', async () => {
-      isWebkitSupportedMock.mockImplementationOnce(() => {
+      asMockFunction(isWebkitSupported).mockImplementationOnce(() => {
         return true;
       });
 
@@ -448,7 +447,7 @@ const container = document.createElement('div');
       });
 
       it('should fire a folderDroppedInto event when a folder is uploaded into the dropzone', async () => {
-        isWebkitSupportedMock.mockImplementationOnce(() => {
+        asMockFunction(isWebkitSupported).mockImplementationOnce(() => {
           return true;
         });
 

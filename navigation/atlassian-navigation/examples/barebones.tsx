@@ -4,6 +4,8 @@ import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius, colors } from '@atlaskit/theme';
 
 import {

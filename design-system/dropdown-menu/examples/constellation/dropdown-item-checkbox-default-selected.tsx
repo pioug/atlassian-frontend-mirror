@@ -6,7 +6,7 @@ import DropdownMenu, {
 } from '../../src';
 
 const DropdownItemCheckboxDefaultSelectedExample = () => (
-  <DropdownMenu trigger="Select a city" triggerType="button">
+  <DropdownMenu trigger="Filter cities" triggerType="button">
     <DropdownItemGroupCheckbox id="cities">
       <DropdownItemCheckbox id="adelaide" defaultSelected>
         Adelaide

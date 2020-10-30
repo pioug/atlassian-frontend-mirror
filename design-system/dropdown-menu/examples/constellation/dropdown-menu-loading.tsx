@@ -3,9 +3,9 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuLoadingExample = () => (
-  <DropdownMenu isLoading triggerType="button">
+  <DropdownMenu isLoading trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
+      <DropdownItem>Loaded action</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

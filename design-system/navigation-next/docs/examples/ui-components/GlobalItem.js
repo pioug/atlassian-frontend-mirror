@@ -4,6 +4,8 @@ import Avatar from '@atlaskit/avatar';
 import HelpIcon from '@atlaskit/icon/glyph/question';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { AtlassianIcon } from '@atlaskit/logo';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
 import { GlobalItem } from '../../../src';

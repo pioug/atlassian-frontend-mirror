@@ -21,7 +21,8 @@
   },
   "af:exports": {
     "./consts": "./src/consts/index.ts",
-    "./selection": "./src/selection/index.ts"
+    "./selection": "./src/selection/index.ts",
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0"

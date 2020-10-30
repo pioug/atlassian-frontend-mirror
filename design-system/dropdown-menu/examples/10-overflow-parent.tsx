@@ -50,14 +50,15 @@ export default class OverflowParentExample extends Component<{}, State> {
     return (
       <DropdownMenuStateless
         triggerType="button"
-        trigger="Choices"
+        trigger="Page action"
         isMenuFixed={isMenuFixed}
         isOpen={isMenuOpen}
         onOpenChange={this.toggleMenuOpen}
       >
         <DropdownItemGroup>
-          <DropdownItem>Sydney</DropdownItem>
-          <DropdownItem>Melbourne</DropdownItem>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
         </DropdownItemGroup>
       </DropdownMenuStateless>
     );

@@ -1,5 +1,7 @@
 import { Fragment, Node } from 'prosemirror-model';
 
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { QuickInsertItem } from '@atlaskit/editor-common/src/provider-factory/quick-insert-provider';
 
 import { insertSelectedItem } from '../../utils/insert';

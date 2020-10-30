@@ -20,6 +20,8 @@ export default {
     'Зламаний робот і люди, які намагаються його полагодити',
   'fabric.atlassianSwitcher.errorText':
     'Ми стежимо за цими помилками, але якщо оновлення сторінки не вирішило проблеми, зверніться до нас',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Увійдіть знову, щоб скористатися засобом Atlassian для переходу.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Список не завантажено. Оновіть сторінку та спробуйте знову.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,8 @@ export default {
     'Об’єднана служба ІТ-підтримки — безкоштовно до 3 агентів',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Безкоштовне відстеження стану проекту та проблемних питань (до 10 користувачів)',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub тощо',
+  'fabric.atlassianSwitcher.gittools.label': 'Інтеграція Git із Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Проект у Jira',
   'fabric.atlassianSwitcher.join': 'Користуйтеся новими ресурсами',
   'fabric.atlassianSwitcher.login': 'Увійти',

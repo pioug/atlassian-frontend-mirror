@@ -12,6 +12,8 @@ import PageIcon from '@atlaskit/icon/glyph/page';
 import PortfolioIcon from '@atlaskit/icon/glyph/portfolio';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
 import { JiraWordmark } from '@atlaskit/logo';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
 import {

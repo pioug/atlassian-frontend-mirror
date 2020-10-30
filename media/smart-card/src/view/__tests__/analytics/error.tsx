@@ -1,29 +1,22 @@
-import { mockEvents } from '../../__mocks__/events';
-
-let mockRequest = jest.fn();
-jest.mock('../../../client/api', () => ({
-  request: (...args: any) => mockRequest(args[0], args[1], args[2]),
-}));
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock('react-transition-group/Transition', () => (data: any) =>
-  data.children,
-);
-jest.doMock('../../../utils/analytics', () => mockEvents);
+import './error.mock';
 
 import React from 'react';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { TestErrorBoundary } from '../_boundary';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { render, waitForElement, cleanup } from '@testing-library/react';
 import { mocks } from '../../../utils/mocks';
+import { request } from '../../../client/api';
 import { APIError } from '../../../client/errors';
+import * as analytics from '../../../utils/analytics';
 
 describe('smart-card: error analytics', () => {
   let mockWindowOpen: jest.Mock;
   let mockUrl: string;
 
   beforeEach(() => {
-    mockRequest = jest.fn();
+    asMockFunction(request).mockReset();
     mockWindowOpen = jest.fn();
     mockUrl = 'https://my.url';
     /// @ts-ignore
@@ -36,7 +29,7 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should fallback on ResolveBadRequestError', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         status: 200,
         error: {
@@ -57,7 +50,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(mockEvents.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
       expect.any(String),
       'fallback',
       undefined,
@@ -65,11 +58,11 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('fallback', 'https://my', 'received bad request'),
     );
-    expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalled();
   });
 
   it('should render unauthorized on ResolveAuthError', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         status: 200,
         error: { type: 'ResolveAuthError' },
@@ -87,7 +80,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(mockEvents.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
       expect.any(String),
       'unauthorized',
       'provider-not-found',
@@ -95,11 +88,11 @@ describe('smart-card: error analytics', () => {
       undefined,
       undefined,
     );
-    expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalled();
   });
 
   it('should throw fatal error on ResolveUnsupportedError', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         status: 200,
         error: {
@@ -136,7 +129,7 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should throw error on ResolveFailedError', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         status: 200,
         error: {
@@ -157,7 +150,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(mockEvents.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
       undefined,
@@ -165,11 +158,11 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('error', 'https://my', 'received failure error'),
     );
-    expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalled();
   });
 
   it('should throw error on ResolveTimeoutError', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         status: 200,
         error: {
@@ -190,7 +183,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(mockEvents.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
       undefined,
@@ -198,11 +191,11 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('error', 'https://my', 'received timeout error'),
     );
-    expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalled();
   });
 
   it('should throw error on InternalServerError', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         status: 200,
         error: {
@@ -223,7 +216,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(mockEvents.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
       undefined,
@@ -231,11 +224,11 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('error', 'https://my', 'received internal server error'),
     );
-    expect(mockEvents.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalled();
   });
 
   it('should throw fatal error on unexpected err', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         cats: 'sleep a lot',
       },
@@ -268,7 +261,7 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should render with current data on unexpected err', async () => {
-    mockRequest.mockResolvedValue([
+    asMockFunction(request).mockResolvedValue([
       {
         cats: 'sleep a lot',
       },
@@ -302,7 +295,7 @@ describe('smart-card: error analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(resolvedCard).toBeTruthy();
     expect(onError).not.toHaveBeenCalled();
-    expect(mockEvents.instrumentEvent).toBeCalledWith(
+    expect(analytics.instrumentEvent).toBeCalledWith(
       expect.any(String),
       'resolved',
       'd1',
@@ -310,8 +303,8 @@ describe('smart-card: error analytics', () => {
       undefined,
       undefined,
     );
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-    expect(mockEvents.uiRenderSuccessEvent).toBeCalledWith(
+    expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
       'inline',
       'd1',
       'object-provider',

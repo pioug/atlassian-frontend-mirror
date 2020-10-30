@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Button, {
   CustomThemeButtonProps,
 } from '@atlaskit/button/custom-theme-button';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, gridSize } from '@atlaskit/theme';
 import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
 import { messages } from '../../messages';

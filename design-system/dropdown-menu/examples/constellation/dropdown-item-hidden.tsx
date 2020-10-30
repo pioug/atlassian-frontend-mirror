@@ -3,10 +3,10 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemHiddenExample = () => (
-  <DropdownMenu triggerType="button">
+  <DropdownMenu trigger="Page actions" triggerType="button">
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
-      <DropdownItem isHidden>Brisbane</DropdownItem>
+      <DropdownItem>Edit</DropdownItem>
+      <DropdownItem isHidden>Publish</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

@@ -1,6 +1,8 @@
 import React from 'react';
 import { PureComponent } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 import { ColorCardOption, ColorCardContent } from '../styled/ColorCard';
 import { KEY_SPACE, KEY_ENTER } from '../constants';

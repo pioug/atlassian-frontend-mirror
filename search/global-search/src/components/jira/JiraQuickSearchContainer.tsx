@@ -5,6 +5,8 @@ import {
   FormattedHTMLMessage,
 } from 'react-intl';
 import styled from 'styled-components';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize } from '@atlaskit/theme';
 import { withAnalytics } from '@atlaskit/analytics';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';

@@ -4,6 +4,8 @@ import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 import { Command } from '../../types';
 import { addInlineComment, ToolTipContent } from '../../keymaps';

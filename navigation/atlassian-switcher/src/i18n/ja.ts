@@ -20,6 +20,8 @@ export default {
     '鋭意問題の修正に当たっています。',
   'fabric.atlassianSwitcher.errorText':
     'エラーはすべて記録されていますが、リフレッシュしても問題が修正されない場合はお気軽にお問い合わせください。',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'アトラシアン スイッチャーを使用するには、再度ログインしてください。',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'このリストを読み込めませんでした。ページを読み込み直してもう一度お試しください。',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,8 @@ export default {
     '最大 3 エージェントまで無料でコラボレーション可能な IT サービス管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '最大 10 ユーザーまで使用できる無料のプロジェクトと課題トラッキング',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、Github など',
+  'fabric.atlassianSwitcher.gittools.label': 'Jira 向け Git 統合',
   'fabric.atlassianSwitcher.jiraProject': 'Jira プロジェクト',
   'fabric.atlassianSwitcher.join': '参加',
   'fabric.atlassianSwitcher.login': 'ログイン',

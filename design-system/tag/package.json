@@ -24,7 +24,8 @@
   },
   "af:exports": {
     "./simple-tag": "./src/tag/simple-tag.tsx",
-    "./removable-tag": "./src/tag/removable-tag.tsx"
+    "./removable-tag": "./src/tag/removable-tag.tsx",
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",

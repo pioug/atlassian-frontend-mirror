@@ -1,24 +1,19 @@
 import React from 'react';
 
-import CheckIcon from '@atlaskit/icon/glyph/check';
+import EditIcon from '@atlaskit/icon/glyph/edit';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemGroupElemAfterExample = () => (
-  <DropdownMenu trigger="Filter cities" triggerType="button">
-    <DropdownItemGroup
-      title="Australian cities"
-      elemAfter={<CheckIcon label="" />}
-    >
-      <DropdownItem>Sydney</DropdownItem>
-      <DropdownItem>Brisbane</DropdownItem>
+  <DropdownMenu trigger="Page actions" triggerType="button">
+    <DropdownItemGroup title="Edit page" elemAfter={<EditIcon label="" />}>
+      <DropdownItem>Edit</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
     </DropdownItemGroup>
-    <DropdownItemGroup
-      title="Canadian cities"
-      elemAfter={<CheckIcon label="" />}
-    >
-      <DropdownItem>Toronto</DropdownItem>
-      <DropdownItem>Vancouver</DropdownItem>
+    <DropdownItemGroup title="Tools" elemAfter={<EditIcon label="" />}>
+      <DropdownItem>Integrations</DropdownItem>
+      <DropdownItem>Permissions</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

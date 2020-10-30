@@ -6,7 +6,7 @@ import DropdownMenu, {
 } from '../src';
 
 export default () => (
-  <DropdownMenu trigger="Select a city" triggerType="button">
+  <DropdownMenu trigger="Filter cities" triggerType="button">
     <DropdownItemGroupRadio id="cities">
       <DropdownItemRadio id="adelaide">Adelaide</DropdownItemRadio>
       <DropdownItemRadio id="sydney">

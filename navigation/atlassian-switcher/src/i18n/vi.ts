@@ -20,6 +20,8 @@ export default {
     'Một rô-bốt bị hỏng và một số người đang tìm cách sửa chữa.',
   'fabric.atlassianSwitcher.errorText':
     'Chúng tôi sẽ theo dõi các lỗi này, nhưng vui lòng liên hệ với chúng tôi nếu bạn đã làm mới mà vẫn không khắc phục được lỗi',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Đăng nhập lại để sử dụng bộ chuyển đổi Atlassian.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Chúng tôi không thể tải danh sách này. Vui lòng tải lại trang và thử lại.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,9 @@ export default {
     'Quản lý dịch vụ CNTT cộng tác miễn phí cho tối đa 3 nhân viên',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Miễn phí theo dõi dự án và lỗi cho 10 người dùng',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, Github và nhiều dịch vụ khác',
+  'fabric.atlassianSwitcher.gittools.label': 'Các tích hợp Git cho Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Dự án Jira',
   'fabric.atlassianSwitcher.join': 'Tham gia',
   'fabric.atlassianSwitcher.login': 'Đăng nhập',

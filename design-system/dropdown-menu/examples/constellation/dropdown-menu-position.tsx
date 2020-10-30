@@ -3,9 +3,15 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuPositionExample = () => (
-  <DropdownMenu position="bottom right" triggerType="button">
+  <DropdownMenu
+    trigger="Page actions"
+    position="bottom right"
+    triggerType="button"
+  >
     <DropdownItemGroup>
-      <DropdownItem>Sydney</DropdownItem>
+      <DropdownItem>Edit</DropdownItem>
+      <DropdownItem>Move</DropdownItem>
+      <DropdownItem>Clone</DropdownItem>
     </DropdownItemGroup>
   </DropdownMenu>
 );

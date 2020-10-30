@@ -1,3 +1,4 @@
+import * as mocks from './avatar-picker-dialogSpec.mock';
 import React from 'react';
 import { shallow } from 'enzyme';
 import ModalDialog, { ModalFooter } from '@atlaskit/modal-dialog';
@@ -17,12 +18,6 @@ import {
   AvatarPickerDialogProps,
   AvatarPickerDialogState,
 } from '../../avatar-picker-dialog/types';
-
-const fileFromDataURI = new File([], 'some-file-name');
-jest.mock('@atlaskit/media-ui', () => ({
-  ...jest.requireActual<Object>('@atlaskit/media-ui'),
-  dataURItoFile: jest.fn(() => fileFromDataURI),
-}));
 
 describe('Avatar Picker Dialog', () => {
   const renderWithProps = (props: Partial<AvatarPickerDialogProps>) => {
@@ -49,7 +44,11 @@ describe('Avatar Picker Dialog', () => {
   const updateComponentWithNewImage = (component: any) => {
     // get the handler which the ImageNavigator triggers when the image loads, fire it
     const { onImageLoaded } = component.find(ImageNavigator).props();
-    onImageLoaded(fileFromDataURI, { x: 0, y: 0, size: CONTAINER_SIZE });
+    onImageLoaded(mocks.mockFileFromDataURI, {
+      x: 0,
+      y: 0,
+      size: CONTAINER_SIZE,
+    });
     component.update();
   };
 

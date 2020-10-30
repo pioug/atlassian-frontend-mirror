@@ -1,18 +1,4 @@
-import { mockEvents } from '../../__mocks__/events';
-const mockAuthFlow = jest.fn();
-
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock('react-transition-group/Transition', () => (data: any) =>
-  data.children,
-);
-jest.doMock('../../../utils/analytics', () => mockEvents);
-jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
-  auth: mockAuthFlow,
-}));
-const mockAPIError = jest.fn();
-jest.doMock('../../../client/errors', () => ({
-  APIError: mockAPIError,
-}));
+import './success.test.mock';
 import CardClient from '../../../client';
 import React from 'react';
 import { Card } from '../../Card';
@@ -25,6 +11,7 @@ import {
   cleanup,
   wait,
 } from '@testing-library/react';
+import * as analytics from '../../../utils/analytics';
 
 describe('smart-card: success analytics', () => {
   let mockClient: CardClient;
@@ -63,8 +50,8 @@ describe('smart-card: success analytics', () => {
       const resolvedCard = getByRole('button');
       expect(resolvedView).toBeTruthy();
       expect(resolvedCard).toBeTruthy();
-      expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.fireSmartLinkEvent).toBeCalledWith(
+      expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.fireSmartLinkEvent).toBeCalledWith(
         {
           action: 'resolved',
           attributes: {
@@ -74,7 +61,7 @@ describe('smart-card: success analytics', () => {
         },
         expect.any(Function),
       );
-      expect(mockEvents.uiRenderSuccessEvent).toBeCalledWith(
+      expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
         'inline',
         'd1',
         'object-provider',
@@ -97,11 +84,11 @@ describe('smart-card: success analytics', () => {
       const resolvedCard = getByRole('button');
       expect(resolvedView).toBeTruthy();
       expect(resolvedCard).toBeTruthy();
-      expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
       fireEvent.click(resolvedCard);
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-      expect(mockEvents.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
     });
 
     it('should fire render failure when an unexpected error happens', async () => {
@@ -109,8 +96,8 @@ describe('smart-card: success analytics', () => {
       // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
       render(<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />);
 
-      expect(mockEvents.fireSmartLinkEvent).toBeCalledTimes(1);
-      expect(mockEvents.uiRenderFailedEvent).toBeCalledTimes(1);
+      expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1);
+      expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1);
     });
   });
 
@@ -134,12 +121,12 @@ describe('smart-card: success analytics', () => {
     const resolvedView = getByTestId('resolvedCardWithActions');
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
     fireEvent.click(downloadActionButton);
     await wait(() => {
-      expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -166,13 +153,13 @@ describe('smart-card: success analytics', () => {
     const resolvedView = getByTestId('resolvedCardWithActions');
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
     fireEvent.click(downloadActionButton);
     await wait(() => {
-      expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.invokeFailedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.invokeFailedEvent).toHaveBeenCalledWith(
+      expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.invokeFailedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.invokeFailedEvent).toHaveBeenCalledWith(
         expect.any(String),
         'object-provider',
         'CommentAction',
@@ -202,14 +189,14 @@ describe('smart-card: success analytics', () => {
     const resolvedView = getByTestId('resolvedCardWithActions');
     expect(resolvedView).toBeTruthy();
     expect(previewActionButton).toBeTruthy();
-    expect(mockEvents.resolvedEvent).toHaveBeenCalledTimes(1);
+    expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
     fireEvent.click(previewActionButton);
     // Analytics tied to block card should be fired.
     await wait(() => {
-      expect(mockEvents.uiActionClickedEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledTimes(1);
-      expect(mockEvents.invokeSucceededEvent).toHaveBeenCalledWith(
+      expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.invokeSucceededEvent).toHaveBeenCalledWith(
         expect.any(String),
         'd1',
         'PreviewAction',

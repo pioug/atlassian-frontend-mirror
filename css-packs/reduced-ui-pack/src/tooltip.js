@@ -1,3 +1,5 @@
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, gridSize } from '@atlaskit/theme';
 import css from './utils/evaluate-inner';
 

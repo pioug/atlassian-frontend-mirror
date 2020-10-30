@@ -15,7 +15,7 @@ export default () => {
       </h2>
 
       <DropdownMenu
-        trigger="Choices"
+        trigger="Open dropdown"
         triggerType="button"
         testId="dropdown"
         onOpenChange={e => console.log('dropdown opened', e)}

@@ -8,6 +8,8 @@ import {
 import Mobile from '../../Mobile';
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   createWidthContext,
   WidthContext,

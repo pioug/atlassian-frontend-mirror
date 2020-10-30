@@ -20,6 +20,8 @@ export default {
     'Problema con il robot e diverse persone sono impegnate nella sua risoluzione.',
   'fabric.atlassianSwitcher.errorText':
     "Teniamo traccia di questi errori, ma puoi contattarci se l'aggiornamento non risolve il problema",
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Accedi nuovamente per utilizzare Atlassian Switcher.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Impossibile caricare la lista. Ricarica la pagina e riprova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,9 @@ export default {
     'Gestione collaborativa e gratuita del servizio IT per un massimo di 3 agenti',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Monitoraggio di progetti e ticket gratuito (fino a 10 utenti)',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, Github e altro ancora',
+  'fabric.atlassianSwitcher.gittools.label': 'Integrazioni Git per Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Progetto Jira',
   'fabric.atlassianSwitcher.join': 'Unisciti',
   'fabric.atlassianSwitcher.login': 'Accedi',

@@ -19,6 +19,8 @@ export default {
     'Несколько людей и один робот уже всё чинят.',
   'fabric.atlassianSwitcher.errorText':
     'Мы стараемся отслеживать все ошибки. Если обновление страницы не поможет, обязательно сообщите нам об этом.',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Чтобы использовать переключатель продуктов Atlassian, выполните вход повторно.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Не удалось загрузить список. Обновите страницу и повторите попытку.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -31,6 +33,9 @@ export default {
     'Управление ИТ-услугами с поддержкой совместной работы. До 3 агентов — бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Отслеживание проектов и задач — до 10 пользователей бесплатно',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, Github и многое другое',
+  'fabric.atlassianSwitcher.gittools.label': 'Интеграции Git для Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Проект Jira',
   'fabric.atlassianSwitcher.join': 'Подключение',
   'fabric.atlassianSwitcher.login': 'Войти',

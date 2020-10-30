@@ -19,9 +19,9 @@ import DropdownMenu, { DropdownItemGroup, DropdownItem } from @atlaskit/dropdown
   ${(
     <Example
       packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/dropdown-item').default}
+      Component={require('../examples/04-dropdown-item').default}
       title=""
-      source={require('!!raw-loader!../examples/dropdown-item')}
+      source={require('!!raw-loader!../examples/04-dropdown-item')}
     />
   )}
 

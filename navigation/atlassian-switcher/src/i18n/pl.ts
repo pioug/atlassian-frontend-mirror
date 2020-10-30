@@ -19,6 +19,8 @@ export default {
     'Zepsuty robot i wiele osób pracuje, aby usunąć błąd.',
   'fabric.atlassianSwitcher.errorText':
     'Monitorujemy te błędy, ale nie wahaj się skontaktować z nami, jeśli odświeżanie nie rozwiąże problemów',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Zaloguj się ponownie, aby skorzystać z narzędzia Atlassian Switcher.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Nie udało się załadować tej listy. Załaduj stronę ponownie i spróbuj ponownie.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -31,6 +33,9 @@ export default {
     'Bezpłatne i oparte na współpracy zarządzanie usługami IT dla maksymalnie 3 agentów',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Bezpłatne śledzenie projektów i zgłoszeń — do 10 użytkowników',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, Github i nie tylko',
+  'fabric.atlassianSwitcher.gittools.label': 'Integracje Git dla systemu Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
   'fabric.atlassianSwitcher.join': 'Dołącz',
   'fabric.atlassianSwitcher.login': 'Zaloguj się',

@@ -3,6 +3,8 @@ import Icon from '@atlaskit/icon';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize, math } from '@atlaskit/theme';
 import { CancelableEvent } from '@atlaskit/quick-search';
 import { messages } from '../../messages';

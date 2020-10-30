@@ -32,9 +32,9 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/dropdown-item-groups').default}
+      Component={require('../examples/06-dropdown-item-groups').default}
       title=""
-      source={require('!!raw-loader!../examples/dropdown-item-groups')}
+      source={require('!!raw-loader!../examples/06-dropdown-item-groups')}
     />
   )}
 

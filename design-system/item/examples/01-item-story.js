@@ -7,6 +7,8 @@ import Arrow from '@atlaskit/icon/glyph/arrow-right';
 import Avatar from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
 import Tooltip from '@atlaskit/tooltip';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, gridSize } from '@atlaskit/theme';
 import Item from '../src';
 import {

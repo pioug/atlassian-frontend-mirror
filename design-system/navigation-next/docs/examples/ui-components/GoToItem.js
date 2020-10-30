@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import IssuesIcon from '@atlaskit/icon/glyph/issues';
 import { JiraWordmark } from '@atlaskit/logo';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
 import {

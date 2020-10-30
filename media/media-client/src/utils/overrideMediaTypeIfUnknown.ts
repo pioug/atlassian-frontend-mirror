@@ -1,4 +1,5 @@
-import { FileState, isErrorFileState, MediaType } from '..';
+import { FileState, isErrorFileState } from '../models/file-state';
+import { MediaType } from '../models/media';
 
 export const overrideMediaTypeIfUnknown = (
   fileState: FileState,

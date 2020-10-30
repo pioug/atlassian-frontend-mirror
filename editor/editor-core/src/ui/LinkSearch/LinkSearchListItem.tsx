@@ -1,6 +1,8 @@
 import React from 'react';
 import { HTMLAttributes, ComponentClass } from 'react';
 import styled from 'styled-components';
+// AFP-2532 TODO: Fix automatic suppressions below
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall } from '@atlaskit/theme';
 import { N20, N800, N100 } from '@atlaskit/theme/colors';
 import { LinkSearchListItemData } from './types';

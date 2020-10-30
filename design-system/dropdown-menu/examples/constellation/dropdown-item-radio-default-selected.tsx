@@ -6,7 +6,7 @@ import DropdownMenu, {
 } from '../../src';
 
 const DropDownItemRadioDefaultSelectedExample = () => (
-  <DropdownMenu trigger="Select a city" triggerType="button">
+  <DropdownMenu trigger="Filter city" triggerType="button">
     <DropdownItemGroupRadio id="cities">
       <DropdownItemRadio id="adelaide" defaultSelected>
         Adelaide

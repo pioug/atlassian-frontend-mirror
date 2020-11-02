@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 17.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.1
 
 ### Patch Changes

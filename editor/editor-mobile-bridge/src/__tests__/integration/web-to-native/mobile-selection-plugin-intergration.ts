@@ -27,7 +27,7 @@ BrowserTestCase(
     const expected: SelectionDataState = {
       markTypes: [],
       nodeTypes: ['paragraph'],
-      rect: { top: 32, left: 16 },
+      rect: { top: 32, left: 24 },
       selection: { type: 'text', anchor: 2, head: 2 },
     };
 

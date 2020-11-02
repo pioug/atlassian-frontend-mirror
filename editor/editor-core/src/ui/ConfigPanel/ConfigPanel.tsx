@@ -145,19 +145,12 @@ class ConfigPanel extends React.Component<Props, State> {
       return;
     }
 
-    try {
-      const currentParameters = await deserialize(
-        extensionManifest,
-        parameters,
-        fields,
-      );
-      this.setState({ currentParameters, hasParsedParameters: true });
-    } catch (error) {
-      this.setState({ currentParameters: {}, hasParsedParameters: true });
-
-      // eslint-disable-next-line no-console
-      console.error(`Error deserializing parameters`, error);
-    }
+    const currentParameters = await deserialize(
+      extensionManifest,
+      parameters,
+      fields,
+    );
+    this.setState({ currentParameters, hasParsedParameters: true });
   };
 
   // memoized to prevent rerender on new parameters

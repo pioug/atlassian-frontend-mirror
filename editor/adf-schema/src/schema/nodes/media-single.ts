@@ -51,7 +51,7 @@ export const mediaSingle: NodeSpec = {
   atom: true,
   content: 'media',
   attrs: defaultAttrs,
-  marks: 'unsupportedMark unsupportedNodeAttribute',
+  marks: 'unsupportedMark unsupportedNodeAttribute link',
   parseDOM: [
     {
       tag: 'div[data-node-type="mediaSingle"]',

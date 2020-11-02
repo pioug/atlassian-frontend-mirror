@@ -66,36 +66,4 @@ describe('Panel:', () => {
     // shows the new panel colour, icon and node selection intact
     await waitForNoTooltip(page);
   });
-
-  it("doesn't select panel if click and drag before releasing mouse", async () => {
-    const contentBoundingRect = await page.evaluate(selector => {
-      const panelContent = document.querySelector(selector);
-      if (panelContent) {
-        const rect = panelContent.getBoundingClientRect();
-        return {
-          top: rect.top,
-          left: rect.left,
-          width: rect.width,
-          height: rect.height,
-        };
-      }
-    }, `.${PanelSharedCssClassName.prefix}`);
-
-    if (!contentBoundingRect) {
-      throw Error(
-        `Unable to find element .${PanelSharedCssClassName.prefix} on page`,
-      );
-    }
-
-    // start in centre of panel, mousedown and then move to padding before releasing
-    await page.mouse.move(
-      contentBoundingRect.left + contentBoundingRect.width * 0.5,
-      contentBoundingRect.top + contentBoundingRect.height * 0.5,
-    );
-    await page.mouse.down();
-    await page.mouse.move(contentBoundingRect.left, contentBoundingRect.top);
-    await page.mouse.up();
-
-    await waitForNoTooltip(page);
-  });
 });

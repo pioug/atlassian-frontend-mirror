@@ -13,14 +13,13 @@ import ErrorMessage, {
 import { Spinner } from '../../loading';
 import { Props as RendererProps } from './codeViewerRenderer';
 import { BaseViewer } from '../base-viewer';
-import { getLanguage, getExtension, DEFAULT_LANGUAGE } from './util';
+import { DEFAULT_LANGUAGE } from './util';
+import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
 import { msgToText } from './msg-parser';
-
-export { isCodeViewerItem } from './util';
 
 const moduleLoader = () =>
   import(
-    /* webpackChunkName:"@atlaskit-internal_media-viewer-code-viewer" */ './codeViewerRenderer'
+    /* webpackChunkName: "@atlaskit-internal_media-viewer-code-viewer" */ './codeViewerRenderer'
   );
 
 const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
@@ -61,7 +60,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
           collectionName,
         );
         const response = await fetch(downloadUrl);
-        const ext = getExtension(item);
+        const ext = getExtension(item.name);
 
         // Pass through EmailViewer logic
         if (ext === 'msg') {
@@ -105,7 +104,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 
   private getCodeLanguage(item: FileState) {
     if (!isErrorFileState(item)) {
-      return getLanguage(item);
+      return getLanguageType(item.name);
     }
     return DEFAULT_LANGUAGE;
   }

@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 14.2.1
+
+### Patch Changes
+
+- [`6689df691c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6689df691c) - [ux] fixed bugs where the unknown icon was rendered instead of the codeIcon
+- [`330da4d675`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330da4d675) - Update translations via Traduki from issue/translation-2020-10-08T000543
+
 ## 14.2.0
 
 ### Minor Changes

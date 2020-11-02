@@ -47,9 +47,16 @@ export {
   breakoutConsts,
 } from './breakout';
 export { default as ADFTraversor } from './traversor';
-export { getAnalyticsAppearance, analyticsEventKey } from './analytics';
-export type { UnsupportedContentTooltipPayload } from './analytics';
-export type { UnsupportedContentPayload } from './analytics';
+export {
+  analyticsEventKey,
+  getAnalyticsAppearance,
+  getAnalyticsEventSeverity,
+  SEVERITY,
+} from './analytics';
+export type {
+  UnsupportedContentTooltipPayload,
+  UnsupportedContentPayload,
+} from './analytics';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { measureRender } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
@@ -71,3 +78,4 @@ export { compose } from './compose';
 export { ZERO_WIDTH_SPACE } from './whitespace';
 
 export type { Diff } from './types';
+export { shouldForceTracking } from './should-force-tracking';

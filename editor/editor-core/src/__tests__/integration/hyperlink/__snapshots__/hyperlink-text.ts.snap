@@ -155,7 +155,7 @@ Object {
               "type": "link",
             },
           ],
-          "text": "mmm",
+          "text": "http://hello.com",
           "type": "text",
         },
         Object {
@@ -229,7 +229,7 @@ Object {
               "type": "link",
             },
           ],
-          "text": "mmm",
+          "text": "http://hello.com",
           "type": "text",
         },
         Object {

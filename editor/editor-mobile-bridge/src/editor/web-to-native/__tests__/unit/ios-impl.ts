@@ -278,5 +278,18 @@ describe('Web To Native', () => {
         });
       });
     });
+
+    describe('TypeAhead bridge', () => {
+      it('should call dismissTypeAhead in native', function () {
+        iosBridge.dismissTypeAhead();
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.typeAheadBridge
+            ?.postMessage,
+        ).toHaveBeenCalledWith({
+          name: 'dismissTypeAhead',
+        });
+      });
+    });
   });
 });

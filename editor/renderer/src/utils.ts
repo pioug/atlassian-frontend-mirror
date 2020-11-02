@@ -67,3 +67,29 @@ export const getPlatform = (rendererAppearance: RendererAppearance) => {
   }
   return 'web' as const;
 };
+
+/**
+ * Traverse through parent elements of element. Return element for which evaluate(element) returns
+ * true. If topElement is reached before evaluate returns true, return false. Does not run evaluate
+ * on topElement.
+ * @param element Starting HTMLElement
+ * @param topElement HTMLElement to end search at. evaluate is not called on this element
+ * @param evaluate Function which returns true or false based on the given element. eg: Checks if
+ * element has desired classname.
+ */
+export function findInTree(
+  element: HTMLElement,
+  topElement: HTMLElement,
+  evaluate: (element: HTMLElement) => boolean,
+): boolean {
+  if (element === topElement) {
+    return false;
+  }
+  if (evaluate(element)) {
+    return true;
+  }
+  if (!element.parentElement) {
+    return false;
+  }
+  return findInTree(element.parentElement, topElement, evaluate);
+}

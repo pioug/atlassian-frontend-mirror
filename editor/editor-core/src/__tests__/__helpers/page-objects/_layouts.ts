@@ -1,7 +1,10 @@
+import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import { TestPage, PuppeteerPage } from './_types';
 import { selectors } from './_editor';
 import messages from '../../../messages';
 import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
+import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
+import { clickToolbarMenu, ToolbarMenuItem } from './_toolbar';
 
 export const layoutSelectors = {
   section: '[data-layout-section]',
@@ -11,8 +14,31 @@ export const layoutSelectors = {
   removeButton: 'button[aria-label="Remove"]',
 };
 
-function getLayoutSelector(columWidthPercentages = [50, 50]) {
-  return columWidthPercentages
+export type BreakoutType = 'fixed' | 'wide' | 'fullWidth';
+
+export const breakoutSelectors: { [key in BreakoutType]: string } = {
+  fixed: `[data-testid="${messages.layoutFixedWidth.id}"]`,
+  wide: `[data-testid="${messages.layoutWide.id}"]`,
+  fullWidth: `[data-testid="${messages.layoutFullWidth.id}"]`,
+};
+export const allBreakoutTypes = Object.keys(
+  breakoutSelectors,
+) as BreakoutType[];
+
+const anyBreakoutSelector = Object.values(breakoutSelectors).join();
+
+export const layoutTestIds = {
+  twoColumns: toolbarMessages.twoColumns.id,
+  rightSidebar: toolbarMessages.rightSidebar.id,
+  leftSidebar: toolbarMessages.leftSidebar.id,
+  threeColumns: toolbarMessages.threeColumns.id,
+  threeColumnsWithSidebars: toolbarMessages.threeColumnsWithSidebars.id,
+};
+
+export type LayoutType = keyof typeof layoutTestIds;
+
+function getLayoutSelector(columnWidthPercentages = [50, 50]) {
+  return columnWidthPercentages
     .map(
       (p, i) =>
         `div[data-layout-section="true"] > div:nth-child(${
@@ -23,38 +49,97 @@ function getLayoutSelector(columWidthPercentages = [50, 50]) {
 }
 
 const layoutElementSelectors = {
-  [toolbarMessages.twoColumns.defaultMessage]: {
+  [toolbarMessages.twoColumns.id]: {
     selector: getLayoutSelector([50, 50]),
     columns: 2,
   },
-  [toolbarMessages.rightSidebar.defaultMessage]: {
+  [toolbarMessages.rightSidebar.id]: {
     selector: getLayoutSelector([66.66, 33.33]),
     columns: 2,
   },
-  [toolbarMessages.leftSidebar.defaultMessage]: {
+  [toolbarMessages.leftSidebar.id]: {
     selector: getLayoutSelector([33.33, 66.66]),
     columns: 2,
   },
-  [toolbarMessages.threeColumns.defaultMessage]: {
+  [toolbarMessages.threeColumns.id]: {
     selector: getLayoutSelector([33.33, 33.33, 33.33]),
     columns: 3,
   },
-  [toolbarMessages.threeColumnsWithSidebars.defaultMessage]: {
+  [toolbarMessages.threeColumnsWithSidebars.id]: {
     selector: getLayoutSelector([25, 50, 25]),
     columns: 3,
   },
 };
 
+export async function addLayout(page: WebDriverPage, layoutType: LayoutType) {
+  await clickToolbarMenu(page, ToolbarMenuItem.layouts);
+  await waitForLayoutToolbar(page);
+
+  const layoutButtonTestid = layoutTestIds[layoutType];
+  const layoutBtnSelector = `[data-testid="${layoutButtonTestid}"]`;
+  await page.waitForSelector(layoutBtnSelector);
+  await page.click(layoutBtnSelector);
+
+  // Waiting for layout actually to change
+  const { columns, selector } = layoutElementSelectors[layoutButtonTestid];
+  await page.waitForElementCount(selector, columns);
+}
+
+export async function removeLayout(page: WebDriverPage) {
+  await page.waitForSelector(layoutSelectors.removeButton);
+  await page.click(layoutSelectors.removeButton);
+}
+
+export async function selectLayoutColumn(page: WebDriverPage, index: number) {
+  const columns = await page.$$(layoutSelectors.column);
+  if (columns.length >= index) {
+    await columns[index].click();
+  } else {
+    throw new Error(`Selector \`${layoutSelectors.column}\` contains only ${columns.length} elements,
+    but ${index}th was requested to be clicked`);
+  }
+}
+
+/**
+ * Detect which breakout is current one, iterate till desired one.
+ * This will work on both tables and layouts. Assumption is breakout button is visible when
+ * this function is called.
+ */
+export async function selectBreakout(
+  page: WebDriverPage,
+  desiredBreakoutType: BreakoutType,
+) {
+  // Detect current breakout first
+  const isWideBreakout = !!(await page.count(breakoutSelectors.fullWidth)); // it is wide if button is for full width
+  const isFullWidthBreakout = !!(await page.count(breakoutSelectors.fixed));
+
+  let currentBreakoutIndex: number = isFullWidthBreakout
+    ? 2
+    : isWideBreakout
+    ? 1
+    : 0;
+
+  while (allBreakoutTypes[currentBreakoutIndex] !== desiredBreakoutType) {
+    const nextBreakoutIndex =
+      (currentBreakoutIndex + 1) % allBreakoutTypes.length;
+    const nextBreakoutSelector =
+      breakoutSelectors[allBreakoutTypes[nextBreakoutIndex]];
+    await page.waitForSelector(nextBreakoutSelector);
+    await page.click(nextBreakoutSelector);
+    currentBreakoutIndex = nextBreakoutIndex;
+  }
+}
+
 // Wait for layout to adjust to newly chosen type
 export async function waitForLayoutChange(
   page: PuppeteerPage,
-  layoutButtonLabel: keyof typeof layoutElementSelectors,
+  layoutButtonTestid: keyof typeof layoutElementSelectors,
 ) {
   await page.waitForFunction(
     (data: { selector: string; columns: number }) =>
       document.querySelectorAll(data.selector).length === data.columns,
     { timeout: 5000 },
-    layoutElementSelectors[layoutButtonLabel],
+    layoutElementSelectors[layoutButtonTestid],
   );
 }
 
@@ -143,23 +228,15 @@ export const scrollToLayoutColumn = async (
 };
 
 export const waitForLayoutToolbar = async (page: TestPage) => {
-  await page.waitForSelector('[aria-label="Layout floating controls"]');
+  await page.waitForSelector(`[aria-label="${layoutToolbarTitle}"]`);
 };
 
 export const toggleBreakout = async (page: TestPage, times: number) => {
   const timesArray = Array.from({ length: times });
 
-  const breakoutSelector = [
-    messages.layoutFixedWidth.defaultMessage,
-    messages.layoutWide.defaultMessage,
-    messages.layoutFullWidth.defaultMessage,
-  ]
-    .map(label => `[aria-label="${label}"]`)
-    .join();
-
   for (let _iter of timesArray) {
-    await page.waitForSelector(breakoutSelector);
-    await page.click(breakoutSelector);
+    await page.waitForSelector(anyBreakoutSelector);
+    await page.click(anyBreakoutSelector);
   }
 };
 

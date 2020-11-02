@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 6.9.2
+
+### Patch Changes
+
+- [`677744c680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/677744c680) - Add UserSelect field for ConfigPanel, and expose types in SmartUserPicker
+
 ## 6.9.1
 
 ### Patch Changes

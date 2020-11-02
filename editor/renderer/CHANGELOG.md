@@ -1,5 +1,44 @@
 # @atlaskit/renderer
 
+## 69.0.0
+
+### Minor Changes
+
+- [`964b2be0e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/964b2be0e5) - ED-9514 Fix Media in MediaSingle not rendererd on web and hybrid renderer when unsupported node attributes and/or unsupported marks are included.
+- [`1e59fd65c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e59fd65c5) - ED-8720 Add OnUnhandledClickHandler for Renderer
+- [`ff39f9f643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff39f9f643) - ED-10614 Add match indexing (Confluence API) for annotation creation for the renderer
+
+  BEFORE
+
+  ```
+  export type AnnotationActionResult =
+    {
+      step: Step;
+      doc: JSONDocNode;
+    } | false;
+  ```
+
+  AFTER
+
+  ```
+  export type AnnotationActionResult =
+    {
+      step: Step;
+      doc: JSONDocNode;
+      originalSelection: string;    // <<===
+      numMatches: number;           // <<===
+      matchIndex: number;           // <<===
+    } | false;
+  ```
+
+### Patch Changes
+
+- [`ba19b25a11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba19b25a11) - ED-8006 Prevent clicks on action checkboxes from triggering table header sorting
+- [`b13e3991ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b13e3991ef) - ED-10723: severity for rendered event
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [`330da4d675`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330da4d675) - Update translations via Traduki from issue/translation-2020-10-08T000543
+- Updated dependencies
+
 ## 68.0.1
 
 ### Patch Changes

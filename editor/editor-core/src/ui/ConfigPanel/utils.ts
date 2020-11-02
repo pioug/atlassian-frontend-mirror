@@ -27,7 +27,7 @@ const isEmptyArray = <T>(value: T) =>
 
 type ValidationProps = { isRequired?: boolean; isMultiple?: boolean };
 
-const validateRequired = <T>(
+export const validateRequired = <T>(
   { isRequired, isMultiple }: ValidationProps,
   value: T,
 ): ValidationError | undefined => {

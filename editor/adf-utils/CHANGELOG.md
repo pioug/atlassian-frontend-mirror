@@ -1,5 +1,20 @@
 # @atlaskit/adf-utils
 
+## 11.0.0
+
+### Major Changes
+
+- [`f2fbde158a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fbde158a) - getEmptyADF() returns correct DocNode type
+
+### Minor Changes
+
+- [`a929e563b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a929e563b9) - Text color mark changed to be case insensitive
+- [`eba787da28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eba787da28) - Allow link marks on media
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.0
 
 ### Minor Changes

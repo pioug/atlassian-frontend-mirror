@@ -2,7 +2,8 @@ import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common';
 
-import HyperlinkAddToolbarComp, { LinkInputType } from './HyperlinkAddToolbar';
+import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
+import { LinkInputType } from '../../types';
 import { stateKey as pluginKey } from '../../pm-plugins/main';
 import WithPluginState from '../../../../ui/WithPluginState';
 
@@ -58,6 +59,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<
                 displayText={displayText}
                 displayUrl={displayUrl}
                 pluginState={hyperlinkPluginState}
+                view={view}
               />
             )}
           />

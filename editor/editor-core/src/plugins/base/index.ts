@@ -13,13 +13,16 @@ import scrollGutter, {
 } from './pm-plugins/scroll-gutter';
 import { keymap } from '../../utils/keymap';
 import frozenEditor from './pm-plugins/frozen-editor';
-import { InputTracking } from '../../types/performance-tracking';
+import {
+  InputTracking,
+  BFreezeTracking,
+} from '../../types/performance-tracking';
 
 export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
   allowInlineCursorTarget?: boolean;
   inputTracking?: InputTracking;
-  allowBrowserFreezeInteractionType?: boolean;
+  bFreezeTracking?: BFreezeTracking;
 }
 
 const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
@@ -55,7 +58,7 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
             ? frozenEditor(
                 dispatchAnalyticsEvent,
                 options.inputTracking,
-                options.allowBrowserFreezeInteractionType,
+                options.bFreezeTracking,
               )
             : undefined,
       },

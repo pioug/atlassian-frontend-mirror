@@ -32,6 +32,7 @@ export type {
   ExtensionQuickInsertModule,
   ExtensionType,
   CustomFieldResolver,
+  UserFieldContextProvider,
   Icon,
   MaybeADFEntity,
   Deserializer,
@@ -42,11 +43,13 @@ export type { Parameters } from './extension-parameters';
 
 export type { MenuItem, MenuItemMap } from './utils';
 
-export { isFieldset } from './field-definitions';
+export { isFieldset, isDateRange } from './field-definitions';
 export type {
   BooleanField,
   CustomField,
   DateField,
+  DateRangeField,
+  DateRangeResult,
   EnumField,
   EnumCheckboxField,
   EnumRadioField,
@@ -59,5 +62,7 @@ export type {
   StringField,
   StringOneLineField,
   StringMultilineField,
+  UserField,
+  UserFieldContext,
   FieldHandlerLink,
 } from './field-definitions';

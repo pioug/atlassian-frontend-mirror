@@ -5,7 +5,11 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from './enums';
-import { SortOrder, UnsupportedContentPayload } from '@atlaskit/editor-common';
+import {
+  SortOrder,
+  UnsupportedContentPayload,
+  SEVERITY,
+} from '@atlaskit/editor-common';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/src/utils/analytics';
@@ -38,6 +42,7 @@ type RendererRenderedAEP = AEP<
     duration: number;
     ttfb?: number;
     nodes: Record<string, number>;
+    severity?: SEVERITY;
   },
   EVENT_TYPE.OPERATIONAL
 >;

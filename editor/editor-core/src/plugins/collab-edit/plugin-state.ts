@@ -13,6 +13,8 @@ import { findPointers, createTelepointers } from './utils';
 
 const isReplaceStep = (step: Step) => step instanceof ReplaceStep;
 
+export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
+
 /**
  * Returns position where it's possible to place a decoration.
  */
@@ -204,11 +206,20 @@ export class PluginState {
     const { selection } = tr;
     this.decorationSet.find().forEach((deco: any) => {
       if (deco.type.toDOM) {
+        const hasTelepointerDimClass = deco.type.toDOM.classList.contains(
+          TELEPOINTER_DIM_CLASS,
+        );
+
         if (deco.from === selection.from && deco.to === selection.to) {
-          deco.type.toDOM.classList.add('telepointer-dim');
+          if (!hasTelepointerDimClass) {
+            deco.type.toDOM.classList.add(TELEPOINTER_DIM_CLASS);
+          }
+
           deco.type.side = -1;
         } else {
-          deco.type.toDOM.classList.remove('telepointer-dim');
+          if (hasTelepointerDimClass) {
+            deco.type.toDOM.classList.remove(TELEPOINTER_DIM_CLASS);
+          }
           deco.type.side = 0;
         }
       }

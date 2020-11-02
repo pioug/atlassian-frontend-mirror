@@ -17,7 +17,7 @@ import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import {
   ContainerHeader,
@@ -214,13 +214,13 @@ export default class Example extends Component {
             topOffset={isBannerVisible ? bannerHeight : 0}
           >
             <div style={{ padding: `${gridSize * 4}px ${gridSize * 5}px` }}>
-              <ToggleStateless
+              <Toggle
                 isChecked={shouldDisplayContainerNav}
                 onChange={this.toggleContainerNav}
               />{' '}
               Display container navigation layer
               <div>
-                <ToggleStateless
+                <Toggle
                   isChecked={isBannerVisible}
                   onChange={this.toggleBanner}
                 />{' '}

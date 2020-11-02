@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 70.0.0
+
+### Major Changes
+
+- [`dc8f998c1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc8f998c1c) - Added visual regression tests for media-cards. Also created a new examples page specifically for these VR tests
+- [`f4a2c533f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4a2c533f4) - Fix wrong dependency
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.5.0
 
 ### Minor Changes

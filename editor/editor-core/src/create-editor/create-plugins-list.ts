@@ -49,11 +49,15 @@ import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/fe
 import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import {
+  NORMAL_SEVERITY_THRESHOLD,
+  DEGRADED_SEVERITY_THRESHOLD,
+} from '../plugins/base/pm-plugins/frozen-editor';
+import {
   createDefaultPreset,
   DefaultPresetPluginOptions,
 } from '../labs/next/presets/default';
 import { EditorPresetProps } from '../labs/next/presets/types';
-import { shouldForceTracking } from './should-force-tracking';
+import { shouldForceTracking } from '@atlaskit/editor-common';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -115,10 +119,24 @@ export function getDefaultPresetOptionsFromEditorProps(
       ? true
       : inputTracking.countNodes;
 
-  const allowBrowserFreezeInteractionType =
-    typeof props.performanceTracking?.bFreezeTracking === 'undefined'
-      ? shouldForceTracking()
-      : props.performanceTracking?.bFreezeTracking?.trackInteractionType;
+  const forceBFreezeTracking =
+    typeof props.performanceTracking?.bFreezeTracking === 'undefined' &&
+    shouldForceTracking();
+
+  const bFreezeTracking = {
+    trackInteractionType:
+      !!forceBFreezeTracking ||
+      !!props.performanceTracking?.bFreezeTracking?.trackInteractionType,
+    trackSeverity:
+      !!forceBFreezeTracking ||
+      !!props.performanceTracking?.bFreezeTracking?.trackSeverity,
+    severityNormalThreshold:
+      props.performanceTracking?.bFreezeTracking?.severityNormalThreshold ??
+      NORMAL_SEVERITY_THRESHOLD,
+    severityDegradedThreshold:
+      props.performanceTracking?.bFreezeTracking?.severityDegradedThreshold ??
+      DEGRADED_SEVERITY_THRESHOLD,
+  };
   // END:  temporary code  https://product-fabric.atlassian.net/browse/ED-10260
 
   return {
@@ -132,7 +150,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       allowInlineCursorTarget: !isMobile,
       allowScrollGutter: getScrollGutterOptions(props),
       inputTracking,
-      allowBrowserFreezeInteractionType,
+      bFreezeTracking,
     },
     blockType: {
       lastNodeMustBeParagraph:

@@ -44,7 +44,7 @@
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/modal-dialog": "^11.2.2",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^11.0.0",
+    "@atlaskit/toggle": "^12.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@emotion/styled": "^10.0.7",

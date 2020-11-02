@@ -51,8 +51,8 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
   describe('withSortableColumn', () => {
     let WithSortableColumn: React.ComponentType<CellWithSortingProps>;
-    const TestComp = ({ onClick }: CellWithSortingProps) => (
-      <button onClick={onClick} />
+    const TestComp = ({ onClick, children }: CellWithSortingProps) => (
+      <button onClick={onClick}>{children}</button>
     );
 
     beforeEach(() => {
@@ -106,18 +106,22 @@ describe('Renderer - React/Nodes/TableHeader', () => {
       describe('when onSorting function exist', () => {
         let onSorting: any;
         let wrapper: any;
-        beforeEach(() => {
-          onSorting = jest.fn();
-          wrapper = mount(
+        const mountWrapper = (children?: React.ReactNode) =>
+          mount(
             <WithSortableColumn
               allowColumnSorting
               columnIndex={0}
               onSorting={onSorting}
-            />,
+            >
+              {children}
+            </WithSortableColumn>,
           );
+        beforeEach(() => {
+          onSorting = jest.fn();
         });
 
         it('should not add sortable not allowed class name', () => {
+          wrapper = mountWrapper();
           expect(
             wrapper
               .find(TestComp)
@@ -126,8 +130,36 @@ describe('Renderer - React/Nodes/TableHeader', () => {
         });
 
         it('should call onSorting on click', () => {
+          wrapper = mountWrapper();
           wrapper.find('button').simulate('click');
           expect(onSorting).toHaveBeenCalled();
+        });
+
+        describe('with a checkbox', () => {
+          beforeEach(() => {
+            wrapper = mountWrapper(
+              <div>
+                <input type="checkbox" />
+                <label>Checkbox label</label>
+                <span id="test-span">Random Span</span>
+              </div>,
+            );
+          });
+
+          it('onSorting should not be called when checkbox input is clicked', () => {
+            wrapper.find('input[type="checkbox"]').simulate('click');
+            expect(onSorting).not.toHaveBeenCalled();
+          });
+
+          it('onSorting should not be called when label is clicked', () => {
+            wrapper.find('label').simulate('click');
+            expect(onSorting).not.toHaveBeenCalled();
+          });
+
+          it('onSorting should be called when label is clicked', () => {
+            wrapper.find('span[id="test-span"]').simulate('click');
+            expect(onSorting).toHaveBeenCalled();
+          });
         });
       });
 
@@ -164,7 +196,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
     describe('when onSorting and columnIndex is available', () => {
       it('should call the function with SORT_COLUMN_NOT_ALLOWED', () => {
         const fireAnalyticsEvent = jest.fn();
-        const tableCell = shallow(
+        const tableCell = mount(
           <TableHeader
             fireAnalyticsEvent={fireAnalyticsEvent}
             columnIndex={1}
@@ -191,7 +223,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
       it('should call the function with SORT_COLUMN_NOT_ALLOWED', () => {
         const fireAnalyticsEvent = jest.fn();
         const onSorting = jest.fn();
-        const tableCell = shallow(
+        const tableCell = mount(
           <TableHeader
             fireAnalyticsEvent={fireAnalyticsEvent}
             onSorting={onSorting}
@@ -221,7 +253,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
       it('should call the function with SORT_COLUMN_NOT_ALLOWED', () => {
         const fireAnalyticsEvent = jest.fn();
         const onSorting = jest.fn();
-        const tableCell = shallow(
+        const tableCell = mount(
           <TableHeader
             onSorting={onSorting}
             fireAnalyticsEvent={fireAnalyticsEvent}

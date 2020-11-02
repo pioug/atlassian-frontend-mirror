@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ToggleStateless } from '../../src';
+import Toggle from '../../src';
 
 import { Label } from './label';
 
@@ -11,7 +11,7 @@ export default function Example() {
     <>
       <Label htmlFor="toggle-controlled">Allow pull requests</Label>
 
-      <ToggleStateless
+      <Toggle
         id="toggle-controlled"
         onChange={() => setIsChecked(prev => !prev)}
         isChecked={isChecked}

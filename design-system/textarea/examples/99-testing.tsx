@@ -1,21 +1,15 @@
-import React from 'react';
-
-import styled from 'styled-components';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
 import TextArea from '../src';
 
-const Div = styled.div`
-  max-width: 500px;
-`;
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component {
-  render() {
-    return (
-      <Div>
-        <p>Basic:</p>
-        <TextArea value="I have a data-testid" testId="MyTextAreaTestId" />
-      </Div>
-    );
-  }
-}
+export default () => (
+  <div
+    css={{
+      maxWidth: 500,
+    }}
+  >
+    <p>Basic:</p>
+    <TextArea value="I have a data-testid" testId="MyTextAreaTestId" />
+  </div>
+);

@@ -48,10 +48,7 @@ BrowserTestCase(
     await waitForResolvedInlineCard(page);
     await waitForLazyRenderedCard(page);
     // All of the cards at the bottom should be off the viewport, rendering as lazy placeholders.
-    await page.waitUntil(async () => {
-      const cards = await page.$$(lazyCardSelector);
-      return cards.length === TOTAL_CARDS - 1;
-    });
+    await page.waitForElementCount(lazyCardSelector, TOTAL_CARDS - 1);
 
     // Before scrolling, we hold onto the network requests which
     // have been spoofed This should be one per URL.
@@ -66,10 +63,7 @@ BrowserTestCase(
     // Wait for card to finish resolving.
     await waitForResolvedInlineCard(page);
     // All of them should in the viewport now, and render as resolved inline cards.
-    await page.waitUntil(async () => {
-      const cards = await page.$$(cardSelector);
-      return cards.length === TOTAL_CARDS;
-    });
+    await page.waitForElementCount(cardSelector, TOTAL_CARDS);
 
     // Finally, we check again how many requests were fired at the end of the test.
     // If the use of prefetching has succeeded, no extra requests should have been fired.

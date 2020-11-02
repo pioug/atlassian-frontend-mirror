@@ -22,7 +22,7 @@ export class StorageImpl implements Storage {
 
 export function createCollabProviderFactory(fetchProxy: FetchProxy) {
   return async (bridge: WebBridgeImpl) => {
-    const { documentAri, baseUrl, userId } = await createPromise(
+    const { documentAri, baseUrl } = await createPromise(
       'getCollabConfig',
     ).submit();
 
@@ -33,7 +33,6 @@ export function createCollabProviderFactory(fetchProxy: FetchProxy) {
     return new CollabProvider({
       documentAri,
       url: baseUrl,
-      userId,
       lifecycle: bridge.lifecycle,
       storage: new StorageImpl(),
 

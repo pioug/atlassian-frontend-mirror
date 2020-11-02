@@ -2,6 +2,7 @@ import {
   Option,
   FieldDefinition,
   isFieldset,
+  isDateRange,
   Parameters,
   ExtensionManifest,
   getFieldSerializer,
@@ -55,6 +56,8 @@ const extractValues = (formData: Parameters): Parameters => {
       prev[key] = values;
     } else if (isOption(value)) {
       prev[key] = value.value;
+    } else if (isDateRange(value)) {
+      prev[key] = value;
     } else {
       prev[key] = value;
     }
@@ -116,14 +119,23 @@ export const deserialize = async (
       );
 
       if (deserializer) {
-        const deserializationResult = deserializer(
-          params[serializableField.name],
-        );
-
-        parsedParameters = {
-          ...parsedParameters,
-          [serializableField.name]: deserializationResult,
-        };
+        try {
+          const deserializationResult = deserializer(
+            params[serializableField.name],
+          );
+          parsedParameters = {
+            ...parsedParameters,
+            [serializableField.name]: deserializationResult,
+          };
+        } catch (error) {
+          parsedParameters = {
+            ...parsedParameters,
+            errors: {
+              ...(parsedParameters.errors || {}),
+              [serializableField.name]: error.message,
+            },
+          };
+        }
       }
     }
   }

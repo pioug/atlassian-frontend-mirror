@@ -41,6 +41,10 @@ export const isTableControlsButton = (node: HTMLElement | null): boolean =>
   containsClassName(node, ClassName.CONTROLS_BUTTON) ||
   containsClassName(node, ClassName.ROW_CONTROLS_BUTTON_WRAP);
 
+export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
+  containsClassName(node, ClassName.TABLE_CONTAINER) ||
+  containsClassName(node, ClassName.TABLE_NODE_WRAPPER);
+
 /*
  * This function returns which side of a given element the mouse cursor is,
  * using as a base the half of the width by default, for example:

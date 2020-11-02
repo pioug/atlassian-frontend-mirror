@@ -52,23 +52,44 @@ const linkText2 = 'FAB-983';
       expect(doc).toMatchCustomDocSnapshot(testName);
     },
   );
+
+  BrowserTestCase(
+    `can open hyperlink toolbar`,
+    { skip: ['edge'] },
+    async (client: any) => {
+      const page = await goToEditorTestingExample(client);
+
+      await mountEditor(page, {
+        appearance: fullpage.appearance,
+        annotationProviders: true,
+      });
+
+      await page.type(editable, 'Over 9000');
+      await setProseMirrorTextSelection(page, { anchor: 1, head: 5 });
+      await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
+      await page.waitForSelector(linkToolbar);
+      expect(await page.isExisting(linkToolbar)).toBe(true);
+    },
+  );
+
+  BrowserTestCase(
+    `can close hyperlink toolbar with escape key press`,
+    { skip: ['edge'] },
+    async (client: any) => {
+      const page = await goToEditorTestingExample(client);
+
+      await mountEditor(page, {
+        appearance: fullpage.appearance,
+        annotationProviders: true,
+      });
+
+      await page.type(editable, 'Over 9000');
+      await setProseMirrorTextSelection(page, { anchor: 1, head: 5 });
+      await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
+      await page.waitForSelector(linkToolbar);
+      expect(await page.isExisting(linkToolbar)).toBe(true);
+      await page.type(editable, 'Escape');
+      expect(await page.isExisting(linkToolbar)).toBe(false);
+    },
+  );
 });
-
-BrowserTestCase(
-  `can open hyperlink toolbar`,
-  { skip: ['edge'] },
-  async (client: any) => {
-    const page = await goToEditorTestingExample(client);
-
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      annotationProviders: true,
-    });
-
-    await page.type(editable, 'Over 9000');
-    await setProseMirrorTextSelection(page, { anchor: 1, head: 5 });
-    await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
-    await page.waitForSelector(linkToolbar);
-    expect(await page.isExisting(linkToolbar)).toBe(true);
-  },
-);

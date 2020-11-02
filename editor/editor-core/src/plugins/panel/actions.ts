@@ -4,8 +4,9 @@ import {
   removeSelectedNode,
   findParentNodeOfType,
 } from 'prosemirror-utils';
-import { NodeSelection } from 'prosemirror-state';
+import { EditorState, NodeSelection } from 'prosemirror-state';
 import { PanelType } from '@atlaskit/adf-schema';
+import { getPanelTypeBackground } from '@atlaskit/editor-common';
 import { Command } from '../../types';
 import {
   AnalyticsEventPayload,
@@ -17,6 +18,7 @@ import {
 } from '../analytics';
 import { pluginKey } from './types';
 import { findPanel } from './utils';
+import { PanelOptions } from './pm-plugins/main';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
@@ -49,34 +51,103 @@ export const removePanel = (): Command => (state, dispatch) => {
   return true;
 };
 
-export const changePanelType = (panelType: PanelType): Command => (
-  state,
-  dispatch,
-) => {
+const getNewPanelData = (
+  state: EditorState,
+  newPanelType: PanelType,
+  panelOptions: PanelOptions = {},
+): { panelIcon: string; panelColor: string; panelType: PanelType } => {
+  let {
+    activePanelIcon: previousIcon,
+    activePanelColor: previousColor,
+    activePanelType: previousType,
+  } = pluginKey.getState(state);
+  const { emoji, color } = panelOptions;
+
+  let panelIcon = previousIcon;
+  let panelType = newPanelType;
+
+  let panelColor = getPanelTypeBackground(
+    (newPanelType !== PanelType.CUSTOM
+      ? newPanelType
+      : previousType) as Exclude<PanelType, PanelType.CUSTOM>,
+  );
+
+  if (color || previousColor) {
+    panelType = PanelType.CUSTOM;
+    panelColor = color || previousColor;
+  }
+
+  if (emoji) {
+    panelType = PanelType.CUSTOM;
+    panelIcon = emoji;
+  }
+
+  return {
+    panelIcon,
+    panelColor,
+    panelType: panelType,
+  };
+};
+
+export const changePanelType = (
+  panelType: PanelType,
+  panelOptions: PanelOptions = {},
+  UNSAFE_allowCustomPanel: boolean = false,
+): Command => (state, dispatch) => {
   const {
     schema: { nodes },
     tr,
   } = state;
-
-  let previousType: PanelType = pluginKey.getState(state).activePanelType;
-  const payload: AnalyticsEventPayload = {
-    action: ACTION.CHANGED_TYPE,
-    actionSubject: ACTION_SUBJECT.PANEL,
-    attributes: {
-      newType: panelType,
-      previousType: previousType,
-    },
-    eventType: EVENT_TYPE.TRACK,
-  };
 
   const panelNode = findPanel(state);
   if (panelNode === undefined) {
     return false;
   }
 
-  const newTr = tr
-    .setNodeMarkup(panelNode.pos, nodes.panel, { panelType })
-    .setMeta(pluginKey, { activePanelType: panelType });
+  let newType = panelType;
+  let previousType = pluginKey.getState(state).activePanelType;
+
+  if (UNSAFE_allowCustomPanel) {
+    const { panelType: newPanelType } = getNewPanelData(
+      state,
+      panelType,
+      panelOptions,
+    );
+    newType = newPanelType;
+    previousType = panelType;
+  }
+
+  const payload: AnalyticsEventPayload = {
+    action: ACTION.CHANGED_TYPE,
+    actionSubject: ACTION_SUBJECT.PANEL,
+    attributes: { newType, previousType },
+    eventType: EVENT_TYPE.TRACK,
+  };
+
+  let newTr;
+  if (UNSAFE_allowCustomPanel) {
+    const { panelIcon, panelColor, panelType: newPanelType } = getNewPanelData(
+      state,
+      panelType,
+      panelOptions,
+    );
+
+    newTr = tr
+      .setNodeMarkup(panelNode.pos, nodes.panel, {
+        panelType: newPanelType,
+        panelIcon,
+        panelColor,
+      })
+      .setMeta(pluginKey, {
+        activePanelType: newPanelType,
+        activePanelIcon: panelIcon,
+        activePanelColor: panelColor,
+      });
+  } else {
+    newTr = tr
+      .setNodeMarkup(panelNode.pos, nodes.panel, { panelType })
+      .setMeta(pluginKey, { activePanelType: panelType });
+  }
 
   // Select the panel if it was previously selected
   const newTrWithSelection =

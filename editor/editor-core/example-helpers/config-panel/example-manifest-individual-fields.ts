@@ -13,6 +13,7 @@ import {
 
 import { cqlSerializer, cqlDeserializer } from './cql-helpers';
 
+import { setEnv } from '@atlaskit/user-picker/src/components/smart-user-picker/config';
 import { nativeFields, customFields } from './fields';
 
 const exampleFields = [...nativeFields, ...customFields];
@@ -32,8 +33,8 @@ const quickInsert: ExtensionModule[] = exampleFields.map(field => ({
 const nodes = exampleFields.reduce<ExtensionModuleNodes>((curr, field) => {
   curr[field.name] = {
     type: 'extension',
-    render: () => Promise.resolve(() => null),
-    getFieldsDefinition: () => Promise.resolve([field]),
+    render: async () => () => null,
+    getFieldsDefinition: async () => [field],
   };
 
   return curr;
@@ -69,6 +70,21 @@ const manifest: ExtensionManifest = {
         cql: {
           serializer: cqlSerializer,
           deserializer: cqlDeserializer,
+        },
+      },
+      user: {
+        'user-jdog-provider': {
+          provider: async () => {
+            // WARNING: this is required by the SmartUserPicker for testing environments
+            setEnv('local');
+
+            return {
+              siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+              principalId: 'Context',
+              fieldId: 'storybook',
+              productKey: 'jira',
+            };
+          },
         },
       },
     },

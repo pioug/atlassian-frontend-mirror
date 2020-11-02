@@ -16,13 +16,22 @@ export default function ConfigPanelWithProviders({
   nodeKey,
   extensionProvider,
   parameters,
+  onChange,
 }: {
   extensionType: ExtensionType;
   extensionKey: ExtensionKey;
   nodeKey: string;
   extensionProvider: ExtensionProvider;
   parameters: Parameters;
+  onChange?: (parameters: Parameters) => void;
 }) {
+  function _onChange(data: Parameters) {
+    console.log(data, JSON.stringify(data));
+    if (onChange) {
+      onChange(data);
+    }
+  }
+
   return (
     <IntlProvider locale="en">
       <ConfigPanel
@@ -32,7 +41,8 @@ export default function ConfigPanelWithProviders({
         extensionProvider={extensionProvider}
         parameters={parameters}
         showHeader
-        onChange={data => console.log(data, JSON.stringify(data))}
+        autoSave
+        onChange={_onChange}
         onCancel={() => console.log('onCancel')}
       />
     </IntlProvider>

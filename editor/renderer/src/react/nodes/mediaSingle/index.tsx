@@ -78,6 +78,16 @@ const isMediaElement = (
   );
 };
 
+const checkForMediaElement = (
+  children: React.ReactNode,
+): ReactElement<MediaProps & MediaADFAttrs> => {
+  const [media] = React.Children.toArray(children);
+  if (!isMediaElement(media) && (media as any).props.children) {
+    return checkForMediaElement((media as any).props.children);
+  }
+  return media as ReactElement<MediaProps & MediaADFAttrs>;
+};
+
 class MediaSingle extends Component<Props & InjectedIntlProps, State> {
   constructor(props: Props & InjectedIntlProps) {
     super(props);
@@ -127,10 +137,17 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
   render() {
     const { props } = this;
 
-    const [media, caption] = React.Children.toArray(props.children);
+    let media: ReactElement<MediaProps & MediaADFAttrs>;
+    const [node, caption] = React.Children.toArray(props.children);
 
-    if (!isMediaElement(media)) {
-      return null;
+    if (!isMediaElement(node)) {
+      const mediaElement = checkForMediaElement((node as any).props.children);
+      if (!mediaElement) {
+        return null;
+      }
+      media = mediaElement;
+    } else {
+      media = node;
     }
 
     let { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, type } = media.props;

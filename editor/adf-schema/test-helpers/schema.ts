@@ -69,6 +69,7 @@ export default createSchema({
     'textColor',
     'unsupportedMark',
     'unsupportedNodeAttribute',
+    'annotation',
   ],
   customNodeSpecs: {
     plain: { ...paragraph, content: 'text*', marks: '' },

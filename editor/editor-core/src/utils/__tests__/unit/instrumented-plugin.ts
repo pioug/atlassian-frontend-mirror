@@ -45,29 +45,52 @@ describe('InstrumentedPlugin.prototype.apply', () => {
     expect(apply).toHaveBeenCalledWith(tr, pluginState, oldState, newState);
   });
 
-  it('calls performance.mark twice with appropriate arguments', () => {
-    const apply = jest.fn();
-    const thing = {} as any;
-    const mark = performance.mark as jest.Mock;
+  describe('tracking transaction performance', () => {
+    it('does not call performance.mark before sampling threshold', () => {
+      const apply = jest.fn();
+      const thing = {} as any;
 
-    const plugin = new InstrumentedPlugin(
-      {
-        key: new PluginKey('test-key'),
-        state: { init: jest.fn(), apply },
-      },
-      {
-        transactionTracking: { enabled: true },
-      },
-    );
+      const plugin = new InstrumentedPlugin(
+        {
+          key: new PluginKey('test-key'),
+          state: { init: jest.fn(), apply },
+        },
+        {
+          transactionTracking: { enabled: true },
+        },
+      );
 
-    const key = (plugin as any).key;
+      plugin.spec.state!.apply(thing, thing, thing, thing);
+      expect(performance.mark).toHaveBeenCalledTimes(0);
+    });
 
-    plugin.spec.state!.apply(thing, thing, thing, thing);
-    expect(performance.mark).toHaveBeenCalledTimes(2);
-    expect(mark.mock.calls).toEqual([
-      [`🦉${key}::apply::start`],
-      [`🦉${key}::apply::end`],
-    ]);
+    it('calls performance.mark twice with appropriate arguments after 100 calls', () => {
+      const apply = jest.fn();
+      const thing = {} as any;
+      const mark = performance.mark as jest.Mock;
+
+      const plugin = new InstrumentedPlugin(
+        {
+          key: new PluginKey('test-key'),
+          state: { init: jest.fn(), apply },
+        },
+        {
+          transactionTracking: { enabled: true },
+        },
+      );
+      const key = (plugin as any).key;
+
+      // call to increment counter
+      new Array<number>(100)
+        .fill(0)
+        .forEach(() => plugin.spec.state!.apply(thing, thing, thing, thing));
+
+      expect(performance.mark).toHaveBeenCalledTimes(2);
+      expect(mark.mock.calls).toEqual([
+        [`🦉${key}::apply::start`],
+        [`🦉${key}::apply::end`],
+      ]);
+    });
   });
 
   it('propagates return value of spec.apply', () => {

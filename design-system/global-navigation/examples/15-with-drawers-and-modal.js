@@ -7,7 +7,7 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Checkbox } from '@atlaskit/checkbox';
 import { LayoutManager, NavigationProvider } from '@atlaskit/navigation-next';
 import { DropdownItemGroup, DropdownItem } from '@atlaskit/dropdown-menu';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 import Lorem from 'react-lorem-component';
 
 import GlobalNavigation from '../src';
@@ -364,7 +364,7 @@ export default class extends Component {
               />
             </div>
             <div css={{ display: 'block', paddingTop: '1rem' }}>
-              <ToggleStateless
+              <Toggle
                 isChecked={!shouldUnmountOnExit}
                 onChange={this.toggleUnmountBehaviour}
               />{' '}

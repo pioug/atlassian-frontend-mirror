@@ -8,6 +8,7 @@ import { Schema } from 'prosemirror-model';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
 import { EditorProps } from '../../types/editor-props';
+import { shouldTrackTransaction } from './should-track-transaction';
 
 export class InstrumentedPlugin<
   PluginState,
@@ -31,6 +32,14 @@ export class InstrumentedPlugin<
         oldState: EditorState<NodeSchema>,
         newState: EditorState<NodeSchema>,
       ) => {
+        const shouldTrackTransactions = shouldTrackTransaction(
+          transactionTracking,
+        );
+
+        if (!shouldTrackTransactions) {
+          return originalApply(tr, value, oldState, newState);
+        }
+
         const self = this as any;
         const measure = `🦉${self.key}::apply`;
         startMeasure(measure);

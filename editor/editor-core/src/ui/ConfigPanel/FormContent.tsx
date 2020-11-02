@@ -10,12 +10,14 @@ import {
 import Boolean from './Fields/Boolean';
 import CustomSelect from './Fields/CustomSelect';
 import Date from './Fields/Date';
+import DateRange from './Fields/DateRange';
 import Enum from './Fields/Enum';
 // eslint-disable-next-line import/no-cycle
 import Fieldset from './Fields/Fieldset';
 import Number from './Fields/Number';
 import String from './Fields/String';
 import UnhandledType from './Fields/UnhandledType';
+import UserSelect from './Fields/UserSelect';
 
 import RemovableField from './NestedForms/RemovableField';
 import { OnBlur } from './types';
@@ -92,6 +94,16 @@ function FieldComponent({
         />
       );
 
+    case 'date-range':
+      return (
+        <DateRange
+          parentName={parentName}
+          field={field}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+        />
+      );
+
     case 'enum':
       return (
         <Enum
@@ -117,11 +129,22 @@ function FieldComponent({
     case 'fieldset':
       return (
         <Fieldset
+          field={field}
           firstVisibleFieldName={firstVisibleFieldName}
           onFieldBlur={onBlur}
-          field={field}
           extensionManifest={extensionManifest}
           parameters={(parameters && parameters[field.name]) || {}}
+          error={parameters?.errors?.[field.name]}
+        />
+      );
+
+    case 'user':
+      return (
+        <UserSelect
+          field={field}
+          autoFocus={field.name === firstVisibleFieldName}
+          extensionManifest={extensionManifest}
+          onBlur={onBlur}
         />
       );
 

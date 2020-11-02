@@ -39,35 +39,40 @@ const backgroundColors = {
   greyLight: { light: colors.N30, dark: colors.N30 },
 };
 
+const linkBackgroundColorHover = {
+  standard: { light: colors.N30, dark: colors.DN60 },
+  green: { light: colors.G100, dark: colors.DN60 },
+  purple: { light: colors.P75, dark: colors.DN60 },
+  red: { light: colors.R75, dark: colors.DN60 },
+  yellow: { light: colors.Y100, dark: colors.DN60 },
+  grey: { light: colors.N50, dark: colors.DN60 },
+  teal: { light: colors.T100, dark: colors.DN60 },
+  blue: { light: colors.B75, dark: colors.DN60 },
+  tealLight: { light: colors.T75, dark: colors.DN60 },
+  blueLight: { light: colors.B50, dark: colors.DN60 },
+  greenLight: { light: colors.G75, dark: colors.DN60 },
+  purpleLight: { light: colors.P50, dark: colors.DN60 },
+  redLight: { light: colors.R50, dark: colors.DN60 },
+  yellowLight: { light: colors.Y75, dark: colors.DN60 },
+  greyLight: { light: colors.N30, dark: colors.DN60 },
+};
+
 const focusRingColorObj = { light: colors.B100, dark: colors.B75 };
 const hoverBoxShadowColorObj = { light: colors.R300, dark: colors.R200 };
 const focusBoxShadowColorObj = { light: colors.B100, dark: colors.B75 };
-const linkTextColorObj = { light: colors.B300, dark: colors.B200 };
-
-const textColorsForRemoval = {
-  ...textColors,
-  standard: { light: colors.R500, dark: colors.DN30 },
-};
-
-const backgroundColorsRemoval = {
-  ...backgroundColors,
-  standard: { light: colors.R50, dark: colors.R100 },
-};
+const linkHoverColorObj = { light: colors.B300, dark: colors.B200 };
 
 const getTextColor = (tagColor: TagColor, mode: ThemeModes): string => {
   const color = tagColor ? tagColor : 'standard';
   return textColors[color][mode];
 };
 
-const getLinkTextColorHover = (
+const getLinkBackgroundColorHover = (
   tagColor: TagColor,
   mode: ThemeModes,
 ): string => {
-  if (tagColor !== 'standard') {
-    return 'inherit';
-  }
-
-  return linkTextColorObj[mode];
+  const color = tagColor ? tagColor : 'standard';
+  return linkBackgroundColorHover[color][mode];
 };
 
 const getBackgroundColor = (tagColor: TagColor, mode: ThemeModes): string => {
@@ -79,16 +84,14 @@ const getTextColorForRemoval = (
   tagColor: TagColor,
   mode: ThemeModes,
 ): string => {
-  const color = tagColor ? tagColor : 'standard';
-  return textColorsForRemoval[color][mode];
+  return { light: colors.R500, dark: colors.DN30 }[mode];
 };
 
 const getBackgroundColorForRemoval = (
   tagColor: TagColor,
   mode: ThemeModes,
 ): string => {
-  const color = tagColor ? tagColor : 'standard';
-  return backgroundColorsRemoval[color][mode];
+  return { light: colors.R50, dark: colors.R100 }[mode];
 };
 
 const getChromeColors = (color: TagColor, mode: ThemeModes): ChromeColors => {
@@ -112,9 +115,15 @@ const getChromeLinkColors = (
 ): ChromeLinkColors => {
   const hoverBackgroundColorRemoval = getBackgroundColorForRemoval(color, mode);
   const hoverTextColorRemoval = getTextColorForRemoval(color, mode);
+
+  const hoverBackgroundColor = getLinkBackgroundColorHover(color, mode);
+  const hoverTextColor = linkHoverColorObj[mode];
+
   const focusRingColor = focusRingColorObj[mode];
 
   return {
+    hoverBackgroundColor,
+    hoverTextColor,
     hoverBackgroundColorRemoval,
     hoverTextColorRemoval,
     focusRingColor,
@@ -140,7 +149,7 @@ export const getThemeColors = (color: TagColor, mode: ThemeModes) => {
   const chromeColors = getChromeColors(color, mode);
   const chromeLinkColors = getChromeLinkColors(color, mode);
   const buttonColors = getButtonColors(color, mode);
-  const linkHoverColor = getLinkTextColorHover(color, mode);
+  const linkHoverColor = linkHoverColorObj[mode];
 
   return {
     chromeColors,

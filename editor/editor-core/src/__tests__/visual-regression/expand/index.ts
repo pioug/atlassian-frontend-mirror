@@ -161,23 +161,6 @@ describe('Expand: full-page', () => {
     await page.click(selectors.nestedExpandToggle);
     await page.click(selectors.expandTitleInput);
   });
-
-  it("doesn't select expand if click and drag before releasing mouse", async () => {
-    await initFullPageEditorWithAdf(page, simpleExpandAdf, Device.LaptopMDPI);
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
-      page,
-      selectors.expandContent,
-    );
-
-    // start in centre of expand, mousedown and then move to padding before releasing
-    await page.mouse.move(
-      contentBoundingRect.left + contentBoundingRect.width * 0.5,
-      contentBoundingRect.top + contentBoundingRect.height * 0.5,
-    );
-    await page.mouse.down();
-    await page.mouse.move(contentBoundingRect.left, contentBoundingRect.top);
-    await page.mouse.up();
-  });
 });
 
 describe('Expand: Selection', () => {

@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 57.0.0
+
+### Patch Changes
+
+- [`d152b2062a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d152b2062a) - Changing ineffective usage of data-testid on internal uploadButton to testId
+- Updated dependencies
+
 ## 56.0.4
 
 ### Patch Changes

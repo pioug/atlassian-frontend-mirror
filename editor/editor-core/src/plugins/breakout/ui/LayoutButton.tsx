@@ -122,7 +122,8 @@ class LayoutButton extends React.Component<Props & InjectedIntlProps, {}> {
     }
 
     const breakoutMode = getBreakoutMode(editorView.state);
-    const title = formatMessage(getTitle(breakoutMode));
+    const titleMessage = getTitle(breakoutMode);
+    const title = formatMessage(titleMessage);
     const nextBreakoutMode = getNextBreakoutMode(breakoutMode);
 
     let pluginState = getPluginState(state);
@@ -160,6 +161,7 @@ class LayoutButton extends React.Component<Props & InjectedIntlProps, {}> {
         <Wrapper>
           <ToolbarButton
             title={title}
+            testId={titleMessage.id}
             onClick={this.handleClick(nextBreakoutMode)}
             iconBefore={
               breakoutMode === BREAKOUT_MODE.FULL_WIDTH ? (

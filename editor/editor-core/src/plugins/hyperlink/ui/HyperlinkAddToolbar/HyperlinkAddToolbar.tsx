@@ -39,6 +39,9 @@ import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';
 import debounce from 'lodash/debounce';
 import { mapContentTypeToIcon, sha1, wordCount } from './utils';
 import { HyperlinkState } from '../../pm-plugins/main';
+import { hideLinkToolbar } from '../../commands';
+import { EditorView } from 'prosemirror-view';
+import { LinkInputType } from '../../types';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -78,7 +81,6 @@ export const messages = defineMessages({
   },
 });
 
-export type LinkInputType = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
 interface BaseProps {
   onBlur?: (
     type: string,
@@ -100,6 +102,7 @@ interface BaseProps {
   searchProvider?: Promise<SearchProvider>;
   displayUrl?: string;
   pluginState: HyperlinkState;
+  view: EditorView;
 }
 
 interface DefaultProps {
@@ -533,7 +536,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               onSubmit={this.handleSubmit}
               onChange={this.updateInput}
               autoFocus={{ preventScroll: true }}
-              onCancel={this.urlBlur}
+              onCancel={this.handleCancel}
               onBlur={this.urlBlur}
               defaultValue={displayUrl}
               onKeyDown={this.handleKeyDown}
@@ -558,7 +561,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               ariaLabel={'Link label'}
               testId={'link-label'}
               onChange={this.handleTextKeyDown}
-              onCancel={this.textBlur}
+              onCancel={this.handleCancel}
               onBlur={this.textBlur}
               defaultValue={displayText}
               onSubmit={this.handleSubmit}
@@ -653,7 +656,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
   private handleKeyDown = (e: KeyboardEvent<any>) => {
     const { items, selectedIndex } = this.state;
-    const { pluginState } = this.props;
+    const { pluginState, view } = this.props;
     this.isTabPressed = e.keyCode === 9;
 
     if (!items || !items.length) {
@@ -670,6 +673,10 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       // up
       e.preventDefault();
       updatedIndex = selectedIndex > 0 ? selectedIndex - 1 : items.length - 1;
+    } else if (e.keyCode === 27) {
+      // escape
+      e.preventDefault();
+      hideLinkToolbar()(view.state, view.dispatch);
     }
     this.setState({
       selectedIndex: updatedIndex,
@@ -694,6 +701,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     this.setState({
       displayText,
     });
+  };
+
+  private handleCancel = (e: KeyboardEvent<any>) => {
+    const { view } = this.props;
+    e.preventDefault();
+    hideLinkToolbar()(view.state, view.dispatch);
   };
 
   private handleBlur = (type: string) => {

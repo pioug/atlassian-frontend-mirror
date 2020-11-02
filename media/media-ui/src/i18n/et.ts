@@ -56,7 +56,6 @@ export default {
   'fabric.media.failed_to_load': 'Laadimine nurjus',
   'fabric.media.give_feedback': 'Anna tagasisidet',
   'fabric.media.image': 'pilt',
-  'fabric.media.image.search': 'Otsi',
   'fabric.media.image_format_invalid_error':
     'Pilt ei õnnestunud laadida, formaat ei kehti.',
   'fabric.media.image_size_too_large_error':

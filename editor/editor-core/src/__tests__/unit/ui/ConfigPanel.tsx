@@ -20,10 +20,12 @@ import {
   NumberField,
   FieldDefinition,
   Fieldset,
+  Parameters,
 } from '@atlaskit/editor-common/extensions';
 
 import { flushPromises } from '../../__helpers/utils';
 
+import { setEnv } from '@atlaskit/user-picker/src/components/smart-user-picker/config';
 import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
 import ConfigPanel from '../../../ui/ConfigPanel';
@@ -107,6 +109,21 @@ const createManifest = (
             },
           },
         },
+        user: {
+          'user-jdog-provider': {
+            provider: async () => {
+              // WARNING: this is required by the SmartUserPicker for testing environments
+              setEnv('local');
+
+              return {
+                siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+                principalId: 'Context',
+                fieldId: 'storybook',
+                productKey: 'jira',
+              };
+            },
+          },
+        },
       },
     },
     ...manifestAtributes,
@@ -130,7 +147,7 @@ const createProvider = (
 type Wrapper<T = any> = ReactWrapper<T, any, any>;
 type MountResult<T> = {
   wrapper: Wrapper<T>;
-  doSubmitForm: () => void;
+  doSubmitForm: () => Promise<void>;
 };
 
 const eventuallyFind = async (
@@ -342,8 +359,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
   describe('ConfigPanel', () => {
     describe(`autoSave ${autoSave ? 'enabled' : 'disabled'}`, () => {
       const noop = () => {};
-      let onChange = jest.fn();
-
+      const onChange = jest.fn();
       const defaultProps = {
         showHeader: true,
         onCancel: noop,
@@ -359,6 +375,22 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
       afterEach(() => {
         onChange.mockClear();
       });
+
+      async function expectFieldMessageRequiredOnSubmit<T>({
+        wrapper,
+        doSubmitForm,
+      }: MountResult<T>) {
+        expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
+          undefined,
+        );
+
+        await doSubmitForm();
+
+        expect(onChange).toBeCalledTimes(0);
+        expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
+          'required',
+        );
+      }
 
       describe('Analytics', () => {
         let mountResult: MountResult<Props>;
@@ -571,12 +603,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const { wrapper, doSubmitForm } = await mountString({
                 isRequired: true,
               });
-              await doSubmitForm();
 
-              expect(onChange).toBeCalledTimes(0);
-              expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                'required',
-              );
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                doSubmitForm,
+              });
             });
           });
 
@@ -586,8 +617,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 name: 'foo',
                 style: 'multiline',
               });
-              const field = wrapper.find('TextAreaElement');
-
+              const field = wrapper.find('textarea');
               expect(field.length).toBe(1);
               expect(field.prop('name')).toBe('foo');
             });
@@ -597,8 +627,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 name: 'foo',
                 style: 'multiline',
               });
-              const field = wrapper.find('TextAreaElement');
-              typeInField(field.find('textarea'), 'content');
+              const field = wrapper.find('textarea');
+              typeInField(field, 'content');
               await doSubmitForm();
 
               expect(onChange).toHaveBeenCalledWith({ foo: 'content' });
@@ -610,12 +640,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   style: 'multiline',
                   isRequired: true,
                 });
-                await doSubmitForm();
 
-                expect(onChange).toBeCalledTimes(0);
-                expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                  'required',
-                );
+                await expectFieldMessageRequiredOnSubmit({
+                  wrapper,
+                  doSubmitForm,
+                });
               });
             });
           });
@@ -660,12 +689,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 isRequired: true,
               });
 
-              await doSubmitForm();
-
-              expect(onChange).toBeCalledTimes(0);
-              expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                'required',
-              );
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                doSubmitForm,
+              });
             });
           });
         });
@@ -705,8 +732,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           describe('prop: isRequired', () => {
-            beforeEach(async () => {
-              mountResult = await mountWithProviders({
+            it('should show error and skip submission if not filled', async () => {
+              const { wrapper, doSubmitForm } = await mountWithProviders({
                 ...defaultProps,
                 extensionProvider: createProvider([
                   {
@@ -717,17 +744,121 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   },
                 ]),
               });
+
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                doSubmitForm,
+              });
+            });
+          });
+        });
+
+        describe('type: date-range', () => {
+          const mountDateRangeWithParameters = async (
+            params: Parameters,
+          ): Promise<MountResult<Props>> => {
+            return await mountWithProviders({
+              ...defaultProps,
+              extensionProvider: createProvider([
+                {
+                  name: 'created',
+                  label: 'Created at',
+                  description: `This is how we select date range in the cql component`,
+                  type: 'date-range',
+                  items: [
+                    { label: 'Any date', value: '' },
+                    { label: 'Last 24 hours', value: 'now(-1d)' },
+                    { label: 'Last week', value: 'now(-1w)' },
+                    { label: 'Last month', value: 'now(-1M)' },
+                    { label: 'Last year', value: 'now(-1y)' },
+                  ],
+                },
+              ]),
+              parameters: {
+                created: params,
+              },
+            });
+          };
+
+          it('should create a DateRange component', async () => {
+            const { wrapper } = await mountDateRangeWithParameters({
+              type: 'date-range',
+              value: 'custom',
+              from: '2020-10-05',
+              to: '2020-10-22',
+            });
+            const field = wrapper.find('DateRange');
+
+            expect(field.length).toBe(1);
+          });
+
+          it(`should serialize to a complex object with type 'date-range'`, async () => {
+            const { doSubmitForm } = await mountDateRangeWithParameters({
+              type: 'date-range',
+              value: 'custom',
+              from: '2020-10-05',
+              to: '2020-10-22',
             });
 
-            it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = mountResult;
+            await doSubmitForm();
 
-              await doSubmitForm();
+            expect(onChange).toHaveBeenCalledWith({
+              created: {
+                type: 'date-range',
+                value: 'custom',
+                from: '2020-10-05',
+                to: '2020-10-22',
+              },
+            });
+          });
 
-              expect(onChange).toBeCalledTimes(0);
-              expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                'required',
-              );
+          it(`should omit the field 'to' when an option different from 'custom' is selected`, async () => {
+            const {
+              wrapper,
+              doSubmitForm,
+            } = await mountDateRangeWithParameters({
+              type: 'date-range',
+              value: 'custom',
+              from: '2020-10-05',
+              to: '2020-10-22',
+            });
+
+            const field = wrapper.find('RadioGroup');
+
+            toggleCheckbox(field.find('input').at(1));
+
+            await doSubmitForm();
+
+            expect(onChange).toHaveBeenCalledWith({
+              created: {
+                type: 'date-range',
+                value: 'now(-1d)',
+                from: 'now(-1d)',
+              },
+            });
+
+            toggleCheckbox(field.find('input').at(2));
+
+            await doSubmitForm();
+
+            expect(onChange).toHaveBeenCalledWith({
+              created: {
+                type: 'date-range',
+                value: 'now(-1w)',
+                from: 'now(-1w)',
+              },
+            });
+
+            toggleCheckbox(field.find('input').at(3));
+
+            await doSubmitForm();
+
+            expect(onChange).toHaveBeenCalledWith({
+              created: {
+                type: 'date-range',
+                value: 'now(-1M)',
+                from: 'now(-1M)',
+              },
             });
           });
         });
@@ -763,7 +894,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           it('should create a Toggle when styled', async () => {
             const { wrapper } = await mountBoolean({ style: 'toggle' });
-            const field = wrapper.find('Toggle');
+            const field = wrapper.find('ForwardRef(Toggle)');
 
             expect(field.length).toBe(1);
           });
@@ -779,6 +910,20 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await doSubmitForm();
 
             expect(onChange).toHaveBeenCalledWith({ foo: true });
+          });
+
+          describe('prop: isRequired', () => {
+            it('should show error and skip submission if not filled', async () => {
+              const { wrapper, doSubmitForm } = await mountBoolean({
+                isRequired: true,
+                defaultValue: undefined,
+              });
+
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                doSubmitForm,
+              });
+            });
           });
         });
 
@@ -839,19 +984,15 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           describe('prop: isRequired', () => {
-            beforeEach(async () => {
-              mountResult = await mountEnumWithProps({ isRequired: true });
-            });
-
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = mountResult;
+              const { wrapper, doSubmitForm } = await mountEnumWithProps({
+                isRequired: true,
+              });
 
-              await doSubmitForm();
-
-              expect(onChange).toBeCalledTimes(0);
-              expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                'required',
-              );
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                doSubmitForm,
+              });
             });
           });
 
@@ -877,12 +1018,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   isRequired: true,
                 });
 
-                await doSubmitForm();
-
-                expect(onChange).toBeCalledTimes(0);
-                expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                  'required',
-                );
+                await expectFieldMessageRequiredOnSubmit({
+                  wrapper,
+                  doSubmitForm,
+                });
               });
             });
           });
@@ -908,12 +1047,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   isRequired: true,
                 });
 
-                await doSubmitForm();
-
-                expect(onChange).toBeCalledTimes(0);
-                expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                  'required',
-                );
+                await expectFieldMessageRequiredOnSubmit({
+                  wrapper,
+                  doSubmitForm,
+                });
               });
             });
 
@@ -1058,12 +1195,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const { wrapper, doSubmitForm } = await mountCustom({
                 isRequired: true,
               });
-              await doSubmitForm();
 
-              expect(onChange).toBeCalledTimes(0);
-              expect(wrapper.find('FieldMessages').prop('error')).toBe(
-                'required',
-              );
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                doSubmitForm,
+              });
             });
           });
 
@@ -1083,6 +1219,34 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               });
             });
           });
+        });
+      });
+
+      describe('type: User', () => {
+        async function mountUser(attributes?: Record<string, any>) {
+          return await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                label: 'My friends',
+                name: 'user',
+                type: 'user',
+                options: {
+                  provider: {
+                    type: 'user-jdog-provider',
+                  },
+                },
+                ...attributes,
+              },
+            ]),
+          });
+        }
+
+        it('should create a SmartUserPicker', async () => {
+          const { wrapper } = await mountUser();
+          const field = wrapper.find('SmartUserPicker');
+
+          expect(field.length).toBe(1);
         });
       });
 
@@ -1204,12 +1368,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
           });
 
-          it('should log to the console if the deserializer fails', async () => {
-            const consoleError = jest
-              .spyOn(console, 'error')
-              .mockImplementation(() => {});
-
-            await mountFieldSet(
+          it('should show an error message on deserialization failure', async () => {
+            const { wrapper } = await mountFieldSet(
               false,
               {
                 parameters: {
@@ -1218,13 +1378,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               },
               'broken-group',
             );
-
-            expect(consoleError).toHaveBeenCalledWith(
-              'Error deserializing parameters',
-              new Error('Something is broken'),
+            const FieldsetError = wrapper.find('FieldsetError');
+            expect(FieldsetError).toHaveLength(1);
+            expect(FieldsetError.prop('message')).toStrictEqual(
+              'Something is broken',
             );
-
-            consoleError.mockClear();
           });
 
           it('should not have name collision between fields when a fieldset contain a field with the same name as another outside of the fieldset', async () => {

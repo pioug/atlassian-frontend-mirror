@@ -71,7 +71,6 @@ export default {
   'fabric.media.failed_to_load': 'Yüklenemedi',
   'fabric.media.give_feedback': 'Geri bildirim verin',
   'fabric.media.image': 'görsel',
-  'fabric.media.image.search': 'Ara',
   'fabric.media.image_format_invalid_error':
     'Görsel yüklenemedi, görsel biçimi geçersiz.',
   'fabric.media.image_size_too_large_error':
@@ -98,6 +97,7 @@ export default {
   'fabric.media.or': 'veya',
   'fabric.media.pause': 'durdur',
   'fabric.media.play': 'oynat',
+  'fabric.media.preview': 'Önizleme',
   'fabric.media.recent_uploads': 'En son yüklemeler',
   'fabric.media.remove_image': 'Görseli kaldır',
   'fabric.media.retry': 'Yeniden Dene',
@@ -121,6 +121,7 @@ export default {
   'fabric.media.upload_image': 'Görsel yükle',
   'fabric.media.upload_photo': 'Bir fotoğraf yükleyin',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Görüntüle',
   'fabric.media.webgl_warning_description':
     "Tarayıcınız WebGL'yi desteklemiyor. Görsellere not eklemek için WebGL etkinleştirilmiş bir tarayıcı kullanın.",
   'fabric.media.zoom_in': 'yaklaştır',

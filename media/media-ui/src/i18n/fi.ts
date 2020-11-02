@@ -55,8 +55,11 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'Vedä ja pudota kuvasi tänne',
   'fabric.media.drag_and_drop_your_files':
     'Vedä ja pudota tiedostosi minne tahansa tai',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Vedä ja pudota tiedostosi ja kansiosi minne tahansa tai',
   'fabric.media.drop_your_files': 'Pudota tiedostosi ladattavaksi',
   'fabric.media.drop_your_files_here': 'Pudota tiedostosi tänne',
+  'fabric.media.email': 'Sähköposti',
   'fabric.media.enable_fullscreen': 'ota kokoruututila käyttöön',
   'fabric.media.error_generating_preview': 'Virhe esikatselun luomisessa',
   'fabric.media.error_hint_critical':
@@ -67,7 +70,6 @@ export default {
   'fabric.media.failed_to_load': 'Ei voitu ladata',
   'fabric.media.give_feedback': 'Anna palautetta',
   'fabric.media.image': 'kuva',
-  'fabric.media.image.search': 'Hae',
   'fabric.media.image_format_invalid_error':
     'Kuvaa ei voitu ladata, muoto on virheellinen.',
   'fabric.media.image_size_too_large_error':
@@ -96,15 +98,18 @@ export default {
   'fabric.media.or': 'tai',
   'fabric.media.pause': 'keskeytä',
   'fabric.media.play': 'toista',
+  'fabric.media.preview': 'Esikatselu',
   'fabric.media.recent_uploads': 'Viimeaikaiset lataukset',
   'fabric.media.remove_image': 'Poista kuva',
   'fabric.media.retry': 'Yritä uudelleen',
   'fabric.media.save': 'Tallenna',
+  'fabric.media.search': 'Hae',
   'fabric.media.search_all_gifs': 'Hae kaikista GIFeistä!',
   'fabric.media.share_files_instantly': 'Jaamme ne heti',
   'fabric.media.something_went_wrong': 'Jotain meni pieleen.',
   'fabric.media.srclink': 'Näytä kohteessa',
   'fabric.media.srclinkunknown': 'Näytä alkuperäinen',
+  'fabric.media.text': 'Teksti',
   'fabric.media.try_again': 'Yritä uudelleen',
   'fabric.media.try_another_account': 'Kokeile toista tiliä',
   'fabric.media.try_downloading_file':
@@ -120,6 +125,7 @@ export default {
   'fabric.media.upload_image': 'Lataa kuva',
   'fabric.media.upload_photo': 'Lataa kuva',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Näytä',
   'fabric.media.webgl_warning_description':
     'Selaimesi ei tue WebGL:ää. Käytä WebGL:ää tukevaa selainta, jos haluat tehdä merkintöjä kuviin.',
   'fabric.media.zoom_in': 'lähennä',

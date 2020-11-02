@@ -20,9 +20,11 @@ import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import messages from '../../ui/messages';
 import { tableFloatingCellButtonStyles } from './styles.css';
+import { Node as PMNode } from 'prosemirror-model';
 
 export interface Props {
   editorView: EditorView;
+  tableNode?: PMNode;
   targetCellPosition: number;
   isContextualMenuOpen?: boolean;
   mountPoint?: HTMLElement;
@@ -122,6 +124,7 @@ class FloatingContextualButton extends React.Component<
 
   shouldComponentUpdate(nextProps: Props) {
     return (
+      this.props.tableNode !== nextProps.tableNode ||
       this.props.targetCellPosition !== nextProps.targetCellPosition ||
       this.props.layout !== nextProps.layout ||
       this.props.isContextualMenuOpen !== nextProps.isContextualMenuOpen ||

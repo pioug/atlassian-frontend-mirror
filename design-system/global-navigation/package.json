@@ -54,7 +54,7 @@
     "@atlaskit/onboarding": "^10.1.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/tag": "^11.0.0",
-    "@atlaskit/toggle": "^11.0.0",
+    "@atlaskit/toggle": "^12.0.0",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",

@@ -29,9 +29,19 @@ import { SearchProvider } from '@atlaskit/editor-common';
 import { INPUT_METHOD } from '../../../../analytics';
 import { shallow } from 'enzyme';
 import { LinkSearchListItemData } from '../../../../../ui/LinkSearch/types';
-import { HyperlinkState } from '../../../pm-plugins/main';
+import {
+  HyperlinkState,
+  stateKey as hyperlinkStateKey,
+} from '../../../pm-plugins/main';
 import { sha1 } from '../utils';
 import sinon from 'sinon';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+  LightEditorPlugin,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import hyperlinkPlugin from '../../../index';
+import { a, doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
@@ -112,6 +122,19 @@ describe('HyperlinkAddToolbar', () => {
         inputMethod: INPUT_METHOD.SHORTCUT,
       },
     } = options;
+
+    const createEditor = createProsemirrorEditorFactory();
+    const editor = (doc: any) => {
+      return createEditor({
+        doc,
+        preset: new Preset<LightEditorPlugin>().add(hyperlinkPlugin),
+      });
+    };
+
+    const { editorView } = editor(
+      doc(p(a({ href: 'https://google.com' })('Li{<>}nk'))),
+    );
+
     const createAnalyticsEvent: CreateUIAnalyticsEvent = jest
       .fn()
       .mockReturnValue({
@@ -171,6 +194,7 @@ describe('HyperlinkAddToolbar', () => {
         searchProvider={searchProviderPromise}
         createAnalyticsEvent={createAnalyticsEvent}
         pluginState={pluginState}
+        view={editorView}
       />,
     );
 
@@ -212,9 +236,17 @@ describe('HyperlinkAddToolbar', () => {
       });
     };
 
+    const pressEscapeKeyInputField = (testId: string) => {
+      const linkUrlInput = component.find(`input[data-testid="${testId}"]`);
+      linkUrlInput.simulate('keydown', {
+        keyCode: 27,
+      });
+    };
+
     return {
       component,
       onSubmit,
+      editorView,
       activityProviderPromise,
       searchProviderPromise,
       recentItemsPromise,
@@ -224,6 +256,7 @@ describe('HyperlinkAddToolbar', () => {
       updateInputFieldWithStateUpdated,
       pressReturnInputField,
       pressDownArrowInputField,
+      pressEscapeKeyInputField,
       createAnalyticsEvent,
     };
   };
@@ -583,6 +616,38 @@ describe('HyperlinkAddToolbar', () => {
 
       expect(component.find(LinkSearchListItem)).toHaveLength(0);
       expect(component.find(LinkSearchList).props().isLoading).toBe(false);
+    });
+
+    it('should call hideLinkToolbar when escape is pressed', async () => {
+      const { pressEscapeKeyInputField, editorView } = await setup();
+      const internalHideLinkToolbar = jest
+        .fn<ReturnType<any>, Parameters<any>>()
+        .mockReturnValueOnce(true);
+      const hideLinkToolbar = jest
+        .fn<ReturnType<any>, Parameters<any>>()
+        .mockReturnValue(internalHideLinkToolbar);
+
+      pressEscapeKeyInputField('link-url');
+
+      expect(hideLinkToolbar()(editorView.state, editorView.dispatch)).toBe(
+        true,
+      );
+      expect(internalHideLinkToolbar).toHaveBeenCalledWith(
+        editorView.state,
+        editorView.dispatch,
+      );
+    });
+
+    it('should close toolbar when escape is pressed', async () => {
+      const { pressEscapeKeyInputField, editorView } = await setup();
+
+      let pluginState = hyperlinkStateKey.getState(editorView.state);
+      expect(pluginState.activeLinkMark).toBeDefined();
+
+      pressEscapeKeyInputField('link-url');
+
+      pluginState = hyperlinkStateKey.getState(editorView.state);
+      expect(pluginState.activeLinkMark).toBeUndefined();
     });
 
     describe('when activity provider returns less then 5 results initially', () => {

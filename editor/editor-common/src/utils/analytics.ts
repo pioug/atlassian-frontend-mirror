@@ -17,6 +17,27 @@ export const getAnalyticsAppearance = (
   }
 };
 
+export const getAnalyticsEventSeverity = (
+  duration: number,
+  normalThreshold: number,
+  degradedThreshold: number,
+) => {
+  if (duration > normalThreshold && duration <= degradedThreshold) {
+    return SEVERITY.DEGRADED;
+  }
+  if (duration > degradedThreshold) {
+    return SEVERITY.BLOCKING;
+  }
+
+  return SEVERITY.NORMAL;
+};
+
+export enum SEVERITY {
+  NORMAL = 'normal',
+  DEGRADED = 'degraded',
+  BLOCKING = 'blocking',
+}
+
 export enum EVENT_TYPE {
   TRACK = 'track',
   UI = 'ui',

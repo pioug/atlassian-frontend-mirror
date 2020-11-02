@@ -1,12 +1,15 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { encode, NodeEncoder } from '..';
+import { encode, NodeEncoder, NodeEncoderOpts } from '..';
 import { unknown } from './unknown';
 
-export const table: NodeEncoder = (node: PMNode): string => {
+export const table: NodeEncoder = (
+  node: PMNode,
+  opts: NodeEncoderOpts = {},
+): string => {
   try {
     const result: string[] = [];
     node.forEach(n => {
-      result.push(tableRow(n));
+      result.push(tableRow(n, opts));
     });
 
     return result.join('\n');
@@ -15,7 +18,10 @@ export const table: NodeEncoder = (node: PMNode): string => {
   }
 };
 
-const tableRow: NodeEncoder = (node: PMNode): string => {
+const tableRow: NodeEncoder = (
+  node: PMNode,
+  opts: NodeEncoderOpts = {},
+): string => {
   let result: string = '';
   let separator: string = '|';
   node.forEach(n => {
@@ -24,20 +30,23 @@ const tableRow: NodeEncoder = (node: PMNode): string => {
     } else {
       separator = '|';
     }
-    result = `${result}${separator}${tableCell(n)}`;
+    result = `${result}${separator}${tableCell(n, opts)}`;
   });
 
   return `${result}${separator}`;
 };
 
-const tableCell: NodeEncoder = (node: PMNode): string => {
+const tableCell: NodeEncoder = (
+  node: PMNode,
+  { context }: NodeEncoderOpts = {},
+): string => {
   if (hasMergedCell(node)) {
     // This is an advanced table
     throw new Error('Advanced feature of table is not supported');
   }
   const result: string[] = [];
   node.forEach(n => {
-    result.push(encode(n));
+    result.push(encode(n, context));
   });
   const output = result.join('\n').trim();
   // Return single whitespace if content of cell is empty

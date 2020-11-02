@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 4.0.0
+
+### Major Changes
+
+- [`e3b2251f29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3b2251f29) - Breaking change for collab provider as userId has been removed from constructor. Mobile bridge and editor demo app require an upgrade too
+
+### Patch Changes
+
+- [`19a4732268`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19a4732268) - use reconnect to trigger catchup
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- Updated dependencies
+
 ## 3.3.2
 
 ### Patch Changes

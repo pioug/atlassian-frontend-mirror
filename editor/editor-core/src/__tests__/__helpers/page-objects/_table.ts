@@ -64,6 +64,7 @@ export const tableSelectors = {
   cellBackgroundSubmenuSelector: `.${ClassName.CONTEXTUAL_SUBMENU}`,
   floatingToolbar: '[aria-label*="Table floating controls"]',
   tableColSelected: '.pm-table-column__selected',
+  cellOptionsDropdown: '[aria-label="Cell options"]',
 };
 
 type LayoutType = 'fixed' | 'wide' | 'fullWidth';
@@ -139,6 +140,7 @@ export const clickCellOptions = async (page: any) => {
 
 export const selectCellOption = async (page: any, option: string) => {
   await clickCellOptions(page);
+  await animationFrame(page);
   await clickElementWithText({ page, tag: 'span', text: option });
 };
 
@@ -162,12 +164,10 @@ export const selectCellBackground = async ({
   const firstCell = getSelectorForTableCell({
     row: from.row,
     cell: from.column,
-    cellType: from.row === 1 ? 'th' : 'td',
   });
   const lastCell = getSelectorForTableCell({
     row: to.row,
     cell: to.column,
-    cellType: from.row === 1 ? 'th' : 'td',
   });
   await page.click(firstCell);
   await pressKeyDown(page, 'Shift');
@@ -192,7 +192,7 @@ export const selectCellBackground = async ({
 };
 
 export const navigateToTableCell = async (
-  page: WebDriverPage,
+  page: WebDriverPage | PuppeteerPage,
   gotoRow: number,
   gotoColumn: number,
 ) => {
@@ -268,10 +268,21 @@ export const insertRow = async (page: any, atIndex: number) => {
   }
 };
 
+/**
+ *
+ * @param page Page instance
+ * @param atIndex Column index to use as the starting point for activating hover column controls
+ * @param side Target side for hover column controls
+ * @param useMoveMouseHelper - Set this to true if you want to force mouse movements used internally
+ * by this utility to move away and back again to their required coordinates. Use this if mouse movements
+ * only seem to be partially moving e.g. an element is correctly highlighted by new mouse hover position,
+ * but the visible cursor has not changed position.
+ */
 export const hoverColumnControls = async (
   page: any,
   atIndex: number,
   side: 'left' | 'right' = 'left',
+  useMoveMouseHelper = false,
 ) => {
   const bounds = await getBoundingRect(
     page,
@@ -283,14 +294,41 @@ export const hoverColumnControls = async (
   const x = bounds.left + offset;
   const y = bounds.top + bounds.height - 5;
 
-  await page.mouse.move(x, y);
+  // ED-9859: On unskipping hover-column-control-after-resize.ts,
+  // the test consistently failed because page.mouse.move did not
+  // completely move the visible cursor (but it did correctly
+  // trigger hover-related UI updates). This opt-in option forces
+  // the mouse movement away and then back again to the
+  // intended/target coordinates.
+  if (useMoveMouseHelper) {
+    await moveMouse(page, x, y);
+  } else {
+    await page.mouse.move(x, y);
+  }
   await page.waitForSelector(tableSelectors.hoveredColumn);
 };
 
+const moveMouse = async (page: PuppeteerPage, x: number, y: number) => {
+  await page.mouse.move(x, y);
+  await page.mouse.move(0, 10);
+  await page.mouse.move(x, y);
+};
+
+/**
+ *
+ * @param page Page instance
+ * @param atIndex Column index to use as the starting point for an insert
+ * @param side Target side for a column insert
+ * @param useMoveMouseHelper - Set this to true if you want to force mouse movements used internally
+ * by this utility to move away and back again to their required coordinates. Use this if mouse movements
+ * only seem to be partially moving e.g. an element is correctly highlighted by new mouse hover position,
+ * but the visible cursor has not changed position.
+ */
 export const insertColumn = async (
   page: any,
   atIndex: number,
   side: 'left' | 'right' = 'left',
+  useMoveMouseHelper = false,
 ) => {
   await clickFirstCell(page);
 
@@ -304,7 +342,17 @@ export const insertColumn = async (
 
     const x = bounds.left + offset;
     const y = bounds.top + bounds.height - 5;
-    await page.mouse.move(x, y);
+    // ED-9859: On unskipping hover-column-control-after-resize.ts,
+    // the test consistently failed because page.mouse.move did not
+    // completely move the visible cursor (but it did correctly
+    // trigger hover-related UI updates). This opt-in option forces
+    // the mouse movement away and then back again to the
+    // intended/target coordinates.
+    if (useMoveMouseHelper) {
+      await moveMouse(page, x, y);
+    } else {
+      await page.mouse.move(x, y);
+    }
   } else {
     const x = side === 'left' ? 1 : Math.ceil(bounds.width * 0.55);
     const columnDecorationSelector = tableSelectors.nthColumnControl(atIndex);
@@ -347,22 +395,13 @@ type CellSelectorOpts = {
   cellType?: 'td' | 'th';
 };
 
-export const getSelectorForTableCell = ({
-  row,
-  cell,
-  cellType = 'td',
-}: CellSelectorOpts) => {
+export const getSelectorForTableCell = ({ row, cell }: CellSelectorOpts) => {
   const rowSelector = `table tr:nth-child(${row})`;
-  if (!cell) {
-    return rowSelector;
-  }
-
-  return `${rowSelector} > ${cellType}:nth-child(${cell})`;
+  return cell ? `${rowSelector} > *:nth-child(${cell})` : rowSelector;
 };
 
 export const splitCells = async (page: any, selector: string) => {
   await page.click(selector);
-  await clickCellOptions(page);
   await selectCellOption(page, tableSelectors.splitCellText);
 };
 
@@ -376,7 +415,6 @@ export const mergeCells = async (
   await page.click(lastCell);
   await pressKeyUp(page, 'Shift');
   await page.waitForSelector(tableSelectors.selectedCell);
-  await clickCellOptions(page);
   await selectCellOption(page, tableSelectors.mergeCellsText);
 };
 
@@ -422,6 +460,18 @@ export const resizeColumn = async (
   await page.mouse.down();
   await page.mouse.move(columnEndPosition + amount, cellResizeeHandle.top);
   await page.mouse.up();
+};
+
+// ED-9859 - For some particular tests, the cell options dropdown
+// settles into a position before resizing has completed, so we
+// force reflow by "touching" the column resizer handler again.
+export const resizeColumnAndReflow = async (
+  page: any,
+  { colIdx, amount, row = 1 }: ResizeColumnOpts,
+) => {
+  await resizeColumn(page, { colIdx, amount, row });
+  await resizeColumn(page, { colIdx, amount: 0, row });
+  await page.waitForSelector(tableSelectors.cellOptionsDropdown);
 };
 
 export const grabAndMoveColumnResing = async (

@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 6.1.2
+
+### Patch Changes
+
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- Updated dependencies
+
 ## 6.1.1
 
 ### Patch Changes

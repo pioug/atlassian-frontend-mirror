@@ -59,6 +59,7 @@ function ExtensionConfigPanel({
     [],
   );
 
+  const [parametersState, setParameters] = useState({} as Parameters);
   if (!extension || !node || !item) {
     return null;
   }
@@ -73,17 +74,8 @@ function ExtensionConfigPanel({
           nodeKey={nodeKey}
           extensionProvider={extensionProvider}
           parameters={parameters}
+          onChange={setParameters}
         />
-      </Column>
-      <Column width="500" key="fields-definition">
-        <h3>Fields definition:</h3>
-        <CodeWrapper>
-          <CodeBlock
-            language="json"
-            text={JSON.stringify(fields, null, 4)}
-            showLineNumbers={false}
-          />
-        </CodeWrapper>
       </Column>
       <Column width="500" key="parameters">
         <h3>Parameters:</h3>
@@ -95,6 +87,26 @@ function ExtensionConfigPanel({
               showLineNumbers={false}
             />
           )}
+        </CodeWrapper>
+        <h3>State:</h3>
+        <CodeWrapper>
+          {parametersState && (
+            <CodeBlock
+              language="json"
+              text={JSON.stringify(parametersState, null, 4)}
+              showLineNumbers={false}
+            />
+          )}
+        </CodeWrapper>
+      </Column>
+      <Column width="500" key="fields-definition">
+        <h3>Fields definition:</h3>
+        <CodeWrapper>
+          <CodeBlock
+            language="json"
+            text={JSON.stringify(fields, null, 4)}
+            showLineNumbers={false}
+          />
         </CodeWrapper>
       </Column>
     </ExampleWrapper>
@@ -138,7 +150,7 @@ export default function ConfigPanelWithExtensionPicker({
     <IntlProvider locale="en-AU">
       <Wrapper>
         <div style={{ float: 'left' }} key="panel">
-          {extensionNode && extensionNode.node && item && (
+          {extensionNode?.node && item && (
             <ExtensionConfigPanel
               key={hash}
               extension={extensionNode.extension}

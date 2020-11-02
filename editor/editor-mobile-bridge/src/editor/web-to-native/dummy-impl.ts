@@ -118,4 +118,18 @@ export default class DummyBridge implements NativeBridge {
   updateTitle(title: string): void {
     this.log(`updateTitle(title=${title})`);
   }
+
+  dismissTypeAhead(): void {
+    this.call('typeAheadBridge', 'dismissTypeAhead');
+  }
+
+  typeAheadQuery(query: string, trigger: string): void {
+    this.log(`typeAheadQuery(query=${query}, trigger=${trigger})`);
+  }
+
+  typeAheadDisplayItems(query: string, trigger: string, items: string): void {
+    this.log(
+      `typeAheadQuery(query=${query}, trigger=${trigger}), items=${items}`,
+    );
+  }
 }

@@ -63,7 +63,7 @@ const InnerSimpleTag = forwardRef(
     );
 
     const tagCss = [
-      chromeContainerStyles,
+      ...chromeContainerStyles,
       isLink ? chromeContainerForLinkStyles : undefined,
     ];
 

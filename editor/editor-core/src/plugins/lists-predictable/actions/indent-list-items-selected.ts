@@ -1,4 +1,9 @@
-import { Selection, Transaction, TextSelection } from 'prosemirror-state';
+import {
+  Selection,
+  Transaction,
+  TextSelection,
+  NodeSelection,
+} from 'prosemirror-state';
 import { Fragment, Slice, NodeRange, NodeType } from 'prosemirror-model';
 import { isListItemNode, isListNode } from '../utils/node';
 import { findFirstParentListItemNode } from '../utils/find';
@@ -6,12 +11,13 @@ import { normalizeListItemsSelection } from '../utils/selection';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 
 export const indentListItemsSelected = (tr: Transaction) => {
-  const oldSelection = normalizeListItemsSelection({
-    selection: tr.selection,
+  const originalSelection = tr.selection;
+  const normalizedSelection = normalizeListItemsSelection({
+    selection: originalSelection,
     doc: tr.doc,
   });
-  const { $from, $to } = oldSelection;
-  const range = calculateRange({ selection: oldSelection });
+  const { $from, $to } = normalizedSelection;
+  const range = calculateRange({ selection: normalizedSelection });
   if (!range) {
     return false;
   }
@@ -21,13 +27,20 @@ export const indentListItemsSelected = (tr: Transaction) => {
     to: findFirstParentListItemNode($to),
   };
 
-  if (listItemsSelected.from == null || listItemsSelected.to == null) {
+  if (listItemsSelected.from === null || listItemsSelected.to === null) {
     return null;
   }
 
-  const previousListItem = tr.doc.resolve(listItemsSelected.from.pos)
-    .nodeBefore;
+  const resolvedPos = tr.doc.resolve(listItemsSelected.from.pos);
+  const listItemIndex = resolvedPos.index();
+  // @ts-ignore
+  const positionListItemPosition = resolvedPos.posAtIndex(listItemIndex - 1);
+  const previousListItem = tr.doc.nodeAt(positionListItemPosition);
   if (!previousListItem || !isListItemNode(previousListItem)) {
+    return null;
+  }
+
+  if (isListItemNode(previousListItem) && listItemIndex === 0) {
     return null;
   }
 
@@ -73,8 +86,10 @@ export const indentListItemsSelected = (tr: Transaction) => {
       nestedListItemsLeftover,
     );
   }
+
   const nextSelection = calculateNewSelection({
-    oldSelection,
+    originalSelection,
+    normalizedSelection,
     tr,
     hasPreviousNestedList,
   });
@@ -94,21 +109,27 @@ const calculateRange: CalculateRange = ({ selection }) => {
 };
 
 type CalculateNewSelectionProps = {
-  oldSelection: Selection;
+  originalSelection: Selection;
+  normalizedSelection: Selection;
   tr: Transaction;
   hasPreviousNestedList: boolean;
 };
 
 const calculateNewSelection = ({
   tr,
-  oldSelection,
+  normalizedSelection,
+  originalSelection,
   hasPreviousNestedList,
 }: CalculateNewSelectionProps) => {
   const offset = hasPreviousNestedList ? 2 : 0;
-  const { $from, $to } = oldSelection;
-  if (oldSelection instanceof GapCursorSelection) {
+  const { $from, $to } = normalizedSelection;
+  if (normalizedSelection instanceof GapCursorSelection) {
     const nextSelectionFrom = tr.doc.resolve($from.pos - offset);
-    return new GapCursorSelection(nextSelectionFrom, oldSelection.side);
+    return new GapCursorSelection(nextSelectionFrom, normalizedSelection.side);
+  }
+
+  if (originalSelection instanceof NodeSelection) {
+    return NodeSelection.create(tr.doc, $from.pos - offset);
   }
 
   const { $from: nextSelectionFrom } = Selection.near(

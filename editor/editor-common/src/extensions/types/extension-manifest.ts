@@ -4,7 +4,7 @@ import { ADFEntity } from '@atlaskit/adf-utils';
 
 import { ExtensionParams, UpdateExtension } from './extension-handler';
 import { Parameters } from './extension-parameters';
-import { FieldDefinition, Option } from './field-definitions';
+import { FieldDefinition, Option, UserFieldContext } from './field-definitions';
 
 export type ESModule<T> = {
   __esModule?: boolean;
@@ -84,8 +84,12 @@ export type CustomFieldResolver = (
   searchTerm?: string,
   defaultValue?: string | string[],
 ) => Promise<Option[]>;
+export type UserFieldContextProvider = () => Promise<UserFieldContext>;
 
 export type ExtensionModuleFieldTypeCustom = { resolver: CustomFieldResolver };
+export type ExtensionModuleFieldTypeUser = {
+  provider: UserFieldContextProvider;
+};
 
 export type ExtensionModuleFieldTypeFieldset<
   T extends Parameters = Parameters
@@ -100,6 +104,9 @@ export type ExtensionModuleFields<T extends Parameters = Parameters> = {
   };
   fieldset?: {
     [key: string]: ExtensionModuleFieldTypeFieldset<T>;
+  };
+  user?: {
+    [key: string]: ExtensionModuleFieldTypeUser;
   };
 };
 

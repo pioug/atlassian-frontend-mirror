@@ -238,7 +238,7 @@ export class CustomMediaPlayer extends Component<
 
     return (
       <MediaButton
-        data-testid="custom-media-player-fullscreen-button"
+        testId="custom-media-player-fullscreen-button"
         onClick={this.onFullScreenClick}
         iconBefore={icon}
       />
@@ -253,7 +253,7 @@ export class CustomMediaPlayer extends Component<
 
     return (
       <MediaButton
-        data-testid="custom-media-player-download-button"
+        testId="custom-media-player-download-button"
         onClick={onDownloadClick}
         iconBefore={<DownloadIcon label="download" />}
       />

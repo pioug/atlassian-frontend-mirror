@@ -9,7 +9,7 @@ import {
   EditorCardProvider,
 } from '@atlaskit/smart-card';
 
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import { default as FullPageExample } from './5-full-page';
 
@@ -121,7 +121,7 @@ class FullPageWithFF extends React.Component<
     return (
       <div>
         <div>
-          <ToggleStateless
+          <Toggle
             isChecked={!!this.state.resolveBeforeMacros.length}
             onChange={this.toggleFF}
           />

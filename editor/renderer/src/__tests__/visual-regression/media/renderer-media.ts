@@ -4,19 +4,20 @@ import {
   initRendererWithADF,
   deviceViewPorts,
 } from '../_utils';
-import * as resizeAdf from './__fixtures__/renderer-media.adf.json';
-import * as commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
-import * as captionRendererAdf from './__fixtures__/caption-renderer-media-adf.json';
-import * as longCaptionRendererAdf from './__fixtures__/caption-long-renderer-media-adf.json';
-import * as wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
-import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
-import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
-import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
-import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
-import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
-import * as wrappedMediaSmallAdf from './__fixtures__/wrapped-media-small.adf.json';
-import * as layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
-import * as mediaImageWidthBiggerThanColumnWidth from './__fixtures__/media-image-width-bigger-than-column-width.adf.json';
+import resizeAdf from './__fixtures__/renderer-media.adf.json';
+import commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
+import captionRendererAdf from './__fixtures__/caption-renderer-media-adf.json';
+import longCaptionRendererAdf from './__fixtures__/caption-long-renderer-media-adf.json';
+import wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
+import wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
+import wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
+import wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
+import wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
+import wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
+import wrappedMediaSmallAdf from './__fixtures__/wrapped-media-small.adf.json';
+import layoutAdf from '../../../../examples/helper/media-resize-layout.adf.json';
+import mediaImageWidthBiggerThanColumnWidth from './__fixtures__/media-image-width-bigger-than-column-width.adf.json';
+import mediaWithUnsupportedMarksAndAttributes from './__fixtures__/media-with-unsupported-marks-and-node-attributes.json';
 
 import { waitForAllMedia } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
@@ -173,6 +174,14 @@ describe('Snapshot Test: Media', () => {
   describe('table', () => {
     it('[EDM-1081]: with image width bigger than column width', async () => {
       await initRenderer(page, mediaImageWidthBiggerThanColumnWidth);
+      await waitForAllMedia(page, 1);
+      await snapshotRenderer();
+    });
+  });
+
+  describe('unsupported marks and node attributes', () => {
+    it('should render media item which contains unsupported marks and node attributes', async () => {
+      await initRenderer(page, mediaWithUnsupportedMarksAndAttributes);
       await waitForAllMedia(page, 1);
       await snapshotRenderer();
     });

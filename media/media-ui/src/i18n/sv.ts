@@ -67,7 +67,6 @@ export default {
   'fabric.media.failed_to_load': 'Fel vid inläsning',
   'fabric.media.give_feedback': 'Ge feedback',
   'fabric.media.image': 'bild',
-  'fabric.media.image.search': 'Sök',
   'fabric.media.image_format_invalid_error':
     'Kunde inte läsa in bild på grund av ogiltigt format.',
   'fabric.media.image_size_too_large_error':
@@ -96,6 +95,7 @@ export default {
   'fabric.media.or': 'eller',
   'fabric.media.pause': 'pausa',
   'fabric.media.play': 'spela upp',
+  'fabric.media.preview': 'Förhandsgranska',
   'fabric.media.recent_uploads': 'Senaste uppladdningar',
   'fabric.media.remove_image': 'Ta bort bild',
   'fabric.media.retry': 'Försök igen',
@@ -120,6 +120,7 @@ export default {
   'fabric.media.upload_image': 'Ladda upp bild',
   'fabric.media.upload_photo': 'Ladda upp en bild',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Visa',
   'fabric.media.webgl_warning_description':
     'Din webbläsare stöder inte WebGL. Använd en webbläsare som har stöd för WebGL för att kommentera bilder.',
   'fabric.media.zoom_in': 'zooma in',

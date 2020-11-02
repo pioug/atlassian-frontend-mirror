@@ -3,6 +3,8 @@ import { EditorView } from 'prosemirror-view';
 import {
   isPerformanceObserverAvailable,
   isPerformanceAPIAvailable,
+  getAnalyticsEventSeverity,
+  SEVERITY,
 } from '@atlaskit/editor-common';
 import {
   ACTION,
@@ -13,10 +15,15 @@ import {
 } from '../../analytics';
 import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 import { countNodes } from '../../../utils/count-nodes';
-import { InputTracking } from '../../../types/performance-tracking';
+import {
+  InputTracking,
+  BFreezeTracking,
+} from '../../../types/performance-tracking';
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
 export const DEFAULT_FREEZE_THRESHOLD = 600;
+export const NORMAL_SEVERITY_THRESHOLD = 2000;
+export const DEGRADED_SEVERITY_THRESHOLD = 3000;
 
 const dispatchLongTaskEvent = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -24,7 +31,7 @@ const dispatchLongTaskEvent = (
   time: number,
   allowCountNodes?: boolean,
   interactionType?: BROWSER_FREEZE_INTERACTION_TYPE,
-  allowBrowserFreezeInteractionType?: boolean,
+  severity?: SEVERITY,
 ) => {
   const { state } = view;
 
@@ -36,10 +43,8 @@ const dispatchLongTaskEvent = (
       nodeSize: state.doc.nodeSize,
       nodeCount: allowCountNodes ? countNodes(view.state) : undefined,
       participants: getParticipantsCount(view.state),
-      interactionType:
-        allowBrowserFreezeInteractionType && interactionType
-          ? interactionType
-          : undefined,
+      interactionType,
+      severity,
     },
     eventType: EVENT_TYPE.OPERATIONAL,
   });
@@ -52,12 +57,12 @@ export const setInteractionType = (
 export default (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   inputTracking?: InputTracking,
-  allowBrowserFreezeInteractionType?: boolean,
+  browserFreezeTracking?: BFreezeTracking,
 ) => {
   let keystrokeCount = 0;
   let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
 
-  if (allowBrowserFreezeInteractionType) {
+  if (browserFreezeTracking?.trackInteractionType) {
     interactionType = setInteractionType(
       BROWSER_FREEZE_INTERACTION_TYPE.LOADING,
     );
@@ -85,7 +90,7 @@ export default (
           handleTextInput(view) {
             const { state } = view;
             const now = performance.now();
-            if (allowBrowserFreezeInteractionType) {
+            if (browserFreezeTracking?.trackInteractionType) {
               interactionType = BROWSER_FREEZE_INTERACTION_TYPE.TYPING;
             }
 
@@ -127,7 +132,7 @@ export default (
             });
             return false;
           },
-          handleDOMEvents: allowBrowserFreezeInteractionType
+          handleDOMEvents: browserFreezeTracking?.trackInteractionType
             ? {
                 click: () => {
                   interactionType = setInteractionType(
@@ -161,8 +166,16 @@ export default (
                 view,
                 duration,
                 allowCountNodes,
-                interactionType,
-                allowBrowserFreezeInteractionType,
+                browserFreezeTracking?.trackInteractionType
+                  ? interactionType
+                  : undefined,
+                browserFreezeTracking?.trackSeverity
+                  ? getAnalyticsEventSeverity(
+                      duration,
+                      browserFreezeTracking.severityNormalThreshold,
+                      browserFreezeTracking.severityDegradedThreshold,
+                    )
+                  : undefined,
               );
             }
           }

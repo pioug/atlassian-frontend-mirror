@@ -46,7 +46,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/tag": "^11.0.0",
     "@atlaskit/tag-group": "^10.0.0",
-    "@atlaskit/textarea": "^3.0.0",
+    "@atlaskit/textarea": "^4.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

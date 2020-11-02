@@ -46,4 +46,21 @@ export const messages = defineMessages({
     defaultMessage: 'Documentation',
     description: 'Label for the documentation link',
   },
+  custom: {
+    id: 'fabric.editor.configPanel.dateRange.option.custom',
+    defaultMessage: 'Custom',
+    description: 'Label for the option "Custom" in the date range UI element',
+  },
+  from: {
+    id: 'fabric.editor.configPanel.dateRange.custom.from',
+    defaultMessage: 'From',
+    description:
+      'Label for the initial date when the option "Custom" is selected in the date range UI element',
+  },
+  to: {
+    id: 'fabric.editor.configPanel.dateRange.custom.to',
+    defaultMessage: 'To',
+    description:
+      'Label for the end date when the option "Custom" is selected in the date range UI element',
+  },
 });

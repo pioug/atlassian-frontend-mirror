@@ -19,6 +19,7 @@ import * as layoutWithDecisions from './__fixtures__/layout-with-decisions-adf.j
 import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
 import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
+import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
 
 describe('Layouts:', () => {
   let page: PuppeteerPage;
@@ -52,7 +53,7 @@ describe('Layouts:', () => {
   });
 
   afterEach(async () => {
-    await waitForFloatingControl(page, 'Layout floating controls');
+    await waitForFloatingControl(page, layoutToolbarTitle);
     await snapshot(page);
     // Click away to remove floating control so it gets reset between
     // viewport resizes.
@@ -67,7 +68,7 @@ describe('Layouts:', () => {
         await retryUntilStablePosition(
           page,
           () => page.click(layoutSelectors.column),
-          '[aria-label*="Layout floating controls"]',
+          `[aria-label*="${layoutToolbarTitle}"]`,
           1000,
           true,
         );
@@ -92,23 +93,6 @@ describe('Layouts:', () => {
       layoutSelectors.section,
     );
     await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
-  });
-
-  it("doesn't select layout if click and drag before releasing mouse", async () => {
-    await initEditor(col2, largeViewport);
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
-      page,
-      layoutSelectors.column,
-    );
-
-    // start in centre of layout, mousedown and then move to padding before releasing
-    await page.mouse.move(
-      contentBoundingRect.left + contentBoundingRect.width * 0.5,
-      contentBoundingRect.top + contentBoundingRect.height * 0.5,
-    );
-    await page.mouse.down();
-    await page.mouse.move(contentBoundingRect.left, contentBoundingRect.top);
-    await page.mouse.up();
   });
 
   describe('decisions', () => {

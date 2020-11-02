@@ -4,7 +4,7 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 import { buildToolbar } from '../../toolbar';
 import { toolbarMessages } from '../../toolbar-messages';
 import { EditorView } from 'prosemirror-view';
@@ -35,7 +35,13 @@ describe('layout toolbar', () => {
 
   const intlProvider = new IntlProvider({ locale: 'en' });
   const { intl } = intlProvider.getChildContext();
-  const stdLayoutButtons = [
+
+  interface ExpectedLayoutButton {
+    name: string;
+    message: FormattedMessage.MessageDescriptor;
+  }
+
+  const stdLayoutButtons: ExpectedLayoutButton[] = [
     {
       name: LAYOUT_TYPE.TWO_COLS_EQUAL,
       message: toolbarMessages.twoColumns,
@@ -45,7 +51,8 @@ describe('layout toolbar', () => {
       message: toolbarMessages.threeColumns,
     },
   ];
-  const sidebarLayoutButtons = [
+
+  const sidebarLayoutButtons: ExpectedLayoutButton[] = [
     { name: LAYOUT_TYPE.LEFT_SIDEBAR, message: toolbarMessages.leftSidebar },
     { name: LAYOUT_TYPE.RIGHT_SIDEBAR, message: toolbarMessages.rightSidebar },
     {
@@ -56,6 +63,16 @@ describe('layout toolbar', () => {
   let editorView: EditorView;
   let toolbar: FloatingToolbarConfig;
   let items: Array<FloatingToolbarItem<Command>>;
+
+  const assertToolbarButtonPresent = (expectedButton: ExpectedLayoutButton) => {
+    const btn = findToolbarBtn(
+      items,
+      intl.formatMessage(expectedButton.message),
+    );
+    expect(btn).toBeDefined();
+    expect(btn.title).toBe(expectedButton.message.defaultMessage);
+    expect(btn.testId).toBe(expectedButton.message.id);
+  };
 
   beforeEach(() => {
     ({ editorView } = editor(doc(buildLayoutForWidths([50, 50], true))));
@@ -75,22 +92,15 @@ describe('layout toolbar', () => {
     });
 
     it('displays all 5 layout buttons', () => {
-      stdLayoutButtons.forEach(button => {
-        expect(
-          findToolbarBtn(items, intl.formatMessage(button.message)),
-        ).toBeDefined();
-      });
-      sidebarLayoutButtons.forEach(button => {
-        expect(
-          findToolbarBtn(items, intl.formatMessage(button.message)),
-        ).toBeDefined();
-      });
+      stdLayoutButtons.forEach(assertToolbarButtonPresent);
+      sidebarLayoutButtons.forEach(assertToolbarButtonPresent);
     });
 
     it('displays delete button', () => {
-      expect(
-        findToolbarBtn(items, intl.formatMessage(commonMessages.remove)),
-      ).toBeDefined();
+      assertToolbarButtonPresent({
+        name: '',
+        message: commonMessages.remove,
+      });
     });
   });
 
@@ -108,11 +118,7 @@ describe('layout toolbar', () => {
     });
 
     it('displays only 2 original layout buttons', () => {
-      stdLayoutButtons.forEach(button => {
-        expect(
-          findToolbarBtn(items, intl.formatMessage(button.message)),
-        ).toBeDefined();
-      });
+      stdLayoutButtons.forEach(assertToolbarButtonPresent);
       sidebarLayoutButtons.forEach(button => {
         expect(
           findToolbarBtn(items, intl.formatMessage(button.message)),
@@ -121,9 +127,10 @@ describe('layout toolbar', () => {
     });
 
     it('displays delete button', () => {
-      expect(
-        findToolbarBtn(items, intl.formatMessage(commonMessages.remove)),
-      ).toBeDefined();
+      assertToolbarButtonPresent({
+        name: '',
+        message: commonMessages.remove,
+      });
     });
   });
 

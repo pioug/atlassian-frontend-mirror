@@ -53,6 +53,14 @@ import { DevTools } from '../example-helpers/DevTools';
 import { TitleInput } from '../example-helpers/PageElements';
 import { EditorActions, MentionProvider } from './../src';
 import { PanelPluginConfig } from '../src/plugins/panel/types';
+import {
+  NORMAL_SEVERITY_THRESHOLD as BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
+  DEGRADED_SEVERITY_THRESHOLD as BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
+} from '../src/plugins/base/pm-plugins/frozen-editor';
+import {
+  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+} from '../src/create-editor/consts';
 import withSentry from '../example-helpers/withSentry';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {
@@ -204,6 +212,11 @@ export interface ExampleProps {
   onTitleChange?: (title: string) => void;
   setMode?: (isEditing: boolean) => void;
   customPrimaryToolbarComponents?: EditorProps['primaryToolbarComponents'];
+  onExampleEditorReady?: (
+    editorActions: EditorActions,
+    timeTaken?: number,
+  ) => void;
+  clickToEdit?: boolean;
 }
 
 const smartCardClient = new SmartCardClient('staging');
@@ -242,9 +255,13 @@ export class ExampleEditorComponent extends React.Component<
     }
   }
 
-  onEditorReady = () => {
-    const now = new Date().getTime();
-    console.log('Editor init time', now - this.startTime, 'ms');
+  onEditorReady = (editorActions: EditorActions) => {
+    const timeTaken = new Date().getTime() - this.startTime;
+    console.log('Editor init time', timeTaken, 'ms');
+
+    if (this.props.onExampleEditorReady) {
+      this.props.onExampleEditorReady(editorActions, timeTaken);
+    }
   };
 
   onCopyLinkWithContent = async () => {
@@ -428,7 +445,17 @@ export class ExampleEditorComponent extends React.Component<
                   uiTracking: { enabled: true },
                   nodeViewTracking: { enabled: true },
                   inputTracking: { enabled: true, countNodes: true },
-                  bFreezeTracking: { trackInteractionType: true },
+                  bFreezeTracking: {
+                    trackInteractionType: true,
+                    trackSeverity: true,
+                    severityNormalThreshold: BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
+                    severityDegradedThreshold: BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
+                  },
+                  proseMirrorRenderedTracking: {
+                    trackSeverity: true,
+                    severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+                    severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+                  },
                 }}
                 {...this.props}
                 appearance={this.state.appearance}
@@ -561,6 +588,7 @@ const Renderer = (props: {
   setMode: (mode: boolean) => void;
   extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[];
   allowCustomPanel?: boolean;
+  clickToEdit?: boolean;
 }) => {
   if (props.extensionProviders && props.extensionProviders.length > 0) {
     providerFactory.setProvider(
@@ -608,6 +636,14 @@ const Renderer = (props: {
             featureFlags: exampleMediaFeatureFlags,
           }}
           UNSAFE_allowCustomPanels={props.allowCustomPanel}
+          eventHandlers={{
+            onUnhandledClick: props.clickToEdit
+              ? e => {
+                  console.log('onUnhandledClick called');
+                  props.setMode(true);
+                }
+              : undefined,
+          }}
         />
       </SmartCardProvider>
     </div>
@@ -650,6 +686,7 @@ export default function Example(props: EditorProps & ExampleProps) {
                 : props.extensionProviders
             }
             allowCustomPanel={allowCustomPanel}
+            clickToEdit={props.clickToEdit}
           />
         )}
       </div>

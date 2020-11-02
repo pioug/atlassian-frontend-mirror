@@ -38,7 +38,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.0.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-card": "^69.4.0",
+    "@atlaskit/media-card": "^70.0.0",
     "@atlaskit/media-test-helpers": "^28.2.0",
     "@atlaskit/ssr": "*",
     "react-dom": "^16.8.0",

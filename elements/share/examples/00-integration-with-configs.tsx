@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl';
 import styled from 'styled-components';
 import Select from '@atlaskit/select';
 import WorldIcon from '@atlaskit/icon/glyph/world';
-import { ToggleStateless as Toggle } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 import { OptionData } from '@atlaskit/user-picker';
 import {
   userPickerData,

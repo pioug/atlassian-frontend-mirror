@@ -61,7 +61,6 @@ export default {
   'fabric.media.failed_to_load': 'Kunne ikke lastes inn',
   'fabric.media.give_feedback': 'Gi en tilbakemelding',
   'fabric.media.image': 'bilde',
-  'fabric.media.image.search': 'Søk',
   'fabric.media.image_format_invalid_error':
     'Bildet har feil format. Det kan derfor ikke lastes inn.',
   'fabric.media.image_size_too_large_error':

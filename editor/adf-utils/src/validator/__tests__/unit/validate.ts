@@ -36,6 +36,9 @@ describe('validate', () => {
           'paragraph-with-empty-marks.json',
           'codeBlock-with-empty-marks.json',
           'heading-with-empty-marks.json',
+
+          /* commented out until captions is merged */
+          'mediaSingle-with-caption.json',
         ];
         if (!ignoreList.includes(file.name)) {
           const run = () => {
@@ -72,6 +75,7 @@ describe('validate', () => {
           'mention-with-invalid-user-type.json',
           'hardBreak-with-wrong-text.json',
           'mediaSingle-with-caption.json',
+          'media-with-link-mark.json',
         ];
         expect(true).toBe(true);
         if (!ignoreList.includes(file.name)) {

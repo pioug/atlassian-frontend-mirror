@@ -1,10 +1,16 @@
 import { findWrapping } from 'prosemirror-transform';
-import { Node as PMNode, ResolvedPos, NodeType } from 'prosemirror-model';
+import {
+  Node as PMNode,
+  ResolvedPos,
+  NodeType,
+  NodeRange,
+} from 'prosemirror-model';
 import {
   EditorState,
   Selection,
   Transaction,
   TextSelection,
+  NodeSelection,
 } from 'prosemirror-state';
 import {
   findParentNodeClosestToPos,
@@ -126,17 +132,58 @@ export const normalizeListItemsSelection: NormalizeListItemsSelection = ({
 
   const { $from, $to } = selection;
 
-  const toRange = $to.blockRange($to, isListItemNode);
-  const toPosition =
-    toRange && $to.textOffset === 0 && toRange.start + 1 === $to.pos
-      ? Selection.near(doc.resolve(toRange.start - 1), -1).$to
-      : $to;
+  if (selection instanceof NodeSelection) {
+    const head = resolvePositionToStartOfListItem($from);
+    return new TextSelection(head, head);
+  }
 
-  const fromRange = $from.blockRange($from, isListItemNode);
+  const head = resolvePositionToStartOfListItem($from);
+  const anchor = resolvePositionToEndOfListItem($to);
+
+  return new TextSelection(anchor, head);
+};
+
+export const resolvePositionToStartOfListItem = (
+  $pos: ResolvedPos,
+): ResolvedPos => {
+  const fromRange = $pos.blockRange($pos, isListItemNode);
   const fromPosition =
-    fromRange && $from.textOffset === 0 && fromRange.end - 1 === $from.pos
-      ? Selection.near(doc.resolve(fromRange.end + 1), 1).$from
-      : $from;
+    fromRange && $pos.textOffset === 0 && fromRange.end - 1 === $pos.pos
+      ? Selection.near($pos.doc.resolve(fromRange.end + 1), 1).$from
+      : $pos;
 
-  return new TextSelection(toPosition, fromPosition);
+  return fromPosition;
+};
+
+export const resolvePositionToEndOfListItem = (
+  $pos: ResolvedPos,
+): ResolvedPos => {
+  const toRange = $pos.blockRange($pos, isListItemNode);
+  const toPosition =
+    toRange && $pos.textOffset === 0 && toRange.start + 1 === $pos.pos
+      ? Selection.near($pos.doc.resolve(toRange.start - 1), -1).$to
+      : $pos;
+
+  return toPosition;
+};
+
+type CreateNodeRange = (props: { selection: Selection }) => NodeRange | null;
+export const createListNodeRange: CreateNodeRange = ({ selection }) => {
+  const { $from, $to } = selection;
+  const range = $from.blockRange($to, isListNode);
+  if (!range) {
+    return null;
+  }
+
+  return range;
+};
+
+export const createListItemNodeRange: CreateNodeRange = ({ selection }) => {
+  const { $from, $to } = selection;
+  const range = $from.blockRange($to, isListItemNode);
+  if (!range) {
+    return null;
+  }
+
+  return range;
 };

@@ -6,6 +6,9 @@ import {
   media,
   mediaGroup,
   mediaSingle,
+  table,
+  tr,
+  td,
 } from '@atlaskit/editor-test-helpers';
 import { Context } from '../../../interfaces';
 
@@ -53,6 +56,28 @@ describe('ADF => WikiMarkup - Media', () => {
           embedded: { transform: 'embedded-output', embed: true },
           'not-embedded': { transform: 'not-embedded-output', embed: false },
           'default-embedded': { transform: 'default-embedded-output' },
+        },
+      },
+    };
+    expect(transformer.encode(node, context)).toMatchSnapshot();
+  });
+
+  test('should convert mediaSingle with context inside table', () => {
+    const node = doc(
+      table()(
+        tr(
+          td()(
+            mediaSingle()(
+              media({ id: 'adf-media-id', type: 'file', collection: 'tmp' })(),
+            ),
+          ),
+        ),
+      ),
+    )(defaultSchema);
+    const context: Context = {
+      conversion: {
+        mediaConversion: {
+          'adf-media-id': { transform: 'wiki-media-id', embed: true },
         },
       },
     };

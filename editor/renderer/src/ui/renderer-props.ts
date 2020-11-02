@@ -50,4 +50,9 @@ export interface RendererProps {
   useSpecBasedValidator?: boolean;
   allowCopyToClipboard?: boolean;
   UNSAFE_allowCustomPanels?: boolean;
+  analyticsEventSeverityTracking?: {
+    enabled: boolean;
+    severityNormalThreshold: number;
+    severityDegradedThreshold: number;
+  };
 }

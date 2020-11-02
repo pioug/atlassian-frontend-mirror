@@ -15,6 +15,7 @@ export {
   findAndTrackUnsupportedContentNodes,
   getAnalyticsAppearance,
   analyticsEventKey,
+  getAnalyticsEventSeverity,
   getExtensionLozengeData,
   getExtensionRenderer,
   getMarksByOrder,
@@ -43,7 +44,10 @@ export {
   withImageLoader,
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
+  SEVERITY,
+  shouldForceTracking,
 } from './utils';
+
 export type {
   ADDoc,
   ADFStage,
@@ -66,6 +70,7 @@ export {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
 } from './types';
+
 export type {
   Transformer,
   AnnotationState,
@@ -74,6 +79,9 @@ export type {
   InlineCommentSelectionComponentProps,
   InlineCommentViewComponentProps,
   InlineCommentAnnotationProvider,
+  OnAnnotationClickPayload,
+  AnnotationByMatches,
+  AnnotationActionResult,
 } from './types';
 
 export type {
@@ -99,6 +107,7 @@ export {
   getNodeRenderer,
   resolveImport,
 } from './extensions';
+
 export type {
   Extension,
   ExtensionComponentProps,
@@ -127,6 +136,7 @@ export type {
 export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';
 
 export { ProviderFactory, WithProviders } from './provider-factory';
+
 export type {
   Providers,
   MediaProvider,
@@ -156,6 +166,7 @@ export {
   listsSharedStyles,
   richMediaClassName,
   mediaSingleSharedStyle,
+  getPanelTypeBackground,
   panelSharedStyles,
   PanelSharedCssClassName,
   PanelSharedSelectors,
@@ -219,6 +230,7 @@ export {
   wrappedLayouts,
   shouldAddDefaultWrappedWidth,
 } from './ui';
+
 export type {
   CardEventClickHandler,
   CardSurroundings,
@@ -242,4 +254,3 @@ export type {
 export { linkMessages } from './messages/link';
 
 export { validateADFEntity } from './utils/validate-using-spec';
-export type { OnAnnotationClickPayload } from './types/annotation/emitter';

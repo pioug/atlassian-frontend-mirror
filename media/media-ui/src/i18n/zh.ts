@@ -59,7 +59,6 @@ export default {
   'fabric.media.failed_to_load': '无法加载',
   'fabric.media.give_feedback': '提供反馈意见',
   'fabric.media.image': '图像',
-  'fabric.media.image.search': '搜索',
   'fabric.media.image_format_invalid_error': '无法加载图像，当前格式无效。',
   'fabric.media.image_size_too_large_error':
     '图像太大，必须小于{MAX_SIZE_MB} MB',
@@ -82,6 +81,7 @@ export default {
   'fabric.media.or': '或者',
   'fabric.media.pause': '暂停',
   'fabric.media.play': '播放',
+  'fabric.media.preview': '预览',
   'fabric.media.recent_uploads': '最近上传',
   'fabric.media.remove_image': '删除图像',
   'fabric.media.retry': '重试',
@@ -104,6 +104,7 @@ export default {
   'fabric.media.upload_image': '上传图像',
   'fabric.media.upload_photo': '上传一张照片',
   'fabric.media.video': '视频',
+  'fabric.media.view': '查看',
   'fabric.media.webgl_warning_description':
     '您的浏览器不支持 WebGL。请使用支持 WebGL 的浏览器来标注图像。',
   'fabric.media.zoom_in': '放大',

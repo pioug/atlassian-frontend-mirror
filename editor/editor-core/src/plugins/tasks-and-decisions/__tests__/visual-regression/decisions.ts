@@ -4,7 +4,7 @@ import {
   snapshot,
 } from '../../../../__tests__/visual-regression/_utils';
 
-import * as adjacentDecisionsAdf from './__fixtures__/adjacent-decisions-adf.json';
+import * as adjacentDecisionsAdf from '../__fixtures__/adjacent-decisions-adf.json';
 
 describe('decisions', () => {
   it('adjacent', async () => {

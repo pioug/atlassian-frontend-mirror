@@ -75,7 +75,6 @@ export class Provider
   constructor(config: Config) {
     super();
     this.config = config;
-    this.userId = config.userId;
     this.channel = new Channel(config);
   }
 
@@ -94,11 +93,14 @@ export class Provider
       .on('connected', ({ sid }) => {
         this.sessionId = sid;
         this.emit('connected', { sid });
-        setTimeout(() => {
-          this.throttledCatchup();
-        }, 500);
       })
-      .on('init', ({ doc, version }) => {
+      .on('reconnected', () => {
+        this.sendPresence();
+        this.throttledCatchup();
+      })
+      .on('init', ({ doc, version, userId }) => {
+        this.userId = userId;
+        this.sendPresence();
         this.emit('init', { doc, version }); // Initial document and version
       })
       .on('steps:added', this.onStepsAdded)
@@ -109,8 +111,6 @@ export class Provider
       .on('title:changed', this.onTitleChanged)
       .on('disconnect', this.onDisconnected)
       .connect();
-
-    this.sendPresence();
 
     return this;
   }
@@ -363,18 +363,13 @@ export class Provider
    *
    * We keep track of participants internally in this class, and emit the `presence` event to update
    * the active avatars in the editor.
+   * This method will be triggered from backend to notify all participants to exchange presence
    *
    */
-  private onParticipantJoined = ({
-    sessionId,
-    timestamp,
-    userId,
-    clientId,
-  }: ParticipantPayload) => {
-    logger('Participant joined', sessionId);
-    this.updateParticipant({ sessionId, userId, timestamp, clientId });
+  private onParticipantJoined = ({ sessionId }: ParticipantPayload) => {
+    logger('Participant joined with session: ', sessionId);
 
-    // We should let the new particpant know about us!
+    // This expose existing users to the newly joined user
     this.sendPresence();
   };
 
@@ -410,7 +405,6 @@ export class Provider
     userId,
     clientId,
   }: ParticipantPayload) => {
-    logger(`Participant updated`);
     this.updateParticipant({ sessionId, timestamp, userId, clientId });
   };
 
@@ -453,6 +447,12 @@ export class Provider
       : getParticipant(userId));
 
     const isNewParticipant = !this.participants.has(sessionId);
+    if (isNewParticipant) {
+      logger('new Participant updated', {
+        name,
+        avatar,
+      });
+    }
 
     this.participants.set(sessionId, {
       name,

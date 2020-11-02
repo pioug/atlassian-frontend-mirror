@@ -26,6 +26,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
       activityProvider: activityProviderMock,
       searchProvider: searchProviderMock,
     });
+    const view = editorView;
 
     const component = mountWithIntl(
       <HyperlinkAddToolbarWithProviderFactory
@@ -50,6 +51,7 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         canInsertLink: true,
         timesViewed: 0,
       },
+      view,
     });
   });
 });

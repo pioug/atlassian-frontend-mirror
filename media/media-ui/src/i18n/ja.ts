@@ -68,7 +68,6 @@ export default {
   'fabric.media.failed_to_load': '読み込めませんでした',
   'fabric.media.give_feedback': 'フィードバックを送信',
   'fabric.media.image': '画像',
-  'fabric.media.image.search': '検索',
   'fabric.media.image_format_invalid_error':
     '画像を読み込めませんでした。フォーマットが無効です。',
   'fabric.media.image_size_too_large_error':
@@ -97,6 +96,7 @@ export default {
   'fabric.media.or': 'または',
   'fabric.media.pause': '一時停止',
   'fabric.media.play': '再生',
+  'fabric.media.preview': 'プレビュー',
   'fabric.media.recent_uploads': '最近アップロードしたファイル',
   'fabric.media.remove_image': '画像を削除',
   'fabric.media.retry': '再試行',
@@ -120,6 +120,7 @@ export default {
   'fabric.media.upload_image': '画像をアップロード',
   'fabric.media.upload_photo': '写真をアップロード',
   'fabric.media.video': 'ビデオ',
+  'fabric.media.view': '表示',
   'fabric.media.webgl_warning_description':
     'お使いのブラウザーは WebGL に対応していません。画像に注釈をつけるには WebGL 対応ブラウザーをご利用ください。',
   'fabric.media.zoom_in': 'ズームイン',

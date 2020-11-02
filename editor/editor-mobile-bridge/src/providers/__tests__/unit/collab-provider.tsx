@@ -57,7 +57,6 @@ describe('createCollabProvider', () => {
       expect.objectContaining({
         documentAri: 'my:doc',
         url: atlassianDomain,
-        userId: 'john-doe',
       }),
     );
   });

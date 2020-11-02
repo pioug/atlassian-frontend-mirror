@@ -1,5 +1,5 @@
 import { ResolvedPos, Fragment, Slice, NodeType } from 'prosemirror-model';
-import { EditorState, Transaction, NodeSelection } from 'prosemirror-state';
+import { Transaction, NodeSelection } from 'prosemirror-state';
 import { ReplaceAroundStep } from 'prosemirror-transform';
 import { EditorView } from 'prosemirror-view';
 import * as baseCommand from 'prosemirror-commands';
@@ -117,59 +117,25 @@ export const rootListDepth = (
   return depth;
 };
 
-export const toggleList = (
-  state: EditorState,
-  dispatch: (tr: Transaction) => void,
-  view: EditorView,
-  listType: 'bulletList' | 'orderedList',
-  inputMethod: InputMethod,
-): boolean => {
-  const { selection } = state;
-  const fromNode = selection.$from.node(selection.$from.depth - 2);
-  const endNode = selection.$to.node(selection.$to.depth - 2);
-  if (
-    !fromNode ||
-    fromNode.type.name !== listType ||
-    !endNode ||
-    endNode.type.name !== listType
-  ) {
-    return toggleListCommandWithAnalytics(inputMethod, listType)(
-      state,
-      dispatch,
-      view,
-    );
-  } else {
-    const depth = rootListDepth(selection.$to, state.schema.nodes);
-    let tr = liftFollowingList(
-      state,
-      selection.$to.pos,
-      selection.$to.end(depth),
-      depth || 0,
-      state.tr,
-    );
-    tr = liftSelectionList(state, tr);
-    tr = addAnalytics(state, tr, {
-      action: ACTION.FORMATTED,
-      actionSubject: ACTION_SUBJECT.TEXT,
-      actionSubjectId:
-        listType === 'bulletList'
-          ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
-          : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        inputMethod,
-      },
-    });
-    dispatch(tr);
-    return true;
-  }
-};
+function untoggleSelectedList(tr: Transaction) {
+  const { selection } = tr;
+  const depth = rootListDepth(selection.$to, tr.doc.type.schema.nodes);
+  tr = liftFollowingList(
+    selection.$to.pos,
+    selection.$to.end(depth),
+    depth || 0,
+    tr,
+  );
+  tr = liftSelectionList(selection, tr);
+}
 
-export function toggleListCommand(
+export function toggleList(
   inputMethod: InputMethod,
   listType: 'bulletList' | 'orderedList',
 ): Command {
   return function (state, dispatch) {
+    let customTr = state.tr;
+    const listInsideSelection = selectionContainsList(customTr);
     const listNodeType = state.schema.nodes[listType];
 
     const actionSubjectId =
@@ -177,19 +143,41 @@ export function toggleListCommand(
         ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
         : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
-    let customTr = state.tr;
-    const listInsideSelection = selectionContainsList(customTr);
     if (listInsideSelection) {
-      convertListType({ tr: customTr, nextListNodeType: listNodeType });
+      const { selection } = state;
+      const fromNode = selection.$from.node(selection.$from.depth - 2);
+      const toNode = selection.$to.node(selection.$to.depth - 2);
       const transformedFrom =
         listInsideSelection.type.name === 'bulletList'
           ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
           : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
+
+      if (fromNode.type.name === listType && toNode.type.name === listType) {
+        let tr = state.tr;
+        untoggleSelectedList(tr);
+        addAnalytics(state, tr, {
+          action: ACTION.CONVERTED,
+          actionSubject: ACTION_SUBJECT.LIST,
+          actionSubjectId: ACTION_SUBJECT_ID.TEXT,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            ...getCommonListAnalyticsAttributes(state),
+            transformedFrom,
+            inputMethod,
+          },
+        });
+        if (dispatch) {
+          dispatch(tr);
+        }
+        return true;
+      }
+
+      convertListType({ tr: customTr, nextListNodeType: listNodeType });
       addAnalytics(state, customTr, {
         action: ACTION.CONVERTED,
         actionSubject: ACTION_SUBJECT.LIST,
-        eventType: EVENT_TYPE.TRACK,
         actionSubjectId,
+        eventType: EVENT_TYPE.TRACK,
         attributes: {
           ...getCommonListAnalyticsAttributes(state),
           transformedFrom,
@@ -235,31 +223,18 @@ export function toggleListCommand(
   };
 }
 
-export const toggleListCommandWithAnalytics = (
-  inputMethod: InputMethod,
-  listType: 'bulletList' | 'orderedList',
-): Command => {
-  return toggleListCommand(inputMethod, listType);
-};
-
 export function toggleBulletList(
   view: EditorView,
   inputMethod: InputMethod = INPUT_METHOD.TOOLBAR,
 ) {
-  return toggleList(view.state, view.dispatch, view, 'bulletList', inputMethod);
+  return toggleList(inputMethod, 'bulletList')(view.state, view.dispatch);
 }
 
 export function toggleOrderedList(
   view: EditorView,
   inputMethod: InputMethod = INPUT_METHOD.TOOLBAR,
 ) {
-  return toggleList(
-    view.state,
-    view.dispatch,
-    view,
-    'orderedList',
-    inputMethod,
-  );
+  return toggleList(inputMethod, 'orderedList')(view.state, view.dispatch);
 }
 
 export function wrapInList(nodeType: NodeType): Command {

@@ -19,6 +19,7 @@ import {
 } from '../config-panel/confluence-fields-data-providers';
 
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
+import { setEnv } from '@atlaskit/user-picker/src/components/smart-user-picker/config';
 
 import mainResponse from './browse-macros.json';
 import { getIconComponent } from './IconImage';
@@ -342,6 +343,21 @@ const transformLegacyMacrosToExtensionManifest = (
           cql: {
             serializer: cqlSerializer,
             deserializer: cqlDeserializer,
+          },
+        },
+        user: {
+          'user-jdog-provider': {
+            provider: async () => {
+              // WARNING: this is required by the SmartUserPicker for testing environments
+              setEnv('local');
+
+              return {
+                siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+                principalId: 'Context',
+                fieldId: 'storybook',
+                productKey: 'jira',
+              };
+            },
           },
         },
       },

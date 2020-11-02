@@ -20,6 +20,7 @@ export type Props = {
   title?: React.ReactNode;
   titlePosition?: PositionType;
   item?: MenuItem;
+  testId?: string;
 } & Pick<ButtonProps, 'aria-label'>;
 
 const ButtonWrapper = styled.div`
@@ -50,6 +51,7 @@ export default class ToolbarButton extends React.PureComponent<Props, {}> {
       <Button
         appearance="subtle"
         aria-haspopup
+        testId={this.props.testId}
         className={this.props.className}
         href={this.props.href}
         aria-label={this.props['aria-label']}

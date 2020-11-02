@@ -7,11 +7,11 @@ import { AsyncCreatableSelect, ValueType } from '@atlaskit/select';
 import { formatOptionLabel } from './SelectItem';
 
 import {
-  getCustomFieldResolver,
+  CustomField,
   CustomFieldResolver,
   ExtensionManifest,
-  CustomField,
   Option,
+  getCustomFieldResolver,
 } from '@atlaskit/editor-common/extensions';
 
 import { OnBlur } from '../types';

@@ -13,6 +13,8 @@ import { FetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
 import WebBridgeImpl from '../../native-to-web';
 import NativeBridge from '../../web-to-native/bridge';
+
+jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');
 
 const initialDocument = JSON.stringify({
@@ -30,6 +32,21 @@ const initialDocument = JSON.stringify({
     },
   ],
 });
+
+async function enableCollab() {
+  const { getAllowCollabProvider } = await import(
+    '../../../query-param-reader'
+  );
+  (getAllowCollabProvider as jest.MockedFunction<
+    typeof getAllowCollabProvider
+  >).mockImplementation(() => true);
+
+  return () => {
+    (getAllowCollabProvider as jest.MockedFunction<
+      typeof getAllowCollabProvider
+    >).mockImplementation(() => false);
+  };
+}
 
 describe('mobile editor element', () => {
   let mobileEditor: ReactWrapper<typeof MobileEditor>;
@@ -120,6 +137,26 @@ describe('mobile editor element', () => {
     it('should have called editorReady on native bridge', function () {
       initEditor(bridge);
       expect(toNativeBridge.editorReady).toHaveBeenCalled();
+    });
+
+    describe('with collab', () => {
+      let disableCollab: () => void;
+      beforeAll(async () => {
+        disableCollab = await enableCollab();
+      });
+
+      afterAll(() => {
+        disableCollab();
+      });
+
+      it('should setup the bridge title', async function () {
+        bridge = new WebBridgeImpl();
+        const setupTitle = jest.spyOn(bridge, 'setupTitle');
+
+        initEditor(bridge);
+
+        expect(setupTitle).toHaveBeenCalled();
+      });
     });
   });
 

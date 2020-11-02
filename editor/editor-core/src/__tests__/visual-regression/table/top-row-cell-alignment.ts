@@ -40,7 +40,6 @@ describe('Snapshot Test: table top row cell alignment', () => {
     const topRowCell = getSelectorForTableCell({
       row: 1,
       cell: 1,
-      cellType: 'td',
     });
 
     await page.click(topRowCell);

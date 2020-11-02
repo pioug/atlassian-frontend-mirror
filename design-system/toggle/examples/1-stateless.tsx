@@ -1,37 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { gridSize } from '@atlaskit/theme/constants';
 
-import { ToggleStateless } from '../src';
+import Toggle from '../src';
 
-interface State {
-  isChecked: boolean;
-}
+const StatelessExample = () => {
+  const [isChecked, toggle] = useState(false);
 
-export default class StatelessExample extends Component<any, State> {
-  state: State = {
-    isChecked: false,
-  };
-
-  toggle = () => {
-    this.setState({
-      isChecked: !this.state.isChecked,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <p>Interacting will not do anything by default</p>
-        <ToggleStateless isChecked={this.state.isChecked} />
-        <p style={{ marginBottom: gridSize() }}>
-          Can use this button to trigger a toggle
-        </p>
-        <Button appearance="primary" onClick={this.toggle}>
-          Toggle
-        </Button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <p>Interacting will not do anything by default</p>
+      <Toggle isChecked={isChecked} />
+      <p style={{ marginBottom: gridSize() }}>
+        Can use this button to trigger a toggle
+      </p>
+      <Button appearance="primary" onClick={() => toggle(!isChecked)}>
+        Toggle
+      </Button>
+    </div>
+  );
+};
+export default StatelessExample;

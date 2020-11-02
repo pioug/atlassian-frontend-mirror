@@ -1,24 +1,15 @@
-import { Node } from 'prosemirror-model';
 import { EditorState, Transaction, Selection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 
 import { pluginKey as extensionPluginKey } from '../plugins/extension/plugin-key';
-import { ExtensionState } from '../plugins/extension/types';
+import type { ExtensionState } from '../plugins/extension/types';
 import { forceAutoSave } from '../plugins/extension/commands';
 
-import { Command, CommandDispatch } from '../types/command';
-
+import type { Command, CommandDispatch } from '../types/command';
 import { stateKey as mediaPluginKey } from '../plugins/media/pm-plugins/plugin-key';
-import { MediaPluginState } from '../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../plugins/media/pm-plugins/types';
 
-export async function getEditorValueWithMedia(
-  editorView?: EditorView,
-): Promise<Node | undefined> {
-  if (!editorView) {
-    return;
-  }
-
-  // WARNING: editorView.state suffers from reference changes, never unpack
+export async function __temporaryFixForConfigPanel(editorView: EditorView) {
   const extensionPluginState =
     editorView.state &&
     (extensionPluginKey.getState(editorView.state) as ExtensionState);
@@ -28,7 +19,9 @@ export async function getEditorValueWithMedia(
       forceAutoSave(resolve)(editorView.state, editorView.dispatch);
     });
   }
+}
 
+export async function getEditorValueWithMedia(editorView: EditorView) {
   const mediaPluginState =
     editorView.state &&
     (mediaPluginKey.getState(editorView.state) as MediaPluginState);

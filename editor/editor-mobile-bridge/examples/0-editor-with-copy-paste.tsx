@@ -95,7 +95,7 @@ export default class Example extends React.Component {
               data-id="clipboardInput"
               isCompact
               resize="smart"
-              forwardedRef={(ref: HTMLTextAreaElement | null) =>
+              ref={(ref: HTMLTextAreaElement | null) =>
                 (this.textAreaRef = ref)
               }
             />

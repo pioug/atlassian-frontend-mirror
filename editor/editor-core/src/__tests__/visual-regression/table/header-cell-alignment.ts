@@ -40,7 +40,6 @@ describe('Snapshot Test: table header cell alignment', () => {
     const headerCell = getSelectorForTableCell({
       row: 1,
       cell: 1,
-      cellType: 'th',
     });
 
     await page.click(headerCell);

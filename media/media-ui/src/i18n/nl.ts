@@ -57,8 +57,11 @@ export default {
     'Afbeelding hierheen slepen en neerzetten',
   'fabric.media.drag_and_drop_your_files':
     'Bestanden ergens naartoe slepen en neerzetten of',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Sleep de bestanden en mappen waar dan ook naartoe, of',
   'fabric.media.drop_your_files': 'Zet hier je te uploaden bestanden neer',
   'fabric.media.drop_your_files_here': 'Zet je bestanden hier neer.',
+  'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'volledig scherm inschakelen',
   'fabric.media.error_generating_preview':
     'Fout bij aanmaken van voorvertoning',
@@ -69,7 +72,6 @@ export default {
   'fabric.media.failed_to_load': 'Fout bij het laden',
   'fabric.media.give_feedback': 'Feedback geven',
   'fabric.media.image': 'afbeelding',
-  'fabric.media.image.search': 'Zoeken',
   'fabric.media.image_format_invalid_error':
     'De afbeelding kon niet geladen worden omdat het bestandsformaat ongeldig is.',
   'fabric.media.image_size_too_large_error':
@@ -99,15 +101,18 @@ export default {
   'fabric.media.or': 'of',
   'fabric.media.pause': 'pauzeren',
   'fabric.media.play': 'afspelen',
+  'fabric.media.preview': 'Voorvertoning',
   'fabric.media.recent_uploads': 'Recente uploads',
   'fabric.media.remove_image': 'Afbeelding verwijderen',
   'fabric.media.retry': 'Probeer opnieuw',
   'fabric.media.save': 'Opslaan',
+  'fabric.media.search': 'Zoeken',
   'fabric.media.search_all_gifs': "Doorzoek alle GIF's!",
   'fabric.media.share_files_instantly': 'We delen ze direct',
   'fabric.media.something_went_wrong': 'Er is iets misgegaan.',
   'fabric.media.srclink': 'Bekijken in',
   'fabric.media.srclinkunknown': 'Bekijk Origineel',
+  'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Opnieuw proberen',
   'fabric.media.try_another_account': 'Gebruik een ander account',
   'fabric.media.try_downloading_file':
@@ -123,6 +128,7 @@ export default {
   'fabric.media.upload_image': 'Afbeelding uploaden',
   'fabric.media.upload_photo': 'Een foto uploaden',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Bekijken',
   'fabric.media.webgl_warning_description':
     'Je browser ondersteunt geen WebGL. Gebruik een browser met WebGL-functie om aantekeningen te maken bij afbeeldingen.',
   'fabric.media.zoom_in': 'inzoomen',

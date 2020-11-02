@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.0.4
+
+### Patch Changes
+
+- [`65d8baf4c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65d8baf4c6) - Fixed hover color for linked tag and focus ring for keyboard navigation
+
 ## 11.0.3
 
 ### Patch Changes

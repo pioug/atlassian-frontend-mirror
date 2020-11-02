@@ -1,5 +1,49 @@
 # @atlaskit/editor-common
 
+## 52.0.0
+
+### Major Changes
+
+- [`ff39f9f643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff39f9f643) - ED-10614 Add match indexing (Confluence API) for annotation creation for the renderer
+
+  BEFORE
+
+  ```
+  export type AnnotationActionResult =
+    {
+      step: Step;
+      doc: JSONDocNode;
+    } | false;
+  ```
+
+  AFTER
+
+  ```
+  export type AnnotationActionResult =
+    {
+      step: Step;
+      doc: JSONDocNode;
+      originalSelection: string;    // <<===
+      numMatches: number;           // <<===
+      matchIndex: number;           // <<===
+    } | false;
+  ```
+
+### Minor Changes
+
+- [`74db598b97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74db598b97) - ED-10757 - Show Unsuppoted content message based on locale
+- [`677744c680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/677744c680) - Add UserSelect field for ConfigPanel, and expose types in SmartUserPicker
+- [`1e59fd65c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e59fd65c5) - ED-8720 Add OnUnhandledClickHandler for Renderer
+
+### Patch Changes
+
+- [`dfda163bf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfda163bf6) - ED-10594: track severity for browserFreeze event and add getAnalyticsEventSeverity util
+- [`eeedafee68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeedafee68) - ED-10532: Add new UI element to pick a date range - for supporting the cql component
+- [`b13e3991ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b13e3991ef) - ED-10723: severity for rendered event
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [`330da4d675`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330da4d675) - Update translations via Traduki from issue/translation-2020-10-08T000543
+- Updated dependencies
+
 ## 51.2.0
 
 ### Minor Changes

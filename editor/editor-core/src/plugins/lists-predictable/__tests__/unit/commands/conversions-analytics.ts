@@ -244,4 +244,32 @@ describe('list-conversion', () => {
       }),
     });
   });
+
+  it(`list-conversion analytics for untoggling list`, () => {
+    const { editorView } = editor(
+      // prettier-ignore
+      doc(
+        ul(
+          li(p('A{<>}')),
+        ),
+      ),
+    );
+    toggleBulletList(editorView, INPUT_METHOD.KEYBOARD);
+
+    expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      action: ACTION.CONVERTED,
+      actionSubject: ACTION_SUBJECT.LIST,
+      actionSubjectId: ACTION_SUBJECT_ID.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: expect.objectContaining({
+        transformedFrom: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+        inputMethod: INPUT_METHOD.KEYBOARD,
+        itemIndexAtSelectionStart: 0,
+        itemIndexAtSelectionEnd: 0,
+        indentLevelAtSelectionStart: 0,
+        indentLevelAtSelectionEnd: 0,
+        itemsInSelection: 1,
+      }),
+    });
+  });
 });

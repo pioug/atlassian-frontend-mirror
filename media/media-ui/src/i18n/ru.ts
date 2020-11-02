@@ -65,7 +65,6 @@ export default {
   'fabric.media.failed_to_load': 'Не удалось загрузить файл.',
   'fabric.media.give_feedback': 'Оставить отзыв',
   'fabric.media.image': 'изображение',
-  'fabric.media.image.search': 'Поиск',
   'fabric.media.image_format_invalid_error':
     'Не удалось загрузить изображение (недействительный формат).',
   'fabric.media.image_size_too_large_error':
@@ -93,6 +92,7 @@ export default {
   'fabric.media.or': 'или',
   'fabric.media.pause': 'поставить на паузу',
   'fabric.media.play': 'воспроизвести',
+  'fabric.media.preview': 'Предпросмотр',
   'fabric.media.recent_uploads': 'Недавно загруженные файлы',
   'fabric.media.remove_image': 'Удалить изображение',
   'fabric.media.retry': 'Повторить',
@@ -115,6 +115,7 @@ export default {
   'fabric.media.upload_image': 'Загрузите изображение',
   'fabric.media.upload_photo': 'Загрузите фото',
   'fabric.media.video': 'видео',
+  'fabric.media.view': 'Просмотреть',
   'fabric.media.webgl_warning_description':
     'Эта функция недоступна. Чтобы добавлять примечания к изображениям, используйте браузер с поддержкой WebGL.',
   'fabric.media.zoom_in': 'увеличить',

@@ -2,16 +2,16 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import { Checkbox } from '@atlaskit/checkbox';
-import { CheckboxField, FieldProps } from '@atlaskit/form';
+import { Field, FieldProps } from '@atlaskit/form';
 import { BooleanField } from '@atlaskit/editor-common/extensions';
 import Toggle from '@atlaskit/toggle';
 
 import { getSafeParentedName } from '../utils';
-import { OnBlur } from '../types';
+import { ValidationError, OnBlur } from '../types';
 
 import FieldMessages from '../FieldMessages';
 
-const isChecked = (value?: string | boolean) => {
+function isChecked(value: string | boolean | undefined) {
   if (typeof value === 'string') {
     return value === 'true';
   }
@@ -21,11 +21,7 @@ const isChecked = (value?: string | boolean) => {
   }
 
   return false;
-};
-
-type Props = {
-  label: string;
-} & FieldProps<string>;
+}
 
 const ToggleFieldWrapper = styled.div`
   display: flex;
@@ -39,8 +35,16 @@ const RequiredIndicator = styled.span`
   color: #bf2600;
 `;
 
-function BooleanToggle({ label, ...fieldProps }: Props) {
-  const { id, isRequired } = fieldProps;
+function BooleanToggle({
+  label,
+  defaultValue,
+  ...fieldProps
+}: {
+  label: string;
+  defaultValue: boolean;
+} & FieldProps<boolean>) {
+  const { id, isRequired, value } = fieldProps;
+
   return (
     <ToggleFieldWrapper>
       <ToggleLabel id={id} htmlFor={id}>
@@ -49,9 +53,19 @@ function BooleanToggle({ label, ...fieldProps }: Props) {
           <RequiredIndicator aria-hidden="true">*</RequiredIndicator>
         ) : null}
       </ToggleLabel>
-      <Toggle {...fieldProps} />
+      <Toggle
+        {...fieldProps}
+        defaultChecked={defaultValue}
+        value={value ? 'true' : 'false'}
+      />
     </ToggleFieldWrapper>
   );
+}
+
+function validate(value: boolean | undefined, isRequired: boolean) {
+  if (isRequired && !value) {
+    return ValidationError.Required;
+  }
 }
 
 export default function Boolean({
@@ -63,23 +77,37 @@ export default function Boolean({
   onBlur: OnBlur;
   parentName?: string;
 }) {
-  const { name, label, description, isRequired, defaultValue } = field;
+  const {
+    name,
+    label,
+    description,
+    isRequired = false,
+    defaultValue = false,
+  } = field;
   const showToggle = field.style === 'toggle';
+  // WARNING: strings were previously used for booleans, protect that here
+  const defaultIsChecked = isChecked(defaultValue);
 
   return (
-    <CheckboxField
-      key={name}
+    <Field<boolean>
       name={getSafeParentedName(name, parentName)}
       isRequired={isRequired}
-      defaultIsChecked={isChecked(defaultValue)}
+      validate={value => validate(value, isRequired)}
+      defaultValue={defaultIsChecked}
     >
       {({ fieldProps, error }) => {
-        const { value = '' } = fieldProps;
+        const { value = false } = fieldProps;
         const props = {
           ...fieldProps,
           label,
-          onChange: (value?: string | React.FormEvent<HTMLInputElement>) => {
-            fieldProps.onChange(value);
+          onChange: (value?: boolean | React.FormEvent<HTMLInputElement>) => {
+            if (typeof value === 'boolean') {
+              fieldProps.onChange(value);
+            } else {
+              fieldProps.onChange(
+                (value as React.ChangeEvent<HTMLInputElement>)?.target?.checked,
+              );
+            }
             onBlur(name);
           },
           value,
@@ -88,14 +116,14 @@ export default function Boolean({
         return (
           <Fragment>
             {showToggle ? (
-              <BooleanToggle {...props} />
+              <BooleanToggle {...props} defaultValue={defaultIsChecked} />
             ) : (
-              <Checkbox {...props} />
+              <Checkbox {...props} value={value ? 'true' : 'false'} />
             )}
             <FieldMessages error={error} description={description} />
           </Fragment>
         );
       }}
-    </CheckboxField>
+    </Field>
   );
 }

@@ -62,7 +62,6 @@ export default {
   'fabric.media.failed_to_load': '로드하지 못했습니다',
   'fabric.media.give_feedback': '피드백 보내기',
   'fabric.media.image': '이미지',
-  'fabric.media.image.search': '검색',
   'fabric.media.image_format_invalid_error':
     '이미지를 로드할 수 없습니다. 형식이 유효하지 않습니다.',
   'fabric.media.image_size_too_large_error':
@@ -89,6 +88,7 @@ export default {
   'fabric.media.or': '또는',
   'fabric.media.pause': '일시 정지',
   'fabric.media.play': '재생',
+  'fabric.media.preview': '미리 보기',
   'fabric.media.recent_uploads': '최근 업로드',
   'fabric.media.remove_image': '이미지 제거',
   'fabric.media.retry': '다시 시도',
@@ -111,6 +111,7 @@ export default {
   'fabric.media.upload_image': '이미지 업로드',
   'fabric.media.upload_photo': '사진 업로드',
   'fabric.media.video': '동영상',
+  'fabric.media.view': '보기',
   'fabric.media.webgl_warning_description':
     '사용하시는 브라우저가 WebGL을 지원하지 않습니다. 이미지를 주석으로 달려면 WebGL을 사용할 수 있는 브라우저를 사용하십시오.',
   'fabric.media.zoom_in': '확대',

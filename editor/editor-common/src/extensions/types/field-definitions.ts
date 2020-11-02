@@ -11,6 +11,23 @@ export type Option = {
   icon?: string | React.ReactNode;
 };
 
+import { SmartUserPickerProps } from '@atlaskit/user-picker';
+
+export type UserFieldContext = Pick<
+  SmartUserPickerProps,
+  | 'siteId'
+  | 'principalId'
+  | 'fieldId'
+  | 'productKey'
+  | 'containerId'
+  | 'objectId'
+  | 'childObjectId'
+  | 'productAttributes'
+  | 'includeUsers'
+  | 'includeGroups'
+  | 'includeTeams'
+>;
+
 interface BaseFieldDefinition {
   description?: string;
   label: string;
@@ -106,6 +123,19 @@ export interface DateField extends BaseFieldDefinition {
   placeholder?: string;
 }
 
+export interface DateRangeField extends BaseFieldDefinition {
+  type: 'date-range';
+  defaultValue?: DateRangeResult;
+  items: Option[];
+}
+
+export interface DateRangeResult {
+  type: 'date-range';
+  value: 'custom' | any;
+  from?: string;
+  to?: string;
+}
+
 export type FieldHandlerLink = {
   type: string;
 };
@@ -130,6 +160,16 @@ export interface CustomMultipleField extends BaseCustomField {
   defaultValue?: string[];
 }
 
+export interface UserField extends BaseFieldDefinition {
+  type: 'user';
+  defaultValue?: string | string[] | null | undefined;
+  placeholder?: string;
+  isMultiple?: boolean;
+  options: {
+    provider: FieldHandlerLink;
+  };
+}
+
 export interface Fieldset extends BaseFieldDefinition {
   type: 'fieldset';
   fields: FieldDefinition[];
@@ -145,12 +185,17 @@ export type NativeField =
   | StringField
   | NumberField
   | BooleanField
-  | DateField;
+  | DateField
+  | DateRangeField;
 
 export type CustomField = CustomSingleField | CustomMultipleField;
 
-export type FieldDefinition = NativeField | CustomField | Fieldset;
+export type FieldDefinition = NativeField | CustomField | Fieldset | UserField;
 
 export const isFieldset = (field: FieldDefinition): field is Fieldset => {
   return field.type === 'fieldset';
+};
+
+export const isDateRange = (value: any): value is DateRangeResult => {
+  return value && value.hasOwnProperty('type') && value.type === 'date-range';
 };

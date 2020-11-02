@@ -1,42 +1,70 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
-import styled from 'styled-components';
-
+import { docsText } from '../common';
 import TextArea from '../src';
 
-const Div = styled.div`
-  max-width: 500px;
-`;
+export default () => {
+  let textareaElement: HTMLTextAreaElement | undefined;
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component {
-  private textareaElement: HTMLTextAreaElement | undefined;
-
-  private focus = () => {
-    if (this.textareaElement) {
-      this.textareaElement.focus();
+  const focus = () => {
+    if (textareaElement) {
+      textareaElement.focus();
     }
   };
 
-  render() {
-    return (
-      <Div>
-        <p>Disabled:</p>
-        <TextArea value="hello" name="text" isDisabled />
-        <p>Invalid, resize: auto, compact:</p>
-        <TextArea resize="auto" name="area" isInvalid isCompact />
-        <p>Smart, ref:</p>
-        <div id="smart">
-          {/*
+  return (
+    <div
+      css={{
+        maxWidth: 500,
+      }}
+    >
+      <p>Disabled:</p>
+      <TextArea
+        value="hello"
+        name="text"
+        isDisabled
+        isCompact
+        testId="disabledTextArea"
+      />
+      <p>Invalid & Compact</p>
+      <TextArea name="area" isInvalid isCompact testId="invalidTextArea" />
+      <p>Resize:smart </p>
+      <TextArea
+        resize="smart"
+        name="area"
+        defaultValue={docsText}
+        testId="minimumRowsTextArea"
+      />
+      <p>Monospaced & MinimumRows: 3</p>
+      <TextArea
+        name="area"
+        isMonospaced
+        defaultValue="Text in monospaced code font"
+        testId="monospacedTextArea"
+        minimumRows={3}
+      />
+      <p>Resize: auto, MaxHeight: 20vh & ReadOnly</p>
+      <TextArea
+        resize="auto"
+        maxHeight="20vh"
+        name="area"
+        isReadOnly
+        defaultValue="The default text is readonly"
+        testId="autoResizeTextArea"
+      />
+      <p>Focus & required</p>
+      <div id="smart">
+        {/*
           // @ts-ignore */}
-          <TextArea
-            ref={(ref: any) => {
-              this.textareaElement = ref;
-            }}
-          />
-        </div>
-        <button onClick={this.focus}>focus</button>
-      </Div>
-    );
-  }
-}
+        <TextArea
+          isRequired
+          ref={(ref: any) => {
+            textareaElement = ref;
+          }}
+        />
+      </div>
+      <button onClick={focus}>focus</button>
+    </div>
+  );
+};

@@ -222,11 +222,20 @@ export class TableRowNodeView implements NodeView {
     this.emitOff();
   }
 
-  ignoreMutation() {
+  ignoreMutation(
+    mutationRecord: MutationRecord | { type: 'selection'; target: Element },
+  ) {
     /* tableRows are not directly editable by the user
      * so it should be safe to ignore mutations that we cause
-     * by updating styles and classnames on this DOM element */
-    return true;
+     * by updating styles and classnames on this DOM element
+     *
+     * Update: should allow mutations for row selection to avoid known issue with table selection highlight in firefox
+     * Related bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=1289673
+     * */
+    return !(
+      mutationRecord.type === 'selection' &&
+      mutationRecord.target.tagName === 'TR'
+    );
   }
 
   /* receive external events */

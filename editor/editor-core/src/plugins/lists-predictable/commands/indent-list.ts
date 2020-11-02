@@ -41,7 +41,13 @@ export function indentList(
       return true;
     }
 
-    const currentListNode = findFirstParentListNode($from);
+    const parentListNode = findFirstParentListNode($from);
+    if (!parentListNode) {
+      // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
+      return true;
+    }
+
+    const currentListNode = parentListNode.node;
     const actionSubjectId = isBulletList(currentListNode)
       ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
       : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;

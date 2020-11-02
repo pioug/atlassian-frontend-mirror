@@ -30,6 +30,7 @@ import { useReflowDectector } from './hooks/use-reflow-detector';
 import throttle from 'lodash/throttle';
 import { withIntlProvider } from '../i18n/with-intl-provider';
 import { InjectedIntl, injectIntl } from 'react-intl';
+import { usePageTitle } from './hooks/use-page-title';
 
 const MOBILE_SAMPLING_LIMIT = 10;
 
@@ -48,7 +49,7 @@ export interface MobileEditorProps extends EditorProps {
   intl: InjectedIntl;
 }
 
-// Editor options. Keep as external cost to prevent unnecesary re-renders;
+// Editor options. Keep as external cost to prevent unnecessary re-renders;
 const layoutOptions = {
   allowBreakout: true,
 };
@@ -65,6 +66,7 @@ export function MobileEditor(props: MobileEditorProps) {
   const collabEdit = useCollabEdit(bridge, props.createCollabProvider);
   const analyticsClient: AnalyticsWebClient = useAnalytics();
   const quickInsert = useQuickInsert(bridge);
+  usePageTitle(bridge, collabEdit);
 
   // Hooks to create the options once and prevent rerender
   const mediaOptions = useMedia(props.mediaProvider);

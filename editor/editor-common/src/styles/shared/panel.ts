@@ -89,7 +89,7 @@ const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
 
 export const getPanelTypeBackground = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
-  props: ThemeProps,
+  props: ThemeProps = {},
 ): string => {
   const light = lightPanelColor[panelType];
   const dark = hexToRgba(darkPanelColor[panelType], darkPanelOpacity);

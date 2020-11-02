@@ -69,7 +69,6 @@ export default {
   'fabric.media.failed_to_load': 'Échec du chargement',
   'fabric.media.give_feedback': 'Envoyer un commentaire',
   'fabric.media.image': 'image',
-  'fabric.media.image.search': 'rechercher',
   'fabric.media.image_format_invalid_error':
     "Impossible de charger l'image, le format n'est pas valide.",
   'fabric.media.image_size_too_large_error':
@@ -97,6 +96,7 @@ export default {
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'mettre en pause',
   'fabric.media.play': 'démarrer',
+  'fabric.media.preview': 'Afficher un aperçu',
   'fabric.media.recent_uploads': 'Importations récentes',
   'fabric.media.remove_image': "Supprimer l'image",
   'fabric.media.retry': 'Réessayer',
@@ -121,6 +121,7 @@ export default {
   'fabric.media.upload_image': 'Importer une image',
   'fabric.media.upload_photo': 'Importer une photo',
   'fabric.media.video': 'vidéo',
+  'fabric.media.view': 'Afficher',
   'fabric.media.webgl_warning_description':
     'Votre navigateur ne prend pas en charge WebGL. Utilisez un navigateur compatible WebGL pour annoter les images.',
   'fabric.media.zoom_in': 'zoomer',

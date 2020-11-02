@@ -2,6 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import ToolbarButton from '../../../ui/ToolbarButton';
+import Button from '@atlaskit/button';
 
 const noop = () => {};
 
@@ -63,5 +64,21 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
     tooltip.simulate('mouseover');
     expect(tooltip.prop('position')).toEqual('left');
     toolbarButtonElem.unmount();
+  });
+
+  it('should pass testId down to the button', () => {
+    const toolbarButtonElem = mount(
+      <ToolbarButton
+        testId="some-test-id"
+        onClick={noop}
+        selected={false}
+        disabled={false}
+        title="tooltip text"
+        titlePosition="left"
+      />,
+    );
+
+    const button = toolbarButtonElem.find(Button);
+    expect(button.props().testId).toEqual('some-test-id');
   });
 });

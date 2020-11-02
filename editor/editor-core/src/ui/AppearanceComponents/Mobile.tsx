@@ -9,7 +9,7 @@ import { mobileScrollPluginKey } from '../../plugins/mobile-scroll/plugin-factor
 import WithPluginState from '../WithPluginState';
 import WithFlash from '../WithFlash';
 import ContentStyles from '../ContentStyles';
-import { ClickAreaMobile as ClickArea } from '../Addon';
+import { ClickAreaMobile as ClickArea, ClickAreaBlock } from '../Addon';
 import { EditorView } from 'prosemirror-view';
 
 export interface MobileEditorProps {
@@ -70,7 +70,7 @@ export function MobileAppearance({
         const paddingVh = (mobilePaddingTop * 100) / windowHeight;
         minHeight = 100 - keyboardHeightVh - paddingVh;
       }
-
+      const GUTTER_PADDING = 8;
       return (
         <WithFlash animate={maxContentSizeReached}>
           <MobileEditor
@@ -81,7 +81,16 @@ export function MobileAppearance({
               editorView={editorView || undefined}
               minHeight={minHeight}
             >
-              <ContentArea>{children}</ContentArea>
+              <ContentArea>
+                <ClickAreaBlock editorView={editorView || undefined}>
+                  <div
+                    style={{ padding: `0 ${GUTTER_PADDING}px` }}
+                    className="ak-editor-content-area"
+                  >
+                    {children}
+                  </div>
+                </ClickAreaBlock>
+              </ContentArea>
             </ClickArea>
           </MobileEditor>
         </WithFlash>

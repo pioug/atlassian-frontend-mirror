@@ -62,7 +62,24 @@ export function getJSXAttributesByName({
     .find(j.JSXAttribute)
     .filter(attribute => {
       const matches = j(attribute)
+        // This will find identifiers on nested jsx elements
+        // so we are going to do a filter to ensure we are only
+        // going one level deep
         .find(j.JSXIdentifier)
+        .filter(identifer => {
+          j(identifer).closest(j.JSXOpeningElement);
+          // Checking we are on the same level as the jsx element
+          const closest = j(identifer).closest(j.JSXOpeningElement).nodes()[0];
+
+          if (!closest) {
+            return false;
+          }
+          return (
+            closest.name.type === 'JSXIdentifier' &&
+            element.openingElement.name.type === 'JSXIdentifier' &&
+            element.openingElement.name.name === closest.name.name
+          );
+        })
         .filter(identifier => identifier.value.name === attributeName);
       return Boolean(matches.length);
     });
@@ -346,8 +363,6 @@ export function isUsingThroughSpread({
               if (value.init.type !== 'ObjectExpression') {
                 return false;
               }
-
-              // console.log('properties', value.init.properties);
 
               const match: boolean =
                 value.init.properties.filter(

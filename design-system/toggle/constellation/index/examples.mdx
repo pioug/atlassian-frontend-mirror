@@ -3,6 +3,7 @@ order: 0
 ---
 
 import ToggleDefault from '../../examples/constellation/toggle-default';
+import ToggleStateless from '../../examples/constellation/toggle-stateless-default';
 import ToggleLarge from '../../examples/constellation/toggle-large';
 import ToggleDisabled from '../../examples/constellation/toggle-disabled';
 import ToggleTooltip from '../../examples/constellation/toggle-tooltip';
@@ -36,3 +37,15 @@ To let people know what will happen when they interact with a toggle,
 use a [tooltip](/components/tooltip).
 
 <Example Component={ToggleTooltip} packageName="@atlaskit/toggle" />
+
+## Default
+
+Set the initial checked value by setting `defaultChecked` (this is optional, by default it will be set as false if not provided). After that point the checked value is controlled by the component. Provide an `onChange` handler to be notified of checked value changes.
+
+<Example Component={ToggleDefault} packageName="@atlaskit/toggle" />
+
+## Stateless
+
+In a stateless Toggle, manage the checked state of the input by providing the `isChecked` prop. This requires an `onChange` handler to control the state value that you pass into the `isChecked` prop.
+
+<Example Component={ToggleStateless} packageName="@atlaskit/toggle" />

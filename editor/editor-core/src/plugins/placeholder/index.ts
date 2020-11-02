@@ -1,5 +1,5 @@
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
-import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
+import { DecorationSet, Decoration } from 'prosemirror-view';
 import { EditorPlugin } from '../../types';
 import {
   isInEmptyLine,
@@ -46,40 +46,6 @@ export function createPlaceholderDecoration(
       key: 'placeholder',
     }),
   ]);
-}
-
-function removePlaceholderIfData(view: EditorView, event: Event) {
-  const placeHolderState = getPlaceholderState(view.state);
-  const compositionEvent = event as CompositionEvent;
-
-  const hasData =
-    compositionEvent.type === 'compositionstart' ||
-    (compositionEvent.type === 'compositionupdate' && !!compositionEvent.data);
-
-  if (placeHolderState.hasPlaceholder && hasData) {
-    view.dispatch(
-      view.state.tr.setMeta(pluginKey, { removePlaceholder: true }),
-    );
-  }
-
-  return false;
-}
-
-function applyPlaceholderIfEmpty(view: EditorView, event: Event) {
-  const placeHolderState = getPlaceholderState(view.state);
-  const compositionEvent = event as CompositionEvent;
-
-  const emptyData = compositionEvent.data === '';
-
-  if (!placeHolderState.hasPlaceholder && emptyData) {
-    view.dispatch(
-      view.state.tr.setMeta(pluginKey, {
-        applyPlaceholderIfEmpty: true,
-      }),
-    );
-  }
-
-  return false;
 }
 
 function setPlaceHolderState(
@@ -198,16 +164,6 @@ export function createPlugin(
           return createPlaceholderDecoration(editorState, placeholderText, pos);
         }
         return;
-      },
-      // Workaround for ED-4063: On Mobile / Android, a user can start typing but it won't trigger
-      // an Editor state update so the placeholder will still be shown. We hook into the compositionstart
-      // and compositionend events instead, to make sure we show/hide the placeholder for these devices.
-      handleDOMEvents: {
-        compositionstart: removePlaceholderIfData,
-        compositionupdate: (view: EditorView, event: Event) =>
-          applyPlaceholderIfEmpty(view, event) ||
-          removePlaceholderIfData(view, event),
-        compositionend: applyPlaceholderIfEmpty,
       },
     },
   });

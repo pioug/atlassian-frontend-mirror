@@ -68,7 +68,6 @@ export default {
   'fabric.media.failed_to_load': 'ไม่สามารถโหลดได้สำเร็จ',
   'fabric.media.give_feedback': 'ให้ข้อคิดเห็น',
   'fabric.media.image': 'รูปภาพ',
-  'fabric.media.image.search': 'ค้นหา',
   'fabric.media.image_format_invalid_error':
     'ไม่สามารถโหลดรูปภาพได้ รูปแบบไฟล์ไม่ถูกต้อง',
   'fabric.media.image_size_too_large_error':
@@ -94,6 +93,7 @@ export default {
   'fabric.media.or': 'หรือ',
   'fabric.media.pause': 'หยุดชั่วคราว',
   'fabric.media.play': 'เล่น',
+  'fabric.media.preview': 'แสดงตัวอย่าง',
   'fabric.media.recent_uploads': 'รายการอัปโหลดล่าสุด',
   'fabric.media.remove_image': 'ลบรูปภาพออก',
   'fabric.media.retry': 'ลองอีกครั้ง',
@@ -117,6 +117,7 @@ export default {
   'fabric.media.upload_image': 'อัปโหลดรูปภาพ',
   'fabric.media.upload_photo': 'อัปโหลดภาพ',
   'fabric.media.video': 'วิดีโอ',
+  'fabric.media.view': 'ดู',
   'fabric.media.webgl_warning_description':
     'เบราว์เซอร์ของคุณไม่รองรับ WebGL ใช้เบราว์เซอร์ที่เปิดใช้งาน WebGL ในการทำหมายเหตุประกอบรูปภาพ',
   'fabric.media.zoom_in': 'ซูมเข้า',

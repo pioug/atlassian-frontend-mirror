@@ -80,7 +80,6 @@ BrowserTestCase(
     const firstCell = getSelectorForTableCell({
       row: 2,
       cell: 1,
-      cellType: 'td',
     });
     const lastCell = getSelectorForTableCell({ row: 2, cell: 2 });
     await hoverResizeHandler(page, 2, 1);

@@ -14,6 +14,7 @@ import ExcelSpreadsheetIcon from '@atlaskit/icon-file-type/glyph/excel-spreadshe
 import SpreadsheetIcon from '@atlaskit/icon-file-type/glyph/spreadsheet/24';
 import PresentationIcon from '@atlaskit/icon-file-type/glyph/presentation/24';
 import SourceCodeIcon from '@atlaskit/icon-file-type/glyph/source-code/24';
+import { isCodeViewerItem } from './codeViewer';
 
 export function dataURItoFile(
   dataURI: string,
@@ -184,22 +185,6 @@ const mimeTypes: MimeTypesRepresentation[] = [
     icon: GoogleDocIcon,
   },
   {
-    label: 'source-code',
-    mimeTypes: [
-      'text/plain',
-      'application/x-javascript',
-      'application/javascript',
-      'application/ecmascript',
-      'text/javascript',
-      'text/ecmascript',
-      'text/html',
-      'text/css',
-      'application/x-pointplus',
-      'text/x-c',
-    ],
-    icon: SourceCodeIcon,
-  },
-  {
     label: 'microsoft-word',
     mimeTypes: [
       'application/msword',
@@ -256,6 +241,10 @@ export function getMimeIcon(mimeType: string, fileName: string) {
   //returnthe appropriate icon and its label if we have it
   if (iconInfo) {
     return iconInfo;
+  }
+
+  if (isCodeViewerItem(fileName)) {
+    return { label: 'source-code', icon: SourceCodeIcon };
   }
 
   // we are not able to determine what icon to render based on the mimeType

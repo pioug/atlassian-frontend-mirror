@@ -1,4 +1,3 @@
-import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -11,6 +10,7 @@ import adf from '../common/__fixtures__/noData-adf.json';
 import {
   deleteColumn,
   resizeColumn,
+  resizeColumnAndReflow,
   insertTable,
   grabResizeHandle,
   clickFirstCell,
@@ -22,8 +22,13 @@ import {
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
-// TODO: https://product-fabric.atlassian.net/browse/ED-7721
-describe.skip('Snapshot Test: table resizing', () => {
+
+const waitToolbarThenSnapshot = async (page: PuppeteerPage) => {
+  await page.waitForSelector(tableSelectors.floatingToolbar);
+  await snapshot(page);
+};
+
+describe('Snapshot Test: table resizing', () => {
   describe('Re-sizing', () => {
     let page: PuppeteerPage;
 
@@ -37,21 +42,22 @@ describe.skip('Snapshot Test: table resizing', () => {
     });
 
     it(`resize a column with content width`, async () => {
-      await resizeColumn(page, { colIdx: 2, amount: 123, row: 2 });
+      await resizeColumnAndReflow(page, { colIdx: 2, amount: 123, row: 2 });
       await animationFrame(page);
       await animationFrame(page);
-      await snapshot(page);
-      await resizeColumn(page, { colIdx: 2, amount: -100, row: 2 });
+
+      await waitToolbarThenSnapshot(page);
+      await resizeColumnAndReflow(page, { colIdx: 2, amount: -100, row: 2 });
       await animationFrame(page);
       await animationFrame(page);
-      await snapshot(page);
+
+      await waitToolbarThenSnapshot(page);
     });
 
     it(`snaps back to layout width after column removal`, async () => {
       await deleteColumn(page, 1);
-      // after deleting the middle column the cursor will land exactly on an insert col btn
-      await waitForTooltip(page);
-      await snapshot(page);
+
+      await waitToolbarThenSnapshot(page);
     });
 
     describe('Overflow Table', () => {
@@ -60,7 +66,7 @@ describe.skip('Snapshot Test: table resizing', () => {
         await resizeColumn(page, { colIdx: 2, amount: 500, row: 2 });
       });
       test('should overflow table when resizing over the available size', async () => {
-        await snapshot(page);
+        await waitToolbarThenSnapshot(page);
       });
 
       test('should keep overflow when resizing an table with overflow', async () => {
@@ -71,7 +77,7 @@ describe.skip('Snapshot Test: table resizing', () => {
         // Scroll back so we can see the result of our resize.
         await scrollTable(page, 0);
 
-        await snapshot(page);
+        await waitToolbarThenSnapshot(page);
       });
 
       describe('unselected', () => {
@@ -104,10 +110,11 @@ describe.skip('Snapshot Test: table resizing', () => {
       await page.waitForSelector(controlSelector);
       await page.click(controlSelector);
       await page.waitForSelector(tableSelectors.selectedCell);
-      await resizeColumn(page, { colIdx: 1, amount: -100, row: 2 });
+      await resizeColumnAndReflow(page, { colIdx: 1, amount: -100, row: 2 });
       await animationFrame(page);
       await animationFrame(page);
-      await snapshot(page);
+
+      await waitToolbarThenSnapshot(page);
     });
   });
 });
@@ -123,7 +130,7 @@ describe('Snapshot Test: table resize handle', () => {
   describe('when table has merged cells', () => {
     it(`should render resize handle spanning all rows`, async () => {
       await grabResizeHandle(page, { colIdx: 2, row: 2 });
-      await snapshot(page);
+      await waitToolbarThenSnapshot(page);
     });
   });
 });
@@ -146,7 +153,7 @@ describe('Snapshot Test: table scale', () => {
 
   it(`should not overflow the table with dynamic text sizing enabled`, async () => {
     await toggleBreakout(page, 1);
-    await snapshot(page);
+    await waitToolbarThenSnapshot(page);
   });
 });
 
@@ -159,21 +166,21 @@ describe('Snapshot Test: table with merged cell on first row', () => {
   });
 
   it('should resize the first cell on first row', async () => {
-    await resizeColumn(page, { colIdx: 1, row: 1, amount: 100 });
+    await resizeColumnAndReflow(page, { colIdx: 1, row: 1, amount: 100 });
     await animationFrame(page);
-    await snapshot(page);
+    await waitToolbarThenSnapshot(page);
   });
 
   it('should resize the first cell on second row', async () => {
-    await resizeColumn(page, { colIdx: 1, row: 2, amount: 100 });
+    await resizeColumnAndReflow(page, { colIdx: 1, row: 2, amount: 100 });
     await animationFrame(page);
-    await snapshot(page);
+    await waitToolbarThenSnapshot(page);
   });
 
   it('should resize the first cell on third row', async () => {
-    await resizeColumn(page, { colIdx: 1, row: 3, amount: 100 });
+    await resizeColumnAndReflow(page, { colIdx: 1, row: 3, amount: 100 });
     await animationFrame(page);
-    await snapshot(page);
+    await waitToolbarThenSnapshot(page);
   });
 });
 
@@ -190,7 +197,7 @@ describe('Snapshot Test: table resize handle line', () => {
     async row => {
       await grabResizeHandle(page, { colIdx: 1, row });
       await animationFrame(page);
-      await snapshot(page);
+      await waitToolbarThenSnapshot(page);
     },
   );
 });

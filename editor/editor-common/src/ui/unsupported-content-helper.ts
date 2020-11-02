@@ -12,7 +12,7 @@ export function getUnsupportedContent(
   let locale = intl ? intl.locale : defaultLocale;
   let finalMessage = message.defaultMessage;
 
-  if (node && locale === defaultLocale) {
+  if (node && locale.startsWith(defaultLocale)) {
     const { originalValue } = node.attrs;
     if (
       originalValue.text ||

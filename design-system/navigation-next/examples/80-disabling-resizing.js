@@ -6,7 +6,7 @@ import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import {
   GlobalNav,
@@ -35,7 +35,7 @@ export default () => (
           <UIControllerSubscriber>
             {({ state: { isResizeDisabled }, enableResize, disableResize }) => (
               <Fragment>
-                <ToggleStateless
+                <Toggle
                   isChecked={!isResizeDisabled}
                   onChange={isResizeDisabled ? enableResize : disableResize}
                 />{' '}

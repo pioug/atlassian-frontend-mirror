@@ -61,7 +61,6 @@ export default {
   'fabric.media.failed_to_load': 'Falha ao carregar',
   'fabric.media.give_feedback': 'Enviar comentários',
   'fabric.media.image': 'imagem',
-  'fabric.media.image.search': 'Pesquisar',
   'fabric.media.image_format_invalid_error':
     'Não foi possível carregar a imagem, o formato não é válido.',
   'fabric.media.image_size_too_large_error':

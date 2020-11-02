@@ -57,7 +57,6 @@ describe('Snapshot Test: table insert row', () => {
     const lastCell = getSelectorForTableCell({
       row: 3,
       cell: 1,
-      cellType: 'td',
     });
     await click(page, lastCell);
     await pressKeyCombo(page, ['Control', 'Alt', 'ArrowUp']);
@@ -67,7 +66,6 @@ describe('Snapshot Test: table insert row', () => {
     const lastCell = getSelectorForTableCell({
       row: 3,
       cell: 1,
-      cellType: 'td',
     });
     await click(page, lastCell);
     await pressKeyCombo(page, ['Control', 'Alt', 'ArrowDown']);

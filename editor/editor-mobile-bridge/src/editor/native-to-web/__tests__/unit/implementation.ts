@@ -2,7 +2,14 @@ import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import { bridge } from '../../../mobile-editor-element';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import NativeBridge from '../../../web-to-native/bridge';
+import { dismissCommand } from '@atlaskit/editor-core';
+import { EditorViewWithComposition } from '../../../../types';
+
 jest.mock('../../../web-to-native');
+jest.mock('@atlaskit/editor-core', () => ({
+  ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
+  dismissCommand: jest.fn(),
+}));
 
 describe('Collab Web Bridge', () => {
   let bridge: WebBridgeImpl;
@@ -188,5 +195,35 @@ describe('PageTitle Bridge', () => {
       'title:changed',
       expect.anything(),
     );
+  });
+});
+
+describe('TypeAhead Bridge', () => {
+  let toNativeBridge: jest.Mocked<NativeBridge>;
+
+  beforeEach(async () => {
+    ({ toNativeBridge } = require('../../../web-to-native'));
+    bridge.editorView = {} as EditorViewWithComposition;
+  });
+
+  afterEach(() => {
+    toNativeBridge.dismissTypeAhead.mockClear();
+    ((dismissCommand as Function) as jest.Mock<{}>).mockClear();
+  });
+
+  it('should invoke dismissTypeAhead on native bridge when dismissCommand succeedes', () => {
+    ((dismissCommand as Function) as jest.Mock<{}>).mockImplementation(
+      () => () => true,
+    );
+    bridge.cancelTypeAhead();
+    expect(toNativeBridge.dismissTypeAhead).toHaveBeenCalled();
+  });
+
+  it('should not invoke dismissTypeAhead on native bridge when dismissCommand fails', () => {
+    ((dismissCommand as Function) as jest.Mock<{}>).mockImplementation(
+      () => () => false,
+    );
+    bridge.cancelTypeAhead();
+    expect(toNativeBridge.dismissTypeAhead).not.toHaveBeenCalled();
   });
 });

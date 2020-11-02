@@ -13,7 +13,6 @@ import {
   ACTION,
   ACTION_SUBJECT,
   TABLE_ACTION,
-  SEVERITY,
 } from './types';
 import { SELECTION_TYPE, SELECTION_POSITION } from './types/utils';
 import { analyticsPluginKey } from './plugin-key';
@@ -225,18 +224,3 @@ export function getAnalyticsEventsFromTransaction(
       [],
     );
 }
-
-export const getAnalyticsEventSeverity = (
-  duration: number,
-  normalThreshold: number,
-  degradedThreshold: number,
-) => {
-  if (duration > normalThreshold && duration <= degradedThreshold) {
-    return SEVERITY.DEGRADED;
-  }
-  if (duration > degradedThreshold) {
-    return SEVERITY.BLOCKING;
-  }
-
-  return SEVERITY.NORMAL;
-};

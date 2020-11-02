@@ -8,12 +8,14 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   browser,
   ErrorReporter,
+  getAnalyticsEventSeverity,
   getResponseEndTime,
   measureRender,
   ProviderFactory,
   Transformer,
   startMeasure,
   stopMeasure,
+  shouldForceTracking,
 } from '@atlaskit/editor-common';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
@@ -57,12 +59,17 @@ import { getDocStructure, SimplifiedNode } from '../utils/document-logger';
 import { isFullPage } from '../utils/is-full-page';
 import measurements from '../utils/performance/measure-enum';
 import { getNodesCount } from '../utils/document';
-import { analyticsEventKey } from '@atlaskit/editor-common';
+import { analyticsEventKey, SEVERITY } from '@atlaskit/editor-common';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
 import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 import { countNodes } from '../utils/count-nodes';
+import { shouldTrackTransaction } from '../utils/performance/should-track-transaction';
+import {
+  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+} from './consts';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -118,6 +125,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     payload: AnalyticsEventPayload;
     channel?: string;
   }) => void;
+  proseMirrorRenderedSeverity?: SEVERITY;
 
   static contextTypes = {
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
@@ -506,8 +514,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       return;
     }
 
-    const { enabled: trackinEnabled } = this.transactionTrackingProp;
-    trackinEnabled && startMeasure(`🦉 ReactEditorView::dispatchTransaction`);
+    const shouldTrack = shouldTrackTransaction(this.transactionTrackingProp);
+    shouldTrack && startMeasure(`🦉 ReactEditorView::dispatchTransaction`);
 
     const nodes: PMNode[] = findChangedNodesFromTransaction(transaction);
     const changedNodesValid = validateNodes(nodes);
@@ -516,32 +524,32 @@ export default class ReactEditorView<T = {}> extends React.Component<
       const oldEditorState = this.view.state;
 
       // go ahead and update the state now we know the transaction is good
-      trackinEnabled && startMeasure(`🦉 EditorView::state::apply`);
+      shouldTrack && startMeasure(`🦉 EditorView::state::apply`);
       const editorState = this.view.state.apply(transaction);
-      trackinEnabled && stopMeasure(`🦉 EditorView::state::apply`);
+      shouldTrack && stopMeasure(`🦉 EditorView::state::apply`);
 
       if (editorState === oldEditorState) {
         return;
       }
 
-      trackinEnabled && startMeasure(`🦉 EditorView::updateState`);
+      shouldTrack && startMeasure(`🦉 EditorView::updateState`);
       this.view.updateState(editorState);
-      trackinEnabled && stopMeasure(`🦉 EditorView::updateState`);
+      shouldTrack && stopMeasure(`🦉 EditorView::updateState`);
 
-      trackinEnabled && startMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
+      shouldTrack && startMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
       this.onEditorViewStateUpdated({
         transaction,
         oldEditorState,
         newEditorState: editorState,
       });
-      trackinEnabled && stopMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
+      shouldTrack && stopMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
 
       if (this.props.editorProps.onChange && transaction.docChanged) {
         const source = transaction.getMeta('isRemote') ? 'remote' : 'local';
 
-        trackinEnabled && startMeasure(`🦉 ReactEditorView::onChange`);
+        shouldTrack && startMeasure(`🦉 ReactEditorView::onChange`);
         this.props.editorProps.onChange(this.view, { source });
-        trackinEnabled && stopMeasure(`🦉 ReactEditorView::onChange`);
+        shouldTrack && stopMeasure(`🦉 ReactEditorView::onChange`);
       }
       this.editorState = editorState;
     } else {
@@ -562,7 +570,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       });
     }
 
-    trackinEnabled &&
+    shouldTrack &&
       stopMeasure(`🦉 ReactEditorView::dispatchTransaction`, () => {});
   };
 
@@ -585,6 +593,24 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
   createEditorView = (node: HTMLDivElement) => {
     measureRender(measurements.PROSEMIRROR_RENDERED, (duration, startTime) => {
+      const proseMirrorRenderedTracking = this.props.editorProps
+        ?.performanceTracking?.proseMirrorRenderedTracking;
+
+      const forceSeverityTracking =
+        typeof proseMirrorRenderedTracking === 'undefined' &&
+        shouldForceTracking();
+
+      this.proseMirrorRenderedSeverity =
+        !!forceSeverityTracking || proseMirrorRenderedTracking?.trackSeverity
+          ? getAnalyticsEventSeverity(
+              duration,
+              proseMirrorRenderedTracking?.severityNormalThreshold ??
+                PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+              proseMirrorRenderedTracking?.severityDegradedThreshold ??
+                PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+            )
+          : undefined;
+
       if (this.view) {
         this.dispatchAnalyticsEvent({
           action: ACTION.PROSEMIRROR_RENDERED,
@@ -594,6 +620,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
             startTime,
             nodes: getNodesCount(this.view.state.doc),
             ttfb: getResponseEndTime(),
+            severity: this.proseMirrorRenderedSeverity,
           },
           eventType: EVENT_TYPE.OPERATIONAL,
         });

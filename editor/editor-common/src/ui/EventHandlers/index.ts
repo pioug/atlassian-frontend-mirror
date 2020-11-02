@@ -27,13 +27,22 @@ export type SmartCardEventClickHandler = (
   url?: string,
 ) => void;
 
+export type OnUnhandledClickHandler = (event: React.MouseEvent) => void;
+
 export interface MentionEventHandlers {
   onClick?: MentionEventHandler;
   onMouseEnter?: MentionEventHandler;
   onMouseLeave?: MentionEventHandler;
 }
 
+/** Callbacks for mouse events in the renderer */
 export interface EventHandlers {
+  /** This fires when there is a click in the renderer that wasn’t handled by anything in the
+   * renderer. Example usage of this callback: load the editor in place of the renderer when
+   * renderer text is clicked.
+   * See example at /examples.html?groupId=editor&packageId=editor-core&exampleId=full-page-click-to-edit
+   *  */
+  onUnhandledClick?: OnUnhandledClickHandler;
   mention?: MentionEventHandlers;
   media?: {
     onClick?: CardEventClickHandler;
@@ -44,4 +53,15 @@ export interface EventHandlers {
   smartCard?: {
     onClick?: SmartCardEventClickHandler;
   };
+  /*
+  Note: If you add more handlers here (eg. Adding a new interactive component), update
+  the logic inside packages/editor/renderer/src/ui/Renderer/index.tsx so that onUnhandledClick isn't
+  fired incorrectly (see https://product-fabric.atlassian.net/browse/ED-8720) and add to the tests
+  in either:
+  - packages/editor/renderer/src/__tests__/unit/ui/event-handlers.tsx
+  - packages/editor/editor-core/src/__tests__/integration/media/full-flow-insert-and-publish.ts
+  - packages/editor/renderer/src/__tests__/visual-regression/event-handlers.ts
+
+  The fact this message has to exist isn't ideal, but previously Jira needed a PR.
+  */
 }

@@ -24,26 +24,12 @@ import {
   B500,
 } from '../../utils/colors';
 
-export interface TextColorAttributesFull {
-  /**
-   * @pattern "^#[0-9a-f]{6}$"
-   */
-  color: string;
-}
-
-/**
- * @stage 0
- */
-export interface TextColorAttributesStage0 {
+export interface TextColorAttributes {
   /**
    * @pattern "^#[0-9a-fA-F]{6}$"
    */
   color: string;
 }
-
-export type TextColorAttributes =
-  | TextColorAttributesFull
-  | TextColorAttributesStage0;
 
 /**
  * @name textColor_mark

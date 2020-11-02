@@ -75,7 +75,13 @@ export type BaseOwnProps = {
 };
 
 export type BaseProps = Combine<
-  // Not allowing 'disabled' as a prop, as we control disabled through isDisabled
-  Omit<React.AllHTMLAttributes<HTMLElement>, 'disabled'>,
+  Combine<
+    // Removing `disabled` as a valid prop. We control that through 'isDisabled'
+    Omit<React.AllHTMLAttributes<HTMLElement>, 'disabled'>,
+    // Being super safe and letting consumers know that these two data attributes will not be applied
+    // - data-testid controlled through testId prop
+    // - data-has-overlay used for partial disabling
+    { 'data-testid'?: never; 'data-has-overlay'?: never }
+  >,
   BaseOwnProps
 >;

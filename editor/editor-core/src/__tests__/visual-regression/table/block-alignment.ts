@@ -41,8 +41,7 @@ describe('Table with block looks correct for fullpage:', () => {
     );
   });
 
-  // TODO: ED-7814
-  it.skip('default layout with dark theme', async () => {
+  it('default layout with dark theme', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,

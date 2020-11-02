@@ -7,6 +7,7 @@ export default interface NativeBridge
     PromiseBridge,
     ListBridge,
     StatusBridge,
+    TypeAheadBridge,
     LinkBridge,
     UndoRedoBridge,
     AnalyticsBridge,

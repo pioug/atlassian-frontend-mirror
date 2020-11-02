@@ -1,38 +1,60 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import {
-  editable,
-  expectToMatchDocument,
-  fullpage,
-  quickInsert,
-} from '../_helpers';
+
 import {
   goToEditorTestingExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
-import { selectors } from './_utils';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common';
+import { panelSelectors } from '../../__helpers/page-objects/_panel';
+import {
+  editable,
+  expectToMatchDocument,
+  fullpage,
+  getProsemirrorSelection,
+} from '../_helpers';
+
+import panelAdf from './__fixtures__/basic-panel-adf.json';
+import { calcUserDragAndDropFromMidPoint } from '../../__helpers/utils';
 
 BrowserTestCase(
   'selection.ts: Writing inside the panel, selecting panel and typing should drop text in panel',
-  { skip: ['edge'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,
+      defaultValue: panelAdf,
     });
 
-    await page.click(fullpage.placeholder);
-    await quickInsert(page, 'Info panel');
-    await page.waitForSelector(selectors.PANEL_EDITOR_CONTAINER);
-
-    await page.type(editable, 'this text should be in the panel');
-
     // Select the left margin of the panel, selecting the node
-    await page.click(`.${PanelSharedCssClassName.icon}`);
-
+    await page.click(panelSelectors.icon);
     await page.type(editable, 'this text should be in doc root');
 
     await expectToMatchDocument(page, testName);
+  },
+);
+
+BrowserTestCase(
+  "doesn't select panel node if click and drag before releasing mouse",
+  {},
+  async (client: any) => {
+    const page = await goToEditorTestingExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+      defaultValue: panelAdf,
+    });
+
+    // click and drag from centre of panel out to padding
+    const boundingRect = await page.getBoundingRect(panelSelectors.panel);
+    await page.simulateUserDragAndDrop(
+      ...calcUserDragAndDropFromMidPoint(boundingRect, 5),
+    );
+
+    const prosemirrorSelection = await getProsemirrorSelection(page);
+    if (!prosemirrorSelection) {
+      throw new Error('Unable to get Prosemirror selection');
+    }
+    expect(prosemirrorSelection.type).not.toBe('node');
   },
 );

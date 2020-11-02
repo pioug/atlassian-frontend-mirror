@@ -54,9 +54,15 @@ interface ThemedRemovableTagProps extends RemovableTagProps {
 const defaultBeforeRemoveAction = () => true;
 const noop = () => {};
 
+enum TagStatus {
+  Showing = 'showing',
+  Removing = 'removing',
+  Removed = 'removed',
+}
+
 const InnerRemovableTag = forwardRef(
   (props: ThemedRemovableTagProps, ref: React.Ref<any>) => {
-    const [isRemoved, setIsRemoved] = useState(false);
+    const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
 
     const {
       appearance = 'default',
@@ -91,7 +97,7 @@ const InnerRemovableTag = forwardRef(
 
     const handleRemoveComplete = useCallback(() => {
       onAfterRemoveActionWithAnalytics(text);
-      setIsRemoved(true);
+      setStatus(TagStatus.Removed);
     }, [onAfterRemoveActionWithAnalytics, text]);
 
     const handleRemoveRequest = useCallback(() => {
@@ -111,6 +117,10 @@ const InnerRemovableTag = forwardRef(
       },
       [handleRemoveRequest],
     );
+
+    const removingTag = useCallback(() => setStatus(TagStatus.Removing), []);
+
+    const showingTag = useCallback(() => setStatus(TagStatus.Showing), []);
 
     const {
       chromeColors,
@@ -142,6 +152,8 @@ const InnerRemovableTag = forwardRef(
         tabIndex={0}
         aria-label={removeButtonLabel}
         onClick={handleRemoveRequest}
+        onFocus={removingTag}
+        onBlur={showingTag}
         onKeyPress={onKeyPress}
         type="button"
         data-testid={`close-button-${testId}`}
@@ -151,7 +163,7 @@ const InnerRemovableTag = forwardRef(
     ) : undefined;
 
     const tagCss = [
-      chromeContainerStyles,
+      ...chromeContainerStyles,
       isLink ? chromeContainerForLinkStyles : undefined,
     ];
 
@@ -167,7 +179,7 @@ const InnerRemovableTag = forwardRef(
 
     return (
       <ExitingPersistence>
-        {!isRemoved && (
+        {!(status === TagStatus.Removed) && (
           <ShrinkOut>
             {motion => {
               return (
@@ -175,6 +187,8 @@ const InnerRemovableTag = forwardRef(
                   ref={mergeRefs(motion.ref, ref)}
                   testId={testId}
                   tagCss={tagCss}
+                  data-removable
+                  data-removing={status === TagStatus.Removing}
                   role={isLink ? 'link' : undefined}
                   before={
                     <Before isRounded={isRounded} elemBefore={elemBefore} />

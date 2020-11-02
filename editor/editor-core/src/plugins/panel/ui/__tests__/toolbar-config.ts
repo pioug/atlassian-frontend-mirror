@@ -17,7 +17,6 @@ describe('getToolbarItems', () => {
   it('should return 7 items when isCustomPanelEnabled is false', () => {
     const items = getToolbarItems(
       dummyFormatMessage,
-      undefined,
       defaultSchema.nodes.panel,
       false,
       providerFactory,
@@ -28,7 +27,6 @@ describe('getToolbarItems', () => {
   describe('if isCustomPanelEnabled is true', () => {
     const items = getToolbarItems(
       dummyFormatMessage,
-      undefined,
       defaultSchema.nodes.panel,
       true,
       providerFactory,

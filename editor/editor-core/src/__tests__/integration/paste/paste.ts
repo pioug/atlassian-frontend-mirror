@@ -218,10 +218,10 @@ BrowserTestCase(
      we've got this bug in Firefox where it doubles up the items when pasting
   */
   /**
-   * We are skipping Chrome because we are using ['Shift', 'Insert'] in page.paste()
+   * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
    * which would actually paste the text.
    */
-  { skip: ['chrome', 'edge', 'safari', 'firefox'] },
+  { skip: ['edge', 'safari', 'firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(

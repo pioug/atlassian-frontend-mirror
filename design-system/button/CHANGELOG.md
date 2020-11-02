@@ -1,5 +1,30 @@
 # @atlaskit/button
 
+## 15.1.2
+
+### Patch Changes
+
+- [`d7540c04cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7540c04cd) - Before `15.x` it was possible for you to pass in `data-testid` and for that to be applied. In `15.x` we changed how props are spread so that is no longer possible. Please use the public API prop `testId` to control `data-testid`
+
+  We have:
+
+  - Improved the types of button so that if you pass in `data-testid` or `data-has-overlay` you will get a type warning
+  - Added a _codemod_ to shift over any usages of `data-testid` to `testId` on any of our buttons (`CustomThemeButton`, `LoadingButton` or `StandardButton`)
+
+  #### Upgrading with codemod
+
+  You first need to have the latest button installed before you can run the codemod
+
+  ```
+  yarn upgrade @atlaskit/button@^15.1.1
+  ```
+
+  Then you can use our cli tool to run the codemod
+
+  ```
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
 ## 15.1.1
 
 ### Patch Changes

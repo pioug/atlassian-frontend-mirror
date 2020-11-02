@@ -56,8 +56,11 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'Přetáhněte své obrázky sem.',
   'fabric.media.drag_and_drop_your_files':
     'Přetáhněte své soubory kamkoli na stránku nebo',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Přetáhněte své soubory a složky kamkoli na stránku nebo',
   'fabric.media.drop_your_files': 'Chcete-li nahrát soubory, přetáhněte je sem',
   'fabric.media.drop_your_files_here': 'Přetáhněte své soubory sem.',
+  'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'povolit zobrazení na celou obrazovku',
   'fabric.media.error_generating_preview': 'Chyba při vytváření náhledu',
   'fabric.media.error_hint_critical':
@@ -68,7 +71,6 @@ export default {
   'fabric.media.failed_to_load': 'Nepodařilo se načíst',
   'fabric.media.give_feedback': 'Váš názor',
   'fabric.media.image': 'obrázek',
-  'fabric.media.image.search': 'vyhledat',
   'fabric.media.image_format_invalid_error':
     'Nepodařilo se nahrát obrázek, formát je neplatný.',
   'fabric.media.image_size_too_large_error':
@@ -97,15 +99,18 @@ export default {
   'fabric.media.or': 'nebo',
   'fabric.media.pause': 'pozastavit',
   'fabric.media.play': 'přehrát',
+  'fabric.media.preview': 'Náhled',
   'fabric.media.recent_uploads': 'Nedávno nahráno',
   'fabric.media.remove_image': 'Odstranit obrázek',
   'fabric.media.retry': 'Zkusit znovu',
   'fabric.media.save': 'Uložit',
+  'fabric.media.search': 'vyhledat',
   'fabric.media.search_all_gifs': 'Prohledejte všechny GIFy!',
   'fabric.media.share_files_instantly': 'Okamžitě je nasdílíme.',
   'fabric.media.something_went_wrong': 'Něco se pokazilo.',
   'fabric.media.srclink': 'Zobrazit v',
   'fabric.media.srclinkunknown': 'Zobrazit originál',
+  'fabric.media.text': 'text',
   'fabric.media.try_again': 'Zkusit znovu',
   'fabric.media.try_another_account': 'Zkuste jiný účet',
   'fabric.media.try_downloading_file':
@@ -121,6 +126,7 @@ export default {
   'fabric.media.upload_image': 'Nahrát obrázek',
   'fabric.media.upload_photo': 'Nahrát fotku',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Zobrazit',
   'fabric.media.webgl_warning_description':
     'Váš prohlížeč nepodporuje knihovnu WebGL. Chcete-li přidávat k obrázkům poznámky, použijte prohlížeč, který ji podporuje.',
   'fabric.media.zoom_in': 'přiblížit',

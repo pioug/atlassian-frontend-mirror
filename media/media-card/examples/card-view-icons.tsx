@@ -54,7 +54,7 @@ const mimeTypes: { mime: string; name: string }[] = [
   { mime: 'application/vnd.google-apps.form', name: '.google-form' },
   { mime: 'text/csv', name: '.csv' },
   { mime: 'application/x-iwork-keynote-sffkey', name: '.presentation' },
-  { mime: 'text/plain', name: '.source-code' },
+  { mime: 'text/plain', name: '.source-code.c' },
 ];
 
 const IconsTable = () => {

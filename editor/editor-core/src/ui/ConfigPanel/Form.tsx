@@ -47,9 +47,8 @@ function Form({
     }
   }, [autoSave, submitButtonRef]);
 
-  useEffect(() => {
-    tryAutoSave();
-  }, [autoSaveTrigger, tryAutoSave]);
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(tryAutoSave, [autoSaveTrigger]);
 
   return (
     <React.Fragment>

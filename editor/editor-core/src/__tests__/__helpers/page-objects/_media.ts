@@ -293,7 +293,10 @@ export class FullPageEditor extends Page {
 }
 
 interface ResizeMediaSingleOptions {
-  resizeBy: number;
+  amount: number;
+  units:
+    | 'pixels' // Resize using px value (for resizing down - negative number)
+    | 'percent'; // Resizing using % of initial size (for resizing down - negative value)
 }
 
 export interface ResizeMediaSingleResult {
@@ -303,7 +306,7 @@ export interface ResizeMediaSingleResult {
 
 export const resizeMediaSingle = async (
   page: Page,
-  { resizeBy }: ResizeMediaSingleOptions,
+  { amount, units }: ResizeMediaSingleOptions,
 ): Promise<ResizeMediaSingleResult> => {
   const mediaSingleSelector = '.mediaSingleView-content-wrap';
   await page.waitForSelector(mediaSingleSelector);
@@ -317,13 +320,27 @@ export const resizeMediaSingle = async (
   await page.waitForSelector(
     '[data-testid="media-card-view"] [data-test-selected]',
   );
+
   const startWidth = await cardViewElement.getSize('width');
-  await moveRightResizeHandler(page, mediaSingleElement, resizeBy);
+  if (units === 'pixels') {
+    await moveRightResizeHandler(page, mediaSingleElement, amount);
+  } else if (units === 'percent' && amount >= -1 && amount <= 1) {
+    const delta = Math.floor(startWidth * amount);
+    await moveRightResizeHandler(page, mediaSingleElement, delta);
+  } else {
+    throw new Error(
+      'resizeByPx or resizeByPt should be defined, where resizeByPt is between -1 and 1',
+    );
+  }
 
-  // Wait for animation to finish and new size settle. Change this to be more deterministic
-  await page.pause(1000);
+  let endWidth = await cardViewElement.getSize('width');
+  await page.waitUntil(async () => {
+    const latestWidth = await cardViewElement.getSize('width');
+    const isTheSameAsPrevious = latestWidth === endWidth;
+    endWidth = latestWidth;
+    return isTheSameAsPrevious;
+  });
 
-  const endWidth = await cardViewElement.getSize('width');
   return {
     startWidth,
     endWidth,

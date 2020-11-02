@@ -21,8 +21,6 @@ export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();
 };
 
-const userId = `ari:cloud:identity::user/${getRandomUser()}`;
-
 const defaultCollabUrl =
   'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
@@ -173,6 +171,7 @@ export default class Example extends React.Component<Props, State> {
                   allowMediaSingle: true,
                   customDropzoneContainer: parentContainer,
                 }}
+                allowPanel={true}
                 emojiProvider={
                   emoji.storyData.getEmojiResource() as Promise<EmojiProvider>
                 }
@@ -190,7 +189,6 @@ export default class Example extends React.Component<Props, State> {
                     createSocketIOCollabProvider({
                       url: collabUrl,
                       documentAri: `ari:cloud:confluence:collab-test:blog/${documentId}`,
-                      userId,
                     }),
                   ),
                   inviteToEditHandler: this.inviteToEditHandler,

@@ -64,7 +64,6 @@ export default {
   'fabric.media.failed_to_load': 'Помилка завантаження',
   'fabric.media.give_feedback': 'Залишити відгук',
   'fabric.media.image': 'зображення',
-  'fabric.media.image.search': 'пошук',
   'fabric.media.image_format_invalid_error':
     'Не вдалося завантажити зображення. Неправильний формат.',
   'fabric.media.image_size_too_large_error':
@@ -93,6 +92,7 @@ export default {
   'fabric.media.or': 'або',
   'fabric.media.pause': 'пауза',
   'fabric.media.play': 'відтворення',
+  'fabric.media.preview': 'Попередній перегляд',
   'fabric.media.recent_uploads': 'Недавні завантаження',
   'fabric.media.remove_image': 'Видалити зображення',
   'fabric.media.retry': 'Повторити спробу',
@@ -117,6 +117,7 @@ export default {
   'fabric.media.upload_image': 'Завантажте зображення',
   'fabric.media.upload_photo': 'Завантажте фото',
   'fabric.media.video': 'відео',
+  'fabric.media.view': 'Переглянути',
   'fabric.media.webgl_warning_description':
     'Ваш браузер не підтримує WebGL. Щоб додавати примітки до зображень, потрібен браузер із підтримкою WebGL.',
   'fabric.media.zoom_in': 'збільшення',

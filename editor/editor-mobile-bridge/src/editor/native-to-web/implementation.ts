@@ -49,6 +49,7 @@ import {
   insertExpand,
   insertRule,
   QuickInsertItemId,
+  dismissCommand,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
@@ -764,5 +765,14 @@ export default class WebBridgeImpl
     return () => {
       setupPromise.then(destroy => destroy());
     };
+  }
+
+  cancelTypeAhead() {
+    if (!this.editorView) {
+      return;
+    }
+    if (dismissCommand()(this.editorView.state, this.editorView.dispatch)) {
+      toNativeBridge.dismissTypeAhead();
+    }
   }
 }

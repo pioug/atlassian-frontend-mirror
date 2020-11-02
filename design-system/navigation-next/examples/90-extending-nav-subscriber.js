@@ -16,7 +16,7 @@ import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize as gridSizeFn } from '@atlaskit/theme';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import {
   ContainerHeader,
@@ -362,12 +362,12 @@ class ExtendingNavSubscriber extends React.Component {
           <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <div>
               <Label label="Toggle flyout on hover (experimental)" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isFlyoutAvailable}
                 onChange={this.onFlyoutToggle}
               />
               <Label label="Toggle alternate hover behaviour (experimental)" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isAlternateFlyoutBehaviourEnabled}
                 onChange={this.onAlternateBehaviourToggle}
               />

@@ -12,6 +12,7 @@ import {
   MentionBridge,
   PromiseBridge,
   StatusBridge,
+  TypeAheadBridge,
   TextFormattingBridge,
   UndoRedoBridge,
   ContentBridge,
@@ -32,6 +33,7 @@ export default class AndroidBridge implements NativeBridge {
   promiseBridge: PromiseBridge;
   listBridge: ListBridge;
   statusBridge: StatusBridge;
+  typeAheadBridge: TypeAheadBridge;
   linkBridge: LinkBridge;
   undoRedoBridge: UndoRedoBridge;
   analyticsBridge: AnalyticsBridge;
@@ -50,6 +52,7 @@ export default class AndroidBridge implements NativeBridge {
     this.promiseBridge = win.promiseBridge!;
     this.listBridge = win.listBridge!;
     this.statusBridge = win.statusBridge!;
+    this.typeAheadBridge = win.typeAheadBridge!;
     this.linkBridge = win.linkBridge!;
     this.undoRedoBridge = win.undoRedoBridge!;
     this.analyticsBridge = win.analyticsBridge!;
@@ -238,6 +241,16 @@ export default class AndroidBridge implements NativeBridge {
   updateTitle(title: string) {
     if (this.pageTitleBridge) {
       this.pageTitleBridge.updateTitle(title);
+    }
+  }
+
+  typeAheadQuery(query: string, trigger: string): void {}
+
+  typeAheadDisplayItems(query: string, trigger: string, items: string): void {}
+
+  dismissTypeAhead() {
+    if (this.typeAheadBridge) {
+      this.typeAheadBridge.dismissTypeAhead();
     }
   }
 }

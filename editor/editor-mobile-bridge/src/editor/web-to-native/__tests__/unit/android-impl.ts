@@ -268,5 +268,14 @@ describe('Web To Native', () => {
         ).toHaveBeenCalledWith(title);
       });
     });
+
+    describe('TypeAhead Bridge', () => {
+      it('should call dismissTypeAhead in native', function () {
+        androidBridge.dismissTypeAhead();
+        expect(
+          windowWithMockBridges.typeAheadBridge!.dismissTypeAhead,
+        ).toHaveBeenCalled();
+      });
+    });
   });
 });

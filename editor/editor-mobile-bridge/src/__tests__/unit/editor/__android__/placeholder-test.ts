@@ -5,11 +5,7 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers';
 
-import {
-  androidComposeStart,
-  androidComposeContinue,
-  androidComposeEnd,
-} from '../../_utils';
+import { androidComposeContinue, androidComposeEnd } from '../../_utils';
 
 import { EditorViewWithComposition } from '../../../../types';
 
@@ -45,40 +41,6 @@ describe('placeholder on mobile', () => {
 
     insertText(editorView, 'a', 0);
     expect(editorView.dom.innerHTML).toEqual('<p>a</p><p><br></p>');
-  });
-
-  // Ensure the placeholder value is removed as soon as input (via composition) begins
-  it('disappears when a compositionstart event occurs', () => {
-    const editorView = editor(doc(p()));
-
-    // start composition
-    androidComposeStart(editorView, 'hello');
-    expect(editorView.composing).toBeTruthy();
-
-    expect(editorView.dom.innerHTML).toEqual('<p><br></p>');
-  });
-
-  it('stays hidden and keeps content after a full composition completes', () => {
-    const editorView = editor(doc(p()));
-
-    // start composition
-    androidComposeStart(editorView, 'a');
-    expect(editorView.composing).toBeTruthy();
-
-    expect(editorView.dom.innerHTML).toEqual('<p><br></p>');
-
-    jest.runOnlyPendingTimers();
-
-    // mutate DOM to final state
-    editorView.dom.children[0].innerHTML = 'ab';
-
-    // continue composition
-    androidComposeContinue(editorView, 'ab');
-    expect(editorView.composing).toBeTruthy();
-
-    jest.runOnlyPendingTimers();
-
-    expect(editorView.state.doc).toEqualDocument(doc(p('ab')));
   });
 
   it('reappears after text is backspaced', () => {

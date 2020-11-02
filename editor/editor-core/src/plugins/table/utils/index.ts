@@ -40,6 +40,7 @@ export {
   isInsertRowButton,
   isColumnControlsDecorations,
   isTableControlsButton,
+  isTableContainerOrWrapper,
   isRowControlsButton,
   getColumnOrRowIndex,
   getMousePositionHorizontalRelativeByElement,

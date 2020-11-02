@@ -3,7 +3,11 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import {
+  measureRender,
+  ProviderFactory,
+  SEVERITY,
+} from '@atlaskit/editor-common';
 import { toJSON } from '../../../utils';
 import ReactEditorView from '../../ReactEditorView';
 import { EditorConfig } from '../../../types/editor-config';
@@ -36,8 +40,17 @@ import {
   analyticsEventKey,
   editorAnalyticsChannel,
 } from '../../../plugins/analytics/consts';
+import {
+  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+} from '../../consts';
 
 import * as FireAnalyticsEvent from '../../../plugins/analytics/fire-analytics-event';
+
+jest.mock('@atlaskit/editor-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+  measureRender: jest.fn(),
+}));
 
 const portalProviderAPI: any = {
   render() {},
@@ -793,5 +806,42 @@ describe('@atlaskit/editor-core', () => {
         expect(onChange).not.toHaveBeenCalled();
       });
     });
+  });
+
+  describe('proseMirrorRenderedSeverity', () => {
+    it.each`
+      condition                                                                         | threshold                                               | severity
+      ${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
+      ${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
+      ${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
+    `(
+      'should set $severity to severity when $condition',
+      ({ condition, threshold, severity }) => {
+        (measureRender as any).mockImplementationOnce(
+          (name: any, callback: any) => {
+            callback && callback(threshold, 1);
+          },
+        );
+
+        const wrapper = mountWithIntl(
+          <ReactEditorView
+            {...requiredProps()}
+            {...analyticsProps()}
+            allowAnalyticsGASV3={true}
+            editorProps={{
+              performanceTracking: {
+                proseMirrorRenderedTracking: {
+                  trackSeverity: true,
+                  severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+                  severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+                },
+              },
+            }}
+          />,
+        );
+
+        expect(wrapper.instance().proseMirrorRenderedSeverity).toBe(severity);
+      },
+    );
   });
 });

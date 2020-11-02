@@ -193,5 +193,40 @@ describe('Config panel', () => {
         },
       });
     });
+
+    it('returns an errors object property for deserialization on failure for each field', async () => {
+      const options = {
+        isDynamic: true,
+        transformer: {
+          type: 'broken-group',
+        },
+      };
+      const result = await deserialize(
+        manifest,
+        {
+          title: 'testing errored serializers',
+          settings: 'Q = texttt | depth = 23 | USER = llemos',
+        },
+        [
+          {
+            label: 'Confluence settings',
+            name: 'settings',
+            type: 'fieldset',
+            options,
+            fields: [],
+          },
+          {
+            label: 'My title fieldset',
+            name: 'title',
+            type: 'fieldset',
+            options,
+            fields: [],
+          },
+        ],
+      );
+      const error = 'Something is broken';
+      expect(result.errors.settings).toStrictEqual(error);
+      expect(result.errors.title).toStrictEqual(error);
+    });
   });
 });

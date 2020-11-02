@@ -58,6 +58,7 @@ export const nativeFields: FieldDefinition[] = [
     description: 'On or Off',
     type: 'boolean',
     style: 'toggle',
+    defaultValue: true,
   },
   {
     name: 'date-start',
@@ -232,13 +233,37 @@ export const nativeFields: FieldDefinition[] = [
     },
     fields: [
       {
+        name: 'created',
+        label: 'Created at',
+        description: `This is how we select date range in the cql component`,
+        type: 'date-range',
+        items: [
+          { label: 'Any date', value: '' },
+          { label: 'Last 24 hours', value: 'now(-1d)' },
+          { label: 'Last week', value: 'now(-1w)' },
+          { label: 'Last month', value: 'now(-1M)' },
+          { label: 'Last year', value: 'now(-1y)' },
+        ],
+      },
+      {
+        name: 'last-modified',
+        label: 'Last modified',
+        type: 'date-range',
+        items: [
+          { label: 'Today', value: 'now(-1d)' },
+          { label: 'This week', value: 'now(-1w)' },
+          { label: 'This month', value: 'now(-1M)' },
+          { label: 'This year', value: 'now(-1y)' },
+        ],
+      },
+      {
         name: 'Q',
         label: 'Search term',
         type: 'string',
       },
       {
-        name: 'USER',
-        label: 'User',
+        name: 'fs-custom-select-icon',
+        label: 'Custom: User',
         type: 'custom',
         options: {
           resolver: {
@@ -389,7 +414,7 @@ export const customFields: FieldDefinition[] = [
     },
   },
   {
-    name: 'custom-label-create-multi',
+    name: 'custom-label-create-multiple',
     label: 'Custom: Create Label(s)',
     description: 'Select or create label(s)',
     type: 'custom',
@@ -398,30 +423,6 @@ export const customFields: FieldDefinition[] = [
       isCreatable: true,
       resolver: {
         type: 'label',
-      },
-    },
-  },
-  {
-    name: 'custom-space-key',
-    label: 'Custom: Space',
-    isRequired: true,
-    type: 'custom',
-    placeholder: 'Search for space key...',
-    options: {
-      resolver: {
-        type: 'spacekey',
-      },
-    },
-  },
-  {
-    name: 'custom-space-key-multi',
-    label: 'Custom: Space(s)',
-    isRequired: true,
-    isMultiple: true,
-    type: 'custom',
-    options: {
-      resolver: {
-        type: 'spacekey',
       },
     },
   },
@@ -463,6 +464,16 @@ export const customFields: FieldDefinition[] = [
     options: {
       resolver: {
         type: 'confluence-content',
+      },
+    },
+  },
+  {
+    name: 'user-jdog',
+    label: 'JDog User',
+    type: 'user',
+    options: {
+      provider: {
+        type: 'user-jdog-provider',
       },
     },
   },

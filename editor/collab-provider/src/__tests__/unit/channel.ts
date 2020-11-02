@@ -34,7 +34,6 @@ const allExpectedEventNames: string[] = [
 const testChannelConfig: Config = {
   url: `http://dummy-url:6666`,
   documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-  userId: 'ari:cloud:identity::user/foo:testuser',
   createSocket: createSocketIOSocket,
 };
 
@@ -134,6 +133,7 @@ describe('channel unit tests', () => {
         expect(data).toEqual(<InitPayload>{
           doc: expect.stringMatching(/.*/),
           version: expect.any(Number),
+          userId: '123',
         });
         expect(channel.getInitialized()).toBe(true);
         done();
@@ -147,6 +147,7 @@ describe('channel unit tests', () => {
       type: 'initial',
       doc: '',
       version: 1234567,
+      userId: '123',
     });
   });
 

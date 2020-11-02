@@ -13,6 +13,8 @@ import { ThemeModes } from '@atlaskit/theme';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
 
+export { getContentBoundingRectTopLeftCoords } from '@atlaskit/editor-test-helpers';
+
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 600;
 
@@ -38,11 +40,14 @@ export const deviceViewPorts = {
   [Device.iPhonePlus]: { width: 414, height: 736 },
 };
 
-export async function goToRendererTestingExample(page: PuppeteerPage) {
+export async function goToRendererTestingExample(
+  page: PuppeteerPage,
+  enableClickToEdit?: boolean,
+) {
   const url = getExampleUrl(
     'editor',
     'renderer',
-    'testing',
+    enableClickToEdit ? 'testing-with-click-to-edit' : 'testing',
     global.__BASEURL__,
   );
   await navigateToUrl(page, url);
@@ -88,6 +93,8 @@ type InitRendererWithADFOptions = {
   rendererProps?: RendererPropsOverrides;
   allowSideEffects?: SideEffectOptions;
   themeMode?: ThemeModes;
+  /** Swap renderer to 'dummy' editor when when renderer calls onUnhandledClick */
+  enableClickToEdit?: boolean;
 };
 
 export async function initRendererWithADF(
@@ -100,9 +107,10 @@ export async function initRendererWithADF(
     rendererProps,
     allowSideEffects,
     themeMode,
+    enableClickToEdit,
   }: InitRendererWithADFOptions,
 ) {
-  await goToRendererTestingExample(page);
+  await goToRendererTestingExample(page, enableClickToEdit);
 
   // Set the viewport to the right one
   if (viewport) {

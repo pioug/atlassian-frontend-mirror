@@ -130,8 +130,12 @@ export async function onChangeAction(
   // WARNING: after this, editorView.state may have changed
   const newParameters = await processParametersAfter(updatedParameters);
   const { positions } = getPluginState(editorView.state) as ExtensionState;
-  if (!positions) return;
-  if (!(key in positions)) return;
+  if (!positions) {
+    return;
+  }
+  if (!(key in positions)) {
+    return;
+  }
 
   const { node } = nodeWithPos;
   const newNode = buildExtensionNode(
@@ -147,7 +151,9 @@ export async function onChangeAction(
     node.content,
   );
 
-  if (!newNode) return;
+  if (!newNode) {
+    return;
+  }
 
   const positionUpdated = positions[key];
   const transaction = editorView.state.tr.replaceWith(

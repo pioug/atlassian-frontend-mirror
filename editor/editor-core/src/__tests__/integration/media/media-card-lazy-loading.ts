@@ -38,10 +38,7 @@ BrowserTestCase(
     // First, we expect cards to be in loading state
     await page.waitForSelector(lazySelector);
     // All of them should be off the viewport.
-    await page.waitUntil(async () => {
-      const cards = await page.$$(lazySelector);
-      return cards.length === 6;
-    });
+    await page.waitForElementCount(lazySelector, 6);
 
     // Now, scroll to the bottom.
     await page.execute((editorScrollParentSelector: any) => {
@@ -52,10 +49,7 @@ BrowserTestCase(
     // Wait for card to finish resolving.
     await page.waitForSelector(cardSelector, { timeout: 4000000 });
     // All of them should in the viewport now.
-    await page.waitUntil(async () => {
-      const cards = await page.$$(cardSelector);
-      return cards.length === 7;
-    });
+    await page.waitForElementCount(cardSelector, 7);
     expect(
       await page.$eval(editable, getDocFromElement),
     ).toMatchCustomDocSnapshot(testName);

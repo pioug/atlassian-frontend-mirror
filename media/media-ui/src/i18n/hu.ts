@@ -62,7 +62,6 @@ export default {
   'fabric.media.failed_to_load': 'A betöltés nem sikerült',
   'fabric.media.give_feedback': 'Visszajelzés küldése',
   'fabric.media.image': 'kép',
-  'fabric.media.image.search': 'keresés',
   'fabric.media.image_format_invalid_error':
     'Nem sikerült feltölteni a képet, mert a formátum érvénytelen.',
   'fabric.media.image_size_too_large_error':

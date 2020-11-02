@@ -69,7 +69,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "This is an inline cardbirdman.jpg. This is end of sentence.This is an inline card",
+          "text": "This is an inline card",
           "type": "text",
         },
         Object {

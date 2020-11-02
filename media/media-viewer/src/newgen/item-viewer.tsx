@@ -8,11 +8,12 @@ import {
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
+import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
 import { Outcome } from './domain';
 import { ImageViewer } from './viewers/image';
 import { VideoViewer } from './viewers/video';
 import { DocViewer } from './viewers/doc';
-import { CodeViewer, isCodeViewerItem } from './viewers/codeViewer';
+import { CodeViewer } from './viewers/codeViewer';
 import { Spinner } from './loading';
 import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
@@ -169,7 +170,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
 
     if (
       getMediaFeatureFlag('codeViewer', featureFlags) &&
-      isCodeViewerItem(item)
+      isCodeViewerItem(item.name)
     ) {
       return (
         <CodeViewer

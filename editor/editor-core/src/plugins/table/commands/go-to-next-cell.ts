@@ -22,6 +22,7 @@ export const goToNextCell = (direction: Direction): Command => (
   if (!table) {
     return false;
   }
+
   const map = TableMap.get(table.node);
   const { tableCell, tableHeader } = state.schema.nodes;
   const cell = findParentNodeOfType([tableCell, tableHeader])(state.selection)!;
@@ -29,19 +30,24 @@ export const goToNextCell = (direction: Direction): Command => (
   const lastCellPos =
     map.positionAt(map.height - 1, map.width - 1, table.node) + table.start;
 
+  // when tabbing backwards at first cell (top left), insert row at the start of table
   if (firstCellPos === cell.pos && direction === TAB_BACKWARD_DIRECTION) {
     insertRowWithAnalytics(INPUT_METHOD.KEYBOARD, {
       index: 0,
       moveCursorToInsertedRow: true,
     })(state, dispatch);
+    return true;
   }
 
+  // when tabbing forwards at last cell (bottom right), insert row at the end of table
   if (lastCellPos === cell.pos && direction === TAB_FORWARD_DIRECTION) {
     insertRowWithAnalytics(INPUT_METHOD.KEYBOARD, {
       index: map.height,
       moveCursorToInsertedRow: true,
     })(state, dispatch);
+    return true;
   }
+
   if (dispatch) {
     return baseGotoNextCell(direction)(state, dispatch);
   }

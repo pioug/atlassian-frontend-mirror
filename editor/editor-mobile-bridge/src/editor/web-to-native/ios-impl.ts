@@ -338,4 +338,19 @@ export default class IosBridge implements NativeBridge {
       title,
     });
   }
+
+  typeAheadQuery(query: string, trigger: string): void {}
+
+  typeAheadDisplayItems(query: string, trigger: string, items: string): void {}
+
+  dismissTypeAhead() {
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.typeAheadBridge
+    ) {
+      this.window.webkit.messageHandlers.typeAheadBridge.postMessage({
+        name: 'dismissTypeAhead',
+      });
+    }
+  }
 }

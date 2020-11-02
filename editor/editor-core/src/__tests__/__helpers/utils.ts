@@ -20,3 +20,22 @@ export const waitForProvider = (providerFactory: ProviderFactory) => (
 
 export const flushPromises = () =>
   new Promise(resolve => setImmediate(resolve));
+
+interface BoundingRect {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+export function calcUserDragAndDropFromMidPoint(
+  boundingRect: BoundingRect,
+  padding: number = 5,
+): [number, number, number, number] {
+  return [
+    boundingRect.left + boundingRect.width * 0.5,
+    boundingRect.top + boundingRect.height * 0.5,
+    boundingRect.left + padding,
+    boundingRect.top + padding,
+  ];
+}

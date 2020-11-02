@@ -14,7 +14,7 @@ import {
   withAnalytics,
 } from '../analytics';
 import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
-import { LinkInputType } from './ui/HyperlinkAddToolbar/HyperlinkAddToolbar';
+import { LinkInputType } from './types';
 import { getLinkCreationAnalyticsEvent } from './analytics';
 import { LinkAttributes } from '@atlaskit/adf-schema';
 

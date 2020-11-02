@@ -64,7 +64,6 @@ export default {
   'fabric.media.failed_to_load': 'Nahratie zlyhalo',
   'fabric.media.give_feedback': 'Poskytnúť spätnú väzbu',
   'fabric.media.image': 'obrázok',
-  'fabric.media.image.search': 'hľadať',
   'fabric.media.image_format_invalid_error':
     'Nepodarilo sa načítať obrázok, formát je neplatný.',
   'fabric.media.image_size_too_large_error':

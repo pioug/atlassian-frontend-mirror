@@ -25,7 +25,7 @@ interface Props {
    A `testId` prop is provided for specified elements, which is a unique
    string that appears as a data attribute `data-testid` in the rendered code,
    serving as a hook for automated tests.
-   
+
    As inline message is composed of different components, we passed down the testId to the sub component you want to test:
    - testId to identify the inline message component.
    - testId--inline-dialog to get the content of the actual component.

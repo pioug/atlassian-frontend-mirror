@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Navigation from '@atlaskit/atlassian-navigation/examples/10-authenticated-example';
 import { NavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import { LayoutManagerWithViewController, NavigationProvider } from '../src';
 
@@ -44,11 +44,7 @@ class ExperimentalAppNavigationDynamicUpdate extends Component {
     return (
       <Layout globalNavigation={showSkeleton ? NavigationSkeleton : Navigation}>
         <label css={labelCSS}>
-          <ToggleStateless
-            isChecked={showSkeleton}
-            name="toggle"
-            onChange={onChange}
-          />
+          <Toggle isChecked={showSkeleton} name="toggle" onChange={onChange} />
           <span>Toggle navigation</span>
         </label>
       </Layout>

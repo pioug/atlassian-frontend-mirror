@@ -22,9 +22,9 @@ export type Props = {
   view?: EditorView;
   idx?: number;
   providerFactory?: ProviderFactory;
-  currentIcon?: string;
   title?: string;
   onChange?: (emoji: EmojiId) => void;
+  isSelected?: boolean;
 };
 
 export type State = {
@@ -42,9 +42,7 @@ export const EmojiPickerButton = (props: Props) => {
 
   const updateEmoji = (emoji: EmojiId) => {
     setIsPopupOpen(false);
-    if (props.onChange) {
-      props.onChange(emoji);
-    }
+    props.onChange && props.onChange(emoji);
   };
 
   const renderPicker = (providers: Providers) => {
@@ -100,7 +98,7 @@ export const EmojiPickerButton = (props: Props) => {
           }}
           onClick={togglePopup}
           ref={buttonRef}
-          isSelected={isPopupOpen}
+          isSelected={props.isSelected}
           iconBefore={<Emoji label="emoji" />}
         />
       </Tooltip>

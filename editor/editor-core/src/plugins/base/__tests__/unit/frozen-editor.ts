@@ -10,17 +10,10 @@ import {
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
 } from '../../../analytics';
-import {
-  isPerformanceObserverAvailable,
-  isPerformanceAPIAvailable,
-} from '@atlaskit/editor-common';
+import { SEVERITY } from '@atlaskit/editor-common';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import basePlugin from '../../';
 import * as frozenEditor from '../../pm-plugins/frozen-editor';
-jest.mock('@atlaskit/editor-common');
-
-(isPerformanceObserverAvailable as jest.Mock<any>).mockReturnValue(true);
-(isPerformanceAPIAvailable as jest.Mock<any>).mockReturnValue(true);
 
 describe('frozen editor', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -32,7 +25,12 @@ describe('frozen editor', () => {
         basePlugin,
         {
           inputTracking: { enabled: true },
-          allowBrowserFreezeInteractionType: true,
+          bFreezeTracking: {
+            trackInteractionType: true,
+            trackSeverity: true,
+            severityNormalThreshold: frozenEditor.NORMAL_SEVERITY_THRESHOLD,
+            severityDegradedThreshold: frozenEditor.DEGRADED_SEVERITY_THRESHOLD,
+          },
         },
       ]),
     });
@@ -55,13 +53,15 @@ describe('frozen editor', () => {
                   toJSON: () => {},
                 } as PerformanceEntry,
               ],
-              getEntriesByName: () => [],
-              getEntriesByType: () => [],
-            },
+            } as PerformanceObserverEntryList,
             {} as PerformanceObserver,
           ),
         takeRecords: () => [],
       }));
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('browser freeze event', () => {
@@ -139,8 +139,53 @@ describe('frozen editor', () => {
       });
 
       expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
-      jest.resetAllMocks();
     });
+
+    it.each`
+      condition                                                                         | threshold                                       | severity
+      ${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${frozenEditor.NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
+      ${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${frozenEditor.NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
+      ${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${frozenEditor.DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
+    `(
+      'should fire event with $severity severity when $condition',
+      ({ condition, threshold, severity }) => {
+        jest
+          .spyOn(window, 'PerformanceObserver')
+          .mockImplementation((callback: PerformanceObserverCallback) => ({
+            disconnect: () => {},
+            observe: () =>
+              callback(
+                {
+                  getEntries: () => [
+                    {
+                      name: 'self',
+                      duration: threshold,
+                      entryType: 'longtask',
+                      startTime: 1,
+                      toJSON: () => {},
+                    } as PerformanceEntry,
+                  ],
+                } as PerformanceObserverEntryList,
+                {} as PerformanceObserver,
+              ),
+            takeRecords: () => [],
+          }));
+        const { editorView, dispatchAnalyticsEvent } = editor(doc(p('{<>}')));
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+          action: ACTION.BROWSER_FREEZE,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            freezeTime: threshold,
+            nodeSize: editorView.state.doc.nodeSize,
+            severity,
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+      },
+    );
 
     it('should not fire event when duration <= DEFAULT_FREEZE_THRESHOLD', () => {
       jest
@@ -159,9 +204,7 @@ describe('frozen editor', () => {
                     toJSON: () => {},
                   } as PerformanceEntry,
                 ],
-                getEntriesByName: () => [],
-                getEntriesByType: () => [],
-              },
+              } as PerformanceObserverEntryList,
               {} as PerformanceObserver,
             ),
           takeRecords: () => [],

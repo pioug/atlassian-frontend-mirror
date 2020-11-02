@@ -1,11 +1,18 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
-import { h200 } from '@atlaskit/theme/typography';
+import { N200 } from '@atlaskit/theme/colors';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { headingSizes } from '@atlaskit/theme/typography';
 
 const LabelElement = styled.label`
-  ${h200()};
+  font-size: ${headingSizes.h200.size / fontSize()}em;
+  font-style: inherit;
+  line-height: ${headingSizes.h200.lineHeight / headingSizes.h200.size};
+  color: ${N200};
+  font-weight: 600;
+  margin-top: ${gridSize() * 2}px;
   display: inline-block;
   margin-bottom: 4px;
   margin-top: 0;

@@ -21,10 +21,10 @@ describe('Snapshot Test: Nested table inside layouts', () => {
   let page: PuppeteerPage;
 
   const { rightSidebar, leftSidebar, threeColumns } = toolbarMessages;
-  const layoutBtns = [
-    rightSidebar.defaultMessage,
-    leftSidebar.defaultMessage,
-    threeColumns.defaultMessage,
+  const layoutButtonTestids = [
+    rightSidebar.id,
+    leftSidebar.id,
+    threeColumns.id,
   ];
 
   const initEditor = async (
@@ -53,15 +53,15 @@ describe('Snapshot Test: Nested table inside layouts', () => {
         beforeEach(async () => {
           await initEditor(viewport);
         });
-        layoutBtns.forEach(layout => {
-          const layoutBtnSelector = `[aria-label="${layout}"]`;
-          it(`should resize when changing to ${layout}`, async () => {
+        layoutButtonTestids.forEach(dataTestid => {
+          const layoutBtnSelector = `[data-testid="${dataTestid}"]`;
+          it(`should resize when changing to ${dataTestid}`, async () => {
             await page.waitForSelector(layoutSelectors.content);
             await clickOnLayoutColumn(page, 2);
             await waitForLayoutToolbar(page);
             await page.waitForSelector(layoutBtnSelector);
             await page.click(layoutBtnSelector);
-            await waitForLayoutChange(page, layout);
+            await waitForLayoutChange(page, dataTestid);
             await clickFirstCell(page, true);
           });
         });

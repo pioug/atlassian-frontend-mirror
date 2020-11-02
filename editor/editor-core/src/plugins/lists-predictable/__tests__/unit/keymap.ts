@@ -214,14 +214,25 @@ describe('lists plugin -> keymap', () => {
     it('keeps nodes same level as backspaced list item together in same list', () => {
       backspaceCheck(
         doc(
-          ol(li(p('{<>}A'), ol(li(p('B')))), li(p('C'))),
-
+          // prettier-ignore
+          ol(
+            li(
+              p('{<>}A'),
+              ol(
+                li(p('B')),
+              ),
+            ),
+            li(p('C')),
+          ),
           p('after'),
         ),
+        // prettier-ignore
         doc(
           p('{<>}A'),
-          ol(li(p('B')), li(p('C'))),
-
+          ol(
+            li(p('B')),
+            li(p('C')),
+          ),
           p('after'),
         ),
       );

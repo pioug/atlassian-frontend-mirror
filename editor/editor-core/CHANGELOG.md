@@ -1,5 +1,65 @@
 # @atlaskit/editor-core
 
+## 133.0.0
+
+### Major Changes
+
+- [`142d765bc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/142d765bc4) - Revert ConfigPanel autoSaving in EditorActions.getValue
+- [`f73b500ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f73b500ffa) - ED-10681 API for dismiss typeahead
+
+### Minor Changes
+
+- [`fd5c410db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5c410db6) - [ux][ed-10626] Predictable List: New Outdent System
+
+  ## HOW
+
+  Enable feature flag: allowPredictableList is true
+
+  ## WHEN
+
+  The user try to outdent a list items inside of bullet or ordered list.
+
+  ## WHAT
+
+  In this new system only the list item selected will be outdented.
+
+  More information: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1729466614/Wins
+
+- [`a09fabd2df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a09fabd2df) - [ux] ED-10625 Allow table to have leading cursor in mobile
+
+  - Remove extra padding on the sides of the table component
+  - Allow mobile nodes to have gap cursor
+
+- [`677744c680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/677744c680) - Add UserSelect field for ConfigPanel, and expose types in SmartUserPicker
+- [`1e59fd65c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e59fd65c5) - ED-8720 Add OnUnhandledClickHandler for Renderer
+
+### Patch Changes
+
+- [`dfda163bf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfda163bf6) - ED-10594: track severity for browserFreeze event and add getAnalyticsEventSeverity util
+- [`427d3c8300`](https://bitbucket.org/atlassian/atlassian-frontend/commits/427d3c8300) - Add testId (data-testid) to some toolbar buttons (layout) as well as data-testid to breakout button
+- [`3aaa2cf6a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaa2cf6a6) - EDM-1323: prevent edit link changes on cancel
+- [`67739f7bee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67739f7bee) - [ux] ED-10514 Fix toggling between list and paragraph via keyboard shortcut
+- [`b760978439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b760978439) - Show isRequired validation error if Boolean config field is false and isRequired is true
+- [`f7cf7baae5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7cf7baae5) - Fix an unstable useEffect dependency causing an infinite autoSave loop
+- [`bd856ee554`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd856ee554) - ED-10799: rate limit transaction performance tracking in ReactEditorView.dispatchTransaction() and InstrumentedPlugin
+- [`eeedafee68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeedafee68) - ED-10532: Add new UI element to pick a date range - for supporting the cql component
+- [`9ad541de7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ad541de7e) - [ux] ED-10682 fixed issue with unexpected highlight styles when selecting table cells with a mouse in firefox
+- [`9e44b47202`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e44b47202) - ED-8576 fix table context menu re-render position
+- [`9560f4208c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9560f4208c) - ED-10766 fix browser freezing issue.
+- [`e194a919ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e194a919ec) - [ux] ED-10817: fixed table losing focus when pressing tab/shift+tab at start/end of tables
+- [`8938a68c7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8938a68c7b) - ED-9947 Batch breakout style update and make PM ignore it
+- [`b13e3991ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b13e3991ef) - ED-10723: severity for rendered event
+- [`1a702e6843`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a702e6843) - [ux] ED-10492 Showing errors in Fieldset
+- [`1b3dd916d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b3dd916d2) - ED-10668: Remove placeholder plugin composition workaround to fix issue with Japanese characters converting to Roman characters
+- [`14351a2eee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14351a2eee) - [ux] ED-10873 fixed table row controls shrinking on focused table in small viewports.
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [`8a5ae33254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5ae33254) - [ux] ED-10623 add custom panel actions
+- [`05f2c58ae8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05f2c58ae8) - ED-10722: severity for proseMirrorRendered event
+- [`e3b2251f29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3b2251f29) - Breaking change for collab provider as userId has been removed from constructor. Mobile bridge and editor demo app require an upgrade too
+- [`330da4d675`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330da4d675) - Update translations via Traduki from issue/translation-2020-10-08T000543
+- [`7f8a716c96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f8a716c96) - [ux] EDM-1213: fix escape key not closing HyperLinkToolbar
+- Updated dependencies
+
 ## 132.0.0
 
 ### Minor Changes

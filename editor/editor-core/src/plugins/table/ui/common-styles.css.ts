@@ -234,8 +234,8 @@ export const tableStyles = css`
       }
 
       /* when selected put it back to normal -- :not selector would be nicer */
-      tr.sticky td.${ClassName.WITH_RESIZE_LINE}.selectedCell,
-      tr.sticky th.${ClassName.WITH_RESIZE_LINE}.selectedCell {
+      tr.sticky td.${ClassName.WITH_RESIZE_LINE}.${ClassName.SELECTED_CELL},
+      tr.sticky th.${ClassName.WITH_RESIZE_LINE}.${ClassName.SELECTED_CELL} {
         .${ClassName.RESIZE_HANDLE_DECORATION}::after {
           right: ${((resizeHandlerAreaWidth - resizeLineWidth) / 2)}px;
         }

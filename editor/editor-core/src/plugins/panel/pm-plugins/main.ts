@@ -16,15 +16,22 @@ import { createSelectionClickHandler } from '../../selection/utils';
 
 export type PanelState = {
   element?: HTMLElement;
-  activePanelType?: string | undefined;
-  toolbarVisible?: boolean | undefined;
+  activePanelType?: string;
+  activePanelColor?: string;
+  activePanelIcon?: string;
+  toolbarVisible?: boolean;
+};
+
+export type PanelOptions = {
+  color?: string;
+  emoji?: string;
 };
 
 export const getPluginState = (state: EditorState): PanelState => {
   return pluginKey.getState(state);
 };
 
-export const setPluginState = (stateProps: Object): Command => (
+export const setPluginState = (stateProps: PanelState): Command => (
   state,
   dispatch,
 ) => {
@@ -81,8 +88,13 @@ export const createPlugin = (
           if (panelRef !== pluginState.element) {
             const newState: PanelState = {
               element: panelRef,
-              activePanelType:
-                panelRef && panelNode && panelNode.node.attrs['panelType'],
+              activePanelType: panelRef && panelNode?.node.attrs['panelType'],
+              activePanelColor: pluginOptions.UNSAFE_allowCustomPanel
+                ? panelRef && panelNode?.node.attrs['panelColor']
+                : undefined,
+              activePanelIcon: pluginOptions.UNSAFE_allowCustomPanel
+                ? panelRef && panelNode?.node.attrs['panelIcon']
+                : undefined,
               toolbarVisible: !!panelRef,
             };
             setPluginState(newState)(view.state, view.dispatch);
@@ -111,9 +123,11 @@ export const createPlugin = (
           const pluginState = getPluginState(view.state);
           if (pluginState.toolbarVisible) {
             setPluginState({
-              toolbarVisible: false,
-              element: null,
+              element: undefined,
               activePanelType: undefined,
+              activePanelColor: undefined,
+              activePanelIcon: undefined,
+              toolbarVisible: false,
             })(view.state, view.dispatch);
             return true;
           }

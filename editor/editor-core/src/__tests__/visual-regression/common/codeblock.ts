@@ -53,20 +53,4 @@ describe('Code block:', () => {
     );
     await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
   });
-
-  it("doesn't select codeblock if click and drag before releasing mouse", async () => {
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
-      page,
-      codeBlockSelectors.content,
-    );
-
-    // start in centre of codeblock, mousedown and then move to padding before releasing
-    await page.mouse.move(
-      contentBoundingRect.left + contentBoundingRect.width * 0.5,
-      contentBoundingRect.top + contentBoundingRect.height * 0.5,
-    );
-    await page.mouse.down();
-    await page.mouse.move(contentBoundingRect.left, contentBoundingRect.top);
-    await page.mouse.up();
-  });
 });

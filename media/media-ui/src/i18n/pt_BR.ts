@@ -57,8 +57,11 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'Arraste e solte suas imagens aqui',
   'fabric.media.drag_and_drop_your_files':
     'Arraste e solte seus arquivos em qualquer lugar ou',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Arraste e solte arquivos e pastas em qualquer lugar ou',
   'fabric.media.drop_your_files': 'Solte seus arquivos para carregá-los',
   'fabric.media.drop_your_files_here': 'Solte seus arquivos aqui',
+  'fabric.media.email': 'e-mail',
   'fabric.media.enable_fullscreen': 'ativar tela cheia',
   'fabric.media.error_generating_preview': 'Erro ao gerar pré-visualização',
   'fabric.media.error_hint_critical':
@@ -68,7 +71,6 @@ export default {
   'fabric.media.failed_to_load': 'Falha ao carregar',
   'fabric.media.give_feedback': 'Enviar feedback',
   'fabric.media.image': 'imagem',
-  'fabric.media.image.search': 'Pesquisar',
   'fabric.media.image_format_invalid_error':
     'Não foi possível carregar a imagem. O formato é inválido.',
   'fabric.media.image_size_too_large_error':
@@ -97,16 +99,19 @@ export default {
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'pausar',
   'fabric.media.play': 'reproduzir',
+  'fabric.media.preview': 'Pré-visualizar',
   'fabric.media.recent_uploads': 'Arquivos carregados recentemente',
   'fabric.media.remove_image': 'Remover imagem',
   'fabric.media.retry': 'Tentar novamente',
   'fabric.media.save': 'Salvar',
+  'fabric.media.search': 'pesquisar',
   'fabric.media.search_all_gifs': 'Pesquise todos os GIFs!',
   'fabric.media.share_files_instantly':
     'Compartilharemos os arquivos instantaneamente',
   'fabric.media.something_went_wrong': 'Algo deu errado.',
   'fabric.media.srclink': 'Visualizar em',
   'fabric.media.srclinkunknown': 'Ver o original',
+  'fabric.media.text': 'texto',
   'fabric.media.try_again': 'Tentar novamente',
   'fabric.media.try_another_account': 'Experimente uma outra conta',
   'fabric.media.try_downloading_file':
@@ -122,6 +127,7 @@ export default {
   'fabric.media.upload_image': 'Carregar imagem',
   'fabric.media.upload_photo': 'Carregar uma foto',
   'fabric.media.video': 'vídeo',
+  'fabric.media.view': 'Visualizar',
   'fabric.media.webgl_warning_description':
     'Seu navegador não é compatível com WebGL. Use um navegador compatível com WebGL para fazer anotações em imagens.',
   'fabric.media.zoom_in': 'mais zoom',

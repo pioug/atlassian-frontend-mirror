@@ -5,7 +5,10 @@ import { EditorView } from 'prosemirror-view';
 import { Transformer } from '@atlaskit/editor-common';
 import { toJSON } from '../utils';
 import { processRawValue, isEmptyDocument } from '../utils/document';
-import { getEditorValueWithMedia } from '../utils/action';
+import {
+  getEditorValueWithMedia,
+  __temporaryFixForConfigPanel,
+} from '../utils/action';
 import { sanitizeNode } from '@atlaskit/adf-utils';
 import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import { safeInsert } from 'prosemirror-utils';
@@ -138,12 +141,23 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
     return true;
   }
 
-  async getValue() {
-    const doc = await getEditorValueWithMedia(this.editorView);
-    if (!doc) {
+  async __temporaryFixForConfigPanel() {
+    const { editorView } = this;
+    if (!editorView) {
       return;
     }
 
+    __temporaryFixForConfigPanel(editorView);
+  }
+
+  // WARNING: this may be called repeatedly, async with care
+  async getValue() {
+    const { editorView } = this;
+    if (!editorView) {
+      return;
+    }
+
+    const doc = await getEditorValueWithMedia(editorView);
     const json = toJSON(doc);
     const jsonSanitized = sanitizeNode(json);
     if (!this.contentEncode) {

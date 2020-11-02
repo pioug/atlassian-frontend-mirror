@@ -285,34 +285,17 @@
           ]
         },
         "attrs": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "color": {
-                  "type": "string",
-                  "pattern": "^#[0-9a-f]{6}$"
-                }
-              },
-              "required": [
-                "color"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "color": {
-                  "type": "string",
-                  "pattern": "^#[0-9a-fA-F]{6}$"
-                }
-              },
-              "required": [
-                "color"
-              ],
-              "additionalProperties": false
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
             }
-          ]
+          },
+          "required": [
+            "color"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -1016,6 +999,12 @@
               "additionalProperties": false
             }
           ]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link_mark"
+          }
         }
       },
       "required": [

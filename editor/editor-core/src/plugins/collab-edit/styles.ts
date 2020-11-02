@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { TELEPOINTER_DIM_CLASS } from './plugin-state';
 import { colors, Color } from './utils';
 
 const telepointerColorStyle = (color: Color, index: number) => `
@@ -36,7 +37,7 @@ export const telepointerStyle = css`
       line-height: initial;
     }
 
-    &.telepointer-dim {
+    &.${TELEPOINTER_DIM_CLASS} {
       opacity: 0.2;
     }
 

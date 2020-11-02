@@ -78,5 +78,12 @@ export default () => (
       color="blueLight"
       href="https://atlaskit.atlassian.com/"
     />
+
+    <Tag isRemovable text="blue color" color="blue" />
+    <SimpleTag
+      text="blue color"
+      color="blue"
+      href="https://atlaskit.atlassian.com/"
+    />
   </div>
 );

@@ -1,4 +1,4 @@
-export { isFieldset } from './types';
+export { isFieldset, isDateRange } from './types';
 export type {
   Extension,
   ExtensionAutoConvertHandler,
@@ -27,7 +27,12 @@ export type {
   BooleanField,
   CustomField,
   CustomFieldResolver,
+  UserFieldContext,
+  UserField,
+  UserFieldContextProvider,
   DateField,
+  DateRangeField,
+  DateRangeResult,
   EnumField,
   EnumCheckboxField,
   EnumRadioField,
@@ -66,6 +71,7 @@ export { default as combineExtensionProviders } from './combine-extension-provid
 
 export {
   getCustomFieldResolver,
+  getUserFieldContextProvider,
   getFieldSerializer,
   getFieldDeserializer,
 } from './extension-fields-helpers';

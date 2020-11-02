@@ -56,7 +56,6 @@ export {
   withAnalytics,
   addAnalytics,
   findInsertLocation,
-  getAnalyticsEventSeverity,
   getAnalyticsEventsFromTransaction,
   getSelectionType,
   getStateContext,

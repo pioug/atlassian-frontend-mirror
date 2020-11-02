@@ -1,4 +1,5 @@
 import { getBoundingRect } from '../../__helpers/page-objects/_editor';
+import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import {
   clickFirstCell,
   tableSelectors,
@@ -13,8 +14,18 @@ import {
 import adf from './__fixtures__/table-with-merged-cells-on-first-column.adf.json';
 import defaultTableAdf from './__fixtures__/default-table.adf.json';
 
-// TODO: https://product-fabric.atlassian.net/browse/ED-7721
-describe.skip('Snapshot Test: hover rows controlls', () => {
+const moveMouse = (page: PuppeteerPage, x: number, y: number) =>
+  retryUntilStablePosition(
+    page,
+    async () => {
+      await page.mouse.move(0, 50);
+      await page.mouse.move(x, y);
+    },
+    '[aria-label*="Table floating controls"]',
+    1000,
+  );
+
+describe('Snapshot Test: hover rows controlls', () => {
   let page: PuppeteerPage;
 
   beforeAll(async () => {
@@ -36,7 +47,7 @@ describe.skip('Snapshot Test: hover rows controlls', () => {
         const x = bounds.left;
         const y = bounds.top + 5;
 
-        await page.mouse.move(x, y);
+        await moveMouse(page, x, y);
         await snapshot(page);
       },
     );
@@ -55,7 +66,7 @@ describe.skip('Snapshot Test: hover rows controlls', () => {
         const x = bounds.left;
         const y = bounds.top + bounds.height - 5;
 
-        await page.mouse.move(x, y);
+        await moveMouse(page, x, y);
         await snapshot(page);
       },
     );
@@ -72,7 +83,7 @@ describe.skip('Snapshot Test: hover rows controlls', () => {
       const x = bounds.left;
       const y = bounds.top + bounds.height - 5;
 
-      await page.mouse.move(x, y);
+      await moveMouse(page, x, y);
       await snapshot(page);
     });
   });

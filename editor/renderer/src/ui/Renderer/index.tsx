@@ -10,10 +10,12 @@ import {
   BaseTheme,
   WidthProvider,
   getAnalyticsAppearance,
+  getAnalyticsEventSeverity,
   WithCreateAnalyticsEvent,
   getResponseEndTime,
   startMeasure,
   stopMeasure,
+  shouldForceTracking,
 } from '@atlaskit/editor-common';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import {
@@ -45,7 +47,11 @@ import {
   getActiveHeadingId,
   isNestedHeaderLinksEnabled,
 } from '../../react/utils/links';
+import { findInTree } from '../../utils';
+import { isInteractiveElement } from './click-to-edit';
 
+export const NORMAL_SEVERITY_THRESHOLD = 2000;
+export const DEGRADED_SEVERITY_THRESHOLD = 3000;
 export interface Extension<T> {
   extensionKey: string;
   parameters?: T;
@@ -58,6 +64,7 @@ export class Renderer extends PureComponent<RendererProps> {
   private serializer: ReactSerializer;
   private rafID?: number;
   private editorRef: React.RefObject<HTMLDivElement>;
+  private mouseDownSelection?: string;
 
   constructor(props: RendererProps) {
     super(props);
@@ -105,6 +112,22 @@ export class Renderer extends PureComponent<RendererProps> {
 
     this.rafID = requestAnimationFrame(() => {
       stopMeasure('Renderer Render Time', duration => {
+        const { analyticsEventSeverityTracking } = this.props;
+        const forceSeverityTracking =
+          typeof analyticsEventSeverityTracking === 'undefined' &&
+          shouldForceTracking();
+
+        const severity =
+          !!forceSeverityTracking || analyticsEventSeverityTracking?.enabled
+            ? getAnalyticsEventSeverity(
+                duration,
+                analyticsEventSeverityTracking?.severityNormalThreshold ??
+                  NORMAL_SEVERITY_THRESHOLD,
+                analyticsEventSeverityTracking?.severityDegradedThreshold ??
+                  DEGRADED_SEVERITY_THRESHOLD,
+              )
+            : undefined;
+
         this.fireAnalyticsEvent({
           action: ACTION.RENDERED,
           actionSubject: ACTION_SUBJECT.RENDERER,
@@ -120,6 +143,7 @@ export class Renderer extends PureComponent<RendererProps> {
               },
               {},
             ),
+            severity,
           },
           eventType: EVENT_TYPE.OPERATIONAL,
         });
@@ -205,6 +229,15 @@ export class Renderer extends PureComponent<RendererProps> {
 
     return getSchemaBasedOnStage(adfStage);
   };
+  private onMouseDownEditView = () => {
+    // When the user is deselecting text on the screen by clicking, if they are clicking outside
+    // the current selection, by the time the onclick handler is called the window.getSelection()
+    // value will already be cleared.
+    // The mousedown callback is called before the selection is cleared.
+    const windowSelection = window.getSelection();
+    this.mouseDownSelection =
+      windowSelection !== null ? windowSelection.toString() : undefined;
+  };
 
   render() {
     const {
@@ -227,6 +260,53 @@ export class Renderer extends PureComponent<RendererProps> {
     const newHeadingAnchorLinks = isNestedHeaderLinksEnabled(
       allowHeadingAnchorLinks,
     );
+    /**
+     * Handle clicks inside renderer. If the click isn't on media, in the media picker, or on a
+     * link, call the onUnhandledClick eventHandler (which in Jira for example, may switch the
+     * renderer out for the editor).
+     * @param event Click event anywhere inside renderer
+     */
+    const handleWrapperOnClick = (event: React.MouseEvent) => {
+      if (!this.props.eventHandlers?.onUnhandledClick) {
+        return;
+      }
+      const targetElement = event.target as HTMLElement;
+      if (!(targetElement instanceof window.Element)) {
+        return;
+      }
+
+      const rendererWrapper = event.currentTarget as HTMLElement;
+
+      // Check if the click was on an interactive element
+      const isInteractiveElementInTree = findInTree(
+        targetElement,
+        rendererWrapper,
+        isInteractiveElement,
+      );
+      if (isInteractiveElementInTree) {
+        return;
+      }
+
+      // Ensure that selecting text in the renderer doesn't trigger onUnhandledClick
+      // This logic originated in jira-frontend:
+      // src/packages/issue/issue-view/src/views/field/rich-text/rich-text-inline-edit-view.js
+
+      // The selection is required to be checked in `onMouseDown` and here. If not here, a new
+      // selection isn't reported; if not in `onMouseDown`, a click outside the selection will
+      // return an empty selection, which will erroneously fire onUnhandledClick.
+      const windowSelection = window.getSelection();
+      const selection: string | undefined =
+        windowSelection !== null ? windowSelection.toString() : undefined;
+      const hasSelection = selection && selection.length !== 0;
+
+      const hasSelectionMouseDown =
+        this.mouseDownSelection && this.mouseDownSelection.length !== 0;
+      const allowEditBasedOnSelection = !hasSelection && !hasSelectionMouseDown;
+
+      if (allowEditBasedOnSelection) {
+        this.props.eventHandlers.onUnhandledClick(event);
+      }
+    };
 
     try {
       const schema = this.getSchema();
@@ -264,6 +344,8 @@ export class Renderer extends PureComponent<RendererProps> {
                     allowCopyToClipboard={allowCopyToClipboard}
                     allowCustomPanels={UNSAFE_allowCustomPanels}
                     innerRef={this.editorRef}
+                    onClick={handleWrapperOnClick}
+                    onMouseDown={this.onMouseDownEditView}
                   >
                     {enableSsrInlineScripts ? (
                       <BreakoutSSRInlineScript
@@ -303,6 +385,7 @@ export class Renderer extends PureComponent<RendererProps> {
           allowCopyToClipboard={allowCopyToClipboard}
           allowColumnSorting={allowColumnSorting}
           newHeadingAnchorLinks={newHeadingAnchorLinks}
+          onClick={handleWrapperOnClick}
         >
           <UnsupportedBlock />
         </RendererWrapper>
@@ -350,6 +433,8 @@ type RendererWrapperProps = {
   allowCopyToClipboard?: boolean;
   allowCustomPanels?: boolean;
   newHeadingAnchorLinks: boolean;
+  onClick?: (event: React.MouseEvent) => void;
+  onMouseDown?: (event: React.MouseEvent) => void;
 } & { children?: React.ReactNode };
 
 const RendererWithIframeFallbackWrapper = React.memo(
@@ -362,6 +447,8 @@ const RendererWithIframeFallbackWrapper = React.memo(
       appearance,
       children,
       subscribe,
+      onClick,
+      onMouseDown,
     } = props;
     const renderer = (
       <WidthProvider className="ak-renderer-wrapper">
@@ -378,6 +465,8 @@ const RendererWithIframeFallbackWrapper = React.memo(
             appearance={appearance}
             newHeadingAnchorLinks={newHeadingAnchorLinks}
             allowColumnSorting={!!allowColumnSorting}
+            onClick={onClick}
+            onMouseDown={onMouseDown}
           >
             {children}
           </Wrapper>

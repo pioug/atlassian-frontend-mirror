@@ -4,7 +4,7 @@ import * as keymaps from '../../../keymaps';
 import {
   indentList,
   enterKeyCommand,
-  toggleListCommandWithAnalytics,
+  toggleList,
   backspaceKeyCommand,
   deleteKeyCommand,
 } from '../commands';
@@ -16,12 +16,12 @@ export function keymapPlugin(): Plugin | undefined {
 
   keymaps.bindKeymapWithCommand(
     keymaps.findShortcutByKeymap(keymaps.toggleOrderedList)!,
-    toggleListCommandWithAnalytics(INPUT_METHOD.KEYBOARD, 'orderedList'),
+    toggleList(INPUT_METHOD.KEYBOARD, 'orderedList'),
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.findShortcutByKeymap(keymaps.toggleBulletList)!,
-    toggleListCommandWithAnalytics(INPUT_METHOD.KEYBOARD, 'bulletList'),
+    toggleList(INPUT_METHOD.KEYBOARD, 'bulletList'),
     list,
   );
   keymaps.bindKeymapWithCommand(

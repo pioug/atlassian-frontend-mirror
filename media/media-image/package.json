@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-image",
-  "version": "17.1.1",
+  "version": "17.1.2",
   "description": "Atlassian Editor component for JIRA",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/media-client": "^11.0.0",
+    "@atlaskit/media-client": "^12.0.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {

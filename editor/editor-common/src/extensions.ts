@@ -12,6 +12,8 @@ export {
   getFieldSerializer,
   getFieldDeserializer,
   isFieldset,
+  isDateRange,
+  getUserFieldContextProvider,
 } from './extensions/index';
 export type {
   ExtensionAutoConvertHandler,
@@ -42,6 +44,8 @@ export type {
   CustomField,
   CustomFieldResolver,
   DateField,
+  DateRangeField,
+  DateRangeResult,
   EnumField,
   EnumCheckboxField,
   EnumRadioField,
@@ -54,6 +58,9 @@ export type {
   StringField,
   StringOneLineField,
   StringMultilineField,
+  UserField,
+  UserFieldContext,
+  UserFieldContextProvider,
   FieldHandlerLink,
   OnSaveCallback,
   UpdateContextActions,

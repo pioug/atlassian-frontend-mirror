@@ -61,6 +61,7 @@ import {
   isResizeHandleDecoration,
   isRowControlsButton,
   isTableControlsButton,
+  isTableContainerOrWrapper,
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
@@ -210,7 +211,8 @@ export const handleMouseDown = (_: EditorView, event: Event) => {
   const isControl = !!(
     event.target &&
     event.target instanceof HTMLElement &&
-    (isColumnControlsDecorations(event.target) ||
+    (isTableContainerOrWrapper(event.target) ||
+      isColumnControlsDecorations(event.target) ||
       isRowControlsButton(event.target))
   );
 

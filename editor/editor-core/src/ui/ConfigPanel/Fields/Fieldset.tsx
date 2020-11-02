@@ -1,6 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
+import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
 import Select from '@atlaskit/select';
 import AddCircleIcon from '@atlaskit/icon/glyph/add-circle';
@@ -69,6 +71,7 @@ type Props = {
   parameters?: Parameters;
   onFieldBlur: OnBlur;
   firstVisibleFieldName?: string;
+  error?: string;
 } & InjectedIntlProps;
 
 type State = {
@@ -214,27 +217,44 @@ class FieldsetField extends React.Component<Props, State> {
       extensionManifest,
       onFieldBlur,
       firstVisibleFieldName,
+      error,
     } = this.props;
 
     const { selectedFields, currentParameters, visibleFields } = this.state;
-
     return (
-      <FormWrapper
-        canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
-        showTitle={field.options.showTitle}
-        extensionManifest={extensionManifest}
-        parentName={field.name}
-        fields={selectedFields}
-        label={field.label}
-        parameters={currentParameters}
-        onClickRemove={this.onClickRemove}
-        onFieldBlur={onFieldBlur}
-        firstVisibleFieldName={firstVisibleFieldName}
-      >
-        {this.renderActions()}
-      </FormWrapper>
+      <>
+        {error && <FieldsetError message={error} />}
+        <FormWrapper
+          canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
+          showTitle={field.options.showTitle}
+          extensionManifest={extensionManifest}
+          parentName={field.name}
+          fields={selectedFields}
+          label={field.label}
+          parameters={currentParameters}
+          onClickRemove={this.onClickRemove}
+          onFieldBlur={onFieldBlur}
+          firstVisibleFieldName={firstVisibleFieldName}
+        >
+          {this.renderActions()}
+        </FormWrapper>
+      </>
     );
   }
 }
+
+function FieldsetError({ message }: { message: string }) {
+  return (
+    <SectionMessageWrapper>
+      <SectionMessage appearance="error">
+        <p>{message}</p>
+      </SectionMessage>
+    </SectionMessageWrapper>
+  );
+}
+
+const SectionMessageWrapper = styled.div`
+  margin-bottom: 24px;
+`;
 
 export default injectIntl(FieldsetField);

@@ -1,41 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
+import { ThemeModes } from '@atlaskit/theme/types';
 
 import Toggle from '../src';
 
-interface State {
-  mode: 'light' | 'dark';
-}
+const Swapper = () => {
+  const [mode, setMode] = useState('light');
 
-export default class Swapper extends React.Component<any, State> {
-  state: State = {
-    mode: 'light',
-  };
-
-  onClick = () => {
-    this.setState({
-      mode: this.state.mode === 'light' ? 'dark' : 'light',
-    });
-  };
-
-  render() {
-    return (
-      <AtlaskitThemeProvider mode={this.state.mode}>
-        <div>
-          <Toggle />
-          <div style={{ marginTop: gridSize() }}>
-            <Button onClick={this.onClick}>
-              Toggle theme{' '}
-              <span role="img" aria-label="irony">
-                😂
-              </span>
-            </Button>
-          </div>
+  return (
+    <AtlaskitThemeProvider mode={mode as ThemeModes}>
+      <div>
+        <Toggle isDisabled />
+        <Toggle />
+        <div style={{ marginTop: gridSize() }}>
+          <Button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
+            Toggle theme{' '}
+            <span role="img" aria-label="irony">
+              😂
+            </span>
+          </Button>
         </div>
-      </AtlaskitThemeProvider>
-    );
-  }
-}
+      </div>
+    </AtlaskitThemeProvider>
+  );
+};
+
+export default Swapper;

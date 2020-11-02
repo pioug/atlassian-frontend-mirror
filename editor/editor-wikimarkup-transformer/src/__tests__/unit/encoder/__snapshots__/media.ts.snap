@@ -21,4 +21,6 @@ exports[`ADF => WikiMarkup - Media should convert mediaSingle node with no width
 
 exports[`ADF => WikiMarkup - Media should convert mediaSingle node with width and height 1`] = `"!file1.txt|width=100,height=100!"`;
 
+exports[`ADF => WikiMarkup - Media should convert mediaSingle with context inside table 1`] = `"|!wiki-media-id|thumbnail!|"`;
+
 exports[`ADF => WikiMarkup - Media should convert mediaSingle with percentual width 1`] = `"!abc-123-uuid|width=50%!"`;

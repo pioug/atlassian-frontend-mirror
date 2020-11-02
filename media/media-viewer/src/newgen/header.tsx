@@ -18,6 +18,11 @@ import {
   toHumanReadableMediaSize,
   MediaButton,
 } from '@atlaskit/media-ui';
+import {
+  getLanguageType,
+  getExtension,
+  isCodeViewerItem,
+} from '@atlaskit/media-ui/codeViewer';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import { Outcome } from './domain';
 import {
@@ -38,12 +43,7 @@ import {
 import { MediaViewerExtensions } from '../components/types';
 import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import {
-  getLanguage,
-  getExtension,
-  getFormat,
-  isCodeViewerItem,
-} from './viewers/codeViewer/util';
+import { getFormat } from './viewers/codeViewer/util';
 
 export type Props = {
   readonly identifier: Identifier;
@@ -233,12 +233,12 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
     // render appropriate header if its a code/email item and the feature flag is enabled
     if (
       getMediaFeatureFlag('codeViewer', featureFlags) &&
-      isCodeViewerItem(item)
+      isCodeViewerItem(item.name)
     ) {
       // gather language and extension
       // i.e test.py would have a language of 'python' and an extension of 'py'
-      const language = getLanguage(item);
-      const ext = getExtension(item);
+      const language = getLanguageType(item.name);
+      const ext = getExtension(item.name);
 
       // specific cases for if we want a certain word translated in other languages
       switch (ext) {

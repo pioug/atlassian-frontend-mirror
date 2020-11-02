@@ -1,8 +1,8 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-export type Sizes = 'regular' | 'large';
+export type Size = 'regular' | 'large';
 
-export interface BaseProps extends WithAnalyticsEventsProps {
+export interface ToggleProps extends WithAnalyticsEventsProps {
   /** If the toggle is disabled or not. This prevents any interaction. */
   isDisabled?: boolean;
   /**
@@ -21,30 +21,26 @@ export interface BaseProps extends WithAnalyticsEventsProps {
   /** Handler to be called when toggle is focused. */
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /** Toggle size. */
-  size?: Sizes;
+  size?: Size;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
   We have added 2 `testIds`:
    - `testId` that targets the Label component to interact with the component.
    - `{testId}--input` to check if the toggle has been checked/unchecked.
   */
   testId?: string;
-}
 
-export interface StatefulProps extends BaseProps {
+  /** Additional information to be included in the `context` of analytics events that come from button */
+  analyticsContext?: Record<string, any>;
+
   /** Whether the toggle is initially checked or not
    * After initial mount whether the component is checked or not is
    * controlled by the component */
-  defaultChecked: boolean;
-}
+  defaultChecked?: boolean;
 
-export interface StatelessProps extends BaseProps {
-  /** If the toggle is checked or not. */
+  /** If defined it takes precedence over defaultChecked and Toggle acts
+   * as a controlled component.
+   *
+   * You can provide a onChange function to be notified of checked value changes
+   * */
   isChecked?: boolean;
-}
-
-export interface StyledProps {
-  isChecked?: boolean;
-  isFocused?: boolean;
-  isDisabled?: boolean;
-  size: Sizes;
 }

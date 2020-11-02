@@ -22,7 +22,6 @@ export {
   FULL_WIDTH_MODE,
   MODE,
   PLATFORMS,
-  SEVERITY,
 } from './general-events';
 export {
   LINK_REPRESENTATION,

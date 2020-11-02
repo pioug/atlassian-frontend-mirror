@@ -23,6 +23,7 @@ import { Content } from './content';
 import { Blanket, SidebarWrapper } from './styled';
 import { start } from 'perf-marks';
 import { MediaViewerExtensions } from '../components/types';
+import { mediaViewerPopupClass } from '../classnames';
 
 export type Props = {
   onClose?: () => void;
@@ -131,7 +132,10 @@ export class MediaViewerComponent extends React.Component<Props, State> {
   render() {
     const { isSidebarVisible } = this.state;
     const content = (
-      <Blanket data-testid="media-viewer-popup">
+      <Blanket
+        data-testid="media-viewer-popup"
+        className={mediaViewerPopupClass}
+      >
         <Shortcut keyCode={27} handler={this.onShortcutClosed} />
         <Content
           isSidebarVisible={isSidebarVisible}

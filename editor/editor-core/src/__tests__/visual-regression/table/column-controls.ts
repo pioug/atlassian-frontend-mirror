@@ -59,9 +59,8 @@ describe('Table context menu: merge-split cells', () => {
     const from = getSelectorForTableCell({
       row: 1,
       cell: 1,
-      cellType: 'th',
     });
-    const to = getSelectorForTableCell({ row: 1, cell: 3, cellType: 'th' });
+    const to = getSelectorForTableCell({ row: 1, cell: 3 });
     await tableMergeCells(from, to);
   });
 

@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 45.5.0
+
+### Minor Changes
+
+- [`1e59fd65c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e59fd65c5) - ED-8720 Add OnUnhandledClickHandler for Renderer
+
+### Patch Changes
+
+- [`1a446e580d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a446e580d) - [ux] Transparent box on arrow buttons removed
+- [`6689df691c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6689df691c) - [ux] fixed bugs where the unknown icon was rendered instead of the codeIcon
+- Updated dependencies
+
 ## 45.4.0
 
 ### Minor Changes

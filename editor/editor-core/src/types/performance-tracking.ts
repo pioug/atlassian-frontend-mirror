@@ -99,6 +99,46 @@ export type BFreezeTracking = {
    * @default false
    */
   trackInteractionType: boolean;
+
+  /**
+   * @description Control whether browser freeze severity is tracked. When this is false the severity is not recorded.
+   * @default false
+   */
+  trackSeverity: boolean;
+
+  /**
+   * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+   * @default 2000
+   */
+  severityNormalThreshold: number;
+
+  /**
+   * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+   * @default 3000
+   */
+  severityDegradedThreshold: number;
+};
+
+export type ProseMirrorRenderedTracking = {
+  enabled?: boolean; // not implemented
+
+  /**
+   * @description Control whether proseMirror rendered event severity is tracked. When this is false the severity is not recorded.
+   * @default false
+   */
+  trackSeverity: boolean;
+
+  /**
+   * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+   * @default 2000
+   */
+  severityNormalThreshold: number;
+
+  /**
+   * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+   * @default 3000
+   */
+  severityDegradedThreshold: number;
 };
 
 export interface InputTracking {
@@ -164,4 +204,9 @@ export type PerformanceTracking = {
    */
 
   bFreezeTracking?: BFreezeTracking;
+
+  /**
+   * @description Control whether proseMirror rendered event is tracked
+   */
+  proseMirrorRenderedTracking?: ProseMirrorRenderedTracking;
 };

@@ -71,10 +71,13 @@ const buildLayoutButton = (
 ): FloatingToolbarItem<Command> => ({
   type: 'button',
   icon: item.icon,
+  testId: item.title.id,
   title: intl.formatMessage(item.title),
   onClick: setPresetLayout(item.type),
   selected: !!currentLayout && currentLayout === item.type,
 });
+
+export const layoutToolbarTitle = 'Layout floating controls';
 
 export const buildToolbar = (
   state: EditorState,
@@ -97,6 +100,7 @@ export const buildToolbar = (
       type: 'button',
       appearance: 'danger',
       icon: RemoveIcon,
+      testId: commonMessages.remove.id,
       title: intl.formatMessage(commonMessages.remove),
       onClick: deleteActiveLayoutNode,
       onMouseEnter: hoverDecoration(nodeType, true),
@@ -104,7 +108,7 @@ export const buildToolbar = (
     };
 
     return {
-      title: 'Layout floating controls',
+      title: layoutToolbarTitle,
       getDomRef: view =>
         findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
       nodeType,

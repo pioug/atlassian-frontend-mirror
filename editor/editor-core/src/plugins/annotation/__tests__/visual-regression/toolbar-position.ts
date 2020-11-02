@@ -4,6 +4,7 @@ import {
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers';
 import {
+  animationFrame,
   evaluateCoordinates,
   scrollToBottom,
   scrollToElement,
@@ -56,6 +57,8 @@ describe('Annotation toolbar positioning', () => {
       await page.waitForSelector(
         `${annotationSelectors.floatingToolbarCreate}[disabled]`,
       );
+
+      await animationFrame(page);
 
       await snapshot(page);
     });

@@ -161,6 +161,11 @@ export interface DemoRendererProps {
   annotationProvider?: AnnotationProviders | null;
   useSpecBasedValidator?: boolean;
   onDocumentChange?: () => void;
+  analyticsEventSeverityTracking?: {
+    enabled: boolean;
+    severityNormalThreshold: number;
+    severityDegradedThreshold: number;
+  };
 }
 
 export interface DemoRendererState {
@@ -338,6 +343,7 @@ export default class RendererDemo extends React.Component<
       props.useSpecBasedValidator = this.props.useSpecBasedValidator;
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
       props.UNSAFE_allowCustomPanels = this.props.allowCustomPanels;
+      props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

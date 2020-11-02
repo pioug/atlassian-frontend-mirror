@@ -23,8 +23,12 @@ import { NodeType } from 'prosemirror-model';
 import { Command } from '../../types';
 import { ColorPickerButton } from './ui/color-picker-button';
 import { EmojiPickerButton } from './ui/emoji-picker-button';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  getPanelTypeBackground,
+} from '@atlaskit/editor-common';
 import { FormattedMessage } from 'react-intl';
+import { EmojiId } from '@atlaskit/emoji';
 
 export const messages = defineMessages({
   info: {
@@ -73,10 +77,12 @@ export const getToolbarItems = (
   formatMessage: (
     messageDescriptor: FormattedMessage.MessageDescriptor,
   ) => string,
-  activePanelType: string | undefined, // PanelType
   panelNodeType: NodeType,
   isCustomPanelEnabled: boolean,
   providerFactory: ProviderFactory,
+  activePanelType?: string,
+  activePanelColor?: string,
+  activePanelIcon?: string,
 ): FloatingToolbarItem<Command>[] => {
   const items: FloatingToolbarItem<Command>[] = [
     {
@@ -127,6 +133,19 @@ export const getToolbarItems = (
             view={view}
             title={formatMessage(messages.emoji)}
             providerFactory={providerFactory}
+            isSelected={
+              activePanelType === PanelType.CUSTOM && !!activePanelIcon
+            }
+            onChange={(emoji: EmojiId) => {
+              if (!view) {
+                return;
+              }
+              changePanelType(
+                PanelType.CUSTOM,
+                { emoji: emoji.shortName },
+                isCustomPanelEnabled,
+              )(view.state, view.dispatch);
+            }}
           />
         ),
       },
@@ -136,7 +155,17 @@ export const getToolbarItems = (
       {
         type: 'custom',
         render: (view, idx) => {
-          const panelColor = '#FFF0B3';
+          /*
+            if the active panel type is custom, assign active panel color if available, otherwise get the 'info' panel color
+            if the active panel type is not custom, get and assign the color of the current panel
+          */
+          const panelColor =
+            activePanelType === PanelType.CUSTOM
+              ? activePanelColor || getPanelTypeBackground(PanelType.INFO)
+              : getPanelTypeBackground(
+                  activePanelType as Exclude<PanelType, PanelType.CUSTOM>,
+                );
+
           return (
             <ColorPickerButton
               key={idx}
@@ -144,7 +173,14 @@ export const getToolbarItems = (
               title={formatMessage(messages.backgroundColor)}
               currentColor={panelColor}
               onChange={(color: string) => {
-                // TODO: make this work
+                if (!view) {
+                  return;
+                }
+                changePanelType(
+                  PanelType.CUSTOM,
+                  { color },
+                  isCustomPanelEnabled,
+                )(view.state, view.dispatch);
               }}
             />
           );
@@ -181,15 +217,17 @@ export const getToolbarConfig = (
   const { formatMessage } = intl;
   const panelState = getPluginState(state);
   if (panelState && panelState.toolbarVisible && panelState.element) {
-    const { activePanelType } = panelState;
+    const { activePanelType, activePanelColor, activePanelIcon } = panelState;
     const nodeType = state.schema.nodes.panel;
 
     const items = getToolbarItems(
       formatMessage,
-      activePanelType,
       nodeType,
       options.UNSAFE_allowCustomPanel || false,
       providerFactory,
+      activePanelType,
+      activePanelColor,
+      activePanelIcon,
     );
 
     return {

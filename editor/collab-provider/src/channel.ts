@@ -9,6 +9,7 @@ import {
   StepsPayload,
   TitlePayload,
   Socket,
+  InitPayload,
 } from './types';
 
 import { createLogger } from './utils';
@@ -40,6 +41,9 @@ export class Channel extends Emitter<ChannelEvent> {
     const { createSocket } = this.config;
     this.socket = createSocket(`${url}/session/${documentAri}`);
     this.socket.on('connect', this.onConnect);
+    this.socket.on('reconnect', () => {
+      this.emit('reconnected', null);
+    });
     this.socket.on('data', this.onReceiveData);
     this.socket.on('steps:added', (data: StepsPayload) => {
       this.emit('steps:added', data);
@@ -85,7 +89,7 @@ export class Channel extends Emitter<ChannelEvent> {
     });
   }
 
-  private onConnect = (data: any) => {
+  private onConnect = (error: any) => {
     this.connected = true;
     logger('Connected.', this.socket!.id);
 
@@ -99,11 +103,12 @@ export class Channel extends Emitter<ChannelEvent> {
 
     if (data.type === 'initial') {
       if (!this.initialized) {
-        const { doc, version } = data;
+        const { doc, version, userId }: InitPayload = data;
         this.initialized = true;
         this.emit('init', {
           doc,
           version,
+          userId,
         });
       }
     } else {

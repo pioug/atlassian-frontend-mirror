@@ -12,8 +12,8 @@ Array [
   },
   Object {
     "bottom": 53,
-    "left": 16,
-    "right": 16,
+    "left": 24,
+    "right": 24,
     "text": "Atlassian",
     "top": 34,
     "url": "https://www.google.com",
@@ -33,8 +33,8 @@ Array [
   },
   Object {
     "bottom": 53,
-    "left": 16,
-    "right": 16,
+    "left": 24,
+    "right": 24,
     "text": "Atlassian",
     "top": 34,
     "url": "https://www.google.com",
@@ -113,8 +113,8 @@ Array [
   },
   Object {
     "bottom": 53,
-    "left": 16,
-    "right": 16,
+    "left": 24,
+    "right": 24,
     "text": "Atlassian",
     "top": 34,
     "url": "https://www.google.com",
@@ -134,8 +134,8 @@ Array [
   },
   Object {
     "bottom": 53,
-    "left": 67.84375,
-    "right": 67.84375,
+    "left": 75.84375,
+    "right": 75.84375,
     "text": "link",
     "top": 34,
     "url": "https://www.google.com",

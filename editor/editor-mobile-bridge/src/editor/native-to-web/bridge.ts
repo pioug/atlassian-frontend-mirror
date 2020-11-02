@@ -58,4 +58,5 @@ export default interface NativeToWebBridge {
   addQuickInsertAllowListItem(listItems: string): void;
   removeQuickInsertAllowListItem(listItems: string): void;
   observeRenderedContentHeight(enabled: boolean): void;
+  cancelTypeAhead(): void;
 }

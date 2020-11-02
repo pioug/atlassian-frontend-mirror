@@ -13,7 +13,7 @@ import {
   textPaddingLeft,
   textPaddingRight,
 } from '../../../constants';
-import { ChromeColors, ChromeLinkColors, TagColor } from '../../../types';
+import { ChromeColors, ChromeLinkColors } from '../../../types';
 
 export const roundedBorderStyles: CSSObject = {
   borderRadius: `${defaultRoundedBorderRadius}`,
@@ -52,10 +52,6 @@ export const chromeStyles = ({
     color: textColor,
   },
 
-  '&>a:hover': {
-    backgroundColor: backgroundColor,
-  },
-
   borderRadius: `${defaultBorderRadius}`,
   cursor: 'default',
   display: 'inline-flex',
@@ -68,17 +64,29 @@ export const chromeStyles = ({
 });
 
 export const chromeLinkStyles = ({
+  hoverBackgroundColor,
+  hoverTextColor,
   hoverBackgroundColorRemoval,
   hoverTextColorRemoval,
   focusRingColor,
 }: ChromeLinkColors): CSSObject => ({
-  '&:hover': {
+  '&>a:hover': {
+    backgroundColor: hoverBackgroundColor,
+    color: hoverTextColor,
+  },
+
+  '&[data-removable="true"]:hover': {
     backgroundColor: hoverBackgroundColorRemoval,
     color: hoverTextColorRemoval,
   },
 
-  '&>a:focus': {
+  '&:focus-within': {
     boxShadow: `0 0 0 2px ${focusRingColor}`,
+    outline: 'none',
+  },
+
+  '&[data-removing="true"]:focus-within': {
+    boxShadow: `0 0 0 2px transparent`,
     outline: 'none',
   },
 });
@@ -107,13 +115,15 @@ export const textStyles: CSSObject = {
   whiteSpace: 'nowrap',
 };
 
-export const linkStyles = (
-  color: TagColor,
-  linkHoverColor: string,
-): CSSObject => ({
+export const linkStyles = (linkHoverColor: string): CSSObject => ({
   ...textStyles,
-  color: `${color !== 'standard' ? 'inherit' : null}`,
-  textDecoration: `${color === 'standard' ? 'none' : 'underline'}`,
+
+  ':not([data-color="standard"])': {
+    color: 'inherit',
+    textDecoration: 'underline',
+  },
+
+  textDecoration: 'none',
 
   '&:hover': {
     color: linkHoverColor,

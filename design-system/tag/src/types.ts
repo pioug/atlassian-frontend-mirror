@@ -26,6 +26,8 @@ export type ChromeColors = {
 };
 
 export type ChromeLinkColors = {
+  hoverBackgroundColor: string;
+  hoverTextColor: string;
   hoverBackgroundColorRemoval: string;
   hoverTextColorRemoval: string;
   focusRingColor: string;

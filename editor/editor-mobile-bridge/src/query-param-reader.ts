@@ -44,3 +44,6 @@ export const getAllowCollabProvider = (): boolean =>
 
 export const getAllowHeadingAnchorLinks = (): boolean =>
   getQueryParams().get('allowHeadingAnchorLinks') === 'true';
+
+export const getAllowPredictableList = (): boolean =>
+  getQueryParams().get('allowPredictableList') === 'true';

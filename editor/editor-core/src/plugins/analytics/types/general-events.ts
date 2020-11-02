@@ -9,6 +9,7 @@ import { PluginPerformanceReportData } from '../../../utils/performance/plugin-p
 import { FeatureFlagKey } from '../../feature-flags-context/types';
 import { AnnotationAEP } from './inline-comment-events';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
+import { SEVERITY } from '@atlaskit/editor-common';
 
 export enum PLATFORMS {
   NATIVE = 'mobileNative',
@@ -31,12 +32,6 @@ export enum BROWSER_FREEZE_INTERACTION_TYPE {
   TYPING = 'typing',
   CLICKING = 'clicking',
   PASTING = 'pasting',
-}
-
-export enum SEVERITY {
-  NORMAL = 'normal',
-  DEGRADED = 'degraded',
-  BLOCKING = 'blocking',
 }
 
 type ButtonAEP<ActionSubjectID, Attributes> = UIAEP<
@@ -91,6 +86,7 @@ type EditorPerfAEP = OperationalAEP<
     startTime: number;
     nodes?: Record<string, number>;
     ttfb?: number;
+    severity?: SEVERITY;
   },
   undefined
 >;
@@ -117,6 +113,7 @@ type BrowserFreezePayload = OperationalAEP<
     participants: number;
     nodeCount?: Record<string, number>;
     interactionType?: BROWSER_FREEZE_INTERACTION_TYPE;
+    severity?: SEVERITY;
   },
   undefined
 >;

@@ -19,6 +19,9 @@ export type {
   InlineCommentSelectionComponentProps,
   InlineCommentViewComponentProps,
   InlineCommentAnnotationProvider,
+  OnAnnotationClickPayload,
+  AnnotationByMatches,
+  AnnotationActionResult,
 } from './annotation';
 
 export type { TypeAheadItem, TypeAheadItemRenderProps } from './typeAhead';

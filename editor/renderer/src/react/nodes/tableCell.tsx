@@ -14,6 +14,7 @@ type CellProps = CellAttributes & {
   colGroupWidth?: string;
   offsetTop?: number;
 };
+const IgnoreSorting = ['LABEL', 'INPUT'];
 
 export type CellWithSortingProps = CellProps & {
   isHeaderRow?: boolean;
@@ -151,7 +152,12 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
       );
     }
 
-    onClick = () => {
+    onClick = (event: React.MouseEvent<HTMLElement>) => {
+      // ignore sorting when specific elements are clicked
+      const { tagName } = event.target as HTMLElement;
+      if (IgnoreSorting.includes(tagName)) {
+        return;
+      }
       const {
         fireAnalyticsEvent,
         onSorting,
@@ -161,7 +167,6 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
 
       if (onSorting && columnIndex != null) {
         const sortOrder = nextStatusOrder(sortOrdered);
-
         onSorting(columnIndex, sortOrder);
         fireAnalyticsEvent &&
           fireAnalyticsEvent({

@@ -10,7 +10,11 @@ import {
   createCardClient,
   createCardProvider,
 } from '../providers';
-import { getModeValue, getQueryParams } from '../query-param-reader';
+import {
+  getModeValue,
+  getQueryParams,
+  getAllowPredictableList,
+} from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../providers/collab-provider';
 import { ErrorBoundary } from './error-boundary';
@@ -34,6 +38,7 @@ const App: React.FC<AppProps> = props => {
         emojiProvider={createEmojiProvider(fetchProxy)}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
+        UNSAFE_predictableLists={getAllowPredictableList()}
       />
     </ErrorBoundary>
   );

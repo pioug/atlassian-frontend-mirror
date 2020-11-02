@@ -16,7 +16,9 @@ describe('Theme Colors', () => {
     });
     expect(chromeLinkColors).toEqual({
       focusRingColor: '#4C9AFF',
+      hoverBackgroundColor: '#EBECF0',
       hoverBackgroundColorRemoval: '#FFEBE6',
+      hoverTextColor: '#0065FF',
       hoverTextColorRemoval: '#BF2600',
     });
     expect(buttonColors).toEqual({
@@ -42,7 +44,9 @@ describe('Theme Colors', () => {
     });
     expect(chromeLinkColors).toEqual({
       focusRingColor: '#B3D4FF',
+      hoverBackgroundColor: '#313D52',
       hoverBackgroundColorRemoval: '#FF8F73',
+      hoverTextColor: '#2684FF',
       hoverTextColorRemoval: '#1B2638',
     });
     expect(buttonColors).toEqual({

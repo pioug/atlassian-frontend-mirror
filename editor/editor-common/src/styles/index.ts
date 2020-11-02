@@ -25,6 +25,7 @@ export {
 export { blockquoteSharedStyles } from './shared/blockquote';
 export { headingsSharedStyles } from './shared/headings';
 export {
+  getPanelTypeBackground,
   panelSharedStyles,
   PanelSharedCssClassName,
   PanelSharedSelectors,

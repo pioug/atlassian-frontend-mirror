@@ -13,6 +13,8 @@ import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
 
+export { getContentBoundingRectTopLeftCoords } from '@atlaskit/editor-test-helpers';
+
 export const editorSelector = '.akEditor';
 export const editorFullPageContentSelector =
   '.fabric-editor-popup-scroll-parent';
@@ -448,34 +450,6 @@ export const applyRemoteStep = async (
   return await page.evaluate((_stepsAsString: string[]) => {
     (window as any).__applyRemoteSteps(_stepsAsString);
   }, stepsAsString);
-};
-
-export const getContentBoundingRectTopLeftCoords = async (
-  page: PuppeteerPage,
-  elementSelector: string,
-) => {
-  // page.click clicks in centre of element, so we need to get the bounding rect
-  // so we can click the top left corner
-  const boundingRectCoords = await page.evaluate(selector => {
-    const element = document.querySelector(selector);
-    if (element) {
-      const rect = element.getBoundingClientRect();
-      return {
-        top: rect.top,
-        left: rect.left,
-        right: rect.right,
-        bottom: rect.bottom,
-        width: rect.width,
-        height: rect.height,
-      };
-    }
-  }, elementSelector);
-
-  if (!boundingRectCoords) {
-    throw Error(`Unable to find element ${elementSelector} on page`);
-  }
-
-  return boundingRectCoords;
 };
 
 export const mediaToFullyLoad = async (page: PuppeteerPage) => {

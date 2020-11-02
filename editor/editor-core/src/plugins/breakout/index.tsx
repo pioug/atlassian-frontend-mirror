@@ -47,27 +47,42 @@ class BreakoutView {
 
   private updateWidth = (widthState: WidthPluginState) => {
     const width = calcBreakoutWidth(this.node.attrs.mode, widthState.width);
-    this.dom.style.width = width;
+    let newStyle = `width: ${width}; `;
 
     const lineLength = widthState.lineLength;
     const widthPx = parsePx(width);
 
     if (lineLength && widthPx) {
-      this.dom.style.transform = '';
-
       const marginLeftPx = -(widthPx - lineLength) / 2;
-      this.dom.style.marginLeft = `${marginLeftPx}px`;
+      newStyle += `transform: none; margin-left: ${marginLeftPx}px;`;
     } else {
       // fallback method
       // (lineLength is not normally undefined, but might be in e.g. SSR or initial render)
       //
       // this approach doesn't work well with position: fixed, so
       // it breaks things like sticky headers
-      this.dom.style.marginLeft = '50%';
-      this.dom.style.transform = 'translateX(-50%)';
+      newStyle += `transform: translateX(-50%); margin-left: 50%;`;
+    }
+
+    // NOTE: This is a hack to ignore mutation since mark NodeView doesn't support
+    // `ignoreMutation` life-cycle event. @see ED-9947
+    const viewDomObserver = (this.view as any).domObserver;
+    if (viewDomObserver && this.view.dom) {
+      viewDomObserver.stop();
+      setTimeout(() => {
+        viewDomObserver.start();
+      }, 0);
+    }
+
+    if (typeof this.dom.style.cssText !== 'undefined') {
+      this.dom.style.cssText = newStyle;
+    } else {
+      this.dom.setAttribute('style', newStyle);
     }
   };
 
+  // NOTE: Lifecycle events doesn't work for mark NodeView. So currently this is a no-op.
+  // @see https://github.com/ProseMirror/prosemirror/issues/1082
   destroy() {
     this.eventDispatcher.off((widthPluginKey as any).key, this.updateWidth);
   }

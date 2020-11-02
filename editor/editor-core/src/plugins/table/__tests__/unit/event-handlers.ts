@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import tablePlugin from '../../../table';
-import { handleMouseOut } from '../../event-handlers';
+import { handleMouseOut, handleMouseDown } from '../../event-handlers';
 import { pluginKey } from '../../pm-plugins/plugin-factory';
 import { TableCssClassName as ClassName } from '../../types';
 
@@ -26,7 +26,61 @@ describe('table plugin: decorations', () => {
       preset: new Preset<LightEditorPlugin>().add(tablePlugin),
       pluginKey,
     });
+  describe('#handleMouseDown', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+    });
+    it('should return true & prevent default behaviour for table wrappers: pm-table-contianer', () => {
+      const { editorView } = editor(
+        doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
+      );
+      const tableContainer = document.createElement('div');
+      tableContainer.className = 'pm-table-container';
+      const event = new MouseEvent('mousedown');
+      Object.defineProperty(event, 'target', { value: tableContainer });
+      const preventDefaultSpy = jest.spyOn(
+        MouseEvent.prototype,
+        'preventDefault',
+      );
 
+      expect(handleMouseDown(editorView, event)).toEqual(true);
+      expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return true & prevent default behaviour for table wrappers: pm-table-wrapper', () => {
+      const { editorView } = editor(
+        doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
+      );
+      const tableContainer = document.createElement('div');
+      tableContainer.className = 'pm-table-wrapper';
+      const event = new MouseEvent('mousedown');
+      Object.defineProperty(event, 'target', { value: tableContainer });
+      const preventDefaultSpy = jest.spyOn(
+        MouseEvent.prototype,
+        'preventDefault',
+      );
+
+      expect(handleMouseDown(editorView, event)).toEqual(true);
+      expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return false & not prevent default behaviour for editor content area: ak-editor-content-area', () => {
+      const { editorView } = editor(
+        doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
+      );
+      const editorContentArea = document.createElement('div');
+      editorContentArea.className = 'ak-editor-content-area';
+      const event = new MouseEvent('mousedown');
+      Object.defineProperty(event, 'target', { value: editorContentArea });
+      const preventDefaultSpy = jest.spyOn(
+        MouseEvent.prototype,
+        'preventDefault',
+      );
+
+      expect(handleMouseDown(editorView, event)).toEqual(false);
+      expect(preventDefaultSpy).toHaveBeenCalledTimes(0);
+    });
+  });
   describe('#handleMouseOut', () => {
     describe('when the target is a resize handle column', () => {
       it('should return true', () => {

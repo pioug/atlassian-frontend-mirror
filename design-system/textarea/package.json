@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "3.0.5",
+  "version": "4.0.0",
   "description": "Textarea Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,11 +27,11 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@emotion/core": "^10.0.9",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -40,9 +40,11 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
-    "enzyme": "^3.10.0",
+    "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
+    "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
@@ -54,6 +56,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   }
 }

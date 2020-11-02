@@ -9,7 +9,7 @@ type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
   after?: JSX.Element;
   role?: string;
   testId?: string;
-  tagCss: ((CSSObject | undefined)[] | undefined)[];
+  tagCss: (CSSObject | (CSSObject | undefined)[] | undefined)[];
 };
 
 const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(

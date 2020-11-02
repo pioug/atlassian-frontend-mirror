@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { ToggleStateless as Toggle } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import DynamicTable from '../src';
 

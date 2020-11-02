@@ -5,6 +5,7 @@ import {
 import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
+  AnnotationActionResult,
 } from '@atlaskit/editor-common';
 import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
 import { Node, Schema, Mark } from 'prosemirror-model';
@@ -20,6 +21,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '../analytics/enums';
+import { getIndexMatch } from './matches-utils';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
@@ -41,7 +43,7 @@ export interface RendererActionsOptions {
 export type ApplyAnnotation = (
   pos: Position,
   annotation: Annotation,
-) => ActionResult;
+) => AnnotationActionResult;
 
 export interface AnnotationsRendererActionsOptions {
   isValidAnnotationPosition: (pos: Position) => boolean;
@@ -270,7 +272,10 @@ export default class RendererActions
     return getAnnotationIdsFromRange(pos, this.doc, this.schema);
   }
 
-  applyAnnotation(pos: Position, annotation: Annotation): ActionResult {
+  applyAnnotation(
+    pos: Position,
+    annotation: Annotation,
+  ): AnnotationActionResult {
     if (!this.doc || !pos || !this.schema) {
       return false;
     }
@@ -289,9 +294,20 @@ export default class RendererActions
       return false;
     }
 
+    const originalSelection = doc.textBetween(from, to);
+    const { numMatches, matchIndex } = getIndexMatch(
+      this.doc,
+      this.schema,
+      originalSelection,
+      from,
+    );
+
     return {
       step,
       doc: this.transformer.encode(doc),
+      originalSelection,
+      numMatches,
+      matchIndex,
     };
   }
 }

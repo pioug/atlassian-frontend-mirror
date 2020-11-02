@@ -19,13 +19,9 @@ import { isListNode } from './utils/node';
 import { mapSlice, mapChildren } from '../../utils/slice';
 import { getListLiftTarget } from './utils/indentation';
 
-function liftListItem(
-  state: EditorState,
-  selection: Selection,
-  tr: Transaction,
-): Transaction {
+function liftListItem(selection: Selection, tr: Transaction): Transaction {
   let { $from, $to } = selection;
-  const nodeType = state.schema.nodes.listItem;
+  const nodeType = tr.doc.type.schema.nodes.listItem;
   let range = $from.blockRange(
     $to,
     node =>
@@ -70,13 +66,12 @@ function liftListItem(
 
 // Function will lift list item following selection to level-1.
 export function liftFollowingList(
-  state: EditorState,
   from: number,
   to: number,
   rootListDepth: number,
   tr: Transaction,
 ): Transaction {
-  const { listItem } = state.schema.nodes;
+  const { listItem } = tr.doc.type.schema.nodes;
   let lifted = false;
   tr.doc.nodesBetween(from, to, (node, pos) => {
     if (!lifted && node.type === listItem && pos > from) {
@@ -89,7 +84,7 @@ export function liftFollowingList(
           tr.mapping.map(pos + node.textContent.length),
         );
         const sel = new TextSelection(start, end);
-        tr = liftListItem(state, sel, tr);
+        tr = liftListItem(sel, tr);
       }
     }
   });
@@ -98,11 +93,11 @@ export function liftFollowingList(
 
 // The function will list paragraphs in selection out to level 1 below root list.
 export function liftSelectionList(
-  state: EditorState,
+  selection: Selection,
   tr: Transaction,
 ): Transaction {
-  const { from, to } = state.selection;
-  const { paragraph } = state.schema.nodes;
+  const { from, to } = selection;
+  const { paragraph } = tr.doc.type.schema.nodes;
   const listCol: any[] = [];
   tr.doc.nodesBetween(from, to, (node, pos) => {
     if (node.type === paragraph) {

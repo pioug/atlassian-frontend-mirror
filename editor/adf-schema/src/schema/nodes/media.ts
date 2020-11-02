@@ -1,5 +1,6 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { N30 } from '../../utils/colors';
+import { LinkDefinition } from '../marks/link';
 
 export type MediaType = 'file' | 'link' | 'external';
 export type DisplayType = 'file' | 'thumbnail';
@@ -19,6 +20,9 @@ export interface MediaDefinition {
    * @minItems 1
    */
   attrs: MediaADFAttrs;
+
+  /** @stage 0 */
+  marks?: Array<LinkDefinition>;
 }
 
 export interface MediaBaseAttributes {

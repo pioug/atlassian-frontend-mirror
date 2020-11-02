@@ -8,11 +8,24 @@ import {
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
+  OnAnnotationClickPayload,
 } from './emitter';
 
 export type { AnnotationState };
 
+export type AnnotationByMatches = {
+  originalSelection: string;
+  numMatches: number;
+  matchIndex: number;
+};
+
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
+export type AnnotationActionResult =
+  | ({
+      step: Step;
+      doc: JSONDocNode;
+    } & AnnotationByMatches)
+  | false;
 
 export type InlineCommentSelectionComponentProps = {
   /**
@@ -33,7 +46,7 @@ export type InlineCommentSelectionComponentProps = {
   /**
    * Creates an annotation mark in the document with the given id.
    */
-  onCreate: (annotationId: AnnotationId) => ActionResult;
+  onCreate: (annotationId: AnnotationId) => AnnotationActionResult;
 
   /**
    * Indicates that a draft comment was discarded/cancelled
@@ -91,4 +104,4 @@ export type AnnotationProviders = {
 };
 
 export { AnnotationUpdateEmitter, AnnotationUpdateEvent };
-export type { AnnotationUpdateEventPayloads };
+export type { AnnotationUpdateEventPayloads, OnAnnotationClickPayload };

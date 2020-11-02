@@ -1,5 +1,40 @@
 # @atlaskit/adf-schema
 
+## 13.2.0
+
+### Minor Changes
+
+- [`a929e563b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a929e563b9) - Text color mark changed to be case insensitive
+- [`eba787da28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eba787da28) - Allow link marks on media
+
+### Patch Changes
+
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [`ff39f9f643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff39f9f643) - ED-10614 Add match indexing (Confluence API) for annotation creation for the renderer
+
+  BEFORE
+
+  ```
+  export type AnnotationActionResult =
+    {
+      step: Step;
+      doc: JSONDocNode;
+    } | false;
+  ```
+
+  AFTER
+
+  ```
+  export type AnnotationActionResult =
+    {
+      step: Step;
+      doc: JSONDocNode;
+      originalSelection: string;    // <<===
+      numMatches: number;           // <<===
+      matchIndex: number;           // <<===
+    } | false;
+  ```
+
 ## 13.1.0
 
 ### Minor Changes

@@ -12,10 +12,25 @@ import {
   AnnotationUpdateEmitter,
   UnsupportedBlock,
   UnsupportedInline,
+  SEVERITY,
+  stopMeasure,
 } from '@atlaskit/editor-common';
-import RendererDefaultComponent, { Renderer } from '../../';
+import {
+  CreateUIAnalyticsEvent,
+  UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+import RendererDefaultComponent, {
+  Renderer,
+  NORMAL_SEVERITY_THRESHOLD,
+  DEGRADED_SEVERITY_THRESHOLD,
+} from '../../';
 import { SelectionComponentWrapper } from '../../../annotations/selection';
 import { Paragraph } from '../../../../react/nodes';
+
+jest.mock('@atlaskit/editor-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+  stopMeasure: jest.fn(),
+}));
 
 describe('Renderer', () => {
   const annotationsId: string[] = ['id_1', 'id_2', 'id_3'];
@@ -271,4 +286,73 @@ describe('spec based validator', () => {
     expect(wrapper!.find(UnsupportedInline)).toHaveLength(0);
     expect(wrapper!.find(Paragraph)).not.toHaveLength(0);
   });
+});
+
+describe('severity', () => {
+  const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
+    () => ({ fire() {} } as UIAnalyticsEvent),
+  );
+
+  jest
+    .spyOn(window, 'requestAnimationFrame')
+    .mockImplementation((callback: FrameRequestCallback) => callback(1) as any);
+
+  const doc = {
+    type: 'doc',
+    version: 1,
+    content: [
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'hello',
+          },
+        ],
+      },
+    ],
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it.each`
+    condition                                                                         | threshold                          | severity
+    ${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
+    ${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
+    ${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
+  `(
+    'should fire event with $severity severity when $condition',
+    ({ condition, threshold, severity }) => {
+      act(() => {
+        (stopMeasure as any).mockImplementation((name: any, callback: any) => {
+          callback && callback(threshold, 1);
+        });
+
+        shallow(
+          <Renderer
+            document={doc}
+            analyticsEventSeverityTracking={{
+              enabled: true,
+              severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
+              severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
+            }}
+            createAnalyticsEvent={createAnalyticsEvent}
+          />,
+        );
+      });
+
+      expect(createAnalyticsEvent).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          action: 'rendered',
+          actionSubject: 'renderer',
+          attributes: expect.objectContaining({
+            duration: threshold,
+            severity,
+          }),
+        }),
+      );
+    },
+  );
 });

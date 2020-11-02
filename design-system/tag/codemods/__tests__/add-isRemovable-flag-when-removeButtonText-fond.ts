@@ -23,7 +23,7 @@ describe('Update isRemovable prop', () => {
 
       export default () => <Tag text="Removable button"/>;
     `,
-    'should not adding isRemovable flag when no removeButtonText defined',
+    'should not add isRemovable flag when no removeButtonText defined',
   );
 
   defineInlineTest(

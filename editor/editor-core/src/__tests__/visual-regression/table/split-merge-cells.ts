@@ -56,7 +56,6 @@ describe('Table context menu: merge-split cells', () => {
     const firstCell = getSelectorForTableCell({
       row: 1,
       cell: 1,
-      cellType: 'th',
     });
     let lastCell = getSelectorForTableCell({ row: 3, cell: 1 });
     await tableMergeAndSplitCells(firstCell, lastCell);

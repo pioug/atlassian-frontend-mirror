@@ -226,6 +226,7 @@ export enum ACTION_SUBJECT_ID {
   STATUS = 'status',
   SYMBOL = 'symbol',
   TABLE = 'table',
+  TEXT = 'text',
   TYPEAHEAD_EMOJI = 'emojiTypeAhead',
   TYPEAHEAD_LINK = 'linkTypeAhead',
   TYPEAHEAD_MENTION = 'mentionTypeAhead',

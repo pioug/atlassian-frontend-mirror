@@ -7,7 +7,7 @@ import Button from '@atlaskit/button/standard-button';
 import { Label } from '@atlaskit/field-base';
 import ArrowDown from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUp from '@atlaskit/icon/glyph/arrow-up';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import { Code, Note } from '../examples-util/helpers';
 import AvatarGroup from '../src';
@@ -267,10 +267,7 @@ const AvatarGroupExample: FC = () => {
       <h5>Non-interactive</h5>
       <div>
         <Label label="Enable tooltips" />
-        <ToggleStateless
-          isChecked={!state.tooltipsDisabled}
-          onChange={toggleTooltips}
-        />
+        <Toggle isChecked={!state.tooltipsDisabled} onChange={toggleTooltips} />
         <AvatarGroup
           data={stackSourceURLs.map(i => ({
             key: i,

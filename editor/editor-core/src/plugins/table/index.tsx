@@ -180,6 +180,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                       tableNode && tableNode.attrs.isNumberColumnEnabled
                     }
                     editorView={editorView}
+                    tableNode={tableNode}
                     mountPoint={popupsMountPoint}
                     targetCellPosition={targetCellPosition}
                     scrollableElement={popupsScrollableElement}

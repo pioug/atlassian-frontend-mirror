@@ -10,7 +10,7 @@ import ConfigPanelWithExtensionPicker from '../example-helpers/config-panel/Conf
 
 const parameters = {
   cql:
-    'Q = dddd AND USER = llemos AND SPACE = SD AND contentType in (blogpost, question)',
+    'Q = dddd AND USER = llemos AND SPACE = SD AND contentType in (blogpost, question) AND created &gt;= &quot;2020-10-05&quot; and created &lt;= &quot;2020-10-22&quot;',
   'custom-user-lazy': 'akumar',
 };
 

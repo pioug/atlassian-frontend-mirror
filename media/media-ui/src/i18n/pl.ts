@@ -65,7 +65,6 @@ export default {
   'fabric.media.failed_to_load': 'Niepowodzenie ładowania',
   'fabric.media.give_feedback': 'Prześlij opinię',
   'fabric.media.image': 'obraz',
-  'fabric.media.image.search': 'Szukaj',
   'fabric.media.image_format_invalid_error':
     'Nie można załadować obrazu. Format jest niepoprawny.',
   'fabric.media.image_size_too_large_error':
@@ -93,6 +92,7 @@ export default {
   'fabric.media.or': 'lub',
   'fabric.media.pause': 'wstrzymaj',
   'fabric.media.play': 'odtwórz',
+  'fabric.media.preview': 'Podgląd',
   'fabric.media.recent_uploads': 'Ostatnio przekazane',
   'fabric.media.remove_image': 'usuń obraz',
   'fabric.media.retry': 'Spróbuj ponownie',
@@ -117,6 +117,7 @@ export default {
   'fabric.media.upload_image': 'Przekaż obraz',
   'fabric.media.upload_photo': 'Przekaż zdjęcie',
   'fabric.media.video': 'wideo',
+  'fabric.media.view': 'Wyświetl',
   'fabric.media.webgl_warning_description':
     'Twoja przeglądarka nie obsługuje WebGL. Użyj przeglądarki z włączoną obsługą WebGL, aby dodawać adnotacje do obrazów',
   'fabric.media.zoom_in': 'powiększ',

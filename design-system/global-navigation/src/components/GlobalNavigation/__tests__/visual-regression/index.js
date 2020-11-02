@@ -34,25 +34,22 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // Flaky test
-  // it('dropdown example should match prod', async () => {
-  //   const url = getExampleUrl(
-  //     'design-system',
-  //     'global-navigation',
-  //     'with-dropdowns',
-  //     global.__BASEURL__,
-  //   );
-  //   const { page } = global;
-  //   const button = '#profileGlobalItem';
-  //   await loadPage(page, url);
-  //   await page.waitForSelector(toggleButtonSelector);
-  //   await page.waitForSelector(button);
-
-  //   await page.click(button);
-
-  //   const image = await page.screenshot();
-  //   expect(image).toMatchProdImageSnapshot();
-  // });
+  // flaky external image: https://api.adorable.io/avatars/285/bruh@adorable.io.png would
+  // cause CI failure
+  // as global-navigation has been deprecated, will skip it for now.
+  it.skip('dropdown example should match prod', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'global-navigation',
+      'with-dropdowns',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    const button = '#profileGlobalItem';
+    await loadPage(page, url);
+    await page.waitForSelector(toggleButtonSelector);
+    await page.waitForSelector(button);
+  });
 
   it('drawer example should match prod', async () => {
     const url = getExampleUrl(

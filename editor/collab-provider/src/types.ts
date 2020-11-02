@@ -12,6 +12,7 @@ export type ConnectedPayload = {
 export type InitPayload = {
   doc: any;
   version: number;
+  userId?: string;
 };
 
 export type ParticipantPayload = {
@@ -46,6 +47,7 @@ export type TitlePayload = {
 export type ChannelEvent = {
   connected: ConnectedPayload;
   init: InitPayload;
+  reconnected: null;
   'participant:joined': ParticipantPayload;
   'participant:left': ParticipantPayload;
   'participant:telepointer': TelepointerPayload;
@@ -82,7 +84,6 @@ export interface Storage {
 export interface Config {
   url: string;
   documentAri: string;
-  userId: string;
   lifecycle?: Lifecycle;
   storage?: Storage;
   createSocket(path: string): Socket;

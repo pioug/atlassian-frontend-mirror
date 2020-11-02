@@ -121,6 +121,7 @@ export type { QuickInsertPluginState } from './plugins/quick-insert';
 export type { TypeAheadItem } from './plugins/type-ahead/types';
 export { selectItem } from './plugins/type-ahead/commands/select-item';
 export { insertTypeAheadQuery } from './plugins/type-ahead/commands/insert-query';
+export { dismissCommand } from './plugins/type-ahead/commands/dismiss';
 export {
   insertLink,
   insertLinkWithAnalytics,
@@ -129,7 +130,7 @@ export {
   setLinkHref,
   setLinkText,
 } from './plugins/hyperlink/commands';
-export type { LinkInputType as LinkInputMethod } from './plugins/hyperlink/ui/HyperlinkAddToolbar/HyperlinkAddToolbar';
+export type { LinkInputType as LinkInputMethod } from './plugins/hyperlink/types';
 export { historyPluginKey } from './plugins/history';
 export {
   INPUT_METHOD,

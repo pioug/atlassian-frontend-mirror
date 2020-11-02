@@ -2,10 +2,13 @@ import { Schema } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
   p,
+  ol,
   ul,
   li,
   doc,
   code_block,
+  panel,
+  mention,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -861,6 +864,78 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
+  const case19: [string, DocumentType, DocumentType] = [
+    'cursor selection is a node selection',
+    // Scenario
+    // prettier-ignore
+    doc(
+      panel()(
+        ol(
+          li(p('A')),
+          li(
+            p('B {<node>}', mention({ id: '1' })(),'1'),
+          ),
+          li(p('C')),
+        ),
+      ),
+    ),
+    // Scenario
+    // prettier-ignore
+    doc(
+      panel()(
+        ol(
+          li(
+            p('A'),
+            ol(
+              li(
+                p('B {<node>}', mention({ id: '1' })(),'1'),
+              ),
+            ),
+          ),
+          li(p('C')),
+        ),
+      ),
+    ),
+  ];
+
+  const case20: [string, DocumentType, DocumentType] = [
+    'node selection is the last element in the list item',
+    // Scenario
+    // prettier-ignore
+    doc(
+      panel()(
+        ol(
+          li(
+            p('A'),
+            ul(
+              li(p('A1')),
+            ),
+          ),
+          li(
+            p('B {<node>}', mention({ id: '1' })(),'1'),
+          ),
+        ),
+      ),
+    ),
+    // Scenario
+    // prettier-ignore
+    doc(
+      panel()(
+        ol(
+          li(
+            p('A'),
+            ul(
+              li(p('A1')),
+              li(
+                p('B {<node>}', mention({ id: '1' })(),'1'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ];
+
   describe.each<[string, DocumentType, DocumentType]>([
     // prettier-ignore
     case0,
@@ -882,11 +957,12 @@ describe('indent-list-items-selected', () => {
     case16,
     case17,
     case18,
+    case19,
+    case20,
   ])('[case%#] when %s', (_scenario, previousDocument, expectedDocument) => {
     it('should match the expected document and keep the selection', () => {
       const myState = createEditorState(previousDocument);
       const { tr } = myState;
-
       indentListItemsSelected(tr);
 
       expect(tr).toEqualDocumentAndSelection(expectedDocument(sampleSchema));

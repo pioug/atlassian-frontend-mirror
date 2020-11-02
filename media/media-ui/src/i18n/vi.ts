@@ -69,7 +69,6 @@ export default {
   'fabric.media.failed_to_load': 'Không thể tải',
   'fabric.media.give_feedback': 'Đưa ra phản hồi',
   'fabric.media.image': 'hình ảnh',
-  'fabric.media.image.search': 'Tìm kiếm',
   'fabric.media.image_format_invalid_error':
     'Không thể tải hình ảnh, định dạng không hợp lệ.',
   'fabric.media.image_size_too_large_error':
@@ -97,6 +96,7 @@ export default {
   'fabric.media.or': 'hoặc',
   'fabric.media.pause': 'tạm dừng',
   'fabric.media.play': 'phát',
+  'fabric.media.preview': 'Xem trước',
   'fabric.media.recent_uploads': 'Các nội dung tải lên gần đây',
   'fabric.media.remove_image': 'Xóa hình ảnh',
   'fabric.media.retry': 'Thử lại',
@@ -120,6 +120,7 @@ export default {
   'fabric.media.upload_image': 'Tải lên hình ảnh',
   'fabric.media.upload_photo': 'Tải ảnh lên',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Xem',
   'fabric.media.webgl_warning_description':
     'Trình duyệt của bạn không hỗ trợ WebGL. Sử dụng trình duyệt đã bật WebGL để chú thích hình ảnh.',
   'fabric.media.zoom_in': 'phóng to',

@@ -4,6 +4,7 @@ import {
   ExtensionManifest,
   ExtensionModuleFields,
   Serializer,
+  UserFieldContextProvider,
 } from './types/extension-manifest';
 import { FieldHandlerLink } from './types/field-definitions';
 
@@ -18,13 +19,13 @@ async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 
   if (!manifest.modules.fields) {
     throw new Error(
-      `No definition of fields for extension type "${manifest.type}" and key "${manifest.key}"!`,
+      `No definition of fields for extension type "${manifest.type}" and key "${manifest.key}"`,
     );
   }
 
   if (!manifest.modules.fields[fieldType]) {
     throw new Error(
-      `No definition for field type "${fieldType}" on manifest for extension with type "${manifest.type}" and key "${manifest.key}"!`,
+      `No definition for field type "${fieldType}" on manifest for extension with type "${manifest.type}" and key "${manifest.key}"`,
     );
   }
 
@@ -33,7 +34,7 @@ async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 
   if (!handler) {
     throw new Error(
-      `No handler of type "${type}" for extension type "${manifest.type}" and key "${manifest.key}"!`,
+      `No handler of type "${type}" for extension type "${manifest.type}" and key "${manifest.key}"`,
     );
   }
 
@@ -74,4 +75,12 @@ export async function getFieldDeserializer(
     handlerLink,
   );
   return handler.deserializer;
+}
+
+export async function getUserFieldContextProvider(
+  manifest: ExtensionManifest,
+  handlerLink: FieldHandlerLink,
+): Promise<UserFieldContextProvider> {
+  const handler = await getExtensionModuleField(manifest, 'user', handlerLink);
+  return handler.provider;
 }

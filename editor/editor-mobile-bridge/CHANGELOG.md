@@ -1,5 +1,22 @@
 # @atlaskit/editor-mobile-bridge
 
+## 20.0.0
+
+### Major Changes
+
+- [`f73b500ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f73b500ffa) - ED-10681 API for dismiss typeahead
+
+### Minor Changes
+
+- [`491b3ce869`](https://bitbucket.org/atlassian/atlassian-frontend/commits/491b3ce869) - ED-10672 Add a feature flag for the predictable lists in mobile-bridge
+- [`e3b2251f29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3b2251f29) - Breaking change for collab provider as userId has been removed from constructor. Mobile bridge and editor demo app require an upgrade too
+
+### Patch Changes
+
+- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [`6dc9db6e15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dc9db6e15) - TWISTA-438 Fix bug where PageTitle bridge was not been enabled
+- Updated dependencies
+
 ## 19.1.2
 
 ### Patch Changes

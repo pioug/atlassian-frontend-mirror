@@ -13,7 +13,7 @@ import { Route, Switch } from 'react-router';
 import { MemoryRouter } from 'react-router-dom';
 
 import { Label } from '@atlaskit/field-base';
-import { ToggleStateless } from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle';
 
 import { LayoutManagerWithViewController, NavigationProvider } from '../src';
 
@@ -112,32 +112,32 @@ export default class App extends Component {
                 shortcut.
               </p>
               <Label label="Toggle flyout on hover (experimental)" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isFlyoutAvailable}
                 onChange={this.onFlyoutToggle}
               />
               <Label label="Toggle alternate hover behaviour (experimental)" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isAlternateFlyoutBehaviourEnabled}
                 onChange={this.onAlternateBehaviourToggle}
               />
               <Label label="Toggle full width flyout (experimental)" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isFullWitdhFlyoutEnabled}
                 onChange={this.onFullWidthFlyoutToggle}
               />
               <Label label="Hide nav visually on collapse" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isHideNavVisuallyEnabled}
                 onChange={this.onHideNavVisuallyToggle}
               />
               <Label label="Toggle contextual navigation" />
-              <ToggleStateless
+              <Toggle
                 isChecked={showContextualNavigation}
                 onChange={this.onToggleContextualNavigation}
               />
               <Label label="Toggle debug logger" />
-              <ToggleStateless
+              <Toggle
                 isChecked={isDebugEnabled}
                 onChange={this.onDebugToggle}
               />

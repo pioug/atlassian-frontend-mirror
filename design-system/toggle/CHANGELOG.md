@@ -1,5 +1,41 @@
 # @atlaskit/toggle
 
+## 12.0.0
+
+### Major Changes
+
+- [`da6f3ca7ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da6f3ca7ff) - ### Brief
+
+  The ultimate goal of this major for toggle is to improve the component's performance, by both
+  reducing static structure or avoiding unnecessary function calls.
+
+  Some big changes are made as following:
+
+  - merged stateful and stateless component
+  - replace `styled-components` to `emotion` as styling library
+  - restructure DOM element to reduce size
+  - using latest analytics-next
+
+  #### Stateful vs Stateless
+
+  We've merged `Toggle` and `ToggleStateless` in this major, internally we distinguish those two
+  different behaviours by props a user passed in. In React documents, it's recommended to use `controlled components` to implement forms [here](https://reactjs.org/docs/uncontrolled-components.html), while there are cases you might need a different approach instead, there is a [detailed discussion](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/) here that can help you to decide which way to go.
+
+  When `defaultChecked` is passed in, that means you want it to be `stateful` and the component will have a `state` reflecting `checked` or `unchecked` all by itself. In contrast, if `defaultChecked` is absent, it turns to a stateless component and you have to control it on you own, by using `isChecked` prop.
+
+  When both are provided, it will always be a stateful component.
+
+  #### Upgrading with codemod
+
+  ```
+  # You first need to have the latest toggle installed before you can run the codemod
+  yarn upgrade @atlaskit/toggle@^12.0.0
+
+  # Run the codemod cli
+  # Pass in a parser for your codebase
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
 ## 11.0.3
 
 ### Patch Changes

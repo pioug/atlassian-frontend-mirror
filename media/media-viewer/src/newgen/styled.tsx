@@ -154,6 +154,7 @@ export const Arrow = styled.span`
   cursor: pointer;
   && button {
     height: inherit;
+    background: none;
   }
   > span {
     color: rgba(27, 38, 56, 0.5);

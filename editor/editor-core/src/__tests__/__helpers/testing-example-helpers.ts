@@ -109,3 +109,24 @@ export async function goToFullPage(
 
   return page;
 }
+
+export async function goToFullPageClickToEdit(
+  client: ConstructorParameters<typeof WebdriverPage>[0],
+) {
+  const page = new FullPageEditor(client);
+  const url =
+    getExampleUrl(
+      'editor',
+      'editor-core',
+      'full-page-click-to-edit',
+      // @ts-ignore
+      global.__BASEURL__,
+    ) + `&${mediaMockQueryOptInFlag}`;
+
+  await page.goto(url);
+  await page.maximizeWindow();
+  await page.waitForSelector(EDITOR_SELECTOR, { timeout: 500 });
+  await page.click(EDITOR_SELECTOR);
+
+  return page;
+}

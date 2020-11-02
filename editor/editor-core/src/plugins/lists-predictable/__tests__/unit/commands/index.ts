@@ -251,12 +251,9 @@ describe('lists plugin -> commands', () => {
       ])('%s', (name, { listType, content, expected }) => {
         const { editorView } = editor(doc(content));
 
-        toggleList(
+        toggleList(INPUT_METHOD.TOOLBAR, listType)(
           editorView.state,
           editorView.dispatch,
-          editorView,
-          listType,
-          INPUT_METHOD.TOOLBAR,
         );
         expect(editorView.state.doc).toEqualDocument(doc(expected));
       });
@@ -265,12 +262,9 @@ describe('lists plugin -> commands', () => {
     it('should be able to toggle ol to ul inside a panel', () => {
       const { editorView } = editor(doc(panel()(ol(li(p('text{<>}'))))));
 
-      toggleList(
+      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(
         editorView.state,
         editorView.dispatch,
-        editorView,
-        'bulletList',
-        INPUT_METHOD.TOOLBAR,
       );
 
       expect(editorView.state.doc).toEqualDocument(
@@ -281,12 +275,9 @@ describe('lists plugin -> commands', () => {
     it('should be able to toggle ul to ol inside a panel', () => {
       const { editorView } = editor(doc(panel()(ul(li(p('text{<>}'))))));
 
-      toggleList(
+      toggleList(INPUT_METHOD.TOOLBAR, 'orderedList')(
         editorView.state,
         editorView.dispatch,
-        editorView,
-        'orderedList',
-        INPUT_METHOD.TOOLBAR,
       );
 
       expect(editorView.state.doc).toEqualDocument(
@@ -301,13 +292,7 @@ describe('lists plugin -> commands', () => {
 
       const { state, dispatch } = editorView;
 
-      toggleList(
-        state,
-        dispatch,
-        editorView,
-        'bulletList',
-        INPUT_METHOD.TOOLBAR,
-      );
+      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(state, dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc('{expandPos}', breakout({ mode: 'wide' })(expand()(ul(li(p()))))),
@@ -328,13 +313,7 @@ describe('lists plugin -> commands', () => {
 
       const { state, dispatch } = editorView;
 
-      toggleList(
-        state,
-        dispatch,
-        editorView,
-        'bulletList',
-        INPUT_METHOD.TOOLBAR,
-      );
+      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(state, dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(

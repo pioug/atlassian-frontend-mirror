@@ -1,8 +1,7 @@
 import {
   isCodeViewerItem,
-  getLanguage,
-} from '../../../../../newgen/viewers/codeViewer/util';
-import { ProcessedFileState } from '@atlaskit/media-client';
+  getLanguageType,
+} from '@atlaskit/media-ui/codeViewer';
 
 describe('CodeViewer Utility Function', () => {
   const isCodeItemCasesDirectMapping = [
@@ -34,30 +33,12 @@ describe('CodeViewer Utility Function', () => {
     '.xquery',
   ];
 
-  function getFileState(name: string): ProcessedFileState {
-    const fileState: ProcessedFileState = {
-      id: 'some-id',
-      status: 'processed',
-      name: name,
-      size: 11222,
-      mediaType: 'archive',
-      mimeType: 'zip',
-      artifacts: {},
-      representations: {
-        image: {},
-      },
-    };
-    return fileState;
-  }
-
   // testing the direct mapping cases for code items, i.e item with the filename test.c has the language "c"
   test.each(isCodeItemCasesDirectMapping)(
     'should calculate based on the name %p that it IS a Codeviewer item with the language %p',
     name => {
-      expect(getLanguage(getFileState(name))).toEqual(
-        name.split('.').pop() as string,
-      );
-      expect(isCodeViewerItem(getFileState(name))).toEqual(true);
+      expect(getLanguageType(name)).toEqual(name.split('.').pop() as string);
+      expect(isCodeViewerItem(name)).toEqual(true);
     },
   );
 
@@ -104,8 +85,8 @@ describe('CodeViewer Utility Function', () => {
   ].forEach(({ extensions, language }) => {
     it(`should calculate based on the name(s) ${extensions} that it IS a Codeviewer item with the language ${language}`, () => {
       extensions.forEach(function (name) {
-        expect(getLanguage(getFileState(name))).toEqual(language);
-        expect(isCodeViewerItem(getFileState(name))).toEqual(true);
+        expect(getLanguageType(name)).toEqual(language);
+        expect(isCodeViewerItem(name)).toEqual(true);
       });
     });
   });

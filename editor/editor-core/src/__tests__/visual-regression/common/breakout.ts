@@ -9,6 +9,7 @@ import {
   retryUntilStablePosition,
 } from '../../__helpers/page-objects/_toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
 
 describe('Columns:', () => {
   let page: PuppeteerPage;
@@ -22,10 +23,10 @@ describe('Columns:', () => {
     await retryUntilStablePosition(
       page,
       () => clickOnLayoutColumn(page, columnNumber),
-      '[aria-label*="Layout floating controls"]',
+      `[aria-label*="${layoutToolbarTitle}"]`,
       1000,
     );
-    await waitForFloatingControl(page, 'Layout floating controls');
+    await waitForFloatingControl(page, layoutToolbarTitle);
     await waitForFloatingControl(page, 'Go wide', undefined, false);
     await snapshot(page);
   });
@@ -37,10 +38,10 @@ describe('Columns:', () => {
     await retryUntilStablePosition(
       page,
       () => clickOnLayoutColumn(page, columnNumber),
-      '[aria-label*="Layout floating controls"]',
+      `[aria-label*="${layoutToolbarTitle}"]`,
       1000,
     );
-    await waitForFloatingControl(page, 'Layout floating controls');
+    await waitForFloatingControl(page, layoutToolbarTitle);
     await scrollToLayoutColumn(page, columnNumber, offset);
     await waitForFloatingControl(page, 'Go wide', undefined, false);
 

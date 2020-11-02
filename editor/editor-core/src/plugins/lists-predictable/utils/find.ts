@@ -40,7 +40,12 @@ export function findFirstNestedList($pos: ResolvedPos): ResolvedPos | null {
   return $pos.doc.resolve(firstNestedListPosition);
 }
 
-export function findFirstParentListNode($pos: ResolvedPos): PMNode | null {
+export function findFirstParentListNode(
+  $pos: ResolvedPos,
+): {
+  pos: number;
+  node: PMNode;
+} | null {
   const currentNode = $pos.doc.nodeAt($pos.pos);
   let listNodePosition: number | undefined | null = null;
   if (isListNode(currentNode)) {
@@ -55,7 +60,11 @@ export function findFirstParentListNode($pos: ResolvedPos): PMNode | null {
   }
   const node = $pos.doc.nodeAt(listNodePosition);
 
-  return node || null;
+  if (!node) {
+    return null;
+  }
+
+  return { node, pos: listNodePosition };
 }
 
 export function findFirstParentListItemNode(
@@ -83,5 +92,32 @@ export function findFirstParentListItemNode(
     return null;
   }
 
-  return { node: node, pos: listItemNodePosition.pos };
+  return {
+    node: node,
+    pos: listItemNodePosition.pos,
+  };
+}
+
+export function findRootParentListNode($pos: ResolvedPos): ResolvedPos | null {
+  const { doc } = $pos;
+  if ($pos.depth === 0) {
+    return doc.resolve($pos.pos + 1);
+  }
+
+  const currentNode = doc.nodeAt($pos.pos);
+  const beforePosition = $pos.before();
+  const nodeBefore = doc.nodeAt(beforePosition);
+
+  if (isListNode(currentNode) && !isListItemNode(nodeBefore)) {
+    return doc.resolve($pos.pos + 1);
+  }
+
+  const parentList = findParentNodeClosestToPos($pos, isListNode);
+
+  if (!parentList) {
+    return null;
+  }
+  const listNodePosition = doc.resolve(parentList.pos);
+
+  return findRootParentListNode(listNodePosition);
 }

@@ -53,7 +53,6 @@ describe('Table sorting', () => {
       const firstCell = getSelectorForTableCell({
         row: 1,
         cell: 1,
-        cellType: 'th',
       });
 
       await page.click(firstCell);
@@ -72,7 +71,6 @@ describe('Table sorting', () => {
         const firstCell = getSelectorForTableCell({
           row: 1,
           cell: 1,
-          cellType: 'th',
         });
 
         await page.click(firstCell);
@@ -112,7 +110,6 @@ describe('Table sorting', () => {
       const firstCell = getSelectorForTableCell({
         row: 1,
         cell: 1,
-        cellType: 'td',
       });
 
       await page.click(firstCell);

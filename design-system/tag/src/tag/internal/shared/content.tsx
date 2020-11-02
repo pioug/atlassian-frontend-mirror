@@ -35,8 +35,10 @@ const Content = (props: ContentProps) => {
     return (
       <Link
         href={href}
+        data-color={color}
         css={[
-          linkStyles(color, linkHoverColor),
+          linkStyles(linkHoverColor),
+          isRounded ? roundedBorderStyles : undefined,
           elemBefore ? hasBeforeStyles : undefined,
           isRemovable ? hasAfterStyles : undefined,
         ]}

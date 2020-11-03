@@ -1,39 +1,40 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { Props } from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';
-import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { Clipboard as ClipboardComponent } from '@atlaskit/media-picker';
 import { Browser as BrowserComponent } from '@atlaskit/media-picker';
 import { Dropzone as DropzoneComponent } from '@atlaskit/media-picker';
 
-const picker: any = {
-  on: jest.fn(),
-  onClose: jest.fn(),
-  onNewMedia: jest.fn(),
-  onMediaEvent: jest.fn(),
-  onDrag: jest.fn(),
-  hide: jest.fn(),
-  setUploadParams: jest.fn(),
-  show: jest.fn(),
-  deactivate: jest.fn(),
-  activate: jest.fn(),
-  destroy: jest.fn(),
-  type: 'popup',
-};
-picker.init = jest.fn().mockReturnValue(picker);
-
-const mockPickerFacadeProvider = ({ children }: Props) =>
-  children({
-    mediaClientConfig: getDefaultMediaClientConfig(),
-    config: {
-      uploadParams: {},
-    },
-    pickerFacadeInstance: picker,
-  });
-
 jest.mock(
   '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider.tsx',
-  () => mockPickerFacadeProvider,
+  () => {
+    const {
+      getDefaultMediaClientConfig,
+    } = require('@atlaskit/media-test-helpers');
+    const picker: any = {
+      on: jest.fn(),
+      onClose: jest.fn(),
+      onNewMedia: jest.fn(),
+      onMediaEvent: jest.fn(),
+      onDrag: jest.fn(),
+      hide: jest.fn(),
+      setUploadParams: jest.fn(),
+      show: jest.fn(),
+      deactivate: jest.fn(),
+      activate: jest.fn(),
+      destroy: jest.fn(),
+      type: 'popup',
+    };
+    picker.init = jest.fn().mockReturnValue(picker);
+    return ({ children }: Props) =>
+      children({
+        mediaClientConfig: getDefaultMediaClientConfig(),
+        config: {
+          uploadParams: {},
+        },
+        pickerFacadeInstance: picker,
+      });
+  },
 );
 
 import { ClipboardWrapper } from '../../../../../plugins/media/ui/MediaPicker/ClipboardWrapper';

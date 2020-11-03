@@ -1,10 +1,10 @@
-const mockReactDom = {
+jest.mock('react-dom', () => ({
   ...jest.requireActual<Object>('react-dom'),
-  unmountComponentAtNode: () => {},
-};
-jest.mock('react-dom', () => mockReactDom);
+  unmountComponentAtNode: jest.fn(),
+}));
 
 import React from 'react';
+import { unmountComponentAtNode } from 'react-dom';
 import { mount } from 'enzyme';
 import {
   PortalProvider,
@@ -38,7 +38,7 @@ describe('PortalProvider', () => {
   };
 
   beforeEach(() => {
-    mockReactDom.unmountComponentAtNode = jest.fn();
+    jest.resetAllMocks();
     place = document.body.appendChild(document.createElement('div'));
     place.classList.add('place');
     place2 = document.body.appendChild(document.createElement('div'));
@@ -67,20 +67,16 @@ describe('PortalProvider', () => {
     portalProviderAPI!.remove(place);
     wrapper.update();
 
-    expect(mockReactDom.unmountComponentAtNode).toBeCalledWith(place);
+    expect(unmountComponentAtNode).toBeCalledWith(place);
   });
 
   describe('React throws an error while unmounting child component', () => {
     const error = new Error('Something happened...');
 
     beforeEach(() => {
-      mockReactDom.unmountComponentAtNode = () => {
+      (unmountComponentAtNode as jest.Mock).mockImplementation(() => {
         throw error;
-      };
-    });
-
-    afterEach(() => {
-      mockReactDom.unmountComponentAtNode = () => {};
+      });
     });
 
     it('should not throw error', () => {

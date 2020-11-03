@@ -1,14 +1,3 @@
-const openElementBrowserModal = jest
-  .fn()
-  .mockImplementation(() => () => jest.fn());
-jest.mock('../../../../../plugins/quick-insert/commands', () => ({
-  openElementBrowserModal,
-}));
-
-const InsertMenu = () => <div />;
-
-jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => InsertMenu);
-
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
 import { ReactWrapper, mount } from 'enzyme';
@@ -77,6 +66,15 @@ import { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-
 import { MenuItem } from '../../../../../ui/DropdownMenu/types';
 import DropdownMenu from '../../../../../ui/DropdownMenu';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
+
+import { openElementBrowserModal } from '../../../../../plugins/quick-insert/commands';
+import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
+
+jest.mock('../../../../../plugins/quick-insert/commands', () => ({
+  openElementBrowserModal: jest.fn(() => jest.fn()),
+}));
+
+jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => () => <div />);
 
 type ToolbarOptionWrapper = ReactWrapper<
   ToolbarInsertBlockProps & InjectedIntlProps
@@ -196,7 +194,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   };
 
   beforeEach(() => {
-    openElementBrowserModal.mockClear();
+    jest.clearAllMocks();
     dispatchAnalyticsSpy = jest.fn();
     ({ editorView, pluginState } = editor(doc(p('text'))));
     dispatchSpy = jest.spyOn(editorView, 'dispatch');

@@ -1,6 +1,6 @@
 import React from 'react';
 import Drawer from '@atlaskit/drawer';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Skeleton from '../src/ui/primitives/skeleton';
 import { withAnalyticsLogger } from './helpers';
 

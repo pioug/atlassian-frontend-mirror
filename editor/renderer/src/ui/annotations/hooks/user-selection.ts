@@ -1,26 +1,6 @@
 import { useContext, useCallback, useEffect, useState } from 'react';
 import { AnnotationsDraftContext } from '../context';
-
-export const isRangeInsideOfRendererContainer = (
-  rendererDOM: HTMLElement,
-  range: Range,
-) => {
-  const sourceRange = document.createRange();
-  sourceRange.selectNode(rendererDOM);
-
-  const isSelectionStartsAfterRenderer =
-    range.compareBoundaryPoints(Range.START_TO_START, sourceRange) === 1;
-  const isSelectionStartsBeforeRenderer =
-    range.compareBoundaryPoints(Range.START_TO_END, sourceRange) === 1;
-  const isSelectionEndsAfterRenderer =
-    range.compareBoundaryPoints(Range.END_TO_END, sourceRange) === 1;
-
-  return (
-    isSelectionStartsAfterRenderer &&
-    isSelectionStartsBeforeRenderer &&
-    !isSelectionEndsAfterRenderer
-  );
-};
+import { isRangeInsideOfRendererContainer } from './utils';
 
 type Props = {
   rendererRef: React.RefObject<HTMLDivElement>;

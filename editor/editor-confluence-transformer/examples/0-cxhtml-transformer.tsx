@@ -3,7 +3,7 @@ import React from 'react';
 import { Component } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import {
   Editor,
   EditorContext,

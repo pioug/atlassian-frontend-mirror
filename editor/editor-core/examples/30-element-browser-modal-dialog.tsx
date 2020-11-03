@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import ElementBrowser from '../src/ui/ElementBrowser';

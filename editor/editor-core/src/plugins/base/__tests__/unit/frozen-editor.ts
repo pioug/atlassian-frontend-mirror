@@ -14,6 +14,7 @@ import { SEVERITY } from '@atlaskit/editor-common';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import basePlugin from '../../';
 import * as frozenEditor from '../../pm-plugins/frozen-editor';
+import * as utils from '../../utils/frozen-editor';
 
 describe('frozen editor', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -84,7 +85,7 @@ describe('frozen editor', () => {
 
     it('should fire event with TYPING type when duration > DEFAULT_FREEZE_THRESHOLD and there is a typing interaction', () => {
       jest
-        .spyOn(frozenEditor, 'setInteractionType')
+        .spyOn(utils, 'setInteractionType')
         .mockImplementationOnce(() => BROWSER_FREEZE_INTERACTION_TYPE.TYPING);
       const { editorView, dispatchAnalyticsEvent } = editor(doc(p('{<>}')));
 
@@ -103,7 +104,7 @@ describe('frozen editor', () => {
 
     it('should fire event with CLICKING type when duration > DEFAULT_FREEZE_THRESHOLD and there is a clicking interaction', () => {
       jest
-        .spyOn(frozenEditor, 'setInteractionType')
+        .spyOn(utils, 'setInteractionType')
         .mockImplementationOnce(() => BROWSER_FREEZE_INTERACTION_TYPE.CLICKING);
       const { editorView, dispatchAnalyticsEvent } = editor(doc(p('{<>}')));
 
@@ -123,7 +124,7 @@ describe('frozen editor', () => {
 
     it('should fire event with PASTING type when duration > DEFAULT_FREEZE_THRESHOLD and there is a pasting interaction', () => {
       jest
-        .spyOn(frozenEditor, 'setInteractionType')
+        .spyOn(utils, 'setInteractionType')
         .mockImplementationOnce(() => BROWSER_FREEZE_INTERACTION_TYPE.PASTING);
       const { editorView, dispatchAnalyticsEvent } = editor(doc(p('{<>}')));
 

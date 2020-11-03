@@ -1,33 +1,9 @@
+import './GlobalQuickSearchWrapper.test.mock';
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { mockConfluencePrefetchedData } from '../../../__tests__/unit/mocks/_mockPrefetchResults';
-import { DEFAULT_AB_TEST } from '../../../api/CrossProductSearchClient';
 import ConfluenceQuickSearchContainer from '../../confluence/ConfluenceQuickSearchContainer';
 import JiraQuickSearchContainer from '../../jira/JiraQuickSearchContainer';
 import { QuickSearchContext } from '../../../api/types';
-
-jest.mock('../../FeaturesProvider');
-jest.mock('../../../api/CachingConfluenceClient');
-jest.mock('../../MessagesIntlProvider');
-jest.mock('../../feedback/withFeedbackButton', () => ({
-  withFeedbackButton: (component: any) => component,
-}));
-jest.mock(
-  '../../confluence/ConfluenceQuickSearchContainer',
-  () => 'ConfluenceQuickSearchContainer',
-);
-jest.mock(
-  '../../jira/JiraQuickSearchContainer',
-  () => 'JiraQuickSearchContainer',
-);
-jest.doMock('../../PrefetchedResultsProvider', () => ({
-  GlobalSearchPreFetchContext: {
-    Consumer: ({ children }: any) => children(mockConfluencePrefetchedData()),
-  },
-}));
-jest.doMock('../../AbTestProvider', () => ({
-  ABTestProvider: ({ children }: any) => children(DEFAULT_AB_TEST),
-}));
 
 import GlobalQuickSearch from '../../GlobalQuickSearchWrapper';
 

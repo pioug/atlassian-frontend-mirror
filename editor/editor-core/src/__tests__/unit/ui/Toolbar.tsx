@@ -10,38 +10,42 @@ import {
 import { WidthObserver } from '@atlaskit/width-detector';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 
-let innerSetWidth: Function | undefined;
+let mockInnerSetWidth: Function | undefined;
 
-let elementWidth: number | undefined;
+let mockElementWidth: number | undefined;
 
 const setWidth = (width: number) =>
-  typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined;
+  typeof mockInnerSetWidth === 'function'
+    ? mockInnerSetWidth(width)
+    : undefined;
 
-const setElementWidth = (width?: number) => (elementWidth = width);
+const setElementWidth = (width?: number) => (mockElementWidth = width);
 
 const getMockedToolbarItem = () =>
   asMockFunction<ToolbarUIComponentFactory>(jest.fn());
 
+type mockWidthObserver = typeof WidthObserver;
+
 jest.mock('@atlaskit/width-detector', () => {
   return {
     WidthObserver: (props => {
-      innerSetWidth = props.setWidth;
+      mockInnerSetWidth = props.setWidth;
       return null;
-    }) as typeof WidthObserver,
+    }) as mockWidthObserver,
   };
 });
 
 jest.mock('../../../ui/Toolbar/hooks', () => {
   return {
     useElementWidth() {
-      return elementWidth;
+      return mockElementWidth;
     },
   };
 });
 
 describe('Toolbar', () => {
   beforeEach(() => {
-    elementWidth = undefined;
+    mockElementWidth = undefined;
   });
 
   it('should render a Toolbar UI Component', () => {

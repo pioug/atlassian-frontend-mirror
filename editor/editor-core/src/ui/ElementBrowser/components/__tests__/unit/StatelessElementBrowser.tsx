@@ -1,15 +1,13 @@
-import { mockWithAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
+import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 
-const { mockCreateAnalyticsEvent } = mockWithAnalyticsEvent();
-
-const getWidth = jest.fn();
+const mockGetWidth = jest.fn();
 
 jest.mock('../../../hooks/use-container-width', () => {
   const originalHook = jest.requireActual('../../../hooks/use-container-width')
     .default;
   return (...args: any) => ({
     ...originalHook(...args),
-    containerWidth: getWidth(),
+    containerWidth: mockGetWidth(),
   });
 });
 
@@ -53,7 +51,7 @@ replaceRaf();
 
 describe('StatelessElementBrowser', () => {
   it('should render mobile components for width < 600', () => {
-    getWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.small);
+    mockGetWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.small);
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="inline" />,
     );
@@ -61,7 +59,7 @@ describe('StatelessElementBrowser', () => {
     wrapper.unmount();
   });
   it('should not render desktop components on mobile', () => {
-    getWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.small);
+    mockGetWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.small);
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="inline" />,
     );
@@ -69,7 +67,7 @@ describe('StatelessElementBrowser', () => {
     wrapper.unmount();
   });
   it('should render desktop components for width >= 600', () => {
-    getWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.medium);
+    mockGetWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.medium);
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="full" />,
     );
@@ -77,7 +75,7 @@ describe('StatelessElementBrowser', () => {
     wrapper.unmount();
   });
   it('should should not render mobile components on desktop', () => {
-    getWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.medium);
+    mockGetWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.medium);
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="full" />,
     );
@@ -85,7 +83,7 @@ describe('StatelessElementBrowser', () => {
     wrapper.unmount();
   });
   it('should not render a sidebar heading on mobile', () => {
-    getWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.small);
+    mockGetWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.small);
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="inline" />,
     );
@@ -93,7 +91,7 @@ describe('StatelessElementBrowser', () => {
     wrapper.unmount();
   });
   it('should render a sidebar heading on desktop', () => {
-    getWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.medium);
+    mockGetWidth.mockReturnValue(DEVICE_BREAKPOINT_NUMBERS.medium);
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="full" />,
     );
@@ -218,7 +216,7 @@ describe('KeyboardNavigation for item listSize 10', () => {
         : `focus on item index: ${expectedState.focusedItemIndex}`;
 
     it(`${focusSearchMessage}, ${selectedItemMessage}, and ${focusItemMessage} for combination [${keys.toString()}]`, () => {
-      getWidth.mockReturnValue(breakpointWidth);
+      mockGetWidth.mockReturnValue(breakpointWidth);
 
       wrapper = mountWithIntl(
         <StatelessElementBrowser {...testProps} mode="full" />,

@@ -1,11 +1,10 @@
-const updateStateSpy = jest.fn(() => () => {});
-
 jest.mock('../../../../commands', () => ({
-  updateState: updateStateSpy,
+  updateState: jest.fn(() => () => {}),
 }));
 
 import { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import * as main from '../../../../pm-plugins/main';
+import { updateState } from '../../../../commands';
 
 const { createProviderHandler } = main;
 
@@ -16,10 +15,6 @@ const fakeView: any = {
 const fakeExtensionProvider = {} as ExtensionProvider;
 
 describe('createProviderHandler', () => {
-  beforeEach(() => {
-    updateStateSpy.mockClear();
-  });
-
   afterAll(() => {
     jest.clearAllMocks();
   });
@@ -29,7 +24,7 @@ describe('createProviderHandler', () => {
     const provider = Promise.resolve(fakeExtensionProvider);
     await providerHandler('extensionProvider', provider);
 
-    expect(updateStateSpy).toHaveBeenCalledWith({
+    expect(updateState).toHaveBeenCalledWith({
       extensionProvider: fakeExtensionProvider,
     });
   });
@@ -38,7 +33,7 @@ describe('createProviderHandler', () => {
     const providerHandler = createProviderHandler(fakeView);
     const provider = Promise.reject();
     await providerHandler('extensionProvider', provider);
-    expect(updateStateSpy).toHaveBeenCalledWith({
+    expect(updateState).toHaveBeenCalledWith({
       extensionProvider: undefined,
     });
   });
@@ -49,7 +44,7 @@ describe('createProviderHandler', () => {
     jest.spyOn(main, 'updateEditButton').mockRejectedValueOnce('Error!!!');
     await providerHandler('extensionProvider', provider);
 
-    expect(updateStateSpy).toHaveBeenCalledWith({
+    expect(updateState).toHaveBeenCalledWith({
       extensionProvider: undefined,
     });
   });

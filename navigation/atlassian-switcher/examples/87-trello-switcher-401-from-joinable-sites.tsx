@@ -4,7 +4,7 @@ import {
   mockEndpoints,
   mockAvailableProductsEndpoint,
 } from '@atlaskit/atlassian-switcher-test-utils';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { withAnalyticsLogger, withIntlProvider } from './helpers';
 import AtlassianSwitcher, { createAvailableProductsProvider } from '../src';
 import { FakeTrelloChrome } from './helpers/FakeTrelloChrome';

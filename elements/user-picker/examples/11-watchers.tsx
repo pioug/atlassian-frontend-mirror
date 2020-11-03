@@ -1,5 +1,5 @@
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import React from 'react';
 import styled from 'styled-components';

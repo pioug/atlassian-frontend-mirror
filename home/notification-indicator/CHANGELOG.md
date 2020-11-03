@@ -1,5 +1,11 @@
 # @atlaskit/notification-indicator
 
+## 8.0.4
+
+### Patch Changes
+
+- [`952f126a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952f126a12) - Explicit declaration of default entrypoint
+
 ## 8.0.3
 
 ### Patch Changes

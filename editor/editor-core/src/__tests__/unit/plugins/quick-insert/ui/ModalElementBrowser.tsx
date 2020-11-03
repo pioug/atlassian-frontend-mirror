@@ -1,29 +1,15 @@
-const mockCommand = (nestedMock?: jest.Mock) => {
-  return jest.fn().mockImplementation(() => nestedMock || jest.fn());
-};
-
-const closeElementBrowserModal = mockCommand();
-const insertItem = mockCommand();
-const openElementBrowserModal = mockCommand();
-const searchMock = jest.fn();
-const searchQuickInsertItems = mockCommand(searchMock);
-
-jest.mock('../../../../../plugins/quick-insert/commands', () => ({
-  closeElementBrowserModal,
-  insertItem,
-  openElementBrowserModal,
-}));
-
-jest.mock('../../../../../plugins/quick-insert/search', () => ({
-  searchQuickInsertItems,
-}));
-
+import { mockSearch } from './ModalElementBrowser.mock';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { TypeAheadInsert } from '../../../../../plugins/type-ahead/types';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import { Props } from '../../../../../ui/ElementBrowser/ModalElementBrowser';
+import {
+  closeElementBrowserModal,
+  insertItem,
+} from '../../../../../plugins/quick-insert/commands';
+import { searchQuickInsertItems } from '../../../../../plugins/quick-insert/search';
 
 describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
@@ -100,7 +86,7 @@ describe('Quick Insert', () => {
       modalProps.getItems('proj', 'all');
 
       expect(searchQuickInsertItems).toHaveBeenCalledWith(undefined, {});
-      expect(searchMock).toHaveBeenCalledWith('proj', 'all');
+      expect(mockSearch).toHaveBeenCalledWith('proj', 'all');
     });
 
     it('should call the close command if the modal is closed', () => {

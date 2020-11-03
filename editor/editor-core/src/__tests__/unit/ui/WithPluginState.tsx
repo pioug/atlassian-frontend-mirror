@@ -14,14 +14,14 @@ import {
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
 
-let uiTracking = {};
+let mockUiTracking = {};
 
 jest.mock('../../../plugins/analytics/plugin-key', () => ({
   analyticsPluginKey: {
     getState() {
       return {
         performanceTracking: {
-          uiTracking,
+          uiTracking: mockUiTracking,
         },
       };
     },
@@ -75,7 +75,7 @@ describe(name, () => {
 
     eventDispatcher = new EventDispatcher();
     dispatch = createDispatch(eventDispatcher);
-    uiTracking = {};
+    mockUiTracking = {};
   });
 
   describe('WithPluginState', () => {
@@ -250,7 +250,7 @@ describe(name, () => {
   });
 
   it('should not call performance.mark when disabled', () => {
-    uiTracking = { enabled: false };
+    mockUiTracking = { enabled: false };
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
@@ -295,7 +295,7 @@ describe(name, () => {
   });
 
   it('should call performance.mark twice with appropriate arguments', () => {
-    uiTracking = { enabled: true };
+    mockUiTracking = { enabled: true };
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;

@@ -1,3 +1,4 @@
+import './range-validator.mock';
 import React from 'react';
 import { render } from 'react-dom';
 import { SelectionRangeValidator } from '../../range-validator';
@@ -5,20 +6,6 @@ import { SelectionRangeValidator } from '../../range-validator';
 import MounterMock from '../../mounter';
 import { RendererContext } from '../../../../RendererActionsContext';
 import RendererActions from '../../../../../actions/index';
-jest.mock('../../mounter', () => {
-  return {
-    SelectionInlineCommentMounter: () => {
-      return null;
-    },
-  };
-});
-jest.mock('../../../hooks/user-selection', () => {
-  return {
-    useUserSelectionRange: () => {
-      return [new Range(), () => {}];
-    },
-  };
-});
 
 let container: HTMLElement | null;
 let createRangeMock: jest.SpyInstance;

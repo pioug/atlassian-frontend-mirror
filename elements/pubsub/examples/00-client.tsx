@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import FieldText from '@atlaskit/field-text';
 import Lozenge from '@atlaskit/lozenge';
 

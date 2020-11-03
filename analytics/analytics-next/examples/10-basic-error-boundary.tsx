@@ -56,7 +56,7 @@ export default () => {
         channel="atlaskit"
         data={{
           componentName: 'button',
-          packageName: '@atlaskit/button',
+          packageName: '@atlaskit/button/standard-button',
           componentVersion: '999.9.9',
         }}
       >

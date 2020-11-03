@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Page from '@atlaskit/page';
 import {
   RightSidePanel,

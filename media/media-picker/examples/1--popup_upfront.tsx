@@ -5,7 +5,7 @@
 import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import {
   defaultMediaPickerCollectionName,
   createUploadMediaClientConfig,

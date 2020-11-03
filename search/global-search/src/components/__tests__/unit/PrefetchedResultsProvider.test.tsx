@@ -1,16 +1,7 @@
+import './PrefetchedResultsProvider.test.mock';
 import { mount } from 'enzyme';
 import React from 'react';
 import { QuickSearchContext, Scope } from '../../../api/types';
-import {
-  mockConfluencePrefetchedData,
-  mockJiraPrefetchedData,
-} from '../../../__tests__/unit/mocks/_mockPrefetchResults';
-
-jest.doMock('../../../api/prefetchResults', () => ({
-  getConfluencePrefetchedData: mockConfluencePrefetchedData,
-  getJiraPrefetchedData: mockJiraPrefetchedData,
-}));
-
 import PrefetchedResultsProvider, {
   GlobalSearchPreFetchContext,
 } from '../../PrefetchedResultsProvider';

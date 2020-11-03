@@ -1,34 +1,4 @@
-const mockCalls = [] as string[];
-
-const mockPmHistory = {
-  undo: jest.fn(() => () => {}),
-  redo: jest.fn(() => () => {}),
-};
-jest.mock('prosemirror-history', () => mockPmHistory);
-
-const mockEditorCore = {
-  ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
-  indentList: jest.fn(() => () => {}),
-  outdentList: jest.fn(() => () => {}),
-  toggleOrderedList: jest.fn(() => () => {}),
-  toggleBulletList: jest.fn(() => () => {}),
-  insertLinkWithAnalytics: jest.fn(() => () => {}),
-  isTextAtPos: jest.fn(pos => () => [2, 6].indexOf(pos) !== -1),
-  isLinkAtPos: jest.fn(pos => () => pos === 6),
-  setLinkHref: jest.fn(() => () => mockCalls.push('setLinkHref')),
-  setLinkText: jest.fn(() => () => mockCalls.push('setLinkText')),
-  clearEditorContent: jest.fn(() => {}),
-  setKeyboardHeight: jest.fn(() => () => {}),
-  insertMentionQuery: jest.fn(() => () => {}),
-  insertEmojiQuery: jest.fn(() => () => {}),
-};
-
-jest.mock('../../../../version.json', () => ({
-  name: '@atlaskit/editor-mobile-bridge',
-  version: '1.2.3.4',
-}));
-
-jest.mock('@atlaskit/editor-core', () => mockEditorCore);
+import * as mocks from './bridge-test.mock';
 
 import {
   INPUT_METHOD,
@@ -62,7 +32,7 @@ describe('lists should work', () => {
   const bridge: any = new WebBridgeImpl();
 
   beforeEach(() => {
-    mockCalls.length = 0;
+    mocks.mockCalls.length = 0;
     bridge.editorView = {};
     bridge.listBridgeState = {};
   });
@@ -150,7 +120,7 @@ describe('insertQueryFromToolbar', () => {
   const bridge: any = new WebBridgeImpl();
 
   beforeEach(() => {
-    mockCalls.length = 0;
+    mocks.mockCalls.length = 0;
     bridge.editorView = {};
   });
 
@@ -184,7 +154,7 @@ describe('links should work', () => {
   const bridge: any = new WebBridgeImpl();
 
   beforeEach(() => {
-    mockCalls.length = 0;
+    mocks.mockCalls.length = 0;
     bridge.editorView = {};
   });
 
@@ -236,7 +206,7 @@ describe('links should work', () => {
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
     expect(setLinkHref).toHaveBeenCalledWith('url', 2, undefined);
     expect(setLinkText).toHaveBeenCalledWith('text', 2, undefined);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkHref', 'setLinkText']),
     );
   });
@@ -257,7 +227,7 @@ describe('links should work', () => {
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
     expect(setLinkHref).toHaveBeenCalledWith('url', 2, 4);
     expect(setLinkText).toHaveBeenCalledWith('text', 2, 4);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkHref', 'setLinkText']),
     );
   });
@@ -277,7 +247,7 @@ describe('links should work', () => {
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
     expect(setLinkHref).toHaveBeenCalledWith('url', 2, undefined);
     expect(setLinkText).toHaveBeenCalledWith('', 2, undefined);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkHref', 'setLinkText']),
     );
   });
@@ -298,7 +268,7 @@ describe('links should work', () => {
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
     expect(setLinkHref).toHaveBeenCalledWith('url', 2, 4);
     expect(setLinkText).toHaveBeenCalledWith('', 2, 4);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkHref', 'setLinkText']),
     );
   });
@@ -322,7 +292,7 @@ describe('links should work', () => {
     expect(bridge.editorView.state.doc.resolve).toHaveBeenCalledWith(6);
     expect(setLinkHref).toHaveBeenCalledWith('href', 5, undefined);
     expect(setLinkText).toHaveBeenCalledWith('link', 5, undefined);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkHref', 'setLinkText']),
     );
   });
@@ -342,7 +312,7 @@ describe('links should work', () => {
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
     expect(setLinkHref).toHaveBeenCalledWith('', 2, undefined);
     expect(setLinkText).toHaveBeenCalledWith('text', 2, undefined);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkText', 'setLinkHref']),
     );
   });
@@ -363,7 +333,7 @@ describe('links should work', () => {
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
     expect(setLinkHref).toHaveBeenCalledWith('', 2, 4);
     expect(setLinkText).toHaveBeenCalledWith('text', 2, 4);
-    expect(mockCalls).toEqual(
+    expect(mocks.mockCalls).toEqual(
       expect.arrayContaining(['setLinkText', 'setLinkHref']),
     );
   });
@@ -373,7 +343,7 @@ describe('content should work', () => {
   const bridge: any = new WebBridgeImpl();
 
   beforeEach(() => {
-    mockCalls.length = 0;
+    mocks.mockCalls.length = 0;
     bridge.editorView = {};
   });
 
@@ -398,12 +368,12 @@ describe('history', () => {
 
   it('should call undo', () => {
     bridge.undo();
-    expect(mockPmHistory.undo).toHaveBeenCalled();
+    expect(mocks.mockPmHistory.undo).toHaveBeenCalled();
   });
 
   it('should call redo', () => {
     bridge.redo();
-    expect(mockPmHistory.redo).toHaveBeenCalled();
+    expect(mocks.mockPmHistory.redo).toHaveBeenCalled();
   });
 });
 

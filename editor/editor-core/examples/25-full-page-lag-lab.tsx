@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import { format } from 'url';
 import { default as FullPageExample } from './5-full-page';

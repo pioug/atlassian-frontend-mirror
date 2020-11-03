@@ -5,7 +5,7 @@ import { HTMLAttributes, ComponentClass, LabelHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { AkFieldRadioGroup as RadioGroup } from '@atlaskit/field-radio-group';
 import Slider from '@atlaskit/field-range';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Card } from '@atlaskit/media-card';
 import {
   createStorybookMediaClientConfig,

@@ -16,7 +16,7 @@ import {
   ADFStage,
 } from '@atlaskit/editor-common';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import {
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,

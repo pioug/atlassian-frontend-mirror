@@ -1,51 +1,7 @@
-const mockPlugins: { [name: string]: jest.Mock } = {
-  basePlugin: jest.fn(),
-  analyticsPlugin: jest.fn(),
-  mediaPlugin: jest.fn(),
-  tablesPlugin: jest.fn(),
-  insertBlockPlugin: jest.fn(),
-  feedbackDialogPlugin: jest.fn(),
-  placeholderTextPlugin: jest.fn(),
-  textFormattingPlugin: jest.fn(),
-  codeBlockPlugin: jest.fn(),
-  statusPlugin: jest.fn(),
-  pastePlugin: jest.fn(),
-  blockTypePlugin: jest.fn(),
-  placeholderPlugin: jest.fn(),
-  clearMarksOnChangeToEmptyDocumentPlugin: jest.fn(),
-  hyperlinkPlugin: jest.fn(),
-  widthPlugin: jest.fn(),
-  typeAheadPlugin: jest.fn(),
-  unsupportedContentPlugin: jest.fn(),
-  editorDisabledPlugin: jest.fn(),
-  gridPlugin: jest.fn(),
-  submitEditorPlugin: jest.fn(),
-  helpDialogPlugin: jest.fn(),
-  fakeTextCursorPlugin: jest.fn(),
-  layoutPlugin: jest.fn(),
-  floatingToolbarPlugin: jest.fn(),
-  quickInsertPlugin: jest.fn(),
-  historyPlugin: jest.fn(),
-  featureFlagsContextPlugin: jest.fn(),
-  mobileScrollPlugin: jest.fn(),
-  listsPlugin: jest.fn(),
-  isExpandInsertionEnabled: jest.fn(),
-  scrollIntoViewPlugin: jest.fn(),
-  findReplacePlugin: jest.fn(),
-  contextPanelPlugin: jest.fn(),
-  selectionPlugin: jest.fn(),
-  mobileSelectionPlugin: jest.fn(),
-  clipboardPlugin: jest.fn(),
-};
-jest.mock('../../../plugins/placeholder', () => ({
-  __esModule: true,
-  default: mockPlugins.placeholderPlugin,
-}));
-jest.mock('../../../plugins', () => mockPlugins);
-jest.mock('../../../plugins/selection', () => ({
-  __esModule: true,
-  default: mockPlugins.selectionPlugin,
-}));
+jest.mock('../../../plugins');
+jest.mock('../../../plugins/placeholder');
+jest.mock('../../../plugins/selection');
+
 import {
   analyticsPlugin,
   tablesPlugin,
@@ -66,13 +22,14 @@ import {
   quickInsertPlugin,
 } from '../../../plugins';
 
+import placeholderPlugin from '../../../plugins/placeholder';
+import selectionPlugin from '../../../plugins/selection';
+
 import createPluginsList from '../../create-plugins-list';
 
 describe('createPluginsList', () => {
   afterEach(() => {
-    for (const name in mockPlugins) {
-      mockPlugins[name].mockReset();
-    }
+    jest.resetAllMocks();
   });
 
   it('should add helpDialogPlugin if allowHelpDialog is true', () => {
@@ -114,7 +71,7 @@ describe('createPluginsList', () => {
   it('should add selectionPlugin with useLongPressSelection disable when appearance === "mobile"', () => {
     createPluginsList({ appearance: 'mobile' });
 
-    expect(mockPlugins.selectionPlugin).toHaveBeenCalledWith({
+    expect(selectionPlugin).toHaveBeenCalledWith({
       useLongPressSelection: false,
     });
   });
@@ -305,15 +262,11 @@ describe('createPluginsList', () => {
   });
 
   describe('placeholderPlugin', () => {
-    beforeEach(() => {
-      mockPlugins.placeholderPlugin.mockClear();
-    });
-
     it('should pass placeholder text from editor props', function () {
       const defaultPlaceholder = 'Hello World!';
       createPluginsList({ placeholder: defaultPlaceholder });
 
-      expect(mockPlugins.placeholderPlugin).toHaveBeenCalledWith({
+      expect(placeholderPlugin).toHaveBeenCalledWith({
         placeholder: defaultPlaceholder,
       });
     });
@@ -322,7 +275,7 @@ describe('createPluginsList', () => {
       const placeholderHints = ['Hello World!'];
       createPluginsList({ placeholderHints });
 
-      expect(mockPlugins.placeholderPlugin).toHaveBeenCalledWith({
+      expect(placeholderPlugin).toHaveBeenCalledWith({
         placeholderHints,
       });
     });

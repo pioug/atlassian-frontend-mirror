@@ -1,4 +1,4 @@
-const getWidth = jest.fn();
+const mockGetWidth = jest.fn();
 
 jest.mock('../../../../hooks/use-container-width', () => {
   const originalHook = jest.requireActual(
@@ -6,7 +6,7 @@ jest.mock('../../../../hooks/use-container-width', () => {
   ).default;
   return (...args: any) => ({
     ...originalHook(...args),
-    containerWidth: getWidth(),
+    containerWidth: mockGetWidth(),
   });
 });
 
@@ -43,7 +43,7 @@ describe('ElementList', () => {
   });
   describe('Collection', () => {
     it('renders a Virtualized Collection component with the right width', () => {
-      getWidth.mockReturnValueOnce(660);
+      mockGetWidth.mockReturnValueOnce(660);
       wrapper = mount(<ElementList {...props} />);
       const Collection = wrapper.find('Collection');
       expect(Collection).toHaveLength(1);
@@ -63,7 +63,7 @@ describe('ElementList', () => {
     });
   });
   it('should select, focus, and scroll to given item index', () => {
-    getWidth.mockReturnValueOnce(660);
+    mockGetWidth.mockReturnValueOnce(660);
     const wrapper = mount(
       <ElementList {...props} selectedItemIndex={5} focusedItemIndex={5} />,
     );

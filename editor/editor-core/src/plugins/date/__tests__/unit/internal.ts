@@ -2,7 +2,6 @@ import { DateType, DateSegment } from '../../types';
 
 import {
   getLocaleDatePlaceholder,
-  padToTwo,
   findDateSegmentByPosition,
   adjustDate,
   isDatePossiblyValid,
@@ -23,74 +22,79 @@ Intl.DateTimeFormat('sr-Cyrl-BA').format(dateObj)
 ```
 for each locale.
 */
-jest.mock('../../../../plugins/date/utils/formatParse', () => ({
-  formatDateType: jest.fn((dateType: DateType, locale: string) => {
-    const day = dateType.day ? dateType.day : 1;
-    if (locale === 'en-GB' || locale === 'en-AU') {
-      return `${padToTwo(day)}/${padToTwo(dateType.month)}/${dateType.year}`;
-    } else if (locale === 'en') {
-      return `${dateType.month}/${day}/${dateType.year}`;
-    } else if (locale === 'hu-HU') {
-      return `${dateType.year}. ${padToTwo(dateType.month)}. ${padToTwo(day)}.`;
-    } else if (locale === 'cs-CZ') {
-      return `${day}.${dateType.month}.${dateType.year}`;
-    } else if (locale === 'sr-Cyrl-BA') {
-      return `${day}.${dateType.month}.${dateType.year}.`;
-    }
-  }),
+jest.mock('../../../../plugins/date/utils/formatParse', () => {
+  const { padToTwo } = require('../../utils/internal');
+  return {
+    formatDateType: jest.fn((dateType: DateType, locale: string) => {
+      const day = dateType.day ? dateType.day : 1;
+      if (locale === 'en-GB' || locale === 'en-AU') {
+        return `${padToTwo(day)}/${padToTwo(dateType.month)}/${dateType.year}`;
+      } else if (locale === 'en') {
+        return `${dateType.month}/${day}/${dateType.year}`;
+      } else if (locale === 'hu-HU') {
+        return `${dateType.year}. ${padToTwo(dateType.month)}. ${padToTwo(
+          day,
+        )}.`;
+      } else if (locale === 'cs-CZ') {
+        return `${day}.${dateType.month}.${dateType.year}`;
+      } else if (locale === 'sr-Cyrl-BA') {
+        return `${day}.${dateType.month}.${dateType.year}.`;
+      }
+    }),
 
-  parseDateType: jest.fn((dateString: string, locale: string):
-    | DateType
-    | undefined => {
-    if (locale === 'en-AU' || locale === 'en-GB') {
-      const segments = dateString.split('/');
-      const day = parseInt(segments[0]);
-      const month = parseInt(segments[1]);
-      const year = parseInt(segments[2]);
+    parseDateType: jest.fn((dateString: string, locale: string):
+      | DateType
+      | undefined => {
+      if (locale === 'en-AU' || locale === 'en-GB') {
+        const segments = dateString.split('/');
+        const day = parseInt(segments[0]);
+        const month = parseInt(segments[1]);
+        const year = parseInt(segments[2]);
 
-      const dateObj = {
-        day,
-        month,
-        year,
-      };
-      return dateObj;
-    } else if (locale === 'en') {
-      const segments = dateString.split('/');
-      const month = parseInt(segments[0]);
-      const day = parseInt(segments[1]);
-      const year = parseInt(segments[2]);
+        const dateObj = {
+          day,
+          month,
+          year,
+        };
+        return dateObj;
+      } else if (locale === 'en') {
+        const segments = dateString.split('/');
+        const month = parseInt(segments[0]);
+        const day = parseInt(segments[1]);
+        const year = parseInt(segments[2]);
 
-      const dateObj = {
-        day,
-        month,
-        year,
-      };
-      return dateObj;
-    }
+        const dateObj = {
+          day,
+          month,
+          year,
+        };
+        return dateObj;
+      }
 
-    return undefined;
-  }),
+      return undefined;
+    }),
 
-  dateTypeToDate: jest.fn(
-    (date: DateType): Date => {
-      const { day, month, year } = date;
-      // Range of month is 0-11!
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
-      const dateObj = new Date(Date.UTC(year, month - 1, day));
-      return dateObj;
-    },
-  ),
-  dateToDateType: jest.fn(
-    (date: Date): DateType => {
-      const dateObj = {
-        day: date.getUTCDate(),
-        month: date.getUTCMonth() + 1,
-        year: date.getUTCFullYear(),
-      };
-      return dateObj;
-    },
-  ),
-}));
+    dateTypeToDate: jest.fn(
+      (date: DateType): Date => {
+        const { day, month, year } = date;
+        // Range of month is 0-11!
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+        const dateObj = new Date(Date.UTC(year, month - 1, day));
+        return dateObj;
+      },
+    ),
+    dateToDateType: jest.fn(
+      (date: Date): DateType => {
+        const dateObj = {
+          day: date.getUTCDate(),
+          month: date.getUTCMonth() + 1,
+          year: date.getUTCFullYear(),
+        };
+        return dateObj;
+      },
+    ),
+  };
+});
 
 describe('dates', () => {
   describe('isDatePossiblyValid()', () => {

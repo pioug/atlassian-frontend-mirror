@@ -4,7 +4,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
 import debounce from 'lodash/debounce';
 import { OptionsPropType } from '@atlaskit/radio/types';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import styled from 'styled-components';
 
 const getHeaderIdsAsRadioOptions = () =>

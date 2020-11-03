@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import SelectedIcon from '@atlaskit/icon/glyph/check';
 import ButtonIcon from '@atlaskit/icon/glyph/checkbox-indeterminate';
 import CustomIcon from '@atlaskit/icon/glyph/discover';

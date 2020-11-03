@@ -85,7 +85,7 @@
     "@types/prosemirror-model": "^1.7.2",
     "@types/prosemirror-transform": "^1.1.0",
     "@types/react-loadable": "^5.4.1",
-    "ajv": "^4.11.3",
+    "ajv": "^6.12.6",
     "enzyme": "^3.10.0",
     "jsdom": "^16.2.2",
     "lodash": "^4.17.15",

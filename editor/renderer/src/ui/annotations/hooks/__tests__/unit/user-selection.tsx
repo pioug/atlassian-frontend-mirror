@@ -1,11 +1,9 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import * as Hooks from '../../user-selection';
-import {
-  isRangeInsideOfRendererContainer,
-  useUserSelectionRange,
-} from '../../user-selection';
+import { useUserSelectionRange } from '../../user-selection';
+import * as utils from '../../utils';
+import { isRangeInsideOfRendererContainer } from '../../utils';
 import { AnnotationsDraftContext } from '../../../context';
 import { Position } from '../../../types';
 
@@ -237,7 +235,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         };
         jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
         jest
-          .spyOn(Hooks, 'isRangeInsideOfRendererContainer')
+          .spyOn(utils, 'isRangeInsideOfRendererContainer')
           .mockReturnValue(true);
       });
 

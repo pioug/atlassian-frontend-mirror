@@ -4,7 +4,7 @@ import {
   mockAvailableProductsEndpoint,
   mockEndpoints,
 } from '@atlaskit/atlassian-switcher-test-utils';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { withAnalyticsLogger, withIntlProvider } from './helpers';
 import { AvailableProductsResponse, AvailableSite } from '../src/types';
 import AtlassianSwitcher from '../src';

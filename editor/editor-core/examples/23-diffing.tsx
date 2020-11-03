@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import TextArea from '@atlaskit/textarea';
 import { codeFontFamily } from '@atlaskit/theme/constants';
 import { N900, N10, N40, G75, R75 } from '@atlaskit/theme/colors';

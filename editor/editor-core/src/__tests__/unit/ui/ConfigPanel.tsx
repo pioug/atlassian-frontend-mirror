@@ -1,5 +1,4 @@
-import { mockWithAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
-const { mockCreateAnalyticsEvent } = mockWithAnalyticsEvent();
+import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 
 import React from 'react';
 import { IntlProvider } from 'react-intl';

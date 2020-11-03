@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { ActionTypes, OnChange, OnInputChange, Value } from '../src/index';
 import Textfield from '@atlaskit/textfield';
 import Select from '@atlaskit/select';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import {

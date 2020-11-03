@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button, {
-  CustomThemeButtonProps,
-} from '@atlaskit/button/custom-theme-button';
+import Button, { ButtonProps } from '@atlaskit/button/standard-button';
 import { N40, N50A } from '@atlaskit/theme/colors';
 import { default as FullPageExample } from './5-full-page';
 
@@ -37,7 +35,7 @@ const Frame = styled.div`
   box-shadow: 0 8px 16px -4px ${N50A};
 `;
 
-function ButtonHack(props: CustomThemeButtonProps) {
+function ButtonHack(props: ButtonProps) {
   return <Button {...props} />;
 }
 const PaddedButton = styled(ButtonHack)`

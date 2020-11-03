@@ -1,3 +1,4 @@
+import * as mocks from './mediaSingle.mock';
 import React from 'react';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
@@ -28,25 +29,6 @@ export const getMediaSingleProps = () => ({
   getPos: jest.fn(),
   forwardRef: jest.fn(),
 });
-
-const handleExternalMediaMock = jest.fn();
-const hasDifferentContextIdMock = jest.fn();
-const copyNodeMock = jest.fn();
-
-jest.mock('../mediaNodeView/media', () => () => null);
-jest.mock('../mediaNodeUpdater', () => ({
-  MediaNodeUpdater: jest.fn(() => ({
-    updateFileAttrs: jest.fn(),
-    getNodeContextId: jest.fn(),
-    updateContextId: jest.fn(),
-    getRemoteDimensions: jest.fn(),
-    getCurrentContextId: jest.fn(),
-    isNodeFromDifferentCollection: jest.fn(),
-    hasDifferentContextId: hasDifferentContextIdMock,
-    copyNode: copyNodeMock,
-    handleExternalMedia: handleExternalMediaMock,
-  })),
-}));
 
 describe('mediaSingle', () => {
   afterEach(() => {
@@ -90,7 +72,7 @@ describe('mediaSingle', () => {
 
     const mediaSingleNode = mediaSingle()(media(mediaData)());
     const myPromise = Promise.resolve();
-    handleExternalMediaMock.mockReturnValue(myPromise);
+    mocks.mockHandleExternalMedia.mockReturnValue(myPromise);
 
     const addPendingTaskMock = jest.fn();
 
@@ -124,8 +106,8 @@ describe('mediaSingle', () => {
 
     const mediaSingleNode = mediaSingle()(media(mediaData)());
     const myPromise = Promise.resolve();
-    hasDifferentContextIdMock.mockReturnValue(true);
-    copyNodeMock.mockReturnValue(myPromise);
+    mocks.mockHasDifferentContextId.mockReturnValue(true);
+    mocks.mockCopyNode.mockReturnValue(myPromise);
 
     const addPendingTaskMock = jest.fn();
 

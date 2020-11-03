@@ -1,22 +1,37 @@
+jest.mock('../../../pm-plugins/plugin-key', () => {
+  const {
+    getDefaultMediaClientConfig,
+  } = require('@atlaskit/media-test-helpers/fakeMediaClient');
+  return {
+    ...jest.requireActual<Object>('../../../pm-plugins/plugin-key'),
+    stateKey: {
+      getState: jest.fn(() => ({
+        mediaClientConfig: getDefaultMediaClientConfig(),
+      })),
+    },
+  };
+});
+
+jest.mock('@atlaskit/media-client', () => {
+  return {
+    ...jest.requireActual<Object>('@atlaskit/media-client'),
+    getMediaClient: jest.fn(),
+  };
+});
+
 import {
   mediaSingle,
   media,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { defaultSchema, MediaADFAttrs } from '@atlaskit/adf-schema';
 
-import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { MediaClient, FileState } from '@atlaskit/media-client';
-import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+import {
+  getDefaultMediaClientConfig,
+  fakeMediaClient,
+} from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { FileState, getMediaClient } from '@atlaskit/media-client';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { Node as PMNode } from 'prosemirror-model';
-
-jest.mock('../../../pm-plugins/plugin-key', () => ({
-  ...jest.requireActual<Object>('../../../pm-plugins/plugin-key'),
-  stateKey: {
-    getState: jest.fn(() => ({
-      mediaClientConfig: getDefaultMediaClientConfig(),
-    })),
-  },
-}));
 
 import { checkMediaType } from '../../../utils/check-media-type';
 
@@ -31,13 +46,7 @@ const defaultFileState: FileState = {
 };
 
 const mediaClient = fakeMediaClient();
-
-let mediaClientMock: MediaClient = mediaClient;
-
-jest.mock('@atlaskit/media-client', () => ({
-  ...jest.requireActual<Object>('@atlaskit/media-client'),
-  getMediaClient: jest.fn(() => mediaClientMock),
-}));
+(getMediaClient as any).mockImplementation(() => mediaClient);
 
 const createMediaNode = (mediaAttrs: MediaADFAttrs): PMNode => {
   const mediaSingleNode = mediaSingle({ layout: 'center' })(

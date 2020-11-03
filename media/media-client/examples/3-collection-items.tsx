@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { createUserMediaClient } from '@atlaskit/media-test-helpers';
 import { Subscription } from 'rxjs/Subscription';
 import { Card } from '@atlaskit/media-card';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { CardsWrapper, Header } from '../example-helpers/styled';
 import { FileIdentifier, RECENTS_COLLECTION } from '../src';
 

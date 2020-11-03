@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Banner from '@atlaskit/banner';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Navigation from '@atlaskit/navigation';

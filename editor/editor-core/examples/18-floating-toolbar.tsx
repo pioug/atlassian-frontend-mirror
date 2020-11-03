@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { R500, Y500, G500 } from '@atlaskit/theme/colors';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Skeleton } from '@atlaskit/icon';
 
 import Toolbar from '../src/plugins/floating-toolbar/ui/Toolbar';

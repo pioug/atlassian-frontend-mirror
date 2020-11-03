@@ -1,6 +1,6 @@
 import React, { FormEvent, MouseEvent, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import TextField from '@atlaskit/textfield';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '../src';

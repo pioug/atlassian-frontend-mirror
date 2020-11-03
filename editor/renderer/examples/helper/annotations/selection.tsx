@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
 import uuid from 'uuid/v4';
 import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';

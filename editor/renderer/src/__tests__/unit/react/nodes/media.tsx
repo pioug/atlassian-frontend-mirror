@@ -1,9 +1,10 @@
+import * as mocks from './media.mock';
 import React from 'react';
 import { mount } from 'enzyme';
 
 import { MediaType } from '@atlaskit/adf-schema';
 import { Card, CardEvent } from '@atlaskit/media-card';
-import { sleep, nextTick, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { sleep, nextTick } from '@atlaskit/media-test-helpers';
 import {
   FileIdentifier,
   ExternalImageIdentifier,
@@ -22,11 +23,9 @@ import {
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
-let mediaClient = fakeMediaClient();
-jest.mock('@atlaskit/media-client', () => ({
-  __esModule: true,
-  getMediaClient: jest.fn().mockReturnValue(mediaClient),
-}));
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('Media', () => {
   const mediaNode = {
@@ -56,9 +55,6 @@ describe('Media', () => {
   });
 
   const mountFileCard = async (identifier: FileIdentifier) => {
-    mediaClient = fakeMediaClient();
-    // @ts-ignore
-    getMediaClient = jest.fn().mockReturnValue(mediaClient);
     const card = mount(
       <MediaCard
         type="file"
@@ -369,8 +365,8 @@ describe('Media', () => {
 
       await nextTick();
       component.update();
-      expect(mediaClient.file.getCurrentState).toBeCalled();
-      expect(mediaClient.file.getCurrentState).toBeCalledWith(
+      expect(mocks.mockMediaClient.file.getCurrentState).toBeCalled();
+      expect(mocks.mockMediaClient.file.getCurrentState).toBeCalledWith(
         fileIdentifier.id,
         {
           collectionName: fileIdentifier.collectionName,
@@ -396,7 +392,7 @@ describe('Media', () => {
 
       await nextTick();
       component.update();
-      expect(mediaClient.file.getCurrentState).toBeCalledTimes(2);
+      expect(mocks.mockMediaClient.file.getCurrentState).toBeCalledTimes(2);
     });
 
     describe('populates identifier cache for the page mediaClientConfig', () => {

@@ -8,7 +8,7 @@ import {
   createStorybookMediaClientConfig,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { FileState } from '@atlaskit/media-client';

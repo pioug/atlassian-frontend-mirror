@@ -2,18 +2,21 @@ import React from 'react';
 let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
-jest.mock('@atlaskit/smart-card', () => ({
-  ...jest.requireActual<Object>('@atlaskit/smart-card'),
-  Card: class Card extends React.Component<any> {
-    render() {
-      this.props.onResolve({
-        title: 'my-title',
-        url: 'https://my.url.com',
-      });
-      return <div className="smart-card-mock">{this.props.url}</div>;
-    }
-  },
-}));
+jest.mock('@atlaskit/smart-card', () => {
+  const React = require('react');
+  return {
+    ...jest.requireActual<Object>('@atlaskit/smart-card'),
+    Card: class Card extends React.Component<any> {
+      render() {
+        this.props.onResolve({
+          title: 'my-title',
+          url: 'https://my.url.com',
+        });
+        return <div className="smart-card-mock">{this.props.url}</div>;
+      }
+    },
+  };
+});
 jest.mock('@atlaskit/editor-common', () => ({
   browser: () => ({}),
   findOverflowScrollParent: () => mockFindOverflowScrollParent(),

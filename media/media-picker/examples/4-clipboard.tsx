@@ -6,7 +6,7 @@ import {
   defaultMediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { Clipboard } from '../src';

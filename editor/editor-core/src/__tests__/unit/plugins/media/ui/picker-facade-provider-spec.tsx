@@ -1,28 +1,6 @@
+import * as mocks from './picker-facade-provider-spec.mock';
 import { mount } from 'enzyme';
 import React from 'react';
-
-const picker: any = {
-  on: jest.fn(),
-  onClose: jest.fn(),
-  onNewMedia: jest.fn(),
-  onMediaEvent: jest.fn(),
-  onDrag: jest.fn(),
-  hide: jest.fn(),
-  setUploadParams: jest.fn(),
-  show: jest.fn(),
-  deactivate: jest.fn(),
-  activate: jest.fn(),
-  destroy: jest.fn(),
-  type: 'popup',
-};
-picker.init = jest.fn().mockReturnValue(picker);
-
-const mockMediaPickerFacade = jest.fn<typeof picker, Array<any>>(() => picker);
-
-jest.mock(
-  '../../../../../plugins/media/picker-facade',
-  () => mockMediaPickerFacade,
-);
 
 import { MediaProvider } from '../../../../../plugins/media/pm-plugins/main';
 import PickerFacadeProvider from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';
@@ -79,20 +57,24 @@ describe('PickerFacadeProvider', () => {
            * This test cover the basic PickerFacade initialization for any use case of this class.
            * These are mainly use for any MediaPicker react component.
            * */
-          expect(pickerFacadeInstance).toBe(picker);
+          expect(pickerFacadeInstance).toBe(mocks.picker);
           expect(mediaClientConfig).toBe(dummyMediaClientConfig);
           expect(config).toEqual({
             uploadParams: provider.uploadParams,
           });
 
-          expect(mockMediaPickerFacade).toBeCalled();
-          expect(mockMediaPickerFacade.mock.calls[0][0]).toBe(
+          expect(mocks.mockMediaPickerFacade).toBeCalled();
+          expect(mocks.mockMediaPickerFacade.mock.calls[0][0]).toBe(
             'customMediaPicker',
           );
-          expect(picker.init).toBeCalled();
+          expect(mocks.picker.init).toBeCalled();
 
-          expect(picker.onNewMedia).toBeCalledWith(pluginState.insertFile);
-          expect(picker.setUploadParams).toBeCalledWith(provider.uploadParams);
+          expect(mocks.picker.onNewMedia).toBeCalledWith(
+            pluginState.insertFile,
+          );
+          expect(mocks.picker.setUploadParams).toBeCalledWith(
+            provider.uploadParams,
+          );
           expect.assertions(8);
           done();
           return null;

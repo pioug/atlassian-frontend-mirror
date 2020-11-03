@@ -1,40 +1,42 @@
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-const fileState = {
-  status: 'processed',
-  id: '08640f60-0122-11eb-adc1-0242ac120002',
-  name: 'name',
-  size: 1,
-  artifacts: {},
-  mediaType: 'doc',
-  mimeType: 'application/pdf',
-};
-jest.mock('@atlaskit/media-client', () => ({
-  ...jest.requireActual<Object>('@atlaskit/media-client'),
-  getCurrentState: () => {
-    return Promise.resolve(fileState);
-  },
-  withMediaClient: (Component: any) => (props: any) => {
-    const fileStateSubject = new ReplaySubject(1);
-    fileStateSubject.next(fileState);
-    const mediaClient = {
-      file: {
-        getFileState: jest.fn().mockReturnValue(fileStateSubject),
-      },
-    };
+jest.mock('@atlaskit/media-client', () => {
+  const { ReplaySubject } = require('rxjs/ReplaySubject');
+  const fileState = {
+    status: 'processed',
+    id: '08640f60-0122-11eb-adc1-0242ac120002',
+    name: 'name',
+    size: 1,
+    artifacts: {},
+    mediaType: 'doc',
+    mimeType: 'application/pdf',
+  };
+  return {
+    ...jest.requireActual<Object>('@atlaskit/media-client'),
+    getCurrentState: () => {
+      return Promise.resolve(fileState);
+    },
+    withMediaClient: (Component: any) => (props: any) => {
+      const fileStateSubject = new ReplaySubject(1);
+      fileStateSubject.next(fileState);
+      const mediaClient = {
+        file: {
+          getFileState: jest.fn().mockReturnValue(fileStateSubject),
+        },
+      };
 
-    return <Component {...props} mediaClient={mediaClient} />;
-  },
-  getMediaClient: () => {
-    const client = {
-      file: {
-        getFileState: jest.fn().mockReturnValue({}),
-        getCurrentState: () => fileState,
-      },
-    };
+      return <Component {...props} mediaClient={mediaClient} />;
+    },
+    getMediaClient: () => {
+      const client = {
+        file: {
+          getFileState: jest.fn().mockReturnValue({}),
+          getCurrentState: () => fileState,
+        },
+      };
 
-    return client;
-  },
-}));
+      return client;
+    },
+  };
+});
 
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
@@ -45,18 +47,20 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import initialDoc from '../../__fixtures__/event-handlers.adf.json';
 
-let isOnRenderCalled = false;
-jest.mock('react-lazily-render', () => ({
-  __esModule: true,
-  default: (props: any) => {
-    if (!isOnRenderCalled) {
-      props.onRender();
-      isOnRenderCalled = true;
-    }
+jest.mock('react-lazily-render', () => {
+  let isOnRenderCalled = false;
+  return {
+    __esModule: true,
+    default: (props: any) => {
+      if (!isOnRenderCalled) {
+        props.onRender();
+        isOnRenderCalled = true;
+      }
 
-    return props.content;
-  },
-}));
+      return props.content;
+    },
+  };
+});
 
 const mediaProvider = Promise.resolve({
   viewMediaClientConfig: {

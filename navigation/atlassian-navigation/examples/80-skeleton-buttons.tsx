@@ -3,7 +3,7 @@ import { Fragment, KeyboardEvent, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';

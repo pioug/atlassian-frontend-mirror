@@ -13,10 +13,10 @@ import { PrivateCollabEditOptions } from '../../../types';
 import { MockCollabEditProvider } from '@atlaskit/synchrony-test-helpers/mock-collab-provider';
 import { EventEmitter } from 'events';
 
-const synchronyEntityAnalyticsMock = jest.fn();
+const mockSynchronyEntityAnalyticsMock = jest.fn();
 jest.mock('../../../analytics', () => ({
   ...jest.requireActual<Object>('../../../analytics'),
-  addSynchronyEntityAnalytics: () => synchronyEntityAnalyticsMock,
+  addSynchronyEntityAnalytics: () => mockSynchronyEntityAnalyticsMock,
 }));
 
 jest.mock('../../../actions');
@@ -76,7 +76,7 @@ describe('collab-edit: handlers.ts', () => {
 
     beforeEach(async () => {
       provider = await collabProvider;
-      synchronyEntityAnalyticsMock.mockClear();
+      mockSynchronyEntityAnalyticsMock.mockClear();
     });
 
     it('should subscribe and unsubscribe entity events', () => {
@@ -109,8 +109,10 @@ describe('collab-edit: handlers.ts', () => {
 
       entity.emit('error', {});
       entity.emit('disconnected', {});
-      expect(synchronyEntityAnalyticsMock).toHaveBeenCalledWith('error');
-      expect(synchronyEntityAnalyticsMock).toHaveBeenCalledWith('disconnected');
+      expect(mockSynchronyEntityAnalyticsMock).toHaveBeenCalledWith('error');
+      expect(mockSynchronyEntityAnalyticsMock).toHaveBeenCalledWith(
+        'disconnected',
+      );
       cleanup();
     });
 
@@ -122,7 +124,7 @@ describe('collab-edit: handlers.ts', () => {
 
       entity.emit('error', {});
       entity.emit('disconnected', {});
-      expect(synchronyEntityAnalyticsMock).not.toHaveBeenCalled();
+      expect(mockSynchronyEntityAnalyticsMock).not.toHaveBeenCalled();
     });
   });
 

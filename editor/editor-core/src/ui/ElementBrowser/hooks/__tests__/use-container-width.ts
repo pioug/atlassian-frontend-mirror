@@ -1,7 +1,7 @@
-const getWidth = jest.fn();
+const mockGetWidth = jest.fn();
 
 jest.mock('../use-container-width', () => () => ({
-  containerWidth: getWidth(),
+  containerWidth: mockGetWidth(),
   ContainerWidthMonitor: jest.fn(),
 }));
 
@@ -11,7 +11,7 @@ import useContainerWidth from '../use-container-width';
 
 describe('useContainerWidth', () => {
   it('returns the right measured container width', () => {
-    getWidth.mockReturnValueOnce(DEVICE_BREAKPOINT_NUMBERS.small);
+    mockGetWidth.mockReturnValueOnce(DEVICE_BREAKPOINT_NUMBERS.small);
     const {
       result: {
         current: { containerWidth },

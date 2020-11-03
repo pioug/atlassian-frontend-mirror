@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import { gridSize } from '@atlaskit/theme/constants';
 

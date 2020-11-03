@@ -19,6 +19,7 @@ import {
   InputTracking,
   BFreezeTracking,
 } from '../../../types/performance-tracking';
+import { setInteractionType } from '../utils/frozen-editor';
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
 export const DEFAULT_FREEZE_THRESHOLD = 600;
@@ -49,10 +50,6 @@ const dispatchLongTaskEvent = (
     eventType: EVENT_TYPE.OPERATIONAL,
   });
 };
-
-export const setInteractionType = (
-  interactionType: BROWSER_FREEZE_INTERACTION_TYPE = BROWSER_FREEZE_INTERACTION_TYPE.LOADING,
-) => interactionType;
 
 export default (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,

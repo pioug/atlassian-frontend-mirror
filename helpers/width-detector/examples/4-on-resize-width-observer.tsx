@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { WidthObserver } from '../src';
 import debounce from 'lodash/debounce';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 
 const ResultBox = styled.div`
   align-items: center;

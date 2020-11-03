@@ -1,16 +1,17 @@
-const mockCloseMediaAltTextMenu = jest.fn();
-const mockUpdateAltText = jest.fn(() => jest.fn());
-
 jest.mock('../../../../plugins/media/pm-plugins/alt-text/commands', () => ({
-  closeMediaAltTextMenu: mockCloseMediaAltTextMenu,
-  updateAltText: mockUpdateAltText,
+  closeMediaAltTextMenu: jest.fn(),
+  updateAltText: jest.fn(() => jest.fn()),
 }));
 
-const mockPmHistory = {
+jest.mock('prosemirror-history', () => ({
   undo: jest.fn(() => () => {}),
   redo: jest.fn(() => () => {}),
-};
-jest.mock('prosemirror-history', () => mockPmHistory);
+}));
+
+jest.mock('prosemirror-inputrules', () => ({
+  ...jest.requireActual<Object>('prosemirror-inputrules'),
+  undoInputRule: () => jest.fn(),
+}));
 
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -31,13 +32,10 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
 import PanelTextInput from '../../../../ui/PanelTextInput';
 import { ErrorMessage } from '@atlaskit/editor-common';
-
-const undoInputRuleMock = jest.fn();
-jest.mock('prosemirror-inputrules', () => ({
-  ...jest.requireActual<Object>('prosemirror-inputrules'),
-  undoInputRule: (state: any, dispatch: any) =>
-    undoInputRuleMock(state, dispatch),
-}));
+import {
+  closeMediaAltTextMenu,
+  updateAltText,
+} from '../../../../plugins/media/pm-plugins/alt-text/commands';
 
 describe('AltTextEditComponent', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -170,11 +168,8 @@ describe('AltTextEditComponent', () => {
       expect(wrapper.find('button[aria-label="Back"]').length).toEqual(1);
       wrapper.find('button[aria-label="Back"]').simulate('click');
 
-      expect(mockCloseMediaAltTextMenu).toBeCalledWith(
-        view.state,
-        view.dispatch,
-      );
-      expect(mockUpdateAltText).not.toBeCalled();
+      expect(closeMediaAltTextMenu).toBeCalledWith(view.state, view.dispatch);
+      expect(updateAltText).not.toBeCalled();
     });
   });
 
@@ -185,8 +180,8 @@ describe('AltTextEditComponent', () => {
       ).toEqual(1);
       wrapper.find('button[aria-label="Clear alt text"]').simulate('click');
 
-      expect(mockCloseMediaAltTextMenu).not.toBeCalled();
-      expect(mockUpdateAltText).toBeCalledWith(null);
+      expect(closeMediaAltTextMenu).not.toBeCalled();
+      expect(updateAltText).toBeCalledWith(null);
     });
   });
 
@@ -200,7 +195,7 @@ describe('AltTextEditComponent', () => {
         'handleKeyDown',
         expect.any(Function),
       );
-      expect(mockUpdateAltText).not.toBeCalled();
+      expect(updateAltText).not.toBeCalled();
     });
   });
 
@@ -211,7 +206,7 @@ describe('AltTextEditComponent', () => {
       input.instance().value = 'newvalue';
       input.simulate('change');
 
-      expect(mockUpdateAltText).toBeCalledWith('newvalue');
+      expect(updateAltText).toBeCalledWith('newvalue');
     });
 
     describe('when new value is empty string', () => {
@@ -269,7 +264,7 @@ describe('AltTextEditComponent', () => {
       const input = wrapper.find('input');
       input.simulate('blur');
 
-      expect(mockUpdateAltText).toBeCalledWith('trim whitespace around me');
+      expect(updateAltText).toBeCalledWith('trim whitespace around me');
     });
   });
 
@@ -281,10 +276,7 @@ describe('AltTextEditComponent', () => {
 
       wrapper.find('input').simulate('keydown', { keyCode: KEY_CODE_ENTER });
 
-      expect(mockCloseMediaAltTextMenu).toBeCalledWith(
-        view.state,
-        view.dispatch,
-      );
+      expect(closeMediaAltTextMenu).toBeCalledWith(view.state, view.dispatch);
     });
   });
 
@@ -372,7 +364,7 @@ describe('AltTextEditComponent', () => {
 
           expect(wrapper.state('validationErrors')).toHaveLength(0);
           expect(wrapper.find(ErrorMessage)).toHaveLength(0);
-          expect(mockUpdateAltText).toBeCalledWith(null);
+          expect(updateAltText).toBeCalledWith(null);
           expect(wrapper.find(PanelTextInput).prop('defaultValue')).toBe('');
         });
       });

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 

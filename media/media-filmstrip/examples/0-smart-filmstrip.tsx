@@ -20,7 +20,7 @@ import {
   MediaClient,
   FileIdentifier,
 } from '@atlaskit/media-client';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 export interface ExampleState {
   items: FilmstripItem[];

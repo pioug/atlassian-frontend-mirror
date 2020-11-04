@@ -198,6 +198,7 @@ export const copyLinkButtonClicked = (
   shareContentType?: string,
   shareOrigin?: OriginTracing,
   isPublicLink = false,
+  ari?: string,
 ) =>
   createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'copyShareLink', {
     source: ANALYTICS_SOURCE,
@@ -205,6 +206,7 @@ export const copyLinkButtonClicked = (
     shortUrl: undefined, // unknown at creation, will be filled later
     contentType: shareContentType,
     isPublicLink,
+    ari,
     ...getOriginTracingAttributes(shareOrigin),
   });
 

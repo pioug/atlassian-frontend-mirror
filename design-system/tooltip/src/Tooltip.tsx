@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/core';
 import { bind } from 'bind-event-listener';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
 import { ExitingPersistence, FadeIn, Transition } from '@atlaskit/motion';
 import { Popper, PopperProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -45,13 +45,13 @@ function Tooltip({
   strategy = 'fixed',
 }: TooltipProps) {
   const tooltipPosition = position === 'mouse' ? mousePosition : position;
-  const onShowHandler = usePlatformLeafEventHandler<void>({
+  const onShowHandler = usePlatformLeafSyntheticEventHandler({
     fn: onShow,
     action: 'displayed',
     analyticsData: analyticsContext,
     ...analyticsAttributes,
   });
-  const onHideHandler = usePlatformLeafEventHandler<void>({
+  const onHideHandler = usePlatformLeafSyntheticEventHandler({
     fn: onHide,
     action: 'hidden',
     analyticsData: analyticsContext,

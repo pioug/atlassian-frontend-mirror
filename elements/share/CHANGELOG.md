@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.24.0
+
+### Minor Changes
+
+- [`ada07884c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ada07884c2) - Send ARI with CopyLink click event to analytics-system
+
 ## 0.23.5
 
 ### Patch Changes

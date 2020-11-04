@@ -227,7 +227,9 @@ describe('share analytics', () => {
 
     it('should create event payload with origin id', () => {
       const shareOrigin: OriginTracing = mockShareOrigin();
-      expect(copyLinkButtonClicked(100, 'issue', shareOrigin)).toMatchObject({
+      expect(
+        copyLinkButtonClicked(100, 'issue', shareOrigin, undefined, 'ari'),
+      ).toMatchObject({
         eventType: 'ui',
         action: 'clicked',
         actionSubject: 'button',
@@ -240,6 +242,7 @@ describe('share analytics', () => {
           shortUrl: undefined,
           originProduct: 'jest',
           contentType: 'issue',
+          ari: 'ari',
         }),
       });
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);

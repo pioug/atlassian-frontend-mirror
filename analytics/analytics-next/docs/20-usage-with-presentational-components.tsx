@@ -17,9 +17,9 @@ our suggested approach.
 
 ### Hooks API
 
-* [\`usePlatformLeafEventHandler\`](#use-platform-leaf-event-handler)
 * [\`useAnalyticsEvents\`](#use-analytics-events)
 * [\`useCallbackWithAnalytics\`](#use-callback-with-analytics)
+* [\`usePlatformLeafEventHandler\` and \`usePlatformLeafSyntheticEventHandler\`](#use-platform-leaf-event-handlers)
 
 ### HOCs API
 
@@ -70,66 +70,6 @@ ${(
 )}
 
 ### Examples
-
-<a name="use-platform-leaf-event-handler"></a>
-#### The \`usePlatformLeafEventHandler\` hook
-
-This hook was built with Atlaskit components purely in mind.
-
-It dispatches an event on the \`atlaskit\` channel then passes it to the
-wrapped function as the last argument in case you want to something additional with the event.
-
-&nbsp;
-
-**WARNING:** *This hook makes an assumption that the component being wrapped is a "leaf-node"
-component, i.e., they have no children that require analytics themselves. This
-is so it can include the component name, package name, and package version as context
-in the analytics event. It assumes no children need this context and makes no attempt to
-pass it to them. This gains us a decent performance optimization. Use the other hooks
-if you are unsure you can use this safely.*
-
-&nbsp;
-
-${code`
-import React, { useCallback } from 'react';
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-
-const MyButton = ({ onClick = () => {} }) => {
-  // this isn't necessary if you are happy with just firing on the 'alaskit' channel
-  const wrapped = (clickEvent, analyticsEvent) => {
-    // do what you like with the event, fire / modify / clone
-    // this here is the typical usage pattern for atlaskit components
-
-    const clonedEvent = analyticsEvent.clone();
-
-    analyticsEvent.fire("otherChannel");
-
-    // firing is prevented from happening more than once
-    // so that's why we pass a clone to be accessed by the parent component
-    // which might also want to fire their own event on this ui interaction
-    onClick(clickEvent, clonedEvent);
-  };
-
-  const handler = usePlatformLeafEventHandler({
-    fn: wrapped, // use onClick instead if you want to just fire on 'atlaskit'
-    action: 'clicked',
-    componentName: 'my-button',
-    packageName: '@atlaskit/my-button',
-    packageVersion: '1.0.0',
-    analyticsData: {
-      // any additional data can live here
-      style: 'fancy'
-    },
-  });
-
-  return (
-    <button onClick={handler}>Track me</button>
-  );
-}
-
-export MyButton;
-`}
-
 
 <a name="use-analytics-events"></a>
 #### The \`useAnalyticsEvents\` hook
@@ -323,4 +263,94 @@ const AnalyticsWrappedButton = withAnalyticsEvents({
 
 export AnalyticsWrappedButton;
 `}
+
+<a name="use-platform-leaf-event-handlers"></a>
+#### The \`usePlatformLeafEventHandler\` and \`usePlatformLeafSyntheticEventHandler\` hooks
+
+These hooks were built with internal leaf node components purely in mind.
+
+They dispatch an event on the \`atlaskit\` channel, then pass it to the
+wrapped function as the last argument in case you want to something additional with the event.
+
+\`usePlatformLeafEventHandler\` takes a function with two arguments (\`value\` and
+ \`analyticsEvent\`), while \`usePlatformLeafSyntheticEventHandler\` takes a function
+ with just one argument for the \`analyticsEvent\`
+
+&nbsp;
+
+**WARNING:** *These hooks make an assumption that the component being wrapped is a "leaf-node"
+component, i.e., they have no children that require analytics themselves. This
+is so it can include the component name, package name, and package version as context
+in the analytics event. It assumes no children need this context and makes no attempt to
+pass it to them. This gains us a decent performance optimization. Use the other hooks
+if you are unsure you can use these safely.*
+
+&nbsp;
+
+${code`
+import React, { useCallback } from 'react';
+import {
+  usePlatformLeafEventHandler,
+  usePlatformLeafSyntheticEventHandler
+} from '@atlaskit/analytics-next';
+
+const MyButton = ({ onClick = () => {}, onActivate = () => {}}) => {
+
+  /**
+   *        Event 1: usePlatformLeafEventHandler
+  */
+  // this isn't necessary if you are happy with just firing on the 'atlaskit' channel
+  const wrapped = (clickEvent, analyticsEvent) => {
+    // do what you like with the event, fire / modify / clone
+    // this here is the typical usage pattern for atlaskit components
+    const clonedEvent = analyticsEvent.clone();
+    analyticsEvent.fire("otherChannel");
+
+    // firing is prevented from happening more than once
+    // so that's why we pass a clone to be accessed by the parent component
+    // which might also want to fire their own event on this ui interaction
+    onClick(clickEvent, clonedEvent);
+  };
+  const handler = usePlatformLeafEventHandler({
+    fn: wrapped, // use onClick instead if you want to just fire on 'atlaskit'
+    action: 'clicked',
+    componentName: 'my-button',
+    packageName: '@atlaskit/my-button',
+    packageVersion: '1.0.0',
+    analyticsData: {
+      // any additional data can live here
+      style: 'fancy'
+    },
+  });
+
+  /**
+   * Event 2: Synthetic event using usePlatformLeafSyntheticEventHandler
+  */
+ const wrappedSynthetic = (analyticsEvent) => {
+    // A synthetic 'activate' event; same as above, but without a DOM event passed in
+    const clonedEvent = analyticsEvent.clone();
+    analyticsEvent.fire("otherChannel");
+    onActivate(clonedEvent);
+  };
+  const syntheticHandler = usePlatformLeafSyntheticEventHandler({
+    fn: wrappedSynthetic, // use onActivate instead if you want to just fire on 'atlaskit'
+    action: 'activated',
+    componentName: 'my-button',
+    packageName: '@atlaskit/my-button',
+    packageVersion: '1.0.0',
+    analyticsData: {
+      // any additional data can live here
+      style: 'fancy'
+    },
+  });
+
+  return (
+    // In this example the synthetic event is triggered by onFocus
+    <button onClick={handler} onFocus={syntheticHandler}>Track me</button>
+  );
+}
+
+export MyButton;
+`}
+
 `;

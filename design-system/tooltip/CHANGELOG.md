@@ -1,5 +1,19 @@
 # @atlaskit/tooltip
 
+## 17.1.1
+
+### Patch Changes
+
+- [`d36905cfe9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d36905cfe9) - Fixed incorrect function signature for onShow and onHide props, and added improved typing for these props.
+
+  - **old:** analyticsEvent was the first argument
+  - **change:** analyticsEvent became the second argument unintentionally (bug introduced 17.0.0)
+  - **now:** restoring old behavior, analyticsEvent as the first argument
+
+  If you migrated analyticsEvent to the second argument to mitigate this bug, you will need to update your code.
+
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

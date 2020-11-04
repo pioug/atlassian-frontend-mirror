@@ -1,5 +1,6 @@
 import { ComponentType, ReactNode } from 'react';
 
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Placement } from '@atlaskit/popper';
 
 import { TooltipPrimitiveProps } from './TooltipPrimitive';
@@ -48,13 +49,13 @@ export interface TooltipProps {
    * Function to be called when the tooltip will be shown. It is called when the
    * tooltip begins to animate in.
    */
-  onShow?: () => void;
+  onShow?: (analyticsEvent: UIAnalyticsEvent) => void;
 
   /**
    * Function to be called when the tooltip will be hidden. It is called after the
    * delay, when the tooltip begins to animate out.
    */
-  onHide?: () => void;
+  onHide?: (analyticsEvent: UIAnalyticsEvent) => void;
 
   /**
    * Where the tooltip should appear relative to its target.

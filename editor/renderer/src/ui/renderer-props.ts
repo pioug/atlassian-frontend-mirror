@@ -55,4 +55,5 @@ export interface RendererProps {
     severityNormalThreshold: number;
     severityDegradedThreshold: number;
   };
+  allowUgcScrubber?: boolean;
 }

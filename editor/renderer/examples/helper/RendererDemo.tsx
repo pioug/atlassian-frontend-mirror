@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
+import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
 import {
   profilecard as profilecardUtils,
   emoji,
@@ -40,6 +41,7 @@ import {
   RendererAppearance,
   HeadingAnchorLinksProps,
 } from '../../src/ui/Renderer/types';
+import { CodeBlock } from '@atlaskit/code';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Schema } from 'prosemirror-model';
 
@@ -160,6 +162,7 @@ export interface DemoRendererProps {
   actionButtons?: React.ReactNode;
   annotationProvider?: AnnotationProviders | null;
   useSpecBasedValidator?: boolean;
+  allowUgcScrubber?: boolean;
   onDocumentChange?: () => void;
   analyticsEventSeverityTracking?: {
     enabled: boolean;
@@ -175,6 +178,7 @@ export interface DemoRendererState {
   showSidebar: boolean;
   shouldUseEventHandlers: boolean;
   copies?: number;
+  scrubbedAdf?: ADFEntity;
 }
 
 export default class RendererDemo extends React.Component<
@@ -207,6 +211,7 @@ export default class RendererDemo extends React.Component<
       showSidebar: getDefaultShowSidebarState(false),
       shouldUseEventHandlers: false,
       copies: props.copies || 1,
+      scrubbedAdf: undefined,
     };
   }
 
@@ -284,6 +289,9 @@ export default class RendererDemo extends React.Component<
               Toggle Event handlers
             </button>
           )}
+          {this.props.allowUgcScrubber && (
+            <button onClick={this.scrubAdf}>Scrub content</button>
+          )}
           {this.props.showHowManyCopies && (
             <input
               type="number"
@@ -295,6 +303,12 @@ export default class RendererDemo extends React.Component<
             />
           )}
           {this.props.actionButtons}
+          {this.state.scrubbedAdf ? (
+            <CodeBlock
+              text={JSON.stringify(this.state.scrubbedAdf, null, 2)}
+              language="JSON"
+            />
+          ) : null}
         </fieldset>
 
         <IframeWidthObserverFallbackWrapper>
@@ -344,6 +358,7 @@ export default class RendererDemo extends React.Component<
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
       props.UNSAFE_allowCustomPanels = this.props.allowCustomPanels;
       props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
+      props.allowUgcScrubber = this.props.allowUgcScrubber;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;
@@ -435,5 +450,10 @@ export default class RendererDemo extends React.Component<
     if (this.inputCopies) {
       this.setState({ copies: Number(this.inputCopies.value) });
     }
+  };
+
+  private scrubAdf = () => {
+    const scrubbedAdf = scrubAdf(JSON.parse(this.state.input)) || undefined;
+    this.setState({ scrubbedAdf });
   };
 }

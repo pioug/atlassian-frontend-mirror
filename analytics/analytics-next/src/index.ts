@@ -44,6 +44,12 @@ export type {
   UsePlatformLeafEventHandlerHook,
 } from './hooks/usePlatformLeafEventHandler';
 
+export { usePlatformLeafSyntheticEventHandler } from './hooks/usePlatformLeafSyntheticEventHandler';
+export type {
+  UsePlatformLeafSyntheticEventHandlerHookArgs,
+  UsePlatformLeafSyntheticEventHandlerHook,
+} from './hooks/usePlatformLeafSyntheticEventHandler';
+
 // Helper functions
 export { default as createAndFireEvent } from './utils/createAndFireEvent';
 export { default as cleanProps } from './utils/cleanProps';

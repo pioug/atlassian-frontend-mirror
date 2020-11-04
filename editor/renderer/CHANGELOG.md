@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 69.1.0
+
+### Minor Changes
+
+- [`988bc9cfc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/988bc9cfc9) - ED-10676: ADF scrub util
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.0.0
 
 ### Minor Changes

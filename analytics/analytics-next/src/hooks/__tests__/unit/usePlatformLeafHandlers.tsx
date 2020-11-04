@@ -9,6 +9,7 @@ import {
 
 import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '../../usePlatformLeafEventHandler';
+import { usePlatformLeafSyntheticEventHandler } from '../../usePlatformLeafSyntheticEventHandler';
 
 const FakeContextProvider = ({
   children,
@@ -26,12 +27,16 @@ const FakeContextProvider = ({
 
 const ButtonUsingHook = ({
   onClick,
+  onActivate,
   action,
   componentName,
   packageName,
   packageVersion,
   analyticsData,
 }: {
+  // Synthetic event for usePlatformLeafSyntheticEventHandler
+  onActivate: (analyticsEvent: UIAnalyticsEvent) => void;
+  // Event for usePlatformLeafEventHandler
   onClick: (
     clickEvent: React.MouseEvent<HTMLButtonElement>,
     analyticsEvent: UIAnalyticsEvent,
@@ -51,8 +56,21 @@ const ButtonUsingHook = ({
     analyticsData,
   });
 
+  // Simulating a synthetic event of some sort
+  const handleButtonActivate = usePlatformLeafSyntheticEventHandler({
+    fn: onActivate,
+    action,
+    componentName,
+    packageName,
+    packageVersion,
+    analyticsData,
+  });
+  const handleFocus = () => {
+    handleButtonActivate();
+  };
+
   return (
-    <button data-testid="button" onClick={handleClick}>
+    <button data-testid="button" onClick={handleClick} onFocus={handleFocus}>
       Button
     </button>
   );
@@ -60,7 +78,8 @@ const ButtonUsingHook = ({
 
 const UnderTest = ({
   context,
-  onClick,
+  onActivate = () => {},
+  onClick = () => {},
   action,
   componentName,
   packageName,
@@ -68,7 +87,8 @@ const UnderTest = ({
   analyticsData,
 }: {
   context: AnalyticsReactContextInterface;
-  onClick: (
+  onActivate?: (analyticsEvent: UIAnalyticsEvent) => void;
+  onClick?: (
     clickEvent: React.MouseEvent<HTMLButtonElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
@@ -81,6 +101,7 @@ const UnderTest = ({
   return (
     <FakeContextProvider context={context}>
       <ButtonUsingHook
+        onActivate={onActivate}
         onClick={onClick}
         action={action}
         componentName={componentName}
@@ -128,6 +149,67 @@ describe('usePlatformLeafEventHandler', () => {
     fireEvent.click(getByTestId('button'));
 
     expect(onClick).toBeCalled(); // called with synthetic mouse event
+
+    expect(onEvent).toBeCalledWith(
+      [
+        { ticket: 'AFP-123' },
+        {
+          componentName: 'button',
+          packageName: '@atlaskit/button',
+          packageVersion: '1.1.1',
+          breakfast: 'toast',
+        },
+      ],
+      {
+        action: 'click',
+        actionSubject: 'button',
+        attributes: {
+          componentName: 'button',
+          packageName: '@atlaskit/button',
+          packageVersion: '1.1.1',
+        },
+      },
+      'atlaskit',
+    );
+  });
+});
+
+describe('usePlatformLeafSyntheticEventHandler', () => {
+  it('should provide a callback that creates a synthetic event and fires on the channel', () => {
+    const onEvent = jest.fn();
+    const onActivate = jest.fn();
+
+    const eventHandler = (
+      analyticsEvent: UIAnalyticsEvent,
+      channel?: string,
+    ) => {
+      onEvent(analyticsEvent.context, analyticsEvent.payload, channel);
+    };
+
+    const context: AnalyticsReactContextInterface = {
+      getAtlaskitAnalyticsContext: () => [{ ticket: 'AFP-123' }],
+      getAtlaskitAnalyticsEventHandlers: () => [eventHandler],
+    };
+
+    const analyticsData = {
+      breakfast: 'toast',
+    };
+
+    const { getByTestId } = render(
+      <UnderTest
+        context={context}
+        onActivate={onActivate}
+        action="click"
+        componentName="button"
+        packageName="@atlaskit/button"
+        packageVersion="1.1.1"
+        analyticsData={analyticsData}
+      />,
+    );
+
+    fireEvent.focus(getByTestId('button'));
+
+    expect(onActivate).toBeCalled(); // called with synthetic mouse event
 
     expect(onEvent).toBeCalledWith(
       [

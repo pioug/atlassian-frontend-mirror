@@ -3,6 +3,7 @@ import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import { InjectedIntl, InjectedIntlProps, IntlProvider } from 'react-intl';
 
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   createEditorFactory,
   doc,
@@ -314,7 +315,7 @@ describe('Unsupported Content', () => {
         const dispatchAnalyticsEvent = jest.fn();
         setUp(dispatchAnalyticsEvent);
         const onShow = wrapper.find(Tooltip).prop('onShow');
-        onShow && onShow();
+        onShow && onShow(new UIAnalyticsEvent({ payload: { foo: 'bar' } }));
 
         expect(trackUnsupportedContentTooltipDisplayedFor).toHaveBeenCalledWith(
           dispatchAnalyticsEvent,
@@ -327,7 +328,7 @@ describe('Unsupported Content', () => {
           when the tooltip is displayed and  dispatchAnalyticsEvent is not passed as prop `, async () => {
         setUp();
         const onShow = wrapper.find(Tooltip).prop('onShow');
-        onShow && onShow();
+        onShow && onShow(new UIAnalyticsEvent({ payload: { foo: 'bar' } }));
 
         expect(
           trackUnsupportedContentTooltipDisplayedFor,
@@ -625,7 +626,7 @@ describe('Unsupported Content', () => {
         setUp(dispatchAnalyticsEvent);
 
         const onShow = wrapper.find(Tooltip).prop('onShow');
-        onShow && onShow();
+        onShow && onShow(new UIAnalyticsEvent({ payload: { foo: 'bar' } }));
 
         expect(trackUnsupportedContentTooltipDisplayedFor).toHaveBeenCalledWith(
           dispatchAnalyticsEvent,
@@ -638,7 +639,7 @@ describe('Unsupported Content', () => {
           when the tooltip is displayed and  dispatchAnalyticsEvent is not passed as prop `, async () => {
         setUp();
         const onShow = wrapper.find(Tooltip).prop('onShow');
-        onShow && onShow();
+        onShow && onShow(new UIAnalyticsEvent({ payload: { foo: 'bar' } }));
 
         expect(
           trackUnsupportedContentTooltipDisplayedFor,

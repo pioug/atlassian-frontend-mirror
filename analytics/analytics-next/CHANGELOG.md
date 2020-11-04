@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.1.0
+
+### Minor Changes
+
+- [`4eb71695b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb71695b5) - Added usePlatformLeafSyntheticEventHandler, which acts similarly to usePlatformLeafEventHandler but is used for synthetic events where the event handler takes no `value` prop
+
 ## 8.0.2
 
 ### Patch Changes

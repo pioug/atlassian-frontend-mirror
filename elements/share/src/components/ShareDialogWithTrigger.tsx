@@ -126,6 +126,8 @@ export type Props = {
   onUserSelectionChange?: (value: Value) => void;
   shareFieldsFooter?: React.ReactNode;
   isPublicLink?: boolean;
+  /** Atlassian Resource Identifier of a Site resource to be shared. */
+  shareAri?: string;
 };
 
 const ShareButtonWrapper = styled.div`
@@ -518,13 +520,19 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   handleCopyLink = () => {
-    const { copyLinkOrigin, shareContentType, isPublicLink } = this.props;
+    const {
+      copyLinkOrigin,
+      shareContentType,
+      isPublicLink,
+      shareAri,
+    } = this.props;
     this.createAndFireEvent(
       copyLinkButtonClicked(
         this.start,
         shareContentType,
         copyLinkOrigin,
         isPublicLink,
+        shareAri,
       ),
     );
   };

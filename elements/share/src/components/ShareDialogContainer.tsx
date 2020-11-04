@@ -745,6 +745,7 @@ export class ShareDialogContainerInternal extends React.Component<
       onUserSelectionChange,
       shareFieldsFooter,
       isPublicLink,
+      shareAri,
     } = this.props;
     const {
       isFetchingConfig,
@@ -803,6 +804,7 @@ export class ShareDialogContainerInternal extends React.Component<
             onUserSelectionChange={onUserSelectionChange}
             shareFieldsFooter={shareFieldsFooter}
             isPublicLink={isPublicLink}
+            shareAri={shareAri}
           />
         </MessagesIntlProvider>
       </ErrorBoundary>

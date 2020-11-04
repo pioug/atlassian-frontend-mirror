@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.1.0
+
+### Minor Changes
+
+- [`988bc9cfc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/988bc9cfc9) - ED-10676: ADF scrub util
+
 ## 11.0.0
 
 ### Major Changes

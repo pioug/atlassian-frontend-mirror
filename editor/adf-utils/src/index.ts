@@ -63,6 +63,7 @@ export {
 } from './builders';
 export { filter, map, reduce, traverse } from './traverse';
 export { sanitizeNode, removeMarks } from './sanitize';
+export { scrubAdf } from './scrub';
 export { validateAttrs, validator } from './validator';
 export type {
   Content,

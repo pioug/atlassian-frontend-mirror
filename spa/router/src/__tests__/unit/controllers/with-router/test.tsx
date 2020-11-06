@@ -160,6 +160,7 @@ describe('withRouter', () => {
   test('should render a RouterSubscriber', () => {
     const wrapper = mount(<ComponentWithRouter foo={'bar'} />);
 
-    expect(wrapper.find('RouterSubscriber')).toHaveLength(1);
+    // Both the base and outer component are rendered as 'RouterSubscriber'
+    expect(wrapper.find('RouterSubscriber')).toHaveLength(2);
   });
 });

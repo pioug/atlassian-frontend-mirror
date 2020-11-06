@@ -1,11 +1,7 @@
-let mockGetMediaClient: jest.SpyInstance<
-  typeof MediaClientModule['getMediaClient']
-> = jest.fn();
-
 jest.mock('@atlaskit/media-client', () => {
   return {
     ...jest.requireActual<Object>('@atlaskit/media-client'),
-    getMediaClient: mockGetMediaClient,
+    getMediaClient: jest.fn(),
   };
 });
 
@@ -49,6 +45,10 @@ class TestSiteEmojiResource extends SiteEmojiResource {
     this.tokenManager = tokenManager;
   }
 }
+
+let mockGetMediaClient: jest.SpyInstance<
+  typeof MediaClientModule['getMediaClient']
+> = MediaClientModule.getMediaClient as any;
 
 describe('SiteEmojiResource', () => {
   afterEach(() => {

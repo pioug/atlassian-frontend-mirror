@@ -11,16 +11,20 @@ import React, {
 import { fireEvent, render } from '@testing-library/react';
 import PropTypes from 'prop-types';
 
-import LegacyAnalyticsContext from '../../../components/AnalyticsContext/LegacyAnalyticsContext';
 import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '../../../hooks/useAnalyticsEvents';
 import { useRenderCounter } from '../../../test-utils/useRenderCounter';
 import withAnalyticsContext from '../../withAnalyticsContext';
 
-jest.mock('../../../components/AnalyticsContext', () => ({
-  __esModule: true,
-  default: LegacyAnalyticsContext,
-}));
+jest.mock('../../../components/AnalyticsContext', () => {
+  const {
+    default: LegacyAnalyticsContext,
+  } = require('../../../components/AnalyticsContext/LegacyAnalyticsContext');
+  return {
+    __esModule: true,
+    default: LegacyAnalyticsContext,
+  };
+});
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class FakeLegacyListener extends Component<{

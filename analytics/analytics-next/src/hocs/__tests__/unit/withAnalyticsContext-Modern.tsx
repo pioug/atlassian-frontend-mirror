@@ -11,17 +11,19 @@ import { fireEvent, render } from '@testing-library/react';
 
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 
-import ModernAnalyticsContext from '../../../components/AnalyticsContext/ModernAnalyticsContext';
 import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '../../../hooks/useAnalyticsEvents';
 import { useTrackedRef } from '../../../hooks/useTrackedRef';
 import { useRenderCounter } from '../../../test-utils/useRenderCounter';
 import withAnalyticsContext from '../../withAnalyticsContext';
 
-jest.mock('../../../components/AnalyticsContext', () => ({
-  __esModule: true,
-  default: ModernAnalyticsContext,
-}));
+jest.mock('../../../components/AnalyticsContext', () => {
+  const ModernAnalyticsContext = require('../../../components/AnalyticsContext/ModernAnalyticsContext');
+  return {
+    __esModule: true,
+    default: ModernAnalyticsContext.default,
+  };
+});
 
 const FakeModernListener = ({
   onEvent,

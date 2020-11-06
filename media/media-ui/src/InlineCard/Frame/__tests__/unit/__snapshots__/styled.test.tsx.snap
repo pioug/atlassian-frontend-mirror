@@ -27,10 +27,10 @@ exports[`Wrapper it should have interactive styles 1`] = `
 }
 
 .c0:hover background-color:function (props) {
-  -webkit-var: theme = getTheme_1.default(props);
-  -moz-var: theme = getTheme_1.default(props);
-  -ms-var: theme = getTheme_1.default(props);
-  var: theme = getTheme_1.default(props);
+  -webkit-var: theme = (0,_getTheme.default)(props);
+  -moz-var: theme = (0,_getTheme.default)(props);
+  -ms-var: theme = (0,_getTheme.default)(props);
+  var: theme = (0,_getTheme.default)(props);
   return: '';
 }
 
@@ -51,10 +51,10 @@ exports[`Wrapper it should have interactive styles 1`] = `
 }
 
 .c0:active background-color:function (props) {
-  -webkit-var: theme = getTheme_1.default(props);
-  -moz-var: theme = getTheme_1.default(props);
-  -ms-var: theme = getTheme_1.default(props);
-  var: theme = getTheme_1.default(props);
+  -webkit-var: theme = (0,_getTheme.default)(props);
+  -moz-var: theme = (0,_getTheme.default)(props);
+  -ms-var: theme = (0,_getTheme.default)(props);
+  var: theme = (0,_getTheme.default)(props);
   return: '';
 }
 

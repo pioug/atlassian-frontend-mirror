@@ -29,6 +29,20 @@ import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
 import ConfigPanel from '../../../ui/ConfigPanel';
 
+beforeEach(() => {
+  /* The first test of this module that loads ConfigPanel is sometimes timing out with our repo's
+   * default timeout of 30 seconds. This is because ConfigPanel is asynchronously loaded and jest
+   * has to resolve & transpile all modules asynchronously during the test which takes up valuable
+   * test time.
+   *
+   * A longer term fix would be to provide a global mock of react-loadable that loaded these modules
+   * in advance and showed the loading state after a tick or so.
+   *
+   * Alternatively, the actual module that is asynchronously loaded can be 'preloaded' in this test by importing it.
+   */
+  jest.setTimeout(60000);
+});
+
 const createManifest = (
   fieldsDefinitionsGetter:
     | (() => Promise<FieldDefinition[]>)

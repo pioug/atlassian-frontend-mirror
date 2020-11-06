@@ -20,6 +20,8 @@ export default {
     'Rikkoutunut robotti ja monta ihmistä korjaamassa sitä.',
   'fabric.atlassianSwitcher.errorText':
     'Huomioimme nämä virheet, mutta ota meihin yhteyttä, jos sivun lataus ei paranna asiaa',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Kirjaudu uudelleen sisään käyttääksesi Atlassian Switcheriä.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Tätä luetteloa ei voitu ladata. Lataa sivu ja yritä uudelleen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -32,6 +34,8 @@ export default {
     'Maksuton yhteistyöpohjainen IT-palveluiden hallinta enintään kolmelle asiakaspalvelijalle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Ilmainen projektien ja asioiden seuranta enintään kymmenelle käyttäjälle',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github ja muut',
+  'fabric.atlassianSwitcher.gittools.label': 'Git-integraatiot ja Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekti',
   'fabric.atlassianSwitcher.join': 'Liity',
   'fabric.atlassianSwitcher.login': 'Kirjaudu sisään',

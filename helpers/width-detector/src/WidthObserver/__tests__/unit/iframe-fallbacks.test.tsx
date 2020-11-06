@@ -17,17 +17,19 @@ jest.mock('../../utils', () => ({
   },
 }));
 
-const target = document.createElement('div');
-const entry = {
-  target,
+const mockTarget = document.createElement('div');
+const mockEntry = {
+  target: mockTarget,
   boundingClientRect: {
     width: 0,
   },
 };
 
-jest.mock('../../hooks', () => ({
-  useInView: () => [jest.fn(), true, target, entry],
-}));
+jest.mock('../../hooks', () => {
+  return {
+    useInView: () => [jest.fn(), true, mockTarget, mockEntry],
+  };
+});
 
 describe('Iframe fallbacks', () => {
   const windowIntersectionObserver = window.IntersectionObserver;

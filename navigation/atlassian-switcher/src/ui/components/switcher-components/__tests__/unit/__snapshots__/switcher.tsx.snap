@@ -13,7 +13,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
   <SwitcherWrapper
     appearance="drawer"
   >
-    <WithAnalyticsEvents(class_3)
+    <WithAnalyticsEvents(_class3)
       data={
         Object {
           "adminLinks": Array [],
@@ -27,7 +27,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcher"
     />
-    <WithAnalyticsEvents(class_2)
+    <WithAnalyticsEvents(_class2)
       data={
         Object {
           "duration": 0,
@@ -35,7 +35,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherAvailableProducts"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -44,7 +44,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherJoinableSites"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -53,7 +53,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherRecommendedProducts"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -62,7 +62,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherDiscoverMore"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -71,7 +71,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherRecentContainers"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -80,7 +80,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherCustomLinks"
     />
-    <Component
+    <SwitchToSection
       adminLinks={Array []}
       appearance="drawer"
       disableHeading={true}
@@ -90,7 +90,7 @@ exports[`Switcher should be able to disable switch to section header with "disab
       suggestedProductLinks={Array []}
       triggerXFlow={[Function]}
     />
-    <Component
+    <CrossJoinSection
       appearance="drawer"
       joinableSiteLinks={Array []}
       licensedProductLinks={Array []}
@@ -156,11 +156,11 @@ exports[`Switcher should be able to disable switch to section header with "disab
         }
       }
     />
-    <Component
+    <RecentSection
       appearance="drawer"
       recentLinks={Array []}
     />
-    <Component
+    <CustomLinksSection
       appearance="drawer"
       customLinks={Array []}
     />
@@ -181,7 +181,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
   <SwitcherWrapper
     appearance="drawer"
   >
-    <WithAnalyticsEvents(class_3)
+    <WithAnalyticsEvents(_class3)
       data={
         Object {
           "adminLinks": Array [],
@@ -195,7 +195,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcher"
     />
-    <WithAnalyticsEvents(class_2)
+    <WithAnalyticsEvents(_class2)
       data={
         Object {
           "duration": 0,
@@ -203,7 +203,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherAvailableProducts"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -212,7 +212,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherJoinableSites"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -221,7 +221,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherRecommendedProducts"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -230,7 +230,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherDiscoverMore"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -239,7 +239,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherRecentContainers"
     />
-    <WithAnalyticsEvents(class_1)
+    <WithAnalyticsEvents(_class)
       data={
         Object {
           "duration": 0,
@@ -248,7 +248,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherCustomLinks"
     />
-    <Component
+    <SwitchToSection
       adminLinks={Array []}
       appearance="drawer"
       fixedLinks={Array []}
@@ -257,7 +257,7 @@ exports[`Switcher should render sections with headers by default 1`] = `
       suggestedProductLinks={Array []}
       triggerXFlow={[Function]}
     />
-    <Component
+    <CrossJoinSection
       appearance="drawer"
       joinableSiteLinks={Array []}
       licensedProductLinks={Array []}
@@ -323,11 +323,11 @@ exports[`Switcher should render sections with headers by default 1`] = `
         }
       }
     />
-    <Component
+    <RecentSection
       appearance="drawer"
       recentLinks={Array []}
     />
-    <Component
+    <CustomLinksSection
       appearance="drawer"
       customLinks={Array []}
     />

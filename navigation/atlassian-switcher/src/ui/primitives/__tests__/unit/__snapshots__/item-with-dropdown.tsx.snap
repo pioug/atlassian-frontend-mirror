@@ -250,7 +250,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            <Component
+            <ItemWrapper
               isParentHovered={false}
             >
               <Consumer>
@@ -278,7 +278,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                     <div
                       className="c2 c3"
                     >
-                      <Component
+                      <_default
                         createAnalyticsEvent={[Function]}
                         description={null}
                         href="https://bitbucket.org"
@@ -529,12 +529,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
                             </SwitcherItem>
                           </ThemeProvider>
                         </Consumer>
-                      </Component>
+                      </_default>
                     </div>
                   </styled.div>
                 </Styled(styled.div)>
               </Consumer>
-            </Component>
+            </ItemWrapper>
           </div>
         </styled.div>
       </div>
@@ -950,7 +950,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            <Component
+            <ItemWrapper
               isParentHovered={false}
             >
               <Consumer>
@@ -978,7 +978,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                     <div
                       className="c2 c3"
                     >
-                      <Component
+                      <_default
                         createAnalyticsEvent={[Function]}
                         description="some-instance"
                         href="https://app.opsgenie.com"
@@ -1249,12 +1249,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                             </SwitcherItem>
                           </ThemeProvider>
                         </Consumer>
-                      </Component>
+                      </_default>
                     </div>
                   </styled.div>
                 </Styled(styled.div)>
               </Consumer>
-            </Component>
+            </ItemWrapper>
             <Tooltip
               content={
                 <span>
@@ -1272,7 +1272,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                 onMouseOut={[Function]}
                 onMouseOver={[Function]}
               >
-                <Component
+                <Toggle
                   isParentHovered={false}
                 >
                   <Consumer>
@@ -1300,7 +1300,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                         <div
                           className="c12 c3"
                         >
-                          <Component
+                          <_default
                             data-test-id="switcher-expand-toggle"
                             icon={
                               <styled.div>
@@ -1482,12 +1482,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                 </SwitcherItem>
                               </ThemeProvider>
                             </Consumer>
-                          </Component>
+                          </_default>
                         </div>
                       </styled.div>
                     </Styled(styled.div)>
                   </Consumer>
-                </Component>
+                </Toggle>
               </div>
             </Tooltip>
           </div>
@@ -1905,7 +1905,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            <Component
+            <ItemWrapper
               isParentHovered={false}
             >
               <Consumer>
@@ -1933,7 +1933,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                     <div
                       className="c2 c3"
                     >
-                      <Component
+                      <_default
                         createAnalyticsEvent={[Function]}
                         description="some-instance"
                         href="https://app.opsgenie.com"
@@ -2204,12 +2204,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                             </SwitcherItem>
                           </ThemeProvider>
                         </Consumer>
-                      </Component>
+                      </_default>
                     </div>
                   </styled.div>
                 </Styled(styled.div)>
               </Consumer>
-            </Component>
+            </ItemWrapper>
             <Tooltip
               content={
                 <span>
@@ -2227,7 +2227,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                 onMouseOut={[Function]}
                 onMouseOver={[Function]}
               >
-                <Component
+                <Toggle
                   isParentHovered={false}
                 >
                   <Consumer>
@@ -2255,7 +2255,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                         <div
                           className="c12 c3"
                         >
-                          <Component
+                          <_default
                             data-test-id="switcher-expand-toggle"
                             icon={
                               <styled.div>
@@ -2437,12 +2437,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                 </SwitcherItem>
                               </ThemeProvider>
                             </Consumer>
-                          </Component>
+                          </_default>
                         </div>
                       </styled.div>
                     </Styled(styled.div)>
                   </Consumer>
-                </Component>
+                </Toggle>
               </div>
             </Tooltip>
           </div>
@@ -2860,7 +2860,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            <Component
+            <ItemWrapper
               isParentHovered={false}
             >
               <Consumer>
@@ -2888,7 +2888,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                     <div
                       className="c2 c3"
                     >
-                      <Component
+                      <_default
                         createAnalyticsEvent={[Function]}
                         description="some-instance"
                         href="https://app.opsgenie.com"
@@ -3159,12 +3159,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                             </SwitcherItem>
                           </ThemeProvider>
                         </Consumer>
-                      </Component>
+                      </_default>
                     </div>
                   </styled.div>
                 </Styled(styled.div)>
               </Consumer>
-            </Component>
+            </ItemWrapper>
             <Tooltip
               content={
                 <span>
@@ -3182,7 +3182,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                 onMouseOut={[Function]}
                 onMouseOver={[Function]}
               >
-                <Component
+                <Toggle
                   isParentHovered={false}
                 >
                   <Consumer>
@@ -3210,7 +3210,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                         <div
                           className="c12 c3"
                         >
-                          <Component
+                          <_default
                             data-test-id="switcher-expand-toggle"
                             icon={
                               <styled.div>
@@ -3392,12 +3392,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                 </SwitcherItem>
                               </ThemeProvider>
                             </Consumer>
-                          </Component>
+                          </_default>
                         </div>
                       </styled.div>
                     </Styled(styled.div)>
                   </Consumer>
-                </Component>
+                </Toggle>
               </div>
             </Tooltip>
           </div>
@@ -3658,7 +3658,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            <Component
+            <ItemWrapper
               isParentHovered={false}
             >
               <Consumer>
@@ -3686,7 +3686,7 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                     <div
                       className="c2 c3"
                     >
-                      <Component
+                      <_default
                         createAnalyticsEvent={[Function]}
                         description={null}
                         href="https://app.opsgenie.com"
@@ -3975,12 +3975,12 @@ exports[`Atlassian Switcher - ItemWithDropdown renders single site item correctl
                             </SwitcherItem>
                           </ThemeProvider>
                         </Consumer>
-                      </Component>
+                      </_default>
                     </div>
                   </styled.div>
                 </Styled(styled.div)>
               </Consumer>
-            </Component>
+            </ItemWrapper>
           </div>
         </styled.div>
       </div>

@@ -11,6 +11,10 @@ jest.mock('../../../../common/providers/trello/products-provider', () => {
     '../../../../common/providers/trello/products-provider',
   );
 
+  const {
+    createProviderWithCustomFetchData,
+  } = require('../../../../common/providers/create-data-provider');
+
   mockTrelloProductFetcher = jest.fn();
   return {
     __esModule: true,

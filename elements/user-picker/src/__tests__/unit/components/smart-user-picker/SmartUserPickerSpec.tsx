@@ -17,11 +17,11 @@ import RecommendationsClient from '../../../../components/smart-user-picker/serv
 import UsersClient from '../../../../components/smart-user-picker/service/UsersClient';
 import Select from '@atlaskit/select/Select';
 
-const PREFETCH_SESSION_ID = 'prefetch-session-id';
+const mockPREFETCH_SESSION_ID = 'prefetch-session-id';
 
 jest.mock('uuid/v4', () => ({
   __esModule: true, // needed for default imports
-  default: jest.fn(() => PREFETCH_SESSION_ID),
+  default: jest.fn(() => mockPREFETCH_SESSION_ID),
 }));
 
 jest.mock(
@@ -683,7 +683,7 @@ describe('SmartUserPicker', () => {
         expect.objectContaining({
           payload: constructPayloadWithQueryAttributes('mounted', 'prefetch', {
             prefetch: true,
-            sessionId: PREFETCH_SESSION_ID,
+            sessionId: mockPREFETCH_SESSION_ID,
           }),
         }),
         'fabric-elements',
@@ -697,7 +697,7 @@ describe('SmartUserPicker', () => {
             {
               prefetch: true,
               users: mockReturnOptionsForAnalytics,
-              sessionId: PREFETCH_SESSION_ID,
+              sessionId: mockPREFETCH_SESSION_ID,
             },
           ),
         }),
@@ -743,7 +743,7 @@ describe('SmartUserPicker', () => {
             'preparedUsers',
             {
               prefetch: true,
-              preparedSessionId: PREFETCH_SESSION_ID,
+              preparedSessionId: mockPREFETCH_SESSION_ID,
               sessionId: 'new-session',
             },
           ),

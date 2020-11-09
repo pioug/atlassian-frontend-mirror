@@ -1,7 +1,7 @@
 import React from 'react';
 import SettingsGlyph from '@atlaskit/icon/glyph/settings';
 import DiscoverFilledGlyph from '@atlaskit/icon/glyph/discover-filled';
-import { Product } from '../../types';
+import { Product, DiscoverLinkItemKeys } from '../../types';
 import { SwitcherItemType, getEmceeLink } from '../../common/utils/links';
 import FormattedMessage from '../../ui/primitives/formatted-message';
 import { createIcon } from '../../common/utils/icon-themes';
@@ -37,7 +37,7 @@ export const getAdministrationLinks = (
   // If a custom admin URL is provided, it's likely that /billing/addapplication path is not supported
   if (!isDiscoverMoreForEveryoneEnabled && !adminUrl) {
     adminLinks.unshift({
-      key: 'discover-more',
+      key: DiscoverLinkItemKeys.DISCOVER_MORE,
       label: <FormattedMessage {...messages.discoverMore} />,
       Icon: createIcon(DiscoverFilledGlyph, { size: 'medium' }),
       href: `${adminBaseUrl}/billing/addapplication`,

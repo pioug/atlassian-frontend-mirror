@@ -355,3 +355,8 @@ export type AtlassianSwitcherProps = WithTheme &
     // Optional admin URl (required for Statuspage)
     adminUrl?: string;
   } & FeatureFlagProps;
+
+export enum DiscoverLinkItemKeys {
+  DISCOVER_MORE = 'discover-more',
+  GIT_TOOLS = 'appswitcher.git.tools',
+}

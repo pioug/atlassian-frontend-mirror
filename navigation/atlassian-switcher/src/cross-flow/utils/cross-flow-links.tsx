@@ -12,6 +12,7 @@ import {
   JoinableSite,
   SwitcherProductType,
   RecommendationsFeatureFlags,
+  DiscoverLinkItemKeys,
 } from '../../types';
 import {
   AVAILABLE_PRODUCT_DATA_MAP,
@@ -21,7 +22,6 @@ import {
   getEmceeLink,
 } from '../../common/utils/links';
 import { mapLegacyProductTypeToSwitcherType } from '../../common/utils/map-to-switcher-props-with-mystique-ff';
-import { SHOW_GIT_TOOLS_KEY } from '../providers/recommendations/constants';
 
 export const getFixedProductLinks = (params: {
   isDiscoverMoreForEveryoneEnabled: boolean;
@@ -35,7 +35,7 @@ const getDiscoverMoreLink = (
   const icon = customIcon || AddIcon;
   return {
     // The discover more link href is intentionally empty to prioritise the onDiscoverMoreClicked callback
-    key: 'discover-more',
+    key: DiscoverLinkItemKeys.DISCOVER_MORE,
     label: <FormattedMessage {...messages.discoverMore} />,
     Icon: createIcon(icon, { size: 'medium' }),
     href: '',
@@ -45,7 +45,7 @@ const getDiscoverMoreLink = (
 const getGitToolsLink = (): SwitcherItemType => {
   const icon = CodeIcon;
   return {
-    key: SHOW_GIT_TOOLS_KEY,
+    key: DiscoverLinkItemKeys.GIT_TOOLS,
     label: <FormattedMessage {...messages.gitToolsLabel} />,
     description: <FormattedMessage {...messages.gitToolsDescription} />,
     Icon: createIcon(icon, { size: 'medium' }),
@@ -80,7 +80,8 @@ export function getDiscoverSectionLinks({
 
   const gitToolsLink =
     recommendationsFeatureFlags &&
-    recommendationsFeatureFlags[SHOW_GIT_TOOLS_KEY] &&
+    // recommendationsFeatureFlags[Feature.showGitTools] &&
+    recommendationsFeatureFlags[DiscoverLinkItemKeys.GIT_TOOLS] &&
     getGitToolsLink();
 
   if (gitToolsLink) {

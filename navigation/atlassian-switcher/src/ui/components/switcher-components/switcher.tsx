@@ -28,6 +28,7 @@ import {
   ProviderResults,
   SyntheticProviderResults,
   FeatureMap,
+  DiscoverLinkItemKeys,
 } from '../../../types';
 import { CrossJoinSection } from '../../../cross-join/components/cross-join-section';
 import { CrossFlowSection } from '../../../cross-flow/components/cross-flow-section';
@@ -236,7 +237,9 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 rawProviderResults.addProductsPermission,
                 rawProviderResults.managePermission,
                 [...adminLinks, ...fixedLinks, ...discoverSectionLinks].filter(
-                  item => item.key === 'discover-more',
+                  item =>
+                    item.key === DiscoverLinkItemKeys.DISCOVER_MORE ||
+                    item.key === DiscoverLinkItemKeys.GIT_TOOLS,
                 ),
                 { duration: this.timeSinceMounted() },
               )}

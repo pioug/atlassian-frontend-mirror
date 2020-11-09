@@ -14,7 +14,11 @@ import {
   getItemAnalyticsContext,
 } from '../../../common/utils/analytics';
 import { Appearance } from '../../theme/types';
-import { TriggerXFlowCallback, DiscoverMoreCallback } from '../../../types';
+import {
+  TriggerXFlowCallback,
+  DiscoverMoreCallback,
+  DiscoverLinkItemKeys,
+} from '../../../types';
 import { AdminSubsection } from '../../../admin/components/admin-subsection';
 import { CrossFlowSubsection } from '../../../cross-flow/components/cross-flow-subsection';
 
@@ -113,7 +117,7 @@ export const SwitchToSection = ({
             icon={<item.Icon theme="product" />}
             href={item.href}
             onClick={
-              item.key === 'discover-more'
+              item.key === DiscoverLinkItemKeys.DISCOVER_MORE
                 ? onDiscoverMoreClickedCallback
                 : noop
             }

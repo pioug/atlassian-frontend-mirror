@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.5.6
+
+### Patch Changes
+
+- [`9e9ad7f1ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e9ad7f1ab) - Add link item to atlassianSwitcherDiscoverMore rendered event
+
 ## 8.5.5
 
 ### Patch Changes

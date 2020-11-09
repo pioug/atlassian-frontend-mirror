@@ -238,7 +238,10 @@ export const getDiscoverMoreRenderTracker = (
     providerFailed,
     emptyRenderExpected: !shouldShowDiscoverMore,
     linksRendered: discoverMoreLink,
-    data,
+    data: {
+      ...data,
+      linkItems: discoverMoreLink.map(item => item.key),
+    },
   });
 };
 

@@ -4,12 +4,13 @@ import Button from './button';
 import LoadingSpinner from './shared/loading-spinner';
 import { BaseProps } from './types';
 
-export type OwnProps = {
+export type LoadingButtonOwnProps = {
   /* Conditionally show a spinner over the top of a button */
   isLoading?: boolean;
 };
 
-export type LoadingButtonProps = Omit<BaseProps, 'overlay'> & OwnProps;
+export type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
+  LoadingButtonOwnProps;
 
 const LoadingButton = React.forwardRef(function LoadingButton(
   { isLoading = false, ...rest }: LoadingButtonProps,

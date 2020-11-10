@@ -1,5 +1,11 @@
 # @atlaskit/outbound-auth-flow-client
 
+## 3.2.0
+
+### Minor Changes
+
+- [`ea1bb06612`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1bb06612) - Added abilitiy to pass window features when calling auth
+
 ## 3.1.2
 
 ### Patch Changes

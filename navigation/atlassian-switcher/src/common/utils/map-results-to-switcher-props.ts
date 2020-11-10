@@ -203,9 +203,7 @@ export function mapResultsToSwitcherProps(
     product,
   );
   // [FD-15974]: Remove after feature flag is rolled out to 100%
-  const isMystiqueEnabled = Boolean(
-    availableProducts.data?.unstableFeatures?.mystiqueEnabled,
-  );
+  const isMystiqueEnabled = true;
   // [FD-15975]: Remove after the FF is rolled out to 100%.
   const act959Enabled = Boolean(
     availableProducts.data?.unstableFeatures?.act959Enabled,

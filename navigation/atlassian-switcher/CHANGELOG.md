@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.5.7
+
+### Patch Changes
+
+- [`66aadb66b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66aadb66b0) - Forcing mystique FF to be true. This means Jira Service Desk will read Jira Service Management for all customers regardless of the FFs value
+
 ## 8.5.6
 
 ### Patch Changes

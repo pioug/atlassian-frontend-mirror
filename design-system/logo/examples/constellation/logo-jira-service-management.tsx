@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
-  JiraServiceDeskIcon,
-  JiraServiceDeskLogo,
-  JiraServiceDeskWordmark,
+  JiraServiceManagementIcon,
+  JiraServiceManagementLogo,
+  JiraServiceManagementWordmark,
 } from '../../src';
 
 const LogoJiraServiceDesk = () => (
@@ -19,13 +19,13 @@ const LogoJiraServiceDesk = () => (
       <tbody>
         <tr>
           <td>
-            <JiraServiceDeskLogo />
+            <JiraServiceManagementLogo />
           </td>
           <td>
-            <JiraServiceDeskWordmark />
+            <JiraServiceManagementWordmark />
           </td>
           <td>
-            <JiraServiceDeskIcon />
+            <JiraServiceManagementIcon />
           </td>
         </tr>
       </tbody>

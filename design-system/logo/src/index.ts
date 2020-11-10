@@ -23,6 +23,11 @@ import {
   JiraServiceDeskWordmark,
 } from './JiraServiceDeskLogo';
 import {
+  JiraServiceManagementIcon,
+  JiraServiceManagementLogo,
+  JiraServiceManagementWordmark,
+} from './JiraServiceManagementLogo';
+import {
   JiraSoftwareIcon,
   JiraSoftwareLogo,
   JiraSoftwareWordmark,
@@ -58,6 +63,9 @@ export {
   JiraServiceDeskLogo,
   JiraServiceDeskIcon,
   JiraServiceDeskWordmark,
+  JiraServiceManagementIcon,
+  JiraServiceManagementLogo,
+  JiraServiceManagementWordmark,
   JiraSoftwareLogo,
   JiraSoftwareIcon,
   JiraSoftwareWordmark,

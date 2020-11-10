@@ -227,7 +227,7 @@ describe('map-results-to-switcher-props', () => {
         },
         {
           description: 'emu',
-          label: 'Jira Service Desk',
+          label: 'Jira Service Management',
           href:
             'https://emu.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=service_desk',
           childItems: [],
@@ -321,7 +321,11 @@ describe('map-results-to-switcher-props', () => {
       );
 
       expect(props.licensedProductLinks).toMatchObject([
-        { description: 'site50', label: 'Jira Service Desk', childItems: [] },
+        {
+          description: 'site50',
+          label: 'Jira Service Management',
+          childItems: [],
+        },
         { description: 'site30', label: 'Jira Core', childItems: [] },
         { description: 'site40', label: 'Confluence', childItems: [] },
         { description: 'site20', label: 'Opsgenie', childItems: [] },
@@ -350,7 +354,7 @@ describe('map-results-to-switcher-props', () => {
       );
 
       expect(props.licensedProductLinks).toMatchObject([
-        { label: 'Jira Service Desk', childItems: [] },
+        { label: 'Jira Service Management', childItems: [] },
         { label: 'Jira Core', childItems: [] },
         { label: 'Confluence', childItems: [] },
         { label: 'Bitbucket', childItems: [] },
@@ -547,7 +551,7 @@ describe('map-results-to-switcher-props', () => {
     });
   });
   describe('mystiqueEnabled featureFlag effect on JSD', () => {
-    it('should return JSD in licensed products when FF is off', () => {
+    it('should return JSM in licensed products when FF is on', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -567,11 +571,11 @@ describe('map-results-to-switcher-props', () => {
           href:
             'https://some-cloud-id.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=service_desk',
           key: 'JIRA_SERVICE_DESKsome-cloud-id',
-          label: 'Jira Service Desk',
+          label: 'Jira Service Management',
         },
       ]);
     });
-    it('should return JSD in suggested products when FF is off', () => {
+    it('should return JSM in suggested products when FF is on', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -595,11 +599,11 @@ describe('map-results-to-switcher-props', () => {
         {
           key: 'jira-servicedesk.ondemand',
           href: '/secure/BrowseProjects.jspa?selectedProjectType=service_desk',
-          label: 'Jira Service Desk',
+          label: 'Jira Service Management',
         },
       ]);
     });
-    it('should return JSD in joinable sites when FF is off', () => {
+    it('should return JSM in joinable sites when FF is on', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -633,7 +637,7 @@ describe('map-results-to-switcher-props', () => {
         {
           href: '/someproduct-url',
           key: 'CLOUD_ID_MOCK',
-          label: 'Jira Service Desk',
+          label: 'Jira Service Management',
           description: 'Joinable',
           productType: 'JIRA_SERVICE_DESK',
         },

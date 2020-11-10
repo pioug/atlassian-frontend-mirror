@@ -18,9 +18,9 @@ import {
   JiraCoreWordmark,
   JiraIcon,
   JiraLogo,
-  JiraServiceDeskIcon,
-  JiraServiceDeskLogo,
-  JiraServiceDeskWordmark,
+  JiraServiceManagementIcon,
+  JiraServiceManagementLogo,
+  JiraServiceManagementWordmark,
   JiraSoftwareIcon,
   JiraSoftwareLogo,
   JiraSoftwareWordmark,
@@ -107,13 +107,13 @@ export default () => (
         </tr>
         <tr>
           <td>
-            <JiraServiceDeskLogo />
+            <JiraServiceManagementLogo />
           </td>
           <td>
-            <JiraServiceDeskWordmark />
+            <JiraServiceManagementWordmark />
           </td>
           <td>
-            <JiraServiceDeskIcon />
+            <JiraServiceManagementIcon />
           </td>
         </tr>
         <tr>

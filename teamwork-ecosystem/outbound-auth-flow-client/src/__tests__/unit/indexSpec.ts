@@ -9,10 +9,20 @@ const windowOptions = { resourceLoader: {} };
 describe('auth()', () => {
   beforeEach(() => {
     authWindow = Object.create(Window, windowOptions);
-    window.open = () => {
+    window.open = jest.fn().mockImplementation(() => {
       return authWindow;
-    };
+    });
     authWindow.close = () => {};
+  });
+
+  it('should call window.open with correct parameters', () => {
+    auth('/', 'height=640, width=480');
+
+    return expect(window.open).toHaveBeenCalledWith(
+      '/',
+      '/',
+      'height=640, width=480',
+    );
   });
 
   it('should reject when the window is closed', () => {

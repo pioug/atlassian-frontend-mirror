@@ -1,5 +1,5 @@
-import { OwnProps } from '../src/loading-button';
+import { LoadingButtonOwnProps } from '../src/loading-button';
 
-export default function LoadingButtonProps(props: OwnProps) {
+export default function LoadingButtonProps(props: LoadingButtonOwnProps) {
   return null;
 }

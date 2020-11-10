@@ -6,7 +6,10 @@ export {
 } from './entry-points/standard-button';
 export type { ButtonProps } from './entry-points/standard-button';
 export { default as LoadingButton } from './entry-points/loading-button';
-export type { LoadingButtonProps } from './entry-points/loading-button';
+export type {
+  LoadingButtonProps,
+  LoadingButtonOwnProps,
+} from './entry-points/loading-button';
 export {
   default as CustomThemeButton,
   Theme,

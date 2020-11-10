@@ -144,7 +144,7 @@ export default class InteractiveLogo extends Component<Props, State> {
         {sizeRange(logos.JiraLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.JiraCoreLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(
-          logos.JiraServiceDeskLogo,
+          logos.JiraServiceManagementLogo,
           colorPreset,
           sizePreset,
           useProps,

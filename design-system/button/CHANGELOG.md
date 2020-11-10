@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 15.1.3
+
+### Patch Changes
+
+- [`9f733e3f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f733e3f59) - Fixes inlined inferred types in @atlaskit/button/loading-button - no material change
+
 ## 15.1.2
 
 ### Patch Changes

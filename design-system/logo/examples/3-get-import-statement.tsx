@@ -21,7 +21,7 @@ const products: Product[] = [
   { label: 'Hipchat', value: 'Hipchat' },
   { label: 'JiraCore', value: 'JiraCore' },
   { label: 'Jira', value: 'Jira' },
-  { label: 'JiraServiceDesk', value: 'JiraServiceDesk' },
+  { label: 'JiraServiceManagement', value: 'JiraServiceManagement' },
   { label: 'JiraSoftware', value: 'JiraSoftware' },
   { label: 'OpsGenie', value: 'OpsGenie' },
   { label: 'StatusPage', value: 'StatusPage' },

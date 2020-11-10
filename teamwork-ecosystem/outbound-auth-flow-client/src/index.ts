@@ -1,7 +1,7 @@
 import { AuthError } from './error';
 import { isOfTypeAuthError } from './types';
 
-export function auth(startUrl: string): Promise<void> {
+export function auth(startUrl: string, windowFeatures?: string): Promise<void> {
   return new Promise((resolve, reject) => {
     let authWindow: Window | null = null;
     let authWindowInterval: number;
@@ -44,7 +44,7 @@ export function auth(startUrl: string): Promise<void> {
 
     const start = () => {
       window.addEventListener('message', handleAuthWindowMessage);
-      authWindow = window.open(startUrl, startUrl);
+      authWindow = window.open(startUrl, startUrl, windowFeatures);
       authWindowInterval = window.setInterval(handleAuthWindowInterval, 500);
     };
 

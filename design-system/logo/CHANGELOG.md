@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.0.6
+
+### Patch Changes
+
+- [`ce8c85a20d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce8c85a20d) - As part of this task we have introduced a new JSM logo and deprecated JSD logo
+
 ## 13.0.5
 
 ### Patch Changes

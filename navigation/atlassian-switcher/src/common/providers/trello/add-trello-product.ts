@@ -20,7 +20,7 @@ export const addTrelloProduct = (
     }
 
     return createResultComplete({
-      features: availableProducts.data.unstableFeatures,
+      unstableFeatures: availableProducts.data.unstableFeatures,
       sites: [
         ...availableProducts.data.sites,
         {

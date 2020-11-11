@@ -5,6 +5,7 @@ import {
 import uuid from 'uuid/v4';
 import { name as packageName, version as packageVersion } from './version.json';
 import {
+  EmailType,
   Option,
   OptionData,
   UserPickerProps,
@@ -54,8 +55,9 @@ const createEvent = (
   },
 });
 
+// id's of email types are emails which is PII
 const optionData2Analytics = ({ id, type }: OptionData) => ({
-  id,
+  id: type === EmailType ? null : id,
   type: type || UserType,
 });
 

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 6.9.3
+
+### Patch Changes
+
+- [`6e859f4e7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e859f4e7d) - Fix analytics to not expose email addresses as part of payload
+
 ## 6.9.2
 
 ### Patch Changes

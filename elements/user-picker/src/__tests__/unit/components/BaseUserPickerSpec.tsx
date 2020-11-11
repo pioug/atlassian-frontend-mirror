@@ -16,6 +16,7 @@ import {
   optionToSelectableOptions,
 } from '../../../components/utils';
 import {
+  EmailType,
   Option,
   OptionData,
   Team,
@@ -61,6 +62,12 @@ describe('BaseUserPicker', () => {
       publicName: 'cnalaar',
     },
   ];
+
+  const emailValue: OptionData = {
+    id: 'email@atlassian.com',
+    name: 'email@atlassian.com',
+    type: EmailType,
+  };
 
   const userOptions: Option[] = optionToSelectableOptions(options);
 
@@ -1123,6 +1130,31 @@ describe('BaseUserPicker', () => {
         );
       });
 
+      it('should trigger deleted event with email id set to null', () => {
+        component.setProps({ isMulti: true });
+        component = mountWithIntl(
+          <AnalyticsTestComponent value={[emailValue]} />,
+        );
+        const input = component.find('input');
+        input.simulate('focus');
+        component.find(Select).prop('onChange')([], {
+          action: 'remove-value',
+          removedValue: optionToSelectableOption(emailValue),
+        });
+        expect(onEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            payload: expect.objectContaining({
+              action: 'deleted',
+              actionSubject: 'userPickerItem',
+              attributes: expect.objectContaining({
+                value: { id: null, type: EmailType },
+              }),
+            }),
+          }),
+          'fabric-elements',
+        );
+      });
+
       it('should not trigger deleted event if there was no removed value', () => {
         component.setProps({ isMulti: true });
         const input = component.find('input');
@@ -1169,6 +1201,33 @@ describe('BaseUserPicker', () => {
               'fabric-elements',
             );
           });
+      });
+
+      it('should set emailId to null for focused event', async () => {
+        component = mountWithIntl(
+          <AnalyticsTestComponent value={emailValue} />,
+        );
+        component.setProps({
+          open: true,
+        });
+
+        component.update();
+        await Promise.resolve();
+
+        expect(onEvent).toHaveBeenCalledTimes(1);
+        expect(onEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            payload: expect.objectContaining({
+              action: 'focused',
+              actionSubject: 'userPicker',
+              eventType: 'ui',
+              attributes: expect.objectContaining({
+                values: [{ id: null, type: EmailType }],
+              }),
+            }),
+          }),
+          'fabric-elements',
+        );
       });
 
       describe('searched event', () => {

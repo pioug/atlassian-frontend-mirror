@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.24.0",
+  "version": "0.24.1",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.0.0",
-    "@atlaskit/user-picker": "^6.5.4",
+    "@atlaskit/user-picker": "^6.9.3",
     "@atlaskit/util-service-support": "^6.0.0",
     "fast-deep-equal": "^3.1.1",
     "memoize-one": "^5.1.0",

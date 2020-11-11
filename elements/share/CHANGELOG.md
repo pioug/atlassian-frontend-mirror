@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.24.1
+
+### Patch Changes
+
+- [`da7bf820f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7bf820f4) - Bumping user picker in share to fix email PII exposure
+
 ## 0.24.0
 
 ### Minor Changes

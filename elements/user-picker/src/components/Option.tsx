@@ -5,7 +5,8 @@ import { EmailOption } from './EmailOption';
 import { TeamOption } from './TeamOption';
 import { UserOption } from './UserOption';
 import { GroupOption } from './GroupOption';
-import { isEmail, isTeam, isUser, isGroup } from './utils';
+import { ExternalUserOption } from './ExternalUserOption';
+import { isEmail, isTeam, isUser, isGroup, isExternalUser } from './utils';
 import { isValidEmail } from './emailValidation';
 
 export type OptionProps = {
@@ -23,6 +24,12 @@ const dataOption = ({
   status,
   selectProps,
 }: OptionProps) => {
+  if (isExternalUser(data)) {
+    return (
+      <ExternalUserOption user={data} status={status} isSelected={isSelected} />
+    );
+  }
+
   if (isUser(data)) {
     return <UserOption user={data} status={status} isSelected={isSelected} />;
   }

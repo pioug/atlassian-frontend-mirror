@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { addLocaleData } from 'react-intl';
+import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
 import {
   ProviderFactory,
   combineExtensionProviders,
@@ -18,7 +19,7 @@ import {
 import { EditorAppearance } from '../../src/types';
 import { EditorActions, ContextPanel } from '../../src';
 
-import { fromLocation, encode, amend, check, Message } from '../adf-url';
+import { fromLocation, encode, check, Message } from '../adf-url';
 import { copy } from '../copy';
 import { Error, ErrorReport } from '../ErrorReport';
 import { getXProductExtensionProvider } from '../fake-x-product-extensions';
@@ -91,6 +92,7 @@ export type KitchenSinkState = {
 
   errors: Array<Error>;
   showErrors: boolean;
+  scrubContent: boolean;
   waitingToValidate: boolean;
   theme: Theme;
 
@@ -156,16 +158,35 @@ export class KitchenSink extends React.Component<
     return data;
   };
 
+  private getDefaultAppearance = (): EditorAppearance => {
+    const result = this.params.get('appearance');
+    switch (result) {
+      case 'full-page':
+      case 'comment':
+      case 'mobile':
+      case 'full-width':
+        return result;
+      default:
+        return 'full-page';
+    }
+  };
+
+  private params = new URLSearchParams(window.location.search);
+
   public state: KitchenSinkState = {
     adf: this.getDefaultADF(),
     adfInput: JSON.stringify(this.getDefaultADF(), null, 2),
-    appearance: 'full-page',
-    showADF: false,
-    disabled: false,
-    vertical: this.getDefaultOrientation().vertical,
+    appearance: this.getDefaultAppearance(),
+    showADF: this.params.get('show-adf') === 'true',
+    disabled: this.params.get('disabled') === 'true',
+    vertical:
+      this.params.get('vertical') === null
+        ? this.getDefaultOrientation().vertical
+        : this.params.get('vertical') === 'true',
     errors: [],
     showErrors: false,
     waitingToValidate: false,
+    scrubContent: this.params.get('scrub') === 'true',
     theme: getInitialTheme(),
   };
 
@@ -218,12 +239,16 @@ export class KitchenSink extends React.Component<
 
     localStorage.setItem(
       LOCALSTORAGE_orientationKey,
-      JSON.stringify({ vertical: vertical }),
+      JSON.stringify({ vertical }),
     );
   };
 
   private onEditorToggle = (enabled: boolean) => {
     this.setState({ disabled: !enabled });
+  };
+
+  private onScrubToggle = (scrubContent: boolean) => {
+    this.setState({ scrubContent });
   };
 
   private onErrorToggle = (showErrors: boolean) => {
@@ -240,13 +265,49 @@ export class KitchenSink extends React.Component<
 
   private onCopyLink = async () => {
     const value = await this.props.actions.getValue();
-    const encoded = encode(value);
-    const url = amend(window.parent.location, encoded);
+    const url = new URL(window.location.href);
+    url.searchParams.set('adf', encode(value));
 
-    window.parent.history.pushState(value, window.parent.document.title, url);
-    copy(url);
+    if (this.state.disabled) {
+      url.searchParams.set('disabled', 'true');
+    } else {
+      url.searchParams.delete('disabled');
+    }
 
-    const warning = check(url);
+    if (this.state.scrubContent) {
+      url.searchParams.set('scrub', 'true');
+    } else {
+      url.searchParams.delete('scrub');
+    }
+
+    if (this.state.showADF) {
+      url.searchParams.set('show-adf', 'true');
+    } else {
+      url.searchParams.delete('show-adf');
+    }
+
+    if (this.state.appearance !== 'full-page') {
+      url.searchParams.set('appearance', this.state.appearance);
+    } else {
+      url.searchParams.delete('appearance');
+    }
+
+    if (this.state.vertical) {
+      url.searchParams.set('vertical', 'true');
+    } else {
+      url.searchParams.delete('vertical');
+    }
+
+    const result = url.toString();
+
+    window.parent.history.pushState(
+      value,
+      window.parent.document.title,
+      result,
+    );
+    copy(result);
+
+    const warning = check(result);
 
     if (warning) {
       this.setState({ warning });
@@ -302,7 +363,7 @@ export class KitchenSink extends React.Component<
   public render() {
     return (
       <AtlaskitThemeProvider mode={this.state.theme}>
-        <>
+        <div>
           <KitchenSinkControls
             adfEnabled={this.state.showADF}
             appearance={this.state.appearance}
@@ -311,6 +372,7 @@ export class KitchenSink extends React.Component<
             editorEnabled={!this.state.disabled}
             errors={this.state.errors}
             errorsEnabled={this.state.showErrors}
+            scrubContent={this.state.scrubContent}
             theme={this.state.theme}
             themeOptions={themeOptions}
             validating={this.state.waitingToValidate}
@@ -324,6 +386,7 @@ export class KitchenSink extends React.Component<
             onErrorToggle={this.onErrorToggle}
             onAdfToggle={this.onAdfToggle}
             onCopyLink={this.onCopyLink}
+            onScrubToggle={this.onScrubToggle}
           />
           <Container vertical={this.state.vertical} root>
             <EditorColumn
@@ -350,7 +413,11 @@ export class KitchenSink extends React.Component<
             </EditorColumn>
             <Column narrow={this.state.vertical && this.state.showADF}>
               <KitchenSinkRenderer
-                document={this.state.adf}
+                document={
+                  this.state.scrubContent
+                    ? scrubAdf(this.state.adf as ADFEntity)
+                    : this.state.adf
+                }
                 appearance={this.state.appearance}
                 dataProviders={this.dataProviders}
                 isFullPage={this.state.appearance.startsWith('full')}
@@ -366,17 +433,31 @@ export class KitchenSink extends React.Component<
                         <ErrorReport errors={this.state.errors} />
                       )}
                     </Container>
-                    <KitchenSinkAdfInput
-                      value={this.state.adfInput}
-                      onChange={this.onInputChange}
-                      onSubmit={this.onInputSubmit}
-                    />
+                    <label>
+                      Plain
+                      <KitchenSinkAdfInput
+                        value={this.state.adfInput}
+                        onChange={this.onInputChange}
+                        onSubmit={this.onInputSubmit}
+                      />
+                    </label>
+                    <br />
+                    <label>
+                      Scrubbed
+                      <KitchenSinkAdfInput
+                        value={JSON.stringify(
+                          scrubAdf(this.state.adf as ADFEntity),
+                          null,
+                          '  ',
+                        )}
+                      />
+                    </label>
                   </div>
                 </ContextPanel>
               </Rail>
             ) : null}
           </Container>
-        </>
+        </div>
         {this.state.warning && (
           <div style={{ position: 'fixed', top: 125, right: 15, width: 400 }}>
             <Flag

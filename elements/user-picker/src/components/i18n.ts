@@ -69,4 +69,24 @@ export const messages = defineMessages({
     defaultMessage: 'Admin-managed group',
     description: 'Byline for admin-managed groups',
   },
+  externalUserSourcesHeading: {
+    id: 'fabric.elements.user-picker.external.sourced.from',
+    defaultMessage: 'Found in:',
+    description: 'From where the external user is coming',
+  },
+  slackProvider: {
+    id: 'fabric.elements.user-picker.slack.provider',
+    defaultMessage: 'Slack',
+    description: 'This external user is sourced from Slack provider',
+  },
+  googleProvider: {
+    id: 'fabric.elements.user-picker.google.provider',
+    defaultMessage: 'Google',
+    description: 'This external user is sourced from Google provider',
+  },
+  microsoftProvider: {
+    id: 'fabric.elements.user-picker.microsoft.provider',
+    defaultMessage: 'Microsoft',
+    description: 'This external user is sourced from Microsoft provider',
+  },
 });

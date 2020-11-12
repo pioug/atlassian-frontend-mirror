@@ -21,13 +21,12 @@ const Text = styled.span<{ secondary?: boolean }>`
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  ${({ secondary }) => secondary && `color: ${N200}; font-size: 0.85em;`}
+`;
 
-  ${({ secondary }) =>
-    secondary &&
-    `
-        color: ${N200};
-        font-size: 0.85em;
-      `}
+const AdditionalInfo = styled.span<{ withTooltip?: boolean }>`
+  float: right;
+  ${({ withTooltip }) => withTooltip && ` padding-top: 5px;`}
 `;
 
 export const TextWrapper = styled.span`
@@ -42,6 +41,7 @@ export type AvatarItemOptionProps = {
   primaryText?: ReactNode;
   secondaryText?: ReactNode;
   lozenge?: LozengeProps;
+  sourcesInfoTooltip?: ReactNode;
 };
 
 export const AvatarItemOption = ({
@@ -49,6 +49,7 @@ export const AvatarItemOption = ({
   primaryText,
   secondaryText,
   lozenge,
+  sourcesInfoTooltip,
 }: AvatarItemOptionProps) => (
   <Wrapper>
     {avatar}
@@ -63,13 +64,12 @@ export const AvatarItemOption = ({
     >
       <div>
         <Text>{primaryText}</Text>
-        <span
-          style={{
-            float: 'right',
-          }}
-        >
-          {lozenge && <Lozenge {...lozenge}>{lozenge.text}</Lozenge>}
-        </span>
+        <AdditionalInfo withTooltip={Boolean(sourcesInfoTooltip)}>
+          {!sourcesInfoTooltip && lozenge && (
+            <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
+          )}
+          {sourcesInfoTooltip}
+        </AdditionalInfo>
       </div>
       <div>
         <Text secondary>{secondaryText}</Text>

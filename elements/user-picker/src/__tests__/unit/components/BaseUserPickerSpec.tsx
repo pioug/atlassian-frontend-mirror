@@ -25,6 +25,7 @@ import {
   UserPickerProps,
   UserType,
   Value,
+  ExternalUser,
 } from '../../../types';
 
 const getBasePicker = (
@@ -60,6 +61,16 @@ describe('BaseUserPicker', () => {
       id: '123-abc',
       name: 'Chandra Nalaar',
       publicName: 'cnalaar',
+    },
+  ];
+
+  const externalOptions: ExternalUser[] = [
+    {
+      id: '123-abc-ext',
+      name: 'Chandra Nalaar',
+      publicName: 'cnalaar',
+      isExternal: true,
+      sources: ['google'],
     },
   ];
 
@@ -1063,6 +1074,50 @@ describe('BaseUserPicker', () => {
                 downKeyCount: 3,
                 position: 0,
                 result: { id: 'abc-123', type: UserType },
+              },
+            }),
+          }),
+          'fabric-elements',
+        );
+      });
+
+      it('should trigger clicked event for external user', () => {
+        const input = component.find('input');
+        input.simulate('focus');
+        component.setProps({ externalOptions });
+        input.simulate('keyDown', { keyCode: 40 });
+        input.simulate('keyDown', { keyCode: 40 });
+        input.simulate('keyDown', { keyCode: 40 });
+        input.simulate('keyDown', { keyCode: 38 });
+        component.find(Select).prop('onChange')(
+          optionToSelectableOption(externalOptions[0]),
+          {
+            action: 'select-option',
+          },
+        );
+        expect(onEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            payload: expect.objectContaining({
+              action: 'clicked',
+              actionSubject: 'userPicker',
+              eventType: 'ui',
+              attributes: {
+                context: 'test',
+                sessionDuration: expect.any(Number),
+                packageName: '@atlaskit/user-picker',
+                packageVersion: expect.any(String),
+                journeyId: expect.any(String),
+                sessionId: expect.any(String),
+                queryLength: 0,
+                spaceInQuery: false,
+                pickerType: 'single',
+                upKeyCount: 1,
+                downKeyCount: 3,
+                position: -1,
+                result: {
+                  type: 'external_user',
+                  sources: ['google'],
+                },
               },
             }),
           }),

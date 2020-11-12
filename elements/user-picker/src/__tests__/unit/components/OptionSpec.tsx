@@ -6,7 +6,8 @@ import { Option, OptionProps } from '../../../components/Option';
 import { TeamOption } from '../../../components/TeamOption';
 import { UserOption } from '../../../components/UserOption';
 import { GroupOption } from '../../../components/GroupOption';
-import { Email, Team, User, Group } from '../../../types';
+import { Email, Team, User, Group, ExternalUser } from '../../../types';
+import { ExternalUserOption } from '../../../components/ExternalUserOption';
 
 describe('Option', () => {
   const selectProps: any = {};
@@ -40,6 +41,44 @@ describe('Option', () => {
       expect(userOption).toHaveLength(1);
       expect(userOption.props()).toMatchObject({
         user,
+        status: 'online',
+        isSelected: true,
+      });
+    });
+  });
+
+  describe('ExternalUserOption', () => {
+    const externalUser: ExternalUser = {
+      id: 'external-user-123',
+      name: 'That Awesome External User',
+      type: 'user',
+      isExternal: true,
+      sources: [],
+    };
+
+    it('should render option with ExternalUserOption', () => {
+      const component = shallowOption({
+        data: {
+          data: externalUser,
+          label: externalUser.name,
+          value: externalUser.id,
+        },
+        status: 'online',
+        isSelected: true,
+        selectProps,
+      });
+      const option = component.find(components.Option);
+      expect(option).toHaveLength(1);
+      expect(option.props()).toMatchObject({
+        data: { data: externalUser },
+        status: 'online',
+        isSelected: true,
+      });
+
+      const externalUserOption = component.find(ExternalUserOption);
+      expect(externalUserOption).toHaveLength(1);
+      expect(externalUserOption.props()).toMatchObject({
+        user: externalUser,
         status: 'online',
         isSelected: true,
       });

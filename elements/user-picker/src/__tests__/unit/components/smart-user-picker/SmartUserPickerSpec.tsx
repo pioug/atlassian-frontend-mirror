@@ -434,20 +434,47 @@ describe('SmartUserPicker', () => {
   });
 
   it('should execute onError when recommendations client returns with error', async () => {
+    const request = {
+      baseUrl: '',
+      context: {
+        childObjectId: undefined,
+        containerId: undefined,
+        contextType: 'test',
+        objectId: undefined,
+        principalId: 'Context',
+        productAttributes: undefined,
+        productKey: 'jira',
+        sessionId: 'new-session',
+        siteId: 'site-id',
+      },
+      includeGroups: false,
+      includeTeams: false,
+      includeUsers: true,
+      maxNumberOfResults: 100,
+      query: '',
+      searchQueryFilter: undefined,
+    };
+
     const mockError = new Error();
     getUserRecommendationsMock.mockImplementation(() => {
       throw mockError;
     });
+    const filterOptions = jest.fn(() => mockReturnOptions);
     const onError = jest.fn(error => {
       expect(error).toEqual(mockError);
       return Promise.resolve(mockReturnOptions);
     });
-    const component = smartUserPickerWrapper({ onError });
+    const component = smartUserPickerWrapper({
+      filterOptions,
+      onError,
+    });
     expect(component.find(UserPicker).prop('options')).toEqual([]);
     await component.find(UserPicker).props().onFocus('new-session');
     await flushPromises();
 
-    expect(onError).toHaveBeenCalledWith(mockError, '');
+    expect(onError).toHaveBeenCalledWith(mockError, request);
+    expect(filterOptions).toHaveBeenCalledTimes(1);
+
     component.update();
     expect(component.find(UserPicker).prop('options')).toEqual(
       mockReturnOptions,

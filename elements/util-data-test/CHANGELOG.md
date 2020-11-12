@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 14.1.0
+
+### Minor Changes
+
+- [`c9327fc11e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9327fc11e) - [ux] Add ability to user picker to display the external users along with the sources they come from.
+
 ## 14.0.4
 
 ### Patch Changes

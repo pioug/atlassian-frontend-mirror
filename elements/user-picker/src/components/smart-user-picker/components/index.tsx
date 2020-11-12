@@ -27,10 +27,15 @@ import {
   UserType,
 } from '../../../types';
 import { UserPicker } from '../../UserPicker';
-import getUserRecommendations from '../service/recommendationClient';
+import getUserRecommendations, {
+  Context,
+} from '../service/recommendationClient';
 import getUsersById from '../service/UsersClient';
 
-type OnError = (error: any, query: string) => Promise<OptionData[]> | void;
+type OnError = (
+  error: any,
+  request: RecommendationRequest,
+) => Promise<OptionData[]> | void;
 type OnValueError = (
   error: any,
   defaultValue: DefaultValue,
@@ -111,8 +116,13 @@ export interface Props
    */
   fieldId: string;
   options?: [];
-  /** Error handler for when the server fails to suggest users and returns with an
-   * error response. */
+  /** Error handler for when the server fails to suggest users and returns with an error response.
+   * `error`: the error.
+   * `RecommendationRequest`: the original recommendationRequest containing the query and other search parameters.
+   * This may be used to provide a fail over search direct to the product backend.
+   * Helper fail over clients exist under /helpers.
+   * Note that OnError results are not filtered - so you may wish to provide additional `filterOptions`.
+   */
   onError?: OnError;
   /**
    * Error handler used to provide OptionData[] values when the server fails to hydrate `defaultValue` prop `OptionIdentifier` types.
@@ -151,6 +161,17 @@ export interface State {
   query: string;
   sessionId?: string;
   defaultValue?: OptionData[];
+}
+
+export interface RecommendationRequest {
+  baseUrl?: string;
+  context: Context;
+  maxNumberOfResults: number;
+  query?: string;
+  searchQueryFilter?: string;
+  includeUsers?: boolean;
+  includeGroups?: boolean;
+  includeTeams?: boolean;
 }
 
 const hasContextChanged = (
@@ -317,7 +338,8 @@ class SmartUserPicker extends React.Component<Props, State> {
     });
     return sortedUsers;
   };
-
+  filterOptions = (users: OptionData[]) =>
+    this.props.filterOptions ? this.props.filterOptions(users) : users;
   getUsers = async () => {
     const { query, sessionId } = this.state;
     const {
@@ -339,34 +361,32 @@ class SmartUserPicker extends React.Component<Props, State> {
 
     const maxNumberOfResults = maxOptions || 100;
     const startTime = window.performance.now();
+    const recommendationsRequest = {
+      baseUrl,
+      context: {
+        containerId,
+        contextType: this.props.fieldId,
+        objectId,
+        principalId,
+        productKey,
+        siteId,
+        childObjectId,
+        sessionId,
+        productAttributes,
+      },
+      includeUsers,
+      includeGroups,
+      includeTeams,
+      maxNumberOfResults,
+      query,
+      searchQueryFilter,
+    };
     try {
       this.fireEvent(requestUsersEvent);
-
-      const users = await getUserRecommendations({
-        baseUrl,
-        context: {
-          containerId,
-          contextType: this.props.fieldId,
-          objectId,
-          principalId,
-          productKey,
-          siteId,
-          childObjectId,
-          sessionId,
-          productAttributes,
-        },
-        includeUsers,
-        includeGroups,
-        includeTeams,
-        maxNumberOfResults,
-        query,
-        searchQueryFilter,
-      });
+      const users = await getUserRecommendations(recommendationsRequest);
       const elapsedTimeMilli = window.performance.now() - startTime;
 
-      const filteredUsers = this.props.filterOptions
-        ? this.props.filterOptions(users)
-        : users;
+      const filteredUsers = this.filterOptions(users);
 
       let displayedList = filteredUsers;
       if (filteredUsers.length === 0 && onEmpty) {
@@ -387,10 +407,13 @@ class SmartUserPicker extends React.Component<Props, State> {
         error: true,
       });
       const defaultUsers: OptionData[] = await (this.props.onError
-        ? this.props.onError(e, query || '') || Promise.resolve([])
+        ? this.props.onError(e, recommendationsRequest) || Promise.resolve([])
         : Promise.resolve([]));
       const elapsedTimeMilli = window.performance.now() - startTime;
-      this.setState({ users: defaultUsers, loading: false });
+      this.setState({
+        users: this.filterOptions(defaultUsers),
+        loading: false,
+      });
       this.fireEvent(failedRequestUsersEvent, { elapsedTimeMilli });
     }
   };

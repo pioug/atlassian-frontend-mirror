@@ -2,6 +2,7 @@ import memoizeOne from 'memoize-one';
 import { ReactChild, ReactElement } from 'react';
 import {
   AtlaskitSelectValue,
+  ExternalUser,
   Email,
   EmailType,
   Option,
@@ -18,6 +19,9 @@ import {
   DefaultValue,
 } from '../types';
 import { PopupSelect } from '@atlaskit/select';
+
+export const isExternalUser = (option: OptionData): option is ExternalUser =>
+  isUser(option) && Boolean(option.isExternal);
 
 export const isUser = (option: OptionData): option is User =>
   option.type === undefined || option.type === UserType;

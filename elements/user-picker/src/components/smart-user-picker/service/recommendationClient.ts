@@ -1,7 +1,7 @@
 import { transformUsers } from './users-transformer';
 import { getConfig } from '../config';
 import { OptionData } from '../../../types';
-import { ProductAttributes } from '../components';
+import { ProductAttributes, RecommendationRequest } from '../components';
 export interface Context {
   containerId?: string;
   contextType: string;
@@ -12,16 +12,6 @@ export interface Context {
   productKey: 'jira' | 'confluence' | 'people' | 'bitbucket';
   siteId: string;
   productAttributes?: ProductAttributes;
-}
-export interface RecommendationRequest {
-  baseUrl?: string;
-  context: Context;
-  maxNumberOfResults: number;
-  query?: string;
-  searchQueryFilter?: string;
-  includeUsers?: boolean;
-  includeGroups?: boolean;
-  includeTeams?: boolean;
 }
 
 const getUserRecommendations = (

@@ -33,6 +33,7 @@ export interface KitchenSinkControlsProps {
   themeOptions: Option<Theme>[];
   validating: boolean;
   vertical: boolean;
+  scrubContent: boolean;
   onAppearanceChange(appearance: EditorAppearance): void;
   onLoadDocument(opt: any): void;
   onCopyLink(): void;
@@ -42,20 +43,23 @@ export interface KitchenSinkControlsProps {
   onEditorToggle(enabled: boolean): void;
   onErrorToggle(enabled: boolean): void;
   onAdfToggle(enabled: boolean): void;
+  onScrubToggle(enabled: boolean): void;
 }
 
 export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsProps> = React.memo(
   props => {
     const {
-      vertical,
-      onOrientationChange,
-      onEditorToggle,
+      adfEnabled,
       editorEnabled,
       errorsEnabled,
-      onErrorToggle,
       onAdfToggle,
-      adfEnabled,
+      onEditorToggle,
+      onErrorToggle,
       onLoadDocument,
+      onOrientationChange,
+      onScrubToggle,
+      scrubContent,
+      vertical,
     } = props;
 
     const onOrientationChangeCb = React.useCallback(
@@ -66,6 +70,11 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
     const onEditorToggleCb = React.useCallback(
       () => onEditorToggle(!editorEnabled),
       [editorEnabled, onEditorToggle],
+    );
+
+    const onScrubToggleCb = React.useCallback(
+      () => onScrubToggle(!scrubContent),
+      [scrubContent, onScrubToggle],
     );
 
     const onErrorToggleCb = React.useCallback(
@@ -89,7 +98,6 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
           onChange={({ value }: any) => props.onAppearanceChange(value)}
           styles={selectStyles}
         />
-
         <Container>
           <Column>
             <Select
@@ -132,6 +140,12 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
               onClick={onEditorToggleCb}
             >
               {editorEnabled ? 'Disable' : 'Enable'} editor
+            </Button>
+            <Button
+              appearance={scrubContent ? 'primary' : 'default'}
+              onClick={onScrubToggleCb}
+            >
+              {scrubContent ? 'Plain' : 'Scrub'} content
             </Button>
             <Button onClick={props.onCopyLink}>Copy Link</Button>
             <Button

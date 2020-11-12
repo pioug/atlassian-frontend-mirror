@@ -1,6 +1,7 @@
 export { default as SmartUserPicker } from './components';
 export type {
   SupportedProduct,
+  RecommendationRequest,
   Props as SmartUserPickerProps,
   State as SmartUserPickerState,
   SmartProps,

@@ -16,6 +16,7 @@ import {
   SmartUserPickerProps,
   SmartUserPickerState,
 } from './components/smart-user-picker/index';
+import { isExternalUser } from './components/utils';
 
 export type UserPickerSession = {
   id: string;
@@ -55,12 +56,15 @@ const createEvent = (
   },
 });
 
-// id's of email types are emails which is PII
-const optionData2Analytics = ({ id, type }: OptionData) => ({
-  id: type === EmailType ? null : id,
-  type: type || UserType,
-});
-
+const optionData2Analytics = (option: OptionData) => {
+  const { id, type } = option;
+  if (isExternalUser(option)) {
+    return { type: 'external_user', sources: option.sources };
+  } else {
+    // id's of email types are emails which is PII
+    return { id: type === EmailType ? null : id, type: type || UserType };
+  }
+};
 const buildValueForAnalytics = (value?: Option[] | Option | null) => {
   if (value) {
     const valueToConvert = Array.isArray(value) ? value : [value];

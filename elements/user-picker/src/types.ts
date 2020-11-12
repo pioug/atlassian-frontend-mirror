@@ -203,6 +203,12 @@ export interface OptionData {
 
 export const UserType = 'user';
 
+export type UserSource = 'google' | 'slack' | 'microsoft';
+
+export interface ExternalUser extends User {
+  sources: UserSource[];
+}
+
 export interface User extends OptionData {
   avatarUrl?: string;
   publicName?: string;
@@ -210,6 +216,7 @@ export interface User extends OptionData {
   byline?: string;
   type?: 'user';
   email?: string;
+  isExternal?: boolean;
 }
 export type LozengeColor =
   | 'default'

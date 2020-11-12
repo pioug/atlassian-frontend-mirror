@@ -9,6 +9,7 @@ export const Container = styled.div<{ vertical?: boolean; root?: boolean }>`
 `;
 
 export const Controls = styled.div`
+  user-select: none;
   border-bottom: 1px dashed ${N50};
   padding: 1em;
 
@@ -40,7 +41,10 @@ export const Rail = styled.div`
   background: ${background};
 `;
 
-export const EditorColumn = styled.div<{ vertical: boolean; narrow: boolean }>`
+export const EditorColumn = styled.div<{
+  vertical: boolean;
+  narrow: boolean;
+}>`
   flex: 1;
   margin-right: ${props => (props.narrow ? '360px' : '0')};
   ${p =>

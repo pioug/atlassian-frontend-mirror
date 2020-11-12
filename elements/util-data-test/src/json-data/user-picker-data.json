@@ -302,5 +302,32 @@
       ]
     },
     "type": "group"
+  },
+  {
+    "id": "external-1",
+    "name": "Ty Bopp",
+    "email": "tybopp@email.com",
+    "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+    "type": "user",
+    "isExternal": true,
+    "sources": ["google", "microsoft"]
+  },
+  {
+    "id": "external-2",
+    "name": "Kaity",
+    "email": "kaity@email.com",
+    "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+    "type": "user",
+    "isExternal": true,
+    "sources": ["google"]
+  },
+  {
+    "id": "external-3",
+    "name": "Rosee",
+    "email": "rosee@email.com",
+    "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Slack_Logo_Icon.svg",
+    "type": "user",
+    "isExternal": true,
+    "sources": ["slack"]
   }
 ]

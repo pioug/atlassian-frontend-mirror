@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.1.1
+
+### Patch Changes
+
+- [`b7e3b9c8f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e3b9c8f2) - retain non-word characters and case when scrubbing
+
 ## 11.1.0
 
 ### Minor Changes

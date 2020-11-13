@@ -14,8 +14,8 @@ describe('scrubAttrs', () => {
     const scrubbedAttrs = scrubAttrs('status', attrs);
 
     expect(scrubbedAttrs).toEqual({
-      text: 'Lore',
-      localId: 'Lorem ipsum dolor sit amet, consecte',
+      text: 'LORE',
+      localId: 'loremips-umdo-lors-itam-etconsectetu',
     });
   });
 
@@ -62,15 +62,15 @@ describe('scrubAttrs', () => {
 
     expect(scrubbedAttrs).toEqual({
       parameters: {
-        extensionId: 'Lorem ipsum dolor sit amet, consecte',
-        localId: 'L',
-        text: 'Lorem ips',
+        extensionId: 'loremips-umdo-lors-itam-etconsectetu',
+        localId: 'l',
+        text: 'Loremipsu',
         macroMetadata: {
           macroId: {
             value: 1000000000000,
           },
           schemaVersion: {
-            value: 'L',
+            value: 'l',
           },
         },
       },
@@ -257,20 +257,35 @@ describe('scrubAttrs', () => {
 describe('scrubStr', () => {
   it('should replace string with dummy text of the same length', () => {
     const scrubbedStr = scrubStr('abcde');
-    expect(scrubbedStr).toEqual('Lorem');
+    expect(scrubbedStr).toEqual('lorem');
+  });
+
+  it('should retain character case', () => {
+    const scrubbedStr = scrubStr('AbCdE');
+    expect(scrubbedStr).toEqual('LoReM');
+  });
+
+  it('should retain whitespace', () => {
+    const scrubbedStr = scrubStr(' a b c  d ');
+    expect(scrubbedStr).toEqual(' l o r  e ');
+  });
+
+  it('should retain punctuation', () => {
+    const scrubbedStr = scrubStr(
+      'This. is. unbelievable! I; am at a loss for words.',
+    );
+    expect(scrubbedStr).toEqual(
+      'Lore. mi. psumdolorsit! A; me tc o nsec tet uradi.',
+    );
   });
 
   it('should repeat dummy text if the length of the original text is longer', () => {
-    const scrubbedStr = scrubStr(`iMSZz4HfMPrinSDhDDTpkE2pNtUAl5wnkuIb2hr5K4NrC9iv1jif
-    2K54aHq7K4TDiRLe4z6swasZb7WaPTWVXWkFtI2vxwFWtPFqPWnfJb9BHBPMaAi6vIGHst8OZ3bb860c0j
-    D0JvkufJXn8Z2CA0tp19Fq6kU0mTPzGMAS0cyw2tBbj3Chl0ec66a9i6wSNR1HRLASyKMsBVDM002M2TTq
-    G5whAnkZCxfPuu9JaQsgSMEA6BFhEizCX6EaZTYR37Uis7SkOy7dVAlzsSUVE4MMn6kVQbf4QRgOeYxn94
-    92hUPWzbfPL9KIg853hf6d1oQoInybOEvZOEle7XcIEUZ9Llyhp2AcBaTznWEZmfCRiZEjmKIQgYtJ1DUk
-    CdtdeXjSuKJLQKFG9cPl0mjIOcOOExzYwrBwUJzkmkgGZyt7SEhuI6ZX1rRYPKzfN1R70NmPwArYU1rckv
-    uM5jh3gOZeHB6SWDzNB5Fm6walziIwFLMv2LJs`);
+    const scrubbedStr = scrubStr(
+      `Boudin pork belly flank turducken meatball pancetta jerky short loin pork chop frankfurter shankle. Tenderloin sirloin pastrami ground round capicola drumstick pork sausage prosciutto shank. Fatback ribeye pork chop meatball leberkas brisket. Prosciutto alcatra spare ribs salami pork loin sirloin frankfurter filet mignon, strip steak landjaeger burgdoggen. Jowl hamburger swine beef, pastrami pancetta t-bone corned beef. Short loin pastrami shank, tongue bresaola jowl tenderloin ham cow biltong doner. Boudin pork belly flank turducken meatball pancetta jerky short loin pork chop frankfurter shankle. Tenderloin sirloin pastrami ground round capicola drumstick pork sausage prosciutto shank. Fatback ribeye pork chop meatball leberkas brisket. Prosciutto alcatra spare ribs salami pork loin sirloin frankfurter filet mignon, strip steak landjaeger burgdoggen. Jowl hamburger swine beef, pastrami pancetta t-bone corned beef. Short loin pastrami shank, tongue bresaola jowl tenderloin ham cow biltong doner.`,
+    );
 
     expect(scrubbedStr).toEqual(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi',
+      'Loremi psum dolor sitam etconsect eturadip iscingel itsed doeiu smod temp orin cididuntutl aboreet. Doloremagn aaliqua utenimad minimv eniam quisnost rudexerci tati onullam colaborisn isiut. Aliquip exeaco mmod ocon sequatdu isauteir uredolo. Rinreprehe nderiti nvolu ptat evelit esse cill umdolor eeufugiatnu llapa riatur, excep teurs intoccaeca tcupidatat. Nonp roidentsu ntinc ulpa, quioffic iadeseru n-tmol litani mide. Stlab orum loremips umdol, orsita metconse ctet uradipisci nge lit seddoei usmod. Tempor inci didun tutla boreetdol oremagna aliquaut enima dmini mven iamq uisn ostrudexerc itation. Ullamcolab orisnis iutaliqu ipexea commo doconseq uatduisau teir uredolo rinreprehe nderi. Tinvolu ptatev elit esse cillumdo loreeufu giatnul. Lapariatur excepte ursin tocc aecatc upid atat nonproi dentsuntinc ulpaq uioffi, ciade serun tmollitani midestlabo. Ruml oremipsum dolor sita, metconse cteturad i-pisc ingeli tsed. Doeiu smod temporin cidid, untutl aboreetd olor emagnaaliq uau ten imadmin imven.',
     );
   });
 

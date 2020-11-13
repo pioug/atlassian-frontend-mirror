@@ -1,5 +1,4 @@
-const DUMMY_TEXT =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+const DUMMY_TEXT = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum`;
 
 const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
   bodiedExtension: ['extensionKey', 'extensionType', 'layout'],
@@ -38,10 +37,26 @@ const scrubNum = (val: number) => {
 const padNum = (num: number, len: number) =>
   parseInt(`${num}`.padEnd(len, '0'));
 
-export const scrubStr = (val: string) => {
-  let len = val.length;
-  const base = DUMMY_TEXT.repeat(Math.ceil(len / DUMMY_TEXT.length));
-  return base.slice(0, len);
+export const scrubStr = (val: string, offset = 0) => {
+  const base = DUMMY_TEXT.repeat(
+    Math.ceil((offset + val.length) / DUMMY_TEXT.length),
+  );
+
+  return val
+    .split('')
+    .map(char => {
+      if (/\w/.test(char)) {
+        const correction = base[offset] === ' ' ? 1 : 0;
+        const raw = base[offset + correction];
+        const isLower = char.toLowerCase() === char;
+        const result = isLower ? raw.toLowerCase() : raw.toUpperCase();
+        offset += 1 + correction;
+        return result;
+      } else {
+        return char;
+      }
+    })
+    .join('');
 };
 
 export const scrubLink = (marks: Array<{ [key: string]: any }>) => {

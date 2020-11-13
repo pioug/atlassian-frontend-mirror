@@ -77,7 +77,7 @@ describe('scrubAdf', () => {
           content: [
             {
               type: 'text',
-              text: 'Lorem ips',
+              text: 'loremipsu',
               marks: [
                 {
                   type: 'link',
@@ -125,8 +125,8 @@ describe('scrubAdf', () => {
             {
               type: 'status',
               attrs: {
-                text: 'Lore',
-                localId: 'Lorem ipsum dolor sit amet, consecte',
+                text: 'LORE',
+                localId: 'loremips-umdo-lors-itam-etconsectetu',
               },
             },
           ],
@@ -167,8 +167,8 @@ describe('scrubAdf', () => {
             {
               type: 'unknown',
               attrs: {
-                text: 'Lorem ips',
-                unknownAttr: 'Lorem ipsu',
+                text: 'lore mips',
+                unknownAttr: 'lore mipsu',
               },
             },
           ],
@@ -235,15 +235,15 @@ describe('scrubAdf', () => {
           type: 'extension',
           attrs: {
             parameters: {
-              extensionId: 'Lorem ipsum dolor sit amet, consecte',
-              localId: 'L',
-              text: 'Lorem ips',
+              extensionId: 'loremips-umdo-lors-itam-etconsectetu',
+              localId: 'l',
+              text: 'Loremipsu',
               macroMetadata: {
                 macroId: {
                   value: 1000000000000,
                 },
                 schemaVersion: {
-                  value: 'L',
+                  value: 'l',
                 },
               },
             },

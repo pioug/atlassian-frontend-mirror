@@ -1,4 +1,5 @@
 const DUMMY_TEXT = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum`;
+const DUMMY_DIGITS = ['2', '7', '4', '3', '5', '9', '1', '8', '0', '5'];
 
 const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
   bodiedExtension: ['extensionKey', 'extensionType', 'layout'],
@@ -29,13 +30,20 @@ const fromEntries = <T>(iterable: Entry<T>[]): { [key: string]: any } => {
   }, {});
 };
 
-const scrubNum = (val: number) => {
-  const len = `${val}`.length;
-  return Math.floor(padNum(1, len) + Math.random() * padNum(9, len));
+const scrubNum = (val: number, start = 0) => {
+  return parseInt(
+    val
+      .toString()
+      .split('')
+      .map((_, index) => {
+        const base = start + index;
+        const len = DUMMY_DIGITS.length - 1;
+        return DUMMY_DIGITS[base % len];
+      })
+      .join(''),
+    10,
+  );
 };
-
-const padNum = (num: number, len: number) =>
-  parseInt(`${num}`.padEnd(len, '0'));
 
 export const scrubStr = (val: string, offset = 0) => {
   const base = DUMMY_TEXT.repeat(
@@ -44,14 +52,16 @@ export const scrubStr = (val: string, offset = 0) => {
 
   return val
     .split('')
-    .map(char => {
-      if (/\w/.test(char)) {
+    .map((char, index) => {
+      if (/[^\d\W]/.test(char)) {
         const correction = base[offset] === ' ' ? 1 : 0;
         const raw = base[offset + correction];
         const isLower = char.toLowerCase() === char;
         const result = isLower ? raw.toLowerCase() : raw.toUpperCase();
         offset += 1 + correction;
         return result;
+      } else if (/[0-9]/.test(char)) {
+        return scrubNum(parseInt(char, 10), index).toString();
       } else {
         return char;
       }
@@ -68,12 +78,12 @@ export const scrubLink = (marks: Array<{ [key: string]: any }>) => {
   });
 };
 
-export const scrubAttrs = (nodeType: string, attrs: unknown) => {
+export const scrubAttrs = (nodeType: string, attrs: unknown, offset = 0) => {
   if (typeof attrs === 'number') {
-    return scrubNum(attrs);
+    return scrubNum(attrs, offset);
   }
   if (typeof attrs === 'string') {
-    return scrubStr(attrs);
+    return scrubStr(attrs, offset);
   }
   if (typeof attrs === 'boolean') {
     return attrs;

@@ -52,7 +52,7 @@ describe('cross-flow-links', () => {
       expect(result[0]).toHaveProperty('key', ProductKey.JIRA_SOFTWARE);
       expect(result[1]).toHaveProperty('key', ProductKey.CONFLUENCE);
     });
-    it('should offer both JSW and JSD if Confluence is active', () => {
+    it('should offer both JSW and JSM if Confluence is active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.CONFLUENCE,
       ]);
@@ -65,7 +65,7 @@ describe('cross-flow-links', () => {
       expect(result[0]).toHaveProperty('key', ProductKey.JIRA_SOFTWARE);
       expect(result[1]).toHaveProperty('key', ProductKey.JIRA_SERVICE_DESK);
     });
-    it('should offer both Confluence and JSD if Jira is active', () => {
+    it('should offer both Confluence and JSM if JSW is active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SOFTWARE,
       ]);
@@ -78,7 +78,7 @@ describe('cross-flow-links', () => {
       expect(result[0]).toHaveProperty('key', ProductKey.CONFLUENCE);
       expect(result[1]).toHaveProperty('key', ProductKey.JIRA_SERVICE_DESK);
     });
-    it('should offer Jira Service Desk and Opsgenie if Confluence and JSW are active', () => {
+    it('should offer JSM and Opsgenie if Confluence and JSW are active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SOFTWARE,
         SwitcherProductType.CONFLUENCE,
@@ -92,7 +92,7 @@ describe('cross-flow-links', () => {
       expect(result[0]).toHaveProperty('key', ProductKey.JIRA_SERVICE_DESK);
       expect(result[1]).toHaveProperty('key', ProductKey.OPSGENIE);
     });
-    it('should offer Confluence and Opsgenie, if JSW and JSD are active', () => {
+    it('should offer Confluence if JSW and JSM are active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SOFTWARE,
         SwitcherProductType.JIRA_SERVICE_DESK,
@@ -102,11 +102,10 @@ describe('cross-flow-links', () => {
         suggestedProducts,
         [],
       );
-      expect(result.length).toEqual(2);
+      expect(result.length).toEqual(1);
       expect(result[0]).toHaveProperty('key', ProductKey.CONFLUENCE);
-      expect(result[1]).toHaveProperty('key', ProductKey.OPSGENIE);
     });
-    it('should return Jira if Confluence and JSD are active', () => {
+    it('should return JSW if Confluence and JSM are active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SERVICE_DESK,
         SwitcherProductType.CONFLUENCE,
@@ -118,7 +117,7 @@ describe('cross-flow-links', () => {
       );
       expect(result[0]).toHaveProperty('key', ProductKey.JIRA_SOFTWARE);
     });
-    it('should offer Opsgenie if Confluence, JSD and JSW are active', () => {
+    it('should return an empty array if Confluence, JSM and JSW are active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SERVICE_DESK,
         SwitcherProductType.CONFLUENCE,
@@ -129,11 +128,10 @@ describe('cross-flow-links', () => {
         suggestedProducts,
         [],
       );
-      expect(result).toHaveLength(1);
-      expect(result[0]).toHaveProperty('key', ProductKey.OPSGENIE);
+      expect(result).toHaveLength(0);
     });
 
-    it('should return an empty array if Confluence, JSD, JSW, and Opsgenie are active', () => {
+    it('should return an empty array if Confluence, JSM, JSW, and Opsgenie are active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SERVICE_DESK,
         SwitcherProductType.CONFLUENCE,
@@ -172,7 +170,7 @@ describe('cross-flow-links', () => {
       expect(result[1]).toHaveProperty('key', ProductKey.OPSGENIE);
     });
 
-    it('should not return OpsGenie if JSD is active and isMystiqueEnabled is true', () => {
+    it('should not return Opsgenie if JSM is active', () => {
       const provisionedProducts = generateProvisionedProducts([
         SwitcherProductType.JIRA_SERVICE_DESK,
       ]);
@@ -182,30 +180,11 @@ describe('cross-flow-links', () => {
         [],
         {
           isDiscoverSectionEnabled: true, // to return more than 2 products
-          isMystiqueEnabled: true,
         },
       );
       expect(
         result.filter(product => product.key === ProductKey.OPSGENIE),
       ).toHaveLength(0);
-    });
-
-    it('should return OpsGenie if JSD is active and isMystiqueEnabled is false', () => {
-      const provisionedProducts = generateProvisionedProducts([
-        SwitcherProductType.JIRA_SERVICE_DESK,
-      ]);
-      const result = getSuggestedProductLink(
-        provisionedProducts,
-        suggestedProducts,
-        [],
-        {
-          isDiscoverSectionEnabled: true, // to return more than 2 products
-          isMystiqueEnabled: false,
-        },
-      );
-      expect(
-        result.filter(product => product.key === ProductKey.OPSGENIE),
-      ).toHaveLength(1);
     });
   });
 

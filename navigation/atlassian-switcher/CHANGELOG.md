@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.5.8
+
+### Patch Changes
+
+- [`3e8e65525a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e8e65525a) - Do not check mystique feature flag for cross-flow logic changes in the Switcher (clean-up).
+
 ## 8.5.7
 
 ### Patch Changes

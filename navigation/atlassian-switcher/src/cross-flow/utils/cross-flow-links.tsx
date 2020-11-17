@@ -119,7 +119,6 @@ export const getSuggestedProductLink = (
 
       const shouldHideOpsGenie =
         productKey === SwitcherProductType.OPSGENIE &&
-        features?.isMystiqueEnabled &&
         provisionedProducts[SwitcherProductType.JIRA_SERVICE_DESK];
 
       return !(

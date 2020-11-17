@@ -1,10 +1,6 @@
 import scrubAdf from '../../../scrub/scrub-adf';
 
 describe('scrubAdf', () => {
-  beforeAll(() => {
-    jest.spyOn(global.Math, 'random').mockReturnValue(0);
-  });
-
   it('should replace text in nodes with dummy text of the same length', () => {
     const adf = {
       version: 1,
@@ -126,7 +122,7 @@ describe('scrubAdf', () => {
               type: 'status',
               attrs: {
                 text: 'LORE',
-                localId: 'loremips-umdo-lors-itam-etconsectetu',
+                localId: 'l7435o18-2r43-91e0-7m3i-1p02su3m9do0',
               },
             },
           ],
@@ -235,15 +231,15 @@ describe('scrubAdf', () => {
           type: 'extension',
           attrs: {
             parameters: {
-              extensionId: 'loremips-umdo-lors-itam-etconsectetu',
-              localId: 'l',
+              extensionId: 'l7435o18-2r43-91e0-7m3i-1p02su3m9do0',
+              localId: '2',
               text: 'Loremipsu',
               macroMetadata: {
                 macroId: {
-                  value: 1000000000000,
+                  value: 2743591802743,
                 },
                 schemaVersion: {
-                  value: 'l',
+                  value: '2',
                 },
               },
             },

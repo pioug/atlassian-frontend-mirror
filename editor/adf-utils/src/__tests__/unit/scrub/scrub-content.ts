@@ -1,10 +1,6 @@
 import { scrubAttrs, scrubStr, scrubLink } from '../../../scrub/scrub-content';
 
 describe('scrubAttrs', () => {
-  beforeAll(() => {
-    jest.spyOn(global.Math, 'random').mockReturnValue(0);
-  });
-
   it('should replace string attributes values with dummy text of the same length', () => {
     const attrs = {
       text: 'DONE',
@@ -15,7 +11,7 @@ describe('scrubAttrs', () => {
 
     expect(scrubbedAttrs).toEqual({
       text: 'LORE',
-      localId: 'loremips-umdo-lors-itam-etconsectetu',
+      localId: 'l7435o18-2r43-91e0-7m3i-1p02su3m9do0',
     });
   });
 
@@ -28,8 +24,8 @@ describe('scrubAttrs', () => {
     const scrubbedAttrs = scrubAttrs('coolNodeType', attrs);
 
     expect(scrubbedAttrs).toEqual({
-      attr1: 100,
-      attr2: 1000000,
+      attr1: 274,
+      attr2: 2743591,
     });
   });
 
@@ -62,15 +58,15 @@ describe('scrubAttrs', () => {
 
     expect(scrubbedAttrs).toEqual({
       parameters: {
-        extensionId: 'loremips-umdo-lors-itam-etconsectetu',
-        localId: 'l',
+        extensionId: 'l7435o18-2r43-91e0-7m3i-1p02su3m9do0',
+        localId: '2',
         text: 'Loremipsu',
         macroMetadata: {
           macroId: {
-            value: 1000000000000,
+            value: 2743591802743,
           },
           schemaVersion: {
-            value: 'l',
+            value: '2',
           },
         },
       },

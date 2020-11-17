@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.1.2
+
+### Patch Changes
+
+- [`b0203bf159`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0203bf159) - NO-ISSUE: retain numeric characters
+
 ## 11.1.1
 
 ### Patch Changes

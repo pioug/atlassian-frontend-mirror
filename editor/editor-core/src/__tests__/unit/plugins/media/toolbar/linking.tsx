@@ -136,12 +136,41 @@ describe('media', () => {
     height: 100,
   })();
 
-  const temporaryMediaSingle = mediaSingle({ layout: 'center' })(
-    temporaryMedia,
-  );
   const googleUrl = 'http://google.com';
   const yahooUrl = 'http://yahoo.com';
   const invalidUrl = 'javascript://alert(233)';
+
+  const temporaryMediaSingle = (
+    linkType?: 'linked' | 'invalidLink' | 'doubleMark' | 'mediaSingleMark',
+  ) => {
+    switch (linkType) {
+      case 'linked': {
+        return mediaSingle({ layout: 'center' })(
+          a({ href: googleUrl })(temporaryMedia),
+        );
+      }
+      case 'invalidLink': {
+        return mediaSingle({ layout: 'center' })(
+          a({ href: invalidUrl })(temporaryMedia),
+        );
+      }
+      case 'mediaSingleMark': {
+        return a({ href: yahooUrl })(
+          mediaSingle({ layout: 'center' })(temporaryMedia),
+        );
+      }
+      case 'doubleMark': {
+        return a({ href: yahooUrl })(
+          mediaSingle({ layout: 'center' })(
+            a({ href: googleUrl })(temporaryMedia),
+          ),
+        );
+      }
+      default: {
+        return mediaSingle({ layout: 'center' })(temporaryMedia);
+      }
+    }
+  };
 
   const selectors = {
     OPEN_LINK: `[title="${linkMessages.openLink.defaultMessage}"]`,
@@ -150,12 +179,10 @@ describe('media', () => {
     BAD_LINK: `button[aria-label="${linkToolbarMessages.unableToOpenLink.defaultMessage}"]`,
   };
 
-  const docWithMediaSingle = doc(temporaryMediaSingle);
-  const docWithMediaSingleLinked = doc(
-    a({ href: googleUrl })(temporaryMediaSingle),
-  );
+  const docWithMediaSingle = doc(temporaryMediaSingle());
+  const docWithMediaSingleLinked = doc(temporaryMediaSingle('linked'));
   const docWithInvalidMediaSingleLink = doc(
-    a({ href: invalidUrl })(temporaryMediaSingle),
+    temporaryMediaSingle('invalidLink'),
   );
 
   async function setupToolbar(
@@ -376,7 +403,7 @@ describe('media', () => {
             expect(mediaLinkingState.visible).toBe(true);
           });
 
-          it('should set link into media single node on submit', () => {
+          it('should set link into media node on submit', () => {
             linkingToolbar
               .props()
               .onSubmit(googleUrl, { inputMethod: INPUT_METHOD.MANUAL });
@@ -473,40 +500,47 @@ describe('media', () => {
               });
             });
           });
+        });
+      });
 
-          describe('Analytics GAS V3', () => {
-            it('should create analytics event with input method manual ', () => {
-              linkingToolbar
-                .props()
-                .onSubmit(googleUrl, { inputMethod: INPUT_METHOD.MANUAL });
+      describe('With mark on mediaSingle - toggles mark only on media', () => {
+        let linkingToolbar: ReactWrapper<LinkAddToolbarProps>;
+        let linkingToolbarAppearanceWrapper: ReactWrapper<any>;
+        beforeEach(async () => {
+          toolbarWrapper = await setupToolbar(
+            doc(temporaryMediaSingle('mediaSingleMark')),
+            {
+              allowLinking: true,
+              allowAdvancedToolBarOptions: true,
+            },
+          );
+          ({ linkingToolbar } = clickOnToolbarButton(toolbarWrapper, 'add', [
+            recentItem1,
+          ]));
+          ({ editorView, linkToolbarAppearance } = toolbarWrapper);
+          linkingToolbarAppearanceWrapper = mountWithIntl(
+            linkToolbarAppearance!,
+          );
 
-              expect(createAnalyticsEvent).toBeCalledWith({
-                eventType: 'track',
-                action: 'inserted',
-                actionSubject: 'document',
-                actionSubjectId: 'mediaLink',
-                attributes: expect.objectContaining({
-                  inputMethod: 'manual',
-                }),
-              });
-            });
+          await waitForStateUpdate();
 
-            it('should create analytics event with input method typeahead ', () => {
-              linkingToolbar
-                .props()
-                .onSubmit(googleUrl, { inputMethod: INPUT_METHOD.TYPEAHEAD });
+          linkingToolbarAppearanceWrapper.update();
+        });
 
-              expect(createAnalyticsEvent).toBeCalledWith({
-                eventType: 'track',
-                action: 'inserted',
-                actionSubject: 'document',
-                actionSubjectId: 'mediaLink',
-                attributes: expect.objectContaining({
-                  inputMethod: 'typeAhead',
-                }),
-              });
-            });
-          });
+        it('should add link on the media node', () => {
+          linkingToolbar
+            .props()
+            .onSubmit(googleUrl, { inputMethod: INPUT_METHOD.MANUAL });
+          expect(editorView.state.doc).toEqualDocument(
+            doc(temporaryMediaSingle('doubleMark')),
+          );
+        });
+
+        it('should remove the link only from media node', () => {
+          linkingToolbar.props().onUnlink();
+          expect(editorView.state.doc).toEqualDocument(
+            doc(temporaryMediaSingle('mediaSingleMark')),
+          );
         });
       });
 
@@ -557,8 +591,8 @@ describe('media', () => {
             expect(createAnalyticsEvent).toBeCalledWith({
               eventType: 'track',
               action: 'visited',
-              actionSubject: 'mediaSingle',
-              actionSubjectId: 'mediaLink',
+              actionSubject: 'media',
+              actionSubjectId: 'link',
             });
           });
         });
@@ -617,36 +651,19 @@ describe('media', () => {
 
             it('should change link', () => {
               expect(editorView.state.doc).toEqualDocument(
-                doc(a({ href: yahooUrl })(temporaryMediaSingle)),
+                doc(
+                  mediaSingle({ layout: 'center' })(
+                    a({ href: yahooUrl })(temporaryMedia),
+                  ),
+                ),
               );
-            });
-
-            it('should create analytics event', () => {
-              expect(createAnalyticsEvent).toBeCalledWith({
-                eventType: 'track',
-                action: 'changedUrl',
-                actionSubject: 'mediaSingle',
-                actionSubjectId: 'mediaLink',
-              });
             });
           });
 
           describe('Unlink', () => {
-            beforeEach(() => {
-              linkingToolbar.props().onUnlink();
-            });
-
             it('should remove link', () => {
+              linkingToolbar.props().onUnlink();
               expect(editorView.state.doc).toEqualDocument(docWithMediaSingle);
-            });
-
-            it('should create analytics event', () => {
-              expect(createAnalyticsEvent).toBeCalledWith({
-                eventType: 'track',
-                action: 'unlinked',
-                actionSubject: 'mediaSingle',
-                actionSubjectId: 'mediaLink',
-              });
             });
           });
         });
@@ -663,7 +680,7 @@ describe('media', () => {
                 th({ colwidth: [480] })(p('3')),
               ),
               tr(
-                td({ colwidth: [100] })(temporaryMediaSingle),
+                td({ colwidth: [100] })(temporaryMediaSingle()),
                 td({ colwidth: [100] })(p('5')),
                 td({ colwidth: [480] })(p('6')),
               ),
@@ -671,12 +688,12 @@ describe('media', () => {
           ),
           20,
         ],
-        ['list', doc(ol(li(temporaryMediaSingle))), 2],
+        ['list', doc(ol(li(temporaryMediaSingle()))), 2],
         [
           'layout',
           doc(
             layoutSection(
-              layoutColumn({ width: 50 })(temporaryMediaSingle),
+              layoutColumn({ width: 50 })(temporaryMediaSingle()),
               layoutColumn({ width: 50 })(p('')),
             ),
           ),

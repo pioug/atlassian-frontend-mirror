@@ -137,3 +137,14 @@ export const resourceProviderWithTeamMentionHighlight = new MentionResource({
   maxWait: 25,
   enableTeamMentionHighlight: true,
 });
+
+export const resourceProviderWithInviteFromMentionExperiment = new MentionResource(
+  {
+    minWait: 10,
+    maxWait: 25,
+    enableTeamMentionHighlight: true,
+    productName: 'confluence',
+    shouldEnableInvite: true,
+    userRole: 'admin',
+  },
+);

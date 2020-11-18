@@ -44,6 +44,12 @@ export type TitlePayload = {
   clientId: string;
 };
 
+export type ErrorPayload = {
+  code?: string;
+  message?: string;
+  meta?: string;
+};
+
 export type ChannelEvent = {
   connected: ConnectedPayload;
   init: InitPayload;
@@ -55,6 +61,7 @@ export type ChannelEvent = {
   'steps:commit': StepsPayload & { userId: string };
   'steps:added': StepsPayload;
   'title:changed': TitlePayload;
+  error: ErrorPayload | string;
   disconnect: { reason: string };
 };
 
@@ -72,7 +79,7 @@ export type CollabEvent = {
     userIds: string[];
   };
   'local-steps': { steps: Step[] };
-  'title:changed': TitlePayload;
+  'title:changed': { title: string };
 };
 
 export interface Storage {

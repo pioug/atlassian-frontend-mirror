@@ -18,14 +18,13 @@ describe('Config panel', () => {
         name: 'settings',
         type: 'fieldset',
         options: {
-          isDynamic: true,
           transformer: {
-            type: 'piped-group',
+            type: 'json-group',
           },
         },
         fields: [
           {
-            name: 'Q',
+            name: 'foo',
             label: 'Search term',
             type: 'string',
           },
@@ -68,21 +67,9 @@ describe('Config panel', () => {
         },
         fields: {
           fieldset: {
-            'piped-group': {
-              serializer: params => {
-                return Object.entries(params)
-                  .map(entry => entry.join(' = '))
-                  .join(' | ');
-              },
-              deserializer: result => {
-                return result
-                  .split(' | ')
-                  .map(pair => pair.split(' = '))
-                  .reduce<{ [key: string]: string }>((curr, [key, value]) => {
-                    curr[key] = value;
-                    return curr;
-                  }, {});
-              },
+            'json-group': {
+              serializer: value => JSON.stringify(value),
+              deserializer: value => JSON.parse(value),
             },
             'broken-group': {
               serializer: params => {
@@ -101,10 +88,10 @@ describe('Config panel', () => {
       const result = await serialize(
         manifest,
         {
-          title: 'testing serializers',
+          title: 'a title',
           settings: {
-            Q: 'text',
-            depth: 2,
+            foo: 'bar',
+            depth: 123,
             USER: {
               label: 'Leandro',
               value: 'llemos',
@@ -115,8 +102,30 @@ describe('Config panel', () => {
       );
 
       expect(result).toEqual({
-        title: 'testing serializers',
-        settings: 'Q = text | depth = 2 | USER = llemos',
+        title: 'a title',
+        settings: JSON.stringify({ foo: 'bar', depth: 123, USER: 'llemos' }),
+      });
+    });
+
+    it('serialise should skip missing values', async () => {
+      const result = await serialize(
+        manifest,
+        {
+          title: 'a title',
+          settings: {
+            foo: 'bar',
+            USER: {
+              label: 'Leandro',
+              value: 'llemos',
+            },
+          },
+        },
+        fieldsDefinitions,
+      );
+
+      expect(result).toEqual({
+        title: 'a title',
+        settings: JSON.stringify({ foo: 'bar', USER: 'llemos' }),
       });
     });
 
@@ -124,29 +133,9 @@ describe('Config panel', () => {
       const result = await serialize(
         manifest,
         {
-          title: 'testing serializers',
+          title: 'a title',
           settings: {
-            Q: 'text',
-            USER: {
-              label: 'Leandro',
-              value: 'llemos',
-            },
-          },
-        },
-        fieldsDefinitions,
-      );
-
-      expect(result).toEqual({
-        title: 'testing serializers',
-        settings: 'Q = text | USER = llemos',
-      });
-
-      const result2 = await serialize(
-        manifest,
-        {
-          title: 'testing serializers',
-          settings: {
-            Q: 'text',
+            foo: 'bar',
             depth: undefined,
             USER: {
               label: 'Leandro',
@@ -157,20 +146,178 @@ describe('Config panel', () => {
         fieldsDefinitions,
       );
 
-      expect(result2).toEqual({
-        title: 'testing serializers',
-        settings: 'Q = text | USER = llemos',
+      expect(result).toEqual({
+        title: 'a title',
+        settings: JSON.stringify({ foo: 'bar', USER: 'llemos' }),
       });
+    });
 
-      const result3 = await serialize(
+    it('serialise should strip empty values [in fieldsets]', async () => {
+      const result = await serialize(
         manifest,
-        { title: 'testing serializers', settings: { Q: undefined } },
+        { title: 'a title', settings: { foo: undefined } },
         fieldsDefinitions,
       );
 
-      expect(result3).toEqual({
-        title: 'testing serializers',
-        settings: '',
+      expect(result).toEqual({
+        title: 'a title',
+        settings: JSON.stringify({}),
+      });
+    });
+
+    it('serialize should not catch errors in the transformer', async () => {
+      await expect(
+        serialize(
+          manifest,
+          {
+            foo: {
+              bar: 1,
+            },
+          },
+          [
+            {
+              label: 'Foo',
+              name: 'foo',
+              type: 'fieldset',
+              options: {
+                transformer: {
+                  type: 'broken-group',
+                },
+              },
+              fields: [],
+            },
+          ],
+        ),
+      ).rejects.toEqual(new Error('Something is broken'));
+    });
+
+    it('serialize should throw for a missing transformer', async () => {
+      await expect(
+        serialize(
+          manifest,
+          {
+            foo: {
+              bar: 1,
+            },
+          },
+          [
+            {
+              label: 'Foo',
+              name: 'foo',
+              type: 'fieldset',
+              options: {
+                transformer: {
+                  type: 'missing-group',
+                },
+              },
+              fields: [],
+            },
+          ],
+        ),
+      ).rejects.toEqual(
+        new Error(
+          'No handler of type "missing-group" for extension type "twp.editor.test" and key "just-for-tests"',
+        ),
+      );
+    });
+
+    it('serialize should not throw for a missing transformer, if the parameter is undefined', async () => {
+      async function test() {
+        await serialize(
+          manifest,
+          {
+            foo: undefined,
+          },
+          [
+            {
+              label: 'Foo',
+              name: 'foo',
+              type: 'fieldset',
+              options: {
+                transformer: {
+                  type: 'missing-group',
+                },
+              },
+              fields: [],
+            },
+          ],
+        );
+
+        return 'OK';
+      }
+
+      await expect(test()).resolves.toEqual('OK');
+    });
+
+    it('deserialize should throw for a missing transformer', async () => {
+      await expect(
+        deserialize(
+          manifest,
+          {
+            foo: {
+              bar: 1,
+            },
+          },
+          [
+            {
+              label: 'Foo',
+              name: 'foo',
+              type: 'fieldset',
+              options: {
+                transformer: {
+                  type: 'missing-group',
+                },
+              },
+              fields: [],
+            },
+          ],
+        ),
+      ).rejects.toEqual(
+        new Error(
+          'No handler of type "missing-group" for extension type "twp.editor.test" and key "just-for-tests"',
+        ),
+      );
+    });
+
+    it('deserialize should not throw for a missing transformer, if the parameter is undefined', async () => {
+      async function test() {
+        await deserialize(
+          manifest,
+          {
+            foo: undefined,
+          },
+          [
+            {
+              label: 'Foo',
+              name: 'foo',
+              type: 'fieldset',
+              options: {
+                transformer: {
+                  type: 'missing-group',
+                },
+              },
+              fields: [],
+            },
+          ],
+        );
+
+        return 'OK';
+      }
+
+      await expect(test()).resolves.toEqual('OK');
+    });
+
+    it('serialize/deserialise should skip fields if missing from the parameters', async () => {
+      expect(
+        await serialize(manifest, { title: 'a title' }, fieldsDefinitions),
+      ).toEqual({
+        title: 'a title',
+      });
+
+      expect(
+        await deserialize(manifest, { title: 'a title' }, fieldsDefinitions),
+      ).toEqual({
+        title: 'a title',
       });
     });
 
@@ -178,25 +325,24 @@ describe('Config panel', () => {
       const result = await deserialize(
         manifest,
         {
-          title: 'testing serializers',
-          settings: 'Q = text | depth = 2 | USER = llemos',
+          title: 'a title',
+          settings: JSON.stringify({ foo: 'bar', depth: 123, USER: 'llemos' }),
         },
         fieldsDefinitions,
       );
 
       expect(result).toEqual({
-        title: 'testing serializers',
+        title: 'a title',
         settings: {
-          Q: 'text',
-          depth: '2',
+          foo: 'bar',
+          depth: 123,
           USER: 'llemos',
         },
       });
     });
 
-    it('returns an errors object property for deserialization on failure for each field', async () => {
+    it('deserialize adds an errors object to the deserialized object for any fields which threw errors on deserialization', async () => {
       const options = {
-        isDynamic: true,
         transformer: {
           type: 'broken-group',
         },
@@ -205,7 +351,7 @@ describe('Config panel', () => {
         manifest,
         {
           title: 'testing errored serializers',
-          settings: 'Q = texttt | depth = 23 | USER = llemos',
+          settings: JSON.stringify({ foo: 'bar', depth: 123, USER: 'llemos' }),
         },
         [
           {

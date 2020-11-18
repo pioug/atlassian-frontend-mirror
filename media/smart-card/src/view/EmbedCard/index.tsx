@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import {
-  BlockCardResolvingView,
   BlockCardResolvedView,
+  BlockCardResolvingView,
+  InlineCardResolvedView,
 } from '@atlaskit/media-ui';
 import {
   EmbedCardResolvedView,
@@ -15,6 +16,7 @@ import { JsonLd } from 'json-ld-types';
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
 import { getEmptyJsonLd } from '../../utils/jsonld';
+import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';
 import { getDefinitionId } from '../../state/helpers';
 
@@ -65,6 +67,17 @@ export const EmbedCard: FC<EmbedCardProps> = ({
           />
         );
       } else {
+        if (platform === 'mobile') {
+          const resolvedInlineViewProps = extractInlineProps(data);
+          return (
+            <InlineCardResolvedView
+              {...resolvedInlineViewProps}
+              isSelected={isSelected}
+              testId={testId}
+              onClick={handleFrameClick}
+            />
+          );
+        }
         const resolvedBlockViewProps = extractBlockProps(data, {
           handleAnalytics,
           handleInvoke,

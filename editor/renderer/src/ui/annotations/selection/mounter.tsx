@@ -1,6 +1,9 @@
 import React, { useCallback, useState, useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
+import {
+  AnnotationByMatches,
+  InlineCommentSelectionComponentProps,
+} from '@atlaskit/editor-common';
 import { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft';
 import { Position } from '../types';
@@ -25,6 +28,7 @@ type Props = {
   applyAnnotationDraftAt: (position: Position) => void;
   clearAnnotationDraft: () => void;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
 };
 
 export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
@@ -40,6 +44,7 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
       documentPosition,
       applyAnnotation,
       createAnalyticsEvent,
+      generateIndexMatch,
     } = props;
     const [
       draftDocumentPosition,
@@ -81,6 +86,18 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
         createAnalyticsEvent,
       ],
     );
+
+    const createIndexCallback = useCallback((): AnnotationByMatches | false => {
+      if (!documentPosition || !generateIndexMatch) {
+        return false;
+      }
+      const result = generateIndexMatch(documentPosition);
+      if (!result) {
+        return false;
+      }
+
+      return { ...result, isAnnotationAllowed };
+    }, [documentPosition, generateIndexMatch, isAnnotationAllowed]);
 
     const applyDraftModeCallback = useCallback(
       (keepNativeSelection: boolean = true) => {
@@ -167,6 +184,7 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
         isAnnotationAllowed={isAnnotationAllowed}
         onClose={onCloseCallback}
         onCreate={onCreateCallback}
+        getAnnotationIndexMatch={createIndexCallback}
         applyDraftMode={applyDraftModeCallback}
         removeDraftMode={removeDraftModeCallback}
       />

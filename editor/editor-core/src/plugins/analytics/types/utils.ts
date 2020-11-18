@@ -65,6 +65,20 @@ export type OperationalAEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
+export type OperationalAEPWithObjectId<
+  Action,
+  ActionSubject,
+  ActionSubjectID,
+  Attributes,
+  NonPrivacySafeAttributes
+> = OperationalAEP<
+  Action,
+  ActionSubject,
+  ActionSubjectID,
+  Attributes & { objectId?: string },
+  NonPrivacySafeAttributes
+>;
+
 export type ScreenAEP<
   Action,
   ActionSubject,

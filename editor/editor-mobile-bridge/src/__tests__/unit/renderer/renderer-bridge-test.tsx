@@ -1,7 +1,8 @@
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
-import MobileRenderer from '../../../renderer/mobile-renderer-element';
+import { MobileRenderer } from '../../../renderer/mobile-renderer-element';
 import WebBridgeImpl from '../../../renderer/native-to-web/implementation';
+import { InjectedIntl } from 'react-intl';
 import { mountWithIntl } from 'enzyme-react-intl';
 import {
   createCardClient,
@@ -59,6 +60,10 @@ describe('general', () => {
 describe('renderer bridge', () => {
   let onContentRendered: jest.Mock;
   let mobileRenderer: ReactWrapper;
+  const intlMock = ({
+    formatMessage: (messageDescriptor: any) =>
+      messageDescriptor && messageDescriptor.defaultMessage,
+  } as unknown) as InjectedIntl;
 
   const initRenderer = (adf: string): ReactWrapper =>
     mountWithIntl(
@@ -68,6 +73,7 @@ describe('renderer bridge', () => {
         emojiProvider={createEmojiProvider(new FetchProxy())}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
+        intl={intlMock}
       />,
     );
 

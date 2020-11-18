@@ -60,6 +60,9 @@ export class CodeViewer extends BaseViewer<string, Props> {
           collectionName,
         );
         const response = await fetch(downloadUrl);
+        if (response.status !== 200) {
+          throw new Error(`Server returned ${response.status} status`);
+        }
         const ext = getExtension(item.name);
 
         // Pass through EmailViewer logic

@@ -22,6 +22,8 @@ export {
   wideImage,
   wideTransparentImage,
 } from './images';
+export { videoURI } from './dataURIs/videoURI';
+export { videoPreviewURI } from './dataURIs/videoPreviewURI';
 export { waitUntil } from './waitUntil';
 export { flushPromises } from './flushPromises';
 export { Matrix } from './story-styles';
@@ -74,6 +76,7 @@ export {
   zipItemMultipleFoldersAtRootId,
   zipJiraArchiveFileId,
   zipEncryptedFileId,
+  vrVideoDetails,
   codeFileId,
   emailFileId,
   emailUnsupportedFileId,

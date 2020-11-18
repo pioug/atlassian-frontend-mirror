@@ -107,7 +107,7 @@ export type StringField = StringOneLineField | StringMultilineField;
 
 export interface NumberField extends BaseFieldDefinition {
   type: 'number';
-  defaultValue?: string;
+  defaultValue?: number;
   placeholder?: string;
 }
 
@@ -170,16 +170,7 @@ export interface UserField extends BaseFieldDefinition {
   };
 }
 
-export interface Fieldset extends BaseFieldDefinition {
-  type: 'fieldset';
-  fields: FieldDefinition[];
-  options: {
-    isDynamic?: boolean;
-    transformer: FieldHandlerLink;
-    showTitle?: boolean;
-  };
-}
-
+export type CustomField = CustomSingleField | CustomMultipleField;
 export type NativeField =
   | EnumField
   | StringField
@@ -188,9 +179,19 @@ export type NativeField =
   | DateField
   | DateRangeField;
 
-export type CustomField = CustomSingleField | CustomMultipleField;
+export type NestedFieldDefinition = NativeField | CustomField | UserField;
 
-export type FieldDefinition = NativeField | CustomField | Fieldset | UserField;
+export interface Fieldset extends BaseFieldDefinition {
+  type: 'fieldset';
+  fields: NestedFieldDefinition[];
+  options: {
+    isDynamic?: boolean;
+    transformer: FieldHandlerLink;
+    showTitle?: boolean;
+  };
+}
+
+export type FieldDefinition = NestedFieldDefinition | Fieldset;
 
 export const isFieldset = (field: FieldDefinition): field is Fieldset => {
   return field.type === 'fieldset';

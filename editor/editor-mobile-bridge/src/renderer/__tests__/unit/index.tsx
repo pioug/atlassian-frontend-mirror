@@ -1,7 +1,7 @@
 jest.useFakeTimers();
 import React from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema/src/schema/marks/annotation';
-import MobileRenderer from '../../mobile-renderer-element';
+import { MobileRenderer } from '../../mobile-renderer-element';
 import {
   createCardClient,
   createEmojiProvider,
@@ -12,7 +12,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { nativeBridgeAPI } from '../../../renderer/web-to-native/implementation';
-import { IntlProvider } from 'react-intl';
+import { InjectedIntl } from 'react-intl';
 import { DocumentReflowDetector } from '../../../document-reflow-detector';
 import { eventDispatcher, EmitterEvents } from '../../dispatcher';
 jest.mock('../../../document-reflow-detector');
@@ -75,23 +75,25 @@ afterEach(() => {
 describe('renderer bridge', () => {
   const createPromiseMock = jest.fn();
   let fetchProxy: FetchProxy;
-
+  const intlMock = ({
+    formatMessage: (messageDescriptor: any) =>
+      messageDescriptor && messageDescriptor.defaultMessage,
+  } as unknown) as InjectedIntl;
   const initRenderer = (
     adf: string,
     allowAnnotations: boolean,
   ): HTMLElement => {
     act(() => {
       render(
-        <IntlProvider locale="en">
-          <MobileRenderer
-            document={adf}
-            cardClient={createCardClient()}
-            emojiProvider={createEmojiProvider(fetchProxy)}
-            mediaProvider={createMediaProvider()}
-            mentionProvider={createMentionProvider()}
-            allowAnnotations={allowAnnotations}
-          />
-        </IntlProvider>,
+        <MobileRenderer
+          document={adf}
+          cardClient={createCardClient()}
+          emojiProvider={createEmojiProvider(fetchProxy)}
+          mediaProvider={createMediaProvider()}
+          mentionProvider={createMentionProvider()}
+          allowAnnotations={allowAnnotations}
+          intl={intlMock}
+        />,
         container,
       );
       jest.runAllTimers();

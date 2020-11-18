@@ -14,6 +14,7 @@ import {
   akEditorTableToolbar,
   akEditorTableToolbarDark,
   akEditorWideLayoutWidth,
+  getTableCellBackgroundDarkModeColors,
 } from '@atlaskit/editor-shared-styles';
 import { DN700A, N20A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
@@ -103,6 +104,8 @@ const tableSharedStyle = css`
         padding: ${tableCellPadding}px;
         /* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
         ${browser.gecko || browser.ie ? 'background-clip: padding-box;' : ''}
+
+        ${themed({ dark: getTableCellBackgroundDarkModeColors })};
 
         > *:first-child {
           margin-top: 0;

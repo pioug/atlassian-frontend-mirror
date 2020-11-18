@@ -37,8 +37,13 @@ describe(name, () => {
         expect(wrapper.find(TabItem)).toHaveLength(tabs.length);
       });
 
-      it('should only ever render a single tab content pane', () => {
+      it('should render single tab contents pane if isContentPersisted is false', () => {
         expect(wrapper.find(TabContent)).toHaveLength(1);
+      });
+
+      it('should render all tab contents pane if persist content is true', () => {
+        const wrapper = mount(<Tabs tabs={tabs} isContentPersisted={true} />);
+        expect(wrapper.find(TabContent)).toHaveLength(3);
       });
     });
 

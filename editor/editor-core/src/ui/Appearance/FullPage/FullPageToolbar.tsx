@@ -45,7 +45,10 @@ export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = Re
     return (
       <ContextPanelConsumer>
         {({ width: contextPanelWidth }) => (
-          <MainToolbar showKeyline={props.showKeyline || contextPanelWidth > 0}>
+          <MainToolbar
+            data-testid="ak-editor-main-toolbar"
+            showKeyline={props.showKeyline || contextPanelWidth > 0}
+          >
             {props.beforeIcon && (
               <MainToolbarIconBefore>{props.beforeIcon}</MainToolbarIconBefore>
             )}

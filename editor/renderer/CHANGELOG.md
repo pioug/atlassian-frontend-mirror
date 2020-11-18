@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 70.0.0
+
+### Minor Changes
+
+- [`28e97db5a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28e97db5a7) - TWISTA-407 Expose the Confluence index match API to native. On applying draft mode, the bridge will call `annotationIndexMatch` with the `numMatch`, `matchIndex`, `originalSelection` tuple that is required by Confluence.
+- [`d13ccbd6c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d13ccbd6c3) - [ux][twista-523] Fixed a bug in Safari/iOS where inline comment overlapping link would open url into current webView
+
+### Patch Changes
+
+- [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
+- [`d6c23f1886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c23f1886) - Added dark mode support to table cell background colors
+- [`7ba05e4164`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba05e4164) - EDM-1372: Default to akEditorFullPageMaxWidth when WidthConsumer is 0
+- [`be5392f4a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5392f4a4) - EDM-1395: Update analytic subject names for image linking
+- [`3c263cb2df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c263cb2df) - Added error handling when calling media client getCurrentState()
+- [`f50e5d16b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f50e5d16b1) - CMB-2438: Added dark mode VR tests for tables in both Editor and Renderer
+- Updated dependencies
+
 ## 69.1.0
 
 ### Minor Changes

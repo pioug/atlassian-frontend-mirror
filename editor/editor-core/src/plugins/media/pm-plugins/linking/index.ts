@@ -39,8 +39,10 @@ function onSelectionChanged(tr: Transaction): MediaLinkingState {
     return initialState;
   }
 
-  const node = tr.doc.nodeAt(tr.selection.$from.pos);
-  if (!node || node.type.name !== 'mediaSingle') {
+  const mediaPos = tr.selection.$from.pos + 1;
+
+  const node = tr.doc.nodeAt(mediaPos);
+  if (!node || node.type.name !== 'media') {
     return initialState;
   }
 
@@ -48,7 +50,7 @@ function onSelectionChanged(tr: Transaction): MediaLinkingState {
   if (mark) {
     return {
       ...initialState,
-      mediaPos: tr.selection.$from.pos,
+      mediaPos,
       editable: true,
       link: (mark.attrs as LinkAttributes).href,
     };
@@ -56,7 +58,7 @@ function onSelectionChanged(tr: Transaction): MediaLinkingState {
 
   return {
     ...initialState,
-    mediaPos: tr.selection.$from.pos,
+    mediaPos,
   };
 }
 

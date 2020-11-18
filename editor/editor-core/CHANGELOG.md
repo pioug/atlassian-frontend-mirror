@@ -1,5 +1,80 @@
 # @atlaskit/editor-core
 
+## 134.0.0
+
+### Major Changes
+
+- [`9f81260dd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f81260dd5) - ED-10683 Serialize number fields to Number instead of String
+
+### Minor Changes
+
+- [`af832a83e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af832a83e8) - [ED-10671] Predictable Lists: Fix Paste Lists inside of panels
+
+  ## Before
+
+  Insert lists inside of at the begin of a panel was removing the panel
+
+  ## Now
+
+  It is adding the lists right before the current content
+
+- [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] - added new properites in MentionResource interface to support invite from mention experiment
+
+  - updated util-data-test/mention to enable invite from mention experiment
+  - added invite from mention experiment logic into editor-core
+
+- [`125571bf8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/125571bf8e) - ED-10725: Add an experimental support of a modern analytics context to editor core
+
+### Patch Changes
+
+- [`386ef3f839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/386ef3f839) - ED-10759 Refactor click area block & mobile
+- [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
+- [`53e72c45d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53e72c45d1) - [ux][ed-10879] Fix pasting invalid nodes into panel
+- [`ff4b80f248`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff4b80f248) - [ux][ed-10675] Fix conversion when selection contains a list but has a paragraph on one or both ends
+- [`23ad8adc0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23ad8adc0e) - ED-10555 Add ContextIdentifierProvider to performance analytics
+- [`c60fe6d629`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c60fe6d629) - [ux][ed-10878, ed-11017, and ed-10942]: Fixing regressions for predictable lists copy & paste
+
+  ED-10878 fixes copy and pasting divider followed by list item scrolls to end of page
+  ED-11017 fixes unexpected behaviour when pasting list items into a nested list with an empty parent (incorrect nesting of list)
+  ED-10942 fixes empty nested list items when paste destination selection is mid node
+
+- [`af0d9c0965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af0d9c0965) - EDM-668: fixes a bug wherein pasting too many Smart Links causes the event loop to become overwhelmed.
+
+  The fix is documented below for future reference.
+
+  ### Cause
+
+  When pasting a large number of Smart Links, a ProseMirror transaction is created for each link paste. This kicks off an asynchronous JavaScript task, in which the ADF representation of the link is fetched from the `EditorCardProvider`.
+
+  As a consequence, when pasting 10/50/100 links, the macrotask queue is overwhelmed with asynchronous tasks.
+
+  ### Solution
+
+  To resolve this issue, a queuing mechanism separate to the macrotask queue is utilised, to ensure each asynchronous call is non-blocking and does not cause the browser to lock up with an overwhelmed macrotask queue.
+
+  The mechanism utilised is `requestAnimationFrame`, using the `raf-schd` library. This is a common technique in the `@atlaskit/editor-core` codebase, which allows for asynchronous transactions to be invoked in quick succession without blocking interactivity.
+
+  ***
+
+  Thanks to @Vijay for being a legend in pairing on this one!
+
+- [`33b8b7d85b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33b8b7d85b) - ED-9860: Unskip and fix editor-core media unit tests
+- [`d48b343171`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d48b343171) - [ED-10670] Predictable-List: Make sure if you copy a list into different list type it considers the target list
+- [`acd4c9a9ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acd4c9a9ee) - [ux][ed-11086] Fix pasting of a single nested list item into an empty panel
+- [`50066eafe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50066eafe6) - ED-10764 fix title field behaviour in full page example
+- [`db4e6ab0d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db4e6ab0d4) - EDM-1388: Toggle link mark on media and not mediaSingle
+- [`be5392f4a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5392f4a4) - EDM-1395: Update analytic subject names for image linking
+- [`815038b225`](https://bitbucket.org/atlassian/atlassian-frontend/commits/815038b225) - [ux] ED-10796 Fix selection changes over multiple paragraphs being ignored in expands
+- [`691edb5246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/691edb5246) - [ux][ed-10479] Copy & Paste for Lists: Prevent empty list item insertion when pasting into a text selection across nested levels
+- [`9d3a706bb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3a706bb8) - Ignore search when input is a URL
+- [`48c56025fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48c56025fa) - move selection based node view into new file
+- [`3c263cb2df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c263cb2df) - Added error handling when calling media client getCurrentState()
+- [`b9b9d2aad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9b9d2aad2) - TED-558: improved invite item selection by space pressed
+- [`24a0f89239`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24a0f89239) - [ED-10992] Predictable Lists: Add analytics to fix sibling list appendTransaction
+- [`5fb3d63c3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fb3d63c3f) - Bump dompurify to prevent XSS vulnerability and prefer alternative architecture
+- [`f50e5d16b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f50e5d16b1) - CMB-2438: Added dark mode VR tests for tables in both Editor and Renderer
+- Updated dependencies
+
 ## 133.0.1
 
 ### Patch Changes

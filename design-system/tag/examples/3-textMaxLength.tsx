@@ -27,7 +27,7 @@ function Row(props: RowProps) {
 
 export default function Table() {
   return (
-    <table>
+    <table id="maxLengthTag">
       <tbody>
         <Row name="Full text">{cupcakeipsum}</Row>
         <Row name="Text">

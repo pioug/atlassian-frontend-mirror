@@ -21,12 +21,12 @@ export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
     return false;
   }
   const {
-    nodes: { mediaSingle },
+    nodes: { media },
     marks: { link },
   } = editorState.schema;
   const node = editorState.doc.nodeAt(mediaLinkingState.mediaPos);
 
-  if (!node || node.type !== mediaSingle) {
+  if (!node || node.type !== media) {
     return false;
   }
 

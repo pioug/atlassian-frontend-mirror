@@ -1,5 +1,14 @@
 # @atlaskit/mention
 
+## 19.1.0
+
+### Minor Changes
+
+- [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] - added new properites in MentionResource interface to support invite from mention experiment
+
+  - updated util-data-test/mention to enable invite from mention experiment
+  - added invite from mention experiment logic into editor-core
+
 ## 19.0.9
 
 ### Patch Changes

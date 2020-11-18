@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 12.1.0
+
+### Minor Changes
+
+- [`3c263cb2df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c263cb2df) - Added error handling when calling media client getCurrentState()
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Patch Changes

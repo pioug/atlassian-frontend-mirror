@@ -4,6 +4,7 @@ import { doc, paragraph, text } from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import focusHandlerPlugin from './pm-plugins/focus-handler';
+import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import { plugin as reactNodeView } from './pm-plugins/react-nodeview';
@@ -53,14 +54,17 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
       { name: 'reactNodeView', plugin: () => reactNodeView },
       {
         name: 'frozenEditor',
-        plugin: ({ dispatchAnalyticsEvent }) =>
-          options && options.inputTracking && options.inputTracking.enabled
+        plugin: ({ dispatchAnalyticsEvent, providerFactory }) => {
+          return options &&
+            options.inputTracking &&
+            options.inputTracking.enabled
             ? frozenEditor(
                 dispatchAnalyticsEvent,
                 options.inputTracking,
                 options.bFreezeTracking,
               )
-            : undefined,
+            : undefined;
+        },
       },
       { name: 'decorationPlugin', plugin: () => decorationPlugin() },
       { name: 'history', plugin: () => history() },
@@ -73,6 +77,11 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
             'Mod-[': () => true,
             'Mod-]': () => true,
           }),
+      },
+      {
+        name: 'contextIdentifier',
+        plugin: ({ dispatch, providerFactory }) =>
+          contextIdentifierPlugin(dispatch, providerFactory),
       },
     ];
 

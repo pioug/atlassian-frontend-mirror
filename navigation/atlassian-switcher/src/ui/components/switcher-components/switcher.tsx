@@ -80,6 +80,7 @@ export type SwitcherProps = {
   renderAddOn?: RenderAddOn;
   rawProviderResults: ProviderResults & SyntheticProviderResults;
   features: FeatureMap;
+  slackDiscoveryClickHandler?: DiscoverMoreCallback;
 };
 
 const getAnalyticsContext = (itemsCount: number) => ({
@@ -144,6 +145,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
       onClose,
       onJoinableSiteClicked,
       triggerXFlow,
+      slackDiscoveryClickHandler,
     } = this.props;
     /**
      * It is essential that switchToLinks reflects the order corresponding nav items
@@ -305,6 +307,8 @@ export default class Switcher extends React.Component<SwitcherProps> {
               discoverSectionLinks={discoverSectionLinks}
               suggestedProductLinks={suggestedProductLinks}
               rawProviderResults={rawProviderResults}
+              isSlackDiscoveryEnabled={features.isSlackDiscoveryEnabled}
+              slackDiscoveryClickHandler={slackDiscoveryClickHandler}
             />
           )}
           <RecentSection appearance={appearance} recentLinks={recentLinks} />

@@ -30,20 +30,15 @@ describe('Date:', () => {
   describe('keyboard accessible picker', () => {
     it('should autofocus textfield and select text when creating new date', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
           allowKeyboardAccessibleDatepicker: true,
         },
       });
-      await typeInEditorAtEndOfDocument(page, '/');
+
+      await typeInEditorAtEndOfDocument(page, '//');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
@@ -51,11 +46,6 @@ describe('Date:', () => {
     });
     it('should autofocus textfield, select text and allow editing when creating new date', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
@@ -63,9 +53,9 @@ describe('Date:', () => {
         },
       });
       // Insert date by quick insert
-      await typeInEditorAtEndOfDocument(page, '/');
+
+      await typeInEditorAtEndOfDocument(page, '//');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
       await waitForDatePicker(page);
 
@@ -149,20 +139,14 @@ describe('Date:', () => {
     });
     it('should delete date when pressing enter in empty textfield', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
           allowKeyboardAccessibleDatepicker: true,
         },
       });
-      await typeInEditorAtEndOfDocument(page, 'hello /');
+      await typeInEditorAtEndOfDocument(page, 'hello //');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
@@ -185,11 +169,6 @@ describe('Date:', () => {
 
     it('should change calendar view when changing date with keyboard', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
@@ -197,9 +176,8 @@ describe('Date:', () => {
         },
       });
       // Insert date by quick insert
-      await typeInEditorAtEndOfDocument(page, '/');
+      await typeInEditorAtEndOfDocument(page, '//');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
       await waitForDatePicker(page);
 
@@ -216,11 +194,6 @@ describe('Date:', () => {
     });
     it('should display invalid date error when textfield full of letters', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
@@ -228,9 +201,8 @@ describe('Date:', () => {
         },
       });
       // Insert date by quick insert
-      await typeInEditorAtEndOfDocument(page, '/');
+      await typeInEditorAtEndOfDocument(page, '//');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
       await waitForDatePicker(page);
 
@@ -246,11 +218,6 @@ describe('Date:', () => {
     });
     it('should display invalid date error when textfield empty', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
@@ -258,9 +225,8 @@ describe('Date:', () => {
         },
       });
       // Insert date by quick insert
-      await typeInEditorAtEndOfDocument(page, '/');
+      await typeInEditorAtEndOfDocument(page, '//');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
       await waitForDatePicker(page);
 
@@ -273,11 +239,6 @@ describe('Date:', () => {
     });
     it('should display invalid date error when year > 9999', async () => {
       await initEditorWithAdf(page, {
-        adf: {
-          version: 1,
-          type: 'doc',
-          content: [],
-        },
         appearance: Appearance.fullPage,
         viewport: { width: 600, height: 600 },
         editorProps: {
@@ -285,9 +246,8 @@ describe('Date:', () => {
         },
       });
       // Insert date by quick insert
-      await typeInEditorAtEndOfDocument(page, '/');
+      await typeInEditorAtEndOfDocument(page, '//');
       await waitForTypeAheadMenu(page);
-      await typeInEditorAtEndOfDocument(page, 'date');
       await pressKey(page, 'Enter');
       await waitForDatePicker(page);
 

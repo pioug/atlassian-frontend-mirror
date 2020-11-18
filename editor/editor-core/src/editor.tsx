@@ -18,9 +18,9 @@ import {
   ExtensionProvider,
   combineExtensionProviders,
   WidthProvider,
+  ContextIdentifierProvider,
 } from '@atlaskit/editor-common';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
-import { Context as CardContext } from '@atlaskit/smart-card';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -32,7 +32,7 @@ import { EventDispatcher } from './event-dispatcher';
 import EditorContext from './ui/EditorContext';
 import { PortalProvider, PortalRenderer } from './ui/PortalProvider';
 import { nextMajorVersion } from './version-wrapper';
-import { createContextAdapter } from './nodeviews';
+import { ContextAdapter } from './nodeviews/context-adapter';
 import measurements from './utils/performance/measure-enum';
 import {
   combineQuickInsertProviders,
@@ -86,11 +86,6 @@ type Context = {
   intl: IntlShape;
 };
 
-// allows connecting external React.Context through to nodeviews
-const ContextAdapter = createContextAdapter({
-  card: CardContext,
-});
-
 const WidthProviderFullHeight = styled(WidthProvider)`
   height: 100%;
 `;
@@ -125,6 +120,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.onEditorCreated = this.onEditorCreated.bind(this);
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
     this.editorActions = (context || {}).editorActions || new EditorActions();
+
     startMeasure(measurements.EDITOR_MOUNTED);
     if (
       props.performanceTracking &&
@@ -167,14 +163,27 @@ export default class Editor extends React.Component<EditorProps, State> {
   componentDidMount() {
     stopMeasure(measurements.EDITOR_MOUNTED, (duration, startTime) => {
       if (this.createAnalyticsEvent) {
-        fireAnalyticsEvent(this.createAnalyticsEvent)({
-          payload: {
-            action: ACTION.EDITOR_MOUNTED,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: { duration, startTime },
-            eventType: EVENT_TYPE.OPERATIONAL,
+        const fireMounted = (objectId?: string) => {
+          fireAnalyticsEvent(this.createAnalyticsEvent)({
+            payload: {
+              action: ACTION.EDITOR_MOUNTED,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              attributes: {
+                duration,
+                startTime,
+                objectId,
+              },
+              eventType: EVENT_TYPE.OPERATIONAL,
+            },
+          });
+        };
+
+        Promise.resolve(this.props.contextIdentifierProvider).then(
+          (p?: ContextIdentifierProvider) => {
+            fireMounted(p?.objectId);
           },
-        });
+          fireMounted,
+        );
       }
     });
     this.handleProviders(this.props);
@@ -381,6 +390,7 @@ export default class Editor extends React.Component<EditorProps, State> {
       'contextIdentifierProvider',
       contextIdentifierProvider,
     );
+
     this.providerFactory.setProvider('mediaProvider', media && media.provider);
     this.providerFactory.setProvider(
       'imageUploadProvider',
@@ -470,6 +480,9 @@ export default class Editor extends React.Component<EditorProps, State> {
                     <ContextAdapter>
                       <PortalProvider
                         onAnalyticsEvent={this.handleAnalyticsEvent}
+                        useAnalyticsContext={
+                          this.props.UNSAFE_useAnalyticsContext
+                        }
                         render={portalProviderAPI => (
                           <>
                             <ReactEditorView

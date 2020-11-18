@@ -60,7 +60,7 @@ export class TitleInput extends React.Component<
       <TitleArea
         id="editor-title"
         placeholder={this.state.placeholder}
-        rows="1"
+        rows={1}
         value={this.props.value}
         onChange={this.state.handleUpdate}
         innerRef={this.props.innerRef}

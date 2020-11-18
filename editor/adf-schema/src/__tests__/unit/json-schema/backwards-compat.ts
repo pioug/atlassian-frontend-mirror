@@ -48,11 +48,8 @@ expect.extend({
   },
 });
 
-// Disable schema check to allow regex change that is detected as a breaking change
-// This will be re-enabled after merging to master as part of:
-// https://product-fabric.atlassian.net/browse/ADFS-68
 describe('JSON schema', () => {
-  it.skip('should be backwards compatible', async () => {
+  it('should be backwards compatible', async () => {
     const existingSchema = await fetchLastPublishedJSONSchema();
     try {
       expect(newSchema).toBeBackwardsCompatibleWith(existingSchema);

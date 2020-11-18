@@ -1,5 +1,9 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode, NodeType, Fragment } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
+
+export function isDocumentNode(node: PMNode | null | undefined) {
+  return Boolean(node && node.type && node.type.name === 'doc');
+}
 
 export function isListNode(node: PMNode | null | undefined) {
   return Boolean(
@@ -19,6 +23,17 @@ export function isBulletList(node: PMNode | null | undefined) {
   return Boolean(node && node.type && 'bulletList' === node.type.name);
 }
 
+export function isListNodeValidContent(node: PMNode) {
+  const { bulletList } = node.type.schema.nodes;
+  if (!bulletList) {
+    return false;
+  }
+
+  const listFragment = Fragment.from(bulletList.createAndFill());
+
+  return !isListItemNode(node) && node.type.validContent(listFragment);
+}
+
 export enum JoinDirection {
   LEFT = 1,
   RIGHT = -1,
@@ -26,41 +41,68 @@ export enum JoinDirection {
 
 type JoinSiblingListsProps = {
   tr: Transaction;
-  direction: JoinDirection;
+  direction?: JoinDirection;
+  forceListType?: NodeType;
 };
-export const joinSiblingLists = ({ tr, direction }: JoinSiblingListsProps) => {
+
+type ListsJoined = {
+  orderedList: number;
+  bulletList: number;
+  [key: string]: number;
+};
+
+export const joinSiblingLists = ({
+  tr,
+  direction,
+  forceListType,
+}: JoinSiblingListsProps): ListsJoined => {
+  const result: ListsJoined = {
+    orderedList: 0,
+    bulletList: 0,
+  };
   const {
     doc,
     selection: { $from, $to },
+    selection,
   } = tr;
-  const range = $from.blockRange($to);
+  const range = $from.blockRange($to, isListNodeValidContent);
   if (!range) {
-    return;
+    return result;
   }
 
-  const joins: number[] = [];
+  const rootListNode = doc.nodeAt(range.start);
+  const from = isListNode(rootListNode) ? range.start : 0;
+  const to = isListNode(rootListNode) ? range.end : tr.doc.content.size;
 
-  doc.nodesBetween(range.start, range.end, (node: PMNode, pos: number) => {
-    const res = doc.resolve(pos);
+  const joins: number[] = [];
+  doc.nodesBetween(from, to, (node: PMNode, pos: number, parent: PMNode) => {
+    const resolvedPos = doc.resolve(pos);
+    const { nodeBefore, nodeAfter } = resolvedPos;
 
     if (
-      !res.nodeBefore ||
-      !res.nodeAfter ||
-      !isListNode(res.nodeBefore) ||
-      !isListNode(res.nodeAfter)
+      !nodeBefore ||
+      !nodeAfter ||
+      !isListNode(nodeBefore) ||
+      !isListNode(nodeAfter)
     ) {
       return;
     }
+    const isNestedList = isListItemNode(parent);
 
-    if (res.nodeBefore.type !== res.nodeAfter.type) {
-      const resolvedPos = doc.resolve(pos);
-      const index = resolvedPos.index();
-      // @ts-ignore There is no typing for postAtIndex yet.
-      const positionPreviousNode = resolvedPos.posAtIndex(index - 1);
+    if (!isNestedList && nodeBefore.type !== nodeAfter.type && !forceListType) {
+      return;
+    }
+    const index = resolvedPos.index();
+    const positionPreviousNode = resolvedPos.posAtIndex(index - 1);
+    const positionCurrentNode = resolvedPos.posAtIndex(index);
+    if (forceListType) {
+      tr.setNodeMarkup(positionPreviousNode, forceListType);
+      tr.setNodeMarkup(positionCurrentNode, forceListType);
+    }
+
+    if (isNestedList && nodeBefore.type !== nodeAfter.type) {
       const nodeType =
-        direction === JoinDirection.RIGHT
-          ? res.nodeAfter.type
-          : res.nodeBefore.type;
+        direction === JoinDirection.RIGHT ? nodeAfter.type : nodeBefore.type;
 
       tr.setNodeMarkup(positionPreviousNode, nodeType);
     }
@@ -68,7 +110,30 @@ export const joinSiblingLists = ({ tr, direction }: JoinSiblingListsProps) => {
     joins.push(pos);
   });
 
-  joins.forEach(doubleListPosition => {
-    tr.join(doubleListPosition);
-  });
+  if (selection.empty && rootListNode && isListNode(rootListNode)) {
+    const resolvedPos = doc.resolve(range.start + rootListNode.nodeSize);
+    const { nodeBefore, nodeAfter } = resolvedPos;
+
+    if (
+      nodeBefore &&
+      nodeAfter &&
+      isListNode(nodeBefore) &&
+      isListNode(nodeAfter) &&
+      nodeAfter.type === nodeBefore.type
+    ) {
+      joins.push(resolvedPos.pos);
+    }
+  }
+
+  for (let i = joins.length - 1; i >= 0; i--) {
+    const listNode = tr.doc.nodeAt(joins[i]);
+    if (listNode) {
+      const amount = result[listNode.type.name] || 0;
+      result[listNode.type.name] = amount + 1;
+    }
+
+    tr.join(joins[i]);
+  }
+
+  return result;
 };

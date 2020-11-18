@@ -40,6 +40,7 @@ export type {
   FieldDefinition,
   Fieldset,
   NativeField,
+  NestedFieldDefinition,
   NumberField,
   Option,
   StringField,

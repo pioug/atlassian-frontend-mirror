@@ -4,6 +4,7 @@ import { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media, { MediaProps } from '../../../../react/nodes/media';
 import MediaSingle, {
   Props as MediaSingleProps,
+  getMediaContainerWidth,
 } from '../../../../react/nodes/mediaSingle';
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
@@ -11,6 +12,7 @@ import { WidthProvider } from '@atlaskit/editor-common';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import { InjectedIntlProps } from 'react-intl';
+import { ExtendedUIMediaSingle } from '../../../../react/nodes/mediaSingle/styles';
 
 describe('MediaSingle', () => {
   const editorWidth = 123;
@@ -25,12 +27,12 @@ describe('MediaSingle', () => {
         <MediaSingle
           layout={'center'}
           rendererAppearance={'full-page'}
-          marks={[]}
-          isLinkMark={() => false}
           {...mediaSingleProps}
         >
           <Media
             id={imageFileId.id}
+            isLinkMark={() => false}
+            marks={[]}
             type={imageFileId.mediaItemType}
             collection={imageFileId.collectionName}
             {...mediaProps}
@@ -46,15 +48,12 @@ describe('MediaSingle', () => {
       width: 250,
       height: 250,
     };
-
     const mediaAspectRatio = mediaDimensions.height / mediaDimensions.width;
 
     // mock page width
-    Object.defineProperties(document.body, {
-      offsetWidth: {
-        get: () => 123,
-      },
-    });
+    const mockOffsetWidth = jest
+      .spyOn(window.HTMLElement.prototype, 'offsetWidth', 'get')
+      .mockReturnValue(123);
 
     const mediaSingle = mountMediaSingle({}, { ...mediaDimensions });
 
@@ -70,6 +69,9 @@ describe('MediaSingle', () => {
     expect(cardHeight).toBeCloseTo(editorWidth * mediaAspectRatio);
 
     mediaSingle.unmount();
+
+    // reset mock page width
+    mockOffsetWidth.mockReturnValue(0);
   });
 
   describe('with link mark', () => {
@@ -81,12 +83,10 @@ describe('MediaSingle', () => {
       mediaSingle = mountMediaSingle(
         {
           fireAnalyticsEvent,
-
-          marks: [{ attrs: { href: 'http://atlassian.com' } } as any],
-          isLinkMark: () => true,
         },
         {
-          shouldOpenMediaViewer: true,
+          marks: [{ attrs: { href: 'http://atlassian.com' } } as any],
+          isLinkMark: () => true,
           eventHandlers: { media: { onClick: mediaOnClick } },
         },
       );
@@ -106,41 +106,18 @@ describe('MediaSingle', () => {
       ).toHaveLength(1);
     });
 
-    it('override eventHandlers to undefined', () => {
-      const mediaProps = mediaSingle.find('Media').props() as MediaProps;
-      expect(mediaProps.eventHandlers).toBeUndefined();
-    });
-
     it('override shouldOpenMediaViewer to be falsy', () => {
       const mediaProps = mediaSingle.find('Media').props() as MediaProps;
       expect(mediaProps.shouldOpenMediaViewer).toBeFalsy();
-    });
-
-    it('fires analytics on linked media', () => {
-      mediaSingle.find('Media').simulate('click');
-
-      expect(fireAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'visited',
-        actionSubject: 'mediaSingle',
-        actionSubjectId: 'mediaLink',
-        attributes: {
-          platform: 'web',
-          mode: 'renderer',
-        },
-        eventType: 'track',
-      });
-
-      expect(mediaOnClick).not.toHaveBeenCalled();
     });
   });
 
   it('does not override media props when there is not link', () => {
     const mediaOnClick = jest.fn();
     const mediaSingle = mountMediaSingle(
+      {},
       {
         marks: [],
-      },
-      {
         shouldOpenMediaViewer: true,
         eventHandlers: { media: { onClick: mediaOnClick } },
       },
@@ -165,6 +142,14 @@ describe('MediaSingle', () => {
       featureFlags,
     );
     mediaSingle.unmount();
+  });
+
+  it('should use default editor width when <WidthConsumer /> value is not available', () => {
+    const mediaSingle = mountMediaSingle();
+
+    expect(
+      mediaSingle.find(ExtendedUIMediaSingle).prop('containerWidth'),
+    ).toEqual(760);
   });
 
   describe('Captions', () => {
@@ -202,6 +187,26 @@ describe('MediaSingle', () => {
       expect(mediaSingle.find(Caption)).toHaveLength(0);
       expect(mediaSingle.find(Media)).toHaveLength(1);
       mediaSingle.unmount();
+    });
+  });
+
+  describe('getMediaContainerWidth()', () => {
+    it('should return existing value if available', () => {
+      expect(getMediaContainerWidth(100, 'center')).toEqual(100);
+      expect(getMediaContainerWidth(100, 'full-width')).toEqual(100);
+      expect(getMediaContainerWidth(100, 'wide')).toEqual(100);
+    });
+
+    it('should return existing value if layout is not full-width or wide', () => {
+      expect(getMediaContainerWidth(0, 'full-width')).toEqual(0);
+      expect(getMediaContainerWidth(0, 'wide')).toEqual(0);
+      expect(getMediaContainerWidth(100, 'full-width')).toEqual(100);
+      expect(getMediaContainerWidth(100, 'wide')).toEqual(100);
+    });
+
+    it('should return default value when existing container width is not available and layout is not full-width or wide', () => {
+      expect(getMediaContainerWidth(0, 'center')).toEqual(760);
+      expect(getMediaContainerWidth(0, 'align-end')).toEqual(760);
     });
   });
 });

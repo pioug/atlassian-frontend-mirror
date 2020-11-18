@@ -123,6 +123,10 @@ const getStyles = (
   margin: ${BORDER_WIDTH}px;
   padding: 0;
 
+  /* Added font-size and font-family styles to fix alignment issue in firefox for interactive button avatar */
+  font-size: inherit;
+  font-family: inherit;
+
   &::-moz-focus-inner {
     border: 0;
     margin: 0;
@@ -132,6 +136,9 @@ const getStyles = (
   &::after {
     background-color: transparent;
     bottom: 0px;
+
+    /* Added border-radius style to fix hover issue in safari */
+    border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
     content: ' ';
     left: 0px;
     opacity: 0;

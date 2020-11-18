@@ -25,7 +25,7 @@ import {
   createEmptyCollectionItem,
   CollectionItem,
 } from '../database';
-import { defaultBaseUrl } from '../..';
+import { defaultBaseUrl, vrVideoDetails } from '../..';
 import { createUpload } from '../database/upload';
 import { logRequest } from '../../utils/logging';
 import {
@@ -102,6 +102,8 @@ export function createApiRouter(
     return { data: collection };
   });
 
+  // TODO [EDM-1151]: Implement router.get('/file/binary') for videos
+
   router.post('/file/binary', ({ headers, body, query }, database) => {
     const { 'Content-Type': mimeType } = headers;
     const { collection, name, occurrenceKey } = query;
@@ -162,6 +164,8 @@ export function createApiRouter(
       const dataUri = mockDataUri(width, height);
 
       blob = mapDataUriToBlob(dataUri);
+    } else if (fileId === vrVideoDetails.id) {
+      blob = mapDataUriToBlob(vrVideoDetails.previewDataUri);
     } else {
       blob = record.data.blob;
     }

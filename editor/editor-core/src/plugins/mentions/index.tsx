@@ -2,6 +2,7 @@ import React from 'react';
 import uuid from 'uuid';
 import { Fragment, Node, Schema } from 'prosemirror-model';
 import { EditorState, Plugin, PluginKey, StateField } from 'prosemirror-state';
+import debounce from 'lodash/debounce';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import {
   ELEMENTS_CHANNEL,
@@ -33,11 +34,15 @@ import {
   pluginKey as typeAheadPluginKey,
   PluginState as TypeAheadPluginState,
 } from '../type-ahead/pm-plugins/main';
+import InviteItem, { INVITE_ITEM_DESCRIPTION } from './ui/InviteItem';
 import ToolbarMention from './ui/ToolbarMention';
 import mentionNodeView from './nodeviews/mention';
 import {
   buildTypeAheadCancelPayload,
   buildTypeAheadInsertedPayload,
+  buildTypeAheadInviteExposurePayload,
+  buildTypeAheadInviteItemClickedPayload,
+  buildTypeAheadInviteItemViewedPayload,
   buildTypeAheadRenderedPayload,
 } from './analytics';
 import {
@@ -51,7 +56,7 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { TypeAheadItem } from '../type-ahead/types';
-import { isTeamStats, isTeamType } from './utils';
+import { isInviteItem, isTeamStats, isTeamType } from './utils';
 import { IconMention } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import {
@@ -119,6 +124,10 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
       options.createAnalyticsEvent(payload).fire(ELEMENTS_CHANNEL);
     }
   };
+
+  let shouldTrackInviteItemExposure = false;
+  let inviteExperimentLastQueryWithResults = '';
+  const debouncedFireEvent = debounce(fireEvent, 200);
 
   return {
     name: 'mention',
@@ -258,13 +267,87 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
             ...pluginState.contextIdentifierProvider,
             sessionId,
           };
+
           if (queryChanged && pluginState.mentionProvider) {
+            // get ready to track invite item exposure once re-fetched is just invoked
+            shouldTrackInviteItemExposure = true;
             pluginState.mentionProvider.filter(query || '', mentionContext);
           }
 
-          return mentions.map(mention => memoizedToItem.call(mention));
+          const mentionItems = mentions.map(mention =>
+            memoizedToItem.call(mention),
+          );
+
+          // to show invite teammate item only if there is 2 or less mentionable user/team available
+          if (pluginState.mentionProvider && !!query && mentions.length <= 2) {
+            const {
+              shouldEnableInvite,
+              userRole,
+            } = pluginState.mentionProvider;
+
+            if (shouldTrackInviteItemExposure) {
+              // we don't want to overly fire the exposure event for each continuous key press
+              debouncedFireEvent(
+                buildTypeAheadInviteExposurePayload(
+                  !!shouldEnableInvite,
+                  sessionId,
+                  pluginState.contextIdentifierProvider,
+                  userRole,
+                ),
+              );
+              shouldTrackInviteItemExposure = false;
+            }
+
+            if (shouldEnableInvite) {
+              if (mentions.length > 0) {
+                inviteExperimentLastQueryWithResults = query;
+              }
+
+              const querySuffix = query.slice(
+                inviteExperimentLastQueryWithResults.length,
+              );
+
+              if (querySuffix.indexOf(' ') > -1) {
+                return mentionItems;
+              }
+
+              return [
+                ...mentionItems,
+                // invite item should be shown at the bottom
+                {
+                  title: INVITE_ITEM_DESCRIPTION.id,
+                  render: ({ isSelected, onClick, onHover }) => (
+                    <InviteItem
+                      productName={
+                        pluginState.mentionProvider
+                          ? pluginState.mentionProvider.productName
+                          : undefined
+                      }
+                      selected={isSelected}
+                      onMount={() => {
+                        fireEvent(
+                          buildTypeAheadInviteItemViewedPayload(
+                            sessionId,
+                            pluginState.contextIdentifierProvider,
+                            userRole,
+                          ),
+                        );
+                      }}
+                      onMouseEnter={onHover}
+                      onSelection={onClick}
+                      userRole={userRole}
+                    />
+                  ),
+                  mention: INVITE_ITEM_DESCRIPTION,
+                },
+              ];
+            }
+          }
+
+          return mentionItems;
         },
         selectItem(state, item, insert, { mode }) {
+          inviteExperimentLastQueryWithResults = '';
           const sanitizePrivateContent =
             options && options.sanitizePrivateContent;
           const mentionInsertDisplayName =
@@ -289,7 +372,8 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
             ...pluginState.contextIdentifierProvider,
             sessionId,
           };
-          if (mentionProvider) {
+
+          if (mentionProvider && !isInviteItem(item.mention)) {
             mentionProvider.recordMentionSelection(
               item.mention,
               mentionContext,
@@ -299,6 +383,32 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           const pickerElapsedTime = typeAheadPluginState.queryStarted
             ? Date.now() - typeAheadPluginState.queryStarted
             : 0;
+
+          if (
+            mentionProvider &&
+            mentionProvider.shouldEnableInvite &&
+            isInviteItem(item.mention)
+          ) {
+            // fire a different ui event for invite teammate item to prevent from data pollution
+            fireEvent(
+              buildTypeAheadInviteItemClickedPayload(
+                pickerElapsedTime,
+                typeAheadPluginState.upKeyCount,
+                typeAheadPluginState.downKeyCount,
+                sessionId,
+                mode,
+                typeAheadPluginState.query || '',
+                pluginState.contextIdentifierProvider,
+                mentionProvider.userRole,
+              ),
+            );
+
+            if (mentionProvider.onInviteItemClick) {
+              mentionProvider.onInviteItemClick('mention');
+            }
+
+            return state.tr;
+          }
 
           fireEvent(
             buildTypeAheadInsertedPayload(
@@ -350,6 +460,7 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           );
         },
         dismiss(state) {
+          inviteExperimentLastQueryWithResults = '';
           const typeAheadPluginState = typeAheadPluginKey.getState(
             state,
           ) as TypeAheadPluginState;

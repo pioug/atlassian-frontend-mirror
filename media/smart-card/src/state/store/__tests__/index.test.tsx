@@ -1,30 +1,48 @@
-import { renderSmartLinkHook } from '../../../utils/test-utils';
 import { useSmartCardState } from '..';
 import { CardStore } from '../../types';
-// TODO: Those tests are wrong and are not entering into the renderHook callbacks.
-// https://product-fabric.atlassian.net/browse/SL-366
-describe.skip('useSmartCardState()', () => {
+import CardClient from '../../../client';
+import { renderHook, RenderHookOptions } from '@testing-library/react-hooks';
+import { SmartCardProvider, ProviderProps } from '../../../state';
+import React from 'react';
+
+function generateWrapper(
+  providerProps?: Partial<ProviderProps>,
+): RenderHookOptions<{}>['wrapper'] {
+  return ({ children }) => (
+    <SmartCardProvider client={new CardClient()} {...providerProps}>
+      {children}
+    </SmartCardProvider>
+  );
+}
+
+describe('useSmartCardState()', () => {
   let mockUrl = 'some.url';
 
   it('correctly returns default state', () => {
-    renderSmartLinkHook(() => {
-      const result = useSmartCardState(mockUrl);
-      expect(result).toEqual({
-        status: 'pending',
-        lastUpdatedAt: expect.anything(),
-      });
+    const wrapper = generateWrapper();
+    const { current } = renderHook(() => useSmartCardState(mockUrl), {
+      wrapper,
+    }).result;
+    expect(current).toEqual({
+      status: 'pending',
+      lastUpdatedAt: expect.anything(),
     });
   });
 
   it('correctly returns default state, store on context undefined', () => {
     const initialState: CardStore = {};
-    renderSmartLinkHook(
-      () => {
-        const result = useSmartCardState(mockUrl);
-        expect(result).toEqual(initialState['some.url']);
-      },
-      { storeOptions: { initialState } },
-    );
+    const wrapper = generateWrapper({ storeOptions: { initialState } });
+    const { current } = renderHook(() => useSmartCardState(mockUrl), {
+      wrapper,
+    }).result;
+
+    expect(current).toEqual({
+      // The timestamp 1502841600000 is Wed Aug 16 00:00:00 2017 +0000, the value of date set in
+      // the global unit test mock
+      // See: build/jest-config/setup-dates.js
+      lastUpdatedAt: 1502841600000,
+      status: 'pending',
+    });
   });
 
   it('correctly returns state from context', () => {
@@ -43,12 +61,11 @@ describe.skip('useSmartCardState()', () => {
         },
       },
     };
-    renderSmartLinkHook(
-      () => {
-        const result = useSmartCardState(mockUrl);
-        expect(result).toEqual(initialState['some.url']);
-      },
-      { storeOptions: { initialState } },
-    );
+
+    const wrapper = generateWrapper({ storeOptions: { initialState } });
+    const { current } = renderHook(() => useSmartCardState(mockUrl), {
+      wrapper,
+    }).result;
+    expect(current).toEqual(initialState['some.url']);
   });
 });

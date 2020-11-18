@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { R300 } from '@atlaskit/theme/colors';
+import { R300, N60 } from '@atlaskit/theme/colors';
 
 export interface MutedIndicatorProps {
   isMuted: boolean;
@@ -123,6 +123,7 @@ export const RightControls = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+  color: ${N60};
 `;
 
 export const ControlsWrapper = styled.div`

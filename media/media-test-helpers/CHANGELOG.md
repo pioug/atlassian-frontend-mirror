@@ -1,5 +1,15 @@
 # @atlaskit/media-test-helpers
 
+## 28.4.0
+
+### Minor Changes
+
+- [`d6f279ecaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f279ecaa) - Add support for video files in MediaMock
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.3.1
 
 ### Patch Changes

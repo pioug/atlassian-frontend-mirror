@@ -67,6 +67,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
       popupMountPoint,
       extensionProviders,
     } = this.props;
+
     return (
       <SmartCardProvider client={smartCardClient}>
         <Editor

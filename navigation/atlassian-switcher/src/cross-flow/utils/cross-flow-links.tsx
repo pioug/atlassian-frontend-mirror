@@ -13,6 +13,7 @@ import {
   SwitcherProductType,
   RecommendationsFeatureFlags,
   DiscoverLinkItemKeys,
+  DiscoverMoreCallback,
 } from '../../types';
 import {
   AVAILABLE_PRODUCT_DATA_MAP,
@@ -22,6 +23,7 @@ import {
   getEmceeLink,
 } from '../../common/utils/links';
 import { mapLegacyProductTypeToSwitcherType } from '../../common/utils/map-to-switcher-props-with-mystique-ff';
+import SlackIcon from '../../ui/primitives/SlackIcon';
 
 export const getFixedProductLinks = (params: {
   isDiscoverMoreForEveryoneEnabled: boolean;
@@ -31,12 +33,19 @@ export const getFixedProductLinks = (params: {
 
 const getDiscoverMoreLink = (
   customIcon?: React.ComponentType<any>,
+  isSlackDiscoveryEnabled?: boolean,
 ): SwitcherItemType => {
   const icon = customIcon || AddIcon;
   return {
     // The discover more link href is intentionally empty to prioritise the onDiscoverMoreClicked callback
     key: DiscoverLinkItemKeys.DISCOVER_MORE,
-    label: <FormattedMessage {...messages.discoverMore} />,
+    label: (
+      <FormattedMessage
+        {...(isSlackDiscoveryEnabled
+          ? messages.moreProductsLink
+          : messages.moreAtlassianProductsLink)}
+      />
+    ),
     Icon: createIcon(icon, { size: 'medium' }),
     href: '',
   };
@@ -53,6 +62,14 @@ const getGitToolsLink = (): SwitcherItemType => {
   };
 };
 
+const getSlackIntegrationLink = (): SwitcherItemType => ({
+  // The Slack integration link href is intentionally empty to prioritise the slackDiscoveryClickHandler callback
+  key: DiscoverLinkItemKeys.SLACK_INTEGRATION,
+  label: <FormattedMessage {...messages.slackIntegrationLink} />,
+  Icon: createIcon(SlackIcon, { size: 'medium' }),
+  href: '',
+});
+
 export function getDiscoverSectionLinks({
   isDiscoverMoreForEveryoneEnabled,
   isEmceeLinkEnabled,
@@ -60,6 +77,8 @@ export function getDiscoverSectionLinks({
   canManagePermission,
   canAddProducts,
   recommendationsFeatureFlags,
+  isSlackDiscoveryEnabled,
+  slackDiscoveryClickHandler,
 }: {
   isDiscoverMoreForEveryoneEnabled: boolean;
   isEmceeLinkEnabled: boolean;
@@ -67,11 +86,18 @@ export function getDiscoverSectionLinks({
   canManagePermission: boolean;
   canAddProducts: boolean;
   recommendationsFeatureFlags?: RecommendationsFeatureFlags;
+  isSlackDiscoveryEnabled?: boolean;
+  slackDiscoveryClickHandler?: DiscoverMoreCallback;
 }) {
   const discoverLinks: SwitcherItemType[] = [];
   const discoverMoreLink =
     isDiscoverMoreForEveryoneEnabled &&
-    getDiscoverMoreLink(DiscoverFilledGlyph);
+    getDiscoverMoreLink(
+      DiscoverFilledGlyph,
+      isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler),
+    );
+
+  const slackIntegrationLink = getSlackIntegrationLink();
 
   const emceeLink =
     (canManagePermission || canAddProducts) &&
@@ -86,6 +112,9 @@ export function getDiscoverSectionLinks({
 
   if (gitToolsLink) {
     discoverLinks.push(gitToolsLink);
+  }
+  if (isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler)) {
+    discoverLinks.push(slackIntegrationLink);
   }
 
   if (discoverMoreLink) {

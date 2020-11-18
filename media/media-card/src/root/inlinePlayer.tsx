@@ -10,7 +10,11 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
 import { InlinePlayerWrapper } from './styled';
-import { CardDimensions, defaultImageCardDimensions } from '..';
+import {
+  CardDimensions,
+  defaultImageCardDimensions,
+  NumericalCardDimensions,
+} from '..';
 import { CardLoading } from '../utils/lightCards/cardLoading';
 
 import {
@@ -24,6 +28,7 @@ export interface InlinePlayerOwnProps {
   identifier: FileIdentifier;
   mediaClient: MediaClient;
   dimensions?: CardDimensions;
+  originalDimensions?: NumericalCardDimensions;
   selected?: boolean;
   onError?: (error: Error) => void;
   readonly onClick?: (
@@ -183,7 +188,14 @@ export class InlinePlayerBase extends Component<
   };
 
   render() {
-    const { onClick, dimensions, selected, testId, identifier } = this.props;
+    const {
+      onClick,
+      dimensions,
+      originalDimensions,
+      selected,
+      testId,
+      identifier,
+    } = this.props;
     const { fileSrc } = this.state;
 
     if (!fileSrc) {
@@ -210,6 +222,7 @@ export class InlinePlayerBase extends Component<
               lastWatchTimeConfig={{
                 contentId: identifier.id,
               }}
+              originalDimensions={originalDimensions}
             />
           )}
         </InactivityDetector>

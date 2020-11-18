@@ -387,5 +387,53 @@ describe('typeahead plugin -> commands -> select-item', () => {
         ),
       );
     });
+
+    it('should delete the query node if an invite teammate item is selected', () => {
+      const plugin = createTypeAheadPlugin();
+      const { editorView } = createEditor({
+        doc: doc(p(typeAheadQuery({ trigger: '@' })('@query{<>}'), 'content')),
+        editorPlugins: [plugin],
+      });
+      selectItem(
+        {
+          trigger: '@',
+          selectItem: (state, item, replaceWith) =>
+            replaceWith(state.schema.text(`${item.title} `)),
+          getItems: () => [],
+        },
+        {
+          title: 'invite-teammate',
+          mention: {
+            id: 'invite-teammate',
+          },
+        },
+      )(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(doc(p('content')));
+    });
+
+    it('should return false if an invite teammate item is selected by space', () => {
+      const plugin = createTypeAheadPlugin();
+      const { editorView } = createEditor({
+        doc: doc(p(typeAheadQuery({ trigger: '@' })('@query{<>}'), 'content')),
+        editorPlugins: [plugin],
+      });
+      expect(
+        selectItem(
+          {
+            trigger: '@',
+            selectItem: (state, item, replaceWith) =>
+              replaceWith(state.schema.text(`${item.title} `)),
+            getItems: () => [],
+          },
+          {
+            title: 'invite-teammate',
+            mention: {
+              id: 'invite-teammate',
+            },
+          },
+          'space',
+        )(editorView.state, editorView.dispatch),
+      ).toBe(false);
+    });
   });
 });

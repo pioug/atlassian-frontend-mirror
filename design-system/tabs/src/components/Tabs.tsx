@@ -40,6 +40,7 @@ const defaultComponents = {
 class Tabs extends Component<TabsProps, TabsState> {
   static defaultProps = {
     components: {},
+    isContentPersisted: false,
   };
 
   constructor(props: TabsProps) {
@@ -101,15 +102,31 @@ class Tabs extends Component<TabsProps, TabsState> {
   };
 
   render() {
-    const { components, tabs, testId } = this.props;
+    const { components, tabs, testId, isContentPersisted } = this.props;
     const { selected } = this.state;
 
     const { Content, Item } = { ...defaultComponents, ...components };
+
+    const contents = () => {
+      return tabs.map((tab, index) => {
+        const isSelected = tab === selected;
+        const contentProps = {
+          data: tab,
+          elementProps: {
+            role: 'tabpanel',
+          },
+          isSelected,
+        };
+        return <Content key={index} {...contentProps} />;
+      });
+    };
+
     const contentProps = {
       data: selected,
       elementProps: {
         role: 'tabpanel',
       },
+      isSelected: true,
     };
 
     return (
@@ -120,7 +137,7 @@ class Tabs extends Component<TabsProps, TabsState> {
           selected={selected}
           tabs={tabs}
         />
-        <Content {...contentProps} />
+        {isContentPersisted ? contents() : <Content {...contentProps} />}
       </StyledTabs>
     );
   }

@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 4.1.0
+
+### Minor Changes
+
+- [`c3ce422cd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3ce422cd4) - COLLAB-11-trigger-catchup-5s
+- [`474b09e4c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/474b09e4c0) - COLLAB-11 steps rejected error handler
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

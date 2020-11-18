@@ -12,9 +12,11 @@ export enum PanelType {
   WARNING = 'warning',
   ERROR = 'error',
   SUCCESS = 'success',
+  /**
+   * @stage 0
+   */
   CUSTOM = 'custom',
 }
-
 export interface PanelAttributes {
   panelType: PanelType;
   /**

@@ -1,8 +1,15 @@
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-
+jest.mock('raf-schd', () =>
+  jest.fn().mockImplementation((fn: any) => {
+    const fnRunner = (...args: any) => fn(...args);
+    fnRunner.cancel = () => {};
+    return fnRunner;
+  }),
+);
+import rafSchd from 'raf-schd';
 jest.mock('prosemirror-history');
 import { closeHistory } from 'prosemirror-history';
 
+import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p, a } from '@atlaskit/editor-test-helpers/schema-builder';
 
@@ -66,6 +73,7 @@ describe('card', () => {
 
       afterEach(() => {
         promises = [];
+        jest.clearAllMocks();
       });
 
       describe('replacedQueuedCardWithUrl', () => {
@@ -99,6 +107,11 @@ describe('card', () => {
           await Promise.all(promises);
 
           expect(closeHistory).toBeCalledTimes(1);
+          expect(rafSchd).toBeCalledTimes(2);
+          // // From floating toolbar.
+          expect(rafSchd).nthCalledWith(1, expect.any(Function));
+          // // From Smart Link Node View.
+          expect(rafSchd).nthCalledWith(2, expect.any(Function));
         });
       });
     });

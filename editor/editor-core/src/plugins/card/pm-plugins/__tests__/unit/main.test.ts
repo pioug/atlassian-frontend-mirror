@@ -4,12 +4,14 @@ import {
   p,
   inlineCard,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { resolveWithProvider, OutstandingRequests } from '../../main';
+import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common';
+
+import { OutstandingRequests } from '../../../types';
 import { Request } from '../../../types';
 import { INPUT_METHOD } from '../../../../../plugins/analytics/types';
 import { pluginKey } from '../../plugin-key';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { resolveWithProvider } from '../../util/resolve';
 
 describe('resolveWithProvider()', () => {
   const createEditor = createEditorFactory();

@@ -6,7 +6,7 @@ import Tag from '../src/tag/simple-tag';
 const tagColors = { blue: 'blue' as TagColor };
 
 export default () => (
-  <div>
+  <div id="simpleTags">
     <Tag text="standard Tag" color="standard" />
     <Tag text="blue Tag" color={tagColors.blue} />
     <Tag text="green Tag" color="green" />

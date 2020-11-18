@@ -3,26 +3,21 @@
   "type": "doc",
   "content": [
     {
-      "type" : "mediaSingle",
-      "attrs" : {
-        "layout" : "full-width"
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "full-width"
       },
-      "content" : [
+      "content": [
         {
-          "type" : "media",
-          "attrs" : {
+          "type": "media",
+          "attrs": {
             "newAttribute": "value2",
-            "collection" : "MediaServicesSample",
-            "id" : "a559980d-cd47-43e2-8377-27359fcb905f",
-            "width" : 300,
-            "type" : "file",
-            "height" : 200
-          },
-          "marks": [
-            {
-              "type": "strong"
-            }
-          ]
+            "collection": "MediaServicesSample",
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "width": 300,
+            "type": "file",
+            "height": 200
+          }
         }
       ]
     }

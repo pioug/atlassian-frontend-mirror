@@ -1,6 +1,10 @@
 export { WithProviders } from './provider-factory/with-providers';
 
-export type { Providers, ProviderName } from './provider-factory/types';
+export type {
+  Providers,
+  ProviderName,
+  ProviderHandler,
+} from './provider-factory/types';
 
 export {
   ProviderFactoryProvider,
@@ -30,6 +34,7 @@ export type {
 export type {
   CardProvider,
   CardAppearance,
+  CardAdf,
 } from './provider-factory/card-provider';
 
 export type {

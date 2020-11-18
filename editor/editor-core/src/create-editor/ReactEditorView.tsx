@@ -70,6 +70,7 @@ import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from './consts';
+import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -621,6 +622,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
             nodes: getNodesCount(this.view.state.doc),
             ttfb: getResponseEndTime(),
             severity: this.proseMirrorRenderedSeverity,
+            objectId: getContextIdentifier(this.editorState)?.objectId,
           },
           eventType: EVENT_TYPE.OPERATIONAL,
         });

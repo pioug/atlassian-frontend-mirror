@@ -51,15 +51,15 @@
                             "collection": "MediaServicesSample",
                             "width": 320,
                             "height": 320
-                          }
-                        }
-                      ],
-                      "marks": [
-                        {
-                          "type": "link",
-                          "attrs": {
-                            "href": "https://www.atlassian.com/"
-                          }
+                          },
+                          "marks": [
+                            {
+                              "type": "link",
+                              "attrs": {
+                                "href": "https://www.atlassian.com/"
+                              }
+                            }
+                          ]
                         }
                       ]
                     },

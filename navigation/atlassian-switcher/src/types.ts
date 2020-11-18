@@ -98,6 +98,8 @@ export enum Feature {
   isProductStoreInTrelloJSWFirstEnabled = 'isProductStoreInTrelloJSWFirstEnabled',
   // Show Confluence first in product recommendations
   isProductStoreInTrelloConfluenceFirstEnabled = 'isProductStoreInTrelloConfluenceFirstEnabled',
+  // Integrations discovery button and copy changes to More products
+  isSlackDiscoveryEnabled = 'isSlackDiscoveryEnabled',
 }
 
 export type FeatureFlagProps = {
@@ -117,6 +119,8 @@ export type FeatureFlagProps = {
   isDefaultEditionFreeExperimentEnabled?: boolean;
   // Use collaboration graph endpoint to show recent containers
   isCollaborationGraphRecentContainersEnabled?: boolean;
+  // Enable Integrations discovery in the discover more section
+  isSlackDiscoveryEnabled?: boolean;
 };
 
 export type FeatureMap = { [key in Feature]: boolean };
@@ -354,9 +358,12 @@ export type AtlassianSwitcherProps = WithTheme &
     defaultSignupEmail?: string;
     // Optional admin URl (required for Statuspage)
     adminUrl?: string;
+    // Optional callback to be exectuted after a user clicks on Slack for Atlassian.
+    slackDiscoveryClickHandler?: DiscoverMoreCallback;
   } & FeatureFlagProps;
 
 export enum DiscoverLinkItemKeys {
   DISCOVER_MORE = 'discover-more',
   GIT_TOOLS = 'appswitcher.git.tools',
+  SLACK_INTEGRATION = 'slack-integration',
 }

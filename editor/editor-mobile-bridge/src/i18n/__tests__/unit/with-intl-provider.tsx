@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { withIntlProvider } from '../../with-intl-provider';
 import * as queryParamReader from '../../../query-param-reader';
 import { injectIntl } from 'react-intl';
+import * as UseTranslationsHook from '../../use-translations';
 
 jest.mock('../../../query-param-reader');
 
@@ -17,6 +18,7 @@ const TestComponent = withIntlProvider(
       </div>
     );
   }),
+  jest.fn(() => Promise.resolve({})),
 );
 
 describe('i18n', () => {
@@ -62,6 +64,36 @@ describe('i18n', () => {
       return expect(
         result.findByText('default locale: en'),
       ).resolves.toBeDefined();
+    });
+  });
+
+  describe('get messages', () => {
+    let TestComponentWithMessageCallback: React.ComponentType;
+    let geti18NMessages: (localeFileName: string) => Promise<Object>;
+    let useTransaltionsSpy: any;
+    beforeEach(() => {
+      useTransaltionsSpy = jest.spyOn(UseTranslationsHook, 'useTranslations');
+      useTransaltionsSpy.mockImplementation(
+        jest.fn().mockReturnValue(['en', {}]),
+      );
+      geti18NMessages = jest.fn(() => Promise.resolve({ messages: {} }));
+      TestComponentWithMessageCallback = withIntlProvider(
+        injectIntl(props => {
+          return (
+            <div>
+              <span>default locale: {props.intl.locale}</span>
+            </div>
+          );
+        }),
+        geti18NMessages,
+      );
+    });
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+    it('should call useTranslations hook with geti18NMessages callback if passed', () => {
+      render(<TestComponentWithMessageCallback />);
+      expect(useTransaltionsSpy).toHaveBeenCalledWith(geti18NMessages);
     });
   });
 });

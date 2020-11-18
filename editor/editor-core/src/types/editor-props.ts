@@ -299,6 +299,10 @@ export interface EditorProps {
   // default: false, which falls back on the current list behaviour
   UNSAFE_predictableLists?: boolean;
 
+  // Experimental support for modern React Context for @atlaskit/analytics-next.
+  // Enables re-providing of AnalyticsContext for all ReactNodeViews.
+  UNSAFE_useAnalyticsContext?: boolean;
+
   /**
    * @default 100
    * @deprecated Use performanceTracking.transactionTracking instead https://product-fabric.atlassian.net/browse/ED-8985

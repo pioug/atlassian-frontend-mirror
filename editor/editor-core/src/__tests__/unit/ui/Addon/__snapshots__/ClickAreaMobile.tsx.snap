@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClickAreaMobile should set the min height of the click area as passed 1`] = `
+.c0 {
+  height: 100%;
+  min-height: 200vh;
+}
+
+<ClickAreaMobile
+  minHeight={200}
+>
+  <ClickWrapper
+    className="editor-click-wrapper"
+    innerRef={
+      Object {
+        "current": <div
+          class="editor-click-wrapper c0"
+        />,
+      }
+    }
+    minHeight={200}
+    onClick={[Function]}
+  >
+    <div
+      className="editor-click-wrapper c0"
+      onClick={[Function]}
+    />
+  </ClickWrapper>
+</ClickAreaMobile>
+`;

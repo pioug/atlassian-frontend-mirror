@@ -2,8 +2,14 @@ import { Transaction, Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 import { findParentNodeOfType } from 'prosemirror-utils';
+import {
+  addAnalytics,
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '../../analytics';
 import { isWrappingPossible } from '../utils/selection';
-import { isListNode } from '../utils/node';
+import { isListNode, JoinDirection, joinSiblingLists } from '../utils/node';
 import { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { ListsPluginState } from '../types';
@@ -19,7 +25,7 @@ const initialState: ListsPluginState = {
   decorationSet: DecorationSet.empty,
 };
 
-export const getDecorations = (doc: Node) => {
+export const getDecorations = (doc: Node): DecorationSet => {
   const decorations: Decoration[] = [];
 
   // this stack keeps track of each (nested) list to calculate the indentation level
@@ -132,10 +138,39 @@ const createInitialState = (state: EditorState) => {
   };
 };
 
-export const createPlugin = (dispatch: Dispatch) =>
+export const createPlugin = (eventDispatch: Dispatch): Plugin =>
   new Plugin({
-    state: createPluginState(dispatch, createInitialState),
+    state: createPluginState(eventDispatch, createInitialState),
     key: predictableListsPluginKey,
+    appendTransaction(transactions, _oldState, newState) {
+      const lastTransaction = transactions[transactions.length - 1];
+      if (!lastTransaction.docChanged) {
+        return;
+      }
+      const tr = newState.tr;
+      const listsJoined = joinSiblingLists({
+        tr,
+        direction: JoinDirection.RIGHT,
+      });
+      if (tr.docChanged) {
+        const {
+          orderedList: orderedListsJoined,
+          bulletList: bulletListsJoined,
+        } = listsJoined;
+
+        addAnalytics(newState, tr, {
+          action: ACTION.FIXED,
+          actionSubject: ACTION_SUBJECT.LIST,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            orderedListsJoined,
+            bulletListsJoined,
+          },
+        });
+
+        return tr;
+      }
+    },
     props: {
       decorations(state) {
         const { decorationSet } = getPluginState(state);

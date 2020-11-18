@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field Messages  should drop unsafe/unspecified tags 1`] = `
+<span
+  key="1"
+>
+  my
+   
+  <span
+    key="2"
+  >
+    description that has 
+    <strong
+      key="1"
+    >
+      bad code and 
+      <em
+        key="2"
+      >
+        emphasis
+      </em>
+    </strong>
+     on malformed 
+    tags
+  </span>
+</span>
+`;
+
+exports[`Field Messages  should support a plaintext description 1`] = `"my description"`;
+
+exports[`Field Messages  should support bold, italic, strong, em and code tags 1`] = `
+<span
+  key="1"
+>
+  <b
+    key="0"
+  >
+    my
+  </b>
+   
+  <i
+    key="2"
+  >
+    description
+  </i>
+   that has 
+  <code
+    key="4"
+  >
+    code
+  </code>
+   and 
+  <strong
+    key="6"
+  >
+    strong
+  </strong>
+   
+  <em
+    key="8"
+  >
+    emphasis
+  </em>
+</span>
+`;

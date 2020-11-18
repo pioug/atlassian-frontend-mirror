@@ -6,12 +6,16 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 const url = getExampleUrl('design-system', 'tabs', 'testing');
 
 /* Css selectors used for the test */
-const tabsContainer = "[data-testid='the-tabs']";
+const tabsContainer = "[data-testid='tabs']";
 const tab1 = "[data-testid='tab-1']";
 const tab2 = "[data-testid='tab-2']";
 const tab3 = "[data-testid='tab-3']";
 const tab4 = "[data-testid='tab-4']";
 const tabPanel = '[role="tabpanel"]';
+const tabContent1 = "[data-testid='tab-content-1']";
+const tabContent2 = "[data-testid='tab-content-2']";
+const tabContent3 = "[data-testid='tab-content-3']";
+const tabContent4 = "[data-testid='tab-content-4']";
 
 BrowserTestCase(
   'Tabs should be able to be identified and navigated by data-testid',
@@ -38,16 +42,32 @@ BrowserTestCase(
     // Check by default the first tab content.
     expect(await page.getText(tabPanel)).toContain('One');
 
-    // Navigate between tab and check the selection, content and focus.
-    // Tab then use arrow right to navigate.
-    await page.keys(['\uE004', '\uE014', '\uE014', '\uE014']);
-    expect(await page.getAttribute(tab4, 'aria-selected')).toBe('true');
-    expect(await page.getText(tabPanel)).toContain('Four');
-    expect(await page.hasFocus(tab4)).toBe(true);
     // Click
     await page.click(tab3);
     expect(await page.getAttribute(tab3, 'aria-selected')).toBe('true');
-    expect(await page.getText(tabPanel)).toContain('Three');
+    expect(await page.getText(tabContent3)).toContain('Three');
+  },
+);
+
+BrowserTestCase(
+  'Content should be visible only on the focused tab',
+  {},
+  async (client: any) => {
+    const page = new Page(client);
+    await page.goto(url);
+    await page.waitFor(tabsContainer, 5000);
+
+    // Navigate between tab and check the selection, content and focus.
+    // Tab then use arrow right to navigate.
+    await page.keys(['\uE004', '\uE014', '\uE014', '\uE014']);
+
+    // Tab 4 is in focus and it's content should be visible
     expect(await page.hasFocus(tab4)).toBe(true);
+    expect(await (await page.$(tabContent4)).isDisplayed()).toBe(true);
+
+    // Content of rest of the three tab should not be visible
+    expect(await (await page.$(tabContent1)).isDisplayed()).toBe(false);
+    expect(await (await page.$(tabContent2)).isDisplayed()).toBe(false);
+    expect(await (await page.$(tabContent3)).isDisplayed()).toBe(false);
   },
 );

@@ -18,6 +18,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
+  MediaLinkAEP,
 } from '../../analytics';
 import { currentMediaNode } from '../utils/current-media-node';
 import { checkMediaType } from '../utils/check-media-type';
@@ -132,12 +133,12 @@ function toggleLinkMark(
   }
 
   const linkMark = state.schema.marks.link;
-  const { mediaSingle } = state.schema.nodes;
+  const { media } = state.schema.nodes;
   const toggleBlockLinkMark = createToggleBlockMarkOnRange<LinkAttributes>(
     linkMark,
     (prevAttrs, node) => {
-      // Only add mark to media single
-      if (!node || node.type !== mediaSingle) {
+      // Only add mark to media
+      if (!node || node.type !== media) {
         return; //No op
       }
       if (forceRemove) {
@@ -158,30 +159,47 @@ function toggleLinkMark(
         href: href,
       };
     },
-    [mediaSingle],
+    [media],
   );
-  toggleBlockLinkMark($pos.pos, $pos.pos + node.nodeSize - 1, tr, state);
+  toggleBlockLinkMark($pos.pos, $pos.pos + node.nodeSize, tr, state);
 
   return tr;
 }
+
+const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
+  tr: Transaction,
+  state: EditorState,
+  action: T['action'],
+  attributes: T['attributes'] = undefined,
+) => {
+  return addAnalytics(state, tr, {
+    action,
+    eventType: EVENT_TYPE.TRACK,
+    actionSubject: ACTION_SUBJECT.MEDIA,
+    actionSubjectId: ACTION_SUBJECT_ID.LINK,
+    attributes,
+  });
+};
 
 export const unlink = createMediaLinkingCommand(
   {
     type: MediaLinkingActionsTypes.unlink,
   },
   (tr, state) => {
-    return addAnalytics(
-      state,
-      toggleLinkMark(tr, state, { forceRemove: true }),
-      {
-        eventType: EVENT_TYPE.TRACK,
-        action: ACTION.UNLINK,
-        actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
-        actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
-      },
-    );
+    const transaction = toggleLinkMark(tr, state, { forceRemove: true });
+    return fireAnalyticForMediaLink(transaction, state, ACTION.DELETED);
   },
 );
+
+const getAction = (newUrl: string, state: EditorState) => {
+  const currentUrl = getCurrentUrl(state);
+  if (!currentUrl) {
+    return ACTION.ADDED;
+  } else if (newUrl !== currentUrl) {
+    return ACTION.EDITED;
+  }
+  return undefined;
+};
 
 export const setUrlToMedia = (
   url: string,
@@ -193,28 +211,25 @@ export const setUrlToMedia = (
       payload: normalizeUrl(url),
     },
     (tr, state) => {
-      const currentUrl = getCurrentUrl(state);
-      if (!currentUrl) {
-        // Insert Media Link
-        addAnalytics(state, tr, {
-          eventType: EVENT_TYPE.TRACK,
-          action: ACTION.INSERTED,
-          actionSubject: ACTION_SUBJECT.DOCUMENT,
-          actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
-          attributes: {
-            inputMethod,
-          },
-        });
-      } else if (url !== currentUrl) {
-        // Change Url Event
-        addAnalytics(state, tr, {
-          eventType: EVENT_TYPE.TRACK,
-          action: ACTION.CHANGED_URL,
-          actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
-          actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
-        });
+      const action = getAction(url, state);
+      if (!action) {
+        return tr;
       }
 
-      return toggleLinkMark(tr, state, { url: url });
+      try {
+        const toggleLinkMarkResult = toggleLinkMark(tr, state, { url: url });
+        fireAnalyticForMediaLink(
+          tr,
+          state,
+          action,
+          action === ACTION.ADDED ? { inputMethod } : undefined,
+        );
+        return toggleLinkMarkResult;
+      } catch (e) {
+        fireAnalyticForMediaLink(tr, state, ACTION.ERRORED, {
+          action: action,
+        });
+        throw e;
+      }
     },
   );

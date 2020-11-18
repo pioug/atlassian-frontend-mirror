@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
-import { createParagraphAtEnd } from '../../../commands';
+import { clickAreaClickHandler } from '../click-area-helper';
 
 /**
  * Fills the visible viewport height so that it can filter
@@ -44,29 +44,13 @@ export default class ClickAreaMobile extends React.Component<Props> {
     if (!view) {
       return;
     }
-
-    // The scroll gutter plugin's element sits beneath the editor so any clicks lower
-    // than the bottom of the editor can be considered suitable for inserttion and refocusing.
+    clickAreaClickHandler(view, event);
     const scrollGutterClicked =
       event.clientY > view.dom.getBoundingClientRect().bottom;
-
-    if (scrollGutterClicked) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      // Refocus the editor. We know it's lost focus because the click was beneath it.
-      view.focus();
-
-      // Insert an empty paragraph at the end of the document (if one doesn't already exist).
-      // This allows the user to tap beneath the previously last content node.
-      // It's useful if the last node captures text selection (e.g. table, layout, codeblock).
-      createParagraphAtEnd()(view.state, view.dispatch);
-
-      // Reset the default prosemirror scrollIntoView logic by
-      // clamping the scroll position to the bottom of the viewport.
-      if (this.clickElementRef.current) {
-        this.clickElementRef.current.scrollIntoView(false);
-      }
+    // Reset the default prosemirror scrollIntoView logic by
+    // clamping the scroll position to the bottom of the viewport.
+    if (scrollGutterClicked && this.clickElementRef.current) {
+      this.clickElementRef.current.scrollIntoView(false);
     }
   };
 

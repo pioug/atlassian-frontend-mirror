@@ -6,12 +6,16 @@ import {
   ImageResizeMode,
 } from '@atlaskit/media-client';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import {
+  MediaFeatureFlags,
+  NumericalCardDimensions,
+} from '@atlaskit/media-common';
 import { CardAction } from './actions';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 
 import { CardPreview } from './root/card/getCardPreview';
 
+export type { NumericalCardDimensions } from '@atlaskit/media-common';
 export type {
   MediaCardAnalyticsPayload,
   MediaCardAnalyticsFileAttributes,
@@ -38,12 +42,6 @@ export type TitleBoxIcon = 'LockFilledIcon';
 export interface CardDimensions {
   width?: CardDimensionValue;
   height?: CardDimensionValue;
-}
-
-// TODO EDM-689 Please, consolidate these two CardDimensions types
-export interface NumericalCardDimensions {
-  width: number;
-  height: number;
 }
 
 export interface CardEvent {

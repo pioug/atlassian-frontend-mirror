@@ -3,11 +3,13 @@ import {
   GasPayload,
   OPERATIONAL_EVENT_TYPE,
   UI_EVENT_TYPE,
+  SCREEN_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import {
   isSpecialMention,
   MentionDescription,
 } from '@atlaskit/mention/resource';
+import { UserRole } from '@atlaskit/mention';
 import {
   name as packageName,
   version as packageVersion,
@@ -95,6 +97,85 @@ const getPosition = (
 };
 
 const isClicked = (insertType: SelectItemMode) => insertType === 'selected';
+
+export const buildTypeAheadInviteItemViewedPayload = (
+  sessionId: string,
+  contextIdentifierProvider?: ContextIdentifierProvider,
+  userRole?: UserRole,
+): GasPayload => {
+  const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
+    {}) as ContextIdentifierProvider;
+
+  return buildAnalyticsPayload(
+    'inviteItem',
+    'viewed',
+    SCREEN_EVENT_TYPE,
+    sessionId,
+    {
+      containerId,
+      objectId,
+      childObjectId,
+      userRole,
+    },
+  );
+};
+
+export const buildTypeAheadInviteExposurePayload = (
+  shouldEnableInvite: boolean,
+  sessionId: string,
+  contextIdentifierProvider?: ContextIdentifierProvider,
+  userRole?: UserRole,
+): GasPayload => {
+  const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
+    {}) as ContextIdentifierProvider;
+  return buildAnalyticsPayload(
+    'feature',
+    'exposed',
+    OPERATIONAL_EVENT_TYPE,
+    sessionId,
+    {
+      flagKey: 'confluence.frontend.invite.from.mention',
+      value: shouldEnableInvite,
+      containerId,
+      objectId,
+      childObjectId,
+      userRole,
+    },
+  );
+};
+
+export const buildTypeAheadInviteItemClickedPayload = (
+  duration: number,
+  upKeyCount: number,
+  downKeyCount: number,
+  sessionId: string,
+  insertType: SelectItemMode,
+  query?: string,
+  contextIdentifierProvider?: ContextIdentifierProvider,
+  userRole?: UserRole,
+): GasPayload => {
+  const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
+  const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
+    {}) as ContextIdentifierProvider;
+
+  return buildAnalyticsPayload(
+    'inviteItem',
+    isClicked(insertType) ? 'clicked' : 'pressed',
+    UI_EVENT_TYPE,
+    sessionId,
+    {
+      duration,
+      queryLength,
+      spaceInQuery,
+      upKeyCount,
+      downKeyCount,
+      containerId,
+      objectId,
+      childObjectId,
+      userRole,
+    },
+  );
+};
 
 export const buildTypeAheadInsertedPayload = (
   duration: number,

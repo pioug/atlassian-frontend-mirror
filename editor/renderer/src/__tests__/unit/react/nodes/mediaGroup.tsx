@@ -41,6 +41,8 @@ describe('MediaGroup', () => {
         <Media
           id={genericFileId.id}
           type={genericFileId.mediaItemType}
+          marks={[]}
+          isLinkMark={() => false}
           collection={genericFileId.collectionName}
         />
       </MediaGroup>,
@@ -56,6 +58,8 @@ describe('MediaGroup', () => {
         <Media
           id={imageFileId.id}
           type={imageFileId.mediaItemType}
+          marks={[]}
+          isLinkMark={() => false}
           collection={imageFileId.collectionName}
         />
       </MediaGroup>,
@@ -69,10 +73,14 @@ describe('MediaGroup', () => {
         <Media
           id={imageFileId.id}
           type={imageFileId.mediaItemType}
+          marks={[]}
+          isLinkMark={() => false}
           collection={imageFileId.collectionName}
         />
         <Media
           id={imageFileId.id}
+          marks={[]}
+          isLinkMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -92,6 +100,8 @@ describe('MediaGroup', () => {
           id={imageFileId.id}
           type={imageFileId.mediaItemType}
           occurrenceKey="001"
+          marks={[]}
+          isLinkMark={() => false}
           collection={imageFileId.collectionName}
           providers={providerFactory}
         />
@@ -99,6 +109,8 @@ describe('MediaGroup', () => {
           id={imageFileId.id}
           type={imageFileId.mediaItemType}
           occurrenceKey="001"
+          marks={[]}
+          isLinkMark={() => false}
           collection={imageFileId.collectionName}
           providers={providerFactory}
         />
@@ -134,6 +146,8 @@ describe('MediaGroup', () => {
       <MediaGroup>
         <Media
           id={imageFileId.id}
+          marks={[]}
+          isLinkMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -147,11 +161,15 @@ describe('MediaGroup', () => {
       <MediaGroup>
         <Media
           id={imageFileId.id}
+          marks={[]}
+          isLinkMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
         <Media
           id={imageFileId.id}
+          marks={[]}
+          isLinkMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />
@@ -162,11 +180,15 @@ describe('MediaGroup', () => {
         <Media
           id={imageFileId.id}
           type={imageFileId.mediaItemType}
+          marks={[]}
+          isLinkMark={() => false}
           collection={imageFileId.collectionName}
         />
         <Media
           id={imageFileId.id}
           type={imageFileId.mediaItemType}
+          marks={[]}
+          isLinkMark={() => false}
           collection={imageFileId.collectionName}
         />
       </MediaGroup>,
@@ -188,6 +210,8 @@ describe('MediaGroup', () => {
       <MediaGroup featureFlags={featureFlags}>
         <Media
           id={imageFileId.id}
+          marks={[]}
+          isLinkMark={() => false}
           type={imageFileId.mediaItemType}
           collection={imageFileId.collectionName}
         />

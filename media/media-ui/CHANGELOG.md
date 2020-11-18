@@ -1,5 +1,16 @@
 # @atlaskit/media-ui
 
+## 14.3.0
+
+### Minor Changes
+
+- [`0c0de3acae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c0de3acae) - [EDM-341]: Add playback speed control to inline video player
+
+### Patch Changes
+
+- [`b124464476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b124464476) - Fixing bug. Text should be "Preview unavailable" not "Preview Unavailable"
+- Updated dependencies
+
 ## 14.2.1
 
 ### Patch Changes

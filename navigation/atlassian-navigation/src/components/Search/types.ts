@@ -10,4 +10,8 @@ export type SearchProps = BaseIconButtonProps & {
    * page with a screen reader
    */
   label: string;
+  /**
+   * Value of search field.
+   */
+  value?: string;
 };

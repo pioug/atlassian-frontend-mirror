@@ -20,6 +20,7 @@ import {
   getClipboardAttrs,
   CardWrapper,
 } from '../../../../ui/MediaCard';
+import { MediaLink } from '@atlaskit/editor-common';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
@@ -121,6 +122,8 @@ describe('Media', () => {
       <Media
         type={mediaNode.attrs.type as MediaType}
         id={mediaNode.attrs.id}
+        marks={[]}
+        isLinkMark={() => false}
         collection={mediaNode.attrs.collection}
       />,
     );
@@ -136,6 +139,8 @@ describe('Media', () => {
         id={mediaNode.attrs.id}
         collection={mediaNode.attrs.collection}
         alt="test"
+        marks={[]}
+        isLinkMark={() => false}
         allowAltTextOnImages={true}
       />,
     );
@@ -146,6 +151,76 @@ describe('Media', () => {
     mediaComponent.unmount();
   });
 
+  it('event handlers are not called when media is linked', () => {
+    const mediaOnClick = jest.fn();
+    const mediaComponent = mount(
+      <Media
+        type={mediaNode.attrs.type as MediaType}
+        id={mediaNode.attrs.id}
+        collection={mediaNode.attrs.collection}
+        alt="test"
+        marks={[{ attrs: { href: 'http://atlassian.com' } } as any]}
+        isLinkMark={() => true}
+        allowAltTextOnImages={true}
+        eventHandlers={{ media: { onClick: mediaOnClick } }}
+      />,
+    );
+    mediaComponent.find(MediaLink).simulate('click');
+    const mediaCardProps = mediaComponent.find(MediaCard).props();
+    expect(mediaCardProps.eventHandlers).toEqual(undefined);
+    expect(mediaOnClick).not.toHaveBeenCalled();
+  });
+  it('calls event handlers', () => {
+    const mediaOnClick = jest.fn();
+    const mediaComponent = mount(
+      <Media
+        type={mediaNode.attrs.type as MediaType}
+        id={mediaNode.attrs.id}
+        collection={mediaNode.attrs.collection}
+        alt="test"
+        marks={[]}
+        isLinkMark={() => false}
+        allowAltTextOnImages={true}
+        eventHandlers={{ media: { onClick: mediaOnClick } }}
+      />,
+    );
+    const mediaCardProps = mediaComponent.find(MediaCard).props();
+    expect(mediaCardProps.eventHandlers).toEqual({
+      media: { onClick: mediaOnClick },
+    });
+    expect(mediaOnClick).not.toHaveBeenCalled();
+  });
+
+  it('fires analytics on linked media', () => {
+    const mediaOnClick = jest.fn();
+    const fireAnalyticsEvent = jest.fn();
+    const mediaComponent = mount(
+      <Media
+        type={mediaNode.attrs.type as MediaType}
+        id={mediaNode.attrs.id}
+        collection={mediaNode.attrs.collection}
+        alt="test"
+        fireAnalyticsEvent={fireAnalyticsEvent}
+        marks={[{ attrs: { href: 'http://atlassian.com' } } as any]}
+        isLinkMark={() => true}
+        allowAltTextOnImages={true}
+        eventHandlers={{ media: { onClick: mediaOnClick } }}
+      />,
+    );
+    mediaComponent.find(MediaLink).simulate('click');
+
+    expect(fireAnalyticsEvent).toHaveBeenCalledWith({
+      action: 'visited',
+      actionSubject: 'media',
+      actionSubjectId: 'link',
+      attributes: {
+        platform: 'web',
+        mode: 'renderer',
+      },
+      eventType: 'track',
+    });
+  });
+
   it('should render a media component without alt text if FF is off', () => {
     const mediaComponent = mount(
       <Media
@@ -153,6 +228,8 @@ describe('Media', () => {
         id={mediaNode.attrs.id}
         collection={mediaNode.attrs.collection}
         alt="test"
+        marks={[]}
+        isLinkMark={() => false}
         allowAltTextOnImages={false}
       />,
     );
@@ -165,7 +242,12 @@ describe('Media', () => {
 
   it('should render a media component with external image', () => {
     const mediaComponent = mount(
-      <Media type="external" url="http://image.jpg" />,
+      <Media
+        type="external"
+        url="http://image.jpg"
+        marks={[]}
+        isLinkMark={() => false}
+      />,
     );
 
     expect(mediaComponent.find(MediaCard).length).toEqual(1);

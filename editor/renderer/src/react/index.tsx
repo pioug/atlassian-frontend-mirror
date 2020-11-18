@@ -192,8 +192,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       case 'heading':
         return this.getHeadingProps(node, path);
       case 'media':
+        return this.getMediaProps(node, path);
       case 'mediaGroup':
-        return this.getMediaProps(node);
+        return this.getMediaGroupProps(node);
       case 'mediaSingle':
         return this.getMediaSingleProps(node, path);
       case 'table':
@@ -270,12 +271,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.startPos = pos + node.nodeSize;
 
     const marks = node.marks ? [...node.marks] : [];
-    const isMediaSingle = node.type.name === 'mediaSingle';
+    const isMedia = node.type.name === 'media';
 
     const shouldSkipMark = (mark: Mark): boolean =>
-      this.allowMediaLinking !== true &&
-      isMediaSingle &&
-      mark.type.name === 'link';
+      this.allowMediaLinking !== true && isMedia && mark.type.name === 'link';
 
     return marks.reverse().reduce((content, mark) => {
       if (shouldSkipMark(mark)) {
@@ -296,7 +295,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     mark: Mark,
     defaultProps: any,
   ): any => {
-    if (mark.type.name === 'link' && node.type.name === 'mediaSingle') {
+    if (mark.type.name === 'link' && node.type.name === 'media') {
       return {
         ...defaultProps,
         isMediaLink: true,
@@ -442,6 +441,25 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const isInsideOfBlockNode =
       path &&
       path.some(n => n.type && blockNodeNames.indexOf(n.type.name) > -1);
+    const isLinkMark = (mark: Mark) => mark.type === link;
+    const childHasLink =
+      node.firstChild &&
+      node.firstChild.marks.filter(
+        m => isLinkMark(m) || this.allowMediaLinking === true,
+      ).length;
+
+    return {
+      ...this.getProps(node),
+      isInsideOfBlockNode,
+      childHasLink,
+      featureFlags: this.media && this.media.featureFlags,
+    };
+  }
+
+  private getMediaProps(node: Node, path: Array<Node> = []) {
+    const {
+      marks: { link },
+    } = node.type.schema;
 
     const isLinkMark = (mark: Mark) => mark.type === link;
 
@@ -451,8 +469,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         m => !isLinkMark(m) || this.allowMediaLinking === true,
       ),
       isLinkMark,
-      isInsideOfBlockNode,
+      allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
+      shouldOpenMediaViewer: this.shouldOpenMediaViewer,
     };
   }
 
@@ -472,7 +491,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   }
 
-  private getMediaProps(node: Node) {
+  private getMediaGroupProps(node: Node) {
     return {
       ...this.getProps(node),
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,

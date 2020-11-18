@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 import { SearchProvider, QuickSearchResult } from '@atlaskit/editor-common';
+import { isSafeUrl } from '@atlaskit/adf-schema';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorAlignLeftIcon from '@atlaskit/icon/glyph/editor/align-left';
 import LinkIcon from '@atlaskit/icon/glyph/link';
@@ -448,6 +449,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         this.setState({
           items: await this.getRecentItems(activityProvider),
           selectedIndex: -1,
+        });
+      } else if (isSafeUrl(input)) {
+        this.setState({
+          items: [],
+          selectedIndex: -1,
+          isLoading: false,
         });
       } else {
         const items = await this.getRecentItems(activityProvider, input);

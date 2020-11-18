@@ -1,4 +1,9 @@
-import { CardProvider, ORSProvidersResponse, ORSCheckResponse } from './types';
+import {
+  CardProvider,
+  ORSProvidersResponse,
+  ORSCheckResponse,
+  CardAdf,
+} from './types';
 import { Transformer } from './transformer';
 
 import { CardAppearance } from '../../view/Card';
@@ -74,7 +79,7 @@ export class EditorCardProvider implements CardProvider {
     return false;
   }
 
-  async resolve(url: string, appearance: CardAppearance): Promise<any> {
+  async resolve(url: string, appearance: CardAppearance): Promise<CardAdf> {
     try {
       let isSupported =
         (await this.findPattern(url)) || (await this.check(url));
@@ -94,4 +99,11 @@ export class EditorCardProvider implements CardProvider {
 }
 
 export const editorCardProvider = new EditorCardProvider();
-export type { CardProvider, ORSCheckResponse } from './types';
+export type {
+  CardProvider,
+  ORSCheckResponse,
+  CardAdf,
+  InlineCardAdf,
+  BlockCardAdf,
+  EmbedCardAdf,
+} from './types';

@@ -4,6 +4,7 @@ import {
   StepsPayload,
   InitPayload,
   Config,
+  ErrorPayload,
 } from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
@@ -29,6 +30,7 @@ const allExpectedEventNames: string[] = [
   'participant:updated',
   'title:changed',
   'disconnect',
+  'error',
 ];
 
 const testChannelConfig: Config = {
@@ -197,6 +199,27 @@ describe('channel unit tests', () => {
         anchor: 3,
         head: 3,
       },
+    });
+  });
+
+  it('should handle step-rejected errors', done => {
+    const channel = getChannel();
+    channel.on('error', (error: ErrorPayload | string) => {
+      try {
+        expect(error).toEqual(<ErrorPayload>{
+          code: 'HEAD_VERSION_UPDATE_FAILED',
+          meta: 'The version number does not match the current head version.',
+          message: 'Version number does not match current head version.',
+        });
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+    channel.getSocket()!.emit('error', <ErrorPayload>{
+      code: 'HEAD_VERSION_UPDATE_FAILED',
+      meta: 'The version number does not match the current head version.',
+      message: 'Version number does not match current head version.',
     });
   });
 

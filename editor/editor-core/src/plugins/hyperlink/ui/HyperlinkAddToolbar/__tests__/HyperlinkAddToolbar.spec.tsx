@@ -1537,4 +1537,88 @@ describe('HyperlinkAddToolbar', () => {
       });
     });
   });
+
+  describe('others', () => {
+    it('should not trigger search if the input query starts with https://', async () => {
+      const {
+        component,
+        activityProviderPromise,
+        searchProviderPromise,
+        updateInputFieldWithStateUpdated,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 3)),
+        ],
+      });
+
+      if (!activityProviderPromise) {
+        return expect(activityProviderPromise).toBeDefined();
+      }
+      if (!searchProviderPromise) {
+        return expect(searchProviderPromise).toBeDefined();
+      }
+
+      const query = 'https://www.atlassian.com';
+      const activityProvider = await activityProviderPromise;
+      const searchProvider = await searchProviderPromise;
+
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+      component.update();
+
+      const items = component.find(LinkSearchList).props().items;
+      if (!items) {
+        return expect(items).toBeDefined();
+      }
+      expect(items).toHaveLength(0);
+
+      expect(activityProvider.searchRecent).toHaveBeenCalledTimes(0);
+      expect(searchProvider.quickSearch).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not trigger search if the input query starts with http://', async () => {
+      const {
+        component,
+        activityProviderPromise,
+        searchProviderPromise,
+        updateInputFieldWithStateUpdated,
+      } = await setup({
+        waitForResolves: true,
+        searchRecentPromise: Promise.resolve(
+          activityProviderMockResults.slice(0, 2),
+        ),
+        quickSearchPromises: [
+          Promise.resolve(searchProviderMockResults.slice(0, 3)),
+        ],
+      });
+
+      if (!activityProviderPromise) {
+        return expect(activityProviderPromise).toBeDefined();
+      }
+      if (!searchProviderPromise) {
+        return expect(searchProviderPromise).toBeDefined();
+      }
+
+      const query = 'http://www.atlassian.com';
+      const activityProvider = await activityProviderPromise;
+      const searchProvider = await searchProviderPromise;
+
+      await updateInputFieldWithStateUpdated('link-url', query);
+      clock.tick(500);
+      component.update();
+
+      const items = component.find(LinkSearchList).props().items;
+      if (!items) {
+        return expect(items).toBeDefined();
+      }
+      expect(items).toHaveLength(0);
+
+      expect(activityProvider.searchRecent).toHaveBeenCalledTimes(0);
+      expect(searchProvider.quickSearch).toHaveBeenCalledTimes(0);
+    });
+  });
 });

@@ -10,6 +10,7 @@ import {
   EditorState,
   Selection,
   TextSelection,
+  NodeSelection,
   Transaction,
 } from 'prosemirror-state';
 import {
@@ -18,10 +19,11 @@ import {
   safeInsert,
 } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+import { Transform } from 'prosemirror-transform';
 
 import { MentionAttributes } from '@atlaskit/adf-schema';
 import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
-import { CardAppearance } from '@atlaskit/smart-card';
+import { CardAdf, CardAppearance } from '@atlaskit/smart-card';
 
 import { Command, CommandDispatch } from '../../types';
 import { compose, insideTable, processRawValue } from '../../utils';
@@ -39,7 +41,15 @@ import {
 } from '../text-formatting/pm-plugins/main';
 import { replaceSelectedTable } from '../table/transforms/replace-table';
 
-import { applyTextMarksToSlice, hasOnlyNodesOfType } from './util';
+import {
+  applyTextMarksToSlice,
+  hasOnlyNodesOfType,
+  isEmptyNode,
+  isCursorSelectionAtTextStartOrEnd,
+  isSelectionInsidePanel,
+} from './util';
+import { getFeatureFlags } from '../feature-flags-context';
+import { isListNode } from '../lists-predictable/utils/node';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -260,9 +270,9 @@ async function isLinkSmart(
   text: string,
   type: CardAppearance,
   cardOptions: CardOptions,
-): Promise<boolean> {
+): Promise<CardAdf> {
   if (!cardOptions.provider) {
-    return false;
+    throw Error('No card provider found');
   }
   const provider = await cardOptions.provider;
   return await provider.resolve(text, type);
@@ -335,7 +345,7 @@ export function handleMacroAutoConvert(
         }
 
         isLinkSmart(text, 'inline', cardsOptions)
-          .then((cardData: any) => {
+          .then(cardData => {
             if (!view) {
               throw new Error('Missing view');
             }
@@ -496,6 +506,102 @@ function hasInlineCode(state: EditorState, slice: Slice) {
   );
 }
 
+export function insertSlice({ tr, slice }: { tr: Transaction; slice: Slice }) {
+  const {
+    selection,
+    selection: { $to, $from, to, from },
+  } = tr;
+  const { $cursor } = selection as TextSelection;
+  const panelNode = isSelectionInsidePanel(selection);
+  const selectionIsInsideList = $from.blockRange($to, isListNode);
+
+  // if pasting a list inside another list, ensure no empty list items get added
+  const newRange = $from.blockRange($to);
+  if (selectionIsInsideList && newRange) {
+    const startPos = from;
+    const endPos = $to.nodeAfter ? to : to + 2;
+    const newSlice = tr.doc.slice(endPos, newRange.end);
+    tr.deleteRange(startPos, newRange.end);
+    const mapped = tr.mapping.map(startPos);
+    tr.replaceRange(mapped, mapped, slice);
+    if (newSlice.size <= 0) {
+      return;
+    }
+    const newSelection = TextSelection.near(
+      tr.doc.resolve(tr.mapping.map(mapped)),
+      -1,
+    );
+    newSlice.openEnd = newSlice.openStart;
+    tr.replaceRange(newSelection.from, newSelection.from, newSlice);
+    return;
+  }
+
+  // if inside an empty panel, try and insert content inside it rather than replace it
+  if (panelNode && isEmptyNode(panelNode) && $from.node() === $to.node()) {
+    const { from: panelPosition } = selection;
+
+    // if content of slice isn't valid for a panel node, insert slice after
+    if (
+      panelNode &&
+      !panelNode.type.validContent(Fragment.from(slice.content))
+    ) {
+      const insertPosition = $to.pos + 2;
+      tr.replaceRange(insertPosition, insertPosition, slice);
+      tr.setSelection(
+        TextSelection.near(
+          tr.doc.resolve(insertPosition + slice.content.size),
+          -1,
+        ),
+      );
+      return;
+    }
+
+    const temporaryDoc = new Transform(tr.doc.type.createAndFill()!);
+    temporaryDoc.replaceRange(0, temporaryDoc.doc.content.size, slice);
+    const sliceWithoutInvalidListSurrounding = temporaryDoc.doc.slice(0);
+    const newPanel = panelNode.copy(sliceWithoutInvalidListSurrounding.content);
+    const panelNodeSelected =
+      selection instanceof NodeSelection ? selection.node : null;
+
+    const replaceFrom = panelNodeSelected
+      ? panelPosition
+      : tr.doc.resolve(panelPosition).start();
+    const replaceTo = panelNodeSelected
+      ? panelPosition + panelNodeSelected.nodeSize
+      : replaceFrom;
+
+    tr.replaceRangeWith(replaceFrom, replaceTo, newPanel);
+
+    tr.setSelection(
+      TextSelection.near(tr.doc.resolve($from.pos + newPanel.content.size), -1),
+    );
+  } else if ($cursor && isCursorSelectionAtTextStartOrEnd(selection)) {
+    const position = Math.max($cursor.pos - 1, 0);
+
+    if (isEmptyNode(tr.doc.resolve($cursor.pos).node())) {
+      tr.replaceRange(position, $cursor.end(), slice);
+    } else {
+      const position = !$cursor.nodeBefore ? $from.before() : $from.after();
+      tr.replaceRange(position, position, slice);
+    }
+    const startSlicePosition = tr.doc.resolve(
+      Math.min(position + slice.size, tr.doc.content.size),
+    );
+
+    const newSlicePosition = Math.min(
+      startSlicePosition.pos + slice.content.size - slice.openEnd,
+      tr.doc.content.size,
+    );
+    const direction = -1;
+
+    tr.setSelection(
+      TextSelection.near(tr.doc.resolve(newSlicePosition), direction),
+    );
+  } else {
+    tr.replaceSelection(slice);
+  }
+}
+
 function isList(schema: Schema, node: PMNode | null | undefined) {
   const { bulletList, orderedList } = schema.nodes;
   return node && (node.type === bulletList || node.type === orderedList);
@@ -633,25 +739,36 @@ export function handleRichText(slice: Slice): Command {
 
     closeHistory(tr);
 
-    // if inside an empty panel, try and insert content inside it rather than replace it
-    let panelParent = findParentNodeOfType(panel)(tr.selection);
+    const featureFlags = getFeatureFlags(state);
+    const allowPredictableLists = featureFlags && featureFlags.predictableLists;
+
     if (
-      tr.selection.$from === tr.selection.$to &&
-      panelParent &&
-      !panelParent.node.textContent
+      allowPredictableLists &&
+      (isList(state.schema, slice.content.firstChild) ||
+        isList(state.schema, slice.content.lastChild))
     ) {
-      tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
-      // set selection to end of inserted content
-      panelParent = findParentNodeOfType(panel)(tr.selection);
-      if (panelParent) {
-        tr.setSelection(
-          TextSelection.near(
-            tr.doc.resolve(panelParent.pos + panelParent.node.nodeSize),
-          ),
-        );
-      }
+      insertSlice({ tr, slice });
     } else {
-      tr.replaceSelection(slice);
+      // if inside an empty panel, try and insert content inside it rather than replace it
+      let panelParent = findParentNodeOfType(panel)(tr.selection);
+      if (
+        tr.selection.$from === tr.selection.$to &&
+        panelParent &&
+        !panelParent.node.textContent
+      ) {
+        tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
+        // set selection to end of inserted content
+        panelParent = findParentNodeOfType(panel)(tr.selection);
+        if (panelParent) {
+          tr.setSelection(
+            TextSelection.near(
+              tr.doc.resolve(panelParent.pos + panelParent.node.nodeSize),
+            ),
+          );
+        }
+      } else {
+        tr.replaceSelection(slice);
+      }
     }
 
     tr.setStoredMarks([]);

@@ -28,6 +28,8 @@ export enum ToolbarMenuItem {
   status,
 }
 
+export const mainToolbarSelector = '[data-testid="ak-editor-main-toolbar"]';
+
 export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.table]: `[aria-label="Table"]`,
   [ToolbarMenuItem.insertBlock]: `[aria-label="Insert"]`,

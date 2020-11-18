@@ -9,7 +9,7 @@ import {
   setSelectedCardAppearance,
   changeSelectedCardToLink,
 } from '../pm-plugins/doc';
-import { CardAppearance } from '../types';
+import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import { isSupportedInParent } from '../../../utils/nodes';
 import Dropdown from '../../floating-toolbar/ui/Dropdown';
 import nodeNames from '../../../messages';

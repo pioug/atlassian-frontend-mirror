@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 13.1.0
+
+### Minor Changes
+
+- [`c3d2088249`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d2088249) - expose GroupedOptionsType type
+
 ## 13.0.6
 
 ### Patch Changes

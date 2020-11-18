@@ -15,3 +15,8 @@ export {
   defaultMediaFeatureFlags,
 } from './mediaFeatureFlags';
 export type { MediaFeatureFlags } from './mediaFeatureFlags';
+// TODO EDM-689 Please, consolidate these two CardDimensions types
+export interface NumericalCardDimensions {
+  width: number;
+  height: number;
+}

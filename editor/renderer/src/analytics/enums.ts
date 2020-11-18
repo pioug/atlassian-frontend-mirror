@@ -34,11 +34,12 @@ export enum ACTION_SUBJECT {
   LINK = 'link',
   ANNOTATION = 'annotation',
   BODIED_EXTENSION = 'bodiedExtension',
+  MEDIA = 'media',
 }
 
 export enum ACTION_SUBJECT_ID {
   HEADING_ANCHOR_LINK = 'headingAnchorLink',
-  MEDIA_LINK = 'mediaLink',
+  LINK = 'link',
   INLINE_COMMENT = 'inlineComment',
 }
 

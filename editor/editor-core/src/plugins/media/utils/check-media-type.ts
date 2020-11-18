@@ -14,13 +14,17 @@ export const checkMediaType = async (
     return;
   }
 
-  const fileState = await getMediaClient(
-    mediaClientConfig,
-  ).file.getCurrentState(mediaNode.attrs.id, {
-    collectionName: mediaNode.attrs.collection,
-  });
+  try {
+    const fileState = await getMediaClient(
+      mediaClientConfig,
+    ).file.getCurrentState(mediaNode.attrs.id, {
+      collectionName: mediaNode.attrs.collection,
+    });
 
-  if (fileState && fileState.status !== 'error') {
-    return fileState.mediaType;
+    if (fileState && fileState.status !== 'error') {
+      return fileState.mediaType;
+    }
+  } catch (err) {
+    // return undefined in case of media client error
   }
 };

@@ -41,6 +41,7 @@ async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
   return handler as Exclude<ExtensionModuleFields[K], undefined>[string];
 }
 
+/** attempt to get the custom resolver for this field, or throw */
 export async function getCustomFieldResolver(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
@@ -53,6 +54,7 @@ export async function getCustomFieldResolver(
   return handler.resolver;
 }
 
+/** attempt to get the serializer for this field, or throw */
 export async function getFieldSerializer(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
@@ -65,6 +67,7 @@ export async function getFieldSerializer(
   return handler.serializer;
 }
 
+/** attempt to get the deserializer for this field, or throw */
 export async function getFieldDeserializer(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,
@@ -77,6 +80,7 @@ export async function getFieldDeserializer(
   return handler.deserializer;
 }
 
+/** attempt to get the user field context provider for this field, or throw */
 export async function getUserFieldContextProvider(
   manifest: ExtensionManifest,
   handlerLink: FieldHandlerLink,

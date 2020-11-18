@@ -97,7 +97,7 @@ describe('smart-card: card states, embed', () => {
         expect(mockFetch).toBeCalledTimes(1);
       });
 
-      it('embed: should render with metadata when resolved, as block card - preview present, platform set', async () => {
+      it('embed: should render with metadata when resolved, as inline card - preview present, platform set', async () => {
         const successWithPreviewOnWeb = {
           ...mocks.success,
           data: {
@@ -111,7 +111,7 @@ describe('smart-card: card states, embed', () => {
         } as JsonLd.Response;
 
         mockFetch.mockImplementationOnce(async () => successWithPreviewOnWeb);
-        const { getByText } = render(
+        const { getByText, getByTestId } = render(
           <Provider client={mockClient}>
             <Card appearance="embed" url={mockUrl} platform="mobile" />
           </Provider>,
@@ -120,7 +120,7 @@ describe('smart-card: card states, embed', () => {
           getByText('I love cheese'),
         );
         const resolvedViewDescription = await waitForElement(() =>
-          getByText('Here is your serving of cheese: 🧀'),
+          getByTestId('inline-card-resolved-view'),
         );
         expect(resolvedViewName).toBeTruthy();
         expect(resolvedViewDescription).toBeTruthy();

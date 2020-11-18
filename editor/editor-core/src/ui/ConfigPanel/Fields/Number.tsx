@@ -6,7 +6,8 @@ import { NumberField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate, getSafeParentedName } from '../utils';
-import { OnBlur } from '../types';
+import { OnBlur, ValidationError } from '../types';
+import isNumber from 'is-number';
 
 export default function Number({
   field,
@@ -22,13 +23,28 @@ export default function Number({
   parentName?: string;
 }) {
   const { name, label, description, defaultValue, isRequired } = field;
+
+  function validateNumber(value?: string) {
+    const error = validate<string>(field, value || '');
+    if (error) {
+      return error;
+    }
+    if (value === '') {
+      return;
+    }
+    if (isNumber(value)) {
+      return;
+    }
+    return ValidationError.Invalid;
+  }
+
   return (
-    <Field
+    <Field<string>
       name={getSafeParentedName(name, parentName)}
       label={label}
-      defaultValue={defaultValue || ''}
+      defaultValue={defaultValue === undefined ? '' : String(defaultValue)}
       isRequired={isRequired}
-      validate={(value?: string) => validate<string>(field, value || '')}
+      validate={validateNumber}
     >
       {({ fieldProps, error, valid }) => (
         <Fragment>
@@ -39,7 +55,7 @@ export default function Number({
               fieldProps.onBlur();
               onBlur(name);
             }}
-            type="number"
+            type="text" // do not change this to type="number", it will return invalid strings as ''
             placeholder={placeholder}
           />
           <FieldMessages error={error} description={description} />

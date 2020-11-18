@@ -8,6 +8,7 @@ import {
   Fieldset,
   ExtensionModuleNode,
   ExtensionModuleAction,
+  NestedFieldDefinition,
   Parameters,
 } from '@atlaskit/editor-common/extensions';
 
@@ -412,7 +413,7 @@ const getBaseAttributes = (params: LegacyParameter, macroData: MacroData) => {
   };
 };
 
-const cqlFields: FieldDefinition[] = [
+const cqlFields: NestedFieldDefinition[] = [
   {
     type: 'string',
     name: 'text',
@@ -495,9 +496,9 @@ const cqlFields: FieldDefinition[] = [
     },
   },
   {
+    type: 'enum',
     name: 'created',
     label: 'Created',
-    type: 'enum',
     style: 'radio',
     defaultValue: 'any date',
     items: [

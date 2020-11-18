@@ -11,20 +11,20 @@ import {
   CardPlatform,
 } from '@atlaskit/smart-card';
 
-import { getPosHandler } from '../../../nodeviews';
+import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
-export interface CardDerivedProps {
+export interface CardNodeViewProps extends ReactComponentProps {
   providerFactory?: ProviderFactory;
   platform?: CardPlatform;
   eventDispatcher?: EventDispatcher<any>;
 }
 
-export interface CardProps extends CardDerivedProps {
+export interface CardProps extends CardNodeViewProps {
   children?: React.ReactNode;
   node: PMNode;
   view: EditorView;

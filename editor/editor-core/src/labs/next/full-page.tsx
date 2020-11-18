@@ -204,7 +204,10 @@ function FullPage(props: FullPageProps) {
       <Editor {...props} onAnalyticsEvent={handleAnalyticsEvent}>
         <BaseTheme dynamicTextSizing={allowDynamicTextSizing}>
           <FullPageEditorWrapper className="akEditor">
-            <MainToolbar showKeyline={showKeyline}>
+            <MainToolbar
+              data-testid="ak-editor-main-toolbar"
+              showKeyline={showKeyline}
+            >
               <Toolbar containerElement={scrollContainerRef.current} />
               <MainToolbarCustomComponentsSlot>
                 {!config ? null : (

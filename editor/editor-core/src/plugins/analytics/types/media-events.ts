@@ -1,11 +1,18 @@
 import { TrackAEP, UIAEP } from './utils';
 import { ACTION_SUBJECT, ACTION, ACTION_SUBJECT_ID } from './enums';
 
-type MediaLinkAEP<Action> = TrackAEP<
-  Action,
-  ACTION_SUBJECT.MEDIA_SINGLE,
-  ACTION_SUBJECT_ID.MEDIA_LINK,
-  undefined,
+type MediaLinkActionType =
+  | ACTION.ADDED
+  | ACTION.EDITED
+  | ACTION.DELETED
+  | ACTION.VISITED
+  | ACTION.ERRORED;
+
+export type MediaLinkAEP = TrackAEP<
+  MediaLinkActionType,
+  ACTION_SUBJECT.MEDIA,
+  ACTION_SUBJECT_ID.LINK,
+  any,
   undefined
 >;
 
@@ -33,8 +40,6 @@ export type MediaAltTextActionType =
   | ACTION.OPENED;
 
 export type MediaEventPayload =
-  | MediaLinkAEP<ACTION.CHANGED_URL>
-  | MediaLinkAEP<ACTION.UNLINK>
-  | MediaLinkAEP<ACTION.VISITED>
+  | MediaLinkAEP
   | MediaAltTextAction
   | MediaUIAction;

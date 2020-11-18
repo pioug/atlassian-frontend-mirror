@@ -1,4 +1,4 @@
-import { sleep } from '@atlaskit/editor-test-helpers';
+import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import { ToolbarFeatures } from '../../../example-helpers/ToolsDrawer';
 import { EditorAppearance, EditorProps } from '../../types';

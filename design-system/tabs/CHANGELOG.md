@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 12.1.0
+
+### Minor Changes
+
+- [`98c957d889`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98c957d889) - [ux] Content of tabs will be preserved on the DOM while switching between tabs
+
 ## 12.0.6
 
 ### Patch Changes

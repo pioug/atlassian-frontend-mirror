@@ -67,7 +67,7 @@ const providerResults: ProviderResults & SyntheticProviderResults = {
 const generateDiscoverMoreLinks = (): SwitcherItemType[] => [
   {
     key: 'discover-more',
-    label: <FormattedMessage {...messages.discoverMore} />,
+    label: <FormattedMessage {...messages.moreAtlassianProductsLink} />,
     Icon: createIcon(AddIcon, { size: 'medium' }),
     href: '',
   },

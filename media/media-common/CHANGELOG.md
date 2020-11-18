@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.4.0
+
+### Minor Changes
+
+- [`f2b871e61d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2b871e61d) - expose NumericalCardDimensions from media-common
+
 ## 2.3.0
 
 ### Minor Changes

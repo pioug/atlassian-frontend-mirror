@@ -22,123 +22,115 @@ const isOptions = (options: any): options is Option[] => {
   return Array.isArray(options) && options.every(isOption);
 };
 
-/**
- * Extracts the values from the full form serialization.
- *
- * example:
- * ```
- * {
- *   selectFieldName: {
- *    value: 'foo',
- *    label: 'Foo'
- *   }
- * }
- * ```
- * will turn into
- * ```
- * {
- *  selectFieldName: 'foo'
- * }
- * ```
- * @param formData
- */
+/** maps the typed-values from the Form values object */
+function extract(value: Parameters[string], field: FieldDefinition) {
+  if (isOptions(value)) {
+    return value.map(item => item.value);
+  } else if (isOption(value)) {
+    return value.value;
+  } else if (isDateRange(value)) {
+    return value;
+  } else if (value !== undefined && field.type === 'number') {
+    return Number(value);
+  }
 
-const extractValues = (formData: Parameters): Parameters => {
-  return Object.entries(formData).reduce<Parameters>((prev, entry) => {
-    const [key, value] = entry;
-
-    if (typeof value === 'undefined') {
-      return prev;
-    }
-
-    if (isOptions(value)) {
-      const values = value.map(item => item.value);
-      prev[key] = values;
-    } else if (isOption(value)) {
-      prev[key] = value.value;
-    } else if (isDateRange(value)) {
-      prev[key] = value;
-    } else {
-      prev[key] = value;
-    }
-
-    return prev;
-  }, {});
-};
-
-const getSerializableFields = (fields: FieldDefinition[]) =>
-  fields.filter(isFieldset);
+  return value;
+}
 
 export const serialize = async (
   manifest: ExtensionManifest,
-  formData: Parameters,
+  data: Parameters,
   fields: FieldDefinition[],
+  depth: number = 0,
 ) => {
-  const parameters = extractValues(formData);
+  const copy: Parameters = {};
+  for (const field of fields) {
+    const { name } = field;
 
-  const processedParameters = { ...parameters };
+    // missing? do nothing
+    if (!(name in data)) {
+      continue;
+    }
 
-  const serializableFields = getSerializableFields(fields);
+    // ignore undefined values
+    let value = extract(data[name], field);
+    if (value === undefined) {
+      continue;
+    }
 
-  for (const serializableField of serializableFields) {
-    if (serializableField.options && serializableField.options.transformer) {
-      const serializer = await getFieldSerializer(
+    // WARNING: don't recursively serialize, limit to depth < 1
+    // serializable?
+    if (isFieldset(field) && depth === 0) {
+      const fieldSerializer = await getFieldSerializer(
         manifest,
-        serializableField.options.transformer,
+        field.options.transformer,
       );
 
-      if (serializer) {
-        processedParameters[serializableField.name] = serializer(
-          extractValues(parameters[serializableField.name]),
+      if (fieldSerializer) {
+        const extracted = await serialize(
+          manifest,
+          value,
+          field.fields,
+          depth + 1,
         );
+        value = fieldSerializer(extracted);
       }
     }
+
+    copy[name] = value;
   }
 
-  return processedParameters;
+  return copy;
 };
 
 export const deserialize = async (
   manifest: ExtensionManifest,
-  params: Parameters,
+  data: Parameters,
   fields: FieldDefinition[],
+  depth: number = 0,
 ): Promise<Parameters> => {
-  let parsedParameters = { ...params };
+  const copy: Parameters = {};
 
-  const serializableFields = getSerializableFields(fields);
+  for (const field of fields) {
+    const { name } = field;
 
-  for (const serializableField of serializableFields) {
-    if (
-      serializableField.options &&
-      serializableField.options.transformer &&
-      parsedParameters[serializableField.name]
-    ) {
-      const deserializer = await getFieldDeserializer(
+    // missing? do nothing
+    if (!(name in data)) {
+      continue;
+    }
+
+    // ignore undefined values
+    let value = extract(data[name], field);
+    if (value === undefined) {
+      continue;
+    }
+
+    // WARNING: don't recursively serialize, limit to depth < 1
+    // deserializable?
+    if (isFieldset(field) && depth === 0) {
+      const fieldDeserializer = await getFieldDeserializer(
         manifest,
-        serializableField.options.transformer,
+        field.options.transformer,
       );
 
-      if (deserializer) {
+      if (fieldDeserializer) {
         try {
-          const deserializationResult = deserializer(
-            params[serializableField.name],
-          );
-          parsedParameters = {
-            ...parsedParameters,
-            [serializableField.name]: deserializationResult,
-          };
+          value = fieldDeserializer(value);
         } catch (error) {
-          parsedParameters = {
-            ...parsedParameters,
-            errors: {
-              ...(parsedParameters.errors || {}),
-              [serializableField.name]: error.message,
-            },
+          copy.errors = {
+            ...copy.errors,
+            [name]: error.message,
           };
+
+          continue;
         }
+
+        value = await deserialize(manifest, value, field.fields, depth + 1);
       }
     }
+
+    copy[name] = value;
   }
 
-  return parsedParameters;
+  return copy;
 };

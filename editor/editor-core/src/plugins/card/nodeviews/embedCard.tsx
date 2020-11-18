@@ -1,14 +1,13 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
-import { Card as SmartCard, CardPlatform } from '@atlaskit/smart-card';
+import { Card as SmartCard } from '@atlaskit/smart-card';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
-import { SmartCardProps, Card } from './genericCard';
+import { SmartCardProps, Card, CardNodeViewProps } from './genericCard';
 import {
   UnsupportedBlock,
   MediaSingle as RichMediaWrapper,
-  ProviderFactory,
   browser,
   findOverflowScrollParent,
 } from '@atlaskit/editor-common';
@@ -251,11 +250,8 @@ export class EmbedCardComponent extends React.PureComponent<
 
 const WrappedBlockCard = Card(EmbedCardComponent, UnsupportedBlock);
 
-export interface EmbedCardNodeViewProps {
-  eventDispatcher?: EventDispatcher<any>;
-  platform?: CardPlatform;
+export interface EmbedCardNodeViewProps extends CardNodeViewProps {
   allowResizing?: boolean;
-  providerFactory?: ProviderFactory;
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 }

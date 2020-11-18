@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 14.6.0
+
+### Minor Changes
+
+- [`950ed4f24c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/950ed4f24c) - [ux] The embed card will now fallback to a inlineCard instead of blockCard in mobile
+
+### Patch Changes
+
+- [`09394e2986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09394e2986) - EDM-668: exporting types for better typings support in Editor Core
+- [`f5f91bc98d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5f91bc98d) - ED-10417 Unskip smart link hooks tests
+- Updated dependencies
+
 ## 14.5.0
 
 ### Minor Changes

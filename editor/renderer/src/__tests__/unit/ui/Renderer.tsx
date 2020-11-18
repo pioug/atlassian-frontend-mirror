@@ -15,7 +15,8 @@ import Loadable from 'react-loadable';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
-import { MediaSingle } from '../../../react/nodes';
+import { Media } from '../../../react/nodes';
+
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/src';
 import { IntlProvider } from 'react-intl';
 
@@ -212,35 +213,23 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
     it('should not render link mark around mediaSingle if media.allowLinking is undefined', () => {
       renderer = initRenderer(linkDoc, {});
-      const mediaSingle = renderer.find(MediaSingle).last();
-      const dataBlockLink = mediaSingle
-        .find('[data-node-type="mediaSingle"]')
-        .hostNodes()
-        .getDOMNode()
-        .attributes.getNamedItem('data-block-link');
-      expect(dataBlockLink).toBeNull();
+      const media = renderer.find(Media);
+      const dataBlockLink = media.find('[data-block-link]');
+      expect(dataBlockLink.length).toEqual(0);
     });
 
-    it('should not render link mark around mediaSingle if media.allowLinking is false', () => {
+    it('should not render link mark around media if media.allowLinking is false', () => {
       renderer = initRenderer(linkDoc, {});
-      const mediaSingle = renderer.find(MediaSingle).last();
-      const dataBlockLink = mediaSingle
-        .find('[data-node-type="mediaSingle"]')
-        .hostNodes()
-        .getDOMNode()
-        .attributes.getNamedItem('data-block-link');
-      expect(dataBlockLink).toBeNull();
+      const media = renderer.find(Media);
+      const dataBlockLink = media.find('[data-block-link]');
+      expect(dataBlockLink.length).toEqual(0);
     });
 
-    it('should render link mark around mediaSingle if media.allowLinking is true', () => {
+    it('should render link mark around media if media.allowLinking is true', () => {
       renderer = initRenderer(linkDoc, { media: { allowLinking: true } });
-      const mediaSingle = renderer.find(MediaSingle).last();
-      const dataBlockLink = mediaSingle
-        .find('[data-node-type="mediaSingle"]')
-        .hostNodes()
-        .getDOMNode()
-        .attributes.getNamedItem('data-block-link');
-      expect(dataBlockLink).not.toBeNull();
+      const media = renderer.find(Media);
+      const dataBlockLink = media.find('[data-block-link]');
+      expect(dataBlockLink.length).not.toEqual(0);
     });
   });
 

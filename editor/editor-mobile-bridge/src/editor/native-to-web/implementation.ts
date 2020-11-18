@@ -753,7 +753,7 @@ export default class WebBridgeImpl
 
   setupTitle(provider: Promise<CollabProvider>) {
     this.collabProviderPromise = provider;
-    const onTitleChange = (payload: { title: string; clientId: string }) => {
+    const onTitleChange = (payload: { title: string }) => {
       toNativeBridge.updateTitle(payload.title);
     };
     const setupPromise = provider.then(provider => {

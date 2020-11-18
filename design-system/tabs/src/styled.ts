@@ -55,13 +55,21 @@ export const Tabs = styled.div`
   min-height: 0%; /* See min-height note */
 `;
 
+const getVisibility = ({ isSelected }: any) => {
+  return isSelected ? `display:flex` : `display:none`;
+};
+
+interface TabContentProps {
+  isSelected?: boolean;
+}
+
 // TabPane
-export const TabPane = styled.div`
-  display: flex;
+export const TabPane = styled.div<TabContentProps>`
   flex-grow: 1;
   min-height: 0%; /* See min-height note */
   padding-left: ${gridSize}px;
   padding-right: ${gridSize}px;
+  ${getVisibility};
 `;
 
 // TabNav

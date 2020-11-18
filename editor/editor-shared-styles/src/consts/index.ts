@@ -83,4 +83,5 @@ export {
   akEditorToolbarKeylineHeight,
   VIEWPORT_SIZES,
   akEditorMobileMaxWidth,
+  getTableCellBackgroundDarkModeColors,
 } from './consts';

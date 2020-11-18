@@ -40,6 +40,8 @@ import { Breakpoint } from './ui/common';
 import { IconWrapper } from './ui/iconWrapper/styled';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
+import { CreatingPreview } from './ui/creatingPreviewText/creatingPreviewText';
+import { PreviewUnavailable } from './ui/previewUnavailable/previewUnavailable';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -175,11 +177,10 @@ export class CardViewBase extends React.Component<
 
   private renderSpinner() {
     const { status, dataURI } = this.props;
-    if (!['loading', 'processing'].includes(status) || dataURI) {
+    if (!['loading'].includes(status) || dataURI) {
       return null;
     }
-    const hasTitleBox =
-      !this.isTitleBoxHidden() || !this.isFailedTitleBoxHidden();
+    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
 
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
@@ -215,32 +216,41 @@ export class CardViewBase extends React.Component<
     return <Blanket isFixed={isFixed} />;
   }
 
-  private isTitleBoxHidden(): boolean {
+  private showTitleBox(): boolean {
     const { isImageFailedToLoad } = this.state;
     const { metadata, disableOverlay, status, dataURI } = this.props;
     const { name } = metadata || {};
-    return (
-      !name ||
-      isImageFailedToLoad ||
-      disableOverlay ||
-      !!(!dataURI && ['error', 'failed-processing'].includes(status))
-    );
+
+    const noErrorWithUri = !!dataURI || status !== 'error';
+
+    return !!name && !isImageFailedToLoad && !disableOverlay && noErrorWithUri;
   }
 
-  private isFailedTitleBoxHidden(): boolean {
+  private showFailedTitleBox(): boolean {
     const { isImageFailedToLoad } = this.state;
-    const { status, dataURI } = this.props;
+    const { status, dataURI, metadata } = this.props;
+
+    const failedProcessingWithMetadata = !!(
+      status === 'failed-processing' && metadata
+    );
+
+    const nonFailingStates = [
+      'loading',
+      'processing',
+      'uploading',
+      'complete',
+    ].includes(status);
+
     return (
-      !isImageFailedToLoad &&
-      (!!dataURI ||
-        ['loading', 'processing', 'uploading', 'complete'].includes(status))
+      isImageFailedToLoad ||
+      (!dataURI && !(nonFailingStates || failedProcessingWithMetadata))
     );
   }
 
   private renderTitleBox() {
     const { metadata, titleBoxBgColor, titleBoxIcon } = this.props;
     const { name, createdAt } = metadata || {};
-    if (this.isTitleBoxHidden() || !name) {
+    if (!this.showTitleBox() || !name) {
       return null;
     }
     return (
@@ -256,7 +266,7 @@ export class CardViewBase extends React.Component<
 
   private renderFailedTitleBox() {
     const { onRetry } = this.props;
-    if (this.isFailedTitleBoxHidden()) {
+    if (!this.showFailedTitleBox()) {
       return null;
     }
     return <FailedTitleBox onRetry={onRetry} breakpoint={this.breakpoint} />;
@@ -269,7 +279,40 @@ export class CardViewBase extends React.Component<
         <ProgressBar
           progress={progress}
           breakpoint={this.breakpoint}
-          positionBottom={this.isTitleBoxHidden()}
+          positionBottom={!this.showTitleBox()}
+        />
+      )
+    );
+  }
+
+  private renderCreatingPreviewText() {
+    const { isImageFailedToLoad } = this.state;
+    const { status, dataURI } = this.props;
+    if (!isImageFailedToLoad && (dataURI || status === 'loading')) {
+      return null;
+    }
+
+    return (
+      status === 'processing' && (
+        <CreatingPreview
+          breakpoint={this.breakpoint}
+          positionBottom={!this.showTitleBox()}
+        />
+      )
+    );
+  }
+
+  private renderPreviewUnavailableText() {
+    const { status, metadata } = this.props;
+
+    if (!metadata) {
+      return null;
+    }
+    return (
+      status === 'failed-processing' && (
+        <PreviewUnavailable
+          breakpoint={this.breakpoint}
+          positionBottom={!this.showTitleBox()}
         />
       )
     );
@@ -316,15 +359,11 @@ export class CardViewBase extends React.Component<
     const { isImageFailedToLoad } = this.state;
     const { status, dataURI, metadata } = this.props;
     const { mediaType, mimeType, name } = metadata || {};
-    if (
-      !isImageFailedToLoad &&
-      (dataURI || ['loading', 'processing'].includes(status))
-    ) {
+    if (!isImageFailedToLoad && (dataURI || status === 'loading')) {
       return null;
     }
 
-    const hasTitleBox =
-      !this.isTitleBoxHidden() || !this.isFailedTitleBoxHidden();
+    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
 
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
@@ -355,6 +394,8 @@ export class CardViewBase extends React.Component<
           {this.renderPlayButton()}
           {this.renderBlanket()}
           {this.renderTickBox()}
+          {this.renderCreatingPreviewText()}
+          {this.renderPreviewUnavailableText()}
           {this.renderProgressBar()}
           {this.renderFailedTitleBox()}
           {this.renderTitleBox()}

@@ -83,4 +83,6 @@ export default {
   'fabric.media.image': 'image',
   'fabric.media.email': 'email',
   'fabric.media.text': 'text',
+  'fabric.media.creating_preview': 'Creating preview...',
+  'fabric.media.preview_unavailable': 'Preview unavailable',
 };

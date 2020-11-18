@@ -29,6 +29,7 @@ async function setupEditorWithMedia(client: any): Promise<Page> {
   // type some text
   await page.click(editable);
   await page.type(editable, 'some text');
+  await page.waitUntilContainsText(editable, 'some text');
 
   // now we can insert media as necessary
   await insertMedia(page);

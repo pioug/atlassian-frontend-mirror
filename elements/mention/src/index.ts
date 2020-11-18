@@ -27,12 +27,14 @@ import ResourcedMention from './components/Mention/ResourcedMention';
 import TeamMentionHighlight from './components/TeamMentionHighlight';
 import TeamMentionHighlightController from './components/TeamMentionHighlight/TeamMentionHighlightController';
 import {
+  FlowType,
   MentionDescription,
   MentionsResult,
   MentionNameStatus,
   MentionNameDetails,
   isSpecialMention,
   TeamMember,
+  UserRole,
 } from './types';
 import { ELEMENTS_CHANNEL } from './_constants';
 import ContextMentionResource from './api/ContextMentionResource';
@@ -78,6 +80,8 @@ export type {
   TeamMember,
   MentionResourceConfig,
   TeamMentionResourceConfig,
+  FlowType,
+  UserRole,
 };
 
 export default MentionPicker;

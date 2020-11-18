@@ -92,6 +92,7 @@ export const setCellAttrs = (node: PmNode, cell?: HTMLElement) => {
     colspan?: number;
     rowspan?: number;
     style?: string;
+    colorname?: string;
     'data-colwidth'?: string;
     class?: string;
   } = {};
@@ -127,6 +128,7 @@ export const setCellAttrs = (node: PmNode, cell?: HTMLElement) => {
       const color = isRgb(background) ? rgbToHex(background) : background;
 
       attrs.style = `${attrs.style || ''}background-color: ${color};`;
+      attrs.colorname = tableBackgroundColorPalette.get(color);
     }
   }
 

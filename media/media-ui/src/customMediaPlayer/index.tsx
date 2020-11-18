@@ -7,6 +7,7 @@ import FullScreenIconOff from '@atlaskit/icon/glyph/vid-full-screen-off';
 import SoundIcon from '@atlaskit/icon/glyph/hipchat/outgoing-sound';
 import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
+
 import MediaButton from '../MediaButton';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -17,6 +18,7 @@ import MediaPlayer, {
   VideoActions,
 } from 'react-video-renderer';
 import { B200, DN400, N0, DN60 } from '@atlaskit/theme/colors';
+import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { TimeRange } from './timeRange';
 import {
   CurrentTime,
@@ -36,16 +38,13 @@ import {
 import { formatDuration } from '../formatDuration';
 import { hideControlsClassName } from '../classNames';
 import { Shortcut, keyCodes } from '../shortcut';
-import {
-  toggleFullscreen,
-  getFullscreenElement,
-  vendorify,
-} from './fullscreen';
+import { toggleFullscreen, getFullscreenElement } from './fullscreen';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { messages } from '../messages';
 import simultaneousPlayManager from './simultaneousPlayManager';
 import { WithShowControlMethodProp } from '../types';
 import { TimeSaver, TimeSaverConfig } from './timeSaver';
+import PlaybackSpeedControls from './playbackSpeedControls';
 
 export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
   readonly type: 'audio' | 'video';
@@ -60,19 +59,16 @@ export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
   readonly onError?: () => void;
   readonly onDownloadClick?: () => void;
   readonly onFirstPlay?: () => void;
+  readonly originalDimensions?: NumericalCardDimensions;
 }
 
 export interface CustomMediaPlayerState {
   isLargePlayer: boolean;
   isFullScreenEnabled: boolean;
+  playbackSpeed: number;
 }
 
 export type ToggleButtonAction = () => void;
-
-export type CustomMediaPlayerActions = {
-  play: () => void;
-  pause: () => void;
-};
 
 const SMALL_VIDEO_MAX_WIDTH = 400;
 
@@ -81,21 +77,24 @@ export class CustomMediaPlayer extends Component<
   CustomMediaPlayerState
 > {
   videoWrapperRef?: HTMLElement;
-  private actions?: CustomMediaPlayerActions;
+  private actions?: VideoActions;
   private wasPlayedOnce: boolean = false;
   private readonly timeSaver = new TimeSaver(this.props.lastWatchTimeConfig);
 
   state: CustomMediaPlayerState = {
     isFullScreenEnabled: false,
     isLargePlayer: true,
+    playbackSpeed: 1,
   };
 
   componentDidMount() {
     const { isAutoPlay, onFirstPlay } = this.props;
-    document.addEventListener(
-      vendorify('fullscreenchange', false),
-      this.onFullScreenChange,
-    );
+    if (this.videoWrapperRef) {
+      this.videoWrapperRef.addEventListener(
+        'fullscreenchange',
+        this.onFullScreenChange,
+      );
+    }
 
     simultaneousPlayManager.subscribe(this);
 
@@ -109,10 +108,12 @@ export class CustomMediaPlayer extends Component<
   }
 
   componentWillUnmount() {
-    document.removeEventListener(
-      vendorify('fullscreenchange', false),
-      this.onFullScreenChange,
-    );
+    if (this.videoWrapperRef) {
+      this.videoWrapperRef.removeEventListener(
+        'fullscreenchange',
+        this.onFullScreenChange,
+      );
+    }
     simultaneousPlayManager.unsubscribe(this);
   }
 
@@ -170,6 +171,7 @@ export class CustomMediaPlayer extends Component<
 
     return (
       <MediaButton
+        testId="custom-media-player-hd-button"
         onClick={onHDToggleClick}
         iconBefore={
           <HDIcon
@@ -178,6 +180,28 @@ export class CustomMediaPlayer extends Component<
             label="hd"
           />
         }
+      />
+    );
+  };
+
+  private onPlaybackSpeedChange = (playbackSpeed: number) => {
+    if (!this.actions) {
+      return;
+    }
+
+    this.actions.setPlaybackSpeed(playbackSpeed);
+    this.setState({ playbackSpeed });
+  };
+
+  private renderSpeedControls = () => {
+    const { playbackSpeed } = this.state;
+    const { originalDimensions } = this.props;
+
+    return (
+      <PlaybackSpeedControls
+        originalDimensions={originalDimensions}
+        playbackSpeed={playbackSpeed}
+        onPlaybackSpeedChange={this.onPlaybackSpeedChange}
       />
     );
   };
@@ -215,7 +239,9 @@ export class CustomMediaPlayer extends Component<
   onFullScreenClick = () => toggleFullscreen(this.videoWrapperRef);
 
   onResize = (width: number) =>
-    this.setState({ isLargePlayer: width > SMALL_VIDEO_MAX_WIDTH });
+    this.setState({
+      isLargePlayer: width > SMALL_VIDEO_MAX_WIDTH,
+    });
 
   saveVideoWrapperRef = (el?: HTMLElement) => (this.videoWrapperRef = el);
 
@@ -270,8 +296,7 @@ export class CustomMediaPlayer extends Component<
     // Actions are being sent constantly while the video is playing,
     // though play and pause functions are always the same objects
     if (!this.actions) {
-      const { play, pause } = actions;
-      this.actions = { play, pause };
+      this.actions = actions;
     }
   }
 
@@ -304,7 +329,6 @@ export class CustomMediaPlayer extends Component<
       onError,
     } = this.props;
     const { isFullScreenEnabled } = this.state;
-
     return (
       <CustomVideoWrapper
         innerRef={this.saveVideoWrapperRef}
@@ -386,6 +410,7 @@ export class CustomMediaPlayer extends Component<
                       {this.state.isLargePlayer &&
                         this.renderCurrentTime(videoState)}
                       {this.renderHDButton()}
+                      {this.renderSpeedControls()}
                       {this.renderFullScreenButton()}
                       {this.renderDownloadButton()}
                     </RightControls>

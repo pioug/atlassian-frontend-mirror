@@ -38,12 +38,17 @@ import { eventHandlers } from './event-handlers';
 import { isApple } from '../utils/is-apple';
 import { useRendererReflowDetected } from './hooks/use-renderer-reflow-detected';
 
+import { withIntlProvider } from '../i18n/with-intl-provider';
+import { injectIntl, InjectedIntl } from 'react-intl';
+import { geti18NMessages } from './renderer-localisation-provider';
+
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
   document: string;
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
   emojiProvider: Promise<EmojiResource>;
+  intl: InjectedIntl;
 }
 
 const rendererBridge = (window.rendererBridge = new RendererBridgeImpl());
@@ -73,6 +78,7 @@ type BasicRendererProps = {
   objectAri: string;
   containerAri: string;
   document: string;
+  intl: InjectedIntl;
 };
 
 interface WithCreateAnalyticsEventProps extends BasicRendererProps {
@@ -177,4 +183,6 @@ const withFabricAnalytics = <P extends MobileRendererProps>(
 
 const MobileRenderer = withFabricAnalytics(withSmartCard(BasicRenderer));
 
-export default MobileRenderer;
+export { MobileRenderer };
+
+export default withIntlProvider(injectIntl(MobileRenderer), geti18NMessages);

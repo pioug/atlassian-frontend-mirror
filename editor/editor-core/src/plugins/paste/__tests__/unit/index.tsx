@@ -94,6 +94,7 @@ import mentionsPlugin from '../../../mentions';
 import cardPlugin, { CardOptions } from '../../../card';
 import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
+import featureFlags from '../../../feature-flags-context';
 import { PluginConfig as TablePluginConfig } from '../../../table/types';
 import blockTypePlugin from '../../../block-type';
 import hyperlinkPlugin from '../../../hyperlink';
@@ -208,6 +209,7 @@ describe('paste plugins', () => {
             ? { platform: 'web', ...pasteOptions.cardOptions }
             : { platform: 'web' },
         ])
+        .add(featureFlags)
         .add([
           mediaPlugin,
           {

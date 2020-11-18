@@ -14,11 +14,9 @@ export const loadActionButton = '[aria-label="Action item"]';
 /*
  * Safari adds special characters that end up in the snapshot
  */
-
-// Cannot paste rich text in IE/Edge
 BrowserTestCase(
   'task-decision-2.ts: can paste rich text into an action',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(
@@ -36,11 +34,9 @@ BrowserTestCase(
   },
 );
 
-// TODO: fix for chrome , italics is being selected on paste
-// https://product-fabric.atlassian.net/browse/ED-6802
 BrowserTestCase(
   'task-decision-2.ts: can paste plain text into an action',
-  { skip: ['safari', 'chrome', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(
@@ -57,12 +53,9 @@ BrowserTestCase(
   },
 );
 
-// TODO: unable to type on chrome
-// Safari and chrome highlights entire text on click
-// IE is generally flaky
 BrowserTestCase(
   'task-decision-2.ts: can type into decision',
-  { skip: ['safari', 'edge', 'chrome'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await gotoEditor(browser);
@@ -79,7 +72,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'task-decision-2.ts: can insert mention into an action using click',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await gotoEditor(browser);

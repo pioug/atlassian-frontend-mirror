@@ -44,6 +44,8 @@ export interface TabContentComponentProvided {
   elementProps: {
     role?: string;
   };
+  /** Whether this tab is currently selected. */
+  isSelected: boolean;
 }
 
 export type TabItemType = ComponentType<TabItemComponentProvided>;
@@ -89,6 +91,11 @@ export interface TabsProps extends WithAnalyticsEventsProps {
    * must include 'label' and 'content' properties, but if used in conjunction
    * with the components prop this object can have any shape you choose. */
   tabs: Array<TabData>;
+
+  /**
+   * Persists content in the DOM when the tab is not selected.
+   */
+  isContentPersisted?: boolean;
   /** A `testId` prop is provided for specified elements, which is a unique
    * string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests */

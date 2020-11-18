@@ -1,7 +1,9 @@
-import React from 'react';
-import { CSSProperties } from 'react';
-import { CellAttributes } from '@atlaskit/adf-schema';
-import { SortOrder, compose } from '@atlaskit/editor-common';
+import React, { CSSProperties } from 'react';
+import {
+  CellAttributes,
+  tableBackgroundColorPalette,
+} from '@atlaskit/adf-schema';
+import { compose, SortOrder } from '@atlaskit/editor-common';
 import SortingIcon from '../../ui/SortingIcon';
 import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
@@ -84,11 +86,16 @@ const withCellProps = (WrapperComponent: React.ElementType) => {
         offsetTop,
       } = this.props;
 
+      const colorName = background
+        ? tableBackgroundColorPalette.get(background)
+        : '';
+
       return (
         <WrapperComponent
           rowSpan={rowspan}
           colSpan={colspan}
           style={getStyle(background, colGroupWidth, offsetTop)}
+          colorname={colorName}
           onClick={onClick}
           className={className}
           {...getDataAttributes(colwidth)}

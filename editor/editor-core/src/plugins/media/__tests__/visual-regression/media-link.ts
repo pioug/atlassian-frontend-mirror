@@ -32,14 +32,14 @@ const getMediaWithLink = (link: string) => ({
             width: 500,
             height: 375,
           },
-        },
-      ],
-      marks: [
-        {
-          type: 'link',
-          attrs: {
-            href: link,
-          },
+          marks: [
+            {
+              type: 'link',
+              attrs: {
+                href: link,
+              },
+            },
+          ],
         },
       ],
     },
@@ -68,7 +68,7 @@ async function initEditor(page: PuppeteerPage, mediaLink: string) {
     page,
     async () => await page.click('.mediaSingleView-content-wrap'),
     '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Edit link"]',
-    1000,
+    2000,
   );
   await page.waitForSelector(linkButtonSelector, {
     visible: true,

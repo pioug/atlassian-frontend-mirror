@@ -406,10 +406,18 @@ export const getValidNode = (
             mediaAttrs.alt = attrs.alt;
           }
 
-          return {
-            type,
-            attrs: mediaAttrs,
-          };
+          const getMarks = getValidMarks(marks, adfStage);
+
+          return getMarks
+            ? {
+                type,
+                attrs: mediaAttrs,
+                marks: getMarks,
+              }
+            : {
+                type,
+                attrs: mediaAttrs,
+              };
         }
         break;
       }

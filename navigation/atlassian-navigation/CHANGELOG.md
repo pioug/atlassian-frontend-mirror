@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 0.12.3
+
+### Patch Changes
+
+- [`cadfec2b52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cadfec2b52) - [ux] Introduced a new prop value in search field so that user can control it from outside and can change the value of search field.
+
 ## 0.12.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.2.0
+
+### Minor Changes
+
+- [`24af67e112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24af67e112) - NO-ISSUE: allow consumers to specify per-type node replacements
+
 ## 11.1.2
 
 ### Patch Changes

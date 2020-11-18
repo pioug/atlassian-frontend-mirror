@@ -6,6 +6,7 @@ import {
 import {
   AnalyticsCallback,
   ErrorCallback,
+  FlowType,
   InfoCallback,
   isAppMention,
   isTeamMention,
@@ -19,6 +20,7 @@ import {
   MentionStats,
   ResourceProvider,
   ResultCallback,
+  UserRole,
 } from '../types';
 import debug from '../util/logger';
 
@@ -237,6 +239,10 @@ export class MentionResource
   private lastReturnedSearch: number;
   private activeSearches: Set<string>;
 
+  shouldEnableInvite: boolean;
+  userRole: UserRole;
+  onInviteItemClick?: (flow: FlowType) => void;
+
   constructor(config: MentionResourceConfig) {
     super();
 
@@ -245,6 +251,9 @@ export class MentionResource
     this.config = config;
     this.lastReturnedSearch = 0;
     this.activeSearches = new Set();
+    this.shouldEnableInvite = !!config.shouldEnableInvite;
+    this.onInviteItemClick = config.onInviteItemClick;
+    this.userRole = config.userRole || 'basic';
   }
 
   shouldHighlightMention(mention: MentionDescription) {

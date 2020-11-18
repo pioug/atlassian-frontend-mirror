@@ -20,6 +20,7 @@ import {
   PlaceholderProps,
   SingleValueProps,
   ValueContainerProps,
+  GroupedOptionsType,
 } from 'react-select';
 import { AsyncProps as ReactAsyncSelectProps } from 'react-select/async';
 
@@ -78,4 +79,5 @@ export type {
   StylesConfig,
   ValueContainerProps,
   ValueType,
+  GroupedOptionsType,
 };

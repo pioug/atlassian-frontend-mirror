@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { RefObject } from 'react';
+import { ButtonProps } from '@atlaskit/button/types';
 import Button from '@atlaskit/button/custom-theme-button';
 import {
   CustomThemeButtonProps,
@@ -83,15 +84,23 @@ function extract(
   }, {});
 }
 
-type Props = WithMediaButtonAppearance<CustomThemeButtonProps>;
+export interface MediaButtonProps extends ButtonProps {
+  buttonRef?: RefObject<HTMLButtonElement>;
+}
+
+type Props = WithMediaButtonAppearance<CustomThemeButtonProps> & {
+  buttonRef?: RefObject<HTMLButtonElement>;
+};
 
 export default function MediaButton({
   appearance = 'default',
+  buttonRef,
   ...rest
 }: Props) {
   return (
     <Button
       {...rest}
+      ref={buttonRef}
       // Giving button the 'default' appearance so it can calculate the base styles
       appearance={appearance}
       theme={(currentTheme, themeProps) => {

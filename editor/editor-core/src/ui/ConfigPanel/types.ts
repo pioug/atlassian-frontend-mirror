@@ -4,6 +4,7 @@ export type FormResult = {
 
 export enum ValidationError {
   Required = 'required',
+  Invalid = 'invalid',
 }
 
 export enum FieldTypeError {

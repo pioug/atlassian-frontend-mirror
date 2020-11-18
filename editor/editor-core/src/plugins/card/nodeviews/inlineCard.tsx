@@ -2,13 +2,22 @@ import React from 'react';
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import PropTypes from 'prop-types';
 import { Card as SmartCard } from '@atlaskit/smart-card';
-import { UnsupportedInline, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
+import {
+  ProviderFactory,
+  UnsupportedInline,
+  ZERO_WIDTH_SPACE,
+} from '@atlaskit/editor-common';
 import { findOverflowScrollParent } from '@atlaskit/editor-common';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
+import { ReactComponentProps } from '../../../nodeviews';
 import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { registerCard } from '../pm-plugins/actions';
+
+export interface InlineCardNodeViewProps extends ReactComponentProps {
+  providerFactory?: ProviderFactory;
+}
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;

@@ -26,7 +26,7 @@ describe('Mobile Appearance Component', () => {
 
   const DummyChild = () => <div />;
 
-  it('should wrap the children in ClickAreaBlock div with class ak-editor-content-area', () => {
+  it('should wrap the children in ClickAreaMobile div with class ak-editor-content-area', () => {
     const { editorView } = editor(
       doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
     );
@@ -35,16 +35,16 @@ describe('Mobile Appearance Component', () => {
         <DummyChild />
       </MobileAppearance>,
     );
-    expect(wrapper.find('ContentArea').find('ClickAreaBlock')).toHaveLength(1);
+    expect(wrapper.find('ClickAreaMobile').find('ContentArea')).toHaveLength(1);
     expect(
       wrapper
-        .find('ClickAreaBlock')
+        .find('ClickAreaMobile')
         .find('.ak-editor-content-area')
         .find('DummyChild'),
     ).toHaveLength(1);
   });
 
-  it('should pass editorView prop to ClickAreaBlock', () => {
+  it('should pass editorView prop to ClickAreaMobile', () => {
     const { editorView } = editor(
       doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
     );
@@ -53,24 +53,22 @@ describe('Mobile Appearance Component', () => {
         <DummyChild />
       </MobileAppearance>,
     );
-    expect(
-      wrapper.find('ContentArea').find('ClickAreaBlock').prop('editorView'),
-    ).toEqual(editorView);
+    expect(wrapper.find('ClickAreaMobile').prop('editorView')).toEqual(
+      editorView,
+    );
   });
 
-  it('should pass editorView as undefined when editor view prop is null to ClickAreaBlock', () => {
+  it('should pass editorView as undefined when editor view prop is null to ClickAreaMobile', () => {
     const editorView = null;
     const wrapper = mount(
       <MobileAppearance editorView={editorView}>
         <DummyChild />
       </MobileAppearance>,
     );
-    expect(
-      wrapper.find('ContentArea').find('ClickAreaBlock').prop('editorView'),
-    ).toBeUndefined();
+    expect(wrapper.find('ClickAreaMobile').prop('editorView')).toBeUndefined();
   });
 
-  it('should have a div inside ClickAreaBlock with className as ak-editor-content-area', () => {
+  it('should have a div inside ClickAreaMobile with className as ak-editor-content-area', () => {
     const { editorView } = editor(
       doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
     );
@@ -80,9 +78,9 @@ describe('Mobile Appearance Component', () => {
       </MobileAppearance>,
     );
 
-    expect(wrapper.find('ContentArea').find('ClickAreaBlock')).toHaveLength(1);
+    expect(wrapper.find('ClickAreaMobile').find('ContentArea')).toHaveLength(1);
     expect(
-      wrapper.find('ClickAreaBlock').find('.ak-editor-content-area'),
+      wrapper.find('ClickAreaMobile').find('.ak-editor-content-area'),
     ).toHaveLength(1);
   });
 });

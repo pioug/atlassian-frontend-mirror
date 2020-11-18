@@ -48,11 +48,14 @@ export const MarkComponent: React.FC<MarkComponentProps> = ({
   );
   const onMarkClick = useCallback(
     (event: MouseEvent) => {
-      if (state !== AnnotationMarkStates.ACTIVE) {
+      // prevents multiple callback on overlapping annotations
+      if (event.defaultPrevented || state !== AnnotationMarkStates.ACTIVE) {
         return;
       }
 
-      event.stopPropagation();
+      // prevents from opening link URL inside webView in Safari
+      event.preventDefault();
+
       onClick({ eventTarget: event.target as HTMLElement, annotationIds });
     },
     [annotationIds, onClick, state],

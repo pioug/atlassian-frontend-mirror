@@ -418,7 +418,12 @@ export class ExpandNodeView implements NodeView {
     );
   }
 
-  ignoreMutation() {
+  ignoreMutation(
+    mutationRecord: MutationRecord | { type: 'selection'; target: Element },
+  ) {
+    if (mutationRecord.type === 'selection') {
+      return false;
+    }
     return true;
   }
 

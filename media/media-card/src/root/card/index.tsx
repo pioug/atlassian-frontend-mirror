@@ -623,12 +623,14 @@ export class CardBase extends Component<
       dimensions,
       selected,
       testId,
+      originalDimensions,
     } = this.props;
 
     return (
       <InlinePlayer
         mediaClient={mediaClient}
         dimensions={dimensions}
+        originalDimensions={originalDimensions}
         identifier={identifier as FileIdentifier}
         onError={this.onInlinePlayerError}
         onClick={this.onClick}

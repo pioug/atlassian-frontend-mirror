@@ -4,6 +4,8 @@ import {
   unstable_renderSubtreeIntoContainer,
   unmountComponentAtNode,
 } from 'react-dom';
+import PropTypes from 'prop-types';
+import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 import { EventDispatcher } from '../../event-dispatcher';
 import { FireAnalyticsCallback } from '../../plugins/analytics/fire-analytics-event';
 import {
@@ -18,6 +20,7 @@ export type PortalProviderProps = {
     portalProviderAPI: PortalProviderAPI,
   ) => React.ReactChild | JSX.Element | null;
   onAnalyticsEvent?: FireAnalyticsCallback;
+  useAnalyticsContext?: boolean;
 };
 
 export type Portals = Map<HTMLElement, React.ReactChild>;
@@ -35,10 +38,15 @@ export class PortalProviderAPI extends EventDispatcher {
   portals: Map<HTMLElement, MountedPortal> = new Map();
   context: any;
   onAnalyticsEvent?: FireAnalyticsCallback;
+  useAnalyticsContext?: boolean;
 
-  constructor(onAnalyticsEvent?: FireAnalyticsCallback) {
+  constructor(
+    onAnalyticsEvent?: FireAnalyticsCallback,
+    analyticsContext?: boolean,
+  ) {
     super();
     this.onAnalyticsEvent = onAnalyticsEvent;
+    this.useAnalyticsContext = analyticsContext;
   }
 
   setContext = (context: any) => {
@@ -51,9 +59,14 @@ export class PortalProviderAPI extends EventDispatcher {
     hasReactContext: boolean = false,
   ) {
     this.portals.set(container, { children, hasReactContext });
+    const wrappedChildren = this.useAnalyticsContext ? (
+      <AnalyticsContextWrapper>{children()}</AnalyticsContextWrapper>
+    ) : (
+      (children() as JSX.Element)
+    );
     unstable_renderSubtreeIntoContainer(
       this.context,
-      children() as React.ReactElement<any>,
+      wrappedChildren,
       container,
     );
   }
@@ -63,13 +76,19 @@ export class PortalProviderAPI extends EventDispatcher {
   // selectively do this for nodeviews that opt-in via `hasReactContext`
   forceUpdate() {
     this.portals.forEach((portal, container) => {
-      if (!portal.hasReactContext) {
+      if (!portal.hasReactContext && !this.useAnalyticsContext) {
         return;
       }
 
+      const wrappedChildren = this.useAnalyticsContext ? (
+        <AnalyticsContextWrapper>{portal.children()}</AnalyticsContextWrapper>
+      ) : (
+        (portal.children() as JSX.Element)
+      );
+
       unstable_renderSubtreeIntoContainer(
         this.context,
-        portal.children() as React.ReactElement<any>,
+        wrappedChildren,
         container,
       );
     });
@@ -117,7 +136,10 @@ export class PortalProvider extends React.Component<PortalProviderProps> {
 
   constructor(props: PortalProviderProps) {
     super(props);
-    this.portalProviderAPI = new PortalProviderAPI(props.onAnalyticsEvent);
+    this.portalProviderAPI = new PortalProviderAPI(
+      props.onAnalyticsEvent,
+      props.useAnalyticsContext,
+    );
   }
 
   render() {
@@ -153,3 +175,28 @@ export class PortalRenderer extends React.Component<
     );
   }
 }
+
+/**
+ * Wrapper to re-provide modern analytics context to ReactNodeViews.
+ */
+const dummyAnalyticsContext = {
+  getAtlaskitAnalyticsContext() {},
+  getAtlaskitAnalyticsEventHandlers() {},
+};
+
+const AnalyticsContextWrapper = class extends React.Component<any> {
+  static contextTypes = {
+    contextAdapter: PropTypes.object,
+  };
+
+  render() {
+    const { value } = this.context.contextAdapter.analytics || {
+      value: dummyAnalyticsContext,
+    };
+    return (
+      <AnalyticsReactContext.Provider value={value}>
+        {this.props.children}
+      </AnalyticsReactContext.Provider>
+    );
+  }
+};

@@ -43,6 +43,8 @@ export const nativeFields: FieldDefinition[] = [
   {
     name: 'boolean-field-required',
     label: 'Needs to be checked',
+    description:
+      '<b>A</b> <i>checkbox</i> that can be <code>true</code> or <strong>false</strong> <em>(by design)</em>',
     isRequired: true,
     type: 'boolean',
   },

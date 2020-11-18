@@ -146,3 +146,44 @@ export const VIEWPORT_SIZES = {
 
 // to be updated in ED-10790: this should be variable threshold based on how many buttons enabled on main toolbar
 export const akEditorMobileMaxWidth = 0;
+
+export const getTableCellBackgroundDarkModeColors = [
+  ['White', '#000000'],
+  ['Light blue', '#0C294F'],
+  ['Light teal', '#0C343B'],
+  ['Light green', '#052E21'],
+  ['Light yellow', '#484123'],
+  ['Light red', '#441C13'],
+  ['Light purple', '#282249'],
+
+  ['Light gray', '#202328'],
+  ['Blue', '#0B3165'],
+  ['Teal', '#044853'],
+  ['Green', '#053927'],
+  ['Yellow', '#6F5C25'],
+  ['Red', '#582013'],
+  ['Purple', '#3E327B'],
+
+  ['Gray', '#475262'],
+  ['Dark blue', '#003884'],
+  ['Dark teal', '#055866'],
+  ['Dark green', '#044932'],
+  ['Dark yellow', '#82641C'],
+  ['Dark red', '#6B2A19'],
+  ['Dark purple', '#4D38B2'],
+]
+  .map(([colorName, colorValue]) =>
+    getTableCellBackgroundDarkModeColorCSS(colorName, colorValue),
+  )
+  .join('\n');
+
+export function getTableCellBackgroundDarkModeColorCSS(
+  colorName: string,
+  colorValue: string,
+): string {
+  return `
+  &[colorname="${colorName}"] {
+    background-color: ${colorValue} !important; // !important to override default style color
+  }
+  `;
+}

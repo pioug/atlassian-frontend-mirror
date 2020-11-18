@@ -17,14 +17,12 @@ export type AnnotationByMatches = {
   originalSelection: string;
   numMatches: number;
   matchIndex: number;
+  isAnnotationAllowed?: boolean;
 };
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 export type AnnotationActionResult =
-  | ({
-      step: Step;
-      doc: JSONDocNode;
-    } & AnnotationByMatches)
+  | ({ step: Step; doc: JSONDocNode } & AnnotationByMatches)
   | false;
 
 export type InlineCommentSelectionComponentProps = {
@@ -62,6 +60,11 @@ export type InlineCommentSelectionComponentProps = {
    * Call this function to remove the draft HTML tags created by the applyDraftMode
    */
   removeDraftMode: () => void;
+
+  /**
+   * getAnnotationIndexMatch finds the { numMatch, matchIndex } tuple of the current selection
+   */
+  getAnnotationIndexMatch?: () => AnnotationByMatches | false;
 };
 
 type AnnotationInfo = {

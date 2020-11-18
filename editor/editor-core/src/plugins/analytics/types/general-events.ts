@@ -1,4 +1,9 @@
-import { UIAEP, TrackAEP, OperationalAEP } from './utils';
+import {
+  UIAEP,
+  TrackAEP,
+  OperationalAEP,
+  OperationalAEPWithObjectId,
+} from './utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -77,7 +82,7 @@ type EditorStartAEP = UIAEP<
   undefined
 >;
 
-type EditorPerfAEP = OperationalAEP<
+type EditorPerfAEP = OperationalAEPWithObjectId<
   ACTION.EDITOR_MOUNTED | ACTION.PROSEMIRROR_RENDERED,
   ACTION_SUBJECT.EDITOR,
   undefined,
@@ -103,7 +108,7 @@ type EditorTTIAEP = OperationalAEP<
   undefined
 >;
 
-type BrowserFreezePayload = OperationalAEP<
+type BrowserFreezePayload = OperationalAEPWithObjectId<
   ACTION.BROWSER_FREEZE,
   ACTION_SUBJECT.EDITOR,
   undefined,
@@ -118,7 +123,7 @@ type BrowserFreezePayload = OperationalAEP<
   undefined
 >;
 
-type SlowInputAEP = OperationalAEP<
+type SlowInputAEP = OperationalAEPWithObjectId<
   ACTION.SLOW_INPUT,
   ACTION_SUBJECT.EDITOR,
   undefined,
@@ -131,7 +136,7 @@ type SlowInputAEP = OperationalAEP<
   undefined
 >;
 
-type InputPerfSamlingAEP = OperationalAEP<
+type InputPerfSamlingAEP = OperationalAEPWithObjectId<
   ACTION.INPUT_PERF_SAMPLING,
   ACTION_SUBJECT.EDITOR,
   undefined,

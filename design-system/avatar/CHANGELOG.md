@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 20.0.7
+
+### Patch Changes
+
+- [`5c1b4d64ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c1b4d64ef) - [ux] There were two browser specific issues in avatar component. 1- Misalignment in firefox (Interactive button avatar is incorrectly aligned) — To fix this we added font-size and font-family to button element. 2- Hover issue in safari (On hover avatar was showing rectangular background) — To fix this we have added border radius to avatar on hover.
+
 ## 20.0.6
 
 ### Patch Changes

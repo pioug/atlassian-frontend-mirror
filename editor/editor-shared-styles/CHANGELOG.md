@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 1.1.6
+
+### Patch Changes
+
+- [`d6c23f1886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c23f1886) - Added dark mode support to table cell background colors
+
 ## 1.1.5
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import {
   MediaProvider,
 } from '@atlaskit/editor-common';
 import {
+  FileState,
   getMediaClient,
   isMediaBlobUrl,
   getAttrsFromUrl,
@@ -103,9 +104,13 @@ export class MediaNodeUpdater {
       collectionName: attrs.collection,
     };
 
-    const fileState = await mediaClient.file.getCurrentState(attrs.id, options);
-
-    if (fileState.status === 'error') {
+    let fileState: FileState;
+    try {
+      fileState = await mediaClient.file.getCurrentState(attrs.id, options);
+      if (fileState.status === 'error') {
+        return;
+      }
+    } catch (err) {
       return;
     }
 
@@ -285,7 +290,7 @@ export class MediaNodeUpdater {
     return false;
   };
 
-  handleExternalMedia = async (getPos: ProsemirrorGetPosHandler) => {
+  async handleExternalMedia(getPos: ProsemirrorGetPosHandler) {
     if (this.isMediaBlobUrl()) {
       try {
         await this.copyNodeFromBlobUrl(getPos);
@@ -295,7 +300,7 @@ export class MediaNodeUpdater {
     } else {
       await this.uploadExternalMedia(getPos);
     }
-  };
+  }
 
   copyNodeFromBlobUrl = async (getPos: ProsemirrorGetPosHandler) => {
     const attrs = this.getAttrs();

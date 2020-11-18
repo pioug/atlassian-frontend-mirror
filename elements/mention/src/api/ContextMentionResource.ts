@@ -9,14 +9,17 @@ import {
   ResultCallback,
 } from './MentionResource';
 import { padArray } from '../util';
-import { MentionDescription } from '../types';
+import { MentionDescription, InviteFromMentionProvider } from '../types';
 export type { MentionDescription };
 
-export type MentionProviderFunctions = {
-  [Key in keyof MentionProvider]: MentionProvider[Key] extends Function
-    ? MentionProvider[Key]
-    : never;
-};
+export type MentionProviderFunctions = Omit<
+  {
+    [Key in keyof MentionProvider]: MentionProvider[Key] extends Function
+      ? MentionProvider[Key]
+      : never;
+  },
+  keyof InviteFromMentionProvider
+>;
 
 /**
  * This component is stateful and should be instantianted per contextIdentifiers.

@@ -4,13 +4,6 @@ import Tag from '../src/tag/removable-tag';
 
 export default () => (
   <div>
-    <Tag text="Base Tag" testId="standard" isRemovable={false} />
-    <Tag
-      text="Linked Tag"
-      testId="linkTag"
-      href="/components/tag"
-      isRemovable={false}
-    />
     <Tag
       text="Removable button"
       removeButtonLabel="Remove"
@@ -32,6 +25,12 @@ export default () => (
         return true;
       }}
       onAfterRemoveAction={e => console.log('After removal', e)} // eslint-disable-line no-console
+    />
+    <Tag
+      text="Removable Tag"
+      color="purpleLight"
+      testId="removableTagColor"
+      removeButtonLabel="Remove"
     />
   </div>
 );

@@ -1,3 +1,4 @@
+import { AnnotationByMatches } from '@atlaskit/editor-common';
 import {
   ContentBridge,
   AnnotationBridge,
@@ -49,6 +50,12 @@ class Bridge implements AnnotationBridge, ContentBridge {
     payload: AnnotationTypesAvailableOnCurrentSelection[],
   ) {
     sendToBridge('annotationBridge', 'canApplyAnnotationOnCurrentSelection', {
+      payload: JSON.stringify(payload),
+    });
+  }
+
+  annotationIndexMatch(payload: AnnotationByMatches) {
+    sendToBridge('annotationBridge', 'annotationIndexMatch', {
       payload: JSON.stringify(payload),
     });
   }

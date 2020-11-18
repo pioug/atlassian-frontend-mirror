@@ -374,7 +374,7 @@ export class ExampleEditorComponent extends React.Component<
                   "Do you need more help? Type '/help'",
                 ]}
                 placeholderBracketHint="Did you mean to use '/' to insert content?"
-                shouldFocus={false}
+                shouldFocus={true}
                 disabled={this.state.disabled}
                 defaultValue={
                   (localStorage &&
@@ -432,7 +432,6 @@ export class ExampleEditorComponent extends React.Component<
                   <Button
                     iconBefore={<AtlassianIcon />}
                     appearance="subtle"
-                    href="https://atlaskit.atlassian.com/"
                     shouldFitContainer
                   ></Button>
                 }
@@ -493,11 +492,11 @@ export class ExampleEditorComponent extends React.Component<
     );
   }
   private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
-    if (e.key === 'Tab' && !e.shiftKey) {
+    if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
       // Move to the editor view
-      this.setState({
-        disabled: false,
-      });
+      const target = e.currentTarget as HTMLInputElement;
+      target.blur();
+      e.preventDefault();
       actions.focus();
       return false;
     }

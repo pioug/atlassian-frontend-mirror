@@ -1,63 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Context as CardContext } from '@atlaskit/smart-card';
+import type { CardContext as CardContextType } from '@atlaskit/smart-card';
+import {
+  default as AnalyticsReactContext,
+  AnalyticsReactContextInterface,
+} from '@atlaskit/analytics-next-stable-react-context';
 
-export type ContextAdapter = Record<string, React.Context<any>>;
+export type ContextAdaptersMap = Record<string, React.Context<any>>;
+
+function useContextMemoized<T>(reactContext: React.Context<T>) {
+  const value = React.useContext(reactContext);
+  const context = React.useMemo(
+    () => ({
+      Provider: reactContext.Provider,
+      Consumer: reactContext.Consumer,
+      value,
+    }),
+    [value, reactContext],
+  );
+  return context;
+}
 
 // injects contexts via old context API to children
 // and gives access to the original Provider so that
 // the child can re-emit it
-export const createContextAdapter = (createContextAdapter: ContextAdapter) => {
-  return class extends React.Component<{}, { hasRendered: {} }> {
-    static childContextTypes = {
-      contextAdapter: PropTypes.object,
-    };
-
-    contextState: Record<string, any> = {};
-
-    getChildContext() {
-      return { contextAdapter: this.zipProvidersWithValues() };
-    }
-
-    zipProvidersWithValues() {
-      return Object.keys(createContextAdapter).reduce<
-        Record<string, React.Context<any> & { value: any }>
-      >((zipped, name) => {
-        zipped[name] = {
-          Provider: createContextAdapter[name].Provider,
-          Consumer: createContextAdapter[name].Consumer,
-          value: this.contextState[name],
-        };
-
-        return zipped;
-      }, {});
-    }
-
-    render() {
-      const { children } = this.props;
-
-      // render all the consumers, and react to their value changes independently
-      const consumers = Object.keys(createContextAdapter).map((name, idx) => {
-        const Consumer = createContextAdapter[name].Consumer;
-        return (
-          <Consumer key={idx}>
-            {value => {
-              // update local copy of value provided from Consumer
-              if (this.contextState[name] !== value) {
-                this.contextState[name] = value;
-                this.forceUpdate();
-              }
-              return null;
-            }}
-          </Consumer>
-        );
-      });
-
-      return (
-        <>
-          {consumers}
-          {children}
-        </>
-      );
-    }
-  };
+export const ContextAdapter: React.FunctionComponent = ({ children }) => {
+  const card = useContextMemoized(CardContext);
+  const analytics = useContextMemoized(AnalyticsReactContext);
+  return (
+    <LegacyContextAdapter card={card} analytics={analytics}>
+      {children}
+    </LegacyContextAdapter>
+  );
 };
+
+type ContextWrapper<T> = {
+  Provider: React.Provider<T>;
+  Consumer: React.Consumer<T>;
+  value: T;
+};
+
+type LegacyContextAdapterProps = {
+  card?: ContextWrapper<CardContextType | undefined>;
+  analytics?: ContextWrapper<AnalyticsReactContextInterface>;
+};
+
+class LegacyContextAdapter extends React.PureComponent<
+  LegacyContextAdapterProps,
+  {}
+> {
+  static childContextTypes = {
+    contextAdapter: PropTypes.object,
+  };
+
+  contextState: LegacyContextAdapterProps = {};
+
+  getChildContext() {
+    return {
+      contextAdapter: {
+        card: this.props.card,
+        analytics: this.props.analytics,
+      },
+    };
+  }
+
+  render() {
+    return this.props.children;
+  }
+}

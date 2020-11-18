@@ -17,7 +17,7 @@ import {
 jest.mock('../../../draft');
 
 describe('Annotations: SelectionInlineCommentMounter', () => {
-  const fakeApplyAnotation: jest.Mock = jest.fn();
+  const fakeApplyAnnotation: jest.Mock = jest.fn();
   const fakeOnCloseProp: jest.Mock = jest.fn();
   const fakeClearAnnotationDraft: jest.Mock = jest.fn();
   const fakeCreateAnalyticsEvent = createAnalyticsEventMock();
@@ -50,7 +50,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         component={DummyComponent}
         documentPosition={fakeDocumentPosition}
         isAnnotationAllowed={isAnnotationAllowed}
-        applyAnnotation={fakeApplyAnotation as ApplyAnnotation}
+        applyAnnotation={fakeApplyAnnotation as ApplyAnnotation}
         applyAnnotationDraftAt={jest.fn()}
         createAnalyticsEvent={fakeCreateAnalyticsEvent}
         clearAnnotationDraft={fakeClearAnnotationDraft}
@@ -156,7 +156,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           annotationId: 'annotationId',
           annotationType: AnnotationTypes.INLINE_COMMENT,
         };
-        expect(fakeApplyAnotation).toHaveBeenCalledWith(
+        expect(fakeApplyAnnotation).toHaveBeenCalledWith(
           fakeDocumentPosition,
           fakeAnnotation,
         );
@@ -207,7 +207,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
         onCreateCallback('annotationId');
 
-        expect(fakeApplyAnotation).toHaveBeenCalledWith(
+        expect(fakeApplyAnnotation).toHaveBeenCalledWith(
           fakeDocumentPosition,
           fakeAnnotation,
         );

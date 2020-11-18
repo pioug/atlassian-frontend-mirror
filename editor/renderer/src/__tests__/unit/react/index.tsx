@@ -536,7 +536,7 @@ describe('Renderer - ReactSerializer', () => {
   describe('link mark', () => {
     it('has correct isMediaLink value when link mark is applied on media', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-      const reactDoc = mountWithIntl(
+      const reactDoc = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content) as any,
       );
       expect(reactDoc.find('Link').first().prop('isMediaLink')).toEqual(true);
@@ -544,7 +544,7 @@ describe('Renderer - ReactSerializer', () => {
 
     it('has correct isMediaLink value when link mark is not applied on media', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-      const reactDoc = mountWithIntl(
+      const reactDoc = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
       expect(reactDoc.find('Link').last().prop('isMediaLink')).toBeFalsy();
@@ -552,7 +552,7 @@ describe('Renderer - ReactSerializer', () => {
 
     it('does not render when allowMediaLinking is undefined', () => {
       const reactSerializer = new ReactSerializer({});
-      const reactDoc = mountWithIntl(
+      const reactDoc = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
       expect(reactDoc.find('Link')).toHaveLength(1);
@@ -560,7 +560,7 @@ describe('Renderer - ReactSerializer', () => {
 
     it('does not render when allowMediaLinking is false', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: false });
-      const reactDoc = mountWithIntl(
+      const reactDoc = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
       expect(reactDoc.find('Link')).toHaveLength(1);
@@ -568,7 +568,7 @@ describe('Renderer - ReactSerializer', () => {
 
     it('does render when allowMediaLinking is true', () => {
       const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-      const reactDoc = mountWithIntl(
+      const reactDoc = shallow(
         reactSerializer.serializeFragment(linksDocFromSchema.content)!,
       );
       expect(reactDoc.find('Link')).toHaveLength(2);

@@ -1,34 +1,28 @@
 import React from 'react';
-import MobileRenderer from '../../mobile-renderer-element';
+import MobileRendererWithIntl, {
+  MobileRenderer,
+} from '../../mobile-renderer-element';
 import {
   createCardClient,
   createEmojiProvider,
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
-import { eventDispatcher, EmitterEvents } from '../../dispatcher';
-import { render, unmountComponentAtNode } from 'react-dom';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { sendToBridge as originalSendToBridge } from '../../../bridge-utils';
-import { doc, p, text } from '@atlaskit/adf-utils/builders';
+import { doc, p, text, date } from '@atlaskit/adf-utils/builders';
 import { render as renderTestingLib, cleanup } from '@testing-library/react';
+import { mount } from 'enzyme';
+import * as rendererHook from '../../hooks/use-set-renderer-content';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { InjectedIntl } from 'react-intl';
+import * as useTranslations from '../../../i18n/use-translations';
 
 jest.mock('../../../bridge-utils');
-
-let container: HTMLElement;
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-});
-
 describe('renderer bridge', () => {
   const createPromiseMock = jest.fn();
   let fetchProxy: FetchProxy;
+  let intlMock: any;
 
   beforeEach(() => {
     fetchProxy = new FetchProxy();
@@ -38,33 +32,69 @@ describe('renderer bridge', () => {
       onContentRendered: jest.fn(),
       onRenderedContentHeightChanged: jest.fn(),
     };
+    intlMock = ({
+      formatMessage: (messageDescriptor: any) =>
+        messageDescriptor && messageDescriptor.defaultMessage,
+    } as unknown) as InjectedIntl;
   });
 
   afterEach(() => {
     fetchProxy.disable();
     cleanup();
   });
+  describe('Intialize renderer', () => {
+    afterEach(() => {
+      jest.resetAllMocks();
+      jest.restoreAllMocks();
+    });
+    let useRendererContentSpy: any;
+    beforeEach(() => {
+      useRendererContentSpy = jest.spyOn(rendererHook, 'useRendererContent');
+    });
 
-  describe('when the Mobile Renderer is loaded without document', () => {
-    it('should listener for setRendererContent', () => {
-      expect(
-        eventDispatcher.listeners(EmitterEvents.SET_RENDERER_CONTENT),
-      ).toHaveLength(0);
-      // do not wrapper this render with act
-      render(
+    it('should call useRendererContent when Mobile renderer is loaded', () => {
+      useRendererContentSpy.mockImplementation(() => {
+        return {
+          type: 'doc',
+          version: 1,
+          content: [],
+        } as JSONDocNode;
+      });
+      mount(
         <MobileRenderer
           document={''}
           cardClient={createCardClient()}
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
+          intl={intlMock}
         />,
-        container,
       );
+      expect(useRendererContentSpy).toHaveBeenCalledTimes(1);
+    });
 
-      expect(
-        eventDispatcher.listeners(EmitterEvents.SET_RENDERER_CONTENT),
-      ).toHaveLength(1);
+    it('should have localise renderer', async () => {
+      const messages = {};
+      jest
+        .spyOn(useTranslations, 'useTranslations')
+        .mockReturnValue(['pl', messages]);
+
+      const initialDoc = doc(p(date({ timestamp: '1603756800000' })));
+      const result = mount(
+        <MobileRendererWithIntl
+          document={JSON.stringify(initialDoc)}
+          cardClient={createCardClient()}
+          emojiProvider={createEmojiProvider(fetchProxy)}
+          mediaProvider={createMediaProvider()}
+          mentionProvider={createMentionProvider()}
+        />,
+      );
+      const basicRendererIntlProp = result
+        .find('BasicRenderer')
+        .prop('intl') as InjectedIntl;
+
+      expect(basicRendererIntlProp.locale).toBe('pl');
+      expect(basicRendererIntlProp.messages).toBe(messages);
     });
   });
 
@@ -90,6 +120,7 @@ describe('renderer bridge', () => {
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
+          intl={intlMock}
         />,
       );
 
@@ -109,6 +140,7 @@ describe('renderer bridge', () => {
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
+          intl={intlMock}
         />,
       );
 

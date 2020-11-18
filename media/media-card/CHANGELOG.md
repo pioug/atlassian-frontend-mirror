@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 70.1.0
+
+### Minor Changes
+
+- [`aac7ffcb97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aac7ffcb97) - [ux] While a file has a 'processing' filestate, we now alert the user that we are creating the preview. This signifies to the user that they can download & view a file while the preview is being generated (i.e they don't have to wait). Also added a 'Failed Processing' UI state, for when a preview cannot be generated and is thus unavailable
+
+### Patch Changes
+
+- [`b124464476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b124464476) - Fixing bug. Text should be "Preview unavailable" not "Preview Unavailable"
+- [`a1c2bf2e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c2bf2e45) - pass originalDimensions to inline video player
+- Updated dependencies
+
 ## 70.0.0
 
 ### Major Changes

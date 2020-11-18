@@ -1,6 +1,11 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 jest.mock('socket.io-client');
 import { Channel } from '../../channel';
+import { ErrorPayload } from '../../types';
+import {
+  MAX_STEP_REJECTED_ERROR,
+  CATCHUP_THROTTLE_TIMEOUT,
+} from '../../provider';
 jest.mock('../../channel');
 
 const testProviderConfig = {
@@ -16,10 +21,12 @@ describe('provider unit tests', () => {
     logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     const channel = new Channel({} as any);
     socket = channel.getSocket()!;
+    jest.useFakeTimers();
   });
   afterEach(() => {
     logSpy.mockClear();
     jest.clearAllMocks();
+    jest.useRealTimers();
   });
   const editorState: any = {
     plugins: [
@@ -64,5 +71,44 @@ describe('provider unit tests', () => {
     provider.initialize(() => editorState);
     socket.emit('connected', { sid });
     socket.emit('init', { doc: 'bla', version: 1, userId });
+  });
+
+  it('should emit error and trigger catchup', () => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    const throttledCatchupSpy = jest
+      .spyOn(provider as any, 'throttledCatchup')
+      .mockImplementation(() => {});
+    const stepRejectedError: ErrorPayload = {
+      code: 'HEAD_VERSION_UPDATE_FAILED',
+      meta: 'The version number does not match the current head version.',
+      message: 'Version number does not match current head version.',
+    };
+
+    provider.initialize(() => editorState);
+    for (let i = 1; i <= MAX_STEP_REJECTED_ERROR + 2; i++) {
+      socket.emit('error', stepRejectedError);
+    }
+    expect(throttledCatchupSpy).toBeCalledTimes(3);
+  });
+
+  it('should emit error and trigger catchup in 5 seconds', () => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    const throttledCatchupSpy = jest
+      .spyOn(provider as any, 'throttledCatchup')
+      .mockImplementation(() => {});
+    const stepRejectedError: ErrorPayload = {
+      code: 'HEAD_VERSION_UPDATE_FAILED',
+      meta: 'The version number does not match the current head version.',
+      message: 'Version number does not match current head version.',
+    };
+
+    provider.initialize(() => editorState);
+    for (let i = 1; i <= MAX_STEP_REJECTED_ERROR / 2; i++) {
+      socket.emit('error', stepRejectedError);
+    }
+    expect(throttledCatchupSpy).not.toBeCalled();
+    jest.advanceTimersByTime(CATCHUP_THROTTLE_TIMEOUT);
+    expect(throttledCatchupSpy).toBeCalled();
+    expect(throttledCatchupSpy).toBeCalledTimes(1);
   });
 });

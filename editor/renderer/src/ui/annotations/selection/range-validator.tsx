@@ -44,6 +44,7 @@ export const SelectionRangeValidator: React.FC<Props> = props => {
       isAnnotationAllowed={isAnnotationAllowed}
       applyAnnotation={actions.applyAnnotation.bind(actions)}
       applyAnnotationDraftAt={applyAnnotationDraftAt}
+      generateIndexMatch={actions.generateAnnotationIndexMatch.bind(actions)}
       clearAnnotationDraft={clearAnnotationDraft}
       createAnalyticsEvent={createAnalyticsEvent}
     />

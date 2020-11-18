@@ -3,6 +3,7 @@ import React from 'react';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { MarkComponent } from '../../mark';
+import { fireEvent } from '@testing-library/react';
 
 let container: HTMLElement;
 beforeEach(() => {
@@ -75,6 +76,17 @@ describe('Annotations/Mark', () => {
       expect(markWrapper!.getAttribute('aria-disabled')).toBeNull();
     });
 
+    it('should prevent default when clicked', async () => {
+      const markWrapper = container.querySelector('mark');
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      });
+      Object.assign(clickEvent, { preventDefault: jest.fn() });
+      fireEvent(markWrapper!, clickEvent);
+      expect(clickEvent.preventDefault).toHaveBeenCalledTimes(1);
+    });
+
     it('should call onClick prop when clicked', async () => {
       const markWrapper = container.querySelector('mark');
       markWrapper!.click();
@@ -86,7 +98,55 @@ describe('Annotations/Mark', () => {
     });
   });
 
-  describe('whne state is not active', () => {
+  describe('when 2 marks overlaps in active state', () => {
+    const state = AnnotationMarkStates.ACTIVE;
+    const childFakeId = 'childFakeId';
+    const childAnnotationParentIds = [fakeId];
+    const childFakeDataAttributes = {
+      'data-renderer-mark': true,
+      'data-mark-type': 'annotation',
+      'data-mark-annotation-type': AnnotationTypes.INLINE_COMMENT,
+      'data-id': childFakeId,
+    };
+
+    beforeEach(() => {
+      render(
+        <MarkComponent
+          id={fakeId}
+          annotationParentIds={annotationParentIds}
+          dataAttributes={fakeDataAttributes}
+          state={state}
+          hasFocus={false}
+          onClick={onClick}
+        >
+          <MarkComponent
+            id={childFakeId}
+            annotationParentIds={childAnnotationParentIds}
+            dataAttributes={childFakeDataAttributes}
+            state={state}
+            hasFocus={false}
+            onClick={onClick}
+          >
+            <small>some</small>
+          </MarkComponent>
+        </MarkComponent>,
+        container,
+      );
+    });
+
+    it('should call onClick only once', async () => {
+      const markWrapper = container.querySelector('#childFakeId');
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      });
+      Object.assign(clickEvent, { preventDefault: jest.fn() });
+      fireEvent(markWrapper!, clickEvent);
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('when state is not active', () => {
     const state = AnnotationMarkStates.RESOLVED;
 
     beforeEach(() => {

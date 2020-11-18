@@ -1,14 +1,28 @@
-jest.mock('../../customMediaPlayer/fullscreen');
+jest.mock('../../customMediaPlayer/fullscreen', () => {
+  const original = jest.requireActual('../../customMediaPlayer/fullscreen');
+  return {
+    ...original,
+    toggleFullscreen: jest.fn(),
+    getFullscreenElement: jest.fn(),
+  };
+});
+
+jest.mock('../../customMediaPlayer/simultaneousPlayManager');
+jest.mock('@atlaskit/width-detector');
+
 import Button from '@atlaskit/button/custom-theme-button';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
-import { asMock, fakeIntl } from '@atlaskit/media-test-helpers';
+import {
+  asMock,
+  fakeIntl,
+  mountWithIntlContext,
+} from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
 import MediaPlayer from 'react-video-renderer';
-import { mount } from 'enzyme';
 import React from 'react';
 import { Shortcut } from '../../';
 import {
@@ -23,24 +37,18 @@ import {
   VolumeTimeRangeWrapper,
 } from '../../customMediaPlayer/styled';
 import { TimeRange, TimeRangeProps } from '../../customMediaPlayer/timeRange';
-jest.mock('../../customMediaPlayer/simultaneousPlayManager');
+import { PlaybackSpeedControls } from '../../customMediaPlayer/playbackSpeedControls';
 
 // Removes errors from JSDOM virtual console on CustomMediaPlayer tests
 // Trick taken from https://github.com/jsdom/jsdom/issues/2155
 const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
 const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
 
-let innerSetWidth: Function | undefined;
-
-const setWidth = (width: number) =>
-  typeof innerSetWidth === 'function' ? innerSetWidth(width) : undefined;
-
 type mockWidthObserver = typeof WidthObserver;
 
 jest.mock('@atlaskit/width-detector', () => {
   return {
     WidthObserver: (props => {
-      innerSetWidth = props.setWidth;
       return null;
     }) as mockWidthObserver,
   };
@@ -59,10 +67,10 @@ afterAll(() => {
 describe('<CustomMediaPlayer />', () => {
   const setup = (props?: Partial<CustomMediaPlayerProps>) => {
     const onChange = jest.fn();
-    const component = mount<
-      CustomMediaPlayer,
+    const component = mountWithIntlContext<
       CustomMediaPlayerProps,
-      CustomMediaPlayerState
+      CustomMediaPlayerState,
+      CustomMediaPlayer
     >(
       <CustomMediaPlayer
         type="video"
@@ -74,9 +82,45 @@ describe('<CustomMediaPlayer />', () => {
       />,
     );
 
+    const triggerFullscreen = () => {
+      component.simulate('fullscreenchange', {});
+
+      const videoWrapperRef = component.instance().videoWrapperRef;
+      if (!videoWrapperRef) {
+        return expect(videoWrapperRef).toBeDefined();
+      }
+      const event = new Event('fullscreenchange');
+      videoWrapperRef.dispatchEvent(event);
+      component.update();
+    };
+
+    const downloadButton = component
+      .find(Button)
+      .filter({ testId: 'custom-media-player-download-button' });
+
+    const hdButton = component
+      .find(Button)
+      .filter({ testId: 'custom-media-player-hd-button' });
+
+    const fullscreenButton = component
+      .find(Button)
+      .filter({ testId: 'custom-media-player-fullscreen-button' });
+
+    const playButton = component
+      .find(Button)
+      .filter({ testId: 'custom-media-player-play-toggle-button' });
+
+    const setWidth = component.find(WidthObserver).at(0).props().setWidth;
+
     return {
       component,
       onChange,
+      triggerFullscreen,
+      downloadButton,
+      hdButton,
+      fullscreenButton,
+      playButton,
+      setWidth,
     };
   };
 
@@ -88,10 +132,9 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should render the right icon based on the video state (play/pause)', () => {
-      const { component } = setup();
-      const button = component.find(Button).first() as any;
+      const { playButton } = setup();
 
-      expect(button.prop('iconBefore').type).toEqual(VidPlayIcon);
+      expect(playButton.prop('iconBefore').type).toEqual(VidPlayIcon);
     });
 
     it('should render a time range with the time properties', () => {
@@ -121,26 +164,39 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should render the fullscreen button', () => {
-      const { component } = setup();
+      const { fullscreenButton } = setup();
 
-      expect(
-        (component.find(Button).last().prop('iconBefore') as any).type,
-      ).toEqual(FullScreenIcon);
+      expect(fullscreenButton.props().iconBefore.type).toEqual(FullScreenIcon);
     });
 
-    it('should render hd button if available', () => {
-      const { component } = setup({
-        isHDAvailable: true,
-      });
+    describe('when hd is available', () => {
+      it('should render hd button when available', () => {
+        const { hdButton } = setup({
+          isHDAvailable: true,
+        });
 
-      expect(component.find(Button)).toHaveLength(4);
-      expect(
-        (component.find(Button).at(2).prop('iconBefore') as any).type,
-      ).toEqual(VidHdCircleIcon);
-      component.setProps({
-        isHDAvailable: false,
+        expect(hdButton.props().iconBefore.type).toEqual(VidHdCircleIcon);
       });
-      expect(component.find(Button)).toHaveLength(3);
+      it('should fire callback when hd button is clicked', () => {
+        const onHDToggleClick = jest.fn();
+        const { hdButton } = setup({
+          isHDAvailable: true,
+          onHDToggleClick,
+        });
+
+        hdButton.simulate('click');
+        expect(onHDToggleClick).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('when hd is not available', () => {
+      it('should not render hd button when not available', () => {
+        const { hdButton } = setup({
+          isHDAvailable: false,
+        });
+
+        expect(hdButton).toHaveLength(0);
+      });
     });
 
     it('should render spinner when the video is in loading state', () => {
@@ -150,13 +206,26 @@ describe('<CustomMediaPlayer />', () => {
       expect(component.find(Spinner)).toHaveLength(1);
     });
 
-    it('should render download button if onDownloadClick is passed', () => {
+    describe('when onDownloadClick is passed', () => {
       const onDownloadClick = jest.fn();
-      const { component } = setup({ onDownloadClick });
 
-      expect(component.find(DownloadIcon)).toHaveLength(1);
-      component.find(DownloadIcon).simulate('click');
-      expect(onDownloadClick).toBeCalledTimes(1);
+      it('should render download button if onDownloadClick is passed', () => {
+        const { downloadButton } = setup({ onDownloadClick });
+        expect(downloadButton.props().iconBefore.type).toEqual(DownloadIcon);
+      });
+
+      it('should call onDownloadClick when download button is pressed', () => {
+        const { downloadButton } = setup({ onDownloadClick });
+        downloadButton.simulate('click');
+        expect(onDownloadClick).toBeCalledTimes(1);
+      });
+    });
+
+    it('should render playback speed controls with default values', () => {
+      const { component } = setup();
+      const { playbackSpeed } = component.find(PlaybackSpeedControls).props();
+
+      expect(playbackSpeed).toEqual(1);
     });
   });
 
@@ -171,7 +240,6 @@ describe('<CustomMediaPlayer />', () => {
       expect(component.find(Shortcut)).toHaveLength(2);
       expect(showControls).toHaveBeenCalledTimes(2);
     });
-
     it('should fire callback when hd button is clicked', () => {
       const onHDToggleClick = jest.fn();
       const { component } = setup({
@@ -184,9 +252,9 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should request full screen when fullscreen button is clicked', () => {
-      const { component } = setup();
+      const { fullscreenButton } = setup();
 
-      component.find(Button).last().simulate('click');
+      fullscreenButton.simulate('click');
       expect(toggleFullscreen).toHaveBeenCalledTimes(1);
     });
 
@@ -226,6 +294,16 @@ describe('<CustomMediaPlayer />', () => {
         },
       });
       expect(component.find(TimeRange).at(1).prop('currentTime')).toEqual(0.3);
+    });
+
+    it('should update playback speed when speed is changed', () => {
+      const { component } = setup();
+
+      component.find(PlaybackSpeedControls).prop('onPlaybackSpeedChange')(2);
+      component.update();
+      expect(
+        component.find(PlaybackSpeedControls).prop('playbackSpeed'),
+      ).toEqual(2);
     });
   });
 
@@ -272,9 +350,9 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should pause other players when click play button', () => {
-      const { component } = setup({ isAutoPlay: false });
+      const { playButton } = setup({ isAutoPlay: false });
 
-      component.find(Button).at(0).simulate('click');
+      playButton.simulate('click');
       expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(1);
     });
 
@@ -321,8 +399,7 @@ describe('<CustomMediaPlayer />', () => {
 
   describe('on resize', () => {
     it('Should show/hide current time when video is bigger/smaller than 400px', async () => {
-      const { component } = setup();
-
+      const { component, setWidth } = setup();
       setWidth(399);
       component.update();
 
@@ -335,7 +412,7 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('Should show/hide volume controls when video is bigger/smaller than 400px', async () => {
-      const { component } = setup();
+      const { component, setWidth } = setup();
 
       setWidth(399);
       component.update();

@@ -1,5 +1,18 @@
 # @atlaskit/adf-schema
 
+## 13.3.0
+
+### Minor Changes
+
+- [`4fdb9762af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fdb9762af) - ED-10792: allow shouldExclude() to work on enum values
+
+### Patch Changes
+
+- [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
+- [`a242048609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a242048609) - Re-enable adf schema backwards compatibility check
+- [`d6c23f1886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c23f1886) - Added dark mode support to table cell background colors
+- [`db4e6ab0d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db4e6ab0d4) - EDM-1388: Toggle link mark on media and not mediaSingle
+
 ## 13.2.0
 
 ### Minor Changes

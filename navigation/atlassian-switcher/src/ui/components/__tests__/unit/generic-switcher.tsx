@@ -39,6 +39,7 @@ describe('generic-switcher', () => {
         isCollaborationGraphRecentContainersEnabled: false,
         isProductStoreInTrelloJSWFirstEnabled: false,
         isProductStoreInTrelloConfluenceFirstEnabled: false,
+        isSlackDiscoveryEnabled: false,
       },
       triggerXFlow: () => {},
       onDiscoverMoreClicked: () => {},

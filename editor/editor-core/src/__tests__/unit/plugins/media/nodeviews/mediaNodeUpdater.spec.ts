@@ -212,6 +212,18 @@ describe('MediaNodeUpdater', () => {
       await mediaNodeUpdater.updateFileAttrs();
       expect(updateAllMediaNodesAttrs).not.toBeCalled();
     });
+
+    it('should not update node if media client rejects with error', async () => {
+      const { mediaNodeUpdater } = setup();
+      const mediaClient = fakeMediaClient();
+
+      asMock(mediaClient.file.getCurrentState).mockReturnValue(
+        Promise.reject(new Error('an error')),
+      );
+      asMockReturnValue(getMediaClient, mediaClient);
+      await mediaNodeUpdater.updateFileAttrs();
+      expect(updateAllMediaNodesAttrs).not.toBeCalled();
+    });
   });
 
   describe('isNodeFromDifferentCollection()', () => {

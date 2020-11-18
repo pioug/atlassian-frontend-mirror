@@ -18,6 +18,7 @@ import {
   ProviderResults,
   SyntheticProviderResults,
   RecommendationsFeatureFlags,
+  DiscoverMoreCallback,
 } from '../../types';
 import { createCollector } from './create-collector';
 import { collectAdminLinks } from '../../admin/utils/admin-link-collector';
@@ -182,6 +183,7 @@ export function mapResultsToSwitcherProps(
   product?: Product,
   adminUrl?: string,
   recommendationsFeatureFlags?: RecommendationsFeatureFlags,
+  slackDiscoveryClickHandler?: DiscoverMoreCallback,
 ) {
   const collect = createCollector();
 
@@ -282,6 +284,8 @@ export function mapResultsToSwitcherProps(
             features.isEmceeLinkEnabled,
             product,
             recommendationsFeatureFlags,
+            features.isSlackDiscoveryEnabled,
+            slackDiscoveryClickHandler,
           ),
           [],
         )

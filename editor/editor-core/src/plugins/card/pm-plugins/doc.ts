@@ -1,18 +1,17 @@
 import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
-import { pluginKey } from './plugin-key';
-import {
-  CardAppearance,
-  CardPluginState,
-  CardReplacementInputMethod,
-  Request,
-} from '../types';
-import { queueCards, resolveCard } from './actions';
-import { appearanceForNodeType } from '../utils';
-
-import { Command } from '../../../types';
-import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import { Fragment, Node, Schema, Slice, NodeType } from 'prosemirror-model';
 import { closeHistory } from 'prosemirror-history';
+
+import { pluginKey } from './plugin-key';
+import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
+import {
+  CardAdf,
+  CardAppearance,
+} from '@atlaskit/editor-common/provider-factory';
+import { queueCards, resolveCard } from './actions';
+import { appearanceForNodeType } from '../utils';
+import { Command } from '../../../types';
+import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -85,7 +84,7 @@ function replaceLinksToCards(
 
 export const replaceQueuedUrlWithCard = (
   url: string,
-  cardData: any,
+  cardData: CardAdf,
   analyticsAction?: ACTION,
 ): Command => (editorState, dispatch) => {
   const state = pluginKey.getState(editorState) as CardPluginState | undefined;

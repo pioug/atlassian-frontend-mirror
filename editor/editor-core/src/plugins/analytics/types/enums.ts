@@ -30,6 +30,7 @@ export enum ACTION {
   EDITOR_CRASHED = 'unhandledErrorCaught',
   EDITOR_MOUNTED = 'mounted',
   EDITOR_TTI = 'tti',
+  ERRORED = 'errored',
   FAILED_TO_UNMOUNT = 'failedToUnmount',
   FIND_PERFORMED = 'findPerformed',
   FIND_NEXT_PERFORMED = 'findNextPerformed',
@@ -76,6 +77,7 @@ export enum ACTION {
   SHOWN = 'shown',
   HIGHLIGHTED = 'highlighted',
   DISMISSED = 'dismissed',
+  FIXED = 'fixed',
 }
 
 export enum INPUT_METHOD {

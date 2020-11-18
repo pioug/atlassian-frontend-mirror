@@ -1,31 +1,40 @@
-import { renderHook, renderSmartLinkHook } from '../../../utils/test-utils';
 import { useSmartLinkContext } from '..';
 import CardClient from '../../../client';
-// TODO: Those tests are wrong and are not entering into the renderHook callbacks.
-// https://product-fabric.atlassian.net/browse/SL-366
-describe.skip('useSmartCardContext()', () => {
+import { renderHook, RenderHookOptions } from '@testing-library/react-hooks';
+import { SmartCardProvider } from '../../../state';
+import React from 'react';
+
+describe('useSmartCardContext()', () => {
   it('throws if required context not present', () => {
-    renderHook(() => {
-      const result = useSmartLinkContext();
-      expect(result).toBe(
-        new Error('useSmartCard() must be wrapped in <SmartCardProvider>'),
-      );
-    });
+    const expectedError = new Error(
+      'useSmartCard() must be wrapped in <SmartCardProvider>',
+    );
+    const { error } = renderHook(() => useSmartLinkContext()).result;
+    expect(error).toEqual(expectedError);
   });
 
   it('provides correct context to consumers', () => {
-    renderSmartLinkHook(() => {
-      const result = useSmartLinkContext();
-      expect(result).toEqual(
-        expect.objectContaining({
-          config: { maxAge: 15000, maxLoading: 1200 },
-          connections: {
-            client: new CardClient(),
-          },
-          state: {},
-          dispatch: expect.anything(),
-        }),
-      );
-    });
+    const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
+      <SmartCardProvider client={new CardClient()}>
+        {children}
+      </SmartCardProvider>
+    );
+
+    const { current } = renderHook(() => useSmartLinkContext(), {
+      wrapper,
+    }).result;
+
+    expect(current).toEqual(
+      expect.objectContaining({
+        config: {
+          maxAge: 60000,
+          maxLoadingDelay: 1200,
+          authFlow: 'oauth2',
+        },
+        connections: {
+          client: new CardClient(),
+        },
+      }),
+    );
   });
 });

@@ -1,4 +1,5 @@
 import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationByMatches } from '@atlaskit/editor-common';
 import { TaskState } from '@atlaskit/task-decision';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../../types';
@@ -40,6 +41,8 @@ export interface AnnotationBridge {
   canApplyAnnotationOnCurrentSelection(
     payload: Serialized<AnnotationTypesAvailableOnCurrentSelection[]>,
   ): void;
+
+  annotationIndexMatch(payload: Serialized<AnnotationByMatches>): void;
 }
 
 export interface ContentBridge {

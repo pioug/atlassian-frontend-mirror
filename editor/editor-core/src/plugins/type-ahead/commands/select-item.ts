@@ -8,6 +8,7 @@ import { ACTIONS } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { SelectItemMode, TypeAheadHandler, TypeAheadItem } from '../types';
 import { findTypeAheadQuery } from '../utils/find-query-mark';
+import { isInviteItem } from '../../mentions/utils';
 
 import { dismissCommand } from './dismiss';
 
@@ -91,6 +92,19 @@ export const selectItem = (
     };
 
     const tr = handler.selectItem(state, item, insert, { mode });
+
+    // if this is the invite teammates item, delete the trigger and query
+    if (isInviteItem(item.mention)) {
+      // allow the user the select the invite item by left click or enter, but not by space bar
+      if (mode !== 'space') {
+        if (dispatch) {
+          dispatch(state.tr.delete(start, end));
+          return true;
+        }
+      }
+
+      return false;
+    }
 
     if (tr === false) {
       return insertFallbackCommand(start, end)(state, dispatch);

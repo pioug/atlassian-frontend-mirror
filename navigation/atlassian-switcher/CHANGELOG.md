@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.6.0
+
+### Minor Changes
+
+- [`5ed4144fa6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ed4144fa6) - Add Slack integration link for the discover more section and update copy of the discover more link when integrations link is visible
+
 ## 8.5.8
 
 ### Patch Changes

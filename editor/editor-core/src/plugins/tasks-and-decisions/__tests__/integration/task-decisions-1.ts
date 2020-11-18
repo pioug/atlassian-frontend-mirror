@@ -12,11 +12,9 @@ import {
 /*
  * Safari adds special characters that end up in the snapshot
  */
-
-// Cannot paste rich text in IE/Edge
 BrowserTestCase(
   'task-decision-1.ts: can paste rich text into a decision',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(
@@ -36,7 +34,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'task-decision-1.ts: can paste plain text into a decision',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(
@@ -53,11 +51,9 @@ BrowserTestCase(
   },
 );
 
-// Safari highlights entire text on click
-// IE is generally flaky
 BrowserTestCase(
   'task-decision-1.ts: can type into decision',
-  { skip: ['safari', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await gotoEditor(browser);
@@ -72,7 +68,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `task-decision: Backspacing on second line of multi-line decision shouldnt remove list`,
-  { skip: ['firefox', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
 
@@ -92,7 +88,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `task-decision: Backspacing on second line of multi-line task shouldnt remove list`,
-  { skip: ['firefox', 'edge'] },
+  {},
   async (client: any, testName: string) => {
     const browser = new Page(client);
 

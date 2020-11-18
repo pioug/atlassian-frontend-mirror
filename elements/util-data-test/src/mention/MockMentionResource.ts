@@ -12,6 +12,7 @@ import {
   TeamMentionProvider,
   SLI_EVENT_TYPE,
 } from '@atlaskit/mention/resource';
+import { FlowType, UserRole } from '@atlaskit/mention';
 import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
@@ -33,6 +34,10 @@ export interface MockMentionConfig {
   maxWait?: number;
   mentionNameResolver?: MentionNameResolver;
   enableTeamMentionHighlight?: boolean;
+  productName?: string;
+  shouldEnableInvite?: boolean;
+  onInviteItemClick?: (flow: FlowType) => void;
+  userRole?: UserRole;
 }
 
 export const createMockMentionNameResolver = () => {
@@ -55,11 +60,20 @@ export class MockMentionResource
   private config: MockMentionConfig;
   private lastReturnedSearch: number;
 
+  productName?: string;
+  shouldEnableInvite: boolean;
+  userRole: UserRole;
+  onInviteItemClick?: (flow: FlowType) => void;
+
   constructor(config: MockMentionConfig) {
     super();
 
     this.config = config;
     this.lastReturnedSearch = 0;
+    this.productName = config.productName;
+    this.shouldEnableInvite = !!config.shouldEnableInvite;
+    this.onInviteItemClick = config.onInviteItemClick;
+    this.userRole = config.userRole || 'basic';
   }
 
   filter(query: string): Promise<void> {

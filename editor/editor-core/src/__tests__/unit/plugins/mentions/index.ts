@@ -22,8 +22,10 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import { INVITE_ITEM_DESCRIPTION } from '../../../../plugins/mentions/ui/InviteItem';
 import { selectCurrentItem } from '../../../../plugins/type-ahead/commands/select-item';
 import { dismissCommand } from '../../../../plugins/type-ahead/commands/dismiss';
+import { pluginKey } from '../../../../plugins/type-ahead/pm-plugins/plugin-key';
 import { EditorProps } from '../../../../types';
 
 let mockRegisterTeamMention = jest.fn();
@@ -55,6 +57,7 @@ describe('mentionTypeahead', () => {
     createAnalyticsEvent: CreateUIAnalyticsEvent;
     event: any;
     mockMentionNameResolver?: MentionNameResolver;
+    mentionData: MentionDescription[];
   };
   type TestExecutor = (
     deps: TestDependencies,
@@ -98,6 +101,13 @@ describe('mentionTypeahead', () => {
       };
     }
 
+    if (options && options.mentionConfig) {
+      mentionProviderConfig = {
+        ...mentionProviderConfig,
+        ...options.mentionConfig,
+      };
+    }
+
     if (options && options.mentionInsertDisplayName) {
       editorProps = {
         ...editorProps,
@@ -118,7 +128,7 @@ describe('mentionTypeahead', () => {
     const mentionResults = subscribe(mentionProvider, query);
     insertText(editorView, `@${query}`, sel);
     // Ensures results have been handled by the plugin before moving on
-    await mentionResults;
+    const mentionData = await mentionResults;
 
     return await Promise.resolve(
       test(
@@ -129,6 +139,7 @@ describe('mentionTypeahead', () => {
           createAnalyticsEvent,
           event,
           mockMentionNameResolver: mentionNameResolver,
+          mentionData,
         },
         ...args,
       ),
@@ -519,6 +530,54 @@ describe('mentionTypeahead', () => {
         });
       }),
     );
+
+    it(
+      'should trigger feature exposed analytics event when the invite from mention feature is off',
+      withMentionQuery('doesNotExist', ({ createAnalyticsEvent }) => {
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'exposed',
+            actionSubject: 'feature',
+            eventType: 'operational',
+            attributes: expect.objectContaining({
+              componentName: 'mention',
+              flagKey: 'confluence.frontend.invite.from.mention',
+              value: false,
+            }),
+          }),
+        );
+      }),
+    );
+
+    describe('inviteFromMentionExperiment On', () => {
+      beforeAll(async () => {
+        ({ createAnalyticsEvent } = analyticsMocks());
+        ({ editorView, sel } = await editor(
+          {
+            createAnalyticsEvent,
+          },
+          {},
+          { shouldEnableInvite: true },
+        ));
+      });
+
+      it(
+        'should trigger feature exposed analytics event',
+        withMentionQuery('doesNotExist', ({ createAnalyticsEvent }) => {
+          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+            expect.objectContaining({
+              action: 'exposed',
+              actionSubject: 'feature',
+              eventType: 'operational',
+              attributes: expect.objectContaining({
+                flagKey: 'confluence.frontend.invite.from.mention',
+                value: false,
+              }),
+            }),
+          );
+        }),
+      );
+    });
   });
 
   describe('mentionProvider', () => {
@@ -799,6 +858,165 @@ describe('mentionTypeahead', () => {
           { sanitizePrivateContent: true },
         ),
       );
+
+      describe('inviteFromMentionExperiment', () => {
+        let mockOnInviteItemClick: any = jest.fn();
+
+        beforeEach(() => {
+          jest.clearAllMocks();
+        });
+
+        it(
+          'should not show invite item if there is more than 2 users/teams returned',
+          withMentionQuery(
+            'A',
+            ({ editorView, mentionData }) => {
+              const { items } = pluginKey.getState(editorView.state);
+              expect(items.length).toBe(mentionData.length);
+            },
+            {
+              mentionConfig: {
+                shouldEnableInvite: true,
+                onInviteItemClick: mockOnInviteItemClick,
+              },
+            },
+          ),
+        );
+
+        it(
+          'should not show invite item if the query detected a space after no mentionable items returned',
+          withMentionQuery(
+            'Alica DoesNotExist',
+            ({ editorView, mentionData }) => {
+              let { query, items } = pluginKey.getState(editorView.state);
+              expect(items.length).toBe(mentionData.length + 1);
+
+              insertText(editorView, ' ', query.length + 2);
+
+              ({ query, items } = pluginKey.getState(editorView.state));
+              expect(items.length).toBe(0);
+
+              insertText(editorView, 'SeachFurther', query.length + 2);
+
+              ({ items } = pluginKey.getState(editorView.state));
+              expect(items.length).toBe(0);
+            },
+            {
+              mentionConfig: {
+                shouldEnableInvite: true,
+              },
+            },
+          ),
+        );
+
+        it.each([2, 1, 0])(
+          'should show invite item if there is %i mentionable users/teams returned',
+          noOfResults => {
+            let query: string = 'doesNotExist';
+
+            switch (noOfResults) {
+              case 2:
+                query = 'Alica';
+                break;
+
+              case 1:
+                query = 'Alica W';
+                break;
+            }
+
+            return withMentionQuery(
+              query,
+              ({ editorView, mentionData }) => {
+                const { items } = pluginKey.getState(editorView.state);
+                expect(items.length).toBe(mentionData.length + 1);
+                expect(items[items.length - 1]).toEqual({
+                  title: INVITE_ITEM_DESCRIPTION.id,
+                  render: expect.any(Function),
+                  mention: { id: INVITE_ITEM_DESCRIPTION.id },
+                });
+              },
+              {
+                mentionConfig: {
+                  shouldEnableInvite: true,
+                  onInviteItemClick: mockOnInviteItemClick,
+                },
+              },
+            )();
+          },
+        );
+
+        it(
+          'should not record the selection',
+          withMentionQuery(
+            'doesNotExist',
+            ({ editorView, mentionProvider }) => {
+              const recordMentionSelectionSpy = jest.spyOn(
+                mentionProvider,
+                'recordMentionSelection',
+              );
+              selectCurrentItem()(editorView.state, editorView.dispatch);
+              expect(recordMentionSelectionSpy).not.toHaveBeenCalled();
+            },
+            {
+              mentionConfig: {
+                shouldEnableInvite: true,
+                onInviteItemClick: mockOnInviteItemClick,
+              },
+            },
+          ),
+        );
+
+        it(
+          'should fire inviteItem clicked event and not fire mentionTypeahead clicked',
+          withMentionQuery(
+            'doesNotExist',
+            ({ editorView, createAnalyticsEvent }) => {
+              selectCurrentItem()(editorView.state, editorView.dispatch);
+              expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
+                expect.objectContaining({
+                  action: 'clicked',
+                  actionSubject: 'mentionTypeahead',
+                  eventType: 'ui',
+                }),
+              );
+              expect(createAnalyticsEvent).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  action: 'clicked',
+                  actionSubject: 'inviteItem',
+                  eventType: 'ui',
+                  attributes: expect.objectContaining({
+                    componentName: 'mention',
+                  }),
+                }),
+              );
+            },
+            {
+              mentionConfig: {
+                shouldEnableInvite: true,
+                onInviteItemClick: mockOnInviteItemClick,
+              },
+            },
+          ),
+        );
+
+        it(
+          'should call mentionProvider.onInviteItemClick',
+          withMentionQuery(
+            'doesNotExist',
+            ({ editorView }) => {
+              selectCurrentItem()(editorView.state, editorView.dispatch);
+              expect(mockOnInviteItemClick).toHaveBeenCalledTimes(1);
+              expect(mockOnInviteItemClick).toHaveBeenCalledWith('mention');
+            },
+            {
+              mentionConfig: {
+                shouldEnableInvite: true,
+                onInviteItemClick: mockOnInviteItemClick,
+              },
+            },
+          ),
+        );
+      });
     });
   });
 });

@@ -9,6 +9,7 @@ import {
   StepsPayload,
   TitlePayload,
   Socket,
+  ErrorPayload,
   InitPayload,
 } from './types';
 
@@ -86,6 +87,9 @@ export class Channel extends Emitter<ChannelEvent> {
         // the disconnection was initiated by the server, we need to reconnect manually
         this.socket.connect();
       }
+    });
+    this.socket.on('error', (error: ErrorPayload | string) => {
+      this.emit('error', error);
     });
   }
 

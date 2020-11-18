@@ -171,10 +171,14 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
     const options = {
       collectionName,
     };
-    const fileState = await mediaClient.file.getCurrentState(id, options);
-    this.setState({
-      fileState,
-    });
+    try {
+      const fileState = await mediaClient.file.getCurrentState(id, options);
+      this.setState({
+        fileState,
+      });
+    } catch (error) {
+      // do not set state on error
+    }
   };
 
   private renderLoadingCard = () => {

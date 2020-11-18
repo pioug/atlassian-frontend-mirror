@@ -121,8 +121,8 @@ export const floatingToolbar = (
                   addAnalytics(state, state.tr, {
                     eventType: EVENT_TYPE.TRACK,
                     action: ACTION.VISITED,
-                    actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
-                    actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
+                    actionSubject: ACTION_SUBJECT.MEDIA,
+                    actionSubjectId: ACTION_SUBJECT_ID.LINK,
                   }),
                 );
                 return true;

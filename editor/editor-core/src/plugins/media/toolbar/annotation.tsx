@@ -77,14 +77,18 @@ export class AnnotationToolbar extends React.Component<AnnotationToolbarProps> {
     if (!this.props.id) {
       return;
     }
-    const state = await mediaClient.file.getCurrentState(this.props.id, {
-      collectionName: this.props.collection,
-    });
-
-    if (state && state.status !== 'error' && state.mediaType === 'image') {
-      this.setState({
-        isImage: true,
+    try {
+      const state = await mediaClient.file.getCurrentState(this.props.id, {
+        collectionName: this.props.collection,
       });
+
+      if (state && state.status !== 'error' && state.mediaType === 'image') {
+        this.setState({
+          isImage: true,
+        });
+      }
+    } catch (err) {
+      // do nothing in case of media-client error
     }
   }
 

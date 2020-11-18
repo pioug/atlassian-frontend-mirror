@@ -36,6 +36,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
 import { MediaSingleNodeViewProps } from '../../../../../../plugins/media/nodeviews/types';
+import { flushPromises } from '../../../../../__helpers/utils';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 
@@ -47,6 +48,18 @@ const getFreshMediaProvider = () =>
 const getLastMediaNodeUpdaterMockInstance = (): MediaNodeUpdater => {
   const instances = (MediaNodeUpdater as any).instances;
   return instances[instances.length - 1];
+};
+
+const getHandleExternalMedia = (
+  mediaNodeUpdaterMockInstance: MediaNodeUpdater,
+  mediaSingleNodeInstance: ReactWrapper,
+) => {
+  const { MediaNodeUpdater: OriginalMediaNodeUpdater } = jest.requireActual(
+    '../../../../../../plugins/media/nodeviews/mediaNodeUpdater',
+  );
+  return new OriginalMediaNodeUpdater(
+    mediaSingleNodeInstance.props(),
+  ).handleExternalMedia.bind(mediaNodeUpdaterMockInstance);
 };
 
 describe('nodeviews/mediaSingle', () => {
@@ -220,22 +233,28 @@ describe('nodeviews/mediaSingle', () => {
   });
 
   // TODO [MS-2373]
-  it.skip('calls upload media external', async () => {
+  it('calls upload media external', async () => {
     const mediaNodeAttrs = {
       id: 'foo',
       type: 'external',
       collection: 'collection',
+      __external: true,
+      url: 'http://www.example.com/image.jpg',
     };
 
     const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
     const mediaSingleNodeWithoutDimensions = mediaSingle()(mediaNode);
 
     const wrapper = mountNode(mediaSingleNodeWithoutDimensions(defaultSchema));
-
     const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
     instances[0].getRemoteDimensions = getDimensions(wrapper);
-
-    await (wrapper.instance() as MediaSingle).componentDidMount();
+    instances[0].uploadExternalMedia = jest.fn(() => Promise.resolve());
+    instances[0].isMediaBlobUrl = jest.fn(() => false);
+    instances[0].handleExternalMedia = getHandleExternalMedia(
+      instances[0],
+      wrapper,
+    );
+    await flushPromises();
     expect(instances[0].uploadExternalMedia).toHaveBeenCalledTimes(1);
   });
 

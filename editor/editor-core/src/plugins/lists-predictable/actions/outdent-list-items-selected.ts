@@ -70,8 +70,6 @@ export const outdentListItemsSelected = (tr: Transaction) => {
     }
   });
 
-  joinSiblingLists({ tr, direction: JoinDirection.RIGHT });
-
   const hasCommonListMoved =
     commonList.start !== tr.mapping.map(commonList.start);
 
@@ -84,6 +82,8 @@ export const outdentListItemsSelected = (tr: Transaction) => {
     hasNormalizedFromPositionLiftedOut,
   });
   tr.setSelection(nextSelection);
+
+  joinSiblingLists({ tr, direction: JoinDirection.RIGHT });
 };
 
 type CalculateNewSelectionProps = {
@@ -263,6 +263,16 @@ const extractListItemsRangeFromList = ({
     : Fragment.from(list.copy(Fragment.empty));
   for (let i = range.startIndex; i < range.endIndex; i++) {
     listItemContent = listItemContent.append(list.child(i).content);
+  }
+
+  if (isAtTop) {
+    for (let i = 0; i < listItemContent.childCount; i++) {
+      const child = listItemContent.child(i);
+      if (child && isListNode(child) && child.type !== list.type) {
+        const newNestedList = list.type.create(null, child.content);
+        listItemContent = listItemContent.replaceChild(i, newNestedList);
+      }
+    }
   }
 
   const nextListFragment = listItemContent.append(

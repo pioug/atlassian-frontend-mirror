@@ -1,54 +1,25 @@
 import { Plugin, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { CardPlatform } from '@atlaskit/smart-card';
+import rafSchedule from 'raf-schd';
 
-import { CardPluginState, Request } from '../types';
+import { CardPluginState } from '../types';
 import reducer from './reducers';
-import { setProvider, resolveCard } from './actions';
-import { replaceQueuedUrlWithCard } from './doc';
 import { PMPluginFactoryParams } from '../../../types';
-import { InlineCard } from '../nodeviews/inlineCard';
-import { BlockCard } from '../nodeviews/blockCard';
-import { EmbedCard } from '../nodeviews/embedCard';
 import { pluginKey } from './plugin-key';
+import { handleProvider, resolveWithProvider } from './util/resolve';
+import {
+  getNewRequests,
+  getPluginState,
+  getPluginStateWithUpdatedPos,
+} from './util/state';
+import { OutstandingRequests } from '../types';
+import { EmbedCard } from '../nodeviews/embedCard';
+import { BlockCard } from '../nodeviews/blockCard';
+import { InlineCard } from '../nodeviews/inlineCard';
+import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 
 export { pluginKey } from './plugin-key';
-
-export const getPluginState = (editorState: EditorState) =>
-  pluginKey.getState(editorState) as CardPluginState | undefined;
-
-const handleResolved = (view: EditorView, request: Request) => (
-  resolvedCard: any,
-) => {
-  replaceQueuedUrlWithCard(
-    request.url,
-    resolvedCard,
-    request.analyticsAction,
-  )(view.state, view.dispatch);
-  return resolvedCard;
-};
-
-const handleRejected = (view: EditorView, request: Request) => () => {
-  view.dispatch(resolveCard(request.url)(view.state.tr));
-};
-
-export type OutstandingRequests = { [key: string]: Promise<string> };
-
-export const resolveWithProvider = (
-  view: EditorView,
-  outstandingRequests: OutstandingRequests,
-  provider: CardProvider,
-  request: Request,
-) => {
-  return (outstandingRequests[request.url] = provider
-    .resolve(request.url, request.appearance)
-    .then(resolvedCard => {
-      delete outstandingRequests[request.url];
-      return resolvedCard;
-    })
-    .then(handleResolved(view, request), handleRejected(view, request)));
-};
 
 export const createPlugin = (
   platform: CardPlatform,
@@ -59,8 +30,16 @@ export const createPlugin = (
   eventDispatcher,
   providerFactory,
   dispatchAnalyticsEvent,
-}: PMPluginFactoryParams) =>
-  new Plugin({
+}: PMPluginFactoryParams) => {
+  const reactComponentProps = {
+    eventDispatcher,
+    providerFactory,
+    platform,
+    allowResizing,
+    fullWidthMode,
+    dispatchAnalyticsEvent,
+  };
+  return new Plugin({
     state: {
       init(): CardPluginState {
         return {
@@ -72,49 +51,32 @@ export const createPlugin = (
       },
 
       apply(tr, pluginState: CardPluginState) {
-        // update all the positions
-        const remappedState = {
-          ...pluginState,
-          requests: pluginState.requests.map(request => ({
-            ...request,
-            pos: tr.mapping.map(request.pos),
-          })),
-
-          cards: pluginState.cards.map(card => ({
-            ...card,
-            pos: tr.mapping.map(card.pos),
-          })),
-        };
-
+        // Update all the positions of outstanding requests and
+        // cards in the plugin state.
+        const pluginStateWithUpdatedPos = getPluginStateWithUpdatedPos(
+          pluginState,
+          tr,
+        );
         // apply any actions
         const meta = tr.getMeta(pluginKey);
         if (meta) {
-          const nextPluginState = reducer(remappedState, meta);
+          const nextPluginState = reducer(pluginStateWithUpdatedPos, meta);
           return nextPluginState;
         }
 
-        return remappedState;
+        return pluginStateWithUpdatedPos;
       },
     },
 
     view(view: EditorView) {
-      // listen for card provider changes
-      const handleProvider = (
-        _: 'cardProvider',
-        provider?: Promise<CardProvider>,
-      ) => {
-        if (!provider) {
-          return;
-        }
-
-        provider.then((cardProvider: CardProvider) => {
-          const { state, dispatch } = view;
-          dispatch(setProvider(cardProvider)(state.tr));
-        });
-      };
-
-      providerFactory.subscribe('cardProvider', handleProvider);
       const outstandingRequests: OutstandingRequests = {};
+      const subscriptionHandler: ProviderHandler<'cardProvider'> = (
+        name,
+        provider,
+      ) => handleProvider(name, provider, view);
+      const rafCancellationCallbacks: Function[] = [];
+
+      providerFactory.subscribe('cardProvider', subscriptionHandler);
 
       return {
         update(view: EditorView, prevState: EditorState) {
@@ -122,88 +84,88 @@ export const createPlugin = (
           const oldState = getPluginState(prevState);
 
           if (currentState && currentState.provider) {
-            // find requests in this state that weren't in the old one
-            const newRequests = oldState
-              ? currentState.requests.filter(
-                  req =>
-                    !oldState.requests.find(
-                      oldReq =>
-                        oldReq.url === req.url && oldReq.pos === req.pos,
-                    ),
-                )
-              : currentState.requests;
-
-            // ask the CardProvider to resolve all new requests
+            // Find requests in this state that weren't in the old one.
+            const newRequests = getNewRequests(oldState, currentState);
+            // Ask the CardProvider to resolve all new requests.
             const { provider } = currentState;
             newRequests.forEach(request => {
-              resolveWithProvider(view, outstandingRequests, provider, request);
+              /**
+               * Queue each asynchronous resolve request on separate frames.
+               * ---
+               * NB: The promise for each request is queued to take place on separate animation frames. This avoids
+               * the scenario debugged and discovered in EDM-668, wherein the queuing of too many promises in quick succession
+               * leads to the browser's macrotask queue being overwhelmed, locking interactivity of the browser tab.
+               * By using this approach, the browser is free to schedule the resolution of the promises below in between rendering/network/
+               * other tasks as per common implementations of the JavaScript event loop in browsers.
+               */
+              const invoke = rafSchedule(() =>
+                resolveWithProvider(
+                  view,
+                  outstandingRequests,
+                  provider,
+                  request,
+                ),
+              );
+              rafCancellationCallbacks.push(invoke.cancel);
+              invoke();
             });
           }
         },
 
         destroy() {
-          // cancel all outstanding requests
+          // Cancel all outstanding requests
           Object.keys(outstandingRequests).forEach(url =>
             Promise.reject(outstandingRequests[url]),
           );
 
-          providerFactory.unsubscribe('cardProvider', handleProvider);
+          // Cancel any outstanding raf callbacks.
+          rafCancellationCallbacks.forEach(cancellationCallback =>
+            cancellationCallback(),
+          );
+
+          providerFactory.unsubscribe('cardProvider', subscriptionHandler);
         },
       };
     },
 
     props: {
       nodeViews: {
-        inlineCard: (node, view, getPos) => {
-          return new InlineCard(
+        inlineCard: (node, view, getPos) =>
+          new InlineCard(
             node,
             view,
             getPos,
             portalProviderAPI,
             eventDispatcher,
-            {
-              providerFactory,
-            },
+            reactComponentProps,
             undefined,
             true,
-          ).init();
-        },
-        blockCard: (node, view, getPos) => {
-          return new BlockCard(
+          ).init(),
+        blockCard: (node, view, getPos) =>
+          new BlockCard(
             node,
             view,
             getPos,
             portalProviderAPI,
             eventDispatcher,
-            {
-              providerFactory,
-              platform,
-            },
+            reactComponentProps,
             undefined,
             true,
-          ).init();
-        },
-        embedCard: (node, view, getPos) => {
-          return new EmbedCard(
+          ).init(),
+        embedCard: (node, view, getPos) =>
+          new EmbedCard(
             node,
             view,
             getPos,
             portalProviderAPI,
             eventDispatcher,
-            {
-              eventDispatcher,
-              providerFactory,
-              platform,
-              allowResizing,
-              fullWidthMode: fullWidthMode,
-              dispatchAnalyticsEvent,
-            },
+            reactComponentProps,
             undefined,
             true,
-          ).init();
-        },
+          ).init(),
       },
     },
 
     key: pluginKey,
   });
+};

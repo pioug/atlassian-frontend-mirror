@@ -90,7 +90,6 @@ export default function MediaSingle({
       data-layout={layout}
       data-width={pctWidth}
       data-node-type={nodeType}
-      data-block-link={blockLink}
       className={classnames(
         'rich-media-item mediaSingleView-content-wrap',
         `image-${layout}`,

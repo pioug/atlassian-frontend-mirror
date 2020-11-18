@@ -7,10 +7,15 @@ export default class TabContent extends Component<TabContentComponentProvided> {
   static defaultProps = {
     data: {},
     elementProps: {},
+    isSelected: false,
   };
 
   render() {
-    const { data, elementProps } = this.props;
-    return <TabPane {...elementProps}>{data.content}</TabPane>;
+    const { data, elementProps, isSelected } = this.props;
+    return (
+      <TabPane {...elementProps} isSelected={isSelected}>
+        {data.content}
+      </TabPane>
+    );
   }
 }

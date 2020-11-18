@@ -108,6 +108,24 @@ describe('checkMediaType', () => {
     );
   });
 
+  it('returns undefined if media client rejects with an error', async () => {
+    asMockFunction(mediaClient.file.getCurrentState).mockReturnValue(
+      Promise.reject(new Error('an error')),
+    );
+
+    const mediaType = await checkMediaType(
+      createMediaNode({
+        type: 'file',
+        id: 'test-id',
+        collection: 'test-collection',
+      } as MediaADFAttrs),
+      mediaClientConfig,
+    );
+
+    expect(mediaClient.file.getCurrentState).toHaveBeenCalled();
+    expect(mediaType).toBeUndefined();
+  });
+
   it('returns correct mediaType if fileState is not error', async () => {
     asMockFunction(mediaClient.file.getCurrentState).mockReturnValue(
       Promise.resolve({ status: 'error' } as FileState),

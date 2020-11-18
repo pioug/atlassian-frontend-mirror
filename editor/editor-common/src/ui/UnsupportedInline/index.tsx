@@ -75,6 +75,7 @@ const UnsupportedInlineNode: React.FC<Props & InjectedIntlProps> = ({
         hideTooltipOnClick={false}
         position="bottom"
         onShow={tooltipOnShowHandler}
+        strategy="absolute"
       >
         <span style={style}>
           <QuestionsIcon label="?" size="small" />

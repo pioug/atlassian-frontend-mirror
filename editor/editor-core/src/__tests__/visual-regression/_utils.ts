@@ -12,8 +12,8 @@ import { EditorProps } from '../../types';
 import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
-
-export { getContentBoundingRectTopLeftCoords } from '@atlaskit/editor-test-helpers';
+import { getContentBoundingRectTopLeftCoords } from '@atlaskit/editor-test-helpers';
+export { getContentBoundingRectTopLeftCoords };
 
 export const editorSelector = '.akEditor';
 export const editorFullPageContentSelector =
@@ -364,11 +364,13 @@ export const initCommentEditorWithAdf = async (
   page: PuppeteerPage,
   adf: Object,
   device?: Device,
+  mode?: 'light' | 'dark',
 ) => {
   await initEditorWithAdf(page, {
     adf,
     appearance: Appearance.comment,
     device,
+    mode,
   });
 };
 
@@ -519,3 +521,45 @@ export async function emulateSelectAll(page: PuppeteerPage) {
     }
   });
 }
+
+/**
+ * Click the top-left edge of the target element's bounding box.
+ */
+export const clickTopLeft = async (page: PuppeteerPage, selector: string) => {
+  const rect = await getContentBoundingRectTopLeftCoords(page, selector);
+  await page.mouse.click(rect.left, rect.top);
+};
+
+/**
+ * Retries some async `work()` until some async `condition()` is met.
+ * Note: As `condition` is expected to return a Promise that resolves to a boolean,
+ * you will likely resort to using `page.evaluate()` to evaluate your condition logic
+ * and return the evaluated boolean.
+ *
+ * E.g.
+ * ```
+ * const work = () => page.click('.some-btn');
+ * const condition = () => page.evaluate(
+    (btn) => !!(document.querySelector(`${btn}.selected`),
+    '.some-btn',
+  );
+ * await retryUntil(work, condition);
+ *
+ *
+ * ```
+ */
+export const retryUntil = (
+  work: () => Promise<any>,
+  condition: () => Promise<boolean>,
+  ms: number = 1000,
+) => {
+  return new Promise(async resolve => {
+    const intervalId = setInterval(async () => {
+      await work();
+      if (await condition()) {
+        clearInterval(intervalId);
+        resolve();
+      }
+    }, ms);
+  });
+};

@@ -20,10 +20,11 @@ type SearchComponentProps = {
   onClick: SearchProps['onClick'];
   placeholder: SearchProps['placeholder'];
   label: SearchProps['label'];
+  value: SearchProps['value'];
 };
 
 const SearchComponent = (props: SearchComponentProps) => {
-  const { onClick, placeholder, label } = props;
+  const { onClick, placeholder, label, value } = props;
   const theme = useTheme();
 
   const onChange = (...args: any[]) => {
@@ -47,14 +48,14 @@ const SearchComponent = (props: SearchComponentProps) => {
         placeholder={placeholder}
         onChange={onChange}
         onClick={onInputClick}
-        value=""
+        value={value}
       />
     </div>
   );
 };
 
 export const Search = (props: SearchProps) => {
-  const { placeholder, tooltip, label, ...iconButtonProps } = props;
+  const { placeholder, tooltip, label, value, ...iconButtonProps } = props;
 
   return (
     <Fragment>
@@ -62,6 +63,7 @@ export const Search = (props: SearchProps) => {
         onClick={iconButtonProps.onClick}
         placeholder={placeholder}
         label={label}
+        value={value || ''}
       />
       <IconButton
         css={searchIconCSS}

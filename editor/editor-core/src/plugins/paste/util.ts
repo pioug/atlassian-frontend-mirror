@@ -1,7 +1,15 @@
-import { Slice, Mark, Node, NodeType, Schema } from 'prosemirror-model';
+import {
+  Slice,
+  Mark,
+  Node as PMNode,
+  NodeType,
+  Schema,
+} from 'prosemirror-model';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
-
+import { Selection } from 'prosemirror-state';
 import { PasteSource } from '../analytics';
+import { TextSelection, NodeSelection } from 'prosemirror-state';
+import { findParentNodeOfType } from 'prosemirror-utils';
 
 export function isPastedFromWord(html?: string): boolean {
   return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
@@ -115,7 +123,7 @@ export function hasOnlyNodesOfType(
   return (slice: Slice) => {
     let hasOnlyNodesOfType = true;
 
-    slice.content.descendants((node: Node) => {
+    slice.content.descendants((node: PMNode) => {
       hasOnlyNodesOfType =
         hasOnlyNodesOfType && nodeTypes.indexOf(node.type) > -1;
 
@@ -169,4 +177,52 @@ export function applyTextMarksToSlice(
 
     return sliceCopy;
   };
+}
+
+export function isEmptyNode(node: PMNode | null | undefined) {
+  if (!node) {
+    return false;
+  }
+  const { type: nodeType } = node;
+  const emptyNode = nodeType.createAndFill();
+
+  return (
+    emptyNode && emptyNode.nodeSize === node.nodeSize && emptyNode.eq(node)
+  );
+}
+
+export function isCursorSelectionAtTextStartOrEnd(selection: Selection) {
+  return (
+    selection instanceof TextSelection &&
+    selection.empty &&
+    selection.$cursor &&
+    (!selection.$cursor.nodeBefore || !selection.$cursor.nodeAfter)
+  );
+}
+
+export function isPanelNode(node: PMNode | null | undefined) {
+  return Boolean(node && node.type.name === 'panel');
+}
+
+export function isSelectionInsidePanel(selection: Selection): PMNode | null {
+  if (selection instanceof NodeSelection && isPanelNode(selection.node)) {
+    return selection.node;
+  }
+  const {
+    doc: {
+      type: {
+        schema: {
+          nodes: { panel },
+        },
+      },
+    },
+  } = selection.$from;
+
+  const panelPosition = findParentNodeOfType(panel)(selection);
+
+  if (panelPosition) {
+    return panelPosition.node;
+  }
+
+  return null;
 }

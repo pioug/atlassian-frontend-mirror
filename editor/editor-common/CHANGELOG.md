@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 53.0.0
+
+### Major Changes
+
+- [`9f81260dd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f81260dd5) - ED-10683 Serialize number fields to Number instead of String
+- [`835810cac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/835810cac7) - ED-10646 prevent nested Fieldset definitions
+
+### Minor Changes
+
+- [`318b6a8f52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/318b6a8f52) - ED-10612 Use strategy as absolute to fix the inconsistency in tooltip position in ios for unsupported content.
+- [`28e97db5a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28e97db5a7) - TWISTA-407 Expose the Confluence index match API to native. On applying draft mode, the bridge will call `annotationIndexMatch` with the `numMatch`, `matchIndex`, `originalSelection` tuple that is required by Confluence.
+
+### Patch Changes
+
+- [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
+- [`09394e2986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09394e2986) - EDM-668: exporting types for better typings support in Editor Core
+- [`d6c23f1886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c23f1886) - Added dark mode support to table cell background colors
+- [`619b3234fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/619b3234fa) - Improve the contrast of inline annotation styling in dark mode
+- Updated dependencies
+
 ## 52.0.1
 
 ### Patch Changes

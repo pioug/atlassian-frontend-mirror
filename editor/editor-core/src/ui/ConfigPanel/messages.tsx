@@ -21,6 +21,11 @@ export const messages = defineMessages({
     defaultMessage: 'Required field',
     description: 'Validation message for required field',
   },
+  invalid: {
+    id: 'fabric.editor.configPanel.invalid',
+    defaultMessage: 'Invalid field',
+    description: 'Validation message when a field value is not acceptable',
+  },
   isMultipleAndRadio: {
     id: 'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio',
     defaultMessage: 'Can not combine isMultiple with style: radio',

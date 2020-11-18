@@ -1,46 +1,55 @@
 const capitalize = (text: string): string =>
   text.charAt(0).toUpperCase() + text.slice(1);
 
-export const vendorify = (
-  propName: string,
-  capitalizeText: boolean = true,
-): string => {
-  let prefix = '';
-
-  if ((HTMLElement as any).prototype.webkitRequestFullscreen) {
-    prefix = 'webkit';
-  } else if ((HTMLElement as any).prototype['mozRequestFullScreen']) {
-    prefix = 'moz';
-  } else if ((HTMLElement as any).prototype['msRequestFullScreen']) {
-    prefix = 'ms';
+const browserPrefixes = ['', 'moz', 'webkit', 'ms'];
+export const findVendorSpecificProp = (
+  object: any,
+  propNames: string | string[],
+): any => {
+  if (!Array.isArray(propNames)) {
+    propNames = [propNames];
   }
-
-  const capitalizeProp =
-    capitalizeText !== undefined ? capitalizeText : !!prefix;
-
-  return `${prefix}${capitalizeProp ? capitalize(propName) : propName}`;
+  for (let i = 0; i < propNames.length; i++) {
+    for (let j = 0; j < browserPrefixes.length; j++) {
+      const propName = browserPrefixes[j] + propNames[i];
+      if (object[propName]) {
+        return propName;
+      }
+      const capPropName = browserPrefixes[j] + capitalize(propNames[i]);
+      if (object[capPropName]) {
+        return capPropName;
+      }
+    }
+  }
 };
 
 export const requestFullscreen = (element: HTMLElement) => {
-  const methodName = vendorify('requestFullScreen');
+  const requestFullscreenProp = findVendorSpecificProp(element, [
+    'requestFullScreen',
+    'requestFullscreen',
+  ]);
 
-  if (methodName && (element as any)[methodName]) {
-    (element as any)[methodName]();
+  if ((element as any)[requestFullscreenProp]) {
+    (element as any)[requestFullscreenProp]();
   }
 };
 
 export const exitFullscreen = () => {
-  const methodName = vendorify('exitFullscreen');
+  const exitFullScreenProp = findVendorSpecificProp(document, [
+    'exitFullScreen',
+    'exitFullscreen',
+  ]);
 
-  if (methodName && (document as any)[methodName]) {
-    (document as any)[methodName]();
+  if ((document as any)[exitFullScreenProp]) {
+    (document as any)[exitFullScreenProp]();
   }
 };
 
 export const getFullscreenElement = (): HTMLElement | undefined => {
-  const propertyName = vendorify('fullscreenElement');
-
-  return propertyName && (document as any)[propertyName];
+  return findVendorSpecificProp(document, [
+    'fullScreenElement',
+    'fullscreenElement',
+  ]);
 };
 
 export const toggleFullscreen = (element?: HTMLElement) => {

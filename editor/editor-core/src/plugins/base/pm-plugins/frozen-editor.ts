@@ -19,6 +19,7 @@ import {
   InputTracking,
   BFreezeTracking,
 } from '../../../types/performance-tracking';
+import { getContextIdentifier } from './context-identifier';
 import { setInteractionType } from '../utils/frozen-editor';
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
@@ -40,6 +41,7 @@ const dispatchLongTaskEvent = (
     action: ACTION.BROWSER_FREEZE,
     actionSubject: ACTION_SUBJECT.EDITOR,
     attributes: {
+      objectId: getContextIdentifier(state)?.objectId,
       freezeTime: time,
       nodeSize: state.doc.nodeSize,
       nodeCount: allowCountNodes ? countNodes(view.state) : undefined,
@@ -106,6 +108,7 @@ export default (
                       ? countNodes(view.state)
                       : undefined,
                     participants: getParticipantsCount(state),
+                    objectId: getContextIdentifier(state)?.objectId,
                   },
                   eventType: EVENT_TYPE.OPERATIONAL,
                 });
@@ -122,6 +125,7 @@ export default (
                       ? countNodes(view.state)
                       : undefined,
                     participants: getParticipantsCount(state),
+                    objectId: getContextIdentifier(state)?.objectId,
                   },
                   eventType: EVENT_TYPE.OPERATIONAL,
                 });

@@ -1,5 +1,4 @@
 import {
-  LinkDefinition,
   MediaADFAttrs,
   RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
@@ -7,35 +6,19 @@ import {
   EventHandlers,
   ImageLoaderProps,
   mapBreakpointToLayoutMaxWidth,
-  MediaLink,
   WidthConsumer,
 } from '@atlaskit/editor-common';
 import {
   akEditorFullWidthLayoutWidth,
   getAkEditorFullPageMaxWidth,
+  akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import {
-  Component,
-  default as React,
-  ReactElement,
-  SyntheticEvent,
-} from 'react';
+import { Component, default as React, ReactElement } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '../../../analytics/enums';
-import {
-  AnalyticsEventPayload,
-  MODE,
-  PLATFORM,
-} from '../../../analytics/events';
+import { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
 import { RendererAppearance } from '../../../ui/Renderer/types';
-import { getEventHandler } from '../../../utils';
 import { MediaProps } from '../media';
 import { ExtendedUIMediaSingle } from './styles';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
@@ -48,8 +31,6 @@ export interface Props {
   allowDynamicTextSizing?: boolean;
   isInsideOfBlockNode?: boolean;
   rendererAppearance: RendererAppearance;
-  marks: Array<LinkDefinition>;
-  isLinkMark: () => boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
 }
@@ -88,6 +69,17 @@ const checkForMediaElement = (
   return media as ReactElement<MediaProps & MediaADFAttrs>;
 };
 
+// returns the existing container width if available (non SSR mode), otherwise
+// we return a default width value
+export const getMediaContainerWidth = (
+  currentContainerWidth: number,
+  layout: MediaSingleLayout,
+): number => {
+  return !currentContainerWidth && layout !== 'full-width' && layout !== 'wide'
+    ? akEditorDefaultLayoutWidth
+    : currentContainerWidth;
+};
+
 class MediaSingle extends Component<Props & InjectedIntlProps, State> {
   constructor(props: Props & InjectedIntlProps) {
     super(props);
@@ -105,30 +97,6 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
       width,
       height,
     });
-  };
-
-  private handleMediaLinkClick = (
-    event: SyntheticEvent<HTMLAnchorElement, Event>,
-  ) => {
-    const { fireAnalyticsEvent, eventHandlers, isLinkMark, marks } = this.props;
-    if (fireAnalyticsEvent) {
-      fireAnalyticsEvent({
-        action: ACTION.VISITED,
-        actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
-        actionSubjectId: ACTION_SUBJECT_ID.MEDIA_LINK,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: {
-          platform: PLATFORM.WEB,
-          mode: MODE.RENDERER,
-        },
-      });
-    }
-
-    const handler = getEventHandler(eventHandlers, 'link');
-    if (handler) {
-      const linkMark = marks.find(isLinkMark);
-      handler(event, linkMark && linkMark.attrs.href);
-    }
   };
 
   private isCaptionsFlaggedOn =
@@ -167,8 +135,6 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
       height = DEFAULT_HEIGHT;
     }
 
-    const linkMark = props.marks.find(props.isLinkMark);
-
     // TODO: put appearance-based padding into theme instead
     const { rendererAppearance, featureFlags } = this.props;
 
@@ -177,7 +143,11 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
 
     return (
       <WidthConsumer>
-        {({ width: containerWidth, breakpoint }) => {
+        {({ width: widthConsumerValue, breakpoint }) => {
+          const containerWidth = getMediaContainerWidth(
+            widthConsumerValue,
+            props.layout,
+          );
           const { isInsideOfBlockNode, allowDynamicTextSizing } = this.props;
           const maxWidth = containerWidth;
           const maxHeight = (height / width) * maxWidth;
@@ -216,16 +186,6 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
             width,
           };
 
-          const linkHref = linkMark?.attrs.href;
-          // We ignore all the event handlers when a link exists
-          const eventHandlers = linkHref
-            ? undefined
-            : media.props.eventHandlers;
-
-          // We should not open media viewer when there is a link
-          const shouldOpenMediaViewer =
-            !linkHref && media.props.shouldOpenMediaViewer;
-
           const mediaComponent = React.cloneElement(media, {
             resizeMode: 'stretchy-fit',
             cardDimensions,
@@ -233,8 +193,6 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
             onExternalImageLoaded: this.onExternalImageLoaded,
             disableOverlay: true,
             featureFlags: featureFlags,
-            shouldOpenMediaViewer,
-            eventHandlers,
           } as MediaProps & ImageLoaderProps);
 
           return (
@@ -246,21 +204,9 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
               containerWidth={containerWidth}
               pctWidth={props.width}
               fullWidthMode={isFullWidth}
-              blockLink={linkHref}
             >
               <>
-                {linkHref ? (
-                  <MediaLink
-                    href={linkHref}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={this.handleMediaLinkClick}
-                  >
-                    <>{mediaComponent}</>
-                  </MediaLink>
-                ) : (
-                  <>{mediaComponent}</>
-                )}
+                <>{mediaComponent}</>
                 {this.isCaptionsFlaggedOn && caption}
               </>
             </ExtendedUIMediaSingle>

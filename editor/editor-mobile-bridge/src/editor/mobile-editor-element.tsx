@@ -31,6 +31,7 @@ import throttle from 'lodash/throttle';
 import { withIntlProvider } from '../i18n/with-intl-provider';
 import { InjectedIntl, injectIntl } from 'react-intl';
 import { usePageTitle } from './hooks/use-page-title';
+import { geti18NMessages } from './editor-localisation-provider';
 
 const MOBILE_SAMPLING_LIMIT = 10;
 
@@ -143,4 +144,7 @@ const MobileEditorWithBridge: React.FC<Omit<
   return <MobileEditor {...props} bridge={bridge} />;
 };
 
-export default withIntlProvider(injectIntl(MobileEditorWithBridge));
+export default withIntlProvider(
+  injectIntl(MobileEditorWithBridge),
+  geti18NMessages,
+);

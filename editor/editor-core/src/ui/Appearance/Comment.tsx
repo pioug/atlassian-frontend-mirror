@@ -182,7 +182,7 @@ class Editor extends React.Component<
     return (
       <WithFlash animate={maxContentSizeReached}>
         <CommentEditor maxHeight={maxHeight} className="akEditor">
-          <MainToolbar>
+          <MainToolbar data-testid="ak-editor-main-toolbar">
             <Toolbar
               editorView={editorView!}
               editorActions={editorActions}

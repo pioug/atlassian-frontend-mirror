@@ -22,6 +22,7 @@ import {
   toolbarMenuItemsSelectors,
 } from '../../__helpers/page-objects/_toolbar';
 import { FindReplaceOptions } from '../../../plugins/find-replace/types';
+import { selectAtPosWithProseMirror } from '../../__helpers/page-objects/_editor';
 
 describe('Find/replace:', () => {
   let page: PuppeteerPage;
@@ -122,14 +123,25 @@ describe('Find/replace:', () => {
       await page.waitForSelector(findReplaceSelectors.matchCaseButton);
       await snapshot(page, undefined, editorSelector);
     });
+
     it('should change text highlights when Match Case is toggled', async () => {
       await initEditor(matchCaseAdf, { width: 600, height: 600 }, options);
       await page.waitForSelector(findReplaceSelectors.matchCaseButton);
       await page.type(findReplaceSelectors.findInput, 'HELLO');
       await page.waitForSelector(findReplaceSelectors.decorations);
       await snapshot(page, undefined, editorSelector);
+
+      // When clicking on find-replace pop-up, will also set cursor in editor(unintentionally),
+      // it is not reliable, and would cause failures.
+      // So we force set cursor position in this test.
+      // Set cursor to the beginning of the document.
+      await selectAtPosWithProseMirror(page, 0, 0);
+
       await toggleMatchCase(page);
       await snapshot(page, undefined, editorSelector);
+
+      // Set cursor to the end of the first paragraph.
+      await selectAtPosWithProseMirror(page, 18, 18);
       await toggleMatchCase(page);
       await snapshot(page, undefined, editorSelector);
     });

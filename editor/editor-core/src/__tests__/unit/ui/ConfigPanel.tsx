@@ -6,6 +6,7 @@ import { mount, ReactWrapper } from 'enzyme';
 import CreatableSelect from 'react-select/creatable';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import retry from 'async-retry';
+import merge from 'lodash/merge';
 
 import {
   ExtensionManifest,
@@ -47,7 +48,6 @@ const createManifest = (
   fieldsDefinitionsGetter:
     | (() => Promise<FieldDefinition[]>)
     | FieldDefinition[],
-  manifestAtributes: Partial<ExtensionManifest> = {},
 ): ExtensionManifest => {
   const key = 'test-item';
 
@@ -92,26 +92,11 @@ const createManifest = (
           userpicker: {
             resolver: userPicker,
           },
-          pickerWithDefaultValue: {
-            resolver: pickerWithDefaultValue,
-          },
         },
         fieldset: {
-          'piped-group': {
-            serializer: params => {
-              return Object.entries(params)
-                .map(entry => entry.join(' = '))
-                .join(' | ');
-            },
-            deserializer: result => {
-              return result
-                .split(' | ')
-                .map(pair => pair.split(' = '))
-                .reduce<{ [key: string]: string }>((curr, [key, value]) => {
-                  curr[key] = value;
-                  return curr;
-                }, {});
-            },
+          'json-group': {
+            serializer: value => JSON.stringify(value),
+            deserializer: value => JSON.parse(value),
           },
           'broken-group': {
             serializer: params => {
@@ -139,7 +124,6 @@ const createManifest = (
         },
       },
     },
-    ...manifestAtributes,
   };
 };
 
@@ -148,20 +132,16 @@ const createProvider = (
     | (() => Promise<FieldDefinition[]>)
     | FieldDefinition[],
 
-  manifestAtributes: Partial<ExtensionManifest> = {},
+  mergeManifest?: Partial<ExtensionManifest>,
 ) => {
   return combineExtensionProviders([
     new DefaultExtensionProvider([
-      createManifest(fieldsDefinitionsGetter, manifestAtributes),
+      merge(createManifest(fieldsDefinitionsGetter), mergeManifest),
     ]),
   ]);
 };
 
 type Wrapper<T = any> = ReactWrapper<T, any, any>;
-type MountResult<T> = {
-  wrapper: Wrapper<T>;
-  doSubmitForm: () => Promise<void>;
-};
 
 const eventuallyFind = async (
   wrapper: Wrapper,
@@ -185,10 +165,12 @@ const eventuallyFind = async (
 };
 
 type Props = React.ComponentProps<typeof ConfigPanel>;
+type MountResult<T> = {
+  wrapper: Wrapper<T>;
+  doSubmitForm: () => Promise<void>;
+};
 
-const mountWithProviders = async (
-  props: Props,
-): Promise<MountResult<Props>> => {
+async function mountWithProviders(props: Props): Promise<MountResult<Props>> {
   const wrapper = mount(
     <IntlProvider locale="en">
       <ConfigPanel {...props} />
@@ -205,7 +187,7 @@ const mountWithProviders = async (
       await flushPromises();
     },
   };
-};
+}
 
 const typeInField = (field: any, text: string) => {
   (field.getDOMNode() as HTMLInputElement).value = text;
@@ -352,8 +334,6 @@ const userPicker = createFakeCustomFieldResolver([
   { label: 'Eduard', value: 'h76543890' },
 ]);
 
-const pickerWithDefaultValue = jest.fn(() => Promise.resolve([]));
-
 // there are many warnings due to hooks usage and async code that will be solved with the next react update.
 // this function will keep then silent so we can still read the tests.
 const silenceActErrors = () => {
@@ -406,9 +386,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
       }
 
       describe('Analytics', () => {
-        let mountResult: MountResult<Props>;
-        beforeEach(async () => {
-          mountResult = await mountWithProviders({
+        async function mountBasic() {
+          return mountWithProviders({
             ...defaultProps,
             extensionProvider: createProvider([
               {
@@ -418,9 +397,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               },
             ]),
           });
-        });
+        }
 
-        it('should fire an "open" event on mount', () => {
+        it('should fire an "opened" event on mount', async () => {
+          await mountBasic();
+
           expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
             action: 'opened',
             actionSubject: 'configPanel',
@@ -429,8 +410,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
         });
 
-        it('should fire an "close" event on unmount', () => {
-          mountResult.wrapper.unmount();
+        it('should fire an "closed" event on unmount', async () => {
+          (await mountBasic()).wrapper.unmount();
 
           expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
             action: 'closed',
@@ -600,15 +581,15 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(field.prop('name')).toBe('foo');
           });
 
-          it('should serialize to {name: value}', async () => {
+          it('should serialize to an object', async () => {
             const { wrapper, doSubmitForm } = await mountString({
               name: 'foo',
             });
             const field = wrapper.find('Textfield');
-            typeInField(field.find('input'), 'content');
+            typeInField(field.find('input'), 'bar');
             await doSubmitForm();
 
-            expect(onChange).toHaveBeenCalledWith({ foo: 'content' });
+            expect(onChange).toHaveBeenCalledWith({ foo: 'bar' });
           });
 
           describe('prop: isRequired', () => {
@@ -635,16 +616,16 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               expect(field.prop('name')).toBe('foo');
             });
 
-            it('should serialize to {name: value}', async () => {
+            it('should serialize to an object', async () => {
               const { wrapper, doSubmitForm } = await mountString({
                 name: 'foo',
                 style: 'multiline',
               });
               const field = wrapper.find('textarea');
-              typeInField(field, 'content');
+              typeInField(field, 'bar');
               await doSubmitForm();
 
-              expect(onChange).toHaveBeenCalledWith({ foo: 'content' });
+              expect(onChange).toHaveBeenCalledWith({ foo: 'bar' });
             });
 
             describe('prop: isRequired', () => {
@@ -678,22 +659,33 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
           }
 
-          it('should create a TextField with type number', async () => {
+          it('should create a TextField with type text', async () => {
             const { wrapper } = await mountNumber();
             const field = wrapper.find('Textfield');
 
             expect(field.length).toBe(1);
-            expect(field.prop('type')).toBe('number');
+            expect(field.prop('type')).toBe('text');
           });
 
-          it('should serialize to {name: value}', async () => {
+          it('should serialize to an object', async () => {
             const { wrapper, doSubmitForm } = await mountNumber();
-            const field = wrapper.find('Textfield');
-            typeInField(field.find('input'), '12345');
 
+            typeInField(wrapper.find('input[autoFocus=true]'), '123');
             await doSubmitForm();
 
-            expect(onChange).toHaveBeenCalledWith({ n: '12345' });
+            expect(onChange).toHaveBeenCalledWith({ n: 123 });
+          });
+
+          it('should show an InvalidError and skip submission for invalid values', async () => {
+            const { wrapper, doSubmitForm } = await mountNumber();
+
+            typeInField(wrapper.find('input[autoFocus=true]'), 'not a number');
+            await doSubmitForm();
+
+            expect(onChange).toBeCalledTimes(0);
+            expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
+              'invalid',
+            );
           });
 
           describe('prop: isRequired', () => {
@@ -735,7 +727,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(field.length).toBe(1);
           });
 
-          it('should serialize to {name: value}', async () => {
+          it('should serialize to an object', async () => {
             const { doSubmitForm } = mountResult;
             await doSubmitForm();
 
@@ -912,7 +904,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(field.length).toBe(1);
           });
 
-          it('should serialize to {name: value}', async () => {
+          it('should serialize to an object', async () => {
             const { wrapper, doSubmitForm } = await mountBoolean({
               name: 'foo',
             });
@@ -985,7 +977,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(field.length).toBe(1);
           });
 
-          it('should serialize to {name: value}', async () => {
+          it('should serialize to an object', async () => {
             const { wrapper, doSubmitForm } = mountResult;
 
             const field = wrapper.find('Select');
@@ -1267,7 +1259,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         async function mountFieldSet(
           isDynamic: boolean,
           otherProps: Record<string, any> = {},
-          transformerType: string = 'piped-group',
+          transformerType: string = 'json-group',
         ) {
           return mountWithProviders({
             ...defaultProps,
@@ -1322,15 +1314,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(wrapper.find('Select').length).toBe(1);
           });
 
-          it('should serialize to Q = content | depth = 12 | USER = u123i1431', async () => {
+          it('should serialize using the serializer', async () => {
             const { wrapper, doSubmitForm } = await mountFieldSet(false);
 
-            typeInField(
-              wrapper.find('Textfield').at(0).find('input'),
-              'content',
-            );
-
-            typeInField(wrapper.find('Textfield').at(1).find('input'), '12');
+            typeInField(wrapper.find('Textfield').at(0).find('input'), 'foo');
+            typeInField(wrapper.find('Textfield').at(1).find('input'), '123');
 
             expect(
               await selectOption(wrapper.find('Select'), 'u123i1431'),
@@ -1338,7 +1326,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await doSubmitForm();
 
             expect(onChange).toHaveBeenCalledWith({
-              settings: 'Q = content | depth = 12 | USER = u123i1431',
+              settings: JSON.stringify({
+                Q: 'foo',
+                depth: 123,
+                USER: 'u123i1431',
+              }),
             });
           });
 
@@ -1352,10 +1344,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               {},
               'broken-group',
             );
-            typeInField(
-              wrapper.find('Textfield').at(0).find('input'),
-              'content',
-            );
+
+            const field = wrapper.find('Textfield').at(0).find('input');
+            typeInField(field, 'bar');
 
             await doSubmitForm();
 
@@ -1367,17 +1358,25 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             consoleError.mockClear();
           });
 
-          it('should deserialize to {Q: content, depth: 12, USER: u123i1431 }', async () => {
+          it('should deserialize using the deserializer', async () => {
             const { doSubmitForm } = await mountFieldSet(false, {
               parameters: {
-                settings: 'Q = content | depth = 12 | USER = u123i1431',
+                settings: JSON.stringify({
+                  Q: 'foo',
+                  depth: 123,
+                  USER: 'u123i1431',
+                }),
               },
             });
 
             await doSubmitForm();
 
             expect(onChange).toHaveBeenCalledWith({
-              settings: 'Q = content | depth = 12 | USER = u123i1431',
+              settings: JSON.stringify({
+                Q: 'foo',
+                depth: 123,
+                USER: 'u123i1431',
+              }),
             });
           });
 
@@ -1398,49 +1397,49 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             );
           });
 
-          it('should not have name collision between fields when a fieldset contain a field with the same name as another outside of the fieldset', async () => {
+          it('should not have a name collision between fields when a fieldset contain a field with the same name as another outside of the fieldset', async () => {
             const { wrapper, doSubmitForm } = await mountWithProviders({
               ...defaultProps,
               extensionProvider: createProvider([
                 {
                   label: 'Text',
                   type: 'string',
-                  name: 'text',
+                  name: 'foo',
                 },
                 {
                   label: 'Nesting test',
-                  name: 'nested',
                   type: 'fieldset',
+                  name: 'nested',
                   options: {
                     transformer: {
-                      type: 'piped-group',
+                      type: 'json-group',
                     },
                   },
                   fields: [
                     {
-                      label: 'Text',
+                      label: 'Fieldset Text',
                       type: 'string',
-                      name: 'text',
+                      name: 'foo',
                     },
                   ],
                 },
               ]),
               parameters: {
-                text: 'hello',
-                nested: 'text = world',
+                foo: 'hello',
+                nested: JSON.stringify({ foo: 'world' }),
               },
             });
 
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
-              'text',
-              'nested.text',
+              'foo',
+              'nested.foo',
             ]);
 
             await doSubmitForm();
 
             expect(onChange).toHaveBeenCalledWith({
-              text: 'hello',
-              nested: 'text = world',
+              foo: 'hello',
+              nested: JSON.stringify({ foo: 'world' }),
             });
 
             const textfields = wrapper.find('Textfield');
@@ -1451,8 +1450,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await doSubmitForm();
 
             expect(onChange).toHaveBeenCalledWith({
-              text: 'bye',
-              nested: 'text = editor',
+              foo: 'bye',
+              nested: JSON.stringify({ foo: 'editor' }),
             });
           });
         });
@@ -1501,7 +1500,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           it('should remove the add button after all fields are added', async () => {
             const { wrapper } = await mountFieldSet(true, {
               parameters: {
-                settings: 'Q = content | USER = u123i1431',
+                settings: JSON.stringify({ Q: 'foo', USER: 'u123i1431' }),
               },
             });
 
@@ -1533,7 +1532,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           it('should show all fields that have parameters passed down when first rendering', async () => {
             const { wrapper } = await mountFieldSet(true, {
               parameters: {
-                settings: 'Q = content | depth = 1 | USER = u123i1431',
+                settings: JSON.stringify({
+                  Q: 'foo',
+                  depth: 123,
+                  USER: 'u123i1431',
+                }),
               },
             });
 
@@ -1549,7 +1552,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           it('should allow to remove fields', async () => {
             const { wrapper } = await mountFieldSet(true, {
               parameters: {
-                settings: 'Q = content | depth = 1 | USER = u123i1431',
+                settings: JSON.stringify({
+                  Q: 'foo',
+                  depth: 123,
+                  USER: 'u123i1431',
+                }),
               },
             });
 
@@ -1579,7 +1586,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           it("shouldn't remove the last visible field", async () => {
             const { wrapper } = await mountFieldSet(true, {
               parameters: {
-                settings: 'Q = content | depth = 2 | USER = u123i1431',
+                settings: JSON.stringify({
+                  Q: 'foo',
+                  depth: 2,
+                  USER: 'u123i1431',
+                }),
               },
             });
 
@@ -1750,36 +1761,14 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
           });
         });
+
         describe('defaultValue', () => {
           it('should pass defaultValue to the fieldResolver', async () => {
+            const pickerWithDefaultValue = jest.fn(async () => []);
             await mountWithProviders({
               ...defaultProps,
-              extensionProvider: createProvider([
-                {
-                  label: 'User',
-                  type: 'custom',
-                  options: {
-                    resolver: {
-                      type: 'pickerWithDefaultValue',
-                    },
-                  },
-                  name: 'user-lazy',
-                },
-              ]),
-              parameters: {
-                'user-lazy': 'akumar',
-              },
-            });
-            expect(pickerWithDefaultValue).toHaveBeenCalledWith(
-              undefined,
-              'akumar',
-            );
-          });
-          describe('prop: isMultiple', () => {
-            it('should pass an array of defaultValues to the fieldResolver', async () => {
-              await mountWithProviders({
-                ...defaultProps,
-                extensionProvider: createProvider([
+              extensionProvider: createProvider(
+                [
                   {
                     label: 'User',
                     type: 'custom',
@@ -1789,13 +1778,67 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                       },
                     },
                     name: 'user-lazy',
-                    isMultiple: true,
                   },
-                ]),
+                ],
+                {
+                  modules: {
+                    fields: {
+                      custom: {
+                        pickerWithDefaultValue: {
+                          resolver: pickerWithDefaultValue,
+                        },
+                      },
+                    },
+                  },
+                },
+              ),
+              parameters: {
+                'user-lazy': 'akumar',
+              },
+            });
+
+            expect(pickerWithDefaultValue).toHaveBeenCalledWith(
+              undefined,
+              'akumar',
+            );
+          });
+
+          describe('prop: isMultiple', () => {
+            it('should pass an array of defaultValues to the fieldResolver', async () => {
+              const pickerWithDefaultValue = jest.fn(async () => []);
+              await mountWithProviders({
+                ...defaultProps,
+                extensionProvider: createProvider(
+                  [
+                    {
+                      label: 'User',
+                      type: 'custom',
+                      options: {
+                        resolver: {
+                          type: 'pickerWithDefaultValue',
+                        },
+                      },
+                      name: 'user-lazy',
+                      isMultiple: true,
+                    },
+                  ],
+                  {
+                    modules: {
+                      fields: {
+                        custom: {
+                          pickerWithDefaultValue: {
+                            resolver: pickerWithDefaultValue,
+                          },
+                        },
+                      },
+                    },
+                  },
+                ),
                 parameters: {
                   'user-lazy': ['akumar', 'llemos', 'rnabi', 'jquintana'],
                 },
               });
+
               expect(pickerWithDefaultValue).toHaveBeenCalledWith(undefined, [
                 'akumar',
                 'llemos',
@@ -2021,7 +2064,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             extensionProvider: createProvider([
               {
                 label: 'Text',
-                type: 'string' as const,
+                type: 'string',
                 name: 't',
                 isHidden: true,
               },
@@ -2032,7 +2075,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 options: {
                   isDynamic: true,
                   transformer: {
-                    type: 'cql',
+                    type: 'missing-group',
                   },
                 },
                 fields: [

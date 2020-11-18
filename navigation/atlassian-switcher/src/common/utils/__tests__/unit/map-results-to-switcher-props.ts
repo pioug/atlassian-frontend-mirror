@@ -33,6 +33,7 @@ const defaultFeatures = {
   isCollaborationGraphRecentContainersEnabled: false,
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
+  isSlackDiscoveryEnabled: false,
 };
 
 describe('map-results-to-switcher-props', () => {

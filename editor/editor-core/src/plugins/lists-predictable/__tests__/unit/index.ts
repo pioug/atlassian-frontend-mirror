@@ -150,17 +150,28 @@ describe('lists', () => {
   });
 
   describe('untoggling a list', () => {
+    // prettier-ignore
     const expectedOutput = doc(
-      ol(li(p('One'))),
+      ol(
+        li(p('One')),
+      ),
       p('Two'),
       p('Three'),
-      ol(li(p('Four'))),
+      ol(
+        li(p('Four'))
+      ),
     );
 
     it('should allow untoggling part of a list based on selection', () => {
       const { editorView } = editor(
+        // prettier-ignore
         doc(
-          ol(li(p('One')), li(p('{<}Two')), li(p('Three{>}')), li(p('Four'))),
+          ol(
+            li(p('One')),
+            li(p('{<}Two')),
+            li(p('Three{>}')),
+            li(p('Four')),
+          ),
         ),
       );
 
@@ -181,15 +192,36 @@ describe('lists', () => {
 
     it('should untoggle all list items with different ancestors in selection', () => {
       const { editorView } = editor(
+        // prettier-ignore
         doc(
-          ol(li(p('One')), li(p('{<}Two')), li(p('Three'))),
-          ol(li(p('One{>}')), li(p('Two'))),
+          ol(
+            li(p('One')),
+            li(p('{<}Two')),
+            li(p('Three')),
+          ),
+          p('LOL'),
+          ol(
+            li(p('One{>}')),
+            li(p('Two')),
+          ),
         ),
       );
 
       toggleOrderedList(editorView);
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('One'))), p('Two'), p('Three'), p('One'), ol(li(p('Two')))),
+        // prettier-ignore
+        doc(
+          ol(
+            li(p('One')),
+          ),
+          p('Two'),
+          p('Three'),
+          p('LOL'),
+          p('One'),
+          ol(
+            li(p('Two')),
+          ),
+        ),
       );
     });
 

@@ -180,7 +180,7 @@ describe('Snapshot Test: Media', () => {
   });
 
   describe('unsupported marks and node attributes', () => {
-    it('should render media item which contains unsupported marks and node attributes', async () => {
+    it('should render media item which contains and node attributes', async () => {
       await initRenderer(page, mediaWithUnsupportedMarksAndAttributes);
       await waitForAllMedia(page, 1);
       await snapshotRenderer();

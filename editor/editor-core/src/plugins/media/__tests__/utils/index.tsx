@@ -33,6 +33,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
+import mediaPlugin from '../../../../plugins/media';
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
 import {
   setGapCursorSelection,
@@ -143,6 +144,122 @@ describe('Media plugin', () => {
 
   afterAll(() => {
     providerFactory.destroy();
+  });
+
+  // ED-9860: This test must run before any insertMediaAsMediaSingle
+  // which appears to interfere/cause side effects to this test.
+  describe('Drop Placeholder', () => {
+    // Copied from MediaPicker DropZone test spec
+    const createDragOverOrLeaveEvent = (
+      eventName: 'dragover' | 'dragleave',
+      type?: string,
+    ) => {
+      const event = document.createEvent('Event') as DragEvent;
+      event.initEvent(eventName, true, true);
+      event.preventDefault = () => {};
+
+      (event.dataTransfer as Partial<DataTransfer>) = {
+        types: [type || 'Files'],
+        files: [] as any,
+        effectAllowed: 'move',
+      };
+
+      return event;
+    };
+
+    const getWidgetDom = (editorView: EditorView): Node | null =>
+      (editorView as any).dom.querySelector('.ProseMirror-widget');
+
+    // ED-9860:Because the current implementation of the editor renders
+    // disconnected React/component trees, we must manually/additionally
+    // Enzyme mount React components we would normally expect plugins to
+    // render e.g. "contentComponent".
+    const mountMediaPluginContentComponent = (
+      editorView: EditorView,
+      dropzoneContainer: HTMLElement,
+    ) => {
+      const plugin = mediaPlugin({
+        customDropzoneContainer: dropzoneContainer,
+      });
+      const contentComponent = plugin.contentComponent!({
+        editorView,
+      } as any);
+      return mount(contentComponent!);
+    };
+
+    let dropzoneContainer: HTMLElement | undefined;
+
+    beforeEach(() => {
+      dropzoneContainer = document.createElement('div');
+    });
+
+    afterEach(() => {
+      dropzoneContainer = undefined;
+    });
+
+    it('should show the placeholder at the current position inside paragraph', async () => {
+      const { editorView } = editor(
+        doc(p('hello{<>} world')),
+        {},
+        dropzoneContainer,
+      );
+
+      const contentComponent = mountMediaPluginContentComponent(
+        editorView,
+        dropzoneContainer as HTMLElement,
+      );
+
+      await mediaProvider;
+      // MediaPicker DropZone bind events inside a `whenDomReady`, so we have to wait for the next tick
+      await sleep(0);
+      expect(getWidgetDom(editorView)).toBeNull();
+
+      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragover'));
+      const dragZoneDom = getWidgetDom(editorView);
+      expect(dragZoneDom).toBeDefined();
+      expect(dragZoneDom!.previousSibling!.textContent).toEqual('hello');
+      expect(dragZoneDom!.nextSibling!.textContent).toEqual(' world');
+
+      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragleave'));
+      // MediaPicker DropZone has a 50ms timeout on dragleave event, so we have to wait for at least 50ms
+      await sleep(50);
+      expect(getWidgetDom(editorView)).toBeNull();
+
+      contentComponent.unmount();
+    });
+
+    it('should show the placeholder for code block', async () => {
+      const { editorView } = editor(
+        doc(code_block()('const foo = undefined;{<>}')),
+        {},
+        dropzoneContainer,
+      );
+
+      const contentComponent = mountMediaPluginContentComponent(
+        editorView,
+        dropzoneContainer as HTMLElement,
+      );
+
+      await mediaProvider;
+      // MediaPicker DropZone bind events inside a `whenDomReady`, so we have to wait for the next tick
+      await sleep(0);
+      expect(getWidgetDom(editorView)).toBeNull();
+
+      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragover'));
+      const dragZoneDom = getWidgetDom(editorView);
+      expect(dragZoneDom).toBeDefined();
+      expect(dragZoneDom!.previousSibling!.textContent).toEqual(
+        'const foo = undefined;',
+      );
+      expect(dragZoneDom!.nextSibling!.textContent).toEqual('');
+
+      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragleave'));
+      // MediaPicker DropZone has a 50ms timeout on dragleave event, so we have to wait for at least 50ms
+      await sleep(50);
+      expect(getWidgetDom(editorView)).toBeNull();
+
+      contentComponent.unmount();
+    });
   });
 
   describe('editor', () => {
@@ -770,89 +887,6 @@ describe('Media plugin', () => {
 
         pluginState.destroy();
       });
-    });
-  });
-
-  describe('Drop Placeholder', () => {
-    // Copied from MediaPicker DropZone test spec
-    const createDragOverOrLeaveEvent = (
-      eventName: 'dragover' | 'dragleave',
-      type?: string,
-    ) => {
-      const event = document.createEvent('Event') as any;
-      event.initEvent(eventName, true, true);
-      event.preventDefault = () => {};
-
-      event.dataTransfer = {
-        types: [type || 'Files'],
-        files: [],
-        effectAllowed: 'move',
-      };
-
-      return event;
-    };
-
-    const getWidgetDom = (editorView: EditorView): Node | null =>
-      (editorView as any).docView.dom.querySelector('.ProseMirror-widget');
-
-    let dropzoneContainer: HTMLElement | undefined;
-
-    beforeEach(() => {
-      dropzoneContainer = document.createElement('div');
-    });
-
-    afterEach(() => {
-      dropzoneContainer = undefined;
-    });
-
-    it.skip('should show the placeholder at the current position inside paragraph', async () => {
-      const { editorView } = editor(
-        doc(p('hello{<>} world')),
-        {},
-        dropzoneContainer,
-      );
-
-      await mediaProvider;
-      // MediaPicker DropZone bind events inside a `whenDomReady`, so we have to wait for the next tick
-      await sleep(0);
-      expect(getWidgetDom(editorView)).toBeNull();
-
-      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragover'));
-      const dragZoneDom = getWidgetDom(editorView);
-      expect(dragZoneDom).toBeDefined();
-      expect(dragZoneDom!.previousSibling!.textContent).toEqual('hello');
-      expect(dragZoneDom!.nextSibling!.textContent).toEqual(' world');
-
-      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragleave'));
-      // MediaPicker DropZone has a 50ms timeout on dragleave event, so we have to wait for at least 50ms
-      await sleep(50);
-      expect(getWidgetDom(editorView)).toBeNull();
-    });
-
-    it.skip('should show the placeholder for code block', async () => {
-      const { editorView } = editor(
-        doc(code_block()('const foo = undefined;{<>}')),
-        {},
-        dropzoneContainer,
-      );
-
-      await mediaProvider;
-      // MediaPicker DropZone bind events inside a `whenDomReady`, so we have to wait for the next tick
-      await sleep(0);
-      expect(getWidgetDom(editorView)).toBeNull();
-
-      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragover'));
-      const dragZoneDom = getWidgetDom(editorView);
-      expect(dragZoneDom).toBeDefined();
-      expect(dragZoneDom!.previousSibling!.textContent).toEqual(
-        'const foo = undefined;',
-      );
-      expect(dragZoneDom!.nextSibling!.textContent).toEqual('');
-
-      dropzoneContainer!.dispatchEvent(createDragOverOrLeaveEvent('dragleave'));
-      // MediaPicker DropZone has a 50ms timeout on dragleave event, so we have to wait for at least 50ms
-      await sleep(50);
-      expect(getWidgetDom(editorView)).toBeNull();
     });
   });
 

@@ -14,11 +14,12 @@ import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions'
 import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
 import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
 
+const quickInsertProvider = extensionProviderToQuickInsertProvider(
+  getConfluenceMacrosExtensionProvider({} as EditorActions),
+  {} as EditorActions,
+);
+
 export default () => {
-  const quickInsertProvider = extensionProviderToQuickInsertProvider(
-    getConfluenceMacrosExtensionProvider({} as EditorActions),
-    {} as EditorActions,
-  );
   const handleAnalytics = useCallback((event: AnalyticsEventPayload) => {
     console.groupCollapsed('gasv3 event:', event.payload.action);
     console.log(event.payload);
@@ -27,7 +28,7 @@ export default () => {
 
   const [items] = useStateFromPromise<QuickInsertItem[]>(
     () => quickInsertProvider.then(provider => provider.getItems()),
-    [quickInsertProvider],
+    [],
     [],
   );
 
@@ -42,6 +43,13 @@ export default () => {
       )(query, category),
     [items],
   );
+
+  // We dont want to render the ElementBrowser if there are no items resolved.
+  // It causes a race condition, where ElementBrowser tries to get the items,
+  // but they were not there at the time, and it will no try to retrieve the items again.
+  if ((items?.length ?? 0) === 0) {
+    return <div />;
+  }
 
   return (
     <AnalyticsListener channel="editor" onEvent={handleAnalytics}>

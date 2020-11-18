@@ -29,6 +29,9 @@ export interface MentionResourceConfig extends ServiceConfig {
   productId?: string;
   shouldHighlightMention?: (mention: MentionDescription) => boolean;
   mentionNameResolver?: MentionNameResolver;
+  shouldEnableInvite?: boolean;
+  onInviteItemClick?: (flow: FlowType) => void;
+  userRole?: UserRole;
 }
 
 export interface ResourceProvider<Result> {
@@ -65,7 +68,8 @@ export type MentionContextIdentifier = {
 };
 
 export interface MentionProvider
-  extends ResourceProvider<MentionDescription[]> {
+  extends ResourceProvider<MentionDescription[]>,
+    InviteFromMentionProvider {
   filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;
   recordMentionSelection(
     mention: MentionDescription,
@@ -201,3 +205,14 @@ export function isSpecialMentionText(mentionText: string) {
 }
 
 export const isPromise = <T>(p: any): p is Promise<T> => !!(p && p.then);
+
+export type FlowType = 'mention' | 'assign';
+
+export type UserRole = 'admin' | 'trusted' | 'basic';
+
+export interface InviteFromMentionProvider {
+  productName?: string;
+  shouldEnableInvite?: boolean;
+  onInviteItemClick?(flow: FlowType): void;
+  userRole?: UserRole;
+}

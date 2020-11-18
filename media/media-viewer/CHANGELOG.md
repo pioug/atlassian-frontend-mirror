@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 45.5.1
+
+### Patch Changes
+
+- [`b130ee1234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b130ee1234) - handle non-200 responses for codeViewer
+- Updated dependencies
+
 ## 45.5.0
 
 ### Minor Changes

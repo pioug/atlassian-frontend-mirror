@@ -18,6 +18,7 @@ import {
   StepJson,
   TelepointerPayload,
   TitlePayload,
+  ErrorPayload,
 } from './types';
 
 import { createLogger, getParticipant } from './utils';
@@ -30,6 +31,8 @@ const SEND_STEPS_THROTTLE = 0.1; // seconds
 const SEND_STEPS_DEBOUNCE = 0.2; // seconds
 const CATCHUP_THROTTLE = 1; // seconds
 const MAX_WAIT = 1000; // seconds
+export const MAX_STEP_REJECTED_ERROR = 10;
+export const CATCHUP_THROTTLE_TIMEOUT = 5000; // 5 seconds
 
 /**
  * Rebase the steps based on the mapping pipeline.
@@ -59,6 +62,8 @@ export class Provider
   private config: Config;
   private getState: (() => EditorState) | undefined;
   private title?: string;
+  private stepRejectCounter: number = 0;
+  private catchupTimeout?: NodeJS.Timeout;
 
   // SessionID is the unique socket-session.
   private sessionId?: string;
@@ -110,6 +115,7 @@ export class Provider
       .on('participant:updated', this.onParticipantUpdated)
       .on('title:changed', this.onTitleChanged)
       .on('disconnect', this.onDisconnected)
+      .on('error', this.onErrorHandled)
       .connect();
 
     return this;
@@ -223,7 +229,7 @@ export class Provider
           return;
         }
         if (serverVersion === currentVersion) {
-          logger(`Catcup steps we already have. Ignoring.`);
+          logger(`Catchup steps we already have. Ignoring.`);
           return;
         }
         const { steps: unconfirmedSteps } = sendableSteps(this.getState!()) || {
@@ -267,6 +273,30 @@ export class Provider
     this.pauseQueue = false;
     this.processQueue();
     this.throttledSend();
+    this.stepRejectCounter = 0;
+    if (this.catchupTimeout) {
+      clearTimeout(this.catchupTimeout);
+      this.catchupTimeout = undefined;
+    }
+  };
+
+  private onErrorHandled = (error: ErrorPayload | string) => {
+    if (
+      error &&
+      ((error as ErrorPayload).code === 'HEAD_VERSION_UPDATE_FAILED' ||
+        (error as ErrorPayload).code === 'VERSION_NUMBER_ALREADY_EXISTS')
+    ) {
+      this.stepRejectCounter++;
+      if (!this.catchupTimeout) {
+        this.catchupTimeout = setTimeout(() => {
+          this.throttledCatchup();
+        }, CATCHUP_THROTTLE_TIMEOUT);
+      }
+    }
+    if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
+      this.throttledCatchup();
+    }
+    logger(`Error from collab service`, error);
   };
 
   private pauseQueue?: boolean;
@@ -380,7 +410,7 @@ export class Provider
   private onTitleChanged = ({ title, clientId }: TitlePayload) => {
     if (title && this.title !== title && this.clientId !== clientId) {
       this.title = title;
-      this.emit('title:changed', { title, clientId });
+      this.emit('title:changed', { title });
     }
   };
 

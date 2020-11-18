@@ -590,4 +590,19 @@ describe('MentionResource', () => {
       expect(resource.supportsMentionNameResolving()).toEqual(true);
     });
   });
+
+  describe('#inviteFromMentionExperiment', () => {
+    it('should set value from config', () => {
+      const mockOnInviteItemClick = jest.fn();
+      const resource = new MentionResource({
+        ...apiConfig,
+        shouldEnableInvite: true,
+        onInviteItemClick: mockOnInviteItemClick,
+        userRole: 'admin',
+      });
+      expect(resource.shouldEnableInvite).toBe(true);
+      expect(resource.onInviteItemClick).toBe(mockOnInviteItemClick);
+      expect(resource.userRole).toBe('admin');
+    });
+  });
 });

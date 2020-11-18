@@ -38,7 +38,7 @@ export const getAdministrationLinks = (
   if (!isDiscoverMoreForEveryoneEnabled && !adminUrl) {
     adminLinks.unshift({
       key: DiscoverLinkItemKeys.DISCOVER_MORE,
-      label: <FormattedMessage {...messages.discoverMore} />,
+      label: <FormattedMessage {...messages.moreAtlassianProductsLink} />,
       Icon: createIcon(DiscoverFilledGlyph, { size: 'medium' }),
       href: `${adminBaseUrl}/billing/addapplication`,
     });

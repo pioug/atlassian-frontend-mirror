@@ -1,5 +1,5 @@
 import { FileState } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { getMediaFeatureFlag, MediaFeatureFlags } from '@atlaskit/media-common';
 import { CardState, CardProps, CardStatus } from '../../';
 import { shouldShowProcessingProgress } from '../../utils/processingProgress';
 
@@ -40,6 +40,10 @@ export const getCardStatusFromFileState = (
       return 'complete';
     case 'processing':
       if (shouldShowProcessingProgress(fileState, featureFlags)) {
+        // we want to show the user that they can download & view a file while a preview is being generated
+        if (getMediaFeatureFlag('newCardExperience', featureFlags)) {
+          return 'processing';
+        }
         // processing of a file is part of upload time
         return 'uploading';
       }

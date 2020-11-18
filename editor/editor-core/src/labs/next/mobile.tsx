@@ -3,7 +3,6 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { Context as CardContext } from '@atlaskit/smart-card';
 import { EditorProps } from './internal/editor-props-type';
 import { MobileAppearance } from '../../ui/AppearanceComponents/Mobile';
 import {
@@ -13,17 +12,12 @@ import {
   EditorSharedConfig,
 } from './Editor';
 import { useCreateAnalyticsHandler } from './internal/hooks/use-analytics';
-import { createContextAdapter } from '../../nodeviews';
+import { ContextAdapter } from '../../nodeviews/context-adapter';
 
 export interface MobileEditorProps extends EditorProps {
   isMaxContentSizeReached?: boolean;
   maxHeight?: number;
 }
-
-// allows connecting external React.Context through to nodeviews
-const ContextAdapter = createContextAdapter({
-  card: CardContext,
-});
 
 export function MobileEditor(
   props: MobileEditorProps & WithAnalyticsEventsProps,

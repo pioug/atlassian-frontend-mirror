@@ -39,6 +39,7 @@ import {
   expectFunctionToHaveBeenCalledWith,
   fakeMediaClient,
   getDefaultMediaClientConfig,
+  nextTick,
 } from '@atlaskit/media-test-helpers';
 import { shallow } from 'enzyme';
 import { ReactElement } from 'react';
@@ -389,6 +390,31 @@ describe('media', () => {
           mockMediaClient.file.getCurrentState,
           ['1234', { collectionName: 'some-collection' }],
         );
+      });
+
+      it('should mount with default state if getCurrentState fails', async () => {
+        asMockReturnValue(
+          mockMediaClient.file.getCurrentState,
+          Promise.reject(new Error('an error')),
+        );
+
+        const toolbar = shallow(
+          <AnnotationToolbar
+            viewMediaClientConfig={mockMediaClient.config}
+            id="1234"
+            collection="some-collection"
+            intl={intl}
+          />,
+        );
+
+        expectFunctionToHaveBeenCalledWith(
+          mockMediaClient.file.getCurrentState,
+          ['1234', { collectionName: 'some-collection' }],
+        );
+
+        await nextTick();
+
+        expect(toolbar.state('isImage')).toBeFalsy();
       });
 
       it('has an AnnotationToolbar custom toolbar element', async () => {

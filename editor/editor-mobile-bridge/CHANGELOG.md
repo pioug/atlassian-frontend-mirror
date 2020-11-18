@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 20.1.0
+
+### Minor Changes
+
+- [`277c2d52d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277c2d52d3) - [ux] ED-10815 Enable localization in hybrid renderer
+- [`474b09e4c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/474b09e4c0) - COLLAB-11 steps rejected error handler
+- [`28e97db5a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28e97db5a7) - TWISTA-407 Expose the Confluence index match API to native. On applying draft mode, the bridge will call `annotationIndexMatch` with the `numMatch`, `matchIndex`, `originalSelection` tuple that is required by Confluence.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.2
 
 ### Patch Changes

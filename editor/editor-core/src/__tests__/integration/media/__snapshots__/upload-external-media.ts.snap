@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`upload-external-media.ts: Uploads external media when pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": true,
+            "__fileName": "example.png",
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": 147,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": "12345678-9abc-def0-1234-56789abcdef0",
+            "type": "file",
+            "url": null,
+            "width": 220,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;

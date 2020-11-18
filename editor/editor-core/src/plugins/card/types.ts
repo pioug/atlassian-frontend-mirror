@@ -3,11 +3,7 @@ import {
   Providers,
   CardProvider,
   CardAppearance,
-} from '@atlaskit/editor-common/provider-factory';
-
-export type {
-  CardAppearance,
-  CardProvider,
+  CardAdf,
 } from '@atlaskit/editor-common/provider-factory';
 
 export type CardInfo = {
@@ -33,6 +29,8 @@ export type Request = {
   analyticsAction?: ACTION;
   shouldReplaceLink?: boolean;
 };
+
+export type OutstandingRequests = { [key: string]: Promise<void | CardAdf> };
 
 export type CardPluginState = {
   requests: Request[];

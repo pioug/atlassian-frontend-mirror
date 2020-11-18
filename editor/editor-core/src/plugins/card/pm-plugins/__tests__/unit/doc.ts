@@ -1,7 +1,17 @@
+jest.mock('raf-schd', () =>
+  jest.fn().mockImplementation((fn: any) => {
+    const fnRunner = (...args: any) => fn(...args);
+    fnRunner.cancel = () => {};
+    return fnRunner;
+  }),
+);
+import rafSchd from 'raf-schd';
 jest.mock('../../shouldReplaceLink');
 import { shouldReplaceLink } from '../../shouldReplaceLink';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import createEditorFactory, {
+  EditorInstanceWithPlugin,
+} from '@atlaskit/editor-test-helpers/create-editor';
 
 import {
   a,
@@ -51,14 +61,12 @@ import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { NodeSelection } from 'prosemirror-state';
 import { asMock } from '@atlaskit/media-test-helpers';
 
+const atlassianUrl = 'http://www.atlassian.com/';
+const googleUrl = 'http://www.google.com/';
+const localUrl = 'http://localhost:9090/';
+
 const cardAdfAttrs = {
-  url: '',
-  data: {
-    '@context': 'https://www.w3.org/ns/activitystreams',
-    '@type': 'Document',
-    name: 'Welcome to Atlassian!',
-    url: 'http://www.atlassian.com',
-  },
+  url: atlassianUrl,
 };
 
 const inlineCardAdf = {
@@ -66,37 +74,32 @@ const inlineCardAdf = {
   attrs: cardAdfAttrs,
 };
 
-const atlassianUrl = 'http://www.atlassian.com/';
-const googleUrl = 'http://www.google.com/';
-const localUrl = 'http://localhost:9090/';
-
 describe('card', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
-  const editor = (doc: any) => {
-    createAnalyticsEvent = createAnalyticsEventMock();
-    const editorWrapper = createEditor({
-      doc,
-      editorProps: {
-        allowTables: {
-          advanced: true,
-        },
-        allowAnalyticsGASV3: true,
-        allowExtension: true,
-        allowPanel: true,
-        allowTasksAndDecisions: true,
-        UNSAFE_cards: {},
-      },
-      createAnalyticsEvent: createAnalyticsEvent as any,
-      pluginKey,
-    });
-
-    createAnalyticsEvent.mockClear();
-
-    return editorWrapper;
-  };
+  let editor: (doc: any) => EditorInstanceWithPlugin<any>;
 
   beforeEach(() => {
+    editor = (doc: any) => {
+      createAnalyticsEvent = createAnalyticsEventMock();
+      const editorWrapper = createEditor({
+        doc,
+        editorProps: {
+          allowTables: {
+            advanced: true,
+          },
+          allowAnalyticsGASV3: true,
+          allowExtension: true,
+          allowPanel: true,
+          allowTasksAndDecisions: true,
+          UNSAFE_cards: {},
+        },
+        createAnalyticsEvent: createAnalyticsEvent as any,
+        pluginKey,
+      });
+      createAnalyticsEvent.mockClear();
+      return editorWrapper;
+    };
     asMock(shouldReplaceLink).mockReturnValue(true);
   });
 
@@ -293,7 +296,7 @@ describe('card', () => {
         view = editorView;
       });
 
-      afterEach(async () => {
+      afterEach(() => {
         // queue should now be empty, and document should remain the same
         expect(pluginKey.getState(view.state)).toEqual({
           cards: [],
@@ -301,8 +304,8 @@ describe('card', () => {
           provider: provider,
           showLinkingToolbar: false,
         } as CardPluginState);
-
         expect(view.state.doc).toEqualDocument(initialDoc);
+        expect(rafSchd).toBeCalled();
       });
 
       test('returns invalid ADF', async () => {

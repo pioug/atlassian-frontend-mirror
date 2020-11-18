@@ -16,6 +16,7 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
       isAnnotationAllowed,
       removeDraftMode,
       applyDraftMode,
+      getAnnotationIndexMatch,
     } = props;
 
     const onNativeSideCreatesAnnotation = useCallback(
@@ -32,8 +33,15 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
     );
 
     const onApplyDraftMode = useCallback(() => {
+      if (getAnnotationIndexMatch) {
+        const match = getAnnotationIndexMatch();
+        if (match) {
+          webToNativeBridgeAPI.annotationIndexMatch(match);
+        }
+      }
+
       applyDraftMode(false);
-    }, [applyDraftMode]);
+    }, [applyDraftMode, getAnnotationIndexMatch]);
 
     useLayoutEffect(() => {
       webToNativeBridgeAPI.canApplyAnnotationOnCurrentSelection([

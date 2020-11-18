@@ -45,7 +45,11 @@ export type {
   PasteType,
 } from './paste-events';
 export type { HistoryEventPayload } from './history-events';
-export type { MediaAltTextActionType, MediaEventPayload } from './media-events';
+export type {
+  MediaAltTextActionType,
+  MediaEventPayload,
+  MediaLinkAEP,
+} from './media-events';
 export type { DispatchAnalyticsEvent } from './dispatch-analytics-event';
 export { DELETE_DIRECTION, LIST_TEXT_SCENARIOS } from './list-events';
 export type {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.1.3
+
+### Patch Changes
+
+- [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
+- Updated dependencies
+
 ## 8.1.2
 
 ### Patch Changes

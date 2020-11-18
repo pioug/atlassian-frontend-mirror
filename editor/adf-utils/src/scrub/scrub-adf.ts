@@ -2,21 +2,49 @@ import { ADFEntity, VisitorCollection } from '../types';
 import { traverse } from '../traverse/traverse';
 import { scrubAttrs, scrubStr, scrubLink } from './scrub-content';
 
-export default (adf: ADFEntity) =>
-  traverse(adf, {
-    any: node => {
-      const updatedNode: { [key: string]: any } = {};
+export type NodeReplacer = (node: ADFEntity) => ADFEntity;
 
-      if (node.type === 'emoji') {
-        return {
-          type: 'emoji',
-          attrs: {
-            id: '123',
-            text: '😀',
-            shortName: ':grinning:',
-          },
-        };
+export type NodeReplacements = {
+  [key: string]: NodeReplacer;
+};
+
+const defaultReplacements: NodeReplacements = {
+  emoji: () => ({
+    type: 'emoji',
+    attrs: {
+      shortName: ':blue_star:',
+      id: 'atlassian-blue_star',
+      text: ':blue_star:',
+    },
+  }),
+  date: () => ({
+    type: 'date',
+    attrs: {
+      timestamp: new Date('2020-01-01').getTime(),
+    },
+  }),
+  mention: () => ({
+    type: 'mention',
+    attrs: {
+      id: 'error:NotFound',
+      text: '@Nemo',
+      accessLevel: 'CONTAINER',
+    },
+  }),
+};
+
+export default (adf: ADFEntity, userReplacements?: NodeReplacements) => {
+  const replacements = { ...defaultReplacements, ...userReplacements };
+
+  return traverse(adf, {
+    any: node => {
+      const replacement = replacements[node.type];
+
+      if (typeof replacement === 'function') {
+        return replacement(node);
       }
+
+      const updatedNode: { [key: string]: any } = {};
 
       Object.entries(node).forEach(([key, value]) => {
         if (['version', 'type', 'content', 'marks'].includes(key)) {
@@ -39,3 +67,4 @@ export default (adf: ADFEntity) =>
       return updatedNode as ADFEntity;
     },
   } as VisitorCollection);
+};

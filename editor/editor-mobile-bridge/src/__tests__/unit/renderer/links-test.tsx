@@ -5,13 +5,14 @@ import {
   MobileSmartCardClient,
   createCardClient,
 } from '../../../providers/cardProvider';
-import MobileRenderer from '../../../renderer/mobile-renderer-element';
+import { MobileRenderer } from '../../../renderer/mobile-renderer-element';
 import {
   createEmojiProvider,
   createMediaProvider,
   createMentionProvider,
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
+import { InjectedIntl } from 'react-intl';
 
 type MockedEvent = { preventDefault: () => void; defaultPrevented: boolean };
 
@@ -122,6 +123,10 @@ const smartLinkADF = JSON.stringify({
  * `Warning: An update to CardWithUrlContent inside a test was not wrapped in act(...).`
  */
 describe('renderer bridge: links', () => {
+  const intlMock = ({
+    formatMessage: (messageDescriptor: any) =>
+      messageDescriptor && messageDescriptor.defaultMessage,
+  } as unknown) as InjectedIntl;
   beforeEach(() => {
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
       cb(1);
@@ -137,6 +142,7 @@ describe('renderer bridge: links', () => {
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
         document={linkADF}
+        intl={intlMock}
       />,
     );
 
@@ -157,6 +163,7 @@ describe('renderer bridge: links', () => {
         emojiProvider={createEmojiProvider(new FetchProxy())}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
+        intl={intlMock}
       />,
     );
 

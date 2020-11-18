@@ -6,6 +6,7 @@ import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
   AnnotationActionResult,
+  AnnotationByMatches,
 } from '@atlaskit/editor-common';
 import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
 import { Node, Schema, Mark } from 'prosemirror-model';
@@ -305,6 +306,26 @@ export default class RendererActions
     return {
       step,
       doc: this.transformer.encode(doc),
+      originalSelection,
+      numMatches,
+      matchIndex,
+    };
+  }
+
+  generateAnnotationIndexMatch(pos: Position): AnnotationByMatches | false {
+    if (!this.doc || !pos || !this.schema) {
+      return false;
+    }
+    const { from, to } = pos;
+    const originalSelection = this.doc.textBetween(from, to);
+    const { numMatches, matchIndex } = getIndexMatch(
+      this.doc,
+      this.schema,
+      originalSelection,
+      from,
+    );
+
+    return {
       originalSelection,
       numMatches,
       matchIndex,

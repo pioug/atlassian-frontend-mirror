@@ -249,7 +249,7 @@ describe('scrubAdf', () => {
     });
   });
 
-  it('should replace emoji nodes', () => {
+  it('should replace emoji nodes by default', () => {
     const adf = {
       version: 1,
       type: 'doc',
@@ -274,12 +274,114 @@ describe('scrubAdf', () => {
         {
           type: 'emoji',
           attrs: {
-            id: '123',
-            text: '😀',
-            shortName: ':grinning:',
+            id: 'atlassian-blue_star',
+            text: ':blue_star:',
+            shortName: ':blue_star:',
           },
         },
       ],
+    });
+  });
+
+  it('should replace mention nodes by default', () => {
+    const adf = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'mention',
+          attrs: {
+            id: 0,
+            text: '@Carolyn',
+            accessLevel: 'CONTAINER',
+          },
+        },
+      ],
+    };
+
+    const scrubbedAdf = scrubAdf(adf);
+
+    expect(scrubbedAdf).toEqual({
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'mention',
+          attrs: {
+            id: 'error:NotFound',
+            text: '@Nemo',
+            accessLevel: 'CONTAINER',
+          },
+        },
+      ],
+    });
+  });
+
+  it('should replace date nodes by default', () => {
+    const adf = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'date',
+          attrs: {
+            timestamp: new Date().getTime(),
+          },
+        },
+      ],
+    };
+
+    const scrubbedAdf = scrubAdf(adf);
+
+    expect(scrubbedAdf).toEqual({
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'date',
+          attrs: {
+            timestamp: new Date('2020-01-01').getTime(),
+          },
+        },
+      ],
+    });
+  });
+
+  it('should use provided replacement for emoji', () => {
+    const input = {
+      type: 'emoji',
+      attrs: {
+        shortName: ':rocket:',
+        id: '1f680',
+        text: '🚀',
+      },
+    };
+
+    const output = {
+      type: 'emoji',
+      attrs: {
+        shortName: ':slight_smile:',
+        id: '1f642',
+        text: '🙂',
+      },
+    };
+
+    const adf = {
+      version: 1,
+      type: 'doc',
+      content: [input],
+    };
+
+    const emoji = jest.fn(() => output);
+
+    const scrubbedAdf = scrubAdf(adf, { emoji });
+    expect(emoji).toHaveBeenCalledTimes(1);
+    expect(emoji).toHaveBeenCalledWith(input);
+
+    expect(scrubbedAdf).toEqual({
+      version: 1,
+      type: 'doc',
+      content: [output],
     });
   });
 

@@ -28,15 +28,15 @@
                         "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
                         "collection": "MediaServicesSample"
-                      }
-                    }
-                  ],
-                  "marks": [
-                    {
-                      "type": "link",
-                      "attrs": {
-                        "href": "https://www.atlassian.com/"
-                      }
+                      },
+                      "marks": [
+                        {
+                          "type": "link",
+                          "attrs": {
+                            "href": "https://www.atlassian.com/"
+                          }
+                        }
+                      ]
                     }
                   ]
                 }
@@ -93,15 +93,15 @@
                         "id": "a559980d-cd47-43e2-8377-27359fcb905f",
                         "type": "file",
                         "collection": "MediaServicesSample"
-                      }
-                    }
-                  ],
-                  "marks": [
-                    {
-                      "type": "link",
-                      "attrs": {
-                        "href": "https://www.atlassian.com/"
-                      }
+                      },
+                      "marks": [
+                        {
+                          "type": "link",
+                          "attrs": {
+                            "href": "https://www.atlassian.com/"
+                          }
+                        }
+                      ]
                     }
                   ]
                 },

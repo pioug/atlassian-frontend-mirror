@@ -31,4 +31,5 @@ export type {
   StylesConfig,
   ValueContainerProps,
   ValueType,
+  GroupedOptionsType,
 } from './types';

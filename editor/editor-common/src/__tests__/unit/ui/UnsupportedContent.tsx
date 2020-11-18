@@ -55,9 +55,10 @@ describe('Unsupported Content', () => {
       );
     });
 
-    it('should node contains tooltip', () => {
+    it('should node contains tooltip with strategy prop as absolute', () => {
       wrapper = mountWithIntl(<UnsupportedBlockNode />);
       expect(wrapper.find(Tooltip)).toHaveLength(1);
+      expect(wrapper.find(Tooltip).props().strategy).toEqual('absolute');
     });
 
     it('should return Unsupported content when no node is provided', () => {
@@ -363,9 +364,10 @@ describe('Unsupported Content', () => {
       );
     });
 
-    it('should node contains tooltip', () => {
+    it('should node contains tooltip with strategy prop as absolute', () => {
       wrapper = mountWithIntl(<UnsupportedInlineNode />);
       expect(wrapper.find(Tooltip)).toHaveLength(1);
+      expect(wrapper.find(Tooltip).props().strategy).toEqual('absolute');
     });
 
     it('should return Unsupported content when no node is provided', () => {

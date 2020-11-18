@@ -20,6 +20,7 @@ import {
   insertExpand,
   toggleExpandExpanded,
 } from '../../commands';
+import { ExpandNodeView } from '../../nodeviews';
 import { findExpand } from '../../utils';
 import expandPlugin from '../../index';
 import analyticsPlugin from '../../../analytics';
@@ -126,6 +127,33 @@ describe('expand actions', () => {
           platform: 'web',
         }),
         eventType: 'track',
+      });
+    });
+
+    describe('ignoreMutation', () => {
+      let expandNodeView: ExpandNodeView;
+
+      beforeEach(() => {
+        const { editorView } = editor(doc(expand()(p('hello'))));
+        const expandNode = editorView.state.doc.firstChild!;
+        expandNodeView = new ExpandNodeView(
+          expandNode,
+          editorView,
+          jest.fn(),
+          jest.fn(),
+        );
+      });
+
+      it.each<[string, string, boolean]>([
+        ['ignores mutations for expand/collapse button', 'attributes', true],
+        ['allows mutations for selection', 'selection', false],
+      ])('%s', (_, mutationType, expected) => {
+        const mutationRecord = {
+          type: mutationType,
+        };
+        expect(expandNodeView.ignoreMutation(mutationRecord as any)).toBe(
+          expected,
+        );
       });
     });
   });

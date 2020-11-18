@@ -12,17 +12,19 @@ const left = (100 - width) / 2; // %
 const smallSizeSettings = { marginBottom: 4 };
 const largeSizeSettings = { marginBottom: 12 };
 
-function generateResponsiveStyles(
+export function generateResponsiveStyles(
   breakpoint: Breakpoint,
   positionBottom: boolean,
+  multiplier: number = 1,
 ) {
   const setting =
     breakpoint === Breakpoint.SMALL ? smallSizeSettings : largeSizeSettings;
   const marginPositionBottom =
     responsiveSettings[breakpoint].titleBox.verticalPadding;
   const marginBottom =
-    setting.marginBottom +
+    setting.marginBottom * multiplier +
     (positionBottom ? marginPositionBottom : getTitleBoxHeight(breakpoint));
+
   return `
     bottom: ${marginBottom}px
   `;

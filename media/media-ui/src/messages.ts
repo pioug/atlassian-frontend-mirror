@@ -99,7 +99,11 @@ export type MessageKey =
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
-  | 'preview';
+  | 'playbackSpeed'
+  | 'playbackDefaultSpeed'
+  | 'preview'
+  | 'preview_unavailable'
+  | 'creating_preview';
 
 type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
 
@@ -637,10 +641,32 @@ export const messages = defineMessages<Messages>({
     description:
       "We have a link in our preview modals to the original document. This is for when we don't know the provider name",
   },
+  playbackSpeed: {
+    id: 'fabric.media.playback_speed',
+    defaultMessage: 'Playback speed',
+    description:
+      'In the context of a video player, it allows user to switch the speed of the video',
+  },
+  playbackDefaultSpeed: {
+    id: 'fabric.media.playback_default_speed',
+    defaultMessage: 'Default',
+    description:
+      'In the context of a video player, it is a value of a default playback speed',
+  },
   preview: {
     id: 'fabric.media.preview',
     defaultMessage: 'Preview',
     description:
       'Click to view a richer view of your content, without needing to navigate to it.',
+  },
+  creating_preview: {
+    id: 'fabric.media.creating_preview',
+    defaultMessage: 'Creating preview...',
+    description: 'Preview is being created for a media card',
+  },
+  preview_unavailable: {
+    id: 'fabric.media.preview_unavailable',
+    defaultMessage: 'Preview unavailable',
+    description: 'Preview is unavailable for a media card',
   },
 });

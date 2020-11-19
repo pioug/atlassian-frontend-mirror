@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/locale",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Utility functions for handling localization",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/select": "^13.0.0",
-    "tslib": "^2.0.0"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"

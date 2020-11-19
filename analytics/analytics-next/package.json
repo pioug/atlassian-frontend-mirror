@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-next",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "React components, HOCs and hooks to assist with tracking user activity with React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
+    "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10",
-    "tslib": "^2.0.0",
     "use-memo-one": "^1.1.1"
   },
   "peerDependencies": {

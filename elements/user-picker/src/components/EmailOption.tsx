@@ -28,9 +28,20 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
         }
       : undefined;
 
-  private renderOption = (label: string) => (
+  private renderOption = (
+    label: string,
+    validity: EmailValidationResponse,
+    suggestion?: boolean,
+  ) => (
     <AvatarItemOption
-      avatar={<AddOptionAvatar label={label} />}
+      avatar={
+        <AddOptionAvatar
+          suggestion={suggestion}
+          invalidOption={suggestion && validity !== 'VALID'}
+          label={label}
+          size={suggestion ? 'medium' : undefined}
+        />
+      }
       primaryText={this.props.email.id}
       secondaryText={label}
       lozenge={this.getLozengeProps()}
@@ -38,12 +49,14 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
   );
 
   render() {
-    const { label, emailValidity } = this.props;
+    const { label, emailValidity, email } = this.props;
     return label !== undefined ? (
-      this.renderOption(label)
+      this.renderOption(label, emailValidity, email.suggestion)
     ) : (
       <FormattedMessage {...getAddEmailMessage(emailValidity)}>
-        {label => this.renderOption(label as string)}
+        {label =>
+          this.renderOption(label as string, emailValidity, email.suggestion)
+        }
       </FormattedMessage>
     );
   }

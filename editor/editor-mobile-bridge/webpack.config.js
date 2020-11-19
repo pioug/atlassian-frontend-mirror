@@ -53,7 +53,7 @@ module.exports = async function createWebpackConfig(_, args) {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx|ts|tsx)$/,
           exclude: /node_modules/,
           loader: require.resolve('babel-loader'),
           options: {
@@ -61,18 +61,6 @@ module.exports = async function createWebpackConfig(_, args) {
             babelrc: true,
             rootMode: 'upward',
             envName: 'production:esm',
-          },
-        },
-        {
-          test: /\.tsx?$/,
-          exclude: /node_modules/,
-          loader: require.resolve('ts-loader'),
-          options: {
-            transpileOnly: true,
-            compilerOptions: {
-              module: 'ESNext',
-              target: 'es5',
-            },
           },
         },
       ],

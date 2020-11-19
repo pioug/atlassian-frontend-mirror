@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 70.0.2
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- Updated dependencies
+
+## 70.0.1
+
+### Patch Changes
+
+- [`908990b928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/908990b928) - Fix mobile link for media
+
 ## 70.0.0
 
 ### Minor Changes

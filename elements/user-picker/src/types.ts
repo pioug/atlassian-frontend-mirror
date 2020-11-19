@@ -106,6 +106,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   menuPortalTarget?: HTMLElement;
   /** Whether the user is allowed to enter emails as a value. */
   allowEmail?: boolean;
+  /** Setting this with allowEmail will cause the picker to constantly show an email option at the bottom for the supplied email domain/an email the user types in */
+  suggestEmailsForDomain?: string;
   /** Email option label */
   emailLabel?: string;
   /** Whether to disable interaction with the input */
@@ -257,6 +259,7 @@ export const EmailType = 'email';
 
 export interface Email extends OptionData {
   type: 'email';
+  suggestion?: boolean;
 }
 
 export type ActionTypes =

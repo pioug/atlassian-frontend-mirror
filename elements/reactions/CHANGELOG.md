@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 18.1.9
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 18.1.8
 
 ### Patch Changes

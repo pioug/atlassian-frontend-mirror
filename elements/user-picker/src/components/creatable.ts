@@ -12,7 +12,7 @@ const validOption: EmailValidationResponse[] = ['VALID', 'POTENTIAL'];
 const isValidNewOption = (
   isValidEmail: EmailValidator = defaultIsValidEmail,
 ) => (inputValue?: string) =>
-  inputValue && validOption.indexOf(isValidEmail(inputValue)) !== -1;
+  inputValue && validOption.includes(isValidEmail(inputValue));
 
 const getNewOptionData = (inputValue: string): Option => ({
   label: inputValue,

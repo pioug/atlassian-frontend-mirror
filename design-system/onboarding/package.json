@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "10.1.8",
+  "version": "10.1.9",
   "description": "Highlight elements of the UI to the user and display a complementary dialog.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,14 +30,14 @@
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
     "exenv": "^1.2.2",
     "memoize-one": "^5.1.0",
     "react-focus-lock": "^1.19.1",
     "react-node-resolver": "^1.0.1",
     "react-scrolllock": "^5.0.1",
     "react-transition-group": "^4.4.1",
-    "scroll-into-view-if-needed": "^2.2.20",
-    "tslib": "^2.0.0"
+    "scroll-into-view-if-needed": "^2.2.20"
   },
   "peerDependencies": {
     "react": "^16.8.0",

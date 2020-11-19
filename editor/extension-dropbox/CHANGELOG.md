@@ -1,5 +1,11 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.2.10
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 0.2.9
 
 ### Patch Changes

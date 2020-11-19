@@ -2,6 +2,10 @@ jest.mock('../../../components/styles', () => ({
   getStyles: jest.fn(),
 }));
 
+jest.mock('../../../components/creatableEmailSuggestion', () => ({
+  getCreatableSuggestedEmailProps: jest.fn(),
+}));
+
 jest.mock('../../../components/creatable', () => ({
   getCreatableProps: jest.fn(),
 }));
@@ -15,6 +19,7 @@ import { shallowWithIntl } from 'enzyme-react-intl';
 import React from 'react';
 import { getComponents } from '../../../components/components';
 import { getCreatableProps } from '../../../components/creatable';
+import { getCreatableSuggestedEmailProps } from '../../../components/creatableEmailSuggestion';
 import { getStyles } from '../../../components/styles';
 import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { User, UserPickerProps } from '../../../types';
@@ -88,6 +93,17 @@ describe('UserPicker', () => {
       const component = shallowUserPicker({ allowEmail: true, emailLabel });
       expect(component.dive().prop('emailLabel')).toBeDefined();
       expect(component.dive().prop('emailLabel')).toEqual(emailLabel);
+    });
+  });
+
+  describe('recommendedEmailDomain', () => {
+    it('uses getCreatableRecommendedEmailProps instead of getCreatableProps', () => {
+      shallowUserPicker({
+        allowEmail: true,
+        suggestEmailsForDomain: 'test.com',
+      });
+      expect(getCreatableProps).toHaveBeenCalledTimes(0);
+      expect(getCreatableSuggestedEmailProps).toHaveBeenCalledTimes(1);
     });
   });
 });

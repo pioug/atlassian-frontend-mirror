@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,12 +38,12 @@
     "@atlaskit/textarea": "^4.0.0",
     "@atlaskit/textfield": "^4.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
     "lodash": "^4.17.15",
     "react-animate-height": "^2.0.5",
-    "react-transition-group": "^4.4.1",
-    "tslib": "^2.0.0"
+    "react-transition-group": "^4.4.1"
   },
   "peerDependencies": {
     "react": "^16.8.0",

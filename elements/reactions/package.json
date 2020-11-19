@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "18.1.8",
+  "version": "18.1.9",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,9 +36,9 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.1.0",
     "@atlaskit/util-service-support": "^6.0.0",
+    "@babel/runtime": "^7.0.0",
     "classnames": "^2.2.5",
     "react-transition-group": "^4.4.1",
-    "tslib": "^2.0.0",
     "typestyle": "^1.4.4"
   },
   "peerDependencies": {

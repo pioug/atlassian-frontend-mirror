@@ -52,4 +52,6 @@ export type {
   TeamHighlight,
   User,
   UserHighlight,
+  ExternalUser,
+  UserSource,
 } from './types';

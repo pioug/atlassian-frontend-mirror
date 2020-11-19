@@ -16,7 +16,6 @@ export default class Example extends React.Component<{}> {
             onInputChange={onInputChange}
             noOptionsMessage={() => null}
             isMulti
-            allowEmail
           />
         )}
       </ExampleWrapper>

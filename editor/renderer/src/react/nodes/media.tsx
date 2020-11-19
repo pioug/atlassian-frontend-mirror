@@ -96,14 +96,11 @@ export default class Media extends PureComponent<MediaProps, {}> {
     }
     const linkMark = this.props.marks.find(this.props.isLinkMark);
     const linkHref = linkMark?.attrs.href;
-    if (linkHref) {
-      return;
-    }
 
     const handler = getEventHandler(this.props.eventHandlers, 'link');
     if (handler) {
       const linkMark = marks.find(isLinkMark);
-      handler(event, linkMark && linkMark.attrs.href);
+      handler(event, linkMark && linkHref);
     }
   };
 

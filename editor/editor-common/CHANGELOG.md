@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 53.0.1
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- Updated dependencies
+
 ## 53.0.0
 
 ### Major Changes

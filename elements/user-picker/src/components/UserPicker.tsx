@@ -6,6 +6,7 @@ import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
 import { getStyles } from './styles';
 import { getComponents } from './components';
 import { getCreatableProps } from './creatable';
+import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
 
 export class UserPickerWithoutAnalytics extends React.Component<
   UserPickerProps
@@ -19,6 +20,7 @@ export class UserPickerWithoutAnalytics extends React.Component<
     const {
       emailLabel,
       allowEmail,
+      suggestEmailsForDomain,
       isMulti,
       isValidEmail,
       anchor,
@@ -27,8 +29,14 @@ export class UserPickerWithoutAnalytics extends React.Component<
     const width = this.props.width as string | number;
 
     const SelectComponent = allowEmail ? CreatableSelect : Select;
+    const creatableProps = suggestEmailsForDomain
+      ? getCreatableSuggestedEmailProps(suggestEmailsForDomain, isValidEmail)
+      : getCreatableProps(isValidEmail);
     const pickerProps = allowEmail
-      ? { ...getCreatableProps(isValidEmail), emailLabel }
+      ? {
+          ...creatableProps,
+          emailLabel,
+        }
       : {};
     const pickerPropsWithPortal = {
       ...pickerProps,

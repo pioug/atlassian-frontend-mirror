@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-utils",
-  "version": "11.2.0",
+  "version": "11.2.1",
   "description": "Set of utilities to traverse, modify and create ADF documents.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^13.2.0",
     "@atlaskit/editor-json-transformer": "^8.4.1",
-    "tslib": "^2.0.0"
+    "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlaskit/docs": "*",

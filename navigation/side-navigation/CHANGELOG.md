@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 0.7.10
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 0.7.9
 
 ### Patch Changes

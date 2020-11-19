@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/panel",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A React component rendering a collapsible panel",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,9 +25,9 @@
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
     "react-animate-height": "^2.0.5",
-    "react-focus-within": "^2.0.1",
-    "tslib": "^2.0.0"
+    "react-focus-within": "^2.0.1"
   },
   "peerDependencies": {
     "react": "^16.8.0",

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tree",
-  "version": "8.1.2",
+  "version": "8.1.3",
   "description": "A React Component for displaying expandable and sortable tree hierarchies",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,9 +23,9 @@
     }
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0",
     "css-box-model": "^1.2.0",
-    "react-beautiful-dnd-next": "11.0.5",
-    "tslib": "^2.0.0"
+    "react-beautiful-dnd-next": "11.0.5"
   },
   "peerDependencies": {
     "react": "^16.8.0"

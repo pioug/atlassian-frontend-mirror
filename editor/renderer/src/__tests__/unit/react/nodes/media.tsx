@@ -170,6 +170,25 @@ describe('Media', () => {
     expect(mediaCardProps.eventHandlers).toEqual(undefined);
     expect(mediaOnClick).not.toHaveBeenCalled();
   });
+
+  it('calls the link handlers when linked media is clicked', () => {
+    const linkOnClick = jest.fn();
+    const mediaComponent = mount(
+      <Media
+        type={mediaNode.attrs.type as MediaType}
+        id={mediaNode.attrs.id}
+        collection={mediaNode.attrs.collection}
+        alt="test"
+        marks={[{ attrs: { href: 'http://atlassian.com' } } as any]}
+        isLinkMark={() => true}
+        allowAltTextOnImages={true}
+        eventHandlers={{ link: { onClick: linkOnClick } }}
+      />,
+    );
+    mediaComponent.find(MediaLink).simulate('click');
+    expect(linkOnClick).toHaveBeenCalled();
+  });
+
   it('calls event handlers', () => {
     const mediaOnClick = jest.fn();
     const mediaComponent = mount(

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-search",
-  "version": "13.0.7",
+  "version": "13.0.8",
   "description": "A cross-product search component (batteries included)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,6 @@
     "memoize-one": "^5.1.0",
     "react-intl": "^2.6.0",
     "rusha": "^0.8.13",
-    "tslib": "^2.0.0",
     "uuid": "^3.1.0"
   },
   "peerDependencies": {

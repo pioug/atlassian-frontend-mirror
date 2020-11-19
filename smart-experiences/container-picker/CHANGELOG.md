@@ -1,5 +1,11 @@
 # @atlaskit/container-picker
 
+## 1.1.6
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 1.1.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0",
-    "@emotion/core": "^10.0.9",
-    "tslib": "^2.0.0"
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
     "react": "^16.8.0",

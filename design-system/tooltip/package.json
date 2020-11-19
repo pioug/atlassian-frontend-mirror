@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tooltip",
-  "version": "17.1.1",
+  "version": "17.1.2",
   "description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,9 +29,9 @@
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
-    "bind-event-listener": "^1.0.2",
-    "tslib": "^2.0.0"
+    "bind-event-listener": "^1.0.2"
   },
   "peerDependencies": {
     "react": "^16.8.0",

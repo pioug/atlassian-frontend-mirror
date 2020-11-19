@@ -2,7 +2,6 @@
 
 import getTheme from './getTheme';
 import { ThemedValue, ThemeProps, ThemeModes, DefaultValue } from '../types';
-import { __values } from 'tslib';
 
 type Modes<V> = { [key in ThemeModes]?: V };
 type VariantModes<V> = { [index: string]: Modes<V> };

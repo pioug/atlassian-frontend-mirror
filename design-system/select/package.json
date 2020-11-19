@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "13.1.0",
+  "version": "13.1.1",
   "description": "Select gives users the ability to make a single selection, or multiple selections from a number of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@popperjs/core": "^2.4.2",
     "@types/react-select": "^3.0.8",
@@ -37,8 +38,7 @@
     "react-node-resolver": "^1.0.1",
     "react-popper": "^2.2.3",
     "react-select": "^3.0.4",
-    "shallow-equal": "^1.0.0",
-    "tslib": "^2.0.0"
+    "shallow-equal": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/input",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "Internal component used by field-base to create field-text. DO NOT USE DIRECTLY",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -10,7 +10,6 @@
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
   "sideEffects": false,
   "atlaskit:src": "src/index.js",
   "atlassian": {

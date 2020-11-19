@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-notifications",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Notifications for Atlassian products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -21,8 +21,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "@emotion/core": "^10.0.9",
-    "tslib": "^2.0.0"
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
     "react": "^16.8.0",

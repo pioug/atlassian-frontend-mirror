@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 0.13.7
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 0.13.6
 
 ### Patch Changes

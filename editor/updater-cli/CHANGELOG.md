@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.0.13
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 2.0.12
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.6.5
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 0.6.4
 
 ### Patch Changes

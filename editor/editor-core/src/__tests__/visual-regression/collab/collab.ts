@@ -21,7 +21,8 @@ async function waitForCollabAvatars(page: PuppeteerPage) {
   await waitForLoadedBackgroundImages(page, avatarSelector);
 }
 
-describe('Collab', () => {
+// TODO: ED-11210
+describe.skip('Collab', () => {
   it('displays default collab UI', async () => {
     const page = global.page;
     const adf = {};

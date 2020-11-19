@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 32.1.2
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 32.1.1
 
 ### Patch Changes
@@ -915,7 +921,6 @@ const config: MediaClientConfig = {
 * breaking; Api for DataUriService has changed
 * before:
 * ```typescript
-
   ```
 
 * interface fetchImageDataUri(
@@ -930,7 +935,6 @@ const config: MediaClientConfig = {
 
 * after:
 * ```typescript
-
   ```
 
 * interface FetchImageOptions {

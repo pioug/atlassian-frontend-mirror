@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/nps",
-  "version": "8.0.4",
+  "version": "8.0.5",
   "description": "React component for displaying an NPS survey dialog",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,8 +30,7 @@
     "@atlaskit/field-text-area": "^8.0.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/theme": "^11.0.0",
-    "@babel/runtime": "^7.0.0",
-    "tslib": "^2.0.0"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",

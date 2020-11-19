@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "70.0.0",
+  "version": "70.0.2",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,6 +46,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.1.0",
     "@atlaskit/width-detector": "^3.0.0",
+    "@babel/runtime": "^7.0.0",
     "memoize-one": "^5.1.0",
     "prosemirror-model": "1.11.0",
     "prosemirror-transform": "1.2.8",
@@ -55,8 +56,8 @@
     "url-parse": "^1.4.5"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.1.1",
-    "@atlaskit/smart-card": "^14.6.0",
+    "@atlaskit/media-core": "^32.1.2",
+    "@atlaskit/smart-card": "^14.6.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "styled-components": "^3.2.6"

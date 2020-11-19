@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 7.2.1
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
+## 7.2.0
+
+### Minor Changes
+
+- [`70c3d3cab0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70c3d3cab0) - [ux] allow displaying a constant recommendation to invite users from a specific email domain, based on the users input value
+
 ## 7.1.0
 
 ### Minor Changes

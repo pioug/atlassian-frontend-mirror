@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 45.5.2
+
+### Patch Changes
+
+- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+
 ## 45.5.1
 
 ### Patch Changes

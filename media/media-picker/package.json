@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "57.0.0",
+  "version": "57.0.1",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^4.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@babel/runtime": "^7.0.0",
     "bricks.js": "^1.8.0",
     "dateformat": "^1.0.12",
     "eventemitter2": "^4.1.0",
@@ -61,7 +62,7 @@
     "video-snapshot": "^1.0.3"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.1.1",
+    "@atlaskit/media-core": "^32.1.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",

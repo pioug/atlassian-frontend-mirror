@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/updater-cli",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "Updater CLI for Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -19,13 +19,13 @@
     "akup": "./bin/akup.js"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0",
     "chalk": "^2.1.0",
     "meow": "^5.0.0",
     "node-fetch": "^2.6.1",
     "ora": "^3.0.0",
     "semver": "^7.3.0",
     "terminal-link": "^1.2.0",
-    "tslib": "^2.0.0",
     "yarn-deduplicate": "^1.1.1"
   },
   "devDependencies": {

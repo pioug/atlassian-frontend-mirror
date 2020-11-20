@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.4.2
+
+### Patch Changes
+
+- [`0698db3a1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0698db3a1f) - Updated default values for Polling feature Flags
+
 ## 2.4.1
 
 ### Patch Changes

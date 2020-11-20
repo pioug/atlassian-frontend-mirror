@@ -289,6 +289,21 @@ describe('scrubStr', () => {
     const scrubbedStr = scrubStr('');
     expect(scrubbedStr).toEqual('');
   });
+
+  it('should replace emoji', () => {
+    const scrubbedStr = scrubStr('😀😃😄😁😆😅😂');
+    expect(scrubbedStr).toEqual('⭐️⭐️⭐️⭐️⭐️⭐️⭐️');
+  });
+
+  it('should replace compound emoji', () => {
+    const scrubbedStr = scrubStr('🏄‍♂️');
+    expect(scrubbedStr).toEqual('⭐️‍');
+  });
+
+  it('should replace unicode', () => {
+    const scrubbedStr = scrubStr('𝖀𝖓𝖎𝖈𝖔𝖉𝖊');
+    expect(scrubbedStr).toEqual('loremip');
+  });
 });
 
 describe('scrubLink', () => {

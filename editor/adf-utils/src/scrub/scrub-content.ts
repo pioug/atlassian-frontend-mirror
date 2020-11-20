@@ -50,20 +50,34 @@ export const scrubStr = (val: string, offset = 0) => {
     Math.ceil((offset + val.length) / DUMMY_TEXT.length),
   );
 
-  return val
-    .split('')
-    .map((char, index) => {
-      if (/[^\d\W]/.test(char)) {
+  return [...val]
+    .map((char, index, chars) => {
+      if (/^\p{Nd}$/u.test(char)) {
+        // Decimal digits
+        return scrubNum(parseInt(char, 10), index).toString();
+      } else if (/^\p{So}$/u.test(char)) {
+        // Emoji
+        return chars[index - 1]?.codePointAt(0) === 8205 ? '' : '⭐️';
+      } else if (/^\p{Sc}$/u.test(char)) {
+        // Currency
+        return '$';
+      } else if (/^[\p{P}\p{Z}\p{C}]$/u.test(char)) {
+        // Punctuation, Seperators, Control
+        return char;
+      } else if (
+        char.codePointAt(0) === 65039 &&
+        /^\p{So}$/u.test(chars[index - 1])
+      ) {
+        // Ingore compound emoji control char
+        return '';
+      } else {
+        // Everything else
         const correction = base[offset] === ' ' ? 1 : 0;
         const raw = base[offset + correction];
         const isLower = char.toLowerCase() === char;
         const result = isLower ? raw.toLowerCase() : raw.toUpperCase();
         offset += 1 + correction;
         return result;
-      } else if (/[0-9]/.test(char)) {
-        return scrubNum(parseInt(char, 10), index).toString();
-      } else {
-        return char;
       }
     })
     .join('');

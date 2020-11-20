@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.2.2
+
+### Patch Changes
+
+- [`e6f6e57465`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f6e57465) - NO-ISSUE: replace unicode glyphs including emojis
+
 ## 11.2.1
 
 ### Patch Changes

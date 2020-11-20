@@ -25,9 +25,9 @@ export const defaultMediaFeatureFlags: MediaFeatureFlags = {
   folderUploads: false,
   codeViewer: false,
   poll_intervalMs: 3000,
-  poll_maxAttempts: 7,
+  poll_maxAttempts: 30,
   poll_backoffFactor: 1.25,
-  poll_maxIntervalMs: 40000,
+  poll_maxIntervalMs: 2000000,
   poll_maxGlobalFailures: 10,
 };
 

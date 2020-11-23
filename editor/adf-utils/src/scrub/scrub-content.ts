@@ -50,6 +50,8 @@ export const scrubStr = (val: string, offset = 0) => {
     Math.ceil((offset + val.length) / DUMMY_TEXT.length),
   );
 
+  // using [...val] splits emoji character pairs correctly, compared to
+  // something like "".split('')
   return [...val]
     .map((char, index, chars) => {
       if (/^\p{Nd}$/u.test(char)) {

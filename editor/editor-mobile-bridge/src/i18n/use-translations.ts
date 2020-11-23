@@ -10,7 +10,7 @@ export const useTranslations = (
   geti18NMessages?: (localeFileName: string) => Promise<Object>,
 ): [string, Messages] => {
   const [locale, setLocale] = useState(getLocaleValue());
-  const [messages, setMessages] = useState<Messages>({});
+  const [messages, setMessages] = useState<Messages>();
 
   useEffect(() => {
     (async () => {
@@ -29,6 +29,8 @@ export const useTranslations = (
           setMessages(messages);
           // eslint-disable-next-line no-console
           console.info(`Translations loaded successfuly for locale: ${locale}`);
+        } else {
+          setMessages({});
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -36,6 +38,7 @@ export const useTranslations = (
         // eslint-disable-next-line no-console
         console.info('fallback locale to english');
         setLocale('en');
+        setMessages({});
       }
     })();
   }, [locale, geti18NMessages]);

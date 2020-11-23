@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 20.2.0
+
+### Minor Changes
+
+- [`b1a610f36e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1a610f36e) - ED-11214 Fix quick insert translations on mobile bridge
+
 ## 20.1.2
 
 ### Patch Changes

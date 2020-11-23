@@ -21,9 +21,9 @@ describe('Use translations', () => {
     expect(getMessagesCallbackSpy).toHaveBeenCalledWith(locale);
   });
 
-  it('should return empty messages when no callback passed', () => {
-    let result: [string, Object | undefined] = ['', undefined];
-    renderHook(() => (result = useTranslations()));
-    expect(result[1]).toEqual({});
+  it('should return empty messages when no callback passed', async () => {
+    const hookResult = renderHook(() => useTranslations());
+    await wait(() => expect(hookResult.result.current[1]).not.toBeUndefined());
+    expect(hookResult.result.current[1]).toEqual({});
   });
 });

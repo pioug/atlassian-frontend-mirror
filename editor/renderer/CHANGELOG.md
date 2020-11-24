@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 70.0.3
+
+### Patch Changes
+
+- [`cea22d0f03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cea22d0f03) - pass featureFlags to media-client
+
 ## 70.0.2
 
 ### Patch Changes

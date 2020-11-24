@@ -26,7 +26,7 @@ Examples:
 
 Our use of App Automate is new, so for now we have pre-existing integration tests that run in the regular JSDom environment, alongside our new integration tests that run on real mobile devices.
 
-For now, the legacy tests reside within the `src/__tests__/integration/` and `src/__tests__/integration/`, while our new ones live inside `src/__tests__/integration-webview/`.
+For now, the legacy tests reside within the `src/__tests__/integration/` while our new ones live inside `src/__tests__/integration-webview/`.
 
 > These will all be ported across to use App Automate in the near future.
 

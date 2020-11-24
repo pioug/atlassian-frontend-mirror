@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.6.2
+
+### Patch Changes
+
+- [`53720ca531`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53720ca531) - EXPO-411: Update GitHub spelling
+
 ## 8.6.1
 
 ### Patch Changes

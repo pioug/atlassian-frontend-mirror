@@ -27,7 +27,7 @@ export const defaultMediaFeatureFlags: MediaFeatureFlags = {
   poll_intervalMs: 3000,
   poll_maxAttempts: 30,
   poll_backoffFactor: 1.25,
-  poll_maxIntervalMs: 2000000,
+  poll_maxIntervalMs: 200000,
   poll_maxGlobalFailures: 10,
 };
 

@@ -175,8 +175,8 @@ import { Settings } from '@atlaskit/atlassian-navigation';
   ## Notifications
 
   Used for showing Atlassian notifications.
-  You'll want to compose this with [notification indicator](/packages/home/notification-indicator),
-  [notification log client](/packages/home/notification-log-client),
+  You'll want to compose this with [notification indicator](/packages/notifications/notification-indicator),
+  [notification log client](/packages/notifications/notification-log-client),
   and [Atlassian notifications](/packages/navigation/atlassian-notifications).
 
   See the examples for patterns regarding clearing the notification badge count.

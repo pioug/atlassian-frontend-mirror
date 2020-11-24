@@ -276,7 +276,7 @@ const messages = defineMessages({
   },
   gitToolsDescription: {
     id: 'fabric.atlassianSwitcher.gittools.description',
-    defaultMessage: 'Bitbucket, Github, and more',
+    defaultMessage: 'Bitbucket, GitHub, and more',
     description:
       'The description of a link redirecting the user to Git integrations benefits page',
   },

@@ -278,8 +278,10 @@ export class FileFetcherImpl implements FileFetcher {
         'poll_maxIntervalMs',
         featureFlags,
       ),
-      poll_maxGlobalFailures:
-        featureFlags && featureFlags.poll_maxGlobalFailures,
+      poll_maxGlobalFailures: getMediaFeatureFlag<number>(
+        'poll_maxGlobalFailures',
+        featureFlags,
+      ),
     };
 
     const poll = new PollingFunction(pollOptions);

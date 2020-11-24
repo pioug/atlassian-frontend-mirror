@@ -166,8 +166,8 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
   }
 
   saveFileState = async (id: string, mediaClientConfig: MediaClientConfig) => {
-    const { collection: collectionName } = this.props;
-    const mediaClient = getMediaClient(mediaClientConfig);
+    const { collection: collectionName, featureFlags } = this.props;
+    const mediaClient = getMediaClient(mediaClientConfig, featureFlags);
     const options = {
       collectionName,
     };

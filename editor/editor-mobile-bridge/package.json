@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "20.2.0",
+  "version": "20.2.2",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,8 @@
     "debug": "webpack -d --watch",
     "build:dev": "webpack -d",
     "prebuild": "rm -rf dist && copy-pkg package.json tmp/package.json --only name,version,sideEffects && mv tmp/package.json src/version.json",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "build:test": "webpack --config webpack.test.config.js -p"
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^13.3.0",
@@ -37,7 +38,7 @@
     "@atlaskit/editor-json-transformer": "8.4.4",
     "@atlaskit/emoji": "63.0.13",
     "@atlaskit/mention": "19.1.1",
-    "@atlaskit/renderer": "70.0.2",
+    "@atlaskit/renderer": "70.0.3",
     "@atlaskit/smart-card": "14.6.1",
     "@atlaskit/status": "0.10.6",
     "@atlaskit/task-decision": "17.0.9",
@@ -84,6 +85,7 @@
     "enzyme": "^3.10.0",
     "enzyme-react-intl": "^2.0.6",
     "html-webpack-plugin": "^3.2.0",
+    "kakapo": "^4.0.6",
     "lodash": "^4.17.15",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

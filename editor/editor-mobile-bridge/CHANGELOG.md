@@ -1,5 +1,21 @@
 # @atlaskit/editor-mobile-bridge
 
+## 20.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.2.1
+
+### Patch Changes
+
+- [`fe84dc9b3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe84dc9b3a) - - Add first editor media mobile test
+  - Created a new webpack config to build the test bundle so we can run mobile integration tests. Now we have:
+    - webpack.config.js
+    - webpack.test.config.js
+    - build/webpack_base_config.js
+
 ## 20.2.0
 
 ### Minor Changes

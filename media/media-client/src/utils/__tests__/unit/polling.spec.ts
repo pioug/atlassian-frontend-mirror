@@ -56,30 +56,28 @@ describe('Polling Function', () => {
     },
   );
 
-  // this test can be used to tune the options and display the values of iterations
-  // not technically a test and skipped by default, but useful if needed
+  // Change this test from .skip to .only to print interval values from given settings
+  // NOTE:  Polling attempts begin after the first invokation of the executor.
+  //        Therefore the "1st polling attempt" is actually the 2nd time the executor has been called.
+  //        The initial executor invokation is called immedately without any delay.
   it.skip('display intervals and total span', () => {
     const opts = {
-      poll_intervalMs: 3000,
-      poll_maxAttempts: 7,
-      poll_backoffFactor: 1.75,
-      poll_maxIntervalMs: 40000,
+      ...defaultPollingOptions,
     };
     const poll = new PollingFunction(opts);
     let spanIntervalMs = 0;
+    let output = '';
     for (let i = 1; i <= opts.poll_maxAttempts; i++) {
       const poll_intervalMs = poll.getIntervalMsForIteration(i);
       spanIntervalMs += poll_intervalMs;
-      // eslint-disable-next-line no-console
-      console.log(`Iteration: ${i} poll_intervalMs: ${poll_intervalMs}ms`);
+      output += `Iteration: ${i} poll_intervalMs: ${poll_intervalMs}ms\n`;
     }
-    // eslint-disable-next-line no-console
-    console.log(
-      `Total span: ${spanIntervalMs}ms (${spanIntervalMs / 1000}s) (${
-        spanIntervalMs / 1000 / 60
-      })m`,
-    );
+    output += `Total span: ${spanIntervalMs}ms (${spanIntervalMs / 1000}s) (${
+      spanIntervalMs / 1000 / 60
+    })m\n`;
     expect(true).toBeTruthy();
+    // eslint-disable-next-line no-console
+    console.log(output);
   });
 
   it('should limit poll_intervalMs to poll_maxIntervalMs', () => {

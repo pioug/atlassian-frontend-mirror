@@ -22,7 +22,9 @@
       "name": "Toggle"
     }
   },
-  "af:exports": {},
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/icon": "^21.0.1",

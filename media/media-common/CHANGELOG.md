@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.4.3
+
+### Patch Changes
+
+- [`956cf2d5ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/956cf2d5ee) - HOT-93465 docs(changeset): ensure maximum media poll interval ms is 3.3min not 33min
+
 ## 2.4.2
 
 ### Patch Changes

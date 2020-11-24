@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 12.1.2
+
+### Patch Changes
+
+- [`956cf2d5ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/956cf2d5ee) - HOT-93465 docs(changeset): ensure maximum media poll interval ms is 3.3min not 33min
+
 ## 12.1.1
 
 ### Patch Changes

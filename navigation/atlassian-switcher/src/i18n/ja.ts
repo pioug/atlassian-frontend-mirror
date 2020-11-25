@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Marketplace アプリを参照',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence スペース',
   'fabric.atlassianSwitcher.discover': '発見',
-  'fabric.atlassianSwitcher.discoverMore': 'もっと見る',
   'fabric.atlassianSwitcher.errorHeading': '問題が発生しました',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Atlassian アカウントからログアウトしました',

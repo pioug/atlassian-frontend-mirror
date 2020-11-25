@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Marketplace 앱 찾아보기',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence 스페이스',
   'fabric.atlassianSwitcher.discover': '살펴보기',
-  'fabric.atlassianSwitcher.discoverMore': '자세히 살펴보기',
   'fabric.atlassianSwitcher.errorHeading': '문제가 발생했습니다.',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Atlassian 계정이 로그아웃되었습니다.',

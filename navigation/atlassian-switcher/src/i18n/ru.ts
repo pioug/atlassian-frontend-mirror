@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Просмотр приложений Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Раздел Confluence',
   'fabric.atlassianSwitcher.discover': 'Поиск',
-  'fabric.atlassianSwitcher.discoverMore': 'Другие продукты',
   'fabric.atlassianSwitcher.errorHeading': 'Произошла ошибка',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Вы вышли из аккаунта Atlassian',

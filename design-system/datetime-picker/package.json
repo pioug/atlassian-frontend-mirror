@@ -14,7 +14,6 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
-  "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/date-picker",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,

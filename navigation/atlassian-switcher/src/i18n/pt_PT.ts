@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Procurar aplicações do Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Espaço do Confluence',
   'fabric.atlassianSwitcher.discover': 'Descobrir',
-  'fabric.atlassianSwitcher.discoverMore': 'Descobrir mais',
   'fabric.atlassianSwitcher.errorHeading': 'Ocorreu um erro',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Não tem sessão iniciada na sua conta da Atlassian',

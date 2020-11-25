@@ -10,13 +10,17 @@ export default {
   'fabric.elements.user-picker.email.add.potential':
     'Inserir e-mail para convite',
   'fabric.elements.user-picker.email.select.to.add': 'Selecionar para convidar',
+  'fabric.elements.user-picker.external.sourced.from': 'Encontrado em:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Grupo gerenciado por administradores',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Remover',
   'fabric.elements.user-picker.placeholder': 'Inserir pessoas ou equipes...',
   'fabric.elements.user-picker.placeholder.add-more':
     'adicionar mais pessoas...',
   'fabric.elements.user-picker.single.clear': 'Limpar',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': 'Mais de 50 membros',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Mais de 50 membros, incluindo você',

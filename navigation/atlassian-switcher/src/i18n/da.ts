@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Gennembladr Marketplace-apps',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence-område',
   'fabric.atlassianSwitcher.discover': 'Få mere at vide',
-  'fabric.atlassianSwitcher.discoverMore': 'Se flere',
   'fabric.atlassianSwitcher.errorHeading': 'Something’s gone wrong',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Du har logget ud af din Atlassian-konto',

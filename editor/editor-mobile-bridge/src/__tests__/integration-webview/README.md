@@ -56,12 +56,12 @@ import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 
 MobileTestCase(
-  'This test only runs for iPadOS 13+',
+  'This test only runs for iPadOS on v13 and the default version (e.g. v14)',
   // `MobileTestCaseOptions` controls device skipping
   {
     skipPlatform: ['android'],
-    skipVersion: [{ platform: 'ios', version: '12' }],
-    skipFormFactor: ['phone'],
+    versions: ['DEFAULT', 'ios 13'],
+    formFactors: ['tablet'],
   },
   async (client: any, testName: string) => {
     const page = await Page.create(client);

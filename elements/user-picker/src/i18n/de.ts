@@ -11,13 +11,17 @@ export default {
     'E-Mail-Adresse zum Einladen hinzufügen',
   'fabric.elements.user-picker.email.select.to.add':
     'Für die Einladung auswählen',
+  'fabric.elements.user-picker.external.sourced.from': 'Gefunden in:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Vom Administrator verwaltete Gruppe',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Entfernen',
   'fabric.elements.user-picker.placeholder': 'Personen oder Teams eingeben …',
   'fabric.elements.user-picker.placeholder.add-more':
     'weitere Personen hinzufügen …',
   'fabric.elements.user-picker.single.clear': 'Löschen',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': 'Über 50 Mitglieder',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Über 50 Mitglieder, einschließlich Ihnen',

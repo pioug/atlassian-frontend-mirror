@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Procházet aplikace na Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Prostor Confluence',
   'fabric.atlassianSwitcher.discover': 'Objevujte',
-  'fabric.atlassianSwitcher.discoverMore': 'Objevte více',
   'fabric.atlassianSwitcher.errorHeading': 'Něco se pokazilo',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Váš účet Atlassian je odhlášený',

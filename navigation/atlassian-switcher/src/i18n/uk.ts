@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Програми в Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Область Confluence',
   'fabric.atlassianSwitcher.discover': 'Відкривайте нові ресурси',
-  'fabric.atlassianSwitcher.discoverMore': 'Інші продукти Atlassian',
   'fabric.atlassianSwitcher.errorHeading': 'Щось не так',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Ви вийшли з облікового запису Atlassian',

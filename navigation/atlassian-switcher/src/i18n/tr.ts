@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Marketplace uygulamalarına göz atın',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence alanı',
   'fabric.atlassianSwitcher.discover': 'Keşfedin',
-  'fabric.atlassianSwitcher.discoverMore': 'Diğer Atlassian ürünleri',
   'fabric.atlassianSwitcher.errorHeading': 'Bir hata oluştu',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Atlassian hesabınızın oturumu kapatıldı',

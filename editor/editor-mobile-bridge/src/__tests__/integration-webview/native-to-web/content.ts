@@ -10,9 +10,7 @@ import { invalidAdf } from './__fixtures__/invalid-adf';
 
 MobileTestCase(
   `Can properly set content when given invalid nodes`,
-  // We skip tablets because the device dimensions are irrelevant
-  // to the intention of this test. This speeds up test execution.
-  { skipFormFactor: ['tablet'] },
+  {},
   async (client: any, testName: string) => {
     const page = await Page.create(client);
     await loadEditor(page);

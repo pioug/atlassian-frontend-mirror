@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Explorar aplicaciones de Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Espacio de Confluence',
   'fabric.atlassianSwitcher.discover': 'Descubrir',
-  'fabric.atlassianSwitcher.discoverMore': 'Descubrir más',
   'fabric.atlassianSwitcher.errorHeading': 'Algo ha ido mal',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Tu cuenta de Atlassian está desconectada',

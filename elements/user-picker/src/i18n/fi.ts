@@ -10,12 +10,16 @@ export default {
   'fabric.elements.user-picker.email.add.potential':
     'Kutsu syöttämällä sähköpostiosoite',
   'fabric.elements.user-picker.email.select.to.add': 'Kutsu valitsemalla',
+  'fabric.elements.user-picker.external.sourced.from': 'Löydetty kohteesta:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Ylläpitäjän hallitsema ryhmä',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Poista',
   'fabric.elements.user-picker.placeholder': 'Syötä henkilöitä tai tiimejä...',
   'fabric.elements.user-picker.placeholder.add-more':
     'lisää muita henkilöitä...',
   'fabric.elements.user-picker.single.clear': 'Tyhjennä',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': '50+ jäsentä',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     '50+ jäsentä sinä mukaan lukien',

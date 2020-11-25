@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Duyệt các ứng dụng Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Không gian Confluence',
   'fabric.atlassianSwitcher.discover': 'Khám phá',
-  'fabric.atlassianSwitcher.discoverMore': 'Các sản phẩm Atlassian khác',
   'fabric.atlassianSwitcher.errorHeading': 'Đã xảy ra lỗi',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Tài khoản Atlassian của bạn đã bị đăng xuất',

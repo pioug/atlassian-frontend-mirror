@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Upptäck appar i Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence-utrymme',
   'fabric.atlassianSwitcher.discover': 'Upptäck',
-  'fabric.atlassianSwitcher.discoverMore': 'Upptäck mer',
   'fabric.atlassianSwitcher.errorHeading': 'Något gick fel',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Ditt Atlassian-konto är utloggat',

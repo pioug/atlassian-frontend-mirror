@@ -6,8 +6,6 @@
 import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MediaProvider } from '@atlaskit/editor-core';
-import { MediaClientConfig } from '@atlaskit/media-core';
 import MobileEditor from '../../../editor/mobile-editor-element';
 import {
   createMentionProvider,
@@ -18,20 +16,7 @@ import {
 import { getModeValue } from '../../../query-param-reader';
 import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
-import { tenantAuthProvider } from '../../../__tests__/integration-webview/_mocks/database';
-
-async function createMediaProvider(): Promise<MediaProvider> {
-  const mediaClientConfig: MediaClientConfig = {
-    authProvider: tenantAuthProvider,
-  };
-  return Promise.resolve({
-    uploadMediaClientConfig: mediaClientConfig,
-    viewMediaClientConfig: mediaClientConfig,
-    uploadParams: {
-      collection: '', // initially empty, will be returned by upload-end event
-    },
-  });
-}
+import { createMediaProvider } from './media-provider';
 
 const App = () => {
   const fetchProxy = useFetchProxy();

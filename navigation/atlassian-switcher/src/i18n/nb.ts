@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Bla gjennom Marketplace-apper',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence-område',
   'fabric.atlassianSwitcher.discover': 'Oppdag',
-  'fabric.atlassianSwitcher.discoverMore': 'Få mer informasjon',
   'fabric.atlassianSwitcher.errorHeading': 'Noe har gått galt',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Atlassian-kontoen din er logget ut',

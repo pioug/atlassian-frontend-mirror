@@ -61,15 +61,24 @@ export async function getADFContent(page: Page): Promise<ADFEntity> {
 }
 
 /**
- * Load an ADF document into the editor.
+ * Load an ADF document into the editor or renderer.
  *
  * @param adf The JSON representation of the ADF document.
  */
-export async function setADFContent(page: Page, adf: ADFEntity) {
+export async function setADFContent(
+  page: Page,
+  adf: ADFEntity,
+  bridge: 'editor' | 'renderer' = 'editor',
+) {
   await page.switchToWeb();
-  return page.execute(_adf => {
-    (window as any).bridge.setContent(_adf);
-  }, adf);
+  const bridgeKey = bridge === 'renderer' ? 'rendererBridge' : 'bridge';
+  return page.execute(
+    (_adf, _bridgeKey) => {
+      (window as any)[_bridgeKey].setContent(_adf);
+    },
+    adf,
+    bridgeKey,
+  );
 }
 
 /**

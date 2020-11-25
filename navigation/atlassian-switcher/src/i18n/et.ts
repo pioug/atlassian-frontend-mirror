@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': "Marketplace'i rakenduste sirvimine",
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence’i ruum',
   'fabric.atlassianSwitcher.discover': 'Avastage',
-  'fabric.atlassianSwitcher.discoverMore': 'Avasta veel',
   'fabric.atlassianSwitcher.errorHeading': 'Midagi läks valesti',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Olete Atlassiani kontolt välja logitud',

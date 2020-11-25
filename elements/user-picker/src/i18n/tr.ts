@@ -10,13 +10,17 @@ export default {
   'fabric.elements.user-picker.email.add.potential':
     'Davet etmek için e-posta adresini girin',
   'fabric.elements.user-picker.email.select.to.add': 'Davet etmek için seçin',
+  'fabric.elements.user-picker.external.sourced.from': 'Bulunduğu yer:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Yönetici tarafından yönetilen grup',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Kaldır',
   'fabric.elements.user-picker.placeholder': 'Kişi veya takım girin...',
   'fabric.elements.user-picker.placeholder.add-more':
     'daha fazla kişi ekleyin...',
   'fabric.elements.user-picker.single.clear': 'Temizle',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': "50'den fazla üye",
   'fabric.elements.user-picker.team.member.50plus.including.you':
     "Siz de dahil olmak üzere 50'den fazla üye",

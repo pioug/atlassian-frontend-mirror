@@ -11,14 +11,18 @@ export default {
     'Введите электронный адрес, чтобы пригласить',
   'fabric.elements.user-picker.email.select.to.add':
     'Выберите, чтобы пригласить',
+  'fabric.elements.user-picker.external.sourced.from': 'Найден в:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Группа управляется администратором',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Удалить',
   'fabric.elements.user-picker.placeholder':
     'Укажите пользователей или команды…',
   'fabric.elements.user-picker.placeholder.add-more':
     'добавьте других пользователей…',
   'fabric.elements.user-picker.single.clear': 'Очистить',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': 'Более 50 участников',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Более 50 участников (включая вас)',

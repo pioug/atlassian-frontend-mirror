@@ -10,12 +10,16 @@ export default {
   'fabric.elements.user-picker.email.add.potential':
     'メール アドレスを入力して招待',
   'fabric.elements.user-picker.email.select.to.add': '選択して招待',
+  'fabric.elements.user-picker.external.sourced.from': 'ユーザーのソース元: ',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': '管理者が管理するグループ',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': '削除',
   'fabric.elements.user-picker.placeholder':
     'ユーザーまたはチームを入力してください...',
   'fabric.elements.user-picker.placeholder.add-more': 'さらにユーザーを追加…',
   'fabric.elements.user-picker.single.clear': 'クリア',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': '50 人以上のメンバー',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'あなたを含む 50 人以上のメンバー',

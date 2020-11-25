@@ -37,7 +37,10 @@ import { loadEditor, getADFContent } from './_utils/afe-app-helpers';
  */
 MobileTestCase(
   'Composition: Typing via the Software Keyboard',
-  { skipFormFactor: ['tablet'] },
+  {
+    versions: ['DEFAULT', 'android 11'],
+    keyboards: ['apple', 'gboard', 'samsung'],
+  },
   async (client: any, testName: string) => {
     const page = await Page.create(client);
     await loadEditor(page);
@@ -60,7 +63,7 @@ MobileTestCase(
  */
 MobileTestCase(
   'Composition: Text Replacement on Software Keyboard (iOS)',
-  { skipPlatform: ['android'], skipFormFactor: ['tablet'] },
+  { skipPlatform: ['android'] },
   async (client: any, testName: string) => {
     const page = await Page.create(client);
     await loadEditor(page);
@@ -86,13 +89,7 @@ MobileTestCase(
  */
 MobileTestCase(
   'Composition: Auto Completion on Software Keyboard',
-  {
-    // Samsung keyboards don't auto complete
-    skipKeyboard: ['samsung'],
-    skipFormFactor: ['tablet'],
-    // Android 11 isn't working
-    skipVersion: [{ platform: 'android', version: '11' }],
-  },
+  {},
   async (client: any, testName: string) => {
     const page = await Page.create(client);
     await loadEditor(page);

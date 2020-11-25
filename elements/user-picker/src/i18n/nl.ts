@@ -11,12 +11,16 @@ export default {
     'Voer het e-mailadres in dat je wilt uitnodigen',
   'fabric.elements.user-picker.email.select.to.add':
     'Selecteer om uit te nodigen',
+  'fabric.elements.user-picker.external.sourced.from': 'Gevonden in:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Door beheerder beheerde groep',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Verwijderen',
   'fabric.elements.user-picker.placeholder': 'Mensen of teams invoeren...',
   'fabric.elements.user-picker.placeholder.add-more':
     'meer gebruikers toevoegen...',
   'fabric.elements.user-picker.single.clear': 'Wissen',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': 'Meer dan 50 leden',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Meer dan 50 leden, met jou erbij',

@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Marketplace-alkalmazások böngészése',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence-munkatér',
   'fabric.atlassianSwitcher.discover': 'Fedezd fel a lehetőségeidet',
-  'fabric.atlassianSwitcher.discoverMore': 'Továbbiak felfedezése',
   'fabric.atlassianSwitcher.errorHeading': 'Hiba történt',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Atlassian-fiókod már nincs bejelentkezve',

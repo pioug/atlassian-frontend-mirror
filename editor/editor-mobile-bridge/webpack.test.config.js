@@ -16,6 +16,10 @@ module.exports = async function createWebpackConfig(_, args) {
         __dirname,
         '/src/__tests__/integration-webview/_mocks/editor-component.tsx',
       ),
+      renderer: path.join(
+        __dirname,
+        '/src/__tests__/integration-webview/_mocks/renderer-component.tsx',
+      ),
     },
     output: {
       filename: '[name].js',
@@ -27,6 +31,12 @@ module.exports = async function createWebpackConfig(_, args) {
         chunks: ['editor', 'editorTestSetup'],
         chunksSortMode: 'manual',
         filename: 'editor.html',
+      }),
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'public/renderer.html.ejs'),
+        chunks: ['renderer', 'editorTestSetup'],
+        chunksSortMode: 'manual',
+        filename: 'renderer.html',
       }),
     ],
     devServer: {

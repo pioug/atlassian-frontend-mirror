@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Prehliadať aplikácie na Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'Priestor Confluence',
   'fabric.atlassianSwitcher.discover': 'Objavujte',
-  'fabric.atlassianSwitcher.discoverMore': 'Zistite viac',
   'fabric.atlassianSwitcher.errorHeading': 'Niekde sa stala chyba',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Váš účet Atlassian bol odhlásený',

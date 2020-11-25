@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': '浏览 Marketplace 应用',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence 空间',
   'fabric.atlassianSwitcher.discover': '发现',
-  'fabric.atlassianSwitcher.discoverMore': '发现更多',
   'fabric.atlassianSwitcher.errorHeading': '出错了',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut': '您的 Atlassian 帐户已注销',
   'fabric.atlassianSwitcher.errorHeadingUnverified': '您的账户未经验证',

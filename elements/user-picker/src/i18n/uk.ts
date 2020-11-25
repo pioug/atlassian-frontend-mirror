@@ -10,14 +10,18 @@ export default {
   'fabric.elements.user-picker.email.add.potential':
     'Введіть адресу електронної пошти',
   'fabric.elements.user-picker.email.select.to.add': 'Виберіть користувача',
+  'fabric.elements.user-picker.external.sourced.from': 'Знайдено в:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Група, яку модерує адміністратор',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Видалити',
   'fabric.elements.user-picker.placeholder':
     'Укажіть користувачів або команди…',
   'fabric.elements.user-picker.placeholder.add-more':
     'додайте інших користувачів…',
   'fabric.elements.user-picker.single.clear': 'Очистити',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus': 'Понад 50 учасників',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Понад 50 учасників разом із вами',

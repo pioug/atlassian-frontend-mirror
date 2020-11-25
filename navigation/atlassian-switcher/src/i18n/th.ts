@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'เรียกดูแอป Marketplace',
   'fabric.atlassianSwitcher.confluenceSpace': 'พื้นที่ร่วม',
   'fabric.atlassianSwitcher.discover': 'สำรวจ',
-  'fabric.atlassianSwitcher.discoverMore': 'ผลิตภัณฑ์เพิ่มเติมของ Atlassian',
   'fabric.atlassianSwitcher.errorHeading': 'มีบางอย่างผิดพลาด',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'ออกจากระบบบัญชี Atlassian ของคุณแล้ว',

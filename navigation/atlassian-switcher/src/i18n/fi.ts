@@ -10,7 +10,6 @@ export default {
   'fabric.atlassianSwitcher.browseApps': 'Selaa Marketplace-sovelluksia',
   'fabric.atlassianSwitcher.confluenceSpace': 'Confluence-työtila',
   'fabric.atlassianSwitcher.discover': 'Tutustu',
-  'fabric.atlassianSwitcher.discoverMore': 'Löydä enemmän',
   'fabric.atlassianSwitcher.errorHeading': 'Jotain meni pieleen',
   'fabric.atlassianSwitcher.errorHeadingLoggedOut':
     'Olet kirjautunut ulos Atlassian-tililtäsi.',

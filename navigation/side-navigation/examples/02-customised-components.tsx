@@ -66,19 +66,16 @@ const CustomisedExample = () => {
           Custom Title Component
         </div>
       }
-      cssFn={currentStyles => {
-        return {
-          ...currentStyles,
+      cssFn={() => ({
+        color: G400,
+        '&:hover': {
           color: G400,
-          '&:hover': {
-            color: G400,
-            backgroundColor: G100,
-          },
-          '&:active': {
-            backgroundColor: G200,
-          },
-        };
-      }}
+          backgroundColor: G100,
+        },
+        '&:active': {
+          backgroundColor: G200,
+        },
+      })}
       iconBefore={<NestIcon label="" />}
       overrides={{
         GoBackItem: {
@@ -97,8 +94,7 @@ const CustomisedExample = () => {
       id="1"
       title="Styled using cssFn"
       iconBefore={<NestIcon label="" />}
-      cssFn={currentStyles => ({
-        ...currentStyles,
+      cssFn={() => ({
         color: G400,
         '&:hover': {
           color: G400,

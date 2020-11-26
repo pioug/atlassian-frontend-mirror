@@ -60,8 +60,7 @@ export interface HeaderProps {
 const Header = forwardRef<HTMLElement, HeaderProps>(
   (props: HeaderProps, ref) => {
     const cssFn = overrideStyleFunction(
-      currentStyles => ({
-        ...currentStyles,
+      () => ({
         userSelect: 'auto',
         ['[data-item-title]']: {
           fontSize: headingSizes.h400.size,

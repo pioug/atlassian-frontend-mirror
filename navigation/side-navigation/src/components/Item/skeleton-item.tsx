@@ -15,8 +15,7 @@ const SkeletonItem = (props: SkeletonItemProps) => {
 
   return (
     <SkelItem
-      cssFn={styles => ({
-        ...styles,
+      cssFn={() => ({
         paddingLeft: ITEM_SIDE_PADDING,
         paddingRight: ITEM_SIDE_PADDING,
         '&&::before': {

@@ -28,17 +28,14 @@ export const ITEM_SIDE_PADDING = gridSize * 1.25;
  */
 export const overrideStyleFunction = <TState>(
   baseStyle: CSSFn<TState>,
-  newStyle: CSSFn<TState> | undefined = css => css,
+  newStyle: CSSFn<TState> | undefined = () => ({}),
 ): CSSFn<TState> => {
-  return (css: CSSObject, state: TState) => {
-    return newStyle(baseStyle(css, state), state);
+  return (state: TState) => {
+    return [baseStyle(state), newStyle(state)] as CSSObject[];
   };
 };
 
-export const baseSideNavItemStyle: CSSFn = (
-  currentStyles,
-  { isSelected, isDisabled },
-) => {
+export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
   let backgroundColor = navigationBackgroundColor;
   let color = itemTextColor;
 
@@ -52,7 +49,6 @@ export const baseSideNavItemStyle: CSSFn = (
   }
 
   return {
-    ...currentStyles,
     // This padding is set to ensure that the center of the left icon
     // is approximately center aligned with the horizontal app switcher.
     padding: `${gridSize}px ${ITEM_SIDE_PADDING}px`,
@@ -81,18 +77,16 @@ export const baseSideNavItemStyle: CSSFn = (
   };
 };
 
-export const backItemStyle: CSSFn = (currentStyles, _) => {
+export const backItemStyle: CSSFn = () => {
   return {
-    ...currentStyles,
     '&:hover': {
       backgroundColor: itemHoverBackgroundColor,
     },
   };
 };
 
-export const sectionHeaderStyle: StatelessCSSFn = currentStyles => {
+export const sectionHeaderStyle: StatelessCSSFn = () => {
   return {
-    ...currentStyles,
     paddingLeft: `${ITEM_SIDE_PADDING}px`,
     paddingRight: `${ITEM_SIDE_PADDING}px`,
   };

@@ -90,6 +90,12 @@ const BasicExample = () => {
             href="/custom-link"
             iconBefore={<SettingsIcon label="" />}
             title="Settings"
+            cssFn={() => ({
+              color: 'red',
+              '&:hover': {
+                color: 'blue',
+              },
+            })}
             description="I have a custom item"
             component={CustomNestingItem}
           >

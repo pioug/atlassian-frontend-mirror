@@ -1,6 +1,7 @@
 import { CSSFn } from '@atlaskit/menu';
 
-const enabledCSS = {
+// exposed for testing purposes
+export const enabledCSS = {
   ['&:hover [data-custom-icon]']: { display: 'none' },
   ['&:active [data-custom-icon]']: { display: 'none' },
   ['&:focus [data-custom-icon]']: { display: 'none' },
@@ -15,9 +16,8 @@ const disabledCSS = {
   ['[data-item-elem-after]']: { opacity: 0 },
 };
 
-export const nestingItemStyle: CSSFn = (currentStyles, state) => {
+export const nestingItemStyle: CSSFn = state => {
   return {
-    ...currentStyles,
     ...(state.isDisabled ? disabledCSS : enabledCSS),
   };
 };

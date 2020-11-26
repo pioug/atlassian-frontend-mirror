@@ -20,9 +20,8 @@ const CustomComponent: React.FC<
   );
 };
 
-const cssFn: CSSFn = (currentStyles, state) => {
+const cssFn: CSSFn = state => {
   return {
-    ...currentStyles,
     position: 'relative',
     overflow: 'hidden',
     userSelect: 'none',

@@ -15,8 +15,7 @@ export type { HeaderProps as FooterProps } from '../Header';
 
 const Footer = (props: HeaderProps) => {
   const cssFn = overrideStyleFunction(
-    currentStyles => ({
-      ...currentStyles,
+    () => ({
       userSelect: 'auto',
       div: {
         display: 'block',

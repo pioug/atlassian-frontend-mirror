@@ -10,7 +10,7 @@ You can target the sub-components of the Items using CSS selectors targetting us
   - \`data-item-elem-after\` for elemAfter
 
 
-  ${code`highlight=10-26
+  ${code`highlight=10-27,36-47
 import { LinkItem } from '@atlaskit/menu';
 
 <MenuGroup>
@@ -20,9 +20,8 @@ import { LinkItem } from '@atlaskit/menu';
       elemBefore={<ImgIcon src={koala} />}
       description="Hover over me"
       elemAfter={<RightArrow label="" />}
-      cssFn={currentStyles => {
+      cssFn={({ isSelected }) => {
         return {
-          ...currentStyles,
           padding: '12px 20px',
           border: '1px solid #CDCDCD',
           backgroundColor: 'aliceblue',
@@ -41,6 +40,26 @@ import { LinkItem } from '@atlaskit/menu';
       }}
     >
       Nested navigation item
+    </ButtonItem>
+    <ButtonItem
+      onClick={console.log}
+      iconBefore={<ImgIcon alt="" src={koala} />}
+      description="Hover over me"
+      iconAfter={<RightArrow label="" />}
+      cssFn={() => ({
+        color: 'red',
+        '&:hover': {
+          color: 'green',
+          '[data-item-description]': {
+            color: 'green',
+          },
+        },
+        '& [data-item-description]': {
+          color: 'red',
+        },
+      })}
+    >
+      Nested navigation item with cssFn override
     </ButtonItem>
   </Section>
 </MenuGroup>

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -13,6 +13,7 @@ import {
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { navigationBackgroundColor } from '../../common/constants';
+import { overrideStyleFunction } from '../../common/styles';
 import { ButtonItem, CustomItem, NavigationContent } from '../index';
 import { ROOT_ID } from '../NestableNavigationContent';
 import {
@@ -134,7 +135,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
     iconAfter,
     title,
     onClick,
-    cssFn = nestingItemStyle,
+    cssFn,
     isSelected,
     id,
     component,
@@ -148,6 +149,9 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
     backButton: contextualBackButton,
     stack,
   } = useNestedContext();
+
+  const mergedStyles = overrideStyleFunction(nestingItemStyle, cssFn);
+
   const [isInteracted, setIsInteracted] = useState(false);
 
   const backButton =
@@ -230,7 +234,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 
   const componentProps = {
     iconAfter: (
-      <React.Fragment>
+      <Fragment>
         {iconAfter ? <span data-custom-icon>{iconAfter}</span> : null}
         <span data-right-arrow>
           <RightArrow
@@ -239,14 +243,14 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
             label=""
           />
         </span>
-      </React.Fragment>
+      </Fragment>
     ),
     onClick: onClickHandler,
     isSelected: isSelected || isInteracted,
     testId: testId && `${testId}--item`,
     ...rest,
     children: title,
-    cssFn,
+    cssFn: mergedStyles,
   };
 
   if (component) {

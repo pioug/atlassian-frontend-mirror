@@ -7,6 +7,6 @@ import { HeadingItem } from '../src';
 export default () => (
   <>
     <HeadingItem>Actions</HeadingItem>
-    <HeadingItem cssFn={css => ({ ...css, color: R300 })}>Actions</HeadingItem>
+    <HeadingItem cssFn={() => ({ color: R300 })}>Actions</HeadingItem>
   </>
 );

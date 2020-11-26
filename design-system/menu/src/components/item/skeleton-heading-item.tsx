@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
 import { SkeletonHeadingItemProps } from '../types';
 
@@ -9,10 +9,10 @@ const SkeletonHeadingItem = ({
   width,
   testId,
   isShimmering,
-  cssFn = (currentStyles: CSSObject) => currentStyles,
+  cssFn = () => ({}),
 }: SkeletonHeadingItemProps) => (
   <div
-    css={cssFn(skeletonHeadingItemCSS(width, isShimmering), undefined)}
+    css={[skeletonHeadingItemCSS(width, isShimmering), cssFn(undefined)]}
     data-ds--menu--skeleton-heading-item
     data-testid={testId}
   />

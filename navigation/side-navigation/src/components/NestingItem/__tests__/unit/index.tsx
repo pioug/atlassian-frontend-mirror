@@ -6,6 +6,7 @@ import { ButtonItem, CustomItemComponentProps } from '../../../Item';
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/context';
 import { default as NestingItem } from '../../index';
+import * as styleUtils from '../../styles';
 
 describe('<NestingItem />', () => {
   const callbacks = {
@@ -142,5 +143,83 @@ describe('<NestingItem />', () => {
     expect(getByTestId('target--item').getAttribute('href')).toEqual(
       '/my-details',
     );
+  });
+
+  describe('styles overrides', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('should pass base styles to custom item by calling cssFn', () => {
+      const nestingItemStyleSpy = jest.spyOn(styleUtils, 'nestingItemStyle');
+
+      const CustomComponent = ({
+        children,
+        ...props
+      }: CustomItemComponentProps & { href: string }) => (
+        <a {...props}>{children}</a>
+      );
+
+      render(
+        <NestedContext.Provider value={{ ...callbacks }}>
+          <NestingItem
+            id="hello"
+            title="yeah"
+            href="/my-details"
+            component={CustomComponent}
+            testId="target"
+          >
+            Hello world
+          </NestingItem>
+        </NestedContext.Provider>,
+      );
+
+      // only includes state
+      expect(nestingItemStyleSpy).toHaveBeenCalledWith({
+        isDisabled: false,
+        isSelected: false,
+      });
+
+      // only returns a style object
+      expect(nestingItemStyleSpy).toHaveReturnedWith(styleUtils.enabledCSS);
+    });
+
+    it('should still pass base styles to custom item when override cssFn is supplied', () => {
+      const nestingItemStyleSpy = jest.spyOn(styleUtils, 'nestingItemStyle');
+
+      const CustomComponent = ({
+        children,
+        ...props
+      }: CustomItemComponentProps & { href: string }) => {
+        return <a {...props}>{children}</a>;
+      };
+
+      const { getByTestId } = render(
+        <NestedContext.Provider value={{ ...callbacks }}>
+          <NestingItem
+            id="hello"
+            title="yeah"
+            href="/my-details"
+            cssFn={() => ({ color: 'red' })}
+            component={CustomComponent}
+            testId="target"
+          >
+            Hello world
+          </NestingItem>
+        </NestedContext.Provider>,
+      );
+
+      // only includes state
+      expect(nestingItemStyleSpy).toHaveBeenCalledWith({
+        isDisabled: false,
+        isSelected: false,
+      });
+
+      // only returns a style object
+      expect(nestingItemStyleSpy).toHaveReturnedWith(styleUtils.enabledCSS);
+
+      const testComponent = getByTestId('target--item');
+      expect(testComponent).toHaveStyleDeclaration('color', 'red');
+    });
   });
 });

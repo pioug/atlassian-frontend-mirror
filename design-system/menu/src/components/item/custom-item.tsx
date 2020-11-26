@@ -1,6 +1,6 @@
 import React, { DragEventHandler, forwardRef } from 'react';
 
-import { ClassNames, CSSObject } from '@emotion/core';
+import { ClassNames } from '@emotion/core';
 
 import { CustomItemComponentProps, CustomItemProps } from '../types';
 import { useBlurOnMouseDown } from '../utils/use-blur-on-mouse-down';
@@ -26,7 +26,7 @@ const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
   (
     {
       component: Component,
-      cssFn = (currentStyles: CSSObject) => currentStyles,
+      cssFn = () => ({}),
       isDisabled = false,
       isSelected = false,
       onClick,
@@ -56,12 +56,13 @@ const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
             data-testid={testId}
             onDragStart={preventEvent}
             draggable={false}
-            className={css(
-              cssFn(customItemCSS(isDisabled, isSelected), {
+            className={css([
+              customItemCSS(isDisabled, isSelected),
+              cssFn({
                 isDisabled,
                 isSelected,
               }),
-            )}
+            ])}
             onMouseDown={onMouseDownHandler}
             onClick={isDisabled ? undefined : onClick}
             tabIndex={isDisabled ? -1 : undefined}

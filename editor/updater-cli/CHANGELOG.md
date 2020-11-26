@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.0.14
+
+### Patch Changes
+
+- [`5f2c0c88e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f2c0c88e5) - Upgraded yarn-deduplicate and added new snapshot registry to branch deploy tooling
+
 ## 2.0.13
 
 ### Patch Changes

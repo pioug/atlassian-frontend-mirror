@@ -146,7 +146,7 @@
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/media-integration-test-helpers": "^2.2.0",
     "@atlaskit/media-test-helpers": "^28.4.0",
-    "@atlaskit/menu": "^0.6.0",
+    "@atlaskit/menu": "^0.7.0",
     "@atlaskit/profilecard": "^13.0.0",
     "@atlaskit/pubsub": "^6.0.0",
     "@atlaskit/renderer": "^70.0.0",

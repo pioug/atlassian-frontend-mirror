@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, Ref } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
 import { ButtonItemProps } from '../types';
 import { useBlurOnMouseDown } from '../utils/use-blur-on-mouse-down';
@@ -14,7 +14,7 @@ const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
   (props: ButtonItemProps, ref) => {
     const {
       children,
-      cssFn = (currentStyles: CSSObject) => currentStyles,
+      cssFn = () => ({}),
       description,
       iconAfter,
       iconBefore,
@@ -37,10 +37,13 @@ const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
     return (
       <Container
         type={isDisabled ? undefined : 'button'}
-        css={cssFn(buttonItemCSS(isDisabled, isSelected), {
-          isSelected,
-          isDisabled,
-        })}
+        css={[
+          buttonItemCSS(isDisabled, isSelected),
+          cssFn({
+            isSelected,
+            isDisabled,
+          }),
+        ]}
         data-testid={testId}
         onClick={isDisabled ? undefined : onClick}
         onMouseDown={onMouseDownHandler}

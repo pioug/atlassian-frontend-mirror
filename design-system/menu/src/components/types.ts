@@ -358,11 +358,13 @@ export type ItemState = { isSelected: boolean; isDisabled: boolean };
 
 /**
  * A function that can be used to override the styles of
- * menu components. It receives the current styles and state
- * and expects a styles object.
+ * menu components. It receives the current state
+ * and should return a CSSObject.
+ *
+ * @see @atlaskit/menu/docs/85-overriding-item-styles
  */
 export interface CSSFn<TState = ItemState> {
-  (currentStyles: CSSObject, currentState: TState): CSSObject;
+  (currentState: TState): CSSObject | CSSObject[];
 }
 
 export type StatelessCSSFn = CSSFn<undefined>;

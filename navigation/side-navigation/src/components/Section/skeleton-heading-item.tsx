@@ -18,8 +18,7 @@ const SkeletonHeadingItem = (props: SkeletonHeadingItemProps) => {
 
   return (
     <MenuSkeletonHeadingItem
-      cssFn={styles => ({
-        ...styles,
+      cssFn={() => ({
         paddingLeft: ITEM_SIDE_PADDING,
         paddingRight: ITEM_SIDE_PADDING,
       })}

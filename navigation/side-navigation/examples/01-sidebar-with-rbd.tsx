@@ -97,9 +97,8 @@ const generateDraggableButtonItems = (n: number): CustomDraggable[] => {
       renderItem: (props: RenderDraggableProps) => (
         <ButtonItem
           // disable the dynamic margin behaviour
-          cssFn={currentStyles => {
+          cssFn={() => {
             return {
-              ...currentStyles,
               '&:first-child:not(style)': {
                 marginTop: 0,
               },
@@ -139,17 +138,14 @@ const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
           component={CustomComponent}
           // disable the dynamic margin behaviour
           iconBefore={<ItemIcon label="" />}
-          cssFn={currentStyles => {
-            return {
-              ...currentStyles,
-              '&:first-child:not(style)': {
-                marginTop: 0,
-              },
-              '&:last-child:not(style)': {
-                marginBottom: 0,
-              },
-            };
-          }}
+          cssFn={() => ({
+            '&:first-child:not(style)': {
+              marginTop: 0,
+            },
+            '&:last-child:not(style)': {
+              marginBottom: 0,
+            },
+          })}
           ref={props.ref}
           {...props.dragHandleProps}
           {...props.draggableProps}

@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.7.0
+
+### Minor Changes
+
+- [`79a40dec30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79a40dec30) - **Breaking** Adjusts the API of the cssFn prop used in both menu and side-navigation. The prop now no longer exposes the currentStyles to the user in the callback and instead only provides the current state. Users no longer need to spread the currentStyles into their components when overriding. This change also resolves a bug where cssFn overrides did not always take precedence correctly over the default component styles.
+
 ## 0.6.5
 
 ### Patch Changes

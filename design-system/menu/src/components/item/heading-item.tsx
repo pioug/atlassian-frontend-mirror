@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
 import { HeadingItemProps } from '../types';
 
@@ -9,12 +9,12 @@ const HeadingItem = ({
   children,
   testId,
   id,
-  cssFn = (css: CSSObject) => css,
+  cssFn = () => ({}),
   ...rest
 }: HeadingItemProps) => {
   return (
     <div
-      css={cssFn(itemHeadingCSS, undefined)}
+      css={[itemHeadingCSS, cssFn(undefined)]}
       data-testid={testId}
       data-ds--menu--heading-item
       id={id}

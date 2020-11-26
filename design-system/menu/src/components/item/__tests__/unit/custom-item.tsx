@@ -99,8 +99,7 @@ describe('<CustomItem />', () => {
   });
 
   it('should respect the cssFn prop', () => {
-    const customCss: CSSFn = (currentStyles, state) => ({
-      ...currentStyles,
+    const customCss: CSSFn = state => ({
       ...(state.isSelected && { border: '1px solid' }),
       ...(state.isDisabled && { pointerEvents: 'none' as const }),
       padding: '10px',

@@ -4,6 +4,7 @@ import {
   KeyboardEvent as ReactKeyboardEvent,
   MouseEvent as ReactMouseEvent,
   useCallback,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -20,7 +21,10 @@ import {
   RESIZE_CONTROL_SELECTOR,
   VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
-import { getLeftPanelWidth } from '../../common/utils';
+import {
+  getLeftPanelWidth,
+  getLeftSidebarPercentage,
+} from '../../common/utils';
 import {
   LeftSidebarState,
   usePageLayoutResize,
@@ -295,11 +299,18 @@ const ResizeControl = ({
     ...(overrides && overrides.ResizeButton),
   };
 
-  const getMaxAriaWidth = () => {
+  // This width is calculated once only on mount.
+  // This means resizing the window will cause this value to be incorrect for screen reader users,
+  // however this comes with a substantial performance gain and so is considered acceptable.
+  const maxAriaWidth = useMemo(() => {
     const innerWidth = typeof window === 'undefined' ? 0 : window.innerWidth;
-
     return Math.round(innerWidth / 2) - getLeftPanelWidth();
-  };
+  }, []);
+
+  const leftSidebarPercentageExpanded = getLeftSidebarPercentage(
+    leftSidebarState.leftSidebarWidth,
+    maxAriaWidth,
+  );
 
   /* eslint-disable jsx-a11y/role-supports-aria-props */
   return (
@@ -311,9 +322,9 @@ const ResizeControl = ({
       <GrabArea
         role="separator"
         aria-label={resizeGrabAreaLabel}
-        aria-valuenow={leftSidebarState.leftSidebarWidth}
-        aria-valuemin={DEFAULT_LEFT_SIDEBAR_WIDTH}
-        aria-valuemax={getMaxAriaWidth()}
+        aria-valuenow={leftSidebarPercentageExpanded}
+        aria-valuemin={0}
+        aria-valuemax={100}
         aria-expanded={!isLeftSidebarCollapsed}
         onKeyDown={onKeyDown}
         onMouseDown={onMouseDown}

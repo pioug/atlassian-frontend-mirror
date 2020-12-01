@@ -1,5 +1,6 @@
 import {
   getGridStateFromStorage,
+  getLeftSidebarPercentage,
   getPageLayoutSlotCSSSelector,
   getPageLayoutSlotSelector,
   mergeGridStateIntoStorage,
@@ -291,5 +292,19 @@ describe('getPageLayoutSelector', () => {
   it('should get page-layout selector css', () => {
     const pageSlotSelectorCSS = getPageLayoutSlotCSSSelector('main');
     expect(pageSlotSelectorCSS).toEqual("[data-ds--page-layout--slot='main']");
+  });
+});
+
+describe('getLeftSidebarPercentage', () => {
+  it('should deal with 0 case', () => {
+    expect(getLeftSidebarPercentage(240, 340)).toEqual(0);
+  });
+
+  it('should deal with oveflow case', () => {
+    expect(getLeftSidebarPercentage(351, 340)).toEqual(100);
+  });
+
+  it('should deal with standard case', () => {
+    expect(getLeftSidebarPercentage(300, 340)).toEqual(60);
   });
 });

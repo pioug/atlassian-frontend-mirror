@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.11
+
+### Patch Changes
+
+- [`e6c982bb8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6c982bb8f) - Performance improvement. Simplifies a layout calculation to update less frequently.
+
 ## 0.10.10
 
 ### Patch Changes

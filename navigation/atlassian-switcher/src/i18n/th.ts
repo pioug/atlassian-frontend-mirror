@@ -33,14 +33,15 @@ export default {
     'การจัดการบริการด้าน IT แบบร่วมกันฟรีสำหรับพนักงานบริการลูกค้าสูงสุด 3 ราย',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'การติดตามโปรเจ็กต์และปัญหาฟรีสำหรับผู้ใช้มากถึง 10 คน',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, Github และอีกมากมาย',
   'fabric.atlassianSwitcher.gittools.label': 'การผสานรวม Git สำหรับ Jira',
   'fabric.atlassianSwitcher.jiraProject': 'โปรเจกต์ Jira',
   'fabric.atlassianSwitcher.join': 'เข้าร่วม',
   'fabric.atlassianSwitcher.login': 'เข้าสู่ระบบ',
   'fabric.atlassianSwitcher.manageList': 'จัดการรายการ',
   'fabric.atlassianSwitcher.more': 'เพิ่มเติม',
+  'fabric.atlassianSwitcher.moreAtlassianProducts':
+    'ผลิตภัณฑ์อื่น ๆ ของ Atlassian',
+  'fabric.atlassianSwitcher.moreProductsLink': 'ผลิตภัณฑ์อื่น ๆ',
   'fabric.atlassianSwitcher.product.description.confluence': 'การรวบรวมเอกสาร',
   'fabric.atlassianSwitcher.product.description.jsd':
     'Service Desk ด้าน IT และการบริการลูกค้า',
@@ -58,6 +59,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'เข้าร่วม {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'กลุ่มคนที่กำลังมองดูและจัดการหน้าจอฮอโลแกรมหลายหน้า',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack สำหรับ Atlassian',
   'fabric.atlassianSwitcher.start': 'หน้าแรกของ Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'เปลี่ยนเป็น',
   'fabric.atlassianSwitcher.switchToTooltip': 'เปลี่ยนเป็น...',

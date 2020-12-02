@@ -32,14 +32,14 @@ export default {
     'Управление ИТ-услугами с поддержкой совместной работы. До 3 агентов — бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Отслеживание проектов и задач — до 10 пользователей бесплатно',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, Github и многое другое',
   'fabric.atlassianSwitcher.gittools.label': 'Интеграции Git для Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Проект Jira',
   'fabric.atlassianSwitcher.join': 'Подключение',
   'fabric.atlassianSwitcher.login': 'Войти',
   'fabric.atlassianSwitcher.manageList': 'Изменить список',
   'fabric.atlassianSwitcher.more': 'Еще',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Другие продукты Atlassian',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Другие продукты',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Совместная работа над документами',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -60,6 +60,7 @@ export default {
     'Подключить {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Команда смотрит на несколько голографических экранов',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack для Atlassian',
   'fabric.atlassianSwitcher.start': 'Начальная страница Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Переключиться на',
   'fabric.atlassianSwitcher.switchToTooltip': 'Переключиться на…',

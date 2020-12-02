@@ -33,13 +33,14 @@ export default {
     'Об’єднана служба ІТ-підтримки — безкоштовно до 3 агентів',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Безкоштовне відстеження стану проекту та проблемних питань (до 10 користувачів)',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub тощо',
   'fabric.atlassianSwitcher.gittools.label': 'Інтеграція Git із Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Проект у Jira',
   'fabric.atlassianSwitcher.join': 'Користуйтеся новими ресурсами',
   'fabric.atlassianSwitcher.login': 'Увійти',
   'fabric.atlassianSwitcher.manageList': 'Настроїти список',
   'fabric.atlassianSwitcher.more': 'Більше',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Інші продукти Atlassian',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Інші продукти',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Спільна робота з документами',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -60,6 +61,7 @@ export default {
     'Використовувати {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Команда, яка дивиться на кілька голографічних екранів',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack для Atlassian',
   'fabric.atlassianSwitcher.start': 'Головна сторінка Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Перейти:',
   'fabric.atlassianSwitcher.switchToTooltip': 'Перехід на інший продукт',

@@ -32,14 +32,15 @@ export default {
     'En fazla 3 temsilcinin yararlanabileceği, ücretsiz, iş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '10 kullanıcıya kadar ücretsiz proje ve sorun takibi',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub ve daha fazlası',
   'fabric.atlassianSwitcher.gittools.label': 'Jira için Git tümleştirmeleri',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projesi',
   'fabric.atlassianSwitcher.join': 'Katılın',
   'fabric.atlassianSwitcher.login': 'Oturum aç',
   'fabric.atlassianSwitcher.manageList': 'Listeyi yönetin',
   'fabric.atlassianSwitcher.more': 'Diğer',
+  'fabric.atlassianSwitcher.moreAtlassianProducts':
+    'Daha fazla Atlassian ürünü',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Daha fazla ürün',
   'fabric.atlassianSwitcher.product.description.confluence': 'Belge paylaşımı',
   'fabric.atlassianSwitcher.product.description.jsd':
     'BT hizmet masası ve müşteri hizmetleri',
@@ -57,6 +58,7 @@ export default {
     '{productLabel} ürününe katılın',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Birden fazla holografik ekrana bakan bir ekip',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Atlassian için Slack',
   'fabric.atlassianSwitcher.start': 'Atlassian Başlangıç',
   'fabric.atlassianSwitcher.switchTo': 'Şuna geçin',
   'fabric.atlassianSwitcher.switchToTooltip': 'Şuna geçin…',

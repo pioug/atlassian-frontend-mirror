@@ -33,13 +33,14 @@ export default {
     'Gratis samarbetsorienterad IT-tjänsthantering för upp till 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projekt- och ärendespårning för upp till 10 användare',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github med mera',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integrationer för Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',
   'fabric.atlassianSwitcher.join': 'Delta',
   'fabric.atlassianSwitcher.login': 'Logga in',
   'fabric.atlassianSwitcher.manageList': 'Hantera lista',
   'fabric.atlassianSwitcher.more': 'Mer',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Fler Atlassian-produkter',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Fler produkter',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbete',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -59,6 +60,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Gå med i {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Ett team som tittar på flera holografiska skärmar',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack för Atlassian',
   'fabric.atlassianSwitcher.start': 'Atlassian Start',
   'fabric.atlassianSwitcher.switchTo': 'Byt till',
   'fabric.atlassianSwitcher.switchToTooltip': 'Växla till ...',

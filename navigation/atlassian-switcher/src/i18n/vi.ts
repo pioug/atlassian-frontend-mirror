@@ -33,14 +33,15 @@ export default {
     'Quản lý dịch vụ CNTT cộng tác miễn phí cho tối đa 3 nhân viên',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Miễn phí theo dõi dự án và lỗi cho 10 người dùng',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, Github và nhiều dịch vụ khác',
   'fabric.atlassianSwitcher.gittools.label': 'Các tích hợp Git cho Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Dự án Jira',
   'fabric.atlassianSwitcher.join': 'Tham gia',
   'fabric.atlassianSwitcher.login': 'Đăng nhập',
   'fabric.atlassianSwitcher.manageList': 'Quản lý danh sách',
   'fabric.atlassianSwitcher.more': 'Khác',
+  'fabric.atlassianSwitcher.moreAtlassianProducts':
+    'Sản phẩm khác của Atlassian',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Sản phẩm khác',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Cộng tác tài liệu',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -58,6 +59,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Tham gia {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Một nhóm nhìn vào nhiều màn hình 3D',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack dành cho Atlassian',
   'fabric.atlassianSwitcher.start': 'Bắt đầu sử dụng sản phẩm Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Chuyển sang',
   'fabric.atlassianSwitcher.switchToTooltip': 'Chuyển sang…',

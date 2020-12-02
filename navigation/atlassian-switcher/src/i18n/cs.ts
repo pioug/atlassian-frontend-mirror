@@ -32,13 +32,14 @@ export default {
     'Kolaborativní správa IT služeb zdarma pro až tři agenty',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Bezplatné sledování projektů a požadavků pro až 10 uživatelů',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub a další',
   'fabric.atlassianSwitcher.gittools.label': 'Integrace Git pro Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
   'fabric.atlassianSwitcher.join': 'Připojit',
   'fabric.atlassianSwitcher.login': 'Přihlášení',
   'fabric.atlassianSwitcher.manageList': 'Spravovat seznam',
   'fabric.atlassianSwitcher.more': 'Více',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Další produkty Atlassian',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Další produkty',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Spolupráce na dokumentech',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -59,6 +60,7 @@ export default {
     'Připojte se k {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Tým sleduje několik holografických obrazovek',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack pro Atlassian',
   'fabric.atlassianSwitcher.start': 'Výchozí web Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Přepnout na',
   'fabric.atlassianSwitcher.switchToTooltip': 'Přepnout na...',

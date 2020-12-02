@@ -33,14 +33,15 @@ export default {
     'Gestión de servicios de TI de colaboración gratuitos para un máximo de 3 agentes',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Seguimiento de proyectos e incidencias gratuito para un máximo de 10 usuarios',
-  'fabric.atlassianSwitcher.gittools.description':
-    'Bitbucket, GitHub y mucho más',
   'fabric.atlassianSwitcher.gittools.label': 'Integraciones de Git para Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Proyecto Jira',
   'fabric.atlassianSwitcher.join': 'Unirse',
   'fabric.atlassianSwitcher.login': 'Iniciar sesión',
   'fabric.atlassianSwitcher.manageList': 'Administrar lista',
   'fabric.atlassianSwitcher.more': 'Más',
+  'fabric.atlassianSwitcher.moreAtlassianProducts':
+    'Más productos de Atlassian',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Más productos',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Colaboración en documentos',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -60,6 +61,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Únete a {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Un equipo mirando a varias pantallas holográficas',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack para Atlassian',
   'fabric.atlassianSwitcher.start': 'Inicio de Atlassian',
   'fabric.atlassianSwitcher.switchTo': 'Cambiar a',
   'fabric.atlassianSwitcher.switchToTooltip': 'Cambiar a…',

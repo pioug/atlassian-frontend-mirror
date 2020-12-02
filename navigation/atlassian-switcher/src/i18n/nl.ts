@@ -33,13 +33,14 @@ export default {
     'Gratis coöperatief IT-servicebeheer voor tot 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projecten en issues volgen voor maximaal 10 gebruikers',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github en meer',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integraties voor Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-project',
   'fabric.atlassianSwitcher.join': 'Koppelen',
   'fabric.atlassianSwitcher.login': 'Inloggen',
   'fabric.atlassianSwitcher.manageList': 'Lijst beheren',
   'fabric.atlassianSwitcher.more': 'Meer',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Meer Atlassian-producten',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Meer producten',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Samenwerken aan documenten',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -59,6 +60,7 @@ export default {
     'Neem deel aan {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Een team dat naar verschillende holografische schermen kijkt',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack voor Atlassian',
   'fabric.atlassianSwitcher.start': 'Atlassian-startpagina',
   'fabric.atlassianSwitcher.switchTo': 'Overschakelen naar',
   'fabric.atlassianSwitcher.switchToTooltip': 'Overschakelen naar...',

@@ -33,13 +33,15 @@ export default {
     'Kostenloses, kollaboratives IT Service Management für bis zu 3 Agenten',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Kostenloses Verfolgen von Projekten und Vorgängen für bis zu zehn Benutzer',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github und mehr',
   'fabric.atlassianSwitcher.gittools.label': 'Git-Integrationen für Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-Projekt',
   'fabric.atlassianSwitcher.join': 'Beitreten',
   'fabric.atlassianSwitcher.login': 'Einloggen',
   'fabric.atlassianSwitcher.manageList': 'Liste verwalten',
   'fabric.atlassianSwitcher.more': 'Mehr',
+  'fabric.atlassianSwitcher.moreAtlassianProducts':
+    'Weitere Atlassian-Produkte',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Weitere Produkte',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Zusammenarbeit an Dokumenten',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -60,6 +62,7 @@ export default {
     'Werden Sie ein Teil von {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Ein Team, das sich mehrere holografische Bildschirme anschaut',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack für Atlassian',
   'fabric.atlassianSwitcher.start': 'Atlassian-Startseite',
   'fabric.atlassianSwitcher.switchTo': 'Wechseln zu',
   'fabric.atlassianSwitcher.switchToTooltip': 'Wechseln zu …',

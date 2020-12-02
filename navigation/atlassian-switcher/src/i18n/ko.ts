@@ -33,13 +33,14 @@ export default {
     '최대 3명의 에이전트를 위한 협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '무료 프로젝트 및 이슈 추적 - 최대 10명 사용자까지',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github 등',
   'fabric.atlassianSwitcher.gittools.label': 'Jira용 Git 통합',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 프로젝트',
   'fabric.atlassianSwitcher.join': '참가',
   'fabric.atlassianSwitcher.login': '로그인',
   'fabric.atlassianSwitcher.manageList': '목록 관리',
   'fabric.atlassianSwitcher.more': '더 보기',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': '더 많은 Atlassian 제품',
+  'fabric.atlassianSwitcher.moreProductsLink': '더 많은 제품',
   'fabric.atlassianSwitcher.product.description.confluence': '문서 공동 작업',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT 서비스 데스크 및 고객 서비스',
@@ -55,6 +56,7 @@ export default {
     '{productLabel}에 가입하기',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     '여러 홀로그램 화면을 보고 있는 팀',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Atlassian용 Slack',
   'fabric.atlassianSwitcher.start': 'Atlassian 시작',
   'fabric.atlassianSwitcher.switchTo': '다음으로 전환',
   'fabric.atlassianSwitcher.switchToTooltip': '다음으로 전환...',

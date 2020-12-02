@@ -33,13 +33,14 @@ export default {
     'Maksuton yhteistyöpohjainen IT-palveluiden hallinta enintään kolmelle asiakaspalvelijalle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Ilmainen projektien ja asioiden seuranta enintään kymmenelle käyttäjälle',
-  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, Github ja muut',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integraatiot ja Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekti',
   'fabric.atlassianSwitcher.join': 'Liity',
   'fabric.atlassianSwitcher.login': 'Kirjaudu sisään',
   'fabric.atlassianSwitcher.manageList': 'Hallinnoi luetteloa',
   'fabric.atlassianSwitcher.more': 'Lisää',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Lisää Atlassian-tuotteita',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Lisää tuotteita',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Asiakirjojen yhteiskäyttö',
   'fabric.atlassianSwitcher.product.description.jsd':
@@ -59,6 +60,7 @@ export default {
     'Liity käyttämään tuotetta {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Tiimi katselemassa useita hologramminäyttöjä',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack Atlassianille',
   'fabric.atlassianSwitcher.start': 'Atlassian-aloitussivu',
   'fabric.atlassianSwitcher.switchTo': 'Vaihda kohteeseen',
   'fabric.atlassianSwitcher.switchToTooltip': 'Vaihda kohteeseen...',

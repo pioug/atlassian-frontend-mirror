@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.2.0
+
+### Minor Changes
+
+- [`955641ffdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/955641ffdc) - Add the ability to specify `isDragEnabled` as a function. This will allow to control whether the item is draggable or not on a per-item basis.
+
 ## 8.1.3
 
 ### Patch Changes

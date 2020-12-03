@@ -11,6 +11,7 @@ import {
   FlattenedTree,
   TreeSourcePosition,
   TreeDestinationPosition,
+  TreeItem,
 } from '../../types';
 import { RenderItemParams } from '../TreeItem/TreeItem-types';
 
@@ -33,7 +34,7 @@ export type Props = {
   /** Number of pixel is used to scaffold the tree by the consumer. */
   offsetPerLevel: number;
   /** Boolean to turn on drag&drop re-ordering on the tree */
-  isDragEnabled: boolean;
+  isDragEnabled: boolean | ((item: TreeItem) => boolean);
   /** Boolean to turn on hovering while dragging */
   isNestingEnabled: boolean;
 };

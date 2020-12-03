@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.1.2
+
+### Patch Changes
+
+- [`66c38f2f1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66c38f2f1b) - Setting highPriority field to true for manually fired exposure events to keep backwards compatibility
+
 ## 4.1.1
 
 ### Patch Changes

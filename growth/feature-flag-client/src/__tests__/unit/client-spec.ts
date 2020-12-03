@@ -191,7 +191,7 @@ describe('Feature Flag Client', () => {
             value: false,
           },
           tags: ['measurement'],
-          highPriority: false,
+          highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
       });
@@ -255,7 +255,7 @@ describe('Feature Flag Client', () => {
             section: 'view-page',
           },
           tags: ['measurement'],
-          highPriority: false,
+          highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
       });
@@ -426,7 +426,7 @@ describe('Feature Flag Client', () => {
             value: 'variation-a',
           },
           tags: ['measurement'],
-          highPriority: false,
+          highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
       });
@@ -462,7 +462,7 @@ describe('Feature Flag Client', () => {
             value: 'experiment',
           },
           tags: ['measurement'],
-          highPriority: false,
+          highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
       });
@@ -545,7 +545,7 @@ describe('Feature Flag Client', () => {
             container: 'space',
           },
           tags: ['measurement'],
-          highPriority: false,
+          highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
       });
@@ -780,7 +780,7 @@ describe('Feature Flag Client', () => {
               value: false,
             },
             tags: ['measurement'],
-            highPriority: false,
+            highPriority: true,
             source: '@atlaskit/feature-flag-client',
           });
         });

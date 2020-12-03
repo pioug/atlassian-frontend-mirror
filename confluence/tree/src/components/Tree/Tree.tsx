@@ -248,12 +248,17 @@ export default class Tree extends Component<Props, State> {
   renderItem = (flatItem: FlattenedItem, index: number): ReactNode => {
     const { isDragEnabled } = this.props;
 
+    const isDragDisabled =
+      typeof isDragEnabled === 'function'
+        ? !isDragEnabled(flatItem.item)
+        : !isDragEnabled;
+
     return (
       <Draggable
         key={flatItem.item.id}
         draggableId={flatItem.item.id.toString()}
         index={index}
-        isDragDisabled={!isDragEnabled}
+        isDragDisabled={isDragDisabled}
       >
         {this.renderDraggableItem(flatItem)}
       </Draggable>

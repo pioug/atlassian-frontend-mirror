@@ -189,7 +189,7 @@ export default class FeatureFlagClient {
       actionSubject: 'feature',
       attributes: Object.assign(exposureData, flagAttributes),
       tags: ['measurement'],
-      highPriority: false,
+      highPriority: true,
       source: '@atlaskit/feature-flag-client',
     };
 

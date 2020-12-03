@@ -4,8 +4,6 @@ import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
 import { ssr } from '@atlaskit/ssr';
 import waitForExpect from 'wait-for-expect';
 
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
-
 afterEach(() => {
   jest.resetAllMocks();
 });

@@ -1,4 +1,7 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 
 export type Size = 'regular' | 'large';
 
@@ -15,11 +18,20 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
   /** Value to be submitted in a form. */
   value?: string;
   /** Handler to be called when toggle is unfocused. */
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (
+    event: React.FocusEvent<HTMLInputElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** Handler to be called when native 'change' event happens internally. */
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** Handler to be called when toggle is focused. */
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (
+    event: React.FocusEvent<HTMLInputElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** Toggle size. */
   size?: Size;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.

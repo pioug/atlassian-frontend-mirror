@@ -33,6 +33,7 @@ export default {
     '最大 3 エージェントまで無料でコラボレーション可能な IT サービス管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '最大 10 ユーザーまで使用できる無料のプロジェクトと課題トラッキング',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、GitHub など',
   'fabric.atlassianSwitcher.gittools.label': 'Jira 向け Git 統合',
   'fabric.atlassianSwitcher.jiraProject': 'Jira プロジェクト',
   'fabric.atlassianSwitcher.join': '参加',

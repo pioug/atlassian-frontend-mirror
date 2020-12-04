@@ -19,6 +19,21 @@ describe('Toggle component', () => {
 
       fireEvent.click(label!);
       expect(onChange).toHaveBeenCalled();
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          nativeEvent: null,
+          target: null,
+        }),
+        expect.objectContaining({
+          context: [
+            {
+              componentName: 'toggle',
+              packageName: '@atlaskit/toggle',
+              packageVersion: '999.9.9',
+            },
+          ],
+        }),
+      );
 
       expect(label?.getAttribute('data-checked')).toBe(null);
     });

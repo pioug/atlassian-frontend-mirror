@@ -33,6 +33,7 @@ export default {
     'Maksuton yhteistyöpohjainen IT-palveluiden hallinta enintään kolmelle asiakaspalvelijalle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Ilmainen projektien ja asioiden seuranta enintään kymmenelle käyttäjälle',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub ja muut',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integraatiot ja Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekti',
   'fabric.atlassianSwitcher.join': 'Liity',

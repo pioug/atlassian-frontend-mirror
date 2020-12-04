@@ -32,6 +32,8 @@ export default {
     'Управление ИТ-услугами с поддержкой совместной работы. До 3 агентов — бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Отслеживание проектов и задач — до 10 пользователей бесплатно',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, GitHub и многое другое',
   'fabric.atlassianSwitcher.gittools.label': 'Интеграции Git для Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Проект Jira',
   'fabric.atlassianSwitcher.join': 'Подключение',

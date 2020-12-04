@@ -33,6 +33,7 @@ export default {
     'Gratis coöperatief IT-servicebeheer voor tot 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projecten en issues volgen voor maximaal 10 gebruikers',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub en meer',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integraties voor Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-project',
   'fabric.atlassianSwitcher.join': 'Koppelen',

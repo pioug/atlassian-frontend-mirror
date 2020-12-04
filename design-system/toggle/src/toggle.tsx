@@ -3,7 +3,10 @@ import { forwardRef, memo, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  usePlatformLeafEventHandler,
+} from '@atlaskit/analytics-next';
 import CloseIcon from '@atlaskit/icon/glyph/editor/close';
 import CheckIcon from '@atlaskit/icon/glyph/editor/done';
 import GlobalTheme from '@atlaskit/theme/components';
@@ -64,11 +67,14 @@ const InnerToggle = forwardRef(
     });
 
     const handleChange = usePlatformLeafEventHandler({
-      fn: (event: React.ChangeEvent<HTMLInputElement>) => {
+      fn: (
+        event: React.ChangeEvent<HTMLInputElement>,
+        analyticsEvent: UIAnalyticsEvent,
+      ) => {
         if (isControlled) {
           setChecked(checked => !checked);
         }
-        return providedChange(event);
+        return providedChange(event, analyticsEvent);
       },
       action: 'change',
       analyticsData: analyticsContext,

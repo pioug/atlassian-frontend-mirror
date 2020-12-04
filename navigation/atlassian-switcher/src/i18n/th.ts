@@ -33,6 +33,8 @@ export default {
     'การจัดการบริการด้าน IT แบบร่วมกันฟรีสำหรับพนักงานบริการลูกค้าสูงสุด 3 ราย',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'การติดตามโปรเจ็กต์และปัญหาฟรีสำหรับผู้ใช้มากถึง 10 คน',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, GitHub และอีกมากมาย',
   'fabric.atlassianSwitcher.gittools.label': 'การผสานรวม Git สำหรับ Jira',
   'fabric.atlassianSwitcher.jiraProject': 'โปรเจกต์ Jira',
   'fabric.atlassianSwitcher.join': 'เข้าร่วม',

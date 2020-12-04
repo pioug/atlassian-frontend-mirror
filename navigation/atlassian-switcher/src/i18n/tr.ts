@@ -32,6 +32,8 @@ export default {
     'En fazla 3 temsilcinin yararlanabileceği, ücretsiz, iş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '10 kullanıcıya kadar ücretsiz proje ve sorun takibi',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, GitHub ve daha fazlası',
   'fabric.atlassianSwitcher.gittools.label': 'Jira için Git tümleştirmeleri',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projesi',
   'fabric.atlassianSwitcher.join': 'Katılın',

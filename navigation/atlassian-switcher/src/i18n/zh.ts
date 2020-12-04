@@ -31,6 +31,7 @@ export default {
     '为多达三名支持人员提供免费的协作式 IT 服务管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     '免费项目和事务跟踪（最多 10 个用户）',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、GitHub 等等',
   'fabric.atlassianSwitcher.gittools.label': '适用于 Jira 的 Git 集成',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 项目',
   'fabric.atlassianSwitcher.join': '加入',

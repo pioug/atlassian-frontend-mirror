@@ -33,6 +33,8 @@ export default {
     'Gestión de servicios de TI de colaboración gratuitos para un máximo de 3 agentes',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Seguimiento de proyectos e incidencias gratuito para un máximo de 10 usuarios',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, GitHub y mucho más',
   'fabric.atlassianSwitcher.gittools.label': 'Integraciones de Git para Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Proyecto Jira',
   'fabric.atlassianSwitcher.join': 'Unirse',

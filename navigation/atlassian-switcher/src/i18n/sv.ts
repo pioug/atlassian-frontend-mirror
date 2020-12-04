@@ -33,6 +33,7 @@ export default {
     'Gratis samarbetsorienterad IT-tjänsthantering för upp till 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Gratis projekt- och ärendespårning för upp till 10 användare',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub med mera',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integrationer för Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',
   'fabric.atlassianSwitcher.join': 'Delta',

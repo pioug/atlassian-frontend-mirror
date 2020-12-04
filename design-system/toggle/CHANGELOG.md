@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.0.2
+
+### Patch Changes
+
+- [`8818ff41f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8818ff41f2) - Fixed analytics event missing issue
+
 ## 12.0.1
 
 ### Patch Changes

@@ -33,6 +33,8 @@ export default {
     'Quản lý dịch vụ CNTT cộng tác miễn phí cho tối đa 3 nhân viên',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Miễn phí theo dõi dự án và lỗi cho 10 người dùng',
+  'fabric.atlassianSwitcher.gittools.description':
+    'Bitbucket, GitHub và nhiều dịch vụ khác',
   'fabric.atlassianSwitcher.gittools.label': 'Các tích hợp Git cho Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Dự án Jira',
   'fabric.atlassianSwitcher.join': 'Tham gia',

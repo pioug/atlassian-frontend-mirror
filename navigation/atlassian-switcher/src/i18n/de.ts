@@ -33,6 +33,7 @@ export default {
     'Kostenloses, kollaboratives IT Service Management für bis zu 3 Agenten',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Kostenloses Verfolgen von Projekten und Vorgängen für bis zu zehn Benutzer',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub und mehr',
   'fabric.atlassianSwitcher.gittools.label': 'Git-Integrationen für Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-Projekt',
   'fabric.atlassianSwitcher.join': 'Beitreten',
@@ -52,7 +53,7 @@ export default {
     'Projekt- und Vorgangsnachverfolgung',
   'fabric.atlassianSwitcher.product.description.opsgenie':
     'Modernes Vorfallmanagement',
-  'fabric.atlassianSwitcher.recent': 'Letzte',
+  'fabric.atlassianSwitcher.recent': 'Zuletzt verwendet',
   'fabric.atlassianSwitcher.show.more.sites': 'Mehr Sites anzeigen',
   'fabric.atlassianSwitcher.sign.up.to.join.body':
     'Erstellen Sie mit Ihrer E-Mail-Adresse {email} ein Atlassian-Konto oder loggen Sie sich ein, wenn Sie bereits eins haben, um ein Teil von {productLabel} zu werden.',

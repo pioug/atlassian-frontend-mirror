@@ -39,7 +39,7 @@ describe(name, () => {
       expect(availableNodes).not.toContain('mediaGroup');
     });
 
-    it('mediaSingle should be a mediaSingle when UNSAFE_allowImageCaptions isnt present', () => {
+    it('mediaSingle should be a mediaSingle when captions is off by default', () => {
       const plugin = mediaPlugin({
         provider: Promise.resolve() as any,
         allowMediaSingle: true,
@@ -48,11 +48,11 @@ describe(name, () => {
       expect(getNode(plugin, 'mediaSingle')!.node).toBe(mediaSingle);
     });
 
-    it('mediaSingle should be a mediaSingleWithCaption when UNSAFE_allowImageCaptions is true', () => {
+    it('mediaSingle should be a mediaSingleWithCaption when captions is enabled', () => {
       const plugin = mediaPlugin({
         provider: Promise.resolve() as any,
         allowMediaSingle: true,
-        UNSAFE_allowImageCaptions: true,
+        featureFlags: { captions: true },
       });
 
       expect(getNode(plugin, 'mediaSingle')!.node).toBe(mediaSingleWithCaption);

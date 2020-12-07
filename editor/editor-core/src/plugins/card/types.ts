@@ -1,6 +1,5 @@
 import { INPUT_METHOD, ACTION } from '../analytics/types/enums';
 import {
-  Providers,
   CardProvider,
   CardAppearance,
   CardAdf,
@@ -11,14 +10,6 @@ export type CardInfo = {
   url?: string;
   pos: number;
 };
-
-export interface CardOptions {
-  provider?: Providers['cardProvider'];
-  resolveBeforeMacros?: string[];
-  allowBlockCards?: boolean;
-  allowEmbeds?: boolean;
-  allowResizing?: boolean;
-}
 
 export type Request = {
   pos: number;

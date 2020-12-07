@@ -26,6 +26,12 @@ export type TransactionTracking = {
   enabled: boolean;
 
   /**
+   * @description Enable timing using browser performance API. This option has been added to verify memory leaks.
+   * @default false
+   **/
+  usePerformanceMarks?: boolean;
+
+  /**
    * @description The nth transaction after which a `dispatchTransaction` event is sent. Depends on enabled being true.
    * @default 100
    **/

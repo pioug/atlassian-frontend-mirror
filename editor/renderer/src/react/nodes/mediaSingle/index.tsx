@@ -21,7 +21,7 @@ import { FullPagePadding } from '../../../ui/Renderer/style';
 import { RendererAppearance } from '../../../ui/Renderer/types';
 import { MediaProps } from '../media';
 import { ExtendedUIMediaSingle } from './styles';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 
 export interface Props {
   children: React.ReactNode;
@@ -99,8 +99,10 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
     });
   };
 
-  private isCaptionsFlaggedOn =
-    this.props.featureFlags && this.props.featureFlags.captions;
+  private isCaptionsFlaggedOn = getMediaFeatureFlag(
+    'captions',
+    this.props.featureFlags,
+  );
 
   render() {
     const { props } = this;
@@ -205,10 +207,8 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
               pctWidth={props.width}
               fullWidthMode={isFullWidth}
             >
-              <>
-                <>{mediaComponent}</>
-                {this.isCaptionsFlaggedOn && caption}
-              </>
+              <>{mediaComponent}</>
+              {this.isCaptionsFlaggedOn && caption}
             </ExtendedUIMediaSingle>
           );
         }}

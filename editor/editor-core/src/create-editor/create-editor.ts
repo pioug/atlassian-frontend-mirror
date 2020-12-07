@@ -106,20 +106,42 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 const TRACKING_DEFAULT = { enabled: false };
 
 export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
-  const { editorConfig, performanceTracking = {}, ...rest } = config;
+  const {
+    editorConfig,
+    performanceTracking = {},
+    transactionTracker,
+    ...rest
+  } = config;
   const {
     uiTracking = TRACKING_DEFAULT,
     transactionTracking = TRACKING_DEFAULT,
   } = performanceTracking;
 
-  const instrumentPlugin =
-    uiTracking.enabled || transactionTracking.enabled
-      ? (plugin: Plugin): Plugin =>
-          InstrumentedPlugin.fromPlugin(plugin, {
+  const useInstrumentedPlugin =
+    uiTracking.enabled || transactionTracking.enabled;
+
+  if (
+    process.env.NODE_ENV === 'development' &&
+    transactionTracking.enabled &&
+    !transactionTracker
+  ) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'createPMPlugins(): tracking is turned on but transactionTracker not defined! Transaction tracking has been disabled',
+    );
+  }
+
+  const instrumentPlugin = useInstrumentedPlugin
+    ? (plugin: Plugin): Plugin =>
+        InstrumentedPlugin.fromPlugin(
+          plugin,
+          {
             uiTracking,
             transactionTracking,
-          })
-      : (plugin: Plugin): Plugin => plugin;
+          },
+          transactionTracker,
+        )
+    : (plugin: Plugin): Plugin => plugin;
 
   return editorConfig.pmPlugins
     .sort(sortByOrder('plugins'))

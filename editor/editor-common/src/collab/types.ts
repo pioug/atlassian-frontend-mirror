@@ -47,17 +47,7 @@ export interface CollabSendableSelection {
   head: number;
 }
 
-export type CollabEvent =
-  | 'init'
-  | 'connected'
-  | 'data'
-  | 'telepointer'
-  | 'presence'
-  | 'error'
-  | 'local-steps'
-  | 'editor-appearance'
-  | 'title:changed'
-  | 'entity';
+export type CollabEvent = keyof CollabEventData;
 
 export interface CollabEventData {
   init: CollabEventInitData;
@@ -66,20 +56,22 @@ export interface CollabEventData {
   telepointer: CollabEventTelepointerData;
   presence: CollabEventPresenceData;
   error: any;
+  'local-steps': any;
+  entity: any;
 }
 
-export interface CollabEditProvider {
+export interface CollabEditProvider<
+  Events extends CollabEventData = CollabEventData
+> {
   initialize(getState: () => any, createStep: (json: object) => Step): this;
 
   send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
 
-  on(evt: CollabEvent, handler: (...args: any) => void): this;
+  on(evt: keyof Events, handler: (...args: any) => void): this;
 
-  off(evt: CollabEvent, handler: (...args: any) => void): this;
+  off(evt: keyof Events, handler: (...args: any) => void): this;
 
-  unsubscribeAll(evt: CollabEvent): this;
+  unsubscribeAll(evt: keyof Events): this;
 
-  sendMessage<T extends keyof CollabEventData>(
-    data: { type: T } & CollabEventData[T],
-  ): void;
+  sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
 }

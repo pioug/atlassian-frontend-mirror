@@ -1,5 +1,28 @@
 # @atlaskit/editor-mobile-bridge
 
+## 21.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Major Changes
+
+- [`e984b12c67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e984b12c67) - ED-10835 - Added new `configureEditor` bridge method to change the Editorsettings. Mobile Clients needs to use `configureEditor` bridge method to set `mode` and remove `mode` parameter usage from query params while initial load of the editor.
+  Relevant changes on mobile should be completed as part of below stories.
+  ED-11271 https://product-fabric.atlassian.net/browse/ED-11271
+  ED-11270 https://product-fabric.atlassian.net/browse/ED-11270
+
+### Minor Changes
+
+- [`da77198e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da77198e43) - Rename title:changed to metadata:changed in collab provider, editor common and mobile bridge
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.2.2
 
 ### Patch Changes

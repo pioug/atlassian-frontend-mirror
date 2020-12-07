@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { Field } from '@atlaskit/form';
-import { SmartUserPicker, DefaultValue, Value } from '@atlaskit/user-picker';
+import { Field, FieldProps } from '@atlaskit/form';
+import {
+  hydrateDefaultValues,
+  SmartUserPicker,
+  DefaultValue,
+  Value as UnsafeValue,
+} from '@atlaskit/user-picker';
 import {
   UserField,
   UserFieldContext,
@@ -11,16 +16,9 @@ import {
 
 import { OnBlur } from '../types';
 import UnhandledType from './UnhandledType';
+import { validate } from '../utils';
 
 import FieldMessages from '../FieldMessages';
-
-type Props = {
-  field: UserField;
-  extensionManifest: ExtensionManifest;
-  onBlur: OnBlur;
-  autoFocus?: boolean;
-};
-
 type FieldValue = UserField['defaultValue'];
 
 function makeCompat(defaultValue: FieldValue): DefaultValue {
@@ -33,7 +31,7 @@ function makeCompat(defaultValue: FieldValue): DefaultValue {
   return { type: 'user', id: defaultValue };
 }
 
-function makeSafe(value: Value | DefaultValue): FieldValue {
+function makeSafe(value: UnsafeValue | DefaultValue): FieldValue {
   if (!value) {
     return null;
   }
@@ -47,24 +45,22 @@ function makeSafe(value: Value | DefaultValue): FieldValue {
   return value.id;
 }
 
-export default function UserSelect({
-  autoFocus,
-  extensionManifest,
+function SafeSmartUserPicker({
+  context,
   field,
+  formFieldProps,
+  autoFocus,
   onBlur,
-}: Props) {
-  const [context, setContext] = useState({} as Partial<UserFieldContext>);
-  const {
-    name,
-    label,
-    defaultValue,
-    description,
-    placeholder,
-    isMultiple,
-    isRequired,
-    options,
-  } = field;
-  const { type } = options.provider;
+  onChange,
+}: {
+  context: UserFieldContext;
+  field: UserField;
+  formFieldProps: FieldProps<FieldValue>;
+  autoFocus: boolean;
+  onBlur: () => void;
+  onChange: (_: FieldValue) => void;
+}) {
+  const [unsafeValue, setUnsafeValue] = useState(null as UnsafeValue);
   const {
     siteId,
     principalId,
@@ -75,11 +71,86 @@ export default function UserSelect({
     childObjectId,
     productAttributes,
     includeUsers = true,
-    includeGroups = false,
-    includeTeams = false,
   } = context;
+  const { value: safeValue, ...formFieldPropsRest } = formFieldProps;
+  const { isMultiple, placeholder } = field;
+
+  function onChangeUnsafe(newValue: UnsafeValue) {
+    setUnsafeValue(newValue);
+    onChange(makeSafe(newValue));
+  }
 
   useEffect(() => {
+    let cancel = false;
+
+    async function hydrate() {
+      const hydrated = await hydrateDefaultValues(
+        makeCompat(safeValue),
+        productKey,
+      );
+
+      if (cancel) {
+        return;
+      }
+
+      setUnsafeValue(hydrated);
+    }
+
+    hydrate();
+
+    return () => {
+      cancel = true;
+    };
+  }, [safeValue, productKey]);
+
+  return (
+    <SmartUserPicker
+      {...formFieldPropsRest}
+      onChange={onChangeUnsafe}
+      autoFocus={autoFocus}
+      onBlur={onBlur}
+      maxOptions={10}
+      isClearable={true}
+      isMulti={isMultiple}
+      includeUsers={includeUsers}
+      includeGroups={false}
+      includeTeams={false}
+      fieldId={fieldId}
+      principalId={principalId}
+      siteId={siteId}
+      productKey={productKey}
+      objectId={objectId}
+      containerId={containerId}
+      childObjectId={childObjectId}
+      placeholder={placeholder}
+      productAttributes={productAttributes}
+      value={unsafeValue}
+      width="100%"
+    />
+  );
+}
+
+export default function UserSelect({
+  name,
+  autoFocus,
+  extensionManifest,
+  field,
+  onBlur,
+}: {
+  name: string;
+  field: UserField;
+  extensionManifest: ExtensionManifest;
+  onBlur: OnBlur;
+  autoFocus?: boolean;
+}) {
+  const [context, setContext] = useState({} as Partial<UserFieldContext>);
+  const { siteId, principalId, fieldId, productKey } = context;
+  const { label, defaultValue, description, isRequired, options } = field;
+  const { type } = options.provider;
+
+  useEffect(() => {
+    let cancel = false;
+
     async function fetchContext() {
       try {
         const context = await (
@@ -89,6 +160,10 @@ export default function UserSelect({
           )
         )();
 
+        if (cancel) {
+          return;
+        }
+
         setContext(context);
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -97,6 +172,10 @@ export default function UserSelect({
     }
 
     fetchContext();
+
+    return () => {
+      cancel = true;
+    };
   }, [extensionManifest, field.options.provider]);
 
   return (
@@ -105,7 +184,7 @@ export default function UserSelect({
       label={label}
       isRequired={isRequired}
       defaultValue={defaultValue}
-      validate={(value: any) => {}}
+      validate={value => validate(field, value)}
     >
       {({ fieldProps, error }) => {
         // if any of these don't exists, the provider is missing
@@ -119,36 +198,20 @@ export default function UserSelect({
           );
         }
 
-        function onChange(value: Value) {
-          fieldProps.onChange(makeSafe(value));
+        function onChange(value: FieldValue) {
+          fieldProps.onChange(value);
           onBlur(name);
         }
 
-        const { value, ...fieldPropsRest } = fieldProps;
         return (
           <>
-            <SmartUserPicker
-              {...fieldPropsRest}
-              onChange={onChange}
-              autoFocus={autoFocus}
+            <SafeSmartUserPicker
+              context={context as UserFieldContext}
+              field={field}
+              formFieldProps={fieldProps}
+              autoFocus={autoFocus || false}
               onBlur={() => onBlur(name)}
-              defaultValue={makeCompat(value)}
-              maxOptions={10}
-              isClearable={true}
-              isMulti={isMultiple}
-              includeUsers={includeUsers}
-              includeGroups={includeGroups}
-              includeTeams={includeTeams}
-              fieldId={fieldId}
-              principalId={principalId}
-              siteId={siteId}
-              productKey={productKey}
-              objectId={objectId}
-              containerId={containerId}
-              childObjectId={childObjectId}
-              placeholder={placeholder}
-              productAttributes={productAttributes}
-              width="100%"
+              onChange={onChange}
             />
             <FieldMessages error={error} description={description} />
           </>

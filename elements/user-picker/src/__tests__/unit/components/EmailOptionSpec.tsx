@@ -59,9 +59,7 @@ describe('EmailOption', () => {
     const message = renderProp(formattedMessage, 'children', 'Invite');
     const avatarItemOption = message.find(AvatarItemOption);
     expect(avatarItemOption.props()).toMatchObject({
-      avatar: (
-        <AddOptionAvatar label="Invite" suggestion={true} size={'medium'} />
-      ),
+      avatar: <AddOptionAvatar label="Invite" suggestion={true} />,
       primaryText: 'test@test.com',
       secondaryText: 'Invite',
       lozenge: {

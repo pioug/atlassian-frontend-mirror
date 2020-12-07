@@ -25,7 +25,7 @@ import {
 
 import { flushPromises } from '../../__helpers/utils';
 
-import { setEnv } from '@atlaskit/user-picker/src/components/smart-user-picker/config';
+import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
 import ConfigPanel from '../../../ui/ConfigPanel';
@@ -111,7 +111,7 @@ const createManifest = (
           'user-jdog-provider': {
             provider: async () => {
               // WARNING: this is required by the SmartUserPicker for testing environments
-              setEnv('local');
+              setSmartUserPickerEnv('local');
 
               return {
                 siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',
@@ -885,14 +885,14 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           it('should create a Checkbox by default', async () => {
             const { wrapper } = await mountBoolean();
-            const field = wrapper.find('Checkbox');
+            const field = wrapper.find('input[type="checkbox"]');
 
             expect(field.length).toBe(1);
           });
 
           it('should create a Checkbox when styled', async () => {
             const { wrapper } = await mountBoolean({ style: 'checkbox' });
-            const field = wrapper.find('Checkbox');
+            const field = wrapper.find('input[type="checkbox"]');
 
             expect(field.length).toBe(1);
           });
@@ -908,9 +908,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             const { wrapper, doSubmitForm } = await mountBoolean({
               name: 'foo',
             });
-            const field = wrapper.find('Checkbox');
+            const field = wrapper.find('input[type="checkbox"]');
 
-            toggleCheckbox(field.find('input'));
+            toggleCheckbox(field);
 
             await doSubmitForm();
 
@@ -1066,7 +1066,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   style: 'checkbox',
                 });
 
-                const field = wrapper.find('Checkbox');
+                const field = wrapper.find('input[type="checkbox"]');
 
                 toggleCheckbox(field.at(0).find('input'));
                 toggleCheckbox(field.at(2).find('input'));
@@ -1763,8 +1763,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         });
 
         describe('defaultValue', () => {
-          it('should pass defaultValue to the fieldResolver', async () => {
+          it('should pass defaultValue and parameters to the fieldResolver', async () => {
             const pickerWithDefaultValue = jest.fn(async () => []);
+            const parameters = {
+              'user-lazy': 'akumar',
+            };
             await mountWithProviders({
               ...defaultProps,
               extensionProvider: createProvider(
@@ -1792,20 +1795,22 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   },
                 },
               ),
-              parameters: {
-                'user-lazy': 'akumar',
-              },
+              parameters,
             });
 
             expect(pickerWithDefaultValue).toHaveBeenCalledWith(
               undefined,
               'akumar',
+              parameters,
             );
           });
 
           describe('prop: isMultiple', () => {
-            it('should pass an array of defaultValues to the fieldResolver', async () => {
+            it('should pass an array of defaultValues and parameters to the fieldResolver', async () => {
               const pickerWithDefaultValue = jest.fn(async () => []);
+              const parameters = {
+                'user-lazy': ['akumar', 'llemos', 'rnabi', 'jquintana'],
+              };
               await mountWithProviders({
                 ...defaultProps,
                 extensionProvider: createProvider(
@@ -1834,17 +1839,14 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                     },
                   },
                 ),
-                parameters: {
-                  'user-lazy': ['akumar', 'llemos', 'rnabi', 'jquintana'],
-                },
+                parameters,
               });
 
-              expect(pickerWithDefaultValue).toHaveBeenCalledWith(undefined, [
-                'akumar',
-                'llemos',
-                'rnabi',
-                'jquintana',
-              ]);
+              expect(pickerWithDefaultValue).toHaveBeenCalledWith(
+                undefined,
+                ['akumar', 'llemos', 'rnabi', 'jquintana'],
+                parameters,
+              );
             });
           });
         });

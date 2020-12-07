@@ -317,6 +317,20 @@ export const findSelectableContainerBefore = (
         return;
       }
     }
+
+    /**
+     * Stick to the default left selection behaviour,
+     * useful for mediaSingleWithCaption
+     */
+    if (
+      selectionBefore instanceof NodeSelection &&
+      NodeSelection.isSelectable(selectionBefore.node)
+    ) {
+      return {
+        node: selectionBefore.node,
+        pos: selectionBefore.from,
+      };
+    }
   }
 };
 

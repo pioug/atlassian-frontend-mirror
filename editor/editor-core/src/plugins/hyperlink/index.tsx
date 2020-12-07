@@ -2,6 +2,7 @@ import React from 'react';
 import { link } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
+import { CardOptions } from '@atlaskit/editor-common';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey, LinkAction } from './pm-plugins/main';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
@@ -17,7 +18,6 @@ import { getToolbarConfig } from './Toolbar';
 import { tooltip, addLink } from '../../keymaps';
 import { IconLink } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { CardOptions } from '../card';
 
 const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
   name: 'hyperlink',
@@ -27,6 +27,9 @@ const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
   },
 
   pmPlugins() {
+    // Skip analytics if card provider is available, as they will be
+    // sent on handleRejected upon attempting to resolve smart link.
+    const skipAnalytics = !!options && !!options.provider;
     return [
       { name: 'hyperlink', plugin: ({ dispatch }) => plugin(dispatch) },
       {
@@ -35,11 +38,11 @@ const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
       },
       {
         name: 'hyperlinkInputRule',
-        plugin: ({ schema }) => createInputRulePlugin(schema),
+        plugin: ({ schema }) => createInputRulePlugin(schema, skipAnalytics),
       },
       {
         name: 'hyperlinkKeymap',
-        plugin: () => createKeymapPlugin(),
+        plugin: () => createKeymapPlugin(skipAnalytics),
       },
     ];
   },

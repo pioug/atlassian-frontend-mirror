@@ -29,11 +29,6 @@ function isCursorInFirstDateSegment(cursorPos: number, date: string): boolean {
   const strippedDate = date.replace(/[^0-9]+$/g, '');
   while (posCounter >= 0 && isAdjacent) {
     const c = strippedDate[posCounter];
-    // if(c === undefined) {
-    //   console.log("c undef");
-    //   console.log({posCounter, strippedDate,cursorPos,date})
-
-    // }
 
     if (!isDigit(c)) {
       isAdjacent = false;

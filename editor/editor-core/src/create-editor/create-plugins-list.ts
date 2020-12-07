@@ -42,12 +42,14 @@ import {
   contextPanelPlugin,
   mobileSelectionPlugin,
   annotationPlugin,
+  captionPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
 import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
 import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import {
   NORMAL_SEVERITY_THRESHOLD,
   DEGRADED_SEVERITY_THRESHOLD,
@@ -281,6 +283,11 @@ export default function createPluginsList(
         alignLeftOnInsert,
       },
     ]);
+
+    // EDM-799: inside caption plugin we do the feature flag in enabling the plugin
+    if (getMediaFeatureFlag('captions', props.media.featureFlags)) {
+      preset.add(captionPlugin);
+    }
   }
 
   if (props.mentionProvider) {

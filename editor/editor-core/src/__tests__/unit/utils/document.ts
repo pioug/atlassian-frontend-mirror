@@ -468,85 +468,6 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
-      it(
-        'should invoke error callback with  erorr code as "REDUNDANT_ATTRIBUTES" ' +
-          ' when we apply attribute to a mark which does not support any attributes' +
-          'and the node has multiple specs with multiple marks',
-        () => {
-          const strongMarkWithAttribute = {
-            type: 'strong',
-            attrs: {
-              bgStrong: 'red',
-            },
-          };
-          const strikeMarkWithAttribute = {
-            type: 'strike',
-            attrs: {
-              bg: 'red',
-            },
-          };
-          const entity = {
-            version: 1,
-            type: 'doc',
-            content: [
-              {
-                type: 'paragraph',
-                content: [
-                  {
-                    type: 'text',
-                    text: 'Hello',
-                    marks: [strongMarkWithAttribute, strikeMarkWithAttribute],
-                  },
-                ],
-              },
-            ],
-          };
-
-          const result = processRawValue(schema, entity);
-
-          const expected = {
-            type: 'doc',
-            content: [
-              {
-                type: 'paragraph',
-                content: [
-                  {
-                    type: 'text',
-                    text: 'Hello',
-                    marks: [
-                      {
-                        attrs: {
-                          originalValue: {
-                            attrs: {
-                              bgStrong: 'red',
-                            },
-                            type: 'strong',
-                          },
-                        },
-                        type: 'unsupportedMark',
-                      },
-                      {
-                        attrs: {
-                          originalValue: {
-                            attrs: {
-                              bg: 'red',
-                            },
-                            type: 'strike',
-                          },
-                        },
-                        type: 'unsupportedMark',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          };
-
-          expect(result).toBeDefined();
-          expect(result!.toJSON()).toEqual(expected);
-        },
-      );
       it(`should wrap mark with unsupportedMark, when a known not supported mark
           is applied to a node with single spec`, () => {
         const intialEntity = {
@@ -704,161 +625,6 @@ describe(name, () => {
           expect(result!.toJSON()).toEqual(expected);
         },
       );
-
-      it(`should wrap mark with unsupportedMark when we apply known and valid marks, and that marks
-          does not support any attributes and the node has multiple validation specs`, () => {
-        const strongMarkWithAttribute = {
-          type: 'strong',
-          attrs: {
-            bgStrong: 'red',
-          },
-        };
-        const strikeMarkWithAttribute = {
-          type: 'strike',
-          attrs: {
-            bg: 'red',
-          },
-        };
-        const initialEntity = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Hello',
-                  marks: [strongMarkWithAttribute, strikeMarkWithAttribute],
-                },
-              ],
-            },
-          ],
-        };
-        const expected = {
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Hello',
-                  marks: [
-                    {
-                      type: 'unsupportedMark',
-                      attrs: {
-                        originalValue: strongMarkWithAttribute,
-                      },
-                    },
-                    {
-                      type: 'unsupportedMark',
-                      attrs: {
-                        originalValue: strikeMarkWithAttribute,
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
-
-        const result = processRawValue(schema, initialEntity);
-        expect(result).toBeDefined();
-        expect(result!.toJSON()).toEqual(expected);
-      });
-
-      it(`should wrap unknown mark(s) with unsupportedMark's when a known and valid mark(s) are applied along
-          with unknown mark(s) to a node(s) with multple specs.`, () => {
-        const unknownFontSize = {
-          type: 'fontSize',
-          attrs: {
-            mode: 'wide',
-          },
-        };
-        const unknownBackground = {
-          type: 'background',
-          attrs: {
-            mode: 'wide',
-          },
-        };
-        const alignment = {
-          type: 'alignment',
-          attrs: {
-            align: 'center',
-          },
-        };
-
-        const code = {
-          type: 'code',
-        };
-        const unknownTextBackground = {
-          type: 'textBackground',
-        };
-        const unknownTextForeground = {
-          type: 'textForeground',
-        };
-
-        const initialEntity = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Some Text',
-                  marks: [code, unknownTextBackground, unknownTextForeground],
-                },
-              ],
-              marks: [alignment, unknownBackground, unknownFontSize],
-            },
-          ],
-        };
-
-        const expected = {
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Some Text',
-                  marks: [
-                    code,
-                    {
-                      type: 'unsupportedMark',
-                      attrs: { originalValue: unknownTextBackground },
-                    },
-                    {
-                      type: 'unsupportedMark',
-                      attrs: { originalValue: unknownTextForeground },
-                    },
-                  ],
-                },
-              ],
-              marks: [
-                alignment,
-                {
-                  type: 'unsupportedMark',
-                  attrs: { originalValue: unknownBackground },
-                },
-                {
-                  type: 'unsupportedMark',
-                  attrs: { originalValue: unknownFontSize },
-                },
-              ],
-            },
-          ],
-        };
-
-        const result = processRawValue(schema, initialEntity);
-        expect(result).toBeDefined();
-        expect(result!.toJSON()).toEqual(expected);
-      });
 
       describe('unsupportedNodeAttribute', () => {
         it.each<[string, object, object]>([
@@ -1644,6 +1410,307 @@ describe(name, () => {
           expect(result).toBeDefined();
           expect(result!.toJSON()).toEqual(expected);
         });
+      });
+    });
+
+    describe('Nodes with Multiple Validator Specs', () => {
+      it(`should invoke error callback with  erorr code as "REDUNDANT_ATTRIBUTES"
+        when we apply attribute to a mark which does not support any attributes
+        and the node has multiple specs with multiple marks`, () => {
+        const strongMarkWithAttribute = {
+          type: 'strong',
+          attrs: {
+            bgStrong: 'red',
+          },
+        };
+        const strikeMarkWithAttribute = {
+          type: 'strike',
+          attrs: {
+            bg: 'red',
+          },
+        };
+        const entity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [strongMarkWithAttribute, strikeMarkWithAttribute],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, entity);
+
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [
+                    {
+                      attrs: {
+                        originalValue: {
+                          attrs: {
+                            bgStrong: 'red',
+                          },
+                          type: 'strong',
+                        },
+                      },
+                      type: 'unsupportedMark',
+                    },
+                    {
+                      attrs: {
+                        originalValue: {
+                          attrs: {
+                            bg: 'red',
+                          },
+                          type: 'strike',
+                        },
+                      },
+                      type: 'unsupportedMark',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it(`should wrap mark with unsupportedMark when we apply known and valid marks, and that marks
+          does not support any attributes and the node has multiple validation specs`, () => {
+        const strongMarkWithAttribute = {
+          type: 'strong',
+          attrs: {
+            bgStrong: 'red',
+          },
+        };
+        const strikeMarkWithAttribute = {
+          type: 'strike',
+          attrs: {
+            bg: 'red',
+          },
+        };
+        const initialEntity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [strongMarkWithAttribute, strikeMarkWithAttribute],
+                },
+              ],
+            },
+          ],
+        };
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello',
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: strongMarkWithAttribute,
+                      },
+                    },
+                    {
+                      type: 'unsupportedMark',
+                      attrs: {
+                        originalValue: strikeMarkWithAttribute,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, initialEntity);
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it(`should wrap unknown mark(s) with unsupportedMark's when a known and valid mark(s) are applied along
+      with unknown mark(s) to a node(s) with multple specs.`, () => {
+        const unknownFontSize = {
+          type: 'fontSize',
+          attrs: {
+            mode: 'wide',
+          },
+        };
+        const unknownBackground = {
+          type: 'background',
+          attrs: {
+            mode: 'wide',
+          },
+        };
+        const alignment = {
+          type: 'alignment',
+          attrs: {
+            align: 'center',
+          },
+        };
+
+        const code = {
+          type: 'code',
+        };
+        const unknownTextBackground = {
+          type: 'textBackground',
+        };
+        const unknownTextForeground = {
+          type: 'textForeground',
+        };
+
+        const initialEntity = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [code, unknownTextBackground, unknownTextForeground],
+                },
+              ],
+              marks: [alignment, unknownBackground, unknownFontSize],
+            },
+          ],
+        };
+        /**
+         * Valid marks are also wrapped in unsupportedMark because
+         * For a node if none of the spec is valid we return the first Spec.
+         */
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Some Text',
+                  marks: [
+                    {
+                      type: 'unsupportedMark',
+                      attrs: { originalValue: code },
+                    },
+                    {
+                      type: 'unsupportedMark',
+                      attrs: { originalValue: unknownTextBackground },
+                    },
+                    {
+                      type: 'unsupportedMark',
+                      attrs: { originalValue: unknownTextForeground },
+                    },
+                  ],
+                },
+              ],
+              marks: [
+                {
+                  type: 'unsupportedMark',
+                  attrs: { originalValue: alignment },
+                },
+                {
+                  type: 'unsupportedMark',
+                  attrs: { originalValue: unknownBackground },
+                },
+                {
+                  type: 'unsupportedMark',
+                  attrs: { originalValue: unknownFontSize },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, initialEntity);
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('Inline comment on a Inline code when resolved should not wrap inline code in unsupportedMark', () => {
+        const content = {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'This is ',
+            },
+            {
+              type: 'text',
+              text: 'some ',
+              marks: [
+                {
+                  type: 'code',
+                },
+              ],
+            },
+            {
+              type: 'text',
+              text: 'inline',
+              marks: [
+                {
+                  type: 'code',
+                },
+                {
+                  type: 'annotation',
+                  attrs: {
+                    id: '80f91695-4e24-433d-93e1-6458b8bb12476',
+                    annotationType: 'inlineComment',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'text',
+              text: ' code',
+              marks: [
+                {
+                  type: 'code',
+                },
+              ],
+            },
+          ],
+        };
+        const initialEntity = {
+          version: 1,
+          type: 'doc',
+          content: [content],
+        };
+        const expectedEntity = {
+          type: 'doc',
+          content: [content],
+        };
+        const result = processRawValue(schema, initialEntity);
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expectedEntity);
       });
     });
   });

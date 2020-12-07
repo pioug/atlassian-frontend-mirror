@@ -3,9 +3,7 @@ import { inlineCard, blockCard, embedCard } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
-import { CardOptions } from './types';
-
-export type { CardOptions } from './types';
+import { CardOptions } from '@atlaskit/editor-common';
 
 export const stateKey = new PluginKey('cardPlugin');
 

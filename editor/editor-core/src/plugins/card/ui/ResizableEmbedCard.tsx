@@ -324,6 +324,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
           {...this.props}
           width={width}
           height={height}
+          ratio={((height / width) * 100).toFixed(3)}
           enable={enable}
           calcNewSize={this.calcNewSize}
           snapPoints={this.calcSnapPoints()}

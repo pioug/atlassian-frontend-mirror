@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 7.3.1
+
+### Patch Changes
+
+- [`8af040a491`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8af040a491) - Reformating suggested emails if user inputs a space in the picker, aligning email suggestion avatar size with other options in the picker
+
+## 7.3.0
+
+### Minor Changes
+
+- [`39055f3ac5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39055f3ac5) - ED-10694: Fix FieldComponent defaultValue behaviour losing value due to mutation
+
 ## 7.2.1
 
 ### Patch Changes

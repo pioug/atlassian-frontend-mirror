@@ -24,8 +24,6 @@ export type UserFieldContext = Pick<
   | 'childObjectId'
   | 'productAttributes'
   | 'includeUsers'
-  | 'includeGroups'
-  | 'includeTeams'
 >;
 
 interface BaseFieldDefinition {

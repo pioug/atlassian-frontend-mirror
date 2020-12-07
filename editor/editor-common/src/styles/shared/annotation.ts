@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { Y300, Y75 } from '@atlaskit/theme/colors';
+import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 
 export const annotationPrefix = 'ak-editor-annotation';
@@ -23,6 +23,7 @@ export const AnnotationSharedCSSByState = {
   focus: css`
     background: ${themed({ light: Y75, dark: DY75 })};
     border-bottom: 2px solid ${themed({ light: Y300, dark: DY300 })};
+    box-shadow: 1px 2px 3px ${N60A}, -1px 2px 3px ${N60A};
     cursor: pointer;
   `,
   blur: css`

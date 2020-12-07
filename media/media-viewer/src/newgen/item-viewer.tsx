@@ -21,6 +21,7 @@ import ErrorMessage, {
   createError,
   MediaViewerError,
   ErrorName,
+  hasErrorStatus,
 } from './error';
 import { ErrorViewDownloadButton } from './download';
 import {
@@ -134,10 +135,11 @@ export class ItemViewerBase extends React.Component<Props, State> {
   private onDocError = (fileState: FileState) => (error: Error) => {
     const processedFileState =
       fileState.status === 'processed' ? fileState : undefined;
+    const httpStatus = hasErrorStatus(error) ? `status=${error.status}` : '';
     this.fireAnalytics(
       mediaFileLoadFailedEvent(
         fileState.id,
-        `${error.name}: ${error.message}`,
+        `${error.name} ${httpStatus}`,
         processedFileState,
       ),
     );

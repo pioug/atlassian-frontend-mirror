@@ -1,4 +1,4 @@
-export { default as SmartUserPicker } from './components';
+export { default as SmartUserPicker, hydrateDefaultValues } from './components';
 export type {
   SupportedProduct,
   RecommendationRequest,

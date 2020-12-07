@@ -45,6 +45,7 @@ import { queueCards, setProvider } from '../../actions';
 import { setTextSelection } from '../../../../../utils';
 import {
   insertCard,
+  handleFallbackWithAnalytics,
   queueCardsFromChangedTr,
   updateCard,
   setSelectedCardAppearance,
@@ -972,6 +973,42 @@ describe('card', () => {
       ].forEach(({ initialDoc, expectedContext }) =>
         testWithContext(initialDoc, expectedContext),
       );
+    });
+
+    describe('#handleFallbackWithAnalytics', () => {
+      it('sends an analytics event upon falling back to a blue link', () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              'hello have a link {<>}',
+              a({ href: atlassianUrl })(atlassianUrl),
+            ),
+          ),
+        );
+
+        const { state, dispatch } = editorView;
+        handleFallbackWithAnalytics(atlassianUrl, INPUT_METHOD.MANUAL)(
+          state,
+          dispatch,
+        );
+        expect(createAnalyticsEvent).toBeCalled();
+        expect(createAnalyticsEvent).toBeCalledWith({
+          action: 'inserted',
+          actionSubject: 'document',
+          actionSubjectId: 'link',
+          attributes: {
+            fromCurrentDomain: false,
+            inputMethod: 'manual',
+            insertLocation: 'doc',
+            selectionPosition: 'middle',
+            selectionType: 'cursor',
+          },
+          eventType: 'track',
+          nonPrivacySafeAttributes: {
+            linkDomain: 'atlassian.com',
+          },
+        });
+      });
     });
 
     describe('#insertCard', () => {

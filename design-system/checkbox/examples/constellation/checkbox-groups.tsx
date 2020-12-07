@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+/**  @jsx jsx */
+import { useState } from 'react';
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/core';
 
 import { N500 } from '@atlaskit/theme/colors';
 import Toggle from '@atlaskit/toggle';
 
 import { Checkbox } from '../../src';
 
-const GroupDiv = styled.div`
-  display: flex;
-  flex-direction: ${(prop: { flexDirection: string }) => prop.flexDirection};
-  padding-bottom: 16px;
-`;
-
 const CheckboxGroups = () => {
-  const [flexDirection, setFlexDirection] = useState('column');
+  const [flexDirection, setFlexDirection] = useState<'column' | 'row'>(
+    'column',
+  );
 
   const onClick = () => {
     switch (flexDirection) {
@@ -34,7 +31,7 @@ const CheckboxGroups = () => {
   return (
     <div>
       <div
-        style={{
+        css={{
           borderStyle: 'dashed',
           borderWidth: '1px',
           backgroundColor: 'white',
@@ -55,11 +52,17 @@ const CheckboxGroups = () => {
             : `First two checkboxes change the flex-direction of the container div`}
         </span>
       </div>
-      <GroupDiv flexDirection={flexDirection}>
+      <div
+        css={{
+          display: 'flex',
+          flexDirection: flexDirection,
+          paddingBottom: '16px',
+        }}
+      >
         <Checkbox label="Chocolate" defaultChecked />
         <Checkbox label="Coffee" />
         <Checkbox label="Vanilla" />
-      </GroupDiv>
+      </div>
     </div>
   );
 };

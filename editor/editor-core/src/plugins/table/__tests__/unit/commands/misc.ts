@@ -1,31 +1,35 @@
+import { PluginKey } from 'prosemirror-state';
 import { isColumnSelected } from '@atlaskit/editor-tables/utils';
-
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   table,
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-
-import { EditorProps } from '../../../../../types';
+import {
+  Preset,
+  LightEditorPlugin,
+  createProsemirrorEditorFactory,
+} from '@atlaskit/editor-test-helpers/src/create-prosemirror-editor';
+import panelPlugin from '../../../../panel';
 import { selectColumn } from '../../../commands';
 import { getDecorations } from '../../../pm-plugins/decorations/plugin';
 import { getPluginState, pluginKey } from '../../../pm-plugins/plugin-factory';
 import { TableDecorations, TablePluginState } from '../../../types';
+import tablePlugin from '../../../';
 
 describe('table plugin: commands', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
-  const editor = (doc: any, props: Partial<EditorProps> = {}) =>
-    createEditor({
+  const createEditor = createProsemirrorEditorFactory();
+  const preset = new Preset<LightEditorPlugin>().add(panelPlugin).add([
+    tablePlugin,
+    {
+      tableOptions: { allowHeaderColumn: true },
+    },
+  ]);
+  const editor = (doc: any) =>
+    createEditor<TablePluginState, PluginKey>({
       doc,
-      editorProps: {
-        allowTables: {
-          allowHeaderRow: true,
-        },
-        allowPanel: true,
-        ...props,
-      },
+      preset,
       pluginKey,
     });
 

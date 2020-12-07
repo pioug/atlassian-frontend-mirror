@@ -1,5 +1,12 @@
 # @atlaskit/media-editor
 
+## 38.1.5
+
+### Patch Changes
+
+- [`4687af9eb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4687af9eb5) - Moving media-editor helper function to media-ui to be reusable across media
+- Updated dependencies
+
 ## 38.1.4
 
 ### Patch Changes

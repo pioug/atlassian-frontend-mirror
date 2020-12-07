@@ -46,17 +46,14 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
-import {
-  HeadingAnchorWrapperClassName,
-  HeadingAnchorWrapperLegacyClassName,
-} from '../../react/nodes/heading-anchor';
+import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
 
 export const FullPagePadding = 32;
 
 export type RendererWrapperProps = {
   appearance?: RendererAppearance;
   theme?: any;
-  newHeadingAnchorLinks: boolean;
+  allowNestedHeaderLinks: boolean;
   allowColumnSorting: boolean;
 };
 
@@ -88,7 +85,12 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 
 const headingAnchorStyle = (headingTag: string) =>
   css`
+    /**
+     * The copy link button doesn't reserve space in the DOM so that
+     * the text alignment isn't impacted by the button/icon's space.
+     */
     .${HeadingAnchorWrapperClassName} {
+      position: absolute;
       height: ${headingSizes[headingTag].lineHeight}em;
 
       margin-left: 6px;
@@ -96,26 +98,6 @@ const headingAnchorStyle = (headingTag: string) =>
       button {
         padding-left: 0;
         padding-right: 0;
-      }
-    }
-
-    .${HeadingAnchorWrapperLegacyClassName} {
-      position: absolute;
-      width: 0;
-      height: ${headingSizes[headingTag].lineHeight}em;
-
-      button {
-        opacity: 0;
-        transform: translate(8px, 0px);
-        transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
-      }
-    }
-
-    &:hover {
-      .${HeadingAnchorWrapperLegacyClassName} button {
-        opacity: 1;
-        transform: none;
-        width: unset;
       }
     }
 
@@ -147,23 +129,49 @@ const headingAnchorStyle = (headingTag: string) =>
   `;
 
 const alignedHeadingAnchorStyle = ({
-  newHeadingAnchorLinks,
+  allowNestedHeaderLinks,
 }: RendererWrapperProps) => {
-  if (!newHeadingAnchorLinks) {
-    // The below CSS negatively impacts the original UX so we skip it.
+  if (!allowNestedHeaderLinks) {
     return '';
   }
   return `
+    .fabric-editor-block-mark[data-align] > {
+      h1, h2, h3, h4, h5, h6 {
+        position: relative;
+      }
+    }
+
     /**
      * For right-alignment we flip the link to be before the heading
      * text so that the text is flush up against the edge of the editor's
      * container edge.
      */
-    /* FIXME: ED-10839 RTL nor flex-box are appropriate, we need to use an alternate approach.
     .fabric-editor-block-mark:not([data-align='center'])[data-align] {
         > {
           h1, h2, h3, h4, h5, h6 {
+            // Using right to left text to achieve the inverse effect
+            // of where the copy link button icon sits for left/center
+            // alignment.
+            // Although this is unorthodox it's the only approach which
+            // allows the button to sit flush against the left edge of
+            // bottom line of text.
             direction: rtl;
+
+            // By default RTL will negatively impact the layout of special
+            // characters within the heading text, and potentially other
+            // nested inline nodes. To prevent this we insert pseudo elements
+            // containing HTML entities to retain LTR for all heading content
+            // except for the copy link button.
+            > *:not(.${HeadingAnchorWrapperClassName}):not(br) {
+              ::before {
+                // Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
+                content: '\u202A';
+              }
+              ::after {
+                // Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
+                content: '\u202C';
+              }
+            }
           }
         }
         .${HeadingAnchorWrapperClassName} {
@@ -177,34 +185,35 @@ const alignedHeadingAnchorStyle = ({
         }
       }
     }
-    */
-
-    /**
-     * For center-alignment we ensure it doesn't reserve space in the
-     * DOM so that the text is centre aligned without the icon impacting it.
-     */
-    // FIXME: ED-10839 temporarily aplying to right alignment too
-    // .fabric-editor-block-mark[data-align='center'] {
-    .fabric-editor-block-mark[data-align] {
-      > {
-        h1, h2, h3, h4, h5, h6 {
-          position: relative;
-        }
-      }
-      .${HeadingAnchorWrapperClassName} {
-        position: absolute;
-      }
-    }
   `;
 };
 
 const tableSortableColumnStyle = ({
   allowColumnSorting,
-  newHeadingAnchorLinks,
+  allowNestedHeaderLinks,
 }: RendererWrapperProps) => {
+  if (!allowColumnSorting) {
+    return '';
+  }
   let headingsCss = '';
-  if (allowColumnSorting && newHeadingAnchorLinks) {
+  if (allowNestedHeaderLinks) {
     headingsCss = `
+      /**
+       * When the sort button is enabled we want the heading's copy link button
+       * to reserve space so that it can prematurely wrap to avoid the button
+       * being displayed underneath the sort button (hidden or obscured).
+       *
+       * The two buttons fight each other since the sort button is displayed
+       * on hover of the <th /> and the copy link button is displayed on hover
+       * of the heading.
+       *
+       * Note that this can break the WYSIWYG experience in the case where
+       * a heading fills the width of the table cell and the only thing which
+       * wraps is the copy link button. This is hopefully a rare fringe case.
+       */
+      .${HeadingAnchorWrapperClassName} {
+        position: unset;
+      }
       > {
         h1, h2, h3, h4, h5, h6 {
           margin-right: 30px;
@@ -397,14 +406,6 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     }
   }
 
-  /* Legacy UX */
-  .fabric-editor-block-mark[data-align] > {
-    h1, h2, h3, h4, h5, h6 {
-      display: inline-block;
-    }
-  }
-
-  /* New UX */
   ${alignedHeadingAnchorStyle}
 
   ${mediaSingleSharedStyle} &

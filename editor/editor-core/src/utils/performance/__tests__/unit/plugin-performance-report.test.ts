@@ -1,6 +1,11 @@
 import { MockPerformanceEntry } from '@atlaskit/editor-test-helpers/mock-performance-entry';
 import { MockPerformanceObserverEntryList } from '@atlaskit/editor-test-helpers/mock-performance-observer-entry-list';
 import { PluginPerformanceReport } from '../../plugin-performance-report';
+import {
+  EVENT_NAME_STATE_APPLY,
+  EVENT_NAME_UPDATE_STATE,
+  EVENT_NAME_ON_CHANGE,
+} from '../../track-transactions';
 
 describe('PluginPerformanceReport.fromEntry', () => {
   it('creates a minimal report', () => {
@@ -108,9 +113,9 @@ describe('PluginPerformanceReport.prototype.withEntryList', () => {
     const entry = MockPerformanceEntry.default();
     const report = PluginPerformanceReport.fromEntry(entry).withEntryList(
       MockPerformanceObserverEntryList.fromNames([
-        '🦉 EditorView::state::apply',
-        '🦉 EditorView::updateState',
-        '🦉 ReactEditorView::onChange',
+        EVENT_NAME_STATE_APPLY,
+        EVENT_NAME_UPDATE_STATE,
+        EVENT_NAME_ON_CHANGE,
       ]),
     );
 
@@ -128,8 +133,8 @@ describe('PluginPerformanceReport.prototype.withEntryList', () => {
 
     const report = PluginPerformanceReport.fromEntry(entry).withEntryList(
       MockPerformanceObserverEntryList.fromNames([
-        '🦉 EditorView::state::apply',
-        '🦉 ReactEditorView::onChange',
+        EVENT_NAME_STATE_APPLY,
+        EVENT_NAME_ON_CHANGE,
       ]),
     );
 

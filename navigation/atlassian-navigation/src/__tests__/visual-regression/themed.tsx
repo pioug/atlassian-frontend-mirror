@@ -94,7 +94,11 @@ describe('<AtlassianNavigation />', () => {
     });
     await loadPage(page, url);
     await waitForElementCount(page, 'header[role = "banner"]', 6);
-
-    expect(await page.screenshot()).toMatchProdImageSnapshot();
+    // This particular test was inconsistent. It was due to the difference in some shadow around the icons buttons.
+    // Increase the failureThreshold will avoid this issue but will still capture unwanted changes.
+    expect(await page.screenshot()).toMatchProdImageSnapshot({
+      failureThreshold: '0.003',
+      failureThresholdType: 'percent',
+    });
   });
 });

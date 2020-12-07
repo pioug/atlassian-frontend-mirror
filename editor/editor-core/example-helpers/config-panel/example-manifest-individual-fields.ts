@@ -4,16 +4,11 @@ import {
   ExtensionModule,
 } from '@atlaskit/editor-common';
 
-import {
-  spaceKeyFieldResolver,
-  usernameFieldResolver,
-  labelFieldResolver,
-  confluenceContentFieldResolver,
-} from './confluence-fields-data-providers';
+import { mockFieldResolver } from './confluence-fields-data-providers';
 
 import { cqlSerializer, cqlDeserializer } from './cql-helpers';
 
-import { setEnv } from '@atlaskit/user-picker/src/components/smart-user-picker/config';
+import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { nativeFields, customFields } from './fields';
 
 const exampleFields = [...nativeFields, ...customFields];
@@ -21,7 +16,7 @@ const exampleFields = [...nativeFields, ...customFields];
 const quickInsert: ExtensionModule[] = exampleFields.map(field => ({
   key: field.name,
   title: field.label,
-  description: `type: ${field.type}`,
+  description: `type: ${field.type} (${field.name})`,
   icon: () => import('@atlaskit/icon/glyph/editor/code'),
   action: {
     type: 'node',
@@ -53,17 +48,8 @@ const manifest: ExtensionManifest = {
     nodes,
     fields: {
       custom: {
-        spacekey: {
-          resolver: spaceKeyFieldResolver,
-        },
-        username: {
-          resolver: usernameFieldResolver,
-        },
-        label: {
-          resolver: labelFieldResolver,
-        },
-        'confluence-content': {
-          resolver: confluenceContentFieldResolver,
+        'mock-resolver': {
+          resolver: mockFieldResolver,
         },
       },
       fieldset: {
@@ -76,7 +62,7 @@ const manifest: ExtensionManifest = {
         'user-jdog-provider': {
           provider: async () => {
             // WARNING: this is required by the SmartUserPicker for testing environments
-            setEnv('local');
+            setSmartUserPickerEnv('local');
 
             return {
               siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',

@@ -729,6 +729,7 @@ export class CardBase extends Component<
         dataURI: undefined,
         orientation: 1,
       },
+      error,
     } = this.state;
     const {
       onRetry,
@@ -742,6 +743,7 @@ export class CardBase extends Component<
     const card = (
       <CardView
         status={status}
+        error={error}
         mediaItemType={mediaItemType}
         metadata={metadata}
         dataURI={dataURI}

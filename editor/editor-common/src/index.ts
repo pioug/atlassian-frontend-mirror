@@ -19,6 +19,7 @@ export {
   getExtensionLozengeData,
   getExtensionRenderer,
   getMarksByOrder,
+  getModeFromTheme,
   getResponseEndTime,
   getValidContent,
   getValidDocument,
@@ -83,6 +84,8 @@ export type {
   AnnotationByMatches,
   AnnotationActionResult,
 } from './types';
+
+export type { CardOptions } from './card';
 
 export type {
   CollabEditProvider,
@@ -194,6 +197,7 @@ export {
 
 export {
   BaseTheme,
+  Caption,
   ClearNextSiblingMarginTop,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,

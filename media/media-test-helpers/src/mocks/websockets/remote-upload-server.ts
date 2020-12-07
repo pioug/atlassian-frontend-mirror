@@ -23,7 +23,7 @@ import {
 
 import { WebSocketServer } from './types';
 import { createCollectionItem, MediaDatabaseSchema } from '../database';
-import { defaultBaseUrl } from '../..';
+import { defaultBaseUrl } from '../../mediaClientProvider';
 import { smallImage } from '../../dataURIs/smallImageURI';
 import { getWsUrl, mapDataUriToBlob } from '../../utils';
 import { WsDirection, logWsMessage } from '../../utils/logging';

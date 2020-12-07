@@ -1,4 +1,5 @@
 import React from 'react';
+import { Node as PMNode } from 'prosemirror-model';
 
 import HeadingAnchor from './heading-anchor';
 import Url from 'url-parse';
@@ -24,17 +25,41 @@ const getCurrentUrlWithHash = (hash: string = ''): string => {
   return url.href;
 };
 
+function hasRightAlignmentMark(marks?: PMNode['marks']) {
+  if (!marks || !marks.length) {
+    return false;
+  }
+  return marks.some(
+    mark => mark.type.name === 'alignment' && mark.attrs.align === 'end',
+  );
+}
+
+function WrapChildTextInSpan(children: React.ReactNode) {
+  // We wrap the text in a span so that we can apply CSS pseudo elements
+  // to each text node within the heading element.
+  return React.Children.map(children, child => {
+    return typeof child === 'string' && !/^\s*$/.test(child) ? (
+      <span>{child}</span>
+    ) : (
+      child
+    );
+  });
+}
+
 function Heading(
   props: NodeProps<{
     level: HeadingLevels;
     headingId?: string;
     showAnchorLink?: boolean;
     allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
+    marks?: PMNode['marks'];
   }>,
 ) {
-  const { headingId, dataAttributes, allowHeadingAnchorLinks } = props;
+  const { headingId, dataAttributes, allowHeadingAnchorLinks, marks } = props;
   const HX = `h${props.level}` as 'h1';
 
+  const showAnchorLink = !!props.showAnchorLink;
+  const isRightAligned = hasRightAlignmentMark(marks);
   const enableNestedHeaderLinks =
     allowHeadingAnchorLinks &&
     (allowHeadingAnchorLinks as HeadingAnchorLinksConfig)
@@ -43,8 +68,10 @@ function Heading(
   return (
     <HX id={headingId} {...dataAttributes}>
       <>
-        {enableNestedHeaderLinks && props.children}
-        {!!props.showAnchorLink && (
+        {showAnchorLink && isRightAligned
+          ? WrapChildTextInSpan(props.children)
+          : props.children}
+        {showAnchorLink && (
           <CopyTextConsumer>
             {({ copyTextToClipboard }) => {
               return (
@@ -75,7 +102,6 @@ function Heading(
             }}
           </CopyTextConsumer>
         )}
-        {!enableNestedHeaderLinks && props.children}
       </>
     </HX>
   );

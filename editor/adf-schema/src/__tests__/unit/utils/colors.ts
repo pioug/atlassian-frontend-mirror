@@ -33,5 +33,9 @@ describe('@atlaskit/editor-core color utils', () => {
     it('return hex color of a color name', () => {
       expect(normalizeHexColor('red')).toEqual('#ff0000');
     });
+
+    it('should return null when passed `default`', () => {
+      expect(normalizeHexColor('default')).toBe(null);
+    });
   });
 });

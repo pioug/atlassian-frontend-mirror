@@ -8,7 +8,7 @@ import { createApiRouter, createMediaPlaygroundRouter } from './routers';
 import { createDatabase, MediaDatabaseSchema } from './database';
 import { RemoteUploadActivityServer, WebSocketServer } from './websockets';
 import { mapDataUriToBlob } from '../utils';
-import { dataURItoFile } from '@atlaskit/media-ui';
+import { dataURItoFile } from '@atlaskit/media-ui/util';
 import { smallImage } from '../dataURIs/smallImageURI';
 import {
   createDropEventWithFiles,

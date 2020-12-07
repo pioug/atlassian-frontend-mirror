@@ -1,6 +1,6 @@
 // Common Translations will live here
 import { defineMessages } from 'react-intl';
-import { linkMessages } from '@atlaskit/editor-common';
+import { linkMessages } from '@atlaskit/editor-common/messages';
 
 export { linkMessages };
 

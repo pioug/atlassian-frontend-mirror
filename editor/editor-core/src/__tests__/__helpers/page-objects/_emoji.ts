@@ -1,4 +1,4 @@
-import { EmojiSharedCssClassName } from '@atlaskit/editor-common';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { TestPage } from './_types';
 
 export const emojiSelectors = {

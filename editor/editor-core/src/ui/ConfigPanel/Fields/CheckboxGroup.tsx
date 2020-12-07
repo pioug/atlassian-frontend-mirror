@@ -3,30 +3,29 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { CheckboxField, Fieldset } from '@atlaskit/form';
 import { EnumCheckboxField } from '@atlaskit/editor-common/extensions';
 
-import { getSafeParentedName } from '../utils';
 import { OnBlur } from '../types';
 import FieldMessages from '../FieldMessages';
 
 export default function CheckboxGroup({
+  name,
   field,
   onBlur,
-  parentName,
 }: {
+  name: string;
   field: EnumCheckboxField;
   onBlur: OnBlur;
-  parentName?: string;
 }) {
+  const { label, defaultValue, isRequired, items } = field;
   return (
-    <Fieldset legend={field.label}>
-      {field.items.map(option => (
+    <Fieldset legend={label}>
+      {items.map(option => (
         <CheckboxField
-          key={field.name + option.value}
-          name={getSafeParentedName(field.name, parentName)}
+          key={`${name}${option.value}`}
+          name={name}
           value={option.value}
-          isRequired={field.isRequired}
+          isRequired={isRequired}
           defaultIsChecked={
-            (field.defaultValue && field.defaultValue.includes(option.value)) ||
-            false
+            (defaultValue && defaultValue.includes(option.value)) || false
           }
         >
           {({ fieldProps, error }) => {
@@ -34,7 +33,7 @@ export default function CheckboxGroup({
               value?: string | React.FormEvent<HTMLInputElement>,
             ) => {
               fieldProps.onChange(value);
-              onBlur(field.name);
+              onBlur(name);
             };
 
             return (

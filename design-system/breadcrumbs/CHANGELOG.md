@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 10.0.11
+
+### Patch Changes
+
+- [`9a403ed9b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a403ed9b2) - Fix slash color and font color in dark mode for breadcrumbs
+
 ## 10.0.10
 
 ### Patch Changes

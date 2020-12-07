@@ -27,6 +27,7 @@ import { selectCurrentItem } from '../../../../plugins/type-ahead/commands/selec
 import { dismissCommand } from '../../../../plugins/type-ahead/commands/dismiss';
 import { pluginKey } from '../../../../plugins/type-ahead/pm-plugins/plugin-key';
 import { EditorProps } from '../../../../types';
+import { shouldKeepInviteItem } from '../../../../plugins/mentions';
 
 let mockRegisterTeamMention = jest.fn();
 
@@ -543,6 +544,7 @@ describe('mentionTypeahead', () => {
               componentName: 'mention',
               flagKey: 'confluence.frontend.invite.from.mention',
               value: false,
+              cohort: undefined,
             }),
           }),
         );
@@ -550,32 +552,31 @@ describe('mentionTypeahead', () => {
     );
 
     describe('inviteFromMentionExperiment On', () => {
-      beforeAll(async () => {
-        ({ createAnalyticsEvent } = analyticsMocks());
-        ({ editorView, sel } = await editor(
-          {
-            createAnalyticsEvent,
-          },
-          {},
-          { shouldEnableInvite: true },
-        ));
-      });
-
       it(
         'should trigger feature exposed analytics event',
-        withMentionQuery('doesNotExist', ({ createAnalyticsEvent }) => {
-          expect(createAnalyticsEvent).toHaveBeenCalledWith(
-            expect.objectContaining({
-              action: 'exposed',
-              actionSubject: 'feature',
-              eventType: 'operational',
-              attributes: expect.objectContaining({
-                flagKey: 'confluence.frontend.invite.from.mention',
-                value: false,
+        withMentionQuery(
+          'doesNotExist',
+          ({ createAnalyticsEvent }) => {
+            expect(createAnalyticsEvent).toHaveBeenCalledWith(
+              expect.objectContaining({
+                action: 'exposed',
+                actionSubject: 'feature',
+                eventType: 'operational',
+                attributes: expect.objectContaining({
+                  flagKey: 'confluence.frontend.invite.from.mention',
+                  value: true,
+                  cohort: 'variation',
+                }),
               }),
-            }),
-          );
-        }),
+            );
+          },
+          {
+            mentionConfig: {
+              inviteExperimentCohort: 'variation',
+              shouldEnableInvite: true,
+            },
+          },
+        ),
       );
     });
   });
@@ -1016,6 +1017,20 @@ describe('mentionTypeahead', () => {
             },
           ),
         );
+
+        describe('shouldKeepInviteItem', () => {
+          it('should show invite item only if a full word was entered with zero results', () => {
+            expect(shouldKeepInviteItem('alica', '')).toBe(true);
+            expect(shouldKeepInviteItem('alica woods ', '')).toBe(true);
+            expect(shouldKeepInviteItem('alica zzz ', 'alica z')).toBe(false);
+            expect(
+              shouldKeepInviteItem('alica woods zzz', 'alica woods z'),
+            ).toBe(true);
+            expect(
+              shouldKeepInviteItem('alica woods zzz ', 'alica woods z'),
+            ).toBe(false);
+          });
+        });
       });
     });
   });

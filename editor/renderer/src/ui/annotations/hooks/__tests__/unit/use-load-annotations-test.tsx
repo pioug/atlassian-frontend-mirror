@@ -161,6 +161,26 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
       );
     });
 
+    it('should not call getState when there is no annotations', () => {
+      jest
+        .spyOn(RendererActions.prototype, 'getAnnotationMarks')
+        .mockReturnValue([]);
+
+      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+      act(() => {
+        render(
+          <RendererContext.Provider value={actionsFake}>
+            <ProvidersContext.Provider value={providers}>
+              <CustomComp />
+            </ProvidersContext.Provider>
+          </RendererContext.Provider>,
+          container,
+        );
+      });
+
+      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+    });
+
     describe('when the getState is resolved', () => {
       it('should emit SET_ANNOTATION_STATE event on updateSubscriber', done => {
         expect(updateSubscriberFake.emit).toHaveBeenCalledTimes(0);

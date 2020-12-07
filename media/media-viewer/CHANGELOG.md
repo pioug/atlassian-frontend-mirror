@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 45.5.3
+
+### Patch Changes
+
+- [`a67513394d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a67513394d) - Fixed media-viewer leaking JWT in Analytics
+- Updated dependencies
+
 ## 45.5.2
 
 ### Patch Changes

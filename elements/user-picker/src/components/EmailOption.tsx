@@ -39,7 +39,6 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
           suggestion={suggestion}
           invalidOption={suggestion && validity !== 'VALID'}
           label={label}
-          size={suggestion ? 'medium' : undefined}
         />
       }
       primaryText={this.props.email.id}

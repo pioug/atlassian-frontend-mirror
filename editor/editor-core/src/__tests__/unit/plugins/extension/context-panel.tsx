@@ -215,6 +215,37 @@ describe('extension context panel', () => {
 
         expect((lastDispatchedTr as any).scrolledIntoView).toBeFalsy();
       });
+
+      it('should preserve selection', async () => {
+        const { props, editorView } = await setupConfigPanel(content);
+        const { selection: prevSelection } = editorView.state;
+
+        props.onChange({
+          title: 'changed',
+          content: 'not that cool',
+        });
+        await flushPromises();
+
+        const { selection } = editorView.state;
+        expect(selection.constructor.name).toEqual(
+          prevSelection.constructor.name,
+        );
+        expect(selection.from).toEqual(prevSelection.from);
+        expect(selection.to).toEqual(prevSelection.to);
+      });
+
+      it("shouldn't update the document if parameters are the same", async () => {
+        const { props, dispatchMock } = await setupConfigPanel(content);
+
+        dispatchMock.mockClear();
+        props.onChange({
+          title: props.parameters!.title,
+          content: props.parameters!.content,
+        });
+        await flushPromises();
+
+        expect(dispatchMock).not.toHaveBeenCalled();
+      });
     });
   };
 

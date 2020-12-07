@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 5.0.0
+
+### Major Changes
+
+- [`da77198e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da77198e43) - Rename title:changed to metadata:changed in collab provider, editor common and mobile bridge
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

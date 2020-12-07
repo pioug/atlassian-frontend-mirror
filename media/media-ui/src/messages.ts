@@ -103,7 +103,10 @@ export type MessageKey =
   | 'playbackDefaultSpeed'
   | 'preview'
   | 'preview_unavailable'
-  | 'creating_preview';
+  | 'creating_preview'
+  | 'couldnt_load_file'
+  | 'error_429'
+  | 'preview_rateLimited';
 
 type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
 
@@ -668,5 +671,20 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.preview_unavailable',
     defaultMessage: 'Preview unavailable',
     description: 'Preview is unavailable for a media card',
+  },
+  couldnt_load_file: {
+    id: 'fabric.media.couldnt_load_file',
+    defaultMessage: "We couldn't load the file.",
+    description: 'File is rate limited without metadata',
+  },
+  error_429: {
+    id: 'fabric.media.error_429',
+    defaultMessage: 'Error 429',
+    description: 'Error 429 is thrown',
+  },
+  preview_rateLimited: {
+    id: 'fabric.media.preview_rateLimited',
+    defaultMessage: 'We had difficulties creating a preview.',
+    description: 'The preview is rate limited',
   },
 });

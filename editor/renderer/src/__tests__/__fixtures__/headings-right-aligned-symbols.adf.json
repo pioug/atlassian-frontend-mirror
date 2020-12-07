@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Symbols #$%"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "#$% Symbols"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Middle #$% Symbols"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Multiline #$%"
+        },
+        {
+          "type": "hardBreak"
+        },
+        {
+          "type": "text",
+          "text": "Symbols"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    }
+  ]
+}

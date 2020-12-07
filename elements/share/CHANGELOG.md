@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 0.24.4
+
+### Patch Changes
+
+- [`b90bb8af61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90bb8af61) - ED-11101 fix tab issue to set the focus straight to the Invite To Edit button
+- Updated dependencies
+
 ## 0.24.3
 
 ### Patch Changes

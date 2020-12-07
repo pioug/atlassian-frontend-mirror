@@ -12,15 +12,10 @@ import {
   Parameters,
 } from '@atlaskit/editor-common/extensions';
 
-import {
-  spaceKeyFieldResolver,
-  usernameFieldResolver,
-  labelFieldResolver,
-  confluenceContentFieldResolver,
-} from '../config-panel/confluence-fields-data-providers';
+import { mockFieldResolver } from '../config-panel/confluence-fields-data-providers';
 
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
-import { setEnv } from '@atlaskit/user-picker/src/components/smart-user-picker/config';
+import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 
 import mainResponse from './browse-macros.json';
 import { getIconComponent } from './IconImage';
@@ -327,17 +322,8 @@ const transformLegacyMacrosToExtensionManifest = (
       nodes,
       fields: {
         custom: {
-          spacekey: {
-            resolver: spaceKeyFieldResolver,
-          },
-          username: {
-            resolver: usernameFieldResolver,
-          },
-          label: {
-            resolver: labelFieldResolver,
-          },
-          'confluence-content': {
-            resolver: confluenceContentFieldResolver,
+          'mock-resolver': {
+            resolver: mockFieldResolver,
           },
         },
         fieldset: {
@@ -350,7 +336,7 @@ const transformLegacyMacrosToExtensionManifest = (
           'user-jdog-provider': {
             provider: async () => {
               // WARNING: this is required by the SmartUserPicker for testing environments
-              setEnv('local');
+              setSmartUserPickerEnv('local');
 
               return {
                 siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',

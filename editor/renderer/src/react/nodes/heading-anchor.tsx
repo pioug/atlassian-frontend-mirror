@@ -8,7 +8,6 @@ import { headingAnchorLinkMessages } from '../../messages';
 import { MessageDescriptor } from '../../types/i18n';
 
 export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
-export const HeadingAnchorWrapperLegacyClassName = 'heading-anchor-wrapper-old';
 
 const CopyAnchorWrapperWithRef = React.forwardRef(
   (props, ref: Ref<HTMLElement>) => {
@@ -21,16 +20,6 @@ const CopyAnchorWrapperWithRef = React.forwardRef(
   },
 );
 
-const CopyAnchorWrapperLegacy = styled.div`
-  display: flex;
-  position: absolute;
-  align-items: center;
-  overflow: hidden;
-  right: 0;
-  width: 32px;
-  height: 100%;
-`;
-
 const CopyAnchorButton = styled.button`
   display: inline;
   outline: none;
@@ -39,13 +28,6 @@ const CopyAnchorButton = styled.button`
   color: ${N500};
   cursor: pointer;
   right: 0;
-`;
-
-const CopyAnchorLegacy = styled.button`
-  outline: none;
-  background-color: transparent;
-  border: none;
-  height: 100%;
 `;
 
 type Props = {
@@ -110,60 +92,27 @@ class HeadingAnchor extends React.PureComponent<
     );
   };
 
-  renderAnchorButtonLegacy = () => {
-    return (
-      <CopyAnchorLegacy
-        onMouseLeave={this.resetMessage}
-        onClick={this.copyToClipboard}
-      >
-        <LinkIcon label="copy" size="small" />
-      </CopyAnchorLegacy>
-    );
-  };
+  render() {
+    const { tooltipMessage } = this.state;
 
-  private renderWithOptionalTooltip = (renderMethod: () => JSX.Element) => {
-    const { tooltipMessage: message } = this.state;
-
-    if (message) {
-      const tag =
-        renderMethod === this.renderAnchorButtonLegacy
-          ? 'span'
-          : CopyAnchorWrapperWithRef;
+    if (tooltipMessage) {
       // We set the key to the message to ensure it remounts when the message
       // changes, so that it correctly repositions.
       // @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
       return (
         <Tooltip
-          tag={tag}
-          content={message}
+          tag={CopyAnchorWrapperWithRef}
+          content={tooltipMessage}
           position="top"
           delay={0}
-          key={message}
+          key={tooltipMessage}
         >
-          {renderMethod()}
+          {this.renderAnchorButton()}
         </Tooltip>
       );
     }
 
-    return renderMethod();
-  };
-
-  render() {
-    const { enableNestedHeaderLinks } = this.props;
-
-    // New UX
-    if (enableNestedHeaderLinks) {
-      return this.renderWithOptionalTooltip(this.renderAnchorButton);
-    }
-
-    // Legacy UX
-    return (
-      <div className={HeadingAnchorWrapperLegacyClassName}>
-        <CopyAnchorWrapperLegacy>
-          {this.renderWithOptionalTooltip(this.renderAnchorButtonLegacy)}
-        </CopyAnchorWrapperLegacy>
-      </div>
-    );
+    return this.renderAnchorButton();
   }
 }
 

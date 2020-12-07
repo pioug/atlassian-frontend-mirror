@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Breakpoint, getTitleBoxHeight } from '../common';
 
-function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint) {
+export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint) {
   // there is no titlebox
   if (!hasTitleBox) {
     return `0px`;

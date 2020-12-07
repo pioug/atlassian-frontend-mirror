@@ -105,3 +105,4 @@ export type { WithShowControlMethodProp } from './types';
 export { isIntersectionObserverSupported } from './intersectionObserver';
 export { Truncate } from './truncateText';
 export type { TruncateProps } from './truncateText';
+export { errorIcon } from './errorIcon';

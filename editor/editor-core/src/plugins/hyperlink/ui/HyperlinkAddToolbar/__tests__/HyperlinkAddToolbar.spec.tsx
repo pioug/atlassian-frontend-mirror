@@ -42,7 +42,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import hyperlinkPlugin from '../../../index';
 import { a, doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
-
+import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plugins/actions';
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
   searchRecentPromise?: ReturnType<ActivityProvider['searchRecent']>;
@@ -97,7 +97,7 @@ const assertIcon = (item: LinkSearchListItemData, iconComponent: any) => {
   expect(mountedIcon.find(iconComponent)).toHaveLength(1);
 };
 
-describe('HyperlinkAddToolbar', () => {
+describe('HyperlinkLinkAddToolbar', () => {
   afterAll(() => {
     jest.restoreAllMocks();
     clock.restore();
@@ -635,6 +635,16 @@ describe('HyperlinkAddToolbar', () => {
       expect(internalHideLinkToolbar).toHaveBeenCalledWith(
         editorView.state,
         editorView.dispatch,
+      );
+    });
+
+    it('should call card hideLinkToolbar when escape is pressed', async () => {
+      const { pressEscapeKeyInputField, editorView } = await setup();
+      const dispatchSpy = jest.spyOn(editorView, 'dispatch');
+
+      pressEscapeKeyInputField('link-url');
+      expect(dispatchSpy).toBeCalledWith(
+        cardHideLinkToolbar(editorView.state.tr),
       );
     });
 

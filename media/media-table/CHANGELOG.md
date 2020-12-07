@@ -1,5 +1,12 @@
 # @atlaskit/media-table
 
+## 8.0.2
+
+### Patch Changes
+
+- [`6d0d354481`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d0d354481) - BENTO-7803 Prevent download button from opening the media preview
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

@@ -58,6 +58,7 @@ export default {
     'expandKeymap',
     'tableSelectionKeymap',
     'tableKeymap',
+    'captionKeymap',
     // selection keymap needs to be above gap cursor keymap so it can set node selections from
     // left/right arrows
     'selectionKeymap',

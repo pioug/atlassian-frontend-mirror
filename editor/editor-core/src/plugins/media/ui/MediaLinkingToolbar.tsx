@@ -1,7 +1,8 @@
 import React from 'react';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ErrorMessage, ProviderFactory } from '@atlaskit/editor-common';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
+// Common Translations will live here
 import { InjectedIntl, InjectedIntlProps } from 'react-intl';
 import PanelTextInput from '../../../ui/PanelTextInput';
 import Button from '../../floating-toolbar/ui/Button';
@@ -13,26 +14,15 @@ import {
 import RecentSearch from '../../../ui/LinkSearch';
 import {
   ChildProps,
-  RecentSearchSubmitOptions,
   RecentSearchInputTypes,
+  RecentSearchSubmitOptions,
 } from '../../../ui/LinkSearch/types';
 import { linkToolbarMessages } from '../../../messages';
-
-// Common Translations will live here
-import { defineMessages } from 'react-intl';
 import { normalizeUrl } from '../../hyperlink/utils';
 import styled from 'styled-components';
 import { R400 } from '@atlaskit/theme/colors';
-import { ErrorMessage } from '@atlaskit/editor-common';
 import { INPUT_METHOD } from '../../analytics/types/enums';
-
-export const mediaLinkToolbarMessages = defineMessages({
-  backLink: {
-    id: 'fabric.editor.backLink',
-    defaultMessage: 'Go back',
-    description: 'Go back from media linking toolbar to main toolbar',
-  },
-});
+import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
 
 export type Props = {
   intl: InjectedIntl;

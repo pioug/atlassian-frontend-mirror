@@ -8,12 +8,12 @@ import commonMessages, {
   linkMessages,
 } from '../../../messages';
 import { toolbarMessages as mediaLayoutToolbarMessages } from '../../../ui/MediaAndEmbedsToolbar/toolbar-messages';
-import { mediaLinkToolbarMessages } from '../../../plugins/media/ui/MediaLinkingToolbar';
 import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
 import { MediaPickerPageObject } from '@atlaskit/media-integration-test-helpers';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { KEY } from './_keyboard';
+import { mediaLinkToolbarMessages } from '../../../plugins/media/ui/media-linking-toolbar-messages';
 
 export enum MediaLayout {
   center,

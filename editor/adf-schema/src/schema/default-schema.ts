@@ -1,5 +1,6 @@
 import { customPanel } from './nodes/panel';
 import { createSchema, SchemaConfig } from './create-schema';
+import { mediaSingleWithCaption } from './nodes';
 
 type DefaultSchemaNodes =
   | 'doc'
@@ -140,10 +141,11 @@ export const defaultSchemaConfig: SchemaConfig<
 };
 
 export const getSchemaBasedOnStage = (stage = 'final') => {
-  // TODO: ED-10445 remove stage0 check after panels with emoji are on full schema
+  // TODO: ED-10445 remove stage0 check after panels with emoji are on full schema AND image captions are on full schema
   if (stage === 'stage0') {
     defaultSchemaConfig.customNodeSpecs = {
       panel: customPanel,
+      mediaSingle: mediaSingleWithCaption,
     };
   }
   return createSchema(defaultSchemaConfig);

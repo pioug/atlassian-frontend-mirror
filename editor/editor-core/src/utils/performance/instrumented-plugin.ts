@@ -8,7 +8,7 @@ import { Schema } from 'prosemirror-model';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common';
 import { EditorView } from 'prosemirror-view';
 import { EditorProps } from '../../types/editor-props';
-import { shouldTrackTransaction } from './should-track-transaction';
+import { TransactionTracker } from './track-transactions';
 
 export class InstrumentedPlugin<
   PluginState,
@@ -17,13 +17,14 @@ export class InstrumentedPlugin<
   constructor(
     spec: PluginSpec,
     options: EditorProps['performanceTracking'] = {},
+    transactionTracker?: TransactionTracker,
   ) {
     const {
       transactionTracking = { enabled: false },
       uiTracking = { enabled: false },
     } = options;
 
-    if (transactionTracking.enabled && spec.state) {
+    if (transactionTracking.enabled && spec.state && transactionTracker) {
       const originalApply = spec.state.apply.bind(spec.state);
 
       spec.state.apply = (
@@ -32,7 +33,7 @@ export class InstrumentedPlugin<
         oldState: EditorState<NodeSchema>,
         newState: EditorState<NodeSchema>,
       ) => {
-        const shouldTrackTransactions = shouldTrackTransaction(
+        const shouldTrackTransactions = transactionTracker.shouldTrackTransaction(
           transactionTracking,
         );
 
@@ -40,11 +41,15 @@ export class InstrumentedPlugin<
           return originalApply(tr, value, oldState, newState);
         }
 
+        const {
+          startMeasure,
+          stopMeasure,
+        } = transactionTracker.getMeasureHelpers(transactionTracking);
         const self = this as any;
         const measure = `🦉${self.key}::apply`;
         startMeasure(measure);
         const result = originalApply(tr, value, oldState, newState);
-        stopMeasure(measure, () => {});
+        stopMeasure(measure);
         return result;
       };
     }
@@ -77,7 +82,8 @@ export class InstrumentedPlugin<
   public static fromPlugin<T, V extends Schema<any, any>>(
     plugin: Plugin<T, V>,
     options: EditorProps['performanceTracking'],
+    transactionTracker?: TransactionTracker,
   ): InstrumentedPlugin<T, V> {
-    return new InstrumentedPlugin(plugin.spec, options);
+    return new InstrumentedPlugin(plugin.spec, options, transactionTracker);
   }
 }

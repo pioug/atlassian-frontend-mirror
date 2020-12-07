@@ -6,8 +6,9 @@ import {
 import {
   AnalyticsCallback,
   ErrorCallback,
-  FlowType,
   InfoCallback,
+  InviteExperimentCohort,
+  InviteFlow,
   isAppMention,
   isTeamMention,
   MentionContextIdentifier,
@@ -239,9 +240,11 @@ export class MentionResource
   private lastReturnedSearch: number;
   private activeSearches: Set<string>;
 
+  productName?: string;
   shouldEnableInvite: boolean;
+  inviteExperimentCohort?: InviteExperimentCohort;
   userRole: UserRole;
-  onInviteItemClick?: (flow: FlowType) => void;
+  onInviteItemClick?: (flow: InviteFlow) => void;
 
   constructor(config: MentionResourceConfig) {
     super();
@@ -251,7 +254,9 @@ export class MentionResource
     this.config = config;
     this.lastReturnedSearch = 0;
     this.activeSearches = new Set();
+    this.productName = config.productName;
     this.shouldEnableInvite = !!config.shouldEnableInvite;
+    this.inviteExperimentCohort = config.inviteExperimentCohort;
     this.onInviteItemClick = config.onInviteItemClick;
     this.userRole = config.userRole || 'basic';
   }

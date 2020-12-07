@@ -128,6 +128,7 @@ export type Props = {
   isPublicLink?: boolean;
   /** Atlassian Resource Identifier of a Site resource to be shared. */
   shareAri?: string;
+  tabIndex?: number;
 };
 
 const ShareButtonWrapper = styled.div`
@@ -715,19 +716,24 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       onUserSelectionChange,
       dialogZIndex,
       isPublicLink,
+      tabIndex,
     } = this.props;
 
     const showSlackOnboardingBanner =
       enableShareToSlack &&
       !isSlackOnboardingDismissed &&
       slackTeams.length > 0;
+    const style =
+      typeof tabIndex !== 'undefined' && tabIndex >= 0
+        ? { outline: 'none' }
+        : undefined;
 
     // for performance purposes, we may want to have a loadable content i.e. ShareForm
     return (
       <ShareButtonWrapper
-        tabIndex={0}
+        tabIndex={tabIndex}
         onKeyDown={this.handleKeyDown}
-        style={{ outline: 'none' }}
+        style={style}
       >
         <Popup
           content={() => (

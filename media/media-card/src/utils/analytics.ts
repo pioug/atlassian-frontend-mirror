@@ -114,7 +114,7 @@ export type AnalyticsLoadingStatusArgs = {
   metadata: FileDetails;
   fileState?: FileState;
   dataURI?: string;
-  error?: Error | string;
+  error?: Error;
 };
 
 /**

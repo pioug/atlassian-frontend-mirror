@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^28.4.0",
+    "@atlaskit/media-test-helpers": "^28.5.0",
     "lodash": "^4.17.15",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

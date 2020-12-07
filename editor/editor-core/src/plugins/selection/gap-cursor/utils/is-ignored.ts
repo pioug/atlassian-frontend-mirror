@@ -11,6 +11,8 @@ const IGNORED_NODES = [
   'heading',
   'blockquote',
   'layoutColumn',
+  'caption',
+  'media',
 ];
 
 export const isIgnored = (node?: PMNode | null): boolean => {

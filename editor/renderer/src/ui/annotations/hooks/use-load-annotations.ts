@@ -28,6 +28,10 @@ export const useLoadAnnotations = ({ adfDocument }: Props) => {
     } = providers;
 
     const annotations = actions.getAnnotationMarks();
+    // we don't want to request integrators for state with an empty list of ids.
+    if (!annotations.length) {
+      return;
+    }
     const ids = annotations.map(mark => mark.attrs.id);
     const cb = (data: AnnotationState<AnnotationTypes.INLINE_COMMENT>[]) => {
       if (!updateSubscriberInlineComment) {

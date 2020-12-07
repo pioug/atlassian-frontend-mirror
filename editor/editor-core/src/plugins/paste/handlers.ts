@@ -30,7 +30,7 @@ import { compose, insideTable, processRawValue } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
 import { insertCard, queueCardsFromChangedTr } from '../card/pm-plugins/doc';
-import { CardOptions } from '../card/types';
+import { CardOptions } from '@atlaskit/editor-common';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { linkifyContent } from '../hyperlink/utils';
 import { runMacroAutoConvert } from '../macro';

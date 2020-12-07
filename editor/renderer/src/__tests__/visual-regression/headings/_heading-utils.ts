@@ -44,9 +44,6 @@ export const propsWithHeadingLinksEnabled = getRendererProps(true);
 export const propsWithHeadingLinksEnabledWithHash = (activeHeadingId: string) =>
   getRendererProps(true, false, activeHeadingId);
 
-// `allowHeadingAnchorLinks` is a boolean instead of object
-export const legacypropsWithHeadingLinksEnabled = getRendererProps(true, true);
-
 /**
  * We use a CSS media query `(hover: hover) and (pointer: fine)` to set hover effects
  * for the nested header links on platforms that support a mouse.

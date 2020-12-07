@@ -13,7 +13,7 @@ import {
   InsertBlockInputMethodToolbar,
   insertBlockTypesWithAnalytics,
   insertEmojiQuery,
-  insertLinkWithAnalytics,
+  insertLinkWithAnalyticsMobileNative,
   insertMentionQuery,
   insertTaskDecision,
   isLinkAtPos,
@@ -67,6 +67,7 @@ import { getEnableQuickInsertValue } from '../../query-param-reader';
 import { assertSelectionPayload } from '../../validation';
 import { CollabSocket } from './collab-socket';
 import { Socket } from '@atlaskit/collab-provider/types';
+import { CollabMetadataPayload } from '@atlaskit/collab-provider/provider';
 import { LifecycleImpl } from './lifecycle';
 import {
   BridgeEventEmitter,
@@ -76,6 +77,7 @@ import {
 import { Serialized } from '../../types';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
+import MobileEditorConfiguration from '../editor-configuration';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -117,6 +119,8 @@ const insertQueryFromToolbar = (
   insertQueryMethod(INPUT_METHOD.TOOLBAR)(state, dispatch);
 };
 
+export type EditorConfigChange = (config: MobileEditorConfiguration) => void;
+
 export default class WebBridgeImpl
   extends WebBridge
   implements NativeToWebBridge {
@@ -138,6 +142,27 @@ export default class WebBridgeImpl
   eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();
   allowList: allowListPayloadType = new Set(defaultSetList);
   private collabProviderPromise: Promise<CollabProvider> | undefined;
+
+  private onEditorConfigChanged: EditorConfigChange | null;
+  private editorConfiguration: MobileEditorConfiguration;
+
+  constructor() {
+    super();
+    this.editorConfiguration = new MobileEditorConfiguration();
+    this.onEditorConfigChanged = null;
+  }
+
+  getEditorConfiguration() {
+    return this.editorConfiguration;
+  }
+
+  setEditorConfiguration(editorConfig: MobileEditorConfiguration) {
+    this.editorConfiguration = editorConfig;
+  }
+
+  setEditorConfigChangeHandler(handleEditorConfigChanged: EditorConfigChange) {
+    this.onEditorConfigChanged = handleEditorConfigChanged;
+  }
 
   setPadding(
     top: number = 0,
@@ -373,7 +398,7 @@ export default class WebBridgeImpl
     const { from, to } = state.selection;
 
     if (!isTextAtPos(from)(state)) {
-      insertLinkWithAnalytics(
+      insertLinkWithAnalyticsMobileNative(
         inputMethod,
         from,
         to,
@@ -495,7 +520,7 @@ export default class WebBridgeImpl
     this.flushDOM();
 
     const { state, dispatch } = this.editorView;
-    const enableQuickInsert = getEnableQuickInsertValue();
+    const enableQuickInsert = getEnableQuickInsertValue(); // TODO: read from editorConfiguration
 
     const parsedPayload: TypeAheadItem | { index: number } = JSON.parse(
       payload,
@@ -753,13 +778,16 @@ export default class WebBridgeImpl
 
   setupTitle(provider: Promise<CollabProvider>) {
     this.collabProviderPromise = provider;
-    const onTitleChange = (payload: { title: string }) => {
-      toNativeBridge.updateTitle(payload.title);
+    const onMetadataChange = (metadata: CollabMetadataPayload) => {
+      const { title } = metadata;
+      if (title) {
+        toNativeBridge.updateTitle(title);
+      }
     };
     const setupPromise = provider.then(provider => {
-      provider.on('title:changed', onTitleChange);
+      provider.on('metadata:changed', onMetadataChange);
       return () => {
-        provider.off('title:changed', onTitleChange);
+        provider.off('metadata:changed', onMetadataChange);
       };
     });
     return () => {
@@ -774,5 +802,13 @@ export default class WebBridgeImpl
     if (dismissCommand()(this.editorView.state, this.editorView.dispatch)) {
       toNativeBridge.dismissTypeAhead();
     }
+  }
+
+  configureEditor(config: string) {
+    if (!this.onEditorConfigChanged) {
+      return;
+    }
+    const updatedConfig = this.editorConfiguration.cloneAndUpdateConfig(config);
+    this.onEditorConfigChanged(updatedConfig);
   }
 }

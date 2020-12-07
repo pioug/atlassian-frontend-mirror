@@ -13,17 +13,18 @@ import {
   createCardClient,
   createCardProvider,
 } from '../../../providers';
-import { getModeValue } from '../../../query-param-reader';
 import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
+import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge();
 
   return (
     <MobileEditor
-      mode={getModeValue()}
+      bridge={bridge}
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardClient={createCardClient()}
       cardProvider={createCardProvider()}

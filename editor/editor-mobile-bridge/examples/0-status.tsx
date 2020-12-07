@@ -7,14 +7,16 @@ import Textfield from '@atlaskit/textfield';
 import AkSelect from '@atlaskit/select';
 import MobileEditor from '../src/editor/mobile-editor-element';
 import WebToNativeReporter from '../example-helpers/WebToNativeReporter';
-import { bridge } from '../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
+import WebBridgeImpl from '../src/editor/native-to-web';
+import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 
 export interface Props {
   text: string;
   color: { value: string; label: string };
   uuid: string;
+  bridge: WebBridgeImpl;
 }
 
 const Container: React.ComponentClass<
@@ -39,7 +41,11 @@ const colorOptions = [
 
 function MobileEditorWithFetchProxy() {
   const fetchProxy = useFetchProxy();
-  return <MobileEditor {...createEditorProviders(fetchProxy)} />;
+  const props = {
+    ...createEditorProviders(fetchProxy),
+    bridge: getBridge(),
+  };
+  return <MobileEditor {...props} />;
 }
 
 export default class Example extends React.Component<Props, {}> {
@@ -47,15 +53,16 @@ export default class Example extends React.Component<Props, {}> {
     text: '',
     color: colorOptions[0],
     uuid: '1234',
+    bridge: new WebBridgeImpl(),
   };
 
   private onStatusPickerDismissed = () => {
-    bridge.onStatusPickerDismissed();
+    this.props.bridge.onStatusPickerDismissed();
   };
 
   private submitOnStatusUpdate = (data: any) => {
     const { text, color, uuid } = data;
-    bridge.onStatusUpdate(text, color.value as StatusColor, uuid);
+    this.props.bridge.onStatusUpdate(text, color.value as StatusColor, uuid);
   };
 
   render() {

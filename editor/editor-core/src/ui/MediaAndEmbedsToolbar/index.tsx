@@ -107,6 +107,9 @@ const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
       newAttrs,
     );
     tr.setMeta('scrollIntoView', false);
+    // when image captions are enabled, the wrong node gets selected after
+    // setNodeMarkup is called
+    tr.setSelection(NodeSelection.create(tr.doc, state.selection.from));
     dispatch(
       addAnalytics(state, tr, {
         eventType: EVENT_TYPE.TRACK,

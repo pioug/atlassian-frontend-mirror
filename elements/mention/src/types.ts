@@ -28,10 +28,12 @@ export interface MentionResourceConfig extends ServiceConfig {
   containerId?: string;
   productId?: string;
   shouldHighlightMention?: (mention: MentionDescription) => boolean;
+  inviteExperimentCohort?: InviteExperimentCohort;
   mentionNameResolver?: MentionNameResolver;
   shouldEnableInvite?: boolean;
-  onInviteItemClick?: (flow: FlowType) => void;
+  onInviteItemClick?: (flow: InviteFlow) => void;
   userRole?: UserRole;
+  productName?: string;
 }
 
 export interface ResourceProvider<Result> {
@@ -206,13 +208,16 @@ export function isSpecialMentionText(mentionText: string) {
 
 export const isPromise = <T>(p: any): p is Promise<T> => !!(p && p.then);
 
-export type FlowType = 'mention' | 'assign';
+export type InviteFlow = 'mention' | 'assign';
 
 export type UserRole = 'admin' | 'trusted' | 'basic';
+
+export type InviteExperimentCohort = 'variation' | 'control' | 'not-enrolled';
 
 export interface InviteFromMentionProvider {
   productName?: string;
   shouldEnableInvite?: boolean;
-  onInviteItemClick?(flow: FlowType): void;
+  inviteExperimentCohort?: InviteExperimentCohort;
+  onInviteItemClick?(flow: InviteFlow): void;
   userRole?: UserRole;
 }

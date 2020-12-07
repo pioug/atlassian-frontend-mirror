@@ -9,7 +9,9 @@ import { Command } from '../../../types';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';
 
-export function createKeymapPlugin(): Plugin | undefined {
+export function createKeymapPlugin(
+  skipAnalytics: boolean = false,
+): Plugin | undefined {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -20,13 +22,13 @@ export function createKeymapPlugin(): Plugin | undefined {
 
   keymaps.bindKeymapWithCommand(
     keymaps.enter.common!,
-    mayConvertLastWordToHyperlink,
+    mayConvertLastWordToHyperlink(skipAnalytics),
     list,
   );
 
   keymaps.bindKeymapWithCommand(
     keymaps.insertNewLine.common!,
-    mayConvertLastWordToHyperlink,
+    mayConvertLastWordToHyperlink(skipAnalytics),
     list,
   );
 
@@ -49,49 +51,56 @@ export function createKeymapPlugin(): Plugin | undefined {
   return keymap(list);
 }
 
-const mayConvertLastWordToHyperlink: Command = (state, dispatch) => {
-  const nodeBefore = state.selection.$from.nodeBefore;
-  if (!nodeBefore || !nodeBefore.isText) {
-    return false;
-  }
-
-  const words = nodeBefore.text!.split(' ');
-  const lastWord = words[words.length - 1];
-  const match: Match | null = getLinkMatch(lastWord);
-
-  if (match) {
-    const hyperlinkedText = match.raw;
-    const start = state.selection.$from.pos - hyperlinkedText.length;
-    const end = state.selection.$from.pos;
-
-    if (state.doc.rangeHasMark(start, end, state.schema.marks.link)) {
+const mayConvertLastWordToHyperlink: (
+  skipAnalytics: boolean,
+) => Command = skipAnalytics => {
+  return function (state, dispatch) {
+    const nodeBefore = state.selection.$from.nodeBefore;
+    if (!nodeBefore || !nodeBefore.isText) {
       return false;
     }
 
-    const url = match.url;
-    const markType = state.schema.mark('link', { href: url });
+    const words = nodeBefore.text!.split(' ');
+    const lastWord = words[words.length - 1];
+    const match: Match | null = getLinkMatch(lastWord);
 
-    const tr = queueCards([
-      {
-        url,
-        pos: start,
-        appearance: 'inline',
-        compareLinkText: true,
-        source: INPUT_METHOD.AUTO_DETECT,
-      },
-    ])(state.tr.addMark(start, end, markType));
+    if (match) {
+      const hyperlinkedText = match.raw;
+      const start = state.selection.$from.pos - hyperlinkedText.length;
+      const end = state.selection.$from.pos;
 
-    if (dispatch) {
-      dispatch(
-        addAnalytics(
-          state,
-          tr,
-          getLinkCreationAnalyticsEvent(INPUT_METHOD.AUTO_DETECT, url),
-        ),
-      );
+      if (state.doc.rangeHasMark(start, end, state.schema.marks.link)) {
+        return false;
+      }
+
+      const url = match.url;
+      const markType = state.schema.mark('link', { href: url });
+
+      const tr = queueCards([
+        {
+          url,
+          pos: start,
+          appearance: 'inline',
+          compareLinkText: true,
+          source: INPUT_METHOD.AUTO_DETECT,
+        },
+      ])(state.tr.addMark(start, end, markType));
+      if (dispatch) {
+        if (skipAnalytics) {
+          dispatch(tr);
+        } else {
+          dispatch(
+            addAnalytics(
+              state,
+              tr,
+              getLinkCreationAnalyticsEvent(INPUT_METHOD.AUTO_DETECT, url),
+            ),
+          );
+        }
+      }
     }
-  }
-  return false;
+    return false;
+  };
 };
 
 export default createKeymapPlugin;

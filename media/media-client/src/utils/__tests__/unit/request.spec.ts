@@ -1,8 +1,159 @@
-import fetchMock from 'fetch-mock/cjs/client';
+import { FetchMock } from 'jest-fetch-mock';
+import { nextTick } from '@atlaskit/media-test-helpers';
 
 import { request } from '../../request';
+import { isRequestError, RequestError } from '../../request/errors';
+import { RequestErrorReason } from '../../request/types';
+import { fetchRetry } from '../../request/helpers';
+
+interface ExtendedGlobal extends NodeJS.Global {
+  fetch: FetchMock;
+}
+
+const extendedGlobal: ExtendedGlobal = global;
 
 describe('request', () => {
+  describe('fetchRetry', () => {
+    it('should run functionToRetry at least once', async () => {
+      const functionToRetry = jest.fn();
+      await fetchRetry(functionToRetry, { maxAttempts: 1 });
+      expect(functionToRetry).toHaveBeenCalledTimes(1);
+    });
+
+    it('should exhaust functionToRetry if fetch error using startTimeoutInMs * factor as delay', async () => {
+      jest.useFakeTimers();
+
+      const fetchError = new TypeError('failed to fetch');
+      const functionToRetry = jest.fn().mockImplementation(() => {
+        throw fetchError;
+      });
+
+      try {
+        const p = fetchRetry(functionToRetry, {
+          startTimeoutInMs: 1,
+          maxAttempts: 3,
+          factor: 2,
+        });
+
+        jest.advanceTimersByTime(1);
+        await nextTick();
+        await nextTick();
+        jest.advanceTimersByTime(2);
+        await nextTick();
+        await nextTick();
+        jest.advanceTimersByTime(4);
+        await nextTick();
+        await nextTick();
+
+        await p;
+      } catch (err) {
+        if (!isRequestError(err)) {
+          return expect(isRequestError(err)).toBeTruthy();
+        }
+        expect(functionToRetry).toHaveBeenCalledTimes(3);
+        expect(err.attributes).toMatchObject({
+          reason: RequestErrorReason.clientExhaustedRetries,
+          attempts: 3,
+          innerError: fetchError,
+        });
+      }
+
+      expect.assertions(2);
+
+      jest.useRealTimers();
+    });
+
+    it('should not retry functionToRetry if fetch aborted', async () => {
+      const functionToRetry = jest.fn().mockImplementation(() => {
+        const abortError1 = new Error('request_cancelled');
+        throw abortError1;
+      });
+
+      try {
+        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+      } catch (err) {
+        if (!isRequestError(err)) {
+          return expect(isRequestError(err)).toBeTruthy();
+        }
+        expect(functionToRetry).toHaveBeenCalledTimes(1);
+        expect(err.attributes).toMatchObject({
+          reason: RequestErrorReason.clientAbortedRequest,
+        });
+      }
+
+      expect.assertions(2);
+
+      functionToRetry.mockImplementation(() => {
+        const abortError2 = new Error('');
+        abortError2.name = 'AbortError';
+        throw abortError2;
+      });
+
+      try {
+        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+      } catch (err) {
+        if (!isRequestError(err)) {
+          return expect(isRequestError(err)).toBeTruthy();
+        }
+        expect(functionToRetry).toHaveBeenCalledTimes(2);
+        expect(err.attributes).toMatchObject({
+          reason: RequestErrorReason.clientAbortedRequest,
+        });
+      }
+
+      expect.assertions(4);
+    });
+
+    it('should not retry functionToRetry if client-side error', async () => {
+      const functionToRetry = jest.fn().mockImplementation(() => {
+        const clientSideError = new RequestError(
+          RequestErrorReason.clientTimeoutRequest,
+        );
+        throw clientSideError;
+      });
+
+      try {
+        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+      } catch (err) {
+        if (!isRequestError(err)) {
+          return expect(isRequestError(err)).toBeTruthy();
+        }
+        expect(functionToRetry).toHaveBeenCalledTimes(1);
+        expect(err.attributes).toMatchObject({
+          reason: RequestErrorReason.clientTimeoutRequest,
+        });
+      }
+
+      expect.assertions(2);
+    });
+
+    it('should not retry functionToRetry if backend error < 500', async () => {
+      const functionToRetry = jest.fn().mockImplementation(() => {
+        const serverError = new RequestError(RequestErrorReason.serverError, {
+          statusCode: 429,
+          bodyAsText: 'Rate Limited',
+        });
+        throw serverError;
+      });
+
+      try {
+        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+      } catch (err) {
+        if (!isRequestError(err)) {
+          return expect(isRequestError(err)).toBeTruthy();
+        }
+        expect(functionToRetry).toHaveBeenCalledTimes(1);
+        expect(err.attributes).toMatchObject({
+          reason: RequestErrorReason.serverError,
+          statusCode: 429,
+          bodyAsText: 'Rate Limited',
+        });
+      }
+
+      expect.assertions(2);
+    });
+  });
+
   const url = 'http://some-url/';
   const clientId = 'some-client-id';
   const asapIssuer = 'some-asap-issuer';
@@ -10,15 +161,14 @@ describe('request', () => {
   const baseUrl = 'some-base-url';
 
   describe('2xx codes handling', () => {
-    beforeEach(() => fetchMock.mock(`*`, {}));
-
-    afterEach(fetchMock.restore);
+    afterEach(() => {
+      extendedGlobal.fetch.resetMocks();
+    });
 
     it('should call fetch with GET method given url only', async () => {
       await request(url);
 
-      expect(fetchMock.lastUrl()).toEqual(url);
-      expect(fetchMock.lastOptions()).toEqual({ method: 'GET' });
+      expect(extendedGlobal.fetch).toHaveBeenCalledWith(url, { method: 'GET' });
     });
 
     it('should call fetch with auth header given GET request and client based auth', async () => {
@@ -27,8 +177,7 @@ describe('request', () => {
         auth: { clientId, token, baseUrl },
       });
 
-      expect(fetchMock.lastUrl()).toEqual(`${url}`);
-      expect(fetchMock.lastOptions()).toEqual({
+      expect(extendedGlobal.fetch).toHaveBeenCalledWith(url, {
         method: 'GET',
         headers: {
           Authorization: 'Bearer some-token',
@@ -43,8 +192,7 @@ describe('request', () => {
         auth: { asapIssuer, token, baseUrl },
       });
 
-      expect(fetchMock.lastUrl()).toEqual(`${url}`);
-      expect(fetchMock.lastOptions()).toEqual({
+      expect(extendedGlobal.fetch).toHaveBeenCalledWith(url, {
         method: 'GET',
         headers: {
           'X-Issuer': asapIssuer,
@@ -59,8 +207,7 @@ describe('request', () => {
         auth: { clientId, token, baseUrl },
       });
 
-      expect(fetchMock.lastUrl()).toEqual(`${url}`);
-      expect(fetchMock.lastOptions()).toEqual({
+      expect(extendedGlobal.fetch).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'X-Client-Id': clientId,
@@ -75,8 +222,7 @@ describe('request', () => {
         auth: { asapIssuer, token, baseUrl },
       });
 
-      expect(fetchMock.lastUrl()).toEqual(`${url}`);
-      expect(fetchMock.lastOptions()).toEqual({
+      expect(extendedGlobal.fetch).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'X-Issuer': asapIssuer,
@@ -87,203 +233,227 @@ describe('request', () => {
   });
 
   describe('errors and retries handling', () => {
-    afterEach(fetchMock.restore);
-
-    it('should not fail or retry if response is 300', async () => {
-      fetchMock.mock('*', {
-        status: 300,
-        __redirectUrl: 'http://other-url',
-      });
-      const response = await request(url);
-      expect(response.status).toBe(200);
-      expect(await response.text()).toBe(
-        '{"status":300,"__redirectUrl":"http://other-url"}',
-      );
-      expect(fetchMock.calls().length).toEqual(1); // meaning it didn't retry because it shouldn't retry on 3xx
+    afterEach(() => {
+      extendedGlobal.fetch.resetMocks();
     });
 
-    it('should fail but not retry if response is 400', async () => {
-      fetchMock.mock(
-        url,
-        {
-          status: 400,
-          body: 'There was a problem',
-        },
-        {
-          name: '400',
-        },
+    it('should not fail or retry if response is 3XX', async () => {
+      extendedGlobal.fetch.mockResponses(
+        [
+          'Found',
+          {
+            status: 302,
+            statusText: 'Found',
+            headers: { Location: 'http://other-url' },
+          },
+        ],
+        'Ok',
       );
-      let error;
 
+      const response = await request(url);
+
+      expect(response.status).toBe(302);
+      expect(await response.text()).toEqual('Found');
+      expect(response.headers.get('Location')).toEqual('http://other-url');
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // meaning it didn't retry because it shouldn't retry on 3xx
+    });
+
+    it('should fail but not retry if response is 4XX', async () => {
+      extendedGlobal.fetch.once('Access forbidden', {
+        status: 403,
+        statusText: 'Forbidden',
+      });
+
+      let error;
       try {
         await request(url);
       } catch (e) {
         error = e;
       }
 
-      // should not retry on 4xx
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toMatch(
-        /The call did not succeed after 1 attempt.*/,
-      );
-      expect(fetchMock.calls().length).toEqual(1);
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
+
+      expect(error.attributes).toMatchObject({
+        reason: RequestErrorReason.serverError,
+        statusCode: 403,
+        bodyAsText: 'Access forbidden',
+      });
+
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // meaning it didn't retry because it shouldn't retry on 4xx
     });
 
     it('should retry on >= http 500', async () => {
-      let requestCount = 0;
-      fetchMock
-        .mock(
-          // the type here should be fetchMock.MockRequest but the authors of this library forgot to export it
-          () => !!++requestCount && requestCount < 3,
+      extendedGlobal.fetch.mockResponses(
+        [
+          'Internal Server Error',
           {
             status: 500,
+            statusText: 'Internal Server Error',
           },
-          { method: 'GET', name: 'fails' },
-        )
-        .mock(
-          () => requestCount === 3,
+        ],
+        [
+          'Internal Server Error',
           {
-            status: 200,
+            status: 500,
+            statusText: 'Internal Server Error',
           },
-          { method: 'GET', name: 'succeeds' },
-        );
+        ],
+        'Ok',
+      );
 
       const response = await request(url, {
-        retryOptions: { factor: 1, startTimeoutInMs: 1 },
+        clientOptions: {
+          retryOptions: { startTimeoutInMs: 1, factor: 1 },
+        },
       });
 
-      // shoud retry twice
       expect(response.status).toEqual(200);
-      expect(fetchMock.calls().length).toEqual(3);
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(3); // should have retried twice and succeeded
     });
 
     it('should retry on >= http 500 and fail on 400', async () => {
-      let requestCount = 0;
-      let error;
-
-      fetchMock
-        .mock(
-          // the type here should be fetchMock.MockRequest but the authors of this library forgot to export it
-          () => !!++requestCount && requestCount < 3,
+      extendedGlobal.fetch.mockResponses(
+        [
+          'Internal Server Error',
           {
             status: 500,
+            statusText: 'Internal Server Error',
           },
-          { method: 'GET', name: 'fails' },
-        )
-        .mock(
-          () => requestCount === 3,
+        ],
+        [
+          'Internal Server Error',
+          {
+            status: 500,
+            statusText: 'Internal Server Error',
+          },
+        ],
+        [
+          'Bad Request',
           {
             status: 400,
+            statusText: 'Bad Request',
           },
-          { method: 'GET', name: 'succeeds' },
-        );
+        ],
+      );
 
+      let error;
       try {
         await request(url, {
-          retryOptions: { factor: 1, startTimeoutInMs: 1 },
+          clientOptions: {
+            retryOptions: { startTimeoutInMs: 1, factor: 1 },
+          },
         });
       } catch (e) {
         error = e;
       }
 
-      // should retry 2 times and then hit non-retryable error
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toMatch(
-        /The call did not succeed after 3 attempts.*/,
-      );
-      expect(fetchMock.calls().length).toEqual(3);
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
+
+      expect(error.attributes).toMatchObject({
+        reason: RequestErrorReason.serverError,
+        statusCode: 400,
+        bodyAsText: 'Bad Request',
+      });
+
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(3); // should have retried twice and hit non-retryable error
     });
 
     it('should retry on >= http 500 and fail after a number of attempts if unsuccessful', async () => {
-      fetchMock.get(url, {
+      extendedGlobal.fetch.mockResponse('Internal Server Error', {
         status: 500,
+        statusText: 'Internal Server Error',
       });
 
       let error;
       try {
         await request(url, {
-          retryOptions: { attempts: 2, factor: 1, startTimeoutInMs: 1 },
+          clientOptions: {
+            retryOptions: { startTimeoutInMs: 1, maxAttempts: 3, factor: 1 },
+          },
         });
       } catch (e) {
         error = e;
       }
 
-      // shoud retry the set number of times and fail
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toMatch(
-        /The call did not succeed after 2 attempts.*/,
-      );
-      expect(fetchMock.calls().length).toEqual(2);
-    });
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
 
-    it('should retry on >= http 500 and fail after default number of attempts if unsuccessful', async () => {
-      fetchMock.get(url, {
-        status: 500,
+      expect(error.attributes).toMatchObject({
+        reason: RequestErrorReason.clientExhaustedRetries,
+        attempts: 3,
+        innerError: expect.any(Error),
       });
 
-      let error;
-      try {
-        await request(url, {
-          retryOptions: { factor: 1, startTimeoutInMs: 1 },
-        });
-      } catch (e) {
-        error = e;
+      if (!error.attributes.innerError) {
+        return expect(error.attributes.innerError).toBeDefined();
       }
 
-      // shoud retry the default number of times and fail
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toMatch(
-        /The call did not succeed after 5 attempts.*/,
-      );
-      expect(fetchMock.calls().length).toEqual(5);
+      if (!isRequestError(error.attributes.innerError)) {
+        return expect(isRequestError(error.attributes.innerError)).toBeTruthy();
+      }
+
+      expect(error.attributes.innerError.attributes).toMatchObject({
+        reason: RequestErrorReason.serverError,
+        statusCode: 500,
+        bodyAsText: 'Internal Server Error',
+      });
+
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(3); // shoud have exhausted retries and failed
     });
 
     it('should not retry if request is aborted (using DOMException)', async () => {
-      const abortException = new DOMException(
-        'The user aborted a request.',
-        'AbortError',
+      extendedGlobal.fetch.mockRejectOnce(
+        new DOMException('The user aborted a request.', 'AbortError'),
       );
+
       let error;
-
-      fetchMock.mock(
-        url,
-        new Promise((resolve, reject) => reject(abortException)),
-      );
-
       try {
         await request(url, {
-          retryOptions: { factor: 1, startTimeoutInMs: 1 },
+          clientOptions: {
+            retryOptions: { startTimeoutInMs: 1, factor: 1 },
+          },
         });
       } catch (e) {
         error = e;
       }
 
-      expect(error).toBeInstanceOf(DOMException);
-      expect(error.name).toEqual('AbortError');
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
 
-      // should not retry on aborted requests
-      expect(fetchMock.calls().length).toEqual(1);
+      expect(error.attributes.reason).toEqual(
+        RequestErrorReason.clientAbortedRequest,
+      );
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // should not have retried on aborted requests
     });
 
     it('should not retry if request is aborted (using Error)', async () => {
-      const abortError = new Error('request_cancelled');
+      extendedGlobal.fetch.mockRejectOnce(new Error('request_cancelled'));
+
       let error;
-
-      fetchMock.mock(url, new Promise((resolve, reject) => reject(abortError)));
-
       try {
         await request(url, {
-          retryOptions: { factor: 1, startTimeoutInMs: 1 },
+          clientOptions: {
+            retryOptions: { startTimeoutInMs: 1, factor: 1 },
+          },
         });
       } catch (e) {
         error = e;
       }
 
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toEqual('request_cancelled');
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
 
-      // should not retry on aborted requests
-      expect(fetchMock.calls().length).toEqual(1);
+      expect(error.attributes.reason).toEqual(
+        RequestErrorReason.clientAbortedRequest,
+      );
+      expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // should not have retried on aborted requests
     });
   });
 });

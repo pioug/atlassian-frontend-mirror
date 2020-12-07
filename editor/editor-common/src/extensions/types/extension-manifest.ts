@@ -83,6 +83,7 @@ export type ExtensionModuleAutoConvert = {
 export type CustomFieldResolver = (
   searchTerm?: string,
   defaultValue?: string | string[],
+  parameters?: Parameters,
 ) => Promise<Option[]>;
 export type UserFieldContextProvider = () => Promise<UserFieldContext>;
 

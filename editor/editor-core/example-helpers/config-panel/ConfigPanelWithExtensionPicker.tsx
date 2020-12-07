@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 import * as colors from '@atlaskit/theme/colors';
+import TextArea from '@atlaskit/textarea';
 import { CodeBlock } from '@atlaskit/code';
 
 import {
@@ -46,7 +47,7 @@ function ExtensionConfigPanel({
   node,
   nodeKey,
   extensionProvider,
-  parameters = {},
+  parameters: initialParameters = {},
   item,
 }: { extensionProvider: ExtensionProvider; nodeKey: string } & CallbackParams) {
   const [fields] = useStateFromPromise(
@@ -59,9 +60,24 @@ function ExtensionConfigPanel({
     [],
   );
 
-  const [parametersState, setParameters] = useState({} as Parameters);
+  const [parametersJson, setParameters] = useState(() =>
+    JSON.stringify(initialParameters),
+  );
+
+  const [state, setState] = useState(initialParameters);
   if (!extension || !node || !item) {
     return null;
+  }
+
+  function onChangeParameters(event: any) {
+    setParameters(event.target.value);
+  }
+
+  let parameters = initialParameters;
+  try {
+    parameters = JSON.parse(parametersJson);
+  } catch (e) {
+    console.error('Invalid Parameters JSON', e.message);
   }
 
   return (
@@ -74,26 +90,25 @@ function ExtensionConfigPanel({
           nodeKey={nodeKey}
           extensionProvider={extensionProvider}
           parameters={parameters}
-          onChange={setParameters}
+          onChange={setState}
         />
       </Column>
       <Column width="500" key="parameters">
         <h3>Parameters:</h3>
         <CodeWrapper>
           {parameters && (
-            <CodeBlock
-              language="json"
-              text={JSON.stringify(parameters, null, 4)}
-              showLineNumbers={false}
+            <TextArea
+              onChange={onChangeParameters}
+              value={JSON.stringify(parameters, null, 4)}
             />
           )}
         </CodeWrapper>
         <h3>State:</h3>
         <CodeWrapper>
-          {parametersState && (
+          {state && (
             <CodeBlock
               language="json"
-              text={JSON.stringify(parametersState, null, 4)}
+              text={JSON.stringify(state, null, 4)}
               showLineNumbers={false}
             />
           )}

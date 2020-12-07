@@ -4,6 +4,8 @@ import { exampleDocument } from '@atlaskit/editor-core/example-helpers/example-d
 import Editor from './../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
+import MobileEditorConfiguration from '../src/editor/editor-configuration';
+import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -24,9 +26,12 @@ export default function Example() {
   return (
     <Wrapper>
       <Editor
+        bridge={getBridge()}
         {...createEditorProviders(fetchProxy)}
         defaultValue={exampleDocument}
-        mode={'dark'}
+        initialEditorConfig={
+          new MobileEditorConfiguration('{ "mode": "dark" }')
+        }
       />
     </Wrapper>
   );

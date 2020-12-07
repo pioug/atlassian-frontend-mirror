@@ -44,7 +44,6 @@ export type {
   PasteSource,
   PasteType,
 } from './paste-events';
-export type { HistoryEventPayload } from './history-events';
 export type {
   MediaAltTextActionType,
   MediaEventPayload,

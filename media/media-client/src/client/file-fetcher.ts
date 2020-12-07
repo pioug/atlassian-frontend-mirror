@@ -8,7 +8,6 @@ import {
   MediaStore,
   MediaStoreCopyFileWithTokenBody,
   MediaStoreCopyFileWithTokenParams,
-  ResponseFileItem,
   TouchedFiles,
   TouchFileDescriptor,
 } from './media-store';
@@ -24,7 +23,8 @@ import {
   mapMediaItemToFileState,
   ProcessingFileState,
 } from '../models/file-state';
-import { MediaCollectionItemFullDetails, MediaFile } from '../models/media';
+import { MediaFile } from '../models/media';
+import { FileFetcherError, FileFetcherErrorReason } from '../models/errors';
 import {
   UploadableFile,
   UploadableFileUpfrontIds,
@@ -36,6 +36,11 @@ import { getFileStreamsCache } from '../file-streams-cache';
 import { globalMediaEventEmitter } from '../globalMediaEventEmitter';
 import { RECENTS_COLLECTION } from '../constants';
 import isValidId from 'uuid-validate';
+import {
+  createFileDataloader,
+  DataloaderKey,
+  DataloaderResult,
+} from '../utils/createFileDataLoader';
 import { getMediaTypeFromUploadableFile } from '../utils/getMediaTypeFromUploadableFile';
 import { overrideMediaTypeIfUnknown } from '../utils/overrideMediaTypeIfUnknown';
 import { convertBase64ToBlob } from '../utils/convertBase64ToBlob';
@@ -54,47 +59,6 @@ import {
   getMediaFeatureFlag,
 } from '@atlaskit/media-common/mediaFeatureFlags';
 
-const maxNumberOfItemsPerCall = 100;
-const makeCacheKey = (id: string, collection?: string) =>
-  collection ? `${id}-${collection}` : id;
-const isDataloaderErrorResult = (
-  result: any,
-): result is DataloaderErrorResult => {
-  return result.error instanceof Error;
-};
-
-export type DataloaderMap = { [id: string]: DataloaderResult };
-export const getItemsFromKeys = (
-  dataloaderKeys: DataloaderKey[],
-  fileItems: Array<ResponseFileItem | DataloaderErrorResult>,
-): DataloaderResult[] => {
-  const itemsByKey: DataloaderMap = fileItems.reduce(
-    (prev: DataloaderMap, nextFileItem) => {
-      const { id, collection } = nextFileItem;
-      const key = makeCacheKey(id, collection);
-
-      prev[key] = isDataloaderErrorResult(nextFileItem)
-        ? nextFileItem
-        : nextFileItem.details;
-
-      return prev;
-    },
-    {},
-  );
-
-  return dataloaderKeys.map(dataloaderKey => {
-    const { id, collection } = dataloaderKey;
-    const key = makeCacheKey(id, collection);
-
-    return itemsByKey[key];
-  });
-};
-
-interface DataloaderKey {
-  id: string;
-  collection?: string;
-}
-
 export interface CopySourceFile {
   id: string;
   collection?: string;
@@ -110,17 +74,6 @@ export interface CopyFileOptions {
   preview?: FilePreview | Promise<FilePreview>;
   mimeType?: string;
 }
-
-interface DataloaderErrorResult {
-  id: string;
-  error: Error;
-  collection?: string;
-}
-
-type DataloaderResult =
-  | MediaCollectionItemFullDetails
-  | DataloaderErrorResult
-  | undefined;
 
 export type ExternalUploadPayload = {
   uploadableFileUpfrontIds: UploadableFileUpfrontIds;
@@ -165,72 +118,30 @@ export class FileFetcherImpl implements FileFetcher {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
 
   constructor(private readonly mediaStore: MediaStore) {
-    this.dataloader = new Dataloader<DataloaderKey, DataloaderResult>(
-      this.batchLoadingFunc,
-      {
-        maxBatchSize: maxNumberOfItemsPerCall,
-      },
-    );
+    this.dataloader = createFileDataloader(mediaStore);
   }
-
-  // Returns an array of the same length as the keys filled with file items
-  private batchLoadingFunc = async (keys: DataloaderKey[]) => {
-    const nonCollectionName = '__media-single-file-collection__';
-    const fileIdsByCollection = keys.reduce((prev, next) => {
-      const collectionName = next.collection || nonCollectionName;
-      const fileIds = prev[collectionName] || [];
-
-      fileIds.push(next.id);
-      prev[collectionName] = fileIds;
-
-      return prev;
-    }, {} as { [collectionName: string]: string[] });
-    const items: Array<ResponseFileItem | DataloaderErrorResult> = [];
-
-    await Promise.all(
-      Object.keys(fileIdsByCollection).map(async collectionNameKey => {
-        const fileIds = fileIdsByCollection[collectionNameKey];
-        const collectionName =
-          collectionNameKey === nonCollectionName
-            ? undefined
-            : collectionNameKey;
-        try {
-          const response = await this.mediaStore.getItems(
-            fileIds,
-            collectionName,
-          );
-
-          items.push(...response.data.items);
-        } catch (error) {
-          fileIds.forEach(fileId => {
-            items.push({
-              id: fileId,
-              error: error || new Error('Failed to fetch'),
-              collection: collectionName,
-            });
-          });
-        }
-      }),
-    );
-
-    return getItemsFromKeys(keys, items);
-  };
 
   public getFileState(
     id: string,
-    options?: GetFileOptions,
+    options: GetFileOptions = {},
   ): ReplaySubject<FileState> {
+    const { collectionName, occurrenceKey } = options;
+
     if (!isValidId(id)) {
       const subject = createFileStateSubject();
-      subject.error('invalid id was passed to getFileState');
+      subject.error(
+        new FileFetcherError(FileFetcherErrorReason.invalidFileId, id, {
+          collectionName,
+          occurrenceKey,
+        }),
+      );
 
       return subject;
     }
 
-    return getFileStreamsCache().getOrInsert(id, () => {
-      const collection = options && options.collectionName;
-      return this.createDownloadFileStream(id, collection);
-    });
+    return getFileStreamsCache().getOrInsert(id, () =>
+      this.createDownloadFileStream(id, collectionName),
+    );
   }
 
   getCurrentState(id: string, options?: GetFileOptions): Promise<FileState> {
@@ -255,13 +166,13 @@ export class FileFetcherImpl implements FileFetcher {
 
   private createDownloadFileStream = (
     id: string,
-    collection?: string,
+    collectionName?: string,
+    occurrenceKey?: string,
   ): ReplaySubject<FileState> => {
     const subject = createFileStateSubject();
+    const { featureFlags } = this.mediaStore;
 
-    const featureFlags = this.mediaStore.featureFlags;
-
-    const pollOptions: PollingOptions = {
+    const pollingOptions: PollingOptions = {
       poll_intervalMs: getMediaFeatureFlag<number>(
         'poll_intervalMs',
         featureFlags,
@@ -284,21 +195,22 @@ export class FileFetcherImpl implements FileFetcher {
       ),
     };
 
-    const poll = new PollingFunction(pollOptions);
+    const poll = new PollingFunction(pollingOptions);
 
     // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
     poll.onError = (error: Error) => subject.error(error);
 
     poll.execute(async () => {
-      const response = await this.dataloader.load({ id, collection });
+      const response = await this.dataloader.load({
+        id,
+        collectionName,
+      });
 
       if (!response) {
-        return;
-      }
-
-      if (isDataloaderErrorResult(response)) {
-        subject.error(response);
-        return;
+        throw new FileFetcherError(FileFetcherErrorReason.invalidFileId, id, {
+          collectionName,
+          occurrenceKey,
+        });
       }
 
       const fileState = mapMediaItemToFileState(id, response);
@@ -491,7 +403,7 @@ export class FileFetcherImpl implements FileFetcher {
           // Specific error coming from chunkinator via rejected fileId promise.
           // We do not want to trigger error in this case.
           const message = error instanceof Error ? error.message : error;
-          subject.next({
+          return subject.next({
             id,
             status: 'error',
             message,
@@ -504,6 +416,7 @@ export class FileFetcherImpl implements FileFetcher {
         processingSubscription = this.createDownloadFileStream(
           id,
           collection,
+          occurrenceKey,
         ).subscribe({
           next: remoteFileState =>
             subject.next({
@@ -656,6 +569,7 @@ export class FileFetcherImpl implements FileFetcher {
         processingSubscription = this.createDownloadFileStream(
           copiedId,
           destinationCollectionName,
+          occurrenceKey,
         ).subscribe({
           next: remoteFileState =>
             subject.next({

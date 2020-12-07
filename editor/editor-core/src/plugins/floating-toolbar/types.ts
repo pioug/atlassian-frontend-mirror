@@ -13,7 +13,7 @@ import { SelectOption } from './ui/Select';
 import React from 'react';
 import { DropdownOptions, RenderOptionsPropsT } from './ui/types';
 import { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
-import { CardOptions } from '../card/types';
+import { CardOptions } from '@atlaskit/editor-common';
 
 export type Icon = React.ComponentType<{ label: string }>;
 export type RenderOptionsProps = RenderOptionsPropsT<Command>;

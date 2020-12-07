@@ -1,4 +1,10 @@
 import { outlier } from './outlier';
+import {
+  EVENT_NAME_STATE_APPLY,
+  EVENT_NAME_UPDATE_STATE,
+  EVENT_NAME_ON_CHANGE,
+  EVENT_NAME_VIEW_STATE_UPDATED,
+} from './track-transactions';
 
 export interface PluginMethodReport {
   stateApply: number;
@@ -31,6 +37,7 @@ export interface PluginPerformanceReportData {
 }
 
 export interface PluginPerformanceReportOptions {
+  usePerformanceMarks?: boolean;
   samplingRate: number;
   slowThreshold: number;
   outlierThreshold: number;
@@ -117,21 +124,12 @@ export class PluginPerformanceReport {
 
   public withEntryList(entryList: PerformanceObserverEntryList): this {
     this.entryList = entryList;
-    this.stateApplied = this.getEntryByName(
-      entryList,
-      '🦉 EditorView::state::apply',
-    );
-    this.viewUpdated = this.getEntryByName(
-      entryList,
-      '🦉 EditorView::updateState',
-    );
-    this.onChangeCalled = this.getEntryByName(
-      entryList,
-      '🦉 ReactEditorView::onChange',
-    );
+    this.stateApplied = this.getEntryByName(entryList, EVENT_NAME_STATE_APPLY);
+    this.viewUpdated = this.getEntryByName(entryList, EVENT_NAME_UPDATE_STATE);
+    this.onChangeCalled = this.getEntryByName(entryList, EVENT_NAME_ON_CHANGE);
     this.onEditorViewStateUpdatedCalled = this.getEntryByName(
       entryList,
-      '🦉 ReactEditorView::onEditorViewStateUpdated',
+      EVENT_NAME_VIEW_STATE_UPDATED,
     );
     this.withPlugins(this.pluginNames);
     return this;

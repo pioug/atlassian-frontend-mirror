@@ -19,7 +19,7 @@ import * as tempHighlightAdf from './../__fixtures__/temp-highlight.adf.json';
 import { AnnotationTestIds } from '../../types';
 import { selectorById, getState } from '../_utils';
 
-describe('Snapshot Tests', () => {
+describe.skip('Snapshot Tests', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;

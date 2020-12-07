@@ -677,8 +677,7 @@ describe('<ItemViewer />', () => {
           fileMimetype: '',
           fileSize: 0,
           status: 'fail',
-          failReason:
-            'Error: Invalid parameter in getDocument, need either Uint8Array, string or a parameter object',
+          failReason: expect.any(String),
           ...analyticsBaseAttributes,
         },
         eventType: 'operational',

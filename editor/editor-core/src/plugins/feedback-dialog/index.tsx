@@ -28,20 +28,31 @@ const hashFeedbackInfo = (feedbackInfo: FeedbackInfo): string => {
 export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo) =>
   new Promise(async (resolve, reject) => {
     const combinedFeedbackInfo = {
+      // default value assignment
+      ...{
+        product: 'n/a',
+        labels: [],
+        packageName: '',
+        packageVersion: '',
+        sessionId: '',
+        contentId: '',
+        tabId: '',
+      },
       ...defaultFeedbackInfo,
       ...feedbackInfo,
     };
     const newFeedbackInfoHash = hashFeedbackInfo(combinedFeedbackInfo);
+
     if (!showJiraCollectorDialog || feedbackInfoHash !== newFeedbackInfoHash) {
       try {
         showJiraCollectorDialog = await loadJiraCollectorDialogScript(
-          [
-            combinedFeedbackInfo.product || 'n/a',
-            ...(combinedFeedbackInfo.labels || []),
-          ],
-          combinedFeedbackInfo.packageName || '',
+          [combinedFeedbackInfo.product, ...combinedFeedbackInfo.labels],
+          combinedFeedbackInfo.packageName,
           coreVersion,
-          combinedFeedbackInfo.packageVersion || '',
+          combinedFeedbackInfo.packageVersion,
+          combinedFeedbackInfo.sessionId,
+          combinedFeedbackInfo.contentId,
+          combinedFeedbackInfo.tabId,
         );
 
         feedbackInfoHash = newFeedbackInfoHash;

@@ -44,7 +44,6 @@ export interface MediaOptions {
   useForgePlugins?: boolean;
   useMediaPickerPopup?: boolean;
   allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
-  UNSAFE_allowImageCaptions?: boolean;
   alignLeftOnInsert?: boolean;
   featureFlags?: MediaFeatureFlags;
 }

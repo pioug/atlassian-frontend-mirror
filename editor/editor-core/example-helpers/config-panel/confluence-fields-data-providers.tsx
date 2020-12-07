@@ -1,14 +1,14 @@
 import React from 'react';
-import PersonIcon from '@atlaskit/icon/glyph/person';
 import FolderFilledIcon from '@atlaskit/icon/glyph/folder-filled';
-import PageIcon from '@atlaskit/icon/glyph/page';
-import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import LabelIcon from '@atlaskit/icon/glyph/label';
-import { Option } from '@atlaskit/editor-common/extensions';
+import PageIcon from '@atlaskit/icon/glyph/page';
+import PersonIcon from '@atlaskit/icon/glyph/person';
+import { Option, Parameters } from '@atlaskit/editor-common/extensions';
 
 const createCustomFieldResolver = (items: Option[], lazyItems?: Option[]) => (
   searchTerm?: string,
   defaultValue?: string[] | string,
+  _parameters?: Parameters,
 ): Promise<Option[]> => {
   const filter = (term?: string | string[], items?: Option[]): Option[] => {
     if (!Array.isArray(items)) {
@@ -41,7 +41,7 @@ const createCustomFieldResolver = (items: Option[], lazyItems?: Option[]) => (
   return Promise.resolve(items);
 };
 
-export const spaceKeyFieldResolver = createCustomFieldResolver([
+export const mockFieldResolver = createCustomFieldResolver([
   {
     label: 'XRay',
     value: 'XR',
@@ -62,51 +62,21 @@ export const spaceKeyFieldResolver = createCustomFieldResolver([
     value: 'BF',
     icon: <FolderFilledIcon size="small" label="BF" />,
   },
-]);
-export const usernameFieldResolver = createCustomFieldResolver(
-  [
-    {
-      label: 'Leandro Augusto Lemos',
-      value: 'llemos',
-      icon: <PersonIcon size="small" label="llemos" />,
-    },
-    {
-      label: 'Rifat Nabi',
-      value: 'rnabi',
-      icon: <PersonIcon size="small" label="rnabi" />,
-    },
-  ],
-  [
-    {
-      label: 'Ajay Kumar',
-      value: 'akumar',
-      icon: <PersonIcon size="small" label="akumar" />,
-    },
-  ],
-);
-export const labelFieldResolver = createCustomFieldResolver([
   {
     label: 'Meeting notes',
     value: 'meeting-notes',
     icon: <LabelIcon size="small" label="meeting-notes" />,
   },
-  {
-    label: 'Decision register',
-    value: 'decision-register',
-    icon: <LabelIcon size="small" label="decision-register" />,
-  },
-]);
-export const confluenceContentFieldResolver = createCustomFieldResolver([
+
   {
     label: 'How to populate custom fields?',
     value: '123456',
-    description: 'Page',
+    description: 'A page that is missing',
     icon: <PageIcon size="medium" label="123456" />,
   },
   {
-    label: 'What should we do with X?',
-    value: '654321',
-    description: 'Document',
-    icon: <DocumentFilledIcon size="medium" label="654321" />,
+    label: 'The User',
+    value: 'myuser',
+    icon: <PersonIcon size="small" label="The User" />,
   },
 ]);

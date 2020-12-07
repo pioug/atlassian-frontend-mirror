@@ -38,7 +38,6 @@ export type {
   ErrorEventPayload,
   FormatEventPayload,
   GeneralEventPayload,
-  HistoryEventPayload,
   InputMethodInsertLink,
   InputMethodInsertMedia,
   InsertEventPayload,

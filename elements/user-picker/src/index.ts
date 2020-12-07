@@ -5,6 +5,7 @@ export type {
 } from './components/emailValidation';
 export { UserPicker as default } from './components/UserPicker';
 export {
+  hydrateDefaultValues,
   SmartUserPicker,
   setSmartUserPickerEnv,
 } from './components/smart-user-picker/index';

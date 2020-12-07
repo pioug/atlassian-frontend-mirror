@@ -32,6 +32,10 @@ export const toggleOrderedList = makeKeyMapWithCommon(
   'Numbered list',
   'Mod-Shift-7',
 );
+export const ctrlBackSpace = makeKeyMapWithCommon(
+  'Cmd + Backspace',
+  'Mod-Backspace',
+);
 export const toggleBulletList = makeKeyMapWithCommon(
   'Bullet list',
   'Mod-Shift-8',

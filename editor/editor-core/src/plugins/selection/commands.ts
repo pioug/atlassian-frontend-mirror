@@ -361,7 +361,7 @@ const setSelectionInsideAtNodeStart = (
   return false;
 };
 
-const setSelectionInsideAtNodeEnd = (
+export const setSelectionInsideAtNodeEnd = (
   selectionRelativeToNode: RelativeSelectionPos,
   node: PmNode,
   from: number,

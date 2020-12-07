@@ -2,6 +2,7 @@ import { Transaction, EditorState, PluginKey } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
 import { defaultSchemaConfig, createSchema } from '@atlaskit/adf-schema';
 import { InstrumentedPlugin } from '../../performance/instrumented-plugin';
+import { TransactionTracker } from '../../performance/track-transactions';
 
 beforeEach(() => {
   performance.measure = jest.fn();
@@ -58,6 +59,7 @@ describe('InstrumentedPlugin.prototype.apply', () => {
         {
           transactionTracking: { enabled: true },
         },
+        new TransactionTracker(),
       );
 
       plugin.spec.state!.apply(thing, thing, thing, thing);
@@ -68,6 +70,11 @@ describe('InstrumentedPlugin.prototype.apply', () => {
       const apply = jest.fn();
       const thing = {} as any;
       const mark = performance.mark as jest.Mock;
+      const tracker = new TransactionTracker();
+      const options = {
+        enabled: true,
+        usePerformanceMarks: true,
+      };
 
       const plugin = new InstrumentedPlugin(
         {
@@ -75,15 +82,17 @@ describe('InstrumentedPlugin.prototype.apply', () => {
           state: { init: jest.fn(), apply },
         },
         {
-          transactionTracking: { enabled: true },
+          transactionTracking: options,
         },
+        tracker,
       );
       const key = (plugin as any).key;
 
       // call to increment counter
-      new Array<number>(100)
-        .fill(0)
-        .forEach(() => plugin.spec.state!.apply(thing, thing, thing, thing));
+      new Array<number>(100).fill(0).forEach(() => {
+        tracker.bumpDispatchCounter(options);
+        plugin.spec.state!.apply(thing, thing, thing, thing);
+      });
 
       expect(performance.mark).toHaveBeenCalledTimes(2);
       expect(mark.mock.calls).toEqual([

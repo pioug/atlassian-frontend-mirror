@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+/**  @jsx jsx */
+import { ChangeEvent, useState } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import { Checkbox } from '../../src';
 
@@ -31,7 +34,7 @@ const IndeterminateCheckbox = () => {
   };
   const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
 
-  const onChange = (event: any) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const itemValue = event.target.value;
 
     if (itemValue === PARENT_ID) {
@@ -68,7 +71,7 @@ const IndeterminateCheckbox = () => {
         name="parent"
       />
       <div
-        style={{
+        css={{
           display: 'flex',
           flexDirection: 'column',
           paddingLeft: '24px',

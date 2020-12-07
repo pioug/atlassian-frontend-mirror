@@ -1,4 +1,5 @@
 import {
+  Auth,
   AsapBasedAuth,
   AuthContext,
   ClientAltBasedAuth,
@@ -14,16 +15,20 @@ import {
   MediaFile,
   MediaUpload,
 } from '../models/media';
+import { request } from '../utils/request';
 import {
   createUrl,
   mapResponseToBlob,
   mapResponseToJson,
   mapResponseToVoid,
-  request,
+} from '../utils/request/helpers';
+import {
+  ClientOptions,
   RequestHeaders,
   RequestMethod,
   RequestParams,
-} from '../utils/request';
+} from '../utils/request/types';
+import { MediaStoreErrorReason, MediaStoreError } from '../models/errors';
 
 const defaultImageOptions: MediaStoreGetFileImageParams = {
   'max-age': FILE_CACHE_MAX_AGE,
@@ -187,27 +192,27 @@ export class MediaStore {
     }).then(mapResponseToJson);
   }
 
-  getFile = (
+  getFile(
     fileId: string,
     params: MediaStoreGetFileParams = {},
-  ): Promise<MediaStoreResponse<MediaFile>> => {
+  ): Promise<MediaStoreResponse<MediaFile>> {
     return this.request(`/file/${fileId}`, {
       params,
       authContext: { collectionName: params.collection },
     }).then(mapResponseToJson);
-  };
+  }
 
-  getFileImageURL = async (
+  async getFileImageURL(
     id: string,
     params?: MediaStoreGetFileImageParams,
-  ): Promise<string> => {
+  ): Promise<string> {
     const auth = await this.config.authProvider();
 
     return createUrl(`${auth.baseUrl}/file/${id}/image`, {
       params: extendImageParams(params),
       auth,
     });
-  };
+  }
 
   async getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
     const auth = await this.config.authProvider({ collectionName });
@@ -222,11 +227,11 @@ export class MediaStore {
     });
   }
 
-  getArtifactURL = async (
+  async getArtifactURL(
     artifacts: MediaFileArtifacts,
     artifactName: keyof MediaFileArtifacts,
     collectionName?: string,
-  ): Promise<string> => {
+  ): Promise<string> {
     const artifactUrl = getArtifactUrl(artifacts, artifactName);
     if (!artifactUrl) {
       throw new Error(`artifact ${artifactName} not found`);
@@ -238,14 +243,14 @@ export class MediaStore {
       params: { collection: collectionName, 'max-age': FILE_CACHE_MAX_AGE },
       auth,
     });
-  };
+  }
 
-  getImage = async (
+  async getImage(
     id: string,
     params?: MediaStoreGetFileImageParams,
     controller?: AbortController,
     fetchMaxRes?: boolean,
-  ): Promise<Blob> => {
+  ): Promise<Blob> {
     // TODO add checkWebpSupport() back https://product-fabric.atlassian.net/browse/MPT-584
     const isWebpSupported = false;
     let headers;
@@ -263,12 +268,12 @@ export class MediaStore {
       },
       controller,
     ).then(mapResponseToBlob);
-  };
+  }
 
-  getItems = (
+  async getItems(
     ids: string[],
     collectionName?: string,
-  ): Promise<MediaStoreResponse<ItemsPayload>> => {
+  ): Promise<MediaStoreResponse<ItemsPayload>> {
     const descriptors = ids.map(id => ({
       type: 'file',
       id,
@@ -281,17 +286,17 @@ export class MediaStore {
       headers: jsonHeaders,
       authContext: { collectionName },
     }).then(mapResponseToJson);
-  };
+  }
 
-  getImageMetadata = (
+  async getImageMetadata(
     id: string,
     params?: MediaStoreGetFileImageParams,
-  ): Promise<{ metadata: ImageMetadata }> => {
+  ): Promise<{ metadata: ImageMetadata }> {
     return this.request(`/file/${id}/image/metadata`, {
       params,
       authContext: { collectionName: params && params.collection },
     }).then(mapResponseToJson);
-  };
+  }
 
   appendChunksToUpload(
     uploadId: string,
@@ -328,8 +333,21 @@ export class MediaStore {
     controller?: AbortController,
   ): Promise<Response> {
     const { authProvider } = this.config;
-    const { method, authContext, params, headers, body } = options;
-    const auth = await authProvider(authContext);
+    const {
+      method,
+      authContext,
+      params,
+      headers,
+      body,
+      clientOptions,
+    } = options;
+    let auth: Auth;
+
+    try {
+      auth = await authProvider(authContext);
+    } catch (err) {
+      throw new MediaStoreError(MediaStoreErrorReason.failedAuthProvider, err);
+    }
 
     const response = await request(
       `${auth.baseUrl}${path}`,
@@ -339,6 +357,7 @@ export class MediaStore {
         params,
         headers,
         body,
+        clientOptions,
       },
       controller,
     );
@@ -395,6 +414,7 @@ export type MediaStoreRequestOptions = {
   readonly params?: RequestParams;
   readonly headers?: RequestHeaders;
   readonly body?: any;
+  readonly clientOptions?: ClientOptions;
 };
 
 export type MediaStoreCreateFileFromUploadParams = {

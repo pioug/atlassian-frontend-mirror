@@ -92,6 +92,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
               imageUploadProvider,
               onChange,
               disabled,
+              contextIdentifierProvider,
             }: any) => (
               <div style={{ padding: '20px' }}>
                 <CollapsedEditor
@@ -115,6 +116,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                     mentionProvider={mentionProvider}
                     emojiProvider={emojiProvider}
                     legacyImageUploadProvider={imageUploadProvider}
+                    contextIdentifierProvider={contextIdentifierProvider}
                     shouldFocus={true}
                     onChange={onChange}
                     onSave={SAVE_ACTION}

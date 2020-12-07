@@ -33,7 +33,7 @@ import ReactEditorView, {
   EditorViewProps,
 } from '../../create-editor/ReactEditorView';
 import { MediaOptions } from '../..';
-import { CardOptions } from '../../plugins/card';
+import { CardOptions } from '@atlaskit/editor-common';
 import { asMock } from '@atlaskit/media-test-helpers';
 
 import * as ActivityProviderModule from '@atlaskit/activity-provider';

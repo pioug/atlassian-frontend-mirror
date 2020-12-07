@@ -6,8 +6,6 @@ import {
 } from '../_utils';
 import resizeAdf from './__fixtures__/renderer-media.adf.json';
 import commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
-import captionRendererAdf from './__fixtures__/caption-renderer-media-adf.json';
-import longCaptionRendererAdf from './__fixtures__/caption-long-renderer-media-adf.json';
 import wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
 import wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
@@ -94,15 +92,6 @@ describe('Snapshot Test: Media', () => {
         await waitForAllMedia(page, 16);
         await snapshotRenderer();
       });
-    });
-  });
-
-  xdescribe('caption', () => {
-    it('should render a caption', async () => {
-      await initRenderer(page, captionRendererAdf, undefined, 'full-page');
-    });
-    it('should wrap a long caption correctly', async () => {
-      await initRenderer(page, longCaptionRendererAdf, undefined, 'full-page');
     });
   });
 

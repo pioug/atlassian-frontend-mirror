@@ -37,18 +37,24 @@ function Form({
   firstVisibleFieldName,
 }: Props) {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const isFirstRender = useRef(true);
   const tryAutoSave = useCallback(() => {
-    if (!autoSave) {
+    if (!autoSave || isFirstRender.current) {
       return;
     }
 
     if (submitButtonRef.current) {
       submitButtonRef.current.click();
     }
-  }, [autoSave, submitButtonRef]);
+  }, [autoSave, submitButtonRef, isFirstRender]);
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(tryAutoSave, [autoSaveTrigger]);
+
+  // we want to avoid submitting the form on the initial render
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
 
   return (
     <React.Fragment>

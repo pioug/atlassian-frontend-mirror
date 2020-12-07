@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "28.4.1",
+  "version": "28.5.0",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,6 +15,8 @@
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
     "./fakeMediaClient": "./src/fakeMediaClient.ts",
+    "./media-mock": "./src/mocks/media-mock.ts",
+    "./images": "./src/images.tsx",
     "./jestHelpers": "./src/jestHelpers.ts",
     ".": "./src/index.tsx"
   },
@@ -25,11 +27,11 @@
   },
   "dependencies": {
     "@atlaskit/locale": "^2.1.0",
-    "@atlaskit/media-client": "^12.1.0",
+    "@atlaskit/media-client": "^12.2.0",
     "@atlaskit/media-common": "^2.4.0",
     "@atlaskit/media-core": "^32.1.0",
-    "@atlaskit/media-picker": "^57.0.0",
-    "@atlaskit/media-ui": "^14.3.0",
+    "@atlaskit/media-picker": "^57.1.0",
+    "@atlaskit/media-ui": "^14.4.0",
     "@babel/runtime": "^7.0.0",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",

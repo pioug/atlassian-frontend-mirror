@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.4.4
+
+### Patch Changes
+
+- [`91061fed3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91061fed3e) - Updated default values for Polling feature Flags
+- [`11b4fc8033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11b4fc8033) - ensure maximum media poll interval ms is 3.3min not 33min
+
 ## 2.4.3
 
 ### Patch Changes

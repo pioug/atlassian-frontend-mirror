@@ -16,6 +16,8 @@ import { Node as PMNode } from 'prosemirror-model';
 import MediaSingleNode from '../mediaSingle';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import { MediaPluginState } from '../../pm-plugins/types';
+import { fireEvent, render } from '@testing-library/react';
+import { NodeSelection, EditorState } from 'prosemirror-state';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
@@ -130,5 +132,32 @@ describe('mediaSingle', () => {
     expect(
       addPendingTaskMock.mock.calls.some(arg => arg.includes(myPromise)),
     ).toBeTruthy();
+  });
+
+  it('triggers on click handler for caption placeholder', async () => {
+    const node = render(
+      <MediaSingleNode
+        {...{
+          ...getMediaSingleProps(),
+          mediaOptions: { featureFlags: { captions: true } },
+          node: {
+            attrs: {},
+            firstChild: { attrs: {} },
+            childCount: 1,
+          } as PMNode<any>,
+          selected: jest.fn().mockReturnValue(true),
+          view: {
+            state: {
+              selection: Object.create(NodeSelection.prototype),
+            } as Partial<EditorState>,
+          } as EditorView<any>,
+        }}
+      />,
+    );
+
+    const { getByTestId } = node;
+    fireEvent.click(getByTestId('caption-placeholder'));
+
+    expect(mocks.mockInsertCaptionAtPos).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "14.3.1",
+  "version": "14.4.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,6 +23,8 @@
     "./modalSpinner": "./src/modalSpinner.tsx",
     "./browser": "./src/browser.tsx",
     "./codeViewer": "./src/codeViewer.ts",
+    "./util": "./src/util.ts",
+    "./errorIcon": "./src/errorIcon.tsx",
     ".": "./src/index.ts"
   },
   "atlassian": {
@@ -72,9 +74,9 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^28.4.0",
+    "@atlaskit/media-test-helpers": "^28.5.0",
     "@atlaskit/ssr": "*",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.1",

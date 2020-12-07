@@ -1,9 +1,9 @@
 import WebBridgeImpl, { defaultSetList } from '../../implementation';
-import { bridge } from '../../../mobile-editor-element';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import NativeBridge from '../../../web-to-native/bridge';
 import { dismissCommand } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../../../types';
+import MobileEditorConfiguration from '../../../editor-configuration';
 
 jest.mock('../../../web-to-native');
 jest.mock('@atlaskit/editor-core', () => ({
@@ -50,6 +50,8 @@ describe('Collab Web Bridge', () => {
 });
 
 describe('Lifecycle Bridge', () => {
+  let bridge: WebBridgeImpl = new WebBridgeImpl();
+
   it('should create a lifecycle on creation', function () {
     expect(bridge.lifecycle).not.toBeUndefined();
   });
@@ -179,7 +181,7 @@ describe('PageTitle Bridge', () => {
     await new Promise(resolve => process.nextTick(() => resolve()));
 
     expect(provider.on).toHaveBeenCalledWith(
-      'title:changed',
+      'metadata:changed',
       expect.anything(),
     );
   });
@@ -192,7 +194,7 @@ describe('PageTitle Bridge', () => {
     await new Promise(resolve => process.nextTick(() => resolve()));
 
     expect(provider.off).toHaveBeenCalledWith(
-      'title:changed',
+      'metadata:changed',
       expect.anything(),
     );
   });
@@ -200,6 +202,7 @@ describe('PageTitle Bridge', () => {
 
 describe('TypeAhead Bridge', () => {
   let toNativeBridge: jest.Mocked<NativeBridge>;
+  let bridge: WebBridgeImpl = new WebBridgeImpl();
 
   beforeEach(async () => {
     ({ toNativeBridge } = require('../../../web-to-native'));
@@ -225,5 +228,47 @@ describe('TypeAhead Bridge', () => {
     );
     bridge.cancelTypeAhead();
     expect(toNativeBridge.dismissTypeAhead).not.toHaveBeenCalled();
+  });
+});
+
+describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
+  it('should initialise editorConfiguration with default configs when no configs are passed', () => {
+    const expectedEditorConfig = new MobileEditorConfiguration();
+
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+
+    expect(bridge.getEditorConfiguration()).toEqual(expectedEditorConfig);
+  });
+
+  it('should have a setter method to set the editor config', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"mode": "dark","enableQuickInsert": true}',
+    );
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    bridge.setEditorConfiguration(editorConfig);
+    expect(bridge.getEditorConfiguration().mode()).toEqual('dark');
+    expect(bridge.getEditorConfiguration().isQuickInsertEnabled()).toEqual(
+      true,
+    );
+  });
+
+  it('should have a setter method to set the onEditorConfigChanged handler', () => {
+    const editorConfigChanged = jest.fn();
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    const jsonConfig =
+      '{ "enableQuickInsert": true,"selectionObserverEnabled": true,"allowCollabProvider": true}';
+    const updatedConfig = new MobileEditorConfiguration(jsonConfig);
+    bridge.setEditorConfigChangeHandler(editorConfigChanged);
+    bridge.configureEditor(jsonConfig);
+    expect(editorConfigChanged).toHaveBeenCalledTimes(1);
+    expect(editorConfigChanged).toHaveBeenCalledWith(updatedConfig);
+  });
+
+  it('should not call cloneAndUpdateConfig when editorConfigChanged is not set', () => {
+    const mockedCloneAndUpdateConfig = jest.fn();
+    MobileEditorConfiguration.prototype.cloneAndUpdateConfig = mockedCloneAndUpdateConfig;
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    bridge.configureEditor('{mode: "light"}');
+    expect(mockedCloneAndUpdateConfig).not.toHaveBeenCalled();
   });
 });

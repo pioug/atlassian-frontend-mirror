@@ -83,7 +83,6 @@ export const mediaSingle: NodeSpec = {
 export const mediaSingleWithCaption: NodeSpec = {
   ...mediaSingle,
   content: 'media caption?',
-  atom: false,
 };
 
 export const toJSON = (node: Node) => ({

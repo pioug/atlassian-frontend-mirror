@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+/**  @jsx jsx */
+import { ChangeEvent, useState } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import { Checkbox } from '../src';
 
@@ -31,7 +34,7 @@ const IndeterminateCheckbox = () => {
   };
   const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
 
-  const onChange = (event: any) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const itemValue = event.target.value;
 
     if (itemValue === PARENT_ID) {
@@ -59,7 +62,7 @@ const IndeterminateCheckbox = () => {
 
   return (
     <div>
-      <p style={{ marginBottom: '8px' }}>
+      <p css={{ marginBottom: '8px' }}>
         An indeterminate checkbox can be used to show partially checked states.
         The parent checkbox below will be indeterminate until all its&#39;
         children are checked.
@@ -71,9 +74,10 @@ const IndeterminateCheckbox = () => {
         label="Parent Checkbox"
         value={PARENT_ID}
         name="parent"
+        testId="parent"
       />
       <div
-        style={{
+        css={{
           display: 'flex',
           flexDirection: 'column',
           paddingLeft: '24px',
@@ -85,13 +89,15 @@ const IndeterminateCheckbox = () => {
           label="Child Checkbox 1"
           value={CHILD_1_ID}
           name="child-1"
+          testId="child-1"
         />
         <Checkbox
           isChecked={checkedItems[CHILD_2_ID]}
           onChange={onChange}
           label="Child Checkbox 2"
           value={CHILD_2_ID}
-          name="child-1"
+          name="child-2"
+          testId="child-2"
         />
       </div>
     </div>

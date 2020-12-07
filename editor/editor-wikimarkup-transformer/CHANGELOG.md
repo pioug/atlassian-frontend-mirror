@@ -1,5 +1,15 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 8.4.0
+
+### Minor Changes
+
+- [`21de2f736a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21de2f736a) - fix: normalizeHexColor behaves normally when passed 'default'
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.5
 
 ### Patch Changes

@@ -495,7 +495,7 @@ export default md`
 
   Builders are the set of composable functions that help with creating ADF documents.
 
-  > **@atlaskit/adf-utils** provides builders for all nodes and marks listed in [Atlassian Document Format](https://developer.atlassian.com/cloud/stride/apis/document/structure/)
+  > **@atlaskit/adf-utils** provides builders for all nodes and marks listed in [Atlassian Document Format](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/)
   specification.
 
   ### Usage:

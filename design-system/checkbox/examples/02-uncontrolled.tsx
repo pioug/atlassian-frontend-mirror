@@ -1,46 +1,40 @@
-import React, { PureComponent } from 'react';
+/**  @jsx jsx */
+import { ChangeEvent, useCallback, useState } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import { Checkbox } from '../src';
 
-interface State {
-  onChangeResult: string;
-}
+export default function UncontrolledExample() {
+  const [onChangeResult, setOnChangeResult] = useState(
+    'Check & Uncheck to trigger onChange',
+  );
 
-export default class UncontrolledExample extends PureComponent<void, State> {
-  state = {
-    onChangeResult: 'Check & Uncheck to trigger onChange',
-  };
-  onChange: React.ChangeEventHandler<HTMLInputElement> = event => {
-    this.setState({
-      onChangeResult: `this.state.isChecked: ${String(
-        event.currentTarget.checked,
-      )}`,
-    });
-  };
+  const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setOnChangeResult(`isChecked in state: ${event.target.checked}`);
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <Checkbox
-          onChange={this.onChange}
-          label="Uncontrolled Checkbox"
-          value="Uncontrolled Checkbox"
-          name="uncontrolled-checkbox"
-        />
+  return (
+    <div>
+      <Checkbox
+        onChange={onChange}
+        label="Uncontrolled Checkbox"
+        value="Uncontrolled Checkbox"
+        name="uncontrolled-checkbox"
+      />
 
-        <div
-          style={{
-            borderStyle: 'dashed',
-            borderWidth: '1px',
-            borderColor: '#ccc',
-            padding: '0.5em',
-            margin: '0.5em',
-            color: '#ccc',
-          }}
-        >
-          {this.state.onChangeResult}
-        </div>
+      <div
+        css={{
+          borderStyle: 'dashed',
+          borderWidth: '1px',
+          borderColor: '#ccc',
+          padding: '0.5em',
+          margin: '0.5em',
+          color: '#ccc',
+        }}
+      >
+        {onChangeResult}
       </div>
-    );
-  }
+    </div>
+  );
 }

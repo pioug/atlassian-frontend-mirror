@@ -26,7 +26,6 @@ export default function ConfigPanelWithProviders({
   onChange?: (parameters: Parameters) => void;
 }) {
   function _onChange(data: Parameters) {
-    console.log(data, JSON.stringify(data));
     if (onChange) {
       onChange(data);
     }

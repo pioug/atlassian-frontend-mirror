@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HyperlinkAddToolbar when activity provider returns 5 or more results initially should make default activity items call when input is cleared 1`] = `
+exports[`HyperlinkLinkAddToolbar when activity provider returns 5 or more results initially should make default activity items call when input is cleared 1`] = `
 Array [
   Object {
     "container": "some-activity-container-1",
@@ -45,7 +45,7 @@ Array [
 ]
 `;
 
-exports[`HyperlinkAddToolbar when activity provider returns less then 5 results after user input should deduplicate search results 1`] = `
+exports[`HyperlinkLinkAddToolbar when activity provider returns less then 5 results after user input should deduplicate search results 1`] = `
 Array [
   Object {
     "container": "some-activity-container-1",
@@ -96,7 +96,7 @@ Array [
 ]
 `;
 
-exports[`HyperlinkAddToolbar when activity provider returns less then 5 results after user input should still take the result of latest query if two quick search are triggered 1`] = `
+exports[`HyperlinkLinkAddToolbar when activity provider returns less then 5 results after user input should still take the result of latest query if two quick search are triggered 1`] = `
 Array [
   Object {
     "container": "some-activity-container-1",

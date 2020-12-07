@@ -11,11 +11,14 @@ import { snapshot } from '../_utils';
 import { selectors } from '../../__helpers/page-objects/_renderer';
 import adfHeading from '../../__fixtures__/heading-tooltip.adf.json';
 import adfHeadings from '../../__fixtures__/headings-aligned-left.adf.json';
+import adfHeadingsRTLEmoji from '../../__fixtures__/headings-right-aligned-emoji.adf.json';
+import adfHeadingsRTLStatus from '../../__fixtures__/headings-right-aligned-status.adf.json';
+import adfHeadingsRTLSymbols from '../../__fixtures__/headings-right-aligned-symbols.adf.json';
 import adfHeadingsWithLink from '../../__fixtures__/headings-with-link.adf.json';
 import adfHeadingsMultilined from '../../__fixtures__/headings-multilined.adf.json';
 
 // Headings with anchor links enabled
-describe('Headings with links', () => {
+describe.skip('Headings with links', () => {
   let page: PuppeteerPage;
 
   const setPage = () => (page = global.page);
@@ -75,9 +78,6 @@ describe('Headings with links', () => {
         await hoverOnHeadingWithLinkThenSnapshot(
           page,
           `h${headingLevel}:first-of-type`,
-          alignment === 'right'
-            ? { snapshotMargin: true, screenshotOnHeadingHover: true }
-            : undefined,
         );
       },
     );
@@ -134,5 +134,25 @@ describe('Headings with links', () => {
       page,
       '.fabric-editor-block-mark[data-align="end"] h3:first-of-type',
     );
+  });
+
+  it('should NOT apply RTL to anything other than copy link button when right aligned', async () => {
+    async function snapshotRTL(page: PuppeteerPage, adf: any, width: number) {
+      await initRendererWithADF(page, {
+        adf,
+        rendererProps: propsWithHeadingLinksEnabled,
+        appearance: 'full-page',
+        viewport: {
+          width,
+          height: 320,
+        },
+      });
+      // Deliberately not spoofing media query here so the buttons are all
+      // visualised without hover
+      await snapshot(page, undefined, selectors.document);
+    }
+    await snapshotRTL(page, adfHeadingsRTLEmoji, 270);
+    await snapshotRTL(page, adfHeadingsRTLStatus, 305);
+    await snapshotRTL(page, adfHeadingsRTLSymbols, 345);
   });
 });

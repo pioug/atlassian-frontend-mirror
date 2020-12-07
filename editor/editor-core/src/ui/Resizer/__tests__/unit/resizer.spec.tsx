@@ -32,6 +32,7 @@ describe('<Resizer />', () => {
         layout={'center'}
         width={1}
         height={1}
+        ratio={'100.000'}
       >
         ,<div></div>
       </Resizer>,

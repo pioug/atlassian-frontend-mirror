@@ -5,24 +5,24 @@ import TextField from '@atlaskit/textfield';
 import { NumberField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
-import { validate, getSafeParentedName } from '../utils';
+import { validate } from '../utils';
 import { OnBlur, ValidationError } from '../types';
 import isNumber from 'is-number';
 
 export default function Number({
+  name,
   field,
   autoFocus,
   onBlur,
   placeholder,
-  parentName,
 }: {
+  name: string;
   field: NumberField;
   autoFocus?: boolean;
   onBlur: OnBlur;
   placeholder?: string;
-  parentName?: string;
 }) {
-  const { name, label, description, defaultValue, isRequired } = field;
+  const { label, description, defaultValue, isRequired } = field;
 
   function validateNumber(value?: string) {
     const error = validate<string>(field, value || '');
@@ -40,7 +40,7 @@ export default function Number({
 
   return (
     <Field<string>
-      name={getSafeParentedName(name, parentName)}
+      name={name}
       label={label}
       defaultValue={defaultValue === undefined ? '' : String(defaultValue)}
       isRequired={isRequired}

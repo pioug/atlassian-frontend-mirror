@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Status "
+        },
+        {
+          "type": "status",
+          "attrs": {
+            "text": "node",
+            "color": "blue",
+            "localId": "89e3fa86-a4fb-465a-a127-68599168a424",
+            "style": ""
+          }
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "status",
+          "attrs": {
+            "text": "node",
+            "color": "blue",
+            "localId": "fde4c632-ec1d-4eff-98e9-f15159ebad5a",
+            "style": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " Status"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Middle "
+        },
+        {
+          "type": "status",
+          "attrs": {
+            "text": "status",
+            "color": "blue",
+            "localId": "befb046b-a227-4c21-bab9-174724680922",
+            "style": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " Node"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Multiline "
+        },
+        {
+          "type": "status",
+          "attrs": {
+            "text": "status",
+            "color": "blue",
+            "localId": "15208e33-c769-42ca-ae5f-e312ea8d24ff",
+            "style": ""
+          }
+        },
+        {
+          "type": "hardBreak"
+        },
+        {
+          "type": "text",
+          "text": "Node"
+        }
+      ],
+      "marks": [
+        {
+          "type": "alignment",
+          "attrs": {
+            "align": "end"
+          }
+        }
+      ]
+    }
+  ]
+}

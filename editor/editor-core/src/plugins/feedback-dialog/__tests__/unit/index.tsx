@@ -79,6 +79,9 @@ describe('feedbackDialogPlugin', () => {
         'editor',
         '999.9.9',
         '666.6.6',
+        '',
+        '',
+        '',
       );
     });
 
@@ -100,12 +103,18 @@ describe('feedbackDialogPlugin', () => {
       labels: ['label1'],
       packageName: 'package1',
       packageVersion: '111.222.333',
+      sessionId: '',
+      contentId: '',
+      tabId: '',
     };
     const param2 = {
       product: 'bitbucket',
       labels: ['label2'],
       packageName: 'package2',
       packageVersion: '444.555.666',
+      sessionId: '',
+      contentId: '',
+      tabId: '',
     };
 
     describe('called multiple times with same params', () => {
@@ -122,6 +131,9 @@ describe('feedbackDialogPlugin', () => {
           'package1',
           '999.9.9',
           '111.222.333',
+          '',
+          '',
+          '',
         );
       });
 
@@ -139,14 +151,47 @@ describe('feedbackDialogPlugin', () => {
             'package1',
             '999.9.9',
             '111.222.333',
+            '',
+            '',
+            '',
           );
           expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
             ['bitbucket', 'label2'],
             'package2',
             '999.9.9',
             '444.555.666',
+            '',
+            '',
+            '',
           );
         });
+      });
+    });
+
+    describe('called with paramId', () => {
+      const param3 = {
+        product: 'confluence',
+        labels: ['label3'],
+        packageName: 'package3',
+        packageVersion: '777.888.999',
+        sessionId: 'sessionId',
+        contentId: 'contentId',
+        tabId: 'tabId',
+      };
+      beforeEach(async () => {
+        loadJiraCollectorDialogScript.mockClear();
+        await openFeedbackDialog(param3);
+      });
+      it('should call "loadJiraCollectorDialogScript" with correct ids', () => {
+        expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
+          ['confluence', 'label3'],
+          'package3',
+          '999.9.9',
+          '777.888.999',
+          'sessionId',
+          'contentId',
+          'tabId',
+        );
       });
     });
   });

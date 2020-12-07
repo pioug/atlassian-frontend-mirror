@@ -11,8 +11,13 @@ import {
 import { InjectedIntl } from 'react-intl';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
-import WebBridgeImpl from '../../native-to-web';
-import NativeBridge from '../../web-to-native/bridge';
+import { toNativeBridge } from '../../web-to-native';
+import * as UseEditorReadyModule from '../../hooks/use-editor-ready';
+import * as UsePageTitleModule from '../../hooks/use-page-title';
+import * as UseEditorDestroyedModule from '../../hooks/use-editor-destroyed';
+import MobileEditorConfiguration from '../../editor-configuration';
+import WebBridgeImpl from '../../native-to-web/implementation';
+import * as UseEditorConfigurationModule from '../../hooks/use-editor-configuration';
 
 jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');
@@ -33,39 +38,21 @@ const initialDocument = JSON.stringify({
   ],
 });
 
-async function enableCollab() {
-  const { getAllowCollabProvider } = await import(
-    '../../../query-param-reader'
-  );
-  (getAllowCollabProvider as jest.MockedFunction<
-    typeof getAllowCollabProvider
-  >).mockImplementation(() => true);
-
-  return () => {
-    (getAllowCollabProvider as jest.MockedFunction<
-      typeof getAllowCollabProvider
-    >).mockImplementation(() => false);
-  };
-}
-
 describe('mobile editor element', () => {
   let mobileEditor: ReactWrapper<typeof MobileEditor>;
   let fetchProxy: FetchProxy;
   let bridge: WebBridgeImpl;
-  let toNativeBridge: jest.Mocked<NativeBridge>;
 
+  const intlMock = {
+    formatMessage: messageDescriptor =>
+      messageDescriptor && messageDescriptor.defaultMessage,
+  } as InjectedIntl;
   const initEditor = (
-    _bridge: WebBridgeImpl = new WebBridgeImpl(),
+    editorConfig?: MobileEditorConfiguration,
   ): ReactWrapper<typeof MobileEditor> => {
-    bridge = _bridge;
-    const intlMock = {
-      formatMessage: messageDescriptor =>
-        messageDescriptor && messageDescriptor.defaultMessage,
-    } as InjectedIntl;
+    bridge = new WebBridgeImpl();
     mobileEditor = mount(
       <MobileEditor
-        mode="light"
-        bridge={bridge}
         createCollabProvider={createCollabProviderFactory(fetchProxy)}
         cardClient={createCardClient()}
         cardProvider={createCardProvider()}
@@ -74,6 +61,8 @@ describe('mobile editor element', () => {
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
         intl={intlMock}
+        initialEditorConfig={editorConfig}
+        bridge={bridge}
       />,
     );
 
@@ -92,10 +81,6 @@ describe('mobile editor element', () => {
   });
 
   beforeEach(async () => {
-    ({ toNativeBridge } = ((await import('../../web-to-native')) as any) as {
-      toNativeBridge: jest.Mocked<NativeBridge>;
-    });
-
     fetchProxy = new FetchProxy();
     fetchProxy.enable();
   });
@@ -112,82 +97,69 @@ describe('mobile editor element', () => {
   });
 
   describe('when the mobile editor is mounted', () => {
-    it('should set the editorView in the bridge', () => {
-      bridge = new WebBridgeImpl();
-      expect(bridge.editorView).toBeNull();
-
-      initEditor(bridge);
-
-      expect(bridge.editorView).not.toBeNull();
+    it('should have called useEditorReady', () => {
+      jest.spyOn(toNativeBridge, 'editorReady').mockImplementation(jest.fn());
+      const editorReady = jest.spyOn(UseEditorReadyModule, 'useEditorReady');
+      initEditor();
+      expect(editorReady).toBeCalled();
     });
 
-    it('should register the editor in the bridge editor actions', () => {
-      bridge = new WebBridgeImpl();
-      expect(bridge.editorActions._privateGetEditorView()).toBeUndefined();
-      expect(bridge.editorActions._privateGetEventDispatcher()).toBeUndefined();
-
-      initEditor(bridge);
-
-      expect(bridge.editorActions._privateGetEditorView()).not.toBeUndefined();
-      expect(
-        bridge.editorActions._privateGetEventDispatcher(),
-      ).not.toBeUndefined();
+    it('should have called usePageTitle', () => {
+      const pageTitle = jest.spyOn(UsePageTitleModule, 'usePageTitle');
+      initEditor();
+      expect(pageTitle).toBeCalled();
     });
 
-    it('should have called editorReady on native bridge', function () {
-      initEditor(bridge);
-      expect(toNativeBridge.editorReady).toHaveBeenCalled();
+    it('should have light mode when the Editor is loaded with default config', () => {
+      const mobileEditor = initEditor();
+      expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(
+        'light',
+      );
     });
 
-    describe('with collab', () => {
-      let disableCollab: () => void;
-      beforeAll(async () => {
-        disableCollab = await enableCollab();
-      });
-
-      afterAll(() => {
-        disableCollab();
-      });
-
-      it('should setup the bridge title', async function () {
-        bridge = new WebBridgeImpl();
-        const setupTitle = jest.spyOn(bridge, 'setupTitle');
-
-        initEditor(bridge);
-
-        expect(setupTitle).toHaveBeenCalled();
-      });
+    it('should have called useEditorConfiguration', () => {
+      const editorconfiguration = jest.spyOn(
+        UseEditorConfigurationModule,
+        'useEditorConfiguration',
+      );
+      initEditor();
+      expect(editorconfiguration).toBeCalled();
     });
   });
 
   describe('when the mobile editor is unmounted', () => {
-    it('should remove the editorView from the bridge', () => {
-      mobileEditor = initEditor(bridge);
-      expect(bridge.editorView).not.toBeNull();
-
+    it('it should have called useEditorDestroyed', () => {
+      const editorDestroyed = jest.spyOn(
+        UseEditorDestroyedModule,
+        'useEditorDestroyed',
+      );
+      mobileEditor = initEditor();
       mobileEditor.unmount();
+      expect(editorDestroyed).toBeCalled();
+    });
+  });
 
-      expect(bridge.editorView).toBeNull();
+  describe('Mobile Editor with default editor configuration', () => {
+    it('should set the editorConfiguration with dark mode', () => {
+      const editorConfig = new MobileEditorConfiguration('{ "mode": "dark" }');
+
+      mobileEditor = initEditor(editorConfig);
+
+      expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(
+        'dark',
+      );
     });
 
-    it('should unregister the editor in the bridge editor actions', () => {
-      mobileEditor = initEditor(bridge);
-      expect(bridge.editorActions._privateGetEditorView()).not.toBeUndefined();
-      expect(
-        bridge.editorActions._privateGetEventDispatcher(),
-      ).not.toBeUndefined();
+    it('should set the default editor configuration to the bridge', () => {
+      const editorConfig = new MobileEditorConfiguration(
+        '{"mode": "dark","enableQuickInsert": true}',
+      );
+      mobileEditor = initEditor(editorConfig);
 
-      mobileEditor.unmount();
-
-      expect(bridge.editorActions._privateGetEditorView()).toBeUndefined();
-      expect(bridge.editorActions._privateGetEventDispatcher()).toBeUndefined();
-    });
-
-    it('should have called editorDestroyed on native bridge', function () {
-      initEditor(bridge);
-      mobileEditor.unmount();
-
-      expect(toNativeBridge.editorDestroyed).toHaveBeenCalled();
+      expect(bridge.getEditorConfiguration().mode()).toEqual('dark');
+      expect(bridge.getEditorConfiguration().isQuickInsertEnabled()).toEqual(
+        true,
+      );
     });
   });
 });

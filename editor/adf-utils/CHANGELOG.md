@@ -1,5 +1,22 @@
 # @atlaskit/adf-utils
 
+## 11.4.0
+
+### Minor Changes
+
+- [`4d9d11c246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d9d11c246) - Fixes nodes with multiple validation specs to return node with most suitable spec.
+
+## 11.3.0
+
+### Minor Changes
+
+- [`9b1c48edd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1c48edd1) - Revert ED-10820 to resolve broken validator
+
+### Patch Changes
+
+- [`4e64133fdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e64133fdc) - Remove empty captions on the editor saving
+- Updated dependencies
+
 ## 11.2.2
 
 ### Patch Changes

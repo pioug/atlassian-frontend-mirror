@@ -1,6 +1,6 @@
 import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
-import { CardOptions } from '../card';
+import { CardOptions } from '@atlaskit/editor-common';
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;

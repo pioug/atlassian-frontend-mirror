@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 12.2.0
+
+### Minor Changes
+
+- [`7736346d88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7736346d88) - Added strongly typed errors to Media Client
+
+### Patch Changes
+
+- [`fa5ef18162`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa5ef18162) - Fixed media client's DataLoader error handling
+- [`11b4fc8033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11b4fc8033) - ensure maximum media poll interval ms is 3.3min not 33min
+
 ## 12.1.2
 
 ### Patch Changes

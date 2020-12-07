@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33333333333333,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2750,
+            "height": 2061
+          }
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "this is a complicated caption with "
+            },
+            {
+              "type": "mention",
+              "attrs": {
+                "id": "0",
+                "text": "@Carolyn",
+                "accessLevel": ""
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "attrs": {
+                "shortName": ":tada:",
+                "id": "1f389",
+                "text": "🎉"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "attrs": {
+                "shortName": ":tada:",
+                "id": "1f389",
+                "text": "🎉"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "attrs": {
+                "shortName": ":smiling_face_with_3_hearts:",
+                "id": "1f970",
+                "text": "🥰"
+              }
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "text",
+              "text": "FAB-1520 UI: Poor man's search",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://product-fabric.atlassian.net/browse/FAB-1520"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

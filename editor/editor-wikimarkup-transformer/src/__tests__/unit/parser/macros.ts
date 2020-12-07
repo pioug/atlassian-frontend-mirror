@@ -184,6 +184,11 @@ linebreaks{noformat}`,
       'Should work with multiple equal signs in a single attribute',
       `{code:title=title with = multiple=equal=signs}const a = 3 + 7{code}`,
     ],
+    [
+      'ADFS-277 should not blow up when default color is passed',
+
+      '{color:default}foo{color}',
+    ],
   ];
 
   const context = {

@@ -43,6 +43,7 @@ import { HyperlinkState } from '../../pm-plugins/main';
 import { hideLinkToolbar } from '../../commands';
 import { EditorView } from 'prosemirror-view';
 import { LinkInputType } from '../../types';
+import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -661,10 +662,20 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     }
   };
 
-  private handleKeyDown = (e: KeyboardEvent<any>) => {
+  private handleKeyDown = (event: KeyboardEvent<any>) => {
     const { items, selectedIndex } = this.state;
     const { pluginState, view } = this.props;
-    this.isTabPressed = e.keyCode === 9;
+    const { keyCode } = event;
+    this.isTabPressed = keyCode === 9;
+
+    if (keyCode === 27) {
+      // escape
+      event.preventDefault();
+      hideLinkToolbar()(view.state, view.dispatch);
+
+      view.dispatch(cardHideLinkToolbar(view.state.tr));
+      return;
+    }
 
     if (!items || !items.length) {
       return;
@@ -672,18 +683,14 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
     let updatedIndex = selectedIndex;
 
-    if (e.keyCode === 40) {
+    if (keyCode === 40) {
       // down
-      e.preventDefault();
+      event.preventDefault();
       updatedIndex = (selectedIndex + 1) % items.length;
-    } else if (e.keyCode === 38) {
+    } else if (keyCode === 38) {
       // up
-      e.preventDefault();
+      event.preventDefault();
       updatedIndex = selectedIndex > 0 ? selectedIndex - 1 : items.length - 1;
-    } else if (e.keyCode === 27) {
-      // escape
-      e.preventDefault();
-      hideLinkToolbar()(view.state, view.dispatch);
     }
     this.setState({
       selectedIndex: updatedIndex,

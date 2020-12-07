@@ -51,7 +51,7 @@
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/form": "^8.1.0",

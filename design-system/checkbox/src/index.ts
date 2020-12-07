@@ -1,2 +1,3 @@
-export { default as Checkbox } from './Checkbox';
-export { default as CheckboxIcon } from './CheckboxIcon';
+// This allows you to import Checkbox as a default or named export
+export { default, Checkbox } from './checkbox';
+export type { CheckboxProps } from './types';

@@ -5,13 +5,26 @@ import { getPluginState } from './pm-plugins/main';
 import { getSelectedExtension } from './utils';
 import WithEditorActions from '../../ui/WithEditorActions';
 import ConfigPanelLoader from '../../ui/ConfigPanel/ConfigPanelLoader';
+import { duplicateSelection } from '../../utils/selection';
 import { clearEditingContext, forceAutoSave } from './commands';
+import { buildExtensionNode } from './actions';
+import { updateState } from './commands';
 
 import type { EditorView } from 'prosemirror-view';
 import type { ContentNodeWithPos } from 'prosemirror-utils';
 import type { ExtensionState } from './types';
-import { buildExtensionNode } from './actions';
-import { updateState } from './commands';
+
+const areParametersEqual = (
+  firstParameters: any,
+  secondParameters: any,
+): boolean => {
+  const firstKeys = Object.keys(firstParameters);
+  const secondKeys = Object.keys(secondParameters);
+  return (
+    firstKeys.length === secondKeys.length &&
+    firstKeys.every(key => firstParameters[key] === secondParameters[key])
+  );
+};
 
 export const getContextPanel = (allowAutoSave?: boolean) => (
   state: EditorState,
@@ -108,10 +121,19 @@ export async function onChangeAction(
   nodeWithPos: ContentNodeWithPos,
 ) {
   // WARNING: editorView.state stales quickly, do not unpack
-  const { processParametersAfter } = getPluginState(
+  const { processParametersAfter, processParametersBefore } = getPluginState(
     editorView.state,
   ) as ExtensionState;
+
   if (!processParametersAfter) {
+    return;
+  }
+
+  const unwrappedOldParameters = processParametersBefore
+    ? processParametersBefore(oldParameters)
+    : oldParameters;
+  // todo: update to only check parameters which are in the manifest's field definitions
+  if (areParametersEqual(unwrappedOldParameters, updatedParameters)) {
     return;
   }
 
@@ -161,6 +183,16 @@ export async function onChangeAction(
     positionUpdated + newNode.nodeSize,
     newNode,
   );
+
+  // Ensure we preserve the selection, tr.replaceWith causes it to be lost in some cases
+  // when replacing the node
+  const { selection: prevSelection } = editorView.state;
+  if (!prevSelection.eq(transaction.selection)) {
+    const selection = duplicateSelection(prevSelection, transaction.doc);
+    if (selection) {
+      transaction.setSelection(selection);
+    }
+  }
 
   const positionsLess: Record<number, number> = {
     ...(getPluginState(editorView.state) as ExtensionState).positions,

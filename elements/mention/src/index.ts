@@ -27,11 +27,12 @@ import ResourcedMention from './components/Mention/ResourcedMention';
 import TeamMentionHighlight from './components/TeamMentionHighlight';
 import TeamMentionHighlightController from './components/TeamMentionHighlight/TeamMentionHighlightController';
 import {
-  FlowType,
   MentionDescription,
   MentionsResult,
   MentionNameStatus,
   MentionNameDetails,
+  InviteExperimentCohort,
+  InviteFlow,
   isSpecialMention,
   TeamMember,
   UserRole,
@@ -80,7 +81,8 @@ export type {
   TeamMember,
   MentionResourceConfig,
   TeamMentionResourceConfig,
-  FlowType,
+  InviteExperimentCohort,
+  InviteFlow,
   UserRole,
 };
 

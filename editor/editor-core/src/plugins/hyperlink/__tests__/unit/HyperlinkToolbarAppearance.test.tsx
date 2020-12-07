@@ -12,7 +12,7 @@ import {
   p,
   inlineCard,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { CardOptions } from '../../../../plugins/card/types';
+import { CardOptions } from '@atlaskit/editor-common';
 import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
 import { stateKey } from '../../pm-plugins/main';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';

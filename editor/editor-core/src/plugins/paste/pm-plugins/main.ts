@@ -55,7 +55,7 @@ import {
 } from './analytics';
 import { PasteTypes } from '../../analytics';
 import { insideTable } from '../../../utils';
-import { CardOptions } from '../../card';
+import { CardOptions } from '@atlaskit/editor-common';
 import {
   transformSliceToCorrectMediaWrapper,
   unwrapNestedMediaElements,

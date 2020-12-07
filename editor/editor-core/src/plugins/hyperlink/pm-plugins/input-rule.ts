@@ -10,7 +10,10 @@ import { queueCards } from '../../card/pm-plugins/actions';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';
 
-export function createLinkInputRule(regexp: RegExp): InputRule {
+export function createLinkInputRule(
+  regexp: RegExp,
+  skipAnalytics: boolean = false,
+): InputRule {
   // Plain typed text (eg, typing 'www.google.com') should convert to a hyperlink
   return createInputRule(
     regexp,
@@ -41,6 +44,9 @@ export function createLinkInputRule(regexp: RegExp): InputRule {
           )
           .insertText(' '),
       );
+      if (skipAnalytics) {
+        return tr;
+      }
       return addAnalytics(
         state,
         tr,
@@ -50,12 +56,18 @@ export function createLinkInputRule(regexp: RegExp): InputRule {
   );
 }
 
-export function createInputRulePlugin(schema: Schema): Plugin | undefined {
+export function createInputRulePlugin(
+  schema: Schema,
+  skipAnalytics: boolean = false,
+): Plugin | undefined {
   if (!schema.marks.link) {
     return;
   }
 
-  const urlWithASpaceRule = createLinkInputRule(new LinkMatcher() as RegExp);
+  const urlWithASpaceRule = createLinkInputRule(
+    new LinkMatcher() as RegExp,
+    skipAnalytics,
+  );
 
   // [something](link) should convert to a hyperlink
   const markdownLinkRule = createInputRule(
@@ -71,6 +83,9 @@ export function createInputRulePlugin(schema: Schema): Plugin | undefined {
         end,
         schema.text(linkText, [markType]),
       );
+      if (skipAnalytics) {
+        return tr;
+      }
       return addAnalytics(
         state,
         tr,

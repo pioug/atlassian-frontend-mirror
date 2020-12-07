@@ -65,7 +65,14 @@ import { PluginPerformanceObserver } from '../utils/performance/plugin-performan
 import { PluginPerformanceReportData } from '../utils/performance/plugin-performance-report';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 import { countNodes } from '../utils/count-nodes';
-import { shouldTrackTransaction } from '../utils/performance/should-track-transaction';
+import { TransactionTracker } from '../utils/performance/track-transactions';
+import {
+  EVENT_NAME_DISPATCH_TRANSACTION,
+  EVENT_NAME_STATE_APPLY,
+  EVENT_NAME_UPDATE_STATE,
+  EVENT_NAME_VIEW_STATE_UPDATED,
+  EVENT_NAME_ON_CHANGE,
+} from '../utils/performance/track-transactions';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
@@ -127,6 +134,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     channel?: string;
   }) => void;
   proseMirrorRenderedSeverity?: SEVERITY;
+  transactionTracker: TransactionTracker;
 
   static contextTypes = {
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
@@ -139,12 +147,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
   private focusTimeoutId: number | undefined;
 
-  private pluginPerformanceObserver = new PluginPerformanceObserver(report =>
-    this.onPluginObservation(report, this.editorState),
-  )
-    .withPlugins(() => this.getPluginNames())
-    .withNodeCounts(() => this.countNodes())
-    .withOptions(() => this.transactionTrackingOptions);
+  private pluginPerformanceObserver: PluginPerformanceObserver;
 
   private onPluginObservation = (
     report: PluginPerformanceReportData,
@@ -191,6 +194,15 @@ export default class ReactEditorView<T = {}> extends React.Component<
     this.errorReporter = createErrorReporter(
       props.editorProps.errorReporterHandler,
     );
+
+    this.transactionTracker = new TransactionTracker();
+    this.pluginPerformanceObserver = new PluginPerformanceObserver(report =>
+      this.onPluginObservation(report, this.editorState),
+    )
+      .withPlugins(() => this.getPluginNames())
+      .withNodeCounts(() => this.countNodes())
+      .withOptions(() => this.transactionTrackingOptions)
+      .withTransactionTracker(() => this.transactionTracker);
 
     // This needs to be before initialising editorState because
     // we dispatch analytics events in plugin initialisation
@@ -322,6 +334,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       performanceTracking: props.editorProps.performanceTracking || {
         transactionTracking: this.transactionTrackingProp,
       },
+      transactionTracker: this.transactionTracker,
     });
 
     const newState = state.reconfigure({ plugins });
@@ -452,6 +465,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       performanceTracking: this.props.editorProps.performanceTracking || {
         transactionTracking: this.transactionTrackingProp,
       },
+      transactionTracker: this.transactionTracker,
     });
 
     this.contentTransformer = contentTransformerProvider
@@ -515,8 +529,12 @@ export default class ReactEditorView<T = {}> extends React.Component<
       return;
     }
 
-    const shouldTrack = shouldTrackTransaction(this.transactionTrackingProp);
-    shouldTrack && startMeasure(`🦉 ReactEditorView::dispatchTransaction`);
+    this.transactionTracker.bumpDispatchCounter(this.transactionTrackingProp);
+    const {
+      startMeasure,
+      stopMeasure,
+    } = this.transactionTracker.getMeasureHelpers(this.transactionTrackingProp);
+    startMeasure(EVENT_NAME_DISPATCH_TRANSACTION);
 
     const nodes: PMNode[] = findChangedNodesFromTransaction(transaction);
     const changedNodesValid = validateNodes(nodes);
@@ -525,32 +543,32 @@ export default class ReactEditorView<T = {}> extends React.Component<
       const oldEditorState = this.view.state;
 
       // go ahead and update the state now we know the transaction is good
-      shouldTrack && startMeasure(`🦉 EditorView::state::apply`);
+      startMeasure(EVENT_NAME_STATE_APPLY);
       const editorState = this.view.state.apply(transaction);
-      shouldTrack && stopMeasure(`🦉 EditorView::state::apply`);
+      stopMeasure(EVENT_NAME_STATE_APPLY);
 
       if (editorState === oldEditorState) {
         return;
       }
 
-      shouldTrack && startMeasure(`🦉 EditorView::updateState`);
+      startMeasure(EVENT_NAME_UPDATE_STATE);
       this.view.updateState(editorState);
-      shouldTrack && stopMeasure(`🦉 EditorView::updateState`);
+      stopMeasure(EVENT_NAME_UPDATE_STATE);
 
-      shouldTrack && startMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
+      startMeasure(EVENT_NAME_VIEW_STATE_UPDATED);
       this.onEditorViewStateUpdated({
         transaction,
         oldEditorState,
         newEditorState: editorState,
       });
-      shouldTrack && stopMeasure(`🦉 EditorView::onEditorViewStateUpdated`);
+      stopMeasure(EVENT_NAME_VIEW_STATE_UPDATED);
 
       if (this.props.editorProps.onChange && transaction.docChanged) {
         const source = transaction.getMeta('isRemote') ? 'remote' : 'local';
 
-        shouldTrack && startMeasure(`🦉 ReactEditorView::onChange`);
+        startMeasure(EVENT_NAME_ON_CHANGE);
         this.props.editorProps.onChange(this.view, { source });
-        shouldTrack && stopMeasure(`🦉 ReactEditorView::onChange`);
+        stopMeasure(EVENT_NAME_ON_CHANGE);
       }
       this.editorState = editorState;
     } else {
@@ -571,8 +589,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       });
     }
 
-    shouldTrack &&
-      stopMeasure(`🦉 ReactEditorView::dispatchTransaction`, () => {});
+    stopMeasure(EVENT_NAME_DISPATCH_TRANSACTION);
   };
 
   getDirectEditorProps = (state?: EditorState): DirectEditorProps => {

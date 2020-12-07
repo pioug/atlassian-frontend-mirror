@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 50,
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "0c3c64b9-65ad-4592-89d0-f838beebd81e",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 576,
+            "height": 360
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

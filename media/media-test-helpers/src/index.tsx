@@ -76,10 +76,10 @@ export {
   zipItemMultipleFoldersAtRootId,
   zipJiraArchiveFileId,
   zipEncryptedFileId,
-  vrVideoDetails,
   codeFileId,
   emailFileId,
   emailUnsupportedFileId,
+  vrVideoDetails,
 } from './exampleMediaItems';
 export { createMouseEvent } from './createMouseEvent';
 export type { MouseEventProps } from './createMouseEvent';
@@ -116,6 +116,7 @@ export {
   asMockFunction,
   asMockReturnValue,
   asMockFunctionReturnValue,
+  asMockFunctionResolvedValue,
   expectConstructorToHaveBeenCalledWith,
   expectFunctionToHaveBeenCalledWith,
   expectToEqual,

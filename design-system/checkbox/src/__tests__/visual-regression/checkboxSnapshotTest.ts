@@ -85,4 +85,53 @@ describe('Snapshot Test', () => {
     const selectedImg = await takeElementScreenShot(page, invalidCheckbox);
     expect(selectedImg).toMatchProdImageSnapshot();
   });
+
+  it('Example with sizes should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'checkbox',
+      'sizes',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector("[data-testid='xlarge--checkbox-label']");
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Indeterminate examples should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'checkbox',
+      'indeterminate',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector("[data-testid='parent--checkbox-label']");
+
+    await page.click("[data-testid='child-1--checkbox-label']");
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Multiline label example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'checkbox',
+      'multiline-label',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(
+      "[data-testid='multiline-label--checkbox-label']",
+    );
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

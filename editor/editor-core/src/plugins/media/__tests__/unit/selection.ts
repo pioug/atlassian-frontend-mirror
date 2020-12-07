@@ -11,7 +11,7 @@ import {
   mediaGroup,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { Schema } from '@atlaskit/editor-test-helpers/src/schema';
+import { Schema } from '@atlaskit/editor-test-helpers/schema';
 
 describe('media selection', () => {
   let editor: (
@@ -23,7 +23,9 @@ describe('media selection', () => {
     editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
       createEditor({
         doc,
-        editorProps: { media: { allowMediaSingle: true } },
+        editorProps: {
+          media: { allowMediaSingle: true, featureFlags: { captions: true } },
+        },
       });
   });
 

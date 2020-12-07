@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 14.4.0
+
+### Minor Changes
+
+- [`11d6640e9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11d6640e9c) - [ux] New UI states for when a card is rate limited
+- [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
+
 ## 14.3.1
 
 ### Patch Changes

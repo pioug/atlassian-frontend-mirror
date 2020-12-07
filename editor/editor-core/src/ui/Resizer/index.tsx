@@ -42,6 +42,7 @@ export interface ResizableNumberSize {
 }
 
 type ResizerProps = ResizableMediaSingleProps & {
+  ratio: string;
   selected?: boolean;
   enable: EnabledHandles;
   calcNewSize: (
@@ -209,6 +210,7 @@ export default class Resizer extends React.Component<
     const {
       innerPadding = 0,
       width,
+      ratio,
       pctWidth,
       selected,
       layout,
@@ -222,6 +224,7 @@ export default class Resizer extends React.Component<
         width: '24px',
         [side]: `${-13 - innerPadding}px`,
         zIndex: akRichMediaResizeZIndex,
+        pointerEvents: 'auto',
       };
     });
     const className = classnames(
@@ -236,6 +239,14 @@ export default class Resizer extends React.Component<
       },
     );
 
+    const handleWrapperStyle: React.CSSProperties = {
+      position: 'absolute',
+      width: '100%',
+      paddingBottom: `${ratio}%`,
+      top: 0,
+      pointerEvents: 'none',
+    };
+
     // Ideally, Resizable would let you pass in the component rather than
     // the div. For now, we just apply the same styles using CSS
     return (
@@ -246,6 +257,7 @@ export default class Resizer extends React.Component<
           height: 'auto',
         }}
         className={className}
+        handleWrapperStyle={handleWrapperStyle}
         handleClasses={handles}
         handleStyles={handleStyles}
         enable={enable}

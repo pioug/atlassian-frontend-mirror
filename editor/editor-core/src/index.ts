@@ -124,6 +124,7 @@ export { insertTypeAheadQuery } from './plugins/type-ahead/commands/insert-query
 export { dismissCommand } from './plugins/type-ahead/commands/dismiss';
 export {
   insertLink,
+  insertLinkWithAnalyticsMobileNative,
   insertLinkWithAnalytics,
   isTextAtPos,
   isLinkAtPos,
@@ -146,7 +147,7 @@ export {
 } from './plugins/mobile-scroll/commands';
 
 // Used in editor-test-helpers
-export { setTextSelection } from './utils';
+export { setTextSelection, dedupe } from './utils';
 export { ReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export type {

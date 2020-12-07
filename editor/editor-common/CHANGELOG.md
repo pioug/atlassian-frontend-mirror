@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 54.0.0
+
+### Major Changes
+
+- [`da77198e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da77198e43) - Rename title:changed to metadata:changed in collab provider, editor common and mobile bridge
+- [`cc9f374276`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc9f374276) - Remove unsupported API for includeGroups/includeTeams for Users in extension config, and stop setState after unmount
+
+### Minor Changes
+
+- [`5e68f04701`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e68f04701) - ED-11232 Make resolvers aware of other field values
+- [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
+
+### Patch Changes
+
+- [`4bc26fee2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bc26fee2e) - [ux][twista-496] Adds drop shadow to focused state of annotation/Inline Comment
+- [`4c6c92aee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c6c92aee6) - Fix rendering of captions
+- Updated dependencies
+
 ## 53.0.1
 
 ### Patch Changes

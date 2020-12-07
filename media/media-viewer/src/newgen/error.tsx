@@ -148,6 +148,13 @@ export const createError = (
   return new MediaViewerError(name, fileState, innerError, zipEntry);
 };
 
+export interface ErrorWithStatus extends Error {
+  readonly status: number;
+}
+
+export const hasErrorStatus = (error: Error): error is ErrorWithStatus =>
+  'status' in error;
+
 export class ErrorMessage extends React.Component<
   Props & InjectedIntlProps & WithAnalyticsEventsProps,
   {}

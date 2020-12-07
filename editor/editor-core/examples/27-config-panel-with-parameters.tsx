@@ -14,19 +14,16 @@ const parameters = {
   'text-field-optional': '',
   'text-field-hidden': 'this is a hidden value passed to the extension',
   'number-field': '1234567',
-  'start-date': '2020-01-18',
+  'date-start': '2020-01-18',
   'enum-select': 'a',
   'enum-select-icon': ['b', 'c', 'd'],
   'enum-select-icon-multiple': 'b',
   'enum-checkbox-multiple': ['a', 'b'],
-  cql: 'Q = editor AND USER = llemos AND SPACE = FF',
-  'jira-filter':
+  'fieldset-cql': 'created-at = now(-1w) AND query = foobar AND flag = BF',
+  'fieldset-jira-filter':
     'keywords = editor AND project = editor-platform AND status = to-do',
-  'custom-label': 'meeting-notes',
-  'custom-space-key': 'XR',
-  'custom-space-key-multi': ['XR', 'FF'],
-  'custom-user': 'llemos',
-  'custom-user-lazy': 'akumar',
+  'custom-required': 'meeting-notes',
+  'custom-create-multiple': ['XR', 'FF'],
 };
 
 const extensionProvider = combineExtensionProviders([

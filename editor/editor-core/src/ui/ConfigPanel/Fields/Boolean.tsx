@@ -6,7 +6,6 @@ import { Field, FieldProps } from '@atlaskit/form';
 import { BooleanField } from '@atlaskit/editor-common/extensions';
 import Toggle from '@atlaskit/toggle';
 
-import { getSafeParentedName } from '../utils';
 import { ValidationError, OnBlur } from '../types';
 
 import FieldMessages from '../FieldMessages';
@@ -69,16 +68,15 @@ function validate(value: boolean | undefined, isRequired: boolean) {
 }
 
 export default function Boolean({
+  name,
   field,
   onBlur,
-  parentName,
 }: {
+  name: string;
   field: BooleanField;
   onBlur: OnBlur;
-  parentName?: string;
 }) {
   const {
-    name,
     label,
     description,
     isRequired = false,
@@ -90,7 +88,7 @@ export default function Boolean({
 
   return (
     <Field<boolean>
-      name={getSafeParentedName(name, parentName)}
+      name={name}
       isRequired={isRequired}
       validate={value => validate(value, isRequired)}
       defaultValue={defaultIsChecked}

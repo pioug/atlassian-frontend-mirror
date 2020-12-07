@@ -164,8 +164,7 @@ export function insertLink(
       tr.addMark(from, markEnd, link.create({ href: normalizedUrl }));
       tr.setSelection(Selection.near(tr.doc.resolve(markEnd)));
 
-      //Create a smart link when the user doesn't provide a title
-      if (isSmartLink(incomingHref, source, incomingTitle, displayText)) {
+      if (!displayText || displayText === incomingHref) {
         queueCardsFromChangedTr(state, tr, source!, false);
       }
 
@@ -184,35 +183,31 @@ export const insertLinkWithAnalytics = (
   from: number,
   to: number,
   href: string,
-  title?: string | undefined,
-  displayText?: string | undefined,
-) => {
-  // If we are inserting a smart link, skip insert hyperlink analytics
-  if (isSmartLink(href, inputMethod, title, displayText)) {
-    return insertLink(from, to, href, title, displayText, inputMethod);
-  } else {
-    return withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
-      insertLink(from, to, href, title, displayText, inputMethod),
-    );
-  }
-};
-
-const isSmartLink = (
-  href: string,
-  inputMethod?: LinkInputType,
   title?: string,
   displayText?: string,
-) =>
-  // NB: A link is a Smart Link if:
-  // - it is inserted from the CMD + K menu without display text
-  // - it is inserted manually (by typing) without display text and a title
-  // - it is inserted using either approach and the display text, href are the same
-  (inputMethod && inputMethod === INPUT_METHOD.TYPEAHEAD && !displayText) ||
-  (inputMethod &&
-    inputMethod === INPUT_METHOD.MANUAL &&
-    !title &&
-    !displayText) ||
-  displayText === href;
+  cardsAvailable: boolean = false,
+) => {
+  // If smart cards are available, we send analytics for hyperlinks when a smart link is rejected.
+  if (cardsAvailable && !title && !displayText) {
+    return insertLink(from, to, href, title, displayText, inputMethod);
+  }
+  return withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
+    insertLink(from, to, href, title, displayText, inputMethod),
+  );
+};
+
+export const insertLinkWithAnalyticsMobileNative = (
+  inputMethod: LinkInputType,
+  from: number,
+  to: number,
+  href: string,
+  title?: string,
+  displayText?: string,
+) => {
+  return withAnalytics(getLinkCreationAnalyticsEvent(inputMethod, href))(
+    insertLink(from, to, href, title, displayText, inputMethod),
+  );
+};
 
 export function removeLink(pos: number): Command {
   return setLinkHref('', pos);

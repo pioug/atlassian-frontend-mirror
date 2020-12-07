@@ -10,6 +10,7 @@ import {
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import { CardOptions } from '@atlaskit/editor-common';
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -24,6 +25,7 @@ import {
   removeLink,
   insertLinkWithAnalytics,
   updateLink,
+  insertLinkWithAnalyticsMobileNative,
 } from '../../commands';
 import {
   stateKey as hyperlinkStateKey,
@@ -43,6 +45,8 @@ import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
 
 const googleUrl = 'https://google.com';
+const confluenceUrl =
+  'https://hello.atlassian.com/wiki/spaces/YEET/pages/11111111/spaghetti';
 const yahooUrl = 'https://yahoo.com';
 
 const emojiProvider = emojiData.testData.getEmojiResourcePromise();
@@ -51,6 +55,9 @@ const providerFactory = ProviderFactory.create({ emojiProvider });
 describe('hyperlink commands', () => {
   const createEditor = createProsemirrorEditorFactory();
   const cardProvider = new EditorTestCardProvider();
+  const cardOptions: CardOptions = {
+    provider: Promise.resolve(new EditorTestCardProvider()),
+  };
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   const editor = (doc: any) => {
     createAnalyticsEvent = jest.fn(
@@ -291,7 +298,7 @@ describe('hyperlink commands', () => {
         doc(p(a({ href: 'mailto:scott@google.com' })('scott@google.com'))),
       );
     });
-    it('should attempt to queue the url with the card plugin if source is MANUAL and text is empty', () => {
+    it('should attempt to queue the url if it is a smart link', () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
       expect(
         insertLink(
@@ -318,7 +325,7 @@ describe('hyperlink commands', () => {
         showLinkingToolbar: false,
       });
     });
-    it('should attempt to queue the url with the card plugin if source is MANUAL and text is non-empty but equal to href', () => {
+    it('should attempt to queue the url with the card plugin if source is MANUAL and text is non-empty but equal to href, and it is a smart link', () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
       expect(
         insertLink(
@@ -354,7 +361,7 @@ describe('hyperlink commands', () => {
         ),
       );
     });
-    it('should not attempt to queue the url with the card plugin if source is MANUAL and text is non-empty and not equal to href', () => {
+    it('should not attempt to queue the url with the card plugin if url is not a smart link', () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
       expect(
         insertLink(
@@ -407,15 +414,44 @@ describe('hyperlink commands', () => {
     });
   });
   describe('#insertLinkWithAnalytics', () => {
-    it('should fire analytics event when it is a normal link', () => {
+    it('should fire analytics event when it is a normal link and smart links are not available', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      insertLinkWithAnalytics(
-        INPUT_METHOD.MANUAL,
-        sel,
-        sel,
-        googleUrl,
-        undefined,
-        'Google',
+      (
+        await insertLinkWithAnalytics(
+          INPUT_METHOD.MANUAL,
+          sel,
+          sel,
+          googleUrl,
+          undefined,
+          undefined,
+          false,
+        )
+      )(view.state, view.dispatch);
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'link',
+        eventType: 'track',
+        attributes: expect.objectContaining({
+          inputMethod: 'manual',
+          fromCurrentDomain: false,
+        }),
+        nonPrivacySafeAttributes: { linkDomain: 'google.com' },
+      });
+    });
+  });
+  describe('#insertLinkWithAnalyticsMobileNative', () => {
+    it('should fire analytics event', async () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      (
+        await insertLinkWithAnalyticsMobileNative(
+          INPUT_METHOD.MANUAL,
+          sel,
+          sel,
+          googleUrl,
+          undefined,
+          'Google',
+        )
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
@@ -431,13 +467,72 @@ describe('hyperlink commands', () => {
     });
   });
   describe('#insertLinkWithAnalytics', () => {
-    it('should not fire analytics event when it is a smart link', () => {
+    it('should fire analytics event if smart links are available and it is not a smart link', async () => {
       const { editorView: view, sel } = editor(doc(p('{<>}')));
-      insertLinkWithAnalytics(
-        INPUT_METHOD.TYPEAHEAD,
-        sel,
-        sel,
-        googleUrl,
+      (
+        await insertLinkWithAnalytics(
+          INPUT_METHOD.MANUAL,
+          sel,
+          sel,
+          googleUrl,
+          undefined,
+          'hey',
+          !!(cardOptions && cardOptions.provider),
+        )
+      )(view.state, view.dispatch);
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'link',
+        eventType: 'track',
+        attributes: expect.objectContaining({
+          inputMethod: 'manual',
+          fromCurrentDomain: false,
+        }),
+        nonPrivacySafeAttributes: { linkDomain: 'google.com' },
+      });
+    });
+  });
+  describe('#insertLinkWithAnalytics', () => {
+    it('should fire analytics event when it is not a smart link and smart links are available', async () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      (
+        await insertLinkWithAnalytics(
+          INPUT_METHOD.TYPEAHEAD,
+          sel,
+          sel,
+          googleUrl,
+          undefined,
+          'hello this is the link text',
+          !!(cardOptions && cardOptions.provider),
+        )
+      )(view.state, view.dispatch);
+      expect(createAnalyticsEvent).toBeCalledWith({
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'link',
+        eventType: 'track',
+        attributes: expect.objectContaining({
+          inputMethod: 'typeAhead',
+          fromCurrentDomain: false,
+        }),
+        nonPrivacySafeAttributes: { linkDomain: 'google.com' },
+      });
+    });
+  });
+  describe('#insertLinkWithAnalytics', () => {
+    it('should not fire analytics event when it is a smart link', async () => {
+      const { editorView: view, sel } = editor(doc(p('{<>}')));
+      (
+        await insertLinkWithAnalytics(
+          INPUT_METHOD.MANUAL,
+          sel,
+          sel,
+          confluenceUrl,
+          undefined,
+          undefined,
+          !!(cardOptions && cardOptions.provider),
+        )
       )(view.state, view.dispatch);
       expect(createAnalyticsEvent).not.toBeCalled();
     });
@@ -445,7 +540,7 @@ describe('hyperlink commands', () => {
   describe('#removeLink', () => {
     it('should remove the link mark when the href is an empty string', () => {
       const { editorView: view, sel } = editor(
-        doc(p(a({ href: googleUrl })('{<>}text'))),
+        doc(p(a({ href: confluenceUrl })('{<>}text'))),
       );
       expect(removeLink(sel)(view.state, view.dispatch)).toBe(true);
       expect(view.state.doc).toEqualDocument(doc(p('text')));

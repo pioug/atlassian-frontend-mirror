@@ -1,5 +1,33 @@
 # @atlaskit/renderer
 
+## 71.0.0
+
+### Minor Changes
+
+- [`dfd440f4b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd440f4b5) - [ux] New functionality to add and remove captions to images and videos. Select an image or video in the editor to start using it!
+  editor-core now exports dedupe which aids in not having duplicate plugins added when initialising an editor
+- [`e2c3b5cf75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2c3b5cf75) - [TWISTA-429] Prevents useLoadAnnotations requesting annotations states when there is an empty array of Annotations received from actions"
+
+### Patch Changes
+
+- [`f51a912369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f51a912369) - CMB-2437: Added VR tests for the Date node in both Editor and Renderer packages
+- [`291910c1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/291910c1db) - [ux] ED-10741 Remove legacy UI/UX for heading anchor links.
+
+  Nested header links is enabled using the `allowHeadingAnchorLinks` editor prop.
+
+  Recently it was converted from a boolean to an object to support heading links within nested containers such as tables, layouts, and expands.
+  e.g. `allowHeadingAnchorLinks { allowNestedHeaderLinks: true }`
+
+  Enabling this opted into a new, revised UI/UX for the copy link button adjacent to a heading.
+
+  Now that this feature has been adopted by Confluence and rolled out to 100% of customers, this change removes the code for the legacy UI/UX
+  since we have no desire to ever use it again. This will reduce the bundle size slightly.
+
+- [`4c6c92aee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c6c92aee6) - Fix rendering of captions
+- [`3e825d3253`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e825d3253) - pass featureFlags to getMediaClient in MediaCard renderer node
+- [`b4b07b8547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4b07b8547) - [ux] ED-10847 Restore right aligned headings copy link button to flip to the left of the heading text.
+- Updated dependencies
+
 ## 70.0.3
 
 ### Patch Changes

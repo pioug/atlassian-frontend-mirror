@@ -42,11 +42,15 @@ import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
 import { CreatingPreview } from './ui/creatingPreviewText/creatingPreviewText';
 import { PreviewUnavailable } from './ui/previewUnavailable/previewUnavailable';
+import { LoadingRateLimited } from './ui/loadingRateLimited/loadingRateLimited';
+import { MetadataRateLimited } from './ui/metadataRateLimited/metadataRateLimited';
+import { isRateLimitedError } from '../utils/error';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
   readonly metadata?: FileDetails;
+  readonly error?: Error;
 
   readonly onRetry?: () => void;
   readonly onClick?: (
@@ -218,12 +222,15 @@ export class CardViewBase extends React.Component<
 
   private showTitleBox(): boolean {
     const { isImageFailedToLoad } = this.state;
-    const { metadata, disableOverlay, status, dataURI } = this.props;
+    const { metadata, disableOverlay, status, dataURI, error } = this.props;
     const { name } = metadata || {};
 
     const noErrorWithUri = !!dataURI || status !== 'error';
 
-    return !!name && !isImageFailedToLoad && !disableOverlay && noErrorWithUri;
+    return (
+      (!!name && !isImageFailedToLoad && !disableOverlay && noErrorWithUri) ||
+      isRateLimitedError(error)
+    );
   }
 
   private showFailedTitleBox(): boolean {
@@ -250,6 +257,7 @@ export class CardViewBase extends React.Component<
   private renderTitleBox() {
     const { metadata, titleBoxBgColor, titleBoxIcon } = this.props;
     const { name, createdAt } = metadata || {};
+
     if (!this.showTitleBox() || !name) {
       return null;
     }
@@ -357,13 +365,16 @@ export class CardViewBase extends React.Component<
 
   private renderMediaTypeIcon() {
     const { isImageFailedToLoad } = this.state;
-    const { status, dataURI, metadata } = this.props;
+    const { status, dataURI, metadata, error } = this.props;
     const { mediaType, mimeType, name } = metadata || {};
     if (!isImageFailedToLoad && (dataURI || status === 'loading')) {
       return null;
     }
 
-    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
+    const hasTitleBox =
+      this.showTitleBox() ||
+      this.showFailedTitleBox() ||
+      isRateLimitedError(error);
 
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
@@ -384,10 +395,59 @@ export class CardViewBase extends React.Component<
     return <ActionsBar actions={actionsWithDetails} />;
   }
 
+  private renderMetadataRateLimited = () => {
+    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
+
+    return (
+      <MetadataRateLimited
+        hasTitleBox={hasTitleBox}
+        breakpoint={this.breakpoint}
+        positionBottom={!this.showTitleBox()}
+      />
+    );
+  };
+
   private renderFileNewExperienceContents = () => {
+    const {
+      progress,
+      selected,
+      status,
+      metadata,
+      disableOverlay,
+      error,
+    } = this.props;
+    const { name } = metadata || {};
+
+    // When a card is rate limited
+    // disableOverlay so that media-image isn't accounted for
+    // the reason being, media-image is not affected by rate limitation, and does not need these custom
+    // rate limited states
+    if (isRateLimitedError(error) && !disableOverlay) {
+      // If theres metadata, we signify to the user that they can still preview the card in the viewer
+      if (metadata) {
+        return (
+          <CardImageContainer>
+            {this.renderMediaTypeIcon()}
+            {this.renderMetadataRateLimited()}
+            {this.renderTitleBox()}
+          </CardImageContainer>
+        );
+      }
+      // cannot preview in the viewer: card is completely borked
+      else {
+        return <LoadingRateLimited />;
+      }
+    }
     return (
       <>
-        <CardImageContainer>
+        <CardImageContainer
+          className="media-file-card-view"
+          data-testid="media-file-card-view"
+          data-test-media-name={name}
+          data-test-status={status}
+          data-test-progress={progress}
+          data-test-selected={selected ? true : undefined}
+        >
           {this.renderMediaTypeIcon()}
           {this.renderSpinner()}
           {this.renderImageRenderer()}
@@ -417,7 +477,6 @@ export class CardViewBase extends React.Component<
       selected,
       selectable,
       disableOverlay,
-      progress,
       dataURI,
     } = this.props;
     const { mediaType, name } = metadata || {};
@@ -433,14 +492,9 @@ export class CardViewBase extends React.Component<
       !selected
     );
     const shouldDisplayTooltip = !!name;
-
     return (
       <NewFileExperienceWrapper
         data-testid={testId || 'media-card-view'}
-        data-test-media-name={name}
-        data-test-status={status}
-        data-test-progress={progress}
-        data-test-selected={selected ? true : undefined}
         dimensions={dimensions}
         appearance={appearance}
         onClick={onClick}

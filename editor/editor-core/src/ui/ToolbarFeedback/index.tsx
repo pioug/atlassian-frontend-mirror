@@ -33,6 +33,7 @@ import deprecationWarnings, {
 } from '../../utils/deprecation-warnings';
 import pickBy from '../../utils/pick-by';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
+import { getContextIdentifier } from '../../plugins/base/pm-plugins/context-identifier';
 
 const PopupWithOutsideListeners: any = withOuterListeners(Popup);
 const POPUP_HEIGHT = 388;
@@ -213,8 +214,16 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
       jiraIssueCollectorScriptLoading: true,
       showOptOutOption: false,
     });
-
-    await openFeedbackDialog(this.getFeedbackInfo());
+    const { editorView } = this.context.editorActions;
+    const sessionId = window.localStorage.getItem('awc.session.id')?.toString();
+    const contentId = getContextIdentifier(editorView?.state)?.objectId;
+    const tabId = window.sessionStorage['awc.tab.id'];
+    await openFeedbackDialog({
+      ...this.getFeedbackInfo(),
+      sessionId,
+      contentId,
+      tabId,
+    });
 
     this.setState({ jiraIssueCollectorScriptLoading: false });
   };

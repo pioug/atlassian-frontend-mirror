@@ -11,7 +11,7 @@ import {
   ErrorButton,
 } from './styles';
 
-import { errorIcon } from './icons';
+import { errorIcon } from '@atlaskit/media-ui/errorIcon';
 import { EditorContainer } from '../styles';
 
 export interface ErrorViewProps {

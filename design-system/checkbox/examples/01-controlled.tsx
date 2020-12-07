@@ -1,49 +1,43 @@
-import React, { PureComponent } from 'react';
+/**  @jsx jsx */
+import { ChangeEvent, useCallback, useState } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import { Checkbox } from '../src';
 
-interface State {
-  isChecked: boolean;
-  onChangeResult: string;
-}
+export default function ControlledExample() {
+  const [isChecked, setIsChecked] = useState(false);
+  const [onChangeResult, setOnChangeResult] = useState(
+    'Check & Uncheck to trigger onChange',
+  );
 
-export default class ControlledExample extends PureComponent<void, State> {
-  state = {
-    isChecked: false,
-    onChangeResult: 'Check & Uncheck to trigger onChange',
-  };
+  const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(current => !current);
+    setOnChangeResult(`props.isChecked: ${event.target.checked}`);
+  }, []);
 
-  onChange = (event: any) => {
-    this.setState({
-      isChecked: !this.state.isChecked,
-      onChangeResult: `this.props.isChecked: ${event.target.checked}`,
-    });
-  };
+  return (
+    <div>
+      <Checkbox
+        isChecked={isChecked}
+        onChange={onChange}
+        label="Controlled Checkbox"
+        value="Controlled Checkbox"
+        name="controlled-checkbox"
+      />
 
-  render() {
-    return (
-      <div>
-        <Checkbox
-          isChecked={this.state.isChecked}
-          onChange={this.onChange}
-          label="Controlled Checkbox"
-          value="Controlled Checkbox"
-          name="controlled-checkbox"
-        />
-
-        <div
-          style={{
-            borderStyle: 'dashed',
-            borderWidth: '1px',
-            borderColor: '#ccc',
-            padding: '0.5em',
-            margin: '0.5em',
-            color: '#ccc',
-          }}
-        >
-          {this.state.onChangeResult}
-        </div>
+      <div
+        css={{
+          borderStyle: 'dashed',
+          borderWidth: '1px',
+          borderColor: '#ccc',
+          padding: '0.5em',
+          margin: '0.5em',
+          color: '#ccc',
+        }}
+      >
+        {onChangeResult}
       </div>
-    );
-  }
+    </div>
+  );
 }

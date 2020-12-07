@@ -32,15 +32,12 @@ import { withIntlProvider } from '../i18n/with-intl-provider';
 import { InjectedIntl, injectIntl } from 'react-intl';
 import { usePageTitle } from './hooks/use-page-title';
 import { geti18NMessages } from './editor-localisation-provider';
+import MobileEditorConfiguration from './editor-configuration';
+import { useEditorConfiguration } from './hooks/use-editor-configuration';
 
 const MOBILE_SAMPLING_LIMIT = 10;
 
-// Bridge creation and initialize on window
-export const bridge: WebBridgeImpl = (window.bridge = new WebBridgeImpl());
-
 export interface MobileEditorProps extends EditorProps {
-  mode?: 'light' | 'dark';
-  bridge: WebBridgeImpl;
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
   cardClient: EditorCardClient;
@@ -48,6 +45,8 @@ export interface MobileEditorProps extends EditorProps {
   mediaProvider: Promise<MediaProviderType>;
   mentionProvider: Promise<MentionProvider>;
   intl: InjectedIntl;
+  initialEditorConfig?: MobileEditorConfiguration;
+  bridge: WebBridgeImpl;
 }
 
 // Editor options. Keep as external cost to prevent unnecessary re-renders;
@@ -64,6 +63,10 @@ const templatePlaceholdersOptions = { allowInserting: true };
 
 export function MobileEditor(props: MobileEditorProps) {
   const { bridge } = props;
+  const editorConfiguration = useEditorConfiguration(
+    bridge,
+    props.initialEditorConfig,
+  );
   const collabEdit = useCollabEdit(bridge, props.createCollabProvider);
   const analyticsClient: AnalyticsWebClient = useAnalytics();
   const quickInsert = useQuickInsert(bridge);
@@ -91,7 +94,7 @@ export function MobileEditor(props: MobileEditorProps) {
   const handleEditorReady = useEditorReady(bridge, props.intl, mediaOptions);
   const handleEditorDestroyed = useEditorDestroyed(bridge);
 
-  const mode = props.mode || 'light';
+  const mode = editorConfiguration.mode();
 
   // enable reflowDetector
   useReflowDectector(bridge);
@@ -137,11 +140,8 @@ export function MobileEditor(props: MobileEditorProps) {
   );
 }
 
-const MobileEditorWithBridge: React.FC<Omit<
-  MobileEditorProps,
-  'bridge'
->> = props => {
-  return <MobileEditor {...props} bridge={bridge} />;
+const MobileEditorWithBridge: React.FC<MobileEditorProps> = props => {
+  return <MobileEditor {...props} />;
 };
 
 export default withIntlProvider(

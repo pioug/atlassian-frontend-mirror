@@ -18,7 +18,7 @@ const mockEditorCore = {
   outdentList: jest.fn(() => () => {}),
   toggleOrderedList: jest.fn(() => () => {}),
   toggleBulletList: jest.fn(() => () => {}),
-  insertLinkWithAnalytics: jest.fn(() => () => {}),
+  insertLinkWithAnalyticsMobileNative: jest.fn(() => () => {}),
   isTextAtPos: jest.fn(pos => () => [2, 6].indexOf(pos) !== -1),
   isLinkAtPos: jest.fn(pos => () => pos === 6),
   setLinkHref: jest.fn(() => () => mockCalls.push('setLinkHref')),

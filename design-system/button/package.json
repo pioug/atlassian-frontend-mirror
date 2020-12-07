@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/logo": "^13.0.0",

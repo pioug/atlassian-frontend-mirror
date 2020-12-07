@@ -17,6 +17,16 @@ import {
 } from '../../../../plugins/analytics';
 import { createTable } from '../../../../plugins/table/commands';
 
+/**
+ * Note that the history events are defined within `@atlaskit/adf-schema`.
+ * Changes to the implementation within that package may impact the result of these tests.
+ *
+ * The implementation lives here: `packages/editor/adf-schema/src/steps/analytics.ts`
+ * With its own unit test here: `packages/editor/adf-schema/src/steps/__tests__/unit/analytics.ts`
+ *
+ * These tests serve as a superset.
+ */
+
 describe('Analytics Plugin: History Events', () => {
   const createEditor = createEditorFactory();
 

@@ -203,6 +203,72 @@ const getUsersForAnalytics = (users: OptionData[]) =>
     type,
   }));
 
+const sortResults = (users: User[], sortIds: string[]): User[] => {
+  const resultsMap = new Map<string, User>(
+    users.map(user => [user.id, user] as [string, User]),
+  );
+
+  return sortIds.map(id => {
+    const user = resultsMap.get(id);
+    if (user) {
+      return user;
+    }
+
+    return {
+      id: id,
+      type: UserType,
+      name: 'Unknown',
+    };
+  });
+};
+
+function isOptionData(
+  option: OptionData | OptionIdentifier,
+): option is OptionData {
+  return (option as OptionData).name !== undefined;
+}
+
+export async function hydrateDefaultValues(
+  value: DefaultValue,
+  productKey: SupportedProduct,
+): Promise<User[]> {
+  //return if no value
+  if (!value) {
+    return [];
+  }
+  //return if hydrated value
+  if (!Array.isArray(value) && isOptionData(value)) {
+    return [value] as User[];
+  }
+  //return if hydrated array or empty array
+  if (Array.isArray(value) && (value.length === 0 || isOptionData(value[0]))) {
+    return value as User[];
+  }
+
+  //if we are not in a supported product then return
+  if (productKey !== 'jira' && productKey !== 'confluence') {
+    if (Array.isArray(value)) {
+      return value as User[]; //return if hydrated array
+    } else {
+      return [value] as User[];
+    }
+  }
+  //hydrate
+  let accountIds = [];
+  if (Array.isArray(value)) {
+    accountIds = (value as OptionData[]).map(a => a.id);
+  } else {
+    accountIds = [value.id];
+  }
+
+  const results = await getUsersById({
+    productKey,
+    accountIds,
+  });
+
+  return sortResults(results, accountIds);
+}
+
 class SmartUserPicker extends React.Component<Props, State> {
   state: State = {
     users: [],
@@ -225,7 +291,11 @@ class SmartUserPicker extends React.Component<Props, State> {
 
   async componentDidMount() {
     try {
-      let value = await this.hydrateDefaultValues(this.props.defaultValue);
+      const value = await hydrateDefaultValues(
+        this.props.defaultValue,
+        this.props.productKey,
+      );
+
       this.setState({
         defaultValue: value,
       });
@@ -273,71 +343,6 @@ class SmartUserPicker extends React.Component<Props, State> {
     }
   };
 
-  isOptionData(option: OptionData | OptionIdentifier): option is OptionData {
-    return (option as OptionData).name !== undefined;
-  }
-
-  hydrateDefaultValues = async (value: DefaultValue): Promise<User[]> => {
-    const { productKey } = this.props;
-
-    //return if no value
-    if (!value) {
-      return [];
-    }
-    //return if hydrated value
-    if (!Array.isArray(value) && this.isOptionData(value)) {
-      return [value] as User[];
-    }
-    //return if hydrated array or empty array
-    if (
-      Array.isArray(value) &&
-      (value.length === 0 || this.isOptionData(value[0]))
-    ) {
-      return value as User[];
-    }
-
-    //if we are not in a supported product then return
-    if (productKey !== 'jira' && productKey !== 'confluence') {
-      if (Array.isArray(value)) {
-        return value as User[]; //return if hydrated array
-      } else {
-        return [value] as User[];
-      }
-    }
-    //hydrate
-    let accountIds = [];
-    if (Array.isArray(value)) {
-      accountIds = (value as OptionData[]).map(a => a.id);
-    } else {
-      accountIds = [value.id];
-    }
-
-    let results = await getUsersById({
-      productKey,
-      accountIds,
-    });
-
-    return this.sortResults(results, accountIds);
-  };
-
-  sortResults = (users: User[], sortIds: string[]): User[] => {
-    let sortedUsers: User[] = [];
-    const resultsMap = new Map<string, User>(
-      users.map(user => [user.id, user] as [string, User]),
-    );
-    sortIds.forEach(id => {
-      let u = resultsMap.get(id);
-      if (u === undefined) {
-        u = {
-          id: id,
-          type: UserType,
-          name: 'Unknown',
-        };
-      }
-      sortedUsers.push(u);
-    });
-    return sortedUsers;
-  };
   filterOptions = (users: OptionData[]) =>
     this.props.filterOptions ? this.props.filterOptions(users) : users;
   getUsers = async () => {

@@ -5,8 +5,8 @@ import {
 import { EditorView } from 'prosemirror-view';
 
 import { OutstandingRequests, Request } from '../../types';
-import { resolveCard, setProvider } from '../actions';
-import { replaceQueuedUrlWithCard } from '../doc';
+import { setProvider } from '../actions';
+import { replaceQueuedUrlWithCard, handleFallbackWithAnalytics } from '../doc';
 
 // ============================================================================ //
 // ============================== PROVIDER UTILS ============================== //
@@ -41,7 +41,10 @@ const handleResolved = (view: EditorView, request: Request) => (
   return resolvedCard;
 };
 const handleRejected = (view: EditorView, request: Request) => () => {
-  view.dispatch(resolveCard(request.url)(view.state.tr));
+  handleFallbackWithAnalytics(request.url, request.source)(
+    view.state,
+    view.dispatch,
+  );
 };
 
 // listen for card provider changes

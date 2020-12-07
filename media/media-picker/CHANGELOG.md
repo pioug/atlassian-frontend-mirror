@@ -1,5 +1,15 @@
 # @atlaskit/media-picker
 
+## 57.1.0
+
+### Minor Changes
+
+- [`11d6640e9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11d6640e9c) - [ux] New UI states for when a card is rate limited
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.0.1
 
 ### Patch Changes

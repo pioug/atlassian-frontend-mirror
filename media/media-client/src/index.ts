@@ -61,6 +61,20 @@ export { getArtifactUrl } from './models/artifacts';
 export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
 
 export {
+  BaseMediaClientError,
+  FileFetcherErrorReason,
+  FileFetcherError,
+  isFileFetcherError,
+  MediaStoreErrorReason,
+  MediaStoreError,
+  isMediaStoreError,
+} from './models/errors';
+export type {
+  FileFetcherErrorAttributes,
+  MediaStoreErrorAttributes,
+} from './models/errors';
+
+export {
   isUploadingFileState,
   isProcessingFileState,
   isProcessedFileState,
@@ -96,21 +110,27 @@ export type {
   UploadFileResult,
 } from './uploader';
 
+export { request } from './utils/request';
+export { isRequestError, RequestError } from './utils/request/errors';
 export {
   isAbortedRequestError,
-  request,
   mapResponseToJson,
   mapResponseToBlob,
   mapResponseToVoid,
   createUrl,
-} from './utils/request';
+} from './utils/request/helpers';
+
+export { RequestErrorReason } from './utils/request/types';
 export type {
   RequestMethod,
   RequestParams,
   RequestHeaders,
+  RetryOptions,
+  ClientOptions,
   RequestOptions,
+  RequestErrorAttributes,
   CreateUrlOptions,
-} from './utils/request';
+} from './utils/request/types';
 
 export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
 

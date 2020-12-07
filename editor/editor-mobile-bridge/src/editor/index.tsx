@@ -10,27 +10,24 @@ import {
   createCardClient,
   createCardProvider,
 } from '../providers';
-import {
-  getModeValue,
-  getQueryParams,
-  getAllowPredictableList,
-} from '../query-param-reader';
+import { getQueryParams, getAllowPredictableList } from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../providers/collab-provider';
 import { ErrorBoundary } from './error-boundary';
 import { toNativeBridge } from './web-to-native';
+import { getBridge } from './native-to-web/bridge-initialiser';
 
 interface AppProps {
   defaultValue?: Node | string | Object;
 }
 
-const App: React.FC<AppProps> = props => {
+export const App: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge();
 
   return (
     <ErrorBoundary>
       <MobileEditor
-        mode={getModeValue()}
         createCollabProvider={createCollabProviderFactory(fetchProxy)}
         cardClient={createCardClient()}
         cardProvider={createCardProvider()}
@@ -39,6 +36,7 @@ const App: React.FC<AppProps> = props => {
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
         UNSAFE_predictableLists={getAllowPredictableList()}
+        bridge={bridge}
       />
     </ErrorBoundary>
   );

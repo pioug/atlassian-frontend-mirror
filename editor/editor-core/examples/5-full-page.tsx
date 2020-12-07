@@ -107,6 +107,11 @@ Content.displayName = 'Content';
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
+const mediaFeatureFlags = {
+  ...exampleMediaFeatureFlags,
+  captions: true,
+};
+
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
 export const LOCALSTORAGE_defaultTitleKey =
   'fabric.editor.example.full-page.title';
@@ -362,7 +367,7 @@ export class ExampleEditorComponent extends React.Component<
                     return errors;
                   },
                   useMediaPickerPopup: true,
-                  featureFlags: exampleMediaFeatureFlags,
+                  featureFlags: mediaFeatureFlags,
                 }}
                 allowHelpDialog
                 placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
@@ -632,7 +637,7 @@ const Renderer = (props: {
           document={document}
           appearance={getAppearance()}
           media={{
-            featureFlags: exampleMediaFeatureFlags,
+            featureFlags: mediaFeatureFlags,
           }}
           UNSAFE_allowCustomPanels={props.allowCustomPanel}
           eventHandlers={{

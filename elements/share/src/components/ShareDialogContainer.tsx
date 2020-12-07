@@ -202,6 +202,10 @@ export type Props = {
   shareFieldsFooter?: React.ReactNode;
   /* Indicates if the link shared publicly accessible */
   isPublicLink?: boolean;
+  /**
+   * Optionally sets a tabIndex value if you need to set focus
+   */
+  tabIndex?: number;
 };
 
 export type State = {
@@ -746,6 +750,7 @@ export class ShareDialogContainerInternal extends React.Component<
       shareFieldsFooter,
       isPublicLink,
       shareAri,
+      tabIndex,
     } = this.props;
     const {
       isFetchingConfig,
@@ -805,6 +810,7 @@ export class ShareDialogContainerInternal extends React.Component<
             shareFieldsFooter={shareFieldsFooter}
             isPublicLink={isPublicLink}
             shareAri={shareAri}
+            tabIndex={tabIndex}
           />
         </MessagesIntlProvider>
       </ErrorBoundary>

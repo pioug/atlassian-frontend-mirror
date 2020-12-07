@@ -1,7 +1,3 @@
-import {
-  CollabEditProvider,
-  CollabParticipant,
-} from '@atlaskit/editor-common/collab';
 import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';
@@ -9,17 +5,27 @@ import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 
 import { Emitter } from './emitter';
-import { Channel } from './channel';
 import {
-  CollabEvent,
-  Config,
+  Channel,
+  EditorWidthPayload,
+  ErrorPayload,
+  Metadata,
   ParticipantPayload,
-  StepsPayload,
   StepJson,
+  StepsPayload,
   TelepointerPayload,
   TitlePayload,
-  ErrorPayload,
-} from './types';
+} from './channel';
+import {
+  CollabEditProvider,
+  CollabParticipant,
+  CollabEventTelepointerData as EditorCollabTelepointerData,
+  CollabEventConnectionData as EditorCollabConnetedData,
+  CollabEventInitData as EditorCollabInitData,
+  CollabEventRemoteData as EditorCollabData,
+  CollabEventPresenceData as EditorCollabPresenceData,
+} from '@atlaskit/editor-common/collab';
+import { Config } from './types';
 
 import { createLogger, getParticipant } from './utils';
 
@@ -33,6 +39,40 @@ const CATCHUP_THROTTLE = 1; // seconds
 const MAX_WAIT = 1000; // seconds
 export const MAX_STEP_REJECTED_ERROR = 10;
 export const CATCHUP_THROTTLE_TIMEOUT = 5000; // 5 seconds
+
+export type CollabConnectedPayload = EditorCollabConnetedData;
+export type CollabErrorPayload = ErrorPayload;
+export interface CollabInitPayload extends EditorCollabInitData {
+  doc: any;
+  version: number;
+  userId?: string;
+  metadata?: Metadata;
+}
+
+export interface CollabDataPayload extends EditorCollabData {
+  version: number;
+  json: StepJson[];
+  userIds: string[];
+}
+
+export type CollabTelepointerPayload = EditorCollabTelepointerData;
+export type CollabPresencePayload = EditorCollabPresenceData;
+export type CollabMetadataPayload = Metadata;
+export type CollabLocalStepsPayload = {
+  steps: Step[];
+};
+
+export interface CollabEvents {
+  'metadata:changed': CollabMetadataPayload;
+  init: CollabInitPayload;
+  connected: CollabConnectedPayload;
+  data: CollabDataPayload;
+  telepointer: CollabTelepointerPayload;
+  presence: CollabPresencePayload;
+  'local-steps': CollabLocalStepsPayload;
+  error: CollabErrorPayload;
+  entity: any;
+}
 
 /**
  * Rebase the steps based on the mapping pipeline.
@@ -52,8 +92,12 @@ function rebaseSteps(steps: Step[], mapping: Mapping): Step[] {
 }
 
 export class Provider
-  extends Emitter<CollabEvent>
-  implements Omit<CollabEditProvider, 'on' | 'off' | 'unsubscribeAll'> {
+  extends Emitter<CollabEvents>
+  implements
+    Pick<
+      CollabEditProvider<CollabEvents>,
+      'initialize' | 'send' | 'sendMessage'
+    > {
   private participants: Map<
     string,
     CollabParticipant & { userId: string; clientId: string }
@@ -61,7 +105,7 @@ export class Provider
   private channel: Channel;
   private config: Config;
   private getState: (() => EditorState) | undefined;
-  private title?: string;
+  private metadata: Metadata = {};
   private stepRejectCounter: number = 0;
   private catchupTimeout?: NodeJS.Timeout;
 
@@ -87,7 +131,7 @@ export class Provider
    * Called by collab plugin in editor when it's ready to
    * initialize a collab session.
    */
-  initialize(getState: () => EditorState): this {
+  initialize(getState: () => EditorState) {
     this.getState = getState;
 
     // Quick-hack to get clientID from native collab-plugin.
@@ -103,10 +147,15 @@ export class Provider
         this.sendPresence();
         this.throttledCatchup();
       })
-      .on('init', ({ doc, version, userId }) => {
+      .on('init', ({ doc, version, userId, metadata }) => {
         this.userId = userId;
         this.sendPresence();
-        this.emit('init', { doc, version }); // Initial document and version
+        this.emit('init', { doc, version, metadata }); // Initial document and version
+        // Initialise metadata
+        if (metadata) {
+          this.metadata = metadata;
+          this.emit('metadata:changed', metadata);
+        }
       })
       .on('steps:added', this.onStepsAdded)
       .on('participant:telepointer', this.onParticipantTelepointer)
@@ -114,6 +163,7 @@ export class Provider
       .on('participant:left', this.onParticipantLeft)
       .on('participant:updated', this.onParticipantUpdated)
       .on('title:changed', this.onTitleChanged)
+      .on('width:changed', this.onWidthChanged)
       .on('disconnect', this.onDisconnected)
       .on('error', this.onErrorHandled)
       .connect();
@@ -222,6 +272,7 @@ export class Provider
         doc,
         stepMaps: serverStepMaps,
         version: serverVersion,
+        metadata,
       } = await this.channel.fetchCatchup(currentVersion);
       if (doc) {
         if (typeof serverVersion === 'undefined') {
@@ -246,8 +297,17 @@ export class Provider
         this.queue = this.queue.filter(data => data.version > serverVersion);
         // We are too far behind - replace the entire document
         logger(`Replacing document: ${doc}`);
+        logger(`getting metadata: ${metadata}`);
         // Replace local document and version number
-        this.emit('init', { doc: JSON.parse(doc), version: serverVersion });
+        this.emit('init', {
+          doc: JSON.parse(doc),
+          version: serverVersion,
+          metadata,
+        });
+        if (metadata) {
+          this.metadata = metadata;
+          this.emit('metadata:changed', metadata);
+        }
         // After replacing the whole document in the editor, we need to reapply the unconfirmed
         // steps back into the editor, so we don't lose any data. But before that, we need to rebase
         // those steps since their position could be changed after replacing.
@@ -407,10 +467,17 @@ export class Provider
    * Call when editing in the title
    * Don't emit events to the user who makes the modification
    */
-  private onTitleChanged = ({ title, clientId }: TitlePayload) => {
-    if (title && this.title !== title && this.clientId !== clientId) {
-      this.title = title;
-      this.emit('title:changed', { title });
+  private onTitleChanged = ({ title }: TitlePayload) => {
+    if (title && this.metadata.title !== title) {
+      this.metadata.title = title;
+      this.emit('metadata:changed', { title });
+    }
+  };
+
+  private onWidthChanged = ({ editorWidth }: EditorWidthPayload) => {
+    if (editorWidth && this.metadata.editorWidth !== editorWidth) {
+      this.metadata.editorWidth = editorWidth;
+      this.emit('metadata:changed', { editorWidth });
     }
   };
 
@@ -462,7 +529,7 @@ export class Provider
 
     // Set last active
     this.updateParticipant({ sessionId, timestamp, userId, clientId });
-    this.emit('telepointer', { selection, sessionId });
+    this.emit('telepointer', { type: 'telepointer', selection, sessionId });
   };
 
   private updateParticipant = async ({
@@ -561,6 +628,7 @@ export class Provider
               anchor: from + 1,
               head: to + 1,
             },
+            type: 'telepointer',
           });
         }
       }
@@ -582,12 +650,21 @@ export class Provider
   }
 
   setTitle(title: string, broadcast?: boolean) {
-    this.title = title;
+    this.metadata.title = title;
 
     if (broadcast) {
       this.channel.broadcast('title:changed', {
         title,
-        clientId: this.clientId!,
+      });
+    }
+  }
+
+  setEditorWidth(editorWidth: string, broadcast?: boolean) {
+    this.metadata.editorWidth = editorWidth;
+
+    if (broadcast) {
+      this.channel.broadcast('width:changed', {
+        editorWidth,
       });
     }
   }
@@ -600,7 +677,7 @@ export class Provider
   async getFinalAcknowledgedState() {
     return {
       content: {
-        title: this.title,
+        title: this.metadata.title,
         adf: this.getState!().doc.toJSON(),
       },
     };

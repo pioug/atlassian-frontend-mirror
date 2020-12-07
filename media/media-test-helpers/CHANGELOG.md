@@ -1,5 +1,18 @@
 # @atlaskit/media-test-helpers
 
+## 28.5.0
+
+### Minor Changes
+
+- [`fa5ef18162`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa5ef18162) - Fixed media client's DataLoader error handling
+- [`dfd440f4b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd440f4b5) - [ux] New functionality to add and remove captions to images and videos. Select an image or video in the editor to start using it!
+  editor-core now exports dedupe which aids in not having duplicate plugins added when initialising an editor
+
+### Patch Changes
+
+- [`4c6c92aee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c6c92aee6) - Fix rendering of captions
+- Updated dependencies
+
 ## 28.4.1
 
 ### Patch Changes

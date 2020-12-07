@@ -12,6 +12,7 @@ import {
   createPlugin,
   MediaState,
 } from './pm-plugins/main';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { createPlugin as createMediaEditorPlugin } from './pm-plugins/media-editor';
 import { pluginKey as mediaEditorPluginKey } from './pm-plugins/media-editor-plugin-factory';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
@@ -48,15 +49,12 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   name: 'media',
 
   nodes() {
-    const {
-      allowMediaGroup = true,
-      allowMediaSingle = false,
-      UNSAFE_allowImageCaptions = false,
-    } = options || {};
+    const { allowMediaGroup = true, allowMediaSingle = false, featureFlags } =
+      options || {};
 
-    const mediaSingleNode = UNSAFE_allowImageCaptions
-      ? mediaSingleWithCaption
-      : mediaSingle;
+    const captions = getMediaFeatureFlag('captions', featureFlags);
+
+    const mediaSingleNode = captions ? mediaSingleWithCaption : mediaSingle;
 
     return [
       { name: 'mediaGroup', node: mediaGroup },
@@ -127,7 +125,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
             options,
           ),
       },
-      { name: 'mediaKeymap', plugin: () => keymapPlugin() },
+      { name: 'mediaKeymap', plugin: () => keymapPlugin(options) },
     ];
 
     if (options && options.allowMediaSingle) {

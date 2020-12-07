@@ -1,8 +1,8 @@
 jest.mock('../../utils/checkWebpSupport');
 
-import fetchMock from 'fetch-mock/cjs/client';
 import { stringify } from 'query-string';
-import { Auth, AuthProvider, AuthContext } from '@atlaskit/media-core';
+import { Auth, ClientBasedAuth } from '@atlaskit/media-core';
+import { FetchMock } from 'jest-fetch-mock';
 import {
   CreatedTouchedFile,
   MediaStore,
@@ -19,19 +19,31 @@ import {
   MediaStoreTouchFileParams,
   MediaFileArtifacts,
   checkWebpSupport,
+  isRequestError,
+  RequestErrorReason,
+  MediaStoreErrorReason,
+  isMediaStoreError,
 } from '../..';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
+
+interface ExtendedGlobal extends NodeJS.Global {
+  fetch: FetchMock;
+}
+
+const extendedGlobal: ExtendedGlobal = global;
 
 describe('MediaStore', () => {
   const baseUrl = 'http://some-host';
   const checkWebpSupportMock = checkWebpSupport as jest.Mock;
 
-  afterEach(() => fetchMock.restore());
+  afterEach(() => {
+    extendedGlobal.fetch.resetMocks();
+  });
 
   describe('given auth provider resolves', () => {
     const clientId = 'some-client-id';
     const token = 'some-token';
-    const auth: Auth = { clientId, token, baseUrl };
+    const auth: ClientBasedAuth = { clientId, token, baseUrl };
     const data: MediaFile = {
       id: 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6',
       mediaType: 'doc',
@@ -42,18 +54,14 @@ describe('MediaStore', () => {
       artifacts: {},
       representations: {},
     };
-    let authProvider: jest.Mock<AuthProvider>;
+    let authProvider: jest.Mock<Promise<Auth>>;
     let mediaStore: MediaStore;
 
     beforeEach(() => {
       jest.clearAllMocks();
-      authProvider = jest.fn();
-      authProvider.mockReturnValue(
-        (Promise.resolve(auth) as AuthContext) as AuthProvider,
-      );
+      authProvider = jest.fn<Promise<Auth>, any[]>();
+      authProvider.mockResolvedValue(auth);
       mediaStore = new MediaStore({
-        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-        //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
         authProvider,
       });
     });
@@ -65,11 +73,9 @@ describe('MediaStore', () => {
         contents: [],
       };
 
-      fetchMock.mock(`begin:${baseUrl}/collection/${collectionName}`, {
-        body: {
-          data,
-        },
+      extendedGlobal.fetch.once(JSON.stringify({ data }), {
         status: 201,
+        statusText: 'Created',
         headers: {
           'x-media-region': 'someRegion',
         },
@@ -88,34 +94,31 @@ describe('MediaStore', () => {
     });
 
     describe('createUpload', () => {
-      it('should POST to /upload endpoint with correct options', () => {
+      it('should POST to /upload endpoint with correct options', async () => {
         const createUpTo = 1;
         const data: MediaUpload[] = [
           { id: 'some-upload-id', created: 123, expires: 456 },
         ];
 
-        fetchMock.mock(`begin:${baseUrl}/upload`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
-        return mediaStore.createUpload(createUpTo).then(response => {
-          expect(response).toEqual({ data });
-          expect(fetchMock.lastUrl()).toEqual(
-            `${baseUrl}/upload?createUpTo=${createUpTo}`,
-          );
-          expect(fetchMock.lastOptions()).toEqual({
+        const response = await mediaStore.createUpload(createUpTo);
+        expect(response).toEqual({ data });
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/upload?createUpTo=${createUpTo}`,
+          {
             method: 'POST',
             headers: {
               'X-Client-Id': clientId,
               Authorization: `Bearer ${token}`,
               Accept: 'application/json',
             },
-            body: undefined,
-          });
-        });
+          },
+        );
       });
 
       it('should pass collection name to the authContext', async () => {
@@ -135,33 +138,61 @@ describe('MediaStore', () => {
           params: { createUpTo: 1 },
         });
       });
+
+      it('should fail if response is malformed JSON', async () => {
+        const createUpTo = 1;
+
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        try {
+          await mediaStore.createUpload(createUpTo);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 201,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
+      });
     });
 
     describe('uploadChunk', () => {
-      it('should PUT to /chunk/:etag endpoint with correct options', () => {
+      it('should PUT to /chunk/:etag endpoint with correct options', async () => {
         const etag = 'some-etag';
         const blob = new Blob(['some-blob']);
 
-        fetchMock.mock(`begin:${baseUrl}/chunk`, {
+        extendedGlobal.fetch.once('', {
           status: 201,
+          statusText: 'Created',
         });
 
-        return mediaStore.uploadChunk(etag, blob).then(() => {
-          expect(fetchMock.lastUrl()).toEqual(`${baseUrl}/chunk/${etag}`);
-          expect(fetchMock.lastOptions()).toEqual({
+        await mediaStore.uploadChunk(etag, blob);
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/chunk/${etag}`,
+          {
             method: 'PUT',
             headers: {
               'X-Client-Id': clientId,
               Authorization: `Bearer ${token}`,
             },
             body: blob,
-          });
-        });
+          },
+        );
       });
     });
 
     describe('probeChunks', () => {
-      it('should POST to /chunk/probe endpoint with correct options', () => {
+      it('should POST to /chunk/probe endpoint with correct options', async () => {
         const etag = 'some-etag';
         const chunks = [etag];
         const data: MediaChunksProbe = {
@@ -172,17 +203,17 @@ describe('MediaStore', () => {
           },
         };
 
-        fetchMock.mock(`begin:${baseUrl}/chunk/probe`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 200,
+          statusText: 'Ok',
         });
 
-        return mediaStore.probeChunks(chunks).then(response => {
-          expect(response).toEqual({ data });
-          expect(fetchMock.lastUrl()).toEqual(`${baseUrl}/chunk/probe`);
-          expect(fetchMock.lastOptions()).toEqual({
+        const response = await mediaStore.probeChunks(chunks);
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/chunk/probe`,
+          {
             method: 'POST',
             headers: {
               'X-Client-Id': clientId,
@@ -191,13 +222,39 @@ describe('MediaStore', () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ chunks }),
-          });
+          },
+        );
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        const etag = 'some-etag';
+        const chunks = [etag];
+
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 200,
+          statusText: 'Ok',
         });
+
+        try {
+          await mediaStore.probeChunks(chunks);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 200,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
       });
     });
 
     describe('createFileFromUpload', () => {
-      it('should POST to /file/upload endpoint with correct options', () => {
+      it('should POST to /file/upload endpoint with correct options', async () => {
         const body = {
           uploadId: 'some-upload-id',
           name: 'some-name',
@@ -215,19 +272,17 @@ describe('MediaStore', () => {
           skipConversions: true,
         };
 
-        fetchMock.mock(`begin:${baseUrl}/file/upload`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
-        return mediaStore.createFileFromUpload(body, params).then(response => {
-          expect(response).toEqual({ data });
-          expect(fetchMock.lastUrl()).toEqual(
-            `${baseUrl}/file/upload?${stringify(params)}`,
-          );
-          expect(fetchMock.lastOptions()).toEqual({
+        const response = await mediaStore.createFileFromUpload(body, params);
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/file/upload?${stringify(params)}`,
+          {
             method: 'POST',
             headers: {
               'X-Client-Id': clientId,
@@ -236,50 +291,112 @@ describe('MediaStore', () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
-          });
-          expect(authProvider).toHaveBeenCalledWith({
-            collectionName: params.collection,
-          });
+          },
+        );
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        const body = {
+          uploadId: 'some-upload-id',
+          name: 'some-name',
+          mimeType: 'application/pdf',
+          conditions: {
+            hash: 'sha1:da39a3ee5e6b4b0d3255bfef95601890afd80709',
+            size: 42,
+          },
+        };
+        const params = {
+          collection: 'some-collection',
+          occurrenceKey: 'some-occurrence-key',
+          expireAfter: 123,
+          replaceFileId: 'some-replace-file-id',
+          skipConversions: true,
+        };
+
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 201,
+          statusText: 'Created',
         });
+
+        try {
+          await mediaStore.createFileFromUpload(body, params);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 201,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
       });
     });
 
     describe('getFile', () => {
-      it('should GET to /file/{fileId} endpoint with correct options', () => {
+      it('should GET to /file/{fileId} endpoint with correct options', async () => {
         const collectionName = 'some-collection-name';
         const fileId = 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6';
         const params: MediaStoreGetFileParams = {
           collection: collectionName,
         };
 
-        fetchMock.mock(`begin:${baseUrl}/file/${fileId}`, {
-          body: {
-            data,
-          },
-          status: 201,
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
         });
 
-        return mediaStore.getFile(fileId, params).then(response => {
-          expect(response).toEqual({ data });
-          expect(fetchMock.lastUrl()).toEqual(
-            `${baseUrl}/file/${fileId}?collection=${collectionName}`,
-          );
-          expect(fetchMock.lastOptions()).toEqual(
-            expect.objectContaining({
-              method: 'GET',
-              headers: {
-                'X-Client-Id': clientId,
-                Authorization: `Bearer ${token}`,
-              },
-            }),
-          );
-          expect(authProvider).toHaveBeenCalledWith({ collectionName });
+        const response = await mediaStore.getFile(fileId, params);
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/file/${fileId}?collection=${collectionName}`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        expect(authProvider).toHaveBeenCalledWith({ collectionName });
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        const collectionName = 'some-collection-name';
+        const fileId = 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6';
+        const params: MediaStoreGetFileParams = {
+          collection: collectionName,
+        };
+
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 200,
+          statusText: 'Ok',
         });
+
+        try {
+          await mediaStore.getFile(fileId, params);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 200,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
       });
     });
 
     describe('appendChunksToUpload', () => {
-      it('should PUT to /upload/{uploadId}/chunks endpoint with correct options', () => {
+      it('should PUT to /upload/{uploadId}/chunks endpoint with correct options', async () => {
         const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
         const body = {
           chunks: [
@@ -290,15 +407,16 @@ describe('MediaStore', () => {
           offset: 0,
         };
 
-        fetchMock.mock(`begin:${baseUrl}/upload`, {
+        extendedGlobal.fetch.once('', {
           status: 200,
+          statusText: 'Ok',
         });
 
-        return mediaStore.appendChunksToUpload(uploadId, body).then(() => {
-          expect(fetchMock.lastUrl()).toEqual(
-            `${baseUrl}/upload/${uploadId}/chunks`,
-          );
-          expect(fetchMock.lastOptions()).toEqual({
+        await mediaStore.appendChunksToUpload(uploadId, body);
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/upload/${uploadId}/chunks`,
+          {
             method: 'PUT',
             headers: {
               'X-Client-Id': clientId,
@@ -307,51 +425,47 @@ describe('MediaStore', () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
-          });
-        });
+          },
+        );
       });
     });
 
     describe('getCollectionItems', () => {
-      it('should GET to /collection/{collectionName} endpoint with correct options', () => {
+      it('should GET to /collection/{collectionName} endpoint with correct options', async () => {
         const collectionName = 'some-collection-name';
         const data: MediaCollectionItems = {
           nextInclusiveStartKey: '121',
           contents: [],
         };
 
-        fetchMock.mock(`begin:${baseUrl}/collection/${collectionName}`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
-        return mediaStore
-          .getCollectionItems(collectionName, {
-            limit: 10,
-            details: 'full',
-            inclusiveStartKey: 'some-inclusive-start-key',
-            sortDirection: 'desc',
-          })
-          .then(response => {
-            expect(response).toEqual({ data });
-            expect(fetchMock.lastUrl()).toEqual(
-              `${baseUrl}/collection/some-collection-name/items?details=full&inclusiveStartKey=some-inclusive-start-key&limit=10&sortDirection=desc`,
-            );
-            expect(fetchMock.lastOptions()).toEqual({
-              method: 'GET',
-              headers: {
-                Accept: 'application/json',
-                'X-Client-Id': clientId,
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            expect(authProvider).toHaveBeenCalledWith({ collectionName });
-          });
+        const response = await mediaStore.getCollectionItems(collectionName, {
+          limit: 10,
+          details: 'full',
+          inclusiveStartKey: 'some-inclusive-start-key',
+          sortDirection: 'desc',
+        });
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/collection/some-collection-name/items?details=full&inclusiveStartKey=some-inclusive-start-key&limit=10&sortDirection=desc`,
+          {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        expect(authProvider).toHaveBeenCalledWith({ collectionName });
       });
 
-      it('should not return empty files', () => {
+      it('should not return empty files', async () => {
         const collectionName = 'some-collection-name';
         const data: MediaCollectionItems = {
           nextInclusiveStartKey: '121',
@@ -389,25 +503,21 @@ describe('MediaStore', () => {
           ],
         };
 
-        fetchMock.mock(`begin:${baseUrl}/collection/${collectionName}`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
-        return mediaStore
-          .getCollectionItems(collectionName, {
-            limit: 10,
-            details: 'full',
-            inclusiveStartKey: 'some-inclusive-start-key',
-            sortDirection: 'desc',
-          })
-          .then(response => {
-            // We want to exclude all files without size. Contents contains 3 files, 2 of them empty, so we only care about the first one
-            expect(response.data.contents).toHaveLength(1);
-            expect(response.data.contents).toEqual([data.contents[0]]);
-          });
+        const response = await mediaStore.getCollectionItems(collectionName, {
+          limit: 10,
+          details: 'full',
+          inclusiveStartKey: 'some-inclusive-start-key',
+          sortDirection: 'desc',
+        });
+
+        // We want to exclude all files without size. Contents contains 3 files, 2 of them empty, so we only care about the first one
+        expect(response.data.contents).toHaveLength(1);
+        expect(response.data.contents).toEqual([data.contents[0]]);
       });
     });
 
@@ -435,26 +545,26 @@ describe('MediaStore', () => {
         expireAfter: 42,
       };
 
-      it('should POST to /upload/createWithFiles', () => {
+      it('should POST to /upload/createWithFiles', async () => {
         const data: TouchedFiles = {
           created: [createdTouchedFile1, createdTouchedFile2],
         };
-        fetchMock.mock(`begin:${baseUrl}/upload/createWithFiles`, {
-          body: {
-            data,
-          },
+
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
         const body: MediaStoreTouchFileBody = {
           descriptors: [descriptor1, descriptor2],
         };
-        return mediaStore.touchFiles(body, params).then(response => {
-          expect(response).toEqual({ data });
-          expect(fetchMock.lastUrl()).toEqual(
-            `${baseUrl}/upload/createWithFiles`,
-          );
-          expect(fetchMock.lastOptions()).toEqual({
+
+        const response = await mediaStore.touchFiles(body, params);
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/upload/createWithFiles`,
+          {
             method: 'POST',
             headers: {
               'X-Client-Id': clientId,
@@ -463,35 +573,64 @@ describe('MediaStore', () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
-          });
-          expect(authProvider).toHaveBeenCalledWith({
-            collectionName: params.collection,
-          });
+          },
+        );
+        expect(authProvider).toHaveBeenCalledWith({
+          collectionName: params.collection,
         });
       });
 
-      it('should fail if error status is returned', () => {
-        const errorBody = {
-          error: 'something wrong',
-        };
-        fetchMock.mock(`begin:${baseUrl}/upload/createWithFiles`, {
-          body: errorBody,
+      it('should fail if error status is returned', async () => {
+        extendedGlobal.fetch.once('something went wrong', {
           status: 403,
+          statusText: 'Forbidden',
         });
 
         const body: MediaStoreTouchFileBody = {
           descriptors: [descriptor1],
         };
-        return mediaStore.touchFiles(body, params).then(
-          result => {
-            expect(result).not.toBeDefined();
-          },
-          async error => {
-            expect(error.message).toMatch(
-              /.*Got error code 403: {\"error\":\"something wrong\"}.*/,
-            );
-          },
-        );
+        try {
+          await mediaStore.touchFiles(body, params);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverError,
+            statusCode: 403,
+            bodyAsText: 'something went wrong',
+          });
+        }
+
+        expect.assertions(1);
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        const body: MediaStoreTouchFileBody = {
+          descriptors: [descriptor1],
+        };
+
+        try {
+          await mediaStore.touchFiles(body, params);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 201,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
       });
     });
 
@@ -506,32 +645,31 @@ describe('MediaStore', () => {
     });
 
     describe('getImage', () => {
-      const lastOptionsHeaders = () => {
-        const lastOptions = fetchMock.lastOptions();
-        return (lastOptions && lastOptions.headers) || {};
-      };
-
       it('should return file image preview', async () => {
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
         const image = await mediaStore.getImage('123');
-        expect(fetchMock.lastUrl()).toEqual(
-          `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
-        );
+
         expect(image).toBeInstanceOf(Blob);
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
       });
 
       it('should merge default params with given ones', async () => {
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
         await mediaStore.getImage('123', {
@@ -539,17 +677,23 @@ describe('MediaStore', () => {
           version: 2,
           upscale: true,
         });
-        expect(fetchMock.lastUrl()).toEqual(
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
           `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
       });
 
       it('should append width and height params if fetchMaxRes', async () => {
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
         await mediaStore.getImage(
@@ -562,17 +706,23 @@ describe('MediaStore', () => {
           undefined,
           true,
         );
-        expect(fetchMock.lastUrl()).toEqual(
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
           `${baseUrl}/file/123/image?allowAnimated=true&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2&width=4096`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
       });
 
       it('should override width and height params if fetchMaxRes', async () => {
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
 
         await mediaStore.getImage(
@@ -587,28 +737,44 @@ describe('MediaStore', () => {
           undefined,
           true,
         );
-        expect(fetchMock.lastUrl()).toEqual(
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
           `${baseUrl}/file/123/image?allowAnimated=true&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&upscale=true&version=2&width=4096`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
       });
 
       it('should not request webp content when not supported', async () => {
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 201,
+          statusText: 'Created',
         });
+
         checkWebpSupportMock.mockResolvedValueOnce(false);
 
         await mediaStore.getImage('123');
 
-        expect(lastOptionsHeaders()).not.toHaveProperty('accept');
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
       });
     });
 
     describe('getItems', () => {
-      it('should POST to /items endpoint with correct options', () => {
+      it('should POST to /items endpoint with correct options', async () => {
         const items = ['1', '2'];
         const data: ItemsPayload[] = [
           {
@@ -631,40 +797,62 @@ describe('MediaStore', () => {
           },
         ];
 
-        fetchMock.mock(`begin:${baseUrl}/items`, {
-          body: {
-            data,
-          },
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
           status: 200,
+          statusText: 'Ok',
         });
 
-        return mediaStore.getItems(items, 'collection-1').then(response => {
-          expect(response).toEqual({ data });
-          expect(fetchMock.lastUrl()).toEqual(`${baseUrl}/items`);
-          expect(fetchMock.lastOptions()).toEqual({
-            method: 'POST',
-            headers: {
-              'X-Client-Id': clientId,
-              Authorization: `Bearer ${token}`,
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              descriptors: [
-                {
-                  type: 'file',
-                  id: '1',
-                  collection: 'collection-1',
-                },
-                {
-                  type: 'file',
-                  id: '2',
-                  collection: 'collection-1',
-                },
-              ],
-            }),
-          });
+        const response = await mediaStore.getItems(items, 'collection-1');
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(`${baseUrl}/items`, {
+          method: 'POST',
+          headers: {
+            'X-Client-Id': clientId,
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            descriptors: [
+              {
+                type: 'file',
+                id: '1',
+                collection: 'collection-1',
+              },
+              {
+                type: 'file',
+                id: '2',
+                collection: 'collection-1',
+              },
+            ],
+          }),
         });
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        const items = ['1', '2'];
+
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        try {
+          await mediaStore.getItems(items, 'collection-1');
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 200,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
       });
     });
 
@@ -678,33 +866,74 @@ describe('MediaStore', () => {
             url: 'some-preview',
           },
         };
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: data,
-          status: 201,
+
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
         });
 
         const image = await mediaStore.getImageMetadata('123');
-        expect(fetchMock.lastUrl()).toEqual(
+
+        expect(image).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
           `${baseUrl}/file/123/image/metadata`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
-        expect(image).toEqual(data);
       });
 
       it('should generate right url based on params', async () => {
         const data: ImageMetadata = {
           pending: false,
         };
-        fetchMock.mock(`begin:${baseUrl}/file`, {
-          body: data,
-          status: 201,
+
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
         });
 
         await mediaStore.getImageMetadata('123', {
           collection: 'my-collection',
         });
-        expect(fetchMock.lastUrl()).toEqual(
+
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
           `${baseUrl}/file/123/image/metadata?collection=my-collection`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        try {
+          await mediaStore.getImageMetadata('123');
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 200,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
       });
     });
 
@@ -759,20 +988,95 @@ describe('MediaStore', () => {
         ).rejects.toThrow('artifact audio.mp3 not found');
       });
     });
+
+    describe('copyFileWithToken', () => {
+      const body = {
+        sourceFile: {
+          id: 'some-id',
+          owner: {
+            id: 'owner-id',
+            token,
+            baseUrl,
+          },
+          collection: 'some-collection',
+        },
+      };
+      const params = {
+        collection: 'some-collection',
+        replaceFileId: 'some-replace-file-id',
+        occurrenceKey: 'some-occurrence-key',
+      };
+
+      it('should POST to /file/copy/withToken endpoint with correct options', async () => {
+        extendedGlobal.fetch.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        const response = await mediaStore.copyFileWithToken(body, params);
+
+        expect(response).toEqual({ data });
+        expect(extendedGlobal.fetch).toHaveBeenCalledWith(
+          `${baseUrl}/file/copy/withToken?collection=some-collection&occurrenceKey=some-occurrence-key&replaceFileId=some-replace-file-id`,
+          {
+            method: 'POST',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+          },
+        );
+      });
+
+      it('should fail if response is malformed JSON', async () => {
+        extendedGlobal.fetch.once('Invalid Body', {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        try {
+          await mediaStore.copyFileWithToken(body, params);
+        } catch (err) {
+          if (!isRequestError(err)) {
+            return expect(isRequestError(err)).toBeTruthy();
+          }
+
+          expect(err.attributes).toMatchObject({
+            reason: RequestErrorReason.serverInvalidBody,
+            statusCode: 201,
+            innerError: expect.any(Error),
+          });
+        }
+
+        expect.assertions(1);
+      });
+    });
   });
 
   describe('given auth provider rejects', () => {
-    const error = new Error('some-error');
-    const authProvider = () => Promise.reject(error);
-
-    describe('request', () => {
-      it('should reject with some error', () => {
-        const mediaStore = new MediaStore({
-          authProvider,
-        });
-
-        return expect(mediaStore.request('/some-path')).rejects.toEqual(error);
+    it('should reject with MediaStoreError', async () => {
+      const error = new Error('auth error');
+      const mediaStore = new MediaStore({
+        authProvider: () => Promise.reject(error),
       });
+
+      try {
+        await mediaStore.request('/some-path');
+      } catch (err) {
+        if (!isMediaStoreError(err)) {
+          return expect(isMediaStoreError(err)).toBeTruthy();
+        }
+
+        expect(err.attributes).toMatchObject({
+          reason: MediaStoreErrorReason.failedAuthProvider,
+          innerError: error,
+        });
+      }
+
+      expect.assertions(1);
     });
   });
 });

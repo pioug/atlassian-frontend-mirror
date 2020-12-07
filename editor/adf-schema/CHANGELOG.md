@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 13.4.0
+
+### Minor Changes
+
+- [`21de2f736a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21de2f736a) - fix: normalizeHexColor behaves normally when passed 'default'
+
 ## 13.3.1
 
 ### Patch Changes

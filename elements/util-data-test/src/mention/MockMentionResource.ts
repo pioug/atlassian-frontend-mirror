@@ -12,7 +12,11 @@ import {
   TeamMentionProvider,
   SLI_EVENT_TYPE,
 } from '@atlaskit/mention/resource';
-import { FlowType, UserRole } from '@atlaskit/mention';
+import {
+  InviteExperimentCohort,
+  InviteFlow,
+  UserRole,
+} from '@atlaskit/mention';
 import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
@@ -34,9 +38,10 @@ export interface MockMentionConfig {
   maxWait?: number;
   mentionNameResolver?: MentionNameResolver;
   enableTeamMentionHighlight?: boolean;
+  inviteExperimentCohort?: InviteExperimentCohort;
   productName?: string;
   shouldEnableInvite?: boolean;
-  onInviteItemClick?: (flow: FlowType) => void;
+  onInviteItemClick?: (flow: InviteFlow) => void;
   userRole?: UserRole;
 }
 
@@ -63,7 +68,8 @@ export class MockMentionResource
   productName?: string;
   shouldEnableInvite: boolean;
   userRole: UserRole;
-  onInviteItemClick?: (flow: FlowType) => void;
+  inviteExperimentCohort?: InviteExperimentCohort;
+  onInviteItemClick?: (flow: InviteFlow) => void;
 
   constructor(config: MockMentionConfig) {
     super();
@@ -72,6 +78,7 @@ export class MockMentionResource
     this.lastReturnedSearch = 0;
     this.productName = config.productName;
     this.shouldEnableInvite = !!config.shouldEnableInvite;
+    this.inviteExperimentCohort = config.inviteExperimentCohort;
     this.onInviteItemClick = config.onInviteItemClick;
     this.userRole = config.userRole || 'basic';
   }

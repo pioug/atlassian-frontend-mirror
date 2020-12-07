@@ -13,7 +13,7 @@ import {
 
 import { messages } from '../messages';
 import FieldMessages from '../FieldMessages';
-import { validate, validateRequired, getSafeParentedName } from '../utils';
+import { validate, validateRequired } from '../utils';
 import { OnBlur } from '../types';
 
 const HorizontalFields = styled.div`
@@ -82,16 +82,16 @@ const DateField = ({
 );
 
 const DateRange = function ({
+  name,
   field,
   onBlur,
   intl,
-  parentName,
 }: {
+  name: string;
   field: DateRangeField;
   onBlur: OnBlur;
   autoFocus?: boolean;
   placeholder?: string;
-  parentName?: string;
 } & InjectedIntlProps) {
   const items = useMemo(() => {
     return [
@@ -102,9 +102,9 @@ const DateRange = function ({
       },
     ].map(option => ({
       ...option,
-      name: field.name,
+      name,
     }));
-  }, [field.items, field.name, intl]);
+  }, [field.items, name, intl]);
 
   const [currentValue, setCurrentValue] = useState(
     getFromDefaultValue(field, 'value') || items[0].value,
@@ -113,20 +113,18 @@ const DateRange = function ({
   useEffect(() => {
     // calling onBlur here based on the currentValue changing will ensure that we
     // get the most up to date value after the form has been rendered
-    onBlur(field.name);
-  }, [currentValue, onBlur, field.name]);
-
-  const fieldName = getSafeParentedName(field.name, parentName);
+    onBlur(name);
+  }, [currentValue, onBlur, name]);
 
   const element = (
     <Fragment>
       <Hidden>
-        <Field name={`${fieldName}.type`} defaultValue={'date-range'}>
+        <Field name={`${name}.type`} defaultValue={'date-range'}>
           {({ fieldProps }) => <TextField {...fieldProps} type="hidden" />}
         </Field>
       </Hidden>
       <Field
-        name={`${fieldName}.value`}
+        name={`${name}.value`}
         label={field.label}
         defaultValue={currentValue}
         isRequired={field.isRequired}
@@ -151,21 +149,21 @@ const DateRange = function ({
           {/** this is a hidden field that will copy the selected value to a field of name 'from'
            *  when a option that is NOT 'custom' is selected. This is to comply with the atlaskit
            * form component that relies on final-form */}
-          <Field name={`${fieldName}.from`} defaultValue={currentValue}>
+          <Field name={`${name}.from`} defaultValue={currentValue}>
             {({ fieldProps }) => <TextField {...fieldProps} type="hidden" />}
           </Field>
         </Hidden>
       ) : (
         <HorizontalFields>
           <DateField
-            scope={fieldName}
+            scope={name}
             parentField={field}
             fieldName="from"
             onBlur={onBlur}
             intl={intl}
           />
           <DateField
-            scope={fieldName}
+            scope={name}
             parentField={field}
             fieldName="to"
             onBlur={onBlur}

@@ -257,7 +257,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         return node.parentNode as HTMLElement | undefined;
       }
 
-      const target = (node as HTMLElement).querySelector('.wrapper') || node;
+      const target = (node as HTMLElement).querySelector('figure') || node;
       return target;
     }
     return;

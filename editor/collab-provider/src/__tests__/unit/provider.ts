@@ -1,10 +1,10 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 jest.mock('socket.io-client');
 import { Channel } from '../../channel';
-import { ErrorPayload } from '../../types';
 import {
   MAX_STEP_REJECTED_ERROR,
   CATCHUP_THROTTLE_TIMEOUT,
+  CollabErrorPayload,
 } from '../../provider';
 jest.mock('../../channel');
 
@@ -60,17 +60,27 @@ describe('provider unit tests', () => {
     provider.on('connected', ({ sid }) => {
       expectedSid = sid;
     });
-    provider.on('init', ({ doc, version }: any) => {
+    provider.on('init', ({ doc, version, metadata }: any) => {
       expect(expectedSid).toBe(sid);
       expect(doc).toBe('bla');
       expect(version).toBe(1);
       expect((provider as any).userId).toBe(userId);
       expect(spy).toBeCalled();
+      expect(metadata).toEqual({
+        title: 'some-random-title',
+      });
       done();
     });
     provider.initialize(() => editorState);
     socket.emit('connected', { sid });
-    socket.emit('init', { doc: 'bla', version: 1, userId });
+    socket.emit('init', {
+      doc: 'bla',
+      version: 1,
+      userId,
+      metadata: {
+        title: 'some-random-title',
+      },
+    });
   });
 
   it('should emit error and trigger catchup', () => {
@@ -78,7 +88,7 @@ describe('provider unit tests', () => {
     const throttledCatchupSpy = jest
       .spyOn(provider as any, 'throttledCatchup')
       .mockImplementation(() => {});
-    const stepRejectedError: ErrorPayload = {
+    const stepRejectedError: CollabErrorPayload = {
       code: 'HEAD_VERSION_UPDATE_FAILED',
       meta: 'The version number does not match the current head version.',
       message: 'Version number does not match current head version.',
@@ -96,7 +106,7 @@ describe('provider unit tests', () => {
     const throttledCatchupSpy = jest
       .spyOn(provider as any, 'throttledCatchup')
       .mockImplementation(() => {});
-    const stepRejectedError: ErrorPayload = {
+    const stepRejectedError: CollabErrorPayload = {
       code: 'HEAD_VERSION_UPDATE_FAILED',
       meta: 'The version number does not match the current head version.',
       message: 'Version number does not match current head version.',
@@ -110,5 +120,61 @@ describe('provider unit tests', () => {
     jest.advanceTimersByTime(CATCHUP_THROTTLE_TIMEOUT);
     expect(throttledCatchupSpy).toBeCalled();
     expect(throttledCatchupSpy).toBeCalledTimes(1);
+  });
+
+  it('should emit metadata during init', async done => {
+    const userId = 'user-123';
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    provider.on('init', ({ metadata }: any) => {
+      expect(metadata).toEqual({
+        title: 'some-random-title',
+        editorWidth: 'some-random-width',
+      });
+      provider.on('metadata:changed', metadata => {
+        expect(metadata).toEqual({
+          title: 'some-random-title',
+          editorWidth: 'some-random-width',
+        });
+        done();
+      });
+    });
+    provider.initialize(() => editorState);
+    socket.emit('init', {
+      doc: 'bla',
+      version: 1,
+      userId,
+      metadata: {
+        title: 'some-random-title',
+        editorWidth: 'some-random-width',
+      },
+    });
+  });
+
+  it('should emit metadata when title is changed', async done => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    provider.on('metadata:changed', metadata => {
+      expect(metadata).toEqual({
+        title: 'some-random-title',
+      });
+      done();
+    });
+    provider.initialize(() => editorState);
+    socket.emit('title:changed', {
+      title: 'some-random-title',
+    });
+  });
+
+  it('should emit metadata when editor width is changed', async done => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    provider.on('metadata:changed', metadata => {
+      expect(metadata).toEqual({
+        editorWidth: 'some-random-editor-width',
+      });
+      done();
+    });
+    provider.initialize(() => editorState);
+    socket.emit('width:changed', {
+      editorWidth: 'some-random-editor-width',
+    });
   });
 });

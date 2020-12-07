@@ -14,6 +14,7 @@ import { CardAction } from './actions';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 
 import { CardPreview } from './root/card/getCardPreview';
+import { CardStatus } from './types';
 
 export type { NumericalCardDimensions } from '@atlaskit/media-common';
 export type {
@@ -25,13 +26,7 @@ export { default as Card } from './root/card/cardLoader';
 
 export type { CardAction, CardEventHandler } from './actions';
 
-export type CardStatus =
-  | 'uploading'
-  | 'loading'
-  | 'processing'
-  | 'complete'
-  | 'error'
-  | 'failed-processing';
+export type { CardStatus } from './types';
 
 export type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
 

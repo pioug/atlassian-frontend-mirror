@@ -1,11 +1,11 @@
-import { Channel } from '../../channel';
 import {
+  Channel,
+  ErrorPayload,
+  InitPayload,
   ParticipantPayload,
   StepsPayload,
-  InitPayload,
-  Config,
-  ErrorPayload,
-} from '../../types';
+} from '../../channel';
+import { Config } from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 
@@ -136,6 +136,9 @@ describe('channel unit tests', () => {
           doc: expect.stringMatching(/.*/),
           version: expect.any(Number),
           userId: '123',
+          metadata: {
+            title: 'a-title',
+          },
         });
         expect(channel.getInitialized()).toBe(true);
         done();
@@ -150,6 +153,9 @@ describe('channel unit tests', () => {
       doc: '',
       version: 1234567,
       userId: '123',
+      metadata: {
+        title: 'a-title',
+      },
     });
   });
 
@@ -314,6 +320,27 @@ describe('channel unit tests', () => {
     channel.getSocket()!.emit('title:changed', <any>{
       data: {
         title: 'My tremendous page title!',
+      },
+    });
+  });
+
+  it('should handle receiving width:changed from server', done => {
+    const channel = getChannel();
+
+    channel.on('width:changed', (data: any) => {
+      try {
+        expect(data).toEqual(<any>{
+          editorWidth: 'My tremendous page width!',
+        });
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+    channel.getSocket()!.emit('width:changed', <any>{
+      data: {
+        editorWidth: 'My tremendous page width!',
       },
     });
   });

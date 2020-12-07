@@ -20,6 +20,12 @@ export function sanitizeNode(json: JSONDocNode): JSONDocNode {
       }
       return false; // empty status
     },
+    caption: node => {
+      if (node.content) {
+        return node;
+      }
+      return false; // empty caption
+    },
     emoji: removeMarks,
     mention: removeMarks,
     date: removeMarks,

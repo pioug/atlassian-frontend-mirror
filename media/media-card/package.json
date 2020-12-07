@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-card",
-  "version": "70.1.1",
+  "version": "70.2.0",
   "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,6 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
+    "./types": "./src/types.ts",
     ".": "./src/index.ts"
   },
   "atlassian": {
@@ -33,9 +34,9 @@
     "@atlaskit/editor-shared-styles": "^1.1.0",
     "@atlaskit/icon": "^21.1.0",
     "@atlaskit/locale": "^2.0.0",
-    "@atlaskit/media-client": "^12.1.0",
+    "@atlaskit/media-client": "^12.2.0",
     "@atlaskit/media-common": "^2.4.0",
-    "@atlaskit/media-ui": "^14.3.0",
+    "@atlaskit/media-ui": "^14.4.0",
     "@atlaskit/media-viewer": "^45.5.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.0.0",
@@ -59,13 +60,13 @@
     "@atlaskit/analytics-listeners": "^7.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/field-range": "^9.0.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/media-core": "^32.1.0",
-    "@atlaskit/media-test-helpers": "^28.4.0",
+    "@atlaskit/media-test-helpers": "^28.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^4.0.0",
     "@atlaskit/toggle": "^12.0.0",

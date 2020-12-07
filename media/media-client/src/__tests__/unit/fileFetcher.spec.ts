@@ -1,11 +1,10 @@
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import { authToOwner, AuthProvider } from '@atlaskit/media-core';
 import fetchMock from 'fetch-mock/cjs/client';
 import {
   ResponseFileItem,
-  ItemsPayload,
   MediaFile,
   MediaStore,
-  MediaStoreResponse,
   RECENTS_COLLECTION,
   globalMediaEventEmitter,
   MediaViewedEventPayload,
@@ -17,15 +16,17 @@ import {
   FilePreview,
   isPreviewableFileState,
   isErrorFileState,
+  isFileFetcherError,
+  FileFetcherErrorReason,
 } from '../..';
 import uuid from 'uuid';
 import { UploadFileCallbacks } from '../../uploader';
-import { FileFetcherImpl, getItemsFromKeys } from '../../client/file-fetcher';
+import { FileFetcherImpl } from '../../client/file-fetcher';
 import {
   expectFunctionToHaveBeenCalledWith,
   asMock,
   asMockFunction,
-  asMockFunctionReturnValue,
+  asMockFunctionResolvedValue,
   fakeMediaClient,
   sleep,
   timeoutPromise,
@@ -97,13 +98,6 @@ describe('FileFetcher', () => {
         },
       },
     ];
-    const itemsResponse: Promise<MediaStoreResponse<
-      ItemsPayload
-    >> = Promise.resolve({
-      data: {
-        items,
-      },
-    });
 
     const createUploadableFile = (
       name: string,
@@ -145,14 +139,15 @@ describe('FileFetcher', () => {
     const mediaClient = fakeMediaClient();
     const mediaStore = {
       ...mediaClient.mediaStore,
-      getFileBinaryURL: asMockFunctionReturnValue(
+      getFileBinaryURL: asMockFunctionResolvedValue(
         mediaClient.mediaStore.getFileBinaryURL,
-        Promise.resolve(binaryUrl),
+        binaryUrl,
       ),
-      getItems: asMockFunctionReturnValue(
-        mediaClient.mediaStore.getItems,
-        itemsResponse,
-      ),
+      getItems: asMockFunctionResolvedValue(mediaClient.mediaStore.getItems, {
+        data: {
+          items,
+        },
+      }),
     } as jest.Mocked<MediaStore>;
 
     const fileFetcher = new FileFetcherImpl(mediaStore);
@@ -176,7 +171,6 @@ describe('FileFetcher', () => {
       fileFetcher,
       mediaStore,
       items,
-      itemsResponse,
       createUploadableFile,
       uploadFileUpfrontIds,
       mockAuthProvider,
@@ -304,28 +298,45 @@ describe('FileFetcher', () => {
     it('should return an errored observable if we pass an invalid file id', done => {
       const { fileFetcher } = setup();
 
-      fileFetcher.getFileState('invalid-id').subscribe({
-        error(error) {
-          expect(error).toEqual('invalid id was passed to getFileState');
-          done();
-        },
-      });
+      fileFetcher
+        .getFileState('invalid-id', {
+          collectionName: 'collection',
+          occurrenceKey: 'occurrence-key',
+        })
+        .subscribe({
+          error(error) {
+            if (!isFileFetcherError(error)) {
+              return expect(isFileFetcherError(error)).toBeTruthy();
+            }
+            expect(error.attributes).toEqual({
+              reason: FileFetcherErrorReason.invalidFileId,
+              id: 'invalid-id',
+              collectionName: 'collection',
+              occurrenceKey: 'occurrence-key',
+            });
+            done();
+          },
+        });
     });
 
     it('should split calls to /items by collection name', done => {
       const { fileFetcher, mediaStore, items } = setup();
 
-      fileFetcher
-        .getFileState(items[0].id, { collectionName: items[0].collection })
-        .subscribe();
-      fileFetcher
-        .getFileState(items[1].id, { collectionName: items[1].collection })
-        .subscribe();
-      fileFetcher
-        .getFileState(items[2].id, { collectionName: items[2].collection })
-        .subscribe();
+      combineLatest(
+        fileFetcher.getFileState(items[0].id, {
+          collectionName: items[0].collection,
+        }),
+        fileFetcher.getFileState(items[1].id, {
+          collectionName: items[1].collection,
+        }),
+        fileFetcher.getFileState(items[2].id, {
+          collectionName: items[2].collection,
+        }),
+      ).subscribe(([fileState1, fileState2, fileState3]) => {
+        expect(fileState1.id).toEqual(items[0].id);
+        expect(fileState2.id).toEqual(items[1].id);
+        expect(fileState3.id).toEqual(items[2].id);
 
-      setImmediate(() => {
         expect(mediaStore.getItems).toHaveBeenCalledTimes(2);
         expect(mediaStore.getItems.mock.calls[0]).toEqual([
           [items[0].id, items[1].id],
@@ -342,11 +353,26 @@ describe('FileFetcher', () => {
     it('should group ids without collection in the same call to /items', done => {
       const { fileFetcher, mediaStore, items } = setup();
 
-      fileFetcher.getFileState(items[0].id).subscribe();
-      fileFetcher.getFileState(items[1].id).subscribe();
-      fileFetcher.getFileState(items[2].id).subscribe();
+      // omit collection from original response
+      asMockFunctionResolvedValue(mediaStore.getItems, {
+        data: {
+          items: items.map(item => ({
+            id: item.id,
+            type: item.type,
+            details: item.details,
+          })),
+        },
+      });
 
-      setImmediate(() => {
+      combineLatest(
+        fileFetcher.getFileState(items[0].id),
+        fileFetcher.getFileState(items[1].id),
+        fileFetcher.getFileState(items[2].id),
+      ).subscribe(([fileState1, fileState2, fileState3]) => {
+        expect(fileState1.id).toEqual(items[0].id);
+        expect(fileState2.id).toEqual(items[1].id);
+        expect(fileState3.id).toEqual(items[2].id);
+
         expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
         expect(mediaStore.getItems.mock.calls[0]).toEqual([
           [items[0].id, items[1].id, items[2].id],
@@ -365,7 +391,7 @@ describe('FileFetcher', () => {
         (_: string[], collectionName?: string) => {
           // We want to make one of the /items call to fail
           if (collectionName === 'collection-1') {
-            return Promise.reject();
+            return Promise.reject(new Error('any error'));
           }
 
           return Promise.resolve({
@@ -392,11 +418,7 @@ describe('FileFetcher', () => {
         expect(error).toBeCalledTimes(1);
         expect(next).toBeCalledTimes(1);
         expect(mediaStore.getItems).toHaveBeenCalledTimes(2);
-        expect(error).toBeCalledWith({
-          id: items[0].id,
-          collection: items[0].collection,
-          error: expect.any(Error),
-        });
+        expect(error).toBeCalledWith(expect.any(Error));
         expect(next).toBeCalledWith({
           id: items[2].id,
           status: 'processing',
@@ -417,28 +439,26 @@ describe('FileFetcher', () => {
       const next = jest.fn();
       const error = jest.fn();
 
-      asMockFunctionReturnValue(
-        mediaStore.getItems,
-        Promise.resolve({
-          data: {
-            items: [
-              {
-                id: items[0].id,
-                collection: items[0].collection,
-                details: {
-                  name: items[0].details.name,
-                  mimeType: items[0].details.mimeType,
-                  mediaType: items[0].details.mediaType,
-                  processingStatus: items[0].details.processingStatus,
-                  size: 0,
-                  artifacts: {},
-                  representations: {},
-                },
+      asMockFunctionResolvedValue(mediaStore.getItems, {
+        data: {
+          items: [
+            {
+              id: items[0].id,
+              type: 'file',
+              collection: items[0].collection,
+              details: {
+                name: items[0].details.name,
+                mimeType: items[0].details.mimeType,
+                mediaType: items[0].details.mediaType,
+                processingStatus: items[0].details.processingStatus,
+                size: 0,
+                artifacts: {},
+                representations: {},
               },
-            ],
-          },
-        } as MediaStoreResponse<ItemsPayload>),
-      );
+            },
+          ],
+        },
+      });
 
       fileFetcher
         .getFileState(items[0].id, { collectionName: items[0].collection })
@@ -1327,152 +1347,5 @@ describe('FileFetcher', () => {
         done();
       });
     });
-  });
-});
-
-describe('getItemsFromKeys()', () => {
-  const details = {} as any;
-
-  it('should return the same an array with the same length', () => {
-    const keys = [
-      {
-        id: '1',
-      },
-      {
-        id: '2',
-      },
-      {
-        id: '2',
-        collection: 'user-collection',
-      },
-    ];
-    const items: ResponseFileItem[] = [
-      {
-        id: '1',
-        type: 'file',
-        details,
-      },
-    ];
-
-    expect(getItemsFromKeys(keys, items)).toHaveLength(keys.length);
-  });
-
-  it('should respect order', () => {
-    const keys = [
-      {
-        id: '1',
-      },
-      {
-        id: '2',
-      },
-      {
-        id: '2',
-        collection: 'user-collection',
-      },
-    ];
-    const items: ResponseFileItem[] = [
-      {
-        id: '2',
-        type: 'file',
-        details: {
-          ...details,
-          name: 'file-2',
-        },
-      },
-      {
-        id: '1',
-        type: 'file',
-        details: {
-          ...details,
-          name: 'file-1',
-        },
-      },
-    ];
-
-    const result = getItemsFromKeys(keys, items);
-
-    expect(result[0]).toEqual({
-      name: 'file-1',
-    });
-    expect(result[1]).toEqual({
-      name: 'file-2',
-    });
-    expect(result[2]).toBeUndefined();
-  });
-
-  it('should use collection name to find item', () => {
-    const keys = [
-      {
-        id: '1',
-        collection: 'first-collection',
-      },
-      {
-        id: '1',
-        collection: 'other-collection',
-      },
-      {
-        id: '2',
-        collection: 'user-collection',
-      },
-    ];
-    const items: ResponseFileItem[] = [
-      {
-        id: '2',
-        type: 'file',
-        collection: 'user-collection',
-        details: {
-          ...details,
-          name: 'file-2',
-        },
-      },
-      {
-        id: '1',
-        type: 'file',
-        collection: 'first-collection',
-        details: {
-          ...details,
-          name: 'file-1',
-        },
-      },
-    ];
-
-    const result = getItemsFromKeys(keys, items);
-
-    expect(result).toEqual([
-      {
-        name: 'file-1',
-      },
-      undefined,
-      {
-        name: 'file-2',
-      },
-    ]);
-  });
-
-  it('should return undefined for not found files', () => {
-    const keys = [
-      {
-        id: '1',
-        collection: 'a',
-      },
-      {
-        id: '2',
-        collection: 'b',
-      },
-    ];
-    const items: ResponseFileItem[] = [
-      {
-        id: '2',
-        type: 'file',
-        details: {
-          ...details,
-          name: 'file-2',
-        },
-      },
-    ];
-
-    const result = getItemsFromKeys(keys, items);
-
-    expect(result).toEqual([undefined, undefined]);
   });
 });

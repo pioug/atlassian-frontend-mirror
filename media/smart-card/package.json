@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "14.6.1",
+  "version": "14.7.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,9 +13,13 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./client": "./src/client/index.ts",
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Editor Media",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Smart Card"
@@ -29,7 +33,7 @@
     "@atlaskit/icon-file-type": "^6.0.0",
     "@atlaskit/icon-object": "^6.0.0",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/media-ui": "^14.3.0",
+    "@atlaskit/media-ui": "^14.4.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
@@ -50,11 +54,11 @@
   },
   "devDependencies": {
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/checkbox": "^11.0.0",
+    "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/inline-message": "^11.0.0",
-    "@atlaskit/media-test-helpers": "^28.4.0",
+    "@atlaskit/media-test-helpers": "^28.5.0",
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/radio": "^5.0.0",
     "@atlaskit/table-tree": "^9.0.0",

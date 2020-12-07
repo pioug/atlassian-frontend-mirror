@@ -369,6 +369,7 @@ export default class ResizableMediaSingle extends React.Component<
         <Resizer
           {...this.props}
           width={width}
+          ratio={((height / width) * 100).toFixed(3)}
           height={height}
           selected={selected}
           enable={enable}

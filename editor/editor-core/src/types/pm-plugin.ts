@@ -9,6 +9,7 @@ import { EditorReactContext } from '../types';
 import { Dispatch, EventDispatcher } from '../event-dispatcher';
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
+import { TransactionTracker } from '../utils/performance/track-transactions';
 import { EditorProps } from './editor-props';
 
 export type PMPluginFactoryParams = {
@@ -24,6 +25,7 @@ export type PMPluginFactoryParams = {
 export type PMPluginCreateConfig = PMPluginFactoryParams & {
   editorConfig: EditorConfig;
   performanceTracking: EditorProps['performanceTracking'];
+  transactionTracker?: TransactionTracker;
 };
 export type PMPluginFactory = (
   params: PMPluginFactoryParams,

@@ -16,6 +16,9 @@ const loadJiraCollectorDialogScript = (
   packageName: string,
   coreVersion: string,
   packageVersion: string,
+  sessionId: string,
+  contentId: string,
+  tabId: string,
 ): Promise<() => void> => {
   return new Promise(async (resolve, reject) => {
     if (window.jQuery) {
@@ -40,6 +43,9 @@ const loadJiraCollectorDialogScript = (
           'Editor Package': packageName,
           'Editor Version': packageVersion,
           'Editor Core Version': coreVersion,
+          sessionId,
+          contentId,
+          tabId,
         },
         priority: '1',
         components: '15306', // Fix here

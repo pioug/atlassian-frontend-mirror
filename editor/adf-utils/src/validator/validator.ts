@@ -1018,6 +1018,8 @@ export function validator(
                       validMarks.length ||
                       isLastValidationSpec ||
                       isParentTupleLike ||
+                      mr.errorCode === 'INVALID_TYPE' ||
+                      mr.errorCode === 'INVALID_CONTENT' ||
                       mr.errorCode === 'REDUNDANT_ATTRIBUTES' ||
                       mr.errorCode === 'INVALID_ATTRIBUTES'
                     ) {
@@ -1122,7 +1124,14 @@ export function validator(
                     errorCallback,
                     isLastValidationSpec,
                   );
-                  if (marksAreValid) {
+                  const unsupportedMarks =
+                    (entity &&
+                      entity.marks &&
+                      entity.marks.filter(
+                        mark => mark.type === 'unsupportedMark',
+                      )) ||
+                    [];
+                  if (marksAreValid && !unsupportedMarks.length) {
                     return entity;
                   } else {
                     firstChild = firstChild || newChildEntity;

@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 14.2.2
+
+### Patch Changes
+
+- [`dd91541afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd91541afe) - [ux] Further improvements on the invite from mention experiment
+
 ## 14.2.1
 
 ### Patch Changes

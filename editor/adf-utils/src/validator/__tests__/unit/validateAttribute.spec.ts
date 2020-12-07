@@ -281,9 +281,23 @@ describe('validate Attribute', () => {
         };
 
         validate(entity, errorCallbackMock);
-        expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+        expect(errorCallbackMock).toHaveBeenCalledTimes(2);
         expect(errorCallbackMock).toHaveBeenNthCalledWith(
           1,
+          expect.anything(),
+          expect.objectContaining({
+            code: 'INVALID_TYPE',
+            message: 'code: unsupported mark.',
+            meta: markWithAttribute,
+          }),
+          expect.objectContaining({
+            allowUnsupportedBlock: false,
+            allowUnsupportedInline: false,
+            isMark: true,
+          }),
+        );
+        expect(errorCallbackMock).toHaveBeenNthCalledWith(
+          2,
           expect.anything(),
           expect.objectContaining({
             code: 'REDUNDANT_ATTRIBUTES',

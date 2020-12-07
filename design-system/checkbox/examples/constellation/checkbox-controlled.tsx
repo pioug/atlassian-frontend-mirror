@@ -1,36 +1,25 @@
-import React, { PureComponent } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '../../src';
 
-interface State {
-  isChecked: boolean;
-  onChangeResult: string;
-}
+export default function ControlledExample() {
+  const [isChecked, setIsChecked] = useState(true);
+  const [onChangeResult, setOnChangeResult] = useState('true');
 
-export default class ControlledExample extends PureComponent<void, State> {
-  state = {
-    isChecked: true,
-    onChangeResult: 'true',
-  };
+  const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(current => !current);
+    setOnChangeResult(`${event.target.checked}`);
+  }, []);
 
-  onChange = (event: any) => {
-    this.setState({
-      isChecked: !this.state.isChecked,
-      onChangeResult: `${event.target.checked}`,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Checkbox
-          isChecked={this.state.isChecked}
-          onChange={this.onChange}
-          label={`Controlled checkbox, with this.state.isChecked: ${this.state.onChangeResult}`}
-          value="Controlled Checkbox"
-          name="controlled-checkbox"
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Checkbox
+        isChecked={isChecked}
+        onChange={onChange}
+        label={`Controlled checkbox, with props.isChecked: ${onChangeResult}`}
+        value="Controlled Checkbox"
+        name="controlled-checkbox"
+      />
+    </div>
+  );
 }

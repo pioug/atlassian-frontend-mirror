@@ -24,7 +24,6 @@ export function generateResponsiveStyles(
   const marginBottom =
     setting.marginBottom * multiplier +
     (positionBottom ? marginPositionBottom : getTitleBoxHeight(breakpoint));
-
   return `
     bottom: ${marginBottom}px
   `;

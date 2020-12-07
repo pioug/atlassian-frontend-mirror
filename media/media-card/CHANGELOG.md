@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 70.2.0
+
+### Minor Changes
+
+- [`11d6640e9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11d6640e9c) - [ux] New UI states for when a card is rate limited
+- [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
+
+### Patch Changes
+
+- [`7736346d88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7736346d88) - Added strongly typed errors to Media Client
+- [`aac5527ec8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aac5527ec8) - standardise data test attributes for media-card classic/new UX
+- Updated dependencies
+
 ## 70.1.1
 
 ### Patch Changes

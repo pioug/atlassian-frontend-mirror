@@ -26,7 +26,7 @@ const rightArrowArray = Array(numBackspaces).fill('ArrowRight');
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in date using input',
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
 
@@ -56,7 +56,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in en-GB date using input',
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'en-GB';
     const page = await goToEditorTestingExample(client);
@@ -90,7 +90,7 @@ BrowserTestCase(
 );
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in (slightly) misformatted en-GB date using input',
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'en-GB';
     const page = await goToEditorTestingExample(client);
@@ -125,7 +125,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in hu-HU (Hungarian) date using input',
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'hu';
     const page = await goToEditorTestingExample(client);
@@ -163,7 +163,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Type in a (slightly) misformatted hu (Hungarian) date using input',
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'hu';
     const page = await goToEditorTestingExample(client);
@@ -201,7 +201,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'keyboard-accessibility.ts: Arrow up on year increments year by 1 and keeps same day/month when they exist',
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await loadLocale(page, ['en_GB']);
@@ -230,19 +230,13 @@ BrowserTestCase(
 
     const lozengeText = await page.getText(dateLozenge);
 
-    // Temporary fix - some BrowserStack tests seem to decrement
-    // the day by 1 as well when pressing ArrowUp on the year
-    const isPrevRollover = lozengeText === '14 Jul 2021';
-    const isNextRollover = lozengeText === '15 Jul 2021';
-
-    // Can't check against snapshot, as it will be one or the other
-    expect(isPrevRollover || isNextRollover).toBe(true);
+    expect(lozengeText).toBe('15 Jul 2021');
   },
 );
 
 BrowserTestCase(
   "keyboard-accessibility.ts: When incrementing year by one, rolls over or back day when day doesn't exist in new year",
-  { skip: ['safari', 'edge'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingExample(client);
     await loadLocale(page, ['en_GB']);
@@ -352,12 +346,7 @@ BrowserTestCase(
 
     const lozengeText = await page.getText(dateLozenge);
 
-    // Due to timezone differences, the day may change by one or two
-    const isTwoPrevRollover = lozengeText === '13 Jul 2021';
-    const isPrevRollover = lozengeText === '14 Jul 2021';
-    const isNextRollover = lozengeText === '15 Jul 2021';
-
-    expect(isTwoPrevRollover || isPrevRollover || isNextRollover).toBe(true);
+    expect(lozengeText).toBe('15 Jul 2021');
   },
 );
 
@@ -407,7 +396,7 @@ BrowserTestCase(
     const doc = await page.$eval(editable, getDocFromElement);
 
     // On Windows Chrome, paste adds two extra spaces after the date on paste (macOS adds none)
-    // There fore a snapshot comparison can't be used
+    // Therefore a snapshot comparison can't be used
 
     const numDates = reduce(
       doc,

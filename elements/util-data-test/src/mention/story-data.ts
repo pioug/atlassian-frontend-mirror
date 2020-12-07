@@ -143,6 +143,7 @@ export const resourceProviderWithInviteFromMentionExperiment = new MentionResour
     minWait: 10,
     maxWait: 25,
     enableTeamMentionHighlight: true,
+    inviteExperimentCohort: 'variation',
     productName: 'confluence',
     shouldEnableInvite: true,
     userRole: 'admin',

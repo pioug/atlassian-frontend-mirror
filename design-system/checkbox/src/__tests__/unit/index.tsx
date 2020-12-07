@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { ChangeEvent, createRef } from 'react';
 
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
-import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
-import CheckboxIndeterminateIcon from '@atlaskit/icon/glyph/checkbox-indeterminate';
-
-import Checkbox, { CheckboxWithoutAnalytics } from '../../Checkbox';
+import Checkbox from '../../checkbox';
 import { name } from '../../version.json';
 
 declare var global: any;
 
 describe(name, () => {
-  const mountCheckbox = (overridingProps: any) =>
-    mount(
-      <CheckboxWithoutAnalytics
-        label=""
+  const renderCheckbox = (overridingProps: any) =>
+    render(
+      <Checkbox
+        label="stub"
         onChange={() => {}}
         name="stub"
         value="stub value"
@@ -22,136 +19,152 @@ describe(name, () => {
       />,
     );
   describe('console errors', () => {
-    beforeEach(async () => {
+    it('should not log console error on mount', () => {
       jest.spyOn(global.console, 'error');
-    });
-
-    afterEach(() => {
+      renderCheckbox({});
+      expect(global.console.error).not.toHaveBeenCalled();
       // @ts-ignore - Property 'mockRestore' does not exist
       global.console.error.mockRestore();
-    });
-    it('should not log console error on mount', () => {
-      mountCheckbox({});
-      expect(global.console.error).not.toHaveBeenCalled();
     });
   });
   describe('<Checkbox />', () => {
     describe('<Checkbox /> stateless: should not use state isChecked property when passing it as props', () => {
-      it('keeps isChecked as false when passing it as prop and calling onChange', () => {
-        const cb = mountCheckbox({ isChecked: false, onChange: null });
-        cb.find('input').simulate('change', { target: { checked: true } });
-        expect(cb.find('input').prop('checked')).toBe(false);
+      it('keeps isChecked as false when passing it as prop and clicking', () => {
+        const { getByLabelText } = renderCheckbox({ isChecked: false });
+        const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+        checkbox.click();
+
+        expect(checkbox.checked).toBe(false);
       });
 
       it('keeps isChecked as true when passing it as prop and calling onChange', () => {
-        const cb = mountCheckbox({ isChecked: true, onChange: null });
-        cb.find('input').simulate('change', { target: { checked: false } });
-        expect(cb.find('input').prop('checked')).toBe(true);
+        const { getByLabelText } = renderCheckbox({ isChecked: true });
+        const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+        checkbox.click();
+
+        expect(checkbox.checked).toBe(true);
       });
     });
     it('should be unchecked by default', () => {
-      const cb = mountCheckbox({ defaultChecked: false });
-      expect(cb.find('input[checked]').length === 1).toBe(true);
+      const { getByLabelText } = renderCheckbox({});
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+      expect(checkbox.checked).toBe(false);
     });
     it('should call onchange on change', () => {
-      const myMock = jest.fn();
-      const cb = mountCheckbox({ isChecked: false, onChange: myMock });
-      cb.find('input').simulate('change', { target: { checked: true } });
-      expect(cb.find('Checkbox').prop('isChecked')).toBe(false);
-      expect(myMock.mock.calls.length).toBe(1);
+      const onChange = jest.fn();
+      const { getByLabelText } = renderCheckbox({ onChange: onChange });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+      checkbox.click();
+
+      expect(onChange).toBeCalledTimes(1);
     });
-    it('should call onchange once', () => {
-      const spy = jest.fn();
-      const cb = mountCheckbox({ onChange: spy });
-      cb.find('input').simulate('change');
-      expect(spy).toHaveBeenCalledTimes(1);
+    it('should call onChange and change variable', () => {
+      let value = '';
+      let checked = false;
+      const { getByLabelText } = renderCheckbox({
+        onChange: (e: ChangeEvent<HTMLInputElement>) => {
+          value = e.currentTarget.value;
+          checked = e.currentTarget.checked;
+        },
+      });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+      checkbox.click();
+
+      expect(value).toBe('stub value');
+      expect(checked).toBe(true);
     });
-    it('should show indeterminate icon when indeterminate', () => {
-      const cb = mountCheckbox({ isIndeterminate: true, isChecked: false });
-      expect(cb.find(CheckboxIcon)).toHaveLength(0);
-      expect(cb.find(CheckboxIndeterminateIcon)).toHaveLength(1);
+    it('should set the checked state when checked', () => {
+      const { getByLabelText } = renderCheckbox({});
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+      checkbox.click();
+
+      expect(checkbox.checked).toBe(true);
     });
-    it('should initially set the indeterminate state on the hidden checkbox', () => {
-      const cb = mountCheckbox({ isIndeterminate: true, isChecked: false });
-      // @ts-ignore - Property 'checkbox' does not exist
-      const element = cb.find('Checkbox').instance().checkbox;
-      expect(element.indeterminate).toBe(true);
+    it('should set the indeterminate state', () => {
+      const { getByLabelText } = renderCheckbox({
+        isIndeterminate: true,
+        isChecked: true,
+      });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+      expect(checkbox.getAttribute('aria-checked')).toBe('mixed');
     });
-    it('should set the indeterminate state on the hidden checkbox on update', () => {
-      const cb = mountCheckbox({
+    it('should set the indeterminate state on the checkbox on update', () => {
+      const { getByLabelText, rerender } = renderCheckbox({
         isChecked: false,
         isIndeterminate: false,
       });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
 
-      // @ts-ignore - Property 'checkbox' does not exist
-      const element = cb.find('Checkbox').instance().checkbox;
-      expect(element.indeterminate).toBe(false);
+      expect(checkbox.getAttribute('aria-checked')).toBe('false');
 
-      cb.setProps({ isIndeterminate: true });
-      expect(element.indeterminate).toBe(true);
+      rerender(
+        <Checkbox
+          label="stub"
+          onChange={() => {}}
+          name="stub"
+          value="stub value"
+          isChecked={false}
+          isIndeterminate={true}
+        />,
+      );
+
+      expect(checkbox.getAttribute('aria-checked')).toBe('mixed');
     });
-    it('should pass props declared in overrides HiddenCheckbox attributesFn down to hidden checkbox', () => {
-      const cb = mountCheckbox({
-        overrides: {
-          HiddenCheckbox: {
-            attributesFn: () => ({ 'data-foo': 'checkbox-bar' }),
-          },
+    it('should pass input props as attributes on the checkbox', () => {
+      const onFocus = jest.fn();
+      const { getByLabelText } = renderCheckbox({
+        onFocus: onFocus,
+      });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
+
+      checkbox.focus();
+
+      expect(onFocus).toBeCalled();
+    });
+    it('should set the reference on the checkbox', () => {
+      const ref = createRef<HTMLInputElement>();
+      const { getByLabelText } = renderCheckbox({
+        ref: ref,
+      });
+
+      const input = getByLabelText('stub');
+      expect(input).toBe(ref.current);
+    });
+    it('should accept a function as a reference', () => {
+      let ourNode: HTMLInputElement | undefined;
+      const { getByLabelText } = renderCheckbox({
+        ref: (node: HTMLInputElement) => {
+          ourNode = node;
         },
       });
-      expect(cb.find('input').prop('data-foo')).toBe('checkbox-bar');
-    });
-    it('should have no pointer-events on HiddenCheckbox', () => {
-      const cb = mountCheckbox({});
 
-      expect(cb.find('input')).toHaveStyleDeclaration('pointer-events', 'none');
+      const input = getByLabelText('stub');
+      expect(input).toBe(ourNode);
     });
   });
   describe('<Checkbox defaultChecked/>', () => {
-    it('should render defaultChecked', () => {
-      const cb = mountCheckbox({ defaultChecked: true });
-      // @ts-ignore - Property 'checkbox' does not exist
-      const element = cb.find('Checkbox').instance().checkbox;
-      expect(element.checked).toBe(true);
-    });
-    it('should render defaultChecked={undefined}', () => {
-      const cb = mountCheckbox({});
-      // @ts-ignore - Property 'checkbox' does not exist
-      const element = cb.find('Checkbox').instance().checkbox;
-      expect(element.checked).toBe(false);
-    });
-  });
-  describe('<Checkbox disabled/>', () => {
-    it('should show a not-allowed cursor', () => {
-      const cb = mountCheckbox({ isDisabled: true });
+    it('should be checked when defaultChecked is set to checked', () => {
+      const { getByLabelText } = renderCheckbox({ defaultChecked: true });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
 
-      expect(cb.find('label')).toHaveStyleDeclaration('cursor', 'not-allowed');
+      expect(checkbox.checked).toBe(true);
     });
-  });
-});
+    it('should change checked after defaultChecked is set to true', () => {
+      const { getByLabelText } = renderCheckbox({ defaultChecked: true });
+      const checkbox = getByLabelText('stub') as HTMLInputElement;
 
-describe('CheckboxWithAnalytics', () => {
-  beforeEach(() => {
-    jest.spyOn(global.console, 'warn');
-    jest.spyOn(global.console, 'error');
-  });
-  afterEach(() => {
-    global.console.warn.mockRestore();
-    global.console.error.mockRestore();
-  });
+      expect(checkbox.checked).toBe(true);
 
-  it('should mount without errors', () => {
-    mount(
-      <Checkbox
-        label=""
-        isChecked
-        onChange={() => {}}
-        name="stub"
-        value="stub value"
-      />,
-    );
-    /* eslint-disable no-console */
-    expect(console.warn).not.toHaveBeenCalled();
-    expect(console.error).not.toHaveBeenCalled();
-    /* eslint-enable no-console */
+      checkbox.click();
+
+      expect(checkbox.checked).toBe(false);
+    });
   });
 });

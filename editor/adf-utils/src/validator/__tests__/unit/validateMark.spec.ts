@@ -28,6 +28,7 @@ describe('validate Mark', () => {
       'alignment',
       'underline',
       'code',
+      'annotation',
     ],
   );
   let errorCallbackMock: any;
@@ -262,14 +263,28 @@ describe('validate Mark', () => {
       };
 
       validate(initialEntity, errorCallbackMock);
-      expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(3);
       expect(errorCallbackMock).toHaveBeenNthCalledWith(
-        2,
+        3,
         expect.anything(),
         expect.objectContaining({
           code: 'REDUNDANT_MARKS',
           message: 'unsupportedParent: unsupported mark.',
           meta: unsupportedParentAdfMark,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        2,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_CONTENT',
+          message: 'unsupportedChild: unsupported mark.',
+          meta: unSupportedChildAdfMark,
         }),
         expect.objectContaining({
           allowUnsupportedBlock: false,
@@ -783,15 +798,75 @@ describe('validate Mark', () => {
     };
 
     validate(initialEntity, errorCallbackMock);
-    expect(errorCallbackMock).toHaveBeenCalledTimes(1);
-    const expectedMeta = { type: 'breakout' };
+    expect(errorCallbackMock).toHaveBeenCalledTimes(5);
+    const expectedMetaBreakout = { type: 'breakout' };
+    const ecpectedMetaIndentation = {
+      attrs: { level: 1 },
+      type: 'indentation',
+    };
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
       1,
       expect.anything(),
       expect.objectContaining({
         code: 'INVALID_TYPE',
         message: 'breakout: unsupported mark.',
-        meta: expectedMeta,
+        meta: expectedMetaBreakout,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'indentation: unsupported mark.',
+        meta: ecpectedMetaIndentation,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      3,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'breakout: unsupported mark.',
+        meta: expectedMetaBreakout,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      4,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'indentation: unsupported mark.',
+        meta: ecpectedMetaIndentation,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      5,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'breakout: unsupported mark.',
+        meta: expectedMetaBreakout,
       }),
       expect.objectContaining({
         allowUnsupportedBlock: false,
@@ -832,15 +907,47 @@ describe('validate Mark', () => {
     };
 
     validate(initialEntity, errorCallbackMock);
-    expect(errorCallbackMock).toHaveBeenCalledTimes(1);
-    const expectedMeta = { type: 'unknownMark' };
+    expect(errorCallbackMock).toHaveBeenCalledTimes(3);
+    const expectedMetaBreakout = { type: 'unknownMark' };
+    const ecpectedMetaIndentation = {
+      attrs: { align: 'center' },
+      type: 'alignment',
+    };
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
       1,
       expect.anything(),
       expect.objectContaining({
         code: 'INVALID_CONTENT',
         message: 'unknownMark: unsupported mark.',
-        meta: expectedMeta,
+        meta: expectedMetaBreakout,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'alignment: unsupported mark.',
+        meta: ecpectedMetaIndentation,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      3,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'unknownMark: unsupported mark.',
+        meta: expectedMetaBreakout,
       }),
       expect.objectContaining({
         allowUnsupportedBlock: false,
@@ -879,10 +986,38 @@ describe('validate Mark', () => {
       };
 
       validate(initialEntity, errorCallbackMock);
-      expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(3);
       const expectedMeta = { attrs: { mode: 'wide' }, type: 'breakout' };
       expect(errorCallbackMock).toHaveBeenNthCalledWith(
         1,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'breakout: unsupported mark.',
+          meta: expectedMeta,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        2,
+        expect.anything(),
+        expect.objectContaining({
+          code: 'INVALID_TYPE',
+          message: 'breakout: unsupported mark.',
+          meta: expectedMeta,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+      expect(errorCallbackMock).toHaveBeenNthCalledWith(
+        3,
         expect.anything(),
         expect.objectContaining({
           code: 'INVALID_TYPE',
@@ -922,10 +1057,38 @@ describe('validate Mark', () => {
     };
 
     validate(initialEntity, errorCallbackMock);
-    expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(3);
     const expectedMeta = { type: 'unknownMark' };
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
       1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'unknownMark: unsupported mark.',
+        meta: expectedMeta,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'unknownMark: unsupported mark.',
+        meta: expectedMeta,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      3,
       expect.anything(),
       expect.objectContaining({
         code: 'INVALID_CONTENT',
@@ -981,9 +1144,23 @@ describe('validate Mark', () => {
     };
 
     validate(initialEntity, errorCallbackMock);
-    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(5);
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
       1,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'alignment: unsupported mark.',
+        meta: alignment,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      2,
       expect.anything(),
       expect.objectContaining({
         code: 'INVALID_CONTENT',
@@ -997,7 +1174,35 @@ describe('validate Mark', () => {
       }),
     );
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
-      2,
+      3,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'fontSize: unsupported mark.',
+        meta: unknownFontSize,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      4,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_CONTENT',
+        message: 'background: unsupported mark.',
+        meta: unknownBackground,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      5,
       expect.anything(),
       expect.objectContaining({
         code: 'INVALID_CONTENT',
@@ -1069,7 +1274,7 @@ describe('validate Mark', () => {
       ],
     };
     validate(initialEntity, errorCallbackMock);
-    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(6);
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
       1,
       expect.anything(),
@@ -1086,6 +1291,62 @@ describe('validate Mark', () => {
     );
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
       2,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'em: unsupported mark.',
+        meta: mark2,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      3,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'strong: unsupported mark.',
+        meta: mark1,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      4,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'em: unsupported mark.',
+        meta: mark2,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      5,
+      expect.anything(),
+      expect.objectContaining({
+        code: 'INVALID_TYPE',
+        message: 'strong: unsupported mark.',
+        meta: mark1,
+      }),
+      expect.objectContaining({
+        allowUnsupportedBlock: false,
+        allowUnsupportedInline: false,
+        isMark: true,
+      }),
+    );
+    expect(errorCallbackMock).toHaveBeenNthCalledWith(
+      6,
       expect.anything(),
       expect.objectContaining({
         code: 'INVALID_TYPE',
@@ -1127,7 +1388,7 @@ describe('validate Mark', () => {
     };
 
     validate(initialEntity, errorCallbackMock);
-    expect(errorCallbackMock).toHaveBeenCalledTimes(2);
+    expect(errorCallbackMock).toHaveBeenCalledTimes(6);
     const expectedMeta1 = { type: 'strong' };
     const expectedMeta2 = { type: 'unknownMark' };
     expect(errorCallbackMock).toHaveBeenNthCalledWith(
@@ -1323,5 +1584,71 @@ describe('validate Mark', () => {
         isMark: true,
       },
     );
+  });
+
+  it(`should return the valid spec when there are multiple specs for a node`, () => {
+    /**
+     * Paragraph and code have multiple specs validator should return appropriate spec.
+     */
+    errorCallbackMock.mockReturnValue({
+      type: 'unsupportedMark',
+      attrs: { originalValue: {} },
+    });
+    const content = {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'some ',
+          marks: [
+            {
+              type: 'code',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'inline',
+          marks: [
+            {
+              type: 'code',
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: '80f91695-4e24-433d-93e1-6458b8bb12476',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' code',
+          marks: [
+            {
+              type: 'code',
+            },
+          ],
+        },
+      ],
+    };
+    const initialEntity = {
+      version: 1,
+      type: 'doc',
+      content: [content],
+    };
+    const expectedEntity = {
+      version: 1,
+      type: 'doc',
+      content: [content],
+    };
+
+    const { entity: resultantEntity } = validate(
+      initialEntity,
+      errorCallbackMock,
+    );
+    expect(resultantEntity).toBeDefined();
+    expect(resultantEntity).toEqual(expectedEntity);
   });
 });

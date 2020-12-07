@@ -45,3 +45,4 @@ export { isValidPercentageUnit } from './isValidPercentageUnit';
 export { getElementDimension } from './getElementDimension';
 export type { ElementDimension } from './getElementDimension';
 export { containsPixelUnit } from './containsPixelUnit';
+export { isRateLimitedError } from './error';

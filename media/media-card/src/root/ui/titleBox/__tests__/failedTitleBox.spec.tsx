@@ -13,7 +13,6 @@ import { Breakpoint } from '../../common';
 import { TitleBoxWrapper } from '../styled';
 import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { FormattedMessage } from 'react-intl';
-import { NewExpRetryButton } from '../../../../files/cardImageView/cardOverlay/retryButton';
 
 describe('FailedTitleBox', () => {
   it('should render FailedTitleBox properly', () => {
@@ -27,6 +26,5 @@ describe('FailedTitleBox', () => {
     expect(getErrorMessage).toHaveBeenCalledTimes(1);
     expect(component.find(EditorWarningIcon)).toHaveLength(1);
     expect(component.find(FormattedMessage)).toHaveLength(1);
-    expect(component.find(NewExpRetryButton)).toHaveLength(1);
   });
 });

@@ -79,3 +79,4 @@ export { ZERO_WIDTH_SPACE } from './whitespace';
 
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';
+export { getModeFromTheme } from './getModeFromTheme';

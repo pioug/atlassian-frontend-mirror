@@ -1,21 +1,81 @@
 import { utils } from '@atlaskit/util-service-support';
-
 import { Emitter } from './emitter';
-import {
-  ChannelEvent,
-  Config,
-  TelepointerPayload,
-  ParticipantPayload,
-  StepsPayload,
-  TitlePayload,
-  Socket,
-  ErrorPayload,
-  InitPayload,
-} from './types';
-
+import { Config, Socket } from './types';
 import { createLogger } from './utils';
 
 const logger = createLogger('Channel', 'green');
+
+export interface Metadata {
+  title?: string;
+  editorWidth?: string;
+}
+
+export type InitPayload = {
+  doc: any;
+  version: number;
+  userId?: string;
+  metadata?: Metadata;
+};
+
+export type ParticipantPayload = {
+  sessionId: string;
+  userId: string;
+  clientId: string;
+  timestamp: number;
+};
+
+export type TelepointerPayload = ParticipantPayload & {
+  selection: {
+    type: 'textSelection' | 'nodeSelection';
+    anchor: number;
+    head: number;
+  };
+};
+
+export type StepJson = {
+  from?: number;
+  to?: number;
+  stepType?: string;
+  clientId: string;
+  userId: string;
+};
+
+export type StepsPayload = {
+  version: number;
+  steps: StepJson[];
+};
+
+export type TitlePayload = {
+  title: string;
+};
+
+export type EditorWidthPayload = {
+  editorWidth: string;
+};
+
+export type ErrorPayload = {
+  code?: string;
+  message?: string;
+  meta?: string;
+};
+
+export type ChannelEvent = {
+  connected: {
+    sid: string;
+  };
+  init: InitPayload;
+  reconnected: null;
+  'participant:joined': ParticipantPayload;
+  'participant:left': ParticipantPayload;
+  'participant:telepointer': TelepointerPayload;
+  'participant:updated': ParticipantPayload;
+  'steps:commit': StepsPayload & { userId: string };
+  'steps:added': StepsPayload;
+  'title:changed': TitlePayload;
+  'width:changed': EditorWidthPayload;
+  error: ErrorPayload | string;
+  disconnect: { reason: string };
+};
 
 export class Channel extends Emitter<ChannelEvent> {
   private connected: boolean = false;
@@ -80,8 +140,12 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.on('title:changed', (payload: { data: TitlePayload }) => {
       this.emit('title:changed', payload.data);
     });
+    this.socket.on('width:changed', (payload: { data: EditorWidthPayload }) => {
+      this.emit('width:changed', payload.data);
+    });
     this.socket.on('disconnect', (reason: string) => {
       this.connected = false;
+      logger(`disconnect: ${reason}`);
       this.emit('disconnect', { reason });
       if (reason === 'io server disconnect' && this.socket) {
         // the disconnection was initiated by the server, we need to reconnect manually
@@ -107,12 +171,13 @@ export class Channel extends Emitter<ChannelEvent> {
 
     if (data.type === 'initial') {
       if (!this.initialized) {
-        const { doc, version, userId }: InitPayload = data;
+        const { doc, version, userId, metadata }: InitPayload = data;
         this.initialized = true;
         this.emit('init', {
           doc,
           version,
           userId,
+          metadata,
         });
       }
     } else {
@@ -122,21 +187,19 @@ export class Channel extends Emitter<ChannelEvent> {
 
   async fetchCatchup(fromVersion: number) {
     try {
-      const { doc, version, stepMaps } = await utils.requestService<any>(
-        this.config,
-        {
-          path: `document/${encodeURIComponent(
-            this.config.documentAri,
-          )}/catchup`,
-          queryParams: {
-            version: fromVersion,
-          },
+      const { doc, version, stepMaps, metadata } = await utils.requestService<
+        any
+      >(this.config, {
+        path: `document/${encodeURIComponent(this.config.documentAri)}/catchup`,
+        queryParams: {
+          version: fromVersion,
         },
-      );
+      });
       return {
         doc,
         version,
         stepMaps,
+        metadata,
       };
     } catch (err) {
       logger("Can't fetch the catchup", err.message);

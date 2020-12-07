@@ -17,13 +17,23 @@ import {
 
 import { messages } from '../messages';
 // eslint-disable-next-line import/no-cycle
-import FormWrapper from '../NestedForms/FormWrapper';
+import FormContent from '../FormContent';
 import { OnBlur } from '../types';
 
 type OptionType = {
   label: string;
   value: string;
 };
+
+import { gridSize } from '@atlaskit/theme/constants';
+import { multiply } from '@atlaskit/theme/math';
+import { N40A } from '@atlaskit/theme/colors';
+
+const ActionsWrapper = styled.div`
+  border-top: 1px solid ${N40A};
+  margin-top: ${multiply(gridSize, 2)}px;
+  padding-top: ${multiply(gridSize, 2)}px;
+`;
 
 const populateFromParameters = (
   parameters: Parameters,
@@ -66,6 +76,7 @@ const getInitialFields = (
 };
 
 type Props = {
+  name: string;
   extensionManifest: ExtensionManifest;
   field: Fieldset;
   parameters?: Parameters;
@@ -213,6 +224,7 @@ class FieldsetField extends React.Component<Props, State> {
 
   render() {
     const {
+      name,
       field,
       extensionManifest,
       onFieldBlur,
@@ -220,24 +232,33 @@ class FieldsetField extends React.Component<Props, State> {
       error,
     } = this.props;
 
+    const { label, options } = field;
     const { selectedFields, currentParameters, visibleFields } = this.state;
+    const children = this.renderActions();
+
     return (
       <>
         {error && <FieldsetError message={error} />}
-        <FormWrapper
-          canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
-          showTitle={field.options.showTitle}
-          extensionManifest={extensionManifest}
-          parentName={field.name}
-          fields={selectedFields}
-          label={field.label}
-          parameters={currentParameters}
-          onClickRemove={this.onClickRemove}
-          onFieldBlur={onFieldBlur}
-          firstVisibleFieldName={firstVisibleFieldName}
-        >
-          {this.renderActions()}
-        </FormWrapper>
+        <div>
+          {options.showTitle && <h5>{label}</h5>}
+
+          <FormContent
+            fields={selectedFields}
+            parentName={name}
+            extensionManifest={extensionManifest}
+            parameters={currentParameters}
+            canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
+            onClickRemove={this.onClickRemove}
+            onFieldBlur={onFieldBlur}
+            firstVisibleFieldName={firstVisibleFieldName}
+          />
+
+          {children && (
+            <ActionsWrapper testId="fieldset-actions">
+              {children}
+            </ActionsWrapper>
+          )}
+        </div>
       </>
     );
   }

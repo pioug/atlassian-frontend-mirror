@@ -25,7 +25,8 @@ import {
   createEmptyCollectionItem,
   CollectionItem,
 } from '../database';
-import { defaultBaseUrl, vrVideoDetails } from '../..';
+import { vrVideoDetails } from '../../exampleMediaItems';
+import { defaultBaseUrl } from '../../mediaClientProvider';
 import { createUpload } from '../database/upload';
 import { logRequest } from '../../utils/logging';
 import {

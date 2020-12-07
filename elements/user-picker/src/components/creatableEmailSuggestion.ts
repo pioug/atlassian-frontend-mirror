@@ -17,8 +17,13 @@ const getNewOptionData = (
   isValidEmail: EmailValidator = defaultIsValidEmail,
   emailDomain: string,
 ) => (inputValue?: string) => {
+  if (!inputValue) {
+    return null;
+  }
   const isEmail = inputValue && validOption.includes(isValidEmail(inputValue));
-  const value = isEmail ? inputValue : `${inputValue}@${emailDomain}`;
+  const value = isEmail
+    ? inputValue
+    : `${inputValue.replace(/\s+/g, '.').toLocaleLowerCase()}@${emailDomain}`;
   return {
     label: value,
     value: value,

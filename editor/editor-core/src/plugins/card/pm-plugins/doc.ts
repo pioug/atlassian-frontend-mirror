@@ -20,12 +20,14 @@ import {
   EVENT_TYPE,
   AnalyticsEventPayload,
   INPUT_METHOD,
+  InputMethodInsertLink,
 } from '../../../plugins/analytics';
 import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { isFromCurrentDomain } from '../../hyperlink/utils';
 import { shouldReplaceLink } from './shouldReplaceLink';
 import { SMART_LINK_TYPE } from '../../../plugins/analytics/types/node-events';
+import { getLinkCreationAnalyticsEvent } from '../../../plugins/hyperlink/analytics';
 
 export function insertCard(tr: Transaction, cardAdf: Node, schema: Schema) {
   const { inlineCard } = schema.nodes;
@@ -142,6 +144,22 @@ export const replaceQueuedUrlWithCard = (
 
   if (dispatch) {
     dispatch(resolveCard(url)(closeHistory(tr)));
+  }
+  return true;
+};
+
+export const handleFallbackWithAnalytics = (
+  url: string,
+  source: InputMethodInsertLink,
+): Command => (editorState, dispatch) => {
+  const state = pluginKey.getState(editorState) as CardPluginState | undefined;
+  if (!state) {
+    return false;
+  }
+  const tr = editorState.tr;
+  addAnalytics(editorState, tr, getLinkCreationAnalyticsEvent(source, url));
+  if (dispatch) {
+    dispatch(resolveCard(url)(tr));
   }
   return true;
 };

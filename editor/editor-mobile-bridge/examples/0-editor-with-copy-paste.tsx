@@ -18,6 +18,7 @@ import {
 import Editor from './../src/editor/mobile-editor-element';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import { createCollabProviderFactory } from '../src/providers/collab-provider';
+import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -56,6 +57,7 @@ function EditorWithFetchProxy() {
 
   return (
     <Editor
+      bridge={getBridge()}
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardProvider={Promise.resolve(cardProvider)}
       cardClient={createCardClient()}

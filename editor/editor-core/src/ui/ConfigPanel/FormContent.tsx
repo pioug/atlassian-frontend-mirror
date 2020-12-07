@@ -21,6 +21,7 @@ import UserSelect from './Fields/UserSelect';
 
 import RemovableField from './NestedForms/RemovableField';
 import { OnBlur } from './types';
+import { getSafeParentedName } from './utils';
 
 type FormProps = {
   fields: FieldDefinition[];
@@ -33,35 +34,36 @@ type FormProps = {
   firstVisibleFieldName?: string;
 };
 
-type FieldProps = {
-  field: FieldDefinition;
-  parentName?: string;
-  parameters?: Parameters;
-  extensionManifest: ExtensionManifest;
-  firstVisibleFieldName?: string;
-  onBlur: OnBlur;
-};
-
 function FieldComponent({
   field,
-  parentName,
   parameters,
+  parentName,
   extensionManifest,
   firstVisibleFieldName,
   onBlur,
-}: FieldProps) {
+}: {
+  field: FieldDefinition;
+  parameters: Parameters;
+  parentName?: string;
+  extensionManifest: ExtensionManifest;
+  firstVisibleFieldName?: string;
+  onBlur: OnBlur;
+}) {
   const { name } = field;
   const autoFocus = name === firstVisibleFieldName;
+  const defaultValue = parameters[name];
+  const error = parameters.errors?.[name];
+  const parentedName = getSafeParentedName(name, parentName);
 
-  if (!isFieldset(field)) {
-    field.defaultValue = (parameters && parameters[name]) || field.defaultValue;
+  if (name in parameters && !isFieldset(field)) {
+    field = { ...field, defaultValue };
   }
 
   switch (field.type) {
     case 'string':
       return (
         <String
-          parentName={parentName}
+          name={parentedName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -72,7 +74,7 @@ function FieldComponent({
     case 'number':
       return (
         <Number
-          parentName={parentName}
+          name={parentedName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -81,12 +83,12 @@ function FieldComponent({
       );
 
     case 'boolean':
-      return <Boolean parentName={parentName} field={field} onBlur={onBlur} />;
+      return <Boolean name={parentedName} field={field} onBlur={onBlur} />;
 
     case 'date':
       return (
         <Date
-          parentName={parentName}
+          name={parentedName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -97,7 +99,7 @@ function FieldComponent({
     case 'date-range':
       return (
         <DateRange
-          parentName={parentName}
+          name={parentedName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -107,7 +109,7 @@ function FieldComponent({
     case 'enum':
       return (
         <Enum
-          parentName={parentName}
+          name={parentedName}
           field={field}
           autoFocus={autoFocus}
           onBlur={onBlur}
@@ -117,32 +119,35 @@ function FieldComponent({
     case 'custom':
       return (
         <CustomSelect
-          parentName={parentName}
+          name={parentedName}
           field={field}
           extensionManifest={extensionManifest}
           placeholder={field.placeholder}
           autoFocus={autoFocus}
           onBlur={onBlur}
+          parameters={parameters}
         />
       );
 
     case 'fieldset':
       return (
         <Fieldset
+          name={parentedName}
           field={field}
           firstVisibleFieldName={firstVisibleFieldName}
           onFieldBlur={onBlur}
           extensionManifest={extensionManifest}
-          parameters={(parameters && parameters[field.name]) || {}}
-          error={parameters?.errors?.[field.name]}
+          parameters={defaultValue || {}}
+          error={error}
         />
       );
 
     case 'user':
       return (
         <UserSelect
+          name={parentedName}
           field={field}
-          autoFocus={field.name === firstVisibleFieldName}
+          autoFocus={name === firstVisibleFieldName}
           extensionManifest={extensionManifest}
           onBlur={onBlur}
         />
@@ -176,13 +181,11 @@ export default function FormContent({
   return (
     <Fragment>
       {fields.map((field: FieldDefinition) => {
-        const { name } = field;
-
         let fieldElement = (
           <FieldComponent
             field={field}
+            parameters={parameters || {}}
             parentName={parentName}
-            parameters={parameters}
             extensionManifest={extensionManifest}
             firstVisibleFieldName={firstVisibleFieldName}
             onBlur={onFieldBlur}
@@ -194,6 +197,7 @@ export default function FormContent({
           fieldElement = <Hidden>{fieldElement}</Hidden>;
         }
 
+        const { name } = field;
         return (
           <RemovableField
             key={name}

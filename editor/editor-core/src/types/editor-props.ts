@@ -21,7 +21,7 @@ import { PluginConfig as TablesPluginConfig } from '../plugins/table/types';
 import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import { MediaOptions, MediaState } from '../plugins/media/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
-import { CardOptions } from '../plugins/card/types';
+import { CardOptions } from '@atlaskit/editor-common';
 import { QuickInsertOptions } from '../plugins/quick-insert/types';
 import { AnnotationProviders } from '../plugins/annotation/types';
 import { TextFormattingOptions } from '../plugins/text-formatting/types';
@@ -56,6 +56,9 @@ export type FeedbackInfo = {
   packageVersion?: string;
   packageName?: string;
   labels?: Array<string>;
+  sessionId?: string;
+  contentId?: string;
+  tabId?: string;
 };
 
 export interface EditorProps {

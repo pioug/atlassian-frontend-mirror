@@ -257,7 +257,7 @@ export class Renderer extends PureComponent<RendererProps> {
       UNSAFE_allowCustomPanels,
     } = this.props;
 
-    const newHeadingAnchorLinks = isNestedHeaderLinksEnabled(
+    const allowNestedHeaderLinks = isNestedHeaderLinksEnabled(
       allowHeadingAnchorLinks,
     );
     /**
@@ -339,7 +339,7 @@ export class Renderer extends PureComponent<RendererProps> {
                   <RendererWrapper
                     appearance={appearance}
                     dynamicTextSizing={!!allowDynamicTextSizing}
-                    newHeadingAnchorLinks={newHeadingAnchorLinks}
+                    allowNestedHeaderLinks={allowNestedHeaderLinks}
                     allowColumnSorting={allowColumnSorting}
                     allowCopyToClipboard={allowCopyToClipboard}
                     allowCustomPanels={UNSAFE_allowCustomPanels}
@@ -384,7 +384,7 @@ export class Renderer extends PureComponent<RendererProps> {
           dynamicTextSizing={!!allowDynamicTextSizing}
           allowCopyToClipboard={allowCopyToClipboard}
           allowColumnSorting={allowColumnSorting}
-          newHeadingAnchorLinks={newHeadingAnchorLinks}
+          allowNestedHeaderLinks={allowNestedHeaderLinks}
           onClick={handleWrapperOnClick}
         >
           <UnsupportedBlock />
@@ -432,7 +432,7 @@ type RendererWrapperProps = {
   allowColumnSorting?: boolean;
   allowCopyToClipboard?: boolean;
   allowCustomPanels?: boolean;
-  newHeadingAnchorLinks: boolean;
+  allowNestedHeaderLinks: boolean;
   onClick?: (event: React.MouseEvent) => void;
   onMouseDown?: (event: React.MouseEvent) => void;
 } & { children?: React.ReactNode };
@@ -442,7 +442,7 @@ const RendererWithIframeFallbackWrapper = React.memo(
     const {
       allowColumnSorting,
       dynamicTextSizing,
-      newHeadingAnchorLinks,
+      allowNestedHeaderLinks,
       innerRef,
       appearance,
       children,
@@ -463,7 +463,7 @@ const RendererWithIframeFallbackWrapper = React.memo(
           <Wrapper
             innerRef={innerRef}
             appearance={appearance}
-            newHeadingAnchorLinks={newHeadingAnchorLinks}
+            allowNestedHeaderLinks={allowNestedHeaderLinks}
             allowColumnSorting={!!allowColumnSorting}
             onClick={onClick}
             onMouseDown={onMouseDown}

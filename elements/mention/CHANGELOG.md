@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 19.1.2
+
+### Patch Changes
+
+- [`05757c917b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05757c917b) - taking config.productName into mentionResource
+- [`dd91541afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd91541afe) - [ux] Further improvements on the invite from mention experiment
+
 ## 19.1.1
 
 ### Patch Changes

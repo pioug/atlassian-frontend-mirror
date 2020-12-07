@@ -909,9 +909,7 @@ describe('Media plugin', () => {
         setNodeSelection(editorView, 0);
 
         expect(pluginState.element).not.toBeUndefined();
-        expect(pluginState.element!.className).toContain(
-          'mediaSingleView-content-wrap ProseMirror-selectednode',
-        );
+        expect(pluginState.element!.tagName).toBe('FIGURE');
       });
 
       describe('when clicked', () => {

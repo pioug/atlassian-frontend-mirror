@@ -1,5 +1,50 @@
 # @atlaskit/editor-core
 
+## 135.1.0
+
+### Minor Changes
+
+- [`4d9d11c246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d9d11c246) - Fixes nodes with multiple validation specs to return node with most suitable spec.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.0
+
+### Minor Changes
+
+- [`5e68f04701`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e68f04701) - ED-11232 Make resolvers aware of other field values
+- [`dfd440f4b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd440f4b5) - [ux] New functionality to add and remove captions to images and videos. Select an image or video in the editor to start using it!
+  editor-core now exports dedupe which aids in not having duplicate plugins added when initialising an editor
+- [`9b1c48edd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1c48edd1) - Revert ED-10820 to resolve broken validator
+- [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
+
+### Patch Changes
+
+- [`f51a912369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f51a912369) - CMB-2437: Added VR tests for the Date node in both Editor and Renderer packages
+- [`e03d8b75ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e03d8b75ac) - replaced inviteItem viewed event to inviteItem rendered event in mention plugin
+- [`9aa0861e87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9aa0861e87) - ED-11028 Fix bug where selection would sometimes be lost after opening config panel for an extension, causing the panel to instantly close again
+- [`092c344df7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/092c344df7) - Update ctrl+k menu to check for smart link before inserting link
+- [`3dd74f7124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3dd74f7124) - ED-11043 Upgrade `prosemirror-inputrules` from `1.1.2` to `1.1.3` to prevent crashing when undoing input rules when the rule was triggered without inserting text.
+- [`da06b5fd2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da06b5fd2f) - ED-10664 add ids to relate FEF feedbacks to performance analytics
+- [`817ff063e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/817ff063e3) - ED-11024 Remove unused legacy undo/redo analytics event. This was replaced by an implmenentation within `@atlaskit/adf-schema` as part of ED-10123.
+- [`15c311f84f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15c311f84f) - ED-10800 added TransactionTracking.usePerformanceMarks flag. when false (default) uses alternative performance measurement methods via getMeasureHelpers() helper and startMeasureSimple() and stopMeasureSimple() utils.
+
+  - moved measure-transactions.ts and should-track-transaction.ts into track-transactions.ts
+  - split shouldTrackTransaction() into bumpDispatchCounter()
+  - use constants for event names
+  - potentially fixed a bug with mismatched event names for EVENT_NAME_VIEW_STATE_UPDATED !== '🦉 ReactEditorView::onEditorViewStateUpdated'
+
+- [`cc9f374276`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc9f374276) - Remove unsupported API for includeGroups/includeTeams for Users in extension config, and stop setState after unmount
+- [`47117b13f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47117b13f1) - close smart link edit toolbar on esc key
+- [`1f113d0099`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f113d0099) - ED-11079 Fix keyboard accessible datepicker timezone bug
+- [`39055f3ac5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39055f3ac5) - ED-10694: Fix FieldComponent defaultValue behaviour losing value due to mutation
+- [`dd91541afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd91541afe) - [ux] Further improvements on the invite from mention experiment
+- [`ad2dfc89b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad2dfc89b4) - Update captions to respond to keyboard shortcuts correctly
+- [`0b1bafbc8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b1bafbc8c) - ED-11921 Fix User fields not validating
+- Updated dependencies
+
 ## 134.0.1
 
 ### Patch Changes

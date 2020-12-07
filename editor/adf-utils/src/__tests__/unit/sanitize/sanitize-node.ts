@@ -50,6 +50,73 @@ describe(name, () => {
         });
       });
 
+      it('should filter out empty caption nodes from json document', () => {
+        const jsonDoc = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              attrs: {
+                width: 33.33333333333333,
+                layout: 'center',
+              },
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                    type: 'file',
+                    collection: 'MediaServicesSample',
+                    width: 1604,
+                    height: 1868,
+                  },
+                },
+                {
+                  type: 'caption',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              content: [],
+            },
+          ],
+        } as JSONDocNode;
+
+        const sanitizedJSON = sanitizeNode(jsonDoc);
+
+        expect(sanitizedJSON).toEqual({
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              attrs: {
+                width: 33.33333333333333,
+                layout: 'center',
+              },
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                    type: 'file',
+                    collection: 'MediaServicesSample',
+                    width: 1604,
+                    height: 1868,
+                  },
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              content: [],
+            },
+          ],
+        });
+      });
+
       it('should filter out typeAheadQuery marks from json document', () => {
         const jsonDoc = {
           version: 1,

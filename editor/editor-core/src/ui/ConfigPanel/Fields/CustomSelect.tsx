@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { messages } from '../messages';
 
@@ -11,170 +11,172 @@ import {
   CustomFieldResolver,
   ExtensionManifest,
   Option,
+  Parameters,
   getCustomFieldResolver,
 } from '@atlaskit/editor-common/extensions';
 
-import { OnBlur } from '../types';
-import UnhandledType from './UnhandledType';
 import FieldMessages from '../FieldMessages';
-import { validate, getSafeParentedName } from '../utils';
+import UnhandledType from './UnhandledType';
+import { OnBlur } from '../types';
+import { validate } from '../utils';
 
-type Props = {
+function FieldError({ name, field }: { name: string; field: CustomField }) {
+  const { type } = field.options.resolver;
+  return (
+    <UnhandledType
+      key={name}
+      field={field}
+      errorMessage={`Field "${name}" can't be rendered. Missing resolver for "${type}".`}
+    />
+  );
+}
+
+function CustomSelect({
+  name,
+  autoFocus,
+  extensionManifest,
+  placeholder,
+  field,
+  onBlur,
+  parameters,
+  intl,
+}: {
+  name: string;
   field: CustomField;
   extensionManifest: ExtensionManifest;
   onBlur: OnBlur;
   autoFocus?: boolean;
   placeholder?: string;
-  parentName?: string;
-} & InjectedIntlProps;
+  parameters?: Parameters;
+} & InjectedIntlProps) {
+  const {
+    defaultValue: fieldDefaultValue,
+    description,
+    isMultiple,
+    isRequired,
+    label,
+    options,
+  } = field;
+  const [loading, setLoading] = useState(true);
+  const [resolver, setResolver] = useState<CustomFieldResolver | null>(null);
+  const [defaultValue, setDefaultValue] = useState<
+    Option | Option[] | undefined
+  >(undefined);
 
-type State = {
-  defaultValue?: Option | Option[];
-  resolver?: CustomFieldResolver;
-  isMissingResolver?: boolean;
-};
+  useEffect(() => {
+    let cancel = false;
 
-function FieldError({ field }: { field: CustomField }) {
-  const { type } = field.options.resolver;
-  return (
-    <UnhandledType
-      key={field.name}
-      field={field}
-      errorMessage={`Field "${field.name}" can't be renderered. Missing resolver for "${type}".`}
-    />
-  );
-}
+    async function fetchResolver() {
+      setLoading(true);
 
-class CustomSelect extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+      try {
+        const resolver = await getCustomFieldResolver(
+          extensionManifest,
+          field.options.resolver,
+        );
 
-    this.state = {
-      isMissingResolver: false,
+        if (cancel) {
+          return;
+        }
+        setResolver(() => resolver);
+
+        // fetch the default values
+        const options = await resolver(
+          undefined,
+          fieldDefaultValue,
+          parameters,
+        );
+        if (cancel) {
+          return;
+        }
+
+        if (fieldDefaultValue && isMultiple) {
+          setDefaultValue(
+            options.filter((option: Option) =>
+              (fieldDefaultValue as string[]).includes(option.value),
+            ),
+          );
+        }
+
+        if (fieldDefaultValue && !isMultiple) {
+          setDefaultValue(
+            options.find(
+              (option: Option) =>
+                (fieldDefaultValue as string) === option.value,
+            ) || [],
+          );
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+      }
+
+      setLoading(false);
+    }
+
+    fetchResolver();
+
+    return () => {
+      cancel = true;
     };
-  }
+  }, [
+    extensionManifest,
+    field.options.resolver,
+    fieldDefaultValue,
+    isMultiple,
+    parameters,
+  ]);
 
-  async componentDidMount() {
-    await this.getResolver();
-    await this.fetchDefaultValues();
-  }
-
-  setDefaultValue = (defaultValue: Option | Option[]) => {
-    this.setState(state => ({
-      ...state,
-      defaultValue,
-    }));
-  };
-
-  async getResolver() {
-    const { extensionManifest, field } = this.props;
-
-    try {
-      const resolver = await getCustomFieldResolver(
-        extensionManifest,
-        field.options.resolver,
-      );
-
-      this.setState(state => ({
-        ...state,
-        resolver,
-        isMissingResolver: !resolver,
-      }));
-    } catch {
-      this.setState(state => ({
-        ...state,
-        isMissingResolver: true,
-      }));
-    }
-  }
-
-  async fetchDefaultValues() {
-    const { field } = this.props;
-    const { resolver } = this.state;
-
-    if (!resolver) {
-      return;
-    }
-
-    const options = await resolver(undefined, field.defaultValue);
-
-    if (field.defaultValue && field.isMultiple) {
-      this.setDefaultValue(
-        options.filter((option: Option) =>
-          (field.defaultValue as string[]).includes(option.value),
-        ),
-      );
-    }
-
-    if (field.defaultValue && !field.isMultiple) {
-      this.setDefaultValue(
-        options.find(
-          (option: Option) => (field.defaultValue as string) === option.value,
-        ) || [],
-      );
-    }
-  }
-
-  formatCreateLabel(value: string) {
+  function formatCreateLabel(value: string) {
     if (!value) {
       return null;
     }
-    const { intl } = this.props;
     const message = intl.formatMessage(messages.createOption);
 
     return `${message} "${value}"`;
   }
 
-  render() {
-    const { field, onBlur, autoFocus, placeholder, parentName } = this.props;
-    const { defaultValue, resolver, isMissingResolver } = this.state;
-    const { name, label, description, isMultiple, isRequired, options } = field;
-    const { isCreatable } = options;
+  const { isCreatable } = options;
 
-    return (
-      <Field<ValueType<Option>>
-        name={getSafeParentedName(name, parentName)}
-        label={label}
-        isRequired={isRequired}
-        defaultValue={defaultValue}
-        validate={(value: ValueType<Option>) =>
-          validate<ValueType<Option>>(field, value)
-        }
-      >
-        {({ fieldProps, error }) => (
-          <Fragment>
-            {resolver && (
-              <Fragment>
-                <AsyncCreatableSelect
-                  {...fieldProps}
-                  onChange={value => {
-                    fieldProps.onChange(value);
-                    onBlur(name);
-                  }}
-                  isMulti={isMultiple || false}
-                  isClearable={true}
-                  isValidNewOption={(value: string) => isCreatable && value}
-                  validationState={error ? 'error' : 'default'}
-                  defaultOptions={true}
-                  formatCreateLabel={(value: string) =>
-                    this.formatCreateLabel(value)
-                  }
-                  formatOptionLabel={formatOptionLabel}
-                  loadOptions={(searchTerm: string) =>
-                    resolver(searchTerm, field.defaultValue)
-                  }
-                  autoFocus={autoFocus}
-                  placeholder={placeholder}
-                />
-                <FieldMessages error={error} description={description} />
-              </Fragment>
-            )}
-            {isMissingResolver && <FieldError field={field} />}
-          </Fragment>
-        )}
-      </Field>
-    );
-  }
+  return (
+    <Field<ValueType<Option>>
+      name={name}
+      label={label}
+      isRequired={isRequired}
+      defaultValue={defaultValue}
+      validate={value => validate(field, value)}
+    >
+      {({ fieldProps, error }) => (
+        <>
+          {resolver && (
+            <>
+              <AsyncCreatableSelect
+                {...fieldProps}
+                onChange={value => {
+                  fieldProps.onChange(value);
+                  onBlur(name);
+                }}
+                isMulti={isMultiple || false}
+                isClearable={true}
+                isValidNewOption={(value: string) => isCreatable && value}
+                validationState={error ? 'error' : 'default'}
+                defaultOptions={true}
+                formatCreateLabel={(value: string) => formatCreateLabel(value)}
+                formatOptionLabel={formatOptionLabel}
+                loadOptions={(searchTerm: string) => {
+                  return resolver(searchTerm, fieldDefaultValue);
+                }}
+                autoFocus={autoFocus}
+                placeholder={placeholder}
+              />
+              <FieldMessages error={error} description={description} />
+            </>
+          )}
+          {!loading && !resolver && <FieldError name={name} field={field} />}
+        </>
+      )}
+    </Field>
+  );
 }
 
 export default injectIntl(CustomSelect);

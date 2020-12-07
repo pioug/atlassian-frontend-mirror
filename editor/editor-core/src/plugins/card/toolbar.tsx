@@ -27,7 +27,8 @@ import commonMessages from '../../messages';
 import { Node } from 'prosemirror-model';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { changeSelectedCardToText } from './pm-plugins/doc';
-import { CardPluginState, CardOptions } from './types';
+import { CardPluginState } from './types';
+import { CardOptions } from '@atlaskit/editor-common';
 import { pluginKey } from './pm-plugins/main';
 import { ProviderFactory, richMediaClassName } from '@atlaskit/editor-common';
 import {
@@ -181,6 +182,7 @@ const generateToolbarItems = (
         selected: false,
         title: intl.formatMessage(linkToolbarMessages.editLink),
         showTitle: true,
+        testId: 'link-toolbar-edit-link-button',
         onClick: editLink,
       },
       { type: 'separator' },

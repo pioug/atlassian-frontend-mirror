@@ -2,10 +2,7 @@ import {
   isDateRange,
   DateRangeResult,
 } from '@atlaskit/editor-common/extensions';
-
-type Parameters = {
-  [key: string]: any;
-};
+import { Parameters } from '@atlaskit/editor-common/extensions';
 
 function escapeHtmlEntities(value: string) {
   return value

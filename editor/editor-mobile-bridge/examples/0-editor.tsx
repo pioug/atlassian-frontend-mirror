@@ -14,6 +14,7 @@ import {
 } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import { createCollabProviderFactory } from '../src/providers/collab-provider';
+import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 
 window.logBridge = window.logBridge || [];
 
@@ -22,6 +23,7 @@ function EditorWithFetchProxy() {
 
   return (
     <Editor
+      bridge={getBridge()}
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardProvider={Promise.resolve(cardProvider)}
       cardClient={createCardClient()}

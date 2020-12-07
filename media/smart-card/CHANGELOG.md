@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 14.7.0
+
+### Minor Changes
+
+- [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.6.1
 
 ### Patch Changes

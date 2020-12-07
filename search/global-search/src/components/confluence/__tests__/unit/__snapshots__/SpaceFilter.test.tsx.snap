@@ -4,7 +4,7 @@ exports[`ConfluenceSpaceFilter should render space filter correctly 1`] = `
 <WithItemFocus(Item)
   elemBefore={
     <React.Fragment>
-      <WithAnalyticsContext(WithAnalyticsEvents(Checkbox)) />
+      <Memo(Checkbox) />
       <Avatar
         appearance="square"
         borderColor="transparent"

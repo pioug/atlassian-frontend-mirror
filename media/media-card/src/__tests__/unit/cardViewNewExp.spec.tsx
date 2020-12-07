@@ -10,7 +10,11 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { CardViewBase, CardViewOwnProps } from '../../root/cardView';
 import { CardStatus } from '../../';
-import { FileDetails } from '@atlaskit/media-client';
+import {
+  FileDetails,
+  RequestError,
+  RequestErrorReason,
+} from '@atlaskit/media-client';
 import { PlayButton } from '../../root/ui/playButton/playButton';
 import { Blanket } from '../../root/ui/blanket/styled';
 import { TitleBox } from '../../root/ui/titleBox/titleBox';
@@ -31,6 +35,8 @@ import SpinnerIcon from '@atlaskit/spinner';
 import { IconWrapper } from '../../root/ui/iconWrapper/styled';
 import { CreatingPreview } from '../../root/ui/creatingPreviewText/creatingPreviewText';
 import { PreviewUnavailable } from '../../root/ui/previewUnavailable/previewUnavailable';
+import { LoadingRateLimited } from '../../root/ui/loadingRateLimited/loadingRateLimited';
+import { MetadataRateLimited } from '../../root/ui/metadataRateLimited/metadataRateLimited';
 
 const containerWidth = 150;
 (getElementDimension as jest.Mock).mockReturnValue(containerWidth);
@@ -80,10 +86,6 @@ describe('CardView New Experience', () => {
     expect(wrapper.props()).toEqual(
       expect.objectContaining({
         'data-testid': cardProps.testId,
-        'data-test-media-name': metadata.name,
-        'data-test-status': cardProps.status,
-        'data-test-progress': cardProps.progress,
-        'data-test-selected': cardProps.selected,
         dimensions: cardProps.dimensions,
         appearance: cardProps.appearance,
         onClick: cardProps.onClick,
@@ -96,6 +98,15 @@ describe('CardView New Experience', () => {
         isPlayButtonClickable: expect.any(Boolean),
         isTickBoxSelectable: expect.any(Boolean),
         breakpoint: calcBreakpointSize(width),
+      }),
+    );
+    const subWrapper = wrapper.find('.media-file-card-view');
+    expect(subWrapper.props()).toEqual(
+      expect.objectContaining({
+        'data-test-media-name': metadata.name,
+        'data-test-status': cardProps.status,
+        'data-test-progress': cardProps.progress,
+        'data-test-selected': cardProps.selected,
       }),
     );
   });
@@ -311,6 +322,40 @@ describe('CardView New Experience', () => {
       const component = shallowCardViewBase({ status: 'processing' });
       const creatingPreview = component.find(CreatingPreview);
       expect(creatingPreview).toHaveLength(1);
+    });
+
+    it(`should render PreviewRateLimitedWrapper (UI that tells the user card can be previewed in the viewer) when a card is rate limited (429 error) with metadata`, () => {
+      const metadata: FileDetails = {
+        id: 'some-id',
+        name: 'some-name',
+        mediaType: 'image',
+      };
+
+      const error = new RequestError(RequestErrorReason.serverError, {
+        statusCode: 429,
+      });
+
+      const component = shallowCardViewBase({
+        error,
+        metadata: metadata,
+        disableOverlay: false,
+      });
+      const rateLimitedUI = component.find(MetadataRateLimited);
+      expect(rateLimitedUI).toHaveLength(1);
+    });
+
+    it(`should render LoadingRateLimited (UI for borked state) when a card is rate limited (429 error) with no metadata`, () => {
+      const error = new RequestError(RequestErrorReason.serverError, {
+        statusCode: 429,
+      });
+
+      const component = shallowCardViewBase({
+        error,
+        metadata: undefined,
+        disableOverlay: false,
+      });
+      const borkedUI = component.find(LoadingRateLimited);
+      expect(borkedUI).toHaveLength(1);
     });
 
     it(`should render PreviewUnavailable when status is failed-processing`, () => {

@@ -13,6 +13,11 @@ export const asMockFunctionReturnValue = <T extends (...args: any[]) => any>(
   returnValue: ReturnType<T>,
 ) => asMockFunction(fn).mockReturnValue(returnValue);
 
+export const asMockFunctionResolvedValue = <T extends (...args: any[]) => any>(
+  fn: T,
+  resolveValue: jest.ResolvedValue<ReturnType<T>>,
+) => asMockFunction(fn).mockResolvedValue(resolveValue);
+
 export const expectToEqual = <T>(actual: T, expected: T) =>
   expect(actual).toEqual(expected);
 

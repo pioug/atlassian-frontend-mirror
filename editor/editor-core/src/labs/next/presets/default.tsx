@@ -34,7 +34,7 @@ import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import { CodeBlockOptions } from '../../../plugins/code-block/types';
 import { SelectionPluginOptions } from '../../../plugins/selection/types';
-import { CardOptions } from '../../../plugins/card';
+import { CardOptions } from '@atlaskit/editor-common';
 // #endregion
 
 interface EditorPresetDefaultProps {

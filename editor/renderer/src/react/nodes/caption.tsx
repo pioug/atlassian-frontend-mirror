@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import { Caption } from '@atlaskit/editor-common';
 
-export default class Caption extends PureComponent {
-  render() {
-    return <div>{this.props.children}</div>;
-  }
-}
+const RenderCaption = ({ children }: { children: React.ReactNode }) => {
+  return <Caption hasContent={true}>{children}</Caption>;
+};
+
+export default RenderCaption;

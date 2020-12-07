@@ -1,6 +1,6 @@
 import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
-import { mediaMockQueryOptInFlag } from '@atlaskit/media-test-helpers';
+import { mediaMockQueryOptInFlag } from '@atlaskit/media-test-helpers/media-mock';
 import { EditorProps } from '../../types';
 import { selectors } from './page-objects/_editor';
 import { MountEditorOptions } from '../../../example-helpers/create-editor-example-for-tests';

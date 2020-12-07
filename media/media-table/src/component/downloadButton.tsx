@@ -23,6 +23,7 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
     <Button
       appearance="subtle"
       iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
+      onKeyPress={event => event.stopPropagation()}
       onClick={(
         event: React.MouseEvent<HTMLElement>,
         analyticsEvent: UIAnalyticsEvent,

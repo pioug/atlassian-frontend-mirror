@@ -146,7 +146,15 @@ describe('Snapshot Test', () => {
     await loadPage(page, url);
     await page.waitForSelector('input[name="color"]');
 
-    await page.click('input[type="checkbox"]');
+    // page.click has a bug that can't find checkbox
+    // because of it now has appearance: none
+    await page.evaluate(() => {
+      document
+        .querySelector('input[type="checkbox"]')
+        ?.dispatchEvent(
+          new MouseEvent('click', { bubbles: true, cancelable: true }),
+        );
+    });
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -163,7 +171,15 @@ describe('Snapshot Test', () => {
     await page.waitForSelector('input[name="color"]');
 
     await page.click('input[name="color"][value="red"]');
-    await page.click('input[type="checkbox"]');
+    // page.click has a bug that can't find checkbox
+    // because of it now has appearance: none
+    await page.evaluate(() => {
+      document
+        .querySelector('input[type="checkbox"]')
+        ?.dispatchEvent(
+          new MouseEvent('click', { bubbles: true, cancelable: true }),
+        );
+    });
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

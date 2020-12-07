@@ -5,6 +5,7 @@ import {
   NodeSelection,
   TextSelection,
   AllSelection,
+  Selection,
 } from 'prosemirror-state';
 import { Mark, Node, ResolvedPos } from 'prosemirror-model';
 import { ContentNodeWithPos } from 'prosemirror-utils';
@@ -149,4 +150,29 @@ export const isValidPosition = (pos: number, state: EditorState): boolean => {
   }
 
   return false;
+};
+
+export const duplicateSelection = (
+  selectionToDuplicate: Selection,
+  doc: Node,
+): Selection | undefined => {
+  if (selectionToDuplicate instanceof NodeSelection) {
+    return NodeSelection.create(doc, selectionToDuplicate.from);
+  } else if (selectionToDuplicate instanceof TextSelection) {
+    return TextSelection.create(
+      doc,
+      selectionToDuplicate.from,
+      selectionToDuplicate.to,
+    );
+  } else if (selectionToDuplicate instanceof GapCursorSelection) {
+    return new GapCursorSelection(
+      doc.resolve(selectionToDuplicate.from),
+      selectionToDuplicate.side,
+    );
+  } else if (selectionToDuplicate instanceof CellSelection) {
+    return new CellSelection(
+      doc.resolve(selectionToDuplicate.$anchorCell.pos),
+      doc.resolve(selectionToDuplicate.$headCell.pos),
+    );
+  }
 };

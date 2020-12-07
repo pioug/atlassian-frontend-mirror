@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import Checkbox from '../../Checkbox';
+import { Checkbox } from '../../index';
 
 describe('Checkbox should be found by data-testid', () => {
   test('Using getByTestId()', async () => {

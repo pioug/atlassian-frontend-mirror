@@ -6,7 +6,7 @@ import {
   outdentList,
   toggleOrderedList,
   toggleBulletList,
-  insertLinkWithAnalytics,
+  insertLinkWithAnalyticsMobileNative,
   isTextAtPos,
   isLinkAtPos,
   setLinkHref,
@@ -161,7 +161,7 @@ describe('links should work', () => {
   afterEach(() => {
     bridge.editorView = undefined;
 
-    ((insertLinkWithAnalytics as Function) as jest.Mock<{}>).mockClear();
+    ((insertLinkWithAnalyticsMobileNative as Function) as jest.Mock<{}>).mockClear();
     ((isTextAtPos as Function) as jest.Mock<{}>).mockClear();
     ((isLinkAtPos as Function) as jest.Mock<{}>).mockClear();
     ((setLinkHref as Function) as jest.Mock<{}>).mockClear();
@@ -181,7 +181,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('text', 'url', INPUT_METHOD.KEYBOARD);
 
     expect(isTextAtPos).toHaveBeenCalledWith(1);
-    expect(insertLinkWithAnalytics).toHaveBeenCalledWith(
+    expect(insertLinkWithAnalyticsMobileNative).toHaveBeenCalledWith(
       INPUT_METHOD.KEYBOARD,
       1,
       3,

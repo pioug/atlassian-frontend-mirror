@@ -3,13 +3,12 @@ import {
   GasPayload,
   OPERATIONAL_EVENT_TYPE,
   UI_EVENT_TYPE,
-  SCREEN_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import {
   isSpecialMention,
   MentionDescription,
 } from '@atlaskit/mention/resource';
-import { UserRole } from '@atlaskit/mention';
+import { InviteExperimentCohort, UserRole } from '@atlaskit/mention';
 import {
   name as packageName,
   version as packageVersion,
@@ -108,8 +107,8 @@ export const buildTypeAheadInviteItemViewedPayload = (
 
   return buildAnalyticsPayload(
     'inviteItem',
-    'viewed',
-    SCREEN_EVENT_TYPE,
+    'rendered',
+    UI_EVENT_TYPE,
     sessionId,
     {
       containerId,
@@ -124,6 +123,7 @@ export const buildTypeAheadInviteExposurePayload = (
   shouldEnableInvite: boolean,
   sessionId: string,
   contextIdentifierProvider?: ContextIdentifierProvider,
+  inviteExperimentCohort?: InviteExperimentCohort,
   userRole?: UserRole,
 ): GasPayload => {
   const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
@@ -136,6 +136,7 @@ export const buildTypeAheadInviteExposurePayload = (
     {
       flagKey: 'confluence.frontend.invite.from.mention',
       value: shouldEnableInvite,
+      cohort: inviteExperimentCohort,
       containerId,
       objectId,
       childObjectId,

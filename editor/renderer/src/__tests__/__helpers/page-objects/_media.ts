@@ -1,11 +1,12 @@
 import {
+  PuppeteerPage,
   waitForElementCount,
   waitForLoadedImageElements,
-  PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 
 export const selectors = {
-  errorLoading: '.rich-media-item .wrapper',
+  mediaErrorLoading: '.rich-media-item .wrapper',
+  caption: '[data-testid="media-caption"]',
 };
 
 export const waitForAllMedia = async (

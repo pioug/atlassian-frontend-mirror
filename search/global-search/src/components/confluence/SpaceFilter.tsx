@@ -1,6 +1,6 @@
 import { withAnalytics } from '@atlaskit/analytics';
 import Avatar from '@atlaskit/avatar';
-import Checkbox from '@atlaskit/checkbox/Checkbox';
+import { Checkbox } from '@atlaskit/checkbox';
 import baseItem, { withItemFocus } from '@atlaskit/item';
 import React from 'react';
 import {

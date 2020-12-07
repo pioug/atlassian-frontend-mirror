@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33333333333333,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2750,
+            "height": 2061
+          }
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "this is a long caption - Blandit vivamus pulvinar luctus accumsan a ultrices lorem augue, scelerisque tempor sollicitudin auctor ac magnis lacinia, sodales mattis conubia sapien facilisi nascetur fusce. Sem montes semper maecenas id luctus elementum auctor inceptos arcu, cursus ante nam vivamus cras neque adipiscing imperdiet viverra, euismod ligula hac fames tortor leo rhoncus in. Dictumst aptent aenean ultrices erat primis tristique sollicitudin felis, malesuada hendrerit vulputate orci imperdiet mus libero dolor, consectetur dapibus maecenas sagittis ad lorem cras."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

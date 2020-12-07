@@ -96,6 +96,7 @@ const handleBlur = (
               url,
               undefined,
               text,
+              undefined,
             )(view.state, view.dispatch)
           : setLinkText(text, (activeLinkMark as EditInsertedState).pos)(
               view.state,
@@ -263,6 +264,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                             href,
                             title,
                             displayText,
+                            !!(cardOptions && cardOptions.provider),
                           )(view.state, view.dispatch);
                       view.focus();
                     }}

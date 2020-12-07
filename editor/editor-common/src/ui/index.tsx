@@ -1,5 +1,6 @@
 export { default as Emoji } from './Emoji';
 export type { EmojiProps } from './Emoji';
+export { default as Caption } from './Caption';
 export {
   default as MediaSingle,
   DEFAULT_IMAGE_WIDTH,

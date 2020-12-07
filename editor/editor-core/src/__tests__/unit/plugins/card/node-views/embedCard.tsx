@@ -4,7 +4,7 @@ import { embedCard, doc } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Card } from '@atlaskit/smart-card';
 import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedCard';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
-import { CardOptions } from '../../../../../plugins/card';
+import { CardOptions } from '@atlaskit/editor-common';
 import ResizableEmbedCard from '../../../../../plugins/card/ui/ResizableEmbedCard';
 import { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 import { createCardContext } from '../_helpers';

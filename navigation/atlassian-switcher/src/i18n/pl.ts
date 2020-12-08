@@ -26,8 +26,6 @@ export default {
     'Potwierdź swój adres e-mail, aby wyświetlić listę dostępnych produktów.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Bezpłatna współpraca nad dokumentami — do 10 użytkowników',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Bezpłatne oprogramowanie dla działów pomocy technicznej i zespołów świadczących usługi IT — do 3 agentów',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Bezpłatne i oparte na współpracy zarządzanie usługami IT dla maksymalnie 3 agentów',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -45,8 +43,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Więcej produktów',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Współpraca nad dokumentami',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'Dział pomocy technicznej i obsługa klienta',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Oparte na współpracy zarządzanie usługami IT',
   'fabric.atlassianSwitcher.product.description.jsw':

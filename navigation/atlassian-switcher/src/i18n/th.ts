@@ -27,8 +27,6 @@ export default {
     'โปรดยืนยันที่อยู่อีเมลของคุณเพื่อดูรายการผลิตภัณฑ์ที่มีอยู่',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'การรวบรวมเอกสารฟรีสำหรับผู้ใช้มากถึง 10 คน',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Service Desk ด้าน IT และด้านการบริการลูกค้าฟรีสำหรับผู้ดูแลระบบมากถึง 3 คน',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'การจัดการบริการด้าน IT แบบร่วมกันฟรีสำหรับพนักงานบริการลูกค้าสูงสุด 3 ราย',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -45,8 +43,6 @@ export default {
     'ผลิตภัณฑ์อื่น ๆ ของ Atlassian',
   'fabric.atlassianSwitcher.moreProductsLink': 'ผลิตภัณฑ์อื่น ๆ',
   'fabric.atlassianSwitcher.product.description.confluence': 'การรวบรวมเอกสาร',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'Service Desk ด้าน IT และการบริการลูกค้า',
   'fabric.atlassianSwitcher.product.description.jsm':
     'การจัดการบริการด้าน IT แบบร่วมกัน',
   'fabric.atlassianSwitcher.product.description.jsw':

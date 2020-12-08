@@ -27,8 +27,6 @@ export default {
     'Bitte bestätigen Sie Ihre E-Mail-Adresse, um eine Liste der verfügbaren Produkte anzusehen.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Kostenlose Zusammenarbeit an Dokumenten für bis zu zehn Benutzer',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Kostenloser IT-Service und -Kundenservicedesk für bis zu drei Agenten',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Kostenloses, kollaboratives IT Service Management für bis zu 3 Agenten',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -45,8 +43,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Weitere Produkte',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Zusammenarbeit an Dokumenten',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT-Servicedesk und -Kundenservice',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Kollaboratives IT Service Management',
   'fabric.atlassianSwitcher.product.description.jsw':

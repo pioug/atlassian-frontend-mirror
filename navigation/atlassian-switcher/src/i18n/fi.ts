@@ -27,8 +27,6 @@ export default {
     'Vahvista sähköpostiosoitteesi, jotta voit katsoa saatavilla olevien tuotteiden luettelon.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Ilmainen asiakirjojen yhteismuokkaus enintään kymmenelle käyttäjälle',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Ilmainen IT-palvelu ja Service Desk enintään kolmelle asiakaspalvelijalle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Maksuton yhteistyöpohjainen IT-palveluiden hallinta enintään kolmelle asiakaspalvelijalle',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -44,8 +42,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Lisää tuotteita',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Asiakirjojen yhteiskäyttö',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT service desk ja asiakaspalvelu',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Yhteistyöpohjainen IT-palveluiden hallinta',
   'fabric.atlassianSwitcher.product.description.jsw':

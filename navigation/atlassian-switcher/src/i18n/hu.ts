@@ -25,8 +25,6 @@ export default {
     'Erősítsd meg az e-mail-címedet, hogy megnézhesd az elérhető termékek listáját.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Dokumentumokon végzett ingyenes együttműködés legfeljebb 10 felhasználó számára',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Ingyenes informatikai és általános ügyfélszolgálat legfeljebb 3 ügynök számára',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Ingyenes projekt- és ügykövetés legfeljebb 10 felhasználó számára',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projekt',
@@ -36,8 +34,6 @@ export default {
   'fabric.atlassianSwitcher.more': 'Továbbiak',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Együttműködés dokumentumokon',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT service desk és ügyfélszolgálat',
   'fabric.atlassianSwitcher.product.description.jsw': 'Projekt- és ügykövetés',
   'fabric.atlassianSwitcher.product.description.opsgenie':
     'Modern incidenskezelés',

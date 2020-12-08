@@ -6,7 +6,7 @@ import {
   BitbucketIcon,
   ConfluenceIcon,
   JiraSoftwareIcon,
-  JiraServiceDeskIcon,
+  JiraServiceManagementIcon,
   JiraCoreIcon,
   OpsGenieIcon,
   StatuspageIcon,
@@ -29,7 +29,6 @@ import messages from './messages';
 import { CustomLink, RecentContainer, SwitcherChildItem } from '../../types';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import { createIcon, createImageIcon, IconType } from './icon-themes';
-import { getProductDataWithMystiqueFF } from './map-to-switcher-props-with-mystique-ff';
 
 interface MessagesDict {
   [index: string]: FormattedMessageNamespace.MessageDescriptor;
@@ -102,22 +101,11 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
     ),
   },
   [SwitcherProductType.JIRA_SERVICE_DESK]: {
-    label: 'Jira Service Desk',
-    Icon: createIcon(JiraServiceDeskIcon, { size: 'small' }),
-    href: '/secure/BrowseProjects.jspa?selectedProjectType=service_desk',
-    description: (
-      <FormattedMessage {...messages.productDescriptionJiraServiceDesk} />
-    ),
-  },
-  [SwitcherProductType.JIRA_SERVICE_DESK_MYSTIQUE]: {
     label: 'Jira Service Management',
-    // TODO: JSM and JSD logos will look the same, but replace with JSM logo when it is available in @atlaskit
-    Icon: createIcon(JiraServiceDeskIcon, { size: 'small' }),
+    Icon: createIcon(JiraServiceManagementIcon, { size: 'small' }),
     href: '/secure/BrowseProjects.jspa?selectedProjectType=service_desk',
     description: (
-      <FormattedMessage
-        {...messages.productDescriptionJiraServiceDeskMystique}
-      />
+      <FormattedMessage {...messages.productDescriptionJiraServiceManagement} />
     ),
   },
   [SwitcherProductType.DRAGONFRUIT]: {
@@ -166,16 +154,6 @@ export const FREE_EDITION_AVAILABLE_PRODUCT_DATA_MAP: {
   },
   [SwitcherProductType.JIRA_SERVICE_DESK]: {
     ...AVAILABLE_PRODUCT_DATA_MAP[SwitcherProductType.JIRA_SERVICE_DESK],
-    description: (
-      <FormattedMessage
-        {...messages.freeEditionProductDescriptionJiraServiceDesk}
-      />
-    ),
-  },
-  [SwitcherProductType.JIRA_SERVICE_DESK_MYSTIQUE]: {
-    ...AVAILABLE_PRODUCT_DATA_MAP[
-      SwitcherProductType.JIRA_SERVICE_DESK_MYSTIQUE
-    ],
     description: (
       <FormattedMessage
         {...messages.freeEditionProductDescriptionJiraServiceManagement}
@@ -240,16 +218,12 @@ const getProductSiteUrl = (connectedSite: ConnectedSite): string => {
 
 const getAvailableProductLinkFromSiteProduct = (
   connectedSites: ConnectedSite[],
-  isMystiqueEnabled: boolean,
 ): SwitcherItemType => {
   const topSite =
     connectedSites.find(site => site.isCurrentSite) ||
     connectedSites.sort((a, b) => a.siteName.localeCompare(b.siteName))[0];
   const productType = topSite.product.productType;
-  const productLinkProperties = getProductDataWithMystiqueFF(
-    productType,
-    isMystiqueEnabled,
-  );
+  const productLinkProperties = AVAILABLE_PRODUCT_DATA_MAP[productType];
 
   return {
     ...productLinkProperties,
@@ -273,9 +247,6 @@ const getAvailableProductLinkFromSiteProduct = (
 export const getAvailableProductLinks = (
   availableProducts: AvailableProductsResponse,
   cloudId: string | null | undefined,
-  features: {
-    isMystiqueEnabled: boolean;
-  },
 ): SwitcherItemType[] => {
   const productsMap: { [key: string]: ConnectedSite[] } = {};
   availableProducts.sites.forEach(site => {
@@ -300,11 +271,7 @@ export const getAvailableProductLinks = (
   return PRODUCT_ORDER.map(productType => {
     const connectedSites = productsMap[productType];
     return (
-      connectedSites &&
-      getAvailableProductLinkFromSiteProduct(
-        connectedSites,
-        features.isMystiqueEnabled,
-      )
+      connectedSites && getAvailableProductLinkFromSiteProduct(connectedSites)
     );
   }).filter(link => !!link);
 };

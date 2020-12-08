@@ -31,9 +31,6 @@ import { collectJoinableSiteLinks } from '../../cross-join/utils/cross-join-link
 
 function collectAvailableProductLinks(
   cloudId: string | null | undefined,
-  features: {
-    isMystiqueEnabled: boolean;
-  },
   availableProducts?: ProviderResults['availableProducts'],
 ): SwitcherItemType[] | undefined {
   if (availableProducts) {
@@ -41,11 +38,7 @@ function collectAvailableProductLinks(
       throw availableProducts.error;
     }
     if (isComplete(availableProducts)) {
-      return getAvailableProductLinks(
-        availableProducts.data,
-        cloudId,
-        features,
-      );
+      return getAvailableProductLinks(availableProducts.data, cloudId);
     }
     return;
   }
@@ -204,8 +197,6 @@ export function mapResultsToSwitcherProps(
     cloudId,
     product,
   );
-  // [FD-15974]: Remove after feature flag is rolled out to 100%
-  const isMystiqueEnabled = true;
   // [FD-15975]: Remove after the FF is rolled out to 100%.
   const act959Enabled = Boolean(
     availableProducts.data?.unstableFeatures?.act959Enabled,
@@ -227,13 +218,7 @@ export function mapResultsToSwitcherProps(
 
   return {
     licensedProductLinks: collect(
-      collectAvailableProductLinks(
-        cloudId,
-        {
-          isMystiqueEnabled,
-        },
-        availableProducts,
-      ),
+      collectAvailableProductLinks(cloudId, availableProducts),
       [],
     ),
     suggestedProductLinks: features.xflow
@@ -247,7 +232,6 @@ export function mapResultsToSwitcherProps(
               isDiscoverSectionEnabled: features.isDiscoverSectionEnabled,
               isDefaultEditionFreeExperimentEnabled:
                 features.isDefaultEditionFreeExperimentEnabled,
-              isMystiqueEnabled,
             },
           ),
           [],
@@ -271,10 +255,7 @@ export function mapResultsToSwitcherProps(
       ),
       [],
     ),
-    joinableSiteLinks: collect(
-      collectJoinableSiteLinks(joinableSites, { isMystiqueEnabled }),
-      [],
-    ),
+    joinableSiteLinks: collect(collectJoinableSiteLinks(joinableSites), []),
     discoverSectionLinks: hasLoadedDiscoverSection
       ? collect(
           collectDiscoverSectionLinks(

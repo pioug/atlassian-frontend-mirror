@@ -26,8 +26,6 @@ export default {
     'Kullanabileceğiniz ürünlerin listesini görmek için lütfen e-posta adresinizi doğrulayın.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     '10 kullanıcıya kadar ücretsiz belge paylaşımı',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    '3 temsilciye kadar ücretsiz BT hizmet masası ve müşteri hizmet masası desteği',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'En fazla 3 temsilcinin yararlanabileceği, ücretsiz, iş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -44,8 +42,6 @@ export default {
     'Daha fazla Atlassian ürünü',
   'fabric.atlassianSwitcher.moreProductsLink': 'Daha fazla ürün',
   'fabric.atlassianSwitcher.product.description.confluence': 'Belge paylaşımı',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'BT hizmet masası ve müşteri hizmetleri',
   'fabric.atlassianSwitcher.product.description.jsm':
     'İş birliğine dayalı BT hizmeti yönetimi',
   'fabric.atlassianSwitcher.product.description.jsw': 'Proje ve sorun takibi',

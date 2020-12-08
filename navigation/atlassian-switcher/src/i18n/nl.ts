@@ -27,8 +27,6 @@ export default {
     'Bevestig je e-mailadres om een lijst met beschikbare producten te bekijken.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Gratis samenwerken aan bestanden voor maximaal 10 gebruikers',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Gratis IT-service en servicedesk voor klanten voor maximaal 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Gratis coöperatief IT-servicebeheer voor tot 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -44,8 +42,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Meer producten',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Samenwerken aan documenten',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT-servicedesk en klantenservice',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Coöperatief IT-servicebeheer',
   'fabric.atlassianSwitcher.product.description.jsw':

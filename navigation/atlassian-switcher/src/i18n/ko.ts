@@ -27,8 +27,6 @@ export default {
     '사용 가능한 제품의 목록을 보려면 이메일 주소를 확인하세요.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     '무료 문서 협업 - 최대 10명 사용자까지',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    '무료 IT 서비스 및 고객 service desk - 최대 3명 에이전트까지',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     '최대 3명의 에이전트를 위한 협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -43,8 +41,6 @@ export default {
   'fabric.atlassianSwitcher.moreAtlassianProducts': '더 많은 Atlassian 제품',
   'fabric.atlassianSwitcher.moreProductsLink': '더 많은 제품',
   'fabric.atlassianSwitcher.product.description.confluence': '문서 공동 작업',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT 서비스 데스크 및 고객 서비스',
   'fabric.atlassianSwitcher.product.description.jsm': '협업 IT 서비스 관리',
   'fabric.atlassianSwitcher.product.description.jsw': '프로젝트 및 이슈 추적',
   'fabric.atlassianSwitcher.product.description.opsgenie': '최신 인시던트 관리',

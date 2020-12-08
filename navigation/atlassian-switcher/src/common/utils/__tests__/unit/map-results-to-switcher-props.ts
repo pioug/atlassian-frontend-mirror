@@ -551,8 +551,8 @@ describe('map-results-to-switcher-props', () => {
       ]);
     });
   });
-  describe('mystiqueEnabled featureFlag effect on JSD', () => {
-    it('should return JSM in licensed products when FF is on', () => {
+  describe('renders JSM correctly', () => {
+    it('should return JSM in licensed products', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -576,7 +576,7 @@ describe('map-results-to-switcher-props', () => {
         },
       ]);
     });
-    it('should return JSM in suggested products when FF is on', () => {
+    it('should return JSM in suggested products', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -604,7 +604,7 @@ describe('map-results-to-switcher-props', () => {
         },
       ]);
     });
-    it('should return JSM in joinable sites when FF is on', () => {
+    it('should return JSM in joinable sites', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {

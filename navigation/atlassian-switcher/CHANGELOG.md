@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.6.3
+
+### Patch Changes
+
+- [`115d690474`](https://bitbucket.org/atlassian/atlassian-frontend/commits/115d690474) - Remove mystique feature flags
+
 ## 8.6.2
 
 ### Patch Changes

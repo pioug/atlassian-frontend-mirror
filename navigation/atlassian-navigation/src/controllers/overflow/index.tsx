@@ -86,7 +86,7 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
     const currentHash = calculateHash(width, itemsLimit);
 
     if (hashRef.current[0] === currentHash) {
-      // After removing an item, if width has not changed yet we shedule a force update
+      // After removing an item, if width has not changed yet we schedule a force update
       // to handle case where removing an item does not actually trigger width change
       const t = setTimeout(() => {
         updateHashRef(hashRef.current, '');

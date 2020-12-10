@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 0.12.5
+
+### Patch Changes
+
+- [`95771438ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95771438ed) - [ux] PrimaryItems will now overflow/resize correctly when the initial load screen size is narrower than the items it contains
+
 ## 0.12.4
 
 ### Patch Changes

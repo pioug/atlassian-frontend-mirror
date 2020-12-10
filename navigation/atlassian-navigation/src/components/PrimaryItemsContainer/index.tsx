@@ -60,7 +60,7 @@ export const PrimaryItemsContainer = ({
   const WidthObserverRelativeWrapper = () => {
     return (
       <div style={widthObserverContainerStyle}>
-        <WidthObserver setWidth={updateWidth} />
+        <WidthObserver offscreen={true} setWidth={updateWidth} />
       </div>
     );
   };

@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 21.0.2
+
+### Patch Changes
+
+- [`b8cf033738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8cf033738) - Bumped react-dev-server to fix DoS issue
+
 ## 21.0.1
 
 ### Patch Changes

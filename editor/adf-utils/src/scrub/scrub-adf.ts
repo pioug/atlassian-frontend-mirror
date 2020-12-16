@@ -1,47 +1,44 @@
 import { ADFEntity, VisitorCollection } from '../types';
 import { traverse } from '../traverse/traverse';
 import { scrubAttrs, scrubStr, scrubLink } from './scrub-content';
+import {
+  defaultNodeReplacements,
+  NodeReplacements,
+} from './default-node-replacements';
+import {
+  defaultValueReplacements,
+  ValueReplacements,
+} from './default-value-replacements';
 
-export type NodeReplacer = (node: ADFEntity) => ADFEntity;
+export interface ScrubAdfOptions {
+  nodeReplacements?: NodeReplacements;
+  valueReplacements?: ValueReplacements;
+}
 
-export type NodeReplacements = {
-  [key: string]: NodeReplacer;
-};
+export default (adf: ADFEntity, options: ScrubAdfOptions = {}) => {
+  const nodeReplacements = {
+    ...defaultNodeReplacements,
+    ...options.nodeReplacements,
+  };
 
-const defaultReplacements: NodeReplacements = {
-  emoji: () => ({
-    type: 'emoji',
-    attrs: {
-      shortName: ':blue_star:',
-      id: 'atlassian-blue_star',
-      text: ':blue_star:',
-    },
-  }),
-  date: () => ({
-    type: 'date',
-    attrs: {
-      timestamp: new Date('2020-01-01').getTime(),
-    },
-  }),
-  mention: () => ({
-    type: 'mention',
-    attrs: {
-      id: 'error:NotFound',
-      text: '@Nemo',
-      accessLevel: 'CONTAINER',
-    },
-  }),
-};
-
-export default (adf: ADFEntity, userReplacements?: NodeReplacements) => {
-  const replacements = { ...defaultReplacements, ...userReplacements };
+  const valueReplacements = {
+    ...defaultValueReplacements,
+    ...options.valueReplacements,
+  };
 
   return traverse(adf, {
-    any: node => {
-      const replacement = replacements[node.type];
+    any: (node, parent) => {
+      const replacement = nodeReplacements[node.type];
 
       if (typeof replacement === 'function') {
-        return replacement(node);
+        const result = replacement(node, {
+          parent,
+          valueReplacements,
+        });
+
+        if (result !== false) {
+          return result;
+        }
       }
 
       const updatedNode: { [key: string]: any } = {};
@@ -52,12 +49,14 @@ export default (adf: ADFEntity, userReplacements?: NodeReplacements) => {
         }
       });
 
+      if (node.text && node.marks) {
+        updatedNode.marks = scrubLink(node.marks ?? [], {
+          valueReplacements,
+        });
+      }
+
       if (node.text) {
         updatedNode.text = scrubStr(node.text);
-
-        if (node.marks && Array.isArray(node.marks)) {
-          updatedNode.marks = scrubLink(node.marks);
-        }
       }
 
       if (node.attrs) {

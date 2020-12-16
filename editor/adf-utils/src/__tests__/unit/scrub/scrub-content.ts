@@ -321,12 +321,19 @@ describe('scrubLink', () => {
       {
         type: 'link',
         attrs: {
-          href: 'https://www.google.com',
+          href: 'https://hello.atlassian.net/wiki/spaces/TEAMA/pages/838645985',
         },
       },
     ];
 
-    expect(scrubLink(originalMarks)).toEqual(expectedMarks);
+    expect(
+      scrubLink(originalMarks, {
+        valueReplacements: {
+          href: () =>
+            'https://hello.atlassian.net/wiki/spaces/TEAMA/pages/838645985',
+        },
+      }),
+    ).toEqual(expectedMarks);
   });
 
   it('should not replace non link marks', () => {
@@ -345,6 +352,13 @@ describe('scrubLink', () => {
       },
     ];
 
-    expect(scrubLink(originalMarks)).toEqual(originalMarks);
+    expect(
+      scrubLink(originalMarks, {
+        valueReplacements: {
+          href: () =>
+            'https://hello.atlassian.net/wiki/spaces/TEAMA/pages/838645985',
+        },
+      }),
+    ).toEqual(originalMarks);
   });
 });

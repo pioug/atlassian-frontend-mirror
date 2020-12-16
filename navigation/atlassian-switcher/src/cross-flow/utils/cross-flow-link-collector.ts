@@ -54,6 +54,7 @@ export function collectSuggestedLinks(
   features: {
     isDiscoverSectionEnabled?: boolean;
     isDefaultEditionFreeExperimentEnabled?: boolean;
+    isMystiqueEnabled?: boolean;
   },
 ) {
   if (isError(isXFlowEnabled) || isError(provisionedProducts)) {

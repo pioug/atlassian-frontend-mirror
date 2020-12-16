@@ -78,7 +78,69 @@ describe('scrubAdf', () => {
                 {
                   type: 'link',
                   attrs: {
-                    href: 'https://www.google.com',
+                    href:
+                      'https://hello.atlassian.net/wiki/spaces/ET/pages/968692273?3975379868',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it('should replace href values with provided value replacer', () => {
+    const adf = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'atlassian',
+              marks: [
+                {
+                  type: 'link',
+                  attrs: {
+                    href: 'https://www.atlassian.com',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    const href = jest.fn(() => 'https://lorem.ipsum');
+
+    const scrubbedAdf = scrubAdf(adf, {
+      valueReplacements: {
+        href,
+      },
+    });
+
+    expect(href).toHaveBeenCalledTimes(1);
+    expect(href).toHaveBeenCalledWith('https://www.atlassian.com');
+
+    expect(scrubbedAdf).toEqual({
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'loremipsu',
+              marks: [
+                {
+                  type: 'link',
+                  attrs: {
+                    href: 'https://lorem.ipsum',
                   },
                 },
               ],
@@ -374,9 +436,8 @@ describe('scrubAdf', () => {
 
     const emoji = jest.fn(() => output);
 
-    const scrubbedAdf = scrubAdf(adf, { emoji });
+    const scrubbedAdf = scrubAdf(adf, { nodeReplacements: { emoji } });
     expect(emoji).toHaveBeenCalledTimes(1);
-    expect(emoji).toHaveBeenCalledWith(input);
 
     expect(scrubbedAdf).toEqual({
       version: 1,
@@ -385,7 +446,7 @@ describe('scrubAdf', () => {
     });
   });
 
-  it('should not replace any attributes from the ignored list', () => {
+  it('should not replace any attributes from the bypass list', () => {
     const adf = {
       version: 1,
       type: 'doc',
@@ -454,51 +515,53 @@ describe('scrubAdf', () => {
             {
               type: 'media',
               attrs: {
+                type: 'external',
+                url: 'https://dummyimage.com/1874x1078/f4f5f7/a5adba',
                 width: 1874,
                 height: 1078,
                 __fileSize: 123456,
                 __fileMimeType: 'image/jpeg',
               },
             },
+          ],
+        },
+        {
+          type: 'table',
+          content: [
             {
-              type: 'table',
+              type: 'tableRow',
               content: [
                 {
-                  type: 'tableRow',
-                  content: [
-                    {
-                      type: 'tableHeader',
-                      attrs: {
-                        colspan: 2,
-                        colwidth: [233, 100],
-                      },
-                    },
-                    {
-                      type: 'tableHeader',
-                      attrs: {
-                        background: '#DEEBFF',
-                      },
-                    },
-                  ],
+                  type: 'tableHeader',
+                  attrs: {
+                    colspan: 2,
+                    colwidth: [233, 100],
+                  },
                 },
                 {
-                  type: 'tableRow',
-                  content: [
-                    {
-                      type: 'tableCell',
-                      attrs: {
-                        colspan: 1,
-                        rowspan: 1,
-                        background: null,
-                      },
-                    },
-                    {
-                      type: 'tableCell',
-                    },
-                    {
-                      type: 'tableCell',
-                    },
-                  ],
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#DEEBFF',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colspan: 1,
+                    rowspan: 1,
+                    background: null,
+                  },
+                },
+                {
+                  type: 'tableCell',
+                },
+                {
+                  type: 'tableCell',
                 },
               ],
             },

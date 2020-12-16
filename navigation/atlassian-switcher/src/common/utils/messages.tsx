@@ -162,18 +162,31 @@ const messages = defineMessages({
     description:
       'Text displayed under the Confluence product recommendation for the free edition of the product.',
   },
-  productDescriptionJiraServiceManagement: {
+  productDescriptionJiraServiceDesk: {
+    id: 'fabric.atlassianSwitcher.product.description.jsd',
+    defaultMessage: 'IT service desk and customer service',
+    description:
+      'Text displayed under the Jira Service Desk product recommendation.',
+  },
+  productDescriptionJiraServiceDeskMystique: {
     id: 'fabric.atlassianSwitcher.product.description.jsm',
     defaultMessage: 'Collaborative IT service management',
     description:
-      'Text displayed under the Jira Service Management product recommendation.',
+      'Text displayed under the Jira Service Desk Mystique product recommendation.',
+  },
+  freeEditionProductDescriptionJiraServiceDesk: {
+    id: 'fabric.atlassianSwitcher.free.edition.product.description.jsd',
+    defaultMessage:
+      'Free IT service and customer service desk for up to 3 agents',
+    description:
+      'Text displayed under the Jira Service Desk product recommendation for the free edition of the product.',
   },
   freeEditionProductDescriptionJiraServiceManagement: {
     id: 'fabric.atlassianSwitcher.free.edition.product.description.jsm',
     defaultMessage:
       'Free collaborative IT service management for up to 3 agents',
     description:
-      'Text displayed under the Jira Service Management product recommendation for the free edition of the product.',
+      'Text displayed under the Jira Service Desk Mystique product recommendation for the free edition of the product.',
   },
   productDescriptionJiraSoftware: {
     id: 'fabric.atlassianSwitcher.product.description.jsw',
@@ -187,6 +200,18 @@ const messages = defineMessages({
     description:
       'Text displayed under the Jira Software product recommendation for the free edition of the product.',
   },
+  // Leaving these commented out for now pending a decision to be made on the fate of Jira Core
+  // productDescriptionJiraCore: {
+  //   id: 'fabric.atlassianSwitcher.product.description.jira.core',
+  //   defaultMessage: 'Business Managmenet',
+  //   description: 'Text displayed under the Jira Core product recommendation.',
+  // },
+  // freeEditionProductDescriptionJiraCore: {
+  //   id: 'fabric.atlassianSwitcher.free.edition.product.description.jira.core',
+  //   defaultMessage: 'Free business management for up to 10 users',
+  //   description:
+  //     'Text displayed under the Jira Core product recommendation for the free edition of the product.',
+  // },
   productDescriptionOpsgenie: {
     id: 'fabric.atlassianSwitcher.product.description.opsgenie',
     defaultMessage: 'Modern incident management',

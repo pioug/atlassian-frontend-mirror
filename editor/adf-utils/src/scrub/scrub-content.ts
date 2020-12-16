@@ -1,3 +1,5 @@
+import { ValueReplacements } from './default-value-replacements';
+
 const DUMMY_TEXT = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum`;
 const DUMMY_DIGITS = ['2', '7', '4', '3', '5', '9', '1', '8', '0', '5'];
 
@@ -10,7 +12,7 @@ const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
   heading: ['level'],
   inlineExtension: ['extensionKey', 'extensionType', 'layout'],
   layoutColumn: ['width'],
-  media: ['__fileMimeType', '__fileSize', 'height', 'width'],
+  media: ['__fileMimeType', '__fileSize', 'height', 'width', 'type'],
   mediaSingle: ['layout', 'width'],
   orderedList: ['order'],
   panel: ['panelType'],
@@ -85,10 +87,20 @@ export const scrubStr = (val: string, offset = 0) => {
     .join('');
 };
 
-export const scrubLink = (marks: Array<{ [key: string]: any }>) => {
+export type ScrubLinkOptions = {
+  valueReplacements: ValueReplacements;
+};
+
+export const scrubLink = (
+  marks: Array<{ [key: string]: any }>,
+  { valueReplacements }: ScrubLinkOptions,
+) => {
   return marks.map(mark => {
     if (mark.type === 'link' && mark.attrs.href) {
-      mark.attrs.href = 'https://www.google.com';
+      return {
+        ...mark,
+        attrs: { ...mark.attrs, href: valueReplacements.href(mark.attrs.href) },
+      };
     }
     return mark;
   });

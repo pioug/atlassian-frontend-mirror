@@ -22,6 +22,7 @@ import {
   SwitcherItemType,
   getEmceeLink,
 } from '../../common/utils/links';
+import { mapLegacyProductTypeToSwitcherType } from '../../common/utils/map-to-switcher-props-with-mystique-ff';
 import SlackIcon from '../../ui/primitives/SlackIcon';
 
 export const getFixedProductLinks = (params: {
@@ -134,6 +135,7 @@ export const getSuggestedProductLink = (
   features?: {
     isDiscoverSectionEnabled?: boolean;
     isDefaultEditionFreeExperimentEnabled?: boolean;
+    isMystiqueEnabled?: boolean;
   },
 ): SwitcherItemType[] => {
   const collectedJoinableSites = Object.keys(
@@ -155,8 +157,10 @@ export const getSuggestedProductLink = (
       );
     })
     .map(legacyProduct => {
-      const switcherProductKey =
-        TO_SWITCHER_PRODUCT_KEY[legacyProduct.productKey];
+      const switcherProductKey = mapLegacyProductTypeToSwitcherType(
+        legacyProduct.productKey,
+        features?.isMystiqueEnabled,
+      );
       return features?.isDefaultEditionFreeExperimentEnabled
         ? {
             key: legacyProduct.productKey,

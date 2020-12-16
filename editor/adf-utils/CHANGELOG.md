@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.5.0
+
+### Minor Changes
+
+- [`9697099745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9697099745) - NO-ISSUE: replace media and smart links with valid nodes
+
 ## 11.4.0
 
 ### Minor Changes

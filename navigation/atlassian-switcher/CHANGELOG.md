@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.6.4
+
+### Patch Changes
+
+- [`d9dd180f91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9dd180f91) - Reverting mystique removal changes. Fixing broken release.
+
 ## 8.6.3
 
 ### Patch Changes

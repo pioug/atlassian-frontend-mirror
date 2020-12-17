@@ -25,6 +25,8 @@ export default {
     'Saadaolevate toodete loendi kuvamiseks kinnitage oma meiliaadress.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Tasuta dokumendialane koostöö kuni 10 kasutajale',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Tasuta IT-teenus ja klienditeenuselett kuni 3 kasutajatoe töötajale',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Tasuta projektide ja probleemide jälgimine kuni 10 kasutajale',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projekt',
@@ -34,6 +36,8 @@ export default {
   'fabric.atlassianSwitcher.more': 'Rohkem',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumendialane koostöö',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'IT tugiteenus ja klienditeenindus',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Projektide ja probleemide jälgimine',
   'fabric.atlassianSwitcher.product.description.opsgenie':

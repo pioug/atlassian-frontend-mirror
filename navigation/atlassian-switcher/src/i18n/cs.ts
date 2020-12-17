@@ -26,6 +26,8 @@ export default {
     'Seznam dostupných produktů se vám zobrazí až poté, co potvrdíte svou e-mailovou adresu.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Bezplatná spolupráce na dokumentech pro až 10 uživatelů',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Bezplatná IT služba a zákaznická služba Service Desk pro až 3 agenty',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Kolaborativní správa IT služeb zdarma pro až tři agenty',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -41,6 +43,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Další produkty',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Spolupráce na dokumentech',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'IT Service Desk a zákaznický servis',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Kolaborativní správa IT služeb',
   'fabric.atlassianSwitcher.product.description.jsw':

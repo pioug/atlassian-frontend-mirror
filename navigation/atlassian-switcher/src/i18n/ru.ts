@@ -26,6 +26,8 @@ export default {
     'Подтвердите электронный адрес, чтобы увидеть список доступных продуктов.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Совместная работа с документами — до 10 пользователей бесплатно',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'ИТ-сервис и служба поддержки клиентов — до 3 агентов бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Управление ИТ-услугами с поддержкой совместной работы. До 3 агентов — бесплатно',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -42,6 +44,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Другие продукты',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Совместная работа над документами',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'ИТ-поддержка и обслуживание клиентов',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Управление ИТ-услугами с поддержкой совместной работы',
   'fabric.atlassianSwitcher.product.description.jsw':

@@ -23,6 +23,7 @@ interface ServerUser extends ServerItem {
   entityType: EntityType.USER;
   avatarUrl: string;
   email?: string;
+  attributes?: Record<string, string>;
 }
 
 interface ServerTeam extends ServerItem {
@@ -54,12 +55,19 @@ const transformUser = (item: ServerItem): User | Team | Group | void => {
 
   if (type === EntityType.USER) {
     const user = item as ServerUser;
+
+    const lozenge =
+      user.attributes && user.attributes['workspaceMember']
+        ? 'MEMBER'
+        : undefined;
+
     return {
       id: user.id,
       type: UserType,
       avatarUrl: user.avatarUrl,
       name: user.name,
       email: user.email,
+      lozenge: lozenge,
     };
   }
 

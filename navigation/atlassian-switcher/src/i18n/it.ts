@@ -27,6 +27,8 @@ export default {
     'Conferma il tuo indirizzo e-mail per vedere un elenco di prodotti disponibili.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Collaborazione sui documenti gratuita (fino a 10 utenti)',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Servizi IT e service desk di assistenza clienti gratuiti (fino a 3 agenti)',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Gestione collaborativa e gratuita del servizio IT per un massimo di 3 agenti',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -43,6 +45,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Altri prodotti',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Collaborazione ai documenti',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'Service desk IT e assistenza clienti',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Gestione collaborativa del servizio IT',
   'fabric.atlassianSwitcher.product.description.jsw':

@@ -27,6 +27,8 @@ export default {
     '利用可能な製品の一覧を見るには、メールアドレスを確認してください。',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     '最大 10 ユーザーまで使用できる無料のドキュメント コラボレーション',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    '最大 3 エージェントまで使用できる無料の IT サービス デスクとカスタマー サービス デスク',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     '最大 3 エージェントまで無料でコラボレーション可能な IT サービス管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -42,6 +44,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'その他の製品',
   'fabric.atlassianSwitcher.product.description.confluence':
     'ドキュメント コラボレーション',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'IT サービス デスクとカスタマー サービス',
   'fabric.atlassianSwitcher.product.description.jsm':
     'コラボレーション可能な IT サービス管理',
   'fabric.atlassianSwitcher.product.description.jsw':

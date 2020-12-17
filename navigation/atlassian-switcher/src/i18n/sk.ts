@@ -24,6 +24,8 @@ export default {
     'Zoznam dostupných produktov sa vám zobrazí, až keď potvrdíte svoju e-mailovú adresu.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Bezplatná spolupráca na dokumentoch pre maximálne 10 používateľov',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Bezplatná IT služba a zákaznícka služba service desk pre maximálne 3 agentov',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Bezplatné sledovanie projektov a problémov pre maximálne 10 používateľov',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
@@ -33,6 +35,8 @@ export default {
   'fabric.atlassianSwitcher.more': 'Ďalšie',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Spolupráca na dokumentoch',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'IT Service Desk a služby zákazníkom',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Sledovanie projektov a problémov',
   'fabric.atlassianSwitcher.product.description.opsgenie':

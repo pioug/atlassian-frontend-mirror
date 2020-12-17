@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.3.2
+
+### Patch Changes
+
+- [`9a206f99b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a206f99b1) - [ux] Added 'MEMBER' lozenge to SUP is workspaceMember attribute exists (from bitbucket recommendations response)
+
 ## 7.3.1
 
 ### Patch Changes

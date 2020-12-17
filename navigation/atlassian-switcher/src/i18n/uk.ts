@@ -27,6 +27,8 @@ export default {
     'Підтвердьте свою електронну адресу, щоб переглянути список доступних продуктів.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Безкоштовна спільна робота з документами (до 10 користувачів)',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Безкоштовна ІТ-підтримка та підтримка користувачів (до 3 агентів)',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Об’єднана служба ІТ-підтримки — безкоштовно до 3 агентів',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -42,6 +44,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Інші продукти',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Спільна робота з документами',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'IT Service Desk і служба обслуговування клієнтів',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Об’єднана служба ІТ-підтримки',
   'fabric.atlassianSwitcher.product.description.jsw':

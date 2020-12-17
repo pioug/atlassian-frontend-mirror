@@ -25,6 +25,8 @@ export default {
     'Confirme o seu endereço de e-mail para ver uma lista dos produtos disponíveis.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Colaboração em documentos grátis para até 10 utilizadores',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Service desk para o cliente e serviço de TI grátis para até 3 agentes',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Acompanhamento de projetos e problemas grátis para até 10 utilizadores',
   'fabric.atlassianSwitcher.jiraProject': 'Projeto do JIRA',
@@ -34,6 +36,8 @@ export default {
   'fabric.atlassianSwitcher.more': 'Mais',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Colaboração em documentos',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'Service desk de TI e atendimento ao cliente',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Acompanhamento de projetos e problemas',
   'fabric.atlassianSwitcher.product.description.opsgenie':

@@ -27,6 +27,8 @@ export default {
     'Veuillez confirmer votre adresse e-mail pour afficher une liste des produits disponibles.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Collaboration documentaire gratuite pour un maximum de 10 utilisateurs',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
+    'Centre de services informatiques et client gratuit pour un maximum de 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Gestion des services informatiques collaborative et gratuite, pour un maximum de 3 agents',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -44,6 +46,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Plus de produits',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Collaboration documentaire',
+  'fabric.atlassianSwitcher.product.description.jsd':
+    'Centre de services informatiques et client',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Gestion des services informatiques collaborative',
   'fabric.atlassianSwitcher.product.description.jsw':

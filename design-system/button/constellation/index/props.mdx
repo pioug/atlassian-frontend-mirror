@@ -2,7 +2,7 @@ import SharedProps from '!!extract-react-types-loader!../../extract-react-types/
 import LoadingButtonProps from '!!extract-react-types-loader!../../extract-react-types/loading-button-props';
 import CustomThemeButtonProps from '!!extract-react-types-loader!../../extract-react-types/custom-theme-button-props';
 
-## Shared props
+### Shared props
 
 These props can be applied to all button variants (`Button`, `LoadingButton` and `CustomThemeButton`)
 
@@ -10,16 +10,14 @@ These props can be applied to all button variants (`Button`, `LoadingButton` and
 
 All button variants will also support all valid `HTMLElement` props, except for `disabled`. We control the `disabled` prop through the `isDisabled` prop
 
-## Loading button props
+### Loading button props
 
 The `LoadingButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop
 
 <PropsTable heading="" props={LoadingButtonProps} />
 
-## Custom theme button props
+### Custom theme button props
 
 The `CustomThemeButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop, and an optional `theme` prop
 
 <PropsTable heading="" props={CustomThemeButtonProps} />
-
-

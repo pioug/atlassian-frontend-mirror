@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "https://inlineCardTestUrl",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://inlineCardTestUrl"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "    "
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

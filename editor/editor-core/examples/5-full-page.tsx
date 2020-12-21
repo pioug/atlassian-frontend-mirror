@@ -74,6 +74,7 @@ import {
   isMediaMockOptedIn,
   mediaMock,
 } from '@atlaskit/media-test-helpers';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 addGlobalEventEmitterListeners();
 if (isMediaMockOptedIn()) {
@@ -107,9 +108,8 @@ Content.displayName = 'Content';
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
-const mediaFeatureFlags = {
+const mediaFeatureFlags: MediaFeatureFlags = {
   ...exampleMediaFeatureFlags,
-  captions: true,
 };
 
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
@@ -332,6 +332,7 @@ export class ExampleEditorComponent extends React.Component<
                   provider: Promise.resolve(cardProviderStaging),
                   allowBlockCards: true,
                   allowEmbeds: true,
+                  allowResizing: true,
                 }}
                 allowExpand={{
                   allowInsertion: true,

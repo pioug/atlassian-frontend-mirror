@@ -9,7 +9,7 @@ import {
   copyAsHTMLButton,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import {
@@ -24,7 +24,7 @@ BrowserTestCase(
   'replaces table with text when user types with a full-table cell selection',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {
@@ -47,7 +47,7 @@ BrowserTestCase(
   'replaces table with content when user pastes plain text with a full-table cell selection',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await page.waitFor(clipboardInput);
     await page.type(clipboardInput, 'Some text to copy');
     await page.click(copyAsPlaintextButton);
@@ -74,7 +74,7 @@ BrowserTestCase(
   'replaces table with content when user pastes rich text with a full-table cell selection',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await page.waitFor(clipboardInput);
     await page.type(
       clipboardInput,

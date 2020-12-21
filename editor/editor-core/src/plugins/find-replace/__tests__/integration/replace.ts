@@ -5,7 +5,7 @@ import {
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import replaceAdf from './__fixtures__/replace-adf.json';
@@ -15,7 +15,7 @@ BrowserTestCase(
   'replace.ts: modifying find text before replace should not restore stale pluginState replace text',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

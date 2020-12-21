@@ -7,8 +7,13 @@ import { PDFWrapper } from '../../styled';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
-import ErrorMessage, { createError, MediaViewerError } from '../../error';
+import ErrorMessage, {
+  createError,
+  MediaViewerError,
+  ErrorName,
+} from '../../error';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { getErrorName } from '@atlaskit/media-client';
 
 export const pdfViewerClassName = 'pdfViewer';
 
@@ -134,7 +139,9 @@ export class PDFRenderer extends React.Component<Props, State> {
       });
     } catch (err) {
       this.setState({
-        doc: Outcome.failed(createError('previewFailed', err)),
+        doc: Outcome.failed(
+          createError(getErrorName(err, 'previewFailed') as ErrorName, err),
+        ),
       });
 
       if (onError) {

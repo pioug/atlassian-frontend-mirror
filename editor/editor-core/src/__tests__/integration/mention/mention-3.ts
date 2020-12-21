@@ -9,7 +9,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
 /*
@@ -24,7 +24,7 @@ BrowserTestCase(
   'mention-3.ts: user can click ToolbarMentionPicker and see mention',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -42,7 +42,7 @@ BrowserTestCase(
   'mention-3.ts: should not insert on space if multiple exact nickname match',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -92,7 +92,7 @@ BrowserTestCase(
   // TODO: Fix unknown character on BS
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -110,7 +110,7 @@ BrowserTestCase(
   // TODO: Fix unknown character on BS
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -128,7 +128,7 @@ BrowserTestCase(
   'mention-3.ts: users with same first name should not be selected if space',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });

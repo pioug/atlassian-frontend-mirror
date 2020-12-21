@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import {
@@ -20,7 +20,7 @@ BrowserTestCase(
   'can insert hyperlink with only URL using toolbar',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -39,7 +39,7 @@ BrowserTestCase(
   'can insert hyperlink with URL and text using toolbar',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -59,7 +59,7 @@ BrowserTestCase(
   'can insert hyperlink via quick insert menu',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });

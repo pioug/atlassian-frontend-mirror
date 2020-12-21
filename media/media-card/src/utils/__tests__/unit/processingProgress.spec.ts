@@ -137,7 +137,6 @@ describe('shouldShowProcessingProgress()', () => {
     it('should show processing progress for files without preview supported by server', () => {
       const fileTypes: Array<{ mediaType: MediaType; mimeType: string }> = [
         { mediaType: 'image', mimeType: 'image/heic' },
-        { mediaType: 'doc', mimeType: 'application/vnd.ms-powerpoint' },
         { mediaType: 'audio', mimeType: 'audio/flac' },
         { mediaType: 'video', mimeType: 'video/quicktime' },
       ];
@@ -193,6 +192,30 @@ describe('shouldShowProcessingProgress()', () => {
         const fileState = setup(useCase, 'archive', 'application/zip');
 
         expect(shouldShowProcessingProgress(fileState)).toBeFalsy();
+      });
+    });
+
+    it('should not show processing progress for doc types in classic mode', () => {
+      useCases.forEach(useCase => {
+        const fileState = setup(
+          useCase,
+          'doc',
+          'application/vnd.ms-powerpoint',
+        );
+
+        expect(
+          shouldShowProcessingProgress(fileState, { newCardExperience: false }),
+        ).toBeFalsy();
+      });
+    });
+
+    it('should show processing progress for image types in classic mode', () => {
+      useCases.forEach(useCase => {
+        const fileState = setup(useCase, 'image', 'image/heic');
+
+        expect(
+          shouldShowProcessingProgress(fileState, { newCardExperience: false }),
+        ).toBeTruthy();
       });
     });
   });

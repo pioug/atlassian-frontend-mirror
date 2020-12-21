@@ -1,5 +1,9 @@
-import React, { useMemo, useContext, useState } from 'react';
-import { Card, Context as CardContext } from '@atlaskit/smart-card';
+import React, { useMemo, useContext, useState, useRef } from 'react';
+import {
+  Card,
+  Context as CardContext,
+  IframelyResizeMessageListener,
+} from '@atlaskit/smart-card';
 import {
   EventHandlers,
   WidthConsumer,
@@ -72,6 +76,9 @@ export default function EmbedCard(props: {
     allowDynamicTextSizing,
     rendererAppearance,
   } = props;
+
+  const embedIframeRef = useRef(null);
+
   const handler = getEventHandler(eventHandlers, 'smartCard');
   const onClick =
     url && handler
@@ -90,15 +97,15 @@ export default function EmbedCard(props: {
     showActions: platform === 'web',
   };
 
-  /** Width can be null, so set it to defaults if  it is undefined*/
-  let {
-    originalWidth = DEFAULT_EMBED_CARD_HEIGHT,
-    originalHeight = DEFAULT_EMBED_CARD_HEIGHT,
-  } = props;
+  const [actualHeight, setActualHeight] = useState<number | null>(null);
 
-  if (!originalWidth || !originalHeight) {
-    originalHeight = DEFAULT_EMBED_CARD_HEIGHT;
-    originalWidth = DEFAULT_EMBED_CARD_WIDTH;
+  const height = actualHeight || props.originalHeight;
+  let originalHeight = DEFAULT_EMBED_CARD_HEIGHT;
+  let originalWidth: number | undefined = DEFAULT_EMBED_CARD_WIDTH;
+
+  if (height) {
+    originalHeight = height;
+    originalWidth = undefined;
   }
 
   const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
@@ -149,37 +156,42 @@ export default function EmbedCard(props: {
             unsupportedComponent={UnsupportedBlock}
             {...cardProps}
           >
-            <ExtendedEmbedCard
-              layout={layout}
-              width={originalWidth}
-              containerWidth={containerWidth}
-              pctWidth={width}
-              height={originalHeight}
-              fullWidthMode={isFullWidth}
-              nodeType="embedCard"
-              lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
-              hasFallbackContainer={hasPreview}
+            <IframelyResizeMessageListener
+              embedIframeRef={embedIframeRef}
+              onHeightUpdate={setActualHeight}
             >
-              <EmbedCardWrapper>
-                <div
-                  className="embedCardView-content-wrap"
-                  data-embed-card
-                  data-layout={layout}
-                  data-width={width}
-                  data-card-original-width={originalWidth}
-                  data-card-data={data ? JSON.stringify(data) : undefined}
-                  data-card-url={url}
-                  data-card-original-height={originalHeight}
-                >
-                  <Card
-                    appearance="embed"
-                    {...cardProps}
-                    onResolve={onResolve}
-                    inheritDimensions={true}
-                  />
-                </div>
-              </EmbedCardWrapper>
-            </ExtendedEmbedCard>
+              <ExtendedEmbedCard
+                layout={layout}
+                width={originalWidth}
+                containerWidth={containerWidth}
+                pctWidth={width}
+                height={originalHeight}
+                fullWidthMode={isFullWidth}
+                nodeType="embedCard"
+                lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
+                hasFallbackContainer={hasPreview}
+              >
+                <EmbedCardWrapper>
+                  <div
+                    className="embedCardView-content-wrap"
+                    data-embed-card
+                    data-layout={layout}
+                    data-width={width}
+                    data-card-data={data ? JSON.stringify(data) : undefined}
+                    data-card-url={url}
+                    data-card-original-height={originalHeight}
+                  >
+                    <Card
+                      appearance="embed"
+                      {...cardProps}
+                      onResolve={onResolve}
+                      inheritDimensions={true}
+                      embedIframeRef={embedIframeRef}
+                    />
+                  </div>
+                </EmbedCardWrapper>
+              </ExtendedEmbedCard>
+            </IframelyResizeMessageListener>
           </CardErrorBoundary>
         );
       }}

@@ -1,34 +1,36 @@
-import React from 'react';
+/** @jsx jsx */
+import { memo, useCallback, useState } from 'react';
+
+import { jsx } from '@emotion/core';
+
+import GlobalTheme from '@atlaskit/theme/components';
+import { GlobalThemeTokens } from '@atlaskit/theme/types';
+
+import { BreadcrumbsProps } from '../types';
 
 import BreadcrumbsStateless from './BreadcrumbsStateless';
 
-interface IState {
-  isExpanded?: boolean;
-}
+const Breadcrumbs = memo((props: BreadcrumbsProps) => {
+  const [expanded, setExpanded] = useState(false);
 
-interface IProps {
-  /** Set the maximum number of breadcrumbs to display. When there are more
-  than the maximum number, only the first and last will be shown, with an
-  ellipsis in between. */
-  maxItems?: number;
-  /** The items to be included inside the Breadcrumbs wrapper */
-  children?: React.ReactNode;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-  testId?: string;
-}
+  const handleExpansion = useCallback(() => {
+    setExpanded(true);
+  }, []);
 
-export default class Breadcrumbs extends React.Component<IProps, IState> {
-  state = { isExpanded: false };
-
-  expand = () => this.setState({ isExpanded: true });
-
-  render() {
-    return (
-      <BreadcrumbsStateless
-        {...this.props}
-        isExpanded={this.state.isExpanded}
-        onExpand={this.expand}
-      />
-    );
-  }
-}
+  return (
+    <GlobalTheme.Consumer>
+      {(tokens: GlobalThemeTokens) => {
+        const mode = tokens.mode;
+        return (
+          <BreadcrumbsStateless
+            {...props}
+            mode={mode}
+            isExpanded={expanded}
+            onExpand={handleExpansion}
+          />
+        );
+      }}
+    </GlobalTheme.Consumer>
+  );
+});
+export default Breadcrumbs;

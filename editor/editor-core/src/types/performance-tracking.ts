@@ -168,15 +168,33 @@ export interface InputTracking {
 
   /**
    * @description input events that exceed [slowThreshold]ms generate analytics event. Depends on enabled being true.
-   * @default 100
+   * @default 300
    */
   slowThreshold?: number;
 
   /**
    * @description input events that exceed [freezeThreshold]ms generate analytics event. Depends on enabled being true.
-   * @default 100
+   * @default 600
    */
   freezeThreshold?: number;
+
+  /**
+   * @description Control whether input tracking severity is tracked. When this is false the severity is not recorded.
+   * @default false
+   */
+  trackSeverity?: boolean;
+
+  /**
+   * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+   * @default 100
+   */
+  severityNormalThreshold?: number;
+
+  /**
+   * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
+   * @default 500
+   */
+  severityDegradedThreshold?: number;
 }
 
 export type PerformanceTracking = {

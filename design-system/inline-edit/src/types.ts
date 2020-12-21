@@ -30,6 +30,8 @@ interface CommonProps extends WithAnalyticsEventsProps {
   confirmButtonLabel?: string;
   /** Accessibility label for the cancel action button. */
   cancelButtonLabel?: string;
+  /** Handler called when checkmark is clicked. */
+  onCancel: () => void;
 }
 
 export interface InlineEditUncontrolledProps<FieldValue> extends CommonProps {
@@ -48,8 +50,6 @@ export interface InlineEditUncontrolledProps<FieldValue> extends CommonProps {
    * Field value is passed as an argument to this function.
    */
   onConfirm: (value: any, analyticsEvent: UIAnalyticsEvent) => void;
-  /** Handler called when checkmark is. */
-  onCancel: () => void;
 }
 
 export interface InlineEditProps<FieldValue> extends CommonProps {

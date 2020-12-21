@@ -165,6 +165,46 @@ describe('Popup', () => {
     expect(queryByText('content')).toBeInTheDocument();
   });
 
+  it('does not re-render the trigger unnecessarily', () => {
+    const triggerRender = jest.fn();
+    const contentRender = jest.fn();
+
+    const trigger = (props: TriggerProps) => {
+      triggerRender();
+      return (
+        <button
+          {...props}
+          // @ts-ignore
+          ref={props.ref}
+        >
+          trigger
+        </button>
+      );
+    };
+
+    const content = () => {
+      contentRender();
+      return <div>content</div>;
+    };
+
+    const props = {
+      trigger: trigger,
+      content: content,
+    };
+
+    const { rerender } = render(
+      <Popup {...defaultProps} {...props} isOpen={false} />,
+    );
+
+    expect(triggerRender).toHaveBeenCalledTimes(1);
+    expect(contentRender).toHaveBeenCalledTimes(0);
+
+    rerender(<Popup {...defaultProps} {...props} isOpen />);
+
+    expect(triggerRender).toHaveBeenCalledTimes(3);
+    expect(contentRender).toHaveBeenCalledTimes(3);
+  });
+
   it('does not call onClose after pressing escape when the popup is not open', () => {
     const onClose = jest.fn();
     const { baseElement } = render(

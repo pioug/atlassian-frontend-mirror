@@ -37,11 +37,11 @@ export default withTheme(
     });
 
     render() {
-      const { layout, spacing, testId } = this.props;
+      const { layout, testId, children } = this.props;
       return (
         <ThemeProvider theme={this.getTheme(this.props)}>
-          <Grid data-testid={testId} spacing={spacing} layout={layout}>
-            {this.props.children}
+          <Grid data-testid={testId} layout={layout}>
+            {children}
           </Grid>
         </ThemeProvider>
       );

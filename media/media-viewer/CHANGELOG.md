@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 45.6.0
+
+### Minor Changes
+
+- [`56693486a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56693486a3) - [ux] Rate Limited UI for the MediaViewer. Also moved a MediaCard function into MediaClient so that that functionality can be used across multiple packages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.5.3
 
 ### Patch Changes

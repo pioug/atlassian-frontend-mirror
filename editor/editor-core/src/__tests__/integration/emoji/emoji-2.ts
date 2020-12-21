@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import {
   getDocFromElement,
@@ -15,7 +15,7 @@ BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside blockquote',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, '> ');
     await page.type(editable, 'some text ');
@@ -30,7 +30,7 @@ BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside bulletList',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, '* ');
     await insertEmoji(page, 'smile');
@@ -44,7 +44,7 @@ BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside orderedList',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, '1. ');
     await insertEmoji(page, 'a');
@@ -59,7 +59,7 @@ BrowserTestCase(
   'emoji-2.ts: should be able remove emoji on backspace',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, 'this ');
     await insertEmoji(page, 'joy');
@@ -77,7 +77,7 @@ BrowserTestCase(
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
     const decisions = 'span[aria-label="Decision"]';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     // to get steps working on edge since its is slow
     await page.type(editable, '<> ');
@@ -94,7 +94,7 @@ BrowserTestCase(
   { skip: ['edge'] },
   async (client: any, testName: string) => {
     const decisions = 'li span[aria-label="Decision"]';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, 'this ');
     await insertEmoji(page, 'smile');

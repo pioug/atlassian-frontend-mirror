@@ -12,6 +12,7 @@ import {
   FieldConfig,
   FieldSubscriber,
   FieldSubscription,
+  FormState,
   Unsubscribe,
 } from 'final-form';
 import createDecorator from 'final-form-focus';
@@ -44,31 +45,35 @@ interface FormChildrenProps {
   onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
-export interface FormProps<FormData> {
+export interface FormProps<FormValues> {
   /* Children rendered inside the Form component. Function will be passed props from the form. */
   children: (args: {
     formProps: FormChildrenProps;
     disabled: boolean;
     dirty: boolean;
     submitting: boolean;
-    getValues: () => FormData;
+    getState: () => FormState<FormValues>;
+
+    /** @deprecated */
+    getValues: () => FormValues;
+
     setFieldValue: (name: string, value: any) => void;
-    reset: (initialValues?: FormData) => void;
+    reset: (initialValues?: FormValues) => void;
   }) => ReactNode;
   /* Called when the form is submitted without field validation errors */
-  onSubmit: OnSubmitHandler<FormData>;
+  onSubmit: OnSubmitHandler<FormValues>;
   /* When set the form and all fields will be disabled */
   isDisabled?: boolean;
 }
 
-function Form<FormData extends Record<string, any> = {}>(
-  props: FormProps<FormData>,
+function Form<FormValues extends Record<string, any> = {}>(
+  props: FormProps<FormValues>,
 ) {
   const formRef = useRef<HTMLFormElement | null>(null);
   const onSubmitRef = useRef(props.onSubmit);
   onSubmitRef.current = props.onSubmit;
 
-  const form = useState(() => {
+  const [form] = useState(() => {
     // Types here would break the existing API
     const finalForm = createForm<any>({
       onSubmit: (...args) => onSubmitRef.current(...args),
@@ -96,14 +101,14 @@ function Form<FormData extends Record<string, any> = {}>(
       },
     });
 
-    createDecorator<FormData>(() =>
+    createDecorator<FormValues>(() =>
       formRef.current
         ? Array.from(formRef.current.querySelectorAll('input'))
         : [],
     )(finalForm);
 
     return finalForm;
-  })[0];
+  });
 
   const [state, setState] = useState({
     dirty: false,
@@ -152,7 +157,7 @@ function Form<FormData extends Record<string, any> = {}>(
     form.submit();
   };
 
-  const handleReset = (initialValues?: FormData) => {
+  const handleReset = (initialValues?: FormValues) => {
     form.reset(initialValues);
   };
 
@@ -184,7 +189,8 @@ function Form<FormData extends Record<string, any> = {}>(
           reset: handleReset,
           submitting,
           disabled: isDisabled,
-          getValues: () => form.getState().values,
+          getState: () => form.getState(),
+          getValues: () => form.getState().values, // TODO: deprecate
           setFieldValue: form.change,
         })}
       </IsDisabledContext.Provider>

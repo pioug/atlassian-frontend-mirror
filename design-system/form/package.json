@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.1.7",
+  "version": "8.2.0",
   "description": "Form package provides layout & validation for form fields",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/multi-select": "^15.0.0",
     "@atlaskit/radio": "^5.0.0",
+    "@atlaskit/range": "^5.0.5",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/single-select": "^10.0.0",

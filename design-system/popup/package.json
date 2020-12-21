@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A portalled popup primitive that is tied to a trigger element.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,9 +14,12 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -29,6 +32,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
+    "bind-event-listener": "^1.0.2",
     "focus-trap": "^2.4.5"
   },
   "peerDependencies": {
@@ -46,12 +50,14 @@
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "ast-types": "^0.13.3",
     "jest-axe": "^4.0.0",
     "jscodeshift": "^0.7.0",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
+    "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

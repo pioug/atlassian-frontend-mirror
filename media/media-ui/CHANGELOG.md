@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 15.0.0
+
+### Major Changes
+
+- [`ef4be7212a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef4be7212a) - @atlaskit/media-ui/embeds `EmbedCardResolvedView` component now requires iframe ref. And new export `embedHeaderHeight` is introduced
+
 ## 14.4.0
 
 ### Minor Changes

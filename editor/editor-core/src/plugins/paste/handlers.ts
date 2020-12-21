@@ -26,7 +26,14 @@ import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions'
 import { CardAdf, CardAppearance } from '@atlaskit/smart-card';
 
 import { Command, CommandDispatch } from '../../types';
-import { compose, insideTable, processRawValue } from '../../utils';
+import {
+  compose,
+  insideTable,
+  isParagraph,
+  isText,
+  isLinkMark,
+  processRawValue,
+} from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
 import { insertCard, queueCardsFromChangedTr } from '../card/pm-plugins/doc';
@@ -50,6 +57,7 @@ import {
 } from './util';
 import { getFeatureFlags } from '../feature-flags-context';
 import { isListNode } from '../lists-predictable/utils/node';
+import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -125,6 +133,50 @@ export function handlePasteIntoTaskAndDecision(slice: Slice): Command {
       dispatch(tr);
     }
     return true;
+  };
+}
+
+// If we paste a link onto some selected text, apply the link as a mark
+export function handlePasteLinkOnSelectedText(slice: Slice): Command {
+  return (state, dispatch) => {
+    const {
+      schema,
+      selection,
+      selection: { from, to },
+      tr,
+    } = state;
+    let linkMark;
+
+    // check if we have a link on the clipboard
+    if (
+      slice.content.childCount === 1 &&
+      isParagraph(slice.content.child(0), schema)
+    ) {
+      const paragraph = slice.content.child(0);
+      if (
+        paragraph.content.childCount === 1 &&
+        isText(paragraph.content.child(0), schema)
+      ) {
+        const text = paragraph.content.child(0);
+        linkMark = text.marks.find(mark => isLinkMark(mark, schema));
+      }
+    }
+
+    // if we have a link, apply it to the selected text if we have any and it's allowed
+    if (
+      linkMark &&
+      selection instanceof TextSelection &&
+      !selection.empty &&
+      canLinkBeCreatedInRange(from, to)(state)
+    ) {
+      tr.addMark(from, to, linkMark);
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
   };
 }
 

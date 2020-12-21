@@ -6,7 +6,7 @@ import {
   fullpage,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
@@ -16,10 +16,10 @@ BrowserTestCase(
   'table-mediaSingle.ts: Can insert media single into table',
   { skip: ['edge', 'safari'] },
   async (
-    client: Parameters<typeof goToEditorTestingExample>[0],
+    client: Parameters<typeof goToEditorTestingWDExample>[0],
     testName: string,
   ) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {

@@ -9,14 +9,14 @@ import {
 import { selectors } from './_utils';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
 BrowserTestCase(
   'insert-toolbar-menu.ts: Insert panel via toolbar menu',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,

@@ -1,13 +1,8 @@
-import React from 'react';
-
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 
 import Tabs from '../src';
 import { TabContentComponentProvided } from '../src/types';
-
-const Content = styled.div`
-  padding: 20px;
-`;
 
 export const tabs = [
   {
@@ -37,10 +32,15 @@ export const tabs = [
 ];
 
 const CustomContent = ({ data, elementProps }: TabContentComponentProvided) => (
-  <Content {...elementProps}>
+  <div
+    css={css`
+      padding: 20px;
+    `}
+    {...elementProps}
+  >
     <h3>{data.heading}</h3>
     <p>{data.body}</p>
-  </Content>
+  </div>
 );
 
 export default () => (

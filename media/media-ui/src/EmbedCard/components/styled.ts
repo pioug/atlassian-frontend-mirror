@@ -133,8 +133,9 @@ export const Wrapper = styled.div`
   margin-top: 10px;
 `;
 
+export const embedHeaderHeight = 32;
 export const Header = styled.div`
-  height: 32px;
+  height: ${embedHeaderHeight}px;
   position: absolute;
   z-index: 1;
   width: 100%;

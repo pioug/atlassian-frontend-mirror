@@ -31,6 +31,19 @@ export const dynamicTextViewportSizes = [
   { width: 1024, height: 4000 },
 ];
 
+export interface EventHooks {
+  /**
+   * A hook which is called after navigation to the test page.
+   * Example usage: setup performance marks post-navigation.
+   */
+  onNavigateToUrl?: () => Promise<void>;
+  /**
+   * A hook which is called straight after a call to render the TWP Editor.
+   * Example usage: check how long the it takes for the page to become idle.
+   */
+  onEditorMountCalled?: () => Promise<void>;
+}
+
 export enum Device {
   Default = 'Default',
   LaptopHiDPI = 'LaptopHiDPI',
@@ -211,6 +224,7 @@ export type MountOptions = {
   withContextPanel?: boolean;
   invalidAltTextValues?: string[];
   withCollab?: boolean;
+  hooks?: EventHooks;
 };
 
 export async function mountEditor(
@@ -260,6 +274,7 @@ type InitEditorWithADFOptions = {
   withContextPanel?: boolean;
   forceReload?: boolean;
   invalidAltTextValues?: string[];
+  hooks?: EventHooks;
 };
 
 async function setupEditor(
@@ -283,6 +298,7 @@ async function setupEditor(
     withSidebar = false,
     invalidAltTextValues,
     withCollab,
+    hooks,
   } = mountOptions;
   await page.bringToFront();
   const url = getExampleUrl('editor', 'editor-core', 'vr-testing');
@@ -298,6 +314,11 @@ async function setupEditor(
     await page.setViewport(deviceViewPorts[device]);
   }
 
+  // For any actions to be taken prior to mounting the editor.
+  if (hooks?.onNavigateToUrl) {
+    await hooks?.onNavigateToUrl();
+  }
+
   // Mount the editor with the right attributes
   await mountEditor(
     page,
@@ -309,6 +330,11 @@ async function setupEditor(
     },
     { mode, withSidebar, withContextPanel, invalidAltTextValues, withCollab },
   );
+
+  // For any actions to be taken prior straight after mounting of the editor.
+  if (hooks?.onEditorMountCalled) {
+    await hooks?.onEditorMountCalled();
+  }
 
   // We disable possible side effects, like animation, transitions and caret cursor,
   // because we cannot control and affect snapshots
@@ -331,6 +357,7 @@ export const initEditorWithAdf = async (
     withSidebar: options.withSidebar,
     invalidAltTextValues: options.invalidAltTextValues,
     withCollab: options.withCollab,
+    hooks: options.hooks,
   };
 
   await setupEditor(page, options, mountOptions);
@@ -346,6 +373,7 @@ export const initFullPageEditorWithAdf = async (
   allowSideEffects?: SideEffectOptions,
   forceReload?: boolean,
   withCollab?: boolean,
+  hooks?: EventHooks,
 ) => {
   await initEditorWithAdf(page, {
     adf,
@@ -357,6 +385,7 @@ export const initFullPageEditorWithAdf = async (
     allowSideEffects,
     forceReload,
     withCollab,
+    hooks,
   });
 };
 

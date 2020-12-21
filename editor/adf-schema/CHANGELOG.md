@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema
 
+## 13.5.0
+
+### Minor Changes
+
+- [`7f7643108f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f7643108f) - [ux] EmbedCard node's `width` attribute will have 100% default value now. For UI this means, embeds are 100% wide when inserted (instead of slightly smaller then 100% previously).
+
+### Patch Changes
+
+- [`aa671045fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa671045fc) - [ux] ED-11300: allowed link mark under actionItem and decisionItem
+
 ## 13.4.0
 
 ### Minor Changes

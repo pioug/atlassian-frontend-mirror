@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { editable, getDocFromElement, fullpage } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { sleep } from '@atlaskit/media-test-helpers';
@@ -37,10 +37,10 @@ BrowserTestCase(
   'upload-external-media.ts: Keeps existing external as is',
   { skip: ['edge', 'safari'] },
   async (
-    client: Parameters<typeof goToEditorTestingExample>[0],
+    client: Parameters<typeof goToEditorTestingWDExample>[0],
     testCase: string,
   ) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: JSON.stringify(baseADF),

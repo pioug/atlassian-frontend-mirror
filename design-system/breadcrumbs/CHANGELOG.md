@@ -1,5 +1,18 @@
 # @atlaskit/breadcrumbs
 
+## 10.0.12
+
+### Patch Changes
+
+- [`4f2b2b5750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f2b2b5750) - Internal change from class to function components
+
+  - converted all the class component in the package to function
+  - started to use `usePlatformLeafEventHandler` to replace HOCs from `analytics-next`
+  - added more visual regression tests
+
+- [`25e8b332bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25e8b332bf) - replaced styled-components to emotion
+- [`30360b3d28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30360b3d28) - Internal change from class to function components
+
 ## 10.0.11
 
 ### Patch Changes

@@ -16,6 +16,16 @@ export type MediaLinkAEP = TrackAEP<
   undefined
 >;
 
+type MediaCaptionActionType = ACTION.DELETED | ACTION.EDITED | ACTION.ADDED;
+
+export type CaptionTrackAction = TrackAEP<
+  MediaCaptionActionType,
+  ACTION_SUBJECT.MEDIA_SINGLE,
+  ACTION_SUBJECT_ID.CAPTION,
+  any,
+  undefined
+>;
+
 type MediaAltTextAction = TrackAEP<
   ACTION.ADDED | ACTION.CLOSED | ACTION.EDITED | ACTION.CLEARED | ACTION.OPENED,
   ACTION_SUBJECT.MEDIA,
@@ -42,4 +52,5 @@ export type MediaAltTextActionType =
 export type MediaEventPayload =
   | MediaLinkAEP
   | MediaAltTextAction
-  | MediaUIAction;
+  | MediaUIAction
+  | CaptionTrackAction;

@@ -213,7 +213,7 @@ export default class ResizableMediaSingle extends React.Component<
 
   calcPxWidth = (useLayout?: MediaSingleLayout): number => {
     const {
-      width: origWidth,
+      width: origWidth = 0,
       height: origHeight,
       layout,
       pctWidth,
@@ -320,11 +320,11 @@ export default class ResizableMediaSingle extends React.Component<
       children,
     } = this.props;
 
-    const pxWidth = this.calcPxWidth();
-
-    // scale, keeping aspect ratio
-    const height = (origHeight / origWidth) * pxWidth;
-    const width = pxWidth;
+    let initialWidth = this.calcPxWidth(); // width with padding
+    let ratio: string | undefined;
+    if (origWidth) {
+      ratio = ((origHeight / origWidth) * 100).toFixed(3);
+    }
 
     const enable: EnabledHandles = {};
     handleSides.forEach(side => {
@@ -359,7 +359,6 @@ export default class ResizableMediaSingle extends React.Component<
 
     return (
       <Wrapper
-        ratio={((height / width) * 100).toFixed(3)}
         layout={layout}
         isResized={!!pctWidth}
         containerWidth={containerWidth || origWidth}
@@ -368,9 +367,8 @@ export default class ResizableMediaSingle extends React.Component<
       >
         <Resizer
           {...this.props}
-          width={width}
-          ratio={((height / width) * 100).toFixed(3)}
-          height={height}
+          ratio={ratio}
+          width={initialWidth}
           selected={selected}
           enable={enable}
           calcNewSize={this.calcNewSize}

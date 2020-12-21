@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { mount, ReactWrapper } from 'enzyme';
 import ReactDOM from 'react-dom';
 
@@ -268,6 +268,43 @@ describe('@atlaskit/inline-edit core', () => {
     getAllByLabelText('Confirm')[0].click();
 
     expect(spy).toBeCalled();
+  });
+
+  it('calls onCancel on click', async () => {
+    const spy = jest.fn();
+    const { getAllByLabelText } = render(
+      <InlineEditableTextfield
+        onConfirm={noop}
+        onCancel={spy}
+        defaultValue=""
+        placeholder=""
+        startWithEditViewOpen
+      />,
+    );
+
+    getAllByLabelText('Cancel')[0].click();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onCancel on escape', async () => {
+    const spy = jest.fn();
+    const { container } = render(
+      <InlineEditableTextfield
+        onConfirm={noop}
+        onCancel={spy}
+        defaultValue=""
+        placeholder=""
+        startWithEditViewOpen
+      />,
+    );
+
+    fireEvent.keyDown(container.firstElementChild!, {
+      key: 'Escape',
+      code: 'Escape',
+    });
+
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('has default aria tags', () => {

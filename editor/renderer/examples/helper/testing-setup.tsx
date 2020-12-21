@@ -22,6 +22,7 @@ import Sidebar from '../helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { EmbedHelper } from '@atlaskit/media-integration-test-helpers';
 
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
@@ -99,6 +100,7 @@ function renderRenderer({
           </AtlaskitThemeProvider>
         )}
       </Sidebar>
+      <EmbedHelper />
     </SmartCardProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
@@ -19,7 +19,7 @@ BrowserTestCase(
   'selection.ts: Writing inside the panel, selecting panel and typing should drop text in panel',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,
@@ -38,7 +38,7 @@ BrowserTestCase(
   "doesn't select panel node if click and drag before releasing mouse",
   {},
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,

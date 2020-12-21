@@ -111,7 +111,12 @@ export type {
 } from './uploader';
 
 export { request } from './utils/request';
-export { isRequestError, RequestError } from './utils/request/errors';
+export {
+  isRequestError,
+  RequestError,
+  isRateLimitedError,
+  getErrorName,
+} from './utils/request/errors';
 export {
   isAbortedRequestError,
   mapResponseToJson,

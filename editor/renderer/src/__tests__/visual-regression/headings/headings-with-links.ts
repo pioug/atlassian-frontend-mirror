@@ -1,4 +1,7 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForElementCount,
+} from '@atlaskit/visual-regression/helper';
 import { initRendererWithADF } from '../_utils';
 import {
   Alignment,
@@ -137,7 +140,12 @@ describe.skip('Headings with links', () => {
   });
 
   it('should NOT apply RTL to anything other than copy link button when right aligned', async () => {
-    async function snapshotRTL(page: PuppeteerPage, adf: any, width: number) {
+    async function snapshotRTL(
+      page: PuppeteerPage,
+      width: number,
+      adf: any,
+      waitCondition?: (page: PuppeteerPage) => Promise<void>,
+    ) {
       await initRendererWithADF(page, {
         adf,
         rendererProps: propsWithHeadingLinksEnabled,
@@ -147,12 +155,25 @@ describe.skip('Headings with links', () => {
           height: 320,
         },
       });
+
+      // Optional wait selectors
+      if (waitCondition) {
+        await waitCondition(page);
+      }
+
       // Deliberately not spoofing media query here so the buttons are all
       // visualised without hover
       await snapshot(page, undefined, selectors.document);
     }
-    await snapshotRTL(page, adfHeadingsRTLEmoji, 270);
-    await snapshotRTL(page, adfHeadingsRTLStatus, 305);
-    await snapshotRTL(page, adfHeadingsRTLSymbols, 345);
+    // No need to wait for emojis because they're unicode characters not image emojis.
+    await snapshotRTL(page, 270, adfHeadingsRTLEmoji);
+    // Wait for status nodes
+    await snapshotRTL(page, 305, adfHeadingsRTLStatus, waitForStatusNodes);
+    // No need to wait as only text content
+    await snapshotRTL(page, 345, adfHeadingsRTLSymbols);
   });
 });
+
+async function waitForStatusNodes(page: PuppeteerPage) {
+  await waitForElementCount(page, '.status-lozenge-span > span', 4);
+}

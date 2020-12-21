@@ -16,6 +16,7 @@ import { BaseViewer } from '../base-viewer';
 import { DEFAULT_LANGUAGE } from './util';
 import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
 import { msgToText } from './msg-parser';
+import { getErrorName } from '@atlaskit/media-client';
 
 const moduleLoader = () =>
   import(
@@ -91,7 +92,13 @@ export class CodeViewer extends BaseViewer<string, Props> {
         }
       } catch (err) {
         this.setState({
-          content: Outcome.failed(createError('previewFailed', err, item)),
+          content: Outcome.failed(
+            createError(
+              getErrorName(err, 'previewFailed') as ErrorName,
+              err,
+              item,
+            ),
+          ),
         });
         if (onError) {
           onError(err);

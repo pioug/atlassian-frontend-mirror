@@ -113,4 +113,31 @@ describe('Media Card New Experience', () => {
       );
     });
   });
+  describe('is rate limited', () => {
+    describe('has metadata', () => {
+      it('renders the we could not create a preview card state', async () => {
+        const url = getURL(
+          `&status=error&dataURI=true&isRateLimited=true&disableOverlay=false&status=error`,
+        );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
+    });
+    describe('no metadata', () => {
+      it('renders a borked state with no retry button with dataURI', async () => {
+        const url = getURL(
+          `&disableMetadata=true&dataURI=true&isRateLimited=true&disableOverlay=false&status=error`,
+        );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
+      it('renders a borked state with no retry button without dataURI', async () => {
+        const url = getURL(
+          `&disableMetadata=true&dataURI=false&isRateLimited=true&disableOverlay=false&status=error`,
+        );
+        const { image } = await setup(url);
+        expect(image).toMatchProdImageSnapshot();
+      });
+    });
+  });
 });

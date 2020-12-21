@@ -1,14 +1,29 @@
-import {
-  EditorState,
-  Plugin,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
+import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { findParentNodeOfType } from 'prosemirror-utils';
 import { pluginKey } from './plugin-key';
 import captionNodeView from './../nodeviews';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { EventDispatcher, Dispatch } from '../../../event-dispatcher';
+import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common';
+import {
+  addAnalytics,
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '../../analytics';
+
+const fireAnalytic = (
+  state: EditorState,
+  action: ACTION.DELETED | ACTION.EDITED,
+) => {
+  addAnalytics(state, state.tr, {
+    action,
+    eventType: EVENT_TYPE.TRACK,
+    actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
+    actionSubjectId: ACTION_SUBJECT_ID.CAPTION,
+  });
+};
 
 export default (
   portalProviderAPI: PortalProviderAPI,
@@ -18,28 +33,28 @@ export default (
 ) =>
   new Plugin({
     appendTransaction(
-      _transactions: Transaction[],
+      transactions: Transaction[],
       oldState: EditorState,
       newState: EditorState,
     ): Transaction | void {
-      if (
-        !newState.selection.eq(oldState.selection) &&
-        oldState.selection instanceof TextSelection &&
-        oldState.selection.empty
-      ) {
-        const oldSelectedNode = oldState.doc.nodeAt(
-          oldState.selection.from - 1,
-        );
+      const newSelection = !newState.selection.eq(oldState.selection);
+      const findCaption = findParentNodeOfType(oldState.schema.nodes.caption);
+      const oldSelectionCaption = findCaption(oldState.selection);
 
-        if (
-          oldSelectedNode &&
-          oldSelectedNode.type === oldState.schema.nodes.caption &&
-          oldSelectedNode.childCount === 0
-        ) {
-          const { tr } = newState;
-          tr.delete(oldState.selection.from - 1, oldState.selection.from);
-          tr.setMeta('scrollIntoView', false);
-          return tr;
+      const { tr } = newState;
+
+      // only run for transactions that change selection
+      if (transactions.find(tr => tr.selectionSet)) {
+        // if selecting away from caption, or selecting a different caption
+        if (newSelection && oldSelectionCaption) {
+          if (oldSelectionCaption.node.childCount === 0) {
+            tr.delete(oldSelectionCaption.start - 1, oldSelectionCaption.start);
+            tr.setMeta('scrollIntoView', false);
+            fireAnalytic(newState, ACTION.DELETED);
+            return tr;
+          } else {
+            fireAnalytic(newState, ACTION.EDITED);
+          }
         }
       }
     },

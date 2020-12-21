@@ -31,6 +31,7 @@ export function CardWithUrlContent({
   testId,
   showActions,
   inheritDimensions,
+  embedIframeRef,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
   const { state, actions, config, analytics } = useSmartLink(
@@ -174,6 +175,7 @@ export function CardWithUrlContent({
           testId={testId}
           inheritDimensions={inheritDimensions}
           showActions={showActions}
+          ref={embedIframeRef}
         />
       );
   }

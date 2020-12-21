@@ -10,7 +10,7 @@ import {
 } from './__fixtures__/scale';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -18,7 +18,7 @@ BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -39,7 +39,7 @@ BrowserTestCase(
   'Should scale remaining columns when deleting a column recovering table from overflow',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

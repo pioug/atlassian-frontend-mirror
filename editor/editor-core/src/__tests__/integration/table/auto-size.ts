@@ -10,7 +10,7 @@ import {
 } from './__fixtures__/auto-size-documents';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -41,7 +41,7 @@ BrowserTestCase(
   'Doesnt scale past default',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const doc = await loadAndRetrieveDocument(page, autoSizeToDefaultLayout);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
@@ -51,7 +51,7 @@ BrowserTestCase(
   'Scales to wide',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const doc = await loadAndRetrieveDocument(
       page,
       autoSizeToWideLayout,
@@ -65,7 +65,7 @@ BrowserTestCase(
   'Scales to full-width',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const doc = await loadAndRetrieveDocument(
       page,
       autoSizeToFullWidthLayout,

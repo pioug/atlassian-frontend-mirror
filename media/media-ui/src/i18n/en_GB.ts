@@ -88,4 +88,6 @@ export default {
   'fabric.media.couldnt_load_file': "We couldn't load the file.",
   'fabric.media.error_429': 'Error 429',
   'fabric.media.preview_rateLimited': 'We had difficulties creating a preview.',
+  'fabric.media.close_and_reopen': 'Try closing this file and reopening.',
+  'fabric.media.viewer_rateLimited': `We're having difficulties loading your file.`,
 };

@@ -8,14 +8,14 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
 BrowserTestCase(
   'inside-table.ts: Insert panel into table, add text, change panel type',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,

@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 70.3.0
+
+### Minor Changes
+
+- [`56693486a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56693486a3) - [ux] Rate Limited UI for the MediaViewer. Also moved a MediaCard function into MediaClient so that that functionality can be used across multiple packages
+
+### Patch Changes
+
+- [`2b7746c631`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b7746c631) - Disable progress bar while processing in classic card
+- [`4c699cc1cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c699cc1cb) - Adding VR tests for Rate Limited UI states
+- Updated dependencies
+
 ## 70.2.0
 
 ### Minor Changes

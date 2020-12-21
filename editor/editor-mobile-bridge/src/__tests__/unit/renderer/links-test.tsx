@@ -99,11 +99,15 @@ const smartLinkADF = JSON.stringify({
   type: 'doc',
   content: [
     {
-      type: 'inlineCard',
-      attrs: {
-        url: 'https://github.com/ProseMirror/prosemirror-view',
-        data: null,
-      },
+      type: 'paragraph',
+      content: [
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://github.com/ProseMirror/prosemirror-view',
+          },
+        },
+      ],
     },
   ],
 });

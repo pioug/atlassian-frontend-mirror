@@ -24,7 +24,7 @@ import { EditorView } from 'prosemirror-view';
 import { CellAttributes } from '@atlaskit/adf-schema';
 
 import { Command } from '../../../types';
-import { isNodeTypeParagraph, isTextSelection } from '../../../utils';
+import { isParagraph, isTextSelection } from '../../../utils';
 import { closestElement } from '../../../utils/dom';
 import { mapSlice } from '../../../utils/slice';
 import { outdentList } from '../../lists/commands';
@@ -476,7 +476,7 @@ export const addBoldInEmptyHeaderCells = (
     tr.selection.$from.depth === tableCellHeader.depth + 1 &&
     // this logic is applied only for empty paragraph
     tableCellHeader.node.nodeSize === 4 &&
-    isNodeTypeParagraph(tableCellHeader.node.firstChild)
+    isParagraph(tableCellHeader.node.firstChild, state.schema)
   ) {
     const { strong } = state.schema.marks;
     tr.setStoredMarks([strong.create()]).setMeta('addToHistory', false);

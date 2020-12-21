@@ -1,5 +1,12 @@
 # @atlaskit/inline-edit
 
+## 11.0.8
+
+### Patch Changes
+
+- [`9da1032552`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9da1032552) - Adds the onCancel prop as an optional event handler called when a user clicks close, or presses escape. This has no behaviour change but allows users more granularity in how they handle the component's lifecycle.
+- Updated dependencies
+
 ## 11.0.7
 
 ### Patch Changes

@@ -10,6 +10,7 @@ interface State {
   thirdEditValue: string;
   fourthEditValue: string;
   fifthEditValue: string;
+  sixthEditValue: string;
 }
 
 export default class InlineEditExample extends React.Component<void, State> {
@@ -19,6 +20,7 @@ export default class InlineEditExample extends React.Component<void, State> {
     thirdEditValue: 'Field value',
     fourthEditValue: 'Field value',
     fifthEditValue: 'Field value',
+    sixthEditValue: 'Field value',
   };
 
   validateValue = '';
@@ -91,6 +93,14 @@ export default class InlineEditExample extends React.Component<void, State> {
           onConfirm={value => this.onConfirm(value, 'fifthEditValue')}
           placeholder="Click to enter text"
           isCompact
+        />
+        <InlineEditableTextfield
+          defaultValue={this.state.sixthEditValue}
+          label="Inline editable textfield + onCancel Handler"
+          onConfirm={value => this.onConfirm(value, 'sixthEditValue')}
+          placeholder="Click to enter text"
+          isCompact
+          onCancel={() => console.log('Clicked Cancel')}
         />
       </div>
     );

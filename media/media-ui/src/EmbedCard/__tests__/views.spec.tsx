@@ -73,6 +73,20 @@ describe('EmbedCard Views', () => {
       fireEvent.click(link!);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
+
+    it('should pass iframe forward ref down to <iframe> element', async () => {
+      const props = getResolvedProps();
+      const ref = React.createRef<HTMLIFrameElement>();
+      const { container } = render(
+        <EmbedCardResolvedView
+          testId="embed-card-resolved-view"
+          {...props}
+          ref={ref}
+        />,
+      );
+      const iframeEl = await container.querySelector('iframe');
+      expect(iframeEl).toBe(ref.current);
+    });
   });
 
   // Same as BlockCard

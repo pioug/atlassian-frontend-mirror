@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, editable } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import * as cardLazyAdf from './_fixtures_/inline-card-lazy.adf.json';
@@ -14,7 +14,7 @@ import {
   getRequestedCards,
 } from '@atlaskit/media-integration-test-helpers';
 
-type ClientType = Parameters<typeof goToEditorTestingExample>[0];
+type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 // Setup extended window to inspect spoofed network requests for this Smart Link test.
 declare let window: SmartLinkTestWindow;
 
@@ -24,7 +24,7 @@ BrowserTestCase(
   'card: should lazy render cards after scrolling down, requesting data in the background (with prefetching)',
   { skip: ['safari', 'edge'] },
   async (client: ClientType, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const cardSelector = inlineCardSelector();
     const editorScrollParentSelector = '.fabric-editor-popup-scroll-parent';
 

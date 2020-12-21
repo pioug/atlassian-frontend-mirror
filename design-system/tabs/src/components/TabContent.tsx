@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 
-import { TabPane } from '../styled';
+import { jsx } from '@emotion/core';
+
+import { tabPaneStyles } from '../internal/styles';
 import { TabContentComponentProvided } from '../types';
 
 export default class TabContent extends Component<TabContentComponentProvided> {
@@ -13,9 +16,13 @@ export default class TabContent extends Component<TabContentComponentProvided> {
   render() {
     const { data, elementProps, isSelected } = this.props;
     return (
-      <TabPane {...elementProps} isSelected={isSelected}>
+      <div
+        css={tabPaneStyles}
+        {...elementProps}
+        data-selected={isSelected ? 'true' : undefined}
+      >
         {data.content}
-      </TabPane>
+      </div>
     );
   }
 }

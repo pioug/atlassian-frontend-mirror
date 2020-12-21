@@ -25,4 +25,5 @@ export type Props = MediaSingleProps & {
   selected?: boolean;
   viewMediaClientConfig?: MediaClientConfig;
   fullWidthMode?: boolean;
+  updateWidth?: (newWidth: number) => void;
 };

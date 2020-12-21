@@ -1,18 +1,18 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, editable } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import * as mediaCardLazyAdf from './_fixtures_/media-card-lazy.adf.json';
 
-type ClientType = Parameters<typeof goToEditorTestingExample>[0];
+type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'media-card: should lazy render media cards after scrolling down',
   { skip: ['safari', 'edge'] },
   async (client: ClientType, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const lazySelector = '[data-testid="media-card-loading"]';
     const cardSelector =
       '[data-testid="media-file-card-view"][data-test-status="complete"]';

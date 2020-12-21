@@ -2,6 +2,13 @@ import { Node as PMNode, Schema } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { setTextSelection } from 'prosemirror-utils';
 import { Command } from '../../../types';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  addAnalytics,
+  EVENT_TYPE,
+} from '../../analytics';
 
 export const selectCaptionFromMediaSinglePos = (
   mediaSingleNodePos: number,
@@ -55,6 +62,12 @@ export const insertAndSelectCaptionFromMediaSinglePos = (
     );
 
     tr.setMeta('scrollIntoView', false);
+    addAnalytics(state, state.tr, {
+      action: ACTION.ADDED,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
+      actionSubjectId: ACTION_SUBJECT_ID.CAPTION,
+    });
     dispatch(tr);
   }
 

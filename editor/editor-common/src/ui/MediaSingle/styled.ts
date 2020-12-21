@@ -121,7 +121,6 @@ export interface MediaSingleWrapperProps {
   fullWidthMode?: boolean;
   isResized?: boolean;
   layout: MediaSingleLayout;
-  ratio?: string;
   pctWidth?: number;
   width?: number;
   innerRef?: (elem: HTMLElement) => void;
@@ -162,20 +161,28 @@ export const MediaSingleDimensionHelper = ({
 `;
 
 export interface MediaWrapperProps {
-  ratio: string;
+  ratio?: number;
+  height?: number;
   hasFallbackContainer?: boolean;
 }
 
 const RenderFallbackContainer = ({
   hasFallbackContainer,
   ratio,
+  height,
 }: MediaWrapperProps) => css`
   ${hasFallbackContainer
     ? `
   &::after {
     content: '';
     display: block;
-    padding-bottom: ${ratio}%;
+    ${
+      height
+        ? `height: ${height}px;`
+        : ratio
+        ? `padding-bottom: ${ratio}%;`
+        : ''
+    }
 
     /* Fixes extra padding problem in Firefox */
     font-size: 0;

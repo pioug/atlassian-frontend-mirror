@@ -44,10 +44,12 @@ interface FullPageEditorContentAreaProps {
   scrollContainerRef(ref: HTMLElement | null): void;
 }
 
+export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
+
 export const FullPageContentArea: React.FunctionComponent<FullPageEditorContentAreaProps> = React.memo(
   props => {
     return (
-      <ContentArea>
+      <ContentArea data-testid={CONTENT_AREA_TEST_ID}>
         <ScrollContainer
           innerRef={props.scrollContainerRef}
           allowAnnotation={props.allowAnnotation}

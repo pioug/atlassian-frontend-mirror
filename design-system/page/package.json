@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page",
-  "version": "12.0.3",
+  "version": "12.0.4",
   "description": "A component for building page layouts. Also includes the Grid and GridColumn components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

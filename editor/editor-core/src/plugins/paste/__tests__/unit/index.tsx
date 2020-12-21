@@ -111,6 +111,8 @@ import {
   InlineCommentMap,
 } from '../../../annotation/pm-plugins/types';
 import { inlineCommentPluginKey } from '../../../annotation/utils';
+import { handlePasteLinkOnSelectedText } from '../../handlers';
+import { Slice } from 'prosemirror-model';
 
 describe('paste plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -415,6 +417,99 @@ describe('paste plugins', () => {
             ),
           );
         });
+      });
+    });
+
+    describe('paste in hyperlink', () => {
+      it('should add link mark to selected text if slice is a link', () => {
+        const href = 'https://www.atlassian.com';
+        const { editorView } = editor(
+          doc(p('This is the {<}selected text{>} here')),
+        );
+        expect(
+          handlePasteLinkOnSelectedText(
+            new Slice(
+              doc(p(link({ href })(href)))(editorView.state.schema).content,
+              1,
+              1,
+            ),
+          )(editorView.state, editorView.dispatch),
+        ).toBeTruthy();
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the ', a({ href })('selected text'), ' here')),
+        );
+      });
+
+      it('should be falsy if not adding a link', () => {
+        const { editorView } = editor(
+          doc(p('This is the {<}selected text{>} here')),
+        );
+        expect(
+          handlePasteLinkOnSelectedText(
+            new Slice(
+              doc(p('hello world'))(editorView.state.schema).content,
+              1,
+              1,
+            ),
+          )(editorView.state, editorView.dispatch),
+        ).toBeFalsy();
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the selected text here')),
+        );
+      });
+
+      it('should be falsy if theres no text selection', () => {
+        const href = 'https://www.atlassian.com';
+        const { editorView } = editor(
+          doc(p('This is the {<>}selected text here')),
+        );
+        expect(
+          handlePasteLinkOnSelectedText(
+            new Slice(
+              doc(p(link({ href })(href)))(editorView.state.schema).content,
+              1,
+              1,
+            ),
+          )(editorView.state, editorView.dispatch),
+        ).toBeFalsy();
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the selected text here')),
+        );
+      });
+
+      it('should be falsy if you cannot add a link in that range', () => {
+        const href = 'https://www.atlassian.com';
+        const { editorView } = editor(
+          doc(p('This is the {<}sele'), p('cted text{>} here')),
+        );
+        expect(
+          handlePasteLinkOnSelectedText(
+            new Slice(
+              doc(p(link({ href })(href)))(editorView.state.schema).content,
+              1,
+              1,
+            ),
+          )(editorView.state, editorView.dispatch),
+        ).toBeFalsy();
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('This is the sele'), p('cted text here')),
+        );
+      });
+
+      it('should add link mark to selected text on paste', () => {
+        const { editorView } = editor(
+          doc(p('This is the {<}selected text{>} here')),
+        );
+        dispatchPasteEvent(editorView, { plain: 'https://www.atlassian.com' });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'This is the ',
+              a({ href: 'https://www.atlassian.com' })('selected text'),
+              ' here',
+            ),
+          ),
+        );
       });
     });
 

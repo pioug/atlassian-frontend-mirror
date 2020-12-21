@@ -5,29 +5,41 @@ import {
 } from 'prosemirror-utils';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import {
-  calcPxFromColumns,
-  calcPctFromPx,
   calcColumnsFromPx,
+  calcPctFromPx,
+  calcPxFromColumns,
   wrappedLayouts,
 } from '@atlaskit/editor-common';
 import {
-  akEditorWideLayoutWidth,
+  akEditorMediaResizeHandlerPaddingWide,
   akEditorBreakoutPadding,
+  akEditorWideLayoutWidth,
+  breakoutWideScaleRatio,
+  DEFAULT_EMBED_CARD_HEIGHT,
+  DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 
 import { Wrapper } from '../../../ui/Resizer/styled';
-import { Props, EnabledHandles } from '../../../ui/Resizer/types';
+import {
+  EnabledHandles,
+  Props as ResizerProps,
+} from '../../../ui/Resizer/types';
 import Resizer from '../../../ui/Resizer';
 import {
-  snapTo,
   handleSides,
   imageAlignmentMap,
+  snapTo,
 } from '../../../ui/Resizer/utils';
 import { calcMediaPxWidth } from '../../../plugins/media/utils/media-single';
 
 type State = {
   offsetLeft: number;
   resizedPctWidth?: number;
+};
+
+export type Props = Omit<ResizerProps, 'height' | 'width'> & {
+  width?: number;
+  height?: number;
 };
 
 export default class ResizableEmbedCard extends React.Component<Props, State> {
@@ -85,7 +97,6 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     )(state.selection)
       ? layout
       : this.calcUnwrappedLayout(newPct, newWidth);
-
     if (newPct <= 100) {
       if (this.wrappedLayout && (stop ? newPct !== 100 : true)) {
         newLayout = layout;
@@ -109,7 +120,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     if (pct <= 100) {
       return 'center';
     }
-    if (width <= akEditorWideLayoutWidth) {
+    if (width <= this.wideLayoutWidth) {
       return 'wide';
     }
     return 'full-width';
@@ -161,6 +172,16 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
   };
 
   wrapper?: HTMLElement;
+
+  get wideLayoutWidth() {
+    const { lineLength } = this.props;
+    if (lineLength) {
+      return Math.ceil(lineLength * breakoutWideScaleRatio);
+    } else {
+      return akEditorWideLayoutWidth;
+    }
+  }
+
   calcSnapPoints() {
     const { offsetLeft } = this.state;
 
@@ -188,9 +209,9 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
     const isTopLevel = $pos.parent.type.name === 'doc';
     if (isTopLevel) {
-      snapPoints.push(akEditorWideLayoutWidth);
+      snapPoints.push(this.wideLayoutWidth);
       const fullWidthPoint = containerWidth - akEditorBreakoutPadding;
-      if (fullWidthPoint > akEditorWideLayoutWidth) {
+      if (fullWidthPoint > this.wideLayoutWidth) {
         snapPoints.push(fullWidthPoint);
       }
     }
@@ -199,8 +220,6 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
   calcPxWidth = (useLayout?: RichMediaLayout): number => {
     const {
-      width: origWidth,
-      height: origHeight,
       layout,
       pctWidth,
       lineLength,
@@ -214,8 +233,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     const pos = typeof getPos === 'function' ? getPos() : undefined;
 
     return calcMediaPxWidth({
-      origWidth,
-      origHeight,
+      origWidth: DEFAULT_EMBED_CARD_WIDTH,
+      origHeight: DEFAULT_EMBED_CARD_HEIGHT,
       pctWidth,
       state,
       containerWidth: { width: containerWidth, lineLength },
@@ -255,7 +274,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       return [];
     }
 
-    if (snapWidth > akEditorWideLayoutWidth) {
+    if (snapWidth > this.wideLayoutWidth) {
       return ['full-width'];
     }
 
@@ -280,10 +299,49 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     return highlight;
   };
 
+  /**
+   * Previously height of the box was controlled with paddingTop/paddingBottom trick inside Wrapper.
+   * It allowed height to be defined by a given percent ratio and so absolute value was defined by actual width.
+   * Also, it was part of styled component, which was fine because it was static through out life time of component.
+   *
+   * Now, two things changed:
+   * 1. If `height` is present we take it as actual height of the box, and hence we don't need
+   * (or even can't have, due to lack of width value) paddingTop trick.
+   * 2. Since `height` can be changing through out life time of a component, we can't have it as part of styled component,
+   * and hence we use `style` prop.
+   */
+  private getHeightDefiningComponent() {
+    const { height } = this.props;
+    let heightDefiningStyles: React.CSSProperties;
+    if (height) {
+      heightDefiningStyles = {
+        height: `${height}px`,
+      };
+    } else {
+      heightDefiningStyles = {
+        paddingBottom: `${(
+          (DEFAULT_EMBED_CARD_HEIGHT / DEFAULT_EMBED_CARD_WIDTH) *
+          100
+        ).toFixed(3)}%`,
+      };
+    }
+
+    return (
+      <span
+        data-testid={'resizable-embed-card-height-definer'}
+        style={{
+          display: 'block',
+          /* Fixes extra padding problem in Firefox */
+          fontSize: 0,
+          lineHeight: 0,
+          ...heightDefiningStyles,
+        }}
+      />
+    );
+  }
+
   render() {
     const {
-      width: origWidth,
-      height: origHeight,
       layout,
       pctWidth,
       containerWidth,
@@ -291,11 +349,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       children,
     } = this.props;
 
-    const pxWidth = this.calcPxWidth();
-
-    // scale, keeping aspect ratio
-    const height = (origHeight / origWidth) * pxWidth;
-    const width = pxWidth;
+    const initialWidth =
+      this.calcPxWidth() - akEditorMediaResizeHandlerPaddingWide;
 
     const enable: EnabledHandles = {};
     handleSides.forEach(side => {
@@ -313,27 +368,25 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
     return (
       <Wrapper
-        ratio={((height / width) * 100).toFixed(3)}
         layout={layout}
         isResized={!!pctWidth}
-        containerWidth={containerWidth || origWidth}
+        containerWidth={containerWidth || DEFAULT_EMBED_CARD_WIDTH}
         innerRef={(elem?: HTMLElement) => (this.wrapper = elem)}
         fullWidthMode={fullWidthMode}
       >
         <Resizer
           {...this.props}
-          width={width}
-          height={height}
-          ratio={((height / width) * 100).toFixed(3)}
+          width={initialWidth} // Starting or initial width of embed <iframe> itself.
           enable={enable}
           calcNewSize={this.calcNewSize}
           snapPoints={this.calcSnapPoints()}
           scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
           highlights={this.highlights}
-          innerPadding={12}
+          innerPadding={akEditorMediaResizeHandlerPaddingWide}
           nodeType="embed"
         >
           {children}
+          {this.getHeightDefiningComponent()}
         </Resizer>
       </Wrapper>
     );

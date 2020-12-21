@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { animationFrame } from '../_helpers';
 
@@ -12,7 +12,7 @@ BrowserTestCase(
     const emojiButton = 'button span[aria-label="Emoji"]';
     const emojiList = '[data-emoji-picker-container] .ReactVirtualized__List';
 
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
 
     await page.waitFor(emojiButton);

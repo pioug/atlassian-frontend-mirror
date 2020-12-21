@@ -4,8 +4,8 @@ import { Node as PMNode } from 'prosemirror-model';
 import { Caption } from '@atlaskit/editor-common';
 
 import {
-  getPosHandlerNode,
   getPosHandler,
+  getPosHandlerNode,
   ForwardRef,
   SelectionBasedNodeView,
 } from '../../../nodeviews/';

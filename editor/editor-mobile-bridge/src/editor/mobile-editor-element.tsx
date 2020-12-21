@@ -9,7 +9,6 @@ import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { toNativeBridge } from './web-to-native';
 import WebBridgeImpl from './native-to-web';
 import {
@@ -33,6 +32,8 @@ import { InjectedIntl, injectIntl } from 'react-intl';
 import { usePageTitle } from './hooks/use-page-title';
 import { geti18NMessages } from './editor-localisation-provider';
 import MobileEditorConfiguration from './editor-configuration';
+import { withSystemTheme } from '../WithSystemTheme';
+import { getEnableLightDarkTheming } from '../query-param-reader';
 import { useEditorConfiguration } from './hooks/use-editor-configuration';
 
 const MOBILE_SAMPLING_LIMIT = 10;
@@ -94,6 +95,7 @@ export function MobileEditor(props: MobileEditorProps) {
   const handleEditorReady = useEditorReady(bridge, props.intl, mediaOptions);
   const handleEditorDestroyed = useEditorDestroyed(bridge);
 
+  // @ts-expect-error: this one is needed for passing tests
   const mode = editorConfiguration.mode();
 
   // enable reflowDetector
@@ -106,35 +108,33 @@ export function MobileEditor(props: MobileEditorProps) {
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
-        <AtlaskitThemeProvider mode={mode}>
-          <Editor
-            appearance="mobile"
-            onEditorReady={handleEditorReady}
-            onDestroy={handleEditorDestroyed}
-            media={mediaOptions}
-            allowConfluenceInlineComment={true}
-            onChange={handleChange}
-            allowPanel={true}
-            allowTables={tableOptions}
-            UNSAFE_cards={cardsOptions}
-            allowExtension={true}
-            allowTextColor={true}
-            allowDate={true}
-            allowRule={true}
-            allowStatus={true}
-            allowLayouts={layoutOptions}
-            allowAnalyticsGASV3={true}
-            allowExpand={true}
-            allowTemplatePlaceholders={templatePlaceholdersOptions}
-            taskDecisionProvider={taskDecisionProvider}
-            quickInsert={quickInsert}
-            collabEdit={collabEdit}
-            inputSamplingLimit={MOBILE_SAMPLING_LIMIT}
-            {...props}
-            mentionProvider={props.mentionProvider}
-            emojiProvider={props.emojiProvider}
-          />
-        </AtlaskitThemeProvider>
+        <Editor
+          appearance="mobile"
+          onEditorReady={handleEditorReady}
+          onDestroy={handleEditorDestroyed}
+          media={mediaOptions}
+          allowConfluenceInlineComment={true}
+          onChange={handleChange}
+          allowPanel={true}
+          allowTables={tableOptions}
+          UNSAFE_cards={cardsOptions}
+          allowExtension={true}
+          allowTextColor={true}
+          allowDate={true}
+          allowRule={true}
+          allowStatus={true}
+          allowLayouts={layoutOptions}
+          allowAnalyticsGASV3={true}
+          allowExpand={true}
+          allowTemplatePlaceholders={templatePlaceholdersOptions}
+          taskDecisionProvider={taskDecisionProvider}
+          quickInsert={quickInsert}
+          collabEdit={collabEdit}
+          inputSamplingLimit={MOBILE_SAMPLING_LIMIT}
+          {...props}
+          mentionProvider={props.mentionProvider}
+          emojiProvider={props.emojiProvider}
+        />
       </SmartCardProvider>
     </FabricAnalyticsListeners>
   );
@@ -144,7 +144,12 @@ const MobileEditorWithBridge: React.FC<MobileEditorProps> = props => {
   return <MobileEditor {...props} />;
 };
 
-export default withIntlProvider(
+const MobileEditorWithIntlProvider = withIntlProvider(
   injectIntl(MobileEditorWithBridge),
   geti18NMessages,
+);
+
+export default withSystemTheme(
+  MobileEditorWithIntlProvider,
+  getEnableLightDarkTheming(),
 );

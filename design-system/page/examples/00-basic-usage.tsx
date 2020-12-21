@@ -6,7 +6,7 @@ export default class BasicExample extends PureComponent<void, void> {
   render() {
     return (
       <Page>
-        <Grid>
+        <Grid testId="grid">
           <GridColumn medium={8}>
             <h1>Main heading</h1>
             <p>

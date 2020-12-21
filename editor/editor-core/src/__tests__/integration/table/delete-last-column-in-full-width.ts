@@ -8,7 +8,7 @@ import {
 } from '../_helpers';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -18,7 +18,7 @@ BrowserTestCase(
   // Only Chrome has logging support in BrowserStack now
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {

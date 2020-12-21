@@ -8,7 +8,7 @@ import {
 import { insertRow } from '../../__helpers/page-objects/_table';
 import { table as tableInsideLayout } from './__fixtures__/table-inside-layout';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -24,7 +24,7 @@ BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

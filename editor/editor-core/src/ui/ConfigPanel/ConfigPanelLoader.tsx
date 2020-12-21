@@ -1,12 +1,12 @@
 import Loadable from 'react-loadable';
 import LoadingState from './LoadingState';
-import type { PublicProps } from './FieldsLoader';
+import type { PublicProps } from './ConfigPanelFieldsLoader';
 
 export default Loadable<PublicProps, any>({
   loader: () =>
     import(
       /* webpackChunkName:"@atlaskit-internal-editor-core-config-panel" */
-      './FieldsLoader'
+      './ConfigPanelFieldsLoader'
     ).then(module => module.default),
   loading: LoadingState,
 });

@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { EditorAppearance } from '../../../types';
 
@@ -37,7 +37,7 @@ const gapCursorSelector = '.ProseMirror-gapcursor span';
       `gap-cursor: should display to ${direction} of block node after hitting ${direction} key for ${editor} editor`,
       { skip: ['edge'] },
       async (client: any) => {
-        const page = await goToEditorTestingExample(client);
+        const page = await goToEditorTestingWDExample(client);
 
         await mountEditor(page, {
           appearance: editor as EditorAppearance,

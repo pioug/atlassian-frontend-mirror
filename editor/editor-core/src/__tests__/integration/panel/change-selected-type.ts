@@ -6,7 +6,7 @@ import {
   quickInsert,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { selectors } from './_utils';
@@ -16,7 +16,7 @@ BrowserTestCase(
   'change-selected-type.ts: Select panel and then change type',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { B200, B400 } from '@atlaskit/theme/colors';
+
 import { AtlassianIcon, AtlassianLogo, AtlassianWordmark } from '../../src';
 
 const LogoAtlassian = () => (
@@ -15,13 +17,22 @@ const LogoAtlassian = () => (
       <tbody>
         <tr>
           <td>
-            <AtlassianLogo />
+            <AtlassianLogo
+              textColor={B400}
+              iconColor={B200}
+              iconGradientStart={B400}
+              iconGradientStop={B200}
+            />
           </td>
           <td>
-            <AtlassianWordmark />
+            <AtlassianWordmark textColor={B400} />
           </td>
           <td>
-            <AtlassianIcon />
+            <AtlassianIcon
+              iconColor={B200}
+              iconGradientStart={B400}
+              iconGradientStop={B200}
+            />
           </td>
         </tr>
       </tbody>

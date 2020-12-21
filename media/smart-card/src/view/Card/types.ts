@@ -19,4 +19,5 @@ export interface CardProps extends WithAnalyticsEventsProps {
   showActions?: boolean;
   onResolve?: (data: { url?: string; title?: string }) => void;
   inheritDimensions?: boolean;
+  embedIframeRef?: React.Ref<HTMLIFrameElement>;
 }

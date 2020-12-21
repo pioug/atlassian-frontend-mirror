@@ -9,6 +9,8 @@ import Portal from '@atlaskit/portal';
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
 
 type Props = {
+  /** ID attribute used for DOM selection. */
+  id?: string;
   /** Describes the specific role of this FlagGroup for users viewing the page with a screen reader (defaults to `Flag notifications`). */
   label?: string;
   /** Describes the specific tag on which the screen reader text will be rendered (defaults to `h2`). */
@@ -77,6 +79,7 @@ const baseStyles = `
 
 const FlagGroup = (props: Props) => {
   const {
+    id,
     label = 'Flag notifications',
     labelTag: LabelTag = 'h2',
     children,
@@ -142,6 +145,7 @@ const FlagGroup = (props: Props) => {
     <FlagGroupContext.Provider value={api}>
       <Portal zIndex={layers.flag()}>
         <div
+          id={id}
           css={css`
             bottom: ${flagBottom}px;
             left: ${flagLeft}px;

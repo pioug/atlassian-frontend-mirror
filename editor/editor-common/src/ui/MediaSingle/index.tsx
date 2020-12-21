@@ -6,6 +6,10 @@ import {
   RichMediaLayout as MediaSingleLayout,
   RichMediaLayout,
 } from '@atlaskit/adf-schema';
+import {
+  akEditorMediaResizeHandlerPaddingWide,
+  DEFAULT_EMBED_CARD_WIDTH,
+} from '@atlaskit/editor-shared-styles';
 
 import { calcPxFromPct } from './grid';
 import { MediaSingleWrapper, MediaWrapper } from './styled';
@@ -23,7 +27,7 @@ export const wrappedLayouts: RichMediaLayout[] = [
 export interface Props {
   children: React.ReactNode;
   layout: MediaSingleLayout;
-  width: number;
+  width?: number;
   height: number;
   lineLength: number;
   containerWidth?: number;
@@ -32,7 +36,6 @@ export interface Props {
   pctWidth?: number;
   nodeType?: string;
   fullWidthMode?: boolean;
-  blockLink?: string;
   hasFallbackContainer?: boolean;
 }
 
@@ -61,21 +64,44 @@ export default function MediaSingle({
   nodeType = 'mediaSingle',
   fullWidthMode,
   lineLength,
-  blockLink,
   hasFallbackContainer = true,
 }: Props) {
   const children = React.Children.toArray<React.ReactNode>(propsChildren);
   if (!pctWidth && shouldAddDefaultWrappedWidth(layout, width, lineLength)) {
     pctWidth = 50;
   }
+  // When width is not set we have an absolute height for a given embed.
+  // When both width and height are set we use them to determine ratio and use that to define
+  // embed height in relation to whatever width of an dom element is in runtime
+  const isHeightOnly = width === undefined;
   if (pctWidth) {
     const pxWidth = Math.ceil(
-      calcPxFromPct(pctWidth / 100, lineLength || containerWidth),
+      calcPxFromPct(pctWidth / 100, lineLength || containerWidth || 0),
     );
+    if (isHeightOnly) {
+      width = pxWidth - akEditorMediaResizeHandlerPaddingWide;
+    } else if (width !== undefined) {
+      height = (height / width) * pxWidth;
+      width = pxWidth;
+    }
+  } else if (isHeightOnly) {
+    // No pctWidth can be found on already existing pages with existing embeds
 
-    // scale, keeping aspect ratio
-    height = (height / width) * pxWidth;
-    width = pxWidth;
+    // It's ok to use Embed specific width, because width can be not set only in embed card.
+    // This value will be used only in the case of non `wide` and non `full-width` cases inside MediaSingleDimensionHelper.
+    width = DEFAULT_EMBED_CARD_WIDTH - akEditorMediaResizeHandlerPaddingWide;
+  }
+
+  // Media wrapper controls the height of the box.
+  // We can define this height
+  // - via ratio (if we have both height and width) or
+  // - via height directly
+  let mediaWrapperRatio: number | undefined;
+  let mediaWrapperHeight: number | undefined;
+  if (isHeightOnly) {
+    mediaWrapperHeight = height;
+  } else if (width !== undefined) {
+    mediaWrapperRatio = (height / width) * 100;
   }
 
   const [media, caption] = children;
@@ -103,7 +129,8 @@ export default function MediaSingle({
     >
       <MediaWrapper
         hasFallbackContainer={hasFallbackContainer}
-        ratio={((height / width) * 100).toFixed(3)}
+        ratio={mediaWrapperRatio}
+        height={mediaWrapperHeight}
       >
         {media}
       </MediaWrapper>

@@ -1,3 +1,4 @@
+import { measureRender } from '@atlaskit/editor-common';
 import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import NativeBridge from '../../../web-to-native/bridge';
@@ -9,6 +10,16 @@ jest.mock('../../../web-to-native');
 jest.mock('@atlaskit/editor-core', () => ({
   ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
   dismissCommand: jest.fn(),
+  EditorActions: () => ({
+    replaceDocument: () => true,
+  }),
+  getNodesCount: () => ({ paragraph: 2, date: 1, text: 1 }),
+}));
+jest.mock('@atlaskit/editor-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+  measureRender: jest.fn((name, callback) => {
+    callback();
+  }),
 }));
 
 describe('Collab Web Bridge', () => {
@@ -270,5 +281,52 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
     let bridge: WebBridgeImpl = new WebBridgeImpl();
     bridge.configureEditor('{mode: "light"}');
     expect(mockedCloneAndUpdateConfig).not.toHaveBeenCalled();
+  });
+
+  describe('setContent', () => {
+    let toNativeBridge: jest.Mocked<NativeBridge>;
+    const content =
+      '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"date","attrs":{"timestamp":"1804966400002"}},{"type":"text","text":" "}]},{"type":"paragraph","content":[]}]}';
+    const editorView = {
+      state: {
+        doc: {},
+      },
+    } as EditorViewWithComposition;
+
+    beforeEach(async () => {
+      ({ toNativeBridge } = ((await import(
+        '../../../web-to-native'
+      )) as any) as {
+        toNativeBridge: jest.Mocked<NativeBridge>;
+      });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should call measureRender when content is replaced', () => {
+      const bridge: WebBridgeImpl = new WebBridgeImpl();
+      bridge.editorView = editorView;
+
+      bridge.setContent(content);
+
+      expect(measureRender).toHaveBeenCalledWith(
+        'ProseMirror Content Render Time',
+        expect.anything(),
+      );
+    });
+
+    it('should call onContentRendered when content is rendered', () => {
+      const bridge: WebBridgeImpl = new WebBridgeImpl();
+      bridge.editorView = editorView;
+
+      bridge.setContent(content);
+
+      expect(toNativeBridge.onContentRendered).toHaveBeenCalledWith(
+        4,
+        '{"paragraph":2,"date":1,"text":1}',
+      );
+    });
   });
 });

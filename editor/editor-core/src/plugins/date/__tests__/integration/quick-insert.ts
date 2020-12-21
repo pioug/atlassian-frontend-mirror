@@ -5,7 +5,7 @@ import {
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
   loadLocale,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
@@ -17,7 +17,7 @@ BrowserTestCase(
   'quick-insert.ts: Insert date via quick insert',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     const JAN_1ST_2019_AEST_TIMEZONE = {
       year: 2019,
@@ -49,7 +49,7 @@ BrowserTestCase(
   "quick-insert.ts: Uses today's date in user's local timezone as initial selection",
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     const JAN_1ST_2019_AEST_TIMEZONE = {
       year: 2019,
@@ -79,7 +79,7 @@ BrowserTestCase(
   'quick-insert.ts: format date to localized version',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['pt', 'es']);
 
     const JAN_1ST_2019_AEST_TIMEZONE = {

@@ -58,7 +58,7 @@ export default md`
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/range')}
+      props={require('!!extract-react-types-loader!../extract-react-types/range-props')}
       heading=""
     />
   )}

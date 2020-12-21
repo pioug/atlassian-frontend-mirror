@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
 import { toolbarMessages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -16,7 +16,7 @@ const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
     `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor`,
     { skip: ['safari', 'edge'] },
     async (client: any, testName: string) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, { appearance: editor.appearance });
 
       await page.click(editable);

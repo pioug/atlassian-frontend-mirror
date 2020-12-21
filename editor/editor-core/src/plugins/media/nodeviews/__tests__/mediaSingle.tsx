@@ -18,17 +18,20 @@ import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import { MediaPluginState } from '../../pm-plugins/types';
 import { fireEvent, render } from '@testing-library/react';
 import { NodeSelection, EditorState } from 'prosemirror-state';
+import { MediaSingleNodeProps } from '../types';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
 
-export const getMediaSingleProps = () => ({
-  view: {} as EditorView<any>,
+export const getMediaSingleProps: () => Partial<MediaSingleNodeProps> = () => ({
+  view: new EditorView(undefined, {
+    state: EditorState.create({ schema: defaultSchema }),
+  }),
   node: { attrs: {}, firstChild: { attrs: {} } } as PMNode<any>,
   mediaPluginState: { mediaOptions: {} } as MediaPluginState,
   mediaProvider: createMediaProvider(),
   selected: jest.fn(),
-  getPos: jest.fn(),
+  getPos: jest.fn(() => 0),
   forwardRef: jest.fn(),
 });
 
@@ -135,27 +138,30 @@ describe('mediaSingle', () => {
   });
 
   it('triggers on click handler for caption placeholder', async () => {
-    const node = render(
+    const mediaData: MediaAttributes = {
+      id: 'my-test-id',
+      type: 'file',
+      collection: 'coll-1',
+    };
+    const mediaSingleNode = mediaSingle()(media(mediaData)());
+    const node = mediaSingleNode(defaultSchema);
+    const state = EditorState.create({ schema: defaultSchema });
+    state.selection = Object.create(NodeSelection.prototype);
+    const component = render(
       <MediaSingleNode
         {...{
           ...getMediaSingleProps(),
           mediaOptions: { featureFlags: { captions: true } },
-          node: {
-            attrs: {},
-            firstChild: { attrs: {} },
-            childCount: 1,
-          } as PMNode<any>,
+          node,
           selected: jest.fn().mockReturnValue(true),
           view: {
-            state: {
-              selection: Object.create(NodeSelection.prototype),
-            } as Partial<EditorState>,
+            state,
           } as EditorView<any>,
         }}
       />,
     );
 
-    const { getByTestId } = node;
+    const { getByTestId } = component;
     fireEvent.click(getByTestId('caption-placeholder'));
 
     expect(mocks.mockInsertCaptionAtPos).toHaveBeenCalledTimes(1);

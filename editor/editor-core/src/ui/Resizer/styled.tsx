@@ -18,14 +18,4 @@ export const Wrapper: React.ComponentClass<
       width: 100%;
     }
   }
-
-  & > div::after {
-    content: '';
-    display: block;
-    padding-bottom: ${p => p.ratio + '%'};
-
-    /* Fixes extra padding problem in Firefox */
-    font-size: 0;
-    line-height: 0;
-  }
 `;

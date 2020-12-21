@@ -1,7 +1,15 @@
-import React, { Component, KeyboardEvent } from 'react';
+/** @jsx jsx */
+import { Component, KeyboardEvent } from 'react';
 
-import { Nav, NavLine, NavWrapper } from '../styled';
+import { jsx } from '@emotion/core';
+
+import GlobalTheme from '@atlaskit/theme/components';
+import { GlobalThemeTokens } from '@atlaskit/theme/types';
+
+import { navStyles, navWrapperStyles } from '../internal/styles';
 import { TabData, TabsNavigationProps } from '../types';
+
+import NavLine from './NavLine';
 
 export default class TabsNavigation extends Component<TabsNavigationProps> {
   elementRefs: Array<HTMLElement> = [];
@@ -40,38 +48,42 @@ export default class TabsNavigation extends Component<TabsNavigationProps> {
     const { selected, component: Item, tabs } = this.props;
 
     return (
-      <NavWrapper>
-        <NavLine status="normal" />
-        <Nav role="tablist">
-          {tabs.map((tab, index) => {
-            const isSelected = tab === selected;
-            const elementProps = {
-              'aria-posinset': index + 1,
-              'aria-selected': isSelected,
-              'aria-setsize': tabs.length,
-              'data-testid': tab.testId,
-              onClick: () => this.onSelect(tab, index),
-              onKeyDown: this.tabKeyDownHandler,
-              onMouseDown: this.tabMouseDownHandler,
-              role: 'tab',
-              tabIndex: isSelected ? 0 : -1,
-            };
-            const innerRef = (ref: HTMLElement) => {
-              this.elementRefs[index] = ref;
-            };
+      <GlobalTheme.Consumer>
+        {({ mode }: GlobalThemeTokens) => (
+          <div css={navWrapperStyles}>
+            <NavLine status="normal" mode={mode} />
+            <div role="tablist" css={navStyles}>
+              {tabs.map((tab, index) => {
+                const isSelected = tab === selected;
+                const elementProps = {
+                  'aria-posinset': index + 1,
+                  'aria-selected': isSelected,
+                  'aria-setsize': tabs.length,
+                  'data-testid': tab.testId,
+                  onClick: () => this.onSelect(tab, index),
+                  onKeyDown: this.tabKeyDownHandler,
+                  onMouseDown: this.tabMouseDownHandler,
+                  role: 'tab',
+                  tabIndex: isSelected ? 0 : -1,
+                };
+                const innerRef = (ref: HTMLElement) => {
+                  this.elementRefs[index] = ref;
+                };
 
-            const itemProps = {
-              elementProps,
-              innerRef,
-              data: tab,
-              isSelected,
-            };
+                const itemProps = {
+                  elementProps,
+                  innerRef,
+                  data: tab,
+                  isSelected,
+                  mode: mode,
+                };
 
-            // eslint-disable-next-line react/no-array-index-key
-            return <Item key={index} {...itemProps} />;
-          })}
-        </Nav>
-      </NavWrapper>
+                return <Item key={index} {...itemProps} />;
+              })}
+            </div>
+          </div>
+        )}
+      </GlobalTheme.Consumer>
     );
   }
 }

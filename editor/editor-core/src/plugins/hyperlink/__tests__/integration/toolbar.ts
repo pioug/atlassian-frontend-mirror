@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import {
@@ -16,7 +16,7 @@ BrowserTestCase(
   'can unlink hyperlink using toolbar',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: basicHyperlinkAdf,
@@ -36,7 +36,7 @@ BrowserTestCase(
   'closes hyperlink floating toolbar when hit escape key',
   {},
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: basicHyperlinkAdf,
@@ -57,7 +57,7 @@ BrowserTestCase(
   'can edit hyperlink text with toolbar',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: basicHyperlinkAdf,
@@ -79,7 +79,7 @@ BrowserTestCase(
   'can edit hyperlink URL with toolbar',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: basicHyperlinkAdf,
@@ -103,7 +103,7 @@ BrowserTestCase(
   "doesn't update hyperlink text if hit escape key",
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: basicHyperlinkAdf,
@@ -126,7 +126,7 @@ BrowserTestCase(
   "doesn't update hyperlink URL if hit escape key",
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: basicHyperlinkAdf,

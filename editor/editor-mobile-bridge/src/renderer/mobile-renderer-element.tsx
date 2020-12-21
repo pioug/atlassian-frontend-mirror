@@ -3,6 +3,7 @@ import React, { useCallback, useRef } from 'react';
 import {
   WithCreateAnalyticsEvent,
   AnnotationProviders,
+  ExtensionHandlers,
 } from '@atlaskit/editor-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionProvider } from '@atlaskit/mention/types';
@@ -23,9 +24,13 @@ import {
 } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { analyticsBridgeClient } from '../analytics-client';
+import { createPromise } from '../cross-platform-promise';
+import { eventDispatcher } from './dispatcher';
 import {
   getDisableActionsValue,
   getDisableMediaLinkingValue,
+  getEnableLightDarkTheming,
+  getEnableLegacyMobileMacros,
 } from '../query-param-reader';
 import { useRendererContent } from './hooks/use-set-renderer-content';
 import { useCreateProviderFactory } from './hooks/use-create-provider-factory';
@@ -37,10 +42,12 @@ import { useRendererDestroyed } from './hooks/use-renderer-destroyed';
 import { eventHandlers } from './event-handlers';
 import { isApple } from '../utils/is-apple';
 import { useRendererReflowDetected } from './hooks/use-renderer-reflow-detected';
+import { withLegacyMobileMacros } from '@atlaskit/legacy-mobile-macros';
 
 import { withIntlProvider } from '../i18n/with-intl-provider';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import { geti18NMessages } from './renderer-localisation-provider';
+import { withSystemTheme } from '../WithSystemTheme';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -79,6 +86,7 @@ type BasicRendererProps = {
   containerAri: string;
   document: string;
   intl: InjectedIntl;
+  extensionHandlers: ExtensionHandlers;
 };
 
 interface WithCreateAnalyticsEventProps extends BasicRendererProps {
@@ -105,6 +113,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   mediaProvider,
   mentionProvider,
   document: initialDocument,
+  extensionHandlers,
 }: WithCreateAnalyticsEventProps) => {
   const document = useRendererContent(initialDocument);
   const providerFactory = useCreateProviderFactory(
@@ -143,6 +152,8 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       allowHeadingAnchorLinks={headingAnchorLinksConfig}
       rendererContext={rendererContext}
       eventHandlers={eventHandlers}
+      useSpecBasedValidator={true}
+      extensionHandlers={extensionHandlers}
     />
   );
 };
@@ -181,7 +192,21 @@ const withFabricAnalytics = <P extends MobileRendererProps>(
   );
 };
 
-const MobileRenderer = withFabricAnalytics(withSmartCard(BasicRenderer));
+const ThemedBasicRenderer = withSystemTheme(
+  BasicRenderer,
+  getEnableLightDarkTheming(),
+);
+
+const MobileRenderer = withLegacyMobileMacros<
+  MobileRendererProps,
+  typeof createPromise,
+  typeof eventDispatcher
+>(
+  withFabricAnalytics(withSmartCard(ThemedBasicRenderer)),
+  createPromise,
+  eventDispatcher,
+  getEnableLegacyMobileMacros(),
+);
 
 export { MobileRenderer };
 

@@ -6,7 +6,7 @@ import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-doc
 import { nestedInExtension } from './__fixtures__/nested-in-extension';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import messages from '../../../plugins/table/ui/messages';
@@ -16,7 +16,7 @@ BrowserTestCase(
   'Should delete merged rows from contextual menu and append missing cells to the table',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const intlProvider = new IntlProvider({ locale: 'en' });
     const { intl } = intlProvider.getChildContext();
 
@@ -52,7 +52,7 @@ BrowserTestCase(
   'Should delete merged rows from contextual menu and decrement rowspan of the spanning cell',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const intlProvider = new IntlProvider({ locale: 'en' });
     const { intl } = intlProvider.getChildContext();
 
@@ -88,7 +88,7 @@ BrowserTestCase(
   'Should delete a row when table is nested inside bodied extension',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

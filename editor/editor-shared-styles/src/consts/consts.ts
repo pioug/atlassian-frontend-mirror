@@ -111,7 +111,7 @@ export const akEditorRuleBorderRadius = '1px';
 export const akEditorToolbarKeylineHeight = 2;
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
-export const blockNodesVerticalMargin = '1.143rem';
+export const blockNodesVerticalMargin = '0.75rem';
 
 export const DEFAULT_EMBED_CARD_WIDTH = 680;
 export const DEFAULT_EMBED_CARD_HEIGHT = 480;

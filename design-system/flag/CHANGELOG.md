@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.1.0
+
+### Minor Changes
+
+- [`f92b240fc3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f92b240fc3) - Add an optional id attribute to FlagGroup via props
+
 ## 14.0.8
 
 ### Patch Changes

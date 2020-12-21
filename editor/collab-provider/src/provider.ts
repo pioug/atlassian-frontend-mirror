@@ -596,7 +596,13 @@ export class Provider
     );
 
     left.forEach(p => this.participants.delete(p.sessionId));
-    this.emit('presence', { joined, left });
+
+    if (joined.length || left.length) {
+      this.emit('presence', {
+        ...(joined.length ? { joined } : {}),
+        ...(left.length ? { left } : {}),
+      });
+    }
 
     this.participantUpdateTimeout = setTimeout(
       () => this.updateParticipants(),
@@ -638,7 +644,9 @@ export class Provider
   private onDisconnected = ({ reason }: { reason: string }) => {
     const left = Array.from(this.participants.values());
     this.participants.clear();
-    this.emit('presence', { left });
+    if (left.length) {
+      this.emit('presence', { left });
+    }
   };
 
   destroy() {

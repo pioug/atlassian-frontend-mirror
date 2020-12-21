@@ -27,7 +27,8 @@ export type ErrorName =
   | 'idNotFound'
   | 'noPDFArtifactsFound'
   | 'failedProcessing'
-  | 'encryptedEntryPreviewFailed';
+  | 'encryptedEntryPreviewFailed'
+  | 'rateLimited';
 
 export type Props = Readonly<{
   error: MediaViewerError;
@@ -122,6 +123,20 @@ const getErrorMessage = (
         </p>
         <p>
           <FormattedMessage {...i18nMessages.might_be_a_hiccup} />
+        </p>
+      </div>
+    ),
+
+    rateLimited: (
+      <div>
+        {errorLoadingFileImage(formatMessage)}
+        <p>
+          <FormattedMessage {...i18nMessages.viewer_rateLimited} />
+          <br />
+          <FormattedMessage {...i18nMessages.close_and_reopen} />
+        </p>
+        <p>
+          <FormattedMessage {...i18nMessages.error_429} />
         </p>
       </div>
     ),

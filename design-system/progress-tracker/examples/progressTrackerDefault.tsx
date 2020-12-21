@@ -47,4 +47,6 @@ const items: Stages = [
   },
 ];
 
-export default () => <ProgressTracker items={items} />;
+export default () => (
+  <ProgressTracker items={items} testId="progress-tracker" />
+);

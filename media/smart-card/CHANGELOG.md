@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 14.8.0
+
+### Minor Changes
+
+- [`6bef7adf66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bef7adf66) - `Card` component expects optional `embedIframeRef` iframe ref. New `IframelyResizeMessageListener` HOC component export is introduced.
+
+### Patch Changes
+
+- [`c66e17de46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c66e17de46) - Add CDN version of Iframely domain names for validation
+- [`be5153bf8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5153bf8d) - dont access status of undefined responses
+- Updated dependencies
+
 ## 14.7.0
 
 ### Minor Changes

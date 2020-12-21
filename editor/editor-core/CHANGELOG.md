@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 136.0.0
+
+### Major Changes
+
+- [`00ba3076ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00ba3076ab) - [ux] Paste hyperlink into selected text will apply link mark to the selected text
+  Breaking change on `isNodeTypeParagraph` function, use `isParagraph` instead (requires a schema to be passed as a second param)
+
+### Minor Changes
+
+- [`c7e408f3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7e408f3c8) - [ux] Embed smart cart resizing now can dynamically change height when content is coming from a public resolver powered by iframe.
+- [`2d80d6e283`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d80d6e283) - [ED-11464][editor] Introduce onContentRendered method in content bridge. It is called when content is rendered which is set by bridge.setContent
+
+### Patch Changes
+
+- [`d1e241f90f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1e241f90f) - ED-10693 Change tryAutoSave to a function
+- [`a3d86f8925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3d86f8925) - Fix issue where custom emojis appeared stretched
+- [`610cacff4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/610cacff4e) - ED-11150: added severity to InputPerfSamlingAEP
+- [`5f3cf8f7a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f3cf8f7a9) - [ux] Fix bug where resize handlers should be in the middle of image and not image + captions
+- [`cc04446cf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc04446cf9) - Enable hyperlink toolbar in captions
+- [`81a5e08f06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a5e08f06) - Fix divider not visible in dark mode
+- [`44b543b221`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44b543b221) - [ux][ed-10388] Fix height of ContentArea styled component to avoid surplus whitespace at the bottom of the page
+  [ux][ed-9593] Reduce vertical margin of block nodes to 0.75rem
+- [`6ae634a53e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ae634a53e) - Add analytics to image caption
+- [`c6e1acf2ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6e1acf2ca) - ED-11213 Move testing library to devDependency
+- [`888fc5ceef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/888fc5ceef) - [ux] When embed resizing is not enabled, wide and full-width embeds won't get bigger then 100% as they shoud
+- [`c74a79f30e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74a79f30e) - EDM-1529: fix switching link appearance in lists
+- Updated dependencies
+
 ## 135.1.0
 
 ### Minor Changes

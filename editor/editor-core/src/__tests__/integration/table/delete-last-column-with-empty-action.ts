@@ -8,7 +8,7 @@ import {
 } from '../_helpers';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -19,7 +19,7 @@ BrowserTestCase(
     const LAST_HEADER_FROM_FIRST_ROW =
       'table > tbody > tr:first-child > th:last-child';
 
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {

@@ -5,7 +5,7 @@ import {
   getSelectorForTableCell,
 } from '../../__helpers/page-objects/_table';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -65,7 +65,7 @@ BrowserTestCase(
   // and this API isn't stable in other browsers
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

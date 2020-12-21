@@ -127,6 +127,7 @@ export interface CollabEditNativeBridge {
 }
 
 export interface ContentBridge {
+  onContentRendered(totalNodeSize: number, nodes: string): void;
   onRenderedContentHeightChanged(height: number): void;
 }
 

@@ -1,0 +1,69 @@
+{
+  "name": "@atlaskit/legacy-mobile-macros",
+  "version": "0.1.0",
+  "description": "Higher-order components that optionally add Confluence-specific functionality to editor-mobile-bridge",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Confluence Content Experience Mobile",
+    "inPublicMirror": false,
+    "releaseModel": "scheduled"
+  },
+  "dependencies": {
+    "@atlaskit/button": "^15.1.0",
+    "@atlaskit/editor-common": "55.0.0",
+    "@atlaskit/icon": "^21.1.3",
+    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/theme": "11.0.2",
+    "@babel/runtime": "^7.0.0",
+    "styled-components": "^3.2.6",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/build-utils": "*",
+    "@atlaskit/docs": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "@testing-library/react": "^8.0.1",
+    "react-dom": "^16.8.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "code-structure": [
+        "tangerine-next"
+      ],
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  },
+  "af:exports": {}
+}

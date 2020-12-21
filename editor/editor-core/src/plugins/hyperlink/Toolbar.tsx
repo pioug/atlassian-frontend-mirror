@@ -131,6 +131,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
         state.schema.nodes.heading,
         state.schema.nodes.taskItem,
         state.schema.nodes.decisionItem,
+        state.schema.nodes.caption,
       ].filter(nodeType => !!nodeType), // Use only the node types existing in the schema ED-6745
       align: 'left' as AlignType,
       className: activeLinkMark.type.match('INSERT|EDIT_INSERTED')

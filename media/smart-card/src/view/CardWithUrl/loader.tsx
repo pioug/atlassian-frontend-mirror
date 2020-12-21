@@ -85,6 +85,7 @@ export class CardWithURLRenderer extends React.PureComponent<
       showActions,
       inheritDimensions,
       platform,
+      embedIframeRef,
     } = this.props;
 
     if (!url) {
@@ -106,6 +107,7 @@ export class CardWithURLRenderer extends React.PureComponent<
         showActions={showActions}
         inheritDimensions={inheritDimensions}
         platform={platform}
+        embedIframeRef={embedIframeRef}
       />
     ) : (
       <CardLinkView key={'chunk-placeholder'} link={url} />

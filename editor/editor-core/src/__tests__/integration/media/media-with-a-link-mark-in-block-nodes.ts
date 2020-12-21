@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { editable, getDocFromElement, fullpage } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { waitForNumImages } from './_utils';
 import adfMediaSingleWithLinkInALayoutColumn from './_fixtures_/media-single-with-a-link-mark-in-a-layout-column.adf.json';
@@ -13,7 +13,7 @@ import adfMediaSingleWithLinkInAnExpand from './_fixtures_/media-single-with-a-l
 import adfMediaSingleWithLinkMarkInABodiedExtension from './_fixtures_/media-single-with-a-link-mark-in-a-bodied-extension.adf.json';
 
 async function loadADF(client: any, adf: object): Promise<any> {
-  const page = await goToEditorTestingExample(client);
+  const page = await goToEditorTestingWDExample(client);
 
   await mountEditor(page, {
     appearance: fullpage.appearance,

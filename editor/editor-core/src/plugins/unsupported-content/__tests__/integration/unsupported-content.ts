@@ -7,7 +7,7 @@ import {
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { unsupportedNodeSelectors } from '../../../../__tests__/__helpers/page-objects/_unsupported';
@@ -15,7 +15,7 @@ import unsupportedBlockAdf from '../__fixtures__/unsupported-block-adf.json';
 import unsupportedInlineAdf from '../__fixtures__/unsupported-inline-adf.json';
 
 const initEditorWithUnsupportedBlock = async (client: any): Promise<Page> => {
-  const page = await goToEditorTestingExample(client);
+  const page = await goToEditorTestingWDExample(client);
   await mountEditor(page, {
     appearance: fullpage.appearance,
     defaultValue: unsupportedBlockAdf,
@@ -24,7 +24,7 @@ const initEditorWithUnsupportedBlock = async (client: any): Promise<Page> => {
 };
 
 const initEditorWithUnsupportedInline = async (client: any): Promise<Page> => {
-  const page = await goToEditorTestingExample(client);
+  const page = await goToEditorTestingWDExample(client);
   await mountEditor(page, {
     appearance: fullpage.appearance,
     defaultValue: unsupportedInlineAdf,

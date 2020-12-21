@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import {
   fullpage,
@@ -17,7 +17,7 @@ BrowserTestCase(
   `toolbar is disabled when selection includes inline nodes`,
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       defaultValue: paragraphWithEmoji,
@@ -39,7 +39,7 @@ BrowserTestCase(
   `toolbar shows up when selecting whole paragraph and releasing mouse outside editor`,
   { skip: ['edge'] },
   async (client: BrowserObject) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       defaultValue: paragraphADF,

@@ -145,6 +145,16 @@
     {
       "type": "embedCard",
       "attrs": {
+        "layout": "center",
+        "originalHeight": 322,
+        "originalWidth": null,
+        "url": "https://embedCardTestUrl",
+        "width": 100
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
         "url": "https://embedCardTestUrl/unauthorized",
         "layout": "center"
       }

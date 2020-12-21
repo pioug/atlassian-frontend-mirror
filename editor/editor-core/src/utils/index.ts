@@ -51,7 +51,7 @@ export {
   sanitiseSelectionMarksForWrapping,
   sanitiseMarksInSelection,
 } from './mark';
-export { isNodeTypeParagraph } from './nodes';
+export { isParagraph, isText, isLinkMark } from './nodes';
 export {
   isChromeWithSelectionBug,
   normaliseNestedLayout,
@@ -66,6 +66,8 @@ export {
 export type { JSONDocNode, JSONNode };
 
 export { containsClassName } from './dom';
+
+export { default as measurements } from './performance/measure-enum';
 
 function validateNode(_node: Node): boolean {
   return false;

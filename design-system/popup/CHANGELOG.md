@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.0.6
+
+### Patch Changes
+
+- [`1858f20ac3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1858f20ac3) - Optimised popup performance as part of the lite-mode project. Changes are internal and have no implications for component API or usage.
+
 ## 1.0.5
 
 ### Patch Changes

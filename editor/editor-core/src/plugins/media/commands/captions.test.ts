@@ -8,6 +8,7 @@ import {
   RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Schema } from 'prosemirror-model';
+import * as analyticsUtils from '../../analytics/utils';
 import {
   insertAndSelectCaptionFromMediaSinglePos,
   selectCaptionFromMediaSinglePos,
@@ -85,6 +86,39 @@ describe('Caption plugin', () => {
         editorView.state.doc.child(0),
       )(editorView.state, editorView.dispatch),
     ).toBeFalsy();
+  });
+
+  it('create an added analytic for captions', () => {
+    const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
+    const { editorView } = editor(
+      doc(
+        '{<node>}',
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+        ),
+        p('Line two'),
+      ),
+      {
+        editorProps: {
+          media: { allowMediaSingle: true, featureFlags: { captions: true } },
+        },
+      },
+    );
+    insertAndSelectCaptionFromMediaSinglePos(0, editorView.state.doc.child(0))(
+      editorView.state,
+      editorView.dispatch,
+    );
+    expect(addAnalyticsSpy).toBeCalled();
+    expect(addAnalyticsSpy.mock.calls[0][2]).toEqual({
+      action: 'added',
+      actionSubject: 'mediaSingle',
+      actionSubjectId: 'caption',
+      eventType: 'track',
+    });
   });
 
   it('should move selection to an existing caption node', () => {

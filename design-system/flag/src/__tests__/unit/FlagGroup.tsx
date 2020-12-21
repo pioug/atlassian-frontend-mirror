@@ -169,4 +169,19 @@ describe('FlagGroup', () => {
     const screenReaderText = getByText('notifs');
     expect(screenReaderText.nodeName).toBe('H3');
   });
+
+  it('should render an id attribute when provided', () => {
+    render(
+      <FlagGroup id="my-unique-flag-group-id">{generateFlag()}</FlagGroup>,
+    );
+    /** @testing-library/react doesn't have any good mechanisms for querying
+     * elements by ID, so use the `document` method instead. Note that
+     * `baseElement.querySelector` would also work, but `container.querySelector`
+     * would not, because the result is rendered in a Portal.
+     */
+    const flagGroupContainer = document.getElementById(
+      'my-unique-flag-group-id',
+    );
+    expect(flagGroupContainer?.nodeName).toBe('DIV');
+  });
 });

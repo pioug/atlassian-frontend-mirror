@@ -8,7 +8,7 @@ import {
   setProseMirrorTextSelection,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { KEY } from '../../__helpers/page-objects/_keyboard';
@@ -57,7 +57,7 @@ BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Windows)',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.click(editable);
     await insertList(page, KEY.CONTROL, 'number');
@@ -72,7 +72,7 @@ BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Mac)',
   { skip: ['edge', 'chrome', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.click(editable);
     await insertList(page, KEY.META, 'number');
@@ -102,7 +102,7 @@ BrowserTestCase(
   'list: should be able to navigate lists correctly in firefox',
   { skip: ['edge', 'chrome', 'safari'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
       media: {
@@ -138,7 +138,7 @@ BrowserTestCase(
   'list: should handle backspace correctly when at the start of a list',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -208,7 +208,7 @@ BrowserTestCase(
   'list: should handle delete correctly when at the end of a list',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

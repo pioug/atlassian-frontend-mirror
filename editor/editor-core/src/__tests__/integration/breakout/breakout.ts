@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { getDocFromElement, editable } from '../_helpers';
@@ -19,7 +19,7 @@ BrowserTestCase(
   'breakout: should be able to switch to wide mode',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: 'full-page',
@@ -41,7 +41,7 @@ BrowserTestCase(
   'breakout: should be able to switch to full-width mode',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: 'full-page',
@@ -65,7 +65,7 @@ BrowserTestCase(
   'breakout: should be able to switch to center mode back',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: 'full-page',
@@ -95,7 +95,7 @@ BrowserTestCase(
   'breakout: should be able to delete last character inside a "wide" codeBlock preserving the node',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: 'full-page',
@@ -121,7 +121,7 @@ BrowserTestCase(
   'breakout: should be able to delete last character inside a "wide" layoutSection in Safari',
   { skip: ['firefox', 'chrome', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(
       page,

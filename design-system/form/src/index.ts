@@ -7,6 +7,8 @@ export { default as Field } from './Field';
 export type { FieldProps } from './Field';
 export { default as CheckboxField } from './CheckboxField';
 export type { CheckboxFieldProps } from './CheckboxField';
+export { default as RangeField } from './RangeField';
+export type { RangeFieldProps } from './RangeField';
 export { HelperMessage, ErrorMessage, ValidMessage } from './Messages';
 export { default as Fieldset } from './Fieldset';
 export type { OnSubmitHandler, FormApi } from './types';

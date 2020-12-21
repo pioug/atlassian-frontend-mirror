@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { comment, fullpage, editable } from '../_helpers';
 import { toolbarMessages as blockTypeMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { messages } from '../../../plugins/block-type/messages';
@@ -16,7 +16,7 @@ const input = 'helloworld';
     `toolbar-2.ts: should be able to select heading1 for ${editor.name} editor`,
     { skip: ['safari', 'edge'] },
     async (client: any) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, { appearance: editor.appearance });
 
       await page.click(editable);

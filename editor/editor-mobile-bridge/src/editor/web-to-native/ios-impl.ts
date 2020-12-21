@@ -323,6 +323,19 @@ export default class IosBridge implements NativeBridge {
     });
   }
 
+  onContentRendered(totalNodeSize: number, nodes: string): void {
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.contentBridge
+    ) {
+      this.window.webkit.messageHandlers.contentBridge.postMessage({
+        name: 'onContentRendered',
+        totalNodeSize,
+        nodes,
+      });
+    }
+  }
+
   onRenderedContentHeightChanged(height: number): void {
     if (window.webkit && window.webkit.messageHandlers.contentBridge) {
       window.webkit.messageHandlers.contentBridge.postMessage({

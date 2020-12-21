@@ -4,7 +4,7 @@ import { toolbarMessages as textFormattingMessages } from '../../../plugins/text
 import { toolbarMessages as advancedTextFormattingMessages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
 import { toolbarMessages as blockTypeToolbarMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { messages as blockTypeMessages } from '../../../plugins/block-type/messages';
@@ -22,7 +22,7 @@ const input = 'helloworld ';
       const normalText = `span=${blockTypeMessages.normal.defaultMessage}`;
       const more = `[aria-label="${advancedTextFormattingMessages.moreFormatting.defaultMessage}"]`;
       const underline = `span=${advancedTextFormattingMessages.underline.defaultMessage}`;
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, { appearance: editor.appearance });
 
       await page.click(editable);

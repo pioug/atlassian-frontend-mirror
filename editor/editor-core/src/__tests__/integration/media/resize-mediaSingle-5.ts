@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
-import { goToEditorTestingExample } from '../../__helpers/testing-example-helpers';
+import { goToEditorTestingWDExample } from '../../__helpers/testing-example-helpers';
 import {
   addLayout,
   allBreakoutTypes,
@@ -18,7 +18,7 @@ BrowserTestCase(
   'resize-mediaSingle.ts: Image is resized in the layout',
   { skip: [] },
   async (browserObject: BrowserObject) => {
-    let page: Page = await goToEditorTestingExample(browserObject);
+    let page: Page = await goToEditorTestingWDExample(browserObject);
     // This 1500 is important for Safari to work for mysterious reasons. Yes, :magic:
     // But seriously, for some reason, I can't click second column after big image was deleted in a first column.
     await page.setWindowSize(1980, 1500);

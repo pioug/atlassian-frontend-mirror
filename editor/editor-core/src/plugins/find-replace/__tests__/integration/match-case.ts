@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { fullpage } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import matchCaseAdf from './__fixtures__/match-case-adf.json';
@@ -16,7 +16,7 @@ const openFindReplace = async (
   adf: string,
   allowMatchCase: boolean,
 ) => {
-  const page = await goToEditorTestingExample(client);
+  const page = await goToEditorTestingWDExample(client);
   await mountEditor(page, {
     appearance: fullpage.appearance,
     defaultValue: adf,

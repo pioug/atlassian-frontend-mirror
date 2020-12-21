@@ -15,7 +15,7 @@ import {
 } from './__fixtures__/even-columns';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -24,7 +24,7 @@ BrowserTestCase(
   'Should even columns on double click on resize handle when table is selected',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -47,7 +47,7 @@ BrowserTestCase(
   'Should even columns and remain overflown on double click on resize handle when table is selected',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

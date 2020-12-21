@@ -67,7 +67,6 @@ export const mockFieldResolver = createCustomFieldResolver([
     value: 'meeting-notes',
     icon: <LabelIcon size="small" label="meeting-notes" />,
   },
-
   {
     label: 'How to populate custom fields?',
     value: '123456',

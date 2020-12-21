@@ -6,7 +6,7 @@ import {
 } from '../../../../__tests__/integration/_helpers';
 import { expandClassNames } from '../../ui/class-names';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import longExpand from './__fixtures__/long-expand.json';
@@ -23,7 +23,7 @@ BrowserTestCase(
   'scroll.ts: Page should not scroll while editing expand title',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

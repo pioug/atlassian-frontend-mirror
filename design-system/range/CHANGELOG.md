@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 5.0.6
+
+### Patch Changes
+
+- [`3137d05e06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3137d05e06) - [ux] Fixed rendering bug inside of Range. Now the blue trackbar snaps to a step in the range to align with the position of the thumb.
+
 ## 5.0.5
 
 ### Patch Changes

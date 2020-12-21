@@ -7,7 +7,7 @@ import {
   setProseMirrorTextSelection,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
@@ -113,7 +113,7 @@ BrowserTestCase(
   'selection: right arrow sets correct selections',
   { skip: ['safari', 'edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdf, { anchor: 2 });
 
     const expectedSelections: SelectionMatch[] = [
@@ -144,7 +144,7 @@ BrowserTestCase(
   'selection: right arrow sets correct selections',
   { skip: ['chrome', 'firefox', 'edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdfNoDecisions, { anchor: 2 });
 
     for (const selection of rightArrowExpectedSelections) {
@@ -158,7 +158,7 @@ BrowserTestCase(
   'selection: left arrow sets correct selections',
   { skip: ['safari', 'edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdf, { anchor: 32 });
 
     const expectedSelections: SelectionMatch[] = [
@@ -189,7 +189,7 @@ BrowserTestCase(
   'selection: left arrow sets correct selections',
   { skip: ['chrome', 'firefox', 'edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdfNoDecisions, { anchor: 25 });
 
     for (const selection of leftArrowExpectedSelections) {

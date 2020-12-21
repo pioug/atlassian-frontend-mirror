@@ -41,8 +41,10 @@ export interface ResizableNumberSize {
   height: number;
 }
 
-type ResizerProps = ResizableMediaSingleProps & {
-  ratio: string;
+export type ResizerProps = Omit<
+  ResizableMediaSingleProps,
+  'height' | 'width'
+> & {
   selected?: boolean;
   enable: EnabledHandles;
   calcNewSize: (
@@ -58,6 +60,9 @@ type ResizerProps = ResizableMediaSingleProps & {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   nodeType?: 'media' | 'embed';
   innerPadding?: number;
+  height?: number;
+  width: number;
+  ratio?: string;
 };
 
 type ResizerState = {
@@ -92,6 +97,7 @@ export default class Resizer extends React.Component<
     event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
     const {
+      innerPadding = 0,
       handleResizeStart,
       highlights,
       displayGrid,
@@ -107,7 +113,7 @@ export default class Resizer extends React.Component<
     }
 
     this.setState({ isResizing: true }, () => {
-      const newHighlights = highlights(width, snapPoints);
+      const newHighlights = highlights(width + innerPadding, snapPoints);
       displayGrid(
         newHighlights.length > 0,
         gridTypeForLayout(layout),
@@ -130,6 +136,7 @@ export default class Resizer extends React.Component<
       displayGrid,
       layout,
       updateSize,
+      innerPadding = 0,
     } = this.props;
     const resizable = this.resizable.current;
     const { isResizing } = this.state;
@@ -140,8 +147,7 @@ export default class Resizer extends React.Component<
       resizable.state.original.width + delta.width * (scaleFactor || 1),
       snapPoints,
     );
-
-    const newSize = calcNewSize(newWidth, false);
+    const newSize = calcNewSize(newWidth + innerPadding, false);
     if (newSize.layout !== layout) {
       updateSize(newSize.width, newSize.layout);
     }
@@ -210,12 +216,12 @@ export default class Resizer extends React.Component<
     const {
       innerPadding = 0,
       width,
-      ratio,
       pctWidth,
       selected,
       layout,
       enable,
       children,
+      ratio,
     } = this.props;
     const { isResizing } = this.state;
     handleSides.forEach(side => {
@@ -239,13 +245,16 @@ export default class Resizer extends React.Component<
       },
     );
 
-    const handleWrapperStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: '100%',
-      paddingBottom: `${ratio}%`,
-      top: 0,
-      pointerEvents: 'none',
-    };
+    let handleWrapperStyle: React.CSSProperties | undefined;
+    if (ratio) {
+      handleWrapperStyle = {
+        position: 'absolute',
+        width: '100%',
+        paddingBottom: `${ratio}%`,
+        top: 0,
+        pointerEvents: 'none',
+      };
+    }
 
     // Ideally, Resizable would let you pass in the component rather than
     // the div. For now, we just apply the same styles using CSS
@@ -253,13 +262,13 @@ export default class Resizer extends React.Component<
       <Resizable
         ref={this.resizable}
         size={{
-          width: width - innerPadding,
+          width, // just content itself (no paddings)
           height: 'auto',
         }}
         className={className}
-        handleWrapperStyle={handleWrapperStyle}
         handleClasses={handles}
         handleStyles={handleStyles}
+        handleWrapperStyle={handleWrapperStyle}
         enable={enable}
         onResize={this.handleResize}
         onResizeStop={this.handleResizeStop}

@@ -28,7 +28,7 @@ import { waitForProvider, flushPromises } from '../../../__helpers/utils';
 import { getContextPanel } from '../../../../plugins/extension/context-panel';
 import { setEditingContextToContextPanel } from '../../../../plugins/extension/commands';
 import EditorActions from '../../../../actions';
-import { PublicProps } from '../../../../ui/ConfigPanel/FieldsLoader';
+import { PublicProps } from '../../../../ui/ConfigPanel/ConfigPanelFieldsLoader';
 
 // there are many warnings due to hooks usage and async code that will be solved with the next react update.
 // this function will keep then silent so we can still read the tests.

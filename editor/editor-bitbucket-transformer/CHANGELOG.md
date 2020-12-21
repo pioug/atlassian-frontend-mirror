@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 7.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.5
 
 ### Patch Changes

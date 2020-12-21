@@ -145,6 +145,7 @@ type InputPerfSamlingAEP = OperationalAEPWithObjectId<
     nodeSize: number;
     participants: number;
     nodeCount?: Record<string, number>;
+    severity?: SEVERITY;
   },
   undefined
 >;

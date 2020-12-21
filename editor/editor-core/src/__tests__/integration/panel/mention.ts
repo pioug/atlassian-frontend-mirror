@@ -9,7 +9,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { selectors } from './_utils';
 
@@ -17,7 +17,7 @@ BrowserTestCase(
   'mention.ts: Can insert mention inside panel using click',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,

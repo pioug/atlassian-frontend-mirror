@@ -1,29 +1,35 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 
-import { NavItem, NavLine } from '../styled';
+import { jsx } from '@emotion/core';
+
+import { getNavItemStyles } from '../internal/styles';
 import { TabItemComponentProvided } from '../types';
+
+import NavLine from './NavLine';
 
 const noop = () => {};
 
 export default class TabItem extends Component<TabItemComponentProvided> {
-  static defaultProps = {
+  static defaultProps: TabItemComponentProvided = {
     data: {},
     elementProps: {},
     innerRef: noop,
     isSelected: false,
+    mode: 'light',
   };
-
   render() {
-    const { data, elementProps, innerRef, isSelected } = this.props;
+    const { data, elementProps, innerRef, isSelected, mode } = this.props;
     return (
-      <NavItem
+      <div
+        css={getNavItemStyles(mode)}
         {...elementProps}
-        innerRef={innerRef}
-        status={isSelected ? 'selected' : 'normal'}
+        ref={innerRef}
+        data-selected={isSelected ? true : undefined}
       >
         {data.label}
-        {isSelected && <NavLine status="selected" />}
-      </NavItem>
+        {isSelected && <NavLine status="selected" mode={mode} />}
+      </div>
     );
   }
 }

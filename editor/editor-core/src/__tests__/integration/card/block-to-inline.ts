@@ -4,7 +4,7 @@ import * as blockCardAdf from './_fixtures_/block-card-with-empty-p-at-bottom.ad
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 import { getDocFromElement, editable, getProseMirrorPos } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -12,7 +12,7 @@ BrowserTestCase(
   `card: should switch to inline mode with proper cursor position`,
   { skip: [] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     const cardProviderPromise = Promise.resolve(
       new ConfluenceCardProvider('prod'),

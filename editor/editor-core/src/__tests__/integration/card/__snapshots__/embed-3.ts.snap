@@ -9,7 +9,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "center",
-        "originalHeight": null,
+        "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
         "width": 66.66666666666666,
@@ -28,7 +28,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "center",
-        "originalHeight": null,
+        "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
         "width": 66.66666666666666,

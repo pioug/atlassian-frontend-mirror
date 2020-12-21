@@ -9,7 +9,7 @@ import {
   sendKeyNumTimes,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
@@ -25,7 +25,7 @@ describe('expand: arrow key navigation', () => {
     client: any,
     adf = expandAdf,
   ): Promise<WebDriverPage> => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

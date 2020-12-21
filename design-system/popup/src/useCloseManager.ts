@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 
+import { bindAll } from 'bind-event-listener';
+
 import { CloseManagerHook } from './types';
+
+function noop() {}
 
 export const useCloseManager = ({
   isOpen,
@@ -9,6 +13,10 @@ export const useCloseManager = ({
   triggerRef,
 }: CloseManagerHook): void => {
   useEffect(() => {
+    if (!isOpen || !popupRef) {
+      return noop;
+    }
+
     const closePopup = () => {
       if (onClose) {
         onClose();
@@ -38,14 +46,11 @@ export const useCloseManager = ({
       }
     };
 
-    if (isOpen && popupRef) {
-      window.addEventListener('click', onClick);
-      window.addEventListener('keydown', onKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener('click', onClick);
-      window.removeEventListener('keydown', onKeyDown);
-    };
+    const unbind = bindAll(window, [
+      // --strictFunctionTypes prevents the above events from being recognised as event listeners
+      { type: 'click', listener: onClick as EventListener },
+      { type: 'keydown', listener: onKeyDown as EventListener },
+    ]);
+    return unbind;
   }, [isOpen, onClose, popupRef, triggerRef]);
 };

@@ -9,7 +9,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { selectors } from '../panel/_utils';
 
@@ -53,10 +53,10 @@ import { selectors } from '../panel/_utils';
     `quick-insert-mediaSingle.ts: ${message}`,
     { skip: skipBrowsers as any },
     async (
-      client: Parameters<typeof goToEditorTestingExample>[0],
+      client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,
     ) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
         appearance: fullpage.appearance,
         media: {

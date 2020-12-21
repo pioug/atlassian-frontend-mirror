@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { fullpage, editable } from '../_helpers';
@@ -9,7 +9,7 @@ BrowserTestCase(
   'insert-block.ts: opens emoji picker from toolbar button',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, fullpage);
 
     const emoji = `[aria-label="Emoji"]`;
@@ -25,7 +25,7 @@ BrowserTestCase(
   'insert-block.ts: opens emoji picker from dropdown after resizing',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await page.setWindowSize(3000, 750);
 

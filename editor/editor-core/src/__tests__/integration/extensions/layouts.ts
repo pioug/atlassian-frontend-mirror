@@ -7,7 +7,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
 import commonMessages from '../../../messages';
@@ -22,7 +22,7 @@ import commonMessages from '../../../messages';
     `layouts.ts: Extension: ${layoutName} layout`,
     { skip: ['edge'] },
     async (client: any, testName: string) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
         appearance: 'full-page',
         allowExtension: {

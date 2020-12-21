@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   FieldDefinition,
@@ -23,9 +24,81 @@ import {
 
 import LoadingState from './LoadingState';
 import Header from './Header';
-import ConfigForm from './Form';
 import ErrorMessage from './ErrorMessage';
 import { serialize, deserialize } from './transformers';
+
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/custom-theme-button';
+import { FormFooter } from '@atlaskit/form';
+
+import FormContent from './FormContent';
+import { messages } from './messages';
+
+function ConfigForm({
+  canSave,
+  errorMessage,
+  extensionManifest,
+  fields,
+  firstVisibleFieldName,
+  hasParsedParameters,
+  intl,
+  isLoading,
+  onCancel,
+  onFieldBlur,
+  parameters,
+  submitting,
+}: {
+  canSave: boolean;
+  errorMessage: string | null;
+  extensionManifest: ExtensionManifest;
+  fields?: FieldDefinition[];
+  firstVisibleFieldName?: string;
+  hasParsedParameters: boolean;
+  isLoading: boolean;
+  onCancel: () => void;
+  onFieldBlur: () => void;
+  parameters: Parameters;
+  submitting: boolean;
+} & InjectedIntlProps) {
+  if (isLoading || (!hasParsedParameters && errorMessage === null)) {
+    return <LoadingState />;
+  }
+
+  if (errorMessage || !fields) {
+    return <ErrorMessage errorMessage={errorMessage || ''} />;
+  }
+
+  return (
+    <>
+      <FormContent
+        fields={fields}
+        parameters={parameters}
+        extensionManifest={extensionManifest}
+        onFieldBlur={onFieldBlur}
+        firstVisibleFieldName={firstVisibleFieldName}
+      />
+      <div style={canSave ? {} : { display: 'none' }}>
+        <FormFooter align="start">
+          <ButtonGroup>
+            <Button type="submit" appearance="primary">
+              {intl.formatMessage(messages.submit)}
+            </Button>
+            <Button
+              appearance="default"
+              isDisabled={submitting}
+              onClick={onCancel}
+            >
+              {intl.formatMessage(messages.cancel)}
+            </Button>
+          </ButtonGroup>
+        </FormFooter>
+      </div>
+    </>
+  );
+}
+
+const ConfigFormIntl = injectIntl(ConfigForm);
 
 type Props = {
   extensionManifest?: ExtensionManifest;
@@ -48,8 +121,11 @@ type State = {
 };
 
 class ConfigPanel extends React.Component<Props, State> {
+  onFieldBlur: (() => void) | null;
+
   constructor(props: Props) {
     super(props);
+
     this.state = {
       hasParsedParameters: false,
       currentParameters: {},
@@ -57,6 +133,8 @@ class ConfigPanel extends React.Component<Props, State> {
         ? this.getFirstVisibleFieldName(props.fields)
         : undefined,
     };
+
+    this.onFieldBlur = null;
   }
 
   componentDidMount() {
@@ -85,7 +163,7 @@ class ConfigPanel extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { parameters, fields } = this.props;
+    const { parameters, fields, autoSaveTrigger } = this.props;
 
     if (
       (parameters && parameters !== prevProps.parameters) ||
@@ -100,6 +178,12 @@ class ConfigPanel extends React.Component<Props, State> {
       (!prevProps.fields || fields.length !== prevProps.fields.length)
     ) {
       this.setFirstVisibleFieldName(fields);
+    }
+
+    if (prevProps.autoSaveTrigger !== autoSaveTrigger) {
+      if (this.onFieldBlur) {
+        this.onFieldBlur();
+      }
     }
   }
 
@@ -173,42 +257,6 @@ class ConfigPanel extends React.Component<Props, State> {
     );
   });
 
-  renderBody = (extensionManifest: ExtensionManifest, submitting: boolean) => {
-    const {
-      autoSave,
-      autoSaveTrigger,
-      errorMessage,
-      fields,
-      isLoading,
-      onCancel,
-    } = this.props;
-
-    const {
-      currentParameters,
-      hasParsedParameters,
-      firstVisibleFieldName,
-    } = this.state;
-
-    if (isLoading || (!hasParsedParameters && errorMessage === null)) {
-      return <LoadingState />;
-    }
-
-    return errorMessage || !fields ? (
-      <ErrorMessage errorMessage={errorMessage || ''} />
-    ) : (
-      <ConfigForm
-        extensionManifest={extensionManifest}
-        fields={fields}
-        parameters={currentParameters}
-        onCancel={onCancel}
-        autoSave={autoSave}
-        autoSaveTrigger={autoSaveTrigger}
-        submitting={submitting}
-        firstVisibleFieldName={firstVisibleFieldName}
-      />
-    );
-  };
-
   getFirstVisibleFieldName = memoizeOne((fields: FieldDefinition[]) => {
     function nonHidden(field: FieldDefinition) {
       if ('isHidden' in field) {
@@ -255,18 +303,53 @@ class ConfigPanel extends React.Component<Props, State> {
       return <LoadingState />;
     }
 
+    const { autoSave, errorMessage, fields, isLoading, onCancel } = this.props;
+    const {
+      currentParameters,
+      hasParsedParameters,
+      firstVisibleFieldName,
+    } = this.state;
+    const { handleSubmit, handleKeyDown } = this;
+
     return (
-      <Form onSubmit={this.handleSubmit}>
-        {({ formProps, submitting }) => {
+      <Form onSubmit={handleSubmit}>
+        {({ formProps, getState, submitting }) => {
+          function onFieldBlur() {
+            if (!autoSave) {
+              return;
+            }
+
+            // dont submit if validation failed
+            const { errors, values } = getState();
+            if (!isEmpty(errors)) {
+              return;
+            }
+
+            handleSubmit(values);
+          }
+
+          this.onFieldBlur = onFieldBlur;
           return (
             <form
               {...formProps}
               noValidate
-              onKeyDown={this.handleKeyDown}
+              onKeyDown={handleKeyDown}
               data-testid="extension-config-panel"
             >
               {this.renderHeader(extensionManifest)}
-              {this.renderBody(extensionManifest, submitting)}
+              <ConfigFormIntl
+                canSave={!autoSave}
+                errorMessage={errorMessage}
+                extensionManifest={extensionManifest}
+                fields={fields}
+                firstVisibleFieldName={firstVisibleFieldName}
+                hasParsedParameters={hasParsedParameters}
+                isLoading={isLoading || false}
+                onCancel={onCancel}
+                onFieldBlur={onFieldBlur}
+                parameters={currentParameters}
+                submitting={submitting}
+              />
             </form>
           );
         }}

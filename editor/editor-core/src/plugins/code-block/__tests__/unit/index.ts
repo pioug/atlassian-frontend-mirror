@@ -1,5 +1,7 @@
+import { IntlProvider } from 'react-intl';
 import { PluginKey, NodeSelection } from 'prosemirror-state';
 import { isNodeSelection } from 'prosemirror-utils';
+import { Schema } from 'prosemirror-model';
 import {
   code_block,
   doc,
@@ -7,6 +9,7 @@ import {
   table,
   tr,
   td,
+  RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -32,13 +35,15 @@ import basePlugin from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import analyticsPlugin from '../../../analytics';
+import { getToolbarConfig } from '../../toolbar';
+
 jest.mock('../../../../utils/clipboard');
 
 describe('code-block', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
 
-  const editor = (doc: any) => {
+  const editor = (doc: (schema: Schema) => RefsNode) => {
     createAnalyticsEvent = createAnalyticsEventMock();
 
     return createEditor<CodeBlockState, PluginKey>({
@@ -294,6 +299,31 @@ describe('code-block', () => {
           });
         });
       });
+    });
+  });
+
+  describe('toolbar', () => {
+    const { editorView } = editor(doc(code_block({})('Some code here')));
+    const intlProvider = new IntlProvider({ locale: 'en' });
+    const { intl } = intlProvider.getChildContext();
+
+    it('should not show clipboard button in toolbar when allowCopyToClipboard is false', () => {
+      const createToolbar = getToolbarConfig(false);
+      // @ts-ignore
+      const toolbar = createToolbar(editorView.state, intl, {});
+
+      expect(toolbar?.items).toHaveLength(3);
+    });
+
+    it('should show clipboard button in toolbar when allowCopyToClipboard is true', () => {
+      const createToolbar = getToolbarConfig(true);
+      // @ts-ignore
+      const toolbar = createToolbar(editorView.state, intl, {});
+
+      expect(toolbar?.items).toHaveLength(5);
+      // @ts-ignore
+      const button = toolbar.items[2] as { onClick: () => boolean };
+      expect(button.onClick).toEqual(copyContentToClipboard);
     });
   });
 });

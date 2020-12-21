@@ -3,7 +3,7 @@ import { getDocFromElement, editable } from '../_helpers';
 import { EditorAppearance } from '../../../types';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { messages } from '../../../plugins/block-type/messages';
 import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
@@ -17,7 +17,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
     `code-block: produces correct ADF after language change for ${editor}`,
     { skip: ['safari', 'edge'] },
     async (client: any, testName: string) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
 
       await mountEditor(page, {
         appearance: editor as EditorAppearance,
@@ -37,7 +37,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
     `code-block: code block language is preserved after floating toolbar loses and gains focus for ${editor}`,
     { skip: ['safari', 'edge'] },
     async (client: any) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
 
       await mountEditor(page, {
         appearance: editor as EditorAppearance,
@@ -66,7 +66,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
     `code-block: code block selected language correctly changes when moving selection directly from one code block to another for ${editor}`,
     { skip: ['safari', 'edge'] },
     async (client: any) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
 
       await mountEditor(page, {
         appearance: editor as EditorAppearance,
@@ -112,39 +112,6 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
         floatingToolbarLanguageSelector,
       );
       expect(secondCodeBlock.trim()).toEqual('Arduino');
-    },
-  );
-
-  BrowserTestCase(
-    `code-block: code block content is copied to clipboard after clicking on the copy button for ${editor}`,
-    { skip: ['safari', 'firefox', 'edge'] },
-    async (client: any, testName: string) => {
-      const page = await goToEditorTestingExample(client);
-
-      await mountEditor(page, {
-        appearance: editor as EditorAppearance,
-        codeBlock: { allowCopyToClipboard: true },
-      });
-
-      // Insert code block
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
-
-      //Type
-      page.pause(100);
-      await page.waitForSelector(codeBlockSelectors.content);
-      await page.type(codeBlockSelectors.content, 'Some code here');
-
-      // Click on Copy button
-      await page.waitForSelector(codeBlockSelectors.copyToClipboardButton);
-      await page.click(codeBlockSelectors.copyToClipboardButton);
-
-      // Navigate outside the code block and paste
-      await page.keys(['ArrowDown']);
-
-      await page.paste();
-
-      const doc = await page.$eval(editable, getDocFromElement);
-      expect(doc).toMatchCustomDocSnapshot(testName);
     },
   );
 

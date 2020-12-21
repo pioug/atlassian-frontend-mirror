@@ -1,9 +1,10 @@
 import {
+  evaluateTeardownMockDate,
   PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 
-import { snapshot, initRendererWithADF } from './_utils';
+import { snapshot, initRendererWithADF, ViewPortOptions } from './_utils';
 import * as cardXSSADF from '../__fixtures__/card-xss.adf.json';
 import * as cardAdf from '../__fixtures__/card.adf.json';
 import * as cardAdfBlock from '../__fixtures__/card.adf.block.json';
@@ -14,14 +15,22 @@ import {
   waitForResolvedEmbedCard,
   openPreviewState,
   waitForPreviewState,
+  waitForSuccessfullyResolvedEmbedCard,
+  embedCombinationsWithTitle,
+  generateEmbedCombinationAdf,
 } from '@atlaskit/media-integration-test-helpers';
 
-const initRenderer = async (page: PuppeteerPage, adf: any) => {
+const initRenderer = async (
+  page: PuppeteerPage,
+  adf: any,
+  viewport: ViewPortOptions,
+) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
-    viewport: { width: 500, height: 200 },
+    viewport,
     adf,
   });
+  await evaluateTeardownMockDate(page);
 };
 
 describe('Snapshot Test: Cards', () => {
@@ -36,16 +45,14 @@ describe('Snapshot Test: Cards', () => {
   });
 
   it('should render unknown content for cards with invalid urls', async () => {
-    await initRenderer(page, cardXSSADF);
+    await initRenderer(page, cardXSSADF, { width: 500, height: 200 });
     await waitForResolvedInlineCard(page);
   });
 
   it('displays links with correct appearance', async () => {
-    await initRenderer(page, cardAdf);
-
-    await page.setViewport({
+    await initRenderer(page, cardAdf, {
       width: 800,
-      height: 4200,
+      height: 4600,
     });
 
     // Render an assortment of inline cards.
@@ -65,8 +72,8 @@ describe('Snapshot Test: Cards', () => {
     await waitForResolvedBlockCard(page, 'errored');
 
     // Render an assortment of embed cards.
-    await waitForResolvedEmbedCard(page);
-    await waitForResolvedBlockCard(page, 'resolving');
+    await waitForSuccessfullyResolvedEmbedCard(page, 2);
+    await waitForResolvedEmbedCard(page, 'resolving');
     await waitForResolvedEmbedCard(page, 'unauthorized');
     await waitForResolvedEmbedCard(page, 'forbidden');
     await waitForResolvedEmbedCard(page, 'not_found');
@@ -77,8 +84,7 @@ describe('Snapshot Test: Cards', () => {
   });
 
   it('displays preview state with correct appearance', async () => {
-    await initRenderer(page, cardAdfBlock);
-    await page.setViewport({
+    await initRenderer(page, cardAdfBlock, {
       width: 800,
       height: 1500,
     });
@@ -87,4 +93,22 @@ describe('Snapshot Test: Cards', () => {
     await openPreviewState(page);
     await waitForPreviewState(page);
   });
+
+  it.each(embedCombinationsWithTitle)(
+    `should render embeds with and without dynamic height control with %s`,
+    async (condition, attributes) => {
+      await initRenderer(
+        page,
+        generateEmbedCombinationAdf([condition, attributes]),
+        {
+          width: 1440,
+          height: 2000,
+        },
+      );
+
+      await waitForSuccessfullyResolvedEmbedCard(page, 2);
+      // Ensure all images have finished loading on the page.
+      await waitForLoadedImageElements(page, 3000);
+    },
+  );
 });

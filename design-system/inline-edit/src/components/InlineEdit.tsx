@@ -16,6 +16,7 @@ class InlineEdit<FieldValue = string> extends React.Component<
 > {
   static defaultProps = {
     startWithEditViewOpen: false,
+    onCancel: () => {},
   };
 
   editViewRef = React.createRef<HTMLElement>();
@@ -41,6 +42,7 @@ class InlineEdit<FieldValue = string> extends React.Component<
     this.setState({
       isEditing: false,
     });
+    this.props.onCancel();
   };
 
   onEditRequested = () => {

@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { documentWithParagraph } from './__fixtures__/document-with-paragraph';
 import { getDocFromElement, fullpage, copyAsHTML } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -12,7 +12,7 @@ BrowserTestCase(
   'media: when message is not a media image node does nothing',
   { skip: ['edge', 'safari'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     const data = `
     <div

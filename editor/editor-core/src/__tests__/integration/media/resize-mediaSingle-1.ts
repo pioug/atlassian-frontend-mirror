@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { insertMedia, fullpage } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { selectTable } from '../../__helpers/page-objects/_table';
@@ -87,7 +87,7 @@ BrowserTestCase(
   'resize-mediaSingle.ts: Does not throw for allowTables.advanced: false',
   { skip: [] },
   async (browserObject: BrowserObject) => {
-    let page: Page = await goToEditorTestingExample(browserObject);
+    let page: Page = await goToEditorTestingWDExample(browserObject);
     await page.setWindowSize(1980, 1200);
 
     await setupEditor(page, {

@@ -63,6 +63,9 @@ function createAndroidMockBridge(): [AndroidBridge, Window] {
     pageTitleBridge: {
       updateTitle: jest.fn(),
     },
+    contentBridge: {
+      onContentRendered: jest.fn(),
+    },
   } as any) as Window;
   return [new AndroidBridge(mockWindow), mockWindow];
 }
@@ -275,6 +278,19 @@ describe('Web To Native', () => {
         expect(
           windowWithMockBridges.typeAheadBridge!.dismissTypeAhead,
         ).toHaveBeenCalled();
+      });
+    });
+
+    describe('Content Bridge', () => {
+      it('should call onContentRendered in native', function () {
+        const totalNodeSize = 100;
+        const nodes = 'dummy nodes';
+
+        androidBridge.onContentRendered(totalNodeSize, nodes);
+
+        expect(
+          windowWithMockBridges.contentBridge!.onContentRendered,
+        ).toHaveBeenCalledWith(totalNodeSize, nodes);
       });
     });
   });

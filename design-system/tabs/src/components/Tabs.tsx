@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import {
   createAndFireEvent,
@@ -6,7 +9,7 @@ import {
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
-import { Tabs as StyledTabs } from '../styled';
+import { tabStyles } from '../internal/styles';
 import {
   IsSelectedTestFunction,
   SelectedProp,
@@ -130,7 +133,7 @@ class Tabs extends Component<TabsProps, TabsState> {
     };
 
     return (
-      <StyledTabs data-testid={testId}>
+      <div data-testid={testId} css={tabStyles}>
         <TabsNavigation
           component={Item}
           onSelect={this.onSelect}
@@ -138,7 +141,7 @@ class Tabs extends Component<TabsProps, TabsState> {
           tabs={tabs}
         />
         {isContentPersisted ? contents() : <Content {...contentProps} />}
-      </StyledTabs>
+      </div>
     );
   }
 }

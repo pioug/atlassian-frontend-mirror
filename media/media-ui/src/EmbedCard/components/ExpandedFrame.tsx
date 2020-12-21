@@ -81,6 +81,10 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         maxWidth={maxWidth}
         isVisible={isVisible}
         data-testid={testId}
+        // Due to limitations of testing library, we can't assert ::after
+        data-is-selected={isSelected}
+        // Due to limitation of testing library, we can't match background colors #ebecf0 and rgb(235, 236, 240)
+        data-is-frame-visible={isFrameVisible}
         inheritDimensions={inheritDimensions}
       >
         {renderHeader()}
@@ -97,6 +101,8 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         maxWidth={maxWidth}
         isVisible={isVisible}
         data-testid={testId}
+        data-is-selected={isSelected}
+        data-is-visible={isVisible}
       >
         {renderHeader()}
         {renderContent()}

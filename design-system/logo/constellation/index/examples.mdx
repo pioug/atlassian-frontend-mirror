@@ -8,6 +8,10 @@ import LogoLockup from '../../examples/constellation/logo-lockup';
 import LogoSmall from '../../examples/constellation/logo-small';
 import LogoMedium from '../../examples/constellation/logo-medium';
 import LogoLarge from '../../examples/constellation/logo-large';
+import LogoBlue from '../../examples/constellation/logo-blue';
+import LogoWhite from '../../examples/constellation/logo-white';
+import LogoNeutral from '../../examples/constellation/logo-neutral';
+import LogoDefault from '../../examples/constellation/logo-default';
 
 import LogoAtlassian from '../../examples/constellation/logo-atlassian';
 import LogoBitbucket from '../../examples/constellation/logo-bitbucket';
@@ -40,6 +44,32 @@ A lockup is the combination of wordmark (the brand or product name) and its logo
 
 <Example Component={LogoLockup} packageName="@atlaskit/logo" />
 
+## Color
+
+Our product logos are used in three color schemes: blue, neutral, and white. By default, the wordmark and logomark inherit their colors from the parent element. Colors can be passed in via the `textColor`, `iconColor`, `iconGradientStart` and `iconGradientEnd` props to alter the appearance.
+
+### Default
+
+<Example Component={LogoDefault} packageName="@atlaskit/logo" />
+
+### Blue
+
+Blue product logos work best on a white or light background.
+
+<Example Component={LogoBlue} packageName="@atlaskit/logo" />
+
+### Neutral
+
+Neutral product logos can be used when the hierarchy calls for the logo to recede, but should always be evaluated for adequate contrast.
+
+<Example Component={LogoNeutral} packageName="@atlaskit/logo" />
+
+### White
+
+White product logos should be used on dark backgrounds.
+
+<Example Component={LogoWhite} packageName="@atlaskit/logo" />
+
 ## Size
 
 ### Small
@@ -59,7 +89,6 @@ The `medium` size (32px) is the default size and used primarily within product n
 The `large` size (56px) is rarely used. It may be used for a hero piece. For example, Statuspage's login.
 
 <Example Component={LogoLarge} packageName="@atlaskit/logo" />
-
 
 ## Logos
 
@@ -102,4 +131,3 @@ The `large` size (56px) is rarely used. It may be used for a hero piece. For exa
 ### Trello
 
 <Example Component={LogoTrello} packageName="@atlaskit/logo" />
-

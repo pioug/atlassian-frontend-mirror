@@ -12,6 +12,7 @@ import {
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
   DispatchAnalyticsEvent,
+  AnalyticsEventPayload,
 } from '../../analytics';
 import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 import { countNodes } from '../../../utils/count-nodes';
@@ -26,6 +27,9 @@ const DEFAULT_SLOW_THRESHOLD = 300;
 export const DEFAULT_FREEZE_THRESHOLD = 600;
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
+const DEFAULT_TRACK_SEVERITY_ENABLED = false;
+export const DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL = 100;
+export const DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED = 500;
 
 const dispatchLongTaskEvent = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -83,6 +87,16 @@ export default (
       : DEFAULT_FREEZE_THRESHOLD;
 
   const allowCountNodes = inputTracking && inputTracking.countNodes;
+
+  const shouldTrackSeverity =
+    inputTracking?.trackSeverity || DEFAULT_TRACK_SEVERITY_ENABLED;
+  const severityThresholdNormal =
+    inputTracking?.severityNormalThreshold ||
+    DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL;
+  const severityThresholdDegraded =
+    inputTracking?.severityDegradedThreshold ||
+    DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED;
+
   return new Plugin({
     props: isPerformanceAPIAvailable()
       ? {
@@ -98,7 +112,8 @@ export default (
 
               if (samplingRate && ++keystrokeCount === samplingRate) {
                 keystrokeCount = 0;
-                dispatchAnalyticsEvent({
+
+                const payload: AnalyticsEventPayload = {
                   action: ACTION.INPUT_PERF_SAMPLING,
                   actionSubject: ACTION_SUBJECT.EDITOR,
                   attributes: {
@@ -111,7 +126,17 @@ export default (
                     objectId: getContextIdentifier(state)?.objectId,
                   },
                   eventType: EVENT_TYPE.OPERATIONAL,
-                });
+                };
+
+                if (shouldTrackSeverity) {
+                  payload.attributes!.severity = getAnalyticsEventSeverity(
+                    diff,
+                    severityThresholdNormal,
+                    severityThresholdDegraded,
+                  );
+                }
+
+                dispatchAnalyticsEvent(payload);
               }
 
               if (diff > slowThreshold) {

@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 72.0.0
+
+### Minor Changes
+
+- [`c7e408f3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7e408f3c8) - [ux] Embed smart cart resizing now can dynamically change height when content is coming from a public resolver powered by iframe.
+
+### Patch Changes
+
+- [`81a5e08f06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a5e08f06) - Fix divider not visible in dark mode
+- Updated dependencies
+
 ## 71.0.0
 
 ### Minor Changes

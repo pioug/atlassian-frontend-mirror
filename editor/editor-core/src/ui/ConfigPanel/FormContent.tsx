@@ -23,17 +23,6 @@ import RemovableField from './NestedForms/RemovableField';
 import { OnBlur } from './types';
 import { getSafeParentedName } from './utils';
 
-type FormProps = {
-  fields: FieldDefinition[];
-  parentName?: string;
-  parameters?: Parameters;
-  extensionManifest: ExtensionManifest;
-  canRemoveFields?: boolean;
-  onClickRemove?: (fieldName: string) => void;
-  onFieldBlur: OnBlur;
-  firstVisibleFieldName?: string;
-};
-
 function FieldComponent({
   field,
   parameters,
@@ -177,7 +166,16 @@ export default function FormContent({
   onClickRemove,
   onFieldBlur,
   firstVisibleFieldName,
-}: FormProps) {
+}: {
+  fields: FieldDefinition[];
+  parentName?: string;
+  parameters?: Parameters;
+  extensionManifest: ExtensionManifest;
+  canRemoveFields?: boolean;
+  onClickRemove?: (fieldName: string) => void;
+  onFieldBlur: OnBlur;
+  firstVisibleFieldName?: string;
+}) {
   return (
     <Fragment>
       {fields.map((field: FieldDefinition) => {

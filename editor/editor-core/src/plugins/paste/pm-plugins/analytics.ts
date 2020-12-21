@@ -27,6 +27,7 @@ import {
   handleRichText,
   handleExpand,
   handleSelectedTable,
+  handlePasteLinkOnSelectedText,
 } from '../handlers';
 import { Command } from '../../../types';
 import { pipe } from '../../../utils';
@@ -394,6 +395,18 @@ export const handleSelectedTableWithAnalytics = (
 ): Command =>
   pipe(
     handleSelectedTable,
+    pasteCommandWithAnalytics(view, event, slice, {
+      type: PasteTypes.richText,
+    }),
+  )(slice);
+
+export const handlePasteLinkOnSelectedTextWithAnalytics = (
+  view: EditorView,
+  event: ClipboardEvent,
+  slice: Slice,
+): Command =>
+  pipe(
+    handlePasteLinkOnSelectedText,
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.richText,
     }),

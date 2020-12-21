@@ -18,7 +18,7 @@ import {
 } from './__fixtures__/layout-documents';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -28,7 +28,7 @@ BrowserTestCase(
   'Avoid overflow when table scale to wide',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -50,7 +50,7 @@ BrowserTestCase(
   'Avoid overflow when table scale to full width',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -72,7 +72,7 @@ BrowserTestCase(
   'Maintains the wide layout size without overflow',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -94,7 +94,7 @@ BrowserTestCase(
   'Maintains the wide layout size without overflow with dynamic text sizing',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -117,7 +117,7 @@ BrowserTestCase(
   'Maintains the full-width layout size without overflow',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -139,7 +139,7 @@ BrowserTestCase(
   'Maintains the default layout size without overflow when toggling through layouts',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -161,7 +161,7 @@ BrowserTestCase(
   'Scales down column sizes when bodied extension parent layout changes',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -195,7 +195,7 @@ BrowserTestCase(
   'Scales down column sizes when parent layout changes breakout',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

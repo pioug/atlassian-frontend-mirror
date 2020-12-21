@@ -16,6 +16,7 @@ class InlineEditableTextfield extends React.Component<
 > {
   static defaultProps = {
     isCompact: false,
+    onCancel: () => {},
   };
 
   render() {

@@ -5,6 +5,7 @@ jest.mock('../api', () => ({
 
 import { mocks } from '../../utils/mocks';
 import SmartCardClient from '..';
+import { isSuccessfulResponse, SuccessResponse } from '../types/responses';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -287,5 +288,21 @@ describe('Smart Card: Client', () => {
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 1');
     });
+  });
+});
+
+describe('isSuccessfulResponse()', () => {
+  it('should handle not valid responses', () => {
+    expect(isSuccessfulResponse(undefined as any)).toBeFalsy();
+    expect(isSuccessfulResponse(null as any)).toBeFalsy();
+    expect(isSuccessfulResponse({} as any)).toBeFalsy();
+  });
+
+  it('should return true for valid responses', () => {
+    const successResponse: SuccessResponse = {
+      body: {} as any,
+      status: 200,
+    };
+    expect(isSuccessfulResponse(successResponse)).toBeTruthy();
   });
 });

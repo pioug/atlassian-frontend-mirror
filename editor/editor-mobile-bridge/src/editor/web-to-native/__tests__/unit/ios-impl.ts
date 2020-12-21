@@ -23,6 +23,7 @@ function createiOSMockBridge(): [IosBridge, Window] {
       renderBridge: { postMessage: jest.fn() },
       taskDecisionBridge: { postMessage: jest.fn() },
       pageTitleBridge: { postMessage: jest.fn() },
+      contentBridge: { postMessage: jest.fn() },
     },
   };
   const mockWindow = ({
@@ -288,6 +289,24 @@ describe('Web To Native', () => {
             ?.postMessage,
         ).toHaveBeenCalledWith({
           name: 'dismissTypeAhead',
+        });
+      });
+    });
+
+    describe('Content Bridge', () => {
+      it('should call onContentRendered in native', function () {
+        const totalNodeSize = 100;
+        const nodes = 'dummy nodes';
+
+        iosBridge.onContentRendered(totalNodeSize, nodes);
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.contentBridge
+            ?.postMessage,
+        ).toHaveBeenCalledWith({
+          name: 'onContentRendered',
+          totalNodeSize,
+          nodes,
         });
       });
     });

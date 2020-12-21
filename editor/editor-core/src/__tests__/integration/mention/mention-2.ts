@@ -8,7 +8,7 @@ import {
   fullpage,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -24,7 +24,7 @@ BrowserTestCase(
   'mention-2.ts: user should see picker if they type "@"',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -39,7 +39,7 @@ BrowserTestCase(
   'mention-2.ts: text@ should not invoke picker',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -55,7 +55,7 @@ BrowserTestCase(
   'mention-2.ts: user should be able remove mention on backspace',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -74,7 +74,7 @@ BrowserTestCase(
   'mention-2.ts: @ <space> should not invoke picker',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -90,7 +90,7 @@ BrowserTestCase(
   'mention-2.ts: user should see space after node',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -106,7 +106,7 @@ BrowserTestCase(
   'mention-2.ts: escape closes picker',
   { skip: ['edge'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });

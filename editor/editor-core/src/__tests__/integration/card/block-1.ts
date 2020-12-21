@@ -1,20 +1,20 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, editable } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
 import * as blockCardAdf from './_fixtures_/block-card.adf.json';
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 
-type ClientType = Parameters<typeof goToEditorTestingExample>[0];
+type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: changing the link label of a block link should convert it to a "dumb" link',
   { skip: ['safari', 'edge'] },
   async (client: ClientType, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     const cardProviderPromise = Promise.resolve(
       new ConfluenceCardProvider('prod'),

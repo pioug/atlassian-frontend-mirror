@@ -1,4 +1,5 @@
 import {
+  evaluateTeardownMockDate,
   PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
@@ -15,6 +16,7 @@ import {
   waitForResolvedBlockCard,
   waitForResolvedEmbedCard,
   waitForResolvedInlineCard,
+  waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
 
 const themes = ['light', 'dark'];
@@ -36,7 +38,10 @@ describe('Cards:', () => {
         page,
         cardAdf,
         Device.LaptopHiDPI,
-        undefined,
+        {
+          width: 800,
+          height: 4200,
+        },
         {
           UNSAFE_cards: {
             resolveBeforeMacros: ['jira'],
@@ -46,11 +51,7 @@ describe('Cards:', () => {
         },
         getMode(theme),
       );
-
-      await page.setViewport({
-        width: 800,
-        height: 4200,
-      });
+      await evaluateTeardownMockDate(page);
 
       // Render an assortment of inline cards.
       await waitForResolvedInlineCard(page);
@@ -69,8 +70,8 @@ describe('Cards:', () => {
       await waitForResolvedBlockCard(page, 'errored');
 
       // Render an assortment of embed cards.
-      await waitForResolvedEmbedCard(page);
-      await waitForResolvedBlockCard(page, 'resolving');
+      await waitForSuccessfullyResolvedEmbedCard(page);
+      await waitForResolvedEmbedCard(page, 'resolving');
       await waitForResolvedEmbedCard(page, 'unauthorized');
       await waitForResolvedEmbedCard(page, 'forbidden');
       await waitForResolvedEmbedCard(page, 'not_found');
@@ -100,10 +101,11 @@ describe('Cards:', () => {
         },
       },
     );
+    await evaluateTeardownMockDate(page);
 
     await waitForResolvedInlineCard(page);
     await waitForResolvedBlockCard(page);
-    await waitForResolvedEmbedCard(page);
+    await waitForSuccessfullyResolvedEmbedCard(page);
 
     await waitForInlineCardSelection(page);
     await page.mouse.move(0, 0);
@@ -123,7 +125,10 @@ describe('Cards:', () => {
       page,
       cardAdfBlock,
       Device.LaptopHiDPI,
-      undefined,
+      {
+        width: 800,
+        height: 1500,
+      },
       {
         UNSAFE_cards: {
           resolveBeforeMacros: ['jira'],
@@ -132,11 +137,7 @@ describe('Cards:', () => {
         },
       },
     );
-
-    await page.setViewport({
-      width: 800,
-      height: 1500,
-    });
+    await evaluateTeardownMockDate(page);
 
     await waitForResolvedBlockCard(page);
     await openPreviewState(page);

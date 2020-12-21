@@ -24,19 +24,27 @@
           "content": [
             {
               "type": "text",
-              "text": "test caption "
+              "text": "test caption with custom emoji "
             },
             {
               "type": "emoji",
               "attrs": {
-                "shortName": ":grinning:",
-                "id": "1f600",
-                "text": "😀"
+                "shortName": ":slight_smile:",
+                "id": "1f642",
+                "text": "🙂"
               }
             },
             {
               "type": "text",
               "text": " "
+            },
+            {
+              "type": "emoji",
+              "attrs": {
+                "shortName": ":wtf:",
+                "id": "wtf",
+                "text": ":wtf:"
+              }
             }
           ]
         }

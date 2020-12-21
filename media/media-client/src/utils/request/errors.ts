@@ -26,3 +26,17 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
 export function isRequestError(err: Error): err is RequestError {
   return err instanceof RequestError;
 }
+
+export function isRateLimitedError(error: Error | undefined) {
+  return (
+    (!!error && isRequestError(error) && error.attributes.statusCode === 429) ||
+    (!!error && !!error.message && error.message.includes('429'))
+  );
+}
+
+export function getErrorName(
+  error: Error | undefined,
+  defaultErrorName: string,
+) {
+  return isRateLimitedError(error) ? 'rateLimited' : defaultErrorName;
+}

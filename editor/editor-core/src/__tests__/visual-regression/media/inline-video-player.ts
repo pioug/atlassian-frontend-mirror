@@ -25,7 +25,10 @@ describe('Snapshot Test: Media inline video player', () => {
 
   it('should render inline video player', async () => {
     await page.waitForSelector('[data-testid="media-file-card-view"]');
-    await waitForFloatingControl(page, 'Media floating controls');
+    await waitForFloatingControl(page, 'Media floating controls', {
+      waitDuration: 1000,
+      visible: true,
+    });
     await snapshot(page);
     await page.click('[data-testid="media-file-card-view"]');
     await page.waitForSelector('[data-testid="media-card-inline-player"]');

@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import { MobileEditor } from '../../mobile-editor-element';
+import MobileEditor from '../../mobile-editor-element';
 import {
   createCardClient,
   createEmojiProvider,
@@ -8,7 +8,6 @@ import {
   createMentionProvider,
   createCardProvider,
 } from '../../../providers';
-import { InjectedIntl } from 'react-intl';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
 import { toNativeBridge } from '../../web-to-native';
@@ -43,10 +42,6 @@ describe('mobile editor element', () => {
   let fetchProxy: FetchProxy;
   let bridge: WebBridgeImpl;
 
-  const intlMock = {
-    formatMessage: messageDescriptor =>
-      messageDescriptor && messageDescriptor.defaultMessage,
-  } as InjectedIntl;
   const initEditor = (
     editorConfig?: MobileEditorConfiguration,
   ): ReactWrapper<typeof MobileEditor> => {
@@ -60,7 +55,6 @@ describe('mobile editor element', () => {
         emojiProvider={createEmojiProvider(fetchProxy)}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
-        intl={intlMock}
         initialEditorConfig={editorConfig}
         bridge={bridge}
       />,
@@ -140,16 +134,6 @@ describe('mobile editor element', () => {
   });
 
   describe('Mobile Editor with default editor configuration', () => {
-    it('should set the editorConfiguration with dark mode', () => {
-      const editorConfig = new MobileEditorConfiguration('{ "mode": "dark" }');
-
-      mobileEditor = initEditor(editorConfig);
-
-      expect(mobileEditor.find('AtlaskitThemeProvider').prop('mode')).toEqual(
-        'dark',
-      );
-    });
-
     it('should set the default editor configuration to the bridge', () => {
       const editorConfig = new MobileEditorConfiguration(
         '{"mode": "dark","enableQuickInsert": true}',

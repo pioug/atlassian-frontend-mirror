@@ -1,5 +1,11 @@
 # @atlaskit/page
 
+## 12.0.4
+
+### Patch Changes
+
+- [`8047104b93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8047104b93) - Remove invalid `spacing` attribute in rendered HTML by not passing unused spacing prop to internal Grid component.
+
 ## 12.0.3
 
 ### Patch Changes

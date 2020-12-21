@@ -22,7 +22,7 @@ export const embedCard: NodeSpec = {
   attrs: {
     url: { default: '' },
     layout: { default: 'center' },
-    width: { default: null },
+    width: { default: 100 },
     originalWidth: { default: null },
     originalHeight: { default: null },
   },

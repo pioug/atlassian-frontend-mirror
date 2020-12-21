@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
-import { goToEditorTestingExample } from '../../__helpers/testing-example-helpers';
+import { goToEditorTestingWDExample } from '../../__helpers/testing-example-helpers';
 import defaultTableAdf from './_fixtures_/defaultTableAdf.json';
 import {
   navigateToTableCell,
@@ -19,7 +19,7 @@ BrowserTestCase(
   'resize-mediaSingle.ts: Image is resized down in left column of 3x3 table with different layouts',
   { skip: [] },
   async (browserObject: BrowserObject) => {
-    let page: Page = await goToEditorTestingExample(browserObject);
+    let page: Page = await goToEditorTestingWDExample(browserObject);
     await page.setWindowSize(1980, 1200);
 
     // There was a regressions when allowTables.advanced is false.

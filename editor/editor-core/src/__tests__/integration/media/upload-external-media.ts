@@ -6,7 +6,7 @@ import {
   copyToClipboard,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { sleep } from '@atlaskit/media-test-helpers';
@@ -43,7 +43,7 @@ BrowserTestCase(
       'html',
     );
 
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       media: {

@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 12.1.2
+
+### Patch Changes
+
+- [`e795d0a849`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e795d0a849) - The `Tabs` component now uses emotion instead of styled-components for it's internal styling.
+
 ## 12.1.1
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import { ComponentType, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { ThemeModes } from '@atlaskit/theme/types';
 
 export interface TabData {
   label?: string;
@@ -23,7 +24,7 @@ export interface TabItemElementProps {
   tabIndex?: number;
 }
 
-type TabItemInnerRef = (ref: HTMLElement) => void;
+type TabItemInnerRef = (ref: HTMLDivElement) => void;
 
 export interface TabItemComponentProvided {
   /** The complete tab object which you provided to `Tabs` in the tabs array. */
@@ -35,6 +36,8 @@ export interface TabItemComponentProvided {
   innerRef: TabItemInnerRef;
   /** Whether this tab is currently selected. */
   isSelected: boolean;
+  /** Whether this tab is light or dark */
+  mode: ThemeModes;
 }
 
 export interface TabContentComponentProvided {

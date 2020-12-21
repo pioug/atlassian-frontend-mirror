@@ -35,7 +35,7 @@ const UsernameField = () => (
 
 ## CheckboxField [#](#checkboxfield-reference)
 
-Checkbox fields are different enough to warrent this variation of Field.
+Checkbox fields are different enough to warrant this variation of Field.
 By default the value of a CheckboxField will be true or false. When the
 component is rendered with a \`value\` prop the form value will be an array.
 The array will contain \`value\` depending on whether the field is checked.
@@ -57,7 +57,7 @@ const RememberMeField = () => (
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/CheckboxField')}
+      props={require('!!extract-react-types-loader!../extract-react-types/checkbox-field-props')}
       heading=""
     />
   )}
@@ -96,6 +96,37 @@ const ProductField = () => (
   ${(
     <Props
       props={require('!!extract-react-types-loader!../src/Fieldset')}
+      heading=""
+    />
+  )}
+
+<a name="rangefield-reference"></a>
+
+## RangeField [#](#rangefield-reference)
+
+Range fields are different enough to warrant this variation of Field.
+This is because Range inputs do not support isInvalid or isRequired and also require a defaultValue.
+
+RangeField will handle these interface differences between Range and other variations of input.
+
+${code`
+import { RangeField } from '@atlaskit/form';
+import Range from '@atlaskit/range';
+
+const VolumeField = () => (
+  <RangeField name="volume" label="Volume">
+    {({ fieldProps }) => (
+      <Range {...fieldProps} />
+    )}
+  </RangeField>
+);
+`}
+
+### RangeField props
+
+  ${(
+    <Props
+      props={require('!!extract-react-types-loader!../extract-react-types/range-field-props')}
       heading=""
     />
   )}

@@ -33,6 +33,13 @@ export function shouldShowProcessingProgress(
     return false;
   }
 
+  if (
+    !getMediaFeatureFlag('newCardExperience', featureFlags) &&
+    mediaType === 'doc'
+  ) {
+    return false;
+  }
+
   const canBePreviewed =
     isPreviewableFileState(fileState) && isMimeTypeSupportedByBrowser(mimeType);
 

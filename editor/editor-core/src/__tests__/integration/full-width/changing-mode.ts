@@ -5,7 +5,7 @@ import {
   updateEditorProps,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -16,7 +16,7 @@ BrowserTestCase(
   // `page.checkConsoleErrors` only runs on Chrome so we skip all other browsers.
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: JSON.stringify(mediumSizeDoc),

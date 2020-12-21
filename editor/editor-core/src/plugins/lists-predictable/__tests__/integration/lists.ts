@@ -8,7 +8,7 @@ import {
   setProseMirrorTextSelection,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { KEY } from '../../../../__tests__/__helpers/page-objects/_keyboard';
@@ -36,7 +36,7 @@ BrowserTestCase(
   `list: shouldn't change focus on tab if the list is not indentable`,
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
       UNSAFE_predictableLists: true,
@@ -61,7 +61,7 @@ BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Windows)',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
       UNSAFE_predictableLists: true,
@@ -79,7 +79,7 @@ BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Mac)',
   { skip: ['edge', 'chrome', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
       UNSAFE_predictableLists: true,
@@ -112,7 +112,7 @@ BrowserTestCase(
   'list: should be able to navigate lists correctly in firefox',
   { skip: ['edge', 'chrome', 'safari'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
       UNSAFE_predictableLists: true,
@@ -149,7 +149,7 @@ BrowserTestCase(
   'list: should handle backspace correctly when at the start of a list',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -220,7 +220,7 @@ BrowserTestCase(
   'list: should handle delete correctly when at the end of a list',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -288,7 +288,7 @@ BrowserTestCase(
   'list: ctrl-d shortcut should behave the same as delete key (Mac)',
   { skip: ['edge', 'chrome', 'firefox'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       UNSAFE_predictableLists: true,
@@ -311,7 +311,7 @@ BrowserTestCase(
   'list: ctrl-d shortcut should not change editable content (Windows)',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       UNSAFE_predictableLists: true,

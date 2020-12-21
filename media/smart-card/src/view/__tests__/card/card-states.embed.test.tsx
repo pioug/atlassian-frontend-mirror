@@ -171,6 +171,19 @@ describe('smart-card: card states, embed', () => {
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
+
+      it('should pass iframe forward reference down to embed iframe', async () => {
+        const iframeRef = React.createRef<HTMLIFrameElement>();
+        const { getByTestId } = render(
+          <Provider client={mockClient}>
+            <Card appearance="embed" url={mockUrl} embedIframeRef={iframeRef} />
+          </Provider>,
+        );
+        const iframeEl = await waitForElement(() =>
+          getByTestId('embed-card-resolved-view-frame'),
+        );
+        expect(iframeEl).toBe(iframeRef.current);
+      });
     });
 
     describe('> state: forbidden', () => {

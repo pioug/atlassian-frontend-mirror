@@ -1,21 +1,36 @@
+jest.mock('raf-schd', () => (cb: Function) => {
+  (cb as any).cancel = jest.fn();
+  return cb;
+});
+
 import React from 'react';
 import { mount } from 'enzyme';
 import { embedCard, doc } from '@atlaskit/editor-test-helpers/schema-builder';
-import { Card } from '@atlaskit/smart-card';
-import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedCard';
+import { Card, IframelyResizeMessageListener } from '@atlaskit/smart-card';
 import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '@atlaskit/editor-common';
+import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common';
+import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedCard';
 import ResizableEmbedCard from '../../../../../plugins/card/ui/ResizableEmbedCard';
 import { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 import { createCardContext } from '../_helpers';
+import { EmbedCardAttributes } from '@atlaskit/adf-schema';
+import { SmartCardProps } from '../../../../../plugins/card/nodeviews/genericCard';
+import { setDragging } from '../../../../../plugins/table/pm-plugins/table-resizing/commands';
 
 describe('EmbedCard', () => {
   const createEditor = createEditorFactory();
+  let allowColumnResizing: boolean;
+
   let mockDispatchAnalytics: DispatchAnalyticsEvent;
   const editor = (doc: any, cardProps?: Partial<CardOptions>) => {
     return createEditor({
       doc,
       editorProps: {
+        allowTables: {
+          advanced: true,
+          allowColumnResizing,
+        },
         UNSAFE_cards: {
           allowEmbeds: true,
           ...cardProps,
@@ -24,7 +39,52 @@ describe('EmbedCard', () => {
     });
   };
 
+  const setup = (
+    props?: Partial<SmartCardProps>,
+    attributes?: Partial<EmbedCardAttributes>,
+  ) => {
+    const mockInlinePmNode = embedCard({
+      url: 'https://some/url',
+      layout: 'center',
+      ...attributes,
+    })();
+    const { editorView } = editor(doc(mockInlinePmNode));
+    const node = editorView.state.doc.firstChild;
+    if (!node) {
+      throw new Error('node should be defined');
+    }
+
+    const getPos = jest.fn(() => 0);
+    const component = mount(
+      <EmbedCardComponent
+        node={node}
+        view={editorView}
+        getPos={getPos}
+        dispatchAnalyticsEvent={mockDispatchAnalytics}
+        cardContext={createCardContext()}
+        allowResizing={true}
+        {...props}
+      />,
+    );
+    const cardComponent = component.find(Card);
+    const resizeListener = component.find(IframelyResizeMessageListener);
+    const resizableEmbedCard = component.find(ResizableEmbedCard);
+    const richMediaWrapper = component.find(RichMediaWrapper);
+
+    return {
+      component,
+      cardComponent,
+      resizeListener,
+      resizableEmbedCard,
+      richMediaWrapper,
+      getPos,
+      editorView,
+      node,
+    };
+  };
+
   beforeEach(() => {
+    allowColumnResizing = true;
     mockDispatchAnalytics = jest.fn();
   });
 
@@ -33,52 +93,149 @@ describe('EmbedCard', () => {
   });
 
   it('renders', () => {
-    const mockInlinePmNode = embedCard({
-      url: 'https://some/url',
-      layout: 'center',
-    })();
-    const { editorView } = editor(doc(mockInlinePmNode));
-    const node = editorView.state.doc.firstChild;
+    const { cardComponent } = setup();
 
-    const mockInlineCardNode = mount(
-      <EmbedCardComponent
-        node={node!}
-        view={editorView}
-        getPos={() => 0}
-        dispatchAnalyticsEvent={mockDispatchAnalytics}
-        cardContext={createCardContext()}
-      />,
-    );
-    const wrapper = mockInlineCardNode.find(Card);
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.prop('url')).toBe('https://some/url');
-    mockInlineCardNode.unmount();
+    expect(cardComponent).toHaveLength(1);
+    expect(cardComponent.prop('url')).toBe('https://some/url');
   });
 
-  it('does not render resizer handles', () => {
-    const mockInlinePmNode = embedCard({
-      url: 'https://some/url',
-      layout: 'center',
-    })();
-    const { editorView } = editor(doc(mockInlinePmNode), {
-      allowResizing: true,
-    });
-    const node = editorView.state.doc.firstChild;
+  it('should render IframelyResizeMessageListener', () => {
+    const { resizeListener } = setup();
 
-    const mockInlineCardNode = mount(
-      <EmbedCardComponent
-        node={node!}
-        view={editorView}
-        getPos={() => 0}
-        allowResizing={false}
-        dispatchAnalyticsEvent={mockDispatchAnalytics}
-        cardContext={createCardContext()}
-      />,
+    expect(resizeListener).toHaveLength(1);
+    const resizeListenerProps = resizeListener.props();
+    expect(resizeListenerProps.onHeightUpdate).toEqual(expect.any(Function));
+    expect(resizeListenerProps.embedIframeRef).toBeDefined();
+  });
+
+  it("should use originalHeight from ADF attributes if state hasn't been updated with current height", () => {
+    const { resizableEmbedCard } = setup(
+      {},
+      {
+        originalHeight: 42,
+      },
     );
-    const wrapper = mockInlineCardNode.find(ResizableEmbedCard);
-    expect(wrapper).toHaveLength(0);
-    const cardWrapper = mockInlineCardNode.find(Card);
-    expect(cardWrapper).toHaveLength(1);
-    mockInlineCardNode.unmount();
+
+    expect(resizableEmbedCard.props().height).toEqual(42);
+  });
+
+  it('should use height sent via on onHeightUpdate', () => {
+    const { component, resizeListener } = setup(
+      {},
+      {
+        originalHeight: 42,
+      },
+    );
+
+    expect(resizeListener).toHaveLength(1);
+    const resizeListenerProps = resizeListener.props();
+    resizeListenerProps.onHeightUpdate(50);
+    component.update();
+    const resizableEmbedCard = component.find(ResizableEmbedCard);
+    expect(resizableEmbedCard.props().height).toEqual(50);
+  });
+
+  it('should set height to originalHeight ADF attribute on onHeightUpdate event', async () => {
+    const { resizeListener, editorView } = setup();
+
+    expect(resizeListener).toHaveLength(1);
+    const resizeListenerProps = resizeListener.props();
+    resizeListenerProps.onHeightUpdate(50);
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        embedCard({
+          url: 'https://some/url',
+          layout: 'center',
+          originalHeight: 50,
+        })(),
+      ),
+    );
+  });
+
+  it('should set height to originalHeight ADF attribute on onHeightUpdate event when table resizing plugin is not present', async () => {
+    allowColumnResizing = false;
+    const { resizeListener, editorView } = setup();
+
+    expect(resizeListener).toHaveLength(1);
+    const resizeListenerProps = resizeListener.props();
+    resizeListenerProps.onHeightUpdate(50);
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        embedCard({
+          url: 'https://some/url',
+          layout: 'center',
+          originalHeight: 50,
+        })(),
+      ),
+    );
+  });
+
+  it('should not update originalHeight in ADF if table is being resized', () => {
+    const { resizeListener, editorView } = setup();
+
+    setDragging({
+      startWidth: 42,
+      startX: 35,
+    })(editorView.state, editorView.dispatch);
+
+    expect(resizeListener).toHaveLength(1);
+    const resizeListenerProps = resizeListener.props();
+    resizeListenerProps.onHeightUpdate(50);
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        embedCard({
+          url: 'https://some/url',
+          layout: 'center',
+          originalHeight: undefined,
+        })(),
+      ),
+    );
+  });
+
+  describe('when allowResizing is false', () => {
+    it('does not render resizer handles', () => {
+      const { cardComponent, resizableEmbedCard } = setup({
+        allowResizing: false,
+      });
+
+      expect(resizableEmbedCard).toHaveLength(0);
+      expect(cardComponent).toHaveLength(1);
+    });
+
+    it('should render RichMediaWrapper', () => {
+      const { richMediaWrapper } = setup(
+        { allowResizing: false },
+        {
+          originalHeight: 42,
+        },
+      );
+
+      expect(richMediaWrapper).toHaveLength(1);
+      const richMediaWrapperProps = richMediaWrapper.props();
+      expect(richMediaWrapperProps.containerWidth).toBeDefined();
+      expect(richMediaWrapperProps.height).toEqual(42);
+      expect(richMediaWrapperProps.width).toBeUndefined();
+    });
+
+    it('should put default dimensions on RichMediaWrapper when there is no originalHeight nor state one', () => {
+      const { richMediaWrapper } = setup({ allowResizing: false });
+
+      const richMediaWrapperProps = richMediaWrapper.props();
+      expect(richMediaWrapperProps.height).toEqual(480);
+      expect(richMediaWrapperProps.width).toEqual(680);
+    });
+
+    it('should put height provided by onHeightChange on RichMediaWrapper', () => {
+      const { resizeListener, component } = setup({ allowResizing: false });
+
+      const resizeListenerProps = resizeListener.props();
+      resizeListenerProps.onHeightUpdate(50);
+      component.update();
+
+      const richMediaWrapper = component.find(RichMediaWrapper);
+      const richMediaWrapperProps = richMediaWrapper.props();
+      expect(richMediaWrapperProps.height).toEqual(50);
+      expect(richMediaWrapperProps.width).toBeUndefined();
+    });
   });
 });

@@ -6,6 +6,7 @@ import { N300 } from '@atlaskit/theme/colors';
 
 export const LoadingRateLimitedContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,7 +14,6 @@ export const LoadingRateLimitedContainer = styled.div`
 `;
 
 export const WarningIconWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  margin-top: 15px;
   width: 100%;
   justify-content: center;
   display: flex;

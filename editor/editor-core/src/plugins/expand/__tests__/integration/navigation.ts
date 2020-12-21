@@ -6,7 +6,7 @@ import {
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { selectors } from '../../../../__tests__/__helpers/page-objects/_expand';
@@ -23,7 +23,7 @@ BrowserTestCase(
   'navigation.ts: pressing Backspace should delete an expand when cursor is inside content',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -43,7 +43,7 @@ BrowserTestCase(
   'navigation.ts: pressing Backspace should delete an expand when cursor is inside title',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -63,7 +63,7 @@ BrowserTestCase(
   'navigation.ts: pressing Enter should collapse an expand when cursor is inside title',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -82,7 +82,7 @@ BrowserTestCase(
   'navigation.ts: when cursor is after a collapsed expand, pressing Backspace should focus the title',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -103,7 +103,7 @@ BrowserTestCase(
   'navigation.ts: when cursor is after two collapsed expands, pressing Backspace should focus the title of the second one',
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

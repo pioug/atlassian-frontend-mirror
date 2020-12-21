@@ -9,7 +9,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
 /*
@@ -23,7 +23,7 @@ BrowserTestCase(
   'mention-1.ts: user can see mention inside blockquote',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {
@@ -44,7 +44,7 @@ BrowserTestCase(
   'mention-1.ts: user can see mention inside bulletList',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -63,7 +63,7 @@ BrowserTestCase(
   'mention-1.ts: user can see mention inside orderedList',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -82,7 +82,7 @@ BrowserTestCase(
   'mention-1.ts: user can see mention inside decision',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -99,7 +99,7 @@ BrowserTestCase(
   'mention-1.ts: user can see mention inside action',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -116,7 +116,7 @@ BrowserTestCase(
   'mention-1.ts: user can navigate picker using keyboard',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });

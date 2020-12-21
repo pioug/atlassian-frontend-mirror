@@ -5,17 +5,17 @@ import { ThemeProp } from '@atlaskit/theme/components';
 import { Input } from './styled';
 import { Theme, ThemeTokens } from './theme';
 
-export interface RangeProps {
+export type OwnProps = {
   /** if the field range needs to be disabled */
   isDisabled?: boolean;
   /** Maximum value of the range */
   max?: number;
   /** Minimum value of the range */
   min?: number;
-  /** Hook to be invoked on change of the range */
-  onChange?: (value: number) => any;
   /** Step value for the range */
   step?: number;
+  /** Hook to be invoked on change of the range */
+  onChange?: (value: number) => void;
   /** Value of the range */
   value?: number;
   /** The default value */
@@ -26,15 +26,45 @@ export interface RangeProps {
   theme?: ThemeProp<any, any>;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
-}
+};
 
-const getPercentValue = (value: number, min: number, max: number): string => {
+// Combine omits the keys of the second from the first so in case of overlap the props of the second are used.
+type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+// OwnProps is used for external documentation, but does not list every property supported by Range.
+// So we combine (a reduced list of) HTMLInputElement attributes with OwnProps to get the full type.
+export type RangeProps = Combine<
+  Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'disabled' | 'required' | 'checked'
+  >,
+  OwnProps
+>;
+
+const snapToStep = (value: number, min: number, step: number): number => {
+  // Normalise the value to allow for division properly with different min values
+  const adjustedValue = value - min;
+  // Find the number of steps the value covers
+  const numSteps = Math.round(adjustedValue / step);
+  // Convert numSteps back into original range
+  return numSteps * step + min;
+};
+
+const getRoundedPercentValue = (
+  value: number,
+  min: number,
+  max: number,
+  step: number,
+): string => {
   let percent = '0';
   if (min < max && value > min) {
-    percent = (((value - min) / (max - min)) * 100).toFixed(2);
+    const snappedValue = snapToStep(value, min, step);
+    percent = (((snappedValue - min) / (max - min)) * 100).toFixed(2);
   }
   return percent;
 };
+
+const noop = () => {};
 
 export default forwardRef(function Range(
   props: RangeProps,
@@ -45,7 +75,7 @@ export default forwardRef(function Range(
     defaultValue = 50,
     max = 100,
     min = 0,
-    onChange = () => {},
+    onChange = noop,
     step = 1,
     value: propsValue,
     theme,
@@ -70,7 +100,7 @@ export default forwardRef(function Range(
   );
 
   const renderValue = propsValue !== undefined ? propsValue : value;
-  const valuePercent = getPercentValue(renderValue, min, max);
+  const valuePercent = getRoundedPercentValue(renderValue, min, max, step);
 
   return (
     <Theme.Provider value={theme}>

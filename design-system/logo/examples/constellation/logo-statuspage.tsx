@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { B200, B400, N700 } from '@atlaskit/theme/colors';
+
 import { StatuspageIcon, StatuspageLogo, StatuspageWordmark } from '../../src';
 
 const LogoStatusPage = () => (
@@ -15,13 +17,22 @@ const LogoStatusPage = () => (
       <tbody>
         <tr>
           <td>
-            <StatuspageLogo />
+            <StatuspageLogo
+              textColor={N700}
+              iconColor={B200}
+              iconGradientStart={B400}
+              iconGradientStop={B200}
+            />
           </td>
           <td>
-            <StatuspageWordmark />
+            <StatuspageWordmark textColor={N700} />
           </td>
           <td>
-            <StatuspageIcon />
+            <StatuspageIcon
+              iconColor={B200}
+              iconGradientStart={B400}
+              iconGradientStop={B200}
+            />
           </td>
         </tr>
       </tbody>

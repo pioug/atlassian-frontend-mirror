@@ -66,7 +66,7 @@ export async function clickToolbarMenu(page: TestPage, menu: ToolbarMenuItem) {
 export const waitForFloatingControl = async (
   page: PuppeteerPage,
   ariaLabel: string,
-  options = { visible: true },
+  options = { visible: true, waitDuration: 200 },
   repositionalWait = true,
 ) => {
   // Note: there can be multiple popups visible at once...
@@ -79,12 +79,11 @@ export const waitForFloatingControl = async (
   const ariaLabelSelector = `[aria-label*="${ariaLabel}" i]`;
   const selector = `${popupSelector}${ariaLabelSelector}`;
   await page.waitForSelector(selector, options);
-
   if (repositionalWait) {
     // Additional time buffer to account for repositional shifts while
     // centering underneath the anchoring element. This reduces the
     // amount of flaky test failures due to non centered toolbars.
-    await page.waitFor(200);
+    await page.waitFor(options.waitDuration);
 
     // Force layout
     await forceLayout(selector, page);

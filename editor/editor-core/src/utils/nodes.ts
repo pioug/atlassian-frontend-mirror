@@ -1,6 +1,15 @@
 import { Transaction, EditorState } from 'prosemirror-state';
-import { Node as PMNode, Slice, Fragment } from 'prosemirror-model';
+import {
+  Node as PMNode,
+  Mark as PMMark,
+  Slice,
+  Fragment,
+  NodeType,
+  MarkType,
+  Schema,
+} from 'prosemirror-model';
 import { Step } from 'prosemirror-transform';
+import { CardAppearance } from '@atlaskit/smart-card';
 
 /**
  * Finds all top level nodes affected by the transaction
@@ -44,8 +53,21 @@ export const validNode = (node: PMNode): boolean => {
 export const validateNodes = (nodes: PMNode[]): boolean =>
   nodes.every(validNode);
 
-export const isNodeTypeParagraph = (node: PMNode | undefined | null): boolean =>
-  Boolean(node && node.type && node.type.name === 'paragraph');
+type PMEntities = PMNode | PMMark | null | undefined;
+
+export const isType = (
+  node: PMEntities,
+  type: NodeType | MarkType | undefined,
+) => type && node && node.type === type;
+
+export const isParagraph = (node: PMEntities, schema: Schema) =>
+  isType(node, schema.nodes.paragraph);
+
+export const isText = (node: PMEntities, schema: Schema) =>
+  isType(node, schema.nodes.text);
+
+export const isLinkMark = (node: PMEntities, schema: Schema) =>
+  isType(node, schema.marks.link);
 
 export enum SelectedState {
   selectedInRange,
@@ -91,7 +113,12 @@ export const isNodeSelectedOrInRange = (
 export const isSupportedInParent = (
   state: EditorState,
   fragment: Fragment,
+  currentAppearance?: CardAppearance,
 ): boolean => {
-  const parent = state.selection.$from.node(-1);
+  const depth =
+    currentAppearance === 'embed' || currentAppearance === 'block'
+      ? undefined
+      : -1;
+  const parent = state.selection.$from.node(depth);
   return parent && parent.type.validContent(fragment);
 };

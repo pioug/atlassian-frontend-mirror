@@ -52,6 +52,7 @@ import {
   handleRichTextWithAnalytics,
   handleExpandWithAnalytics,
   handleSelectedTableWithAnalytics,
+  handlePasteLinkOnSelectedTextWithAnalytics,
 } from './analytics';
 import { PasteTypes } from '../../analytics';
 import { insideTable } from '../../../utils';
@@ -284,6 +285,16 @@ export function createPlugin(
               event,
               markdownSlice,
               PasteTypes.markdown,
+            )(state, dispatch)
+          ) {
+            return true;
+          }
+
+          if (
+            handlePasteLinkOnSelectedTextWithAnalytics(
+              view,
+              event,
+              markdownSlice,
             )(state, dispatch)
           ) {
             return true;

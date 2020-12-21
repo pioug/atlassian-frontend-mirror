@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 12.3.0
+
+### Minor Changes
+
+- [`56693486a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56693486a3) - [ux] Rate Limited UI for the MediaViewer. Also moved a MediaCard function into MediaClient so that that functionality can be used across multiple packages
+
 ## 12.2.0
 
 ### Minor Changes

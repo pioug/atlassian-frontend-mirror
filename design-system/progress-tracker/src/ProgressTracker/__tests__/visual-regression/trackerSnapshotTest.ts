@@ -10,7 +10,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('div[spacing="cosy"]');
+    await page.waitForSelector('div[data-testid="progress-tracker"]');
     await page.waitForSelector('.fade-exit-done');
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

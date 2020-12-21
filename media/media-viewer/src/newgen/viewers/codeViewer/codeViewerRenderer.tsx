@@ -2,9 +2,14 @@ import React from 'react';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
 import { CodeBlock } from '@atlaskit/code';
-import ErrorMessage, { createError, MediaViewerError } from '../../error';
+import ErrorMessage, {
+  createError,
+  MediaViewerError,
+  ErrorName,
+} from '../../error';
 import { CodeViewWrapper, CodeViewerHeaderBar } from './styled';
 import { lineCount } from './util';
+import { getErrorName } from '@atlaskit/media-client';
 
 export type Props = {
   src: string;
@@ -46,7 +51,9 @@ export class CodeViewRenderer extends React.Component<Props, State> {
       }
     } catch (err) {
       this.setState({
-        doc: Outcome.failed(createError('previewFailed', err)),
+        doc: Outcome.failed(
+          createError(getErrorName(err, 'previewFailed') as ErrorName, err),
+        ),
       });
 
       if (onError) {

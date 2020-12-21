@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { decisionSelectors } from '../../../../__tests__/__helpers/page-objects/_decision';
@@ -16,7 +16,7 @@ BrowserTestCase(
   "doesn't select decision item node if click and drag before releasing mouse",
   { skip: ['safari'] }, // impacted by https://product-fabric.atlassian.net/browse/ED-9974
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: decisionAdf,

@@ -56,6 +56,15 @@ describe('Error Message', () => {
     );
   });
 
+  it('should render the right error for when a file has been rate limited', () => {
+    const el = mount(
+      <ErrorMessage intl={fakeIntl} error={createError('rateLimited')} />,
+    );
+    expect(el.text()).toContain(
+      "We're having difficulties loading your file.Try closing this file and reopening.Error 429",
+    );
+  });
+
   it('should render the right error when the id is not found', () => {
     const el = mount(
       <ErrorMessage intl={fakeIntl} error={createError('idNotFound')} />,

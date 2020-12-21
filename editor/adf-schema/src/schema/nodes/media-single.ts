@@ -40,7 +40,7 @@ export interface MediaSingleWithCaptionDefinition
 }
 
 export const defaultAttrs = {
-  width: { default: null },
+  width: { default: null }, // null makes small images to have original size by default
   layout: { default: 'center' },
 };
 

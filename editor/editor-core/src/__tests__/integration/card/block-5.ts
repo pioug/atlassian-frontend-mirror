@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import * as inlineCardAdf from './_fixtures_/block-card.adf.unauth.json';
@@ -9,13 +9,13 @@ import {
   AuthorizationWindow,
 } from '@atlaskit/media-integration-test-helpers';
 
-type ClientType = Parameters<typeof goToEditorTestingExample>[0];
+type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: should open a new window to authenticate with a provider when connecting a different account',
   { skip: ['safari', 'edge'] },
   async (client: ClientType) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     const authorizationWindow = new AuthorizationWindow(client, page);
 
     await mountEditor(page, {

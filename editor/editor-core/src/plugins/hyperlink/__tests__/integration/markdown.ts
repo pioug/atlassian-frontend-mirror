@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import {
@@ -17,7 +17,7 @@ BrowserTestCase(
   'can insert hyperlink via markdown',
   {},
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });
@@ -37,7 +37,7 @@ BrowserTestCase(
     const page = new Page(client);
     await copyHyperlink(page, 'http://atlassian.com');
 
-    await goToEditorTestingExample(client);
+    await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
     });

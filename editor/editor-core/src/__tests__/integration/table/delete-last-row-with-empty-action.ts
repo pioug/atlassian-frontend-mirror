@@ -8,7 +8,7 @@ import {
 } from '../_helpers';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -18,7 +18,7 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const FIRST_CELL_FROM_LAST_ROW =
       'table > tbody > tr:last-child > td:first-child';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {
@@ -57,7 +57,7 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const FIRST_CELL_FROM_LAST_ROW =
       'table > tbody > tr:last-child > td:first-child';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowTables: {

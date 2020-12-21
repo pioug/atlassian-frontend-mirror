@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 21.1.0
+
+### Minor Changes
+
+- [`622ae0dc66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/622ae0dc66) - [ux] added macros and dark theme support with query params configuration
+- [`9d91ea2859`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d91ea2859) - ED-11455 Enable useSpecvalidator flag for hybrid renderer
+- [`2d80d6e283`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d80d6e283) - [ED-11464][editor] Introduce onContentRendered method in content bridge. It is called when content is rendered which is set by bridge.setContent
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.2
 
 ### Patch Changes

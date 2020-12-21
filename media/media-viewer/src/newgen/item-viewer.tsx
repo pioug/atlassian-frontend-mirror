@@ -5,6 +5,7 @@ import {
   Identifier,
   isExternalImageIdentifier,
   isFileIdentifier,
+  isRateLimitedError,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -43,6 +44,7 @@ import { AudioViewer } from './viewers/audio';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
+import { getErrorName } from '@atlaskit/media-client';
 
 export type Props = Readonly<{
   identifier: Identifier;
@@ -313,12 +315,23 @@ export class ItemViewerBase extends React.Component<Props, State> {
           });
         },
         error: err => {
+          const isRateLimited: Boolean = isRateLimitedError(err);
+
+          // initial failure reason either (1) rate limited (2) metadata failed
+
+          const analyticsReason = isRateLimited
+            ? 'Tenant has been rate limited'
+            : 'Metadata fetching failed';
+
           this.setState({
-            item: Outcome.failed(createError('metadataFailed', err)),
+            item: Outcome.failed(
+              createError(
+                getErrorName(err, 'metadataFailed') as ErrorName,
+                err,
+              ),
+            ),
           });
-          this.fireAnalytics(
-            mediaFileLoadFailedEvent(id, 'Metadata fetching failed'),
-          );
+          this.fireAnalytics(mediaFileLoadFailedEvent(id, analyticsReason));
         },
       });
   }

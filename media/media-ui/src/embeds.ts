@@ -10,3 +10,4 @@ export { EmbedCardUnresolvedView } from './EmbedCard/views/UnresolvedView';
 export type { EmbedCardUnresolvedViewProps } from './EmbedCard/views/UnresolvedView';
 export { ErroredView as EmbedCardErroredView } from './EmbedCard/views/ErroredView';
 export type { ErroredViewProps as EmbedCardErroredViewProps } from './EmbedCard/views/ErroredView';
+export { embedHeaderHeight } from './EmbedCard/components/styled';

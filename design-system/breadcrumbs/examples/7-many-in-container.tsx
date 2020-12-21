@@ -5,7 +5,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '../src';
 export default () => (
   // with many items, inside a container
   <div style={{ maxWidth: '500px', border: '1px solid black' }}>
-    <Breadcrumbs>
+    <Breadcrumbs testId="BreadcrumbsTestId">
       <BreadcrumbsItem href="/item" text="Item" />
       <BreadcrumbsItem href="/item" text="Another item" />
       <BreadcrumbsItem href="/item" text="A third item" />

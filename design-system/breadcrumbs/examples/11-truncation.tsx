@@ -9,7 +9,7 @@ const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
 export default () => (
   // with trunaction and icons
   <div>
-    <Breadcrumbs>
+    <Breadcrumbs testId="MyBreadcrumbsTestId">
       <BreadcrumbsItem
         truncationWidth={200}
         href="/long"

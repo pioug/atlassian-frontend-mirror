@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 8.2.0
+
+### Minor Changes
+
+- [`fa4256f9b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa4256f9b0) - Add getState to FormProps for inspecting internal Form state (errors, values, et al)
+- [`9552363cb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9552363cb7) - [ux] Added a RangeField component to address issues surrounding Range having a different interface to other kinds of inputs. Use a RangeField instead of a Field when using a Range inside of a Form. You must provide a `defaultValue`.
+
 ## 8.1.7
 
 ### Patch Changes

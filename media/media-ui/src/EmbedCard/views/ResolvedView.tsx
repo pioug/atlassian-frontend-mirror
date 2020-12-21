@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import { FC } from 'react';
+import React from 'react';
 import LinkGlyph from '@atlaskit/icon/glyph/link';
 
 import { ExpandedFrame } from '../components/ExpandedFrame';
@@ -30,42 +30,48 @@ export interface EmbedCardResolvedViewProps {
   inheritDimensions?: boolean;
 }
 
-export const EmbedCardResolvedView: FC<EmbedCardResolvedViewProps> = ({
-  link,
-  context,
-  onClick,
-  isSelected,
-  isFrameVisible,
-  preview,
-  title,
-  testId = 'embed-card-resolved-view',
-  inheritDimensions,
-}) => {
-  const src =
-    context && context.icon
-      ? typeof context.icon === 'string'
-        ? context.icon
-        : undefined
-      : undefined;
-  const text = title || (context && context.text);
+export const EmbedCardResolvedView = React.forwardRef<
+  HTMLIFrameElement,
+  EmbedCardResolvedViewProps
+>(
+  (
+    {
+      link,
+      context,
+      onClick,
+      isSelected,
+      isFrameVisible,
+      preview,
+      title,
+      testId = 'embed-card-resolved-view',
+      inheritDimensions,
+    },
+    embedIframeRef,
+  ) => {
+    const src = typeof context?.icon === 'string' ? context.icon : undefined;
+    const text = title || context?.text;
+    const linkGlyph = React.useMemo(
+      () => <LinkGlyph label="icon" size="small" />,
+      [],
+    );
+    const icon = React.useMemo(
+      () => <ImageIcon src={src} default={linkGlyph} />,
+      [src, linkGlyph],
+    );
 
-  return (
-    <ExpandedFrame
-      isSelected={isSelected}
-      isFrameVisible={isFrameVisible}
-      href={link}
-      testId={testId}
-      icon={
-        <ImageIcon
-          src={src}
-          default={<LinkGlyph label="icon" size="small" />}
-        />
-      }
-      text={text}
-      onClick={onClick}
-      inheritDimensions={inheritDimensions}
-    >
-      <Frame url={preview} testId={testId} />
-    </ExpandedFrame>
-  );
-};
+    return (
+      <ExpandedFrame
+        isSelected={isSelected}
+        isFrameVisible={isFrameVisible}
+        href={link}
+        testId={testId}
+        icon={icon}
+        text={text}
+        onClick={onClick}
+        inheritDimensions={inheritDimensions}
+      >
+        <Frame url={preview} testId={testId} ref={embedIframeRef} />
+      </ExpandedFrame>
+    );
+  },
+);

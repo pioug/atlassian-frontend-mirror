@@ -8,7 +8,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
@@ -16,7 +16,7 @@ BrowserTestCase(
   `quick-insert.ts: Extension: Quick Insert`,
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
       allowExtension: {

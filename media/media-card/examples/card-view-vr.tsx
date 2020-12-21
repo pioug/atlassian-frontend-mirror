@@ -6,6 +6,7 @@ import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl';
+import { RequestError, RequestErrorReason } from '@atlaskit/media-client';
 
 type WrapperDimensions = {
   width: string;
@@ -86,6 +87,11 @@ function renderCardImageView(
         };
   const dataUri = urlParams.get('dataUri') === 'true' ? tallImage : undefined;
   const selected = urlParams.get('selected') === 'true';
+  const isRateLimited = urlParams.get('isRateLimited') === 'true';
+  const disableOverlay = urlParams.get('disabledOverlay') === 'true';
+  const error = isRateLimited
+    ? new RequestError(RequestErrorReason.serverError, { statusCode: 429 })
+    : undefined;
 
   return (
     <CardWrapper key={key} {...wrapperDimensionsSmall}>
@@ -93,6 +99,8 @@ function renderCardImageView(
         featureFlags={{
           newCardExperience: true,
         }}
+        error={error}
+        disableOverlay={disableOverlay}
         status={cardStatus || status}
         mediaItemType="file"
         metadata={metadata}

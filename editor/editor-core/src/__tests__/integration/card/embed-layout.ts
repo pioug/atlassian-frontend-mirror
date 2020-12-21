@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
@@ -16,10 +16,10 @@ import { editable, getDocFromElement } from '../_helpers';
     `embed-layout.ts: Layout ${layout.type} selector for embed Card`,
     { skip: ['edge', 'safari', 'firefox'] },
     async (
-      client: Parameters<typeof goToEditorTestingExample>[0],
+      client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,
     ) => {
-      const page = await goToEditorTestingExample(client);
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
         appearance: 'full-page',
         allowTextAlignment: true,

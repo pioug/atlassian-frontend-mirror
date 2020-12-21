@@ -3,7 +3,7 @@ import { testMediaGroup } from '@atlaskit/editor-test-helpers';
 import { sleep } from '@atlaskit/media-test-helpers';
 import { editable, getDocFromElement, fullpage } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { waitForAtLeastNumFileCards } from './_utils';
@@ -36,7 +36,7 @@ BrowserTestCase(
   'copy-mediaGroup.ts: Copies and pastes mediaGroup file card on fullpage',
   { skip: ['edge', 'safari'] },
   async (client: any, testCase: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       defaultValue: JSON.stringify(baseADF),

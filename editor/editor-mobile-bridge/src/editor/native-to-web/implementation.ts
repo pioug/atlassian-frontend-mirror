@@ -78,6 +78,8 @@ import { Serialized } from '../../types';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 import MobileEditorConfiguration from '../editor-configuration';
+import { measureRender } from '@atlaskit/editor-common';
+import { getNodesCount, measurements } from '@atlaskit/editor-core';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -286,7 +288,24 @@ export default class WebBridgeImpl
 
   setContent(content: string) {
     if (this.editorActions) {
-      this.editorActions.replaceDocument(content, false, false);
+      const isReplaced = this.editorActions.replaceDocument(
+        content,
+        false,
+        false,
+      );
+
+      if (isReplaced) {
+        measureRender(measurements.PROSEMIRROR_CONTENT_RENDERED, () => {
+          const nodesCount = getNodesCount(this.editorView!.state.doc);
+          const nodes = JSON.stringify(nodesCount);
+          const totalNodeSize = Object.keys(nodesCount).reduce(
+            (totalNode, key) => totalNode + nodesCount[key],
+            0,
+          );
+
+          toNativeBridge.onContentRendered(totalNodeSize, nodes);
+        });
+      }
     }
   }
 

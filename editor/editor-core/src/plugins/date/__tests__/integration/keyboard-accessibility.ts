@@ -7,7 +7,7 @@ import {
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
   loadLocale,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
@@ -28,7 +28,7 @@ BrowserTestCase(
   'keyboard-accessibility.ts: Type in date using input',
   { skip: [] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: 'full-page',
@@ -59,7 +59,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'en-GB';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, [locale]);
     await mountEditor(
       page,
@@ -93,7 +93,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'en-GB';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, [locale]);
     await mountEditor(
       page,
@@ -128,7 +128,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'hu';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, [locale]);
     await mountEditor(
       page,
@@ -166,7 +166,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any, testName: string) => {
     const locale = 'hu';
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, [locale]);
     await mountEditor(
       page,
@@ -203,7 +203,7 @@ BrowserTestCase(
   'keyboard-accessibility.ts: Arrow up on year increments year by 1 and keeps same day/month when they exist',
   { skip: [] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
@@ -238,7 +238,7 @@ BrowserTestCase(
   "keyboard-accessibility.ts: When incrementing year by one, rolls over or back day when day doesn't exist in new year",
   { skip: [] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
@@ -276,7 +276,7 @@ BrowserTestCase(
   `keyboard-accessibility.ts: Backspace after opening existing date should delete it`,
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: 'full-page',
@@ -306,7 +306,7 @@ BrowserTestCase(
   'keyboard-accessibility.ts: Arrow up in textfield works on existing date',
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
@@ -354,7 +354,7 @@ BrowserTestCase(
   'keyboard-accessibility.ts: Ctrl/Cmd-c on existing date copies node not text',
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,
@@ -412,7 +412,7 @@ BrowserTestCase(
   'keyboard-accessibility.ts: Tab on existing date selected the input',
   { skip: ['firefox', 'edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await loadLocale(page, ['en_GB']);
     await mountEditor(
       page,

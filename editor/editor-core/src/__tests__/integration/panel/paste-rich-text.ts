@@ -9,7 +9,7 @@ import {
   copyAsHTMLButton,
 } from '../_helpers';
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { selectors } from './_utils';
@@ -18,7 +18,7 @@ BrowserTestCase(
   'paste-rich-text.ts: Paste rich text into panel',
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await page.isVisible(clipboardInput);
     await page.type(

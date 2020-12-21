@@ -21,12 +21,10 @@ describe('provider unit tests', () => {
     logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     const channel = new Channel({} as any);
     socket = channel.getSocket()!;
-    jest.useFakeTimers();
   });
   afterEach(() => {
     logSpy.mockClear();
     jest.clearAllMocks();
-    jest.useRealTimers();
   });
   const editorState: any = {
     plugins: [
@@ -102,6 +100,7 @@ describe('provider unit tests', () => {
   });
 
   it('should emit error and trigger catchup in 5 seconds', () => {
+    jest.useFakeTimers();
     const provider = createSocketIOCollabProvider(testProviderConfig);
     const throttledCatchupSpy = jest
       .spyOn(provider as any, 'throttledCatchup')
@@ -120,6 +119,7 @@ describe('provider unit tests', () => {
     jest.advanceTimersByTime(CATCHUP_THROTTLE_TIMEOUT);
     expect(throttledCatchupSpy).toBeCalled();
     expect(throttledCatchupSpy).toBeCalledTimes(1);
+    jest.useRealTimers();
   });
 
   it('should emit metadata during init', async done => {
@@ -176,5 +176,32 @@ describe('provider unit tests', () => {
     socket.emit('width:changed', {
       editorWidth: 'some-random-editor-width',
     });
+  });
+
+  it('should not emit empty joined or left presence', async done => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    let counter = 0;
+    provider.on('presence', ({ joined, left }) => {
+      counter++;
+      expect(joined?.length).toBe(1);
+      expect(left).toBe(undefined);
+    });
+    provider.initialize(() => editorState);
+    socket.emit('participant:updated', {
+      sessionId: 'random-sessionId',
+      timestamp: Date.now(),
+      userId: 'blabla-userId',
+      clientId: 'blabla-clientId',
+    });
+    socket.emit('participant:updated', {
+      sessionId: 'random-sessionId',
+      timestamp: Date.now(),
+      userId: 'blabla-userId',
+      clientId: 'blabla-clientId',
+    });
+    setTimeout(() => {
+      expect(counter).toBe(1);
+      done();
+    }, 5000);
   });
 });

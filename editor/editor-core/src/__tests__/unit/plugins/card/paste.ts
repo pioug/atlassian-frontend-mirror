@@ -173,12 +173,13 @@ describe('card', () => {
         <div
           data-embed-card="true"
           data-layout="center"
+          data-width="50"
           data-card-url="https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing"
         >
           <div>
             <div class="media-card-frame sc-jQMNup dcXBMK" data-testid="resolved-view">
               <div
-                class="embed-header sc-TuwoP kxyEBi"      >
+                class="embed-header sc-TuwoP kxyEBi">
                 <div
                   class="sc-fQkuQJ gtHBSu"
                 >
@@ -222,6 +223,7 @@ describe('card', () => {
               url:
                 'https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing',
               layout: 'center',
+              width: 50,
             })(),
           ),
         );

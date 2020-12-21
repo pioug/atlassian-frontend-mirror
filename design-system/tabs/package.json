@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tabs",
-  "version": "12.1.1",
+  "version": "12.1.2",
   "description": "Tabs are used to organize content by grouping similar information on the same page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,16 +26,16 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/theme": "^11.0.0",
-    "@babel/runtime": "^7.0.0"
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/form": "^8.1.6",
+    "@atlaskit/form": "^8.2.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^4.0.9",

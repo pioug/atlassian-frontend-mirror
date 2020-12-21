@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import {
   getDocFromElement,
@@ -16,7 +16,7 @@ BrowserTestCase(
   'emoji-1.ts:should be able to see emoji if typed the name in full',
   { skip: ['safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await insertEmoji(page, 'grinning');
     await page.waitForSelector(emojiItem('grinning'), { timeout: 1000 });
@@ -30,7 +30,7 @@ BrowserTestCase(
   'emoji-1.ts: should convert :) to emoji',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     // type slowly to get edge working
     await page.type(editable, '# ');
@@ -47,7 +47,7 @@ BrowserTestCase(
   'user should not be able to see emoji inside inline code',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, 'type `');
     await page.type(editable, ':a:');
@@ -61,7 +61,7 @@ BrowserTestCase(
   'emoji-1.ts: should close emoji picker on Escape',
   { skip: ['firefox', 'safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, 'this ');
     await page.type(editable, ':');
@@ -106,7 +106,7 @@ BrowserTestCase(
   'emoji-1.ts: should be able to navigate between emojis',
   { skip: ['firefox', 'safari', 'edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, 'this ');
     await insertEmoji(page, 'a');

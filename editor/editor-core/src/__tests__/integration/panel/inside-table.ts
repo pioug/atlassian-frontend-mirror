@@ -8,7 +8,7 @@ import {
 } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { selectors } from './_utils';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
@@ -20,7 +20,7 @@ BrowserTestCase(
     const insertTableMenu = `[aria-label="${insertBlockMessages.table.defaultMessage}"]`;
     const tableControls = '[aria-label="Table floating controls"]';
 
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowPanel: true,

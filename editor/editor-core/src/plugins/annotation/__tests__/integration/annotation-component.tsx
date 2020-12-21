@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { KEY } from '../../../../__tests__/__helpers/page-objects/_keyboard';
 import {
@@ -22,7 +22,7 @@ BrowserTestCase(
   `can open create dialogue from toolbar`,
   { skip: ['edge'] },
   async (client: BrowserObject) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       defaultValue: paragraphADF,
@@ -42,7 +42,7 @@ BrowserTestCase(
   `can create an annotation from the component`,
   { skip: ['edge'] },
   async (client: BrowserObject, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       defaultValue: paragraphADF,
@@ -67,7 +67,7 @@ BrowserTestCase(
   `can create annotation dialogue from keyboard shortcut`,
   { skip: ['edge'] },
   async (client: BrowserObject) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       defaultValue: paragraphADF,
@@ -87,7 +87,7 @@ BrowserTestCase(
   `cannot create annotation dialogue from keyboard shortcut with inline selection`,
   { skip: ['edge'] },
   async (client: BrowserObject) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       defaultValue: paragraphEmojiADF,

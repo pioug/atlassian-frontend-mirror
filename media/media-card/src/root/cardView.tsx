@@ -44,7 +44,7 @@ import { CreatingPreview } from './ui/creatingPreviewText/creatingPreviewText';
 import { PreviewUnavailable } from './ui/previewUnavailable/previewUnavailable';
 import { LoadingRateLimited } from './ui/loadingRateLimited/loadingRateLimited';
 import { MetadataRateLimited } from './ui/metadataRateLimited/metadataRateLimited';
-import { isRateLimitedError } from '../utils/error';
+import { isRateLimitedError } from '@atlaskit/media-client';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;

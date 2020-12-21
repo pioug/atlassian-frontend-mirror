@@ -31,7 +31,7 @@ import { tableWithMinWidthColumnsDocument } from './__fixtures__/table-with-min-
 import { pluginKey as tableResizingPluginKey } from '../../../plugins/table/pm-plugins/table-resizing';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 
@@ -39,7 +39,7 @@ BrowserTestCase(
   'Can resize normally with a rowspan in the non last column.',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -60,7 +60,7 @@ BrowserTestCase(
   'Can resize normally with a rowspan and colspan',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -81,7 +81,7 @@ BrowserTestCase(
   'Can resize normally on a full width table with content',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -102,7 +102,7 @@ BrowserTestCase(
   `Created column should be set to ${tableNewColumnMinWidth}px`,
   { skip: ['edge', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -123,7 +123,7 @@ BrowserTestCase(
   "Can't resize the last column of a table with dynamic sizing enabled.",
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -145,7 +145,7 @@ BrowserTestCase(
   'Can resize the last column when table is nested in Columns',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -167,7 +167,7 @@ BrowserTestCase(
   'Should stack columns to the left when widths of some of the columns equal minWidth',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -188,7 +188,7 @@ BrowserTestCase(
   'Should stack columns to the right and go to overflow',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -209,7 +209,7 @@ BrowserTestCase(
   'Should bulk resize 3 columns in 4 columns table',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -232,7 +232,7 @@ BrowserTestCase(
   'Should recover from overflow when number col is selected',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -255,7 +255,7 @@ BrowserTestCase(
   'Should bulk resize selected columns',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
@@ -278,7 +278,7 @@ BrowserTestCase(
   'Can resize normally while editor changes its appearance',
   { skip: ['edge', 'firefox', 'safari'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
 
     await mountEditor(page, {
       appearance: fullpage.appearance,

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 55.0.0
+
+### Major Changes
+
+- [`0923d917ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0923d917ef) - `MediaSingle` prop 'blockLink' is removed and `width` becomes optional.
+  `MediaSingleDimensionHelper` prop `ratio` is removed.
+
+### Patch Changes
+
+- [`81a5e08f06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a5e08f06) - Fix divider not visible in dark mode
+- Updated dependencies
+
 ## 54.0.0
 
 ### Major Changes

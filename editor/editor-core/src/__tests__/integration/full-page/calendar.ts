@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { insertBlockMenuItem } from '../_helpers';
 
@@ -14,7 +14,7 @@ BrowserTestCase(
   'calendar.ts: user should be able to open calendar',
   { skip: ['edge', 'safari'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
@@ -31,7 +31,7 @@ BrowserTestCase(
   'calendar.ts: clicking date when calendar is open should close it',
   { skip: ['edge', 'safari'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
@@ -50,7 +50,7 @@ BrowserTestCase(
   'calendar.ts: clicking on another date should open its date picker',
   { skip: ['edge', 'safari'] },
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);

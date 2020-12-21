@@ -14,6 +14,7 @@ import { TitleInput } from '../example-helpers/PageElements';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
 import { CollabEditOptions } from '../src/plugins/collab-edit';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
+import { EmbedHelper } from '@atlaskit/media-integration-test-helpers';
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
   return createEditorExampleForTests<any>(
@@ -103,6 +104,7 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
         return (
           <SmartCardProvider client={cardClient}>
             {editorContent}
+            <EmbedHelper />
           </SmartCardProvider>
         );
       } else {

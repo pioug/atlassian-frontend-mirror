@@ -13,6 +13,7 @@ import { scrollbarStyles } from '../../styles';
 
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const TOTAL_PADDING = akEditorGutterPadding * 2;
+const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 export const FullPageEditorWrapper = styled.div`
   min-width: 340px;
@@ -38,7 +39,7 @@ ScrollContainer.displayName = 'ScrollContainer';
 export const ContentArea = styled.div`
   display: flex;
   flex-direction: row;
-  height: calc(100% - 80px);
+  height: calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT});
   box-sizing: border-box;
 `;
 ContentArea.displayName = 'ContentArea';

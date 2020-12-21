@@ -106,7 +106,9 @@ export type MessageKey =
   | 'creating_preview'
   | 'couldnt_load_file'
   | 'error_429'
-  | 'preview_rateLimited';
+  | 'preview_rateLimited'
+  | 'close_and_reopen'
+  | 'viewer_rateLimited';
 
 type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
 
@@ -686,5 +688,15 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.preview_rateLimited',
     defaultMessage: 'We had difficulties creating a preview.',
     description: 'The preview is rate limited',
+  },
+  close_and_reopen: {
+    id: 'fabric.media.close_and_reopen',
+    defaultMessage: 'Try closing this file and reopening.',
+    description: 'The preview is rate limited',
+  },
+  viewer_rateLimited: {
+    id: 'fabric.media.viewer_rateLimited',
+    defaultMessage: `We're having difficulties loading your file.`,
+    description: 'Mediaviewer has been rate limited',
   },
 });

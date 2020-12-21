@@ -18,7 +18,7 @@ Object {
         "originalHeight": null,
         "originalWidth": null,
         "url": "https://embedCardTestUrl/fallback",
-        "width": null,
+        "width": 100,
       },
       "type": "embedCard",
     },

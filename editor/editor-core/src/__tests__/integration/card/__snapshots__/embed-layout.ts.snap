@@ -9,7 +9,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "align-start",
-        "originalHeight": null,
+        "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
         "width": 66.66666666666666,
@@ -33,7 +33,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "align-end",
-        "originalHeight": null,
+        "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
         "width": 66.66666666666666,
@@ -57,7 +57,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "wrap-left",
-        "originalHeight": null,
+        "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
         "width": 66.66666666666666,
@@ -81,7 +81,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "wrap-right",
-        "originalHeight": null,
+        "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
         "width": 66.66666666666666,

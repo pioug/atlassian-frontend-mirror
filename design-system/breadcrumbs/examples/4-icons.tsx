@@ -10,7 +10,7 @@ export default () => (
   // with icons
   <div>
     <p>Using itemBefore and itemAfter API</p>
-    <Breadcrumbs>
+    <Breadcrumbs testId="BreadcrumbsTestId">
       <BreadcrumbsItem href="/item" text="No icon" />
       <BreadcrumbsItem href="/item" iconBefore={TestIcon} text="Before" />
       <BreadcrumbsItem href="/item" iconAfter={TestIcon} text="After" />

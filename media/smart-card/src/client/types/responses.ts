@@ -30,8 +30,12 @@ export type ServerErrorType =
 export type ErrorType = ServerErrorType | 'UnexpectedError';
 
 export const isSuccessfulResponse = (
-  response: SuccessResponse | ErrorResponse,
+  response?: SuccessResponse | ErrorResponse,
 ): response is SuccessResponse => {
+  if (!response) {
+    return false;
+  }
+
   const hasSuccessfulStatus = response.status === 200;
   const hasSuccessBody = 'body' in response;
   return hasSuccessfulStatus && hasSuccessBody;

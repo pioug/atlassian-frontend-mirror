@@ -16,4 +16,5 @@ export type CardWithUrlContentProps = {
   onResolve?: (data: { url?: string; title?: string }) => void;
   showActions?: boolean;
   inheritDimensions?: boolean;
+  embedIframeRef?: React.Ref<HTMLIFrameElement>;
 };

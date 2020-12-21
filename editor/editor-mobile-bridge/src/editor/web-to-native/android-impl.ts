@@ -232,6 +232,12 @@ export default class AndroidBridge implements NativeBridge {
     this.lifecycleBridge.editorReady();
   }
 
+  onContentRendered(totalNodeSize: number, nodes: string): void {
+    if (this.contentBridge) {
+      this.contentBridge.onContentRendered(totalNodeSize, nodes);
+    }
+  }
+
   onRenderedContentHeightChanged(height: number) {
     if (this.contentBridge) {
       this.contentBridge.onRenderedContentHeightChanged(height);

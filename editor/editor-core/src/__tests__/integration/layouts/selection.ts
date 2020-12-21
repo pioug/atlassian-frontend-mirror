@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
@@ -14,7 +14,7 @@ BrowserTestCase(
   "doesn't select layout section node if click and drag before releasing mouse",
   {},
   async (client: any) => {
-    const page = await goToEditorTestingExample(client);
+    const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
       allowLayouts: true,

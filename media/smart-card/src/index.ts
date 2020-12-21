@@ -17,3 +17,4 @@ export { Card } from './view/Card';
 export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
 export { default as Context } from './state/context';
 export type { CardContext } from './state/context';
+export { IframelyResizeMessageListener } from './view/EmbedCard/IframelyResizeMessageListener';

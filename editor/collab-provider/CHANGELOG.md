@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 5.0.1
+
+### Patch Changes
+
+- [`f9cd884b7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd884b7e) - Fix issue with emitting noisy empty presence events.
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

@@ -2,15 +2,15 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { editable, comment, insertMedia } from '../_helpers';
 import {
   mountEditor,
-  goToEditorTestingExample,
+  goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 
 [comment].forEach(editor => {
   BrowserTestCase(
     `insert-and-delete-mediaGroup.ts: Inserts and deletes media group on ${editor.name}`,
     { skip: ['edge', 'safari'] },
-    async (client: Parameters<typeof goToEditorTestingExample>[0]) => {
-      const page = await goToEditorTestingExample(client);
+    async (client: Parameters<typeof goToEditorTestingWDExample>[0]) => {
+      const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
         appearance: editor.appearance,
         media: {

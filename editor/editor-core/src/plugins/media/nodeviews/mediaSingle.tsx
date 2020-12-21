@@ -5,6 +5,7 @@ import { EditorView, Decoration } from 'prosemirror-view';
 import {
   RichMediaLayout as MediaSingleLayout,
   MediaADFAttrs,
+  RichMediaAttributes,
 } from '@atlaskit/adf-schema';
 import {
   MediaSingle,
@@ -224,7 +225,10 @@ export default class MediaSingleNode extends Component<
       view,
     } = this.props;
 
-    const { layout, width: mediaSingleWidth } = node.attrs;
+    const {
+      layout,
+      width: mediaSingleWidth,
+    } = node.attrs as RichMediaAttributes;
     const childNode = node.firstChild!;
     const attrs = childNode.attrs as MediaADFAttrs;
     let { width, height } = attrs;

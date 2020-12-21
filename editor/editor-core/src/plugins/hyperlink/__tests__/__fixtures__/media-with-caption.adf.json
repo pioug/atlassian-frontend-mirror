@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33333333333333,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 1604,
+            "height": 1868
+          }
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "this is a caption"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

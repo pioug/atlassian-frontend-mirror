@@ -1,4 +1,7 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForLoadedImageElements,
+} from '@atlaskit/visual-regression/helper';
 
 import {
   snapshot,
@@ -9,12 +12,15 @@ import { selectors } from '../../../../__tests__/__helpers/page-objects/_editor'
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
+  clickToolbarMenu,
+  ToolbarMenuItem,
 } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 import { hyperlinkSelectors } from '../../../../__tests__/__helpers/page-objects/_hyperlink';
 
 import hyperlinkAdf from '../__fixtures__/basic-hyperlink.adf.json';
 import hyperlinkWithTextAdf from '../__fixtures__/basic-hyperlink-with-text.adf.json';
 import manyHyperlinksAdf from '../__fixtures__/many-hyperlinks.adf.json';
+import mediaWithCaptionAdf from '../__fixtures__/media-with-caption.adf.json';
 
 const click = async (page: any, selector: string) => {
   await page.waitForSelector(selector);
@@ -95,6 +101,27 @@ describe('Hyperlink', () => {
         });
         await click(page, hyperlinkSelectors.hyperlink);
         await page.click(hyperlinkSelectors.editLinkBtn);
+      });
+    });
+
+    describe('insert link', () => {
+      it('displays correctly when inside a caption node', async () => {
+        await initEditorWithAdf(page, {
+          appearance: Appearance.fullPage,
+          adf: mediaWithCaptionAdf,
+          viewport: { width: 1200, height: 800 },
+          editorProps: {
+            media: {
+              allowMediaSingle: true,
+              featureFlags: {
+                captions: true,
+              },
+            },
+          },
+        });
+        await page.click('[data-testid="media-caption"]');
+        await clickToolbarMenu(page, ToolbarMenuItem.link);
+        await waitForLoadedImageElements(page, 5000);
       });
     });
   });

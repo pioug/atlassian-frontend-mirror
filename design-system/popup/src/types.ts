@@ -79,7 +79,7 @@ export interface PopupComponentProps {
   tabIndex: number | undefined;
 }
 
-export interface PopupProps {
+interface BaseProps {
   /**
    * Used to either show or hide the popup.
    * When set to `false` popup will not render anything to the DOM.
@@ -87,29 +87,9 @@ export interface PopupProps {
   isOpen: boolean;
 
   /**
-   * Render props used to anchor the popup to your content.
-   * Make this an interactive element,
-   * such as an @atlaskit/button component.
-   */
-  trigger: (props: TriggerProps) => React.ReactNode;
-
-  /**
    * Render props for content that is displayed inside the popup.
    */
   content: (props: ContentProps) => React.ReactNode;
-
-  /**
-   * The boundary element that the popup will check for overflow.
-   * Defaults to `"clippingParents"` which are parent scroll containers,
-   * but can be set to any element.
-   */
-  boundary?: 'clippingParents' | HTMLElement;
-
-  /**
-   * The root boundary that the popup will check for overflow.
-   * Defaults to `"viewport"` but can be set to `"document"`.
-   */
-  rootBoundary?: 'viewport' | 'document';
 
   /**
    * Id that is assigned to the popup container element.
@@ -128,6 +108,19 @@ export interface PopupProps {
    * Defaults to `"auto"`.
    */
   placement?: Placement;
+
+  /**
+   * The boundary element that the popup will check for overflow.
+   * Defaults to `"clippingParents"` which are parent scroll containers,
+   * but can be set to any element.
+   */
+  boundary?: 'clippingParents' | HTMLElement;
+
+  /**
+   * The root boundary that the popup will check for overflow.
+   * Defaults to `"viewport"` but can be set to `"document"`.
+   */
+  rootBoundary?: 'viewport' | 'document';
 
   /**
    * Allows the Popup to be placed on the opposite side of its trigger if it does not fit in the viewport.
@@ -157,18 +150,31 @@ export interface PopupProps {
   popupComponent?: ComponentType<PopupComponentProps>;
 
   /**
-   * Z-index that the popup should be displayed in.
-   * This is passed to the portal component.
-   * Defaults to `layers.layer()` from `@atlaskit/theme`.
-   */
-  zIndex?: number;
-
-  /**
    * Controls whether the popup takes focus when opening.
    * This changes the `popupComponent` component tabIndex to `null`.
    * Defaults to `true`.
    */
   autoFocus?: boolean;
+}
+
+export interface PopupProps extends BaseProps {
+  /**
+   * Render props used to anchor the popup to your content.
+   * Make this an interactive element,
+   * such as an @atlaskit/button component.
+   */
+  trigger: (props: TriggerProps) => React.ReactNode;
+
+  /**
+   * Z-index that the popup should be displayed in.
+   * This is passed to the portal component.
+   * Defaults to `layers.layer()` from `@atlaskit/theme`.
+   */
+  zIndex?: number;
+}
+
+export interface PopperWrapperProps extends BaseProps {
+  triggerRef: TriggerRef;
 }
 
 export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {
@@ -182,6 +188,5 @@ export type FocusManagerHook = {
 };
 
 export type RepositionOnUpdateProps = {
-  content: (props: ContentProps) => React.ReactNode;
   update: PopperChildrenProps['update'];
 };

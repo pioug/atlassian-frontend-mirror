@@ -4,7 +4,6 @@ import {
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers';
 import {
-  animationFrame,
   evaluateCoordinates,
   scrollToBottom,
   scrollToElement,
@@ -23,6 +22,7 @@ import {
   selectRow,
   tableSelectors,
 } from '../../../../__tests__/__helpers/page-objects/_table';
+import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 
 const init = async (page: PuppeteerPage, adf: Object) => {
   return await initFullPageEditorWithAdf(
@@ -54,11 +54,15 @@ describe('Annotation toolbar positioning', () => {
       await selectAtPosWithProseMirror(page, 1654, 1666);
 
       // ensure it is disabled
-      await page.waitForSelector(
+      await retryUntilStablePosition(
+        page,
+        () =>
+          page.waitForSelector(
+            `${annotationSelectors.floatingToolbarCreate}[disabled]`,
+          ),
         `${annotationSelectors.floatingToolbarCreate}[disabled]`,
+        1000,
       );
-
-      await animationFrame(page);
 
       await snapshot(page);
     });

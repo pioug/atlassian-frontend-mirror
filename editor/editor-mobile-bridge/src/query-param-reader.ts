@@ -16,6 +16,12 @@ export const getModeValue = (): 'dark' | 'light' => {
   }
 };
 
+export const getEnableLightDarkTheming = (): boolean =>
+  getQueryParams().get('enableLightDarkTheming') === 'true';
+
+export const getEnableLegacyMobileMacros = (): boolean =>
+  getQueryParams().get('enableLegacyMobileMacros') === 'true';
+
 export const getEnableQuickInsertValue = (): boolean =>
   getQueryParams().get('enableQuickInsert') === 'true';
 

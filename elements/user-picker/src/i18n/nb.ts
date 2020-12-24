@@ -10,12 +10,16 @@ export default {
   'fabric.elements.user-picker.email.add.potential':
     'Angi en e-post for å invitere',
   'fabric.elements.user-picker.email.select.to.add': 'Velg for å invitere',
+  'fabric.elements.user-picker.external.sourced.from': 'Funnet på:',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Gruppe administrert av administrator',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Fjern',
   'fabric.elements.user-picker.placeholder': 'Angi personer eller team ...',
   'fabric.elements.user-picker.placeholder.add-more': 'Legg til flere personer',
   'fabric.elements.user-picker.single.clear': 'Tøm',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     '50+ medlemmer, inkludert deg',
   'fabric.elements.user-picker.team.member.count':

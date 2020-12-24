@@ -19,6 +19,8 @@ export default {
     'En robot som har brutt sammen, og en rekke personer som er opptatt med å fikse den.',
   'fabric.atlassianSwitcher.errorText':
     'Vi registrerer disse feilene, men ta gjerne kontakt hvis det ikke hjelper å oppdatere',
+  'fabric.atlassianSwitcher.errorTextLoggedOut':
+    'Logg på igjen for å bruke Atlassian-appbytteren.',
   'fabric.atlassianSwitcher.errorTextNetwork':
     'Vi kunne ikke laste denne listen. Last inn siden på nytt og prøv igjen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
@@ -27,17 +29,25 @@ export default {
     'Kostnadsfritt dokumentsamarbeid for opptil ti brukere',
   'fabric.atlassianSwitcher.free.edition.product.description.jsd':
     'Kostnadsfri IT-service og kundeserviceavdeling for opptil tre agenter',
+  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
+    'Gratis samarbeidsbasert IT-serviceadministrasjon for opptil tre agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
     'Kostnadsfri prosjekt- og sakssporing for opptil ti brukere',
+  'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub med mer',
+  'fabric.atlassianSwitcher.gittools.label': 'Git-integrasjoner for Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-prosjekt',
   'fabric.atlassianSwitcher.join': 'Bli med',
   'fabric.atlassianSwitcher.login': 'Logg inn',
   'fabric.atlassianSwitcher.manageList': 'Administrer liste',
   'fabric.atlassianSwitcher.more': 'Mer',
+  'fabric.atlassianSwitcher.moreAtlassianProducts': 'Flere Atlassian-produkter',
+  'fabric.atlassianSwitcher.moreProductsLink': 'Flere produkter',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbeid',
   'fabric.atlassianSwitcher.product.description.jsd':
     'IT Service Desk og kundeservice',
+  'fabric.atlassianSwitcher.product.description.jsm':
+    'Samarbeidsbasert IT-serviceadministrasjon',
   'fabric.atlassianSwitcher.product.description.jsw':
     'Prosjekt- og sakssporing',
   'fabric.atlassianSwitcher.product.description.opsgenie':
@@ -50,6 +60,8 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.header': 'Bli med i {productLabel}',
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     'Et team som ser på flere holografiske skjermer',
+  'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack for Atlassian',
+  'fabric.atlassianSwitcher.start': 'Atlassian Start',
   'fabric.atlassianSwitcher.switchTo': 'Bytt til',
   'fabric.atlassianSwitcher.switchToTooltip': 'Bytt til …',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

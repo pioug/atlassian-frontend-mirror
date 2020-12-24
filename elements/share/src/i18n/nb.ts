@@ -14,6 +14,8 @@ export default {
     'Kobling er kopiert til utklippstavlen',
   'fabric.elements.share.copylink.button.icon.label': 'Kopier kobling-ikon',
   'fabric.elements.share.copylink.button.text': 'Kopier kobling',
+  'fabric.elements.share.copypubliclink.button.text':
+    'Kopier offentlig tilgjengelig kobling',
   'fabric.elements.share.failure.icon.label': 'Feil-ikon',
   'fabric.elements.share.failure.message': 'Kan ikke deles',
   'fabric.elements.share.form.comment.placeholder': 'Legg til en melding',
@@ -21,6 +23,8 @@ export default {
     'De som ikke har tilgang vil motta en invitasjon til å bli med',
   'fabric.elements.share.form.info.message.pending.invite':
     'Invitasjonen vil bli sendt til en administrator for godkjenning',
+  'fabric.elements.share.form.public.send':
+    'Send offentlig tilgjengelig kobling',
   'fabric.elements.share.form.retry': 'Prøv igjen',
   'fabric.elements.share.form.send': 'Send',
   'fabric.elements.share.form.title': 'Del',

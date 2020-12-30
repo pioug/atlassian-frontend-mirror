@@ -35,6 +35,10 @@ describe('Embed Cards:', () => {
     await waitForElementCount(page, embedCardSelector(), 6);
     await waitForSuccessfullyResolvedEmbedCard(page, 6);
     await waitForLoadedImageElements(page, 3000);
+    // wait for iframes to be loaded
+    await waitForElementCount(page, '[originalheight="282"]', 5);
+    await waitForElementCount(page, '[originalheight="319"]', 1);
+    await waitForElementCount(page, '[data-iframe-loaded="true"]', 6);
     await snapshot(page);
   });
 

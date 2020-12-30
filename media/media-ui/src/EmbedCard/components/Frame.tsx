@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
+import React, { useState } from 'react';
 
 export interface FrameProps {
   url?: string;
@@ -9,6 +9,7 @@ export interface FrameProps {
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
   ({ url, testId }, iframeRef) => {
+    const [isIframeLoaded, setIframeLoaded] = useState(false);
     if (!url) {
       return null;
     }
@@ -18,6 +19,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
         ref={iframeRef}
         src={url}
         data-testid={`${testId}-frame`}
+        data-iframe-loaded={isIframeLoaded}
         css={{
           border: 0,
           top: 0,
@@ -31,6 +33,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
         allowFullScreen
         scrolling="yes"
         allow="autoplay; encrypted-media"
+        onLoad={() => setIframeLoaded(true)}
       />
     );
   },

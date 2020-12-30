@@ -4,7 +4,9 @@ This is where you make changes to the Atlassian switcher.
 
 # Are you thinking of making a change to the Switcher?
 
-That's great! Please talk to us in our slack channel (#help-start-switcher) if you want to update switcher's APIs.
+That's great! Please read our [engagement model](https://product-fabric.atlassian.net/wiki/spaces/YW/pages/1953169670/Engagement+model+with+Your+Work+Start+Switcher+Recent+Activity+and+Notification+Frontend+Experience+FY21) and [contribution model](https://product-fabric.atlassian.net/wiki/spaces/YW/pages/1997669504/Contribution+Model+for+Your+Work) if you would like to make changes or raise a [JSM request](https://product-fabric.atlassian.net/servicedesk/customer/portal/92).
+
+You can also reach out to us us in [#help-start-switcher](https://atlassian.slack.com/archives/C01EKJ3S7R8)
 
 We want to stay informed about your intentions before you raise the PRs because a few reasons.
 

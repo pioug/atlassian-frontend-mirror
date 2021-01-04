@@ -29,9 +29,7 @@ export abstract class BaseMediaClientError<Attributes>
 /**
  * Example subclasses of BaseMediaClientError
  */
-export enum FileFetcherErrorReason {
-  invalidFileId = 'invalidFileId',
-}
+export type FileFetcherErrorReason = 'invalidFileId';
 
 export type FileFetcherErrorAttributes = {
   readonly reason: FileFetcherErrorReason;
@@ -75,9 +73,7 @@ export function isFileFetcherError(err: Error): err is FileFetcherError {
   return err instanceof FileFetcherError;
 }
 
-export enum MediaStoreErrorReason {
-  failedAuthProvider = 'failedAuthProvider',
-}
+export type MediaStoreErrorReason = 'failedAuthProvider';
 
 export type MediaStoreErrorAttributes = {
   readonly reason: MediaStoreErrorReason;

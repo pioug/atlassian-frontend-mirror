@@ -1,5 +1,15 @@
 # @atlaskit/help
 
+## 3.0.0
+
+### Major Changes
+
+- [`70492a8e83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70492a8e83) - Updated algolia index used in the examples. Added descriptions to the Int messages. Export DivderLine Styled component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.7
 
 ### Patch Changes

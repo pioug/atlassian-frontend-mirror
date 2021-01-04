@@ -44,6 +44,10 @@ export const isSuccessfulResponse = (
 export const isErrorResponse = (
   response: SuccessResponse | ErrorResponse,
 ): response is ErrorResponse => {
+  if (!response) {
+    return false;
+  }
+
   const hasStatus = response.status >= 200;
   const hasErrorBody = 'error' in response;
   return hasStatus && hasErrorBody;

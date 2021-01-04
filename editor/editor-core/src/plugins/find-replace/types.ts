@@ -21,8 +21,6 @@ export interface FindReplacePluginState {
   matches: Match[];
   /** Decorations for the search results */
   decorationSet: DecorationSet;
-  /** Element (if any) that has focus in find/replace popup */
-  focusElementRef: React.RefObject<HTMLElement> | undefined;
   /** Whether find/replace should match case when searching for results */
   shouldMatchCase: boolean;
 }

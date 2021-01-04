@@ -7,6 +7,7 @@ import {
   lozenge as mentionId,
   fullpage,
 } from '../_helpers';
+import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
 import {
   mountEditor,
   goToEditorTestingWDExample,
@@ -116,7 +117,7 @@ BrowserTestCase(
     });
 
     await page.type(editable, '```');
-    await page.waitForSelector('pre');
+    await page.waitForSelector(codeBlockSelectors.code);
     await page.type(editable, ['this is a code block ', '@Caro']);
     await page.keys(['Return']);
     const doc = await page.$eval(editable, getDocFromElement);

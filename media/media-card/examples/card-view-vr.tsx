@@ -6,7 +6,7 @@ import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl';
-import { RequestError, RequestErrorReason } from '@atlaskit/media-client';
+import { RequestError } from '@atlaskit/media-client';
 
 type WrapperDimensions = {
   width: string;
@@ -90,7 +90,7 @@ function renderCardImageView(
   const isRateLimited = urlParams.get('isRateLimited') === 'true';
   const disableOverlay = urlParams.get('disabledOverlay') === 'true';
   const error = isRateLimited
-    ? new RequestError(RequestErrorReason.serverError, { statusCode: 429 })
+    ? new RequestError('serverError', { statusCode: 429 })
     : undefined;
 
   return (

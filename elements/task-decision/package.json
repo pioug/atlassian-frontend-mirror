@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^5.1.0",
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/icon": "^21.2.0",
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
@@ -44,11 +44,11 @@
   },
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^7.0.0",
-    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/avatar": "^20.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^55.0.0",
+    "@atlaskit/editor-common": "^55.1.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/renderer": "^72.0.0",
+    "@atlaskit/renderer": "^73.0.0",
     "@atlaskit/util-data-test": "^14.2.0",
     "@types/url-search-params": "^0.10.0",
     "enzyme": "^3.10.0",

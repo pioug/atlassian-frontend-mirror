@@ -1,5 +1,19 @@
 # @atlaskit/media-client
 
+## 12.4.0
+
+### Minor Changes
+
+- [`b37190888c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37190888c) - ensure polling errors trigger more graceful UX
+- [`a26afbd493`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a26afbd493) - Added getMediaClientFailReason() helper
+
+### Patch Changes
+
+- [`758aa08653`](https://bitbucket.org/atlassian/atlassian-frontend/commits/758aa08653) - Polling Fuction throws the inner error instead of wrapping it
+- [`7c44d1e585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c44d1e585) - Fixed cards with non web-friendly MP4/MOV videos not mounting
+- [`8dfcc55dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dfcc55dce) - Refactored error enums to be types for code clarity
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

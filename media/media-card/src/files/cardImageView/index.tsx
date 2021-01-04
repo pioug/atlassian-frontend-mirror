@@ -34,6 +34,7 @@ import {
   createAndFireCustomMediaEvent,
   AnalyticsLoadingAction,
   getLoadingStatusAnalyticsPayload,
+  AnalyticsLoadingFailReason,
 } from '../../utils/analytics';
 
 export interface FileCardImageViewProps {
@@ -106,7 +107,7 @@ export class FileCardImageViewBase extends Component<
   }
 
   private renderCardContents = (): Array<JSX.Element> | JSX.Element => {
-    const { status, mediaType } = this.props;
+    const { status, mediaType, fileSize } = this.props;
 
     if (status === 'error') {
       return this.renderErrorContents();
@@ -116,7 +117,12 @@ export class FileCardImageViewBase extends Component<
 
     // If a video has no errors/failed processing, we want to be able to play it
     // immediately, even if there's no image preview
-    if (mediaType !== 'video' && !this.isFileCardImageReadyForDisplay) {
+    const isZeroSize = fileSize === '' && status === 'processing';
+    if (
+      mediaType !== 'video' &&
+      !this.isFileCardImageReadyForDisplay &&
+      !isZeroSize
+    ) {
       return this.renderLoadingContents();
     }
 
@@ -305,7 +311,7 @@ export class FileCardImageViewBase extends Component<
           getLoadingStatusAnalyticsPayload({
             action,
             error: 'unknown error',
-            failReason: 'file-uri-error',
+            failReason: AnalyticsLoadingFailReason.FILE_URI,
           }),
           createAnalyticsEvent,
         );

@@ -6,6 +6,7 @@ import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import MobileEditorConfiguration from '../src/editor/editor-configuration';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
+import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -22,16 +23,17 @@ Wrapper.displayName = 'Wrapper';
 
 export default function Example() {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge(new MobileEditorConfiguration('{ "mode": "dark" }'));
+  const editorConfiguration = useEditorConfiguration(bridge);
 
   return (
     <Wrapper>
       <Editor
-        bridge={getBridge()}
+        bridge={bridge}
         {...createEditorProviders(fetchProxy)}
         defaultValue={exampleDocument}
-        initialEditorConfig={
-          new MobileEditorConfiguration('{ "mode": "dark" }')
-        }
+        editorConfiguration={editorConfiguration}
+        locale={editorConfiguration.getLocale()}
       />
     </Wrapper>
   );

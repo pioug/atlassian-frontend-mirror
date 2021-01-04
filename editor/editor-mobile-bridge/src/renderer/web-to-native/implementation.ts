@@ -46,6 +46,20 @@ class Bridge implements AnnotationBridge, ContentBridge {
     });
   }
 
+  onContentRendered(
+    totalNodeSize: number,
+    nodes: string,
+    actualRenderingDuration: number,
+    totalBridgeDuration: number,
+  ) {
+    sendToBridge('contentBridge', 'onContentRendered', {
+      totalNodeSize,
+      nodes,
+      actualRenderingDuration,
+      totalBridgeDuration,
+    });
+  }
+
   canApplyAnnotationOnCurrentSelection(
     payload: AnnotationTypesAvailableOnCurrentSelection[],
   ) {

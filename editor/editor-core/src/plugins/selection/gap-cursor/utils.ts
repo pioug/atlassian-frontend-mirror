@@ -1,8 +1,8 @@
 import { Node as PMNode, ResolvedPos, Schema } from 'prosemirror-model';
 import { TableCssClassName } from '../../table/types';
 import { Side } from './selection';
-import { closestElement } from '../../../utils/dom';
 import { UnsupportedSharedCssClassName } from '../../unsupported-content/styles';
+import { CAPTION_PLACEHOLDER_ID } from '../../media/ui/CaptionPlaceholder';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT =>
   side === Side.LEFT;
@@ -117,7 +117,12 @@ export function getBreakoutModeFromTargetNode(node: PMNode): string {
 }
 
 export const isIgnoredClick = (elem: HTMLElement) => {
-  if (elem.nodeName === 'BUTTON' || closestElement(elem, 'button')) {
+  if (elem.nodeName === 'BUTTON' || elem.closest('button')) {
+    return true;
+  }
+
+  // check if we're clicking an image caption placeholder
+  if (elem.closest(`[data-id="${CAPTION_PLACEHOLDER_ID}"]`)) {
     return true;
   }
 
@@ -152,9 +157,7 @@ export const isIgnoredClick = (elem: HTMLElement) => {
 
   // Check if unsupported node selection
   // (without this, selection requires double clicking in FF due to posAtCoords differences)
-  if (
-    closestElement(elem, `.${UnsupportedSharedCssClassName.BLOCK_CONTAINER}`)
-  ) {
+  if (elem.closest(`.${UnsupportedSharedCssClassName.BLOCK_CONTAINER}`)) {
     return true;
   }
 

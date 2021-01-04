@@ -1,6 +1,5 @@
 import React from 'react';
 import { defineMessages, InjectedIntlProps, injectIntl } from 'react-intl';
-import rafSchedule from 'raf-schd';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
@@ -27,8 +26,7 @@ export type FindProps = {
   }: {
     triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
   }) => void;
-  onFindTextfieldRefSet: (ref: React.RefObject<HTMLElement>) => void;
-  onFocusElementRefSet: (ref: React.RefObject<HTMLElement>) => void;
+  onFindTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
   onCancel: ({
     triggerMethod,
   }: {
@@ -39,11 +37,6 @@ export type FindProps = {
   }) => void;
   onArrowDown: () => void;
 } & MatchCaseProps;
-
-export type FindState = {
-  findText: string;
-  isComposing: boolean;
-};
 
 const messages = defineMessages({
   find: {
@@ -88,13 +81,10 @@ const messages = defineMessages({
   },
 });
 
-class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
-  state: FindState = {
-    findText: '',
-    isComposing: false,
-  };
-
+class Find extends React.Component<FindProps & InjectedIntlProps> {
   private findTextfieldRef = React.createRef<HTMLInputElement>();
+  private isComposing = false;
+
   private find: string;
   private closeFindReplaceDialog: string;
   private noResultsFound: string;
@@ -110,13 +100,8 @@ class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
     super(props);
 
     const {
-      findText,
       intl: { formatMessage },
     } = props;
-
-    if (findText) {
-      this.updateFindTextfieldValue(findText);
-    }
 
     this.find = formatMessage(messages.find);
     this.closeFindReplaceDialog = formatMessage(
@@ -134,41 +119,26 @@ class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
   }
 
   componentDidMount() {
-    this.focusFindTextfield();
     this.props.onFindTextfieldRefSet(this.findTextfieldRef);
+    this.focusFindTextfield();
   }
 
-  componentWillReceiveProps(newProps: FindProps & InjectedIntlProps) {
-    // findText could have been updated from outside this component, for example
-    // if a user double clicks to highlight a word and then hits cmd+f
-    if (newProps.findText && newProps.findText !== this.state.findText) {
-      this.updateFindTextfieldValue(newProps.findText);
-    }
-
-    if (newProps.shouldFocus) {
-      this.focusFindTextfield();
-    }
+  componentDidUpdate() {
+    this.focusFindTextfield();
   }
 
   skipWhileComposing = (fn: Function) => {
-    if (this.state.isComposing) {
+    if (this.isComposing) {
       return;
     }
     fn();
   };
 
   focusFindTextfield = () => {
-    if (this.findTextfieldRef.current) {
-      this.findTextfieldRef.current.select();
+    const input = this.findTextfieldRef.current;
+    if (this.props.shouldFocus && input) {
+      input.select();
     }
-  };
-
-  updateFindTextfieldValue = (value: string) => {
-    this.setState({ findText: value, isComposing: false });
-    if (this.findTextfieldRef.current) {
-      this.findTextfieldRef.current.value = value;
-    }
-    this.updateFindValue(value);
   };
 
   handleFindChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -176,10 +146,9 @@ class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
       this.updateFindValue(event.target.value);
     });
 
-  updateFindValue = rafSchedule((value: string) => {
-    this.setState({ findText: value });
+  updateFindValue = (value: string) => {
     this.props.onFind(value);
-  });
+  };
 
   handleFindKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
     this.skipWhileComposing(() => {
@@ -195,28 +164,22 @@ class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
       }
     });
 
-  handleFindFocus = () => {
-    this.props.onFocusElementRefSet(this.findTextfieldRef);
-  };
-
   handleFindNextClick = (ref: React.RefObject<HTMLElement>) =>
     this.skipWhileComposing(() => {
-      this.props.onFocusElementRefSet(ref);
       this.props.onFindNext({ triggerMethod: TRIGGER_METHOD.BUTTON });
     });
 
   handleFindPrevClick = (ref: React.RefObject<HTMLElement>) =>
     this.skipWhileComposing(() => {
-      this.props.onFocusElementRefSet(ref);
       this.props.onFindPrev({ triggerMethod: TRIGGER_METHOD.BUTTON });
     });
 
   handleCompositionStart = () => {
-    this.setState({ isComposing: true });
+    this.isComposing = true;
   };
 
   handleCompositionEnd = (event: React.CompositionEvent<HTMLInputElement>) => {
-    this.setState({ isComposing: false });
+    this.isComposing = false;
     // type for React.CompositionEvent doesn't set type for target correctly
     this.updateFindValue((event.target as HTMLInputElement).value);
   };
@@ -225,11 +188,14 @@ class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
     this.props.onCancel({ triggerMethod: TRIGGER_METHOD.BUTTON });
   };
 
-  handleMatchCaseClick = (ref: React.RefObject<HTMLElement>) => {
+  handleMatchCaseClick = (buttonRef: React.RefObject<HTMLButtonElement>) => {
     if (this.props.allowMatchCase && this.props.onToggleMatchCase) {
-      this.props.onFocusElementRefSet(ref);
+      if (buttonRef.current) {
+        buttonRef.current.focus();
+      }
+
       this.props.onToggleMatchCase();
-      this.props.onFind(this.state.findText);
+      this.props.onFind(this.props.findText);
     }
   };
 
@@ -253,13 +219,12 @@ class Find extends React.Component<FindProps & InjectedIntlProps, FindState> {
           name="find"
           appearance="none"
           placeholder={this.find}
-          defaultValue={findText}
+          value={findText}
           ref={this.findTextfieldRef}
           autoComplete="off"
           onChange={this.handleFindChange}
           onKeyDown={this.handleFindKeyDown}
           onBlur={this.props.onFindBlur}
-          onFocus={this.handleFindFocus}
           onCompositionStart={this.handleCompositionStart}
           onCompositionEnd={this.handleCompositionEnd}
         />

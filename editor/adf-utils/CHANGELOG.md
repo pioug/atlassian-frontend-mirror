@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 11.6.0
+
+### Minor Changes
+
+- [`f523768cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f523768cdc) - Fix validator and schema for Image Captions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.0
 
 ### Minor Changes

@@ -85,6 +85,7 @@ export default {
   'fabric.media.text': 'text',
   'fabric.media.creating_preview': 'Creating preview...',
   'fabric.media.preview_unavailable': 'Preview unavailable',
+  'fabric.media.preview_currently_unavailable': 'Preview currently unavailable',
   'fabric.media.couldnt_load_file': "We couldn't load the file.",
   'fabric.media.error_429': 'Error 429',
   'fabric.media.preview_rateLimited': 'We had difficulties creating a preview.',

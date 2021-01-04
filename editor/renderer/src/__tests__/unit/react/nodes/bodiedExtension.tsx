@@ -119,22 +119,6 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
     extension.unmount();
   });
 
-  it('should be able to render Atlassian Document from extensionHandler', () => {
-    const extension = mount(
-      <BodiedExtension
-        providers={providerFactory}
-        serializer={serializer}
-        extensionHandlers={extensionHandlers}
-        rendererContext={rendererContext}
-        extensionType="com.atlassian.fabric"
-        extensionKey="adf"
-      />,
-    );
-
-    expect(extension.find('div').first().text()).toEqual('This is a ADF node');
-    extension.unmount();
-  });
-
   it('should render the default content if extensionHandler throws an exception', () => {
     const extension = mount(
       <BodiedExtension
@@ -151,38 +135,6 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
     expect(extension.find('div').first().text()).toEqual(
       'This is the default content of the extension',
-    );
-    extension.unmount();
-  });
-
-  it('should be able to render the oringinlal content', () => {
-    const originalContent = [
-      {
-        type: 'paragraph',
-        content: [
-          {
-            type: 'text',
-            text: 'This is the original content',
-          },
-        ],
-      },
-    ];
-    const extension = mount(
-      <BodiedExtension
-        providers={providerFactory}
-        serializer={serializer}
-        extensionHandlers={extensionHandlers}
-        rendererContext={rendererContext}
-        extensionType="com.atlassian.fabric"
-        extensionKey="originalContent"
-        content={originalContent}
-      >
-        <p>This is the default content of the extension</p>
-      </BodiedExtension>,
-    );
-
-    expect(extension.find('div').first().text()).toEqual(
-      'This is the original content',
     );
     extension.unmount();
   });

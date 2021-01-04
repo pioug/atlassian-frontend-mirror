@@ -4,112 +4,113 @@ export const messages = defineMessages({
   help_loading: {
     id: 'help.loading',
     defaultMessage: 'Loading',
-    description: '',
+    description: 'Loading text',
   },
   help_header: {
     id: 'help.header',
     defaultMessage: 'Help',
-    description: '',
+    description: 'Header text',
   },
   help_close: {
     id: 'help.close',
     defaultMessage: 'Close',
-    description: '',
+    description: 'Close text',
   },
   help_navigation_back: {
     id: 'help.navigation.back',
     defaultMessage: 'Back',
-    description: '',
+    description: 'Back text',
   },
   help_search_placeholder: {
     id: 'help.search.placeholder',
     defaultMessage: 'Search help articles',
-    description: '',
+    description: 'Place holder text for search input',
   },
   help_article_rating_title: {
     id: 'help.article_rating.title',
     defaultMessage: 'Was this helpful?',
-    description: '',
+    description: 'Rating article title text',
   },
   help_article_rating_option_yes: {
     id: 'help.article_rating.option.yes',
     defaultMessage: 'Yes',
-    description: '',
+    description: '"Yes" text used in the article rating options',
   },
   help_article_rating_option_no: {
     id: 'help.article_rating.option.no',
     defaultMessage: 'No',
-    description: '',
+    description: '"No" text used in the article rating options',
   },
   help_article_rating_form_title: {
     id: 'help.article_rating.form.title',
     defaultMessage: 'Tell us why you gave this rating',
-    description: '',
+    description: 'Title for the article rating form',
   },
   help_article_rating_accurate: {
     id: 'help.article_rating.accurate',
     defaultMessage: `It isn't accurate`,
-    description: '',
+    description: `Text for the "isn't accurate" option of the article rating form`,
   },
   help_article_rating_clear: {
     id: 'help.article_rating.clear',
     defaultMessage: `It isn't clear`,
-    description: '',
+    description: `Text for the "isn't clear" option of the article rating form`,
   },
   help_article_rating_relevant: {
     id: 'help.article_rating.relevant',
     defaultMessage: `It isn't relevant`,
-    description: '',
+    description: `Text for the "isn't relevant" option of the article rating form`,
   },
   help_article_rating_form_submit: {
     id: 'help.article_rating.form.submit',
     defaultMessage: `Submit`,
-    description: '',
+    description: `Text for the submit button in the article rating form`,
   },
   help_article_rating_form_Success: {
     id: 'help.article_rating.form.success',
     defaultMessage: `Thanks!`,
-    description: '',
+    description: 'Success message for the article rating form',
   },
   help_article_rating_form_failed: {
     id: 'help.article_rating.form.failed',
     defaultMessage: `We couldn't submit your feedback.`,
-    description: '',
+    description: 'Error message for the article rating form',
   },
   help_article_rating_form_failed_try_again: {
     id: 'help.article_rating.form.failed.try_again',
     defaultMessage: `Try again`,
-    description: '',
+    description: `Text for the "Try again" button of the article rating form`,
   },
   help_article_rating_form_cancel: {
     id: 'help.article_rating.form.cancel',
     defaultMessage: `Cancel`,
-    description: '',
+    description: `Text for the cancel button in the article rating form`,
   },
   help_article_rating_form_contact_me: {
     id: 'help.article_rating.form.contact_me',
     defaultMessage: `Atlassian can contact me about this feedback`,
-    description: '',
+    description:
+      'Text for the "Contact me" checkbox in the article rating form',
   },
   help_article_list_item_type_whats_new: {
     id: 'help.article_list_item.type.whats_new',
     defaultMessage: `WHAT'S NEW`,
-    description: 'Article type title',
+    description: `"What's new" article type title`,
   },
   help_article_list_item_type_help_article: {
     id: 'help.article_list_item.type.help-article',
     defaultMessage: `HELP ARTICLE`,
-    description: 'Article type title',
+    description: 'Help article article type title',
   },
   help_article_list_show_more: {
     id: 'help.article_list.show_more',
     defaultMessage: 'Show {numberOfRelatedArticlesLeft} more articles',
-    description: '',
+    description: '"Show more" text',
   },
   help_article_list_show_less: {
     id: 'help.article_list.show_less',
     defaultMessage: 'Show less',
-    description: '',
+    description: '"Show less" text',
   },
   help_related_article_title: {
     id: 'help.related_article.title',
@@ -119,62 +120,71 @@ export const messages = defineMessages({
   help_related_article_endpoint_error_title: {
     id: 'help.related_article.endpoint-error.title',
     defaultMessage: `We're having some trouble`,
-    description: '',
+    description:
+      'Title for the message displayed when the related articles fetching fails',
   },
   help_related_article_endpoint_error_description: {
     id: 'help.related_article.endpoint-error.description',
     defaultMessage: `It's taking us longer than expected to show this content. It's provably a temporary problem.`,
-    description: '',
+    description:
+      'Body for the message displayed when the related articles fetching fails',
   },
   help_related_article_endpoint_error_button_label: {
     id: 'help.related_article.endpoint-error.button-label',
     defaultMessage: `Try Again`,
-    description: '',
+    description:
+      'text for the retry button displayed when the related articles fetching fails',
   },
   help_search_results_search_external_site: {
     id: 'help.search_results.search_external_site',
     defaultMessage: `Can't find what you're looking for? Try again with a different term or `,
+    description:
+      'Text for the button displayed at the end of the search result used to open an external search site',
   },
   help_search_results_no_results: {
     id: 'help.search_results.no_results',
     defaultMessage: `We can't find anything matching your search`,
+    description: `Message displayed when the search doesn't return any results (line 1)`,
   },
   help_search_results_no_results_line_two: {
     id: 'help.search_results.no_results_line_two',
     defaultMessage: `Try again with a different term or `,
+    description: `Message displayed when the search doesn't return any results (line 2)`,
   },
   help_search_results_external_site_link: {
     id: 'help.search_results.external_site_link',
     defaultMessage: `search all online help articles.`,
+    description: `Text for the button used to open an external search site`,
   },
   help_article_error_title: {
     id: 'help.article_error.title',
     defaultMessage: `Something's gone wrong`,
-    description: '',
+    description: `Error message title for article loading`,
   },
   help_article_error_text: {
     id: 'help.article_error.text',
     defaultMessage: `Something prevented the page from loading. We will try to reconect automatically`,
-    description: '',
+    description: `Error message body for article loading`,
   },
   help_article_error_button_label: {
     id: 'help.article_error.button_label',
     defaultMessage: `Try now`,
-    description: '',
+    description:
+      'text for the retry button displayed when an article fetching fails',
   },
   help_search_error: {
     id: 'help.search_error',
     defaultMessage: `We are having some trouble`,
-    description: '',
+    description: `Error message for article search loading (line 1)`,
   },
   help_search_error_line_two: {
     id: 'help.search_error_line_two',
     defaultMessage: `It's taking us longer than expected to show this content. It's probably a temporary problem.`,
-    description: '',
+    description: `Error message for article search loading (line 2)`,
   },
   help_search_error_button_label: {
     id: 'help.search_error.button_label',
     defaultMessage: `Retry`,
-    description: '',
+    description: 'text for the retry button displayed when the search fails',
   },
 });

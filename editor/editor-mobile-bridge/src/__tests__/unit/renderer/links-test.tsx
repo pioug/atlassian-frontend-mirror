@@ -13,6 +13,7 @@ import {
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { InjectedIntl } from 'react-intl';
+import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
 
 type MockedEvent = { preventDefault: () => void; defaultPrevented: boolean };
 
@@ -131,6 +132,7 @@ describe('renderer bridge: links', () => {
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
   } as unknown) as InjectedIntl;
+  const rendererBridge = new RendererBridgeImplementation();
   beforeEach(() => {
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
       cb(1);
@@ -147,6 +149,7 @@ describe('renderer bridge: links', () => {
         mentionProvider={createMentionProvider()}
         document={linkADF}
         intl={intlMock}
+        rendererBridge={rendererBridge}
       />,
     );
 
@@ -168,6 +171,7 @@ describe('renderer bridge: links', () => {
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
         intl={intlMock}
+        rendererBridge={rendererBridge}
       />,
     );
 

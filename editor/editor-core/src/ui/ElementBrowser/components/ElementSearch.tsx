@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Textfield from '@atlaskit/textfield';
@@ -16,6 +16,9 @@ interface Props {
   focus: boolean;
   onClick: (e: React.MouseEvent) => void;
   searchTerm?: string;
+}
+interface WrapperProps {
+  mode: keyof typeof Modes;
 }
 
 function ElementSearch({
@@ -35,56 +38,35 @@ function ElementSearch({
   };
   const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {};
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {};
-
-  const getTheme = useCallback(
-    (theme, props) => {
-      const { container, input } = theme(props);
-      return {
-        container: {
-          ...container,
-          height: mode === Modes.full ? GRID_SIZE * 6 : GRID_SIZE * 5,
-          borderRadius: GRID_SIZE,
-          flex: mode === Modes.inline ? 'none' : '1 1 100%',
-          ...(Modes.inline && { overflow: 'revert' }), // Needed for firefox, inherited property would hide the searchbar.
-        },
-        input: {
-          ...input,
-          marginBottom: Modes.inline ? 3 : 2,
-          fontSize: Modes.inline ? 14 : GRID_SIZE * 2,
-          padding: `${GRID_SIZE}px 6px ${GRID_SIZE}px 0`,
-        },
-      };
-    },
-    [mode],
-  );
   return (
-    <Textfield
-      ref={ref}
-      onChange={onChange}
-      onClick={onClick}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      elemBeforeInput={
-        <ElementBeforeInput data-testid="element_search__element_before_input">
-          <SearchIcon
-            size="medium"
-            label="Advanced search"
-            primaryColor="inherit"
-          />
-        </ElementBeforeInput>
-      }
-      elemAfterInput={
-        <ElementAfterInput data-testid="element_search__element_after_input">
-          <StyledShortcut>
-            &#9166; {formatMessage(elementAfterInputMessage)}
-          </StyledShortcut>
-        </ElementAfterInput>
-      }
-      placeholder={formatMessage(placeHolderMessage)}
-      aria-label="search"
-      theme={getTheme}
-      value={searchTerm}
-    />
+    <Wrapper mode={mode}>
+      <Textfield
+        ref={ref}
+        onChange={onChange}
+        onClick={onClick}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        elemBeforeInput={
+          <ElementBeforeInput data-testid="element_search__element_before_input">
+            <SearchIcon
+              size="medium"
+              label="Advanced search"
+              primaryColor="inherit"
+            />
+          </ElementBeforeInput>
+        }
+        elemAfterInput={
+          <ElementAfterInput data-testid="element_search__element_after_input">
+            <StyledShortcut>
+              &#9166; {formatMessage(elementAfterInputMessage)}
+            </StyledShortcut>
+          </ElementAfterInput>
+        }
+        placeholder={formatMessage(placeHolderMessage)}
+        aria-label="search"
+        value={searchTerm}
+      />
+    </Wrapper>
   );
 }
 
@@ -103,6 +85,21 @@ const placeHolderMessage = {
 const StyledShortcut = styled(Shortcut)`
   padding: ${GRID_SIZE / 2}px ${GRID_SIZE}px;
   width: ${GRID_SIZE * 6}px;
+`;
+
+const Wrapper = styled.div<WrapperProps>`
+  & > [data-ds--text-field--container] {
+    height: ${props =>
+      props.mode === Modes.full ? GRID_SIZE * 6 : GRID_SIZE * 5}px;
+    border-radius: ${GRID_SIZE}px;
+    flex: ${props => (props.mode === Modes.inline ? 'none' : '1 1 100%')};
+    overflow: ${Modes.inline ? 'revert' : 'visible'};
+    & > [data-ds--text-field--input] {
+      margin-bottom: ${Modes.inline ? 3 : 2}px;
+      font-size: ${Modes.inline ? 14 : GRID_SIZE * 2}px;
+      padding: ${GRID_SIZE}px 6px ${GRID_SIZE}px 0;
+    }
+  }
 `;
 
 const ElementBeforeInput = styled.div`

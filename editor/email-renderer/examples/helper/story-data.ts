@@ -946,6 +946,83 @@ map.put(3, 10);`,
       ],
     },
     {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Embed',
+        },
+      ],
+    },
+    {
+      type: 'embedCard',
+      attrs: {
+        url: 'https://www.dropbox.com/s/dour6e2io8mlyus/4.txt?dl=0',
+        layout: 'center',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Card',
+        },
+      ],
+    },
+    {
+      type: 'blockCard',
+      attrs: {
+        url: 'https://www.dropbox.com/s/dour6e2io8mlyus/4.txt?dl=0',
+      },
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Inline',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://www.dropbox.com/s/dour6e2io8mlyus/4.txt?dl=0',
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'URL',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'https://www.dropbox.com/s/dour6e2io8mlyus/4.txt?dl=0',
+          marks: [
+            {
+              type: 'link',
+              attrs: {
+                href: 'https://www.dropbox.com/s/dour6e2io8mlyus/4.txt?dl=0',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       type: 'panel',
       attrs: {
         panelType: 'info',

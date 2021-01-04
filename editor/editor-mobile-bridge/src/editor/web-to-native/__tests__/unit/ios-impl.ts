@@ -297,8 +297,15 @@ describe('Web To Native', () => {
       it('should call onContentRendered in native', function () {
         const totalNodeSize = 100;
         const nodes = 'dummy nodes';
+        const actualRenderingDuration = 1000;
+        const totalBridgeDuration = 1100;
 
-        iosBridge.onContentRendered(totalNodeSize, nodes);
+        iosBridge.onContentRendered(
+          totalNodeSize,
+          nodes,
+          actualRenderingDuration,
+          totalBridgeDuration,
+        );
 
         expect(
           windowWithMockBridges.webkit?.messageHandlers.contentBridge
@@ -307,6 +314,8 @@ describe('Web To Native', () => {
           name: 'onContentRendered',
           totalNodeSize,
           nodes,
+          actualRenderingDuration,
+          totalBridgeDuration,
         });
       });
     });

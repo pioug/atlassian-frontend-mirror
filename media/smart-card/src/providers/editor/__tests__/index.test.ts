@@ -23,7 +23,7 @@ const mockProvidersResponse: ORSProvidersResponse = {
         },
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/roadmap\\/?$',
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/roadmap\\/?',
           flags: '',
         },
       ],
@@ -84,6 +84,23 @@ describe('providers > editor', () => {
     }));
     const url =
       'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns embedCard when roadmap embed with query parameter inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+    }));
+    const url =
+      'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap?shared=&atlOrigin=eyJpIjoiYmFlNzRlMzAyYjAyNDlkZTgxZDc5ZTIzYmNlZmI5MjAiLCJwIjoiaiJ9';
     const adf = await provider.resolve(url, 'inline');
     expect(adf).toEqual({
       type: 'embedCard',

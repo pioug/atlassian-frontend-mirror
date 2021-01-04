@@ -2,6 +2,7 @@ import { AnnotationPayload, AnnotationStatePayload } from '../types';
 import { TaskState } from '@atlaskit/task-decision';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../../types';
+import RendererConfiguration from '../renderer-configuration';
 
 export enum ScrollToContentNode {
   MENTION = 'mention',
@@ -31,6 +32,10 @@ export interface PromiseBridge {
   onPromiseRejected(uuid: string): void;
 }
 
+export type CallBackToNotifyConfigChange = (
+  config: RendererConfiguration,
+) => void;
+
 export default interface RendererBridge
   extends TaskDecisionBridge,
     PromiseBridge,
@@ -52,4 +57,9 @@ export default interface RendererBridge
     id: string,
     index?: number,
   ): string /* number as string */;
+  configure(config: string): void;
+  getConfiguration(): RendererConfiguration;
+  setCallbackToNotifyConfigChange: (
+    callback: CallBackToNotifyConfigChange,
+  ) => void;
 }

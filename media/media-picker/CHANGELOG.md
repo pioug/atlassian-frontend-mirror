@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 57.1.2
+
+### Patch Changes
+
+- [`7c44d1e585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c44d1e585) - Fixed cards with non web-friendly MP4/MOV videos not mounting
+- Updated dependencies
+
 ## 57.1.1
 
 ### Patch Changes

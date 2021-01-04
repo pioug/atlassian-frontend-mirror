@@ -3,6 +3,7 @@ import {
   MediaType,
   FileState,
   Identifier,
+  isPollingError,
 } from '@atlaskit/media-client';
 import { MediaAnalyticsData } from '@atlaskit/analytics-namespaced-context';
 import { CardStatus } from '../';
@@ -98,10 +99,13 @@ export const createAndFireMediaEvent: CreateAndFireMediaEvent = payload => {
 };
 
 export type AnalyticsLoadingAction = 'succeeded' | 'failed';
-export type AnalyticsLoadingFailReason =
-  | 'media-client-error'
-  | 'file-status-error'
-  | 'file-uri-error';
+export enum AnalyticsLoadingFailReason {
+  // TODO: replace 'media-client-error' and 'file-status-error' with common values for all Media Components types
+  MEDIA_CLIENT = 'media-client-error',
+  FILE_STATUS = 'file-status-error',
+  FILE_URI = 'file-uri',
+  EXTERNAL_FILE_URI = 'external-file-uri',
+}
 
 export type AnalyticsLoadingStatus = {
   action: AnalyticsLoadingAction;
@@ -137,19 +141,34 @@ export const getAnalyticsLoadingStatus = ({
     const action = 'failed';
     if (error) {
       const message = error instanceof Error ? error.message : error;
-      return { action, failReason: 'media-client-error', error: message };
+      if (isPollingError(error)) {
+        // we don't track a failure event for this case, treat it as a success
+        // TODO: treat it as an error, but ensure a proper failReason,
+        // then filter it out on SLO side...
+        // this can be part of https://product-fabric.atlassian.net/browse/BMPT-970
+        return { action: 'succeeded' };
+      }
+      return {
+        action,
+        failReason: AnalyticsLoadingFailReason.MEDIA_CLIENT,
+        error: message,
+      };
     }
 
     const errorMessage =
       fileState && 'message' in fileState && fileState.message;
     if (errorMessage) {
-      return { action, failReason: 'file-status-error', error: errorMessage };
+      return {
+        action,
+        failReason: AnalyticsLoadingFailReason.FILE_STATUS,
+        error: errorMessage,
+      };
     }
 
     if (!metadata.name) {
       return {
         action,
-        failReason: 'file-status-error',
+        failReason: AnalyticsLoadingFailReason.FILE_STATUS,
         error:
           'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
       };
@@ -157,7 +176,7 @@ export const getAnalyticsLoadingStatus = ({
 
     return {
       action,
-      failReason: 'file-status-error',
+      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
       error: 'unknown error',
     };
   }

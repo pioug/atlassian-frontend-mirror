@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 70.3.1
+
+### Patch Changes
+
+- [`758aa08653`](https://bitbucket.org/atlassian/atlassian-frontend/commits/758aa08653) - Polling Fuction throws the inner error instead of wrapping it
+- [`0553f6db92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0553f6db92) - Styled components code refactor
+- [`b37190888c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37190888c) - ensure polling errors trigger more graceful UX
+- [`bacab2338b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bacab2338b) - Updated error message displayed when a Polling Error has been thrown
+- [`a26afbd493`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a26afbd493) - Added getMediaClientFailReason() helper
+- [`7c44d1e585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c44d1e585) - Fixed cards with non web-friendly MP4/MOV videos not mounting
+- [`8dfcc55dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dfcc55dce) - Refactored error enums to be types for code clarity
+- [`ab48ad8249`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab48ad8249) - Better segmentation on file uri fail reason analytics event
+- [`19b3e0f0a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19b3e0f0a0) - ensure card renders empty files correctly
+- [`9a8ea15989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a8ea15989) - Standarized Icon Message for Rate Limited Error
+- Updated dependencies
+
 ## 70.3.0
 
 ### Minor Changes

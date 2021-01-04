@@ -15,9 +15,15 @@ const Placeholder = styled.span`
   display: block;
 `;
 
+export const CAPTION_PLACEHOLDER_ID = 'caption-placeholder';
+
 export default ({ onClick }: { onClick: () => void }) => {
   return (
-    <Placeholder onClick={onClick} data-testid="caption-placeholder">
+    <Placeholder
+      onClick={onClick}
+      data-id={CAPTION_PLACEHOLDER_ID}
+      data-testid="caption-placeholder"
+    >
       <FormattedMessage {...messages.placeholder} />
     </Placeholder>
   );

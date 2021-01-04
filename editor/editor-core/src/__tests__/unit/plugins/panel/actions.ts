@@ -24,10 +24,10 @@ describe('panel actions', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: any, UNSAFE_allowCustomPanel?: boolean) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
-      .add(panelPlugin)
+      .add([panelPlugin, { UNSAFE_allowCustomPanel }])
       .add(emojiPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 
@@ -107,6 +107,234 @@ describe('panel actions', () => {
           }),
           eventType: 'track',
         });
+      });
+    });
+
+    describe('for custom panel', () => {
+      const useCustomPanel = true;
+
+      it('preserves existing color if emoji is changed', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+
+        changePanelType(
+          PanelType.CUSTOM,
+          { emoji: 'frown' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'frown',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('preserves existing emoji if color is changed', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+
+        changePanelType(
+          PanelType.CUSTOM,
+          { color: '#f33000' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f33000',
+          })(p('text')),
+        );
+
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('preserves existing color if panel type is changed to CUSTOM', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.INFO,
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+
+        changePanelType(
+          PanelType.CUSTOM,
+          { emoji: 'smile' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#DEEBFF',
+          })(p('text')),
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('default emoji to be undefined if panel type is changed to CUSTOM', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.INFO,
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+
+        changePanelType(
+          PanelType.CUSTOM,
+          { color: '#DBA304' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelColor: '#DBA304',
+          })(p('text')),
+        );
+
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('should preserve existing panel options while custom panel is changed without passing the options', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+        changePanelType(
+          PanelType.INFO,
+          {},
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.INFO,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('should preserve existing panel options while custom panel is changed with emoji passed', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+        changePanelType(
+          PanelType.ERROR,
+          { emoji: 'grinning' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.ERROR,
+            panelIcon: 'grinning',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('should preserve existing panel options while custom panel is changed with color passed', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+        changePanelType(
+          PanelType.SUCCESS,
+          { color: 'green' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.SUCCESS,
+            panelIcon: 'smile',
+            panelColor: 'green',
+          })(p('text')),
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('should preserve existing panel options while custom panel is changed with emoji and color passed', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.CUSTOM,
+            panelIcon: 'smile',
+            panelColor: '#f7bada',
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+        changePanelType(
+          PanelType.TIP,
+          { emoji: 'grinning', color: 'green' },
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.TIP,
+            panelIcon: 'grinning',
+            panelColor: 'green',
+          })(p('text')),
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+      });
+
+      it('should change normal panel as intended and get the correct panel background when custom panel is enabled', () => {
+        const initialDoc = doc(
+          panel({
+            panelType: PanelType.INFO,
+          })(p('text')),
+        );
+        const { editorView } = editor(initialDoc, useCustomPanel);
+        changePanelType(
+          PanelType.ERROR,
+          {},
+          useCustomPanel,
+        )(editorView.state, editorView.dispatch);
+
+        const expectedDoc = doc(
+          panel({
+            panelType: PanelType.ERROR,
+            panelColor: '#FFEBE6',
+          })(p('text')),
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
       });
     });
   });

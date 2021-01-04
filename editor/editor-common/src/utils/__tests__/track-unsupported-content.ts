@@ -27,6 +27,7 @@ const nodesConfig = [
   'date',
   'inlineCard',
   'expand',
+  'bodiedExtension',
 ];
 const marksConfig = [
   'em',
@@ -1022,6 +1023,99 @@ describe('findAndTrackUnsupportedContentNodes', () => {
             marks: [],
             attrs: {
               newtitle: '',
+            },
+          },
+        },
+        eventType: 'track',
+      }),
+    );
+  });
+
+  it(`should fire analytics event with the unsupportedNodeAttribute
+  with value as 'null' explicilty with 'null' string`, () => {
+    const entity = {
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'bodiedExtension',
+          attrs: {
+            layout: 'full-width',
+            extensionType: 'com.atlassian.confluence.macro.core',
+            extensionKey: 'excerpt',
+            parameters: {
+              macroParams: {
+                'atlassian-macro-output-type': {
+                  value: 'INLINE',
+                },
+              },
+              macroMetadata: {
+                macroId: {
+                  value: 'd8d1d015-64d9-48b1-a980-0f44de736e84',
+                },
+                schemaVersion: {
+                  value: '1',
+                },
+                title: 'Excerpt',
+              },
+            },
+          },
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'inlineCard',
+                  attrs: {
+                    __confluenceMetadata: {
+                      spaceKey: 'DEV',
+                      isRenamedTitle: true,
+                      postingDay: '2020/05/21',
+                      linkType: 'blogpost',
+                      contentTitle: 'Changes to the Java Tech Stack (May 2020)',
+                      versionAtSave: '2',
+                    },
+                    url: 'https://hello.atlassian.net/wiki',
+                  },
+                  marks: [
+                    {
+                      type: 'unsupportedNodeAttribute',
+                      attrs: {
+                        type: { nodeType: 'inlineCard' },
+                        unsupported: {
+                          data: null,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const doc = PMNode.fromJSON(schema, entity);
+    findAndTrackUnsupportedContentNodes(
+      doc,
+      schema,
+      dispatchAnalyticsEventMock,
+    );
+    expect(dispatchAnalyticsEventMock).toHaveBeenCalledTimes(1);
+    expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        action: 'unsupportedContentEncountered',
+        actionSubject: 'document',
+        actionSubjectId: 'unsupportedNodeAttribute',
+        attributes: {
+          unsupportedNode: {
+            type: 'inlineCard',
+            parentType: 'paragraph',
+            ancestry: 'doc bodiedExtension paragraph',
+            marks: [],
+            attrs: {
+              data: 'null',
             },
           },
         },

@@ -17,7 +17,6 @@ import {
   isPreviewableFileState,
   isErrorFileState,
   isFileFetcherError,
-  FileFetcherErrorReason,
 } from '../..';
 import uuid from 'uuid';
 import { UploadFileCallbacks } from '../../uploader';
@@ -309,7 +308,7 @@ describe('FileFetcher', () => {
               return expect(isFileFetcherError(error)).toBeTruthy();
             }
             expect(error.attributes).toEqual({
-              reason: FileFetcherErrorReason.invalidFileId,
+              reason: 'invalidFileId',
               id: 'invalid-id',
               collectionName: 'collection',
               occurrenceKey: 'occurrence-key',
@@ -1112,7 +1111,7 @@ describe('FileFetcher', () => {
       const fileState = await observableToPromise(fileObservable);
       expect(fileState).toEqual(
         expect.objectContaining({
-          status: 'processing',
+          status: 'uploading',
           name: 'logo.png',
           size: 0,
           mediaType: 'image',

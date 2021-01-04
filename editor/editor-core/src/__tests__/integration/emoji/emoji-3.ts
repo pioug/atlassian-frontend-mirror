@@ -1,4 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
 import {
   mountEditor,
   goToEditorTestingWDExample,
@@ -62,7 +63,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.type(editable, '```');
-    await page.waitForSelector('pre', { timeout: 1000 });
+    await page.waitForSelector(codeBlockSelectors.code, { timeout: 1000 });
     await page.type(editable, ':smile:');
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

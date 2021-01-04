@@ -2,7 +2,7 @@ export default [
   'blockCard',
   'paragraph_with_no_marks',
   'bulletList',
-  'mediaSingle',
+  'mediaSingle_full',
   'mediaSingle_caption',
   'codeBlock_with_no_marks',
   'orderedList',

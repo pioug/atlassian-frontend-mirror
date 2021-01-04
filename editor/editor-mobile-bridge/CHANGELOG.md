@@ -1,5 +1,33 @@
 # @atlaskit/editor-mobile-bridge
 
+## 22.0.0
+
+### Major Changes
+
+- [`4ec622ea6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ec622ea6a) - ED-10856 - Added `configure` bridge method to change the Renderer Configurations.
+  Mobile Clients need to use `configre` bridge method to set
+  `disableMediaLinking`, `allowHeadingAnchorLinks`, `allowAnnotations`, `disableActions`
+  and remove them from query params while initial load of the renderer.
+
+### Minor Changes
+
+- [`c6cf6c1520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6cf6c1520) - [ED-11472][renderer] Introduce onContentRendered performance event in mobile content bridge
+- [`22c89bff23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22c89bff23) - [ED-11493][twista-405] Add predictable list at the mobile bridge plugin subscription
+- [`385e3de61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/385e3de61b) - Remove the scroll gutter for compact mobile editor.
+- [`130e6adc9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/130e6adc9c) - ED-11241 Moves `enableQuickInsert` and `allowPredictableList` feature flags into MobileEditorConfiguration.
+  Mobile Clients needs to use `configureEditor` bridge method to set `enableQuickInsert` and `allowPredictableList` and remove usage of these parameters from query params while initial load of the editor.
+
+  Changes on mobile(android/IOS) which are addressed as part of different stories.
+
+  - Passing of Feature Flags, mode and locale using Query Params is broken in Hybrid Editor because of `unpkg`, which is used to load other versions of bridge other than the bundled bridge.
+
+- [`0fcc95cce9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fcc95cce9) - Enabled performance tracking prop for mobile editor. Only typing performance is enabled at this stage.
+- [`db36b264ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db36b264ca) - [ED-11242][editor] Fix broken feature flags for locale
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.1.0
 
 ### Minor Changes

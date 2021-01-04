@@ -779,6 +779,38 @@ exports[`Renderer - EmailSerializer should render decision list correctly: html 
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render embed cards correctly: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Embed
+  </p>
+  <a
+    class="csg-inlineCard-link"
+    href="https://www.dropbox.com/s/abc123/4.txt?dl=0"
+    style="color: #0052CC; border: none; background: transparent; text-decoration: none;"
+  >
+    <font
+      class="csg-inlineCard-link"
+      color="#0052CC"
+      style="color: #0052CC; border: none; background: transparent; text-decoration: none;"
+    >
+      <span
+        class="csg-inlineCard"
+        style="border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; padding: 0px 0px 2px 0px; background-color: #e9eaee; line-height: 24px;"
+      >
+         https://www.dropbox.com/s/abc123/4.txt?dl=0 
+      </span>
+    </font>
+  </a>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render expands: html 1`] = `
 <div
   class="csg-wrapper"

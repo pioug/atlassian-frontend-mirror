@@ -53,3 +53,6 @@ export const getAllowHeadingAnchorLinks = (): boolean =>
 
 export const getAllowPredictableList = (): boolean =>
   getQueryParams().get('allowPredictableList') === 'true';
+
+export const getEditorType = (): string | null =>
+  getQueryParams().get('editorType');

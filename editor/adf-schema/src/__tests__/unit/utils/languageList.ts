@@ -8,6 +8,7 @@ import {
 } from '../../../utils/languageList';
 
 const mockSupportedLanguages: Language[] = [
+  { name: 'JSON', alias: ['json'] },
   { name: 'JavaScript', alias: ['javascript', 'js'] },
   { name: 'Python', alias: ['python', 'py'] },
 ];
@@ -34,6 +35,7 @@ describe('languageList utils', () => {
     expect(filterSupportedLanguages([])).toEqual(DEFAULT_LANGUAGES);
     expect(filterSupportedLanguages(mockSupportedLanguageStrings)).toEqual([
       { name: 'JavaScript', alias: ['javascript', 'js'] },
+      { name: 'JSON', alias: ['json'] },
       { name: 'Python', alias: ['python', 'py'] },
       // '(None)' is not an actual language and should not be 'supported'
     ]);
@@ -45,9 +47,10 @@ describe('languageList utils', () => {
     ).toEqual('myalias');
   });
 
-  it('should create language list', () => {
+  it('should create language list sorted as case insensitive', () => {
     expect(createLanguageList(mockSupportedLanguages)).toEqual([
       { name: 'JavaScript', alias: ['javascript', 'js'] },
+      { name: 'JSON', alias: ['json'] },
       { name: 'Python', alias: ['python', 'py'] },
     ]);
   });

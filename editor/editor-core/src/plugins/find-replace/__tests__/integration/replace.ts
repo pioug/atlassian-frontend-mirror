@@ -25,16 +25,17 @@ BrowserTestCase(
 
     await page.click(findReplaceSelectors.toolbarButton);
 
-    await page.clear(findReplaceSelectors.findInput);
+    await page.emptyTextFieldByBackspacing(findReplaceSelectors.findInput);
     await page.type(findReplaceSelectors.findInput, 'one');
     await page.keys('Enter');
 
     await page.type(findReplaceSelectors.replaceInput, 'HI');
     await page.click(findReplaceSelectors.replaceButton);
 
-    await page.clear(findReplaceSelectors.replaceInput);
+    await page.emptyTextFieldByBackspacing(findReplaceSelectors.replaceInput);
     await page.type(findReplaceSelectors.replaceInput, 'HO');
-    await page.clear(findReplaceSelectors.findInput);
+
+    await page.emptyTextFieldByBackspacing(findReplaceSelectors.findInput);
     await page.type(findReplaceSelectors.findInput, 'two');
     await page.click(findReplaceSelectors.replaceButton);
 

@@ -1,6 +1,5 @@
 export default {
   props: {
-    content: { type: 'array', items: ['media'], minItems: 1, maxItems: 1 },
     type: { type: 'enum', values: ['mediaSingle'] },
     attrs: {
       props: {

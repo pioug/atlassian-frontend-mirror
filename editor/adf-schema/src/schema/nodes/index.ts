@@ -104,6 +104,7 @@ export type {
   TableCell as TableCellDefinition,
   TableHeader as TableHeaderDefinition,
   TableRow as TableRowDefinition,
+  CellDomAttrs,
 } from './tableNodes';
 export { decisionList, decisionListSelector } from './decision-list';
 export type { DecisionListDefinition } from './decision-list';

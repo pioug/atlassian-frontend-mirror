@@ -87,15 +87,17 @@ const getCellAttrs = (dom: HTMLElement, defaultValues: CellAttributes = {}) => {
   };
 };
 
+export type CellDomAttrs = {
+  colspan?: string;
+  rowspan?: string;
+  style?: string;
+  colorname?: string;
+  'data-colwidth'?: string;
+  class?: string;
+};
+
 export const setCellAttrs = (node: PmNode, cell?: HTMLElement) => {
-  const attrs: {
-    colspan?: number;
-    rowspan?: number;
-    style?: string;
-    colorname?: string;
-    'data-colwidth'?: string;
-    class?: string;
-  } = {};
+  const attrs: CellDomAttrs = {};
   const nodeType = node.type.name;
   const colspan = cell ? parseInt(cell.getAttribute('colspan') || '1', 10) : 1;
   const rowspan = cell ? parseInt(cell.getAttribute('rowspan') || '1', 10) : 1;

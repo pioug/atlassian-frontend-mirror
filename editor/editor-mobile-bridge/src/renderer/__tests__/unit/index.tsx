@@ -1,7 +1,11 @@
 jest.useFakeTimers();
 import React from 'react';
+import { shallow } from 'enzyme';
 import { AnnotationTypes } from '@atlaskit/adf-schema/src/schema/marks/annotation';
-import { MobileRenderer } from '../../mobile-renderer-element';
+import MobileRendererWrapper, {
+  MobileRenderer,
+} from '../../mobile-renderer-element';
+import { App } from '../../index';
 import {
   createCardClient,
   createEmojiProvider,
@@ -10,11 +14,14 @@ import {
 } from '../../../providers';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { FetchProxy } from '../../../utils/fetch-proxy';
-import { nativeBridgeAPI } from '../../../renderer/web-to-native/implementation';
+import * as FetchProxyUtils from '../../../utils/fetch-proxy';
+import { nativeBridgeAPI } from '../../web-to-native/implementation';
 import { InjectedIntl } from 'react-intl';
 import { DocumentReflowDetector } from '../../../document-reflow-detector';
 import { eventDispatcher, EmitterEvents } from '../../dispatcher';
+import * as QueryParamReader from '../../../query-param-reader';
+
+import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
 jest.mock('../../../document-reflow-detector');
 jest.mock('../../../editor/web-to-native/dummy-impl');
 jest.mock('../../../renderer/web-to-native/implementation');
@@ -47,6 +54,7 @@ const initialDocument = JSON.stringify({
 let container: HTMLElement;
 let enableReflowMock = jest.fn();
 let disableReflowMock = jest.fn();
+let rendererBridge = new RendererBridgeImplementation();
 beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
@@ -58,9 +66,7 @@ beforeEach(() => {
     };
   });
 
-  jest
-    .spyOn(window.rendererBridge!, 'getRootElement')
-    .mockReturnValue(container);
+  jest.spyOn(rendererBridge, 'getRootElement').mockReturnValue(container);
 });
 
 afterEach(() => {
@@ -74,7 +80,7 @@ afterEach(() => {
 
 describe('renderer bridge', () => {
   const createPromiseMock = jest.fn();
-  let fetchProxy: FetchProxy;
+  let fetchProxy: FetchProxyUtils.FetchProxy;
   const intlMock = ({
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
@@ -93,6 +99,7 @@ describe('renderer bridge', () => {
           mentionProvider={createMentionProvider()}
           allowAnnotations={allowAnnotations}
           intl={intlMock}
+          rendererBridge={rendererBridge}
         />,
         container,
       );
@@ -107,13 +114,9 @@ describe('renderer bridge', () => {
   };
 
   beforeEach(() => {
-    fetchProxy = new FetchProxy();
+    fetchProxy = new FetchProxyUtils.FetchProxy();
     fetchProxy.enable();
     createPromiseMock.mockReset();
-    window.renderBridge = {
-      onContentRendered: jest.fn(),
-      onRenderedContentHeightChanged: jest.fn(),
-    };
   });
 
   afterEach(() => {
@@ -155,14 +158,14 @@ describe('renderer bridge', () => {
     ];
 
     describe('when allowAnnotations is false', () => {
-      it(`should not call getAnnotationStates birdge method on renderer`, () => {
+      it(`should not call getAnnotationStates bridge method on renderer`, () => {
         initRenderer(initialDocument, false);
         expect(nativeBridgeAPI.fetchAnnotationStates).not.toHaveBeenCalled();
       });
     });
 
     describe('when allowAnnotations is true', () => {
-      it(`should call getAnnotationStates birdge method on renderer`, () => {
+      it(`should call getAnnotationStates bridge method on renderer`, () => {
         initRenderer(initialDocument, true);
         expect(nativeBridgeAPI.fetchAnnotationStates).toHaveBeenCalledWith(
           expected,
@@ -173,7 +176,7 @@ describe('renderer bridge', () => {
           initRenderer(initialDocument, true);
 
           act(() => {
-            (window as any).rendererBridge.setAnnotationState(
+            rendererBridge.setAnnotationState(
               `[{"annotationId": "18983b72-dd27-41f4-9171-a4f2e180ca83", "annotationState": "active" }]`,
             );
             jest.runAllTimers();
@@ -199,7 +202,7 @@ describe('renderer bridge', () => {
           initRenderer(initialDocument, true);
 
           act(() => {
-            (window as any).rendererBridge.setAnnotationState(
+            rendererBridge.setAnnotationState(
               `[{"annotationId": "18983b72-dd27-41f4-9171-a4f2e180ca83", "annotationState": "active" }]`,
             );
             jest.runAllTimers();
@@ -211,7 +214,7 @@ describe('renderer bridge', () => {
           expect(element.dataset.hasFocus).toBe('false');
 
           act(() => {
-            (window as any).rendererBridge.setAnnotationFocus(
+            rendererBridge.setAnnotationFocus(
               JSON.stringify({
                 annotationId: '18983b72-dd27-41f4-9171-a4f2e180ca83',
                 annotationType: AnnotationTypes.INLINE_COMMENT,
@@ -226,5 +229,21 @@ describe('renderer bridge', () => {
         });
       });
     });
+  });
+});
+
+describe('Mobile Renderer', () => {
+  beforeEach(() => {
+    jest
+      .spyOn(FetchProxyUtils, 'useFetchProxy')
+      .mockReturnValue(new FetchProxyUtils.FetchProxy());
+
+    jest.spyOn(QueryParamReader, 'getLocaleValue').mockReturnValue('fr');
+  });
+
+  it('should pass locale to Mobile Renderer', () => {
+    const result = shallow(<App document={initialDocument} />);
+
+    expect(result.find(MobileRendererWrapper).prop('locale')).toBe('fr');
   });
 });

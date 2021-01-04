@@ -6,7 +6,7 @@ import { headingSizes } from '@atlaskit/theme/typography';
 
 import Textfield from '../src';
 
-export default function () {
+export default function MaxValueExample() {
   return (
     <div>
       <label

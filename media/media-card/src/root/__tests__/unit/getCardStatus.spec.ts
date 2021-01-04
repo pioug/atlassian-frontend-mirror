@@ -7,6 +7,7 @@ import { CardState, CardProps } from '../../..';
 import {
   getAnalyticsLoadingStatus,
   AnalyticsLoadingStatusArgs,
+  AnalyticsLoadingFailReason,
 } from '../../../utils/analytics';
 
 describe('getCardStatus()', () => {
@@ -87,7 +88,7 @@ describe('getAnalyticsLoadingStatus', () => {
     };
     expect(getAnalyticsLoadingStatus(args)).toEqual({
       action: 'failed',
-      failReason: 'media-client-error',
+      failReason: AnalyticsLoadingFailReason.MEDIA_CLIENT,
       error: 'some-error',
     });
   });
@@ -107,7 +108,7 @@ describe('getAnalyticsLoadingStatus', () => {
     };
     expect(getAnalyticsLoadingStatus(errorArgs)).toEqual({
       action: 'failed',
-      failReason: 'file-status-error',
+      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
       error: errorFileState.message,
     });
 
@@ -127,14 +128,14 @@ describe('getAnalyticsLoadingStatus', () => {
     };
     expect(getAnalyticsLoadingStatus(failedArgs)).toEqual({
       action: 'failed',
-      failReason: 'file-status-error',
+      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
       error: 'unknown error',
     });
 
     const failedArgsWithNoFileName = { ...failedArgs, metadata: { id, name } };
     expect(getAnalyticsLoadingStatus(failedArgsWithNoFileName)).toEqual({
       action: 'failed',
-      failReason: 'file-status-error',
+      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
       error:
         'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
     });

@@ -11,6 +11,8 @@ import {
   createMentionProvider,
 } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { getLocaleValue } from '../src/query-param-reader';
+import getBridge from '../src/renderer/native-to-web/bridge-initialiser';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -63,6 +65,8 @@ export default function Example() {
         })}
         dataProviders={providerFactory}
         allowHeadingAnchorLinks
+        locale={getLocaleValue()}
+        rendererBridge={getBridge()}
       />
     </Wrapper>
   );

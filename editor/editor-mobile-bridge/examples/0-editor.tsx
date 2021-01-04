@@ -15,15 +15,18 @@ import {
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
+import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
 window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge();
+  const editorConfiguration = useEditorConfiguration(bridge);
 
   return (
     <Editor
-      bridge={getBridge()}
+      bridge={bridge}
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardProvider={Promise.resolve(cardProvider)}
       cardClient={createCardClient()}
@@ -35,6 +38,8 @@ function EditorWithFetchProxy() {
       })}
       placeholder="Type something here"
       shouldFocus={true}
+      editorConfiguration={editorConfiguration}
+      locale={editorConfiguration.getLocale()}
     />
   );
 }

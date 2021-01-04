@@ -91,3 +91,5 @@ export {
   getSelectionStyles,
   hideNativeBrowserTextSelectionStyles,
 } from './selection';
+
+export { overflowShadow } from './overflow-shadow';

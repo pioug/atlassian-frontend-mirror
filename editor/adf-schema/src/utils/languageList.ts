@@ -143,10 +143,10 @@ export function getLanguageIdentifier(language: Language): string {
 
 export function createLanguageList(supportedLanguages: Language[]) {
   return supportedLanguages.sort((left, right) => {
-    if (left.name > right.name) {
+    if (left.name.toLowerCase() > right.name.toLowerCase()) {
       return 1;
     }
-    if (left.name < right.name) {
+    if (left.name.toLowerCase() < right.name.toLowerCase()) {
       return -1;
     }
     return 0;

@@ -1,5 +1,3 @@
-import * as fm from 'fetch-mock';
-
 const context = 'Document';
 const googleDefinitionId = 'google';
 const trelloDefinitionId = 'trello';
@@ -124,35 +122,4 @@ const responses = {
       undefined,
     ],
   },
-};
-
-const random = (max: number) => Math.floor(Math.random() * max);
-const delayP = (n: number) => new Promise(res => window.setTimeout(res, n));
-
-export const mockMultipleCards = () => {
-  fm.mock('*', async (_: any, opts: any) => {
-    const delay = random(2000);
-    await delayP(delay);
-
-    const resourceUrl = JSON.parse(opts.body).resourceUrl as string;
-
-    const domain = resourceUrl.split('/')[0] as keyof typeof responses;
-
-    const perDomain = responses[domain];
-
-    if (!perDomain) {
-      throw new Error('Unknown domain name');
-    }
-
-    // @ts-ignore
-    let response = perDomain[resourceUrl].pop();
-
-    if (typeof response === 'function') {
-      response = response(resourceUrl);
-    }
-
-    console.log(`[SERVER] <${delay}> ${domain} ${resourceUrl}`, response);
-
-    return response;
-  });
 };

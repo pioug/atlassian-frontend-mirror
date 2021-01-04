@@ -100,6 +100,30 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
+  'can add anchor link URL with toolbar',
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: basicHyperlinkAdf,
+    });
+
+    await page.waitForSelector(hyperlinkSelectors.hyperlink);
+    await page.click(hyperlinkSelectors.hyperlink);
+    await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+    await page.click(hyperlinkSelectors.editLinkBtn);
+    await page.waitForSelector(hyperlinkSelectors.clearLinkBtn);
+    await page.click(hyperlinkSelectors.clearLinkBtn);
+    await page.type(hyperlinkSelectors.linkInput, '#anchor-link');
+    await page.keys('Return');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
   "doesn't update hyperlink text if hit escape key",
   {},
   async (client: any, testName: string) => {

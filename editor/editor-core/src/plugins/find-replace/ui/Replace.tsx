@@ -21,8 +21,7 @@ export type ReplaceProps = {
     replaceText: string;
   }) => void;
   onReplaceAll: ({ replaceText }: { replaceText: string }) => void;
-  onReplaceTextfieldRefSet: (ref: React.RefObject<HTMLElement>) => void;
-  onFocusElementRefSet: (ref: React.RefObject<HTMLElement>) => void;
+  onReplaceTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
   onArrowUp: () => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
@@ -142,10 +141,6 @@ class Replace extends React.PureComponent<
       this.props.onReplaceAll({ replaceText: this.state.replaceText });
     });
 
-  handleReplaceFocus = () => {
-    this.props.onFocusElementRefSet(this.replaceTextfieldRef);
-  };
-
   handleCompositionStart = () => {
     this.setState({ isComposing: true });
   };
@@ -171,7 +166,6 @@ class Replace extends React.PureComponent<
           autoComplete="off"
           onChange={this.handleReplaceChange}
           onKeyDown={this.handleReplaceKeyDown}
-          onFocus={this.handleReplaceFocus}
           onCompositionStart={this.handleCompositionStart}
           onCompositionEnd={this.handleCompositionEnd}
         />

@@ -12,5 +12,5 @@ export type { RendererProps } from './ui/renderer-props';
 export type { RendererContext } from './react/types';
 export { ADFEncoder } from './utils';
 
-export { renderDocument, renderNodes } from './render-document';
+export { renderDocument } from './render-document';
 export type { RenderOutputStat } from './render-document';

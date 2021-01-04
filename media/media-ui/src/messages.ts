@@ -103,6 +103,7 @@ export type MessageKey =
   | 'playbackDefaultSpeed'
   | 'preview'
   | 'preview_unavailable'
+  | 'preview_currently_unavailable'
   | 'creating_preview'
   | 'couldnt_load_file'
   | 'error_429'
@@ -674,6 +675,12 @@ export const messages = defineMessages<Messages>({
     defaultMessage: 'Preview unavailable',
     description: 'Preview is unavailable for a media card',
   },
+  preview_currently_unavailable: {
+    id: 'fabric.media.preview_currently_unavailable',
+    defaultMessage: 'Preview currently unavailable',
+    description:
+      'Preview is unavailable for a media card due to a temporary error',
+  },
   couldnt_load_file: {
     id: 'fabric.media.couldnt_load_file',
     defaultMessage: "We couldn't load the file.",
@@ -686,7 +693,7 @@ export const messages = defineMessages<Messages>({
   },
   preview_rateLimited: {
     id: 'fabric.media.preview_rateLimited',
-    defaultMessage: 'We had difficulties creating a preview.',
+    defaultMessage: 'We had difficulties creating a preview',
     description: 'The preview is rate limited',
   },
   close_and_reopen: {

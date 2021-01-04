@@ -37,6 +37,7 @@ export type Context = {
 };
 
 export interface Props {
+  debounce?: boolean;
   eventDispatcher?: EventDispatcher;
   editorView?: EditorView;
   plugins: PluginsConfig;
@@ -143,10 +144,17 @@ export default class WithPluginState extends React.Component<Props, State> {
     performanceOptions: PerformanceOptions;
   }) => {
     this.notAppliedState = { ...this.notAppliedState, ...stateSubset };
+
     if (this.debounce) {
       window.clearTimeout(this.debounce);
     }
-    this.debounce = window.setTimeout(() => {
+
+    const debounce =
+      this.props.debounce !== false
+        ? (fn: Function) => window.setTimeout(fn, 0)
+        : (fn: Function) => fn();
+
+    this.debounce = debounce(() => {
       const measure = `🦉${pluginName}::WithPluginState`;
       performanceOptions.trackingEnabled && startMeasure(measure);
 
@@ -176,7 +184,7 @@ export default class WithPluginState extends React.Component<Props, State> {
       });
       this.debounce = null;
       this.notAppliedState = {};
-    }, 0);
+    });
   };
 
   private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {

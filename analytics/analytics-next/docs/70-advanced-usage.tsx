@@ -6,9 +6,8 @@ export default md`
   ### Contents
 
   * [Adding more information to an event](#adding-more-information-to-an-event)
-  * [Creating your own events](#creating-your-own-events)
-  * [Passing an event to your consumers](#passing-an-event-to-your-consumers)
   * [Using a channel](#using-a-channel)
+  * [Passing an event to your consumers](#passing-an-event-to-your-consumers)
   * [Cloning an event](#cloning-an-event)
   * [Tracking events outside the UI](#tracking-events-outside-the-ui)
 

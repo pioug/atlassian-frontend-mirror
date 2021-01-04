@@ -1,20 +1,29 @@
+import { MediaType } from '@atlaskit/media-common';
+
+import { getImageDimensionsFromBlob } from './getImageDimensionsFromBlob';
+import { getVideoDimensionsFromBlob } from './getVideoDimensionsFromBlob';
+
 export type Dimensions = {
   width: number;
   height: number;
 };
 
-export const getDimensionsFromBlob = (blob: Blob): Promise<Dimensions> => {
-  return new Promise<Dimensions>((resolve, reject) => {
-    const imageSrc = URL.createObjectURL(blob);
-    const img = new Image();
-    img.src = imageSrc;
-
-    img.onload = () => {
-      const dimensions = { width: img.width, height: img.height };
-
-      URL.revokeObjectURL(imageSrc);
-      resolve(dimensions);
-    };
-    img.onerror = reject;
-  });
+export const getDimensionsFromBlob = async (
+  mediaType: MediaType,
+  blob: Blob,
+): Promise<Dimensions> => {
+  switch (mediaType) {
+    case 'image': {
+      const url = URL.createObjectURL(blob);
+      try {
+        return await getImageDimensionsFromBlob(url);
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    }
+    case 'video':
+      return getVideoDimensionsFromBlob(blob);
+    default:
+      throw new Error(`Can't extract dimensions from ${mediaType}`);
+  }
 };

@@ -1,5 +1,15 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.0.0
+
+### Major Changes
+
+- [`9242f60d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9242f60d20) - Support anchor link starting with #
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

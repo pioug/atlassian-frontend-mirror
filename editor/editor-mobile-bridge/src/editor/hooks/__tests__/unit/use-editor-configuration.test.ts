@@ -4,33 +4,48 @@ import { useEditorConfiguration } from '../../../hooks/use-editor-configuration'
 import WebBridgeImpl from '../../../native-to-web';
 
 describe('use editor configuration', () => {
+  let bridge: WebBridgeImpl;
+  let initialConfig: MobileEditorConfiguration;
+  let mockedSetEditorConfigChangeHandler: jest.SpyInstance;
+  let mockedSetEditorConfiguration: jest.SpyInstance;
+
+  beforeEach(() => {
+    bridge = new WebBridgeImpl();
+    initialConfig = new MobileEditorConfiguration();
+    mockedSetEditorConfigChangeHandler = jest.spyOn(
+      WebBridgeImpl.prototype,
+      'setEditorConfigChangeHandler',
+    );
+    mockedSetEditorConfiguration = jest.spyOn(
+      WebBridgeImpl.prototype,
+      'setEditorConfiguration',
+    );
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should have default config created if config is not passed', () => {
+    const { result } = renderHook(() => useEditorConfiguration(bridge));
+    expect(result.current).toEqual(initialConfig);
+  });
+
   it('should call setEditorConfigChangeHandler', () => {
-    const mockedSetEditorConfigChangeHandler = jest.fn();
-    WebBridgeImpl.prototype.setEditorConfigChangeHandler = mockedSetEditorConfigChangeHandler;
-    const bridge = new WebBridgeImpl();
-    const config = new MobileEditorConfiguration();
-    renderHook(() => useEditorConfiguration(bridge, config));
+    renderHook(() => useEditorConfiguration(bridge, initialConfig));
     expect(mockedSetEditorConfigChangeHandler).toHaveBeenCalledTimes(1);
   });
 
   it('should call setEditorConfiguration with the passed config', () => {
-    const mockedSetEditorConfiguration = jest.fn();
-    WebBridgeImpl.prototype.setEditorConfiguration = mockedSetEditorConfiguration;
-    const bridge = new WebBridgeImpl();
-    const config = new MobileEditorConfiguration();
-    renderHook(() => useEditorConfiguration(bridge, config));
+    renderHook(() => useEditorConfiguration(bridge, initialConfig));
     expect(mockedSetEditorConfiguration).toHaveBeenCalledTimes(1);
-    expect(mockedSetEditorConfiguration).toHaveBeenCalledWith(config);
+    expect(mockedSetEditorConfiguration).toHaveBeenCalledWith(initialConfig);
   });
 
   it('should return valid editor configuration', () => {
-    const mockedSetEditorConfigChangeHandler = jest.fn();
-    WebBridgeImpl.prototype.setEditorConfigChangeHandler = mockedSetEditorConfigChangeHandler;
-    const bridge = new WebBridgeImpl();
-    const initialConfig = new MobileEditorConfiguration();
-    const hook = renderHook(() =>
+    const { result } = renderHook(() =>
       useEditorConfiguration(bridge, initialConfig),
     );
-    expect(hook.result.current).toEqual(initialConfig);
+    expect(result.current).toEqual(initialConfig);
   });
 });

@@ -111,8 +111,20 @@ export default class DummyBridge implements NativeBridge {
     this.call('lifecycleBridge', 'editorDestroyed');
   }
 
-  onContentRendered(totalNodeSize: number, nodes: string): void {
-    this.call('contentBridge', 'onContentRendered', totalNodeSize, nodes);
+  onContentRendered(
+    totalNodeSize: number,
+    nodes: string,
+    actualRenderingDuration: number,
+    totalBridgeDuration: number,
+  ): void {
+    this.call(
+      'contentBridge',
+      'onContentRendered',
+      totalNodeSize,
+      nodes,
+      actualRenderingDuration,
+      totalBridgeDuration,
+    );
   }
 
   onRenderedContentHeightChanged(height: number) {

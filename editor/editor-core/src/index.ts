@@ -65,6 +65,8 @@ export {
 export type { HyperlinkState } from './plugins/hyperlink/pm-plugins/main';
 export { pluginKey as listsStateKey } from './plugins/lists/pm-plugins/main';
 export type { ListsPluginState as ListsState } from './plugins/lists/pm-plugins/main';
+export { pluginKey as listsPredictableStateKey } from './plugins/lists-predictable/pm-plugins/main';
+export type { ListsPluginState as ListsPredictableState } from './plugins/lists-predictable/types';
 export {
   indentList,
   outdentList,

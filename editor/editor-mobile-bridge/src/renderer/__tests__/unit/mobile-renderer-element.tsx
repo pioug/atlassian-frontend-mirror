@@ -17,10 +17,14 @@ import * as rendererHook from '../../hooks/use-set-renderer-content';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { InjectedIntl } from 'react-intl';
 import * as useTranslations from '../../../i18n/use-translations';
+import RendererBridgeImplementation from '../../native-to-web/implementation';
+import * as configurationHook from '../../hooks/use-renderer-configuration';
+import RendererConfiguration from '../../renderer-configuration';
 
 jest.mock('../../../bridge-utils');
 describe('renderer bridge', () => {
   const createPromiseMock = jest.fn();
+  let rendererBridge: RendererBridgeImplementation;
   let fetchProxy: FetchProxy;
   let intlMock: any;
 
@@ -28,10 +32,7 @@ describe('renderer bridge', () => {
     fetchProxy = new FetchProxy();
     fetchProxy.enable();
     createPromiseMock.mockReset();
-    window.renderBridge = {
-      onContentRendered: jest.fn(),
-      onRenderedContentHeightChanged: jest.fn(),
-    };
+    rendererBridge = new RendererBridgeImplementation();
     intlMock = ({
       formatMessage: (messageDescriptor: any) =>
         messageDescriptor && messageDescriptor.defaultMessage,
@@ -48,8 +49,10 @@ describe('renderer bridge', () => {
       jest.restoreAllMocks();
     });
     let useRendererContentSpy: any;
+    let useRendererConfigurationSpy: any;
     beforeEach(() => {
       useRendererContentSpy = jest.spyOn(rendererHook, 'useRendererContent');
+      useRendererConfigurationSpy = jest.spyOn(configurationHook, 'default');
     });
 
     it('should call useRendererContent when Mobile renderer is loaded', () => {
@@ -68,6 +71,7 @@ describe('renderer bridge', () => {
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
           intl={intlMock}
+          rendererBridge={rendererBridge}
         />,
       );
       expect(useRendererContentSpy).toHaveBeenCalledTimes(1);
@@ -77,7 +81,7 @@ describe('renderer bridge', () => {
       const messages = {};
       jest
         .spyOn(useTranslations, 'useTranslations')
-        .mockReturnValue(['pl', messages]);
+        .mockReturnValue({ locale: 'pl', messages });
 
       const initialDoc = doc(p(date({ timestamp: '1603756800000' })));
       const result = mount(
@@ -87,6 +91,8 @@ describe('renderer bridge', () => {
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
+          locale="pl"
+          rendererBridge={rendererBridge}
         />,
       );
       const basicRendererIntlProp = result
@@ -95,6 +101,25 @@ describe('renderer bridge', () => {
 
       expect(basicRendererIntlProp.locale).toBe('pl');
       expect(basicRendererIntlProp.messages).toBe(messages);
+    });
+
+    it('should call useRendererConfiguration when Mobile renderer is loaded', () => {
+      useRendererConfigurationSpy.mockImplementation(
+        () => new RendererConfiguration(),
+      );
+      mount(
+        <MobileRenderer
+          document={''}
+          cardClient={createCardClient()}
+          emojiProvider={createEmojiProvider(fetchProxy)}
+          mediaProvider={createMediaProvider()}
+          mentionProvider={createMentionProvider()}
+          intl={intlMock}
+          rendererBridge={rendererBridge}
+        />,
+      );
+
+      expect(useRendererConfigurationSpy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -121,6 +146,7 @@ describe('renderer bridge', () => {
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
           intl={intlMock}
+          rendererBridge={rendererBridge}
         />,
       );
 
@@ -141,6 +167,7 @@ describe('renderer bridge', () => {
           mediaProvider={createMediaProvider()}
           mentionProvider={createMentionProvider()}
           intl={intlMock}
+          rendererBridge={rendererBridge}
         />,
       );
 

@@ -19,6 +19,7 @@ import Editor from './../src/editor/mobile-editor-element';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
+import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -54,10 +55,12 @@ window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge();
+  const editorConfiguration = useEditorConfiguration(bridge);
 
   return (
     <Editor
-      bridge={getBridge()}
+      bridge={bridge}
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardProvider={Promise.resolve(cardProvider)}
       cardClient={createCardClient()}
@@ -68,6 +71,8 @@ function EditorWithFetchProxy() {
         includeUserAuthProvider: true,
       })}
       placeholder="Type something here"
+      editorConfiguration={editorConfiguration}
+      locale={editorConfiguration.getLocale()}
     />
   );
 }

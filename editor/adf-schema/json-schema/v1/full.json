@@ -1006,14 +1006,6 @@
     "mediaSingle_node": {
       "type": "object",
       "properties": {
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/media_node"
-          },
-          "minItems": 1,
-          "maxItems": 1
-        },
         "type": {
           "enum": [
             "mediaSingle"
@@ -1052,10 +1044,33 @@
         }
       },
       "required": [
-        "content",
         "type"
       ],
-      "additionalProperties": false
+      "additionalProperties": true
+    },
+    "mediaSingle_full_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/mediaSingle_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/media_node"
+              },
+              "minItems": 1,
+              "maxItems": 1
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "additionalProperties": true
+        }
+      ]
     },
     "listItem_node": {
       "type": "object",
@@ -1077,7 +1092,7 @@
                   "$ref": "#/definitions/paragraph_with_no_marks_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_node"
+                  "$ref": "#/definitions/mediaSingle_full_node"
                 }
               ]
             },
@@ -1093,7 +1108,7 @@
                   "$ref": "#/definitions/bulletList_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_node"
+                  "$ref": "#/definitions/mediaSingle_full_node"
                 },
                 {
                   "$ref": "#/definitions/orderedList_node"
@@ -1615,7 +1630,7 @@
             "$ref": "#/definitions/paragraph_with_no_marks_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_node"
+            "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
             "$ref": "#/definitions/heading_with_no_marks_node"
@@ -1758,7 +1773,7 @@
             "$ref": "#/definitions/bulletList_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_node"
+            "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
             "$ref": "#/definitions/orderedList_node"
@@ -1896,7 +1911,7 @@
           "$ref": "#/definitions/bulletList_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_node"
+          "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
           "$ref": "#/definitions/orderedList_node"
@@ -2074,7 +2089,7 @@
           "$ref": "#/definitions/bulletList_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_node"
+          "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
           "$ref": "#/definitions/orderedList_node"
@@ -2228,7 +2243,7 @@
                 "$ref": "#/definitions/bulletList_node"
               },
               {
-                "$ref": "#/definitions/mediaSingle_node"
+                "$ref": "#/definitions/mediaSingle_full_node"
               },
               {
                 "$ref": "#/definitions/orderedList_node"

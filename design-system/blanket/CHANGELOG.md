@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 11.1.0
+
+### Minor Changes
+
+- [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
+
 ## 11.0.4
 
 ### Patch Changes

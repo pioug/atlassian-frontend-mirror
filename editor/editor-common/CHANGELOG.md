@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 55.1.0
+
+### Minor Changes
+
+- [`64281cda86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64281cda86) - ED-11151: Improve TTI measurements
+- [`38e24bcc76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38e24bcc76) - ED-10832 Track unsupportedNode Attribute with null value explicitly
+
+### Patch Changes
+
+- [`9e76e3a5c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e76e3a5c5) - [ux] Adding support to detect and render anchor links.
+- Updated dependencies
+
 ## 55.0.0
 
 ### Major Changes

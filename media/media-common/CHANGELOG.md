@@ -1,5 +1,17 @@
 # @atlaskit/media-common
 
+## 2.5.0
+
+### Minor Changes
+
+- [`ad2a0e3352`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad2a0e3352) - add common analytics types for media
+
+### Patch Changes
+
+- [`56b5424269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b5424269) - BMPT-1075 improve media common analytics
+- [`b611cc4044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b611cc4044) - improve common generic analytics types
+- [`52d4b2cbfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52d4b2cbfb) - Updated media-common analytics types
+
 ## 2.4.4
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '@atlaskit/button/standard-button';
 import TextField from '@atlaskit/textfield';
 
-import { metadata } from '../src';
+import metadata from '../src/metadata';
 import IconExplorerCell from './utils/IconExplorerCell';
 
 const allIcons = Promise.all(

@@ -58,7 +58,12 @@ const WysiwygEditor = React.forwardRef<
   return (
     <div ref={ref} id="editor-container">
       {props.props ? (
-        <Editor {...props.props} appearance="chromeless" disabled />
+        <Editor
+          {...props.props}
+          appearance="chromeless"
+          allowTables={true}
+          disabled
+        />
       ) : null}
     </div>
   );

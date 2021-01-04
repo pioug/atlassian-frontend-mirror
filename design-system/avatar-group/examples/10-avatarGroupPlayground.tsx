@@ -32,19 +32,17 @@ const AvatarGroupExample: FC = () => {
   });
 
   const decrement = (key: keyof Omit<State, 'mode' | 'tooltipsDisabled'>) => {
-    const nextState = state;
-
-    nextState[key] = state[key] - 1;
-
-    setState(nextState);
+    setState({
+      ...state,
+      [key]: state[key] - 1,
+    });
   };
 
   const increment = (key: keyof Omit<State, 'mode' | 'tooltipsDisabled'>) => {
-    const nextState = state;
-
-    nextState[key] = state[key] + 1;
-
-    setState(nextState);
+    setState({
+      ...state,
+      [key]: state[key] + 1,
+    });
   };
 
   const toggleTooltips = () => {

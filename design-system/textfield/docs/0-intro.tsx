@@ -74,7 +74,8 @@ These will be applied to the underlying \`<input>\` element.
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/components/Textfield')}
+      heading="TextField Props"
+      props={require('!!extract-react-types-loader!../extract-react-types/text-field-props')}
     />
   )}
 `;

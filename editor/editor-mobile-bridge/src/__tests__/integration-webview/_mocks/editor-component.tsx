@@ -17,10 +17,12 @@ import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
 import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
+import { useEditorConfiguration } from '../../../editor/hooks/use-editor-configuration';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
+  const editorConfiguration = useEditorConfiguration(bridge);
 
   return (
     <MobileEditor
@@ -31,6 +33,8 @@ const App = () => {
       emojiProvider={createEmojiProvider(fetchProxy)}
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}
+      editorConfiguration={editorConfiguration}
+      locale={editorConfiguration.getLocale()}
     />
   );
 };

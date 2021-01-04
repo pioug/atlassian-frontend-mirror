@@ -120,14 +120,6 @@ type VisitMediaLinkAEP = AEP<
   EVENT_TYPE.TRACK
 >;
 
-type BodiedExtensionOperationalAEP = AEP<
-  ACTION.RENDERED,
-  ACTION_SUBJECT.BODIED_EXTENSION,
-  undefined,
-  { [key: string]: any },
-  EVENT_TYPE.OPERATIONAL
->;
-
 type ExpandAEP = AEP<
   ACTION.TOGGLE_EXPAND,
   ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,
@@ -198,5 +190,4 @@ export type AnalyticsEventPayload =
   | UnsupportedContentPayload
   | UnsupportedContentTooltipPayload
   | AnnotationAEP
-  | AnnotationDeleteAEP
-  | BodiedExtensionOperationalAEP;
+  | AnnotationDeleteAEP;

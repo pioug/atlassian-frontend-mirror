@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs';
 import { name } from '../../../version.json';
 import PriorityCritical from '../../../../glyph/priority-critical';
-import { metadata } from '../../..';
+import metadata from '../../../metadata';
 
 // List all files in a directory in Node.js recursively in a synchronous fashion
 const walkSync = (dir: string, filelist: string[]) => {

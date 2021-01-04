@@ -28,7 +28,7 @@ import {
   RequestMethod,
   RequestParams,
 } from '../utils/request/types';
-import { MediaStoreErrorReason, MediaStoreError } from '../models/errors';
+import { MediaStoreError } from '../models/errors';
 
 const defaultImageOptions: MediaStoreGetFileImageParams = {
   'max-age': FILE_CACHE_MAX_AGE,
@@ -346,7 +346,7 @@ export class MediaStore {
     try {
       auth = await authProvider(authContext);
     } catch (err) {
-      throw new MediaStoreError(MediaStoreErrorReason.failedAuthProvider, err);
+      throw new MediaStoreError('failedAuthProvider', err);
     }
 
     const response = await request(

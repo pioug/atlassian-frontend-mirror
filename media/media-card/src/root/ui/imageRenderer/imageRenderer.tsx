@@ -1,10 +1,15 @@
 import React from 'react';
-import { MediaType, ImageResizeMode } from '@atlaskit/media-client';
+import {
+  MediaType,
+  ImageResizeMode,
+  MediaItemType,
+} from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import {
   createAndFireCustomMediaEvent,
   AnalyticsLoadingAction,
   getLoadingStatusAnalyticsPayload,
+  AnalyticsLoadingFailReason,
 } from '../../../utils/analytics';
 import {
   withAnalyticsEvents,
@@ -14,6 +19,7 @@ import {
 export type ImageRendererProps = {
   readonly dataURI: string;
   readonly mediaType: MediaType;
+  readonly mediaItemType: MediaItemType;
   readonly previewOrientation?: number;
   readonly alt?: string;
   readonly resizeMode?: ImageResizeMode;
@@ -53,7 +59,7 @@ export class ImageRendererWithoutAnalytics extends React.Component<
     !this.lastAnalyticsAction || this.lastAnalyticsAction !== action;
 
   fireLoadingStatusAnalyticsEvent = (action: AnalyticsLoadingAction) => {
-    const { createAnalyticsEvent } = this.props;
+    const { createAnalyticsEvent, mediaItemType } = this.props;
 
     if (this.shouldFireLoadingStatusAnalyticsEvent(action)) {
       this.lastAnalyticsAction = action;
@@ -62,8 +68,10 @@ export class ImageRendererWithoutAnalytics extends React.Component<
         createAndFireCustomMediaEvent(
           getLoadingStatusAnalyticsPayload({
             action,
-            error: 'unknown error',
-            failReason: 'file-uri-error',
+            failReason:
+              mediaItemType === 'external-image'
+                ? AnalyticsLoadingFailReason.EXTERNAL_FILE_URI
+                : AnalyticsLoadingFailReason.FILE_URI,
           }),
           createAnalyticsEvent,
         );

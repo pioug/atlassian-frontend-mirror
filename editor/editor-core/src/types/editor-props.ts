@@ -164,6 +164,9 @@ export interface EditorProps {
   // You can use the object form to enable additional individual features e.g. case-matching toggle.
   allowFindReplace?: boolean | FindReplaceOptions;
 
+  // Enable scroll gutter
+  allowScrollGutter?: boolean;
+
   // Set to enable the quick insert menu i.e. '/' key trigger.
   // You can also provide your own insert menu options that will be shown in addition to the enabled
   // editor features e.g. Confluence uses this to provide its macros.

@@ -21,7 +21,10 @@ describe('Cards:', () => {
     page = global.page;
   });
 
-  getSequence(NUMBER_OF_BATCHES).forEach((_, batchNumber) => {
+  // NOTE: Do not convert this code to using a `.forEach()` with
+  // asynchronous logic inside of it. This is to prevent inconsistent behaviour
+  // when running this test, which leads to flakiness (due to timeouts).
+  for (const batchNumber of getSequence(NUMBER_OF_BATCHES)) {
     it(`allows browser to be idle in <5s - batch ${batchNumber}`, async () => {
       const adf = createAdf();
       const runs = getSequence(NUMBER_OF_RUNS);
@@ -41,9 +44,9 @@ describe('Cards:', () => {
       // Dud assertion to complete the test.
       expect(true).toBe(true);
     });
-  });
+  }
 
-  afterAll(() => {
+  afterAll(async () => {
     // Real assertion: check we're in a healthy range still.
     assertIdleTimesWithinRange(timesToIdle);
     assertIdleTimesWithinRange(timesToIdleForInitialRender, THRESHOLD_INITIAL);

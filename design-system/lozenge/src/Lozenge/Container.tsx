@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-import { jsx } from '@emotion/core';
+import '@compiled/react';
 
 import { borderRadius } from '@atlaskit/theme/constants';
 

@@ -72,10 +72,15 @@ const isCodeBlockAllowed = (
   return exclude.indexOf('codeBlock') === -1;
 };
 
-function getScrollGutterOptions(
+export function getScrollGutterOptions(
   props: EditorProps,
 ): ScrollGutterPluginOptions | undefined {
-  const { appearance } = props;
+  const { appearance, allowScrollGutter } = props;
+
+  if (allowScrollGutter === false) {
+    return undefined;
+  }
+
   if (fullPageCheck(appearance)) {
     // Full Page appearance uses a scrollable div wrapper
     return {

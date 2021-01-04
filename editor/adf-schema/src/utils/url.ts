@@ -33,6 +33,7 @@ const whitelistedURLPatterns = [
   /^slack:/im,
   /^sips?:/im,
   /^magnet:/im,
+  /^#/im,
 ];
 
 export const isSafeUrl = (url: string): boolean => {

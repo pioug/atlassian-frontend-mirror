@@ -18,6 +18,7 @@ import * as taskList from './__fixtures__/task-list.adf.json';
 import * as nestedTaskList from './__fixtures__/nested-task-list.adf.json';
 import * as blockCards from './__fixtures__/block-cards.adf.json';
 import * as inlineCards from './__fixtures__/inline-cards.adf.json';
+import * as embedCards from './__fixtures__/embed-cards.adf.json';
 import * as status from './__fixtures__/status.adf.json';
 import * as tableNumberedColumn from './__fixtures__/table-numbered-column.adf.json';
 import * as layoutColumnSection from './__fixtures__/layout-column-section.adf.json';
@@ -162,6 +163,11 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render inline cards correctly', () => {
     const { result } = render(inlineCards);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render embed cards correctly', () => {
+    const { result } = render(embedCards);
     expect(result).toMatchSnapshot('html');
   });
 

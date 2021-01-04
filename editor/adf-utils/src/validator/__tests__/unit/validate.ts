@@ -36,9 +36,6 @@ describe('validate', () => {
           'paragraph-with-empty-marks.json',
           'codeBlock-with-empty-marks.json',
           'heading-with-empty-marks.json',
-
-          /* commented out until captions is merged */
-          'mediaSingle-with-caption.json',
         ];
         if (!ignoreList.includes(file.name)) {
           const run = () => {

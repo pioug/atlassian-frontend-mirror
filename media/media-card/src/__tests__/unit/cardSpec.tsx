@@ -58,6 +58,7 @@ import {
 import {
   getBaseAnalyticsContext,
   getMediaCardAnalyticsContext,
+  AnalyticsLoadingFailReason,
 } from '../../utils/analytics';
 import * as IntersectionObserverUtils from '../../utils/intersectionObserver';
 import { IntlProvider } from 'react-intl';
@@ -1735,7 +1736,7 @@ describe('Card', () => {
             actionSubjectId,
             action: 'failed',
             attributes: expect.objectContaining({
-              failReason: 'file-status-error',
+              failReason: AnalyticsLoadingFailReason.FILE_STATUS,
               error:
                 'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
             }),
@@ -1824,7 +1825,7 @@ describe('Card', () => {
             ...analyticsBasePayload,
             action: 'failed',
             attributes: expect.objectContaining({
-              failReason: 'file-status-error',
+              failReason: AnalyticsLoadingFailReason.FILE_STATUS,
               error:
                 'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
             }),
@@ -1999,7 +2000,7 @@ describe('Card', () => {
             actionSubjectId,
             action: 'failed',
             attributes: expect.objectContaining({
-              failReason: 'file-status-error',
+              failReason: AnalyticsLoadingFailReason.FILE_STATUS,
               error:
                 'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
             }),

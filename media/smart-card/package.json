@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "14.8.0",
+  "version": "14.8.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,9 +29,9 @@
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/icon": "^21.1.0",
-    "@atlaskit/icon-file-type": "^6.0.0",
-    "@atlaskit/icon-object": "^6.0.0",
+    "@atlaskit/icon": "^21.2.0",
+    "@atlaskit/icon-file-type": "^6.1.0",
+    "@atlaskit/icon-object": "^6.1.0",
     "@atlaskit/logo": "^13.0.0",
     "@atlaskit/media-ui": "^15.0.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
@@ -63,7 +63,7 @@
     "@atlaskit/radio": "^5.0.0",
     "@atlaskit/table-tree": "^9.0.0",
     "@atlaskit/textarea": "^4.0.0",
-    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/textfield": "^5.0.0",
     "@testing-library/react": "^8.0.1",
     "@types/async-retry": "^1.4.1",
     "@types/enzyme": "^3.1.15",
@@ -75,7 +75,6 @@
     "abortcontroller-polyfill": "^1.1.9",
     "brace": "^0.11.1",
     "enzyme": "^3.10.0",
-    "fetch-mock": "^8.0.0",
     "lorem-ipsum": "^1.0.6",
     "mockdate": "^3.0.2",
     "react": "^16.8.0",

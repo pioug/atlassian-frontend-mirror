@@ -6,6 +6,7 @@ jest.mock('../api', () => ({
 import { mocks } from '../../utils/mocks';
 import SmartCardClient from '..';
 import { isSuccessfulResponse, SuccessResponse } from '../types/responses';
+import { APIError } from '../errors';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -118,6 +119,32 @@ describe('Smart Card: Client', () => {
     expect(responseFirst).toBe(mocks.success);
     expect(responseSecond).toBe(mocks.unauthorized);
     expect(responseThird).toBe(mocks.notFound);
+  });
+
+  it('should handle errors in /batch endpoint', async () => {
+    expect.assertions(2);
+    mockRequest.mockImplementationOnce(async () =>
+      Promise.reject({
+        status: 400,
+        error: 'some-error',
+        message: 'error-message',
+      }),
+    );
+    const client = new SmartCardClient('stg');
+    const resourceUrl = 'https://i.love.cheese';
+    try {
+      await client.fetchData(resourceUrl);
+    } catch (error) {
+      expect(error).toBeInstanceOf(APIError);
+      expect(error).toEqual(
+        expect.objectContaining({
+          kind: 'fatal',
+          hostname: 'i.love.cheese',
+          type: 'UnexpectedError',
+          name: 'APIError',
+        }),
+      );
+    }
   });
 
   it('postData()', async () => {

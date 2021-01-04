@@ -8,9 +8,9 @@ import {
   findParentDomRefOfType,
   findParentNodeOfType,
 } from 'prosemirror-utils';
+import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-
 import { browser } from '@atlaskit/editor-common';
 
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
@@ -43,6 +43,8 @@ import { INPUT_METHOD } from '../../analytics';
 
 import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
+import TableCellNodeView from '../nodeviews/tableCell';
+import { getPosHandler } from '../../../nodeviews';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
@@ -73,6 +75,21 @@ export const createPlugin = (
     isHeaderColumnEnabled: false,
     ...defaultTableSelection,
   });
+
+  const tableCellNodeview = pluginConfig.tableCellOptimization
+    ? {
+        tableCell: (
+          node: ProseMirrorNode,
+          view: EditorView,
+          getPos: getPosHandler,
+        ) => new TableCellNodeView(node, view, getPos),
+        tableHeader: (
+          node: ProseMirrorNode,
+          view: EditorView,
+          getPos: getPosHandler,
+        ) => new TableCellNodeView(node, view, getPos),
+      }
+    : {};
 
   return new Plugin({
     state: state,
@@ -182,6 +199,8 @@ export const createPlugin = (
       },
 
       nodeViews: {
+        //temporary flag to test tableCell optimisation
+        ...(tableCellNodeview as any),
         table: (node, view, getPos) =>
           createTableView(
             node,

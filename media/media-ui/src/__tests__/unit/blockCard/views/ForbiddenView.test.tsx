@@ -3,7 +3,7 @@ import { cleanup, fireEvent } from '@testing-library/react';
 import { renderWithIntl } from '../../../__utils__/render';
 import { BlockCardForbiddenView } from '../../../../BlockCard';
 import { ResolvedViewProps } from '../../../../BlockCard/views/ResolvedView';
-import { getResolvedProps } from '../../../__mocks__';
+import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 describe('Block card views - Forbidden', () => {

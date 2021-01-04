@@ -1,5 +1,11 @@
 # @atlaskit/icon-priority
 
+## 6.1.0
+
+### Minor Changes
+
+- [`fbdf356800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbdf356800) - Remove undocumented metadata export from main entry point. To import metadata instead do it from the /metadata entrypoint.
+
 ## 6.0.5
 
 ### Patch Changes

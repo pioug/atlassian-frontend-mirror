@@ -8,17 +8,27 @@ export function measureTTI(
   ) => void,
   idleThreshold: number = 1000,
   cancelAfter: number = 60,
+
+  // Dependency Injection for easier testing
+  PerfObserver?: typeof window.PerformanceObserver,
 ) {
   if (!isPerformanceObserverLongTaskAvailable()) {
     return;
   }
 
-  let lastLongTask: PerformanceEntry | undefined;
-  let cancelAfterMs = cancelAfter * 1000;
   const start = performance.now();
-  const observer = new PerformanceObserver(list => {
+  let prevLongTask:
+    | Pick<PerformanceEntry, 'startTime' | 'duration'>
+    | undefined;
+  let lastLongTask: Pick<PerformanceEntry, 'startTime' | 'duration'> = {
+    startTime: start,
+    duration: 0,
+  };
+  let cancelAfterMs = cancelAfter * 1000;
+  const observer = new (PerfObserver || PerformanceObserver)(list => {
     const entries = list.getEntries();
     if (entries.length) {
+      prevLongTask = lastLongTask;
       lastLongTask = entries[entries.length - 1];
     }
   });
@@ -26,20 +36,32 @@ export function measureTTI(
   observer.observe({ entryTypes: ['longtask'] });
 
   const checkIdle = () => {
-    if (!lastLongTask) {
-      return setTimeout(checkIdle, idleThreshold);
-    }
+    // 1. There hasn't been any long task in `idleThreshold` time: Interactive from the start.
+    // 2. Only 1 long task: Interactive from the end of the only long task.
+    // 3. Several long tasks:
+    //    3.1 Interactive from the end of prevLongTask if `lastLongTask.start - prevLongTask.end >= idleThreshold`
+    //    3.2 Interactive from the end of lastLongTask if `lastLongTask.start - prevLongTask.end < idleThreshold`
 
+    const now = performance.now();
     const lastEnd = lastLongTask.startTime + lastLongTask.duration;
+    const prevEnd = prevLongTask
+      ? prevLongTask.startTime + prevLongTask.duration
+      : lastEnd;
 
-    if (performance.now() - lastEnd >= idleThreshold || cancelAfterMs <= 0) {
+    if (!prevLongTask) {
+      observer.disconnect();
+      return onMeasureComplete(prevEnd, 0, false);
+    } else if (lastLongTask.startTime - prevEnd >= idleThreshold) {
+      observer.disconnect();
+      return onMeasureComplete(prevEnd, prevEnd - start, cancelAfterMs <= 0);
+    } else if (now - lastEnd >= idleThreshold || cancelAfterMs <= 0) {
       observer.disconnect();
       return onMeasureComplete(lastEnd, lastEnd - start, cancelAfterMs <= 0);
     }
 
-    cancelAfterMs -= idleThreshold;
+    cancelAfterMs = Math.max(0, cancelAfterMs - (now - start));
     return setTimeout(checkIdle, idleThreshold);
   };
 
-  checkIdle();
+  setTimeout(checkIdle, idleThreshold);
 }

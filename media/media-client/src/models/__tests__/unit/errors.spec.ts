@@ -1,10 +1,8 @@
 import {
   BaseMediaClientError,
   isFileFetcherError,
-  FileFetcherErrorReason,
   FileFetcherError,
   isMediaStoreError,
-  MediaStoreErrorReason,
   MediaStoreError,
 } from '../../errors';
 
@@ -30,21 +28,17 @@ describe('Errors', () => {
     it('should be identifiable', () => {
       const unknownError = new Error('unknown error');
       expect(isFileFetcherError(unknownError)).toBeFalsy();
-      const fileFetcherError = new FileFetcherError(
-        FileFetcherErrorReason.invalidFileId,
-        'some-id',
-      );
+      const fileFetcherError = new FileFetcherError('invalidFileId', 'some-id');
       expect(isFileFetcherError(fileFetcherError)).toBeTruthy();
     });
 
     it('should return the right arguments', () => {
-      const fileFetcherError = new FileFetcherError(
-        FileFetcherErrorReason.invalidFileId,
-        'id',
-        { collectionName: 'collectionName', occurrenceKey: 'occurrenceKey' },
-      );
+      const fileFetcherError = new FileFetcherError('invalidFileId', 'id', {
+        collectionName: 'collectionName',
+        occurrenceKey: 'occurrenceKey',
+      });
       expect(fileFetcherError.attributes).toMatchObject({
-        reason: FileFetcherErrorReason.invalidFileId,
+        reason: 'invalidFileId',
         id: 'id',
         collectionName: 'collectionName',
         occurrenceKey: 'occurrenceKey',
@@ -56,20 +50,15 @@ describe('Errors', () => {
     it('should be identifiable', () => {
       const unknownError = new Error('unknown error');
       expect(isMediaStoreError(unknownError)).toBeFalsy();
-      const mediaStoreError = new MediaStoreError(
-        MediaStoreErrorReason.failedAuthProvider,
-      );
+      const mediaStoreError = new MediaStoreError('failedAuthProvider');
       expect(isMediaStoreError(mediaStoreError)).toBeTruthy();
     });
 
     it('should return the right arguments', () => {
       const error = new Error('error');
-      const mediaStoreError = new MediaStoreError(
-        MediaStoreErrorReason.failedAuthProvider,
-        error,
-      );
+      const mediaStoreError = new MediaStoreError('failedAuthProvider', error);
       expect(mediaStoreError.attributes).toMatchObject({
-        reason: MediaStoreErrorReason.failedAuthProvider,
+        reason: 'failedAuthProvider',
         innerError: error,
       });
     });

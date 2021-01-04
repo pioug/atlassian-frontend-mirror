@@ -40,11 +40,14 @@ import { Breakpoint } from './ui/common';
 import { IconWrapper } from './ui/iconWrapper/styled';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
-import { CreatingPreview } from './ui/creatingPreviewText/creatingPreviewText';
-import { PreviewUnavailable } from './ui/previewUnavailable/previewUnavailable';
+import {
+  PreviewUnavailable,
+  CreatingPreview,
+  RateLimited,
+  PreviewCurrentlyUnavailable,
+} from './ui/iconMessage';
 import { LoadingRateLimited } from './ui/loadingRateLimited/loadingRateLimited';
-import { MetadataRateLimited } from './ui/metadataRateLimited/metadataRateLimited';
-import { isRateLimitedError } from '@atlaskit/media-client';
+import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -225,6 +228,10 @@ export class CardViewBase extends React.Component<
     const { metadata, disableOverlay, status, dataURI, error } = this.props;
     const { name } = metadata || {};
 
+    if (error && isPollingError(error)) {
+      return true;
+    }
+
     const noErrorWithUri = !!dataURI || status !== 'error';
 
     return (
@@ -235,7 +242,11 @@ export class CardViewBase extends React.Component<
 
   private showFailedTitleBox(): boolean {
     const { isImageFailedToLoad } = this.state;
-    const { status, dataURI, metadata } = this.props;
+    const { status, dataURI, metadata, error } = this.props;
+
+    if (error && isPollingError(error)) {
+      return false;
+    }
 
     const failedProcessingWithMetadata = !!(
       status === 'failed-processing' && metadata
@@ -295,36 +306,43 @@ export class CardViewBase extends React.Component<
 
   private renderCreatingPreviewText() {
     const { isImageFailedToLoad } = this.state;
-    const { status, dataURI } = this.props;
-    if (!isImageFailedToLoad && (dataURI || status === 'loading')) {
+    const { status, dataURI, metadata } = this.props;
+    const isZeroSize =
+      !!(metadata && metadata.size === 0) && status === 'processing';
+    if (
+      (!isImageFailedToLoad && (dataURI || status === 'loading')) ||
+      isZeroSize
+    ) {
       return null;
     }
 
-    return (
-      status === 'processing' && (
-        <CreatingPreview
-          breakpoint={this.breakpoint}
-          positionBottom={!this.showTitleBox()}
-        />
-      )
-    );
+    return status === 'processing' && <CreatingPreview />;
   }
 
   private renderPreviewUnavailableText() {
-    const { status, metadata } = this.props;
+    const { status, metadata, error } = this.props;
 
-    if (!metadata) {
+    const isZeroSize = !!(metadata && metadata.size === 0);
+
+    if (!metadata || isZeroSize) {
       return null;
     }
-    return (
-      status === 'failed-processing' && (
-        <PreviewUnavailable
-          breakpoint={this.breakpoint}
-          positionBottom={!this.showTitleBox()}
-        />
-      )
-    );
+
+    if (error && isPollingError(error)) {
+      return <PreviewCurrentlyUnavailable />;
+    }
+    return status === 'failed-processing' && <PreviewUnavailable />;
   }
+
+  private renderRateLimitedText = () => {
+    const { metadata, error, disableOverlay } = this.props;
+    const shouldRender =
+      isRateLimitedError(error) && !disableOverlay && metadata;
+    if (!shouldRender) {
+      return null;
+    }
+    return <RateLimited />;
+  };
 
   private renderImageRenderer() {
     const { isImageFailedToLoad } = this.state;
@@ -335,6 +353,7 @@ export class CardViewBase extends React.Component<
       alt,
       resizeMode,
       onDisplayImage,
+      mediaItemType,
     } = this.props;
 
     return (
@@ -343,6 +362,7 @@ export class CardViewBase extends React.Component<
         <ImageRenderer
           dataURI={dataURI}
           mediaType={mediaType}
+          mediaItemType={mediaItemType}
           previewOrientation={previewOrientation}
           alt={alt}
           resizeMode={resizeMode}
@@ -379,6 +399,9 @@ export class CardViewBase extends React.Component<
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
         <MimeTypeIcon mediaType={mediaType} mimeType={mimeType} name={name} />
+        {this.renderRateLimitedText()}
+        {this.renderCreatingPreviewText()}
+        {this.renderPreviewUnavailableText()}
       </IconWrapper>
     );
   }
@@ -395,18 +418,6 @@ export class CardViewBase extends React.Component<
     return <ActionsBar actions={actionsWithDetails} />;
   }
 
-  private renderMetadataRateLimited = () => {
-    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
-
-    return (
-      <MetadataRateLimited
-        hasTitleBox={hasTitleBox}
-        breakpoint={this.breakpoint}
-        positionBottom={!this.showTitleBox()}
-      />
-    );
-  };
-
   private renderFileNewExperienceContents = () => {
     const {
       progress,
@@ -418,17 +429,28 @@ export class CardViewBase extends React.Component<
     } = this.props;
     const { name } = metadata || {};
 
-    // When a card is rate limited
-    // disableOverlay so that media-image isn't accounted for
-    // the reason being, media-image is not affected by rate limitation, and does not need these custom
-    // rate limited states
-    if (isRateLimitedError(error) && !disableOverlay) {
+    /***
+     * TODO:
+     * Having UI elements rendering completely independent from each other
+     * and having their own conditions to render is becoming hard to handle.
+     * We should group them into specific views coming from the card flow designs found in
+     * https://product-fabric.atlassian.net/wiki/spaces/FIL/pages/1751948766/Error+and+Failure+states+documentation
+     * */
+
+    if (error && isPollingError(error)) {
+      // do nothing, render regular card
+      // TODO: send fail event with proper failReason?
+      // perhaps part of https://product-fabric.atlassian.net/browse/BMPT-970
+    } else if (isRateLimitedError(error) && !disableOverlay) {
+      // When a card is rate limited
+      // disableOverlay so that media-image isn't accounted for
+      // the reason being, media-image is not affected by rate limitation, and does not need these custom
+      // rate limited states
       // If theres metadata, we signify to the user that they can still preview the card in the viewer
       if (metadata) {
         return (
           <CardImageContainer>
             {this.renderMediaTypeIcon()}
-            {this.renderMetadataRateLimited()}
             {this.renderTitleBox()}
           </CardImageContainer>
         );
@@ -448,14 +470,12 @@ export class CardViewBase extends React.Component<
           data-test-progress={progress}
           data-test-selected={selected ? true : undefined}
         >
-          {this.renderMediaTypeIcon()}
           {this.renderSpinner()}
+          {this.renderMediaTypeIcon()}
           {this.renderImageRenderer()}
           {this.renderPlayButton()}
           {this.renderBlanket()}
           {this.renderTickBox()}
-          {this.renderCreatingPreviewText()}
-          {this.renderPreviewUnavailableText()}
           {this.renderProgressBar()}
           {this.renderFailedTitleBox()}
           {this.renderTitleBox()}

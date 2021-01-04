@@ -1,50 +1,50 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Provider, Card, Client, ResolveResponse } from '../src';
+import urlsJSON from '../examples-helpers/example-urls.json';
+import { AsanaTask } from '../examples-helpers/_jsonLDExamples';
 import '../examples-helpers';
 
 class CustomClient extends Client {
   fetchData(url: string) {
-    if (url === 'public-happy') {
-      return Promise.resolve({
-        meta: {
-          visibility: 'public',
-          access: 'granted',
-          auth: [],
-          definitionId: 'def1',
-        },
-        data: {
-          '@type': 'Object',
-          '@context': {
-            '@vocab': 'https://www.w3.org/ns/activitystreams#',
-            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-            schema: 'http://schema.org/',
-          },
-          url,
-          name: 'From resolver',
-        },
-      } as ResolveResponse);
-    }
-    return super.fetchData(url);
+    return Promise.resolve({
+      meta: {
+        visibility: 'public',
+        access: 'granted',
+        auth: [],
+        definitionId: 'def1',
+      },
+      data: AsanaTask,
+    } as ResolveResponse);
   }
 }
 
 const clientWithResolver = new CustomClient('staging');
+
+function urlWithCard(url: string) {
+  return (
+    <>
+      <p>
+        This URL: <a>{url}</a> maps to this card:
+      </p>
+      <br />
+      <Card url={url} appearance="block" />
+    </>
+  );
+}
 
 export default () => (
   <Page>
     <Provider client={new Client('staging')}>
       <Grid>
         <GridColumn>
-          <p>
-            <small>
-              This card <em>DOES NOT</em> use an additional resolver.
-            </small>
-          </p>
+          <h2>
+            These card <em>DO NOT</em> use an custom resolver.
+          </h2>
+          {urlWithCard(urlsJSON[0].url)}
           <br />
-          <Card url="public-happy" appearance="block" />
+          {urlWithCard(urlsJSON[1].url)}
           <br />
-          <Card url="private-happy" appearance="block" />
         </GridColumn>
       </Grid>
     </Provider>
@@ -53,15 +53,17 @@ export default () => (
     <Provider client={clientWithResolver}>
       <Grid>
         <GridColumn>
+          <h2>
+            These cards <em>DO</em> use an additional resolver.
+          </h2>
           <p>
-            <small>
-              This card <em>DOES</em> use an additional resolver.
-            </small>
+            Notice how the same URLs resolve to different things, since we've
+            intercepted the requests using a custom resolver.
           </p>
+          {urlWithCard(urlsJSON[0].url)}
           <br />
-          <Card url="public-happy" appearance="block" />
+          {urlWithCard(urlsJSON[1].url)}
           <br />
-          {/* <Card url="private-happy" appearance="block" /> */}
         </GridColumn>
       </Grid>
     </Provider>

@@ -102,9 +102,8 @@ export function closest(
   return null;
 }
 
-/**
- * Replacement for Element.closest, until it becomes widely implemented
- * Returns the ancestor element of a particular type if exists or null
+/*
+ * @deprecated - Use HTMLElement.protoype.closest instead
  */
 export function closestElement(
   node: HTMLElement | null | undefined,

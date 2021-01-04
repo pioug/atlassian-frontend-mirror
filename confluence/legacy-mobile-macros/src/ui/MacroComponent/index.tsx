@@ -22,7 +22,9 @@ import {
 import { MacroCard } from './MacroCard';
 import { ActionProps, CreateMacro, MacroRendererProps } from './types';
 
-export const Action = styled.span<ActionProps>`
+const noop = () => {};
+
+const Action = styled.span<ActionProps>`
   color: ${props =>
     props.callToAction
       ? themed({ light: colors.B300, dark: colors.B100 })
@@ -34,7 +36,7 @@ export const Action = styled.span<ActionProps>`
   min-width: 50px;
 `;
 
-export const cardStyles = (componentType: ComponentType<any>) => {
+const cardStyles = (componentType: ComponentType<any>) => {
   return styled(componentType)`
     && {
       background-color: ${themed({ light: colors.N0, dark: colors.DN0 })};
@@ -70,17 +72,18 @@ export const MacroComponent: FC<MacroRendererProps> = props => {
   };
 
   const getMacroId = () => {
+    return parameters?.macroMetadata?.macroId?.value;
+  };
+
+  const getIconUrl = () => {
     return (
-      parameters &&
-      parameters.macroMetadata &&
-      parameters.macroMetadata.macroId &&
-      parameters.macroMetadata.macroId.value
+      parameters?.macroMetadata?.placeholder?.[0]?.type === 'icon' &&
+      parameters.macroMetadata.placeholder[0].data?.url
     );
   };
 
   const getMacroName = () => {
-    const macroTitle =
-      parameters.macroMetadata && parameters.macroMetadata.title;
+    const macroTitle = parameters?.macroMetadata?.title;
 
     // a title can be a long string eg com.atlassian.packages.label
     // or excerpt-include vs Excerpt include
@@ -109,50 +112,27 @@ export const MacroComponent: FC<MacroRendererProps> = props => {
     // fallback to the extensionkey while the changes soak for the title to be f
     // title might not be a string??
     const macroName = getMacroName();
-
-    const iconUrl =
-      parameters.macroMetadata &&
-      parameters.macroMetadata.placeholder &&
-      parameters.macroMetadata.placeholder[0] &&
-      parameters.macroMetadata.placeholder[0].type === 'icon' &&
-      parameters.macroMetadata.placeholder[0].data &&
-      parameters.macroMetadata.placeholder[0].data.url;
+    const iconUrl = getIconUrl();
 
     const CardButton = cardStyles(Button.type);
 
-    if (onClick) {
-      return (
-        <CardButton
-          onClick={onClick}
-          isDisabled={isDisabled}
-          shouldFitContainer
-        >
-          <MacroCard
-            macroName={macroName}
-            extensionKey={extensionKey}
-            iconUrl={iconUrl}
-            action={action}
-            errorMessage={errorMessage}
-            loading={loading}
-            secondaryAction={secondaryAction}
-          />
-        </CardButton>
-      );
-    } else {
-      return (
-        <CardButton isDisabled={isDisabled} shouldFitContainer>
-          <MacroCard
-            extensionKey={extensionKey}
-            macroName={macroName}
-            iconUrl={iconUrl}
-            action={action}
-            errorMessage={errorMessage}
-            loading={loading}
-            secondaryAction={secondaryAction}
-          />
-        </CardButton>
-      );
-    }
+    return (
+      <CardButton
+        onClick={onClick || noop}
+        isDisabled={isDisabled}
+        shouldFitContainer
+      >
+        <MacroCard
+          action={action}
+          errorMessage={errorMessage}
+          extensionKey={extensionKey}
+          iconUrl={iconUrl}
+          loading={loading}
+          macroName={macroName}
+          secondaryAction={secondaryAction}
+        />
+      </CardButton>
+    );
   };
 
   const setLoadingErrorState = () => {

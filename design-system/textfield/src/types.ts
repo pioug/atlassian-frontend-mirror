@@ -1,9 +1,7 @@
 import React, { AllHTMLAttributes } from 'react';
 
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { ThemeProp } from '@atlaskit/theme/components';
-
-import { ThemeProps, ThemeTokens } from './theme';
+import { ThemeModes } from '@atlaskit/theme/types';
 
 // External component
 export interface PublicProps
@@ -28,8 +26,6 @@ export interface PublicProps
   elemBeforeInput?: React.ReactNode;
   /** Sets maximum width of input */
   width?: string | number;
-  /** The theme the component should use. */
-  theme?: ThemeProp<ThemeTokens, ThemeProps>;
   /** Mousedown handler that will fire on the container element */
   onMouseDown?: React.MouseEventHandler<HTMLElement>;
   /**
@@ -39,11 +35,12 @@ export interface PublicProps
   testId?: string;
   /** Name of the input form control */
   name?: string;
+  /** Add a classname to the textfield */
+  className?: string;
 }
 
 export interface InternalProps extends PublicProps {
-  /** forwardedRef is not a public prop.
-  It is being picked up due to an issue with `extract-react-types`
-  */
-  forwardedRef?: React.Ref<HTMLInputElement>;
+  mode: ThemeModes;
 }
+
+export type Appearance = 'subtle' | 'standard' | 'none';

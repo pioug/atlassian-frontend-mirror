@@ -1,30 +1,48 @@
+import { getEditorType } from '../query-param-reader';
+
 interface EditorConfigurationProvider {
-  mode(): string;
-  locale(): string;
+  getMode(): string;
+  getLocale(): string;
   isQuickInsertEnabled(): boolean;
   isSelectionObserverEnabled(): boolean;
-  allowCollabProvider(): boolean;
+  isCollabProviderEnabled(): boolean;
+  isPredictableListEnabled(): boolean;
 }
 
 type ThemeMode = 'light' | 'dark';
 
+enum EditorAppearance {
+  FULL = 'full',
+  COMPACT = 'compact',
+}
+
 interface EditorConfig {
-  mode: ThemeMode;
-  locale: string;
-  enableQuickInsert: boolean;
-  selectionObserverEnabled: boolean;
-  allowCollabProvider: boolean;
+  editorType: EditorAppearance;
+  mode?: ThemeMode;
+  locale?: string;
+  enableQuickInsert?: boolean;
+  selectionObserverEnabled?: boolean;
+  allowCollabProvider?: boolean;
+  allowPredictableList?: boolean;
 }
 
 export default class MobileEditorConfiguration
   implements EditorConfigurationProvider {
-  private _mode: ThemeMode = 'light';
-  private _locale: string = 'en';
-  private _isQuickInsertEnabled: boolean = false;
-  private _isSelectionObserverEnabled: boolean = false;
-  private _allowCollabProvider: boolean = false;
+  private editorType: EditorAppearance = EditorAppearance.FULL;
+  private mode: ThemeMode = 'light';
+  private locale: string = 'en';
+  private enableQuickInsert: boolean = false;
+  private selectionObserverEnabled: boolean = false;
+  private allowCollabProvider: boolean = false;
+  private allowPredictableList: boolean = false;
 
   constructor(editorConfig?: string) {
+    const editorType = getEditorType();
+
+    if (editorType) {
+      this.editorType = editorType as EditorAppearance;
+    }
+
     if (editorConfig) {
       this.update(editorConfig);
     }
@@ -33,37 +51,61 @@ export default class MobileEditorConfiguration
   update(editorConfig: string) {
     const config = JSON.parse(editorConfig) as EditorConfig;
 
-    this._locale = config.locale || this._locale;
-    this._mode = config.mode || this._mode;
-    this._isQuickInsertEnabled =
-      config.enableQuickInsert || this._isQuickInsertEnabled;
-    this._isSelectionObserverEnabled =
-      config.selectionObserverEnabled || this._isSelectionObserverEnabled;
-    this._allowCollabProvider =
-      config.allowCollabProvider || this._allowCollabProvider;
+    this.locale = config.locale || this.locale;
+    this.mode = config.mode || this.mode;
+    this.enableQuickInsert =
+      config.enableQuickInsert !== undefined
+        ? config.enableQuickInsert
+        : this.enableQuickInsert;
+    this.selectionObserverEnabled =
+      config.selectionObserverEnabled !== undefined
+        ? config.selectionObserverEnabled
+        : this.selectionObserverEnabled;
+    this.allowCollabProvider =
+      config.allowCollabProvider !== undefined
+        ? config.allowCollabProvider
+        : this.allowCollabProvider;
+    this.allowPredictableList =
+      config.allowPredictableList !== undefined
+        ? config.allowPredictableList
+        : this.allowPredictableList;
   }
 
-  mode(): ThemeMode {
-    return this._mode;
+  getMode(): ThemeMode {
+    return this.mode;
   }
-  locale(): string {
-    return this._locale;
+
+  getLocale(): string {
+    return this.locale;
   }
+
   isQuickInsertEnabled(): boolean {
-    return this._isQuickInsertEnabled;
+    return this.enableQuickInsert;
   }
+
   isSelectionObserverEnabled(): boolean {
-    return this._isSelectionObserverEnabled;
+    return this.selectionObserverEnabled;
   }
-  allowCollabProvider(): boolean {
-    return this._allowCollabProvider;
+
+  isCollabProviderEnabled(): boolean {
+    return this.allowCollabProvider;
   }
-  cloneAndUpdateConfig(newEditorConfig: string): MobileEditorConfiguration {
-    const newEditorConfigObject = Object.assign(
-      Object.create(Object.getPrototypeOf(this)),
-      this,
-    );
-    newEditorConfigObject.update(newEditorConfig);
-    return newEditorConfigObject;
+
+  isPredictableListEnabled(): boolean {
+    return this.allowPredictableList;
+  }
+
+  isAllowScrollGutter(): boolean {
+    return this.editorType !== EditorAppearance.COMPACT;
+  }
+
+  // We need to retain the previous configuartion flags as `locale` and `mode` can be configured
+  // dynamically any time.
+  cloneAndUpdateConfig(newConfig: string): MobileEditorConfiguration {
+    const newEditorConfig = JSON.stringify({
+      ...this,
+      ...JSON.parse(newConfig),
+    });
+    return new MobileEditorConfiguration(newEditorConfig);
   }
 }

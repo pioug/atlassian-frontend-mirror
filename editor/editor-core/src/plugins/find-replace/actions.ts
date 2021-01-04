@@ -11,7 +11,6 @@ export enum FindReplaceActionTypes {
   REPLACE_ALL = 'REPLACE_ALL',
   CANCEL = 'CANCEL',
   BLUR = 'BLUR',
-  UPDATE_FOCUS_ELEMENT = 'UPDATE_FOCUS_ELEMENT',
   TOGGLE_MATCH_CASE = 'TOGGLE_MATCH_CASE',
 }
 
@@ -69,12 +68,6 @@ export interface UpdateDecorations {
   type: FindReplaceActionTypes.UPDATE_DECORATIONS;
   decorationSet: DecorationSet;
 }
-
-export interface UpdateFocusElement {
-  type: FindReplaceActionTypes.UPDATE_FOCUS_ELEMENT;
-  focusElementRef: React.RefObject<HTMLElement> | undefined;
-}
-
 export interface ToggleMatchCase {
   type: FindReplaceActionTypes.TOGGLE_MATCH_CASE;
 }
@@ -89,5 +82,4 @@ export type FindReplaceAction =
   | Cancel
   | Blur
   | UpdateDecorations
-  | UpdateFocusElement
   | ToggleMatchCase;

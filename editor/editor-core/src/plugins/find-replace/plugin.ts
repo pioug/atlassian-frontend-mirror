@@ -24,7 +24,6 @@ export const initialState: FindReplacePluginState = {
   index: 0,
   matches: [],
   decorationSet: DecorationSet.empty,
-  focusElementRef: undefined,
   shouldMatchCase: false,
 };
 

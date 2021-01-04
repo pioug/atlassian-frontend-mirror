@@ -3,7 +3,7 @@ import { BlockCardAdf, CardAdf, EmbedCardAdf, InlineCardAdf } from './types';
 
 const isJiraRoadMap = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?$/,
+    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?/,
   );
 
 export class Transformer {

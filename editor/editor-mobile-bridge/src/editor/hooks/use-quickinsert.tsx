@@ -1,29 +1,54 @@
 import React from 'react';
+import { InjectedIntl } from 'react-intl';
 import { allowListPayloadType, EventTypes } from '../event-dispatch';
-import { getEnableQuickInsertValue } from '../../query-param-reader';
 import { createQuickInsertProvider } from '../../providers';
 import WebBridgeImpl from '../native-to-web';
-import { EditorProps } from '@atlaskit/editor-core';
+import {
+  EditorProps,
+  processQuickInsertItems,
+  quickInsertPluginKey,
+} from '@atlaskit/editor-core';
 
 export function useQuickInsert(
   bridge: WebBridgeImpl,
+  intl: InjectedIntl,
+  isQuickInsertEnabled: boolean,
 ): EditorProps['quickInsert'] {
   const [quickAllowList, setQuickAllowList] = React.useState<
     allowListPayloadType
   >(bridge.allowList);
 
   const quickInsert = React.useMemo(() => {
-    if (!getEnableQuickInsertValue()) {
+    if (!isQuickInsertEnabled) {
       return false;
+    }
+
+    if (bridge.editorView) {
+      const quickInsertPluginState = quickInsertPluginKey.getState(
+        bridge.editorView.state,
+      );
+      bridge.quickInsertItems.resolve(
+        processQuickInsertItems(
+          quickInsertPluginState.lazyDefaultItems(),
+          intl,
+        ),
+      );
     }
 
     return {
       provider: createQuickInsertProvider(
         bridge.quickInsertItems,
         quickAllowList,
+        isQuickInsertEnabled,
       ),
     };
-  }, [bridge.quickInsertItems, quickAllowList]);
+  }, [
+    bridge.editorView,
+    bridge.quickInsertItems,
+    isQuickInsertEnabled,
+    intl,
+    quickAllowList,
+  ]);
 
   const updateQuickAllowList = React.useCallback(
     (payload: allowListPayloadType) => {

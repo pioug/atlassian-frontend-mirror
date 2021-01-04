@@ -1,0 +1,22 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Embed"
+        }
+      ]
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://www.dropbox.com/s/abc123/4.txt?dl=0",
+        "layout": "center"
+      }
+    }
+  ]
+}

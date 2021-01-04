@@ -96,8 +96,8 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
         return false;
       }
 
-      return { ...result, isAnnotationAllowed };
-    }, [documentPosition, generateIndexMatch, isAnnotationAllowed]);
+      return result;
+    }, [documentPosition, generateIndexMatch]);
 
     const applyDraftModeCallback = useCallback(
       (keepNativeSelection: boolean = true) => {

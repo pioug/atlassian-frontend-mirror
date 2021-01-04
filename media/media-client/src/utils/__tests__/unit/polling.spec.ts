@@ -1,14 +1,11 @@
 import { PollingOptions } from '@atlaskit/media-common/mediaFeatureFlags';
-import {
-  PollingFunction,
-  ERROR_MAX_ATTEMPTS_EXCEEDED,
-  ERROR_MAX_FAILURES_EXCEEDED,
-  defaultPollingOptions,
-} from '../../polling';
+
+import { defaultPollingOptions, PollingFunction } from '../../polling';
+import { isPollingError, PollingError } from '../../polling/errors';
 
 const simulateTimeout = (poll_intervalMs: number) =>
   new Promise(resolve => {
-    window.setTimeout(() => resolve(), poll_intervalMs);
+    window.setTimeout(resolve, poll_intervalMs);
   });
 
 describe('Polling Function', () => {
@@ -113,33 +110,38 @@ describe('Polling Function', () => {
       ...options,
       poll_maxAttempts: 1,
     });
-    const executor = jest.fn().mockImplementation(() => {
-      poll.next();
-    });
+    const executor = jest.fn().mockImplementation(() => poll.next());
     const mockOnError = jest.fn();
     poll.onError = mockOnError;
     poll.execute(executor);
     await simulateTimeout(poll.getIntervalMsForIteration(1));
     expect(mockOnError).toHaveBeenCalledTimes(1);
     const errorThrown = mockOnError.mock.calls[0][0] as Error;
-    expect(errorThrown.message).toBe(ERROR_MAX_ATTEMPTS_EXCEEDED);
+
+    if (!isPollingError(errorThrown)) {
+      return expect(isPollingError(errorThrown)).toBeTruthy();
+    }
+
+    expect(errorThrown.attributes.reason).toEqual('maxAttemptsExceeded');
+    expect(errorThrown.attributes.attempts).toBe(1);
     done();
   });
 
   it('should call onError if executor has exception', async done => {
+    const err = new Error('some-error');
     const poll = new PollingFunction({
       ...options,
       poll_maxAttempts: 1,
     });
     const executor = jest.fn().mockImplementation(() => {
-      throw new Error('some-error');
+      throw err;
     });
     const mockOnError = jest.fn();
     poll.onError = mockOnError;
     await poll.execute(executor);
     expect(mockOnError).toHaveBeenCalledTimes(1);
     const errorThrown = mockOnError.mock.calls[0][0] as Error;
-    expect(errorThrown.message).toBe('some-error');
+    expect(errorThrown).toEqual(err);
     done();
   });
 
@@ -192,7 +194,14 @@ describe('Polling Function', () => {
     expect(executor).not.toHaveBeenCalled();
     expect(mockOnError).toHaveBeenCalledTimes(1);
     const errorThrown = mockOnError.mock.calls[0][0] as Error;
-    expect(errorThrown.message).toBe(ERROR_MAX_FAILURES_EXCEEDED);
+
+    if (!isPollingError(errorThrown)) {
+      return expect(isPollingError(errorThrown)).toBeTruthy();
+    }
+
+    expect(errorThrown.attributes.reason).toEqual('maxFailuresExceeded');
+    expect(errorThrown.attributes.attempts).toBe(1);
+
     PollingFunction.failures = originalMaxFailures;
     done();
   });
@@ -208,5 +217,14 @@ describe('Polling Function', () => {
     await poll.execute(executor);
     expect(PollingFunction.failures).toBe(1);
     done();
+  });
+
+  it('should detect a polling error', () => {
+    const error2 = new PollingError('maxAttemptsExceeded', 1);
+    const error3 = new PollingError('maxFailuresExceeded', 3);
+    const error4 = new Error();
+    expect(isPollingError(error2)).toBeTruthy();
+    expect(isPollingError(error3)).toBeTruthy();
+    expect(isPollingError(error4)).toBeFalsy();
   });
 });

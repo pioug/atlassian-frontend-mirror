@@ -11,6 +11,7 @@ import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import WebBridgeImpl from '../src/editor/native-to-web';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
+import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
 export interface Props {
   text: string;
@@ -41,9 +42,14 @@ const colorOptions = [
 
 function MobileEditorWithFetchProxy() {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge();
+  const editorConfiguration = useEditorConfiguration(bridge);
+
   const props = {
     ...createEditorProviders(fetchProxy),
-    bridge: getBridge(),
+    bridge,
+    editorConfiguration,
+    locale: editorConfiguration.getLocale(),
   };
   return <MobileEditor {...props} />;
 }

@@ -6,6 +6,8 @@ import { createMentionProvider, createCardClient } from '../../../providers';
 import { createEmojiProvider } from '../../../providers/emojiProvider';
 import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createMediaProvider } from './media-provider';
+import { getLocaleValue } from '../../../query-param-reader';
+import getBridge from '../../../renderer/native-to-web/bridge-initialiser';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
@@ -19,6 +21,8 @@ const App = () => {
       mentionProvider={createMentionProvider()}
       allowAnnotations={false}
       allowHeadingAnchorLinks={false}
+      locale={getLocaleValue()}
+      rendererBridge={getBridge()}
     />
   );
 };

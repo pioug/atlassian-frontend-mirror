@@ -53,6 +53,7 @@ import {
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 import {
   redo as pmHistoryRedo,
   undo as pmHistoryUndo,
@@ -63,7 +64,6 @@ import NativeToWebBridge from './bridge';
 import WebBridge from '../../web-bridge';
 import { createDeferred, DeferredValue, hasValue } from '../../utils';
 import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
-import { getEnableQuickInsertValue } from '../../query-param-reader';
 import { assertSelectionPayload } from '../../validation';
 import { CollabSocket } from './collab-socket';
 import { Socket } from '@atlaskit/collab-provider/types';
@@ -78,8 +78,11 @@ import { Serialized } from '../../types';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 import MobileEditorConfiguration from '../editor-configuration';
-import { measureRender } from '@atlaskit/editor-common';
-import { getNodesCount, measurements } from '@atlaskit/editor-core';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import {
+  measureContentRenderedPerformance,
+  PerformanceMatrices,
+} from '../../utils/bridge';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -111,7 +114,7 @@ type InsertQueryMethod = (
 
 const insertQueryFromToolbar = (
   insertQueryMethod: InsertQueryMethod,
-  editorView: EditorViewWithComposition | null,
+  editorView: EditorViewWithComposition | undefined,
 ) => {
   if (!editorView) {
     return;
@@ -131,7 +134,7 @@ export default class WebBridgeImpl
   blockFormatBridgeState: BlockTypeState | null = null;
   listBridgeState: ListsState | null = null;
   mentionsPluginState: MentionPluginState | null = null;
-  editorView: EditorViewWithComposition | null = null;
+  editorView?: EditorViewWithComposition;
   transformer: JSONTransformer = new JSONTransformer();
   editorActions: EditorActions = new EditorActions();
   mediaPicker: CustomMediaPicker | undefined;
@@ -148,9 +151,9 @@ export default class WebBridgeImpl
   private onEditorConfigChanged: EditorConfigChange | null;
   private editorConfiguration: MobileEditorConfiguration;
 
-  constructor() {
+  constructor(config?: MobileEditorConfiguration) {
     super();
-    this.editorConfiguration = new MobileEditorConfiguration();
+    this.editorConfiguration = config || new MobileEditorConfiguration();
     this.onEditorConfigChanged = null;
   }
 
@@ -287,6 +290,8 @@ export default class WebBridgeImpl
   }
 
   setContent(content: string) {
+    const performanceMatrices = new PerformanceMatrices();
+
     if (this.editorActions) {
       const isReplaced = this.editorActions.replaceDocument(
         content,
@@ -295,16 +300,23 @@ export default class WebBridgeImpl
       );
 
       if (isReplaced) {
-        measureRender(measurements.PROSEMIRROR_CONTENT_RENDERED, () => {
-          const nodesCount = getNodesCount(this.editorView!.state.doc);
-          const nodes = JSON.stringify(nodesCount);
-          const totalNodeSize = Object.keys(nodesCount).reduce(
-            (totalNode, key) => totalNode + nodesCount[key],
-            0,
-          );
-
-          toNativeBridge.onContentRendered(totalNodeSize, nodes);
-        });
+        let adfContent: JSONDocNode;
+        try {
+          adfContent = JSON.parse(content);
+        } catch (e) {
+          return;
+        }
+        measureContentRenderedPerformance(
+          adfContent,
+          (totalNodeSize, nodes, actualRenderingDuration) => {
+            toNativeBridge.onContentRendered(
+              totalNodeSize,
+              nodes,
+              actualRenderingDuration,
+              performanceMatrices.duration,
+            );
+          },
+        );
       }
     }
   }
@@ -539,7 +551,7 @@ export default class WebBridgeImpl
     this.flushDOM();
 
     const { state, dispatch } = this.editorView;
-    const enableQuickInsert = getEnableQuickInsertValue(); // TODO: read from editorConfiguration
+    const enableQuickInsert = this.editorConfiguration.isQuickInsertEnabled();
 
     const parsedPayload: TypeAheadItem | { index: number } = JSON.parse(
       payload,
@@ -829,5 +841,25 @@ export default class WebBridgeImpl
     }
     const updatedConfig = this.editorConfiguration.cloneAndUpdateConfig(config);
     this.onEditorConfigChanged(updatedConfig);
+  }
+
+  registerEditor(editorActions: EditorActions) {
+    // At this point editor view event dispatcher always exist...
+    // Add a checker to throw or register some event to prevent future errors
+    const eventDispatcher = editorActions._privateGetEventDispatcher();
+    const editorView = editorActions._privateGetEditorView();
+
+    if (!eventDispatcher || !editorView) {
+      throw new Error(
+        'Editor lifecycle has changed. EditorView and EventDispatcher are no longer available on EditorReady event',
+      );
+    }
+    this.editorView = editorView as EditorView & EditorViewWithComposition;
+    this.editorActions._privateRegisterEditor(editorView, eventDispatcher);
+  }
+
+  unregisterEditor() {
+    delete this.editorView;
+    this.editorActions._privateUnregisterEditor();
   }
 }

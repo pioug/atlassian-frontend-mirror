@@ -34,22 +34,15 @@ export default class InlineEditExample extends React.Component {
             <Textfield
               {...fieldProps}
               autoFocus
-              theme={(theme: any, props: any) => {
-                const { container, input } = theme(props);
-                return {
-                  container: {
-                    ...container,
-                    fontSize: 'inherit',
-                    fontWeight: 'inherit',
-                    lineHeight: 'inherit',
-                  },
-                  input: {
-                    ...input,
-                    fontSize: 'inherit',
-                    fontWeight: 'inherit',
-                    lineHeight: 'inherit',
-                  },
-                };
+              css={{
+                fontSize: 'inherit',
+                fontWeight: 'inherit',
+                lineHeight: 'inherit',
+                '& > [data-ds--text-field--input]': {
+                  fontSize: 'inherit',
+                  fontWeight: 'inherit',
+                  lineHeight: 'inherit',
+                },
               }}
             />
           )}

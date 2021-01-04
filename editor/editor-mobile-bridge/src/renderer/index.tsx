@@ -11,9 +11,11 @@ import { createEmojiProvider } from '../providers/emojiProvider';
 import {
   getAllowAnnotations,
   getAllowHeadingAnchorLinks,
+  getLocaleValue,
 } from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
 import { getEmptyADF } from '@atlaskit/adf-utils';
+import getBridge from './native-to-web/bridge-initialiser';
 
 interface AppProps {
   document: string;
@@ -21,7 +23,7 @@ interface AppProps {
 
 const initialDocSerialized = JSON.stringify(getEmptyADF());
 
-const App: React.FC<AppProps> = props => {
+export const App: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
 
   return (
@@ -33,6 +35,8 @@ const App: React.FC<AppProps> = props => {
       mentionProvider={createMentionProvider()}
       allowAnnotations={getAllowAnnotations()}
       allowHeadingAnchorLinks={getAllowHeadingAnchorLinks()}
+      locale={getLocaleValue()}
+      rendererBridge={getBridge()}
     />
   );
 };

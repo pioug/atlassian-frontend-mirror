@@ -12,17 +12,20 @@ import {
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { tableBackgroundColorNames, rgbToHex } from '@atlaskit/adf-schema';
-import { TablePluginState } from '../../../../../plugins/table/types';
+import {
+  TablePluginState,
+  PluginConfig,
+} from '../../../../../plugins/table/types';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
-
+import TableCellViews from '../../../../../plugins/table/nodeviews/tableCell';
 describe('table -> nodeviews -> cell.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: any, props?: PluginConfig) =>
     createEditor({
       doc,
       editorProps: {
-        allowTables: { advanced: true },
+        allowTables: { advanced: true, ...props },
       },
       pluginKey,
     });
@@ -63,6 +66,30 @@ describe('table -> nodeviews -> cell.tsx', () => {
       dispatch(setCellAttrs(cell, { background })(state.tr));
       const cellDomNode = document.querySelector('td')!;
       expect(cellDomNode.style.backgroundColor).toEqual('');
+    });
+  });
+
+  describe('nodeview update', () => {
+    it('should not recreate nodeviews on attrs update', () => {
+      const {
+        editorView,
+        refs: { pos },
+      } = editor(
+        doc(p('text'), table()(tr(td()(p('{pos}text')), tdEmpty, tdEmpty))),
+        {
+          tableCellOptimization: true,
+        },
+      );
+      jest.clearAllMocks();
+
+      const { state, dispatch } = editorView;
+      const cell = findCellClosestToPos(state.doc.resolve(pos))!;
+      const background = tableBackgroundColorNames.get('red');
+      const updateSpy = jest.spyOn(TableCellViews.prototype, 'update');
+      dispatch(setCellAttrs(cell, { background })(state.tr));
+      expect(updateSpy).toHaveReturnedWith(true);
+      const cellDomNode = document.querySelector('td')!;
+      expect(rgbToHex(cellDomNode.style.backgroundColor!)).toEqual(background);
     });
   });
 });

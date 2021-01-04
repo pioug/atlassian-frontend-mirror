@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 14.8.1
+
+### Patch Changes
+
+- [`fae156831b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae156831b) - Removed unused devDependency (was only used in one example, which has been refactored)
+- [`df97510b77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df97510b77) - handle backend errors in smart-link dataloader
+- [`b4cd19ad66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4cd19ad66) - To allow jira roadmap link with query param to convert to embed view
+- Updated dependencies
+
 ## 14.8.0
 
 ### Minor Changes

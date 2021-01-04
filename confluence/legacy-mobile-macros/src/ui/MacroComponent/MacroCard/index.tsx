@@ -40,6 +40,7 @@ const ErrorMessage = styled.span`
   margin-top: -4px;
   word-break: break-word;
 `;
+
 const SecondaryAction = styled.span`
   flex-basis: 100%;
   padding-left: 12px;
@@ -82,7 +83,7 @@ export const MacroCard = ({
         <Content>{macroName}</Content>
         {action}
       </ContentWrapper>
-      {errorMessage && !loading ? (
+      {errorMessage && !loading && (
         <Error>
           <ErrorContent>
             <ErrorIcon
@@ -94,7 +95,7 @@ export const MacroCard = ({
           </ErrorContent>
           <SecondaryAction>{secondaryAction}</SecondaryAction>
         </Error>
-      ) : null}
+      )}
     </CardBody>
   </Card>
 );

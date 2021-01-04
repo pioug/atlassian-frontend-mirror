@@ -5,6 +5,7 @@ import Editor from './../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
+import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -21,12 +22,17 @@ Wrapper.displayName = 'Wrapper';
 
 export default function Example() {
   const fetchProxy = useFetchProxy();
+  const bridge = getBridge();
+  const editorConfiguration = useEditorConfiguration(bridge);
+
   return (
     <Wrapper>
       <Editor
-        bridge={getBridge()}
+        bridge={bridge}
         {...createEditorProviders(fetchProxy)}
         defaultValue={exampleDocument}
+        editorConfiguration={editorConfiguration}
+        locale={editorConfiguration.getLocale()}
       />
     </Wrapper>
   );

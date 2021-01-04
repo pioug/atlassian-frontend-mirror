@@ -1,20 +1,17 @@
-/** @jsx jsx */
-import { ReactNode } from 'react';
-
-import { jsx } from '@emotion/core';
+import React, { ReactNode } from 'react';
 
 import Lozenge, { ThemeAppearance } from '../src';
 
 const Row: React.FunctionComponent<ReactNode> = ({ children }) => (
-  <div css={{ display: 'flex' }}>{children}</div>
+  <div style={{ display: 'flex' }}>{children}</div>
 );
 
 const Col: React.FunctionComponent<ReactNode> = ({ children }) => (
-  <div css={{ flex: '1 1 auto' }}>{children}</div>
+  <div style={{ flex: '1 1 auto' }}>{children}</div>
 );
 
 const Hr = () => (
-  <div css={{ height: '1px', backgroundColor: '#ddd', margin: '2em 0' }} />
+  <div style={{ height: '1px', backgroundColor: '#ddd', margin: '2em 0' }} />
 );
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [

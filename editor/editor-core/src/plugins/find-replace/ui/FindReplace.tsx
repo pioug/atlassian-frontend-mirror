@@ -38,42 +38,33 @@ export type FindReplaceProps = {
       | TRIGGER_METHOD.TOOLBAR
       | TRIGGER_METHOD.BUTTON;
   }) => void;
-  onFocusElementRefSet: (ref: React.RefObject<HTMLElement>) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 } & MatchCaseProps;
+class FindReplace extends React.PureComponent<FindReplaceProps> {
+  private findTextfield: HTMLInputElement | null = null;
+  private replaceTextfield?: HTMLInputElement | null = null;
 
-interface FindReplaceState {
-  findTextfieldRef?: React.RefObject<HTMLElement>;
-  replaceTextfieldRef?: React.RefObject<HTMLElement>;
-}
-
-class FindReplace extends React.PureComponent<
-  FindReplaceProps,
-  FindReplaceState
-> {
-  state: FindReplaceState = {};
-
-  setFindTextfieldRef = (findTextfieldRef: React.RefObject<HTMLElement>) => {
-    this.setState({ findTextfieldRef });
+  setFindTextfieldRef = (
+    findTextfieldRef: React.RefObject<HTMLInputElement>,
+  ) => {
+    this.findTextfield = findTextfieldRef.current;
   };
 
   setReplaceTextfieldRef = (
-    replaceTextfieldRef: React.RefObject<HTMLElement>,
+    replaceTextfieldRef: React.RefObject<HTMLInputElement>,
   ) => {
-    this.setState({ replaceTextfieldRef });
+    this.replaceTextfield = replaceTextfieldRef.current;
   };
 
   setFocusToFind = () => {
-    const { findTextfieldRef } = this.state;
-    if (findTextfieldRef && findTextfieldRef.current) {
-      findTextfieldRef.current.focus();
+    if (this.findTextfield) {
+      this.findTextfield.focus();
     }
   };
 
   setFocusToReplace = () => {
-    const { replaceTextfieldRef } = this.state;
-    if (replaceTextfieldRef && replaceTextfieldRef.current) {
-      replaceTextfieldRef.current.focus();
+    if (this.replaceTextfield) {
+      this.replaceTextfield.focus();
     }
   };
 
@@ -86,7 +77,6 @@ class FindReplace extends React.PureComponent<
       onFindBlur,
       onFindNext,
       onFindPrev,
-      onFocusElementRefSet,
       onCancel,
       replaceText,
       onReplace,
@@ -111,7 +101,6 @@ class FindReplace extends React.PureComponent<
           onFindPrev={onFindPrev}
           onFindNext={onFindNext}
           onFindTextfieldRefSet={this.setFindTextfieldRef}
-          onFocusElementRefSet={onFocusElementRefSet}
           onCancel={onCancel}
           onArrowDown={this.setFocusToReplace}
         />
@@ -122,7 +111,6 @@ class FindReplace extends React.PureComponent<
           onReplace={onReplace}
           onReplaceAll={onReplaceAll}
           onReplaceTextfieldRefSet={this.setReplaceTextfieldRef}
-          onFocusElementRefSet={onFocusElementRefSet}
           onArrowUp={this.setFocusToFind}
           dispatchAnalyticsEvent={dispatchAnalyticsEvent}
         />

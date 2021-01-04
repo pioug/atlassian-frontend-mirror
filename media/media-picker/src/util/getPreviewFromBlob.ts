@@ -1,42 +1,30 @@
-import { MediaType } from '@atlaskit/media-client';
-import VideoSnapshot from 'video-snapshot';
-import { ImagePreview, Preview } from '../types';
+import {
+  MediaType,
+  Dimensions,
+  getDimensionsFromBlob,
+} from '@atlaskit/media-client';
 
-export const getPreviewFromBlob = (
-  file: Blob,
+import { Preview } from '../types';
+
+export const isUnknownDimensions = (dimensions: Dimensions) =>
+  !dimensions.width && !dimensions.height;
+
+export async function getPreviewFromBlob(
   mediaType: MediaType,
-): Promise<Preview> =>
-  new Promise(async (resolve, reject) => {
-    const src = URL.createObjectURL(file);
+  file: Blob,
+): Promise<Preview> {
+  switch (mediaType) {
+    case 'image':
+    case 'video': {
+      const dimensions = await getDimensionsFromBlob(mediaType, file);
 
-    if (mediaType === 'image') {
-      const img = new Image();
-      img.src = src;
+      if (isUnknownDimensions(dimensions)) {
+        return { file, scaleFactor: 1 };
+      }
 
-      img.onload = () => {
-        const dimensions = { width: img.width, height: img.height };
-        const preview: ImagePreview = {
-          file,
-          dimensions,
-          scaleFactor: 1,
-        };
-
-        URL.revokeObjectURL(src);
-        resolve(preview);
-      };
-      img.onerror = reject;
-    } else if (mediaType === 'video') {
-      const snapshoter = new VideoSnapshot(file);
-      const dimensions = await snapshoter.getDimensions();
-      const preview: ImagePreview = {
-        file,
-        dimensions,
-        scaleFactor: 1,
-      };
-
-      snapshoter.end();
-      resolve(preview);
-    } else {
-      resolve({ file });
+      return { file, dimensions, scaleFactor: 1 };
     }
-  });
+    default:
+      return { file };
+  }
+}

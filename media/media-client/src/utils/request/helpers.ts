@@ -4,20 +4,11 @@ import { parse, stringify } from 'query-string';
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
 
-import {
-  RequestErrorReason,
-  CreateUrlOptions,
-  RequestHeaders,
-  RetryOptions,
-} from './types';
+import { CreateUrlOptions, RequestHeaders, RetryOptions } from './types';
 
 export function clientTimeoutPromise(timeout: number) {
   return new Promise<Response>((resolve, reject) => {
-    setTimeout(
-      reject,
-      timeout,
-      new RequestError(RequestErrorReason.clientTimeoutRequest),
-    );
+    setTimeout(reject, timeout, new RequestError('clientTimeoutRequest'));
   });
 }
 
@@ -99,7 +90,7 @@ export async function mapResponseToJson(response: Response): Promise<any> {
   try {
     return await response.json();
   } catch (err) {
-    throw new RequestError(RequestErrorReason.serverInvalidBody, {
+    throw new RequestError('serverInvalidBody', {
       statusCode: response.status,
       innerError: err,
     });
@@ -110,7 +101,7 @@ export async function mapResponseToBlob(response: Response): Promise<Blob> {
   try {
     return await response.blob();
   } catch (err) {
-    throw new RequestError(RequestErrorReason.serverInvalidBody, {
+    throw new RequestError('serverInvalidBody', {
       statusCode: response.status,
       innerError: err,
     });
@@ -155,7 +146,7 @@ export async function fetchRetry(
 
       // don't retry if request was aborted by user
       if (isAbortedRequestError(err)) {
-        throw new RequestError(RequestErrorReason.clientAbortedRequest);
+        throw new RequestError('clientAbortedRequest');
       }
 
       if (
@@ -172,7 +163,7 @@ export async function fetchRetry(
     }
   }
 
-  throw new RequestError(RequestErrorReason.clientExhaustedRetries, {
+  throw new RequestError('clientExhaustedRetries', {
     attempts,
     innerError: lastError,
   });
@@ -186,7 +177,7 @@ export async function processFetchResponse(
   }
 
   const bodyAsText = await response.text();
-  throw new RequestError(RequestErrorReason.serverError, {
+  throw new RequestError('serverError', {
     statusCode: response.status,
     bodyAsText,
   });

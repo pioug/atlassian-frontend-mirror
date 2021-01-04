@@ -683,11 +683,11 @@ export class Provider
    * NOTE: Should this actually convert to ADF instead?
    */
   async getFinalAcknowledgedState() {
+    const state = this.getState!();
     return {
-      content: {
-        title: this.metadata.title,
-        adf: this.getState!().doc.toJSON(),
-      },
+      content: state.doc.toJSON(),
+      title: this.metadata.title,
+      stepVersion: getVersion(state),
     };
   }
 

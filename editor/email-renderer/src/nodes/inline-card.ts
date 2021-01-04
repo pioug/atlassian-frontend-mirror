@@ -26,6 +26,9 @@ export const styles = `
 }
 `;
 
+/**
+ * Used as both inlineCard and embedCard
+ */
 export default function inlineCard({ attrs }: NodeSerializerOpts) {
   let scAttrs: SmartCardWithDataAttributes | SmartCardWithUrlAttributes;
   let textContent: string;

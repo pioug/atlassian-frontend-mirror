@@ -15,6 +15,7 @@ import {
   SuccessResponse,
   ErrorResponse,
   isSuccessfulResponse,
+  isErrorResponse,
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
 
@@ -42,13 +43,27 @@ export default class CardClient implements CardClientInterface {
   private async batchResolve(urls: string[]): Promise<BatchResponse> {
     // De-duplicate requested URLs (see `this.createLoader` for more detail).
     const deDuplicatedUrls = [...new Set(urls)];
+    let resolvedUrls: BatchResponse = [];
 
-    // Ask the backend to resolve the URLs for us.
-    const resolvedUrls = await api.request<BatchResponse>(
-      'post',
-      `${this.resolverUrl}/resolve/batch`,
-      deDuplicatedUrls.map(resourceUrl => ({ resourceUrl })),
-    );
+    try {
+      // Ask the backend to resolve the URLs for us.
+      resolvedUrls = await api.request<BatchResponse>(
+        'post',
+        `${this.resolverUrl}/resolve/batch`,
+        deDuplicatedUrls.map(resourceUrl => ({ resourceUrl })),
+      );
+    } catch (error) {
+      // we make sure we return a valid dataloader response by creating an error
+      // response for each url
+      resolvedUrls = urls.map(() => {
+        const status = isErrorResponse(error) ? error.status : 500;
+        const errorResponse: ErrorResponse = {
+          status,
+          error,
+        };
+        return errorResponse;
+      });
+    }
 
     // Reduce into a map to make accessing faster and easier.
     const map: Record<string, SuccessResponse | ErrorResponse> = {};
@@ -145,7 +160,6 @@ export default class CardClient implements CardClientInterface {
     const hostname = new URL(url).hostname;
     const loader = this.getLoader(hostname);
     const response = await loader.load(url);
-
     if (!isSuccessfulResponse(response)) {
       // Catch non-200 server responses to fallback or return useful information.
       if (response.error) {

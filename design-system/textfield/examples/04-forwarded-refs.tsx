@@ -1,34 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 
 import Textfield from '../src';
 
-class TextFieldExample extends Component<void> {
-  input: HTMLInputElement | null = null;
+export default function ForwardRefExample() {
+  let input: HTMLInputElement | null = null;
 
-  handleRef = (ref: HTMLInputElement | null) => {
-    this.input = ref;
+  const handleRef = (ref: HTMLInputElement | null) => {
+    input = ref;
   };
 
-  handleFocus = () => {
-    if (this.input) {
-      this.input.focus();
+  const handleFocus = () => {
+    if (input) {
+      input.focus();
     }
   };
 
-  render() {
-    return (
-      <div>
-        <Textfield ref={this.handleRef} />
-        <p>
-          <Button appearance="primary" onClick={this.handleFocus}>
-            Focus Textfield
-          </Button>
-        </p>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Textfield ref={handleRef} />
+      <p>
+        <Button appearance="primary" onClick={handleFocus}>
+          Focus TextField
+        </Button>
+      </p>
+    </div>
+  );
 }
-
-export default TextFieldExample;

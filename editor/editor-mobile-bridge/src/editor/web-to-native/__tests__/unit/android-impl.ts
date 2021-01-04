@@ -285,12 +285,24 @@ describe('Web To Native', () => {
       it('should call onContentRendered in native', function () {
         const totalNodeSize = 100;
         const nodes = 'dummy nodes';
+        const actualRenderingDuration = 1000;
+        const totalBridgeDuration = 1100;
 
-        androidBridge.onContentRendered(totalNodeSize, nodes);
+        androidBridge.onContentRendered(
+          totalNodeSize,
+          nodes,
+          actualRenderingDuration,
+          totalBridgeDuration,
+        );
 
         expect(
           windowWithMockBridges.contentBridge!.onContentRendered,
-        ).toHaveBeenCalledWith(totalNodeSize, nodes);
+        ).toHaveBeenCalledWith(
+          totalNodeSize,
+          nodes,
+          actualRenderingDuration,
+          totalBridgeDuration,
+        );
       });
     });
   });

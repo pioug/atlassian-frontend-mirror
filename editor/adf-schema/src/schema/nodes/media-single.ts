@@ -9,35 +9,48 @@ export type MediaSingleDefinition =
   | MediaSingleWithCaptionDefinition;
 
 /**
- * @name mediaSingle_base_node
+ * @name mediaSingle_node
+ * @additionalProperties true
  */
 export interface MediaSingleBaseDefinition {
   type: 'mediaSingle';
   attrs?: RichMediaAttributes;
   marks?: Array<LinkDefinition>;
 }
+
 /**
- * @name mediaSingle_node
+ * @additionalProperties true
  */
-export interface MediaSingleFullDefinition extends MediaSingleBaseDefinition {
+export interface MediaSingleFullContent {
   /**
    * @minItems 1
    * @maxItems 1
    */
   content: Array<Media>;
 }
+
 /**
- * @name mediaSingle_caption_node
- * @stage 0
+ * @name mediaSingle_full_node
  */
-export interface MediaSingleWithCaptionDefinition
-  extends MediaSingleBaseDefinition {
+export type MediaSingleFullDefinition = MediaSingleBaseDefinition &
+  MediaSingleFullContent;
+
+/**
+ * @additionalProperties true
+ */
+export interface MediaCaptionContent {
   /**
    * @minItems 1
    * @maxItems 2
    */
   content: [Media, Caption?];
 }
+/**
+ * @name mediaSingle_caption_node
+ * @stage 0
+ */
+export type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
+  MediaCaptionContent;
 
 export const defaultAttrs = {
   width: { default: null }, // null makes small images to have original size by default

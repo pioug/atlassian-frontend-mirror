@@ -1,14 +1,25 @@
 import { TaskState, ObjectKey } from '@atlaskit/task-decision';
-import RendererBridge, { ScrollToContentNode } from './bridge';
+import RendererBridge, {
+  CallBackToNotifyConfigChange,
+  ScrollToContentNode,
+} from './bridge';
 import { AnnotationPayload, AnnotationStatePayload } from '../types';
 import { Serialized } from '../../types';
 import WebBridge from '../../web-bridge';
 import { eventDispatcher, EmitterEvents } from '../dispatcher';
 import { resolvePromise, rejectPromise } from '../../cross-platform-promise';
 import { TaskDecisionProviderImpl } from '../../providers/taskDecisionProvider';
-import { toNativeBridge } from '../web-to-native/implementation';
+import {
+  nativeBridgeAPI,
+  toNativeBridge,
+} from '../web-to-native/implementation';
 import { getElementScrollOffsetByNodeType, scrollToElement } from './utils';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import {
+  measureContentRenderedPerformance,
+  PerformanceMatrices,
+} from '../../utils/bridge';
+import RendererConfiguration from '../renderer-configuration';
 
 class RendererMobileWebBridgeOverride extends WebBridge {
   containerAri?: string;
@@ -29,8 +40,17 @@ class RendererBridgeImplementation
   extends RendererMobileWebBridgeOverride
   implements RendererBridge {
   taskDecisionProvider?: Promise<TaskDecisionProviderImpl>;
+  configuration: RendererConfiguration;
+  callbackToNotifyConfigChange?: CallBackToNotifyConfigChange;
+
+  constructor(config?: RendererConfiguration) {
+    super();
+    this.configuration = config || new RendererConfiguration();
+  }
 
   setContent(content: Serialized<JSONDocNode>) {
+    const performanceMatrices = new PerformanceMatrices();
+
     if (!eventDispatcher) {
       return;
     }
@@ -48,6 +68,18 @@ class RendererBridgeImplementation
     eventDispatcher.emit(EmitterEvents.SET_RENDERER_CONTENT, {
       content: adfContent,
     });
+
+    measureContentRenderedPerformance(
+      adfContent,
+      (totalNodeSize, nodes, actualRenderingDuration) => {
+        nativeBridgeAPI.onContentRendered(
+          totalNodeSize,
+          nodes,
+          actualRenderingDuration,
+          performanceMatrices.duration,
+        );
+      },
+    );
   }
 
   onPromiseResolved(uuid: string, payload: string) {
@@ -213,6 +245,22 @@ class RendererBridgeImplementation
     } else {
       eventDispatcher.emit(EmitterEvents.DELETE_ANNOTATION, annotation);
     }
+  }
+
+  setCallbackToNotifyConfigChange(callback: CallBackToNotifyConfigChange) {
+    this.callbackToNotifyConfigChange = callback;
+  }
+
+  configure(config: string) {
+    if (!this.callbackToNotifyConfigChange) {
+      return;
+    }
+    this.configuration = this.configuration.cloneAndUpdate(config);
+    this.callbackToNotifyConfigChange(this.configuration);
+  }
+
+  getConfiguration(): RendererConfiguration {
+    return this.configuration;
   }
 }
 

@@ -16,7 +16,6 @@ import {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import RendererBridgeImpl from './native-to-web/implementation';
 import { toNativeBridge } from './web-to-native/implementation';
 import {
   Provider as SmartCardProvider,
@@ -48,6 +47,8 @@ import { withIntlProvider } from '../i18n/with-intl-provider';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import { geti18NMessages } from './renderer-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
+import RendererBridgeImplementation from './native-to-web/implementation';
+import useRendererConfiguration from './hooks/use-renderer-configuration';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -56,9 +57,8 @@ export interface MobileRendererProps extends RendererProps {
   mentionProvider: Promise<MentionProvider>;
   emojiProvider: Promise<EmojiResource>;
   intl: InjectedIntl;
+  rendererBridge: RendererBridgeImplementation;
 }
-
-const rendererBridge = (window.rendererBridge = new RendererBridgeImpl());
 
 const handleAnalyticsEvent = (
   event: GasPurePayload | GasPureScreenEventPayload,
@@ -87,6 +87,7 @@ type BasicRendererProps = {
   document: string;
   intl: InjectedIntl;
   extensionHandlers: ExtensionHandlers;
+  rendererBridge: RendererBridgeImplementation;
 };
 
 interface WithCreateAnalyticsEventProps extends BasicRendererProps {
@@ -112,6 +113,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   emojiProvider,
   mediaProvider,
   mentionProvider,
+  rendererBridge,
   document: initialDocument,
   extensionHandlers,
 }: WithCreateAnalyticsEventProps) => {
@@ -125,6 +127,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
     rendererBridge,
   );
   const rendererContext = useRendererContext(rendererBridge);
+  useRendererConfiguration(rendererBridge);
   const headingAnchorLinksConfig = useHeadingLinks(allowHeadingAnchorLinks);
   const disableActions = getDisableActionsValue();
   const disableMediaLinking = getDisableMediaLinkingValue();

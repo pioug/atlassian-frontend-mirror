@@ -30,7 +30,7 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
 
 // Algolia configuration
 let client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
-let index = client.initIndex('product_help_prod');
+var index = client.initIndex('product_help_dev');
 
 // Footer
 const Footer = (

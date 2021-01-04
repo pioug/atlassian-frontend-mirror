@@ -401,6 +401,10 @@ export class CardBase extends Component<
           const status = getCardStatusFromFileState(fileState, featureFlags);
           this.safeSetState({ metadata });
 
+          /**
+           * TODO: getCardPreview swallows the errors!!
+           * We should hendle them properly and fire analitics events accordingly
+           */
           const cardPreview = await this.getCardPreview(
             mediaClient,
             identifier,

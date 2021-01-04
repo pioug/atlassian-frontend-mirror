@@ -31,7 +31,6 @@ describe('FindReplaceToolbarButton', () => {
         onFindBlur={jest.fn()}
         onFindNext={jest.fn()}
         onFindPrev={jest.fn()}
-        onFocusElementRefSet={jest.fn()}
         onReplace={jest.fn()}
         onReplaceAll={jest.fn()}
         {...props}

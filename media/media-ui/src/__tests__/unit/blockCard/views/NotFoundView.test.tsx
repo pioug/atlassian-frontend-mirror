@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, fireEvent } from '@testing-library/react';
 import { renderWithIntl } from '../../../__utils__/render';
 import { BlockCardNotFoundView } from '../../../../BlockCard';
-import { getResolvedProps } from '../../../__mocks__';
+import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
 import { ResolvedViewProps } from '../../../../BlockCard/views/ResolvedView';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();

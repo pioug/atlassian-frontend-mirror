@@ -49,6 +49,7 @@ export const nodeSerializers: { [key: string]: NodeSerializer } = {
   extension: bodiedExtension, // Old node, treated as bodied ext. for backwards compatibility
   image: renderNothing,
   inlineCard,
+  embedCard: inlineCard,
   layoutColumn,
   layoutSection,
   inlineExtension,

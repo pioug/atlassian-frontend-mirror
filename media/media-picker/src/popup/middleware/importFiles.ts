@@ -441,7 +441,7 @@ const emitPublicEvents = async (
         ? (await fileState.preview).value
         : undefined;
       const preview: Preview =
-        value instanceof Blob ? await getPreviewFromBlob(value, mediaType) : {};
+        value instanceof Blob ? await getPreviewFromBlob(mediaType, value) : {};
 
       const event: UploadEvent = {
         name: 'upload-preview-update',

@@ -53,9 +53,10 @@ const AvatarGroupExample: FC = () => {
   });
 
   const shuffleAvatars = () => {
-    const next = state;
-    next.data = shuffle(state.data);
-    setState(next);
+    setState({
+      ...state,
+      data: shuffle(state.data),
+    });
   };
 
   const avatarSize = 'medium';

@@ -1,5 +1,103 @@
 # @atlaskit/textfield
 
+## 5.0.0
+
+### Major Changes
+
+- [`9d0f54a809`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d0f54a809) - ## Brief
+
+  The goal of this major for TextField is to improve the component's performance, by both reducing static structure and avoiding unnecessary function calls.
+
+  ## Changes
+
+  In this version we improved the performance of `TextField` by making it more similar to a native input field and removing the slow theme prop.
+
+  ## Theming
+
+  The `theme` prop allows you to customize the appearance of `TextField`.
+  Theming was previously used to customize the container div and input element styling in `TextField`.
+  We found that there was minimal usage of this API and it was identified to have a negative performance impact regardless of whether it was used.
+
+  We decided to remove this API to benefit all consumers of `TextField`.
+  If you would like to continue customizing TextField we have added data attributes (`data-ds--text-field--container` and `data-ds--text-field--input`) to both container div and input element of `TextField`.
+  Therefore consumers can use this if they want to override style of respective element in `TextField`. For example,
+
+  ```
+  import React from 'react';
+  import { css } from '@emotion/core';
+  import { TextField } from '@atlaskit/textfield;
+
+  export default function CustomStyleExample() {
+    return (
+      <TextField
+        css={{
+          padding: 5,
+          border: '2px solid orange',
+          '& > [data-ds--text-field--input]': {
+            fontSize: 20,
+            border: '2px solid green',
+          },
+        }}
+      />
+    )
+  }
+  ```
+
+  You can also override CSS using `className` and data-attributes in `TextField`.
+
+  ```
+  // component
+  import React from 'react';
+  import { TextField } from '@atlaskit/textfield;
+  import './styles.css';
+
+  export default () => {
+    return (
+        <TextField
+          width="large"
+          className='myClass'
+        />
+    );
+  };
+
+  // styles.css
+  .myClass [data-ds--text-field--container] {
+    border: 2px solid orange;
+    padding: 5px;
+  }
+  .myClass [data-ds--text-field--input] {
+    border: 2px solid green;
+    font-size: 20px;
+  };
+
+  ```
+
+  Note that `TextField` still supports the light mode / dark mode global token.
+  Along with this change we have removed the exports `ThemeProps`, `ThemeTokens` and `Theme` from `TextField` as they can no longer be used with the removal of `theme`.
+
+  ### Other changes
+
+  - Previously all interaction styles were generated in JavaScript using events, causing unnecessary and slow re-renders for actions like hovering and focusing. Now all styles for the `TextField` are applied using CSS selectors.
+  - Updated the entry point to only export `TextField` and `TextFieldProps`. These exports `ThemeProps`, `ThemeTokens` and `Theme` have now been removed.
+
+  ### Automatic upgrading
+
+  There is a codemod that assists you in upgrading most of the changes from above.
+  However, a manual step is still required to override styles via data attributes.
+
+  - Removes `theme` and `overrides` prop.
+  - Removes imports of `ThemeProps`, `ThemeTokens` and `Theme`.
+
+  ```
+
+  # You first need to have the latest `TextField` installed before you can run the codemod
+  `yarn upgrade @atlaskit/textfield@^5.0.0`
+
+  # Run the codemod cli
+  # Pass in a parser for your codebase
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
 ## 4.0.10
 
 ### Patch Changes

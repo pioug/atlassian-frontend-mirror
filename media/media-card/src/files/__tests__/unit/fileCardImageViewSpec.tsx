@@ -200,6 +200,33 @@ describe('FileCardImageView', () => {
       });
     });
 
+    it('should render completed if empty file in classic mode', () => {
+      const card = shallow(
+        <FileCardImageView
+          mediaType="unknown"
+          mimeType="inode/x-empty"
+          dataURI={undefined}
+          status="processing" // this is currently how any empty filew hgets mapped
+          mediaItemType="file"
+          selected={true}
+          selectable={true}
+          fileSize={''} // since this prop is a string, a zero value comes through as empty
+          actions={actions}
+          mediaName={mediaName}
+        />,
+      );
+      expectToEqual(card.find(CardOverlay).props(), {
+        cardStatus: 'processing',
+        persistent: true,
+        selectable: true,
+        selected: true,
+        mediaName,
+        mediaType: 'unknown',
+        subtitle: '',
+        actions,
+      });
+    });
+
     it('should render non-persistent card overlay when its an image with dataURI', () => {
       const card = shallow(
         <FileCardImageView

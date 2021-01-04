@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';
 import Textfield from '@atlaskit/textfield';
-import { metadata as objectIconMetadata } from '@atlaskit/icon-object';
-import { metadata as fileTypeIconMetadata } from '@atlaskit/icon-file-type';
-import { metadata as priorityIconMetadata } from '@atlaskit/icon-priority';
+import objectIconMetadata from '@atlaskit/icon-object/metadata';
+import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
+import priorityIconMetadata from '@atlaskit/icon-priority/metadata';
 
-import { metadata } from '../src';
+import metadata from '../src/metadata';
 import IconExplorerCell from './utils/IconExplorerCell';
 import logoIcons from '../utils/logoIcons';
 

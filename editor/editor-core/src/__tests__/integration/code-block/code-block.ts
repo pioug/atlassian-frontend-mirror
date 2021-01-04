@@ -54,7 +54,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       await page.keys(['ArrowRight', 'ArrowRight']);
       await page.type(editable, 'test paragraph');
       // Focus code block again
-      await page.click('pre');
+      await page.click(codeBlockSelectors.code);
       // Check that the language is still selected
       await page.waitForSelector(floatingToolbarLanguageSelector);
       const language = await page.getText(floatingToolbarLanguageSelector);

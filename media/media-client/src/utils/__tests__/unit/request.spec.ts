@@ -3,7 +3,6 @@ import { nextTick } from '@atlaskit/media-test-helpers';
 
 import { request } from '../../request';
 import { isRequestError, RequestError } from '../../request/errors';
-import { RequestErrorReason } from '../../request/types';
 import { fetchRetry } from '../../request/helpers';
 
 interface ExtendedGlobal extends NodeJS.Global {
@@ -52,7 +51,7 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(3);
         expect(err.attributes).toMatchObject({
-          reason: RequestErrorReason.clientExhaustedRetries,
+          reason: 'clientExhaustedRetries',
           attempts: 3,
           innerError: fetchError,
         });
@@ -77,7 +76,7 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(1);
         expect(err.attributes).toMatchObject({
-          reason: RequestErrorReason.clientAbortedRequest,
+          reason: 'clientAbortedRequest',
         });
       }
 
@@ -97,7 +96,7 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(2);
         expect(err.attributes).toMatchObject({
-          reason: RequestErrorReason.clientAbortedRequest,
+          reason: 'clientAbortedRequest',
         });
       }
 
@@ -106,9 +105,7 @@ describe('request', () => {
 
     it('should not retry functionToRetry if client-side error', async () => {
       const functionToRetry = jest.fn().mockImplementation(() => {
-        const clientSideError = new RequestError(
-          RequestErrorReason.clientTimeoutRequest,
-        );
+        const clientSideError = new RequestError('clientTimeoutRequest');
         throw clientSideError;
       });
 
@@ -120,7 +117,7 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(1);
         expect(err.attributes).toMatchObject({
-          reason: RequestErrorReason.clientTimeoutRequest,
+          reason: 'clientTimeoutRequest',
         });
       }
 
@@ -129,7 +126,7 @@ describe('request', () => {
 
     it('should not retry functionToRetry if backend error < 500', async () => {
       const functionToRetry = jest.fn().mockImplementation(() => {
-        const serverError = new RequestError(RequestErrorReason.serverError, {
+        const serverError = new RequestError('serverError', {
           statusCode: 429,
           bodyAsText: 'Rate Limited',
         });
@@ -144,7 +141,7 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(1);
         expect(err.attributes).toMatchObject({
-          reason: RequestErrorReason.serverError,
+          reason: 'serverError',
           statusCode: 429,
           bodyAsText: 'Rate Limited',
         });
@@ -276,7 +273,7 @@ describe('request', () => {
       }
 
       expect(error.attributes).toMatchObject({
-        reason: RequestErrorReason.serverError,
+        reason: 'serverError',
         statusCode: 403,
         bodyAsText: 'Access forbidden',
       });
@@ -354,7 +351,7 @@ describe('request', () => {
       }
 
       expect(error.attributes).toMatchObject({
-        reason: RequestErrorReason.serverError,
+        reason: 'serverError',
         statusCode: 400,
         bodyAsText: 'Bad Request',
       });
@@ -384,7 +381,7 @@ describe('request', () => {
       }
 
       expect(error.attributes).toMatchObject({
-        reason: RequestErrorReason.clientExhaustedRetries,
+        reason: 'clientExhaustedRetries',
         attempts: 3,
         innerError: expect.any(Error),
       });
@@ -398,7 +395,7 @@ describe('request', () => {
       }
 
       expect(error.attributes.innerError.attributes).toMatchObject({
-        reason: RequestErrorReason.serverError,
+        reason: 'serverError',
         statusCode: 500,
         bodyAsText: 'Internal Server Error',
       });
@@ -426,9 +423,7 @@ describe('request', () => {
         return expect(isRequestError(error)).toBeTruthy();
       }
 
-      expect(error.attributes.reason).toEqual(
-        RequestErrorReason.clientAbortedRequest,
-      );
+      expect(error.attributes.reason).toEqual('clientAbortedRequest');
       expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // should not have retried on aborted requests
     });
 
@@ -450,9 +445,7 @@ describe('request', () => {
         return expect(isRequestError(error)).toBeTruthy();
       }
 
-      expect(error.attributes.reason).toEqual(
-        RequestErrorReason.clientAbortedRequest,
-      );
+      expect(error.attributes.reason).toEqual('clientAbortedRequest');
       expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // should not have retried on aborted requests
     });
   });

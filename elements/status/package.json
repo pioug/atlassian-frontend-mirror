@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/status",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "description": "Fabric Status React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/lozenge": "^10.0.0",
-    "@atlaskit/textfield": "^4.0.0",
+    "@atlaskit/icon": "^21.2.0",
+    "@atlaskit/lozenge": "^10.1.0",
+    "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "styled-components": "^3.2.6"
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-test-helpers": "^13.0.0",
+    "@atlaskit/editor-test-helpers": "^13.3.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",

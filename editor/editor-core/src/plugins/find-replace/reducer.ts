@@ -57,11 +57,6 @@ const reducer = (getInitialState: () => FindReplacePluginState) => (
         shouldFocus: false,
       };
 
-    case FindReplaceActionTypes.UPDATE_FOCUS_ELEMENT:
-      return {
-        ...state,
-        focusElementRef: action.focusElementRef,
-      };
     case FindReplaceActionTypes.TOGGLE_MATCH_CASE:
       return {
         ...state,

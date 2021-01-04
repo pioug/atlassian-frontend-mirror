@@ -278,7 +278,7 @@ export class UploadServiceImpl implements UploadService {
           });
         });
       } else {
-        getPreviewFromBlob(file, mediaType).then(preview => {
+        getPreviewFromBlob(mediaType, file).then(preview => {
           this.emit('file-preview-update', {
             file: mediaFile,
             preview,

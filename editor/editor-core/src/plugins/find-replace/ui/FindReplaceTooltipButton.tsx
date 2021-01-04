@@ -7,13 +7,13 @@ interface Props {
   title: string;
   icon: JSX.Element;
   keymapDescription: string;
-  onClick: (ref: React.RefObject<HTMLElement>) => void;
+  onClick: (ref: React.RefObject<HTMLButtonElement>) => void;
   disabled?: boolean;
   isPressed?: boolean;
 }
 
 export class FindReplaceTooltipButton extends React.PureComponent<Props> {
-  private buttonRef = React.createRef<HTMLElement>();
+  private buttonRef = React.createRef<HTMLButtonElement>();
 
   static defaultProps = {
     keymapDescription: 'no-keymap',

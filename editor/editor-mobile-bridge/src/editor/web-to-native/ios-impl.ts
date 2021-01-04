@@ -323,7 +323,12 @@ export default class IosBridge implements NativeBridge {
     });
   }
 
-  onContentRendered(totalNodeSize: number, nodes: string): void {
+  onContentRendered(
+    totalNodeSize: number,
+    nodes: string,
+    actualRenderingDuration: number,
+    totalBridgeDuration: number,
+  ): void {
     if (
       this.window.webkit &&
       this.window.webkit.messageHandlers.contentBridge
@@ -332,6 +337,8 @@ export default class IosBridge implements NativeBridge {
         name: 'onContentRendered',
         totalNodeSize,
         nodes,
+        actualRenderingDuration,
+        totalBridgeDuration,
       });
     }
   }

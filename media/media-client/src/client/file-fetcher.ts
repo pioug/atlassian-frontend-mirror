@@ -1,5 +1,8 @@
 import { Subscription } from 'rxjs/Subscription';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { of } from 'rxjs/observable/of';
+import { map } from 'rxjs/operators/map';
+import { concatMap } from 'rxjs/operators/concatMap';
 import uuid from 'uuid/v4';
 import Dataloader from 'dataloader';
 import { AuthProvider, authToOwner } from '@atlaskit/media-core';
@@ -24,7 +27,7 @@ import {
   ProcessingFileState,
 } from '../models/file-state';
 import { MediaFile } from '../models/media';
-import { FileFetcherError, FileFetcherErrorReason } from '../models/errors';
+import { FileFetcherError } from '../models/errors';
 import {
   UploadableFile,
   UploadableFileUpfrontIds,
@@ -52,7 +55,10 @@ import {
 import { getMediaTypeFromMimeType } from '../utils/getMediaTypeFromMimeType';
 import { createFileStateSubject } from '../utils/createFileStateSubject';
 import { isMimeTypeSupportedByBrowser } from '../utils/isMimeTypeSupportedByBrowser';
-import { shouldFetchRemoteFileStates } from '../utils/shouldFetchRemoteFileStates';
+import {
+  shouldFetchRemoteFileStates,
+  shouldFetchRemoteFileStatesObservable,
+} from '../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../utils/polling';
 import {
   PollingOptions,
@@ -130,7 +136,7 @@ export class FileFetcherImpl implements FileFetcher {
     if (!isValidId(id)) {
       const subject = createFileStateSubject();
       subject.error(
-        new FileFetcherError(FileFetcherErrorReason.invalidFileId, id, {
+        new FileFetcherError('invalidFileId', id, {
           collectionName,
           occurrenceKey,
         }),
@@ -207,7 +213,7 @@ export class FileFetcherImpl implements FileFetcher {
       });
 
       if (!response) {
-        throw new FileFetcherError(FileFetcherErrorReason.invalidFileId, id, {
+        throw new FileFetcherError('invalidFileId', id, {
           collectionName,
           occurrenceKey,
         });
@@ -327,7 +333,7 @@ export class FileFetcherImpl implements FileFetcher {
       });
       // we don't want to wait for the file to be upload
       this.upload(file, undefined, uploadableFileUpfrontIds);
-      const dimensions = await getDimensionsFromBlob(blob);
+      const dimensions = await getDimensionsFromBlob(mediaType, blob);
       resolve({
         dimensions,
         uploadableFileUpfrontIds,
@@ -365,7 +371,7 @@ export class FileFetcherImpl implements FileFetcher {
     // TODO [MSW-796]: get file size for base64
     const mediaType = getMediaTypeFromUploadableFile(file);
     const subject = createFileStateSubject();
-    let processingSubscription: Subscription | undefined;
+    const processingSubscription = new Subscription();
 
     if (content instanceof Blob) {
       size = content.size;
@@ -412,30 +418,34 @@ export class FileFetcherImpl implements FileFetcher {
         return subject.error(error);
       }
 
-      if (shouldFetchRemoteFileStates(mediaType, mimeType, preview)) {
-        processingSubscription = this.createDownloadFileStream(
-          id,
-          collection,
-          occurrenceKey,
-        ).subscribe({
-          next: remoteFileState =>
-            subject.next({
-              // merges base state with remote state
-              ...stateBase,
-              ...remoteFileState,
-              ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
+      processingSubscription.add(
+        shouldFetchRemoteFileStatesObservable(mediaType, mimeType, preview)
+          .pipe(
+            concatMap(shouldFetchRemoteFileStates => {
+              if (shouldFetchRemoteFileStates) {
+                return this.createDownloadFileStream(
+                  id,
+                  collection,
+                  occurrenceKey,
+                ).pipe(
+                  map(remoteFileState => ({
+                    // merges base state with remote state
+                    ...stateBase,
+                    ...remoteFileState,
+                    ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
+                  })),
+                );
+              }
+
+              return of({
+                status: 'processing',
+                representations: {},
+                ...stateBase,
+              } as FileState);
             }),
-          error: err => subject.error(err),
-          complete: () => subject.complete(),
-        });
-      } else {
-        subject.next({
-          status: 'processing',
-          representations: {},
-          ...stateBase,
-        });
-        subject.complete();
-      }
+          )
+          .subscribe(subject),
+      );
     };
 
     const { cancel } = uploadFile(
@@ -459,9 +469,7 @@ export class FileFetcherImpl implements FileFetcher {
     if (controller) {
       controller.setAbort(() => {
         cancel();
-        if (processingSubscription) {
-          processingSubscription.unsubscribe();
-        }
+        processingSubscription.unsubscribe();
       });
     }
 
@@ -558,7 +566,7 @@ export class FileFetcherImpl implements FileFetcher {
         // mimeType should always be returned by "copyFileWithToken"
         // but in case it's not, we don't want to penalize "copyFile"
         copiedMimeType &&
-        shouldFetchRemoteFileStates(mediaType, copiedMimeType, preview)
+        (await shouldFetchRemoteFileStates(mediaType, copiedMimeType, preview))
       ) {
         subject.next({
           ...copiedFileState,

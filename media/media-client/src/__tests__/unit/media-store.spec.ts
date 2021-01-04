@@ -20,8 +20,6 @@ import {
   MediaFileArtifacts,
   checkWebpSupport,
   isRequestError,
-  RequestErrorReason,
-  MediaStoreErrorReason,
   isMediaStoreError,
 } from '../..';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
@@ -155,7 +153,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -243,7 +241,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -326,7 +324,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -385,7 +383,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -597,7 +595,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverError,
+            reason: 'serverError',
             statusCode: 403,
             bodyAsText: 'something went wrong',
           });
@@ -624,7 +622,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -846,7 +844,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -927,7 +925,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -1045,7 +1043,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: RequestErrorReason.serverInvalidBody,
+            reason: 'serverInvalidBody',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -1071,7 +1069,7 @@ describe('MediaStore', () => {
         }
 
         expect(err.attributes).toMatchObject({
-          reason: MediaStoreErrorReason.failedAuthProvider,
+          reason: 'failedAuthProvider',
           innerError: error,
         });
       }

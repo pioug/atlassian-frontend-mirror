@@ -311,6 +311,7 @@ export class ExampleEditorComponent extends React.Component<
                   advanced: true,
                   allowColumnSorting: true,
                   stickyHeaders: true,
+                  tableCellOptimization: true,
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "11.0.4",
+  "version": "11.1.0",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,12 +17,14 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/modal-dialog",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Blanket"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",

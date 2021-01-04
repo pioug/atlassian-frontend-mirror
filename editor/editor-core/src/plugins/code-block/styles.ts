@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
+import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import {
   blockNodesVerticalMargin,
@@ -12,85 +12,72 @@ import {
   SelectionStyle,
   getSelectionStyles,
   akEditorCodeFontFamily,
-  akEditorCodeBlockPadding,
   akEditorSelectedNodeClassName,
+  overflowShadow,
 } from '@atlaskit/editor-shared-styles';
 
 import { codeBlockClassNames } from './ui/class-names';
 
 export const codeBlockStyles = css`
   .ProseMirror .code-block {
-    background: ${themed({ light: colors.N20, dark: colors.DN50 })};
+    position: relative;
+    background: ${overflowShadow({
+      background: themed({ light: colors.N20, dark: colors.DN50 }),
+      width: '8px',
+    })};
+    background-repeat: no-repeat;
+    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })};
+    background-attachment: local, scroll, scroll;
+    background-size: 8px 100%, 8px 100%, 8px 100%;
+    background-position: 100% 0, 100% 0, 0 0;
     font-family: ${akEditorCodeFontFamily};
     border-radius: ${borderRadius()}px;
-    font-size: 14px;
-    line-height: 24px;
     margin: ${blockNodesVerticalMargin} 0 0 0;
     counter-reset: line;
     display: flex;
     min-width: ${akEditorTableCellMinWidth}px;
     cursor: pointer;
+    overflow-x: auto;
 
     .${codeBlockClassNames.gutter} {
-      background-color: ${themed({
-        light: 'rgba(9, 30, 66, 0.04)',
-        dark: colors.DN40,
-      })};
-      color: ${colors.N300};
+      /* https://bitbucket.org/atlassian/atlassian-frontend/src/develop/packages/design-system/code/src/themes/themeBuilder.ts#packages/design-system/code/src/themes/themeBuilder.ts-19:28 */
+      flex-shrink: 0;
       text-align: right;
-      user-select: none;
-      padding: ${akEditorCodeBlockPadding} 8px;
-      border-radius: ${borderRadius()}px;
-      font-size: 12px;
-      line-height: 24px;
+      border-radius: ${borderRadius()}px 0 0 ${borderRadius()}px;
+      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })};
+      padding: ${gridSize() * 1.5}px ${gridSize()}px;
 
       span {
         display: block;
+        line-height: 0;
+        font-size: 0;
 
         &::before {
-          counter-increment: line;
-          content: counter(line);
           display: inline-block;
+          content: counter(line);
+          counter-increment: line;
+          font-size: ${fontSize() + 1}px;
+          line-height: 22px;
+          color: ${themed({ light: colors.N90, dark: colors.DN90 })};
         }
       }
     }
 
     .${codeBlockClassNames.content} {
-      color: ${themed({ light: colors.N800, dark: colors.DN500 })};
-      border-radius: ${borderRadius()}px;
-      padding: ${akEditorCodeBlockPadding} 16px;
-      overflow: auto;
       display: flex;
       flex: 1;
 
-      pre {
-        width: 100%;
-        cursor: text;
-      }
-
       code {
-        display: inline-block;
-        min-width: 100%;
+        flex-grow: 1;
         tab-size: 4;
-      }
-    }
-
-    /* We render this as a basic box in IE11 because it can't handle scrolling */
-    &.ie11 {
-      display: block;
-      .${codeBlockClassNames.gutter} {
-        display: none;
-      }
-      .${codeBlockClassNames.content} {
-        display: block;
-        overflow: visible;
-
-        pre {
-          width: auto;
-        }
-        code {
-          display: inline;
-        }
+        cursor: text;
+        /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
+        font-size: ${fontSize()}px;
+        line-height: 22px;
+        color: ${themed({ light: colors.N800, dark: colors.DN500 })};
+        border-radius: ${borderRadius()}px;
+        margin: ${gridSize() * 1.5}px ${gridSize()}px;
+        white-space: pre;
       }
     }
   }

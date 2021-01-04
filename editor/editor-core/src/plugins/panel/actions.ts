@@ -73,12 +73,10 @@ const getNewPanelData = (
   );
 
   if (color || previousColor) {
-    panelType = PanelType.CUSTOM;
     panelColor = color || previousColor;
   }
 
   if (emoji) {
-    panelType = PanelType.CUSTOM;
     panelIcon = emoji;
   }
 

@@ -62,16 +62,16 @@ export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
 
 export {
   BaseMediaClientError,
-  FileFetcherErrorReason,
   FileFetcherError,
   isFileFetcherError,
-  MediaStoreErrorReason,
   MediaStoreError,
   isMediaStoreError,
 } from './models/errors';
 export type {
   FileFetcherErrorAttributes,
+  FileFetcherErrorReason,
   MediaStoreErrorAttributes,
+  MediaStoreErrorReason,
 } from './models/errors';
 
 export {
@@ -125,7 +125,14 @@ export {
   createUrl,
 } from './utils/request/helpers';
 
-export { RequestErrorReason } from './utils/request/types';
+export { PollingFunction } from './utils/polling';
+export { isPollingError, PollingError } from './utils/polling/errors';
+export type {
+  Executor,
+  PollingErrorAttributes,
+  PollingErrorReason,
+} from './utils/polling/types';
+
 export type {
   RequestMethod,
   RequestParams,
@@ -135,6 +142,7 @@ export type {
   RequestOptions,
   RequestErrorAttributes,
   CreateUrlOptions,
+  RequestErrorReason,
 } from './utils/request/types';
 
 export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
@@ -156,6 +164,9 @@ export { checkWebpSupport } from './utils/checkWebpSupport';
 export { observableToPromise } from './utils/observableToPromise';
 
 export { getMediaTypeFromMimeType } from './utils/getMediaTypeFromMimeType';
+
+export { getDimensionsFromBlob } from './utils/getDimensionsFromBlob';
+export type { Dimensions } from './utils/getDimensionsFromBlob';
 
 export {
   isImageMimeTypeSupportedByBrowser,

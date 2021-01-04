@@ -223,6 +223,7 @@ export type {
   RichMediaAttributes,
   RichMediaLayout,
   AnnotationDataAttributes,
+  CellDomAttrs,
 } from './schema';
 export {
   B100,

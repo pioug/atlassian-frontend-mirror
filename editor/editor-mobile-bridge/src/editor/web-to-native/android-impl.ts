@@ -232,9 +232,19 @@ export default class AndroidBridge implements NativeBridge {
     this.lifecycleBridge.editorReady();
   }
 
-  onContentRendered(totalNodeSize: number, nodes: string): void {
+  onContentRendered(
+    totalNodeSize: number,
+    nodes: string,
+    actualRenderingDuration: number,
+    totalBridgeDuration: number,
+  ): void {
     if (this.contentBridge) {
-      this.contentBridge.onContentRendered(totalNodeSize, nodes);
+      this.contentBridge.onContentRendered(
+        totalNodeSize,
+        nodes,
+        actualRenderingDuration,
+        totalBridgeDuration,
+      );
     }
   }
 

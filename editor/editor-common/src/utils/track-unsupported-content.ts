@@ -64,7 +64,11 @@ const sanitizeAttributes = (attrs: {} = {}) => {
   let sanitizedAttrs: { [key: string]: any } = Object.assign({}, attrs);
   Object.keys(attrs)
     .filter(key => !whitelistedAttributes.includes(key))
-    .forEach(key => (sanitizedAttrs[key] = ''));
+    .forEach(key => {
+      sanitizedAttrs[key] !== null
+        ? (sanitizedAttrs[key] = '')
+        : (sanitizedAttrs[key] = 'null');
+    });
   return sanitizedAttrs;
 };
 

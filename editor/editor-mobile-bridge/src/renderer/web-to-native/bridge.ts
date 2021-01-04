@@ -46,6 +46,12 @@ export interface AnnotationBridge {
 }
 
 export interface ContentBridge {
+  onContentRendered(
+    totalNodeSize: number,
+    nodes: string,
+    actualRenderingDuration: number,
+    totalBridgeDuration: number,
+  ): void;
   setContent(adf: Serialized<JSONDocNode>): void;
 }
 

@@ -3,19 +3,36 @@ import { IntlProvider } from 'react-intl';
 import { useTranslations } from './use-translations';
 
 type geti18NMessagesType = (localeFileName: string) => Promise<Object>;
-interface Props {
+
+interface WithIntlProviderProps {
+  locale: string;
+  onLocaleChanged?: () => void;
+  onWillLocaleChange?: () => void;
+}
+
+interface Props extends WithIntlProviderProps {
   children?: React.ReactNode;
   geti18NMessages: geti18NMessagesType;
 }
+
 const IntlProviderWrapper: React.FC<Props> = props => {
-  const [locale, messages] = useTranslations(props.geti18NMessages);
+  const { locale, messages } = useTranslations(
+    props.locale,
+    props.geti18NMessages,
+    props.onLocaleChanged,
+    props.onWillLocaleChange,
+  );
 
   if (!messages) {
     return null;
   }
 
   return (
-    <IntlProvider locale={locale.replace('_', '-')} messages={messages}>
+    <IntlProvider
+      key={locale.replace('_', '-')}
+      locale={locale.replace('_', '-')}
+      messages={messages}
+    >
       {props.children}
     </IntlProvider>
   );
@@ -24,11 +41,16 @@ const IntlProviderWrapper: React.FC<Props> = props => {
 export function withIntlProvider<T>(
   WrappedComponent: React.ComponentType<T>,
   geti18NMessages: geti18NMessagesType,
-): React.FC<Omit<T, 'intl'>> {
-  return props => {
+): React.FC<Omit<T & WithIntlProviderProps, 'intl'>> {
+  return ({ locale, onLocaleChanged, onWillLocaleChange, ...restProps }) => {
     return (
-      <IntlProviderWrapper geti18NMessages={geti18NMessages}>
-        <WrappedComponent {...(props as T)} />
+      <IntlProviderWrapper
+        geti18NMessages={geti18NMessages}
+        locale={locale}
+        onLocaleChanged={onLocaleChanged}
+        onWillLocaleChange={onWillLocaleChange}
+      >
+        <WrappedComponent {...(restProps as T)} />
       </IntlProviderWrapper>
     );
   };

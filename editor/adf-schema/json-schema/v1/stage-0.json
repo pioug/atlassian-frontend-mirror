@@ -1066,14 +1066,6 @@
     "mediaSingle_node": {
       "type": "object",
       "properties": {
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/media_node"
-          },
-          "minItems": 1,
-          "maxItems": 1
-        },
         "type": {
           "enum": [
             "mediaSingle"
@@ -1112,69 +1104,62 @@
         }
       },
       "required": [
-        "content",
         "type"
       ],
-      "additionalProperties": false
+      "additionalProperties": true
+    },
+    "mediaSingle_full_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/mediaSingle_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/media_node"
+              },
+              "minItems": 1,
+              "maxItems": 1
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "additionalProperties": true
+        }
+      ]
     },
     "mediaSingle_caption_node": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "array",
-          "items": [
-            {
-              "$ref": "#/definitions/media_node"
-            },
-            {
-              "$ref": "#/definitions/caption_node"
-            }
-          ],
-          "minItems": 1,
-          "maxItems": 2
+      "allOf": [
+        {
+          "$ref": "#/definitions/mediaSingle_node"
         },
-        "type": {
-          "enum": [
-            "mediaSingle"
-          ]
-        },
-        "attrs": {
+        {
           "type": "object",
           "properties": {
-            "width": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 100
-            },
-            "layout": {
-              "enum": [
-                "wide",
-                "full-width",
-                "center",
-                "wrap-right",
-                "wrap-left",
-                "align-end",
-                "align-start"
-              ]
+            "content": {
+              "type": "array",
+              "items": [
+                {
+                  "$ref": "#/definitions/media_node"
+                },
+                {
+                  "$ref": "#/definitions/caption_node"
+                }
+              ],
+              "minItems": 1,
+              "maxItems": 2
             }
           },
-          "additionalProperties": false,
           "required": [
-            "layout"
-          ]
-        },
-        "marks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/link_mark"
-          }
+            "content"
+          ],
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "content",
-        "type"
-      ],
-      "additionalProperties": false
+      ]
     },
     "listItem_node": {
       "type": "object",
@@ -1196,7 +1181,7 @@
                   "$ref": "#/definitions/paragraph_with_no_marks_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_node"
+                  "$ref": "#/definitions/mediaSingle_full_node"
                 },
                 {
                   "$ref": "#/definitions/mediaSingle_caption_node"
@@ -1215,7 +1200,7 @@
                   "$ref": "#/definitions/bulletList_node"
                 },
                 {
-                  "$ref": "#/definitions/mediaSingle_node"
+                  "$ref": "#/definitions/mediaSingle_full_node"
                 },
                 {
                   "$ref": "#/definitions/mediaSingle_caption_node"
@@ -1751,7 +1736,7 @@
             "$ref": "#/definitions/paragraph_with_no_marks_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_node"
+            "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
             "$ref": "#/definitions/mediaSingle_caption_node"
@@ -1897,7 +1882,7 @@
             "$ref": "#/definitions/bulletList_node"
           },
           {
-            "$ref": "#/definitions/mediaSingle_node"
+            "$ref": "#/definitions/mediaSingle_full_node"
           },
           {
             "$ref": "#/definitions/mediaSingle_caption_node"
@@ -2038,7 +2023,7 @@
           "$ref": "#/definitions/bulletList_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_node"
+          "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
           "$ref": "#/definitions/mediaSingle_caption_node"
@@ -2223,7 +2208,7 @@
           "$ref": "#/definitions/bulletList_node"
         },
         {
-          "$ref": "#/definitions/mediaSingle_node"
+          "$ref": "#/definitions/mediaSingle_full_node"
         },
         {
           "$ref": "#/definitions/mediaSingle_caption_node"
@@ -2380,7 +2365,7 @@
                 "$ref": "#/definitions/bulletList_node"
               },
               {
-                "$ref": "#/definitions/mediaSingle_node"
+                "$ref": "#/definitions/mediaSingle_full_node"
               },
               {
                 "$ref": "#/definitions/mediaSingle_caption_node"

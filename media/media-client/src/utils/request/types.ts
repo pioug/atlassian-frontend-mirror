@@ -26,14 +26,13 @@ export type RequestOptions = {
   readonly clientOptions?: ClientOptions;
 };
 
-export enum RequestErrorReason {
-  clientOffline = 'clientOffline', // TODO: implement BMPT-964 behind feature flag
-  clientAbortedRequest = 'clientAbortedRequest',
-  clientTimeoutRequest = 'clientTimeoutRequest', // TODO: implement BMPT-918 behind feature flag
-  clientExhaustedRetries = 'clientExhaustedRetries',
-  serverError = 'serverError',
-  serverInvalidBody = 'serverInvalidBody',
-}
+export type RequestErrorReason =
+  | 'clientOffline' // TODO: implement BMPT-964 behind feature flag
+  | 'clientAbortedRequest'
+  | 'clientTimeoutRequest' // TODO: implement BMPT-918 behind feature flag
+  | 'clientExhaustedRetries'
+  | 'serverError'
+  | 'serverInvalidBody';
 
 export type RequestErrorAttributes = {
   readonly reason: RequestErrorReason;

@@ -5,12 +5,12 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 
 import Textfield from '../src';
 
-export default function () {
+export default function ElementsBeforeAfterExample() {
   return (
     <Fragment>
       <label htmlFor="after-input">After input</label>
       <Textfield
-        id="after-input"
+        testId="after-input"
         elemAfterInput={
           <div style={{ paddingRight: '6px', lineHeight: '100%' }}>
             <ErrorIcon label="error" />
@@ -19,7 +19,7 @@ export default function () {
       />
       <label htmlFor="before-input">Before input</label>
       <Textfield
-        id="before-input"
+        testId="before-input"
         elemBeforeInput={
           <div style={{ paddingLeft: '6px', lineHeight: '100%' }}>
             <Avatar size="small" borderColor="transparent" />

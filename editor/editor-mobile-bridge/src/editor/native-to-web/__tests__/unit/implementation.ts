@@ -1,18 +1,24 @@
-import { measureRender } from '@atlaskit/editor-common';
-import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
-import NativeBridge from '../../../web-to-native/bridge';
-import { dismissCommand } from '@atlaskit/editor-core';
+import {
+  dismissCommand,
+  EditorActions,
+  EventDispatcher,
+} from '@atlaskit/editor-core';
+import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { PluginKey } from 'prosemirror-state';
 import { EditorViewWithComposition } from '../../../../types';
 import MobileEditorConfiguration from '../../../editor-configuration';
+import NativeBridge from '../../../web-to-native/bridge';
+import WebBridgeImpl, { defaultSetList } from '../../implementation';
+import * as BridgeUtils from '../../../../utils/bridge';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 jest.mock('../../../web-to-native');
 jest.mock('@atlaskit/editor-core', () => ({
   ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
   dismissCommand: jest.fn(),
-  EditorActions: () => ({
-    replaceDocument: () => true,
-  }),
+  selectItem: jest.fn().mockReturnValue(jest.fn()),
   getNodesCount: () => ({ paragraph: 2, date: 1, text: 1 }),
 }));
 jest.mock('@atlaskit/editor-common', () => ({
@@ -251,13 +257,27 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
     expect(bridge.getEditorConfiguration()).toEqual(expectedEditorConfig);
   });
 
+  it('should initialize the initial editor config', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"mode": "dark","enableQuickInsert": true}',
+    );
+    let bridge: WebBridgeImpl = new WebBridgeImpl(editorConfig);
+
+    bridge.setEditorConfiguration(editorConfig);
+
+    expect(bridge.getEditorConfiguration().getMode()).toEqual('dark');
+    expect(bridge.getEditorConfiguration().isQuickInsertEnabled()).toEqual(
+      true,
+    );
+  });
+
   it('should have a setter method to set the editor config', () => {
     const editorConfig = new MobileEditorConfiguration(
       '{"mode": "dark","enableQuickInsert": true}',
     );
     let bridge: WebBridgeImpl = new WebBridgeImpl();
     bridge.setEditorConfiguration(editorConfig);
-    expect(bridge.getEditorConfiguration().mode()).toEqual('dark');
+    expect(bridge.getEditorConfiguration().getMode()).toEqual('dark');
     expect(bridge.getEditorConfiguration().isQuickInsertEnabled()).toEqual(
       true,
     );
@@ -276,57 +296,156 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
   });
 
   it('should not call cloneAndUpdateConfig when editorConfigChanged is not set', () => {
-    const mockedCloneAndUpdateConfig = jest.fn();
-    MobileEditorConfiguration.prototype.cloneAndUpdateConfig = mockedCloneAndUpdateConfig;
+    const mockedCloneAndUpdateConfig = jest.spyOn(
+      MobileEditorConfiguration.prototype,
+      'cloneAndUpdateConfig',
+    );
     let bridge: WebBridgeImpl = new WebBridgeImpl();
     bridge.configureEditor('{mode: "light"}');
     expect(mockedCloneAndUpdateConfig).not.toHaveBeenCalled();
   });
 
-  describe('setContent', () => {
-    let toNativeBridge: jest.Mocked<NativeBridge>;
-    const content =
-      '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"date","attrs":{"timestamp":"1804966400002"}},{"type":"text","text":" "}]},{"type":"paragraph","content":[]}]}';
-    const editorView = {
-      state: {
-        doc: {},
+  it(`should fetch the quick insert config from editor config isQuickInsertEnabled method
+      when insertTypeAheadItem is called`, () => {
+    const isQuickInsertEnabled = jest
+      .spyOn(MobileEditorConfiguration.prototype, 'isQuickInsertEnabled')
+      .mockReturnValue(false);
+    jest.spyOn(PluginKey.prototype, 'getState');
+    let bridge = new WebBridgeImpl();
+    bridge.editorView = {} as EditorViewWithComposition;
+    bridge.insertTypeAheadItem('emoji', '{}');
+    expect(isQuickInsertEnabled).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('setContent', () => {
+  let toNativeBridge: jest.Mocked<NativeBridge>;
+  const content =
+    '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"date","attrs":{"timestamp":"1804966400002"}},{"type":"text","text":" "}]},{"type":"paragraph","content":[]}]}';
+  const editorView = {
+    state: {
+      doc: {},
+    },
+  } as EditorViewWithComposition;
+  const jsonContent: JSONDocNode = {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'date',
+            attrs: {
+              timestamp: '1804966400002',
+            },
+          },
+          {
+            type: 'text',
+            text: ' ',
+          },
+        ],
       },
-    } as EditorViewWithComposition;
+      {
+        type: 'paragraph',
+        content: [],
+      },
+    ],
+  };
 
-    beforeEach(async () => {
-      ({ toNativeBridge } = ((await import(
-        '../../../web-to-native'
-      )) as any) as {
-        toNativeBridge: jest.Mocked<NativeBridge>;
+  beforeEach(async () => {
+    ({ toNativeBridge } = ((await import('../../../web-to-native')) as any) as {
+      toNativeBridge: jest.Mocked<NativeBridge>;
+    });
+    jest
+      .spyOn(EditorActions.prototype, 'replaceDocument')
+      .mockReturnValue(true);
+    jest
+      .spyOn(BridgeUtils, 'measureContentRenderedPerformance')
+      .mockImplementation((_, callback) => {
+        callback(4, '{"paragraph":2,"date":1,"text":1}', 1000);
       });
+
+    jest.spyOn(BridgeUtils, 'PerformanceMatrices').mockImplementation(
+      () =>
+        ({
+          duration: 1100,
+        } as BridgeUtils.PerformanceMatrices),
+    );
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should call measureContentRenderedPerformance when content is replaced', () => {
+    const bridge: WebBridgeImpl = new WebBridgeImpl();
+    bridge.editorView = editorView;
+
+    bridge.setContent(content);
+
+    expect(BridgeUtils.measureContentRenderedPerformance).toHaveBeenCalledWith(
+      jsonContent,
+      expect.anything(),
+    );
+  });
+
+  it('should call onContentRendered when content is rendered', () => {
+    const bridge: WebBridgeImpl = new WebBridgeImpl();
+    bridge.editorView = editorView;
+
+    bridge.setContent(content);
+
+    expect(toNativeBridge.onContentRendered).toHaveBeenCalledWith(
+      4,
+      '{"paragraph":2,"date":1,"text":1}',
+      1000,
+      1100,
+    );
+  });
+});
+
+describe('Register and Unregister Editor', () => {
+  const createEditor = createProsemirrorEditorFactory();
+  const editor = (doc: any) => {
+    const { editorView } = createEditor({
+      doc,
     });
+    return editorView;
+  };
+  const editorView = editor(doc(p()));
 
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
+  let bridge: WebBridgeImpl;
 
-    it('should call measureRender when content is replaced', () => {
-      const bridge: WebBridgeImpl = new WebBridgeImpl();
-      bridge.editorView = editorView;
+  beforeEach(() => {
+    bridge = new WebBridgeImpl();
+    jest
+      .spyOn(EditorActions.prototype, '_privateGetEditorView')
+      .mockReturnValueOnce(editorView);
+    jest
+      .spyOn(EditorActions.prototype, '_privateGetEventDispatcher')
+      .mockReturnValueOnce(new EventDispatcher());
+  });
 
-      bridge.setContent(content);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-      expect(measureRender).toHaveBeenCalledWith(
-        'ProseMirror Content Render Time',
-        expect.anything(),
-      );
-    });
+  it('should call _privateRegisterEditor when registerEditor method is called', () => {
+    const privateRegisterEditor = jest.spyOn(
+      EditorActions.prototype,
+      '_privateRegisterEditor',
+    );
+    bridge.registerEditor(new EditorActions());
+    expect(privateRegisterEditor).toHaveBeenCalledTimes(1);
+  });
 
-    it('should call onContentRendered when content is rendered', () => {
-      const bridge: WebBridgeImpl = new WebBridgeImpl();
-      bridge.editorView = editorView;
-
-      bridge.setContent(content);
-
-      expect(toNativeBridge.onContentRendered).toHaveBeenCalledWith(
-        4,
-        '{"paragraph":2,"date":1,"text":1}',
-      );
-    });
+  it('should call _privateUnregisterEditor when unregisterEditor method is called', () => {
+    const privateUnregisterEditor = jest.spyOn(
+      EditorActions.prototype,
+      '_privateUnregisterEditor',
+    );
+    bridge.unregisterEditor();
+    expect(privateUnregisterEditor).toHaveBeenCalledTimes(1);
   });
 });

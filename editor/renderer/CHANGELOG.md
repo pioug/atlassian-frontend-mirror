@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 73.0.0
+
+### Major Changes
+
+- [`52003c2c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52003c2c47) - [ED-10690][renderer] Remove bodied extension analytics event and renderNodes function.
+
+### Patch Changes
+
+- [`4acc86197e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4acc86197e) - [TWISTA-535] Removed unused isAnnotationAllowed boolean from bridge communication, it's breaking change but not used on both iOS & Android
+- [`73d5cb22dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73d5cb22dd) - Ensure gap cursor ignores a click on a caption node
+- [`e797f23ec3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e797f23ec3) - ED-10441: ensure code-block is WYSIWYG
+- Updated dependencies
+
 ## 72.0.0
 
 ### Minor Changes

@@ -291,14 +291,6 @@ export const blur = () =>
 export const toggleMatchCase = () =>
   createCommand({ type: FindReplaceActionTypes.TOGGLE_MATCH_CASE });
 
-export const updateFocusElementRef = (
-  focusElementRef: React.RefObject<HTMLElement> | undefined,
-) =>
-  createCommand({
-    type: FindReplaceActionTypes.UPDATE_FOCUS_ELEMENT,
-    focusElementRef,
-  });
-
 const updateSelectedHighlight = (
   state: EditorState,
   nextSelectedIndex: number,

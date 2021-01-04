@@ -1,6 +1,6 @@
 let mockViewUrl = jest.fn();
 
-import { mockUrl } from '../../../__mocks__';
+import { mockUrl } from '../../../__mocks__/get-resolved-props';
 import { ViewAction } from '../../../../BlockCard/actions/ViewAction';
 import { renderWithIntl } from '../../../__utils__/render';
 

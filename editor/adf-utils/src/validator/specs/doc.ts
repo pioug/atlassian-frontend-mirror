@@ -11,7 +11,7 @@ export default {
           'paragraph_with_alignment',
           'paragraph_with_indentation',
           'bulletList',
-          'mediaSingle',
+          'mediaSingle_full',
           'mediaSingle_caption',
           'codeBlock_with_no_marks',
           'codeBlock_with_marks',

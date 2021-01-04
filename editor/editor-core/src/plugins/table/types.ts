@@ -52,6 +52,7 @@ export interface PluginConfig {
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
   stickyHeaders?: boolean;
+  tableCellOptimization?: boolean;
 }
 
 export interface ColumnResizingPluginState {

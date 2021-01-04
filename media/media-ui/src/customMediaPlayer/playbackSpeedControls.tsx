@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-import VidForwardIcon from '@atlaskit/icon/glyph/vid-forward';
 import {
   PopupSelect,
   OptionType,
@@ -11,6 +10,7 @@ import {
 import { N600, N900 } from '@atlaskit/theme/colors';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -46,14 +46,11 @@ export class PlaybackSpeedControls extends Component<
     {
       label: <FormattedMessage {...messages.playbackSpeed} />,
       options: [
-        { label: '2.x', value: 2 },
-        { label: '1.5x', value: 1.5 },
-        { label: '1.25x', value: 1.25 },
-        {
-          label: this.props.intl.formatMessage(messages.playbackDefaultSpeed),
-          value: 1,
-        },
         { label: '0.75x', value: 0.75 },
+        { label: '1x', value: 1 },
+        { label: '1.25x', value: 1.25 },
+        { label: '1.5x', value: 1.5 },
+        { label: '2x', value: 2 },
       ],
     },
   ];
@@ -83,7 +80,7 @@ export class PlaybackSpeedControls extends Component<
   };
 
   render() {
-    const { playbackSpeed } = this.props;
+    const { playbackSpeed, intl } = this.props;
     const { popupHeight } = this.state;
     const value = this.speedOptions()[0].options.find(
       option => option.value === playbackSpeed,
@@ -129,12 +126,18 @@ export class PlaybackSpeedControls extends Component<
           closeMenuOnScroll={true}
           onChange={this.onPlaybackSpeedChange}
           target={({ ref, isOpen }) => (
-            <MediaButton
-              testId="custom-media-player-playback-speed-toggle-button"
-              buttonRef={ref}
-              iconBefore={<VidForwardIcon label="speed" />}
-              isSelected={isOpen}
-            />
+            <Tooltip
+              content={intl.formatMessage(messages.playbackSpeed)}
+              position="top"
+            >
+              <MediaButton
+                testId="custom-media-player-playback-speed-toggle-button"
+                buttonRef={ref}
+                isSelected={isOpen}
+              >
+                {playbackSpeed}x
+              </MediaButton>
+            </Tooltip>
           )}
           styles={this.popupCustomStyles}
           popperProps={popperProps}

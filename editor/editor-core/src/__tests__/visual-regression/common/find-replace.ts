@@ -124,21 +124,41 @@ describe('Find/replace:', () => {
       await snapshot(page, undefined, editorSelector);
     });
 
-    it('should change text highlights when Match Case is toggled', async () => {
+    it('should not match case by default', async () => {
       await initEditor(matchCaseAdf, { width: 600, height: 600 }, options);
       await page.waitForSelector(findReplaceSelectors.matchCaseButton);
       await page.type(findReplaceSelectors.findInput, 'HELLO');
       await page.waitForSelector(findReplaceSelectors.decorations);
       await snapshot(page, undefined, editorSelector);
+    });
+
+    it('should update text decorations when enabling match case', async () => {
+      await initEditor(matchCaseAdf, { width: 600, height: 600 }, options);
+      await page.waitForSelector(findReplaceSelectors.matchCaseButton);
+      await page.type(findReplaceSelectors.findInput, 'HELLO');
+      await page.waitForSelector(findReplaceSelectors.decorations);
 
       // When clicking on find-replace pop-up, will also set cursor in editor(unintentionally),
       // it is not reliable, and would cause failures.
       // So we force set cursor position in this test.
       // Set cursor to the beginning of the document.
       await selectAtPosWithProseMirror(page, 0, 0);
-
       await toggleMatchCase(page);
       await snapshot(page, undefined, editorSelector);
+    });
+
+    it('should update text decorations when disabling match case', async () => {
+      await initEditor(matchCaseAdf, { width: 600, height: 600 }, options);
+      await page.waitForSelector(findReplaceSelectors.matchCaseButton);
+      await page.type(findReplaceSelectors.findInput, 'HELLO');
+      await page.waitForSelector(findReplaceSelectors.decorations);
+
+      // When clicking on find-replace pop-up, will also set cursor in editor(unintentionally),
+      // it is not reliable, and would cause failures.
+      // So we force set cursor position in this test.
+      // Set cursor to the beginning of the document.
+      await selectAtPosWithProseMirror(page, 0, 0);
+      await toggleMatchCase(page);
 
       // Set cursor to the end of the first paragraph.
       await selectAtPosWithProseMirror(page, 18, 18);

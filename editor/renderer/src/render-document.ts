@@ -1,16 +1,11 @@
 import { Serializer } from './serializer';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import {
-  getValidDocument,
-  getValidNode,
-  ADNode,
-  ADFStage,
-} from '@atlaskit/editor-common/validator';
+import { getValidDocument, ADFStage } from '@atlaskit/editor-common/validator';
 import {
   validateADFEntity,
   findAndTrackUnsupportedContentNodes,
 } from '@atlaskit/editor-common';
-import { Node as PMNode, Schema, Fragment } from 'prosemirror-model';
+import { Node as PMNode, Schema } from 'prosemirror-model';
 import { AnalyticsEventPayload } from './analytics/events';
 
 export interface RenderOutput<T> {
@@ -102,18 +97,4 @@ export const renderDocument = <T>(
   }
 
   return { result, stat, pmDoc: node };
-};
-
-export const renderNodes = <T>(
-  nodes: ADNode[],
-  serializer: Serializer<T>,
-  schema: Schema = defaultSchema,
-  target?: any,
-  adfStage: ADFStage = 'final',
-): T | null => {
-  const validNodes = nodes.map(n => getValidNode(n, schema, adfStage));
-
-  const pmFragment = Fragment.fromJSON(schema, validNodes);
-
-  return serializer.serializeFragment(pmFragment, {}, target, 'node-0');
 };

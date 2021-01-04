@@ -13,7 +13,7 @@ import { CardStatus } from '../../';
 import {
   FileDetails,
   RequestError,
-  RequestErrorReason,
+  PollingError,
 } from '@atlaskit/media-client';
 import { PlayButton } from '../../root/ui/playButton/playButton';
 import { Blanket } from '../../root/ui/blanket/styled';
@@ -33,10 +33,13 @@ import { getElementDimension } from '../../utils/getElementDimension';
 import Tooltip from '@atlaskit/tooltip';
 import SpinnerIcon from '@atlaskit/spinner';
 import { IconWrapper } from '../../root/ui/iconWrapper/styled';
-import { CreatingPreview } from '../../root/ui/creatingPreviewText/creatingPreviewText';
-import { PreviewUnavailable } from '../../root/ui/previewUnavailable/previewUnavailable';
+import {
+  PreviewUnavailable,
+  PreviewCurrentlyUnavailable,
+  CreatingPreview,
+  RateLimited,
+} from '../../root/ui/iconMessage';
 import { LoadingRateLimited } from '../../root/ui/loadingRateLimited/loadingRateLimited';
-import { MetadataRateLimited } from '../../root/ui/metadataRateLimited/metadataRateLimited';
 
 const containerWidth = 150;
 (getElementDimension as jest.Mock).mockReturnValue(containerWidth);
@@ -309,6 +312,33 @@ describe('CardView New Experience', () => {
       expect(failedTitleBoxB.props().onRetry).toBe(onRetry);
     });
 
+    it.each([
+      new PollingError('maxAttemptsExceeded', 1),
+      new PollingError('maxFailuresExceeded', 1),
+    ])(
+      `should not render FailedTitleBox when there is the polling error "%s"`,
+      (error: PollingError) => {
+        const onRetry = () => {};
+        const metadata: FileDetails = {
+          id: 'some-id',
+          name: 'some-file-name',
+          createdAt: 123456,
+        };
+
+        // With broken dataURI
+        const componentB = shallowCardViewBase({
+          metadata,
+          status: 'processing',
+          onRetry: onRetry,
+          dataURI: 'some-data-uri',
+          error,
+        });
+
+        const failedTitleBoxB = componentB.find(FailedTitleBox);
+        expect(failedTitleBoxB).toHaveLength(0);
+      },
+    );
+
     it(`should render ProgressBar when status is uploading`, () => {
       const progress = 0.6;
       const component = shallowCardViewBase({ status: 'uploading', progress });
@@ -324,28 +354,47 @@ describe('CardView New Experience', () => {
       expect(creatingPreview).toHaveLength(1);
     });
 
-    it(`should render PreviewRateLimitedWrapper (UI that tells the user card can be previewed in the viewer) when a card is rate limited (429 error) with metadata`, () => {
+    it(`should not render CreatingPreview when file size is zero`, () => {
+      const component = shallowCardViewBase({
+        status: 'complete',
+        metadata: {
+          id: 'some-id',
+          createdAt: 1608505590086,
+          mediaType: 'unknown',
+          mimeType: 'inode/x-empty',
+          name: 'zero-length-file',
+          processingStatus: 'succeeded',
+          size: 0,
+        },
+      });
+      const creatingPreview = component.find(CreatingPreview);
+      expect(creatingPreview).toHaveLength(0);
+    });
+
+    it(`should render Preview RateLimited Error message when a card is rate limited with metadata`, () => {
       const metadata: FileDetails = {
         id: 'some-id',
         name: 'some-name',
         mediaType: 'image',
       };
 
-      const error = new RequestError(RequestErrorReason.serverError, {
+      const error = new RequestError('serverError', {
         statusCode: 429,
       });
 
       const component = shallowCardViewBase({
         error,
+        // CardView replies on the status more than the error passed. TODO: fix this?
+        status: 'error',
         metadata: metadata,
         disableOverlay: false,
       });
-      const rateLimitedUI = component.find(MetadataRateLimited);
+      const rateLimitedUI = component.find(RateLimited);
       expect(rateLimitedUI).toHaveLength(1);
     });
 
     it(`should render LoadingRateLimited (UI for borked state) when a card is rate limited (429 error) with no metadata`, () => {
-      const error = new RequestError(RequestErrorReason.serverError, {
+      const error = new RequestError('serverError', {
         statusCode: 429,
       });
 
@@ -373,6 +422,30 @@ describe('CardView New Experience', () => {
       expect(previewUnavailable).toHaveLength(1);
     });
 
+    it.each([
+      new PollingError('maxAttemptsExceeded', 1),
+      new PollingError('maxFailuresExceeded', 1),
+    ])(
+      `should render PreviewCurrentlyUnavailable when there is the polling error "%s"`,
+      (error: PollingError) => {
+        const metadata: FileDetails = {
+          id: 'some-id',
+          name: 'some-name',
+          mediaType: 'image',
+        };
+
+        const component = shallowCardViewBase({
+          status: 'processing',
+          metadata: metadata,
+          error,
+        });
+        const previewCurrentlyUnavailable = component.find(
+          PreviewCurrentlyUnavailable,
+        );
+        expect(previewCurrentlyUnavailable).toHaveLength(1);
+      },
+    );
+
     it(`should render ImageRenderer when dataURI is defined`, () => {
       const metadata: FileDetails = {
         id: 'some-id',
@@ -395,6 +468,7 @@ describe('CardView New Experience', () => {
         expect.objectContaining({
           dataURI: cardProps.dataURI,
           mediaType: metadata.mediaType,
+          mediaItemType: cardProps.mediaItemType,
           previewOrientation: cardProps.previewOrientation,
           alt: cardProps.alt,
           resizeMode: cardProps.resizeMode,

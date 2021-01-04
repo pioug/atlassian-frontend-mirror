@@ -1,7 +1,6 @@
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
 import { ReactWrapper } from 'enzyme';
-import createStub from 'raf-stub';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers';
 import Textfield from '@atlaskit/textfield';
 import FindReplace, { FindReplaceProps } from '../../../ui/FindReplace';
@@ -11,18 +10,15 @@ import Replace from '../../../ui/Replace';
 
 describe('FindReplace', () => {
   let findReplace: ReactWrapper<FindReplaceProps & InjectedIntlProps>;
-  const rafStub = createStub();
   const onFindSpy = jest.fn();
   const onFindNextSpy = jest.fn();
   const onFindPrevSpy = jest.fn();
   const onFindBlurSpy = jest.fn();
-  const onFocusElementRefSetSpy = jest.fn();
   const onCancelSpy = jest.fn();
   const onReplaceSpy = jest.fn();
   const onReplaceAllSpy = jest.fn();
   const onToggleMatchCaseSpy = jest.fn();
   const dispatchAnalyticsEventSpy = jest.fn();
-  let rafSpy: jest.SpyInstance;
 
   const mountComponent = (props: Partial<FindReplaceProps> = {}) =>
     mountWithIntl<FindReplaceProps & InjectedIntlProps, any>(
@@ -38,7 +34,6 @@ describe('FindReplace', () => {
         onFindNext={onFindNextSpy}
         onFindPrev={onFindPrevSpy}
         onFindBlur={onFindBlurSpy}
-        onFocusElementRefSet={onFocusElementRefSetSpy}
         onCancel={onCancelSpy}
         onReplace={onReplaceSpy}
         onReplaceAll={onReplaceAllSpy}
@@ -47,14 +42,24 @@ describe('FindReplace', () => {
       />,
     );
 
+  const getInput = (component: typeof Find | typeof Replace) =>
+    findReplace.find(component).find(Textfield).find('input');
+
+  const getInputNode = (component: typeof Find | typeof Replace) =>
+    findReplace
+      .find(component)
+      .find(Textfield)
+      .find('input')
+      .getDOMNode() as HTMLInputElement;
+
   const compose = (wrapper: ReactWrapper, steps: string[]) => {
-    const currentText = wrapper.prop('defaultValue');
+    const currentText = (wrapper.find('input').getDOMNode() as HTMLInputElement)
+      .value;
     wrapper.simulate('compositionstart');
 
     steps.forEach(step => {
       wrapper.simulate('compositionupdate', { data: currentText + step });
       wrapper.simulate('change', { target: { value: currentText + step } });
-      rafStub.flush();
     });
 
     return () => {
@@ -64,7 +69,6 @@ describe('FindReplace', () => {
         data: result,
         target: { value: result },
       });
-      rafStub.flush();
     };
   };
 
@@ -72,49 +76,28 @@ describe('FindReplace', () => {
     component: typeof Find | typeof Replace,
     data: any,
   ) => {
-    findReplace
-      .find(component)
-      .find(Textfield)
-      .find('input')
-      .simulate('change', data);
-    rafStub.flush();
+    getInput(component).simulate('change', data);
   };
 
   const simulateKeydownEvent = (
     component: typeof Find | typeof Replace,
     data: any,
   ) => {
-    findReplace
-      .find(component)
-      .find(Textfield)
-      .find('input')
-      .simulate('keydown', data);
+    getInput(component).simulate('keydown', data);
   };
-
-  beforeAll(() => {
-    rafSpy = jest
-      .spyOn(window, 'requestAnimationFrame')
-      .mockImplementation(rafStub.add);
-  });
 
   afterEach(() => {
     onFindSpy.mockClear();
     onFindNextSpy.mockClear();
     onFindPrevSpy.mockClear();
     onFindBlurSpy.mockClear();
-    onFocusElementRefSetSpy.mockClear();
     onCancelSpy.mockClear();
     onReplaceSpy.mockClear();
     onReplaceAllSpy.mockClear();
     dispatchAnalyticsEventSpy.mockClear();
-    rafStub.flush();
     if (findReplace) {
       findReplace.unmount();
     }
-  });
-
-  afterAll(() => {
-    rafSpy.mockRestore();
   });
 
   describe('Find', () => {
@@ -122,9 +105,7 @@ describe('FindReplace', () => {
       findReplace = mountComponent({
         findText: 'quokka',
       });
-      expect(findReplace.find(Find).find(Textfield).prop('defaultValue')).toBe(
-        'quokka',
-      );
+      expect(getInputNode(Find).value).toBe('quokka');
     });
 
     it('should display num results', () => {
@@ -156,21 +137,17 @@ describe('FindReplace', () => {
         findText: '',
         count: { index: 0, total: 0 },
       });
-      const replaceTextfield: React.RefObject<HTMLElement> = findReplace.state(
-        'replaceTextfieldRef',
-      );
-      const replaceTextfieldEl = replaceTextfield.current as HTMLElement;
-      jest.spyOn(replaceTextfieldEl, 'focus');
+      const input = getInputNode(Replace);
+      jest.spyOn(input, 'focus');
 
       simulateKeydownEvent(Find, { key: 'ArrowDown' });
-      expect(replaceTextfieldEl.focus).toHaveBeenCalled();
+      expect(input.focus).toHaveBeenCalled();
     });
 
     describe('when typing inside find textfield', () => {
       it('should call props.onFind', () => {
         findReplace = mountComponent();
         simulateChangeEvent(Find, { target: { value: 'quokka' } });
-        rafStub.flush();
         expect(onFindSpy).toHaveBeenCalledWith('quokka');
       });
     });
@@ -337,14 +314,11 @@ describe('FindReplace', () => {
 
       describe('arrow down', () => {
         it('does not focus replace textfield while composing', () => {
-          const replaceTextfield: React.RefObject<HTMLElement> = findReplace.state(
-            'replaceTextfieldRef',
-          );
-          const replaceTextfieldEl = replaceTextfield.current as HTMLElement;
-          jest.spyOn(replaceTextfieldEl, 'focus');
+          const input = getInputNode(Find);
+          jest.spyOn(input, 'focus');
 
           simulateKeydownEvent(Find, { key: 'ArrowDown' });
-          expect(replaceTextfieldEl.focus).not.toHaveBeenCalled();
+          expect(input.focus).not.toHaveBeenCalled();
         });
       });
     });
@@ -360,9 +334,7 @@ describe('FindReplace', () => {
     });
 
     it('should display replace text', () => {
-      expect(
-        findReplace.find(Replace).find(Textfield).prop('defaultValue'),
-      ).toBe('bilby');
+      expect(getInputNode(Replace).value).toBe('bilby');
     });
 
     it('should fire analytics event when typing in replace field', () => {
@@ -375,14 +347,11 @@ describe('FindReplace', () => {
     });
 
     it('should set focus to find textfield when arrow up', () => {
-      const findTextfield: React.RefObject<HTMLElement> = findReplace.state(
-        'findTextfieldRef',
-      );
-      const findTextfieldEl = findTextfield.current as HTMLElement;
-      jest.spyOn(findTextfieldEl, 'focus');
+      const input = getInputNode(Find);
+      jest.spyOn(input, 'focus');
 
       simulateKeydownEvent(Replace, { key: 'ArrowUp' });
-      expect(findTextfieldEl.focus).toHaveBeenCalled();
+      expect(input.focus).toHaveBeenCalled();
     });
 
     describe('replace', () => {
@@ -565,26 +534,11 @@ describe('FindReplace', () => {
 
       describe('arrow up', () => {
         it('does not focus find textfield while composing', () => {
-          const findTextfield: React.RefObject<HTMLElement> = findReplace.state(
-            'findTextfieldRef',
-          );
-          const findTextfieldEl = findTextfield.current as HTMLElement;
-          jest.spyOn(findTextfieldEl, 'focus');
+          const input = getInputNode(Find);
+          jest.spyOn(input, 'focus');
 
           simulateKeydownEvent(Replace, { key: 'ArrowUp' });
-          expect(findTextfieldEl.focus).not.toHaveBeenCalled();
-        });
-
-        it('focuses find textfield after composition end', () => {
-          endComposition();
-          const findTextfield: React.RefObject<HTMLElement> = findReplace.state(
-            'findTextfieldRef',
-          );
-          const findTextfieldEl = findTextfield.current as HTMLElement;
-          jest.spyOn(findTextfieldEl, 'focus');
-
-          simulateKeydownEvent(Replace, { key: 'ArrowUp' });
-          expect(findTextfieldEl.focus).toHaveBeenCalled();
+          expect(input.focus).not.toHaveBeenCalled();
         });
       });
     });

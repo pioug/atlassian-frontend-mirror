@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 6.1.4
+
+### Patch Changes
+
+- [`0d5592e293`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5592e293) - ADFS-333 Email renderer can now render embedCard as URL link
+
 ## 6.1.3
 
 ### Patch Changes

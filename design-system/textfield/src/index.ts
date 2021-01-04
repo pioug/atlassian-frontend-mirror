@@ -1,4 +1,3 @@
-export { default } from './components/Textfield';
-export { Theme, themeTokens } from './theme';
-export type { ThemeAppearance, ThemeProps, ThemeTokens } from './theme';
-export type { PublicProps as TextFieldProps } from './types';
+export { default } from './text-field';
+export { TextFieldColors } from './styles';
+export type { PublicProps as TextFieldProps, Appearance } from './types';

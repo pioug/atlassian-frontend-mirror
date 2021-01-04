@@ -3,7 +3,7 @@ jest.mock('@atlaskit/media-common', () => ({
   downloadUrl: (...args: any) => mockDownloadUrl(...args),
 }));
 
-import { mockUrl } from '../../../__mocks__';
+import { mockUrl } from '../../../__mocks__/get-resolved-props';
 import { DownloadAction } from '../../../../BlockCard/actions/DownloadAction';
 import { renderWithIntl } from '../../../__utils__/render';
 

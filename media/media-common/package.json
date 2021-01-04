@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.4.4",
+  "version": "2.5.0",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,6 +17,7 @@
   "af:exports": {
     "./downloadUrl": "./src/downloadUrl.ts",
     "./mediaFeatureFlags": "./src/mediaFeatureFlags.ts",
+    "./analytics": "./src/analytics.ts",
     ".": "./src/index.ts"
   },
   "atlassian": {
@@ -29,6 +30,7 @@
   },
   "scripts": {},
   "dependencies": {
+    "@atlaskit/analytics-gas-types": "^5.0.5",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

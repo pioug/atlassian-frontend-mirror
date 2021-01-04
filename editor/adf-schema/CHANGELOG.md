@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 13.6.0
+
+### Minor Changes
+
+- [`f523768cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f523768cdc) - Fix validator and schema for Image Captions
+
+### Patch Changes
+
+- [`b7d42ec728`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7d42ec728) - [ux] ED-11631 Sort code block language list as case insensitive
+- [`1bd969d9c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bd969d9c1) - Fix re-renders in a table cell with the NodeView update
+- [`9e76e3a5c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e76e3a5c5) - [ux] Adding support to detect and render anchor links.
+
 ## 13.5.0
 
 ### Minor Changes

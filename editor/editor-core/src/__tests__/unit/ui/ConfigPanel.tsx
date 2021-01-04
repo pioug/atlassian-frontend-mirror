@@ -2,18 +2,10 @@ import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-ana
 
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { mount, ReactWrapper } from 'enzyme';
-import CreatableSelect from 'react-select/creatable';
-import AsyncCreatableSelect from 'react-select/async-creatable';
-import retry from 'async-retry';
-import merge from 'lodash/merge';
+import { mount } from 'enzyme';
 
 import {
   ExtensionManifest,
-  ExtensionModule,
-  ExtensionModuleNodes,
-  combineExtensionProviders,
-  DefaultExtensionProvider,
   EnumField,
   BooleanField,
   StringField,
@@ -25,10 +17,25 @@ import {
 
 import { flushPromises } from '../../__helpers/utils';
 
-import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
 import ConfigPanel from '../../../ui/ConfigPanel';
+
+import {
+  MountResult,
+  Props,
+  Wrapper,
+  eventuallyFind,
+  typeInField,
+  toggleCheckbox,
+  createOption,
+  selectOption,
+  createOptionResolver,
+  mockJiraSmartUserProvider,
+  createProvider,
+  mountWithProviders,
+  silenceActErrors,
+} from './_ConfigPanel_helpers';
 
 beforeEach(() => {
   /* The first test of this module that loads ConfigPanel is sometimes timing out with our repo's
@@ -44,309 +51,12 @@ beforeEach(() => {
   jest.setTimeout(60000);
 });
 
-const createManifest = (
-  fieldsDefinitionsGetter:
-    | (() => Promise<FieldDefinition[]>)
-    | FieldDefinition[],
-): ExtensionManifest => {
-  const key = 'test-item';
-
-  const quickInsert: ExtensionModule[] = [
-    {
-      key,
-      title: 'All fields',
-      icon: () => import('@atlaskit/icon/glyph/editor/code'),
-      action: {
-        type: 'node',
-        key,
-        parameters: {},
-      },
-    },
-  ];
-
-  const nodes: ExtensionModuleNodes = {
-    [key]: {
-      type: 'extension',
-      render: () => Promise.resolve(() => null),
-      getFieldsDefinition: () =>
-        typeof fieldsDefinitionsGetter === 'function'
-          ? fieldsDefinitionsGetter()
-          : Promise.resolve(fieldsDefinitionsGetter),
-    },
-  };
-
-  return {
-    title: 'Editor test extensions',
-    type: 'twp.editor.test',
-    key: 'just-for-tests',
-    description: 'Extensions generated for testing purposes.',
-    documentationUrl: 'http://atlassian.com',
-    icons: {
-      '48': () => import('@atlaskit/icon/glyph/editor/code'),
-    },
-    modules: {
-      quickInsert,
-      nodes,
-      fields: {
-        custom: {
-          userpicker: {
-            resolver: userPicker,
-          },
-        },
-        fieldset: {
-          'json-group': {
-            serializer: value => JSON.stringify(value),
-            deserializer: value => JSON.parse(value),
-          },
-          'broken-group': {
-            serializer: params => {
-              throw new Error('Something is broken');
-            },
-            deserializer: result => {
-              throw new Error('Something is broken');
-            },
-          },
-        },
-        user: {
-          'user-jdog-provider': {
-            provider: async () => {
-              // WARNING: this is required by the SmartUserPicker for testing environments
-              setSmartUserPickerEnv('local');
-
-              return {
-                siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',
-                principalId: 'Context',
-                fieldId: 'storybook',
-                productKey: 'jira',
-              };
-            },
-          },
-        },
-      },
-    },
-  };
-};
-
-const createProvider = (
-  fieldsDefinitionsGetter:
-    | (() => Promise<FieldDefinition[]>)
-    | FieldDefinition[],
-
-  mergeManifest?: Partial<ExtensionManifest>,
-) => {
-  return combineExtensionProviders([
-    new DefaultExtensionProvider([
-      merge(createManifest(fieldsDefinitionsGetter), mergeManifest),
-    ]),
-  ]);
-};
-
-type Wrapper<T = any> = ReactWrapper<T, any, any>;
-
-const eventuallyFind = async (
-  wrapper: Wrapper,
-  selector: string,
-): Promise<Wrapper> => {
-  return await retry(
-    async () => {
-      wrapper.update();
-
-      const element = wrapper.find(selector);
-      if (element.length === 0) {
-        throw Error(`Could not find ${selector}`);
-      }
-      return element;
-    },
-    {
-      retries: 10,
-      minTimeout: 25,
-    },
-  );
-};
-
-type Props = React.ComponentProps<typeof ConfigPanel>;
-type MountResult<T> = {
-  wrapper: Wrapper<T>;
-  doSubmitForm: () => Promise<void>;
-};
-
-async function mountWithProviders(props: Props): Promise<MountResult<Props>> {
-  const wrapper = mount(
-    <IntlProvider locale="en">
-      <ConfigPanel {...props} />
-    </IntlProvider>,
-  );
-
-  const form = await eventuallyFind(wrapper, 'form');
-  wrapper.update();
-
-  return {
-    wrapper,
-    doSubmitForm: async () => {
-      form.simulate('submit');
-      await flushPromises();
-    },
-  };
-}
-
-const typeInField = (field: any, text: string) => {
-  (field.getDOMNode() as HTMLInputElement).value = text;
-  field.simulate('change');
-  field.simulate('blur');
-};
-
-const toggleCheckbox = (inputWrapper: any) => {
-  const input = inputWrapper.getDOMNode();
-
-  input.checked = !input.checked;
-  inputWrapper.simulate('change');
-  inputWrapper.simulate('blur');
-};
-
-async function createOption(select: any, value: string) {
-  const instance = select.instance();
-  instance.handleInputChange({ currentTarget: { value } });
-
-  // internal setState may not be synchronous, wait
-  await flushPromises();
-  return await selectOption(select, value);
-}
-
-async function selectOption(select: any, value: string) {
-  const instance = select.instance();
-  instance.openMenu('last'); // auto-focuses any createOption
-  const { options, isLoading } = instance.props;
-  if (isLoading) {
-    throw new TypeError('Cannot select an option if loading');
-  }
-
-  let { focusedOption } = instance.state;
-  if (!focusedOption || focusedOption.value !== value) {
-    focusedOption = null;
-    for (const option of options) {
-      if (option.value === value) {
-        focusedOption = option;
-        break;
-      }
-    }
-
-    if (!focusedOption) {
-      return false;
-    }
-  }
-
-  instance.selectOption(focusedOption);
-  return true;
-}
-
-describe('createOption/selectOption', () => {
-  it('work as intended', async () => {
-    const OPTIONS = [{ value: 'bar', label: 'Bar' }];
-
-    const spy = jest.fn();
-    const wrapper = await mount(
-      <CreatableSelect onChange={spy} options={OPTIONS} />,
-    );
-
-    const select = wrapper.find('Select');
-    expect(await createOption(select, 'foo')).toBe(true);
-    expect(await selectOption(select, 'bar')).toBe(true);
-    expect(await selectOption(select, 'nope')).toBe(false);
-    expect(await selectOption(select, 'foo')).toBe(false);
-
-    expect(spy).toBeCalledTimes(2);
-    expect(spy).nthCalledWith(
-      1,
-      expect.objectContaining({ label: 'Create "foo"', value: 'foo' }),
-      expect.anything(),
-    );
-
-    expect(spy).nthCalledWith(
-      2,
-      expect.objectContaining({ label: 'Bar', value: 'bar' }),
-      expect.anything(),
-    );
-  });
-
-  it('works with no options', async () => {
-    const spy = jest.fn();
-    const wrapper = await mount(<CreatableSelect onChange={spy} />);
-
-    const select = wrapper.find('Select');
-    expect(await createOption(select, 'foo')).toBe(true);
-    expect(await selectOption(select, 'bar')).toBe(false);
-    expect(await selectOption(select, 'nope')).toBe(false);
-    expect(await selectOption(select, 'foo')).toBe(false);
-
-    expect(spy).toBeCalledTimes(1);
-    expect(spy).nthCalledWith(
-      1,
-      expect.objectContaining({ label: 'Create "foo"', value: 'foo' }),
-      expect.anything(),
-    );
-  });
-
-  it('works with AsyncCreatableSelect', async () => {
-    const spy = jest.fn();
-    const wrapper = await mount(
-      <AsyncCreatableSelect
-        onChange={spy}
-        isValidNewOption={() => true}
-        loadOptions={async () => []}
-      />,
-    );
-
-    const select = wrapper.find('Select');
-    expect(await createOption(select, 'foo')).toBe(true);
-    expect(await selectOption(select, 'bar')).toBe(false);
-    expect(await selectOption(select, 'nope')).toBe(false);
-    expect(await selectOption(select, 'foo')).toBe(false);
-
-    expect(spy).toBeCalledTimes(1);
-    expect(spy).nthCalledWith(
-      1,
-      expect.objectContaining({ label: 'Create "foo"', value: 'foo' }),
-      expect.anything(),
-    );
-  });
-});
-
-const createFakeCustomFieldResolver = (
-  items: { label: string; value: string }[],
-) => (searchTerm?: string) => {
-  if (searchTerm) {
-    return Promise.resolve(
-      items.filter(
-        item =>
-          item.label.search(new RegExp(searchTerm, 'i')) !== -1 ||
-          item.value.search(new RegExp(searchTerm, 'i')) !== -1,
-      ),
-    );
-  }
-
-  return Promise.resolve(items);
-};
-
-const userPicker = createFakeCustomFieldResolver([
+const mockUserPickerResolver = createOptionResolver([
   { label: 'Leandro', value: 'u123i1431' },
   { label: 'Rifat', value: 'u456y1987' },
   { label: 'Rodrigo', value: 'j78635820' },
   { label: 'Eduard', value: 'h76543890' },
 ]);
-
-// there are many warnings due to hooks usage and async code that will be solved with the next react update.
-// this function will keep then silent so we can still read the tests.
-const silenceActErrors = () => {
-  let consoleError: jest.SpyInstance;
-
-  beforeAll(() => {
-    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
-  afterAll(() => {
-    consoleError.mockRestore();
-  });
-};
 
 const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
   describe('ConfigPanel', () => {
@@ -363,6 +73,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         nodeKey: 'test-item',
       };
 
+      // TODO: there are many warnings due to hooks usage and async code,
+      //   these should be resolved by the next react update
       silenceActErrors();
 
       afterEach(() => {
@@ -371,13 +83,13 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
       async function expectFieldMessageRequiredOnSubmit<T>({
         wrapper,
-        doSubmitForm,
-      }: MountResult<T>) {
+        trySubmit,
+      }: Pick<MountResult<T>, 'wrapper' | 'trySubmit'>) {
         expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
           undefined,
         );
 
-        await doSubmitForm();
+        await trySubmit();
 
         expect(onChange).toBeCalledTimes(0);
         expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
@@ -444,10 +156,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should show a spinner, the title and the description while loading fields', async () => {
-            const extensionProvider = createProvider(
-              () => new Promise(() => {}),
-            );
-
+            const extensionProvider = createProvider(async () => []);
             const mountResult = await mountWithProviders({
               ...defaultProps,
               extensionProvider,
@@ -462,9 +171,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
         describe('Error', () => {
           it('should show an error message if it fails to load the fields', async () => {
-            const extensionProvider = createProvider(() =>
-              Promise.reject(new Error('Error loading fields')),
-            );
+            const extensionProvider = createProvider(async () => {
+              throw new Error('Error loading fields');
+            });
 
             const mountResult = await mountWithProviders({
               ...defaultProps,
@@ -489,7 +198,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             manifestAtributes: Partial<ExtensionManifest> = {},
           ) => {
             const extensionProvider = createProvider(
-              () => new Promise(() => {}),
+              async () => [],
               manifestAtributes,
             );
 
@@ -582,25 +291,25 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize to an object', async () => {
-            const { wrapper, doSubmitForm } = await mountString({
+            const { wrapper, trySubmit } = await mountString({
               name: 'foo',
             });
             const field = wrapper.find('Textfield');
             typeInField(field.find('input'), 'bar');
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ foo: 'bar' });
           });
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = await mountString({
+              const { wrapper, trySubmit } = await mountString({
                 isRequired: true,
               });
 
               await expectFieldMessageRequiredOnSubmit({
                 wrapper,
-                doSubmitForm,
+                trySubmit,
               });
             });
           });
@@ -617,27 +326,27 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             it('should serialize to an object', async () => {
-              const { wrapper, doSubmitForm } = await mountString({
+              const { wrapper, trySubmit } = await mountString({
                 name: 'foo',
                 style: 'multiline',
               });
               const field = wrapper.find('textarea');
               typeInField(field, 'bar');
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({ foo: 'bar' });
             });
 
             describe('prop: isRequired', () => {
               it('should show error and skip submission if not filled', async () => {
-                const { wrapper, doSubmitForm } = await mountString({
+                const { wrapper, trySubmit } = await mountString({
                   style: 'multiline',
                   isRequired: true,
                 });
 
                 await expectFieldMessageRequiredOnSubmit({
                   wrapper,
-                  doSubmitForm,
+                  trySubmit,
                 });
               });
             });
@@ -668,19 +377,19 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize to an object', async () => {
-            const { wrapper, doSubmitForm } = await mountNumber();
+            const { wrapper, trySubmit } = await mountNumber();
 
             typeInField(wrapper.find('input[autoFocus=true]'), '123');
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ n: 123 });
           });
 
           it('should show an InvalidError and skip submission for invalid values', async () => {
-            const { wrapper, doSubmitForm } = await mountNumber();
+            const { wrapper, trySubmit } = await mountNumber();
 
             typeInField(wrapper.find('input[autoFocus=true]'), 'not a number');
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toBeCalledTimes(0);
             expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
@@ -690,13 +399,13 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = await mountNumber({
+              const { wrapper, trySubmit } = await mountNumber({
                 isRequired: true,
               });
 
               await expectFieldMessageRequiredOnSubmit({
                 wrapper,
-                doSubmitForm,
+                trySubmit,
               });
             });
           });
@@ -728,8 +437,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize to an object', async () => {
-            const { doSubmitForm } = mountResult;
-            await doSubmitForm();
+            const { trySubmit } = mountResult;
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               creationDate: '02/02/2020',
@@ -738,7 +447,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = await mountWithProviders({
+              const { wrapper, trySubmit } = await mountWithProviders({
                 ...defaultProps,
                 extensionProvider: createProvider([
                   {
@@ -752,7 +461,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
               await expectFieldMessageRequiredOnSubmit({
                 wrapper,
-                doSubmitForm,
+                trySubmit,
               });
             });
           });
@@ -798,14 +507,14 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it(`should serialize to a complex object with type 'date-range'`, async () => {
-            const { doSubmitForm } = await mountDateRangeWithParameters({
+            const { trySubmit } = await mountDateRangeWithParameters({
               type: 'date-range',
               value: 'custom',
               from: '2020-10-05',
               to: '2020-10-22',
             });
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -818,10 +527,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it(`should omit the field 'to' when an option different from 'custom' is selected`, async () => {
-            const {
-              wrapper,
-              doSubmitForm,
-            } = await mountDateRangeWithParameters({
+            const { wrapper, trySubmit } = await mountDateRangeWithParameters({
               type: 'date-range',
               value: 'custom',
               from: '2020-10-05',
@@ -832,7 +538,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             toggleCheckbox(field.find('input').at(1));
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -844,7 +550,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             toggleCheckbox(field.find('input').at(2));
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -856,7 +562,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             toggleCheckbox(field.find('input').at(3));
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -905,28 +611,28 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize to an object', async () => {
-            const { wrapper, doSubmitForm } = await mountBoolean({
+            const { wrapper, trySubmit } = await mountBoolean({
               name: 'foo',
             });
             const field = wrapper.find('input[type="checkbox"]');
 
             toggleCheckbox(field);
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ foo: true });
           });
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = await mountBoolean({
+              const { wrapper, trySubmit } = await mountBoolean({
                 isRequired: true,
                 defaultValue: undefined,
               });
 
               await expectFieldMessageRequiredOnSubmit({
                 wrapper,
-                doSubmitForm,
+                trySubmit,
               });
             });
           });
@@ -978,32 +684,32 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize to an object', async () => {
-            const { wrapper, doSubmitForm } = mountResult;
+            const { wrapper, trySubmit } = mountResult;
 
             const field = wrapper.find('Select');
 
             expect(await selectOption(field, 'a')).toBe(true);
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ list: 'a' });
           });
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = await mountEnumWithProps({
+              const { wrapper, trySubmit } = await mountEnumWithProps({
                 isRequired: true,
               });
 
               await expectFieldMessageRequiredOnSubmit({
                 wrapper,
-                doSubmitForm,
+                trySubmit,
               });
             });
           });
 
           describe('prop: style="radio"', () => {
             it('should serialize to {name: a}', async () => {
-              const { wrapper, doSubmitForm } = await mountEnumWithProps({
+              const { wrapper, trySubmit } = await mountEnumWithProps({
                 style: 'radio',
               });
 
@@ -1011,21 +717,21 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
               toggleCheckbox(field.find('input').at(0));
 
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({ list: 'a' });
             });
 
             describe('prop: isRequired', () => {
               it('should show error and skip submission if not filled', async () => {
-                const { wrapper, doSubmitForm } = await mountEnumWithProps({
+                const { wrapper, trySubmit } = await mountEnumWithProps({
                   style: 'radio',
                   isRequired: true,
                 });
 
                 await expectFieldMessageRequiredOnSubmit({
                   wrapper,
-                  doSubmitForm,
+                  trySubmit,
                 });
               });
             });
@@ -1033,35 +739,35 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           describe('prop: isMultiple', () => {
             it('should serialize to {name: [c, b]}', async () => {
-              const { wrapper, doSubmitForm } = await mountEnumWithProps({
+              const { wrapper, trySubmit } = await mountEnumWithProps({
                 isMultiple: true,
               });
               const field = wrapper.find('Select');
 
               expect(await selectOption(field, 'c')).toBe(true);
               expect(await selectOption(field, 'b')).toBe(true);
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({ list: ['c', 'b'] });
             });
 
             describe('prop: isRequired', () => {
               it('should show error and skip submission if not filled', async () => {
-                const { wrapper, doSubmitForm } = await mountEnumWithProps({
+                const { wrapper, trySubmit } = await mountEnumWithProps({
                   isMultiple: true,
                   isRequired: true,
                 });
 
                 await expectFieldMessageRequiredOnSubmit({
                   wrapper,
-                  doSubmitForm,
+                  trySubmit,
                 });
               });
             });
 
             describe('prop: style="checkbox"', () => {
               it('should serialize to {name: [a, c]}', async () => {
-                const { wrapper, doSubmitForm } = await mountEnumWithProps({
+                const { wrapper, trySubmit } = await mountEnumWithProps({
                   isMultiple: true,
                   style: 'checkbox',
                 });
@@ -1071,7 +777,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 toggleCheckbox(field.at(0).find('input'));
                 toggleCheckbox(field.at(2).find('input'));
 
-                await doSubmitForm();
+                await trySubmit();
 
                 expect(onChange).toHaveBeenCalledWith({ list: ['a', 'c'] });
               });
@@ -1092,27 +798,40 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         });
       });
 
-      describe('Custom types', () => {
+      describe('type: Custom', () => {
         async function mountCustom(
           attributes?: Record<string, any>,
           options?: Record<string, any>,
         ) {
           return await mountWithProviders({
             ...defaultProps,
-            extensionProvider: createProvider([
-              {
-                label: 'My text field',
-                type: 'custom',
-                options: {
-                  resolver: {
-                    type: 'userpicker',
+            extensionProvider: createProvider(
+              [
+                {
+                  label: 'My text field',
+                  type: 'custom',
+                  options: {
+                    resolver: {
+                      type: 'userpicker',
+                    },
+                    ...options,
                   },
-                  ...options,
+                  name: 'user',
+                  ...attributes,
                 },
-                name: 'user',
-                ...attributes,
+              ],
+              {
+                modules: {
+                  fields: {
+                    custom: {
+                      userpicker: {
+                        resolver: mockUserPickerResolver,
+                      },
+                    },
+                  },
+                },
               },
-            ]),
+            ),
           });
         }
 
@@ -1133,18 +852,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize to {user: value}', async () => {
-            const { wrapper, doSubmitForm } = await mountCustom();
+            const { wrapper, trySubmit } = await mountCustom();
             const field = wrapper.find('Select');
 
             expect(await selectOption(field, 'u123i1431')).toBe(true);
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ user: 'u123i1431' });
           });
 
           describe('prop: isCreatable', () => {
             it('when false, should stop creation of new elements', async () => {
-              const { wrapper, doSubmitForm } = await mountCustom(
+              const { wrapper, trySubmit } = await mountCustom(
                 {},
                 {
                   isCreatable: false,
@@ -1153,7 +872,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const select = wrapper.find('Select');
 
               expect(await createOption(select, 'foo')).toBe(false);
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: undefined,
@@ -1161,7 +880,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             it('when true, should allow creating new elements', async () => {
-              const { wrapper, doSubmitForm } = await mountCustom(
+              const { wrapper, trySubmit } = await mountCustom(
                 {},
                 {
                   isCreatable: true,
@@ -1170,7 +889,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const select = wrapper.find('Select');
 
               expect(await createOption(select, 'foo')).toBe(true);
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: 'foo',
@@ -1178,7 +897,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             it('should serialize to {user: value}', async () => {
-              const { wrapper, doSubmitForm } = await mountCustom(
+              const { wrapper, trySubmit } = await mountCustom(
                 {},
                 {
                   isCreatable: true,
@@ -1187,7 +906,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const select = wrapper.find('Select');
 
               expect(await createOption(select, 'foo')).toBe(true);
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: 'foo',
@@ -1197,27 +916,27 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
-              const { wrapper, doSubmitForm } = await mountCustom({
+              const { wrapper, trySubmit } = await mountCustom({
                 isRequired: true,
               });
 
               await expectFieldMessageRequiredOnSubmit({
                 wrapper,
-                doSubmitForm,
+                trySubmit,
               });
             });
           });
 
           describe('prop: isMultiple', () => {
             it('should serialize to {user: value[]}', async () => {
-              const { wrapper, doSubmitForm } = await mountCustom({
+              const { wrapper, trySubmit } = await mountCustom({
                 isMultiple: true,
               });
               const field = wrapper.find('Select');
 
               expect(await selectOption(field, 'u123i1431')).toBe(true);
               expect(await selectOption(field, 'j78635820')).toBe(true);
-              await doSubmitForm();
+              await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
                 user: ['u123i1431', 'j78635820'],
@@ -1231,19 +950,32 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         async function mountUser(attributes?: Record<string, any>) {
           return await mountWithProviders({
             ...defaultProps,
-            extensionProvider: createProvider([
+            extensionProvider: createProvider(
+              [
+                {
+                  label: 'My friends',
+                  name: 'user',
+                  type: 'user',
+                  options: {
+                    provider: {
+                      type: 'user-jdog-provider',
+                    },
+                  },
+                  ...attributes,
+                },
+              ],
               {
-                label: 'My friends',
-                name: 'user',
-                type: 'user',
-                options: {
-                  provider: {
-                    type: 'user-jdog-provider',
+                modules: {
+                  fields: {
+                    user: {
+                      'user-jdog-provider': {
+                        provider: mockJiraSmartUserProvider,
+                      },
+                    },
                   },
                 },
-                ...attributes,
               },
-            ]),
+            ),
           });
         }
 
@@ -1263,41 +995,54 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         ) {
           return mountWithProviders({
             ...defaultProps,
-            extensionProvider: createProvider([
-              {
-                label: 'My settings',
-                name: 'settings',
-                type: 'fieldset',
-                options: {
-                  isDynamic,
-                  transformer: {
-                    type: transformerType,
+            extensionProvider: createProvider(
+              [
+                {
+                  label: 'My settings',
+                  name: 'settings',
+                  type: 'fieldset',
+                  options: {
+                    isDynamic,
+                    transformer: {
+                      type: transformerType,
+                    },
                   },
+                  fields: [
+                    {
+                      name: 'Q',
+                      label: 'Search term',
+                      type: 'string',
+                    },
+                    {
+                      name: 'depth',
+                      label: 'Depth',
+                      type: 'number',
+                    },
+                    {
+                      name: 'USER',
+                      label: 'User',
+                      type: 'custom',
+                      options: {
+                        resolver: {
+                          type: 'userpicker',
+                        },
+                      },
+                    },
+                  ],
                 },
-                fields: [
-                  {
-                    name: 'Q',
-                    label: 'Search term',
-                    type: 'string',
-                  },
-                  {
-                    name: 'depth',
-                    label: 'Depth',
-                    type: 'number',
-                  },
-                  {
-                    name: 'USER',
-                    label: 'User',
-                    type: 'custom',
-                    options: {
-                      resolver: {
-                        type: 'userpicker',
+              ],
+              {
+                modules: {
+                  fields: {
+                    custom: {
+                      userpicker: {
+                        resolver: mockUserPickerResolver,
                       },
                     },
                   },
-                ],
+                },
               },
-            ]),
+            ),
             ...otherProps,
           });
         }
@@ -1315,7 +1060,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should serialize using the serializer', async () => {
-            const { wrapper, doSubmitForm } = await mountFieldSet(false);
+            const { wrapper, trySubmit } = await mountFieldSet(false);
 
             typeInField(wrapper.find('Textfield').at(0).find('input'), 'foo');
             typeInField(wrapper.find('Textfield').at(1).find('input'), '123');
@@ -1323,7 +1068,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(
               await selectOption(wrapper.find('Select'), 'u123i1431'),
             ).toBe(true);
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               settings: JSON.stringify({
@@ -1339,7 +1084,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               .spyOn(console, 'error')
               .mockImplementation(() => {});
 
-            const { wrapper, doSubmitForm } = await mountFieldSet(
+            const { wrapper, trySubmit } = await mountFieldSet(
               false,
               {},
               'broken-group',
@@ -1348,7 +1093,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             const field = wrapper.find('Textfield').at(0).find('input');
             typeInField(field, 'bar');
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(consoleError).toHaveBeenCalledWith(
               'Error serializing parameters',
@@ -1359,7 +1104,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should deserialize using the deserializer', async () => {
-            const { doSubmitForm } = await mountFieldSet(false, {
+            const { trySubmit } = await mountFieldSet(false, {
               parameters: {
                 settings: JSON.stringify({
                   Q: 'foo',
@@ -1369,7 +1114,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               },
             });
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               settings: JSON.stringify({
@@ -1398,7 +1143,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
 
           it('should not have a name collision between fields when a fieldset contain a field with the same name as another outside of the fieldset', async () => {
-            const { wrapper, doSubmitForm } = await mountWithProviders({
+            const { wrapper, trySubmit } = await mountWithProviders({
               ...defaultProps,
               extensionProvider: createProvider([
                 {
@@ -1435,7 +1180,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               'nested.foo',
             ]);
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               foo: 'hello',
@@ -1447,7 +1192,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             typeInField(textfields.at(0).find('input'), 'bye');
             typeInField(textfields.at(1).find('input'), 'editor');
 
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               foo: 'bye',
@@ -1627,81 +1372,94 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
       describe('Parameters', () => {
         it('should populate the fields with passed parameters', async () => {
-          const { doSubmitForm } = await mountWithProviders({
+          const { trySubmit } = await mountWithProviders({
             ...defaultProps,
-            extensionProvider: createProvider([
-              {
-                label: 'Text',
-                type: 'string',
-                name: 't',
-              },
-              {
-                label: 'Number',
-                type: 'number',
-                name: 'n',
-              },
-              {
-                label: 'Date',
-                type: 'date',
-                name: 'd',
-              },
-              {
-                label: 'Bool',
-                type: 'boolean',
-                name: 'b',
-              },
-              {
-                label: 'Enum Select Multiple',
-                type: 'enum',
-                name: 'esm',
-                isMultiple: true,
-                style: 'select',
-                items: [
-                  {
-                    label: 'A',
-                    value: 'a',
+            extensionProvider: createProvider(
+              [
+                {
+                  label: 'Text',
+                  type: 'string',
+                  name: 't',
+                },
+                {
+                  label: 'Number',
+                  type: 'number',
+                  name: 'n',
+                },
+                {
+                  label: 'Date',
+                  type: 'date',
+                  name: 'd',
+                },
+                {
+                  label: 'Bool',
+                  type: 'boolean',
+                  name: 'b',
+                },
+                {
+                  label: 'Enum Select Multiple',
+                  type: 'enum',
+                  name: 'esm',
+                  isMultiple: true,
+                  style: 'select',
+                  items: [
+                    {
+                      label: 'A',
+                      value: 'a',
+                    },
+                    {
+                      label: 'B',
+                      value: 'b',
+                    },
+                    {
+                      label: 'C',
+                      value: 'c',
+                    },
+                  ],
+                },
+                {
+                  label: 'Enum Select Single',
+                  type: 'enum',
+                  name: 'ess',
+                  style: 'select',
+                  items: [
+                    {
+                      label: 'A',
+                      value: 'a',
+                    },
+                    {
+                      label: 'B',
+                      value: 'b',
+                    },
+                    {
+                      label: 'C',
+                      value: 'c',
+                    },
+                  ],
+                },
+                {
+                  label: 'User',
+                  type: 'custom',
+                  options: {
+                    resolver: {
+                      type: 'userpicker',
+                    },
                   },
-                  {
-                    label: 'B',
-                    value: 'b',
-                  },
-                  {
-                    label: 'C',
-                    value: 'c',
-                  },
-                ],
-              },
+                  name: 'user',
+                },
+              ],
               {
-                label: 'Enum Select Single',
-                type: 'enum',
-                name: 'ess',
-                style: 'select',
-                items: [
-                  {
-                    label: 'A',
-                    value: 'a',
-                  },
-                  {
-                    label: 'B',
-                    value: 'b',
-                  },
-                  {
-                    label: 'C',
-                    value: 'c',
-                  },
-                ],
-              },
-              {
-                label: 'User',
-                type: 'custom',
-                options: {
-                  resolver: {
-                    type: 'userpicker',
+                modules: {
+                  fields: {
+                    custom: {
+                      userpicker: {
+                        resolver: mockUserPickerResolver,
+                      },
+                    },
                   },
                 },
-                name: 'user',
               },
-            ]),
+            ),
             parameters: {
               t: 'abcd',
               n: 1234,
@@ -1713,7 +1471,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             },
           });
 
-          await doSubmitForm();
+          await trySubmit();
 
           expect(onChange).toHaveBeenCalledWith({
             t: 'abcd',
@@ -1734,27 +1492,40 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
            * happens within the component boundaries and that we can't wrap with `act()`.
            */
           it('should populate the fields with passed parameters', async () => {
-            const { doSubmitForm } = await mountWithProviders({
+            const { trySubmit } = await mountWithProviders({
               ...defaultProps,
-              extensionProvider: createProvider([
+              extensionProvider: createProvider(
+                [
+                  {
+                    label: 'User',
+                    type: 'custom',
+                    options: {
+                      resolver: {
+                        type: 'userpicker',
+                      },
+                    },
+                    name: 'user',
+                  },
+                ],
                 {
-                  label: 'User',
-                  type: 'custom',
-                  options: {
-                    resolver: {
-                      type: 'userpicker',
+                  modules: {
+                    fields: {
+                      custom: {
+                        userpicker: {
+                          resolver: mockUserPickerResolver,
+                        },
+                      },
                     },
                   },
-                  name: 'user',
                 },
-              ]),
+              ),
               parameters: {
                 user: 'u123i1431',
               },
             });
 
             await flushPromises();
-            await doSubmitForm();
+            await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
               user: 'u123i1431',
@@ -2028,30 +1799,43 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         it('should work on custom field', async () => {
           const { wrapper } = await mountWithProviders({
             ...defaultProps,
-            extensionProvider: createProvider([
+            extensionProvider: createProvider(
+              [
+                {
+                  label: 'Text',
+                  type: 'string',
+                  name: 't',
+                  isHidden: true,
+                },
+                {
+                  label: 'Text',
+                  type: 'string',
+                  name: 't2',
+                  isHidden: true,
+                },
+                {
+                  label: 'My text field',
+                  type: 'custom',
+                  options: {
+                    resolver: {
+                      type: 'userpicker',
+                    },
+                  },
+                  name: 'user',
+                },
+              ],
               {
-                label: 'Text',
-                type: 'string',
-                name: 't',
-                isHidden: true,
-              },
-              {
-                label: 'Text',
-                type: 'string',
-                name: 't2',
-                isHidden: true,
-              },
-              {
-                label: 'My text field',
-                type: 'custom',
-                options: {
-                  resolver: {
-                    type: 'userpicker',
+                modules: {
+                  fields: {
+                    custom: {
+                      userpicker: {
+                        resolver: mockUserPickerResolver,
+                      },
+                    },
                   },
                 },
-                name: 'user',
               },
-            ]),
+            ),
             parameters: {},
           });
 

@@ -214,6 +214,42 @@ export const nativeFields: FieldDefinition[] = [
     ],
   },
   {
+    name: 'enum-checkbox-multiple-required',
+    type: 'enum',
+    label: 'Select 1 or many',
+    description: 'Something required',
+    style: 'checkbox',
+    isRequired: true,
+    isMultiple: true,
+    items: [
+      {
+        label: 'Option A',
+        value: 'a',
+        description: 'tooltip description for a',
+      },
+      {
+        label: 'Option B',
+        value: 'b',
+        description: 'tooltip description for b',
+      },
+      {
+        label: 'Option C',
+        value: 'c',
+        description: 'tooltip description for c',
+      },
+      {
+        label: 'Option D',
+        value: 'd',
+        description: 'tooltip description for d',
+      },
+      {
+        label: 'Option E',
+        value: 'e',
+        description: 'tooltip description for e',
+      },
+    ],
+  },
+  {
     name: 'unhandled',
     type: 'foobar' as any,
     label: 'Unknown type',

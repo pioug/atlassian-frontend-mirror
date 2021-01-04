@@ -24,9 +24,9 @@ export const IconWrapper = styled.div`
     width: 100%;
     height: calc(100% - ${titleBoxHeight(hasTitleBox, breakpoint)});
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-
 `}
 `;
 IconWrapper.displayName = 'MediaIconWrapper';

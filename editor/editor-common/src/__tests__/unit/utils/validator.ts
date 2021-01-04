@@ -30,6 +30,7 @@ describe('Renderer - Validator', () => {
       '//subdomain.somedomain.com',
       '//www.atlassian.com/somepage',
       'mailto:user@mail.com',
+      '#anchor-link',
     ];
 
     const unsafeURLs = [
@@ -1418,6 +1419,20 @@ describe('Renderer - Validator', () => {
           type: 'link',
           attrs: {
             href: '/this/is/a/relative/link',
+          },
+        });
+      });
+
+      it('should allow anchor links', () => {
+        expect(
+          getValidMark({
+            type: 'link',
+            attrs: { href: '#anchor-link' },
+          }),
+        ).toStrictEqual({
+          type: 'link',
+          attrs: {
+            href: '#anchor-link',
           },
         });
       });

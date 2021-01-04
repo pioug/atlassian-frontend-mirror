@@ -110,6 +110,7 @@ export const getValidContent = (
 
 const TEXT_COLOR_PATTERN = /^#[0-9a-fA-F]{6}$/;
 const RELATIVE_LINK = /^\//;
+const ANCHOR_LINK = /^#/;
 
 const flattenUnknownBlockTree = (
   node: ADNode,
@@ -766,7 +767,8 @@ export const getValidMark = (
           if (
             linkHref &&
             linkHref.indexOf(':') === -1 &&
-            !RELATIVE_LINK.test(linkHref)
+            !RELATIVE_LINK.test(linkHref) &&
+            !ANCHOR_LINK.test(linkHref)
           ) {
             linkHref = `http://${linkHref}`;
           }

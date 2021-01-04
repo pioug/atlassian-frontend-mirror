@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import Textfield from '../src';
 
@@ -11,72 +11,72 @@ const eventResultStyle = {
   margin: '0.5em 0',
 };
 
-type State = { eventResult: string };
+export default function VariationsExample() {
+  const [eventResult, setEventResult] = useState(
+    'Click into & out of the input above to trigger onBlur & onFocus.',
+  );
 
-export default class TextfieldExample extends Component<void, State> {
-  state = {
-    eventResult:
-      'Click into & out of the input above to trigger onBlur & onFocus.',
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEventResult(`onChange called with value: ${e.target.value}`);
   };
 
-  handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      eventResult: `onChange called with value: ${e.target.value}`,
-    });
+  const handleOnBlur = () => {
+    setEventResult('onBlur called');
   };
 
-  handleOnBlur = () => {
-    this.setState({ eventResult: 'onBlur called' });
+  const handleOnFocus = () => {
+    setEventResult('onFocus called');
   };
 
-  handleOnFocus = () => {
-    this.setState({ eventResult: 'onFocus called' });
-  };
+  return (
+    <div>
+      <label htmlFor="event-handlers">Event Handlers</label>
+      <Textfield
+        testId="event-handlers"
+        onChange={handleOnChange}
+        onBlur={handleOnBlur}
+        onFocus={handleOnFocus}
+      />
+      <div style={eventResultStyle}>{eventResult}</div>
 
-  render() {
-    const { eventResult } = this.state;
+      <label htmlFor="default-value">
+        Default value (not the same as a placeholder)
+      </label>
+      <Textfield testId="default-value" defaultValue="candy" />
 
-    return (
-      <div>
-        <label htmlFor="event-handlers">Event Handlers</label>
-        <Textfield
-          name="event-handlers"
-          onChange={this.handleOnChange}
-          onBlur={this.handleOnBlur}
-          onFocus={this.handleOnFocus}
-        />
-        <div style={eventResultStyle}>{eventResult}</div>
+      <label htmlFor="disabled">Disabled</label>
+      <Textfield
+        testId="disabled"
+        isDisabled
+        defaultValue="can't touch this..."
+      />
 
-        <label htmlFor="default-value">
-          Default value (not the same as a placeholder)
-        </label>
-        <Textfield name="default-value" defaultValue="candy" />
+      <label htmlFor="required">Required</label>
+      <Textfield testId="required" isRequired />
 
-        <label htmlFor="disabled">Disabled</label>
-        <Textfield
-          name="disabled"
-          isDisabled
-          defaultValue="can't touch this..."
-        />
+      <label htmlFor="invalid">Invalid</label>
+      <Textfield testId="invalid" isInvalid />
 
-        <label htmlFor="required">Required</label>
-        <Textfield name="required" isRequired />
+      <label htmlFor="placeholder">Placeholder</label>
+      <Textfield testId="placeholder" placeholder="Click here to input..." />
 
-        <label htmlFor="invalid">Invalid</label>
-        <Textfield name="invalid" isInvalid />
+      <label htmlFor="auto-focus">Auto Focus</label>
+      <Textfield
+        testId="auto-focus"
+        autoFocus
+        defaultValue="Text is normal font"
+      />
 
-        <label htmlFor="placeholder">Placeholder</label>
-        <Textfield name="placeholder" placeholder="Click here to input..." />
+      <label htmlFor="spell-check">Spell Check, Monospaced</label>
+      <Textfield
+        testId="spell-check"
+        spellCheck
+        isMonospaced
+        defaultValue="Text is monospaced font"
+      />
 
-        <label htmlFor="auto-focus">Auto Focus</label>
-        <Textfield name="auto-focus" autoFocus />
-
-        <label htmlFor="spell-check">Spell Check</label>
-        <Textfield name="spell-check" spellCheck />
-
-        <label htmlFor="compact">Compact</label>
-        <Textfield name="compact" isCompact />
-      </div>
-    );
-  }
+      <label htmlFor="compact">Compact</label>
+      <Textfield testId="compact" isCompact />
+    </div>
+  );
 }

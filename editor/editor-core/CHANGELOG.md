@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 136.1.0
+
+### Minor Changes
+
+- [`22c89bff23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22c89bff23) - [ED-11493][twista-405] Add predictable list at the mobile bridge plugin subscription
+- [`385e3de61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/385e3de61b) - Remove the scroll gutter for compact mobile editor.
+
+### Patch Changes
+
+- [`3eb3ff9d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3eb3ff9d54) - ED-11586 fix CheckboxGroup isRequired behaviour
+- [`4329551ee2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4329551ee2) - ED-11068: fix find and replace state management
+- [`73d5cb22dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73d5cb22dd) - Ensure gap cursor ignores a click on a caption node
+- [`1bd969d9c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bd969d9c1) - Fix re-renders in a table cell with the NodeView update
+- [`680d67533f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/680d67533f) - Fix boolean fields to have state [initially, and when updated] driven by Parameters
+- [`e797f23ec3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e797f23ec3) - ED-10441: ensure code-block is WYSIWYG
+- Updated dependencies
+
 ## 136.0.0
 
 ### Major Changes

@@ -7,8 +7,8 @@ export const findReplaceSelectors = {
   replaceButton: '[data-testid="Replace"]',
   findInput: 'input[name="find"]',
   decorations: `.${searchMatchClass}`,
-  matchCaseButton: 'button[label="Match case"]',
-  matchCaseButtonPressed: `button[label="Match case"][aria-pressed="true"]`,
+  matchCaseButton: 'button[data-testid="Match case"]',
+  matchCaseButtonPressed: `button[data-testid="Match case"][aria-pressed="true"]`,
 };
 
 export const findText = async (page: WebDriverPage, text: string) => {

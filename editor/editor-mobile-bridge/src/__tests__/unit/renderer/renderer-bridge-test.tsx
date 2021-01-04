@@ -11,6 +11,7 @@ import {
   createMentionProvider,
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
+import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -60,6 +61,7 @@ describe('general', () => {
 describe('renderer bridge', () => {
   let onContentRendered: jest.Mock;
   let mobileRenderer: ReactWrapper;
+  const rendererBridge = new RendererBridgeImplementation();
   const intlMock = ({
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
@@ -74,6 +76,7 @@ describe('renderer bridge', () => {
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
         intl={intlMock}
+        rendererBridge={rendererBridge}
       />,
     );
 

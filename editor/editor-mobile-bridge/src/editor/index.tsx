@@ -1,5 +1,5 @@
 import '@babel/polyfill';
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './mobile-editor-element';
 import { IS_DEV } from '../utils';
@@ -10,12 +10,13 @@ import {
   createCardClient,
   createCardProvider,
 } from '../providers';
-import { getQueryParams, getAllowPredictableList } from '../query-param-reader';
+import { getQueryParams } from '../query-param-reader';
 import { useFetchProxy } from '../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../providers/collab-provider';
 import { ErrorBoundary } from './error-boundary';
 import { toNativeBridge } from './web-to-native';
 import { getBridge } from './native-to-web/bridge-initialiser';
+import { useEditorConfiguration } from './hooks/use-editor-configuration';
 
 interface AppProps {
   defaultValue?: Node | string | Object;
@@ -24,6 +25,16 @@ interface AppProps {
 export const App: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
+  const editorConfiguration = useEditorConfiguration(bridge);
+  const content = useRef('');
+
+  const onLocaleChanged = useCallback(() => {
+    bridge.setContent(content.current);
+  }, [bridge]);
+
+  const onWillLocaleChange = useCallback(() => {
+    content.current = bridge.getContent();
+  }, [bridge]);
 
   return (
     <ErrorBoundary>
@@ -35,8 +46,11 @@ export const App: React.FC<AppProps> = props => {
         emojiProvider={createEmojiProvider(fetchProxy)}
         mediaProvider={createMediaProvider()}
         mentionProvider={createMentionProvider()}
-        UNSAFE_predictableLists={getAllowPredictableList()}
         bridge={bridge}
+        locale={editorConfiguration.getLocale()}
+        editorConfiguration={editorConfiguration}
+        onLocaleChanged={onLocaleChanged}
+        onWillLocaleChange={onWillLocaleChange}
       />
     </ErrorBoundary>
   );

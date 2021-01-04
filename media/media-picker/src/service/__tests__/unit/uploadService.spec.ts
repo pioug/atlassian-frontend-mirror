@@ -242,8 +242,8 @@ describe('UploadService', () => {
       await filesAddedPromise;
 
       expect(getPreviewModule.getPreviewFromBlob).toHaveBeenCalledWith(
-        file,
         'video',
+        file,
       );
     });
 

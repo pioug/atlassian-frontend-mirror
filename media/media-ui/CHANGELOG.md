@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 15.0.1
+
+### Patch Changes
+
+- [`bacab2338b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bacab2338b) - Updated error message displayed when a Polling Error has been thrown
+- [`610ceb3235`](https://bitbucket.org/atlassian/atlassian-frontend/commits/610ceb3235) - Update inline video player speed controls
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

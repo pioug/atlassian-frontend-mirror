@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 10.1.0
+
+### Minor Changes
+
+- [`05ef83ee27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05ef83ee27) - Lozenge now uses [`@compiled/react`](https://compiledcssinjs.com) to power its styles.
+
 ## 10.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 1.2.0
+
+### Minor Changes
+
+- [`0615a2be97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0615a2be97) - ED-10441: share overflow-shadow helper
+
 ## 1.1.7
 
 ### Patch Changes

@@ -1,6 +1,5 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { EditorView } from 'prosemirror-view';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
@@ -17,8 +16,6 @@ import {
 import {
   MentionProvider,
   MediaProvider as MediaProviderType,
-  processQuickInsertItems,
-  quickInsertPluginKey,
 } from '@atlaskit/editor-core';
 import {
   EditorPresetMobile,
@@ -36,19 +33,18 @@ import { EmojiResource } from '@atlaskit/emoji/resource';
 import { analyticsBridgeClient } from '../analytics-client';
 import { toNativeBridge } from '../editor/web-to-native';
 import WebBridgeImpl from '../editor/native-to-web';
-import {
-  initPluginListeners,
-  destroyPluginListeners,
-} from '../editor/plugin-subscription';
 import MobilePicker from '../editor/MobileMediaPicker';
-import { EditorViewWithComposition } from '../types';
 import {
   createTaskDecisionProvider,
   createQuickInsertProvider,
 } from '../providers';
-import { getEnableQuickInsertValue } from '../query-param-reader';
+import { getLocaleValue } from '../query-param-reader';
 import { useTranslations } from '../i18n/use-translations';
 import { useCollabProvider } from '../providers/collab-provider';
+import { useEditorConfiguration } from '../editor/hooks/use-editor-configuration';
+import MobileEditorConfiguration from '../editor/editor-configuration';
+import { useEditorLifecycle } from '../editor/hooks/use-editor-life-cycle';
+import { usePluginListeners } from '../editor/hooks/use-plugin-listeners';
 
 // Expose WebBridge instance for use by native side
 const bridge = new WebBridgeImpl();
@@ -63,6 +59,7 @@ type Props = {
   emojiProvider?: Promise<EmojiResource>;
   mediaProvider?: Promise<MediaProviderType>;
   mentionProvider?: Promise<MentionProvider>;
+  initialEditorConfig?: MobileEditorConfiguration;
   shouldFocus?: boolean;
 } & Pick<EditorProps, 'placeholder'>;
 
@@ -77,11 +74,23 @@ const handleAnalyticsEvent = (
 const quickInsertProvider = createQuickInsertProvider(
   bridge.quickInsertItems,
   bridge.allowList,
+  bridge.getEditorConfiguration().isQuickInsertEnabled(),
 );
 
 export default function Editor(props: Props = {}, context: any) {
   const mode = props.mode || 'light';
-  const [locale, messages] = useTranslations();
+  const { locale, messages } = useTranslations(getLocaleValue());
+  const editorConfiguration = useEditorConfiguration(
+    bridge,
+    props.initialEditorConfig,
+  );
+  const {
+    handleEditorReady,
+    handleEditorDestroyed,
+    editorReady,
+  } = useEditorLifecycle(bridge);
+
+  usePluginListeners(editorReady, editorConfiguration, bridge);
   const collabProvider = useCollabProvider(bridge, props.createCollabProvider);
   const providerFactory = React.useMemo(
     () =>
@@ -102,6 +111,9 @@ export default function Editor(props: Props = {}, context: any) {
       collabProvider,
     ],
   );
+  const isQuickInsertEnabled = bridge
+    .getEditorConfiguration()
+    .isQuickInsertEnabled();
 
   if (!messages) {
     return null;
@@ -133,7 +145,7 @@ export default function Editor(props: Props = {}, context: any) {
                           allowMediaSingle: true,
                         }}
                         excludes={
-                          getEnableQuickInsertValue()
+                          isQuickInsertEnabled
                             ? new Set()
                             : new Set(['quickInsert'])
                         }
@@ -143,38 +155,8 @@ export default function Editor(props: Props = {}, context: any) {
                           onChange={() => {
                             toNativeBridge.updateText(bridge.getContent());
                           }}
-                          onMount={() => {
-                            bridge.editorView = bridge.editorActions._privateGetEditorView() as EditorView &
-                              EditorViewWithComposition;
-
-                            initPluginListeners(
-                              bridge.editorActions._privateGetEventDispatcher()!,
-                              bridge,
-                              bridge.editorView!,
-                            );
-
-                            if (getEnableQuickInsertValue()) {
-                              const quickInsertPluginState = quickInsertPluginKey.getState(
-                                bridge.editorView.state,
-                              );
-                              bridge.quickInsertItems.resolve(
-                                processQuickInsertItems(
-                                  quickInsertPluginState.items,
-                                  context.intl,
-                                ),
-                              );
-                            }
-                          }}
-                          onDestroy={() => {
-                            destroyPluginListeners(
-                              bridge.editorActions._privateGetEventDispatcher(),
-                              bridge,
-                            );
-
-                            bridge.editorActions._privateUnregisterEditor();
-                            bridge.editorView = null;
-                            bridge.mentionsPluginState = null;
-                          }}
+                          onMount={handleEditorReady}
+                          onDestroy={handleEditorDestroyed}
                         />
                       </EditorPresetMobile>
                     );

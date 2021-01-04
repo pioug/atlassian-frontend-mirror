@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 5.1.0
+
+### Minor Changes
+
+- [`3f6006306a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f6006306a) - add stepVersion into getFinalAcknowledgedState
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

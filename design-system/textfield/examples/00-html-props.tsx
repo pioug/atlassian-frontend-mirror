@@ -6,7 +6,7 @@ import { headingSizes } from '@atlaskit/theme/typography';
 
 import Textfield from '../src';
 
-export default function () {
+export default function HtmlPropsExample() {
   return (
     <div>
       <Label htmlFor="password">Password text field</Label>

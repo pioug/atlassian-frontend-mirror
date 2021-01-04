@@ -15,8 +15,9 @@ import {
   akEditorTableToolbarDark,
   akEditorWideLayoutWidth,
   getTableCellBackgroundDarkModeColors,
+  overflowShadow,
 } from '@atlaskit/editor-shared-styles';
-import { DN700A, N20A } from '@atlaskit/theme/colors';
+import { DN20 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 
 import browser from '../../utils/browser';
@@ -134,18 +135,48 @@ const tableSharedStyle = css`
         /* only apply this styling to codeblocks in default background headercells */
         &:not([style]) {
           .code-block {
-            /*
-              Add a background color tint to code blocks inside a table heading since they both
-              share the same background colour. This prevents them visually blending together.
-            */
-            background: ${themed({ light: N20A, dark: DN700A })};
+            background-image: ${overflowShadow({
+              background: themed({
+                light: 'rgb(235, 237, 240)',
+                dark: 'rgb(36, 47, 66)',
+              }),
+              width: '8px',
+            })};
+            background-attachment: local, scroll, scroll;
+            background-position: 100% 0, 100% 0, 0 0;
+            background-color: ${themed({
+              light: 'rgb(235, 237, 240)',
+              dark: 'rgb(36, 47, 66)',
+            })};
 
-            > span {
-              /*
-                The codeblock inside @atlaskit/code uses inline styles so we disable the default
-                background color because editor/renderer provides it's own background colours.
-              */
-              background: transparent !important;
+            .line-number-gutter {
+              background-color: ${themed({
+                light: 'rgb(226, 229, 233)',
+                dark: DN20,
+              })};
+            }
+
+            > span:last-child {
+              background-image: ${overflowShadow({
+                background: themed({
+                  light: 'rgb(235, 237, 240)',
+                  dark: 'rgb(36, 47, 66)',
+                }),
+                width: '8px',
+              })}!important;
+              background-attachment: local, scroll, scroll !important;
+              background-position: 100% 0, 100% 0, 0 0 !important;
+              background-color: ${themed({
+                light: 'rgb(235, 237, 240)',
+                dark: 'rgb(36, 47, 66)',
+              })} !important;
+
+              code:first-child {
+                background-color: ${themed({
+                  light: 'rgb(226, 229, 233)',
+                  dark: DN20,
+                })} !important;
+              }
             }
           }
         }

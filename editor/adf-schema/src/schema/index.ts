@@ -157,6 +157,7 @@ export type {
   UrlType,
   RichMediaAttributes,
   RichMediaLayout,
+  CellDomAttrs,
 } from './nodes';
 export {
   AnnotationTypes,

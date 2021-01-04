@@ -7,6 +7,7 @@ import {
 export const selectors = {
   mediaErrorLoading: '.rich-media-item .wrapper',
   caption: '[data-testid="media-caption"]',
+  captionPlaceholder: '[data-testid="caption-placeholder"]',
 };
 
 export const waitForAllMedia = async (

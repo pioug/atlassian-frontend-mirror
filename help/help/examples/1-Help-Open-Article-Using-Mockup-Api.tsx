@@ -8,6 +8,7 @@ import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 import { getArticle } from './utils/mockData';
 import {
   ExampleWrapper,
+  HelpContainer,
   HelpWrapper,
   FooterContent,
   ExampleDefaultContent,
@@ -26,25 +27,27 @@ const Example: React.FC = () => {
   return (
     <ExampleWrapper>
       <Page>
-        <HelpWrapper>
-          <AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
-            <LocaleIntlProvider locale={'en'}>
-              <Help
-                articleId="00"
-                onGetArticle={onGetArticle}
-                footer={
-                  <FooterContent>
-                    <span>Footer</span>
-                  </FooterContent>
-                }
-              >
-                <ExampleDefaultContent>
-                  <span>Default content</span>
-                </ExampleDefaultContent>
-              </Help>
-            </LocaleIntlProvider>
-          </AnalyticsListener>
-        </HelpWrapper>
+        <HelpContainer>
+          <HelpWrapper>
+            <AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
+              <LocaleIntlProvider locale={'en'}>
+                <Help
+                  articleId="00"
+                  onGetArticle={onGetArticle}
+                  footer={
+                    <FooterContent>
+                      <span>Footer</span>
+                    </FooterContent>
+                  }
+                >
+                  <ExampleDefaultContent>
+                    <span>Default content</span>
+                  </ExampleDefaultContent>
+                </Help>
+              </LocaleIntlProvider>
+            </AnalyticsListener>
+          </HelpWrapper>
+        </HelpContainer>
       </Page>
     </ExampleWrapper>
   );

@@ -5,17 +5,15 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
-import {
-  RightSidePanel,
-  FlexContainer,
-  ContentWrapper,
-} from '@atlaskit/right-side-panel';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 import {
+  ExampleWrapper,
+  HelpWrapper,
   ControlsWrapper,
   FooterContent,
   ExampleDefaultContent,
+  HelpContainer,
 } from './utils/styled';
 
 import Help, { RelatedArticles } from '../src';
@@ -40,7 +38,6 @@ const Footer = (
 );
 
 const Example: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [articleId, setArticleId] = useState<string>();
   const [routeGroup, setRouteGroup] = useState<string>(
     'project-settings-software',
@@ -50,12 +47,11 @@ const Example: React.FC = () => {
   );
 
   const openDrawer = (articleId: string = '') => {
-    setIsOpen(true);
     setArticleId(articleId);
   };
 
   const closeDrawer = (): void => {
-    setIsOpen(false);
+    setArticleId('');
   };
 
   const onGetArticle = async (articleId: string): Promise<any> => {
@@ -275,9 +271,15 @@ const Example: React.FC = () => {
 
   return (
     <AnalyticsListener channel="help" onEvent={handleEvent}>
-      <FlexContainer id="helpExample">
-        <ContentWrapper>
-          <Page>
+      <ExampleWrapper>
+        <Page>
+          <div
+            style={{
+              display: 'inline-block',
+              height: '100%',
+              verticalAlign: 'top',
+            }}
+          >
             <ControlsWrapper>
               <ButtonGroup>
                 <Button appearance="primary" onClick={() => openDrawer()}>
@@ -336,7 +338,9 @@ const Example: React.FC = () => {
                 }
               />
             </ControlsWrapper>
-            <RightSidePanel isOpen={isOpen} attachPanelTo="helpExample">
+          </div>
+          <HelpContainer>
+            <HelpWrapper>
               <LocaleIntlProvider locale={'en'}>
                 <Help
                   articleIdSetter={articleIdSetter}
@@ -382,10 +386,10 @@ const Example: React.FC = () => {
                   </ExampleDefaultContent>
                 </Help>
               </LocaleIntlProvider>
-            </RightSidePanel>
-          </Page>
-        </ContentWrapper>
-      </FlexContainer>
+            </HelpWrapper>
+          </HelpContainer>
+        </Page>
+      </ExampleWrapper>
     </AnalyticsListener>
   );
 };

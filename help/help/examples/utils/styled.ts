@@ -30,3 +30,12 @@ export const HelpWrapper = styled.div`
   position: relative;
   overflow-x: hidden;
 `;
+
+export const HelpContainer = styled.div`
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+  padding: ${gridSize() * 2}px;
+  box-sizing: border-box;
+  background-color: ${colors.N200};
+`;

@@ -55,7 +55,6 @@
     "@atlaskit/docs": "*",
     "@atlaskit/navigation": "^37.0.0",
     "@atlaskit/page": "^12.0.0",
-    "@atlaskit/right-side-panel": "^0.4.0",
     "algoliasearch": "^3.33.0",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0",

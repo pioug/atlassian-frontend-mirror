@@ -7,6 +7,7 @@ import Help from '../src';
 
 import {
   ExampleWrapper,
+  HelpContainer,
   HelpWrapper,
   FooterContent,
   ExampleDefaultContent,
@@ -46,23 +47,25 @@ const Example: React.FC = () => {
   return (
     <ExampleWrapper>
       <Page>
-        <HelpWrapper>
-          <LocaleIntlProvider locale={'en'}>
-            <Help
-              articleId="zqjkEZh4DPqRCpUSeg8a5"
-              onGetArticle={onGetArticle}
-              footer={
-                <FooterContent>
-                  <span>Footer</span>
-                </FooterContent>
-              }
-            >
-              <ExampleDefaultContent>
-                <span>Default content</span>
-              </ExampleDefaultContent>
-            </Help>
-          </LocaleIntlProvider>
-        </HelpWrapper>
+        <HelpContainer>
+          <HelpWrapper>
+            <LocaleIntlProvider locale={'en'}>
+              <Help
+                articleId="zqjkEZh4DPqRCpUSeg8a5"
+                onGetArticle={onGetArticle}
+                footer={
+                  <FooterContent>
+                    <span>Footer</span>
+                  </FooterContent>
+                }
+              >
+                <ExampleDefaultContent>
+                  <span>Default content</span>
+                </ExampleDefaultContent>
+              </Help>
+            </LocaleIntlProvider>
+          </HelpWrapper>
+        </HelpContainer>
       </Page>
     </ExampleWrapper>
   );

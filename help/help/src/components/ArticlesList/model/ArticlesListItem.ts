@@ -20,5 +20,6 @@ export interface ArticlesList {
   onToggleArticlesList?: (
     event: React.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
+    isCollapsed: boolean,
   ) => void;
 }

@@ -108,6 +108,7 @@ describe('Popup Select', () => {
 
   test('event listeners continue to work when stopPropagation is called in parent', async () => {
     const { getByText } = render(
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={e => e.stopPropagation()}>
         <PopupSelect
           options={OPTIONS}

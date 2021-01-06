@@ -191,6 +191,8 @@ const Flag = (props: FlagProps) => {
         const mode = tokens.mode;
         const textColour = getFlagTextColor(appearance, mode);
         return (
+          // https://product-fabric.atlassian.net/browse/DST-1972
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <div
             css={css`
               background-color: ${getFlagBackgroundColor(appearance, mode)};
@@ -209,6 +211,7 @@ const Flag = (props: FlagProps) => {
               }
             `}
             role="alert"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
             onMouseDown={handleMouseDown}
             data-testid={testId}

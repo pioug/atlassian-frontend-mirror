@@ -93,6 +93,7 @@ describe('Switcher', () => {
           discoverSectionLinks={[]}
           rawProviderResults={providerResults}
           features={{} as FeatureMap}
+          getExtendedAnalyticsAttributes={() => ({})}
         />,
       ),
     ).toMatchSnapshot();
@@ -118,6 +119,7 @@ describe('Switcher', () => {
           discoverSectionLinks={[]}
           rawProviderResults={providerResults}
           features={{} as FeatureMap}
+          getExtendedAnalyticsAttributes={() => ({})}
         />,
       ),
     ).toMatchSnapshot();
@@ -143,6 +145,7 @@ describe('Switcher', () => {
           discoverSectionLinks={generateDiscoverMoreLinks()}
           rawProviderResults={providerResults}
           features={{} as FeatureMap}
+          getExtendedAnalyticsAttributes={() => ({})}
         />,
       ),
     ).toMatchSnapshot();

@@ -10,6 +10,7 @@ import {
   JoinableSiteClickHandlerData,
   SwitcherProductType,
   RenderAddOnData,
+  CustomizeLinks,
 } from '../../types';
 import { mapResultsToSwitcherProps } from '../../common/utils/map-results-to-switcher-props';
 import {
@@ -49,6 +50,7 @@ export type TrelloSwitcherProps = WithTheme &
     defaultSignupEmail?: string;
     onClose?: () => void;
     availableProductsDataProvider?: AvailableProductsDataProvider;
+    customizeLinks?: CustomizeLinks;
   };
 
 const hasAtlassianProducts = (
@@ -112,6 +114,7 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
       defaultSignupEmail,
       onClose,
       availableProductsDataProvider,
+      customizeLinks,
     } = this.props;
     const {
       showJoinSiteBanner,
@@ -171,6 +174,10 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
                     },
                     features,
                     Product.TRELLO,
+                    undefined,
+                    undefined,
+                    undefined,
+                    customizeLinks,
                   );
                   return (
                     <Switcher

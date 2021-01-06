@@ -30,8 +30,9 @@ export default () => {
   return (
     <div>
       <p>
-        <label>
+        <label htmlFor="checkbox">
           <input
+            id="checkbox"
             type="checkbox"
             onChange={() => setIsRestricted(!isRestricted)}
             checked={isRestricted}

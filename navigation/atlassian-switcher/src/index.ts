@@ -14,3 +14,4 @@ export type {
   ExportedDataProvider,
 } from './common/providers/create-data-provider';
 export type { TriggerXFlowCallback, DiscoverMoreCallback } from './types';
+export { SwitcherProductType } from './types';

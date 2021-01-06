@@ -9,6 +9,7 @@ const ExitingOnly = () => (
     content={`This motion only has an exiting motion.
 StaggeredEntrance will have no effect.`}
   >
+    {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
     <span tabIndex={0}>
       <Lozenge appearance="removed">Exiting only</Lozenge>
     </span>

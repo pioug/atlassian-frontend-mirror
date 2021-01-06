@@ -4,6 +4,7 @@ import { focusRing, colors } from '../src';
 
 const InteractiveElement = ({ color, outlineWidth, children }: any) => (
   <div
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
     tabIndex={0}
     css={css`
       /* focusRing(color, outlineWidth) */

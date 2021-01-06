@@ -89,6 +89,7 @@ class Footer extends React.Component<FooterComponentProps, FooterState> {
           isOpen={isOpen}
           placement="top-start"
         >
+          {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions */}
           <Hint onMouseEnter={this.open} onMouseLeave={this.close}>
             <Avatar size="small" />
             <HintText>Hover Me!</HintText>

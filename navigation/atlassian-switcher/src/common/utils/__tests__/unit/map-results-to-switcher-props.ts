@@ -551,6 +551,168 @@ describe('map-results-to-switcher-props', () => {
       ]);
     });
   });
+  describe('customizeLinks', () => {
+    [
+      {
+        product: Product.JIRA,
+      },
+      {
+        product: Product.TRELLO,
+      },
+      {
+        product: Product.CONFLUENCE,
+      },
+    ].forEach(({ product }) => {
+      it('should NOT append atlOrigin to url for products that are NOT Confluence when customizeURL is present', () => {
+        const mockAnalytics = {
+          originProduct: product,
+          originGeneratedId: '1234',
+        };
+        const mockCustomizeLinks = () => {
+          return {
+            mapUrl: (url: string, switcherType?: SwitcherProductType) => {
+              if (switcherType === SwitcherProductType.CONFLUENCE) {
+                return `${url}?atlOrigin=test`;
+              } else {
+                return url;
+              }
+            },
+            getExtendedAnalyticsAttributes: (
+              switcherType?: SwitcherProductType,
+            ) => {
+              if (switcherType === SwitcherProductType.CONFLUENCE) {
+                return mockAnalytics;
+              } else {
+                return {};
+              }
+            },
+          };
+        };
+        const props = mapResultsToSwitcherProps(
+          null,
+          {
+            ...completedProvidersResult,
+            availableProducts: asCompletedProvider<AvailableProductsResponse>({
+              sites: [
+                generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE),
+                generateSite(CLOUD_ID, SwitcherProductType.TRELLO),
+              ],
+            }),
+          },
+          defaultFeatures,
+          product,
+          undefined,
+          undefined,
+          undefined,
+          mockCustomizeLinks,
+        );
+        expect(props.licensedProductLinks[0].href).not.toBeNull();
+        expect(props.licensedProductLinks[0].href).not.toContain('atlOrigin');
+        expect(
+          props.getExtendedAnalyticsAttributes(
+            SwitcherProductType.JIRA_SOFTWARE,
+          ),
+        ).toEqual({});
+        expect(
+          props.getExtendedAnalyticsAttributes(SwitcherProductType.TRELLO),
+        ).toEqual({});
+      });
+    });
+    [
+      {
+        product: Product.JIRA,
+      },
+      {
+        product: Product.TRELLO,
+      },
+      {
+        product: Product.CONFLUENCE,
+      },
+    ].forEach(({ product }) => {
+      it('should append atlOrigin to url for Confluence when customizeURL is present', () => {
+        const mockAnalytics = {
+          originProduct: product,
+          originGeneratedId: '1234',
+        };
+        const mockCustomizeLinks = () => ({
+          mapUrl: (url: string, switcherType?: SwitcherProductType) => {
+            if (switcherType === SwitcherProductType.CONFLUENCE) {
+              return `${url}?atlOrigin=test`;
+            } else {
+              return url;
+            }
+          },
+          getExtendedAnalyticsAttributes: (
+            switcherType?: SwitcherProductType,
+          ) => {
+            if (switcherType === SwitcherProductType.CONFLUENCE) {
+              return mockAnalytics;
+            } else {
+              return {};
+            }
+          },
+        });
+        const props = mapResultsToSwitcherProps(
+          null,
+          {
+            ...completedProvidersResult,
+            availableProducts: asCompletedProvider<AvailableProductsResponse>({
+              sites: [
+                generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE),
+                generateSite(CLOUD_ID, SwitcherProductType.CONFLUENCE),
+                generateSite(CLOUD_ID, SwitcherProductType.TRELLO),
+              ],
+            }),
+          },
+          defaultFeatures,
+          product,
+          undefined,
+          undefined,
+          undefined,
+          mockCustomizeLinks,
+        );
+        expect(
+          props.getExtendedAnalyticsAttributes(
+            SwitcherProductType.JIRA_SOFTWARE,
+          ),
+        ).toEqual({});
+        expect(
+          props.getExtendedAnalyticsAttributes(SwitcherProductType.CONFLUENCE),
+        ).toEqual(mockAnalytics);
+        expect(props.licensedProductLinks[1].href).toBe(
+          'https://some-cloud-id.atlassian.net/wiki?atlOrigin=test',
+        );
+        expect(props.licensedProductLinks[0].href).not.toContain(
+          '?atlOrigin=test',
+        );
+        expect(props.licensedProductLinks[2].href).not.toContain(
+          '?atlOrigin=test',
+        );
+      });
+    });
+    it('should return empty object for analytic attributes if customizeLinks is not present', () => {
+      const props = mapResultsToSwitcherProps(
+        null,
+        {
+          ...completedProvidersResult,
+          availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            sites: [generateSite(CLOUD_ID, SwitcherProductType.CONFLUENCE)],
+          }),
+        },
+        defaultFeatures,
+        Product.CONFLUENCE,
+      );
+      expect(
+        props.getExtendedAnalyticsAttributes(SwitcherProductType.CONFLUENCE),
+      ).toEqual({});
+      expect(props.licensedProductLinks).toMatchObject([
+        {
+          href: 'https://some-cloud-id.atlassian.net/wiki',
+        },
+      ]);
+    });
+  });
+
   describe('mystiqueEnabled featureFlag effect on JSD', () => {
     it('should return JSM in licensed products when FF is on', () => {
       const props = mapResultsToSwitcherProps(

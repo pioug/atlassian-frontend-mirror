@@ -19,6 +19,7 @@ export default function HtmlPropsExample() {
 
 const Label = function (props: { htmlFor: string; children: React.ReactNode }) {
   return (
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
     <label
       htmlFor={props.htmlFor}
       style={{

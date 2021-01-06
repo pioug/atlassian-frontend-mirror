@@ -31,7 +31,9 @@ const ExampleFooter = () => {
       component={Container}
       description={
         <Fragment>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a css={linkCSS}>Give feedback</a> {' ∙ '}
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a css={linkCSS}>Learn more</a>
         </Fragment>
       }

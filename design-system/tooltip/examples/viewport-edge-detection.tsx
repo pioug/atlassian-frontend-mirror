@@ -149,6 +149,7 @@ const PositionExample = () => {
         </ButtonDiv>
         <ButtonDiv>Content: {tooltipSize[state.tooltipContent]}</ButtonDiv>
       </CenterDiv>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
         onClick={changeDirection}
         style={{ position: 'absolute', ...viewportStyle }}

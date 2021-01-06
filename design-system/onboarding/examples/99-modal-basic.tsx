@@ -29,7 +29,7 @@ export default class ModalBasicExample extends Component<{}, State> {
     return (
       <div>
         <Button onClick={this.start}>Launch benefits modal</Button>
-        <label>
+        <label htmlFor="togglePrimaryButtonPosition">
           <input
             id="togglePrimaryButtonPosition"
             type="checkbox"

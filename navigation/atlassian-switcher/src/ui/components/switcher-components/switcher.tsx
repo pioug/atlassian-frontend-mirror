@@ -29,6 +29,7 @@ import {
   SyntheticProviderResults,
   FeatureMap,
   DiscoverLinkItemKeys,
+  GetExtendedAnalyticsAttributes,
 } from '../../../types';
 import { CrossJoinSection } from '../../../cross-join/components/cross-join-section';
 import { CrossFlowSection } from '../../../cross-flow/components/cross-flow-section';
@@ -81,6 +82,7 @@ export type SwitcherProps = {
   rawProviderResults: ProviderResults & SyntheticProviderResults;
   features: FeatureMap;
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
+  getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
 };
 
 const getAnalyticsContext = (itemsCount: number) => ({
@@ -146,6 +148,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
       onJoinableSiteClicked,
       triggerXFlow,
       slackDiscoveryClickHandler,
+      getExtendedAnalyticsAttributes,
     } = this.props;
     /**
      * It is essential that switchToLinks reflects the order corresponding nav items
@@ -289,6 +292,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
               showNewHeading={this.props.showNewHeading}
               suggestedProductLinks={suggestedProductLinks}
               triggerXFlow={triggerXFlow}
+              getExtendedAnalyticsAttributes={getExtendedAnalyticsAttributes}
             />
           )}
           <CrossJoinSection

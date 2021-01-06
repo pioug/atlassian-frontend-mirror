@@ -93,6 +93,8 @@ const InnerToggle = forwardRef(
     const toggleStyles = useMemo(() => getStyles(size, mode), [size, mode]);
 
     return (
+      // https://product-fabric.atlassian.net/browse/DST-1969
+      // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
       <label {...controlProps} css={toggleStyles}>
         <input
           ref={ref}

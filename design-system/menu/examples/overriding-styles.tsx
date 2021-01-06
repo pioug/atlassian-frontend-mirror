@@ -6,8 +6,8 @@ import { ButtonItem } from '../src';
 
 import koala from './icons/koala.png';
 
-const ImgIcon = ({ src }: { src: string; alt: string }) => (
-  <img src={src} height={24} width={24} style={{ borderRadius: 3 }} />
+const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
+  <img alt={alt} src={src} height={24} width={24} style={{ borderRadius: 3 }} />
 );
 
 export default () => (

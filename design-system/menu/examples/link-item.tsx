@@ -37,6 +37,7 @@ export default () => {
   });
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div onClick={e => e.preventDefault()}>
       <LinkItem {...getComputedProps({ href: '#link-item1' })}>
         Customer Feedback

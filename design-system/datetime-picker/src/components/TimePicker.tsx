@@ -405,6 +405,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     });
 
     return (
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         {...innerProps}
         ref={this.setContainerRef}

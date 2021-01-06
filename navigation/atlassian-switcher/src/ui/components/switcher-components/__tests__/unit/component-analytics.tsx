@@ -17,6 +17,7 @@ const EXPECTED_RENDER_EVENTS = 6;
 const DefaultAtlassianSwitcher = (props: any = {}) => {
   const stubIcon = () => <span />;
   const switcherLinks: Partial<ReturnType<typeof mapResultsToSwitcherProps>> = {
+    getExtendedAnalyticsAttributes: () => ({}),
     licensedProductLinks: [
       {
         key: 'jira',

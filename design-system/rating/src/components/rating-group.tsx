@@ -131,6 +131,7 @@ Use "defaultValue" or "value" happy days :-).
     >
       {!firstSelectionMade && (
         <Fragment>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
           <label css={visuallyHidden} htmlFor={`${groupName}--empty`}></label>
           <input
             css={visuallyHidden}

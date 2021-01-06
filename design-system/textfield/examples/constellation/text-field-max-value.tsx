@@ -5,8 +5,11 @@ import Textfield from '../../src';
 export default function TextFieldMaxValueExample() {
   return (
     <div>
-      <label htmlFor="max">Max length of 5</label>
-      <Textfield name="max" maxLength={5} />
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
+      <label htmlFor="max">
+        Max length of 5
+        <Textfield id="max" name="max" maxLength={5} />
+      </label>
     </div>
   );
 }

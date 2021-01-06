@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-switcher
 
+## 8.8.0
+
+### Minor Changes
+
+- [`fedc82da88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fedc82da88) - issue/TC-965 add Team Central (Beta) to the Switch to section of the switcher
+
+## 8.7.0
+
+### Minor Changes
+
+- [`eb40b58d0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb40b58d0b) - Add customizeLinks props to switcher to add functionality to update switcher product url and extend analytics attributes
+
 ## 8.6.4
 
 ### Patch Changes

@@ -134,6 +134,7 @@ class IconExplorerCell extends Component<Props, State> {
     return (
       <div>
         <Tooltip content={props.componentName}>
+          {/* eslint-disable-next-line styled-components-a11y/anchor-is-valid,styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-static-element-interactions */}
           <IconExplorerLink onClick={this.openModal}>
             <Icon label={props.componentName} />
           </IconExplorerLink>

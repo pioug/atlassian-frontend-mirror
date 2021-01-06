@@ -230,6 +230,7 @@ class InlineEditUncontrolled<FieldValue = string> extends React.Component<
         }
       >
         {({ formProps: { onKeyDown, onSubmit, ref: formRef } }) => (
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <form
             onKeyDown={e => {
               onKeyDown(e);

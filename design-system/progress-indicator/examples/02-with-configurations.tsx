@@ -177,6 +177,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
             </div>
           </Header>
           <Header>
+            {/* eslint-disable-next-line styled-components-a11y/label-has-for */}
             <Label htmlFor="input">
               <Input
                 checked={isInteractive}

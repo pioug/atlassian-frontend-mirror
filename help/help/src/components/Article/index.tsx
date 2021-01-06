@@ -48,6 +48,7 @@ export const Article: React.FC = () => {
       onArticleRenderBegin,
       onArticleRenderDone,
       onGetRelatedArticleOfOpenArticle,
+      onRelatedArticlesShowMoreClickOfOpenArticle,
       history,
     },
   } = useHelpContext();
@@ -184,6 +185,9 @@ export const Article: React.FC = () => {
                   onGetRelatedArticle={onGetRelatedArticleOfOpenArticle}
                   routeGroup={article.routeGroup}
                   routeName={article.routeName}
+                  onRelatedArticlesShowMoreClick={
+                    onRelatedArticlesShowMoreClickOfOpenArticle
+                  }
                 />
               )}
           </>

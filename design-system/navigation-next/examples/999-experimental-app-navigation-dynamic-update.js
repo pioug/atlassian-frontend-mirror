@@ -43,6 +43,7 @@ class ExperimentalAppNavigationDynamicUpdate extends Component {
 
     return (
       <Layout globalNavigation={showSkeleton ? NavigationSkeleton : Navigation}>
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
         <label css={labelCSS}>
           <Toggle isChecked={showSkeleton} name="toggle" onChange={onChange} />
           <span>Toggle navigation</span>

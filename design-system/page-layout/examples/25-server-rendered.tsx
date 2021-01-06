@@ -75,23 +75,38 @@ const ScrollableContent = () => {
 };
 
 const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
-  <label css={{ display: 'block' }}>
-    <input type="checkbox" onChange={onChange} value={value.toString()} />
+  <label htmlFor="chckbx1" css={{ display: 'block' }}>
+    <input
+      id="chckbx1"
+      type="checkbox"
+      onChange={onChange}
+      value={value.toString()}
+    />
     Toggle fixed
   </label>
 );
 
 const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
-  <label css={{ display: 'block' }}>
-    <input type="checkbox" onChange={onChange} value={value.toString()} />
+  <label htmlFor="chckbx2" css={{ display: 'block' }}>
+    <input
+      id="chckbx2"
+      type="checkbox"
+      onChange={onChange}
+      value={value.toString()}
+    />
     {`${value ? 'Hide' : 'Show'} ${name}`}
   </label>
 );
 
 const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
   <Fragment>
-    <label css={{ display: 'block' }}>
-      <input type="checkbox" onChange={onChange} value={value.toString()} />
+    <label htmlFor="chckbx3" css={{ display: 'block' }}>
+      <input
+        id="chckbx3"
+        type="checkbox"
+        onChange={onChange}
+        value={value.toString()}
+      />
       Toggle scrollable content
     </label>
     {value && <ScrollableContent />}

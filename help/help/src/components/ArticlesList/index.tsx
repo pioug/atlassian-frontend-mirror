@@ -54,7 +54,7 @@ const ArticleList: React.FC<ArticlesListInterface> = ({
     setShowMoreToggled(!showMoreToggled);
 
     if (onToggleArticlesList) {
-      onToggleArticlesList(event, analyticsEvent);
+      onToggleArticlesList(event, analyticsEvent, !showMoreToggled);
     }
   };
 

@@ -54,6 +54,8 @@ const RadioWithMode = forwardRef(function Radio(
   const styles = useMemo(() => getRadioStyles(mode), [mode]);
 
   return (
+    // https://product-fabric.atlassian.net/browse/DST-1971
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
     <label
       data-testid={testId && `${testId}--radio-label`}
       data-disabled={isDisabled ? 'true' : undefined}

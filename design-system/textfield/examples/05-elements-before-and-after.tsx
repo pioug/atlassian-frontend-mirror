@@ -8,6 +8,7 @@ import Textfield from '../src';
 export default function ElementsBeforeAfterExample() {
   return (
     <Fragment>
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="after-input">After input</label>
       <Textfield
         testId="after-input"
@@ -17,6 +18,7 @@ export default function ElementsBeforeAfterExample() {
           </div>
         }
       />
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="before-input">Before input</label>
       <Textfield
         testId="before-input"

@@ -5,6 +5,7 @@ import CheckIcon from '@atlaskit/icon/glyph/check';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
   <div onClick={e => e.preventDefault()}>
     <DropdownMenu trigger="Filter cities" triggerType="button">
       <DropdownItemGroup>

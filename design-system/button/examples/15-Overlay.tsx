@@ -14,7 +14,17 @@ function Overlay() {
         onChange={() => setShowOverlay(value => !value)}
         name="show-loading"
       />
-      <Button overlay={showOverlay ? <span>🤪</span> : null}>Hello</Button>
+      <Button
+        overlay={
+          showOverlay ? (
+            <span role="img" aria-label="Crazy face Emoji">
+              🤪
+            </span>
+          ) : null
+        }
+      >
+        Hello
+      </Button>
     </>
   );
 }

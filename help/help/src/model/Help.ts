@@ -31,6 +31,12 @@ export interface Help {
     routeGroup?: string,
     routeName?: string,
   ): Promise<ArticleItem[]>;
+  // Function executed when the user clicks the "show more" button of the related articles list of an open article. This prop is optional
+  onRelatedArticlesShowMoreClickOfOpenArticle?(
+    event: React.MouseEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+    isCollapsed: boolean,
+  ): void;
   // Function executed when the user click a related article item
   onRelatedArticlesListItemClick?: (
     event: React.MouseEvent<HTMLElement, MouseEvent>,

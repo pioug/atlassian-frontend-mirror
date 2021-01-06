@@ -123,6 +123,8 @@ const TextfieldWithMode = forwardRef((props: InternalProps, ref) => {
   const inputStyle = useMemo(() => getInputStyles(mode), [mode]);
 
   return (
+    // https://product-fabric.atlassian.net/browse/DST-1970
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       {...containerControlProps}
       onMouseDown={handleOnMouseDown}

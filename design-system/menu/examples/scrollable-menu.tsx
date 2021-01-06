@@ -13,7 +13,7 @@ import wallet from './icons/wallet.png';
 import Yeti from './icons/yeti.png';
 
 const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={src} height={24} width={24} style={{ borderRadius: 3 }} />
+  <img alt={alt} src={src} height={24} width={24} style={{ borderRadius: 3 }} />
 );
 
 export default () => {

@@ -12,6 +12,8 @@ import {
   StatuspageIcon,
   TrelloIcon,
 } from '@atlaskit/logo';
+import WorldIcon from '@atlaskit/icon/glyph/world';
+
 import FormattedMessage from '../../ui/primitives/formatted-message';
 import {
   RecentContainerType,
@@ -24,10 +26,10 @@ import {
   CurrentSite,
   CollaborationGraphRecentContainer,
   CollaborationGraphRecentContainerType,
+  MapUrl,
 } from '../../types';
 import messages from './messages';
 import { CustomLink, RecentContainer, SwitcherChildItem } from '../../types';
-import WorldIcon from '@atlaskit/icon/glyph/world';
 import { createIcon, createImageIcon, IconType } from './icon-themes';
 import { getProductDataWithMystiqueFF } from './map-to-switcher-props-with-mystique-ff';
 
@@ -128,6 +130,11 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
       <FormattedMessage {...messages.productDescriptionDragonfruit} />
     ),
   },
+  [SwitcherProductType.TEAM_CENTRAL]: {
+    label: 'Team Central (Beta)',
+    Icon: createIcon(AtlassianIcon, { size: 'small' }),
+    href: 'https://team.atlassian.com',
+  },
   [SwitcherProductType.OPSGENIE]: {
     label: 'Opsgenie',
     Icon: createIcon(OpsGenieIcon, { size: 'small' }),
@@ -194,6 +201,7 @@ const PRODUCT_ORDER = [
   SwitcherProductType.BITBUCKET,
   SwitcherProductType.STATUSPAGE,
   SwitcherProductType.TRELLO,
+  SwitcherProductType.TEAM_CENTRAL,
 ];
 
 export const BROWSE_APPS_URL: { [Key in Product]?: string | undefined } = {
@@ -214,9 +222,10 @@ export const TO_SWITCHER_PRODUCT_KEY: {
   [ProductKey.STATUSPAGE]: SwitcherProductType.STATUSPAGE,
   [ProductKey.TRELLO]: SwitcherProductType.TRELLO,
   [ProductKey.DRAGONFRUIT]: SwitcherProductType.DRAGONFRUIT,
+  [ProductKey.TEAM_CENTRAL]: SwitcherProductType.TEAM_CENTRAL,
 };
 
-interface ConnectedSite {
+export interface ConnectedSite {
   avatar: string | null;
   product: AvailableProduct;
   isCurrentSite: boolean;
@@ -224,13 +233,14 @@ interface ConnectedSite {
   siteUrl: string;
 }
 
-const getProductSiteUrl = (connectedSite: ConnectedSite): string => {
+export const getProductSiteUrl = (connectedSite: ConnectedSite): string => {
   const { product, siteUrl } = connectedSite;
 
   if (
     product.productType === SwitcherProductType.OPSGENIE ||
     product.productType === SwitcherProductType.STATUSPAGE ||
-    product.productType === SwitcherProductType.TRELLO
+    product.productType === SwitcherProductType.TRELLO ||
+    product.productType === SwitcherProductType.TEAM_CENTRAL
   ) {
     return product.url;
   }
@@ -240,6 +250,7 @@ const getProductSiteUrl = (connectedSite: ConnectedSite): string => {
 
 const getAvailableProductLinkFromSiteProduct = (
   connectedSites: ConnectedSite[],
+  mapUrl: MapUrl,
   isMystiqueEnabled: boolean,
 ): SwitcherItemType => {
   const topSite =
@@ -254,14 +265,14 @@ const getAvailableProductLinkFromSiteProduct = (
   return {
     ...productLinkProperties,
     key: productType + topSite.siteName,
-    href: getProductSiteUrl(topSite),
+    href: mapUrl(getProductSiteUrl(topSite), productType),
     description: topSite.siteName,
     productType,
     childItems:
       connectedSites.length > 1
         ? connectedSites
             .map(site => ({
-              href: getProductSiteUrl(site),
+              href: mapUrl(getProductSiteUrl(site), productType),
               label: site.siteName,
               avatar: site.avatar,
             }))
@@ -273,6 +284,7 @@ const getAvailableProductLinkFromSiteProduct = (
 export const getAvailableProductLinks = (
   availableProducts: AvailableProductsResponse,
   cloudId: string | null | undefined,
+  mapUrl: MapUrl,
   features: {
     isMystiqueEnabled: boolean;
   },
@@ -303,6 +315,7 @@ export const getAvailableProductLinks = (
       connectedSites &&
       getAvailableProductLinkFromSiteProduct(
         connectedSites,
+        mapUrl,
         features.isMystiqueEnabled,
       )
     );

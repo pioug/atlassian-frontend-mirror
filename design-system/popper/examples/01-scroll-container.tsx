@@ -67,6 +67,7 @@ export default () => (
         padding: '16px',
       }}
     >
+      {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
       <b>Scroll across and down ↘️ to see the popper</b>
       <br />
       <br />

@@ -13,6 +13,7 @@ import {
   Product,
   WithRecommendationsFeatureFlags,
   ProviderResults,
+  CustomizeLinks,
 } from '../../types';
 import {
   JoinableSitesProvider,
@@ -33,6 +34,7 @@ type JiraSwitcherProps = WithTheme &
     joinableSitesDataProvider?: JoinableSitesDataProvider;
     availableProductsDataProvider?: AvailableProductsDataProvider;
     slackDiscoveryClickHandler?: DiscoverMoreCallback;
+    customizeLinks?: CustomizeLinks;
   };
 
 export default (props: JiraSwitcherProps) => (
@@ -77,6 +79,7 @@ export default (props: JiraSwitcherProps) => (
                     undefined,
                     props.recommendationsFeatureFlags,
                     props.slackDiscoveryClickHandler,
+                    props.customizeLinks,
                   );
 
                   return (

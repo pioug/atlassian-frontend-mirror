@@ -9,6 +9,7 @@ const A = styled.a`
 `;
 
 const StyledExample = (props: HTMLAttributes<HTMLAnchorElement>) => {
+  // eslint-disable-next-line styled-components-a11y/anchor-has-content
   return <A {...props} target="_blank" />;
 };
 

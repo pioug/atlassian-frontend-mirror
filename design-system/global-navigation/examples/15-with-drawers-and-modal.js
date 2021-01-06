@@ -21,8 +21,8 @@ const DrawerContent = ({ drawerTitle, drawerBody }) => (
 
     <label htmlFor="textbox" css={{ display: 'block' }}>
       Type something in the textarea below and see if it is retained
+      <textarea id="textbox" input="textbox" type="text" rows="50" cols="50" />
     </label>
-    <textarea input="textbox" type="text" rows="50" cols="50" />
   </div>
 );
 

@@ -127,6 +127,7 @@ const IconExplorerCell: FC<Props> = ({
   return (
     <div>
       <Tooltip content={componentName}>
+        {/* eslint-disable-next-line styled-components-a11y/anchor-is-valid,styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-static-element-interactions */}
         <IconExplorerLink onClick={openModal}>
           <Icon label={componentName} size="medium" />
         </IconExplorerLink>

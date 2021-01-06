@@ -65,15 +65,17 @@ class AnimationDemo extends Component<{}, State> {
   render() {
     return (
       <div>
-        <input
-          type="checkbox"
-          id="animate"
-          onChange={this.toggleAnimation}
-          ref={(elem: HTMLInputElement) => {
-            this.checkbox = elem;
-          }}
-        />{' '}
-        <label htmlFor="animate">Animate</label>
+        <label htmlFor="animate">
+          <input
+            type="checkbox"
+            id="animate"
+            onChange={this.toggleAnimation}
+            ref={(elem: HTMLInputElement) => {
+              this.checkbox = elem;
+            }}
+          />{' '}
+          Animate
+        </label>
         <hr />
         <div>
           {this.randomIcon()}

@@ -19,6 +19,9 @@ import {
   SyntheticProviderResults,
   RecommendationsFeatureFlags,
   DiscoverMoreCallback,
+  CustomizeLinks,
+  MapUrl,
+  GetExtendedAnalyticsAttributes,
 } from '../../types';
 import { createCollector } from './create-collector';
 import { collectAdminLinks } from '../../admin/utils/admin-link-collector';
@@ -31,6 +34,7 @@ import { collectJoinableSiteLinks } from '../../cross-join/utils/cross-join-link
 
 function collectAvailableProductLinks(
   cloudId: string | null | undefined,
+  mapUrl: MapUrl,
   features: {
     isMystiqueEnabled: boolean;
   },
@@ -44,6 +48,7 @@ function collectAvailableProductLinks(
       return getAvailableProductLinks(
         availableProducts.data,
         cloudId,
+        mapUrl,
         features,
       );
     }
@@ -184,6 +189,7 @@ export function mapResultsToSwitcherProps(
   adminUrl?: string,
   recommendationsFeatureFlags?: RecommendationsFeatureFlags,
   slackDiscoveryClickHandler?: DiscoverMoreCallback,
+  customizeLinks?: CustomizeLinks,
 ) {
   const collect = createCollector();
 
@@ -225,10 +231,20 @@ export function mapResultsToSwitcherProps(
 
   const hasLoadedJoinableSites = hasLoaded(joinableSites);
 
+  let mapUrl: MapUrl = url => url;
+  let getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes = () => ({});
+  if (customizeLinks) {
+    const originCustomLinks = customizeLinks();
+    mapUrl = originCustomLinks.mapUrl;
+    getExtendedAnalyticsAttributes =
+      originCustomLinks.getExtendedAnalyticsAttributes;
+  }
   return {
+    getExtendedAnalyticsAttributes,
     licensedProductLinks: collect(
       collectAvailableProductLinks(
         cloudId,
+        mapUrl,
         {
           isMystiqueEnabled,
         },

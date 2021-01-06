@@ -168,6 +168,7 @@ export enum SwitcherProductType {
   STATUSPAGE = 'STATUSPAGE',
   TRELLO = 'TRELLO',
   DRAGONFRUIT = 'DRAGONFRUIT',
+  TEAM_CENTRAL = 'TEAM_CENTRAL',
 }
 
 export type AvailableProduct =
@@ -186,7 +187,8 @@ interface AvailableProductWithUrl {
     | SwitcherProductType.BITBUCKET
     | SwitcherProductType.OPSGENIE
     | SwitcherProductType.STATUSPAGE // assuming that the URL is provided by TCS (same as Opsgenie)
-    | SwitcherProductType.TRELLO;
+    | SwitcherProductType.TRELLO
+    | SwitcherProductType.TEAM_CENTRAL;
   url: string;
 }
 
@@ -273,6 +275,7 @@ export enum ProductKey {
   STATUSPAGE = 'statuspage',
   TRELLO = 'trello',
   DRAGONFRUIT = 'dragonfruit',
+  TEAM_CENTRAL = 'townsquare',
 }
 
 export type RecommendationsEngineResponse = RecommendationItem[];
@@ -360,10 +363,32 @@ export type AtlassianSwitcherProps = WithTheme &
     adminUrl?: string;
     // Optional callback to be exectuted after a user clicks on Slack for Atlassian.
     slackDiscoveryClickHandler?: DiscoverMoreCallback;
+    // Optional callback to be executed for adding Origin Tracing info onto switcher links.
+    customizeLinks?: CustomizeLinks;
   } & FeatureFlagProps;
 
 export enum DiscoverLinkItemKeys {
   DISCOVER_MORE = 'discover-more',
   GIT_TOOLS = 'appswitcher.git.tools',
   SLACK_INTEGRATION = 'slack-integration',
+}
+
+export interface AnalyticAttributes {
+  [key: string]: any;
+}
+
+export interface MapUrl {
+  (url: string, product: SwitcherProductType): string;
+}
+export interface GetExtendedAnalyticsAttributes {
+  (product?: SwitcherProductType): AnalyticAttributes;
+}
+
+export interface CustomizeLinks {
+  (): {
+    // Provide function to update switcher url
+    mapUrl: MapUrl;
+    // Provides function to return additonal AnalyticAttributes
+    getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
+  };
 }

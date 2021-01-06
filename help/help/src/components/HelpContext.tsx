@@ -66,6 +66,11 @@ export interface HelpContextInterface {
       analyticsEvent: UIAnalyticsEvent,
       articleData: ArticleItem,
     ) => void;
+    onRelatedArticlesShowMoreClickOfOpenArticle?(
+      event: React.MouseEvent<HTMLElement>,
+      analyticsEvent: UIAnalyticsEvent,
+      isCollapsed: boolean,
+    ): void;
 
     // Header buttons
     onCloseButtonClick?(
@@ -541,6 +546,8 @@ export const HelpContextProvider: React.FC<
           onGetRelatedArticleOfOpenArticle:
             props.onGetRelatedArticleOfOpenArticle,
           onRelatedArticlesListItemClick: props.onRelatedArticlesListItemClick,
+          onRelatedArticlesShowMoreClickOfOpenArticle:
+            props.onRelatedArticlesShowMoreClickOfOpenArticle,
 
           // Default content / Home screen
           defaultContent: props.defaultContent,

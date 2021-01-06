@@ -33,32 +33,68 @@ export default () => {
     >
       <RatingGroup groupName="rating--custom">
         <Rating
-          render={props => <Emoji {...props}>😭</Emoji>}
+          render={props => (
+            <Emoji {...props}>
+              <span role="img" aria-label="Crying Emoji">
+                😭
+              </span>
+            </Emoji>
+          )}
           label="OMFG"
           value="omfg"
         />
         <Rating
-          render={props => <Emoji {...props}>😞</Emoji>}
+          render={props => (
+            <Emoji {...props}>
+              <span role="img" aria-label="Sad Emoji">
+                😞
+              </span>
+            </Emoji>
+          )}
           label="Omg.."
           value="omg"
         />
         <Rating
-          render={props => <Emoji {...props}>😬</Emoji>}
+          render={props => (
+            <Emoji {...props}>
+              <span role="img" aria-label="Smiling Emoji">
+                😬
+              </span>
+            </Emoji>
+          )}
           label="Hmm"
           value="hmmm"
         />
         <Rating
-          render={props => <Emoji {...props}>🙂</Emoji>}
+          render={props => (
+            <Emoji {...props}>
+              <span role="img" aria-label="Happy Emoji">
+                🙂
+              </span>
+            </Emoji>
+          )}
           label="It's ok"
           value="its-ok"
         />
         <Rating
-          render={props => <Emoji {...props}>😁</Emoji>}
+          render={props => (
+            <Emoji {...props}>
+              <span role="img" aria-label="Super Happy Emoji">
+                😁
+              </span>
+            </Emoji>
+          )}
           label="So good!"
           value="so-good"
         />
         <Rating
-          render={props => <Emoji {...props}>😍</Emoji>}
+          render={props => (
+            <Emoji {...props}>
+              <span role="img" aria-label="In Love Emoji">
+                😍
+              </span>
+            </Emoji>
+          )}
           label="I LOVE THIS"
           value="love-it"
         />

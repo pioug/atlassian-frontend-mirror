@@ -67,8 +67,9 @@ const ScrollableContent = () => {
 };
 
 const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
-  <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
+  <label htmlFor="chckbx1" css={{ display: 'block', whiteSpace: 'nowrap' }}>
     <input
+      id="chckbx1"
       type="checkbox"
       onChange={onChange}
       value={value.toString()}
@@ -79,7 +80,7 @@ const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
 );
 
 const ToggleShown = ({ onChange, value, name, id }: ToggleElProps) => (
-  <label css={{ display: 'block' }}>
+  <label htmlFor={id} css={{ display: 'block' }}>
     <input
       type="checkbox"
       onChange={onChange}
@@ -92,8 +93,9 @@ const ToggleShown = ({ onChange, value, name, id }: ToggleElProps) => (
 
 const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
   <Fragment>
-    <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
+    <label htmlFor="chckbx2" css={{ display: 'block', whiteSpace: 'nowrap' }}>
       <input
+        id="chckbx2"
         type="checkbox"
         onChange={onChange}
         value={value.toString()}
@@ -107,8 +109,9 @@ const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
 
 const ToggleExtraWide = ({ onChange, value }: ToggleElProps) => (
   <Fragment>
-    <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
+    <label htmlFor="chckbx3" css={{ display: 'block', whiteSpace: 'nowrap' }}>
       <input
+        id="chckbx3"
         type="checkbox"
         onChange={onChange}
         value={value.toString()}
@@ -119,6 +122,7 @@ const ToggleExtraWide = ({ onChange, value }: ToggleElProps) => (
     {value && (
       <img
         src="https://picsum.photos/seed/picsum/1600"
+        alt="wide placeholder"
         title="wide placeholder image"
       />
     )}

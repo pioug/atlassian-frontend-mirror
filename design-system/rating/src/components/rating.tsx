@@ -93,6 +93,7 @@ const Rating = forwardRef<HTMLLabelElement, InternalRatingProps>(
 
     return (
       <Fragment>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label
           {...props}
           ref={ref}

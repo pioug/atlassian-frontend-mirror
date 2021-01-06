@@ -26,6 +26,7 @@ export function Label(
 ) {
   return (
     <div>
+      {/* eslint-disable-next-line styled-components-a11y/label-has-associated-control,styled-components-a11y/label-has-for */}
       <LabelElement {...(props as any)} />
     </div>
   );

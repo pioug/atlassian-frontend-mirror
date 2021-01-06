@@ -127,7 +127,6 @@ class IconExplorerCell extends Component<Props, { isModalOpen: boolean }> {
                 ref={this.setInputRef}
               />
             </div>
-            {/* eslint-enable jsx-a11y/no-static-element-interactions */}
           </Modal>
         ) : null}
       </ModalTransition>
@@ -136,6 +135,7 @@ class IconExplorerCell extends Component<Props, { isModalOpen: boolean }> {
     return (
       <div>
         <Tooltip content={props.componentName}>
+          {/* eslint-disable-next-line styled-components-a11y/anchor-is-valid,styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-static-element-interactions */}
           <IconExplorerLink onClick={this.openModal}>
             <Icon label={props.componentName} />
           </IconExplorerLink>

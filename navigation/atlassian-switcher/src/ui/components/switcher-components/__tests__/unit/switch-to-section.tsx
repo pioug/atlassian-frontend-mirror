@@ -63,6 +63,7 @@ describe('SwitchToSection', () => {
                   showNewHeading={showNewHeading}
                   suggestedProductLinks={[]}
                   triggerXFlow={jest.fn()}
+                  getExtendedAnalyticsAttributes={() => ({})}
                 />
               </IntlProvider>
             </AnalyticsListener>,

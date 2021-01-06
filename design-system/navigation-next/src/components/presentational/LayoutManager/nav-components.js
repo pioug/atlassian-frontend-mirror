@@ -111,6 +111,7 @@ export class ComposedGlobalNavigation extends Component {
     const dataset = datasets ? datasets.globalNavigation : {};
 
     return (
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <div
         {...dataset}
         onMouseOver={

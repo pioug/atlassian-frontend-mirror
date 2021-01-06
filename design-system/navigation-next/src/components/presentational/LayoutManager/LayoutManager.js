@@ -241,6 +241,7 @@ export default class LayoutManager extends Component {
                 <GlobalNavigation />
               </HorizontalNavigationContainer>
             )}
+            {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
             <NavigationContainer
               {...dataset}
               topOffset={navContainerTopOffset}

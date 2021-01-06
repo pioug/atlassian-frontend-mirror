@@ -237,6 +237,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   };
 
   return (
+    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
     <div
       ref={leftSideBarRef}
       css={leftSidebarStyles(isFixed, isFlyoutOpen)}

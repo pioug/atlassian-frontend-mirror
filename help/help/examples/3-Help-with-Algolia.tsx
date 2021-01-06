@@ -365,6 +365,16 @@ const Example: React.FC = () => {
                   onSearchExternalUrlClick={handleOnSearchExternalUrlClick}
                   onWasHelpfulSubmit={handleOnWasHelpfulSubmit}
                   onBackButtonClick={handleOnBackButtonClick}
+                  onRelatedArticlesShowMoreClickOfOpenArticle={(
+                    event,
+                    analytics,
+                    isCollapsed,
+                  ) => {
+                    console.log('onRelatedArticlesShowMoreClickOfOpenArticle');
+                    console.log(event);
+                    console.log(analytics);
+                    console.log(isCollapsed);
+                  }}
                 >
                   <ExampleDefaultContent>
                     <RelatedArticles
@@ -378,6 +388,16 @@ const Example: React.FC = () => {
                         console.log(analytics);
                         console.log(article);
                         articleIdSetter(article.id);
+                      }}
+                      onRelatedArticlesShowMoreClick={(
+                        event,
+                        analytics,
+                        isCollapsed,
+                      ) => {
+                        console.log('onRelatedArticlesShowMoreClick');
+                        console.log(event);
+                        console.log(analytics);
+                        console.log(isCollapsed);
                       }}
                       onGetRelatedArticle={getRelatedArticle}
                       routeGroup={routeGroup}

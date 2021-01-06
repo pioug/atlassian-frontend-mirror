@@ -18,6 +18,7 @@ import {
   TriggerXFlowCallback,
   DiscoverMoreCallback,
   DiscoverLinkItemKeys,
+  GetExtendedAnalyticsAttributes,
 } from '../../../types';
 import { AdminSubsection } from '../../../admin/components/admin-subsection';
 import { CrossFlowSubsection } from '../../../cross-flow/components/cross-flow-subsection';
@@ -36,6 +37,7 @@ type SwitchToSectionProps = {
   onDiscoverMoreClicked: DiscoverMoreCallback;
   suggestedProductLinks: SwitcherItemType[];
   triggerXFlow: TriggerXFlowCallback;
+  getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
 };
 
 const START_LINK_ITEM: SwitcherItemType = {
@@ -57,6 +59,7 @@ export const SwitchToSection = ({
   onDiscoverMoreClicked,
   suggestedProductLinks,
   triggerXFlow,
+  getExtendedAnalyticsAttributes,
 }: SwitchToSectionProps) => {
   /** https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/6522/issue-prst-13-adding-discover-more-button/
    * Currently Atlaskit's Item prioritises the usage of href over onClick in the case the href is a valid value.
@@ -82,6 +85,7 @@ export const SwitchToSection = ({
             'product',
             item.href,
             item.productType,
+            getExtendedAnalyticsAttributes(item.productType),
           )}
         >
           <SwitcherItemWithDropdown

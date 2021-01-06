@@ -44,6 +44,7 @@ export interface Props {
   onRelatedArticlesShowMoreClick?: (
     event: React.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
+    isCollapsed: boolean,
   ) => void;
 }
 

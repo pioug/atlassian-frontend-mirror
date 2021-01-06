@@ -7,6 +7,7 @@ import {
   DiscoverMoreCallback,
   TriggerXFlowCallback,
   WithRecommendationsFeatureFlags,
+  CustomizeLinks,
 } from '../../types';
 import { mapResultsToSwitcherProps } from '../../common/utils/map-results-to-switcher-props';
 import {
@@ -29,6 +30,7 @@ export type GenericSwitcherProps = WithTheme &
     availableProductsDataProvider?: AvailableProductsDataProvider;
     joinableSitesDataProvider?: JoinableSitesDataProvider;
     adminUrl?: string;
+    customizeLinks?: CustomizeLinks;
   };
 
 export default (props: GenericSwitcherProps) => (
@@ -54,6 +56,9 @@ export default (props: GenericSwitcherProps) => (
                 props.features,
                 props.product,
                 props.adminUrl,
+                undefined,
+                undefined,
+                props.customizeLinks,
               );
               return <Switcher {...props} {...switcherLinks} />;
             }}

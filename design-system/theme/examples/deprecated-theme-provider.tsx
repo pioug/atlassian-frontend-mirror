@@ -37,6 +37,7 @@ export default class extends Component<Props, State> {
             anchor button (CustomThemeButton)
           </CustomThemeButton>
           <Button href="#">anchor button (StandardButton)</Button>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#">Standard anchor</a>
           <p>This is the old theming API</p>
         </div>

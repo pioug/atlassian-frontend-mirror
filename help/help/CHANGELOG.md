@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 3.1.0
+
+### Minor Changes
+
+- [`f9d42a3f08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9d42a3f08) - Added "isCollapsed" prop to ArticleList Component and RelatedArticles. Added prop "onRelatedArticlesShowMoreClickOfOpenArticle" to Help component
+
 ## 3.0.0
 
 ### Major Changes

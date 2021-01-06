@@ -198,6 +198,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
           },
         ]
       }
+      getExtendedAnalyticsAttributes={[Function]}
       isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
@@ -919,6 +920,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
           },
         ]
       }
+      getExtendedAnalyticsAttributes={[Function]}
       isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
@@ -1763,6 +1765,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
           },
         ]
       }
+      getExtendedAnalyticsAttributes={[Function]}
       isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
@@ -2424,6 +2427,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
           },
         ]
       }
+      getExtendedAnalyticsAttributes={[Function]}
       isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}

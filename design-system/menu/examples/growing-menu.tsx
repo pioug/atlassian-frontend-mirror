@@ -8,7 +8,7 @@ import { ButtonItem, PopupMenuGroup, Section } from '../src';
 import Yeti from './icons/yeti.png';
 
 const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={src} height={24} width={24} style={{ borderRadius: 3 }} />
+  <img alt={alt} src={src} height={24} width={24} style={{ borderRadius: 3 }} />
 );
 
 const fullText =

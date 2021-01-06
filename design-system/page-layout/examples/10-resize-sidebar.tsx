@@ -72,6 +72,7 @@ const ScrollableContent = () => {
 };
 
 const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
+  // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
   <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
     <input
       type="checkbox"
@@ -84,16 +85,22 @@ const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
 );
 
 const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
-  <label css={{ display: 'block' }}>
-    <input type="checkbox" onChange={onChange} value={value.toString()} />
+  <label htmlFor="chckbx1" css={{ display: 'block' }}>
+    <input
+      id="chckbx1"
+      type="checkbox"
+      onChange={onChange}
+      value={value.toString()}
+    />
     {`${value ? 'Unmount' : 'Mount'} ${name}`}
   </label>
 );
 
 const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
   <Fragment>
-    <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
+    <label htmlFor="chckbx2" css={{ display: 'block', whiteSpace: 'nowrap' }}>
       <input
+        id="chckbx2"
         data-toggle-scrollable
         type="checkbox"
         onChange={onChange}
@@ -107,8 +114,9 @@ const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
 
 const ToggleExtraWide = ({ onChange, value }: ToggleElProps) => (
   <Fragment>
-    <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
+    <label htmlFor="chckbx3" css={{ display: 'block', whiteSpace: 'nowrap' }}>
       <input
+        id="chckbx3"
         type="checkbox"
         onChange={onChange}
         value={value.toString()}
@@ -119,6 +127,7 @@ const ToggleExtraWide = ({ onChange, value }: ToggleElProps) => (
     {value && (
       <img
         src="https://picsum.photos/seed/picsum/1600"
+        alt="wide placeholder"
         title="wide placeholder image"
       />
     )}

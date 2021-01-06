@@ -441,6 +441,7 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
           />
         </TimePickerContainer>
         {isClearable ? (
+          // eslint-disable-next-line styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-static-element-interactions
           <IconContainer
             onClick={this.onClear}
             data-testid={testId && `${testId}--icon--container`}

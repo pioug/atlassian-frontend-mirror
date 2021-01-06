@@ -13,6 +13,7 @@ import {
   TriggerXFlowCallback,
   Product,
   ProviderResults,
+  CustomizeLinks,
 } from '../../types';
 import {
   JoinableSitesProvider,
@@ -33,6 +34,7 @@ type ConfluenceSwitcherProps = WithTheme & {
   joinableSitesDataProvider?: JoinableSitesDataProvider;
   availableProductsDataProvider?: AvailableProductsDataProvider;
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
+  customizeLinks?: CustomizeLinks;
 };
 
 export default (props: ConfluenceSwitcherProps) => (
@@ -73,6 +75,7 @@ export default (props: ConfluenceSwitcherProps) => (
                     undefined,
                     undefined,
                     props.slackDiscoveryClickHandler,
+                    props.customizeLinks,
                   );
 
                   return (

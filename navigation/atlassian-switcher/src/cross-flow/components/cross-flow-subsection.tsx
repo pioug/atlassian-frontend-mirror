@@ -40,7 +40,7 @@ export const CrossFlowSubsection: FunctionComponent<CrossFlowSubsection> = ({
       {suggestedProductLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}
-          data={getItemAnalyticsContext(groupIndex, item.key, 'try', item.href)}
+          data={getItemAnalyticsContext(groupIndex, item.key, 'try')}
         >
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme={itemTheme} />}

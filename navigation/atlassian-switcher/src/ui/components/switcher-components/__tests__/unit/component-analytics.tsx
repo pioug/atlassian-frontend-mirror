@@ -1101,7 +1101,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
       actionSubject: 'atlassianSwitcher',
       attributes: {
         suggestedProducts: ['confluence.ondemand'],
-        licensedProducts: ['jira'],
+        licensedProducts: ['JIRA_BUSINESS'],
         adminLinks: ['discover-more'],
         fixedLinks: [],
         numberOfSites: 2,
@@ -1166,7 +1166,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
       actionSubject: 'atlassianSwitcher',
       attributes: {
         suggestedProducts: ['confluence.ondemand'],
-        licensedProducts: ['jira'],
+        licensedProducts: ['JIRA_BUSINESS'],
         adminLinks: ['discover-more'],
         fixedLinks: [],
         numberOfSites: 1,
@@ -1180,20 +1180,18 @@ describe('Atlassian Switcher - Component Analytics', () => {
         name: 'for licensedProductLinks',
         data: {
           itemType: 'product',
-          itemId: 'jira',
+          itemId: null,
           itemsCount: 5,
           groupItemsCount: 3,
-          domain: 'invalid',
         },
       },
       {
         name: 'for licensedProductLinks expand',
         data: {
           itemType: 'product',
-          itemId: 'jira',
+          itemId: null,
           itemsCount: 5,
           groupItemsCount: 3,
-          domain: 'invalid',
         },
         subject: 'atlassianSwitcherItemExpand',
       },
@@ -1204,7 +1202,6 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemId: 'confluence.ondemand',
           itemsCount: 5,
           groupItemsCount: 3,
-          domain: 'invalid',
         },
       },
       {
@@ -1214,7 +1211,6 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemId: 'discover-more',
           itemsCount: 5,
           groupItemsCount: 3,
-          domain: 'invalid',
         },
       },
       {
@@ -1225,7 +1221,6 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemId: 'container-type',
           itemsCount: 5,
           groupItemsCount: 1,
-          domain: 'invalid',
         },
       },
       {
@@ -1236,7 +1231,6 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemId: null,
           itemsCount: 5,
           groupItemsCount: 1,
-          domain: 'example.com',
         },
       },
     ];
@@ -1265,10 +1259,9 @@ describe('Atlassian Switcher - Component Analytics', () => {
   it('should fire "atlassianSwitcherItemExpand clicked" and "atlassianSwitcherChildItem clicked"', async () => {
     const analyticsData = {
       itemType: 'product',
-      itemId: 'jira',
+      itemId: null,
       itemsCount: 5,
       groupItemsCount: 3,
-      domain: 'invalid',
       productType: SwitcherProductType.JIRA_BUSINESS,
     };
 

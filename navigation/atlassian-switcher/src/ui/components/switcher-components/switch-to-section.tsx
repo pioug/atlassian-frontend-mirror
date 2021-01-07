@@ -81,9 +81,8 @@ export const SwitchToSection = ({
           key={item.key}
           data={getItemAnalyticsContext(
             groupIndex,
-            item.key,
+            null,
             'product',
-            item.href,
             item.productType,
             getExtendedAnalyticsAttributes(item.productType),
           )}
@@ -110,12 +109,7 @@ export const SwitchToSection = ({
       fixedLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}
-          data={getItemAnalyticsContext(
-            groupIndex,
-            item.key,
-            'product',
-            item.href,
-          )}
+          data={getItemAnalyticsContext(groupIndex, item.key, 'product')}
         >
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme="product" />}

@@ -36,7 +36,6 @@ export const CustomLinksSection = ({
               groupIndex,
               null,
               'customLink',
-              href,
               undefined,
               analyticsAttributes,
             )}

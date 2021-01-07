@@ -18,12 +18,7 @@ export const AdminSubsection: FunctionComponent<AdminSubsectionProps> = ({
       {adminLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}
-          data={getItemAnalyticsContext(
-            groupIndex,
-            item.key,
-            'admin',
-            item.href,
-          )}
+          data={getItemAnalyticsContext(groupIndex, item.key, 'admin')}
         >
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme="admin" />}

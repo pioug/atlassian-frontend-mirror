@@ -12,7 +12,6 @@ import {
 } from '@atlaskit/analytics-gas-types';
 import { ProviderResults, SyntheticProviderResults } from '../../types';
 import { SwitcherItemType } from './links';
-import { urlToHostname } from './url-to-hostname';
 import { JoinableSiteItemType } from '../../cross-join/utils/cross-join-links';
 
 type PropsToContextMapper<P, C> = (props: P) => C;
@@ -307,7 +306,6 @@ export const getItemAnalyticsContext = (
   groupIndex: number,
   id: string | null,
   type: string,
-  href: string,
   productType?: string,
   extraAttributes?: { [key: string]: string },
 ) => ({
@@ -315,7 +313,6 @@ export const getItemAnalyticsContext = (
     groupIndex,
     itemId: id,
     itemType: type,
-    domain: urlToHostname(href),
     productType,
     ...extraAttributes,
   }),

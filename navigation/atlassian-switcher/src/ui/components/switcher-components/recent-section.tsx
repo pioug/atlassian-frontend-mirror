@@ -31,7 +31,7 @@ export const RecentSection = ({
         ({ key, label, href, type, description, Icon }, groupIndex) => (
           <NavigationAnalyticsContext
             key={key}
-            data={getItemAnalyticsContext(groupIndex, type, 'recent', href)}
+            data={getItemAnalyticsContext(groupIndex, type, 'recent')}
           >
             <SwitcherThemedItemWithEvents
               icon={<Icon theme="recent" />}

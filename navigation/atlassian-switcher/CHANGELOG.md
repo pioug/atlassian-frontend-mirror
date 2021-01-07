@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.9.0
+
+### Minor Changes
+
+- [`2ce4fad81c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ce4fad81c) - Improving switcher analytics
+
 ## 8.8.0
 
 ### Minor Changes

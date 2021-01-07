@@ -65,7 +65,6 @@ export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = props 
             groupIndex,
             item.key,
             'discover-fixed-links',
-            item.href,
           )}
         >
           <SwitcherThemedItemWithEvents

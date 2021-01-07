@@ -87,7 +87,6 @@ const SectionWithLinkItem = (props: SectionProps) => {
               0,
               titleLink.key,
               'product',
-              titleLink.href,
               titleLink.productType,
             )}
           >

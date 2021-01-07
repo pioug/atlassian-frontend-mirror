@@ -52,7 +52,6 @@ export const CrossJoinSection: FunctionComponent<CrossJoinSectionProps> = props 
               groupIndex,
               cloudId,
               'join',
-              href,
               productType,
             )}
           >

@@ -287,7 +287,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                     data={
                       Object {
                         "attributes": Object {
-                          "domain": "admin.atlassian.com",
                           "groupIndex": 0,
                           "itemId": "admin",
                           "itemType": "product",
@@ -302,7 +301,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                         Object {
                           "navigationCtx": Object {
                             "attributes": Object {
-                              "domain": "admin.atlassian.com",
                               "groupIndex": 0,
                               "itemId": "admin",
                               "itemType": "product",
@@ -1032,7 +1030,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                           data={
                             Object {
                               "attributes": Object {
-                                "domain": "start.atlassian.com",
                                 "groupIndex": 0,
                                 "itemId": "atlassian-start",
                                 "itemType": "product",
@@ -1047,7 +1044,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                               Object {
                                 "navigationCtx": Object {
                                   "attributes": Object {
-                                    "domain": "start.atlassian.com",
                                     "groupIndex": 0,
                                     "itemId": "atlassian-start",
                                     "itemType": "product",
@@ -1344,7 +1340,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                     data={
                       Object {
                         "attributes": Object {
-                          "domain": "admin.atlassian.com",
                           "groupIndex": 0,
                           "itemId": "admin",
                           "itemType": "product",
@@ -1359,7 +1354,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                         Object {
                           "navigationCtx": Object {
                             "attributes": Object {
-                              "domain": "admin.atlassian.com",
                               "groupIndex": 0,
                               "itemId": "admin",
                               "itemType": "product",
@@ -1814,7 +1808,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                     data={
                       Object {
                         "attributes": Object {
-                          "domain": "admin.atlassian.com",
                           "groupIndex": 0,
                           "itemId": "admin",
                           "itemType": "product",
@@ -1829,7 +1822,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                         Object {
                           "navigationCtx": Object {
                             "attributes": Object {
-                              "domain": "admin.atlassian.com",
                               "groupIndex": 0,
                               "itemId": "admin",
                               "itemType": "product",
@@ -2507,7 +2499,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                           data={
                             Object {
                               "attributes": Object {
-                                "domain": "start.atlassian.com",
                                 "groupIndex": 0,
                                 "itemId": "atlassian-start",
                                 "itemType": "product",
@@ -2522,7 +2513,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                               Object {
                                 "navigationCtx": Object {
                                   "attributes": Object {
-                                    "domain": "start.atlassian.com",
                                     "groupIndex": 0,
                                     "itemId": "atlassian-start",
                                     "itemType": "product",
@@ -2819,7 +2809,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                     data={
                       Object {
                         "attributes": Object {
-                          "domain": "admin.atlassian.com",
                           "groupIndex": 0,
                           "itemId": "admin",
                           "itemType": "product",
@@ -2834,7 +2823,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                         Object {
                           "navigationCtx": Object {
                             "attributes": Object {
-                              "domain": "admin.atlassian.com",
                               "groupIndex": 0,
                               "itemId": "admin",
                               "itemType": "product",

@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 10.1.1
+
+### Patch Changes
+
+- [`61d08bb92d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61d08bb92d) - Upgrades @compiled/react to v0.5.2
+
 ## 10.1.0
 
 ### Minor Changes

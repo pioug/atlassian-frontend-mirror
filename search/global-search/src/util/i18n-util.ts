@@ -23,8 +23,9 @@ import {
   sk,
   sv,
   zh,
-  LanguageCode,
 } from '../i18n';
+
+import { LanguageCode } from '../i18n/languages';
 
 export type LangCode = LanguageCode | 'pt-BR' | 'pt-PT';
 type LocaleMessages = { [key: string]: string };

@@ -14,6 +14,7 @@ export default {
     'Link er kopieret til udklipsholder',
   'fabric.elements.share.copylink.button.icon.label': 'Kopiér link-ikon',
   'fabric.elements.share.copylink.button.text': 'Kopier link',
+  'fabric.elements.share.copypubliclink.button.text': 'Kopiér offentligt link',
   'fabric.elements.share.failure.icon.label': 'Fejlikon',
   'fabric.elements.share.failure.message': 'Kan ikke deles',
   'fabric.elements.share.form.comment.placeholder': 'TIlføj en meddelelse',
@@ -21,6 +22,7 @@ export default {
     'Folk uden adgang får tilsendt en invitation til at deltage',
   'fabric.elements.share.form.info.message.pending.invite':
     'Din invitation sendes til godkendelse hos en administrator',
+  'fabric.elements.share.form.public.send': 'Send offentligt link',
   'fabric.elements.share.form.retry': 'Prøv igen',
   'fabric.elements.share.form.send': 'Send',
   'fabric.elements.share.form.title': 'Del',

@@ -62,7 +62,7 @@ export default {
   'fabric.atlassianSwitcher.sign.up.to.join.image':
     '複数のホログラフィック画面を見ているチーム',
   'fabric.atlassianSwitcher.slackIntegrationLink': 'Slack とアトラシアンの連携',
-  'fabric.atlassianSwitcher.start': 'Atlassian を開始',
+  'fabric.atlassianSwitcher.start': 'Atlassian Start サイト',
   'fabric.atlassianSwitcher.switchTo': '切り替え先',
   'fabric.atlassianSwitcher.switchToTooltip': '切り替え先...',
   'fabric.atlassianSwitcher.trello.has.new.freinds.body':

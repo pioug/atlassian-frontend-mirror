@@ -5,6 +5,7 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 export { default as zh } from './zh';
+export { default as zh_TW } from './zh_TW';
 export { default as cs } from './cs';
 export { default as da } from './da';
 export { default as nl } from './nl';

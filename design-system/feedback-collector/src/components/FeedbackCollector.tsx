@@ -230,7 +230,6 @@ export default class FeedbackCollector extends Component<Props> {
     // may occur before the `onSubmit` is called. To prevent prematurely cancelling the
     // network request, we deliberately don't clear this timeout inside `componentWillUnmount`.
     //
-    // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
     setTimeout(
       () => this.props.onSubmit(formValues),
       this.props.timeoutOnSubmit,

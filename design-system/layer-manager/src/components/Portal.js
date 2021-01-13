@@ -47,7 +47,6 @@ class Portal extends Component {
         // five seconds is an arbitary number, but is more than any of our
         // animations need to complete
 
-        // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
         setTimeout(() => {
           const target = document.body;
           if (!target) return;

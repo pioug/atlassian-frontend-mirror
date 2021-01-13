@@ -57,21 +57,18 @@ export default function BasicUsage() {
                   'Discovering if user has previously answered. Result will be:',
                   hasUserAnswered,
                 );
-                // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
                 setTimeout(() => resolve(hasUserAnswered), 1000);
               })
             }
             onMailingListAnswer={(answer: boolean) =>
               new Promise(resolve => {
                 console.log('Did sign up to mailing list:', answer);
-                // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
                 setTimeout(resolve, 1000);
               })
             }
             onSubmit={formValues =>
               new Promise(resolve => {
                 console.log('submitted value', formValues);
-                // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
                 setTimeout(resolve, 1000);
               })
             }

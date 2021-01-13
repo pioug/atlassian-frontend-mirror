@@ -256,7 +256,6 @@ class MockUrlShortenerClient implements UrlShortenerClient {
   public shorten(): Promise<ShortenResponse> {
     return new Promise<ShortenResponse>(resolve => {
       this.count++;
-      // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
       setTimeout(() => {
         resolve({
           shortUrl: `https://foo.atlassian.net/short#${this.count}`,
@@ -308,7 +307,6 @@ export default class Example extends React.Component<{}, State> {
 
   getConfig = (product: string, cloudId: string): Promise<ConfigResponse> =>
     new Promise(resolve => {
-      // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
       setTimeout(() => {
         resolve(this.state);
       }, 1000);
@@ -328,7 +326,6 @@ export default class Example extends React.Component<{}, State> {
     });
 
     return new Promise<ShareResponse>(resolve => {
-      // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
       setTimeout(
         () =>
           resolve({
@@ -349,7 +346,6 @@ export default class Example extends React.Component<{}, State> {
     cloudId: string,
   ): Promise<SlackTeamsServiceResponse> =>
     new Promise(resolve => {
-      // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
       setTimeout(() => {
         resolve(slackWorkspacesData);
       }, 1000);
@@ -361,7 +357,6 @@ export default class Example extends React.Component<{}, State> {
     cloudId: string,
   ): Promise<SlackConversationsServiceResponse> =>
     new Promise(resolve => {
-      // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
       setTimeout(() => {
         resolve(slackConversationsData);
       }, 1000);
@@ -386,7 +381,6 @@ export default class Example extends React.Component<{}, State> {
     });
 
     return new Promise<ShareToSlackResponse>(resolve => {
-      // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
       setTimeout(
         () =>
           resolve({
@@ -618,7 +612,6 @@ export default class Example extends React.Component<{}, State> {
                       onChange={() => {
                         // Because the onFocus of this toggle, the `@atlaskit/popup` dialog
                         // closes itself right after it's opened, when the focus is shifted.
-                        // eslint-disable-next-line @wordpress/react-no-unsafe-timeout
                         setTimeout(() => {
                           this.setState({
                             isAutoOpenDialog: !isAutoOpenDialog,

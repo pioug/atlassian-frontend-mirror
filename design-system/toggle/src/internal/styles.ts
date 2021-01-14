@@ -34,6 +34,7 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
   const colors = getColors(mode);
 
   return {
+    boxSizing: 'content-box',
     display: 'inline-block',
     padding: borderWidth,
     margin: borderWidth,

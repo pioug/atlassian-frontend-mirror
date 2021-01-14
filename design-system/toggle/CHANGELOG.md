@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.0.3
+
+### Patch Changes
+
+- [`1afc5c6e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1afc5c6e66) - The layout of toggle icons is not showing correctly, fixed it by explicitly set box-sizing to content-box
+
 ## 12.0.2
 
 ### Patch Changes

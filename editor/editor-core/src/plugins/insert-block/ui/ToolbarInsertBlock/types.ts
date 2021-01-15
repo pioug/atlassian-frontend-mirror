@@ -1,13 +1,12 @@
 import { INPUT_METHOD } from '../../../analytics/types';
 import { EditorView } from 'prosemirror-view';
 import EditorActions from '../../../../actions';
-import { Command, CommandDispatch } from '../../../../types/command';
+import { Command } from '../../../../types/command';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { BlockType } from '../../../block-type/types';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
 import { DispatchAnalyticsEvent } from '../../../analytics';
 import { BlockMenuItem } from './create-items';
 
@@ -53,7 +52,7 @@ export interface Props {
     macroProvider: MacroProvider,
     node?: PMNode,
     isEditing?: boolean,
-  ) => (state: EditorState, dispatch: CommandDispatch) => void;
+  ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 

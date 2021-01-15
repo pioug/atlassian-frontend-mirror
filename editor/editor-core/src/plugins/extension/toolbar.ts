@@ -106,13 +106,14 @@ const editButton = (
       icon: EditIcon,
       testId: 'extension-toolbar-edit-button',
       // Taking the latest `updateExtension` from plugin state to avoid race condition @see ED-8501
-      onClick: (state, dispatch) => {
+      onClick: (state, dispatch, view) => {
         const macroState: MacroState = macroPluginKey.getState(state);
         const { updateExtension } = getPluginState(state);
 
         editExtension(macroState && macroState.macroProvider, updateExtension)(
           state,
           dispatch,
+          view,
         );
 
         return true;

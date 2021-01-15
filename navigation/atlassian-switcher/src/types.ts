@@ -160,7 +160,6 @@ export interface ProvisionedProductsResponse extends ProvisionedProducts {}
 export enum SwitcherProductType {
   JIRA_BUSINESS = 'JIRA_BUSINESS',
   JIRA_SERVICE_DESK = 'JIRA_SERVICE_DESK',
-  JIRA_SERVICE_DESK_MYSTIQUE = 'JIRA_SERVICE_DESK_MYSTIQUE',
   JIRA_SOFTWARE = 'JIRA_SOFTWARE',
   CONFLUENCE = 'CONFLUENCE',
   OPSGENIE = 'OPSGENIE',
@@ -205,7 +204,6 @@ export interface AvailableProductsResponse {
   sites: AvailableSite[];
   unstableFeatures?: {
     act959Enabled?: boolean; // [FD-15975]: Remove after the featue flag is rolled out to 100%
-    mystiqueEnabled?: boolean; // [FD-15974]: Remove after the feature flag is rolled out to 100%
   };
 }
 

@@ -19,6 +19,7 @@ import { SimplifiedNode } from '../../../utils/document-logger';
 import { DateEventPayload } from './date-events';
 import { SelectionEventPayload } from './selection-events';
 import { CreateLinkInlineDialogEventPayload } from './link-tool-bar-events';
+import { ExtensionEventPayload } from './extension-events';
 import { UnsupportedContentPayload } from '@atlaskit/editor-common';
 
 export type AnalyticsEventPayload =
@@ -40,7 +41,8 @@ export type AnalyticsEventPayload =
   | ConfigPanelEventPayload
   | ElementBrowserEventPayload
   | CreateLinkInlineDialogEventPayload
-  | UnsupportedContentPayload;
+  | UnsupportedContentPayload
+  | ExtensionEventPayload;
 
 export type AnalyticsEventPayloadWithChannel = {
   channel: string;

@@ -1,5 +1,26 @@
 # @atlaskit/icon-object
 
+## 6.1.1
+
+### Patch Changes
+
+- [`8990bf36a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8990bf36a9) - Add a missing codemod for the entrypoint change in 6.1.0
+
+  ***
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/PACKAGE@^VERSION`
+
+  Once upgraded, use the Atlaskit codemod-cli;
+
+  `npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
+
+  Or run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
 ## 6.1.0
 
 ### Minor Changes

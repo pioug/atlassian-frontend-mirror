@@ -482,7 +482,7 @@ describe('extension toolbar', () => {
         // Click edit pencil button
         editButton &&
           editButton.type === 'button' &&
-          editButton.onClick(editorView.state, editorView.dispatch);
+          editButton.onClick(editorView.state, editorView.dispatch, editorView);
 
         await flushPromises();
 

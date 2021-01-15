@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 136.1.1
+
+### Patch Changes
+
+- [`3e52031824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e52031824) - HOT-93991 Fix async legacy macro insertion
+
 ## 136.1.0
 
 ### Minor Changes

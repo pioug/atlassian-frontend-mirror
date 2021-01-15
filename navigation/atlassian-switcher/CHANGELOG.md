@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.10.0
+
+### Minor Changes
+
+- [`b21ff184a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b21ff184a2) - Bump required @atlaskit/logo version to 13.0.6 and remove mystique feature flag
+
 ## 8.9.0
 
 ### Minor Changes

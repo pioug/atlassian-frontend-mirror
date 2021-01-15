@@ -1,31 +1,47 @@
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { Node as PmNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import assert from 'assert';
+import { EditorView } from 'prosemirror-view';
+import {
+  EditorState,
+  Selection,
+  NodeSelection,
+  TextSelection,
+} from 'prosemirror-state';
+import { Node as PmNode } from 'prosemirror-model';
+import {
+  safeInsert,
+  replaceSelectedNode,
+  findSelectedNodeOfType,
+  replaceParentNodeOfType,
+} from 'prosemirror-utils';
+
 import { getValidNode } from '@atlaskit/editor-common';
 import {
   Providers,
   MacroProvider,
   MacroAttributes,
 } from '@atlaskit/editor-common/provider-factory';
-import {
-  safeInsert,
-  replaceSelectedNode,
-  replaceParentNodeOfType,
-} from 'prosemirror-utils';
-import { CommandDispatch } from '../../types';
 
 import { normaliseNestedLayout } from '../../utils';
+import { getPluginState as getExtensionPluginState } from '../extension/plugin-factory';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  INPUT_METHOD,
+  EVENT_TYPE,
+  addAnalytics,
+} from '../analytics';
+import {
+  ExtensionType,
+  SelectionJson,
+  TARGET_SELECTION_SOURCE,
+} from '../analytics/types/extension-events';
 import { pluginKey } from './plugin-key';
 
 export const insertMacroFromMacroBrowser = (
   macroProvider: MacroProvider,
   macroNode?: PmNode,
   isEditing?: boolean,
-) => async (
-  state: EditorState,
-  dispatch?: CommandDispatch,
-): Promise<boolean> => {
+) => async (view: EditorView): Promise<boolean> => {
   if (!macroProvider) {
     return false;
   }
@@ -34,7 +50,8 @@ export const insertMacroFromMacroBrowser = (
   const newMacro: MacroAttributes = await macroProvider.openMacroBrowser(
     macroNode,
   );
-  if (newMacro) {
+  if (newMacro && macroNode) {
+    const { state, dispatch } = view;
     const currentLayout = (macroNode && macroNode.attrs.layout) || 'default';
     const node = resolveMacro(newMacro, state, { layout: currentLayout });
 
@@ -42,26 +59,69 @@ export const insertMacroFromMacroBrowser = (
       return false;
     }
 
-    const {
-      schema: {
-        nodes: { bodiedExtension },
-      },
-    } = state;
+    const { selection, schema } = state;
+    const { extension, inlineExtension, bodiedExtension } = schema.nodes;
+    const extensionState = getExtensionPluginState(state);
+    let targetSelectionSource: TARGET_SELECTION_SOURCE =
+      TARGET_SELECTION_SOURCE.CURRENT_SELECTION;
     let { tr } = state;
 
-    const nonSelectedBodiedExtension =
-      macroNode!.type === bodiedExtension &&
-      !(tr.selection instanceof NodeSelection);
+    const isBodiedExtensionSelected = !!findSelectedNodeOfType([
+      bodiedExtension,
+    ])(selection);
 
-    if (nonSelectedBodiedExtension && !isEditing) {
-      tr = safeInsert(node)(tr);
-    } else if (nonSelectedBodiedExtension) {
-      tr = replaceParentNodeOfType(bodiedExtension, node)(tr);
-    } else if (tr.selection instanceof NodeSelection) {
+    // When it's a bodiedExtension but not selected
+    if (macroNode.type === bodiedExtension && !isBodiedExtensionSelected) {
+      // `isEditing` is `false` when we are inserting from insert-block toolbar
+      tr = isEditing
+        ? replaceParentNodeOfType(bodiedExtension, node)(tr)
+        : safeInsert(node)(tr);
+      // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
+      tr.setSelection(TextSelection.create(tr.doc, state.selection.anchor));
+    }
+    // If any extension is currently selected
+    else if (
+      findSelectedNodeOfType([extension, bodiedExtension, inlineExtension])(
+        selection,
+      )
+    ) {
       tr = replaceSelectedNode(node)(tr);
+      // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
+      tr.setSelection(
+        NodeSelection.create(tr.doc, tr.mapping.map(state.selection.anchor)),
+      );
+    }
+    // When we loose the selection. This usually happens when Synchrony resets or changes
+    // the selection when user is in the middle of updating an extension.
+    else if (extensionState.element) {
+      const pos = view.posAtDOM(extensionState.element, -1);
+      if (pos > -1) {
+        tr = tr.replaceWith(pos, pos + macroNode.nodeSize, node);
+        tr.setSelection(Selection.near(tr.doc.resolve(pos)));
+        targetSelectionSource = TARGET_SELECTION_SOURCE.HTML_ELEMENT;
+      }
     }
 
-    if (dispatch) {
+    // Only scroll if we have anything to update, best to avoid surprise scroll
+    if (dispatch && tr.docChanged) {
+      const { extensionType, extensionKey, layout, localId } = macroNode.attrs;
+      addAnalytics(state, tr, {
+        action: ACTION.UPDATED,
+        actionSubject: ACTION_SUBJECT.EXTENSION,
+        actionSubjectId: macroNode.type.name as ExtensionType,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          inputMethod: isEditing
+            ? INPUT_METHOD.MACRO_BROWSER
+            : INPUT_METHOD.TOOLBAR,
+          extensionType,
+          extensionKey,
+          layout,
+          localId,
+          selection: tr.selection.toJSON() as SelectionJson,
+          targetSelectionSource,
+        },
+      });
       dispatch(tr.scrollIntoView());
     }
     return true;
@@ -114,7 +174,7 @@ export const runMacroAutoConvert = (
     return null;
   }
 
-  // decides which kind of macro to render (inline|bodied|bodyless) - will be just inline atm.
+  // decides which kind of macro to render (inline|bodied|bodyless)
   return resolveMacro(macroAttributes, state);
 };
 

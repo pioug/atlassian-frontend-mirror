@@ -9,10 +9,10 @@ import {
 
 import {
   TO_SWITCHER_PRODUCT_KEY,
+  AVAILABLE_PRODUCT_DATA_MAP,
   AvailableProductDetails,
   SwitcherItemType,
 } from '../../common/utils/links';
-import { getProductDataWithMystiqueFF } from '../../common/utils/map-to-switcher-props-with-mystique-ff';
 
 // Design decision from
 // https://hello.atlassian.net/wiki/spaces/~kgalek/pages/563815188/Join+from+Atlassian+switcher%3A+design+so+far
@@ -25,9 +25,6 @@ export type JoinableSiteItemType = SwitcherItemType & {
 
 export const getJoinableSiteLinks = (
   joinableSites: JoinableSite[] = [],
-  features?: {
-    isMystiqueEnabled?: boolean;
-  },
 ): JoinableSiteItemType[] => {
   let joinableSiteLinks = [];
 
@@ -41,10 +38,7 @@ export const getJoinableSiteLinks = (
         label,
         Icon,
         href,
-      }: AvailableProductDetails = getProductDataWithMystiqueFF(
-        productType,
-        features?.isMystiqueEnabled,
-      );
+      }: AvailableProductDetails = AVAILABLE_PRODUCT_DATA_MAP[productType];
 
       let productUrl: string = site.url;
       let users: JoinableSiteUser[] = [];

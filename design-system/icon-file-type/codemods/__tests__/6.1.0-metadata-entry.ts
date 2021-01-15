@@ -1,6 +1,6 @@
 jest.disableAutomock();
 
-import transformer, { packageName } from '../';
+import transformer, { packageName } from '../6.1.0-metadata-entry';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
@@ -85,5 +85,44 @@ describe('Update imports', () => {
       console.log(metadata);
     `,
     'should not affect existing good imports',
+  );
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+      import { metadata } from 'not-${packageName}';
+    `,
+    `
+      import { metadata } from 'not-${packageName}';
+    `,
+    'should not affect other packages',
+  );
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+      import { metadata } from '${packageName}/foo';
+    `,
+    `
+      import { metadata } from '${packageName}/foo';
+    `,
+    'should not affect other entrypoints',
+  );
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+      import { metadata } from '@atlaskit/icon';
+      import { metadata as objectIconMetadata } from '@atlaskit/icon-object';
+      import { metadata as fileTypeIconMetadata } from '@atlaskit/icon-file-type';
+      import { metadata as priorityIconMetadata } from '@atlaskit/icon-priority';
+    `,
+    `
+      import { metadata } from '@atlaskit/icon';
+      import { metadata as objectIconMetadata } from '@atlaskit/icon-object';
+      import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
+      import { metadata as priorityIconMetadata } from '@atlaskit/icon-priority';
+    `,
+    'should work as expected on a real-world case',
   );
 });

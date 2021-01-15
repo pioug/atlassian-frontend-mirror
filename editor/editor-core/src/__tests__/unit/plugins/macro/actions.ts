@@ -54,10 +54,7 @@ describe('macro plugin -> commands -> insert macro from provider', () => {
       editorView.state.schema.nodes.paragraph.createChecked(),
     );
 
-    await insertMacroFromMacroBrowser(macroProvider, macroNode)(
-      editorView.state,
-      editorView.dispatch,
-    );
+    await insertMacroFromMacroBrowser(macroProvider, macroNode)(editorView);
 
     expect(editorView.state.doc).toEqualDocument(
       doc(

@@ -209,7 +209,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 items={toolbarItems}
                 node={floatingToolbarState.node}
                 dispatchCommand={(fn?: Function) =>
-                  fn && fn(editorView.state, editorView.dispatch)
+                  fn && fn(editorView.state, editorView.dispatch, editorView)
                 }
                 editorView={editorView}
                 className={className}

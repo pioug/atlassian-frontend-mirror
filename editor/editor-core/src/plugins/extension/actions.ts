@@ -1,9 +1,15 @@
-import { Slice, Schema, Node as PmNode } from 'prosemirror-model';
-import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { Slice, Schema, Node as PmNode, Fragment } from 'prosemirror-model';
+import {
+  EditorState,
+  Selection,
+  NodeSelection,
+  TextSelection,
+} from 'prosemirror-state';
 import {
   replaceSelectedNode,
+  findSelectedNodeOfType,
   replaceParentNodeOfType,
-  isNodeSelection,
 } from 'prosemirror-utils';
 
 import {
@@ -18,16 +24,28 @@ import { mapFragment } from '../../utils/slice';
 import { Command, CommandDispatch } from '../../types';
 import EditorActions from '../../actions';
 import { insertMacroFromMacroBrowser } from '../macro';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  INPUT_METHOD,
+  EVENT_TYPE,
+  addAnalytics,
+} from '../analytics';
+import {
+  ExtensionType,
+  SelectionJson,
+  TARGET_SELECTION_SOURCE,
+} from '../analytics/types/extension-events';
+
 import { getSelectedExtension } from './utils';
 import { setEditingContextToContextPanel } from './commands';
-
 import { getPluginState } from './pm-plugins/main';
 
 export const buildExtensionNode = <S extends Schema>(
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
   schema: S,
   attrs: object,
-  content?: object,
+  content?: Fragment,
 ) => {
   switch (type) {
     case 'extension':
@@ -35,69 +53,115 @@ export const buildExtensionNode = <S extends Schema>(
     case 'inlineExtension':
       return schema.nodes.inlineExtension.createChecked(attrs);
     case 'bodiedExtension':
-      return schema.nodes.bodiedExtension.create(attrs, content as any);
+      return schema.nodes.bodiedExtension.create(attrs, content);
   }
-
-  return undefined;
 };
 
 export const performNodeUpdate = (
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
   newAttrs: object,
-  content: object,
+  content: Fragment<any>,
   shouldScrollIntoView: boolean,
-) => (state: EditorState, dispatch?: CommandDispatch) => {
+): Command => (_state, _dispatch, view) => {
+  if (!view) {
+    throw Error('EditorView is required to perform node update!');
+  }
+  // NOTE: `state` and `dispatch` are stale at this point so we need to grab
+  // the latest one from `view` @see HOT-93986
+  const { state, dispatch } = view;
+
   const newNode = buildExtensionNode(type, state.schema, newAttrs, content);
 
   if (!newNode) {
-    return;
+    return false;
   }
 
-  const isNodeSelected = isNodeSelection(state.selection);
+  const { selection, schema } = state;
+  const { extension, inlineExtension, bodiedExtension } = schema.nodes;
+  const isBodiedExtensionSelected = !!findSelectedNodeOfType([bodiedExtension])(
+    selection,
+  );
+  const extensionState = getPluginState(state);
+  let targetSelectionSource: TARGET_SELECTION_SOURCE =
+    TARGET_SELECTION_SOURCE.CURRENT_SELECTION;
+  let action = ACTION.UPDATED;
+  let { tr } = state;
 
-  let transaction = state.tr;
-  let selection;
-
-  if (!isNodeSelected) {
+  // When it's a bodiedExtension but not selected
+  if (newNode.type === bodiedExtension && !isBodiedExtensionSelected) {
     // Bodied extensions can trigger an update when the cursor is inside which means that there is no node selected.
     // To work around that we replace the parent and create a text selection instead of new node selection
-    transaction = replaceParentNodeOfType(
+    tr = replaceParentNodeOfType(
       state.schema.nodes.bodiedExtension,
       newNode,
-    )(transaction);
-
+    )(tr);
     // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
-    selection = TextSelection.create(transaction.doc, state.selection.anchor);
-  } else {
-    transaction = replaceSelectedNode(newNode)(transaction);
-
+    tr.setSelection(TextSelection.create(tr.doc, state.selection.anchor));
+  }
+  // If any extension is currently selected
+  else if (
+    findSelectedNodeOfType([extension, bodiedExtension, inlineExtension])(
+      selection,
+    )
+  ) {
+    tr = replaceSelectedNode(newNode)(tr);
     // Replacing selected node doesn't update the selection. `selection.node` still returns the old node
-    selection = NodeSelection.create(
-      transaction.doc,
-      transaction.mapping.map(state.selection.anchor),
+    tr.setSelection(
+      NodeSelection.create(tr.doc, tr.mapping.map(state.selection.anchor)),
     );
   }
-
-  transaction = transaction.setSelection(selection);
-
-  if (dispatch) {
-    dispatch(shouldScrollIntoView ? transaction.scrollIntoView() : transaction);
+  // When we loose the selection. This usually happens when Synchrony resets or changes
+  // the selection when user is in the middle of updating an extension.
+  else if (extensionState.element) {
+    const pos = view.posAtDOM(extensionState.element, -1);
+    if (pos > -1) {
+      tr = tr.replaceWith(pos, pos + (content.size || 0) + 1, newNode);
+      tr.setSelection(Selection.near(tr.doc.resolve(pos)));
+      targetSelectionSource = TARGET_SELECTION_SOURCE.HTML_ELEMENT;
+    } else {
+      action = ACTION.ERRORED;
+    }
   }
+
+  // Only scroll if we have anything to update, best to avoid surprise scroll
+  if (dispatch && tr.docChanged) {
+    const { extensionType, extensionKey, layout, localId } = newNode.attrs;
+    addAnalytics(state, tr, {
+      action,
+      actionSubject: ACTION_SUBJECT.EXTENSION,
+      actionSubjectId: newNode.type.name as ExtensionType,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.CONFIG_PANEL,
+        extensionType,
+        extensionKey,
+        layout,
+        localId,
+        selection: tr.selection.toJSON() as SelectionJson,
+        targetSelectionSource,
+      },
+    });
+    dispatch(shouldScrollIntoView ? tr.scrollIntoView() : tr);
+  }
+  return true;
 };
 
 export const updateExtensionParams = (
   updateExtension: UpdateExtension<object>,
   node: { node: PmNode; pos: number },
   actions: UpdateContextActions,
-) => async (state: EditorState, dispatch?: CommandDispatch): Promise<void> => {
-  const { attrs, type } = node.node;
+) => async (
+  state: EditorState,
+  dispatch?: CommandDispatch,
+  view?: EditorView,
+): Promise<boolean> => {
+  const { attrs, type, content } = node.node;
 
   if (!state.schema.nodes[type.name]) {
-    return;
+    return false;
   }
 
-  const { parameters, content } = attrs;
-
+  const { parameters } = attrs;
   try {
     const newParameters = await updateExtension(parameters, actions);
 
@@ -115,9 +179,10 @@ export const updateExtensionParams = (
         newAttrs,
         content,
         true,
-      )(state, dispatch);
+      )(state, dispatch, view);
     }
   } catch {}
+  return true;
 };
 
 const createUpdateContextActions = ({
@@ -127,6 +192,7 @@ const createUpdateContextActions = ({
 }) => (
   state: EditorState,
   dispatch?: CommandDispatch,
+  view?: EditorView,
 ): UpdateContextActions => {
   return {
     editInContextPanel: (
@@ -136,6 +202,7 @@ const createUpdateContextActions = ({
       setEditingContextToContextPanel(transformBefore, transformAfter)(
         state,
         dispatch,
+        view,
       );
     },
     editInLegacyMacroBrowser,
@@ -148,13 +215,14 @@ export const editSelectedExtension = (editorActions: EditorActions) => {
   return editExtension(null, updateExtension)(
     editorView.state,
     editorView.dispatch,
+    editorView,
   );
 };
 
 export const editExtension = (
   macroProvider: MacroProvider | null,
   updateExtension?: Promise<UpdateExtension<object> | void>,
-): Command => (state, dispatch): boolean => {
+): Command => (state, dispatch, view): boolean => {
   const nodeWithPos = getSelectedExtension(state, true);
 
   if (!nodeWithPos) {
@@ -162,31 +230,30 @@ export const editExtension = (
   }
 
   const editInLegacyMacroBrowser = () => {
+    if (!view) {
+      throw new Error(`Missing view. Can't update without EditorView`);
+    }
     if (!macroProvider) {
       throw new Error(
         `Missing macroProvider. Can't use the macro browser for updates`,
       );
     }
 
-    insertMacroFromMacroBrowser(
-      macroProvider,
-      nodeWithPos.node,
-      true,
-    )(state, dispatch);
+    insertMacroFromMacroBrowser(macroProvider, nodeWithPos.node, true)(view);
   };
 
   if (updateExtension) {
     updateExtension.then(updateMethod => {
-      if (updateMethod && dispatch) {
+      if (updateMethod && view) {
         const actions = createUpdateContextActions({
           editInLegacyMacroBrowser,
-        })(state, dispatch);
+        })(state, dispatch, view);
 
-        updateExtensionParams(
-          updateMethod,
-          nodeWithPos,
-          actions,
-        )(state, dispatch);
+        updateExtensionParams(updateMethod, nodeWithPos, actions)(
+          state,
+          dispatch,
+          view,
+        );
 
         return;
       }

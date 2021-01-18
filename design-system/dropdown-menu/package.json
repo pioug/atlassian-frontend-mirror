@@ -44,7 +44,7 @@
     "@atlaskit/avatar": "^20.1.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/lozenge": "10.1.1",
+    "@atlaskit/lozenge": "10.1.2",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.0.0",

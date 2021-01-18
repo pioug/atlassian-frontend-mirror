@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 10.1.2
+
+### Patch Changes
+
+- [`69badd52b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69badd52b1) - Bumps compiled to v0.6 to surface various fixes
+
 ## 10.1.1
 
 ### Patch Changes

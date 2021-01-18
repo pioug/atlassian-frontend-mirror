@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 13.0.6
+
+### Patch Changes
+
+- [`5a25ec3086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a25ec3086) - Regenerate icon-sprite after forcing resolution for xmldom to `^0.2.1`.
+
 ## 13.0.5
 
 ### Patch Changes

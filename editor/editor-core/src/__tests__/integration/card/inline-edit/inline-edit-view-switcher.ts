@@ -11,7 +11,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: should be able to switch views with view switcher',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari', 'edge', 'chrome', 'firefox'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

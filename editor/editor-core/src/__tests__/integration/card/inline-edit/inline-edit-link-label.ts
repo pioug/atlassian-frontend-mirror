@@ -11,7 +11,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 BrowserTestCase(
   'card: changing the link label of an inline link should convert it to a "dumb" link',
-  { skip: ['safari', 'edge'] },
+  { skip: ['safari', 'edge', 'chrome', 'firefox'] },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 

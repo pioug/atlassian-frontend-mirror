@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+
 import {
   borderRadius,
-  gridSize,
-  math,
-  elevation,
   fontSizeSmall,
-} from '@atlaskit/theme';
+  gridSize,
+} from '@atlaskit/theme/constants';
+import { divide, multiply } from '@atlaskit/theme/math';
+import { e200 } from '@atlaskit/theme/elevation';
 
 import {
   headerBgColor,
@@ -20,8 +19,6 @@ import {
   labelIconColor,
   bgColor,
 } from '../styled/constants';
-
-import { Elevation } from '../types';
 
 interface FullNameLabelProps {
   noMeta?: boolean;
@@ -38,31 +35,18 @@ export const CardContainerEmpty = styled.div``;
 export const CardTriggerWrapper = styled.div`
   display: inherit;
 `;
-interface CardElevationWrapperProps {
-  customElevation?: Elevation;
-}
-export const CardElevationWrapper = styled.div<CardElevationWrapperProps>`
+
+export const CardElevationWrapper = styled.div`
   background-color: ${bgColor};
   border-radius: ${borderRadius}px;
-  ${props => {
-    if (props.customElevation === 'none') {
-      return '';
-    }
-
-    if (typeof props.customElevation === 'string') {
-      return elevation[props.customElevation];
-    }
-
-    // If customElevation is undefined it will default to this.
-    return elevation.e200;
-  }};
-  width: ${math.multiply(gridSize, 45)}px;
+  ${e200};
+  width: ${multiply(gridSize, 45)}px;
 `;
 
 export const ProfileImage = styled.div`
   position: absolute;
-  top: ${math.multiply(gridSize, 3)}px;
-  left: ${math.multiply(gridSize, 3)}px;
+  top: ${multiply(gridSize, 3)}px;
+  left: ${multiply(gridSize, 3)}px;
 `;
 
 export const ActionsFlexSpacer = styled.div`
@@ -71,7 +55,7 @@ export const ActionsFlexSpacer = styled.div`
 
 export const ActionButtonGroup = styled.div`
   user-select: none;
-  margin: ${math.multiply(gridSize, 2)}px 0 0 0;
+  margin: ${multiply(gridSize, 2)}px 0 0 0;
   text-align: right;
 
   button {
@@ -86,21 +70,21 @@ export const ActionButtonGroup = styled.div`
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: ${math.multiply(gridSize, 17)}px;
+  min-height: ${multiply(gridSize, 17)}px;
 `;
 
 export const DetailsGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: ${math.multiply(gridSize, 14.5)}px;
-  width: ${math.multiply(gridSize, 24.5)}px;
+  margin-left: ${multiply(gridSize, 14.5)}px;
+  width: ${multiply(gridSize, 24.5)}px;
 `;
 
 export const DisabledInfo = styled.div`
   font-size: ${fontSizeSmall}px;
   color: ${labelTextColor};
-  margin: ${math.multiply(gridSize, 1.5)}px 0 0 0;
-  line-height: ${math.multiply(gridSize, 2)}px;
+  margin: ${multiply(gridSize, 1.5)}px 0 0 0;
+  line-height: ${multiply(gridSize, 2)}px;
 `;
 
 export const FullNameLabel = styled.span`
@@ -112,11 +96,11 @@ export const FullNameLabel = styled.span`
   color: ${(props: FullNameLabelProps) =>
     props.isDisabledAccount ? headerTextColorInactive : headerTextColor};
   margin: ${(props: FullNameLabelProps) => getFullNameMargin(props)};
-  line-height: ${math.divide(() => 24, 18)}em;
+  line-height: ${divide(() => 24, 18)}em;
 `;
 
 export const LozengeWrapper = styled.div`
-  margin-top: ${math.multiply(gridSize, 2)}px;
+  margin-top: ${multiply(gridSize, 2)}px;
   text-transform: uppercase;
   display: block;
 `;
@@ -128,8 +112,8 @@ export const JobTitleLabel = styled.span`
 
   font-size: 14px;
   color: ${headerTextColor};
-  margin: 0 0 ${math.multiply(gridSize, 1.5)}px 0;
-  line-height: ${math.divide(() => 24, 14)}em;
+  margin: 0 0 ${multiply(gridSize, 1.5)}px 0;
+  line-height: ${divide(() => 24, 14)}em;
 `;
 
 export const AppTitleLabel = styled.span`
@@ -142,14 +126,14 @@ export const AppTitleLabel = styled.span`
   text-transform: uppercase;
 
   font-size: 12px;
-  margin: 4px 0 ${math.multiply(gridSize, 1.5)}px 0;
-  line-height: ${math.divide(() => 24, 14)}em;
+  margin: 4px 0 ${multiply(gridSize, 1.5)}px 0;
+  line-height: ${divide(() => 24, 14)}em;
 `;
 
 export const SpinnerContainer = styled.div`
   align-items: center;
   display: flex;
-  height: ${math.multiply(gridSize, 12)}px;
+  height: ${multiply(gridSize, 12)}px;
   justify-content: center;
   position: relative;
 `;
@@ -168,21 +152,21 @@ export const CardContainer = styled.div`
       100%
   );
   background-repeat: no-repeat;
-  background-size: 100% ${math.multiply(gridSize, 12)}px;
+  background-size: 100% ${multiply(gridSize, 12)}px;
   box-sizing: content-box;
-  padding: ${math.multiply(gridSize, 3)}px;
+  padding: ${multiply(gridSize, 3)}px;
 `;
 
 export const DetailsLabel = styled.div`
   display: flex;
   align-items: center;
-  line-height: ${math.multiply(gridSize, 3)}px;
-  font-size: ${math.multiply(gridSize, 1.5)}px;
-  margin: ${math.multiply(gridSize, 2)}px 0 0 0;
+  line-height: ${multiply(gridSize, 3)}px;
+  font-size: ${multiply(gridSize, 1.5)}px;
+  margin: ${multiply(gridSize, 2)}px 0 0 0;
   white-space: nowrap;
 
   & + & {
-    margin-top: ${math.multiply(gridSize, 0.25)}px;
+    margin-top: ${multiply(gridSize, 0.25)}px;
   }
 `;
 
@@ -190,9 +174,9 @@ export const DetailsLabelIcon = styled.div`
   display: flex;
   flex-shrink: 0;
   color: ${labelIconColor};
-  width: ${math.multiply(gridSize, 2)}px;
-  height: ${math.multiply(gridSize, 2)}px;
-  padding: ${math.multiply(gridSize, 0.5)}px;
+  width: ${multiply(gridSize, 2)}px;
+  height: ${multiply(gridSize, 2)}px;
+  padding: ${multiply(gridSize, 0.5)}px;
   vertical-align: top;
 
   svg {
@@ -205,5 +189,5 @@ export const DetailsLabelText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${labelTextColor};
-  padding-left: ${math.multiply(gridSize, 0.5)}px;
+  padding-left: ${multiply(gridSize, 0.5)}px;
 `;

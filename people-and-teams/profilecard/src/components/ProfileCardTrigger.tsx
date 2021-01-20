@@ -32,7 +32,6 @@ class ProfilecardTrigger extends React.PureComponent<
   static defaultProps: Partial<ProfileCardTriggerProps> = {
     actions: [],
     trigger: 'hover',
-    customElevation: 'e200',
   };
 
   targetRef?: HTMLElement;
@@ -175,7 +174,6 @@ class ProfilecardTrigger extends React.PureComponent<
       <Profilecard
         {...newProps}
         actions={this.filterActions()}
-        customElevation="none"
         hasError={this.state.hasError}
         errorType={this.state.error}
       />
@@ -191,7 +189,6 @@ class ProfilecardTrigger extends React.PureComponent<
             innerRef={ref}
             {...this.containerListeners}
             {...this.layerListeners}
-            customElevation={this.props.customElevation}
           >
             {element}
           </CardElevationWrapperWithOuter>

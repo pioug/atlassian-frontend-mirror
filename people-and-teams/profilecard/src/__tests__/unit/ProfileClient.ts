@@ -4,7 +4,8 @@ import fetchMock from 'fetch-mock/cjs/client';
 // @ts-ignore
 import * as sinon from 'sinon';
 
-import ProfileClient, { modifyResponse } from '../../api/ProfileCardClient';
+import ProfileClient from '../../api/ProfileCardClient';
+import { modifyResponse } from '../../api/UserProfileCardClient';
 import { ApiClientResponse } from '../../types';
 
 const clientUrl = 'https://foo/';
@@ -12,13 +13,13 @@ const clientCacheSize = 10;
 const clientCacheMaxAge = 500;
 
 describe('Profilecard', () => {
-  describe('ProfileClient', () => {
+  describe('UserProfileCardClient', () => {
     it('config.url is available when set on instantiation', () => {
       const client = new ProfileClient({
         url: clientUrl,
-      });
+      }).userClient;
 
-      expect(client.config.url).toEqual(clientUrl);
+      expect(client.options.url).toEqual(clientUrl);
       expect(client.cache).toEqual(null);
     });
 
@@ -27,11 +28,11 @@ describe('Profilecard', () => {
         url: clientUrl,
         cacheSize: clientCacheSize,
         cacheMaxAge: clientCacheMaxAge,
-      });
+      }).userClient;
 
-      expect(client.config.url).toEqual(clientUrl);
+      expect(client.options.url).toEqual(clientUrl);
       expect(client.cache).not.toEqual(null);
-      expect(client.cache.limit).toEqual(clientCacheSize);
+      expect(client.cache!.limit).toEqual(clientCacheSize);
       expect(client.config.cacheMaxAge).toEqual(clientCacheMaxAge);
     });
 
@@ -41,7 +42,7 @@ describe('Profilecard', () => {
         cacheSize: clientCacheSize,
         // 40 days
         cacheMaxAge: 40 * 24 * 60 * 60 * 1000,
-      });
+      }).userClient;
 
       expect(client.config.cacheMaxAge).toEqual(30 * 24 * 60 * 60 * 1000);
     });
@@ -51,7 +52,7 @@ describe('Profilecard', () => {
         url: clientUrl,
         cacheSize: clientCacheSize,
         cacheMaxAge: clientCacheMaxAge,
-      });
+      }).userClient;
 
       let cache: any;
       let clock: any;
@@ -78,7 +79,7 @@ describe('Profilecard', () => {
           expect.assertions(1);
           const data = await client.getProfile('DUMMY-CLOUD-ID', '1');
           clock.tick(clientCacheMaxAge);
-          cache = await client.getCachedProfile('DUMMY-CLOUD-ID', '1');
+          cache = await client.getCachedProfile('DUMMY-CLOUD-ID/1');
 
           expect(cache).toEqual(data);
         });
@@ -88,7 +89,7 @@ describe('Profilecard', () => {
           await client.getProfile('DUMMY-CLOUD-ID', '1');
 
           clock.tick(clientCacheMaxAge + 1);
-          cache = await client.getCachedProfile('DUMMY-CLOUD-ID', '1');
+          cache = await client.getCachedProfile('DUMMY-CLOUD-ID/1');
 
           expect(cache).toEqual(null);
         });
@@ -97,12 +98,12 @@ describe('Profilecard', () => {
           expect.assertions(2);
           const data = await client.getProfile('DUMMY-CLOUD-ID', '1');
           clock.tick(clientCacheMaxAge);
-          cache = client.getCachedProfile('DUMMY-CLOUD-ID', '1');
+          cache = client.getCachedProfile('DUMMY-CLOUD-ID/1');
 
           expect(cache).toEqual(data);
 
           clock.tick(clientCacheMaxAge);
-          cache = client.getCachedProfile('DUMMY-CLOUD-ID', '1');
+          cache = client.getCachedProfile('DUMMY-CLOUD-ID/1');
 
           expect(cache).toEqual(data);
         });
@@ -112,12 +113,12 @@ describe('Profilecard', () => {
         it('should purge all cached items', async () => {
           expect.assertions(2);
           const data = await client.getProfile('DUMMY-CLOUD-ID', '1');
-          cache = await client.getCachedProfile('DUMMY-CLOUD-ID', '1');
+          cache = await client.getCachedProfile('DUMMY-CLOUD-ID/1');
 
           expect(cache).toEqual(data);
 
           client.flushCache();
-          cache = await client.getCachedProfile('DUMMY-CLOUD-ID', '1');
+          cache = await client.getCachedProfile('DUMMY-CLOUD-ID/1');
 
           expect(cache).toEqual(null);
         });

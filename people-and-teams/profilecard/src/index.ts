@@ -1,16 +1,18 @@
 import ProfileCard from './components/ProfileCard';
-import ProfileCardClient, { modifyResponse } from './api/ProfileCardClient';
+import TeamProfileCard from './components/TeamProfileCard';
+import ProfileCardClient from './api/ProfileCardClient';
+import UserProfileClient, { modifyResponse } from './api/UserProfileCardClient';
+import TeamProfileClient from './api/TeamProfileCardClient';
 import ProfileCardResourced from './components/ProfileCardResourced';
 import ProfileCardTrigger, {
   DELAY_MS_SHOW,
   DELAY_MS_HIDE,
 } from './components/ProfileCardTrigger';
+import TeamProfileCardTrigger from './components/TeamProfileCardTrigger';
 import withOuterListeners from './components/withOuterListeners';
 
 export type {
   // Types
-  // Types
-  Elevation,
   ProfileCardErrorType,
   ProfilecardTriggerPosition,
   RelativeDateKeyType,
@@ -26,15 +28,21 @@ export type {
   ProfileCardResourcedState,
   ProfileCardTriggerProps,
   ProfileCardTriggerState,
-  ProfileClientConfig,
   ProfileClientOptions,
   ProfilecardProps,
   WithOuterListenersProps,
 } from './types';
 
 export { ProfileCard };
+export { TeamProfileCard };
 export { ProfileCardTrigger };
-export { ProfileCardClient as ProfileClient, modifyResponse };
+export { TeamProfileCardTrigger };
+export {
+  ProfileCardClient as ProfileClient,
+  TeamProfileClient,
+  UserProfileClient,
+  modifyResponse,
+};
 export { withOuterListeners };
 export { DELAY_MS_SHOW, DELAY_MS_HIDE };
 

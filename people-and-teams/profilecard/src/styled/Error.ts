@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
+import { h400 } from '@atlaskit/theme/typography';
+import { N200 } from '@atlaskit/theme/colors';
 
 import {
   errorIconColor,
@@ -22,4 +24,13 @@ export const ErrorTitle = styled.p`
 
 export const ErrorText = styled.span`
   color: ${errorTextColor};
+`;
+
+export const TeamErrorTitle = styled.p`
+  ${h400};
+`;
+
+export const TeamErrorText = styled.p`
+  color: ${N200};
+  margin-top: ${multiply(gridSize, 1)}px;
 `;

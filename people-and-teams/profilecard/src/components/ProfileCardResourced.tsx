@@ -20,7 +20,6 @@ export default class ProfileCardResourced extends React.PureComponent<
 > {
   static defaultProps: Partial<ProfileCardResourcedProps> = {
     actions: [],
-    customElevation: 'e200',
   };
 
   _isMounted: boolean = false;
@@ -126,20 +125,20 @@ export default class ProfileCardResourced extends React.PureComponent<
 
   render(): React.ReactNode {
     const { isLoading, hasError, error, data } = this.state;
-    const { analytics, customElevation } = this.props;
+    const { analytics } = this.props;
 
     const isFetchingOrNotStartToFetchYet =
       isLoading === true || isLoading === undefined;
 
     if (isFetchingOrNotStartToFetchYet) {
       return (
-        <CardElevationWrapper customElevation={customElevation}>
+        <CardElevationWrapper>
           <LoadingState />
         </CardElevationWrapper>
       );
     } else if (hasError) {
       return (
-        <CardElevationWrapper customElevation={customElevation}>
+        <CardElevationWrapper>
           <ErrorMessage errorType={error} reload={this.clientFetchProfile} />
         </CardElevationWrapper>
       );
@@ -154,12 +153,8 @@ export default class ProfileCardResourced extends React.PureComponent<
     };
 
     return (
-      <CardElevationWrapper customElevation={customElevation}>
-        <ProfileCard
-          {...newProps}
-          actions={this.filterActions()}
-          customElevation="none"
-        />
+      <CardElevationWrapper>
+        <ProfileCard {...newProps} actions={this.filterActions()} />
       </CardElevationWrapper>
     );
   }

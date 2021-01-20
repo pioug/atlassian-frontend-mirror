@@ -11,6 +11,11 @@ export const headerBgColor = themed({
   dark: colors.B100,
 });
 
+export const teamHeaderBgColor = themed({
+  light: colors.N50,
+  dark: colors.N50,
+});
+
 export const headerBgColorDisabledUser = themed({
   light: colors.N30,
   dark: colors.B100,

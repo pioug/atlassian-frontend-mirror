@@ -40,7 +40,6 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     isNotMentionable: false,
     actions: [],
     hasDisabledAccountLozenge: true,
-    customElevation: 'e200',
     analytics: () => null,
     clientFetchProfile: () => null,
   };
@@ -98,10 +97,10 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     return (
       <ActionButtonGroup>
         {this.props.actions &&
-          this.props.actions.map((action, idx) => (
+          this.props.actions.map((action, idx: number) => (
             <Button
               appearance={idx === 0 ? 'default' : 'subtle'}
-              key={action.label}
+              key={action.id || idx}
               onClick={(...args: any) => {
                 this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
                   id: action.id || null,
@@ -260,7 +259,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   }
 
   render() {
-    const { fullName, status, customElevation } = this.props;
+    const { fullName, status } = this.props;
     let cardContent: React.ReactNode = null;
 
     // @FIXME do closed users have empty fullName field?
@@ -310,10 +309,6 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
       );
     }
 
-    return (
-      <CardElevationWrapper customElevation={customElevation}>
-        {cardContent}
-      </CardElevationWrapper>
-    );
+    return <CardElevationWrapper>{cardContent}</CardElevationWrapper>;
   }
 }

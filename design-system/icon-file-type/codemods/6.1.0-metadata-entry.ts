@@ -4,43 +4,61 @@ import core, {
   ImportSpecifier,
   ASTPath,
   ImportDefaultSpecifier,
+  Options,
 } from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 
 export const packageName = '@atlaskit/icon-file-type';
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(
+  file: FileInfo,
+  api: API,
+  options: Options,
+) {
   const j = api.jscodeshift;
   const root = j(file.source, { quote: 'auto' });
-  const imports = root.find(j.ImportSpecifier, {
-    imported: { name: 'metadata' },
-  });
-  imports.forEach((p: ASTPath<ImportSpecifier | ImportDefaultSpecifier>) => {
-    if (p.parentPath.parentPath.node.source.value !== packageName) {
-      return;
-    }
-    if (p.parentPath.node.specifiers.length === 1) {
-      p.node.type = 'ImportDefaultSpecifier';
-      p.parentPath.node.source.value = `${packageName}/metadata`;
-    } else if (p.node.local) {
-      tryCreateImport({
-        j,
-        base: root,
-        packageName: `${packageName}/metadata`,
-        relativeToPackage: packageName,
-      });
-      addToImport({
-        j,
-        base: root,
-        packageName: `${packageName}/metadata`,
-        importSpecifier: j.importDefaultSpecifier(
-          j.identifier(p.node.local.name),
-        ),
-      });
-      p.replace();
-    }
-  });
-  return root.toSource({ quote: 'single' });
+  if (hasImportDeclaration(j, root, packageName)) {
+    const imports = root.find(j.ImportSpecifier, {
+      imported: { name: 'metadata' },
+    });
+    imports.forEach((p: ASTPath<ImportSpecifier | ImportDefaultSpecifier>) => {
+      if (p.parentPath.parentPath.node.source.value !== packageName) {
+        return;
+      }
+      if (p.parentPath.node.specifiers.length === 1) {
+        p.node.type = 'ImportDefaultSpecifier';
+        p.parentPath.node.source.value = `${packageName}/metadata`;
+      } else if (p.node.local) {
+        tryCreateImport({
+          j,
+          base: root,
+          packageName: `${packageName}/metadata`,
+          relativeToPackage: packageName,
+        });
+        addToImport({
+          j,
+          base: root,
+          packageName: `${packageName}/metadata`,
+          importSpecifier: j.importDefaultSpecifier(
+            j.identifier(p.node.local.name),
+          ),
+        });
+        p.replace();
+      }
+    });
+    return root.toSource(options.printOptions || { quote: 'single' });
+  }
+  return file.source;
+}
+
+function hasImportDeclaration(
+  j: core.JSCodeshift,
+  source: ReturnType<typeof j>,
+  importPath: string,
+) {
+  return !!source
+    .find(j.ImportDeclaration)
+    .filter(path => path.node.source.value === importPath).length;
 }
 
 function tryCreateImport({

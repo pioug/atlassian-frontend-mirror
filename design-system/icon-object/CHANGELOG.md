@@ -1,5 +1,14 @@
 # @atlaskit/icon-object
 
+## 6.1.2
+
+### Patch Changes
+
+- [`c65f28c058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c65f28c058) - Change codemod to return raw source if it is not transforming a file.
+
+  Otherwise it would run prettier which can lead to some invalid syntax outputted
+  in edge cases. This is likely due to an issue in either `codemod-cli` or `jscodeshift`.
+
 ## 6.1.1
 
 ### Patch Changes

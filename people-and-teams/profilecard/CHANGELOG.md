@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 14.0.1
+
+### Patch Changes
+
+- [`d2582c8e90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2582c8e90) - Export the TeamProfileCardTrigger
+
+## 14.0.0
+
+### Major Changes
+
+- [`bc57b32d3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc57b32d3a) - [ux] WARNING: This major release exists for testing purposes only. Avoid using this version as it contains some duplicated dependencies that will be improved in future when the next release is ready for use.
+
+  Introduced a new profile card type: the Team profile card. To support this new type, some changes have been made to the profile client structure to allow code reuse for managing both team and user profile card data collection.
+
 ## 13.0.7
 
 ### Patch Changes

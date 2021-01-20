@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "13.0.7",
+  "version": "14.0.1",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,20 +16,27 @@
   "atlassian": {
     "team": "People and Teams Collective",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Profilecard"
     }
+  },
+  "scripts": {
+    "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
+    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
   },
   "config": {
     "access": "public"
   },
   "dependencies": {
     "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/avatar-group": "^8.0.13",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/lozenge": "^10.0.0",
+    "@atlaskit/menu": "^0.7.0",
     "@atlaskit/popper": "^5.0.0",
+    "@atlaskit/popup": "^1.0.6",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.0.0",
@@ -48,6 +55,8 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/dynamic-table": "^14.1.0",
+    "@atlaskit/inline-edit": "^11.0.8",
+    "@atlaskit/select": "^13.1.1",
     "@atlaskit/util-data-test": "^14.0.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",

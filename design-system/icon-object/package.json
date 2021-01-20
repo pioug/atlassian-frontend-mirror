@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "description": "A React package that contains object icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

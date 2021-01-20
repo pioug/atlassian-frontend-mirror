@@ -10,7 +10,6 @@ import {
   FullNameLabel,
   ActionButtonGroup,
   SpinnerContainer,
-  CardElevationWrapper,
 } from '../../styled/Card';
 import mockGlobalDate from './helper/_mock-global-date';
 
@@ -270,15 +269,6 @@ describe('Profilecard', () => {
         });
 
         expect(card).toMatchSnapshot();
-      });
-    });
-
-    describe('customElevation', () => {
-      it('should have correct customElevation', () => {
-        const wrapper = shallow(<ProfileCard customElevation="e400" />);
-        expect(
-          wrapper.find(CardElevationWrapper).props().customElevation,
-        ).toEqual('e400');
       });
     });
   });

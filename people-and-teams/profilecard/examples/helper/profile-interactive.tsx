@@ -55,8 +55,6 @@ type State = {
 
   isBot: boolean;
   status: StatusType;
-  customElevation?: string;
-  hasCustomElevation: boolean;
 
   hasDarkTheme: boolean;
   hasWeekday: boolean;
@@ -87,8 +85,6 @@ export default class ProfilecardInteractive extends Component<Props, State> {
     timeString: getTimeString(),
     statusModifiedDate: undefined,
     statusModifiedDateFieldName: 'noDate',
-    customElevation: undefined,
-    hasCustomElevation: false,
 
     isBot: false,
     status: 'active',
@@ -224,8 +220,6 @@ export default class ProfilecardInteractive extends Component<Props, State> {
   }
 
   render() {
-    const { hasCustomElevation } = this.state;
-
     const customActions = [
       { label: 'Foo', id: 'foo', callback: handleActionClick('Foo') },
       { label: 'Bar', id: 'bar', callback: handleActionClick('Bar') },
@@ -233,7 +227,6 @@ export default class ProfilecardInteractive extends Component<Props, State> {
     ];
 
     const actions = this.state.hasAltActions ? customActions : this.actions;
-    const customElevation = hasCustomElevation ? 'e100' : undefined;
 
     const meta = this.state.hasLongRole
       ? 'Sed do eiusmod tempor incididunt ut labore'
@@ -251,7 +244,6 @@ export default class ProfilecardInteractive extends Component<Props, State> {
               isBot={this.state.isBot}
               status={this.state.status}
               statusModifiedDate={this.state.statusModifiedDate}
-              customElevation={customElevation}
               avatarUrl={this.state.hasAvatar ? this.state.avatarUrl : ''}
               email={this.state.email}
               fullName={
@@ -309,9 +301,6 @@ export default class ProfilecardInteractive extends Component<Props, State> {
               <li>{this.createCheckboxBooleanAttribute('hasLoadingState')}</li>
               <li>{this.createCheckboxBooleanAttribute('hasErrorState')}</li>
               <li>{this.createCheckboxBooleanAttribute('isBot')}</li>
-              <li>
-                {this.createCheckboxBooleanAttribute('hasCustomElevation')}
-              </li>
               <li>{this.createCheckboxBooleanAttribute('hasDarkTheme')}</li>
             </ul>
           </div>

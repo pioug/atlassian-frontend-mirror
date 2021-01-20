@@ -1,4 +1,7 @@
-import { getMockProfileClient as getMockProfileClientUtil } from '../../mock-helpers';
+import {
+  getMockProfileClient as getMockProfileClientUtil,
+  getMockTeamClient,
+} from '../../mock-helpers';
 import { ProfileClient, modifyResponse } from '../../src';
 import { ProfilecardProps } from '../../src/types';
 
@@ -28,3 +31,5 @@ export const analyticsHandler = (actionName: string, props?: {}) =>
   console.log('Analytics event invoked: ', actionName, props);
 
 export default null;
+
+export { getMockTeamClient };

@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 14.0.2
+
+### Patch Changes
+
+- [`9e021e9873`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e021e9873) - Added customisation to the new Team Profilecard examples.
+
 ## 14.0.1
 
 ### Patch Changes

@@ -121,6 +121,7 @@ function CustomizationPanel() {
 
 export default function Example() {
   const [includingYou, setIncludingYou] = useState(false);
+  const [numActions, setNumActions] = useState(0);
 
   const viewerId = includingYou ? teamClientData.team.members![0]?.id : '';
 
@@ -135,6 +136,7 @@ export default function Example() {
               Hover to preview the team:{' '}
               <TeamProfilecardTrigger
                 {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
                 trigger="hover"
                 viewingUserId={viewerId}
               >
@@ -148,6 +150,7 @@ export default function Example() {
               Click on them to preview:{' '}
               <TeamProfilecardTrigger
                 {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
                 trigger="click"
                 viewingUserId={viewerId}
               >
@@ -161,6 +164,7 @@ export default function Example() {
               Click on them to preview:{' '}
               <TeamProfilecardTrigger
                 {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
                 trigger="hover-click"
                 viewingUserId={viewerId}
               >
@@ -190,6 +194,15 @@ export default function Example() {
           setTeam={team => {
             teamClientData.team = team;
           }}
+        />
+        Extra actions
+        <Radios
+          label="actions"
+          options={[0, 1, 2, 3, 4]}
+          setter={value => {
+            setNumActions(value);
+          }}
+          currentValue={numActions}
         />
       </MainStage>
     </LocaleIntlProvider>

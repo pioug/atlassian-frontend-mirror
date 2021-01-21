@@ -3,40 +3,86 @@ import React, { AllHTMLAttributes } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ThemeModes } from '@atlaskit/theme/types';
 
-// External component
 export interface PublicProps
   extends WithAnalyticsEventsProps,
     AllHTMLAttributes<HTMLInputElement> {
+  /**
+   * Affects the visual style of the text field.
+   */
   appearance?: 'standard' | 'none' | 'subtle';
-  /** Applies compact styling, making the field smaller */
+
+  /**
+   * Applies compact styling, making the field smaller.
+   */
   isCompact?: boolean;
-  /** Sets the field as uneditable, with a changed hover state. */
+
+  /**
+   * Sets the field as to appear disabled,
+   * users will not be able to interact with the text field.
+   */
   isDisabled?: boolean;
-  /** Sets styling to indicate that the input is invalid */
+
+  /**
+   * Changes the text field to have a border indicating that its value is invalid.
+   */
   isInvalid?: boolean;
-  /** Sets content text value to monospace */
+
+  /**
+   * Sets content text value to appear monospaced.
+   */
   isMonospaced?: boolean;
-  /** If true, prevents the value of the input from being edited. */
+
+  /**
+   * If true, prevents the value of the input from being edited.
+   */
   isReadOnly?: boolean;
-  /** Set required for form that the field is part of. */
+
+  /**
+   * Set required for form that the field is part of.
+   */
   isRequired?: boolean;
-  /** Element after input in textfield. */
+
+  /**
+   * Element after input in text field.
+   */
   elemAfterInput?: React.ReactNode;
-  /** Element before input in textfield. */
+
+  /**
+   * Element before input in text field.
+   */
   elemBeforeInput?: React.ReactNode;
-  /** Sets maximum width of input */
+
+  /**
+   * Sets maximum width of input.
+   */
   width?: string | number;
-  /** Mousedown handler that will fire on the container element */
+
+  /**
+   * Handler called when the mouse down event is triggered on the input element.
+   */
   onMouseDown?: React.MouseEventHandler<HTMLElement>;
+
   /**
    * A `testId` prop is provided for specified elements, which is a unique
    * string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests */
+   * serving as a hook for automated tests.
+   */
   testId?: string;
-  /** Name of the input form control */
+
+  /**
+   * Name of the input element.
+   */
   name?: string;
-  /** Add a classname to the textfield */
+
+  /**
+   * Class name to apply to the input element.
+   */
   className?: string;
+
+  /**
+   * Placeholder text to display in the text field whenever it is empty.
+   */
+  placeholder?: string;
 }
 
 export interface InternalProps extends PublicProps {

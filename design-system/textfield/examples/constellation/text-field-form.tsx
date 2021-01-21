@@ -14,12 +14,15 @@ export default function TextFieldFormExample() {
     >
       {({ formProps }: any) => (
         <form {...formProps}>
-          <Field name="example-text" defaultValue="a default value">
+          <Field label="Field label" name="example-text">
             {({ fieldProps }: any) => (
               <Fragment>
-                <Textfield {...fieldProps} />
+                <Textfield
+                  placeholder="Enter your details here"
+                  {...fieldProps}
+                />
                 <HelperMessage>
-                  Check the console to see the submitted data
+                  Help or instruction text goes here
                 </HelperMessage>
               </Fragment>
             )}

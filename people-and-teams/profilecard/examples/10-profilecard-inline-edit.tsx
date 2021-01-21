@@ -11,6 +11,7 @@ import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
 import { Team } from '../src/types';
 import ProfileCardClient from '../src/api/ProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/TeamProfileCardTrigger';
+import { Radios, TeamCustomizer } from './helper/customization';
 
 import InlineEdit from '@atlaskit/inline-edit';
 
@@ -26,29 +27,51 @@ const Container = styled.div`
   padding: 8px;
 `;
 
-const teams: Record<string, Team> = {
+const teams: Record<
+  string,
+  { displayName: string; largeHeaderImageUrl: string }
+> = {
   'Air-Guitar': {
-    ...teamData({ members: 0, description: 'None' }),
     displayName: 'Air-Guitar',
-    description: 'Guitarist peoples',
     largeHeaderImageUrl:
       'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/1.svg',
   },
   Bongos: {
-    ...teamData({ members: 0, description: 'None' }),
     displayName: 'Bongos',
-    description: 'Bongo players',
     largeHeaderImageUrl:
       'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/2.svg',
   },
   Clappers: {
-    ...teamData({ members: 0, description: 'None' }),
     displayName: 'Clappers',
-    description: 'People that clap',
     largeHeaderImageUrl:
       'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/gradients/4.svg',
   },
 };
+
+const baseTeam: { team: Team } = {
+  team: teamData({}),
+};
+
+const actions = [
+  {
+    label: 'Secondary',
+    callback: () => {},
+    link: 'about:blank',
+  },
+  {
+    label: 'Option with callback',
+    callback: () => alert('First option clicked'),
+  },
+  {
+    label: 'Option with link',
+    link: 'about:blank',
+  },
+  {
+    label: 'Option with both',
+    callback: () => alert('Third option clicked'),
+    link: 'about:blank',
+  },
+];
 
 interface OptionType {
   label: string;
@@ -63,7 +86,11 @@ const selectOptions: OptionType[] = [
 
 class MockTeamClient extends TeamProfileCardClient {
   makeRequest(teamId: string): Promise<Team> {
-    return Promise.resolve(teams[teamId] || teams.Bongos);
+    const team: Team = {
+      ...baseTeam.team,
+      ...(teams[teamId] || {}),
+    };
+    return Promise.resolve(team);
   }
 }
 
@@ -76,6 +103,7 @@ const profileClient = new ProfileCardClient(args, {
 function MiniEditor(props: {
   label: string;
   trigger: 'click' | 'hover' | 'hover-click';
+  numActions: number;
 }) {
   const [value, setValue] = useState<OptionType>(selectOptions[0]);
 
@@ -115,6 +143,7 @@ function MiniEditor(props: {
             teamId={value.value}
             viewProfileLink="about:blank"
             trigger={props.trigger}
+            actions={actions.slice(0, props.numActions)}
           >
             <strong>{value.label}</strong>
           </TeamProfilecardTrigger>
@@ -126,6 +155,8 @@ function MiniEditor(props: {
 }
 
 export default function InlineEditExample() {
+  const [numActions, setNumActions] = useState(0);
+
   return (
     <div
       style={{
@@ -141,7 +172,11 @@ export default function InlineEditExample() {
             interact with the trigger get taken to the link.
           </p>
           <p>Generally not the recommended type of trigger.</p>
-          <MiniEditor label="Assigned team (hover only)" trigger="hover" />
+          <MiniEditor
+            numActions={numActions}
+            label="Assigned team (hover only)"
+            trigger="hover"
+          />
         </Container>
         <Container>
           <p>
@@ -152,7 +187,11 @@ export default function InlineEditExample() {
           <p>
             Generally preferred if clicking to interact works for your use case.
           </p>
-          <MiniEditor label="Assigned team (click only)" trigger="click" />
+          <MiniEditor
+            numActions={numActions}
+            label="Assigned team (click only)"
+            trigger="click"
+          />
         </Container>
         <Container>
           <p>
@@ -163,8 +202,25 @@ export default function InlineEditExample() {
             Ideal if mouse users are not able to click to open the profile card.
           </p>
           <MiniEditor
+            numActions={numActions}
             label="Assigned team (click + hover)"
             trigger="hover-click"
+          />
+        </Container>
+        <Container>
+          <TeamCustomizer
+            setTeam={team => {
+              baseTeam.team = team;
+            }}
+          />
+          Extra actions
+          <Radios
+            label="actions"
+            options={[0, 1, 2, 3, 4]}
+            setter={value => {
+              setNumActions(value);
+            }}
+            currentValue={numActions}
           />
         </Container>
       </div>

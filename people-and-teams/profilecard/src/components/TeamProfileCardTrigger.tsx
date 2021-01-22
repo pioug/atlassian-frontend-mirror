@@ -22,6 +22,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
   static defaultProps: Partial<TeamProfileCardTriggerProps> = {
     actions: [],
     trigger: 'hover',
+    position: 'bottom-start',
   };
 
   _isMounted: boolean = false;
@@ -51,7 +52,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
     }, delay);
   };
 
-  preventDefault = (event: React.MouseEvent<HTMLElement>) => {
+  onClick = (event: React.MouseEvent<HTMLElement>) => {
     const isModifiedClick =
       event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
 
@@ -60,16 +61,18 @@ class TeamProfileCardTrigger extends React.PureComponent<
     if (!isModifiedClick) {
       event.preventDefault();
     }
-  };
 
-  onClick = (event: React.MouseEvent<HTMLElement>) => {
-    this.preventDefault(event);
-
-    this.openedByHover = false;
-    this.showProfilecard(0);
+    if (this.props.trigger !== 'hover') {
+      this.openedByHover = false;
+      this.showProfilecard(0);
+    }
   };
 
   onMouseEnter = () => {
+    if (this.props.trigger === 'click') {
+      return;
+    }
+
     if (!this.state.visible) {
       this.openedByHover = true;
     }
@@ -78,6 +81,10 @@ class TeamProfileCardTrigger extends React.PureComponent<
   };
 
   onMouseLeave = () => {
+    if (this.props.trigger === 'click') {
+      return;
+    }
+
     if (this.openedByHover) {
       this.hideProfilecard(DELAY_MS_HIDE);
     }
@@ -89,33 +96,17 @@ class TeamProfileCardTrigger extends React.PureComponent<
     event.stopPropagation();
   };
 
-  triggerListeners =
-    this.props.trigger === 'hover'
-      ? {
-          onClick: this.preventDefault,
-          onMouseEnter: this.onMouseEnter,
-          onMouseLeave: this.onMouseLeave,
-        }
-      : this.props.trigger === 'hover-click'
-      ? {
-          onClick: this.onClick,
-          onMouseEnter: this.onMouseEnter,
-          onMouseLeave: this.onMouseLeave,
-        }
-      : {
-          onClick: this.onClick,
-        };
+  triggerListeners = {
+    onClick: this.onClick,
+    onMouseEnter: this.onMouseEnter,
+    onMouseLeave: this.onMouseLeave,
+  };
 
-  cardListeners =
-    this.props.trigger === 'click'
-      ? {
-          onClick: this.stopPropagation,
-        }
-      : {
-          onClick: this.stopPropagation,
-          onMouseEnter: this.onMouseEnter,
-          onMouseLeave: this.onMouseLeave,
-        };
+  cardListeners = {
+    onClick: this.stopPropagation,
+    onMouseEnter: this.onMouseEnter,
+    onMouseLeave: this.onMouseLeave,
+  };
 
   state: TeamProfileCardTriggerState = {
     visible: false,

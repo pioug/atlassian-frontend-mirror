@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { profiles } from '../mock-helpers/index';
+import { CardWrapper } from './helper/wrapper';
 
 import { ProfileCard } from '../src';
 import { ProfilecardProps } from '../src/types';
@@ -95,36 +96,50 @@ export default function Example() {
       <MainStage>
         <Section>
           <h4>Loading State</h4>
-          <ProfileCard isLoading />
+          <CardWrapper>
+            <ProfileCard isLoading />
+          </CardWrapper>
         </Section>
         <Section>
           <h4>Error State</h4>
-          <ProfileCard hasError />
+          <CardWrapper>
+            <ProfileCard hasError />
+          </CardWrapper>
         </Section>
         <Section>
           <h4>Error State (Not Found Error)</h4>
-          <ProfileCard
-            hasError
-            errorType={{
-              reason: 'NotFound',
-            }}
-          />
+          <CardWrapper>
+            <ProfileCard
+              hasError
+              errorType={{
+                reason: 'NotFound',
+              }}
+            />
+          </CardWrapper>
         </Section>
         <Section>
           <h4>Worst case</h4>
-          <ProfileCard {...worstCaseProfile} />
+          <CardWrapper>
+            <ProfileCard {...worstCaseProfile} />
+          </CardWrapper>
         </Section>
         <Section>
           <h4>Best case</h4>
-          <ProfileCard {...bestCaseProfile} />
+          <CardWrapper>
+            <ProfileCard {...bestCaseProfile} />
+          </CardWrapper>
         </Section>
         <Section>
           <h4>Bot case</h4>
-          <ProfileCard {...botCaseProfile} />
+          <CardWrapper>
+            <ProfileCard {...botCaseProfile} />
+          </CardWrapper>
         </Section>
         <Section>
           <h4>Alternate actions</h4>
-          <ProfileCard {...fakeData({ actions })} />
+          <CardWrapper>
+            <ProfileCard {...fakeData({ actions })} />
+          </CardWrapper>
         </Section>
       </MainStage>
     </LocaleIntlProvider>

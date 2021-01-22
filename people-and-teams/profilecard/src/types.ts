@@ -3,8 +3,6 @@ import { IntlShape } from 'react-intl';
 import UserProfileCardClient from './api/UserProfileCardClient';
 import TeamProfileCardClient from './api/TeamProfileCardClient';
 
-export type { WithOuterListenersProps } from './components/withOuterListeners';
-
 export interface ApiClientResponse {
   User: {
     id: string;

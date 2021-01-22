@@ -23,6 +23,7 @@ export const ContentHeader = ({
       // due to HTML its unwrapping behaviour on paste.
       MozUserSelect: 'none',
     }}
+    data-trello-do-not-use-override="block-card-content-header"
   >
     {children}
   </a>

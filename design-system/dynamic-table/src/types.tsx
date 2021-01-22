@@ -18,47 +18,124 @@ export interface I18nShape {
 }
 
 export interface StatelessProps extends WithAnalyticsEventsProps {
-  caption?: React.ReactNode;
-  /** Object describing the column headings */
-  head?: HeadType;
-  /** The data to render in the table */
-  rows?: Array<RowType>;
-  /** Component to render when there is no data */
-  emptyView?: React.ReactElement<any>;
-  /** Controls the size of the rendered spinner */
-  loadingSpinnerSize?: LoadingSpinnerSizeType;
-  /** Whether to show the loading state or not */
-  isLoading?: boolean;
-  isFixedSize?: boolean;
-  /** The maximum number of rows per page. No maximum by default. */
-  rowsPerPage?: number;
-  /** Called when the page changes. Provides an analytics event when the page change was from a click on pagination component. */
-  onSetPage?: (page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
-  /** Called when a column is sorted. Provides information about what was sorted and an analytics event. */
-  onSort?: (data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
-  /** Called after body table render when visible table rows change with table rows given. */
-  onPageRowsUpdate?: (pageRows: Array<RowType>) => void;
-  /** The current page number */
-  page?: number;
-  defaultPage?: number;
-  /** The property to sort items by */
-  sortKey?: string;
-  /** Whether to sort in ascending or descending order */
-  sortOrder?: SortOrderType;
-  /** Whether to allow 'rank' sort in addition to ascending/descending */
-  isRankable?: boolean;
-  isRankingDisabled?: boolean;
-  onRankStart?: (rankStart: RankStart) => void;
-  onRankEnd?: (rankEnd: RankEnd, uiAnalyticsEvent?: UIAnalyticsEvent) => void;
-  paginationi18n?: I18nShape;
-  /** It highlights the passed row number on the current visible page. Starts with 0 */
-  highlightedRowIndex?: number;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute
-   * `data-testid` in the rendered code, serving as a hook for automated tests.
-   *
-   * The value of `testId` is used to prefix testId props in given elements:
-   * **Notes: The content of the cell, keys, index are defined by consumers.
+   * Caption for the table styled as a heading.
+   */
+  caption?: React.ReactNode;
+
+  /**
+   * Cells to be placed in the head of the table.
+   * Each element in the head creates a new column.
+   */
+  head?: HeadType;
+
+  /**
+   * Rows to be placed in the table.
+   * Each row contains cells which should map to the ones defined in the head.
+
+   * Ensure each cell has a unique `key` per column - this is used for both Reacts reconcilation of lists and column sorting.
+   */
+  rows?: Array<RowType>;
+
+  /**
+   * Shown when the table has no content.
+   */
+  emptyView?: React.ReactElement<any>;
+
+  /**
+   * Configuration of the loading spinner shown when `isLoading` is true.
+   * Defaults to `"large"` when a page has more than two rows, else `"small"`.
+   */
+  loadingSpinnerSize?: LoadingSpinnerSizeType;
+
+  /**
+   * Displays a loading spinner overlaid on top of the current page.
+   */
+  isLoading?: boolean;
+
+  /**
+   * Displays columns as their initial width regardless of the content that loads in.
+   */
+  isFixedSize?: boolean;
+
+  /**
+   * Controls how many rows should be diplayed per page.
+   */
+  rowsPerPage?: number;
+
+  /**
+   * Callback fired when the table page has changed,
+   * useful when wanting to control dynamic table.
+   */
+  onSetPage?: (page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
+
+  /**
+   * Callback fired when a column heading has been sorted,
+   * useful when wanting to control dynamic table.
+   */
+  onSort?: (data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
+
+  /**
+   * Callback fired when the rows displayed on a page have changed.
+   */
+  onPageRowsUpdate?: (pageRows: Array<RowType>) => void;
+
+  /**
+   * Page the table should show.
+   */
+  page?: number;
+
+  /**
+   * Column key that the rows should be sorted by.
+   * Corresponds to the `key`'s defined in the `head` prop.
+   */
+  sortKey?: string;
+
+  /**
+   * Column sort order.
+   */
+  sortOrder?: SortOrderType;
+
+  /**
+   * Enables drag & drop sorting of table rows.
+   */
+  isRankable?: boolean;
+
+  /**
+   * Disables being able to drop rows on the table.
+   * Drag will still function.
+   */
+  isRankingDisabled?: boolean;
+
+  /**
+   * Callback fired when a drag of a row has started.
+   */
+  onRankStart?: (rankStart: RankStart) => void;
+
+  /**
+   * Callback fired when a drop of a row has completed.
+   */
+  onRankEnd?: (rankEnd: RankEnd, uiAnalyticsEvent?: UIAnalyticsEvent) => void;
+
+  /**
+   * Labels for the previous and next buttons used in pagination.
+   * Defaults to `"previous"` and `"next"`.
+   */
+  paginationi18n?: I18nShape;
+
+  /**
+   * Will highlight a row of the table.
+   */
+  highlightedRowIndex?: number;
+
+  /**
+   A `testId` prop is provided for specified elements,
+   which is a unique string that appears as a data attribute
+   `data-testid` in the rendered code,
+   serving as a hook for automated tests.
+
+   The value of `testId` is used to prefix `testId` props in given elements.
+
    * `${testId}--table` - Table.
    * `${testId}--head` - Table header.
    * `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
@@ -71,29 +148,152 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
 }
 
 export interface StatefulProps extends WithAnalyticsEventsProps {
-  caption?: Node | string;
+  /**
+   * Caption for the table styled as a heading.
+   */
+  caption?: React.ReactNode;
+
+  /**
+   * Cells to be placed in the head of the table.
+   * Each element in the head creates a new column.
+   */
   head?: HeadType;
+
+  /**
+   * Rows to be placed in the table.
+   * Each row contains cells which should map to the ones defined in the head.
+
+   * Ensure each cell has a unique `key` per column - this is used for both Reacts reconcilation of lists and column sorting.
+   */
   rows?: Array<RowType>;
+
+  /**
+   * Shown when the table has no content.
+   */
   emptyView?: React.ReactElement<any>;
+
+  /**
+   * Configuration of the loading spinner shown when `isLoading` is true.
+   * Defaults to `"large"` when a page has more than two rows, else `"small"`.
+   */
   loadingSpinnerSize?: LoadingSpinnerSizeType;
+
+  /**
+   * Displays a loading spinner overlaid on top of the current page.
+   */
   isLoading?: boolean;
+
+  /**
+   * Displays columns as their initial width regardless of the content that loads in.
+   */
   isFixedSize?: boolean;
+
+  /**
+   * Controls how many rows should be diplayed per page.
+   */
   rowsPerPage?: number;
+
+  /**
+   * Callback fired when the table page has changed,
+   * useful when wanting to control dynamic table.
+   */
   onSetPage?: (page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
+
+  /**
+   * Callback fired when a column heading has been sorted,
+   * useful when wanting to control dynamic table.
+   */
   onSort?: (data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void;
+
+  /**
+   * Callback fired when the rows displayed on a page have changed.
+   */
   onPageRowsUpdate?: (pageRows: Array<RowType>) => void;
+
+  /**
+   * Page the table should show.
+   * Useful when wanting to control dynamic table.
+   */
   page?: number;
+
+  /**
+   * Default page dynamic table should show when initially rendering.
+   */
   defaultPage?: number;
+
+  /**
+   * Column key that the rows should be sorted by.
+   * Corresponds to the `key`'s defined in the `head` prop.
+   * Useful when wanting to control dynamic table.
+   */
   sortKey?: string;
+
+  /**
+   * Default column sort key that the rows should be sorted by.
+   * Corresponds to the `key`'s defined in the `head` prop.
+   */
   defaultSortKey?: string;
+
+  /**
+   * Column sort order.
+   * Useful when wanting to control dynamic table.
+   */
   sortOrder?: SortOrderType;
+
+  /**
+   * Default column sort order used when initially rendering.
+   * Defaults to `"ASC"`.
+   */
   defaultSortOrder?: SortOrderType;
+
+  /**
+   * Enables drag & drop sorting of table rows.
+   */
   isRankable?: boolean;
+
+  /**
+   * Disables being able to drop rows on the table.
+   * Drag will still function.
+   */
   isRankingDisabled?: boolean;
+
+  /**
+   * Callback fired when a drag of a row has started.
+   */
   onRankStart?: (rankStart: RankStart) => void;
+
+  /**
+   * Callback fired when a drop of a row has completed.
+   */
   onRankEnd?: (rankEnd: RankEnd) => void;
+
+  /**
+   * Labels for the previous and next buttons used in pagination.
+   * Defaults to `"previous"` and `"next"`.
+   */
   paginationi18n?: I18nShape;
+
+  /**
+   * Will highlight a row of the table.
+   */
   highlightedRowIndex?: number;
+
+  /**
+   A `testId` prop is provided for specified elements,
+   which is a unique string that appears as a data attribute
+   `data-testid` in the rendered code,
+   serving as a hook for automated tests.
+
+   The value of `testId` is used to prefix `testId` props in given elements.
+
+   * `${testId}--table` - Table.
+   * `${testId}--head` - Table header.
+   * `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+   * `${testId}--row--{index - content of the first cell}` - Table row.
+   * `${testId}--body` - Table body.
+   * `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+   * `${testId}--loadingSpinner` - The spinner overlaid when loading.
+   **/
   testId?: string;
 }
 

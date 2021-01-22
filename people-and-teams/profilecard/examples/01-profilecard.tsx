@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { profiles } from '../mock-helpers/index';
+import { CardWrapper } from './helper/wrapper';
 import { ProfileCard } from '../src';
 import LocaleIntlProvider from './helper/locale-intl-provider';
 
@@ -14,22 +15,24 @@ export default function Example() {
   return (
     <LocaleIntlProvider>
       <MainStage>
-        <ProfileCard
-          avatarUrl={avatarImage}
-          fullName="Rosalyn Franklin"
-          meta="Manager"
-          nickname="rfranklin"
-          email="rfranklin@acme.com"
-          timestring="18:45"
-          location="Somewhere, World"
-          actions={[
-            {
-              label: 'View profile',
-              id: 'view-profile',
-              callback: () => {},
-            },
-          ]}
-        />
+        <CardWrapper>
+          <ProfileCard
+            avatarUrl={avatarImage}
+            fullName="Rosalyn Franklin"
+            meta="Manager"
+            nickname="rfranklin"
+            email="rfranklin@acme.com"
+            timestring="18:45"
+            location="Somewhere, World"
+            actions={[
+              {
+                label: 'View profile',
+                id: 'view-profile',
+                callback: () => {},
+              },
+            ]}
+          />
+        </CardWrapper>
       </MainStage>
     </LocaleIntlProvider>
   );

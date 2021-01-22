@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 15.0.2
+
+### Patch Changes
+
+- [`965c783580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965c783580) - add override references for Trello only
+
 ## 15.0.1
 
 ### Patch Changes

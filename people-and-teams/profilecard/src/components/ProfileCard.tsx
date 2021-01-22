@@ -24,7 +24,7 @@ import {
   FullNameLabel,
   JobTitleLabel,
   ProfileImage,
-  CardElevationWrapper,
+  CardWrapper,
   LozengeWrapper,
   SpinnerContainer,
 } from '../styled/Card';
@@ -309,6 +309,6 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
       );
     }
 
-    return <CardElevationWrapper>{cardContent}</CardElevationWrapper>;
+    return <CardWrapper>{cardContent}</CardWrapper>;
   }
 }

@@ -28,7 +28,7 @@ Buttons:
 1. **Icon:** Use an icon to convey more meaning.
 2. **Label:** Text that indicates the result of selecting the button.
 
-## Behaviour
+## Behavior
 
 Each button variation (`Button`, `LoadingButton` and `CustomThemeButton`) will render out a `<button>` element, an `<a>` element if a `href` prop is supplied, or render any other element type by using the component prop (for example, `component="span"`). Each button element looks and behaves similarly, regardless of element tag, as it is guided by the native `<button>` behavior. 
 
@@ -38,7 +38,7 @@ Each button variation (`Button`, `LoadingButton` and `CustomThemeButton`) will r
 
 `tabIndex={0}` is added by default so the button element can get browser focus regardless of the element type used.
 
-On a `mousedown`, `event.preventDefault()` is always called to prevent the button from getting focus. This is questionable behaviour that we hope to change in future.
+On a `mousedown`, `event.preventDefault()` is always called to prevent the button from getting focus. This is questionable behavior that we hope to change in future.
 
 When a native `<button>` is disabled, it loses browser focus and cannot be focused. We replicate this behavior by setting `tabIndex={-1}` on the button element and calling `element.blur()` when a button becomes disabled (`isDisabled` prop is set to true).
 

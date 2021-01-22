@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProfileCardResourced from '../src';
+import { CardWrapper } from './helper/wrapper';
 import { getMockProfileClient, analyticsHandler } from './helper/util';
 import LocaleIntlProvider from './helper/locale-intl-provider';
 
@@ -29,11 +30,17 @@ export default function Example() {
   return (
     <LocaleIntlProvider>
       <MainStage>
-        <ProfileCardResourced {...defaultProps} userId="1" />
+        <CardWrapper style={{ marginBottom: '20px' }}>
+          <ProfileCardResourced {...defaultProps} userId="1" />
+        </CardWrapper>
         <br />
-        <ProfileCardResourced {...defaultProps} userId="2" />
+        <CardWrapper style={{ marginBottom: '20px' }}>
+          <ProfileCardResourced {...defaultProps} userId="2" />
+        </CardWrapper>
         <br />
-        <ProfileCardResourced {...defaultProps} userId="error:NotFound" />
+        <CardWrapper style={{ marginBottom: '20px' }}>
+          <ProfileCardResourced {...defaultProps} userId="error:NotFound" />
+        </CardWrapper>
       </MainStage>
     </LocaleIntlProvider>
   );

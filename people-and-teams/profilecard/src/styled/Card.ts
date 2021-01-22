@@ -6,7 +6,6 @@ import {
   gridSize,
 } from '@atlaskit/theme/constants';
 import { divide, multiply } from '@atlaskit/theme/math';
-import { e200 } from '@atlaskit/theme/elevation';
 
 import {
   headerBgColor,
@@ -36,10 +35,9 @@ export const CardTriggerWrapper = styled.div`
   display: inherit;
 `;
 
-export const CardElevationWrapper = styled.div`
+export const CardWrapper = styled.div`
   background-color: ${bgColor};
   border-radius: ${borderRadius}px;
-  ${e200};
   width: ${multiply(gridSize, 45)}px;
 `;
 

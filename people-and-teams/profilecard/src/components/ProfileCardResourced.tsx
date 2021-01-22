@@ -5,7 +5,7 @@ import LoadingState from './LoadingState';
 import ErrorMessage from './ErrorMessage';
 import filterActions from '../internal/filterActions';
 
-import { CardElevationWrapper } from '../styled/Card';
+import { CardWrapper } from '../styled/Card';
 
 import {
   ProfileCardResourcedProps,
@@ -132,15 +132,15 @@ export default class ProfileCardResourced extends React.PureComponent<
 
     if (isFetchingOrNotStartToFetchYet) {
       return (
-        <CardElevationWrapper>
+        <CardWrapper>
           <LoadingState />
-        </CardElevationWrapper>
+        </CardWrapper>
       );
     } else if (hasError) {
       return (
-        <CardElevationWrapper>
+        <CardWrapper>
           <ErrorMessage errorType={error} reload={this.clientFetchProfile} />
-        </CardElevationWrapper>
+        </CardWrapper>
       );
     }
 
@@ -153,9 +153,9 @@ export default class ProfileCardResourced extends React.PureComponent<
     };
 
     return (
-      <CardElevationWrapper>
+      <CardWrapper>
         <ProfileCard {...newProps} actions={this.filterActions()} />
-      </CardElevationWrapper>
+      </CardWrapper>
     );
   }
 }

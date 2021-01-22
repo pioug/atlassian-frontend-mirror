@@ -17,6 +17,7 @@ export const Content = ({ children, isCompact = false }: ContentProps) => (
       justifyContent: isCompact ? 'unset' : ['unset', 'space-between'],
       flexGrow: 1,
     })}
+    data-trello-do-not-use-override="block-card-content"
   >
     {children}
   </div>

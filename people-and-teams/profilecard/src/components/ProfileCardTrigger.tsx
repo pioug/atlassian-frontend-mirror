@@ -1,18 +1,11 @@
 import React from 'react';
-import { Popper } from '@atlaskit/popper';
-import Portal from '@atlaskit/portal';
-import { layers } from '@atlaskit/theme/constants';
-// @ts-ignore
-import NodeResolver from 'react-node-resolver';
+import Popup from '@atlaskit/popup';
 
 import LoadingState from './LoadingState';
 import Profilecard from './ProfileCard';
-import withOuterListeners from './withOuterListeners';
 import filterActions from '../internal/filterActions';
 
-import { CardElevationWrapper, CardTriggerWrapper } from '../styled/Card';
-
-const CardElevationWrapperWithOuter = withOuterListeners(CardElevationWrapper);
+import { CardWrapper, CardTriggerWrapper } from '../styled/Card';
 
 import {
   ProfileCardTriggerProps,
@@ -32,9 +25,8 @@ class ProfilecardTrigger extends React.PureComponent<
   static defaultProps: Partial<ProfileCardTriggerProps> = {
     actions: [],
     trigger: 'hover',
+    position: 'bottom-start',
   };
-
-  targetRef?: HTMLElement;
 
   _isMounted: boolean = false;
   showDelay: number = this.props.trigger === 'click' ? 0 : DELAY_MS_SHOW;
@@ -170,68 +162,56 @@ class ProfilecardTrigger extends React.PureComponent<
       ...this.state.data,
     };
 
+    const wrapperProps =
+      this.props.trigger === 'hover'
+        ? {
+            onMouseEnter: this.showProfilecard,
+            onMouseLeave: this.hideProfilecard,
+          }
+        : {};
+
     return (
-      <Profilecard
-        {...newProps}
-        actions={this.filterActions()}
-        hasError={this.state.hasError}
-        errorType={this.state.error}
-      />
+      <div {...wrapperProps}>
+        <Profilecard
+          {...newProps}
+          actions={this.filterActions()}
+          hasError={this.state.hasError}
+          errorType={this.state.error}
+        />
+      </div>
     );
   }
 
-  renderWithPopper(element: React.ReactNode) {
-    return (
-      <Popper referenceElement={this.targetRef} placement={this.props.position}>
-        {({ ref, style }: { ref: any; style: any }) => (
-          <CardElevationWrapperWithOuter
-            style={style}
-            innerRef={ref}
-            {...this.containerListeners}
-            {...this.layerListeners}
-          >
-            {element}
-          </CardElevationWrapperWithOuter>
-        )}
-      </Popper>
-    );
-  }
+  renderCard = () => {
+    const { isLoading } = this.state;
 
-  renderLoading() {
-    const { isLoading, visible } = this.state;
-    const isFetchingOrNotStartToFetchYet =
-      isLoading === true || isLoading === undefined;
-
-    return visible && isFetchingOrNotStartToFetchYet && this.targetRef
-      ? this.renderWithPopper(<LoadingState />)
-      : null;
-  }
-
-  renderProfileCardLoaded() {
-    const { isLoading, visible } = this.state;
-
-    return visible && isLoading === false && this.targetRef
-      ? this.renderWithPopper(this.renderProfileCard())
-      : null;
-  }
-
-  setRef = (targetRef: HTMLElement) => {
-    this.targetRef = targetRef;
+    if (isLoading === true || isLoading === undefined) {
+      return (
+        <CardWrapper>
+          <LoadingState />
+        </CardWrapper>
+      );
+    } else {
+      return this.renderProfileCard();
+    }
   };
 
   renderWithTrigger() {
     return (
-      <>
-        <CardTriggerWrapper {...this.containerListeners}>
-          <NodeResolver innerRef={this.setRef}>
-            {this.props.children}
-          </NodeResolver>
-        </CardTriggerWrapper>
-        <Portal zIndex={layers.tooltip()}>
-          {this.renderLoading()}
-          {this.renderProfileCardLoaded()}
-        </Portal>
-      </>
+      <Popup
+        isOpen={!!this.state.visible}
+        onClose={this.hideProfilecard}
+        placement={this.props.position}
+        content={this.renderCard}
+        trigger={triggerProps => {
+          const { ref, ...innerProps } = triggerProps;
+          return (
+            <CardTriggerWrapper {...innerProps} {...this.containerListeners}>
+              <span ref={ref}>{this.props.children}</span>
+            </CardTriggerWrapper>
+          );
+        }}
+      />
     );
   }
 

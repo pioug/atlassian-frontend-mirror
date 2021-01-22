@@ -414,7 +414,6 @@ describe(name, () => {
       const wrapper = mount(
         <DynamicTableStateless
           rowsPerPage={2}
-          defaultPage={2}
           head={head}
           rows={rows}
           paginationi18n={{ prev: 'Before', next: 'after' }}

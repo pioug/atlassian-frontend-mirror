@@ -60,6 +60,7 @@ export const ExpandedFrame = ({
         boxShadow: `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A};`,
       })}
       data-testid={testId}
+      data-trello-do-not-use-override={testId}
     >
       {children}
     </div>

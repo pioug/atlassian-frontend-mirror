@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 14.1.0
+
+### Minor Changes
+
+- [`8263a7a153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8263a7a153) - [ux] Update the user profile card trigger to use @atlaskit/popup for the popup behaviour, and remove/simplify unneeded code.
+
 ## 14.0.2
 
 ### Patch Changes

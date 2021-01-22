@@ -36,6 +36,7 @@ export const Name = ({
       maxHeight: gs(6),
     }}
     data-testid={testId}
+    data-trello-do-not-use-override="block-card-content-header-name"
   >
     {name}
   </span>

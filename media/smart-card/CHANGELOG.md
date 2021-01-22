@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 14.8.2
+
+### Patch Changes
+
+- [`965c783580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965c783580) - add override references for Trello only
+
 ## 14.8.1
 
 ### Patch Changes

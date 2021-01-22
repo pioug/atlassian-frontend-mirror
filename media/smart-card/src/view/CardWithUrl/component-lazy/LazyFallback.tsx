@@ -10,6 +10,7 @@ export const LoadingCardLink: FC<CardWithUrlContentProps> = ({
   <CardLinkView
     key={'lazy-render-key'}
     testId={'lazy-render-placeholder'}
+    data-trello-do-not-use-override="lazy-render-placeholder-trello"
     isSelected={isSelected}
     link={url}
   />

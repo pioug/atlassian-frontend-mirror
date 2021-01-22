@@ -34,6 +34,7 @@ export const ThumbnailDefault = ({ src, testId }: ImageProps) => {
         backgroundImage: `url(${src})`,
       })}
       data-testid={testId}
+      data-trello-do-not-use-override={testId}
     />
   );
 };
@@ -49,6 +50,7 @@ export const ThumbnailWithBackground = ({ src, color, testId }: ImageProps) => {
         justifyContent: 'center',
       })}
       data-testid={testId}
+      data-trello-do-not-use-override={testId}
     >
       <img src={src} css={{ height: '90px', width: '90px' }} />
     </div>

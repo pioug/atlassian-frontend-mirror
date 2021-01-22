@@ -27,15 +27,20 @@ const triggerStyles: React.CSSProperties = {
   background: '#FF5630',
   color: '#fff',
   fontSize: '16px',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translateX(-50%) translateY(-50%)',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
   border: 'none',
   outline: 'none',
+};
+
+const triggerWrapperStyles: React.CSSProperties = {
+  width: '48px',
+  height: '48px',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translateX(-50%) translateY(-50%)',
 };
 
 type Props = {
@@ -82,22 +87,24 @@ export default class InteractiveTrigger extends Component<Props, State> {
           Hover over the circle to show the profilecard and click to change the
           cards position.
         </p>
-        <ProfileCardTrigger
-          cloudId="DUMMY-10ae0bf3-157e-43f7-be45-f1bb13b39048"
-          userId="1"
-          position={positionsOrder[this.state.positionIdx]}
-          resourceClient={this.props.resourceClient}
-          actions={[
-            {
-              label: 'View profile',
-              id: 'view-profile',
-              callback: () => {},
-            },
-          ]}
-          analytics={analyticsHandler}
-        >
-          {this.renderTrigger()}
-        </ProfileCardTrigger>
+        <span style={triggerWrapperStyles}>
+          <ProfileCardTrigger
+            cloudId="DUMMY-10ae0bf3-157e-43f7-be45-f1bb13b39048"
+            userId="1"
+            position={positionsOrder[this.state.positionIdx]}
+            resourceClient={this.props.resourceClient}
+            actions={[
+              {
+                label: 'View profile',
+                id: 'view-profile',
+                callback: () => {},
+              },
+            ]}
+            analytics={analyticsHandler}
+          >
+            {this.renderTrigger()}
+          </ProfileCardTrigger>
+        </span>
       </div>
     );
   }

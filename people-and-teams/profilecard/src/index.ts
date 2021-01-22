@@ -9,7 +9,6 @@ import ProfileCardTrigger, {
   DELAY_MS_HIDE,
 } from './components/ProfileCardTrigger';
 import TeamProfileCardTrigger from './components/TeamProfileCardTrigger';
-import withOuterListeners from './components/withOuterListeners';
 
 export type {
   // Types
@@ -30,7 +29,6 @@ export type {
   ProfileCardTriggerState,
   ProfileClientOptions,
   ProfilecardProps,
-  WithOuterListenersProps,
 } from './types';
 
 export { ProfileCard };
@@ -43,7 +41,6 @@ export {
   UserProfileClient,
   modifyResponse,
 };
-export { withOuterListeners };
 export { DELAY_MS_SHOW, DELAY_MS_HIDE };
 
 export default ProfileCardResourced;

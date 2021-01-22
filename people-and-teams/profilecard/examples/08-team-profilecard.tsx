@@ -2,18 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import sample from 'lodash/sample';
 import { Radios, TeamCustomizer } from './helper/customization';
+import { CardWrapper } from './helper/wrapper';
 import { TeamProfileCard } from '../src';
 import LocaleIntlProvider from './helper/locale-intl-provider';
 import teamData from '../mock-helpers/team-data';
 
 export const MainStage = styled.div`
   margin: 16px;
-`;
-
-const CardWrapper = styled.div`
-  display: inline-block;
-  border: 1px solid black;
-  border-radius: 3px;
 `;
 
 const props = {

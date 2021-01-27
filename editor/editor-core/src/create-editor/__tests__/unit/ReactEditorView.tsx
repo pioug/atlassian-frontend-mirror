@@ -9,7 +9,7 @@ import {
   SEVERITY,
 } from '@atlaskit/editor-common';
 import { toJSON } from '../../../utils';
-import ReactEditorView from '../../ReactEditorView';
+import ReactEditorView, { shouldReconfigureState } from '../../ReactEditorView';
 import { EditorConfig } from '../../../types/editor-config';
 import { ReactWrapper, shallow } from 'enzyme';
 import { TextSelection } from 'prosemirror-state';
@@ -35,7 +35,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../plugins/analytics';
-import { EditorAppearance } from '../../../types';
+import { EditorAppearance, EditorProps } from '../../../types';
 import {
   analyticsEventKey,
   editorAnalyticsChannel,
@@ -843,5 +843,56 @@ describe('@atlaskit/editor-core', () => {
         expect(wrapper.instance().proseMirrorRenderedSeverity).toBe(severity);
       },
     );
+  });
+
+  describe('shouldReconfigureState', () => {
+    const props: EditorProps = {
+      appearance: 'full-width',
+      UNSAFE_predictableLists: false,
+    };
+
+    it('should return TRUE when appearance changed', () => {
+      const nextProps: EditorProps = {
+        ...props,
+        appearance: 'full-page',
+      };
+
+      const actual = shouldReconfigureState(props, nextProps);
+
+      expect(actual).toBe(true);
+    });
+
+    it('should return TRUE when UNSAFE_predictableLists changed', () => {
+      const nextProps: EditorProps = {
+        ...props,
+        UNSAFE_predictableLists: true,
+      };
+
+      const actual = shouldReconfigureState(props, nextProps);
+
+      expect(actual).toBe(true);
+    });
+
+    it('should return TRUE when allowScrollGutter changed', () => {
+      const nextProps: EditorProps = {
+        ...props,
+        allowScrollGutter: true,
+      };
+
+      const actual = shouldReconfigureState(props, nextProps);
+
+      expect(actual).toBe(true);
+    });
+
+    it('should return FALSE when relevant properties is not changed', () => {
+      const nextProps = {
+        ...props,
+        inputSamplingLimit: 5,
+      };
+
+      const actual = shouldReconfigureState(props, nextProps);
+
+      expect(actual).toBe(false);
+    });
   });
 });

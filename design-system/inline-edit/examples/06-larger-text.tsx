@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
@@ -16,39 +16,36 @@ const ReadViewContainer = styled.div`
   word-break: break-word;
 `;
 
-export default class InlineEditExample extends React.Component {
-  render() {
-    return (
-      <div
-        style={{
-          padding: `${gridSize()}px ${gridSize()}px`,
-          fontSize: '24px',
-          fontWeight: 'bold',
-          lineHeight: '24px',
-        }}
-      >
-        <InlineEdit
-          defaultValue="Field value"
-          onConfirm={() => {}}
-          editView={fieldProps => (
-            <Textfield
-              {...fieldProps}
-              autoFocus
-              css={{
-                fontSize: 'inherit',
-                fontWeight: 'inherit',
-                lineHeight: 'inherit',
-                '& > [data-ds--text-field--input]': {
-                  fontSize: 'inherit',
-                  fontWeight: 'inherit',
-                  lineHeight: 'inherit',
-                },
-              }}
-            />
-          )}
-          readView={() => <ReadViewContainer>Field value</ReadViewContainer>}
+const InlineEditExample = () => (
+  <div
+    style={{
+      padding: `${gridSize()}px ${gridSize()}px`,
+      fontSize: '24px',
+      fontWeight: 'bold',
+      lineHeight: '24px',
+    }}
+  >
+    <InlineEdit
+      defaultValue="Field value"
+      onConfirm={() => {}}
+      editView={fieldProps => (
+        <Textfield
+          {...fieldProps}
+          autoFocus
+          css={{
+            fontSize: 'inherit',
+            fontWeight: 'inherit',
+            lineHeight: 'inherit',
+            '& > [data-ds--text-field--input]': {
+              fontSize: 'inherit',
+              fontWeight: 'inherit',
+              lineHeight: 'inherit',
+            },
+          }}
         />
-      </div>
-    );
-  }
-}
+      )}
+      readView={() => <ReadViewContainer>Field value</ReadViewContainer>}
+    />
+  </div>
+);
+export default InlineEditExample;

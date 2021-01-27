@@ -38,6 +38,10 @@ export class CaptionNodeView extends SelectionBasedNodeView {
   }
 
   viewShouldUpdate(nextNode: PMNode) {
+    if (this.node.childCount !== nextNode.childCount) {
+      return true;
+    }
+
     const newSelected = this.insideSelection();
     const selectedStateChange = this.selected !== newSelected;
     this.selected = newSelected;

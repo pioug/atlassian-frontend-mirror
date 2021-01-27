@@ -17,6 +17,7 @@ import {
   UndoRedoBridge,
   ContentBridge,
   PageTitleBridge,
+  ToolbarBridge,
 } from './bridge';
 
 import { sendToBridge } from '../../bridge-utils';
@@ -41,6 +42,7 @@ export default class AndroidBridge implements NativeBridge {
   lifecycleBridge?: LifecycleBridge;
   contentBridge: ContentBridge;
   pageTitleBridge?: PageTitleBridge;
+  toolbarBridge?: ToolbarBridge;
 
   private _editorReady: boolean = false;
   private _startWebBundle: boolean = false;
@@ -60,6 +62,7 @@ export default class AndroidBridge implements NativeBridge {
     this.lifecycleBridge = win.lifecycleBridge;
     this.contentBridge = win.contentBridge as ContentBridge;
     this.pageTitleBridge = win.pageTitleBridge;
+    this.toolbarBridge = win.toolbarBridge as ToolbarBridge;
   }
 
   showMentions(query: string) {
@@ -267,6 +270,18 @@ export default class AndroidBridge implements NativeBridge {
   dismissTypeAhead() {
     if (this.typeAheadBridge) {
       this.typeAheadBridge.dismissTypeAhead();
+    }
+  }
+
+  onNodeSelected(nodeType: string, items: string) {
+    if (this.toolbarBridge) {
+      this.toolbarBridge.onNodeSelected(nodeType, items);
+    }
+  }
+
+  onNodeDeselected() {
+    if (this.toolbarBridge) {
+      this.toolbarBridge.onNodeDeselected();
     }
   }
 }

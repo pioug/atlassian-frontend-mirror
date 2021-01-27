@@ -152,23 +152,25 @@ describe('CardView New Experience', () => {
       const component = shallowCardViewBase({ status: 'loading' });
       expect(component.find(SpinnerIcon)).toHaveLength(1);
       expect(component.find(IconWrapper)).toHaveLength(1);
-    }),
-      it(`should not render Spinner when dataURI is defined`, () => {
-        const component = shallowCardViewBase({
-          dataURI: 'some-data-uri',
-          status: 'loading',
-        });
-        expect(component.find(SpinnerIcon)).toHaveLength(0);
-        expect(component.find(IconWrapper)).toHaveLength(0);
-      }),
-      it(`should render PlayButton when status is dataURI is defined`, () => {
-        const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
-        const component = shallowCardViewBase({
-          metadata,
-          dataURI: 'some-datauri',
-        });
-        expect(component.find(PlayButton)).toHaveLength(1);
+    });
+
+    it(`should not render Spinner when dataURI is defined`, () => {
+      const component = shallowCardViewBase({
+        dataURI: 'some-data-uri',
+        status: 'loading',
       });
+      expect(component.find(SpinnerIcon)).toHaveLength(0);
+      expect(component.find(IconWrapper)).toHaveLength(0);
+    });
+
+    it(`should render PlayButton when status is dataURI is defined`, () => {
+      const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
+      const component = shallowCardViewBase({
+        metadata,
+        dataURI: 'some-datauri',
+      });
+      expect(component.find(PlayButton)).toHaveLength(1);
+    });
 
     it(`should not render PlayButton when mediaType is not video`, () => {
       const metadata: FileDetails = { id: 'some-id', mediaType: 'image' };
@@ -209,32 +211,33 @@ describe('CardView New Experience', () => {
         status: 'loading',
       });
       expect(component.find(MediaTypeIcon)).toHaveLength(0);
-    }),
-      it(`should render Blanket when overlay is enabled or status is uploading (except for video)`, () => {
-        // Hoverable blanket
-        const componentA = shallowCardViewBase();
-        const blanketA = componentA.find(Blanket);
-        expect(blanketA).toHaveLength(1);
-        expect(blanketA.prop('isFixed')).toBeFalsy();
+    });
 
-        // Fixed blanket
-        const componentB = shallowCardViewBase({
-          metadata: { id: 'some-id', mediaType: 'image' },
-          status: 'uploading',
-          disableOverlay: true,
-        });
-        const blanketB = componentB.find(Blanket);
-        expect(blanketB).toHaveLength(1);
-        expect(blanketB.prop('isFixed')).toBe(true);
+    it(`should render Blanket when overlay is enabled or status is uploading (except for video)`, () => {
+      // Hoverable blanket
+      const componentA = shallowCardViewBase();
+      const blanketA = componentA.find(Blanket);
+      expect(blanketA).toHaveLength(1);
+      expect(blanketA.prop('isFixed')).toBeFalsy();
 
-        //Disabled blanket
-        const componentC = shallowCardViewBase({
-          metadata: { id: 'some-id', mediaType: 'video' },
-          status: 'uploading',
-          disableOverlay: true,
-        });
-        expect(componentC.find(Blanket)).toHaveLength(0);
+      // Fixed blanket
+      const componentB = shallowCardViewBase({
+        metadata: { id: 'some-id', mediaType: 'image' },
+        status: 'uploading',
+        disableOverlay: true,
       });
+      const blanketB = componentB.find(Blanket);
+      expect(blanketB).toHaveLength(1);
+      expect(blanketB.prop('isFixed')).toBe(true);
+
+      //Disabled blanket
+      const componentC = shallowCardViewBase({
+        metadata: { id: 'some-id', mediaType: 'video' },
+        status: 'uploading',
+        disableOverlay: true,
+      });
+      expect(componentC.find(Blanket)).toHaveLength(0);
+    });
 
     it(`should render TitleBox when has filename and overlay is enabled`, () => {
       const metadata: FileDetails = {

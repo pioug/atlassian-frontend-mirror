@@ -165,6 +165,12 @@ export default class CardClient implements CardClientInterface {
       if (response.error) {
         const errorType = response.error.type;
         const errorMessage = response.error.message;
+        // this means there was a network error and we fallback to blue link
+        // without impacting SLO's
+        if (response.error instanceof api.NetworkError) {
+          throw new APIError('fallback', hostname, errorMessage, errorType);
+        }
+
         switch (errorType) {
           // BadRequestError - indicative of an API error, render
           // a blue link to mitigate customer impact.

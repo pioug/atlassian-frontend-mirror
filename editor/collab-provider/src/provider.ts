@@ -3,6 +3,7 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
+import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 import { Emitter } from './emitter';
 import {
@@ -27,7 +28,14 @@ import {
 } from '@atlaskit/editor-common/collab';
 import { Config } from './types';
 
-import { createLogger, getParticipant } from './utils';
+import { buildAnalyticsPayload, createLogger, getParticipant } from './utils';
+import { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import {
+  CATCHUP_FAILURE,
+  CATCHUP_SUCCESS,
+  STEPS_REJECTED,
+  STEPS_ADDED,
+} from './const';
 
 const logger = createLogger('Provider', 'yellow');
 
@@ -108,6 +116,7 @@ export class Provider
   private metadata: Metadata = {};
   private stepRejectCounter: number = 0;
   private catchupTimeout?: NodeJS.Timeout;
+  private analyticsClient?: AnalyticsWebClient;
 
   // SessionID is the unique socket-session.
   private sessionId?: string;
@@ -125,6 +134,9 @@ export class Provider
     super();
     this.config = config;
     this.channel = new Channel(config);
+    if (config.analyticsClient) {
+      this.analyticsClient = config.analyticsClient;
+    }
   }
 
   /**
@@ -202,6 +214,12 @@ export class Provider
     CATCHUP_THROTTLE * 1000,
     { leading: false, trailing: true },
   );
+
+  private fireAnalyticsEvent = (analyticsEvent?: GasPurePayload) => {
+    if (this.analyticsClient && analyticsEvent) {
+      this.analyticsClient.sendOperationalEvent(analyticsEvent);
+    }
+  };
 
   private sendSteps(state: EditorState) {
     const sendable = sendableSteps(state);
@@ -313,6 +331,9 @@ export class Provider
         // those steps since their position could be changed after replacing.
         // https://prosemirror.net/docs/guide/#transform.rebasing
         if (unconfirmedSteps.length) {
+          const catchupAnalytics: GasPurePayload = buildAnalyticsPayload(
+            CATCHUP_SUCCESS,
+          );
           // Create StepMap from StepMap JSON
           const stepMaps = serverStepMaps.map((map: any) => new StepMap(map));
           // create Mappng used for Step.map
@@ -325,9 +346,15 @@ export class Provider
           logger(`Re-aply ${newUnconfirmedSteps.length} unconfirmed steps`);
           // Re-aply local steps
           this.emit('local-steps', { steps: newUnconfirmedSteps });
+          this.fireAnalyticsEvent(catchupAnalytics);
         }
       }
     } catch (err) {
+      const catchupFailureAnalytics: GasPurePayload = buildAnalyticsPayload(
+        CATCHUP_FAILURE,
+        err,
+      );
+      this.fireAnalyticsEvent(catchupFailureAnalytics);
       logger(`Catch-Up Failed:`, err.message);
     }
     this.pauseQueue = false;
@@ -341,11 +368,16 @@ export class Provider
   };
 
   private onErrorHandled = (error: ErrorPayload | string) => {
+    const stepRejectAnalytics: GasPurePayload = buildAnalyticsPayload(
+      STEPS_REJECTED,
+      error,
+    );
     if (
       error &&
       ((error as ErrorPayload).code === 'HEAD_VERSION_UPDATE_FAILED' ||
         (error as ErrorPayload).code === 'VERSION_NUMBER_ALREADY_EXISTS')
     ) {
+      this.fireAnalyticsEvent(stepRejectAnalytics);
       this.stepRejectCounter++;
       if (!this.catchupTimeout) {
         this.catchupTimeout = setTimeout(() => {
@@ -395,11 +427,15 @@ export class Provider
 
   private processSteps(data: StepsPayload, forceApply?: boolean) {
     const { version, steps } = data;
+    const stepAddedAnalyticsEvent: GasPurePayload = buildAnalyticsPayload(
+      STEPS_ADDED,
+    );
     logger(`Processing data. Version "${version}".`);
 
     if (steps && steps.length) {
       const clientIds = steps.map(({ clientId }) => clientId);
       this.emit('data', { json: steps, version, userIds: clientIds });
+      this.fireAnalyticsEvent(stepAddedAnalyticsEvent);
       this.emitTelepointersFromSteps(steps);
 
       // Resend local steps if none of the received steps originated with us!
@@ -468,14 +504,17 @@ export class Provider
    * Don't emit events to the user who makes the modification
    */
   private onTitleChanged = ({ title }: TitlePayload) => {
-    if (title && this.metadata.title !== title) {
+    if (title !== undefined && this.metadata.title !== title) {
       this.metadata.title = title;
       this.emit('metadata:changed', { title });
     }
   };
 
   private onWidthChanged = ({ editorWidth }: EditorWidthPayload) => {
-    if (editorWidth && this.metadata.editorWidth !== editorWidth) {
+    if (
+      editorWidth !== undefined &&
+      this.metadata.editorWidth !== editorWidth
+    ) {
       this.metadata.editorWidth = editorWidth;
       this.emit('metadata:changed', { editorWidth });
     }

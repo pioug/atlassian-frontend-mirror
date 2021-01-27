@@ -3,9 +3,12 @@ import { ClipboardWrapper } from './ClipboardWrapper';
 import { DropzoneWrapper } from './DropzoneWrapper';
 import { BrowserWrapper } from './BrowserWrapper';
 import { MediaPluginState } from '../../pm-plugins/types';
+import { EditorAppearance } from '../../../../types/editor-appearance';
 
 type Props = {
   mediaState: MediaPluginState;
+  editorDomElement: Element;
+  appearance: EditorAppearance;
 };
 
 type State = {
@@ -34,7 +37,7 @@ export class MediaPickerComponents extends React.Component<Props, State> {
   };
 
   render() {
-    const { mediaState } = this.props;
+    const { mediaState, editorDomElement, appearance } = this.props;
     const { isPopupOpened } = this.state;
     const featureFlags =
       mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
@@ -46,6 +49,8 @@ export class MediaPickerComponents extends React.Component<Props, State> {
           mediaState={mediaState}
           isActive={!isPopupOpened}
           featureFlags={featureFlags}
+          editorDomElement={editorDomElement}
+          appearance={appearance}
         />
         {!mediaState.shouldUseMediaPickerPopup() && (
           <BrowserWrapper

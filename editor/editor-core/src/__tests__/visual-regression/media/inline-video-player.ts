@@ -1,4 +1,7 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import mediaSingleVideoAdf from '../table/__fixtures__/mediasingle-video.adf.json';
@@ -38,6 +41,7 @@ describe('Snapshot Test: Media inline video player', () => {
     await page.click(
       '[data-testid="custom-media-player-playback-speed-toggle-button"]',
     );
+    await waitForTooltip(page);
     await snapshot(page);
   });
 });

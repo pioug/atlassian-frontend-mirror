@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 13.0.7
+
+### Patch Changes
+
+- [`bd2fa06042`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd2fa06042) - Re-generated icons using newer version of build process, and added missing 'archive' and 'mobile' buttons
+
 ## 13.0.6
 
 ### Patch Changes

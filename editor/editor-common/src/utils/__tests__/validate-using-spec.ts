@@ -105,6 +105,73 @@ describe('validationErrorHandler', () => {
     expect(result && result.type).toBe('unsupportedInline');
   });
 
+  it('should not ignore maximum INVALID_CONTENT_LENGTH error for mediaSingle', () => {
+    const invalidNode = {
+      type: 'mediaSingle',
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'file',
+            id: '1234',
+            collection: 'SampleCollection',
+          },
+        },
+        {
+          type: 'caption',
+          content: [
+            {
+              type: 'text',
+              text: 'Hello World!',
+            },
+          ],
+        },
+      ],
+    };
+    const invalidContentLengthError: ValidationError = {
+      code: 'INVALID_CONTENT_LENGTH',
+      message: "'content' should have more than 1 child",
+      meta: { length: 2, requiredLength: 1, type: 'maximum' },
+    };
+    const options = {
+      allowUnsupportedBlock: true,
+    };
+    const result = validationErrorHandler(
+      { ...invalidNode },
+      invalidContentLengthError,
+      options,
+      marks,
+    );
+    expect(result).toBeDefined();
+    expect(result).toEqual({
+      type: 'mediaSingle',
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'file',
+            id: '1234',
+            collection: 'SampleCollection',
+          },
+        },
+        {
+          attrs: {
+            originalValue: {
+              content: [
+                {
+                  text: 'Hello World!',
+                  type: 'text',
+                },
+              ],
+              type: 'caption',
+            },
+          },
+          type: 'unsupportedBlock',
+        },
+      ],
+    });
+  });
+
   it('should ignore INVALID_CONTENT_LENGTH error', () => {
     const invalidNode = unsupportedNode;
     const invalidContentLengthError: ValidationError = {

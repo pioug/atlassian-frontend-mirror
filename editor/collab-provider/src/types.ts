@@ -1,4 +1,5 @@
 import { CollabParticipant } from '@atlaskit/editor-common/collab';
+import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 export interface Storage {
   get(key: string): Promise<string>;
@@ -11,12 +12,17 @@ export interface Config {
   documentAri: string;
   lifecycle?: Lifecycle;
   storage?: Storage;
-  createSocket(path: string): Socket;
+  createSocket(path: string, initializationToken?: string): Socket;
+  analyticsClient?: AnalyticsWebClient;
   getUser?(
     userId: string,
   ): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & { userId: string }
   >;
+  permissionToken?: {
+    initializationToken: string;
+    tokenRefresh(): Promise<string>;
+  };
 }
 
 interface SimpleEventEmitter {

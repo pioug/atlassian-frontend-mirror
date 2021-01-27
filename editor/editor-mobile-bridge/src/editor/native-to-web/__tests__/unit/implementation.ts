@@ -449,3 +449,19 @@ describe('Register and Unregister Editor', () => {
     expect(privateUnregisterEditor).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('perform edit action', () => {
+  it('should delegate handling the action to mobile editor toolbar actions', () => {
+    let bridge: WebBridgeImpl = new WebBridgeImpl();
+    const editorView = {} as EditorViewWithComposition;
+    bridge.editorView = editorView;
+    bridge.mobileEditingToolbarActions.performEditAction = jest.fn();
+
+    bridge.performEditAction('0');
+
+    expect(bridge.mobileEditingToolbarActions.performEditAction).toBeCalledWith(
+      '0',
+      editorView,
+    );
+  });
+});

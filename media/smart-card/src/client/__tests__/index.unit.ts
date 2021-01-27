@@ -1,5 +1,6 @@
 let mockRequest = jest.fn();
 jest.mock('../api', () => ({
+  ...jest.requireActual<Object>('../api'),
   request: (...args: any) => mockRequest(...args),
 }));
 
@@ -7,6 +8,7 @@ import { mocks } from '../../utils/mocks';
 import SmartCardClient from '..';
 import { isSuccessfulResponse, SuccessResponse } from '../types/responses';
 import { APIError } from '../errors';
+import { NetworkError } from '../api';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -144,6 +146,21 @@ describe('Smart Card: Client', () => {
           name: 'APIError',
         }),
       );
+    }
+  });
+
+  it('should return fallback error when error is a network error', async () => {
+    expect.assertions(2);
+    mockRequest.mockImplementationOnce(async () =>
+      Promise.reject(new NetworkError('some-network-error')),
+    );
+    const client = new SmartCardClient('stg');
+    const resourceUrl = 'https://i.love.cheese';
+    try {
+      await client.fetchData(resourceUrl);
+    } catch (error) {
+      expect(error).toBeInstanceOf(APIError);
+      expect(error.kind).toEqual('fallback');
     }
   });
 

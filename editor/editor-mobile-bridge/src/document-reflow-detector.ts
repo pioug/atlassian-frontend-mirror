@@ -61,7 +61,7 @@ export class DocumentReflowDetector {
 
   private onResizeObservation = (entries: ResizeObserverEntry[]) => {
     const height =
-      (entries && entries[0] && entries[0].contentRect.height) || 0;
+      (entries && entries[0].target.getBoundingClientRect().height) || 0;
     this.onReflowCallback(Math.round(height));
   };
 

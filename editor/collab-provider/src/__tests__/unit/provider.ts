@@ -8,6 +8,8 @@ import {
 } from '../../provider';
 jest.mock('../../channel');
 
+import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+
 const testProviderConfig = {
   url: `http://provider-url:66661`,
   documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -164,6 +166,20 @@ describe('provider unit tests', () => {
     });
   });
 
+  it('should emit metadata when title has changed to empty string', async done => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    provider.on('metadata:changed', metadata => {
+      expect(metadata).toEqual({
+        title: '',
+      });
+      done();
+    });
+    provider.initialize(() => editorState);
+    socket.emit('title:changed', {
+      title: '',
+    });
+  });
+
   it('should emit metadata when editor width is changed', async done => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
     provider.on('metadata:changed', metadata => {
@@ -175,6 +191,20 @@ describe('provider unit tests', () => {
     provider.initialize(() => editorState);
     socket.emit('width:changed', {
       editorWidth: 'some-random-editor-width',
+    });
+  });
+
+  it('should emit metadata when editor width is changed to empty string', async done => {
+    const provider = createSocketIOCollabProvider(testProviderConfig);
+    provider.on('metadata:changed', metadata => {
+      expect(metadata).toEqual({
+        editorWidth: '',
+      });
+      done();
+    });
+    provider.initialize(() => editorState);
+    socket.emit('width:changed', {
+      editorWidth: '',
     });
   });
 
@@ -203,5 +233,30 @@ describe('provider unit tests', () => {
       expect(counter).toBe(1);
       done();
     }, 5000);
+  });
+
+  it('should fire analytic events if steps are rejected', () => {
+    const fakeAnalyticsWebClient: AnalyticsWebClient = {
+      sendOperationalEvent: jest.fn(),
+      sendScreenEvent: jest.fn(),
+      sendTrackEvent: jest.fn(),
+      sendUIEvent: jest.fn(),
+    };
+    const testProviderConfigWithAnalytics = {
+      url: `http://provider-url:66661`,
+      documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+      analyticsClient: fakeAnalyticsWebClient,
+    };
+    const provider = createSocketIOCollabProvider(
+      testProviderConfigWithAnalytics,
+    );
+    const stepRejectedError: CollabErrorPayload = {
+      code: 'HEAD_VERSION_UPDATE_FAILED',
+      meta: 'The version number does not match the current head version.',
+      message: 'Version number does not match current head version.',
+    };
+    provider.initialize(() => editorState);
+    socket.emit('error', stepRejectedError);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
   });
 });

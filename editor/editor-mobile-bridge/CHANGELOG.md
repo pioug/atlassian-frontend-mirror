@@ -1,5 +1,35 @@
 # @atlaskit/editor-mobile-bridge
 
+## 23.0.0
+
+### Major Changes
+
+- [`658184c615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/658184c615) - [ED-11630] Removes the usage of Query Parameter for Predictable List and Makes the Predictable List reconfigurable via the bridge.configureEditor method. All the clients setting allowPredictableList from query parameter should use bridge.configureEditor and pass in the allowPredictableList flag.
+  Example: bridge.configureEditor("{\"allowPredictableList\": true}")
+
+### Minor Changes
+
+- [`2fe88ab389`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fe88ab389) - [ED-11642] Remove "window.resize" listner and "ClickArea" for compact editor. Include padding calculation in onRenderedContentHeightChanged.
+- [`7d8f1facfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d8f1facfc) - [ME-300](https://product-fabric.atlassian.net/browse/ME-300) Introduced a toolbarBridge to support data-driven editing capabilities.
+
+  By default, implementation is not required and native side won't be impacted. Once the implementation is done
+  on the native side, this will work out of the box. Data-driven approach listens the floating toolbar state
+  changes and relay the editing capabilities to the native side. Native mobile displays these capabilities with
+  the native widgets in the main toolbar. Once the user performs an action, responsibility of the execution is
+  delegated to the editor-core which is the shared components across all platforms. Native mobile doesn't know
+  about the details of how to perform an action.
+
+- [`2181a4c181`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2181a4c181) - ED-11468 - 1. Introduced new folder structure with POM and fragments. 2. Added tests for validating quick insert related features.
+- [`92bf38166c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92bf38166c) - [ED-11634] Removes the usage of Query Parameter for editorType and renames it to editorAppearance. editorAppearance is now reconfigurable via the bridge.configureEditor method.
+  All the clients setting editorType from query parameter should use bridge.configureEditor and pass in the editorAppearance flag with either 'compact' or 'full'(Default).
+  Example: bridge.configureEditor("{\"editorAppearance\": \"compact\"}")
+
+### Patch Changes
+
+- [`7a66ee7c88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a66ee7c88) - Add url params support for captions in mobile bridge
+- [`9da08b115a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9da08b115a) - Revert fix for TWISTA-638
+- Updated dependencies
+
 ## 22.0.3
 
 ### Patch Changes

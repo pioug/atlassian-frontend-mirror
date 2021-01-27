@@ -20,3 +20,18 @@ export interface NumericalCardDimensions {
   width: number;
   height: number;
 }
+
+// Analytics base types
+export type {
+  FileAttributes,
+  SuccessAttributes,
+  FailureAttributes,
+  OperationalAttributes,
+  OperationalEventPayload,
+  UIAttributes,
+  UIEventPayload,
+  ScreenAttributes,
+  ScreenEventPayload,
+  TrackAttributes,
+  TrackEventPayload,
+} from './analytics';

@@ -163,6 +163,7 @@ export interface DemoRendererProps {
   annotationProvider?: AnnotationProviders | null;
   useSpecBasedValidator?: boolean;
   allowUgcScrubber?: boolean;
+  allowSelectAllTrap?: boolean;
   onDocumentChange?: () => void;
   analyticsEventSeverityTracking?: {
     enabled: boolean;
@@ -359,6 +360,7 @@ export default class RendererDemo extends React.Component<
       props.UNSAFE_allowCustomPanels = this.props.allowCustomPanels;
       props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
       props.allowUgcScrubber = this.props.allowUgcScrubber;
+      props.allowSelectAllTrap = this.props.allowSelectAllTrap;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

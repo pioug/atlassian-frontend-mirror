@@ -51,6 +51,7 @@ describe('providers > editor', () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
+      ok: true,
     }));
     const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
     const adf = await provider.resolve(url, 'inline');
@@ -66,6 +67,7 @@ describe('providers > editor', () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
+      ok: true,
     }));
     const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
     const adf = await provider.resolve(url, 'block');
@@ -81,6 +83,7 @@ describe('providers > editor', () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
+      ok: true,
     }));
     const url =
       'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap';
@@ -98,6 +101,7 @@ describe('providers > editor', () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
+      ok: true,
     }));
     const url =
       'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap?shared=&atlOrigin=eyJpIjoiYmFlNzRlMzAyYjAyNDlkZTgxZDc5ZTIzYmNlZmI5MjAiLCJwIjoiaiJ9';
@@ -115,6 +119,7 @@ describe('providers > editor', () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
+      ok: true,
     }));
     const url =
       'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/boards/3186/roadmap';
@@ -132,9 +137,11 @@ describe('providers > editor', () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
+      ok: true,
     }));
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => ({ isSupported: true }),
+      ok: true,
     }));
     const url = 'https://drive.google.com/file/123';
     const adf = await provider.resolve(url, 'inline');

@@ -112,7 +112,7 @@ export const bodyStyles = (shouldScroll?: boolean) => css`
     : `
         padding: 0 ${modalPadding}px;
       `}
-  @media (min-width: 320px) and (max-width: 480px) {
+  @media (max-width: 480px) {
     overflow-y: auto;
     height: 100%;
   }

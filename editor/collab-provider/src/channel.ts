@@ -100,7 +100,10 @@ export class Channel extends Emitter<ChannelEvent> {
   connect() {
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
-    this.socket = createSocket(`${url}/session/${documentAri}`);
+    this.socket = createSocket(
+      `${url}/session/${documentAri}`,
+      this.config.permissionToken?.initializationToken,
+    );
     this.socket.on('connect', this.onConnect);
     this.socket.on('reconnect', () => {
       this.emit('reconnected', null);
@@ -143,8 +146,16 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.on('width:changed', (payload: { data: EditorWidthPayload }) => {
       this.emit('width:changed', payload.data);
     });
-    this.socket.on('disconnect', (reason: string) => {
+    this.socket.on('disconnect', async (reason: string) => {
       this.connected = false;
+
+      // refresh permission token for all disconnect event
+      if (this.config.permissionToken?.tokenRefresh && this.socket) {
+        (this.socket as any).io.opts.transportOptions.polling.extraHeaders = {
+          'x-token': await this.config.permissionToken.tokenRefresh(),
+        };
+      }
+
       logger(`disconnect: ${reason}`);
       this.emit('disconnect', { reason });
       if (reason === 'io server disconnect' && this.socket) {
@@ -152,12 +163,13 @@ export class Channel extends Emitter<ChannelEvent> {
         this.socket.connect();
       }
     });
+
     this.socket.on('error', (error: ErrorPayload | string) => {
       this.emit('error', error);
     });
   }
 
-  private onConnect = (error: any) => {
+  private onConnect = () => {
     this.connected = true;
     logger('Connected.', this.socket!.id);
 
@@ -194,6 +206,15 @@ export class Channel extends Emitter<ChannelEvent> {
         queryParams: {
           version: fromVersion,
         },
+        ...(this.config.permissionToken
+          ? {
+              requestInit: {
+                headers: {
+                  'x-token': await this.config.permissionToken.tokenRefresh(),
+                },
+              },
+            }
+          : {}),
       });
       return {
         doc,

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 14.8.3
+
+### Patch Changes
+
+- [`eda409bf20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eda409bf20) - Handle network errors in smart-card client
+- Updated dependencies
+
 ## 14.8.2
 
 ### Patch Changes

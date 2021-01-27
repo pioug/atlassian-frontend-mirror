@@ -209,7 +209,12 @@ export class CardViewBase extends React.Component<
     if (!this.shouldRenderPlayButton()) {
       return null;
     }
-    return <PlayButton />;
+    const hasTitleBox = this.showTitleBox() || this.showFailedTitleBox();
+    return (
+      <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
+        <PlayButton />;
+      </IconWrapper>
+    );
   };
 
   private renderBlanket() {

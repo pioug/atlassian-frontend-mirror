@@ -9,6 +9,7 @@ import {
   media,
   a,
   extension,
+  unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import {
@@ -455,5 +456,75 @@ describe('media-single', () => {
         ),
       ),
     );
+  });
+
+  describe('unsupportedBlock', () => {
+    it('allows unsupportedBlock as a child', () => {
+      const contextIdentifierProvider = storyContextIdentifierProviderFactory();
+      const providerFactory = ProviderFactory.create({
+        contextIdentifierProvider,
+      });
+      const { editorView } = createEditor({
+        editorProps: {
+          defaultValue: {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'mediaSingle',
+                content: [
+                  {
+                    type: 'media',
+                    attrs: {
+                      type: 'file',
+                      id: '1234',
+                      collection: 'SampleCollection',
+                    },
+                  },
+                  {
+                    type: 'caption',
+                    content: [
+                      {
+                        type: 'text',
+                        text: 'Hello World!',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          allowExtension: true,
+          media: {
+            allowMediaSingle: true,
+          },
+          contextIdentifierProvider,
+        },
+        providerFactory,
+      });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          mediaSingle({ layout: 'center' })(
+            media({
+              id: '1234',
+              type: 'file',
+              collection: 'SampleCollection',
+            })(),
+            unsupportedBlock({
+              originalValue: {
+                content: [
+                  {
+                    text: 'Hello World!',
+                    type: 'text',
+                  },
+                ],
+                type: 'caption',
+              },
+            })(),
+          ),
+        ),
+      );
+    });
   });
 });

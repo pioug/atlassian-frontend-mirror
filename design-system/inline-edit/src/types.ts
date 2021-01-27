@@ -31,7 +31,10 @@ interface CommonProps extends WithAnalyticsEventsProps {
   /** Accessibility label for the cancel action button. */
   cancelButtonLabel?: string;
   /** Handler called when checkmark is clicked. */
-  onCancel: () => void;
+  onCancel?: () => void;
+
+  /** Additional information to be included in the `context` of analytics events that come from button */
+  analyticsContext?: Record<string, any>;
 }
 
 export interface InlineEditUncontrolledProps<FieldValue> extends CommonProps {
@@ -85,6 +88,9 @@ export interface InlineEditableTextfieldProps extends CommonProps {
   startWithEditViewOpen?: boolean;
   /** Sets height to compact. */
   isCompact?: boolean;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   */
+  testId?: string;
 }
 
 /** This interface will be exported once Inline Dialog is converted to Typescript */

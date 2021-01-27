@@ -117,6 +117,23 @@ function handleEditorFocus(view: EditorView): number | undefined {
     view.focus();
   }, 0);
 }
+
+export function shouldReconfigureState(
+  props: EditorProps,
+  nextProps: EditorProps,
+) {
+  const properties: Array<keyof EditorProps> = [
+    'appearance',
+    'allowScrollGutter',
+    'UNSAFE_predictableLists',
+  ];
+
+  return properties.reduce(
+    (acc, curr) => acc || props[curr] !== nextProps[curr],
+    false,
+  );
+}
+
 export default class ReactEditorView<T = {}> extends React.Component<
   EditorViewProps & T,
   {},
@@ -271,8 +288,12 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
     const { appearance } = this.props.editorProps;
     const { appearance: nextAppearance } = nextProps.editorProps;
-    if (nextAppearance !== appearance) {
+
+    if (shouldReconfigureState(this.props.editorProps, nextProps.editorProps)) {
       this.reconfigureState(nextProps);
+    }
+
+    if (nextAppearance !== appearance) {
       if (nextAppearance === 'full-width' || appearance === 'full-width') {
         this.dispatchAnalyticsEvent({
           action: ACTION.CHANGED_FULL_WIDTH_MODE,
@@ -505,11 +526,13 @@ export default class ReactEditorView<T = {}> extends React.Component<
   };
 
   private onEditorViewStateUpdated = ({
-    transaction,
+    originalTransaction,
+    transactions,
     oldEditorState,
     newEditorState,
   }: {
-    transaction: Transaction;
+    originalTransaction: Transaction;
+    transactions: Transaction[];
     oldEditorState: EditorState;
     newEditorState: EditorState;
   }) => {
@@ -518,7 +541,12 @@ export default class ReactEditorView<T = {}> extends React.Component<
     this.config.onEditorViewStateUpdatedCallbacks.forEach(entry => {
       trackinEnabled &&
         startMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
-      entry.callback({ transaction, oldEditorState, newEditorState });
+      entry.callback({
+        originalTransaction,
+        transactions,
+        oldEditorState,
+        newEditorState,
+      });
       trackinEnabled &&
         stopMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
     });
@@ -544,7 +572,10 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
       // go ahead and update the state now we know the transaction is good
       startMeasure(EVENT_NAME_STATE_APPLY);
-      const editorState = this.view.state.apply(transaction);
+      const {
+        state: editorState,
+        transactions,
+      } = this.view.state.applyTransaction(transaction);
       stopMeasure(EVENT_NAME_STATE_APPLY);
 
       if (editorState === oldEditorState) {
@@ -557,7 +588,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
       startMeasure(EVENT_NAME_VIEW_STATE_UPDATED);
       this.onEditorViewStateUpdated({
-        transaction,
+        originalTransaction: transaction,
+        transactions,
         oldEditorState,
         newEditorState: editorState,
       });

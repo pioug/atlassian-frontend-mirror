@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-edit",
-  "version": "11.0.9",
+  "version": "11.0.10",
   "description": "A base component used to build inline-editable components that match the Atlassian Design Guidelines",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,11 +33,11 @@
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9",
     "react-loadable": "^5.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -49,9 +49,11 @@
     "@atlaskit/textarea": "^4.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@emotion/styled": "^10.0.7",
+    "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
-    "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
+    "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
@@ -63,6 +65,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   }
 }

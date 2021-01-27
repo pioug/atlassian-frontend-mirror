@@ -238,8 +238,7 @@ export default floatingToolbarPlugin;
 
 // We throttle update of this plugin with RAF.
 // So from other plugins you will always get the previous state.
-// To prevent the confusion we are not exporting the plugin key.
-const pluginKey = new PluginKey('floatingToolbarPluginKey');
+export const pluginKey = new PluginKey('floatingToolbarPluginKey');
 
 /**
  * Clean up floating toolbar configs from undesired properties.

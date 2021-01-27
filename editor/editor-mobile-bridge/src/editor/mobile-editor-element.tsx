@@ -4,6 +4,9 @@ import {
   MediaProvider as MediaProviderType,
   EditorProps,
   MentionProvider,
+  EditorContext,
+  WithPluginState,
+  floatingToolbarPluginKey,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -30,11 +33,13 @@ import { InjectedIntl, injectIntl } from 'react-intl';
 import { usePageTitle } from './hooks/use-page-title';
 import { geti18NMessages } from './editor-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
-import { getEnableLightDarkTheming } from '../query-param-reader';
+import {
+  getEnableLightDarkTheming,
+  getAllowCaptions,
+} from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
-
 export interface MobileEditorProps extends EditorProps {
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
@@ -72,7 +77,10 @@ export function MobileEditor(props: MobileEditorProps) {
   usePageTitle(bridge, collabEdit);
 
   // Hooks to create the options once and prevent rerender
-  const mediaOptions = useMedia(props.mediaProvider);
+  const mediaOptions = {
+    ...useMedia(props.mediaProvider),
+    featureFlags: { captions: getAllowCaptions() },
+  };
   const cardsOptions = useSmartCards(props.cardProvider);
   const taskDecisionProvider = useTaskAndDecision();
 
@@ -121,35 +129,48 @@ export function MobileEditor(props: MobileEditorProps) {
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
-        <Editor
-          appearance="mobile"
-          onEditorReady={handleEditorReady}
-          onDestroy={handleEditorDestroyed}
-          media={mediaOptions}
-          allowConfluenceInlineComment={true}
-          onChange={handleChange}
-          allowPanel={true}
-          allowTables={tableOptions}
-          UNSAFE_cards={cardsOptions}
-          allowExtension={true}
-          allowTextColor={true}
-          allowDate={true}
-          allowRule={true}
-          allowStatus={true}
-          allowLayouts={layoutOptions}
-          allowAnalyticsGASV3={true}
-          allowExpand={true}
-          allowTemplatePlaceholders={templatePlaceholdersOptions}
-          allowScrollGutter={editorConfiguration.isAllowScrollGutter()}
-          UNSAFE_predictableLists={editorConfiguration.isPredictableListEnabled()}
-          taskDecisionProvider={taskDecisionProvider}
-          quickInsert={quickInsert}
-          collabEdit={collabEdit}
-          performanceTracking={performanceTracking}
-          {...props}
-          mentionProvider={props.mentionProvider}
-          emojiProvider={props.emojiProvider}
-        />
+        <EditorContext>
+          <>
+            <Editor
+              appearance="mobile"
+              onEditorReady={handleEditorReady}
+              onDestroy={handleEditorDestroyed}
+              media={mediaOptions}
+              allowConfluenceInlineComment={true}
+              onChange={handleChange}
+              allowPanel={true}
+              allowTables={tableOptions}
+              UNSAFE_cards={cardsOptions}
+              allowExtension={true}
+              allowTextColor={true}
+              allowDate={true}
+              allowRule={true}
+              allowStatus={true}
+              allowLayouts={layoutOptions}
+              allowAnalyticsGASV3={true}
+              allowExpand={true}
+              allowTemplatePlaceholders={templatePlaceholdersOptions}
+              allowScrollGutter={editorConfiguration.isScrollGutterAllowed()}
+              UNSAFE_predictableLists={editorConfiguration.isPredictableListEnabled()}
+              taskDecisionProvider={taskDecisionProvider}
+              quickInsert={quickInsert}
+              collabEdit={collabEdit}
+              performanceTracking={performanceTracking}
+              {...props}
+              mentionProvider={props.mentionProvider}
+              emojiProvider={props.emojiProvider}
+            />
+            <WithPluginState
+              plugins={{ floatingToolbar: floatingToolbarPluginKey }}
+              render={({ floatingToolbar }) => {
+                bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+                  floatingToolbar?.config,
+                );
+                return null;
+              }}
+            ></WithPluginState>
+          </>
+        </EditorContext>
       </SmartCardProvider>
     </FabricAnalyticsListeners>
   );

@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 70.3.2
+
+### Patch Changes
+
+- [`1f4d55e86a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f4d55e86a) - Minor syntax fix
+- [`7e990a036d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e990a036d) - Removed Feature Flag Control from Card View Matrix example
+- [`63bff65641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63bff65641) - [ux] Making the VidPlayButton bigger
+- Updated dependencies
+
 ## 70.3.1
 
 ### Patch Changes

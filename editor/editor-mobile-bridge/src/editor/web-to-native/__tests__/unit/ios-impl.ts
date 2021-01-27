@@ -24,6 +24,7 @@ function createiOSMockBridge(): [IosBridge, Window] {
       taskDecisionBridge: { postMessage: jest.fn() },
       pageTitleBridge: { postMessage: jest.fn() },
       contentBridge: { postMessage: jest.fn() },
+      toolbarBridge: { postMessage: jest.fn() },
     },
   };
   const mockWindow = ({
@@ -316,6 +317,34 @@ describe('Web To Native', () => {
           nodes,
           actualRenderingDuration,
           totalBridgeDuration,
+        });
+      });
+    });
+
+    describe('Toolbar Bridge', () => {
+      it('should call onNodeSelected in native', () => {
+        iosBridge.onNodeSelected('panel', 'items');
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.toolbarBridge
+            ?.postMessage,
+        ).toBeCalledWith({
+          name: 'onNodeSelected',
+          nodeType: 'panel',
+          items: 'items',
+        });
+      });
+    });
+
+    describe('Toolbar Bridge', () => {
+      it('should call onNodeDeselected in native', () => {
+        iosBridge.onNodeDeselected();
+
+        expect(
+          windowWithMockBridges.webkit?.messageHandlers.toolbarBridge
+            ?.postMessage,
+        ).toBeCalledWith({
+          name: 'onNodeDeselected',
         });
       });
     });

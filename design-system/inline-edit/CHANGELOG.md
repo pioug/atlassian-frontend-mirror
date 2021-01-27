@@ -1,5 +1,20 @@
 # @atlaskit/inline-edit
 
+## 11.0.10
+
+### Patch Changes
+
+- [`f5cf9fc9e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5cf9fc9e9) - ### General conversion for inline-edit
+
+  There is no breaking change in this conversion, only some mechanical changes applied:
+
+  - replaced `styled-components` to `emotion`
+  - converted class component to function component
+  - restructured the folder
+  - updated examples (using `emotion` and function component too)
+  - added more virtual regression test cases for more scenario
+  - shifted to `react-testing-library` from `enzyme` for unit tests
+
 ## 11.0.9
 
 ### Patch Changes

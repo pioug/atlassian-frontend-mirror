@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.2.5
+
+### Patch Changes
+
+- [`d94d90714b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d94d90714b) - Modal will retain full-width at viewports < 320px. This makes it consistent with < 480px beahviour.
+
 ## 11.2.4
 
 ### Patch Changes

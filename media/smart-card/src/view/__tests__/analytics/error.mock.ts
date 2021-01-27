@@ -2,6 +2,7 @@
 import { mockEvents } from '../../__mocks__/events';
 
 jest.mock('../../../client/api', () => ({
+  ...jest.requireActual<Object>('../../../client/api'),
   request: jest.fn(),
 }));
 jest.mock('react-lazily-render', () => (data: any) => data.content);

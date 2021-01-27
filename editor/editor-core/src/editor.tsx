@@ -562,6 +562,9 @@ export default class Editor extends React.Component<EditorProps, State> {
                                     allowAnnotation={
                                       !!this.props.annotationProviders
                                     }
+                                    allowScrollGutter={
+                                      this.props.allowScrollGutter
+                                    }
                                   />
                                 </BaseTheme>
                               )}

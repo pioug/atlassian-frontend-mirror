@@ -35,7 +35,7 @@ const providerBuilder: ProviderBuilder = (
 };
 
 const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
-  let providerResolver: (value?: CollabEditProvider) => void = () => {};
+  let providerResolver: (value: CollabEditProvider) => void = () => {};
   const collabEditProviderPromise: Promise<CollabEditProvider> = new Promise(
     _providerResolver => {
       providerResolver = _providerResolver;

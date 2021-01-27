@@ -90,6 +90,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    *
+   * testId--container - Outermost container containing everything inside calendar
    * testId--month - Container containing all available days for the month
    * testId--previous-month - Button to show next month
    * testId--next-month - Button to show previous month
@@ -458,6 +459,7 @@ class Calendar extends Component<CalendarProps, State> {
         onFocus={this.handleContainerFocus}
         onKeyDown={this.handleContainerKeyDown}
         role="presentation"
+        data-testid={testId && `${testId}--container`}
       >
         <Announcer id={announceId} aria-live="assertive" aria-relevant="text">
           {new Date(

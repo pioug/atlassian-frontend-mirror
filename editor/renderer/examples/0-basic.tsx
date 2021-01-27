@@ -29,7 +29,8 @@ export default function Example() {
   return (
     <Provider client={new Client('staging')}>
       <RendererDemo
-        allowColumnSorting={true}
+        allowColumnSorting
+        allowSelectAllTrap
         serializer="react"
         adfStage={adfStage}
         schema={schema}

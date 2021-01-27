@@ -102,11 +102,10 @@ export class DropzoneBase extends LocalUploadComponentReact<
     container.removeEventListener('drop', this.onFileDropped);
   };
 
-  private onDragOver = (e: DragEvent): void => {
-    e.preventDefault();
-
-    if (e.dataTransfer && dragContainsFiles(e)) {
-      const dataTransfer = e.dataTransfer;
+  private onDragOver = (event: DragEvent): void => {
+    event.preventDefault();
+    if (event.dataTransfer && dragContainsFiles(event)) {
+      const dataTransfer = event.dataTransfer;
       let allowed;
 
       try {
@@ -116,6 +115,8 @@ export class DropzoneBase extends LocalUploadComponentReact<
       dataTransfer.dropEffect =
         'move' === allowed || 'linkMove' === allowed ? 'move' : 'copy';
       const length = this.getDraggedItemsLength(dataTransfer);
+      // [EDM-1636]: needed in order to make multiple dropzones in the page to work
+      event.stopPropagation();
       this.emitDragOver({ length });
     }
   };

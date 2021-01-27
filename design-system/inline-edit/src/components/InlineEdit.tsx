@@ -1,74 +1,66 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { InlineEditProps } from '../types';
 
-import InlineEditUncontrolled from './InlineEditUncontrolled';
+import InlineEditUncontrolled from './internal/InlineEditUncontrolled';
 
-interface State {
-  isEditing: boolean;
-}
+const noop = () => {};
 
-class InlineEdit<FieldValue = string> extends React.Component<
-  InlineEditProps<FieldValue>,
-  State
-> {
-  static defaultProps = {
-    startWithEditViewOpen: false,
-    onCancel: () => {},
-  };
+const InlineEdit = <FieldValue extends any = string>(
+  props: InlineEditProps<FieldValue>,
+) => {
+  const {
+    startWithEditViewOpen = false,
+    onConfirm: providedOnConfirm,
+    onCancel: providedOnCancel = noop,
+    defaultValue,
+    editView,
+    readView,
+  } = props;
 
-  editViewRef = React.createRef<HTMLElement>();
+  const editViewRef = React.createRef<HTMLElement>();
+  const [isEditing, setEditing] = useState(startWithEditViewOpen);
 
-  state = {
-    isEditing: this.props.startWithEditViewOpen || false,
-  };
-
-  componentDidMount() {
-    if (this.props.startWithEditViewOpen && this.editViewRef.current) {
-      this.editViewRef.current.focus();
+  useEffect(() => {
+    if (startWithEditViewOpen && editViewRef.current) {
+      editViewRef.current.focus();
     }
-  }
+  }, [startWithEditViewOpen, editViewRef]);
 
-  onConfirm = (value: string, analyticsEvent: UIAnalyticsEvent) => {
-    this.setState({
-      isEditing: false,
-    });
-    this.props.onConfirm(value, analyticsEvent);
-  };
+  const onConfirm = useCallback(
+    (value: string, analyticsEvent: UIAnalyticsEvent) => {
+      setEditing(false);
+      providedOnConfirm(value, analyticsEvent);
+    },
+    [providedOnConfirm],
+  );
 
-  onCancel = () => {
-    this.setState({
-      isEditing: false,
-    });
-    this.props.onCancel();
-  };
+  const onCancel = useCallback(() => {
+    setEditing(false);
+    providedOnCancel();
+  }, [providedOnCancel]);
 
-  onEditRequested = () => {
-    this.setState({ isEditing: true }, () => {
-      if (this.editViewRef.current) {
-        this.editViewRef.current.focus();
-      }
-    });
-  };
+  const onEditRequested = useCallback(() => {
+    setEditing(true);
+    if (isEditing && editViewRef.current) {
+      editViewRef.current.focus();
+    }
+  }, [isEditing, editViewRef]);
 
-  render() {
-    return (
-      <InlineEditUncontrolled<FieldValue>
-        {...this.props}
-        defaultValue={this.props.defaultValue}
-        editView={fieldProps =>
-          this.props.editView(fieldProps, this.editViewRef)
-        }
-        readView={this.props.readView}
-        onConfirm={this.onConfirm}
-        onCancel={this.onCancel}
-        isEditing={this.state.isEditing}
-        onEditRequested={this.onEditRequested}
-      />
-    );
-  }
-}
+  return (
+    <InlineEditUncontrolled<FieldValue>
+      {...props}
+      defaultValue={defaultValue}
+      editView={fieldProps => editView(fieldProps, editViewRef)}
+      readView={readView}
+      onConfirm={onConfirm}
+      onCancel={onCancel}
+      isEditing={isEditing}
+      onEditRequested={onEditRequested}
+    />
+  );
+};
 
 export default InlineEdit;

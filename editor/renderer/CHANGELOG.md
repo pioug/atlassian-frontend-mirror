@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 73.1.0
+
+### Minor Changes
+
+- [`949c7174a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/949c7174a4) - [ux] ED-11625: scope select all to renderer document
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.0.0
 
 ### Major Changes

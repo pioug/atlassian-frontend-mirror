@@ -5,6 +5,7 @@ import { selectors } from './page-objects/_renderer';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';
+import { GasPurePayload } from '@atlaskit/analytics-gas-types';
 
 export type RendererPropsOverrides = { [T in keyof Props]?: Props[T] } & {
   showSidebar?: boolean;
@@ -39,6 +40,10 @@ export async function mountRenderer(
     adf,
   );
   await page.waitForSelector(selectors.container, { timeout: 500 });
+}
+
+export async function getEvents(page: Page): Promise<GasPurePayload[]> {
+  return page.execute(() => (window as any).__analytics.events);
 }
 
 export async function goToRendererTestingExample(

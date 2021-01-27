@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 57.1.3
+
+### Patch Changes
+
+- [`a4e37d0df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4e37d0df4) - Fix EDM-1636 again
+- Updated dependencies
+
 ## 57.1.2
 
 ### Patch Changes

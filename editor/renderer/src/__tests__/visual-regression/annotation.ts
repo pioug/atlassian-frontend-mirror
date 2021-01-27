@@ -1,4 +1,7 @@
-import { setSelection } from './../__helpers/page-objects/_renderer';
+import {
+  setSelection,
+  selectors as rendererSelectors,
+} from './../__helpers/page-objects/_renderer';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
@@ -46,7 +49,7 @@ describe('Snapshot Test: Annotation in renderer', () => {
     await snapshot(page, undefined, selectors.annotation);
   });
 
-  test(`displays draft annotation on click comment`, async () => {
+  test.skip(`displays draft annotation on click comment`, async () => {
     await initRenderer(page, annotationAdf);
     await page.waitForSelector(selectors.annotation);
     await selectTextToAnnotate(page);
@@ -56,7 +59,7 @@ describe('Snapshot Test: Annotation in renderer', () => {
 
     // click textarea inside comment popup to remove browser selection from highlighted text
     const textarea = await page.waitForSelector(
-      `${selectors.commentPopup} textarea`,
+      `${selectors.commentPopup} ${rendererSelectors.editor}`,
     );
     await textarea.click();
 

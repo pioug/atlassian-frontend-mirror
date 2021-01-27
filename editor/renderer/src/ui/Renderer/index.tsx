@@ -209,6 +209,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowCopyToClipboard: props.allowCopyToClipboard,
       allowCustomPanels: props.UNSAFE_allowCustomPanels,
       allowAnnotations: props.allowAnnotations,
+      allowSelectAllTrap: props.allowSelectAllTrap,
     };
   }
 

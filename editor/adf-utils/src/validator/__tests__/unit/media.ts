@@ -139,4 +139,83 @@ describe('media', () => {
     };
     expect(run).toThrowError(`media: 'attrs' validation failed.`);
   });
+
+  it('should throw when length of mediaSingle is too long', () => {
+    const validateLength = validator(['doc', 'mediaSingle', 'media']);
+    const run = () => {
+      validateLength({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'mediaSingle',
+            content: [
+              {
+                type: 'media',
+                attrs: {
+                  type: 'file',
+                  id: '1234',
+                  collection: 'SampleCollection',
+                },
+              },
+              {
+                type: 'caption',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello World!',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+    };
+    expect(run).toThrowError(
+      `mediaSingle: 'content' should have less than 1 child.`,
+    );
+  });
+
+  // has to be skipped currently due to issue here
+  // https://product-fabric.atlassian.net/wiki/spaces/TPT/pages/1922867184/Nodes+with+Multiple+Validation+Specs
+  it.skip('should not throw when length of mediaSingle is valid', () => {
+    const validateLength = validator([
+      'doc',
+      'mediaSingle',
+      'media',
+      'caption',
+    ]);
+    const run = () => {
+      validateLength({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'mediaSingle',
+            content: [
+              {
+                type: 'media',
+                attrs: {
+                  type: 'file',
+                  id: '1234',
+                  collection: 'SampleCollection',
+                },
+              },
+              {
+                type: 'caption',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello World!',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+    };
+    expect(run).toReturn();
+  });
 });

@@ -13,6 +13,7 @@ import { isListNode, JoinDirection, joinSiblingLists } from '../utils/node';
 import { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { ListsPluginState } from '../types';
+import { findRootParentListNode } from '../utils/find';
 
 const predictableListsPluginKey = new PluginKey('listsPredictablePlugin');
 export const pluginKey = predictableListsPluginKey;
@@ -144,10 +145,14 @@ export const createPlugin = (eventDispatch: Dispatch): Plugin =>
     key: predictableListsPluginKey,
     appendTransaction(transactions, _oldState, newState) {
       const lastTransaction = transactions[transactions.length - 1];
-      if (!lastTransaction.docChanged) {
+      if (!lastTransaction.docChanged || !lastTransaction.selectionSet) {
         return;
       }
       const tr = newState.tr;
+      const rootList = findRootParentListNode(tr.selection.$from);
+      if (!rootList) {
+        return;
+      }
       const listsJoined = joinSiblingLists({
         tr,
         direction: JoinDirection.RIGHT,

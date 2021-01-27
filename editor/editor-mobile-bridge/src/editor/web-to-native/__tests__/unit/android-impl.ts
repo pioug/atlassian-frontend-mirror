@@ -66,6 +66,10 @@ function createAndroidMockBridge(): [AndroidBridge, Window] {
     contentBridge: {
       onContentRendered: jest.fn(),
     },
+    toolbarBridge: {
+      onNodeSelected: jest.fn(),
+      onNodeDeselected: jest.fn(),
+    },
   } as any) as Window;
   return [new AndroidBridge(mockWindow), mockWindow];
 }
@@ -303,6 +307,24 @@ describe('Web To Native', () => {
           actualRenderingDuration,
           totalBridgeDuration,
         );
+      });
+    });
+
+    describe('Toolbar Bridge', () => {
+      it('should call onNodeSelected in native', () => {
+        androidBridge.onNodeSelected('panel', 'items');
+
+        expect(
+          windowWithMockBridges.toolbarBridge!.onNodeSelected,
+        ).toBeCalledWith('panel', 'items');
+      });
+
+      it('should call onNodeDeselected in native', () => {
+        androidBridge.onNodeDeselected();
+
+        expect(
+          windowWithMockBridges.toolbarBridge!.onNodeDeselected,
+        ).toBeCalled();
       });
     });
   });

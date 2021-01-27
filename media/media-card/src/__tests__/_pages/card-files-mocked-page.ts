@@ -61,6 +61,10 @@ export class CardFilesMockedPage {
   async isCardVisible(selector: string) {
     return this.page.waitForVisible(selector);
   }
+
+  async isPlayPauseBlanket() {
+    return this.page.waitForVisible('[data-testid="play-pause-blanket"]');
+  }
 }
 
 export async function gotoCardFilesMockedPage(

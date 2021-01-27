@@ -1,5 +1,17 @@
 # @atlaskit/adf-utils
 
+## 11.7.0
+
+### Minor Changes
+
+- [`70f47afdee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f47afdee) - Added unsupportedBlock support for mediaSingle as a child
+- [`549740c01d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/549740c01d) - Exported the validator errors map
+  Convert nodes that are after an invalid length to be unsupported
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.6.0
 
 ### Minor Changes

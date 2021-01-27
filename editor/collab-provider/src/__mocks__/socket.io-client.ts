@@ -1,4 +1,4 @@
-export const io = (url: String) => {
+export const io = (url: string, opt: any) => {
   const events = new Map<string, (...args: any) => {}>();
 
   return {
@@ -16,6 +16,15 @@ export const io = (url: String) => {
       }
     },
     id: 'test-sid-asdf',
+    ...(opt.transportOptions
+      ? {
+          io: {
+            opts: {
+              transportOptions: opt.transportOptions,
+            },
+          },
+        }
+      : {}),
   };
 };
 

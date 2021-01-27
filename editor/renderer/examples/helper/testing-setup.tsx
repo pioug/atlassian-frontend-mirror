@@ -23,10 +23,11 @@ import { MentionProvider } from '@atlaskit/mention/types';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers';
+import AnalyticsListeners from '@atlaskit/analytics-listeners';
+import { GasPurePayload } from '@atlaskit/analytics-gas-types';
 
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
-import RendererActions from '../../src/actions/index';
 import {
   AnnotationTypes,
   AnnotationId,
@@ -55,11 +56,6 @@ type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   themeMode?: ThemeModes;
 };
 
-interface WindowBindings {
-  __mountRenderer?: () => void;
-  __rendererActions?: RendererActions;
-}
-
 const providerFactory = ProviderFactory.create({
   mediaProvider,
   mentionProvider,
@@ -79,29 +75,31 @@ function renderRenderer({
 }) {
   const { showSidebar, ...reactProps } = props;
   return (
-    <SmartCardProvider client={cardClient}>
-      <Sidebar showSidebar={!!showSidebar}>
-        {(additionalRendererProps: any) => (
-          <AtlaskitThemeProvider mode={props.themeMode}>
-            <Renderer
-              dataProviders={providerFactory}
-              document={adf}
-              extensionHandlers={extensionHandlers}
-              {...reactProps}
-              {...additionalRendererProps}
-              eventHandlers={
-                setMode
-                  ? {
-                      onUnhandledClick: e => setMode(true),
-                    }
-                  : undefined
-              }
-            />
-          </AtlaskitThemeProvider>
-        )}
-      </Sidebar>
-      <EmbedHelper />
-    </SmartCardProvider>
+    <AnalyticsListeners client={(window as any).__analytics}>
+      <SmartCardProvider client={cardClient}>
+        <Sidebar showSidebar={!!showSidebar}>
+          {(additionalRendererProps: any) => (
+            <AtlaskitThemeProvider mode={props.themeMode}>
+              <Renderer
+                dataProviders={providerFactory}
+                document={adf}
+                extensionHandlers={extensionHandlers}
+                {...reactProps}
+                {...additionalRendererProps}
+                eventHandlers={
+                  setMode
+                    ? {
+                        onUnhandledClick: e => setMode(true),
+                      }
+                    : undefined
+                }
+              />
+            </AtlaskitThemeProvider>
+          )}
+        </Sidebar>
+        <EmbedHelper />
+      </SmartCardProvider>
+    </AnalyticsListeners>
   );
 }
 
@@ -117,14 +115,27 @@ export const editorPlaceholderSelector = `.${editorPlaceholderClassname}`;
  * @param enableClickToEdit Swap out renderer for dummy editor on onUnhandledClick
  */
 export function createRendererWindowBindings(
-  win: Window & WindowBindings,
+  win: Window,
   enableClickToEdit?: boolean,
 ) {
-  if (win.__mountRenderer) {
+  if ((win as any).__mountRenderer) {
     return;
   }
 
   mediaMockServer.enable();
+
+  const events: GasPurePayload[] = [];
+  const send = (e: any) => {
+    events.push(e);
+  };
+
+  (window as any)['__analytics'] = {
+    sendUIEvent: send,
+    sendOperationalEvent: send,
+    sendTrackEvent: send,
+    sendScreenEvent: send,
+    events,
+  };
 
   (window as any)['__mountRenderer'] = (
     props: MountProps,
@@ -168,7 +179,7 @@ export function createRendererWindowBindings(
         <RendererContext>
           <WithRendererActions
             render={actions => {
-              win.__rendererActions = actions;
+              (win as any).__rendererActions = actions;
               return render;
             }}
           />

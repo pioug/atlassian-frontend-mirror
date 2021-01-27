@@ -20,6 +20,8 @@ export async function MediaPicker(
   return new PopupImpl(mediaClient, pickerConfig);
 }
 
+export type { DropzoneConfig } from './types';
+
 // REACT COMPONENTS
 
 export { DropzoneLoader as Dropzone } from './components/dropzone';

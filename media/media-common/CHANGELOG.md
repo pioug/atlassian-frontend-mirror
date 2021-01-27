@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.5.1
+
+### Patch Changes
+
+- [`ab112f3020`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab112f3020) - Updated media-common analytics exports
+
 ## 2.5.0
 
 ### Minor Changes

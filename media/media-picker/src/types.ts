@@ -114,3 +114,4 @@ export type MediaError = {
   readonly description: string;
 };
 export type { MediaPickerPlugin, PluginItemPayload } from './domain/plugin';
+export type { DropzoneDragEnterEventPayload } from './components/types';

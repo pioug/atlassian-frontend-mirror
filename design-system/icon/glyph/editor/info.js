@@ -13,11 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var EditorInfoIcon = function EditorInfoIcon(props) {
-  return _react.default.createElement(_Icon.default, _extends({
-    dangerouslySetGlyph: "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"presentation\"><path d=\"M12 20a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-8.5a1 1 0 0 0-1 1V15a1 1 0 0 0 2 0v-2.5a1 1 0 0 0-1-1zm0-1.125a1.375 1.375 0 1 0 0-2.75 1.375 1.375 0 0 0 0 2.75z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>"
-  }, props));
-};
+const EditorInfoIcon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, _extends({
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path d="M12 20a8 8 0 110-16 8 8 0 010 16zm0-8.5a1 1 0 00-1 1V15a1 1 0 002 0v-2.5a1 1 0 00-1-1zm0-1.125a1.375 1.375 0 100-2.75 1.375 1.375 0 000 2.75z" fill="currentColor" fill-rule="evenodd"/></svg>`
+}, props));
 
 EditorInfoIcon.displayName = 'EditorInfoIcon';
 var _default = EditorInfoIcon;

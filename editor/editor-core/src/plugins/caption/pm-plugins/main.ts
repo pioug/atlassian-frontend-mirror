@@ -37,24 +37,26 @@ export default (
       oldState: EditorState,
       newState: EditorState,
     ): Transaction | void {
+      // only run for transactions that change selection
+      if (!transactions.find(tr => tr.selectionSet)) {
+        return;
+      }
+
       const newSelection = !newState.selection.eq(oldState.selection);
       const findCaption = findParentNodeOfType(oldState.schema.nodes.caption);
       const oldSelectionCaption = findCaption(oldState.selection);
 
       const { tr } = newState;
 
-      // only run for transactions that change selection
-      if (transactions.find(tr => tr.selectionSet)) {
-        // if selecting away from caption, or selecting a different caption
-        if (newSelection && oldSelectionCaption) {
-          if (oldSelectionCaption.node.childCount === 0) {
-            tr.delete(oldSelectionCaption.start - 1, oldSelectionCaption.start);
-            tr.setMeta('scrollIntoView', false);
-            fireAnalytic(newState, ACTION.DELETED);
-            return tr;
-          } else {
-            fireAnalytic(newState, ACTION.EDITED);
-          }
+      // if selecting away from caption, or selecting a different caption
+      if (newSelection && oldSelectionCaption) {
+        if (oldSelectionCaption.node.childCount === 0) {
+          tr.delete(oldSelectionCaption.start - 1, oldSelectionCaption.start);
+          tr.setMeta('scrollIntoView', false);
+          fireAnalytic(newState, ACTION.DELETED);
+          return tr;
+        } else {
+          fireAnalytic(newState, ACTION.EDITED);
         }
       }
     },

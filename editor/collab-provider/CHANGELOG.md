@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 5.2.0
+
+### Minor Changes
+
+- [`360a14b1d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/360a14b1d2) - fix issue with empty string for title and editor width
+- [`2ef9970ee2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ef9970ee2) - add analytics for collab provider
+- [`1c0473e050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c0473e050) - Collab provider to support custom share token for embedded confluence page
+
 ## 5.1.0
 
 ### Minor Changes

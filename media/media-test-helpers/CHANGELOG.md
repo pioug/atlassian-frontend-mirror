@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 28.5.2
+
+### Patch Changes
+
+- [`a4e37d0df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4e37d0df4) - Fix EDM-1636 again
+- Updated dependencies
+
 ## 28.5.1
 
 ### Patch Changes

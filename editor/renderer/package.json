@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "73.0.0",
+  "version": "73.1.0",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^13.6.0",
-    "@atlaskit/adf-utils": "^11.6.0",
+    "@atlaskit/adf-schema": "^13.7.0",
+    "@atlaskit/adf-utils": "^11.7.0",
     "@atlaskit/analytics-listeners": "^7.0.0",
     "@atlaskit/analytics-namespaced-context": "^5.1.0",
     "@atlaskit/analytics-next": "^8.0.0",
@@ -57,17 +57,18 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.1.2",
-    "@atlaskit/smart-card": "^14.8.1",
+    "@atlaskit/smart-card": "^14.8.3",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "@atlaskit/analytics-gas-types": "^5.0.5",
     "@atlaskit/avatar": "^20.1.0",
     "@atlaskit/build-utils": "^2.6.2",
     "@atlaskit/css-reset": "^6.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^136.1.0",
+    "@atlaskit/editor-core": "^136.2.0",
     "@atlaskit/editor-test-helpers": "^13.3.0",
     "@atlaskit/field-range": "^9.0.0",
     "@atlaskit/logo": "^13.0.0",

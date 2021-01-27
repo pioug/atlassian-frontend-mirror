@@ -162,6 +162,9 @@ const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
       imageFile,
     ]);
     document.body.dispatchEvent(event);
+    document.body
+      .querySelector('.fabric-editor-popup-scroll-parent')!
+      .dispatchEvent(event);
   },
 
   /**
@@ -200,6 +203,9 @@ const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
     ]);
 
     document.body.dispatchEvent(event);
+    document.body
+      .querySelector('.fabric-editor-popup-scroll-parent')!
+      .dispatchEvent(event);
   },
 
   /**
@@ -216,6 +222,9 @@ const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
     const event = createDropEventWithFiles(fileSystemFileEntry, [imageFile]);
 
     document.body.dispatchEvent(event);
+    document.body
+      .querySelector('.fabric-editor-popup-scroll-parent')!
+      .dispatchEvent(event);
   },
 };
 

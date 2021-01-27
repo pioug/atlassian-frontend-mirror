@@ -9,41 +9,39 @@ import { Transformer } from './transformer';
 import { CardAppearance } from '../../view/Card';
 import { getResolverUrl, getBaseUrl } from '../../client/utils/environments';
 import { EnvironmentsKeys } from '../../client/types';
+import * as api from '../../client/api';
 
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
   private patterns?: string[];
-  private requestOpts: RequestInit;
+  private requestHeaders: HeadersInit;
   private transformer: Transformer;
 
   constructor(envKey?: EnvironmentsKeys) {
     this.baseUrl = getBaseUrl(envKey);
     this.resolverUrl = getResolverUrl(envKey);
     this.transformer = new Transformer();
-    this.requestOpts = {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Origin: this.baseUrl,
-      },
+    this.requestHeaders = {
+      Origin: this.baseUrl,
     };
   }
 
   private async check(resourceUrl: string): Promise<boolean | undefined> {
     try {
       const endpoint = `${this.resolverUrl}/check`;
-      const response = await fetch(endpoint, {
-        ...this.requestOpts,
-        body: JSON.stringify({ resourceUrl }),
-      });
-      const responseAsJson: ORSCheckResponse = await response.json();
-      return responseAsJson.isSupported;
+      const response = await api.request<ORSCheckResponse>(
+        'post',
+        endpoint,
+        {
+          resourceUrl,
+        },
+        this.requestHeaders,
+      );
+      return response.isSupported;
     } catch (err) {
       // eslint-disable-next-line
-      console.error(err);
+      console.error('failed to fetch /check', err);
       return undefined;
     }
   }
@@ -51,20 +49,21 @@ export class EditorCardProvider implements CardProvider {
   private async fetchPatterns(): Promise<string[] | undefined> {
     try {
       const endpoint = `${this.resolverUrl}/providers`;
-      const response = await fetch(endpoint, this.requestOpts);
-      const responseAsJson: ORSProvidersResponse = await response.json();
-      return responseAsJson.providers.reduce(
-        (allSources: string[], provider) => {
-          const providerSources = provider.patterns.map(
-            pattern => pattern.source,
-          );
-          return allSources.concat(providerSources);
-        },
-        [],
+      const response = await api.request<ORSProvidersResponse>(
+        'post',
+        endpoint,
+        undefined,
+        this.requestHeaders,
       );
+      return response.providers.reduce((allSources: string[], provider) => {
+        const providerSources = provider.patterns.map(
+          pattern => pattern.source,
+        );
+        return allSources.concat(providerSources);
+      }, []);
     } catch (err) {
       // eslint-disable-next-line
-      console.error(err);
+      console.error('failed to fetch /providers', err);
       return undefined;
     }
   }

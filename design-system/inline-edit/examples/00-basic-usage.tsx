@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
@@ -17,34 +17,28 @@ const ReadViewContainer = styled.div`
   word-break: break-word;
 `;
 
-interface State {
-  editValue: string;
-}
+const InlineEditExample = () => {
+  const [editValue, setEditValue] = useState('Field value');
 
-export default class InlineEditExample extends React.Component<void, State> {
-  state = {
-    editValue: 'Field value',
-  };
+  return (
+    <div
+      style={{
+        padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
+      }}
+    >
+      <InlineEdit
+        defaultValue={editValue}
+        label="Inline edit"
+        editView={fieldProps => <Textfield {...fieldProps} autoFocus />}
+        readView={() => (
+          <ReadViewContainer data-testid="read-view">
+            {editValue || 'Click to enter value'}
+          </ReadViewContainer>
+        )}
+        onConfirm={value => setEditValue(value)}
+      />
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div
-        style={{
-          padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
-        }}
-      >
-        <InlineEdit
-          defaultValue={this.state.editValue}
-          label="Inline edit"
-          editView={fieldProps => <Textfield {...fieldProps} autoFocus />}
-          readView={() => (
-            <ReadViewContainer>
-              {this.state.editValue || 'Click to enter value'}
-            </ReadViewContainer>
-          )}
-          onConfirm={value => this.setState({ editValue: value })}
-        />
-      </div>
-    );
-  }
-}
+export default InlineEditExample;

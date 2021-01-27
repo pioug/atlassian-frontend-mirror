@@ -83,6 +83,7 @@ import {
   measureContentRenderedPerformance,
   PerformanceMatrices,
 } from '../../utils/bridge';
+import MobileEditorToolbarActions from '../mobile-editor-toolbar';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -146,6 +147,8 @@ export default class WebBridgeImpl
   lifecycle: LifecycleImpl = new LifecycleImpl();
   eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();
   allowList: allowListPayloadType = new Set(defaultSetList);
+  mobileEditingToolbarActions = new MobileEditorToolbarActions();
+
   private collabProviderPromise: Promise<CollabProvider> | undefined;
 
   private onEditorConfigChanged: EditorConfigChange | null;
@@ -861,5 +864,9 @@ export default class WebBridgeImpl
   unregisterEditor() {
     delete this.editorView;
     this.editorActions._privateUnregisterEditor();
+  }
+
+  performEditAction(key: string) {
+    this.mobileEditingToolbarActions.performEditAction(key, this.editorView);
   }
 }

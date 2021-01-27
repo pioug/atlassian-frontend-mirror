@@ -62,7 +62,7 @@ export const messages = defineMessages({
       'Panels provide a way to highlight text. The error panel has a red background.',
   },
   emoji: {
-    id: 'fabric.editor.emoji',
+    id: 'fabric.editor.panel.emoji',
     defaultMessage: 'Add icon',
     description: 'Select the panel icon',
   },

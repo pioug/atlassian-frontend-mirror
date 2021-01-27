@@ -60,4 +60,5 @@ export default interface NativeToWebBridge {
   observeRenderedContentHeight(enabled: boolean): void;
   cancelTypeAhead(): void;
   configureEditor(configs: string): void;
+  performEditAction(payload: string): void;
 }

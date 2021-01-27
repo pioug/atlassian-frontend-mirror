@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 15.1.0
+
+### Minor Changes
+
+- [`78e3c951c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78e3c951c8) - [ux] Making the inline video player able to play/pause from anywhere on card
+
 ## 15.0.2
 
 ### Patch Changes

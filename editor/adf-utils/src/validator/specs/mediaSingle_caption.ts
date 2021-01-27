@@ -8,6 +8,7 @@ export default [
         isTupleLike: true,
         minItems: 1,
         maxItems: 2,
+        allowUnsupportedBlock: true,
       },
     },
   },

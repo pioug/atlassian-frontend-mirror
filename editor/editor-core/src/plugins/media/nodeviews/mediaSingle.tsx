@@ -397,6 +397,11 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
     if (this.selectionType !== this.checkAndUpdateSelectionType()) {
       return true;
     }
+
+    if (this.node.childCount !== nextNode.childCount) {
+      return true;
+    }
+
     return super.viewShouldUpdate(nextNode);
   }
 

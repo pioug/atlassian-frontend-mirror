@@ -100,6 +100,11 @@ export function findFirstParentListItemNode(
 
 export function findRootParentListNode($pos: ResolvedPos): ResolvedPos | null {
   const { doc } = $pos;
+
+  if ($pos.pos + 1 > doc.content.size) {
+    return null;
+  }
+
   if ($pos.depth === 0) {
     return doc.resolve($pos.pos + 1);
   }

@@ -23,6 +23,7 @@ describe('inputrules', () => {
         allowAnalyticsGASV3: true,
         allowRule: true,
         allowNewInsertionBehaviour: true,
+        UNSAFE_predictableLists: true,
       },
       createAnalyticsEvent,
     });
@@ -125,6 +126,14 @@ describe('inputrules', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(p('test'), hr(), p('test')),
       );
+    });
+
+    it('should convert "---" at the end of a document', () => {
+      const { editorView, sel } = editor(doc(p('{<>}')));
+
+      insertText(editorView, '---', sel);
+
+      expect(editorView.state.doc).toEqualDocument(doc(hr()));
     });
 
     it('should fire analytics event when convert "---" to rule', () => {

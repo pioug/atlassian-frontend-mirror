@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "136.1.1",
+  "version": "136.2.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,8 +26,8 @@
   "dependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/activity-provider": "^2.3.0",
-    "@atlaskit/adf-schema": "^13.6.0",
-    "@atlaskit/adf-utils": "^11.6.0",
+    "@atlaskit/adf-schema": "^13.7.0",
+    "@atlaskit/adf-utils": "^11.7.0",
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-listeners": "^7.0.0",
     "@atlaskit/analytics-namespaced-context": "^5.1.0",
@@ -125,7 +125,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.1.2",
-    "@atlaskit/smart-card": "^14.8.1",
+    "@atlaskit/smart-card": "^14.8.3",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
@@ -133,7 +133,7 @@
   },
   "devDependencies": {
     "@atlaskit/code": "^13.1.0",
-    "@atlaskit/collab-provider": "5.1.0",
+    "@atlaskit/collab-provider": "5.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/dropdown-menu": "^10.1.0",
@@ -148,7 +148,7 @@
     "@atlaskit/menu": "^0.7.0",
     "@atlaskit/profilecard": "^14.0.0",
     "@atlaskit/pubsub": "^6.0.0",
-    "@atlaskit/renderer": "^73.0.0",
+    "@atlaskit/renderer": "^73.1.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/share": "*",
     "@atlaskit/smart-card": "^14.8.0",

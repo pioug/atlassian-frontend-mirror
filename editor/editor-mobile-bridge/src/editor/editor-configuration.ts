@@ -1,23 +1,23 @@
-import { getEditorType } from '../query-param-reader';
-
 interface EditorConfigurationProvider {
+  getEditorAppearance(): EditorAppearance;
   getMode(): string;
   getLocale(): string;
   isQuickInsertEnabled(): boolean;
   isSelectionObserverEnabled(): boolean;
   isCollabProviderEnabled(): boolean;
   isPredictableListEnabled(): boolean;
+  isScrollGutterAllowed(): boolean;
 }
 
 type ThemeMode = 'light' | 'dark';
 
-enum EditorAppearance {
+export enum EditorAppearance {
   FULL = 'full',
   COMPACT = 'compact',
 }
 
 interface EditorConfig {
-  editorType: EditorAppearance;
+  editorAppearance?: EditorAppearance;
   mode?: ThemeMode;
   locale?: string;
   enableQuickInsert?: boolean;
@@ -28,7 +28,7 @@ interface EditorConfig {
 
 export default class MobileEditorConfiguration
   implements EditorConfigurationProvider {
-  private editorType: EditorAppearance = EditorAppearance.FULL;
+  private editorAppearance: EditorAppearance = EditorAppearance.FULL;
   private mode: ThemeMode = 'light';
   private locale: string = 'en';
   private enableQuickInsert: boolean = false;
@@ -37,12 +37,6 @@ export default class MobileEditorConfiguration
   private allowPredictableList: boolean = false;
 
   constructor(editorConfig?: string) {
-    const editorType = getEditorType();
-
-    if (editorType) {
-      this.editorType = editorType as EditorAppearance;
-    }
-
     if (editorConfig) {
       this.update(editorConfig);
     }
@@ -51,6 +45,7 @@ export default class MobileEditorConfiguration
   update(editorConfig: string) {
     const config = JSON.parse(editorConfig) as EditorConfig;
 
+    this.editorAppearance = config.editorAppearance || this.editorAppearance;
     this.locale = config.locale || this.locale;
     this.mode = config.mode || this.mode;
     this.enableQuickInsert =
@@ -69,6 +64,10 @@ export default class MobileEditorConfiguration
       config.allowPredictableList !== undefined
         ? config.allowPredictableList
         : this.allowPredictableList;
+  }
+
+  getEditorAppearance(): EditorAppearance {
+    return this.editorAppearance;
   }
 
   getMode(): ThemeMode {
@@ -95,8 +94,8 @@ export default class MobileEditorConfiguration
     return this.allowPredictableList;
   }
 
-  isAllowScrollGutter(): boolean {
-    return this.editorType !== EditorAppearance.COMPACT;
+  isScrollGutterAllowed(): boolean {
+    return this.getEditorAppearance() !== EditorAppearance.COMPACT;
   }
 
   // We need to retain the previous configuartion flags as `locale` and `mode` can be configured

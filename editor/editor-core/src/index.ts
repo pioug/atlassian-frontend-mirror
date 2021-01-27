@@ -186,3 +186,15 @@ export type {
   SelectionDataState,
 } from './plugins/mobile-selection';
 export { insertExpand } from './plugins/expand/commands';
+
+export { default as WithPluginState } from './ui/WithPluginState';
+export { pluginKey as floatingToolbarPluginKey } from './plugins/floating-toolbar';
+export type {
+  FloatingToolbarConfig,
+  FloatingToolbarItem,
+  FloatingToolbarButton,
+  FloatingToolbarDropdown,
+  FloatingToolbarSelect,
+} from './plugins/floating-toolbar/types';
+export type { DropdownOptionT } from './plugins/floating-toolbar/ui/types';
+export type { SelectOption } from './plugins/floating-toolbar/ui/Select';

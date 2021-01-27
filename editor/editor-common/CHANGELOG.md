@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 55.1.2
+
+### Patch Changes
+
+- [`549740c01d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/549740c01d) - Exported the validator errors map
+  Convert nodes that are after an invalid length to be unsupported
+- Updated dependencies
+
 ## 55.1.1
 
 ### Patch Changes

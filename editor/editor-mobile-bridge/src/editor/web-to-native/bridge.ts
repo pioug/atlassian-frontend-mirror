@@ -15,7 +15,8 @@ export default interface NativeBridge
     CollabEditNativeBridge,
     LifecycleBridge,
     ContentBridge,
-    PageTitleBridge {
+    PageTitleBridge,
+    ToolbarBridge {
   call<T extends EditorBridgeNames>(
     bridge: T,
     event: keyof Required<EditorBridges>[T],
@@ -41,6 +42,7 @@ export interface EditorBridges {
   lifecycleBridge?: LifecycleBridge;
   contentBridge?: ContentBridge;
   pageTitleBridge?: PageTitleBridge;
+  toolbarBridge?: ToolbarBridge;
 }
 
 export type EditorBridgeNames = keyof EditorBridges;
@@ -138,4 +140,9 @@ export interface ContentBridge {
 
 export interface PageTitleBridge {
   updateTitle(title: string): void;
+}
+
+export interface ToolbarBridge {
+  onNodeSelected(nodeType: string, items: string): void;
+  onNodeDeselected(): void;
 }

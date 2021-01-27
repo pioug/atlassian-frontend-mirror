@@ -3,6 +3,7 @@ import IosBridge from './ios-impl';
 import DummyBridge from './dummy-impl';
 import NativeBridge from './bridge';
 import { IS_DEV, IS_TEST, IS_ATLASKIT } from '../../utils';
+
 export type { EditorBridges, EditorBridgeNames } from './bridge';
 
 function getBridgeImpl(): NativeBridge {

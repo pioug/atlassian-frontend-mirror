@@ -8,6 +8,8 @@ export enum EVENT_TYPE {
 export enum ACTION {
   STARTED = 'started',
   RENDERED = 'rendered',
+  SELECT_ALL_CAUGHT = 'selectAllCaught',
+  SELECT_ALL_ESCAPED = 'selectAllEscaped',
   CLICKED = 'clicked',
   VIEWED = 'viewed',
   VISITED = 'visited',

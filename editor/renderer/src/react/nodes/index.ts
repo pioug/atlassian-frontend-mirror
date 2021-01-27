@@ -7,7 +7,7 @@ import BodiedExtension, {
 } from './bodiedExtension';
 import BulletList from './bulletList';
 import DecisionList from './decisionList';
-import Doc from './doc';
+import Doc, { DocWithSelectAllTrap } from './doc';
 import Extension, { Props as ExtensionProps } from './extension';
 import HardBreak from './hardBreak';
 import Heading from './heading';
@@ -185,7 +185,18 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   embedCard: EmbedCard,
 };
 
-export const toReact = (node: Node): React.ComponentType<any> => {
+export interface ToReactFlags {
+  allowSelectAllTrap?: boolean;
+}
+
+export const toReact = (
+  node: Node,
+  flags?: ToReactFlags,
+): React.ComponentType<any> => {
+  if (node.type.name === 'doc' && flags?.allowSelectAllTrap === true) {
+    return DocWithSelectAllTrap;
+  }
+
   return nodeToReact[node.type.name];
 };
 
@@ -344,6 +355,7 @@ export {
   DecisionItem,
   DecisionList,
   Doc,
+  DocWithSelectAllTrap,
   Emoji,
   Extension,
   Expand,

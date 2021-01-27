@@ -83,4 +83,22 @@ describe('Mobile Appearance Component', () => {
       wrapper.find('ClickAreaMobile').find('.ak-editor-content-area'),
     ).toHaveLength(1);
   });
+
+  it('should wrap the children in ClickAreaMobile div when allowScrollGutter is TRUE', () => {
+    const { editorView } = editor(
+      doc(table()(tr(td({})(p())), tr(td({})(p())), tr(td({})(p())))),
+    );
+    const wrapper = mount(
+      <MobileAppearance editorView={editorView}>
+        <DummyChild />
+      </MobileAppearance>,
+    );
+    expect(wrapper.find('ClickAreaMobile').find('ContentArea')).toHaveLength(1);
+    expect(
+      wrapper
+        .find('ClickAreaMobile')
+        .find('.ak-editor-content-area')
+        .find('DummyChild'),
+    ).toHaveLength(1);
+  });
 });

@@ -88,6 +88,10 @@ async function clickCardByFileName(page: FullPageEditor, fileName: string) {
   );
 }
 
+async function clickPlayPauseBlanketByFileName(page: FullPageEditor) {
+  await page.click(`[data-testid="play-pause-blanket"]`);
+}
+
 async function clickCustomMediaPlayerPlayPauseButton(page: FullPageEditor) {
   await page.click(
     '[data-testid="custom-media-player"] [data-testid="custom-media-player-play-toggle-button"]',
@@ -735,5 +739,56 @@ BrowserTestCase(
 
     // Check the editor does not load
     expect(await page.isExisting('.ProseMirror')).toBe(false);
+  },
+);
+
+BrowserTestCase(
+  'full-flow-insert-and-publish.ts: Upload, wait, Insert, Check Video, publish, Check video',
+  skipVersions,
+  async (client: ClientType) => {
+    const page = await goToFullPage(client);
+
+    await page.clearEditor();
+
+    // TODO This is workaround around https://product-fabric.atlassian.net/browse/EDM-484 issue
+    await page.execute(() => {
+      ((window as any)
+        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).resetMediaMock(
+        { isSlowServer: true },
+      );
+    });
+
+    await page.openMediaPicker();
+
+    expect(await page.mediaPicker.getAllRecentUploadCards()).toHaveLength(0);
+
+    await uploadFile(page, videoFileName);
+
+    await page.mediaPicker.getFilteredRecentUploadCards({
+      status: 'complete',
+      filename: videoFileName,
+    });
+
+    await page.mediaPicker.clickInsertButton();
+
+    await assertCardCompleteStatus(page);
+
+    // Test before publishing
+    expect(await page.isVisible('[data-testid="media-card-view"]')).toBe(true);
+
+    await clickCardByFileName(page, videoFileName);
+    await assertCustomMediaPlayerIsPlaying(page);
+    await clickPlayPauseBlanketByFileName(page);
+    await assertCustomMediaPlayerIsPaused(page);
+
+    // Test after publishing
+    await page.publish();
+
+    expect(await page.isVisible('[data-testid="media-card-view"]')).toBe(true);
+
+    await clickCardByFileName(page, videoFileName);
+    await assertCustomMediaPlayerIsPlaying(page);
+    await clickPlayPauseBlanketByFileName(page);
+    await assertCustomMediaPlayerIsPaused(page);
   },
 );

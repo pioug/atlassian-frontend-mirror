@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 13.7.0
+
+### Minor Changes
+
+- [`70f47afdee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f47afdee) - Added unsupportedBlock support for mediaSingle as a child
+- [`714fd9e922`](https://bitbucket.org/atlassian/atlassian-frontend/commits/714fd9e922) - Promote media link mark to full schema
+
 ## 13.6.0
 
 ### Minor Changes

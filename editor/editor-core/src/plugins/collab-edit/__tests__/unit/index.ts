@@ -59,7 +59,8 @@ describe('collab-edit: index.ts', () => {
       sendMock.mockReset();
 
       editorPlugin.onEditorViewStateUpdated!({
-        transaction,
+        originalTransaction: transaction,
+        transactions: [transaction],
         newEditorState,
         oldEditorState,
       });

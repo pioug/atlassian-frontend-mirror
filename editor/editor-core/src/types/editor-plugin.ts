@@ -17,7 +17,8 @@ export type PluginsOptions = {
 };
 
 type EditorViewStateUpdatedCallbackProps = {
-  readonly transaction: Readonly<Transaction>;
+  readonly originalTransaction: Readonly<Transaction>;
+  readonly transactions: Transaction[];
   readonly oldEditorState: Readonly<EditorState>;
   readonly newEditorState: Readonly<EditorState>;
 };

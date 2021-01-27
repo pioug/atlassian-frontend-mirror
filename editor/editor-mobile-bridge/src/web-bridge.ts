@@ -23,9 +23,8 @@ export default abstract class WebBridge {
   ) {
     let root = this.getRootElement();
     if (root) {
-      // bottom introduces a non-clickable area, so remove it
-      root.style.padding = `${top}px ${right}px 0px ${left}px`;
-      this.padding = { top, right, bottom: 0, left };
+      root.style.padding = `${top}px ${right}px ${bottom}px ${left}px`;
+      this.padding = { top, right, bottom, left };
     }
   }
 

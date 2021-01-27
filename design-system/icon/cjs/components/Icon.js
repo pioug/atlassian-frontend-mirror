@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IconWrapper = void 0;
 var tslib_1 = require("tslib");
 var react_1 = tslib_1.__importDefault(require("react"));
 var styled_components_1 = tslib_1.__importDefault(require("styled-components"));

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Select, { ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
@@ -38,62 +38,54 @@ const selectOptions = [
   { label: 'Watermelon', value: 'Watermelon' },
 ];
 
-interface State {
-  editValue: OptionType[];
-}
+const InlineEditExample = () => {
+  const [editValue, setEditValue] = useState<OptionType[]>([]);
 
-export default class InlineEditExample extends React.Component<void, State> {
-  state = {
-    editValue: [],
-  };
-
-  onConfirm = (value: ValueType<OptionType>) => {
+  const onConfirm = (value: ValueType<OptionType>) => {
     if (!value) {
       return;
     }
 
-    this.setState({
-      editValue: value as OptionType[],
-    });
+    setEditValue(value as OptionType[]);
   };
 
-  render() {
-    return (
-      <div
-        style={{
-          padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
-        }}
-      >
-        <InlineEdit<ValueType<OptionType>>
-          defaultValue={this.state.editValue}
-          label="Inline edit select"
-          editView={fieldProps => (
-            <EditViewContainer>
-              <Select<OptionType>
-                {...fieldProps}
-                options={selectOptions}
-                isMulti
-                autoFocus
-                openMenuOnFocus
-              />
-            </EditViewContainer>
-          )}
-          readView={() =>
-            this.state.editValue.length === 0 ? (
-              <ReadViewContainer>Click to choose options</ReadViewContainer>
-            ) : (
-              <div style={{ padding: `${gridSize() / 2}px` }}>
-                <Group>
-                  {this.state.editValue.map((option: OptionType) => (
-                    <Tag text={option.label} key={option.label} />
-                  ))}
-                </Group>
-              </div>
-            )
-          }
-          onConfirm={this.onConfirm}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      style={{
+        padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
+      }}
+    >
+      <InlineEdit<ValueType<OptionType>>
+        defaultValue={editValue}
+        label="Inline edit select"
+        editView={fieldProps => (
+          <EditViewContainer>
+            <Select<OptionType>
+              {...fieldProps}
+              options={selectOptions}
+              isMulti
+              autoFocus
+              openMenuOnFocus
+            />
+          </EditViewContainer>
+        )}
+        readView={() =>
+          editValue.length === 0 ? (
+            <ReadViewContainer>Click to choose options</ReadViewContainer>
+          ) : (
+            <div style={{ padding: `${gridSize() / 2}px` }}>
+              <Group>
+                {editValue.map((option: OptionType) => (
+                  <Tag text={option.label} key={option.label} />
+                ))}
+              </Group>
+            </div>
+          )
+        }
+        onConfirm={onConfirm}
+      />
+    </div>
+  );
+};
+
+export default InlineEditExample;

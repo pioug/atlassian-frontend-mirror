@@ -21,7 +21,6 @@ export interface MediaDefinition {
    */
   attrs: MediaADFAttrs;
 
-  /** @stage 0 */
   marks?: Array<LinkDefinition>;
 }
 

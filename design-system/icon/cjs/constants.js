@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sizeMap = exports.sizes = void 0;
 exports.sizes = {
     small: '16px',
     medium: '24px',

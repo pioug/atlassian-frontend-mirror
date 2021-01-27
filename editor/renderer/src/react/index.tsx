@@ -11,6 +11,7 @@ import { isNestedHeaderLinksEnabled } from './utils/links';
 import { AnalyticsEventPayload } from '../analytics/events';
 import {
   Doc,
+  DocWithSelectAllTrap,
   mergeTextNodes,
   isTextWrapper,
   isTextNode,
@@ -38,7 +39,6 @@ import {
 } from './types';
 import { insideBreakoutLayout } from './renderer-node';
 import { MediaOptions } from '../types/mediaOptions';
-
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -61,6 +61,7 @@ export interface ReactSerializerInit {
   allowCopyToClipboard?: boolean;
   allowCustomPanels?: boolean;
   allowAnnotations?: boolean;
+  allowSelectAllTrap?: boolean;
 }
 
 interface ParentInfo {
@@ -148,6 +149,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private surroundTextNodesWithTextWrapper: boolean = false;
   private media?: MediaOptions;
   private allowAnnotations: boolean = false;
+  private allowSelectAllTrap?: boolean;
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -173,6 +175,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       init.surroundTextNodesWithTextWrapper,
     );
     this.media = init.media;
+    this.allowSelectAllTrap = init.allowSelectAllTrap;
   }
 
   private resetState() {
@@ -223,7 +226,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   serializeFragment(
     fragment: Fragment,
     props: any = {},
-    target: any = Doc,
+    target: any = this.allowSelectAllTrap ? DocWithSelectAllTrap : Doc,
     key: string = 'root-0',
     parentInfo?: ParentInfo,
   ): JSX.Element | null {
@@ -259,7 +262,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const serializedContent = this.serializeFragment(
       node.content,
       this.getNodeProps(node, parentInfo),
-      toReact(node),
+      toReact(node, {
+        allowSelectAllTrap: this.allowSelectAllTrap,
+      }),
       nodeKey,
       {
         parentIsIncompleteTask,

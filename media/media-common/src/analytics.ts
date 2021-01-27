@@ -47,7 +47,10 @@ export type StatusAttributes = SuccessAttributes | FailureAttributes;
 // Operational Events ...
 // https://hello.atlassian.net/wiki/spaces/MEASURE/pages/134329315/Operational+Events
 
-export type OperationalAttributes = BaseAttributes & FileAttributes;
+export type OperationalAttributes =
+  | BaseAttributes
+  | (BaseAttributes & FileAttributes)
+  | (BaseAttributes & FileAttributes & StatusAttributes);
 
 export type OperationalEventPayload<
   Attributes extends OperationalAttributes,

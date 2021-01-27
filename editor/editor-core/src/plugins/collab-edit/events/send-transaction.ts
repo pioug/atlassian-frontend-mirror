@@ -5,16 +5,19 @@ import { CollabEventTelepointerData } from '../types';
 import { pluginKey } from '../plugin-key';
 
 type Props = {
-  transaction: Transaction;
+  originalTransaction: Transaction;
+  transactions: Transaction[];
   oldEditorState: EditorState;
   newEditorState: EditorState;
 };
 
 export const sendTransaction = ({
-  transaction,
+  originalTransaction,
+  transactions,
   oldEditorState,
   newEditorState,
 }: Props) => (provider: CollabEditProvider) => {
+  const docChangedTransaction = transactions.find(tr => tr.docChanged);
   const currentPluginState = pluginKey.getState(newEditorState);
 
   if (!currentPluginState.isReady) {
@@ -22,14 +25,14 @@ export const sendTransaction = ({
   }
 
   if (
-    !transaction.getMeta('isRemote') &&
+    !originalTransaction.getMeta('isRemote') &&
     // TODO: ED-8995
     // We need to do this check to reduce the number of race conditions when working with tables.
     // This metadata is coming from the scaleTable command in table-resizing plugin
-    !transaction.getMeta('scaleTable') &&
-    transaction.docChanged
+    !originalTransaction.getMeta('scaleTable') &&
+    docChangedTransaction
   ) {
-    provider.send(transaction, oldEditorState, newEditorState);
+    provider.send(docChangedTransaction, oldEditorState, newEditorState);
   }
 
   const prevPluginState = pluginKey.getState(oldEditorState);
@@ -40,7 +43,7 @@ export const sendTransaction = ({
   );
   const participantsChanged = !prevActiveParticipants.eq(activeParticipants);
   if (
-    (sessionId && selectionChanged && !transaction.docChanged) ||
+    (sessionId && selectionChanged && !docChangedTransaction) ||
     (sessionId && participantsChanged)
   ) {
     const selection = getSendableSelection(newEditorState.selection);

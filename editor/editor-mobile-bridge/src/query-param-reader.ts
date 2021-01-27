@@ -42,6 +42,10 @@ export const getDisableMediaLinkingValue = (): boolean =>
 export const getAllowAnnotations = (): boolean =>
   getQueryParams().get('allowAnnotations') === 'true';
 
+export const getAllowCaptions = (): boolean => {
+  return getQueryParams().get('allowCaptions') === 'true';
+};
+
 export const getSelectionObserverEnabled = (): boolean =>
   getQueryParams().get('selectionObserverEnabled') === 'true';
 
@@ -50,9 +54,3 @@ export const getAllowCollabProvider = (): boolean =>
 
 export const getAllowHeadingAnchorLinks = (): boolean =>
   getQueryParams().get('allowHeadingAnchorLinks') === 'true';
-
-export const getAllowPredictableList = (): boolean =>
-  getQueryParams().get('allowPredictableList') === 'true';
-
-export const getEditorType = (): string | null =>
-  getQueryParams().get('editorType');

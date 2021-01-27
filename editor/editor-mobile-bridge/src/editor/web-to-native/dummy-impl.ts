@@ -148,4 +148,12 @@ export default class DummyBridge implements NativeBridge {
       `typeAheadQuery(query=${query}, trigger=${trigger}), items=${items}`,
     );
   }
+
+  onNodeSelected(nodeType: string, items: string) {
+    this.log(`onNodeSelected(${nodeType} -> ${items}`);
+  }
+
+  onNodeDeselected() {
+    this.log('onNodeDeselected()');
+  }
 }

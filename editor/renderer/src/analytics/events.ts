@@ -47,6 +47,22 @@ type RendererRenderedAEP = AEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
+type RendererSelectAllCaughtAEP = AEP<
+  ACTION.SELECT_ALL_CAUGHT,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  { platform: PLATFORM.WEB },
+  EVENT_TYPE.TRACK
+>;
+
+type RendererSelectAllEscapedAEP = AEP<
+  ACTION.SELECT_ALL_ESCAPED,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  { platform: PLATFORM.WEB },
+  EVENT_TYPE.TRACK
+>;
+
 type UIAEP<Action, ActionSubject, ActionSubjectID, Attributes> = AEP<
   Action,
   ActionSubject,
@@ -180,6 +196,8 @@ export type AnnotationAEP = AEP<
 export type AnalyticsEventPayload =
   | RendererStartAEP
   | RendererRenderedAEP
+  | RendererSelectAllCaughtAEP
+  | RendererSelectAllEscapedAEP
   | HeadingAnchorLinkButtonAEP
   | AnchorLinkAEP
   | TableSortColumnNotAllowedAEP

@@ -63,6 +63,54 @@ describe('Validator Errors', () => {
     });
   });
 
+  it('INVALID_CONTENT_LENGTH - unsupported node content length', async () => {
+    const validate = validator(['doc', 'mediaSingle', 'media']);
+
+    async function validateAndGetError(doc: ADFEntity) {
+      return new Promise(resolve => {
+        validate(doc, (entity, error) => {
+          resolve(error);
+          return entity;
+        });
+      });
+    }
+
+    const error = await validateAndGetError({
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'mediaSingle',
+          content: [
+            {
+              type: 'media',
+              attrs: {
+                type: 'file',
+                id: '1234',
+                collection: 'SampleCollection',
+              },
+            },
+            {
+              type: 'caption',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello World!',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(error).toMatchObject({
+      code: 'INVALID_CONTENT_LENGTH',
+      message: `mediaSingle: 'content' should have less than 1 child.`,
+      meta: { length: 2, requiredLength: 1, type: 'maximum' },
+    });
+  });
+
   it('INVALID_TYPE ', async () => {
     const error = await validateAndGetError({
       type: 'invalidType',

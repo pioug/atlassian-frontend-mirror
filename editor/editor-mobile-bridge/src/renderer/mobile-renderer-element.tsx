@@ -30,6 +30,7 @@ import {
   getDisableMediaLinkingValue,
   getEnableLightDarkTheming,
   getEnableLegacyMobileMacros,
+  getAllowCaptions,
 } from '../query-param-reader';
 import { useRendererContent } from './hooks/use-set-renderer-content';
 import { useCreateProviderFactory } from './hooks/use-create-provider-factory';
@@ -151,7 +152,12 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       disableActions={disableActions}
       createAnalyticsEvent={createAnalyticsEvent}
       allowAltTextOnImages
-      media={{ allowLinking: !disableMediaLinking }}
+      media={{
+        allowLinking: !disableMediaLinking,
+        featureFlags: {
+          captions: getAllowCaptions(),
+        },
+      }}
       allowHeadingAnchorLinks={headingAnchorLinksConfig}
       rendererContext={rendererContext}
       eventHandlers={eventHandlers}

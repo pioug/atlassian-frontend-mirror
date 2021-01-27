@@ -131,14 +131,26 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
               )
               // Remove unsupported nodes & marks
               // Filter nodes
-              .filter(subItem =>
-                // When Mark or `nodes` is undefined don't filter
-                !nodes
-                  ? true
-                  : nodes.indexOf(
-                      Array.isArray(subItem) ? subItem[0] : subItem,
-                    ) > -1,
-              )
+              .filter(subItem => {
+                if (nodes) {
+                  // Node with overrides
+                  // ['mediaSingle', { props: { content: { items: [ 'media', 'caption' ] } }}]
+                  if (Array.isArray(subItem)) {
+                    const isMainNodeSupported = nodes.indexOf(subItem[0]) > -1;
+                    if (
+                      isMainNodeSupported &&
+                      subItem[1]?.props?.content?.items
+                    ) {
+                      return subItem[1].props.content.items.every(
+                        (item: string) => nodes.indexOf(item) > -1,
+                      );
+                    }
+                    return isMainNodeSupported;
+                  }
+                  return nodes.indexOf(subItem) > -1;
+                }
+                return true;
+              })
               // Filter marks
               .map(subItem =>
                 Array.isArray(subItem) && marks
@@ -591,13 +603,13 @@ export function validator(
         result = err(
           'INVALID_CONTENT_LENGTH',
           `'content' should have more than ${minItems} child`,
-          { length },
+          { length, requiredLength: minItems, type: 'minimum' },
         );
       } else if (isDefined(maxItems) && maxItems < length) {
         result = err(
           'INVALID_CONTENT_LENGTH',
           `'content' should have less than ${maxItems} child`,
-          { length },
+          { length, requiredLength: maxItems, type: 'maximum' },
         );
       }
     }

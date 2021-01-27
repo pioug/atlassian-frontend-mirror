@@ -252,7 +252,7 @@ export const MacroComponent: FC<MacroRendererProps> = props => {
   const getLoadingCardProps = (cardProps: CreateMacro): CreateMacro => {
     const newProps = {
       action: (
-        <Action>
+        <Action data-testid="macro-card-spinner">
           <Spinner />
         </Action>
       ),

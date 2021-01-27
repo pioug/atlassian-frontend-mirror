@@ -1,3 +1,6 @@
+import { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import { ATTRIBUTES_PACKAGE } from './const';
+
 export const createLogger = (prefix: string, color: string = 'blue') => (
   msg: string,
   data: any = null,
@@ -22,4 +25,17 @@ export const getParticipant = (userId: string) => {
     avatar: `https://api.adorable.io/avatars/80/${name.replace(/\s/g, '')}.png`,
     email: `${name.replace(/\s/g, '').toLocaleLowerCase()}@atlassian.com`,
   });
+};
+
+export const buildAnalyticsPayload = (
+  subject: string,
+  payload?: any,
+): GasPurePayload => {
+  return {
+    actionSubject: subject,
+    attributes: {
+      packageName: ATTRIBUTES_PACKAGE,
+      payload,
+    },
+  };
 };

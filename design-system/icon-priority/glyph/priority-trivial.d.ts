@@ -7,6 +7,7 @@ type Props = {
   onClick?: (e: MouseEvent) => void;
   primaryColor?: string;
   secondaryColor?: string;
+  testId?: string;
 };
 
 export default class extends PureComponent<Props, State> {}

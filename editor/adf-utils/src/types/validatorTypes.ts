@@ -66,11 +66,17 @@ export interface ValidationErrorMap {
   INVALID_TYPE: never;
   INVALID_TEXT: never;
   INVALID_CONTENT: never;
-  INVALID_CONTENT_LENGTH: { length: number };
+  INVALID_CONTENT_LENGTH: {
+    length: number;
+    requiredLength: number;
+    type: RequiredContentLength;
+  };
   INVALID_ATTRIBUTES: { attrs: Array<string> };
   UNSUPPORTED_ATTRIBUTES: { attrs: Array<string> };
   DEPRECATED: never;
 }
+
+export type RequiredContentLength = 'minimum' | 'maximum';
 
 export type Content = Array<string | [string, object] | Array<string>>;
 

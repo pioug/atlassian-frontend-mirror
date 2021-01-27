@@ -56,4 +56,5 @@ export interface RendererProps {
     severityDegradedThreshold: number;
   };
   allowUgcScrubber?: boolean;
+  allowSelectAllTrap?: boolean;
 }

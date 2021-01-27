@@ -1,88 +1,103 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import styled from '@emotion/styled';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import TextField from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import InlineEdit from '../src';
-import ReadViewContainer from '../src/styled/ReadViewContainer';
 
-interface State {
-  editValue: string;
+interface Props {
+  isCompact?: boolean;
 }
 
-export default class InlineEditExample extends React.Component<void, State> {
-  state = {
-    editValue: 'Field Value',
-  };
+const ReadViewContainer = styled.div<Props>`
+  display: flex;
+  font-size: ${fontSize()}px;
+  line-height: ${(gridSize() * 2.5) / fontSize()};
+  max-width: 100%;
+  min-height: ${(gridSize() * 2.5) / fontSize()}em;
+  padding: ${props => (props.isCompact ? gridSize() / 2 : gridSize())}px
+    ${gridSize() - 2}px;
+  word-break: break-word;
+`;
 
-  validateValue = '';
+const InlineEditExample = () => {
+  const [editValue, setEditValue] = useState('Field Value');
 
-  private validateTimeoutId: number | undefined;
+  let validateValue = '';
+  let validateTimeoutId: number | undefined;
 
-  componentWillUnmount() {
-    window.clearTimeout(this.validateTimeoutId);
-  }
+  useEffect(() => {
+    return () => {
+      if (validateTimeoutId) {
+        window.clearTimeout(validateTimeoutId);
+      }
+    };
+  });
 
-  validate = (value: string) => {
-    this.validateValue = value;
+  const validate = (value: string) => {
+    validateValue = value;
     return new Promise<{ value: string; error: string } | undefined>(
       resolve => {
-        this.validateTimeoutId = window.setTimeout(() => {
+        validateTimeoutId = window.setTimeout(() => {
           if (value.length <= 6) {
             resolve({ value, error: 'Enter a value longer than 6 characters' });
           }
           resolve(undefined);
-        }, 500);
+        }, 100);
       },
     ).then(validateObject => {
-      if (validateObject && validateObject.value === this.validateValue) {
+      if (validateObject && validateObject.value === validateValue) {
         return validateObject.error;
       }
       return undefined;
     });
   };
 
-  onConfirm = (value: string) => {
-    this.setState({
-      editValue: value,
-    });
+  const clearInlineEditContent = () => {
+    setEditValue('');
   };
 
-  render() {
-    return (
-      <div style={{ padding: `${gridSize()}px ${gridSize()}px`, width: '50%' }}>
-        <InlineEdit
-          defaultValue={this.state.editValue}
-          label="Inline edit validation"
-          editView={fieldProps => (
-            <TextField
-              {...fieldProps}
-              elemAfterInput={
-                fieldProps.isInvalid && (
-                  <div
-                    style={{
-                      paddingRight: `${gridSize() - 2}px`,
-                      lineHeight: '100%',
-                    }}
-                  >
-                    <ErrorIcon label="error" primaryColor={R400} />
-                  </div>
-                )
-              }
-              autoFocus
-            />
-          )}
-          readView={() => (
-            <ReadViewContainer>
-              {this.state.editValue || 'Click to enter value'}
-            </ReadViewContainer>
-          )}
-          onConfirm={this.onConfirm}
-          validate={this.validate}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div style={{ padding: `${gridSize()}px ${gridSize()}px`, width: '50%' }}>
+      <button data-testid="clear-button" onClick={clearInlineEditContent}>
+        Click to clear
+      </button>
+      <InlineEdit
+        defaultValue={editValue}
+        label="Inline edit validation"
+        editView={fieldProps => (
+          <TextField
+            testId="edit-view"
+            {...fieldProps}
+            elemAfterInput={
+              fieldProps.isInvalid && (
+                <div
+                  style={{
+                    paddingRight: `${gridSize() - 2}px`,
+                    lineHeight: '100%',
+                  }}
+                >
+                  <ErrorIcon label="error" primaryColor={R400} />
+                </div>
+              )
+            }
+            autoFocus
+          />
+        )}
+        readView={() => (
+          <ReadViewContainer data-testid="read-view">
+            {editValue || 'Click to enter value'}
+          </ReadViewContainer>
+        )}
+        onConfirm={value => setEditValue(value)}
+        validate={validate}
+      />
+    </div>
+  );
+};
+
+export default InlineEditExample;

@@ -47,10 +47,14 @@ describe('collab-edit: send-transaction.ts', () => {
   describe('when the transaction is not coming from scaleTable', () => {
     it('should call the provider send function', () => {
       const transaction = oldEditorState.tr.insertText('123');
-      const newEditorState = oldEditorState.apply(transaction);
+      const {
+        state: newEditorState,
+        transactions,
+      } = oldEditorState.applyTransaction(transaction);
 
       sendTransaction({
-        transaction,
+        originalTransaction: transaction,
+        transactions,
         oldEditorState,
         newEditorState,
       })(providerMock);
@@ -64,14 +68,40 @@ describe('collab-edit: send-transaction.ts', () => {
       const transaction = oldEditorState.tr
         .insertText('123')
         .setMeta('scaleTable', true);
-      const newEditorState = oldEditorState.apply(transaction);
+      const {
+        state: newEditorState,
+        transactions,
+      } = oldEditorState.applyTransaction(transaction);
+
       sendTransaction({
-        transaction,
+        originalTransaction: transaction,
+        transactions,
         oldEditorState,
         newEditorState,
       })(providerMock);
 
       expect(providerMock.send).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('when the transaction has an appendedTransaction', () => {
+    it('should send if the appendedTransaction changes the doc', () => {
+      const transaction = oldEditorState.tr;
+      const {
+        state: newEditorState,
+        transactions,
+      } = oldEditorState.applyTransaction(transaction);
+
+      transactions.push(oldEditorState.tr.insertText('123'));
+
+      sendTransaction({
+        originalTransaction: transaction,
+        transactions,
+        oldEditorState,
+        newEditorState,
+      })(providerMock);
+
+      expect(providerMock.send).toHaveBeenCalled();
     });
   });
 });

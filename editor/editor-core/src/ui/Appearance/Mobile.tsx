@@ -6,10 +6,15 @@ import WidthEmitter from '../WidthEmitter';
 export default function Mobile({
   editorView,
   maxHeight,
+  allowScrollGutter,
   editorDOMElement,
 }: EditorAppearanceComponentProps) {
   return (
-    <MobileAppearance editorView={editorView || null} maxHeight={maxHeight}>
+    <MobileAppearance
+      editorView={editorView || null}
+      maxHeight={maxHeight}
+      allowScrollGutter={allowScrollGutter}
+    >
       {editorDOMElement}
       {editorView && <WidthEmitter editorView={editorView} />}
     </MobileAppearance>

@@ -1,3 +1,13 @@
+jest.mock('socket.io-client');
+jest.mock('@atlaskit/util-service-support', () => {
+  return {
+    utils: {
+      requestService: jest.fn(),
+    },
+  };
+});
+
+import { utils } from '@atlaskit/util-service-support';
 import {
   Channel,
   ErrorPayload,
@@ -8,8 +18,6 @@ import {
 import { Config } from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
-
-jest.mock('socket.io-client');
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -72,7 +80,11 @@ describe('channel unit tests', () => {
     logSpy.mockClear();
   });
 
-  it('should register eventHandlers as expected', async () => {
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
+  it('should register eventHandlers as expected', () => {
     const channel = getChannel();
     const expectValidEventHandler = getExpectValidEventHandler(channel);
 
@@ -341,6 +353,88 @@ describe('channel unit tests', () => {
     channel.getSocket()!.emit('width:changed', <any>{
       data: {
         editorWidth: 'My tremendous page width!',
+      },
+    });
+  });
+
+  it('should refresh permissionToken after disconnect', done => {
+    const tokenRefresh = jest.fn().mockResolvedValue('new-token');
+    const channel = getChannel({
+      ...testChannelConfig,
+      permissionToken: {
+        tokenRefresh,
+        initializationToken: 'old-token',
+      },
+    });
+
+    channel.on('connected', (data: any) => {
+      try {
+        expect(
+          (channel.getSocket() as any).io.opts.transportOptions.polling
+            .extraHeaders,
+        ).toEqual({
+          'x-token': 'old-token',
+        });
+        expect(data).toEqual({ sid: channel.getSocket()!.id });
+        expect(channel.getConnected()).toBe(true);
+        channel.on('disconnect', (data: any) => {
+          try {
+            expect(data).toEqual({
+              reason: 'User disconnect for some reason',
+            });
+            expect(channel.getConnected()).toBe(false);
+            expect(
+              (channel.getSocket() as any).io.opts.transportOptions.polling
+                .extraHeaders,
+            ).toEqual({
+              'x-token': 'new-token',
+            });
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        expect(channel.getConnected()).toBe(true);
+        channel
+          .getSocket()!
+          .emit('disconnect', 'User disconnect for some reason');
+      } catch (err) {
+        done(err);
+      }
+    });
+
+    expect(channel.getConnected()).toBe(false);
+    channel.getSocket()!.emit('connect');
+  });
+
+  it('should send x-token when making catchup call if tokenRefresh exist', async () => {
+    const tokenRefresh = jest.fn().mockResolvedValue('new-token');
+    const configuration = {
+      ...testChannelConfig,
+      permissionToken: {
+        tokenRefresh,
+        initializationToken: 'old-token',
+      },
+    };
+    const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
+      doc: 'doc',
+      version: 1,
+      stepMaps: 'step-map',
+      metadata: 'meta',
+    });
+
+    const channel = getChannel(configuration);
+    await channel.fetchCatchup(1);
+
+    expect(spy).toHaveBeenCalledWith(expect.anything(), {
+      path: expect.any(String),
+      queryParams: {
+        version: 1,
+      },
+      requestInit: {
+        headers: {
+          'x-token': 'new-token',
+        },
       },
     });
   });

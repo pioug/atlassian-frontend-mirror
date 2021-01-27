@@ -373,4 +373,18 @@ export default class IosBridge implements NativeBridge {
       });
     }
   }
+
+  onNodeSelected(nodeType: string, items: string) {
+    this.window.webkit?.messageHandlers.toolbarBridge?.postMessage({
+      name: 'onNodeSelected',
+      nodeType: nodeType,
+      items: items,
+    });
+  }
+
+  onNodeDeselected() {
+    this.window.webkit?.messageHandlers.toolbarBridge?.postMessage({
+      name: 'onNodeDeselected',
+    });
+  }
 }

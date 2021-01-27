@@ -98,7 +98,7 @@ export const PositionerAbsolute = styled.div<PositionerProps>`
   ${positionBaseStyles};
   position: absolute;
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  @media (max-width: 480px) {
     ${positionBaseResponsiveStyles};
   }
 `;
@@ -109,7 +109,7 @@ export const PositionerRelative = styled.div<PositionerProps>`
   width: ${dialogWidth};
   z-index: ${layers.modal};
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  @media (max-width: 480px) {
     ${positionBaseResponsiveStyles};
     margin: 0;
   }
@@ -119,7 +119,7 @@ export const PositionerFixed = styled.div<PositionerProps>`
   ${positionBaseStyles};
   position: fixed;
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  @media (max-width: 480px) {
     ${positionBaseResponsiveStyles};
   }
 `;
@@ -146,7 +146,7 @@ export const Dialog = styled.div<DialogProps>`
   outline: 0;
   pointer-events: auto;
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  @media (max-width: 480px) {
     height: 100%;
     max-height: 100%;
     border-radius: 0;

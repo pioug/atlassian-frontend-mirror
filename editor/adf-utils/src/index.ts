@@ -70,6 +70,7 @@ export type {
   ErrorCallback,
   Output,
   ValidationError,
+  ValidationErrorMap,
   ValidationErrorType,
   ValidationMode,
   ValidationOptions,

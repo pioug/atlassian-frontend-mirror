@@ -165,7 +165,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
     return pmPlugins;
   },
 
-  contentComponent({ editorView, eventDispatcher }) {
+  contentComponent({ editorView, eventDispatcher, appearance }) {
     // render MediaEditor separately because it doesn't depend on media plugin state
     // so we can utilise EventDispatcher-based rerendering
     const mediaEditor =
@@ -195,7 +195,11 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
             mediaState: pluginKey,
           }}
           render={({ mediaState }) => (
-            <MediaPickerComponents mediaState={mediaState} />
+            <MediaPickerComponents
+              editorDomElement={editorView.dom}
+              mediaState={mediaState}
+              appearance={appearance}
+            />
           )}
         />
 

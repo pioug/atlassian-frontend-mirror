@@ -25,6 +25,7 @@ export interface MediaSingleFullContent {
   /**
    * @minItems 1
    * @maxItems 1
+   * @allowUnsupportedBlock true
    */
   content: Array<Media>;
 }
@@ -42,6 +43,7 @@ export interface MediaCaptionContent {
   /**
    * @minItems 1
    * @maxItems 2
+   * @allowUnsupportedBlock true
    */
   content: [Media, Caption?];
 }
@@ -62,7 +64,7 @@ export const mediaSingle: NodeSpec = {
   group: 'block',
   selectable: true,
   atom: true,
-  content: 'media',
+  content: 'media | media unsupportedBlock',
   attrs: defaultAttrs,
   marks: 'unsupportedMark unsupportedNodeAttribute link',
   parseDOM: [
@@ -95,7 +97,7 @@ export const mediaSingle: NodeSpec = {
 
 export const mediaSingleWithCaption: NodeSpec = {
   ...mediaSingle,
-  content: 'media caption?',
+  content: 'media | media (caption | unsupportedBlock)',
 };
 
 export const toJSON = (node: Node) => ({

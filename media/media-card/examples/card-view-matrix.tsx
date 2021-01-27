@@ -61,7 +61,6 @@ interface State {
   hasActions: boolean;
   hasManyActions: boolean;
   isExternalImage: boolean;
-  newCardExperience: boolean;
   useBigCard: boolean;
   shouldRenderCard: boolean;
   withBgColorAndIcon: boolean;
@@ -78,7 +77,6 @@ class Example extends React.Component<{}, State> {
     hasActions: true,
     hasManyActions: false,
     isExternalImage: false,
-    newCardExperience: true,
     useBigCard: false,
     shouldRenderCard: true,
     withBgColorAndIcon: false,
@@ -108,13 +106,6 @@ class Example extends React.Component<{}, State> {
     return (
       <StyledContainer>
         <CheckboxesContainer>
-          <Checkbox
-            value="newCardExperience"
-            label="Display the new experience?"
-            isChecked={this.state.newCardExperience}
-            onChange={this.onCheckboxChange}
-            name="isExternalImage"
-          />
           <Checkbox
             value="withDataURI"
             label="Has withDataURI?"
@@ -190,15 +181,13 @@ class Example extends React.Component<{}, State> {
             }}
             name="useBigCard"
           />
-          {this.state.newCardExperience && (
-            <Checkbox
-              value="withBgColorAndIcon"
-              label="Highlight title box?"
-              isChecked={this.state.withBgColorAndIcon}
-              onChange={this.onCheckboxChange}
-              name="withBgColorAndIcon"
-            />
-          )}
+          <Checkbox
+            value="withBgColorAndIcon"
+            label="Highlight title box?"
+            isChecked={this.state.withBgColorAndIcon}
+            onChange={this.onCheckboxChange}
+            name="withBgColorAndIcon"
+          />
         </CheckboxesContainer>
         <StyledTable>
           <thead>
@@ -323,9 +312,6 @@ class Example extends React.Component<{}, State> {
     return (
       <CardWrapper {...wrapperDimensions}>
         <CardView
-          featureFlags={{
-            newCardExperience: this.state.newCardExperience,
-          }}
           status={status}
           mediaItemType="file"
           metadata={withMetadata ? metadata : undefined}

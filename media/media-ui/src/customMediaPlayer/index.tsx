@@ -45,6 +45,7 @@ import simultaneousPlayManager from './simultaneousPlayManager';
 import { WithShowControlMethodProp } from '../types';
 import { TimeSaver, TimeSaverConfig } from './timeSaver';
 import PlaybackSpeedControls from './playbackSpeedControls';
+import { PlayPauseBlanket } from './playPauseBlanket';
 
 export interface CustomMediaPlayerProps extends WithShowControlMethodProp {
   readonly type: 'audio' | 'video';
@@ -144,7 +145,6 @@ export class CustomMediaPlayer extends Component<
 
   shortcutHandler = (toggleButtonAction: ToggleButtonAction) => () => {
     const { showControls } = this.props;
-
     toggleButtonAction();
 
     if (showControls) {
@@ -345,7 +345,6 @@ export class CustomMediaPlayer extends Component<
         >
           {(video, videoState, actions) => {
             this.setActions(actions);
-
             const {
               status,
               currentTime,
@@ -381,13 +380,17 @@ export class CustomMediaPlayer extends Component<
                 handler={this.shortcutHandler(actions.toggleMute)}
               />,
             ];
-
             return (
               <VideoWrapper>
-                {video}
-                {isLoading && this.renderSpinner()}
-                {shortcuts}
                 <WidthObserver setWidth={this.onResize} />
+                {shortcuts}
+                {isLoading && this.renderSpinner()}
+                <PlayPauseBlanket
+                  onClick={this.shortcutHandler(toggleButtonAction)}
+                  data-testid="play-pause-blanket"
+                >
+                  {video}
+                </PlayPauseBlanket>
                 <ControlsWrapper className={hideControlsClassName}>
                   <TimeWrapper>
                     <TimeRange

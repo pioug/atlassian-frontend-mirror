@@ -4,6 +4,7 @@ import {
   ADFEntity,
   ErrorCallbackOptions,
   ValidationError,
+  ValidationErrorMap,
   validator,
 } from '@atlaskit/adf-utils';
 
@@ -72,12 +73,35 @@ export const validationErrorHandler = (
     return { type: 'paragraph', content: [] };
   }
 
-  // Can't fix it by wrapping
   // TODO: We can repair missing content like `panel` without a `paragraph`.
   if (error.code === 'INVALID_CONTENT_LENGTH') {
-    if (dispatchAnalyticsEvent) {
-      trackValidationError(dispatchAnalyticsEvent, error, entity);
+    if (error.meta) {
+      const meta = error.meta as ValidationErrorMap['INVALID_CONTENT_LENGTH'];
+      if (
+        options.allowUnsupportedBlock &&
+        meta.type === 'maximum' &&
+        entity.content
+      ) {
+        entity.content = entity.content
+          .filter((x): x is ADFEntity => !!x)
+          .map((child, index) => {
+            return index >= meta.requiredLength
+              ? wrapWithUnsupported(child)
+              : child;
+          });
+      } else {
+        // Can't fix it by wrapping
+        if (dispatchAnalyticsEvent) {
+          trackValidationError(dispatchAnalyticsEvent, error, entity);
+        }
+      }
+    } else {
+      // Can't fix it by wrapping
+      if (dispatchAnalyticsEvent) {
+        trackValidationError(dispatchAnalyticsEvent, error, entity);
+      }
     }
+
     return entity;
   }
   if (options.allowUnsupportedBlock) {

@@ -100,7 +100,7 @@ describe('fix-invalid-list-children', () => {
   ];
 
   const case3: [string, DocumentType, DocumentType] = [
-    'should not join two sibling lists of different types when it is not nested inside of a panel',
+    'should not join two sibling lists of different types when it is nested inside of a panel',
     // Scenario
     // prettier-ignore
     doc(
@@ -128,7 +128,7 @@ describe('fix-invalid-list-children', () => {
   ];
 
   const case4: [string, DocumentType, DocumentType] = [
-    'should join two sibling lists of same type when it is not nested inside of a panel',
+    'should join two sibling lists of same type when it is nested inside of a panel',
     // Scenario
     // prettier-ignore
     doc(
@@ -153,6 +153,34 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
+  const case5: [string, DocumentType, DocumentType] = [
+    'with selection outside of the list - should not join lists',
+    // Scenario
+    // prettier-ignore
+    doc(
+      p('A{<>}'),
+      ul(
+        li(
+          p('B'),
+          ul(li(p('A1'))),
+          ul(li(p('A2'))),
+        ),
+      ),
+    ),
+    // Expected Result
+    // prettier-ignore
+    doc(
+      p('AX{<>}'),
+      ul(
+        li(
+          p('B'),
+          ul(li(p('A1'))),
+          ul(li(p('A2'))),
+        ),
+      ),
+    ),
+  ];
+
   describe.each<[string, DocumentType, DocumentType]>([
     // prettier-ignore
     case0,
@@ -160,6 +188,7 @@ describe('fix-invalid-list-children', () => {
     case2,
     case3,
     case4,
+    case5,
   ])('[case%#] when %s', (_scenario, previousDocument, expectedDocument) => {
     it('should match the expected document and keep the selection', () => {
       const { editorView } = editor(previousDocument);
@@ -171,5 +200,22 @@ describe('fix-invalid-list-children', () => {
       editorView.dispatch(tr);
       expect(editorView.state.tr).toEqualDocumentAndSelection(expectedDocument);
     });
+  });
+
+  it('when there is no selection change should not update list', () => {
+    const document = doc(
+      p('A'),
+      ul(li(p('B'), ul(li(p('A1'))), ul(li(p('A2'))))),
+    );
+    const expectedDocument = doc(
+      p('A'),
+      ul(li(p('B'), ul(li(p('A1'))), ul(li(p('A2'))))),
+    );
+    const { editorView } = editor(document);
+    const {
+      state: { tr },
+    } = editorView;
+    editorView.dispatch(tr);
+    expect(editorView.state.tr).toEqualDocumentAndSelection(expectedDocument);
   });
 });

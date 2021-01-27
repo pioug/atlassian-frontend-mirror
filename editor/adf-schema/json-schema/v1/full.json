@@ -995,6 +995,12 @@
               "additionalProperties": false
             }
           ]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link_mark"
+          }
         }
       },
       "required": [

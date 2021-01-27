@@ -162,7 +162,7 @@ describe('mobile editor element', () => {
     it('should have called isAllowScrollGutter', () => {
       const mockedAllowScrollGutter = jest.spyOn(
         MobileEditorConfiguration.prototype,
-        'isAllowScrollGutter',
+        'isScrollGutterAllowed',
       );
 
       initEditor();

@@ -38,6 +38,7 @@ import {
 } from '../../customMediaPlayer/styled';
 import { TimeRange, TimeRangeProps } from '../../customMediaPlayer/timeRange';
 import { PlaybackSpeedControls } from '../../customMediaPlayer/playbackSpeedControls';
+import { PlayPauseBlanket } from '../../customMediaPlayer/playPauseBlanket';
 
 // Removes errors from JSDOM virtual console on CustomMediaPlayer tests
 // Trick taken from https://github.com/jsdom/jsdom/issues/2155
@@ -169,6 +170,12 @@ describe('<CustomMediaPlayer />', () => {
       expect(fullscreenButton.props().iconBefore.type).toEqual(FullScreenIcon);
     });
 
+    it('should render the playPauseBlanket', () => {
+      const { component } = setup();
+
+      expect(component.find(PlayPauseBlanket)).toHaveLength(1);
+    });
+
     describe('when hd is available', () => {
       it('should render hd button when available', () => {
         const { hdButton } = setup({
@@ -230,6 +237,14 @@ describe('<CustomMediaPlayer />', () => {
   });
 
   describe('interaction', () => {
+    beforeEach(() => {
+      asMock(simultaneousPlayManager.pauseOthers).mockClear();
+    });
+
+    afterAll(() => {
+      asMock(simultaneousPlayManager.pauseOthers).mockRestore();
+    });
+
     it('should use keyboard shortcuts to toggle video state', () => {
       const showControls = jest.fn();
       const { component } = setup({ showControls, isShortcutEnabled: true });
@@ -256,6 +271,14 @@ describe('<CustomMediaPlayer />', () => {
 
       fullscreenButton.simulate('click');
       expect(toggleFullscreen).toHaveBeenCalledTimes(1);
+    });
+
+    it('should play/pause when playPauseBlanket is clicked', () => {
+      const { component } = setup({ isAutoPlay: true });
+
+      expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(1);
+      component.find(PlayPauseBlanket).simulate('click');
+      expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(2);
     });
 
     it('should update TimeRange when time changes', () => {

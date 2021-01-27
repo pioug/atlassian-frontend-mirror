@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.2.3
+
+### Patch Changes
+
+- [`b9f0d16300`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9f0d16300) - Re-generated icons using a newer version of the build process
+
 ## 21.2.2
 
 ### Patch Changes

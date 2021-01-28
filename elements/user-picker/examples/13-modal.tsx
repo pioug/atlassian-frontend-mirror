@@ -48,16 +48,15 @@ const renderRows = (count: number) => {
   return rows;
 };
 
-export default class Example extends React.Component<{}> {
-  render() {
-    return (
-      <Table>
-        <Row>
-          <Cell width={300}>Issue</Cell>
-          <Cell width={100}>Assign</Cell>
-        </Row>
-        {renderRows(50)}
-      </Table>
-    );
-  }
-}
+const Example = () => {
+  return (
+    <Table>
+      <Row>
+        <Cell width={300}>Issue</Cell>
+        <Cell width={100}>Assign</Cell>
+      </Row>
+      {renderRows(50)}
+    </Table>
+  );
+};
+export default Example;

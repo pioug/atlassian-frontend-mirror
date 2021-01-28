@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.3.3
+
+### Patch Changes
+
+- [`224d0251bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224d0251bd1) - Update examples to function components for use in react storybook
+
 ## 7.3.2
 
 ### Patch Changes

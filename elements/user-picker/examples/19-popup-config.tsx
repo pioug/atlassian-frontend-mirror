@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Placement } from '@atlaskit/popper';
 import styled from 'styled-components';
 import Slider from '@atlaskit/field-range';
@@ -63,14 +63,29 @@ const placementOptions: Placement[] = [
   'left',
 ];
 
+type PopupState = {
+  containerRef?: HTMLDivElement;
+  shouldFlip: boolean;
+  xOffset: number;
+  yOffset: number;
+  placement: {
+    label: string;
+    value: Placement;
+  };
+  boundariesElement: {
+    label: string;
+    value: Boundary;
+  };
+};
+
 const getSelectItems = <Option,>(options: Option[]) =>
   options.map(option => ({
     label: option,
     value: option,
   }));
 
-export default class Example extends React.Component<{}> {
-  state = {
+const Example = () => {
+  let [state, setState] = useState<PopupState>({
     containerRef: undefined,
     shouldFlip: true,
     xOffset: 0,
@@ -83,93 +98,111 @@ export default class Example extends React.Component<{}> {
       label: 'window',
       value: 'window' as Boundary,
     },
-  };
+  });
 
-  setContainerRef = (ref: HTMLDivElement | null) => {
-    if (!this.state.containerRef) {
-      this.setState({ containerRef: ref });
-    }
-  };
-
-  render() {
-    return (
-      <Container>
-        <OptionsContainer>
-          <OptionContainer>
-            <text>Placement:</text>
-            <SelectContainer>
-              <Select
-                options={getSelectItems<Placement>(placementOptions)}
-                defaultValue={this.state.placement}
-                onChange={value => this.setState({ placement: value })}
-                name="placement"
-                placeholder="Placement"
-                width={500}
-              />
-            </SelectContainer>
-          </OptionContainer>
-          <OptionContainer>
-            <text>Boundaries Element:</text>
-            <SelectContainer>
-              <Select
-                options={getSelectItems(boundariesElementOptions)}
-                defaultValue={this.state.boundariesElement}
-                onChange={value => this.setState({ boundariesElement: value })}
-                name="placement"
-                placeholder="Placement"
-                width={500}
-              />
-            </SelectContainer>
-          </OptionContainer>
-          <OptionContainer>
-            <text>X offset: {this.state.xOffset}</text>
-            <Slider
-              value={this.state.xOffset}
-              min={0}
-              max={500}
-              onChange={(value: number) => this.setState({ xOffset: value })}
+  return (
+    <Container>
+      <OptionsContainer>
+        <OptionContainer>
+          <text>Placement:</text>
+          <SelectContainer>
+            <Select
+              options={getSelectItems<Placement>(placementOptions)}
+              defaultValue={state.placement}
+              onChange={value =>
+                value &&
+                setState({
+                  ...state,
+                  placement: value as {
+                    label: string;
+                    value: Placement;
+                  },
+                })
+              }
+              name="placement"
+              placeholder="Placement"
+              width={500}
             />
-          </OptionContainer>
-          <OptionContainer>
-            <text>Y offset: {this.state.yOffset}</text>
-            <Slider
-              value={this.state.yOffset}
-              min={0}
-              max={500}
-              onChange={(value: number) => this.setState({ yOffset: value })}
+          </SelectContainer>
+        </OptionContainer>
+        <OptionContainer>
+          <text>Boundaries Element:</text>
+          <SelectContainer>
+            <Select
+              options={getSelectItems(boundariesElementOptions)}
+              defaultValue={state.boundariesElement}
+              onChange={value =>
+                value &&
+                setState({
+                  ...state,
+                  boundariesElement: value as {
+                    label: string;
+                    value: Boundary;
+                  },
+                })
+              }
+              name="placement"
+              placeholder="Placement"
+              width={500}
             />
-          </OptionContainer>
-          <div>
-            <input
-              checked={Boolean(this.state.shouldFlip)}
-              id="shouldFlip"
-              onChange={e => {
-                // @ts-ignore
-                this.setState({
-                  shouldFlip: !this.state.shouldFlip,
-                });
-              }}
-              type="checkbox"
-            />
-            <label htmlFor="should flip">should flip</label>
-          </div>
-        </OptionsContainer>
-
-        <PopupContainer>
-          <PopupUserPicker
-            popupTitle="Assignee"
-            fieldId="example"
-            target={({ ref }) => {
-              return <button ref={ref}>Target</button>;
-            }}
-            width={200}
-            placement={this.state.placement.value}
-            shouldFlip={true}
-            offset={[this.state.xOffset, this.state.yOffset]}
-            boundariesElement={this.state.boundariesElement.value}
+          </SelectContainer>
+        </OptionContainer>
+        <OptionContainer>
+          <text>
+            <div>X offset: </div>
+            {state.xOffset}
+          </text>
+          <Slider
+            value={state.xOffset}
+            min={0}
+            max={500}
+            onChange={(value: number) => setState({ ...state, xOffset: value })}
           />
-        </PopupContainer>
-      </Container>
-    );
-  }
-}
+        </OptionContainer>
+        <OptionContainer>
+          <text>
+            <div>Y offset: </div>
+            {state.yOffset}
+          </text>
+          <Slider
+            value={state.yOffset}
+            min={0}
+            max={500}
+            onChange={(value: number) => setState({ ...state, yOffset: value })}
+          />
+        </OptionContainer>
+        <div>
+          <input
+            checked={Boolean(state.shouldFlip)}
+            id="shouldFlip"
+            onChange={e => {
+              // @ts-ignore
+              setState({
+                ...state,
+                shouldFlip: !state.shouldFlip,
+              });
+            }}
+            type="checkbox"
+          />
+          <label htmlFor="should flip">should flip</label>
+        </div>
+      </OptionsContainer>
+
+      <PopupContainer>
+        <PopupUserPicker
+          popupTitle="Assignee"
+          fieldId="example"
+          target={({ ref }) => {
+            return <button ref={ref}>Target</button>;
+          }}
+          width={200}
+          placement={state.placement.value}
+          shouldFlip={true}
+          offset={[state.xOffset, state.yOffset]}
+          boundariesElement={state.boundariesElement.value}
+        />
+      </PopupContainer>
+    </Container>
+  );
+};
+export default Example;

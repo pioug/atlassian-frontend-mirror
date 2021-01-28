@@ -26,5 +26,4 @@ const Example: FunctionComponent = () => {
     </ExampleWrapper>
   );
 };
-
 export default Example;

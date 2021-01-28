@@ -235,7 +235,7 @@ describe('scrubAdf', () => {
     });
   });
 
-  it('should throw an error if attrs is not an object', () => {
+  it('should replace array attributes', () => {
     const adf = {
       version: 1,
       type: 'doc',
@@ -245,7 +245,43 @@ describe('scrubAdf', () => {
           content: [
             {
               type: 'status',
-              attrs: [],
+              attrs: ['abcd', 123, { attr: 'abc' }],
+            },
+          ],
+        },
+      ],
+    };
+
+    const scrubbedAdf = scrubAdf(adf);
+
+    expect(scrubbedAdf).toEqual({
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'status',
+              attrs: ['lore', 274, { attr: 'lor' }],
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it('should throw an error if attributes are not supported', () => {
+    const adf = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'status',
+              attrs: function () {},
             },
           ],
         },

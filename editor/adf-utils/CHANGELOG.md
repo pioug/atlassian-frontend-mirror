@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.7.1
+
+### Patch Changes
+
+- [`7374ce442af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7374ce442af) - Scrub content in array attributes
+
 ## 11.7.0
 
 ### Minor Changes

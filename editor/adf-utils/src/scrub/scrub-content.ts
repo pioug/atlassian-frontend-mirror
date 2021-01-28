@@ -8,7 +8,7 @@ const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
   codeBlock: ['language'],
   decisionItem: ['state'],
   embedCard: ['layout', 'originalHeight', 'originalWidth', 'width'],
-  extension: ['extensionKey', 'extensionType', 'layout'],
+  extension: ['extensionKey', 'extensionType', 'layout', 'type'],
   heading: ['level'],
   inlineExtension: ['extensionKey', 'extensionType', 'layout'],
   layoutColumn: ['width'],
@@ -106,15 +106,28 @@ export const scrubLink = (
   });
 };
 
-export const scrubAttrs = (nodeType: string, attrs: unknown, offset = 0) => {
+const scrubObj = (nodeType: string, attrsObj: Object) => {
+  const entries: Array<[string, any]> = Object.entries(
+    attrsObj,
+  ).map(([key, value]) =>
+    BYPASS_ATTR_LIST[nodeType]?.includes(key)
+      ? [key, value]
+      : [key, scrubAttrs(nodeType, value)],
+  );
+
+  return fromEntries(entries);
+};
+
+export const scrubAttrs = (
+  nodeType: string,
+  attrs: unknown,
+  offset = 0,
+): any => {
   if (typeof attrs === 'number') {
     return scrubNum(attrs, offset);
   }
   if (typeof attrs === 'string') {
     return scrubStr(attrs, offset);
-  }
-  if (typeof attrs === 'boolean') {
-    return attrs;
   }
   if (typeof attrs === 'boolean') {
     return attrs;
@@ -133,19 +146,19 @@ export const scrubAttrs = (nodeType: string, attrs: unknown, offset = 0) => {
   }
 
   if (typeof attrsObj === 'object' && !Array.isArray(attrsObj)) {
-    const entries: Array<[string, any]> = Object.entries(
-      attrsObj,
-    ).map(([key, value]) =>
-      BYPASS_ATTR_LIST[nodeType] && BYPASS_ATTR_LIST[nodeType].includes(key)
-        ? [key, value]
-        : [key, scrubAttrs(nodeType, value)],
-    );
+    return scrubObj(nodeType, attrsObj);
+  }
 
-    return fromEntries(entries);
+  if (Array.isArray(attrsObj)) {
+    return attrsObj.map(el => {
+      return typeof el === 'object'
+        ? scrubObj(nodeType, el)
+        : scrubAttrs(nodeType, el);
+    });
   }
 
   throw new TypeError(
     `scrubAttrs: encountered unsupported attributes type "${typeof attrsObj}"
-    ${attrsObj.constructor} of value ${JSON.stringify(attrsObj)}`,
+    of value ${JSON.stringify(attrsObj)}`,
   );
 };

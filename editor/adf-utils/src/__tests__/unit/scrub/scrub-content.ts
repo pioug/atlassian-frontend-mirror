@@ -29,9 +29,16 @@ describe('scrubAttrs', () => {
     });
   });
 
-  it('should throw an error if attrs is not an object', () => {
-    const attrs = ['attr1', 'attr2'];
+  it('should replace array attributes', () => {
+    const attrs = ['abcd', 123, { attr: 'abc' }];
 
+    const scrubbedAttrs = scrubAttrs('coolNodeType', attrs);
+
+    expect(scrubbedAttrs).toEqual(['lore', 274, { attr: 'lor' }]);
+  });
+
+  it('should throw an error if attrs are not supported', () => {
+    const attrs = function () {};
     expect(() => {
       scrubAttrs('coolNodeType', attrs);
     }).toThrowError(/scrubAttrs: encountered unsupported attributes type/);

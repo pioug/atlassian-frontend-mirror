@@ -96,20 +96,17 @@ const InnerInlineEditUncontrolled = <FieldValue extends any>(
     ...analyticsAttributes,
   });
 
-  const [
-    wasFocusReceivedSinceLastBlur,
-    setWasFocusReceivedSinceLastBlur,
-  ] = useState(false);
+  const wasFocusReceivedSinceLastBlurRef = useRef(false);
   const [preventFocusOnEditButton, setPreventFocusOnEditButton] = useState(
     false,
   );
 
   const editButtonRef = useRef(null);
 
-  let startX: number = 0;
-  let startY: number = 0;
+  const startX = useRef(0);
+  const startY = useRef(0);
 
-  let confirmationTimeoutId: number | undefined;
+  const confirmationTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const prevIsEditing = usePrevious(isEditing);
   useEffect(() => {
@@ -130,11 +127,11 @@ const InnerInlineEditUncontrolled = <FieldValue extends any>(
 
   useEffect(() => {
     return () => {
-      if (confirmationTimeoutId) {
-        window.clearTimeout(confirmationTimeoutId);
+      if (confirmationTimerRef.current) {
+        window.clearTimeout(confirmationTimerRef.current);
       }
     };
-  }, [confirmationTimeoutId]);
+  }, [confirmationTimerRef]);
 
   const onCancelClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -146,8 +143,8 @@ const InnerInlineEditUncontrolled = <FieldValue extends any>(
 
   const mouseHasMoved = (event: { clientX: number; clientY: number }) => {
     return (
-      Math.abs(startX - event.clientX) >= DRAG_THRESHOLD ||
-      Math.abs(startY - event.clientY) >= DRAG_THRESHOLD
+      Math.abs(startX.current - event.clientX) >= DRAG_THRESHOLD ||
+      Math.abs(startY.current - event.clientY) >= DRAG_THRESHOLD
     );
   };
 
@@ -172,20 +169,21 @@ const InnerInlineEditUncontrolled = <FieldValue extends any>(
     formRef: React.RefObject<HTMLFormElement>,
   ) => {
     if (!keepEditViewOpenOnBlur) {
-      setWasFocusReceivedSinceLastBlur(false);
+      wasFocusReceivedSinceLastBlurRef.current = false;
       /**
        * This ensures that clicking on one of the action buttons will call
        * onWrapperFocus before confirmIfUnfocused is called
        */
-      confirmationTimeoutId = window.setTimeout(() =>
-        confirmIfUnfocused(isInvalid, onSubmit, formRef),
+      confirmationTimerRef.current = setTimeout(
+        () => confirmIfUnfocused(isInvalid, onSubmit, formRef),
+        0,
       );
     }
   };
 
   /** Gets called when focus is transferred to the editView, or action buttons */
   const onWrapperFocus = () => {
-    setWasFocusReceivedSinceLastBlur(true);
+    wasFocusReceivedSinceLastBlurRef.current = true;
   };
 
   const confirmIfUnfocused = (
@@ -193,7 +191,11 @@ const InnerInlineEditUncontrolled = <FieldValue extends any>(
     onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void,
     formRef: React.RefObject<HTMLFormElement>,
   ) => {
-    if (!isInvalid && !wasFocusReceivedSinceLastBlur && formRef.current) {
+    if (
+      !isInvalid &&
+      !wasFocusReceivedSinceLastBlurRef.current &&
+      formRef.current
+    ) {
       setPreventFocusOnEditButton(true);
       if (formRef.current.checkValidity()) {
         onSubmit();
@@ -220,8 +222,8 @@ const InnerInlineEditUncontrolled = <FieldValue extends any>(
           css={readViewContentWrapperStyles}
           onClick={onReadViewClick}
           onMouseDown={e => {
-            startX = e.clientX;
-            startY = e.clientY;
+            startX.current = e.clientX;
+            startY.current = e.clientY;
           }}
           data-read-view-fit-container-width={readViewFitContainerWidth}
         >

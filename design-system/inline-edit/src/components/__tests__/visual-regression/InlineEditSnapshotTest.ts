@@ -142,6 +142,9 @@ describe('Snapshot Test', () => {
     await page.click('[data-testid="read-view"]');
 
     await page.focus('input[name="inlineEdit"]');
+    await page.type('input[name="inlineEdit"]', 'short');
+    await page.waitFor(500);
+
     await page.$eval('input[name="inlineEdit"]', e =>
       (e as HTMLElement).blur(),
     );

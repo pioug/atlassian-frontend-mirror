@@ -22,6 +22,36 @@ const confirmButton = 'button[aria-label="Confirm"]';
 const cancelButton = 'button[aria-label="Cancel"]';
 const errorMessage = 'div#error-message';
 const label = 'label';
+const body = 'body';
+
+BrowserTestCase(
+  'Should not focus and showing buttons when focus out',
+  {},
+  async (client: any) => {
+    const inlineEditTest = new Page(client);
+    await inlineEditTest.goto(validationExampleUrl);
+
+    await inlineEditTest.waitForSelector(readViewContentWrapper);
+    await inlineEditTest.click(readViewContentWrapper);
+
+    await inlineEditTest.waitForSelector(input);
+    await inlineEditTest.click('input');
+    await inlineEditTest.type(input, 'hello');
+
+    await inlineEditTest.click(body);
+
+    const isInputExist = await inlineEditTest.isExisting(input);
+    expect(isInputExist).toBe(false);
+
+    const isConfirmButtonExist = await inlineEditTest.isExisting(confirmButton);
+    expect(isConfirmButtonExist).toBe(false);
+
+    const isCancelButtonExist = await inlineEditTest.isExisting(cancelButton);
+    expect(isCancelButtonExist).toBe(false);
+
+    await inlineEditTest.checkConsoleErrors();
+  },
+);
 
 BrowserTestCase(
   'The edit button should have focus after edit is confirmed by pressing Enter',

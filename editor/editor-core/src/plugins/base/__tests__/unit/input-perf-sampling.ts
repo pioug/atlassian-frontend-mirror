@@ -35,8 +35,8 @@ const typeText = (view: EditorView, text: string) => {
 
 const adfDoc = doc(p('{<>}'));
 const customSettings = {
-  normalThreshold: 25,
-  degradedThreshold: 50,
+  normalThreshold: 150,
+  degradedThreshold: 300,
 };
 
 describe('Input performance latency', () => {
@@ -258,7 +258,7 @@ describe('Input performance latency', () => {
               eventType: EVENT_TYPE.OPERATIONAL,
             });
 
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+            expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
             success();
           }, customSettings.degradedThreshold + 1),

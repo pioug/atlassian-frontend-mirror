@@ -2,6 +2,8 @@
 order: 0
 ---
 
+import { N0, N40, B400 } from '@atlaskit/theme/colors';
+
 import LogoLogomark from '../../examples/constellation/logo-logomark';
 import LogoWordmark from '../../examples/constellation/logo-wordmark';
 import LogoLockup from '../../examples/constellation/logo-lockup';
@@ -56,19 +58,31 @@ Our product logos are used in three color schemes: blue, neutral, and white. By 
 
 Blue product logos work best on a white or light background.
 
-<Example Component={LogoBlue} packageName="@atlaskit/logo" />
+<Example
+  Component={LogoBlue}
+  packageName="@atlaskit/logo"
+  backgroundColor={N0}
+/>
 
 ### Neutral
 
 Neutral product logos can be used when the hierarchy calls for the logo to recede, but should always be evaluated for adequate contrast.
 
-<Example Component={LogoNeutral} packageName="@atlaskit/logo" />
+<Example
+  Component={LogoNeutral}
+  packageName="@atlaskit/logo"
+  backgroundColor={N40}
+/>
 
 ### White
 
 White product logos should be used on dark backgrounds.
 
-<Example Component={LogoWhite} packageName="@atlaskit/logo" />
+<Example
+  Component={LogoWhite}
+  packageName="@atlaskit/logo"
+  backgroundColor={B400}
+/>
 
 ## Size
 

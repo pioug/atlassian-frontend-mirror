@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 11.0.11
+
+### Patch Changes
+
+- [`a4c112b2ad7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4c112b2ad7) - Fixed inline edit not submitting automatically when blurred
+
 ## 11.0.10
 
 ### Patch Changes

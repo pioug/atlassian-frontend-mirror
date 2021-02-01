@@ -17,7 +17,7 @@ import { invalidDoc } from '../../__fixtures__/invalid-doc';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { Media } from '../../../react/nodes';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/src';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { IntlProvider } from 'react-intl';
 
 const validDoc = doc(

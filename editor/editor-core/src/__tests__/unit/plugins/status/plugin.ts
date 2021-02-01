@@ -7,7 +7,7 @@ import {
 import { findChildrenByType, NodeWithPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers/constants';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p, status } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';

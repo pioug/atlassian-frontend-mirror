@@ -11,8 +11,8 @@ import {
   storyMediaProviderFactory,
   storyContextIdentifierProviderFactory,
   extensionHandlers,
-  createEditorMediaMock,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/mediaMock';
 import {
   default as Renderer,
   Props as RendererProps,

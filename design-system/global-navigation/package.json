@@ -60,6 +60,6 @@
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
-    "react-lorem-component": "^0.12.2"
+    "react-lorem-component": "^0.13.0"
   }
 }

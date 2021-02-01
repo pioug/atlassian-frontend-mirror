@@ -7,7 +7,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { embedCard, doc } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Card, IframelyResizeMessageListener } from '@atlaskit/smart-card';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '@atlaskit/editor-common';
 import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common';
 import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedCard';

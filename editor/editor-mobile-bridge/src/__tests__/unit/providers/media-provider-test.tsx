@@ -17,10 +17,10 @@ import {
   p,
   mediaSingle,
   media,
-  createEditorFactory,
   randomId,
   sleep,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import { Auth, AuthProvider, MediaClientConfig } from '@atlaskit/media-core';
 import {

@@ -1,4 +1,4 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {
   decisionItem,

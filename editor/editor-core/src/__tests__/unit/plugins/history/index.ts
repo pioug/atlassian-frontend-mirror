@@ -1,4 +1,4 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';

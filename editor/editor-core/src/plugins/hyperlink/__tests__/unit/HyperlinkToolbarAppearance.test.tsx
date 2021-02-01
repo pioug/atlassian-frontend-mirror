@@ -1,6 +1,6 @@
 import React from 'react';
 import { fakeIntl, asMock } from '@atlaskit/media-test-helpers';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { shallow } from 'enzyme';
 import { CardPlatform } from '@atlaskit/smart-card';
 import {

@@ -1,5 +1,5 @@
 import { browser } from '@atlaskit/editor-common';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import {
   a as link,

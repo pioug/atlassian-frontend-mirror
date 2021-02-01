@@ -3,7 +3,7 @@ import {
   ContextIdentifierProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { stateKey } from '../../pm-plugins/context-identifier';
 
 describe('context-identifier', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { doc, embedCard } from '@atlaskit/editor-test-helpers';
 import { CardOptions } from '@atlaskit/editor-common';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import ResizableEmbedCard, {
   Props as ResizableEmbedCardProps,
 } from '../ResizableEmbedCard';

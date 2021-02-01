@@ -1,5 +1,5 @@
 import { Fragment } from 'prosemirror-model';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import {
   doc,

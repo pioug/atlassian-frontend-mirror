@@ -7,7 +7,7 @@ import {
 
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,

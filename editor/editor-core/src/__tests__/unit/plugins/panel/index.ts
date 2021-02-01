@@ -1,6 +1,6 @@
 import { PanelState } from '../../../../plugins/panel/pm-plugins/main';
 import { pluginKey } from '../../../../plugins/panel/types';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   panel,

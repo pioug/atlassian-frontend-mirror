@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import { TextSelection, Selection } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   annotation,
   code_block,

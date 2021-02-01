@@ -1,4 +1,4 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { setResizeHandlePos } from '../../../../../../plugins/table/pm-plugins/table-resizing/commands';
 import {
   doc,

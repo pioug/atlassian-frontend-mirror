@@ -1,7 +1,5 @@
-import {
-  createEditorFactory,
-  sendKeyToPm,
-} from '@atlaskit/editor-test-helpers';
+import { sendKeyToPm } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   caption,
   doc,

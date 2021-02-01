@@ -9,7 +9,8 @@ import rafSchd from 'raf-schd';
 jest.mock('../../shouldReplaceLink');
 import { shouldReplaceLink } from '../../shouldReplaceLink';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import createEditorFactory, {
+import {
+  createEditorFactory,
   EditorInstanceWithPlugin,
 } from '@atlaskit/editor-test-helpers/create-editor';
 

@@ -16,7 +16,6 @@ import {
   br,
   code,
   code_block,
-  createEditorFactory,
   doc,
   em,
   emoji,
@@ -50,6 +49,7 @@ import {
   unsupportedMark,
   unsupportedNodeAttribute,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 

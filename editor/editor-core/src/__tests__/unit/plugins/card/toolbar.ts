@@ -1,6 +1,6 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { IntlProvider } from 'react-intl';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,

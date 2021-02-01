@@ -18,6 +18,14 @@
     "./media-mock": "./src/mocks/media-mock.ts",
     "./images": "./src/images.tsx",
     "./jestHelpers": "./src/jestHelpers.ts",
+    "./collectionNames": "./src/collectionNames.ts",
+    "./exampleMediaItems": "./src/exampleMediaItems.ts",
+    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
+    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
+    "./userAuthProvider": "./src/userAuthProvider.ts",
+    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
+    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+    "./mockData": "./src/utils/mockData.ts",
     ".": "./src/index.tsx"
   },
   "atlassian": {

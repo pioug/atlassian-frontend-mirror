@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  createEditorFactory,
-  doc,
-  p,
-  mountWithIntl,
-  sleep,
-} from '@atlaskit/editor-test-helpers';
+import { doc, p, sleep } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import Comment from '../../Comment';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { ProviderFactory } from '@atlaskit/editor-common';

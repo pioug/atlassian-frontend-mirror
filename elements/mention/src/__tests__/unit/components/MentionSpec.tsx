@@ -1,5 +1,5 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';

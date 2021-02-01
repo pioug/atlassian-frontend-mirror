@@ -5,7 +5,7 @@ jest.mock('../../../components/utils', () => ({
   getMenuPortalTargetCurrentHTML: jest.fn(),
 }));
 
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import UserPicker, { OptionData, SmartUserPicker } from '@atlaskit/user-picker';
 import React from 'react';

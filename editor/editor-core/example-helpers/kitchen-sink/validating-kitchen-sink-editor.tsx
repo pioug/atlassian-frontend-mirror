@@ -6,7 +6,7 @@ import {
   customInsertMenuItems,
   extensionHandlers,
 } from '@atlaskit/editor-test-helpers';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { validator, ErrorCallback, ADFEntity } from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mention } from '@atlaskit/util-data-test';

@@ -94,7 +94,7 @@
     "puppeteer": "3.0.4",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-live-clock": "^2.0.3",
+    "react-live-clock": "^4.0.0",
     "react-test-renderer": "^16.8.0",
     "rxjs": "^5.5.0",
     "sinon": "^2.2.0",

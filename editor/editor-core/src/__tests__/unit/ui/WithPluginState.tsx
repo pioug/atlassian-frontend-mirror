@@ -2,7 +2,7 @@ import { name } from '../../../version.json';
 import { mount } from 'enzyme';
 import React from 'react';
 import { Plugin, PluginKey } from 'prosemirror-state';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import WithPluginState from '../../../ui/WithPluginState';
 import { EditorPlugin } from '../../../types/editor-plugin';

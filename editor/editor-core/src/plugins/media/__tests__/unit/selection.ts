@@ -1,6 +1,7 @@
 import { NodeSelection, TextSelection } from 'prosemirror-state';
 
-import createEditorFactory, {
+import {
+  createEditorFactory,
   EditorInstanceWithPlugin,
 } from '@atlaskit/editor-test-helpers/create-editor';
 import {

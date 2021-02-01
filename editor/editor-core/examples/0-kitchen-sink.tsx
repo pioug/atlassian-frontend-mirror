@@ -3,7 +3,7 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import EditorContext from './../src/ui/EditorContext';
 import withSentry from '../example-helpers/withSentry';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import { KitchenSink } from '../example-helpers/kitchen-sink/kitchen-sink';
 import enMessages from '../src/i18n/en';
 import enData from 'react-intl/locale-data/en';

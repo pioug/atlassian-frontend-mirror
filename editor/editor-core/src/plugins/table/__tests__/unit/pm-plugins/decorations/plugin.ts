@@ -2,7 +2,7 @@ import { Selection } from 'prosemirror-state';
 import { addColumnAt } from '@atlaskit/editor-tables/utils';
 import { DecorationSet } from 'prosemirror-view';
 
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   table,

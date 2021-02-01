@@ -10,7 +10,7 @@ jest.mock('prosemirror-history');
 import { closeHistory } from 'prosemirror-history';
 
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p, a } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';

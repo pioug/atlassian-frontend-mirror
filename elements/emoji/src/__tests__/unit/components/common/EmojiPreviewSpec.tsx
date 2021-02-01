@@ -1,4 +1,7 @@
-import { mountWithIntl, shallowWithIntl } from '@atlaskit/editor-test-helpers';
+import {
+  mountWithIntl,
+  shallowWithIntl,
+} from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';

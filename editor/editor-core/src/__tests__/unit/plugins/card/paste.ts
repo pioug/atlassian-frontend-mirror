@@ -2,7 +2,7 @@ import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 import { setProvider } from '../../../../plugins/card/pm-plugins/actions';
 
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,

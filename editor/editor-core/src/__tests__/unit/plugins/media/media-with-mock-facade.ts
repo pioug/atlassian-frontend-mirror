@@ -1,7 +1,7 @@
 import { spies, removeOnCloseListener } from './media-with-mock-facade.mock';
 import { nextTick } from '@atlaskit/media-test-helpers';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';

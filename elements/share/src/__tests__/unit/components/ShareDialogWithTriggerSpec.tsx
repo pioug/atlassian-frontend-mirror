@@ -1,4 +1,7 @@
-import { shallowWithIntl, mountWithIntl } from '@atlaskit/editor-test-helpers';
+import {
+  mountWithIntl,
+  shallowWithIntl,
+} from '@atlaskit/editor-test-helpers/enzyme';
 import ShareIcon from '@atlaskit/icon/glyph/share';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Popup from '@atlaskit/popup';

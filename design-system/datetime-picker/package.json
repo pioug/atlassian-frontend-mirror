@@ -58,7 +58,7 @@
     "enzyme-to-json": "^3.3.0",
     "moment": "^2.22.2",
     "react-dom": "^16.8.0",
-    "react-lorem-component": "^0.12.2",
+    "react-lorem-component": "^0.13.0",
     "react-test-renderer": "^16.8.0",
     "typescript": "3.9.6"
   },

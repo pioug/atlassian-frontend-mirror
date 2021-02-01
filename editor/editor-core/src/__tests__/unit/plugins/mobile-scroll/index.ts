@@ -1,4 +1,4 @@
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { scrollIntoView } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
 import createStub from 'raf-stub';

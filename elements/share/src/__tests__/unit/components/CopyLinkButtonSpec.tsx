@@ -6,7 +6,7 @@ import React from 'react';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import Popup from '@atlaskit/popup';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { InjectedIntlProps } from 'react-intl';
 
 import CopyLinkButton, {

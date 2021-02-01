@@ -13,8 +13,8 @@ import { toJSON } from '../src/utils';
 import {
   storyContextIdentifierProviderFactory,
   storyMediaProviderFactory,
-  createEditorMediaMock,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/mediaMock';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 

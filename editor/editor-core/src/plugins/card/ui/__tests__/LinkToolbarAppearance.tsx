@@ -24,7 +24,7 @@ import {
   panel as panelNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { pluginKey } from '../../pm-plugins/main';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { changeSelectedCardToLink } from '../../pm-plugins/doc';
 import { isSupportedInParent } from '../../../../utils/nodes';

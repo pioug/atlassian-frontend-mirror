@@ -4,7 +4,7 @@ import { EditorView } from 'prosemirror-view';
 
 import { ProviderFactory, wrappedLayouts } from '@atlaskit/editor-common';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 

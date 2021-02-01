@@ -1,6 +1,6 @@
 import { name } from '../../../../version.json';
 import { doc, embedCard } from '@atlaskit/editor-test-helpers';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/plugin-key';
 
 describe(name, () => {

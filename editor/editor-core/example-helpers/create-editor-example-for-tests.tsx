@@ -17,8 +17,9 @@ import {
   extensionHandlers as exampleExtensionHandlers,
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-  createEditorMediaMock,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/mediaMock';
+
 import {
   JSONTransformer,
   JSONDocNode,

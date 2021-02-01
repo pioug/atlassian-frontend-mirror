@@ -1,10 +1,9 @@
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
 import { ReactWrapper } from 'enzyme';
-import {
-  mountWithIntl,
-  mockAddEventListener,
-} from '@atlaskit/editor-test-helpers';
+import { mockAddEventListener } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+
 import FindReplaceToolbarButton, {
   FindReplaceToolbarButtonProps,
 } from '../../../ui/FindReplaceToolbarButton';

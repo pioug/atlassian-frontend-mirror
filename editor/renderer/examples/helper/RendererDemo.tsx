@@ -23,8 +23,7 @@ import {
   storyContextIdentifierProviderFactory,
 } from '@atlaskit/editor-test-helpers';
 
-// @ts-ignore: type definitions are missing
-import * as Clock from 'react-live-clock';
+import Clock from 'react-live-clock';
 
 import { document as storyDataDocument } from './story-data';
 import {

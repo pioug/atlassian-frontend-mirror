@@ -1,5 +1,5 @@
 import { createParagraphAtEnd } from '../../index';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 describe('Editor commands', () => {
   describe('createParagraphAtEnd', () => {

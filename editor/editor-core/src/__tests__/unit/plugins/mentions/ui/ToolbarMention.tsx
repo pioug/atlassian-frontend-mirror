@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
 import ToolbarMention from '../../../../../plugins/mentions/ui/ToolbarMention';

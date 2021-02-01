@@ -5,7 +5,7 @@ import {
   layoutColumn,
   p,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { isRichMediaInsideOfBlockNode } from '../../../../utils/rich-media-utils';
 import { CardOptions } from '@atlaskit/editor-common';
 

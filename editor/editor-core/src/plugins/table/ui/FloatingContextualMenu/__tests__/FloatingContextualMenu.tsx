@@ -2,7 +2,7 @@ import React from 'react';
 
 import { EditorView } from 'prosemirror-view';
 
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,

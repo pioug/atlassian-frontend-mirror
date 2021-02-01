@@ -1,4 +1,4 @@
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import FieldTextArea from '@atlaskit/field-text-area';
 import { Field } from '@atlaskit/form';
 import React from 'react';

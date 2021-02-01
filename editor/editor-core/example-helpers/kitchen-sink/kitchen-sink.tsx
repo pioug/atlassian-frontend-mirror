@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-common';
 import Flag from '@atlaskit/flag';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import Warning from '@atlaskit/icon/glyph/warning';
 
 import {

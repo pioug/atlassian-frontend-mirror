@@ -1,5 +1,5 @@
 import { pluginKey } from '../../../../plugins/lists/pm-plugins/main';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import {
   doc,

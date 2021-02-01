@@ -10,7 +10,7 @@ import {
 } from '../../../../plugins/analytics';
 import { extendPayload } from '../../../../plugins/analytics/plugin';
 import { EditorState, Transaction } from 'prosemirror-state';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { CommandDispatch } from '../../../../types';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';

@@ -3,7 +3,6 @@ import { EditorView } from 'prosemirror-view';
 import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
 import {
   a,
-  createEditorFactory,
   date,
   inlineCard,
   mention,
@@ -12,6 +11,7 @@ import {
   status,
   td,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mention as mentionDataTest } from '@atlaskit/util-data-test';
 
 import { SortOrder } from '../../../types';

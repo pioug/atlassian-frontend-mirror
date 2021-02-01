@@ -4,7 +4,7 @@ import {
   getCellsInRow,
   getCellsInTable,
 } from '@atlaskit/editor-tables/utils';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,

@@ -9,7 +9,7 @@ import MediaSingle, {
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
 import { WidthProvider } from '@atlaskit/editor-common';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import { InjectedIntlProps } from 'react-intl';
 import { ExtendedUIMediaSingle } from '../../../../react/nodes/mediaSingle/styles';

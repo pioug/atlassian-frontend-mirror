@@ -1,4 +1,5 @@
-import createEditorFactory, {
+import {
+  createEditorFactory,
   Options as CreateEditorOptions,
 } from '@atlaskit/editor-test-helpers/create-editor';
 import {

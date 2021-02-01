@@ -1,7 +1,7 @@
 import { EditorState, TextSelection, PluginSpec } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { Node, Slice } from 'prosemirror-model';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   layoutSection,
   layoutColumn,

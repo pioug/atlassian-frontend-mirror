@@ -1,7 +1,7 @@
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Textfield from '@atlaskit/textfield';
 import FindReplace, { FindReplaceProps } from '../../../ui/FindReplace';
 import Find from '../../../ui/Find';

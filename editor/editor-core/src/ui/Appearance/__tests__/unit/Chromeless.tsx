@@ -1,11 +1,11 @@
 import {
-  createEditorFactory,
   doc,
   insertText,
   p,
   panel,
   sendKeyToPm,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 describe('Chromeless editor', () => {
   const createEditor = createEditorFactory();

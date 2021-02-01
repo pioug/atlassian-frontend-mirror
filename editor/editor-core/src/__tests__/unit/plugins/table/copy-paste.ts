@@ -8,7 +8,7 @@ import { Node as ProsemirrorNode, Fragment, Slice } from 'prosemirror-model';
 import { TextSelection, Transaction } from 'prosemirror-state';
 // @ts-ignore
 import { __serializeForClipboard } from 'prosemirror-view';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,

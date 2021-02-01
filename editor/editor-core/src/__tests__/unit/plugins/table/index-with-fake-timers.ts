@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import { defaultSchema } from '@atlaskit/adf-schema';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,

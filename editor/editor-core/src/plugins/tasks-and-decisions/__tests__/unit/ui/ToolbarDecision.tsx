@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ProviderFactory } from '@atlaskit/editor-common';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 

@@ -5,12 +5,12 @@ import { InjectedIntl, InjectedIntlProps, IntlProvider } from 'react-intl';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
-  createEditorFactory,
   doc,
   p,
   unsupportedBlock,
   unsupportedInline,
 } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 

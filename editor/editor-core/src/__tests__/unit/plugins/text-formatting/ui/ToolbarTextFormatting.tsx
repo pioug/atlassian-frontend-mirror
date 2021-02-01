@@ -1,7 +1,7 @@
 import React from 'react';
 import AkButton from '@atlaskit/button/standard-button';
 import { ReactWrapper } from 'enzyme';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import ToolbarButton from '../../../../../ui/ToolbarButton';

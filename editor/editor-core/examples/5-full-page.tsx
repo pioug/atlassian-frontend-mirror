@@ -17,7 +17,7 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import {
   ProviderFactory,
   ExtensionProvider,
@@ -69,11 +69,11 @@ import {
 } from '../example-helpers/example-constants';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import {
-  addGlobalEventEmitterListeners,
   isMediaMockOptedIn,
   mediaMock,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/media-mock';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 
 addGlobalEventEmitterListeners();

@@ -1,11 +1,5 @@
-import {
-  doc,
-  ul,
-  li,
-  p,
-  code_block,
-  createEditorFactory,
-} from '@atlaskit/editor-test-helpers';
+import { doc, ul, li, p, code_block } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { backspaceKeyCommand } from '../../../../../plugins/lists/commands';
 import { listBackspace } from '../../../../../plugins/lists/commands/listBackspace';
 

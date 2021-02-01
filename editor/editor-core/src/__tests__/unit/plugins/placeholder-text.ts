@@ -6,7 +6,7 @@ import {
   hidePlaceholderFloatingToolbar,
 } from '../../../plugins/placeholder-text/actions';
 import { FakeTextCursorSelection } from '../../../plugins/fake-text-cursor/cursor';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,

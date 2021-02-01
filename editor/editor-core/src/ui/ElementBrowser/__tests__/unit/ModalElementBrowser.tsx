@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import ModalElementBrowser from '../../ModalElementBrowser';
 import Button from '@atlaskit/button/custom-theme-button';
 

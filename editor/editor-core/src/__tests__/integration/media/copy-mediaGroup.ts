@@ -1,5 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { testMediaGroup } from '@atlaskit/editor-test-helpers';
+import { testMediaGroup } from '@atlaskit/editor-test-helpers/mediaMock';
 import { sleep } from '@atlaskit/media-test-helpers';
 import { editable, getDocFromElement, fullpage } from '../_helpers';
 import {

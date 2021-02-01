@@ -1,9 +1,5 @@
-import {
-  doc,
-  insertText,
-  createEditorFactory,
-  p,
-} from '@atlaskit/editor-test-helpers';
+import { doc, insertText, p } from '@atlaskit/editor-test-helpers';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import { androidComposeContinue, androidComposeEnd } from '../../_utils';
 

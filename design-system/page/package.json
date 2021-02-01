@@ -43,7 +43,7 @@
     "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
-    "react-lorem-component": "^0.12.2",
+    "react-lorem-component": "^0.13.0",
     "react-syntax-highlighter": "^10.0.1",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

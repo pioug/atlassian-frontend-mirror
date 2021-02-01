@@ -7,7 +7,7 @@ import {
   findCutBefore,
   toggleMark,
 } from '../../../utils/commands';
-import createEditorFactory from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import {
   p,

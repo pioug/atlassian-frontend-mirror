@@ -24,8 +24,8 @@ import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions'
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
-  videoFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/collectionNames';
+import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { getFileStreamsCache } from '@atlaskit/media-client';
 

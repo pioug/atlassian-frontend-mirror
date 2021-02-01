@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import React from 'react';
 import { ANALYTICS_HOVER_DELAY } from '../../../../components/constants';

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 136.3.0
+
+### Minor Changes
+
+- [`a30fc2921e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a30fc2921e8) - HOT-94214 fix chrome selection issue
+
 ## 136.2.0
 
 ### Minor Changes

@@ -1,9 +1,11 @@
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
+import { browser } from '@atlaskit/editor-common';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import focusHandlerPlugin from './pm-plugins/focus-handler';
+import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
 import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
@@ -25,6 +27,10 @@ export interface BasePluginOptions {
   inputTracking?: InputTracking;
   bFreezeTracking?: BFreezeTracking;
 }
+
+// Chrome >= 88
+export const isChromeWithSelectionBug =
+  browser.chrome && browser.chrome_version >= 88;
 
 const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
   name: 'base',
@@ -89,6 +95,13 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
       plugins.push({
         name: 'scrollGutterPlugin',
         plugin: () => scrollGutter(options.allowScrollGutter),
+      });
+    }
+
+    if (isChromeWithSelectionBug) {
+      plugins.push({
+        name: 'fixChrome88SelectionPlugin',
+        plugin: () => fixChrome88SelectionPlugin(),
       });
     }
 

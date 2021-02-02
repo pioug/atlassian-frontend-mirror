@@ -390,3 +390,22 @@ export interface CustomizeLinks {
     getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
   };
 }
+
+//
+export type ProductRecommendationsResponse = {
+  capability: ProductRecommendationsCapabilityProperty;
+};
+
+export type ProductRecommendationsCapabilityProperty = {
+  REQUEST_ACCESS: Array<ProductRecommendationResource>;
+  DIRECT_ACCESS: Array<ProductRecommendationResource>;
+};
+
+export type ProductRecommendationResource = {
+  resourceId: string; //"ari:cloud:statuspage::site/bd98310f-491e-4af3-89a1-a23c6a9db606",
+  userAccessLevel: string; //"INTERNAL",
+  roleAri: string; //"ari:cloud:statuspage::role/product/member",
+  url: string; //"https://manage.statuspagestaging.com/cloud/bd98310f-491e-4af3-89a1-a23c6a9db606",
+  displayName: string; //"recommendations1",
+  avatarUrl: string; //"https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/lightbulb.png"
+};

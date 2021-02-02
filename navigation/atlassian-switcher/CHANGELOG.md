@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.10.1
+
+### Patch Changes
+
+- [`9b5012a9a93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b5012a9a93) - Added support for Product Recommendations API. Product Recommendations can now replace the experimental Joinable Sites API. Primarly for use within the Cross-join section of Atlassian Switcher
+
 ## 8.10.0
 
 ### Minor Changes

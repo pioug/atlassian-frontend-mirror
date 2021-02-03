@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 14.2.0
+
+### Minor Changes
+
+- [`78a52b31f84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a52b31f84) - [ux] Added triggerLinkType prop to allow customisation of the link that wraps the trigger.
+
 ## 14.1.0
 
 ### Minor Changes

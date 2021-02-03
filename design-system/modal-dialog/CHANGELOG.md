@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.2.6
+
+### Patch Changes
+
+- [`7490717bdd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7490717bdd4) - Fix overflow issue present in Safari 14.0.3
+
 ## 11.2.5
 
 ### Patch Changes

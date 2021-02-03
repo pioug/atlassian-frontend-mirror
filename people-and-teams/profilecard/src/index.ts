@@ -29,6 +29,7 @@ export type {
   ProfileCardTriggerState,
   ProfileClientOptions,
   ProfilecardProps,
+  Team,
 } from './types';
 
 export { ProfileCard };

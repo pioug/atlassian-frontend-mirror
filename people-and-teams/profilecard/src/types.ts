@@ -105,16 +105,96 @@ export interface TeamProfileCardTriggerState {
 }
 
 export interface TeamProfileCardTriggerProps {
+  /** The id of the team. */
   teamId: string;
+  /**
+    The id of the organization that the team belongs to.
+    Currently this is unused, but will become necessary in the future.
+   */
   orgId: string;
+  /**
+    The id of the user viewing the profile card.
+
+    This is used to determine whether to say that the member count is
+    "including you" or not.
+   */
   viewingUserId?: string;
+  /** An instance of ProfileClient. */
   resourceClient: ProfileClient;
+  /**
+    A list of extra buttons to be displayed at the bottom of the card.
+    View Profile is always included by default.
+   */
   actions: ProfileCardAction[];
+  /** Analytics are yet to be implemented. */
   analytics?: any;
+  /**
+    The position relative to the trigger that the card should be displayed in.
+   */
   position?: ProfilecardTriggerPosition;
+  /**
+    The interaction method used to trigger the team profile card to appear.
+
+    - Click is generally recommended, but your needs may vary.
+
+    - Hover works for mouse users, but does not support those who use a
+      keyboard or screen reader, avoid using this if it's possible or makes
+      sense.
+
+    - Hover-click is usable for scenarios like inline-edits, where mouse users
+      cannot click on the trigger without causing side effects, but keyboard
+      users are still able to navigate into and trigger the profile card.
+
+    Look at the "Team Profilecard Trigger" or "Trigger Link Types" examples to
+    see how they behave, or ask in #team-twp-people-teams on Slack for our
+    recommendations.
+   */
   trigger?: 'hover' | 'click' | 'hover-click';
+  /**
+    We generally prefer to wrap the trigger in a link to the team profile
+    page. This prop determines how that link behaves.
+
+    - Link is generally the recommended prop (especially in combination with
+      click or hover-click for the trigger prop above). It wraps the trigger in
+      an anchor tag with the team profile link (that users can interact with
+      via middle-click, etc.), but left clicking on the link is suppressed.
+
+    - None does not wrap the trigger in a link at all. This makes it difficult
+      for keyboard or screen reader users to know how to trigger the profile
+      card. Generally avoid this.
+
+    - Clickable-link wraps the trigger in a link with no special behaviour.
+      This is suitable for places where you want the trigger to serve primarily
+      as a link, and optionally allow hovering to preview the team first.
+
+    Look at the example on "Trigger Link Types" for more in-depth analysis, or
+    ask in #team-twp-people-teams on Slack for our recommendations.
+   */
+  triggerLinkType?: 'none' | 'link' | 'clickable-link';
+  /**
+    This is the component that will cause a team profile card to appear when
+    interacted with according to the method specified by the trigger prop.
+   */
   children?: React.ReactNode;
+  /**
+    This should be a link to the team's profile page. This will be used for:
+
+    - Wrapping the trigger in a link to the team profile page (unless
+      triggerLinkType is `none`).
+
+    - Providing the link for the View Profile action button on the card.
+   */
   viewProfileLink: string;
+  /**
+    An onClick action that navigates to the team's profile page. Something you
+    may want, e.g. for an SPA site or tracking analytics of navigation. This
+    is optional, just the viewProfileLink will suffice. Will be used for:
+
+    - Adding an onClick to the trigger if the triggerLinkType is
+      `clickable-link`.
+
+    - Providing an onClick for the View Profile action button on the card.
+   */
   viewProfileOnClick?: () => void;
 }
 

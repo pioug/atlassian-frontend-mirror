@@ -95,7 +95,7 @@ describe('Flag analytics', () => {
     });
   });
 
-  it(`should fire an event on the public channel and the internal channel when dismissed`, () => {
+  it(`should fire an event on the public channel and the internal channel when dismissed from the flag group`, () => {
     const onPublicEvent = jest.fn();
     const onAtlaskitEvent = jest.fn();
 
@@ -108,6 +108,53 @@ describe('Flag analytics', () => {
           analyticsEvent: UIAnalyticsEvent,
         ) => {
           analyticsEvent.fire();
+        }}
+      />,
+    );
+    const flagDismiss: HTMLElement = getByTestId('flag-dismiss');
+    fireEvent.click(flagDismiss);
+    const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+      payload: {
+        action: 'dismissed',
+        actionSubject: 'flag',
+        attributes: {
+          componentName: 'flag',
+          packageName,
+          packageVersion,
+        },
+      },
+      context: [
+        {
+          componentName: 'flag',
+          packageName,
+          packageVersion,
+        },
+      ],
+    });
+    function asset(mock: jest.Mock) {
+      expect(mock).toHaveBeenCalledTimes(1);
+      expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);
+      expect(mock.mock.calls[0][0].context).toEqual(expected.context);
+    }
+    asset(onPublicEvent);
+    asset(onAtlaskitEvent);
+  });
+
+  it(`should fire an event on the public channel and the internal channel when dismissed from the flag`, () => {
+    const onPublicEvent = jest.fn();
+    const onAtlaskitEvent = jest.fn();
+
+    const { getByTestId } = render(
+      <WithBoth
+        onPublicEvent={onPublicEvent}
+        onAtlaskitEvent={onAtlaskitEvent}
+        flagProps={{
+          onDismissed: (
+            id: number | string,
+            analyticsEvent: UIAnalyticsEvent,
+          ) => {
+            analyticsEvent.fire();
+          },
         }}
       />,
     );

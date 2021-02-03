@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import { AutoDismissFlagProps } from './types';
 
@@ -12,10 +13,22 @@ export const AUTO_DISMISS_SECONDS = 8;
 function noop() {}
 
 const AutoDismissFlag = (props: AutoDismissFlagProps) => {
-  const { id, analyticsContext } = props;
+  const { id, analyticsContext, onDismissed: onDismissedProp = noop } = props;
   const autoDismissTimer = useRef<number | null>(null);
 
-  const { onDismissed = noop, dismissAllowed } = useFlagGroup();
+  const {
+    onDismissed: onDismissedFromFlagGroup,
+    dismissAllowed,
+  } = useFlagGroup();
+
+  const onDismissed = useCallback(
+    (id: string | number, analyticsEvent: UIAnalyticsEvent) => {
+      onDismissedProp(id, analyticsEvent);
+      onDismissedFromFlagGroup(id, analyticsEvent);
+    },
+    [onDismissedProp, onDismissedFromFlagGroup],
+  );
+
   const isDismissAllowed = dismissAllowed(id);
 
   const isAutoDismissAllowed = isDismissAllowed && onDismissed;

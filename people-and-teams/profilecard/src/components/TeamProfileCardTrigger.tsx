@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Popup from '@atlaskit/popup';
+import { TriggerProps } from '@atlaskit/popup/types';
 
 import TeamProfilecard from './TeamProfileCard';
 import filterActions from '../internal/filterActions';
@@ -23,6 +25,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
     actions: [],
     trigger: 'hover',
     position: 'bottom-start',
+    triggerLinkType: 'link',
   };
 
   _isMounted: boolean = false;
@@ -53,13 +56,21 @@ class TeamProfileCardTrigger extends React.PureComponent<
   };
 
   onClick = (event: React.MouseEvent<HTMLElement>) => {
-    const isModifiedClick =
-      event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+    if (this.props.triggerLinkType === 'link') {
+      const isModifiedClick =
+        event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
 
-    // We want to prevent navigation occurring on regular click, but it's important that
-    // cmd+click, ctrl+click, etc. still work as expected.
-    if (!isModifiedClick) {
-      event.preventDefault();
+      // We want to prevent navigation occurring on regular click, but it's important that
+      // cmd+click, ctrl+click, etc. still work as expected.
+      if (!isModifiedClick) {
+        event.preventDefault();
+      }
+    }
+
+    if (this.props.triggerLinkType === 'clickable-link') {
+      if (this.props.viewProfileOnClick) {
+        this.props.viewProfileOnClick();
+      }
     }
 
     if (this.props.trigger !== 'hover') {
@@ -223,31 +234,45 @@ class TeamProfileCardTrigger extends React.PureComponent<
     );
   };
 
-  renderWithTrigger() {
+  renderTrigger = (triggerProps: TriggerProps) => {
+    const { children, triggerLinkType, viewProfileLink } = this.props;
+
+    if (triggerLinkType === 'none') {
+      return (
+        <span {...triggerProps} {...this.triggerListeners}>
+          {children}
+        </span>
+      );
+    }
+
+    return (
+      <a
+        style={{ color: 'initial', textDecoration: 'none' }}
+        href={viewProfileLink}
+        {...triggerProps}
+        ref={triggerProps.ref as React.RefObject<HTMLAnchorElement>}
+        {...this.triggerListeners}
+      >
+        {children}
+      </a>
+    );
+  };
+
+  renderPopup() {
     return (
       <Popup
         isOpen={!!this.state.visible}
         onClose={this.hideProfilecard}
         placement={this.props.position}
         content={this.renderProfileCard}
-        trigger={triggerProps => (
-          <a
-            style={{ color: 'initial', textDecoration: 'none' }}
-            href={this.props.viewProfileLink}
-            {...triggerProps}
-            ref={triggerProps.ref as React.RefObject<HTMLAnchorElement>}
-            {...this.triggerListeners}
-          >
-            {this.props.children}
-          </a>
-        )}
+        trigger={triggerProps => this.renderTrigger(triggerProps)}
       />
     );
   }
 
   render() {
     if (this.props.children) {
-      return this.renderWithTrigger();
+      return this.renderPopup();
     } else {
       throw new Error(
         'Component "TeamProfileCardTrigger" must have "children" property',

@@ -7,7 +7,7 @@ import { AutoDismissFlagProps } from '../../types';
 import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
 
 describe('Auto dismiss flag', () => {
-  // Helper function to generate <Flag /> with base required props
+  // Helper function to generate <AutoDismissFlag /> with base required props
   const generateAutoDismissFlag = (
     extraProps?: Partial<AutoDismissFlagProps>,
   ) => <AutoDismissFlag id="" icon={<div />} title="Flag" {...extraProps} />;
@@ -122,6 +122,36 @@ describe('Auto dismiss flag', () => {
         fireEvent.blur(flag);
         runTimer();
         expect(onDismissedSpy).toBeCalled();
+      });
+
+      it('should auto dismiss after 8 seconds and call onDismissed on the flag', () => {
+        const onDismissedSpy = jest.fn();
+
+        render(
+          <FlagGroup>
+            {generateAutoDismissFlag({ onDismissed: onDismissedSpy })}
+          </FlagGroup>,
+        );
+        expect(onDismissedSpy).not.toBeCalled();
+        runTimer();
+        expect(onDismissedSpy).toBeCalled();
+      });
+
+      it('should auto dismiss after 8 seconds and call onDismissed on the flag and the flag group', () => {
+        const onDismissedSpy = jest.fn();
+        const onDismissedFlagSpy = jest.fn();
+
+        render(
+          <FlagGroup onDismissed={onDismissedSpy}>
+            {generateAutoDismissFlag({ onDismissed: onDismissedFlagSpy })}
+          </FlagGroup>,
+        );
+        expect(onDismissedSpy).not.toBeCalled();
+        expect(onDismissedFlagSpy).not.toBeCalled();
+
+        runTimer();
+        expect(onDismissedSpy).toBeCalled();
+        expect(onDismissedFlagSpy).toBeCalled();
       });
     });
   });

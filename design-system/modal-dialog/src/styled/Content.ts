@@ -22,6 +22,8 @@ export const wrapperStyles = css`
   flex-direction: column;
   flex: 1 1 auto;
   max-height: 100%;
+  /* necessary to fix overflow issue in Safari 14.0.3 */
+  min-height: 0;
 `;
 
 // Header

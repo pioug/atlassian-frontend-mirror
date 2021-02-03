@@ -13,7 +13,8 @@ import {
   layers,
 } from '@atlaskit/theme/constants';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import {
@@ -54,13 +55,25 @@ const Flag = (props: FlagProps) => {
     onFocus = noop,
     onMouseOut,
     onBlur = noop,
+    onDismissed: onDismissedProp = noop,
     testId,
     id,
     analyticsContext,
   } = props;
 
-  const { onDismissed = noop, dismissAllowed } = useFlagGroup();
+  const {
+    onDismissed: onDismissedFromFlagGroup,
+    dismissAllowed,
+  } = useFlagGroup();
   const isDismissAllowed = dismissAllowed(id);
+
+  const onDismissed = useCallback(
+    (id: string | number, analyticsEvent: UIAnalyticsEvent) => {
+      onDismissedProp(id, analyticsEvent);
+      onDismissedFromFlagGroup(id, analyticsEvent);
+    },
+    [onDismissedProp, onDismissedFromFlagGroup],
+  );
 
   const [isExpanded, setIsExpanded] = useState(false);
 

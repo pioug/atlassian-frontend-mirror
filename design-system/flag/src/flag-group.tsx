@@ -29,12 +29,15 @@ export const flagAnimationTime = 400;
 const flagBottom = gridSize * 6;
 const flagLeft = gridSize * 10;
 
+function noop() {}
+
 type FlagGroupAPI = {
-  onDismissed?: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
+  onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
   dismissAllowed: (id: number | string) => Boolean;
 };
 
 export const FlagGroupContext = createContext<FlagGroupAPI>({
+  onDismissed: () => {},
   dismissAllowed: () => false,
 });
 
@@ -83,7 +86,7 @@ const FlagGroup = (props: Props) => {
     label = 'Flag notifications',
     labelTag: LabelTag = 'h2',
     children,
-    onDismissed,
+    onDismissed = noop,
   } = props;
 
   const renderChildren = () => {

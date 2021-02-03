@@ -131,7 +131,7 @@ describe('FlagGroup', () => {
     );
   });
 
-  it('onDismissed should be called when child Flag is dismissed', () => {
+  it('onDismissed provided by FlagGroup should be called when child Flag is dismissed', () => {
     const spy = jest.fn();
     const { getByTestId } = render(
       <FlagGroup onDismissed={spy}>
@@ -148,6 +148,73 @@ describe('FlagGroup', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith('a', expect.anything());
+  });
+
+  it('onDismissed provided by Flag should be called when child Flag is dismissed', () => {
+    const spy = jest.fn();
+    const { getByTestId } = render(
+      <FlagGroup>
+        {generateFlag({
+          id: 'a',
+          testId: 'a',
+          onDismissed: spy,
+        })}
+        {generateFlag({ id: 'b' })}
+      </FlagGroup>,
+    );
+
+    fireEvent.click(getByTestId('a-dismiss'));
+    act(() => jest.runAllTimers());
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith('a', expect.anything());
+  });
+
+  it('onDismissed provided by Flag and FlagGroup should be called when child Flag is dismissed', () => {
+    const flagGroupSpy = jest.fn();
+    const flagSpy = jest.fn();
+    const { getByTestId } = render(
+      <FlagGroup onDismissed={flagGroupSpy}>
+        {generateFlag({
+          id: 'a',
+          testId: 'a',
+          onDismissed: flagSpy,
+        })}
+        {generateFlag({ id: 'b' })}
+      </FlagGroup>,
+    );
+
+    fireEvent.click(getByTestId('a-dismiss'));
+    act(() => jest.runAllTimers());
+
+    expect(flagGroupSpy).toHaveBeenCalledTimes(1);
+    expect(flagGroupSpy).toHaveBeenCalledWith('a', expect.anything());
+
+    expect(flagSpy).toHaveBeenCalledTimes(1);
+    expect(flagSpy).toHaveBeenCalledWith('a', expect.anything());
+  });
+
+  it('should call onDismissed of the first flag and not the second when the first is dismissed', () => {
+    const flagASpy = jest.fn();
+    const flagBSpy = jest.fn();
+    const { getByTestId } = render(
+      <FlagGroup>
+        {generateFlag({
+          id: 'a',
+          testId: 'a',
+          onDismissed: flagASpy,
+        })}
+        {generateFlag({ id: 'b', onDismissed: flagBSpy })}
+      </FlagGroup>,
+    );
+
+    fireEvent.click(getByTestId('a-dismiss'));
+    act(() => jest.runAllTimers());
+
+    expect(flagASpy).toHaveBeenCalledTimes(1);
+    expect(flagASpy).toHaveBeenCalledWith('a', expect.anything());
+
+    expect(flagBSpy).not.toHaveBeenCalled();
   });
 
   it('should render screen reader text only when FlagGroup has children', () => {

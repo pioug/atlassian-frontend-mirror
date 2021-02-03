@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// Whaaaa
 import styled from 'styled-components';
 
 import Select, { ValueType } from '@atlaskit/select';

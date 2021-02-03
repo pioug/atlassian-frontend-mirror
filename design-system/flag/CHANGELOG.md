@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.2.0
+
+### Minor Changes
+
+- [`6a9e722703e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a9e722703e) - You can now place an `onDismissed` prop on a Flag. This was removed as part of a major version upgrade and was previously a "private prop". It has been added back as there is a need for a Flag to know when it is being dimissed.
+
 ## 14.1.0
 
 ### Minor Changes

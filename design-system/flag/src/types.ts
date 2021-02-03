@@ -60,6 +60,10 @@ type AutoDismissFlagPropsWithoutId = {
   icon: ReactNode;
   /** The bold text shown at the top of the flag. */
   title: ReactNode;
+  /** Handler which will be called when a Flag's dismiss button is clicked.
+   * Receives the id of the dismissed Flag as a parameter.
+   */
+  onDismissed?: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
   /** A link component that is passed down to the `@atlaskit/button` used by actions,
   to allow custom routers to be used. See the
   [button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)

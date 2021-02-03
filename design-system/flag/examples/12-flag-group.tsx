@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from 'react';
+import React, { ReactElement, ReactNode, useState, useCallback } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Tick from '@atlaskit/icon/glyph/check-circle';
@@ -62,23 +62,30 @@ const FlagGroupExample = () => {
     setFlags(current => [getFlagData(flags.length), ...current]);
   };
 
-  const dismissFlag = () => {
-    setFlags(flags.slice(1));
-  };
-
-  const actions = [
-    {
-      content: 'Nice one!',
-      onClick: () => {},
+  const dismissFlag = useCallback(
+    (id: string | number) => {
+      setFlags(current => current.filter(flag => flag.id !== id));
     },
-    { content: 'Not right now thanks', onClick: dismissFlag },
-  ];
+    [setFlags],
+  );
 
   return (
     <div>
       <FlagGroup onDismissed={dismissFlag}>
         {flags.map(flag => (
-          <Flag actions={actions} {...flag} />
+          <Flag
+            actions={[
+              {
+                content: 'Nice one!',
+                onClick: () => {},
+              },
+              {
+                content: 'Not right now thanks',
+                onClick: () => dismissFlag(flag.id),
+              },
+            ]}
+            {...flag}
+          />
         ))}
       </FlagGroup>
       <Button onClick={addFlag}>Add Flag</Button>

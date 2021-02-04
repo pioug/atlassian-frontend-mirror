@@ -11,8 +11,12 @@ import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import {
+  getEmojiProvider,
+  currentUser,
+} from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -118,12 +122,10 @@ const getProviders = (collectionName: string): Providers => {
       product: `${collectionName}-atlaskit-examples`,
     });
     const editorProviders: any = {
-      emojiProvider: emoji.storyData.getEmojiResource({
+      emojiProvider: getEmojiProvider({
         uploadSupported: true,
-        currentUser: {
-          id: emoji.storyData.loggedUser,
-        },
-      }) as Promise<EmojiProvider>,
+        currentUser,
+      }),
       mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
       taskDecisionProvider: Promise.resolve(
         taskDecision.getMockTaskDecisionResource(),

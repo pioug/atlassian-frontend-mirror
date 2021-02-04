@@ -18,7 +18,7 @@ These props were:
 - `isOpen`
 
 There's a lot of value in this idea, as it allows users to opt into controlling certain aspects of the select in one export while
-being happy with default behaviour in the `Stateless` version. However, what if I only want to control one of the three controllable props,
+being happy with default behavior in the `Stateless` version. However, what if I only want to control one of the three controllable props,
 and want the package to internally manage the rest?
 This was not possible in `@atlaskit/single-select` or `@atlaskit/multi-select`, if you opt into using the stateless component, you opt into being responsible for all of the prop values specified.
 
@@ -56,9 +56,9 @@ If you don't use the controlled props, `@atlaskit/select` has props that let you
 
 #### Components API
 
-In `single-select` and `multi-select`, we've had several issues opened as a result of users wanting to customise
+In `single-select` and `multi-select`, we've had several issues opened as a result of users wanting to customize
 the appearance or functionality of the exported `select` in various ways. `@atlaskit/select` opens up the API
-to allow customisation and configuration of any/every part of the select by exposing a new components prop.
+to allow customization and configuration of any/every part of the select by exposing a new components prop.
 
 For example, to render a custom Option component:
 
@@ -87,7 +87,7 @@ See the [Components Documentation](https://react-select.com/components) for more
 #### Styles API
 
 Each component that `@atlaskit/select` exposes also has a corresponding key that you can specify in the styles prop.
-Each value you provide should be a function that takes the default styles, and returns your customised style object.
+Each value you provide should be a function that takes the default styles, and returns your customized style object.
 
 For example, to give the control a white background:
 
@@ -133,7 +133,7 @@ The returned string value is the string that's rendered:
 - As the label for options in the menu
 - As the label for value(s) in the control.
 
-Please use this if you only want to customise the label text that gets rendered for an option.
+Please use this if you only want to customize the label text that gets rendered for an option.
 
 ##### formatOptionLabel
 
@@ -231,13 +231,13 @@ and returns a function of the shape expected by the `filterOption` prop. By defa
 }
 ```
 
-The goal here is to allow for varying levels of configuration of the core filtering logic used within a `select` instance. We recognise that you may not want to replace all of the filtering logic put have in place by default, and by invoking the `createFilter` export with your desired config, you should be able to pick and choose filtering decisions that best suit you, without having to rewrite the logic from scratch. If you _do_ want to do this however, supplying a `filterOption` function of the specified shape is always a viable option.
+The goal here is to allow for varying levels of configuration of the core filtering logic used within a `select` instance. We recognize that you may not want to replace all of the filtering logic put have in place by default, and by invoking the `createFilter` export with your desired config, you should be able to pick and choose filtering decisions that best suit you, without having to rewrite the logic from scratch. If you _do_ want to do this however, supplying a `filterOption` function of the specified shape is always a viable option.
 
 For more comprehensive documentation and prop specification, please see the [react-select.v2 docs](https://react-select.com/home)
 
 ### Testing
 
-Being able to programmatically test the behaviour of your components is important.
+Being able to programmatically test the behavior of your components is important.
 `ak/select` enables this through two props `className` and `classNamePrefix`.
 
 Typically when these two props are not defined, the dom-elements in `ak/select` use emotions generated classnames.

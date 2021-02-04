@@ -13,7 +13,12 @@ import WithEditorActions from '../src/ui/WithEditorActions';
 import { EditorActions } from '../src';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import Editor from './../src/editor';
-import { emoji, taskDecision, mention } from '@atlaskit/util-data-test';
+import {
+  getEmojiProvider,
+  currentUser,
+} from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { mediaProvider } from './5-full-page';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import styled from 'styled-components';
@@ -29,11 +34,9 @@ const Wrapper: any = styled.div`
 `;
 
 export const providers: any = {
-  emojiProvider: emoji.storyData.getEmojiResource({
+  emojiProvider: getEmojiProvider({
     uploadSupported: true,
-    currentUser: {
-      id: emoji.storyData.loggedUser,
-    },
+    currentUser,
   }) as Promise<EmojiProvider>,
   taskDecisionProvider: Promise.resolve(
     taskDecision.getMockTaskDecisionResource(),

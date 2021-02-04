@@ -4,8 +4,11 @@ import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
-import { mention, emoji } from '@atlaskit/util-data-test';
-import { EmojiProvider } from '@atlaskit/emoji';
+import {
+  getEmojiProvider,
+  currentUser,
+} from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
 import { mediaProvider } from './5-full-page';
 import { MockActivityResource } from '../example-helpers/activity-provider';
 
@@ -26,12 +29,10 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
   };
 
   private providers = {
-    emojiProvider: emoji.storyData.getEmojiResource({
+    emojiProvider: getEmojiProvider({
       uploadSupported: true,
-      currentUser: {
-        id: emoji.storyData.loggedUser,
-      },
-    }) as Promise<EmojiProvider>,
+      currentUser,
+    }),
     mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
     activityProvider: Promise.resolve(new MockActivityResource()),
   };

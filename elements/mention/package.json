@@ -50,7 +50,7 @@
     "@atlaskit/editor-test-helpers": "^13.2.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/util-data-test": "^14.2.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "@babel/types": "^7.5.5",
     "@types/query-string": "^4.3.1",
     "enzyme": "^3.10.0",

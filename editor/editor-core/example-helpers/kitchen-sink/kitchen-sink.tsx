@@ -55,12 +55,12 @@ const appearanceOptions = [
 
 const docOptions = [
   { label: 'Empty document', value: null },
-  { label: 'Example document', value: 'example-document.ts' },
-  { label: 'With huge table', value: 'example-doc-with-huge-table.ts' },
-  { label: 'With table', value: 'example-doc-with-table.ts' },
+  { label: 'Example document', value: './adf/example.adf.json' },
+  { label: 'With huge table', value: './adf/huge-table.adf.json' },
+  { label: 'With table', value: './adf/table.adf.json' },
   {
     label: 'Different extension types',
-    value: 'example-doc-with-different-extension-types.ts',
+    value: './adf/extension-types.adf.json',
   },
 ];
 
@@ -324,9 +324,8 @@ export class KitchenSink extends React.Component<
       return;
     }
 
-    const docModule = await import(`../${opt.value}`);
-    const adf = docModule.exampleDocument;
-
+    const response = await fetch(opt.value);
+    const adf = await response.json();
     this.props.actions.replaceDocument(adf, false);
   };
 

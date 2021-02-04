@@ -32,6 +32,7 @@ const PRD_CONFIG: Config = {
   },
 };
 
-export const setEnv = (newEnv: 'prod' | 'local') => (env = newEnv);
+export const setSmartUserPickerEnv = (newEnv: 'prod' | 'local') =>
+  (env = newEnv);
 
 export const getConfig = () => (env === 'local' ? LOCAL_CONFIG : PRD_CONFIG);

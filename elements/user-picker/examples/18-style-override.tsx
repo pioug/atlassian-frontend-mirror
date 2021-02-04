@@ -1,11 +1,11 @@
 import React from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import SmartUserPicker from '../src/components/smart-user-picker/components';
-import { setEnv } from '../src/components/smart-user-picker/config';
+import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
 import { StylesConfig } from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 
-setEnv('local');
+setSmartUserPickerEnv('local');
 const Example = () => {
   const styles: StylesConfig = {
     control: style => ({

@@ -1,6 +1,11 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
+import {
+  getEmojiProvider,
+  currentUser,
+} from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -51,11 +56,9 @@ const providers = {
     undefined: undefined,
   },
   emojiProvider: {
-    resolved: emoji.storyData.getEmojiResource({
+    resolved: getEmojiProvider({
       uploadSupported: true,
-      currentUser: {
-        id: emoji.storyData.loggedUser,
-      },
+      currentUser,
     }),
     external: Promise.resolve(
       new EmojiResource({

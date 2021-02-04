@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { taskDecision, emoji } from '@atlaskit/util-data-test';
+import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
 import {
@@ -17,7 +18,7 @@ function useRendererProviderFactory() {
     const mediaProvider = storyMediaProviderFactory({
       useMediaPickerAuthProvider: false,
     });
-    const emojiProvider = emoji.storyData.getEmojiResource();
+    const emojiProvider = getEmojiProvider();
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const mentionProvider = Promise.resolve({
       shouldHighlightMention: (mention: { id: string }) =>

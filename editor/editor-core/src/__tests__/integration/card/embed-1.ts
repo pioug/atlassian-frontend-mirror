@@ -4,7 +4,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
-import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
+import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
 import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-helpers';
 

@@ -8,10 +8,8 @@ import {
 } from '@atlaskit/editor-core';
 import { mention, taskDecision } from '@atlaskit/util-data-test';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import {
-  ConfluenceCardClient,
-  ConfluenceCardProvider,
-} from '@atlaskit/editor-core/examples/5-full-page-with-confluence-smart-cards';
+import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import imageUploadHandler from '@atlaskit/editor-core/example-helpers/imageUpload';
 import { BitbucketTransformer } from '../src';
 import exampleBitbucketHTML from '../example-helpers/exampleHTML';

@@ -11,13 +11,10 @@ import {
   ConfigResponse,
 } from '@atlaskit/share';
 
-import {
-  emoji,
-  mention,
-  taskDecision,
-  userPickerData,
-} from '@atlaskit/util-data-test';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
+import { userPickerData } from '@atlaskit/util-data-test/userPickerData';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { OptionData, User } from '@atlaskit/user-picker';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -249,7 +246,7 @@ const editorProps = ({
     allowMediaSingle: true,
     customDropzoneContainer: parentContainer,
   },
-  emojiProvider: emoji.storyData.getEmojiResource() as Promise<EmojiProvider>,
+  emojiProvider: getEmojiProvider(),
   mentionProvider: Promise.resolve(
     mentionProvider || mention.storyData.resourceProviderWithResolver,
   ),

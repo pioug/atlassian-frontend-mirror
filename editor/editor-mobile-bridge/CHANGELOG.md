@@ -1,5 +1,12 @@
 # @atlaskit/editor-mobile-bridge
 
+## 23.0.2
+
+### Patch Changes
+
+- [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
+- Updated dependencies
+
 ## 23.0.1
 
 ### Patch Changes

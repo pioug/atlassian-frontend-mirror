@@ -7,4 +7,4 @@ export type {
   SmartProps,
 } from './components';
 
-export { setEnv as setSmartUserPickerEnv } from './config';
+export { setSmartUserPickerEnv } from './config';

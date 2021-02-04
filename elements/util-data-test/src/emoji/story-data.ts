@@ -23,8 +23,6 @@ const siteEmojis = {
   emojis: [siteEmojiWtf],
 };
 
-export const loggedUser = 'blackpanther';
-
 export const getSiteEmojiData = (): EmojiServiceResponse =>
   siteEmojis as EmojiServiceResponse;
 
@@ -109,3 +107,5 @@ export const getEmojiResourceWithStandardAndAtlassianEmojis = (
 
 export const getUsageClearEmojiResource = (): UsageClearEmojiResource =>
   new UsageClearEmojiResource(getEmojis());
+
+export { loggedUser } from './logged-user';

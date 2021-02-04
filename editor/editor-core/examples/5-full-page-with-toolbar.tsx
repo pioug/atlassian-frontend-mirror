@@ -1,17 +1,16 @@
 import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 
 import Editor from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
-import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
-
-import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import { exampleDocument } from '../example-helpers/example-document';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
 import { Wrapper, Content } from './5-full-page';
@@ -21,32 +20,36 @@ import { EditorActions } from '../src';
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
-const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
-  <ButtonGroup>
-    <Button
-      className="loadExampleDocument"
-      onClick={() =>
-        props.editorActions.replaceDocument(exampleDocument, false)
-      }
-    >
-      Load Example
-    </Button>
-    <Button
-      appearance="primary"
-      onClick={() =>
-        props.editorActions
-          .getValue()
-          // eslint-disable-next-line no-console
-          .then(value => console.log(value))
-      }
-    >
-      Publish
-    </Button>
-    <Button appearance="subtle" onClick={() => props.editorActions.clear()}>
-      Close
-    </Button>
-  </ButtonGroup>
-);
+const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
+  const exampleDocument = useExampleDocument();
+
+  return (
+    <ButtonGroup>
+      <Button
+        className="loadExampleDocument"
+        onClick={() =>
+          props.editorActions.replaceDocument(exampleDocument, false)
+        }
+      >
+        Load Example
+      </Button>
+      <Button
+        appearance="primary"
+        onClick={() =>
+          props.editorActions
+            .getValue()
+            // eslint-disable-next-line no-console
+            .then(value => console.log(value))
+        }
+      >
+        Publish
+      </Button>
+      <Button appearance="subtle" onClick={() => props.editorActions.clear()}>
+        Close
+      </Button>
+    </ButtonGroup>
+  );
+};
 
 export type Props = {
   defaultValue?: Object;

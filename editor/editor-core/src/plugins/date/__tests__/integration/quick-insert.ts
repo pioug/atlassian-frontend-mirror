@@ -111,12 +111,7 @@ BrowserTestCase(
     const browser = (client.capabilities
       .browserName as string).toLowerCase() as Browser;
 
-    // Safari formats dates slightly differently
-    if (browser === 'safari') {
-      expect(lozengeText).toBe('1 de jan de 2019');
-    } else {
-      expect(lozengeText).toBe('1 de jan. de 2019');
-    }
+    expect(lozengeText).toBe('1 de jan. de 2019');
 
     await mountEditor(
       page,

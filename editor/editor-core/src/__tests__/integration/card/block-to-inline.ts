@@ -1,5 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { ConfluenceCardProvider } from '../../../../examples/5-full-page-with-confluence-smart-cards';
+import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import * as blockCardAdf from './_fixtures_/block-card-with-empty-p-at-bottom.adf.json';
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 import { getDocFromElement, editable, getProseMirrorPos } from '../_helpers';

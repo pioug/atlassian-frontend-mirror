@@ -1,6 +1,8 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
+import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { ReactRenderer } from '@atlaskit/renderer';
 
 import { Content } from './styles';
@@ -8,7 +10,7 @@ import { toJSON } from '../src/utils';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers';
 
-const emojiProvider = emoji.storyData.getEmojiResource({
+const emojiProvider = getEmojiProvider({
   uploadSupported: true,
 });
 const mentionProvider = Promise.resolve(mention.storyData.resourceProvider);

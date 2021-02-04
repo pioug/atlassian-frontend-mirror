@@ -6,13 +6,13 @@ import Button from '@atlaskit/button/standard-button';
 import Modal, { ModalTransition, ScrollBehavior } from '../../src';
 
 export default function Example() {
-  const [scrollBehaviour, setScrollBehaviour] = useState<ScrollBehavior>(
+  const [scrollBehavior, setScrollBehavior] = useState<ScrollBehavior>(
     'inside',
   );
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
   const setScrollAndOpen = (newScroll: ScrollBehavior) => {
-    setScrollBehaviour(newScroll);
+    setScrollBehavior(newScroll);
     requestAnimationFrame(() => setIsOpen(true));
   };
 
@@ -33,7 +33,7 @@ export default function Example() {
             actions={[{ text: 'Close', onClick: close }]}
             onClose={close}
             heading="Our voice and tone"
-            scrollBehavior={scrollBehaviour}
+            scrollBehavior={scrollBehavior}
             height={600}
           >
             <h5>Be bold</h5>

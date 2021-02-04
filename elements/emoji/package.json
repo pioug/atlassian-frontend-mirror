@@ -57,7 +57,7 @@
     "@atlaskit/layer": "^9.0.0",
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/section-message": "^5.0.0",
-    "@atlaskit/util-data-test": "^14.0.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/visual-regression": "*",
     "@types/js-search": "^1.4.0",
     "@types/react-virtualized": "^9.18.12",

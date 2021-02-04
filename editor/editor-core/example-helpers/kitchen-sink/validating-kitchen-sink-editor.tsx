@@ -9,11 +9,9 @@ import {
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { validator, ErrorCallback, ADFEntity } from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import { mention } from '@atlaskit/util-data-test';
-import {
-  ConfluenceCardClient,
-  ConfluenceCardProvider,
-} from '../../examples/5-full-page-with-confluence-smart-cards';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import Editor from '../../src/editor';
 import { EditorAppearance, EditorProps } from '../../src/types';
 import { EditorActions } from '../../src';

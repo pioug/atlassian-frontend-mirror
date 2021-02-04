@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import SmartUserPicker from '../src/components/smart-user-picker/components';
-import { setEnv } from '../src/components/smart-user-picker/config';
-setEnv('local');
+import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
+setSmartUserPickerEnv('local');
 
 const Example: FunctionComponent = () => {
   return (

@@ -1,6 +1,7 @@
 import { default as FullPageExample } from './5-full-page';
-import { exampleDocument } from '../example-helpers/example-doc-with-huge-table';
+import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 
 export default function Example() {
-  return FullPageExample({ defaultValue: exampleDocument });
+  const defaultValue = useExampleDocument('./adf/huge-table.adf.json');
+  return FullPageExample({ defaultValue });
 }

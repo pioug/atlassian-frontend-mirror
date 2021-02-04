@@ -54,7 +54,7 @@
     "@atlaskit/dynamic-table": "^14.1.0",
     "@atlaskit/inline-edit": "^11.0.8",
     "@atlaskit/select": "^13.1.1",
-    "@atlaskit/util-data-test": "^14.0.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "loader-utils": "^1.1.0",

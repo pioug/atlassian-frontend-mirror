@@ -80,7 +80,7 @@
     "@atlaskit/radio": "^5.0.0",
     "@atlaskit/smart-card": "^14.8.0",
     "@atlaskit/ssr": "^0.2.0",
-    "@atlaskit/util-data-test": "^14.2.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

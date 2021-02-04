@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 136.3.1
+
+### Patch Changes
+
+- [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
+
 ## 136.3.0
 
 ### Minor Changes

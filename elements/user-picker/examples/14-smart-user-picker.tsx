@@ -9,9 +9,9 @@ import {
   SupportedProduct,
   SmartUserPicker,
 } from '../src/components/smart-user-picker/index';
-import { setEnv } from '../src/components/smart-user-picker/config';
+import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
 import { BitbucketAttributes } from '../src/components/smart-user-picker/components';
-setEnv('local');
+setSmartUserPickerEnv('local');
 
 const products = [
   { label: 'Jira', value: 'jira' },

@@ -85,7 +85,7 @@ export const propChanges = [
     content: md`
       the items prop has been deprecated, instead @atlaskit/select exposes an options prop
       that is much less prescriptive in regards to its expected shape.
-      For more details on usage, and how to implement behaviour previously afforded by the items prop
+      For more details on usage, and how to implement behavior previously afforded by the items prop
       please see the [Options](/packages/design-system/select/docs/upgrade-guide#options) section of this upgrade guide.
     `,
     packages: ['single', 'multi'],

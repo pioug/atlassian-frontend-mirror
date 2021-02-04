@@ -74,7 +74,7 @@
     "@atlaskit/editor-json-transformer": "^8.4.0",
     "@atlaskit/editor-test-helpers": "^13.3.0",
     "@atlaskit/media-core": "^32.1.0",
-    "@atlaskit/util-data-test": "^14.2.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

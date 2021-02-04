@@ -5,8 +5,12 @@ import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
+import {
+  getEmojiProvider,
+  currentUser,
+} from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { ExtensionHandlers } from '@atlaskit/editor-common';
 import {
@@ -220,12 +224,10 @@ function createProviders(
   props: EditorProps = {},
 ) {
   const providers: Record<string, any> = {
-    emojiProvider: emoji.storyData.getEmojiResource({
+    emojiProvider: getEmojiProvider({
       uploadSupported: true,
-      currentUser: {
-        id: emoji.storyData.loggedUser,
-      },
-    }) as Promise<EmojiProvider>,
+      currentUser,
+    }),
     mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
     taskDecisionProvider: Promise.resolve(
       taskDecision.getMockTaskDecisionResource(),

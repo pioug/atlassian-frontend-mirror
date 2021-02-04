@@ -39,7 +39,7 @@
     "@atlaskit/profilecard": "^14.0.0",
     "@atlaskit/renderer": "^73.0.0",
     "@atlaskit/theme": "^11.0.0",
-    "@atlaskit/util-data-test": "^14.2.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "@types/prosemirror-model": "^1.11.0",
     "cookie": "^0.3.1",
     "debug": "^2.2.0",

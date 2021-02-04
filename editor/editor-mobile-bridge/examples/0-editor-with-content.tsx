@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { exampleDocument } from '@atlaskit/editor-core/example-helpers/example-document';
+import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 import Editor from './../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
@@ -21,6 +21,7 @@ export const Wrapper: any = styled.div`
 Wrapper.displayName = 'Wrapper';
 
 export default function Example() {
+  const defaultValue = useExampleDocument();
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
@@ -30,7 +31,7 @@ export default function Example() {
       <Editor
         bridge={bridge}
         {...createEditorProviders(fetchProxy)}
-        defaultValue={exampleDocument}
+        defaultValue={defaultValue}
         editorConfiguration={editorConfiguration}
         locale={editorConfiguration.getLocale()}
       />

@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 
 import Tooltip from '../../src';
 
-const CustomisedTagWithRef = React.forwardRef((props, ref: Ref<any>) => {
+const CustomizedTagWithRef = React.forwardRef((props, ref: Ref<any>) => {
   const { children, ...rest } = props;
   return (
     <div
@@ -20,7 +20,7 @@ const CustomisedTagWithRef = React.forwardRef((props, ref: Ref<any>) => {
   );
 });
 
-const CustomisedTagExample = () => {
+const CustomizedTagExample = () => {
   const ref = React.createRef();
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const CustomisedTagExample = () => {
   });
 
   return (
-    <Tooltip content="Hello world" tag={CustomisedTagWithRef}>
+    <Tooltip content="Hello world" tag={CustomizedTagWithRef}>
       <Button>Hover over me</Button>
     </Tooltip>
   );
 };
 
-export default CustomisedTagExample;
+export default CustomizedTagExample;

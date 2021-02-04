@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/util-data-test": "^14.0.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "mkdirp": "^0.5.1",
     "mockdate": "^3.0.2",
     "react": "^16.8.0",

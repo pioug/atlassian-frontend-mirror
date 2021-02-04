@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import SmartUserPicker from '../src/components/smart-user-picker/components';
-import { setEnv } from '../src/components/smart-user-picker/config';
+import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
 import onConfluenceError, {
   UserAndGroupSearchQueryGroup,
   UserAndGroupSearchQueryUser,
@@ -86,6 +86,6 @@ const Example: FunctionComponent = () => {
   );
 };
 
-setEnv('local');
+setSmartUserPickerEnv('local');
 
 export default Example;

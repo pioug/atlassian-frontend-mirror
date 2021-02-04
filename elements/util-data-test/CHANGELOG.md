@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 15.0.0
+
+### Major Changes
+
+- [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
+
 ## 14.2.2
 
 ### Patch Changes

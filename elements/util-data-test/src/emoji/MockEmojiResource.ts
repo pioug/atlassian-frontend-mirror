@@ -27,7 +27,7 @@ import {
   selectedToneStorageKey,
   UploadDetail,
 } from './utils';
-import { loggedUser } from './story-data';
+import { loggedUser } from './logged-user';
 
 const emojiFromUpload = (upload: EmojiUpload) => {
   const { shortName, name, dataURL, height, width } = upload;

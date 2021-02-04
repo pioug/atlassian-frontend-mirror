@@ -30,12 +30,14 @@ import {
   Provider as SmartCardProvider,
   Client as SmartCardClient,
 } from '@atlaskit/smart-card';
+
 import {
-  mention,
-  emoji,
-  taskDecision,
-  profilecard as profilecardUtils,
-} from '@atlaskit/util-data-test';
+  getEmojiProvider,
+  currentUser,
+} from '@atlaskit/util-data-test/getEmojiProvider';
+import { mention } from '@atlaskit/util-data-test/mention';
+import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+import { profilecard as profilecardUtils } from '@atlaskit/util-data-test/profilecard';
 
 import Editor, { EditorProps, EditorAppearance } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
@@ -183,11 +185,9 @@ const searchProvider = createSearchProvider(
 );
 
 export const providers: Partial<Providers> = {
-  emojiProvider: emoji.storyData.getEmojiResource({
+  emojiProvider: getEmojiProvider({
     uploadSupported: true,
-    currentUser: {
-      id: emoji.storyData.loggedUser,
-    },
+    currentUser,
   }) as Promise<EmojiProvider>,
   mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
   taskDecisionProvider: Promise.resolve(
@@ -257,6 +257,10 @@ export class ExampleEditorComponent extends React.Component<
       this.setState(() => ({
         appearance: this.props.appearance || 'full-page',
       }));
+    }
+
+    if (prevProps.defaultValue !== this.props.defaultValue) {
+      this.editorActions?.replaceDocument(this.props.defaultValue, false);
     }
   }
 
@@ -550,7 +554,7 @@ const mentionProvider = Promise.resolve({
   },
 } as MentionProvider);
 
-const emojiProvider = emoji.storyData.getEmojiResource();
+const emojiProvider = getEmojiProvider();
 
 const profilecardProvider = Promise.resolve({
   cloudId: 'DUMMY-CLOUDID',

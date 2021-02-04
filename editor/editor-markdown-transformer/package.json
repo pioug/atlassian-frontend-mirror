@@ -39,7 +39,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^136.0.0",
     "@atlaskit/editor-test-helpers": "^13.2.0",
-    "@atlaskit/util-data-test": "^14.2.0",
+    "@atlaskit/util-data-test": "^15.0.0",
     "react": "^16.8.0",
     "typescript": "3.9.6"
   }

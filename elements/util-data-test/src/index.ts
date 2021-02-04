@@ -1,7 +1,7 @@
-import profilecard from './profilecard';
-import * as mention from './mention';
-import * as emoji from './emoji';
-import taskDecision from './task-decision';
+import profilecard from './profilecard/';
+import * as mention from './mention/';
+import * as emoji from './emoji/';
+import taskDecision from './task-decision/';
 import { userPickerData } from './user-picker';
 import { slackWorkspacesData, slackConversationsData } from './slack-data';
 

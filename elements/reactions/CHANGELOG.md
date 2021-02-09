@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 18.2.0
+
+### Minor Changes
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.9
 
 ### Patch Changes

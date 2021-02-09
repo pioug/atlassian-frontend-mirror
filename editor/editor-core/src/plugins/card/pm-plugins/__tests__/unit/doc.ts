@@ -19,6 +19,7 @@ import {
   blockCard,
   blockquote,
   bodiedExtension,
+  cleanOne,
   decisionItem,
   decisionList,
   doc,
@@ -34,6 +35,7 @@ import {
   tr,
   ul,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
@@ -49,6 +51,7 @@ import {
   handleFallbackWithAnalytics,
   queueCardsFromChangedTr,
   updateCard,
+  changeSelectedCardToLink,
   setSelectedCardAppearance,
   convertHyperlinkToSmartCard,
 } from '../../doc';
@@ -577,6 +580,50 @@ describe('card', () => {
       });
     });
 
+    describe('#changeSelectedCardToLink', () => {
+      it('should replace selection with new url using provided node and position', function () {
+        const inlineCardRefsNode = inlineCard(inlineCardAdf.attrs)();
+        const inlineCardNode = cleanOne(inlineCardRefsNode)(defaultSchema);
+        const { editorView } = editor(
+          doc(p('hello', '{<node>}', inlineCardRefsNode, ' some other text')),
+        );
+
+        const { state, dispatch } = editorView;
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p('hello', inlineCard(inlineCardAdf.attrs)(), ' some other text'),
+          ),
+        );
+
+        changeSelectedCardToLink(
+          atlassianUrl,
+          atlassianUrl,
+          false,
+          inlineCardNode,
+          6,
+        )(state, dispatch);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'hello',
+              a({ href: atlassianUrl })('http://www.atlassian.com/'),
+              ' some other text',
+            ),
+          ),
+        );
+
+        // Ensure we have no pending requests
+        expect(pluginKey.getState(editorView.state)).toEqual({
+          cards: [],
+          requests: [],
+          provider: null,
+          showLinkingToolbar: false,
+        } as CardPluginState);
+      });
+    });
+
     describe('setSelectedCardAppearance()', () => {
       it('should use the right NodeType for the new node', () => {
         const { editorView } = editor(
@@ -1003,6 +1050,7 @@ describe('card', () => {
             insertLocation: 'doc',
             selectionPosition: 'middle',
             selectionType: 'cursor',
+            actionSubjectId: 'link',
           },
           eventType: 'track',
           nonPrivacySafeAttributes: {

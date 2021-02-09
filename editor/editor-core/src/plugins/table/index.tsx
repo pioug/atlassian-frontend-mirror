@@ -24,7 +24,7 @@ import { createPlugin as createDecorationsPlugin } from './pm-plugins/decoration
 import { keymapPlugin } from './pm-plugins/keymap';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import { createPlugin } from './pm-plugins/main';
-import { getPluginState, pluginKey } from './pm-plugins/plugin-factory';
+import { pluginKey } from './pm-plugins/plugin-factory';
 import {
   createPlugin as createStickyHeadersPlugin,
   findStickyHeaderForTable,
@@ -36,7 +36,11 @@ import {
   pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
 import { getToolbarConfig } from './toolbar';
-import { ColumnResizingPluginState, PluginConfig } from './types';
+import {
+  ColumnResizingPluginState,
+  PluginConfig,
+  TablePluginState,
+} from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
@@ -133,20 +137,21 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
     return (
       <WithPluginState
         plugins={{
-          pluginState: pluginKey,
+          tablePluginState: pluginKey,
           tableResizingPluginState: tableResizingPluginKey,
           stickyHeadersState: stickyHeadersPluginKey,
         }}
         render={({
+          tableResizingPluginState: resizingPluginState,
           stickyHeadersState,
+          tablePluginState,
         }: {
+          tableResizingPluginState?: ColumnResizingPluginState;
           stickyHeadersState?: StickyPluginState;
+          tablePluginState: TablePluginState;
         }) => {
           const { state } = editorView;
-          const pluginState = getPluginState(state);
-          const resizingPluginState = tableResizingPluginKey.getState(state);
-          const isDragging =
-            resizingPluginState && resizingPluginState.dragging;
+          const isDragging = resizingPluginState?.dragging;
           const {
             tableNode,
             tablePos,
@@ -160,9 +165,10 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             isHeaderColumnEnabled,
             isHeaderRowEnabled,
             tableWrapperTarget,
-          } = pluginState || {};
+            tableWidth,
+          } = tablePluginState;
 
-          const allowControls = pluginConfig && pluginConfig.allowControls;
+          const { allowControls, tableRenderOptimization } = pluginConfig;
 
           const stickyHeader = stickyHeadersState
             ? findStickyHeaderForTable(stickyHeadersState, tablePos)
@@ -238,6 +244,9 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                     layout={layout}
                     isResizing={
                       !!resizingPluginState && !!resizingPluginState.dragging
+                    }
+                    tableWidth={
+                      tableRenderOptimization ? tableWidth : undefined
                     }
                   />
                 )}

@@ -1,5 +1,15 @@
 # @atlaskit/media-picker
 
+## 57.2.0
+
+### Minor Changes
+
+- [`52013ecdd24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52013ecdd24) - Add an ability to create Browser component with children using render props pattern to avoid passing state around in parent components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.1.3
 
 ### Patch Changes

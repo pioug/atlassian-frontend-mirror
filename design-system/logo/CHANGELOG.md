@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 13.0.8
+
+### Patch Changes
+
+- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+- [`dfa1827ecad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfa1827ecad) - Fixed the broken "Download the logos" link on https://atlassian.design/components/logo/usage
+
 ## 13.0.7
 
 ### Patch Changes

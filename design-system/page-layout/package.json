@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.10.11",
+  "version": "0.10.12",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,9 +52,11 @@
     "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
     "raf-stub": "^2.0.1",
+    "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6"
   },
   "keywords": [

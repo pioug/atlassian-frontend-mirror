@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 73.2.0
+
+### Minor Changes
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+
+### Patch Changes
+
+- [`32613148067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32613148067) - Move DisableActions, DisableMediaLinking, allowAnnotaions, allowHeadingAnchorLinks feature flags from query param to rendererConfiguration
+- [`5857b17788b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5857b17788b) - Change the way kitchen sink shows ADF errors
+- [`6616714be75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6616714be75) - Fix renderer-bridge configuration changes not occuring
+- [`9d1bc4dde94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d1bc4dde94) - [ux] As part of the bump to @atlaskit/code, the codeBlock element's visual appearance has been modified in renderer and editor-core. Specifically the fontSize and lineHeight have been made more consistent with the DS parent package.
+- Updated dependencies
+
 ## 73.1.0
 
 ### Minor Changes

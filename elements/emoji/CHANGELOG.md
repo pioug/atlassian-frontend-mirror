@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 63.1.0
+
+### Minor Changes
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+
 ## 63.0.13
 
 ### Patch Changes

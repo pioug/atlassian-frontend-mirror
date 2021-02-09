@@ -135,6 +135,7 @@ describe('analytics implicitAttributes', () => {
         });
       });
     });
+
     describe('insertLocation', () => {
       it('cursor selection', () => {
         const { editorView } = editor(doc(panel()(p('Hello{<>}World'))));

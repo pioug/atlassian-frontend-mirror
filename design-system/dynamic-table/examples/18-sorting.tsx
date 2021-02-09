@@ -1,6 +1,5 @@
 import React, { ReactNode, SFC, useEffect, useState } from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 as uuid } from 'uuid';
 
 import DynamicTable from '../src';

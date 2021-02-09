@@ -238,8 +238,15 @@ export const changeSelectedCardToLink = (
   text?: string,
   href?: string,
   sendAnalytics?: boolean,
+  node?: Node,
+  pos?: number,
 ): Command => (state, dispatch) => {
-  const tr = cardToLinkWithTransaction(state, text, href);
+  let tr;
+  if (node && pos) {
+    tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
+  } else {
+    tr = cardToLinkWithTransaction(state, text, href);
+  }
 
   if (sendAnalytics) {
     addAnalytics(state, tr, {
@@ -294,6 +301,22 @@ function cardToLinkWithTransaction(
     false,
   );
   return tr;
+}
+
+function cardNodeToLinkWithTransaction(
+  state: EditorState<any>,
+  text: string | undefined,
+  href: string | undefined,
+  node: Node,
+  pos: number,
+): Transaction {
+  const { link } = state.schema.marks;
+  const url = node.attrs.url || node.attrs.data.url;
+  return state.tr.replaceWith(
+    pos,
+    pos + node.nodeSize,
+    state.schema.text(text || url, [link.create({ href: href || url })]),
+  );
 }
 
 export const changeSelectedCardToText = (text: string): Command => (

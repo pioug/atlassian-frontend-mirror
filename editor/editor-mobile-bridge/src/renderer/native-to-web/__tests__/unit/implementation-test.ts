@@ -211,6 +211,16 @@ describe('RendererBridgeImplementation', () => {
         1100,
       );
     });
+
+    it('should get the set content', () => {
+      const bridge = new RendererBridgeImplementation();
+
+      bridge.setContent(content);
+
+      const result = bridge.getContent();
+
+      expect(result).toEqual(content);
+    });
   });
 
   describe('Renderer Configuration', () => {

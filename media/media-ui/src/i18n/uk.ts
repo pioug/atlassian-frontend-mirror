@@ -30,6 +30,8 @@ export default {
   'fabric.media.cant_retrieve_gifs': 'Ой! Не вдалося завантажити файли GIF.',
   'fabric.media.check_your_network': 'Перевірте мережеве підключення',
   'fabric.media.close': 'Закрити',
+  'fabric.media.close_and_reopen':
+    'Спробуйте закрити й повторно відкрити файл.',
   'fabric.media.connect_account_description':
     'Відкриється нова сторінка, що допоможе вам підключити новий обліковий запис {name}',
   'fabric.media.connect_link_account': 'Для перегляду потрібно підключитись',
@@ -45,16 +47,22 @@ export default {
     'Для зашифрованих або захищених паролем файлів попередній перегляд недоступний.',
   'fabric.media.couldnt_generate_preview':
     'Не вдалося створити попередній перегляд для цього файлу.',
+  'fabric.media.couldnt_load_file': 'Не вдалося завантажити файл.',
   'fabric.media.couldnt_load_link': 'Не вдалося завантажити це посилання.',
+  'fabric.media.creating_preview': 'Створення попереднього перегляду...',
   'fabric.media.default_avatars': 'Фото профілю за замовчуванням',
   'fabric.media.disable_fullscreen': 'вимкніть повноекранний режим',
   'fabric.media.document': 'документ',
   'fabric.media.download': 'Завантажити',
   'fabric.media.drag_and_drop_images_here': 'Перетягніть зображення сюди',
   'fabric.media.drag_and_drop_your_files': 'Перетягніть файли будь-куди або',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Перетягніть файли та папки будь-куди або',
   'fabric.media.drop_your_files': 'Перетягніть файли для завантаження',
   'fabric.media.drop_your_files_here': 'Перетягніть файли сюди',
+  'fabric.media.email': 'Адреса електронної пошти',
   'fabric.media.enable_fullscreen': 'увімкніть повноекранний режим',
+  'fabric.media.error_429': 'Помилка 429',
   'fabric.media.error_generating_preview':
     'Помилка під час створення попереднього перегляду',
   'fabric.media.error_hint_critical':
@@ -92,16 +100,25 @@ export default {
   'fabric.media.or': 'або',
   'fabric.media.pause': 'пауза',
   'fabric.media.play': 'відтворення',
+  'fabric.media.playback_default_speed': 'За замовчуванням',
+  'fabric.media.playback_speed': 'Швидкість відтворення',
   'fabric.media.preview': 'Попередній перегляд',
+  'fabric.media.preview_currently_unavailable':
+    'Наразі попередній перегляд недоступний',
+  'fabric.media.preview_rateLimited':
+    'Не вдалося створити подання попереднього перегляду.',
+  'fabric.media.preview_unavailable': 'Попередній перегляд недоступний',
   'fabric.media.recent_uploads': 'Недавні завантаження',
   'fabric.media.remove_image': 'Видалити зображення',
   'fabric.media.retry': 'Повторити спробу',
   'fabric.media.save': 'Зберегти',
+  'fabric.media.search': 'пошук',
   'fabric.media.search_all_gifs': 'Знайдіть потрібні GIF-зображення.',
   'fabric.media.share_files_instantly': 'Файли буде відразу завантажено',
   'fabric.media.something_went_wrong': 'Сталася помилка.',
   'fabric.media.srclink': 'Переглянути в',
   'fabric.media.srclinkunknown': 'Переглянути оригінал',
+  'fabric.media.text': 'Текст',
   'fabric.media.try_again': 'Повторити спробу',
   'fabric.media.try_another_account': 'Увійти з іншим обліковим запитом',
   'fabric.media.try_downloading_file':
@@ -118,6 +135,7 @@ export default {
   'fabric.media.upload_photo': 'Завантажте фото',
   'fabric.media.video': 'відео',
   'fabric.media.view': 'Переглянути',
+  'fabric.media.viewer_rateLimited': 'Не вдається завантажити файл.',
   'fabric.media.webgl_warning_description':
     'Ваш браузер не підтримує WebGL. Щоб додавати примітки до зображень, потрібен браузер із підтримкою WebGL.',
   'fabric.media.zoom_in': 'збільшення',

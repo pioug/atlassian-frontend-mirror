@@ -8,19 +8,15 @@ export default md`
   There is a stateful default export that handles expansion of the collapse
   view, and passes other props on to the stateless export.
 
-  Breadcrumbs or BreadcrumbsStateless are used as the wrapper component.
-  BreadcrumbsItem is the rendering componet for each individual item in the
+  Breadcrumbs are used as the wrapper component. BreadcrumbsItem is the rendering component for each individual item in the
   list.
 
   ## Usage
 
   ${code`import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';`}
 
-  or
 
-  ${code`import { BreadcrumbsStateless, BreadcrumbsItem } from '@atlaskit/breadcrumbs';`}
-
-  A BreadcrumbsStateless component with no items will not be rendered.
+  A Breadcrumbs component with no items will not be rendered.
 
   ${(
     <Example
@@ -50,7 +46,7 @@ export default md`
   ${(
     <Props
       heading="BreadcrumbsStateless Props"
-      props={require('!!extract-react-types-loader!../src/components/BreadcrumbsStateless')}
+      props={require('!!extract-react-types-loader!../src/components/Breadcrumbs')}
     />
   )}
 

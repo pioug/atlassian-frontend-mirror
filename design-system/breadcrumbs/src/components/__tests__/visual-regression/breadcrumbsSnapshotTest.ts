@@ -1,7 +1,6 @@
 import {
   getExampleUrl,
   loadPage,
-  waitForElementCount,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 
@@ -15,10 +14,9 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    // Wait for links to render
-    await waitForElementCount(page, 'div > a[href]', 4);
-    // Wait for link icons
-    await waitForElementCount(page, 'a span > svg', 2);
+
+    await page.waitForSelector('[data-testid="MyBreadcrumbsTestId"]');
+
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -72,6 +70,9 @@ describe('Snapshot Test', () => {
 
     await page.waitForSelector(selector);
     await page.click(selector);
+
+    // Move the mouse away from the hidden button to avoid the hover effect
+    await page.mouse.move(400, 0);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

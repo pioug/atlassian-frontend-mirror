@@ -160,6 +160,9 @@ export class Renderer extends PureComponent<RendererProps> {
       nextProps.portal !== this.props.portal ||
       nextProps.appearance !== this.props.appearance ||
       nextProps.stickyHeaders !== this.props.stickyHeaders ||
+      nextProps.disableActions !== this.props.disableActions ||
+      nextProps.allowHeadingAnchorLinks !==
+        this.props.allowHeadingAnchorLinks ||
       nextMedia.allowLinking !== media.allowLinking
     ) {
       this.serializer = new ReactSerializer(

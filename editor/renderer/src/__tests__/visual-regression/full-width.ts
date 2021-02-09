@@ -1,4 +1,7 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForLoadedImageElements,
+} from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF, animationFrame } from './_utils';
 import * as mixedAdf from '../__fixtures__/document-without-media.adf.json';
 import * as mediaAdf from '../__fixtures__/1600px-media.adf.json';
@@ -38,10 +41,10 @@ describe('Snapshot Test: Full Width', () => {
 
     it('should correctly size images', async () => {
       await initRenderer(page, { ...viewport, height: 1100 }, mediaAdf);
-
-      // Wait for media to be rendered. The examples use a broken media ID
-      // which means it never gets past the loading state.
-      await page.waitForSelector('div[data-testid="media-card-loading"]');
+      await waitForLoadedImageElements(page, 1000);
+      await page.waitForSelector(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      );
     });
   });
 });

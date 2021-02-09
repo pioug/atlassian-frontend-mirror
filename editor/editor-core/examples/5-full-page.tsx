@@ -49,6 +49,7 @@ import {
   check,
   Message,
 } from '../example-helpers/adf-url';
+import * as FeatureFlagUrl from '../example-helpers/feature-flag-url';
 import { copy } from '../example-helpers/copy';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
@@ -316,6 +317,9 @@ export class ExampleEditorComponent extends React.Component<
                   allowColumnSorting: true,
                   stickyHeaders: true,
                   tableCellOptimization: true,
+                  mouseMoveOptimization: true,
+                  initialRenderOptimization: true,
+                  tableRenderOptimization: true,
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
@@ -470,6 +474,7 @@ export class ExampleEditorComponent extends React.Component<
                 {...this.props}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
+                trackValidTransactions={{ samplingRate: 100 }}
               />
             </SmartCardProvider>
           </Content>
@@ -670,6 +675,14 @@ export default function Example(props: EditorProps & ExampleProps) {
     (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
     undefined;
 
+  const maybeFlags = FeatureFlagUrl.fromLocation<string>(
+    window.parent.location,
+  );
+  const featureFlags =
+    maybeFlags instanceof window.Error
+      ? undefined
+      : JSON.parse(maybeFlags ?? '{}');
+
   let allowCustomPanel = false;
   if (props.allowPanel && typeof props.allowPanel === 'object') {
     allowCustomPanel =
@@ -683,6 +696,7 @@ export default function Example(props: EditorProps & ExampleProps) {
         {isEditingMode ? (
           <ExampleEditor
             {...props}
+            featureFlags={featureFlags}
             defaultValue={doc || localDraft}
             setMode={setMode}
           />

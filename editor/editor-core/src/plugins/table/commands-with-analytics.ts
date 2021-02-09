@@ -58,7 +58,10 @@ const TABLE_BREAKOUT_NAME_MAPPING = {
 };
 // #region Analytics wrappers
 export const emptyMultipleCellsWithAnalytics = (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.KEYBOARD,
+  inputMethod:
+    | INPUT_METHOD.CONTEXT_MENU
+    | INPUT_METHOD.KEYBOARD
+    | INPUT_METHOD.FLOATING_TB,
   targetCellPosition?: number,
 ) =>
   withAnalytics(({ selection }) => {
@@ -223,7 +226,8 @@ export const insertColumnWithAnalytics = (
   inputMethod:
     | INPUT_METHOD.CONTEXT_MENU
     | INPUT_METHOD.BUTTON
-    | INPUT_METHOD.SHORTCUT,
+    | INPUT_METHOD.SHORTCUT
+    | INPUT_METHOD.FLOATING_TB,
   position: number,
 ) =>
   withAnalytics(state => {
@@ -245,7 +249,10 @@ export const insertColumnWithAnalytics = (
   })(insertColumn(position));
 
 export const deleteRowsWithAnalytics = (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.BUTTON,
+  inputMethod:
+    | INPUT_METHOD.CONTEXT_MENU
+    | INPUT_METHOD.BUTTON
+    | INPUT_METHOD.FLOATING_TB,
   rect: Rect,
   isHeaderRowRequired: boolean,
 ) =>
@@ -273,7 +280,10 @@ export const deleteRowsWithAnalytics = (
   });
 
 export const deleteColumnsWithAnalytics = (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.BUTTON,
+  inputMethod:
+    | INPUT_METHOD.CONTEXT_MENU
+    | INPUT_METHOD.BUTTON
+    | INPUT_METHOD.FLOATING_TB,
   rect: Rect,
 ) =>
   withAnalytics(({ selection }) => {

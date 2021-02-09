@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Hungarian
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Másolva!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Másolás',
+  'fabric.editor.headingLink.copied': 'Másolva!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Fejléc linkjének másolása',
+  'fabric.editor.headingLink.failedToCopy': 'A másolás nem sikerült',
+};

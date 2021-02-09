@@ -31,6 +31,8 @@ export default {
   'fabric.media.cant_retrieve_gifs': 'GIF を取得できませんでした',
   'fabric.media.check_your_network': 'ネットワーク接続を確認してください',
   'fabric.media.close': '閉じる',
+  'fabric.media.close_and_reopen':
+    'このファイルを閉じてからもう一度開いてみてください。',
   'fabric.media.connect_account_description':
     '{name} アカウントを接続するため、新しいページを開きます',
   'fabric.media.connect_link_account': '接続してプレビュー',
@@ -46,8 +48,10 @@ export default {
     '暗号化されたファイルやパスワードで保護されたファイルはプレビューできません。',
   'fabric.media.couldnt_generate_preview':
     'このファイル形式はプレビュー表示できません。',
+  'fabric.media.couldnt_load_file': 'ファイルを読み込めませんでした。',
   'fabric.media.couldnt_load_link':
     '不明な理由によって、このリンクを読み込めませんでした。',
+  'fabric.media.creating_preview': 'プレビューを作成中...',
   'fabric.media.default_avatars': 'デフォルトのアバター',
   'fabric.media.disable_fullscreen': '全画面表示を無効化',
   'fabric.media.document': 'ドキュメント',
@@ -55,9 +59,13 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'ここに画像をドラッグ & ドロップ',
   'fabric.media.drag_and_drop_your_files':
     'ファイルを任意の場所にドラッグ & ドロップする、または',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'ファイルとフォルダーを任意の場所または次の場所にドラッグ & ドロップ: ',
   'fabric.media.drop_your_files': 'アップロードするファイルをドロップ',
   'fabric.media.drop_your_files_here': 'ファイルをここにドロップ',
+  'fabric.media.email': 'メール',
   'fabric.media.enable_fullscreen': '全画面表示を有効化',
+  'fabric.media.error_429': 'エラー 429',
   'fabric.media.error_generating_preview':
     'プレビューの生成中にエラーが発生しました',
   'fabric.media.error_hint_critical':
@@ -96,16 +104,24 @@ export default {
   'fabric.media.or': 'または',
   'fabric.media.pause': '一時停止',
   'fabric.media.play': '再生',
+  'fabric.media.playback_default_speed': '既定',
+  'fabric.media.playback_speed': '再生速度',
   'fabric.media.preview': 'プレビュー',
+  'fabric.media.preview_currently_unavailable':
+    'プレビューは現在使用できません',
+  'fabric.media.preview_rateLimited': 'プレビューの作成中に問題が発生しました',
+  'fabric.media.preview_unavailable': 'プレビューがありません',
   'fabric.media.recent_uploads': '最近アップロードしたファイル',
   'fabric.media.remove_image': '画像を削除',
   'fabric.media.retry': '再試行',
   'fabric.media.save': '保存',
+  'fabric.media.search': '検索',
   'fabric.media.search_all_gifs': 'あらゆる GIF を検索!',
   'fabric.media.share_files_instantly': 'すぐに共有されます',
   'fabric.media.something_went_wrong': '問題が発生しました。',
   'fabric.media.srclink': '次で表示',
   'fabric.media.srclinkunknown': 'リンク元を表示',
+  'fabric.media.text': 'テキスト',
   'fabric.media.try_again': '再試行',
   'fabric.media.try_another_account': '別のアカウントでお試しください',
   'fabric.media.try_downloading_file':
@@ -121,6 +137,7 @@ export default {
   'fabric.media.upload_photo': '写真をアップロード',
   'fabric.media.video': 'ビデオ',
   'fabric.media.view': '表示',
+  'fabric.media.viewer_rateLimited': 'ファイルを読み込めません。',
   'fabric.media.webgl_warning_description':
     'お使いのブラウザーは WebGL に対応していません。画像に注釈をつけるには WebGL 対応ブラウザーをご利用ください。',
   'fabric.media.zoom_in': 'ズームイン',

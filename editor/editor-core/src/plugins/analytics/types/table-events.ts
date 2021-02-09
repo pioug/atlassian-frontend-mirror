@@ -72,7 +72,10 @@ type TableDeleteAEP = TableAEP<
 type TableClearAEP = TableAEP<
   TABLE_ACTION.CLEARED,
   {
-    inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.CONTEXT_MENU;
+    inputMethod:
+      | INPUT_METHOD.KEYBOARD
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.FLOATING_TB;
   } & HorizontalAndVerticalCells &
     TotalRowAndColCount,
   undefined
@@ -121,7 +124,8 @@ type TableAddRowOrColumnAEP = TableAEP<
       | INPUT_METHOD.SHORTCUT
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
-      | INPUT_METHOD.KEYBOARD;
+      | INPUT_METHOD.KEYBOARD
+      | INPUT_METHOD.FLOATING_TB;
     position: number;
   } & TotalRowAndColCount,
   undefined
@@ -130,7 +134,10 @@ type TableAddRowOrColumnAEP = TableAEP<
 type TableDeleteRowOrColumnAEP = TableAEP<
   TABLE_ACTION.DELETED_ROW | TABLE_ACTION.DELETED_COLUMN,
   {
-    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.BUTTON;
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.BUTTON
+      | INPUT_METHOD.FLOATING_TB;
     position: number;
     count: number;
   } & TotalRowAndColCount,

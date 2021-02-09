@@ -32,6 +32,7 @@ export default {
     'โอ๊ะ! เราไม่สามารถกู้ไฟล์ GIF ใด ๆ คืนมาได้',
   'fabric.media.check_your_network': 'ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ',
   'fabric.media.close': 'ปิด',
+  'fabric.media.close_and_reopen': 'ลองปิดไฟล์นี้แล้วเปิดใหม่',
   'fabric.media.connect_account_description':
     'เราจะเปิดหน้าเพจใหม่เพื่อช่วยให้คุณสามารถเชื่อมต่อบัญชี {name} ของคุณได้',
   'fabric.media.connect_link_account': 'เชื่อมต่อเพื่อดูตัวอย่าง',
@@ -47,8 +48,10 @@ export default {
     'เราไม่สามารถแสดงตัวอย่างไฟล์ที่เข้ารหัสหรือไฟล์ที่มีรหัสป้องกันไว้ได้',
   'fabric.media.couldnt_generate_preview':
     'เราไม่สามารถสร้างการแสดงตัวอย่างสำหรับไฟล์นี้ได้',
+  'fabric.media.couldnt_load_file': 'เราไม่สามารถโหลดไฟล์ได้',
   'fabric.media.couldnt_load_link':
     'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
+  'fabric.media.creating_preview': 'กำลังสร้างตัวอย่าง...',
   'fabric.media.default_avatars': 'รูปแทนตัวเริ่มต้น',
   'fabric.media.disable_fullscreen': 'ปิดใช้งานการแสดงเต็มหน้าจอ',
   'fabric.media.document': 'เอกสาร',
@@ -56,9 +59,13 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'ลากและวางรูปภาพของคุณที่นี่',
   'fabric.media.drag_and_drop_your_files':
     'ลากและวางไฟล์ของคุณไว้ที่ใดก็ได้หรือ',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'ลากและวางไฟล์และโฟลเดอร์ของคุณที่ใดก็ได้หรือ',
   'fabric.media.drop_your_files': 'วางไฟล์ของคุณเพื่ออัปโหลด',
   'fabric.media.drop_your_files_here': 'วางไฟล์ของคุณที่นี่',
+  'fabric.media.email': 'อีเมล',
   'fabric.media.enable_fullscreen': 'เปิดใช้งานการแสดงเต็มหน้าจอ',
+  'fabric.media.error_429': 'ข้อผิดพลาด 429',
   'fabric.media.error_generating_preview':
     'เกิดข้อผิดพลาดในการสร้างการแสดงตัวอย่าง',
   'fabric.media.error_hint_critical':
@@ -93,16 +100,24 @@ export default {
   'fabric.media.or': 'หรือ',
   'fabric.media.pause': 'หยุดชั่วคราว',
   'fabric.media.play': 'เล่น',
+  'fabric.media.playback_default_speed': 'ค่าเริ่มต้น',
+  'fabric.media.playback_speed': 'ความเร็วในการเปิดเล่น',
   'fabric.media.preview': 'แสดงตัวอย่าง',
+  'fabric.media.preview_currently_unavailable':
+    'ไม่สามารถดูตัวอย่างได้ในขณะนี้',
+  'fabric.media.preview_rateLimited': 'เรามีปัญหาในการสร้างตัวอย่าง',
+  'fabric.media.preview_unavailable': 'ไม่สามารถดูตัวอย่างได้',
   'fabric.media.recent_uploads': 'รายการอัปโหลดล่าสุด',
   'fabric.media.remove_image': 'ลบรูปภาพออก',
   'fabric.media.retry': 'ลองอีกครั้ง',
   'fabric.media.save': 'บันทึก',
+  'fabric.media.search': 'ค้นหา',
   'fabric.media.search_all_gifs': 'ค้นหาไฟล์ GIF ทั้งหมด',
   'fabric.media.share_files_instantly': 'เราจะแชร์ไฟล์เหล่านั้นทันที',
   'fabric.media.something_went_wrong': 'เกิดข้อผิดพลาดบางอย่าง',
   'fabric.media.srclink': 'ดูใน',
   'fabric.media.srclinkunknown': 'ดูต้นฉบับ',
+  'fabric.media.text': 'ข้อความ',
   'fabric.media.try_again': 'ลองอีกครั้ง',
   'fabric.media.try_another_account': 'ลองบัญชีอื่น',
   'fabric.media.try_downloading_file': 'ลองดาวน์โหลดไฟล์เพื่อดู',
@@ -118,6 +133,7 @@ export default {
   'fabric.media.upload_photo': 'อัปโหลดภาพ',
   'fabric.media.video': 'วิดีโอ',
   'fabric.media.view': 'ดู',
+  'fabric.media.viewer_rateLimited': 'เรากำลังประสบปัญหาในการโหลดไฟล์ของคุณ',
   'fabric.media.webgl_warning_description':
     'เบราว์เซอร์ของคุณไม่รองรับ WebGL ใช้เบราว์เซอร์ที่เปิดใช้งาน WebGL ในการทำหมายเหตุประกอบรูปภาพ',
   'fabric.media.zoom_in': 'ซูมเข้า',

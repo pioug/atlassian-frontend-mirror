@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.0.6
+
+### Patch Changes
+
+- [`863370c4cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/863370c4cab) - [ux] Fixes a bug in which Tag's hover state is incorrectly using the removable color palette.
+
 ## 11.0.5
 
 ### Patch Changes

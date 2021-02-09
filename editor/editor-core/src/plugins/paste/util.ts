@@ -185,9 +185,11 @@ export function isEmptyNode(node: PMNode | null | undefined) {
   }
   const { type: nodeType } = node;
   const emptyNode = nodeType.createAndFill();
-
   return (
-    emptyNode && emptyNode.nodeSize === node.nodeSize && emptyNode.eq(node)
+    emptyNode &&
+    emptyNode.nodeSize === node.nodeSize &&
+    emptyNode.content.eq(node.content) &&
+    Mark.sameSet(emptyNode.marks, node.marks)
   );
 }
 

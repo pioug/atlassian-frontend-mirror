@@ -47,7 +47,10 @@ import {
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
 import { deleteColumns, deleteRows } from './transforms';
-import { RESIZE_HANDLE_AREA_DECORATION_GAP } from './types';
+import {
+  RESIZE_HANDLE_AREA_DECORATION_GAP,
+  ElementContentRects,
+} from './types';
 import {
   getColumnOrRowIndex,
   getMousePositionHorizontalRelativeByElement,
@@ -281,7 +284,12 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   return false;
 };
 
-export const handleMouseMove = (view: EditorView, event: Event) => {
+export const handleMouseMove = (
+  view: EditorView,
+  event: Event,
+  tableCellOptimization?: boolean,
+  elementContentRects?: ElementContentRects,
+) => {
   if (!(event.target instanceof HTMLElement)) {
     return false;
   }
@@ -293,8 +301,11 @@ export const handleMouseMove = (view: EditorView, event: Event) => {
     const [startIndex, endIndex] = getColumnOrRowIndex(element);
 
     const positionColumn =
-      getMousePositionHorizontalRelativeByElement(event as MouseEvent) ===
-      'right'
+      getMousePositionHorizontalRelativeByElement(
+        event as MouseEvent,
+        tableCellOptimization,
+        elementContentRects,
+      ) === 'right'
         ? endIndex
         : startIndex;
 
@@ -322,6 +333,8 @@ export const handleMouseMove = (view: EditorView, event: Event) => {
   if (!isResizeHandleDecoration(element) && isCell(element)) {
     const positionColumn = getMousePositionHorizontalRelativeByElement(
       event as MouseEvent,
+      tableCellOptimization,
+      elementContentRects,
       RESIZE_HANDLE_AREA_DECORATION_GAP,
     );
 
@@ -449,18 +462,28 @@ export const handleCut = (
 };
 
 export const whenTableInFocus = (
-  eventHandler: (view: EditorView, mouseEvent: Event) => boolean,
+  eventHandler: (
+    view: EditorView,
+    mouseEvent: Event,
+    tableCellOptimization?: boolean,
+    elementContentRects?: ElementContentRects,
+  ) => boolean,
+  elementContentRects?: ElementContentRects,
 ) => (view: EditorView, mouseEvent: Event): boolean => {
   const tableResizePluginState = getResizePluginState(view.state);
   const tablePluginState = getPluginState(view.state);
   const isDragging =
     tableResizePluginState && !!tableResizePluginState.dragging;
   const hasTableNode = tablePluginState && tablePluginState.tableNode;
+  const tableCellOptimization =
+    tablePluginState?.pluginConfig?.tableCellOptimization;
 
   if (!hasTableNode || isDragging) {
     return false;
   }
 
   // debounce event handler
-  return rafSchedule(eventHandler(view, mouseEvent));
+  return rafSchedule(
+    eventHandler(view, mouseEvent, tableCellOptimization, elementContentRects),
+  );
 };

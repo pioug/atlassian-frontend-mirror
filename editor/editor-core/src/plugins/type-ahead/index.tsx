@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { typeAheadQuery } from '@atlaskit/adf-schema';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { EditorPlugin } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
@@ -16,7 +17,11 @@ import {
 import { TypeAheadHandler } from './types';
 import { TypeAhead } from './ui/TypeAhead';
 
-const typeAheadPlugin = (): EditorPlugin => ({
+export type TypeAheadPluginOptions = {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+};
+
+const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => ({
   name: 'typeAhead',
 
   marks() {
@@ -93,6 +98,8 @@ const typeAheadPlugin = (): EditorPlugin => ({
               items={typeAhead.items}
               currentIndex={typeAhead.currentIndex}
               highlight={typeAhead.highlight}
+              createAnalyticsEvent={options?.createAnalyticsEvent}
+              query={typeAhead.query}
             />
           );
         }}

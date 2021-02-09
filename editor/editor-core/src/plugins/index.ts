@@ -60,3 +60,4 @@ export { default as contextPanelPlugin } from './context-panel';
 export { default as selectionPlugin } from './selection';
 export { default as mobileSelectionPlugin } from './mobile-selection';
 export { default as clipboardPlugin } from './clipboard';
+export { default as undoRedoPlugin } from './undo-redo';

@@ -1,5 +1,63 @@
 # @atlaskit/editor-core
 
+## 137.0.0
+
+### Major Changes
+
+- [`4d65f8a67f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d65f8a67f4) - [ED-11699] Persist scroll gutter for mobile COMPACT appearance and change mobile scroll gutter to 50px
+
+### Minor Changes
+
+- [`36480f3c6ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36480f3c6ee) - ED-10297 guard catch-all performance tracking with feature flag
+- [`8c90794239c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c90794239c) - ED-11587: quickInsert for placeholder-text plugin
+- [`16dd9a6e934`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16dd9a6e934) - NO-ISSUE clean up with optional chaining
+- [`4e4f23da2ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e4f23da2ee) - ED-10585 close feature flag infrastructure gaps
+- [`f48db072de7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f48db072de7) - ED-10585 optimize emoji nodeview
+- [`6e854802c33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e854802c33) - [ux] ED-11215 Add help icon to new element browser
+  Introduce new 'helpUrl' prop to elementBrowser which allow a help url to be passed to element browser component.
+  E.g. elementBrowser={{ showModal: true, replaceMenu: true, helpUrl: 'https://examplehelpurl.com'  }}
+- [`c330863ef3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c330863ef3f) - Update margin and padding for element browser insert menu item
+- [`cca3569e236`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cca3569e236) - ED-11647 Remove unnecessary rerender of table component for initial load. This is behind a feature flag `initialRenderOptimization`.
+- [`b552334459c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b552334459c) - [ME-302](https://product-fabric.atlassian.net/browse/ME-302) Introduce table cell options in the floating toolbar for mobile.
+
+  By default table cell options are disabled and hidden for the web.
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [`867b61b2698`](https://bitbucket.org/atlassian/atlassian-frontend/commits/867b61b2698) - ED-11692 add defaultOptions to CustomSelect to prevent calling resolver twice on mount.
+  Resolve default options array on mount and pass array to AsyncCreatableSelect 'defaultOptions' prop. This prevents defaultOptions from calling the loadOptions / resolver again on mount.
+- [`5c075025c14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c075025c14) - ED-11640 table performance optimization for table component rendering - avoid extra re-renders on each transaction e.g. when typing
+- [`67fd55dd3f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67fd55dd3f1) - ME-893 Added a new mobile editor configuration for placeholder text
+- [`f48c16eb21d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f48c16eb21d) - ED-11383 Update extensions sidebar select-item icon vertical alignment
+- [`bf8e85f044d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf8e85f044d) - Add remove button to inline links
+
+### Patch Changes
+
+- [`7d24194b639`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d24194b639) - EDM-1717: Fix Safari danger styles for inline smart links
+- [`edfb17aaa70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edfb17aaa70) - [ED-11368] Add feature flag for adding undo/redo buttons in the editor. We will be encapsulating all dev work under this flag. The name of the feature flag type is `undoRedoButtons` and the editor prop is `UNSAFE_allowUndoRedoButtons`. This prop is for development purposes only, please don't turn this on. Only feature leads, can turn this on.
+- [`c1633237d16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1633237d16) - ED-11639 performance improvement, refactored TableComponent to remove redundant props
+- [`5857b17788b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5857b17788b) - Change the way kitchen sink shows ADF errors
+- [`b2d2417de34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2d2417de34) - EDM-1590: fix embed & card danger styles
+- [`babad0a5038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/babad0a5038) - ED-11145: Add additional attributes to document inserted and text formatted analytic event payloads
+- [`359ff24a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/359ff24a999) - Optimize table mousemove handler by using resizeObserver
+- [`9d1bc4dde94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d1bc4dde94) - [ux] As part of the bump to @atlaskit/code, the codeBlock element's visual appearance has been modified in renderer and editor-core. Specifically the fontSize and lineHeight have been made more consistent with the DS parent package.
+- [`345f2af7da7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/345f2af7da7) - ED-11127 inject defaultValues in deserialize, fixes parameter dependency tests
+  ED-11291 fix parameter passing regression, add regression tests
+  ED-11127 fix singular CustomSelect serializing [] if defaultValue is omitted
+- [`97384a3224c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97384a3224c) - [ux] Initialise undo redo plugin, add undo button to ui (behind feature flag)
+- [`c2225545836`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2225545836) - ED-11847 added checks for intersection and resize observers support
+- [`44efa5f3f0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44efa5f3f0f) - [ux] Add undo functionality to Undo button
+- [`d2bdd96ed83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2bdd96ed83) - Fix for backspace deleting entire nodeview
+- [`faf98b96883`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf98b96883) - Removed unused comments in src from package
+- [`b11735fd5f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b11735fd5f1) - ED-11689: implement 'typeAhead rendered' and 'typeAheadItem viewed'
+- [`aba85163bc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aba85163bc2) - [ux] Dark mode line text color changed to make it easier to read
+- [`a4bcf21a972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4bcf21a972) - [ux] Syntax highlighting now uses accessibile colors that meet WCAG 2.0 Level AA guidelines for color contrast
+- [`62b30905271`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62b30905271) - Update keymaps on captions to follow design spec
+- [`501ca8b3083`](https://bitbucket.org/atlassian/atlassian-frontend/commits/501ca8b3083) - table plugin was ignoring the plugin states requested via WithPluginState
+- [`871644c07e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/871644c07e6) - [ux] Prevent toolbar from having option to switch to card view on fattaly errored smartcards
+- [`a6c1b0bc5cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6c1b0bc5cd) - ED-11148: Allow valid transactions to be sampled and tracked in analytics
+- [`19fa405c2ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19fa405c2ec) - [ux] ED-11724 update isEmptyNode to work with non default attrs
+- Updated dependencies
+
 ## 136.3.1
 
 ### Patch Changes

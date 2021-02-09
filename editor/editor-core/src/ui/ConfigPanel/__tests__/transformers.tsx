@@ -32,6 +32,7 @@ describe('Config panel', () => {
             name: 'depth',
             label: 'Depth',
             type: 'number',
+            defaultValue: 99,
           },
           {
             name: 'USER',
@@ -307,17 +308,22 @@ describe('Config panel', () => {
       await expect(test()).resolves.toEqual('OK');
     });
 
-    it('serialize/deserialise should skip fields if missing from the parameters', async () => {
+    it('serialize should skip fields if missing from the parameters', async () => {
       expect(
         await serialize(manifest, { title: 'a title' }, fieldsDefinitions),
       ).toEqual({
         title: 'a title',
       });
+    });
 
+    it('deserialise should inject defaultValues if provided', async () => {
       expect(
         await deserialize(manifest, { title: 'a title' }, fieldsDefinitions),
       ).toEqual({
         title: 'a title',
+        settings: {
+          depth: 99,
+        },
       });
     });
 

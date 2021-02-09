@@ -262,6 +262,17 @@ type InsertExtensionAEP = InsertAEP<
   any
 >;
 
+type InsertPlaceholderTextAEP = InsertAEP<
+  ACTION_SUBJECT_ID.PLACEHOLDER_TEXT,
+  {
+    inputMethod:
+      | INPUT_METHOD.QUICK_INSERT
+      | INPUT_METHOD.TOOLBAR
+      | INPUT_METHOD.INSERT_MENU;
+  },
+  undefined
+>;
+
 export type InsertEventPayload =
   | InsertDividerAEP
   | InsertLineBreakAEP
@@ -280,4 +291,5 @@ export type InsertEventPayload =
   | InsertSmartLinkAEP
   | InsertLayoutAEP
   | InsertExtensionAEP
-  | InsertDateAEP;
+  | InsertDateAEP
+  | InsertPlaceholderTextAEP;

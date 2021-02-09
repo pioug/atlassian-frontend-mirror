@@ -102,6 +102,10 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   isClearable?: boolean;
   /** Optional tooltip to display on hover over the clear indicator. */
   clearValueLabel?: string;
+  /** React-select prop for controlling menu position */
+  menuPosition?: 'absolute' | 'fixed';
+  /** React-select prop for blocking menu scroll on container when menu scrolled to the very top/bottom of the menu */
+  captureMenuScroll?: boolean;
   /** Whether the menu should use a portal, and where it should attach. */
   menuPortalTarget?: HTMLElement;
   /** Whether the user is allowed to enter emails as a value. */

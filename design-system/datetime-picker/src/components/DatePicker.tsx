@@ -11,7 +11,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import Calendar, { ArrowKeys, CalendarClassType } from '@atlaskit/calendar';
+import Calendar, { CalendarInternalRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import {
   createLocalizationProvider,
@@ -167,7 +167,7 @@ const Menu = ({
           disabled={selectProps.calendarDisabled}
           onChange={selectProps.onCalendarChange}
           onSelect={selectProps.onCalendarSelect}
-          ref={selectProps.calendarRef}
+          internalRef={selectProps.calendarRef}
           selected={[selectProps.calendarValue]}
           innerProps={innerProps}
           locale={selectProps.calendarLocale}
@@ -205,7 +205,7 @@ const datePickerDefaultProps = {
 };
 
 class DatePicker extends React.Component<DatePickerProps, State> {
-  calendarRef: CalendarClassType | null = null;
+  calendarRef: CalendarInternalRef | null = null;
   containerRef: HTMLElement | null = null;
 
   static defaultProps = datePickerDefaultProps;
@@ -345,7 +345,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       case 'arrowdown':
         if (this.calendarRef) {
           event.preventDefault();
-          const key: ArrowKeys = keyPressed === 'arrowup' ? 'up' : 'down';
+          const key = keyPressed === 'arrowup' ? 'up' : 'down';
           this.calendarRef.navigate(key);
         }
         this.setState({ isOpen: true });
@@ -354,7 +354,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       case 'arrowright':
         if (this.calendarRef) {
           event.preventDefault();
-          const key: ArrowKeys = keyPressed === 'arrowleft' ? 'left' : 'right';
+          const key = keyPressed === 'arrowleft' ? 'left' : 'right';
           this.calendarRef.navigate(key);
         }
         break;
@@ -415,7 +415,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     }
   };
 
-  refCalendar = (ref: CalendarClassType | null) => {
+  refCalendar = (ref: CalendarInternalRef | null) => {
     this.calendarRef = ref;
   };
 

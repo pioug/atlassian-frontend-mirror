@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Spanish
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': '¡Copiado!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Copiar',
+  'fabric.editor.headingLink.copied': '¡Copiado!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Copiar enlace en el título',
+  'fabric.editor.headingLink.failedToCopy': 'Copia fallida',
+};

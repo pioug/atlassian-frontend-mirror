@@ -16,7 +16,7 @@ describe('code-block: WYSIWYG', () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: minimalCodeBlock,
       editorSelector: '.code-block',
-      rendererSelector: '.clode-block',
+      rendererSelector: '.code-block',
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
@@ -28,11 +28,11 @@ describe('code-block: WYSIWYG', () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: tableHeaderCodeBlock,
       editorSelector: '.code-block',
-      rendererSelector: '.clode-block',
+      rendererSelector: '.code-block',
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.02,
+      threshold: 0.03,
     });
   });
 
@@ -40,7 +40,7 @@ describe('code-block: WYSIWYG', () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: overflowCodeBlock,
       editorSelector: '.code-block',
-      rendererSelector: '.clode-block',
+      rendererSelector: '.code-block',
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
@@ -52,11 +52,11 @@ describe('code-block: WYSIWYG', () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: tableHeaderOverflowCodeBlock,
       editorSelector: '.code-block',
-      rendererSelector: '.clode-block',
+      rendererSelector: '.code-block',
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.02,
+      threshold: 0.03,
     });
   });
 });

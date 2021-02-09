@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import shuffle from 'lodash/shuffle';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';

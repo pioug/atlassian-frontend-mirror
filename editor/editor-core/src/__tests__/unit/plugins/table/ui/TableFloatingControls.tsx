@@ -50,6 +50,7 @@ describe('TableFloatingControls', () => {
       const floatingControls = shallow(
         <TableFloatingControls
           tableRef={document.querySelector('table')!}
+          tableActive={true}
           editorView={editorView}
         />,
       );

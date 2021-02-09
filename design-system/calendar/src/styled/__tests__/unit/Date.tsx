@@ -1,16 +1,20 @@
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
-import { DateDiv } from '../../Date';
+import { DateDiv, DateProps } from '../../Date';
+
+const setup = (dateDivProps: DateProps = {}) =>
+  render(<DateDiv {...dateDivProps} />);
 
 test('cursor should be "default"', () => {
-  expect(shallow(<DateDiv />)).toHaveStyleRule('cursor', 'pointer');
+  const { container } = setup();
+
+  expect(container.firstChild).toHaveStyle('cursor: pointer');
 });
 
 test('disabled - cursor should be "not-allowed"', () => {
-  expect(shallow(<DateDiv disabled />)).toHaveStyleRule(
-    'cursor',
-    'not-allowed',
-  );
+  const { container } = setup({ disabled: true });
+
+  expect(container.firstChild).toHaveStyle('cursor: not-allowed');
 });

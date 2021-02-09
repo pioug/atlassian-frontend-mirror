@@ -4,21 +4,21 @@ import { fireEvent, render } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '../../../index';
+import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 import {
   name as packageName,
   version as packageVersion,
 } from '../../../version.json';
 
 describe('analysis', () => {
-  describe('BreadcrumbsStateless', () => {
+  describe('Breadcrumbs', () => {
     it('should send event to atlaskit/analytics', () => {
       const originOnExpand = jest.fn();
       const onAnalyticsEvent = jest.fn();
 
       const { getByTestId } = render(
         <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
-          <BreadcrumbsStateless
+          <Breadcrumbs
             testId="breadcrumbs-container"
             maxItems={2}
             onExpand={originOnExpand}
@@ -26,7 +26,7 @@ describe('analysis', () => {
             <BreadcrumbsItem href="/item" text="Item" />
             <BreadcrumbsItem href="/item" text="Another item" />
             <BreadcrumbsItem href="/item" text="A third item" />
-          </BreadcrumbsStateless>
+          </Breadcrumbs>
         </AnalyticsListener>,
       );
 
@@ -64,7 +64,7 @@ describe('analysis', () => {
 
       const { getByTestId } = render(
         <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
-          <BreadcrumbsStateless testId="breadcrumbs-container">
+          <Breadcrumbs testId="breadcrumbs-container">
             <BreadcrumbsItem
               href="/item"
               text="Item"
@@ -73,7 +73,7 @@ describe('analysis', () => {
             />
             <BreadcrumbsItem href="/item" text="Another item" testId="item-2" />
             <BreadcrumbsItem href="/item" text="A third item" testId="item-3" />
-          </BreadcrumbsStateless>
+          </Breadcrumbs>
         </AnalyticsListener>,
       );
 

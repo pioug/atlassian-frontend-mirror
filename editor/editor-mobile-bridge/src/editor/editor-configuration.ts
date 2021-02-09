@@ -6,7 +6,7 @@ interface EditorConfigurationProvider {
   isSelectionObserverEnabled(): boolean;
   isCollabProviderEnabled(): boolean;
   isPredictableListEnabled(): boolean;
-  isScrollGutterAllowed(): boolean;
+  isScrollGutterPersisted(): boolean;
 }
 
 type ThemeMode = 'light' | 'dark';
@@ -24,6 +24,7 @@ interface EditorConfig {
   selectionObserverEnabled?: boolean;
   allowCollabProvider?: boolean;
   allowPredictableList?: boolean;
+  placeholder?: string;
 }
 
 export default class MobileEditorConfiguration
@@ -35,6 +36,7 @@ export default class MobileEditorConfiguration
   private selectionObserverEnabled: boolean = false;
   private allowCollabProvider: boolean = false;
   private allowPredictableList: boolean = false;
+  private placeholder?: string | undefined;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {
@@ -64,6 +66,8 @@ export default class MobileEditorConfiguration
       config.allowPredictableList !== undefined
         ? config.allowPredictableList
         : this.allowPredictableList;
+    this.placeholder =
+      config.placeholder !== undefined ? config.placeholder : this.placeholder;
   }
 
   getEditorAppearance(): EditorAppearance {
@@ -94,8 +98,12 @@ export default class MobileEditorConfiguration
     return this.allowPredictableList;
   }
 
-  isScrollGutterAllowed(): boolean {
-    return this.getEditorAppearance() !== EditorAppearance.COMPACT;
+  isScrollGutterPersisted(): boolean {
+    return this.getEditorAppearance() === EditorAppearance.COMPACT;
+  }
+
+  getPlaceholder(): string | undefined {
+    return this.placeholder;
   }
 
   // We need to retain the previous configuartion flags as `locale` and `mode` can be configured

@@ -1,3 +1,4 @@
+import uuid from 'uuid';
 import { Node, DOMSerializer } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common';
@@ -11,8 +12,16 @@ export default class TableCellNodeView implements NodeView {
   getPos: getPosHandler;
   view: EditorView;
   providerFactory?: ProviderFactory;
+  observer?: ResizeObserver;
+  mouseMoveOptimization?: boolean;
 
-  constructor(node: Node, view: EditorView, getPos: any) {
+  constructor(
+    node: Node,
+    view: EditorView,
+    getPos: any,
+    mouseMoveOptimization: boolean,
+    observer?: ResizeObserver,
+  ) {
     this.view = view;
     this.node = node;
 
@@ -24,6 +33,13 @@ export default class TableCellNodeView implements NodeView {
     this.getPos = getPos;
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
+
+    if (mouseMoveOptimization && observer) {
+      this.contentDOM.id = uuid();
+      this.mouseMoveOptimization = mouseMoveOptimization;
+      this.observer = observer;
+      observer.observe(this.contentDOM);
+    }
   }
 
   shouldRecreateNodeView(node: Node): boolean {
@@ -63,5 +79,11 @@ export default class TableCellNodeView implements NodeView {
     const shouldUpdate = this.shouldRecreateNodeView(node);
     this.node = node;
     return shouldUpdate;
+  }
+
+  destroy() {
+    if (this.mouseMoveOptimization && this.observer) {
+      this.observer.unobserve(this.contentDOM);
+    }
   }
 }

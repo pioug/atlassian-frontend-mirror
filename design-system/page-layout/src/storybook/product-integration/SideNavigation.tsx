@@ -9,7 +9,6 @@ import CustomerIcon from '@atlaskit/icon/glyph/person';
 import QueueIcon from '@atlaskit/icon/glyph/queues';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import LanguageIcon from '@atlaskit/icon/glyph/world';
-/* eslint-disable import/no-extraneous-dependencies */
 import {
   ButtonItem,
   LinkItem,
@@ -20,7 +19,6 @@ import {
   Section,
   SideNavigation,
 } from '@atlaskit/side-navigation';
-/* eslint-enable import/no-extraneous-dependencies */
 
 import SampleFooter from './SampleFooter';
 import SampleHeader from './SampleHeader';

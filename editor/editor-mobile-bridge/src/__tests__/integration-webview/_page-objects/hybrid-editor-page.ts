@@ -20,6 +20,8 @@ import {
   ACTION_ITEM_HELP_TEXT_IN_ZH,
   AT_SYMBOL,
   DECISION_PANEL_HELP_TEXT,
+  UNSUPPORTED_BLOCK_NODE_ERROR_MESSAGE,
+  UNSUPPORTED_NODE_TOOLTIP,
 } from '../_utils/constants';
 import {
   DECISION_PANEL_TYPE,
@@ -27,6 +29,20 @@ import {
   getDecision,
 } from './fragments/decision-fragment';
 import { isActionItemNodeTypePresent } from './fragments/action-item-fragment';
+import {
+  EMOJI_BACKGROUND_IMAGE_ELEMENT,
+  isEmojiBackgroundImageLoaded,
+  isEmojiShortNamePresent,
+  isTextPresent as isEmojiTextPresent,
+} from './fragments/emoji-fragment';
+import {
+  getLozengeText,
+  clickLozengeDetailsIcon,
+  getLozengeToolTipText,
+  UNSUPPORTED_BLOCK_NODE,
+  UNSUPPORTED_INLINE_NODE,
+} from './fragments/lozenge-fragment';
+import { INLINE_UNSUPPORTED_CONTENT_TEXT_ATTR_VALUE } from '../_utils/test-data';
 
 export const SELECTORS_WEB = {
   EDITOR: '#editor .ProseMirror',
@@ -66,7 +82,7 @@ export async function configureEditor(page: Page, config: string) {
   await page.switchToWeb();
   return page.execute(
     (_config, _bridgeKey) => {
-      (window as any)[_bridgeKey].configureEditor(_config);
+      (window as any)[_bridgeKey].configure(_config);
     },
     config,
     'bridge',
@@ -163,4 +179,51 @@ export async function isDecisionPanelVisible(page: Page) {
 export async function isDecisionAdded(page: Page, decisionvalue: string) {
   page.switchToWeb();
   return (await getDecision(page)) === decisionvalue;
+}
+
+/**
+ * Verify the presence of shortname, text, background image of emoji to validate if emoji is added in the editor
+ */
+export async function isEmojiAdded(
+  page: Page,
+  shortName: string,
+  text: string,
+) {
+  page.switchToWeb();
+  return (
+    (await isEmojiShortNamePresent(page, shortName)) &&
+    (await isEmojiTextPresent(page, text)) &&
+    (await isEmojiBackgroundImageLoaded(page, EMOJI_BACKGROUND_IMAGE_ELEMENT))
+  );
+}
+
+/**
+ * Verify the block node lozenge error message shown in the editor to confirm the presence of Lozenge in the editor
+ */
+export async function isBlockLozengeVisible(page: Page) {
+  page.switchToWeb();
+  return (
+    (await getLozengeText(page, UNSUPPORTED_BLOCK_NODE)) ===
+    `${UNSUPPORTED_BLOCK_NODE_ERROR_MESSAGE}Broken-Type`
+  );
+}
+
+/**
+ * Verify the inline node lozenge text shown in the editor to confirm the presence of Lozenge in the editor
+ */
+export async function isInlineLozengeVisible(page: Page) {
+  page.switchToWeb();
+  return (
+    (await getLozengeText(page, UNSUPPORTED_INLINE_NODE)) ===
+    INLINE_UNSUPPORTED_CONTENT_TEXT_ATTR_VALUE
+  );
+}
+
+/**
+ * Verify the lozenge tooltip text shown in the editor to confirm the presence of Lozenge tooltip in the editor
+ */
+export async function isLozengeTooltipVisible(page: Page, nodeType: string) {
+  page.switchToWeb();
+  await clickLozengeDetailsIcon(page, nodeType);
+  return (await getLozengeToolTipText(page)) === UNSUPPORTED_NODE_TOOLTIP;
 }

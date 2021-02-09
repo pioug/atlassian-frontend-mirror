@@ -1,6 +1,7 @@
-import { ADFEntity, ValidationError } from '@atlaskit/adf-utils';
+import { ADFEntity, Validate, ValidationError } from '@atlaskit/adf-utils';
 
 import {
+  DispatchAnalyticsEvent,
   validationErrorHandler,
   wrapWithUnsupported,
 } from '../validate-using-spec';
@@ -29,6 +30,11 @@ const unsupportedInlineWithContents: any = {
 };
 
 const marks: string[] = ['indentation'];
+
+const validateMock: jest.MockedFunction<Validate> = jest.fn(x => ({
+  valid: true,
+  entity: x,
+}));
 
 describe('wrapWithUnsupported', () => {
   it('should wrap given node in unsupported block by default', () => {
@@ -72,6 +78,10 @@ describe('wrapWithUnsupported', () => {
 });
 
 describe('validationErrorHandler', () => {
+  afterEach(() => {
+    validateMock.mockClear();
+  });
+
   const validationError: ValidationError = {
     code: 'INVALID_CONTENT',
     message: 'x: invalid content.',
@@ -86,6 +96,7 @@ describe('validationErrorHandler', () => {
       validationError,
       options,
       marks,
+      validateMock,
     );
     expect(result).toBeDefined();
     expect(result && result.type).toBe('unsupportedBlock');
@@ -100,12 +111,13 @@ describe('validationErrorHandler', () => {
       validationError,
       options,
       marks,
+      validateMock,
     );
     expect(result).toBeDefined();
     expect(result && result.type).toBe('unsupportedInline');
   });
 
-  it('should not ignore maximum INVALID_CONTENT_LENGTH error for mediaSingle', () => {
+  it('should not ignore maximum INVALID_CONTENT_LENGTH error', () => {
     const invalidNode = {
       type: 'mediaSingle',
       content: [
@@ -130,7 +142,7 @@ describe('validationErrorHandler', () => {
     };
     const invalidContentLengthError: ValidationError = {
       code: 'INVALID_CONTENT_LENGTH',
-      message: "'content' should have more than 1 child",
+      message: "'content' should have less than 1 child",
       meta: { length: 2, requiredLength: 1, type: 'maximum' },
     };
     const options = {
@@ -141,6 +153,7 @@ describe('validationErrorHandler', () => {
       invalidContentLengthError,
       options,
       marks,
+      validateMock,
     );
     expect(result).toBeDefined();
     expect(result).toEqual({
@@ -172,11 +185,56 @@ describe('validationErrorHandler', () => {
     });
   });
 
-  it('should ignore INVALID_CONTENT_LENGTH error', () => {
+  it('should validate all children in maximum INVALID_CONTENT_LENGTH error', () => {
+    const invalidNode = {
+      type: 'mediaSingle',
+      content: [
+        {
+          type: 'x',
+          text: 'hello',
+        },
+        {
+          type: 'y',
+          text: 'hello',
+        },
+        {
+          type: 'z',
+          text: 'hello',
+        },
+      ],
+    };
+    const invalidContentLengthError: ValidationError = {
+      code: 'INVALID_CONTENT_LENGTH',
+      message: "'content' should have less than 1 child",
+      meta: { length: 3, requiredLength: 2, type: 'maximum' },
+    };
+    const options = {
+      allowUnsupportedBlock: true,
+    };
+    validationErrorHandler(
+      { ...invalidNode },
+      invalidContentLengthError,
+      options,
+      marks,
+      validateMock,
+    );
+    expect(validateMock).toHaveBeenCalledTimes(2);
+    expect(validateMock.mock.calls[0][0]).toStrictEqual({
+      type: 'x',
+      text: 'hello',
+    });
+    expect(validateMock.mock.calls[1][0]).toStrictEqual({
+      type: 'y',
+      text: 'hello',
+    });
+  });
+
+  it('should ignore minimum INVALID_CONTENT_LENGTH error', () => {
     const invalidNode = unsupportedNode;
     const invalidContentLengthError: ValidationError = {
       code: 'INVALID_CONTENT_LENGTH',
       message: "'content' should have more than 1 child",
+      meta: { length: 1, requiredLength: 2, type: 'minimum' },
     };
     const options = {
       allowUnsupportedBlock: true,
@@ -186,6 +244,7 @@ describe('validationErrorHandler', () => {
       invalidContentLengthError,
       options,
       marks,
+      validateMock,
     );
     expect(result).toBeDefined();
     expect(result).toEqual(invalidNode);
@@ -206,6 +265,7 @@ describe('validationErrorHandler', () => {
       error,
       options,
       marks,
+      validateMock,
     );
     expect(result).toBeDefined();
     expect(result && result.type).toBe('paragraph');
@@ -220,13 +280,19 @@ describe('validationErrorHandler', () => {
       code: 'INVALID_TYPE',
       message: 'xyz: type not allowed here',
     };
-    const result = validationErrorHandler(unsupportedNode, error, {}, []);
+    const result = validationErrorHandler(
+      unsupportedNode,
+      error,
+      {},
+      [],
+      validateMock,
+    );
     expect(result).toEqual(unsupportedNode);
   });
 });
 
 describe('validationErrorHandler', () => {
-  let dispatchAnalyticsEventMock: any;
+  let dispatchAnalyticsEventMock: jest.Mock<DispatchAnalyticsEvent>;
 
   beforeEach(() => {
     dispatchAnalyticsEventMock = jest.fn();
@@ -234,6 +300,7 @@ describe('validationErrorHandler', () => {
 
   afterEach(() => {
     dispatchAnalyticsEventMock.mockRestore();
+    validateMock.mockClear();
   });
 
   it('should track the validation error if the unsupported contents are not wrapped', () => {
@@ -246,6 +313,7 @@ describe('validationErrorHandler', () => {
       error,
       {},
       [],
+      validateMock,
       dispatchAnalyticsEventMock,
     );
 
@@ -275,6 +343,7 @@ describe('validationErrorHandler', () => {
         allowUnsupportedBlock: true,
       },
       [],
+      validateMock,
       dispatchAnalyticsEventMock,
     );
 
@@ -293,6 +362,7 @@ describe('validationErrorHandler', () => {
         allowUnsupportedInline: true,
       },
       [],
+      validateMock,
       dispatchAnalyticsEventMock,
     );
 
@@ -311,6 +381,7 @@ describe('validationErrorHandler', () => {
         isMark: true,
       },
       [],
+      validateMock,
       dispatchAnalyticsEventMock,
     );
 
@@ -331,6 +402,7 @@ describe('validationErrorHandler', () => {
       error,
       {},
       [],
+      validateMock,
       dispatchAnalyticsEventMock,
     );
 

@@ -112,6 +112,62 @@ test.skip('Mount should throw errors if the sortKey is invalid', () => {
   /* eslint-enable no-console */
 });
 
+test('totalRows dictate number of pages in pagination', () => {
+  const props = createProps();
+  const wrapper = shallow(
+    <StatelessDynamicTable {...props} totalRows={6} rowsPerPage={4} />,
+  );
+
+  /**
+   * 4 rows of data are present
+   * total number of records indicated to be 6
+   * Should create 2 pages
+   */
+  const paginatorTotalPages = wrapper.find('ManagedPagination').prop('total');
+  expect(paginatorTotalPages).toBe(2);
+});
+
+test('totalRows should not be considered if less than number of rows passed', () => {
+  const props = createProps();
+  const wrapper = shallow(
+    <StatelessDynamicTable {...props} totalRows={2} rowsPerPage={4} />,
+  );
+
+  /**
+   * 4 rows of data are present
+   * total number of records indicated to be 2, less than number of rows
+   * Should create 1 page and ignore totalRows
+   */
+  const paginatorTotalPages = wrapper.find('ManagedPagination').prop('total');
+  expect(paginatorTotalPages).toBe(1);
+});
+
+test('totalRows should prevent WithSortedPageRows from sorting and slicing', () => {
+  const props = createProps();
+  const wrapper = shallow(
+    <StatelessDynamicTable {...props} totalRows={20} rowsPerPage={4} />,
+  );
+  const tableBody = wrapper.find('WithSortedPageRows');
+  expect(tableBody.prop('isTotalPagesControlledExternally')).toBe(true);
+});
+
+test('should work without totalRows being explicitly defined', () => {
+  const props = createProps();
+  const wrapper = shallow(<StatelessDynamicTable {...props} rowsPerPage={3} />);
+
+  const paginatorTotalPages = wrapper.find('ManagedPagination').prop('total');
+  expect(paginatorTotalPages).toBe(2);
+});
+
+test('totalRows if not present should allow WithSortedPageRows do slicing and sorting as needed', () => {
+  const props = createProps();
+  const wrapper = shallow(
+    <StatelessDynamicTable {...props} rowsPerPage={30} />,
+  );
+  const tableBody = wrapper.find('WithSortedPageRows');
+  expect(tableBody.prop('isTotalPagesControlledExternally')).toBe(false);
+});
+
 describe('DynamicTableWithAnalytics', () => {
   beforeEach(() => {
     jest.spyOn(console, 'warn');

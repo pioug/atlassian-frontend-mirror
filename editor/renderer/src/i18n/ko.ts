@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Korean
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': '복사되었습니다!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': '복사',
+  'fabric.editor.headingLink.copied': '복사되었습니다!',
+  'fabric.editor.headingLink.copyAnchorLink': '링크를 제목에 복사',
+  'fabric.editor.headingLink.failedToCopy': '복사 실패',
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '@atlaskit/breadcrumbs';
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select';
@@ -9,10 +9,10 @@ import TextField from '@atlaskit/textfield';
 import PageHeader from '../src';
 
 const breadcrumbs = (
-  <BreadcrumbsStateless onExpand={() => {}}>
+  <Breadcrumbs onExpand={() => {}}>
     <BreadcrumbsItem text="Some project" key="Some project" />
     <BreadcrumbsItem text="Parent page" key="Parent page" />
-  </BreadcrumbsStateless>
+  </Breadcrumbs>
 );
 const actionsContent = (
   <ButtonGroup>

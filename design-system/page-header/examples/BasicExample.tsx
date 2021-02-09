@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '@atlaskit/breadcrumbs';
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
 import PageHeader from '../src';
 
 const breadcrumbs = (
-  <BreadcrumbsStateless onExpand={() => {}}>
+  <Breadcrumbs onExpand={() => {}}>
     <BreadcrumbsItem text="Some project" key="Some project" />
     <BreadcrumbsItem text="Parent page" key="Parent page" />
-  </BreadcrumbsStateless>
+  </Breadcrumbs>
 );
 
 export default () => (

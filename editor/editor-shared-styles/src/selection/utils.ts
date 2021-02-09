@@ -42,7 +42,8 @@ const getSelectionStyle = (style: SelectionStyle): string => {
     case SelectionStyle.BoxShadow:
       return `
         box-shadow: ${akEditorSelectedBoxShadow};
-        border-color: transparent;`;
+        border-color: transparent;
+        `;
     case SelectionStyle.Background:
       return `background-color: ${akEditorSelectedBgColor};`;
     case SelectionStyle.Blanket:

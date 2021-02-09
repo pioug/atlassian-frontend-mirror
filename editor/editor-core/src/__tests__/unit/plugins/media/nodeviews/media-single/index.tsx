@@ -13,8 +13,13 @@ import {
   mediaSingle,
   media,
   RefsNode,
+  caption,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { defaultSchema, MediaAttributes } from '@atlaskit/adf-schema';
+import {
+  defaultSchema,
+  getSchemaBasedOnStage,
+  MediaAttributes,
+} from '@atlaskit/adf-schema';
 import { stateKey as mediaStateKey } from '../../../../../../plugins/media/pm-plugins/plugin-key';
 import { MediaState } from '../../../../../../plugins/media/types';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -297,6 +302,46 @@ describe('nodeviews/mediaSingle', () => {
 
       nodeView.ignoreMutation();
       expect(renderMock).toBeCalled();
+    });
+  });
+
+  describe('updating based on child count', () => {
+    const node = mediaSingle()(mediaNode)(defaultSchema);
+
+    it('does not update if the childCount has not changed', () => {
+      const nodeView = ReactMediaSingleNode(
+        portalProviderAPI,
+        eventDispatcher,
+        providerFactory,
+        undefined,
+        mediaOptions,
+      )(node, view, getPos);
+
+      // ensure that if it falls through to the default it returns false
+      nodeView['_viewShouldUpdate'] = jest.fn(_node => false);
+
+      expect(nodeView.viewShouldUpdate(node)).toBeFalsy();
+    });
+
+    it('updates if the childCount has changed', () => {
+      const nodeView = ReactMediaSingleNode(
+        portalProviderAPI,
+        eventDispatcher,
+        providerFactory,
+        undefined,
+        mediaOptions,
+      )(node, view, getPos);
+
+      // need to get stage 0 schema of media + captions
+      // when captions is in full schema, use defaultSchema
+      const newNode = mediaSingle()(mediaNode, caption('hi'))(
+        getSchemaBasedOnStage('stage0'),
+      );
+
+      // ensure that if it falls through to the default it returns false
+      nodeView['_viewShouldUpdate'] = jest.fn(_node => false);
+
+      expect(nodeView.viewShouldUpdate(newNode)).toBeTruthy();
     });
   });
 

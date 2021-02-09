@@ -11,6 +11,7 @@ export default function AvatarHoverExample() {
         name="Mike Cannon-Brookes"
         src="https://pbs.twimg.com/profile_images/568401563538841600/2eTVtXXO_400x400.jpeg"
         size="large"
+        onClick={console.log}
       />
     </Tooltip>
   );

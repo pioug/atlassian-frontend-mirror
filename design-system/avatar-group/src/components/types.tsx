@@ -1,6 +1,5 @@
 import { ElementType, ReactNode } from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { AnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarPropTypes } from '@atlaskit/avatar';
 

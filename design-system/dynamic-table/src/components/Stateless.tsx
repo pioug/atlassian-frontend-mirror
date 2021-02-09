@@ -178,9 +178,33 @@ class DynamicTable extends React.Component<Props, State> {
       paginationi18n,
       onPageRowsUpdate,
       testId,
+      totalRows: passedDownTotalRows,
     } = this.props;
 
     const rowsLength = rows && rows.length;
+    let totalPages: number;
+    // set a flag to denote the dynamic table might get only one page of data
+    // for paginated data
+    let isTotalPagesControlledExternally = false;
+    if (
+      passedDownTotalRows &&
+      Number.isInteger(passedDownTotalRows) &&
+      rowsPerPage &&
+      rowsLength &&
+      rowsLength <= passedDownTotalRows
+    ) {
+      /**
+       * If total number of rows / records have been passed down as prop
+       * Then table is being fed paginated data from server or other sources
+       * In this case, we want to respect information passed down by server or external source
+       * Rather than relying on our computation based on number of rows
+       */
+      totalPages = Math.ceil(passedDownTotalRows / rowsPerPage);
+      isTotalPagesControlledExternally = true;
+    } else {
+      totalPages =
+        rowsLength && rowsPerPage ? Math.ceil(rowsLength / rowsPerPage) : 0;
+    }
     const bodyProps = {
       highlightedRowIndex,
       rows,
@@ -191,13 +215,12 @@ class DynamicTable extends React.Component<Props, State> {
       page,
       isFixedSize: isFixedSize || false,
       onPageRowsUpdate,
+      isTotalPagesControlledExternally,
       ref: (el: any) => {
         this.tableBody = el;
       },
       testId,
     };
-    const totalPages =
-      rowsLength && rowsPerPage ? Math.ceil(rowsLength / rowsPerPage) : 0;
     const rowsExist = !!rowsLength;
 
     const spinnerSize = this.getSpinnerSize();

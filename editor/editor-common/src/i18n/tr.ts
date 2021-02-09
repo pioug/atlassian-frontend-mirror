@@ -6,9 +6,15 @@
  */
 // Turkish
 export default {
+  'fabric.editor.captionPlaceholder': 'Açıklama yazısı ekleyin',
   'fabric.editor.collapseNode': 'içeriği daraltın',
   'fabric.editor.expandDefaultTitle': 'Genişletmek için buraya tıklayın...',
   'fabric.editor.expandNode': 'İçeriği genişletin',
   'fabric.editor.expandPlaceholder': 'Bu genişletme öğesine bir ad verin...',
   'fabric.editor.openLink': 'Bağlantıyı yeni sekmede açın',
+  'fabric.editor.unsupportedBlockContent':
+    'Bu düzenleyici bu içeriğin görüntülenmesini desteklemiyor',
+  'fabric.editor.unsupportedContentTooltip':
+    'İçerik bu düzenleyicide kullanılamıyor, düzenleyip kaydettiğinizde korunacak',
+  'fabric.editor.unsupportedInlineContent': 'Desteklenmeyen içerik',
 };

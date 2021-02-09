@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.5.0
+
+### Minor Changes
+
+- [`93adccb79a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93adccb79a4) - The Smart User Picker now has the ability to use menuPosition which can allow it to be displayed on top of a dialog box.
+
 ## 7.4.0
 
 ### Minor Changes

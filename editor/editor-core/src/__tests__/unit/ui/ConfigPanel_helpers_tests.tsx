@@ -1,32 +1,104 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import AsyncSelect from 'react-select/async';
 import CreatableSelect from 'react-select/creatable';
-import AsyncCreatableSelect from 'react-select/async-creatable';
 import {
-  createOption,
-  selectOption,
+  asOption,
+  resolveOption,
   silenceActErrors,
 } from './_ConfigPanel_helpers';
 
-describe('createOption/selectOption', () => {
+describe('resolveOption', () => {
   // TODO: there are many warnings due to hooks usage and async code,
   //   these should be resolved by the next react update
   silenceActErrors();
 
-  it('work as intended', async () => {
-    const OPTIONS = [{ value: 'bar', label: 'Bar' }];
-
+  it('returns false for missing options', async () => {
+    const OPTION = asOption('bar');
     const spy = jest.fn();
     const wrapper = await mount(
-      <CreatableSelect onChange={spy} options={OPTIONS} />,
+      <AsyncSelect onChange={spy} loadOptions={async () => [OPTION]} />,
     );
 
-    const select = wrapper.find('Select');
-    expect(await createOption(select, 'foo')).toBe(true);
-    expect(await selectOption(select, 'bar')).toBe(true);
-    expect(await selectOption(select, 'nope')).toBe(false);
-    expect(await selectOption(select, 'foo')).toBe(false);
+    expect(await resolveOption(wrapper, 'foo')).toBe(false); // missing
+    expect(spy).toBeCalledTimes(0);
+  });
 
+  it('returns true for existing options', async () => {
+    const OPTION = asOption('bar');
+    const spy = jest.fn();
+    const wrapper = await mount(
+      <AsyncSelect onChange={spy} loadOptions={async () => [OPTION]} />,
+    );
+
+    expect(await resolveOption(wrapper, 'bar')).toBe(true); // pre-existing
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).nthCalledWith(
+      1,
+      expect.objectContaining(OPTION),
+      expect.anything(),
+    );
+  });
+
+  it('supports asynchronous loading of options', async () => {
+    const OPTION = asOption('bar');
+    const spy = jest.fn();
+    const wrapper = await mount(
+      <AsyncSelect
+        onChange={spy}
+        loadOptions={async () =>
+          new Promise(resolve => {
+            setTimeout(() => resolve([OPTION]), 200);
+          })
+        }
+      />,
+    );
+
+    expect(await resolveOption(wrapper, 'foo')).toBe(false); // missing
+    expect(await resolveOption(wrapper, 'bar')).toBe(true); // pre-existing
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).nthCalledWith(
+      1,
+      expect.objectContaining(OPTION),
+      expect.anything(),
+    );
+  });
+
+  it('uses the searchTerm', async () => {
+    const OPTION = asOption('bar');
+    const spy = jest.fn();
+    const wrapper = await mount(
+      <AsyncSelect
+        onChange={spy}
+        loadOptions={async (searchTerm: string) => {
+          if (searchTerm === 'bar') {
+            return [OPTION];
+          }
+
+          return [];
+        }}
+      />,
+    );
+
+    expect(await resolveOption(wrapper, 'foo')).toBe(false); // missing
+    expect(await resolveOption(wrapper, 'bar')).toBe(true); // pre-existing
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).nthCalledWith(
+      1,
+      expect.objectContaining(OPTION),
+      expect.anything(),
+    );
+  });
+
+  it('creates an option with CreatableSelect', async () => {
+    const OPTION = asOption('bar');
+    const spy = jest.fn();
+    const wrapper = await mount(
+      <CreatableSelect onChange={spy} options={[OPTION]} />,
+    );
+
+    expect(await resolveOption(wrapper, 'foo')).toBe(true); // missing, created
+    expect(await resolveOption(wrapper, 'bar')).toBe(true); // pre-existing
     expect(spy).toBeCalledTimes(2);
     expect(spy).nthCalledWith(
       1,
@@ -36,49 +108,7 @@ describe('createOption/selectOption', () => {
 
     expect(spy).nthCalledWith(
       2,
-      expect.objectContaining({ label: 'Bar', value: 'bar' }),
-      expect.anything(),
-    );
-  });
-
-  it('works with no options', async () => {
-    const spy = jest.fn();
-    const wrapper = await mount(<CreatableSelect onChange={spy} />);
-
-    const select = wrapper.find('Select');
-    expect(await createOption(select, 'foo')).toBe(true);
-    expect(await selectOption(select, 'bar')).toBe(false);
-    expect(await selectOption(select, 'nope')).toBe(false);
-    expect(await selectOption(select, 'foo')).toBe(false);
-
-    expect(spy).toBeCalledTimes(1);
-    expect(spy).nthCalledWith(
-      1,
-      expect.objectContaining({ label: 'Create "foo"', value: 'foo' }),
-      expect.anything(),
-    );
-  });
-
-  it('works with AsyncCreatableSelect', async () => {
-    const spy = jest.fn();
-    const wrapper = await mount(
-      <AsyncCreatableSelect
-        onChange={spy}
-        isValidNewOption={() => true}
-        loadOptions={async () => []}
-      />,
-    );
-
-    const select = wrapper.find('Select');
-    expect(await createOption(select, 'foo')).toBe(true);
-    expect(await selectOption(select, 'bar')).toBe(false);
-    expect(await selectOption(select, 'nope')).toBe(false);
-    expect(await selectOption(select, 'foo')).toBe(false);
-
-    expect(spy).toBeCalledTimes(1);
-    expect(spy).nthCalledWith(
-      1,
-      expect.objectContaining({ label: 'Create "foo"', value: 'foo' }),
+      expect.objectContaining({ label: 'bar', value: 'bar' }),
       expect.anything(),
     );
   });

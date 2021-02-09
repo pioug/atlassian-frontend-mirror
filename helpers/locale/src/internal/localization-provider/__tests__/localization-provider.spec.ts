@@ -1,6 +1,9 @@
 jest.mock('../toFormattedParts');
 jest.mock('../../date-parser');
-import { createLocalizationProvider } from '../localization-provider';
+import {
+  createLocalizationProvider,
+  LocalizationProvider,
+} from '../localization-provider';
 import { toFormattedParts } from '../toFormattedParts';
 import { createDateParser } from '../../date-parser';
 
@@ -68,17 +71,28 @@ describe('LocalizationProvider', () => {
     expect(result).toBe(expectedResult);
   });
 
-  // TODO
-  /* it.each([
-    ['en', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
-    ['ko', ['일', '월', '화', '수', '목', '금', '토']],
-    ['nl', ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za']],
-  ])('returns all weekdays in short format', (locale, expected) => {
-    const provider = createLocalizationProvider(locale);
-    const result = provider.getDaysShort();
+  it.each<
+    [string, Parameters<LocalizationProvider['getDaysShort']>[0], Array<string>]
+  >([
+    ['en-AU', , ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']],
+    ['en-AU', 0, ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']],
+    ['en-AU', 1, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
+    ['en-AU', 2, ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon']],
+    ['en-AU', 6, ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri']],
 
-    expect(result).toEqual(expect.arrayContaining(expected));
-  }); */
+    // TODO: Test below locales after we upgrade to node 14
+    // More Info: https://nodejs.org/api/intl.html
+    // ['ko-KR', undefined, ['토', '일', '월', '화', '수', '목', '금']],
+    // ['nl-NL', undefined, ['za', 'zo', 'ma', 'di', 'wo', 'do', 'vr']],
+  ])(
+    'returns all weekdays in short format',
+    (locale, weekStartDay, expected) => {
+      const provider = createLocalizationProvider(locale);
+      const result = provider.getDaysShort(weekStartDay);
+
+      expect(result).toEqual(expected);
+    },
+  );
 
   // TODO: test getMonthsLong
 

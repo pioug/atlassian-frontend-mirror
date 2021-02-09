@@ -23,6 +23,7 @@ export interface BrowserOwnProps {
    */
   onBrowseFn?: (browse: () => void) => void;
   onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
+  children?: (browse: () => void) => React.ReactChild;
 }
 
 export type BrowserProps = LocalUploadComponentBaseProps & BrowserOwnProps;
@@ -91,21 +92,24 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
   };
 
   render() {
-    const { config } = this.props;
+    const { config, children } = this.props;
     const multiple = config.multiple;
     const fileExtensions =
       config.fileExtensions && config.fileExtensions.join(',');
 
     return (
-      <input
-        data-testid="media-picker-file-input"
-        ref={this.browserRef}
-        type="file"
-        style={{ display: 'none' }}
-        multiple={multiple}
-        accept={fileExtensions}
-        onChange={this.onFilePicked}
-      />
+      <>
+        <input
+          data-testid="media-picker-file-input"
+          ref={this.browserRef}
+          type="file"
+          style={{ display: 'none' }}
+          multiple={multiple}
+          accept={fileExtensions}
+          onChange={this.onFilePicked}
+        />
+        {children ? children(this.browse) : null}
+      </>
     );
   }
 }

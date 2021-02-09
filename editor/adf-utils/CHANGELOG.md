@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 11.8.0
+
+### Minor Changes
+
+- [`586040bf70b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/586040bf70b) - Ensure that all children are validated in new error path
+
 ## 11.7.1
 
 ### Patch Changes

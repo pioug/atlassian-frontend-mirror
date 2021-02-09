@@ -6,6 +6,7 @@
  */
 // Dutch
 export default {
+  'fabric.editor.captionPlaceholder': 'Bijschrift toevoegen',
   'fabric.editor.collapseNode': 'Content inklappen',
   'fabric.editor.expandDefaultTitle': 'Klik hier om uit te breiden...',
   'fabric.editor.expandNode': 'Content uitbreiden',

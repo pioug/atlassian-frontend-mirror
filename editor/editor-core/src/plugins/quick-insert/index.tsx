@@ -93,7 +93,12 @@ const quickInsertPlugin = (
 
   contentComponent({ editorView }) {
     if (options && options.enableElementBrowser) {
-      return <ModalElementBrowser editorView={editorView} />;
+      return (
+        <ModalElementBrowser
+          editorView={editorView}
+          helpUrl={options.elementBrowserHelpUrl}
+        />
+      );
     }
 
     return null;

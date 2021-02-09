@@ -3,6 +3,7 @@ import { Schema } from 'prosemirror-model';
 import {
   ADFEntity,
   ErrorCallbackOptions,
+  Validate,
   ValidationError,
   ValidationErrorMap,
   validator,
@@ -13,10 +14,11 @@ export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 import { ACTION_SUBJECT_ID, UnsupportedContentPayload } from './analytics';
 import { fireUnsupportedEvent } from './track-unsupported-content';
 
-type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
+export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
 
 const errorCallbackFor = (
   marks: any,
+  validate: Validate,
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ) => {
   return (
@@ -29,6 +31,7 @@ const errorCallbackFor = (
       error,
       options,
       marks,
+      validate,
       dispatchAnalyticsEvent,
     );
   };
@@ -39,6 +42,7 @@ export const validationErrorHandler = (
   error: ValidationError,
   options: ErrorCallbackOptions,
   marks: string[],
+  validate: Validate,
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ) => {
   if (entity && entity.type === UNSUPPORTED_NODE_ATTRIBUTE) {
@@ -87,7 +91,10 @@ export const validationErrorHandler = (
           .map((child, index) => {
             return index >= meta.requiredLength
               ? wrapWithUnsupported(child)
-              : child;
+              : validate(
+                  child,
+                  errorCallbackFor(marks, validate, dispatchAnalyticsEvent),
+                ).entity;
           });
       } else {
         // Can't fix it by wrapping
@@ -146,7 +153,7 @@ export const validateADFEntity = (
 
   const { entity = emptyDoc } = validate(
     node,
-    errorCallbackFor(marks, dispatchAnalyticsEvent),
+    errorCallbackFor(marks, validate, dispatchAnalyticsEvent),
   );
 
   return entity;

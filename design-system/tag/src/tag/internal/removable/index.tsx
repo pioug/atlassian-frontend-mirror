@@ -127,7 +127,7 @@ const InnerRemovableTag = forwardRef(
       chromeLinkColors,
       buttonColors,
       linkHoverColor,
-    } = useMemo(() => getThemeColors(color, mode), [color, mode]);
+    } = useMemo(() => getThemeColors(color, mode, true), [color, mode]);
 
     const chromeContainerForLinkStyles = [
       chromeLinkStyles(chromeLinkColors),
@@ -191,7 +191,11 @@ const InnerRemovableTag = forwardRef(
                   data-removing={status === TagStatus.Removing}
                   role={isLink ? 'link' : undefined}
                   before={
-                    <Before isRounded={isRounded} elemBefore={elemBefore} />
+                    <Before
+                      isRounded={isRounded}
+                      elemBefore={elemBefore}
+                      styles={chromeColors}
+                    />
                   }
                   contentElement={content}
                   after={removeButton}

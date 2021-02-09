@@ -1,25 +1,31 @@
 /** @jsx jsx */
 
+import { memo } from 'react';
+
 import { jsx } from '@emotion/core';
 
-import { itemWrapperStyles, separatorStyles } from '../internal/styles';
-import { EllipsisItemProps } from '../types';
+import Button from '@atlaskit/button/standard-button';
 
-import Button from './Button';
+import { itemWrapperStyles } from '../internal/styles';
+import { EllipsisItemProps } from '../types';
 
 const noop = () => {};
 
-const EllipsisItem = (props: EllipsisItemProps) => {
-  const { hasSeparator = false, onClick = noop, testId } = props;
+const EllipsisItem = memo((props: EllipsisItemProps) => {
+  const { onClick = noop, testId } = props;
 
   return (
-    <div css={itemWrapperStyles}>
-      <Button testId={testId} onClick={onClick}>
+    <li css={itemWrapperStyles}>
+      <Button
+        appearance="subtle-link"
+        spacing="none"
+        testId={testId}
+        onClick={onClick}
+      >
         &hellip;
       </Button>
-      {hasSeparator ? <div css={separatorStyles}>/</div> : null}
-    </div>
+    </li>
   );
-};
+});
 
 export default EllipsisItem;

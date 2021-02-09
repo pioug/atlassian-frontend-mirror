@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { Help } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-/* eslint-enable import/no-extraneous-dependencies */
-
 const HelpContent = () => (
   <MenuGroup testId={'nav-help-content'}>
     <Section title="Help">

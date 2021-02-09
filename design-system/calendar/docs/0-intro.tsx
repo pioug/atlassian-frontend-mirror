@@ -25,7 +25,7 @@ ${(
 ${(
   <Props
     heading="Calendar Props"
-    props={require('!!extract-react-types-loader!../src/components/Calendar')}
+    props={require('!!extract-react-types-loader!../extract-react-types/calendar-props.tsx')}
   />
 )}
 
@@ -48,12 +48,22 @@ export type ChangeEvent = {
 } & DateObj;
 \`\`\`
 
-### ⚠️ CalendarClassType:
-A type of the internal Calendar class.
-Some consumers are storing a reference to the Calendar class instance and calling instance functions on it.
-This is not recommended
+### SelectEvent
 
-### ⚠️ ArrowKeys
-For usage with \`CalendarClassType\`.
-Needed for interacting with \`.navigate()\`
+\`\`\`
+export type DateObj = {
+  day: number;
+  month: number;
+  year: number;
+};
+
+export type SelectEvent = {
+  iso: string;
+} & DateObj;
+\`\`\`
+
+### ⚠️ CalendarInternalRef:
+A type of an additional Calendar ref which exposes internal api's.
+Some consumers are storing this ref and calling some internal api's.
+This is not recommended
 `;

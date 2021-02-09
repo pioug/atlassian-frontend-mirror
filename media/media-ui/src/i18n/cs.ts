@@ -31,6 +31,8 @@ export default {
   'fabric.media.cant_retrieve_gifs': 'Nepodařilo se nám dohledat žádné GIFy.',
   'fabric.media.check_your_network': 'Zkontrolujte své připojení k síti.',
   'fabric.media.close': 'Zavřít',
+  'fabric.media.close_and_reopen':
+    'Zkuste tento soubor zavřít a znovu otevřít.',
   'fabric.media.connect_account_description':
     'Otevřeme novou stránku, abychom vám pomohli připojit váš {name} účet.',
   'fabric.media.connect_link_account':
@@ -47,8 +49,10 @@ export default {
     'Náhled souborů chráněných šifrováním nebo heslem nelze zobrazit.',
   'fabric.media.couldnt_generate_preview':
     'Náhled tohoto souboru se nepodařilo vytvořit.',
+  'fabric.media.couldnt_load_file': 'Soubor se nepodařilo načíst.',
   'fabric.media.couldnt_load_link':
     'Tento odkaz se z neznámého důvodu nepodařilo načíst.',
+  'fabric.media.creating_preview': 'Vytváří se náhled…',
   'fabric.media.default_avatars': 'Výchozí avatary',
   'fabric.media.disable_fullscreen': 'zakázat zobrazení na celou obrazovku',
   'fabric.media.document': 'dokument',
@@ -62,6 +66,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Přetáhněte své soubory sem.',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'povolit zobrazení na celou obrazovku',
+  'fabric.media.error_429': 'Chyba 429',
   'fabric.media.error_generating_preview': 'Chyba při vytváření náhledu',
   'fabric.media.error_hint_critical':
     'Pokud problém přetrvává, kontaktujte podporu.',
@@ -99,7 +104,14 @@ export default {
   'fabric.media.or': 'nebo',
   'fabric.media.pause': 'pozastavit',
   'fabric.media.play': 'přehrát',
+  'fabric.media.playback_default_speed': 'Výchozí',
+  'fabric.media.playback_speed': 'Rychlost přehrávání',
   'fabric.media.preview': 'Náhled',
+  'fabric.media.preview_currently_unavailable':
+    'Náhled aktuálně není k dispozici',
+  'fabric.media.preview_rateLimited':
+    'Při vytváření náhledu se vyskytly potíže.',
+  'fabric.media.preview_unavailable': 'Náhled není k dispozici',
   'fabric.media.recent_uploads': 'Nedávno nahráno',
   'fabric.media.remove_image': 'Odstranit obrázek',
   'fabric.media.retry': 'Zkusit znovu',
@@ -127,6 +139,8 @@ export default {
   'fabric.media.upload_photo': 'Nahrát fotku',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Zobrazit',
+  'fabric.media.viewer_rateLimited':
+    'Při načítání vašeho souboru došlo k potížím.',
   'fabric.media.webgl_warning_description':
     'Váš prohlížeč nepodporuje knihovnu WebGL. Chcete-li přidávat k obrázkům poznámky, použijte prohlížeč, který ji podporuje.',
   'fabric.media.zoom_in': 'přiblížit',

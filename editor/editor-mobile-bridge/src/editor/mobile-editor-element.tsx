@@ -56,10 +56,25 @@ export interface MobileEditorProps extends EditorProps {
 // Editor options. Keep as external cost to prevent unnecessary re-renders;
 const layoutOptions = {
   allowBreakout: true,
+  UNSAFE_addSidebarLayouts: true,
 };
 
 const tableOptions = {
-  allowControls: false,
+  allowCellOptionsInFloatingToolbar: true,
+  allowControls: true,
+  allowBackgroundColor: true,
+  allowHeaderColumn: true,
+  allowHeaderRow: true,
+  allowMergeCells: true,
+  allowNumberColumn: true,
+};
+
+const expandOptions = {
+  allowInsertion: true,
+};
+
+const codeBlockOptions = {
+  allowCopyToClipboard: true,
 };
 
 const templatePlaceholdersOptions = { allowInserting: true };
@@ -148,9 +163,10 @@ export function MobileEditor(props: MobileEditorProps) {
               allowStatus={true}
               allowLayouts={layoutOptions}
               allowAnalyticsGASV3={true}
-              allowExpand={true}
+              allowExpand={expandOptions}
+              codeBlock={codeBlockOptions}
               allowTemplatePlaceholders={templatePlaceholdersOptions}
-              allowScrollGutter={editorConfiguration.isScrollGutterAllowed()}
+              persistScrollGutter={editorConfiguration.isScrollGutterPersisted()}
               UNSAFE_predictableLists={editorConfiguration.isPredictableListEnabled()}
               taskDecisionProvider={taskDecisionProvider}
               quickInsert={quickInsert}
@@ -159,6 +175,7 @@ export function MobileEditor(props: MobileEditorProps) {
               {...props}
               mentionProvider={props.mentionProvider}
               emojiProvider={props.emojiProvider}
+              placeholder={editorConfiguration.getPlaceholder()}
             />
             <WithPluginState
               plugins={{ floatingToolbar: floatingToolbarPluginKey }}

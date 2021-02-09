@@ -30,6 +30,8 @@ export default {
   'fabric.media.cant_retrieve_gifs': 'Не найдено ни одного файла GIF',
   'fabric.media.check_your_network': 'Проверьте подключение к сети',
   'fabric.media.close': 'Закрыть',
+  'fabric.media.close_and_reopen':
+    'Попробуйте закрыть этот файл и открыть его повторно.',
   'fabric.media.connect_account_description':
     'Откроется новая страница, где вы сможете подключить свой аккаунт {name}',
   'fabric.media.connect_link_account': 'Подключить для просмотра',
@@ -45,17 +47,23 @@ export default {
     'Предварительный просмотр файлов, которые зашифрованы или защищены паролем, невозможен.',
   'fabric.media.couldnt_generate_preview':
     'Не удалось выполнить предварительный просмотр файла.',
+  'fabric.media.couldnt_load_file': 'Не удалось загрузить файл.',
   'fabric.media.couldnt_load_link':
     'По неизвестной причине не удалось загрузить ссылку.',
+  'fabric.media.creating_preview': 'Создание предварительного просмотра…',
   'fabric.media.default_avatars': 'Аватары по умолчанию',
   'fabric.media.disable_fullscreen': 'отключить полноэкранный режим',
   'fabric.media.document': 'документ',
   'fabric.media.download': 'Скачать',
   'fabric.media.drag_and_drop_images_here': 'Перетащите изображения сюда',
   'fabric.media.drag_and_drop_your_files': 'Перетащите файлы в любое место или',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Перетащите файлы и папки в любое место или',
   'fabric.media.drop_your_files': 'Перетащите файлы для загрузки',
   'fabric.media.drop_your_files_here': 'Перетащите файлы сюда',
+  'fabric.media.email': 'Электронная почта',
   'fabric.media.enable_fullscreen': 'включить полноэкранный режим',
+  'fabric.media.error_429': 'Ошибка 429',
   'fabric.media.error_generating_preview':
     'Не удалось создать предварительный просмотр для файла',
   'fabric.media.error_hint_critical':
@@ -92,16 +100,25 @@ export default {
   'fabric.media.or': 'или',
   'fabric.media.pause': 'поставить на паузу',
   'fabric.media.play': 'воспроизвести',
+  'fabric.media.playback_default_speed': 'По умолчанию',
+  'fabric.media.playback_speed': 'Скорость воспроизведения',
   'fabric.media.preview': 'Предпросмотр',
+  'fabric.media.preview_currently_unavailable':
+    'Предварительный просмотр сейчас недоступен',
+  'fabric.media.preview_rateLimited':
+    'При создании предварительного просмотра возникли проблемы',
+  'fabric.media.preview_unavailable': 'Предварительный просмотр недоступен',
   'fabric.media.recent_uploads': 'Недавно загруженные файлы',
   'fabric.media.remove_image': 'Удалить изображение',
   'fabric.media.retry': 'Повторить',
   'fabric.media.save': 'Сохраните',
+  'fabric.media.search': 'Поиск',
   'fabric.media.search_all_gifs': 'Поиск по всем файлам GIF',
   'fabric.media.share_files_instantly': 'Мы загрузим их автоматически',
   'fabric.media.something_went_wrong': 'Произошла ошибка.',
   'fabric.media.srclink': 'Просмотреть в',
   'fabric.media.srclinkunknown': 'Просмотреть оригинал',
+  'fabric.media.text': 'Текст',
   'fabric.media.try_again': 'Повторить попытку',
   'fabric.media.try_another_account': 'Попробуйте использовать другой аккаунт',
   'fabric.media.try_downloading_file': 'Чтобы просмотреть файл, скачайте его.',
@@ -116,6 +133,7 @@ export default {
   'fabric.media.upload_photo': 'Загрузите фото',
   'fabric.media.video': 'видео',
   'fabric.media.view': 'Просмотреть',
+  'fabric.media.viewer_rateLimited': 'Не удается загрузить файл.',
   'fabric.media.webgl_warning_description':
     'Эта функция недоступна. Чтобы добавлять примечания к изображениям, используйте браузер с поддержкой WebGL.',
   'fabric.media.zoom_in': 'увеличить',

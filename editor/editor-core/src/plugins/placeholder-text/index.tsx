@@ -8,6 +8,7 @@ import {
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { placeholder } from '@atlaskit/adf-schema';
+import MediaServicesTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import { getPosHandler } from '../../nodeviews/types';
 import { EditorPlugin } from '../../types/editor-plugin';
 import WithPluginState from '../../ui/WithPluginState';
@@ -22,6 +23,15 @@ import {
 import { PlaceholderTextNodeView } from './placeholder-text-nodeview';
 import { pluginKey } from './plugin-key';
 import { PlaceholderTextOptions, PluginState } from './types';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  addAnalytics,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '../analytics';
+import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 
 export function createPlugin(
   dispatch: Dispatch<PluginState>,
@@ -113,7 +123,7 @@ export function createPlugin(
   });
 }
 
-const placeholderTextPlugin = (
+const basePlaceholderTextPlugin = (
   options: PlaceholderTextOptions,
 ): EditorPlugin => ({
   name: 'placeholderText',
@@ -169,4 +179,49 @@ const placeholderTextPlugin = (
     );
   },
 });
+
+const decorateWithPluginOptions = (
+  plugin: EditorPlugin,
+  options: PlaceholderTextOptions,
+): EditorPlugin => {
+  if (!options.allowInserting) {
+    return plugin;
+  }
+
+  plugin.pluginsOptions = {
+    quickInsert: ({ formatMessage }) => [
+      {
+        id: 'placeholderText',
+        title: formatMessage(messages.placeholderText),
+        description: formatMessage(messages.placeholderTextDescription),
+        priority: 1400,
+        keywords: ['placeholder'],
+        icon: () => (
+          <MediaServicesTextIcon
+            label={formatMessage(messages.placeholderText)}
+          />
+        ),
+        action(insert, state) {
+          const tr = insert(state.schema.nodes.placeholder.createChecked());
+          tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });
+
+          return addAnalytics(state, tr, {
+            action: ACTION.INSERTED,
+            actionSubject: ACTION_SUBJECT.DOCUMENT,
+            actionSubjectId: ACTION_SUBJECT_ID.PLACEHOLDER_TEXT,
+            attributes: {
+              inputMethod: INPUT_METHOD.QUICK_INSERT,
+            },
+            eventType: EVENT_TYPE.TRACK,
+          });
+        },
+      },
+    ],
+  };
+  return plugin;
+};
+
+const placeholderTextPlugin = (options: PlaceholderTextOptions): EditorPlugin =>
+  decorateWithPluginOptions(basePlaceholderTextPlugin(options), options);
+
 export default placeholderTextPlugin;

@@ -240,7 +240,9 @@ describe('perform edit action', () => {
       items: [
         {
           type: 'select',
-          onChange: mockOnChange,
+          onChange: selected => {
+            return mockOnChange;
+          },
           options: [
             {
               label: 'Java',
@@ -250,6 +252,7 @@ describe('perform edit action', () => {
         },
       ],
     };
+
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
       floatingToolbarConfig,
     );

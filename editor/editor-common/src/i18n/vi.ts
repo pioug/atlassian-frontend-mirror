@@ -6,9 +6,15 @@
  */
 // Vietnamese
 export default {
+  'fabric.editor.captionPlaceholder': 'Thêm chú thích',
   'fabric.editor.collapseNode': 'thu gọn nội dung',
   'fabric.editor.expandDefaultTitle': 'Nhấp vào đây để mở rộng...',
   'fabric.editor.expandNode': 'Mở rộng nội dung',
   'fabric.editor.expandPlaceholder': 'Đặt tiêu đề cho phần mở rộng này...',
   'fabric.editor.openLink': 'Mở liên kết trong tab mới',
+  'fabric.editor.unsupportedBlockContent':
+    'Trình biên tập này không hỗ trợ hiển thị nội dung này',
+  'fabric.editor.unsupportedContentTooltip':
+    'Nội dung không có trong trình biên tập này, nội dung sẽ được bảo lưu khi bạn sửa và lưu',
+  'fabric.editor.unsupportedInlineContent': 'Nội dung không được hỗ trợ',
 };

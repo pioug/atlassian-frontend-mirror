@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 20.1.1
+
+### Patch Changes
+
+- [`fe59fc62a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe59fc62a58) - Increased the contrast for the fallback icon of the Avatar package so that it passes WCAG AA contrast requirements.
+
 ## 20.1.0
 
 ### Minor Changes

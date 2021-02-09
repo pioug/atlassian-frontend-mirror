@@ -71,8 +71,9 @@ Use `xsmall` circle and square avatars for onscreen metadata such as in Jira iss
 
 <Example Component={AvatarXSmall} packageName="@atlaskit/avatar" />
 
-## Tooltip on hover
+## Displaying a tooltip
+A tooltip can be used with an avatar to be displayed on focus or hover. The tooltip `content` should be set to the same value as the avatar `name`.
 
-On hover, a tooltip is displayed to reveal the avatar `name`.
+For [accessibilty reasons](usage#accessibility), do not use a tooltip with an avatar unless it is interactive.
 
 <Example Component={AvatarHover} packageName="@atlaskit/avatar" />

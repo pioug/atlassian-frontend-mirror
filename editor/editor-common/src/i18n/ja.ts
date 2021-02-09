@@ -6,9 +6,15 @@
  */
 // Japanese
 export default {
+  'fabric.editor.captionPlaceholder': 'キャプションを追加',
   'fabric.editor.collapseNode': 'コンテンツを折りたたむ',
   'fabric.editor.expandDefaultTitle': 'こちらをクリックして展開…',
   'fabric.editor.expandNode': 'コンテンツを展開',
   'fabric.editor.expandPlaceholder': 'この展開にタイトルを付ける…',
   'fabric.editor.openLink': 'リンクを新しいタブで開く',
+  'fabric.editor.unsupportedBlockContent':
+    'このエディターはこのコンテンツの表示をサポートしていません',
+  'fabric.editor.unsupportedContentTooltip':
+    'このエディターではコンテンツが利用できないため、編集および保存の際にはコンテンツが保持されます',
+  'fabric.editor.unsupportedInlineContent': 'サポートされていないコンテンツ',
 };

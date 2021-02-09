@@ -32,6 +32,7 @@ export default {
     'Bir sorunla karşılaştık! GIF dosyaları alınamadı',
   'fabric.media.check_your_network': 'Ağ bağlantınızı kontrol edin',
   'fabric.media.close': 'Kapat',
+  'fabric.media.close_and_reopen': 'Bu dosyayı kapatıp yeniden açmayı deneyin.',
   'fabric.media.connect_account_description':
     '{name} hesabınıza bağlanmanıza yardımcı olmak için yeni bir sayfa açacağız',
   'fabric.media.connect_link_account': 'Önizlemeye bağlanın',
@@ -49,8 +50,10 @@ export default {
     'Şifrelenmiş veya parola korumalı dosyaların önizlemesini gösteremiyoruz.',
   'fabric.media.couldnt_generate_preview':
     'Bu dosya için önizleme oluşturamadık.',
+  'fabric.media.couldnt_load_file': 'Dosya yüklenemedi.',
   'fabric.media.couldnt_load_link':
     'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
+  'fabric.media.creating_preview': 'Önizleme oluşturuluyor...',
   'fabric.media.default_avatars': 'Varsayılan profil resimleri',
   'fabric.media.disable_fullscreen': 'tam ekrandan çıkın',
   'fabric.media.document': 'belge',
@@ -59,9 +62,13 @@ export default {
     'Görsellerinizi buraya sürükleyip bırakın',
   'fabric.media.drag_and_drop_your_files':
     'Dosyalarınızı herhangi bir yere sürükleyip bırakın veya',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Dosya ve klasörlerinizi herhangi bir yere sürükleyip bırakın veya',
   'fabric.media.drop_your_files': 'Yüklemek için dosyalarınızı bırakın',
   'fabric.media.drop_your_files_here': 'Dosyalarınızı buraya bırakın',
+  'fabric.media.email': 'E-posta',
   'fabric.media.enable_fullscreen': 'tam ekranı etkinleştirin',
+  'fabric.media.error_429': 'Hata 429',
   'fabric.media.error_generating_preview':
     'Önizleme oluşturulurken sorun yaşandı',
   'fabric.media.error_hint_critical':
@@ -97,16 +104,24 @@ export default {
   'fabric.media.or': 'veya',
   'fabric.media.pause': 'durdur',
   'fabric.media.play': 'oynat',
+  'fabric.media.playback_default_speed': 'Varsayılan',
+  'fabric.media.playback_speed': 'Kayıttan yürütme hızı',
   'fabric.media.preview': 'Önizleme',
+  'fabric.media.preview_currently_unavailable':
+    'Önizleme şu anda kullanılamıyor',
+  'fabric.media.preview_rateLimited': 'Önizleme oluşturulurken sorun yaşandı',
+  'fabric.media.preview_unavailable': 'Önizleme kullanılamıyor',
   'fabric.media.recent_uploads': 'En son yüklemeler',
   'fabric.media.remove_image': 'Görseli kaldır',
   'fabric.media.retry': 'Yeniden Dene',
   'fabric.media.save': 'Kaydet',
+  'fabric.media.search': 'Arama',
   'fabric.media.search_all_gifs': "Tüm GIF'leri arayın!",
   'fabric.media.share_files_instantly': 'Bu dosyaları hemen paylaşacağız',
   'fabric.media.something_went_wrong': 'Bir hata oluştu.',
   'fabric.media.srclink': 'Şurada görüntüleyin:',
   'fabric.media.srclinkunknown': 'Orijinalini Görüntüleyin',
+  'fabric.media.text': 'Metin',
   'fabric.media.try_again': 'Yeniden deneyin',
   'fabric.media.try_another_account': 'Başka bir hesapla deneyin',
   'fabric.media.try_downloading_file':
@@ -122,6 +137,7 @@ export default {
   'fabric.media.upload_photo': 'Bir fotoğraf yükleyin',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Görüntüle',
+  'fabric.media.viewer_rateLimited': 'Dosyanız yüklenirken bir sorun yaşandı.',
   'fabric.media.webgl_warning_description':
     "Tarayıcınız WebGL'yi desteklemiyor. Görsellere not eklemek için WebGL etkinleştirilmiş bir tarayıcı kullanın.",
   'fabric.media.zoom_in': 'yaklaştır',

@@ -1,5 +1,16 @@
 # @atlaskit/datetime-picker
 
+## 10.0.8
+
+### Patch Changes
+
+- [`9c020a0e05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c020a0e05f) - Replaced `@atlaskit/calendar` exported types to access its `navigate()` api
+
+  - Replaced `CalendarClassType` & `ArrowKeys` types with `CalendarInternalRef` type.
+  - Also replaced `ref` prop with `internalRef` prop for accessing `navigate()` api.
+
+- Updated dependencies
+
 ## 10.0.7
 
 ### Patch Changes

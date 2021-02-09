@@ -35,7 +35,8 @@ export type InsertRowMethods =
   | INPUT_METHOD.CONTEXT_MENU
   | INPUT_METHOD.BUTTON
   | INPUT_METHOD.SHORTCUT
-  | INPUT_METHOD.KEYBOARD;
+  | INPUT_METHOD.KEYBOARD
+  | INPUT_METHOD.FLOATING_TB;
 
 export interface PluginConfig {
   advanced?: boolean;
@@ -52,7 +53,12 @@ export interface PluginConfig {
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
   stickyHeaders?: boolean;
+  // performance optimization flags
   tableCellOptimization?: boolean;
+  mouseMoveOptimization?: boolean;
+  allowCellOptionsInFloatingToolbar?: boolean;
+  initialRenderOptimization?: boolean;
+  tableRenderOptimization?: boolean;
 }
 
 export interface ColumnResizingPluginState {
@@ -117,6 +123,9 @@ export interface TablePluginState {
   layout?: TableLayout;
   ordering?: TableColumnOrdering;
   resizeHandleColumnIndex?: number;
+  tableCellOptimization?: boolean;
+  tableHeight?: number;
+  tableWidth?: number;
 }
 
 export type TablePluginAction =
@@ -190,7 +199,11 @@ export type TablePluginAction =
   | {
       type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
     }
-  | { type: 'TOGGLE_CONTEXTUAL_MENU' };
+  | { type: 'TOGGLE_CONTEXTUAL_MENU' }
+  | {
+      type: 'SET_TABLE_SIZE';
+      data: { tableHeight: number; tableWidth: number };
+    };
 
 export type ColumnResizingPluginAction =
   | {
@@ -315,3 +328,7 @@ export interface ToolbarMenuState {
 export interface ToolbarMenuContext {
   formatMessage: InjectedIntl['formatMessage'];
 }
+
+export type ElementContentRects = {
+  [key: string]: ResizeObserverEntry['contentRect'];
+};

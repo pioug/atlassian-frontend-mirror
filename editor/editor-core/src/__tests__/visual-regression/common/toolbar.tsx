@@ -127,3 +127,32 @@ describe('Toolbar: IconBefore', () => {
     });
   });
 });
+
+describe('Toolbar: Undo Redo', () => {
+  let page: PuppeteerPage;
+
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 1000, height: 350 },
+      editorProps: {
+        UNSAFE_allowUndoRedoButtons: true,
+      },
+    });
+  });
+
+  afterEach(async () => {
+    await snapshot(page, undefined, editorSelector);
+  });
+
+  it('should show the Undo button in a disabled state', async () => {
+    await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
+  });
+
+  it('should show the Undo button in a active state', async () => {
+    await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
+    // Add a bullet list to the doc so something can be undone and the Undo button become active
+    await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
+  });
+});

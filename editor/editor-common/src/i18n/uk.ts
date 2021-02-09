@@ -6,9 +6,15 @@
  */
 // Ukrainian
 export default {
+  'fabric.editor.captionPlaceholder': 'Додати підпис',
   'fabric.editor.collapseNode': 'Згорніть вміст',
   'fabric.editor.expandDefaultTitle': 'Натисніть, щоб розгорнути…',
   'fabric.editor.expandNode': 'Розгорніть вміст',
   'fabric.editor.expandPlaceholder': 'Назвіть розгорнутий вміст…',
   'fabric.editor.openLink': 'Відкрити посилання в новій вкладці',
+  'fabric.editor.unsupportedBlockContent':
+    'Цей редактор не підтримує відображення такого вмісту',
+  'fabric.editor.unsupportedContentTooltip':
+    'У цьому редакторі вміст недоступний; під час внесення і збереження змін він залишиться незмінним',
+  'fabric.editor.unsupportedInlineContent': 'Вміст не підтримується',
 };

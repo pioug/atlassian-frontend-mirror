@@ -4,7 +4,6 @@ import { Fragment, MouseEvent, useState } from 'react';
 import { jsx } from '@emotion/core';
 
 // AFP-1799 storybook examples in src cause issues
-/* eslint-disable import/no-extraneous-dependencies*/
 import {
   AtlassianNavigation,
   PrimaryButton,
@@ -14,7 +13,6 @@ import {
 } from '@atlaskit/atlassian-navigation';
 import Drawer from '@atlaskit/drawer';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-/* eslint-enable import/no-extraneous-dependencies */
 
 import { DefaultCreate } from './Create';
 import { HelpPopup } from './HelpPopup';

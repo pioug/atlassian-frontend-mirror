@@ -20,4 +20,5 @@ export interface Props {
   eventDispatcher: EventDispatcher;
   getPos: () => number;
   options?: TableOptions;
+  tableRenderOptimization?: boolean;
 }

@@ -1,7 +1,9 @@
 import { containsClassName } from '../../../utils';
 import { closestElement } from '../../../utils/dom';
-import { TableCssClassName as ClassName } from '../types';
+import { TableCssClassName as ClassName, ElementContentRects } from '../types';
 import { tableToolbarSize } from '../ui/consts';
+
+const SELECTOR_TABLE_LEAFS = `.${ClassName.TABLE_CELL}, .${ClassName.TABLE_HEADER_CELL}`;
 
 export const isCell = (node: HTMLElement | null): boolean => {
   return Boolean(
@@ -98,19 +100,33 @@ export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
  *
  * the same is valid to the right side.
  */
+
 export const getMousePositionHorizontalRelativeByElement = (
   mouseEvent: MouseEvent,
+  tableCellOptimization?: boolean,
+  elementContentRects?: ElementContentRects,
   gapInPixels?: number,
 ): 'left' | 'right' | null => {
   const element = mouseEvent.target;
+
   if (element instanceof HTMLElement) {
-    const elementRect = element.getBoundingClientRect();
-    if (elementRect.width <= 0) {
-      return null;
+    let width, x;
+    const closestCell = element.closest(SELECTOR_TABLE_LEAFS);
+
+    if (tableCellOptimization) {
+      const id = closestCell?.id ?? '';
+      width = elementContentRects?.[id]?.width ?? 0;
+      x = mouseEvent.offsetX;
+    } else {
+      const elementRect = element.getBoundingClientRect();
+      width = elementRect.width;
+      const left = elementRect.left;
+      x = mouseEvent.clientX - left;
     }
 
-    const { left, width } = elementRect;
-    const x = mouseEvent.clientX - left;
+    if (width <= 0) {
+      return null;
+    }
 
     if (!gapInPixels) {
       return x / width > 0.5 ? 'right' : 'left';

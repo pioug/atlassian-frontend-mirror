@@ -6,9 +6,14 @@
  */
 // Chinese
 export default {
+  'fabric.editor.captionPlaceholder': '添加标题',
   'fabric.editor.collapseNode': '收起内容',
   'fabric.editor.expandDefaultTitle': '点击此处展开...',
   'fabric.editor.expandNode': '展开内容',
   'fabric.editor.expandPlaceholder': '为此展开添加标题......',
   'fabric.editor.openLink': '在新选项卡打开链接',
+  'fabric.editor.unsupportedBlockContent': '此编辑器不支持显示此内容',
+  'fabric.editor.unsupportedContentTooltip':
+    '此编辑器中的内容不可用，在编辑和保存时将保留此内容',
+  'fabric.editor.unsupportedInlineContent': '内容不受支持',
 };

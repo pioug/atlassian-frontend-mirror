@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/logo",
-  "version": "13.0.7",
+  "version": "13.0.8",
   "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/code": "^13.0.0",
+    "@atlaskit/code": "^13.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/select": "^13.0.0",

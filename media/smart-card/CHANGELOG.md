@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 14.8.4
+
+### Patch Changes
+
+- [`d9d5322b260`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d5322b260) - [ux] Render as a blue link in adf when there is a fatal error on smartcard
+- Updated dependencies
+
 ## 14.8.3
 
 ### Patch Changes

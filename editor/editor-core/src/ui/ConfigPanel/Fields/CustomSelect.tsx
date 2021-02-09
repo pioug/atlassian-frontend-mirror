@@ -59,6 +59,7 @@ function CustomSelect({
   } = field;
   const [loading, setLoading] = useState(true);
   const [resolver, setResolver] = useState<CustomFieldResolver | null>(null);
+  const [defaultOptions, setDefaultOptions] = useState([] as Option[]);
   const [defaultValue, setDefaultValue] = useState<
     Option | Option[] | undefined
   >(undefined);
@@ -86,10 +87,12 @@ function CustomSelect({
           fieldDefaultValue,
           parameters,
         );
+        setDefaultOptions(options);
         if (cancel) {
           return;
         }
 
+        // filter returned values to match the defaultValue
         if (fieldDefaultValue && isMultiple) {
           setDefaultValue(
             options.filter((option: Option) =>
@@ -103,7 +106,7 @@ function CustomSelect({
             options.find(
               (option: Option) =>
                 (fieldDefaultValue as string) === option.value,
-            ) || [],
+            ),
           );
         }
       } catch (e) {
@@ -115,7 +118,6 @@ function CustomSelect({
     }
 
     fetchResolver();
-
     return () => {
       cancel = true;
     };
@@ -137,7 +139,6 @@ function CustomSelect({
   }
 
   const { isCreatable } = options;
-
   return (
     <Field<ValueType<Option>>
       name={name}
@@ -160,11 +161,11 @@ function CustomSelect({
                 isClearable={true}
                 isValidNewOption={(value: string) => isCreatable && value}
                 validationState={error ? 'error' : 'default'}
-                defaultOptions={true}
+                defaultOptions={defaultOptions}
                 formatCreateLabel={(value: string) => formatCreateLabel(value)}
                 formatOptionLabel={formatOptionLabel}
                 loadOptions={(searchTerm: string) => {
-                  return resolver(searchTerm, fieldDefaultValue);
+                  return resolver(searchTerm, fieldDefaultValue, parameters);
                 }}
                 autoFocus={autoFocus}
                 placeholder={placeholder}

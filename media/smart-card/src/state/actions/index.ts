@@ -49,6 +49,7 @@ export const useSmartCardActions = (
         // If there's no previous data in the store for this URL, then bail
         // out and let the editor handle fallbacks (returns to a blue link).
         if (!hasData && status !== 'resolved') {
+          dispatch(cardAction(ACTION_ERROR, { url }, details, error));
           throw error;
         }
         // If we already have resolved data for this URL in the store, then

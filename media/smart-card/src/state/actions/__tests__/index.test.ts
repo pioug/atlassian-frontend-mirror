@@ -65,11 +65,18 @@ describe('Smart Card: Actions', () => {
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
       );
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith({
         payload: undefined,
         type: 'pending',
         url: 'https://some/url',
+      });
+      // Assert that we dispatch an action to update card state to fatally errored
+      expect(mockContext.store.dispatch).toHaveBeenCalledWith({
+        payload: undefined,
+        type: 'errored',
+        url: 'https://some/url',
+        error: new APIError('fatal', 'https://some/url', '0xBAADF00D'),
       });
     });
 
@@ -193,6 +200,17 @@ describe('Smart Card: Actions', () => {
       );
       await expect(promise).rejects.toBeInstanceOf(Error);
       await expect(promise).rejects.toHaveProperty('kind', 'fatal');
+
+      expect(mockContext.store.dispatch).toHaveBeenCalledWith({
+        payload: undefined,
+        type: 'errored',
+        url: 'https://some/url',
+        error: new APIError(
+          'fatal',
+          'https://some/url',
+          'Fatal error resolving URL',
+        ),
+      });
     });
   });
 });

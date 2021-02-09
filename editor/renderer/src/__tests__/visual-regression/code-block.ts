@@ -14,7 +14,7 @@ describe('Snapshot Test: CodeBlock', () => {
     await snapshot(page, undefined, '.code-block');
   });
 
-  test(`should render copy-to-clipboard button correctly on hover `, async () => {
+  test('should render copy-to-clipboard button correctly on hover', async () => {
     await initRendererWithADF(page, {
       appearance: 'full-page',
       rendererProps: { allowCopyToClipboard: true },

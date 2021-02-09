@@ -210,10 +210,6 @@ export default class MediaSingleNode extends Component<
     return dispatch(tr);
   };
 
-  forwardInnerRef = (elem: HTMLElement) => {
-    this.props.forwardRef(elem);
-  };
-
   render() {
     const {
       selected,
@@ -381,6 +377,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
   getContentDOM() {
     const dom = document.createElement('div');
+    dom.classList.add(`media-content-wrap`);
     return { dom };
   }
 

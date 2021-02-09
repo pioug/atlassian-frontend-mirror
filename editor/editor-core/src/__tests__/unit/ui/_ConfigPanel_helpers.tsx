@@ -3,7 +3,6 @@ import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 import retry from 'async-retry';
 import merge from 'lodash/merge';
-import { flushPromises } from '../../__helpers/utils';
 
 import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import ConfigPanel from '../../../ui/ConfigPanel';
@@ -18,6 +17,14 @@ import {
   UserFieldContext,
   combineExtensionProviders,
 } from '@atlaskit/editor-common/extensions';
+
+export function asOption(label: string): Option {
+  return { label, value: label };
+}
+
+export function asOptions(labels: string[]) {
+  return labels.map(x => asOption(x));
+}
 
 export type Wrapper<T = any> = ReactWrapper<T, any, any>;
 export async function eventuallyFind(
@@ -55,28 +62,59 @@ export function toggleCheckbox(inputWrapper: any) {
   inputWrapper.simulate('blur');
 }
 
-export async function createOption(select: any, value: string) {
-  const instance = select.instance();
-  instance.handleInputChange({ currentTarget: { value } });
-
-  // internal setState may not be synchronous, wait
-  await flushPromises();
-  return await selectOption(select, value);
+// supports Async(Creatable(Select)), Async(Select), Creatable(Select), Select
+function getSelect(wrapper: any) {
+  if (wrapper.is('Select')) {
+    return wrapper;
+  }
+  return wrapper.find('Select');
 }
 
-export async function selectOption(select: any, value: string) {
-  const instance = select.instance();
-  instance.openMenu('last'); // auto-focuses any createOption
-  const { options, isLoading } = instance.props;
-  if (isLoading) {
-    throw new TypeError('Cannot select an option if loading');
-  }
+export async function resolveOption(wrapper: any, label: string) {
+  getSelect(wrapper).simulate('focus');
+  getSelect(wrapper)
+    .instance()
+    .handleInputChange({
+      currentTarget: {
+        value: label,
+      },
+    });
 
-  let { focusedOption } = instance.state;
-  if (!focusedOption || focusedOption.value !== value) {
+  wrapper.update();
+  return await selectOption(wrapper, label);
+}
+
+export async function selectLoaded(wrapper: any) {
+  await retry(
+    async () => {
+      if (
+        wrapper.state('loading') || // SmartUserPicker | CustomSelect
+        wrapper.state('isLoading') || // AsyncSelect
+        wrapper.prop('isLoading') // Select
+      ) {
+        throw new TypeError('Waiting for Select to load');
+      }
+    },
+    {
+      retries: 10,
+      minTimeout: 100,
+    },
+  );
+  wrapper.update(); // force re-render with any new options
+}
+
+async function selectOption(wrapper: any, label: string) {
+  await selectLoaded(wrapper);
+  const select = getSelect(wrapper);
+  select.instance().openMenu('last'); // auto-focuses last option
+
+  let { focusedOption } = select.state();
+  if (!focusedOption || !focusedOption.label.includes(label)) {
     focusedOption = null;
+
+    const options = select.prop('options');
     for (const option of options) {
-      if (option.value === value) {
+      if (option.label.includes(label)) {
         focusedOption = option;
         break;
       }
@@ -87,21 +125,27 @@ export async function selectOption(select: any, value: string) {
     }
   }
 
-  instance.selectOption(focusedOption);
+  select.instance().selectOption(focusedOption);
   return true;
 }
 
-export function createOptionResolver(options: Option[]) {
-  return async (searchTerm?: string) => {
+export function createOptionResolver(
+  options: Option[],
+  filter?: (option: Option, parameters?: Parameters) => boolean,
+) {
+  return async (searchTerm?: string, _?: any, parameters?: Parameters) => {
+    let result = options;
+
     if (searchTerm) {
-      return options.filter(
-        item =>
-          item.label.search(new RegExp(searchTerm, 'i')) !== -1 ||
-          item.value.search(new RegExp(searchTerm, 'i')) !== -1,
-      );
+      const regex = new RegExp(searchTerm, 'i');
+      result = result.filter(x => regex.test(x.label) || regex.test(x.value));
     }
 
-    return options;
+    if (filter) {
+      result = result.filter(x => filter(x, parameters));
+    }
+
+    return result;
   };
 }
 
@@ -208,11 +252,38 @@ export async function mountWithProviders(
   return {
     wrapper,
     onChange,
-    trySubmit: async () => {
+    async trySubmit() {
       form.simulate('submit');
-      await flushPromises();
+      form.update();
+      form.simulate('blur');
     },
   };
+}
+
+// useful for updating the parameters of a ConfigPanel generally
+//   e.g when testing parameter driven state, akin to user collaboration
+//   attempts to wait for each Field to have been updated and ready
+export async function updateParameters(wrapper: any, parameters: Parameters) {
+  // WARNING: {} required as .props() appears to be immutable
+  const newProps = merge({}, wrapper.props(), {
+    children: {
+      props: {
+        parameters,
+      },
+    },
+  });
+
+  wrapper.setProps(newProps);
+  wrapper.update();
+
+  // wait for any Select's to load
+  const select = getSelect(wrapper);
+  if (select) {
+    await selectLoaded(wrapper);
+  }
+
+  // TODO: what are we waiting for
+  await new Promise(resolve => setTimeout(resolve, 100));
 }
 
 // silences act() related warnings and errors
@@ -226,4 +297,15 @@ export function silenceActErrors() {
   afterAll(() => {
     consoleError.mockRestore();
   });
+}
+
+export function getFieldErrors(wrapper: any) {
+  let errors: string[] = [];
+  wrapper.find('FieldMessages').forEach((message: ReactWrapper) => {
+    const error = message.prop('error') as string;
+    if (error) {
+      errors.push(error);
+    }
+  });
+  return errors;
 }

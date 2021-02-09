@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { Field } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
@@ -46,21 +46,23 @@ export default function Number({
       isRequired={isRequired}
       validate={validateNumber}
     >
-      {({ fieldProps, error, valid }) => (
-        <Fragment>
-          <TextField
-            {...fieldProps}
-            autoFocus={autoFocus}
-            onBlur={() => {
-              fieldProps.onBlur();
-              onBlur(name);
-            }}
-            type="text" // do not change this to type="number", it will return invalid strings as ''
-            placeholder={placeholder}
-          />
-          <FieldMessages error={error} description={description} />
-        </Fragment>
-      )}
+      {({ fieldProps, error, valid }) => {
+        return (
+          <>
+            <TextField
+              {...fieldProps}
+              autoFocus={autoFocus}
+              onBlur={() => {
+                fieldProps.onBlur();
+                onBlur(name);
+              }}
+              type="text" // do not change this to type="number", it will return invalid strings as ''
+              placeholder={placeholder}
+            />
+            <FieldMessages error={error} description={description} />
+          </>
+        );
+      }}
     </Field>
   );
 }

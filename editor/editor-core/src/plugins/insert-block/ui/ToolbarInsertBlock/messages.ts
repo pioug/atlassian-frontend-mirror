@@ -119,7 +119,12 @@ export const messages = defineMessages({
   placeholderText: {
     id: 'fabric.editor.placeholderText',
     defaultMessage: 'Placeholder text',
-    description: '',
+    description: 'Inserts a text placeholder into the page',
+  },
+  placeholderTextDescription: {
+    id: 'fabric.editor.placeholderText.description',
+    defaultMessage: 'Insert a text placeholder into the page',
+    description: 'Inserts a text placeholder into the page',
   },
   columns: {
     id: 'fabric.editor.columns',

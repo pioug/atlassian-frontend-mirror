@@ -30,6 +30,8 @@ export default {
   'fabric.media.cant_retrieve_gifs': "Oei! We konden geen GIF's vinden",
   'fabric.media.check_your_network': 'Controleer je netwerkverbinding',
   'fabric.media.close': 'Sluiten',
+  'fabric.media.close_and_reopen':
+    'Probeer dit bestand te sluiten en opnieuw te openen.',
   'fabric.media.connect_account_description':
     'We zullen een nieuwe pagina openen waarop je je {name}-account kunt verbinden',
   'fabric.media.connect_link_account': 'Maak verbinding voor voorbeeld',
@@ -47,8 +49,10 @@ export default {
     'We kunnen geen voorbeeld weergeven van gecodeerde bestanden of bestanden die beveiligd zijn met een wachtwoord.',
   'fabric.media.couldnt_generate_preview':
     'Dit bestandstype kunnen we niet voorvertonen.',
+  'fabric.media.couldnt_load_file': 'We konden het bestand niet laden.',
   'fabric.media.couldnt_load_link':
     'Om een onbekende reden konden we deze link niet laden.',
+  'fabric.media.creating_preview': 'Voorbeeld aanmaken...',
   'fabric.media.default_avatars': "Standaardavatar's",
   'fabric.media.disable_fullscreen': 'volledig scherm uitschakelen',
   'fabric.media.document': 'document',
@@ -63,6 +67,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Zet je bestanden hier neer.',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'volledig scherm inschakelen',
+  'fabric.media.error_429': 'Fout 429',
   'fabric.media.error_generating_preview':
     'Fout bij aanmaken van voorvertoning',
   'fabric.media.error_hint_critical':
@@ -101,7 +106,14 @@ export default {
   'fabric.media.or': 'of',
   'fabric.media.pause': 'pauzeren',
   'fabric.media.play': 'afspelen',
+  'fabric.media.playback_default_speed': 'Standaard',
+  'fabric.media.playback_speed': 'Afspeelsnelheid',
   'fabric.media.preview': 'Voorvertoning',
+  'fabric.media.preview_currently_unavailable':
+    'Voorvertoning is momenteel niet beschikbaar',
+  'fabric.media.preview_rateLimited':
+    'We hadden problemen bij het maken van een voorbeeld',
+  'fabric.media.preview_unavailable': 'Voorbeeld niet beschikbaar',
   'fabric.media.recent_uploads': 'Recente uploads',
   'fabric.media.remove_image': 'Afbeelding verwijderen',
   'fabric.media.retry': 'Probeer opnieuw',
@@ -129,6 +141,8 @@ export default {
   'fabric.media.upload_photo': 'Een foto uploaden',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Bekijken',
+  'fabric.media.viewer_rateLimited':
+    'We hebben problemen met het laden van je bestand.',
   'fabric.media.webgl_warning_description':
     'Je browser ondersteunt geen WebGL. Gebruik een browser met WebGL-functie om aantekeningen te maken bij afbeeldingen.',
   'fabric.media.zoom_in': 'inzoomen',

@@ -1,3 +1,4 @@
+import uuid from 'uuid';
 import {
   EditorState,
   Plugin,
@@ -37,7 +38,11 @@ import {
 import { createTableView } from '../nodeviews/table';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables, replaceSelectedTable } from '../transforms';
-import { TableCssClassName as ClassName, PluginConfig } from '../types';
+import {
+  TableCssClassName as ClassName,
+  PluginConfig,
+  ElementContentRects,
+} from '../types';
 import { findControlsHoverDecoration, updateResizeHandles } from '../utils';
 import { INPUT_METHOD } from '../../analytics';
 
@@ -50,6 +55,8 @@ let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
 let isFullWidthModeEnabled: boolean | undefined;
 let wasFullWidthModeEnabled: boolean | undefined;
+
+const TABLE_LEAFS = `th, td, .${ClassName.TABLE_HEADER_CELL}, .${ClassName.TABLE_CELL}`;
 
 export const createPlugin = (
   dispatch: Dispatch,
@@ -76,18 +83,51 @@ export const createPlugin = (
     ...defaultTableSelection,
   });
 
+  let elementContentRects: ElementContentRects = {};
+
+  const observer = window?.ResizeObserver
+    ? new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.target.id) {
+            entry.target.id = uuid();
+          }
+          elementContentRects[entry.target.id] = entry.contentRect;
+        });
+      })
+    : undefined;
+
+  const request =
+    (window as any).requestIdleCallback || window.requestAnimationFrame;
+  const cancel =
+    (window as any).cancelIdleCallback || window.cancelAnimationFrame;
+  let handle: any;
+
   const tableCellNodeview = pluginConfig.tableCellOptimization
     ? {
         tableCell: (
           node: ProseMirrorNode,
           view: EditorView,
           getPos: getPosHandler,
-        ) => new TableCellNodeView(node, view, getPos),
+        ) =>
+          new TableCellNodeView(
+            node,
+            view,
+            getPos,
+            pluginConfig?.mouseMoveOptimization ?? false,
+            observer,
+          ),
         tableHeader: (
           node: ProseMirrorNode,
           view: EditorView,
           getPos: getPosHandler,
-        ) => new TableCellNodeView(node, view, getPos),
+        ) =>
+          new TableCellNodeView(
+            node,
+            view,
+            getPos,
+            pluginConfig?.mouseMoveOptimization ?? false,
+            observer,
+          ),
       }
     : {};
 
@@ -111,6 +151,19 @@ export const createPlugin = (
     },
     view: (editorView: EditorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
+
+      // Cleanup once tableCellOptimization prop is permanently enabled
+      // observation will then happen in tableCellNodeview
+      if (
+        pluginConfig.mouseMoveOptimization &&
+        !pluginConfig.tableCellOptimization
+      ) {
+        handle = request(() => {
+          document.querySelectorAll(TABLE_LEAFS).forEach((cell: Element) => {
+            observer?.observe(cell);
+          });
+        });
+      }
 
       return {
         update: (view: EditorView) => {
@@ -150,6 +203,15 @@ export const createPlugin = (
                 addBoldInEmptyHeaderCells(tableCellHeader)(state, dispatch);
               }
             }
+          }
+        },
+        destroy: () => {
+          if (observer) {
+            observer.disconnect();
+          }
+
+          if (handle) {
+            cancel(handle);
           }
         },
       };
@@ -224,7 +286,7 @@ export const createPlugin = (
         mouseover: whenTableInFocus(handleMouseOver),
         mouseleave: whenTableInFocus(handleMouseLeave),
         mouseout: whenTableInFocus(handleMouseOut),
-        mousemove: whenTableInFocus(handleMouseMove),
+        mousemove: whenTableInFocus(handleMouseMove, elementContentRects),
         click: whenTableInFocus(handleClick),
       },
 

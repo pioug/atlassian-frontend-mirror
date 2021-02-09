@@ -13,7 +13,12 @@ export default () => (
       getConfluenceMacrosExtensionProvider(editorActions),
     ]}
     allowExtension={{ allowAutoSave: true, allowLocalIdGeneration: true }}
-    elementBrowser={{ showModal: true, replacePlusMenu: true }}
+    elementBrowser={{
+      showModal: true,
+      replacePlusMenu: true,
+      helpUrl:
+        'https://support.atlassian.com/confluence-cloud/docs/what-are-macros/',
+    }}
     insertMenuItems={[]}
   />
 );

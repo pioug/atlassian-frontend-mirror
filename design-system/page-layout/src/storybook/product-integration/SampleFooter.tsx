@@ -3,10 +3,8 @@ import React, { Fragment } from 'react';
 
 import { jsx } from '@emotion/core';
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { CustomItemComponentProps } from '@atlaskit/menu';
 import { Footer } from '@atlaskit/side-navigation';
-/* eslint-enable import/no-extraneous-dependencies */
 import { B400, N200 } from '@atlaskit/theme/colors';
 
 const Container: React.FC<CustomItemComponentProps> = props => {

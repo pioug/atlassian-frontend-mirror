@@ -98,7 +98,8 @@ export const nativeFields: FieldDefinition[] = [
         icon: 'https://i.picsum.photos/id/237/24/24.jpg',
       },
       {
-        label: 'Option B',
+        label:
+          'Option B with a really really really really really really long label',
         value: 'b',
         description: 'One of the best options out there',
         icon: 'https://i.picsum.photos/id/240/24/24.jpg',

@@ -1,36 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '../src';
+import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
-export default class BreadcrumbsExpand extends React.Component<
-  {},
-  { isExpanded: boolean }
-> {
-  state = {
-    isExpanded: false,
-  };
+const BreadcrumbsExpand = () => {
+  const [isExpanded, setExpanse] = useState(false);
 
-  expand(e: React.MouseEvent) {
+  function expand(e: React.MouseEvent) {
     e.preventDefault();
-    this.setState({ isExpanded: true });
+    setExpanse(!isExpanded);
   }
 
-  render() {
-    return (
-      <BreadcrumbsStateless
-        maxItems={2}
-        isExpanded={this.state.isExpanded}
-        onExpand={e => this.expand(e)}
-        testId="MyBreadcrumbsTestId"
-      >
-        <BreadcrumbsItem href="/pages" text="Pages" key="Pages" />
-        <BreadcrumbsItem
-          href="/hidden"
-          text="hidden bread crumb"
-          key="hidden bread crumb"
-        />
-        <BreadcrumbsItem href="/pages/home" text="Home" key="Home" />
-      </BreadcrumbsStateless>
-    );
-  }
-}
+  return (
+    <Breadcrumbs
+      maxItems={2}
+      isExpanded={isExpanded}
+      onExpand={e => expand(e)}
+      testId="MyBreadcrumbsTestId"
+    >
+      <BreadcrumbsItem href="/pages" text="Pages" key="Pages" />
+      <BreadcrumbsItem
+        href="/hidden"
+        text="hidden bread crumb"
+        key="hidden bread crumb"
+      />
+      <BreadcrumbsItem href="/pages/home" text="Home" key="Home" />
+    </Breadcrumbs>
+  );
+};
+
+export default BreadcrumbsExpand;

@@ -30,6 +30,7 @@ export default {
   'fabric.media.cant_retrieve_gifs': 'Oj då! Vi kunde inte hämta några GIF:ar',
   'fabric.media.check_your_network': 'Kontrollera din nätverksanslutning',
   'fabric.media.close': 'Stäng',
+  'fabric.media.close_and_reopen': 'Testa att stänga filen och öppna den igen.',
   'fabric.media.connect_account_description':
     'Vi kommer att öppna en ny sida som hjälper dig att ansluta till ditt {name}-konto',
   'fabric.media.connect_link_account': 'Anslut till förhandsgranskning',
@@ -46,8 +47,10 @@ export default {
     'Du kan inte förhandsgranska krypterade eller lösenordsskyddade filer.',
   'fabric.media.couldnt_generate_preview':
     'Vi kunde inte generera en förhandsgranskning av den här filen.',
+  'fabric.media.couldnt_load_file': 'Vi kunde inte läsa in filen.',
   'fabric.media.couldnt_load_link':
     'Vi kunde inte läsa in den här länken av okänd anledning.',
+  'fabric.media.creating_preview': 'Skapar förhandsgranskning …',
   'fabric.media.default_avatars': 'Standardavatarer',
   'fabric.media.disable_fullscreen': 'inaktivera helskärm',
   'fabric.media.document': 'dokument',
@@ -55,9 +58,13 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'Dra och släpp dina bilder här',
   'fabric.media.drag_and_drop_your_files':
     'Dra och släpp dina filer var som helst eller',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Dra och släpp dina filer och mappar var som helst eller',
   'fabric.media.drop_your_files': 'Släpp dina filer för att ladda upp',
   'fabric.media.drop_your_files_here': 'Släpp dina filer här',
+  'fabric.media.email': 'E-post',
   'fabric.media.enable_fullscreen': 'aktivera helskärm',
+  'fabric.media.error_429': 'Fel 429',
   'fabric.media.error_generating_preview':
     'Fel vid generering av förhandsvisning',
   'fabric.media.error_hint_critical':
@@ -95,16 +102,24 @@ export default {
   'fabric.media.or': 'eller',
   'fabric.media.pause': 'pausa',
   'fabric.media.play': 'spela upp',
+  'fabric.media.playback_default_speed': 'Standard',
+  'fabric.media.playback_speed': 'Uppspelningshastighet',
   'fabric.media.preview': 'Förhandsgranska',
+  'fabric.media.preview_currently_unavailable':
+    'Förhandsgranskning är otillgänglig just nu',
+  'fabric.media.preview_rateLimited': 'Vi kunde inte skapa en förhandsvisning',
+  'fabric.media.preview_unavailable': 'Förhandsgranskning är otillgänglig',
   'fabric.media.recent_uploads': 'Senaste uppladdningar',
   'fabric.media.remove_image': 'Ta bort bild',
   'fabric.media.retry': 'Försök igen',
   'fabric.media.save': 'Spara',
+  'fabric.media.search': 'Sök',
   'fabric.media.search_all_gifs': 'Sök alla GIF:ar!',
   'fabric.media.share_files_instantly': 'Vi delar dem direkt',
   'fabric.media.something_went_wrong': 'Något gick fel.',
   'fabric.media.srclink': 'Visa i',
   'fabric.media.srclinkunknown': 'Visa original',
+  'fabric.media.text': 'Text',
   'fabric.media.try_again': 'Försök igen',
   'fabric.media.try_another_account': 'Försök med ett annat konto',
   'fabric.media.try_downloading_file':
@@ -121,6 +136,7 @@ export default {
   'fabric.media.upload_photo': 'Ladda upp en bild',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Visa',
+  'fabric.media.viewer_rateLimited': 'Vi kan inte läsa in filen.',
   'fabric.media.webgl_warning_description':
     'Din webbläsare stöder inte WebGL. Använd en webbläsare som har stöd för WebGL för att kommentera bilder.',
   'fabric.media.zoom_in': 'zooma in',

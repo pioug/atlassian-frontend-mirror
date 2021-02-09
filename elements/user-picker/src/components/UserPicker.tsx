@@ -25,6 +25,8 @@ export class UserPickerWithoutAnalytics extends React.Component<
       isValidEmail,
       anchor,
       menuPortalTarget,
+      menuPosition,
+      captureMenuScroll,
     } = this.props;
     const width = this.props.width as string | number;
 
@@ -32,16 +34,20 @@ export class UserPickerWithoutAnalytics extends React.Component<
     const creatableProps = suggestEmailsForDomain
       ? getCreatableSuggestedEmailProps(suggestEmailsForDomain, isValidEmail)
       : getCreatableProps(isValidEmail);
+
+    const defaultPickerProps = {
+      menuPortalTarget: menuPortalTarget,
+      menuPosition: menuPosition,
+      captureMenuScroll: captureMenuScroll,
+    };
+
     const pickerProps = allowEmail
       ? {
+          ...defaultPickerProps,
           ...creatableProps,
           emailLabel,
         }
-      : {};
-    const pickerPropsWithPortal = {
-      ...pickerProps,
-      menuPortalTarget: menuPortalTarget,
-    };
+      : { ...defaultPickerProps };
 
     return (
       <BaseUserPickerWithoutAnalytics
@@ -50,7 +56,7 @@ export class UserPickerWithoutAnalytics extends React.Component<
         SelectComponent={SelectComponent}
         styles={getStyles(width, isMulti, this.props.styles)}
         components={getComponents(isMulti, anchor)}
-        pickerProps={pickerPropsWithPortal}
+        pickerProps={pickerProps}
       />
     );
   }

@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^13.5.0",
-    "@atlaskit/editor-common": "^55.0.0",
+    "@atlaskit/editor-common": "^55.2.0",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^10.0.0",
     "markdown-it-table": "^2.0.4",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^136.0.0",
+    "@atlaskit/editor-core": "^137.0.0",
     "@atlaskit/editor-test-helpers": "^13.2.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "react": "^16.8.0",

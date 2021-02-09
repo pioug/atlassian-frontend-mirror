@@ -5,4 +5,11 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Thai
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'คัดลอกแล้ว!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'คัดลอก',
+  'fabric.editor.headingLink.copied': 'คัดลอกแล้ว!',
+  'fabric.editor.headingLink.copyAnchorLink':
+    'คัดลอกลิงก์ที่เชื่อมไปยังหัวเรื่อง',
+  'fabric.editor.headingLink.failedToCopy': 'การคัดลอกไม่สำเร็จ',
+};

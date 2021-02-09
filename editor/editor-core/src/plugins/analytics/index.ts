@@ -60,6 +60,7 @@ export {
   getSelectionType,
   getStateContext,
   ruleWithAnalytics,
+  mapActionSubjectIdToAttributes,
 } from './utils';
 
 export const analyticsPluginKey = pluginKey;

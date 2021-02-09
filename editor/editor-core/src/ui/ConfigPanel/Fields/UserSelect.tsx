@@ -198,8 +198,8 @@ export default function UserSelect({
           );
         }
 
-        function onChange(value: FieldValue) {
-          fieldProps.onChange(value);
+        function onChange(newValue: FieldValue) {
+          fieldProps.onChange(newValue);
           onBlur(name);
         }
 

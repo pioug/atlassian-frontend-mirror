@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dynamic-table",
-  "version": "14.1.5",
+  "version": "14.2.0",
   "description": "A table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,7 +49,8 @@
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.6",
+    "uuid": "^3.1.0"
   },
   "techstack": {
     "@atlassian/frontend": {

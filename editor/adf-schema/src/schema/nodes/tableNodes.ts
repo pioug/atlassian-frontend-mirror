@@ -268,12 +268,22 @@ export const table: any = {
   parseDOM: [
     {
       tag: 'table',
-      getAttrs: (dom: Element) => ({
-        isNumberColumnEnabled:
-          dom.getAttribute('data-number-column') === 'true' ? true : false,
-        layout: dom.getAttribute('data-layout') || 'default',
-        __autoSize: dom.getAttribute('data-autosize') === 'true' ? true : false,
-      }),
+      getAttrs: (dom: Element) => {
+        const breakoutWrapper = dom.parentElement?.parentElement;
+
+        return {
+          isNumberColumnEnabled:
+            dom.getAttribute('data-number-column') === 'true' ? true : false,
+          layout:
+            // copying from editor
+            dom.getAttribute('data-layout') ||
+            // copying from renderer
+            breakoutWrapper?.getAttribute('data-layout') ||
+            'default',
+          __autoSize:
+            dom.getAttribute('data-autosize') === 'true' ? true : false,
+        };
+      },
     },
   ],
   toDOM(node: PmNode) {

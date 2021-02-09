@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 0.10.12
+
+### Patch Changes
+
+- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+
 ## 0.10.11
 
 ### Patch Changes

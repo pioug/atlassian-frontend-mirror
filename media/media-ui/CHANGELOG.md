@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 15.2.0
+
+### Minor Changes
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+
+### Patch Changes
+
+- [`7d24194b639`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d24194b639) - EDM-1717: Fix Safari danger styles for inline smart links
+
 ## 15.1.0
 
 ### Minor Changes

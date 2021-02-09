@@ -6,8 +6,7 @@ export interface DropzoneContainerProps {
 export const PopupContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
-  overflow: hidden;
+  overflow: scroll;
 `;
 
 export const PopupHeader = styled.div`
@@ -74,12 +73,20 @@ export const DropzoneContentWrapper = styled.div`
 
 export const PreviewsWrapper = styled.div`
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   overflow: visible;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const PreviewsTitle = styled.h1`
   width: 100%;
+`;
+
+export const UploadPreviewsFlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const ProgressCircleWrapper = styled.div`

@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 5.0.7
+
+### Patch Changes
+
+- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+
 ## 5.0.6
 
 ### Patch Changes

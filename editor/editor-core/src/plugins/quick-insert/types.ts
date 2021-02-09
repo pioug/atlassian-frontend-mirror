@@ -36,4 +36,5 @@ export interface QuickInsertPluginOptions {
   headless?: boolean;
   disableDefaultItems?: boolean;
   enableElementBrowser?: boolean;
+  elementBrowserHelpUrl?: string;
 }

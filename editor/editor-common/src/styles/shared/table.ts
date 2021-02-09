@@ -19,6 +19,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { DN20 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import browser from '../../utils/browser';
 
@@ -133,6 +134,7 @@ const tableSharedStyle = css`
         text-align: left;
 
         /* only apply this styling to codeblocks in default background headercells */
+        /* TODO this needs to be overhauled as it relies on unsafe selectors */
         &:not([style]) {
           .code-block {
             background-image: ${overflowShadow({
@@ -140,7 +142,7 @@ const tableSharedStyle = css`
                 light: 'rgb(235, 237, 240)',
                 dark: 'rgb(36, 47, 66)',
               }),
-              width: '8px',
+              width: `${gridSize()}px`,
             })};
             background-attachment: local, scroll, scroll;
             background-position: 100% 0, 100% 0, 0 0;
@@ -156,27 +158,26 @@ const tableSharedStyle = css`
               })};
             }
 
-            > span:last-child {
+            /* this is only relevant to the element taken care of by renderer */
+            [data-code-block] > span:last-child {
               background-image: ${overflowShadow({
                 background: themed({
                   light: 'rgb(235, 237, 240)',
                   dark: 'rgb(36, 47, 66)',
                 }),
-                width: '8px',
+                width: `${gridSize()}px`,
               })}!important;
-              background-attachment: local, scroll, scroll !important;
-              background-position: 100% 0, 100% 0, 0 0 !important;
+
               background-color: ${themed({
                 light: 'rgb(235, 237, 240)',
                 dark: 'rgb(36, 47, 66)',
-              })} !important;
+              })}!important;
 
-              code:first-child {
-                background-color: ${themed({
-                  light: 'rgb(226, 229, 233)',
-                  dark: DN20,
-                })} !important;
-              }
+              // selector lives inside @atlaskit/code
+              --line-number-bg-color: ${themed({
+                light: 'rgb(226, 229, 233)',
+                dark: DN20,
+              })} !important;
             }
           }
         }

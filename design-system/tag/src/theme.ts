@@ -94,12 +94,20 @@ const getBackgroundColorForRemoval = (
   return { light: colors.R50, dark: colors.R100 }[mode];
 };
 
-const getChromeColors = (color: TagColor, mode: ThemeModes): ChromeColors => {
+const getChromeColors = (
+  color: TagColor,
+  mode: ThemeModes,
+  isRemovable?: boolean,
+): ChromeColors => {
   const backgroundColor = getBackgroundColor(color, mode);
-  const backgroundColorHover = getBackgroundColorForRemoval(color, mode);
+  const backgroundColorHover = isRemovable
+    ? getBackgroundColorForRemoval(color, mode)
+    : getLinkBackgroundColorHover(color, mode);
 
   const textColor = getTextColor(color, mode);
-  const textColorHover = getTextColorForRemoval(color, mode);
+  const textColorHover = isRemovable
+    ? getTextColorForRemoval(color, mode)
+    : getTextColor(color, mode);
 
   return {
     backgroundColor,
@@ -145,8 +153,12 @@ const getButtonColors = (color: TagColor, mode: ThemeModes) => {
   };
 };
 
-export const getThemeColors = (color: TagColor, mode: ThemeModes) => {
-  const chromeColors = getChromeColors(color, mode);
+export const getThemeColors = (
+  color: TagColor,
+  mode: ThemeModes,
+  isRemovable?: boolean,
+) => {
+  const chromeColors = getChromeColors(color, mode, isRemovable);
   const chromeLinkColors = getChromeLinkColors(color, mode);
   const buttonColors = getButtonColors(color, mode);
   const linkHoverColor = linkHoverColorObj[mode];

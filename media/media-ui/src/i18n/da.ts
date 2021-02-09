@@ -21,6 +21,7 @@ export default {
   'fabric.media.annotate.tool.line.thickness': 'Stregtykkelse',
   'fabric.media.annotate.tool.shape': 'Form',
   'fabric.media.annotate.tool.text': 'Tekst',
+  'fabric.media.archive': 'arkivér',
   'fabric.media.audio': 'lyd',
   'fabric.media.cancel': 'Annullér',
   'fabric.media.cant_preview_file_type': 'Vi kan ikke vise denne filtype.',
@@ -28,16 +29,25 @@ export default {
   'fabric.media.cant_retrieve_gifs': "Ups! Vi kunne ikke hente GIF'er",
   'fabric.media.check_your_network': 'Tjek din netværksforbindelse',
   'fabric.media.close': 'Luk',
+  'fabric.media.close_and_reopen': 'Prøv at lukke filen og åbne den igen.',
   'fabric.media.connect_account_description':
     'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
   'fabric.media.connect_link_account': 'Forbind til forhåndsvisning',
   'fabric.media.connect_link_account_card_view': 'Forbind',
+  'fabric.media.connect_link_account_card_view_description':
+    'Tilknyt din {context}-konto, hvis du vil se en forhåndsvisning af dette link',
   'fabric.media.connect_link_account_card_view_name':
     'Forbind din {context}-konto',
   'fabric.media.connect_to': 'Forbind til {name}',
   'fabric.media.could_not_load_editor': 'Ups! Vi kunne ikke indlæse editoren',
   'fabric.media.could_not_save_image': 'Ups! Vi kunne ikke gemme billedet',
+  'fabric.media.couldnt_generate_encrypted_entry_preview':
+    'Vi kan ikke vise en forhåndsvisning af krypterede filer eller filer, der er beskyttet af en adgangskode.',
   'fabric.media.couldnt_generate_preview': 'Vi kunne ikke vise denne fil.',
+  'fabric.media.couldnt_load_file': 'Vi kunne ikke indlæse filen.',
+  'fabric.media.couldnt_load_link':
+    'Af en ukendt årsag kunne vi ikke indlæse dette link.',
+  'fabric.media.creating_preview': 'Opretter forhåndsvisning...',
   'fabric.media.default_avatars': 'Standard-avatarer',
   'fabric.media.disable_fullscreen': 'slå fuldskærmsvisning fra',
   'fabric.media.document': 'dokument',
@@ -46,9 +56,13 @@ export default {
     'Træk dine billeder herover, og slip dem',
   'fabric.media.drag_and_drop_your_files':
     'Træk, og slip dine filer hertil, eller',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Træk og slip dine filer og mapper hvor som helst eller',
   'fabric.media.drop_your_files': 'Træk filer hertil for at uploade',
   'fabric.media.drop_your_files_here': 'Træk dine filer hertil',
+  'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'slå fuldskærmsvisning til',
+  'fabric.media.error_429': 'Fejl 429',
   'fabric.media.error_generating_preview': 'Fejl ved forhåndsvisning',
   'fabric.media.error_hint_critical':
     'Hvis problemet fortsat opstår, skal du kontakte support.',
@@ -66,6 +80,7 @@ export default {
     'Billedet kunne ikke indlæses; ugyldig URL.',
   'fabric.media.insert_files':
     '{0, plural, one {Indsæt {0} fil} other {Indsæt {0} filer}}',
+  'fabric.media.invalid_permissions': 'Begrænset link',
   'fabric.media.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.media.item_not_found_in_list':
@@ -78,19 +93,31 @@ export default {
   'fabric.media.no_gifs_found_suggestion':
     'Vi kunne ikke finde noget for "{query}"',
   'fabric.media.no_pdf_artifacts': 'Ingen PDF-artefakter for denne fil fundet.',
+  'fabric.media.not_found_description':
+    'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
   'fabric.media.not_found_title': 'Ups. Vi kan ikke finde dette link!',
   'fabric.media.or': 'eller',
   'fabric.media.pause': 'pause',
   'fabric.media.play': 'afspil',
+  'fabric.media.playback_default_speed': 'Standard',
+  'fabric.media.playback_speed': 'Afspilningshastighed',
+  'fabric.media.preview': 'Vis',
+  'fabric.media.preview_currently_unavailable':
+    'Forhåndsvisning er ikke tilgængelig i øjeblikket',
+  'fabric.media.preview_rateLimited':
+    'Vi havde problemer med at oprette en forhåndsvisning',
+  'fabric.media.preview_unavailable': 'Forhåndsvisning er ikke tilgængelig',
   'fabric.media.recent_uploads': 'Senest uploadet',
   'fabric.media.remove_image': 'Fjern billede',
   'fabric.media.retry': 'Prøv igen',
   'fabric.media.save': 'Gem',
+  'fabric.media.search': 'Søg',
   'fabric.media.search_all_gifs': "Søg i alle GIF'er!",
   'fabric.media.share_files_instantly': 'Vi deler dem med det samme',
   'fabric.media.something_went_wrong': 'Noget gik galt.',
   'fabric.media.srclink': 'Vis i',
   'fabric.media.srclinkunknown': 'Vis original',
+  'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Prøv igen',
   'fabric.media.try_another_account': 'Prøv en anden konto',
   'fabric.media.try_downloading_file':
@@ -105,6 +132,8 @@ export default {
   'fabric.media.upload_image': 'Upload billede',
   'fabric.media.upload_photo': 'Upload et foto',
   'fabric.media.video': 'video',
+  'fabric.media.view': 'Vis',
+  'fabric.media.viewer_rateLimited': 'Vi har problemer med at indlæse din fil.',
   'fabric.media.webgl_warning_description':
     'Din browser understøtter ikke WebGL. Brug en WebGL-kompatibel browser for at annotere billeder.',
   'fabric.media.zoom_in': 'zoom ind',

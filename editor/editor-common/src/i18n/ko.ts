@@ -6,9 +6,15 @@
  */
 // Korean
 export default {
+  'fabric.editor.captionPlaceholder': '캡션 추가',
   'fabric.editor.collapseNode': '콘텐츠 접기',
   'fabric.editor.expandDefaultTitle': '여기를 클릭하여 펼치기...',
   'fabric.editor.expandNode': '콘텐츠 펼치기',
   'fabric.editor.expandPlaceholder': '이 펼치기에 제목 지정...',
   'fabric.editor.openLink': '새 탭에서 링크 열기',
+  'fabric.editor.unsupportedBlockContent':
+    '이 편집기에서는 이 콘텐츠 표시를 지원하지 않습니다',
+  'fabric.editor.unsupportedContentTooltip':
+    '콘텐츠는 이 편집기에서 사용할 수 없으며 편집 후 저장해도 그대로 보존됩니다',
+  'fabric.editor.unsupportedInlineContent': '지원되지 않는 콘텐츠',
 };

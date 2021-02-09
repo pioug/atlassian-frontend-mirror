@@ -27,6 +27,7 @@ export enum ACTION {
   DISCARDED_INVALID_STEPS_FROM_TRANSACTION = 'discardedInvalidStepsFromTransaction',
   DISMISSED = 'dismissed',
   DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
+  DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
   EDITED = 'edited',
   EDITOR_CRASHED = 'unhandledErrorCaught',
   EDITOR_MOUNTED = 'mounted',
@@ -78,6 +79,7 @@ export enum ACTION {
   VISITED = 'visited',
   WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
   FIXED = 'fixed',
+  RENDERED = 'rendered',
 }
 
 export enum INPUT_METHOD {
@@ -141,6 +143,7 @@ export enum ACTION_SUBJECT {
   TEXT = 'text',
   TOOLBAR = 'toolbar',
   TYPEAHEAD = 'typeAhead',
+  TYPEAHEAD_ITEM = 'typeAheadItem',
   ANNOTATION = 'annotation',
   SEARCH_RESULT = 'searchResult',
   CREATE_LINK_INLINE_DIALOG = 'createLinkInlineDialog',
@@ -225,6 +228,7 @@ export enum ACTION_SUBJECT_ID {
   PICKER_CLOUD = 'cloudPicker',
   PICKER_EMOJI = 'emojiPicker',
   PRODUCT_NAME = 'productName',
+  PLACEHOLDER_TEXT = 'placeholderText',
   PUNC = 'punctuation',
   RANGE = 'range',
   REACT_NODE_VIEW = 'reactNodeView',

@@ -19,7 +19,9 @@ export function getTableRectFromDoc(
 
   // Create transform base on the doc
   const map = TableMap.get(table);
-  const start = doc.resolve(tablePos).start(1);
+  const $table = doc.resolve(tablePos);
+  // Nested tables start position might differ from the original position
+  const start = $table.start($table.depth + 1);
 
   return {
     map,

@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Norwegian Bokmål
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Kopiert!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Kopier',
+  'fabric.editor.headingLink.copied': 'Kopiert!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Kopier kobling til overskrift',
+  'fabric.editor.headingLink.failedToCopy': 'Kopiering mislyktes',
+};

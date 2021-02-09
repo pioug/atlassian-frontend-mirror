@@ -251,13 +251,27 @@ ${code`<Clipboard
 
   The \`Browser\` React component enables the user to select local files via the native browser file dialog.
 
-  It has some additional properties to the standard event properties on all the React components:
+  There is two ways of integrating the component:
 
-  * **isOpen?**: \`boolean\` - when true, the dialog will show when the component is first rendered _(NOTE: without this value, no dialog will appear unless you use the **onBrowserFn** hook)_
-  * **onBrowserFn?**: \`(browse: () => void) => void\` - provides a callback to manually invoke the dialog. This can be useful for cases where the action is required outside of React render lifecycle
+  * You can pass a children factory in a shape of \`(browse) => React.ReactChild\` function as in the example below:
+
+  ${(
+    <Example
+      Component={require('../examples/3-browse-with-children').default}
+      title="Browser with children factory"
+      source={require('!!raw-loader!../examples/3-browse-with-children')}
+    />
+  )}
+
+  * Or by using one of control props
+    - **isOpen?**: \`boolean\` - when true, the dialog will show when the component is first rendered _(NOTE: without this value, no dialog will appear unless you use the **onBrowserFn** hook)_
+    - **onBrowserFn?**: \`(browse: () => void) => void\` - provides a callback to manually invoke the dialog. This can be useful for cases where the action is required outside of React render lifecycle
+  
+  To cancel an upload provide the following prop:
+
   * **onCancelFn?**: \`(cancel: (uniqueIdentifier: string) => void) => void\` - provides a callback which can be used to manually cancel an upload if required
 
-  You can configure it with these options:
+  Additionally you can configure it with these options:
 
   * **multiple?**: \`boolean\` - whether or not to allow multiple files during selection
   * **fileExtensions?**: \`Array<string>\` - limit file types to given extensions
@@ -304,6 +318,8 @@ function onBrowseFnHandler(browseFn) {
   onError={onErrorHandler}
   onEnd={onEndHandler}
 />`}
+
+
 
   <a name="non-react-based"></a>
   ### Non-React based

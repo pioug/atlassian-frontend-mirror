@@ -26,6 +26,7 @@ export enum ToolbarMenuItem {
   insertMenu,
   expand,
   status,
+  undo,
 }
 
 export const mainToolbarSelector = '[data-testid="ak-editor-main-toolbar"]';
@@ -41,7 +42,7 @@ export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.alignmentCenter]: `[aria-label="Align center"]`,
   [ToolbarMenuItem.alignmentRight]: `[aria-label="Align right"]`,
   [ToolbarMenuItem.textColor]: `[aria-label="Text color"]`,
-  [ToolbarMenuItem.bulletList]: `[aria-label="Bullet List"]`,
+  [ToolbarMenuItem.bulletList]: `[aria-label="Bullet list"]`,
   [ToolbarMenuItem.numberedList]: `[aria-label="Numbered List"]`,
   [ToolbarMenuItem.layouts]: `[aria-label="Layouts"]`,
   [ToolbarMenuItem.action]: `[aria-label="Action item"]`,
@@ -55,6 +56,7 @@ export const toolbarMenuItemsSelectors = {
   [ToolbarMenuItem.insertMenu]: '[aria-label="Insert"]',
   [ToolbarMenuItem.expand]: '[aria-label="Expand"]',
   [ToolbarMenuItem.status]: '[aria-label="Status"]',
+  [ToolbarMenuItem.undo]: '[aria-label="Undo"]',
 };
 
 export async function clickToolbarMenu(page: TestPage, menu: ToolbarMenuItem) {

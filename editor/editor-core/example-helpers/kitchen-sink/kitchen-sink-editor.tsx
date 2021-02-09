@@ -20,6 +20,7 @@ export interface KitchenSinkEditorProps {
   onDocumentChanged(adf: any): void;
   onDocumentValidated(): void;
   loadLocale(locale: string): void;
+  featureFlags: EditorProps['featureFlags'];
 }
 
 export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps> = React.memo(
@@ -50,6 +51,7 @@ export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps>
           onDocumentValidated={props.onDocumentValidated}
           extensionProviders={props.extensionProviders}
           primaryToolbarComponents={primaryToolbarComponents}
+          featureFlags={props.featureFlags}
         />
       </PopupWrapper>
     );

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import { Field } from '@atlaskit/form';
@@ -12,44 +12,46 @@ import { OnBlur } from '../types';
 function Date({
   name,
   field,
-  onBlur,
   autoFocus,
-  intl,
+  onBlur,
   placeholder,
+  intl,
 }: {
   name: string;
   field: DateField;
-  onBlur: OnBlur;
   autoFocus?: boolean;
+  onBlur: OnBlur;
   placeholder?: string;
 } & InjectedIntlProps) {
-  const element = (
-    <Field
+  const { label, description, defaultValue, isRequired } = field;
+
+  return (
+    <Field<string>
       name={name}
-      label={field.label}
-      defaultValue={field.defaultValue || ''}
-      isRequired={field.isRequired}
-      validate={(value?: string) => validate<string>(field, value || '')}
+      label={label}
+      defaultValue={defaultValue}
+      isRequired={isRequired}
+      validate={(value?: string) => validate(field, value)}
     >
-      {({ fieldProps, error, valid }) => (
-        <Fragment>
-          <DatePicker
-            {...fieldProps}
-            autoFocus={autoFocus}
-            onBlur={() => {
-              fieldProps.onBlur();
-              onBlur(field.name);
-            }}
-            locale={intl.locale}
-            placeholder={placeholder}
-          />
-          <FieldMessages error={error} description={field.description} />
-        </Fragment>
-      )}
+      {({ fieldProps, error, valid }) => {
+        return (
+          <>
+            <DatePicker
+              {...fieldProps}
+              autoFocus={autoFocus}
+              onBlur={() => {
+                fieldProps.onBlur();
+                onBlur(name);
+              }}
+              locale={intl.locale}
+              placeholder={placeholder}
+            />
+            <FieldMessages error={error} description={description} />
+          </>
+        );
+      }}
     </Field>
   );
-
-  return element;
 }
 
 export default injectIntl(Date);

@@ -32,6 +32,7 @@ export default {
     'Ahi, non siamo riusciti a trovare nessuna GIF',
   'fabric.media.check_your_network': 'Controlla la connessione di rete',
   'fabric.media.close': 'Chiudi',
+  'fabric.media.close_and_reopen': 'Prova a chiudere e riaprire il file.',
   'fabric.media.connect_account_description':
     'Apriremo una nuova pagina per aiutarti a collegare il tuo account {name}',
   'fabric.media.connect_link_account': 'Connetti ad anteprima',
@@ -49,17 +50,23 @@ export default {
     'Non possiamo visualizzare in anteprima file crittografati o protetti da password.',
   'fabric.media.couldnt_generate_preview':
     'Non siamo riusciti a generare un’anteprima per questo file.',
+  'fabric.media.couldnt_load_file': 'Impossibile caricare il file.',
   'fabric.media.couldnt_load_link':
     'Non è stato possibile caricare questo link per un motivo sconosciuto.',
+  'fabric.media.creating_preview': "Creazione dell'anteprima in corso...",
   'fabric.media.default_avatars': 'Avatar predefiniti',
   'fabric.media.disable_fullscreen': 'disattiva schermo intero',
   'fabric.media.document': 'documento',
   'fabric.media.download': 'Scarica',
   'fabric.media.drag_and_drop_images_here': 'Trascina le tue immagini qui',
   'fabric.media.drag_and_drop_your_files': 'Trascina i file dove vuoi oppure',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Trascina i file e le cartelle ovunque o',
   'fabric.media.drop_your_files': 'Trascina i file per caricarli',
   'fabric.media.drop_your_files_here': 'Rilascia qui i file',
+  'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'abilita schermo intero',
+  'fabric.media.error_429': 'Errore 429',
   'fabric.media.error_generating_preview':
     'Errore nella creazione dell’anteprima',
   'fabric.media.error_hint_critical':
@@ -96,16 +103,25 @@ export default {
   'fabric.media.or': 'o',
   'fabric.media.pause': 'pausa',
   'fabric.media.play': 'riproduci',
+  'fabric.media.playback_default_speed': 'Predefiniti',
+  'fabric.media.playback_speed': 'Velocità di riproduzione',
   'fabric.media.preview': 'Anteprima',
+  'fabric.media.preview_currently_unavailable':
+    'Anteprima attualmente non disponibile',
+  'fabric.media.preview_rateLimited':
+    "Si è verificato un problema durante la creazione dell'anteprima",
+  'fabric.media.preview_unavailable': 'Anteprima non disponibile',
   'fabric.media.recent_uploads': 'Caricamenti recenti',
   'fabric.media.remove_image': 'Rimuovi immagine',
   'fabric.media.retry': 'Riprova',
   'fabric.media.save': 'Salva',
+  'fabric.media.search': 'ricerca',
   'fabric.media.search_all_gifs': 'Ricerca tutte le GIF!',
   'fabric.media.share_files_instantly': 'Li condivideremo subito',
   'fabric.media.something_went_wrong': 'Si è verificato un errore.',
   'fabric.media.srclink': 'Visualizza in',
   'fabric.media.srclinkunknown': 'Mostra originale',
+  'fabric.media.text': 'testo',
   'fabric.media.try_again': 'Riprova',
   'fabric.media.try_another_account': 'Prova con un altro account',
   'fabric.media.try_downloading_file':
@@ -122,6 +138,8 @@ export default {
   'fabric.media.upload_photo': 'Carica una foto',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Visualizza',
+  'fabric.media.viewer_rateLimited':
+    'Si stanno verificando problemi nel caricamento del tuo file.',
   'fabric.media.webgl_warning_description':
     'Il tuo browser non supporta WebGL. Per annotare le immagini usa un browser compatibile con WebGL.',
   'fabric.media.zoom_in': 'ingrandisci',

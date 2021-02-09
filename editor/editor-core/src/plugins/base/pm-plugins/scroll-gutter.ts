@@ -1,7 +1,8 @@
 import { Plugin, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-export const GUTTER_SIZE_IN_PX = 120; // Gutter size
+export const GUTTER_SIZE_IN_PX = 120; // Default gutter size
+export const GUTTER_SIZE_MOBILE_IN_PX = 50; // Gutter size for Mobile
 export const GUTTER_SELECTOR = '#editor-scroll-gutter';
 const MIN_TAP_SIZE_IN_PX = 40;
 
@@ -42,9 +43,9 @@ function listenForGutterVisibilityChanges(
 /**
  * Create a gutter element that can be added or removed from the DOM.
  */
-function createGutter() {
+function createGutter(gutterSize: number) {
   const gutter = document.createElement('div');
-  gutter.style.paddingBottom = `${GUTTER_SIZE_IN_PX}px`;
+  gutter.style.paddingBottom = `${gutterSize}px`;
   gutter.id = GUTTER_SELECTOR.substr(1);
 
   let initialized = false;
@@ -136,6 +137,7 @@ function getCaretTopPosition(): number | undefined {
 function scrollToGutterElement(
   scrollContainer: HTMLElement,
   gutterElement: HTMLElement,
+  gutterSize: number,
 ): boolean {
   const viewportHeight = scrollContainer.offsetHeight;
   const viewportOffsetY = scrollContainer.getBoundingClientRect().top;
@@ -147,7 +149,7 @@ function scrollToGutterElement(
 
   const caretTopFromContainer = caretTopPosition - viewportOffsetY;
   const gutterThresholdTop =
-    viewportHeight - GUTTER_SIZE_IN_PX - MIN_TAP_SIZE_IN_PX * 2;
+    viewportHeight - gutterSize - MIN_TAP_SIZE_IN_PX * 2;
 
   if (caretTopFromContainer < gutterThresholdTop) {
     return false;
@@ -169,15 +171,25 @@ export type ScrollGutterPluginOptions = {
    * Default is true
    */
   allowCustomScrollHandler?: boolean;
+  /**
+   * Persist scroll gutter when the mobile appearance is COMPACT
+   * Default is false
+   */
+  persistScrollGutter?: boolean;
+  gutterSize?: number;
 };
 
 export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
-  const { getScrollElement, allowCustomScrollHandler } = pluginOptions;
+  const {
+    getScrollElement,
+    allowCustomScrollHandler,
+    gutterSize = GUTTER_SIZE_IN_PX,
+  } = pluginOptions;
   if (!getScrollElement) {
     return undefined;
   }
 
-  const gutter = createGutter();
+  const gutter = createGutter(gutterSize);
   let scrollElement: HTMLElement | null = null; // | undefined;
 
   return new Plugin({
@@ -185,10 +197,10 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
       // Determines the distance (in pixels) between the cursor and the end of the visible viewport at which point,
       // when scrolling the cursor into view, scrolling takes place.
       // Defaults to 0: https://prosemirror.net/docs/ref/#view.EditorProps.scrollThreshold
-      scrollThreshold: GUTTER_SIZE_IN_PX / 2,
+      scrollThreshold: gutterSize / 2,
       // Determines the extra space (in pixels) that is left above or below the cursor when it is scrolled into view.
       // Defaults to 5: https://prosemirror.net/docs/ref/#view.EditorProps.scrollMargin
-      scrollMargin: GUTTER_SIZE_IN_PX,
+      scrollMargin: gutterSize,
       // Called when the view, after updating its state, tries to scroll the selection into view
       // https://prosemirror.net/docs/ref/#view.EditorProps.handleScrollToSelection
       handleScrollToSelection: (): boolean => {
@@ -199,7 +211,11 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
           // Avoid scrolling until applicable
           return false;
         }
-        return scrollToGutterElement(scrollElement, gutter.element());
+        return scrollToGutterElement(
+          scrollElement,
+          gutter.element(),
+          gutterSize,
+        );
       },
     },
     view(view: EditorView) {
@@ -228,22 +244,30 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
             return;
           }
 
-          // Determine whether we need to add/remove the gutter element
           const gutterMounted = gutter.isMounted();
+          const addAndObserveGutter = () => {
+            if (!gutterMounted) {
+              gutter.observe(scrollElement!);
+              gutter.addGutter(editorParentElement!);
+            }
+          };
+
+          if (pluginOptions.persistScrollGutter) {
+            addAndObserveGutter();
+            return;
+          }
+
+          // Determine whether we need to add/remove the gutter element
           const viewportHeight = scrollElement.offsetHeight;
           const contentHeight =
-            editorParentElement.offsetHeight -
-            (gutterMounted ? GUTTER_SIZE_IN_PX : 0);
+            editorParentElement.offsetHeight - (gutterMounted ? gutterSize : 0);
 
           // Add or remove the gutter based on whether the content is about to exceed the viewport height.
           // We do this to ensure there is sufficient white space below the last content node in order to
           // see any UI control elements which may sit beneath it.
-          const gutterThresholdHeight = viewportHeight - GUTTER_SIZE_IN_PX;
+          const gutterThresholdHeight = viewportHeight - gutterSize;
           if (contentHeight >= gutterThresholdHeight) {
-            if (!gutterMounted) {
-              gutter.observe(scrollElement);
-              gutter.addGutter(editorParentElement);
-            }
+            addAndObserveGutter();
           } else {
             if (gutterMounted) {
               gutter.removeGutter();

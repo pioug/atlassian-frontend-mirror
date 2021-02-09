@@ -32,6 +32,7 @@ export default {
     '¡Qué pena! No hemos recuperado ningún GIF',
   'fabric.media.check_your_network': 'Comprueba tu conexión de red',
   'fabric.media.close': 'Cerrar',
+  'fabric.media.close_and_reopen': 'Intenta cerrar este archivo y reabrirlo.',
   'fabric.media.connect_account_description':
     'Abriremos otra página para ayudarte a conectar tu cuenta de {name}',
   'fabric.media.connect_link_account': 'Conectar para obtener vista previa',
@@ -49,8 +50,10 @@ export default {
     'No podemos mostrar vistas previas de archivos cifrados o protegidos con contraseña.',
   'fabric.media.couldnt_generate_preview':
     'No hemos podido generar la previsualización de este archivo.',
+  'fabric.media.couldnt_load_file': 'No hemos podido cargar el archivo.',
   'fabric.media.couldnt_load_link':
     'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
+  'fabric.media.creating_preview': 'Generando vista previa...',
   'fabric.media.default_avatars': 'Avatares predeterminados',
   'fabric.media.disable_fullscreen': 'desactivar pantalla completa',
   'fabric.media.document': 'documento',
@@ -59,9 +62,13 @@ export default {
     'Arrastra y suelta las imágenes aquí',
   'fabric.media.drag_and_drop_your_files':
     'Arrastra y suelta los archivos en cualquier lugar o',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Arrastra y suelta tus archivos y carpetas en cualquier lugar o',
   'fabric.media.drop_your_files': 'Suelta los archivos para cargarlos',
   'fabric.media.drop_your_files_here': 'Arrastra tus archivos hasta aquí',
+  'fabric.media.email': 'Correo electrónico',
   'fabric.media.enable_fullscreen': 'activar pantalla completa',
+  'fabric.media.error_429': 'Error 429',
   'fabric.media.error_generating_preview': 'Error al generar la vista previa',
   'fabric.media.error_hint_critical':
     'Si el problema continúa, ponte en contacto con la asistencia.',
@@ -99,16 +106,25 @@ export default {
   'fabric.media.or': 'o',
   'fabric.media.pause': 'pausar',
   'fabric.media.play': 'reproducir',
+  'fabric.media.playback_default_speed': 'Predeterminado',
+  'fabric.media.playback_speed': 'Velocidad de reproducción',
   'fabric.media.preview': 'Vista previa',
+  'fabric.media.preview_currently_unavailable':
+    'La vista previa no se encuentra disponible en estos momentos',
+  'fabric.media.preview_rateLimited':
+    'Hemos tenido dificultades para crear una vista previa',
+  'fabric.media.preview_unavailable': 'Vista previa no disponible',
   'fabric.media.recent_uploads': 'Cargas recientes',
   'fabric.media.remove_image': 'Eliminar imagen',
   'fabric.media.retry': 'Reintentar',
   'fabric.media.save': 'Guardar',
+  'fabric.media.search': 'Buscar',
   'fabric.media.search_all_gifs': '¡Busca en todos los GIF!',
   'fabric.media.share_files_instantly': 'Los compartiremos al instante',
   'fabric.media.something_went_wrong': 'Algo ha ido mal.',
   'fabric.media.srclink': 'Ver en',
   'fabric.media.srclinkunknown': 'Ver original',
+  'fabric.media.text': 'Texto',
   'fabric.media.try_again': 'Volver a intentarlo',
   'fabric.media.try_another_account': 'Probar otra cuenta',
   'fabric.media.try_downloading_file':
@@ -124,6 +140,8 @@ export default {
   'fabric.media.upload_photo': 'Carga una foto',
   'fabric.media.video': 'vídeo',
   'fabric.media.view': 'Ver',
+  'fabric.media.viewer_rateLimited':
+    'Estamos teniendo dificultades para cargar el archivo.',
   'fabric.media.webgl_warning_description':
     'Tu navegador no admite WebGL. Usa un navegador compatible con WebGL para anotar imágenes.',
   'fabric.media.zoom_in': 'acercar',

@@ -1,4 +1,4 @@
-import { Slice, Mark } from 'prosemirror-model';
+import { Slice, Mark, Node } from 'prosemirror-model';
 import {
   doc,
   emoji,
@@ -15,6 +15,7 @@ import {
   hasOnlyNodesOfType,
   isSingleLine,
   htmlContainsSingleFile,
+  isEmptyNode,
 } from '../../util';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 
@@ -353,6 +354,28 @@ describe('paste util', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('isEmptyNode()', () => {
+    const {
+      nodes: { panel },
+    } = defaultSchema;
+    it('should return true if node is empty', () => {
+      const emptyInfoPanel = panel.createAndFill();
+      expect(isEmptyNode(emptyInfoPanel)).toBe(true);
+    });
+    it('should return true when node attributes are different to the default', () => {
+      const emptyNotePanel = panel.createAndFill({ panelType: 'note' });
+      expect(isEmptyNode(emptyNotePanel)).toBe(true);
+      const emptyWarningPanel = panel.createAndFill({ panelType: 'warning' });
+      expect(isEmptyNode(emptyWarningPanel)).toBe(true);
+    });
+    it('should return false if node contains content', () => {
+      const content = doc(p('some text'))(defaultSchema).toJSON();
+      const paragraph = Node.fromJSON(defaultSchema, content);
+      const nonEmptyPanel = panel.createAndFill(null, paragraph);
+      expect(isEmptyNode(nonEmptyPanel)).toBe(false);
     });
   });
 });

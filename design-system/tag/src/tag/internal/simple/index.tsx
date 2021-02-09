@@ -73,7 +73,13 @@ const InnerSimpleTag = forwardRef(
         testId={testId}
         tagCss={tagCss}
         role={isLink ? 'link' : undefined}
-        before={<Before isRounded={isRounded} elemBefore={elemBefore} />}
+        before={
+          <Before
+            isRounded={isRounded}
+            elemBefore={elemBefore}
+            styles={chromeColors}
+          />
+        }
         contentElement={content}
       />
     );

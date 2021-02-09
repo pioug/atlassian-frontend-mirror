@@ -36,7 +36,7 @@ export async function initWysiwygTest(
 
   const [$editorElement, $rendererElement] = await Promise.all([
     await page.waitForSelector(`#${editorId} ${options.editorSelector}`),
-    await page.waitForSelector(`#${rendererId} ${options.editorSelector}`),
+    await page.waitForSelector(`#${rendererId} ${options.rendererSelector}`),
   ]);
 
   return {

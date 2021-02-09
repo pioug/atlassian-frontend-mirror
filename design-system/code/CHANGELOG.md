@@ -1,5 +1,40 @@
 # @atlaskit/code
 
+## 13.2.1
+
+### Patch Changes
+
+- [`413cc46d307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/413cc46d307) - [ux] Added colors for missing syntax keywords
+
+## 13.2.0
+
+### Minor Changes
+
+- [`3c7be954dbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c7be954dbd) - [ux] Line highlighting now meets WCAG 2.1 guidelines. Colors that were failing contrast have been updated and there is now a new visual cue consisting of a left border to the highlighted lines.
+- [`23ef692842a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23ef692842a) - [ux] `Code` and `CodeBlock` now use react-syntax-highlighter@^15 to highlight code. As part of this change
+  the fontSize for the line numbers and the code body have been normalised. This will be a breaking visual change for all consumers.
+  No action is required other than a callout that this will affect any existing visual regression tests.
+
+  Users can now use the `themeOverride` prop to customise the application of the default theme. This is an escape hatch
+  which will likley be removed in a future major version.
+
+  This change also includes:
+
+  - A bugfix for lineHeight that meant linenumbers and code body were not vertically aligned correctly.
+  - A bugfix for the SSR'd components not rendering consistently before hydration
+  - Improved semantic lines, which can now be properly consumed by screen readers.
+  - The `Code` and `CodeBlock` now expose additional options in their `theme` prop. These are `codeFontSize` and `codeLineHeight`
+    which allow customisation of the component's rendered font size.
+
+- [`7c2f2056ef7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c2f2056ef7) - [ux] Added code syntax highlighting for the following languages: AppleScript, Clojure, Delphi, Diff, FoxPro, Object Pascal, QML, Standard ML, Visual Basic, JSX and TSX
+
+### Patch Changes
+
+- [`72d19d3f308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d19d3f308) - Internal changes relating to types, and tests. Includes a small bugfix to the way Code component had styles applied and adds testId as a prop to both Code and CodeBlock.
+- [`84c4d95e2e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84c4d95e2e0) - [ux] Line numbers now have correct spacing in Firefox and Safari.
+- [`a4bcf21a972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4bcf21a972) - [ux] Syntax highlighting now uses accessibile colors that meet WCAG 2.0 Level AA guidelines for color contrast
+- [`b5873e7bf01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5873e7bf01) - [ux] Fixed highlighted line left border alignment.
+
 ## 13.1.1
 
 ### Patch Changes

@@ -37,7 +37,8 @@ export type QuickInsertItemId =
   | 'warningpanel'
   | 'errorpanel'
   | 'layout'
-  | 'expand';
+  | 'expand'
+  | 'placeholderText';
 
 export type QuickInsertItem = TypeAheadItem & {
   /** other names used to find the item */

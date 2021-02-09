@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorView, NodeView } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { Caption } from '@atlaskit/editor-common';
 
@@ -54,7 +54,7 @@ export default function captionNodeView(
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
 ) {
-  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView =>
+  return (node: PMNode, view: EditorView, getPos: getPosHandler) =>
     new CaptionNodeView(
       node,
       view,

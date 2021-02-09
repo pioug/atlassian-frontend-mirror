@@ -4,8 +4,10 @@ import { FormattedParts, toFormattedParts } from './toFormattedParts';
 
 export type DateFormatter = (date: Date) => string;
 
+type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 export interface LocalizationProvider {
-  getDaysShort: () => Array<string>;
+  getDaysShort: (weekStartDay?: WeekDay) => Array<string>;
   getMonthsLong: () => Array<string>;
   formatDate: DateFormatter;
   formatTime: DateFormatter;
@@ -31,17 +33,26 @@ export const createLocalizationProvider = (
       minute: 'numeric',
     }).format(date);
 
-  const getDaysShort = () => {
+  const getDaysShort = (weekStartDay: WeekDay = 0) => {
     const dayFormatter = Intl.DateTimeFormat(normalizedLocale, {
       weekday: 'short',
     });
 
-    return [1, 2, 3, 4, 5, 6, 7].map(day =>
+    // Right now there is no way to find out first day of the week based on Intl (locale)
+    // api. Check issue here: https://github.com/tc39/ecma402/issues/6
+    // So we rotate the weekdays based on #weekStartDay parameter.
+    const weekdays = [0, 1, 2, 3, 4, 5, 6];
+    const rotatedWeekdays =
+      weekStartDay > 0
+        ? [...weekdays.slice(weekStartDay), ...weekdays.slice(0, weekStartDay)]
+        : weekdays;
+
+    return rotatedWeekdays.map(day =>
       // Some short days are longer than 3 characters but are unique if the first
       // three non-white characters are used.
       dayFormatter
         // Date range chosen which has a Sun-Sat range so we can extract the names
-        .format(new Date(2000, 9, day, 12))
+        .format(new Date(2000, 9, day + 1, 12))
         // \u200E matches on the Left-to-Right Mark character in IE/Edge
         .replace(/[\s\u200E]/g, '')
         .substring(0, 3),

@@ -294,15 +294,23 @@ describe('createPluginsList', () => {
       expect(findReplacePlugin).toHaveBeenCalled();
     });
   });
-});
 
-describe('getScrollGutterOptions', () => {
-  it('should return undefined when allowScrollGutter is false', () => {
-    const result = getScrollGutterOptions({
-      allowScrollGutter: false,
-      appearance: 'mobile',
+  describe('getScrollGutterOptions', () => {
+    it('should return ScrollGutterPluginOptions with persistScrollGutter as true', () => {
+      const scrollGutterOptions = getScrollGutterOptions({
+        appearance: 'mobile',
+        persistScrollGutter: true,
+      });
+
+      expect(scrollGutterOptions?.persistScrollGutter).toBe(true);
     });
 
-    expect(result).toBeUndefined();
+    it('should return ScrollGutterPluginOptions with gutterSize as 50', () => {
+      const scrollGutterOptions = getScrollGutterOptions({
+        appearance: 'mobile',
+      });
+
+      expect(scrollGutterOptions?.gutterSize).toBe(50);
+    });
   });
 });

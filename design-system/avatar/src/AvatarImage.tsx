@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import PersonIcon from '@atlaskit/icon/glyph/person';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
-import { background, N50 } from '@atlaskit/theme/colors';
+import { background, N90 } from '@atlaskit/theme/colors';
 
 import { AVATAR_RADIUS, AVATAR_SIZES } from './constants';
 import { AppearanceType, SizeType } from './types';
@@ -17,6 +17,9 @@ interface Props {
   src?: string;
   testId?: string;
 }
+
+export const ICON_BACKGROUND = background();
+export const ICON_COLOR = N90;
 
 const AvatarImage: FC<Props> = ({
   alt = '',
@@ -56,7 +59,7 @@ const AvatarImage: FC<Props> = ({
     return (
       <span
         css={{
-          backgroundColor: N50,
+          backgroundColor: ICON_COLOR,
           width: '100%',
           height: '100%',
           display: 'block',
@@ -70,14 +73,14 @@ const AvatarImage: FC<Props> = ({
           <PersonIcon
             label={alt}
             primaryColor={background()}
-            secondaryColor={N50}
+            secondaryColor={ICON_COLOR}
             testId={testId && `${testId}--person`}
           />
         ) : (
           <ShipIcon
             label={alt}
             primaryColor={background()}
-            secondaryColor={N50}
+            secondaryColor={ICON_COLOR}
             testId={testId && `${testId}--ship`}
           />
         )}

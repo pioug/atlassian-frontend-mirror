@@ -86,23 +86,70 @@ describe('caption keymap', () => {
 
     sendKeyToPm(editorView, 'ArrowUp');
     expect(editorView.state.selection instanceof NodeSelection).toBe(true);
+    expect(editorView.state.selection.from).toBe(0);
   });
 
-  it('should remove first character without replacing it with empty nodes', () => {
+  it('should select media from caption on arrow up', () => {
     const { editorView } = editor(
       doc(
-        mediaSingle()(
+        mediaSingle({
+          layout: 'center',
+        })(
+          media({
+            id: 'abc',
+            type: 'file',
+            collection: 'xyz',
+          })(),
+          caption('he{<>}llo'),
+        ),
+        p('something'),
+      ),
+    );
+
+    sendKeyToPm(editorView, 'ArrowUp');
+    expect(editorView.state.selection instanceof NodeSelection).toBe(true);
+    expect(editorView.state.selection.from).toBe(0);
+  });
+
+  it('should select media from caption on shift + tab', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle({
+          layout: 'center',
+        })(
+          media({
+            id: 'abc',
+            type: 'file',
+            collection: 'xyz',
+          })(),
+          caption('he{<>}llo'),
+        ),
+        p('something'),
+      ),
+    );
+
+    sendKeyToPm(editorView, 'Shift-Tab');
+    expect(editorView.state.selection instanceof NodeSelection).toBe(true);
+    expect(editorView.state.selection.from).toBe(0);
+  });
+
+  it('should create paragraph below caption on arrow down', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle({
+          layout: 'center',
+        })(
           media({
             id: 'a559980d-cd47-43e2-8377-27359fcb905f',
             type: 'file',
             collection: 'MediaServicesSample',
           })(),
-          caption('H{<>}'),
+          caption('hello{<>}'),
         ),
       ),
     );
 
-    sendKeyToPm(editorView, 'Backspace');
+    sendKeyToPm(editorView, 'ArrowDown');
     expect(editorView.state.doc).toEqualDocument(
       doc(
         mediaSingle()(
@@ -111,27 +158,30 @@ describe('caption keymap', () => {
             type: 'file',
             collection: 'MediaServicesSample',
           })(),
-          caption(''),
+          caption('hello'),
         ),
+        p(),
       ),
     );
   });
 
-  it('safely removes caption text on cmd + backspace', () => {
+  it('should create paragraph below caption on enter', () => {
     const { editorView } = editor(
       doc(
-        mediaSingle()(
+        mediaSingle({
+          layout: 'center',
+        })(
           media({
             id: 'a559980d-cd47-43e2-8377-27359fcb905f',
             type: 'file',
             collection: 'MediaServicesSample',
           })(),
-          caption('Hello{<>}'),
+          caption('hello{<>}'),
         ),
       ),
     );
 
-    sendKeyToPm(editorView, 'Mod-Backspace');
+    sendKeyToPm(editorView, 'Enter');
     expect(editorView.state.doc).toEqualDocument(
       doc(
         mediaSingle()(
@@ -140,8 +190,75 @@ describe('caption keymap', () => {
             type: 'file',
             collection: 'MediaServicesSample',
           })(),
-          caption(''),
+          caption('hello'),
         ),
+        p(),
+      ),
+    );
+  });
+
+  it('should move to paragraph below caption on arrow down', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle({
+          layout: 'center',
+        })(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('hel{<>}lo'),
+        ),
+        p('something'),
+      ),
+    );
+
+    sendKeyToPm(editorView, 'ArrowDown');
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('hello'),
+        ),
+        p('{<>}something'),
+      ),
+    );
+  });
+
+  it('should move to paragraph below caption on enter', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle({
+          layout: 'center',
+        })(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('he{<>}llo'),
+        ),
+        p('something'),
+      ),
+    );
+
+    sendKeyToPm(editorView, 'Enter');
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('hello'),
+        ),
+        p('{<>}something'),
       ),
     );
   });

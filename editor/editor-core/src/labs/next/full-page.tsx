@@ -20,12 +20,7 @@ import { tableFullPageEditorStyles } from '../../plugins/table/ui/common-styles.
 import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
 import { EditorProps } from '../../types';
 import EditorActions from '../../actions';
-import {
-  Editor,
-  EditorContent,
-  EditorSharedConfig,
-  useEditorSharedConfig,
-} from './Editor';
+import { Editor, EditorContent, useEditorSharedConfig } from './Editor';
 import { Toolbar } from './Toolbar';
 import { ContentComponents } from './ContentComponents';
 import { useCreateAnalyticsHandler } from './internal/hooks/use-analytics';
@@ -52,6 +47,7 @@ const ScrollContainer = styled(ContentStyles)`
 ScrollContainer.displayName = 'ScrollContainer';
 
 const GUTTER_PADDING = 32;
+const GUTTER_STYLE = { padding: `0 ${GUTTER_PADDING}px` };
 
 const ContentArea = styled.div`
   display: flex;
@@ -214,11 +210,9 @@ function FullPage(props: FullPageProps) {
                   <AvatarsWithPluginState
                     editorView={config.editorView}
                     eventDispatcher={config.eventDispatcher}
-                    inviteToEditHandler={
-                      collabEdit && collabEdit.inviteToEditHandler
-                    }
+                    inviteToEditHandler={collabEdit?.inviteToEditHandler}
                     isInviteToEditButtonSelected={
-                      collabEdit && collabEdit.isInviteToEditButtonSelected
+                      collabEdit?.isInviteToEditButtonSelected
                     }
                   />
                 )}
@@ -231,12 +225,10 @@ function FullPage(props: FullPageProps) {
                 innerRef={scrollContainerRef}
                 className="fabric-editor-popup-scroll-parent"
               >
-                <ClickAreaBlock
-                  editorView={(config || ({} as EditorSharedConfig)).editorView}
-                >
+                <ClickAreaBlock editorView={config?.editorView}>
                   <EditorContentArea>
                     <div
-                      style={{ padding: `0 ${GUTTER_PADDING}px` }}
+                      style={GUTTER_STYLE}
                       className="ak-editor-content-area"
                     >
                       {contentComponents}
@@ -247,9 +239,7 @@ function FullPage(props: FullPageProps) {
                 </ClickAreaBlock>
               </ScrollContainer>
               {contextPanel && <SidebarArea>{contextPanel}</SidebarArea>}
-              <WidthEmitter
-                editorView={(config || ({} as EditorSharedConfig)).editorView!}
-              />
+              <WidthEmitter editorView={config?.editorView} />
             </ContentArea>
           </FullPageEditorWrapper>
         </BaseTheme>

@@ -19,14 +19,17 @@ export const roundedBorderStyles: CSSObject = {
   borderRadius: `${defaultRoundedBorderRadius}`,
 };
 
-export const beforeElementStyles: CSSObject = {
+export const beforeElementStyles = ({
+  textColor,
+}: ChromeColors): CSSObject => ({
   position: 'absolute',
   left: 0,
   borderRadius: `${defaultBorderRadius}`,
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'center',
-};
+  color: textColor,
+});
 
 export const chromeStyles = ({
   backgroundColor,

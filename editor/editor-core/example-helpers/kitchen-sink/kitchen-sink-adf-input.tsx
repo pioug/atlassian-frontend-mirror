@@ -12,7 +12,11 @@ export const KitchenSinkAdfInput: React.StatelessComponent<KitchenSinkAdfInputPr
   return (
     <InputForm>
       <InputPadding>
-        <Textarea value={props.value} onChange={props.onChange} rows={20} />
+        <Textarea
+          value={props.value}
+          onChange={props.onChange}
+          rows={Math.min(props.value.split('\n').length, 10)}
+        />
         {props.onSubmit && (
           <Button onClick={props.onSubmit} type="submit">
             Import ADF

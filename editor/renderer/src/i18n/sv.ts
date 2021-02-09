@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Swedish
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Kopierad!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Kopiera',
+  'fabric.editor.headingLink.copied': 'Kopierad!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Kopiera länk till rubrik',
+  'fabric.editor.headingLink.failedToCopy': 'Kopiering misslyckades',
+};

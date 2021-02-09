@@ -1,5 +1,45 @@
 # @atlaskit/breadcrumbs
 
+## 11.0.0
+
+### Major Changes
+
+- [`3f80f8a2e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f80f8a2e4b) - In this version we made breadcrumbs dramatically faster, lighter and easier to use 🤩
+
+  - BreadcrumbsStateless has been merged into the default export
+  - Performance improvements
+  - Faster internal analytics
+
+  **Migrating from BreadcrumbsStateless**
+
+  When needing to control breadcrumbs you can 1:1 replace the component with the default export from breadcrumbs.
+
+  ```diff
+  -import { BreadcrumbsStateless } from '@atlaskit/breadcrumbs';
+  +import Breadcrumbs from '@atlaskit/breadcrumbs';
+
+  -<BreadcrumbsStateless isExpanded />
+  +<Breadcrumbs isExpanded />
+  ```
+
+  When `isExpanded` is provided, the component will act controlled, otherwise uncontrolled.
+
+  **Upgrading with the codemod**
+
+  There exists a codemod to help you upgrade. Make sure to be on the latest version of breadcrumbs before running.
+
+  ```
+  yarn upgrade @atlaskit/breadcrumbs@latest
+  ```
+
+  Then you can use our cli tool to run the codemod:
+
+  ```
+  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+  ```
+
+  And then follow the prompts to select the breadcrumbs codemod.
+
 ## 10.1.0
 
 ### Minor Changes

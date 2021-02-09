@@ -164,8 +164,7 @@ export interface EditorProps {
   // You can use the object form to enable additional individual features e.g. case-matching toggle.
   allowFindReplace?: boolean | FindReplaceOptions;
 
-  // Enable scroll gutter
-  allowScrollGutter?: boolean;
+  persistScrollGutter?: boolean;
 
   // Set to enable the quick insert menu i.e. '/' key trigger.
   // You can also provide your own insert menu options that will be shown in addition to the enabled
@@ -323,7 +322,26 @@ export interface EditorProps {
   elementBrowser?: {
     showModal?: boolean;
     replacePlusMenu?: boolean;
+    helpUrl?: string;
   };
 
   codeBlock?: CodeBlockOptions;
+
+  // Enable undo/redo functionality within the editor.
+  UNSAFE_allowUndoRedoButtons?: boolean;
+
+  /**
+   * @default undefined
+   * @description Enables valid transaction events to be tracked in analytics (at a sampled rate)
+   */
+  trackValidTransactions?:
+    | {
+        samplingRate: number;
+      }
+    | boolean;
+
+  /**
+   * @description Short lived feature flags for experiments and gradual rollouts
+   */
+  featureFlags?: { [featureFlag: string]: string | boolean };
 }

@@ -838,7 +838,7 @@ export default class WebBridgeImpl
     }
   }
 
-  configureEditor(config: string) {
+  configure(config: string) {
     if (!this.onEditorConfigChanged) {
       return;
     }

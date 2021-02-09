@@ -42,7 +42,8 @@ export type AnalyticsEventPayload =
   | ElementBrowserEventPayload
   | CreateLinkInlineDialogEventPayload
   | UnsupportedContentPayload
-  | ExtensionEventPayload;
+  | ExtensionEventPayload
+  | TransactionEventPayload;
 
 export type AnalyticsEventPayloadWithChannel = {
   channel: string;
@@ -65,6 +66,14 @@ type InvalidTransactionErrorAEP = OperationalAEP<
   undefined
 >;
 
+type DispatchedValidTransactionAEP = OperationalAEP<
+  ACTION.DISPATCHED_VALID_TRANSACTION,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  undefined,
+  undefined
+>;
+
 type InvalidTransactionStepErrorAEP = OperationalAEP<
   ACTION.DISCARDED_INVALID_STEPS_FROM_TRANSACTION,
   ACTION_SUBJECT.EDITOR,
@@ -74,6 +83,8 @@ type InvalidTransactionStepErrorAEP = OperationalAEP<
   },
   undefined
 >;
+
+export type TransactionEventPayload = DispatchedValidTransactionAEP;
 
 type FailedToUnmountErrorAEP = OperationalAEP<
   ACTION.FAILED_TO_UNMOUNT,

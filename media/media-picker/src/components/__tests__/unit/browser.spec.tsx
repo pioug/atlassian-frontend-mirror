@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 jest.mock('../../../service/uploadServiceImpl');
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { Browser, BrowserBase } from '../../browser/browser';
+import Button from '@atlaskit/button';
 
 describe('Browser', () => {
   const mediaClient = fakeMediaClient();
@@ -52,5 +53,20 @@ describe('Browser', () => {
     expect(onCancelFnMock).toBeCalled();
     onCancelFnMock.mock.calls[0][0]();
     expect((instance as any).uploadService.cancel).toBeCalled();
+  });
+
+  it('should render with children', () => {
+    const browser = mount(
+      <Browser mediaClient={mediaClient} config={browseConfig}>
+        {browse => <Button onClick={browse}>Upload</Button>}
+      </Browser>,
+    );
+    const instance = browser.find(BrowserBase).instance();
+    const inputOnClick = jest.spyOn(
+      (instance as any).browserRef.current,
+      'click',
+    );
+    browser.find(Button).simulate('click');
+    expect(inputOnClick).toBeCalled();
   });
 });

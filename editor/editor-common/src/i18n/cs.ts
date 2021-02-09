@@ -6,6 +6,7 @@
  */
 // Czech
 export default {
+  'fabric.editor.captionPlaceholder': 'Přidejte popisek',
   'fabric.editor.collapseNode': 'Sbalit obsah',
   'fabric.editor.expandDefaultTitle': 'Klikněte sem pro rozbalení...',
   'fabric.editor.expandNode': 'Rozbalit obsah',

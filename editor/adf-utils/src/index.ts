@@ -75,6 +75,7 @@ export type {
   ValidationMode,
   ValidationOptions,
   ErrorCallbackOptions,
+  Validate,
 } from './types/validatorTypes';
 export type {
   ADFEntity,

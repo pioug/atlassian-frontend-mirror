@@ -14,119 +14,143 @@
  * When adding a new feature flag use the following template:
  *
  * ```
- * DESCRIPTION – what this feature flag is doing
+ * @description
+ * What this feature flag is doing. Do not lead with "Feature flag to".
  *
- * [Default: enabled|disabled]
- *
- * [Link to a ticket]
+ * @see https://product-fabric.atlassian.net/browse/ED-1
+ * @default false
  * ```
  *
  * ## NAMING
  * – Name feature flags without `allow`.
  * – A name should read as "Feature flag to enable ...".
  *
- * Example: name = "newInsertionBehaviour" -> "Feature flag to enable new insertion behaviour."
+ * Example: name = "newInsertionBehaviour" -> "Enable new insertion behaviour"
  */
 export type FeatureFlags = {
   /**
-   * Feature flag to enable new insertion behaviour,
-   * which is following a set of rules defined on this page:
-   * https://product-fabric.atlassian.net/wiki/spaces/E/pages/866059806/Cursor+selection+guide+Inserting+new+nodes
+   * @description Enable new insertion behaviour
    *
-   * [PARTIALLY IMPLEMENTED]
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/l/c/JYoSEu00
+   * @default false
    */
   newInsertionBehaviour?: boolean;
 
   /**
-   * Feature flag to enable new interactive expand,
-   * allows interacting with expand e.g. collapse/expand in the editor.
-   *
-   * [Default: enabled]
+   * @description Allows to toggle expand open state
+   * @default true
    */
   interactiveExpand?: boolean;
 
   /**
-   * Feature flag to indicate whether a placeholder bracket hint was provided (`string => boolean`)
-   *
+   * @description
+   * Whether a placeholder bracket hint was provided (`string => boolean`)
    * Placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
-   *
    * This is used to aid migration for TinyMCE power users to the new Fabric editor power user shortcuts.
    *
-   * https://product-fabric.atlassian.net/wiki/spaces/E/pages/1000473354/Experiment+Slash+command+discoverability
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/l/c/4JLjusAP
+   * @default true
    */
   placeholderBracketHint?: boolean;
 
   /**
-   * Feature flag to indicate whether placeholder hints were provided (`string[] => boolean`)
-   *
+   * @description
+   * Whether placeholder hints were provided (`string[] => boolean`)
    * Placeholder text values to display on new empty lines.
    *
-   * https://product-fabric.atlassian.net/wiki/spaces/E/pages/1000473354/Experiment+Slash+command+discoverability
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
+   * @default false
    */
   placeholderHints?: boolean;
 
   /**
-   * Feature flag to enable additional text colours within the colour palette.
+   * @description
+   * Enable additional text colours within the colour palette.
    *
-   * https://product-fabric.atlassian.net/wiki/spaces/E/pages/1000309920/Experiment+Additional+colours
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/l/c/YhyvfWqg
+   * @default false
    */
   moreTextColors?: boolean;
+
   /**
-   * Feature flag to enable find/replace functionality within the editor
+   * @description
+   * Enable find/replace functionality within the editor
    *
-   * [Default: disabled]
-   * [https://product-fabric.atlassian.net/browse/ED-3504]
+   * @see https://product-fabric.atlassian.net/browse/ED-3504
+   * @default false
    */
   findReplace?: boolean;
+
   /**
-   * Feature flag to enable case matching functionality in find/replace feature within the editor
+   * @description
+   * Enable case matching functionality in find/replace feature within the editor
    *
-   * [Default: disabled]
-   * [https://product-fabric.atlassian.net/browse/ED-9684]
+   * @see https://product-fabric.atlassian.net/browse/ED-9684
+   * @default false
    */
   findReplaceMatchCase?: boolean;
+
   /**
-   * Feature flag to enable `localId` generation for extensions.
+   * @description
+   * Enable `localId` generation for extensions.
    *
-   * https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/1061390901/ADF+Change+48+Add+localId+attribute+to+extension+bodiedExtension+and+inlineExtension+nodes
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/l/c/2m0i9jLX
+   * @default false
    */
   extensionLocalIdGeneration?: boolean;
+
   /**
-   * Feature flag to enable date picker which has a textbox for internationalised keyboard date
+   * @description
+   * Enable date picker which has a textbox for internationalised keyboard date
    * input.
    *
-   * https://product-fabric.atlassian.net/browse/ED-8928
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/browse/ED-8928
+   * @default false
    */
   keyboardAccessibleDatepicker?: boolean;
   /**
-   * Feature flag to enable add column custom step
+   * @description
+   * Enable add column custom step
    *
-   * https://product-fabric.atlassian.net/browse/ED-8856
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/browse/ED-8856
+   * @default false
    */
   addColumnWithCustomStep?: boolean;
 
   /**
-   * Feature flag to enable new list behaviors
+   * @description
+   * Enable new list behaviors
    *
-   * https://product-fabric.atlassian.net/browse/ED-9438
-   *
-   * [Default: disabled]
+   * @see https://product-fabric.atlassian.net/browse/ED-9438
+   * @default false
    */
   predictableLists?: boolean;
+
+  /**
+   * @description
+   * Enable undo/redo buttons and functionality within the editor
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-9537
+   * @default false
+   */
+  undoRedoButtons?: boolean;
+
+  /**
+   * @description
+   * Measure render performance for all tracked analytics events
+   *
+   * @default false
+   */
+  catchAllTracking?: boolean;
+
+  /**
+   * @description
+   * Switch to a performance optimised NodeView for Emoji
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-10585
+   * @default false
+   */
+  nextEmojiNodeView?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

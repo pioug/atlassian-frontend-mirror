@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.2.3",
+  "version": "21.2.4",
   "description": "A React package that contains icons",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dynamic-table": "^14.1.0",
+    "@atlaskit/dynamic-table": "^14.2.0",
     "@atlaskit/icon-build-process": "^0.2.0",
     "@atlaskit/icon-file-type": "^6.1.0",
     "@atlaskit/icon-object": "^6.1.0",

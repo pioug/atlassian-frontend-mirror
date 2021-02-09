@@ -257,4 +257,7 @@ export type {
 
 export { linkMessages } from './messages/link';
 
-export { validateADFEntity } from './utils/validate-using-spec';
+export {
+  validateADFEntity,
+  validationErrorHandler,
+} from './utils/validate-using-spec';

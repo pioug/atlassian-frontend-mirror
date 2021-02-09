@@ -1,5 +1,6 @@
 // #region Imports
 import React from 'react';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import pastePlugin, { PastePluginOptions } from '../../../plugins/paste';
 import blockTypePlugin from '../../../plugins/block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
@@ -35,6 +36,7 @@ import codeBlockPlugin from '../../../plugins/code-block';
 import { CodeBlockOptions } from '../../../plugins/code-block/types';
 import { SelectionPluginOptions } from '../../../plugins/selection/types';
 import { CardOptions } from '@atlaskit/editor-common';
+import undoRedoPlugin from '../../../plugins/undo-redo';
 // #endregion
 
 interface EditorPresetDefaultProps {
@@ -53,8 +55,13 @@ export type DefaultPresetPluginOptions = {
   codeBlock?: CodeBlockOptions;
   selection?: SelectionPluginOptions;
   cardOptions?: CardOptions;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
+/**
+ * Note: The order that presets are added determines
+ * their placement in the editor toolbar
+ */
 export function createDefaultPreset(
   options: EditorPresetProps & DefaultPresetPluginOptions,
 ) {
@@ -62,6 +69,9 @@ export function createDefaultPreset(
   preset.add([pastePlugin, options.paste]);
   preset.add(clipboardPlugin);
   preset.add([basePlugin, options.base]);
+  if (options.featureFlags?.undoRedoButtons) {
+    preset.add(undoRedoPlugin);
+  }
   preset.add([blockTypePlugin, options.blockType]);
   preset.add([placeholderPlugin, options.placeholder]);
   preset.add(clearMarksOnChangeToEmptyDocumentPlugin);
@@ -74,7 +84,10 @@ export function createDefaultPreset(
   preset.add([textFormattingPlugin, options.textFormatting]);
   preset.add(widthPlugin);
   preset.add([quickInsertPlugin, options.quickInsert]);
-  preset.add(typeAheadPlugin);
+  preset.add([
+    typeAheadPlugin,
+    { createAnalyticsEvent: options.createAnalyticsEvent },
+  ]);
   preset.add(unsupportedContentPlugin);
   preset.add(editorDisabledPlugin);
   preset.add([submitEditorPlugin, options.submitEditor]);

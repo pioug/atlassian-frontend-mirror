@@ -1,5 +1,36 @@
 # @atlaskit/calendar
 
+## 10.2.0
+
+### Minor Changes
+
+- [`4dae77b2678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dae77b2678) - Calendar now accepts a `weekStartDay` prop that controls which day of the week should be used at the start. This prop accepts the following values:
+
+  - `0` sunday (default value)
+  - `1` monday
+  - `2` tuesday
+  - `3` wednesday
+  - `4` thursday
+  - `5` friday
+  - `6` saturday
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`985961ce983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985961ce983) - Internal change from class to function components
+
+  - We have converted all the components from class to functional. This improved performance quite a bit. Initial rendering, hydration, interaction, bundlesize and re-rendering; all have been improved.
+  - We have made all the prop typings optional now. Earlier they were not aligned with the prop values (which were all optional earlier).
+  - We have stopped exporting internal `CalendarClassType` and `ArrowKeys` types which were not compatible with functional components. Instead we have exported `CalendarInternalRef` type temporarily for backward compatibility and a new optional prop `internalRef` which consumers can use to access internal api's. Right now only `@atlaskit/datetime-picker` uses `navigate()` api for navigation which will be removed soon. This new type and prop are not recommended. So please don't use them.
+  - We have also exported a new type `SelectEvent` along with already exported `ChangeEvent`, which consumers can use with `onSelect` and `onChange` prop.
+  - We have also added `ref` support which points to the top level element. Earlier it was not officially supported.
+  - Dev changes includes: folder restructuring and cleanup, lodash removal, memoizing components etc.
+
 ## 10.0.10
 
 ### Patch Changes

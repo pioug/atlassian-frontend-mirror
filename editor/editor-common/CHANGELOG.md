@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 55.2.0
+
+### Minor Changes
+
+- [`8c90794239c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c90794239c) - ED-11587: quickInsert for placeholder-text plugin
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [`586040bf70b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/586040bf70b) - Ensure that all children are validated in new error path
+
+### Patch Changes
+
+- [`5857b17788b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5857b17788b) - Change the way kitchen sink shows ADF errors
+- [`faf98b96883`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf98b96883) - Removed unused comments in src from package
+- [`3df9d98ef8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3df9d98ef8a) - [ux] As part of the bump to @atlaskit/code, the codeBlock element's visual appearance has been modified in renderer and editor-core. Specifically the fontSize, borderRadius, lineHeight and overflow behaviour have been made more consistent with the DS parent package.
+- [`07868e5ddc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07868e5ddc9) - remove unecessary function from getQuickInsertItemsFromModule()
+- Updated dependencies
+
 ## 55.1.2
 
 ### Patch Changes

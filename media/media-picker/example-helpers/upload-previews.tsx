@@ -5,7 +5,11 @@ import {
   UploadPreviewUpdateEventPayload,
   UploadErrorEventPayload,
 } from '../src/types';
-import { PreviewsTitle, PreviewsWrapper } from './styled';
+import {
+  PreviewsTitle,
+  PreviewsWrapper,
+  UploadPreviewsFlexRow,
+} from './styled';
 import { PreviewData } from './types';
 
 export interface PreviewsDataState {
@@ -66,18 +70,22 @@ export class UploadPreviews extends React.Component<
     return (
       <PreviewsWrapper>
         <PreviewsTitle>Upload previews</PreviewsTitle>
-        {this.props.children({
-          onUploadsStart: this.onUploadsStart,
-          onError: this.onError,
-          onPreviewUpdate: this.onPreviewUpdate,
-        })}
-        {previewsData.map((previewsData, index) => (
-          <UploadPreview
-            key={`${index}`}
-            fileId={previewsData.fileId}
-            preview={previewsData.preview}
-          />
-        ))}
+        <div>
+          {this.props.children({
+            onUploadsStart: this.onUploadsStart,
+            onError: this.onError,
+            onPreviewUpdate: this.onPreviewUpdate,
+          })}
+        </div>
+        <UploadPreviewsFlexRow>
+          {previewsData.map((previewsData, index) => (
+            <UploadPreview
+              key={`${index}`}
+              fileId={previewsData.fileId}
+              preview={previewsData.preview}
+            />
+          ))}
+        </UploadPreviewsFlexRow>
       </PreviewsWrapper>
     );
   }

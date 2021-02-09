@@ -3,9 +3,21 @@ import { Plugin, Selection } from 'prosemirror-state';
 import * as keymaps from '../../../keymaps';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { Command } from '../../../types';
+import { createNewParagraphBelow } from '../../../commands';
 
 export function captionKeymap(): Plugin {
   const list = {};
+
+  keymaps.bindKeymapWithCommand(
+    keymaps.moveDown.common!,
+    createNewParagraphBelow,
+    list,
+  );
+  keymaps.bindKeymapWithCommand(
+    keymaps.enter.common!,
+    createNewParagraphBelow,
+    list,
+  );
 
   keymaps.bindKeymapWithCommand(
     keymaps.moveDown.common!,
@@ -16,13 +28,14 @@ export function captionKeymap(): Plugin {
   keymaps.bindKeymapWithCommand(keymaps.enter.common!, getOutOfCaption, list);
 
   keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
-    safeCaptionBackspace,
+    keymaps.moveUp.common!,
+    selectParentMediaSingle,
     list,
   );
+
   keymaps.bindKeymapWithCommand(
-    keymaps.ctrlBackSpace.common!,
-    safeCmdBackSpaceCaption,
+    keymaps.shiftTab.common!,
+    selectParentMediaSingle,
     list,
   );
 
@@ -30,53 +43,38 @@ export function captionKeymap(): Plugin {
   return keymap(list);
 }
 
-const safeCmdBackSpaceCaption: Command = (state, dispatch) => {
-  if (findParentNodeOfType(state.schema.nodes.caption)(state.selection)) {
-    if (dispatch) {
-      dispatch(
-        state.tr.replaceRangeWith(
-          state.selection.from - state.selection.$from.parentOffset,
-          state.selection.from,
-          state.schema.nodes.caption.create(),
-        ),
-      );
-    }
-    return true;
-  }
-  return false;
-};
-
-/** Safely removes last character from caption without removing media item,
- * Prosemirror removes empty text nodes from the DOM
- */
-const safeCaptionBackspace: Command = (state, dispatch) => {
-  if (
-    findParentNodeOfType(state.schema.nodes.caption)(state.selection) &&
-    state.selection.$from.parentOffset === 1
-  ) {
-    if (dispatch) {
-      dispatch(
-        state.tr.replaceRangeWith(
-          state.selection.from - 1,
-          state.selection.from,
-          state.schema.nodes.caption.create(),
-        ),
-      );
-    }
-    return true;
-  }
-  return false;
-};
-
 const getOutOfCaption: Command = (state, dispatch) => {
-  if (findParentNodeOfType(state.schema.nodes.caption)(state.selection)) {
+  const caption = findParentNodeOfType(state.schema.nodes.caption)(
+    state.selection,
+  );
+  if (caption) {
     if (dispatch) {
       const tr = state.tr.setSelection(
-        Selection.near(state.tr.doc.resolve(state.selection.to + 1)),
+        Selection.near(
+          state.tr.doc.resolve(caption.pos + caption.node.nodeSize),
+        ),
       );
       dispatch(tr);
     }
     return true;
+  }
+  return false;
+};
+
+const selectParentMediaSingle: Command = (state, dispatch) => {
+  if (findParentNodeOfType(state.schema.nodes.caption)(state.selection)) {
+    const mediaSingleParent = findParentNodeOfType(
+      state.schema.nodes.mediaSingle,
+    )(state.selection);
+    if (mediaSingleParent) {
+      if (dispatch) {
+        const tr = state.tr.setSelection(
+          Selection.near(state.tr.doc.resolve(mediaSingleParent.pos)),
+        );
+        dispatch(tr);
+      }
+      return true;
+    }
   }
   return false;
 };

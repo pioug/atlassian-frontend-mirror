@@ -49,5 +49,5 @@ export interface EditorAppearanceComponentProps {
 
   allowDynamicTextSizing?: boolean;
   allowAnnotation?: boolean;
-  allowScrollGutter?: boolean;
+  persistScrollGutter?: boolean;
 }

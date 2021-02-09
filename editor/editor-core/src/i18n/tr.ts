@@ -19,7 +19,6 @@ export default {
   'fabric.editor.backLink': 'Geri dön',
   'fabric.editor.blockCardUnavailable':
     'Satır içi bağlantı {node} düğümündedir ve görüntüsü değiştirilemez',
-  'fabric.editor.blockquote': 'Alıntı',
   'fabric.editor.blockquote.description': 'Alıntı veya atıf ekleyin',
   'fabric.editor.bold': 'Kalın',
   'fabric.editor.canNotSortTable':
@@ -45,22 +44,17 @@ export default {
     'Bölümler aracılığıyla sayfanızı yapılandırın',
   'fabric.editor.configPanel.cancel': 'İptal',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
-    'Can not combine isMultiple with style: radio',
+    'Stil radio olduğunda isMultiple kullanılamaz',
   'fabric.editor.configPanel.formType.addField': 'Alan ekle',
   'fabric.editor.configPanel.formType.removeField': 'Alanı kaldır',
   'fabric.editor.configPanel.required': 'Gerekli alan',
   'fabric.editor.configPanel.submit': 'Gönder',
-  'fabric.editor.createComment': 'Yorum yazın',
-  'fabric.editor.createCommentInvalid':
-    'Yorum özelliği yalnızca metin ve başlıklarda etkindir',
   'fabric.editor.date': 'Tarih',
   'fabric.editor.date.description': 'Takvimi kullanarak tarih ekleyin',
   'fabric.editor.decision': 'Karar',
   'fabric.editor.decision.description':
     'Takibi kolaylaştırmak için kararları vurgulayın',
   'fabric.editor.decisionPlaceholder': 'Karar ekle…',
-  'fabric.editor.displayBlock': 'Kart olarak göster',
-  'fabric.editor.displayEmbed': 'Ekli nesne olarak göster',
   'fabric.editor.displayInline': 'Satır içi nesne olarak göster',
   'fabric.editor.displayLink': 'Metin olarak göster',
   'fabric.editor.displayText': 'Görüntülenecek metin',
@@ -117,9 +111,7 @@ export default {
   'fabric.editor.infoPanel': 'Bilgi panosu',
   'fabric.editor.infoPanel.description':
     'Renkli bir panoda bilgileri vurgulayın',
-  'fabric.editor.insertColumn': 'Sütun ekle',
   'fabric.editor.insertMenu': 'Ekle',
-  'fabric.editor.insertRow': 'Satır ekle',
   'fabric.editor.italic': 'İtalik',
   'fabric.editor.keyboardShortcuts': 'Klavye kısayolları',
   'fabric.editor.leftSidebar': 'Sol kenar çubuğu',
@@ -132,7 +124,6 @@ export default {
     'Bildirim göndermek istediğiniz kullanıcıdan bahsedin',
   'fabric.editor.mergeCells': 'Hücreleri birleştir',
   'fabric.editor.moreFormatting': 'Diğer biçimlendirme seçenekleri',
-  'fabric.editor.noResultsFound': 'Sonuç bulunamadı',
   'fabric.editor.normal': 'Normal metin',
   'fabric.editor.note': 'Not',
   'fabric.editor.notePanel': 'Not panosu',
@@ -148,10 +139,6 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Yer tutucu metin ekleyin',
   'fabric.editor.quickInsert': 'Hızlı ekleme',
   'fabric.editor.redo': 'Yinele',
-  'fabric.editor.removeColumns':
-    '{0, plural, one {Sütunu kaldır} other {Sütunları kaldır}}',
-  'fabric.editor.removeRows':
-    '{0, plural, one {Satırı kaldır} other {Satırları kaldır}}',
   'fabric.editor.replace': 'Değiştir',
   'fabric.editor.replaceAll': 'Tümünü değiştir',
   'fabric.editor.replaceWith': 'Yeni değer',

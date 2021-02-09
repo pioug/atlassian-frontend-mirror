@@ -1,4 +1,3 @@
-/* eslint-disable no-undef, import/no-extraneous-dependencies */
 import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';

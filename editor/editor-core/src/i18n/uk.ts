@@ -18,7 +18,6 @@ export default {
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.blockCardUnavailable':
     'Вбудоване посилання знаходиться у вузлі {node}, тому змінити подання не можна',
-  'fabric.editor.blockquote': 'Цитата',
   'fabric.editor.blockquote.description': 'Вставити цитату чи посилання',
   'fabric.editor.bold': 'Жирний',
   'fabric.editor.canNotSortTable':
@@ -43,22 +42,17 @@ export default {
     'Впорядкувати сторінку за допомогою розділів',
   'fabric.editor.configPanel.cancel': 'Скасувати',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio':
-    'Can not combine isMultiple with style: radio',
+    "Не можна поєднати об'єкт isMultiple зі стилем radio",
   'fabric.editor.configPanel.formType.addField': 'Додати поле',
   'fabric.editor.configPanel.formType.removeField': 'Видалити поле',
   'fabric.editor.configPanel.required': 'Обов’язкове поле',
   'fabric.editor.configPanel.submit': 'Надіслати',
-  'fabric.editor.createComment': 'Створити коментар',
-  'fabric.editor.createCommentInvalid':
-    'Коментарі увімкнуто лише для тексту та заголовків',
   'fabric.editor.date': 'Дата',
   'fabric.editor.date.description': 'Вставити дату через календар',
   'fabric.editor.decision': 'Рішення',
   'fabric.editor.decision.description':
     'Зафіксувати рішення, щоб його було легко знайти',
   'fabric.editor.decisionPlaceholder': 'Додати рішення...',
-  'fabric.editor.displayBlock': 'Показати як картку',
-  'fabric.editor.displayEmbed': 'Показати як вбудований об’єкт',
   'fabric.editor.displayInline': 'Показати лише заголовок',
   'fabric.editor.displayLink': 'Показати як текст',
   'fabric.editor.displayText': 'Текст для відображення',
@@ -111,9 +105,7 @@ export default {
   'fabric.editor.infoPanel': 'Панель з інформацією',
   'fabric.editor.infoPanel.description':
     'Панель із виділеною кольорами інформацією',
-  'fabric.editor.insertColumn': 'Вставити стовпець',
   'fabric.editor.insertMenu': 'Вставити',
-  'fabric.editor.insertRow': 'Вставити рядок',
   'fabric.editor.italic': 'Курсив',
   'fabric.editor.keyboardShortcuts': 'Гарячі клавіші',
   'fabric.editor.leftSidebar': 'Бічна панель ліворуч',
@@ -126,7 +118,6 @@ export default {
     'Згадати користувача та надіслати йому сповіщення',
   'fabric.editor.mergeCells': 'Об’єднати клітинки',
   'fabric.editor.moreFormatting': 'Додаткове форматування',
-  'fabric.editor.noResultsFound': 'Немає результатів',
   'fabric.editor.normal': 'Звичайний текст',
   'fabric.editor.note': 'Примітка',
   'fabric.editor.notePanel': 'Панель приміток',
@@ -143,10 +134,6 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Додати текст-заміщення',
   'fabric.editor.quickInsert': 'Швидка вставка',
   'fabric.editor.redo': 'Повторити',
-  'fabric.editor.removeColumns':
-    '{0, plural, one {Видалити стовпці} few {Видалити стовпці} many {Видалити стовпці} other {Видалити стовпці}}',
-  'fabric.editor.removeRows':
-    '{0, plural, one {Видалити рядки} few {Видалити рядки} many {Видалити рядки} other {Видалити рядки}}',
   'fabric.editor.replace': 'Замінити',
   'fabric.editor.replaceAll': 'Замінити всі',
   'fabric.editor.replaceWith': 'Замінити на',

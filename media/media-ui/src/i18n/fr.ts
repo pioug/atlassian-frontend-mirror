@@ -32,6 +32,8 @@ export default {
     "Désolés, nous n'avons pu récupérer aucun GIF",
   'fabric.media.check_your_network': 'Vérifier votre connexion réseau',
   'fabric.media.close': 'Fermer',
+  'fabric.media.close_and_reopen':
+    'Essayez de fermer ce fichier, puis de le rouvrir.',
   'fabric.media.connect_account_description':
     'Nous ouvrirons une nouvelle page pour vous aider à vous connecter à votre compte {name}',
   'fabric.media.connect_link_account': "Connecter à l'aperçu",
@@ -49,8 +51,10 @@ export default {
     'Impossible de prévisualiser les fichiers chiffrés ou protégés par un mot de passe.',
   'fabric.media.couldnt_generate_preview':
     "Impossible de générer l'aperçu de ce fichier.",
+  'fabric.media.couldnt_load_file': 'Impossible de charger le fichier.',
   'fabric.media.couldnt_load_link':
     'Impossible de charger ce lien pour une raison inconnue.',
+  'fabric.media.creating_preview': "Création de l'aperçu…",
   'fabric.media.default_avatars': 'Avatars par défaut',
   'fabric.media.disable_fullscreen': 'désactiver le mode plein écran',
   'fabric.media.document': 'document',
@@ -58,9 +62,13 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'Glisser-déplacer vos images ici',
   'fabric.media.drag_and_drop_your_files':
     "Glisser-déplacer des fichiers n'importe où ou",
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    "Glissez-déplacez vos fichiers et dossiers n'importe où ou",
   'fabric.media.drop_your_files': 'Déposer vos fichiers à importer',
   'fabric.media.drop_your_files_here': 'Déposer vos fichiers ici',
+  'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'activer le mode plein écran',
+  'fabric.media.error_429': 'Erreur 429',
   'fabric.media.error_generating_preview': "Erreur de génération de l'aperçu",
   'fabric.media.error_hint_critical':
     "Si le problème persiste, contactez le service d'assistance.",
@@ -96,16 +104,25 @@ export default {
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'mettre en pause',
   'fabric.media.play': 'démarrer',
+  'fabric.media.playback_default_speed': 'Par défaut',
+  'fabric.media.playback_speed': 'Vitesse de lecture',
   'fabric.media.preview': 'Afficher un aperçu',
+  'fabric.media.preview_currently_unavailable':
+    'Aperçu actuellement non disponible',
+  'fabric.media.preview_rateLimited':
+    'Nous avons rencontré des difficultés pour créer un aperçu',
+  'fabric.media.preview_unavailable': 'Aperçu non disponible',
   'fabric.media.recent_uploads': 'Importations récentes',
   'fabric.media.remove_image': "Supprimer l'image",
   'fabric.media.retry': 'Réessayer',
   'fabric.media.save': 'Enregistrer',
+  'fabric.media.search': 'rechercher',
   'fabric.media.search_all_gifs': 'Rechercher parmi tous les GIF',
   'fabric.media.share_files_instantly': 'Nous les partagerons instantanément',
   'fabric.media.something_went_wrong': "Une erreur s'est produite.",
   'fabric.media.srclink': 'Afficher dans',
   'fabric.media.srclinkunknown': "Afficher l'original",
+  'fabric.media.text': 'Texte',
   'fabric.media.try_again': 'Réessayez',
   'fabric.media.try_another_account': 'Essayez un autre compte',
   'fabric.media.try_downloading_file':
@@ -122,6 +139,8 @@ export default {
   'fabric.media.upload_photo': 'Importer une photo',
   'fabric.media.video': 'vidéo',
   'fabric.media.view': 'Afficher',
+  'fabric.media.viewer_rateLimited':
+    'Nous rencontrons des difficultés pour charger votre fichier.',
   'fabric.media.webgl_warning_description':
     'Votre navigateur ne prend pas en charge WebGL. Utilisez un navigateur compatible WebGL pour annoter les images.',
   'fabric.media.zoom_in': 'zoomer',

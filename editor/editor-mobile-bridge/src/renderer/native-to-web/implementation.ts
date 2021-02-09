@@ -39,6 +39,7 @@ class RendererMobileWebBridgeOverride extends WebBridge {
 class RendererBridgeImplementation
   extends RendererMobileWebBridgeOverride
   implements RendererBridge {
+  content: Serialized<JSONDocNode> = '';
   taskDecisionProvider?: Promise<TaskDecisionProviderImpl>;
   configuration: RendererConfiguration;
   callbackToNotifyConfigChange?: CallBackToNotifyConfigChange;
@@ -49,6 +50,7 @@ class RendererBridgeImplementation
   }
 
   setContent(content: Serialized<JSONDocNode>) {
+    this.content = content;
     const performanceMatrices = new PerformanceMatrices();
 
     if (!eventDispatcher) {
@@ -80,6 +82,10 @@ class RendererBridgeImplementation
         );
       },
     );
+  }
+
+  getContent() {
+    return this.content;
   }
 
   onPromiseResolved(uuid: string, payload: string) {

@@ -8,6 +8,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import basePlugin from '../../';
+import { GUTTER_SELECTOR } from '../../pm-plugins/scroll-gutter';
 
 function createScrollContainer(height: number) {
   const scrollableContent = document.createElement('div');
@@ -82,5 +83,73 @@ describe('ScrollGutter Plugin', () => {
     insertText(editorView, 'hi');
     scrollIntoView(editorView);
     expect(scrollIntoViewSpy).not.toHaveBeenCalled();
+  });
+
+  it('should persist the scroll gutter when persistScrollGutter is true', () => {
+    const scrollableContent = createScrollContainer(1000);
+    const contentContainer = createScrollContainer(200);
+    const { editorView } = createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+            persistScrollGutter: true,
+          },
+        },
+      ]),
+    });
+
+    insertText(editorView, 'hi');
+
+    expect(contentContainer.querySelector(GUTTER_SELECTOR)).not.toBe(null);
+  });
+
+  it('should set the gutter size based on the plugin option', () => {
+    const scrollableContent = createScrollContainer(1000);
+    const contentContainer = createScrollContainer(2000);
+    const { editorView } = createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+            gutterSize: 50,
+          },
+        },
+      ]),
+    });
+
+    insertText(editorView, 'hi');
+
+    expect(
+      (contentContainer.querySelector(GUTTER_SELECTOR) as HTMLElement).style
+        .paddingBottom,
+    ).toBe('50px');
+  });
+
+  it('should set the default gutter size (120px) when gutter size for plugin option is not passed', () => {
+    const scrollableContent = createScrollContainer(1000);
+    const contentContainer = createScrollContainer(2000);
+    const { editorView } = createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+          },
+        },
+      ]),
+    });
+
+    insertText(editorView, 'hi');
+
+    expect(
+      (contentContainer.querySelector(GUTTER_SELECTOR) as HTMLElement).style
+        .paddingBottom,
+    ).toBe('120px');
   });
 });

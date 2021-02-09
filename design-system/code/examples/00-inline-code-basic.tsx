@@ -36,6 +36,26 @@ export default function Component() {
         This is inline c++ code with dark theme:{' '}
         <Code language="c++" text={cppCode} theme={theme} />, check it out.
       </span>
+      <br />
+      <br />
+      <span>
+        This is inline python code with custom styles on code:{' '}
+        <Code
+          codeTagProps={{ style: { color: 'red' } }}
+          language="python"
+          text={pyCode}
+        />
+      </span>
+      <br />
+      <br />
+      <span>
+        This is inline python code with custom override applied to prism:{' '}
+        <Code
+          codeStyle={{ number: { color: 'red' } }}
+          language="python"
+          text="x = 10 + 12"
+        />
+      </span>
     </Fragment>
   );
 }

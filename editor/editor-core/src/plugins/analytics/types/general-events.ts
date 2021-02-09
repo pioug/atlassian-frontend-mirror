@@ -295,6 +295,29 @@ type TypeAheadMentionAEP = TypeAheadAEP<
   }
 >;
 
+export type TypeAheadRenderedAEP = OperationalAEP<
+  ACTION.RENDERED,
+  ACTION_SUBJECT.TYPEAHEAD,
+  undefined,
+  {
+    time?: number;
+    items?: number;
+    initial?: boolean;
+  },
+  undefined
+>;
+
+export type TypeAheadItemViewedAEP = OperationalAEP<
+  ACTION.VIEWED,
+  ACTION_SUBJECT.TYPEAHEAD_ITEM,
+  undefined,
+  {
+    index?: number;
+    items?: number;
+  },
+  undefined
+>;
+
 type FullWidthModeAEP = TrackAEP<
   ACTION.CHANGED_FULL_WIDTH_MODE,
   ACTION_SUBJECT.EDITOR,
@@ -331,29 +354,31 @@ type RichMediaLayoutAEP = TrackAEP<
 >;
 
 export type GeneralEventPayload =
-  | EditorStartAEP
-  | EditorStopAEP
   | AnnotateButtonAEP
   | AnnotationAEP
-  | ButtonHelpAEP
+  | BrowserFreezePayload
   | ButtonFeedbackAEP
+  | ButtonHelpAEP
+  | DispatchedTransactionAEP
+  | EditorPerfAEP
+  | EditorStartAEP
+  | EditorStopAEP
+  | EditorTTIAEP
+  | ExpandToggleAEP
+  | FeedbackAEP
+  | FullWidthModeAEP
+  | HelpQuickInsertAEP
+  | InputPerfSamlingAEP
   | PickerEmojiAEP
   | PickerImageAEP
-  | FeedbackAEP
-  | TypeAheadQuickInsertAEP
+  | ReactNodeViewRenderedAEP
+  | RichMediaLayoutAEP
+  | SlowInputAEP
   | TypeAheadEmojiAEP
+  | TypeAheadItemViewedAEP
   | TypeAheadLinkAEP
   | TypeAheadMentionAEP
-  | FullWidthModeAEP
-  | EditorPerfAEP
-  | EditorTTIAEP
-  | BrowserFreezePayload
-  | SlowInputAEP
+  | TypeAheadQuickInsertAEP
+  | TypeAheadRenderedAEP
   | UploadExternalFailedAEP
-  | InputPerfSamlingAEP
-  | HelpQuickInsertAEP
-  | ExpandToggleAEP
-  | DispatchedTransactionAEP
-  | WithPluginStateCalledAEP
-  | ReactNodeViewRenderedAEP
-  | RichMediaLayoutAEP;
+  | WithPluginStateCalledAEP;

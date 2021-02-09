@@ -1,27 +1,24 @@
 /* eslint import/no-dynamic-require: 0, global-require: 0 */
 import memoizeOne from 'memoize-one';
 
-/*
- * These values all those are supported by ADF.
- * The comments show mappings of these values to the corresponding
- * language definition file, or to that of the most
- * syntactically similar language supported by highlightjs
- */
 export type SupportedLanguages =
   | 'abap' // → sql
   | 'actionscript'
   | 'ada'
+  | 'applescript'
   | 'arduino'
   | 'autoit'
   | 'c' // → cpp
   | 'c++' // → cpp
+  | 'clojure'
   | 'coffeescript'
   | 'csharp' // → cs
   | 'css'
   | 'cuda' // → cpp
   | 'd'
   | 'dart'
-  | 'delphi'
+  | 'delphi' // → pascal
+  | 'diff'
   | 'elixir'
   | 'erlang'
   | 'fortran'
@@ -35,6 +32,7 @@ export type SupportedLanguages =
   | 'java'
   | 'javascript'
   | 'json'
+  | 'jsx'
   | 'julia'
   | 'kotlin'
   | 'latex' // → tex
@@ -44,14 +42,16 @@ export type SupportedLanguages =
   | 'matlab'
   | 'objective-c' // → objectivec
   | 'objective-j' // → objectivec
-  | 'objectpascal' // → delphi
+  | 'objectpascal' // → pascal
   | 'ocaml'
   | 'octave' // → matlab
+  | 'pascal'
   | 'perl'
   | 'php'
   | 'powershell'
   | 'prolog'
   | 'puppet'
+  | 'purebasic'
   | 'python'
   | 'qml'
   | 'r'
@@ -70,10 +70,12 @@ export type SupportedLanguages =
   | 'tcl'
   | 'tex'
   | 'text'
+  | 'tsx'
   | 'typescript'
   | 'vala'
   | 'vbnet'
   | 'verilog'
+  | 'visualbasic'
   | 'vhdl'
   | 'xml'
   | 'xquery';
@@ -171,7 +173,7 @@ export const SUPPORTED_LANGUAGE_ALIASES = Object.freeze([
   },
   {
     name: 'VbNet',
-    alias: ['vbnet', 'vb.net'],
+    alias: ['vbnet', 'vb.net', 'vfp', 'clipper', 'xbase'],
     value: 'vbnet',
   },
   {
@@ -222,9 +224,9 @@ export const SUPPORTED_LANGUAGE_ALIASES = Object.freeze([
     value: 'lua',
   },
   {
-    name: 'Delphi',
-    alias: ['delphi', 'pas', 'pascal', 'objectpascal'],
-    value: 'delphi',
+    name: 'Pascal',
+    alias: ['pas', 'pascal', 'objectpascal', 'delphi'],
+    value: 'pascal',
   },
   {
     name: 'XML',
@@ -322,11 +324,6 @@ export const SUPPORTED_LANGUAGE_ALIASES = Object.freeze([
     value: 'rest',
   },
   {
-    name: 'ObjectPascal',
-    alias: ['objectpascal'],
-    value: 'delphi',
-  },
-  {
     name: 'Kotlin',
     alias: ['kotlin'],
     value: 'kotlin',
@@ -353,8 +350,8 @@ export const SUPPORTED_LANGUAGE_ALIASES = Object.freeze([
   },
   {
     name: 'FoxPro',
-    alias: ['foxpro', 'vfp', 'clipper', 'xbase'],
-    value: 'vbnet',
+    alias: ['foxpro', 'purebasic'],
+    value: 'purebasic',
   },
   {
     name: 'Scheme',
@@ -445,6 +442,36 @@ export const SUPPORTED_LANGUAGE_ALIASES = Object.freeze([
     name: 'GraphQL',
     alias: ['graphql'],
     value: 'graphql',
+  },
+  {
+    name: 'AppleScript',
+    alias: ['applescript'],
+    value: 'applescript',
+  },
+  {
+    name: 'Clojure',
+    alias: ['clojure'],
+    value: 'clojure',
+  },
+  {
+    name: 'Diff',
+    alias: ['diff'],
+    value: 'diff',
+  },
+  {
+    name: 'VisualBasic',
+    alias: ['visualbasic'],
+    value: 'visual-basic',
+  },
+  {
+    name: 'JSX',
+    alias: ['jsx'],
+    value: 'jsx',
+  },
+  {
+    name: 'TSX',
+    alias: ['tsx'],
+    value: 'tsx',
   },
 ]);
 

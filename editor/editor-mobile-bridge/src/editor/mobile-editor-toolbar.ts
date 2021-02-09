@@ -185,7 +185,7 @@ export default class MobileEditorToolbarActions {
         this.performButtonClick(parentItem, editorView);
         break;
       case 'select':
-        this.performSelectChange(parentItem, optionIndex);
+        this.performSelectChange(parentItem, optionIndex, editorView);
         break;
     }
   }
@@ -200,9 +200,10 @@ export default class MobileEditorToolbarActions {
   private performSelectChange(
     select: FloatingToolbarSelect<Command>,
     optionIndex: number,
+    editorView: EditorView,
   ) {
     const childItem = select.options[optionIndex];
-    select.onChange(childItem);
+    select.onChange(childItem)(editorView.state, editorView.dispatch);
   }
 
   private performDropdownItemClick(

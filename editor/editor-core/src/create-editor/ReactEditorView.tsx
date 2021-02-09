@@ -76,6 +76,7 @@ import {
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+  DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
 } from './consts';
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
 
@@ -124,8 +125,9 @@ export function shouldReconfigureState(
 ) {
   const properties: Array<keyof EditorProps> = [
     'appearance',
-    'allowScrollGutter',
+    'persistScrollGutter',
     'UNSAFE_predictableLists',
+    'placeholder',
   ];
 
   return properties.reduce(
@@ -152,6 +154,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
   }) => void;
   proseMirrorRenderedSeverity?: SEVERITY;
   transactionTracker: TransactionTracker;
+  validTransactionCount: number;
 
   static contextTypes = {
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
@@ -220,6 +223,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       .withNodeCounts(() => this.countNodes())
       .withOptions(() => this.transactionTrackingOptions)
       .withTransactionTracker(() => this.transactionTracker);
+
+    this.validTransactionCount = 0;
 
     // This needs to be before initialising editorState because
     // we dispatch analytics events in plugin initialisation
@@ -507,7 +512,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     }
     let selection: Selection | undefined;
     if (doc) {
-      // ED-4759: Don't set selection at end for full-page editor - should be at start
+      // ED-4759: Don't set selection at end for full-page editor - should be at start.
       selection = isFullPage(options.props.editorProps.appearance)
         ? Selection.atStart(doc)
         : Selection.atEnd(doc);
@@ -552,6 +557,25 @@ export default class ReactEditorView<T = {}> extends React.Component<
     });
   };
 
+  private trackValidTransactions = () => {
+    const { editorProps } = this.props;
+    if (editorProps?.trackValidTransactions) {
+      this.validTransactionCount++;
+      const samplingRate =
+        (typeof editorProps.trackValidTransactions === 'object' &&
+          editorProps.trackValidTransactions.samplingRate) ||
+        DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS;
+      if (this.validTransactionCount >= samplingRate) {
+        this.dispatchAnalyticsEvent({
+          action: ACTION.DISPATCHED_VALID_TRANSACTION,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+        this.validTransactionCount = 0;
+      }
+    }
+  };
+
   private dispatchTransaction = (transaction: Transaction) => {
     if (!this.view) {
       return;
@@ -577,6 +601,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
         transactions,
       } = this.view.state.applyTransaction(transaction);
       stopMeasure(EVENT_NAME_STATE_APPLY);
+
+      this.trackValidTransactions();
 
       if (editorState === oldEditorState) {
         return;

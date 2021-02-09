@@ -45,14 +45,46 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
     });
   });
 
-  describe('when allowControls is false', () => {
-    it('should not add WITH_CONTROLS css class', () => {
+  describe('WITH_CONTROLS css class', () => {
+    it.each<[string, object, boolean]>([
+      [
+        'is added when allowControls is set',
+        {
+          allowControls: true,
+          tableActive: true,
+        },
+        true,
+      ],
+      [
+        'is added by default when allowControls is not provided',
+        {
+          tableActive: true,
+        },
+        true,
+      ],
+      [
+        'is not added when allowControls is false',
+        {
+          allowControls: false,
+          tableActive: true,
+        },
+        false,
+      ],
+      [
+        'is not added when table is not active',
+        {
+          allowControls: true,
+          tableActive: false,
+        },
+        false,
+      ],
+    ])('%s', (_, props, expected) => {
       const { editorView: view } = editor(
         doc(p('text'), table()(tr(td()(p('{<>}text')), tdEmpty, tdEmpty))),
       );
 
       const tableF = findTable(view.state.selection);
-
+      const getNode = () => tableF!.node;
       const wrapper = shallow(
         <TableComponent
           view={view}
@@ -60,44 +92,12 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
           // @ts-ignore
           containerWidth={{}}
           // @ts-ignore
-          pluginState={{
-            pluginConfig: {
-              allowControls: false,
-            },
-          }}
-          node={tableF!.node}
+          getNode={getNode}
+          {...props}
         />,
       );
 
-      expect(wrapper.hasClass(ClassName.WITH_CONTROLS)).toBeFalsy();
-    });
-  });
-
-  describe('when allowControls is true', () => {
-    it('should add WITH_CONTROLS css class', () => {
-      const { editorView: view } = editor(
-        doc(p('text'), table()(tr(td()(p('{<>}text')), tdEmpty, tdEmpty))),
-      );
-
-      const tableF = findTable(view.state.selection);
-
-      const wrapper = shallow(
-        <TableComponent
-          view={view}
-          eventDispatcher={({ on: () => {} } as any) as EventDispatcher}
-          // @ts-ignore
-          containerWidth={{}}
-          // @ts-ignore
-          pluginState={{
-            pluginConfig: {
-              allowControls: true,
-            },
-          }}
-          node={tableF!.node}
-        />,
-      );
-
-      expect(wrapper.hasClass(ClassName.WITH_CONTROLS)).toBeTruthy();
+      expect(wrapper.hasClass(ClassName.WITH_CONTROLS)).toBe(expected);
     });
   });
 });

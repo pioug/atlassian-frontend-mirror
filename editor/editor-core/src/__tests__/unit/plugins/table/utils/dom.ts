@@ -5,6 +5,8 @@ import {
 
 describe('table plugin: utils/dom.js', () => {
   let element: HTMLElement;
+  let tableCellOptimization = false;
+  let elementContentRects: any;
   const elementRect: DOMRect = {
     width: 100,
     left: 50,
@@ -18,10 +20,17 @@ describe('table plugin: utils/dom.js', () => {
       return JSON.stringify(this);
     },
   };
+  beforeAll(() => {
+    jest.spyOn(HTMLElement.prototype, 'closest').mockImplementation(() => {
+      return {
+        id: 'table-cell-id',
+      } as Element;
+    });
+  });
 
   beforeEach(() => {
     element = document.createElement('div');
-
+    tableCellOptimization = false;
     element.getBoundingClientRect = () => elementRect;
   });
 
@@ -31,62 +40,162 @@ describe('table plugin: utils/dom.js', () => {
 
       describe('and when the mouse is outside of the gap', () => {
         describe('for 1px on the left', () => {
-          it('should returns null', () => {
+          it('should returns null when tableCellOptimization is disabled', () => {
             const event = {
               target: element,
               clientX: GAP + elementRect.left + 1,
             };
 
             expect(
-              // @ts-ignore
-              getMousePositionHorizontalRelativeByElement(event, GAP),
+              getMousePositionHorizontalRelativeByElement(
+                // @ts-ignore
+                event,
+                tableCellOptimization,
+                elementContentRects,
+                GAP,
+              ),
+            ).toBeNull();
+          });
+
+          it('should returns null when tableCellOptimization is enabled', () => {
+            const event = {
+              target: element,
+              offsetX: GAP + 1,
+            };
+
+            tableCellOptimization = true;
+            elementContentRects = { 'table-cell-id': { width: 100 } };
+
+            expect(
+              getMousePositionHorizontalRelativeByElement(
+                // @ts-ignore
+                event,
+                tableCellOptimization,
+                elementContentRects,
+                GAP,
+              ),
             ).toBeNull();
           });
         });
 
         describe('for 1px on the right', () => {
-          it('should returns null', () => {
+          it('should returns null when tableCellOptimization is disabled', () => {
             const event = {
               target: element,
               clientX: elementRect.width + elementRect.left - GAP - 1,
             };
 
             expect(
-              // @ts-ignore
-              getMousePositionHorizontalRelativeByElement(event, GAP),
+              getMousePositionHorizontalRelativeByElement(
+                // @ts-ignore
+                event,
+                tableCellOptimization,
+                elementContentRects,
+                GAP,
+              ),
+            ).toBeNull();
+          });
+
+          it('should returns null when tableCellOptimization is enabled', () => {
+            const event = {
+              target: element,
+              offsetX: elementRect.width - GAP - 1,
+            };
+
+            tableCellOptimization = true;
+            elementContentRects = { 'table-cell-id': { width: 100 } };
+
+            expect(
+              getMousePositionHorizontalRelativeByElement(
+                // @ts-ignore
+                event,
+                tableCellOptimization,
+                elementContentRects,
+                GAP,
+              ),
             ).toBeNull();
           });
         });
       });
 
       describe('and when the mouse is inside of the gap', () => {
-        it('should returns left', () => {
+        it('should returns left when tableCellOptimization is disabled', () => {
           const event = {
             target: element,
             clientX: GAP + elementRect.left,
           };
 
           expect(
-            // @ts-ignore
-            getMousePositionHorizontalRelativeByElement(event, GAP),
+            getMousePositionHorizontalRelativeByElement(
+              // @ts-ignore
+              event,
+              tableCellOptimization,
+              elementContentRects,
+              GAP,
+            ),
           ).toBe('left');
         });
 
-        it('should returns right', () => {
+        it('should returns left when tableCellOptimization is enabled', () => {
+          const event = {
+            target: element,
+            offsetX: GAP,
+          };
+
+          tableCellOptimization = true;
+          elementContentRects = { 'table-cell-id': { width: 100 } };
+
+          expect(
+            getMousePositionHorizontalRelativeByElement(
+              // @ts-ignore
+              event,
+              tableCellOptimization,
+              elementContentRects,
+              GAP,
+            ),
+          ).toBe('left');
+        });
+
+        it('should returns right when tableCellOptimization is disabled', () => {
           const event = {
             target: element,
             clientX: elementRect.width + elementRect.left - GAP,
           };
 
           expect(
-            // @ts-ignore
-            getMousePositionHorizontalRelativeByElement(event, GAP),
+            getMousePositionHorizontalRelativeByElement(
+              // @ts-ignore
+              event,
+              tableCellOptimization,
+              elementContentRects,
+              GAP,
+            ),
+          ).toBe('right');
+        });
+
+        it('should returns right when tableCellOptimization is enabled', () => {
+          const event = {
+            target: element,
+            offsetX: elementRect.width - GAP,
+          };
+
+          tableCellOptimization = true;
+          elementContentRects = { 'table-cell-id': { width: 100 } };
+
+          expect(
+            getMousePositionHorizontalRelativeByElement(
+              // @ts-ignore
+              event,
+              tableCellOptimization,
+              elementContentRects,
+              GAP,
+            ),
           ).toBe('right');
         });
       });
     });
 
-    it('should returns left when the mouse is positioned before half of the element', () => {
+    it('should returns left when the mouse is positioned before half of the element and tableCellOptimization is disabled', () => {
       const event = {
         target: element,
         clientX: 50,
@@ -98,7 +207,26 @@ describe('table plugin: utils/dom.js', () => {
       ).toBe('left');
     });
 
-    it('should returns right when the mouse is positioned after half of the element', () => {
+    it('should returns left when the mouse is positioned before half of the element and tableCellOptimization is enabled', () => {
+      const event = {
+        target: element,
+        offsetX: 50,
+      };
+
+      tableCellOptimization = true;
+      elementContentRects = { 'table-cell-id': { width: 100 } };
+
+      expect(
+        getMousePositionHorizontalRelativeByElement(
+          // @ts-ignore
+          event,
+          tableCellOptimization,
+          elementContentRects,
+        ),
+      ).toBe('left');
+    });
+
+    it('should returns right when the mouse is positioned after half of the element and tableCellOptimization is disabled', () => {
       const event = {
         target: element,
         clientX: 101,
@@ -107,6 +235,25 @@ describe('table plugin: utils/dom.js', () => {
       expect(
         // @ts-ignore
         getMousePositionHorizontalRelativeByElement(event),
+      ).toBe('right');
+    });
+
+    it('should returns right when the mouse is positioned after half of the element and tableCellOptimization is enabled', () => {
+      const event = {
+        target: element,
+        offsetX: 101,
+      };
+
+      tableCellOptimization = true;
+      elementContentRects = { 'table-cell-id': { width: 100 } };
+
+      expect(
+        getMousePositionHorizontalRelativeByElement(
+          // @ts-ignore
+          event,
+          tableCellOptimization,
+          elementContentRects,
+        ),
       ).toBe('right');
     });
   });

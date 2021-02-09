@@ -19,8 +19,6 @@ async function loadAndRetrieveDocument(
   document: object,
   expectedLayout = 'default',
 ) {
-  await page.browser.maximizeWindow();
-
   await mountEditor(page, {
     appearance: fullpage.appearance,
     defaultValue: JSON.stringify(document),

@@ -99,6 +99,7 @@ export default {
     'clearMarksOnChange',
     'reactNodeView',
     'history',
+    'undoRedoPlugin',
     'codeBlockIndent',
     'placeholder',
     'width',

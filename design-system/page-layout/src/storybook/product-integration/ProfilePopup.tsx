@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { Profile } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-/* eslint-enable import/no-extraneous-dependencies */
 
 export const DefaultProfile = () => (
   <Profile

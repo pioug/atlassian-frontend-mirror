@@ -6,6 +6,7 @@
  */
 // Finnish
 export default {
+  'fabric.editor.captionPlaceholder': 'Lisää kuvateksti',
   'fabric.editor.collapseNode': 'piilota sisältö',
   'fabric.editor.expandDefaultTitle': 'Klikkaa tähän laajentaaksesi...',
   'fabric.editor.expandNode': 'Laajenna sisältöä',

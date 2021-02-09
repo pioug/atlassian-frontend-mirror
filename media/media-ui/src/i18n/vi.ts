@@ -32,6 +32,7 @@ export default {
     'Ôi! Chúng tôi không thể truy xuất bất kỳ tệp GIF nào',
   'fabric.media.check_your_network': 'Kiểm tra kết nối mạng của bạn',
   'fabric.media.close': 'Đóng',
+  'fabric.media.close_and_reopen': 'Hãy thử đóng tệp này và mở lại.',
   'fabric.media.connect_account_description':
     'Chúng tôi sẽ mở một trang mới để giúp bạn kết nối tài khoản {name} của bạn',
   'fabric.media.connect_link_account': 'Kết nối để xem trước',
@@ -48,8 +49,10 @@ export default {
     'Chúng tôi không thể xem trước các tệp được mã hóa hoặc được bảo vệ bằng mật khẩu.',
   'fabric.media.couldnt_generate_preview':
     'Chúng tôi không thể tạo bản xem trước cho tệp này.',
+  'fabric.media.couldnt_load_file': 'Chúng tôi không thể tải tệp.',
   'fabric.media.couldnt_load_link':
     'Chúng tôi không thể tải đường liên kết này vì một lý do không xác định.',
+  'fabric.media.creating_preview': 'Đang tạo bản xem trước...',
   'fabric.media.default_avatars': 'Ảnh đại diện mặc định',
   'fabric.media.disable_fullscreen': 'tắt chức năng toàn màn hình',
   'fabric.media.document': 'tài liệu',
@@ -58,9 +61,13 @@ export default {
     'Kéo và thả hình ảnh của bạn tại đây',
   'fabric.media.drag_and_drop_your_files':
     'Kéo và thả các tệp của bạn bất kỳ nơi nào hoặc',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Kéo và thả tệp và thư mục bất cứ đâu hoặc',
   'fabric.media.drop_your_files': 'Thả các tệp của bạn để đăng tải',
   'fabric.media.drop_your_files_here': 'Thả các tệp của bạn tại đây',
+  'fabric.media.email': 'email',
   'fabric.media.enable_fullscreen': 'bật chức năng toàn màn hình',
+  'fabric.media.error_429': 'Lỗi 429',
   'fabric.media.error_generating_preview': 'Lỗi khi tạo bản xem trước',
   'fabric.media.error_hint_critical':
     'Nếu vẫn xảy ra sự cố, hãy liên hệ với bộ phận hỗ trợ.',
@@ -96,16 +103,25 @@ export default {
   'fabric.media.or': 'hoặc',
   'fabric.media.pause': 'tạm dừng',
   'fabric.media.play': 'phát',
+  'fabric.media.playback_default_speed': 'Mặc định',
+  'fabric.media.playback_speed': 'Tốc độ phát',
   'fabric.media.preview': 'Xem trước',
+  'fabric.media.preview_currently_unavailable':
+    'Bản xem trước hiện không khả dụng',
+  'fabric.media.preview_rateLimited':
+    'Chúng tôi gặp khó khăn khi tạo bản xem trước',
+  'fabric.media.preview_unavailable': 'Bản xem trước không khả dụng',
   'fabric.media.recent_uploads': 'Các nội dung tải lên gần đây',
   'fabric.media.remove_image': 'Xóa hình ảnh',
   'fabric.media.retry': 'Thử lại',
   'fabric.media.save': 'Lưu',
+  'fabric.media.search': 'tìm kiếm',
   'fabric.media.search_all_gifs': 'Hãy tìm kiếm tất cả các GIF!',
   'fabric.media.share_files_instantly': 'Chúng tôi sẽ chia sẻ tệp ngay',
   'fabric.media.something_went_wrong': 'Đã xảy ra lỗi.',
   'fabric.media.srclink': 'Xem trong',
   'fabric.media.srclinkunknown': 'Xem bản gốc',
+  'fabric.media.text': 'văn bản',
   'fabric.media.try_again': 'Thử lại',
   'fabric.media.try_another_account': 'Thử một tài khoản khác',
   'fabric.media.try_downloading_file': 'Thử tải xuống tệp để xem.',
@@ -121,6 +137,8 @@ export default {
   'fabric.media.upload_photo': 'Tải ảnh lên',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Xem',
+  'fabric.media.viewer_rateLimited':
+    'Chúng tôi đang gặp sự cố khi tải tệp của bạn.',
   'fabric.media.webgl_warning_description':
     'Trình duyệt của bạn không hỗ trợ WebGL. Sử dụng trình duyệt đã bật WebGL để chú thích hình ảnh.',
   'fabric.media.zoom_in': 'phóng to',

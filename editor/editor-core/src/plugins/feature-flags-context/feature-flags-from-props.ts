@@ -54,6 +54,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : Boolean(props.allowTables.allowAddColumnWithCustomStep),
 
     predictableLists: props.UNSAFE_predictableLists,
+
+    undoRedoButtons: props.UNSAFE_allowUndoRedoButtons,
+
+    catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
+
+    nextEmojiNodeView: props.featureFlags?.nextEmojiNodeView === true,
   };
 }
 

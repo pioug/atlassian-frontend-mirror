@@ -24,11 +24,13 @@ import {
 } from '../analytics';
 import { IconEmoji } from '../quick-insert/assets';
 import emojiNodeView from './nodeviews/emoji';
+import emojiNodeViewNext from './nodeviews/emoji-next';
 import { TypeAheadItem } from '../type-ahead/types';
 import { EmojiContextProvider } from './ui/EmojiContextProvider';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
 import { EventDispatcher } from '../../event-dispatcher';
+import { getFeatureFlags } from '../feature-flags-context';
 
 export const emojiToTypeaheadItem = (
   emoji: EmojiDescription,
@@ -316,12 +318,18 @@ export function emojiPluginFactory(
     } as StateField<EmojiPluginState>,
     props: {
       nodeViews: {
-        emoji: emojiNodeView(
-          portalProviderAPI,
-          eventDispatcher,
-          providerFactory,
-          options,
-        ),
+        emoji(node, view, getPos) {
+          const featureFlags = getFeatureFlags(view.state);
+          const createEmojiNodeView = featureFlags?.nextEmojiNodeView
+            ? emojiNodeViewNext(providerFactory, options)
+            : emojiNodeView(
+                portalProviderAPI,
+                eventDispatcher,
+                providerFactory,
+                options,
+              );
+          return createEmojiNodeView(node, view, getPos);
+        },
       },
     },
     view(editorView) {

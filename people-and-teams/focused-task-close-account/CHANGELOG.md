@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 0.14.0
+
+### Minor Changes
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+
 ## 0.13.7
 
 ### Patch Changes

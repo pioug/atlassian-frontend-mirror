@@ -60,9 +60,7 @@ export const getQuickInsertItemsFromModule = <T>(
 
   const flatItems = ([] as MenuItem[]).concat(...items);
 
-  return flatItems.map((item, index) => {
-    return transformFunction(item, index);
-  });
+  return flatItems.map(transformFunction);
 };
 
 export async function getAutoConvertPatternsFromModule<T>(

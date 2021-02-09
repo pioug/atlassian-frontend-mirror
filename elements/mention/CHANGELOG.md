@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.2.0
+
+### Minor Changes
+
+- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+
 ## 19.1.2
 
 ### Patch Changes

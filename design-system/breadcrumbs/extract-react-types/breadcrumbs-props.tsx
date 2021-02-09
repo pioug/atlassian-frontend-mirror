@@ -1,5 +1,5 @@
-import { BreadcrumbsStatelessProps } from '../src/types';
+import { BreadcrumbsProps } from '../src/types';
 
-export default function BreadcrumbProps(props: BreadcrumbsStatelessProps) {
+export default function BreadcrumbProps(props: BreadcrumbsProps) {
   return null;
 }

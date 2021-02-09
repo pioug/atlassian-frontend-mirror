@@ -6,7 +6,6 @@ import Flag from '../../index';
 import { FlagProps } from '../../types';
 import FlagGroup from '../../flag-group';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { matchers } from 'jest-emotion';
 
 expect.extend(matchers);

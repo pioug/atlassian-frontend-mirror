@@ -6,6 +6,7 @@
  */
 // Portuguese (Brazil)
 export default {
+  'fabric.editor.captionPlaceholder': 'Adicionar legenda',
   'fabric.editor.collapseNode': 'Recolher conteúdo',
   'fabric.editor.expandDefaultTitle': 'Clique aqui para expandir...',
   'fabric.editor.expandNode': 'Expandir conteúdo',

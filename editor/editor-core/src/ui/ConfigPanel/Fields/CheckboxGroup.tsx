@@ -108,7 +108,7 @@ export default function CheckboxGroup({
       name={name}
       isRequired={isRequired}
       defaultValue={defaultValue}
-      validate={(value: string[] | undefined) => validate(value, isRequired)}
+      validate={(value?: string[]) => validate(value, isRequired)}
     >
       {props => {
         return (

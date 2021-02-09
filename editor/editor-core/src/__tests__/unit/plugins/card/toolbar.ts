@@ -70,7 +70,7 @@ describe('card', () => {
       })(editorView.state, intl, providerFactory);
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
-      expect(toolbarItems).toHaveLength(7);
+      expect(toolbarItems).toHaveLength(8);
       expect(toolbarItems).toMatchSnapshot();
     });
 

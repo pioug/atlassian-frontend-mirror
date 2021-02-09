@@ -59,6 +59,26 @@ export function getStateContext(
   return payload;
 }
 
+export function mapActionSubjectIdToAttributes(
+  payload: AnalyticsEventPayload,
+): AnalyticsEventPayload {
+  const documentInserted =
+    payload.action === ACTION.INSERTED &&
+    payload.actionSubject === ACTION_SUBJECT.DOCUMENT;
+  const textFormatted =
+    payload.action === ACTION.FORMATTED &&
+    payload.actionSubject === ACTION_SUBJECT.TEXT;
+  const hasActionSubjectId = !!payload.actionSubjectId;
+
+  if (hasActionSubjectId && (documentInserted || textFormatted)) {
+    payload.attributes = {
+      ...payload.attributes,
+      actionSubjectId: payload.actionSubjectId,
+    };
+  }
+  return payload;
+}
+
 export function getSelectionType(
   state: EditorState,
 ): { type: SELECTION_TYPE; position?: SELECTION_POSITION } {
@@ -127,6 +147,7 @@ export function addAnalytics(
 ): Transaction {
   const createAnalyticsEvent = getCreateUIAnalyticsEvent(state);
   payload = getStateContext(state, payload);
+  payload = mapActionSubjectIdToAttributes(payload);
 
   if (createAnalyticsEvent) {
     const { storedMarks } = tr;

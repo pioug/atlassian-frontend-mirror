@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "14.8.3",
+  "version": "14.8.4",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/icon-file-type": "^6.1.0",
     "@atlaskit/icon-object": "^6.1.0",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/media-ui": "^15.1.0",
+    "@atlaskit/media-ui": "^15.2.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",

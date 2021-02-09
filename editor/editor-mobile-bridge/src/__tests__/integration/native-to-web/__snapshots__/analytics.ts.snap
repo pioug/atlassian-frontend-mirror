@@ -6,6 +6,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "indentation",
   "attributes": Object {
+    "actionSubjectId": "indentation",
     "appearance": "mobile",
     "componentName": "editorCore",
     "direction": "indent",
@@ -34,6 +35,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "indentation",
   "attributes": Object {
+    "actionSubjectId": "indentation",
     "appearance": "mobile",
     "componentName": "editorCore",
     "direction": "indent",
@@ -62,6 +64,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "action",
   "attributes": Object {
+    "actionSubjectId": "action",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -91,6 +94,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "action",
   "attributes": Object {
+    "actionSubjectId": "action",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -120,6 +124,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "blockQuote",
   "attributes": Object {
+    "actionSubjectId": "blockQuote",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -144,6 +149,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "blockQuote",
   "attributes": Object {
+    "actionSubjectId": "blockQuote",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -168,6 +174,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "bulletedList",
   "attributes": Object {
+    "actionSubjectId": "bulletedList",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -192,6 +199,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "bulletedList",
   "attributes": Object {
+    "actionSubjectId": "bulletedList",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -216,6 +224,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "codeBlock",
   "attributes": Object {
+    "actionSubjectId": "codeBlock",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -240,6 +249,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "codeBlock",
   "attributes": Object {
+    "actionSubjectId": "codeBlock",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -264,6 +274,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "decision",
   "attributes": Object {
+    "actionSubjectId": "decision",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -293,6 +304,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "decision",
   "attributes": Object {
+    "actionSubjectId": "decision",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -322,6 +334,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "link",
   "attributes": Object {
+    "actionSubjectId": "link",
     "appearance": "mobile",
     "componentName": "editorCore",
     "fromCurrentDomain": false,
@@ -350,6 +363,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "link",
   "attributes": Object {
+    "actionSubjectId": "link",
     "appearance": "mobile",
     "componentName": "editorCore",
     "fromCurrentDomain": false,
@@ -378,6 +392,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "numberedList",
   "attributes": Object {
+    "actionSubjectId": "numberedList",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -402,6 +417,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "numberedList",
   "attributes": Object {
+    "actionSubjectId": "numberedList",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -426,6 +442,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "panel",
   "attributes": Object {
+    "actionSubjectId": "panel",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -451,6 +468,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "panel",
   "attributes": Object {
+    "actionSubjectId": "panel",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "insertMenu",
@@ -476,6 +494,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "indentation",
   "attributes": Object {
+    "actionSubjectId": "indentation",
     "appearance": "mobile",
     "componentName": "editorCore",
     "direction": "outdent",
@@ -504,6 +523,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "indentation",
   "attributes": Object {
+    "actionSubjectId": "indentation",
     "appearance": "mobile",
     "componentName": "editorCore",
     "direction": "outdent",
@@ -532,6 +552,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "heading",
   "attributes": Object {
+    "actionSubjectId": "heading",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -558,6 +579,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "heading",
   "attributes": Object {
+    "actionSubjectId": "heading",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -584,6 +606,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "strong",
   "attributes": Object {
+    "actionSubjectId": "strong",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -608,6 +631,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "strong",
   "attributes": Object {
+    "actionSubjectId": "strong",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -632,6 +656,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "code",
   "attributes": Object {
+    "actionSubjectId": "code",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -656,6 +681,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "code",
   "attributes": Object {
+    "actionSubjectId": "code",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -680,6 +706,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "italic",
   "attributes": Object {
+    "actionSubjectId": "italic",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -704,6 +731,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "italic",
   "attributes": Object {
+    "actionSubjectId": "italic",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -728,6 +756,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "strike",
   "attributes": Object {
+    "actionSubjectId": "strike",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -752,6 +781,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "strike",
   "attributes": Object {
+    "actionSubjectId": "strike",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -776,6 +806,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "subscript",
   "attributes": Object {
+    "actionSubjectId": "subscript",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -800,6 +831,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "subscript",
   "attributes": Object {
+    "actionSubjectId": "subscript",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -824,6 +856,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "superscript",
   "attributes": Object {
+    "actionSubjectId": "superscript",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -848,6 +881,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "superscript",
   "attributes": Object {
+    "actionSubjectId": "superscript",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -872,6 +906,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "underline",
   "attributes": Object {
+    "actionSubjectId": "underline",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -896,6 +931,7 @@ Object {
   "actionSubject": "text",
   "actionSubjectId": "underline",
   "attributes": Object {
+    "actionSubjectId": "underline",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -920,6 +956,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "status",
   "attributes": Object {
+    "actionSubjectId": "status",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",
@@ -944,6 +981,7 @@ Object {
   "actionSubject": "document",
   "actionSubjectId": "status",
   "attributes": Object {
+    "actionSubjectId": "status",
     "appearance": "mobile",
     "componentName": "editorCore",
     "inputMethod": "toolbar",

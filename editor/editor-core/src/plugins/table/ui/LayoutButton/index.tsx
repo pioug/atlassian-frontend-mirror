@@ -22,6 +22,7 @@ export interface Props {
   scrollableElement?: HTMLElement;
   isResizing?: boolean;
   layout?: TableLayout;
+  tableWidth?: number;
 }
 
 const addPopupOffset = (pos: PopupPosition) => ({
@@ -96,10 +97,12 @@ class LayoutButton extends React.Component<Props & InjectedIntlProps, any> {
   }
 
   shouldComponentUpdate(nextProps: Props) {
+    const { targetRef, layout, isResizing, tableWidth } = this.props;
     return (
-      this.props.targetRef !== nextProps.targetRef ||
-      this.props.layout !== nextProps.layout ||
-      this.props.isResizing !== nextProps.isResizing
+      targetRef !== nextProps.targetRef ||
+      layout !== nextProps.layout ||
+      isResizing !== nextProps.isResizing ||
+      tableWidth !== nextProps.tableWidth
     );
   }
 

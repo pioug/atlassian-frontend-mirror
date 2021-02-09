@@ -5,4 +5,11 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Ukrainian
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Скопійовано',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Скопіювати',
+  'fabric.editor.headingLink.copied': 'Скопійовано',
+  'fabric.editor.headingLink.copyAnchorLink':
+    'Скопіювати посилання на заголовок',
+  'fabric.editor.headingLink.failedToCopy': 'Не вдалося скопіювати',
+};

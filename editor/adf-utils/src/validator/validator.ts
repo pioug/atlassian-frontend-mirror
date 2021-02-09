@@ -13,7 +13,6 @@ import {
 
 import {
   NodeValidationResult,
-  Output,
   ValidatorSpec,
   AttributesSpec,
   ValidationErrorMap,
@@ -26,6 +25,7 @@ import {
   MarkValidationResult,
   SpecValidatorResult,
   Err,
+  Validate,
 } from '../types/validatorTypes';
 
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
@@ -338,12 +338,7 @@ export function validator(
   const validatorSpecs = createSpec(nodes, marks);
   const { mode = 'strict', allowPrivateAttributes = false } = options || {};
 
-  const validate = (
-    entity: ADFEntity,
-    errorCallback?: ErrorCallback,
-    allowed?: Content,
-    parentSpec?: ValidatorSpec,
-  ): Output => {
+  const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
     const validationResult = validateNode(
       entity,
       errorCallback,

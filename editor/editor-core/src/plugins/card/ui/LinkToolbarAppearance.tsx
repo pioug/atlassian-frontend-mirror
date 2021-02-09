@@ -47,6 +47,14 @@ export class LinkToolbarAppearance extends React.Component<
       cardContext &&
       url &&
       cardContext.extractors.getPreview(url, platform);
+
+    if (url) {
+      const urlState = cardContext?.store?.getState()[url];
+      if (urlState?.error?.kind === 'fatal') {
+        return null;
+      }
+    }
+
     const isSmartLinkSupportedInParent = isSupportedInParent(
       editorState,
       Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),

@@ -314,6 +314,48 @@ describe('LinkToolbarAppearance', () => {
     expect(urlAppearance!.selected).toBeTruthy();
   });
 
+  it('should return null when url has fatal errored', () => {
+    const editorState = EditorState.create({ schema: defaultSchema });
+    const someUrl = 'some-url';
+    const toolbar = shallow(
+      <LinkToolbarAppearance
+        intl={fakeIntl}
+        editorState={editorState}
+        url={someUrl}
+      />,
+    );
+    const currentCardState = {
+      error: {
+        kind: 'fatal',
+      },
+    };
+
+    const cardStateMap = { [someUrl]: currentCardState };
+    const context = {
+      contextAdapter: {
+        card: {
+          value: {
+            store: {
+              getState: jest.fn(() => cardStateMap),
+              dispatch: jest.fn(),
+              subscribe: jest.fn(),
+              replaceReducer: jest.fn(),
+            },
+          },
+        },
+      },
+    };
+
+    toolbar.instance().context = context;
+
+    // Force a re-render
+    toolbar.setProps({});
+    toolbar.update();
+
+    // Assert that the toolbar is returning null
+    expect(toolbar.get(0)).toBeFalsy();
+  });
+
   it('should disable appearance if its not supported in the parent', () => {
     asMock(isSupportedInParent).mockReturnValue(false);
     const editorState = EditorState.create({ schema: defaultSchema });

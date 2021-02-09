@@ -8,7 +8,7 @@ import {
 [comment].forEach(editor => {
   BrowserTestCase(
     `insert-mediaGroup.ts: Inserts a media group on ${editor.name}`,
-    { skip: ['edge', 'safari'] },
+    { skip: ['edge'] },
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,

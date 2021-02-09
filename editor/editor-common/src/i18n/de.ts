@@ -6,10 +6,16 @@
  */
 // German
 export default {
+  'fabric.editor.captionPlaceholder': 'Eine Bildunterschrift hinzufügen',
   'fabric.editor.collapseNode': 'Inhaltsanzeige reduzieren',
   'fabric.editor.expandDefaultTitle': 'Klicken Sie hier, um zu erweitern …',
   'fabric.editor.expandNode': 'Inhaltsanzeige erweitern',
   'fabric.editor.expandPlaceholder':
     'Wählen Sie einen Titel für diese Erweiterung …',
   'fabric.editor.openLink': 'Link in neuer Registerkarte öffnen',
+  'fabric.editor.unsupportedBlockContent':
+    'Dieser Editor unterstützt die Anzeige dieses Inhalts nicht',
+  'fabric.editor.unsupportedContentTooltip':
+    'Der Inhalt ist in diesem Editor nicht verfügbar, dies bleibt durch Bearbeiten und Speichern erhalten.',
+  'fabric.editor.unsupportedInlineContent': 'Nicht unterstützter Inhalt',
 };

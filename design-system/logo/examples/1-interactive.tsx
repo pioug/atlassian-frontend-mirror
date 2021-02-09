@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { Component, ComponentType } from 'react';
 
 import styled from 'styled-components';

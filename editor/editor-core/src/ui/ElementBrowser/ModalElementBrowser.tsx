@@ -13,10 +13,12 @@ import Modal, {
   ModalTransition,
   FooterComponentProps,
 } from '@atlaskit/modal-dialog';
+import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 
 import ElementBrowser from './components/ElementBrowserLoader';
 import { getCategories } from './categories';
 import { MODAL_WRAPPER_PADDING } from './constants';
+import { messages } from './messages';
 
 export interface State {
   isOpen: boolean;
@@ -27,10 +29,12 @@ export interface Props {
   onInsertItem: (item: QuickInsertItem) => void;
   isOpen?: boolean;
   onClose: () => void;
+  helpUrl?: string | undefined;
 }
 
 const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
   const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
+  const { helpUrl, intl } = props;
 
   const onSelectItem = useCallback(
     (item: QuickInsertItem) => {
@@ -48,9 +52,17 @@ const ModalElementBrowser = (props: Props & InjectedIntlProps) => {
 
   const RenderFooter = useCallback(
     (footerProps: FooterComponentProps) => (
-      <Footer {...footerProps} onInsert={() => onInsertItem(selectedItem!)} />
+      <Footer
+        {...footerProps}
+        onInsert={() => onInsertItem(selectedItem!)}
+        beforeElement={
+          helpUrl
+            ? HelpLink(helpUrl, intl.formatMessage(messages.help))
+            : undefined
+        }
+      />
     ),
-    [onInsertItem, selectedItem],
+    [onInsertItem, selectedItem, helpUrl, intl],
   );
 
   // Since Modal uses stackIndex it's shouldCloseOnEscapePress prop doesn't work.
@@ -118,13 +130,17 @@ const Footer = ({
   onInsert,
   onClose,
   showKeyline,
-}: FooterComponentProps & { onInsert: () => void }) => {
+  beforeElement,
+}: FooterComponentProps & {
+  onInsert: () => void;
+  beforeElement?: JSX.Element;
+}) => {
   return (
     <ModalFooter
       showKeyline={showKeyline}
       style={{ padding: MODAL_WRAPPER_PADDING }}
     >
-      <span />
+      {beforeElement ? beforeElement : <span />}
       <Actions>
         <ActionItem>
           <Button
@@ -148,6 +164,18 @@ const Footer = ({
     </ModalFooter>
   );
 };
+
+const HelpLink = (url: string, helpText: string) => (
+  <Button
+    iconBefore={<QuestionCircleIcon label="help" size="medium" />}
+    appearance="subtle-link"
+    href={url}
+    target="_blank"
+    testId="ModalElementBrowser__help-button"
+  >
+    {helpText}
+  </Button>
+);
 
 const Actions = styled.div`
   display: inline-flex;

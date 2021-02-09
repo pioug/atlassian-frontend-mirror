@@ -290,7 +290,7 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
       '{ "enableQuickInsert": true,"selectionObserverEnabled": true,"allowCollabProvider": true}';
     const updatedConfig = new MobileEditorConfiguration(jsonConfig);
     bridge.setEditorConfigChangeHandler(editorConfigChanged);
-    bridge.configureEditor(jsonConfig);
+    bridge.configure(jsonConfig);
     expect(editorConfigChanged).toHaveBeenCalledTimes(1);
     expect(editorConfigChanged).toHaveBeenCalledWith(updatedConfig);
   });
@@ -301,7 +301,7 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
       'cloneAndUpdateConfig',
     );
     let bridge: WebBridgeImpl = new WebBridgeImpl();
-    bridge.configureEditor('{mode: "light"}');
+    bridge.configure('{mode: "light"}');
     expect(mockedCloneAndUpdateConfig).not.toHaveBeenCalled();
   });
 

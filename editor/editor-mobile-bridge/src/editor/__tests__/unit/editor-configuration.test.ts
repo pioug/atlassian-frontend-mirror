@@ -12,23 +12,23 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(false);
-    expect(editorConfig.isScrollGutterAllowed()).toEqual(true);
+    expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
   });
 
-  it('should not allow scroll gutter for compact editor', () => {
+  it('should persist scroll gutter for compact editor', () => {
     const editorConfig = new MobileEditorConfiguration(
       '{"editorAppearance": "compact"}',
     );
 
-    expect(editorConfig.isScrollGutterAllowed()).toEqual(false);
+    expect(editorConfig.isScrollGutterPersisted()).toEqual(true);
   });
 
-  it('should allow scroll gutter for full editor', () => {
+  it('should not persist scroll gutter for full editor', () => {
     const editorConfig = new MobileEditorConfiguration(
       '{"editorAppearance": "full"}',
     );
 
-    expect(editorConfig.isScrollGutterAllowed()).toBe(true);
+    expect(editorConfig.isScrollGutterPersisted()).toBe(false);
   });
 
   it('should set the mode value and retain the rest with default values', () => {
@@ -138,23 +138,23 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isPredictableListEnabled()).toEqual(false);
   });
 
-  it('should not allow scroll gutter for compact editor', () => {
+  it('should persist scroll gutter for compact editor', () => {
     const originalEditorConfig = new MobileEditorConfiguration();
 
     jest
       .spyOn(originalEditorConfig, 'getEditorAppearance')
       .mockReturnValueOnce(EditorAppearance.COMPACT);
 
-    expect(originalEditorConfig.isScrollGutterAllowed()).toBe(false);
+    expect(originalEditorConfig.isScrollGutterPersisted()).toBe(true);
   });
 
-  it('should allow scroll gutter for full editor', () => {
+  it('should not persist scroll gutter for full editor', () => {
     const originalEditorConfig = new MobileEditorConfiguration();
 
     jest
       .spyOn(originalEditorConfig, 'getEditorAppearance')
       .mockReturnValueOnce(EditorAppearance.FULL);
 
-    expect(originalEditorConfig.isScrollGutterAllowed()).toBe(true);
+    expect(originalEditorConfig.isScrollGutterPersisted()).toBe(false);
   });
 });

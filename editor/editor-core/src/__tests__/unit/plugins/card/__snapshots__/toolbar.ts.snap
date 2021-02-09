@@ -161,5 +161,14 @@ Array [
     "title": "Unlink",
     "type": "button",
   },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "onClick": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
 ]
 `;

@@ -32,6 +32,7 @@ export default {
     'Ops! Não foi possível encontrar nenhum GIF',
   'fabric.media.check_your_network': 'Verifique sua conexão de rede',
   'fabric.media.close': 'Fechar',
+  'fabric.media.close_and_reopen': 'Tente fechar o arquivo e abri-lo novamente',
   'fabric.media.connect_account_description':
     'Abriremos uma nova página para ajudar você a conectar sua conta do {name}',
   'fabric.media.connect_link_account': 'Conectar para visualizar',
@@ -48,8 +49,10 @@ export default {
     'Não é possível exibir arquivos criptografados ou protegidos por senha.',
   'fabric.media.couldnt_generate_preview':
     'Não foi possível gerar uma visualização para este arquivo.',
+  'fabric.media.couldnt_load_file': 'Não foi possível carregar o arquivo.',
   'fabric.media.couldnt_load_link':
     'Não foi possível carregar esse link por um motivo desconhecido.',
+  'fabric.media.creating_preview': 'Criando visualização...',
   'fabric.media.default_avatars': 'Avatares padrão',
   'fabric.media.disable_fullscreen': 'desativar tela cheia',
   'fabric.media.document': 'documento',
@@ -63,6 +66,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Solte seus arquivos aqui',
   'fabric.media.email': 'e-mail',
   'fabric.media.enable_fullscreen': 'ativar tela cheia',
+  'fabric.media.error_429': 'Erro 429',
   'fabric.media.error_generating_preview': 'Erro ao gerar pré-visualização',
   'fabric.media.error_hint_critical':
     'Se o problema persistir, entre em contato com o suporte.',
@@ -99,7 +103,14 @@ export default {
   'fabric.media.or': 'ou',
   'fabric.media.pause': 'pausar',
   'fabric.media.play': 'reproduzir',
+  'fabric.media.playback_default_speed': 'Padrão',
+  'fabric.media.playback_speed': 'Velocidade de reprodução',
   'fabric.media.preview': 'Pré-visualizar',
+  'fabric.media.preview_currently_unavailable':
+    'Pré-visualização indisponível no momento',
+  'fabric.media.preview_rateLimited':
+    'A gente teve dificuldade em criar uma prévia',
+  'fabric.media.preview_unavailable': 'Visualização indisponível',
   'fabric.media.recent_uploads': 'Arquivos carregados recentemente',
   'fabric.media.remove_image': 'Remover imagem',
   'fabric.media.retry': 'Tentar novamente',
@@ -128,6 +139,8 @@ export default {
   'fabric.media.upload_photo': 'Carregar uma foto',
   'fabric.media.video': 'vídeo',
   'fabric.media.view': 'Visualizar',
+  'fabric.media.viewer_rateLimited':
+    'Estamos com dificuldade para carregar este arquivo',
   'fabric.media.webgl_warning_description':
     'Seu navegador não é compatível com WebGL. Use um navegador compatível com WebGL para fazer anotações em imagens.',
   'fabric.media.zoom_in': 'mais zoom',

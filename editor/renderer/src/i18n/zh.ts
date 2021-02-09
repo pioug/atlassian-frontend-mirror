@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Chinese
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': '已复制！',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': '复制',
+  'fabric.editor.headingLink.copied': '已复制！',
+  'fabric.editor.headingLink.copyAnchorLink': '复制标题链接',
+  'fabric.editor.headingLink.failedToCopy': '复制失败',
+};

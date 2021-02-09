@@ -173,9 +173,10 @@ export class TypeAheadItemComponent extends React.Component<
     }
   };
 
-  handleRef = (ref: HTMLElement | null) => {
-    let hasRef = (ref: any): ref is { ref: HTMLElement } => ref && ref.ref;
-    this.setState({ ref: hasRef(ref) ? ref.ref : ref });
+  handleRef = (rawRef: HTMLElement | null) => {
+    const hasRef = (ref: any): ref is { ref: HTMLElement } => ref && ref.ref;
+    const ref = hasRef(rawRef) ? rawRef.ref : rawRef;
+    this.setState({ ref });
   };
 
   componentDidUpdate() {

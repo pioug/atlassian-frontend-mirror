@@ -3,18 +3,31 @@ import memoizeOne from 'memoize-one';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 
-import { CodeBlockTheme } from './types';
+import type { CodeBlockTheme } from './types';
 
+const T800 = '#067384';
+const Y1100 = '#7A5D1A';
+const PLUS20 = '#3A434E';
+// Hardcoded values have been used due to the current color palette not having any
+// accessible color options for Teal and Yellow and +20A
 export const defaultColors = memoizeOne(
   (theme: any): CodeBlockTheme => {
     const akTheme = { theme };
     return {
-      lineNumberColor: themed({ light: colors.N90, dark: colors.DN90 })(
+      lineNumberColor: themed({ light: colors.N400, dark: colors.DN400 })(
         akTheme,
       ),
       lineNumberBgColor: themed({ light: colors.N30, dark: colors.DN20 })(
         akTheme,
       ),
+      highlightedLineBgColor: themed({
+        light: colors.N30,
+        dark: PLUS20,
+      })(akTheme),
+      highlightedLineBorderColor: themed({
+        light: colors.B200,
+        dark: colors.B100,
+      })(akTheme),
       backgroundColor: themed({ light: colors.N20, dark: colors.DN50 })(
         akTheme,
       ),
@@ -22,57 +35,59 @@ export const defaultColors = memoizeOne(
       substringColor: themed({ light: colors.N400, dark: colors.DN400 })(
         akTheme,
       ),
-      keywordColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      attributeColor: themed({ light: colors.T300, dark: colors.T200 })(
+      keywordColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      attributeColor: themed({ light: T800, dark: colors.T200 })(akTheme),
+      selectorTagColor: themed({ light: colors.B400, dark: colors.B75 })(
         akTheme,
       ),
-      selectorTagColor: themed({ light: colors.B400, dark: colors.B100 })(
+      docTagColor: themed({ light: Y1100, dark: colors.Y300 })(akTheme),
+      nameColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      builtInColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      literalColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      bulletColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      codeColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      regexpColor: themed({ light: T800, dark: colors.T200 })(akTheme),
+      symbolColor: themed({ light: T800, dark: colors.T200 })(akTheme),
+      variableColor: themed({ light: T800, dark: colors.T200 })(akTheme),
+      templateVariableColor: themed({ light: T800, dark: colors.T200 })(
         akTheme,
       ),
-      docTagColor: themed({ light: colors.Y300, dark: colors.Y300 })(akTheme),
-      nameColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      builtInColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      literalColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      bulletColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      codeColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      additionColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
-      regexpColor: themed({ light: colors.T300, dark: colors.T200 })(akTheme),
-      symbolColor: themed({ light: colors.T300, dark: colors.T200 })(akTheme),
-      variableColor: themed({ light: colors.T300, dark: colors.T200 })(akTheme),
-      templateVariableColor: themed({ light: colors.T300, dark: colors.T200 })(
+      linkColor: themed({ light: colors.P300, dark: colors.P75 })(akTheme),
+      selectorAttributeColor: themed({ light: T800, dark: colors.T200 })(
         akTheme,
       ),
-      linkColor: themed({ light: colors.P300, dark: colors.P100 })(akTheme),
-      selectorAttributeColor: themed({ light: colors.T300, dark: colors.T200 })(
-        akTheme,
-      ),
-      selectorPseudoColor: themed({ light: colors.T300, dark: colors.T200 })(
-        akTheme,
-      ),
-      typeColor: themed({ light: colors.T500, dark: colors.T300 })(akTheme),
-      stringColor: themed({ light: colors.G300, dark: colors.G300 })(akTheme),
-      selectorIdColor: themed({ light: colors.T500, dark: colors.T300 })(
-        akTheme,
-      ),
-      selectorClassColor: themed({ light: colors.T500, dark: colors.T300 })(
-        akTheme,
-      ),
-      quoteColor: themed({ light: colors.T500, dark: colors.T300 })(akTheme),
-      templateTagColor: themed({ light: colors.T500, dark: colors.T300 })(
-        akTheme,
-      ),
-      deletionColor: themed({ light: colors.T500, dark: colors.T300 })(akTheme),
-      titleColor: themed({ light: colors.P300, dark: colors.P100 })(akTheme),
-      sectionColor: themed({ light: colors.P300, dark: colors.P100 })(akTheme),
+      selectorPseudoColor: themed({ light: T800, dark: colors.T200 })(akTheme),
+      typeColor: themed({ light: T800, dark: colors.T100 })(akTheme),
+      stringColor: themed({ light: colors.G500, dark: colors.G200 })(akTheme),
+      selectorIdColor: themed({ light: T800, dark: colors.T100 })(akTheme),
+      selectorClassColor: themed({ light: T800, dark: colors.T100 })(akTheme),
+      quoteColor: themed({ light: T800, dark: colors.T100 })(akTheme),
+      templateTagColor: themed({ light: T800, dark: colors.T100 })(akTheme),
+      titleColor: themed({ light: colors.P300, dark: colors.P75 })(akTheme),
+      sectionColor: themed({ light: colors.P300, dark: colors.P75 })(akTheme),
       commentColor: themed({ light: colors.N400, dark: colors.DN400 })(akTheme),
-      metaKeywordColor: themed({ light: colors.G300, dark: colors.G300 })(
+      metaKeywordColor: themed({ light: colors.G500, dark: colors.G200 })(
         akTheme,
       ),
       metaColor: themed({ light: colors.N400, dark: colors.DN400 })(akTheme),
       functionColor: themed({ light: colors.N800, dark: colors.DN800 })(
         akTheme,
       ),
-      numberColor: themed({ light: colors.B400, dark: colors.B100 })(akTheme),
+      numberColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      prologColor: themed({ light: colors.B400, dark: colors.B75 })(akTheme),
+      cdataColor: themed({ light: colors.N400, dark: colors.B75 })(akTheme),
+      punctuationColor: themed({ light: colors.N800, dark: colors.DN800 })(
+        akTheme,
+      ),
+      propertyColor: themed({ light: colors.P300, dark: colors.P75 })(akTheme),
+      constantColor: themed({ light: T800, dark: colors.T100 })(akTheme),
+      booleanColor: themed({ light: colors.B500, dark: colors.B75 })(akTheme),
+      charColor: themed({ light: colors.N800, dark: colors.DN800 })(akTheme),
+      insertedColor: themed({ light: colors.G500, dark: colors.B75 })(akTheme),
+      deletedColor: themed({ light: colors.R500, dark: colors.B75 })(akTheme),
+      operatorColor: themed({ light: colors.N800, dark: colors.B75 })(akTheme),
+      atruleColor: themed({ light: colors.G500, dark: colors.G200 })(akTheme),
+      importantColor: themed({ light: Y1100, dark: colors.Y300 })(akTheme),
     };
   },
 );

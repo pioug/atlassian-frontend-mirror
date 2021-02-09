@@ -39,13 +39,13 @@ ContentArea.displayName = 'ContentArea';
 export type MobileAppearanceProps = React.PropsWithChildren<{
   editorView: EditorView | null;
   maxHeight?: number;
-  allowScrollGutter?: boolean;
+  persistScrollGutter?: boolean;
 }>;
 
 export function MobileAppearance({
   editorView,
   maxHeight,
-  allowScrollGutter,
+  persistScrollGutter,
   children,
 }: MobileAppearanceProps) {
   const render = useCallback(
@@ -83,7 +83,7 @@ export function MobileAppearance({
             <ClickArea
               editorView={editorView || undefined}
               minHeight={minHeight}
-              allowScrollGutter={allowScrollGutter}
+              persistScrollGutter={persistScrollGutter}
             >
               <ContentArea>
                 <div
@@ -98,7 +98,7 @@ export function MobileAppearance({
         </WithFlash>
       );
     },
-    [children, maxHeight, editorView, allowScrollGutter],
+    [children, maxHeight, editorView, persistScrollGutter],
   );
 
   return (

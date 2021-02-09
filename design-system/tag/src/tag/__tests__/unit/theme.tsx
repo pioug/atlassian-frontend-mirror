@@ -10,9 +10,9 @@ describe('Theme Colors', () => {
     } = getThemeColors('standard', 'light');
     expect(chromeColors).toEqual({
       backgroundColor: '#F4F5F7',
-      backgroundColorHover: '#FFEBE6',
+      backgroundColorHover: '#EBECF0',
       textColor: '#253858',
-      textColorHover: '#BF2600',
+      textColorHover: '#253858',
     });
     expect(chromeLinkColors).toEqual({
       focusRingColor: '#4C9AFF',
@@ -38,9 +38,9 @@ describe('Theme Colors', () => {
     } = getThemeColors('standard', 'dark');
     expect(chromeColors).toEqual({
       backgroundColor: 'rgba(13, 20, 36, 0.53)',
-      backgroundColorHover: '#FF8F73',
+      backgroundColorHover: '#313D52',
       textColor: '#B8C7E0',
-      textColorHover: '#1B2638',
+      textColorHover: '#B8C7E0',
     });
     expect(chromeLinkColors).toEqual({
       focusRingColor: '#B3D4FF',

@@ -20,7 +20,7 @@ describe('Snapshot Test: Overflow shadows', () => {
     await snapshot(page);
   });
 
-  it(`should render right shadows`, async () => {
+  it('should render right shadows', async () => {
     await initRenderer(page, document);
     await page.waitFor('.code-block');
   });

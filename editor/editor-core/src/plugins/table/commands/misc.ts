@@ -449,6 +449,18 @@ export const addResizeHandleDecorations = (columnIndex: number) =>
     (tr: Transaction) => tr.setMeta('addToHistory', false),
   );
 
+export const setTableSize = (
+  tableHeight: number,
+  tableWidth: number,
+): Command =>
+  createCommand(
+    {
+      type: 'SET_TABLE_SIZE',
+      data: { tableHeight, tableWidth },
+    },
+    (tr: Transaction) => tr.setMeta('addToHistory', false),
+  );
+
 export const autoSizeTable = (
   view: EditorView,
   node: PMNode,

@@ -9,7 +9,6 @@ import ReactDOM from 'react-dom';
 import MobileEditor from '../../../editor/mobile-editor-element';
 import {
   createMentionProvider,
-  createEmojiProvider,
   createCardClient,
   createCardProvider,
 } from '../../../providers';
@@ -18,11 +17,13 @@ import { createCollabProviderFactory } from '../../../providers/collab-provider'
 import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
 import { useEditorConfiguration } from '../../../editor/hooks/use-editor-configuration';
+import { emoji } from '@atlaskit/util-data-test';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
+  const emojiProvider = emoji.storyData.getEmojiResource();
 
   return (
     <MobileEditor
@@ -30,7 +31,7 @@ const App = () => {
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
       cardClient={createCardClient()}
       cardProvider={createCardProvider()}
-      emojiProvider={createEmojiProvider(fetchProxy)}
+      emojiProvider={emojiProvider}
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}
       editorConfiguration={editorConfiguration}

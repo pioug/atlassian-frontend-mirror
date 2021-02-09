@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.0.14
+
+### Patch Changes
+
+- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+
 ## 8.0.13
 
 ### Patch Changes

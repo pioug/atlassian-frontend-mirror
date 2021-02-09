@@ -25,7 +25,7 @@ const CopyButtonWrapper = styled.span`
     height: 32px;
     width: 32px;
     right: 6px;
-    top: 6px;
+    top: 4px;
     padding: 2px;
     opacity: 0;
     transition: opacity 0.2s ease 0s;

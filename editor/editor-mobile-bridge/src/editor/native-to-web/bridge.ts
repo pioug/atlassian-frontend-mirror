@@ -59,6 +59,6 @@ export default interface NativeToWebBridge {
   removeQuickInsertAllowListItem(listItems: string): void;
   observeRenderedContentHeight(enabled: boolean): void;
   cancelTypeAhead(): void;
-  configureEditor(configs: string): void;
+  configure(configs: string): void;
   performEditAction(payload: string): void;
 }

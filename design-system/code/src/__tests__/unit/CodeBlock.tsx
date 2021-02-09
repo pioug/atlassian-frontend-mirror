@@ -1,134 +1,106 @@
 import React from 'react';
 
-import { mount, ReactWrapper } from 'enzyme';
+import { cleanup, render } from '@testing-library/react';
 
 import CodeBlock from '../../components/CodeBlock';
 import ThemedCodeBlock from '../../ThemedCodeBlock';
+import { defaultColors } from '../../themes/defaultTheme';
+import { getLineNumWidth } from '../../themes/themeBuilder';
 
-const code = `
-  const a = 'foo';
-  const b = 'bar';
-  const c = [a, b].map(item => item + item);
-  const d = 'hello-world';
+const code = `// some code
+const a = 'foo';
+const b = 'bar';
+const c = [a, b].map(item => item + item);
+const d = 'hello-world';
 `;
 
-const longCode = `
-  // 1
-  // 2
-  // 3
-  // 4
-  // 5
-  // 6
-  // 7
-  // 8
-  // 9
-  // 10
-  // 11
+const longCode = `// some code
+// 1
+// 2
+// 3
+// 4
+// 5
+// 6
+// 7
+// 8
+// 9
+// 10
+// 11
 `;
 
-const theme = { mode: 'dark' };
+const darkTheme = { mode: 'dark' };
+const testId = 'code-test';
 
 describe('CodeBlock', () => {
-  const findCodeLine = <TWrapper extends {}>(
-    wrapper: ReactWrapper<TWrapper>,
-    line: number,
-  ) => {
-    return wrapper
-      .find('code')
-      .last()
-      .childAt(line - 1);
-  };
+  afterEach(cleanup);
 
-  const findCodeLineNumber = <TWrapper extends {}>(
-    wrapper: ReactWrapper<TWrapper>,
+  const findCodeLine = (
+    rendered: ReturnType<typeof render>,
     line: number,
-  ) => {
-    return wrapper
-      .find('code')
-      .first()
-      .childAt(line - 1);
+  ): HTMLElement => {
+    return rendered.getByTestId(`${testId}-line-${line}`);
   };
 
   it('should have "text" as the default language', () => {
-    expect(
-      mount(<ThemedCodeBlock text={code} />)
-        .find(CodeBlock)
-        .prop('language'),
-    ).toBe('text');
+    const { container } = render(<ThemedCodeBlock text={code} />);
+    expect(container.querySelector('[data-code-lang="text"]')).not.toBeNull();
   });
 
   it('should have "showLineNumbers" enabled by default', () => {
-    expect(
-      mount(<ThemedCodeBlock text={code} />)
-        .find(CodeBlock)
-        .prop('showLineNumbers'),
-    ).toBe(true);
+    const { container } = render(<ThemedCodeBlock text={code} />);
+    expect(container.querySelector('.linenumber')).not.toBeNull();
   });
 
-  it('should apply theme', () => {
-    expect(
-      mount(<ThemedCodeBlock text={code} language="java" theme={theme} />)
-        .find(CodeBlock)
-        .prop('theme'),
-    ).toBe(theme);
+  describe('theming', () => {
+    it('should apply theme bg color (dark)', () => {
+      const { container } = render(
+        <ThemedCodeBlock text={code} language="java" theme={darkTheme} />,
+      );
+      expect(container.querySelector('[data-code-block] > span')).toHaveStyle(
+        `background-color:
+        ${defaultColors(darkTheme).backgroundColor};`,
+      );
+    });
+
+    it('should apply theme bg color', () => {
+      const { container } = render(
+        <ThemedCodeBlock text={code} language="java" />,
+      );
+      expect(container.querySelector('[data-code-block] > span')).toHaveStyle(
+        `background-color: ${
+          defaultColors({ mode: 'light' }).backgroundColor
+        };`,
+      );
+    });
   });
 
-  it('should highlight the second line', () => {
-    const wrapper = mount(<CodeBlock text={code} highlight="2" />);
+  describe('LineNumber col size expands as expected', () => {
+    it(`should return 1ch if no value provided`, () => {
+      expect(getLineNumWidth(undefined as any)).toEqual('1ch');
+    });
 
-    expect(findCodeLine(wrapper, 2).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 2).props().style.opacity).toEqual(1);
+    [1, 10, 100, 1000, 10000, 100000].forEach(val => {
+      it(`should return ${val.toFixed(0).length}ch for (${val})`, () => {
+        expect(getLineNumWidth(val)).toEqual(`${val.toFixed(0).length}ch`);
+      });
+    });
   });
 
-  it('should highlight lines when grouping from single to double digits', () => {
-    const wrapper = mount(<CodeBlock text={longCode} highlight="9-10,2" />);
-
-    expect(findCodeLine(wrapper, 9).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 10).props().style.opacity).toEqual(1);
+  it(`should render ${longCode.split('\n').length} lines`, () => {
+    const { container } = render(<CodeBlock text={longCode} testId={testId} />);
+    expect(container.querySelectorAll('.linenumber')).toHaveLength(
+      longCode.split('\n').length,
+    );
   });
 
-  it('should highlight the multiple lines', () => {
-    const wrapper = mount(<CodeBlock text={code} highlight="2,4" />);
+  it('should render the right thing on the right line', () => {
+    const rendered = render(<CodeBlock text={longCode} testId={testId} />);
 
-    expect(findCodeLine(wrapper, 2).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 2).props().style.opacity).toEqual(1);
-    expect(findCodeLine(wrapper, 4).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 4).props().style.opacity).toEqual(1);
-  });
-
-  it('should partially hide other lines', () => {
-    const wrapper = mount(<CodeBlock text={code} highlight="2" />);
-
-    expect(findCodeLine(wrapper, 1).props().style.opacity).toEqual(0.3);
-    expect(findCodeLineNumber(wrapper, 1).props().style.opacity).toEqual(0.3);
-    expect(findCodeLine(wrapper, 3).props().style.opacity).toEqual(0.3);
-    expect(findCodeLineNumber(wrapper, 3).props().style.opacity).toEqual(0.3);
-  });
-
-  it('should highlight a group lines', () => {
-    const wrapper = mount(<CodeBlock text={code} highlight="1-3" />);
-
-    expect(findCodeLine(wrapper, 1).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 1).props().style.opacity).toEqual(1);
-    expect(findCodeLine(wrapper, 2).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 2).props().style.opacity).toEqual(1);
-    expect(findCodeLine(wrapper, 3).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 3).props().style.opacity).toEqual(1);
-  });
-
-  it('should partially hide other lines outside of group', () => {
-    const wrapper = mount(<CodeBlock text={code} highlight="1-3" />);
-
-    expect(findCodeLine(wrapper, 4).props().style.opacity).toEqual(0.3);
-    expect(findCodeLineNumber(wrapper, 4).props().style.opacity).toEqual(0.3);
-  });
-
-  it('should highlight nothing', () => {
-    const wrapper = mount(<CodeBlock text={code} />);
-
-    expect(findCodeLineNumber(wrapper, 1).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 2).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 3).props().style.opacity).toEqual(1);
-    expect(findCodeLineNumber(wrapper, 4).props().style.opacity).toEqual(1);
+    longCode.split('\n').forEach((line, index) => {
+      const lineNum = index + 1;
+      expect(findCodeLine(rendered, lineNum).textContent?.trim()).toEqual(
+        lineNum + line,
+      );
+    });
   });
 });

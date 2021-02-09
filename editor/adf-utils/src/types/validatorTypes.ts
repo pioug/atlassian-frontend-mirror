@@ -120,3 +120,10 @@ export interface ErrorCallbackOptions {
   allowUnsupportedBlock?: boolean;
   allowUnsupportedInline?: boolean;
 }
+
+export type Validate = (
+  entity: ADFEntity,
+  errorCallback?: ErrorCallback,
+  allowed?: Content,
+  parentSpec?: ValidatorSpec,
+) => Output;

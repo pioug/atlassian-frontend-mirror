@@ -32,6 +32,7 @@ import { toolbarMessages as advancedTextFormattingMessages } from '../../text-fo
 import { messages as listMessages } from '../../lists/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../block-type/messages';
+import { messages as undoRedoMessages } from '../../undo-redo/messages';
 import { closeHelpCommand } from '../commands';
 import { annotationMessages } from '../../annotation/toolbar';
 
@@ -55,16 +56,6 @@ const messages = defineMessages({
     id: 'fabric.editor.markdown',
     defaultMessage: 'Markdown',
     description: 'It is a name of popular markup language.',
-  },
-  undo: {
-    id: 'fabric.editor.undo',
-    defaultMessage: 'Undo',
-    description: '',
-  },
-  redo: {
-    id: 'fabric.editor.redo',
-    defaultMessage: 'Redo',
-    description: '',
   },
   pastePlainText: {
     id: 'fabric.editor.pastePlainText',
@@ -339,12 +330,12 @@ const otherFormatting: (intl: InjectedIntl) => Format[] = ({
     keymap: () => keymaps.clearFormatting,
   },
   {
-    name: formatMessage(messages.undo),
+    name: formatMessage(undoRedoMessages.undo),
     type: 'undo',
     keymap: () => keymaps.undo,
   },
   {
-    name: formatMessage(messages.redo),
+    name: formatMessage(undoRedoMessages.redo),
     type: 'redo',
     keymap: () => keymaps.redo,
   },

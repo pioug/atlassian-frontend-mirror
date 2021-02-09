@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 13.7.1
+
+### Patch Changes
+
+- [`3405124622e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3405124622e) - ED-11742 Fix table custom step start position
+- [`04649ad9889`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04649ad9889) - ED-10369: fixed table breakout layout when pasted from renderer
+- [`c3ff456f166`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3ff456f166) - ED-11860 fix renderer code block content paste inconsistencies
+
 ## 13.7.0
 
 ### Minor Changes

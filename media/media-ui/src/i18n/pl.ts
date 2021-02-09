@@ -31,6 +31,8 @@ export default {
     'Ojej! Nie można pobrać żadnych plików GIF',
   'fabric.media.check_your_network': 'Sprawdź swoje połączenie sieciowe.',
   'fabric.media.close': 'Zamknij',
+  'fabric.media.close_and_reopen':
+    'Spróbuj zamknąć plik i otworzyć go ponownie.',
   'fabric.media.connect_account_description':
     'Otworzymy nową stronę, aby pomóc Ci połączyć swoje konto {name}',
   'fabric.media.connect_link_account': 'Połącz podgląd',
@@ -45,8 +47,10 @@ export default {
     'Nie można wyświetlać podglądu plików zaszyfrowanych lub chronionych hasłem.',
   'fabric.media.couldnt_generate_preview':
     'Nie można wygenerować podglądu tego pliku.',
+  'fabric.media.couldnt_load_file': 'Nie można załadować pliku.',
   'fabric.media.couldnt_load_link':
     'Z nieznanego powodu nie udało się wczytać tego łącza.',
+  'fabric.media.creating_preview': 'Tworzenie podglądu…',
   'fabric.media.default_avatars': 'Domyślne awatary',
   'fabric.media.disable_fullscreen': 'wyłącz tryb pełnoekranowy',
   'fabric.media.document': 'dokument',
@@ -54,9 +58,13 @@ export default {
   'fabric.media.drag_and_drop_images_here': 'Przeciągnij i upuść obrazy tutaj',
   'fabric.media.drag_and_drop_your_files':
     'Przeciągnij i upuść pliki w dowolne miejsce lub',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Przeciągnij lub upuść pliki i foldery w dowolnym miejscu lub',
   'fabric.media.drop_your_files': 'Upuść pliki, aby je przekazać',
   'fabric.media.drop_your_files_here': 'Upuść pliki tutaj',
+  'fabric.media.email': 'Adres e-mail',
   'fabric.media.enable_fullscreen': 'włącz tryb pełnoekranowy',
+  'fabric.media.error_429': 'Błąd 429',
   'fabric.media.error_generating_preview': 'Błąd generowania podglądu',
   'fabric.media.error_hint_critical':
     'Jeśli problem nadal będzie występować, skontaktuj się ze wsparciem.',
@@ -92,16 +100,24 @@ export default {
   'fabric.media.or': 'lub',
   'fabric.media.pause': 'wstrzymaj',
   'fabric.media.play': 'odtwórz',
+  'fabric.media.playback_default_speed': 'Domyślnie',
+  'fabric.media.playback_speed': 'Prędkość odtwarzania',
   'fabric.media.preview': 'Podgląd',
+  'fabric.media.preview_currently_unavailable': 'Podgląd aktualnie niedostępny',
+  'fabric.media.preview_rateLimited':
+    'Wystąpiły problemy z utworzeniem podglądu',
+  'fabric.media.preview_unavailable': 'Podgląd niedostępny',
   'fabric.media.recent_uploads': 'Ostatnio przekazane',
   'fabric.media.remove_image': 'usuń obraz',
   'fabric.media.retry': 'Spróbuj ponownie',
   'fabric.media.save': 'Zapisz',
+  'fabric.media.search': 'Szukaj',
   'fabric.media.search_all_gifs': 'Szukaj wszystkich plików GIF!',
   'fabric.media.share_files_instantly': 'Błyskawicznie je udostępnimy',
   'fabric.media.something_went_wrong': 'Coś poszło nie tak.',
   'fabric.media.srclink': 'Wyświetl w',
   'fabric.media.srclinkunknown': 'Wyświetl oryginał',
+  'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Spróbuj ponownie',
   'fabric.media.try_another_account': 'Spróbuj użyć innego konta',
   'fabric.media.try_downloading_file':
@@ -118,6 +134,8 @@ export default {
   'fabric.media.upload_photo': 'Przekaż zdjęcie',
   'fabric.media.video': 'wideo',
   'fabric.media.view': 'Wyświetl',
+  'fabric.media.viewer_rateLimited':
+    'Mamy problemy z załadowaniem Twojego pliku.',
   'fabric.media.webgl_warning_description':
     'Twoja przeglądarka nie obsługuje WebGL. Użyj przeglądarki z włączoną obsługą WebGL, aby dodawać adnotacje do obrazów',
   'fabric.media.zoom_in': 'powiększ',

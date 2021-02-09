@@ -65,6 +65,7 @@ describe('hyperlink - keymap with no card provider', () => {
               insertLocation: 'doc',
               selectionPosition: 'end',
               selectionType: 'cursor',
+              actionSubjectId: 'link',
             },
             eventType: 'track',
             nonPrivacySafeAttributes: {
@@ -95,6 +96,7 @@ describe('hyperlink - keymap with no card provider', () => {
               insertLocation: 'doc',
               selectionPosition: 'end',
               selectionType: 'cursor',
+              actionSubjectId: 'link',
             },
             eventType: 'track',
             nonPrivacySafeAttributes: {
@@ -127,6 +129,7 @@ describe('hyperlink - keymap with no card provider', () => {
               insertLocation: 'doc',
               selectionPosition: 'end',
               selectionType: 'cursor',
+              actionSubjectId: 'link',
             },
             eventType: 'track',
             nonPrivacySafeAttributes: {
@@ -191,6 +194,7 @@ describe('hyperlink - keymap with no card provider', () => {
           insertLocation: 'doc',
           selectionPosition: 'end',
           selectionType: 'cursor',
+          actionSubjectId: 'link',
         },
         eventType: 'track',
         nonPrivacySafeAttributes: {

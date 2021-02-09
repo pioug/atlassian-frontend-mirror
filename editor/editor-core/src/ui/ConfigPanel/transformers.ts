@@ -67,10 +67,11 @@ export const serialize = async (
       );
 
       if (fieldSerializer) {
+        const { fields: fieldsetFields } = field;
         const extracted = await serialize(
           manifest,
           value,
-          field.fields,
+          fieldsetFields,
           depth + 1,
         );
         value = fieldSerializer(extracted);
@@ -82,6 +83,28 @@ export const serialize = async (
 
   return copy;
 };
+
+function injectDefaultValues(data: Parameters, fields: FieldDefinition[]) {
+  const copy: Parameters = { ...data };
+
+  for (const field of fields) {
+    const { name } = field;
+    if (name in copy && !isFieldset(field)) {
+      continue;
+    }
+
+    if (isFieldset(field)) {
+      const { fields: fieldsetFields } = field;
+      copy[name] = injectDefaultValues(copy[name] || {}, fieldsetFields);
+    }
+
+    if ('defaultValue' in field) {
+      copy[name] = field.defaultValue;
+    }
+  }
+
+  return copy;
+}
 
 export const deserialize = async (
   manifest: ExtensionManifest,
@@ -132,5 +155,5 @@ export const deserialize = async (
     copy[name] = value;
   }
 
-  return copy;
+  return injectDefaultValues(copy, fields);
 };

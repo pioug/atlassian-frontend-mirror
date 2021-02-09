@@ -180,7 +180,7 @@ describe('simple startMeasure and stopMeasure', () => {
   it('should measure timing between function calls', () => {
     simpleStartMeasure('test1');
     simpleStopMeasure('test1', (duration: number, startTime: number) => {
-      expect(duration).toBeLessThan(5);
+      expect(duration).toBeLessThan(8);
     });
   });
 

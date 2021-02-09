@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.2.4
+
+### Patch Changes
+
+- [`37afe4a0fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37afe4a0fd5) - [ux] Update Dropbox icon and arrow-left icon
+
 ## 21.2.3
 
 ### Patch Changes

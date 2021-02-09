@@ -5,6 +5,7 @@ import {
   table,
   td,
   tdEmpty,
+  expand,
   tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { EditorState } from 'prosemirror-state';
@@ -229,6 +230,110 @@ describe('AddColumnStep', () => {
       );
 
       expect(editorState.doc).toEqualDocument(doc(p('')));
+    });
+  });
+
+  describe(`
+  expand(table 2x3)
+  `, () => {
+    let editorState: EditorState;
+    let refs: Refs;
+
+    const expandTwoBythreeTable = doc(
+      expand()(
+        '{table}',
+        table()(
+          tr(tdColorA, tdColorB, tdColorC),
+          tr(tdColorA, tdColorB, tdColorC),
+        ),
+      ),
+    );
+
+    const expandDocAfterAddColumnAtThree = doc(
+      expand()(
+        table()(
+          tr(tdColorA, tdColorB, tdColorC, tdEmpty),
+          tr(tdColorA, tdColorB, tdColorC, tdEmpty),
+        ),
+      ),
+    );
+
+    const expandDocAfterAddColumnAtZero = doc(
+      expand()(
+        table()(
+          tr(tdEmpty, tdColorA, tdColorB, tdColorC),
+          tr(tdEmpty, tdColorA, tdColorB, tdColorC),
+        ),
+      ),
+    );
+
+    const expandDocAfterAddColumnAtOne = doc(
+      expand()(
+        table()(
+          tr(tdColorA, tdEmpty, tdColorB, tdColorC),
+          tr(tdColorA, tdEmpty, tdColorB, tdColorC),
+        ),
+      ),
+    );
+
+    const expandDocAfterAddColumnAtTwo = doc(
+      expand()(
+        table()(
+          tr(tdColorA, tdColorB, tdEmpty, tdColorC),
+          tr(tdColorA, tdColorB, tdEmpty, tdColorC),
+        ),
+      ),
+    );
+
+    const expandDocAfterRemoveColumnAtZero = doc(
+      expand()(table()(tr(tdColorB, tdColorC), tr(tdColorB, tdColorC))),
+    );
+    const expandDocAfterRemoveColumnAtOne = doc(
+      expand()(table()(tr(tdColorA, tdColorC), tr(tdColorA, tdColorC))),
+    );
+    const expandDocAfterRemoveColumnAtTwo = doc(
+      expand()(table()(tr(tdColorA, tdColorB), tr(tdColorA, tdColorB))),
+    );
+
+    beforeEach(() => {
+      ({ editorState, refs } = setup(expandTwoBythreeTable));
+    });
+
+    describe('add a column', () => {
+      it.each`
+        column | expectedDoc
+        ${0}   | ${expandDocAfterAddColumnAtZero}
+        ${1}   | ${expandDocAfterAddColumnAtOne}
+        ${2}   | ${expandDocAfterAddColumnAtTwo}
+        ${3}   | ${expandDocAfterAddColumnAtThree}
+      `(
+        'should add a column at $column of the table',
+        ({ column, expectedDoc }) => {
+          editorState = editorState.apply(
+            addColumnAtFactory('table', column)(editorState, refs),
+          );
+
+          expect(editorState.doc).toEqualDocument(expectedDoc);
+        },
+      );
+    });
+
+    describe('remove a column', () => {
+      it.each`
+        column | expectedDoc
+        ${0}   | ${expandDocAfterRemoveColumnAtZero}
+        ${1}   | ${expandDocAfterRemoveColumnAtOne}
+        ${2}   | ${expandDocAfterRemoveColumnAtTwo}
+      `(
+        'should remove a column at $column of the table',
+        ({ column, expectedDoc }) => {
+          editorState = editorState.apply(
+            removeColumnAtFactory('table', column)(editorState, refs),
+          );
+
+          expect(editorState.doc).toEqualDocument(expectedDoc);
+        },
+      );
     });
   });
 

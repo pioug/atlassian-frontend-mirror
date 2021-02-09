@@ -4,7 +4,7 @@ import { Link, MemoryRouter } from 'react-router-dom';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '../src';
+import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 interface Props {
   children: Node;
@@ -39,7 +39,7 @@ class RouterLink extends React.PureComponent<Props, {}> {
 const ButtonWithRouter = () => (
   <div>
     <MemoryRouter>
-      <BreadcrumbsStateless onExpand={(...args) => console.log(args)}>
+      <Breadcrumbs>
         <BreadcrumbsItem href="/pages" text="Pages" component={RouterLink} />
         <BreadcrumbsItem
           href="/pages/home"
@@ -58,7 +58,7 @@ const ButtonWithRouter = () => (
           text="Icon After"
           component={RouterLink}
         />
-      </BreadcrumbsStateless>
+      </Breadcrumbs>
     </MemoryRouter>
   </div>
 );

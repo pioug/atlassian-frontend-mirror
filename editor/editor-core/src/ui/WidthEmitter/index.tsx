@@ -8,7 +8,7 @@ import {
 } from '../ContextPanel/context';
 
 export interface Props {
-  editorView: EditorView;
+  editorView?: EditorView;
 }
 
 type CallbacksType = {

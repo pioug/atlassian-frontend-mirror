@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 
 import {
@@ -177,7 +177,7 @@ export default function FormContent({
   firstVisibleFieldName?: string;
 }) {
   return (
-    <Fragment>
+    <>
       {fields.map((field: FieldDefinition) => {
         let fieldElement = (
           <FieldComponent
@@ -207,6 +207,6 @@ export default function FormContent({
           </RemovableField>
         );
       })}
-    </Fragment>
+    </>
   );
 }

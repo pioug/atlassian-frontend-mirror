@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page",
-  "version": "12.0.4",
+  "version": "12.0.5",
   "description": "A component for building page layouts. Also includes the Grid and GridColumn components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,6 @@
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
-    "react-syntax-highlighter": "^10.0.1",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

@@ -26,8 +26,6 @@ import { analyticsBridgeClient } from '../analytics-client';
 import { createPromise } from '../cross-platform-promise';
 import { eventDispatcher } from './dispatcher';
 import {
-  getDisableActionsValue,
-  getDisableMediaLinkingValue,
   getEnableLightDarkTheming,
   getEnableLegacyMobileMacros,
   getAllowCaptions,
@@ -49,15 +47,15 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 import { geti18NMessages } from './renderer-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
 import RendererBridgeImplementation from './native-to-web/implementation';
-import useRendererConfiguration from './hooks/use-renderer-configuration';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
+  disableMediaLinking?: boolean;
   document: string;
-  mediaProvider: Promise<MediaProviderType>;
-  mentionProvider: Promise<MentionProvider>;
   emojiProvider: Promise<EmojiResource>;
   intl: InjectedIntl;
+  mediaProvider: Promise<MediaProviderType>;
+  mentionProvider: Promise<MentionProvider>;
   rendererBridge: RendererBridgeImplementation;
 }
 
@@ -78,16 +76,18 @@ type WithSmartCardClientProps = {
 };
 
 type BasicRendererProps = {
-  mediaProvider: Promise<MediaProviderType>;
-  mentionProvider: Promise<MentionProvider>;
-  emojiProvider: Promise<EmojiResource>;
   allowAnnotations: boolean;
   allowHeadingAnchorLinks: boolean;
-  objectAri: string;
   containerAri: string;
+  disableMediaLinking: boolean;
+  disableActions: boolean;
   document: string;
-  intl: InjectedIntl;
+  emojiProvider: Promise<EmojiResource>;
   extensionHandlers: ExtensionHandlers;
+  intl: InjectedIntl;
+  mediaProvider: Promise<MediaProviderType>;
+  mentionProvider: Promise<MentionProvider>;
+  objectAri: string;
   rendererBridge: RendererBridgeImplementation;
 };
 
@@ -108,15 +108,17 @@ const handleRendererContentLoadedBridge = () => {
 };
 
 const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
-  createAnalyticsEvent,
   allowAnnotations,
   allowHeadingAnchorLinks,
+  createAnalyticsEvent,
+  disableActions,
+  disableMediaLinking,
+  document: initialDocument,
   emojiProvider,
+  extensionHandlers,
   mediaProvider,
   mentionProvider,
   rendererBridge,
-  document: initialDocument,
-  extensionHandlers,
 }: WithCreateAnalyticsEventProps) => {
   const document = useRendererContent(initialDocument);
   const providerFactory = useCreateProviderFactory(
@@ -128,10 +130,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
     rendererBridge,
   );
   const rendererContext = useRendererContext(rendererBridge);
-  useRendererConfiguration(rendererBridge);
   const headingAnchorLinksConfig = useHeadingLinks(allowHeadingAnchorLinks);
-  const disableActions = getDisableActionsValue();
-  const disableMediaLinking = getDisableMediaLinkingValue();
   const annotationProvider = useAnnotation(allowAnnotations);
   const innerRef = useRef<HTMLDivElement>(null);
 

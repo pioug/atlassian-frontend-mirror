@@ -99,6 +99,7 @@ export interface Props {
 
 export interface WithSortedPageRowsProps {
   pageRows: Array<RowType>;
+  isTotalPagesControlledExternally?: boolean;
 }
 
 // get one page of data in table, sorting all rows previously
@@ -115,11 +116,26 @@ export default function withSortedPageRows<
       props: Omit<WrappedComponentProps & Props, 'pageRows'>,
       state: { pageRows: Array<RowType> },
     ) {
-      const { rows, head, sortKey, sortOrder, page, rowsPerPage } = props;
+      const {
+        rows,
+        head,
+        sortKey,
+        sortOrder,
+        page,
+        rowsPerPage,
+        isTotalPagesControlledExternally,
+      } = props;
 
       validateSortKey(sortKey, head);
-      const sortedRows = getSortedRows(head, rows, sortKey, sortOrder) || [];
-      const pageRows = getPageRows(sortedRows, page, rowsPerPage);
+      let sortedRows: Array<RowType>;
+      let pageRows: Array<RowType>;
+      if (isTotalPagesControlledExternally) {
+        sortedRows = rows as RowType[];
+        pageRows = rows as RowType[];
+      } else {
+        sortedRows = getSortedRows(head, rows, sortKey, sortOrder) || [];
+        pageRows = getPageRows(sortedRows, page, rowsPerPage);
+      }
 
       return { ...state, pageRows };
     }

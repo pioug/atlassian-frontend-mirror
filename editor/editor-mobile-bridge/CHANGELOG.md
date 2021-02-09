@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 24.0.0
+
+### Major Changes
+
+- [`43f44a3fb3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43f44a3fb3e) - [ED-11244] Change Bridge API - configureEditor to configure
+
+### Minor Changes
+
+- [`b4acdadd949`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4acdadd949) - [ED-11244] Use locale from renderer bridge configuration
+- [`3f428e4b778`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f428e4b778) - [ME-769] Fix codeblock language change for mobile when used in adaptive toolbar
+- [`a3cf6026e33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3cf6026e33) - [ME-303](https://product-fabric.atlassian.net/browse/ME-303) Enable expand to be inserted in mobile
+- [`b552334459c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b552334459c) - [ME-302](https://product-fabric.atlassian.net/browse/ME-302) Introduce table cell options in the floating toolbar for mobile.
+
+  By default table cell options are disabled and hidden for the web.
+
+- [`e06b893e288`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e06b893e288) - [ED-11470] - Adding automation tests to validate Block and inline node lozenges and tooltips
+- [`67fd55dd3f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67fd55dd3f1) - ME-893 Added a new mobile editor configuration for placeholder text
+- [`4d65f8a67f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d65f8a67f4) - [ED-11699] Persist scroll gutter for mobile COMPACT appearance and change mobile scroll gutter to 50px
+- [`84e096e6ac9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84e096e6ac9) - ME-304 Enabled some editing capabilities for adaptive toolbar in mobile
+
+### Patch Changes
+
+- [`32613148067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32613148067) - Move DisableActions, DisableMediaLinking, allowAnnotaions, allowHeadingAnchorLinks feature flags from query param to rendererConfiguration
+- Updated dependencies
+
 ## 23.0.2
 
 ### Patch Changes

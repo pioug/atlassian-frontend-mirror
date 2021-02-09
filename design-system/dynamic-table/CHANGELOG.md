@@ -1,5 +1,15 @@
 # @atlaskit/dynamic-table
 
+## 14.2.0
+
+### Minor Changes
+
+- [`cd41357bdb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd41357bdb0) - Added total number of records for paginated data set to be passed as an optional prop
+
+### Patch Changes
+
+- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+
 ## 14.1.5
 
 ### Patch Changes

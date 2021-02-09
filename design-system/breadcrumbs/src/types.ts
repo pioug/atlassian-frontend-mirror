@@ -1,8 +1,12 @@
 import React from 'react';
 
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 
-export interface BreadcrumbsStatelessProps extends WithAnalyticsEventsProps {
+export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
+  defaultExpanded?: boolean;
   /** Override collapsing of the nav when there are more than maxItems */
   isExpanded?: boolean;
   /** Set the maximum number of breadcrumbs to display. When there are more
@@ -13,42 +17,29 @@ export interface BreadcrumbsStatelessProps extends WithAnalyticsEventsProps {
   children?: React.ReactNode;
   /** A function to be called when you are in the collapsed view and click
    the ellipsis. */
-  onExpand?: (event: React.MouseEvent) => void;
+  onExpand?: (
+    event: React.MouseEvent,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
   /** If max items is exceeded, the number of items to show before the ellipsis */
   itemsBeforeCollapse?: number;
   /** If max items is exceeded, the number of items to show after the ellipsis */
   itemsAfterCollapse?: number;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-   In case of `testId` passed through EllipsisItem, the element will be identified like this: 'testId && `${testId}--breadcrumb-ellipsis'.
-   This can be used to click the elements when they are collapsed. */
 
   /** Additional information to be included in the `context` of analytics events */
   analyticsContext?: Record<string, any>;
 
-  testId?: string;
-}
-
-export interface BreadcrumbsProps {
-  /** Set the maximum number of breadcrumbs to display. When there are more
-   than the maximum number, only the first and last will be shown, with an
-   ellipsis in between. */
-  maxItems?: number;
-  /** The items to be included inside the Breadcrumbs wrapper */
-  children?: React.ReactNode;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
 }
 
 export interface EllipsisItemProps {
-  hasSeparator?: boolean;
-  onClick?: (event: React.MouseEvent) => any;
+  onClick?: (event: React.MouseEvent<Element>) => void;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
 }
 
 export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
-  /** Whether this item will be followed by a separator. */
-  hasSeparator?: boolean;
   /** The url or path which the breadcrumb should act as a link to. */
   href?: string;
   /** An icon to display before the breadcrumb. */
@@ -72,6 +63,8 @@ export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
   /** Additional information to be included in the `context` of analytics events */
   analyticsContext?: Record<string, any>;
 
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+  In case of `testId` passed through EllipsisItem, the element will be identified like this: 'testId && `${testId}--breadcrumb-ellipsis'.
+  This can be used to click the elements when they are collapsed. */
   testId?: string;
 }

@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Turkish
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Kopyalandı!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Kopyala',
+  'fabric.editor.headingLink.copied': 'Kopyalandı!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Başlık bağlantısını kopyala',
+  'fabric.editor.headingLink.failedToCopy': 'Kopyalama işlemi başarısız oldu',
+};

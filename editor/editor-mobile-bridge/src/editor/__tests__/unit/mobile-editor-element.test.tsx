@@ -73,6 +73,13 @@ describe('mobile editor element', () => {
   };
 
   beforeAll(() => {
+    let observeMock = {
+      observe: jest.fn(),
+      disconnect: jest.fn(),
+    };
+
+    (window as any).ResizeObserver = () => observeMock;
+
     // avoid polluting test logs with error message in console
     // please ensure you fix it if you expect console.error to be thrown
     jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -159,15 +166,15 @@ describe('mobile editor element', () => {
       expect(mockedAllowPredictableList).toBeCalled();
     });
 
-    it('should have called isAllowScrollGutter', () => {
-      const mockedAllowScrollGutter = jest.spyOn(
+    it('should have called isScrollGutterPersisted', () => {
+      const mockedPersistScrollGutter = jest.spyOn(
         MobileEditorConfiguration.prototype,
-        'isScrollGutterAllowed',
+        'isScrollGutterPersisted',
       );
 
       initEditor();
 
-      expect(mockedAllowScrollGutter).toBeCalled();
+      expect(mockedPersistScrollGutter).toBeCalled();
     });
   });
 
@@ -178,7 +185,7 @@ describe('mobile editor element', () => {
         'isPredictableListEnabled',
       );
       initEditor();
-      bridge.configureEditor('{"allowPredictableList": true}');
+      bridge.configure('{"allowPredictableList": true}');
       expect(mockedAllowPredictableList).toBeCalled();
     });
   });

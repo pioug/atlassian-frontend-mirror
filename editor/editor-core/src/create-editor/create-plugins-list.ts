@@ -45,7 +45,10 @@ import {
   captionPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
-import { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
+import {
+  GUTTER_SIZE_MOBILE_IN_PX,
+  ScrollGutterPluginOptions,
+} from '../plugins/base/pm-plugins/scroll-gutter';
 import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
 import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
@@ -75,11 +78,7 @@ const isCodeBlockAllowed = (
 export function getScrollGutterOptions(
   props: EditorProps,
 ): ScrollGutterPluginOptions | undefined {
-  const { appearance, allowScrollGutter } = props;
-
-  if (allowScrollGutter === false) {
-    return undefined;
-  }
+  const { appearance, persistScrollGutter } = props;
 
   if (fullPageCheck(appearance)) {
     // Full Page appearance uses a scrollable div wrapper
@@ -93,6 +92,8 @@ export function getScrollGutterOptions(
     return {
       getScrollElement: () => document.body,
       allowCustomScrollHandler: false,
+      persistScrollGutter,
+      gutterSize: GUTTER_SIZE_MOBILE_IN_PX,
     };
   }
   return undefined;
@@ -100,6 +101,7 @@ export function getScrollGutterOptions(
 
 export function getDefaultPresetOptionsFromEditorProps(
   props: EditorProps,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): EditorPresetProps & DefaultPresetPluginOptions {
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
@@ -147,6 +149,7 @@ export function getDefaultPresetOptionsFromEditorProps(
   // END:  temporary code  https://product-fabric.atlassian.net/browse/ED-10260
 
   return {
+    createAnalyticsEvent,
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {
       cardOptions: props.UNSAFE_cards,
@@ -175,6 +178,8 @@ export function getDefaultPresetOptionsFromEditorProps(
     quickInsert: {
       enableElementBrowser:
         props.elementBrowser && props.elementBrowser.showModal,
+      elementBrowserHelpUrl:
+        props.elementBrowser && props.elementBrowser.helpUrl,
       disableDefaultItems: isMobile,
       headless: isMobile,
     },
@@ -186,6 +191,9 @@ export function getDefaultPresetOptionsFromEditorProps(
 
 /**
  * Maps EditorProps to EditorPlugins
+ *
+ * Note: The order that presets are added determines
+ * their placement in the editor toolbar
  */
 export default function createPluginsList(
   props: EditorProps,
@@ -197,7 +205,7 @@ export default function createPluginsList(
   const isComment = appearance === 'comment';
   const isFullPage = fullPageCheck(appearance);
   const preset = createDefaultPreset(
-    getDefaultPresetOptionsFromEditorProps(props),
+    getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
   );
 
   if (props.allowAnalyticsGASV3) {
@@ -510,8 +518,11 @@ export default function createPluginsList(
     preset.add(scrollIntoViewPlugin);
   }
 
-  if (isMobile) {
+  if (isMobile || props.UNSAFE_allowUndoRedoButtons) {
     preset.add(historyPlugin);
+  }
+
+  if (isMobile) {
     preset.add(mobileScrollPlugin);
     preset.add(mobileSelectionPlugin);
   }

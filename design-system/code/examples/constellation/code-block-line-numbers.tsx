@@ -16,8 +16,7 @@ class HelloMessage extends React.Component {
 ReactDOM.render(
   <HelloMessage name="Taylor" />,
   mountNode
-);
-`;
+);`;
 
 export default function CodeBlockLineNumbersExample() {
   return <CodeBlock language="javascript" text={exampleCodeBlock} />;

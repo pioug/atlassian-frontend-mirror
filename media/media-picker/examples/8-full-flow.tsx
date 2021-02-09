@@ -121,8 +121,6 @@ export default class Example extends React.Component<{}, State> {
     });
 
     this.setState({ popup });
-
-    popup.show();
   }
 
   private onUploadEnd = (event: UploadEndEventPayload) => {

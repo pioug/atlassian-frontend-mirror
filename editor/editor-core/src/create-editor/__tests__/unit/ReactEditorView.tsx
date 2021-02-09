@@ -248,6 +248,92 @@ describe('@atlaskit/editor-core', () => {
         wrapper.unmount();
         expect(unmountSpy).toHaveBeenCalledTimes(2);
       });
+
+      describe('valid transaction analytic events (with sampling)', () => {
+        let wrapper: ReactWrapper;
+        const setupEditor = (
+          trackValidTransactions: EditorProps['trackValidTransactions'],
+        ) => {
+          let validTr;
+          wrapper = mountWithIntl(
+            <ReactEditorView
+              {...requiredProps()}
+              {...analyticsProps()}
+              editorProps={{
+                allowDate: true,
+                ...analyticsProps(),
+                ...(trackValidTransactions && { trackValidTransactions }),
+              }}
+            />,
+          );
+          let editor: any = wrapper.instance() as ReactEditorView;
+
+          const dispatchValidTransaction = () => {
+            const { tr } = editor.view.state;
+            validTr = tr.insertText('hello');
+            editor.view.dispatch(validTr);
+          };
+          const dispatchValidTransactionNthTimes = (times: number) => {
+            for (let count = 0; count < times; count++) {
+              dispatchValidTransaction();
+            }
+          };
+          // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+          //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+          mockFire.mockClear();
+          return {
+            dispatchValidTransactionNthTimes,
+          };
+        };
+        const expectedTransactionEvent = {
+          payload: {
+            action: 'dispatchedValidTransaction',
+            actionSubject: 'editor',
+            eventType: 'operational',
+          },
+        };
+
+        afterEach(() => {
+          wrapper.unmount();
+        });
+
+        it('sends V3 analytics event on valid transactions at the custom samplingRate', () => {
+          const trackValidTransactions = { samplingRate: 3 };
+          const { dispatchValidTransactionNthTimes } = setupEditor(
+            trackValidTransactions,
+          );
+          dispatchValidTransactionNthTimes(10);
+          expect(mockFire).toHaveBeenCalledTimes(3);
+          const expectedDispatchedEvents = new Array(3).fill([
+            expectedTransactionEvent,
+          ]);
+          expect((mockFire as jest.Mock).mock.calls).toEqual(
+            expectedDispatchedEvents,
+          );
+        });
+        it('sends V3 analytics event on valid transactions at the default samplingRate if custom samplingRate is not defined', () => {
+          const trackValidTransactions = true;
+          const { dispatchValidTransactionNthTimes } = setupEditor(
+            trackValidTransactions,
+          );
+          dispatchValidTransactionNthTimes(120);
+          expect(mockFire).toHaveBeenCalledTimes(1);
+          const expectedDispatchedEvents = new Array(1).fill([
+            expectedTransactionEvent,
+          ]);
+          expect((mockFire as jest.Mock).mock.calls).toEqual(
+            expectedDispatchedEvents,
+          );
+        });
+        it('does not send V3 analytics event on valid transactions if trackValidTransactions editorProp is not set', () => {
+          const trackValidTransactions = undefined;
+          const { dispatchValidTransactionNthTimes } = setupEditor(
+            trackValidTransactions,
+          );
+          dispatchValidTransactionNthTimes(120);
+          expect(mockFire).toHaveBeenCalledTimes(0);
+        });
+      });
     });
 
     describe('when an invalid transaction is dispatched', () => {
@@ -873,10 +959,10 @@ describe('@atlaskit/editor-core', () => {
       expect(actual).toBe(true);
     });
 
-    it('should return TRUE when allowScrollGutter changed', () => {
+    it('should return TRUE when persistScrollGutter changed', () => {
       const nextProps: EditorProps = {
         ...props,
-        allowScrollGutter: true,
+        persistScrollGutter: true,
       };
 
       const actual = shouldReconfigureState(props, nextProps);

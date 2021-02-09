@@ -6,9 +6,15 @@
  */
 // Polish
 export default {
+  'fabric.editor.captionPlaceholder': 'Dodaj podpis',
   'fabric.editor.collapseNode': 'Zwiń zawartość',
   'fabric.editor.expandDefaultTitle': 'Kliknij tutaj, aby rozwinąć...',
   'fabric.editor.expandNode': 'Rozwiń zawartość',
   'fabric.editor.expandPlaceholder': 'Nadaj temu rozwinięciu tytuł...',
   'fabric.editor.openLink': 'Otwórz łącze na nowej karcie',
+  'fabric.editor.unsupportedBlockContent':
+    'Ten edytor nie obsługuje wyświetlania tej zawartości',
+  'fabric.editor.unsupportedContentTooltip':
+    'Zawartość jest niedostępna w tym edytorze, ale zostanie zachowana, jeśli ją wprowadzisz i zapiszesz',
+  'fabric.editor.unsupportedInlineContent': 'Nieobsługiwana zawartość',
 };

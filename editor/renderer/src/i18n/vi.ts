@@ -5,4 +5,10 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Vietnamese
-export default {};
+export default {
+  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Đã sao chép!',
+  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Sao chép',
+  'fabric.editor.headingLink.copied': 'Đã sao chép!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Sao chép liên kết vào tiêu đề',
+  'fabric.editor.headingLink.failedToCopy': 'Sao chép không thành công',
+};

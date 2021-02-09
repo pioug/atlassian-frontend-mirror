@@ -1,4 +1,5 @@
 import React from 'react';
+import { Schema } from 'prosemirror-model';
 
 import { EditorView } from 'prosemirror-view';
 
@@ -7,7 +8,12 @@ import {
   extensionHandlers,
 } from '@atlaskit/editor-test-helpers';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { validator, ErrorCallback, ADFEntity } from '@atlaskit/adf-utils';
+import {
+  ADFEntity,
+  ErrorCallback,
+  ValidationError,
+  validator,
+} from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mention } from '@atlaskit/util-data-test/mention';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
@@ -17,11 +23,12 @@ import { EditorAppearance, EditorProps } from '../../src/types';
 import { EditorActions } from '../../src';
 
 import {
-  providers,
   mediaProvider,
+  providers,
   quickInsertProvider,
 } from '../../examples/5-full-page';
 import { Error } from '../ErrorReport';
+import { validationErrorHandler } from '@atlaskit/editor-common';
 
 export type ValidatingKitchenSinkEditorProps = {
   actions: EditorActions;
@@ -34,6 +41,7 @@ export type ValidatingKitchenSinkEditorProps = {
   onDocumentChanged?: (adf: any) => void;
   onDocumentValidated?: (errors?: Error[]) => void;
   extensionProviders: EditorProps['extensionProviders'];
+  featureFlags: EditorProps['featureFlags'];
 };
 
 export type ValidatingKitchenSinkEditorState = {
@@ -126,6 +134,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           onChange={() => this.onEditorChanged(actions)}
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
+          featureFlags={this.props.featureFlags}
         />
       </SmartCardProvider>
     );
@@ -207,20 +216,73 @@ export class ValidatingKitchenSinkEditor extends React.Component<
       const nodes = Object.keys(schema.nodes);
       const errors: Array<Error> = [];
 
-      const errorCb: ErrorCallback = (entity, error) => {
-        errors.push({
+      const validate = validator(nodes, marks, {
+        allowPrivateAttributes: true,
+      });
+
+      const errorCb: ErrorCallback = (entity, error, options) => {
+        const wrappedEntity = validationErrorHandler(
           entity,
           error,
-        });
+          options,
+          marks,
+          validate,
+        );
 
-        return entity;
+        if (!wrappedEntity) {
+          return entity;
+        }
+
+        return {
+          ...wrappedEntity,
+          attrs: { ...wrappedEntity.attrs, error, entity },
+        };
       };
 
-      validator(nodes, marks, {
-        allowPrivateAttributes: true,
-      })(doc as ADFEntity, errorCb);
+      const { entity } = validate(doc as ADFEntity, errorCb);
+
+      findErrorsRecursively(entity as ADFEntity, schema, (error, entity) =>
+        errors.push({ entity, error }),
+      );
 
       this.props.onDocumentValidated(errors);
     });
   };
 }
+
+const getAttr = (entity: ADFEntity, attr: string) => {
+  if (!entity || !entity.attrs) {
+    return undefined;
+  }
+  return entity.attrs[attr];
+};
+
+const findErrorsRecursively = (
+  entity: ADFEntity,
+  schema: Schema,
+  errorCallback: (error: ValidationError, entity: ADFEntity) => void,
+) => {
+  const { type: entityType, marks: entityMarks } = entity;
+  const { unsupportedMark, unsupportedNodeAttribute } = schema.marks;
+  const { unsupportedInline, unsupportedBlock } = schema.nodes;
+  if (entityMarks) {
+    entityMarks.forEach(mark => {
+      if (
+        mark.type === unsupportedMark.name ||
+        mark.type === unsupportedNodeAttribute.name
+      ) {
+        errorCallback(getAttr(mark, 'error'), getAttr(mark, 'entity'));
+      }
+    });
+  }
+  if (
+    entityType === unsupportedInline.name ||
+    entityType === unsupportedBlock.name
+  ) {
+    errorCallback(getAttr(entity, 'error'), getAttr(entity, 'entity'));
+  } else {
+    (entity.content || []).forEach(childEntity =>
+      findErrorsRecursively(childEntity as ADFEntity, schema, errorCallback),
+    );
+  }
+};

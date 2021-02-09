@@ -194,7 +194,7 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   handleSubmit = async (formData: FormData) => {
-    const { fields, extensionManifest } = this.props;
+    const { fields, extensionManifest, onChange } = this.props;
     if (!extensionManifest || !fields) {
       return;
     }
@@ -206,7 +206,7 @@ class ConfigPanel extends React.Component<Props, State> {
         fields,
       );
 
-      this.props.onChange(serializedData);
+      onChange(serializedData);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(`Error serializing parameters`, error);

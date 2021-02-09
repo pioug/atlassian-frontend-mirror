@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '../src';
+import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 const data = [
   <BreadcrumbsItem href="/item" key="Item" text="Item" />,
@@ -145,7 +145,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
             }
           />
         </div>
-        <BreadcrumbsStateless
+        <Breadcrumbs
           isExpanded={isExpanded}
           onExpand={e => this.expand(e)}
           maxItems={maxItems}
@@ -153,7 +153,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           itemsAfterCollapse={itemsAfterCollapse}
         >
           {data.slice(0, itemsToShow)}
-        </BreadcrumbsStateless>
+        </Breadcrumbs>
       </React.Fragment>
     );
   }

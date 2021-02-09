@@ -32,6 +32,8 @@ export default {
     'Hoppla, es konnten keine GIFs abgerufen werden.',
   'fabric.media.check_your_network': 'Überprüfen Sie Ihre Netzwerkverbindung.',
   'fabric.media.close': 'Schließen',
+  'fabric.media.close_and_reopen':
+    'Versuchen Sie, diese Datei zu schließen und erneut zu öffnen.',
   'fabric.media.connect_account_description':
     'Es wird eine neue Seite geöffnet, auf der Sie Ihr {name}-Konto verbinden können.',
   'fabric.media.connect_link_account': 'Verknüpfen und Vorschau ansehen',
@@ -49,8 +51,10 @@ export default {
     'Es kann keine Vorschau für verschlüsselte oder passwortgeschützte Dateien erstellt werden.',
   'fabric.media.couldnt_generate_preview':
     'Für diese Datei kann keine Vorschau generiert werden.',
+  'fabric.media.couldnt_load_file': 'Wir konnten die Datei nicht laden.',
   'fabric.media.couldnt_load_link':
     'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
+  'fabric.media.creating_preview': 'Vorschau wird erstellt …',
   'fabric.media.default_avatars': 'Standard-Profilbilder',
   'fabric.media.disable_fullscreen': 'Vollbildmodus deaktivieren',
   'fabric.media.document': 'Dokument',
@@ -59,9 +63,13 @@ export default {
     'Ihre Bilder hierher ziehen und ablegen.',
   'fabric.media.drag_and_drop_your_files':
     'Dateien irgendwohin ziehen und ablegen oder',
+  'fabric.media.drag_and_drop_your_files_and_folders':
+    'Dateien und Ordner per Drag-and-Drop irgendwohin verschieben oder',
   'fabric.media.drop_your_files': 'Dateien zum Hochladen ablegen',
   'fabric.media.drop_your_files_here': 'Dateien hier ablegen',
+  'fabric.media.email': 'E-Mail',
   'fabric.media.enable_fullscreen': 'Vollbildmodus aktivieren',
+  'fabric.media.error_429': 'Fehler 429',
   'fabric.media.error_generating_preview': 'Fehler beim Erzeugen der Vorschau',
   'fabric.media.error_hint_critical':
     'Sollte das Problem bestehen bleiben, wenden Sie sich an den Support.',
@@ -100,16 +108,25 @@ export default {
   'fabric.media.or': 'oder',
   'fabric.media.pause': 'Anhalten',
   'fabric.media.play': 'Abspielen',
+  'fabric.media.playback_default_speed': 'Standard',
+  'fabric.media.playback_speed': 'Geschwindigkeit der Wiedergabe',
   'fabric.media.preview': 'Vorschau',
+  'fabric.media.preview_currently_unavailable':
+    'Vorschau derzeit nicht verfügbar',
+  'fabric.media.preview_rateLimited':
+    'Es gab Probleme bei der Erstellung einer Vorschau.',
+  'fabric.media.preview_unavailable': 'Vorschau nicht verfügbar',
   'fabric.media.recent_uploads': 'Aktuelle Uploads',
   'fabric.media.remove_image': 'Bild löschen',
   'fabric.media.retry': 'Erneut versuchen',
   'fabric.media.save': 'Speichern',
+  'fabric.media.search': 'Suchen',
   'fabric.media.search_all_gifs': 'Durchsuchen Sie alle GIFs!',
   'fabric.media.share_files_instantly': 'Wir teilen sie sofort.',
   'fabric.media.something_went_wrong': 'Irgendetwas ist schiefgelaufen.',
   'fabric.media.srclink': 'Anzeigen in',
   'fabric.media.srclinkunknown': 'Original anzeigen',
+  'fabric.media.text': 'Text',
   'fabric.media.try_again': 'Erneut versuchen',
   'fabric.media.try_another_account':
     'Versuchen Sie es mit einem anderen Konto erneut.',
@@ -127,6 +144,8 @@ export default {
   'fabric.media.upload_photo': 'Foto hochladen',
   'fabric.media.video': 'Video',
   'fabric.media.view': 'Anzeigen',
+  'fabric.media.viewer_rateLimited':
+    'Beim Laden Ihrer Datei gibt es Schwierigkeiten.',
   'fabric.media.webgl_warning_description':
     'Ihr Browser unterstützt WebGL nicht. Verwenden Sie zum Kommentieren von Bildern einen WebGL-fähigen Browser.',
   'fabric.media.zoom_in': 'Vergrößern',

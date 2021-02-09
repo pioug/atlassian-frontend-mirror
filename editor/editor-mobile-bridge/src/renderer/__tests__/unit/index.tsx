@@ -1,6 +1,6 @@
 jest.useFakeTimers();
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { AnnotationTypes } from '@atlaskit/adf-schema/src/schema/marks/annotation';
 import MobileRendererWrapper, {
   MobileRenderer,
@@ -19,12 +19,22 @@ import { nativeBridgeAPI } from '../../web-to-native/implementation';
 import { InjectedIntl } from 'react-intl';
 import { DocumentReflowDetector } from '../../../document-reflow-detector';
 import { eventDispatcher, EmitterEvents } from '../../dispatcher';
-import * as QueryParamReader from '../../../query-param-reader';
-
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
+
 jest.mock('../../../document-reflow-detector');
 jest.mock('../../../editor/web-to-native/dummy-impl');
 jest.mock('../../../renderer/web-to-native/implementation');
+
+jest.mock('../../hooks/use-renderer-configuration', () => ({
+  __esModule: true,
+  default: () => ({
+    getLocale: () => 'fr',
+    isAnnotationsAllowed: () => false,
+    isActionsDisabled: () => false,
+    isMedialinkingDisabled: () => false,
+    isHeadingAnchorLinksAllowed: () => false,
+  }),
+}));
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -75,7 +85,7 @@ afterEach(() => {
     jest.runAllTimers();
     container.remove();
   });
-  jest.clearAllMocks();
+  jest.resetAllMocks();
 });
 
 describe('renderer bridge', () => {
@@ -237,13 +247,41 @@ describe('Mobile Renderer', () => {
     jest
       .spyOn(FetchProxyUtils, 'useFetchProxy')
       .mockReturnValue(new FetchProxyUtils.FetchProxy());
-
-    jest.spyOn(QueryParamReader, 'getLocaleValue').mockReturnValue('fr');
   });
 
   it('should pass locale to Mobile Renderer', () => {
-    const result = shallow(<App document={initialDocument} />);
+    const result = mount(<App document={initialDocument} />);
 
     expect(result.find(MobileRendererWrapper).prop('locale')).toBe('fr');
+  });
+
+  it('should pass allowAnnotations to Mobile Renderer', () => {
+    const result = mount(<App document={initialDocument} />);
+
+    expect(result.find(MobileRendererWrapper).prop('allowAnnotations')).toBe(
+      false,
+    );
+  });
+
+  it('should pass disableActions to Mobile Renderer', () => {
+    const result = mount(<App document={initialDocument} />);
+
+    expect(result.find(MobileRendererWrapper).prop('disableActions')).toBe(
+      false,
+    );
+  });
+
+  it('should pass disableMediaLinking to Mobile Renderer', () => {
+    const result = mount(<App document={initialDocument} />);
+    expect(result.find(MobileRendererWrapper).prop('disableMediaLinking')).toBe(
+      false,
+    );
+  });
+
+  it('should pass disableMediaLinking to Mobile Renderer', () => {
+    const result = mount(<App document={initialDocument} />);
+    expect(
+      result.find(MobileRendererWrapper).prop('allowHeadingAnchorLinks'),
+    ).toBe(false);
   });
 });

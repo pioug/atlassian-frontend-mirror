@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 
-import { BreadcrumbsItem, BreadcrumbsStateless } from '../src';
+import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 export default class BreadcrumbsExpand extends React.Component<
   {},
@@ -19,9 +19,10 @@ export default class BreadcrumbsExpand extends React.Component<
 
   render() {
     return (
-      <BreadcrumbsStateless
+      <Breadcrumbs
         isExpanded={this.state.isExpanded}
         onExpand={e => this.expand(e)}
+        testId="MyBreadcrumbsTestId"
       >
         <BreadcrumbsItem href="/pages" text="Pages" />
         <BreadcrumbsItem href="/pages/home" text="Home" />
@@ -35,7 +36,7 @@ export default class BreadcrumbsExpand extends React.Component<
           iconAfter={<AtlassianIcon label="Test icon" size="small" />}
           text="Icon After"
         />
-      </BreadcrumbsStateless>
+      </Breadcrumbs>
     );
   }
 }

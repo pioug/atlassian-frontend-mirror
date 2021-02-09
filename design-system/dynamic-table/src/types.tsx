@@ -59,9 +59,12 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   isFixedSize?: boolean;
 
   /**
-   * Controls how many rows should be diplayed per page.
+   * Controls how many rows should be displayed per page.
    */
   rowsPerPage?: number;
+
+  /** Total Number of Pages, in case of paginated data. Optional */
+  totalRows?: number;
 
   /**
    * Callback fired when the table page has changed,

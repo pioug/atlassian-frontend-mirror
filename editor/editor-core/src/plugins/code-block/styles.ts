@@ -21,7 +21,7 @@ import { codeBlockClassNames } from './ui/class-names';
 export const codeBlockStyles = css`
   .ProseMirror .code-block {
     position: relative;
-    background: ${overflowShadow({
+    background-image: ${overflowShadow({
       background: themed({ light: colors.N20, dark: colors.DN50 }),
       width: '8px',
     })};
@@ -43,9 +43,8 @@ export const codeBlockStyles = css`
       /* https://bitbucket.org/atlassian/atlassian-frontend/src/develop/packages/design-system/code/src/themes/themeBuilder.ts#packages/design-system/code/src/themes/themeBuilder.ts-19:28 */
       flex-shrink: 0;
       text-align: right;
-      border-radius: ${borderRadius()}px 0 0 ${borderRadius()}px;
       background-color: ${themed({ light: colors.N30, dark: colors.DN20 })};
-      padding: ${gridSize() * 1.5}px ${gridSize()}px;
+      padding: ${gridSize()}px;
 
       span {
         display: block;
@@ -56,9 +55,9 @@ export const codeBlockStyles = css`
           display: inline-block;
           content: counter(line);
           counter-increment: line;
-          font-size: ${fontSize() + 1}px;
-          line-height: 22px;
-          color: ${themed({ light: colors.N90, dark: colors.DN90 })};
+          font-size: ${fontSize()}px;
+          line-height: 24px;
+          color: ${themed({ light: colors.N400, dark: colors.DN400 })};
         }
       }
     }
@@ -73,10 +72,10 @@ export const codeBlockStyles = css`
         cursor: text;
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
         font-size: ${fontSize()}px;
-        line-height: 22px;
-        color: ${themed({ light: colors.N800, dark: colors.DN500 })};
+        line-height: 24px;
+        color: ${themed({ light: colors.N800, dark: colors.DN800 })};
         border-radius: ${borderRadius()}px;
-        margin: ${gridSize() * 1.5}px ${gridSize()}px;
+        margin: ${gridSize()}px;
         white-space: pre;
       }
     }

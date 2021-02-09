@@ -6,9 +6,15 @@
  */
 // French
 export default {
+  'fabric.editor.captionPlaceholder': 'Ajouter une légende',
   'fabric.editor.collapseNode': 'Réduire le contenu',
   'fabric.editor.expandDefaultTitle': 'Cliquez ici pour développer...',
   'fabric.editor.expandNode': 'Développer le contenu',
   'fabric.editor.expandPlaceholder': 'Donnez un titre à cette zone plus large…',
   'fabric.editor.openLink': 'Ouvrir le lien dans un nouvel onglet',
+  'fabric.editor.unsupportedBlockContent':
+    "Cet éditeur ne prend pas en charge l'affichage de ce contenu",
+  'fabric.editor.unsupportedContentTooltip':
+    "Le contenu n'est pas disponible dans cet éditeur, il sera conservé lorsque vous le modifierez et l'enregistrerez",
+  'fabric.editor.unsupportedInlineContent': 'Contenu non pris en charge',
 };

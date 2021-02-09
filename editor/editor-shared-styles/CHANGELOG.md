@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 1.2.1
+
+### Patch Changes
+
+- [`7d24194b639`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d24194b639) - EDM-1717: Fix Safari danger styles for inline smart links
+
 ## 1.2.0
 
 ### Minor Changes

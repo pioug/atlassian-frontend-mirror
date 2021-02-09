@@ -135,14 +135,14 @@ export const codeBlock: NodeSpec = {
         const dom = domNode as HTMLElement;
         // TODO: ED-5604 Fix it inside `react-syntax-highlighter`
         // Remove line numbers
-        const linesCode = dom.querySelector('code');
-        if (
-          linesCode &&
-          linesCode.querySelector('.react-syntax-highlighter-line-number')
-        ) {
+        const linesCode = dom.querySelectorAll(
+          '.react-syntax-highlighter-line-number',
+        );
+
+        if (linesCode.length > 0) {
           // It's possible to copy without the line numbers too hence this
           // `react-syntax-highlighter-line-number` check, so that we don't remove real code
-          linesCode.remove();
+          linesCode.forEach(line => line.remove());
         }
         return {};
       },

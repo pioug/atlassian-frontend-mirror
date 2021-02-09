@@ -104,10 +104,10 @@ const headingAnchorStyle = (headingTag: string) =>
     /**
      * Applies hover effects to the heading anchor link button
      * to fade in when the user rolls over the heading.
-     * 
+     *
      * The link is persistent on mobile, so we use feature detection
      * to enable hover effects for systems that support it (desktop).
-     * 
+     *
      * @see https://caniuse.com/mdn-css_at-rules_media_hover
      */
     @media (hover: hover) and (pointer: fine) {
@@ -177,7 +177,7 @@ const alignedHeadingAnchorStyle = ({
         .${HeadingAnchorWrapperClassName} {
           margin: 0 6px 0 0;
         }
-        
+
         @media (hover: hover) and (pointer: fine) {
           .${HeadingAnchorWrapperClassName} > button {
             transform: translate(8px, 0px);
@@ -560,6 +560,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
     grid-template-columns: minmax(0, 1fr);
     position: relative;
+    border-radius: ${borderRadius()}px;
 
     /*
      * The overall renderer has word-wrap: break; which causes issues with
@@ -590,12 +591,8 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
       height: 32px;
       width: 32px;
       right: 6px;
-      top: 6px;
+      top: 4px;
       padding: 2px;
-    }
-
-    span code {
-      padding: 12px 8px !important;
     }
   }
 

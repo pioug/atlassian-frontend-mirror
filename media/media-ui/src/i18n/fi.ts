@@ -31,6 +31,8 @@ export default {
   'fabric.media.cant_retrieve_gifs': 'Voi ei! Emme voineet noutaa yhtään GIFiä',
   'fabric.media.check_your_network': 'Tarkista verkkoyhteytesi',
   'fabric.media.close': 'Sulje',
+  'fabric.media.close_and_reopen':
+    'Kokeile sulkea tämä tiedosto ja avata se uudelleen.',
   'fabric.media.connect_account_description':
     'Avaamme uuden sivun, jotta voimme auttaa sinua yhdistämään {name} -tilisi',
   'fabric.media.connect_link_account': 'Yhdistä esikatseluun',
@@ -46,8 +48,10 @@ export default {
     'Salattuja tai salasanalla suojattuja tiedostoja ei voi esikatsella.',
   'fabric.media.couldnt_generate_preview':
     'Tälle tiedostolle ei voitu luoda esikatselua.',
+  'fabric.media.couldnt_load_file': 'Tiedostoa ei voitu ladata.',
   'fabric.media.couldnt_load_link':
     'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
+  'fabric.media.creating_preview': 'Luodaan esikatselua...',
   'fabric.media.default_avatars': 'Oletusavatarit',
   'fabric.media.disable_fullscreen': 'poista kokoruututila käytöstä',
   'fabric.media.document': 'asiakirja',
@@ -61,6 +65,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Pudota tiedostosi tänne',
   'fabric.media.email': 'Sähköposti',
   'fabric.media.enable_fullscreen': 'ota kokoruututila käyttöön',
+  'fabric.media.error_429': 'Virhe 429',
   'fabric.media.error_generating_preview': 'Virhe esikatselun luomisessa',
   'fabric.media.error_hint_critical':
     'Jos ongelma toistuu jatkuvasti, ota yhteyttä tukeen.',
@@ -98,7 +103,13 @@ export default {
   'fabric.media.or': 'tai',
   'fabric.media.pause': 'keskeytä',
   'fabric.media.play': 'toista',
+  'fabric.media.playback_default_speed': 'Oletus',
+  'fabric.media.playback_speed': 'Toistonopeus',
   'fabric.media.preview': 'Esikatselu',
+  'fabric.media.preview_currently_unavailable':
+    'Esikatselua ei tällä hetkellä saatavilla',
+  'fabric.media.preview_rateLimited': 'Esikatselun luonnissa ilmeni vaikeuksia',
+  'fabric.media.preview_unavailable': 'Esikatselua ei saatavilla',
   'fabric.media.recent_uploads': 'Viimeaikaiset lataukset',
   'fabric.media.remove_image': 'Poista kuva',
   'fabric.media.retry': 'Yritä uudelleen',
@@ -126,6 +137,7 @@ export default {
   'fabric.media.upload_photo': 'Lataa kuva',
   'fabric.media.video': 'video',
   'fabric.media.view': 'Näytä',
+  'fabric.media.viewer_rateLimited': 'Tiedostosi lataamisessa on ongelma.',
   'fabric.media.webgl_warning_description':
     'Selaimesi ei tue WebGL:ää. Käytä WebGL:ää tukevaa selainta, jos haluat tehdä merkintöjä kuviin.',
   'fabric.media.zoom_in': 'lähennä',

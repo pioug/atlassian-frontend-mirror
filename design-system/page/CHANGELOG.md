@@ -1,5 +1,11 @@
 # @atlaskit/page
 
+## 12.0.5
+
+### Patch Changes
+
+- [`b30ac8f0656`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b30ac8f0656) - Removes an extraneous development dependency
+
 ## 12.0.4
 
 ### Patch Changes

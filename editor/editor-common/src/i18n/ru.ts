@@ -6,10 +6,16 @@
  */
 // Russian
 export default {
+  'fabric.editor.captionPlaceholder': 'Добавьте подпись',
   'fabric.editor.collapseNode': 'Свернуть содержимое',
   'fabric.editor.expandDefaultTitle': 'Нажмите здесь, чтобы развернуть…',
   'fabric.editor.expandNode': 'Разверните содержимое',
   'fabric.editor.expandPlaceholder':
     'Укажите название для развернутого содержимого…',
   'fabric.editor.openLink': 'Открыть ссылку на новой вкладке',
+  'fabric.editor.unsupportedBlockContent':
+    'Этот редактор не поддерживает отображение такого контента',
+  'fabric.editor.unsupportedContentTooltip':
+    'Контент недоступен в этом редакторе, при редактировании и сохранении он останется неизменным',
+  'fabric.editor.unsupportedInlineContent': 'Контент не поддерживается.',
 };

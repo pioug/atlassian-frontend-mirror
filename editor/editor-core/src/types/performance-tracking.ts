@@ -76,6 +76,14 @@ export type UITracking = {
   slowThreshold?: number;
 };
 
+export type CatchAllTracking = {
+  /**
+   * @description Control whether a second operational event with a rough performance measurement is sent for every regular analytics event
+   * @default false
+   */
+  enabled: boolean;
+};
+
 export type NodeViewTracking = {
   /**
    * @description Control whether
@@ -198,6 +206,11 @@ export interface InputTracking {
 }
 
 export type PerformanceTracking = {
+  /**
+   * @description Control whether measurements for all analytics events are performed
+   */
+  catchAllTracking?: CatchAllTracking;
+
   /**
    * @description Control whether time to interactive is tracked
    */

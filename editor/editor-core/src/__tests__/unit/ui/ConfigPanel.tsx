@@ -25,16 +25,16 @@ import {
   MountResult,
   Props,
   Wrapper,
-  eventuallyFind,
-  typeInField,
-  toggleCheckbox,
-  createOption,
-  selectOption,
   createOptionResolver,
-  mockJiraSmartUserProvider,
   createProvider,
+  eventuallyFind,
+  getFieldErrors,
+  mockJiraSmartUserProvider,
   mountWithProviders,
+  resolveOption,
   silenceActErrors,
+  toggleCheckbox,
+  typeInField,
 } from './_ConfigPanel_helpers';
 
 beforeEach(() => {
@@ -85,16 +85,11 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         wrapper,
         trySubmit,
       }: Pick<MountResult<T>, 'wrapper' | 'trySubmit'>) {
-        expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
-          undefined,
-        );
-
+        expect(getFieldErrors(wrapper)).toStrictEqual([]);
         await trySubmit();
 
         expect(onChange).toBeCalledTimes(0);
-        expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
-          'required',
-        );
+        expect(getFieldErrors(wrapper)).toStrictEqual(['required']);
       }
 
       describe('Analytics', () => {
@@ -392,9 +387,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await trySubmit();
 
             expect(onChange).toBeCalledTimes(0);
-            expect(wrapper.find('FieldMessages').prop('error')).toStrictEqual(
-              'invalid',
-            );
+            expect(getFieldErrors(wrapper)).toStrictEqual(['invalid']);
           });
 
           describe('prop: isRequired', () => {
@@ -424,7 +417,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 },
               ]),
               parameters: {
-                creationDate: '02/02/2020',
+                creationDate: '02/22/2020',
               },
             });
           });
@@ -441,7 +434,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({
-              creationDate: '02/02/2020',
+              creationDate: '02/22/2020',
             });
           });
 
@@ -539,6 +532,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             toggleCheckbox(field.find('input').at(1));
 
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -551,6 +545,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             toggleCheckbox(field.find('input').at(2));
 
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -563,6 +558,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             toggleCheckbox(field.find('input').at(3));
 
             await trySubmit();
+            //await flushPromises(); // TODO: why not
 
             expect(onChange).toHaveBeenCalledWith({
               created: {
@@ -686,9 +682,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           it('should serialize to an object', async () => {
             const { wrapper, trySubmit } = mountResult;
 
-            const field = wrapper.find('Select');
-
-            expect(await selectOption(field, 'a')).toBe(true);
+            expect(await resolveOption(wrapper, 'A')).toBe(true);
             await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ list: 'a' });
@@ -742,10 +736,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const { wrapper, trySubmit } = await mountEnumWithProps({
                 isMultiple: true,
               });
-              const field = wrapper.find('Select');
 
-              expect(await selectOption(field, 'c')).toBe(true);
-              expect(await selectOption(field, 'b')).toBe(true);
+              expect(await resolveOption(wrapper, 'C')).toBe(true);
+              expect(await resolveOption(wrapper, 'B')).toBe(true);
               await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({ list: ['c', 'b'] });
@@ -789,9 +782,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   isMultiple: true,
                   style: 'radio' as any /* set to any because is invalid */,
                 });
-                expect(wrapper.find('FieldMessages').prop('error')).toBe(
+
+                expect(getFieldErrors(wrapper)).toStrictEqual([
                   FieldTypeError.isMultipleAndRadio,
-                );
+                ]);
               });
             });
           });
@@ -853,9 +847,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           it('should serialize to {user: value}', async () => {
             const { wrapper, trySubmit } = await mountCustom();
-            const field = wrapper.find('Select');
 
-            expect(await selectOption(field, 'u123i1431')).toBe(true);
+            expect(await resolveOption(wrapper, 'Leandro')).toBe(true);
             await trySubmit();
 
             expect(onChange).toHaveBeenCalledWith({ user: 'u123i1431' });
@@ -869,9 +862,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   isCreatable: false,
                 },
               );
-              const select = wrapper.find('Select');
 
-              expect(await createOption(select, 'foo')).toBe(false);
+              expect(await resolveOption(wrapper, 'foo')).toBe(false);
               await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
@@ -886,9 +878,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   isCreatable: true,
                 },
               );
-              const select = wrapper.find('Select');
 
-              expect(await createOption(select, 'foo')).toBe(true);
+              expect(await resolveOption(wrapper, 'foo')).toBe(true);
               await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
@@ -903,9 +894,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   isCreatable: true,
                 },
               );
-              const select = wrapper.find('Select');
 
-              expect(await createOption(select, 'foo')).toBe(true);
+              expect(await resolveOption(wrapper, 'foo')).toBe(true);
               await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
@@ -932,10 +922,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const { wrapper, trySubmit } = await mountCustom({
                 isMultiple: true,
               });
-              const field = wrapper.find('Select');
 
-              expect(await selectOption(field, 'u123i1431')).toBe(true);
-              expect(await selectOption(field, 'j78635820')).toBe(true);
+              expect(await resolveOption(wrapper, 'Leandro')).toBe(true);
+              expect(await resolveOption(wrapper, 'Rodrigo')).toBe(true);
               await trySubmit();
 
               expect(onChange).toHaveBeenCalledWith({
@@ -1065,10 +1054,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             typeInField(wrapper.find('Textfield').at(0).find('input'), 'foo');
             typeInField(wrapper.find('Textfield').at(1).find('input'), '123');
 
-            expect(
-              await selectOption(wrapper.find('Select'), 'u123i1431'),
-            ).toBe(true);
+            expect(await resolveOption(wrapper, 'Leandro')).toBe(true);
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               settings: JSON.stringify({
@@ -1094,6 +1082,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             typeInField(field, 'bar');
 
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(consoleError).toHaveBeenCalledWith(
               'Error serializing parameters',
@@ -1115,6 +1104,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             });
 
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               settings: JSON.stringify({
@@ -1180,7 +1170,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               'nested.foo',
             ]);
 
+            await flushPromises(); // TODO: why
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               foo: 'hello',
@@ -1193,6 +1185,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             typeInField(textfields.at(1).find('input'), 'editor');
 
             await trySubmit();
+            await flushPromises(); // TODO: why
 
             expect(onChange).toHaveBeenCalledWith({
               foo: 'bye',
@@ -1227,9 +1220,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             clickAddFieldButton(wrapper);
 
             expect(
-              await selectOption(
-                wrapper.find('[testId="fieldset-actions"]').find('Select'),
-                'USER',
+              await resolveOption(
+                wrapper.find('[testId="fieldset-actions"]'),
+                'User',
               ),
             ).toBe(true);
 
@@ -1258,9 +1251,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             clickAddFieldButton(wrapper);
 
             expect(
-              await selectOption(
-                wrapper.find('[testId="fieldset-actions"]').find('Select'),
-                'depth',
+              await resolveOption(
+                wrapper.find('[testId="fieldset-actions"]'),
+                'Depth',
               ),
             ).toBe(true);
 
@@ -1568,7 +1561,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               ),
               parameters,
             });
-
+            expect(pickerWithDefaultValue).toHaveBeenCalledTimes(1);
             expect(pickerWithDefaultValue).toHaveBeenCalledWith(
               undefined,
               'akumar',
@@ -1612,7 +1605,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 ),
                 parameters,
               });
-
+              expect(pickerWithDefaultValue).toHaveBeenCalledTimes(1);
               expect(pickerWithDefaultValue).toHaveBeenCalledWith(
                 undefined,
                 ['akumar', 'llemos', 'rnabi', 'jquintana'],

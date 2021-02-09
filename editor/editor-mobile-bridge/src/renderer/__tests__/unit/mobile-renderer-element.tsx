@@ -18,8 +18,6 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { InjectedIntl } from 'react-intl';
 import * as useTranslations from '../../../i18n/use-translations';
 import RendererBridgeImplementation from '../../native-to-web/implementation';
-import * as configurationHook from '../../hooks/use-renderer-configuration';
-import RendererConfiguration from '../../renderer-configuration';
 
 jest.mock('../../../bridge-utils');
 describe('renderer bridge', () => {
@@ -49,10 +47,8 @@ describe('renderer bridge', () => {
       jest.restoreAllMocks();
     });
     let useRendererContentSpy: any;
-    let useRendererConfigurationSpy: any;
     beforeEach(() => {
       useRendererContentSpy = jest.spyOn(rendererHook, 'useRendererContent');
-      useRendererConfigurationSpy = jest.spyOn(configurationHook, 'default');
     });
 
     it('should call useRendererContent when Mobile renderer is loaded', () => {
@@ -101,25 +97,6 @@ describe('renderer bridge', () => {
 
       expect(basicRendererIntlProp.locale).toBe('pl');
       expect(basicRendererIntlProp.messages).toBe(messages);
-    });
-
-    it('should call useRendererConfiguration when Mobile renderer is loaded', () => {
-      useRendererConfigurationSpy.mockImplementation(
-        () => new RendererConfiguration(),
-      );
-      mount(
-        <MobileRenderer
-          document={''}
-          cardClient={createCardClient()}
-          emojiProvider={createEmojiProvider(fetchProxy)}
-          mediaProvider={createMediaProvider()}
-          mentionProvider={createMentionProvider()}
-          intl={intlMock}
-          rendererBridge={rendererBridge}
-        />,
-      );
-
-      expect(useRendererConfigurationSpy).toHaveBeenCalledTimes(1);
     });
   });
 

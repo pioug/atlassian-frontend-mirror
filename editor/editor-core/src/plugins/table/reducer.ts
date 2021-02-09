@@ -83,6 +83,23 @@ export default (
       };
 
     case 'ADD_RESIZE_HANDLE_DECORATIONS':
+      if (
+        action.data.resizeHandleColumnIndex ===
+        pluginState.resizeHandleColumnIndex
+      ) {
+        return pluginState;
+      }
+      return { ...pluginState, ...action.data };
+
+    case 'SET_TABLE_SIZE':
+      if (
+        pluginState.tableWidth !== action.data.tableWidth ||
+        pluginState.tableHeight !== action.data.tableHeight
+      ) {
+        return { ...pluginState, ...action.data };
+      }
+      return pluginState;
+
     case 'SET_TABLE_REF':
     case 'HOVER_ROWS':
     case 'HOVER_COLUMNS':
@@ -91,6 +108,7 @@ export default (
     case 'SHOW_RESIZE_HANDLE_LINE':
     case 'SET_EDITOR_FOCUS':
       return { ...pluginState, ...action.data };
+
     default:
       return pluginState;
   }

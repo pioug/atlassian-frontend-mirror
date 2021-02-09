@@ -6,9 +6,15 @@
  */
 // Swedish
 export default {
+  'fabric.editor.captionPlaceholder': 'Lägg till en bildtext',
   'fabric.editor.collapseNode': 'komprimera innehåll',
   'fabric.editor.expandDefaultTitle': 'Klicka här för att expandera ...',
   'fabric.editor.expandNode': 'Expandera innehåll',
   'fabric.editor.expandPlaceholder': 'Ge expanderingen en titel ...',
   'fabric.editor.openLink': 'Öppna länk i en ny flik',
+  'fabric.editor.unsupportedBlockContent':
+    'Denna redigerare har inte stöd för visning av detta innehåll',
+  'fabric.editor.unsupportedContentTooltip':
+    'Innehållet är inte tillgängligt i denna redigerare, detta bevaras när du redigerar och sparar',
+  'fabric.editor.unsupportedInlineContent': 'Innehåll utan stöd',
 };

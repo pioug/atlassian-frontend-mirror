@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 13.0.8
+
+### Patch Changes
+
+- [`37afe4a0fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37afe4a0fd5) - [ux] Update Dropbox icon and arrow-left icon
+
 ## 13.0.7
 
 ### Patch Changes

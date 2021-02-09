@@ -3,14 +3,11 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { Notifications } from '@atlaskit/atlassian-navigation';
 import { Notifications as NotificationsIframe } from '@atlaskit/atlassian-notifications';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Popup from '@atlaskit/popup';
-/* eslint-enable import/no-extraneous-dependencies */
-
 const wrapperCSS = {
   width: 540,
   height: 'calc(100vh - 200px)',

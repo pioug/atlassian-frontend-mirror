@@ -5,4 +5,16 @@
  * DO NOT CHANGE IT BY HAND or your changes will be lost.
  */
 // Norwegian Bokmål
-export default {};
+export default {
+  'fabric.editor.captionPlaceholder': 'Legg til bildetekst',
+  'fabric.editor.collapseNode': 'Minimer innhold',
+  'fabric.editor.expandDefaultTitle': 'Klikk her for å utvide …',
+  'fabric.editor.expandNode': 'Utvid innhold',
+  'fabric.editor.expandPlaceholder': 'Gi denne utvidelsen et navn …',
+  'fabric.editor.openLink': 'Åpne kobling i en ny fane',
+  'fabric.editor.unsupportedBlockContent':
+    'Denne redigeringsmodulen støtter ikke visning av dette innholdet',
+  'fabric.editor.unsupportedContentTooltip':
+    'Innholdet er ikke tilgjengelig i denne redigeringsmodulen – det bevares når du redigerer og lagrer',
+  'fabric.editor.unsupportedInlineContent': 'Innholdet støttes ikke',
+};

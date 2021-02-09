@@ -4,7 +4,11 @@ import EditorActions from '../../actions';
 
 export type EditorContextProps = { editorActions?: EditorActions };
 
-export default class EditorContext extends React.Component<
+const EditorContext = React.createContext({});
+
+export const useEditorContext = () =>
+  React.useContext<EditorContextProps>(EditorContext);
+export default class LegacyEditorContext extends React.Component<
   EditorContextProps,
   {}
 > {
@@ -26,6 +30,10 @@ export default class EditorContext extends React.Component<
   }
 
   render() {
-    return React.Children.only(this.props.children);
+    return (
+      <EditorContext.Provider value={this.getChildContext()}>
+        {this.props.children}
+      </EditorContext.Provider>
+    );
   }
 }

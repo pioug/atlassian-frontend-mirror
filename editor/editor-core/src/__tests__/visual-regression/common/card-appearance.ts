@@ -1,31 +1,34 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  PuppeteerPage,
+  waitForElementCount,
+} from '@atlaskit/visual-regression/helper';
+import { initFullPageEditorWithAdf, snapshot, Device } from '../_utils';
 import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import cardListAppearanceAdf from './__fixtures__/card-list-appearance.adf.json';
+import cardInsideLayout from './__fixtures__/card-inside-layout-adf.json';
 import cardListBlueLinkAppearanceAdf from './__fixtures__/card-list-blue-link-appearance.adf.json';
 import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
+  blockCardSelector,
 } from '@atlaskit/media-integration-test-helpers';
+import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 
 describe('Cards:', () => {
-  const initEditor = async (adf: any) => {
-    await initFullPageEditorWithAdf(
-      page,
-      adf,
-      undefined,
-      {
-        width: 950,
-        height: 1020,
+  const initEditor = async (
+    adf: any,
+    viewport: { width: number; height: number } = {
+      width: 950,
+      height: 1020,
+    },
+  ) => {
+    await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI, viewport, {
+      UNSAFE_cards: {
+        resolveBeforeMacros: ['jira'],
+        allowBlockCards: true,
+        allowEmbeds: true,
       },
-      {
-        UNSAFE_cards: {
-          resolveBeforeMacros: ['jira'],
-          allowBlockCards: true,
-          allowEmbeds: true,
-        },
-      },
-    );
+    });
   };
 
   let page: PuppeteerPage;
@@ -99,6 +102,41 @@ describe('Cards:', () => {
     await page.waitForSelector(
       '[aria-label="Popup"][data-editor-popup="true"]',
     );
+    await snapshot(page);
+  });
+
+  // [EDM-1580]
+  it('can switch appearance inside layouts', async () => {
+    await initEditor(cardInsideLayout, {
+      width: 1440,
+      height: 1020,
+    });
+    await waitForResolvedInlineCard(page);
+    await waitForInlineCardSelection(page);
+    // change the appearance to block
+    await page.click(
+      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
+    );
+    await page.mouse.move(0, 0);
+    await page.waitForSelector(
+      '[aria-label="Popup"][data-editor-popup="true"]',
+    );
+    await page.click('[data-testid="block-appearance"]');
+    await snapshot(page);
+    // change the appearance to embed
+    await page.click(blockCardSelector());
+    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
+    await page.click(
+      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
+    );
+    await page.mouse.move(0, 0);
+    await page.waitForSelector(
+      '[aria-label="Popup"][data-editor-popup="true"]',
+    );
+    await page.click('[data-testid="embed-appearance"]');
+    await waitForFloatingControl(page, 'Card options');
+    await waitForElementCount(page, '[data-iframe-loaded="true"]', 1);
+    await page.hover('.embed-header');
     await snapshot(page);
   });
 });

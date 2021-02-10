@@ -195,7 +195,7 @@ Previously, when an overlay was used, the button simply applied `pointer-events:
 - Documentation cleanup
 - Examples cleanup
 
-## Automatic upgrading
+**Automatic upgrading**
 
 We have created some tooling to automatically upgrade your usage of Button!
 

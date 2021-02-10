@@ -4,111 +4,111 @@
 
 ### Major Changes
 
-- [`ee02ee0aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee02ee0aaa) - In this version, we made `Checkbox` dramatically faster and more lightweight 😍
+In this version, we made `Checkbox` dramatically faster and more lightweight 😍
 
-  ## Changes
+### Changes
 
-  In `12.0.0` we improved the performance of `Checkbox` by making it more similar to a native checkbox and removing performance-heavy API.
+In `12.0.0` we improved the performance of `Checkbox` by making it more similar to a native checkbox and removing performance-heavy API.
 
-  ### Overrides
+### Overrides
 
-  `overrides` is an API that allowed extreme customisation flexibility. Previously you could customise the css and attributes of 6 internal components or replace the component entirely.
+`overrides` is an API that allowed extreme customisation flexibility. Previously you could customise the css and attributes of 6 internal components or replace the component entirely.
 
-  ```
-  <Checkbox
-   overrides={{
-     IconWrapper: {
-       cssFn: defaultStyles => {
-         ...defaultStyles,
-         transition: 'all 0.3 cubic-bezier',
-        },
-       component: SomeCustomComponent,
-       attributes: { 'data-custom': true }
-     }
-   }}
-  />
-  ```
+```
+<Checkbox
+  overrides={{
+    IconWrapper: {
+      cssFn: defaultStyles => {
+        ...defaultStyles,
+        transition: 'all 0.3 cubic-bezier',
+      },
+      component: SomeCustomComponent,
+      attributes: { 'data-custom': true }
+    }
+  }}
+/>
+```
 
-  This proved to be a significant performance problem even if you weren't using the API. It also exposes internal structure as external API which prevents us from changing the structure and improving the component. We found that not many consumers were using `overrides` so we decided to benefit all consumers of `Checkbox` we have removed `overrides` from the package. If you are using `overrides` and we haven't already been in contact with you, contact the design system team for assistance in migrating away from it.
+This proved to be a significant performance problem even if you weren't using the API. It also exposes internal structure as external API which prevents us from changing the structure and improving the component. We found that not many consumers were using `overrides` so we decided to benefit all consumers of `Checkbox` we have removed `overrides` from the package. If you are using `overrides` and we haven't already been in contact with you, contact the design system team for assistance in migrating away from it.
 
-  ## Theming
+### Theming
 
-  `theme` is another API that allows you to customise the appearance of `Checkbox`. Theming could previously be used to customise the various colours, spacing and sizes used in `Checkbox`. Much like `overrides` there was minimal usage of this API and it was identified to have a negative performance impact regardless of whether it was used.
+`theme` is another API that allows you to customise the appearance of `Checkbox`. Theming could previously be used to customise the various colours, spacing and sizes used in `Checkbox`. Much like `overrides` there was minimal usage of this API and it was identified to have a negative performance impact regardless of whether it was used.
 
-  We decided to also remove this API to benefit all consumers of `Checkbox`. If you would like to continue customising checkbox there are now two ways of doing this. `Checkbox` now spreads any `HTMLInputAttribute` onto the checkbox input. Therefore you can put a `className` on the checkbox input and target the svg that is actually being shown, in the exact same way that we target the svg based off checkbox styles. For example,
+We decided to also remove this API to benefit all consumers of `Checkbox`. If you would like to continue customising checkbox there are now two ways of doing this. `Checkbox` now spreads any `HTMLInputAttribute` onto the checkbox input. Therefore you can put a `className` on the checkbox input and target the svg that is actually being shown, in the exact same way that we target the svg based off checkbox styles. For example,
 
-  ```
-  import React from 'react';
-  import { css } from '@emotion/core';
-  import { Checkbox } from '@atlaskit/checkbox;
+```
+import React from 'react';
+import { css } from '@emotion/core';
+import { Checkbox } from '@atlaskit/checkbox;
 
-  export default function CustomStyleExample() {
-    return (
-      <Checkbox
-        label="Custom style checkbox"
-        css={css`
-          & + svg {
-            margin-left: -2px;
-          }
-        `}
-      />
-    )
-  }
-  ```
+export default function CustomStyleExample() {
+  return (
+    <Checkbox
+      label="Custom style checkbox"
+      css={css`
+        & + svg {
+          margin-left: -2px;
+        }
+      `}
+    />
+  )
+}
+```
 
-  You can also customise the size of the `Checkbox` with the size prop.
+You can also customise the size of the `Checkbox` with the size prop.
 
-  ```
-  import React from 'react';
+```
+import React from 'react';
 
-  import { Checkbox } from '@atlaskit/Checkbox';
+import { Checkbox } from '@atlaskit/Checkbox';
 
-  export default function LargeSizeExample() {
-    return (
-      <Checkbox
-        defaultChecked
-        value="Large checkbox"
-        label="Large checkbox"
-        name="checkbox-basic"
-        size="large"
-        testId="large"
-      />
-    );
-  }
+export default function LargeSizeExample() {
+  return (
+    <Checkbox
+      defaultChecked
+      value="Large checkbox"
+      label="Large checkbox"
+      name="checkbox-basic"
+      size="large"
+      testId="large"
+    />
+  );
+}
 
-  ```
+```
 
-  Note that `Checkbox` still supports the light mode / dark mode global token. Along with this change we have removed the exports `ComponentTokens` and `ThemeFn` from `Checkbox` as they can no longer be used with the removal of `theme`.
+Note that `Checkbox` still supports the light mode / dark mode global token. Along with this change we have removed the exports `ComponentTokens` and `ThemeFn` from `Checkbox` as they can no longer be used with the removal of `theme`.
 
-  ### Other changes
+### Other changes
 
-  - Previously all interaction styles were generated in JS using events, causing unnecessary and slow rerenders for actions like hovering and focusing. Now all styles for the `Checkbox` are applied using css selectors.
-  - To generate less dom elements we have removed the dependency on `@atlaskit/icon` and instead changed to an `svg` that can be customised to be the default checkbox or the indeterminate checkbox. This `svg` is styled from the input element with the sibling selector.
-  - The disabled state of `Checkbox` previously had no border. This was not intentional and now `Checkbox` has a 2px border when it is disabled, this is consistent with all other states of `Checkbox`.
-  - `CheckboxProps` now extends `HTMLInputAttribute` which means you can pass any input attribute as a prop onto `Checkbox`.
-  - Changed the `inputRef` prop to be `ref` which returns the `ref` of the checkbox input using `forwardRef`. This new `ref` prop will accept the type of the old `inputRef` prop, `(input?: HTMLInputElement) => any`, as well as if `ref` is created with `createRef`.
-  - Removed the prop `isFullWidth` as it did not do anything.
-  - Updated the entry point to only export `Checkbox` and `CheckboxProps`. `Checkbox` can now be a named or default import. As the old entry point allowed access to every export at the base level these exports have now been removed; `ComponentTokens`, `ThemeFn`, `CheckboxWithoutAnalytics`, `CheckboxIcon` as well as all exported types.
-  - Changed indeterminate checkboxes to set `aria-checked` to be `mixed`.
+- Previously all interaction styles were generated in JS using events, causing unnecessary and slow rerenders for actions like hovering and focusing. Now all styles for the `Checkbox` are applied using css selectors.
+- To generate less dom elements we have removed the dependency on `@atlaskit/icon` and instead changed to an `svg` that can be customised to be the default checkbox or the indeterminate checkbox. This `svg` is styled from the input element with the sibling selector.
+- The disabled state of `Checkbox` previously had no border. This was not intentional and now `Checkbox` has a 2px border when it is disabled, this is consistent with all other states of `Checkbox`.
+- `CheckboxProps` now extends `HTMLInputAttribute` which means you can pass any input attribute as a prop onto `Checkbox`.
+- Changed the `inputRef` prop to be `ref` which returns the `ref` of the checkbox input using `forwardRef`. This new `ref` prop will accept the type of the old `inputRef` prop, `(input?: HTMLInputElement) => any`, as well as if `ref` is created with `createRef`.
+- Removed the prop `isFullWidth` as it did not do anything.
+- Updated the entry point to only export `Checkbox` and `CheckboxProps`. `Checkbox` can now be a named or default import. As the old entry point allowed access to every export at the base level these exports have now been removed; `ComponentTokens`, `ThemeFn`, `CheckboxWithoutAnalytics`, `CheckboxIcon` as well as all exported types.
+- Changed indeterminate checkboxes to set `aria-checked` to be `mixed`.
 
-  ### Automatic upgrading
+### Automatic upgrading
 
-  There is a codemod that assists you in upgrading most of the changes from above.
+There is a codemod that assists you in upgrading most of the changes from above.
 
-  - Removes `isFullWidth`, `theme` and `overrides` prop.
-  - Shifts over usages of `inputRef` to `ref`
-  - Removes imports of `ComponentTokens` and `ThemeFn`.
-  - Changes imports of `CheckboxProps` to be at the base level.
-  - Changes imports of `CheckboxWithoutAnalytics` to import `Checkbox` at the base level.
+- Removes `isFullWidth`, `theme` and `overrides` prop.
+- Shifts over usages of `inputRef` to `ref`
+- Removes imports of `ComponentTokens` and `ThemeFn`.
+- Changes imports of `CheckboxProps` to be at the base level.
+- Changes imports of `CheckboxWithoutAnalytics` to import `Checkbox` at the base level.
 
-  ```
-  # You first need to have the latest `Checkbox` installed before you can run the codemod
-  yarn upgrade @atlaskit/checkbox@^12.0.0
+```
+# You first need to have the latest `Checkbox` installed before you can run the codemod
+yarn upgrade @atlaskit/checkbox@^12.0.0
 
-  # Run the codemod cli
-  # Pass in a parser for your codebase
-  npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
-  ```
+# Run the codemod cli
+# Pass in a parser for your codebase
+npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
+```
 
 ### Patch Changes
 
@@ -797,7 +797,7 @@
   `@atlaskit/checkbox` 5.x is part of an ongoing body of work to normalize atlaskit form components.
   There are a few breaking changes you need to be aware of in upgrading from 4.x to 5.x.
 
-  ## Exports
+  **Exports**
 
   `@atlaskit/checkbox` no longer specifies the Checkbox component as the default export.
   Moreover the following changes have been made to exports from the `@atlaskit/checkbox` package.
@@ -829,7 +829,7 @@
   - It was really a thin wrapper enforcing very basic styling opinions over its children (display: flex, flex: column).
   - The existing styling blocks the horizontal display of checkbox group children.
 
-  ## Prop Changes
+  **Prop Changes**
 
   - `<Checkbox/>` - `initiallyChecked` renamed to `defaultChecked`
   - `<Checkbox/>` - `label` prop now accepts type Node instead of type string.

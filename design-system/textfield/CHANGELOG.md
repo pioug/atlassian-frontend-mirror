@@ -4,15 +4,17 @@
 
 ### Major Changes
 
-- [`9d0f54a809`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d0f54a809) - ## Brief
+- [`9d0f54a809`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d0f54a809)
+
+  **Summary**
 
   The goal of this major for TextField is to improve the component's performance, by both reducing static structure and avoiding unnecessary function calls.
 
-  ## Changes
+  **Changes**
 
   In this version we improved the performance of `TextField` by making it more similar to a native input field and removing the slow theme prop.
 
-  ## Theming
+  **Theming**
 
   The `theme` prop allows you to customize the appearance of `TextField`.
   Theming was previously used to customize the container div and input element styling in `TextField`.
@@ -22,10 +24,10 @@
   If you would like to continue customizing TextField we have added data attributes (`data-ds--text-field--container` and `data-ds--text-field--input`) to both container div and input element of `TextField`.
   Therefore consumers can use this if they want to override style of respective element in `TextField`. For example,
 
-  ```
+  ```jsx
   import React from 'react';
   import { css } from '@emotion/core';
-  import { TextField } from '@atlaskit/textfield;
+  import { TextField } from '@atlaskit/textfield';
 
   export default function CustomStyleExample() {
     return (
@@ -39,16 +41,16 @@
           },
         }}
       />
-    )
+    );
   }
   ```
 
   You can also override CSS using `className` and data-attributes in `TextField`.
 
-  ```
+  ```jsx
   // component
   import React from 'react';
-  import { TextField } from '@atlaskit/textfield;
+  import { TextField } from '@atlaskit/textfield';
   import './styles.css';
 
   export default () => {

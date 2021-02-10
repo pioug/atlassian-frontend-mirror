@@ -168,7 +168,7 @@
 
   For more information on @atlaskit/codemod-cli please refer to [this doc](https://atlaskit.atlassian.com/docs/guides/atlassian-codemods)
 
-  ## Summary
+  **Summary**
 
   - Fixes re-rendering issues
   - Removes all deprecated theme API. This includes previous experimental dark-mode theme support
@@ -177,7 +177,7 @@
   - Removes all usage of HOCs
   - Replaces `styled-components` v3 with `@emotion/core` to improve runtime and bundlesize
 
-  ### Avatar API / PROP CHANGES
+  **Avatar API / PROP CHANGES**
 
   - `enableTooltip` removed. Please use `@atlaskit/tooltip` instead
   - `onClick` method signature has been simplified to `onChange(event, analyticsEvent)`
@@ -190,7 +190,7 @@
   - `BORDER_WIDTH` is now a single value rather than an object
   - `withPseudoState`, `getProps`, `getBorderRadius`, `getInnerStyles` have been removed and are therefor no longer available. These methods were for designed for internal use and use within the AvatarGroup component.
 
-  ## Avatar Item API / PROP CHANGES
+  **Avatar Item API / PROP CHANGES**
 
   - `enableTruncation` renamed to `isTruncationDisabled`
   - `onClick` method signature has been simplified to `onChange(event, analyticsEvent)`

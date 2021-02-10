@@ -191,7 +191,7 @@
   - To highlight sequential and multiple single lines:
     `highlight="1-5,7,10,15-20"`
 
-  ## `AkCodeBlock` component
+  **`AkCodeBlock` component**
 
   Use the `highlight` prop.
 
@@ -209,7 +209,7 @@
   />;
   ```
 
-  ## `Example` component
+  **`Example` component**
 
   Use the `highlight` prop.
 
@@ -225,7 +225,7 @@
   />;
   ```
 
-  ## `code` template literal
+  **`code` template literal**
 
   Add `highlight=` to the top of your code snippet.
   It takes the same values as the `highlight` prop.

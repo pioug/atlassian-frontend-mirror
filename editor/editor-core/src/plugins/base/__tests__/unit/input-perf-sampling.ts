@@ -204,8 +204,8 @@ describe('Input performance latency', () => {
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
       });
-
-      it('should send analytics event with severity degraded when duration > custom severityNormalThreshold', async () => {
+      // Skipped for flakiness, follow up work to unskip: https://product-fabric.atlassian.net/browse/ED-12051
+      it.skip('should send analytics event with severity degraded when duration > custom severityNormalThreshold', async () => {
         const { editorView, dispatchAnalyticsEvent } = createEditor(
           adfDoc,
           true,

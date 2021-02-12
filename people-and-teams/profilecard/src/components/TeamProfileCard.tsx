@@ -2,42 +2,42 @@ import React, { useState } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
+import AvatarGroup from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
 import LoadingButton from '@atlaskit/button/loading-button';
+import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
+import { LinkItem, MenuGroup } from '@atlaskit/menu';
+import Popup from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
 
-import Popup from '@atlaskit/popup';
-import { MenuGroup, LinkItem } from '@atlaskit/menu';
-
+import messages from '../messages';
+import { ErrorWrapper, TeamErrorText, TeamErrorTitle } from '../styled/Error';
 import {
-  CardElevationWrapper,
-  CardContainer,
+  ActionButtons,
+  AvatarSection,
   CardContent,
   CardHeader,
-  TeamName,
-  MemberCount,
-  ActionButtons,
-  WrappedButton,
-  MoreButton,
+  CardWrapper,
   Description,
-  AvatarSection,
   DescriptionWrapper,
   LoadingWrapper,
+  MemberCount,
+  MoreButton,
+  TeamName,
+  WrappedButton,
 } from '../styled/TeamCard';
-import { ErrorWrapper, TeamErrorTitle, TeamErrorText } from '../styled/Error';
-import { ErrorIllustration } from './ErrorIllustration';
+import { ProfileCardAction, Team, TeamProfilecardProps } from '../types';
 
-import { Team, TeamProfilecardProps, ProfileCardAction } from '../types';
-import messages from '../messages';
-import AvatarGroup from '@atlaskit/avatar-group';
+import { ErrorIllustration } from './ErrorIllustration';
 
 interface TeamMembersProps {
   members?: Team['members'];
   generateUserLink?: (userId: string) => string;
   viewingUserId?: string;
 }
+
+const LARGE_MEMBER_COUNT = 50;
 
 // function onMemberClick(callback: TeamMembersProps['onUserClick'], userId: string) {
 //   return (...args: any) => {
@@ -59,7 +59,11 @@ const TeamMembers = ({
     members && members.some(member => member.id === viewingUserId);
 
   const message = includingYou
-    ? messages.memberCountIncludingYou
+    ? count >= LARGE_MEMBER_COUNT
+      ? messages.membersMoreThan50IncludingYou
+      : messages.memberCountIncludingYou
+    : count >= LARGE_MEMBER_COUNT
+    ? messages.membersMoreThan50
     : messages.memberCount;
 
   return (
@@ -146,6 +150,7 @@ const ExtraActions = ({ actions }: ActionProps) => {
         )}
         trigger={triggerProps => (
           <Button
+            testId="more-actions-button"
             {...triggerProps}
             isSelected={isOpen}
             onClick={() => setOpen(!isOpen)}
@@ -195,7 +200,7 @@ const TeamProfilecardContent = ({
   ];
 
   return (
-    <CardContainer>
+    <CardWrapper data-testid="team-profilecard">
       <CardHeader
         image={team.largeHeaderImageUrl || team.smallHeaderImageUrl}
       />
@@ -213,25 +218,7 @@ const TeamProfilecardContent = ({
         )}
         <ButtonSection actions={allActions} />
       </CardContent>
-    </CardContainer>
-  );
-};
-
-const MaybeLoadingButton = ({
-  children,
-  isLoading,
-  onClick,
-}: {
-  children: JSX.Element;
-  isLoading?: boolean;
-  onClick: () => void;
-}) => {
-  return (
-    <WrappedButton>
-      <LoadingButton shouldFitContainer onClick={onClick} isLoading={isLoading}>
-        {children}
-      </LoadingButton>
-    </WrappedButton>
+    </CardWrapper>
   );
 };
 
@@ -243,7 +230,7 @@ const ErrorMessage = ({
   isLoading?: boolean;
 }) => {
   return (
-    <ErrorWrapper>
+    <ErrorWrapper data-testid="team-profilecard-error">
       <ErrorIllustration />
       <TeamErrorTitle>
         <FormattedMessage {...messages.teamErrorTitle} />
@@ -253,12 +240,16 @@ const ErrorMessage = ({
       </TeamErrorText>
       {clientFetchProfile && (
         <ActionButtons>
-          <MaybeLoadingButton
-            isLoading={isLoading}
-            onClick={clientFetchProfile}
-          >
-            <FormattedMessage {...messages.teamErrorButton} />
-          </MaybeLoadingButton>
+          <WrappedButton>
+            <LoadingButton
+              testId="client-fetch-profile-button"
+              shouldFitContainer
+              onClick={clientFetchProfile}
+              isLoading={isLoading}
+            >
+              <FormattedMessage {...messages.teamErrorButton} />
+            </LoadingButton>
+          </WrappedButton>
         </ActionButtons>
       )}
     </ErrorWrapper>
@@ -270,38 +261,30 @@ const TeamProfileCard = (props: TeamProfilecardProps) => {
 
   if (hasError) {
     return (
-      <CardElevationWrapper>
-        <CardContainer>
-          <ErrorMessage
-            clientFetchProfile={clientFetchProfile}
-            isLoading={isLoading}
-          />
-        </CardContainer>
-      </CardElevationWrapper>
+      <CardWrapper data-testid="team-profilecard">
+        <ErrorMessage
+          clientFetchProfile={clientFetchProfile}
+          isLoading={isLoading}
+        />
+      </CardWrapper>
     );
   }
 
   if (isLoading) {
     return (
-      <CardElevationWrapper>
-        <CardContainer>
-          <CardHeader isLoading />
-          <CardContent>
-            <LoadingWrapper>
-              <Spinner />
-            </LoadingWrapper>
-          </CardContent>
-        </CardContainer>
-      </CardElevationWrapper>
+      <CardWrapper data-testid="team-profilecard">
+        <CardHeader isLoading />
+        <CardContent>
+          <LoadingWrapper data-testid="team-profilecard-spinner">
+            <Spinner />
+          </LoadingWrapper>
+        </CardContent>
+      </CardWrapper>
     );
   }
 
   if (team) {
-    return (
-      <CardElevationWrapper>
-        <TeamProfilecardContent {...{ ...props, team }} />
-      </CardElevationWrapper>
-    );
+    return <TeamProfilecardContent {...{ ...props, team }} />;
   }
 
   return null;

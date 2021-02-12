@@ -38,7 +38,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^137.0.0",
-    "@atlaskit/editor-test-helpers": "^13.2.0",
+    "@atlaskit/editor-test-helpers": "^14.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "react": "^16.8.0",
     "typescript": "3.9.6"

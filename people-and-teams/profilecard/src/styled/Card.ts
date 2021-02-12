@@ -8,15 +8,15 @@ import {
 import { divide, multiply } from '@atlaskit/theme/math';
 
 import {
-  headerBgColor,
-  headerBgColorDisabledUser,
-  headerTextColorInactive,
-  headerTextColor,
   appLabelBgColor,
   appLabelTextColor,
-  labelTextColor,
-  labelIconColor,
   bgColor,
+  headerBgColor,
+  headerBgColorDisabledUser,
+  headerTextColor,
+  headerTextColorInactive,
+  labelIconColor,
+  labelTextColor,
 } from '../styled/constants';
 
 interface FullNameLabelProps {

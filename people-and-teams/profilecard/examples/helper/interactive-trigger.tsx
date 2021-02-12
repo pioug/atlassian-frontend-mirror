@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { ProfileCardTrigger } from '../../src';
 import { ProfilecardTriggerPosition, ProfileClient } from '../../src/types';
+
 import { analyticsHandler } from './util';
 
 const positionsOrder: ProfilecardTriggerPosition[] = [

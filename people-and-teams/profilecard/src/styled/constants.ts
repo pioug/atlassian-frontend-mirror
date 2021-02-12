@@ -1,5 +1,5 @@
-import { themed } from '@atlaskit/theme/components';
 import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 
 export const bgColor = themed({
   light: colors.N0,

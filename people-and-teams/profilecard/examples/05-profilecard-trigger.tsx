@@ -1,9 +1,11 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
 import { ProfileCardTrigger } from '../src';
-import { getMockProfileClient, analyticsHandler } from './helper/util';
+
 import LocaleIntlProvider from './helper/locale-intl-provider';
+import { analyticsHandler, getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
 const mockClientForInactiveAccount = getMockProfileClient(10, 0, {

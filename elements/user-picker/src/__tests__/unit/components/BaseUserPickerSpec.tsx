@@ -28,6 +28,15 @@ import {
   ExternalUser,
 } from '../../../types';
 
+const ID_1 = '111111111111111111111111';
+const ID_2 = '111111111111111111111110';
+const INVALID_ID_1 = 'invalid@id.com';
+const INVALID_ID_2 = 'Bob Ross';
+
+const OLD_AAID = '1234567:12345678-1234-1234-1234-123456789012';
+const TEAM_ID = '12345678-1234-1234-1234-123456789012';
+const GROUP_ID = '12345678-1234-1234-1234-123456789012';
+
 const getBasePicker = (
   BasePickerComponent: React.JSXElementConstructor<BaseUserPickerProps>,
 ) => (props: Partial<BaseUserPickerProps> = {}) => (
@@ -53,20 +62,55 @@ describe('BaseUserPicker', () => {
 
   const options: User[] = [
     {
-      id: 'abc-123',
+      id: ID_1,
       name: 'Jace Beleren',
       publicName: 'jbeleren',
+      type: 'user',
     },
     {
-      id: '123-abc',
+      id: ID_2,
       name: 'Chandra Nalaar',
       publicName: 'cnalaar',
+      type: 'user',
+    },
+  ];
+
+  // original options have new AAID format
+  const mixedOptions: OptionData[] = [
+    ...options,
+    {
+      id: OLD_AAID,
+      name: 'old user',
+      publicName: 'old user',
+      type: 'user',
+    },
+    {
+      id: GROUP_ID,
+      name: 'SmartGroup',
+      type: 'group',
+    },
+    {
+      id: TEAM_ID,
+      name: 'SmartExperiences',
+      type: 'team',
+    },
+    {
+      id: INVALID_ID_1,
+      name: 'hi@id.com',
+      publicName: 'hi@id.com',
+      type: 'user',
+    },
+    {
+      id: INVALID_ID_2,
+      name: 'Bob Ross',
+      publicName: 'Bob Ross',
+      type: 'user',
     },
   ];
 
   const externalOptions: ExternalUser[] = [
     {
-      id: '123-abc-ext',
+      id: ID_2,
       name: 'Chandra Nalaar',
       publicName: 'cnalaar',
       isExternal: true,
@@ -221,7 +265,14 @@ describe('BaseUserPicker', () => {
         .find(Select)
         .simulate('change', [userOptions[0]], { action: 'select-option' });
       expect(onChange).toBeCalledWith(
-        [{ id: 'abc-123', name: 'Jace Beleren', publicName: 'jbeleren' }],
+        [
+          {
+            id: ID_1,
+            name: 'Jace Beleren',
+            publicName: 'jbeleren',
+            type: 'user',
+          },
+        ],
         'select-option',
       );
 
@@ -236,7 +287,14 @@ describe('BaseUserPicker', () => {
         .simulate('change', [userOptions[1]], { action: 'select-option' });
 
       expect(onChange).toBeCalledWith(
-        [{ id: '123-abc', name: 'Chandra Nalaar', publicName: 'cnalaar' }],
+        [
+          {
+            id: ID_2,
+            name: 'Chandra Nalaar',
+            publicName: 'cnalaar',
+            type: 'user',
+          },
+        ],
         'select-option',
       );
     });
@@ -255,7 +313,7 @@ describe('BaseUserPicker', () => {
       expect(onChange).toBeCalledWith([options[0]], 'select-option');
       // test deletion based on id
       expect(component.find(Select).props().value).toEqual([
-        { data: options[0], label: 'Jace Beleren', value: 'abc-123' },
+        { data: options[0], label: 'Jace Beleren', value: ID_1 },
       ]);
       const sameIdItem = { ...options[0], label: 'Jace' };
 
@@ -610,7 +668,7 @@ describe('BaseUserPicker', () => {
         });
 
         expect(component.find(Select).prop('value')).toEqual([
-          { label: 'Jace Beleren', data: options[0], value: 'abc-123' },
+          { label: 'Jace Beleren', data: options[0], value: ID_1 },
         ]);
       });
 
@@ -761,7 +819,7 @@ describe('BaseUserPicker', () => {
         expect(component.prop('options')[0]).toEqual(userOptions[0]);
       });
 
-      it('should not include selected options in #maxOptions options passed to dropdown', () => {
+      it('should not consider selected options when passing maxOptions to dropdown', () => {
         const component = shallowUserPicker({
           options,
           value: [options[0]],
@@ -769,7 +827,6 @@ describe('BaseUserPicker', () => {
           maxOptions: 1,
           isMulti: true,
         });
-
         expect(component.prop('options')).toHaveLength(1);
         expect(component.prop('options')[0]).toEqual(userOptions[1]);
       });
@@ -953,13 +1010,29 @@ describe('BaseUserPicker', () => {
 
     describe('analytics', () => {
       const onEvent = jest.fn();
-      let component: ReactWrapper;
+
+      const createEventMatcher = (
+        actionSubject: string,
+        action: string,
+        analyticAttributes: { [key: string]: any },
+      ) =>
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            action,
+            actionSubject,
+            attributes: expect.objectContaining({
+              ...analyticAttributes,
+            }),
+          }),
+        });
 
       const AnalyticsTestComponent = (props: Partial<UserPickerProps>) => (
         <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
           {getBasePickerWithAnalytics(props)}
         </AnalyticsListener>
       );
+
+      let component: ReactWrapper;
 
       beforeEach(() => {
         component = mountWithIntl(<AnalyticsTestComponent />);
@@ -1032,7 +1105,7 @@ describe('BaseUserPicker', () => {
                 upKeyCount: 1,
                 downKeyCount: 3,
                 position: 0,
-                result: { id: 'abc-123', type: UserType },
+                result: { id: ID_1, type: UserType },
               },
             }),
           }),
@@ -1073,7 +1146,7 @@ describe('BaseUserPicker', () => {
                 upKeyCount: 1,
                 downKeyCount: 3,
                 position: 0,
-                result: { id: 'abc-123', type: UserType },
+                result: { id: ID_1, type: UserType },
               },
             }),
           }),
@@ -1309,8 +1382,8 @@ describe('BaseUserPicker', () => {
                     durationSinceInputChange: expect.any(Number),
                     queryLength: 0,
                     results: [
-                      { id: 'abc-123', type: UserType },
-                      { id: '123-abc', type: UserType },
+                      { id: ID_1, type: UserType },
+                      { id: ID_2, type: UserType },
                     ],
                     pickerType: 'single',
                   }),
@@ -1380,7 +1453,7 @@ describe('BaseUserPicker', () => {
                     sessionDuration: expect.any(Number),
                     durationSinceInputChange: expect.any(Number),
                     queryLength: 0,
-                    results: [{ id: 'abc-123', type: UserType }],
+                    results: [{ id: ID_1, type: UserType }],
                     pickerType: 'single',
                   }),
                 }),
@@ -1402,7 +1475,7 @@ describe('BaseUserPicker', () => {
             .find(Select)
             .props()
             .onChange(
-              [{ id: 'abc-123', name: 'Jace Beleren', publicName: 'jbeleren' }],
+              [{ id: ID_1, name: 'Jace Beleren', publicName: 'jbeleren' }],
               'select-option',
             );
 
@@ -1424,8 +1497,8 @@ describe('BaseUserPicker', () => {
                     durationSinceInputChange: expect.any(Number),
                     queryLength: 0,
                     results: [
-                      { id: 'abc-123', type: UserType },
-                      { id: '123-abc', type: UserType },
+                      { id: ID_1, type: UserType },
+                      { id: ID_2, type: UserType },
                     ],
                     pickerType: 'single',
                   }),
@@ -1438,22 +1511,6 @@ describe('BaseUserPicker', () => {
 
         describe('with journeyId', () => {
           let analyticsSpy: jest.SpyInstance;
-
-          const createEventMatcher = (
-            actionSubject: string,
-            action: string,
-            analyticAttributes: { [key: string]: string },
-          ) =>
-            expect.objectContaining({
-              payload: expect.objectContaining({
-                action,
-                actionSubject,
-                eventType: 'ui',
-                attributes: expect.objectContaining({
-                  ...analyticAttributes,
-                }),
-              }),
-            });
 
           beforeEach(() => {
             analyticsSpy = jest
@@ -1575,6 +1632,164 @@ describe('BaseUserPicker', () => {
             );
           });
         });
+      });
+      describe('PII checks', () => {
+        it('should set invalid ids as null for events containing ids fired when option is clicked', () => {
+          const invalidOption = mixedOptions.find(
+            value => value.id === INVALID_ID_1,
+          );
+          if (invalidOption) {
+            component.setProps({ options: mixedOptions, value: invalidOption });
+
+            const input = component.find('input');
+            input.simulate('focus');
+
+            component.find(Select).prop('onChange')(
+              optionToSelectableOption(invalidOption),
+              {
+                action: 'select-option',
+              },
+            );
+
+            // focused -> searched -> clicked
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPicker', 'focused', {
+                values: expect.arrayContaining([{ id: null, type: 'user' }]),
+              }),
+              'fabric-elements',
+            );
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPicker', 'searched', {
+                results: expect.arrayContaining([
+                  { id: ID_1, type: 'user' },
+                  { id: ID_2, type: 'user' },
+                  { id: OLD_AAID, type: 'user' },
+                  { id: GROUP_ID, type: 'group' },
+                  { id: TEAM_ID, type: 'team' },
+                  { id: null, type: 'user' },
+                  { id: null, type: 'user' },
+                ]),
+              }),
+              'fabric-elements',
+            );
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPicker', 'clicked', {
+                result: { id: null, type: 'user' },
+              }),
+              'fabric-elements',
+            );
+            checkForPII(onEvent);
+          } else {
+            fail();
+          }
+        });
+
+        it('should set invalid ids as null for events fired when selected values are cleared', () => {
+          // clear event only fired for single pickers
+          const invalidOption = mixedOptions.find(
+            value => value.id === INVALID_ID_1,
+          );
+          if (invalidOption) {
+            component.setProps({
+              options: mixedOptions,
+              value: invalidOption,
+            });
+
+            const input = component.find('input');
+            input.simulate('focus');
+
+            component.find(Select).prop('onChange')(
+              optionToSelectableOption(options[0]),
+              {
+                action: 'clear',
+              },
+            );
+
+            // focused -> cleared
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPicker', 'focused', {
+                values: expect.arrayContaining([{ id: null, type: 'user' }]),
+              }),
+              'fabric-elements',
+            );
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPicker', 'cleared', {
+                values: expect.arrayContaining([{ id: null, type: 'user' }]),
+              }),
+              'fabric-elements',
+            );
+            checkForPII(onEvent);
+          } else {
+            fail();
+          }
+        });
+
+        it('should set invalid ids as null for events fired when selected user is removed', () => {
+          const validOption = mixedOptions.find(value => value.id === ID_1);
+          const invalidOption = mixedOptions.find(
+            value => value.id === INVALID_ID_1,
+          );
+          if (validOption && invalidOption) {
+            component.setProps({
+              options: mixedOptions,
+              value: [validOption, invalidOption],
+            });
+
+            const input = component.find('input');
+            input.simulate('focus');
+
+            component.find(Select).prop('onChange')(
+              optionToSelectableOption(invalidOption),
+              {
+                action: 'remove-value',
+                removedValue: optionToSelectableOption(invalidOption),
+              },
+            );
+            checkForPII(onEvent);
+
+            // focused -> removed
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPicker', 'focused', {
+                values: expect.arrayContaining([
+                  { id: ID_1, type: 'user' },
+                  { id: null, type: 'user' },
+                ]),
+              }),
+              'fabric-elements',
+            );
+            expect(onEvent).toHaveBeenCalledWith(
+              createEventMatcher('userPickerItem', 'deleted', {
+                value: { id: null, type: 'user' },
+              }),
+              'fabric-elements',
+            );
+          } else {
+            fail();
+          }
+        });
+
+        /**
+         * Checks for PII defined in the mock users.
+         * User-picker has been involved with PII leaks in analytics in the past.
+         * Please add this check when testing for event firing.
+         */
+        const checkForPII = (mockOnEvent: jest.Mock) => {
+          mockOnEvent.mock.calls.map(args => {
+            // payload is always the first argument
+            const payloadString = JSON.stringify(args[0]);
+            // check against defined mock users
+            expect(payloadString).not.toMatch(`\"${INVALID_ID_1}\"`);
+            expect(payloadString).not.toMatch(`\"${INVALID_ID_2}\"`);
+
+            // general regex testing
+            // check against full name
+            expect(payloadString).not.toMatch(/\"[a-zA-Z]+ [a-zA-Z]+\"/);
+            // check against email
+            expect(payloadString).not.toMatch(
+              /\"[a-zA-Z0-9_\-+\'`?=*%$#!\^{|}~.]+@([a-zA-Z0-9-]+\.)+([a-zA-Z0-9]+)\"/,
+            );
+          });
+        };
       });
     });
   });

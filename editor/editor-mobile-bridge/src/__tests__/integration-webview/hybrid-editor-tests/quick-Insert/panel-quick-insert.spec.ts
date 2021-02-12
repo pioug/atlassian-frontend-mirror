@@ -14,7 +14,6 @@ import {
   WARNING_PANEL_QUICK_INSERT,
   ERROR_PANEL_QUICK_INSERT,
 } from '../../_utils/quick-inserts';
-import { assert } from 'chai';
 
 MobileTestCase(
   'Quick Insert - Panel: Users can add an info panel by typing "/info" and pressing enter',
@@ -25,7 +24,7 @@ MobileTestCase(
     await configureEditor(page, ENABLE_QUICK_INSERT);
     await page.tapKeys(INFORMATION_PANEL_QUICK_INSERT);
     await page.tapKeys(SPECIAL_KEYS.ENTER);
-    assert.isTrue(await isInfoPanelVisible(page), 'Info Panel is not visible!');
+    expect(await isInfoPanelVisible(page)).toBe(true);
   },
 );
 
@@ -38,10 +37,7 @@ MobileTestCase(
     await configureEditor(page, ENABLE_QUICK_INSERT);
     await page.tapKeys(WARNING_PANEL_QUICK_INSERT);
     await page.tapKeys(SPECIAL_KEYS.ENTER);
-    assert.isTrue(
-      await isWarningPanelVisible(page),
-      'Warning Panel is not visible!',
-    );
+    expect(await isWarningPanelVisible(page)).toBe(true);
   },
 );
 
@@ -54,9 +50,6 @@ MobileTestCase(
     await configureEditor(page, ENABLE_QUICK_INSERT);
     await page.tapKeys(ERROR_PANEL_QUICK_INSERT);
     await page.tapKeys(SPECIAL_KEYS.ENTER);
-    assert.isTrue(
-      await isErrorPanelVisible(page),
-      'Error Panel is not visible!',
-    );
+    expect(await isErrorPanelVisible(page)).toBe(true);
   },
 );

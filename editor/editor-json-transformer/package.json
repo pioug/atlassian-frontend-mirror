@@ -40,7 +40,7 @@
     "@atlaskit/editor-core": "^137.0.0",
     "@atlaskit/editor-jira-transformer": "^8.1.0",
     "@atlaskit/editor-markdown-transformer": "^4.1.0",
-    "@atlaskit/editor-test-helpers": "^13.3.0",
+    "@atlaskit/editor-test-helpers": "^14.0.0",
     "@atlaskit/editor-wikimarkup-transformer": "^9.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@types/prosemirror-model": "^1.11.0",

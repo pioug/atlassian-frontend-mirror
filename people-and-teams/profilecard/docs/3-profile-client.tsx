@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, code, AtlassianInternalWarning } from '@atlaskit/docs';
+
+import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}

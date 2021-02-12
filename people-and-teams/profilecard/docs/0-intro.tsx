@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { md, AtlassianInternalWarning } from '@atlaskit/docs';
+import { AtlassianInternalWarning, md } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}

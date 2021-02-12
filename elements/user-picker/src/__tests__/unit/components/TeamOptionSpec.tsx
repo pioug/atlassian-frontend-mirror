@@ -63,7 +63,7 @@ describe('Team Option', () => {
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
       <TextWrapper color={colors.N50}>
         <FormattedMessage
-          defaultMessage="{count} {count, plural, one {member} other {members}}"
+          defaultMessage="Team • {count} {count, plural, one {member} other {members}}"
           description="Byline to show the number of members in the team when the current user is not a member of the team"
           id="fabric.elements.user-picker.team.member.count"
           values={{
@@ -85,7 +85,7 @@ describe('Team Option', () => {
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
       <TextWrapper color={colors.N50}>
         <FormattedMessage
-          defaultMessage="50+ members"
+          defaultMessage="Team • 50+ members"
           description="Byline to show the number of members in the team when the number exceeds 50"
           id="fabric.elements.user-picker.team.member.50plus"
           values={{}}
@@ -106,7 +106,7 @@ describe('Team Option', () => {
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
       <TextWrapper color={colors.N50}>
         <FormattedMessage
-          defaultMessage="{count} {count, plural, one {member} other {members}}"
+          defaultMessage="Team • {count} {count, plural, one {member} other {members}}"
           description="Byline to show the number of members in the team when the current user is not a member of the team"
           id="fabric.elements.user-picker.team.member.count"
           values={{
@@ -129,7 +129,7 @@ describe('Team Option', () => {
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
       <TextWrapper color={colors.N50}>
         <FormattedMessage
-          defaultMessage="50+ members"
+          defaultMessage="Team • 50+ members"
           description="Byline to show the number of members in the team when the number exceeds 50"
           id="fabric.elements.user-picker.team.member.50plus"
           values={{}}
@@ -150,7 +150,7 @@ describe('Team Option', () => {
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
       <TextWrapper color={colors.N50}>
         <FormattedMessage
-          defaultMessage="{count} {count, plural, one {member} other {members}}, including you"
+          defaultMessage="Team • {count} {count, plural, one {member} other {members}}, including you"
           description="Byline to show the number of members in the team when the current user is also a member of the team"
           id="fabric.elements.user-picker.team.member.count.including.you"
           values={{
@@ -173,7 +173,7 @@ describe('Team Option', () => {
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
       <TextWrapper color={colors.N50}>
         <FormattedMessage
-          defaultMessage="50+ members, including you"
+          defaultMessage="Team • 50+ members, including you"
           description="Byline to show the number of members in the team when the number exceeds 50 and also includes the current user"
           id="fabric.elements.user-picker.team.member.50plus.including.you"
           values={{}}

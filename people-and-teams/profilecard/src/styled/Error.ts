@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+
+import { N200 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 import { h400 } from '@atlaskit/theme/typography';
-import { N200 } from '@atlaskit/theme/colors';
 
 import {
   errorIconColor,
-  errorTitleColor,
   errorTextColor,
+  errorTitleColor,
 } from '../styled/constants';
 
 export const ErrorWrapper = styled.div`

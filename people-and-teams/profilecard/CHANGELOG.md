@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 14.3.1
+
+### Patch Changes
+
+- [`537b933d68f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/537b933d68f) - [ux] Simplified the CSS being used and added improved testing
+
 ## 14.3.0
 
 ### Minor Changes

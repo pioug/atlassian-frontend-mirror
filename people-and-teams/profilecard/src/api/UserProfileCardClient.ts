@@ -1,11 +1,10 @@
 import {
-  ProfileClientOptions,
   ApiClientResponse,
   ProfileCardClientData,
+  ProfileClientOptions,
 } from '../types';
 
 import CachingClient from './CachingClient';
-
 import { graphqlQuery } from './graphqlUtils';
 
 /**

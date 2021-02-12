@@ -1,19 +1,19 @@
 import React from 'react';
+
 import Popup from '@atlaskit/popup';
+
+import filterActions from '../internal/filterActions';
+import { CardTriggerWrapper, CardWrapper } from '../styled/Card';
+import {
+  ProfileCardAction,
+  ProfileCardClientData,
+  ProfilecardProps,
+  ProfileCardTriggerProps,
+  ProfileCardTriggerState,
+} from '../types';
 
 import LoadingState from './LoadingState';
 import Profilecard from './ProfileCard';
-import filterActions from '../internal/filterActions';
-
-import { CardWrapper, CardTriggerWrapper } from '../styled/Card';
-
-import {
-  ProfileCardTriggerProps,
-  ProfileCardTriggerState,
-  ProfileCardAction,
-  ProfilecardProps,
-  ProfileCardClientData,
-} from '../types';
 
 export const DELAY_MS_SHOW = 800;
 export const DELAY_MS_HIDE = 200;

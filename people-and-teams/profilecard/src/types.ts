@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { IntlShape } from 'react-intl';
-import UserProfileCardClient from './api/UserProfileCardClient';
+
 import TeamProfileCardClient from './api/TeamProfileCardClient';
+import UserProfileCardClient from './api/UserProfileCardClient';
 
 export interface ApiClientResponse {
   User: {
@@ -104,14 +106,7 @@ export interface TeamProfileCardTriggerState {
   data: Team | null;
 }
 
-export interface TeamProfileCardTriggerProps {
-  /** The id of the team. */
-  teamId: string;
-  /**
-    The id of the organization that the team belongs to.
-    Currently this is unused, but will become necessary in the future.
-   */
-  orgId: string;
+export interface TeamProfilecardCoreProps {
   /**
     The id of the user viewing the profile card.
 
@@ -119,15 +114,50 @@ export interface TeamProfileCardTriggerProps {
     "including you" or not.
    */
   viewingUserId?: string;
-  /** An instance of ProfileClient. */
-  resourceClient: ProfileClient;
+  /** Analytics are yet to be implemented. */
+  analytics?: any;
   /**
     A list of extra buttons to be displayed at the bottom of the card.
     View Profile is always included by default.
    */
-  actions: ProfileCardAction[];
-  /** Analytics are yet to be implemented. */
-  analytics?: any;
+  actions?: ProfileCardAction[];
+  /**
+    A function allowing products to provide an href for the user avatars in the
+    profilecard, e.g. so they can link to user's profile pages.
+   */
+  generateUserLink?: (userId: string) => string;
+  /**
+    This should be a link to the team's profile page. This will be used for:
+
+    - Wrapping the trigger in a link to the team profile page (unless
+      triggerLinkType is `none`).
+
+    - Providing the link for the View Profile action button on the card.
+   */
+  viewProfileLink: string;
+  /**
+    An onClick action that navigates to the team's profile page. Something you
+    may want, e.g. for an SPA site or tracking analytics of navigation. This
+    is optional, just the viewProfileLink will suffice. Will be used for:
+
+    - Adding an onClick to the trigger if the triggerLinkType is
+      `clickable-link`.
+
+    - Providing an onClick for the View Profile action button on the card.
+   */
+  viewProfileOnClick?: (event?: React.MouseEvent<HTMLElement>) => void;
+}
+
+export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
+  /** The id of the team. */
+  teamId: string;
+  /**
+    The id of the organization that the team belongs to.
+    Currently this is unused, but will become necessary in the future.
+   */
+  orgId: string;
+  /** An instance of ProfileClient. */
+  resourceClient: ProfileClient;
   /**
     The position relative to the trigger that the card should be displayed in.
    */
@@ -176,26 +206,6 @@ export interface TeamProfileCardTriggerProps {
     interacted with according to the method specified by the trigger prop.
    */
   children?: React.ReactNode;
-  /**
-    This should be a link to the team's profile page. This will be used for:
-
-    - Wrapping the trigger in a link to the team profile page (unless
-      triggerLinkType is `none`).
-
-    - Providing the link for the View Profile action button on the card.
-   */
-  viewProfileLink: string;
-  /**
-    An onClick action that navigates to the team's profile page. Something you
-    may want, e.g. for an SPA site or tracking analytics of navigation. This
-    is optional, just the viewProfileLink will suffice. Will be used for:
-
-    - Adding an onClick to the trigger if the triggerLinkType is
-      `clickable-link`.
-
-    - Providing an onClick for the View Profile action button on the card.
-   */
-  viewProfileOnClick?: () => void;
 }
 
 export type StatusType = 'active' | 'inactive' | 'closed';
@@ -250,20 +260,17 @@ export interface ProfilecardProps {
   hasDisabledAccountLozenge?: boolean;
 }
 
-export interface TeamProfilecardProps {
+export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
+  /** Indicates whether the team's details are still loading. */
   isLoading?: boolean;
+  /** Indicates whether an error occurred whilst fetching team details. */
   hasError?: boolean;
+  /** Describes the type of error that occurred, if any. */
   errorType?: ProfileCardErrorType;
+  /** The details of the team to be shown. */
   team?: Team;
-  viewingUserId?: string;
+  /** A callback that will try to re-fetch data in case an error occurred. */
   clientFetchProfile?: () => void;
-  analytics?: any;
-  actions?: ProfileCardAction[];
-  // A function allowing products to provide an href for the user avatars in the profilecard, e.g. so they can
-  // link to user's profile pages.
-  generateUserLink?: (userId: string) => string;
-  viewProfileLink: string;
-  viewProfileOnClick?: () => void;
 }
 
 export interface MessageIntlProviderProps {

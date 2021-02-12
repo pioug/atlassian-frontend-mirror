@@ -1,9 +1,7 @@
-import { ProfileClientOptions } from '../types';
+import { ProfileClientOptions, Team } from '../types';
 
 import CachingClient from './CachingClient';
 import { graphqlQuery } from './graphqlUtils';
-
-import { Team } from '../types';
 
 /**
  * @param  {string} userId

@@ -1,7 +1,6 @@
 import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/common-osk';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import { assert } from 'chai';
 import {
   configureEditor,
   isDecisionAdded,
@@ -21,17 +20,11 @@ MobileTestCase(
     await page.tapKeys(DECISION_QUICK_INSERT);
     await page.tapKeys(SPECIAL_KEYS.ENTER);
 
-    assert.isTrue(
-      await isDecisionPanelVisible(page),
-      'Decision Panel is not visible!',
-    );
+    expect(await isDecisionPanelVisible(page)).toBe(true);
 
     const decisionText = 'Adding a Decision';
     await page.tapKeys(decisionText);
 
-    assert.isTrue(
-      await isDecisionAdded(page, decisionText),
-      'Decision is not added!',
-    );
+    expect(await isDecisionAdded(page, decisionText)).toBe(true);
   },
 );

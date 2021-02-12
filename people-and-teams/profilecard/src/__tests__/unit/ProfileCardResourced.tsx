@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { shallow } from 'enzyme';
-import ProfileCardResourced from '../../components/ProfileCardResourced';
-import ErrorMessage from '../../components/ErrorMessage';
+
 import ProfileClient from '../../api/ProfileCardClient';
+import ErrorMessage from '../../components/ErrorMessage';
+import ProfileCardResourced from '../../components/ProfileCardResourced';
 import { AnalyticsName } from '../../internal/analytics';
 
 const clientUrl = 'https://foo/';

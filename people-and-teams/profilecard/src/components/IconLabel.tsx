@@ -1,8 +1,9 @@
 import React from 'react';
-import IconLocation from '@atlaskit/icon/glyph/location';
-import IconRecent from '@atlaskit/icon/glyph/recent';
+
 import IconEmail from '@atlaskit/icon/glyph/email';
+import IconLocation from '@atlaskit/icon/glyph/location';
 import OfficeBuildingIcon from '@atlaskit/icon/glyph/office-building';
+import IconRecent from '@atlaskit/icon/glyph/recent';
 
 import {
   DetailsLabel,

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import ProfileCardClient from '../src/api/ProfileCardClient';
 
-import { getMockTeamClient } from './helper/util';
+import styled from 'styled-components';
+
 import teamData from '../mock-helpers/team-data';
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ProfileCardClient from '../src/api/ProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/TeamProfileCardTrigger';
-import { Radios, TeamCustomizer } from './helper/customization';
 import { Team } from '../src/types';
+
+import { Radios, TeamCustomizer } from './helper/customization';
+import LocaleIntlProvider from './helper/locale-intl-provider';
+import { getMockTeamClient } from './helper/util';
 
 const clientArgs = {
   cacheSize: 10,

@@ -1,16 +1,18 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
 import Button from '@atlaskit/button/custom-theme-button';
-import ProfileCardResourced, { ProfileCard, ProfileClient } from '../..';
+
 import ErrorMessage from '../../components/ErrorMessage';
-
-import { ProfilecardProps } from '../../types';
-
+import ProfileCardResourced, { ProfileCard, ProfileClient } from '../../index';
 import {
-  FullNameLabel,
   ActionButtonGroup,
+  FullNameLabel,
   SpinnerContainer,
 } from '../../styled/Card';
+import { ProfilecardProps } from '../../types';
+
 import mockGlobalDate from './helper/_mock-global-date';
 
 describe('Profilecard', () => {

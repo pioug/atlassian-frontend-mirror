@@ -1,9 +1,10 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
 import InteractiveTrigger from './helper/interactive-trigger';
-import { getMockProfileClient } from './helper/util';
 import LocaleIntlProvider from './helper/locale-intl-provider';
+import { getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
 

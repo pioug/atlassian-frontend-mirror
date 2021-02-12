@@ -1,23 +1,20 @@
 import styled, { css } from 'styled-components';
 
-import { N200, N20 } from '@atlaskit/theme/colors';
+import { N20, N200 } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { multiply } from '@atlaskit/theme/math';
 import { h600 } from '@atlaskit/theme/typography';
 
-import { teamHeaderBgColor, bgColor } from '../styled/constants';
+import { bgColor, teamHeaderBgColor } from '../styled/constants';
 
 export const CardTriggerWrapper = styled.div`
   display: inherit;
 `;
 
-export const CardElevationWrapper = styled.div`
+export const CardWrapper = styled.div`
   background-color: ${bgColor};
   border-radius: ${borderRadius}px;
   width: ${multiply(gridSize, 40)}px;
-`;
-
-export const CardContainer = styled.div`
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

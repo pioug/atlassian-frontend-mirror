@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-test-helpers": "^13.1.0",
+    "@atlaskit/editor-test-helpers": "^14.0.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/tooltip": "^17.1.0",
     "@atlaskit/util-data-test": "^15.0.0",

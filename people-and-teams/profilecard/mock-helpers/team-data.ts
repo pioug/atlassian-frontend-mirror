@@ -1,4 +1,5 @@
 import sample from 'lodash/sample';
+
 import { Team } from '../src/types';
 
 const avatarImages = [

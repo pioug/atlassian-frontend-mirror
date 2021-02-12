@@ -1,6 +1,6 @@
-import isThisWeek from 'date-fns/is_this_week';
-import isThisMonth from 'date-fns/is_this_month';
 import differenceInMonths from 'date-fns/difference_in_months';
+import isThisMonth from 'date-fns/is_this_month';
+import isThisWeek from 'date-fns/is_this_week';
 import isValid from 'date-fns/is_valid';
 
 import { RelativeDateKeyType } from '../types';

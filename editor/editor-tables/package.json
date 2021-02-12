@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@atlaskit/adf-schema": "^13.2.0",
-    "@atlaskit/editor-test-helpers": "^13.1.0"
+    "@atlaskit/editor-test-helpers": "^14.0.0"
   },
   "techstack": {
     "@atlassian/frontend": {

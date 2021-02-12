@@ -1,6 +1,7 @@
 import { ClientOverrides, ProfileClientOptions } from '../types';
-import UserProfileCardClient from './UserProfileCardClient';
+
 import TeamProfileCardClient from './TeamProfileCardClient';
+import UserProfileCardClient from './UserProfileCardClient';
 
 class ProfileCardClient {
   userClient: UserProfileCardClient;

@@ -1,8 +1,9 @@
 import React from 'react';
-import IconError from '@atlaskit/icon/glyph/cross-circle';
-import AkButton from '@atlaskit/button/custom-theme-button';
 
-import { ErrorWrapper, ErrorTitle, ErrorText } from '../styled/Error';
+import AkButton from '@atlaskit/button/custom-theme-button';
+import IconError from '@atlaskit/icon/glyph/cross-circle';
+
+import { ErrorText, ErrorTitle, ErrorWrapper } from '../styled/Error';
 import { ProfileCardErrorType } from '../types';
 
 type Props = {

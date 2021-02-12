@@ -1,5 +1,6 @@
 import React from 'react';
-import { IntlProvider, addLocaleData } from 'react-intl';
+
+import { addLocaleData, IntlProvider } from 'react-intl';
 import * as en from 'react-intl/locale-data/en';
 
 addLocaleData(en);

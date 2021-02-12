@@ -3,16 +3,16 @@ import React from 'react';
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
 
-import TeamProfilecard from './TeamProfileCard';
 import filterActions from '../internal/filterActions';
-
 import {
+  ProfileCardAction,
   Team,
   TeamProfilecardProps,
   TeamProfileCardTriggerProps,
   TeamProfileCardTriggerState,
-  ProfileCardAction,
 } from '../types';
+
+import TeamProfilecard from './TeamProfileCard';
 
 export const DELAY_MS_SHOW = 800;
 export const DELAY_MS_HIDE = 200;
@@ -69,7 +69,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
 
     if (this.props.triggerLinkType === 'clickable-link') {
       if (this.props.viewProfileOnClick) {
-        this.props.viewProfileOnClick();
+        this.props.viewProfileOnClick(event);
       }
     }
 
@@ -239,7 +239,11 @@ class TeamProfileCardTrigger extends React.PureComponent<
 
     if (triggerLinkType === 'none') {
       return (
-        <span {...triggerProps} {...this.triggerListeners}>
+        <span
+          data-testid="team-profilecard-trigger-wrapper"
+          {...triggerProps}
+          {...this.triggerListeners}
+        >
           {children}
         </span>
       );
@@ -247,6 +251,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
 
     return (
       <a
+        data-testid="team-profilecard-trigger-wrapper"
         style={{ color: 'initial', textDecoration: 'none' }}
         href={viewProfileLink}
         {...triggerProps}

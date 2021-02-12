@@ -1,7 +1,8 @@
-import profiles from './profile-data';
-import { random, getWeekday, getTimeString } from './util';
 import UserProfileCardClient from '../src/api/UserProfileCardClient';
 import { ClientOverrides, ProfileClientOptions } from '../src/types';
+
+import profiles from './profile-data';
+import { getTimeString, getWeekday, random } from './util';
 
 export default function getMockProfileClient(
   BaseProfileClient: any,

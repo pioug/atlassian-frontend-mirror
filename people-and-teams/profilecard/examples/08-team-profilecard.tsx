@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
 import sample from 'lodash/sample';
-import { Radios, TeamCustomizer } from './helper/customization';
-import { CardWrapper } from './helper/wrapper';
-import { TeamProfileCard } from '../src';
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import styled from 'styled-components';
+
 import teamData from '../mock-helpers/team-data';
+import { TeamProfileCard } from '../src';
+
+import { Radios, TeamCustomizer } from './helper/customization';
+import LocaleIntlProvider from './helper/locale-intl-provider';
+import { CardWrapper } from './helper/wrapper';
 
 export const MainStage = styled.div`
   margin: 16px;

@@ -13,7 +13,6 @@ import {
   ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_ZH,
 } from '../../_utils/configurations';
 import { ACTION_ITEM_QUICK_INSERT } from '../../_utils/quick-inserts';
-import { assert } from 'chai';
 
 MobileTestCase(
   'Quick Insert - Action Item: Users can add an action item by typing "/action" and pressing enter',
@@ -25,10 +24,7 @@ MobileTestCase(
     await page.tapKeys(ACTION_ITEM_QUICK_INSERT[1]);
     await page.tapKeys(SPECIAL_KEYS.ENTER);
 
-    assert.isTrue(
-      await isActionItemVisible(page),
-      'Action Item is not visible in editor!',
-    );
+    expect(await isActionItemVisible(page)).toBe(true);
   },
 );
 
@@ -43,9 +39,6 @@ MobileTestCase(
     await page.tapKeys(ACTION_ITEM_QUICK_INSERT[1]);
     await page.tapKeys(SPECIAL_KEYS.ENTER);
 
-    assert.isTrue(
-      await isActionItemHelpTextTranslatedToZH(page),
-      'Either action Item is not visible in editor or Action Item help text is not translated!',
-    );
+    expect(await isActionItemHelpTextTranslatedToZH(page)).toBe(true);
   },
 );

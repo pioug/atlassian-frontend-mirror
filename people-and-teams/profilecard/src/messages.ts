@@ -143,6 +143,17 @@ const messages = defineMessages({
     description:
       'Byline to show the number of members in the team and highlight that the user is a member',
   },
+  membersMoreThan50: {
+    id: 'pt.team-profile-card.team.member.many-nonfinal',
+    defaultMessage: 'Team • 50+ members',
+    description: 'Byline to show the team has more than 50 members',
+  },
+  membersMoreThan50IncludingYou: {
+    id: 'pt.team-profile-card.team.member.many-including-you-nonfinal',
+    defaultMessage: 'Team • 50+ members, including you',
+    description:
+      'Byline to show the team has more than 50 members and highlight that the user is a member',
+  },
   teamErrorTitle: {
     id: 'pt.team-profile-card.error.title-nonfinal',
     defaultMessage: 'We’re having trouble retrieving this teams information',

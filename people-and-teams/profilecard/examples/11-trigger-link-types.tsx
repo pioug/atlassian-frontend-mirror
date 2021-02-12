@@ -2,14 +2,14 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { G400, G75, R75, Y75 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-import { R75, G400, G75, Y75 } from '@atlaskit/theme/colors';
 
 import teamData from '../mock-helpers/team-data';
-import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
-import { Team } from '../src/types';
 import ProfileCardClient from '../src/api/ProfileCardClient';
+import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/TeamProfileCardTrigger';
+import { Team } from '../src/types';
 
 const Table = styled.table`
   border: 1px solid black;

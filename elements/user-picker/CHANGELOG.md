@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 7.5.2
+
+### Patch Changes
+
+- [`6bbba22c60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bbba22c60b) - Prevent PII from being fired for UP analytics events
+
+## 7.5.1
+
+### Patch Changes
+
+- [`e55c8004986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e55c8004986) - [ux] Add Team prefix to team option bylines to increase clarity.
+
 ## 7.5.0
 
 ### Minor Changes

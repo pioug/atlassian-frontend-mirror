@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
+import InlineEdit from '@atlaskit/inline-edit';
 import Select, { ValueType } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import teamData from '../mock-helpers/team-data';
-import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
-import { Team } from '../src/types';
 import ProfileCardClient from '../src/api/ProfileCardClient';
+import TeamProfileCardClient from '../src/api/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/TeamProfileCardTrigger';
-import { Radios, TeamCustomizer } from './helper/customization';
+import { Team } from '../src/types';
 
-import InlineEdit from '@atlaskit/inline-edit';
+import { Radios, TeamCustomizer } from './helper/customization';
 
 const EditViewContainer = styled.div`
   z-index: 300;

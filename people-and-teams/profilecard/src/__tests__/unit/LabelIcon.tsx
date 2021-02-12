@@ -1,5 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+
+import { mount, shallow } from 'enzyme';
+
 import IconLabel from '../../components/IconLabel';
 import { DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';
 

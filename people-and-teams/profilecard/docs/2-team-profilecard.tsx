@@ -3,11 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-  md,
-  Example,
-  code,
-  Props,
   AtlassianInternalWarning,
+  code,
+  Example,
+  md,
+  Props,
 } from '@atlaskit/docs';
 
 export default md`

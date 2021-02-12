@@ -1,13 +1,13 @@
-import ProfileCard from './components/ProfileCard';
-import TeamProfileCard from './components/TeamProfileCard';
 import ProfileCardClient from './api/ProfileCardClient';
-import UserProfileClient, { modifyResponse } from './api/UserProfileCardClient';
 import TeamProfileClient from './api/TeamProfileCardClient';
+import UserProfileClient, { modifyResponse } from './api/UserProfileCardClient';
+import ProfileCard from './components/ProfileCard';
 import ProfileCardResourced from './components/ProfileCardResourced';
 import ProfileCardTrigger, {
-  DELAY_MS_SHOW,
   DELAY_MS_HIDE,
+  DELAY_MS_SHOW,
 } from './components/ProfileCardTrigger';
+import TeamProfileCard from './components/TeamProfileCard';
 import TeamProfileCardTrigger from './components/TeamProfileCardTrigger';
 
 export type {

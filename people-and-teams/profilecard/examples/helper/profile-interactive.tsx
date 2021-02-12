@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+
+import styled from 'styled-components';
 // @ts-ignore
 import uid from 'uid';
-import styled from 'styled-components';
 
-// @ts-ignore
-import { themed, AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { N0, N800 } from '@atlaskit/theme/colors';
+import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
 
-import { N800, N0 } from '@atlaskit/theme/colors';
 import { profiles } from '../../mock-helpers';
 import { ProfileCard } from '../../src';
-import { CardWrapper } from './wrapper';
+import { StatusModifiedDateType, StatusType } from '../../src/types';
 
-import { StatusType, StatusModifiedDateType } from '../../src/types';
+import { CardWrapper } from './wrapper';
 
 const StoryWrapper = styled.div`
   label {

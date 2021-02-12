@@ -4,19 +4,16 @@ import {
 } from '@atlaskit/analytics-next';
 import uuid from 'uuid/v4';
 import { name as packageName, version as packageVersion } from './version.json';
-import {
-  EmailType,
-  Option,
-  OptionData,
-  UserPickerProps,
-  UserPickerState,
-  UserType,
-} from './types';
+import { Option, OptionData, UserPickerProps, UserPickerState } from './types';
 import {
   SmartUserPickerProps,
   SmartUserPickerState,
 } from './components/smart-user-picker/index';
 import { isExternalUser } from './components/utils';
+
+const UUID_REGEXP_TEAMS_GROUPS = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+const UUID_REGEXP_OLD_AAID = /^[a-fA-F0-9]{1,8}:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+const UUID_REGEXP_NEW_AAID = /^[a-fA-F0-9]{24,24}/;
 
 export type UserPickerSession = {
   id: string;
@@ -56,13 +53,21 @@ const createEvent = (
   },
 });
 
+const checkValidId = (id: string) => {
+  return (
+    UUID_REGEXP_NEW_AAID.test(id) ||
+    UUID_REGEXP_OLD_AAID.test(id) ||
+    UUID_REGEXP_TEAMS_GROUPS.test(id)
+  );
+};
+
 const optionData2Analytics = (option: OptionData) => {
   const { id, type } = option;
   if (isExternalUser(option)) {
     return { type: 'external_user', sources: option.sources };
   } else {
     // id's of email types are emails which is PII
-    return { id: type === EmailType ? null : id, type: type || UserType };
+    return { id: checkValidId(id) ? id : null, type: type || null };
   }
 };
 const buildValueForAnalytics = (value?: Option[] | Option | null) => {
@@ -163,8 +168,8 @@ export const selectEvent: EventCreator = (
   session?: UserPickerSession,
   journeyId?: string,
   ...args: any[]
-) =>
-  createEvent('ui', selectEventType(session), 'userPicker', {
+) => {
+  return createEvent('ui', selectEventType(session), 'userPicker', {
     ...createDefaultPickerAttributes(props, session, journeyId),
     sessionDuration: sessionDuration(session),
     position: position(state, args[0]),
@@ -174,6 +179,7 @@ export const selectEvent: EventCreator = (
     downKeyCount: downKeyCount(session),
     result: result(args[0]),
   });
+};
 
 export const searchedEvent: EventCreator = (
   props: UserPickerProps,

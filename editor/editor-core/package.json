@@ -160,7 +160,6 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/search-provider": "2.1.10",
-    "@sentry/browser": "^5.11.0",
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/lodash": "^4.14.157",

@@ -64,7 +64,6 @@ import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from '../src/create-editor/consts';
-import withSentry from '../example-helpers/withSentry';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {
   DEFAULT_MODE,
@@ -543,9 +542,7 @@ export class ExampleEditorComponent extends React.Component<
   };
 }
 
-export const ExampleEditor = withSentry<EditorProps & ExampleProps>(
-  ExampleEditorComponent,
-);
+export const ExampleEditor = ExampleEditorComponent;
 
 const { getMockProfileClient: getMockProfileClientUtil } = profilecardUtils;
 const MockProfileClient = getMockProfileClientUtil(

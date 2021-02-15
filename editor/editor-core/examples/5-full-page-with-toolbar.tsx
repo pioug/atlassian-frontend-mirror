@@ -14,7 +14,6 @@ import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
 import { Wrapper, Content } from './5-full-page';
-import withSentry from '../example-helpers/withSentry';
 import { EditorActions } from '../src';
 
 // eslint-disable-next-line no-console
@@ -56,8 +55,7 @@ export type Props = {
 };
 
 const quickInsertProvider = quickInsertProviderFactory();
-
-class ExampleEditorFullPage extends React.Component<Props> {
+export class ExampleEditor extends React.Component<Props> {
   render() {
     return (
       <Wrapper>
@@ -144,17 +142,13 @@ class ExampleEditorFullPage extends React.Component<Props> {
   }
 }
 
-export const ExampleEditor = withSentry(ExampleEditorFullPage);
-
-function Example(defaultValue: string | object) {
+export default function Example(defaultValue: string | object) {
   return (
     <EditorContext>
       <div style={{ height: '100%' }}>
         <DevTools />
-        <ExampleEditorFullPage defaultValue={defaultValue} />
+        <ExampleEditor defaultValue={defaultValue} />
       </div>
     </EditorContext>
   );
 }
-
-export default withSentry(Example);

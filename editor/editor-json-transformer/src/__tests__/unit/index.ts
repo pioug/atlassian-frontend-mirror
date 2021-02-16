@@ -10,6 +10,7 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
 import { JIRATransformer } from '@atlaskit/editor-jira-transformer';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,
   blockquote,
@@ -48,8 +49,7 @@ import {
   underline,
   unsupportedMark,
   unsupportedNodeAttribute,
-} from '@atlaskit/editor-test-helpers';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 

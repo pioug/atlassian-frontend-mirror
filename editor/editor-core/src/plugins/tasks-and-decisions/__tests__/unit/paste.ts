@@ -5,7 +5,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
   LightEditorPlugin,
-} from '@atlaskit/editor-test-helpers/src/create-prosemirror-editor';
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 import hyperlinkPlugin from '../../../hyperlink';

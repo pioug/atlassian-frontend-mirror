@@ -1,4 +1,9 @@
-import { a, doc, media, mediaSingle } from '@atlaskit/editor-test-helpers';
+import {
+  a,
+  doc,
+  media,
+  mediaSingle,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   flushPromises,
   getDefaultMediaClientConfig,

@@ -2,7 +2,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-  getContentBoundingRectTopLeftCoords,
+  getBoundingClientRect,
 } from '../_utils';
 import adf from './__fixtures__/code-block-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
@@ -47,7 +47,7 @@ describe('Code block:', () => {
   });
 
   it('displays as selected when click on padding', async () => {
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+    const contentBoundingRect = await getBoundingClientRect(
       page,
       codeBlockSelectors.content,
     );

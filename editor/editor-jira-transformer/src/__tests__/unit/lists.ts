@@ -1,4 +1,11 @@
-import { doc, p, ul, li, ol, strong } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  p,
+  ul,
+  li,
+  ol,
+  strong,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { checkParseEncodeRoundTrips } from './_test-helpers';
 import { createJIRASchema } from '@atlaskit/adf-schema';
 

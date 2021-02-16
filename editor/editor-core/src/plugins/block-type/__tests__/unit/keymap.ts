@@ -18,7 +18,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import simulatePlatform, {
   Platforms,
-} from '@atlaskit/editor-test-helpers/simulatePlatform';
+} from '@atlaskit/editor-test-helpers/simulate-platform';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

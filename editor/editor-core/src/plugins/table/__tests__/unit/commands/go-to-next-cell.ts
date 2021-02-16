@@ -6,7 +6,6 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { RefsNode } from '@atlaskit/editor-test-helpers/src';
 import {
   doc,
   table,
@@ -15,6 +14,7 @@ import {
   tdEmpty,
   tdCursor,
   p,
+  RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import tablePlugin from '../../../index';

@@ -1,9 +1,5 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import {
-  snapshot,
-  initRendererWithADF,
-  getContentBoundingRectTopLeftCoords,
-} from './_utils';
+import { snapshot, initRendererWithADF, getBoundingClientRect } from './_utils';
 import { editorPlaceholderSelector } from '../../../examples/helper/testing-setup';
 
 function sleep(ms: number) {
@@ -100,7 +96,7 @@ describe('Snapshot Test: Event Handlers', () => {
   test(`Shouldn't swap renderer to editor when selecting text or clicking to remove selection`, async () => {
     await initRenderer(page, multipleParaADF);
 
-    const middleParaBoundingRect = await getContentBoundingRectTopLeftCoords(
+    const middleParaBoundingRect = await getBoundingClientRect(
       page,
       'p:nth-of-type(2)',
     );

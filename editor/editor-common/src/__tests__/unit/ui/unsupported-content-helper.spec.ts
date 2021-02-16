@@ -1,7 +1,10 @@
 import { IntlProvider } from 'react-intl';
 
-import { doc, unsupportedBlock } from '@atlaskit/editor-test-helpers';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  doc,
+  unsupportedBlock,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { getUnsupportedContent } from '../../../ui/unsupported-content-helper';
 

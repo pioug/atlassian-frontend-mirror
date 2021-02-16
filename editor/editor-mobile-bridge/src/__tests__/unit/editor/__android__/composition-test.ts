@@ -1,4 +1,4 @@
-import { doc, p } from '@atlaskit/editor-test-helpers';
+import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import {

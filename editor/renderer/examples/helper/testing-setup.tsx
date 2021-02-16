@@ -7,12 +7,10 @@ import {
 import { taskDecision, emoji } from '@atlaskit/util-data-test';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
-import {
-  storyMediaProviderFactory,
-  storyContextIdentifierProviderFactory,
-  extensionHandlers,
-} from '@atlaskit/editor-test-helpers';
-import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/mediaMock';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import {
   default as Renderer,
   Props as RendererProps,

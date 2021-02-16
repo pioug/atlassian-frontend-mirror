@@ -12,9 +12,9 @@ import { EditorProps } from '../../types';
 import { animationFrame } from '../__helpers/page-objects/_editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
-import { getContentBoundingRectTopLeftCoords } from '@atlaskit/editor-test-helpers/vr-utils';
-export { getContentBoundingRectTopLeftCoords };
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils';
 
+export { getBoundingClientRect };
 export const editorSelector = '.akEditor';
 export const editorFullPageContentSelector =
   '.fabric-editor-popup-scroll-parent';
@@ -555,7 +555,7 @@ export async function emulateSelectAll(page: PuppeteerPage) {
  * Click the top-left edge of the target element's bounding box.
  */
 export const clickTopLeft = async (page: PuppeteerPage, selector: string) => {
-  const rect = await getContentBoundingRectTopLeftCoords(page, selector);
+  const rect = await getBoundingClientRect(page, selector);
   await page.mouse.click(rect.left, rect.top);
 };
 

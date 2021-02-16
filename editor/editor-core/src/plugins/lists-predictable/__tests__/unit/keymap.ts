@@ -25,7 +25,7 @@ import mediaPlugin from '../../../media';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
   Platforms,
-} from '@atlaskit/editor-test-helpers/simulatePlatform';
+} from '@atlaskit/editor-test-helpers/simulate-platform';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';

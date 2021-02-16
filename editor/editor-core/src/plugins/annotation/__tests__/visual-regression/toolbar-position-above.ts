@@ -2,7 +2,7 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import {
   evaluateCoordinates,
   scrollToBottom,

@@ -1,4 +1,8 @@
-import { doc, p, typeAheadQuery } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  p,
+  typeAheadQuery,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { encode } from './_test-helpers';
 import { createJIRASchema } from '@atlaskit/adf-schema';
 

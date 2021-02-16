@@ -1,10 +1,6 @@
-import {
-  doc,
-  insertText,
-  p,
-  panel,
-  sendKeyToPm,
-} from '@atlaskit/editor-test-helpers';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import { sendKeyToPm } from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 describe('Chromeless editor', () => {

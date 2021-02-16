@@ -2,7 +2,7 @@ import {
   Converter,
   dropHandler,
   pasteHandler,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/base64fileconverter';
 
 const converter = new Converter(['jpg', 'jpeg', 'png', 'gif', 'svg'], 10000000);
 

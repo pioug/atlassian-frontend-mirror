@@ -3,7 +3,7 @@ import * as rule from './__fixtures__/rule-adf.json';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-  getContentBoundingRectTopLeftCoords,
+  getBoundingClientRect,
 } from '../_utils';
 
 const ruleSelector = 'hr';
@@ -31,18 +31,12 @@ describe('Rule', () => {
   });
 
   it('displays as selected when click on leniency margin above rule', async () => {
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
-      page,
-      ruleSelector,
-    );
+    const contentBoundingRect = await getBoundingClientRect(page, ruleSelector);
     await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
   });
 
   it('displays as selected when click on leniency margin below rule', async () => {
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
-      page,
-      ruleSelector,
-    );
+    const contentBoundingRect = await getBoundingClientRect(page, ruleSelector);
     await page.mouse.click(
       contentBoundingRect.left,
       contentBoundingRect.bottom,

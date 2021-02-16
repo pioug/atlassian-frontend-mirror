@@ -15,7 +15,7 @@ import {
   strong,
   subsup,
   underline,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   checkParse,
   checkEncode,

@@ -9,7 +9,7 @@ import {
   table,
   tr,
   td,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { Context } from '../../../interfaces';
 
 describe('ADF => WikiMarkup - Media', () => {

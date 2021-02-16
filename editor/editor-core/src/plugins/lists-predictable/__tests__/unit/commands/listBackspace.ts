@@ -1,4 +1,10 @@
-import { doc, ul, li, p, code_block } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  ul,
+  li,
+  p,
+  code_block,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

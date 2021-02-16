@@ -15,7 +15,7 @@ import {
   code_block,
   hardBreak,
   panel,
-  BuilderContent as SchemaBuilderContent,
+  BuilderContent,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -138,7 +138,7 @@ describe('text-formatting input rules', () => {
 
   const autoformats = (
     string: string,
-    editorContent: SchemaBuilderContent,
+    editorContent: BuilderContent,
     analyticsV3Payload?: object,
     contentNode = p,
   ) => {
@@ -191,7 +191,7 @@ describe('text-formatting input rules', () => {
 
   const autoformatCombinations = (
     strings: Array<string>,
-    editorContent: SchemaBuilderContent,
+    editorContent: BuilderContent,
   ) => {
     it(`should autoformat combinations: ${strings}`, () => {
       const { editorView } = editor(doc(p('{<>}')));
@@ -713,7 +713,7 @@ describe('text-formatting input rules', () => {
   describe('autoformatting is not right inclusive', () => {
     const autoformatsNotRightInclusive = (
       string: string,
-      content: SchemaBuilderContent,
+      content: BuilderContent,
     ) => {
       it(`should not be right inclusive: ${string}`, () => {
         const { editorView, sel } = editor(doc(p('{<>}')));
@@ -822,7 +822,7 @@ describe('text-formatting input rules', () => {
     describe('when there is code mark in the line', () => {
       const autoformatsAfterCodeMark = (
         string: string,
-        content: SchemaBuilderContent,
+        content: BuilderContent,
       ) => {
         it(`should autoformat: ${string}`, () => {
           const { editorView, sel } = editor(doc(p(code('abc'), ' {<>}')));

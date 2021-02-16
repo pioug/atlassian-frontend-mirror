@@ -1,4 +1,8 @@
-import { a as link, doc, p } from '@atlaskit/editor-test-helpers';
+import {
+  a as link,
+  doc,
+  p,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { checkParseEncodeRoundTrips } from '../_test-helpers';
 import { defaultSchema } from '@atlaskit/adf-schema';
 

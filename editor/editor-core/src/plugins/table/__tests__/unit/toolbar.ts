@@ -2,7 +2,7 @@ import {
   getToolbarMenuConfig,
   getToolbarCellOptionsConfig,
 } from '../../toolbar';
-import { createEditorState } from '@atlaskit/editor-test-helpers/src/create-editor-state';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
   p,

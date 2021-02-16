@@ -6,7 +6,7 @@ import {
   img,
   strong,
   em,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { checkParseEncodeRoundTrips } from '../_test-helpers';
 import { defaultSchema } from '@atlaskit/adf-schema';
 

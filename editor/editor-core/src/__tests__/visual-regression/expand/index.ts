@@ -1,6 +1,6 @@
 import {
   Device,
-  getContentBoundingRectTopLeftCoords,
+  getBoundingClientRect,
   initFullPageEditorWithAdf,
   snapshot,
 } from '../_utils';
@@ -137,7 +137,7 @@ describe('Expand: full-page', () => {
       );
       await page.waitForSelector(selectors.expand);
 
-      const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      const contentBoundingRect = await getBoundingClientRect(
         page,
         selectors.expand,
       );
@@ -228,7 +228,7 @@ describe('Expand: Selection', () => {
     it('displays nested expand as selected when clicked', async () => {
       await initFullPageEditorWithAdf(page, nestedExpandAdf, Device.LaptopMDPI);
       await page.waitForSelector(selectors.nestedExpand);
-      const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+      const contentBoundingRect = await getBoundingClientRect(
         page,
         selectors.nestedExpand,
       );

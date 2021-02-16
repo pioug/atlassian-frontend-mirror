@@ -7,7 +7,7 @@ import {
   h1,
   a as link,
   em,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 const schema = makeSchema();
 

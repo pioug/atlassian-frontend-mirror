@@ -12,7 +12,7 @@ import {
   underline,
   strong,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import schema from '@atlaskit/editor-test-helpers/src/schema';
+import schema from '@atlaskit/editor-test-helpers/schema';
 import { getDocStructure } from '../../../utils/document-logger';
 
 const checkDocument = (doc: any, expected: any) => {

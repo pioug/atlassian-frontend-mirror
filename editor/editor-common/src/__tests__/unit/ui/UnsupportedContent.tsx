@@ -4,14 +4,14 @@ import { ReactWrapper } from 'enzyme';
 import { InjectedIntl, InjectedIntlProps, IntlProvider } from 'react-intl';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   p,
   unsupportedBlock,
   unsupportedInline,
-} from '@atlaskit/editor-test-helpers';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import Tooltip from '@atlaskit/tooltip';
 
 import * as Hooks from '../../../ui/unsupported-content-helper';

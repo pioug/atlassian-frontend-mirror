@@ -1,5 +1,6 @@
 import React from 'react';
-import { doc, p, sleep } from '@atlaskit/editor-test-helpers';
+import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import Comment from '../../Comment';

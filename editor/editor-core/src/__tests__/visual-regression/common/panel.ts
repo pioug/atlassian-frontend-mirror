@@ -1,7 +1,7 @@
 import {
   initFullPageEditorWithAdf,
   snapshot,
-  getContentBoundingRectTopLeftCoords,
+  getBoundingClientRect,
 } from '../_utils';
 import * as panel from './__fixtures__/panel-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
@@ -48,7 +48,7 @@ describe('Panel:', () => {
   });
 
   it('displays as selected when click on padding', async () => {
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+    const contentBoundingRect = await getBoundingClientRect(
       page,
       `.${PanelSharedCssClassName.prefix}`,
     );

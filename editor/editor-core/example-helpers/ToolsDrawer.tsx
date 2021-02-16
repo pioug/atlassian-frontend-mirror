@@ -15,11 +15,9 @@ import imageUploadHandler from './imageUpload';
 
 import { TeamMentionResource, MentionResource, EmojiResource } from '../src';
 import { toJSON } from '../src/utils';
-import {
-  storyContextIdentifierProviderFactory,
-  storyMediaProviderFactory,
-} from '@atlaskit/editor-test-helpers';
-import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/mediaMock';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 

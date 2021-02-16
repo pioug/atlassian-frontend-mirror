@@ -4,7 +4,7 @@ import {
   Client as SmartCardClient,
 } from '@atlaskit/smart-card';
 import { ReactRenderer } from '@atlaskit/renderer';
-import { extensionHandlers } from '@atlaskit/editor-test-helpers';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { RendererPadding } from './kitchen-sink-styles';
 import { EditorAppearance } from '../../src/types';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';

@@ -1,7 +1,11 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import { doc, decisionList, decisionItem } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  decisionList,
+  decisionItem,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('ADF => WikiMarkup - Decision', () => {
   const transformer = new WikiMarkupTransformer();

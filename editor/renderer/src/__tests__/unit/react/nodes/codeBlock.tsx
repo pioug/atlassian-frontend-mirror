@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/src/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import CodeBlock from '../../../../react/nodes/codeBlock';
 import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 

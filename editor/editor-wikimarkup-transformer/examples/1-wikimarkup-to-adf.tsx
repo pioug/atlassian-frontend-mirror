@@ -5,10 +5,8 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { WikiMarkupTransformer } from '../src';
 import { ReactRenderer } from '@atlaskit/renderer';
-import {
-  storyMediaProviderFactory,
-  storyContextIdentifierProviderFactory,
-} from '@atlaskit/editor-test-helpers';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import {
   profilecard as profilecardUtils,
   emoji,

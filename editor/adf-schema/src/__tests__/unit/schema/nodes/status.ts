@@ -1,7 +1,7 @@
 import { name } from '../../../../version.json';
 import { schema, toDOM, fromHTML } from '../../../../../test-helpers';
 import { status } from '../../../../../src';
-import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers';
+import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers/constants';
 
 describe(`${name}/schema status node`, () => {
   describe('parse html', () => {

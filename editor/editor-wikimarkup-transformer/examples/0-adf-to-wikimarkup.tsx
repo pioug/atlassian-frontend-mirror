@@ -5,7 +5,7 @@ import { mention } from '@atlaskit/util-data-test';
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import { taskDecision } from '@atlaskit/util-data-test';
 import ToolsDrawer, { RenderEditorProps } from '../example-helpers/ToolsDrawer';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');

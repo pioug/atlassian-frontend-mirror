@@ -10,10 +10,8 @@ import {
   createMentionProvider,
 } from '../src/providers';
 
-import {
-  cardProvider,
-  storyMediaProviderFactory,
-} from '@atlaskit/editor-test-helpers';
+import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 import Editor from './../src/editor/mobile-editor-element';
 import { useFetchProxy } from '../src/utils/fetch-proxy';

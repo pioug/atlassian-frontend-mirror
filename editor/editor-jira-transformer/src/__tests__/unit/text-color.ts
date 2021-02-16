@@ -1,4 +1,8 @@
-import { doc, p, textColor } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  p,
+  textColor,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { checkParse, checkParseEncodeRoundTrips } from './_test-helpers';
 import { createJIRASchema } from '@atlaskit/adf-schema';
 

@@ -2,7 +2,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-  getContentBoundingRectTopLeftCoords,
+  getBoundingClientRect,
 } from '../_utils';
 import adf from './__fixtures__/decision-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
@@ -25,7 +25,7 @@ describe('Decisions', () => {
   });
 
   it('should display as selected when clicked on', async () => {
-    const contentBoundingRect = await getContentBoundingRectTopLeftCoords(
+    const contentBoundingRect = await getBoundingClientRect(
       page,
       decisionSelectors.decisionItem,
     );

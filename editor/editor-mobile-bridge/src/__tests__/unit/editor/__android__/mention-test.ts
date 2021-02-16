@@ -5,7 +5,11 @@ import {
   TypeAheadPluginState,
 } from '@atlaskit/editor-core';
 
-import { doc, p, typeAheadQuery } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  p,
+  typeAheadQuery,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import { MentionProvider } from '@atlaskit/mention/resource';

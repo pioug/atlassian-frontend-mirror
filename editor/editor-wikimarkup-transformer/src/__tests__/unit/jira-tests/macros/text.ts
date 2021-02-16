@@ -1,4 +1,8 @@
-import { doc, p, textColor } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  p,
+  textColor,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { checkParseEncodeRoundTrips } from '../../_test-helpers';
 import { defaultSchema } from '@atlaskit/adf-schema';
 

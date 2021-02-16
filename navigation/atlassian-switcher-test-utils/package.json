@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "People and Teams Collective",
+    "team": "Activity Platform",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous"
   },

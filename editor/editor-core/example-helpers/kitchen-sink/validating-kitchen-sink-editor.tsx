@@ -3,10 +3,8 @@ import { Schema } from 'prosemirror-model';
 
 import { EditorView } from 'prosemirror-view';
 
-import {
-  customInsertMenuItems,
-  extensionHandlers,
-} from '@atlaskit/editor-test-helpers';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import {
   ADFEntity,

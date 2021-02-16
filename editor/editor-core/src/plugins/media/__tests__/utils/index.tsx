@@ -61,8 +61,8 @@ import {
 } from '@atlaskit/adf-schema';
 import { CardEvent, CardOnClickCallback } from '@atlaskit/media-card';
 import { FileDetails } from '@atlaskit/media-client';
-import { Schema } from '@atlaskit/editor-test-helpers/src/schema';
-import { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/src/create-editor';
+import { Schema } from '@atlaskit/editor-test-helpers/schema';
+import { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
 import { ReactWrapper, mount } from 'enzyme';
 import { ClipboardWrapper } from '../../../../plugins/media/ui/MediaPicker/ClipboardWrapper';
 import { INPUT_METHOD } from '../../../../plugins/analytics';

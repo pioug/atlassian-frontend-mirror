@@ -18,10 +18,8 @@ import {
 } from '@atlaskit/editor-common';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button/standard-button';
-import {
-  storyMediaProviderFactory,
-  storyContextIdentifierProviderFactory,
-} from '@atlaskit/editor-test-helpers';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
 import Clock from 'react-live-clock';
 

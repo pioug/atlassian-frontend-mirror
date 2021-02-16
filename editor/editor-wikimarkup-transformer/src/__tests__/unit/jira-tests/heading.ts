@@ -9,7 +9,7 @@ import {
   h6,
   hardBreak,
   p,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { checkParseEncodeRoundTrips } from '../_test-helpers';
 
 // Nodes

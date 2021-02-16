@@ -4,7 +4,7 @@ import {
   goToFullPageClickToEdit,
 } from '../../__helpers/testing-example-helpers';
 import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
-import { sleep } from '@atlaskit/editor-test-helpers';
+import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
 import { selectors } from '../../__helpers/page-objects/_editor';
 type ClientType = Parameters<typeof goToFullPage>[0];

@@ -9,7 +9,7 @@ import {
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import {
   Device,
   snapshot,

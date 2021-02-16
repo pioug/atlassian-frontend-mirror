@@ -1,5 +1,11 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
-import { p, tr as row, table, td, th } from '@atlaskit/editor-test-helpers';
+import {
+  p,
+  tr as row,
+  table,
+  td,
+  th,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { hasMergedCell } from '../../../utils/table';
 

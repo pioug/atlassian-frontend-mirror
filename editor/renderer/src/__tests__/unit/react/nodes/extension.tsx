@@ -8,7 +8,7 @@ import {
   ExtensionHandlers,
   combineExtensionProviders,
 } from '@atlaskit/editor-common';
-import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/src/extensions';
+import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import Loadable from 'react-loadable';
 
 describe('Renderer - React/Nodes/Extension', () => {

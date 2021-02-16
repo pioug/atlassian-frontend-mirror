@@ -14,7 +14,7 @@ import {
   subsup,
   textColor,
   underline,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('ADF => WikiMarkup - Paragraph', () => {
   const transformer = new WikiMarkupTransformer();

@@ -12,7 +12,7 @@ import {
   td,
   th,
   tr,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { Schema } from 'prosemirror-model';
 import { countMatches, getIndexMatch } from '../../matches-utils';
 

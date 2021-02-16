@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react';
+/** @jsx jsx */
+import { Fragment } from 'react';
+import { jsx } from '@emotion/core';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { PopupSelect, OptionsType } from '../../src';
 
@@ -44,7 +46,7 @@ const PopupSelectExample = () => (
     </div>
     <div css={{ display: 'flex' }}>
       <div
-        style={{
+        css={{
           background: 'AliceBlue',
           marginBottom: '1em',
           marginTop: '1em',
@@ -55,13 +57,13 @@ const PopupSelectExample = () => (
         }}
       >
         <h3>Scroll Container</h3>
-        <div style={{ height: 100 }} />
+        <div css={{ height: 100 }} />
         <PopupSelect
           {...defaults}
           target={({ ref }) => <button ref={ref}>Target</button>}
         />
       </div>
-      <div style={{ margin: '1em' }}>
+      <div css={{ margin: '1em' }}>
         <PopupSelect
           {...defaults}
           target={({ ref }) => (

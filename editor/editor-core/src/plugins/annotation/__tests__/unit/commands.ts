@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 import { Schema } from 'prosemirror-model';
-import { RefsNode } from '@atlaskit/editor-test-helpers';
+import { RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {

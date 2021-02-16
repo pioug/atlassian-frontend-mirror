@@ -24,7 +24,6 @@ import {
   strike,
   strong,
   ul,
-  defaultSchema,
   media,
   mediaSingle,
   typeAheadQuery,
@@ -33,7 +32,8 @@ import {
   th,
   tr,
   inlineCard,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 const markdownSerializer = new MarkdownSerializer(nodes, marks);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { ProviderFactory } from '@atlaskit/editor-common';
 
 import Renderer from './../src/renderer/mobile-renderer-element';

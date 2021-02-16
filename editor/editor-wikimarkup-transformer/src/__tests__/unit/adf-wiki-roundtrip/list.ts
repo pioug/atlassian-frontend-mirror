@@ -1,7 +1,14 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import { doc, li, ol, p, ul, hardBreak } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  li,
+  ol,
+  p,
+  ul,
+  hardBreak,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('ADF => WikiMarkup - List', () => {
   const transformer = new WikiMarkupTransformer();

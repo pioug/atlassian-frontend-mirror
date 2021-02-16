@@ -26,7 +26,7 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
   Platforms,
-} from '@atlaskit/editor-test-helpers/simulatePlatform';
+} from '@atlaskit/editor-test-helpers/simulate-platform';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';

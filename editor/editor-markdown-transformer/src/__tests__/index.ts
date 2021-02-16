@@ -14,7 +14,7 @@ import {
   tr,
   th,
   td,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('MarkdownTransformer', () => {
   const transformer = new MarkdownTransformer();

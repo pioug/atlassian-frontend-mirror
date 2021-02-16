@@ -8,7 +8,7 @@ import { Popup } from '@atlaskit/editor-common';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
-import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 const WhiteBox = styled.div`

@@ -1,7 +1,12 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import { blockquote, doc, hardBreak, p } from '@atlaskit/editor-test-helpers';
+import {
+  blockquote,
+  doc,
+  hardBreak,
+  p,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('ADF => WikiMarkup - BlockQuote', () => {
   const transformer = new WikiMarkupTransformer();

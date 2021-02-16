@@ -4,7 +4,7 @@ import { exampleDocumentWithComments } from '../example-helpers/example-doc-with
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import { default as FullPageExample } from './5-full-page';
 import { AnnotationUpdateEmitter } from '../src';
 

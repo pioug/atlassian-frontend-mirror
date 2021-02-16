@@ -6,7 +6,7 @@ import {
   em,
   taskList,
   taskItem,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

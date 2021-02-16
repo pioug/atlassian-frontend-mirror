@@ -10,7 +10,7 @@ import {
   Preset,
   LightEditorPlugin,
   createProsemirrorEditorFactory,
-} from '@atlaskit/editor-test-helpers/src/create-prosemirror-editor';
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import panelPlugin from '../../../../panel';
 import { selectColumn } from '../../../commands';
 import { getDecorations } from '../../../pm-plugins/decorations/plugin';

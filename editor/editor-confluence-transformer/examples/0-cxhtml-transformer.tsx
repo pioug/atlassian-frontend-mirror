@@ -10,11 +10,9 @@ import {
   WithEditorActions,
   EditorActions,
 } from '@atlaskit/editor-core';
-import {
-  storyMediaProviderFactory,
-  storyContextIdentifierProviderFactory,
-  macroProvider,
-} from '@atlaskit/editor-test-helpers';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Spinner from '@atlaskit/spinner';

@@ -1,5 +1,10 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { doc, emoji, hardBreak, p } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  emoji,
+  hardBreak,
+  p,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   adfEmojiItems,
   wikiToAdfEmojiMapping,

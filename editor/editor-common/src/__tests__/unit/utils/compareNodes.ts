@@ -1,17 +1,17 @@
 import { EditorView } from 'prosemirror-view';
 
 import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,
+  BuilderContent,
   date,
   inlineCard,
   mention,
   p,
-  SchemaBuilderContent,
   status,
   td,
-} from '@atlaskit/editor-test-helpers';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { mention as mentionDataTest } from '@atlaskit/util-data-test';
 
 import { SortOrder } from '../../../types';
@@ -345,15 +345,11 @@ describe('Compare Nodes', () => {
 
   describe('Compare mixed content', () => {
     function testMixedNodesComparison(
-      cases: Array<[SchemaBuilderContent, CompareResult, SchemaBuilderContent]>,
+      cases: Array<[BuilderContent, CompareResult, BuilderContent]>,
     ) {
       test.each(cases)(
         `should node a %p be %s than node b %p`,
-        (
-          a: SchemaBuilderContent,
-          expected: CompareResult,
-          b: SchemaBuilderContent,
-        ) => {
+        (a: BuilderContent, expected: CompareResult, b: BuilderContent) => {
           const nodeA = td()(a)(editorView.state.schema);
           const nodeB = td()(b)(editorView.state.schema);
 

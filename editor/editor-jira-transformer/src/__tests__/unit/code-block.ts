@@ -1,4 +1,10 @@
-import { code_block, doc, ul, li, p } from '@atlaskit/editor-test-helpers';
+import {
+  code_block,
+  doc,
+  ul,
+  li,
+  p,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   checkParseEncodeRoundTrips,
   checkEncode,

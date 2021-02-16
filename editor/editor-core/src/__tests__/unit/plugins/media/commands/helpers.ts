@@ -1,4 +1,4 @@
-import { testMediaSingle } from '@atlaskit/editor-test-helpers/mediaMock';
+import { testMediaSingle } from '@atlaskit/editor-test-helpers/media-mock';
 import {
   doc,
   media,

@@ -16,7 +16,7 @@ import { CardOptions } from '@atlaskit/editor-common';
 import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
 import { stateKey } from '../../pm-plugins/main';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';
-import { nextTick } from '@atlaskit/editor-test-helpers';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 
 describe('<HyperlinkToolbarAppearance />', () => {
   const createEditor = createEditorFactory();

@@ -1,7 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import { doc, emoji, p } from '@atlaskit/editor-test-helpers';
+import { doc, emoji, p } from '@atlaskit/editor-test-helpers/schema-builder';
 
 describe('ADF => WikiMarkup => ADF - Emoji', () => {
   const transformer = new WikiMarkupTransformer();

@@ -6,7 +6,7 @@ import {
   genericFileId,
   nextTick,
 } from '@atlaskit/media-test-helpers';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/src/media-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import {
   Card,
   CardEvent,

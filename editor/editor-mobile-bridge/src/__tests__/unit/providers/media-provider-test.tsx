@@ -17,9 +17,9 @@ import {
   p,
   mediaSingle,
   media,
-  randomId,
-  sleep,
-} from '@atlaskit/editor-test-helpers';
+} from '@atlaskit/editor-test-helpers/schema-builder';
+import { randomId } from '@atlaskit/editor-test-helpers/random-id';
+import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import { Auth, AuthProvider, MediaClientConfig } from '@atlaskit/media-core';

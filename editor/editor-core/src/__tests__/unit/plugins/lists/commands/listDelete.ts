@@ -1,4 +1,10 @@
-import { doc, ul, li, p, code_block } from '@atlaskit/editor-test-helpers';
+import {
+  doc,
+  ul,
+  li,
+  p,
+  code_block,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { deleteKeyCommand } from '../../../../../plugins/lists/commands';
 import { listDelete } from '../../../../../plugins/lists/commands/listDelete';

@@ -1,10 +1,8 @@
 import React from 'react';
 import { disableZooming } from './utils/viewport';
 
-import {
-  cardProvider,
-  storyMediaProviderFactory,
-} from '@atlaskit/editor-test-helpers';
+import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 import Editor from './../src/editor/mobile-editor-element';
 import {

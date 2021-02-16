@@ -13,16 +13,16 @@ import { mention } from '@atlaskit/util-data-test/mention';
 import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { ExtensionHandlers } from '@atlaskit/editor-common';
+import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { extensionHandlers as exampleExtensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import {
-  cardProvider,
-  storyMediaProviderFactory,
-  storyContextIdentifierProviderFactory,
-  macroProvider,
-  extensionHandlers as exampleExtensionHandlers,
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers';
-import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/mediaMock';
+} from '@atlaskit/editor-test-helpers/example-inline-comment-component';
+import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 
 import {
   JSONTransformer,

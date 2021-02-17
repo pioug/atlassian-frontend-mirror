@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "137.0.0",
+  "version": "137.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -146,7 +146,7 @@
     "@atlaskit/media-integration-test-helpers": "^2.3.0",
     "@atlaskit/media-test-helpers": "^28.5.0",
     "@atlaskit/menu": "^0.7.0",
-    "@atlaskit/profilecard": "^14.3.0",
+    "@atlaskit/profilecard": "^15.0.0",
     "@atlaskit/pubsub": "^6.0.0",
     "@atlaskit/renderer": "^73.2.0",
     "@atlaskit/section-message": "^5.0.0",

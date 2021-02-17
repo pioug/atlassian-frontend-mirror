@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
-import { fetchProductRecommendations } from '../../product-recommendations-fetch';
+import { fetchProductRecommendationsInternal } from '../../product-recommendations-fetch';
 
 describe('product-recommendations-fetch-test', () => {
   const productRecommendationsApiReponse = {
@@ -43,14 +43,14 @@ describe('product-recommendations-fetch-test', () => {
 
   test('should return error when fetch could not retrieve data', async () => {
     fetchMock.get(
-      'https://api-private.atlassian.com/gateway/api/invitations/v1/product-recommendations/?capability=DIRECT_ACCESS',
+      '/v1/product-recommendations?capability=DIRECT_ACCESS&product=jira-software&product=jira-servicedesk&product=jira-core&product=confluence',
       400,
     );
 
     // Apparently you have to wrap in a try catch -> https://github.com/facebook/jest/issues/1700
     async function testFetch() {
       try {
-        await fetchProductRecommendations();
+        await fetchProductRecommendationsInternal();
       } catch (e) {
         throw new Error('testFetchError');
       }
@@ -61,11 +61,11 @@ describe('product-recommendations-fetch-test', () => {
 
   test('should return joinable sites when fetch succeeds', async () => {
     fetchMock.get(
-      'https://api-private.atlassian.com/gateway/api/invitations/v1/product-recommendations/?capability=DIRECT_ACCESS',
+      '/v1/product-recommendations?capability=DIRECT_ACCESS&product=jira-software&product=jira-servicedesk&product=jira-core&product=confluence',
       productRecommendationsApiReponse,
     );
 
-    const joinableSites = await fetchProductRecommendations();
+    const joinableSites = await fetchProductRecommendationsInternal();
     expect(joinableSites).toStrictEqual(joinableSitesApiResponse);
   });
 });

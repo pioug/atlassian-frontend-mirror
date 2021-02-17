@@ -12,11 +12,9 @@ import {
   ProfileCardTriggerState,
 } from '../types';
 
+import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
 import LoadingState from './LoadingState';
 import Profilecard from './ProfileCard';
-
-export const DELAY_MS_SHOW = 800;
-export const DELAY_MS_HIDE = 200;
 
 class ProfilecardTrigger extends React.PureComponent<
   ProfileCardTriggerProps,

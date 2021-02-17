@@ -145,6 +145,23 @@ describe('MediaPickerComponents', () => {
       expect(wrapper.find(BrowserComponent)).toHaveLength(1);
       expect(pluginState.setBrowseFn).toBeCalled();
     });
+
+    it('should render <Browser /> with multiple: true (allows for multiple select of files) as a prop', () => {
+      pluginState.shouldUseMediaPickerPopup = jest.fn().mockReturnValue(false);
+      wrapper = mount(
+        <MediaPickerComponents
+          editorDomElement={editorDomElement}
+          mediaState={pluginState}
+          appearance="full-page"
+        />,
+      );
+      const browser = wrapper.find(BrowserComponent);
+
+      expect(browser.prop('config')).toEqual({
+        multiple: true,
+        uploadParams: {},
+      });
+    });
   });
 
   describe('<DropzoneWrapper />', () => {

@@ -76,7 +76,7 @@
     "@atlaskit/media-integration-test-helpers": "^2.3.0",
     "@atlaskit/media-test-helpers": "^28.5.0",
     "@atlaskit/navigation-next": "^9.0.0",
-    "@atlaskit/profilecard": "^14.3.0",
+    "@atlaskit/profilecard": "^15.0.0",
     "@atlaskit/radio": "^5.0.0",
     "@atlaskit/smart-card": "^14.8.0",
     "@atlaskit/ssr": "^0.2.0",

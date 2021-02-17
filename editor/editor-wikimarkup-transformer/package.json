@@ -36,7 +36,7 @@
     "@atlaskit/editor-core": "^137.0.0",
     "@atlaskit/editor-test-helpers": "^14.0.0",
     "@atlaskit/mention": "^19.2.0",
-    "@atlaskit/profilecard": "^14.3.0",
+    "@atlaskit/profilecard": "^15.0.0",
     "@atlaskit/renderer": "^73.2.0",
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/util-data-test": "^15.0.0",

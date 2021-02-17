@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.11.0
+
+### Minor Changes
+
+- [`2435fe76f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2435fe76f3f) - Adding a new fetch for joinable sites, in order to hit a new endpoint for non-aa-mastered users.
+
 ## 8.10.1
 
 ### Patch Changes

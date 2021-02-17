@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 137.0.1
+
+### Patch Changes
+
+- [`1ce3cd83260`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ce3cd83260) - pass multiple option to media-picker Browser component so that one can select multiple files in native upload
+
 ## 137.0.0
 
 ### Major Changes

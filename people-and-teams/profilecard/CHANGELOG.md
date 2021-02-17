@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.0.0
+
+### Major Changes
+
+- [`6d6aa2b4928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d6aa2b4928) - Introduced entrypoints to the profilecard package.
+
 ## 14.3.1
 
 ### Patch Changes

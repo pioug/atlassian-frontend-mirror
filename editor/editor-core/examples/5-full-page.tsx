@@ -201,7 +201,7 @@ export const providers: Partial<Providers> = {
 };
 
 export const mediaProvider = storyMediaProviderFactory({
-  includeUserAuthProvider: true,
+  includeUserAuthProvider: false,
 });
 
 export const quickInsertProvider = quickInsertProviderFactory();
@@ -375,7 +375,7 @@ export class ExampleEditorComponent extends React.Component<
                     }
                     return errors;
                   },
-                  useMediaPickerPopup: true,
+                  useMediaPickerPopup: false,
                   featureFlags: mediaFeatureFlags,
                 }}
                 allowHelpDialog

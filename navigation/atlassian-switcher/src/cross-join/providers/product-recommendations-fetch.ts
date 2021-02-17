@@ -13,9 +13,10 @@ import { fetchJson } from '../../common/utils/fetch';
    compatibility with existing UI elements.
  */
 
-const productRecommendationUrl =
-  'https://api-private.atlassian.com/gateway/api/invitations/v1/product-recommendations/';
-//'https://id-invitations-service.staging.atl-paas.net/api/v1/product-recommendations';
+/* Urls which we will be hitting in staging and prod
+'https://api-private.atlassian.com/gateway/api/invitations/v1/product-recommendations/';
+'https://id-invitations-service.staging.atl-paas.net/api/v1/product-recommendations';
+*/
 
 type ARI = {
   // Always 'ari' for valid ARI
@@ -54,15 +55,16 @@ const nonTenantedProducts: {[key: string]: string}  = {
 }
 */
 
-export const fetchProductRecommendations = (): Promise<
-  JoinableSitesResponse
-> => {
+export const fetchProductRecommendationsInternal = (
+  baseUrl: string = '',
+): Promise<JoinableSitesResponse> => {
   return fetchJson<ProductRecommendationsResponse>(
-    productRecommendationUrl +
+    `${baseUrl}/v1/product-recommendations` +
       // Query parameters are optional filters. All results are returned by default.
-      '?capability=DIRECT_ACCESS',
-    // Subsequent conditions are prefaced with '&'
-    // i.e. + '&product=confluence'
+      '?capability=DIRECT_ACCESS' +
+      // Subsequent conditions are prefaced with '&'
+      // i.e. + '&product=confluence'
+      '&product=jira-software&product=jira-servicedesk&product=jira-core&product=confluence',
     {
       method: 'get',
     },
@@ -195,3 +197,6 @@ const parseAri = (input: string): ARI => {
     resourceId: slashSplitInput[1],
   };
 };
+
+export const fetchProductRecommendations = (baseUrl: string) => () =>
+  fetchProductRecommendationsInternal(baseUrl);

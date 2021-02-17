@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "14.3.1",
+  "version": "15.0.0",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,11 +15,18 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "People and Teams Collective",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Profilecard"
     }
+  },
+  "af:exports": {
+    "./client": "./src/api/index.ts",
+    "./messages": "./src/messages.ts",
+    "./team": "./src/components/team.ts",
+    "./types": "./src/types.ts",
+    "./user": "./src/components/user.ts",
+    ".": "./src/index.ts"
   },
   "scripts": {
     "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",

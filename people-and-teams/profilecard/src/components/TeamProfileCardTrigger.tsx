@@ -12,10 +12,8 @@ import {
   TeamProfileCardTriggerState,
 } from '../types';
 
+import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
 import TeamProfilecard from './TeamProfileCard';
-
-export const DELAY_MS_SHOW = 800;
-export const DELAY_MS_HIDE = 200;
 
 class TeamProfileCardTrigger extends React.PureComponent<
   TeamProfileCardTriggerProps,

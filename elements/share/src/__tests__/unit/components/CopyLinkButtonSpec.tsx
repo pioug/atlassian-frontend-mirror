@@ -84,6 +84,37 @@ describe('CopyLinkButton', () => {
     const button = wrapper.find(Button);
     expect(button).toHaveLength(1);
     expect(button.prop('appearance')).toEqual('subtle-link');
+    expect(button.prop('isDisabled')).not.toEqual(true);
+
+    const hiddenInput = wrapper.find(HiddenInput);
+    expect(hiddenInput).toHaveLength(1);
+    expect(hiddenInput.prop('text')).toEqual(mockLink);
+
+    expect(
+      // @ts-ignore accessing private property just for testing purpose
+      wrapper.instance().inputRef.current instanceof HTMLInputElement,
+    ).toBeTruthy();
+  });
+
+  it('should render for piblic link', () => {
+    const wrapper: ReactWrapper<
+      Props & InjectedIntlProps,
+      State,
+      any
+    > = mountWithIntl<Props, State>(
+      <CopyLinkButton link={mockLink} isPublicLink={true} isDisabled={true} />,
+    );
+
+    expect(wrapper.text()).toContain('Copy public link');
+
+    const inlineDialog = wrapper.find(Popup);
+    expect(inlineDialog).toHaveLength(1);
+    expect(inlineDialog.prop('placement')).toEqual('top-start');
+
+    const button = wrapper.find(Button);
+    expect(button).toHaveLength(1);
+    expect(button.prop('appearance')).toEqual('subtle-link');
+    expect(button.prop('isDisabled')).toEqual(true);
 
     const hiddenInput = wrapper.find(HiddenInput);
     expect(hiddenInput).toHaveLength(1);

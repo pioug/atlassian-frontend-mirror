@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.0.1
+
+### Patch Changes
+
+- [`1e5d7f613f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e5d7f613f5) - [ux] Position the header image on team profile cards correctly
+
 ## 15.0.0
 
 ### Major Changes

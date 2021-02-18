@@ -37,6 +37,8 @@ export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
     if (props.image) {
       return css`
         background-image: url('${props.image}');
+        background-size: cover;
+        background-position: center;
       `;
     }
 

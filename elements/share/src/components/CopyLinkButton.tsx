@@ -44,6 +44,7 @@ export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
 export type Props = {
   onLinkCopy?: (link: string) => void;
   link: string;
+  isDisabled?: boolean;
   isPublicLink?: boolean;
 };
 
@@ -98,6 +99,7 @@ export class CopyLinkButton extends React.Component<
     const { shouldShowCopiedMessage } = this.state;
     const {
       intl: { formatMessage },
+      isDisabled,
       isPublicLink,
     } = this.props;
 
@@ -124,6 +126,7 @@ export class CopyLinkButton extends React.Component<
           placement="top-start"
           trigger={(triggerProps: TriggerProps) => (
             <Button
+              isDisabled={isDisabled}
               appearance="subtle-link"
               iconBefore={
                 <LinkFilledIcon

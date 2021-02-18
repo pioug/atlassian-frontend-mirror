@@ -125,6 +125,7 @@ export type Props = {
   fetchSlackConversations: (teamId: string) => void;
   onUserSelectionChange?: (value: Value) => void;
   shareFieldsFooter?: React.ReactNode;
+  isCopyDisabled?: boolean;
   isPublicLink?: boolean;
   /** Atlassian Resource Identifier of a Site resource to be shared. */
   shareAri?: string;
@@ -715,6 +716,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       shareFieldsFooter,
       onUserSelectionChange,
       dialogZIndex,
+      isCopyDisabled,
       isPublicLink,
       tabIndex,
     } = this.props;
@@ -791,6 +793,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       onUserSelectionChange={onUserSelectionChange}
                       fieldsFooter={shareFieldsFooter}
                       selectPortalRef={this.selectPortalRef}
+                      isDisabled={isCopyDisabled}
                       isPublicLink={isPublicLink}
                     />
                   </InlineDialogFormWrapper>

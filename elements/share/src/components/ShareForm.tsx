@@ -97,6 +97,7 @@ export type Props = {
   onUserSelectionChange?: (value: Value) => void;
   fieldsFooter?: React.ReactNode;
   selectPortalRef?: React.Ref<HTMLDivElement>;
+  isDisabled?: boolean;
   isPublicLink?: boolean;
 };
 
@@ -122,6 +123,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       isSharing,
       shareError,
       submitButtonLabel,
+      isDisabled,
       isPublicLink,
     } = this.props;
     const shouldShowWarning = shareError && !isSharing;
@@ -152,6 +154,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
           appearance={buttonAppearance}
           type="submit"
           isLoading={isSharing}
+          isDisabled={isDisabled}
         >
           <ButtonLabelWrapper>
             {submitButtonLabel || <FormattedMessage {...buttonLabel} />}
@@ -191,6 +194,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       onUserSelectionChange,
       fieldsFooter,
       selectPortalRef,
+      isDisabled,
       isPublicLink,
     } = this.props;
     return (
@@ -223,6 +227,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
           {fieldsFooter}
           <FormFooter>
             <CopyLinkButton
+              isDisabled={isDisabled}
               onLinkCopy={onLinkCopy}
               link={copyLink}
               isPublicLink={isPublicLink}

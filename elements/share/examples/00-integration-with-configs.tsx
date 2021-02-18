@@ -193,6 +193,7 @@ type ExampleState = {
   shareToSlack: boolean;
   enableSmartUserPicker: boolean;
   hasShareFieldsFooter: boolean;
+  isCopyDisabled: boolean;
   isPublicLink: boolean;
 };
 
@@ -300,6 +301,7 @@ export default class Example extends React.Component<{}, State> {
     shareToSlack: false,
     enableSmartUserPicker: false,
     hasShareFieldsFooter: false,
+    isCopyDisabled: false,
     isPublicLink: false,
   };
 
@@ -423,6 +425,7 @@ export default class Example extends React.Component<{}, State> {
       shareToSlack,
       enableSmartUserPicker,
       hasShareFieldsFooter,
+      isCopyDisabled,
       isPublicLink,
     } = this.state;
 
@@ -483,6 +486,7 @@ export default class Example extends React.Component<{}, State> {
                     onDialogOpen={() => {
                       console.log('Share Dialog Opened');
                     }}
+                    isCopyDisabled={isCopyDisabled}
                     isPublicLink={isPublicLink}
                   />
                 </WrapperWithMarginTop>
@@ -494,6 +498,15 @@ export default class Example extends React.Component<{}, State> {
                       isChecked={isPublicLink}
                       onChange={() =>
                         this.setState({ isPublicLink: !isPublicLink })
+                      }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Is Copy Disabled
+                    <Toggle
+                      isChecked={isCopyDisabled}
+                      onChange={() =>
+                        this.setState({ isCopyDisabled: !isCopyDisabled })
                       }
                     />
                   </WrapperWithMarginTop>

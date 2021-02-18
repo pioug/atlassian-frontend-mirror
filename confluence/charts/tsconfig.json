@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "src/__tests__/**/*.ts",
+    "src/__tests__/**/*.tsx",
+    "docs/**/*.ts",
+    "docs/**/*.tsx",
+    "examples/**/*.ts",
+    "examples/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "baseUrl": ""
+  }
+}

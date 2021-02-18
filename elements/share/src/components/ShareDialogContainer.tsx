@@ -200,6 +200,8 @@ export type Props = {
   onUserSelectionChange?: (value: Value) => void;
   /* Footer component to display under the share form fields. */
   shareFieldsFooter?: React.ReactNode;
+  /* Indicates if the copy link and share link are disabled */
+  isCopyDisabled?: boolean;
   /* Indicates if the link shared publicly accessible */
   isPublicLink?: boolean;
   /**
@@ -748,6 +750,7 @@ export class ShareDialogContainerInternal extends React.Component<
       onTriggerButtonClick,
       onUserSelectionChange,
       shareFieldsFooter,
+      isCopyDisabled,
       isPublicLink,
       shareAri,
       tabIndex,
@@ -808,6 +811,7 @@ export class ShareDialogContainerInternal extends React.Component<
             customFooter={customFooter}
             onUserSelectionChange={onUserSelectionChange}
             shareFieldsFooter={shareFieldsFooter}
+            isCopyDisabled={isCopyDisabled}
             isPublicLink={isPublicLink}
             shareAri={shareAri}
             tabIndex={tabIndex}

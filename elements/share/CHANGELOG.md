@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.25.0
+
+### Minor Changes
+
+- [`b62dbfe883a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b62dbfe883a) - Add new optional attribute isDisabled which will disbale copy-link and share-button.
+
 ## 0.24.4
 
 ### Patch Changes

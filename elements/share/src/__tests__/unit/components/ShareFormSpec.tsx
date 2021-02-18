@@ -288,6 +288,7 @@ describe('ShareForm', () => {
           copyLink="link"
           loadOptions={jest.fn()}
           isPublicLink={true}
+          isDisabled={true}
           product="confluence"
           slackTeams={[]}
         />,
@@ -305,6 +306,7 @@ describe('ShareForm', () => {
       const copyLinkButton = footer.find(CopyLinkButton).dive();
       expect(copyLinkButton.length).toBe(1);
       expect(copyLinkButton.prop('isPublicLink')).toEqual(true);
+      expect(copyLinkButton.prop('isDisabled')).toEqual(true);
     });
   });
 });

@@ -260,7 +260,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   }
 
   render() {
-    const { fullName, status } = this.props;
+    const { fullName, status, withoutElevation } = this.props;
     let cardContent: React.ReactNode = null;
 
     // @FIXME do closed users have empty fullName field?
@@ -285,7 +285,10 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
       });
 
       cardContent = (
-        <CardContainer isDisabledUser={isDisabledUser}>
+        <CardContainer
+          isDisabledUser={isDisabledUser}
+          withoutElevation={withoutElevation}
+        >
           <ProfileImage>
             <Avatar
               size="xlarge"

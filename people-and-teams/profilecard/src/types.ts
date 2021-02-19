@@ -104,6 +104,7 @@ export interface TeamProfileCardTriggerState {
   hasError: boolean;
   error?: any;
   data: Team | null;
+  renderError?: boolean;
 }
 
 export interface TeamProfilecardCoreProps {
@@ -250,6 +251,7 @@ export interface ProfilecardProps {
   clientFetchProfile?: any;
   analytics?: any;
   statusModifiedDate?: number | null;
+  withoutElevation?: boolean;
 
   // Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
   // `disabledAccountMessage` should not contain react-intl components, ex: `FormattedMessage`,

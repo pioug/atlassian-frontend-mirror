@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
@@ -13,7 +13,9 @@ import {
 } from '../types';
 
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
-import TeamProfilecard from './TeamProfileCard';
+import ErrorBoundary from './ErrorBoundary';
+import { TeamProfileCardLazy } from './lazyTeamProfileCard';
+import TeamLoadingState from './TeamLoadingState';
 
 class TeamProfileCardTrigger extends React.PureComponent<
   TeamProfileCardTriggerProps,
@@ -173,6 +175,12 @@ class TeamProfileCardTrigger extends React.PureComponent<
     );
   };
 
+  onErrorBoundary = () => {
+    this.setState({
+      renderError: true,
+    });
+  };
+
   handleClientSuccess(res: Team) {
     if (!this._isMounted) {
       return;
@@ -222,12 +230,16 @@ class TeamProfileCardTrigger extends React.PureComponent<
 
     return (
       <div {...this.cardListeners}>
-        <TeamProfilecard
-          {...newProps}
-          isLoading={isLoading}
-          hasError={hasError}
-          errorType={error}
-        />
+        {this.state.visible && (
+          <Suspense fallback={<TeamLoadingState />}>
+            <TeamProfileCardLazy
+              {...newProps}
+              isLoading={isLoading}
+              hasError={hasError}
+              errorType={error}
+            />
+          </Suspense>
+        )}
       </div>
     );
   };
@@ -262,14 +274,21 @@ class TeamProfileCardTrigger extends React.PureComponent<
   };
 
   renderPopup() {
+    if (this.state.renderError) {
+      return this.props.children;
+    }
+
     return (
-      <Popup
-        isOpen={!!this.state.visible}
-        onClose={this.hideProfilecard}
-        placement={this.props.position}
-        content={this.renderProfileCard}
-        trigger={triggerProps => this.renderTrigger(triggerProps)}
-      />
+      <ErrorBoundary onError={this.onErrorBoundary}>
+        <Popup
+          isOpen={!!this.state.visible}
+          onClose={this.hideProfilecard}
+          placement={this.props.position}
+          content={this.renderProfileCard}
+          trigger={triggerProps => this.renderTrigger(triggerProps)}
+          shouldFlip
+        />
+      </ErrorBoundary>
     );
   }
 

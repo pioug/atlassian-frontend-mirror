@@ -11,8 +11,6 @@ import { profiles } from '../../mock-helpers';
 import { ProfileCard } from '../../src';
 import { StatusModifiedDateType, StatusType } from '../../src/types';
 
-import { CardWrapper } from './wrapper';
-
 const StoryWrapper = styled.div`
   label {
     color: ${themed({ light: N800, dark: N0 })};
@@ -238,49 +236,47 @@ export default class ProfilecardInteractive extends Component<Props, State> {
       <AtlaskitThemeProvider mode={this.state.hasDarkTheme ? 'dark' : 'light'}>
         <StoryWrapper>
           <ProfileCardWrapper>
-            <CardWrapper>
-              <ProfileCard
-                isLoading={this.state.hasLoadingState}
-                hasError={this.state.hasErrorState}
-                actions={this.state.hasNoActions ? [] : actions}
-                isBot={this.state.isBot}
-                status={this.state.status}
-                statusModifiedDate={this.state.statusModifiedDate}
-                avatarUrl={this.state.hasAvatar ? this.state.avatarUrl : ''}
-                email={this.state.email}
-                fullName={
-                  this.state.hasLongName
-                    ? `${this.state.fullName} Hathaway ${this.state.fullName}`
-                    : this.state.fullName
-                }
-                location={this.state.hasLocation ? this.state.location : ''}
-                companyName={
-                  this.state.hasCompanyName ? this.state.companyName : ''
-                }
-                meta={this.state.hasMeta ? meta : ''}
-                nickname={this.state.nickname}
-                timestring={
-                  this.state.hasTime ? getTimeString(this.state.hasWeekday) : ''
-                }
-                clientFetchProfile={handleActionClick('Retry')}
-                disabledAccountMessage={
-                  this.state.hasDisabledAccountMessage ? (
-                    <React.Fragment>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.
-                      </p>
-                      <p>
-                        Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo.
-                      </p>
-                    </React.Fragment>
-                  ) : undefined
-                }
-                hasDisabledAccountLozenge={this.state.hasDisabledAccountLozenge}
-              />
-            </CardWrapper>
+            <ProfileCard
+              isLoading={this.state.hasLoadingState}
+              hasError={this.state.hasErrorState}
+              actions={this.state.hasNoActions ? [] : actions}
+              isBot={this.state.isBot}
+              status={this.state.status}
+              statusModifiedDate={this.state.statusModifiedDate}
+              avatarUrl={this.state.hasAvatar ? this.state.avatarUrl : ''}
+              email={this.state.email}
+              fullName={
+                this.state.hasLongName
+                  ? `${this.state.fullName} Hathaway ${this.state.fullName}`
+                  : this.state.fullName
+              }
+              location={this.state.hasLocation ? this.state.location : ''}
+              companyName={
+                this.state.hasCompanyName ? this.state.companyName : ''
+              }
+              meta={this.state.hasMeta ? meta : ''}
+              nickname={this.state.nickname}
+              timestring={
+                this.state.hasTime ? getTimeString(this.state.hasWeekday) : ''
+              }
+              clientFetchProfile={handleActionClick('Retry')}
+              disabledAccountMessage={
+                this.state.hasDisabledAccountMessage ? (
+                  <React.Fragment>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                    <p>
+                      Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                      laboris nisi ut aliquip ex ea commodo.
+                    </p>
+                  </React.Fragment>
+                ) : undefined
+              }
+              hasDisabledAccountLozenge={this.state.hasDisabledAccountLozenge}
+            />
           </ProfileCardWrapper>
 
           <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>

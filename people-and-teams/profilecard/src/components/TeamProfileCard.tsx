@@ -9,7 +9,6 @@ import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-import Spinner from '@atlaskit/spinner';
 
 import messages from '../messages';
 import { ErrorWrapper, TeamErrorText, TeamErrorTitle } from '../styled/Error';
@@ -21,7 +20,6 @@ import {
   CardWrapper,
   Description,
   DescriptionWrapper,
-  LoadingWrapper,
   MemberCount,
   MoreButton,
   TeamName,
@@ -30,6 +28,7 @@ import {
 import { ProfileCardAction, Team, TeamProfilecardProps } from '../types';
 
 import { ErrorIllustration } from './ErrorIllustration';
+import TeamLoadingState from './TeamLoadingState';
 
 interface TeamMembersProps {
   members?: Team['members'];
@@ -271,16 +270,7 @@ const TeamProfileCard = (props: TeamProfilecardProps) => {
   }
 
   if (isLoading) {
-    return (
-      <CardWrapper data-testid="team-profilecard">
-        <CardHeader isLoading />
-        <CardContent>
-          <LoadingWrapper data-testid="team-profilecard-spinner">
-            <Spinner />
-          </LoadingWrapper>
-        </CardContent>
-      </CardWrapper>
-    );
+    return <TeamLoadingState />;
   }
 
   if (team) {

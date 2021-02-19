@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 15.1.0
+
+### Minor Changes
+
+- [`d30beab4f1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d30beab4f1e) - Introduce lazy loading for the team profile card
+
+## 15.0.2
+
+### Patch Changes
+
+- [`1d2da620745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d2da620745) - [ux] Default to showing shadow around user profile cards
+
 ## 15.0.1
 
 ### Patch Changes

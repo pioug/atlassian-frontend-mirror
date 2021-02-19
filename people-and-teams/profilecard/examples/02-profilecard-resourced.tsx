@@ -6,7 +6,10 @@ import ProfileCardResourced from '../src';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
 import { analyticsHandler, getMockProfileClient } from './helper/util';
-import { CardWrapper } from './helper/wrapper';
+
+export const Wrap = styled.div`
+  margin-bottom: 20px;
+`;
 
 export const MainStage = styled.div`
   margin: 16px;
@@ -33,17 +36,17 @@ export default function Example() {
   return (
     <LocaleIntlProvider>
       <MainStage>
-        <CardWrapper style={{ marginBottom: '20px' }}>
+        <Wrap>
           <ProfileCardResourced {...defaultProps} userId="1" />
-        </CardWrapper>
+        </Wrap>
         <br />
-        <CardWrapper style={{ marginBottom: '20px' }}>
+        <Wrap>
           <ProfileCardResourced {...defaultProps} userId="2" />
-        </CardWrapper>
+        </Wrap>
         <br />
-        <CardWrapper style={{ marginBottom: '20px' }}>
+        <Wrap>
           <ProfileCardResourced {...defaultProps} userId="error:NotFound" />
-        </CardWrapper>
+        </Wrap>
       </MainStage>
     </LocaleIntlProvider>
   );

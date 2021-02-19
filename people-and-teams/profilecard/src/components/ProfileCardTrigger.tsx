@@ -175,6 +175,7 @@ class ProfilecardTrigger extends React.PureComponent<
           actions={this.filterActions()}
           hasError={this.state.hasError}
           errorType={this.state.error}
+          withoutElevation
         />
       </div>
     );

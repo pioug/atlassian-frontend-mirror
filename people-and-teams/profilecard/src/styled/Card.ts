@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   borderRadius,
   fontSizeSmall,
   gridSize,
 } from '@atlaskit/theme/constants';
+import { e200 } from '@atlaskit/theme/elevation';
 import { divide, multiply } from '@atlaskit/theme/math';
 
 import {
@@ -136,13 +137,18 @@ export const SpinnerContainer = styled.div`
   position: relative;
 `;
 
+interface CardContainerProps {
+  isDisabledUser?: boolean;
+  withoutElevation?: boolean;
+}
+
 export const CardContainer = styled.div`
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(
     to bottom,
-    ${(props: { isDisabledUser: boolean }) =>
+    ${(props: CardContainerProps) =>
         props.isDisabledUser ? headerBgColorDisabledUser : headerBgColor}
       0%,
     ${props =>
@@ -153,6 +159,16 @@ export const CardContainer = styled.div`
   background-size: 100% ${multiply(gridSize, 12)}px;
   box-sizing: content-box;
   padding: ${multiply(gridSize, 3)}px;
+  ${(props: CardContainerProps) => {
+    if (props.withoutElevation) {
+      return '';
+    }
+
+    return css`
+      ${e200}
+      border-radius: ${borderRadius}px;
+    `;
+  }}
 `;
 
 export const DetailsLabel = styled.div`

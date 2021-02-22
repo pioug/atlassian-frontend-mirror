@@ -136,17 +136,19 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
         extensionKey?: string,
         resourceType?: string,
         error?: APIError,
-      ) =>
-        dispatchAnalytics(
-          instrumentEvent(
-            id,
-            status,
-            definitionId,
-            extensionKey,
-            resourceType,
-            error,
-          ),
-        ),
+      ) => {
+        const event = instrumentEvent(
+          id,
+          status,
+          definitionId,
+          extensionKey,
+          resourceType,
+          error,
+        );
+        if (event) {
+          dispatchAnalytics(event);
+        }
+      },
     }),
     [dispatchAnalytics],
   );

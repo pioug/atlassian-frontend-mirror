@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 14.8.5
+
+### Patch Changes
+
+- [`e604c297faf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e604c297faf) - Prevent resolveUnsupported errors being sent as unresolved events to stop SLO pollution.
+
 ## 14.8.4
 
 ### Patch Changes

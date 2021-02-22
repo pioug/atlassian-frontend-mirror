@@ -298,7 +298,7 @@ export const instrumentEvent = (
   extensionKey?: string,
   resourceType?: string,
   error?: APIError,
-): AnalyticsPayload => {
+): AnalyticsPayload | undefined => {
   const measure = getMeasure(id, status) || { duration: undefined };
   if (status === 'resolved') {
     const event = resolvedEvent(id, definitionId, extensionKey, resourceType);
@@ -310,20 +310,22 @@ export const instrumentEvent = (
       },
     };
   } else {
-    const event = unresolvedEvent(
-      id,
-      status,
-      definitionId,
-      extensionKey,
-      resourceType,
-      error,
-    );
-    return {
-      ...event,
-      attributes: {
-        ...event.attributes,
-        duration: measure.duration,
-      },
-    };
+    if (error?.type !== 'ResolveUnsupportedError') {
+      const event = unresolvedEvent(
+        id,
+        status,
+        definitionId,
+        extensionKey,
+        resourceType,
+        error,
+      );
+      return {
+        ...event,
+        attributes: {
+          ...event.attributes,
+          duration: measure.duration,
+        },
+      };
+    }
   }
 };

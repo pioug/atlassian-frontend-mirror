@@ -12,7 +12,8 @@ import {
   waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
 
-describe('Embed Cards:', () => {
+// TODO unskip it as part of https://product-fabric.atlassian.net/browse/EDM-1787 ticket
+describe.skip('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {
     const { page } = global;
 
@@ -91,6 +92,9 @@ describe('Embed Cards:', () => {
               allowResizing,
             },
           },
+          undefined,
+          undefined,
+          true,
         );
 
         await waitForSuccessfullyResolvedEmbedCard(page, 2);

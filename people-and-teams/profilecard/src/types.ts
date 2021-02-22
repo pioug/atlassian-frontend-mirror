@@ -128,6 +128,11 @@ export interface TeamProfilecardCoreProps {
    */
   generateUserLink?: (userId: string) => string;
   /**
+    A function allowing products to provide an onClick handler for when the
+    user clicks on a user's avatar or avatar group item.
+   */
+  onUserClick?: (userId: string, event: React.MouseEvent<Element>) => void;
+  /**
     This should be a link to the team's profile page. This will be used for:
 
     - Wrapping the trigger in a link to the team profile page (unless
@@ -146,7 +151,7 @@ export interface TeamProfilecardCoreProps {
 
     - Providing an onClick for the View Profile action button on the card.
    */
-  viewProfileOnClick?: (event?: React.MouseEvent<HTMLElement>) => void;
+  viewProfileOnClick?: (event?: React.MouseEvent<Element>) => void;
 }
 
 export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {

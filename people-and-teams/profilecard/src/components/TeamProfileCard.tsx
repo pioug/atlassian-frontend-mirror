@@ -30,26 +30,32 @@ import { ProfileCardAction, Team, TeamProfilecardProps } from '../types';
 import { ErrorIllustration } from './ErrorIllustration';
 import TeamLoadingState from './TeamLoadingState';
 
-interface TeamMembersProps {
+interface TeamMembers {
   members?: Team['members'];
-  generateUserLink?: (userId: string) => string;
-  viewingUserId?: string;
 }
+
+type TeamMembersProps = TeamMembers &
+  Pick<
+    TeamProfilecardProps,
+    'generateUserLink' | 'onUserClick' | 'viewingUserId'
+  >;
 
 const LARGE_MEMBER_COUNT = 50;
 
-// function onMemberClick(callback: TeamMembersProps['onUserClick'], userId: string) {
-//   return (...args: any) => {
-//     args[0].preventDefault();
-//     console.log('User clicked :)');
-//     // Analytics
-//     callback(userId);
-//   };
-// }
+function onMemberClick(
+  callback: Required<TeamMembersProps>['onUserClick'],
+  userId: string,
+) {
+  return (event: React.MouseEvent<Element>) => {
+    // Analytics
+    callback(userId, event);
+  };
+}
 
 const TeamMembers = ({
   generateUserLink,
   members,
+  onUserClick,
   viewingUserId,
 }: TeamMembersProps) => {
   const count = members ? members.length : 0;
@@ -78,7 +84,12 @@ const TeamMembers = ({
               const linkProps = generateUserLink
                 ? {
                     href: generateUserLink(member.id),
-                    target: '_blank' as const,
+                  }
+                : {};
+
+              const onClickProps = onUserClick
+                ? {
+                    onClick: onMemberClick(onUserClick, member.id),
                   }
                 : {};
 
@@ -87,6 +98,7 @@ const TeamMembers = ({
                 name: member.fullName,
                 src: member.avatarUrl,
                 ...linkProps,
+                ...onClickProps,
               };
             })}
             maxCount={9}
@@ -186,6 +198,7 @@ const TeamProfilecardContent = ({
   team,
   viewingUserId,
   generateUserLink,
+  onUserClick,
   viewProfileLink,
   viewProfileOnClick,
 }: TeamProfilecardProps & { team: Team }) => {
@@ -209,6 +222,7 @@ const TeamProfilecardContent = ({
           members={team.members}
           generateUserLink={generateUserLink}
           viewingUserId={viewingUserId}
+          onUserClick={onUserClick}
         />
         {team.description.trim() && (
           <DescriptionWrapper>

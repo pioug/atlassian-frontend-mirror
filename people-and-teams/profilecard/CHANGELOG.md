@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.1.1
+
+### Patch Changes
+
+- [`771af9a49ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/771af9a49ed) - [ux] Enable propagating onClick handlers to the Avatar Group
+
 ## 15.1.0
 
 ### Minor Changes

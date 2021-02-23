@@ -1,5 +1,16 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
+const clearBtn = '[data-testid="clear-button"]';
+
+const inlineEdit = 'input[name="inlineEdit"]';
+const inlineEditLabel = 'label';
+const readView = '[data-testid="read-view"]';
+const readViewEditableTextField =
+  '[data-testid="read-view-editable-text-field"]';
+
+const error = 'span[aria-label="error"]';
+const errorMessage = '#error-message';
+
 describe('Snapshot Test', () => {
   it('Default usage should match production example', async () => {
     const url = getExampleUrl(
@@ -10,7 +21,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('#inlineEdit-uid1-label');
+    await page.waitForSelector(inlineEditLabel);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -24,8 +35,8 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('[data-testid="read-view"]');
-    await page.click('[data-testid="read-view"]');
+    await page.waitForSelector(readView);
+    await page.click(readView);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -39,7 +50,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('#inlineEdit-uid1-label');
+    await page.waitForSelector(inlineEditLabel);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -53,7 +64,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('#inlineEdit-uid1-label');
+    await page.waitForSelector(inlineEditLabel);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
@@ -68,8 +79,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
 
-    await page.waitForSelector('[data-testid="read-view-editable-text-field"]');
-    await page.click('[data-testid="read-view-editable-text-field"]');
+    await page.waitForSelector(readViewEditableTextField);
+    await page.click(readViewEditableTextField);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
@@ -101,8 +112,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
 
-    await page.waitForSelector('[data-testid="read-view-editable-text-field"]');
-    await page.click('[data-testid="read-view-editable-text-field"]');
+    await page.waitForSelector(readViewEditableTextField);
+    await page.click(readViewEditableTextField);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
@@ -118,8 +129,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
 
-    await page.waitForSelector('[data-testid="read-view-editable-text-field"]');
-    await page.click('[data-testid="read-view-editable-text-field"]');
+    await page.waitForSelector(readViewEditableTextField);
+    await page.click(readViewEditableTextField);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
@@ -135,24 +146,22 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
 
-    await page.waitForSelector('[data-testid="clear-button"]');
-    await page.click('[data-testid="clear-button"]');
+    await page.waitForSelector(clearBtn);
+    await page.click(clearBtn);
 
-    await page.waitForSelector('[data-testid="read-view"]');
-    await page.click('[data-testid="read-view"]');
+    await page.waitForSelector(readView);
+    await page.click(readView);
 
-    await page.focus('input[name="inlineEdit"]');
-    await page.type('input[name="inlineEdit"]', 'short');
+    await page.focus(inlineEdit);
+    await page.type(inlineEdit, 'short');
     await page.waitFor(500);
 
-    await page.$eval('input[name="inlineEdit"]', e =>
-      (e as HTMLElement).blur(),
-    );
+    await page.$eval(inlineEdit, e => (e as HTMLElement).blur());
 
     await page.waitFor(1000);
 
-    await page.waitForSelector('span[aria-label="error"]');
-    await page.waitForSelector('#error-message');
+    await page.waitForSelector(error);
+    await page.waitForSelector(errorMessage);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

@@ -126,7 +126,7 @@ BrowserTestCase(
     await quickInsert(page, 'Date');
 
     const lozengeText2 = await page.getText(dateLozenge);
-    if (browser === 'safari') {
+    if (browser !== 'firefox') {
       expect(lozengeText2).toBe('1 ene 2019');
     } else {
       expect(lozengeText2).toBe('1 ene. 2019');

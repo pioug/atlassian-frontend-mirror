@@ -10,6 +10,7 @@ describe('default-joinable-sites-fetch', () => {
         url: 'https://teamsinspace.com',
         products: {
           'jira-software.ondemand': [],
+          'confluence.ondemand': [],
         },
         displayName: 'Example',
         avatarUrl: 'http://avatarSite/avatar',
@@ -42,6 +43,7 @@ describe('default-joinable-sites-fetch', () => {
 
     const joinableSites = await fetchJoinableSitesRecommended([
       ProductKey.JIRA_SOFTWARE,
+      ProductKey.CONFLUENCE,
     ]);
     expect(joinableSites).toStrictEqual(experimentApiSites);
   });

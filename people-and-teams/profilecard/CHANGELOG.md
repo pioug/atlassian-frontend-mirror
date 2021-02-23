@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.1.2
+
+### Patch Changes
+
+- [`e104d184c58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e104d184c58) - [ux] Enabled translations for team profile card messages
+
 ## 15.1.1
 
 ### Patch Changes

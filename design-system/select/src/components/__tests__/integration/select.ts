@@ -5,8 +5,9 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 // css-selectors:
 const selectDefault = '.react-select__control';
 const selectMenu = '.react-select__menu';
-const selectmenuItem1 = '#react-select-2-option-3';
-const selectmenuItem2 = '#react-select-2-option-5';
+const selectmenuItem1 = '.react-select__option:nth-child(1)';
+const selectAdelaide = '#react-select-2-option-0';
+const selectBrisbane = '#react-select-2-option-3';
 
 const selectCheckbox = '.select__control';
 const selectCheckboxMenu = '.select__menu';
@@ -25,7 +26,7 @@ BrowserTestCase(
     await selectTest.waitForSelector(selectmenuItem1);
     await selectTest.click(selectmenuItem1);
     //wait for animation to finish
-    await selectTest.pause(500);
+    await client.pause(500);
     const selectedValue = '.react-select__value-container';
     expect(await selectTest.getText(selectedValue)).not.toContain(
       'Choose a City',
@@ -45,15 +46,16 @@ BrowserTestCase(
     await selectTest.click(selectDefault);
     const menuIsVisible = await selectTest.isVisible(selectMenu);
     expect(menuIsVisible).toBe(true);
-    await selectTest.waitForSelector(selectmenuItem1);
-    await selectTest.click(selectmenuItem1);
+    await selectTest.waitFor(selectAdelaide, 10000);
+    await selectTest.click(selectAdelaide);
     await selectTest.waitForSelector(selectDefault);
     await selectTest.click(selectDefault);
-    expect(await selectTest.isExisting(selectmenuItem1)).toBe(false);
-    await selectTest.waitForSelector(selectmenuItem2);
-    await selectTest.click(selectmenuItem2);
+    await client.pause(2000);
+    expect(await selectTest.isExisting(selectAdelaide)).toBe(false);
+    await selectTest.waitForSelector(selectBrisbane);
+    await selectTest.click(selectBrisbane);
     //wait for animation to finish
-    await selectTest.pause(500);
+    await client.pause(500);
     const selectedValue = '.react-select__value-container';
     expect(await selectTest.getText(selectedValue)).not.toContain(
       'Choose a City',
@@ -73,10 +75,10 @@ BrowserTestCase(
     await selectTest.click(selectDefault);
     const menuIsVisible = await selectTest.isVisible(selectMenu);
     expect(menuIsVisible).toBe(true);
-    await selectTest.waitForSelector(selectmenuItem1);
-    await selectTest.click(selectmenuItem1);
+    await selectTest.waitFor(selectAdelaide, 10000);
+    await selectTest.click(selectAdelaide);
     //wait for animation to finish
-    await selectTest.pause(500);
+    await client.pause(500);
     const selectedValue = '.react-select__value-container';
     expect(await selectTest.getText(selectedValue)).not.toContain(
       'Choose a City',
@@ -100,10 +102,10 @@ BrowserTestCase(
     await selectTest.click(selectDefault);
     const menuIsVisible = await selectTest.isVisible(selectMenu);
     expect(menuIsVisible).toBe(true);
-    await selectTest.waitForSelector(selectmenuItem1);
-    await selectTest.click(selectmenuItem1);
+    await selectTest.waitFor(selectAdelaide, 10000);
+    await selectTest.click(selectAdelaide);
     //wait for animation to finish
-    await selectTest.pause(500);
+    await client.pause(500);
     const selectedValue = '.react-select__value-container';
     expect(await selectTest.getText(selectedValue)).not.toContain(
       'Choose a City',
@@ -127,10 +129,10 @@ BrowserTestCase(
     await selectTest.click(selectCheckbox);
     const menuIsVisible = await selectTest.isVisible(selectCheckboxMenu);
     expect(menuIsVisible).toBe(true);
-    await selectTest.waitForSelector(selectmenuItem1);
-    await selectTest.click(selectmenuItem1);
+    await selectTest.waitFor(selectAdelaide, 10000);
+    await selectTest.click(selectAdelaide);
     //wait for animation to finish
-    await selectTest.pause(500);
+    await client.pause(500);
     const selectedValue = '.select__value-container';
     expect(await selectTest.getText(selectedValue)).not.toContain(
       'Choose a City',

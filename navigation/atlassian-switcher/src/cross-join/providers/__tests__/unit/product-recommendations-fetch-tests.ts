@@ -16,6 +16,16 @@ describe('product-recommendations-fetch-test', () => {
           avatarUrl:
             'https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/lightbulb.png',
         },
+        {
+          resourceId:
+            'ari:cloud:confluence::site/bd98310f-491e-4af3-89a1-a23c6a9db606',
+          userAccessLevel: 'EXTERNAL',
+          roleAri: 'ari:cloud:confluence::role/product/member',
+          url: 'https://recommendations1.jira-dev.com/wiki',
+          displayName: 'recommendations1',
+          avatarUrl:
+            'https://site-admin-avatar-cdn.staging.public.atl-paas.net/avatars/240/lightbulb.png',
+        },
       ],
     },
   };
@@ -33,6 +43,10 @@ describe('product-recommendations-fetch-test', () => {
             collaborators: [],
             productUrl:
               'https://recommendations1.jira-dev.com/secure/BrowseProjects.jspa?selectedProjectType=software',
+          },
+          'confluence.ondemand': {
+            collaborators: [],
+            productUrl: 'https://recommendations1.jira-dev.com/wiki',
           },
         },
       },

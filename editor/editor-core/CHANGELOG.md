@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 137.0.2
+
+### Patch Changes
+
+- [`8aa5285c47b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aa5285c47b) - ED-12124 Fix plus menu search
+
 ## 137.0.1
 
 ### Patch Changes

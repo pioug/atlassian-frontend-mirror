@@ -55,7 +55,11 @@ export default class extends Component<{}> {
                     {!error && (
                       <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>
                     )}
-                    {error && <ErrorMessage>{error}</ErrorMessage>}
+                    {error && (
+                      <ErrorMessage testId="userSubmissionError">
+                        {error}
+                      </ErrorMessage>
+                    )}
                   </Fragment>
                 )}
               </Field>

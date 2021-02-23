@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.11.1
+
+### Patch Changes
+
+- [`a9b55e065f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9b55e065f1) - Updating the product-recommendations-fetch function in order to properly update productKey for sites with multiple products for the Join section in Trello Switcher.
+
 ## 8.11.0
 
 ### Minor Changes

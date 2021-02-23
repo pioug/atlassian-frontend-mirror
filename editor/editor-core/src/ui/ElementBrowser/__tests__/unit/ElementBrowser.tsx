@@ -82,6 +82,13 @@ describe('ElementBrowser', () => {
       instance.componentDidMount();
       expect(getItems).toHaveBeenCalledTimes(1);
     });
+    it('re-fetches quick insert items when getItems changes', () => {
+      const getItems = jest.fn(() => []);
+      wrapper.setProps({ getItems });
+      // One call is to get all items to update categories
+      // The other one is to find the filtered list items
+      expect(getItems).toHaveBeenCalledTimes(2);
+    });
     it('loads categories that have items', async () => {
       const res = instance.filterCategories(
         await getItems(),

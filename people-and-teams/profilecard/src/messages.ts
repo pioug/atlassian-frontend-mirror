@@ -126,47 +126,47 @@ const messages = defineMessages({
       'A default name when we cannot get name of an inactive or closed user',
   },
   teamViewProfile: {
-    id: 'pt.team-profile-card.team.action.view-profile-nonfinal',
+    id: 'pt.team-profile-card.team.action.view-profile',
     defaultMessage: 'View profile',
     description: 'Button that takes you to view this team’s profile',
   },
   memberCount: {
-    id: 'pt.team-profile-card.team.member.count-nonfinal',
+    id: 'pt.team-profile-card.team.member.count',
     defaultMessage:
       'Team • {count} {count, plural, one {member} other {members}}',
     description: 'Byline to show the number of members in the team',
   },
   memberCountIncludingYou: {
-    id: 'pt.team-profile-card.team.member.count-including-you-nonfinal',
+    id: 'pt.team-profile-card.team.member.count-including-you',
     defaultMessage:
       'Team • {count} {count, plural, one {member} other {members}}, including you',
     description:
       'Byline to show the number of members in the team and highlight that the user is a member',
   },
   membersMoreThan50: {
-    id: 'pt.team-profile-card.team.member.many-nonfinal',
+    id: 'pt.team-profile-card.team.member.many',
     defaultMessage: 'Team • 50+ members',
     description: 'Byline to show the team has more than 50 members',
   },
   membersMoreThan50IncludingYou: {
-    id: 'pt.team-profile-card.team.member.many-including-you-nonfinal',
+    id: 'pt.team-profile-card.team.member.many-including-you',
     defaultMessage: 'Team • 50+ members, including you',
     description:
       'Byline to show the team has more than 50 members and highlight that the user is a member',
   },
   teamErrorTitle: {
-    id: 'pt.team-profile-card.error.title-nonfinal',
+    id: 'pt.team-profile-card.error.title',
     defaultMessage: 'We’re having trouble retrieving this teams information',
     description:
       'Title for an error view explaining that data for this team cannot be accessed',
   },
   teamErrorText: {
-    id: 'pt.team-profile-card.error.suggestion-nonfinal',
+    id: 'pt.team-profile-card.error.suggestion',
     defaultMessage: 'Wait a few moments, then try again.',
     description: 'Second line suggesting how to fix the issue',
   },
   teamErrorButton: {
-    id: 'pt.team-profile-card.error.refresh-button-nonfinal',
+    id: 'pt.team-profile-card.error.refresh-button',
     defaultMessage: 'Try again',
     description:
       'Text on a button that will try to get the data again when clicked',

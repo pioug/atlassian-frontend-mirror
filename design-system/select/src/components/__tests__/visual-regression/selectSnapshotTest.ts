@@ -8,9 +8,9 @@ const openModalBtn = "[type='button']";
 const modalDialog = "[role='dialog']";
 const selectCheckbox = '.select__control';
 const selectCheckboxMenu = '.select__menu';
-const selectMenuItem = '#react-select-2-option-3';
+const selectMenuItem = '.react-select__option:nth-child(4)';
 const menuMultiSelectValue = '.select__value-container';
-const selectValidation = '#fail-city-uid1';
+const selectValidation = 'label';
 
 describe('Snapshot Test', () => {
   it('Default select example should match production example', async () => {
@@ -36,6 +36,7 @@ describe('Snapshot Test', () => {
     const image2 = await takeElementScreenShot(page, selectSelector);
     expect(image2).toMatchProdImageSnapshot();
   });
+
   it('Select in a modal dialog example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -53,6 +54,7 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, modalDialog);
     expect(image).toMatchProdImageSnapshot();
   });
+
   it('Single Select with disabled options example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -73,6 +75,7 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, selectMenuSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
   it('Multi Select with disabled options example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -93,7 +96,10 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, selectMenuSelector);
     expect(image).toMatchProdImageSnapshot();
   });
-  it('Checkbox Select example should match production example', async () => {
+
+  // There is an issue with the way to access the option and the css selectoor is not reliable.
+  // To re-enable when https://product-fabric.atlassian.net/browse/DST-2193 is done.
+  it.skip('Checkbox Select example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'select',
@@ -118,6 +124,7 @@ describe('Snapshot Test', () => {
     const image2 = await takeElementScreenShot(page, menuMultiSelectValue);
     expect(image2).toMatchProdImageSnapshot();
   });
+
   it('Select validation example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

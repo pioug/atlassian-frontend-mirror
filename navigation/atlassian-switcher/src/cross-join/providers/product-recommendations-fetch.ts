@@ -127,7 +127,7 @@ const convertProductRecommendationsResponseToJoinableSitesResponse = (
       if (ari.resourceId in sites) {
         // Update this site with the new product
         // @ts-ignore Initializer branch assumes products is an array of JoinableProductDetails
-        sites[ari.resourceId].products[ari.resourceOwner] = <
+        sites[ari.resourceId].products[tenantedProducts[ari.resourceOwner]] = <
           JoinableProductDetails
         >{
           collaborators: <JoinableSiteUser[]>[],

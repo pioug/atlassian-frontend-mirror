@@ -35,14 +35,16 @@ export default class ElementBrowser extends PureComponent<Props, State> {
   };
 
   componentDidMount() {
-    this.setCategories();
+    const items = this.fetchItems();
+    this.setState({
+      items,
+      categories: this.getCategories(items),
+    });
   }
 
-  setCategories = () => {
-    const items = this.fetchItems();
-    const categories = this.filterCategories(items, this.props.categories);
-    this.setState({ items, categories });
-  };
+  getCategories = (items: QuickInsertItem[] = this.fetchItems()) =>
+    // NOTE: we fetch all items to determine available categories.
+    this.filterCategories(items, this.props.categories);
 
   filterCategories = (
     items: QuickInsertItem[],
@@ -65,12 +67,20 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     const { searchTerm, selectedCategory } = this.state;
-    if (
+
+    // Update both items and categories when there's a new getItems
+    if (this.props.getItems !== prevProps.getItems) {
+      this.setState({
+        categories: this.getCategories(),
+        items: this.fetchItems(searchTerm, selectedCategory),
+      });
+    } else if (
       searchTerm !== prevState.searchTerm ||
       selectedCategory !== prevState.selectedCategory
     ) {
-      const items = this.fetchItems(searchTerm, selectedCategory);
-      this.setState({ items });
+      this.setState({
+        items: this.fetchItems(searchTerm, selectedCategory),
+      });
     }
   }
 

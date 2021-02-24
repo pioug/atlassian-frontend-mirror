@@ -1,4 +1,6 @@
 import { chunkinator, Chunk, ChunkinatorFile } from '@atlaskit/chunkinator';
+import { from } from 'rxjs/observable/from';
+import { concatMap } from 'rxjs/operators/concatMap';
 
 import { MediaStore } from './client/media-store';
 import { createHasher } from './utils/hashing/hasherCreator';
@@ -66,17 +68,35 @@ const createProcessingFunction = (
   };
 };
 
+const createFileFromUpload = async (
+  file: UploadableFile,
+  store: MediaStore,
+  uploadableFileUpfrontIds: UploadableFileUpfrontIds,
+  uploadId: string,
+) => {
+  const { collection, name, mimeType } = file;
+  const { id, occurrenceKey } = uploadableFileUpfrontIds;
+
+  return store.createFileFromUpload(
+    { uploadId, name, mimeType },
+    {
+      occurrenceKey,
+      collection,
+      replaceFileId: id,
+    },
+  );
+};
+
 export const uploadFile = (
   file: UploadableFile,
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
   callbacks?: UploadFileCallbacks,
 ): UploadFileResult => {
-  const { content, collection, name, mimeType } = file;
+  const { content, collection } = file;
+  const { deferredUploadId } = uploadableFileUpfrontIds;
 
-  const { id, occurrenceKey, deferredUploadId } = uploadableFileUpfrontIds;
-
-  const { response, cancel } = chunkinator(
+  const chunkinatorObservable = chunkinator(
     content,
     {
       hashingFunction,
@@ -103,21 +123,35 @@ export const uploadFile = (
   );
 
   const onUploadFinish = (callbacks && callbacks.onUploadFinish) || (() => {});
-  Promise.all([deferredUploadId, response])
-    .then(async ([uploadId]) => {
-      await store.createFileFromUpload(
-        { uploadId, name, mimeType },
-        {
-          occurrenceKey,
-          collection,
-          replaceFileId: id,
-        },
-      );
-      onUploadFinish();
-    })
-    .catch(onUploadFinish);
 
-  return { cancel };
+  const subscription = from(deferredUploadId)
+    .pipe(
+      concatMap(uploadId =>
+        chunkinatorObservable.pipe(
+          concatMap(() =>
+            from(
+              createFileFromUpload(
+                file,
+                store,
+                uploadableFileUpfrontIds,
+                uploadId,
+              ),
+            ),
+          ),
+        ),
+      ),
+    )
+    .subscribe({
+      error: err => onUploadFinish(err),
+      complete: () => onUploadFinish(),
+    });
+
+  return {
+    cancel: () => {
+      subscription.unsubscribe();
+      onUploadFinish('canceled');
+    },
+  };
 };
 
 const hashedChunks = (chunks: Chunk[]) => chunks.map(chunk => chunk.hash);

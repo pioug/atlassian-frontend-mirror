@@ -1,4 +1,4 @@
-import { Node as PmNode } from 'prosemirror-model';
+import { Node as PmNode, NodeSpec } from 'prosemirror-model';
 import { CellAttributes } from '@atlaskit/editor-tables/types';
 import {
   B100,
@@ -253,7 +253,7 @@ export interface TableHeader {
 }
 
 // TODO: Fix any, potential issue. ED-5048
-export const table: any = {
+export const table: NodeSpec = {
   content: 'tableRow+',
   attrs: {
     isNumberColumnEnabled: { default: false },
@@ -268,7 +268,8 @@ export const table: any = {
   parseDOM: [
     {
       tag: 'table',
-      getAttrs: (dom: Element) => {
+      getAttrs: (node: string | Node) => {
+        const dom = node as HTMLElement;
         const breakoutWrapper = dom.parentElement?.parentElement;
 
         return {
@@ -305,7 +306,7 @@ export const tableToJSON = (node: PmNode) => ({
     }, {}),
 });
 
-export const tableRow = {
+export const tableRow: NodeSpec = {
   selectable: false,
   content: '(tableCell | tableHeader)+',
   marks: 'unsupportedMark unsupportedNodeAttribute',
@@ -323,7 +324,7 @@ const cellAttrs = {
   background: { default: null },
 };
 
-export const tableCell = {
+export const tableCell: NodeSpec = {
   selectable: false,
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
@@ -339,7 +340,7 @@ export const tableCell = {
     },
     {
       tag: 'td',
-      getAttrs: (dom: HTMLElement) => getCellAttrs(dom),
+      getAttrs: (dom: string | Node) => getCellAttrs(dom as HTMLElement),
     },
   ],
   toDOM: (node: PmNode) => ['td', setCellAttrs(node), 0],
@@ -357,7 +358,7 @@ export const toJSONTableCell = (node: PmNode) => ({
   }, {}),
 });
 
-export const tableHeader = {
+export const tableHeader: NodeSpec = {
   selectable: false,
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
@@ -368,8 +369,10 @@ export const tableHeader = {
   parseDOM: [
     {
       tag: 'th',
-      getAttrs: (dom: HTMLElement) =>
-        getCellAttrs(dom, { background: DEFAULT_TABLE_HEADER_CELL_BACKGROUND }),
+      getAttrs: (dom: string | Node) =>
+        getCellAttrs(dom as HTMLElement, {
+          background: DEFAULT_TABLE_HEADER_CELL_BACKGROUND,
+        }),
     },
   ],
 

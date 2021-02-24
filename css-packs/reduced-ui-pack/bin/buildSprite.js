@@ -5,7 +5,9 @@ const SVGSpriter = require('svg-sprite'); // eslint-disable-line import/no-extra
 const mkdirp = require('mkdirp'); // eslint-disable-line import/no-extraneous-dependencies
 
 // get the path for the linked @atlaskit/icon package
-const iconPath = require.resolve('@atlaskit/icon').replace('/cjs/index.js', '');
+const iconPath = require
+  .resolve('@atlaskit/icon')
+  .replace('/dist/cjs/index.js', '');
 
 const spriterConfig = {
   dest: './src',

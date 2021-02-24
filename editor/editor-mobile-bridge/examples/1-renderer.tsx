@@ -11,8 +11,8 @@ import {
   createMentionProvider,
 } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
-import { getLocaleValue } from '../src/query-param-reader';
 import getBridge from '../src/renderer/native-to-web/bridge-initialiser';
+import useRendererConfiguration from '../src/renderer/hooks/use-renderer-configuration';
 
 export const Wrapper: any = styled.div`
   position: absolute;
@@ -51,6 +51,8 @@ const providerFactory = ProviderFactory.create({
 
 export default function Example() {
   const fetchProxy = useFetchProxy();
+  const rendererBridge = getBridge();
+  const rendererConfiguration = useRendererConfiguration(rendererBridge);
 
   return (
     <Wrapper>
@@ -65,8 +67,8 @@ export default function Example() {
         })}
         dataProviders={providerFactory}
         allowHeadingAnchorLinks
-        locale={getLocaleValue()}
-        rendererBridge={getBridge()}
+        locale={rendererConfiguration.getLocale()}
+        rendererBridge={rendererBridge}
       />
     </Wrapper>
   );

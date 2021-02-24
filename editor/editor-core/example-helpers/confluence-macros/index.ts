@@ -17,7 +17,6 @@ import { mockFieldResolver } from '../config-panel/confluence-fields-data-provid
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
 import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 
-import mainResponse from './browse-macros.json';
 import { getIconComponent } from './IconImage';
 import EditorActions from '../../src/actions';
 import { editSelectedExtension } from '../../src/extensions';
@@ -26,8 +25,11 @@ const isNativeFieldType = (fieldType: string) => {
   return /^(enum|string|number|boolean|date)$/.test(fieldType);
 };
 
-const getMacrosManifestList = (editorActions?: EditorActions) => {
-  return mainResponse.macros.map((macro: LegacyMacroManifest) =>
+const getMacrosManifestList = async (editorActions?: EditorActions) => {
+  const response = await fetch('./editor-data/browse-macros.json');
+  const data = await response.json();
+
+  return data.macros.map((macro: LegacyMacroManifest) =>
     transformLegacyMacrosToExtensionManifest(macro, editorActions),
   );
 };
@@ -603,9 +605,9 @@ const transformFieldType = (
   return 'custom';
 };
 
-export const getConfluenceMacrosExtensionProvider = (
+export const getConfluenceMacrosExtensionProvider = async (
   editorActions?: EditorActions,
 ) => {
-  const manifests = getMacrosManifestList(editorActions);
+  const manifests = await getMacrosManifestList(editorActions);
   return new DefaultExtensionProvider(manifests);
 };

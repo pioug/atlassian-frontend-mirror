@@ -151,6 +151,42 @@ export type FeatureFlags = {
    * @default false
    */
   nextEmojiNodeView?: boolean;
+
+  /**
+   * @description
+   * Enables performance optimization for sticky headers in tables
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-11807
+   * @default false
+   */
+  stickyHeadersOptimization?: boolean;
+
+  /**
+   * @description
+   * Enables performance optimization for initial table render
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-11647
+   * @default false
+   */
+  initialRenderOptimization?: boolean;
+
+  /**
+   * @description
+   * Enables performance optimization for mousemove inside table
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-11577
+   * @default false
+   */
+  mouseMoveOptimization?: boolean;
+
+  /**
+   * @description
+   * Enables performance optimization for table rendering on keypress
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-11640
+   * @default false
+   */
+  tableRenderOptimization?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

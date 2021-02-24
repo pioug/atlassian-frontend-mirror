@@ -5,6 +5,7 @@ import {
   IconPositionWrapper,
   IconTitleWrapper,
   IconWrapper,
+  TitleWrapper,
 } from './styled';
 
 export interface IconAndTitleLayoutProps {
@@ -49,7 +50,7 @@ export class IconAndTitleLayout extends React.Component<
               </>
             )}
           </IconPositionWrapper>
-          <span style={{ color: titleTextColor }}>{title}</span>
+          <TitleWrapper style={{ color: titleTextColor }}>{title}</TitleWrapper>
         </IconTitleWrapper>
       </>
     );

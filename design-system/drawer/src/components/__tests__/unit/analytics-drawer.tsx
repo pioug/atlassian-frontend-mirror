@@ -8,7 +8,6 @@ import {
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 
 import {
   name as packageName,
@@ -78,7 +77,10 @@ describe('Drawer', () => {
     );
 
     expect(createAnalyticsEventSpy).not.toHaveBeenCalled();
-    wrapper.find(ArrowLeft).simulate('click');
+    wrapper
+      .find('[data-test-selector="DrawerPrimitiveSidebarCloseButton"]')
+      .first()
+      .simulate('click');
     // Should call createAnalyticsEvent with correct payload
     expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
       action: 'dismissed',
@@ -114,7 +116,10 @@ describe('Drawer', () => {
     );
 
     // Back button
-    wrapper.find(ArrowLeft).simulate('click');
+    wrapper
+      .find('[data-test-selector="DrawerPrimitiveSidebarCloseButton"]')
+      .first()
+      .simulate('click');
     expect(createAnalyticsEventSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         attributes: expect.objectContaining({

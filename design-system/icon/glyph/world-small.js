@@ -7,13 +7,11 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _Icon = _interopRequireDefault(require("../cjs/components/Icon"));
+var _base = _interopRequireDefault(require("@atlaskit/icon/base"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-const WorldSmallIcon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, _extends({
+const WorldSmallIcon = props => /*#__PURE__*/_react.default.createElement(_base.default, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path d="M12 18a6 6 0 100-12 6 6 0 000 12zm-.5-2.035A3.994 3.994 0 018 12c0-.31.04-.605.105-.895L10.5 13.5v.5c0 .55.45 1 1 1v.965zm3.45-1.27A.992.992 0 0014 14h-.5v-1.5c0-.275-.225-.5-.5-.5h-3v-1h1c.275 0 .5-.225.5-.5v-1h1c.55 0 1-.45 1-1v-.205A4.002 4.002 0 0116 12c0 1.04-.4 1.985-1.05 2.695z" fill="currentColor" fill-rule="evenodd"/></svg>`
 }, props));
 

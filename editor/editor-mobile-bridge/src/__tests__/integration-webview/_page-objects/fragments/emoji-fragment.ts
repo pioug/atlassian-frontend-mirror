@@ -24,27 +24,30 @@ export async function isTextPresent(page: Page, text: string) {
 export const isEmojiBackgroundImageLoaded = (page: Page, selector: string) =>
   new Promise(async resolve => {
     await page.waitForSelector(selector);
-    const { loaded } = await page.executeAsync((nodeSelector, done) => {
-      const url = (document.querySelector(
-        nodeSelector,
-      ) as HTMLElement)?.style.backgroundImage
-        .replace('url("', '')
-        .replace('")', '');
+    const { loaded } = await page.executeAsync(
+      (nodeSelector, done) => {
+        const url = (document.querySelector(
+          nodeSelector,
+        ) as HTMLElement)?.style.backgroundImage
+          .replace('url("', '')
+          .replace('")', '');
 
-      if (!url) {
-        done({ loaded: false });
-      }
+        if (!url) {
+          done({ loaded: false });
+        }
 
-      const img = new Image();
-      img.onload = () => {
-        // setTimeout, just to make sure emoji is visible in recordings.
-        setTimeout(() => done({ loaded: true }), 1000);
-      };
-      img.onerror = () => {
-        done({ loaded: false });
-      };
-      img.src = url;
-    }, selector);
+        const img = new Image();
+        img.onload = () => {
+          done({ loaded: true });
+        };
+        img.onerror = () => {
+          done({ loaded: false });
+        };
+        img.src = url;
+      },
+      5000,
+      selector,
+    );
 
     resolve(loaded);
   });

@@ -9,7 +9,6 @@ import { mount } from 'enzyme';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { HeadType } from '@atlaskit/dynamic-table/types';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
 import ImageIcon from '@atlaskit/icon/glyph/media-services/image';
 import {
   createFileStateSubject,
@@ -254,7 +253,11 @@ describe('MediaTable', () => {
   it('should download file if download file is defined and fileState has been processed', async () => {
     const { mediaClient, mediaTable } = await setup(true);
 
-    mediaTable.find(DownloadIcon).first().simulate('click');
+    mediaTable
+      .find('[data-testid="download-button"]')
+      .first()
+      .simulate('click');
+
     expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
     expectFunctionToHaveBeenCalledWith(mediaClient.file.downloadBinary, [
       audioFileId.id,
@@ -280,7 +283,10 @@ describe('MediaTable', () => {
       getDefaultMediaClient(processingFileSubject),
     );
 
-    mediaTable.find(DownloadIcon).first().simulate('click');
+    mediaTable
+      .find('[data-testid="download-button"]')
+      .first()
+      .simulate('click');
 
     expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
   });

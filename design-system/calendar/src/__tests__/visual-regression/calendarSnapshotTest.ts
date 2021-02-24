@@ -42,7 +42,71 @@ describe('Snapshot Test', () => {
     const imageOnHoveringDiffDate = await page.screenshot();
     expect(imageOnHoveringDiffDate).toMatchProdImageSnapshot();
 
+    await page.mouse.down();
+    const imageOnMouseDown = await page.screenshot();
+    expect(imageOnMouseDown).toMatchProdImageSnapshot();
+
     await cells[15].click();
+    const calenderHeadingSelector = '[data-testid="test--current-month-year"]';
+    await page.hover(calenderHeadingSelector);
+    const imageOnSwitchingToDiffDate = await page.screenshot();
+    expect(imageOnSwitchingToDiffDate).toMatchProdImageSnapshot();
+  });
+
+  it('Calendar should switch dates for sibling date', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'calendar',
+      'controlled',
+      global.__BASEURL__,
+    );
+    await loadPage(page, url);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+
+    const dateCellSelector = '[role=gridcell]';
+    await page.waitForSelector(dateCellSelector);
+    const cells = await page.$$(dateCellSelector);
+
+    await cells[1].hover();
+    const imageOnHoveringDiffDate = await page.screenshot();
+    expect(imageOnHoveringDiffDate).toMatchProdImageSnapshot();
+
+    await page.mouse.down();
+    const imageOnMouseDown = await page.screenshot();
+    expect(imageOnMouseDown).toMatchProdImageSnapshot();
+
+    await cells[1].click();
+    const calenderHeadingSelector = '[data-testid="test--current-month-year"]';
+    await page.hover(calenderHeadingSelector);
+    const imageOnSwitchingToDiffDate = await page.screenshot();
+    expect(imageOnSwitchingToDiffDate).toMatchProdImageSnapshot();
+  });
+
+  it('Calendar should switch dates for today date', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'calendar',
+      'controlled',
+      global.__BASEURL__,
+    );
+    await loadPage(page, url);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+
+    const dateCellSelector = '[role=gridcell]';
+    await page.waitForSelector(dateCellSelector);
+    const cells = await page.$$(dateCellSelector);
+
+    await cells[17].hover();
+    const imageOnHoveringDiffDate = await page.screenshot();
+    expect(imageOnHoveringDiffDate).toMatchProdImageSnapshot();
+
+    await page.mouse.down();
+    const imageOnMouseDown = await page.screenshot();
+    expect(imageOnMouseDown).toMatchProdImageSnapshot();
+
+    await cells[17].click();
     const calenderHeadingSelector = '[data-testid="test--current-month-year"]';
     await page.hover(calenderHeadingSelector);
     const imageOnSwitchingToDiffDate = await page.screenshot();
@@ -94,6 +158,17 @@ describe('Snapshot Test', () => {
       calendarSelector,
     );
     expect(imageOfBrasilLocalizeCalendar).toMatchProdImageSnapshot();
+  });
+  it('Calendar theme should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'calendar',
+      'theme',
+      global.__BASEURL__,
+    );
+    await loadPage(page, url);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
   });
 
   it('Calendar with different week start day', async () => {

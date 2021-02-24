@@ -1,7 +1,6 @@
 import { Options } from '../../src/domain';
 
-import { chunkinator, toCancelablePromise } from '../../src/chunkinator';
-import { of } from 'rxjs/observable/of';
+import { chunkinator } from '../../src/chunkinator';
 
 describe('chunkinator', () => {
   let file: Blob;
@@ -46,8 +45,8 @@ describe('chunkinator', () => {
   });
 
   it('should resolve when the upload is done', async () => {
-    const { response } = chunkinator(file, options, { onProgress });
-    await response;
+    const observable = chunkinator(file, options, { onProgress });
+    await observable.toPromise();
     expect(hashingFunction).toHaveBeenCalledTimes(3);
     expect(probingFunction).toHaveBeenCalledTimes(3);
     expect(uploadingFunction).toHaveBeenCalledTimes(3);
@@ -55,7 +54,7 @@ describe('chunkinator', () => {
   });
 
   it('should work fine without onProgress', async () => {
-    const { response } = chunkinator(
+    const observable = chunkinator(
       file,
       {
         ...options,
@@ -67,7 +66,7 @@ describe('chunkinator', () => {
       },
       {},
     );
-    await response;
+    await observable.toPromise();
     expect(hashingFunction).toHaveBeenCalledTimes(5);
     expect(probingFunction).toHaveBeenCalledTimes(3);
     expect(uploadingFunction).toHaveBeenCalledTimes(5);
@@ -76,35 +75,35 @@ describe('chunkinator', () => {
 
   it('should reject when the hashing has failed', async () => {
     hashingFunction.mockReturnValue(Promise.reject('some-error'));
-    const { response } = chunkinator(file, options, { onProgress });
+    const observable = chunkinator(file, options, { onProgress });
 
-    return expect(response).rejects.toEqual('some-error');
+    return expect(observable.toPromise()).rejects.toEqual('some-error');
   });
 
   it('should reject when the probing has failed', async () => {
     probingFunction.mockReturnValue(Promise.reject('some-error'));
-    const { response } = chunkinator(file, options, { onProgress });
+    const observable = chunkinator(file, options, { onProgress });
 
-    return expect(response).rejects.toEqual('some-error');
+    return expect(observable.toPromise()).rejects.toEqual('some-error');
   });
 
   it('should reject when the upload has failed', () => {
     uploadingFunction.mockReturnValue(Promise.reject('some-error'));
-    const { response } = chunkinator(file, options, { onProgress });
+    const observable = chunkinator(file, options, { onProgress });
 
-    return expect(response).rejects.toEqual('some-error');
+    return expect(observable.toPromise()).rejects.toEqual('some-error');
   });
 
   it('should reject when the processing has failed', async () => {
     processingFunction.mockReturnValue(Promise.reject('some-error'));
-    const { response } = chunkinator(file, options, { onProgress });
+    const observable = chunkinator(file, options, { onProgress });
 
-    return expect(response).rejects.toEqual('some-error');
+    return expect(observable.toPromise()).rejects.toEqual('some-error');
   });
 
   it('should call onProgress callback on every uploaded chunk', async () => {
-    const { response } = chunkinator(file, options, { onProgress });
-    await response;
+    const observable = chunkinator(file, options, { onProgress });
+    await observable.toPromise();
 
     expect(onProgress).toHaveBeenCalledTimes(3);
     expect(onProgress.mock.calls[0][0]).toBeCloseTo(0.333);
@@ -113,8 +112,8 @@ describe('chunkinator', () => {
   });
 
   it('should call processingFunction callback', async () => {
-    const { response } = chunkinator(file, options, { onProgress });
-    await response;
+    const observable = chunkinator(file, options, { onProgress });
+    await observable.toPromise();
     expect(processingFunction).toHaveBeenCalledTimes(2);
     expect(processingFunction.mock.calls[0][0]).toEqual([
       { blob: new Blob(['12345']), exists: false, hash: 'random-hash-5' },
@@ -123,28 +122,5 @@ describe('chunkinator', () => {
     expect(processingFunction.mock.calls[1][0]).toEqual([
       { blob: new Blob(['12345']), exists: false, hash: 'random-hash-5' },
     ]);
-  });
-
-  it('should reject response cancel is called', () => {
-    const { cancel, response } = chunkinator(file, options, { onProgress });
-
-    cancel();
-    expect(response).rejects.toEqual('canceled');
-  });
-
-  it('should cancel upload when cancel is called', async () => {
-    const observable = of(1, 2, 3);
-    const subscription: any = { unsubscribe: jest.fn() };
-
-    jest.spyOn(observable, 'subscribe').mockReturnValue(subscription);
-
-    const { response, cancel } = toCancelablePromise(observable);
-
-    expect(subscription.unsubscribe).not.toBeCalled();
-
-    cancel();
-
-    expect(subscription.unsubscribe).toBeCalled();
-    expect(response).rejects.toEqual('canceled');
   });
 });

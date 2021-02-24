@@ -165,7 +165,10 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
     isToolbarReducedSpacing,
     eventDispatcher,
   }) {
-    const isSmall = toolbarSize < ToolbarSize.XL;
+    const isSmall =
+      options && options.isUndoRedoButtonsEnabled
+        ? toolbarSize < ToolbarSize.XXL
+        : toolbarSize < ToolbarSize.XL;
     const boundSetBlockType = (name: string) =>
       setBlockTypeWithAnalytics(name, INPUT_METHOD.TOOLBAR)(
         editorView.state,

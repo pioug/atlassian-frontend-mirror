@@ -1,5 +1,16 @@
 # @atlaskit/mention
 
+## 19.3.0
+
+### Minor Changes
+
+- [`cafde5bbe21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cafde5bbe21) - [ux] Added Team prefix to teams in the mention list to increase clarity.
+- [`43b2f925f0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43b2f925f0b) - Add optional attributes to mentionProvider analytics callback
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.0
 
 ### Minor Changes

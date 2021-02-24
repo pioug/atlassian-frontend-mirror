@@ -33,16 +33,15 @@ const cardPlugin = (
     },
 
     pmPlugins() {
-      const allowResizing =
-        typeof options.allowResizing === 'boolean'
-          ? options.allowResizing
-          : true;
+      const allowResizing = options.allowResizing ?? true;
+      const useAlternativePreloader = options.useAlternativePreloader ?? true;
       return [
         {
           name: 'card',
           plugin: createPlugin(
             options.platform,
             allowResizing,
+            useAlternativePreloader,
             options.fullWidthMode,
           ),
         },

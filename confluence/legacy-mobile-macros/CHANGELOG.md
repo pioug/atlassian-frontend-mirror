@@ -1,5 +1,15 @@
 # @atlaskit/legacy-mobile-macros
 
+## 0.2.0
+
+### Minor Changes
+
+- [`5a657f8d9fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a657f8d9fb) - [ux] Google and Trello macros will now render as links on mobile instead of using the mobile macro fallback
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.5
 
 ### Patch Changes

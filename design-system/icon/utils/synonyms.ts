@@ -305,4 +305,4 @@ export default {
   'watch-filled': ['visible', 'visibility', 'eye'],
   watch: ['visible', 'visibility', 'eye'],
   world: ['globe', 'earth'],
-};
+} as const;

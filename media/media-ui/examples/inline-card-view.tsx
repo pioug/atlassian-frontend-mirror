@@ -66,6 +66,7 @@ class Example extends React.Component {
               <h4>ResolvingView</h4>
               Labore sunt adipisicing esse magna.
               <InlineCardResolvingView
+                inlinePreloaderStyle="on-left-with-skeleton"
                 isSelected={this.state.isSelected}
                 url={url}
                 onClick={onClick}

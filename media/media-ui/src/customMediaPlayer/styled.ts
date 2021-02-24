@@ -46,7 +46,7 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>`
       ? `
     &:hover,
     &:active {
-      width: 155px;
+      width: 150px;
       transition: width 0.3s ease-out;
     }
   `
@@ -62,6 +62,7 @@ export const CurrentTime = styled.div`
   color: #a4b4cb;
   user-select: none;
   margin-right: 10px;
+  white-space: nowrap;
 `;
 
 interface WithAsActiveProps {
@@ -140,7 +141,7 @@ export const VolumeToggleWrapper = styled.div`
   margin-right: 13px;
 
   button {
-    width: 36px;
+    width: 36px !important;
     color: ${({ isMuted }: MutedIndicatorProps) =>
       isMuted ? `${R300} !important;` : ''};
   }
@@ -155,8 +156,9 @@ export const MutedIndicator = styled.div`
   width: 29px;
   height: 2px;
   position: absolute;
-  top: 5px;
+  top: 10px;
   left: 9px;
+  z-index: 2;
   background: ${R300};
   transform: rotate(32deg) translateY(10px);
   opacity: 0;

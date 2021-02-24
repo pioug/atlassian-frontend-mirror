@@ -13,7 +13,7 @@ import {
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
 import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
 import React from 'react';
-import { setTextSelection } from '../../../../../index';
+import { EditorProps, setTextSelection } from '../../../../../index';
 import { hoverRows } from '../../../../../plugins/table/commands';
 import {
   TableCssClassName as ClassName,
@@ -65,10 +65,10 @@ describe('RowControls', () => {
     jest.clearAllMocks();
   });
 
-  const editor = (doc: any) =>
+  const editor = (doc: any, props?: EditorProps) =>
     createEditor({
       doc,
-      editorProps: { allowTables: true },
+      editorProps: { allowTables: true, ...props },
       pluginKey,
     });
 
@@ -106,13 +106,14 @@ describe('RowControls', () => {
 
   describe('with tableRenderOptimization enabled', () => {
     it('updates rowControls if table height changes', () => {
-      const { editorView } = editor(doc(table()(tr(tdCursor))));
+      const { editorView } = editor(doc(table()(tr(tdCursor))), {
+        featureFlags: { tableRenderOptimization: true },
+      });
       floatingControls = mountWithIntl(
         <TableFloatingControls
           tableRef={document.querySelector('table')!}
           tableActive={true}
           editorView={editorView}
-          tableRenderOptimization={true}
         />,
       );
       const tableElement = editorView.domAtPos(1).node as HTMLElement;

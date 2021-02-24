@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 74.0.0
+
+### Minor Changes
+
+- [`848d9fb54a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/848d9fb54a3) - ED-11875 align renderer to editor tab size in code-block
+
+### Patch Changes
+
+- [`a2d44651925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2d44651925) - ED-11161: Track unsupported content levels severity in renderer
+- Updated dependencies
+
 ## 73.2.0
 
 ### Minor Changes

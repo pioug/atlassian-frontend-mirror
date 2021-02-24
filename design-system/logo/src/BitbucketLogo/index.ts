@@ -1,5 +1,3 @@
-import BitbucketIcon from './Icon';
-import BitbucketLogo from './Logo';
-import BitbucketWordmark from './Wordmark';
-
-export { BitbucketLogo, BitbucketIcon, BitbucketWordmark };
+export { BitbucketIcon } from './Icon';
+export { BitbucketLogo } from './Logo';
+export { BitbucketWordmark } from './Wordmark';

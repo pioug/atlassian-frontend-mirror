@@ -11,9 +11,7 @@ var _Icon = _interopRequireDefault(require("../cjs/components/Icon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-const PriorityMediumIcon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, _extends({
+const PriorityMediumIcon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path d="M5 8h14a1 1 0 010 2H5a1 1 0 110-2zm0 6h14a1 1 0 010 2H5a1 1 0 010-2z" fill="#FFAB00"/></svg>`
 }, props));
 

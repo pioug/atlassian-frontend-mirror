@@ -1,4 +1,4 @@
-import { sizeOpts } from './types';
+import type { sizeOpts } from './types';
 
 export const sizes: Record<sizeOpts, string> = {
   small: '16px',
@@ -7,7 +7,7 @@ export const sizes: Record<sizeOpts, string> = {
   xlarge: '48px',
 };
 
-export const sizeMap: Record<string, sizeOpts> = {
+export const sizeMap: Record<sizeOpts, sizeOpts> = {
   small: 'small',
   medium: 'medium',
   large: 'large',

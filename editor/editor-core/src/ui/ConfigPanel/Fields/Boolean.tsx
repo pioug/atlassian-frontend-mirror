@@ -27,6 +27,15 @@ function validate(value: boolean | undefined, isRequired: boolean) {
   }
 }
 
+function handleOnChange(
+  onChange: (value: boolean) => void,
+  onBlur: (name: string) => void,
+  value?: React.ChangeEvent<HTMLInputElement>,
+) {
+  onChange(value?.target?.checked || false);
+  onBlur(name);
+}
+
 function Checkbox({
   name,
   field,
@@ -57,6 +66,9 @@ function Checkbox({
             <AKCheckbox
               {...restFieldProps}
               label={label}
+              onChange={value =>
+                handleOnChange(fieldProps.onChange, onBlur, value)
+              }
               isChecked={isChecked}
             />
             <FieldMessages error={error} description={description} />
@@ -91,11 +103,6 @@ function Toggle({
       defaultValue={defaultValue}
     >
       {({ fieldProps, error }) => {
-        function _onChange(value?: React.ChangeEvent<HTMLInputElement>) {
-          fieldProps.onChange(value?.target?.checked || false);
-          onBlur(name);
-        }
-
         const { id, value: isChecked, ...restFieldProps } = fieldProps;
         return (
           <Fragment>
@@ -108,7 +115,9 @@ function Toggle({
               </ToggleLabel>
               <AKToggle
                 {...restFieldProps}
-                onChange={_onChange}
+                onChange={value =>
+                  handleOnChange(fieldProps.onChange, onBlur, value)
+                }
                 isChecked={isChecked}
               />
             </ToggleFieldWrapper>

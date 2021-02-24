@@ -9,6 +9,7 @@ import {
   SortOrder,
   UnsupportedContentPayload,
   SEVERITY,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 } from '@atlaskit/editor-common';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -43,6 +44,31 @@ type RendererRenderedAEP = AEP<
     ttfb?: number;
     nodes: Record<string, number>;
     severity?: SEVERITY;
+  },
+  EVENT_TYPE.OPERATIONAL
+>;
+
+type RendererUnsupportedContentLevelsTrackingSucceeded = AEP<
+  ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  {
+    platform: PLATFORM.WEB;
+    unsupportedContentLevelSeverity: UNSUPPORTED_CONTENT_LEVEL_SEVERITY;
+    unsupportedContentLevelPercentage: number;
+    unsupportedNodesCount: number;
+    supportedNodesCount: number;
+  },
+  EVENT_TYPE.OPERATIONAL
+>;
+
+type RendererUnsupportedContentLevelsTrackingErrored = AEP<
+  ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  {
+    platform: PLATFORM.WEB;
+    error: string;
   },
   EVENT_TYPE.OPERATIONAL
 >;
@@ -196,6 +222,8 @@ export type AnnotationAEP = AEP<
 export type AnalyticsEventPayload =
   | RendererStartAEP
   | RendererRenderedAEP
+  | RendererUnsupportedContentLevelsTrackingSucceeded
+  | RendererUnsupportedContentLevelsTrackingErrored
   | RendererSelectAllCaughtAEP
   | RendererSelectAllEscapedAEP
   | HeadingAnchorLinkButtonAEP

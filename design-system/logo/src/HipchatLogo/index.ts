@@ -1,5 +1,3 @@
-import HipchatIcon from './Icon';
-import HipchatLogo from './Logo';
-import HipchatWordmark from './Wordmark';
-
-export { HipchatLogo, HipchatIcon, HipchatWordmark };
+export { HipchatIcon } from './Icon';
+export { HipchatLogo } from './Logo';
+export { HipchatWordmark } from './Wordmark';

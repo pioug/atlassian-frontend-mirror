@@ -25,7 +25,9 @@ export interface Props {
   isLoading: boolean;
   selectedIndex: number;
   onSelect: (href: string, text: string) => void;
-  onMouseMove: (objectId: string) => void;
+  onMouseMove?: (objectId: string) => void;
+  onMouseEnter?: (objectId: string) => void;
+  onMouseLeave?: (objectId: string) => void;
 }
 
 export default class LinkSearchList extends PureComponent<Props, {}> {
@@ -33,6 +35,8 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
     const {
       onSelect,
       onMouseMove,
+      onMouseEnter,
+      onMouseLeave,
       items,
       selectedIndex,
       isLoading,
@@ -49,6 +53,8 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
               item={item}
               selected={selectedIndex === index}
               onMouseMove={onMouseMove}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
               onSelect={onSelect}
               key={item.objectId}
             />

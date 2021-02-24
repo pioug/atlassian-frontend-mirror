@@ -1,0 +1,50 @@
+import React, { useState } from 'react';
+
+import Button from '@atlaskit/button';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { gridSize } from '@atlaskit/theme/constants';
+import { ThemeModes } from '@atlaskit/theme/types';
+
+import Calendar from '../src';
+
+const LIGHT = 'light';
+const DARK = 'dark';
+export default function ThemeExample() {
+  const [themeMode, setThemeMode] = useState<ThemeModes>(DARK);
+  const toggleMode = () => {
+    setThemeMode(themeMode === LIGHT ? DARK : LIGHT);
+  };
+  const log = (msg: string) => (e: any) => console.log(msg, e);
+  return (
+    <AtlaskitThemeProvider mode={themeMode}>
+      <div>
+        <Calendar
+          defaultDisabled={['2020-12-04']}
+          defaultPreviouslySelected={['2020-12-06']}
+          defaultSelected={['2020-12-08']}
+          defaultMonth={12}
+          defaultYear={2020}
+          innerProps={{
+            style: {
+              border: '1px solid red',
+              display: 'inline-block',
+            },
+          }}
+          onBlur={() => log('blur')}
+          onChange={() => log('change')}
+          onFocus={() => log('focus')}
+          onSelect={() => log('select')}
+          testId={'calendar'}
+        />
+        <div style={{ marginTop: gridSize() }}>
+          <Button onClick={toggleMode}>
+            Toggle theme{' '}
+            <span role="img" aria-label="irony">
+              😂
+            </span>
+          </Button>
+        </div>
+      </div>
+    </AtlaskitThemeProvider>
+  );
+}

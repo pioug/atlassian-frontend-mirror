@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { JiraIcon } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import ReactJIRAIssueNode from '../../../../../plugins/jira-issue/nodeviews/jira-issue';
 import { confluenceJiraIssue } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';

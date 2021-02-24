@@ -22,6 +22,7 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
   return (
     <Button
       appearance="subtle"
+      testId="download-button"
       iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
       onKeyPress={event => event.stopPropagation()}
       onClick={(

@@ -22,26 +22,6 @@ export const getEnableLightDarkTheming = (): boolean =>
 export const getEnableLegacyMobileMacros = (): boolean =>
   getQueryParams().get('enableLegacyMobileMacros') === 'true';
 
-export const getEnableQuickInsertValue = (): boolean =>
-  getQueryParams().get('enableQuickInsert') === 'true';
-
-export const getDisableActionsValue = (): boolean =>
-  getQueryParams().get('disableActions') === 'true';
-
-export const getLocaleValue = (): string => {
-  const locale = getQueryParams().get('locale');
-  if (!locale) {
-    return 'en';
-  }
-  return locale.replace('-', '_');
-};
-
-export const getDisableMediaLinkingValue = (): boolean =>
-  getQueryParams().get('disableMediaLinking') === 'true';
-
-export const getAllowAnnotations = (): boolean =>
-  getQueryParams().get('allowAnnotations') === 'true';
-
 export const getAllowCaptions = (): boolean => {
   return getQueryParams().get('allowCaptions') === 'true';
 };
@@ -51,6 +31,3 @@ export const getSelectionObserverEnabled = (): boolean =>
 
 export const getAllowCollabProvider = (): boolean =>
   getQueryParams().get('allowCollabProvider') === 'true';
-
-export const getAllowHeadingAnchorLinks = (): boolean =>
-  getQueryParams().get('allowHeadingAnchorLinks') === 'true';

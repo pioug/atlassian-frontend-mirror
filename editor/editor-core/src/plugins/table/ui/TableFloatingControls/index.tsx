@@ -13,6 +13,7 @@ import { isSelectionUpdated } from '../../utils';
 import CornerControls from './CornerControls';
 import NumberColumn from './NumberColumn';
 import RowControls from './RowControls';
+import { getFeatureFlags } from '../../../feature-flags-context';
 export interface Props {
   editorView: EditorView;
   selection?: Selection;
@@ -29,7 +30,6 @@ export interface Props {
   hoveredRows?: number[];
   ordering?: TableColumnOrdering;
   stickyHeader?: RowStickyState;
-  tableRenderOptimization?: boolean;
 }
 
 interface State {
@@ -51,7 +51,9 @@ export default class TableFloatingControls extends Component<Props, State> {
 
   // tracking the table height changes to update floating controls
   private tryInitResizeObserver() {
-    let { tableRef, tableRenderOptimization } = this.props;
+    let { tableRef } = this.props;
+    const { tableRenderOptimization } =
+      getFeatureFlags(this.props.editorView.state) || {};
     if (
       tableRenderOptimization &&
       tableRef &&
@@ -82,8 +84,9 @@ export default class TableFloatingControls extends Component<Props, State> {
       ordering,
       headerRowHeight,
       stickyHeader,
-      tableRenderOptimization,
     } = this.props;
+    const { tableRenderOptimization } =
+      getFeatureFlags(this.props.editorView.state) || {};
     const tableHeight = tableRenderOptimization
       ? this.state?.tableHeight
       : this.props.tableHeight;

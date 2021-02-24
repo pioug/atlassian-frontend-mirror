@@ -6,4 +6,5 @@ export interface CardOptions {
   allowBlockCards?: boolean;
   allowEmbeds?: boolean;
   allowResizing?: boolean;
+  useAlternativePreloader?: boolean;
 }

@@ -1,5 +1,3 @@
-import AtlassianIcon from './Icon';
-import AtlassianLogo from './Logo';
-import AtlassianWordmark from './Wordmark';
-
-export { AtlassianLogo, AtlassianIcon, AtlassianWordmark };
+export { AtlassianIcon } from './Icon';
+export { AtlassianLogo } from './Logo';
+export { AtlassianWordmark } from './Wordmark';

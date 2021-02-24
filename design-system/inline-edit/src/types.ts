@@ -37,22 +37,8 @@ interface CommonProps extends WithAnalyticsEventsProps {
   analyticsContext?: Record<string, any>;
 }
 
-export interface InlineEditUncontrolledProps<FieldValue> extends CommonProps {
-  /** Component to be shown when not in edit view. */
-  readView: () => React.ReactNode;
-  /** Component to be shown when editing. */
-  editView: (fieldProps: FieldProps<FieldValue>) => React.ReactNode;
-  /** Whether the component shows the readView or the editView. */
-  isEditing: boolean;
-  /** The value shown in the editView when it is entered. Should be updated by onConfirm. */
-  defaultValue: any;
-  /** Handler called when readView is clicked. */
-  onEditRequested: () => void;
-  /**
-   * Handler called editView is closed and changes are confirmed.
-   * Field value is passed as an argument to this function.
-   */
-  onConfirm: (value: any, analyticsEvent: UIAnalyticsEvent) => void;
+export interface ExtendedFieldProps<FieldValue> extends FieldProps<FieldValue> {
+  errorMessage?: string | undefined;
 }
 
 export interface InlineEditProps<FieldValue> extends CommonProps {
@@ -60,7 +46,7 @@ export interface InlineEditProps<FieldValue> extends CommonProps {
   readView: () => React.ReactNode;
   /** Component to be shown when editing. */
   editView: (
-    fieldProps: FieldProps<FieldValue>,
+    fieldProps: ExtendedFieldProps<FieldValue>,
     ref: React.RefObject<any>,
   ) => React.ReactNode;
   /**
@@ -68,8 +54,12 @@ export interface InlineEditProps<FieldValue> extends CommonProps {
    * Field value is passed as an argument to this function.
    */
   onConfirm: (value: any, analyticsEvent: UIAnalyticsEvent) => void;
+  /** Whether the component shows the readView or the editView. */
+  isEditing?: boolean;
   /** The value shown in the editView when it is entered. Should be updated by onConfirm. */
   defaultValue: any;
+  /** Handler called when readView is clicked. */
+  onEdit?: () => void;
   /** Determines whether isEditing begins as true. */
   startWithEditViewOpen?: boolean;
 }
@@ -91,33 +81,4 @@ export interface InlineEditableTextfieldProps extends CommonProps {
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
-}
-
-/** This interface will be exported once Inline Dialog is converted to Typescript */
-export type Placement =
-  | 'auto-start'
-  | 'auto'
-  | 'auto-end'
-  | 'top-start'
-  | 'top'
-  | 'top-end'
-  | 'right-start'
-  | 'right'
-  | 'right-end'
-  | 'bottom-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'left-end'
-  | 'left'
-  | 'left-start';
-
-export interface InlineDialogProps {
-  children?: React.ReactNode;
-  content?: React.ReactNode;
-  isOpen?: boolean;
-  onContentBlur?: () => void;
-  onContentClick?: () => void;
-  onContentFocus?: () => void;
-  onClose?: (e: { isOpen: false; event: any }) => void;
-  placement?: Placement;
 }

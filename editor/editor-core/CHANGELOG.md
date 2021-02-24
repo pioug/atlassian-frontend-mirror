@@ -1,5 +1,57 @@
 # @atlaskit/editor-core
 
+## 138.0.0
+
+### Minor Changes
+
+- [`5ee57944f46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ee57944f46) - ED-11948 Fix issue with table resize logic not retaining original node selection.
+  Refactor table resize logic to retain selection after table resize.
+- [`70fecd78610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70fecd78610) - [ux] This commit includes UX changes to Cmd+K link toolbar
+
+  - MouseLeave will now correctly cancel the highlight of the item
+  - Press Enter will now always submit things in the input fields. Previously we were allowing MouseOver + Enter to submit selected item. This had caused many misoperations that user
+    would accidently insert the link their mouse hovers on.
+  - When a user iterate through result items with ArrowUp/ArrowDown, the URL field will be automatically populated with selected item's content. This is so that the ArrowKeys + Enter
+    to select still works as expected.
+
+  Refer to this RFC for more details of the decision https://product-fabric.atlassian.net/wiki/spaces/EM/pages/2168883953/EDM-RFC-18+Improve+mouseover+selection+experience+with+Link+Toolbar
+
+- [`e0ec7e79fce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0ec7e79fce) - [ED-11251] Close editor undo history buffer every time the user press enter
+- [`d335911aa2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d335911aa2c) - The `ToolbarMention` component now includes a `testId` prop.
+- [`b1faca325ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1faca325ab) - [ux] Add Undo Redo buttons under feature flag
+- [`2cde1293d9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cde1293d9f) - [ux] `useAlternativePreloader` prop was added to `CardOptions`, which is type of editor prop `UNSAFE_cards`. Default value is true (if not defined). When `useAlternativePreloader` is true preloader experience for smart link components in editor will be different: there won't be normal smart link skeleton (border and a shaddow) and spinner is located on the right (compare to left as before). Note: renderer experience won't change.
+- [`30b83e21da4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30b83e21da4) - ED-11870 Update Element Browser category item analytics to use fireAnalyticsEvent helper
+- [`00b5f1d1beb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00b5f1d1beb) - ED-11220 Fix element browser item tooltip hitbox area
+- [`54e3474f640`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e3474f640) - [ux] EDM-1420: Smart Links: Floating toolbar visible after display state change
+- [`e18fc27f970`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e18fc27f970) - [ux] ED-11902 Fix bug with adding emoji via plus menu not working
+- [`848d9fb54a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/848d9fb54a3) - ED-11875 align renderer to editor tab size in code-block
+- [`56e5ed87897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56e5ed87897) - [ux] ED-11981 Update config panel boolean (Checkbox) fields to autosave onchange instead of only onblur
+
+### Patch Changes
+
+- [`e07a815d377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e07a815d377) - ED-11807 performance optimization for table sticky headers plugin
+- [`5216ebed3b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5216ebed3b6) - Expose and use atlassian-icon, jira-icon entry points
+- [`b36f8119df5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b36f8119df5) - Add in keymap for moving to gap cursor from caption
+- [`c3961b9d90f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3961b9d90f) - EDM-1679: add tooltip to smart link appearance switcher when options are disabled
+- [`c6eb10bea9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6eb10bea9e) - Fix `@atlaskit/calendar` typings
+- [`b48fddb0c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b48fddb0c83) - Internal usage of icon now points to its new entrypoint instead of deep importing from dist.
+- [`b94ee70e7d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b94ee70e7d1) - ED-12008 Fix empty number field to resolve to 0 in config panel
+- [`98309150746`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98309150746) - Use spec based validator for the renderer in kitchen sink
+- [`61e73eb1bad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61e73eb1bad) - ED-11994 add integration test to code block pasting from renderer
+- [`ef52e0b0b5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef52e0b0b5f) - [ED-11387] Adds analytics redo event for toolbar button
+- [`18d183a9db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18d183a9db5) - [ED-11372] Add analytics event for ToolbarButton
+- [`cf5909ab062`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf5909ab062) - [ux] Replaced the search icon with add icon in the invite item in the mention typeahead inside fabric-editor for invite from mention experiment (Growth)
+- [`d8b3bb5ab78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bb5ab78) - ED-10656 Implement generic solution for handling paragraph block marks
+- [`152056bc522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/152056bc522) - NO-ISSUE refetch items when getItems reference changes
+- [`43b2f925f0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43b2f925f0b) - Add optional attributes to mentionProvider analytics callback
+- Updated dependencies
+
+## 137.0.3
+
+### Patch Changes
+
+- [`003a79ed2be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/003a79ed2be) - HOT-94478 Fix Editor selection reset problem on Chrome 88+
+
 ## 137.0.2
 
 ### Patch Changes

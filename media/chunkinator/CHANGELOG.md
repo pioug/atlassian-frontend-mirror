@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- [`dfc79cafa6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfc79cafa6c) - Breaking change: Chunkinator is now returning an Observable to consumers. You can control cancellation of chunks upload by unsubscribing this Observable.
+
 ## 2.1.2
 
 ### Patch Changes

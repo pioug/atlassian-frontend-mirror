@@ -4,7 +4,7 @@ import { Card as SmartCard } from '@atlaskit/smart-card';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
-import { SmartCardProps, Card, CardNodeViewProps } from './genericCard';
+import { SmartCardProps, Card } from './genericCard';
 import {
   UnsupportedBlock,
   MediaSingle as RichMediaWrapper,
@@ -28,7 +28,6 @@ import {
   isRichMediaInsideOfBlockNode,
 } from '../../../utils/rich-media-utils';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 import { IframelyResizeMessageListener } from '@atlaskit/smart-card';
 import { pluginKey as tableResizePluginKey } from '../../table/pm-plugins/table-resizing';
 import { ColumnResizingPluginState } from '../../table/types';
@@ -319,11 +318,14 @@ export class EmbedCardComponent extends React.PureComponent<
 
 const WrappedBlockCard = Card(EmbedCardComponent, UnsupportedBlock);
 
-export interface EmbedCardNodeViewProps extends CardNodeViewProps {
-  allowResizing?: boolean;
-  fullWidthMode?: boolean;
-  dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-}
+export type EmbedCardNodeViewProps = Pick<
+  SmartCardProps,
+  | 'eventDispatcher'
+  | 'allowResizing'
+  | 'platform'
+  | 'fullWidthMode'
+  | 'dispatchAnalyticsEvent'
+>;
 
 export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
   viewShouldUpdate(nextNode: PMNode) {

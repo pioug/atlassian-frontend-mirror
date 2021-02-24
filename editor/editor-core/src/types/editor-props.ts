@@ -327,7 +327,7 @@ export interface EditorProps {
 
   codeBlock?: CodeBlockOptions;
 
-  // Enable undo/redo functionality within the editor.
+  // Enable undo/redo buttons within the editor.
   UNSAFE_allowUndoRedoButtons?: boolean;
 
   /**

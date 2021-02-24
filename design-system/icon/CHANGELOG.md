@@ -1,5 +1,82 @@
 # @atlaskit/icon
 
+## 21.3.0
+
+### Minor Changes
+
+- [`b9265389fa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9265389fa0) - Icon now exposes a base icon via the `@atlaskit/icon/base` entrypoint. This is used in all generated glyphs inside the icon package.
+- [`83944ca2cf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83944ca2cf2) - Icon now ships with cjs, esm, and es2019 bundles for components and utils exported in the icon package. Glyphs unfortunately aren't included and still only export cjs bundles.
+- [`6ef8824baee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ef8824baee) - - Icon now uses React.memo() to stop unnecessary re-renders.
+
+  - A bug in the types for icon sizes has been resolved
+
+  This change also includes a number of quality of life fixes as part of lite mode.
+
+  ### Internal changes
+
+  - class components have been changed to functional components
+  - styled-components has been removed as a peer dependency
+  - @emotion/core has been added a direct dependency, base components now use emotion for styling
+  - An internal gradient function `insertDynamicGradientId` has been removed from the runtime
+  - Enzyme removed in favour of RTL
+
+  ### Updating tests
+
+  Tests that rely on `enzyme` may have issues with this update.
+  We've mostly seen issues with one of the following cases.
+
+  #### Can't find internal react test id
+
+  Because icon is now wrapped in `memo` you won't be able to easily find it.
+  This code will fail:
+
+  ```js
+  import BookIcon from '@atlaskit/icon/glyph/book';
+
+  <BookIcon />;
+
+  wrapper.find('BookIcon');
+  ```
+
+  As a fix you can add memo to the target:
+
+  ```js
+  wrapper.find('Memo(BookIcon)');
+  ```
+
+  Even better, use the test id.
+
+  ```js
+  <BookIcon testId="book-icon" />;
+
+  wrapper.find('[data-testid="book-icon"]');
+  ```
+
+  #### Treating the icon as a button
+
+  Icon hasn't had an `onClick` handler since many major versions.
+  This code will fail:
+
+  ```js
+  const Example = () => <Button testId="test-id" iconBefore={<SomeGlyph />} />;
+
+  // in some teat
+  wrapper.find(SomeGlyph).click();
+  // OR
+  wrapper.find('SomeGlyph').click();
+  ```
+
+  As a fix you can target the button instead:
+
+  ```jsx
+  wrapper.find('[data-testid="test-id"]').click();
+  ```
+
+### Patch Changes
+
+- [`0741b1556f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0741b1556f6) - All icon glpyhs are now built without inline extends helpers, reducing their bundlesize.
+- [`8d6c79b9055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d6c79b9055) - Typedefs of glyphs have been updated to reflect an API change that occured in version 15. For context, `onClick` was removed as a functional prop but it was still supported by the types. This may have resulted in a confusing developer experience although the fundamental behaviour has been consistent since version 15.
+
 ## 21.2.4
 
 ### Patch Changes

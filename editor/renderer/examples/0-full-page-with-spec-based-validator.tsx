@@ -9,6 +9,13 @@ export default function Example() {
       allowHeadingAnchorLinks
       allowColumnSorting={true}
       useSpecBasedValidator={true}
+      unsupportedContentLevelsTracking={{
+        enabled: true,
+        thresholds: {
+          degraded: 10,
+          blocking: 20,
+        },
+      }}
     />
   );
 }

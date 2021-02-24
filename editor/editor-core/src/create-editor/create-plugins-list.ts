@@ -166,6 +166,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       lastNodeMustBeParagraph:
         appearance === 'comment' || appearance === 'chromeless',
       allowBlockType: props.allowBlockType,
+      isUndoRedoButtonsEnabled: props.UNSAFE_allowUndoRedoButtons,
     },
     placeholder: {
       placeholder: props.placeholder,

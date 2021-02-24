@@ -18,6 +18,7 @@ const AKTooltip = lazyForPaint(
     import(
       /* webpackChunkName: "@atlaskit-internal_Tooltip" */ '@atlaskit/tooltip'
     ),
+  { ssr: false },
 ) as ComponentType<TooltipProps>;
 
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { N700, B200, B400 } from '@atlaskit/theme/colors';
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { JsonLd } from 'json-ld-types';
 
 import { extractUrlFromIconJsonLd } from '../utils';

@@ -21,6 +21,7 @@ import {
   Overlay,
   ProgressWrapper,
   Title,
+  PlayIconBackground,
 } from './styled';
 import { CardLoading } from '../../utils/lightCards/cardLoading';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
@@ -239,7 +240,9 @@ export class FileCardImageViewBase extends Component<
 
     return (
       <PlayIconWrapper>
-        <VidPlayIcon label="play" size="large" />
+        <PlayIconBackground>
+          <VidPlayIcon label="play" size="large" />
+        </PlayIconBackground>
       </PlayIconWrapper>
     );
   };

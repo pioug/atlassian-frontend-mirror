@@ -69,7 +69,7 @@ describe('@atlaskit/reactions/selector', () => {
       renderSelector(onSelection, true, onMoreClick),
     );
 
-    selector.find(EditorMoreIcon).simulate('mousedown');
+    selector.find(`button.${revealStyle}`).first().simulate('mousedown');
 
     expect(onMoreClick.mock.calls).toHaveLength(1);
   });

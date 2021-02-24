@@ -97,11 +97,13 @@ const ContentStyles = styled.div<ContentStylesProps>`
   ${layoutStyles}
   ${telepointerStyle}
   ${gapCursorStyles};
-  ${tableStyles};
+  ${tableStyles}
   ${panelStyles}
   ${fakeCursorStyles}
   ${mentionsStyles}
-  ${({ featureFlags }) =>
+  ${({
+    featureFlags,
+  }) =>
     featureFlags?.nextEmojiNodeView
       ? emojiStylesNext
       : emojiStyles}

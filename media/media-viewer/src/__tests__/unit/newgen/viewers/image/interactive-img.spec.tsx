@@ -7,7 +7,6 @@ import {
   mountWithIntlContext,
 } from '@atlaskit/media-test-helpers';
 import { Rectangle, Camera, Vector2 } from '@atlaskit/media-ui';
-import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import { MAX_RESOLUTION } from '@atlaskit/media-client';
 import {
   InteractiveImgComponent,
@@ -292,8 +291,8 @@ describe('InteractiveImg', () => {
     });
     expect(component.find(HDIconGroupWrapper)).toHaveLength(1);
     const testId = component
-      .find(HDIcon)
-      .first()
+      .find('[data-testid="hd-inactive"]')
+      .last()
       .getDOMNode()
       .getAttribute('data-testid');
     expect(testId).toEqual('hd-inactive');
@@ -309,8 +308,8 @@ describe('InteractiveImg', () => {
       clickZoomIn(component);
     }
     const testId = component
-      .find(HDIcon)
-      .first()
+      .find('[data-testid="hd-activating"]')
+      .last()
       .getDOMNode()
       .getAttribute('data-testid');
     expect(testId).toEqual('hd-activating');
@@ -336,12 +335,11 @@ describe('InteractiveImg', () => {
     });
 
     it('should show active HD button when binary resource has loaded', () => {
-      const testId = component
-        .find(HDIcon)
-        .first()
-        .getDOMNode()
-        .getAttribute('data-testid');
-      expect(testId).toEqual('hd-active');
+      const HDButton = component
+        .find('[data-testid="hd-active"]')
+        .last()
+        .getDOMNode();
+      expect(HDButton).toBeDefined();
     });
 
     it('should load binary source', () => {

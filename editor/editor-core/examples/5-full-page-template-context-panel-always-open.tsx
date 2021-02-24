@@ -5,14 +5,12 @@ import { N30, N10 } from '@atlaskit/theme/colors';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 
-import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
-import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
-
 import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
 import decisionAdf from '../example-helpers/templates/decision.adf.json';
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
 import { EditorActions, ContextPanel } from '../src';
+import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 
 const isEmptyDoc = (adf: any) => adf.content.length === 0;
 
@@ -150,8 +148,7 @@ class EditorWithSidebar extends React.Component {
         onChange={this.onChange}
         defaultValue={defaultValue}
         extensionProviders={editorActions => [
-          getXProductExtensionProvider(),
-          getConfluenceMacrosExtensionProvider(editorActions),
+          getExampleExtensionProviders(editorActions),
         ]}
         allowExtension={{ allowAutoSave: true, allowLocalIdGeneration: true }}
         contextPanel={

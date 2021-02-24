@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.0.1
+
+### Patch Changes
+
+- [`a0c2212596a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c2212596a) - Adds a build time flag that lets consumers drop tooltips from their SSR bundles
+
 ## 11.0.0
 
 ### Major Changes

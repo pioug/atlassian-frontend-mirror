@@ -4,9 +4,12 @@ import { getValidDocument, ADFStage } from '@atlaskit/editor-common/validator';
 import {
   validateADFEntity,
   findAndTrackUnsupportedContentNodes,
+  getUnsupportedContentLevelData,
+  UnsupportedContentLevelsTracking,
 } from '@atlaskit/editor-common';
 import { Node as PMNode, Schema } from 'prosemirror-model';
-import { AnalyticsEventPayload } from './analytics/events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './analytics/enums';
+import { AnalyticsEventPayload, PLATFORM } from './analytics/events';
 
 export interface RenderOutput<T> {
   result: T;
@@ -45,6 +48,7 @@ export const renderDocument = <T>(
   adfStage: ADFStage = 'final',
   useSpecBasedValidator: boolean = false,
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+  unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking,
 ): RenderOutput<T | null> => {
   const stat: RenderOutputStat = { sanitizeTime: 0 };
 
@@ -94,6 +98,41 @@ export const renderDocument = <T>(
 
   if (dispatchAnalyticsEvent && useSpecBasedValidator) {
     findAndTrackUnsupportedContentNodes(node, schema, dispatchAnalyticsEvent);
+
+    if (unsupportedContentLevelsTracking?.enabled) {
+      try {
+        const {
+          severity,
+          percentage,
+          counts: { supportedNodes, unsupportedNodes },
+        } = getUnsupportedContentLevelData(
+          validDoc,
+          unsupportedContentLevelsTracking?.thresholds,
+        );
+        dispatchAnalyticsEvent({
+          action: ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED,
+          actionSubject: ACTION_SUBJECT.RENDERER,
+          attributes: {
+            platform: PLATFORM.WEB,
+            unsupportedContentLevelSeverity: severity,
+            unsupportedContentLevelPercentage: percentage,
+            unsupportedNodesCount: unsupportedNodes,
+            supportedNodesCount: supportedNodes,
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      } catch (err) {
+        dispatchAnalyticsEvent({
+          action: ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED,
+          actionSubject: ACTION_SUBJECT.RENDERER,
+          attributes: {
+            platform: PLATFORM.WEB,
+            error: err?.toString(),
+          },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      }
+    }
   }
 
   return { result, stat, pmDoc: node };

@@ -1,5 +1,8 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import {
+  retryUntilStablePosition,
+  triggerHyperLinkToolBar,
+} from '../../__helpers/page-objects/_toolbar';
 import {
   Appearance,
   initEditorWithAdf,
@@ -24,13 +27,7 @@ describe('Snapshot Test: Media', () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
-        await page.keyboard.down('Control');
-        await page.keyboard.press('KeyK');
-        await page.keyboard.up('Control');
-
-        await page.waitForSelector('[data-testid="link-url"]', {
-          visible: true,
-        });
+        await triggerHyperLinkToolBar(page);
 
         await retryUntilStablePosition(
           page,
@@ -46,17 +43,61 @@ describe('Snapshot Test: Media', () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
-        await page.keyboard.down('Control');
-        await page.keyboard.press('KeyK');
-        await page.keyboard.up('Control');
-
-        await page.waitForSelector('[data-testid="link-url"]', {
-          visible: true,
-        });
+        await triggerHyperLinkToolBar(page);
         await page.type(
           '[data-testid="link-url"]',
           'https://www.atlassian.com',
         );
+
+        await retryUntilStablePosition(
+          page,
+          () => page.click('[data-testid="link-url"]'),
+          '[aria-label="Floating Toolbar"]',
+          1000,
+        );
+
+        await snapshot(page);
+      });
+
+      it('should highlight items with mouse over', async () => {
+        await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
+        await page.click('.ProseMirror');
+
+        await triggerHyperLinkToolBar(page);
+
+        await retryUntilStablePosition(
+          page,
+          () => page.hover('[data-testid="link-search-list-item"]'),
+          '[aria-label="Floating Toolbar"]',
+          1000,
+        );
+
+        await snapshot(page);
+      });
+
+      it('should not highligh items when mouse move away from result item', async () => {
+        await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
+        await page.click('.ProseMirror');
+
+        await triggerHyperLinkToolBar(page);
+
+        await retryUntilStablePosition(
+          page,
+          () => page.hover('[data-testid="link-search-list-item"]'),
+          '[aria-label="Floating Toolbar"]',
+          1000,
+        );
+        await page.mouse.move(0, 0);
+
+        await snapshot(page);
+      });
+
+      it('should populate Url field with selected item using keyboard', async () => {
+        await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
+        await page.click('.ProseMirror');
+
+        await triggerHyperLinkToolBar(page);
+        await page.keyboard.press('ArrowDown');
 
         await retryUntilStablePosition(
           page,

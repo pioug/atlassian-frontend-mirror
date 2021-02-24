@@ -32,7 +32,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
-export default class JiraSoftwareIcon extends Component<Props> {
+export class JiraSoftwareIcon extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

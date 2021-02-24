@@ -1,4 +1,5 @@
 import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
+import { elementBrowserSelectors } from '../../../../../__tests__/__helpers/page-objects/_element-browser';
 
 const mockGetWidth = jest.fn();
 
@@ -110,6 +111,21 @@ describe('StatelessElementBrowser', () => {
           mode: 'full',
         },
         eventType: 'ui',
+      });
+    });
+
+    it('should fire an "click" event on category item click', () => {
+      const wrapper = mountWithIntl(
+        <StatelessElementBrowser {...testProps} mode="full" />,
+      );
+      const categoryItems = wrapper.find(elementBrowserSelectors.categoryItem);
+      mockCreateAnalyticsEvent.mockClear();
+      categoryItems.first().simulate('click');
+      expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'categoryButton',
+        eventType: 'track',
       });
     });
 

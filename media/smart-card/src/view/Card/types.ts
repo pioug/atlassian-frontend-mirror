@@ -1,5 +1,6 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { JsonLd } from 'json-ld-types';
+import { InlinePreloaderStyle } from '@atlaskit/media-ui/types';
 
 export type CardAppearance = 'inline' | 'block' | 'embed';
 export type CardInnerAppearance = CardAppearance | 'preview';
@@ -20,4 +21,5 @@ export interface CardProps extends WithAnalyticsEventsProps {
   onResolve?: (data: { url?: string; title?: string }) => void;
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
+  inlinePreloaderStyle?: InlinePreloaderStyle;
 }

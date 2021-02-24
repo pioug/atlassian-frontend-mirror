@@ -30,7 +30,7 @@ const InlineEditExample = () => {
       <InlineEdit
         defaultValue={editValue}
         label="Inline edit textarea + keep edit view open on blur"
-        editView={(fieldProps, ref) => (
+        editView={({ errorMessage, ...fieldProps }, ref) => (
           // @ts-ignore - textarea does not currently correctly pass through ref as a prop
           <TextArea {...fieldProps} ref={ref} />
         )}

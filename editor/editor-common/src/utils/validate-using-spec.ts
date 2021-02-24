@@ -89,7 +89,8 @@ export const validationErrorHandler = (
         entity.content = entity.content
           .filter((x): x is ADFEntity => !!x)
           .map((child, index) => {
-            return index >= meta.requiredLength
+            return index >= meta.requiredLength &&
+              child.type !== 'unsupportedBlock'
               ? wrapWithUnsupported(child)
               : validate(
                   child,

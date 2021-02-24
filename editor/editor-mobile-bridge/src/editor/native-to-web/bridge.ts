@@ -19,10 +19,12 @@ export default interface NativeToWebBridge {
   onMentionSelect(id: string, displayName: string): void;
   onMentionPickerResult(result: string): void;
   setContent(content: string): void;
+  setContentPayload(uuid: string): Promise<void>;
   getContent(): string;
   clearContent(): void;
   onMediaPicked(eventName: string, payload: string): void;
-  onPromiseResolved(uuid: string, paylaod: string): void;
+  onPromiseResolvedPayload(uuid: string): Promise<void>;
+  onPromiseResolved(uuid: string, payload: string): void;
   onPromiseRejected(uuid: string, err?: Error): void;
   onBlockSelected(blockType: string, inputMethod: BlockTypeInputMethod): void;
   onOrderedListSelected(inputMethod: ListInputMethod): void;

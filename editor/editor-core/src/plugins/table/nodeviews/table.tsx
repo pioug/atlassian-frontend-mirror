@@ -24,6 +24,7 @@ import { generateColgroup } from '../pm-plugins/table-resizing/utils';
 import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
 import { setTableSize } from '../commands';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 const tableAttributes = (node: PmNode) => {
   return {
@@ -136,6 +137,7 @@ export default class TableView extends ReactNodeView<Props> {
             containerWidth,
           } = pluginStates;
           const tableActive = props.getPos() === pluginState.tablePos;
+
           return (
             <TableComponent
               view={props.view}
@@ -152,7 +154,6 @@ export default class TableView extends ReactNodeView<Props> {
               getNode={this.getNode}
               containerWidth={containerWidth}
               contentDOM={forwardRef}
-              tableRenderOptimization={props.tableRenderOptimization}
             />
           );
         }}
@@ -199,9 +200,8 @@ export const createTableView = (
   options: TableOptions,
 ): NodeView => {
   const { pluginConfig } = getPluginState(view.state);
-  const { allowColumnResizing, tableRenderOptimization } = getPluginConfig(
-    pluginConfig,
-  );
+  const { allowColumnResizing } = getPluginConfig(pluginConfig);
+  const { tableRenderOptimization } = getFeatureFlags(view.state) || {};
   return new TableView({
     node,
     view,

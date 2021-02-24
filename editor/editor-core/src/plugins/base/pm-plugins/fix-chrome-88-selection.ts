@@ -1,4 +1,5 @@
 import { PluginKey, Plugin } from 'prosemirror-state';
+import { isNodeSelection } from 'prosemirror-utils';
 
 function isDivHTMLElement(elm: Element): elm is HTMLDivElement {
   return elm.tagName.toLowerCase() === 'div';
@@ -11,7 +12,12 @@ export default () =>
     props: {
       handleDOMEvents: {
         focus: view => {
-          if (isDivHTMLElement(view.dom)) {
+          // We don't need to reset when there's a NodeSelection
+          // It creates other problem. @see HOT-94478
+          if (
+            isDivHTMLElement(view.dom) &&
+            !isNodeSelection(view.state.selection)
+          ) {
             view.dom.style.display = 'inline-block';
             view.dom.offsetHeight;
             view.dom.style.display = 'block';

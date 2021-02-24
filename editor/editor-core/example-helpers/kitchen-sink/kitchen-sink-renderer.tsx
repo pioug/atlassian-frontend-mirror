@@ -41,6 +41,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
               allowLinking: true,
             }}
             allowCopyToClipboard={true}
+            useSpecBasedValidator={true}
             allowSelectAllTrap
           />
         </SmartCardProvider>

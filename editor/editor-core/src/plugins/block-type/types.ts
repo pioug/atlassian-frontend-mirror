@@ -148,4 +148,5 @@ export interface BlockTypeNode {
 export interface BlockTypePluginOptions {
   lastNodeMustBeParagraph?: boolean;
   allowBlockType?: { exclude?: Array<AllowedBlockTypes> };
+  isUndoRedoButtonsEnabled?: boolean;
 }

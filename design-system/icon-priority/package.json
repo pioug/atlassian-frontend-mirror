@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/icon-priority",
-  "version": "6.1.3",
-  "description": "A React package that contains priority icons",
+  "version": "6.1.4",
+  "description": "A priority icon is used in Jira to determine relative importance.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

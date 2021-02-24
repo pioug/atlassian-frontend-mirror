@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
 import { ButtonProps } from '@atlaskit/button/types';
+import styled from 'styled-components';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { FabricChannel } from '@atlaskit/analytics-listeners';
 import Button from './styles';
 import { MenuItem } from '../DropdownMenu/types';
-import styled from 'styled-components';
+import {
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  ACTION,
+} from '../../plugins/analytics/types/enums';
+import { TOOLBAR_ACTION_SUBJECT_ID } from '../../plugins/analytics/types/toolbar-button';
+
+export const TOOLBAR_BUTTON = TOOLBAR_ACTION_SUBJECT_ID;
 
 export type Props = {
+  buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
   className?: string;
   disabled?: boolean;
   hideTooltip?: boolean;
@@ -21,65 +32,110 @@ export type Props = {
   titlePosition?: PositionType;
   item?: MenuItem;
   testId?: string;
-} & Pick<ButtonProps, 'aria-label'>;
+} & Pick<ButtonProps, 'aria-label' | 'children'>;
 
 const ButtonWrapper = styled.div`
   display: flex;
   height: 100%;
 `;
 
-export default class ToolbarButton extends React.PureComponent<Props, {}> {
-  static defaultProps = {
-    className: '',
-    titlePosition: 'top' as PositionType,
-  };
+export type ToolbarButtonRef = HTMLElement;
+const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
+  (props, ref) => {
+    const {
+      buttonId,
+      testId,
+      className = '',
+      href,
+      iconAfter,
+      iconBefore,
+      disabled,
+      selected,
+      spacing,
+      target,
+      children,
+      hideTooltip,
+      title,
+      titlePosition = 'top',
+      item,
+      onClick,
+      onItemClick,
+    } = props;
 
-  private handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    const { disabled, onClick, onItemClick, item } = this.props;
+    const handleClick = useCallback(
+      (
+        event: React.MouseEvent<HTMLElement>,
+        analyticsEvent: UIAnalyticsEvent,
+      ) => {
+        if (disabled) {
+          return;
+        }
 
-    if (!disabled && onClick) {
-      onClick(event);
-    }
+        if (buttonId) {
+          analyticsEvent
+            .update(payload => ({
+              ...payload,
+              action: ACTION.CLICKED,
+              actionSubject: ACTION_SUBJECT.TOOLBAR_BUTTON,
+              actionSubjectId: buttonId,
+              eventType: EVENT_TYPE.UI,
+            }))
+            .fire(FabricChannel.editor);
+        }
 
-    if (!disabled && item && onItemClick) {
-      onItemClick(item);
-    }
-  };
+        if (onClick) {
+          onClick(event);
+        }
 
-  render() {
+        if (item && onItemClick) {
+          onItemClick(item);
+        }
+      },
+
+      [disabled, onClick, onItemClick, item, buttonId],
+    );
+    const ariaLabel = props['aria-label'];
+    const id = buttonId ? `editor-toolbar__${buttonId}` : undefined;
+
     const button = (
       <Button
+        id={id}
+        ref={ref}
         appearance="subtle"
         aria-haspopup
-        testId={this.props.testId}
-        className={this.props.className}
-        href={this.props.href}
-        aria-label={this.props['aria-label']}
-        iconAfter={this.props.iconAfter}
-        iconBefore={this.props.iconBefore}
-        isDisabled={this.props.disabled}
-        isSelected={this.props.selected}
-        onClick={this.handleClick}
-        spacing={this.props.spacing || 'default'}
-        target={this.props.target}
+        testId={testId}
+        className={className}
+        href={href}
+        aria-label={ariaLabel}
+        iconAfter={iconAfter}
+        iconBefore={iconBefore}
+        isDisabled={disabled}
+        isSelected={selected}
+        onClick={handleClick}
+        spacing={spacing || 'default'}
+        target={target}
         shouldFitContainer
       >
-        {this.props.children}
+        {children}
       </Button>
     );
 
-    const tooltipContent = !this.props.hideTooltip ? this.props.title : null;
+    if (!title) {
+      return button;
+    }
 
-    return this.props.title ? (
+    const tooltipContent = !hideTooltip ? title : null;
+
+    return (
       <Tooltip
         content={tooltipContent}
         hideTooltipOnClick={true}
-        position={this.props.titlePosition}
+        position={titlePosition}
       >
         <ButtonWrapper>{button}</ButtonWrapper>
       </Tooltip>
-    ) : (
-      button
     );
-  }
-}
+  },
+);
+
+export default ToolbarButton;

@@ -2,10 +2,7 @@ import React from 'react';
 
 import { addLocaleData } from 'react-intl';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
-import {
-  ProviderFactory,
-  combineExtensionProviders,
-} from '@atlaskit/editor-common';
+import { ProviderFactory } from '@atlaskit/editor-common';
 import Flag from '@atlaskit/flag';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
@@ -24,14 +21,13 @@ import * as FeatureFlagUrl from '../feature-flag-url';
 
 import { copy } from '../copy';
 import { Error, ErrorReport } from '../ErrorReport';
-import { getXProductExtensionProvider } from '../fake-x-product-extensions';
-import { getConfluenceMacrosExtensionProvider } from '../confluence-macros';
 import { KitchenSinkControls } from './kitchen-sink-controls';
 import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
 import { Container, EditorColumn, Column, Rail } from './kitchen-sink-styles';
 import { KitchenSinkRenderer } from './kitchen-sink-renderer';
 import { KitchenSinkEditor } from './kitchen-sink-editor';
 import { isEmptyDocument } from '../../src/utils/document';
+import { getExampleExtensionProviders } from '../get-example-extension-providers';
 
 addGlobalEventEmitterListeners();
 
@@ -242,12 +238,7 @@ export class KitchenSink extends React.Component<
   private dataProviders = ProviderFactory.create({
     ...providers,
     mediaProvider,
-    extensionProvider: Promise.resolve(
-      combineExtensionProviders([
-        getXProductExtensionProvider(),
-        getConfluenceMacrosExtensionProvider(),
-      ]),
-    ),
+    extensionProvider: Promise.resolve(getExampleExtensionProviders()),
   });
 
   private popupMountPoint?: HTMLElement | null;
@@ -476,8 +467,7 @@ export class KitchenSink extends React.Component<
                 disabled={this.state.disabled}
                 featureFlags={parseSafely(this.state.featureFlagInput)}
                 extensionProviders={editorActions => [
-                  getXProductExtensionProvider(),
-                  getConfluenceMacrosExtensionProvider(editorActions),
+                  getExampleExtensionProviders(editorActions),
                 ]}
               />
             </EditorColumn>

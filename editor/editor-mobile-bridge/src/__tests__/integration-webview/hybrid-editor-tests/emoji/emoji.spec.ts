@@ -14,8 +14,9 @@ MobileTestCase(
     const page = await Page.create(client);
     await loadEditor(page);
     await page.tapKeys(':angry:');
-    await page.switchToWeb();
     expect(await isEmojiAdded(page, ANGRY_EMOJI, '😠')).toBe(true);
+    //Just to make sure emoji is visible in recordings
+    await page.tapKeys(SPECIAL_KEYS.ENTER);
   },
 );
 
@@ -27,7 +28,8 @@ MobileTestCase(
     await loadEditor(page);
     await page.tapKeys(':)');
     await page.tapKeys(SPECIAL_KEYS.SPACE);
-    await page.switchToWeb();
     expect(await isEmojiAdded(page, SLIGHT_SMILE_EMOJI, '🙂')).toBe(true);
+    //Just to make sure emoji is visible in recordings
+    await page.tapKeys(SPECIAL_KEYS.ENTER);
   },
 );

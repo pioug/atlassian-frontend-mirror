@@ -60,6 +60,18 @@ export default class IosBridge implements NativeBridge {
       });
     }
   }
+  updateTextWithADFStatus(content: string, isEmptyADF: boolean) {
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.textFormatBridge
+    ) {
+      this.window.webkit.messageHandlers.textFormatBridge.postMessage({
+        name: 'updateTextWithADFStatus',
+        query: content,
+        isEmptyADF: isEmptyADF,
+      });
+    }
+  }
   getServiceHost(): string {
     if (this.window.mediaBridge) {
       return this.window.mediaBridge.getServiceHost();

@@ -55,6 +55,7 @@ export interface MentionBridge {
 export interface TextFormattingBridge {
   updateTextFormat(markStates: string): void;
   updateText(content: string): void;
+  updateTextWithADFStatus(content: string, isEmptyADF: boolean): void;
   updateBlockState(currentBlockType: string): void;
   updateTextColor(color: string): void;
 }

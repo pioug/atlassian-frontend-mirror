@@ -17,7 +17,7 @@ import {
   Separator,
   TriggerWrapper,
 } from '../../../../ui/styles';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -148,6 +148,7 @@ class ToolbarTextColor extends React.Component<
           fitWidth={fitWidth}
           trigger={
             <ToolbarButton
+              buttonId={TOOLBAR_BUTTON.TEXT_COLOR}
               spacing={isReducedSpacing ? 'none' : 'default'}
               disabled={disabled || pluginState.disabled}
               selected={isOpen}

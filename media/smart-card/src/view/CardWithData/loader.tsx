@@ -30,6 +30,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
       onResolve,
       testId,
       showActions,
+      inlinePreloaderStyle,
     } = this.props;
     if (!data) {
       throw new Error(
@@ -39,6 +40,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
     if (CardWithDataRenderer.CardContent) {
       return (
         <CardWithDataRenderer.CardContent
+          inlinePreloaderStyle={inlinePreloaderStyle}
           appearance={appearance}
           data={data}
           isSelected={isSelected}

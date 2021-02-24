@@ -26,12 +26,12 @@ interface State {
 
 export default () => {
   const [state, setState] = useReducer(reducer, {
-    disabled: ['2020-12-04'],
-    previouslySelected: ['2020-12-06'],
-    selected: ['2020-12-08'],
+    disabled: ['2017-08-04'],
+    previouslySelected: ['2017-08-06'],
+    selected: ['2017-08-08'],
     day: 1,
-    month: 12,
-    year: 2020,
+    month: 8,
+    year: 2017,
   });
 
   const handleSelect = useCallback(

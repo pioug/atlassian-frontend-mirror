@@ -1,11 +1,10 @@
 import { useCallback } from 'react';
 
-import { Calendar as CalendarBase } from 'calendar-base';
-
 import type { ChangeEvent } from '../../types';
 import { daysPerWeek, monthsPerYear } from '../constants';
 import type { ArrowKeys } from '../types';
 import dateToString from '../utils/date-to-string';
+import getDaysInMonth from '../utils/get-days-in-month';
 
 const getNextMonth = (monthValue: number, yearValue: number) => {
   let month = monthValue;
@@ -62,7 +61,7 @@ export default function useHandleDateChange({
     (type: ArrowKeys) => {
       if (type === 'down') {
         const next = dayValue + daysPerWeek;
-        const daysInMonth = CalendarBase.daysInMonth(yearValue, monthValue - 1);
+        const daysInMonth = getDaysInMonth(yearValue, monthValue - 1);
 
         if (next > daysInMonth) {
           const { month: nextMonth, year: nextYear } = getNextMonth(
@@ -91,7 +90,7 @@ export default function useHandleDateChange({
             monthValue,
             yearValue,
           );
-          const prevDay = CalendarBase.daysInMonth(prevYear, prevMonth - 1);
+          const prevDay = getDaysInMonth(prevYear, prevMonth - 1);
           triggerOnChange({
             year: prevYear,
             month: prevMonth,
@@ -108,7 +107,7 @@ export default function useHandleDateChange({
         }
       } else if (type === 'right') {
         const next = dayValue + 1;
-        const daysInMonth = CalendarBase.daysInMonth(yearValue, monthValue - 1);
+        const daysInMonth = getDaysInMonth(yearValue, monthValue - 1);
 
         if (next > daysInMonth) {
           const { month: nextMonth, year: nextYear } = getNextMonth(
@@ -137,8 +136,7 @@ export default function useHandleDateChange({
             monthValue,
             yearValue,
           );
-          const prevDay =
-            CalendarBase.daysInMonth(prevYear, prevMonth - 1) + prev;
+          const prevDay = getDaysInMonth(prevYear, prevMonth - 1) + prev;
           triggerOnChange({
             year: prevYear,
             month: prevMonth,

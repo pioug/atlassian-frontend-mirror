@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.7.1
+
+### Patch Changes
+
+- [`0b2f7e76803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b2f7e76803) - Codemods will only format a file if it is mutated.
+
 ## 0.7.0
 
 ### Minor Changes

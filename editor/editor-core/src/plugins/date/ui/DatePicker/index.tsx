@@ -174,7 +174,7 @@ class DatePicker extends React.Component<Props & InjectedIntlProps, State> {
     });
   };
 
-  private handleRef = (ref?: HTMLElement) => {
+  private handleRef = (ref?: HTMLElement | null) => {
     const elm = ref && (ReactDOM.findDOMNode(ref) as HTMLElement);
     if (elm) {
       elm.focus();

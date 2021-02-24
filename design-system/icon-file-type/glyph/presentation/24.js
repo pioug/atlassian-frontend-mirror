@@ -11,9 +11,7 @@ var _Icon = _interopRequireDefault(require("../../cjs/components/Icon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-const Presentation24Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, _extends({
+const Presentation24Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path fill="#6554C0" fill-rule="evenodd" d="M3 0h18a3 3 0 013 3v18a3 3 0 01-3 3H3a3 3 0 01-3-3V3a3 3 0 013-3zm3 14a1 1 0 00-1 1v3a1 1 0 002 0v-3a1 1 0 00-1-1zm8-6a1 1 0 00-1 1v9a1 1 0 002 0V9a1 1 0 00-1-1zm-4 4a1 1 0 00-1 1v5a1 1 0 002 0v-5a1 1 0 00-1-1zm8-7a1 1 0 00-1 1v12a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>`
 }, props, {
   size: "medium"

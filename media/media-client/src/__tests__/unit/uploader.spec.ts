@@ -1,12 +1,15 @@
 jest.mock('@atlaskit/chunkinator');
 
-import { chunkinator } from '@atlaskit/chunkinator';
+import { Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
+import { mapTo } from 'rxjs/operators/mapTo';
+import { chunkinator, ProbedBlob } from '@atlaskit/chunkinator';
 import { AuthProvider, MediaApiConfig } from '@atlaskit/media-core';
 import { uploadFile, UploadableFileUpfrontIds, MediaStore } from '../..';
-import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import { asMockFunction, nextTick } from '@atlaskit/media-test-helpers';
 
 describe('Uploader', () => {
-  const probedBlob = {
+  const probedBlob: ProbedBlob = {
     blob: new Blob(),
     hash: 'some-hash',
     exists: true,
@@ -32,8 +35,8 @@ describe('Uploader', () => {
     const cancel = jest.fn();
     const blob: Blob = null as any;
     ChunkinatorMock.mockImplementation((file, options, callbacks) => {
-      return {
-        response: (async () => {
+      return from(
+        (async () => {
           callbacks.onProgress && callbacks.onProgress(0.1);
           await options.processingFunction!([
             { hash: '1', blob },
@@ -46,10 +49,8 @@ describe('Uploader', () => {
             { hash: '5', blob },
             { hash: '6', blob },
           ]);
-          return [probedBlob];
         })(),
-        cancel,
-      };
+      ).pipe(mapTo([probedBlob]));
     });
 
     return {
@@ -68,17 +69,6 @@ describe('Uploader', () => {
       baseUrl: '',
     });
 
-  it('should return cancel function given by Chunkinator', () => {
-    const { mediaStore, cancel } = setup();
-    const { cancel: actualCancel } = uploadFile(
-      { content: 'file-content' },
-      mediaStore as MediaStore,
-      uploadableFileUpfrontIds,
-    );
-    actualCancel();
-    expect(cancel).toHaveBeenCalledTimes(1);
-  });
-
   it('should pass down the file content to Chunkinator', async () => {
     const { mediaStore, ChunkinatorMock } = setup();
 
@@ -91,13 +81,12 @@ describe('Uploader', () => {
     expect(ChunkinatorMock.mock.calls[0][0]).toEqual('file-content');
   });
 
-  it('should use provided file name, collection names and occurrence key when creating the file', async () => {
+  it('should use provided file name, collection names and occurrence key when creating the file', done => {
     const { mediaStore, ChunkinatorMock, createFileFromUpload } = setup();
 
-    const response = Promise.resolve([probedBlob]);
-    ChunkinatorMock.mockImplementation(() => {
-      return { response, cancel: jest.fn() };
-    });
+    ChunkinatorMock.mockImplementation(() =>
+      from(Promise.resolve([probedBlob])),
+    );
 
     uploadFile(
       {
@@ -108,31 +97,35 @@ describe('Uploader', () => {
       },
       mediaStore as MediaStore,
       uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: () => {
+          expect(createFileFromUpload).toHaveBeenCalledTimes(1);
+          expect(createFileFromUpload).toBeCalledWith(
+            {
+              uploadId: 'some-upload-id',
+              name: 'file-name',
+              mimeType: 'some-mime-type',
+            },
+            {
+              occurrenceKey: 'some-occurrence-key',
+              collection: 'some-collection',
+              replaceFileId: 'some-file-id',
+            },
+          );
+          done();
+        },
+      },
     );
 
-    await uploadableFileUpfrontIds.deferredUploadId;
-    await response;
-
-    expect(createFileFromUpload).toHaveBeenCalledTimes(1);
-    expect(createFileFromUpload).toBeCalledWith(
-      {
-        uploadId: 'some-upload-id',
-        name: 'file-name',
-        mimeType: 'some-mime-type',
-      },
-      {
-        occurrenceKey: 'some-occurrence-key',
-        collection: 'some-collection',
-        replaceFileId: 'some-file-id',
-      },
-    );
+    expect.assertions(2);
   });
 
   it('should append the chunks to the upload in processing function', async () => {
     const { mediaStore, appendChunksToUpload } = setup();
     const onProgress = jest.fn();
 
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       uploadFile(
         { content: '' },
         mediaStore as MediaStore,
@@ -165,7 +158,7 @@ describe('Uploader', () => {
     const { mediaStore } = setup();
     const onProgress = jest.fn();
 
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       uploadFile(
         { content: '' },
         mediaStore as MediaStore,
@@ -185,12 +178,9 @@ describe('Uploader', () => {
   it('should reject if there was an error with the upload', async () => {
     const { mediaStore, ChunkinatorMock } = setup();
 
-    ChunkinatorMock.mockImplementation(() => {
-      return {
-        response: Promise.reject('some upload error'),
-        cancel: jest.fn(),
-      };
-    });
+    ChunkinatorMock.mockImplementation(() =>
+      from(Promise.reject('some upload error')),
+    );
 
     const error = await new Promise((resolve, reject) => {
       uploadFile(
@@ -207,7 +197,6 @@ describe('Uploader', () => {
   });
 
   it('should create the file after all chunks have been appended', async () => {
-    expect.assertions(3);
     const { mediaStore, appendChunksToUpload, createFileFromUpload } = setup();
 
     mediaStore.createFileFromUpload = () => {
@@ -219,7 +208,9 @@ describe('Uploader', () => {
       return appendChunksToUpload();
     };
 
-    await new Promise((resolve, reject) => {
+    expect.assertions(3);
+
+    await new Promise<void>((resolve, reject) => {
       uploadFile(
         { content: '' },
         mediaStore as MediaStore,
@@ -230,5 +221,75 @@ describe('Uploader', () => {
         },
       );
     });
+  });
+
+  it('should not subscribe to Chunkinator Observable if cancel() initially called', done => {
+    const {
+      mediaStore,
+      ChunkinatorMock,
+      appendChunksToUpload,
+      createFileFromUpload,
+    } = setup();
+
+    const chunkinatorCalled = jest.fn();
+
+    ChunkinatorMock.mockImplementation(
+      () =>
+        new Observable(() => {
+          chunkinatorCalled();
+        }),
+    );
+
+    const { cancel } = uploadFile(
+      {
+        content: '',
+        name: 'file-name',
+        collection: 'some-collection',
+        mimeType: 'some-mime-type',
+      },
+      mediaStore as MediaStore,
+      uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: error => {
+          expect(error).toEqual('canceled');
+          expect(chunkinatorCalled).toHaveBeenCalledTimes(0);
+          expect(appendChunksToUpload).toHaveBeenCalledTimes(0);
+          expect(createFileFromUpload).toHaveBeenCalledTimes(0);
+          done();
+        },
+      },
+    );
+
+    cancel();
+    expect.assertions(4);
+  });
+
+  it('should interrupt upload if cancel() is called', async () => {
+    const { mediaStore, appendChunksToUpload, createFileFromUpload } = setup();
+
+    const { cancel } = uploadFile(
+      {
+        content: '',
+        name: 'file-name',
+        collection: 'some-collection',
+        mimeType: 'some-mime-type',
+      },
+      mediaStore as MediaStore,
+      uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: error => {
+          expect(error).toEqual('canceled');
+          expect(appendChunksToUpload).toHaveBeenCalledTimes(1);
+          expect(createFileFromUpload).toHaveBeenCalledTimes(0);
+        },
+      },
+    );
+
+    await nextTick();
+    cancel();
+
+    expect.assertions(3);
   });
 });

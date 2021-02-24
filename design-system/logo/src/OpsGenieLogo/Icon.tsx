@@ -42,7 +42,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
-export default class OpsGenieIcon extends Component<Props> {
+export class OpsGenieIcon extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

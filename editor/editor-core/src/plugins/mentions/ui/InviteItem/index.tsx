@@ -1,4 +1,4 @@
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import AddIcon from '@atlaskit/icon/glyph/add';
 import { MentionDescription } from '@atlaskit/mention/resource';
 import { UserRole } from '@atlaskit/mention';
 import { N300 } from '@atlaskit/theme/colors';
@@ -85,7 +85,7 @@ const InviteItem = ({
     >
       <RowStyle>
         <AvatarStyle>
-          <SearchIcon label="search-icon" primaryColor={N300} />
+          <AddIcon label="add-icon" primaryColor={N300} />
         </AvatarStyle>
         <NameSectionStyle>
           <FormattedMessage

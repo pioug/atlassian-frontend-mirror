@@ -52,10 +52,14 @@ export {
   getAnalyticsAppearance,
   getAnalyticsEventSeverity,
   SEVERITY,
+  getUnsupportedContentLevelData,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
 } from './analytics';
 export type {
   UnsupportedContentTooltipPayload,
   UnsupportedContentPayload,
+  UnsupportedContentLevelsTracking,
 } from './analytics';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { measureRender } from './performance/measure-render';

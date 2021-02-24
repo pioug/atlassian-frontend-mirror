@@ -18,8 +18,8 @@ const initRenderer = async (
     adf,
   });
 };
-
-describe('Snapshot Test: Full Width', () => {
+// TODO: https://product-fabric.atlassian.net/browse/ED-12011
+describe.skip('Snapshot Test: Full Width', () => {
   let page: PuppeteerPage;
   beforeAll(() => {
     page = global.page;

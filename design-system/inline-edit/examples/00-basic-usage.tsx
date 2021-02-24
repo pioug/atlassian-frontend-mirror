@@ -29,7 +29,9 @@ const InlineEditExample = () => {
       <InlineEdit
         defaultValue={editValue}
         label="Inline edit"
-        editView={fieldProps => <Textfield {...fieldProps} autoFocus />}
+        editView={({ errorMessage, ...fieldProps }) => (
+          <Textfield {...fieldProps} autoFocus />
+        )}
         readView={() => (
           <ReadViewContainer data-testid="read-view">
             {editValue || 'Click to enter value'}

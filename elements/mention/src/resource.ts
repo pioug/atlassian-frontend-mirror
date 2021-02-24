@@ -26,7 +26,11 @@ import {
 } from './types';
 import { ELEMENTS_CHANNEL } from './_constants';
 import ContextMentionResource from './api/ContextMentionResource';
-import { SLI_EVENT_TYPE, buildSliPayload } from './util/analytics';
+import {
+  SLI_EVENT_TYPE,
+  SMART_EVENT_TYPE,
+  buildSliPayload,
+} from './util/analytics';
 
 export {
   // Classes
@@ -44,6 +48,7 @@ export {
   ELEMENTS_CHANNEL,
   // ANALYTICS
   SLI_EVENT_TYPE,
+  SMART_EVENT_TYPE,
   buildSliPayload,
 };
 export type {

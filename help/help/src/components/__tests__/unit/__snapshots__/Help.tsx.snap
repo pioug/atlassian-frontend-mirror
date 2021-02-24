@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BackButton Should match snapshot 1`] = `
-.emotion-16 {
+.emotion-18 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -17,7 +17,7 @@ exports[`BackButton Should match snapshot 1`] = `
   background-color: #ffffff;
 }
 
-.emotion-15 {
+.emotion-17 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -32,7 +32,7 @@ exports[`BackButton Should match snapshot 1`] = `
   min-height: 0;
 }
 
-.emotion-4 {
+.emotion-5 {
   height: 56px;
   background-color: #FAFBFC;
   border-bottom: 2px solid #EBECF0;
@@ -54,7 +54,7 @@ exports[`BackButton Should match snapshot 1`] = `
   vertical-align: middle;
 }
 
-.emotion-3 {
+.emotion-4 {
   position: absolute;
   right: 8px;
   top: 50%;
@@ -63,13 +63,13 @@ exports[`BackButton Should match snapshot 1`] = `
   transform: translateY(-50%);
 }
 
-.emotion-2,
-.emotion-2:hover,
-.emotion-2:active,
-.emotion-2:focus,
-.emotion-2:visited,
-.emotion-2:disabled,
-.emotion-2[disabled] {
+.emotion-3,
+.emotion-3:hover,
+.emotion-3:active,
+.emotion-3:focus,
+.emotion-3:visited,
+.emotion-3:disabled,
+.emotion-3[disabled] {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -108,19 +108,19 @@ exports[`BackButton Should match snapshot 1`] = `
   outline: none;
 }
 
-.emotion-2::-moz-focus-inner,
-.emotion-2:hover::-moz-focus-inner,
-.emotion-2:active::-moz-focus-inner,
-.emotion-2:focus::-moz-focus-inner,
-.emotion-2:visited::-moz-focus-inner,
-.emotion-2:disabled::-moz-focus-inner,
-.emotion-2[disabled]::-moz-focus-inner {
+.emotion-3::-moz-focus-inner,
+.emotion-3:hover::-moz-focus-inner,
+.emotion-3:active::-moz-focus-inner,
+.emotion-3:focus::-moz-focus-inner,
+.emotion-3:visited::-moz-focus-inner,
+.emotion-3:disabled::-moz-focus-inner,
+.emotion-3[disabled]::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.emotion-1 {
+.emotion-2 {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   opacity: 1;
@@ -147,7 +147,33 @@ exports[`BackButton Should match snapshot 1`] = `
   margin: 0 2px;
 }
 
-.emotion-14 {
+.emotion-1 {
+  height: 24px;
+  width: 24px;
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-1 > svg {
+  height: 24px;
+  width: 24px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.emotion-1 stop {
+  stop-color: currentColor;
+}
+
+.emotion-16 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -179,7 +205,7 @@ exports[`BackButton Should match snapshot 1`] = `
   align-items: flex-start;
 }
 
-.emotion-9 {
+.emotion-11 {
   padding: 24px 16px 8px 16px;
   -webkit-order: 0;
   -ms-flex-order: 0;
@@ -194,7 +220,7 @@ exports[`BackButton Should match snapshot 1`] = `
   box-sizing: border-box;
 }
 
-.emotion-8 {
+.emotion-10 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -228,52 +254,52 @@ exports[`BackButton Should match snapshot 1`] = `
   pointer-events: auto;
 }
 
-.emotion-8:hover {
+.emotion-10:hover {
   background-color: #EBECF0;
 }
 
-.emotion-8:focus-within {
+.emotion-10:focus-within {
   background-color: #FFFFFF;
   border-color: #4C9AFF;
 }
 
-.emotion-8[data-disabled] {
+.emotion-10[data-disabled] {
   background-color: #FAFBFC;
   border-color: #FAFBFC;
   color: #A5ADBA;
   cursor: not-allowed;
 }
 
-.emotion-8[data-disabled]:focus-within {
+.emotion-10[data-disabled]:focus-within {
   background-color: #F4F5F7;
   border-color: #4C9AFF;
 }
 
-.emotion-8[data-disabled]:hover {
+.emotion-10[data-disabled]:hover {
   background-color: #F4F5F7;
 }
 
-.emotion-8[data-invalid] {
+.emotion-10[data-invalid] {
   background-color: #FAFBFC;
   border-color: #DE350B;
 }
 
-.emotion-8[data-invalid]:focus-within {
+.emotion-10[data-invalid]:focus-within {
   background-color: #FFFFFF;
   border-color: #4C9AFF;
 }
 
-.emotion-8[data-invalid]:hover {
+.emotion-10[data-invalid]:hover {
   background-color: #EBECF0;
 }
 
-.emotion-5 {
+.emotion-7 {
   width: 24px;
   height: 24px;
   padding-left: 4px;
 }
 
-.emotion-5 > span {
+.emotion-7 > span {
   padding-left: 4px;
   height: 24px;
   width: 24px;
@@ -281,6 +307,28 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-6 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-6 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.emotion-6 stop {
+  stop-color: currentColor;
+}
+
+.emotion-8 {
   background-color: transparent;
   border: 0;
   box-sizing: border-box;
@@ -294,71 +342,71 @@ exports[`BackButton Should match snapshot 1`] = `
   font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
 }
 
-.emotion-6[data-monospaced] {
+.emotion-8[data-monospaced] {
   font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
 }
 
-.emotion-6[data-compact] {
+.emotion-8[data-compact] {
   padding: 4px 6px;
   height: 2.00em;
 }
 
-.emotion-6:not([data-compact]) {
+.emotion-8:not([data-compact]) {
   padding: 8px 6px;
   height: 2.57em;
 }
 
-.emotion-6[disabled] {
+.emotion-8[disabled] {
   -webkit-text-fill-color: unset;
   -webkit-opacity: 1px;
 }
 
-.emotion-6::-ms-clear {
+.emotion-8::-ms-clear {
   display: none;
 }
 
-.emotion-6:invalid {
+.emotion-8:invalid {
   box-shadow: none;
 }
 
-.emotion-6::placeholder {
+.emotion-8::placeholder {
   color: #7A869A;
 }
 
-.emotion-6::-webkit-input-placeholder:disabled {
+.emotion-8::-webkit-input-placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-6::-moz-placeholder:disabled {
+.emotion-8::-moz-placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-6:-ms-input-placeholder:disabled {
+.emotion-8:-ms-input-placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-6::placeholder:disabled {
+.emotion-8::placeholder:disabled {
   color: #A5ADBA;
 }
 
-.emotion-7 {
+.emotion-9 {
   font-size: 0;
   padding-right: 8px;
   position: relative;
   white-space: nowrap;
 }
 
-.emotion-7 > span {
+.emotion-9 > span {
   padding-right: 4px;
 }
 
-.emotion-7 > button,
-.emotion-7 > span {
+.emotion-9 > button,
+.emotion-9 > span {
   display: inline-block;
   vertical-align: middle;
 }
 
-.emotion-13 {
+.emotion-15 {
   width: 100%;
   box-sizing: border-box;
   -webkit-order: 0;
@@ -375,7 +423,7 @@ exports[`BackButton Should match snapshot 1`] = `
   overflow-y: scroll;
 }
 
-.emotion-10 {
+.emotion-12 {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -394,7 +442,7 @@ exports[`BackButton Should match snapshot 1`] = `
   padding: 0 16px;
 }
 
-.emotion-11 {
+.emotion-13 {
   padding: 16px 24px;
   position: absolute;
   height: 100%;
@@ -414,20 +462,20 @@ exports[`BackButton Should match snapshot 1`] = `
   z-index: 1;
 }
 
-.emotion-12 {
+.emotion-14 {
   display: block;
   height: 100%;
   overflow: auto;
 }
 
 <div
-  class="emotion-16"
+  class="emotion-18"
 >
   <div
-    class="emotion-15"
+    class="emotion-17"
   >
     <div
-      class="emotion-4"
+      class="emotion-5"
     >
       <div
         class="emotion-0"
@@ -435,20 +483,20 @@ exports[`BackButton Should match snapshot 1`] = `
         Help
       </div>
       <div
-        class="emotion-3"
+        class="emotion-4"
       >
         <div>
           <button
-            class="emotion-2"
+            class="emotion-3"
             tabindex="0"
             type="button"
           >
             <span
-              class="emotion-1"
+              class="emotion-2"
             >
               <span
                 aria-label="Close"
-                class="sc-htpNat ebstqi"
+                class="emotion-1"
                 role="img"
               >
                 <svg
@@ -471,20 +519,20 @@ exports[`BackButton Should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="emotion-14"
+      class="emotion-16"
     >
       <div
-        class="emotion-9"
+        class="emotion-11"
       >
         <div
-          class="emotion-8"
+          class="emotion-10"
           data-ds--text-field--container="true"
         >
           <div
-            class="emotion-5"
+            class="emotion-7"
           >
             <span
-              class="sc-htpNat dcTkON"
+              class="emotion-6"
               role="presentation"
             >
               <svg
@@ -504,30 +552,30 @@ exports[`BackButton Should match snapshot 1`] = `
           </div>
           <input
             autocomplete="off"
-            class="emotion-6"
+            class="emotion-8"
             data-ds--text-field--input="true"
             name="help-search-input"
             placeholder="Search help articles"
             value=""
           />
           <div
-            class="emotion-7"
+            class="emotion-9"
           />
         </div>
       </div>
       <div
-        class="emotion-13"
+        class="emotion-15"
       >
         <div
-          class="emotion-10"
+          class="emotion-12"
           style="transition: opacity 440ms; opacity: 0; visibility: hidden;"
         />
         <div
-          class="emotion-11"
+          class="emotion-13"
           style="left: 100%; transition: left 300ms cubic-bezier(0.2, 0, 0, 1) 0s;"
         />
         <div
-          class="emotion-12"
+          class="emotion-14"
         >
           <div>
             Default content

@@ -2,7 +2,6 @@ import {
   getExampleUrl,
   loadPage,
   PuppeteerPage,
-  waitForElementCount,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 import {
@@ -10,7 +9,11 @@ import {
   toolbarMenuItemsSelectors,
 } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 import { clickEditableContent } from '../../../../__tests__/__helpers/page-objects/_editor';
-import { elementBrowserSelectors } from '../../../../__tests__/__helpers/page-objects/_element-browser';
+import {
+  elementBrowserSelectors,
+  waitForBrowseMenuIcons,
+  waitForInsertMenuIcons,
+} from '../../../../__tests__/__helpers/page-objects/_element-browser';
 
 let page: PuppeteerPage;
 let url: string;
@@ -66,6 +69,9 @@ describe('ModalElementBrowser', () => {
       await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);
       await page.waitForSelector(elementBrowserSelectors.elementBrowser);
       await page.click(elementBrowserSelectors.viewMore);
+      // Move mouse away to avoid hover selection on the browse modal
+      await page.mouse.move(0, 0);
+      await waitForBrowseMenuIcons(page);
     });
     it('should match ModalElementBrowser with help link snapshot', async () => {
       const image = await takeElementScreenShot(
@@ -91,8 +97,7 @@ describe('InlineElementBrowser', () => {
 const shouldMatchSnapshotFor = async (
   testId:
     | 'ModalElementBrowser__example__open_button'
-    | 'InlineElementBrowser__example__open_button'
-    | 'ModalElementBrowser__help-button',
+    | 'InlineElementBrowser__example__open_button',
   viewportConfig?: { height: number; width: number },
 ) => {
   if (viewportConfig) {
@@ -100,18 +105,16 @@ const shouldMatchSnapshotFor = async (
     await page.setViewport({ height, width });
   }
 
-  await waitForElementCount(page, `[data-testid='${testId}']`, 1);
-
+  await page.waitForSelector(`[data-testid='${testId}']`);
   await page.click(`[data-testid='${testId}']`);
-  /**
-   * using waitForLoadedImageElements fails the test in CI/CD with Evaluation failed: Error, so using page.waitFor(ms)
-   * 'waitForLoadedImageElements' was used, but no images existed on the page within the time threshold.
-   */
-  await page.waitFor(5000);
 
   // Wait for the ElementBrowser to be loaded on page
-  await waitForElementCount(page, "[data-testid='element-browser']", 1);
-  await waitForElementCount(page, "[data-testid='element-items']", 1);
+  if (testId === 'ModalElementBrowser__example__open_button') {
+    await waitForBrowseMenuIcons(page);
+  } else if (testId === 'InlineElementBrowser__example__open_button') {
+    await waitForInsertMenuIcons(page);
+  }
+
   const image = await page.screenshot();
   expect(image).toMatchProdImageSnapshot();
 };

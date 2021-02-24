@@ -11,6 +11,7 @@ import {
 import { Schema } from 'prosemirror-model';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
+import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 
 const createEditorTestingLibrary = createEditorFactory();
 const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
@@ -261,5 +262,55 @@ describe('caption keymap', () => {
         p('{<>}something'),
       ),
     );
+  });
+
+  it('should gap cursor parent media single on left arrow', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('{<>}Hello'),
+        ),
+        p(''),
+      ),
+    );
+    sendKeyToPm(editorView, 'ArrowLeft');
+    expect(editorView.state.selection).toBeInstanceOf(GapCursorSelection);
+    expect(editorView.state).toEqualDocumentAndSelection(
+      doc(
+        '{<gap|>}',
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('Hello'),
+        ),
+        p(''),
+      ),
+    );
+  });
+
+  it('should not gap cursor parent media single on left arrow when not at start', () => {
+    const { editorView } = editor(
+      doc(
+        mediaSingle()(
+          media({
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          })(),
+          caption('H{<>}ello'),
+        ),
+        p(''),
+      ),
+    );
+    sendKeyToPm(editorView, 'ArrowLeft');
+    expect(editorView.state.selection).not.toBeInstanceOf(GapCursorSelection);
   });
 });

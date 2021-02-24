@@ -99,7 +99,7 @@ const getToolbarButton = (
     .find(ToolbarButton)
     .filterWhere(
       toolbarButton =>
-        toolbarButton.find('Icon').find({ label: title }).length > 0,
+        toolbarButton.find('Memo(Icon)').find({ label: title }).length > 0,
     )
     .find(Button);
 

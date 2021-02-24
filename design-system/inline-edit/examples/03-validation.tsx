@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import InlineDialog from '@atlaskit/inline-dialog';
 import TextField from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
@@ -69,24 +70,30 @@ const InlineEditExample = () => {
       <InlineEdit
         defaultValue={editValue}
         label="Inline edit validation"
-        editView={fieldProps => (
-          <TextField
-            testId="edit-view"
-            {...fieldProps}
-            elemAfterInput={
-              fieldProps.isInvalid && (
-                <div
-                  style={{
-                    paddingRight: `${gridSize() - 2}px`,
-                    lineHeight: '100%',
-                  }}
-                >
-                  <ErrorIcon label="error" primaryColor={R400} />
-                </div>
-              )
-            }
-            autoFocus
-          />
+        editView={({ errorMessage, ...fieldProps }) => (
+          <InlineDialog
+            isOpen={fieldProps.isInvalid}
+            content={<div id="error-message">{errorMessage}</div>}
+            placement="right"
+          >
+            <TextField
+              testId="edit-view"
+              {...fieldProps}
+              elemAfterInput={
+                fieldProps.isInvalid && (
+                  <div
+                    style={{
+                      paddingRight: `${gridSize() - 2}px`,
+                      lineHeight: '100%',
+                    }}
+                  >
+                    <ErrorIcon label="error" primaryColor={R400} />
+                  </div>
+                )
+              }
+              autoFocus
+            />
+          </InlineDialog>
         )}
         readView={() => (
           <ReadViewContainer data-testid="read-view">

@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 12.4.1
+
+### Patch Changes
+
+- [`dfc79cafa6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfc79cafa6c) - Fixed failures on /upload/createWithFiles not aborting upload
+- Updated dependencies
+
 ## 12.4.0
 
 ### Minor Changes

@@ -58,7 +58,9 @@ export interface Props {
   item: LinkSearchListItemData;
   selected: boolean;
   onSelect: (href: string, text: string) => void;
-  onMouseMove: (objectId: string) => void;
+  onMouseMove?: (objectId: string) => void;
+  onMouseEnter?: (objectId: string) => void;
+  onMouseLeave?: (objectId: string) => void;
 }
 
 class LinkSearchListItem extends React.PureComponent<
@@ -73,7 +75,17 @@ class LinkSearchListItem extends React.PureComponent<
 
   handleMouseMove = () => {
     const { onMouseMove, item } = this.props;
-    onMouseMove(item.objectId);
+    onMouseMove && onMouseMove(item.objectId);
+  };
+
+  handleMouseEnter = () => {
+    const { onMouseEnter, item } = this.props;
+    onMouseEnter && onMouseEnter(item.objectId);
+  };
+
+  handleMouseLeave = () => {
+    const { onMouseLeave, item } = this.props;
+    onMouseLeave && onMouseLeave(item.objectId);
   };
 
   private renderIcon() {
@@ -157,6 +169,8 @@ class LinkSearchListItem extends React.PureComponent<
         data-testid="link-search-list-item"
         selected={selected}
         onMouseMove={this.handleMouseMove}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         onClick={this.handleSelect}
       >
         {this.renderIcon()}

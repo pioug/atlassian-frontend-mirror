@@ -86,14 +86,11 @@ export interface Options {
 
 export type ChunkinatorFile = string | Blob;
 
-export type ChunkinatorResponse = {
-  readonly response: Promise<ProbedBlob[]>;
-  readonly cancel: () => void;
-};
+export type ChunkinatorResponse = Observable<ProbedBlob[]>;
 
 export interface Chunkinator {
   (
-    blob: ChunkinatorFile,
+    file: ChunkinatorFile,
     options: Options,
     callbacks: Callbacks,
   ): ChunkinatorResponse;

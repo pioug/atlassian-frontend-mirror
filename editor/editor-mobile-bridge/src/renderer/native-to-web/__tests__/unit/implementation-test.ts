@@ -3,6 +3,8 @@ import RendererBridgeImplementation from '../../implementation';
 import { eventDispatcher, EmitterEvents } from '../../../dispatcher';
 import { AnnotationPayload } from '../../../types';
 import { Serialized } from '../../../../types';
+import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
+import * as crossPlatformPromise from '../../../../cross-platform-promise';
 import * as BridgeUtils from '../../../../utils/bridge';
 import { nativeBridgeAPI } from '../../../web-to-native/implementation';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -281,6 +283,117 @@ describe('RendererBridgeImplementation', () => {
       bridge.setCallbackToNotifyConfigChange(mockCallback);
       bridge.configure('{disableActions: true}');
       expect(mockCallback).toBeCalledWith(bridge.getConfiguration());
+    });
+  });
+
+  describe('setContentPayload', () => {
+    let bridge: RendererBridgeImplementation;
+    let fetchSpy: jest.SpyInstance;
+    let setContentSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      bridge = new RendererBridgeImplementation();
+      fetchSpy = jest.spyOn(bridge, 'fetchPayload');
+      setContentSpy = jest.spyOn(bridge, 'setContent');
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    it('should invoke fetchPayload with correct category and uuid', async () => {
+      const uuid = '1234567890';
+      let adfContent = getEmptyADF();
+      fetchSpy.mockImplementation(() => Promise.resolve(adfContent));
+      await bridge.setContentPayload(uuid);
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(fetchSpy).toHaveBeenCalledWith('content', uuid);
+    });
+
+    it('should invoke setContent with ADF', async () => {
+      let adfContent = getEmptyADF();
+      fetchSpy.mockImplementation(() => Promise.resolve(adfContent));
+      await bridge.setContentPayload('11111111');
+      expect(setContentSpy).toHaveBeenCalledWith(adfContent);
+    });
+
+    it('should not invoke setContent if fetchPayload fails', async () => {
+      fetchSpy.mockImplementation(() => Promise.reject('error'));
+      expect.assertions(2);
+      await expect(bridge.setContentPayload('1')).rejects.toMatch('error');
+      expect(setContentSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('onPromiseResolvedPayload', () => {
+    let bridge: RendererBridgeImplementation;
+    let fetchSpy: jest.SpyInstance;
+    let resolvePromiseSpy: jest.SpyInstance;
+    let rejectPromiseSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      bridge = new RendererBridgeImplementation();
+      fetchSpy = jest.spyOn(bridge, 'fetchPayload');
+      resolvePromiseSpy = jest.spyOn(crossPlatformPromise, 'resolvePromise');
+      rejectPromiseSpy = jest.spyOn(crossPlatformPromise, 'rejectPromise');
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    it('should invoke fetchPayload with correct category and uuid', async () => {
+      const uuid = '09876';
+      let adfContent = getEmptyADF();
+      fetchSpy.mockImplementation(() => Promise.resolve(adfContent));
+      await bridge.onPromiseResolvedPayload(uuid);
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(fetchSpy).toHaveBeenCalledWith('promise', uuid);
+    });
+
+    it('should resolvePromise if fetchPayload succeeds', async () => {
+      const uuid = '665';
+      let someContent = { some: 'content' };
+      fetchSpy.mockImplementation(() => Promise.resolve(someContent));
+      await bridge.onPromiseResolvedPayload(uuid);
+      expect(resolvePromiseSpy).toHaveBeenCalledWith(uuid, someContent);
+      expect(rejectPromiseSpy).not.toHaveBeenCalled();
+    });
+
+    it('should rejectPromise if fetchPayload fails', async () => {
+      const uuid = '665';
+      let someError = 'some error';
+      fetchSpy.mockImplementation(() => Promise.reject(someError));
+      await bridge.onPromiseResolvedPayload(uuid);
+      expect(rejectPromiseSpy).toHaveBeenCalledWith(uuid, someError);
+      expect(resolvePromiseSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('fetchPayload', () => {
+    let bridge: RendererBridgeImplementation;
+    let fetchSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      bridge = new RendererBridgeImplementation();
+      fetchSpy = jest.spyOn(window, 'fetch');
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    it('should formulate valid request', async () => {
+      let someObject = { test: 'test' };
+      let stubResponse = new Response(JSON.stringify(someObject));
+      fetchSpy.mockImplementation(() => Promise.resolve(stubResponse));
+
+      let returnValue = await bridge.fetchPayload('category', '112233');
+      var originURL = new URL(window.location.href);
+      originURL.protocol = `fabric-hybrid`;
+      let expectedURL = originURL.origin + '/payload/category/112233';
+      expect(fetchSpy).toHaveBeenCalledWith(expectedURL);
+      expect(returnValue).toEqual(someObject);
     });
   });
 });

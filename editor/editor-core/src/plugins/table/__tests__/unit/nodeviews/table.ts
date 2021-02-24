@@ -10,27 +10,26 @@ import {
   tdCursor,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TableAttributes } from '@atlaskit/adf-schema';
-import {
-  TablePluginState,
-  PluginConfig,
-} from '../../../../../plugins/table/types';
+import { TablePluginState } from '../../../../../plugins/table/types';
 import {
   getPluginState,
   pluginKey,
 } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 import TableView from '../../../../../plugins/table/nodeviews/table';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { EditorProps } from '../../../../../types';
 
 describe('table -> nodeviews -> table.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   const createTableNode = (attrs?: TableAttributes) => (...args: any) =>
     table(attrs)(...args)(defaultSchema);
 
-  const editor = (doc: any, props?: PluginConfig) =>
+  const editor = (doc: any, props?: EditorProps) =>
     createEditor({
       doc,
       editorProps: {
-        allowTables: { advanced: true, ...props },
+        allowTables: { advanced: true },
+        ...props,
       },
       pluginKey,
     });
@@ -73,7 +72,7 @@ describe('table -> nodeviews -> table.tsx', () => {
     describe('with tableRenderOptimization', () => {
       it('updates plugin state on table size change', () => {
         const { editorView } = editor(doc(table()(tr(tdCursor, tdEmpty))), {
-          tableRenderOptimization: true,
+          featureFlags: { tableRenderOptimization: true },
         });
         const tableElement = editorView.domAtPos(1).node as HTMLElement;
         triggerElementResize(tableElement, 100, 200);
@@ -93,7 +92,7 @@ describe('table -> nodeviews -> table.tsx', () => {
           const { editorView, portalProviderAPI, eventDispatcher } = editor(
             doc(p('text')),
             {
-              tableRenderOptimization: true,
+              featureFlags: { tableRenderOptimization: true },
             },
           );
           tableNodeView = new TableView({

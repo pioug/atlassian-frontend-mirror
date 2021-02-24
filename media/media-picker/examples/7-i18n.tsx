@@ -10,6 +10,7 @@ import { Component } from 'react';
 import { MediaPicker } from '../src';
 import { Popup } from '../src/types';
 import { intlShape } from 'react-intl';
+import popupWarning from '../example-helpers/popup-warning';
 
 const mediaClientConfig = {
   authProvider: defaultMediaPickerAuthProvider,
@@ -70,6 +71,7 @@ export default class Example extends Component<{}, {}> {
   render() {
     return (
       <div>
+        {popupWarning}
         <I18NWrapper>
           <ExampleChildren />
         </I18NWrapper>

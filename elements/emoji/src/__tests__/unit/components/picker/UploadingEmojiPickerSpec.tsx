@@ -1,4 +1,3 @@
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { MockEmojiResource } from '@atlaskit/util-data-test';
 import { FormattedMessage } from 'react-intl';
@@ -7,6 +6,7 @@ import Emoji from '../../../../components/common/Emoji';
 import EmojiDeletePreview from '../../../../components/common/EmojiDeletePreview';
 import EmojiErrorMessage from '../../../../components/common/EmojiErrorMessage';
 import EmojiUploadPreview from '../../../../components/common/EmojiUploadPreview';
+import { deleteButton as deleteButtonStyles } from '../../../../components/common/styles';
 import { messages } from '../../../../components/i18n';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
@@ -709,7 +709,7 @@ describe('<UploadingEmojiPicker />', () => {
 
     // Click delete button on user emoji in picker
     const openDeletePrompt = (component: ReactWrapper) =>
-      component.find(CrossCircleIcon).simulate('click');
+      component.find(`.${deleteButtonStyles} button`).simulate('click');
     // Click 'Remove' in delete preview
     const clickRemove = (component: ReactWrapper) =>
       component.find(EmojiDeletePreview).find('button').at(0).simulate('click');

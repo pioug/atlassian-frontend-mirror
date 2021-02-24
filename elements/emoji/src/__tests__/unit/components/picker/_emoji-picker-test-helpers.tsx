@@ -8,7 +8,6 @@ import Emoji from '../../../../components/common/Emoji';
 import EmojiDeletePreview from '../../../../components/common/EmojiDeletePreview';
 import EmojiErrorMessage from '../../../../components/common/EmojiErrorMessage';
 import EmojiUploadPreview from '../../../../components/common/EmojiUploadPreview';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
 import * as commonStyles from '../../../../components/common/styles';
 import { CategoryGroupKey } from '../../../../components/picker/categories';
 import CategorySelector from '../../../../components/picker/CategorySelector';
@@ -241,7 +240,6 @@ export const tooltipErrorMessageMatches = async (
   component: ReactWrapper<any>,
   message: any,
 ) => {
-  component.find(EmojiErrorMessage).find(ErrorIcon).simulate('mouseOver');
   await waitUntil(
     () =>
       component.update() &&

@@ -215,6 +215,29 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
+  'paste.ts: code block copied from renderer and pasted',
+  { skip: ['safari'] },
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    const data =
+      '<div class="ak-renderer-document"><p data-renderer-start-pos="1">hello</p><div class="code-block"><div data-code-block=""><span><code><span class="linenumber react-syntax-highlighter-line-number">1</span><span>world</span></code></span></div></div></div>';
+    await copyAsHTML(page, data);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+    });
+
+    await page.click(editorSelector);
+    await page.paste();
+    await page.waitForSelector('.code-block');
+
+    const doc = await page.$eval(editorSelector, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
   'paste.ts: inline card copied from renderer and pasted',
   /* NOTE: https://product-fabric.atlassian.net/browse/EDM-1249
      we've got this bug in Firefox where it doubles up the items when pasting

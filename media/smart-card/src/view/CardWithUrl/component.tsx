@@ -32,6 +32,7 @@ export function CardWithUrlContent({
   showActions,
   inheritDimensions,
   embedIframeRef,
+  inlinePreloaderStyle,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
   const { state, actions, config, analytics } = useSmartLink(
@@ -139,6 +140,7 @@ export function CardWithUrlContent({
           isSelected={isSelected}
           onResolve={onResolve}
           testId={testId}
+          inlinePreloaderStyle={inlinePreloaderStyle}
         />
       );
     case 'block':

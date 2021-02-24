@@ -47,6 +47,7 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
+import { getFeatureFlags } from '../feature-flags-context';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -168,7 +169,8 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             tableWidth,
           } = tablePluginState;
 
-          const { allowControls, tableRenderOptimization } = pluginConfig;
+          const { allowControls } = pluginConfig;
+          const { tableRenderOptimization } = getFeatureFlags(state) || {};
 
           const stickyHeader = stickyHeadersState
             ? findStickyHeaderForTable(stickyHeadersState, tablePos)

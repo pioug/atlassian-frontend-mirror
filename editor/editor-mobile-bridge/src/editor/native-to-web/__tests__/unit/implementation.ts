@@ -13,6 +13,8 @@ import NativeBridge from '../../../web-to-native/bridge';
 import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import * as BridgeUtils from '../../../../utils/bridge';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
+import * as crossPlatformPromise from '../../../../cross-platform-promise';
 
 jest.mock('../../../web-to-native');
 jest.mock('@atlaskit/editor-core', () => ({
@@ -319,6 +321,27 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
 });
 
 describe('setContent', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should call replaceContent', () => {
+    const content =
+      '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[]}]}';
+    const bridge: WebBridgeImpl = new WebBridgeImpl();
+    const editorView = {
+      state: {
+        doc: {},
+      },
+    } as EditorViewWithComposition;
+    bridge.editorView = editorView;
+    let replaceContentSpy = jest.spyOn(bridge, 'replaceContent');
+    bridge.setContent(content);
+    expect(replaceContentSpy).toHaveBeenCalledWith(content);
+  });
+});
+
+describe('replaceContent', () => {
   let toNativeBridge: jest.Mocked<NativeBridge>;
   const content =
     '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"date","attrs":{"timestamp":"1804966400002"}},{"type":"text","text":" "}]},{"type":"paragraph","content":[]}]}';
@@ -382,7 +405,7 @@ describe('setContent', () => {
     const bridge: WebBridgeImpl = new WebBridgeImpl();
     bridge.editorView = editorView;
 
-    bridge.setContent(content);
+    bridge.replaceContent(content);
 
     expect(BridgeUtils.measureContentRenderedPerformance).toHaveBeenCalledWith(
       jsonContent,
@@ -394,7 +417,7 @@ describe('setContent', () => {
     const bridge: WebBridgeImpl = new WebBridgeImpl();
     bridge.editorView = editorView;
 
-    bridge.setContent(content);
+    bridge.replaceContent(content);
 
     expect(toNativeBridge.onContentRendered).toHaveBeenCalledWith(
       4,
@@ -463,5 +486,121 @@ describe('perform edit action', () => {
       '0',
       editorView,
     );
+  });
+});
+
+describe('setContentPayload', () => {
+  let fetchSpy: jest.SpyInstance;
+  let bridge: WebBridgeImpl;
+  const editorView = {
+    state: {
+      doc: {},
+    },
+  } as EditorViewWithComposition;
+
+  beforeEach(async () => {
+    bridge = new WebBridgeImpl();
+    bridge.editorView = editorView as EditorViewWithComposition;
+    fetchSpy = jest.spyOn(bridge, 'fetchPayload');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should invoke fetchPayload with correct category and uuid', async () => {
+    const uuid = '1234567890';
+    let adfContent = getEmptyADF();
+    fetchSpy.mockImplementation(() => Promise.resolve(adfContent));
+    await bridge.setContentPayload(uuid);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledWith('content', uuid);
+  });
+
+  it('should call replaceContent and successful fetch', async () => {
+    let adfContent = getEmptyADF();
+    let replaceContentSpy = jest.spyOn(bridge, 'replaceContent');
+    fetchSpy.mockImplementation(() => Promise.resolve(adfContent));
+    await bridge.setContentPayload('123');
+    expect(replaceContentSpy).toHaveBeenCalledWith(adfContent);
+  });
+
+  it('should not call replaceContent on failed fetch', async () => {
+    let replaceContentSpy = jest.spyOn(bridge, 'replaceContent');
+    fetchSpy.mockImplementation(() => Promise.reject('error'));
+    expect.assertions(2);
+    await expect(bridge.setContentPayload('123')).rejects.toEqual('error');
+    expect(replaceContentSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('onPromiseResolvedPayload', () => {
+  let bridge: WebBridgeImpl = new WebBridgeImpl();
+  let fetchSpy: jest.SpyInstance;
+  let resolvePromiseSpy: jest.SpyInstance;
+  let rejectPromiseSpy: jest.SpyInstance;
+
+  beforeEach(async () => {
+    bridge.editorView = {} as EditorViewWithComposition;
+    fetchSpy = jest.spyOn(bridge, 'fetchPayload');
+    resolvePromiseSpy = jest.spyOn(crossPlatformPromise, 'resolvePromise');
+    rejectPromiseSpy = jest.spyOn(crossPlatformPromise, 'rejectPromise');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should invoke fetchPayload with correct category and uuid', async () => {
+    const uuid = '09876';
+    let adfContent = getEmptyADF();
+    fetchSpy.mockImplementation(() => Promise.resolve(adfContent));
+    await bridge.onPromiseResolvedPayload(uuid);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledWith('promise', uuid);
+  });
+
+  it('should resolvePromise if fetchPayload succeeds', async () => {
+    const uuid = '665';
+    let someContent = { some: 'content' };
+    fetchSpy.mockImplementation(() => Promise.resolve(someContent));
+    await bridge.onPromiseResolvedPayload(uuid);
+    expect(resolvePromiseSpy).toHaveBeenCalledWith(uuid, someContent);
+    expect(rejectPromiseSpy).not.toHaveBeenCalled();
+  });
+
+  it('should rejectPromise if fetchPayload fails', async () => {
+    const uuid = '665';
+    let someError = { message: 'some error' };
+    fetchSpy.mockImplementation(() => Promise.reject(someError));
+    await bridge.onPromiseResolvedPayload(uuid);
+    expect(rejectPromiseSpy).toHaveBeenCalledWith(uuid, someError);
+    expect(resolvePromiseSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('fetchPayload', () => {
+  let bridge: WebBridgeImpl = new WebBridgeImpl();
+  let fetchSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    fetchSpy = jest.spyOn(window, 'fetch');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should formulate valid request', async () => {
+    let someObject = { test: 'test' };
+    let stubResponse = new Response(JSON.stringify(someObject));
+    fetchSpy.mockImplementation(() => Promise.resolve(stubResponse));
+
+    let returnValue = await bridge.fetchPayload('category', '112233');
+    var originURL = new URL(window.location.href);
+    originURL.protocol = `fabric-hybrid`;
+    let expectedURL = originURL.origin + '/payload/category/112233';
+    expect(fetchSpy).toHaveBeenCalledWith(expectedURL);
+    expect(returnValue).toEqual(someObject);
   });
 });

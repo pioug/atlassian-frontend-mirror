@@ -1,6 +1,5 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { TextSelection, Transaction } from 'prosemirror-state';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { Transaction } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
@@ -91,6 +90,18 @@ export const updateColumnWidths = (
   const tablePos = start - 1;
   const { selection } = tr;
 
+  /* Create a mapping before the table node is replaced to allow the current
+   * selection to be mapped back to it's original position inside the table.
+   *
+   * If the mapping from the new 'replaceWith' transaction is used, prosemirror
+   * will map the selection to after the table as it thinks the original table
+   * node has been deleted.
+   */
+  const originalMap = Object.assign(
+    Object.create(Object.getPrototypeOf(tr.mapping)),
+    tr.mapping,
+  );
+
   tr.replaceWith(
     tablePos,
     tablePos + table.nodeSize,
@@ -98,22 +109,5 @@ export const updateColumnWidths = (
   );
 
   // restore selection after replacing the table
-  if (selection instanceof TextSelection) {
-    tr.setSelection(
-      new TextSelection(
-        tr.doc.resolve(selection.$from.pos),
-        tr.doc.resolve(selection.$to.pos),
-      ),
-    );
-  } else if (selection instanceof CellSelection) {
-    const newSelection = CellSelection.create(
-      tr.doc,
-      selection.$anchorCell.pos,
-      selection.$headCell.pos,
-    );
-    // TS complaints about missing "visible" prop in CellSelection type
-    tr.setSelection(newSelection as any);
-  }
-
-  return tr;
+  return tr.setSelection(selection.map(tr.doc, originalMap));
 };

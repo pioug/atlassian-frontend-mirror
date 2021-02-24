@@ -218,10 +218,13 @@ class AbstractMentionResource
     event: string,
     actionSubject: string,
     action: string,
+    attributes?: {
+      [key: string]: any;
+    },
   ): void {
     this.analyticsListeners.forEach((listener, key) => {
       try {
-        listener(event, actionSubject, action);
+        listener(event, actionSubject, action, attributes);
       } catch (e) {
         // ignore error from listener
         debug(`error from listener '${key}', ignoring`, e);

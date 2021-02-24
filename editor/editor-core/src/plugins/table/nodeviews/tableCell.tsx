@@ -4,6 +4,7 @@ import { EditorView, NodeView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { getPosHandler } from '../../../../src/nodeviews';
 import { setCellAttrs, CellDomAttrs } from '@atlaskit/adf-schema';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 export default class TableCellNodeView implements NodeView {
   node: Node;
@@ -19,7 +20,6 @@ export default class TableCellNodeView implements NodeView {
     node: Node,
     view: EditorView,
     getPos: any,
-    mouseMoveOptimization: boolean,
     observer?: ResizeObserver,
   ) {
     this.view = view;
@@ -33,6 +33,8 @@ export default class TableCellNodeView implements NodeView {
     this.getPos = getPos;
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
+
+    const { mouseMoveOptimization } = getFeatureFlags(view.state) || {};
 
     if (mouseMoveOptimization && observer) {
       this.contentDOM.id = uuid();

@@ -83,6 +83,8 @@ class Example extends React.Component<any, ExampleState> {
                 }}
               >
                 <Card url={this.state.url} appearance="block" />
+                <br />
+                <Card url={this.state.url} appearance="inline" />
               </Provider>
             </div>
           </GridColumn>

@@ -81,6 +81,46 @@ describe('inlineCard', () => {
     mockInlineCardNode.unmount();
   });
 
+  describe('with useAlternativePreloader flag', () => {
+    it('should set inlinePreloaderStyle to "on-right-without-skeleton" when enabled', () => {
+      const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+        defaultSchema,
+      );
+      const mockInlineCardNode = mount(
+        <InlineCardComponent
+          node={mockInlinePmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+          cardContext={createCardContext()}
+          useAlternativePreloader={true}
+        />,
+      );
+      const wrapper = mockInlineCardNode.find(Card);
+      expect(wrapper).toHaveLength(1);
+      expect(wrapper.prop('inlinePreloaderStyle')).toBe(
+        'on-right-without-skeleton',
+      );
+    });
+
+    it('should not set inlinePreloaderStyle when not enabled', () => {
+      const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+        defaultSchema,
+      );
+      const mockInlineCardNode = mount(
+        <InlineCardComponent
+          node={mockInlinePmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+          cardContext={createCardContext()}
+          useAlternativePreloader={false}
+        />,
+      );
+      const wrapper = mockInlineCardNode.find(Card);
+      expect(wrapper).toHaveLength(1);
+      expect(wrapper.prop('inlinePreloaderStyle')).toBeUndefined();
+    });
+  });
+
   it('should render (findOverflowScrollParent returning node)', () => {
     const scrollContainer = document.createElement('div');
     mockFindOverflowScrollParent.mockImplementationOnce(() => scrollContainer);
@@ -102,7 +142,7 @@ describe('inlineCard', () => {
     mockInlineCardNode.unmount();
   });
 
-  it('should call registerCard when URL renders', () => {
+  it('should dispatch REGISTER card action when URL renders', () => {
     const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
       defaultSchema,
     );
@@ -133,7 +173,7 @@ describe('inlineCard', () => {
     mockInlineCardNode.unmount();
   });
 
-  it('should not render Card when cardContext is not provided', () => {
+  it('should not render Card when no cardContext nor data are provided', () => {
     const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
       defaultSchema,
     );

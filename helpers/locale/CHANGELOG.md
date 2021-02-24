@@ -1,5 +1,19 @@
 # @atlaskit/locale
 
+## 2.3.0
+
+### Minor Changes
+
+- [`ec026e28730`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec026e28730) - `#getDaysShort` function now accepts new `#weekStartDay` parameter that controls which day of the week should be used at the start. This parameter accepts the following values:
+
+  - `0` sunday (default value)
+  - `1` monday
+  - `2` tuesday
+  - `3` wednesday
+  - `4` thursday
+  - `5` friday
+  - `6` saturday
+
 ## 2.2.0
 
 ### Minor Changes

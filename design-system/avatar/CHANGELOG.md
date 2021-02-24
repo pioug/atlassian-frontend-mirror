@@ -1,5 +1,16 @@
 # @atlaskit/avatar
 
+## 20.2.0
+
+### Minor Changes
+
+- [`1a8fcbf9878`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a8fcbf9878) - [ux] Avatar and AvatarItem now accept a label prop which allows the components to be accessible when viewed in a screen reader. The isDisabled prop now correctly generates the appropriate markup (was a span, now a disabled button) for screen reader users.
+
+### Patch Changes
+
+- [`8308fe23b9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8308fe23b9b) - Removing incorrect cursor styles from non-interactive AvatarItems
+- Updated dependencies
+
 ## 20.1.1
 
 ### Patch Changes

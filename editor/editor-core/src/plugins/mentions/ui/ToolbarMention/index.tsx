@@ -2,13 +2,14 @@ import React from 'react';
 import { PureComponent } from 'react';
 import { EditorView } from 'prosemirror-view';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { insertMentionQuery } from '../../commands/insert-mention-query';
 import { INPUT_METHOD } from '../../../analytics';
 
 export interface Props {
   editorView?: EditorView;
   isDisabled?: boolean;
+  testId?: string;
 }
 
 export interface State {
@@ -19,6 +20,8 @@ export default class ToolbarMention extends PureComponent<Props> {
   render() {
     return (
       <ToolbarButton
+        testId={this.props.testId}
+        buttonId={TOOLBAR_BUTTON.MENTION}
         spacing="none"
         onClick={this.handleInsertMention}
         disabled={this.props.isDisabled}

@@ -53,12 +53,12 @@ export interface PluginConfig {
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
   stickyHeaders?: boolean;
-  // performance optimization flags
-  tableCellOptimization?: boolean;
-  mouseMoveOptimization?: boolean;
   allowCellOptionsInFloatingToolbar?: boolean;
-  initialRenderOptimization?: boolean;
+  tableCellOptimization?: boolean;
   tableRenderOptimization?: boolean;
+  stickyHeadersOptimization?: boolean;
+  initialRenderOptimization?: boolean;
+  mouseMoveOptimization?: boolean;
 }
 
 export interface ColumnResizingPluginState {

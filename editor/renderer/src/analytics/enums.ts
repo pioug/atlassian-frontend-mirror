@@ -23,6 +23,8 @@ export enum ACTION {
   EDITED = 'edited',
   RESOLVED = 'resolved',
   CREATE_NOT_ALLOWED = 'createNotAllowed',
+  UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
+  UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',
 }
 
 export enum ACTION_SUBJECT {

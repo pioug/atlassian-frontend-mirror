@@ -50,9 +50,20 @@ export default md`
     />
   )}
 
+  ### Validation
+
+  ${(
+    <Example
+      packageName="@atlaskit/inline-edit"
+      Component={require('../examples/03-validation').default}
+      title="Select usage"
+      source={require('!!raw-loader!../examples/03-validation')}
+    />
+  )}
+
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/components/InlineEdit')}
+      props={require('!!extract-react-types-loader!../src/inline-edit')}
       heading="InlineEdit Props"
     />
   )}

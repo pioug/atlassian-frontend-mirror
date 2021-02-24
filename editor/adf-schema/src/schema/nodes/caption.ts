@@ -34,6 +34,7 @@ export const caption: NodeSpec = {
   content: '(text|hardBreak|mention|emoji|date|placeholder|inlineCard|status)*',
   isolating: true,
   marks: '_',
+  selectable: false,
   parseDOM: [
     {
       tag: 'figcaption[data-caption]',

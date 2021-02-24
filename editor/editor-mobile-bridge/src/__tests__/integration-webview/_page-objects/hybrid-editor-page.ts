@@ -190,11 +190,14 @@ export async function isEmojiAdded(
   text: string,
 ) {
   page.switchToWeb();
+
   return (
-    (await isEmojiShortNamePresent(page, shortName)) &&
-    (await isEmojiTextPresent(page, text)) &&
-    (await isEmojiBackgroundImageLoaded(page, EMOJI_BACKGROUND_IMAGE_ELEMENT))
-  );
+    await Promise.all([
+      await isEmojiShortNamePresent(page, shortName),
+      await isEmojiTextPresent(page, text),
+      await isEmojiBackgroundImageLoaded(page, EMOJI_BACKGROUND_IMAGE_ELEMENT),
+    ])
+  ).every(value => value);
 }
 
 /**

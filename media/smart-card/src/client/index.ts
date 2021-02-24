@@ -7,7 +7,11 @@ import { APIError } from './errors';
 import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
 
 import { getResolverUrl } from './utils/environments';
-import Bottleneck from 'bottleneck';
+
+// @ts-ignore
+import BottleneckLight from 'bottleneck/light';
+import BottleneckType from 'bottleneck';
+const Bottleneck = BottleneckLight as typeof BottleneckType;
 
 import { InvokePayload } from '../model/invoke-opts';
 import {

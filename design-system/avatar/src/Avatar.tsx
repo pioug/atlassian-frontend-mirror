@@ -30,6 +30,8 @@ import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 import { name as packageName, version as packageVersion } from './version.json';
 
 export interface CustomAvatarProps {
+  'aria-label'?: string;
+  tabIndex?: number;
   testId?: string;
   onClick?: MouseEventHandler;
   className?: string;
@@ -42,8 +44,10 @@ export interface AvatarPropTypes {
   /** Indicates the shape of the avatar. Most avatars are circular, but square avatars
    can be used for 'container' objects. */
   appearance?: AppearanceType;
-  /** Defines the size of the avatar */
-  size?: SizeType;
+  /** Used to provide better content to screen readers when using presence/status. Rather
+   * than a screen reader speaking "online, approved, John Smith", passing in an label
+   * allows a custom message like "John Smith (approved and online)". */
+  label?: string;
   /** Used to override the default border color around the avatar body.
    Accepts any color argument that the border-color CSS property accepts. */
   borderColor?: string;
@@ -61,6 +65,8 @@ export interface AvatarPropTypes {
   Alternatively accepts any React element. For best results, it is recommended to
   use square content with height and width of 100%. */
   presence?: ('online' | 'busy' | 'focus' | 'offline') | ReactNode;
+  /** Defines the size of the avatar */
+  size?: SizeType;
   /** A url to load an image from (this can also be a base64 encoded image). */
   src?: string;
   /** Indicates contextual information by showing a small icon on the avatar.
@@ -191,6 +197,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
     {
       analyticsContext,
       appearance = 'circle' as AppearanceType,
+      label,
       borderColor,
       children,
       href,
@@ -216,11 +223,6 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
     useEffect(() => {
       lastAnalytics.current = analyticsContext;
     }, [analyticsContext]);
-
-    const getTestId = (testId?: string, children?: ReactNode) =>
-      !children
-        ? { 'data-testid': `${testId}--inner` }
-        : { testId: `${testId}--inner` };
 
     const onClickHandler = useCallback(
       (event: MouseEvent<HTMLElement>) => {
@@ -262,6 +264,23 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
       [createAnalyticsEvent, isDisabled, onClick],
     );
 
+    const getTestId = (testId?: string, children?: ReactNode) =>
+      !children
+        ? { 'data-testid': `${testId}--inner` }
+        : { testId: `${testId}--inner` };
+
+    const componentProps = () => {
+      if (isDisabled) {
+        return { disabled: 'true' };
+      }
+
+      // return only relevant props for either anchor or button elements
+      return {
+        ...(href && getLinkProps(href, target)),
+        ...(onClick && !href ? getButtonProps(onClickHandler) : { onClick }),
+      };
+    };
+
     return (
       <div
         data-testid={testId}
@@ -284,11 +303,9 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
                 isInteractive: Boolean(href || onClick),
                 isDisabled,
               }),
-              ...(href && getLinkProps(href, target)),
-              ...(!href &&
-                onClick &&
-                getButtonProps(onClickHandler, isDisabled)),
+              ...componentProps(),
               ...(testId && getTestId(testId, children)),
+              ...((onClick || href) && { 'aria-label': label }),
               children: (
                 <AvatarImage
                   alt={name}
@@ -302,7 +319,10 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 
             return children
               ? children(props)
-              : createElement(getCustomElement(href, onClick), props);
+              : createElement(
+                  getCustomElement(isDisabled, href, onClick),
+                  props,
+                );
           }}
         </ClassNames>
         {isValidIconSize && presence && !status && (

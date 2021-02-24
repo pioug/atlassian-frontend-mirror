@@ -544,6 +544,28 @@ exports[`Atlassian Switcher - ItemWithDropdown renders Bitbucket snapshot correc
 `;
 
 exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sites correctly and clicking expand shows children sites 1`] = `
+.emotion-0 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.emotion-0 stop {
+  stop-color: currentColor;
+}
+
 .c8 {
   color: #FFFFFF;
   display: inline-block;
@@ -651,28 +673,6 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   -webkit-animation: ljGnjM 500ms ease forwards;
   animation: ljGnjM 500ms ease forwards;
   opacity: 0;
-}
-
-.c15 {
-  color: currentColor;
-  display: inline-block;
-  fill: #FFFFFF;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.c15 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  vertical-align: bottom;
-}
-
-.c15 stop {
-  stop-color: currentColor;
 }
 
 .c3 {
@@ -1430,31 +1430,34 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                       <ChevronDownIcon
                                                         label="Expand"
                                                       >
-                                                        <Icon
+                                                        <Memo(Icon)
                                                           dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
                                                           label="Expand"
                                                         >
-                                                          <styled.span
-                                                            aria-label="Expand"
-                                                            dangerouslySetInnerHTML={
-                                                              Object {
-                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                              }
-                                                            }
-                                                            role="img"
-                                                          >
-                                                            <span
+                                                          <Consumer>
+                                                            <Memo(IconWrapper)
                                                               aria-label="Expand"
-                                                              className="c15"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
+                                                              mode="light"
                                                               role="img"
-                                                            />
-                                                          </styled.span>
-                                                        </Icon>
+                                                            >
+                                                              <span
+                                                                aria-label="Expand"
+                                                                className="emotion-0"
+                                                                dangerouslySetInnerHTML={
+                                                                  Object {
+                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                  }
+                                                                }
+                                                                role="img"
+                                                              />
+                                                            </Memo(IconWrapper)>
+                                                          </Consumer>
+                                                        </Memo(Icon)>
                                                       </ChevronDownIcon>
                                                     </div>
                                                   </styled.div>
@@ -1499,6 +1502,28 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
 `;
 
 exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sites correctly and clicking expand shows children sites 2`] = `
+.emotion-0 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.emotion-0 stop {
+  stop-color: currentColor;
+}
+
 .c8 {
   color: #FFFFFF;
   display: inline-block;
@@ -1606,28 +1631,6 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   -webkit-animation: ljGnjM 500ms ease forwards;
   animation: ljGnjM 500ms ease forwards;
   opacity: 0;
-}
-
-.c15 {
-  color: currentColor;
-  display: inline-block;
-  fill: #FFFFFF;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.c15 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  vertical-align: bottom;
-}
-
-.c15 stop {
-  stop-color: currentColor;
 }
 
 .c3 {
@@ -2385,31 +2388,34 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                       <ChevronDownIcon
                                                         label="Expand"
                                                       >
-                                                        <Icon
+                                                        <Memo(Icon)
                                                           dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
                                                           label="Expand"
                                                         >
-                                                          <styled.span
-                                                            aria-label="Expand"
-                                                            dangerouslySetInnerHTML={
-                                                              Object {
-                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                              }
-                                                            }
-                                                            role="img"
-                                                          >
-                                                            <span
+                                                          <Consumer>
+                                                            <Memo(IconWrapper)
                                                               aria-label="Expand"
-                                                              className="c15"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
+                                                              mode="light"
                                                               role="img"
-                                                            />
-                                                          </styled.span>
-                                                        </Icon>
+                                                            >
+                                                              <span
+                                                                aria-label="Expand"
+                                                                className="emotion-0"
+                                                                dangerouslySetInnerHTML={
+                                                                  Object {
+                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                  }
+                                                                }
+                                                                role="img"
+                                                              />
+                                                            </Memo(IconWrapper)>
+                                                          </Consumer>
+                                                        </Memo(Icon)>
                                                       </ChevronDownIcon>
                                                     </div>
                                                   </styled.div>
@@ -2454,6 +2460,28 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
 `;
 
 exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sites correctly and clicking expand shows children sites 3`] = `
+.emotion-0 {
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 > svg {
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.emotion-0 stop {
+  stop-color: currentColor;
+}
+
 .c8 {
   color: #FFFFFF;
   display: inline-block;
@@ -2561,28 +2589,6 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
   -webkit-animation: ljGnjM 500ms ease forwards;
   animation: ljGnjM 500ms ease forwards;
   opacity: 0;
-}
-
-.c15 {
-  color: currentColor;
-  display: inline-block;
-  fill: #FFFFFF;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.c15 > svg {
-  max-height: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  vertical-align: bottom;
-}
-
-.c15 stop {
-  stop-color: currentColor;
 }
 
 .c3 {
@@ -3340,31 +3346,34 @@ exports[`Atlassian Switcher - ItemWithDropdown renders an item with multiple sit
                                                       <ChevronDownIcon
                                                         label="Expand"
                                                       >
-                                                        <Icon
+                                                        <Memo(Icon)
                                                           dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
                                                           label="Expand"
                                                         >
-                                                          <styled.span
-                                                            aria-label="Expand"
-                                                            dangerouslySetInnerHTML={
-                                                              Object {
-                                                                "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                              }
-                                                            }
-                                                            role="img"
-                                                          >
-                                                            <span
+                                                          <Consumer>
+                                                            <Memo(IconWrapper)
                                                               aria-label="Expand"
-                                                              className="c15"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
+                                                              mode="light"
                                                               role="img"
-                                                            />
-                                                          </styled.span>
-                                                        </Icon>
+                                                            >
+                                                              <span
+                                                                aria-label="Expand"
+                                                                className="emotion-0"
+                                                                dangerouslySetInnerHTML={
+                                                                  Object {
+                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" focusable=\\"false\\" role=\\"presentation\\"><path d=\\"M8.292 10.293a1.009 1.009 0 000 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955a1.01 1.01 0 000-1.419.987.987 0 00-1.406 0l-2.298 2.317-2.307-2.327a.99.99 0 00-1.406 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                                                                  }
+                                                                }
+                                                                role="img"
+                                                              />
+                                                            </Memo(IconWrapper)>
+                                                          </Consumer>
+                                                        </Memo(Icon)>
                                                       </ChevronDownIcon>
                                                     </div>
                                                   </styled.div>

@@ -2,7 +2,7 @@ import React from 'react';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { ToolTipContent } from '../../../../keymaps';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
 import { ExpandIconWrapper } from '../../../../ui/styles';
 import { TriggerWrapper } from './styles';
 
@@ -12,7 +12,7 @@ export interface DropDownButtonProps {
   disabled?: boolean;
   onClick: React.MouseEventHandler;
   spacing: 'none' | 'default';
-  handleRef(el: ToolbarButton): void;
+  handleRef(el: ToolbarButtonRef): void;
 }
 
 const DropDownButtonIcon: React.StatelessComponent<{

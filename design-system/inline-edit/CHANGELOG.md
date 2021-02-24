@@ -1,5 +1,63 @@
 # @atlaskit/inline-edit
 
+## 12.0.0
+
+### Major Changes
+
+- [`b9987e84f3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9987e84f3f) - In this version we bring significant performance improvements as well as improving the experience of using `inline-edit`.
+
+  - removed dynamic loading of inline dialog allowing consumers to compose their own experiences
+  - merged controlled & uncontrolled inline edit components
+  - split `InlineEditableTextfield` to its own entry-point
+
+  ### Handling errors with inline edit
+
+  You can now customise `editView` when its content is invalid. For example, use the `errorMessage` and `isInvalid` props to show errors with inline dialog:
+
+  ```jsx
+  editView={({ errorMessage, ...fieldProps }) => (
+    <InlineDialog
+      isOpen={fieldProps.isInvalid}
+      content={<div>{errorMessage}</div>}
+      placement="right"
+    >
+      <TextField {...fieldProps} autoFocus />
+    </InlineDialog>
+  )}
+  ```
+
+  ### Controlled and uncontrolled component
+
+  From this version, inline edit will act as either controlled or uncontrolled based on the props passed in. Please refer to [the example here](https://atlaskit.atlassian.com/packages/design-system/inline-edit/example/stateless) for more details.
+
+  When in controlled, you can control the state by set `isEditing` through `onCancel`, `onConfirm` and `onEdit` callbacks.
+
+  ### InlineEditableTextfield
+
+  From this version, `InlineEditableTextfield` now has its own entrypoint so you can import only what you use. Like so:
+
+  ```jsx
+  import InlineEditableTextfield from '@atlaskit/inline-edit/inline-editable-textfield';
+  ```
+
+  **Running the codemod cli**
+  To run the codemod: **You first need to have the latest version installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/inline-edit@^12.0.0`
+
+  Once upgraded, use the Atlaskit codemod-cli;
+
+  `npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
+
+  The CLI will show a list of components and versions so select `@atlaskit/inline-edit@^12.0.0` and you will automatically be upgraded. If your usage of PACKAGE cannot be upgraded a comment will be left that a manual change is required.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.11
 
 ### Patch Changes

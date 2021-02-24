@@ -49,6 +49,14 @@ class RendererBridgeImplementation
     this.configuration = config || new RendererConfiguration();
   }
 
+  async fetchPayload<T = unknown>(category: string, uuid: string): Promise<T> {
+    var originURL = new URL(window.location.href);
+    originURL.protocol = `fabric-hybrid`;
+    const payloadURL = originURL.origin + `/payload/${category}/${uuid}`;
+    const response = await fetch(payloadURL);
+    return response.json();
+  }
+
   setContent(content: Serialized<JSONDocNode>) {
     this.content = content;
     const performanceMatrices = new PerformanceMatrices();
@@ -84,12 +92,29 @@ class RendererBridgeImplementation
     );
   }
 
+  async setContentPayload(uuid: string) {
+    const adfContent: Serialized<JSONDocNode> = await this.fetchPayload(
+      'content',
+      uuid,
+    );
+    this.setContent(adfContent);
+  }
+
   getContent() {
     return this.content;
   }
 
   onPromiseResolved(uuid: string, payload: string) {
     resolvePromise(uuid, JSON.parse(payload));
+  }
+
+  async onPromiseResolvedPayload(uuid: string) {
+    try {
+      const payload = await this.fetchPayload('promise', uuid);
+      resolvePromise(uuid, payload);
+    } catch (err) {
+      rejectPromise(uuid, err);
+    }
   }
 
   onPromiseRejected(uuid: string) {

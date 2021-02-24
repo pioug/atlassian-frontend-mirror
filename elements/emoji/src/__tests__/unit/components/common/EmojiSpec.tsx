@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button/custom-theme-button';
 import * as styles from '../../../../components/common/styles';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
+import DeleteButton from '../../../../components/common/DeleteButton';
 
 describe('<Emoji />', () => {
   describe('as sprite', () => {
@@ -109,12 +109,12 @@ describe('<Emoji />', () => {
 
     it('should show delete button is showDelete is passed in', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} showDelete={true} />);
-      expect(wrapper.find(Button)).toHaveLength(1);
+      expect(wrapper.find(DeleteButton)).toHaveLength(1);
     });
 
     it('should not show delete button if showDelete is not passed in', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} />);
-      expect(wrapper.find(Button)).toHaveLength(0);
+      expect(wrapper.find(DeleteButton)).toHaveLength(0);
     });
   });
 });

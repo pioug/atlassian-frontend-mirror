@@ -2,11 +2,14 @@ import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import popup from './popup.png';
+import popupWarning from '../example-helpers/popup-warning';
 
 const CreateImage = (filename: string) => <img src={filename} />;
 
 export default md`
   ${(<AtlassianInternalWarning />)}
+
+  ${popupWarning}
 
   # Documentation
 

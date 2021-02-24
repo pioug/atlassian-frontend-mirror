@@ -5,7 +5,7 @@ order: 0
 import AvatarDefault from '../../examples/constellation/avatar-default';
 import AvatarCircle from '../../examples/constellation/avatar-circle';
 import AvatarSquare from '../../examples/constellation/avatar-square';
-import AvatarHover from '../../examples/constellation/avatar-hover';
+import AvatarTooltip from '../../examples/constellation/avatar-tooltip';
 import AvatarSmall from '../../examples/constellation/avatar-small';
 import AvatarXSmall from '../../examples/constellation/avatar-x-small';
 import AvatarMedium from '../../examples/constellation/avatar-medium';
@@ -72,8 +72,8 @@ Use `xsmall` circle and square avatars for onscreen metadata such as in Jira iss
 <Example Component={AvatarXSmall} packageName="@atlaskit/avatar" />
 
 ## Displaying a tooltip
-A tooltip can be used with an avatar to be displayed on focus or hover. The tooltip `content` should be set to the same value as the avatar `name`.
+A tooltip can be used with an avatar to be displayed on focus or hover. The tooltip `content` should be set to the same value as the avatar `label`.
 
 For [accessibilty reasons](usage#accessibility), do not use a tooltip with an avatar unless it is interactive.
 
-<Example Component={AvatarHover} packageName="@atlaskit/avatar" />
+<Example Component={AvatarTooltip} packageName="@atlaskit/avatar" />

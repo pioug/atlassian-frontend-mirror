@@ -1,4 +1,4 @@
-export { default } from './components/Calendar';
+export { default } from './calendar';
 export type {
   CalendarProps,
   ChangeEvent,

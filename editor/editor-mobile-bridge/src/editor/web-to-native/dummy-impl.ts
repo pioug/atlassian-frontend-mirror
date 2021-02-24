@@ -33,7 +33,12 @@ export default class DummyBridge implements NativeBridge {
     this.log(`updateTextFormat(markStates=${markStates})`);
   }
   updateText(content: string) {
-    this.log(`updateText(content=${content})`);
+    this.log(`updateText(content=${content}`);
+  }
+  updateTextWithADFStatus(content: string, isEmptyADF: boolean) {
+    this.log(
+      `updateTextWithADFStatus(content=${content}, isEmptyADF=${isEmptyADF})`,
+    );
   }
   submitPromise(name: string, uuid: string, args: string) {
     this.log(`submitPromise(name=${name}, uuid=${uuid}, args=${args})`);

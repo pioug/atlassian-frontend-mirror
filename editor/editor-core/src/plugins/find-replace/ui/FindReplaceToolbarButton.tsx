@@ -6,7 +6,7 @@ import {
   akEditorFloatingPanelZIndex,
   akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
-import ToolbarButton from '../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
 import Dropdown from '../../../ui/Dropdown';
 import FindReplace, { FindReplaceProps } from './FindReplace';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
@@ -112,6 +112,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
           zIndex={stackBelowOtherEditorFloatingPanels}
           trigger={
             <ToolbarButton
+              buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
               spacing={isReducedSpacing ? 'none' : 'default'}
               selected={isActive}
               title={

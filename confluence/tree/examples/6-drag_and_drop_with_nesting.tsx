@@ -50,11 +50,7 @@ export default class DragDropWithNestingTree extends Component<void, State> {
           appearance="subtle-link"
           onClick={() => onCollapse(item.id)}
         >
-          <ChevronDownIcon
-            label=""
-            size="medium"
-            onClick={() => onCollapse(item.id)}
-          />
+          <ChevronDownIcon label="" size="medium" />
         </Button>
       ) : (
         <Button
@@ -62,11 +58,7 @@ export default class DragDropWithNestingTree extends Component<void, State> {
           appearance="subtle-link"
           onClick={() => onExpand(item.id)}
         >
-          <ChevronRightIcon
-            label=""
-            size="medium"
-            onClick={() => onExpand(item.id)}
-          />
+          <ChevronRightIcon label="" size="medium" />
         </Button>
       );
     }

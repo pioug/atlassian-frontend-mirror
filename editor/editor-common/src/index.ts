@@ -16,6 +16,8 @@ export {
   getAnalyticsAppearance,
   analyticsEventKey,
   getAnalyticsEventSeverity,
+  getUnsupportedContentLevelData,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
   getExtensionLozengeData,
   getExtensionRenderer,
   getMarksByOrder,
@@ -46,6 +48,7 @@ export {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
   SEVERITY,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
   shouldForceTracking,
 } from './utils';
 
@@ -64,6 +67,7 @@ export type {
   Params,
   UnsupportedContentPayload,
   UnsupportedContentTooltipPayload,
+  UnsupportedContentLevelsTracking,
 } from './utils';
 
 export {

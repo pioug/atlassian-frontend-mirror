@@ -103,6 +103,71 @@ export const mentions = [
     lozenge: 'TEAM',
     mentionName: 'Monkey Trousers',
   },
+  {
+    id: '12312594',
+    avatarUrl:
+      'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/0.svg',
+    name: 'The Cool Cats',
+    userType: 'TEAM',
+    context: {
+      members: [],
+      includesYou: false,
+      memberCount: 10,
+      teamLink: 'someLink',
+    },
+  },
+  {
+    id: '12312595',
+    avatarUrl:
+      'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/1.svg',
+    name: 'Your Team',
+    userType: 'TEAM',
+    context: {
+      members: [],
+      includesYou: true,
+      memberCount: 8,
+      teamLink: 'someLink',
+    },
+  },
+  {
+    id: '12312596',
+    avatarUrl:
+      'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/2.svg',
+    name: 'A very big team',
+    userType: 'TEAM',
+    context: {
+      members: [],
+      includesYou: false,
+      memberCount: 60,
+      teamLink: 'someLink',
+    },
+  },
+  {
+    id: '12312597',
+    avatarUrl:
+      'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/3.svg',
+    name: 'The whole company',
+    userType: 'TEAM',
+    context: {
+      members: [],
+      includesYou: true,
+      memberCount: 80,
+      teamLink: 'someLink',
+    },
+  },
+  {
+    id: '12312598',
+    avatarUrl:
+      'https://ptc-directory-sited-static.us-east-1.prod.public.atl-paas.net/teams/avatars/4.svg',
+    name: 'Your private team',
+    userType: 'TEAM',
+    context: {
+      members: [],
+      includesYou: true,
+      memberCount: 1,
+      teamLink: 'someLink',
+    },
+  },
 ];
 
 export const slowResourceProvider = new MentionResource({

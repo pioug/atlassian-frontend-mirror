@@ -86,6 +86,7 @@ export class CardWithURLRenderer extends React.PureComponent<
       inheritDimensions,
       platform,
       embedIframeRef,
+      inlinePreloaderStyle,
     } = this.props;
 
     if (!url) {
@@ -108,6 +109,7 @@ export class CardWithURLRenderer extends React.PureComponent<
         inheritDimensions={inheritDimensions}
         platform={platform}
         embedIframeRef={embedIframeRef}
+        inlinePreloaderStyle={inlinePreloaderStyle}
       />
     ) : (
       <CardLinkView key={'chunk-placeholder'} link={url} />

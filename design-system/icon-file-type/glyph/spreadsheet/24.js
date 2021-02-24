@@ -11,9 +11,7 @@ var _Icon = _interopRequireDefault(require("../../cjs/components/Icon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-const Spreadsheet24Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, _extends({
+const Spreadsheet24Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path fill="#36B37E" fill-rule="evenodd" d="M3 0h18a3 3 0 013 3v18a3 3 0 01-3 3H3a3 3 0 01-3-3V3a3 3 0 013-3zm2 5a1 1 0 100 2h3a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 000-2H5zm0 4a1 1 0 000 2h3a1 1 0 000-2H5zm0 4a1 1 0 000 2h3a1 1 0 000-2H5zm7-12a1 1 0 000 2h7a1 1 0 000-2h-7zm0 4a1 1 0 000 2h7a1 1 0 000-2h-7zm0 4a1 1 0 000 2h7a1 1 0 000-2h-7zm0 4a1 1 0 000 2h7a1 1 0 000-2h-7z"/></svg>`
 }, props, {
   size: "medium"

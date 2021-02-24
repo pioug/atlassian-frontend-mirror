@@ -38,6 +38,14 @@ export enum SEVERITY {
   BLOCKING = 'blocking',
 }
 
+export {
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
+  getUnsupportedContentLevelData,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
+} from './unsupportedContent/get-unsupported-content-level-data';
+
+export type { UnsupportedContentLevelsTracking } from './unsupportedContent/get-unsupported-content-level-data';
+
 export enum EVENT_TYPE {
   TRACK = 'track',
   UI = 'ui',

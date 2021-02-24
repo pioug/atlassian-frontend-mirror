@@ -1,6 +1,3 @@
-import Button from '@atlaskit/button/custom-theme-button';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import { N500 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import classNames from 'classnames';
 import React from 'react';
@@ -20,6 +17,7 @@ import {
 } from '../../types';
 import { leftClick } from '../../util/mouse';
 import * as styles from './styles';
+import DeleteButton from './DeleteButton';
 
 export interface Props {
   /**
@@ -241,20 +239,9 @@ const renderAsImage = (props: Props) => {
   let deleteButton;
   if (showDelete) {
     deleteButton = (
-      <span className={styles.deleteButton}>
-        <Button
-          iconBefore={
-            <CrossCircleIcon
-              label={deleteEmojiLabel}
-              primaryColor={N500}
-              size="small"
-            />
-          }
-          onClick={(event: SyntheticEvent) => handleDelete(props, event)}
-          appearance="subtle-link"
-          spacing="none"
-        />
-      </span>
+      <DeleteButton
+        onClick={(event: SyntheticEvent) => handleDelete(props, event)}
+      />
     );
   }
 

@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 55.3.0
+
+### Minor Changes
+
+- [`2cde1293d9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cde1293d9f) - [ux] `useAlternativePreloader` prop was added to `CardOptions`, which is type of editor prop `UNSAFE_cards`. Default value is true (if not defined). When `useAlternativePreloader` is true preloader experience for smart link components in editor will be different: there won't be normal smart link skeleton (border and a shaddow) and spinner is located on the right (compare to left as before). Note: renderer experience won't change.
+
+### Patch Changes
+
+- [`ad4bc282c53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad4bc282c53) - Fix media click issue for center layout images
+- [`e07a815d377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e07a815d377) - ED-11807 performance optimization for table sticky headers plugin
+- [`89a358773d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89a358773d2) - Don't wrap unsupportedBlock again after an INVALID_CONTENT_LENGTH error
+- [`a2d44651925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2d44651925) - ED-11161: Track unsupported content levels severity in renderer
+- Updated dependencies
+
 ## 55.2.1
 
 ### Patch Changes

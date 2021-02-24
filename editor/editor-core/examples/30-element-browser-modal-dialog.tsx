@@ -5,30 +5,15 @@ import {
   AnalyticsEventPayload,
   AnalyticsListener,
 } from '@atlaskit/analytics-next';
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
-import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import ElementBrowser from '../src/ui/ElementBrowser';
 import ModalElementBrowser from '../src/ui/ElementBrowser/ModalElementBrowser';
-import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
-import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
-import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
-import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
-import EditorActions from '../src/actions';
-
-const extensionProvider = combineExtensionProviders([
-  getConfluenceMacrosExtensionProvider({} as EditorActions),
-  getXProductExtensionProvider(),
-]);
-
-const quickInsertProvider = extensionProviderToQuickInsertProvider(
-  extensionProvider,
-  {} as EditorActions,
-);
+import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 
 export default () => {
+  const getItems = useDefaultQuickInsertGetItems();
   const [showModal, setModalVisibility] = useState(false);
   const [showInlineModal, setInlineModalVisibility] = useState(false);
 
@@ -38,31 +23,19 @@ export default () => {
     console.groupEnd();
   }, []);
 
-  const [items] = useStateFromPromise<QuickInsertItem[]>(
-    () => quickInsertProvider.then(provider => provider.getItems()),
-    [],
-    [],
+  const onInlineDialogClose = React.useCallback(
+    () => setInlineModalVisibility(false),
+    [setInlineModalVisibility],
   );
 
-  const getItems = useCallback(
-    (query?: string, category?: string) =>
-      searchQuickInsertItems(
-        {
-          isElementBrowserModalOpen: true,
-          lazyDefaultItems: () => items || [],
-        },
-        {},
-      )(query, category),
-    [items],
+  const onEscapeKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onInlineDialogClose();
+      }
+    },
+    [onInlineDialogClose],
   );
-
-  const onInlineDialogClose = () => setInlineModalVisibility(false);
-
-  const onEscapeKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onInlineDialogClose();
-    }
-  };
 
   return (
     <ModalExampleWrapper>

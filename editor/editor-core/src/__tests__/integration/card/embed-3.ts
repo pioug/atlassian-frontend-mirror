@@ -4,7 +4,10 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
-import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-helpers';
+import {
+  waitForEmbedCardSelection,
+  waitForSuccessfullyResolvedEmbedCard,
+} from '@atlaskit/media-integration-test-helpers';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
 
@@ -45,6 +48,8 @@ BrowserTestCase(
     // Type some more text.
     await page.keys(['ArrowRight', 'Enter']);
     await page.type(editable, 'now you have two!');
+
+    await waitForSuccessfullyResolvedEmbedCard(page, 2);
 
     expect(
       await page.$eval(editable, getDocFromElement),

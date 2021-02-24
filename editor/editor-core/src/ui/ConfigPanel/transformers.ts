@@ -31,6 +31,9 @@ function extract(value: Parameters[string], field: FieldDefinition) {
   } else if (isDateRange(value)) {
     return value;
   } else if (value !== undefined && field.type === 'number') {
+    if (value === '') {
+      return;
+    }
     return Number(value);
   }
 

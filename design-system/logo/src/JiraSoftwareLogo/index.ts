@@ -1,5 +1,3 @@
-import JiraSoftwareIcon from './Icon';
-import JiraSoftwareLogo from './Logo';
-import JiraSoftwareWordmark from './Wordmark';
-
-export { JiraSoftwareLogo, JiraSoftwareIcon, JiraSoftwareWordmark };
+export { JiraSoftwareIcon } from './Icon';
+export { JiraSoftwareLogo } from './Logo';
+export { JiraSoftwareWordmark } from './Wordmark';

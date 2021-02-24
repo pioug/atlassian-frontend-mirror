@@ -11,7 +11,7 @@ import {
   tooltip,
   ToolTipContent,
 } from '../../../../keymaps';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import {
   ButtonGroup,
@@ -111,6 +111,7 @@ class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
       return (
         <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
           <ToolbarButton
+            buttonId={TOOLBAR_BUTTON.BULLET_LIST}
             spacing={isReducedSpacing ? 'none' : 'default'}
             onClick={this.handleBulletListClick}
             selected={bulletListActive}
@@ -124,6 +125,7 @@ class ToolbarLists extends PureComponent<Props & InjectedIntlProps, State> {
             iconBefore={<BulletListIcon label={labelUnorderedList} />}
           />
           <ToolbarButton
+            buttonId={TOOLBAR_BUTTON.ORDERED_LIST}
             spacing={isReducedSpacing ? 'none' : 'default'}
             onClick={this.handleOrderedListClick}
             selected={orderedListActive}

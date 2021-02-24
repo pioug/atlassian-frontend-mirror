@@ -37,9 +37,9 @@ export default md`
   ${(
     <Example
       packageName="@atlaskit/icon"
-      Component={require('../examples/IconCustomExample').default}
+      Component={require('../examples/08-using-custom-glyph').default}
       title="Using a custom Icon"
-      source={require('!!raw-loader!../examples/IconCustomExample')}
+      source={require('!!raw-loader!../examples/08-using-custom-glyph')}
     />
   )}
 

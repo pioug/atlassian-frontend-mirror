@@ -39,4 +39,10 @@ export const messages = defineMessages({
     description:
       'Warning message to show the user that this node cannot change its view',
   },
+  displayOptionUnavailableInParentNode: {
+    id: 'fabric.editor.displayOptionUnavailableInParentNode',
+    defaultMessage: "This display option isn't available inside {node}",
+    description:
+      'Warning message to show the user that this node option is not available inside a parent node type',
+  },
 });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-edit",
-  "version": "11.0.11",
+  "version": "12.0.0",
   "description": "A base component used to build inline-editable components that match the Atlassian Design Guidelines",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,7 +17,6 @@
   "atlaskit:designLink": "https://atlassian.design/patterns/inline-edit",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -28,20 +27,21 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/form": "^8.2.0",
-    "@atlaskit/icon": "^21.2.0",
+    "@atlaskit/icon": "^21.3.0",
     "@atlaskit/inline-dialog": "^13.0.0",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/core": "^10.0.9",
-    "react-loadable": "^5.1.0"
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
+    "@atlaskit/codemod-utils": "^2.0.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/inline-dialog": "^13.0.0",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tag": "^11.0.0",
@@ -52,6 +52,7 @@
     "@emotion/styled": "^10.0.7",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
+    "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6",
@@ -80,5 +81,11 @@
         "no-deprecated-imports"
       ]
     }
+  },
+  "af:exports": {
+    "./inline-edit": "./src/entry-points/inline-edit.ts",
+    "./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.ts",
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
   }
 }

@@ -59,7 +59,6 @@ export function toggleCheckbox(inputWrapper: any) {
 
   input.checked = !input.checked;
   inputWrapper.simulate('change');
-  inputWrapper.simulate('blur');
 }
 
 // supports Async(Creatable(Select)), Async(Select), Creatable(Select), Select

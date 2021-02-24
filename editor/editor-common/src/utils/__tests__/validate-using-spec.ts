@@ -185,6 +185,53 @@ describe('validationErrorHandler', () => {
     });
   });
 
+  it('should ignore unsupportedBlock in maximum INVALID_CONTENT_LENGTH error', () => {
+    const invalidNode = {
+      type: 'mediaSingle',
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            type: 'file',
+            id: '1234',
+            collection: 'SampleCollection',
+          },
+        },
+        {
+          attrs: {
+            originalValue: {
+              content: [
+                {
+                  text: 'Hello World!',
+                  type: 'text',
+                },
+              ],
+              type: 'caption',
+            },
+          },
+          type: 'unsupportedBlock',
+        },
+      ],
+    };
+    const invalidContentLengthError: ValidationError = {
+      code: 'INVALID_CONTENT_LENGTH',
+      message: "'content' should have less than 1 child",
+      meta: { length: 2, requiredLength: 1, type: 'maximum' },
+    };
+    const options = {
+      allowUnsupportedBlock: true,
+    };
+    const result = validationErrorHandler(
+      { ...invalidNode },
+      invalidContentLengthError,
+      options,
+      marks,
+      validateMock,
+    );
+    expect(result).toBeDefined();
+    expect(result).toEqual(invalidNode);
+  });
+
   it('should validate all children in maximum INVALID_CONTENT_LENGTH error', () => {
     const invalidNode = {
       type: 'mediaSingle',

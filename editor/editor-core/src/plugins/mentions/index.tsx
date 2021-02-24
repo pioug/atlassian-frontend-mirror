@@ -9,6 +9,7 @@ import {
   isResolvingMentionProvider,
   MentionDescription,
   SLI_EVENT_TYPE,
+  SMART_EVENT_TYPE,
   buildSliPayload,
   MentionProvider,
   TeamMentionProvider,
@@ -585,9 +586,12 @@ function mentionPluginFactory(
     event: string,
     actionSubject: string,
     action: string,
+    attributes?: {
+      [key: string]: any;
+    },
   ): void => {
-    if (event === SLI_EVENT_TYPE) {
-      fireEvent(buildSliPayload(actionSubject, action));
+    if (event === SLI_EVENT_TYPE || event === SMART_EVENT_TYPE) {
+      fireEvent(buildSliPayload(actionSubject, action, attributes));
     }
   };
 

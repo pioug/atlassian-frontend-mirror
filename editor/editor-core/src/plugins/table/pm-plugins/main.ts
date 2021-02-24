@@ -50,6 +50,7 @@ import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { getPosHandler } from '../../../nodeviews';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
@@ -108,26 +109,12 @@ export const createPlugin = (
           node: ProseMirrorNode,
           view: EditorView,
           getPos: getPosHandler,
-        ) =>
-          new TableCellNodeView(
-            node,
-            view,
-            getPos,
-            pluginConfig?.mouseMoveOptimization ?? false,
-            observer,
-          ),
+        ) => new TableCellNodeView(node, view, getPos, observer),
         tableHeader: (
           node: ProseMirrorNode,
           view: EditorView,
           getPos: getPosHandler,
-        ) =>
-          new TableCellNodeView(
-            node,
-            view,
-            getPos,
-            pluginConfig?.mouseMoveOptimization ?? false,
-            observer,
-          ),
+        ) => new TableCellNodeView(node, view, getPos, observer),
       }
     : {};
 
@@ -152,12 +139,10 @@ export const createPlugin = (
     view: (editorView: EditorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
 
+      const { mouseMoveOptimization } = getFeatureFlags(editorView.state) || {};
       // Cleanup once tableCellOptimization prop is permanently enabled
       // observation will then happen in tableCellNodeview
-      if (
-        pluginConfig.mouseMoveOptimization &&
-        !pluginConfig.tableCellOptimization
-      ) {
+      if (mouseMoveOptimization && !pluginConfig.tableCellOptimization) {
         handle = request(() => {
           document.querySelectorAll(TABLE_LEAFS).forEach((cell: Element) => {
             observer?.observe(cell);

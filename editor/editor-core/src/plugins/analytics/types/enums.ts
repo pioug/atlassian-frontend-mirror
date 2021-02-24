@@ -117,6 +117,7 @@ export enum TRIGGER_METHOD {
 }
 
 export enum ACTION_SUBJECT {
+  TOOLBAR_BUTTON = 'toolbarButton',
   BUTTON = 'button',
   CONFIG_PANEL = 'configPanel',
   DATE = 'date',
@@ -157,6 +158,7 @@ export enum ACTION_SUBJECT_ID {
   BLOCK_QUOTE = 'blockQuote',
   BUTTON_FEEDBACK = 'feedbackButton',
   BUTTON_HELP = 'helpButton',
+  BUTTON_CATEGORY = 'categoryButton',
   CANCEL = 'cancel',
   CARD_BLOCK = 'blockCard',
   CAPTION = 'caption',

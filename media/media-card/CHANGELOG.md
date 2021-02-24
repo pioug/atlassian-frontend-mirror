@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 70.3.3
+
+### Patch Changes
+
+- [`5380459f37b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5380459f37b) - [ux] Play icon on media video player has been adjusted in size to better match ADG
+- Updated dependencies
+
 ## 70.3.2
 
 ### Patch Changes

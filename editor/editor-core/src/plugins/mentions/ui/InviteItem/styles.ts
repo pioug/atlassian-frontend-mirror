@@ -30,9 +30,9 @@ export const AvatarStyle: ComponentClass<HTMLAttributes<{}>> = styled.span`
   height: 36px;
 
   > span {
-    width: 18px;
-    height: 18px;
-    padding: 9px;
+    width: 24px;
+    height: 24px;
+    padding: 6px;
   }
 `;
 

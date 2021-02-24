@@ -29,12 +29,26 @@ describe('Avatar', () => {
     expect(getByTestId('avatar--inner').tagName).toEqual('BUTTON');
   });
 
-  it('should render disabled button', () => {
+  it('should render a disabled button when using onClick', () => {
     const { getByTestId } = render(
       <Avatar
         testId={'avatar'}
         isDisabled
         onClick={(event, analyticsEvent) => null}
+      />,
+    );
+    const element = getByTestId('avatar--inner');
+
+    expect(element.tagName).toEqual('BUTTON');
+    expect(element.hasAttribute('disabled')).toBeTruthy();
+  });
+
+  it('should render a disabled button when using href', () => {
+    const { getByTestId } = render(
+      <Avatar
+        testId={'avatar'}
+        isDisabled
+        href={'https://atlaskit.atlassian.com/'}
       />,
     );
     const element = getByTestId('avatar--inner');
@@ -360,5 +374,39 @@ describe('Avatar', () => {
 
     expect(queryByTestId('avatar--status')).toBeTruthy();
     expect(queryByTestId('avatar--presence')).toBeFalsy();
+  });
+
+  it('should NOT output an aria-label on SPAN tag', () => {
+    const { getByTestId } = render(
+      <Avatar testId={'avatar'} label="Test avatar" />,
+    );
+    const element = getByTestId('avatar--inner');
+
+    expect(element.tagName).toEqual('SPAN');
+    expect(element.getAttribute('aria-label')).toBe(null);
+  });
+
+  it('should output an aria-label on A tag', () => {
+    const { getByTestId } = render(
+      <Avatar
+        testId={'avatar'}
+        href={'https://atlaskit.atlassian.com/'}
+        label="Test avatar"
+      />,
+    );
+    const element = getByTestId('avatar--inner');
+
+    expect(element.tagName).toEqual('A');
+    expect(element.getAttribute('aria-label')).toBe('Test avatar');
+  });
+
+  it('should output an aria-label on BUTTON tag', () => {
+    const { getByTestId } = render(
+      <Avatar testId={'avatar'} onClick={() => {}} label="Test avatar" />,
+    );
+    const element = getByTestId('avatar--inner');
+
+    expect(element.tagName).toEqual('BUTTON');
+    expect(element.getAttribute('aria-label')).toBe('Test avatar');
   });
 });

@@ -2,7 +2,7 @@ import { NodeSpec } from 'prosemirror-model';
 
 const name = 'confluenceUnsupportedBlock';
 
-export const confluenceUnsupportedBlock = {
+export const confluenceUnsupportedBlock: NodeSpec = {
   group: 'block',
   attrs: { cxhtml: { default: null } },
   toDOM(node) {
@@ -26,4 +26,4 @@ export const confluenceUnsupportedBlock = {
       },
     },
   ],
-} as NodeSpec;
+};

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BackButton Should match snapshot 1`] = `
-.emotion-3 {
+.emotion-4 {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -10,13 +10,13 @@ exports[`BackButton Should match snapshot 1`] = `
   left: 8px;
 }
 
-.emotion-2,
-.emotion-2:hover,
-.emotion-2:active,
-.emotion-2:focus,
-.emotion-2:visited,
-.emotion-2:disabled,
-.emotion-2[disabled] {
+.emotion-3,
+.emotion-3:hover,
+.emotion-3:active,
+.emotion-3:focus,
+.emotion-3:visited,
+.emotion-3:disabled,
+.emotion-3[disabled] {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -55,19 +55,19 @@ exports[`BackButton Should match snapshot 1`] = `
   outline: none;
 }
 
-.emotion-2::-moz-focus-inner,
-.emotion-2:hover::-moz-focus-inner,
-.emotion-2:active::-moz-focus-inner,
-.emotion-2:focus::-moz-focus-inner,
-.emotion-2:visited::-moz-focus-inner,
-.emotion-2:disabled::-moz-focus-inner,
-.emotion-2[disabled]::-moz-focus-inner {
+.emotion-3::-moz-focus-inner,
+.emotion-3:hover::-moz-focus-inner,
+.emotion-3:active::-moz-focus-inner,
+.emotion-3:focus::-moz-focus-inner,
+.emotion-3:visited::-moz-focus-inner,
+.emotion-3:disabled::-moz-focus-inner,
+.emotion-3[disabled]::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.emotion-0 {
+.emotion-1 {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   opacity: 1;
@@ -94,7 +94,33 @@ exports[`BackButton Should match snapshot 1`] = `
   margin: 0 2px;
 }
 
-.emotion-1 {
+.emotion-0 {
+  height: 24px;
+  width: 24px;
+  color: currentColor;
+  display: inline-block;
+  fill: #FFFFFF;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 > svg {
+  height: 24px;
+  width: 24px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.emotion-0 stop {
+  stop-color: currentColor;
+}
+
+.emotion-2 {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   opacity: 1;
@@ -112,19 +138,19 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 <div
-  class="emotion-3"
+  class="emotion-4"
   style="transition: left 220ms, opacity 220ms; left: 8px; opacity: 1;"
 >
   <button
-    class="emotion-2"
+    class="emotion-3"
     tabindex="0"
     type="button"
   >
     <span
-      class="emotion-0"
+      class="emotion-1"
     >
       <span
-        class="sc-bdVaJa bRnUSp"
+        class="emotion-0"
         role="presentation"
       >
         <svg
@@ -149,7 +175,7 @@ exports[`BackButton Should match snapshot 1`] = `
       </span>
     </span>
     <span
-      class="emotion-1"
+      class="emotion-2"
     >
       Back
     </span>

@@ -1,9 +1,3 @@
-import JiraServiceManagementIcon from './Icon';
-import JiraServiceManagementLogo from './Logo';
-import JiraServiceManagementWordmark from './Wordmark';
-
-export {
-  JiraServiceManagementLogo,
-  JiraServiceManagementIcon,
-  JiraServiceManagementWordmark,
-};
+export { JiraServiceManagementIcon } from './Icon';
+export { JiraServiceManagementLogo } from './Logo';
+export { JiraServiceManagementWordmark } from './Wordmark';

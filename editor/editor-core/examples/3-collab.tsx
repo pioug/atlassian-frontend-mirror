@@ -38,9 +38,8 @@ import { EditorActions, MediaProvider, MentionProvider } from '../src';
 import { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
 import { ResolvingMentionProvider } from '@atlaskit/mention/resource';
 
-import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
-import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 
 export const Content = styled.div`
   padding: 0 20px;
@@ -231,8 +230,7 @@ const editorProps = ({
     advanced: true,
   },
   extensionProviders: editorActions => [
-    getXProductExtensionProvider(),
-    getConfluenceMacrosExtensionProvider(editorActions),
+    getExampleExtensionProviders(editorActions),
   ],
   allowExtension: { allowAutoSave: true, allowBreakout: true },
   macroProvider: Promise.resolve(macroProvider),

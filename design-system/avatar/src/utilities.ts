@@ -6,26 +6,21 @@ export const getLinkProps = (href: string, target?: string) => ({
   target,
 });
 
-export const getButtonProps = (
-  onClick: MouseEventHandler,
-  isDisabled?: boolean,
-) => ({
+export const getButtonProps = (onClick: MouseEventHandler) => ({
   type: 'button',
-  disabled: isDisabled,
   onClick,
 });
 
 export const getCustomElement = (
+  isDisabled?: boolean,
   href?: string,
   onClick?: MouseEventHandler,
 ) => {
-  if (href) {
+  if (href && !isDisabled) {
     return 'a';
   }
-
-  if (onClick) {
+  if (onClick || isDisabled) {
     return 'button';
   }
-
   return 'span';
 };

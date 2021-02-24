@@ -1,4 +1,7 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 
 import type { ArrowKeys, DateObj, WeekDay } from './internal/types';
 
@@ -37,14 +40,14 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   onBlur?: React.FocusEventHandler;
   /** Called when the calendar is navigated. This can be triggered by the keyboard, or by clicking the navigational buttons.
    The 'interface' property indicates the the direction the calendar was navigated whereas the 'iso' property is a string of the format YYYY-MM-DD. */
-  onChange?: (event: ChangeEvent) => void;
+  onChange?: (event: ChangeEvent, analyticsEvent: UIAnalyticsEvent) => void;
   /** Called when the calendar receives focus. This could be from a mouse event on the container by tabbing into it. */
   onFocus?: React.FocusEventHandler;
   /** Function called when a day is clicked on. Calls with an object that has
-  a day, month and week property as numbers, representing the date just clicked.
+  a day, month and year property as numbers, representing the date just clicked.
   It also has an 'iso' property, which is a string of the selected date in the
   format YYYY-MM-DD. */
-  onSelect?: (event: SelectEvent) => void;
+  onSelect?: (event: SelectEvent, analyticsEvent: UIAnalyticsEvent) => void;
   /** Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates
    provided are given a background color. */
   previouslySelected?: Array<string>;
@@ -56,6 +59,8 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   /** Year to display the calendar for. */
   year?: number;
   locale?: string;
+  /** Additional information to be included in the `context` of analytics events */
+  analyticsContext?: Record<string, any>;
   /**
    * Start day of the week for the calendar.
    * - `0` sunday (default value)

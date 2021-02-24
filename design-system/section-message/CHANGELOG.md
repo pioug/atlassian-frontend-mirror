@@ -1,5 +1,15 @@
 # @atlaskit/section-message
 
+## 5.1.0
+
+### Minor Changes
+
+- [`ecced7fd8e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecced7fd8e2) - [ux] The linkComponent prop has been fixed to only apply to Actions with an href to align with docs. Previously it would apply to Actions with href or onClick.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.9
 
 ### Patch Changes

@@ -32,7 +32,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
-export default class ConfluenceLogo extends Component<Props> {
+export class ConfluenceLogo extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

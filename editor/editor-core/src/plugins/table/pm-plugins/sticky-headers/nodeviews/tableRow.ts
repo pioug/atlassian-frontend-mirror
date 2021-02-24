@@ -8,17 +8,22 @@ import { pluginKey as widthPluginKey } from '../../../../../plugins/width';
 import { mapChildren } from '../../../../../utils/slice';
 import {
   TableCssClassName as ClassName,
+  TableCssClassName,
   TablePluginState,
 } from '../../../types';
-import { tableControlsSpacing } from '../../../ui/consts';
+import {
+  stickyRowOffsetTop,
+  tableControlsSpacing,
+  tableScrollbarOffset,
+} from '../../../ui/consts';
 import { pluginKey as tablePluginKey } from '../../plugin-factory';
 import {
   syncStickyRowToTable,
   updateStickyMargins as updateTableMargin,
 } from '../../table-resizing/utils/dom';
 import { updateStickyState } from '../commands';
-
 import { getTop, getTree, TableDOMElements } from './dom';
+import { getFeatureFlags } from '../../../../feature-flags-context';
 
 export const supportedHeaderRow = (node: PmNode) => {
   const allHeaders = mapChildren(
@@ -49,6 +54,19 @@ export class TableRowNodeView implements NodeView {
   focused = false;
   scrollElementTop = 0;
   isSticky = false;
+  private intersectionObserver?: IntersectionObserver;
+  private resizeObserver?: ResizeObserver;
+
+  private stickyHeadersOptimization = false;
+  private sentinels: {
+    top?: HTMLElement | null;
+    bottom?: HTMLElement | null;
+  } = {};
+  private stickyRowHeight?: number;
+
+  get tree(): TableDOMElements | null | undefined {
+    return getTree(this.dom);
+  }
 
   constructor(
     node: PmNode,
@@ -63,6 +81,10 @@ export class TableRowNodeView implements NodeView {
 
     this.dom = document.createElement('tr');
     this.contentDOM = this.dom;
+
+    const featureFlags = getFeatureFlags(view.state) || {};
+    const { stickyHeadersOptimization } = featureFlags;
+    this.stickyHeadersOptimization = !!stickyHeadersOptimization;
 
     this.isHeaderRow = supportedHeaderRow(node);
 
@@ -80,7 +102,11 @@ export class TableRowNodeView implements NodeView {
       findOverflowScrollParent(this.view.dom as HTMLElement) || window;
 
     if (this.scrollElement) {
-      this.scrollElement.addEventListener('scroll', this.onScroll);
+      if (this.stickyHeadersOptimization) {
+        this.initObservers();
+      } else {
+        this.scrollElement.addEventListener('scroll', this.onScroll);
+      }
       this.scrollElementTop = getTop(this.scrollElement);
     }
 
@@ -102,7 +128,15 @@ export class TableRowNodeView implements NodeView {
       return;
     }
 
-    if (this.scrollElement) {
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
+    }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+
+    if (this.scrollElement && !this.stickyHeadersOptimization) {
       this.scrollElement.removeEventListener('scroll', this.onScroll);
     }
 
@@ -118,6 +152,105 @@ export class TableRowNodeView implements NodeView {
     this.listening = false;
   }
 
+  // initialize intersection observer to track if table is within scroll area
+  private initObservers() {
+    if (!this.dom || this.dom.dataset.isObserved) {
+      return;
+    }
+    this.dom.dataset.isObserved = 'true';
+    this.createIntersectionObserver();
+    this.createResizeObserver();
+
+    if (!this.intersectionObserver || !this.resizeObserver) {
+      return;
+    }
+
+    this.resizeObserver.observe(this.dom);
+
+    window.requestAnimationFrame(() => {
+      // we expect tree to be defined after animation frame
+      const tableContainer = this.tree?.wrapper.closest(
+        `.${TableCssClassName.NODEVIEW_WRAPPER}`,
+      );
+      if (tableContainer) {
+        this.sentinels.top = tableContainer
+          .getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_TOP)
+          .item(0) as HTMLElement;
+        this.sentinels.bottom = tableContainer
+          .getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
+          .item(0) as HTMLElement;
+        [this.sentinels.top, this.sentinels.bottom].forEach(el => {
+          // skip if already observed for another row on this table
+          if (el && !el.dataset.isObserved) {
+            el.dataset.isObserved = 'true';
+            this.intersectionObserver!.observe(el);
+          }
+        });
+      }
+    });
+  }
+
+  // updating bottom sentinel position if sticky header height changes
+  // to allocate for new header height
+  private createResizeObserver() {
+    this.resizeObserver = new ResizeObserver(entries => {
+      if (!this.tree) {
+        return;
+      }
+      const { table } = this.tree;
+      entries.forEach(entry => {
+        const newHeight = entry.contentRect
+          ? entry.contentRect.height
+          : (entry.target as HTMLElement).offsetHeight;
+        if (newHeight !== this.stickyRowHeight && this.sentinels.bottom) {
+          this.stickyRowHeight = newHeight;
+          this.sentinels.bottom.style.bottom = `${
+            tableScrollbarOffset + stickyRowOffsetTop + newHeight
+          }px`;
+          updateTableMargin(table);
+        }
+      });
+    });
+  }
+
+  private createIntersectionObserver() {
+    this.intersectionObserver = new IntersectionObserver(
+      (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
+        if (!this.tree) {
+          return;
+        }
+        const { table } = this.tree;
+        entries.forEach(entry => {
+          const target = entry.target as HTMLElement;
+          if (target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_TOP)) {
+            const sentinelIsBelowScrollArea =
+              (entry.rootBounds?.bottom || 0) < entry.boundingClientRect.bottom;
+
+            if (!entry.isIntersecting && !sentinelIsBelowScrollArea) {
+              this.tree && this.makeHeaderRowSticky(this.tree);
+            } else {
+              table && this.makeRowHeaderNotSticky(table);
+            }
+          }
+
+          if (
+            target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
+          ) {
+            const sentinelIsAboveScrollArea =
+              entry.boundingClientRect.top - this.dom.offsetHeight <
+              (entry.rootBounds?.top || 0);
+
+            if (table && !entry.isIntersecting && sentinelIsAboveScrollArea) {
+              this.makeRowHeaderNotSticky(table);
+            } else if (entry.isIntersecting && sentinelIsAboveScrollArea) {
+              this.tree && this.makeHeaderRowSticky(this.tree);
+            }
+          }
+        });
+      },
+      { root: this.scrollElement as Element },
+    );
+  }
   /* paint/update loop */
 
   previousDomTop: number | undefined;
@@ -128,12 +261,11 @@ export class TableRowNodeView implements NodeView {
   nextFrame: number | undefined;
 
   onScroll = () => {
-    const tree = getTree(this.dom);
-    if (!tree) {
+    if (!this.tree) {
       return;
     }
 
-    this.latestDomTop = getTop(tree.wrapper);
+    this.latestDomTop = getTop(this.tree.wrapper);
 
     // kick off rAF loop again if it hasn't already happened
     if (!this.nextFrame) {
@@ -152,7 +284,7 @@ export class TableRowNodeView implements NodeView {
       }
 
       // can't store these since React might re-render at any time
-      const tree = getTree(this.dom);
+      const tree = this.tree;
       if (!tree) {
         this.nextFrame = undefined;
         return;
@@ -182,7 +314,7 @@ export class TableRowNodeView implements NodeView {
 
   /* nodeview lifecycle */
 
-  update(node: PmNode, ...args: any[]) {
+  update(node: PmNode, ..._args: any[]) {
     // do nothing if nodes were identical
     if (node === this.node) {
       return true;
@@ -214,9 +346,8 @@ export class TableRowNodeView implements NodeView {
   destroy() {
     this.unsubscribe();
 
-    const tree = getTree(this.dom);
-    if (tree) {
-      this.makeRowHeaderNotSticky(tree.table);
+    if (this.tree) {
+      this.makeRowHeaderNotSticky(this.tree.table);
     }
 
     this.emitOff();
@@ -243,7 +374,7 @@ export class TableRowNodeView implements NodeView {
   onTablePluginState = (state: TablePluginState) => {
     const tableRef = state.tableRef;
 
-    const tree = getTree(this.dom);
+    const tree = this.tree;
     if (!tree) {
       return;
     }
@@ -282,14 +413,16 @@ export class TableRowNodeView implements NodeView {
 
     // run after table style changes have been committed
     setTimeout(() => {
-      this.paint(tree);
+      if (!this.stickyHeadersOptimization) {
+        this.paint(tree);
+      }
       syncStickyRowToTable(tree.table);
     }, 0);
   };
 
   onWidthPluginState = () => {
     // table width might have changed, sync that back to sticky row
-    const tree = getTree(this.dom);
+    const tree = this.tree;
     if (!tree) {
       return;
     }
@@ -319,10 +452,11 @@ export class TableRowNodeView implements NodeView {
   makeHeaderRowSticky = (tree: TableDOMElements) => {
     const { table } = tree;
 
+    const currentTableTop = this.getCurrentTableTop(tree);
     const domTop =
-      this.getCurrentTableTop(tree) > 0
+      currentTableTop > 0
         ? this.scrollElementTop
-        : this.scrollElementTop + this.getCurrentTableTop(tree);
+        : this.scrollElementTop + currentTableTop;
 
     if (!this.isSticky) {
       syncStickyRowToTable(table);

@@ -40,6 +40,7 @@ import {
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
+import { hasVisibleContent } from '@atlaskit/editor-core';
 export interface MobileEditorProps extends EditorProps {
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   cardProvider: Promise<EditorCardProvider>;
@@ -105,12 +106,19 @@ export function MobileEditor(props: MobileEditorProps) {
   const handleChange = React.useCallback(
     throttle(
       () => {
-        toNativeBridge.updateText(bridge.getContent());
+        if (editorConfiguration.isAllowEmptyADFCheckEnabled()) {
+          toNativeBridge.updateTextWithADFStatus(
+            bridge.getContent(),
+            !hasVisibleContent(bridge.editorView!.state.doc),
+          );
+        } else {
+          toNativeBridge.updateText(bridge.getContent());
+        }
       },
       100,
       { leading: false, trailing: true },
     ),
-    [bridge],
+    [bridge, editorConfiguration],
   );
 
   const {
@@ -153,6 +161,7 @@ export function MobileEditor(props: MobileEditorProps) {
               media={mediaOptions}
               allowConfluenceInlineComment={true}
               onChange={handleChange}
+              allowIndentation={true}
               allowPanel={true}
               allowTables={tableOptions}
               UNSAFE_cards={cardsOptions}

@@ -1,0 +1,3 @@
+export type { sizeOpts } from '../types';
+export type { IconProps } from '../components/Icon';
+export type { SkeletonProps } from '../components/Skeleton';

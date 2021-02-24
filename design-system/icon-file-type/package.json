@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "6.1.3",
-  "description": "A React package that contains file-type icons",
+  "version": "6.1.4",
+  "description": "A file type icon is used to represent specific types of content used across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

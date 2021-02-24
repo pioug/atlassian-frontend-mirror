@@ -5,7 +5,7 @@ import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
 import { insertTaskDecision } from '../../commands';
 
@@ -37,6 +37,7 @@ export class ToolbarTask extends PureComponent<
 
     return (
       <ToolbarButton
+        buttonId={TOOLBAR_BUTTON.TASK_LIST}
         onClick={this.handleInsertTask}
         disabled={disabled || isDisabled}
         spacing={isReducedSpacing ? 'none' : 'default'}

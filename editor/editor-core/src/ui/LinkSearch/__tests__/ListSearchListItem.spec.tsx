@@ -14,13 +14,15 @@ interface SetupOptions extends LinkSearchListItemProps {}
 
 describe('ListSearchListItem', () => {
   const setup = (userOptions: Partial<SetupOptions> = {}) => {
-    const defaultOptions: SetupOptions = {
+    const defaultOptions: Required<SetupOptions> = {
       item: getDefaultItems()[0],
       selected: true,
       onSelect: jest.fn(),
       onMouseMove: jest.fn(),
+      onMouseEnter: jest.fn(),
+      onMouseLeave: jest.fn(),
     };
-    const options = {
+    const options: Required<SetupOptions> = {
       ...defaultOptions,
       ...userOptions,
     };
@@ -31,6 +33,8 @@ describe('ListSearchListItem', () => {
       component: component.find(Container),
       item: options.item,
       onMouseMove: options.onMouseMove,
+      onMouseEnter: options.onMouseEnter,
+      onMouseLeave: options.onMouseLeave,
       onSelect: options.onSelect,
     };
   };
@@ -69,6 +73,20 @@ describe('ListSearchListItem', () => {
 
     component.simulate('mousemove');
     expectFunctionToHaveBeenCalledWith(onMouseMove, [item.objectId]);
+  });
+
+  it('should call onMouseEnter when mouse hover over element', () => {
+    const { component, onMouseEnter, item } = setup();
+
+    component.simulate('mouseenter');
+    expectFunctionToHaveBeenCalledWith(onMouseEnter, [item.objectId]);
+  });
+
+  it('should call onMouseLeave when mouse hover off element', () => {
+    const { component, onMouseLeave, item } = setup();
+
+    component.simulate('mouseleave');
+    expectFunctionToHaveBeenCalledWith(onMouseLeave, [item.objectId]);
   });
 
   it('should render iconComponent when prop is available', () => {

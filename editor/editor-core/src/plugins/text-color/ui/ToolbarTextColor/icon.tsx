@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon/cjs/components/Icon';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import Icon from '@atlaskit/icon/base';
 
 const textColorGlyph = () => (
   <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">

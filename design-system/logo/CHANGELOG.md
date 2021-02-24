@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.1.0
+
+### Minor Changes
+
+- [`5216ebed3b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5216ebed3b6) - Expose and use atlassian-icon, jira-icon entry points
+
 ## 13.0.8
 
 ### Patch Changes

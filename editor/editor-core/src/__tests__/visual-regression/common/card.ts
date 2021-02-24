@@ -120,6 +120,33 @@ describe('Cards:', () => {
     await snapshot(page);
   });
 
+  it('displays hover styles', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardSelectionAdf,
+      undefined,
+      {
+        width: 950,
+        height: 1020,
+      },
+      {
+        UNSAFE_cards: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+    );
+    await evaluateTeardownMockDate(page);
+
+    await waitForResolvedInlineCard(page);
+    await waitForResolvedBlockCard(page);
+    await waitForSuccessfullyResolvedEmbedCard(page);
+
+    await page.hover('[data-testid="inline-card-resolved-view"]');
+    await snapshot(page);
+  });
+
   it('displays preview state with correct appearance', async () => {
     await initFullPageEditorWithAdf(
       page,

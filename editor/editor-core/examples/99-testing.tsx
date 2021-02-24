@@ -1,7 +1,7 @@
 import React from 'react';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import Button from '@atlaskit/button/standard-button';
-import { AtlassianIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 
 import {

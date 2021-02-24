@@ -12,11 +12,11 @@ import {
   asMock,
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
-import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { Collection, Props, State } from '../../../newgen/collection';
 import { ErrorMessage } from '../../../newgen/error';
 import { List } from '../../../newgen/list';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { nextNavButtonId } from '../../../newgen/navigation';
 
 const collectionName = 'my-collection';
 
@@ -200,7 +200,7 @@ describe('<Collection />', () => {
       el.update();
 
       expect(mediaClient.collection.loadNextPage).not.toHaveBeenCalled();
-      el.find(ArrowRightCircleIcon).simulate('click');
+      el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
       expect(mediaClient.collection.loadNextPage).toHaveBeenCalled();
     });
   });

@@ -2,7 +2,7 @@ import React from 'react';
 import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { EventDispatcher } from '../../../../event-dispatcher';
 import { MediaPluginState } from '../../pm-plugins/types';
@@ -40,6 +40,7 @@ const ToolbarMedia = ({
 
       return (
         <ToolbarButton
+          buttonId={TOOLBAR_BUTTON.MEDIA}
           onClick={onClickMediaButton(mediaPlugin)}
           disabled={isDisabled}
           title="Files & images"

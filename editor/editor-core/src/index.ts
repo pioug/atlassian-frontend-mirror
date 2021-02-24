@@ -149,7 +149,13 @@ export {
 } from './plugins/mobile-scroll/commands';
 
 // Used in editor-test-helpers
-export { setTextSelection, dedupe, getNodesCount, measurements } from './utils';
+export {
+  setTextSelection,
+  dedupe,
+  getNodesCount,
+  measurements,
+  hasVisibleContent,
+} from './utils';
 export { ReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export type {

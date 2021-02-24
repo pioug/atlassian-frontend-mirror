@@ -14,6 +14,7 @@ import {
   UnsupportedInline,
   SEVERITY,
   stopMeasure,
+  UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common';
 import {
   CreateUIAnalyticsEvent,
@@ -285,6 +286,297 @@ describe('spec based validator', () => {
 
     expect(wrapper!.find(UnsupportedInline)).toHaveLength(0);
     expect(wrapper!.find(Paragraph)).not.toHaveLength(0);
+  });
+});
+
+describe('unsupported content levels severity', () => {
+  const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
+    () => ({ fire() {} } as UIAnalyticsEvent),
+  );
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  const validParagraph = {
+    type: 'paragraph',
+    content: [
+      {
+        type: 'text',
+        text: 'good paragraph',
+      },
+    ],
+  };
+  const invalidParagraph = {
+    type: 'badparagraph',
+    content: [
+      {
+        type: 'text',
+        text: 'bad paragraph',
+      },
+    ],
+  };
+  const renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {
+    act(() => {
+      shallow(
+        <Renderer
+          document={doc}
+          useSpecBasedValidator
+          unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
+          createAnalyticsEvent={createAnalyticsEvent}
+        />,
+      );
+    });
+  };
+
+  describe('unsupportedContentLevelsTracking.enabled = false', () => {
+    it('should NOT fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity', () => {
+      const validDoc = {
+        type: 'doc',
+        version: 1,
+        content: [validParagraph],
+      };
+      const unsupportedContentLevelsTracking = { enabled: false };
+      renderDoc(validDoc, unsupportedContentLevelsTracking);
+      expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: 'unsupportedContentLevelsTrackingSucceeded',
+          actionSubject: 'renderer',
+          eventType: 'operational',
+        }),
+      );
+    });
+  });
+
+  describe('unsupportedContentLevelsTracking.enabled = true', () => {
+    describe('with user-defined thresholds', () => {
+      const unsupportedContentLevelsTracking = {
+        enabled: true,
+        thresholds: {
+          degraded: 10,
+          blocking: 50,
+        },
+      };
+
+      it(`should fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity "normal" when unsupported content is less then ${unsupportedContentLevelsTracking.thresholds.degraded}% of the document`, () => {
+        const validDoc = {
+          type: 'doc',
+          version: 1,
+          content: [validParagraph],
+        };
+        renderDoc(validDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingSucceeded',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              unsupportedContentLevelSeverity: 'normal',
+              unsupportedContentLevelPercentage: 0,
+              unsupportedNodesCount: 0,
+              supportedNodesCount: 3,
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+
+      it(`should fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity "degraded" when unsupported content is between ${unsupportedContentLevelsTracking.thresholds.degraded}% and ${unsupportedContentLevelsTracking.thresholds.blocking}% of the document`, () => {
+        const partiallyInvalidDoc = {
+          type: 'doc',
+          version: 1,
+          content: [
+            validParagraph,
+            validParagraph,
+            validParagraph,
+            invalidParagraph,
+          ],
+        };
+        renderDoc(partiallyInvalidDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingSucceeded',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              unsupportedContentLevelSeverity: 'degraded',
+              unsupportedContentLevelPercentage: 22,
+              unsupportedNodesCount: 2,
+              supportedNodesCount: 7,
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+
+      it(`should fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity "blocking" when unsupported content is equal to or more than ${unsupportedContentLevelsTracking.thresholds.blocking}% of the document`, () => {
+        const mostlyInvalidDoc = {
+          type: 'doc',
+          version: 1,
+          content: [
+            validParagraph,
+            invalidParagraph,
+            invalidParagraph,
+            invalidParagraph,
+          ],
+        };
+        renderDoc(mostlyInvalidDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingSucceeded',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              unsupportedContentLevelSeverity: 'blocking',
+              unsupportedContentLevelPercentage: 67,
+              unsupportedNodesCount: 6,
+              supportedNodesCount: 3,
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+    });
+
+    describe('without user-defined thresholds (i.e. with default thresholds)', () => {
+      const unsupportedContentLevelsTracking = {
+        enabled: true,
+      };
+      it(`should fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity "normal" when unsupported content is less then ${UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED}% of the document`, () => {
+        const validDoc = {
+          type: 'doc',
+          version: 1,
+          content: [validParagraph],
+        };
+        renderDoc(validDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingSucceeded',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              unsupportedContentLevelSeverity: 'normal',
+              unsupportedContentLevelPercentage: 0,
+              unsupportedNodesCount: 0,
+              supportedNodesCount: 3,
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+
+      it(`should fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity "degraded" when unsupported content is between ${UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED}% and ${UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.BLOCKING}% of the document`, () => {
+        const partiallyInvalidDoc = {
+          type: 'doc',
+          version: 1,
+          content: [
+            validParagraph,
+            validParagraph,
+            validParagraph,
+            invalidParagraph,
+          ],
+        };
+        renderDoc(partiallyInvalidDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingSucceeded',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              unsupportedContentLevelSeverity: 'degraded',
+              unsupportedContentLevelPercentage: 22,
+              unsupportedNodesCount: 2,
+              supportedNodesCount: 7,
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+
+      it(`should fire unsupportedContentLevelsTrackingSucceeded event with unsupportedContentLevelSeverity "blocking" when unsupported content is equal to or more than ${UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.BLOCKING}% of the document`, () => {
+        const mostlyInvalidDoc = {
+          type: 'doc',
+          version: 1,
+          content: [
+            validParagraph,
+            invalidParagraph,
+            invalidParagraph,
+            invalidParagraph,
+          ],
+        };
+        renderDoc(mostlyInvalidDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingSucceeded',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              unsupportedContentLevelSeverity: 'blocking',
+              unsupportedContentLevelPercentage: 67,
+              unsupportedNodesCount: 6,
+              supportedNodesCount: 3,
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+    });
+
+    describe('errors', () => {
+      let renderDoc: any;
+
+      beforeEach(() => {
+        jest.resetModules();
+        jest.doMock('@atlaskit/editor-common', () => ({
+          ...jest.requireActual<Object>('@atlaskit/editor-common'),
+          getUnsupportedContentLevelData: jest.fn(() => {
+            throw new Error('custom mocked error');
+          }),
+        }));
+        const { Renderer } = require('../../');
+        renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {
+          act(() => {
+            shallow(
+              <Renderer
+                document={doc}
+                useSpecBasedValidator
+                unsupportedContentLevelsTracking={
+                  unsupportedContentLevelsTracking
+                }
+                createAnalyticsEvent={createAnalyticsEvent}
+              />,
+            );
+          });
+        };
+      });
+
+      it('should fire unsupportedContentLevelsTrackingErrored event with error string', () => {
+        const unsupportedContentLevelsTracking = {
+          enabled: true,
+          thresholds: {
+            degraded: 10,
+            blocking: 50,
+          },
+        };
+        const validDoc = {
+          type: 'doc',
+          version: 1,
+          content: [validParagraph],
+        };
+        renderDoc(validDoc, unsupportedContentLevelsTracking);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: 'unsupportedContentLevelsTrackingErrored',
+            actionSubject: 'renderer',
+            attributes: expect.objectContaining({
+              platform: 'web',
+              error: 'Error: custom mocked error',
+            }),
+            eventType: 'operational',
+          }),
+        );
+      });
+    });
   });
 });
 

@@ -28,6 +28,7 @@ export interface TaskDecisionBridge {
 }
 
 export interface PromiseBridge {
+  onPromiseResolvedPayload(uuid: string): Promise<void>;
   onPromiseResolved(uuid: string, payload: string): void;
   onPromiseRejected(uuid: string): void;
 }
@@ -40,6 +41,8 @@ export default interface RendererBridge
   extends TaskDecisionBridge,
     PromiseBridge,
     AnnotationBridge {
+  setContentPayload(uuid: string): Promise<void>;
+  setContent(content: string): void;
   setContent(adf: Serialized<JSONDocNode>): void;
   scrollToContentNode(
     nodeType: ScrollToContentNode,

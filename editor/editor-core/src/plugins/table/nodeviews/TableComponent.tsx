@@ -50,6 +50,7 @@ import { TableOptions } from './types';
 import { updateOverflowShadows } from './update-overflow-shadows';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { ForwardRef } from '../../../nodeviews/types';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 const isIE11 = browser.ie_version === 11;
 
@@ -69,8 +70,6 @@ export interface ComponentProps {
   tableActive: boolean;
   ordering: TableColumnOrdering;
   tableResizingPluginState?: ColumnResizingPluginState;
-
-  tableRenderOptimization?: boolean;
 }
 
 interface TableState {
@@ -148,11 +147,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       });
     }
 
-    const { pluginConfig } = getPluginState(view.state);
-    const optimizeInitialRender =
-      pluginConfig.initialRenderOptimization ?? false;
+    const { initialRenderOptimization } = getFeatureFlags(view.state) || {};
 
-    if (!optimizeInitialRender) {
+    if (!initialRenderOptimization) {
       // @see ED-7945
       requestAnimationFrame(() => {
         this.setState({ isLoading: false });
@@ -274,14 +271,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isHeaderColumnEnabled,
       tableActive,
       containerWidth,
-      tableRenderOptimization,
     } = this.props;
     const { isLoading, tableContainerWidth } = this.state;
     const node = getNode();
     // doesn't work well with WithPluginState
-    const { isInDanger, hoveredRows, pluginConfig } = getPluginState(
-      view.state,
-    );
+    const { isInDanger, hoveredRows } = getPluginState(view.state);
+
+    const {
+      stickyHeadersOptimization,
+      initialRenderOptimization,
+      tableRenderOptimization,
+    } = getFeatureFlags(view.state) || {};
 
     const tableRef = this.table || undefined;
     const isResizing =
@@ -312,15 +312,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           tableHeight={tableHeight}
           headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
           stickyHeader={this.state.stickyHeader}
-          tableRenderOptimization={tableRenderOptimization}
         />
       </div>
     );
 
     const shadowPadding =
-      allowControls &&
-      (!isLoading || pluginConfig.initialRenderOptimization) &&
-      tableActive
+      allowControls && (!isLoading || initialRenderOptimization) && tableActive
         ? -tableToolbarSize
         : tableMarginSides;
 
@@ -340,9 +337,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         data-number-column={node.attrs.isNumberColumnEnabled}
         data-layout={node.attrs.layout}
       >
+        {stickyHeadersOptimization && (
+          <div className={ClassName.TABLE_STICKY_SENTINEL_TOP} />
+        )}
         <FloatingPlaceholder />
         {allowControls &&
-          (!isLoading || pluginConfig.initialRenderOptimization) &&
+          (!isLoading || initialRenderOptimization) &&
           rowControls}
         <div className={ClassName.TABLE_LEFT_SHADOW} />
         {this.state.stickyHeader && (
@@ -393,6 +393,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               }}
             />
           </div>
+        )}
+        {stickyHeadersOptimization && (
+          <div className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM} />
         )}
       </div>
     );

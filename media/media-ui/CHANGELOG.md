@@ -1,5 +1,19 @@
 # @atlaskit/media-ui
 
+## 15.3.0
+
+### Minor Changes
+
+- [`504119cfbe2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/504119cfbe2) - [ux] `InlinePreloaderStyle` type is added as part of `@atlaskit/media-ui/types` entry point.
+- [`8a148bfb609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a148bfb609) - EDM-855: add underline styles for inline smart links
+
+### Patch Changes
+
+- [`e6a61a55325`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6a61a55325) - Updated react-video-renderer to 2.4.7
+- [`0d11733c9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d11733c9e3) - fix volume controls for inline video player
+- [`b7e84781856`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e84781856) - [ux] Prevent saving current media play time when the media is less than a minute long
+- Updated dependencies
+
 ## 15.2.0
 
 ### Minor Changes

@@ -26,7 +26,7 @@ export default md`
 
   ${(
     <Props
-      props={require('!!extract-react-types-loader!../src/components/InlineEditableTextfield')}
+      props={require('!!extract-react-types-loader!../src/inline-editable-textfield')}
       heading="InlineEditableTextfield Props"
     />
   )}

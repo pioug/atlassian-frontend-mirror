@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 15.0.0
+
+### Major Changes
+
+- [`08c624ac7b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c624ac7b8) - [ux] `inlinePreloaderStyle` prop was added to SmartCard. It can be either `'on-left-with-skeleton'` or a `'on-right-without-skeleton'`
+
+### Patch Changes
+
+- [`5fb017ec308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fb017ec308) - feat: EDM-1692, add Smart Links showcase
+- [`5216ebed3b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5216ebed3b6) - Expose and use atlassian-icon, jira-icon entry points
+- [`8f0196da8a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0196da8a2) - NO-ISSUE opimtise bottleneck import for size
+- Updated dependencies
+
 ## 14.8.5
 
 ### Patch Changes

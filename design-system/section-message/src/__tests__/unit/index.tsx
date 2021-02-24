@@ -126,6 +126,35 @@ describe('SectionMessage', () => {
     expect(wrapper.find(Button).find(Custom).length).toBe(1);
   });
 
+  it('should NOT render a button using a custom component for an action with onClick', () => {
+    const Custom = styled.a``;
+    const wrapper = mount(
+      <SectionMessage
+        linkComponent={Custom}
+        actions={[{ key: 'aye', text: 'aye', onClick: () => {} }]}
+      >
+        boo
+      </SectionMessage>,
+    );
+    expect(wrapper.find(Button).find(Custom).length).toBe(0);
+  });
+
+  it('should render a button using a custom component for action with href, but not action with onClick', () => {
+    const Custom = styled.a``;
+    const wrapper = mount(
+      <SectionMessage
+        linkComponent={Custom}
+        actions={[
+          { key: 'aye', text: 'aye', href: 'Stuff' },
+          { key: 'onClick', text: 'onClick', onClick: () => {} },
+        ]}
+      >
+        boo
+      </SectionMessage>,
+    );
+    expect(wrapper.find(Button).find(Custom).length).toBe(1);
+  });
+
   it('should accept a custom icon to use', () => {
     const wrapper = mount(
       <SectionMessage icon={WarningIcon}>boo</SectionMessage>,

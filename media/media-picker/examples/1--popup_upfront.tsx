@@ -18,6 +18,7 @@ import {
   CardsWrapper,
   CardItemWrapper,
 } from '../example-helpers/styled';
+import popupWarning from '../example-helpers/popup-warning';
 import {
   UploadEndEventPayload,
   UploadsStartEventPayload,
@@ -139,16 +140,19 @@ class PopupWrapper extends Component<{}, PopupWrapperState> {
     const isUploadFinished = !length;
 
     return (
-      <PopupContainer>
-        <PopupHeader>
-          <Button appearance="primary" onClick={this.onShow}>
-            Show
-          </Button>
-          <div>Upload finished: {`${isUploadFinished}`}</div>
-          <div>Uploading files: {length}</div>
-        </PopupHeader>
-        {this.renderCards()}
-      </PopupContainer>
+      <>
+        {popupWarning}
+        <PopupContainer>
+          <PopupHeader>
+            <Button appearance="primary" onClick={this.onShow}>
+              Show
+            </Button>
+            <div>Upload finished: {`${isUploadFinished}`}</div>
+            <div>Uploading files: {length}</div>
+          </PopupHeader>
+          {this.renderCards()}
+        </PopupContainer>
+      </>
     );
   }
 }

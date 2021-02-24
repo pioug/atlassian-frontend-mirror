@@ -1,48 +1,77 @@
 import React, { PureComponent } from 'react';
-
-import { EditorView } from 'prosemirror-view';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { EditorView } from 'prosemirror-view';
+import {
+  undo as pmHistoryUndo,
+  redo as pmHistoryRedo,
+} from 'prosemirror-history';
 
 import UndoIcon from '@atlaskit/icon/glyph/undo';
-import { undo as undoKeymap, ToolTipContent } from '../../../../keymaps';
+import RedoIcon from '@atlaskit/icon/glyph/redo';
+
+import {
+  undo as undoKeymap,
+  redo as redoKeymap,
+  ToolTipContent,
+} from '../../../../keymaps';
 
 import { ButtonGroup, Separator } from '../../../../ui/styles';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../messages';
+import { HistoryPluginState } from '../../../history/types';
 
 export interface Props {
-  editorView: EditorView;
   undoDisabled?: boolean;
+  redoDisabled?: boolean;
   disabled?: boolean;
-  isSmall?: boolean;
-  isSeparator?: boolean;
   isReducedSpacing?: boolean;
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  handleUndo(): void;
+  historyState: HistoryPluginState;
+  editorView: EditorView;
 }
 
-class ToolbarUndoRedo extends PureComponent<Props & InjectedIntlProps> {
+export class ToolbarUndoRedo extends PureComponent<Props & InjectedIntlProps> {
   render() {
     const {
       disabled,
       isReducedSpacing,
-      undoDisabled,
+      historyState,
+      editorView,
       intl: { formatMessage },
-      handleUndo,
     } = this.props;
 
+    const handleUndo = () => {
+      // TODO - Add analytics https://product-fabric.atlassian.net/browse/ED-11352
+      pmHistoryUndo(editorView.state, editorView.dispatch);
+    };
+    const handleRedo = () => {
+      // TODO - Add analytics https://product-fabric.atlassian.net/browse/ED-11352
+      pmHistoryRedo(editorView.state, editorView.dispatch);
+    };
+
     const labelUndo = formatMessage(messages.undo);
+    const labelRedo = formatMessage(messages.redo);
+
+    const { canUndo, canRedo } = historyState;
 
     return (
       <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
         <ToolbarButton
+          buttonId={TOOLBAR_BUTTON.UNDO}
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleUndo}
-          disabled={undoDisabled || disabled}
+          disabled={!canUndo || disabled}
           title={<ToolTipContent description={labelUndo} keymap={undoKeymap} />}
           iconBefore={<UndoIcon label={labelUndo} />}
+          testId="ak-editor-toolbar-button-undo"
+        />
+        <ToolbarButton
+          spacing={isReducedSpacing ? 'none' : 'default'}
+          buttonId={TOOLBAR_BUTTON.REDO}
+          onClick={handleRedo}
+          disabled={!canRedo || disabled}
+          title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
+          iconBefore={<RedoIcon label={labelRedo} />}
+          testId="ak-editor-toolbar-button-redo"
         />
         <Separator />
       </ButtonGroup>

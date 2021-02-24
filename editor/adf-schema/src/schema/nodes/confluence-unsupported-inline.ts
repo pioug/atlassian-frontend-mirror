@@ -2,7 +2,7 @@ import { NodeSpec } from 'prosemirror-model';
 
 const name = 'confluenceUnsupportedInline';
 
-export const confluenceUnsupportedInline = {
+export const confluenceUnsupportedInline: NodeSpec = {
   group: 'inline',
   inline: true,
   atom: true,
@@ -27,4 +27,4 @@ export const confluenceUnsupportedInline = {
       },
     },
   ],
-} as NodeSpec;
+};

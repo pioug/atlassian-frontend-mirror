@@ -28,7 +28,6 @@ export default () => {
       <p>
         This example was used to fix a bug where a bad theme provider was
         affecting drop shadow on the calendar.{' '}
-        <strong>Unfortunately Calendar does not support Dark Mode.</strong>
       </p>
     </>
   );

@@ -229,7 +229,12 @@ describe('MentionResource', () => {
       await resource.filter('craig');
 
       expect(analytics).toHaveBeenCalledTimes(1);
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchUser', 'succeeded');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchUser',
+        'succeeded',
+        undefined,
+      );
     });
 
     it('should receive analytics events on error response', async () => {
@@ -249,7 +254,12 @@ describe('MentionResource', () => {
       await resource.filter('broken');
 
       expect(analytics).toHaveBeenCalledTimes(1);
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchUser', 'failed');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchUser',
+        'failed',
+        undefined,
+      );
     });
   });
 
@@ -523,7 +533,12 @@ describe('MentionResource', () => {
         FULL_CONTEXT,
       );
       expect(analytics).toHaveBeenCalledTimes(1);
-      expect(analytics).toHaveBeenCalledWith('sli', 'select', 'succeeded');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'select',
+        'succeeded',
+        undefined,
+      );
     });
 
     it('should send failed to select analytics event when it fails to select user', async () => {
@@ -548,7 +563,12 @@ describe('MentionResource', () => {
       });
 
       expect(analytics).toHaveBeenCalledTimes(1);
-      expect(analytics).toHaveBeenCalledWith('sli', 'select', 'failed');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'select',
+        'failed',
+        undefined,
+      );
     });
   });
 

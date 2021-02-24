@@ -14,16 +14,17 @@ import {
   getPluginStateWithUpdatedPos,
 } from './util/state';
 import { OutstandingRequests } from '../types';
-import { EmbedCard } from '../nodeviews/embedCard';
-import { BlockCard } from '../nodeviews/blockCard';
-import { InlineCard } from '../nodeviews/inlineCard';
+import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
+import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
+import { InlineCard, InlineCardNodeViewProps } from '../nodeviews/inlineCard';
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 
 export { pluginKey } from './plugin-key';
 
 export const createPlugin = (
   platform: CardPlatform,
-  allowResizing?: boolean,
+  allowResizing: boolean,
+  useAlternativePreloader: boolean,
   fullWidthMode?: boolean,
 ) => ({
   portalProviderAPI,
@@ -31,14 +32,6 @@ export const createPlugin = (
   providerFactory,
   dispatchAnalyticsEvent,
 }: PMPluginFactoryParams) => {
-  const reactComponentProps = {
-    eventDispatcher,
-    providerFactory,
-    platform,
-    allowResizing,
-    fullWidthMode,
-    dispatchAnalyticsEvent,
-  };
   return new Plugin({
     state: {
       init(): CardPluginState {
@@ -130,8 +123,11 @@ export const createPlugin = (
 
     props: {
       nodeViews: {
-        inlineCard: (node, view, getPos) =>
-          new InlineCard(
+        inlineCard: (node, view, getPos) => {
+          const reactComponentProps: InlineCardNodeViewProps = {
+            useAlternativePreloader,
+          };
+          return new InlineCard(
             node,
             view,
             getPos,
@@ -140,9 +136,13 @@ export const createPlugin = (
             reactComponentProps,
             undefined,
             true,
-          ).init(),
-        blockCard: (node, view, getPos) =>
-          new BlockCard(
+          ).init();
+        },
+        blockCard: (node, view, getPos) => {
+          const reactComponentProps: BlockCardNodeViewProps = {
+            platform,
+          };
+          return new BlockCard(
             node,
             view,
             getPos,
@@ -151,9 +151,18 @@ export const createPlugin = (
             reactComponentProps,
             undefined,
             true,
-          ).init(),
-        embedCard: (node, view, getPos) =>
-          new EmbedCard(
+          ).init();
+        },
+        embedCard: (node, view, getPos) => {
+          const reactComponentProps: EmbedCardNodeViewProps = {
+            eventDispatcher,
+            allowResizing,
+            platform,
+            fullWidthMode,
+            dispatchAnalyticsEvent,
+          };
+
+          return new EmbedCard(
             node,
             view,
             getPos,
@@ -162,7 +171,8 @@ export const createPlugin = (
             reactComponentProps,
             undefined,
             true,
-          ).init(),
+          ).init();
+        },
       },
     },
 

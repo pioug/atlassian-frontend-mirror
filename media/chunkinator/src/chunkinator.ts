@@ -1,7 +1,6 @@
 import { tap } from 'rxjs/operators/tap';
 import { concatMap } from 'rxjs/operators/concatMap';
 import { fromPromise } from 'rxjs/observable/fromPromise';
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import {
   Chunkinator,
@@ -60,19 +59,5 @@ export const getObservableFromFile = (
   );
 
 export const chunkinator: Chunkinator = (file, options, callbacks) => {
-  return toCancelablePromise(getObservableFromFile(file, options, callbacks));
+  return getObservableFromFile(file, options, callbacks);
 };
-
-export function toCancelablePromise<T>(
-  observable: Observable<T>,
-): { response: Promise<T>; cancel: () => void } {
-  const subject = new Subject<T>();
-  const subscription = observable.subscribe(subject);
-  return {
-    response: subject.toPromise(),
-    cancel: () => {
-      subscription.unsubscribe();
-      subject.error('canceled');
-    },
-  };
-}

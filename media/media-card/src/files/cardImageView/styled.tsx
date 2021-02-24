@@ -70,18 +70,19 @@ export const PlayIconWrapper = styled.div`
     width: 64px;
     height: 64px;
   }
+`;
 
-  > * {
-    background: rgba(23, 43, 77, 0.7);
-    width: 56px;
-    height: 56px;
-    border-radius: 100%;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.1s;
-  }
+export const PlayIconBackground = styled.div`
+  background: rgba(23, 43, 77, 0.7);
+  border-radius: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-property: width, height;
+  transition-duration: 0.1s;
+  width: 56px;
+  height: 56px;
 `;
 
 const bodyHeight = 26;

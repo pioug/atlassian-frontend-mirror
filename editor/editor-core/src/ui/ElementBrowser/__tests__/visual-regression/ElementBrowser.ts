@@ -1,10 +1,9 @@
 import {
   getExampleUrl,
   loadPage,
-  waitForElementCount,
-  waitForLoadedImageElements,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
+import { waitForBrowseMenuIcons } from '../../../../__tests__/__helpers/page-objects/_element-browser';
 
 describe('ElementBrowser', () => {
   it('should match ElementBrowser snapshot', async () => {
@@ -18,8 +17,7 @@ describe('ElementBrowser', () => {
     const selector = "[data-testid='element-browser']";
 
     await loadPage(page, url);
-    await waitForElementCount(page, selector, 1);
-    await waitForLoadedImageElements(page, 6000);
+    await waitForBrowseMenuIcons(page);
 
     const image = await takeElementScreenShot(page, selector);
     expect(image).toMatchProdImageSnapshot();

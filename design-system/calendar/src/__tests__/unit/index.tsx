@@ -187,11 +187,24 @@ describe('Calendar', () => {
       const disabledDayElement = getDayElement(renderResult, '4');
       const disabledDayInnerElement = within(disabledDayElement).getByText('4');
 
-      expect(disabledDayInnerElement).toHaveAttribute('disabled', '');
+      expect(disabledDayInnerElement).toHaveAttribute('data-disabled', 'true');
 
       fireEvent.click(disabledDayElement);
 
       expect(props.onSelect).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Date cell cursor', () => {
+    it('show cursor pointer', () => {
+      const { renderResult } = setup();
+      const cell = getDayElement(renderResult, '15');
+      expect(cell.firstChild).toHaveStyle('cursor: pointer');
+    });
+    it('cursor not-allowed when disabled', () => {
+      const { renderResult } = setup();
+      const disabledCell = getDayElement(renderResult, '4');
+      expect(disabledCell.firstChild).toHaveStyle('cursor: not-allowed');
     });
   });
 

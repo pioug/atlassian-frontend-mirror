@@ -2,6 +2,7 @@ import { closeHistory } from 'prosemirror-history';
 import {
   Fragment,
   Mark,
+  MarkType,
   Node as PMNode,
   Schema,
   Slice,
@@ -683,15 +684,26 @@ function shouldFlattenList(state: EditorState, slice: Slice) {
   );
 }
 
-function sliceHasAlignmentOrIndentationMarks(slice: Slice) {
-  for (let i = 0; i < slice.content.childCount; i++) {
-    const node = slice.content.child(i);
-    const marks = node.marks.map(mark => mark.type.name);
-    if (marks.includes('alignment') || marks.includes('indentation')) {
-      return true;
+function sliceHasTopLevelMarks(slice: Slice) {
+  let hasTopLevelMarks = false;
+  slice.content.descendants(node => {
+    if (node.marks.length > 0) {
+      hasTopLevelMarks = true;
     }
-  }
-  return false;
+    return false;
+  });
+  return hasTopLevelMarks;
+}
+
+function getTopLevelMarkTypesInSlice(slice: Slice) {
+  const markTypes = new Set<MarkType>();
+  slice.content.descendants(node => {
+    node.marks
+      .map(mark => mark.type)
+      .forEach(markType => markTypes.add(markType));
+    return false;
+  });
+  return markTypes;
 }
 
 export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
@@ -704,9 +716,9 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
     selection: { $from },
   } = state;
 
-  // If no paragraph in the slice contains alignment or indentation marks, there's no need
-  // for special handling
-  if (!sliceHasAlignmentOrIndentationMarks(slice)) {
+  // If no paragraph in the slice contains marks, there's no need for special handling
+  // Note: this doesn't check for marks applied to lower level nodes such as text
+  if (!sliceHasTopLevelMarks(slice)) {
     return slice;
   }
 
@@ -719,10 +731,15 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
   // Check the parent of (paragraph -> text) because block marks are assigned to a wrapper
   // element around the paragraph node
   const grandparent = $from.node(Math.max(0, $from.depth - 1));
-  if (
-    grandparent.type.allowsMarkType(schema.marks.alignment) ||
-    grandparent.type.allowsMarkType(schema.marks.indentation)
-  ) {
+  const markTypesInSlice = getTopLevelMarkTypesInSlice(slice);
+  let forbiddenMarkTypes: MarkType[] = [];
+  for (let markType of markTypesInSlice) {
+    if (!grandparent.type.allowsMarkType(markType)) {
+      forbiddenMarkTypes.push(markType);
+    }
+  }
+
+  if (forbiddenMarkTypes.length === 0) {
     // In a slice containing one or more paragraphs at the document level (not wrapped in
     // another node), the first paragraph will only have its text content captured and pasted
     // since openStart is 1. We decrement the open depth of the slice so it retains any block
@@ -732,17 +749,14 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
     return new Slice(slice.content, openStart, slice.openEnd);
   }
 
-  // If the paragraph's parent node doesn't support alignment or indentation, drop those
-  // marks from the slice
+  // If the paragraph contains marks forbidden by the parent node (e.g. alignment/indentation),
+  // drop those marks from the slice
   return mapSlice(slice, node => {
     if (node.type === schema.nodes.paragraph) {
       return schema.nodes.paragraph.createChecked(
         undefined,
         node.content,
-        node.marks.filter(
-          mark =>
-            mark.type.name !== 'alignment' && mark.type.name !== 'indentation',
-        ),
+        node.marks.filter(mark => !forbiddenMarkTypes.includes(mark.type)),
       );
     }
     return node;

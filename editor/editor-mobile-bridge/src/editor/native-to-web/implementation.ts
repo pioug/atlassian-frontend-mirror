@@ -172,6 +172,14 @@ export default class WebBridgeImpl
     this.onEditorConfigChanged = handleEditorConfigChanged;
   }
 
+  async fetchPayload<T = unknown>(category: string, uuid: string): Promise<T> {
+    var originURL = new URL(window.location.href);
+    originURL.protocol = `fabric-hybrid`;
+    const payloadURL = originURL.origin + `/payload/${category}/${uuid}`;
+    const response = await fetch(payloadURL);
+    return response.json();
+  }
+
   setPadding(
     top: number = 0,
     right: number = 0,
@@ -293,6 +301,15 @@ export default class WebBridgeImpl
   }
 
   setContent(content: string) {
+    this.replaceContent(content);
+  }
+
+  async setContentPayload(uuid: string) {
+    const content = await this.fetchPayload('content', uuid);
+    this.replaceContent(content);
+  }
+
+  replaceContent(content: any) {
     const performanceMatrices = new PerformanceMatrices();
 
     if (this.editorActions) {
@@ -378,6 +395,16 @@ export default class WebBridgeImpl
       resolvePromise(uuid, JSON.parse(payload));
     } catch (err) {
       err.message = `${err.message}. Payload: ${JSON.stringify(payload)}`;
+      rejectPromise(uuid, err);
+    }
+  }
+
+  async onPromiseResolvedPayload(uuid: string) {
+    try {
+      const payload = await this.fetchPayload('promise', uuid);
+      resolvePromise(uuid, payload);
+    } catch (err) {
+      err.message = `${err.message}.`;
       rejectPromise(uuid, err);
     }
   }

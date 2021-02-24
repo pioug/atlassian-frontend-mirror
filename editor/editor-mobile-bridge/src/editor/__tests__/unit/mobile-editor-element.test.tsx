@@ -17,6 +17,7 @@ import * as UseQuickInsertModule from '../../hooks/use-quickinsert';
 import * as UsePluginListenersModule from '../../hooks/use-plugin-listeners';
 import MobileEditorConfiguration from '../../editor-configuration';
 import WebBridgeImpl from '../../native-to-web/implementation';
+import { toNativeBridge } from '../../web-to-native';
 
 jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');
@@ -26,6 +27,7 @@ jest.mock('../../../i18n/use-translations', () => ({
     messages: {},
   }),
 }));
+jest.mock('lodash/throttle', () => jest.fn(fn => fn));
 
 const initialDocument = JSON.stringify({
   version: 1,
@@ -47,6 +49,12 @@ describe('mobile editor element', () => {
   let mobileEditor: ReactWrapper<typeof MobileEditor>;
   let fetchProxy: FetchProxy;
   let bridge: WebBridgeImpl;
+
+  const updateTextMock = jest.spyOn(toNativeBridge, 'updateText');
+  const updateTextWithADFStatusMock = jest.spyOn(
+    toNativeBridge,
+    'updateTextWithADFStatus',
+  );
 
   const initEditor = (
     editorConfig?: MobileEditorConfiguration,
@@ -176,6 +184,12 @@ describe('mobile editor element', () => {
 
       expect(mockedPersistScrollGutter).toBeCalled();
     });
+
+    it('should allow the indentation', () => {
+      const mobileEditor = initEditor();
+
+      expect(mobileEditor.find('Editor').prop('allowIndentation')).toBe(true);
+    });
   });
 
   describe('Mobile Editor with Re Configuration', () => {
@@ -187,6 +201,39 @@ describe('mobile editor element', () => {
       initEditor();
       bridge.configure('{"allowPredictableList": true}');
       expect(mockedAllowPredictableList).toBeCalled();
+    });
+  });
+
+  describe('Mobile Editor on change content', () => {
+    it('should call updateText with content when feature flag is disabled', () => {
+      jest
+        .spyOn(
+          MobileEditorConfiguration.prototype,
+          'isAllowEmptyADFCheckEnabled',
+        )
+        .mockImplementation(() => false);
+      initEditor();
+      bridge.setContent('{"version":1,"type":"doc","content":[]}');
+
+      expect(updateTextMock).toBeCalledWith(
+        '{"version":1,"type":"doc","content":[]}',
+      );
+    });
+
+    it('should call updateText with content when feature flag is enabled', () => {
+      jest
+        .spyOn(
+          MobileEditorConfiguration.prototype,
+          'isAllowEmptyADFCheckEnabled',
+        )
+        .mockImplementation(() => true);
+      initEditor();
+      bridge.setContent('{"version":1,"type":"doc","content":[]}');
+
+      expect(updateTextWithADFStatusMock).toBeCalledWith(
+        '{"version":1,"type":"doc","content":[]}',
+        true,
+      );
     });
   });
 });

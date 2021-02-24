@@ -35,6 +35,7 @@ const CodeBlock: React.FC<Props> = function CodeBlock(props) {
 };
 
 export default styled(CodeBlock)`
+  tab-size: 4;
   [data-code-block] > span:last-child {
     background-image: ${overflowShadow({
       background: themed({ light: colors.N20, dark: colors.DN50 }),

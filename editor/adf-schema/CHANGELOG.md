@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 13.7.2
+
+### Patch Changes
+
+- [`b36f8119df5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b36f8119df5) - Add in keymap for moving to gap cursor from caption
+- [`d01a017e81e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d01a017e81e) - fixed schema node type definitions to be more consistent
+
 ## 13.7.1
 
 ### Patch Changes

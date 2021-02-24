@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { useState } from 'react';
+import { css, jsx } from '@emotion/core';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
@@ -17,15 +18,14 @@ import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
 
-const IconRow = styled.div`
+const iconRow = css`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-top: 8px;
-  min-height: 60px;
 `;
 
-const IconWrapper = styled.span`
+const iconWrapper = css`
   margin: 4px;
 `;
 
@@ -45,44 +45,33 @@ const demoIcons = [
 
 const sizes: sizeOpts[] = ['small', 'medium', 'large', 'xlarge'];
 
-interface State {
-  size: sizeOpts;
-}
+const IconSizeExample = () => {
+  const [size, setSize] = useState<sizeOpts>('medium');
 
-class IconSizeExample extends Component<{}, State> {
-  readonly state: State = {
-    size: 'medium',
-  };
-
-  updateSize = (s: sizeOpts) => this.setState({ size: s });
-
-  renderButtons = () =>
-    sizes.map(size => (
-      <div style={{ marginRight: 4 }} key={size}>
-        <Button
-          isSelected={size === this.state.size}
-          onClick={() => this.updateSize(size)}
-        >
-          {size}
-        </Button>
+  return (
+    <div id="size-example">
+      <ButtonGroup>
+        {sizes.map(sizeOpt => (
+          <div style={{ marginRight: 4 }} key={sizeOpt}>
+            <Button
+              isSelected={sizeOpt === size}
+              onClick={() => setSize(sizeOpt)}
+            >
+              {sizeOpt}
+            </Button>
+          </div>
+        ))}
+      </ButtonGroup>
+      <div css={iconRow}>
+        {demoIcons.map((Icon, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <span css={iconWrapper} key={i}>
+            <Icon label={`Icon ${i}`} size={size} />
+          </span>
+        ))}
       </div>
-    ));
-
-  render() {
-    return (
-      <div>
-        <ButtonGroup>{this.renderButtons()}</ButtonGroup>
-        <IconRow>
-          {demoIcons.map((Icon, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <IconWrapper key={i}>
-              <Icon label={`Icon ${i}`} size={this.state.size} />
-            </IconWrapper>
-          ))}
-        </IconRow>
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default IconSizeExample;

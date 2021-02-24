@@ -25,7 +25,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
-export default class StrideIcon extends Component<Props> {
+export class StrideIcon extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

@@ -1,12 +1,14 @@
 import {
   PuppeteerPage,
   waitForElementCount,
+  waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 import { initFullPageEditorWithAdf, snapshot, Device } from '../_utils';
 import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import cardListAppearanceAdf from './__fixtures__/card-list-appearance.adf.json';
 import cardInsideLayout from './__fixtures__/card-inside-layout-adf.json';
 import cardListBlueLinkAppearanceAdf from './__fixtures__/card-list-blue-link-appearance.adf.json';
+import cardInsideUnsupportedNodesAdf from './__fixtures__/card_inside_unsupported_nodes.adf.json';
 import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
@@ -29,6 +31,14 @@ describe('Cards:', () => {
         allowEmbeds: true,
       },
     });
+  };
+  const appearanceSwitcherClick = async (page: PuppeteerPage) => {
+    await page.click(
+      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
+    );
+    await page.waitForSelector(
+      '[aria-label="Popup"][data-editor-popup="true"]',
+    );
   };
 
   let page: PuppeteerPage;
@@ -57,12 +67,7 @@ describe('Cards:', () => {
     await waitForResolvedInlineCard(page);
     await waitForInlineCardSelection(page);
     // change the appearance to blue link
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
-    await page.waitForSelector(
-      '[aria-label="Popup"][data-editor-popup="true"]',
-    );
+    await appearanceSwitcherClick(page);
     await page.click('[data-testid="url-appearance"]');
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');
     // make sure we render a blue link
@@ -82,13 +87,40 @@ describe('Cards:', () => {
     await initEditor(cardListAppearanceAdf);
     await waitForResolvedInlineCard(page);
     await waitForInlineCardSelection(page);
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
-    await page.waitForSelector(
-      '[aria-label="Popup"][data-editor-popup="true"]',
-    );
+    await appearanceSwitcherClick(page);
     await snapshot(page);
+  });
+
+  // [EDM-1679]
+  it('should show a tooltip when hovering a disabled appeareance', async () => {
+    const takeSnapshot = async () => {
+      await appearanceSwitcherClick(page);
+      await page.hover('[data-testid="block-appearance"]');
+      await waitForTooltip(page);
+      await snapshot(page);
+      await page.hover('[data-testid="embed-appearance"]');
+      await waitForTooltip(page);
+      await snapshot(page);
+    };
+    // Init
+    await initEditor(cardInsideUnsupportedNodesAdf);
+    await waitForResolvedInlineCard(page);
+
+    // List parent
+    await waitForInlineCardSelection(page);
+    await takeSnapshot();
+
+    // Action parent
+    await waitForInlineCardSelection(page, '[data-node-type="actionList"] ');
+    await takeSnapshot();
+
+    // Blockquote parent
+    await waitForInlineCardSelection(page, 'blockquote ');
+    await takeSnapshot();
+
+    // Decision
+    await waitForInlineCardSelection(page, '[data-node-type="decisionList"] ');
+    await takeSnapshot();
   });
 
   it('should show allowed options for blue link inside a list', async () => {
@@ -96,12 +128,7 @@ describe('Cards:', () => {
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');
     await page.click('a[href="https://inlineCardTestUrl"]');
     await page.waitForSelector('div[aria-label="Floating Toolbar"]');
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
-    await page.waitForSelector(
-      '[aria-label="Popup"][data-editor-popup="true"]',
-    );
+    await appearanceSwitcherClick(page);
     await snapshot(page);
   });
 

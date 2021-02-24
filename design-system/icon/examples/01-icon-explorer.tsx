@@ -1,5 +1,12 @@
-import React, { Component, SyntheticEvent, ComponentType } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, {
+  useState,
+  SyntheticEvent,
+  ComponentType,
+  useCallback,
+  useEffect,
+} from 'react';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import Textfield from '@atlaskit/textfield';
@@ -124,8 +131,6 @@ const getAllIcons = async (): Promise<IconsList> => {
     ...priorityData,
   };
 };
-const allIconsPromise = getAllIcons();
-
 interface IconType {
   keywords: string[];
   component: ComponentType<any>;
@@ -147,11 +152,11 @@ const getKeywords = (logoMap: LogoMap) =>
     [],
   );
 
-const IconGridWrapper = styled.div`
+const gridWrapper = css`
   padding: 10px 5px 0;
 `;
 
-const IconExplorerGrid = styled.div`
+const iconExplorerGrid = css`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -159,7 +164,7 @@ const IconExplorerGrid = styled.div`
   margin-top: 10px;
 `;
 
-const NoIcons = styled.div`
+const noIcons = css`
   margin-top: 10px;
   padding: 10px;
 `;
@@ -175,71 +180,67 @@ const filterIcons = (icons: IconsList, query: string) => {
     );
 };
 
-interface State {
-  query: string;
-  showIcons: boolean;
-  allIcons?: IconsList;
-}
+const allIconsPromise = getAllIcons();
 
-class IconAllExample extends Component<{}, State> {
-  readonly state: State = {
-    query: '',
-    showIcons: false,
-  };
+const IconAllExample: React.FC = () => {
+  const [allIcons, setAllIcons] = useState<IconsList>();
+  const [query, setQuery] = useState('');
+  const [areIconsShowing, setIconsShowing] = useState(false);
 
-  componentDidMount() {
-    allIconsPromise.then(allIcons => this.setState({ allIcons }));
-  }
+  useEffect(() => {
+    allIconsPromise.then(setAllIcons);
+  }, [setAllIcons]);
 
-  updateQuery = (query: string) => this.setState({ query, showIcons: true });
+  const updateQuery = useCallback(
+    (newQuery: string) => {
+      setQuery(newQuery);
+      setIconsShowing(true);
+    },
+    [setQuery, setIconsShowing],
+  );
 
-  toggleShowIcons = () => this.setState({ showIcons: !this.state.showIcons });
-
-  renderIcons = () => {
-    if (!this.state.allIcons) {
+  const renderIcons = () => {
+    if (!allIcons) {
       return <div>Loading Icons...</div>;
     }
-    const icons: IconType[] = filterIcons(
-      this.state.allIcons,
-      this.state.query,
-    );
+    const icons: IconType[] = filterIcons(allIcons, query);
     return icons.length ? (
-      <IconExplorerGrid>
+      <div css={iconExplorerGrid}>
         {icons.map(icon => (
           <IconExplorerCell {...icon} key={icon.componentName} />
         ))}
-      </IconExplorerGrid>
+      </div>
     ) : (
-      <NoIcons>{`Sorry, we couldn't find any icons matching "${this.state.query}".`}</NoIcons>
+      <div
+        css={noIcons}
+      >{`Sorry, we couldn't find any icons matching "${query}".`}</div>
     );
   };
 
-  render() {
-    return (
-      <div>
-        <Textfield
-          value={this.state.query}
-          placeholder="Search for an icon..."
-          key="Icon search"
-          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-            this.updateQuery(event.currentTarget.value)
-          }
-        />
-        <IconGridWrapper>
-          <p>
-            <Button
-              appearance="subtle-link"
-              onClick={() => this.toggleShowIcons()}
-              spacing="none"
-            >
-              {this.state.showIcons ? 'Hide icons' : 'Show all icons'}
-            </Button>
-          </p>
-          {this.state.showIcons ? this.renderIcons() : null}
-        </IconGridWrapper>
+  return (
+    <div>
+      <Textfield
+        value={query}
+        placeholder="Search for an icon..."
+        key="Icon search"
+        onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+          updateQuery(event.currentTarget.value)
+        }
+      />
+      <div css={gridWrapper}>
+        <p>
+          <Button
+            appearance="subtle-link"
+            onClick={() => setIconsShowing(old => !old)}
+            spacing="none"
+          >
+            {areIconsShowing ? 'Hide icons' : 'Show all icons'}
+          </Button>
+        </p>
+        {areIconsShowing ? renderIcons() : null}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default IconAllExample;

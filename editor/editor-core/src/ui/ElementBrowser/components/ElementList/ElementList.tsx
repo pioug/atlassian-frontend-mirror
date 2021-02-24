@@ -255,24 +255,30 @@ function ElementItem({
 
   const { icon, title, description, keyshortcut } = item;
   return (
-    <Item
-      onClick={onClick}
-      onDoubleClick={onDoubleClick}
-      elemBefore={<ElementBefore icon={icon} title={title} />}
-      isSelected={selected}
-      aria-describedby={title}
-      innerRef={ref}
-      onKeyPress={onKeyPress}
-      data-testid={`element-item-${index}`}
-      tabIndex={-1}
-      style={inlineMode ? null : itemStyleOverrides}
+    <Tooltip
+      content={description}
+      testId={`element-item-tooltip-${index}`}
+      position="mouse"
     >
-      <ItemContent
-        title={title}
-        description={description}
-        keyshortcut={keyshortcut}
-      />
-    </Item>
+      <Item
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+        elemBefore={<ElementBefore icon={icon} title={title} />}
+        isSelected={selected}
+        aria-describedby={title}
+        innerRef={ref}
+        onKeyPress={onKeyPress}
+        data-testid={`element-item-${index}`}
+        tabIndex={-1}
+        style={inlineMode ? null : itemStyleOverrides}
+      >
+        <ItemContent
+          title={title}
+          description={description}
+          keyshortcut={keyshortcut}
+        />
+      </Item>
+    </Tooltip>
   );
 }
 
@@ -294,19 +300,17 @@ const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
 
 const ItemContent = memo(
   ({ title, description, keyshortcut }: Partial<QuickInsertItem>) => (
-    <Tooltip content={description}>
-      <ItemBody className="item-body">
-        <ItemText>
-          <ItemTitleWrapper>
-            <ItemTitle>{title}</ItemTitle>
-            <ItemAfter>
-              {keyshortcut && <Shortcut>{keyshortcut}</Shortcut>}
-            </ItemAfter>
-          </ItemTitleWrapper>
-          {description && <ItemDescription>{description}</ItemDescription>}
-        </ItemText>
-      </ItemBody>
-    </Tooltip>
+    <ItemBody className="item-body">
+      <ItemText>
+        <ItemTitleWrapper>
+          <ItemTitle>{title}</ItemTitle>
+          <ItemAfter>
+            {keyshortcut && <Shortcut>{keyshortcut}</Shortcut>}
+          </ItemAfter>
+        </ItemTitleWrapper>
+        {description && <ItemDescription>{description}</ItemDescription>}
+      </ItemText>
+    </ItemBody>
   ),
 );
 

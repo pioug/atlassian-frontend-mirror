@@ -588,12 +588,35 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             isLoading={isLoading}
             selectedIndex={selectedIndex}
             onSelect={this.handleSelected}
-            onMouseMove={this.handleMouseMove}
+            onMouseEnter={this.handleMouseEnterResultItem}
+            onMouseLeave={this.handleMouseLeaveResultItem}
           />
         </Container>
       </div>
     );
   }
+
+  private isUrlPopulatedWithSelectedItem = () => {
+    /**
+     * When we use ArrowKey to navigate through result items,
+     * the URL field will be populated with the content of
+     * selected item.
+     * This function will check if the URL field is populated
+     * with selected item.
+     * It can be useful to detect whether we want to insert a
+     * smartlink or a hyperlink with customized title
+     */
+    const { items, selectedIndex, displayUrl } = this.state;
+
+    const selectedItem: LinkSearchListItemData | undefined =
+      items[selectedIndex];
+
+    if (selectedItem && selectedItem.url === displayUrl) {
+      return true;
+    }
+
+    return false;
+  };
 
   private handleSelected = (href: string, text: string) => {
     this.handleInsert(href, text, INPUT_METHOD.TYPEAHEAD, 'click');
@@ -612,48 +635,62 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       onSubmit(href, title, displayText, inputType);
     }
 
-    const selectedItem = items[selectedIndex];
-    if (typeof selectedItem === 'undefined') {
+    if (this.isUrlPopulatedWithSelectedItem()) {
       /**
-       * No item has been selected. This could happen when user
-       * types in the URL by themselves or when editing the URL.
+       * When selectedItem.url matches displayUrl, we think
+       * it's selected from the result list and fire the
+       * analytic
        */
-      return;
+      const selectedItem = items[selectedIndex];
+      this.fireAnalytics({
+        action: ACTION.SELECTED,
+        actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
+        attributes: {
+          source: this.analyticSource,
+          searchSessionId: pluginState.searchSessionId ?? '',
+          trigger: interaction,
+          resultCount: items.length,
+          selectedResultId: selectedItem.objectId,
+          selectedRelativePosition: selectedIndex,
+        },
+        eventType: EVENT_TYPE.UI,
+      });
     }
+  };
 
-    this.fireAnalytics({
-      action: ACTION.SELECTED,
-      actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
-      attributes: {
-        source: this.analyticSource,
-        searchSessionId: pluginState.searchSessionId ?? '',
-        trigger: interaction,
-        resultCount: items.length,
-        selectedResultId: selectedItem.objectId,
-        selectedRelativePosition: selectedIndex,
-      },
-      eventType: EVENT_TYPE.UI,
+  private handleMouseEnterResultItem = (objectId: string) => {
+    const { items } = this.state;
+
+    const index = findIndex(items, item => item.objectId === objectId);
+    this.setState({
+      selectedIndex: index,
     });
   };
 
-  private handleMouseMove = (objectId: string) => {
-    const { items } = this.state;
+  private handleMouseLeaveResultItem = (objectId: string) => {
+    const { items, selectedIndex } = this.state;
 
-    if (items) {
-      const index = findIndex(items, item => item.objectId === objectId);
+    const index = findIndex(items, item => item.objectId === objectId);
+    // This is to avoid updating index that was set by other mouseenter event
+    if (selectedIndex === index) {
       this.setState({
-        selectedIndex: index,
+        selectedIndex: -1,
       });
     }
   };
 
   private handleSubmit = () => {
-    const { items, displayUrl, selectedIndex } = this.state;
-    // add the link selected in the dropdown if there is one, otherwise submit the value of the input field
-    if (items && items.length > 0 && selectedIndex > -1) {
-      const item = items[selectedIndex];
-      const url = normalizeUrl(item.url);
-      this.handleInsert(url, item.name, INPUT_METHOD.TYPEAHEAD, 'keyboard');
+    const { displayUrl, selectedIndex, items } = this.state;
+
+    const selectedItem: LinkSearchListItemData | undefined =
+      items[selectedIndex];
+    if (this.isUrlPopulatedWithSelectedItem()) {
+      this.handleInsert(
+        normalizeUrl(selectedItem.url),
+        selectedItem.name,
+        INPUT_METHOD.TYPEAHEAD,
+        'keyboard',
+      );
     } else if (displayUrl && displayUrl.length > 0) {
       const url = normalizeUrl(displayUrl);
       if (url) {
@@ -666,9 +703,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const { items, selectedIndex } = this.state;
     const { pluginState, view } = this.props;
     const { keyCode } = event;
+    const KEY_CODE_ESCAPE = 27;
+    const KEY_CODE_ARROW_DOWN = 40;
+    const KEY_CODE_ARROW_UP = 38;
     this.isTabPressed = keyCode === 9;
 
-    if (keyCode === 27) {
+    if (keyCode === KEY_CODE_ESCAPE) {
       // escape
       event.preventDefault();
       hideLinkToolbar()(view.state, view.dispatch);
@@ -683,20 +723,24 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
     let updatedIndex = selectedIndex;
 
-    if (keyCode === 40) {
+    if (keyCode === KEY_CODE_ARROW_DOWN) {
       // down
       event.preventDefault();
       updatedIndex = (selectedIndex + 1) % items.length;
-    } else if (keyCode === 38) {
+    } else if (keyCode === KEY_CODE_ARROW_UP) {
       // up
       event.preventDefault();
       updatedIndex = selectedIndex > 0 ? selectedIndex - 1 : items.length - 1;
     }
-    this.setState({
-      selectedIndex: updatedIndex,
-    });
 
-    if (items[updatedIndex]) {
+    if (
+      [KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) &&
+      items[updatedIndex]
+    ) {
+      this.setState({
+        selectedIndex: updatedIndex,
+        displayUrl: items[updatedIndex].url,
+      });
       this.fireAnalytics({
         action: ACTION.HIGHLIGHTED,
         actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
@@ -737,7 +781,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   };
 }
 
-const findIndex = (array: any[], predicate: (item: any) => boolean): number => {
+function findIndex<T>(array: T[], predicate: (item: T) => boolean): number {
   let index = -1;
   array.some((item, i) => {
     if (predicate(item)) {
@@ -748,7 +792,7 @@ const findIndex = (array: any[], predicate: (item: any) => boolean): number => {
   });
 
   return index;
-};
+}
 
 function limit<T>(items: Array<T>) {
   return items.slice(0, RECENT_SEARCH_LIST_SIZE);

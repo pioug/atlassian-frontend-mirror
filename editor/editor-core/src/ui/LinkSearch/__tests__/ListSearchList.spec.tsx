@@ -16,6 +16,8 @@ describe('ListSearchList', () => {
       items: getDefaultItems(),
       isLoading: false,
       onMouseMove: jest.fn(),
+      onMouseEnter: jest.fn(),
+      onMouseLeave: jest.fn(),
       onSelect: jest.fn(),
       selectedIndex: -1,
     };
@@ -30,6 +32,8 @@ describe('ListSearchList', () => {
       component,
       items: options.items,
       onMouseMove: options.onMouseMove,
+      onMouseEnter: options.onMouseEnter,
+      onMouseLeave: options.onMouseLeave,
       onSelect: options.onSelect,
     };
   };
@@ -73,7 +77,14 @@ describe('ListSearchList', () => {
   });
 
   it('should pass props to item component', () => {
-    const { component, items, onSelect, onMouseMove } = setup();
+    const {
+      component,
+      items,
+      onSelect,
+      onMouseMove,
+      onMouseEnter,
+      onMouseLeave,
+    } = setup();
 
     let firstItem = component.find(LinkSearchListItem).at(0);
     const itemProps = firstItem.props();
@@ -81,6 +92,8 @@ describe('ListSearchList', () => {
     expect(firstItem.key()).toEqual(items[0].objectId);
     expect(itemProps.onSelect).toEqual(onSelect);
     expect(itemProps.onMouseMove).toEqual(onMouseMove);
+    expect(itemProps.onMouseEnter).toEqual(onMouseEnter);
+    expect(itemProps.onMouseLeave).toEqual(onMouseLeave);
   });
 
   it('should select the item on selectedIndex', () => {

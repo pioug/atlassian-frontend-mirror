@@ -84,7 +84,7 @@ export default class SectionMessage extends React.Component<Props, any> {
             spacing="none"
             onClick={onClick}
             href={href}
-            component={linkComponent}
+            component={href ? linkComponent : undefined}
           >
             {text}
           </Button>

@@ -81,6 +81,10 @@ export default class AndroidBridge implements NativeBridge {
     this.textFormatBridge.updateText(content);
   }
 
+  updateTextWithADFStatus(content: string, isEmptyADF: boolean) {
+    this.textFormatBridge.updateTextWithADFStatus(content, isEmptyADF);
+  }
+
   getServiceHost(): string {
     return this.mediaBridge.getServiceHost();
   }

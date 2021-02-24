@@ -26,10 +26,8 @@ export interface Date {
   day: number;
   month: number;
   year: number;
-  weekDay: number;
-  selected: boolean;
-  siblingMonth: boolean;
-  weekNumber: number;
+  weekDay?: number;
+  siblingMonth?: boolean;
 }
 
 export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;

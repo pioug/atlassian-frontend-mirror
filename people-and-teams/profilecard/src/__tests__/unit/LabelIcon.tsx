@@ -18,7 +18,7 @@ describe('Profilecard', () => {
       expect(wrapper.find(DetailsLabelText).text()).toBe('Labeltext');
 
       const icon = wrapper.find(DetailsLabelIcon);
-      expect(icon.find('Icon')).toHaveLength(0);
+      expect(icon.find('Memo(Icon)')).toHaveLength(0);
     });
 
     it('should render LabelIcon without icon when icon property is an unavailable icon', () => {
@@ -27,7 +27,7 @@ describe('Profilecard', () => {
       expect(wrapper.find(DetailsLabelText).text()).toBe('Labeltext');
 
       const icon = wrapper.find(DetailsLabelIcon);
-      expect(icon.find('Icon')).toHaveLength(0);
+      expect(icon.find('Memo(Icon)')).toHaveLength(0);
     });
 
     describe('should render LabelIcon with valid icons', () => {
@@ -40,7 +40,7 @@ describe('Profilecard', () => {
           expect(wrapper.find(DetailsLabelText).text()).toBe('Labeltext');
 
           const icon = wrapper.find(DetailsLabelIcon);
-          expect(icon.find('Icon')).toHaveLength(1);
+          expect(icon.find('Memo(Icon)')).toHaveLength(1);
         });
       });
     });

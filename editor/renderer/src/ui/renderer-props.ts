@@ -5,6 +5,7 @@ import {
   EventHandlers,
   ExtensionHandlers,
   AnnotationProviders,
+  UnsupportedContentLevelsTracking,
 } from '@atlaskit/editor-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { RendererContext } from '../';
@@ -57,4 +58,5 @@ export interface RendererProps {
   };
   allowUgcScrubber?: boolean;
   allowSelectAllTrap?: boolean;
+  unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
 }

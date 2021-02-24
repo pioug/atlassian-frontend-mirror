@@ -35,6 +35,7 @@ export interface CardProps extends CardNodeViewProps {
   eventDispatcher?: EventDispatcher<any>;
   allowResizing?: boolean;
   fullWidthMode?: boolean;
+  useAlternativePreloader?: boolean;
 }
 
 export interface SmartCardProps extends CardProps {

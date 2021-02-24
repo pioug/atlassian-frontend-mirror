@@ -1,39 +1,44 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.2.4",
-  "description": "A React package that contains icons",
+  "version": "21.3.0",
+  "description": "An icon is used as a visual representation of common actions and commands to provide context.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
-  "main": "cjs/index.js",
-  "module": "cjs/index.js",
-  "types": "cjs/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Icon"
     }
   },
+  "af:exports": {
+    "./base": "./src/entry-points/base.ts",
+    "./constants": "./src/entry-points/constants.ts",
+    "./metadata": "./src/entry-points/metadata.ts",
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "update": "ts-node --project build/cjs/tsconfig.json ./build/index.ts && yarn build:typescript:cjs",
-    "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
+    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0",
-    "tslib": "^2.0.0",
-    "uuid": "^3.1.0"
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -44,17 +49,19 @@
     "@atlaskit/icon-file-type": "^6.1.0",
     "@atlaskit/icon-object": "^6.1.0",
     "@atlaskit/icon-priority": "^6.1.0",
-    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/logo": "^13.1.0",
     "@atlaskit/modal-dialog": "^11.2.0",
-    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/section-message": "^5.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@babel/core": "^7.12.3",
+    "@emotion/babel-preset-css-prop": "^10.0.7",
+    "@testing-library/react": "^8.0.1",
     "classnames": "^2.2.5",
-    "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
+    "jest-emotion": "^10.0.32",
     "jscodeshift": "^0.7.0",
     "lodash": "^4.17.15",
     "nullthrows": "^1.1.1",
@@ -66,5 +73,21 @@
   "keywords": [
     "atlaskit",
     "ui"
-  ]
+  ],
+  "techstack": {
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  }
 }

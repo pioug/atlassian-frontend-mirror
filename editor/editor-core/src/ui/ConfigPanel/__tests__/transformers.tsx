@@ -35,6 +35,11 @@ describe('Config panel', () => {
             defaultValue: 99,
           },
           {
+            name: 'width',
+            label: 'Width',
+            type: 'number',
+          },
+          {
             name: 'USER',
             label: 'User',
             type: 'custom',
@@ -138,6 +143,7 @@ describe('Config panel', () => {
           settings: {
             foo: 'bar',
             depth: undefined,
+            width: '',
             USER: {
               label: 'Leandro',
               value: 'llemos',

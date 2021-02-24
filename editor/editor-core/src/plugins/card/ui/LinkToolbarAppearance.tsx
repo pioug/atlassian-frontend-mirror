@@ -13,6 +13,7 @@ import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import { isSupportedInParent } from '../../../utils/nodes';
 import Dropdown from '../../floating-toolbar/ui/Dropdown';
 import { messages } from '../messages';
+import nodeNames from '../../../messages';
 import { DropdownOptions } from '../../../plugins/floating-toolbar/ui/types';
 
 export interface LinkToolbarAppearanceProps {
@@ -60,6 +61,9 @@ export class LinkToolbarAppearance extends React.Component<
       Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
       currentAppearance,
     );
+    const tooltip = isSmartLinkSupportedInParent
+      ? undefined
+      : parentNodeName(editorState, intl);
     const embedOption = allowEmbeds &&
       preview && {
         title: intl.formatMessage(messages.embed),
@@ -68,6 +72,7 @@ export class LinkToolbarAppearance extends React.Component<
         hidden: false,
         testId: 'embed-appearance',
         disabled: !isSmartLinkSupportedInParent,
+        tooltip,
       };
     const options: DropdownOptions<Function> = [
       {
@@ -91,6 +96,7 @@ export class LinkToolbarAppearance extends React.Component<
         hidden: false,
         testId: 'block-appearance',
         disabled: !isSmartLinkSupportedInParent,
+        tooltip,
       },
     ];
     const title = intl.formatMessage(
@@ -124,3 +130,23 @@ export class LinkToolbarAppearance extends React.Component<
     return this.renderDropdown(editorView, cardContext && cardContext.value);
   }
 }
+
+const parentNodeName = (state: EditorState, intl: InjectedIntl): string => {
+  try {
+    const parentNode = state.selection.$from.node(1);
+    const parentName = intl.formatMessage(
+      nodeNames[parentNode.type.name as keyof typeof nodeNames],
+    );
+    const tooltip = intl.formatMessage(
+      messages.displayOptionUnavailableInParentNode,
+      {
+        node: parentName,
+      },
+    );
+    return tooltip;
+  } catch (e) {
+    return intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
+      node: intl.formatMessage(nodeNames.defaultBlockNode),
+    });
+  }
+};

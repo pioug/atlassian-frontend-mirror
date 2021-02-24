@@ -11,9 +11,7 @@ var _Icon = _interopRequireDefault(require("../../cjs/components/Icon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-const Executable24Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, _extends({
+const Executable24Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path fill="#5E6C84" fill-rule="evenodd" d="M3 0h18a3 3 0 013 3v18a3 3 0 01-3 3H3a3 3 0 01-3-3V3a3 3 0 013-3zm2 13v5a1 1 0 001 1h12a1 1 0 001-1v-5H5zm1.883-8a1 1 0 00-.992.876L5 13h14l-.89-7.124A1 1 0 0017.116 5H6.883zM8 15h8a1 1 0 010 2H8a1 1 0 010-2z"/></svg>`
 }, props, {
   size: "medium"

@@ -1,5 +1,3 @@
-import JiraServiceDeskIcon from './Icon';
-import JiraServiceDeskLogo from './Logo';
-import JiraServiceDeskWordmark from './Wordmark';
-
-export { JiraServiceDeskLogo, JiraServiceDeskIcon, JiraServiceDeskWordmark };
+export { JiraServiceDeskIcon } from './Icon';
+export { JiraServiceDeskLogo } from './Logo';
+export { JiraServiceDeskWordmark } from './Wordmark';

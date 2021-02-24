@@ -4,6 +4,7 @@ import { B100, B400, B50, N20 } from '@atlaskit/theme/colors';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 import { e100 } from '@atlaskit/theme/elevation';
 import { themed } from '@atlaskit/theme/components';
+import { TitleWrapper } from '../IconAndTitleLayout/styled';
 
 export interface WrapperProps {
   isSelected?: boolean;
@@ -76,6 +77,8 @@ export const Wrapper: ComponentClass<
 > = styled.a`
   line-height: 16px;
   padding: 1px 0.24em 2px 0.24em;
+  ${props =>
+    props.withoutBackground ? `padding-left: 0; margin-left:-2px;` : ''}
   display: inline;
   box-decoration-break: clone;
   border-radius: ${akBorderRadius()}px;
@@ -89,4 +92,8 @@ export const Wrapper: ComponentClass<
   ${isSelected};
   transition: 0.1s all ease-in-out;
   -moz-user-select: none;
+
+  &:hover ${TitleWrapper} {
+    text-decoration: underline;
+  }
 `;

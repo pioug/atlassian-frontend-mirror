@@ -12,6 +12,7 @@ export interface DropdownOptionT<T> {
   disabled?: boolean;
   hidden?: boolean;
   testId?: string;
+  tooltip?: string;
 }
 
 export type DropdownOptions<T> =

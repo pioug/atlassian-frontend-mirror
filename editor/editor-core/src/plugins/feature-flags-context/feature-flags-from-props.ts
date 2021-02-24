@@ -60,6 +60,30 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
 
     nextEmojiNodeView: props.featureFlags?.nextEmojiNodeView === true,
+
+    stickyHeadersOptimization:
+      typeof props.featureFlags?.stickyHeadersOptimization === 'boolean'
+        ? !!props.featureFlags?.stickyHeadersOptimization
+        : typeof props.allowTables === 'object' &&
+          !!props.allowTables?.stickyHeadersOptimization,
+
+    initialRenderOptimization:
+      typeof props.featureFlags?.initialRenderOptimization === 'boolean'
+        ? !!props.featureFlags?.initialRenderOptimization
+        : typeof props.allowTables === 'object' &&
+          !!props.allowTables?.initialRenderOptimization,
+
+    mouseMoveOptimization:
+      typeof props.featureFlags?.mouseMoveOptimization === 'boolean'
+        ? !!props.featureFlags?.mouseMoveOptimization
+        : typeof props.allowTables === 'object' &&
+          !!props.allowTables?.mouseMoveOptimization,
+
+    tableRenderOptimization:
+      typeof props.featureFlags?.tableRenderOptimization === 'boolean'
+        ? !!props.featureFlags?.tableRenderOptimization
+        : typeof props.allowTables === 'object' &&
+          !!props.allowTables?.tableRenderOptimization,
   };
 }
 

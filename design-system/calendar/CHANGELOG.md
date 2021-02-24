@@ -1,5 +1,35 @@
 # @atlaskit/calendar
 
+## 10.3.0
+
+### Minor Changes
+
+- [`d069f7834ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d069f7834ef) - Calendar now accepts a `weekStartDay` prop that controls which day of the week should be used at the start. This prop accepts the following values:
+
+  - `0` sunday (default value)
+  - `1` monday
+  - `2` tuesday
+  - `3` wednesday
+  - `4` thursday
+  - `5` friday
+  - `6` saturday
+
+- [`ccde1b6b939`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccde1b6b939) - Convert all styles of Calendar from styled-components to emotion CSS and apply different styles via data-attributes.
+  Internally theme mode is now accessed via Global theme context and used to generate colors.
+- [`e20f4c2806e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e20f4c2806e) - Improvement in internal analytics performance
+
+  **Dev changes**
+
+  - Migrated from `@atlaskit/analytics-next` React HOC to React hooks. This improved re-rendering quite a bit.
+
+### Patch Changes
+
+- [`aedbf4ed383`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aedbf4ed383) - **Internal change**
+
+  We have removed [calendar-base](https://www.npmjs.com/package/calendar-base) dependency which was not maintained for quite sometime and moved its logic internally. This will help us fixing any issue we might get or any new functionality we might want to support.
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

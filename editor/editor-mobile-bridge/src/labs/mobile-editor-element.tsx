@@ -38,7 +38,6 @@ import {
   createTaskDecisionProvider,
   createQuickInsertProvider,
 } from '../providers';
-import { getLocaleValue } from '../query-param-reader';
 import { useTranslations } from '../i18n/use-translations';
 import { useCollabProvider } from '../providers/collab-provider';
 import { useEditorConfiguration } from '../editor/hooks/use-editor-configuration';
@@ -79,11 +78,11 @@ const quickInsertProvider = createQuickInsertProvider(
 
 export default function Editor(props: Props = {}, context: any) {
   const mode = props.mode || 'light';
-  const { locale, messages } = useTranslations(getLocaleValue());
   const editorConfiguration = useEditorConfiguration(
     bridge,
     props.initialEditorConfig,
   );
+  const { locale, messages } = useTranslations(editorConfiguration.getLocale());
   const {
     handleEditorReady,
     handleEditorDestroyed,

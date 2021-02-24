@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { mount } from 'enzyme';
+import { cleanup, render } from '@testing-library/react';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
 import Portal from '../../index';
@@ -10,10 +10,25 @@ const App = ({ children }: { children: ReactNode }) => <div>{children}</div>;
 const zIndex = (elem: HTMLElement | void) =>
   elem ? parseInt(elem.style.getPropertyValue('z-index'), 10) : 0;
 
-let wrapper: any;
-
 const onMountListener = jest.fn();
 const onUnmountListener = jest.fn();
+
+const getElement = (text: string, elements: HTMLCollectionOf<Element>) =>
+  [...((elements as unknown) as Array<HTMLElement>)].find(
+    e => e.innerHTML.indexOf(text) > -1,
+  );
+
+const getMountEventObject = (
+  layer: string,
+  zIndex: string | number,
+  isUnmount?: boolean,
+) => ({
+  type: isUnmount ? PORTAL_UNMOUNT_EVENT : PORTAL_MOUNT_EVENT,
+  detail: {
+    layer: layer,
+    zIndex: zIndex,
+  },
+});
 
 beforeEach(() => {
   window.addEventListener(PORTAL_MOUNT_EVENT, onMountListener);
@@ -21,346 +36,219 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  wrapper && wrapper.unmount();
-
+  cleanup();
   window.removeEventListener(PORTAL_MOUNT_EVENT, onMountListener);
   window.removeEventListener(PORTAL_UNMOUNT_EVENT, onUnmountListener);
 });
 
-test('should create a portal', () => {
-  wrapper = mount(
-    <App>
-      <Portal>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
-  const elements = document.getElementsByClassName('atlaskit-portal');
-  expect(wrapper.find(App).html()).toBe('<div></div>');
-  expect(elements).toHaveLength(1);
-  expect(elements[0].innerHTML).toBe('<div>Hi</div>');
-});
+describe('Portal container', () => {
+  test('should be able to render a portal', () => {
+    const { container } = render(
+      <App>
+        <Portal>
+          <div>Hi</div>
+        </Portal>
+      </App>,
+    );
+    const elements = document.getElementsByClassName('atlaskit-portal');
+    expect(container.innerHTML).toBe('<div></div>');
+    expect(elements).toHaveLength(1);
+    expect(elements[0].innerHTML).toBe('<div>Hi</div>');
+  });
 
-test('should use z-index to stack nested portals', () => {
-  wrapper = mount(
-    <App>
-      <Portal>
-        <div>back</div>
-        <Portal zIndex={1}>
+  test(' should use z-index to stack nested portals', () => {
+    render(
+      <App>
+        <Portal>
+          <div>back</div>
+          <Portal zIndex={1}>
+            <div>front</div>
+          </Portal>
+        </Portal>
+      </App>,
+    );
+    const elements = document.getElementsByClassName('atlaskit-portal');
+
+    const front = getElement('front', elements);
+    const back = getElement('back', elements);
+
+    expect(zIndex(front)).toBeGreaterThan(zIndex(back));
+  });
+
+  test(' should use DOM ordering to stack sibiling portals', () => {
+    render(
+      <App>
+        <Portal>
+          <div>back</div>
+        </Portal>
+        <Portal>
           <div>front</div>
         </Portal>
-      </Portal>
-    </App>,
-  );
-  const elements = document.getElementsByClassName('atlaskit-portal');
-  const getElement = (text: string) =>
-    [...((elements as unknown) as Array<HTMLElement>)].find(
-      e => e.innerHTML.indexOf(text) > -1,
+      </App>,
     );
-  const front = getElement('front');
-  const back = getElement('back');
-  expect(zIndex(front)).toBeGreaterThan(zIndex(back));
-});
+    const elements = document.getElementsByClassName('atlaskit-portal');
+    expect(elements).toHaveLength(2);
 
-test('should use DOM ordering to stack sibiling portals', () => {
-  wrapper = mount(
-    <App>
-      <Portal>
-        <div>back</div>
-      </Portal>
-      <Portal>
-        <div>front</div>
-      </Portal>
-    </App>,
-  );
-  const elements = document.getElementsByClassName('atlaskit-portal');
-  expect(elements).toHaveLength(2);
-  const [back, front] = (elements as unknown) as Array<HTMLElement>;
-  expect(zIndex(front)).toEqual(zIndex(back));
-  expect(back.nextSibling).toBe(front);
-});
+    const front = getElement('front', elements);
+    const back = getElement('back', elements);
 
-test('should create a new stacking context', () => {
-  wrapper = mount(
-    <App>
-      <Portal>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
-  const container = document.querySelector(
-    'body > .atlaskit-portal-container',
-  ) as HTMLElement;
-  expect(container && container.style.getPropertyValue('display')).toBe('flex');
-});
+    expect(zIndex(front)).toEqual(zIndex(back));
+    expect(back?.nextSibling).toBe(front);
+  });
 
-test('should accept a string for zIndex', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex="unset">
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
-  const elements = (document.getElementsByClassName(
-    'atlaskit-portal',
-  ) as unknown) as Array<HTMLElement>;
-  expect(elements).toHaveLength(1);
-  expect(elements[0].style.getPropertyValue('z-index')).toBe('unset');
-});
-
-test('should clean up elements after unmount', () => {
-  const Wrapper = ({ renderPortal }: { renderPortal: boolean }) => (
-    <App>
-      {renderPortal && (
-        <Portal zIndex={500}>
+  test(' should create a new stacking context', () => {
+    render(
+      <App>
+        <Portal>
           <div>Hi</div>
         </Portal>
-      )}
-    </App>
-  );
-  wrapper = mount(<Wrapper renderPortal />);
-  wrapper.setProps({ renderPortal: false });
-  const parent = document.querySelector('.atlaskit-portal-container');
-  expect(parent).toBeNull();
-  const portal = document.querySelector('.atlaskit-portal');
-  expect(portal).toBeNull();
-});
+      </App>,
+    );
+    const container = document.querySelector(
+      'body > .atlaskit-portal-container',
+    ) as HTMLElement;
+    expect(container && container.style.getPropertyValue('display')).toBe(
+      'flex',
+    );
+  });
 
-test('portal mounts children only when it is attached to DOM', () => {
-  let DOMElement = null;
-  class ChildComponent extends React.Component<{}> {
-    componentDidMount() {
-      DOMElement = document.querySelector('body');
-    }
-
-    render() {
-      return <div>Hello World!!</div>;
-    }
-  }
-
-  const Wrapper = ({ renderPortal }: { renderPortal: boolean }) => (
-    <App>
-      {renderPortal && (
-        <Portal zIndex={500}>
-          <ChildComponent />
-        </Portal>
-      )}
-    </App>
-  );
-  wrapper = mount(<Wrapper renderPortal />);
-  expect(DOMElement).not.toBeNull();
-});
-
-test('should send correct mount and unmount events', () => {
-  const Wrapper = ({ renderPortal }: { renderPortal: boolean }) => (
-    <App>
-      {renderPortal && (
-        <Portal zIndex={500}>
+  test(' should accept a string for zIndex', () => {
+    render(
+      <App>
+        <Portal zIndex="unset">
           <div>Hi</div>
         </Portal>
-      )}
-    </App>
-  );
-  wrapper = mount(<Wrapper renderPortal />);
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'blanket',
-        zIndex: 500,
-      },
-    }),
-  );
+      </App>,
+    );
+    const elements = (document.getElementsByClassName(
+      'atlaskit-portal',
+    ) as unknown) as Array<HTMLElement>;
+    expect(elements).toHaveLength(1);
+    expect(elements[0].style.getPropertyValue('z-index')).toBe('unset');
+  });
 
-  wrapper.setProps({ renderPortal: false });
-  expect(onUnmountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_UNMOUNT_EVENT,
-      detail: {
-        layer: 'blanket',
-        zIndex: 500,
-      },
-    }),
-  );
-});
+  test(' should clean up elements after unmount', () => {
+    const Wrapper = ({ renderPortal }: { renderPortal: boolean }) => (
+      <App>
+        {renderPortal && (
+          <Portal zIndex={500}>
+            <div>Hi</div>
+          </Portal>
+        )}
+      </App>
+    );
+    const { rerender } = render(<Wrapper renderPortal />);
+    expect(document.querySelector('.atlaskit-portal-container')).toBeDefined();
+    expect(document.querySelector('.atlaskit-portal')).toBeDefined();
 
-test('should send correct layer event for card', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={100}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    rerender(<Wrapper renderPortal={false} />);
+    expect(document.querySelector('.atlaskit-portal-container')).toBeNull();
+    expect(document.querySelector('.atlaskit-portal')).toBeNull();
+  });
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'card',
-        zIndex: 100,
-      },
-    }),
-  );
-});
+  test(' portal mounts children only when it is attached to DOM', () => {
+    let DOMElement = null;
+    class ChildComponent extends React.Component<{}> {
+      componentDidMount() {
+        DOMElement = document.querySelector('body');
+      }
 
-test('should send correct layer event for navigation', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={200}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+      render() {
+        return <div>Hello World!!</div>;
+      }
+    }
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'navigation',
-        zIndex: 200,
-      },
-    }),
-  );
-});
+    const Wrapper = ({ renderPortal }: { renderPortal: boolean }) => (
+      <App>
+        {renderPortal && (
+          <Portal zIndex={500}>
+            <ChildComponent />
+          </Portal>
+        )}
+      </App>
+    );
+    const { rerender } = render(<Wrapper renderPortal={false} />);
+    expect(DOMElement).toBeNull();
 
-test('should send correct layer event for dialog', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={300}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    rerender(<Wrapper renderPortal />);
+    expect(DOMElement).toBeDefined();
+  });
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'dialog',
-        zIndex: 300,
-      },
-    }),
-  );
-});
+  test(' should send correct mount and unmount events', () => {
+    const Wrapper = ({ renderPortal }: { renderPortal: boolean }) => (
+      <App>
+        {renderPortal && (
+          <Portal zIndex={500}>
+            <div>Hi</div>
+          </Portal>
+        )}
+      </App>
+    );
+    const { rerender } = render(<Wrapper renderPortal />);
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('blanket', 500)),
+    );
 
-test('should send correct layer event for layer', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={400}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    rerender(<Wrapper renderPortal={false} />);
+    expect(onUnmountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('blanket', 500, true)),
+    );
+  });
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'layer',
-        zIndex: 400,
-      },
-    }),
-  );
-});
+  test(' should send correct layer event for every layer', () => {
+    const Wrapper = ({ zIndex }: { zIndex: number | string }) => (
+      <App>
+        <Portal zIndex={zIndex}>
+          <div>Hi</div>
+        </Portal>
+      </App>
+    );
+    render(<Wrapper zIndex={100} />);
 
-test('should send correct layer event for blanket', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={500}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('card', 100)),
+    );
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'blanket',
-        zIndex: 500,
-      },
-    }),
-  );
-});
+    render(<Wrapper zIndex={200} />);
 
-test('should send correct layer event for modal', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={510}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('navigation', 200)),
+    );
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'modal',
-        zIndex: 510,
-      },
-    }),
-  );
-});
+    render(<Wrapper zIndex={300} />);
 
-test('should send correct layer event for flag', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={600}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('dialog', 300)),
+    );
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'flag',
-        zIndex: 600,
-      },
-    }),
-  );
-});
+    render(<Wrapper zIndex={400} />);
 
-test('should send correct layer event for spotlight', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={700}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('layer', 400)),
+    );
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'spotlight',
-        zIndex: 700,
-      },
-    }),
-  );
-});
+    render(<Wrapper zIndex={510} />);
 
-test('should send correct layer event for tooltip', () => {
-  wrapper = mount(
-    <App>
-      <Portal zIndex={800}>
-        <div>Hi</div>
-      </Portal>
-    </App>,
-  );
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('modal', 510)),
+    );
 
-  expect(onMountListener).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: PORTAL_MOUNT_EVENT,
-      detail: {
-        layer: 'tooltip',
-        zIndex: 800,
-      },
-    }),
-  );
+    render(<Wrapper zIndex={600} />);
+
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('flag', 600)),
+    );
+
+    render(<Wrapper zIndex={700} />);
+
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('spotlight', 700)),
+    );
+
+    render(<Wrapper zIndex={800} />);
+
+    expect(onMountListener).toHaveBeenCalledWith(
+      expect.objectContaining(getMountEventObject('tooltip', 800)),
+    );
+  });
 });

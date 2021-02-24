@@ -536,6 +536,64 @@ describe('HyperlinkLinkAddToolbar', () => {
       );
     });
 
+    it('should populate Url field with selected activity item when navigated to via keyboard', async () => {
+      const {
+        component,
+        pressDownArrowInputField,
+        recentItemsPromise,
+      } = await setup();
+
+      await recentItemsPromise;
+
+      pressDownArrowInputField('link-url');
+
+      const listComponentProps = component.find(LinkSearchList).props();
+
+      const items = listComponentProps.items!;
+
+      expectToEqual(
+        (component
+          .find('input[data-testid="link-url"]')
+          .getDOMNode() as HTMLInputElement).value,
+        items[0].url,
+      );
+    });
+
+    it('should insert the right item after a few interaction with both mouse and keyboard', async () => {
+      const {
+        component,
+        pressDownArrowInputField,
+        recentItemsPromise,
+        searchRecentPromise,
+        updateInputField,
+      } = await setup();
+
+      await recentItemsPromise;
+
+      updateInputField('link-url', 'some-value');
+
+      await searchRecentPromise;
+      component.update();
+
+      // Hover over the first item on the list
+      const firstSearchItem = component.find(LinkSearchListItem).first();
+      firstSearchItem.simulate('mouseenter');
+
+      // This should move to the second item in the list
+      pressDownArrowInputField('link-url');
+
+      const listComponentProps = component.find(LinkSearchList).props();
+
+      const items = listComponentProps.items!;
+
+      expectToEqual(
+        (component
+          .find('input[data-testid="link-url"]')
+          .getDOMNode() as HTMLInputElement).value,
+        items[1].url,
+      );
+    });
+
     it('should not submit when URL is invalid and there is no result', async () => {
       const {
         component,

@@ -138,3 +138,13 @@ export const retryUntilStablePosition = async (
     }, stableDuration);
   });
 };
+
+export const triggerHyperLinkToolBar = async (page: PuppeteerPage) => {
+  await page.keyboard.down('Control');
+  await page.keyboard.press('KeyK');
+  await page.keyboard.up('Control');
+
+  await page.waitForSelector('[data-testid="link-url"]', {
+    visible: true,
+  });
+};

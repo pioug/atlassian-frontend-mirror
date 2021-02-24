@@ -265,6 +265,7 @@ function DesktopBrowser({
               categories={categories}
               onSelectCategory={onSelectCategory}
               selectedCategory={selectedCategory}
+              createAnalyticsEvent={createAnalyticsEvent}
             />
           </CategoryListWrapper>
         </SideBar>

@@ -7,7 +7,7 @@ import { Popup } from '@atlaskit/editor-common';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 
-import ToolbarButton from '../ToolbarButton';
+import ToolbarButton, { ToolbarButtonRef } from '../ToolbarButton';
 import withOuterListeners from '../with-outer-listeners';
 
 import {
@@ -113,7 +113,7 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
     deprecationWarnings(ToolbarFeedback.name, props, deprecations);
   }
 
-  private handleRef = (ref: ToolbarButton | null) => {
+  private handleRef = (ref: ToolbarButtonRef) => {
     if (ref) {
       this.setState({
         target: ReactDOM.findDOMNode(ref || null) as HTMLElement,

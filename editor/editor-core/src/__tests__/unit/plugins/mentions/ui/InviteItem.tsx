@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import AddIcon from '@atlaskit/icon/glyph/add';
 import { N300 } from '@atlaskit/theme/colors';
 import InviteItem, {
   INVITE_ITEM_DESCRIPTION,
@@ -30,8 +30,8 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
     expect(inviteItem.find(MentionItemStyle).prop('data-id')).toBe(
       INVITE_ITEM_DESCRIPTION.id,
     );
-    expect(inviteItem.find(SearchIcon).length).toBe(1);
-    expect(inviteItem.find(SearchIcon).prop('primaryColor')).toBe(N300);
+    expect(inviteItem.find(AddIcon).length).toBe(1);
+    expect(inviteItem.find(AddIcon).prop('primaryColor')).toBe(N300);
     expect(
       inviteItem.find(NameSectionStyle).find(FormattedMessage).at(0).props(),
     ).toEqual({

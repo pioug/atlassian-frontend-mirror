@@ -8,7 +8,7 @@ import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
 
 import { toggleBold, toggleItalic, ToolTipContent } from '../../../../keymaps';
 import { ButtonGroup } from '../../../../ui/styles';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { INPUT_METHOD } from '../../../analytics';
 import {
   toggleEmWithAnalytics,
@@ -47,6 +47,7 @@ class ToolbarTextFormatting extends PureComponent<Props & InjectedIntlProps> {
       <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
         {strongHidden ? null : (
           <ToolbarButton
+            buttonId={TOOLBAR_BUTTON.TEXT_FORMATTING_STRONG}
             spacing={isReducedSpacing ? 'none' : 'default'}
             onClick={this.handleBoldClick}
             selected={strongActive}
@@ -60,6 +61,7 @@ class ToolbarTextFormatting extends PureComponent<Props & InjectedIntlProps> {
 
         {emHidden ? null : (
           <ToolbarButton
+            buttonId={TOOLBAR_BUTTON.TEXT_FORMATTING_ITALIC}
             spacing={isReducedSpacing ? 'none' : 'default'}
             onClick={this.handleItalicClick}
             selected={emActive}

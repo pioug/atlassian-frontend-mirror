@@ -15,6 +15,7 @@ import {
   EventHandlers,
   AnnotationProviders,
   ADFStage,
+  UnsupportedContentLevelsTracking,
 } from '@atlaskit/editor-common';
 import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button/standard-button';
@@ -167,6 +168,7 @@ export interface DemoRendererProps {
     severityNormalThreshold: number;
     severityDegradedThreshold: number;
   };
+  unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
 }
 
 export interface DemoRendererState {
@@ -358,6 +360,7 @@ export default class RendererDemo extends React.Component<
       props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
       props.allowUgcScrubber = this.props.allowUgcScrubber;
       props.allowSelectAllTrap = this.props.allowSelectAllTrap;
+      props.unsupportedContentLevelsTracking = this.props.unsupportedContentLevelsTracking;
 
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

@@ -13,7 +13,7 @@ describe('Avatar', () => {
     expect(getByTestId('avatar--itemInner').tagName).toEqual('SPAN');
   });
 
-  it('should render a button when onClick us supplied', () => {
+  it('should render a BUTTON when onClick is supplied', () => {
     const { getByTestId } = render(
       <AvatarItem
         avatar={<Avatar />}
@@ -25,7 +25,7 @@ describe('Avatar', () => {
     expect(getByTestId('avatar--itemInner').tagName).toEqual('BUTTON');
   });
 
-  it('should render disabled button', () => {
+  it('isDisabled - should render a BUTTON when using onClick', () => {
     const { getByTestId } = render(
       <AvatarItem
         avatar={<Avatar />}
@@ -37,10 +37,23 @@ describe('Avatar', () => {
     const element = getByTestId('avatar--itemInner');
 
     expect(element.tagName).toEqual('BUTTON');
-    expect(element.hasAttribute('disabled')).toBeTruthy();
   });
 
-  it('should render anchor when href us supplied', () => {
+  it('isDisabled - should render a BUTTON when using href', () => {
+    const { getByTestId } = render(
+      <AvatarItem
+        avatar={<Avatar />}
+        testId={'avatar'}
+        isDisabled
+        onClick={event => null}
+      />,
+    );
+    const element = getByTestId('avatar--itemInner');
+
+    expect(element.tagName).toEqual('BUTTON');
+  });
+
+  it('should render anchor when href is supplied', () => {
     const { getByTestId } = render(
       <AvatarItem
         avatar={<Avatar />}
@@ -114,5 +127,35 @@ describe('Avatar', () => {
     fireEvent.click(element);
 
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('should output an aria-label on A tag', () => {
+    const { getByTestId } = render(
+      <AvatarItem
+        avatar={<Avatar />}
+        testId={'avatar'}
+        href={'https://atlaskit.atlassian.com/'}
+        label="Test avatar"
+      />,
+    );
+    const element = getByTestId('avatar--itemInner');
+
+    expect(element.tagName).toEqual('A');
+    expect(element.getAttribute('aria-label')).toBe('Test avatar');
+  });
+
+  it('should output an aria-label on BUTTON tag', () => {
+    const { getByTestId } = render(
+      <AvatarItem
+        avatar={<Avatar />}
+        testId={'avatar'}
+        onClick={() => {}}
+        label="Test avatar"
+      />,
+    );
+    const element = getByTestId('avatar--itemInner');
+
+    expect(element.tagName).toEqual('BUTTON');
+    expect(element.getAttribute('aria-label')).toBe('Test avatar');
   });
 });

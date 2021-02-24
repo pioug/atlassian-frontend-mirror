@@ -15,6 +15,7 @@ import {
   clickToolbarMenu,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
+  mainToolbarSelector,
 } from '../../__helpers/page-objects/_toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { scrollToBottom } from '../../__helpers/page-objects/_editor';
@@ -135,7 +136,6 @@ describe('Toolbar: Undo Redo', () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
-      viewport: { width: 1000, height: 350 },
       editorProps: {
         UNSAFE_allowUndoRedoButtons: true,
       },
@@ -143,10 +143,10 @@ describe('Toolbar: Undo Redo', () => {
   });
 
   afterEach(async () => {
-    await snapshot(page, undefined, editorSelector);
+    await snapshot(page, undefined, mainToolbarSelector);
   });
 
-  it('should show the Undo button in a disabled state', async () => {
+  it('should show the Undo / Redo buttons in a disabled state', async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
   });
 
@@ -154,5 +154,12 @@ describe('Toolbar: Undo Redo', () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
     // Add a bullet list to the doc so something can be undone and the Undo button become active
     await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
+  });
+
+  it('should show the Redo button in a active state', async () => {
+    await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
+    // Add a bullet list to the doc so something can be undone and the Undo button become active
+    await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
+    await clickToolbarMenu(page, ToolbarMenuItem.undo);
   });
 });

@@ -1,7 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { FileIdentifier } from '@atlaskit/media-client';
-import { Navigation, NavigationBase } from '../../../newgen/navigation';
+import {
+  Navigation,
+  NavigationBase,
+  prevNavButtonId,
+  nextNavButtonId,
+} from '../../../newgen/navigation';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
@@ -124,7 +129,7 @@ describe('Navigation', () => {
         selectedItem={identifier2}
       />,
     );
-    el.find(ArrowLeftCircleIcon).first().simulate('click');
+    el.find(`[data-testid="${prevNavButtonId}"]`).first().simulate('click');
     expect(onChange).toBeCalledWith(identifier);
   });
 
@@ -137,7 +142,7 @@ describe('Navigation', () => {
         selectedItem={identifier}
       />,
     );
-    el.find(ArrowRightCircleIcon).first().simulate('click');
+    el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
     expect(onChange).toBeCalledWith(identifier2);
   });
 
@@ -195,13 +200,13 @@ describe('Navigation', () => {
   describe('Analytics', () => {
     it('should fire analytics on right arrow click', () => {
       const { el, createAnalyticsEventSpy } = mountBaseComponent();
-      el.find(ArrowRightCircleIcon).first().simulate('click');
+      el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
       expect(createAnalyticsEventSpy).toHaveBeenCalled();
     });
 
     it('should fire analytics on left arrow click', () => {
       const { el, createAnalyticsEventSpy } = mountBaseComponent();
-      el.find(ArrowLeftCircleIcon).first().simulate('click');
+      el.find(`[data-testid="${prevNavButtonId}"]`).first().simulate('click');
       expect(createAnalyticsEventSpy).toHaveBeenCalled();
     });
   });

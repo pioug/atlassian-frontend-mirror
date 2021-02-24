@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { N70 } from '@atlaskit/theme/colors';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 
 export const App = styled.div`

@@ -40,6 +40,8 @@ import {
   tableControlsSpacing,
   tableTextColor,
   stickyRowZIndex,
+  columnControlsDecorationHeight,
+  stickyRowOffsetTop,
 } from './consts';
 
 import {
@@ -66,6 +68,29 @@ const rangeSelectionStyles = `
   }
 }
 `;
+
+const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
+  > .${ClassName.TABLE_STICKY_SENTINEL_TOP}, > .${ClassName.TABLE_STICKY_SENTINEL_BOTTOM} {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    margin-top: -1px;
+  }
+  > .${ClassName.TABLE_STICKY_SENTINEL_TOP} {
+    top: ${columnControlsDecorationHeight}px;
+  }
+  > .${ClassName.TABLE_STICKY_SENTINEL_BOTTOM} {
+      bottom: ${tableScrollbarOffset + stickyRowOffsetTop + tablePadding*2 + 23}px;
+  }
+  &.${ClassName.WITH_CONTROLS} {
+    > .${ClassName.TABLE_STICKY_SENTINEL_TOP} {
+      top: 0px;
+    }
+    > .${ClassName.TABLE_STICKY_SENTINEL_BOTTOM} {
+      margin-bottom: ${columnControlsDecorationHeight}px;
+    }
+  }
+}`;
 
 export const tableStyles = css`
   .${ClassName.LAYOUT_BUTTON} button {
@@ -120,13 +145,13 @@ export const tableStyles = css`
 
     /* sticky styles */
     .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
-      margin-top: ${8 + 2}px;
+      margin-top: ${stickyRowOffsetTop + 2}px;
       width: ${akEditorTableNumberColumnWidth}px;
 
       position: fixed !important;
       z-index: ${akEditorStickyHeaderZIndex} !important;
 
-      box-shadow: 0px -8px white;
+      box-shadow: 0px -${stickyRowOffsetTop}px white;
       border-right: 0 none;
       /* top set by NumberColumn component */
     }
@@ -167,7 +192,7 @@ export const tableStyles = css`
     }
 
     tr.sticky {
-      padding-top: 8px;
+      padding-top: ${stickyRowOffsetTop}px;
       position: fixed;
       display: grid;
 
@@ -258,6 +283,8 @@ export const tableStyles = css`
     .${ClassName.CORNER_CONTROLS}.sticky {
       border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid white;
     }
+
+    ${props => props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
 
     ${OverflowShadow}
     .less-padding {

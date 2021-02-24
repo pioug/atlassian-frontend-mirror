@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
+import { DocNode } from '@atlaskit/adf-schema';
 import { ExtensionParams } from '@atlaskit/editor-common';
 
+import { ExtensionKeys } from './constants';
+import { ExtensionLinkComponent } from './ExtensionLinkComponent';
 import { MacroComponent } from './MacroComponent';
+
+const shouldRenderAsLink = (extensionKey: string) => {
+  return [
+    ExtensionKeys.GOOGLE_DOCS,
+    ExtensionKeys.GOOGLE_SHEETS,
+    ExtensionKeys.GOOGLE_SLIDES,
+    ExtensionKeys.TRELLO_CARD,
+    ExtensionKeys.TRELLO_BOARD,
+  ].includes(extensionKey);
+};
 
 const withLegacyMobileMacros = <
   P extends object,
@@ -50,9 +63,19 @@ const withLegacyMobileMacros = <
       });
   }, []);
 
+  const nestedRender = (document: DocNode) => {
+    const params = {
+      ...props,
+      document,
+    };
+    return <Component {...params} />;
+  };
+
   const getMacroExtensionHandler = () => {
-    return (extension: ExtensionParams<any>) => {
-      return (
+    return (extension: ExtensionParams<any>) =>
+      shouldRenderAsLink(extension.extensionKey) ? (
+        <ExtensionLinkComponent extension={extension} render={nestedRender} />
+      ) : (
         <MacroComponent
           extension={extension}
           macroWhitelist={macroWhitelist}
@@ -60,7 +83,6 @@ const withLegacyMobileMacros = <
           eventDispatcher={eventDispatcher}
         />
       );
-    };
   };
 
   const getExtensionHandlers = () => {

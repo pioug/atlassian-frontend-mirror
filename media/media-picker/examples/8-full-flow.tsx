@@ -27,6 +27,7 @@ import {
 } from '../src/types';
 import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import popupWarning from '../example-helpers/popup-warning';
 
 const userMediaClientConfig = createUploadMediaClientConfig();
 const tenantMediaClientConfig = createStorybookMediaClientConfig();
@@ -232,6 +233,7 @@ export default class Example extends React.Component<{}, State> {
 
     return (
       <React.Fragment>
+        {popupWarning}
         <Banner
           icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}
           isOpen={showUploadErrorBanner}

@@ -453,7 +453,7 @@ describe('<CustomMediaPlayer />', () => {
 
   sourceTypes.forEach(sourceType => {
     describe('with save last watch time feature', () => {
-      it(`should continue play from last watch time for the same ${sourceType}`, () => {
+      it(`should continue play from last watch time for the same ${sourceType} with more than 60 seconds left to play`, () => {
         const { component } = setup({
           lastWatchTimeConfig: {
             contentId: 'some-unique-id',
@@ -461,9 +461,17 @@ describe('<CustomMediaPlayer />', () => {
           type: sourceType,
         });
 
+        component.find(sourceType).simulate('canPlay', {
+          target: {
+            currentTime: 0,
+            volume: 0.5,
+            duration: 62,
+          },
+        });
+
         component.find(sourceType).simulate('timeUpdate', {
           target: {
-            currentTime: 10,
+            currentTime: 1,
             buffered: [],
           },
         });
@@ -475,10 +483,80 @@ describe('<CustomMediaPlayer />', () => {
           type: sourceType,
         });
 
-        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(10);
+        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(1);
       });
 
-      it(`should start from beginning for a different ${sourceType}`, () => {
+      it(`should not set defaultTime for the same ${sourceType} with a total duration less than equal to 60 seconds`, () => {
+        const { component } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-very-unique-id',
+          },
+          type: sourceType,
+        });
+
+        component.find(sourceType).simulate('canPlay', {
+          target: {
+            currentTime: 0,
+            volume: 0.5,
+            duration: 60,
+          },
+        });
+
+        component.find(sourceType).simulate('timeUpdate', {
+          target: {
+            currentTime: 1,
+            buffered: [],
+          },
+        });
+
+        const { component: component2 } = setup({
+          lastWatchTimeConfig: {
+            contentId: 'some-very-unique-id',
+          },
+          type: sourceType,
+        });
+
+        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(0);
+      });
+
+      it(`should reset defaultTime for the same ${sourceType} when we are within 60 seconds of the end`, () => {
+        const setupProps = {
+          lastWatchTimeConfig: {
+            contentId: 'some-super-unique-id',
+          },
+          type: sourceType,
+        };
+        const { component } = setup(setupProps);
+        component.find(sourceType).simulate('canPlay', {
+          target: {
+            currentTime: 0,
+            volume: 0.5,
+            duration: 90,
+          },
+        });
+
+        // We still have more than 60 seconds till the end. Should save 10 seconds
+        component.find(sourceType).simulate('timeUpdate', {
+          target: {
+            currentTime: 10,
+            buffered: [],
+          },
+        });
+        const { component: component2 } = setup(setupProps);
+        expect(component2.find(MediaPlayer).props().defaultTime).toEqual(10);
+
+        // We are now within 60 seconds of the end. Should reset to 0
+        component.find(sourceType).simulate('timeUpdate', {
+          target: {
+            currentTime: 30,
+            buffered: [],
+          },
+        });
+        const { component: component3 } = setup(setupProps);
+        expect(component3.find(MediaPlayer).props().defaultTime).toEqual(0);
+      });
+
+      it(`should start from beginning for a different ${sourceType} regardless of play time`, () => {
         const { component } = setup({
           lastWatchTimeConfig: {
             contentId: 'some-unique-id',
@@ -489,6 +567,7 @@ describe('<CustomMediaPlayer />', () => {
         component.find(sourceType).simulate('timeUpdate', {
           target: {
             currentTime: 10,
+            duration: 75,
             buffered: [],
           },
         });
@@ -511,6 +590,14 @@ describe('<CustomMediaPlayer />', () => {
             contentId: 'some-unique-id',
           },
           type: sourceType,
+        });
+
+        component.find(sourceType).simulate('canPlay', {
+          target: {
+            currentTime: 0,
+            volume: 0.5,
+            duration: 75,
+          },
         });
 
         component.find(sourceType).simulate('timeUpdate', {

@@ -21,7 +21,14 @@ export interface InfoCallback {
 }
 
 export interface AnalyticsCallback {
-  (event: string, actionSubject: string, action: string): void;
+  (
+    event: string,
+    actionSubject: string,
+    action: string,
+    attributes?: {
+      [key: string]: any;
+    },
+  ): void;
 }
 
 export interface MentionResourceConfig extends ServiceConfig {

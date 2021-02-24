@@ -287,12 +287,14 @@ describe('TeamMentionResourceSpec', () => {
         'sli',
         'searchUser',
         'succeeded',
+        undefined,
       );
       expect(analytics).toHaveBeenNthCalledWith(
         2,
         'sli',
         'searchTeam',
         'succeeded',
+        undefined,
       );
     });
 
@@ -311,8 +313,18 @@ describe('TeamMentionResourceSpec', () => {
 
       await resource.filter('query-only-teams-fail', FULL_CONTEXT);
       expect(analytics).toHaveBeenCalledTimes(2);
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchUser', 'succeeded');
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchTeam', 'failed');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchUser',
+        'succeeded',
+        undefined,
+      );
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchTeam',
+        'failed',
+        undefined,
+      );
     });
 
     it('should receive analytics events when both searches fail', async () => {
@@ -329,8 +341,18 @@ describe('TeamMentionResourceSpec', () => {
       );
       await resource.filter('query-both-fail');
       expect(analytics).toHaveBeenCalledTimes(2);
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchUser', 'failed');
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchTeam', 'failed');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchUser',
+        'failed',
+        undefined,
+      );
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchTeam',
+        'failed',
+        undefined,
+      );
     });
 
     it('should receive analytics events when user search fails', async () => {
@@ -346,8 +368,18 @@ describe('TeamMentionResourceSpec', () => {
 
       await resource.filter('query-only-users-fail', FULL_CONTEXT);
       expect(analytics).toHaveBeenCalledTimes(2);
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchUser', 'failed');
-      expect(analytics).toHaveBeenCalledWith('sli', 'searchTeam', 'succeeded');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchUser',
+        'failed',
+        undefined,
+      );
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'searchTeam',
+        'succeeded',
+        undefined,
+      );
     });
   });
 
@@ -411,7 +443,12 @@ describe('TeamMentionResourceSpec', () => {
         FULL_CONTEXT,
       );
       expect(analytics).toHaveBeenCalledTimes(1);
-      expect(analytics).toHaveBeenCalledWith('sli', 'selectTeam', 'succeeded');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'selectTeam',
+        'succeeded',
+        undefined,
+      );
     });
 
     it('should send failed to select analytics event when it fails to select a team', async () => {
@@ -435,7 +472,12 @@ describe('TeamMentionResourceSpec', () => {
       });
 
       expect(analytics).toHaveBeenCalledTimes(1);
-      expect(analytics).toHaveBeenCalledWith('sli', 'select', 'failed');
+      expect(analytics).toHaveBeenCalledWith(
+        'sli',
+        'select',
+        'failed',
+        undefined,
+      );
     });
   });
 });

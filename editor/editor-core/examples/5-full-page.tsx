@@ -6,7 +6,7 @@ import { MockActivityResource } from '../example-helpers/activity-provider';
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
 
-import { AtlassianIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import Flag from '@atlaskit/flag';
 import Warning from '@atlaskit/icon/glyph/warning';
 
@@ -305,6 +305,7 @@ export class ExampleEditorComponent extends React.Component<
           <Content>
             <SmartCardProvider client={smartCardClient}>
               <Editor
+                UNSAFE_allowUndoRedoButtons={true}
                 UNSAFE_predictableLists={true}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
@@ -316,9 +317,6 @@ export class ExampleEditorComponent extends React.Component<
                   allowColumnSorting: true,
                   stickyHeaders: true,
                   tableCellOptimization: true,
-                  mouseMoveOptimization: true,
-                  initialRenderOptimization: true,
-                  tableRenderOptimization: true,
                 }}
                 allowBreakout={true}
                 allowJiraIssue={true}
@@ -341,6 +339,7 @@ export class ExampleEditorComponent extends React.Component<
                   allowBlockCards: true,
                   allowEmbeds: true,
                   allowResizing: true,
+                  useAlternativePreloader: false,
                 }}
                 allowExpand={{
                   allowInsertion: true,
@@ -675,9 +674,17 @@ export default function Example(props: EditorProps & ExampleProps) {
   const maybeFlags = FeatureFlagUrl.fromLocation<string>(
     window.parent.location,
   );
+
+  const defaultFeatureFlags = {
+    mouseMoveOptimization: true,
+    initialRenderOptimization: true,
+    tableRenderOptimization: true,
+    stickyHeadersOptimization: true,
+  };
+
   const featureFlags =
-    maybeFlags instanceof window.Error
-      ? undefined
+    !maybeFlags || maybeFlags instanceof window.Error
+      ? defaultFeatureFlags
       : JSON.parse(maybeFlags ?? '{}');
 
   let allowCustomPanel = false;

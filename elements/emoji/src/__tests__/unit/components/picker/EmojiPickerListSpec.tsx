@@ -1,4 +1,3 @@
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
@@ -7,6 +6,8 @@ import {
   CachingEmoji,
   CachingEmojiProps,
 } from '../../../../components/common/CachingEmoji';
+import DeleteButton from '../../../../components/common/DeleteButton';
+import { deleteButton as deleteButtonStyles } from '../../../../components/common/styles';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
 import * as styles from '../../../../components/picker/styles';
@@ -278,7 +279,7 @@ describe('<EmojiPickerList />', () => {
       const yourEmoji = wrapper.find(CachingEmoji).at(0);
       // expected first to be :foo: under "Your uploads"
       expect(yourEmoji.props().emoji.id).toEqual('foo');
-      expect(yourEmoji.find(CrossCircleIcon)).toHaveLength(1);
+      expect(yourEmoji.find(DeleteButton)).toHaveLength(1);
     });
 
     it('should not render delete button if not user custom emoji', () => {
@@ -288,7 +289,7 @@ describe('<EmojiPickerList />', () => {
       const emoji = wrapper.find(CachingEmoji).at(0);
       // Expect first :foo: under "All uploads"
       expect(emoji.props().emoji.id).toEqual('foo');
-      expect(emoji.find(CrossCircleIcon)).toHaveLength(0);
+      expect(emoji.find(DeleteButton)).toHaveLength(0);
     });
 
     it('should have label "delete-emoji" on delete button', () => {
@@ -298,7 +299,7 @@ describe('<EmojiPickerList />', () => {
       const deleteButton = wrapper
         .find(CachingEmoji)
         .at(0)
-        .find(CrossCircleIcon)
+        .find(DeleteButton)
         .at(0);
       // needs label of "delete-emoji" to prevent selection on click
       expect(
@@ -318,7 +319,7 @@ describe('<EmojiPickerList />', () => {
       const deleteButton = wrapper
         .find(CachingEmoji)
         .at(0)
-        .find(CrossCircleIcon);
+        .find(`.${deleteButtonStyles} button`);
       deleteButton.simulate('click');
       expect(onDelete.mock.calls).toHaveLength(1);
     });
@@ -332,10 +333,7 @@ describe('<EmojiPickerList />', () => {
           onEmojiSelected={onSelection}
         />,
       );
-      const deleteButton = wrapper
-        .find(CachingEmoji)
-        .at(0)
-        .find(CrossCircleIcon);
+      const deleteButton = wrapper.find(CachingEmoji).at(0).find(DeleteButton);
       deleteButton.simulate('click');
       expect(onSelection.mock.calls).toHaveLength(0);
     });

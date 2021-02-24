@@ -9,6 +9,7 @@ import React from 'react';
 import { Component } from 'react';
 import Button from '@atlaskit/button/standard-button';
 
+import popupWarning from '../example-helpers/popup-warning';
 import { MediaPicker } from '../src';
 import { Popup } from '../src/types';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -69,6 +70,7 @@ export default class Example extends Component<Props, State> {
     const { events, popup } = this.state;
     return (
       <div>
+        {popupWarning}
         <Button id="show" onClick={() => (popup ? popup.show() : null)}>
           Show
         </Button>

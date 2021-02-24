@@ -33,3 +33,5 @@ export interface ToolbarInnerProps extends ToolbarProps {
   isToolbarReducedSpacing: boolean;
   isReducedSpacing?: boolean;
 }
+
+export const toolbarTestIdPrefix = 'ak-editor-toolbar-button';

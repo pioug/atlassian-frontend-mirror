@@ -117,6 +117,11 @@ export default defineMessages({
     defaultMessage: 'an action item',
     description: 'an action item in the Editor',
   },
+  bulletList: {
+    id: 'fabric.editor.tooltip.bulletList',
+    defaultMessage: 'a list',
+    description: 'a list item in the Editor',
+  },
   nestedExpand: {
     id: 'fabric.editor.tooltip.nestedExpand',
     defaultMessage: 'a nested expand',

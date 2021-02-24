@@ -1,85 +1,42 @@
-import {
+export {
   AtlassianIcon,
   AtlassianLogo,
   AtlassianWordmark,
 } from './AtlassianLogo';
-import {
+export {
   BitbucketIcon,
   BitbucketLogo,
   BitbucketWordmark,
 } from './BitbucketLogo';
-import {
+export {
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
 } from './ConfluenceLogo';
-import { Props as LogoProps } from './constants';
-import { HipchatIcon, HipchatLogo, HipchatWordmark } from './HipchatLogo';
-import { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from './JiraCoreLogo';
-import { JiraIcon, JiraLogo, JiraWordmark } from './JiraLogo';
-import {
+export type { Props as LogoProps } from './constants';
+export { HipchatIcon, HipchatLogo, HipchatWordmark } from './HipchatLogo';
+export { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from './JiraCoreLogo';
+export { JiraIcon, JiraLogo, JiraWordmark } from './JiraLogo';
+export {
   JiraServiceDeskIcon,
   JiraServiceDeskLogo,
   JiraServiceDeskWordmark,
 } from './JiraServiceDeskLogo';
-import {
+export {
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
   JiraServiceManagementWordmark,
 } from './JiraServiceManagementLogo';
-import {
+export {
   JiraSoftwareIcon,
   JiraSoftwareLogo,
   JiraSoftwareWordmark,
 } from './JiraSoftwareLogo';
-import { OpsGenieIcon, OpsGenieLogo, OpsGenieWordmark } from './OpsGenieLogo';
-import {
+export { OpsGenieIcon, OpsGenieLogo, OpsGenieWordmark } from './OpsGenieLogo';
+export {
   StatuspageIcon,
   StatuspageLogo,
   StatuspageWordmark,
 } from './StatuspageLogo';
-import { StrideIcon, StrideLogo, StrideWordmark } from './StrideLogo';
-import { TrelloIcon, TrelloLogo, TrelloWordmark } from './TrelloLogo';
-
-export {
-  AtlassianLogo,
-  AtlassianIcon,
-  AtlassianWordmark,
-  BitbucketLogo,
-  BitbucketIcon,
-  BitbucketWordmark,
-  ConfluenceLogo,
-  ConfluenceIcon,
-  ConfluenceWordmark,
-  HipchatLogo,
-  HipchatIcon,
-  HipchatWordmark,
-  JiraCoreLogo,
-  JiraCoreIcon,
-  JiraCoreWordmark,
-  JiraLogo,
-  JiraIcon,
-  JiraWordmark,
-  JiraServiceDeskLogo,
-  JiraServiceDeskIcon,
-  JiraServiceDeskWordmark,
-  JiraServiceManagementIcon,
-  JiraServiceManagementLogo,
-  JiraServiceManagementWordmark,
-  JiraSoftwareLogo,
-  JiraSoftwareIcon,
-  JiraSoftwareWordmark,
-  OpsGenieLogo,
-  OpsGenieIcon,
-  OpsGenieWordmark,
-  StatuspageLogo,
-  StatuspageIcon,
-  StatuspageWordmark,
-  StrideLogo,
-  StrideIcon,
-  StrideWordmark,
-  TrelloLogo,
-  TrelloIcon,
-  TrelloWordmark,
-};
-export type { LogoProps };
+export { StrideIcon, StrideLogo, StrideWordmark } from './StrideLogo';
+export { TrelloIcon, TrelloLogo, TrelloWordmark } from './TrelloLogo';

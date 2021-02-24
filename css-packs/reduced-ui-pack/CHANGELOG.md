@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 13.1.0
+
+### Minor Changes
+
+- [`b9265389fa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9265389fa0) - Icon now exposes a base icon via the `@atlaskit/icon/base` entrypoint. This is used in all generated glyphs inside the icon package.
+
 ## 13.0.8
 
 ### Patch Changes

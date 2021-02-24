@@ -52,6 +52,7 @@ import statusPlugin from '../../../../plugins/status';
 import tablePlugin from '../../../../plugins/table';
 import { TablePluginState } from '../../../../plugins/table/types';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import featureFlagsPlugin from '../../../../plugins/feature-flags-context';
 
 describe('table keymap', () => {
   const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
@@ -77,7 +78,8 @@ describe('table keymap', () => {
     .add(layoutPlugin)
     .add([statusPlugin, { menuDisabled: false }])
     .add([mediaPlugin, { allowMediaSingle: true }])
-    .add([analyticsPlugin, { createAnalyticsEvent }]);
+    .add([analyticsPlugin, { createAnalyticsEvent }])
+    .add([featureFlagsPlugin]);
 
   const editor = (doc: any) =>
     createEditor<TablePluginState, PluginKey>({

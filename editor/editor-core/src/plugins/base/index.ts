@@ -9,6 +9,7 @@ import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
 import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
+import betterTypeHistoryPlugin from './pm-plugins/better-type-history';
 import { plugin as reactNodeView } from './pm-plugins/react-nodeview';
 import decorationPlugin from './pm-plugins/decoration';
 import scrollGutter, {
@@ -88,6 +89,10 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
         name: 'contextIdentifier',
         plugin: ({ dispatch, providerFactory }) =>
           contextIdentifierPlugin(dispatch, providerFactory),
+      },
+      {
+        name: 'betterTypeHistory',
+        plugin: ({ dispatch, providerFactory }) => betterTypeHistoryPlugin(),
       },
     ];
 

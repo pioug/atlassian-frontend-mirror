@@ -26,7 +26,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
-export default class BitbucketLogo extends Component<Props> {
+export class BitbucketLogo extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

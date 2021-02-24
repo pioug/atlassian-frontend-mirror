@@ -611,11 +611,12 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               name: 'foo',
             });
             const field = wrapper.find('input[type="checkbox"]');
-
             toggleCheckbox(field);
-
-            await trySubmit();
-
+            if (!autoSave) {
+              await trySubmit();
+            } else {
+              await flushPromises();
+            }
             expect(onChange).toHaveBeenCalledWith({ foo: true });
           });
 

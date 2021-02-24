@@ -11,7 +11,7 @@ const svg = `<canvas height="32" width="86" aria-hidden="true"></canvas>
   </g>
 </svg>`;
 
-export default class HipchatWordmark extends Component<Props> {
+export class HipchatWordmark extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

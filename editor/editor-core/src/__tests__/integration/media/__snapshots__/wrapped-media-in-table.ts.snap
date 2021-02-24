@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wrapped-media-in-table.ts: Allows clicking next to wrapped media in table 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  382,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  122,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  253,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  382,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "layout": "wrap-left",
+                    "width": 15,
+                  },
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "__contextId": "DUMMY-OBJECT-ID",
+                        "__displayType": null,
+                        "__external": false,
+                        "__fileMimeType": "image/jpeg",
+                        "__fileName": "example.png",
+                        "__fileSize": 58705,
+                        "alt": null,
+                        "collection": "MediaServicesSample",
+                        "height": 980,
+                        "id": "1234-5678-abcd-efgh",
+                        "occurrenceKey": null,
+                        "type": "file",
+                        "url": null,
+                        "width": 840,
+                      },
+                      "type": "media",
+                    },
+                  ],
+                  "type": "mediaSingle",
+                },
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "hello",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+                Object {
+                  "attrs": Object {
+                    "layout": "center",
+                    "width": null,
+                  },
+                  "content": Array [
+                    Object {
+                      "attrs": Object {
+                        "__contextId": "DUMMY-OBJECT-ID",
+                        "__displayType": null,
+                        "__external": false,
+                        "__fileMimeType": "image/jpeg",
+                        "__fileName": "example.png",
+                        "__fileSize": 58705,
+                        "alt": null,
+                        "collection": "MediaServicesSample",
+                        "height": 683,
+                        "id": "1234-5678-abcd-efgh",
+                        "occurrenceKey": null,
+                        "type": "file",
+                        "url": null,
+                        "width": 1024,
+                      },
+                      "type": "media",
+                    },
+                  ],
+                  "type": "mediaSingle",
+                },
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  122,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  253,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  382,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  122,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": Array [
+                  253,
+                ],
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;

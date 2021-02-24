@@ -1,5 +1,3 @@
-import TrelloIcon from './Icon';
-import TrelloLogo from './Logo';
-import TrelloWordmark from './Wordmark';
-
-export { TrelloLogo, TrelloIcon, TrelloWordmark };
+export { TrelloIcon } from './Icon';
+export { TrelloLogo } from './Logo';
+export { TrelloWordmark } from './Wordmark';

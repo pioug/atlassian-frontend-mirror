@@ -4,6 +4,10 @@ import { getExamplesFor } from '@atlaskit/build-utils/getExamples';
 import { ssr } from '@atlaskit/ssr';
 import waitForExpect from 'wait-for-expect';
 
+type File = {
+  filePath: string;
+};
+
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 afterEach(() => {
@@ -12,7 +16,10 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate icon correctly', async () => {
-  const [example] = await getExamplesFor('@atlaskit/icon');
+  const examples: File[] = await getExamplesFor('@atlaskit/icon');
+  const example = examples.find(({ filePath }) =>
+    filePath.includes('size-example'),
+  )!;
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
   const elem = document.createElement('div');
   elem.innerHTML = await ssr(example.filePath);

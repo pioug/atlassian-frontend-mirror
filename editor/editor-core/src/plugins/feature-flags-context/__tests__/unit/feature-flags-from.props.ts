@@ -150,4 +150,28 @@ describe('Feature Flags from Props', () => {
       });
     });
   });
+
+  describe('table optimization flags', () => {
+    describe.each([
+      'stickyHeadersOptimization',
+      'initialRenderOptimization',
+      'mouseMoveOptimization',
+      'tableRenderOptimization',
+    ])('%s', flagName => {
+      it.each<{ actual?: any; expected?: any }>([
+        { actual: true, expected: true },
+        { actual: false, expected: false },
+        { actual: undefined, expected: false },
+        { actual: null, expected: false },
+      ])(`set ${flagName} to %s based on feature flag`, testData => {
+        const { actual, expected } = testData;
+        const flags = createFeatureFlagsFromProps({
+          featureFlags: {
+            stickyHeadersOptimization: actual,
+          },
+        });
+        expect(flags.stickyHeadersOptimization).toBe(expected);
+      });
+    });
+  });
 });

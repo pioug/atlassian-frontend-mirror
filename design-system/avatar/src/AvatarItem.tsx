@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {
+import {
   createElement,
   forwardRef,
   Fragment,
@@ -29,9 +29,15 @@ export interface CustomAvatarItemProps {
   href?: string;
   children: ReactNode;
   ref: Ref<HTMLElement>;
+  'aria-label'?: string;
+  'aria-disabled'?: boolean | 'false' | 'true' | undefined;
 }
 
 export interface AvatarItemProps {
+  /** Used to provide better content to screen readers when using presence/status. Rather
+   * than a screen reader speaking "online, approved, John Smith", passing in an label
+   * allows a custom message like "John Smith (approved and online)". */
+  label?: string;
   /** Slot to place an avatar element. Use @atlaskit/avatar. */
   avatar: ReactNode;
   /** Change background color. */
@@ -88,12 +94,12 @@ const getStyles = (
   text-align: left;
   text-decoration: none;
   width: 100%;
-  cursor: pointer;
 
   ${isInteractive &&
   `
         :hover {
           background-color: ${backgroundHover()};
+          cursor: pointer;
           text-decoration: none;
         }
 
@@ -110,7 +116,7 @@ const getStyles = (
   ${isDisabled &&
   `
         cursor: not-allowed;
-        opacity: 0.75;
+        opacity: 0.5;
         pointer-events: none;
       `}
 `;
@@ -129,20 +135,26 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
       secondaryText,
       target,
       testId,
+      label,
     },
     ref,
   ) => {
-    const onClickHandler = (event: React.MouseEvent<HTMLElement>) => {
-      if (isDisabled || typeof onClick !== 'function') {
-        return;
-      }
-      onClick(event);
-    };
-
     const getTestId = (testId?: string, children?: ReactNode) =>
       !children
         ? { 'data-testid': `${testId}--itemInner` }
         : { testId: `${testId}--itemInner` };
+
+    const componentProps = () => {
+      if (isDisabled) {
+        return { disabled: 'true' };
+      }
+
+      // return only relevant props for either anchor or button elements
+      return {
+        ...(href && getLinkProps(href, target)),
+        ...(onClick && !href ? getButtonProps(onClick) : { onClick }),
+      };
+    };
 
     return (
       <ClassNames>
@@ -152,10 +164,11 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
             className: getStyles(css, {
               backgroundColor,
               isInteractive: Boolean(onClick || href),
+              isDisabled,
             }),
-            ...(href && getLinkProps(href, target)),
-            ...(onClick && getButtonProps(onClickHandler, isDisabled)),
+            ...componentProps(),
             ...(testId && getTestId(testId, children)),
+            ...((onClick || href) && { 'aria-label': label }),
             children: (
               <Fragment>
                 {avatar}
@@ -179,7 +192,7 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
 
           return children
             ? children(props)
-            : createElement(getCustomElement(href, onClick), props);
+            : createElement(getCustomElement(isDisabled, href, onClick), props);
         }}
       </ClassNames>
     );

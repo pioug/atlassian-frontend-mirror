@@ -25,6 +25,7 @@ interface EditorConfig {
   allowCollabProvider?: boolean;
   allowPredictableList?: boolean;
   placeholder?: string;
+  allowEmptyADFCheck?: boolean;
 }
 
 export default class MobileEditorConfiguration
@@ -37,6 +38,7 @@ export default class MobileEditorConfiguration
   private allowCollabProvider: boolean = false;
   private allowPredictableList: boolean = false;
   private placeholder?: string | undefined;
+  private allowEmptyADFCheck: boolean = false;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {
@@ -68,6 +70,10 @@ export default class MobileEditorConfiguration
         : this.allowPredictableList;
     this.placeholder =
       config.placeholder !== undefined ? config.placeholder : this.placeholder;
+    this.allowEmptyADFCheck =
+      config.allowEmptyADFCheck !== undefined
+        ? config.allowEmptyADFCheck
+        : this.allowEmptyADFCheck;
   }
 
   getEditorAppearance(): EditorAppearance {
@@ -104,6 +110,10 @@ export default class MobileEditorConfiguration
 
   getPlaceholder(): string | undefined {
     return this.placeholder;
+  }
+
+  isAllowEmptyADFCheckEnabled(): boolean {
+    return this.allowEmptyADFCheck;
   }
 
   // We need to retain the previous configuartion flags as `locale` and `mode` can be configured

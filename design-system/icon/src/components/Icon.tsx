@@ -1,46 +1,61 @@
-import React, { ReactElement } from 'react';
-import styled from 'styled-components';
-import uuid from 'uuid';
-import { background } from '@atlaskit/theme/colors';
+/** @jsx jsx */
+import { HTMLProps, ReactElement, memo } from 'react';
+import { css, jsx } from '@emotion/core';
+import GlobalTheme from '@atlaskit/theme/components';
+import type { Theme, ThemeModes } from '@atlaskit/theme/types';
 
-import { sizeOpts } from '../types';
+import type { sizeOpts } from '../types';
 import { sizes } from '../constants';
+import { getBackground } from './utils';
 
-interface WrapperProps {
+type WrapperProps = {
   primaryColor?: string;
   secondaryColor?: string;
   size?: sizeOpts;
-}
+  mode: ThemeModes;
+} & Omit<HTMLProps<HTMLSpanElement>, 'size'>;
 
-const getSize = ({ size }: WrapperProps) =>
-  size ? `height: ${sizes[size]}; width: ${sizes[size]};` : null;
+export const IconWrapper = memo<WrapperProps>(function IconWrapper({
+  primaryColor,
+  secondaryColor,
+  size,
+  mode,
+  ...rest
+}) {
+  return (
+    <span
+      css={css`
+        ${size && `height: ${sizes[size]}`};
+        ${size && `width: ${sizes[size]}`};
+        color: ${primaryColor || 'currentColor'};
+        display: inline-block;
+        fill: ${secondaryColor || getBackground(mode)};
+        flex-shrink: 0;
+        line-height: 1;
 
-export const IconWrapper = styled.span<WrapperProps>`
-  ${getSize};
-  color: ${p => p.primaryColor || 'currentColor'};
-  display: inline-block;
-  fill: ${p => p.secondaryColor || background};
-  flex-shrink: 0;
-  line-height: 1;
+        > svg {
+          ${size && `height: ${sizes[size]}`};
+          ${size && `width: ${sizes[size]}`};
+          max-height: 100%;
+          max-width: 100%;
+          overflow: hidden;
+          pointer-events: none;
+          vertical-align: bottom;
+        }
 
-  > svg {
-    ${getSize};
-    max-height: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    vertical-align: bottom;
-  }
-
-  /**
-   * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
-   * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
-   * rule) and then override it with currentColor for the color changes to be picked up.
-   */
-  stop {
-    stop-color: currentColor;
-  }
-`;
+        /**
+        * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
+        * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
+        * rule) and then override it with currentColor for the color changes to be picked up.
+        */
+        stop {
+          stop-color: currentColor;
+        }
+      `}
+      {...rest}
+    />
+  );
+});
 
 export interface IconProps {
   /**
@@ -86,26 +101,7 @@ export interface IconProps {
   testId?: string;
 }
 
-/**
- * Icons need unique gradient IDs across instances for different gradient definitions to work
- * correctly.
- * A step in the icon build process replaces linear gradient IDs and their references in paths
- * to a placeholder string so we can replace them with a dynamic ID here.
- * Replacing the original IDs with placeholders in the build process is more robust than not
- * using placeholders as we do not have to rely on regular expressions to find specific element
- * to replace.
- */
-function insertDynamicGradientID(svgStr: string, label: string) {
-  const id = uuid();
-
-  const replacedSvgStr = svgStr
-    .replace(/id="([^"]+)-idPlaceholder"/g, `id=$1-${id}`)
-    .replace(/fill="url\(#([^"]+)-idPlaceholder\)"/g, `fill="url(#$1-${id})"`);
-
-  return replacedSvgStr;
-}
-
-const Icon = (props: IconProps) => {
+const Icon = memo(function Icon(props: IconProps) {
   const {
     glyph: Glyph,
     dangerouslySetGlyph,
@@ -118,22 +114,27 @@ const Icon = (props: IconProps) => {
   const glyphProps = dangerouslySetGlyph
     ? {
         dangerouslySetInnerHTML: {
-          __html: insertDynamicGradientID(dangerouslySetGlyph, label),
+          __html: dangerouslySetGlyph,
         },
       }
     : { children: Glyph ? <Glyph role="presentation" /> : null };
 
   return (
-    <IconWrapper
-      primaryColor={primaryColor}
-      secondaryColor={secondaryColor}
-      size={size}
-      data-testid={testId}
-      role={label ? 'img' : 'presentation'}
-      aria-label={label ? label : undefined}
-      {...glyphProps}
-    />
+    <GlobalTheme.Consumer>
+      {({ mode }: Theme) => (
+        <IconWrapper
+          mode={mode}
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
+          size={size}
+          data-testid={testId}
+          role={label ? 'img' : 'presentation'}
+          aria-label={label ? label : undefined}
+          {...glyphProps}
+        />
+      )}
+    </GlobalTheme.Consumer>
   );
-};
+});
 
 export default Icon;

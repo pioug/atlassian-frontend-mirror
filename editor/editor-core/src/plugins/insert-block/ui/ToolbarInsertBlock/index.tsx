@@ -7,7 +7,7 @@ import { EmojiId } from '@atlaskit/emoji/types';
 import { Popup } from '@atlaskit/editor-common';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import DropdownMenu from '../../../../ui/DropdownMenu';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
 import { Separator, ButtonGroup, Wrapper } from '../../../../ui/styles';
 import { createTable } from '../../../table/commands';
 import { insertDate, openDatePicker } from '../../../date/actions';
@@ -178,12 +178,15 @@ class ToolbarInsertBlock extends React.PureComponent<
       popupsBoundariesElement,
       popupsScrollableElement,
       emojiProvider,
+      replacePlusMenuWithElementBrowser,
     } = this.props;
     const dropdownEmoji = this.state.dropdownItems.some(
       ({ value: { name } }) => name === 'emoji',
     );
-
-    const ref = dropdownEmoji ? this.dropdownButtonRef : this.emojiButtonRef;
+    const dropDownButtonRef = replacePlusMenuWithElementBrowser
+      ? this.plusButtonRef
+      : this.dropdownButtonRef;
+    const ref = dropdownEmoji ? dropDownButtonRef : this.emojiButtonRef;
 
     if (!emojiPickerOpen || !ref || !emojiProvider) {
       return null;
@@ -327,21 +330,21 @@ class ToolbarInsertBlock extends React.PureComponent<
       : this.getLegacyInsertMenu();
   }
 
-  private handleEmojiButtonRef = (button: ToolbarButton | null): void => {
+  private handleEmojiButtonRef = (button: ToolbarButtonRef): void => {
     const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
     if (ref) {
       this.emojiButtonRef = ref;
     }
   };
 
-  private handlePlusButtonRef = (button: ToolbarButton | null): void => {
+  private handlePlusButtonRef = (button: ToolbarButtonRef): void => {
     const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
     if (ref) {
       this.plusButtonRef = ref;
     }
   };
 
-  private handleDropDownButtonRef = (button: ToolbarButton | null) => {
+  private handleDropDownButtonRef = (button: ToolbarButtonRef) => {
     const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
     if (ref) {
       this.dropdownButtonRef = ref;

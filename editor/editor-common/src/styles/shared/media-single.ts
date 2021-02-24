@@ -17,6 +17,10 @@ const mediaSingleSharedStyle = css`
     height: 0;
   }
 
+  .mediaSingleView-content-wrap[layout='center'] {
+    clear: both;
+  }
+
   table .${richMediaClassName} {
     margin-top: 12px;
     margin-bottom: 12px;

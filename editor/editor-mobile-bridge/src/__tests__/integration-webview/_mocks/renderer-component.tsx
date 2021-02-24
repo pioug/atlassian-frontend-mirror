@@ -6,12 +6,15 @@ import { createMentionProvider, createCardClient } from '../../../providers';
 import { createEmojiProvider } from '../../../providers/emojiProvider';
 import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createMediaProvider } from './media-provider';
-import { getLocaleValue } from '../../../query-param-reader';
 import getBridge from '../../../renderer/native-to-web/bridge-initialiser';
+import useRendererConfiguration from '../../../renderer/hooks/use-renderer-configuration';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
   const initialDocSerialized = JSON.stringify(getEmptyADF());
+  const rendererBridge = getBridge();
+  const rendererConfiguration = useRendererConfiguration(rendererBridge);
+
   return (
     <MobileRenderer
       cardClient={createCardClient()}
@@ -21,8 +24,8 @@ const App = () => {
       mentionProvider={createMentionProvider()}
       allowAnnotations={false}
       allowHeadingAnchorLinks={false}
-      locale={getLocaleValue()}
-      rendererBridge={getBridge()}
+      locale={rendererConfiguration.getLocale()}
+      rendererBridge={rendererBridge}
     />
   );
 };

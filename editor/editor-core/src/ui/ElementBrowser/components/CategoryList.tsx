@@ -2,11 +2,20 @@ import React, { memo, useCallback, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { N800, B400, B50 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/custom-theme-button';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import {
+  withAnalyticsContext,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 import { DEVICE_BREAKPOINT_NUMBERS, GRID_SIZE } from '../constants';
 import useFocus from '../hooks/use-focus';
 import { Category } from '../types';
+import {
+  fireAnalyticsEvent,
+  EVENT_TYPE,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  ACTION,
+} from '../../../plugins/analytics';
 
 interface Props {
   categories?: Category[];
@@ -14,7 +23,10 @@ interface Props {
   selectedCategory?: string;
 }
 
-function CategoryList({ categories = [], ...props }: Props): JSX.Element {
+function CategoryList({
+  categories = [],
+  ...props
+}: Props & WithAnalyticsEventsProps): JSX.Element {
   const [focusedCategoryIndex, setFocusedCategoryIndex] = React.useState<
     number | null
   >(null);
@@ -50,30 +62,36 @@ function CategoryListItem({
   index,
   focus,
   setFocusedCategoryIndex,
-}: CategoryListItemProps) {
+  createAnalyticsEvent,
+}: CategoryListItemProps & WithAnalyticsEventsProps) {
   const ref = useFocus(focus);
-  const onClick = useCallback(
-    (e: {}, analyticsEvent: UIAnalyticsEvent) => {
-      onSelectCategory(category);
+  const onClick = useCallback(() => {
+    onSelectCategory(category);
 
-      /**
-       * When user double clicks on same category, focus on first item.
-       */
-      if (selectedCategory === category.name) {
-        setFocusedCategoryIndex(0);
-      } else {
-        setFocusedCategoryIndex(index);
-      }
-      analyticsEvent.fire();
-    },
-    [
-      onSelectCategory,
-      category,
-      index,
-      selectedCategory,
-      setFocusedCategoryIndex,
-    ],
-  );
+    /**
+     * When user double clicks on same category, focus on first item.
+     */
+    if (selectedCategory === category.name) {
+      setFocusedCategoryIndex(0);
+    } else {
+      setFocusedCategoryIndex(index);
+    }
+    fireAnalyticsEvent(createAnalyticsEvent)({
+      payload: {
+        action: ACTION.CLICKED,
+        actionSubject: ACTION_SUBJECT.BUTTON,
+        actionSubjectId: ACTION_SUBJECT_ID.BUTTON_CATEGORY,
+        eventType: EVENT_TYPE.TRACK,
+      },
+    });
+  }, [
+    onSelectCategory,
+    category,
+    index,
+    selectedCategory,
+    setFocusedCategoryIndex,
+    createAnalyticsEvent,
+  ]);
 
   const onFocus = useCallback(() => {
     if (!focus) {
@@ -110,6 +128,7 @@ function CategoryListItem({
         onFocus={onFocus}
         theme={getTheme}
         ref={ref}
+        testId="element-browser-category-item"
       >
         {category.title}
       </Button>

@@ -18,7 +18,7 @@ import {
 import { isSpecialMentionText } from '../types';
 
 export const SLI_EVENT_TYPE = 'sli';
-
+export const SMART_EVENT_TYPE = 'smart';
 export enum SliNames {
   SEARCH = 'searchUser',
   SEARCH_TEAM = 'searchTeam',
@@ -138,6 +138,9 @@ export const fireSliAnalyticsEvent = (props: WithAnalyticsEventsProps) => (
 export const buildSliPayload = (
   actionSubject: string,
   action: string,
+  attributes?: {
+    [key: string]: any;
+  },
 ): GasPayload => {
   const eventPayload: GasPayload = {
     action,
@@ -147,6 +150,7 @@ export const buildSliPayload = (
       packageName,
       packageVersion,
       componentName: ComponentNames.MENTION,
+      ...attributes,
     },
   };
   return eventPayload;

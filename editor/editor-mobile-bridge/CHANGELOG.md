@@ -1,5 +1,29 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.0.0
+
+### Major Changes
+
+- [`709a28ee803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709a28ee803) - Add setContentPayload / resolvePromisePayload methods to speed up native to bridge data transportation by fetching the json payload from a predefined url.
+- [`3d81784c978`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d81784c978) - ED-12005 Added API to check if ADF is empty or only has whitespace
+
+### Minor Changes
+
+- [`f89a714e454`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f89a714e454) - ED-11940 remove unused query params - Locale and Enable-Quick-Insert for the editor
+- [`b0e8a310624`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0e8a310624) - Remove background-color from renderer and editor html templates. This to fix an issue with page flashing when in dark mode.
+- [`5142c23bfea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5142c23bfea) - [ED-11864] Add allowIndentation to TRUE for mobile editor
+
+### Patch Changes
+
+- [`afa1378d22e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afa1378d22e) - Remove unsused query-param methods which are transitioned to Renderer Configurations
+- Updated dependencies
+
+## 24.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.4
 
 ### Patch Changes

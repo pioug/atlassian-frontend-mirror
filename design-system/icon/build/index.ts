@@ -17,6 +17,7 @@ const config = {
   maxWidth: 24,
   maxHeight: 24,
   glob: '**/*.svg',
+  baseIconEntryPoint: '@atlaskit/icon/base',
 };
 
 buildIcons(config).then((icons: any) => {

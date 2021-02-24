@@ -18,11 +18,36 @@ import { Modes } from '../../../../types';
 
 const props = {
   items: [
-    { name: 'item-1', title: 'Item 1', action: jest.fn() },
-    { name: 'item-2', title: 'Item 2', action: jest.fn() },
-    { name: 'item-3', title: 'Item 3', action: jest.fn() },
-    { name: 'item-4', title: 'Item 4', action: jest.fn() },
-    { name: 'item-5', title: 'Item 5', action: jest.fn() },
+    {
+      name: 'item-1',
+      title: 'Item 1',
+      action: jest.fn(),
+      description: 'Item 1 description',
+    },
+    {
+      name: 'item-2',
+      title: 'Item 2',
+      action: jest.fn(),
+      description: 'Item 2 description',
+    },
+    {
+      name: 'item-3',
+      title: 'Item 3',
+      action: jest.fn(),
+      description: 'Item 3 description',
+    },
+    {
+      name: 'item-4',
+      title: 'Item 4',
+      action: jest.fn(),
+      description: 'Item 4 description',
+    },
+    {
+      name: 'item-5',
+      title: 'Item 5',
+      action: jest.fn(),
+      description: 'Item 5 description',
+    },
   ],
   mode: Modes.full,
   onInsertItem: jest.fn(),
@@ -69,5 +94,43 @@ describe('ElementList', () => {
     );
     // @ts-ignore TS2339: scrollToCell prop exists on Collection component
     expect(wrapper.find('Collection').props().scrollToCell).toBe(5);
+  });
+
+  describe('ElementItem', () => {
+    let offsetHeightSpy: jest.SpyInstance;
+
+    beforeAll(() => {
+      offsetHeightSpy = jest
+        .spyOn(HTMLElement.prototype, 'offsetHeight', 'get')
+        .mockReturnValue(500);
+    });
+
+    afterAll(() => {
+      offsetHeightSpy.mockRestore();
+    });
+
+    it('should render each item inside the tooltip hitbox', () => {
+      mockGetWidth.mockReturnValueOnce(660);
+
+      wrapper = mount(
+        <ElementList {...props} selectedItemIndex={5} focusedItemIndex={5} />,
+      );
+      const tooltipHitboxs = wrapper.find(
+        '[data-testid^="element-item-tooltip"]',
+      );
+      expect(tooltipHitboxs.length).toBe(5);
+      expect(
+        tooltipHitboxs.first().find('span[data-testid="element-item-0"]')
+          .length,
+      ).toBe(1);
+    });
+
+    it('should pass the description to the tooltip component', () => {
+      mockGetWidth.mockReturnValueOnce(660);
+      const tooltipElements = wrapper.find('Tooltip');
+      expect(tooltipElements.first().props().content).toBe(
+        'Item 1 description',
+      );
+    });
   });
 });

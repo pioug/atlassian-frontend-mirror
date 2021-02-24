@@ -17,7 +17,7 @@ exports[`Team mention description should render Team Mention description compone
   class="c0"
 >
   <span>
-    5 members, including you
+    Team • 5 members, including you
   </span>
 </span>
 `;
@@ -37,7 +37,7 @@ exports[`Team mention description should render Team Mention description compone
   class="c0"
 >
   <span>
-    4 members
+    Team • 4 members
   </span>
 </span>
 `;
@@ -57,7 +57,7 @@ exports[`Team mention description should render Team Mention description compone
   class="c0"
 >
   <span>
-    50+ members, including you
+    Team • 50+ members, including you
   </span>
 </span>
 `;
@@ -77,7 +77,7 @@ exports[`Team mention description should render Team Mention description compone
   class="c0"
 >
   <span>
-    50+ members
+    Team • 50+ members
   </span>
 </span>
 `;

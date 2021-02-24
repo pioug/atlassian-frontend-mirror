@@ -1,5 +1,6 @@
-import React, { useRef, useState, ComponentType, FC } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { useRef, useState, ComponentType, FC } from 'react';
+import { css, jsx } from '@emotion/core';
 
 import Textfield from '@atlaskit/textfield';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
@@ -7,7 +8,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
 
-const IconExplorerLink = styled.a`
+const iconExplorerLink = css`
   &,
   &:hover,
   &:active,
@@ -25,18 +26,30 @@ const IconExplorerLink = styled.a`
   }
 `;
 
-const IconModalHeader = styled.h3`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 20px;
-`;
+const IconModalHeader: FC = props => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h3
+    css={css`
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px;
+    `}
+    {...props}
+  />
+);
 
-const Divider = styled.h4`
-  width: 100%;
-  text-align: center;
-`;
+const Divider: FC = props => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h4
+    css={css`
+      width: 100%;
+      text-align: center;
+    `}
+    {...props}
+  />
+);
 
 interface Props {
   component: ComponentType<any>;
@@ -44,10 +57,6 @@ interface Props {
   package?: string;
   divider?: boolean;
   namedImport?: boolean;
-}
-
-interface State {
-  isModalOpen: boolean;
 }
 
 const IconExplorerCell: FC<Props> = ({
@@ -58,14 +67,12 @@ const IconExplorerCell: FC<Props> = ({
   namedImport: isNamedImport,
 }) => {
   const inputEl = useRef<HTMLInputElement>(null);
-  const [state, setState] = useState<State>({
-    isModalOpen: false,
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const closeModal = () => setState({ isModalOpen: false });
-  const openModal = () => setState({ isModalOpen: true });
+  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
   const copyToClipboard = () => {
-    if (!state.isModalOpen || !inputEl) {
+    if (!isModalOpen || !inputEl) {
       return;
     }
 
@@ -127,12 +134,12 @@ const IconExplorerCell: FC<Props> = ({
   return (
     <div>
       <Tooltip content={componentName}>
-        {/* eslint-disable-next-line styled-components-a11y/anchor-is-valid,styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-static-element-interactions */}
-        <IconExplorerLink onClick={openModal}>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */}
+        <a css={iconExplorerLink} onClick={openModal}>
           <Icon label={componentName} size="medium" />
-        </IconExplorerLink>
+        </a>
       </Tooltip>
-      <ModalTransition>{state.isModalOpen ? modal : null}</ModalTransition>
+      <ModalTransition>{isModalOpen ? modal : null}</ModalTransition>
     </div>
   );
 };

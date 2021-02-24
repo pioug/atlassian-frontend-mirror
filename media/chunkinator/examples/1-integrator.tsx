@@ -1,4 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 import { smallImage } from '@atlaskit/media-test-helpers';
 import { chunkinator, Chunk, ChunkinatorFile } from '../src';
 import config from '../example-helpers/config';
@@ -7,11 +9,6 @@ const authHeaders = {
   Authorization: `Bearer ${config.token}`,
   'X-Client-Id': config.clientId,
 };
-
-const processingBatchSizeInput = document.getElementById(
-  'processingBatchSizeInput',
-) as HTMLInputElement;
-const cancelButton = document.getElementById('cancel-upload');
 
 const probingFunction = async (hashedBlobs: Chunk[]) => {
   const body = JSON.stringify({
@@ -141,11 +138,15 @@ const displayImage = (id: string) => {
   document.body.appendChild(img);
 };
 
-const chunkinate = async (blob: ChunkinatorFile) => {
+const chunkinate = async (
+  blob: ChunkinatorFile,
+  cancelSubject: Subject<void>,
+  batchSizeInput: string,
+) => {
   const deferredUploadId = createUpload();
-  const processingBatchSize = +processingBatchSizeInput!.value;
+  const processingBatchSize = parseInt(batchSizeInput);
   try {
-    const { response, cancel } = chunkinator(
+    const chunkinatorObservable = chunkinator(
       blob,
       {
         hashingConcurrency: 5,
@@ -163,10 +164,8 @@ const chunkinate = async (blob: ChunkinatorFile) => {
         },
       },
     );
-    cancelButton!.addEventListener('click', () => {
-      cancel();
-    });
-    await response;
+
+    await chunkinatorObservable.pipe(takeUntil(cancelSubject)).toPromise();
 
     const uploadId = await deferredUploadId;
     const fileId = await createFile(uploadId);
@@ -176,32 +175,50 @@ const chunkinate = async (blob: ChunkinatorFile) => {
   }
 };
 
-const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-  const { currentTarget } = e;
-  const files = currentTarget.files as FileList;
+export default () => {
+  const [batchSizeInput, setBatchSizeInput] = useState('1000');
+  const cancelSubject = new Subject<void>();
 
-  return chunkinate(files[0]);
+  const onChangeBatchSizeInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setBatchSizeInput(e.target.value);
+
+  const onChangeUploadFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const { currentTarget } = e;
+    const files = currentTarget.files as FileList;
+
+    return chunkinate(files[0], cancelSubject, batchSizeInput);
+  };
+
+  const onClickUploadString = () =>
+    chunkinate(smallImage, cancelSubject, batchSizeInput);
+
+  const onClickCancel = () => cancelSubject.next();
+
+  return (
+    <div>
+      <fieldset>
+        <label>
+          Processing Batch Size:{' '}
+          <input
+            id="processingBatchSizeInput"
+            type="number"
+            value={batchSizeInput}
+            onChange={onChangeBatchSizeInput}
+          />
+        </label>
+      </fieldset>
+      <div>
+        Upload a file <input type="file" onChange={onChangeUploadFile} />
+      </div>
+      <div>
+        or
+        <button id="string-upload" onClick={onClickUploadString}>
+          Upload a string
+        </button>
+        <button id="cancel-upload" onClick={onClickCancel}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
 };
-
-const onUploadStringClick = () => chunkinate(smallImage);
-
-export default () => (
-  <div>
-    <fieldset>
-      <label>
-        Processing Batch Size:{' '}
-        <input id="processingBatchSizeInput" type="number" value="1000" />
-      </label>
-    </fieldset>
-    <div>
-      Upload a file <input type="file" onChange={onChange} />
-    </div>
-    <div>
-      or
-      <button id="string-upload" onClick={onUploadStringClick}>
-        Upload a string
-      </button>
-      <button id="cancel-upload">Cancel</button>
-    </div>
-  </div>
-);

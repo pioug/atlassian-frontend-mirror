@@ -4,6 +4,7 @@ import { minimalCodeBlock } from './__fixtures__/minimal-code-block';
 import { tableHeaderCodeBlock } from './__fixtures__/table-header-code-block';
 import { overflowCodeBlock } from './__fixtures__/overflow-code-block';
 import { tableHeaderOverflowCodeBlock } from './__fixtures__/table-header-overflow-code-block';
+import { tabCodeBlock } from './__fixtures__/tab-code-block';
 
 describe('code-block: WYSIWYG', () => {
   let page: PuppeteerPage;
@@ -15,6 +16,18 @@ describe('code-block: WYSIWYG', () => {
   test('code-block is WYSIWYG', async () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: minimalCodeBlock,
+      editorSelector: '.code-block',
+      rendererSelector: '.code-block',
+    });
+
+    await expect($editorElement).toMatchVisually($rendererElement, {
+      threshold: 0.02,
+    });
+  });
+
+  test('code-block with tabs is WYSIWYG', async () => {
+    const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
+      adf: tabCodeBlock,
       editorSelector: '.code-block',
       rendererSelector: '.code-block',
     });

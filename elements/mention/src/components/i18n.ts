@@ -41,26 +41,26 @@ export const messages = defineMessages({
   },
   memberCountWithoutYou: {
     id: 'fabric.elements.mentions.team.member.count',
-    defaultMessage: '{0, plural, one {1 member} other {{0} members}}',
+    defaultMessage: 'Team • {0, plural, one {1 member} other {{0} members}}',
     description:
       'Byline to show the number of members in the team when the current user is not a member of the team',
   },
   memberCountWithYou: {
     id: 'fabric.elements.mentions.team.member.count.including.you',
     defaultMessage:
-      '{0, plural, one {1 member} other {{0} members}}, including you',
+      'Team • {0, plural, one {1 member} other {{0} members}}, including you',
     description:
       'Byline to show the number of members in the team when the current user is also a member of the team',
   },
   plus50MembersWithoutYou: {
     id: 'fabric.elements.mentions.team.member.50plus',
-    defaultMessage: '50+ members',
+    defaultMessage: 'Team • 50+ members',
     description:
       'Byline to show the number of members in the team when the number exceeds 50',
   },
   plus50MembersWithYou: {
     id: 'fabric.elements.mentions.team.member.50plus.including.you',
-    defaultMessage: '50+ members, including you',
+    defaultMessage: 'Team • 50+ members, including you',
     description:
       'Byline to show the number of members in the team when the number exceeds 50 and also includes the current user',
   },

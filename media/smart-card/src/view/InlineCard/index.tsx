@@ -22,6 +22,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   isSelected,
   onResolve,
   testId,
+  inlinePreloaderStyle,
 }) => {
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
@@ -35,6 +36,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           isSelected={isSelected}
           onClick={handleFrameClick}
           testId={testIdWithStatus}
+          inlinePreloaderStyle={inlinePreloaderStyle}
         />
       );
     case 'resolved':

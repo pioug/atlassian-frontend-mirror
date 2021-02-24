@@ -4,6 +4,7 @@ import * as keymaps from '../../../keymaps';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { Command } from '../../../types';
 import { createNewParagraphBelow } from '../../../commands';
+import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 
 export function captionKeymap(): Plugin {
   const list = {};
@@ -40,6 +41,13 @@ export function captionKeymap(): Plugin {
   );
 
   keymaps.bindKeymapWithCommand(keymaps.tab.common!, getOutOfCaption, list);
+
+  keymaps.bindKeymapWithCommand(
+    keymaps.moveLeft.common!,
+    gapCursorSelectLeftParentMediaSingle,
+    list,
+  );
+
   return keymap(list);
 }
 
@@ -74,6 +82,38 @@ const selectParentMediaSingle: Command = (state, dispatch) => {
         dispatch(tr);
       }
       return true;
+    }
+  }
+  return false;
+};
+
+const gapCursorSelectLeftParentMediaSingle: Command = (state, dispatch) => {
+  const caption = findParentNodeOfType(state.schema.nodes.caption)(
+    state.selection,
+  );
+  if (caption) {
+    const mediaSingleParent = findParentNodeOfType(
+      state.schema.nodes.mediaSingle,
+    )(state.selection);
+
+    if (
+      mediaSingleParent &&
+      state.selection.empty &&
+      state.tr.doc.resolve(state.selection.from).parentOffset === 0
+    ) {
+      const gapCursorSelection = GapCursorSelection.findFrom(
+        state.tr.doc.resolve(mediaSingleParent.pos),
+        0,
+        false,
+      );
+
+      if (gapCursorSelection) {
+        if (dispatch) {
+          const tr = state.tr.setSelection(gapCursorSelection);
+          dispatch(tr);
+        }
+        return true;
+      }
     }
   }
   return false;

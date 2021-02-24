@@ -2,8 +2,6 @@ import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
-import ChevronLeft from '@atlaskit/icon/glyph/chevron-left';
-
 import { navigationExpandedCollapsed } from '../../../../../common/analytics';
 import {
   BodyDragCursor,
@@ -92,7 +90,10 @@ describe('ResizeControlBase', () => {
         </ResizeControlBase>,
       );
 
-      wrapper.find(ChevronLeft).simulate('click');
+      wrapper
+        .find('[aria-label="Toggle navigation"]')
+        .first()
+        .simulate('click');
 
       expect(navigationExpandedCollapsed).toHaveBeenCalledTimes(1);
       expect(navigationExpandedCollapsed).toHaveBeenCalledWith(
@@ -112,7 +113,10 @@ describe('ResizeControlBase', () => {
         </ResizeControlBase>,
       );
 
-      wrapper.find(ChevronLeft).simulate('click');
+      wrapper
+        .find('[aria-label="Toggle navigation"]')
+        .first()
+        .simulate('click');
 
       expect(navigationExpandedCollapsed).toHaveBeenCalledTimes(1);
       expect(navigationExpandedCollapsed).toHaveBeenCalledWith(

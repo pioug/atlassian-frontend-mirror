@@ -11,7 +11,7 @@ const svg = `<canvas height="32" width="61" aria-hidden="true"></canvas>
     </g>
 </svg>`;
 
-export default class TrelloWordmark extends Component<Props> {
+export class TrelloWordmark extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

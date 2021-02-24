@@ -5,7 +5,6 @@ export const playButtonClassName = 'media-card-play-button';
 
 const bkgClassName = 'play-icon-background';
 
-const iconSize = 36.52;
 const discSize = 48;
 const discSizeHover = 56;
 
@@ -28,12 +27,6 @@ export const Wrapper = styled.div.attrs({ className: playButtonClassName })`
   color: ${N0};
   span {
     position: absolute;
-    height: ${iconSize}px;
-    width: ${iconSize}px;
-    > svg {
-      height: 100%;
-      width: 100%;
-    }
   }
 `;
 
@@ -42,7 +35,8 @@ Wrapper.displayName = 'PlayButtonWrapper';
 export const Background = styled.div.attrs({
   className: bkgClassName,
 })`
-  transition: all 0.1s;
+  transition-property: width, height;
+  transition-duration: 0.1s;
   position: absolute;
   width: ${discSize}px;
   height: ${discSize}px;

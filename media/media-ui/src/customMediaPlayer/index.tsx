@@ -72,6 +72,7 @@ export interface CustomMediaPlayerState {
 export type ToggleButtonAction = () => void;
 
 const SMALL_VIDEO_MAX_WIDTH = 400;
+const MINIMUM_DURATION_BEFORE_SAVING_TIME = 60;
 
 export class CustomMediaPlayer extends Component<
   CustomMediaPlayerProps & InjectedIntlProps,
@@ -139,8 +140,12 @@ export class CustomMediaPlayer extends Component<
   onVolumeChange = (setVolume: SetVolumeFunction) => (value: number) =>
     setVolume(value);
 
-  onCurrentTimeChange = (currentTime: number) => {
-    this.timeSaver.defaultTime = currentTime;
+  onCurrentTimeChange = (currentTime: number, duration: number) => {
+    if (duration - currentTime > MINIMUM_DURATION_BEFORE_SAVING_TIME) {
+      this.timeSaver.defaultTime = currentTime;
+    } else {
+      this.timeSaver.defaultTime = 0;
+    }
   };
 
   shortcutHandler = (toggleButtonAction: ToggleButtonAction) => () => {
@@ -216,6 +221,7 @@ export class CustomMediaPlayer extends Component<
         <VolumeToggleWrapper isMuted={isMuted}>
           <MutedIndicator isMuted={isMuted} />
           <MediaButton
+            testId="custom-media-player-volume-toggle-button"
             onClick={actions.toggleMute}
             iconBefore={<SoundIcon label="volume" />}
           />
@@ -352,7 +358,7 @@ export class CustomMediaPlayer extends Component<
               duration,
               isLoading,
             } = videoState;
-
+            const { isLargePlayer } = this.state;
             const isPlaying = status === 'playing';
             const toggleButtonIcon = isPlaying ? (
               <PauseIcon label={formatMessage(messages.play)} />
@@ -403,15 +409,10 @@ export class CustomMediaPlayer extends Component<
                   <TimebarWrapper>
                     <LeftControls>
                       {button}
-                      {this.renderVolume(
-                        videoState,
-                        actions,
-                        this.state.isLargePlayer,
-                      )}
+                      {this.renderVolume(videoState, actions, isLargePlayer)}
                     </LeftControls>
                     <RightControls>
-                      {this.state.isLargePlayer &&
-                        this.renderCurrentTime(videoState)}
+                      {isLargePlayer && this.renderCurrentTime(videoState)}
                       {this.renderHDButton()}
                       {this.renderSpeedControls()}
                       {this.renderFullScreenButton()}

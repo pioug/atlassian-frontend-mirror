@@ -163,12 +163,14 @@ export default function transformer(
         updateCssFnProp(j, source, importSpecifier);
       }
     });
+
+    return source.toSource(
+      options.printOptions || {
+        quote: 'single',
+        trailingComma: true,
+      },
+    );
   }
 
-  return source.toSource(
-    options.printOptions || {
-      quote: 'single',
-      trailingComma: true,
-    },
-  );
+  return fileInfo.source;
 }

@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 63.1.1
+
+### Patch Changes
+
+- [`18820a0a9a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18820a0a9a1) - Internal changes to break up internal component structure of EmojiPicker
+- Updated dependencies
+
 ## 63.1.0
 
 ### Minor Changes

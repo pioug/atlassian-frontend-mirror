@@ -2,7 +2,7 @@ import { NodeSpec } from 'prosemirror-model';
 
 const name = 'confluenceJiraIssue';
 
-export const confluenceJiraIssue = {
+export const confluenceJiraIssue: NodeSpec = {
   group: 'inline',
   inline: true,
   atom: true,
@@ -40,4 +40,4 @@ export const confluenceJiraIssue = {
 
     return ['span', attrs, node.attrs.issueKey];
   },
-} as NodeSpec;
+};

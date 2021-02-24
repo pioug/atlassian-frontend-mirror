@@ -12,7 +12,8 @@ import {
 } from './_config';
 import { createAdf } from './_adf';
 
-describe('Cards:', () => {
+// TODO: https://product-fabric.atlassian.net/browse/EDM-1743
+describe.skip('Cards:', () => {
   let page: PuppeteerPage;
   let timesToIdle: number[] = [];
   let timesToIdleForInitialRender: number[] = [];

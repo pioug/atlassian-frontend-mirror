@@ -100,7 +100,14 @@ const ItemVariants = () => {
       >
         Selected Link Item
       </LinkItem>
-      <CustomItem testId="item-custom-em" isDisabled component={Emphasis}>
+      <CustomItem testId="item-custom-em" component={Emphasis}>
+        Custom element using em tag
+      </CustomItem>
+      <CustomItem
+        testId="item-custom-em-disabled"
+        isDisabled
+        component={Emphasis}
+      >
         Disabled custom element using em tag
       </CustomItem>
       <HashRouter>

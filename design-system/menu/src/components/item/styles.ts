@@ -6,9 +6,7 @@ import {
   N200,
   N30,
   N800,
-  skeleton as skeletonColor,
-  subtleHeading,
-  subtleText,
+  skeleton as skeletonColorFn,
 } from '@atlaskit/theme/colors';
 import {
   borderRadius,
@@ -39,6 +37,7 @@ const itemElemSkeletonOffset =
 const skeletonTextBorderRadius = 100;
 const skeletonHeadingHeight = gridSize;
 const skeletonContentHeight = 9;
+const skeletonColor = skeletonColorFn();
 
 const buttonOverrides = {
   backgroundColor: 'transparent',
@@ -149,7 +148,7 @@ export const elemAfterCSS = {
 
 export const descriptionCSS = {
   ...truncateCSS,
-  color: subtleText(),
+  color: N200,
   marginTop: itemDescriptionSpacing,
   fontSize: headingSizes.h200.size,
 } as CSSObject;
@@ -183,7 +182,7 @@ export const itemHeadingCSS = {
   fontSize: itemHeadingFontSize,
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
   fontWeight: 700,
-  color: subtleHeading(),
+  color: N200,
   padding: `0 ${itemSidePadding}px`,
 } as CSSObject;
 
@@ -194,7 +193,7 @@ export const skeletonHeadingItemCSS = (
   ...itemHeadingCSS,
   '&::after': {
     // This renders the skeleton heading "text".
-    backgroundColor: skeletonColor(),
+    backgroundColor: skeletonColor,
     ...(isShimmering && {
       ...shimmer.css,
       animationName: `${shimmerKeyframes}`,
@@ -245,7 +244,7 @@ export const itemSkeletonCSS = (
     '&::before': {
       // This will render a skeleton in the "elemBefore" position.
       content: '""',
-      backgroundColor: skeletonColor(),
+      backgroundColor: skeletonColor,
       ...(isShimmering && {
         ...shimmer.css,
         animationName: `${shimmerKeyframes}`,
@@ -262,7 +261,7 @@ export const itemSkeletonCSS = (
   '&::after': {
     // This will render the skeleton "text".
     content: '""',
-    backgroundColor: skeletonColor(),
+    backgroundColor: skeletonColor,
     ...(isShimmering && {
       ...shimmer.css,
       animationName: `${shimmerKeyframes}`,

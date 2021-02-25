@@ -1,11 +1,18 @@
-import {
-  getExampleUrl,
-  loadPage,
-  takeElementScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl } from '@atlaskit/visual-regression/helper';
+
+import { click, verifyElementIn } from '../_helper';
 
 const toggleButton = "[data-testid='toggle-loading']";
 const leftMenu = "[data-testid='left-menu']";
+
+const url = getExampleUrl(
+  'design-system',
+  'menu',
+  'skeleton-items',
+  global.__BASEURL__,
+);
+
+const verifyElementMatchProductionImage = verifyElementIn(url);
 
 /**
  * The skeleton should match the loaded menu dimensions pixel perfectly.
@@ -13,34 +20,11 @@ const leftMenu = "[data-testid='left-menu']";
  * If these tests fail - ensure that this behaviour still exists.
  */
 describe('<SkeletonMenu />', () => {
-  const openExamplesAndWaitFor = async (selector: string) => {
-    const url = getExampleUrl(
-      'design-system',
-      'menu',
-      'skeleton-items',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-
-    await loadPage(page, url);
-    await page.waitForSelector(selector);
-  };
-
   it('should match the loading skeleton menu', async () => {
-    await openExamplesAndWaitFor(leftMenu);
-
-    expect(
-      await takeElementScreenShot(global.page, leftMenu),
-    ).toMatchProdImageSnapshot();
+    await verifyElementMatchProductionImage(leftMenu);
   });
 
   it('should match the loaded menu', async () => {
-    await openExamplesAndWaitFor(leftMenu);
-    const { page } = global;
-    await page.click(toggleButton);
-
-    expect(
-      await takeElementScreenShot(page, leftMenu),
-    ).toMatchProdImageSnapshot();
+    await verifyElementMatchProductionImage(leftMenu, click(toggleButton));
   });
 });

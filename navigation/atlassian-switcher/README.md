@@ -64,3 +64,29 @@ An alternative method is to release a new version of Switcher containing the cha
 - Merge your changes and release a new version of Switcher
 - Make a branch off master in in JFE, update the version of switcher, and make a PR with no reviewers on it
 - Once the builds are successful a super-soaker-bit will add a link to test the changes in Hello (see [Confluence Frontend - Branch Build Testing](https://hello.atlassian.net/wiki/spaces/PGT/pages/750246580/Confluence+Frontend+-+Branch+Build+Testing) for more details)
+
+### Integrating Switcher with an Analytics Client
+
+Switcher requires that a product provides its own instance of analytic clients.
+
+For that, wrap your Switcher component into a `FabricListener`. Here's an example code below.
+
+```
+import FabricAnalyticsListeners, { FabricChannel } from '@atlaskit/analytics-listeners';
+
+
+<FabricAnalyticsListeners
+    client={analytics.getAnalyticsWebClient()}
+    excludedChannels={[
+        FabricChannel.atlaskit,
+        FabricChannel.elements,
+        FabricChannel.editor,
+        FabricChannel.media
+    ]}
+>
+    <Switcher />
+</FabricAnalyticsListeners>
+
+```
+
+Without doing so, switcher will not be sending any analytic events. If you have any issues, please reach out to team that owns this component.

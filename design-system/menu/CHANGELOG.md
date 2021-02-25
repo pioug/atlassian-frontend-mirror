@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.7.2
+
+### Patch Changes
+
+- [`1b5d5c0fca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b5d5c0fca9) - Use light mode values instead of calling the themed() API
+
 ## 0.7.1
 
 ### Patch Changes

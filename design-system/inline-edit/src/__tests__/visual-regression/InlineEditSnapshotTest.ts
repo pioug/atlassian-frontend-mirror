@@ -4,6 +4,10 @@ const clearBtn = '[data-testid="clear-button"]';
 
 const inlineEdit = 'input[name="inlineEdit"]';
 const inlineEditLabel = 'label';
+
+const inlineEditSelect = '[data-read-view-fit-container-width="false"]';
+const inlineEditSelectApple = '[tabIndex="-1"]';
+
 const readView = '[data-testid="read-view"]';
 const readViewEditableTextField =
   '[data-testid="read-view-editable-text-field"]';
@@ -65,9 +69,12 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
+    await page.waitForSelector(inlineEditLabel);
+    await page.waitForSelector(inlineEditSelect);
+    await page.click(inlineEditSelect);
 
-    await page.waitForSelector(readViewEditableTextField);
-    await page.click(readViewEditableTextField);
+    await page.waitForSelector(inlineEditSelectApple);
+    await page.click(inlineEditSelectApple);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

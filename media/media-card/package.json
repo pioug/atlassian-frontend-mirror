@@ -70,7 +70,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/toggle": "^12.0.0",
-    "@atlaskit/visual-regression": "^0.3.0",
+    "@atlaskit/visual-regression": "^0.4.0",
     "@atlaskit/webdriver-runner": "*",
     "@types/classnames": "^2.2.6",
     "deepcopy": "0.6.3",

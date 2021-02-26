@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { SlackIcon } from './assets/slack';
 import { GoogleIcon } from './assets/google';
 import { MicrosoftIcon } from './assets/microsoft';
+import { GitHubIcon } from './assets/github';
 import { FormattedMessage } from 'react-intl';
 import { messages } from './i18n';
 
@@ -54,6 +55,10 @@ const SourcesInfoMap = new Map<UserSource, SourceInfo>([
       icon: <MicrosoftIcon />,
       label: messages.microsoftProvider,
     },
+  ],
+  [
+    'github',
+    { key: 'github', icon: <GitHubIcon />, label: messages.gitHubProvider },
   ],
 ]);
 

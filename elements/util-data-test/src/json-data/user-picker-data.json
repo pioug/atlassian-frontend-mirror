@@ -329,5 +329,14 @@
     "type": "user",
     "isExternal": true,
     "sources": ["slack"]
+  },
+  {
+    "id": "external-4",
+    "name": "Daisee",
+    "email": "Daisee@email.com",
+    "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
+    "type": "user",
+    "isExternal": true,
+    "sources": ["github"]
   }
 ]

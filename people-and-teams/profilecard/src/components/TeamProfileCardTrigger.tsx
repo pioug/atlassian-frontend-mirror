@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
+import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../internal/filterActions';
 import {
@@ -286,6 +287,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
           placement={this.props.position}
           content={this.renderProfileCard}
           trigger={triggerProps => this.renderTrigger(triggerProps)}
+          zIndex={layers.modal()}
           shouldFlip
         />
       </ErrorBoundary>

@@ -2,21 +2,22 @@ import React, { FunctionComponent } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import messages from '../../common/utils/messages';
 import {
+  FormattedMessage,
   Section,
   SwitcherThemedItemWithEvents,
-  FormattedMessage,
 } from '../../ui/primitives';
 import { SwitcherItemType } from '../../common/utils/links';
 import { Appearance } from '../../ui/theme/types';
 import {
-  SyntheticProviderResults,
-  ProviderResults,
-  TriggerXFlowCallback,
+  AnalyticsItemType,
   DiscoverMoreCallback,
+  ProviderResults,
+  SyntheticProviderResults,
+  TriggerXFlowCallback,
 } from '../../types';
 import {
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
 } from '../../common/utils/analytics';
 import { CrossFlowSubsection } from './cross-flow-subsection';
 
@@ -64,7 +65,7 @@ export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = props 
           data={getItemAnalyticsContext(
             groupIndex,
             item.key,
-            'discover-fixed-links',
+            AnalyticsItemType.DISCOVER_FIXED_LINKS,
           )}
         >
           <SwitcherThemedItemWithEvents

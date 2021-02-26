@@ -10,11 +10,18 @@ import {
   UI_EVENT_TYPE,
   OPERATIONAL_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
-import { ProviderResults, SyntheticProviderResults } from '../../types';
+import {
+  AnalyticsItemType,
+  ProviderResults,
+  SyntheticProviderResults,
+} from '../../types';
 import { SwitcherItemType } from './links';
+import { SwitcherProductType } from '../../types';
 import { JoinableSiteItemType } from '../../cross-join/utils/cross-join-links';
 
 type PropsToContextMapper<P, C> = (props: P) => C;
+
+type PIIFreeString = string;
 
 export const NAVIGATION_CHANNEL = 'navigation';
 export const SWITCHER_SUBJECT = 'atlassianSwitcher';
@@ -302,11 +309,22 @@ export const getCustomLinksRenderTracker = (
   });
 };
 
+/**
+ *
+ * ***IMPORTANT*** DO NOT send PD / PII or any sensitive data.
+ * This function defines analytic event attributes.
+ *
+ * @param groupIndex
+ * @param id
+ * @param type
+ * @param productType
+ * @param extraAttributes
+ */
 export const getItemAnalyticsContext = (
   groupIndex: number,
-  id: string | null,
-  type: string,
-  productType?: string,
+  id: PIIFreeString | null,
+  type: AnalyticsItemType,
+  productType?: SwitcherProductType,
   extraAttributes?: { [key: string]: string },
 ) => ({
   ...analyticsAttributes({

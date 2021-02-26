@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.5.3
+
+### Patch Changes
+
+- [`5aa6e51ed2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5aa6e51ed2f) - [ux] Add GitHub as an external source for the user-picker
+
 ## 7.5.2
 
 ### Patch Changes

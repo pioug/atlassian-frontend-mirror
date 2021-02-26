@@ -1,5 +1,3 @@
-import cssVars from 'css-vars-ponyfill';
-
 import { Dimensions } from '../common/types';
 import {
   mergeGridStateIntoStorage,
@@ -21,15 +19,6 @@ const publishGridState = (gridState: Dimensions) => {
     // also update state in local storage so that
     // it persists across page refresh, across tabs etc
     mergeGridStateIntoStorage('gridState', { [slotName]: value });
-
-    /*IE11*/
-    cssVars({
-      variables: {
-        [slotName]: `${value}px`,
-      },
-      silent: true,
-    });
-    /*IE11*/
   });
 };
 

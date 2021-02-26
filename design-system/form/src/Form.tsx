@@ -66,7 +66,7 @@ export interface FormProps<FormValues> {
   isDisabled?: boolean;
 }
 
-function Form<FormValues extends Record<string, any> = {}>(
+export default function Form<FormValues extends Record<string, any> = {}>(
   props: FormProps<FormValues>,
 ) {
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -197,5 +197,3 @@ function Form<FormValues extends Record<string, any> = {}>(
     </FormContext.Provider>
   );
 }
-
-export default Form;

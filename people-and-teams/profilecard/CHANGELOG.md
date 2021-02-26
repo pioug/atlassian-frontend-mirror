@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.1.3
+
+### Patch Changes
+
+- [`11f5b0da43e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11f5b0da43e) - [ux] Fix zIndex for profile card and team profile card
+
 ## 15.1.2
 
 ### Patch Changes

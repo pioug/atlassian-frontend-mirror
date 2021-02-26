@@ -1,24 +1,25 @@
 import React, { useCallback } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
-  SwitcherThemedItemWithEvents,
-  SwitcherItemWithDropdown,
+  FormattedMessage,
   Section,
   SectionWithLinkItem,
-  FormattedMessage,
+  SwitcherItemWithDropdown,
+  SwitcherThemedItemWithEvents,
 } from '../../primitives';
 import messages from '../../../common/utils/messages';
 import { SwitcherItemType } from '../../../common/utils/links';
 import {
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
 } from '../../../common/utils/analytics';
 import { Appearance } from '../../theme/types';
 import {
-  TriggerXFlowCallback,
-  DiscoverMoreCallback,
+  AnalyticsItemType,
   DiscoverLinkItemKeys,
+  DiscoverMoreCallback,
   GetExtendedAnalyticsAttributes,
+  TriggerXFlowCallback,
 } from '../../../types';
 import { AdminSubsection } from '../../../admin/components/admin-subsection';
 import { CrossFlowSubsection } from '../../../cross-flow/components/cross-flow-subsection';
@@ -82,7 +83,7 @@ export const SwitchToSection = ({
           data={getItemAnalyticsContext(
             groupIndex,
             null,
-            'product',
+            AnalyticsItemType.PRODUCT,
             item.productType,
             getExtendedAnalyticsAttributes(item.productType),
           )}
@@ -109,7 +110,11 @@ export const SwitchToSection = ({
       fixedLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}
-          data={getItemAnalyticsContext(groupIndex, item.key, 'product')}
+          data={getItemAnalyticsContext(
+            groupIndex,
+            item.key,
+            AnalyticsItemType.PRODUCT,
+          )}
         >
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme="product" />}

@@ -68,13 +68,20 @@ const resolveDimension = (
   return dimension;
 };
 
-const getLeftPanelWidth = () =>
-  parseInt(
-    window
-      .getComputedStyle(document.documentElement)
-      .getPropertyValue(`--${LEFT_PANEL_WIDTH}`),
-    10,
-  ) || 0;
+const getLeftPanelWidth = () => {
+  if (typeof window === 'undefined') {
+    return 0;
+  }
+
+  return (
+    parseInt(
+      window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue(`--${LEFT_PANEL_WIDTH}`),
+      10,
+    ) || 0
+  );
+};
 
 const getLeftSidebarPercentage = (currentWidth: number, maxWidth: number) => {
   const total =

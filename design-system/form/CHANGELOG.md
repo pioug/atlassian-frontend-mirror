@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.2.1
+
+### Patch Changes
+
+- [`5af85edf960`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af85edf960) - Internal code style change of default exports
+
 ## 8.2.0
 
 ### Minor Changes

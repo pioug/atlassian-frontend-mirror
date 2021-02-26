@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 11.2.7
+
+### Patch Changes
+
+- [`5af85edf960`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af85edf960) - Internal code style change of default exports
+
 ## 11.2.6
 
 ### Patch Changes

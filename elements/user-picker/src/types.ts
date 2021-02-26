@@ -209,7 +209,7 @@ export interface OptionData {
 
 export const UserType = 'user';
 
-export type UserSource = 'google' | 'slack' | 'microsoft';
+export type UserSource = 'google' | 'slack' | 'microsoft' | 'github';
 
 export interface ExternalUser extends User {
   sources: UserSource[];

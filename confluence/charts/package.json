@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/charts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -25,6 +25,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@atlaskit/editor-common": "^55.2.1",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
@@ -37,7 +38,9 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
+    "@atlaskit/code": "*",
     "@atlaskit/docs": "*",
+    "@atlaskit/editor-core": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

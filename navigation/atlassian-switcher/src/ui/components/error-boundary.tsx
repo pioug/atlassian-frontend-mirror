@@ -289,7 +289,7 @@ class ErrorBoundary extends React.Component<
 
     if (hasError) {
       return (
-        <ErrorBoundaryBox appearance={appearance}>
+        <ErrorBoundaryBox data-testid="error-boundary" appearance={appearance}>
           <ErrorContent appearance={appearance}>
             {this.renderErrorImage()}
             <ErrorHeading>{this.renderErrorHeading()}</ErrorHeading>

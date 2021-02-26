@@ -442,7 +442,7 @@ async function takeSnapshot(
 
   // Try to take a screenshot of only the editor.
   // Otherwise take the whole page.
-  let image;
+  let image: string;
   if (editor) {
     image = await editor.screenshot();
   } else {

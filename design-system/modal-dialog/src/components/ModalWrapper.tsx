@@ -165,7 +165,7 @@ interface State {
   modalVisible: boolean;
 }
 
-class ModalWrapper extends React.Component<WrapperProps, State> {
+export default class ModalWrapper extends React.Component<WrapperProps, State> {
   static defaultProps = {
     autoFocus: true,
     scrollBehavior: 'inside',
@@ -209,5 +209,3 @@ class ModalWrapper extends React.Component<WrapperProps, State> {
     );
   }
 }
-
-export default ModalWrapper;

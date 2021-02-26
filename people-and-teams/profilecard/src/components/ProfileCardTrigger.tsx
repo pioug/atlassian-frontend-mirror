@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Popup from '@atlaskit/popup';
+import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../internal/filterActions';
 import { CardTriggerWrapper, CardWrapper } from '../styled/Card';
@@ -210,6 +211,7 @@ class ProfilecardTrigger extends React.PureComponent<
             </CardTriggerWrapper>
           );
         }}
+        zIndex={layers.modal()}
       />
     );
   }

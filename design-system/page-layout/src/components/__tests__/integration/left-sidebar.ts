@@ -14,6 +14,7 @@ const exampleUrl = getExampleUrl(
 const content = "[data-testid='content']";
 const resizeControl = "[data-resize-button='true']";
 const leftSidebar = "[data-testid='left-sidebar']";
+const collapsedSidebar = '[aria-expanded="false"]';
 
 BrowserTestCase(
   'Left sidebar should be collapsed on click of grab area via keyboard',
@@ -30,6 +31,7 @@ BrowserTestCase(
       'true',
     );
     await testPage.keys('Enter');
+    await testPage.waitForSelector(collapsedSidebar);
     expect(await testPage.getAttribute(resizeControl, 'aria-expanded')).toBe(
       'false',
     );

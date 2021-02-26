@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 0.10.14
+
+### Patch Changes
+
+- [`6ae23940b27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ae23940b27) - Remove css-vars-ponyfill from page layout to drop IE10/11 support and reduce the bundle size
+
+## 0.10.13
+
+### Patch Changes
+
+- [`b7c62b4cbb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c62b4cbb7) - Fix Page Layout throwing errors in SSR
+
 ## 0.10.12
 
 ### Patch Changes

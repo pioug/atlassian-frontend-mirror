@@ -58,7 +58,11 @@ const tableToColumnSet = (inputData: TableData) => {
   return [seriesNames, namedTableData];
 };
 
-export const LineChart = (props: { data: any; testId?: string }) => {
+export const LineChart = (props: {
+  height?: number;
+  data: any;
+  testId?: string;
+}) => {
   const [seriesNames, tableData] = tableToColumnSet(props.data);
 
   // console.log(tableData);
@@ -73,7 +77,7 @@ export const LineChart = (props: { data: any; testId?: string }) => {
         yScale={{
           type: 'linear',
         }}
-        height={350}
+        height={props.height || 350}
       >
         <AnimatedGrid
           key={`grid-${123}`} // force animate on update

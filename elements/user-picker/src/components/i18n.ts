@@ -90,4 +90,9 @@ export const messages = defineMessages({
     defaultMessage: 'Microsoft',
     description: 'This external user is sourced from Microsoft provider',
   },
+  gitHubProvider: {
+    id: 'fabric.elements.user-picker.github.provider',
+    defaultMessage: 'GitHub',
+    description: 'This external user is sourced from GitHub provider',
+  },
 });

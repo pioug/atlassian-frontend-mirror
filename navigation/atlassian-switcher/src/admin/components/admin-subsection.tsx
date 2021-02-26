@@ -2,9 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { SwitcherThemedItemWithEvents } from '../../ui/primitives';
 import { SwitcherItemType } from '../../common/utils/links';
 import {
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
 } from '../../common/utils/analytics';
+import { AnalyticsItemType } from '../../types';
 
 interface AdminSubsectionProps {
   adminLinks: SwitcherItemType[];
@@ -18,7 +19,11 @@ export const AdminSubsection: FunctionComponent<AdminSubsectionProps> = ({
       {adminLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}
-          data={getItemAnalyticsContext(groupIndex, item.key, 'admin')}
+          data={getItemAnalyticsContext(
+            groupIndex,
+            item.key,
+            AnalyticsItemType.ADMIN,
+          )}
         >
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme="admin" />}

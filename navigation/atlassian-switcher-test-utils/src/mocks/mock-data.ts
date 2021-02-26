@@ -3,8 +3,10 @@ const iconUrl =
 
 export interface MockData {
   AVAILABLE_PRODUCTS_DATA: object | number;
+  AVAILABLE_PRODUCTS_DATA_ERROR?: object;
   RECENT_CONTAINERS_DATA: object;
   CUSTOM_LINKS_DATA: object;
+  CUSTOM_LINKS_DATA_ERROR?: object;
   USER_PERMISSION_DATA: {
     manage: any;
     'add-products': any;

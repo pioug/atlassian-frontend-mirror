@@ -1,21 +1,22 @@
 import React, { FunctionComponent } from 'react';
 import messages from '../../common/utils/messages';
 import {
-  Section,
-  ItemWithAvatarGroup,
   FormattedMessage,
+  ItemWithAvatarGroup,
+  Section,
 } from '../../ui/primitives';
 import { SwitcherItemType } from '../../common/utils/links';
 import { JoinableSiteItemType } from '../../cross-join/utils/cross-join-links';
 import { Appearance } from '../../ui/theme/types';
 import {
+  AnalyticsItemType,
   JoinableSiteClickHandler,
-  SyntheticProviderResults,
   ProviderResults,
+  SyntheticProviderResults,
 } from '../../types';
 import {
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
 } from '../../common/utils/analytics';
 
 interface CrossJoinSectionProps {
@@ -51,7 +52,7 @@ export const CrossJoinSection: FunctionComponent<CrossJoinSectionProps> = props 
             data={getItemAnalyticsContext(
               groupIndex,
               cloudId,
-              'join',
+              AnalyticsItemType.JOIN,
               productType,
             )}
           >

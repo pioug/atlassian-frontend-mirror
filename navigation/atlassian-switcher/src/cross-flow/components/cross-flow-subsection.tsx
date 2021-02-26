@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { SwitcherItemType } from '../../common/utils/links';
 import {
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
 } from '../../common/utils/analytics';
 import messages from '../../common/utils/messages';
 
 import {
+  FormattedMessage,
   SwitcherThemedItemWithEvents,
   TryLozenge,
-  FormattedMessage,
 } from '../../ui/primitives';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { TriggerXFlowCallback } from '../../types';
+import { AnalyticsItemType, TriggerXFlowCallback } from '../../types';
 
 interface CrossFlowSubsection {
   suggestedProductLinks: SwitcherItemType[];
@@ -40,7 +40,11 @@ export const CrossFlowSubsection: FunctionComponent<CrossFlowSubsection> = ({
       {suggestedProductLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}
-          data={getItemAnalyticsContext(groupIndex, item.key, 'try')}
+          data={getItemAnalyticsContext(
+            groupIndex,
+            item.key,
+            AnalyticsItemType.TRY,
+          )}
         >
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme={itemTheme} />}

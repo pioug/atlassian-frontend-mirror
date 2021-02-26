@@ -60,6 +60,7 @@ export const mockEndpoints = (
   const {
     RECENT_CONTAINERS_DATA,
     CUSTOM_LINKS_DATA,
+    CUSTOM_LINKS_DATA_ERROR,
     USER_PERMISSION_DATA,
     XFLOW_SETTINGS,
     COLLABORATION_GRAPH_CONTAINERS,
@@ -87,9 +88,12 @@ export const mockEndpoints = (
   fetchMock.get(
     `${product === 'confluence' ? '/wiki' : ''}/rest/menu/latest/appswitcher`,
     () =>
-      new Promise(res =>
+      new Promise((res, rej) =>
         setTimeout(
-          () => res(CUSTOM_LINKS_DATA),
+          () =>
+            CUSTOM_LINKS_DATA_ERROR
+              ? rej(CUSTOM_LINKS_DATA_ERROR)
+              : res(CUSTOM_LINKS_DATA),
           loadTimes && loadTimes.appswitcher,
         ),
       ),
@@ -142,13 +146,16 @@ export const mockAvailableProductsEndpoint = (
 ) => {
   const mockData = getMockData(transformer);
 
-  const { AVAILABLE_PRODUCTS_DATA } = mockData;
+  const { AVAILABLE_PRODUCTS_DATA, AVAILABLE_PRODUCTS_DATA_ERROR } = mockData;
   fetchMock.get(
     endpoint,
     () =>
-      new Promise(res =>
+      new Promise((res, rej) =>
         setTimeout(
-          () => res(AVAILABLE_PRODUCTS_DATA),
+          () =>
+            AVAILABLE_PRODUCTS_DATA_ERROR
+              ? rej(AVAILABLE_PRODUCTS_DATA_ERROR)
+              : res(AVAILABLE_PRODUCTS_DATA),
           loadTimes && loadTimes.availableProducts,
         ),
       ),

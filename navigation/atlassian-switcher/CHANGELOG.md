@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 8.11.2
+
+### Patch Changes
+
+- [`37fd7ddefba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37fd7ddefba) - Updated types to warn about sending sensitive data
+
 ## 8.11.1
 
 ### Patch Changes

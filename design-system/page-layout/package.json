@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.10.12",
+  "version": "0.10.14",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,6 @@
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
-    "css-vars-ponyfill": "^2.2.0",
     "raf-schd": "^2.1.0"
   },
   "peerDependencies": {
@@ -39,6 +38,7 @@
   "devDependencies": {
     "@atlaskit/atlassian-navigation": "^0.12.0",
     "@atlaskit/atlassian-notifications": "^0.2.0",
+    "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/icon": "*",
@@ -49,6 +49,7 @@
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/side-navigation": "^0.8.0",
+    "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

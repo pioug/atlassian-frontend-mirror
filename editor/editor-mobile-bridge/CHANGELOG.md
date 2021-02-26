@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.1.0
+
+### Minor Changes
+
+- [`cfd20c34074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfd20c34074) - Add ability to run mobile VR tests
+
 ## 25.0.0
 
 ### Major Changes

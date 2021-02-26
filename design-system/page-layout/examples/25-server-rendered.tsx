@@ -2,7 +2,6 @@
 import { Fragment, useState } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
-import cssVars from 'css-vars-ponyfill';
 
 import {
   Banner,
@@ -33,7 +32,6 @@ type SlotName =
 type ToggleElProps = {
   onChange: () => void;
   value: boolean;
-  name?: SlotName;
 };
 interface InitialState {
   isBannerShown: true;
@@ -54,11 +52,6 @@ interface InitialState {
   isRightPanelScrollable: false;
 }
 type InitialStateKeys = keyof InitialState;
-
-cssVars({
-  exclude: 'link',
-  watch: true,
-});
 
 const scrollableContentCSS = {
   height: '2rem',
@@ -86,7 +79,11 @@ const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
   </label>
 );
 
-const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
+const ToggleShown = ({
+  onChange,
+  value,
+  name,
+}: ToggleElProps & { name: string }) => (
   <label htmlFor="chckbx2" css={{ display: 'block' }}>
     <input
       id="chckbx2"
@@ -228,7 +225,7 @@ const BasicGrid = () => {
           </TopNavigation>
         )}
         {gridState.isLeftPanelShown && (
-          <LeftPanel isFixed={gridState.isLeftPanelFixed} width={200}>
+          <LeftPanel isFixed={gridState.isLeftPanelFixed}>
             <Wrapper borderColor="orange">
               <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
               <ToggleFixed

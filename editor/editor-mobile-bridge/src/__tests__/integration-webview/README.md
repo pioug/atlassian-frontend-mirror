@@ -71,6 +71,49 @@ MobileTestCase(
 );
 ```
 
+### Mobile VR testing
+
+Visual regression testing is performed using Browserstack App Automate + Appium screenshot helpers http://appium.io/docs/en/commands/session/screenshot
+
+We retrieve a base64 PNG of the current native viewport and we compare it against the existing for that test using jest-image-snapshot + toMatchProdImageSnapshot method.
+To ensure consistency, we add an overlay to the screenshots to cover the statusbar and hide dynamic values like time or battery.
+
+### How to run a mobile VR test
+
+Mobile test run the same way as regular Browserstack mobile test, you can just use the `mobileSnapshot` method in your test and run it using `test:webdriver:browserstack:mobile`
+
+```
+$ BROWSERSTACK_USERNAME=USERNAME BROWSERSTACK_KEY=KEY yarn test:webdriver:browserstack:mobile PATH
+```
+
+### How to update a mobile VR snapshot
+
+```
+$ BROWSERSTACK_USERNAME=USERNAME BROWSERSTACK_KEY=KEY yarn test:webdriver:browserstack:mobile PATH -u
+```
+
+### Writting a mobile VR test
+
+```ts
+import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
+import { setADFContent } from '../integration-webview/_utils/afe-app-helpers';
+import { loadEditor } from '../integration-webview/_page-objects/hybrid-editor-page';
+import adf from '../integration-webview/__fixtures__/demo.adf.json';
+import { mobileSnapshot } from '../_utils';
+
+MobileTestCase('VR demo: Load ADF and snapshot', {}, async client => {
+  const page = await Page.create(client);
+  await loadEditor(page);
+  await page.switchToWeb();
+  await setADFContent(page, adf);
+  await mobileSnapshot(page);
+});
+```
+
+Snapshots are saved under
+`packages/editor/editor-mobile-bridge/src/__tests__/__image_snapshots__/vr-demo-load-adf-and-snapshot.png`
+
 ### Troubleshooting
 
 > **BrowserStack automatically delete uploaded app binaries after 30 days.** > _The `upload-webdriver-webview-binaries` Pipeline is automatically run every 30 days in CI so this shouldn't be a problem._

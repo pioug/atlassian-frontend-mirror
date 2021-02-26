@@ -6,9 +6,9 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import styled from 'styled-components';
 import {
   analyticsAttributes,
-  withAnalyticsContextData,
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
+  withAnalyticsContextData,
 } from '../../common/utils/analytics';
 import { FadeIn } from './fade-in';
 import { Appearance } from '../theme/types';
@@ -16,6 +16,7 @@ import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { SwitcherItemType } from '../../common/utils/links';
 import ItemLink from './item-link';
+import { AnalyticsItemType } from '../../types';
 
 const SectionContainer = styled.section`
   padding: ${gridSize()}px 0;
@@ -86,7 +87,7 @@ const SectionWithLinkItem = (props: SectionProps) => {
             data={getItemAnalyticsContext(
               0,
               titleLink.key,
-              'product',
+              AnalyticsItemType.PRODUCT,
               titleLink.productType,
             )}
           >

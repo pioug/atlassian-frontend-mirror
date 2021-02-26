@@ -170,6 +170,16 @@ export enum SwitcherProductType {
   TEAM_CENTRAL = 'TEAM_CENTRAL',
 }
 
+export enum AnalyticsItemType {
+  PRODUCT = 'product',
+  ADMIN = 'admin',
+  TRY = 'try',
+  JOIN = 'join',
+  CUSTOM_LINK = 'customLink',
+  DISCOVER_FIXED_LINKS = 'discover-fixed-links',
+  RECENT = 'recent',
+}
+
 export type AvailableProduct =
   | {
       productType:

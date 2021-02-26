@@ -26,13 +26,6 @@ const gridTemplateAreas = `
 export const gridStyles = css`
   outline: none;
 
-  /* IE11 */
-  display: -ms-grid;
-  // prettier-ignore
-  -ms-grid-columns: ${LEFT_PANEL_WIDTH} ${LEFT_SIDEBAR_WIDTH} 1fr ${RIGHT_SIDEBAR_WIDTH} ${RIGHT_PANEL_WIDTH};
-  -ms-grid-rows: ${BANNER_HEIGHT} ${TOP_NAVIGATION_HEIGHT} 1fr;
-  /* IE11 */
-
   display: grid;
   height: 100%;
   // prettier-ignore
@@ -44,13 +37,6 @@ export const gridStyles = css`
 `;
 
 export const contentStyles = css`
-  /* IE11 */
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 3;
-  /* IE11 */
-
   grid-area: ${CONTENT};
   display: flex;
   height: 100%;
@@ -82,12 +68,6 @@ export const bannerStyles = (isFixed?: boolean): CSSObject => ({
     right: `${RIGHT_PANEL_WIDTH}`,
     zIndex: 2,
   }),
-
-  // /* IE11 */
-  msGridColumn: '2',
-  msGridColumnSpan: '3',
-  msGridRow: '1',
-  // /* IE11 */
 });
 
 export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
@@ -101,12 +81,6 @@ export const topNavigationStyles = (isFixed?: boolean): CSSObject => ({
     right: `${RIGHT_PANEL_WIDTH}`,
     zIndex: 2,
   }),
-
-  // /* IE11 */
-  msGridColumn: '2',
-  msGridColumnSpan: '3',
-  msGridRow: '2',
-  // /* IE11 */
 });
 
 export const mainStyles: CSSObject = {
@@ -171,12 +145,6 @@ export const rightPanelStyles = (isFixed?: boolean): CSSObject => ({
     bottom: 0,
     right: 0,
   }),
-
-  /* IE11 */
-  msGridColumn: '5',
-  msGridRow: '1',
-  msGridRowSpan: '3',
-  /* IE11 */
 });
 
 export const leftPanelStyles = (isFixed?: boolean): CSSObject => ({
@@ -189,10 +157,4 @@ export const leftPanelStyles = (isFixed?: boolean): CSSObject => ({
     bottom: 0,
     left: 0,
   }),
-
-  /* IE11 */
-  msGridColumn: '1',
-  msGridRow: '1',
-  msGridRowSpan: '3',
-  /* IE11 */
 });

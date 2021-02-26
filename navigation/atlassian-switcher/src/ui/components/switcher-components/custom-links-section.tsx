@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  SwitcherThemedItemWithEvents,
-  Section,
   FormattedMessage,
+  Section,
+  SwitcherThemedItemWithEvents,
 } from '../../primitives';
 import { SwitcherItemType } from '../../../common/utils/links';
 import {
-  NavigationAnalyticsContext,
   getItemAnalyticsContext,
+  NavigationAnalyticsContext,
 } from '../../../common/utils/analytics';
 import messages from '../../../common/utils/messages';
 import { Appearance } from '../../theme/types';
+import { AnalyticsItemType } from '../../../types';
 
 export type CustomLinkSectionProps = {
   appearance?: Appearance;
@@ -35,7 +36,7 @@ export const CustomLinksSection = ({
             data={getItemAnalyticsContext(
               groupIndex,
               null,
-              'customLink',
+              AnalyticsItemType.CUSTOM_LINK,
               undefined,
               analyticsAttributes,
             )}

@@ -2,8 +2,7 @@ import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 const overflowMenuTriggerSelector =
   '[data-testid="within-modal--overflow-menu--trigger"]';
-const overflowMenuContentSelector =
-  '[data-testid="within-modal--overflow-menu"]';
+const overflowMenuItem = '[data-testid="within-modal--avatar-group-item-4"]';
 
 describe('avatar group within-modal snapshots', () => {
   it('should match the snapshot of the avatar group within a modal', async () => {
@@ -19,8 +18,9 @@ describe('avatar group within-modal snapshots', () => {
 
     await page.waitForSelector(overflowMenuTriggerSelector);
     await page.click(overflowMenuTriggerSelector);
-
-    await page.waitForSelector(overflowMenuContentSelector);
+    await page.waitForSelector(overflowMenuItem);
+    await page.click(overflowMenuItem);
+    await page.waitFor(600);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

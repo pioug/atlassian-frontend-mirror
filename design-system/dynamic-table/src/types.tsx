@@ -63,7 +63,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
    */
   rowsPerPage?: number;
 
-  /** Total Number of Pages, in case of paginated data. Optional */
+  /** Total number of rows, in case of paginated data. Optional */
   totalRows?: number;
 
   /**

@@ -15,9 +15,23 @@ const isLocalStorageSupported = () => {
 };
 
 declare var window: { __localStorageFallback: Storage };
-const safeLocalStorage = (): Storage => {
+const safeLocalStorage = () => {
   if (isLocalStorageSupported()) {
     return localStorage;
+  }
+
+  // Returning a mock object here in the case that this is run in SSR mode
+  if (typeof window === 'undefined') {
+    return {
+      getItem: (_key: string) => null,
+      setItem: (_key: string, _value: string) => null,
+      removeItem: (_key: string) => null,
+      clear: () => null,
+      key: (_index: number) => null,
+      get length() {
+        return 0;
+      },
+    };
   }
 
   if (

@@ -24,6 +24,7 @@ import {
 } from '@atlaskit/width-detector';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import uuid from 'uuid/v4';
 import { ReactSerializer, renderDocument, RendererContext } from '../../';
 import { Wrapper } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
@@ -65,13 +66,15 @@ export class Renderer extends PureComponent<RendererProps> {
   private rafID?: number;
   private editorRef: React.RefObject<HTMLDivElement>;
   private mouseDownSelection?: string;
+  private id?: string;
 
   constructor(props: RendererProps) {
     super(props);
     this.providerFactory = props.dataProviders || new ProviderFactory();
     this.serializer = new ReactSerializer(this.deriveSerializerProps(props));
     this.editorRef = props.innerRef || React.createRef();
-    startMeasure('Renderer Render Time');
+    this.id = uuid();
+    startMeasure(`Renderer Render Time: ${this.id}`);
   }
 
   private anchorLinkAnalytics() {
@@ -111,7 +114,7 @@ export class Renderer extends PureComponent<RendererProps> {
     });
 
     this.rafID = requestAnimationFrame(() => {
-      stopMeasure('Renderer Render Time', duration => {
+      stopMeasure(`Renderer Render Time: ${this.id}`, duration => {
         const { analyticsEventSeverityTracking } = this.props;
         const forceSeverityTracking =
           typeof analyticsEventSeverityTracking === 'undefined' &&

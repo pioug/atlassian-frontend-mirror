@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 74.0.1
+
+### Patch Changes
+
+- [`cf929eb9816`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf929eb9816) - ED-10336 Add unique ID on renderer performance mark
+
 ## 74.0.0
 
 ### Minor Changes

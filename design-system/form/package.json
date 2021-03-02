@@ -47,8 +47,6 @@
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/dropdown-menu": "^10.1.0",
     "@atlaskit/droplist": "^11.0.0",
-    "@atlaskit/field-radio-group": "^8.0.0",
-    "@atlaskit/field-range": "^9.0.0",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/multi-select": "^15.0.0",
     "@atlaskit/radio": "^5.0.0",

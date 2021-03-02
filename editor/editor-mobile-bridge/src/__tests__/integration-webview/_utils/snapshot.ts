@@ -6,6 +6,13 @@ import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
  * and adds a black overlay on top of it to cover dynamic values from the mobile statusbar like time and battery
  */
 export const mobileSnapshot = async (page: Page) => {
+  const { DISABLE_MOBILE_VR } = process.env;
+  if (DISABLE_MOBILE_VR) {
+    // ignores the screenshot comparison and adds a dummy assertion
+    // to prevent failures with tests with 0 assertions
+    expect(1).toEqual(1);
+    return;
+  }
   const screenshot = await page.takeScreenshot();
   const bufferedScreenshot = Buffer.from(screenshot, 'base64');
   const sharpedScreenshot = sharp(bufferedScreenshot);
@@ -25,6 +32,7 @@ export const mobileSnapshot = async (page: Page) => {
     .composite([blackOverlay])
     .png()
     .toBuffer();
+
   expect(resizedScreenshot).toMatchProdImageSnapshot({
     failureThreshold: `0.001`,
     failureThresholdType: 'percent',

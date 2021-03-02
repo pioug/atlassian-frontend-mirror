@@ -1,6 +1,8 @@
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
+import { testMediaFileId, defaultCollectionName } from '../_mocks/utils';
+
 export const SELECTORS_WEB = {
   EDITOR: '#editor .ProseMirror',
   RENDERER: '#renderer',
@@ -43,4 +45,42 @@ export async function setADFContent(
 export async function clearContent(page: Page) {
   await page.switchToWeb();
   return page.execute<void>(() => (window as any).bridge.clearContent());
+}
+
+/**
+ * Mimic the flow of bridge calls to upload a media item
+ */
+export async function uploadMedia(page: Page) {
+  const defaultFileAttrs = {
+    id: 'null',
+    name: 'test',
+    type: 'image/png',
+    dimensions: {
+      width: 220,
+      height: 140,
+    },
+  };
+  await page.switchToWeb();
+  await page.execute<void>(defaultFileAttrs => {
+    (window as any).bridge.onMediaPicked(
+      'upload-preview-update',
+      JSON.stringify({
+        file: defaultFileAttrs,
+      }),
+    );
+  }, defaultFileAttrs);
+
+  const uploadEndFile = {
+    ...defaultFileAttrs,
+    publicId: testMediaFileId,
+    collectionName: defaultCollectionName,
+  };
+  await page.execute<void>(file => {
+    (window as any).bridge.onMediaPicked(
+      'upload-end',
+      JSON.stringify({
+        file,
+      }),
+    );
+  }, uploadEndFile);
 }

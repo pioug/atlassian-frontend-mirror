@@ -4,6 +4,7 @@ import {
   stopMeasure,
 } from '@atlaskit/editor-common';
 import { TransactionTracking } from '../../types/performance-tracking';
+import { getTimeSince } from './get-performance-timing';
 
 export const EVENT_NAME_STATE_APPLY = `🦉 EditorView::state::apply`;
 export const EVENT_NAME_UPDATE_STATE = `🦉 EditorView::updateState`;
@@ -111,11 +112,10 @@ export class TransactionTracker {
       return;
     }
 
-    const endTime = performance.now();
     const startTime = this.measureMap.get(measureName);
 
     if (startTime) {
-      const duration = endTime - startTime;
+      const duration = getTimeSince(startTime);
       this.measureMap.delete(measureName);
 
       if (onMeasureComplete) {

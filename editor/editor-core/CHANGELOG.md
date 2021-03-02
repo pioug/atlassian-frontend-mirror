@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 138.0.1
+
+### Patch Changes
+
+- [`a940fb90ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a940fb90ccc) - ED-11968: added function to determine difference in timing so it can be mocked during tests
+
 ## 138.0.0
 
 ### Minor Changes

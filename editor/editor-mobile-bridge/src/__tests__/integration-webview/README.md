@@ -114,6 +114,10 @@ MobileTestCase('VR demo: Load ADF and snapshot', {}, async client => {
 Snapshots are saved under
 `packages/editor/editor-mobile-bridge/src/__tests__/__image_snapshots__/vr-demo-load-adf-and-snapshot.png`
 
+### Disabling mobile VR tests
+
+Use `DISABLE_MOBILE_VR=true` to disable all mobile VR test, such env var will ignore the image diffing to happen for mobile tests.
+
 ### Troubleshooting
 
 > **BrowserStack automatically delete uploaded app binaries after 30 days.** > _The `upload-webdriver-webview-binaries` Pipeline is automatically run every 30 days in CI so this shouldn't be a problem._

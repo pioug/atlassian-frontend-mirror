@@ -3,6 +3,7 @@ import {
   stopMeasure as stopMeasureWithMark,
 } from '@atlaskit/editor-common';
 import { TransactionTracker } from '../../track-transactions';
+import * as timingUtils from '../../get-performance-timing';
 
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
@@ -178,10 +179,16 @@ describe('simple startMeasure and stopMeasure', () => {
   } = tracker.getMeasureHelpers({ enabled: true, samplingRate: 0 });
 
   it('should measure timing between function calls', () => {
+    const timeInMs = 8;
+    const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+    getTimeSinceMock.mockImplementation(startTime => timeInMs);
+
     simpleStartMeasure('test1');
     simpleStopMeasure('test1', (duration: number, startTime: number) => {
-      expect(duration).toBeLessThan(8);
+      expect(duration).toEqual(timeInMs);
     });
+
+    getTimeSinceMock.mockClear();
   });
 
   it('should not call measured callback if mismatched name', () => {

@@ -1,5 +1,23 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.1.4
+
+### Patch Changes
+
+- [`6494628658a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6494628658a) - Adds helper for media upload
+
+## 25.1.3
+
+### Patch Changes
+
+- [`ca4c76f79dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca4c76f79dc) - ME-1061 Fix editor-mobile-bridge webpack_base_config for 25.0.0
+
+## 25.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.1
 
 ### Patch Changes

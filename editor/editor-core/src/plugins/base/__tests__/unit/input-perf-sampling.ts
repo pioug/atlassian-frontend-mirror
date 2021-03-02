@@ -14,6 +14,7 @@ import {
   DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED,
 } from '../../pm-plugins/frozen-editor';
 import basePlugin from '../../';
+import * as timingUtils from '../../../../utils/performance/get-performance-timing';
 
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
@@ -131,25 +132,30 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        await new Promise(success =>
-          setTimeout(() => {
-            //@ts-ignore
-            requestAnimationFrame.step();
+        await new Promise(success => {
+          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+          getTimeSinceMock.mockImplementation(
+            startTime => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
+          );
 
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
-              action: ACTION.INPUT_PERF_SAMPLING,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: expect.objectContaining({
-                severity: 'degraded',
-              }),
-              eventType: EVENT_TYPE.OPERATIONAL,
-            });
+          //@ts-ignore
+          requestAnimationFrame.step();
 
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+          expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+            action: ACTION.INPUT_PERF_SAMPLING,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.objectContaining({
+              severity: 'degraded',
+            }),
+            eventType: EVENT_TYPE.OPERATIONAL,
+          });
 
-            success();
-          }, DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1),
-        );
+          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+
+          getTimeSinceMock.mockClear();
+
+          success();
+        });
       });
 
       it('should send analytics event with severity blocking when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED', async () => {
@@ -157,26 +163,31 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        await new Promise(success =>
-          setTimeout(() => {
-            //@ts-ignore
-            requestAnimationFrame.step();
+        await new Promise(success => {
+          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+          getTimeSinceMock.mockImplementation(
+            startTime => DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
+          );
 
-            expect(dispatchAnalyticsEvent).nthCalledWith(1, {
-              action: ACTION.INPUT_PERF_SAMPLING,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: expect.objectContaining({
-                severity: 'blocking',
-              }),
-              eventType: EVENT_TYPE.OPERATIONAL,
-            });
+          //@ts-ignore
+          requestAnimationFrame.step();
 
-            // once for INPUT_PERF_SAMPLING, second is SLOW_INPUT
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+          expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+            action: ACTION.INPUT_PERF_SAMPLING,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.objectContaining({
+              severity: 'blocking',
+            }),
+            eventType: EVENT_TYPE.OPERATIONAL,
+          });
 
-            success();
-          }, DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1),
-        );
+          // once for INPUT_PERF_SAMPLING, second is SLOW_INPUT
+          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+          getTimeSinceMock.mockClear();
+
+          success();
+        });
       });
     });
 
@@ -189,6 +200,11 @@ describe('Input performance latency', () => {
           customSettings.degradedThreshold,
         );
         typeText(editorView, 'XY');
+
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation(
+          startTime => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL,
+        );
 
         //@ts-ignore
         requestAnimationFrame.step();
@@ -203,9 +219,11 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+
+        getTimeSinceMock.mockClear();
       });
-      // Skipped for flakiness, follow up work to unskip: https://product-fabric.atlassian.net/browse/ED-12051
-      it.skip('should send analytics event with severity degraded when duration > custom severityNormalThreshold', async () => {
+
+      it('should send analytics event with severity degraded when duration > custom severityNormalThreshold', async () => {
         const { editorView, dispatchAnalyticsEvent } = createEditor(
           adfDoc,
           true,
@@ -214,25 +232,30 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        await new Promise(success =>
-          setTimeout(() => {
-            //@ts-ignore
-            requestAnimationFrame.step();
+        await new Promise(success => {
+          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+          getTimeSinceMock.mockImplementation(
+            startTime => customSettings.normalThreshold + 1,
+          );
 
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
-              action: ACTION.INPUT_PERF_SAMPLING,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: expect.objectContaining({
-                severity: 'degraded',
-              }),
-              eventType: EVENT_TYPE.OPERATIONAL,
-            });
+          //@ts-ignore
+          requestAnimationFrame.step();
 
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+          expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+            action: ACTION.INPUT_PERF_SAMPLING,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.objectContaining({
+              severity: 'degraded',
+            }),
+            eventType: EVENT_TYPE.OPERATIONAL,
+          });
 
-            success();
-          }, customSettings.normalThreshold + 1),
-        );
+          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+
+          getTimeSinceMock.mockClear();
+
+          success();
+        });
       });
 
       it('should send analytics event with severity blocking when duration > custom severityDegradedThreshold', async () => {
@@ -244,25 +267,30 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        await new Promise(success =>
-          setTimeout(() => {
-            //@ts-ignore
-            requestAnimationFrame.step();
+        await new Promise(success => {
+          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+          getTimeSinceMock.mockImplementation(
+            startTime => customSettings.degradedThreshold + 1,
+          );
 
-            expect(dispatchAnalyticsEvent).nthCalledWith(1, {
-              action: ACTION.INPUT_PERF_SAMPLING,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: expect.objectContaining({
-                severity: 'blocking',
-              }),
-              eventType: EVENT_TYPE.OPERATIONAL,
-            });
+          //@ts-ignore
+          requestAnimationFrame.step();
 
-            expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+          expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+            action: ACTION.INPUT_PERF_SAMPLING,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: expect.objectContaining({
+              severity: 'blocking',
+            }),
+            eventType: EVENT_TYPE.OPERATIONAL,
+          });
 
-            success();
-          }, customSettings.degradedThreshold + 1),
-        );
+          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+          getTimeSinceMock.mockClear();
+
+          success();
+        });
       });
     });
   });

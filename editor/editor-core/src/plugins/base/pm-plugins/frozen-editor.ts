@@ -22,6 +22,8 @@ import {
 } from '../../../types/performance-tracking';
 import { getContextIdentifier } from './context-identifier';
 import { setInteractionType } from '../utils/frozen-editor';
+import { getTimeSince } from '../../../utils/performance/get-performance-timing';
+
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
 export const DEFAULT_FREEZE_THRESHOLD = 600;
@@ -108,7 +110,7 @@ export default (
             }
 
             requestAnimationFrame(() => {
-              const diff = performance.now() - now;
+              const diff = getTimeSince(now);
 
               if (samplingRate && ++keystrokeCount === samplingRate) {
                 keystrokeCount = 0;

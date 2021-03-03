@@ -18,13 +18,15 @@ To migrate you can use the \`isInvalid\` and \`errorMessage\` props passed to \`
 import InlineDialog from '@atlaskit/inline-dialog';
 import InlineEdit from '@atlaskit/inline-edit';
 
-<InlineEdit
-  editView={({ errorMessage, isInvalid, ...props }) => (
-    <InlineDialog content={errorMessage} isOpen={isInvalid}>
-      <Textfield {...props} />
-    </InlineDialog>
-  )}
-/>
+const MyEditView = (
+  <InlineEdit
+    editView={({ errorMessage, isInvalid, ...props }) => (
+      <InlineDialog content={errorMessage} isOpen={isInvalid}>
+        <Textfield {...props} />
+      </InlineDialog>
+    )}
+  />
+);
 \`\`\`
 `;
 
@@ -42,8 +44,8 @@ const addCommentsWhenValidateFound = (j: core.JSCodeshift, source: any) => {
   source
     .findJSXElements(defaultSpecifier)
     .forEach((element: ASTPath<ImportDeclaration>) => {
-      const isPropExist = hasJSXAttributesByName(j, element, 'validate');
-      if (isPropExist) {
+      const isValidateDefined = hasJSXAttributesByName(j, element, 'validate');
+      if (isValidateDefined) {
         addCommentToStartOfFile({ j, base: source, message: commentMessage });
       }
     });

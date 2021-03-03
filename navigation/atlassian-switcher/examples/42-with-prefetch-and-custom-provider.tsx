@@ -75,7 +75,6 @@ class GenericSwitcherExample extends Component {
           <AtlassianSwitcher
             product="trello"
             disableCustomLinks
-            disableRecentContainers
             disableSwitchToHeading
             triggerXFlow={this.onTriggerXFlow}
             availableProductsDataProvider={customAvailableProductsDataProvider}

@@ -60,7 +60,6 @@ class InlineDialogSwitcherExample extends Component {
           <AtlassianSwitcher
             product="jira"
             disableCustomLinks
-            disableRecentContainers
             disableSwitchToHeading
             isDiscoverMoreForEveryoneEnabled
             cloudId="some-cloud-id"

@@ -71,7 +71,6 @@ class InlineDialogSwitcherExample extends Component {
           <AtlassianSwitcher
             product="jira"
             disableCustomLinks
-            disableRecentContainers
             disableSwitchToHeading
             isDiscoverMoreForEveryoneEnabled
             isDiscoverSectionEnabled

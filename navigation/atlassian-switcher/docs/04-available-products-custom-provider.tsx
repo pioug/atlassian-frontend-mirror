@@ -25,7 +25,6 @@ const customAvailableProductsDataProvider = createAvailableProductsProvider(
   product="bitbucket"
   availableProductsDataProvider={customAvailableProductsDataProvider}
   disableCustomLinks
-  disableRecentContainers
   disableSwitchToHeading
 />
   `}

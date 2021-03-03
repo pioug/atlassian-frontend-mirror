@@ -70,7 +70,6 @@ class InlineDialogSwitcherExample extends React.Component {
             <AtlassianSwitcher
               product="trello"
               disableCustomLinks
-              disableRecentContainers
               disableSwitchToHeading
               cloudId="some-cloud-id"
               triggerXFlow={this.onTriggerXFlow}

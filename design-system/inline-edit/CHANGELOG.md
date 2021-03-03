@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.0.1
+
+### Patch Changes
+
+- [`bfb4fe65750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfb4fe65750) - Added missed codemod (handling editView function defined outside) case for migration
+
 ## 12.0.0
 
 ### Major Changes

@@ -3,7 +3,6 @@ import React from 'react';
 import { ProviderResults } from '../../types';
 
 import {
-  RecentContainersProvider,
   UserPermissionProvider,
   XFlowSettingsProvider,
   CollaborationGraphRecentContainersProvider,
@@ -13,11 +12,9 @@ import { Permissions, RecommendationsFeatureFlags } from '../../types';
 
 interface CommonDataProviderProps {
   cloudId?: string;
-  disableRecentContainers: boolean;
-  enableCollaborationGraphRecentContainers?: boolean;
+  enableRecentContainers: boolean;
   recommendationsFeatureFlags?: RecommendationsFeatureFlags;
   children: (props: {
-    recentContainers: ProviderResults['recentContainers'];
     managePermission: ProviderResults['managePermission'];
     addProductsPermission: ProviderResults['addProductsPermission'];
     isXFlowEnabled: ProviderResults['isXFlowEnabled'];
@@ -29,61 +26,46 @@ interface CommonDataProviderProps {
 export default ({
   cloudId,
   children,
-  enableCollaborationGraphRecentContainers,
   recommendationsFeatureFlags,
-  disableRecentContainers,
+  enableRecentContainers,
 }: CommonDataProviderProps) => {
   return (
     <CollaborationGraphRecentContainersProvider
       cloudId={cloudId}
-      disableRecentContainers={disableRecentContainers}
-      enableCollaborationGraphRecentContainers={
-        enableCollaborationGraphRecentContainers
-      }
+      enableRecentContainers={enableRecentContainers}
     >
       {collaborationGraphRecentContainers => (
-        <RecentContainersProvider
+        <UserPermissionProvider
           cloudId={cloudId}
-          disableRecentContainers={disableRecentContainers}
-          enableCollaborationGraphRecentContainers={
-            enableCollaborationGraphRecentContainers
-          }
+          permissionId={Permissions.MANAGE}
         >
-          {recentContainers => (
+          {managePermission => (
             <UserPermissionProvider
               cloudId={cloudId}
-              permissionId={Permissions.MANAGE}
+              permissionId={Permissions.ADD_PRODUCTS}
             >
-              {managePermission => (
-                <UserPermissionProvider
-                  cloudId={cloudId}
-                  permissionId={Permissions.ADD_PRODUCTS}
-                >
-                  {addProductsPermission => (
-                    <XFlowSettingsProvider cloudId={cloudId}>
-                      {isXFlowEnabled => (
-                        <RecommendationsEngineProvider
-                          featureFlags={recommendationsFeatureFlags}
-                        >
-                          {productRecommendations =>
-                            children({
-                              recentContainers,
-                              managePermission,
-                              addProductsPermission,
-                              isXFlowEnabled,
-                              productRecommendations,
-                              collaborationGraphRecentContainers,
-                            })
-                          }
-                        </RecommendationsEngineProvider>
-                      )}
-                    </XFlowSettingsProvider>
+              {addProductsPermission => (
+                <XFlowSettingsProvider cloudId={cloudId}>
+                  {isXFlowEnabled => (
+                    <RecommendationsEngineProvider
+                      featureFlags={recommendationsFeatureFlags}
+                    >
+                      {productRecommendations =>
+                        children({
+                          managePermission,
+                          addProductsPermission,
+                          isXFlowEnabled,
+                          productRecommendations,
+                          collaborationGraphRecentContainers,
+                        })
+                      }
+                    </RecommendationsEngineProvider>
                   )}
-                </UserPermissionProvider>
+                </XFlowSettingsProvider>
               )}
             </UserPermissionProvider>
           )}
-        </RecentContainersProvider>
+        </UserPermissionProvider>
       )}
     </CollaborationGraphRecentContainersProvider>
   );

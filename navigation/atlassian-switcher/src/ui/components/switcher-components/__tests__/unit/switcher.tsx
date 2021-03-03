@@ -38,10 +38,6 @@ const providerResults: ProviderResults & SyntheticProviderResults = {
     data: false,
     status: Status.COMPLETE,
   },
-  recentContainers: {
-    data: { data: [] },
-    status: Status.COMPLETE,
-  },
   collaborationGraphRecentContainers: {
     data: { collaborationGraphEntities: [] },
     status: Status.COMPLETE,

@@ -58,7 +58,6 @@ export const mockEndpoints = (
   const mockData = getMockData(transformer);
 
   const {
-    RECENT_CONTAINERS_DATA,
     CUSTOM_LINKS_DATA,
     CUSTOM_LINKS_DATA_ERROR,
     USER_PERMISSION_DATA,
@@ -74,17 +73,6 @@ export const mockEndpoints = (
 
   mockJoinableSitesEndpoint(joinableSitesUrlRegex, transformer, loadTimes);
 
-  fetchMock.get(
-    '/gateway/api/activity/api/client/recent/containers?cloudId=some-cloud-id',
-    () =>
-      new Promise(res =>
-        setTimeout(
-          () => res(RECENT_CONTAINERS_DATA),
-          loadTimes && loadTimes.containers,
-        ),
-      ),
-    { method: 'GET', overwriteRoutes: true },
-  );
   fetchMock.get(
     `${product === 'confluence' ? '/wiki' : ''}/rest/menu/latest/appswitcher`,
     () =>

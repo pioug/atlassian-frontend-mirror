@@ -64,7 +64,6 @@ class GenericSwitcherExample extends React.Component {
           <AtlassianSwitcher
             product="trello"
             disableCustomLinks
-            disableRecentContainers
             disableSwitchToHeading
             triggerXFlow={this.onTriggerXFlow}
           />

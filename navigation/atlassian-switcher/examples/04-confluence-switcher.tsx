@@ -41,6 +41,7 @@ class ConfluenceSwitcherExample extends React.Component {
             product="confluence"
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}
+            enableRecentContainers
           />
         </Drawer>
         <Button type="button" onClick={this.openDrawer}>

@@ -32,14 +32,13 @@ describe('trello-switcher', () => {
     defaultProps = {
       features: {
         disableCustomLinks: false,
-        disableRecentContainers: false,
+        enableRecentContainers: true,
         disableSwitchToHeading: false,
         xflow: true,
         isDefaultEditionFreeExperimentEnabled: false,
         isDiscoverMoreForEveryoneEnabled: true,
         isEmceeLinkEnabled: true,
         isDiscoverSectionEnabled: true,
-        isCollaborationGraphRecentContainersEnabled: false,
         isProductStoreInTrelloJSWFirstEnabled: false,
         isProductStoreInTrelloConfluenceFirstEnabled: false,
         isSlackDiscoveryEnabled: false,

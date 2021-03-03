@@ -40,8 +40,8 @@ class JiraSwitcherExample extends React.Component {
           <AtlassianSwitcher
             product="jira"
             cloudId="some-cloud-id"
-            isCollaborationGraphRecentContainersEnabled={true}
             triggerXFlow={this.onTriggerXFlow}
+            enableRecentContainers
           />
         </Drawer>
         <Button type="button" onClick={this.openDrawer}>

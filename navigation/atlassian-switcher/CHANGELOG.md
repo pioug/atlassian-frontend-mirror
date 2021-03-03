@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 9.0.0
+
+### Major Changes
+
+- [`92159a4e41d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92159a4e41d) - The `isCollaborationGraphRecentContainersEnabled` and `disableRecentContainers` props have been removed. Recent containers will be turned off by default. If you would like to enable them use `enableRecentContainers`.
+
 ## 8.11.2
 
 ### Patch Changes

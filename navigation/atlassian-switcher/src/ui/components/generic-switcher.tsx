@@ -44,7 +44,7 @@ export default (props: GenericSwitcherProps) => (
         {availableProducts => (
           <CommonDataProvider
             cloudId={props.cloudId}
-            disableRecentContainers={props.features.disableRecentContainers}
+            enableRecentContainers={props.features.enableRecentContainers}
             recommendationsFeatureFlags={{
               ...props.recommendationsFeatureFlags,
             }}

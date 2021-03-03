@@ -16,7 +16,6 @@ import WorldIcon from '@atlaskit/icon/glyph/world';
 
 import FormattedMessage from '../../ui/primitives/formatted-message';
 import {
-  RecentContainerType,
   AvailableProductsResponse,
   AvailableProduct,
   SwitcherProductType,
@@ -29,7 +28,7 @@ import {
   MapUrl,
 } from '../../types';
 import messages from './messages';
-import { CustomLink, RecentContainer, SwitcherChildItem } from '../../types';
+import { CustomLink, SwitcherChildItem } from '../../types';
 import { createIcon, createImageIcon, IconType } from './icon-themes';
 
 interface MessagesDict {
@@ -336,47 +335,6 @@ export const getCustomLinkItems = (
       analyticsAttributes: {
         linkType: customLink.local ? 'customLink' : 'applink',
       },
-    }));
-};
-
-export const getRecentLinkItems = (
-  list: Array<RecentContainer>,
-  currentSite: CurrentSite,
-): RecentItemType[] => {
-  const isAnyJiraProductActive = Boolean(
-    currentSite.products.find(
-      product =>
-        product.productType === SwitcherProductType.JIRA_BUSINESS ||
-        product.productType === SwitcherProductType.JIRA_SERVICE_DESK ||
-        product.productType === SwitcherProductType.JIRA_SOFTWARE,
-    ),
-  );
-  const isConfluenceActive = Boolean(
-    currentSite.products.find(
-      product => product.productType === SwitcherProductType.CONFLUENCE,
-    ),
-  );
-  return list
-    .filter((recent: RecentContainer) => {
-      return (
-        (recent.type === RecentContainerType.JIRA_PROJECT &&
-          isAnyJiraProductActive) ||
-        (recent.type === RecentContainerType.CONFLUENCE_SPACE &&
-          isConfluenceActive) ||
-        [
-          RecentContainerType.JIRA_PROJECT,
-          RecentContainerType.CONFLUENCE_SPACE,
-        ].indexOf(recent.type) === -1
-      );
-    })
-    .slice(0, 6)
-    .map(recentLink => ({
-      key: recentLink.objectId,
-      label: recentLink.name,
-      Icon: createImageIcon(recentLink.iconUrl),
-      href: recentLink.url,
-      type: recentLink.type,
-      description: getObjectTypeLabel(recentLink.type),
     }));
 };
 

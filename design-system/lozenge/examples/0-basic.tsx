@@ -56,5 +56,23 @@ export default () => (
         Long text will be truncated after a point.
       </Lozenge>
     </p>
+    <p>
+      <Lozenge
+        appearance="new"
+        maxWidth={250}
+        testId="lozenge-truncated-custom-width"
+      >
+        Long text will be truncated after a point.
+      </Lozenge>
+    </p>
+
+    <Hr />
+
+    <p>Defaults</p>
+    <p>
+      <Lozenge maxWidth="none" testId="lozenge-defaults">
+        Default appearance and boldness
+      </Lozenge>
+    </p>
   </div>
 );

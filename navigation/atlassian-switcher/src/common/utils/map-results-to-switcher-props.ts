@@ -2,7 +2,6 @@ import {
   getAvailableProductLinks,
   getCustomLinkItems,
   getProvisionedProducts,
-  getRecentLinkItems,
   getRecentLinkItemsCollaborationGraph,
   SwitcherItemType,
 } from './links';
@@ -57,43 +56,29 @@ function collectCanManageLinks(
   }
 }
 function recentLinksLoadedSuccessfully(
-  recentContainers: ProviderResults['recentContainers'],
   userSiteData: SyntheticProviderResults['userSiteData'],
   collaborationGraphRecentContainers: ProviderResults['collaborationGraphRecentContainers'],
 ): boolean {
   return (
-    !(
-      isError(collaborationGraphRecentContainers) ||
-      isError(recentContainers) ||
-      isError(userSiteData)
-    ) &&
-    isComplete(recentContainers) &&
+    !(isError(collaborationGraphRecentContainers) || isError(userSiteData)) &&
     isComplete(collaborationGraphRecentContainers) &&
     isComplete(userSiteData)
   );
 }
 
 function collectRecentLinks(
-  recentContainers: ProviderResults['recentContainers'],
   userSiteData: SyntheticProviderResults['userSiteData'],
   collaborationGraphRecentContainers: ProviderResults['collaborationGraphRecentContainers'],
 ) {
   if (
     recentLinksLoadedSuccessfully(
-      recentContainers,
       userSiteData,
       collaborationGraphRecentContainers,
     )
   ) {
-    if (collaborationGraphRecentContainers.data!.collaborationGraphEntities) {
+    if (collaborationGraphRecentContainers.data?.collaborationGraphEntities) {
       return getRecentLinkItemsCollaborationGraph(
-        collaborationGraphRecentContainers.data!.collaborationGraphEntities,
-        userSiteData.data!.currentSite,
-      );
-    }
-    if (recentContainers.data!.data) {
-      return getRecentLinkItems(
-        recentContainers.data!.data,
+        collaborationGraphRecentContainers.data.collaborationGraphEntities,
         userSiteData.data!.currentSite,
       );
     }
@@ -192,7 +177,6 @@ export function mapResultsToSwitcherProps(
     managePermission,
     addProductsPermission,
     customLinks,
-    recentContainers,
     productRecommendations,
     collaborationGraphRecentContainers,
   } = results;
@@ -286,11 +270,7 @@ export function mapResultsToSwitcherProps(
         )
       : [],
     recentLinks: collect(
-      collectRecentLinks(
-        recentContainers,
-        userSiteData,
-        collaborationGraphRecentContainers,
-      ),
+      collectRecentLinks(userSiteData, collaborationGraphRecentContainers),
       [],
     ),
     customLinks: collect(collectCustomLinks(customLinks, userSiteData), []),
@@ -306,7 +286,6 @@ export function mapResultsToSwitcherProps(
       hasLoadedJoinableSites,
     hasLoadedCritical: hasLoadedAvailableProducts,
     hasLoadedInstanceProviders:
-      hasLoaded(recentContainers) &&
       hasLoaded(collaborationGraphRecentContainers) &&
       customLinks &&
       hasLoaded(customLinks) &&
@@ -318,7 +297,6 @@ export function mapResultsToSwitcherProps(
       isXFlowEnabled,
       addProductsPermission,
       managePermission,
-      recentContainers,
       collaborationGraphRecentContainers,
       customLinks,
       userSiteData,

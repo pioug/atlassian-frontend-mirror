@@ -13,6 +13,10 @@ describe('Snapshot Test', () => {
     await page.waitForSelector('span[data-testid="lozenge-subtle"]');
     await page.waitForSelector('span[data-testid="lozenge-bold"]');
     await page.waitForSelector('span[data-testid="lozenge-truncated"]');
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-custom-width"]',
+    );
+    await page.waitForSelector('span[data-testid="lozenge-defaults"]');
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

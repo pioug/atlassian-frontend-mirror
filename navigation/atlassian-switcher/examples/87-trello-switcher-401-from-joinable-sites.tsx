@@ -101,7 +101,6 @@ class InlineDialogSwitcherExample extends React.Component {
           <AtlassianSwitcher
             product="trello"
             disableCustomLinks
-            disableRecentContainers
             appearance="standalone"
             theme={trelloTheme}
             isDiscoverSectionEnabled

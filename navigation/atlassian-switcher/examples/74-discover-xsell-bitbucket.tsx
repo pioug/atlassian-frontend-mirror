@@ -85,7 +85,6 @@ class BitbucketSwitcherExample extends React.Component {
             isDiscoverSectionEnabled
             isEmceeLinkEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
-            disableRecentContainers
           />
         </Drawer>
         <Button type="button" onClick={this.openDrawer}>

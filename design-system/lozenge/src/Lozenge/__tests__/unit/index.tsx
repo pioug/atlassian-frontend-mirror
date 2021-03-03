@@ -1,32 +1,11 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { mount } from 'enzyme';
 
 import Lozenge from '../../../index';
 
 describe('Lozenge', () => {
-  describe('isBold property', () => {
-    it('should not be the default', () => {
-      expect(mount(<Lozenge />).prop('isBold')).toBe(false);
-    });
-
-    it('should change when toggled', () => {
-      expect(mount(<Lozenge isBold />).prop('isBold')).toBe(true);
-    });
-  });
-
   describe('appearance property', () => {
-    it('should be "default" when not set', () => {
-      expect(mount(<Lozenge />).prop('appearance')).toBe('default');
-    });
-
-    it('should change when set to an approved value: success', () => {
-      expect(mount(<Lozenge appearance="success" />).prop('appearance')).toBe(
-        'success',
-      );
-    });
-
     it('should set CSS that will truncate text when too large', () => {
       const { getByText } = render(
         <Lozenge appearance="new" testId="lozenge">

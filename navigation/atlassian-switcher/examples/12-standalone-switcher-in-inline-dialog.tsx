@@ -63,7 +63,6 @@ class InlineDialogSwitcherExample extends React.Component {
             <AtlassianSwitcher
               product="jira"
               disableCustomLinks
-              disableRecentContainers
               disableSwitchToHeading
               cloudId="some-cloud-id"
               triggerXFlow={this.onTriggerXFlow}

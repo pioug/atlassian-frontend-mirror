@@ -38,7 +38,6 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
-    "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "typescript": "3.9.6",

@@ -33,13 +33,15 @@ describe('apply all transforms', () => {
     import InlineDialog from '@atlaskit/inline-dialog';
     import InlineEdit from '@atlaskit/inline-edit';
 
-    <InlineEdit
-      editView={({ errorMessage, isInvalid, ...props }) => (
-        <InlineDialog content={errorMessage} isOpen={isInvalid}>
-          <Textfield {...props} />
-        </InlineDialog>
-      )}
-    />
+    const MyEditView = (
+      <InlineEdit
+        editView={({ errorMessage, isInvalid, ...props }) => (
+          <InlineDialog content={errorMessage} isOpen={isInvalid}>
+            <Textfield {...props} />
+          </InlineDialog>
+        )}
+      />
+    );
     \`\`\`
      */
     import React from "react";
@@ -62,5 +64,222 @@ describe('apply all transforms', () => {
     );
     `,
     'should switch InlineEditableTextfield to a new entrypoint with default import',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React, { PureComponent } from "react";
+    import InlineEdit from "@atlaskit/inline-edit";
+    import TextField from "@atlaskit/textfield";
+
+    export default class ColumnEditableTitle extends PureComponent {
+      handleChange = (event) => {
+        this.setState({ editValue: event.target.value });
+      };
+
+      handleEditChange = () => {
+        this.setState({ isEditing: true });
+        if (this.props.onEditChange) {
+          this.props.onEditChange(true);
+        }
+      };
+
+      handleConfirm = () => {
+        const newValue = this.state.editValue.trim();
+
+        if (isBlank(newValue) || hasNotChange(newValue, this.props.text)) {
+          this.handleCancel();
+        } else {
+          this.setState({ isEditing: false });
+          this.props.onConfirm(this.props.columnId, newValue);
+          if (this.props.onEditChange) {
+            this.props.onEditChange(false);
+          }
+        }
+      };
+
+      handleCancel = () => {
+        this.setState({
+          editValue: this.props.text,
+          isEditing: false,
+        });
+        this.props.onCancel(this.props.columnId);
+        if (isNotNewColumn(this.props) && this.props.onEditChange) {
+          this.props.onEditChange(false);
+        }
+      };
+
+      handleKeyDown = (event) => {
+        if (isEscape(event)) {
+          this.handleCancel();
+        }
+      };
+
+      renderReading = () => (
+        <Reading>
+          <ColumnTitle {...this.props} text={this.state.editValue} />
+        </Reading>
+      );
+
+      renderEditing = (fieldProps) => (
+        <TextField
+          {...fieldProps}
+          autoFocus
+          value={this.state.editValue}
+          onChange={this.handleChange}
+          onMouseDown={(event) => event.stopPropagation()}
+          onKeyDown={this.handleKeyDown}
+          isCompact
+        />
+      );
+
+      render() {
+        const { isDisabled } = this.props;
+
+        // if this component is disabled or in case this component belongs to a
+        // new column (id < 0) and is no longer being edited then <ColumnTitle/>
+        // should be rendered instead (not in editable mode).
+        const shouldRenderColumnTitle =
+          isDisabled || (isNewColumn(this.props) && !this.state.isEditing);
+
+        return shouldRenderColumnTitle ? (
+          <ColumnTitle {...this.props} text={this.state.editValue} />
+        ) : (
+          <Container>
+            <InlineEdit
+              defaultValue={this.state.editValue}
+              startWithEditViewOpen
+              validate={() => {}}
+              editView={this.renderEditing}
+              readView={this.renderReading}
+              onConfirm={this.handleConfirm}
+              // OnCancel will be exposed back once https://product-fabric.atlassian.net/browse/DST-1865 is released
+              onCancel={this.handleCancel}
+            />
+          </Container>
+        );
+      }
+    }
+    `,
+    `
+    /* TODO: (from codemod) We could not automatically convert this code to the new API.
+
+    This file uses \`inline-edit\`’s \`validate\` prop which previously would use \`react-loadable\` and the \`inline-dialog\` packages. Version 12.0.0 of \`inline-edit\` now no longer includes these dependencies out of the box and instead allows you to compose your own experience.
+
+    If you are using an editable textfield you can move over to the \`@atlaskit/inline-edit/inline-editable-textfield\` instead which comes with the previous error message behavior.
+
+    To migrate you can use the \`isInvalid\` and \`errorMessage\` props passed to \`editView\`, like so:
+
+    \`\`\`ts
+    import InlineDialog from '@atlaskit/inline-dialog';
+    import InlineEdit from '@atlaskit/inline-edit';
+
+    const MyEditView = (
+      <InlineEdit
+        editView={({ errorMessage, isInvalid, ...props }) => (
+          <InlineDialog content={errorMessage} isOpen={isInvalid}>
+            <Textfield {...props} />
+          </InlineDialog>
+        )}
+      />
+    );
+    \`\`\`
+     */
+    import React, { PureComponent } from "react";
+    import InlineEdit from "@atlaskit/inline-edit";
+    import TextField from "@atlaskit/textfield";
+
+    export default class ColumnEditableTitle extends PureComponent {
+      handleChange = (event) => {
+        this.setState({ editValue: event.target.value });
+      };
+
+      handleEditChange = () => {
+        this.setState({ isEditing: true });
+        if (this.props.onEditChange) {
+          this.props.onEditChange(true);
+        }
+      };
+
+      handleConfirm = () => {
+        const newValue = this.state.editValue.trim();
+
+        if (isBlank(newValue) || hasNotChange(newValue, this.props.text)) {
+          this.handleCancel();
+        } else {
+          this.setState({ isEditing: false });
+          this.props.onConfirm(this.props.columnId, newValue);
+          if (this.props.onEditChange) {
+            this.props.onEditChange(false);
+          }
+        }
+      };
+
+      handleCancel = () => {
+        this.setState({
+          editValue: this.props.text,
+          isEditing: false,
+        });
+        this.props.onCancel(this.props.columnId);
+        if (isNotNewColumn(this.props) && this.props.onEditChange) {
+          this.props.onEditChange(false);
+        }
+      };
+
+      handleKeyDown = (event) => {
+        if (isEscape(event)) {
+          this.handleCancel();
+        }
+      };
+
+      renderReading = () => (
+        <Reading>
+          <ColumnTitle {...this.props} text={this.state.editValue} />
+        </Reading>
+      );
+
+      renderEditing = (fieldProps) => (
+        <TextField
+          {...fieldProps}
+          autoFocus
+          value={this.state.editValue}
+          onChange={this.handleChange}
+          onMouseDown={(event) => event.stopPropagation()}
+          onKeyDown={this.handleKeyDown}
+          isCompact
+        />
+      );
+
+      render() {
+        const { isDisabled } = this.props;
+
+        // if this component is disabled or in case this component belongs to a
+        // new column (id < 0) and is no longer being edited then <ColumnTitle/>
+        // should be rendered instead (not in editable mode).
+        const shouldRenderColumnTitle =
+          isDisabled || (isNewColumn(this.props) && !this.state.isEditing);
+
+        return shouldRenderColumnTitle ? (
+          <ColumnTitle {...this.props} text={this.state.editValue} />
+        ) : (
+          <Container>
+            <InlineEdit
+              defaultValue={this.state.editValue}
+              startWithEditViewOpen
+              validate={() => {}}
+              editView={this.renderEditing}
+              readView={this.renderReading}
+              onConfirm={this.handleConfirm}
+              // OnCancel will be exposed back once https://product-fabric.atlassian.net/browse/DST-1865 is released
+              onCancel={this.handleCancel}
+            />
+          </Container>
+        );
+      }
+    }
+    `,
+    'ColumnEditableTitle - add comment when editView is not inline and validate is passed',
   );
 });

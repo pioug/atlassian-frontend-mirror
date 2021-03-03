@@ -32,14 +32,6 @@ export enum CollaborationGraphRecentContainerType {
   CONFLUENCE_SPACE = 'confluenceSpace',
 }
 
-export interface RecentContainer {
-  name: string;
-  url: string;
-  objectId: string;
-  iconUrl: string;
-  type: RecentContainerType;
-}
-
 export interface CollaborationGraphRecentContainer {
   entityType: string;
   containerType: CollaborationGraphRecentContainerType;
@@ -82,7 +74,7 @@ export enum Product {
 
 export enum Feature {
   disableCustomLinks = 'disableCustomLinks',
-  disableRecentContainers = 'disableRecentContainers',
+  enableRecentContainers = 'enableRecentContainers',
   disableSwitchToHeading = 'disableSwitchToHeading',
   xflow = 'xflow',
   isDiscoverMoreForEveryoneEnabled = 'isDiscoverMoreForEveryoneEnabled',
@@ -92,8 +84,6 @@ export enum Feature {
   isDiscoverSectionEnabled = 'isDiscoverSectionEnabled',
   // Enable copy change for free editions of products in the Discover section
   isDefaultEditionFreeExperimentEnabled = 'isDefaultEditionFreeExperimentEnabled',
-  // Use collaboration graph endpoint to show recent containers
-  isCollaborationGraphRecentContainersEnabled = 'isCollaborationGraphRecentContainersEnabled',
   // Show JSW first in product recommendations
   isProductStoreInTrelloJSWFirstEnabled = 'isProductStoreInTrelloJSWFirstEnabled',
   // Show Confluence first in product recommendations
@@ -103,23 +93,21 @@ export enum Feature {
 }
 
 export type FeatureFlagProps = {
-  // Custom links are enabled by default for Jira and Confluence, this feature flag allows to hide them. Custom links are not supported by the switcher in any other products.
+  /** Custom links are enabled by default for Jira and Confluence, this feature flag allows to hide them. Custom links are not supported by the switcher in any other products. */
   disableCustomLinks?: boolean;
-  // Hide recent containers. Recent containers are enabled by default.
-  disableRecentContainers?: boolean;
-  // Remove Switch-To section header - useful in nav v3
+  /** Display recent containers. Recent containers are disabled by default. **/
+  enableRecentContainers?: boolean;
+  /** Remove Switch-To section header - useful in nav v3  */
   disableSwitchToHeading?: boolean;
-  // Enable discover more.
+  /** Enable discover more.  */
   isDiscoverMoreForEveryoneEnabled?: boolean;
-  // Enable Embedded Marketplace within the product.
+  /** Enable Embedded Marketplace within the product.  */
   isEmceeLinkEnabled?: boolean;
-  // Enable Discover section - group suggested product links in Discover section
+  /** Enable Discover section - group suggested product links in Discover section */
   isDiscoverSectionEnabled?: boolean;
-  // Enable copy change for free editions of products in the Discover section
+  /** Enable copy change for free editions of products in the Discover section  */
   isDefaultEditionFreeExperimentEnabled?: boolean;
-  // Use collaboration graph endpoint to show recent containers
-  isCollaborationGraphRecentContainersEnabled?: boolean;
-  // Enable Integrations discovery in the discover more section
+  /** Enable Integrations discovery in the discover more section  */
   isSlackDiscoveryEnabled?: boolean;
 };
 
@@ -144,10 +132,6 @@ export interface XFlowSettingsResponse {
 
 export interface UserPermissionResponse {
   permitted: boolean;
-}
-
-export interface RecentContainersResponse {
-  data: Array<RecentContainer> | null;
 }
 
 export interface CollaborationGraphContainersResponse {
@@ -335,7 +319,6 @@ export interface ProviderResults {
   addProductsPermission: ProviderResult<boolean>;
   isXFlowEnabled: ProviderResult<boolean>;
   productRecommendations: ProviderResult<RecommendationsEngineResponse>;
-  recentContainers: ProviderResult<RecentContainersResponse>;
   collaborationGraphRecentContainers: ProviderResult<
     CollaborationGraphContainersResponse
   >;

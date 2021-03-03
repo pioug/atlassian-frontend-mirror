@@ -252,27 +252,24 @@ export const getDiscoverMoreRenderTracker = (
 };
 
 export const getRecentContainersRenderTracker = (
-  isCollaborationGraphRecentEnabled: Boolean,
-  recentContainersProviderResult: ProviderResults['recentContainers'],
+  isEnabled: Boolean,
   cgRecentContainersProviderResult: ProviderResults['collaborationGraphRecentContainers'],
   userSiteDataProviderResult: SyntheticProviderResults['userSiteData'],
   recentLinks: SwitcherItemType[],
   data?: object,
 ) => {
+  if (!isEnabled) {
+    return null;
+  }
+
   const providerFailed =
-    (isCollaborationGraphRecentEnabled
-      ? cgRecentContainersProviderResult.data === null
-      : recentContainersProviderResult.data === null) ||
+    cgRecentContainersProviderResult.data === null ||
     userSiteDataProviderResult.data === null;
   const emptyRenderExpected = Boolean(
-    isCollaborationGraphRecentEnabled
-      ? cgRecentContainersProviderResult.data &&
-          cgRecentContainersProviderResult.data.collaborationGraphEntities &&
-          cgRecentContainersProviderResult.data.collaborationGraphEntities
-            .length === 0
-      : recentContainersProviderResult.data &&
-          recentContainersProviderResult.data.data &&
-          recentContainersProviderResult.data.data.length === 0,
+    cgRecentContainersProviderResult.data &&
+      cgRecentContainersProviderResult.data.collaborationGraphEntities &&
+      cgRecentContainersProviderResult.data.collaborationGraphEntities
+        .length === 0,
   );
 
   return renderTracker({

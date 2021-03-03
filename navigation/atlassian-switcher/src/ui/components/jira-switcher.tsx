@@ -52,10 +52,7 @@ export default (props: JiraSwitcherProps) => (
             {(availableProducts: ProviderResults['availableProducts']) => (
               <CommonDataProvider
                 cloudId={props.cloudId}
-                disableRecentContainers={props.features.disableRecentContainers}
-                enableCollaborationGraphRecentContainers={
-                  props.features.isCollaborationGraphRecentContainersEnabled
-                }
+                enableRecentContainers={props.features.enableRecentContainers}
                 recommendationsFeatureFlags={{
                   isDiscoverSectionEnabled:
                     props.features.isDiscoverSectionEnabled,

@@ -15,6 +15,7 @@ export interface Stream<T> {
   (event: T): void;
   next: () => Promise<T>;
   skip: (skippedCalls: number) => Promise<T[]>;
+  allEvents: () => T[];
 }
 
 function createStream<T>(): Stream<T> {
@@ -82,6 +83,11 @@ function createStream<T>(): Stream<T> {
 
     return evaluateQueueOnMethod() as Promise<T[]>;
   };
+
+  callback.allEvents = () => {
+    return allEvents;
+  };
+
   return callback;
 }
 

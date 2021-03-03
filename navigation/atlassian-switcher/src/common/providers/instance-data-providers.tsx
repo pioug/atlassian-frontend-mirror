@@ -5,7 +5,6 @@ import asDataProvider, { ResultComplete, Status } from './as-data-provider';
 import {
   CollaborationGraphContainersResponse,
   Permissions,
-  RecentContainersResponse,
   UserPermissionResponse,
   WithCloudId,
   XFlowSettingsResponse,
@@ -13,12 +12,6 @@ import {
 } from '../../types';
 import { withCached } from '../utils/with-cached';
 import withHandleOptionalCloudId from './with-handle-optional-cloud-id';
-
-// Recent activity api
-const fetchRecentContainers = ({ cloudId }: WithCloudId) =>
-  fetchJson<RecentContainersResponse>(
-    `/gateway/api/activity/api/client/recent/containers?cloudId=${cloudId}`,
-  );
 
 const fetchCollaborationGraphRecentContainers = ({ cloudId }: WithCloudId) =>
   postJson<CollaborationGraphContainersResponse>(
@@ -36,29 +29,14 @@ const fetchCollaborationGraphRecentContainers = ({ cloudId }: WithCloudId) =>
     },
   );
 
-const RealRecentContainersProvider = asDataProvider(
-  'recentContainers',
-  fetchRecentContainers,
-);
-
 const RealCollaborationGraphRecentContainersProvider = asDataProvider(
   'collaborationGraphRecentContainers',
   fetchCollaborationGraphRecentContainers,
 );
 
-export const emptyRecentContainers: ResultComplete<RecentContainersResponse> = {
-  status: Status.COMPLETE,
-  data: { data: [] },
-};
-
 export const emptyCollaborationGraphRecentContainers: ResultComplete<CollaborationGraphContainersResponse> = {
   status: Status.COMPLETE,
   data: { collaborationGraphEntities: [] },
-};
-
-export const nullRecentContainers: ResultComplete<RecentContainersResponse> = {
-  status: Status.COMPLETE,
-  data: { data: null },
 };
 
 export const nullCollaborationGraphRecentContainers: ResultComplete<CollaborationGraphContainersResponse> = {
@@ -69,26 +47,16 @@ export const nullCollaborationGraphRecentContainers: ResultComplete<Collaboratio
 export const CollaborationGraphRecentContainersProvider = withHandleOptionalCloudId(
   ({
     cloudId,
-    disableRecentContainers,
-    enableCollaborationGraphRecentContainers,
+    enableRecentContainers,
     children,
   }: {
     cloudId: string;
-    disableRecentContainers?: boolean;
+    enableRecentContainers?: boolean;
     children: (
       collaborationGraphRecentContainers: ProviderResults['collaborationGraphRecentContainers'],
     ) => React.ReactNode;
-    enableCollaborationGraphRecentContainers?: boolean;
   }) => {
-    if (disableRecentContainers) {
-      return (
-        <React.Fragment>
-          {children(emptyCollaborationGraphRecentContainers)}
-        </React.Fragment>
-      );
-    }
-
-    if (enableCollaborationGraphRecentContainers) {
+    if (enableRecentContainers) {
       return (
         <RealCollaborationGraphRecentContainersProvider cloudId={cloudId}>
           {children}
@@ -96,44 +64,13 @@ export const CollaborationGraphRecentContainersProvider = withHandleOptionalClou
       );
     }
 
-    // Returns null so that map-results-to-switcher-props.ts knows this provider is off
     return (
       <React.Fragment>
-        {children(nullCollaborationGraphRecentContainers)}
+        {children(emptyCollaborationGraphRecentContainers)}
       </React.Fragment>
     );
   },
   emptyCollaborationGraphRecentContainers.data,
-);
-
-export const RecentContainersProvider = withHandleOptionalCloudId(
-  ({
-    cloudId,
-    disableRecentContainers,
-    enableCollaborationGraphRecentContainers,
-    children,
-  }: {
-    disableRecentContainers?: boolean;
-    children: (
-      recentContainers: ProviderResults['recentContainers'],
-    ) => React.ReactNode;
-    enableCollaborationGraphRecentContainers?: boolean;
-  } & WithCloudId) => {
-    if (disableRecentContainers) {
-      return <React.Fragment>{children(emptyRecentContainers)}</React.Fragment>;
-    }
-
-    if (!enableCollaborationGraphRecentContainers) {
-      return (
-        <RealRecentContainersProvider cloudId={cloudId}>
-          {children}
-        </RealRecentContainersProvider>
-      );
-    }
-
-    return <React.Fragment>{children(nullRecentContainers)}</React.Fragment>;
-  },
-  emptyRecentContainers.data,
 );
 
 // Permissions api

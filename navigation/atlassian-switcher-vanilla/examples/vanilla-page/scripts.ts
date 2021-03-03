@@ -10,7 +10,6 @@ export const initSwitcher = () => {
     {
       product: 'trello',
       disableCustomLinks: true,
-      disableRecentContainers: true,
       isDiscoverMoreForEveryoneEnabled: true,
       cloudId: 'some-cloud-id',
       appearance: 'standalone',

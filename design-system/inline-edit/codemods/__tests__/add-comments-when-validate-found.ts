@@ -84,13 +84,15 @@ describe('wrapEditViewWithInlineDialog prop', () => {
     import InlineDialog from '@atlaskit/inline-dialog';
     import InlineEdit from '@atlaskit/inline-edit';
 
-    <InlineEdit
-      editView={({ errorMessage, isInvalid, ...props }) => (
-        <InlineDialog content={errorMessage} isOpen={isInvalid}>
-          <Textfield {...props} />
-        </InlineDialog>
-      )}
-    />
+    const MyEditView = (
+      <InlineEdit
+        editView={({ errorMessage, isInvalid, ...props }) => (
+          <InlineDialog content={errorMessage} isOpen={isInvalid}>
+            <Textfield {...props} />
+          </InlineDialog>
+        )}
+      />
+    );
     \`\`\`
      */
     import React from "react";
@@ -111,6 +113,6 @@ describe('wrapEditViewWithInlineDialog prop', () => {
       />
     );
     `,
-    'should add invalidDialogView with default implementation when validate is defined',
+    'add comment when validate function is defined',
   );
 });

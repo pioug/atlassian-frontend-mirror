@@ -255,8 +255,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
           {hasLoadedInstanceProviders && (
             <React.Fragment>
               {getRecentContainersRenderTracker(
-                features.isCollaborationGraphRecentContainersEnabled,
-                rawProviderResults.recentContainers,
+                features.enableRecentContainers,
                 rawProviderResults.collaborationGraphRecentContainers,
                 rawProviderResults.userSiteData,
                 recentLinks,

@@ -20,10 +20,7 @@ import {
 import { RecommendationsEngineProvider } from '../../cross-flow/providers/recommendations-provider';
 import { WithTheme } from '../theme/types';
 import { createResultComplete } from '../../common/providers/as-data-provider';
-import {
-  emptyRecentContainers,
-  emptyCollaborationGraphRecentContainers,
-} from '../../common/providers/instance-data-providers';
+import { emptyCollaborationGraphRecentContainers } from '../../common/providers/instance-data-providers';
 import { TrelloProductsProvider } from '../../common/providers/trello/products-provider';
 import { addTrelloProduct } from '../../common/providers/trello/add-trello-product';
 import {
@@ -162,11 +159,6 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
                       availableProducts: addTrelloProduct(availableProducts),
                       joinableSites,
                       productRecommendations,
-                      /**
-                       * Mocking providers below due to concepts they backing are not supported by Trello Switcher
-                       * specifically or in account centric mode in general
-                       */
-                      recentContainers: emptyRecentContainers,
                       collaborationGraphRecentContainers: emptyCollaborationGraphRecentContainers,
                       managePermission: createResultComplete(false),
                       addProductsPermission: createResultComplete(false),

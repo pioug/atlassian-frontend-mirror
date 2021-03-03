@@ -57,7 +57,6 @@ const SwitcherData: React.FC<{ update: () => void }> = ({ update }) => {
         <AtlassianSwitcher
           product="jira"
           disableCustomLinks
-          disableRecentContainers
           isDiscoverMoreForEveryoneEnabled
           cloudId="some-cloud-id"
           appearance="standalone"

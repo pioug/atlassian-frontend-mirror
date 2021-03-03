@@ -8,9 +8,8 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
         "attributes": Object {
           "featureFlags": Object {
             "disableCustomLinks": false,
-            "disableRecentContainers": false,
             "disableSwitchToHeading": false,
-            "isCollaborationGraphRecentContainersEnabled": false,
+            "enableRecentContainers": false,
             "isDefaultEditionFreeExperimentEnabled": false,
             "isDiscoverMoreForEveryoneEnabled": false,
             "isDiscoverSectionEnabled": false,
@@ -38,9 +37,8 @@ exports[`Atlassian Switcher basic snapshot 1`] = `
         features={
           Object {
             "disableCustomLinks": false,
-            "disableRecentContainers": false,
             "disableSwitchToHeading": false,
-            "isCollaborationGraphRecentContainersEnabled": false,
+            "enableRecentContainers": false,
             "isDefaultEditionFreeExperimentEnabled": false,
             "isDiscoverMoreForEveryoneEnabled": false,
             "isDiscoverSectionEnabled": false,

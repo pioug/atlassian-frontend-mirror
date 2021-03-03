@@ -12,7 +12,7 @@ class OptionalContainersExample extends React.Component {
   state = {
     isDrawerOpen: false,
     disableCustomLinks: false,
-    disableRecentContainers: false,
+    enableRecentContainers: true,
     disableCloudId: false,
     disableXFlow: false,
   };
@@ -58,7 +58,7 @@ class OptionalContainersExample extends React.Component {
 
   render() {
     const {
-      disableRecentContainers,
+      enableRecentContainers,
       disableCloudId,
       disableXFlow,
       disableCustomLinks,
@@ -70,7 +70,7 @@ class OptionalContainersExample extends React.Component {
           <AtlassianSwitcher
             product="jira"
             cloudId={disableCloudId ? undefined : 'some-cloud-id'}
-            disableRecentContainers={disableRecentContainers}
+            enableRecentContainers={enableRecentContainers}
             disableCustomLinks={disableCustomLinks}
             triggerXFlow={disableXFlow ? undefined : this.onTriggerXFlow}
           />
@@ -105,8 +105,8 @@ class OptionalContainersExample extends React.Component {
           </Button>
           <Button
             type="button"
-            onClick={this.toggleDisableRecentContainers}
-            isSelected={!disableRecentContainers}
+            onClick={this.toggleRecentContainers}
+            isSelected={!enableRecentContainers}
           >
             Recent containers
           </Button>
@@ -122,9 +122,9 @@ class OptionalContainersExample extends React.Component {
     );
   }
 
-  private toggleDisableRecentContainers = () => {
+  private toggleRecentContainers = () => {
     this.setState({
-      disableRecentContainers: !this.state.disableRecentContainers,
+      enableRecentContainers: !this.state.enableRecentContainers,
     });
   };
 

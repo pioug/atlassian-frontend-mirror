@@ -70,15 +70,6 @@ exports[`Switcher should be able to disable switch to section header with "disab
           "emptyRender": true,
         }
       }
-      subject="atlassianSwitcherRecentContainers"
-    />
-    <WithAnalyticsEvents(_class)
-      data={
-        Object {
-          "duration": 0,
-          "emptyRender": true,
-        }
-      }
       subject="atlassianSwitcherCustomLinks"
     />
     <SwitchToSection
@@ -138,12 +129,6 @@ exports[`Switcher should be able to disable switch to section header with "disab
           },
           "provisionedProducts": Object {
             "data": Object {},
-            "status": "complete",
-          },
-          "recentContainers": Object {
-            "data": Object {
-              "data": Array [],
-            },
             "status": "complete",
           },
           "userSiteData": Object {
@@ -242,15 +227,6 @@ exports[`Switcher should render discover more section 1`] = `
           "emptyRender": true,
         }
       }
-      subject="atlassianSwitcherRecentContainers"
-    />
-    <WithAnalyticsEvents(_class)
-      data={
-        Object {
-          "duration": 0,
-          "emptyRender": true,
-        }
-      }
       subject="atlassianSwitcherCustomLinks"
     />
     <SwitchToSection
@@ -310,12 +286,6 @@ exports[`Switcher should render discover more section 1`] = `
           },
           "provisionedProducts": Object {
             "data": Object {},
-            "status": "complete",
-          },
-          "recentContainers": Object {
-            "data": Object {
-              "data": Array [],
-            },
             "status": "complete",
           },
           "userSiteData": Object {
@@ -412,15 +382,6 @@ exports[`Switcher should render sections with headers by default 1`] = `
           "emptyRender": true,
         }
       }
-      subject="atlassianSwitcherRecentContainers"
-    />
-    <WithAnalyticsEvents(_class)
-      data={
-        Object {
-          "duration": 0,
-          "emptyRender": true,
-        }
-      }
       subject="atlassianSwitcherCustomLinks"
     />
     <SwitchToSection
@@ -479,12 +440,6 @@ exports[`Switcher should render sections with headers by default 1`] = `
           },
           "provisionedProducts": Object {
             "data": Object {},
-            "status": "complete",
-          },
-          "recentContainers": Object {
-            "data": Object {
-              "data": Array [],
-            },
             "status": "complete",
           },
           "userSiteData": Object {

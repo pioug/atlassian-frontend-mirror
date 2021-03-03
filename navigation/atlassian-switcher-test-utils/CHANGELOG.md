@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-test-utils
 
+## 0.6.0
+
+### Minor Changes
+
+- [`de57e508231`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de57e508231) - Recent containers mock data has been removed as the endpoint has been decommissioned.
+
 ## 0.5.3
 
 ### Patch Changes

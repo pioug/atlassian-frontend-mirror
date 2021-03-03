@@ -52,10 +52,7 @@ export default (props: ConfluenceSwitcherProps) => (
             {(availableProducts: ProviderResults['availableProducts']) => (
               <CommonDataProvider
                 cloudId={props.cloudId}
-                enableCollaborationGraphRecentContainers={
-                  props.features.isCollaborationGraphRecentContainersEnabled
-                }
-                disableRecentContainers={props.features.disableRecentContainers}
+                enableRecentContainers={props.features.enableRecentContainers}
               >
                 {providerResults => {
                   const {

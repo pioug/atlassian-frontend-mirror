@@ -12,25 +12,22 @@ import {
   AvailableProduct,
   Product,
   CustomLinksResponse,
-  RecentContainersResponse,
   RecommendationsEngineResponse,
   JoinableSitesResponse,
   CollaborationGraphContainersResponse,
   CollaborationGraphRecentContainerType,
-  RecentContainerType,
   ProductKey,
 } from '../../../../types';
 
 const defaultFeatures = {
   disableCustomLinks: false,
-  disableRecentContainers: false,
+  enableRecentContainers: true,
   isDiscoverMoreForEveryoneEnabled: false,
   xflow: true,
   disableSwitchToHeading: false,
   isEmceeLinkEnabled: false,
   isDiscoverSectionEnabled: false,
   isDefaultEditionFreeExperimentEnabled: false,
-  isCollaborationGraphRecentContainersEnabled: false,
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
   isSlackDiscoveryEnabled: false,
@@ -490,16 +487,13 @@ describe('map-results-to-switcher-props', () => {
               },
             ],
           }),
-          recentContainers: asCompletedProvider<RecentContainersResponse>({
-            data: null,
-          }),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
         {
           ...defaultFeatures,
-          isCollaborationGraphRecentContainersEnabled: true,
+          enableRecentContainers: true,
         },
         Product.JIRA,
       );
@@ -514,7 +508,7 @@ describe('map-results-to-switcher-props', () => {
       ]);
     });
 
-    it('returns recent links when collaboration graph endpoint is disabled', () => {
+    it('returns no recent links when collaboration graph endpoint is disabled', () => {
       const props = mapResultsToSwitcherProps(
         CLOUD_ID,
         {
@@ -522,17 +516,6 @@ describe('map-results-to-switcher-props', () => {
           collaborationGraphRecentContainers: asCompletedProvider<
             CollaborationGraphContainersResponse
           >({ collaborationGraphEntities: null }),
-          recentContainers: asCompletedProvider<RecentContainersResponse>({
-            data: [
-              {
-                objectId: '20740',
-                type: RecentContainerType.JIRA_PROJECT,
-                name: 'Project Central',
-                url: 'https://hello.atlassian.net/browse/PC',
-                iconUrl: '',
-              },
-            ],
-          }),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
@@ -541,14 +524,7 @@ describe('map-results-to-switcher-props', () => {
         Product.JIRA,
       );
 
-      expect(props.recentLinks).toMatchObject([
-        {
-          key: '20740',
-          label: 'Project Central',
-          href: 'https://hello.atlassian.net/browse/PC',
-          type: 'jira-project',
-        },
-      ]);
+      expect(props.recentLinks).toMatchObject([]);
     });
   });
   describe('customizeLinks', () => {
@@ -874,7 +850,6 @@ const loadingProvidersResult = {
 
 const completedProvidersResult = {
   customLinks: asCompletedProvider<CustomLinksResponse>([]),
-  recentContainers: asCompletedProvider<RecentContainersResponse>({ data: [] }),
   managePermission: asCompletedProvider(false),
   addProductsPermission: asCompletedProvider(false),
   isXFlowEnabled: asCompletedProvider(false),

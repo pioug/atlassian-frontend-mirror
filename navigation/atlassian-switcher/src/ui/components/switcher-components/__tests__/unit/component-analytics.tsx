@@ -56,12 +56,12 @@ const DefaultAtlassianSwitcher = (props: any = {}) => {
     ],
     recentLinks: [
       {
-        key: 'recentLink',
-        label: 'Recent Container',
+        key: 'collabGraphLink',
+        label: 'Collab Recent Container',
         Icon: stubIcon,
-        href: '/some/recent/container',
-        type: 'container-type',
-        description: 'Container Type',
+        href: '/some/recent/collab/container',
+        type: 'collab-container-type',
+        description: 'Collab Container Type',
       },
     ],
     customLinks: [
@@ -124,6 +124,7 @@ const DefaultAtlassianSwitcher = (props: any = {}) => {
           {...switcherLinks}
           {...props}
           rawProviderResults={rawProviderResults}
+          enableRecentContainers={false}
         />
       </AnalyticsListener>
     </IntlProvider>
@@ -163,6 +164,7 @@ describe('Atlassian Switcher - SLIs', () => {
               data: null,
             },
           }}
+          enableRecentContainers
         />,
       );
       eventStream.skip(PRECEDING_EVENTS);
@@ -607,167 +609,12 @@ describe('Atlassian Switcher - SLIs', () => {
 
   describe('Recent containers SLI', () => {
     const PRECEDING_EVENTS = 5;
-    it('recent containers - fires rendered event if provider returns an empty list', async () => {
-      const overrideSwitcherLinks = {
-        hasLoadedInstanceProviders: true,
-        recentLinks: [],
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecentContainersPayload,
-      } = await eventStream.next();
-      expect(renderRecentContainersPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'rendered',
-        actionSubject: 'atlassianSwitcherRecentContainers',
-      });
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecentContainersPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'emptyRender',
-      );
-      expect(renderRecentContainersPayload.attributes.emptyRender).toBeTruthy();
-    });
-
-    it('recent containers - fires rendered event if provider returns data and recent links are rendered', async () => {
-      const overrideSwitcherLinks = {
-        hasLoadedInstanceProviders: true,
-      };
-      const rawProviderResults = {
-        recentContainers: {
-          data: {
-            data: [{ cloudId: 'cid-123' }],
-          },
-        },
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-          rawProviderResults={rawProviderResults}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecentContainersPayload,
-      } = await eventStream.next();
-      expect(renderRecentContainersPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'rendered',
-        actionSubject: 'atlassianSwitcherRecentContainers',
-      });
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecentContainersPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'emptyRender',
-      );
-      expect(renderRecentContainersPayload.attributes.emptyRender).toBeFalsy();
-    });
-
-    it('recent containers - fires not rendered event if the provider fails', async () => {
-      const overrideSwitcherLinks = {
-        hasLoadedInstanceProviders: true,
-      };
-      const rawProviderResults = {
-        recentContainers: {
-          data: null,
-        },
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-          rawProviderResults={rawProviderResults}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecentContainersPayload,
-      } = await eventStream.next();
-      expect(renderRecentContainersPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'not_rendered',
-        actionSubject: 'atlassianSwitcherRecentContainers',
-      });
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecentContainersPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecentContainersPayload.attributes.providerFailed,
-      ).toBeTruthy();
-    });
-
-    it('recent containers - fires not rendered event if the provider returns data but no recent links are rendered', async () => {
-      const overrideSwitcherLinks = {
-        hasLoadedInstanceProviders: true,
-        recentLinks: [],
-      };
-      const rawProviderResults = {
-        recentContainers: {
-          data: {
-            data: [{ cloudId: 'cid-123' }],
-          },
-        },
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-          rawProviderResults={rawProviderResults}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecentContainersPayload,
-      } = await eventStream.next();
-      expect(renderRecentContainersPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'not_rendered',
-        actionSubject: 'atlassianSwitcherRecentContainers',
-      });
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecentContainersPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecentContainersPayload.attributes).toHaveProperty(
-        'providerFailed',
-      );
-      expect(
-        renderRecentContainersPayload.attributes.providerFailed,
-      ).toBeFalsy();
-    });
 
     it('collaboration graph recent containers - fires rendered event if provider returns an empty list', async () => {
       const overrideSwitcherLinks = {
         hasLoadedInstanceProviders: true,
         recentLinks: [],
-        features: { isCollaborationGraphRecentContainersEnabled: true },
+        features: { enableRecentContainers: true },
       };
       const rawProviderResults = {
         collaborationGraphRecentContainers: {
@@ -808,7 +655,7 @@ describe('Atlassian Switcher - SLIs', () => {
     it('collaboration graph recent containers - fires rendered event if provider returns data and recent links are rendered', async () => {
       const overrideSwitcherLinks = {
         hasLoadedInstanceProviders: true,
-        features: { isCollaborationGraphRecentContainersEnabled: true },
+        features: { enableRecentContainers: true },
       };
       const rawProviderResults = {
         collaborationGraphRecentContainers: {
@@ -849,7 +696,7 @@ describe('Atlassian Switcher - SLIs', () => {
     it('collaboration graph recent containers - fires not rendered event if the provider fails', async () => {
       const overrideSwitcherLinks = {
         hasLoadedInstanceProviders: true,
-        features: { isCollaborationGraphRecentContainersEnabled: true },
+        features: { enableRecentContainers: true },
       };
       mount(
         <DefaultAtlassianSwitcher
@@ -885,7 +732,7 @@ describe('Atlassian Switcher - SLIs', () => {
       const overrideSwitcherLinks = {
         hasLoadedInstanceProviders: true,
         recentLinks: [],
-        features: { isCollaborationGraphRecentContainersEnabled: true },
+        features: { enableRecentContainers: true },
       };
       const rawProviderResults = {
         collaborationGraphRecentContainers: {
@@ -924,10 +771,29 @@ describe('Atlassian Switcher - SLIs', () => {
         renderRecentContainersPayload.attributes.providerFailed,
       ).toBeFalsy();
     });
+
+    it('collaboration graph recent containers - fires no event if the recents section is disabled', async () => {
+      const overrideSwitcherLinks = {
+        hasLoadedInstanceProviders: true,
+        recentLinks: [],
+        features: { enableRecentContainers: false },
+      };
+
+      mount(
+        <DefaultAtlassianSwitcher
+          onEventFired={eventStream}
+          overrideSwitcherLinks={overrideSwitcherLinks}
+        />,
+      );
+
+      for (const event of eventStream.allEvents()) {
+        expect(event.payload.actionSubject).not.toContain('RecentContainers');
+      }
+    });
   });
 
-  describe('Cutsom links SLI', () => {
-    const PRECEDING_EVENTS = 6;
+  describe('Custom links SLI', () => {
+    const PRECEDING_EVENTS = 5;
     it('fires rendered event when the provider returns an empty list', async () => {
       const overrideSwitcherLinks = {
         hasLoadedInstanceProviders: true,
@@ -1218,7 +1084,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
         data: {
           group: 'recent',
           itemType: 'recent',
-          itemId: 'container-type',
+          itemId: 'collab-container-type',
           itemsCount: 5,
           groupItemsCount: 1,
         },

@@ -5,7 +5,14 @@ import core, {
   ImportSpecifier,
 } from 'jscodeshift';
 
-const elevateComponentToNewEntryPoint = (
+import { addCommentToStartOfFile } from './utils';
+
+const commentMessage = `We could not automatically convert this code to the new API.
+
+This file uses \`InlineEdit\` and \`InlineEditStateless\` at the same time. We've merged these two types since version 12.0.0, and please use the merged version instead.
+`;
+
+const elevateComponentToDefault = (
   pkg: string,
   toPkg: string,
   innerElementName: string,
@@ -20,6 +27,17 @@ const elevateComponentToNewEntryPoint = (
     .find(j.ImportDefaultSpecifier)
     .nodes();
   const otherSpecifier = importDeclarations.find(j.ImportSpecifier).nodes();
+
+  const isImportingStateless =
+    otherSpecifier.filter(
+      (s: ImportSpecifier) =>
+        s.imported && s.imported.name === innerElementName,
+    ).length > 0;
+
+  if (defaultSpecifier.length > 0 && isImportingStateless) {
+    addCommentToStartOfFile({ j, base: root, message: commentMessage });
+    return;
+  }
 
   const newDefaultSpecifier = defaultSpecifier.map(
     (s: ImportDefaultSpecifier) => {
@@ -47,8 +65,8 @@ const elevateComponentToNewEntryPoint = (
   });
 };
 
-export default elevateComponentToNewEntryPoint(
+export default elevateComponentToDefault(
   '@atlaskit/inline-edit',
-  '@atlaskit/inline-edit/inline-editable-textfield',
-  'InlineEditableTextfield',
+  '@atlaskit/inline-edit',
+  'InlineEditStateless',
 );

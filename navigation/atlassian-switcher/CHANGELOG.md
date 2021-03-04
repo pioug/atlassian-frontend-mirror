@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-switcher
 
+## 9.1.0
+
+### Minor Changes
+
+- [`5b89de3f297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b89de3f297) - [ux] PES-230 added avocado to the Switch to section of the switcher
+
+## 9.0.1
+
+### Patch Changes
+
+- [`b56828f3881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b56828f3881) - Fixes an issue where recent containers would fail to load.
+
 ## 9.0.0
 
 ### Major Changes

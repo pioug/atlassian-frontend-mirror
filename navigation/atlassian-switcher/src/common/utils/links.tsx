@@ -122,6 +122,11 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
     Icon: createIcon(AtlassianIcon, { size: 'small' }),
     href: 'https://team.atlassian.com',
   },
+  [SwitcherProductType.AVOCADO]: {
+    label: 'Avocado',
+    Icon: createIcon(AtlassianIcon, { size: 'small' }),
+    href: '',
+  },
   [SwitcherProductType.OPSGENIE]: {
     label: 'Opsgenie',
     Icon: createIcon(OpsGenieIcon, { size: 'small' }),
@@ -179,6 +184,7 @@ const PRODUCT_ORDER = [
   SwitcherProductType.STATUSPAGE,
   SwitcherProductType.TRELLO,
   SwitcherProductType.TEAM_CENTRAL,
+  SwitcherProductType.AVOCADO,
 ];
 
 export const BROWSE_APPS_URL: { [Key in Product]?: string | undefined } = {
@@ -200,6 +206,7 @@ export const TO_SWITCHER_PRODUCT_KEY: {
   [ProductKey.TRELLO]: SwitcherProductType.TRELLO,
   [ProductKey.DRAGONFRUIT]: SwitcherProductType.DRAGONFRUIT,
   [ProductKey.TEAM_CENTRAL]: SwitcherProductType.TEAM_CENTRAL,
+  [ProductKey.AVOCADO]: SwitcherProductType.AVOCADO,
 };
 
 export interface ConnectedSite {
@@ -217,7 +224,8 @@ export const getProductSiteUrl = (connectedSite: ConnectedSite): string => {
     product.productType === SwitcherProductType.OPSGENIE ||
     product.productType === SwitcherProductType.STATUSPAGE ||
     product.productType === SwitcherProductType.TRELLO ||
-    product.productType === SwitcherProductType.TEAM_CENTRAL
+    product.productType === SwitcherProductType.TEAM_CENTRAL ||
+    product.productType === SwitcherProductType.AVOCADO
   ) {
     return product.url;
   }

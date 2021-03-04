@@ -6,7 +6,7 @@ const transformer = createTransformer([liftInlineEditableTextField]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
-describe('adding invalidDialogView prop', () => {
+describe('lift InlineEditableTextField to its own entry point', () => {
   defineInlineTest(
     { default: transformer, parser: 'tsx' },
     {},
@@ -27,6 +27,28 @@ describe('adding invalidDialogView prop', () => {
     );
     `,
     'should switch InlineEditableTextfield to a new entrypoint',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from "react";
+    import { InlineEditStateless } from "@atlaskit/inline-edit";
+
+    export default () => (
+      <InlineEditableTextfield />
+    );
+    `,
+    `
+    import React from "react";
+    import { InlineEditStateless } from "@atlaskit/inline-edit";
+
+    export default () => (
+      <InlineEditableTextfield />
+    );
+    `,
+    'should not do it to other things',
   );
 
   defineInlineTest(

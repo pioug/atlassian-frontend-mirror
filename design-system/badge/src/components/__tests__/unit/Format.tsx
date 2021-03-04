@@ -1,43 +1,91 @@
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import Format from '../../Format';
 
-test('snapshot', () => {
-  expect(shallow(<Format />)).toMatchSnapshot();
-});
+describe('Format format component', () => {
+  it('should render 0 by default', () => {
+    const { getByText } = render(<Format />);
+    expect(getByText('0')).toBeInTheDocument();
+  });
 
-test('default', () => {
-  expect(shallow(<Format />).text()).toBe('0');
-});
+  it.each([0, 100, 12.34])(
+    'should render positive numeric children (value=%p)',
+    value => {
+      const { getByText } = render(<Format max={value}>{value}</Format>);
+      expect(getByText(value.toString())).toBeInTheDocument();
+    },
+  );
 
-test('children', () => {
-  expect(shallow(<Format>{-100}</Format>).text()).toBe('0');
-  expect(shallow(<Format>{0}</Format>).text()).toBe('0');
-  expect(shallow(<Format>{100}</Format>).text()).toBe('100');
-});
+  it.each([-1, -100, -Infinity])(
+    'should clamp negative numeric children (value=%p)',
+    value => {
+      const { getByText } = render(<Format>{value}</Format>);
+      expect(getByText('0')).toBeInTheDocument();
+    },
+  );
 
-test('max', () => {
-  // Negatives
-  expect(shallow(<Format max={-100}>{-10}</Format>).text()).toBe('0');
-  expect(shallow(<Format max={-100}>{-1000}</Format>).text()).toBe('0');
-  expect(shallow(<Format max={Infinity}>{-1000}</Format>).text()).toBe('0');
+  it.each([
+    ['-100', '0'],
+    ['0', '0'],
+    ['abc', 'abc'],
+    ['+100,000.333', '+100,000.333'],
+    ['100000.333', '100000.333'],
+  ])(
+    'should interpret children as numbers where possible (value=%p)',
+    (value, expected) => {
+      const { getByText } = render(<Format>{value}</Format>);
+      expect(getByText(expected)).toBeInTheDocument();
+    },
+  );
 
-  // Zero
-  expect(shallow(<Format max={-100}>{0}</Format>).text()).toBe('0');
-  expect(shallow(<Format max={100}>{0}</Format>).text()).toBe('0');
-  expect(shallow(<Format max={Infinity}>{0}</Format>).text()).toBe('0');
+  it('should not have a max by default', () => {
+    const { getByText } = render(<Format>{Infinity}</Format>);
+    expect(getByText('∞')).toBeInTheDocument();
+  });
 
-  // Positives
-  expect(shallow(<Format max={100}>{10}</Format>).text()).toBe('10');
-  expect(shallow(<Format max={100}>{1000}</Format>).text()).toBe('100+');
-  expect(shallow(<Format max={Infinity}>{1000}</Format>).text()).toBe('1000');
-});
+  it.each([
+    [10, 100, '10'],
+    [1000, 100, '100+'],
+  ])(
+    'should respect positive values of max (value=%p, max=%p, expected=%p)',
+    (value, max, expected) => {
+      const { getByText } = render(<Format max={max}>{value}</Format>);
+      expect(getByText(expected)).toBeInTheDocument();
+    },
+  );
 
-test('infinity', () => {
-  expect(shallow(<Format>{Infinity}</Format>).text()).toBe('∞');
-  expect(shallow(<Format max={-100}>{Infinity}</Format>).text()).toBe('∞');
-  expect(shallow(<Format max={100}>{Infinity}</Format>).text()).toBe('100+');
-  expect(shallow(<Format max={Infinity}>{Infinity}</Format>).text()).toBe('∞');
+  it.each([
+    [0, -1, '0'],
+    [100, 0, '100'],
+    [Infinity, -100, '∞'],
+  ])(
+    'should ignore non-positive values for max (value=%p, max=%p, expected=%p)',
+    (value, max, expected) => {
+      const { getByText } = render(<Format max={max}>{value}</Format>);
+      expect(getByText(expected)).toBeInTheDocument();
+    },
+  );
+
+  it.each([0, -100, -Infinity])(
+    'should clamp negative numeric values (value=%p, expected="0")',
+    value => {
+      const { getByText } = render(<Format>{value}</Format>);
+      expect(getByText('0')).toBeInTheDocument();
+    },
+  );
+
+  it.each([
+    [Infinity, -100, '∞'],
+    [1000, Infinity, '1000'],
+    [Infinity, 100, '100+'],
+    [Infinity, Infinity, '∞'],
+  ])(
+    'should handle Infinity (value=%p, max=%p, expected=%p)',
+    (value, max, expected) => {
+      const { getByText } = render(<Format max={max}>{value}</Format>);
+      expect(getByText(expected)).toBeInTheDocument();
+    },
+  );
 });

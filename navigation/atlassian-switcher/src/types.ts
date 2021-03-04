@@ -152,6 +152,7 @@ export enum SwitcherProductType {
   TRELLO = 'TRELLO',
   DRAGONFRUIT = 'DRAGONFRUIT',
   TEAM_CENTRAL = 'TEAM_CENTRAL',
+  AVOCADO = 'AVOCADO',
 }
 
 export enum AnalyticsItemType {
@@ -181,7 +182,8 @@ interface AvailableProductWithUrl {
     | SwitcherProductType.OPSGENIE
     | SwitcherProductType.STATUSPAGE // assuming that the URL is provided by TCS (same as Opsgenie)
     | SwitcherProductType.TRELLO
-    | SwitcherProductType.TEAM_CENTRAL;
+    | SwitcherProductType.TEAM_CENTRAL
+    | SwitcherProductType.AVOCADO;
   url: string;
 }
 
@@ -268,6 +270,7 @@ export enum ProductKey {
   TRELLO = 'trello',
   DRAGONFRUIT = 'dragonfruit',
   TEAM_CENTRAL = 'townsquare',
+  AVOCADO = 'avocado',
 }
 
 export type RecommendationsEngineResponse = RecommendationItem[];

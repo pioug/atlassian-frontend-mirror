@@ -15,7 +15,7 @@ import withHandleOptionalCloudId from './with-handle-optional-cloud-id';
 
 const fetchCollaborationGraphRecentContainers = ({ cloudId }: WithCloudId) =>
   postJson<CollaborationGraphContainersResponse>(
-    'gateway/api/v1/collaborationgraph/user/container',
+    '/gateway/api/collaboration/v1/collaborationgraph/user/container',
     {
       containerTypes: ['confluenceSpace', 'jiraProject'],
       context: {

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-test-utils
 
+## 0.6.1
+
+### Patch Changes
+
+- [`b56828f3881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b56828f3881) - Fixes an issue where recent containers would fail to load.
+
 ## 0.6.0
 
 ### Minor Changes

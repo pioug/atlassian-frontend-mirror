@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -33,29 +33,32 @@ const AvatarImage: FC<Props> = ({
   >('initial');
   const borderRadius =
     appearance === 'circle' ? '50%' : `${AVATAR_RADIUS[size]}px`;
-
-  useEffect(() => {
-    // check whether there was a problem loading the image
-    // if handleLoadError is called we show the default avatar
-    let img: HTMLImageElement;
-
+  const image: HTMLImageElement | null = useMemo(() => {
     if (src) {
       setPhase('loading');
-      img = new Image();
+      const img = new Image();
       img.onload = () => setPhase('loaded');
       img.onerror = () => setPhase('error');
       img.src = src;
+      return img;
     }
-
-    return () => {
-      if (img) {
-        img.onload = () => {};
-        img.onerror = () => {};
-      }
-    };
+    return null;
   }, [src]);
 
-  if (phase === 'loading' || phase === 'error' || !src) {
+  useEffect(() => {
+    return () => {
+      if (image) {
+        image.onload = () => {};
+        image.onerror = () => {};
+      }
+    };
+  }, [image]);
+
+  const imageHasLoadedAsync = src && phase !== 'loading' && phase !== 'error';
+  const imageHasLoadedSync = src && phase === 'loading' && image?.complete;
+  const imageHasLoaded = imageHasLoadedAsync || imageHasLoadedSync;
+
+  if (!imageHasLoaded) {
     return (
       <span
         css={{

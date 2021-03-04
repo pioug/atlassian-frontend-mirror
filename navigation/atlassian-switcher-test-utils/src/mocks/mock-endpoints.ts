@@ -113,9 +113,8 @@ export const mockEndpoints = (
       ),
     { method: 'GET', overwriteRoutes: true },
   );
-
   fetchMock.post(
-    'gateway/api/v1/collaborationgraph/user/container',
+    '/gateway/api/collaboration/v1/collaborationgraph/user/container',
     () =>
       new Promise(res =>
         setTimeout(

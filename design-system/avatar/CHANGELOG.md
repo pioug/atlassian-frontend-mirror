@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 20.2.1
+
+### Patch Changes
+
+- [`e177a840b13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e177a840b13) - Fix flickering of cached avatar images on mount
+
 ## 20.2.0
 
 ### Minor Changes

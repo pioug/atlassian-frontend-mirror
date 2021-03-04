@@ -101,6 +101,79 @@ it('should display image is provided and successfully to loads', () => {
   expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
 });
 
+it('should render images on the first tick if they were cached', () => {
+  let hasCalledOnLoad = false;
+
+  Object.defineProperty(Image.prototype, 'complete', {
+    get() {
+      return true;
+    },
+  });
+
+  Object.defineProperty(Image.prototype, 'src', {
+    set() {
+      // The onload callback call will take at least one tick.
+      // If the complete property wasn't checked synchronously in the component this test
+      // would fail.
+      process.nextTick(() => {
+        hasCalledOnLoad = true;
+        this.onload();
+      });
+    },
+  });
+
+  const { getByTestId } = render(
+    <AvatarImage
+      appearance="square"
+      size="large"
+      alt="Carole Baskin"
+      testId="avatar"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
+    />,
+  );
+
+  expect(hasCalledOnLoad).toEqual(false);
+
+  const svgElement = getByTestId('avatar--image');
+  expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+});
+
+it("will not render images on the first tick if they weren't cached", () => {
+  let hasCalledOnLoad = false;
+
+  Object.defineProperty(Image.prototype, 'complete', {
+    get() {
+      return false;
+    },
+  });
+
+  Object.defineProperty(Image.prototype, 'src', {
+    set() {
+      // The onload callback call will take at least one tick.
+      process.nextTick(() => {
+        hasCalledOnLoad = true;
+        this.onload();
+      });
+    },
+  });
+
+  const { getByTestId } = render(
+    <AvatarImage
+      appearance="square"
+      size="large"
+      alt="Carole Baskin"
+      testId="avatar"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
+    />,
+  );
+
+  expect(hasCalledOnLoad).toEqual(false);
+  expect(() => {
+    const svgElement = getByTestId('avatar--image');
+    expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+  }).toThrow();
+});
+
 it('should use an accessible combination of colours', () => {
   const contrastCheck = new ColorContrastChecker();
 

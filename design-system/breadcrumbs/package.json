@@ -50,7 +50,6 @@
     "@atlaskit/webdriver-runner": "*",
     "@emotion/styled": "^10.0.7",
     "@testing-library/react": "^8.0.1",
-    "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
     "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",

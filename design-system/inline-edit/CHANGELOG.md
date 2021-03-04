@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 12.0.2
+
+### Patch Changes
+
+- [`0e9764f7384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e9764f7384) - Added codemod-utils as a package dependency, also fixed a few codemod functions
+
+  - elevate `InlineEditStateless` as default component as we have merged stateful and stateless
+  - make sure named import works for `InlineEditableTextfield`
+
 ## 12.0.1
 
 ### Patch Changes

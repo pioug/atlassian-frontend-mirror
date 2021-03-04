@@ -282,4 +282,124 @@ describe('apply all transforms', () => {
     `,
     'ColumnEditableTitle - add comment when editView is not inline and validate is passed',
   );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+    import React from "react";
+    import InlineEdit from "@atlaskit/inline-edit";
+
+    export default () => (
+      <InlineEditOffsetContainer>
+        <InlineEdit
+            {...inlineEditProps}
+            label={label}
+            editButtonLabel={intl.formatMessage(
+                inlineEditableMessages.editButtonLabel,
+                i18nValues,
+            )}
+            confirmButtonLabel={intl.formatMessage(
+                inlineEditableMessages.confirmButtonLabel,
+                i18nValues,
+            )}
+            cancelButtonLabel={intl.formatMessage(
+                inlineEditableMessages.cancelButtonLabel,
+                i18nValues,
+            )}
+            isLabelHidden
+            isFitContainerWidthReadView
+            shouldConfirmOnEnter
+            isWaiting={isWaiting}
+            isInvalid={isInvalid}
+            invalidMessage={invalidMessage}
+            editView={
+                // We forward props from Title to SingleLineTextInput
+                // so the props InlineEdit injets are passed through.
+                <TitleThatForwardsProps>
+                    <SingleLineTextInput
+                        isEditing
+                        isInitiallySelected
+                        style={inheritStyles}
+                        onChange={(e) =>
+                            inlineEditProps.onChange(e.target.value)
+                        }
+                        value={inlineEditProps.value}
+                    />
+                </TitleThatForwardsProps>
+            }
+            readView={
+                // We forward props from Title to SingleLineTextInput
+                // so the props InlineEdit injets are passed through.
+                <TitleThatForwardsProps>
+                    <SingleLineTextInput
+                        style={inheritStyles}
+                        isEditing={false}
+                        value={children}
+                    />
+                </TitleThatForwardsProps>
+            }
+        />
+      </InlineEditOffsetContainer>
+    );
+    `,
+    `
+    import React from "react";
+    import InlineEdit from "@atlaskit/inline-edit";
+
+    export default () => (
+      <InlineEditOffsetContainer>
+        <InlineEdit
+            {...inlineEditProps}
+            label={label}
+            editButtonLabel={intl.formatMessage(
+                inlineEditableMessages.editButtonLabel,
+                i18nValues,
+            )}
+            confirmButtonLabel={intl.formatMessage(
+                inlineEditableMessages.confirmButtonLabel,
+                i18nValues,
+            )}
+            cancelButtonLabel={intl.formatMessage(
+                inlineEditableMessages.cancelButtonLabel,
+                i18nValues,
+            )}
+            isLabelHidden
+            isFitContainerWidthReadView
+            shouldConfirmOnEnter
+            isWaiting={isWaiting}
+            isInvalid={isInvalid}
+            invalidMessage={invalidMessage}
+            editView={
+                // We forward props from Title to SingleLineTextInput
+                // so the props InlineEdit injets are passed through.
+                <TitleThatForwardsProps>
+                    <SingleLineTextInput
+                        isEditing
+                        isInitiallySelected
+                        style={inheritStyles}
+                        onChange={(e) =>
+                            inlineEditProps.onChange(e.target.value)
+                        }
+                        value={inlineEditProps.value}
+                    />
+                </TitleThatForwardsProps>
+            }
+            readView={
+                // We forward props from Title to SingleLineTextInput
+                // so the props InlineEdit injets are passed through.
+                <TitleThatForwardsProps>
+                    <SingleLineTextInput
+                        style={inheritStyles}
+                        isEditing={false}
+                        value={children}
+                    />
+                </TitleThatForwardsProps>
+            }
+        />
+      </InlineEditOffsetContainer>
+    );
+    `,
+    'should do nothing for editView is something other than arrow function',
+  );
 });

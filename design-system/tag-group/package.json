@@ -40,7 +40,6 @@
     "@atlaskit/tag": "*",
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
-    "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "0.13.0",

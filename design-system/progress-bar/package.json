@@ -35,7 +35,6 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "typescript": "3.9.6"
   },

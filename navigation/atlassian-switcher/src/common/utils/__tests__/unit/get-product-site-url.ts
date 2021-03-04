@@ -38,12 +38,13 @@ describe('getProductSiteUrl', () => {
     }
   });
 
-  it('should return the product url from the connected site info for Opsgenie, Statuspage, Trello and Team Central', () => {
+  it('should return the product url from the connected site info for Opsgenie, Statuspage, Trello, Team Central and Avocado', () => {
     const productsWithUrl = [
       SwitcherProductType.OPSGENIE,
       SwitcherProductType.STATUSPAGE,
       SwitcherProductType.TRELLO,
       SwitcherProductType.TEAM_CENTRAL,
+      SwitcherProductType.AVOCADO,
     ];
     for (const product of productsWithUrl) {
       expect(getProductSiteUrl(getConnectedSiteInfo(product))).toEqual(

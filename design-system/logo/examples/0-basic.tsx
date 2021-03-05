@@ -18,6 +18,9 @@ import {
   JiraCoreWordmark,
   JiraIcon,
   JiraLogo,
+  JiraServiceDeskIcon,
+  JiraServiceDeskLogo,
+  JiraServiceDeskWordmark,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
   JiraServiceManagementWordmark,
@@ -96,6 +99,17 @@ export default () => (
         </tr>
         <tr>
           <td>
+            <JiraLogo />
+          </td>
+          <td>
+            <JiraWordmark />
+          </td>
+          <td>
+            <JiraIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
             <JiraCoreLogo />
           </td>
           <td>
@@ -103,6 +117,17 @@ export default () => (
           </td>
           <td>
             <JiraCoreIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <JiraServiceDeskLogo />
+          </td>
+          <td>
+            <JiraServiceDeskWordmark />
+          </td>
+          <td>
+            <JiraServiceDeskIcon />
           </td>
         </tr>
         <tr>
@@ -125,17 +150,6 @@ export default () => (
           </td>
           <td>
             <JiraSoftwareIcon />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <JiraLogo />
-          </td>
-          <td>
-            <JiraWordmark />
-          </td>
-          <td>
-            <JiraIcon />
           </td>
         </tr>
         <tr>

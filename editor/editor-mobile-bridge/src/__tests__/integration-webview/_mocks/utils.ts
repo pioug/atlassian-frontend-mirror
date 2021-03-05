@@ -12,6 +12,7 @@ export function mapDataUriToBlob(dataUri: string): Blob {
 export const defaultBaseUrl = 'https://media.dev.atl-paas.net';
 export const defaultCollectionName = 'MediaServicesSample';
 export const testMediaFileId = 'a559980d-cd47-43e2-8377-27359fcb905f';
+export const testMediaEmptyImageFileId = 'f7ea49e7-d55f-4c4b-b34c-bfd6409022bc';
 export const getDateWithOffset = (offset: number) => {
   let time = new Date();
   time.setTime(time.getTime() + offset);

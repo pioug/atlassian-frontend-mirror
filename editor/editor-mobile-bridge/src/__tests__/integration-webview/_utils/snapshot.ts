@@ -34,7 +34,7 @@ export const mobileSnapshot = async (page: Page) => {
     .toBuffer();
 
   expect(resizedScreenshot).toMatchProdImageSnapshot({
-    failureThreshold: `0.001`,
+    failureThreshold: `0.01`,
     failureThresholdType: 'percent',
   });
 };

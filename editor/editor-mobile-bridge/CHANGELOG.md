@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.1.5
+
+### Patch Changes
+
+- [`058e1ec668d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/058e1ec668d) - Add media layout mobile VR tests
+
 ## 25.1.4
 
 ### Patch Changes

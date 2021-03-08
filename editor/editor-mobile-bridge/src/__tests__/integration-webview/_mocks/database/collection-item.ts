@@ -1,6 +1,7 @@
 import {
   MediaCollectionItem,
   MediaFileProcessingStatus,
+  MediaType,
 } from '@atlaskit/media-client';
 import { getPastDate } from '../utils';
 
@@ -12,6 +13,7 @@ export type CollectionItem = MediaCollectionItem & {
 export type CreateCollectionItemOptions = {
   readonly name: string;
   readonly mimeType: string;
+  readonly mediaType: MediaType;
   readonly collectionName: string;
   readonly occurrenceKey: string;
   readonly blob: Blob;
@@ -33,6 +35,7 @@ export function createCollectionItem(
     blob,
     id,
     processingStatus,
+    mediaType,
   } = options;
   return {
     id,
@@ -42,7 +45,7 @@ export function createCollectionItem(
       name,
       size: blob.size,
       mimeType,
-      mediaType: 'image',
+      mediaType: mediaType || 'image',
       artifacts: {},
       processingStatus,
       representations: {

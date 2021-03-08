@@ -31,7 +31,7 @@ export function createDatabase(
   if (Object.keys(collections).length > 0) {
     Object.keys(collections).forEach(collectionName => {
       collections[collectionName].forEach(
-        ({ id, name, blob, mimeType, processingStatus }) =>
+        ({ id, name, blob, mimeType, processingStatus, mediaType }) =>
           database.push(
             'collectionItem',
             createCollectionItem({
@@ -42,6 +42,7 @@ export function createDatabase(
               mimeType,
               name,
               processingStatus,
+              mediaType,
             }),
           ),
       );

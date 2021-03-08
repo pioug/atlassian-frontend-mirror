@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.1.6
+
+### Patch Changes
+
+- [`b99097f3b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b99097f3b1e) - EDM-1630: Add MediaGroup mobile VR test
+
 ## 25.1.5
 
 ### Patch Changes

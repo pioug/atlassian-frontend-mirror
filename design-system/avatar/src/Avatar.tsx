@@ -27,7 +27,9 @@ import {
   SizeType,
 } from './types';
 import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
-import { name as packageName, version as packageVersion } from './version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface CustomAvatarProps {
   'aria-label'?: string;

@@ -24,7 +24,7 @@ describe('Panel:', () => {
   beforeEach(async () => {
     await initFullPageEditorWithAdf(page, panel, undefined, {
       width: 800,
-      height: 660,
+      height: 720,
     });
     await waitForFloatingControl(page, 'Panel floating controls');
   });

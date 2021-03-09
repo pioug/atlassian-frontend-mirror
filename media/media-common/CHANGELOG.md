@@ -1,5 +1,25 @@
 # @atlaskit/media-common
 
+## 2.6.0
+
+### Minor Changes
+
+- [`e5413204ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5413204ba8) - Add optional errorDetail to FailAttributes for extra debugging context
+- [`b7b0cdea03f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7b0cdea03f) - add generic type for MediaAnalyticsContext<DataType>
+- [`f2db5a33953`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2db5a33953) - Added withMediaAnalyticsContext() in media-common for use by media components
+- [`ce5671da5e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce5671da5e7) - keep media analytics fileAttributes nested in attributes
+  move FileStatus from media-client to media-common, maintaing export from media-client
+
+### Patch Changes
+
+- [`08000e61e72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08000e61e72) - Patched withMediaAnalyticsContext() to accept React refs + minor Analytics types change
+- [`bfd3311eb16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfd3311eb16) - Fixed withMediaAnalyticsContext() typing issue
+- [`ea425224c8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea425224c8f) - Updated Screen & Operational Event types in media-common
+- [`4f1d3a6b22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f1d3a6b22a) - Refactored Media Analytics Namespaced Context (now delivered by our HOC in media-common)
+- [`ed20a0c50b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed20a0c50b0) - Fixed MediaAnalyticsContext to correctly attach static properties
+  Made 'attributes' a mandatory member of BaseEventPayload
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

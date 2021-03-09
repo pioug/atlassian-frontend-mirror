@@ -1,7 +1,10 @@
 import React from 'react';
 import { SyntheticEvent } from 'react';
 import { MediaClient, Identifier } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import {
+  MediaFeatureFlags,
+  withMediaAnalyticsContext,
+} from '@atlaskit/media-common';
 import { IntlProvider, intlShape } from 'react-intl';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
@@ -9,13 +12,15 @@ import {
   WithAnalyticsEventsProps,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { mediaViewerModalEvent } from './analytics/media-viewer';
-import { closedEvent, ClosedInputType } from './analytics/closed';
-import { channel } from './analytics/index';
 import {
-  GasPayload,
-  GasScreenEventPayload,
-} from '@atlaskit/analytics-gas-types';
+  packageName,
+  packageVersion,
+  component,
+  componentName,
+  fireAnalytics,
+} from './analytics';
+import { createModalEvent } from './analytics/events/screen/modal';
+import { createClosedEvent } from './analytics/events/ui/closed';
 import { ItemSource } from './domain';
 import { List } from './list';
 import { Collection } from './collection';
@@ -49,21 +54,13 @@ export class MediaViewerComponent extends React.Component<Props, State> {
     intl: intlShape,
   };
 
-  private fireAnalytics = (payload: GasPayload | GasScreenEventPayload) => {
-    const { createAnalyticsEvent } = this.props;
-    if (createAnalyticsEvent) {
-      const ev = createAnalyticsEvent(payload);
-      ev.fire(channel);
-    }
-  };
-
   UNSAFE_componentWillMount() {
-    this.fireAnalytics(mediaViewerModalEvent());
+    fireAnalytics(createModalEvent(), this.props);
     start('MediaViewer.SessionDuration');
   }
 
   onShortcutClosed = () => {
-    this.sendClosedEvent('escKey');
+    fireAnalytics(createClosedEvent('escKey'), this.props);
     const { onClose } = this.props;
     if (onClose) {
       onClose();
@@ -77,16 +74,12 @@ export class MediaViewerComponent extends React.Component<Props, State> {
       analyticsEvent.payload &&
       analyticsEvent.payload.actionSubject === 'button'
     ) {
-      this.sendClosedEvent('button');
+      fireAnalytics(createClosedEvent('button'), this.props);
     }
     if (onClose) {
       onClose();
     }
   };
-
-  private sendClosedEvent(input: ClosedInputType) {
-    this.fireAnalytics(closedEvent(input));
-  }
 
   private toggleSidebar = () => {
     this.setState({
@@ -206,4 +199,22 @@ export class MediaViewerComponent extends React.Component<Props, State> {
   }
 }
 
-export const MediaViewer = withAnalyticsEvents()(MediaViewerComponent);
+export const MediaViewer = withMediaAnalyticsContext(
+  {
+    packageName,
+    packageVersion,
+    component,
+    componentName,
+  },
+  {
+    filterFeatureFlags: [
+      'zipPreviews',
+      'codeViewer',
+      'poll_intervalMs',
+      'poll_maxAttempts',
+      'poll_backoffFactor',
+      'poll_maxIntervalMs',
+      'poll_maxGlobalFailures',
+    ],
+  },
+)(withAnalyticsEvents()(MediaViewerComponent));

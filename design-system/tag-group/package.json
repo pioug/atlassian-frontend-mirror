@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag-group",
-  "version": "10.0.4",
+  "version": "10.0.5",
   "description": "A React component used for grouping and controlling @atlskit/tag components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,8 +29,7 @@
     "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/avatar": "^20.0.0",

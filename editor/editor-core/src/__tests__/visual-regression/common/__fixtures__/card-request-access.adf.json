@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/REQUEST_ACCESS"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/PENDING_REQUEST_EXISTS"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/FORBIDDEN"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/DIRECT_ACCESS"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/DENIED_REQUEST_EXISTS"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl/forbidden/ACCESS_EXISTS"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/REQUEST_ACCESS"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/PENDING_REQUEST_EXISTS"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/FORBIDDEN"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/DIRECT_ACCESS"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/DENIED_REQUEST_EXISTS"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS"
+      }
+    },
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://blockCardTestUrl/forbidden/ACCESS_EXISTS"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/REQUEST_ACCESS",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/PENDING_REQUEST_EXISTS",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/FORBIDDEN",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/DIRECT_ACCESS",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/DENIED_REQUEST_EXISTS",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS",
+        "layout": "center"
+      }
+    },
+    {
+      "type": "embedCard",
+      "attrs": {
+        "url": "https://embedCardTestUrl/forbidden/ACCESS_EXISTS",
+        "layout": "center"
+      }
+    }
+  ]
+}

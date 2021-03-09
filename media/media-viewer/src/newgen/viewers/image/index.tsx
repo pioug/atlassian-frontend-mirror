@@ -13,17 +13,18 @@ import {
 import { getOrientation } from '@atlaskit/media-ui';
 
 import { Outcome } from '../../domain';
-import { createError, MediaViewerError } from '../../error';
+import { MediaViewerError } from '../../errors';
 import { InteractiveImg } from './interactive-img';
-import { AnalyticViewerProps } from '../../analytics/item-viewer';
 import { BaseViewer } from '../base-viewer';
 
 export type ObjectUrl = string;
 
-export type ImageViewerProps = AnalyticViewerProps & {
+export type ImageViewerProps = {
   mediaClient: MediaClient;
   item: FileState;
   collectionName?: string;
+  onLoad: () => void;
+  onError: (error: Error) => void;
   onClose?: () => void;
   contextId?: string;
 };
@@ -48,14 +49,14 @@ export class ImageViewer extends BaseViewer<
   ImageViewerProps
 > {
   protected get initialState() {
-    return { content: Outcome.pending<ImageViewerContent, MediaViewerError>() };
+    return { content: Outcome.pending<ImageViewerContent, Error>() };
   }
 
   private cancelImageFetch?: () => void;
 
   protected async init() {
-    const { item: file, mediaClient, collectionName } = this.props;
-    if (file.status === 'error') {
+    const { item: fileState, mediaClient, collectionName } = this.props;
+    if (fileState.status === 'error') {
       return;
     }
 
@@ -65,7 +66,7 @@ export class ImageViewer extends BaseViewer<
       let originalBinaryImageUrl: string | undefined;
       let isLocalFileReference: boolean = false;
 
-      const { preview } = file;
+      const { preview } = fileState;
       if (preview) {
         const { value, origin } = await preview;
         if (value instanceof Blob) {
@@ -75,8 +76,8 @@ export class ImageViewer extends BaseViewer<
         } else {
           objectUrl = value;
         }
-      } else if (isImageRepresentationReady(file)) {
-        const item = processedFileStateToMediaItem(file);
+      } else if (isImageRepresentationReady(fileState)) {
+        const item = processedFileStateToMediaItem(fileState);
         const controller =
           typeof AbortController !== 'undefined'
             ? new AbortController()
@@ -101,13 +102,13 @@ export class ImageViewer extends BaseViewer<
 
       if (
         !isLocalFileReference && // objectUrl at this point is binary file already
-        !isErrorFileState(file) &&
-        file.status !== 'uploading' &&
-        file.mediaType === 'image' &&
-        isImageMimeTypeSupportedByBrowser(file.mimeType)
+        !isErrorFileState(fileState) &&
+        fileState.status !== 'uploading' &&
+        fileState.mediaType === 'image' &&
+        isImageMimeTypeSupportedByBrowser(fileState.mimeType)
       ) {
         originalBinaryImageUrl = await mediaClient.file.getFileBinaryURL(
-          file.id,
+          fileState.id,
           collectionName,
         );
       }
@@ -122,11 +123,11 @@ export class ImageViewer extends BaseViewer<
     } catch (err) {
       // TODO : properly handle aborted requests (MS-2843)
       if (!isAbortedRequestError(err)) {
+        const imgError = new MediaViewerError('imageviewer-fetch-url');
         this.setState({
-          content: Outcome.failed(createError('previewFailed', err, file)),
+          content: Outcome.failed(imgError),
         });
-        const errorMessage = err.message || err.name;
-        this.props.onLoad({ status: 'error', errorMessage });
+        this.props.onError(imgError);
       }
     }
   }
@@ -159,7 +160,7 @@ export class ImageViewer extends BaseViewer<
     return (
       <InteractiveImg
         onLoad={this.onLoad}
-        onError={this.onError}
+        onError={this.onImgError}
         src={src}
         originalBinaryImageSrc={content.originalBinaryImageUrl}
         orientation={content.orientation}
@@ -169,14 +170,11 @@ export class ImageViewer extends BaseViewer<
   }
 
   private onLoad = () => {
-    this.props.onLoad({ status: 'success' });
+    this.props.onLoad();
     this.onMediaDisplayed();
   };
 
-  private onError = () => {
-    this.props.onLoad({
-      status: 'error',
-      errorMessage: 'Interactive-img render failed',
-    });
+  private onImgError = () => {
+    this.props.onError(new MediaViewerError('imageviewer-src-onerror'));
   };
 }

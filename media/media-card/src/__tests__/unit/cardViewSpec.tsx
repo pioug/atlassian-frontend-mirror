@@ -335,6 +335,7 @@ describe('CardView', () => {
       eventType: 'ui',
       action: 'clicked',
       actionSubject: 'mediaCard',
+      attributes: {},
     });
     expect(actualReturnedEvent.hasFired).toEqual(false);
     expect(actualReturnedEvent.payload.action).toEqual('clicked');

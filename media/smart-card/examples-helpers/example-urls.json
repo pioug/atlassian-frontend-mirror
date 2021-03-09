@@ -1,5 +1,29 @@
 [
   {
+    "provider": "Jira",
+    "visibility": "restricted",
+    "type": "Task",
+    "url": "https://mandopt1.jira-dev.com/browse/FF-1"
+  },
+  {
+    "provider": "Jira",
+    "visibility": "restricted",
+    "type": "Task",
+    "url": "https://mandopt-ra2.jira-dev.com/browse/FOO-1"
+  },
+  {
+    "provider": "Jira",
+    "visibility": "restricted",
+    "type": "Task",
+    "url": "https://mandopt-ra1.jira-dev.com/browse/TEST-1"
+  },
+  {
+    "provider": "Jira",
+    "visibility": "restricted",
+    "type": "Task",
+    "url": "https://mandopt-ra.jira-dev.com/browse/SDF-1"
+  },
+  {
     "provider": "Confluence",
     "visibility" : "private",
     "type": "Document",

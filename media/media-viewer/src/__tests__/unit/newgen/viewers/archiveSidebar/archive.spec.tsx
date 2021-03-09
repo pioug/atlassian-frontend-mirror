@@ -1,11 +1,20 @@
+jest.mock(
+  '../../../../../newgen/analytics/events/operational/zipEntryLoadSucceeded',
+  () => ({
+    createZipEntryLoadSucceededEvent: jest.fn(),
+  }),
+);
+jest.mock(
+  '../../../../../newgen/analytics/events/operational/zipEntryLoadFailed',
+  () => ({
+    createZipEntryLoadFailedEvent: jest.fn(),
+  }),
+);
+
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ProcessedFileState } from '@atlaskit/media-client';
-import {
-  fakeMediaClient,
-  sleep,
-  mountWithIntlContext,
-} from '@atlaskit/media-test-helpers';
+import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 
 jest.mock('unzipit', () => ({
   unzip: () => {
@@ -21,7 +30,6 @@ import {
   ArchiveViewerBase,
   getArchiveEntriesFromFileState,
   Props as ArchiveViewerProps,
-  Content,
 } from '../../../../../newgen/viewers/archiveSidebar/archive';
 import { ArchiveLayout } from '../../../../../newgen/viewers/archiveSidebar/styled';
 import { InteractiveImg } from '../../../../../newgen/viewers/image/interactive-img';
@@ -31,13 +39,11 @@ import {
 } from '../../../../../newgen/styled';
 import { PDFRenderer } from '../../../../../newgen/viewers/doc/pdfRenderer';
 import ArchiveSidebarRenderer from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-renderer';
-import ErrorMessage from '../../../../../newgen/error';
+import ErrorMessage from '../../../../../newgen/errorMessage';
 import { Spinner } from '../../../../../newgen/loading';
-import {
-  ENCRYPTED_ENTRY_ERROR_MESSAGE,
-  NO_NAME_OR_SRC_ERROR_MESSAGE,
-} from '../../../../../newgen/viewers/archiveSidebar/consts';
-import { zipEntryLoadSucceededEvent } from '../../../../../newgen/analytics/archive-viewer';
+import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../newgen/viewers/archiveSidebar/consts';
+import { createZipEntryLoadSucceededEvent } from '../../../../../newgen/analytics/events/operational/zipEntryLoadSucceeded';
+import { createZipEntryLoadFailedEvent } from '../../../../../newgen/analytics/events/operational/zipEntryLoadFailed';
 
 describe('Archive', () => {
   const fileState: ProcessedFileState = {
@@ -60,27 +66,11 @@ describe('Archive', () => {
       mediaClient: mediaClient,
       item: fileState,
       collectionName: collectionName,
-      onZipFileLoadError: () => {},
+      onError: () => {},
       onSuccess: () => {},
     };
     const props = { ...baseProps, ...passedProps };
     return shallow(<ArchiveViewerBase {...props} />);
-  }
-
-  function mountComponentWithContext() {
-    const createAnalyticsEventSpy = jest.fn();
-    createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
-    const el = mountWithIntlContext<Content, ArchiveViewerProps, any>(
-      <ArchiveViewerBase
-        mediaClient={mediaClient}
-        item={fileState}
-        collectionName={collectionName}
-        onZipFileLoadError={() => {}}
-        onSuccess={() => {}}
-        createAnalyticsEvent={createAnalyticsEventSpy}
-      />,
-    );
-    return { el, createAnalyticsEventSpy };
   }
 
   it('should have ArchiveLayout element', () => {
@@ -186,17 +176,17 @@ describe('Archive', () => {
       name: 'file_a.doc',
       src: 'src',
       blob: jest.fn().mockImplementation(() => {
-        throw new Error('error');
+        throw new Error('some-error');
       }),
     } as any);
     await sleep(0);
     const errorMessage = el.find(ErrorMessage);
     expect(errorMessage).toHaveLength(1);
-    expect(errorMessage.getElement().props.error.errorName).toEqual(
-      'previewFailed',
+    expect(errorMessage.prop('error').message).toEqual(
+      'archiveviewer-create-url',
     );
   });
-  it('should render encryptedEntryPreviewFailed error if encrypted file', async () => {
+  it('should fail with correct error if encrypted file', async () => {
     const el = mountComponent({});
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
     archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
@@ -210,8 +200,8 @@ describe('Archive', () => {
     await sleep(0);
     const errorMessage = el.find(ErrorMessage);
     expect(errorMessage).toHaveLength(1);
-    expect(errorMessage.getElement().props.error.errorName).toEqual(
-      'encryptedEntryPreviewFailed',
+    expect(errorMessage.prop('error').message).toEqual(
+      'archiveviewer-encrypted-entry',
     );
   });
   it('should render Spinner when entry is changed', async () => {
@@ -225,7 +215,7 @@ describe('Archive', () => {
     } as any);
     expect(el.find(Spinner)).toHaveLength(1);
   });
-  it('should render error with message NO_NAME_OR_SRC_ERROR_MESSAGE if no name', async () => {
+  it('should fail with correct error if no name', async () => {
     const el = mountComponent({});
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
     archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
@@ -237,26 +227,25 @@ describe('Archive', () => {
     await sleep(0);
     const errorMessage = el.find(ErrorMessage);
     expect(errorMessage).toHaveLength(1);
-    expect(errorMessage.getElement().props.error.innerError.message).toEqual(
-      NO_NAME_OR_SRC_ERROR_MESSAGE,
+    expect(errorMessage.prop('error').message).toEqual(
+      'archiveviewer-missing-name-src',
     );
   });
-  it('should call onZipFileLoadError if error isZipFileLevelError is true', async () => {
-    const onZipFileLoadErrorMock = jest.fn();
-    const el = mountComponent({ onZipFileLoadError: onZipFileLoadErrorMock });
+  it('should call onError if error sidebar renderer has error', async () => {
+    const onErrorMock = jest.fn();
+    const el = mountComponent({ onError: onErrorMock });
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
     archiveSidebarRenderer.prop('onError')(new Error());
-    expect(onZipFileLoadErrorMock).toBeCalledTimes(1);
+    expect(onErrorMock).toBeCalledTimes(1);
   });
   it('onError should set the state as errored', async () => {
-    const onZipFileLoadErrorMock = jest.fn();
+    const onErrorMock = jest.fn();
     const error = new Error();
-    const el = mountComponent({ onZipFileLoadError: onZipFileLoadErrorMock });
+    const el = mountComponent({ onError: onErrorMock });
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
     archiveSidebarRenderer.prop('onError')(error);
     const state = el.state() as any;
     expect(state.content.data.error).toEqual(error);
-    expect(state.content.data.isErrored).toBeTruthy();
   });
   describe('getArchiveEntriesFromFileState', () => {
     it('should get archive entries from fileState', async () => {
@@ -269,19 +258,53 @@ describe('Archive', () => {
       });
     });
   });
-  it('should fire analytics', async () => {
-    const { el, createAnalyticsEventSpy } = mountComponentWithContext();
-    const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
-    const entry = {
-      isDirectory: false,
-      name: 'file_a.jpeg',
-      src: 'src',
-      blob: jest.fn(),
-    } as any;
-    archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')(entry);
-    await sleep(0);
-    expect(createAnalyticsEventSpy).toBeCalledWith(
-      zipEntryLoadSucceededEvent(entry, fileState),
-    );
+
+  describe('Analytics', () => {
+    beforeAll(() => jest.resetAllMocks());
+
+    it('should fire zip entry fail event if displays error', async () => {
+      const el = mountComponent({});
+      const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
+      archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
+        isDirectory: false,
+        name: 'file_a.doc',
+        src: 'src',
+        blob: jest.fn().mockImplementation(() => {
+          throw new Error('some-error');
+        }),
+      } as any);
+      await sleep(0);
+      const errorMessage = el.find(ErrorMessage);
+      expect(errorMessage).toHaveLength(1);
+      expect(createZipEntryLoadFailedEvent).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fire success analytics when image viewer loaded', async () => {
+      const zipEntry = {
+        isDirectory: false,
+        name: 'file_a.jpeg',
+        src: 'src',
+        blob: jest.fn(),
+      } as any;
+      const el = mountComponent({});
+      el.find(ArchiveSidebarRenderer).prop('onSelectedArchiveEntryChange')(
+        zipEntry,
+      );
+      await sleep(0);
+      el.find(InteractiveImg).prop('onLoad')();
+      expect(createZipEntryLoadSucceededEvent).toHaveBeenCalledWith(
+        {
+          artifacts: {},
+          id: 'some-id',
+          mediaType: 'archive',
+          mimeType: 'zip',
+          name: 'file',
+          representations: { image: {} },
+          size: 11222,
+          status: 'processed',
+        },
+        zipEntry,
+      );
+    });
   });
 });

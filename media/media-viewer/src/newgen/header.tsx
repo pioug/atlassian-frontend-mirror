@@ -35,7 +35,6 @@ import {
   MetadataIconWrapper,
   MetadataFileName,
 } from './styled';
-import { MediaViewerError, createError } from './error';
 import {
   ToolbarDownloadButton,
   DisabledToolbarDownloadButton,
@@ -44,6 +43,7 @@ import { MediaViewerExtensions } from '../components/types';
 import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
+import { MediaViewerError } from './errors';
 
 export type Props = {
   readonly identifier: Identifier;
@@ -56,7 +56,7 @@ export type Props = {
 };
 
 export type State = {
-  item: Outcome<FileState, MediaViewerError>;
+  item: Outcome<FileState, Error>;
 };
 
 const initialState: State = {
@@ -117,9 +117,11 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
               item: Outcome.successful(file),
             });
           },
-          error: err => {
+          error: (error: Error) => {
             this.setState({
-              item: Outcome.failed(createError('metadataFailed', err)),
+              item: Outcome.failed(
+                new MediaViewerError('header-fetch-metadata', error),
+              ),
             });
           },
         });

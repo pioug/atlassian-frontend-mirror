@@ -151,6 +151,7 @@ const AvatarGroupExample: FC = () => {
             href: '#',
             name: `Grid Avatar ${i + 1}`,
             size: avatarSize,
+            onClick: e => console.log(e),
           }))}
           maxCount={avatarCountMax}
           size={avatarSize}

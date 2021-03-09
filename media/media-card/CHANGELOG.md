@@ -1,5 +1,24 @@
 # @atlaskit/media-card
 
+## 70.4.0
+
+### Minor Changes
+
+- [`f0a900eb563`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0a900eb563) - [ux] Added option for products to enable download button MediaCard when a user hovers over a card.
+- [`ceb8a18d7dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ceb8a18d7dd) - Filtering Feature Flags when attaching them to Analytics Context through the HOC
+- [`e66ffd11ac6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e66ffd11ac6) - Refactored Analytics Events. Slight differences in payloads and contexts
+
+### Patch Changes
+
+- [`a0dcbc9b0a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0dcbc9b0a3) - Media Card now logs "unsupported" amalytics events accordingly, instead of "succeeded" events
+- [`f7f301ec851`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f301ec851) - Media Card logs errors regardless of the existence of a preview to display
+- [`19302000a1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19302000a1a) - Reverted "unsupported" analytics events
+- [`0d0e72f74bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0e72f74bb) - Included feature flag "captions" in analytics events
+- [`e62066560fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e62066560fb) - Removed fileSource attributes from operational SLIs
+- [`cf080faf650`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf080faf650) - Refactored fail reasons and error constants in render analytics events
+- [`37d4add135f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37d4add135f) - Use of Media Client Errors test helpers
+- Updated dependencies
+
 ## 70.3.3
 
 ### Patch Changes

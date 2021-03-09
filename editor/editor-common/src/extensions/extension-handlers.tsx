@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Node as PmNode } from 'prosemirror-model';
 import Loadable, { LoadingComponentProps } from 'react-loadable';
 
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
@@ -60,7 +61,7 @@ export function getNodeRenderer<T>(
   extensionType: ExtensionType,
   extensionKey: ExtensionKey,
 ) {
-  return Loadable<{ node: ExtensionParams<T> }, any>({
+  return Loadable<{ node: ExtensionParams<T>; refNode?: PmNode }, any>({
     loader: () => {
       return getExtensionModuleNode(
         extensionProvider,

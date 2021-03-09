@@ -105,13 +105,9 @@ export const getAvatarForConfluenceObjectResult = (
   result: ConfluenceObjectResult,
 ) => {
   if (result.contentType === ContentType.ConfluencePage) {
-    return (
-      <PageIcon size="medium" primaryColor={colors.B200} label={result.name} />
-    );
+    return <PageIcon primaryColor={colors.B200} label={result.name} />;
   } else if (result.contentType === ContentType.ConfluenceBlogpost) {
-    return (
-      <BlogIcon label={result.name} size="medium" primaryColor={colors.B200} />
-    );
+    return <BlogIcon label={result.name} primaryColor={colors.B200} />;
   } else if (result.contentType === ContentType.ConfluenceAttachment) {
     return getMediaTypeAvatarForResult(result);
   } else {

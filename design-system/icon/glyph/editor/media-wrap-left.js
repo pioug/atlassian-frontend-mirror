@@ -12,7 +12,7 @@ var _base = _interopRequireDefault(require("@atlaskit/icon/base"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const EditorMediaWrapLeftIcon = props => /*#__PURE__*/_react.default.createElement(_base.default, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path d="M6 17h12a1 1 0 010 2H6a1 1 0 010-2zm8-8h4a1 1 0 010 2h-4a1 1 0 010-2zm0 4h4a1 1 0 010 2h-4a1 1 0 010-2zM6 9h4a1 1 0 011 1v4a1 1 0 01-1 1H6a1 1 0 01-1-1v-4a1 1 0 011-1zm0-4h12a1 1 0 010 2H6a1 1 0 110-2z" fill="currentColor" fill-rule="evenodd"/></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path d="M6 17h12a1 1 0 010 2H6a1 1 0 010-2zm8-8h4a1 1 0 010 2h-4a1 1 0 010-2zm0 4h4a1 1 0 010 2h-4a1 1 0 010-2zM6 9h4a1 1 0 011 1v4a1 1 0 01-1 1H6a1 1 0 01-1-1v-4a1 1 0 011-1zm0-4h12a1 1 0 010 2H6a1 1 0 110-2z" fill="currentColor" fill-rule="evenodd"/></svg>`
 }, props));
 
 EditorMediaWrapLeftIcon.displayName = 'EditorMediaWrapLeftIcon';

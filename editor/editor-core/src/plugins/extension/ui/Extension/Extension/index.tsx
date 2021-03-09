@@ -22,6 +22,7 @@ export interface Props {
   extensionProvider?: ExtensionProvider;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   children?: React.ReactNode;
+  refNode?: PmNode;
 }
 
 const Extension = (props: Props & OverflowShadowProps) => {

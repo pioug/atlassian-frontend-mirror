@@ -1,9 +1,5 @@
 import { Identifier } from '@atlaskit/media-client';
-import { createNavigationEvent } from '../../../../newgen/analytics/navigation';
-import {
-  version as packageVersion,
-  name as packageName,
-} from '../../../../version.json';
+import { createNavigatedEvent } from '../../../../newgen/analytics/events/ui/navigated';
 
 const identifier: Identifier = {
   id: 'my-id',
@@ -17,55 +13,53 @@ const commonPayload = {
   eventType: 'ui',
 };
 
-const commonAttributes = {
-  componentName: 'media-viewer',
-  packageName,
-  packageVersion,
-};
-
 describe('createNavigationEvent', () => {
   it('previous mouse click', () => {
-    expect(createNavigationEvent('prev', 'mouse', identifier)).toEqual({
+    expect(createNavigatedEvent('prev', 'mouse', identifier)).toEqual({
       ...commonPayload,
       actionSubjectId: 'previous',
       attributes: {
-        fileId: 'my-id',
+        fileAttributes: {
+          fileId: 'my-id',
+        },
         input: 'button',
-        ...commonAttributes,
       },
     });
   });
   it('next mouse click', () => {
-    expect(createNavigationEvent('next', 'mouse', identifier)).toEqual({
+    expect(createNavigatedEvent('next', 'mouse', identifier)).toEqual({
       ...commonPayload,
       actionSubjectId: 'next',
       attributes: {
-        fileId: 'my-id',
+        fileAttributes: {
+          fileId: 'my-id',
+        },
         input: 'button',
-        ...commonAttributes,
       },
     });
   });
 
   it('previous keyboard event', () => {
-    expect(createNavigationEvent('prev', 'keyboard', identifier)).toEqual({
+    expect(createNavigatedEvent('prev', 'keyboard', identifier)).toEqual({
       ...commonPayload,
       actionSubjectId: 'previous',
       attributes: {
-        fileId: 'my-id',
+        fileAttributes: {
+          fileId: 'my-id',
+        },
         input: 'keys',
-        ...commonAttributes,
       },
     });
   });
   it('next keyboard event', () => {
-    expect(createNavigationEvent('next', 'keyboard', identifier)).toEqual({
+    expect(createNavigatedEvent('next', 'keyboard', identifier)).toEqual({
       ...commonPayload,
       actionSubjectId: 'next',
       attributes: {
-        fileId: 'my-id',
+        fileAttributes: {
+          fileId: 'my-id',
+        },
         input: 'keys',
-        ...commonAttributes,
       },
     });
   });

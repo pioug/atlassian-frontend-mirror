@@ -152,6 +152,7 @@ describe('finalizeUploadMiddleware', () => {
             error: {
               name: 'object_create_fail',
               description: error.message,
+              rawError: error,
             },
           },
         },

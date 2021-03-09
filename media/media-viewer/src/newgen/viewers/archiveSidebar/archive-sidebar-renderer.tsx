@@ -5,6 +5,7 @@ import { SpinnerWrapper } from '../../styled';
 import { ArchiveSidebar } from './archive-sidebar';
 import { getArchiveEntriesFromFileState } from './archive';
 import { Spinner } from '../../loading';
+import { ArchiveViewerError } from '../../errors';
 import { ArchiveSideBar } from './styled';
 import { ZipEntry } from 'unzipit';
 import { ThemeProvider, dark } from '@atlaskit/navigation-next';
@@ -54,7 +55,7 @@ export default class ArchiveSidebarRenderer extends Component<
       onSuccess();
     } catch (error) {
       this.setState({ status: 'loaded' });
-      onError(error);
+      onError(new ArchiveViewerError('archiveviewer-read-binary', error));
     }
   }
 

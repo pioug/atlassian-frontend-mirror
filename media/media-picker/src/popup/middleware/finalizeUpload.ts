@@ -151,6 +151,7 @@ async function copyFile({
             error: {
               name: 'object_create_fail',
               description: error.message,
+              rawError: error,
             },
           },
         },

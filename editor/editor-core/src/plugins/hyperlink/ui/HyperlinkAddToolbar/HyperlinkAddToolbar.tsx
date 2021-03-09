@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 import { SearchProvider, QuickSearchResult } from '@atlaskit/editor-common';
 import { isSafeUrl } from '@atlaskit/adf-schema';
@@ -84,13 +84,6 @@ export const messages = defineMessages({
 });
 
 interface BaseProps {
-  onBlur?: (
-    type: string,
-    url: string,
-    title: string | undefined,
-    displayText: string | undefined,
-    isTabPressed?: boolean,
-  ) => void;
   onSubmit?: (
     href: string,
     title: string | undefined,
@@ -165,16 +158,12 @@ const mapSearchProviderResultToLinkSearchItemData = ({
 });
 
 export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
-  /* To not fire on-blur on tab-press */
-  private isTabPressed: boolean = false;
-
-  /* To prevent firing blur callback on submit */
+  /* To prevent double submit */
   private submitted: boolean = false;
 
   private urlInputContainer: PanelTextInput | null = null;
   private displayTextInputContainer: PanelTextInput | null = null;
-  private urlBlur: () => void;
-  private textBlur: () => void;
+  private wrapperRef: RefObject<HTMLDivElement> = React.createRef();
   private handleClearText: () => void;
   private handleClearDisplayText: () => void;
   private debouncedQuickSearch: (
@@ -198,11 +187,9 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     } as State;
 
     /* Cache functions */
-    this.urlBlur = this.handleBlur.bind(this, 'url');
-    this.textBlur = this.handleBlur.bind(this, 'text');
-
     this.handleClearText = this.createClearHandler('displayUrl');
     this.handleClearDisplayText = this.createClearHandler('displayText');
+
     this.debouncedQuickSearch = debounce(this.quickSearch, 400);
 
     this.fireCustomAnalytics = fireAnalyticsEvent(props.createAnalyticsEvent);
@@ -210,6 +197,9 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
   async componentDidMount() {
     const { pluginState } = this.props;
+
+    document.addEventListener('mousedown', this.handleClickOutside);
+
     this.fireAnalytics({
       action: ACTION.VIEWED,
       actionSubject: ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
@@ -220,16 +210,21 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       },
       eventType: EVENT_TYPE.SCREEN,
     });
+
     const [activityProvider, searchProvider] = await Promise.all([
       this.props.activityProvider,
       this.props.searchProvider,
     ]);
     this.setState({ activityProvider, searchProvider });
+
     await this.loadInitialLinkSearchResult();
   }
 
   componentWillUnmount() {
     const { pluginState } = this.props;
+
+    document.removeEventListener('mousedown', this.handleClickOutside);
+
     if (!this.submitted) {
       this.fireAnalytics({
         action: ACTION.DISMISSED,
@@ -504,6 +499,17 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     };
   };
 
+  private handleClickOutside = (event: Event) => {
+    if (
+      event.target instanceof Element &&
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(event.target)
+    ) {
+      const { view } = this.props;
+      hideLinkToolbar()(view.state, view.dispatch);
+    }
+  };
+
   render() {
     const {
       items,
@@ -530,7 +536,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
     return (
       <div className="recent-list">
-        <Container provider={!!activityProvider}>
+        <Container provider={!!activityProvider} innerRef={this.wrapperRef}>
           <UrlInputWrapper>
             <IconWrapper>
               <Tooltip content={formatLinkAddressText}>
@@ -545,7 +551,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               onChange={this.updateInput}
               autoFocus={{ preventScroll: true }}
               onCancel={this.handleCancel}
-              onBlur={this.urlBlur}
               defaultValue={displayUrl}
               onKeyDown={this.handleKeyDown}
             />
@@ -568,12 +573,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               placeholder={formatDisplayText}
               ariaLabel={'Link label'}
               testId={'link-label'}
-              onChange={this.handleTextKeyDown}
+              onChange={this.updateTextInput}
               onCancel={this.handleCancel}
-              onBlur={this.textBlur}
               defaultValue={displayText}
               onSubmit={this.handleSubmit}
-              onKeyDown={this.handleKeyDown}
+              onKeyDown={this.handleTextKeyDown}
             />
             {displayText && (
               <Tooltip content={formatMessage(messages.clearText)}>
@@ -699,6 +703,27 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     }
   };
 
+  private handleTextKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    const KEY_CODE_TAB = 9;
+    const { keyCode } = event;
+    if (keyCode === KEY_CODE_TAB) {
+      if (!this.submitted) {
+        const { displayUrl, displayText } = this.state;
+        const url = normalizeUrl(displayUrl);
+        this.handleInsert(
+          url,
+          displayText || displayUrl,
+          INPUT_METHOD.MANUAL,
+          'notselected',
+        );
+      }
+      event.preventDefault();
+      return;
+    }
+
+    this.handleKeyDown(event);
+  };
+
   private handleKeyDown = (event: KeyboardEvent<any>) => {
     const { items, selectedIndex } = this.state;
     const { pluginState, view } = this.props;
@@ -706,7 +731,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const KEY_CODE_ESCAPE = 27;
     const KEY_CODE_ARROW_DOWN = 40;
     const KEY_CODE_ARROW_UP = 38;
-    this.isTabPressed = keyCode === 9;
 
     if (keyCode === KEY_CODE_ESCAPE) {
       // escape
@@ -755,7 +779,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     }
   };
 
-  private handleTextKeyDown = (displayText: string) => {
+  private updateTextInput = (displayText: string) => {
     this.setState({
       displayText,
     });
@@ -765,19 +789,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const { view } = this.props;
     e.preventDefault();
     hideLinkToolbar()(view.state, view.dispatch);
-  };
-
-  private handleBlur = (type: string) => {
-    const url = normalizeUrl(this.state.displayUrl);
-    if (this.props.onBlur && !this.submitted && url) {
-      this.props.onBlur(
-        type,
-        url,
-        this.state.displayText || this.state.displayUrl,
-        this.state.displayText,
-        this.isTabPressed,
-      );
-    }
   };
 }
 

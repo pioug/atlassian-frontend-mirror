@@ -6,9 +6,8 @@ import Radio from '../../RadioBase';
 import AkFieldRadioGroupWithAnalytics, {
   AkFieldRadioGroupWithoutAnalytics as AkFieldRadioGroup,
 } from '../../RadioGroupStateless';
-import { name } from '../../version.json';
 
-describe(name, () => {
+describe('@atlaskit/field-radio-group', () => {
   describe('AkFieldRadioGroup (stateless)', () => {
     const sampleItems = [
       { name: 'test', value: '1', label: 'one' },

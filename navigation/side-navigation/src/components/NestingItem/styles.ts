@@ -14,6 +14,7 @@ export const enabledCSS = {
 
 const disabledCSS = {
   ['[data-item-elem-after]']: { opacity: 0 },
+  ['& [data-right-arrow]']: { display: 'none' },
 };
 
 export const nestingItemStyle: CSSFn = state => {

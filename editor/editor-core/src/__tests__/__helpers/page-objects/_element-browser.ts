@@ -2,6 +2,7 @@ import {
   PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
+import { WebDriverPage } from './_types';
 
 export const elementBrowserSelectors = {
   elementBrowser: '[data-testid="element-browser"]',
@@ -10,6 +11,7 @@ export const elementBrowserSelectors = {
   listItems: '[data-testid^="element-item-"]:not([data-testid$="--container"])',
   modalBrowser: '[role="dialog"]',
   categoryItem: '[data-testid="element-browser-category-item"]',
+  elementListContainer: '.ReactVirtualized__Collection',
 };
 
 /**
@@ -62,4 +64,14 @@ export async function waitForInsertMenuIcons(page: PuppeteerPage) {
     page,
     `${elementBrowserSelectors.elementItems} ${elementBrowserSelectors.listItems}`,
   );
+}
+
+export async function waitForNumOfModalBrowserItems(
+  page: WebDriverPage,
+  number: Number,
+) {
+  await page.waitUntil(async () => {
+    const items = await page.$$(elementBrowserSelectors.listItems);
+    return items.length >= number;
+  }, 'waitForNumOfModalBrowserItems failed');
 }

@@ -1,5 +1,18 @@
 # @atlaskit/media-picker
 
+## 57.3.0
+
+### Minor Changes
+
+- [`0476f13a5ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0476f13a5ef) - Refactored media-picker analytics according to SLO streams standards
+
+### Patch Changes
+
+- [`7a0612cfe72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a0612cfe72) - Added filter for FF returned in some Media Picker GASv3 events payloads
+- [`9b356d9ff91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b356d9ff91) - Refactored Media Picker failReasons to reflect actual operation, logging caught error in "error" attribute
+- [`e62066560fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e62066560fb) - Removed fileSource attributes from operational SLIs
+- Updated dependencies
+
 ## 57.2.0
 
 ### Minor Changes

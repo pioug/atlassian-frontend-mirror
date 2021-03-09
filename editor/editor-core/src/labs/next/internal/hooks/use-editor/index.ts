@@ -15,7 +15,7 @@ import {
   EVENT_TYPE,
   PLATFORMS,
 } from '../../../../../plugins/analytics';
-import { getEnabledFeatureFlagKeys } from '../../../../../plugins/feature-flags-context/feature-flags-from-props';
+import { getEnabledFeatureFlagKeys } from '../../../../../plugins/feature-flags-context/get-enabled-feature-flag-keys';
 import { getFeatureFlags } from '../../../../../plugins/feature-flags-context/';
 import { EditorSharedConfig } from '../../context/shared-config';
 import { useAnalyticsHandler } from '../use-analytics';

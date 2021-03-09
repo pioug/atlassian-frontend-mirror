@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Descartar',
-  'fabric.elements.mentions.team.member.50plus': '+50 miembros',
+  'fabric.elements.mentions.team.member.50plus': 'Equipo • Más de 50 miembros',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '+50 miembros, incluyéndote a ti',
+    'Equipo • Más de 50 miembros, incluyéndote a ti',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} miembro} other {{0} miembros}}',
+    '{0, plural, one {Equipo • 1 miembro} other {Equipo • {0} miembros}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} miembro, incluyéndote a ti} other {{0} miembros, incluyéndote a ti}}',
+    '{0, plural, one {Equipo • 1 miembro, incluyéndote a ti} other {Equipo • {0} miembros, incluyéndote a ti}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Pon a todo el mundo al tanto con un solo clic. ¿No tienes ningún equipo?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

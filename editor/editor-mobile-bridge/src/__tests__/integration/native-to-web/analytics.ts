@@ -16,9 +16,9 @@ const initPage = async (browser: Page) => {
   await browser.waitForSelector(editor.placeholder);
 };
 
-const expectTrackEventsToMatchCustomSnapshot = async (
+const expectTrackEventsToMatchPayload = async (
   browser: any,
-  testName: string,
+  payload: Record<string, string>,
 ) => {
   const outputEvents = await getBridgeOutput(
     browser,
@@ -32,19 +32,27 @@ const expectTrackEventsToMatchCustomSnapshot = async (
       (analyticsEvent: AnalyticsEventPayload) =>
         analyticsEvent.eventType === 'track',
     );
-  const trackEvent = trackEvents.length > 0 ? trackEvents[0] : undefined;
 
-  expect(trackEvent).toMatchCustomSnapshot(testName);
+  expect(trackEvents).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        ...payload,
+        attributes: expect.objectContaining({
+          appearance: 'mobile',
+        }),
+      }),
+    ]),
+  );
 };
 
-const simpleBrowserTestCase = async (
+const validateAnalyticsTrackEventAfterNativeBridgeMethod = async (
   browser: Page,
-  testName: string,
+  payloadExpected: Record<string, string>,
   fnName: any,
   ...args: any[]
 ) => {
   await callNativeBridge(browser, fnName, ...args);
-  await expectTrackEventsToMatchCustomSnapshot(browser, testName);
+  await expectTrackEventsToMatchPayload(browser, payloadExpected);
   await clearEditor(browser);
   await clearBridgeOutput(browser);
 };
@@ -56,58 +64,90 @@ BrowserTestCase(
     const browser = new Page(client);
     await initPage(browser);
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       browser,
-      'editor: toggling bold style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'strong',
+      },
       'onBoldClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       browser,
-      'editor: toggling italic style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'italic',
+      },
       'onItalicClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: toggling underline style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'underline',
+      },
       'onUnderlineClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: toggling code style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'code',
+      },
       'onCodeClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: toggling strike style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'strike',
+      },
       'onStrikeClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: toggling superscript style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'superscript',
+      },
       'onSuperClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: toggling subscript style fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'subscript',
+      },
       'onSubClicked',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: updating status fires an analytics event via the bridge',
+      {
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'status',
+      },
       'onStatusUpdate',
       'test-text',
       'red',
@@ -115,24 +155,36 @@ BrowserTestCase(
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: setting block type to heading fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'heading',
+      },
       'onBlockSelected',
       'heading1',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting ordered list fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'numberedList',
+      },
       'onOrderedListSelected',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting bullet list fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'bulletedList',
+      },
       'onBulletListSelected',
       INPUT_METHOD.TOOLBAR,
     );
@@ -144,65 +196,91 @@ BrowserTestCase(
     );
     await browser.type(editor.placeholder, 'lol');
     await browser.keys(['Enter']);
-    await clearBridgeOutput(browser);
-    await callNativeBridge(browser, 'onIndentList', INPUT_METHOD.TOOLBAR);
-    await expectTrackEventsToMatchCustomSnapshot(
-      browser,
-      'editor: indenting list fires analytics events via the bridge',
+
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
+      client,
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'indentation',
+      },
+      'onIndentList',
+      INPUT_METHOD.TOOLBAR,
     );
-    await clearEditor(browser);
-    await clearBridgeOutput(browser);
 
     await callNativeBridge(
       browser,
       'onBulletListSelected',
       INPUT_METHOD.TOOLBAR,
     );
-    await clearBridgeOutput(browser);
-    await callNativeBridge(browser, 'onOutdentList', INPUT_METHOD.TOOLBAR);
-    await expectTrackEventsToMatchCustomSnapshot(
-      browser,
-      'editor: outdenting list fires analytics events via the bridge',
-    );
-    await clearEditor(browser);
-    await clearBridgeOutput(browser);
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting link fires analytics events via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'indentation',
+      },
+      'onOutdentList',
+      INPUT_METHOD.TOOLBAR,
+    );
+
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
+      client,
+      {
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'link',
+      },
       'onLinkUpdate',
       'test-link-title',
       'https://test.link.url',
       INPUT_METHOD.TOOLBAR,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting block quote fires an analytics event via the bridge',
+      {
+        action: 'formatted',
+        actionSubject: 'text',
+        actionSubjectId: 'blockQuote',
+      },
       'insertBlockType',
       'blockquote',
       INPUT_METHOD.INSERT_MENU,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting code block fires an analytics event via the bridge',
+      {
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'codeBlock',
+      },
       'insertBlockType',
       'codeblock',
       INPUT_METHOD.INSERT_MENU,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting panel fires an analytics event via the bridge',
+      {
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'panel',
+      },
       'insertBlockType',
       'panel',
       INPUT_METHOD.INSERT_MENU,
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting action fires an analytics event via the bridge',
+      {
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'action',
+      },
       'insertBlockType',
       'action',
       INPUT_METHOD.INSERT_MENU,
@@ -210,9 +288,13 @@ BrowserTestCase(
       'test-action-item-id',
     );
 
-    await simpleBrowserTestCase(
+    await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
-      'editor: inserting decision fires an analytics event via the bridge',
+      {
+        action: 'inserted',
+        actionSubject: 'document',
+        actionSubjectId: 'decision',
+      },
       'insertBlockType',
       'decision',
       INPUT_METHOD.INSERT_MENU,

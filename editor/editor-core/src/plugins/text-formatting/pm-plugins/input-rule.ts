@@ -151,6 +151,17 @@ function addCodeMark(
       end -= state.selection.to - state.selection.from;
     }
 
+    const hasTrailingSpecialChar = state.doc
+      .textBetween(start, end)
+      .endsWith(specialChar);
+
+    // Remove unwanted trailing specialChars, so marks are added in the
+    // correct position. Fixes issues related to isComposing keyboard events
+    if (hasTrailingSpecialChar) {
+      tr.delete(end - specialChar.length, end);
+      end -= specialChar.length;
+    }
+
     const regexStart = end - match[2].length + 1;
     const codeMark = state.schema.marks.code.create();
     return applyMarkOnRange(regexStart, end, false, codeMark, tr)

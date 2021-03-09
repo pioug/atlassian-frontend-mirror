@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import type { SelectEvent } from '../../types';
 import { arrowKeys } from '../constants';
@@ -22,6 +22,20 @@ export default function useHandleDateSelect({
   onSelect: (event: SelectEvent) => void;
   navigate: (type: ArrowKeys) => void;
 }) {
+  const dateRef = useRef({
+    day: dayValue,
+    month: monthValue,
+    year: yearValue,
+  });
+
+  useEffect(() => {
+    dateRef.current = {
+      day: dayValue,
+      month: monthValue,
+      year: yearValue,
+    };
+  }, [dayValue, monthValue, yearValue]);
+
   const triggerOnSelect = useCallback(
     ({ year, month, day }: Omit<SelectEvent, 'iso'>) => {
       const iso = dateToString({ year, month, day });
@@ -47,17 +61,13 @@ export default function useHandleDateSelect({
 
       if (key === 'Enter' || key === ' ') {
         e.preventDefault();
-        triggerOnSelect({
-          day: dayValue,
-          year: yearValue,
-          month: monthValue,
-        });
+        triggerOnSelect(dateRef.current);
       } else if (arrowKey) {
         e.preventDefault();
         navigate(arrowKey);
       }
     },
-    [triggerOnSelect, navigate, dayValue, yearValue, monthValue],
+    [triggerOnSelect, navigate],
   );
 
   return {

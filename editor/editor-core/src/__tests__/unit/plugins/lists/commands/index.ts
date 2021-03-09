@@ -1,5 +1,6 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import { Schema } from 'prosemirror-model';
 
 import {
   doc,
@@ -18,6 +19,7 @@ import {
   code_block,
   indentation,
   BuilderContent,
+  RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   enterKeyCommand,
@@ -25,14 +27,26 @@ import {
   toggleList,
 } from '../../../../../plugins/lists/commands';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
+import { EditorProps } from '../../../../../types';
 
 describe('lists plugin -> commands', () => {
   const createEditor = createEditorFactory();
+  const createEditorWithLegacyLists = ({
+    doc,
+    editorProps,
+  }: {
+    doc: (schema: Schema) => RefsNode;
+    editorProps?: EditorProps;
+  }) =>
+    createEditor({
+      editorProps: { UNSAFE_predictableLists: false, ...editorProps },
+      doc,
+    });
 
   describe('enterKeyCommand', () => {
     it('should not outdent a list when list item has visible content', () => {
       const timestamp = Date.now();
-      const { editorView } = createEditor({
+      const { editorView } = createEditorWithLegacyLists({
         doc: doc(
           ol(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp })))),
         ),
@@ -54,7 +68,7 @@ describe('lists plugin -> commands', () => {
   describe('backspaceKeyCommand', () => {
     describe('when cursor is inside nested node', () => {
       it('should not outdent a list', () => {
-        const { editorView } = createEditor({
+        const { editorView } = createEditorWithLegacyLists({
           doc: doc(ol(li(code_block()('{<>}text')))),
         });
 
@@ -68,7 +82,7 @@ describe('lists plugin -> commands', () => {
 
     describe('when GapCursor is inside a listItem and before the nested codeBlock', () => {
       it('should outdent a list', () => {
-        const { editorView } = createEditor({
+        const { editorView } = createEditorWithLegacyLists({
           doc: doc(ol(li('{<gap|>}', code_block()('text')))),
         });
 
@@ -79,7 +93,7 @@ describe('lists plugin -> commands', () => {
 
     describe('when GapCursor is before a codeBlock and after a list', () => {
       it('should join codeBlock with the list', () => {
-        const { editorView } = createEditor({
+        const { editorView } = createEditorWithLegacyLists({
           doc: doc(ol(li(p('text'))), '{<gap|>}', code_block()('code')),
         });
 
@@ -128,7 +142,7 @@ describe('lists plugin -> commands', () => {
           },
         ],
       ])('%s', (name, { listType, content, expected }) => {
-        const { editorView } = createEditor({
+        const { editorView } = createEditorWithLegacyLists({
           doc: doc(content),
           editorProps: {
             allowIndentation: true,
@@ -147,7 +161,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should be able to toggle ol to ul inside a panel', () => {
-      const { editorView } = createEditor({
+      const { editorView } = createEditorWithLegacyLists({
         doc: doc(panel()(ol(li(p('text{<>}'))))),
         editorProps: {
           allowPanel: true,
@@ -168,7 +182,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should be able to toggle ul to ol inside a panel', () => {
-      const { editorView } = createEditor({
+      const { editorView } = createEditorWithLegacyLists({
         doc: doc(panel()(ul(li(p('text{<>}'))))),
         editorProps: {
           allowPanel: true,
@@ -189,7 +203,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should keep breakout marks where they are valid on expands', () => {
-      const { editorView } = createEditor({
+      const { editorView } = createEditorWithLegacyLists({
         doc: doc(breakout({ mode: 'wide' })(expand()(p('{<>}')))),
         editorProps: {
           allowExpand: true,
@@ -214,7 +228,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should keep breakout marks where they are valid on layouts', () => {
-      const { editorView } = createEditor({
+      const { editorView } = createEditorWithLegacyLists({
         doc: doc(
           breakout({ mode: 'wide' })(
             layoutSection(
@@ -256,7 +270,7 @@ describe('lists plugin -> commands', () => {
   describe('Copy Paste', () => {
     it('should not create list item when text with marks is pasted', () => {
       const text = `<b>Marked Text</b> 1. item`;
-      const { editorView } = createEditor({
+      const { editorView } = createEditorWithLegacyLists({
         doc: doc(p('{<>}')),
       });
 

@@ -1,25 +1,25 @@
 import React from 'react';
-import { MediaClient, ProcessedFileState } from '@atlaskit/media-client';
-import {
-  AnalyticViewerProps,
-  ViewerLoadPayload,
-} from '../../../src/newgen/analytics/item-viewer';
 
-let _payload: ViewerLoadPayload = { status: 'success' };
-export const setViewerPayload = (payload: ViewerLoadPayload) => {
-  _payload = payload;
+type Props = {
+  onError: (error?: Error) => void;
+  onLoad: () => void;
 };
 
-export type ImageViewerProps = AnalyticViewerProps & {
-  mediaClient: MediaClient;
-  item: ProcessedFileState;
-  collectionName?: string;
-  onClose?: () => void;
+let _error: Error | undefined;
+export const setViewerError = (error?: Error) => {
+  _error = error;
+};
+export const clearViewerError = () => {
+  _error = undefined;
 };
 
-export class ImageViewer extends React.Component<ImageViewerProps, {}> {
+export class ImageViewer extends React.Component<Props, {}> {
   componentDidMount() {
-    this.props.onLoad(_payload);
+    if (_error) {
+      this.props.onError(_error);
+    } else {
+      this.props.onLoad();
+    }
   }
 
   render() {

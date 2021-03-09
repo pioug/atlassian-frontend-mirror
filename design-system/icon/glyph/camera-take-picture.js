@@ -12,7 +12,7 @@ var _base = _interopRequireDefault(require("@atlaskit/icon/base"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const CameraTakePictureIcon = props => /*#__PURE__*/_react.default.createElement(_base.default, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><g fill="currentColor" fill-rule="evenodd"><circle cx="12" cy="12" r="5"/><path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 1a7 7 0 110-14 7 7 0 010 14z" fill-rule="nonzero"/></g></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentColor" fill-rule="evenodd"><circle cx="12" cy="12" r="5"/><path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 1a7 7 0 110-14 7 7 0 010 14z" fill-rule="nonzero"/></g></svg>`
 }, props));
 
 CameraTakePictureIcon.displayName = 'CameraTakePictureIcon';

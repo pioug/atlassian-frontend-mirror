@@ -318,22 +318,27 @@ export class UploadServiceImpl implements UploadService {
 
   private readonly onFileError = (
     mediaFile: MediaFile,
-    mediaErrorName: MediaErrorName,
+    name: MediaErrorName,
     error: Error | string,
   ) => {
     this.releaseCancellableFile(mediaFile);
+
     if (error === 'canceled') {
       // Specific error coming from chunkinator via rejected fileId promise.
       // We do not want to trigger error in this case.
       return;
     }
+
     const description = error instanceof Error ? error.message : error;
+    const rawError = error instanceof Error ? error : undefined;
+
     this.emit('file-upload-error', {
       fileId: mediaFile.id,
       error: {
         fileId: mediaFile.id,
-        description: description,
-        name: mediaErrorName,
+        name,
+        description,
+        rawError,
       },
     });
   };

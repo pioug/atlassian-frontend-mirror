@@ -12,12 +12,15 @@ import {
   LowercaseAppearance,
   LinkAppearance,
 } from '../styled';
+import { RequestAccessContextProps } from '../../types';
 
 export interface InlineCardForbiddenViewProps {
   /** The url to display */
   url: string;
   /** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
   icon?: React.ReactNode;
+  /** The name of the service (e.g. Jira/Confluence/Asana/etc) to display */
+  context?: string;
   /** The optional click handler */
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /** The optional handler for "Connect" button */
@@ -26,6 +29,8 @@ export interface InlineCardForbiddenViewProps {
   isSelected?: boolean;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /* Describes additional metadata based on the type of access a user has to the link */
+  requestAccessContext?: RequestAccessContextProps;
 }
 
 const FallbackForbiddenIcon = (
@@ -41,13 +46,47 @@ export class InlineCardForbiddenView extends React.Component<
     const { onAuthorise } = this.props;
     event.preventDefault();
     event.stopPropagation();
-    onAuthorise!();
+    if (onAuthorise) {
+      onAuthorise();
+    } else {
+      this.props?.requestAccessContext?.action?.promise();
+    }
+  };
+
+  renderForbiddenAccessMessage = () => {
+    if (this.props?.requestAccessContext?.callToActionMessageKey) {
+      const { callToActionMessageKey } = this.props.requestAccessContext;
+      return (
+        <FormattedMessage
+          {...messages[callToActionMessageKey]}
+          values={{ context: this.props.context }}
+        />
+      );
+    }
+    return (
+      <>
+        <FormattedMessage {...messages.invalid_permissions}>
+          {formattedMessage => {
+            return <>{formattedMessage}, </>;
+          }}
+        </FormattedMessage>
+        <FormattedMessage {...messages.try_another_account}>
+          {formattedMessage => {
+            return (
+              <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
+            );
+          }}
+        </FormattedMessage>
+      </>
+    );
   };
 
   renderMessage = () => {
-    const { onAuthorise, url } = this.props;
+    const { url, onAuthorise } = this.props;
     const link = <LinkAppearance>{url}</LinkAppearance>;
-    return !onAuthorise ? (
+    const hasRequestAccessContextMessage = this.props?.requestAccessContext
+      ?.callToActionMessageKey;
+    return !onAuthorise && !hasRequestAccessContextMessage ? (
       link
     ) : (
       <>
@@ -60,18 +99,7 @@ export class InlineCardForbiddenView extends React.Component<
           component={IconStyledButton}
           testId="button-connect-other-account"
         >
-          <FormattedMessage {...messages.invalid_permissions}>
-            {formattedMessage => {
-              return <>{formattedMessage}, </>;
-            }}
-          </FormattedMessage>
-          <FormattedMessage {...messages.try_another_account}>
-            {formattedMessage => {
-              return (
-                <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
-              );
-            }}
-          </FormattedMessage>
+          {this.renderForbiddenAccessMessage()}
         </Button>
       </>
     );

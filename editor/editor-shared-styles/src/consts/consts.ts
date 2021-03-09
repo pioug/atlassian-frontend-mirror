@@ -92,6 +92,7 @@ export const akEditorFullPageMaxWidth = 680;
 export const akEditorDefaultLayoutWidth = 760;
 export const akEditorWideLayoutWidth = 960;
 export const akEditorFullWidthLayoutWidth = 1800;
+export const akEditorFullWidthLayoutLineLength = 1792;
 export const akEditorTableNumberColumnWidth = 42;
 export const akEditorBreakoutPadding = 96;
 export const akEditorGutterPadding = 32;
@@ -109,6 +110,7 @@ export const akEditorLineHeight = 1.714;
 export const akEditorRuleBackground = N30;
 export const akEditorRuleBorderRadius = '1px';
 export const akEditorToolbarKeylineHeight = 2;
+export const akEditorContextPanelWidth = 320;
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 export const blockNodesVerticalMargin = '0.75rem';

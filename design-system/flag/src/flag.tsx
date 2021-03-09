@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
@@ -25,18 +25,18 @@ import {
   getFlagTextColor,
 } from './theme';
 import { FlagProps } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
 
 import Expander from './expander';
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
+import { onMouseDownBlur } from './utils';
 
 function noop() {}
 
 const analyticsAttributes = {
   componentName: 'flag',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 const gridSize = getGridSize();
@@ -158,12 +158,6 @@ const Flag = (props: FlagProps) => {
     ],
   );
 
-  // We prevent default on mouse down to avoid focus ring when the flag is clicked,
-  // while still allowing it to be focused with the keyboard.
-  const handleMouseDown: MouseEventHandler<HTMLElement> = useCallback(e => {
-    e.preventDefault();
-  }, []);
-
   useEffect(() => {
     // If buttons are removed as a prop, update isExpanded to be false
     if (isBold && isExpanded && !description && !actions.length) {
@@ -226,7 +220,7 @@ const Flag = (props: FlagProps) => {
             role="alert"
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
-            onMouseDown={handleMouseDown}
+            onMouseDown={onMouseDownBlur}
             data-testid={testId}
             {...autoDismissProps}
           >

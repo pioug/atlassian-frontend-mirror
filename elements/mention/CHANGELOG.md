@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 19.3.1
+
+### Patch Changes
+
+- [`178e91b75ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/178e91b75ad) - PL-AFDD-JOB1-158 Add translations for new messages
+- Updated dependencies
+
 ## 19.3.0
 
 ### Minor Changes

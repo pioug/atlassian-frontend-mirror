@@ -661,22 +661,15 @@ describe('@atlaskit/editor-core', () => {
       });
     });
 
-    it('should re-setup analytics event forwarding when createAnalyticsEvent prop changes', () => {
+    it('should disable analytics event forwarding on unmount', () => {
       const wrapper = mountWithIntl(
         <ReactEditorView {...requiredProps()} {...analyticsProps()} />,
       );
       const { eventDispatcher } = wrapper.instance() as ReactEditorView;
-      jest.spyOn(eventDispatcher, 'on');
       jest.spyOn(eventDispatcher, 'off');
 
-      const newCreateAnalyticsEvent = jest.fn();
-      wrapper.setProps({ createAnalyticsEvent: newCreateAnalyticsEvent });
-
+      wrapper.unmount();
       expect(eventDispatcher.off).toHaveBeenCalled();
-      expect(eventDispatcher.on).toHaveBeenCalled();
-      expect(FireAnalyticsEvent.fireAnalyticsEvent).toHaveBeenCalledWith(
-        newCreateAnalyticsEvent,
-      );
     });
 
     describe('dispatch analytics event', () => {
@@ -934,7 +927,6 @@ describe('@atlaskit/editor-core', () => {
   describe('shouldReconfigureState', () => {
     const props: EditorProps = {
       appearance: 'full-width',
-      UNSAFE_predictableLists: false,
     };
 
     it('should return TRUE when appearance changed', () => {
@@ -951,7 +943,7 @@ describe('@atlaskit/editor-core', () => {
     it('should return TRUE when UNSAFE_predictableLists changed', () => {
       const nextProps: EditorProps = {
         ...props,
-        UNSAFE_predictableLists: true,
+        UNSAFE_predictableLists: false,
       };
 
       const actual = shouldReconfigureState(props, nextProps);

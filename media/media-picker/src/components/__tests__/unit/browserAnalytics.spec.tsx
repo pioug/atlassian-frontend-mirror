@@ -4,16 +4,24 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import { FileState, TouchFileDescriptor } from '@atlaskit/media-client';
+import {
+  ANALYTICS_MEDIA_CHANNEL,
+  MediaFeatureFlags,
+} from '@atlaskit/media-common';
 
 import { Browser } from '../../browser/browser';
 import { BrowserConfig } from '../../../../src/types';
-import { ANALYTICS_MEDIA_CHANNEL } from '../../../../src/components/media-picker-analytics-error-boundary';
 import { LocalUploadConfig } from '../../../../src/components/types';
 
 describe('Browser analytics instrumentation', () => {
   const browseConfig: BrowserConfig & LocalUploadConfig = {
     uploadParams: {},
+  };
+  const someFeatureFlags: MediaFeatureFlags = {
+    folderUploads: true,
+    newCardExperience: false,
   };
   const uploadId = 'upload id';
   let oldDateNow: () => number;
@@ -41,7 +49,11 @@ describe('Browser analytics instrumentation', () => {
     const onEvent = jest.fn();
     const browser = mount(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-        <Browser mediaClient={mediaClient} config={browseConfig} />
+        <Browser
+          mediaClient={mediaClient}
+          config={browseConfig}
+          featureFlags={someFeatureFlags}
+        />
       </AnalyticsListener>,
     );
     const fileContents = 'file contents';
@@ -53,26 +65,29 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            attributes: {
-              componentName: 'browser',
-              packageName: '@atlaskit/media-picker',
-              packageVersion: '999.9.9',
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'browser',
+            component: 'browser',
+            [MEDIA_CONTEXT]: {
+              featureFlags: someFeatureFlags,
             },
           },
         ],
         payload: {
+          eventType: 'operational',
           action: 'commenced',
           actionSubject: 'mediaUpload',
           actionSubjectId: 'localMedia',
           attributes: {
             sourceType: 'local',
             fileAttributes: {
+              fileId: expect.any(String),
               fileMimetype: 'text/plain',
               fileSize: 13,
             },
-            packageName: '@atlaskit/media-picker',
+            serviceName: 'upload',
           },
-          eventType: 'operational',
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
@@ -103,7 +118,11 @@ describe('Browser analytics instrumentation', () => {
     const onEvent = jest.fn();
     const browser = mount(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-        <Browser mediaClient={mediaClient} config={browseConfig} />
+        <Browser
+          mediaClient={mediaClient}
+          config={browseConfig}
+          featureFlags={someFeatureFlags}
+        />
       </AnalyticsListener>,
     );
     const fileContents = 'file contents';
@@ -111,32 +130,36 @@ describe('Browser analytics instrumentation', () => {
 
     browser.find('input').simulate('change', { target: { files: [file] } });
 
-    expect(onEvent).toHaveBeenCalledWith(
+    expect(onEvent).toHaveBeenNthCalledWith(
+      1,
       expect.objectContaining({
         context: [
           {
-            attributes: {
-              componentName: 'browser',
-              packageName: '@atlaskit/media-picker',
-              packageVersion: '999.9.9',
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'browser',
+            component: 'browser',
+            [MEDIA_CONTEXT]: {
+              featureFlags: someFeatureFlags,
             },
           },
         ],
         payload: {
-          action: 'uploaded',
+          eventType: 'operational',
+          action: 'succeeded',
           actionSubject: 'mediaUpload',
           actionSubjectId: 'localMedia',
           attributes: {
+            status: 'success',
             sourceType: 'local',
             fileAttributes: {
+              fileId: expect.any(String),
               fileMimetype: 'text/plain',
               fileSize: 13,
             },
-            packageName: '@atlaskit/media-picker',
-            status: 'success',
+            serviceName: 'upload',
             uploadDurationMsec: -1,
           },
-          eventType: 'track',
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
@@ -160,7 +183,11 @@ describe('Browser analytics instrumentation', () => {
     const onEvent = jest.fn();
     const browser = mount(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-        <Browser mediaClient={mediaClient} config={browseConfig} />
+        <Browser
+          mediaClient={mediaClient}
+          config={browseConfig}
+          featureFlags={someFeatureFlags}
+        />
       </AnalyticsListener>,
     );
     const fileContents = 'file contents';
@@ -168,29 +195,36 @@ describe('Browser analytics instrumentation', () => {
 
     browser.find('input').simulate('change', { target: { files: [file] } });
 
-    expect(onEvent).toHaveBeenCalledWith(
+    expect(onEvent).toHaveBeenNthCalledWith(
+      1,
       expect.objectContaining({
         context: [
           {
-            attributes: {
-              componentName: 'browser',
-              packageName: '@atlaskit/media-picker',
-              packageVersion: '999.9.9',
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'browser',
+            component: 'browser',
+            [MEDIA_CONTEXT]: {
+              featureFlags: someFeatureFlags,
             },
           },
         ],
         payload: {
-          action: 'uploaded',
+          eventType: 'operational',
+          action: 'failed',
           actionSubject: 'mediaUpload',
           actionSubjectId: 'localMedia',
           attributes: {
-            sourceType: 'local',
-            packageName: '@atlaskit/media-picker',
             status: 'fail',
-            failReason: 'oops',
+            failReason: 'upload_fail',
+            error: 'unknown',
+            sourceType: 'local',
+            serviceName: 'upload',
+            fileAttributes: {
+              fileId: expect.any(String),
+            },
             uploadDurationMsec: -1,
           },
-          eventType: 'track',
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
@@ -224,7 +258,11 @@ describe('Browser analytics instrumentation', () => {
     const onEvent = jest.fn();
     const browser = mount(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-        <Browser mediaClient={mediaClient} config={browseConfig} />
+        <Browser
+          mediaClient={mediaClient}
+          config={browseConfig}
+          featureFlags={someFeatureFlags}
+        />
       </AnalyticsListener>,
     );
     const fileContents = 'file contents';
@@ -239,26 +277,29 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            attributes: {
-              componentName: 'browser',
-              packageName: '@atlaskit/media-picker',
-              packageVersion: '999.9.9',
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'browser',
+            component: 'browser',
+            [MEDIA_CONTEXT]: {
+              featureFlags: someFeatureFlags,
             },
           },
         ],
         payload: {
+          eventType: 'operational',
           action: 'commenced',
           actionSubject: 'mediaUpload',
           actionSubjectId: 'localMedia',
           attributes: {
             sourceType: 'local',
             fileAttributes: {
+              fileId: expect.any(String),
               fileMimetype: 'text/plain',
               fileSize: 13,
             },
-            packageName: '@atlaskit/media-picker',
+            serviceName: 'upload',
           },
-          eventType: 'operational',
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
@@ -269,28 +310,31 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            attributes: {
-              componentName: 'browser',
-              packageName: '@atlaskit/media-picker',
-              packageVersion: '999.9.9',
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'browser',
+            component: 'browser',
+            [MEDIA_CONTEXT]: {
+              featureFlags: someFeatureFlags,
             },
           },
         ],
         payload: {
-          action: 'uploaded',
+          eventType: 'operational',
+          action: 'succeeded',
           actionSubject: 'mediaUpload',
           actionSubjectId: 'localMedia',
           attributes: {
+            status: 'success',
             sourceType: 'local',
             fileAttributes: {
+              fileId: expect.any(String),
               fileMimetype: 'text/plain',
               fileSize: 13,
             },
-            packageName: '@atlaskit/media-picker',
-            status: 'success',
+            serviceName: 'upload',
             uploadDurationMsec: 0,
           },
-          eventType: 'track',
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,

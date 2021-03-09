@@ -9,6 +9,7 @@ export type TableOptions = {
   isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
+  allowReferentiality?: boolean;
 };
 
 export interface Props {

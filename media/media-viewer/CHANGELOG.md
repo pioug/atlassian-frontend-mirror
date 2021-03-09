@@ -1,5 +1,21 @@
 # @atlaskit/media-viewer
 
+## 45.7.0
+
+### Minor Changes
+
+- [`1d09c9ed549`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d09c9ed549) - refactor media-viewer for better analytics and error handling
+
+### Patch Changes
+
+- [`ae804618521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae804618521) - ensure media-viewer sends correct primary and secondary error details
+- [`0e276537fe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e276537fe1) - improve media-viewer primary fail reasons
+- [`221f6b88d1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/221f6b88d1d) - bump media-viewer to use @atlaskit/code@13.2.1
+- [`e5413204ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5413204ba8) - Add optional errorDetail to FailAttributes for extra debugging context
+- [`168cbf7cd32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/168cbf7cd32) - Remove actionSubjectId from media-viewer analytics
+- [`e62066560fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e62066560fb) - Removed fileSource attributes from operational SLIs
+- Updated dependencies
+
 ## 45.6.0
 
 ### Minor Changes

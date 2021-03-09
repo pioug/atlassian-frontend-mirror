@@ -488,6 +488,7 @@ const cqlFields: NestedFieldDefinition[] = [
     name: 'created',
     label: 'Created',
     style: 'radio',
+    isRequired: true,
     defaultValue: 'any date',
     items: [
       {

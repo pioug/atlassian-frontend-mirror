@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
+  version as packageVersion,
+  name as packageName,
+} from '../../version.json';
+import {
   UIAnalyticsEvent,
-  withAnalyticsContext,
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
+import { FileAttributes } from '@atlaskit/media-common';
 import {
   addFileAttrsToUrl,
   FileDetails,
@@ -50,18 +55,17 @@ import { getCardStatus, getCardStatusFromFileState } from './getCardStatus';
 import { updateProgressFromFileState } from './getCardProgress';
 import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
 import {
-  createAndFireCustomMediaEvent,
-  getBaseAnalyticsContext,
-  getCopiedFileAnalyticsPayload,
+  fireMediaCardEvent,
   getFileAttributes,
-  getLoadingStatusAnalyticsPayload,
-  getMediaCardAnalyticsContext,
-  getMediaCardCommencedAnalyticsPayload,
-  getAnalyticsLoadingStatus,
-  AnalyticsLoadingStatusArgs,
-  AnalyticsLoadingStatus,
+  RenderEventPayload,
+  getRenderCommencedEventPayload,
+  getRenderSucceededEventPayload,
+  getRenderFailedMediaClientPayload,
+  getRenderFailedFileStatusPayload,
+  getCopiedFilePayload,
+  isRenderFailedEventPayload,
 } from '../../utils/analytics';
-import { MediaAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FileAttributesProvider } from '../../utils/fileAttributesContext';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 
@@ -72,7 +76,7 @@ export class CardBase extends Component<
   CardState
 > {
   private hasBeenMounted: boolean = false;
-  private lastLoadingStatus?: AnalyticsLoadingStatus = undefined;
+  private lastOperationalPayload?: RenderEventPayload = undefined;
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
@@ -136,7 +140,7 @@ export class CardBase extends Component<
         selection.containsNode &&
         selection.containsNode(this.cardRef.current.divRef.current, true)
       ) {
-        this.fireFileCopiedAnalytics();
+        this.fireFileCopiedEvent();
       }
     }
   };
@@ -185,7 +189,7 @@ export class CardBase extends Component<
 
   componentDidMount() {
     this.hasBeenMounted = true;
-    this.fireCardCommencedAnalytics();
+    this.fireCommencedEvent();
     this.updateStateForIdentifier();
     document.addEventListener('copy', this.onCopyListener);
     this.checkIfCardIsInViewport();
@@ -208,7 +212,7 @@ export class CardBase extends Component<
       isDifferent ||
       this.shouldRefetchImage(prevDimensions, dimensions)
     ) {
-      this.fireCardCommencedAnalytics();
+      this.fireCommencedEvent();
       this.updateStateForIdentifier();
     }
   }
@@ -247,15 +251,6 @@ export class CardBase extends Component<
     this.unsubscribe();
     document.removeEventListener('copy', this.onCopyListener);
     this.cleanupCardInViewportObserver();
-  }
-
-  getId(): string {
-    const { identifier } = this.props;
-    if (identifier.mediaItemType === 'external-image') {
-      return identifier.mediaItemType;
-    } else {
-      return identifier.id;
-    }
   }
 
   updateStateForIdentifier() {
@@ -404,6 +399,7 @@ export class CardBase extends Component<
           /**
            * TODO: getCardPreview swallows the errors!!
            * We should hendle them properly and fire analitics events accordingly
+           * https://product-fabric.atlassian.net/browse/BMPT-1131
            */
           const cardPreview = await this.getCardPreview(
             mediaClient,
@@ -427,12 +423,18 @@ export class CardBase extends Component<
              *   |                                 |----[1]FileState:uploading------>| We do not want to update status to `uploading` again!
              *
              */
-            this.fireLoadingStatusAnalyticsEvent({
-              cardStatus: status,
-              metadata,
-              dataURI: cardPreview && cardPreview.dataURI,
-              fileState,
-            });
+
+            if (['error', 'failed-processing'].includes(status)) {
+              this.fireFailedFileStatusEvent();
+            }
+            /**
+             * A Card that is considered Complete and has no preview,
+             * reflects an expected behaviour, and thus a legitimate
+             * success case to be logged.
+             */
+            if (!cardPreview?.dataURI && status === 'complete') {
+              this.fireSucceededEvent();
+            }
 
             this.safeSetState({
               status,
@@ -457,20 +459,57 @@ export class CardBase extends Component<
           }
         },
         error: error => {
-          const metadata: FileDetails = { id };
+          /**
+           * If, for any reason, file state subscription decides that the card is completed
+           * and later there is an error, we won't change the card's status.
+           * An example is a frontend unpreviewable file which
+           * is being processed in the backend and polling times out.
+           * This is the only case that requires this feature:
+           *  - doucment media type
+           *  - Media Card Classic Experience
+           *
+           * This feature might die after Classic goes away
+           */
+          if (this.state.status === 'complete') {
+            return;
+          }
           const cardStatus: CardStatus = 'error';
-          this.fireLoadingStatusAnalyticsEvent({ metadata, cardStatus, error });
           this.safeSetState({ error, status: cardStatus });
+          this.fireFailedMediaClientEvent(error);
         },
       });
   }
 
-  shouldFireLoadingStatusAnalyticsEvent = (
-    loadingStatus: AnalyticsLoadingStatus,
-  ) => {
-    const { failReason: lastFailReason, error: lastError, action: lastAction } =
-      this.lastLoadingStatus || {};
-    const { failReason, error, action } = loadingStatus;
+  private get metadata(): FileDetails {
+    const { identifier } = this.props;
+    return (
+      this.state.metadata ||
+      (isFileIdentifier(identifier)
+        ? { id: identifier.id }
+        : { id: identifier.mediaItemType })
+    );
+  }
+
+  private get fileAttributes(): FileAttributes {
+    return getFileAttributes(this.metadata, this.lastFileState?.status);
+  }
+
+  private shouldFireOperationalEvent = (payload: RenderEventPayload) => {
+    const { action: lastAction = undefined } =
+      this.lastOperationalPayload || {};
+    const {
+      failReason: lastFailReason = undefined,
+      error: lastError = undefined,
+    } = isRenderFailedEventPayload(this.lastOperationalPayload)
+      ? this.lastOperationalPayload.attributes
+      : {};
+
+    const { action } = payload;
+    const {
+      failReason = undefined,
+      error = undefined,
+    } = isRenderFailedEventPayload(payload) ? payload.attributes : {};
+
     const result =
       action !== lastAction ||
       failReason !== lastFailReason ||
@@ -478,52 +517,52 @@ export class CardBase extends Component<
     return result;
   };
 
-  fireLoadingStatusAnalyticsEvent = (args: AnalyticsLoadingStatusArgs) => {
-    const loadingStatus = getAnalyticsLoadingStatus(args);
-    if (
-      loadingStatus &&
-      this.shouldFireLoadingStatusAnalyticsEvent(loadingStatus)
-    ) {
-      this.lastLoadingStatus = loadingStatus;
-      const { createAnalyticsEvent, featureFlags } = this.props;
-      const { action, failReason, error } = loadingStatus;
-      const { metadata, fileState } = args;
-      const { status } = fileState || {};
-      const fileAttributes = getFileAttributes(metadata, status);
-      createAndFireCustomMediaEvent(
-        getLoadingStatusAnalyticsPayload({
-          action,
-          actionSubjectId: metadata.id,
-          fileAttributes,
-          failReason,
-          error,
-          featureFlags,
-        }),
-        createAnalyticsEvent,
-      );
+  private fireFailedMediaClientEvent = (error: Error) => {
+    const { createAnalyticsEvent } = this.props;
+    const payload = getRenderFailedMediaClientPayload(
+      this.fileAttributes,
+      error,
+    );
+    if (this.shouldFireOperationalEvent(payload)) {
+      fireMediaCardEvent(payload, createAnalyticsEvent);
+      this.lastOperationalPayload = payload;
     }
   };
 
-  fireCardCommencedAnalytics() {
-    const { createAnalyticsEvent, featureFlags } = this.props;
-    const { isCardVisible } = this.state;
+  private fireFailedFileStatusEvent = () => {
+    const { createAnalyticsEvent } = this.props;
+    const payload = getRenderFailedFileStatusPayload(this.fileAttributes);
+    if (this.shouldFireOperationalEvent(payload)) {
+      fireMediaCardEvent(payload, createAnalyticsEvent);
+      this.lastOperationalPayload = payload;
+    }
+  };
 
-    if (!isCardVisible) {
+  private fireSucceededEvent = () => {
+    const { createAnalyticsEvent } = this.props;
+    const payload = getRenderSucceededEventPayload(this.fileAttributes);
+    if (this.shouldFireOperationalEvent(payload)) {
+      fireMediaCardEvent(payload, createAnalyticsEvent);
+      this.lastOperationalPayload = payload;
+    }
+  };
+
+  private fireCommencedEvent() {
+    if (!this.state.isCardVisible) {
       return;
     }
-
-    const id = this.getId();
-    createAndFireCustomMediaEvent(
-      getMediaCardCommencedAnalyticsPayload(id, featureFlags),
-      createAnalyticsEvent,
-    );
+    const { createAnalyticsEvent } = this.props;
+    const payload = getRenderCommencedEventPayload(this.fileAttributes);
+    if (this.shouldFireOperationalEvent(payload)) {
+      fireMediaCardEvent(payload, createAnalyticsEvent);
+      this.lastOperationalPayload = payload;
+    }
   }
 
-  fireFileCopiedAnalytics = () => {
-    const { createAnalyticsEvent, identifier, featureFlags } = this.props;
-
-    createAndFireCustomMediaEvent(
-      getCopiedFileAnalyticsPayload(identifier, featureFlags),
+  private fireFileCopiedEvent = () => {
+    const { createAnalyticsEvent } = this.props;
+    fireMediaCardEvent(
+      getCopiedFilePayload(this.metadata.id),
       createAnalyticsEvent,
     );
   };
@@ -542,20 +581,24 @@ export class CardBase extends Component<
     if (this.hasBeenMounted) {
       this.setState({ cardPreview: undefined });
     }
-    this.lastLoadingStatus = undefined;
+    this.lastOperationalPayload = undefined;
   };
 
   // This method is called when card fails and user press 'Retry'
   private onRetry = () => {
-    this.lastLoadingStatus = undefined;
-    this.fireCardCommencedAnalytics();
+    this.lastOperationalPayload = undefined;
+    this.fireCommencedEvent();
     this.updateStateForIdentifier();
   };
 
   get actions(): CardAction[] {
-    const { actions = [], identifier } = this.props;
+    const { actions = [], identifier, shouldEnableDownloadButton } = this.props;
     const { status, metadata } = this.state;
-    if (isFileIdentifier(identifier) && status === 'failed-processing') {
+
+    if (
+      isFileIdentifier(identifier) &&
+      (status === 'failed-processing' || shouldEnableDownloadButton)
+    ) {
       const downloadAction = {
         label: 'Download',
         icon: <DownloadIcon label="Download" />,
@@ -784,7 +827,7 @@ export class CardBase extends Component<
   };
 
   render() {
-    const { metadata, isPlayingFile, mediaViewerSelectedItem } = this.state;
+    const { isPlayingFile, mediaViewerSelectedItem } = this.state;
     const innerContent = (
       <>
         {isPlayingFile ? this.renderInlinePlayer() : this.renderCard()}
@@ -799,15 +842,11 @@ export class CardBase extends Component<
     );
 
     return (
-      <MediaAnalyticsContext
-        data={getMediaCardAnalyticsContext(
-          metadata,
-          this.lastFileState,
-          this.props.featureFlags,
-        )}
+      <FileAttributesProvider
+        data={getFileAttributes(this.metadata, this.lastFileState?.status)}
       >
         {content}
-      </MediaAnalyticsContext>
+      </FileAttributesProvider>
     );
   }
 
@@ -843,6 +882,22 @@ export class CardBase extends Component<
   };
 }
 
-export const Card: React.ComponentType<CardWithAnalyticsEventsProps> = withAnalyticsContext(
-  getBaseAnalyticsContext(),
+export const Card: React.ComponentType<CardWithAnalyticsEventsProps> = withMediaAnalyticsContext(
+  {
+    packageVersion,
+    packageName,
+    componentName: 'mediaCard',
+    component: 'mediaCard',
+  },
+  {
+    filterFeatureFlags: [
+      'newCardExperience',
+      'poll_intervalMs',
+      'poll_maxAttempts',
+      'poll_backoffFactor',
+      'poll_maxIntervalMs',
+      'poll_maxGlobalFailures',
+      'captions',
+    ],
+  },
 )(withAnalyticsEvents()(CardBase));

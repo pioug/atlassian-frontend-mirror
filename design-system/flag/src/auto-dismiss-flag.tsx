@@ -6,7 +6,9 @@ import { AutoDismissFlagProps } from './types';
 
 import Flag from './flag';
 import { useFlagGroup } from './flag-group';
-import { name as packageName, version as packageVersion } from './version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const AUTO_DISMISS_SECONDS = 8;
 

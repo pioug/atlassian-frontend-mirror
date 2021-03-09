@@ -3,7 +3,6 @@ import { mount, shallow } from 'enzyme';
 
 import path from 'path';
 import fs from 'fs';
-import { name } from '../../../version.json';
 import BookIcon from '../../../../glyph/source-code/24';
 import DefaultIcon from '../../..';
 import metadata from '../../../metadata';
@@ -24,7 +23,7 @@ const walkSync = (dir: string, filelist: string[]) => {
   return filelist;
 };
 
-describe(name, () => {
+describe('@atlaskit/icon-file-type', () => {
   describe('exports', () => {
     it('are properly defined for atomic ones', () => {
       // NOTE Please remember:

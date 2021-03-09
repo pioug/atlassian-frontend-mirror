@@ -18,8 +18,7 @@ import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
-
-const textDescriptionProps = { ...messages.invalid_permissions_description };
+import { RequestAccessContextProps } from '../../types';
 
 export interface PermissionDeniedProps {
   /* Actions which can be taken on the URL */
@@ -36,6 +35,8 @@ export interface PermissionDeniedProps {
   isSelected?: boolean;
   testId?: string;
   showActions?: boolean;
+  /* Describes additional metadata based on the type of access a user has to the link */
+  requestAccessContext?: RequestAccessContextProps;
 }
 
 export const ForbiddenView = ({
@@ -46,9 +47,17 @@ export const ForbiddenView = ({
   showActions = true,
   link = '',
   onClick = () => {},
+  requestAccessContext = {},
 }: PermissionDeniedProps) => {
   const handleClick = (event: MouseEvent<HTMLElement>) =>
     handleClickCommon(event, onClick);
+
+  const {
+    action,
+    descriptiveMessageKey = 'invalid_permissions_description',
+  } = requestAccessContext;
+
+  const items = action ? [...actions, action] : actions;
 
   return (
     <Frame isSelected={isSelected} testId={testId} isFluidHeight>
@@ -67,13 +76,18 @@ export const ForbiddenView = ({
                   testId={`${testId}-lock-icon`}
                 />
               }
-              text={<FormattedMessage {...textDescriptionProps} />}
+              text={
+                <FormattedMessage
+                  {...messages[descriptiveMessageKey]}
+                  values={{ context: context.text }}
+                />
+              }
             />
           </Byline>
         </div>
         <ContentFooter>
           <Provider name={context.text} icon={context.icon} />
-          {showActions && <ActionList items={actions} />}
+          {showActions && <ActionList items={items} />}
         </ContentFooter>
       </Content>
     </Frame>

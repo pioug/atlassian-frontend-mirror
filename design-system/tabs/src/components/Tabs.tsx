@@ -17,14 +17,13 @@ import {
   TabsProps,
   TabsState,
 } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import DefaultTabContent from './TabContent';
 import DefaultTabItem from './TabItem';
 import TabsNavigation from './TabsNavigation';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const defaultIsSelectedTestNumber: IsSelectedTestFunction = (
   selectedIndex,

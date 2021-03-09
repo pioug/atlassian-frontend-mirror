@@ -8,12 +8,8 @@ import {
 } from '../../../newgen/download';
 import React from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { MediaViewerError } from '../../../newgen/error';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { MediaViewerError } from '../../../newgen/errors';
 
 describe('download', () => {
   const processingFailedState: ProcessingFailedState = {
@@ -72,13 +68,12 @@ describe('download', () => {
     it('should trigger an analytics event in the media channel', () => {
       const mediaClient = fakeMediaClient();
       const spy = jest.fn();
-      const err = new MediaViewerError('metadataFailed');
       const component = mount(
         <AnalyticsListener channel="media" onEvent={spy}>
           <ErrorViewDownloadButton
-            state={processingFailedState}
-            err={err}
+            fileState={processingFailedState}
             mediaClient={mediaClient}
+            error={new MediaViewerError('unsupported')}
           />
         </AnalyticsListener>,
       );
@@ -86,22 +81,20 @@ describe('download', () => {
       const [[{ payload }]] = spy.mock.calls;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(payload).toEqual({
+        eventType: 'ui',
         action: 'clicked',
         actionSubject: 'button',
         actionSubjectId: 'failedPreviewDownloadButton',
         attributes: {
-          componentName: 'media-viewer',
-          fileId: 'some-id',
-          failReason: 'metadataFailed',
-          fileMediatype: 'image',
-          fileMimetype: 'some-mime-type',
+          failReason: 'unsupported',
+          fileAttributes: {
+            fileId: 'some-id',
+            fileMediatype: 'image',
+            fileMimetype: 'some-mime-type',
+            fileSize: 42,
+          },
           fileProcessingStatus: 'failed-processing',
-          fileSize: 42,
-          fileSupported: true,
-          packageName,
-          packageVersion,
         },
-        eventType: 'ui',
       });
     });
   });
@@ -151,21 +144,19 @@ describe('download', () => {
     const [[{ payload }]] = spy.mock.calls;
     expect(spy).toHaveBeenCalledTimes(1);
     expect(payload).toEqual({
+      eventType: 'ui',
       action: 'clicked',
       actionSubject: 'button',
       actionSubjectId: 'downloadButton',
       attributes: {
-        componentName: 'media-viewer',
-        fileId: 'some-id',
-        fileMediatype: 'image',
-        fileMimetype: 'some-mime-type',
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: 'image',
+          fileMimetype: 'some-mime-type',
+          fileSize: 42,
+        },
         fileProcessingStatus: 'failed-processing',
-        fileSize: 42,
-        fileSupported: true,
-        packageName,
-        packageVersion,
       },
-      eventType: 'ui',
     });
   });
 });

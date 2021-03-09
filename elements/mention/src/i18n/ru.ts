@@ -8,13 +8,14 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Закрыть',
-  'fabric.elements.mentions.team.member.50plus': 'Более 50 участников',
+  'fabric.elements.mentions.team.member.50plus':
+    'Команда • более 50 участников',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    'Более 50 участников, включая вас',
+    'Команда • более 50 участников, включая вас',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} участник} few {{0} участника} many {{0} участников} other {{0} участника}}',
+    '{0, plural, one {Команда • 1 участник} few {Команда • {0} участника} many {Команда • {0} участников} other {Команда • {0} участника}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} участник, включая вас} few {{0} участника, включая вас} many {{0} участников, включая вас} other {{0} участника, включая вас}}',
+    '{0, plural, one {Команда • 1 участник, включая вас} few {Команда • {0} участника, включая вас} many {Команда • {0} участников, включая вас} other {Команда • {0} участника, включая вас}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Добавьте всех на страницу одним кликом. У вас нет команды?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

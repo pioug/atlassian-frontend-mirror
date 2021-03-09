@@ -126,6 +126,7 @@ export const createPlugin = (
         inlineCard: (node, view, getPos) => {
           const reactComponentProps: InlineCardNodeViewProps = {
             useAlternativePreloader,
+            useInlineWrapper: platform === 'mobile',
           };
           return new InlineCard(
             node,

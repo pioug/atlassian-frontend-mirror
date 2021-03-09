@@ -8,7 +8,9 @@ import {
 } from '@atlaskit/analytics-next';
 
 import Div from './styled';
-import { name as packageName, version as packageVersion } from './version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 interface Props extends WithAnalyticsEventsProps {
   /** Whether mouse events can pierce the blanket. If true, onBlanketClicked will not be fired */

@@ -117,10 +117,10 @@ describe('ArchiveSidebarRenderer', () => {
     const onErrorMock = jest.fn();
     const unzipModule = unzip as jest.Mock;
     unzipModule.mockImplementation(() => {
-      throw new Error('error');
+      throw new Error('some-error');
     });
     mountBaseComponent({ onError: onErrorMock });
     await sleep(0);
-    expect(onErrorMock).toBeCalledWith(new Error('error'));
+    expect(onErrorMock).toBeCalledWith(new Error('archiveviewer-read-binary'));
   });
 });

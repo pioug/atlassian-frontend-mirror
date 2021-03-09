@@ -147,8 +147,8 @@ export function insertLink(
 ): Command {
   return (state, dispatch) => {
     const link = state.schema.marks.link;
+    const { tr } = state;
     if (incomingHref.trim()) {
-      const { tr } = state;
       const normalizedUrl = normalizeUrl(incomingHref);
       // NB: in this context, `currentText` represents text which has been
       // highlighted in the Editor, upon which a link is is being added.
@@ -173,6 +173,10 @@ export function insertLink(
         dispatch(tr);
       }
       return true;
+    }
+    tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
+    if (dispatch) {
+      dispatch(tr);
     }
     return false;
   };

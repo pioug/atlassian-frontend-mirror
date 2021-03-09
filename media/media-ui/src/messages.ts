@@ -109,11 +109,76 @@ export type MessageKey =
   | 'error_429'
   | 'preview_rateLimited'
   | 'close_and_reopen'
-  | 'viewer_rateLimited';
+  | 'viewer_rateLimited'
+  | 'zip_entry_load_fail'
+  | RequestAccessMessageKeys;
+
+export type RequestAccessMessageKeys =
+  | 'request_access_description'
+  | 'click_to_join_description'
+  | 'request_access_pending_description'
+  | 'click_to_join'
+  | 'request_access'
+  | 'request_access_pending'
+  | 'forbidden_description'
+  | 'request_denied_description';
 
 type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
 
+const requestAccessMessages: {
+  [K in RequestAccessMessageKeys]: FormattedMessage.MessageDescriptor;
+} = {
+  click_to_join: {
+    id: 'fabric.media.click_to_join',
+    defaultMessage: 'Join {context}',
+    description: 'Allows the user join the product or service immediately',
+  },
+  click_to_join_description: {
+    id: 'fabric.media.click_to_join_description',
+    defaultMessage:
+      "You've been approved, so you can join {context} right away.",
+    description:
+      'Informs the user that they have access to this product, and can sign up or join right away.',
+  },
+  request_access: {
+    id: 'fabric.media.request_access',
+    defaultMessage: 'Request access',
+    description: 'Allows the user to request access to a product or service',
+  },
+  request_access_description: {
+    id: 'fabric.media.request_access_description',
+    defaultMessage: 'Request access to {context} view this preview.',
+    description: 'Allows the user to request access to a product',
+  },
+  request_access_pending: {
+    id: 'fabric.media.request_access_pending',
+    defaultMessage: 'Access pending',
+    description:
+      'Allows the user to try an action again with their current account',
+  },
+  request_access_pending_description: {
+    id: 'fabric.media.request_access_pending_description',
+    defaultMessage: 'Your access request is pending.',
+    description:
+      'Informs the user that their request to view this content is pending',
+  },
+  forbidden_description: {
+    id: 'fabric.media.forbidden_description',
+    defaultMessage:
+      'You don’t have access to this preview. Contact the site admin if you need access.',
+    description: 'Informs the user that they cannot view this content.',
+  },
+  request_denied_description: {
+    id: 'fabric.media.request_denied_description',
+    defaultMessage:
+      'Your access request was denied. Contact the site admin if you still need access.',
+    description:
+      'Informs the user that their request to view this content was denied',
+  },
+};
+
 export const messages = defineMessages<Messages>({
+  ...requestAccessMessages,
   retry: {
     id: 'fabric.media.retry',
     defaultMessage: 'Retry',
@@ -705,5 +770,10 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.viewer_rateLimited',
     defaultMessage: `We're having difficulties loading your file.`,
     description: 'Mediaviewer has been rate limited',
+  },
+  zip_entry_load_fail: {
+    id: 'fabric.media.zip_entry_load_failed',
+    defaultMessage: `We couldn't load that zip file item to preview`,
+    description: 'Zip entry failed to load',
   },
 });

@@ -23,7 +23,6 @@ import * as getPreviewModule from '../../../util/getPreviewFromBlob';
 import * as getPreviewFromImage from '../../../util/getPreviewFromImage';
 import {
   Preview,
-  MediaFile,
   UploadParams,
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
@@ -93,7 +92,7 @@ describe('UploadService', () => {
       shouldCopyFileToRecents,
     );
 
-    const filesAddedPromise = new Promise(resolve =>
+    const filesAddedPromise = new Promise<void>(resolve =>
       uploadService.on('files-added', () => resolve()),
     );
 
@@ -360,11 +359,12 @@ describe('UploadService', () => {
       });
     });
 
-    it.skip('should emit "file-upload-error" when uploadFile fail', () => {
+    it('should emit "file-upload-error" when uploadFile fail', () => {
       const mediaClient = getMediaClient();
       const { uploadService } = setup(mediaClient, {
         collection: 'some-collection',
       });
+      const error = new Error('Some reason');
       const fileUploadErrorCallback = jest.fn();
       uploadService.on('file-upload-error', fileUploadErrorCallback);
 
@@ -373,26 +373,20 @@ describe('UploadService', () => {
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
         subscribe(subscription: Subscriber<FileState>) {
           // window.setTimeout(() => {
-          subscription.error('Some reason');
+          subscription.error(error);
           // }, 10)
         },
       });
 
       uploadService.addFiles([file]);
 
-      const expectedMediaFile: MediaFile = {
-        id: expect.any(String),
-        creationDate: expect.any(Number),
-        name: 'some-filename',
-        size: 100,
-        type: 'video/mp4',
-      };
       expect(fileUploadErrorCallback).toHaveBeenCalledWith({
-        file: expectedMediaFile,
+        fileId: 'uuid1',
         error: {
-          fileId: expect.any(String),
+          fileId: 'uuid1',
           name: 'upload_fail',
           description: 'Some reason',
+          rawError: error,
         },
       });
     });
@@ -455,7 +449,7 @@ describe('UploadService', () => {
       const filesAddedCallback = jest.fn();
       uploadService.on('files-added', filesAddedCallback);
 
-      return new Promise(resolve => {
+      return new Promise<void>(resolve => {
         jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
           // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
           //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff

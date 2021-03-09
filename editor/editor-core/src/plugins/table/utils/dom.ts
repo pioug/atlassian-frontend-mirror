@@ -159,9 +159,7 @@ export const getMousePositionVerticalRelativeByElement = (
   return null;
 };
 
-export const updateResizeHandles = (
-  tableRef: HTMLElement | null | undefined,
-) => {
+export const updateResizeHandles = (tableRef?: HTMLElement) => {
   if (!tableRef) {
     return;
   }

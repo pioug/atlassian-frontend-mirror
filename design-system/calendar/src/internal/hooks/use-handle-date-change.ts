@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import type { ChangeEvent } from '../../types';
 import { daysPerWeek, monthsPerYear } from '../constants';
@@ -45,8 +45,22 @@ export default function useHandleDateChange({
   year: readonly [number, (newValue: number) => void];
   onChange: (event: ChangeEvent) => void;
 }) {
+  const dateRef = useRef({
+    day: dayValue,
+    month: monthValue,
+    year: yearValue,
+  });
+
+  useEffect(() => {
+    dateRef.current = {
+      day: dayValue,
+      month: monthValue,
+      year: yearValue,
+    };
+  }, [dayValue, monthValue, yearValue]);
+
   const triggerOnChange = useCallback(
-    ({ year, month, day, type }: ChangeEvent) => {
+    ({ year, month, day, type }: Omit<ChangeEvent, 'iso'>) => {
       const iso = dateToString({ year, month, day });
 
       onChange({ day, month, year, iso, type });
@@ -59,14 +73,16 @@ export default function useHandleDateChange({
 
   const navigate = useCallback(
     (type: ArrowKeys) => {
+      const { day, month, year } = dateRef.current;
+
       if (type === 'down') {
-        const next = dayValue + daysPerWeek;
-        const daysInMonth = getDaysInMonth(yearValue, monthValue - 1);
+        const next = day + daysPerWeek;
+        const daysInMonth = getDaysInMonth(year, month - 1);
 
         if (next > daysInMonth) {
           const { month: nextMonth, year: nextYear } = getNextMonth(
-            monthValue,
-            yearValue,
+            month,
+            year,
           );
           triggerOnChange({
             year: nextYear,
@@ -76,19 +92,19 @@ export default function useHandleDateChange({
           });
         } else {
           triggerOnChange({
-            year: yearValue,
-            month: monthValue,
+            year,
+            month,
             day: next,
             type,
           });
         }
       } else if (type === 'left') {
-        const prev = dayValue - 1;
+        const prev = day - 1;
 
         if (prev < 1) {
           const { month: prevMonth, year: prevYear } = getPrevMonth(
-            monthValue,
-            yearValue,
+            month,
+            year,
           );
           const prevDay = getDaysInMonth(prevYear, prevMonth - 1);
           triggerOnChange({
@@ -99,20 +115,20 @@ export default function useHandleDateChange({
           });
         } else {
           triggerOnChange({
-            year: yearValue,
-            month: monthValue,
+            year,
+            month,
             day: prev,
             type,
           });
         }
       } else if (type === 'right') {
-        const next = dayValue + 1;
-        const daysInMonth = getDaysInMonth(yearValue, monthValue - 1);
+        const next = day + 1;
+        const daysInMonth = getDaysInMonth(year, month - 1);
 
         if (next > daysInMonth) {
           const { month: nextMonth, year: nextYear } = getNextMonth(
-            monthValue,
-            yearValue,
+            month,
+            year,
           );
           triggerOnChange({
             year: nextYear,
@@ -122,19 +138,19 @@ export default function useHandleDateChange({
           });
         } else {
           triggerOnChange({
-            year: yearValue,
-            month: monthValue,
+            year,
+            month,
             day: next,
             type,
           });
         }
       } else if (type === 'up') {
-        const prev = dayValue - daysPerWeek;
+        const prev = day - daysPerWeek;
 
         if (prev < 1) {
           const { month: prevMonth, year: prevYear } = getPrevMonth(
-            monthValue,
-            yearValue,
+            month,
+            year,
           );
           const prevDay = getDaysInMonth(prevYear, prevMonth - 1) + prev;
           triggerOnChange({
@@ -145,42 +161,34 @@ export default function useHandleDateChange({
           });
         } else {
           triggerOnChange({
-            year: yearValue,
-            month: monthValue,
+            year,
+            month,
             day: prev,
             type,
           });
         }
       }
     },
-    [triggerOnChange, dayValue, monthValue, yearValue],
+    [triggerOnChange],
   );
 
   const handleClickNext = useCallback(() => {
     const { day, month, year } = {
-      ...{
-        day: dayValue,
-        month: monthValue,
-        year: yearValue,
-      },
-      ...getNextMonth(monthValue, yearValue),
+      ...dateRef.current,
+      ...getNextMonth(dateRef.current.month, dateRef.current.year),
     };
 
     triggerOnChange({ day, month, year, type: 'next' });
-  }, [triggerOnChange, dayValue, monthValue, yearValue]);
+  }, [triggerOnChange]);
 
   const handleClickPrev = useCallback(() => {
     const { day, month, year } = {
-      ...{
-        day: dayValue,
-        month: monthValue,
-        year: yearValue,
-      },
-      ...getPrevMonth(monthValue, yearValue),
+      ...dateRef.current,
+      ...getPrevMonth(dateRef.current.month, dateRef.current.year),
     };
 
     triggerOnChange({ day, month, year, type: 'prev' });
-  }, [triggerOnChange, dayValue, monthValue, yearValue]);
+  }, [triggerOnChange]);
 
   return {
     navigate,

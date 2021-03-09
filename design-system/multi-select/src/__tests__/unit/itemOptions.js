@@ -1,10 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { name } from '../../version.json';
 import { MultiSelectStateless } from '../..';
 
-describe(`${name} - shared functions`, () => {
+describe('@atlaskit/multi-select - shared functions', () => {
   it('should render an array of items', () => {
     const items = [
       { content: 'test1', value: 'test1' },

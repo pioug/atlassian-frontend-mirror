@@ -11,8 +11,9 @@ import {
   tableWithPanel,
 } from './__fixtures__/document-with-expand';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
-const editorSelector = '.ProseMirror';
+const editorSelector = selectors.editor;
 const expandSelector = '[data-node-type="expand"]';
 const nestedExpandSelector = '[data-node-type="nestedExpand"]';
 const controlSelector = 'tbody tr:first-child th:nth-child(1)';

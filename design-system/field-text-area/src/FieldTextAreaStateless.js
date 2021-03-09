@@ -7,8 +7,10 @@ import {
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
 import Base, { Label } from '@atlaskit/field-base';
-import { name as packageName, version as packageVersion } from './version.json';
 import TextArea from './styled/TextArea';
+
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 
 const Wrapper = styled.div`
   flex: 1 1 100%;

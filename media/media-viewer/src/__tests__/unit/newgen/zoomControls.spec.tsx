@@ -7,10 +7,6 @@ import {
 } from '../../../newgen/zoomControls';
 import { ZoomLevelIndicator } from '../../../newgen/styled';
 import { ZoomLevel } from '../../../newgen/domain/zoomLevel';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 
 describe('Zooming', () => {
@@ -71,12 +67,6 @@ describe('Zooming', () => {
     });
 
     describe('analytics', () => {
-      const analyticsBaseAttributes = {
-        componentName: 'media-viewer',
-        packageName,
-        packageVersion,
-      };
-
       it('triggers analytics events on zoom Out', () => {
         const { component, createAnalyticsEventSpy } = setupBase();
         component.find(Button).first().simulate('click');
@@ -88,7 +78,6 @@ describe('Zooming', () => {
           actionSubjectId: 'zoomOut',
           attributes: {
             zoomScale: 0.48,
-            ...analyticsBaseAttributes,
           },
         });
       });
@@ -104,7 +93,6 @@ describe('Zooming', () => {
           actionSubjectId: 'zoomIn',
           attributes: {
             zoomScale: 1.5,
-            ...analyticsBaseAttributes,
           },
         });
       });

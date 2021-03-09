@@ -22,15 +22,14 @@ import Portal from '@atlaskit/portal';
 
 import { transitionDurationMs } from '../constants';
 import drawerItemTheme from '../theme/drawer-item-theme';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import FocusLock from './focus-lock';
 import DrawerPrimitive from './primitives';
 import { Fade } from './transitions';
 import { CloseTrigger, DrawerProps, DrawerWidth } from './types';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const OnlyChild: FC<any> = ({ children }) =>
   Children.toArray(children)[0] || null;

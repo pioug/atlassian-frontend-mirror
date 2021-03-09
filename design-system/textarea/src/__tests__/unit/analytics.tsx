@@ -5,10 +5,9 @@ import { fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import TextArea from '../../text-area';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const noop = () => {};
 const attributes = {

@@ -1,4 +1,4 @@
-import padToTwo from '../utils/pad-to-two';
+import pad from '../utils/pad';
 
 import useControlled from './use-controlled';
 import useLazyRef from './use-lazy-ref';
@@ -62,7 +62,7 @@ export default function useControlledDateState({
 
   const [todayValue] = useControlled(
     today,
-    () => today || `${thisYear}-${padToTwo(thisMonth)}-${padToTwo(thisDay)}`,
+    () => today || `${thisYear}-${pad(thisMonth)}-${pad(thisDay)}`,
   );
 
   const [disabledValue] = useControlled(disabled, () => defaultDisabled);

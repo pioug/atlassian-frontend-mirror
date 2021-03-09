@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.0.4
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+
 ## 5.0.3
 
 ### Patch Changes

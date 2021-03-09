@@ -7,12 +7,12 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _Icon = _interopRequireDefault(require("../../cjs/components/Icon"));
+var _internal = _interopRequireDefault(require("@atlaskit/icon-file-type/internal"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const Figma16Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, Object.assign({
-  dangerouslySetGlyph: `<svg width="16" height="16" viewBox="0 0 16 16" focusable="false" role="presentation"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.165 0C.97 0 0 .97 0 2.165v11.67C0 15.03.97 16 2.165 16h11.67C15.03 16 16 15.03 16 13.835V2.165C16 .97 15.03 0 13.835 0H2.165zm5.837 11.342a1.67 1.67 0 11-1.67-1.671 1.67 1.67 0 010-3.342 1.67 1.67 0 010-3.342h3.34a1.67 1.67 0 010 3.342h-1.67v1.667a1.67 1.67 0 110 .008v3.338z" fill="#5243AA"/></svg>`
+const Figma16Icon = props => /*#__PURE__*/_react.default.createElement(_internal.default, Object.assign({
+  dangerouslySetGlyph: `<svg width="16" height="16" viewBox="0 0 16 16" role="presentation"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.165 0C.97 0 0 .97 0 2.165v11.67C0 15.03.97 16 2.165 16h11.67C15.03 16 16 15.03 16 13.835V2.165C16 .97 15.03 0 13.835 0H2.165zm5.837 11.342a1.67 1.67 0 11-1.67-1.671 1.67 1.67 0 010-3.342 1.67 1.67 0 010-3.342h3.34a1.67 1.67 0 010 3.342h-1.67v1.667a1.67 1.67 0 110 .008v3.338z" fill="#5243AA"/></svg>`
 }, props, {
   size: "small"
 }));

@@ -1,11 +1,6 @@
 import React, { PureComponent } from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { EditorView } from 'prosemirror-view';
-import {
-  undo as pmHistoryUndo,
-  redo as pmHistoryRedo,
-} from 'prosemirror-history';
-
 import UndoIcon from '@atlaskit/icon/glyph/undo';
 import RedoIcon from '@atlaskit/icon/glyph/redo';
 
@@ -14,11 +9,11 @@ import {
   redo as redoKeymap,
   ToolTipContent,
 } from '../../../../keymaps';
-
 import { ButtonGroup, Separator } from '../../../../ui/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../messages';
 import { HistoryPluginState } from '../../../history/types';
+import { undoFromToolbar, redoFromToolbar } from '../../commands';
 
 export interface Props {
   undoDisabled?: boolean;
@@ -40,12 +35,10 @@ export class ToolbarUndoRedo extends PureComponent<Props & InjectedIntlProps> {
     } = this.props;
 
     const handleUndo = () => {
-      // TODO - Add analytics https://product-fabric.atlassian.net/browse/ED-11352
-      pmHistoryUndo(editorView.state, editorView.dispatch);
+      undoFromToolbar(editorView.state, editorView.dispatch);
     };
     const handleRedo = () => {
-      // TODO - Add analytics https://product-fabric.atlassian.net/browse/ED-11352
-      pmHistoryRedo(editorView.state, editorView.dispatch);
+      redoFromToolbar(editorView.state, editorView.dispatch);
     };
 
     const labelUndo = formatMessage(messages.undo);

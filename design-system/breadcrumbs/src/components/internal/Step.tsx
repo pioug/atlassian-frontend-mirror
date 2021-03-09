@@ -4,11 +4,6 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import Button from '@atlaskit/button/standard-button';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
-
 interface BreadcrumbsButtonProps extends CustomThemeButtonProps {
   hasOverflow?: boolean;
 
@@ -18,8 +13,8 @@ interface BreadcrumbsButtonProps extends CustomThemeButtonProps {
 
 const analyticsAttributes = {
   componentName: 'breadcrumbsItem',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 const noop = () => {};

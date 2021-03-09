@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 0.8.2
+
+### Patch Changes
+
+- [`101b102ed33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/101b102ed33) - Fix disabled state; menu items with icons after the text should have height of 40px
+
 ## 0.8.1
 
 ### Patch Changes

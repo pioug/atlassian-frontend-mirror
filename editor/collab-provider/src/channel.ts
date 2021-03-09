@@ -1,5 +1,6 @@
 import { utils } from '@atlaskit/util-service-support';
 import { Emitter } from './emitter';
+import { ErrorCodeMapper } from './error-code-mapper';
 import { Config, Socket } from './types';
 import { createLogger } from './utils';
 
@@ -54,6 +55,7 @@ export type EditorWidthPayload = {
 };
 
 export type ErrorPayload = {
+  status: number;
   code?: string;
   message?: string;
   meta?: string;
@@ -167,6 +169,10 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.on('error', (error: ErrorPayload | string) => {
       this.emit('error', error);
     });
+
+    this.socket.on('connect_error', (error: ErrorPayload | string) => {
+      this.emit('error', error);
+    });
   }
 
   private onConnect = () => {
@@ -224,6 +230,12 @@ export class Channel extends Emitter<ChannelEvent> {
       };
     } catch (err) {
       logger("Can't fetch the catchup", err.message);
+      const errorCatchup: ErrorPayload = {
+        status: err.status,
+        code: ErrorCodeMapper.catchupFail.code,
+        message: ErrorCodeMapper.catchupFail.message,
+      };
+      this.emit('error', errorCatchup);
       return {};
     }
   }

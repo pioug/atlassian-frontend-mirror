@@ -15,13 +15,12 @@ import { API, Entry, show, Source } from './internal/tooltip-manager';
 import TooltipContainer from './TooltipContainer';
 import { TooltipProps } from './types';
 import { FakeMouseElement, getMousePosition } from './utilities';
-import { name as packageName, version as packageVersion } from './version.json';
 
 const tooltipZIndex = layers.tooltip();
 const analyticsAttributes = {
   componentName: 'tooltip',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 function noop() {}
 

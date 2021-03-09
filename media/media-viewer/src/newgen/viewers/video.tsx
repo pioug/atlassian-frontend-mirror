@@ -10,9 +10,9 @@ import {
   WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 import { Outcome } from '../domain';
+import { MediaViewerError } from '../errors';
 import { Video, CustomVideoPlayerWrapper } from '../styled';
 import { isIE } from '../utils/isIE';
-import { createError, MediaViewerError } from '../error';
 import { BaseState, BaseViewer } from './base-viewer';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 
@@ -22,8 +22,8 @@ export type Props = Readonly<
     mediaClient: MediaClient;
     collectionName?: string;
     previewCount: number;
-    onCanPlay?: () => void;
-    onError?: () => void;
+    onCanPlay: () => void;
+    onError: (error: Error) => void;
   } & WithShowControlMethodProp
 >;
 
@@ -42,7 +42,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
     const preferredQuality = localStorage.getItem(localStorageKeyName);
 
     return {
-      content: Outcome.pending<string, MediaViewerError>(),
+      content: Outcome.pending<string, Error>(),
       isHDActive: isHDAvailable(item) && preferredQuality !== 'sd',
     };
   }
@@ -57,16 +57,22 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
   };
 
   private onFirstPlay = () => {
-    const { item } = this.props;
+    const { item, onCanPlay } = this.props;
     globalMediaEventEmitter.emit('media-viewed', {
       fileId: item.id,
       viewingLevel: 'full',
     });
+    onCanPlay && onCanPlay();
+  };
+
+  private onError = () => {
+    const { onError } = this.props;
+    onError && onError(new MediaViewerError('videoviewer-playback'));
   };
 
   protected renderSuccessful(content: string) {
     const { isHDActive } = this.state;
-    const { item, showControls, previewCount, onCanPlay, onError } = this.props;
+    const { item, showControls, previewCount } = this.props;
     const useCustomVideoPlayer = !isIE();
     const isAutoPlay = previewCount === 0;
     return useCustomVideoPlayer ? (
@@ -80,9 +86,8 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
           isHDActive={isHDActive}
           isHDAvailable={isHDAvailable(item)}
           isShortcutEnabled={true}
-          onCanPlay={onCanPlay}
           onFirstPlay={this.onFirstPlay}
-          onError={onError}
+          onError={this.onError}
           lastWatchTimeConfig={{
             contentId: item.id,
           }}
@@ -108,7 +113,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
         );
 
         if (!contentUrl) {
-          throw new Error(`No video artifacts found`);
+          throw new MediaViewerError(`videoviewer-missing-artefact`);
         }
       } else {
         contentUrl = await getObjectUrlFromFileState(item);
@@ -124,9 +129,11 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
       this.setState({
         content: Outcome.successful(contentUrl),
       });
-    } catch (err) {
+    } catch (error) {
       this.setState({
-        content: Outcome.failed(createError('previewFailed', err, item)),
+        content: Outcome.failed(
+          new MediaViewerError('videoviewer-fetch-url', error),
+        ),
       });
     }
   }

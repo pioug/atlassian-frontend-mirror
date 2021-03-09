@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 14.2.2
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`b11ea3f327e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b11ea3f327e) - [ux] Fix text not being able to be selected.
+- Updated dependencies
+
 ## 14.2.1
 
 ### Patch Changes

@@ -8,13 +8,14 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Avvis',
-  'fabric.elements.mentions.team.member.50plus': '50 medlemmer eller mer',
+  'fabric.elements.mentions.team.member.50plus':
+    'Team • flere enn 50 medlemmer',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50 medlemmer eller mer, medregnet deg',
+    'Team • flere enn 50 medlemmer, inkludert deg',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} medlem} other {{0} medlemmer}}',
+    '{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmer}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} medlem, medregnet deg} other {{0} medlemmer, medregnet deg}}',
+    '{0, plural, one {Team • 1 medlem, inkludert deg} other {Team • {0} medlemmer, inkludert deg}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Få alle på siden med ett trykk. Inget lag?',
   'fabric.elements.mentions.team.mention.highlight.description.link': 'Lag et.',

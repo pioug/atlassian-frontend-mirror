@@ -1,5 +1,16 @@
 # @atlaskit/media-ui
 
+## 15.3.1
+
+### Patch Changes
+
+- [`1d09c9ed549`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d09c9ed549) - refactor media-viewer for better analytics and error handling
+- [`845dee52a4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845dee52a4a) - [ux] Adds additional request access metadata to forbidden urls if avalible
+- [`1085b407772`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1085b407772) - BMPT-1215 - bump react-video-renderer to 2.4.8 fixes onCanPlay multiple fire
+- [`0bbbe442ccd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bbbe442ccd) - [ux] Prevent cross button of Blockcard ModalHeader wrapping to next line on long file title
+- [`695ce4fe717`](https://bitbucket.org/atlassian/atlassian-frontend/commits/695ce4fe717) - Adds additional request access metadata to forbidden urls if avalible
+- Updated dependencies
+
 ## 15.3.0
 
 ### Minor Changes

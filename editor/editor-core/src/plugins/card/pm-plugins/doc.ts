@@ -369,25 +369,9 @@ export const setSelectedCardAppearance: (
         layout: 'center',
       }
     : selectedNode.attrs;
-  let fromPos = state.selection.from;
+  const { from } = state.selection;
   const nodeType = getLinkNodeType(appearance, state.schema.nodes);
-  const tr = state.tr.setNodeMarkup(
-    fromPos,
-    nodeType,
-    attrs,
-    selectedNode.marks,
-  );
-
-  // Select new node after creation
-  if (
-    appearanceForNodeType(selectedNode.type) === 'inline' ||
-    appearance === 'inline'
-  ) {
-    // since inline card is nested inside a paragraph, extra pos is needed
-    fromPos = fromPos + 1;
-  }
-  tr.setSelection(new NodeSelection(tr.doc.resolve(fromPos)));
-
+  const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
   addAnalytics(state, tr, {
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.SMART_LINK,

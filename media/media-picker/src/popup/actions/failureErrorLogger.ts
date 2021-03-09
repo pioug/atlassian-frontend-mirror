@@ -2,6 +2,7 @@ import { Action } from 'redux';
 
 export const FAILURE_ERROR = 'FAILURE_ERROR';
 
+// TODO: can be removed part of https://product-fabric.atlassian.net/browse/BMPT-1170
 export interface FailureErrorAction extends Action {
   readonly type: 'FAILURE_ERROR';
   readonly error: Error | string;

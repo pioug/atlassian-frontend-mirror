@@ -34,6 +34,8 @@ export interface Props {
   header?: ComponentType<any>;
   /** Heading text rendered above the body */
   heading?: string;
+  /** An optional element rendered to the right of the heading */
+  headingAfterElement?: ReactNode;
   /** Path to the the your image */
   image?: string;
   /** Whether or not to display a pulse animation around the spotlighted element */

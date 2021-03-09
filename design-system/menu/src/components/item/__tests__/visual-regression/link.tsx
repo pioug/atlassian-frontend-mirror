@@ -1,9 +1,13 @@
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 
-import { hover, mouseDown, verifyElementIn } from '../../../__tests__/_helper';
+import {
+  focus,
+  hover,
+  mouseDown,
+  verifyElementIn,
+} from '../../../__tests__/_helper';
 
 const linkItem = '[data-testid="item-link"]';
-
 const linkItemSelected = '[data-testid="item-link-selected"]';
 
 const url = getExampleUrl(
@@ -26,6 +30,10 @@ describe('<LinkItem />', () => {
 
   it('should match the clicked state', async () => {
     await verifyElementMatchProductionImage(linkItem, mouseDown(linkItem));
+  });
+
+  it('should match the focused state', async () => {
+    await verifyElementMatchProductionImage(linkItem, focus(linkItem));
   });
 
   it('should match selected item', async () => {

@@ -8,10 +8,9 @@ import {
 } from '@atlaskit/analytics-next';
 
 import EditedStyles from '../styled/EditedStyles';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 interface Props extends WithAnalyticsEventsProps {
   /** Content to render indicating that the comment has been edited. */

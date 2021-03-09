@@ -56,10 +56,10 @@ export const setEditorFocus = (editorHasFocus: boolean) =>
     },
   });
 
-export const setTableRef = (ref?: HTMLTableElement | null) =>
+export const setTableRef = (ref?: HTMLTableElement) =>
   createCommand(
     state => {
-      const tableRef = ref || undefined;
+      const tableRef = ref;
       const foundTable = findTable(state.selection);
       const tableNode = ref && foundTable ? foundTable.node : undefined;
       const tablePos = ref && foundTable ? foundTable.pos : undefined;

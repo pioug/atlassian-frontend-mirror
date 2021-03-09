@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/container-picker",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A container picker",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
     "@atlaskit/analytics": "^8.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/avatar": "^20.0.0",
-    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/select": "^13.2.0",
     "@babel/runtime": "^7.0.0",
     "uuid": "^3.1.0"
   },

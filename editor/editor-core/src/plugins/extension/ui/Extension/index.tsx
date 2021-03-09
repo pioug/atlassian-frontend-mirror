@@ -16,6 +16,7 @@ export interface Props {
   providerFactory?: ProviderFactory;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
+  allowReferentiality?: boolean;
 }
 
 export default class Extension extends Component<Props, any> {

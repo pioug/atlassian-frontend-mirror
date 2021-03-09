@@ -3,24 +3,20 @@ import {
   MediaClient,
   FileState,
   isErrorFileState,
+  request,
 } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
-import ErrorMessage, {
-  createError,
-  MediaViewerError,
-  ErrorName,
-} from '../../error';
+import { MediaViewerError } from '../../errors';
 import { Spinner } from '../../loading';
 import { Props as RendererProps } from './codeViewerRenderer';
 import { BaseViewer } from '../base-viewer';
 import { DEFAULT_LANGUAGE } from './util';
 import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
 import { msgToText } from './msg-parser';
-import { getErrorName } from '@atlaskit/media-client';
 
 const moduleLoader = () =>
   import(
-    /* webpackChunkName: "@atlaskit-internal_media-viewer-code-viewer" */ './codeViewerRenderer'
+    /* webpackChunkName: "@atlaskit-internal_media-code-viewer" */ './codeViewerRenderer'
   );
 
 const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
@@ -31,20 +27,16 @@ export type Props = {
   item: FileState;
   collectionName?: string;
   onClose?: () => void;
-  onError?: (error: Error) => void;
-  onSuccess?: () => void;
+  onError: (error: Error) => void;
+  onSuccess: () => void;
 };
 
 export class CodeViewer extends BaseViewer<string, Props> {
   static CodeViewerComponent: ComponentClass<RendererProps>;
 
-  private renderError(errorName: ErrorName) {
-    return <ErrorMessage error={createError(errorName)} />;
-  }
-
   protected get initialState() {
     return {
-      content: Outcome.pending<string, MediaViewerError>(),
+      content: Outcome.pending<string, Error>(),
     };
   }
 
@@ -60,10 +52,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
           item.id,
           collectionName,
         );
-        const response = await fetch(downloadUrl);
-        if (response.status !== 200) {
-          throw new Error(`Server returned ${response.status} status`);
-        }
+        const response = await request(downloadUrl);
         const ext = getExtension(item.name);
 
         // Pass through EmailViewer logic
@@ -77,11 +66,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
               content: Outcome.successful(src),
             });
           } else {
-            //email contents could not be parsed
-            this.setState({
-              content: Outcome.failed(createError('previewFailed')),
-            });
-            return this.renderError('previewFailed');
+            throw new MediaViewerError('codeviewer-parse-email');
           }
         } else {
           const src = await response.text();
@@ -90,18 +75,16 @@ export class CodeViewer extends BaseViewer<string, Props> {
             content: Outcome.successful(src),
           });
         }
-      } catch (err) {
+      } catch (error) {
+        const codeViewerError = new MediaViewerError(
+          'codeviewer-fetch-src',
+          error,
+        );
         this.setState({
-          content: Outcome.failed(
-            createError(
-              getErrorName(err, 'previewFailed') as ErrorName,
-              err,
-              item,
-            ),
-          ),
+          content: Outcome.failed(codeViewerError),
         });
         if (onError) {
-          onError(err);
+          onError(codeViewerError);
         }
       }
     }
@@ -122,7 +105,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
   protected release() {}
 
   protected renderSuccessful(content: string) {
-    const { onClose, onSuccess, onError } = this.props;
+    const { item, onClose, onSuccess, onError } = this.props;
     const { CodeViewerComponent } = CodeViewer;
 
     if (!CodeViewerComponent) {
@@ -131,6 +114,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 
     return (
       <CodeViewerComponent
+        item={item}
         src={content}
         language={this.getCodeLanguage(this.props.item) || DEFAULT_LANGUAGE}
         onSuccess={onSuccess}

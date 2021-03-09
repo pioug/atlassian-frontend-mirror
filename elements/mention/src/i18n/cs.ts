@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Zavřít',
-  'fabric.elements.mentions.team.member.50plus': '50+ členů',
+  'fabric.elements.mentions.team.member.50plus': 'Tým • 50 a více členů',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50+ členů včetně vás',
+    'Tým • 50 a více členů včetně vás',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} člen} few {{0} členové} many {{0} člena} other {{0} členů}}',
+    '{0, plural, one {Tým • 1 člen} few {Tým • {0} členové} many {Tým • {0} člena} other {Tým • {0} členů}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} člen (včetně vás)} few {{0} členové (včetně vás)} many {{0} člena (včetně vás)} other {{0} členů (včetně vás)}}',
+    '{0, plural, one {Tým • 1 člen včetně vás} few {Tým • {0} členové včetně vás} many {Tým • {0} člena včetně vás} other {Tým • {0} členů včetně vás}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Informujte všechny jedním kliknutím. Nemáte tým?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

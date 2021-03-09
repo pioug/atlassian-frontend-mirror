@@ -10,12 +10,9 @@ import {
 import { MediaButton, messages } from '@atlaskit/media-ui';
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { channel } from './analytics';
-import {
-  downloadButtonEvent,
-  downloadErrorButtonEvent,
-} from './analytics/download';
-import { MediaViewerError } from './error';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
+import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadButtonWrapper } from './styled';
 
 const downloadIcon = <DownloadIcon label="Download" />;
@@ -38,7 +35,7 @@ export function DownloadButton({
       const clone = analyticsEvent.clone();
       if (clone) {
         clone.update(analyticspayload);
-        clone.fire(channel);
+        clone.fire(ANALYTICS_MEDIA_CHANNEL);
       }
       providedOnClick(event, analyticsEvent);
     },
@@ -59,16 +56,20 @@ export const createItemDownloader = (
 };
 
 export type ErrorViewDownloadButtonProps = {
-  state: FileState;
+  fileState: FileState;
   mediaClient: MediaClient;
-  err: MediaViewerError;
+  error: Error;
   collectionName?: string;
 };
 
 export const ErrorViewDownloadButton = (
   props: ErrorViewDownloadButtonProps,
 ) => {
-  const downloadEvent = downloadErrorButtonEvent(props.state, props.err);
+  const { fileState, error } = props;
+  const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(
+    fileState,
+    error,
+  );
   return (
     <DownloadButtonWrapper>
       <DownloadButton
@@ -76,7 +77,7 @@ export const ErrorViewDownloadButton = (
         analyticspayload={downloadEvent}
         appearance="primary"
         onClick={createItemDownloader(
-          props.state,
+          props.fileState,
           props.mediaClient,
           props.collectionName,
         )}
@@ -95,7 +96,7 @@ export type ToolbarDownloadButtonProps = {
 
 export const ToolbarDownloadButton = (props: ToolbarDownloadButtonProps) => {
   const { state, mediaClient, identifier } = props;
-  const downloadEvent = downloadButtonEvent(state);
+  const downloadEvent = createDownloadButtonClickedEvent(state);
 
   // TODO [MS-1731]: make it work for external files as well
   if (isExternalImageIdentifier(identifier)) {

@@ -1,5 +1,12 @@
 # @atlaskit/global-search
 
+## 13.0.10
+
+### Patch Changes
+
+- [`8d6a82191ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d6a82191ab) - Removes unused props from icon usage.
+- Updated dependencies
+
 ## 13.0.9
 
 ### Patch Changes

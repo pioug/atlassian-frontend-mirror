@@ -8,6 +8,7 @@ import { snapshot, initRendererWithADF, ViewPortOptions } from './_utils';
 import * as cardXSSADF from '../__fixtures__/card-xss.adf.json';
 import * as cardAdf from '../__fixtures__/card.adf.json';
 import * as cardAdfBlock from '../__fixtures__/card.adf.block.json';
+import * as cardAdfRequestAccess from '../__fixtures__/card-request-access.adf.json';
 
 import {
   waitForResolvedInlineCard,
@@ -92,6 +93,18 @@ describe('Snapshot Test: Cards', () => {
     await waitForResolvedBlockCard(page);
     await openPreviewState(page);
     await waitForPreviewState(page);
+  });
+
+  it('displays request access forbidden links with correct appearance', async () => {
+    await initRenderer(page, cardAdfRequestAccess, {
+      width: 800,
+      height: 5000,
+    });
+
+    await waitForResolvedInlineCard(page, 'forbidden');
+    await waitForResolvedBlockCard(page, 'forbidden');
+    await waitForResolvedEmbedCard(page, 'forbidden');
+    await waitForLoadedImageElements(page, 3000);
   });
 
   it.each(embedCombinationsWithTitle)(

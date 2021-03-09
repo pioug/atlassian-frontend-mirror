@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/custom-theme-button';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
 
 import {
   Spotlight,
@@ -94,6 +95,13 @@ export default class SpotlightDialogPlacementExample extends Component<
           <SpotlightTransition>
             {placement ? (
               <Spotlight
+                headingAfterElement={
+                  <Button
+                    onClick={this.finish}
+                    iconBefore={<CrossIcon label="Close" />}
+                    appearance="subtle"
+                  />
+                }
                 actions={[{ onClick: this.finish, text: 'Done' }]}
                 dialogPlacement={placement as Placement}
                 dialogWidth={300}

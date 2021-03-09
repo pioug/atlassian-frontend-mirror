@@ -45,6 +45,7 @@ describe('ToolbarLists', () => {
       editorProps: {
         allowAnalyticsGASV3: true,
         allowTasksAndDecisions: true,
+        UNSAFE_predictableLists: false,
       },
       pluginKey,
       createAnalyticsEvent: createAnalyticsEvent as any,

@@ -6,9 +6,8 @@ import Button from '@atlaskit/button/custom-theme-button';
 import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
 
 import RightNavigator from '../../../../components/Navigators/RightNavigator';
-import { name } from '../../../../version.json';
 
-describe(`${name} - RightNavigator`, () => {
+describe('@atlaskit/pagination - RightNavigator', () => {
   it('default props', () => {
     const wrapper = mount(<RightNavigator />);
     expect(wrapper.find(Button).prop('aria-label')).toBe('next');

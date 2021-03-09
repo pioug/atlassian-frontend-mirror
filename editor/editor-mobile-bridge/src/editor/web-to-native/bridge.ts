@@ -1,6 +1,7 @@
 import { Serialized } from '../../types';
 import { Color as StatusColor } from '@atlaskit/status/element';
 import { CollabAnalyticsEvents } from '../../analytics/collab';
+import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
 export default interface NativeBridge
   extends MentionBridge,
     TextFormattingBridge,
@@ -87,6 +88,7 @@ export interface TypeAheadBridge {
   dismissTypeAhead(): void;
   typeAheadQuery(query: string, trigger: string): void;
   typeAheadDisplayItems(query: string, trigger: string, items: string): void;
+  typeAheadItemSelected(quickInsertItem: Serialized<QuickInsertItem>): void;
 }
 
 export interface LinkBridge {

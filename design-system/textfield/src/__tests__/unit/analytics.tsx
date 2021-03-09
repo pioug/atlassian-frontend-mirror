@@ -5,16 +5,12 @@ import { fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import Textfield from '../../index';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 
 const noop = () => {};
 const attributes = {
   componentName: 'textField',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 describe('Textfield analytics', () => {

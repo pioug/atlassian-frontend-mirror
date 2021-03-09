@@ -27,7 +27,6 @@ describe('lists plugin -> quick insert', () => {
         appearance: 'full-page',
         allowAnalyticsGASV3: true,
         quickInsert: true,
-        UNSAFE_predictableLists: true,
       },
       createAnalyticsEvent,
       pluginKey,

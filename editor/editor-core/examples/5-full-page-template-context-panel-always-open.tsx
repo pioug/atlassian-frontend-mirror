@@ -113,7 +113,7 @@ class TemplatePanel extends React.Component<
 
   render() {
     return (
-      <ContextPanel visible={true} width={280}>
+      <ContextPanel visible={true}>
         <div>
           {templates.map((tmpl, idx) => (
             <TemplateCard key={idx} onClick={() => this.selectTemplate(tmpl)}>

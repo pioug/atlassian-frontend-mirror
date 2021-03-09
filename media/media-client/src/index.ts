@@ -1,4 +1,8 @@
-export { MediaStore } from './client/media-store';
+export {
+  MediaStore,
+  MediaStoreError,
+  isMediaStoreError,
+} from './client/media-store';
 export type {
   ResponseFileItem,
   ItemsPayload,
@@ -24,6 +28,8 @@ export type {
   CreatedTouchedFile,
   TouchedFiles,
   EmptyFile,
+  MediaStoreErrorReason,
+  MediaStoreErrorAttributes,
 } from './client/media-store';
 
 export { UploadController } from './upload-controller';
@@ -60,18 +66,11 @@ export type {
 export { getArtifactUrl } from './models/artifacts';
 export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
 
-export {
-  BaseMediaClientError,
-  FileFetcherError,
-  isFileFetcherError,
-  MediaStoreError,
-  isMediaStoreError,
-} from './models/errors';
+export { isMediaClientError, getMediaClientErrorReason } from './models/errors';
 export type {
-  FileFetcherErrorAttributes,
-  FileFetcherErrorReason,
-  MediaStoreErrorAttributes,
-  MediaStoreErrorReason,
+  MediaClientError,
+  MediaClientErrorReason,
+  MediaClientErrorAttributes,
 } from './models/errors';
 
 export {
@@ -110,13 +109,19 @@ export type {
   UploadFileResult,
 } from './uploader';
 
-export { request } from './utils/request';
 export {
-  isRequestError,
+  request,
   RequestError,
+  isRequestError,
   isRateLimitedError,
-  getErrorName,
-} from './utils/request/errors';
+} from './utils/request';
+
+export type {
+  RequestErrorReason,
+  RequestErrorMetadata,
+  RequestErrorAttributes,
+} from './utils/request';
+
 export {
   isAbortedRequestError,
   mapResponseToJson,
@@ -140,20 +145,25 @@ export type {
   RetryOptions,
   ClientOptions,
   RequestOptions,
-  RequestErrorAttributes,
   CreateUrlOptions,
-  RequestErrorReason,
 } from './utils/request/types';
 
 export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
 
-export { FileFetcherImpl } from './client/file-fetcher';
+export {
+  FileFetcherImpl,
+  FileFetcherError,
+  isFileFetcherError,
+} from './client/file-fetcher';
 export type {
   CopySourceFile,
   CopyDestination,
   CopyFileOptions,
   FileFetcher,
+  FileFetcherErrorAttributes,
+  FileFetcherErrorReason,
 } from './client/file-fetcher';
+
 export { CollectionFetcher } from './client/collection-fetcher';
 export { MediaClient } from './client/media-client';
 export { StargateClient } from './client/stargate-client';

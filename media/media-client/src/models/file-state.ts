@@ -1,3 +1,4 @@
+import { FileStatus as CommonFileStatus } from '@atlaskit/media-common';
 import { MediaStoreResponse } from '../client/media-store';
 import { MediaFileArtifacts } from './artifacts';
 import {
@@ -7,12 +8,7 @@ import {
   MediaType,
 } from './media';
 
-export type FileStatus =
-  | 'uploading'
-  | 'processing'
-  | 'processed'
-  | 'error'
-  | 'failed-processing';
+export type FileStatus = CommonFileStatus;
 
 export interface FilePreview {
   value: Blob | string;

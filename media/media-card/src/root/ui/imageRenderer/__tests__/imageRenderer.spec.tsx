@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow, mount, ShallowWrapper } from 'enzyme';
 import {
   ImageRenderer,
-  ImageRendererWithoutAnalytics,
+  ImageRendererBase,
   resizeModeToMediaImageProps,
 } from '../imageRenderer';
 import { MediaType, MediaItemType } from '@atlaskit/media-client';
+import { FileAttributes } from '@atlaskit/media-common';
 import { MediaImage } from '@atlaskit/media-ui';
-import { AnalyticsLoadingFailReason } from '../../../../utils/analytics';
 
 const onDisplayImage = jest.fn();
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
@@ -35,7 +35,7 @@ describe('ImageRenderer', () => {
       />,
     );
 
-    expect(component.find(ImageRendererWithoutAnalytics)).toHaveLength(1);
+    expect(component.find(ImageRendererBase)).toHaveLength(1);
     const mediaImage = component.find(MediaImage);
     expect(mediaImage).toHaveLength(1);
     expect(mediaImage.props()).toMatchObject({
@@ -60,10 +60,18 @@ describe('ImageRenderer', () => {
   });
 
   it('Should fire succeeded event on image load', () => {
+    const fileAttributes: FileAttributes = {
+      fileId: 'some-id',
+      fileSize: 10,
+      fileMediatype: 'image',
+      fileMimetype: 'image/png',
+      fileStatus: 'processed',
+    };
+
     const fire = jest.fn();
     const createAnalyticsEvent = jest.fn().mockReturnValue({ fire });
     const component = shallow(
-      <ImageRendererWithoutAnalytics
+      <ImageRendererBase
         mediaType="image"
         mediaItemType="file"
         dataURI="some-data"
@@ -71,6 +79,7 @@ describe('ImageRenderer', () => {
         previewOrientation={6}
         alt="this is a test"
         createAnalyticsEvent={createAnalyticsEvent}
+        fileAttributes={fileAttributes} // This is needed to fire the event
       />,
     );
     const mediaImage = component.find(MediaImage);
@@ -86,12 +95,23 @@ describe('ImageRenderer', () => {
   });
 
   describe('onImageError', () => {
-    const shallowImageRenderer = (mediaItemType: MediaItemType = 'file') => {
+    const fileAttributes: FileAttributes = {
+      fileId: 'some-id',
+      fileSize: 10,
+      fileMediatype: 'image',
+      fileMimetype: 'image/png',
+      fileStatus: 'processed',
+    };
+
+    const shallowImageRenderer = (
+      mediaItemType: MediaItemType = 'file',
+      overrideFileAttributes: Partial<FileAttributes> = {},
+    ) => {
       const onImageErrorProp = jest.fn();
       const fire = jest.fn();
       const createAnalyticsEvent = jest.fn().mockReturnValue({ fire });
       const component = shallow(
-        <ImageRendererWithoutAnalytics
+        <ImageRendererBase
           mediaType="image"
           mediaItemType={mediaItemType}
           dataURI="some-data"
@@ -100,6 +120,7 @@ describe('ImageRenderer', () => {
           alt="this is a test"
           createAnalyticsEvent={createAnalyticsEvent}
           onImageError={onImageErrorProp}
+          fileAttributes={{ ...fileAttributes, ...overrideFileAttributes }} // This is needed to fire analytics events
         />,
       );
       return { component, onImageErrorProp, createAnalyticsEvent, fire };
@@ -126,7 +147,7 @@ describe('ImageRenderer', () => {
       expect(onImageErrorProp).toBeCalledTimes(1);
     });
 
-    it('Should fire failed event when file dataURI fails to load', () => {
+    it('Should fire failed event when remote preview dataURI fails to load', () => {
       const { component, createAnalyticsEvent, fire } = shallowImageRenderer();
       triggerError(component);
       expect(createAnalyticsEvent).toBeCalledTimes(1);
@@ -134,14 +155,34 @@ describe('ImageRenderer', () => {
         expect.objectContaining({
           action: 'failed',
           attributes: expect.objectContaining({
-            failReason: AnalyticsLoadingFailReason.FILE_URI,
+            failReason: 'remote-uri',
           }),
         }),
       );
       expect(fire).toBeCalledTimes(1);
     });
 
-    it('Should fire failed event when dataURI fails to load', () => {
+    it('Should fire failed event when local preview dataURI fails to load', () => {
+      // We pass 'uploading' file status as the withFileAttributes HOC would pass it
+      const {
+        component,
+        createAnalyticsEvent,
+        fire,
+      } = shallowImageRenderer(undefined, { fileStatus: 'uploading' });
+      triggerError(component);
+      expect(createAnalyticsEvent).toBeCalledTimes(1);
+      expect(createAnalyticsEvent).toBeCalledWith(
+        expect.objectContaining({
+          action: 'failed',
+          attributes: expect.objectContaining({
+            failReason: 'local-uri',
+          }),
+        }),
+      );
+      expect(fire).toBeCalledTimes(1);
+    });
+
+    it('Should fire failed event when external image dataURI fails to load', () => {
       const { component, createAnalyticsEvent, fire } = shallowImageRenderer(
         'external-image',
       );
@@ -151,7 +192,7 @@ describe('ImageRenderer', () => {
         expect.objectContaining({
           action: 'failed',
           attributes: expect.objectContaining({
-            failReason: AnalyticsLoadingFailReason.EXTERNAL_FILE_URI,
+            failReason: 'external-uri',
           }),
         }),
       );
@@ -176,7 +217,7 @@ describe('ImageRenderer', () => {
   nonImageMediaTypes.forEach(mediaType => {
     it(`should not call onDisplayImage when mediaType is ${mediaType}`, () => {
       shallow(
-        <ImageRendererWithoutAnalytics
+        <ImageRendererBase
           mediaType={mediaType}
           mediaItemType="file"
           dataURI="some-data"

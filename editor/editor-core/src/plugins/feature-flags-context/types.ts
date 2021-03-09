@@ -122,7 +122,7 @@ export type FeatureFlags = {
    * Enable new list behaviors
    *
    * @see https://product-fabric.atlassian.net/browse/ED-9438
-   * @default false
+   * @default true
    */
   predictableLists?: boolean;
 
@@ -187,6 +187,24 @@ export type FeatureFlags = {
    * @default false
    */
   tableRenderOptimization?: boolean;
+
+  /**
+   * @decsription
+   * Enables optional code syntax highlighting for code-block nodes
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-10368
+   * @default false
+   */
+  codeBlockSyntaxHighlighting?: boolean;
+
+  /**
+   * @description
+   * Yield to user interaction work before sending analytics
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-10584
+   * @default false
+   */
+  queueAnalytics?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 15.0.1
+
+### Patch Changes
+
+- [`845dee52a4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845dee52a4a) - [ux] Adds additional request access metadata to forbidden urls if avalible
+- [`8d6a82191ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d6a82191ab) - Removes unused props from icon usage.
+- [`695ce4fe717`](https://bitbucket.org/atlassian/atlassian-frontend/commits/695ce4fe717) - Adds additional request access metadata to forbidden urls if avalible
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

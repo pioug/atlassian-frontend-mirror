@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-dialog",
-  "version": "13.0.9",
+  "version": "13.0.10",
   "description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,8 +39,8 @@
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/datetime-picker": "^10.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/icon": "^21.4.0",
+    "@atlaskit/select": "^13.2.0",
     "@atlaskit/single-select": "^10.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

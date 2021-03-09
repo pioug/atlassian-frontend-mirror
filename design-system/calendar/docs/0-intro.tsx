@@ -61,9 +61,4 @@ export type SelectEvent = {
   iso: string;
 } & DateObj;
 \`\`\`
-
-### ⚠️ CalendarInternalRef:
-A type of an additional Calendar ref which exposes internal api's.
-Some consumers are storing this ref and calling some internal api's.
-This is not recommended
 `;

@@ -1,4 +1,10 @@
-import React from 'react';
+import React, {
+  FunctionComponent,
+  useCallback,
+  ReactElement,
+  useRef,
+  useEffect,
+} from 'react';
 import memoizeOne from 'memoize-one';
 import {
   withAnalyticsContext,
@@ -7,7 +13,6 @@ import {
 } from '@atlaskit/analytics-next';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
-import isEmpty from 'lodash/isEmpty';
 
 import {
   FieldDefinition,
@@ -34,6 +39,7 @@ import { FormFooter } from '@atlaskit/form';
 
 import FormContent from './FormContent';
 import { messages } from './messages';
+import { OnBlur, ValidationErrors } from './types';
 
 function ConfigForm({
   canSave,
@@ -57,7 +63,7 @@ function ConfigForm({
   hasParsedParameters: boolean;
   isLoading: boolean;
   onCancel: () => void;
-  onFieldBlur: () => void;
+  onFieldBlur: OnBlur;
   parameters: Parameters;
   submitting: boolean;
 } & InjectedIntlProps) {
@@ -100,6 +106,42 @@ function ConfigForm({
 
 const ConfigFormIntl = injectIntl(ConfigForm);
 
+const WithOnFieldBlur: FunctionComponent<{
+  getState: () => { values: Parameters; errors: Record<string, any> };
+  autoSave: boolean;
+  handleSubmit: (parameters: Parameters) => void;
+  children: (onFieldBlur: OnBlur) => ReactElement;
+}> = ({ getState, autoSave, handleSubmit, children }) => {
+  const getStateRef = useRef<
+    () => { values: Parameters; errors: ValidationErrors }
+  >(getState);
+
+  useEffect(() => {
+    getStateRef.current = getState;
+  }, [getState]);
+
+  const handleFieldBlur = useCallback(() => {
+    if (!autoSave) {
+      return;
+    }
+
+    const { errors, values } = getStateRef.current();
+
+    // Get only values that does not contain errors
+    const validValues: Parameters = {};
+    for (const key of Object.keys(values)) {
+      if (!errors[key]) {
+        // not has error
+        validValues[key] = values[key];
+      }
+    }
+
+    handleSubmit(validValues);
+  }, [autoSave, handleSubmit]);
+
+  return children(handleFieldBlur);
+};
+
 type Props = {
   extensionManifest?: ExtensionManifest;
   fields?: FieldDefinition[];
@@ -121,7 +163,7 @@ type State = {
 };
 
 class ConfigPanel extends React.Component<Props, State> {
-  onFieldBlur: (() => void) | null;
+  onFieldBlur: OnBlur | null;
 
   constructor(props: Props) {
     super(props);
@@ -182,7 +224,7 @@ class ConfigPanel extends React.Component<Props, State> {
 
     if (prevProps.autoSaveTrigger !== autoSaveTrigger) {
       if (this.onFieldBlur) {
-        this.onFieldBlur();
+        this.onFieldBlur('');
       }
     }
   }
@@ -193,7 +235,7 @@ class ConfigPanel extends React.Component<Props, State> {
     }
   };
 
-  handleSubmit = async (formData: FormData) => {
+  handleSubmit = async (formData: Parameters) => {
     const { fields, extensionManifest, onChange } = this.props;
     if (!extensionManifest || !fields) {
       return;
@@ -314,43 +356,39 @@ class ConfigPanel extends React.Component<Props, State> {
     return (
       <Form onSubmit={handleSubmit}>
         {({ formProps, getState, submitting }) => {
-          function onFieldBlur() {
-            if (!autoSave) {
-              return;
-            }
-
-            // dont submit if validation failed
-            const { errors, values } = getState();
-            if (!isEmpty(errors)) {
-              return;
-            }
-
-            handleSubmit(values);
-          }
-
-          this.onFieldBlur = onFieldBlur;
           return (
-            <form
-              {...formProps}
-              noValidate
-              onKeyDown={handleKeyDown}
-              data-testid="extension-config-panel"
+            <WithOnFieldBlur
+              autoSave={!!autoSave}
+              getState={getState}
+              handleSubmit={handleSubmit}
             >
-              {this.renderHeader(extensionManifest)}
-              <ConfigFormIntl
-                canSave={!autoSave}
-                errorMessage={errorMessage}
-                extensionManifest={extensionManifest}
-                fields={fields}
-                firstVisibleFieldName={firstVisibleFieldName}
-                hasParsedParameters={hasParsedParameters}
-                isLoading={isLoading || false}
-                onCancel={onCancel}
-                onFieldBlur={onFieldBlur}
-                parameters={currentParameters}
-                submitting={submitting}
-              />
-            </form>
+              {onFieldBlur => {
+                this.onFieldBlur = onFieldBlur;
+                return (
+                  <form
+                    {...formProps}
+                    noValidate
+                    onKeyDown={handleKeyDown}
+                    data-testid="extension-config-panel"
+                  >
+                    {this.renderHeader(extensionManifest)}
+                    <ConfigFormIntl
+                      canSave={!autoSave}
+                      errorMessage={errorMessage}
+                      extensionManifest={extensionManifest}
+                      fields={fields}
+                      firstVisibleFieldName={firstVisibleFieldName}
+                      hasParsedParameters={hasParsedParameters}
+                      isLoading={isLoading || false}
+                      onCancel={onCancel}
+                      onFieldBlur={onFieldBlur}
+                      parameters={currentParameters}
+                      submitting={submitting}
+                    />
+                  </form>
+                );
+              }}
+            </WithOnFieldBlur>
           );
         }}
       </Form>

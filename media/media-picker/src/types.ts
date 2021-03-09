@@ -1,8 +1,21 @@
 import { MediaClient } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+
+import {
+  MediaFeatureFlags,
+  UIAttributes,
+  UIEventPayload,
+  ScreenAttributes,
+  ScreenEventPayload,
+  OperationalAttributes,
+  SuccessAttributes,
+  FailureAttributes,
+  OperationalEventPayload,
+} from '@atlaskit/media-common';
+
 import { UploadEventEmitter } from './components/component';
 import { LocalUploadConfig } from './components/types';
 import { AppProxyReactContext } from './popup/components/app';
+import { FileReference } from './popup/domain';
 import { EventEmitter } from './util/eventEmitter';
 import { MediaPickerPlugin, PluginItemPayload } from './domain/plugin';
 
@@ -98,6 +111,8 @@ export type PopupUploadEventPayloadMap = UploadEventPayloadMap & {
   readonly closed: undefined;
 };
 
+// Error types
+
 export type MediaErrorName =
   | 'object_create_fail'
   | 'metadata_fetch_fail'
@@ -112,6 +127,148 @@ export type MediaError = {
   readonly fileId?: string;
   readonly name: MediaErrorName;
   readonly description: string;
+  readonly rawError?: Error;
 };
+
 export type { MediaPickerPlugin, PluginItemPayload } from './domain/plugin';
 export type { DropzoneDragEnterEventPayload } from './components/types';
+
+// Analytics types
+
+// UI Events...
+
+export type ButtonClickedPayload = UIEventPayload<
+  UIAttributes & {
+    fileId?: string;
+    fileCount?: number;
+    collectionName?: string;
+    cloudType?: string;
+    serviceNames?: string[];
+    files?: Array<{
+      serviceName: string;
+      accountId?: string;
+      fileId: string;
+      fileMimetype: string;
+      fileSize: number;
+      fileAge?: string;
+    }>;
+  },
+  'clicked',
+  'button'
+>;
+
+export type ClipboardPastePayload = UIEventPayload<
+  UIAttributes & {
+    fileCount?: number;
+    fileAttributes: Array<{
+      fileMimetype: string;
+      fileSize: number;
+    }>;
+  },
+  'pasted',
+  'clipboard'
+>;
+
+export type DropzoneEventAction =
+  | 'draggedOut'
+  | 'draggedInto'
+  | 'droppedInto'
+  | 'folderDroppedInto';
+
+export type DropzoneEventPayload = UIEventPayload<
+  UIAttributes & { fileCount: number },
+  DropzoneEventAction,
+  'dropzone'
+>;
+
+//  Screen Events...
+
+export type MediaPickerModalPayload = ScreenEventPayload<
+  ScreenAttributes,
+  'mediaPickerModal'
+>;
+
+export type RecentFilesBrowserModalPayload = ScreenEventPayload<
+  ScreenAttributes,
+  'recentFilesBrowserModal'
+>;
+
+export type CloudBrowserModal = ScreenEventPayload<
+  ScreenAttributes & { cloudType: string },
+  'cloudBrowserModal'
+>;
+
+export type LocalFileBrowserModalPayload = ScreenEventPayload<
+  ScreenAttributes,
+  'localFileBrowserModal'
+>;
+
+export type FileEditorModalPayload = ScreenEventPayload<
+  ScreenAttributes & {
+    imageUrl?: string;
+    originalFile?: FileReference;
+  },
+  'fileEditorModal'
+>;
+
+// Operational Events...
+
+export type MediaUploadType = 'localMedia' | 'cloudMedia';
+export type MediaUploadSource = 'local' | 'cloud';
+
+export type MediaUploadCommencedPayload = OperationalEventPayload<
+  OperationalAttributes & {
+    sourceType: MediaUploadSource;
+    serviceName: string;
+  },
+  'commenced',
+  'mediaUpload',
+  MediaUploadType
+>;
+
+export type MediaUploadSuccessPayload = OperationalEventPayload<
+  OperationalAttributes &
+    SuccessAttributes & {
+      sourceType: MediaUploadSource;
+      serviceName: string;
+      uploadDurationMsec: number;
+    },
+  'succeeded',
+  'mediaUpload',
+  MediaUploadType
+>;
+
+export type MediaUploadFailurePayload = OperationalEventPayload<
+  OperationalAttributes &
+    FailureAttributes & {
+      sourceType: MediaUploadSource;
+      serviceName: string;
+      uploadDurationMsec: number;
+    },
+  'failed',
+  'mediaUpload',
+  MediaUploadType
+>;
+
+export type UnhandledErrorPayload = OperationalEventPayload<
+  OperationalAttributes &
+    FailureAttributes & {
+      browserInfo: string;
+      info?: string;
+    },
+  'unhandledError',
+  'error'
+>;
+
+export type AnalyticsEventPayload =
+  | ButtonClickedPayload
+  | ClipboardPastePayload
+  | MediaPickerModalPayload
+  | RecentFilesBrowserModalPayload
+  | LocalFileBrowserModalPayload
+  | CloudBrowserModal
+  | FileEditorModalPayload
+  | MediaUploadCommencedPayload
+  | MediaUploadSuccessPayload
+  | MediaUploadFailurePayload
+  | UnhandledErrorPayload;

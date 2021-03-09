@@ -20,7 +20,6 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         UNSAFE_cards: {},
       },
     });
-    const onBlur = jest.fn();
     const onSubmit = jest.fn();
     const providerFactory = ProviderFactory.create({
       activityProvider: activityProviderMock,
@@ -34,13 +33,11 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         providerFactory={providerFactory}
         displayText={'some-display-text'}
         displayUrl={'some-display-url'}
-        onBlur={onBlur}
         onSubmit={onSubmit}
       />,
     );
     expectToEqual(component.find(HyperlinkAddToolbar).props(), {
       onSubmit,
-      onBlur,
       displayUrl: 'some-display-url',
       displayText: 'some-display-text',
       activityProvider: activityProviderMock,

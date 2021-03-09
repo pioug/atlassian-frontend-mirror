@@ -1,4 +1,5 @@
-jest.mock('socket.io-client');
+import '../../jest_mocks/socket.io-client.mock';
+
 jest.mock('@atlaskit/util-service-support', () => {
   return {
     utils: {

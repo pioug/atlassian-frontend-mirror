@@ -1,5 +1,8 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { DEFAULT_SOURCE, GasPayload } from '@atlaskit/analytics-gas-types';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import merge from 'lodash/merge';
+import last from 'lodash/last';
 
 import {
   getPackageHierarchy,
@@ -9,11 +12,7 @@ import {
   extractFromEventContext,
   getExtraAttributes,
 } from '../atlaskit/extract-data-from-event';
-import merge from 'lodash/merge';
-import last from 'lodash/last';
 import { version as listenerVersion } from '../version.json';
-
-const MEDIA_CONTEXT = 'mediaCtx';
 
 function getMediaContexts(event: UIAnalyticsEvent) {
   return extractFromEventContext(MEDIA_CONTEXT, event);
@@ -50,6 +49,8 @@ export function processEvent(event: UIAnalyticsEvent): GasPayload {
     action: event.payload.action,
     eventType: event.payload.eventType,
     actionSubjectId: event.payload.actionSubjectId,
+    // for backward compatibilty
+    name: event.payload.name,
     tags: Array.from(tags),
     attributes: {
       packageName,

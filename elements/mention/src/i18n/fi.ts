@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Hylkää',
-  'fabric.elements.mentions.team.member.50plus': '50+ jäsentä',
+  'fabric.elements.mentions.team.member.50plus': 'Tiimi • 50+ jäsentä',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50+ jäsentä, mukaan lukien sinut',
+    'Tiimi • 50+ jäsentä sinä mukaan lukien',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} jäsen} other {{0} jäsentä}}',
+    '{0, plural, one {Tiimi • 1 jäsen} other {Tiimi • {0} jäsentä}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} jäsen, mukaan luettuna sinä} other {{0} jäsentä, mukaan luettuna sinä}}',
+    '{0, plural, one {Tiimi • 1 jäsen sinä mukaan lukien} other {Tiimi • {0} jäsentä sinä mukaan lukien}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Saa kaikki sivulle yhdellä napsautuksella. Eikö sinulla ole tiimiä?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

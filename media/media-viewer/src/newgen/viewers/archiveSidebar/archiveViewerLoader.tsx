@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArchiveViewerProps } from './types';
-import ErrorMessage, { createError } from '../../error';
+import ErrorMessage from '../../errorMessage';
+import { MediaViewerError } from '../../errors';
 import { DN30 } from '@atlaskit/theme/colors';
 import ModalSpinner from '@atlaskit/media-ui/modalSpinner';
 
@@ -21,7 +22,7 @@ export default class ArchiveViewerLoader extends React.PureComponent<
     if (!this.state.ArchiveViewer) {
       try {
         const archive = await import(
-          /* webpackChunkName:"archive-viewer" */ './archive'
+          /* webpackChunkName: "@atlaskit-internal_archive-viewer" */ './archive'
         );
         ArchiveViewerLoader.ArchiveViewer = archive.ArchiveViewer;
 
@@ -36,9 +37,16 @@ export default class ArchiveViewerLoader extends React.PureComponent<
 
   render() {
     const { ArchiveViewer, isErrored } = this.state;
+    const { item } = this.props;
 
     if (isErrored) {
-      return <ErrorMessage error={createError('previewFailed')} />;
+      return (
+        <ErrorMessage
+          fileId={item.id}
+          fileState={item}
+          error={new MediaViewerError('archiveviewer-bundle-loader')}
+        />
+      );
     }
     if (ArchiveViewer) {
       return <ArchiveViewer {...this.props} />;

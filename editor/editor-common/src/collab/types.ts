@@ -14,6 +14,7 @@ export interface CollabEventInitData {
   json?: any;
   version?: number;
   sid?: string;
+  reserveCursor?: boolean;
 }
 
 export interface CollabEventRemoteData {

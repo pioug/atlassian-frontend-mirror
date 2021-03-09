@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Ignora',
-  'fabric.elements.mentions.team.member.50plus': 'Più di 50 membri',
+  'fabric.elements.mentions.team.member.50plus': 'Team • 50+ membri',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    'Più di 50 membri, incluso te',
+    'Team • 50+ membri, te compreso',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} membro} other {{0} membri}}',
+    '{0, plural, one {Team • 1 membro} other {Team • {0} membri}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} membro, tu incluso} other {{0} membri, tu incluso}}',
+    '{0, plural, one {Team • 1 membro, te compreso} other {Team • {0} membri, te compreso}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Mantieni tutti allineati: basta un clic. Nessun team?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

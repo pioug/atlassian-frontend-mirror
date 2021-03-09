@@ -7,17 +7,15 @@ export type Props = {
   onError: () => void;
 };
 
-type State = 'error' | 'success';
+let _hasError = false;
 
-let _state: State = 'error';
-
-export const setState = (state: State) => {
-  _state = state;
+export const setHasError = (hasError: boolean) => {
+  _hasError = hasError;
 };
 
 export class InteractiveImg extends React.Component<Props, {}> {
   componentDidMount() {
-    if (_state === 'error') {
+    if (_hasError) {
       this.props.onError();
     } else {
       this.props.onLoad();

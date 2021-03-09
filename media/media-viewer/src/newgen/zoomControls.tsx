@@ -9,8 +9,9 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { channel } from './analytics';
-import { ZoomControlsGasPayload, createZoomEvent } from './analytics/zoom';
+import { fireAnalytics } from './analytics/';
+import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
+import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 
@@ -28,7 +29,7 @@ export class ZoomControlsBase extends Component<
     const { onChange, zoomLevel } = this.props;
     if (zoomLevel.canZoomIn) {
       const zoom = zoomLevel.zoomIn();
-      this.fireAnalytics(createZoomEvent('zoomIn', zoom.value));
+      fireAnalytics(createZoomInButtonClickEvent(zoom.value), this.props);
       onChange(zoom);
     }
   };
@@ -37,7 +38,7 @@ export class ZoomControlsBase extends Component<
     const { onChange, zoomLevel } = this.props;
     if (zoomLevel.canZoomOut) {
       const zoom = zoomLevel.zoomOut();
-      this.fireAnalytics(createZoomEvent('zoomOut', zoom.value));
+      fireAnalytics(createZoomOutButtonClickedEvent(zoom.value), this.props);
       onChange(zoom);
     }
   };
@@ -68,14 +69,6 @@ export class ZoomControlsBase extends Component<
       </ZoomWrapper>
     );
   }
-
-  private fireAnalytics = (payload: ZoomControlsGasPayload) => {
-    const { createAnalyticsEvent } = this.props;
-    if (createAnalyticsEvent) {
-      const ev = createAnalyticsEvent(payload);
-      ev.fire(channel);
-    }
-  };
 }
 
 export const ZoomControls = withAnalyticsEvents({})(

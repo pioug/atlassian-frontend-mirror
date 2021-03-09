@@ -1,25 +1,32 @@
 import { Action } from 'redux';
+
 import { isChangeServiceAction } from '../../actions/changeService';
-import { buttonClickPayload, HandlerResult } from '.';
-import { SCREEN_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+import { HandlerResult } from '.';
 
 export default (action: Action): HandlerResult => {
   if (isChangeServiceAction(action)) {
     if (action.serviceName === 'upload') {
       return [
         {
-          ...buttonClickPayload,
+          eventType: 'ui',
+          action: 'clicked',
+          actionSubject: 'button',
           actionSubjectId: 'uploadButton',
+          attributes: {},
         },
         {
+          eventType: 'screen',
+          actionSubject: 'recentFilesBrowserModal',
           name: 'recentFilesBrowserModal',
-          eventType: SCREEN_EVENT_TYPE,
+          attributes: {},
         },
       ];
     } else {
       return [
         {
-          ...buttonClickPayload,
+          eventType: 'ui',
+          action: 'clicked',
+          actionSubject: 'button',
           actionSubjectId: 'cloudBrowserButton',
           attributes: {
             cloudType: action.serviceName,

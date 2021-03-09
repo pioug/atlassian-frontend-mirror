@@ -1,5 +1,78 @@
 # @atlaskit/editor-core
 
+## 139.0.0
+
+### Major Changes
+
+- [`511a91ad376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/511a91ad376) - [ux] ED-12128: Update Context Panel to use set width of 320px and remove 'width' prop.
+  Remove 'width' prop from the Context Panel component as we no longer allow dynamic panel width to enforce consistency.
+
+  All references to this component can safely remove the 'wdith' prop as it is no longer part of the component props.
+
+- [`007103b93e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/007103b93e6) - [ux] ED-11993 Change behaviour of context panel so it will not push content if there is enough space to slide out without overlapping.
+  Config panel will keep existing behaviour to push content if there isn't enough space to show without overlapping content. Also add width css transition to context panel content to mimic "slide in" animation.
+
+  Add new shared const of `akEditorFullWidthLayoutLineLength` which indicates the line length of a full-width editor
+
+### Minor Changes
+
+- [`7eb8204486b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7eb8204486b) - ED-11975 Fix bug with Element browser category scroll position in Firefox
+- [`5d37f7fc1f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d37f7fc1f9) - Revert ED-9960. UNSAFE_predictableLists no longer defaulted to enabled.
+- [`b74caaa43e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74caaa43e9) - add reserveCursor option to init event
+- [`f208fc35a7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f208fc35a7b) - ED-12172 Default `UNSAFE_predictableLists` to `true`
+- [`a815affb9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a815affb9b4) - [ux] ED-12038 Update Config Panel select component to have auto menu placement. This will position dropdown menu above the select input if there is not enough screen area to display below.
+- [`d90182b6aef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d90182b6aef) - ED-11837 Scroll Gutter is not been added in full editor
+- [`d33f17ed9b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d33f17ed9b6) - ED-11153: additionally map tti values in editor tti event to severity strings
+- [`be0bfb03f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be0bfb03f12) - [ux] Implement syntax highlighting in editor code-block
+- [`968f152ef42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/968f152ef42) - EDM-1673: use createMobileInlineDomRef for inline card when mobile appearance
+- [`d513d80af55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d513d80af55) - HyperLinktoolbar no longer takes onBlur and instead uses onSubmit to handle that case
+- [`eb554a9d489`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb554a9d489) - ED-12048 Implement save indicator for config panel
+- [`c675c4d9096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c675c4d9096) - ED-12087 Config Panel with autosave mode will partial save invalid form
+- [`4b7d23a926b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b7d23a926b) - ED-12052 When the Scroll Gutter plugin has `pluginOptions.persistScrollGutter` enabled, the gutter element will now only added while the document has content (not empty).
+
+  > This option is typically used on mobile for the _Compact Editor_.
+
+- [`85cc08ec2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85cc08ec2e6) - [ED-11353] Adds the input method for undo/redo events
+
+  #Breaking Change
+
+  `adf-schema`
+
+  AnalyticsStep doesn't need the `handleAnalyticsEvent: HandleAnalyticsEvent<P>` anymore.
+  We are submitting the events using the editor-core plugin `analytics`. On this file:
+  `packages/editor/editor-core/src/plugins/analytics/plugin.ts`
+
+  This will fix a hard to catch bug where the events were being dispatched before the transaction being applied.
+  The transaction wasn't used, but the event was dispatched anyway, causing a data mismatch between user experience and actions.
+
+- [`adba8407160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adba8407160) - [ED-11355] Improve undo predictability by adding a closeHistory everytime a user do a paste
+
+### Patch Changes
+
+- [`88920076196`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88920076196) - ED-10584 yield to user interaction before sending analytics
+- [`e98bae588e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e98bae588e0) - NO-ISSUE pass through feature flags
+- [`efacd2da78f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efacd2da78f) - Add localId attribute on tables via "tableWithLocalId" node
+- [`aaf3ca1459d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aaf3ca1459d) - Fix calendar position compatibility issue with will-change style bug
+- [`3770eb71b69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3770eb71b69) - [ux] Fix inline code bug on German keyboards using isComposing keyboard events
+- [`8af9d636e29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8af9d636e29) - ED-12127 fixed flickering issue when hovering on numbered column with tableRender optimisation on
+- [`4f08f25ebfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f08f25ebfe) - NO-ISSUE pass through feature flags into renderer
+- [`178e91b75ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/178e91b75ad) - PL-AFDD-JOB1-158 Add translations for new messages
+- [`ea2749f4489`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea2749f4489) - ED-12050: fixed card plugin toolbar using a stale state during getDomRef()
+- [`2a2ecc1b6d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a2ecc1b6d5) - NO-ISSUE track code language changes
+- [`03b29863b31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03b29863b31) - ED-12185 fix sticky header not working after toggling header rows for table
+- [`7416411f8de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7416411f8de) - ED-12187 fix table sticky header flicker
+- [`c3e840d3d05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3e840d3d05) - [ux] ED-10865 Fix paste handler dropping paragraph content after list node on paste
+- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- [`d3e988ff4e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3e988ff4e1) - ED-11799 gracefully handle invalid position errors
+- [`b010a665e13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b010a665e13) - Bump socket IO to version 3 for collab provider
+- [`134e6ccab01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/134e6ccab01) - EDM-1831: Revert EDM-1420
+- [`02f4f8fbc96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02f4f8fbc96) - ED-11476: made setTableRef() more strict on types to prevent an infinite transaction loop
+- [`751db2a9a48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/751db2a9a48) - ED-12040 Prevent required fields in fieldset to be removed or not shown
+- [`809df0691f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/809df0691f7) - [ED-12194] Add integration tests for undo & redo via toolbar buttons and keyboard shortcuts (in both Windows and Mac OS)
+- [`e2bb7c1adbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2bb7c1adbc) - ED-9699 Fix codeblock in list within panel UI
+- [`695ce4fe717`](https://bitbucket.org/atlassian/atlassian-frontend/commits/695ce4fe717) - Adds additional request access metadata to forbidden urls if avalible
+- Updated dependencies
+
 ## 138.0.1
 
 ### Patch Changes

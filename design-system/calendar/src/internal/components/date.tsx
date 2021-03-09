@@ -1,5 +1,12 @@
 /** @jsx jsx */
-import React, { forwardRef, memo, useCallback, useMemo } from 'react';
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -11,14 +18,14 @@ import noop from '../utils/noop';
 
 interface Props {
   children: number;
-  disabled?: boolean;
-  focused?: boolean;
+  isDisabled?: boolean;
+  isFocused?: boolean;
   isToday?: boolean;
   month: number;
   onClick?: ({ day, month, year }: DateObj) => void;
-  previouslySelected?: boolean;
-  selected?: boolean;
-  sibling?: boolean;
+  isPreviouslySelected?: boolean;
+  isSelected?: boolean;
+  isSibling?: boolean;
   year: number;
   mode: ThemeModes;
   testId?: string;
@@ -27,34 +34,61 @@ interface Props {
 const Date = memo(
   forwardRef(function Date(
     {
-      children,
-      disabled = false,
-      focused = false,
+      children: day,
+      isDisabled = false,
+      isFocused = false,
       isToday = false,
       month,
       onClick = noop,
-      previouslySelected = false,
-      selected = false,
-      sibling = false,
+      isPreviouslySelected = false,
+      isSelected = false,
+      isSibling = false,
       year,
       mode,
       testId,
     }: Props,
     ref: React.Ref<HTMLTableDataCellElement>,
   ) {
+    const dateRef = useRef({
+      day,
+      month,
+      year,
+      isDisabled,
+    });
+
+    useEffect(() => {
+      dateRef.current = {
+        day,
+        month,
+        year,
+        isDisabled,
+      };
+    }, [day, month, year, isDisabled]);
+
     const handleClick = useCallback(() => {
-      if (!disabled) {
-        onClick({ day: children, month, year });
+      const {
+        day: dayValue,
+        month: monthValue,
+        year: yearValue,
+        isDisabled: isDisabledValue,
+      } = dateRef.current;
+
+      if (!isDisabledValue) {
+        onClick({
+          day: dayValue,
+          month: monthValue,
+          year: yearValue,
+        });
       }
-    }, [children, month, year, disabled, onClick]);
+    }, [onClick]);
 
     const cellControlProps = {
-      'data-disabled': disabled ? disabled : undefined,
-      'data-focused': focused ? focused : undefined,
-      'data-prev-selected': previouslySelected ? previouslySelected : undefined,
-      'data-selected': selected ? selected : undefined,
-      'data-sibling': sibling ? sibling : undefined,
-      'data-today': isToday ? isToday : undefined,
+      'data-disabled': isDisabled || undefined,
+      'data-focused': isFocused || undefined,
+      'data-prev-selected': isPreviouslySelected || undefined,
+      'data-selected': isSelected || undefined,
+      'data-sibling': isSibling || undefined,
+      'data-today': isToday || undefined,
     };
 
     const dateCellStyle = useMemo(() => getDateCellStyle(mode), [mode]);
@@ -62,14 +96,16 @@ const Date = memo(
     return (
       <td
         css={tdStyle}
-        aria-selected={selected ? 'true' : 'false'}
+        aria-selected={isSelected ? 'true' : 'false'}
         role="gridcell"
         onClick={handleClick}
         ref={ref}
-        data-testid={testId && selected ? `${testId}--selected-day` : undefined}
+        data-testid={
+          testId && isSelected ? `${testId}--selected-day` : undefined
+        }
       >
         <div css={dateCellStyle} {...cellControlProps}>
-          {children}
+          {day}
         </div>
       </td>
     );

@@ -32,8 +32,8 @@ export enum ACTION {
   EDITOR_CRASHED = 'unhandledErrorCaught',
   EDITOR_MOUNTED = 'mounted',
   EDITOR_TTI = 'tti',
-  ERRORED = 'errored',
   ENTERED = 'entered',
+  ERRORED = 'errored',
   FAILED_TO_UNMOUNT = 'failedToUnmount',
   FIND_NEXT_PERFORMED = 'findNextPerformed',
   FIND_PERFORMED = 'findPerformed',
@@ -47,6 +47,7 @@ export enum ACTION {
   INPUT_PERF_SAMPLING = 'inputPerfSampling',
   INSERTED = 'inserted',
   INVOKED = 'invoked',
+  LANGUAGE_SELECTED = 'languageSelected',
   LIST_ITEM_JOINED = 'listItemJoined',
   NODE_CONTENT_SANITIZED = 'nodeContentSanitized',
   OPENED = 'opened',
@@ -120,6 +121,7 @@ export enum ACTION_SUBJECT {
   TOOLBAR_BUTTON = 'toolbarButton',
   BUTTON = 'button',
   CONFIG_PANEL = 'configPanel',
+  CONTENT_COMPONENT = 'contentComponent',
   DATE = 'date',
   DATE_SEGMENT = 'dateSegment',
   DOCUMENT = 'document',
@@ -148,6 +150,7 @@ export enum ACTION_SUBJECT {
   ANNOTATION = 'annotation',
   SEARCH_RESULT = 'searchResult',
   CREATE_LINK_INLINE_DIALOG = 'createLinkInlineDialog',
+  CODE_BLOCK = 'codeBlock',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -254,4 +257,11 @@ export enum ACTION_SUBJECT_ID {
   LINK_SEARCH_INPUT = 'linkSearchInput',
   PRE_QUERY_SEARCH_RESULTS = 'preQuerySearchResults',
   POST_QUERY_SEARCH_RESULTS = 'postQuerySearchResults',
+}
+
+export enum CONTENT_COMPONENT {
+  INLINE_COMMENT = 'inlineComment',
+  FLOATING_CONTEXTUAL_BUTTON = 'floatingContextualButton',
+  FLOATING_INSERT_BUTTON = 'floatingInsertButton',
+  FLOATING_TOOLBAR = 'floatingToolbar',
 }

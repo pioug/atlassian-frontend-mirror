@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { EditorPlugin } from '../../types';
+import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { historyPluginKey } from '../history';
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
@@ -11,6 +12,10 @@ const undoRedoPlugin = (): EditorPlugin => ({
 
   pmPlugins() {
     return [
+      {
+        name: 'undoRedoKeyMap',
+        plugin: () => keymapPlugin(),
+      },
       {
         name: 'undoRedoPlugin',
         plugin: options => createPlugin(options),

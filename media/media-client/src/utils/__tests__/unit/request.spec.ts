@@ -51,8 +51,60 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(3);
         expect(err.attributes).toMatchObject({
-          reason: 'clientExhaustedRetries',
+          reason: 'serverUnexpectedError',
           attempts: 3,
+          clientExhaustedRetries: true,
+          innerError: fetchError,
+        });
+      }
+
+      expect.assertions(2);
+
+      jest.useRealTimers();
+    });
+
+    it('should exhaust functionToRetry if request error using startTimeoutInMs * factor as delay', async () => {
+      jest.useFakeTimers();
+
+      const fetchError = new TypeError('failed to fetch');
+      const requestError = new RequestError('serverBadGateway', {
+        statusCode: 502,
+        bodyAsText: 'error response',
+        innerError: fetchError,
+      });
+      const functionToRetry = jest.fn().mockImplementation(() => {
+        throw requestError;
+      });
+
+      try {
+        const p = fetchRetry(functionToRetry, {
+          startTimeoutInMs: 1,
+          maxAttempts: 3,
+          factor: 2,
+        });
+
+        jest.advanceTimersByTime(1);
+        await nextTick();
+        await nextTick();
+        jest.advanceTimersByTime(2);
+        await nextTick();
+        await nextTick();
+        jest.advanceTimersByTime(4);
+        await nextTick();
+        await nextTick();
+
+        await p;
+      } catch (err) {
+        if (!isRequestError(err)) {
+          return expect(isRequestError(err)).toBeTruthy();
+        }
+        expect(functionToRetry).toHaveBeenCalledTimes(3);
+        expect(err.attributes).toMatchObject({
+          reason: 'serverBadGateway',
+          attempts: 3,
+          clientExhaustedRetries: true,
+          statusCode: 502,
+          bodyAsText: 'error response',
           innerError: fetchError,
         });
       }
@@ -126,7 +178,7 @@ describe('request', () => {
 
     it('should not retry functionToRetry if backend error < 500', async () => {
       const functionToRetry = jest.fn().mockImplementation(() => {
-        const serverError = new RequestError('serverError', {
+        const serverError = new RequestError('serverRateLimited', {
           statusCode: 429,
           bodyAsText: 'Rate Limited',
         });
@@ -141,7 +193,7 @@ describe('request', () => {
         }
         expect(functionToRetry).toHaveBeenCalledTimes(1);
         expect(err.attributes).toMatchObject({
-          reason: 'serverError',
+          reason: 'serverRateLimited',
           statusCode: 429,
           bodyAsText: 'Rate Limited',
         });
@@ -273,7 +325,7 @@ describe('request', () => {
       }
 
       expect(error.attributes).toMatchObject({
-        reason: 'serverError',
+        reason: 'serverForbidden',
         statusCode: 403,
         bodyAsText: 'Access forbidden',
       });
@@ -351,7 +403,7 @@ describe('request', () => {
       }
 
       expect(error.attributes).toMatchObject({
-        reason: 'serverError',
+        reason: 'serverBadRequest',
         statusCode: 400,
         bodyAsText: 'Bad Request',
       });
@@ -381,21 +433,9 @@ describe('request', () => {
       }
 
       expect(error.attributes).toMatchObject({
-        reason: 'clientExhaustedRetries',
+        reason: 'serverInternalError',
         attempts: 3,
-        innerError: expect.any(Error),
-      });
-
-      if (!error.attributes.innerError) {
-        return expect(error.attributes.innerError).toBeDefined();
-      }
-
-      if (!isRequestError(error.attributes.innerError)) {
-        return expect(isRequestError(error.attributes.innerError)).toBeTruthy();
-      }
-
-      expect(error.attributes.innerError.attributes).toMatchObject({
-        reason: 'serverError',
+        clientExhaustedRetries: true,
         statusCode: 500,
         bodyAsText: 'Internal Server Error',
       });

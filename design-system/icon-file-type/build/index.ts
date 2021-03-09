@@ -15,6 +15,7 @@ const config16 = {
   maxHeight: 16,
   glob: '**/16.svg',
   size: 'small',
+  baseIconEntryPoint: '@atlaskit/icon-file-type/internal',
 };
 const config24 = {
   srcDir: path.resolve(root, 'svgs_raw'),
@@ -24,6 +25,7 @@ const config24 = {
   maxHeight: 24,
   glob: '**/24.svg',
   size: 'medium',
+  baseIconEntryPoint: '@atlaskit/icon-file-type/internal',
 };
 const config48 = {
   srcDir: path.resolve(root, 'svgs_raw'),
@@ -33,6 +35,7 @@ const config48 = {
   maxHeight: 64,
   glob: '**/48.svg',
   size: 'xlarge',
+  baseIconEntryPoint: '@atlaskit/icon-file-type/internal',
 };
 
 tidy(config16)

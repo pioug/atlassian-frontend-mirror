@@ -26,23 +26,33 @@ export type RequestOptions = {
   readonly clientOptions?: ClientOptions;
 };
 
+export type CreateUrlOptions = {
+  readonly params?: RequestParams;
+  readonly auth?: Auth;
+};
+
 export type RequestErrorReason =
   | 'clientOffline' // TODO: implement BMPT-964 behind feature flag
   | 'clientAbortedRequest'
   | 'clientTimeoutRequest' // TODO: implement BMPT-918 behind feature flag
-  | 'clientExhaustedRetries'
-  | 'serverError'
-  | 'serverInvalidBody';
+  | 'serverInvalidBody'
+  | 'serverBadRequest'
+  | 'serverUnauthorized'
+  | 'serverForbidden'
+  | 'serverNotFound'
+  | 'serverRateLimited'
+  | 'serverInternalError'
+  | 'serverBadGateway'
+  | 'serverUnexpectedError';
 
-export type RequestErrorAttributes = {
-  readonly reason: RequestErrorReason;
+export type RequestErrorMetadata = {
   readonly attempts?: number;
+  readonly clientExhaustedRetries?: boolean;
   readonly statusCode?: number;
   readonly bodyAsText?: string;
   readonly innerError?: Error;
 };
 
-export type CreateUrlOptions = {
-  readonly params?: RequestParams;
-  readonly auth?: Auth;
+export type RequestErrorAttributes = RequestErrorMetadata & {
+  readonly reason: RequestErrorReason;
 };

@@ -392,5 +392,21 @@ describe('TableRowNodeView', () => {
         );
       },
     );
+
+    it('marks sentinels as unobserved when isHeaderRowEnabled is set to false', () => {
+      const { tableWrapper } = getTableElements(tableRowDom);
+      const tableComponent = mountTableComponent();
+      const sentinelWrapperBottom = tableComponent.find(
+        `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
+      );
+      const sentinelBottom = sentinelWrapperBottom.getDOMNode() as HTMLElement;
+      tableWrapper?.appendChild(sentinelBottom);
+      rafStub.flush();
+      expect(sentinelBottom.dataset.isObserved).toBeDefined();
+      eventDispatcher.emit((pluginKey as any).key, {
+        isHeaderRowEnabled: false,
+      });
+      expect(sentinelBottom.dataset.isObserved).toBeUndefined();
+    });
   });
 });

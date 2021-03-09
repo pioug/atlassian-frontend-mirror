@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { memo } from 'react';
+
 import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
@@ -21,7 +23,7 @@ interface Props {
   testId?: string;
 }
 
-export default function Heading({
+const Heading = memo(function Heading({
   monthLongTitle,
   year,
   handleClickPrev,
@@ -70,4 +72,8 @@ export default function Heading({
       </div>
     </div>
   );
-}
+});
+
+Heading.displayName = 'Heading';
+
+export default Heading;

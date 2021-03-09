@@ -17,6 +17,7 @@ import {
   isPreviewableFileState,
   isErrorFileState,
   isFileFetcherError,
+  FileFetcherError,
 } from '../..';
 import uuid from 'uuid';
 import { UploadFileCallbacks } from '../../uploader';
@@ -700,12 +701,11 @@ describe('FileFetcher', () => {
           return expect(fileObservable).toBeDefined();
         }
 
-        const errorFileState = await observableToPromise(fileObservable);
-        expect(errorFileState).toEqual({
-          id: items[0].id,
-          status: 'error',
-          message: `error copying file to ${RECENTS_COLLECTION}`,
-        });
+        try {
+          await observableToPromise(fileObservable);
+        } catch (err) {
+          expect(err).toEqual(error);
+        }
       }
 
       expect.assertions(2);
@@ -1238,12 +1238,14 @@ describe('FileFetcher', () => {
       );
     });
 
-    it('should transform chunkinator errors into ErrorFileState', async () => {
+    it('should emit @atlaskit/chunkinator errors through ReplaySubject', async () => {
       const {
         fileFetcher,
         createUploadableFile,
         uploadFileUpfrontIds,
       } = setup();
+
+      const error = new Error('chunkinator any kind of error');
 
       asMockFunction(uploadFile).mockImplementation(
         (
@@ -1253,9 +1255,7 @@ describe('FileFetcher', () => {
           callbacks?: UploadFileCallbacks,
         ) => {
           if (callbacks) {
-            callbacks.onUploadFinish(
-              new Error('chunkinator any kind of error'),
-            );
+            callbacks.onUploadFinish(error);
           }
 
           return {
@@ -1275,14 +1275,13 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await observableToPromise(fileObservable);
-      expect(fileState).toEqual(
-        expect.objectContaining({
-          id: 'upfront-id',
-          status: 'error',
-          message: 'chunkinator any kind of error',
-        }),
-      );
+      try {
+        await observableToPromise(fileObservable);
+      } catch (err) {
+        expect(err).toEqual(error);
+      }
+
+      expect.assertions(1);
     });
 
     it('should fetch remote processing states for files requiring remote preview', done => {
@@ -1344,6 +1343,28 @@ describe('FileFetcher', () => {
       setImmediate(() => {
         expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
         done();
+      });
+    });
+  });
+
+  describe('FileFetcherError', () => {
+    it('should be identifiable', () => {
+      const unknownError = new Error('unknown error');
+      expect(isFileFetcherError(unknownError)).toBeFalsy();
+      const fileFetcherError = new FileFetcherError('invalidFileId', 'some-id');
+      expect(isFileFetcherError(fileFetcherError)).toBeTruthy();
+    });
+
+    it('should return the right arguments', () => {
+      const fileFetcherError = new FileFetcherError('invalidFileId', 'id', {
+        collectionName: 'collectionName',
+        occurrenceKey: 'occurrenceKey',
+      });
+      expect(fileFetcherError.attributes).toMatchObject({
+        reason: 'invalidFileId',
+        id: 'id',
+        collectionName: 'collectionName',
+        occurrenceKey: 'occurrenceKey',
       });
     });
   });

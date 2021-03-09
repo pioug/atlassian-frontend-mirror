@@ -1,29 +1,30 @@
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-} from '@atlaskit/analytics-next';
+  ANALYTICS_MEDIA_CHANNEL,
+  getMediaFeatureFlag,
+  withMediaAnalyticsContext,
+} from '@atlaskit/media-common';
+import { isWebkitSupported } from '@atlaskit/media-ui/browser';
+import { getFilesFromItems, getFilesFromFileSystemEntries } from 'flat-files';
 
 import {
   LocalUploadComponentReact,
   LocalUploadComponentBaseProps,
 } from '../localUploadReact';
 
-import { DropzoneConfig } from '../../types';
+import { getPackageAttributes } from '../../util/analytics';
+
+import {
+  DropzoneConfig,
+  DropzoneEventAction,
+  DropzoneEventPayload,
+} from '../../types';
+
 import {
   DropzoneDragEnterEventPayload,
   DropzoneDragLeaveEventPayload,
   DropzoneUploadEventPayloadMap,
 } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
-
-import { getFilesFromItems, getFilesFromFileSystemEntries } from 'flat-files';
-
-import { ANALYTICS_MEDIA_CHANNEL } from '../media-picker-analytics-error-boundary';
-import { isWebkitSupported } from '@atlaskit/media-ui/browser';
-import { getMediaFeatureFlag, MediaFeatureFlags } from '@atlaskit/media-common';
 
 export type DropzoneProps = LocalUploadComponentBaseProps & {
   config: DropzoneConfig;
@@ -31,7 +32,6 @@ export type DropzoneProps = LocalUploadComponentBaseProps & {
   onDragEnter?: (payload: DropzoneDragEnterEventPayload) => void;
   onDragLeave?: (payload: DropzoneDragLeaveEventPayload) => void;
   onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
-  featureFlags?: MediaFeatureFlags;
 };
 
 function dragContainsFiles(event: DragEvent): boolean {
@@ -42,6 +42,8 @@ function dragContainsFiles(event: DragEvent): boolean {
   return Array.from(types).indexOf('Files') > -1;
 }
 
+const COMPONENT_NAME = 'dropzone';
+
 export class DropzoneBase extends LocalUploadComponentReact<
   DropzoneProps,
   DropzoneUploadEventPayloadMap
@@ -49,7 +51,7 @@ export class DropzoneBase extends LocalUploadComponentReact<
   private uiActive: boolean = false;
 
   constructor(props: DropzoneProps) {
-    super(props);
+    super(props, COMPONENT_NAME);
   }
 
   private getContainer(): HTMLElement {
@@ -285,18 +287,23 @@ export class DropzoneBase extends LocalUploadComponentReact<
     }
   }
 
-  private fireAnalyticsEvent(action: string, fileCount: number): void {
+  private fireAnalyticsEvent(
+    action: DropzoneEventAction,
+    fileCount: number,
+  ): void {
     const { createAnalyticsEvent } = this.props;
+
     if (createAnalyticsEvent) {
-      const analyticsEvent = createAnalyticsEvent({
+      const payload: DropzoneEventPayload = {
         eventType: 'ui',
         actionSubject: 'dropzone',
         action,
         attributes: {
-          packageName,
           fileCount,
         },
-      });
+      };
+
+      const analyticsEvent = createAnalyticsEvent(payload);
       analyticsEvent.fire(ANALYTICS_MEDIA_CHANNEL);
     }
   }
@@ -306,10 +313,9 @@ export class DropzoneBase extends LocalUploadComponentReact<
   }
 }
 
-export const Dropzone = withAnalyticsContext({
-  attributes: {
-    componentName: 'dropzone',
-    packageName,
-    packageVersion,
+export const Dropzone = withMediaAnalyticsContext(
+  getPackageAttributes(COMPONENT_NAME),
+  {
+    filterFeatureFlags: ['folderUploads', 'newCardExperience'],
   },
-})(withAnalyticsEvents()(DropzoneBase));
+)(withAnalyticsEvents()(DropzoneBase));

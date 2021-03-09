@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.3.0",
+  "version": "21.4.0",
   "description": "An icon is used as a visual representation of common actions and commands to provide context.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,9 +46,9 @@
     "@atlaskit/docs": "*",
     "@atlaskit/dynamic-table": "^14.2.0",
     "@atlaskit/icon-build-process": "^0.2.0",
-    "@atlaskit/icon-file-type": "^6.1.0",
-    "@atlaskit/icon-object": "^6.1.0",
-    "@atlaskit/icon-priority": "^6.1.0",
+    "@atlaskit/icon-file-type": "^6.2.0",
+    "@atlaskit/icon-object": "^6.2.0",
+    "@atlaskit/icon-priority": "^6.2.0",
     "@atlaskit/logo": "^13.1.0",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/section-message": "^5.1.0",

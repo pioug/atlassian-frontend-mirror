@@ -1,10 +1,8 @@
-import {
-  SCREEN_EVENT_TYPE,
-  OPERATIONAL_EVENT_TYPE,
-  TRACK_EVENT_TYPE,
-  GasCorePayload,
-} from '@atlaskit/analytics-gas-types';
 import { UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
+import {
+  ANALYTICS_MEDIA_CHANNEL,
+  MediaFeatureFlags,
+} from '@atlaskit/media-common';
 import { mockStore } from '@atlaskit/media-test-helpers';
 
 import { Action, Dispatch } from 'redux';
@@ -24,10 +22,14 @@ import { editorClose } from '../../../actions/editorClose';
 import { handleCloudFetchingEvent } from '../../../actions/handleCloudFetchingEvent';
 import { startFileBrowser } from '../../../actions/startFileBrowser';
 import { GET_PREVIEW } from '../../../actions/getPreview';
-import { MediaFile } from '../../../../types';
-import { buttonClickPayload, Payload } from '../../analyticsHandlers';
+import {
+  MediaFile,
+  AnalyticsEventPayload,
+  MediaUploadCommencedPayload,
+  MediaUploadSuccessPayload,
+  MediaUploadFailurePayload,
+} from '../../../../types';
 
-type TestPayload = GasCorePayload & { action: string; attributes: {} };
 type UploadType = 'cloudMedia' | 'localMedia';
 
 const GOOGLE: ServiceName = 'google';
@@ -44,17 +46,12 @@ const testFile1: MediaFile = {
   type: 'type1',
 };
 
-const attributes = {
-  componentName: 'mediaPicker',
-  componentVersion: expect.any(String),
-  packageName: '@atlaskit/media-picker',
-};
-
-const makePayloadForOperationalFileUpload = (
+const makeFileUploadCommencedPayload = (
   file: MediaFile,
   uploadType: UploadType,
   serviceName: ServiceName,
-): TestPayload => ({
+): MediaUploadCommencedPayload => ({
+  eventType: 'operational',
   action: 'commenced',
   actionSubject: 'mediaUpload',
   actionSubjectId: uploadType,
@@ -65,21 +62,17 @@ const makePayloadForOperationalFileUpload = (
       fileId: file.id,
       fileSize: file.size,
       fileMimetype: file.type,
-      fileSource: 'mediapicker',
     },
-    ...attributes,
   },
-  eventType: OPERATIONAL_EVENT_TYPE,
 });
 
-const makePayloadForTrackFileConversion = (
+const makeFileUploadSuccessPayload = (
   file: MediaFile,
   uploadType: UploadType,
-  status: 'success' | 'fail',
   serviceName: ServiceName,
-  failReason?: string,
-): TestPayload => ({
-  action: 'uploaded',
+): MediaUploadSuccessPayload => ({
+  eventType: 'operational',
+  action: 'succeeded',
   actionSubject: 'mediaUpload',
   actionSubjectId: uploadType,
   attributes: {
@@ -89,14 +82,36 @@ const makePayloadForTrackFileConversion = (
       fileId: file.id,
       fileSize: file.size,
       fileMimetype: file.type,
-      fileSource: 'mediapicker',
     },
-    status,
+    status: 'success',
     uploadDurationMsec: 42,
-    ...attributes,
-    failReason,
   },
-  eventType: TRACK_EVENT_TYPE,
+});
+
+const makeFileUploadFailurePayload = (
+  file: MediaFile,
+  uploadType: UploadType,
+  serviceName: ServiceName,
+  failReason: string,
+  error?: string,
+): MediaUploadFailurePayload => ({
+  eventType: 'operational',
+  action: 'failed',
+  actionSubject: 'mediaUpload',
+  actionSubjectId: uploadType,
+  attributes: {
+    sourceType: 'cloud',
+    serviceName,
+    fileAttributes: {
+      fileId: file.id,
+      fileSize: file.size,
+      fileMimetype: file.type,
+    },
+    status: 'fail',
+    failReason,
+    error,
+    uploadDurationMsec: 42,
+  },
 });
 
 describe('analyticsProcessing middleware', () => {
@@ -104,9 +119,15 @@ describe('analyticsProcessing middleware', () => {
   let mockAnalyticsHandler: UIAnalyticsEventHandler;
   let next: Dispatch<State>;
 
-  const setupStore = (state: Partial<State> = {}) =>
+  const defaultFeatureFlags: MediaFeatureFlags = { folderUploads: true };
+
+  const setupStore = (
+    state: Partial<State> = {},
+    featureFlags: MediaFeatureFlags,
+  ) =>
     mockStore({
       config: {
+        featureFlags,
         proxyReactContext: {
           getAtlaskitAnalyticsContext: jest.fn(),
           getAtlaskitAnalyticsEventHandlers: () => [mockAnalyticsHandler],
@@ -117,16 +138,25 @@ describe('analyticsProcessing middleware', () => {
 
   const verifyAnalyticsCall = (
     actionUnderTest: Action,
-    payload: Payload,
+    payload: AnalyticsEventPayload,
     stateOverride: Partial<State> = {},
   ) => {
-    const store = setupStore(stateOverride);
+    const store = setupStore(stateOverride, defaultFeatureFlags);
     analyticsProcessing(store)(next)(actionUnderTest);
     expect(mockAnalyticsHandler).toBeCalledWith(
       expect.objectContaining({
+        context: [
+          {
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'popup',
+            component: 'popup',
+            attributes: { featureFlags: defaultFeatureFlags },
+          },
+        ],
         payload,
       }),
-      'media',
+      ANALYTICS_MEDIA_CHANNEL,
     );
     expect(next).toBeCalledWith(actionUnderTest);
   };
@@ -148,104 +178,112 @@ describe('analyticsProcessing middleware', () => {
 
   it('should process action showPopup, fire 2 events', () => {
     verifyAnalyticsCall(showPopup(), {
+      eventType: 'screen',
+      actionSubject: 'recentFilesBrowserModal',
       name: 'recentFilesBrowserModal',
-      eventType: SCREEN_EVENT_TYPE,
-      attributes,
+      attributes: {},
     });
     verifyAnalyticsCall(showPopup(), {
+      eventType: 'screen',
+      actionSubject: 'mediaPickerModal',
       name: 'mediaPickerModal',
-      eventType: SCREEN_EVENT_TYPE,
-      attributes,
+      attributes: {},
     });
   });
 
   it('should process action editorShowImage, fire 1 event', () => {
     verifyAnalyticsCall(editorShowImage(''), {
+      eventType: 'screen',
+      actionSubject: 'fileEditorModal',
       name: 'fileEditorModal',
-      eventType: SCREEN_EVENT_TYPE,
       attributes: {
-        ...attributes,
         imageUrl: '',
-        originalImage: undefined,
+        originalFile: undefined,
       },
     });
   });
 
   it('should process action searchGiphy with any url, fire 1 event', () => {
     verifyAnalyticsCall(searchGiphy('', true), {
+      eventType: 'screen',
+      actionSubject: 'cloudBrowserModal',
       name: 'cloudBrowserModal',
       attributes: {
         cloudType: GIPHY,
-        ...attributes,
       },
-      eventType: SCREEN_EVENT_TYPE,
     });
   });
 
   it('should process action fileListUpdate for google service, fire 1 event', () => {
     verifyAnalyticsCall(fileListUpdate('', [], [], GOOGLE), {
+      eventType: 'screen',
+      actionSubject: 'cloudBrowserModal',
       name: 'cloudBrowserModal',
       attributes: {
         cloudType: GOOGLE,
-        ...attributes,
       },
-      eventType: SCREEN_EVENT_TYPE,
     });
   });
 
   it('should process action startFileBrowser, fire 2 events', () => {
     verifyAnalyticsCall(startFileBrowser(), {
+      eventType: 'screen',
+      actionSubject: 'localFileBrowserModal',
       name: 'localFileBrowserModal',
-      eventType: SCREEN_EVENT_TYPE,
-      attributes,
+      attributes: {},
     });
     verifyAnalyticsCall(startFileBrowser(), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'localFileBrowserButton',
-      attributes,
+      attributes: {},
     });
   });
 
   it('should process action fileListUpdate for dropbox, fire 1 event', () => {
     verifyAnalyticsCall(fileListUpdate('', [], [], DROPBOX), {
+      eventType: 'screen',
+      actionSubject: 'cloudBrowserModal',
       name: 'cloudBrowserModal',
       attributes: {
         cloudType: DROPBOX,
-        ...attributes,
       },
-      eventType: SCREEN_EVENT_TYPE,
     });
   });
 
   it('should process action startAuth for google, fire 1 event', () => {
     verifyAnalyticsCall(startAuth(GOOGLE), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'linkCloudAccountButton',
       attributes: {
         cloudType: GOOGLE,
-        ...attributes,
       },
     });
   });
 
   it('should process action startAuth for dropbox, fire 1 event', () => {
     verifyAnalyticsCall(startAuth(DROPBOX), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'linkCloudAccountButton',
       attributes: {
         cloudType: DROPBOX,
-        ...attributes,
       },
     });
   });
 
   it('should process action hidePopup for cancellation, fire 1 event', () => {
     verifyAnalyticsCall(hidePopup(), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'cancelButton',
       attributes: {
         fileCount: 0,
-        ...attributes,
       },
     });
   });
@@ -254,11 +292,12 @@ describe('analyticsProcessing middleware', () => {
     verifyAnalyticsCall(
       hidePopup(),
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'insertFilesButton',
         attributes: {
           fileCount: 1,
-          ...attributes,
           serviceNames: ['recent_files'],
           files: [
             {
@@ -295,11 +334,12 @@ describe('analyticsProcessing middleware', () => {
     verifyAnalyticsCall(
       hidePopup(),
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'insertFilesButton',
         attributes: {
           fileCount: 1,
-          ...attributes,
           serviceNames: ['recent_files'],
           files: [
             {
@@ -333,11 +373,12 @@ describe('analyticsProcessing middleware', () => {
     verifyAnalyticsCall(
       hidePopup(),
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'insertFilesButton',
         attributes: {
           fileCount: 1,
-          ...attributes,
           serviceNames: ['upload'],
           files: [
             {
@@ -369,10 +410,11 @@ describe('analyticsProcessing middleware', () => {
     verifyAnalyticsCall(
       hidePopup(),
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'insertFilesButton',
         attributes: {
-          ...attributes,
           fileCount: 2,
           serviceNames: ['upload', 'upload'],
           files: [
@@ -418,46 +460,52 @@ describe('analyticsProcessing middleware', () => {
 
   it('should process action changeService for upload, fire 2 events', () => {
     verifyAnalyticsCall(changeService(UPLOAD), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'uploadButton',
-      attributes,
+      attributes: {},
     });
     verifyAnalyticsCall(changeService(UPLOAD), {
+      eventType: 'screen',
+      actionSubject: 'recentFilesBrowserModal',
       name: 'recentFilesBrowserModal',
-      eventType: SCREEN_EVENT_TYPE,
-      attributes,
+      attributes: {},
     });
   });
 
   it('should process action changeService for google, fire 1 event', () => {
     verifyAnalyticsCall(changeService(GOOGLE), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'cloudBrowserButton',
       attributes: {
         cloudType: GOOGLE,
-        ...attributes,
       },
     });
   });
 
   it('should process action changeService for dropbox, fire 1 event', () => {
     verifyAnalyticsCall(changeService(DROPBOX), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'cloudBrowserButton',
       attributes: {
         cloudType: DROPBOX,
-        ...attributes,
       },
     });
   });
 
   it('should process action changeService for giphy, fire 1 event', () => {
     verifyAnalyticsCall(changeService(GIPHY), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'cloudBrowserButton',
       attributes: {
         cloudType: GIPHY,
-        ...attributes,
       },
     });
   });
@@ -472,10 +520,11 @@ describe('analyticsProcessing middleware', () => {
         '',
       ),
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'annotateFileButton',
         attributes: {
-          ...attributes,
           collectionName: '',
           fileId: '',
         },
@@ -485,17 +534,21 @@ describe('analyticsProcessing middleware', () => {
 
   it('should process action editorClose with "Save" selection, fire 1 event', () => {
     verifyAnalyticsCall(editorClose('Save'), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'mediaEditorSaveButton',
-      attributes,
+      attributes: {},
     });
   });
 
   it('should process action editorClose with "Close" selection, fire 1 event', () => {
     verifyAnalyticsCall(editorClose('Close'), {
-      ...buttonClickPayload,
+      eventType: 'ui',
+      action: 'clicked',
+      actionSubject: 'button',
       actionSubjectId: 'mediaEditorCloseButton',
-      attributes,
+      attributes: {},
     });
   });
 
@@ -505,7 +558,7 @@ describe('analyticsProcessing middleware', () => {
         tenantFileId: 'upid1',
         serviceName: DROPBOX,
       }),
-      makePayloadForOperationalFileUpload(testFile1, 'cloudMedia', DROPBOX),
+      makeFileUploadCommencedPayload(testFile1, 'cloudMedia', DROPBOX),
     );
   });
 
@@ -516,12 +569,7 @@ describe('analyticsProcessing middleware', () => {
         tenantFileId: 'upid1',
         serviceName: DROPBOX,
       }),
-      makePayloadForTrackFileConversion(
-        testFile1,
-        'cloudMedia',
-        'success',
-        DROPBOX,
-      ),
+      makeFileUploadSuccessPayload(testFile1, 'cloudMedia', DROPBOX),
       {
         remoteUploads: {
           upid1: {
@@ -539,11 +587,11 @@ describe('analyticsProcessing middleware', () => {
         tenantFileId: 'upid1',
         serviceName: DROPBOX,
       }),
-      makePayloadForTrackFileConversion(
+      makeFileUploadFailurePayload(
         testFile1,
         'cloudMedia',
-        'fail',
         DROPBOX,
+        'remote_upload_fail',
         'id1 failed',
       ),
       {
@@ -582,19 +630,5 @@ describe('analyticsProcessing middleware', () => {
     });
     analyticsProcessing(store)(next)({ type: GET_PREVIEW });
     expect(mockAnalyticsHandler.mock.calls.length).toBe(0);
-  });
-
-  it('should include media region in the attributes payload if available', () => {
-    window.sessionStorage.setItem('media-api-region', 'someMediaRegion');
-
-    verifyAnalyticsCall(hidePopup(), {
-      ...buttonClickPayload,
-      actionSubjectId: 'cancelButton',
-      attributes: {
-        fileCount: 0,
-        ...attributes,
-        mediaRegion: 'someMediaRegion',
-      },
-    });
   });
 });

@@ -114,8 +114,9 @@ describe('Browser upload phases', () => {
 
   it('should fire an uploaded fail event on end', () => {
     const mediaClient = fakeMediaClient();
+    const error = new Error('oops');
     const fileStateObservable = new ReplaySubject<FileState>(1);
-    fileStateObservable.error(new Error('oops'));
+    fileStateObservable.error(error);
     mediaClient.file.upload = jest.fn().mockReturnValue(fileStateObservable);
     mediaClient.file.touchFiles = jest.fn(
       (descriptors: TouchFileDescriptor[], collection?: string) =>
@@ -147,6 +148,7 @@ describe('Browser upload phases', () => {
           description: 'oops',
           fileId: uuidRegexMatcher,
           name: 'upload_fail',
+          rawError: error,
         },
         fileId: uuidRegexMatcher,
       },

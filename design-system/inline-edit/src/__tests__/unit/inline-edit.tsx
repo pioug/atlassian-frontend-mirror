@@ -7,10 +7,9 @@ import Select, { ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
 import InlineEdit from '../../inline-edit';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('InlineEdit component', () => {
   describe('Simple render', () => {
@@ -179,11 +178,11 @@ describe('InlineEdit component', () => {
         const [editValue] = useState<OptionType[]>([]);
 
         return (
-          <InlineEdit<ValueType<OptionType>>
+          <InlineEdit<ValueType<OptionType, true>>
             defaultValue={editValue}
             label="Inline edit"
             editView={fieldProps => (
-              <Select<OptionType>
+              <Select<OptionType, true>
                 {...fieldProps}
                 options={selectOptions}
                 isMulti

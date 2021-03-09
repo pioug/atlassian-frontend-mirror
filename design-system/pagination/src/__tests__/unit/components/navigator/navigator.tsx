@@ -5,7 +5,6 @@ import { mount } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';
 
 import Navigator from '../../../../components/Navigators/Navigator';
-import { name } from '../../../../version.json';
 
 const createAnalyticsEventMock = jest.fn();
 
@@ -15,7 +14,7 @@ function NavigatorWithAnalytics(props: any) {
   );
 }
 
-describe(`${name} - navigator`, () => {
+describe('@atlaskit/pagination - navigator', () => {
   it('should render the node passed as children', () => {
     const wrapper = mount(
       <NavigatorWithAnalytics createAnalyticsEvent={createAnalyticsEventMock}>

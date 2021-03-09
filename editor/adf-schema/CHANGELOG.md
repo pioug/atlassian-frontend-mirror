@@ -1,5 +1,30 @@
 # @atlaskit/adf-schema
 
+## 14.0.0
+
+### Major Changes
+
+- [`85cc08ec2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85cc08ec2e6) - [ED-11353] Adds the input method for undo/redo events
+
+  #Breaking Change
+
+  `adf-schema`
+
+  AnalyticsStep doesn't need the `handleAnalyticsEvent: HandleAnalyticsEvent<P>` anymore.
+  We are submitting the events using the editor-core plugin `analytics`. On this file:
+  `packages/editor/editor-core/src/plugins/analytics/plugin.ts`
+
+  This will fix a hard to catch bug where the events were being dispatched before the transaction being applied.
+  The transaction wasn't used, but the event was dispatched anyway, causing a data mismatch between user experience and actions.
+
+### Minor Changes
+
+- [`be0bfb03f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be0bfb03f12) - [ux] Implement syntax highlighting in editor code-block
+
+### Patch Changes
+
+- [`ffbe78153cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffbe78153cf) - New stage0 ADF change: localId attribute on Table nodes
+
 ## 13.7.2
 
 ### Patch Changes

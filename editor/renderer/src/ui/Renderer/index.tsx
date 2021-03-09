@@ -17,6 +17,7 @@ import {
   stopMeasure,
   shouldForceTracking,
 } from '@atlaskit/editor-common';
+import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import {
   IframeWidthObserverFallbackWrapper,
@@ -50,6 +51,8 @@ import {
 } from '../../react/utils/links';
 import { findInTree } from '../../utils';
 import { isInteractiveElement } from './click-to-edit';
+import { RendererContextProvider } from '../../renderer-context';
+import memoizeOne from 'memoize-one';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -219,6 +222,12 @@ export class Renderer extends PureComponent<RendererProps> {
     };
   }
 
+  private featureFlags = memoizeOne(
+    (featureFlags: RendererProps['featureFlags']) => ({
+      featureFlags: normalizeFeatureFlags(featureFlags),
+    }),
+  );
+
   private fireAnalyticsEvent = (event: AnalyticsEventPayload) => {
     const { createAnalyticsEvent } = this.props;
 
@@ -332,47 +341,51 @@ export class Renderer extends PureComponent<RendererProps> {
       }
 
       const rendererOutput = (
-        <CopyTextProvider>
-          <ActiveHeaderIdProvider
-            value={getActiveHeadingId(allowHeadingAnchorLinks)}
-          >
-            <IntlProvider>
-              <AnalyticsContext.Provider
-                value={{
-                  fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
-                    this.fireAnalyticsEvent(event),
-                }}
-              >
-                <SmartCardStorageProvider>
-                  <RendererWrapper
-                    appearance={appearance}
-                    dynamicTextSizing={!!allowDynamicTextSizing}
-                    allowNestedHeaderLinks={allowNestedHeaderLinks}
-                    allowColumnSorting={allowColumnSorting}
-                    allowCopyToClipboard={allowCopyToClipboard}
-                    allowCustomPanels={UNSAFE_allowCustomPanels}
-                    innerRef={this.editorRef}
-                    onClick={handleWrapperOnClick}
-                    onMouseDown={this.onMouseDownEditView}
-                  >
-                    {enableSsrInlineScripts ? (
-                      <BreakoutSSRInlineScript
-                        allowDynamicTextSizing={!!allowDynamicTextSizing}
-                      />
-                    ) : null}
-                    <RendererActionsInternalUpdater
-                      doc={pmDoc}
-                      schema={schema}
-                      onAnalyticsEvent={this.fireAnalyticsEvent}
+        <RendererContextProvider
+          value={this.featureFlags(this.props.featureFlags)}
+        >
+          <CopyTextProvider>
+            <ActiveHeaderIdProvider
+              value={getActiveHeadingId(allowHeadingAnchorLinks)}
+            >
+              <IntlProvider>
+                <AnalyticsContext.Provider
+                  value={{
+                    fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
+                      this.fireAnalyticsEvent(event),
+                  }}
+                >
+                  <SmartCardStorageProvider>
+                    <RendererWrapper
+                      appearance={appearance}
+                      dynamicTextSizing={!!allowDynamicTextSizing}
+                      allowNestedHeaderLinks={allowNestedHeaderLinks}
+                      allowColumnSorting={allowColumnSorting}
+                      allowCopyToClipboard={allowCopyToClipboard}
+                      allowCustomPanels={UNSAFE_allowCustomPanels}
+                      innerRef={this.editorRef}
+                      onClick={handleWrapperOnClick}
+                      onMouseDown={this.onMouseDownEditView}
                     >
-                      {result}
-                    </RendererActionsInternalUpdater>
-                  </RendererWrapper>
-                </SmartCardStorageProvider>
-              </AnalyticsContext.Provider>
-            </IntlProvider>
-          </ActiveHeaderIdProvider>
-        </CopyTextProvider>
+                      {enableSsrInlineScripts ? (
+                        <BreakoutSSRInlineScript
+                          allowDynamicTextSizing={!!allowDynamicTextSizing}
+                        />
+                      ) : null}
+                      <RendererActionsInternalUpdater
+                        doc={pmDoc}
+                        schema={schema}
+                        onAnalyticsEvent={this.fireAnalyticsEvent}
+                      >
+                        {result}
+                      </RendererActionsInternalUpdater>
+                    </RendererWrapper>
+                  </SmartCardStorageProvider>
+                </AnalyticsContext.Provider>
+              </IntlProvider>
+            </ActiveHeaderIdProvider>
+          </CopyTextProvider>
+        </RendererContextProvider>
       );
 
       return truncated ? (

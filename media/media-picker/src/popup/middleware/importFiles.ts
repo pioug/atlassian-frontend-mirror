@@ -247,6 +247,7 @@ export const getTenantFileState = async (
 };
 
 const distributeTenantFileState = (
+  eventEmitter: PopupUploadEventEmitter,
   tenantFileState: FileState,
   userSelectedFileId: string,
 ) => {
@@ -277,6 +278,13 @@ const distributeTenantFileState = (
           id: tenantFileState.id,
         });
       },
+      error: error =>
+        eventEmitter.emitUploadError(userSelectedFileId, {
+          fileId: userSelectedFileId,
+          name: 'metadata_fetch_fail',
+          description: error instanceof Error ? error.message : error,
+          rawError: error instanceof Error ? error : undefined,
+        }),
     });
   }
 };
@@ -343,7 +351,11 @@ export async function importFiles(
       const userSelectedFileId = selectedUploadFile.file.id;
 
       // 2. We store them to the cache and notify all listeners of global event emitter
-      distributeTenantFileState(tenantFileState, userSelectedFileId);
+      distributeTenantFileState(
+        eventEmitter,
+        tenantFileState,
+        userSelectedFileId,
+      );
     }),
   );
 
@@ -414,17 +426,19 @@ const emitPublicEvents = async (
   } = selectedUploadFile;
   const { tenantMediaClient } = store.getState();
 
-  const dispatchUploadError = (fileState: ErrorFileState) => {
-    const { id, message = '' } = fileState;
+  const dispatchUploadError = (fileId: string, error: Error | string) => {
+    const description = error instanceof Error ? error.message : error;
+    const rawError = error instanceof Error ? error : undefined;
     const event: UploadEvent = {
       name: 'upload-error',
       data: {
+        fileId,
         error: {
-          fileId: id,
-          description: message,
+          fileId,
+          description,
           name: 'upload_fail',
+          rawError,
         },
-        fileId: id,
       },
     };
 
@@ -488,13 +502,15 @@ const emitPublicEvents = async (
   tenantMediaClient.file.getFileState(fileId).subscribe({
     next(this: Subscriber<FileState>, fileState: FileState) {
       if (isErrorFileState(fileState)) {
-        dispatchUploadError(fileState);
+        const { message = '' } = fileState;
+        dispatchUploadError(fileId, message);
         this.unsubscribe();
       } else if (!isUploadingFileState(fileState)) {
         dispatchFinalizeUpload(fileState);
         this.unsubscribe();
       }
     },
+    error: error => dispatchUploadError(fileId, error),
   });
 };
 

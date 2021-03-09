@@ -1,4 +1,6 @@
-import { downloadButtonEvent } from '../../../../newgen/analytics/download';
+import { createDownloadButtonClickedEvent } from '../../../../newgen/analytics/events/ui/downloadButtonClicked';
+import { createFailedPreviewDownloadButtonClickedEvent } from '../../../../newgen/analytics/events/ui/failedPreviewDownloadButtonClicked';
+import { MediaViewerError } from '../../../../newgen/errors';
 import {
   processedFile,
   processingFile,
@@ -6,25 +8,12 @@ import {
   processingError,
   fileWithError,
 } from './index.spec';
-import { version as packageVersion } from '../../../../version.json';
-import { ProcessedFileState } from '@atlaskit/media-client';
-
-const unsupportedFile: ProcessedFileState = {
-  ...processedFile,
-  mediaType: 'unknown',
-};
 
 const basePayload = {
   eventType: 'ui',
   action: 'clicked',
   actionSubject: 'button',
   actionSubjectId: 'downloadButton',
-};
-
-const contextPayload = {
-  componentName: 'media-viewer',
-  packageName: '@atlaskit/media-viewer',
-  packageVersion,
 };
 
 const commonFileProperties = {
@@ -36,80 +25,78 @@ const commonFileProperties = {
 describe('downloadButtonEvent payload', () => {
   describe('by file status', () => {
     it('for processed files', () => {
-      expect(downloadButtonEvent(processedFile)).toEqual({
+      expect(createDownloadButtonClickedEvent(processedFile)).toEqual({
         ...basePayload,
         attributes: {
-          ...contextPayload,
-          ...commonFileProperties,
-          fileMediatype: 'image',
+          fileAttributes: {
+            ...commonFileProperties,
+            fileMediatype: 'image',
+          },
           fileProcessingStatus: 'processed',
-          fileSupported: true,
         },
       });
     });
 
     it('for processing files', () => {
-      expect(downloadButtonEvent(processingFile)).toEqual({
+      expect(createDownloadButtonClickedEvent(processingFile)).toEqual({
         ...basePayload,
         attributes: {
-          ...contextPayload,
-          ...commonFileProperties,
-          fileMediatype: 'image',
+          fileAttributes: {
+            ...commonFileProperties,
+            fileMediatype: 'image',
+          },
           fileProcessingStatus: 'processing',
-          fileSupported: true,
         },
       });
     });
 
     it('for uploading files', () => {
-      expect(downloadButtonEvent(uploadingFile)).toEqual({
+      expect(createDownloadButtonClickedEvent(uploadingFile)).toEqual({
         ...basePayload,
         attributes: {
-          ...contextPayload,
-          ...commonFileProperties,
-          fileMediatype: 'image',
+          fileAttributes: {
+            ...commonFileProperties,
+            fileMediatype: 'image',
+          },
           fileProcessingStatus: 'uploading',
-          fileSupported: true,
         },
       });
     });
 
     it('for files that failed to be processed', () => {
-      expect(downloadButtonEvent(processingError)).toEqual({
+      expect(createDownloadButtonClickedEvent(processingError)).toEqual({
         ...basePayload,
         attributes: {
-          ...contextPayload,
-          ...commonFileProperties,
-          fileId: 'some-id',
-          fileMediatype: 'image',
+          fileAttributes: {
+            ...commonFileProperties,
+            fileId: 'some-id',
+            fileMediatype: 'image',
+          },
           fileProcessingStatus: 'failed-processing',
-          fileSupported: true,
         },
       });
     });
 
     it('when error', () => {
-      expect(downloadButtonEvent(fileWithError)).toEqual({
+      expect(
+        createFailedPreviewDownloadButtonClickedEvent(
+          fileWithError,
+          new MediaViewerError('unsupported'),
+        ),
+      ).toEqual({
         ...basePayload,
+        actionSubjectId: 'failedPreviewDownloadButton',
         attributes: {
-          ...contextPayload,
-          fileId: 'some-id',
+          fileAttributes: {
+            fileId: 'some-id',
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileSize: undefined,
+          },
           fileProcessingStatus: 'error',
+          failReason: 'unsupported',
         },
       });
-    });
-  });
-
-  it('should include fileSupported', () => {
-    expect(downloadButtonEvent(unsupportedFile)).toEqual({
-      ...basePayload,
-      attributes: {
-        ...contextPayload,
-        ...commonFileProperties,
-        fileMediatype: 'unknown',
-        fileProcessingStatus: 'processed',
-        fileSupported: false,
-      },
     });
   });
 });

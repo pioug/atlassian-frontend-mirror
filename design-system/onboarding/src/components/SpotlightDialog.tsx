@@ -12,14 +12,13 @@ import { Placement, Popper } from '@atlaskit/popper';
 
 import { Image } from '../styled/Dialog';
 import { Actions } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import { CardTokens } from './Card';
 import SpotlightCard from './SpotlightCard';
 import ValueChanged from './ValueChanged';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface SpotlightDialogProps extends WithAnalyticsEventsProps {
   /** Buttons to render in the footer */
@@ -50,6 +49,8 @@ export interface SpotlightDialogProps extends WithAnalyticsEventsProps {
   header?: ComponentType<any>;
   /** Heading text rendered above the body */
   heading?: string;
+  /** An optional element rendered to the right of the heading */
+  headingAfterElement?: ReactNode;
   /** Path to the the your image */
   image?: string;
   /** The spotlight target node */
@@ -99,6 +100,7 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
       footer,
       header,
       heading,
+      headingAfterElement,
       image,
       targetNode,
       testId,
@@ -173,6 +175,7 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
                   Footer: footer,
                 }}
                 heading={heading}
+                headingAfterElement={headingAfterElement}
               >
                 {children}
               </SpotlightCard>

@@ -5,9 +5,8 @@ import { mount } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';
 
 import Page from '../../../components/Page';
-import { name } from '../../../version.json';
 
-describe(`${name} - Page component`, () => {
+describe('@atlaskit/pagination - Page component', () => {
   it('renders child props', () => {
     const wrapper = mount(<Page isSelected>1</Page>);
     expect(wrapper.text()).toBe('1');

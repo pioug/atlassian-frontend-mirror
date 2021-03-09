@@ -64,7 +64,7 @@ export const extractIconFromTask = (
         return (
           taskType.icon ||
           opts.icon ||
-          provider.icon || <TaskIcon size="small" label={taskLabel} />
+          provider.icon || <TaskIcon label={taskLabel} />
         );
     }
   }

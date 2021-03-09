@@ -9,7 +9,7 @@ cases(
   },
   [
     { number: 9, output: '09' },
-    { number: 10, output: 10 },
-    { number: 99, output: 99 },
+    { number: 10, output: '10' },
+    { number: 99, output: '99' },
   ],
 );

@@ -22,8 +22,12 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  DispatchAnalyticsEvent,
 } from '../../analytics';
+import {
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  CONTENT_COMPONENT,
+} from '../../analytics/types';
 import {
   RESOLVE_METHOD,
   AnnotationAEP,
@@ -72,10 +76,37 @@ export function InlineCommentView({
   const { bookmark, selectedAnnotations, annotations } = inlineCommentState;
 
   const selection = getSelectionPositions(state, inlineCommentState);
-  const dom = findDomRefAtPos(
-    findPosForDOM(selection),
-    editorView.domAtPos.bind(editorView),
-  ) as HTMLElement;
+  const position = findPosForDOM(selection);
+  let dom: HTMLElement | undefined;
+  try {
+    dom = findDomRefAtPos(
+      position,
+      editorView.domAtPos.bind(editorView),
+    ) as HTMLElement;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(error);
+    if (dispatchAnalyticsEvent) {
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.ERRORED,
+        actionSubject: ACTION_SUBJECT.CONTENT_COMPONENT,
+        eventType: EVENT_TYPE.OPERATIONAL,
+        attributes: {
+          component: CONTENT_COMPONENT.INLINE_COMMENT,
+          selection: selection.toJSON(),
+          position,
+          docSize: editorView.state.doc.nodeSize,
+          error: error.toString(),
+          errorStack: error.stack || undefined,
+        },
+      };
+      dispatchAnalyticsEvent(payload);
+    }
+  }
+
+  if (!dom) {
+    return null;
+  }
 
   // Create Component
   if (bookmark) {

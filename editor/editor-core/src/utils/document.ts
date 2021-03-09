@@ -11,6 +11,8 @@ import {
 } from '@atlaskit/editor-common';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
+import { getBreakoutMode } from './node-width';
+import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 
 /**
  * Checks if node is an empty paragraph.
@@ -318,4 +320,29 @@ export function getNodesCount(node: Node): Record<string, number> {
   });
 
   return count;
+}
+
+/**
+ * Returns a set of active child breakout modes
+ */
+export function getChildBreakoutModes(
+  doc: Node,
+  schema: Schema,
+  filter: BreakoutMarkAttrs['mode'][] = ['wide', 'full-width'],
+): BreakoutMarkAttrs['mode'][] {
+  const breakoutModes = new Set<string>();
+
+  if (doc.type.name === 'doc' && doc.childCount) {
+    for (let i = 0; i < doc.childCount; ++i) {
+      if (breakoutModes.size === filter.length) {
+        break;
+      }
+
+      const breakoutMode = getBreakoutMode(doc.child(i), schema.marks.breakout);
+      if (breakoutMode && filter.includes(breakoutMode)) {
+        breakoutModes.add(breakoutMode);
+      }
+    }
+  }
+  return [...breakoutModes] as BreakoutMarkAttrs['mode'][];
 }

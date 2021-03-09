@@ -11,7 +11,6 @@ module.exports = async function createWebpackConfig(_, args) {
   return createBaseEditorMobileBridgeWebpackConfig(args, {
     entry: {
       editor: path.join(__dirname, '/src/editor/index.tsx'),
-      editorarchv3: path.join(__dirname, '/src/editor-arch-v3.tsx'),
       renderer: path.join(__dirname, '/src/renderer/index.tsx'),
       'error-reporter': path.join(__dirname, '/src/error-reporter.ts'),
     },
@@ -25,12 +24,6 @@ module.exports = async function createWebpackConfig(_, args) {
         chunks: ['error-reporter', 'editor'],
         chunksSortMode: 'manual',
         filename: 'editor.html',
-      }),
-      new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'public/editor.html.ejs'),
-        chunks: ['error-reporter', 'editorarchv3'],
-        chunksSortMode: 'manual',
-        filename: 'editorarchv3.html',
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'public/renderer.html.ejs'),

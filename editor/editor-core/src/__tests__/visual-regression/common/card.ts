@@ -6,7 +6,9 @@ import {
 import { Device, initFullPageEditorWithAdf, snapshot } from '../_utils';
 import cardAdf from './__fixtures__/card-adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
+import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
 import cardAdfBlock from './__fixtures__/card-adf.block.json';
+import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
 import {
   openPreviewState,
   waitForBlockCardSelection,
@@ -84,6 +86,33 @@ describe('Cards:', () => {
     });
   });
 
+  it('displays request access forbidden links with correct appearance', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardAdfRequestAccess,
+      Device.LaptopHiDPI,
+      {
+        width: 800,
+        height: 5000,
+      },
+      {
+        UNSAFE_cards: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+    );
+    await evaluateTeardownMockDate(page);
+
+    await waitForResolvedInlineCard(page, 'forbidden');
+    await waitForResolvedBlockCard(page, 'forbidden');
+    await waitForResolvedEmbedCard(page, 'forbidden');
+    await waitForLoadedImageElements(page, 3000);
+
+    await snapshot(page);
+  });
+
   it('displays selection styles', async () => {
     await initFullPageEditorWithAdf(
       page,
@@ -147,28 +176,36 @@ describe('Cards:', () => {
     await snapshot(page);
   });
 
-  it('displays preview state with correct appearance', async () => {
-    await initFullPageEditorWithAdf(
-      page,
-      cardAdfBlock,
-      Device.LaptopHiDPI,
-      {
-        width: 800,
-        height: 1500,
-      },
-      {
-        UNSAFE_cards: {
-          resolveBeforeMacros: ['jira'],
-          allowBlockCards: true,
-          allowEmbeds: true,
+  [
+    [cardAdfBlock, 'regular length title'],
+    [cardAdfBlockLongTitle, 'long length title'],
+  ].forEach(adf =>
+    it(`displays preview with correct appearance for ${adf[1]}`, async () => {
+      await initFullPageEditorWithAdf(
+        page,
+        adf[0],
+        Device.LaptopHiDPI,
+        {
+          width: 800,
+          height: 1500,
         },
-      },
-    );
-    await evaluateTeardownMockDate(page);
+        {
+          UNSAFE_cards: {
+            resolveBeforeMacros: ['jira'],
+            allowBlockCards: true,
+            allowEmbeds: true,
+          },
+        },
+        undefined,
+        undefined,
+        true,
+      );
+      await evaluateTeardownMockDate(page);
 
-    await waitForResolvedBlockCard(page);
-    await openPreviewState(page);
-    await waitForPreviewState(page);
-    await snapshot(page);
-  });
+      await waitForResolvedBlockCard(page);
+      await openPreviewState(page);
+      await waitForPreviewState(page);
+      await snapshot(page);
+    }),
+  );
 });

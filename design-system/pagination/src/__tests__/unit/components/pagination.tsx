@@ -5,9 +5,8 @@ import { mount } from 'enzyme';
 import { LeftNavigator } from '../../../components/Navigators';
 import Page from '../../../components/Page';
 import Pagination from '../../../index';
-import { name } from '../../../version.json';
 
-describe(`${name} - Pagination component`, () => {
+describe('@atlaskit/pagination - Pagination component', () => {
   it('should not throw error on mount', () => {
     expect(() => {
       mount(<Pagination pages={[1, 2, 3]} />);

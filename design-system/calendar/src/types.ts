@@ -3,18 +3,18 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
-import type { ArrowKeys, DateObj, WeekDay } from './internal/types';
+import type { ArrowKeys, DateObj, ISODate, WeekDay } from './internal/types';
 
 export type ChangeEvent = {
-  iso?: string;
+  iso: ISODate;
   type: 'left' | 'up' | 'right' | 'down' | 'prev' | 'next';
 } & DateObj;
 
 export type SelectEvent = {
-  iso: string;
+  iso: ISODate;
 } & DateObj;
 
-export interface CalendarProps extends WithAnalyticsEventsProps {
+export interface CalendarBaseProps extends WithAnalyticsEventsProps {
   /** The number of the day currently focused. Places border around the date. 0 highlights no date. */
   day?: number;
   /** Default for `day`. */
@@ -83,13 +83,15 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    * testId--selected-day - The currently selected day (may be missing if a date isn’t selected)
    * */
   testId?: string;
+}
 
+export interface CalendarProps extends CalendarBaseProps {
   /** ⚠️ An additional ref which exposes Calendar's internal api's. We kept this for
    * backward compatibility. PLEASE DO NOT USE THIS.
    */
-  internalRef?: React.Ref<CalendarInternalRef>;
+  calendarRef?: React.Ref<CalendarRef>;
 }
 
-export interface CalendarInternalRef {
+export interface CalendarRef {
   navigate: (type: ArrowKeys) => void;
 }

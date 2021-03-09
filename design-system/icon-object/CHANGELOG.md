@@ -1,5 +1,19 @@
 # @atlaskit/icon-object
 
+## 6.2.0
+
+### Minor Changes
+
+- [`ea014ce1369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea014ce1369) - Icon object now ships with cjs, esm, and es2019 bundles for exported components and utils. Glyphs unfortunately aren't included and still only export cjs bundles.
+- [`7a309444ca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a309444ca0) - Icon object now utilises the base icon from `@atlaskit/icon`.
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`21d5d7e39d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21d5d7e39d9) - Previously icon object glyphs had a size prop available on the type definitions that did not do anything. This prop has now been removed.
+- [`f922302ad53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f922302ad53) - Icons no longer ship with the `focusable` attribute in their glyph exports. This attribute was only required for IE11 support. This is purely a build change and has no effect on user API.
+- Updated dependencies
+
 ## 6.1.4
 
 ### Patch Changes

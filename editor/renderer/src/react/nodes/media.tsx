@@ -66,7 +66,6 @@ export default class Media extends PureComponent<MediaProps, {}> {
     return linkHref ? (
       <MediaLink
         href={linkHref}
-        target="_blank"
         rel="noreferrer noopener"
         onClick={this.handleMediaLinkClick}
         data-block-link={linkHref}

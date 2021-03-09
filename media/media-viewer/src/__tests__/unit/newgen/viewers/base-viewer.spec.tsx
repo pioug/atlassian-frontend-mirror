@@ -3,11 +3,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { ProcessedFileState } from '@atlaskit/media-client';
 import { BaseProps, BaseViewer } from '../../../../newgen/viewers/base-viewer';
 import { Outcome } from '../../../../newgen/domain';
-import {
-  createError,
-  ErrorMessage,
-  MediaViewerError,
-} from '../../../../newgen/error';
+import { ErrorMessage } from '../../../../newgen/errorMessage';
 import { Spinner } from '../../../../newgen/loading';
 import {
   mountWithIntlContext,
@@ -36,7 +32,7 @@ function createProps(): BaseProps {
 
 function createInitialState() {
   return {
-    content: Outcome.pending<string, MediaViewerError>(),
+    content: Outcome.pending<string, Error>(),
   };
 }
 
@@ -119,7 +115,9 @@ describe('BaseViewer', () => {
 
   it('renders an error message when the content loading has failed', () => {
     const { el } = createTestViewer(createProps());
-    const content = Outcome.failed(createError('previewFailed'));
+    const content = Outcome.failed({
+      failReason: 'previewFailed',
+    });
     el.setState({ content });
     const errorMessage = el.find(ErrorMessage);
     expect(errorMessage).toHaveLength(1);

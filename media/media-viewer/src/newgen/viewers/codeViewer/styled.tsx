@@ -12,7 +12,7 @@ export const CodeViewWrapper = styled.div`
   background-color: ${colors.N20};
   overflow: auto;
 
-  & > span {
+  & > [data-code-block] {
     margin-top: 75px;
   }
 `;

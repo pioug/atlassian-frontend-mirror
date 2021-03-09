@@ -1,5 +1,19 @@
 # @atlaskit/editor-shared-styles
 
+## 1.3.0
+
+### Minor Changes
+
+- [`511a91ad376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/511a91ad376) - [ux] ED-12128: Update Context Panel to use set width of 320px and remove 'width' prop.
+  Remove 'width' prop from the Context Panel component as we no longer allow dynamic panel width to enforce consistency.
+
+  All references to this component can safely remove the 'wdith' prop as it is no longer part of the component props.
+
+- [`007103b93e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/007103b93e6) - [ux] ED-11993 Change behaviour of context panel so it will not push content if there is enough space to slide out without overlapping.
+  Config panel will keep existing behaviour to push content if there isn't enough space to show without overlapping content. Also add width css transition to context panel content to mimic "slide in" animation.
+
+  Add new shared const of `akEditorFullWidthLayoutLineLength` which indicates the line length of a full-width editor
+
 ## 1.2.1
 
 ### Patch Changes

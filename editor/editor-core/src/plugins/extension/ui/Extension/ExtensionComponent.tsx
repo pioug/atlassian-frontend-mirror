@@ -20,6 +20,7 @@ export interface Props {
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
   extensionProvider?: Promise<ExtensionProvider>;
+  refNode?: PMNode;
 }
 
 export interface State {
@@ -61,7 +62,7 @@ export default class ExtensionComponent extends Component<Props, State> {
   getNodeRenderer = memoizeOne(getNodeRenderer);
 
   render() {
-    const { node, handleContentDOMRef, editorView } = this.props;
+    const { node, handleContentDOMRef, editorView, refNode } = this.props;
     const extensionHandlerResult = this.tryExtensionHandler();
 
     switch (node.type.name) {
@@ -70,6 +71,7 @@ export default class ExtensionComponent extends Component<Props, State> {
         return (
           <Extension
             node={node}
+            refNode={refNode}
             extensionProvider={this.state.extensionProvider}
             handleContentDOMRef={handleContentDOMRef}
             view={editorView}
@@ -158,7 +160,7 @@ export default class ExtensionComponent extends Component<Props, State> {
 
       if (extensionHandlerFromProvider) {
         const NodeRenderer = extensionHandlerFromProvider;
-        return <NodeRenderer node={node} />;
+        return <NodeRenderer node={node} refNode={this.props.refNode} />;
       }
     }
 

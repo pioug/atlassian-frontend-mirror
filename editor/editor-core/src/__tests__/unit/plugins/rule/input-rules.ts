@@ -23,7 +23,6 @@ describe('inputrules', () => {
         allowAnalyticsGASV3: true,
         allowRule: true,
         allowNewInsertionBehaviour: true,
-        UNSAFE_predictableLists: true,
       },
       createAnalyticsEvent,
     });

@@ -1,3 +1,5 @@
+import { SEVERITY } from '../analytics';
+
 import { isPerformanceObserverLongTaskAvailable } from './is-performance-api-available';
 
 export function measureTTI(
@@ -64,4 +66,56 @@ export function measureTTI(
   };
 
   setTimeout(checkIdle, idleThreshold);
+}
+
+export const TTI_SEVERITY_THRESHOLD_DEFAULTS = {
+  NORMAL: 40000,
+  DEGRADED: 60000,
+};
+
+export const TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS = {
+  NORMAL: 5000,
+  DEGRADED: 8000,
+};
+
+export function getTTISeverity(
+  tti: number,
+  ttiFromInvocation: number,
+  ttiSeverityNormalTheshold?: number,
+  ttiSeverityDegradedThreshold?: number,
+  ttiFromInvocationSeverityNormalThreshold?: number,
+  ttiFromInvocationSeverityDegradedThreshold?: number,
+): { ttiSeverity: SEVERITY; ttiFromInvocationSeverity: SEVERITY } {
+  const ttiNormalThreshold =
+    ttiSeverityNormalTheshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL;
+  const ttiDegradedThreshold =
+    ttiSeverityDegradedThreshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED;
+  let ttiSeverity: SEVERITY;
+  if (tti >= ttiNormalThreshold && tti < ttiDegradedThreshold) {
+    ttiSeverity = SEVERITY.DEGRADED;
+  } else if (tti >= ttiDegradedThreshold) {
+    ttiSeverity = SEVERITY.BLOCKING;
+  } else {
+    ttiSeverity = SEVERITY.NORMAL;
+  }
+
+  const ttiFromInvocationNormalThreshold =
+    ttiFromInvocationSeverityNormalThreshold ||
+    TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.NORMAL;
+  const ttiFromInvocationDegradedThreshold =
+    ttiFromInvocationSeverityDegradedThreshold ||
+    TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED;
+  let ttiFromInvocationSeverity: SEVERITY;
+  if (
+    ttiFromInvocation >= ttiFromInvocationNormalThreshold &&
+    ttiFromInvocation < ttiFromInvocationDegradedThreshold
+  ) {
+    ttiFromInvocationSeverity = SEVERITY.DEGRADED;
+  } else if (ttiFromInvocation >= ttiFromInvocationDegradedThreshold) {
+    ttiFromInvocationSeverity = SEVERITY.BLOCKING;
+  } else {
+    ttiFromInvocationSeverity = SEVERITY.NORMAL;
+  }
+
+  return { ttiSeverity, ttiFromInvocationSeverity };
 }

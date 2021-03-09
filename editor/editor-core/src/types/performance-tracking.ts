@@ -16,6 +16,36 @@ export type TTITracking = {
    * @default: 60
    */
   ttiCancelTimeout?: number;
+
+  /**
+   * @description Control whether TTI severity is tracked. When this is false the severity is not recorded.
+   * @default false
+   */
+  trackSeverity?: boolean;
+
+  /**
+   * @description Control for calculating tti severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+   * @default 40000
+   */
+  ttiSeverityNormalThreshold?: number;
+
+  /**
+   * @description Control for calculating tti severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+   * @default 60000
+   */
+  ttiSeverityDegradedThreshold?: number;
+
+  /**
+   * @description Control for calculating ttiFromInvocation severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+   * @default 5000
+   */
+  ttiFromInvocationSeverityNormalThreshold?: number;
+
+  /**
+   * @description Control for calculating ttiFromInvocation severity level (NORMAL/DEGRADED/BLOCKING). Depends on trackSeverity being true.
+   * @default 8000
+   */
+  ttiFromInvocationSeverityDegradedThreshold?: number;
 };
 
 export type TransactionTracking = {

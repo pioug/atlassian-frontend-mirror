@@ -1,17 +1,13 @@
 import React from 'react';
-import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+
 import { BrowserConfig } from '../../types';
 import {
   LocalUploadComponentReact,
   LocalUploadComponentBaseProps,
 } from '../localUploadReact';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
+import { getPackageAttributes } from '../../util/analytics';
 
 export interface BrowserOwnProps {
   config: BrowserConfig;
@@ -29,9 +25,14 @@ export interface BrowserOwnProps {
 export type BrowserProps = LocalUploadComponentBaseProps & BrowserOwnProps;
 
 const defaultConfig: BrowserConfig = { uploadParams: {} };
+const COMPONENT_NAME = 'browser';
 
 export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
   private browserRef = React.createRef<HTMLInputElement>();
+
+  constructor(props: BrowserProps) {
+    super(props, COMPONENT_NAME);
+  }
 
   static defaultProps = {
     config: defaultConfig,
@@ -114,10 +115,9 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
   }
 }
 
-export const Browser = withAnalyticsContext({
-  attributes: {
-    componentName: 'browser',
-    packageName,
-    packageVersion,
+export const Browser = withMediaAnalyticsContext(
+  getPackageAttributes(COMPONENT_NAME),
+  {
+    filterFeatureFlags: ['folderUploads', 'newCardExperience'],
   },
-})(withAnalyticsEvents()(BrowserBase));
+)(withAnalyticsEvents()(BrowserBase));

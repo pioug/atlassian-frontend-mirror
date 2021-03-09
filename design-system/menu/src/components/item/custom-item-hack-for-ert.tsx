@@ -1,6 +1,8 @@
 import { CustomItemProps } from '../types';
 
 /**
- * The props definition is the real custom item breaks ERT unfortunately.
+ * The props definition in custom-item.tsx breaks ERT unfortunately,
+ * because we had to typecast the component to make forwardRef work with generics
+ * (for the custom component props).
  */
 export default function (_: CustomItemProps) {}

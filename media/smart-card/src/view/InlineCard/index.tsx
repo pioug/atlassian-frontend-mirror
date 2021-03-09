@@ -9,10 +9,13 @@ import {
   InlineCardUnauthorizedView,
 } from '@atlaskit/media-ui';
 import { InlineCardProps } from './types';
-import { getEmptyJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { JsonLd } from 'json-ld-types';
-import { extractProvider } from '../../extractors/common/context';
+import {
+  extractProvider,
+  extractRequestAccessContext,
+} from '../../extractors/common/context';
 
 export const InlineCard: FC<InlineCardProps> = ({
   url,
@@ -76,14 +79,22 @@ export const InlineCard: FC<InlineCardProps> = ({
       const providerForbidden = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
+      const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
+      const requestAccessContext = extractRequestAccessContext({
+        jsonLd: cardMetadata,
+        url,
+        context: providerForbidden?.text,
+      });
       return (
         <InlineCardForbiddenView
           url={url}
           icon={providerForbidden && providerForbidden.icon}
+          context={providerForbidden?.text}
           isSelected={isSelected}
           onClick={handleFrameClick}
           onAuthorise={handleAuthorize}
           testId={testIdWithStatus}
+          requestAccessContext={requestAccessContext}
         />
       );
     case 'not_found':

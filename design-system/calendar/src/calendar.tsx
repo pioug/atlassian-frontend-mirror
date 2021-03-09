@@ -7,27 +7,25 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import GlobalTheme, { GlobalThemeTokens } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
 
-import DateComponent from './internal/components/date';
-import Heading from './internal/components/heading';
+import HeadingComponent from './internal/components/heading';
+import WeekDaysComponent from './internal/components/week-days';
+import WeekHeaderComponent from './internal/components/week-header';
 import { blankObject, blankStringArray } from './internal/constants';
+import useCalendarRef from './internal/hooks/use-calendar-ref';
 import useControlledDateState from './internal/hooks/use-controlled-date-state';
 import useFocusing from './internal/hooks/use-focusing';
+import useGetWeeks from './internal/hooks/use-get-weeks';
 import useHandleDateChange from './internal/hooks/use-handle-date-change';
 import useHandleDateSelect from './internal/hooks/use-handle-date-select';
-import useInternalRef from './internal/hooks/use-internal-ref';
 import useLocale from './internal/hooks/use-locale';
 import useUniqueId from './internal/hooks/use-unique-id';
-import { announcerStyle, wrapperStyle } from './internal/styles/container';
 import {
-  tableStyle,
-  tbodyStyle,
-  theadStyle,
-  thStyle,
-} from './internal/styles/table';
-import getWeeks from './internal/utils/get-weeks';
+  announcerStyle,
+  wrapperStyle as getWrapperStyle,
+} from './internal/styles/container';
+import { tableStyle } from './internal/styles/table';
 import noop from './internal/utils/noop';
 import type { CalendarProps } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
 
 export interface InternalProps extends CalendarProps {
   mode: ThemeModes;
@@ -35,8 +33,8 @@ export interface InternalProps extends CalendarProps {
 
 const analyticsAttributes = {
   componentName: 'calendar',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 const CalendarWithMode = forwardRef(function Calendar(
@@ -63,7 +61,7 @@ const CalendarWithMode = forwardRef(function Calendar(
     analyticsContext,
     weekStartDay = 0,
     testId,
-    internalRef,
+    calendarRef,
     mode,
   }: InternalProps,
   ref: React.Ref<HTMLDivElement>,
@@ -129,44 +127,29 @@ const CalendarWithMode = forwardRef(function Calendar(
     onBlur,
   });
 
-  useInternalRef(internalRef, {
+  useCalendarRef(calendarRef, {
     navigate,
   });
 
-  const weeks = useMemo(
-    () =>
-      getWeeks({
-        day: dayValue,
-        month: monthValue,
-        year: yearValue,
-        today: todayValue,
-        disabled: disabledValue,
-        selected: selectedValue,
-        previouslySelected: previouslySelectedValue,
-        weekStartDay,
-      }),
-    [
-      dayValue,
-      disabledValue,
-      monthValue,
-      previouslySelectedValue,
-      selectedValue,
-      todayValue,
-      yearValue,
-      weekStartDay,
-    ],
-  );
+  const weeks = useGetWeeks({
+    day: dayValue,
+    month: monthValue,
+    year: yearValue,
+    today: todayValue,
+    disabled: disabledValue,
+    selected: selectedValue,
+    previouslySelected: previouslySelectedValue,
+    weekStartDay,
+  });
 
   const announceId = useUniqueId('announce');
+  const announcerDate = useMemo(
+    () => new Date(yearValue, monthValue, dayValue).toString(),
+    [dayValue, monthValue, yearValue],
+  );
   const { monthsLong, daysShort } = useLocale({ locale, weekStartDay });
 
-  const styles = useMemo(
-    () => ({
-      wrapper: wrapperStyle(mode),
-      th: thStyle(mode),
-    }),
-    [mode],
-  );
+  const wrapperStyle = useMemo(() => getWrapperStyle(mode), [mode]);
 
   return (
     <div
@@ -184,16 +167,16 @@ const CalendarWithMode = forwardRef(function Calendar(
         aria-live="assertive"
         aria-relevant="text"
       >
-        {new Date(yearValue, monthValue, dayValue).toString()}
+        {announcerDate}
       </div>
       <div
-        css={styles.wrapper}
+        css={wrapperStyle}
         aria-describedby={announceId}
         aria-label="calendar"
         role="grid"
         tabIndex={0}
       >
-        <Heading
+        <HeadingComponent
           // The month number needs to be translated to index in the month
           // name array e.g. 1 (January) -> 0
           monthLongTitle={monthsLong[monthValue - 1]}
@@ -203,52 +186,13 @@ const CalendarWithMode = forwardRef(function Calendar(
           testId={testId}
         />
         <table css={tableStyle} role="presentation">
-          <thead css={theadStyle}>
-            <tr>
-              {daysShort.map(shortDay => (
-                <th css={styles.th} key={shortDay}>
-                  {shortDay}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody css={tbodyStyle} data-testid={testId && `${testId}--month`}>
-            {weeks.map(week => (
-              <tr key={week.id}>
-                {week.values.map(
-                  ({
-                    id,
-                    isDisabled,
-                    isFocused,
-                    isToday,
-                    month,
-                    isPreviouslySelected,
-                    isSelected,
-                    isSiblingMonth,
-                    year,
-                    day,
-                  }) => (
-                    <DateComponent
-                      key={id}
-                      disabled={isDisabled}
-                      focused={isFocused}
-                      isToday={isToday}
-                      month={month}
-                      onClick={handleClickDay}
-                      previouslySelected={isPreviouslySelected}
-                      selected={isSelected}
-                      sibling={isSiblingMonth}
-                      year={year}
-                      mode={mode}
-                      testId={testId}
-                    >
-                      {day}
-                    </DateComponent>
-                  ),
-                )}
-              </tr>
-            ))}
-          </tbody>
+          <WeekHeaderComponent daysShort={daysShort} mode={mode} />
+          <WeekDaysComponent
+            weeks={weeks}
+            handleClickDay={handleClickDay}
+            mode={mode}
+            testId={testId}
+          />
         </table>
       </div>
     </div>

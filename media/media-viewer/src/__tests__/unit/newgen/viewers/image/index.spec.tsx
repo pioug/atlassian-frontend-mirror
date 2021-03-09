@@ -41,6 +41,7 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
   );
   const onClose = jest.fn();
   const onLoaded = jest.fn();
+  const onError = jest.fn();
   const component = mountWithIntlContext<
     ImageViewerProps,
     BaseState<ImageViewerContent>,
@@ -52,6 +53,7 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
       collectionName={collectionName}
       onClose={onClose}
       onLoad={onLoaded}
+      onError={onError}
       {...props}
     />,
   );

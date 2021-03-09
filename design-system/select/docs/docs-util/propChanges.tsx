@@ -65,25 +65,21 @@ interface Prop {
 }
 
 interface State {
-  selectedOptions: string[];
+  selectedOptions: ValueType<OptionType, true>;
   filterValue: string;
   packageFilter: string;
 }
 
-const stringAllOptions: string[] = allOptions.map(
-  (opt: { value: string }): string => opt.value,
-);
-
 export default class PropChanges extends Component<Prop, State> {
   state = {
-    selectedOptions: stringAllOptions,
+    selectedOptions: allOptions,
     filterValue: filterOptions[0].value,
     packageFilter: 'all',
   };
 
-  onFilterChange = (option: ValueType<OptionType>) => {
+  onFilterChange = (option: ValueType<OptionType, true>) => {
     this.setState({
-      selectedOptions: option!.map((opt: OptionType) => opt.value),
+      selectedOptions: option,
     });
   };
 
@@ -141,7 +137,10 @@ export default class PropChanges extends Component<Prop, State> {
               })
               .map(entry => {
                 const { key, status, content, packages } = entry;
-                return selectedOptions.includes(getDisplayedStatus(status)) &&
+                return selectedOptions &&
+                  selectedOptions
+                    .map((opt: { value: string }): string => opt.value)
+                    .includes(getDisplayedStatus(status)) &&
                   matchPackageFilter(packages, packageFilter) ? (
                   <PropStatus
                     key={key}

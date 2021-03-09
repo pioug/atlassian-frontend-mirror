@@ -8,12 +8,10 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-
 import Field from './Field';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 interface Props extends WithAnalyticsEventsProps {
   /** The time of the comment. */

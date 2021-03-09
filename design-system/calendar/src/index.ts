@@ -8,5 +8,5 @@ export type {
   // For now we are exporting an additional ref type so that
   // consumers can ensure that they are calling the internal api's correctly.
   // Currently @atlaskit/datetime-picker is using it directly.
-  CalendarInternalRef,
+  CalendarRef,
 } from './types';

@@ -712,9 +712,6 @@ describe('card', () => {
           doc(p('hello ', '{<node>}', inlineCard(cardAdfAttrs)())),
         );
         const setNodeMarkup = jest.fn().mockReturnValue({
-          doc: {
-            resolve: jest.fn().mockReturnValue(editorView.state.doc.resolve(0)),
-          },
           scrollIntoView: jest.fn(),
           storedMarks: jest.fn(),
           step: jest.fn(),
@@ -724,7 +721,6 @@ describe('card', () => {
               pos: 1,
             },
           },
-          setSelection: jest.fn(),
         });
         const dispatch = jest.fn();
 

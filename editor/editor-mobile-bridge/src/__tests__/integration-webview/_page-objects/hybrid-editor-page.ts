@@ -57,11 +57,9 @@ export const EDITOR_CONTENT_AREA_ELEMENT = '.ak-editor-content-area';
  *
  * This function will leave you in the webview context so that you
  * can immediately interact with the editor bridge methods.
- *
- * @param useNextGen When true targets the Arch V3 release.
  */
-export async function loadEditor(page: Page, params = '', useNextGen = false) {
-  const filename = `editor${useNextGen ? 'archv3' : ''}.html`;
+export async function loadEditor(page: Page, params = '') {
+  const filename = `editor.html`;
   const url = URL.resolve(
     `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`,
     filename + '?' + params,

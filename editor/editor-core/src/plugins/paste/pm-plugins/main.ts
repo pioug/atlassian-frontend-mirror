@@ -1,7 +1,7 @@
 // @ts-ignore: outdated type definitions
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
-import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { Plugin, PluginKey, EditorState, Transaction } from 'prosemirror-state';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -78,9 +78,9 @@ import {
   containsAnyAnnotations,
   stripNonExistingAnnotations,
 } from '../../annotation/utils';
+import { pluginKey as betterTypePluginKey } from '../../base/pm-plugins/better-type-history';
 
 export const stateKey = new PluginKey('pastePlugin');
-
 export { md } from '../md';
 
 function isHeaderRowRequired(state: EditorState) {
@@ -192,7 +192,12 @@ export function createPlugin(
           event.stopPropagation();
         }
 
-        const { state, dispatch } = view;
+        const { state } = view;
+        // creating a custom dispatch because we want to add a meta whenever we do a paste.
+        const dispatch = (tr: Transaction) => {
+          tr.setMeta(betterTypePluginKey, true);
+          view.dispatch(tr);
+        };
 
         slice = handleParagraphBlockMarks(state, slice);
 

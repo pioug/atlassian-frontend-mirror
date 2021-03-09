@@ -239,7 +239,7 @@ export interface CustomItemComponentProps {
   /**
    * Makes the element appear disabled as well as removing interactivity.
    */
-  tabIndex: number | undefined;
+  tabIndex?: number;
 
   /**
    * Disabled attribute.
@@ -254,7 +254,9 @@ export interface CustomItemProps<
    * Custom component to render as an item.
    * This can be both a functional component or a class component.
    * **Will return `null` if no component is defined.**
-   * If using TypeScript and this has typed props it will make its props available to the root custom item component for type safety.
+   * If using TypeScript and this has typed props it will make its props available to the root custom item component for type safety,
+   * which allows you to pass the custom component's props via the root custom item component props.
+   * e.g. `<CustomItem to="/link" component={RouterLink} />`
 
    * **NOTE:** Make sure the reference for this component does not change between renders else undefined behavior may happen.
    */

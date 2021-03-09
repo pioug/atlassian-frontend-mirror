@@ -18,6 +18,8 @@ import {
 import TableView from '../../../../../plugins/table/nodeviews/table';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { EditorProps } from '../../../../../types';
+import { EditorView } from 'prosemirror-view';
+import { hoverRows } from '../../../commands';
 
 describe('table -> nodeviews -> table.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -84,17 +86,22 @@ describe('table -> nodeviews -> table.tsx', () => {
       describe('on view update', () => {
         let tableNode: PMNode,
           tableNodeView: TableView,
-          renderSpy: jest.SpyInstance;
+          renderSpy: jest.SpyInstance,
+          view: EditorView;
         beforeEach(() => {
-          tableNode = createTableNode()(
-            tr(td()(p('{<>}text')), tdEmpty, tdEmpty),
-          );
+          tableNode = createTableNode({
+            isNumberColumnEnabled: true,
+          })(tr(td()(p('{<>}text')), tdEmpty, tdEmpty));
           const { editorView, portalProviderAPI, eventDispatcher } = editor(
-            doc(p('text')),
+            doc(
+              p('text'),
+              table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty)),
+            ),
             {
               featureFlags: { tableRenderOptimization: true },
             },
           );
+          view = editorView;
           tableNodeView = new TableView({
             node: tableNode,
             allowColumnResizing: false,
@@ -109,19 +116,29 @@ describe('table -> nodeviews -> table.tsx', () => {
         });
 
         it('does not rerender if attributes did not change', () => {
-          const newNodeWithUnchangedAttributes = createTableNode()(
-            tr(td()(p('{<>}text1')), tdEmpty),
-          );
+          const newNodeWithUnchangedAttributes = createTableNode({
+            isNumberColumnEnabled: true,
+          })(tr(td()(p('{<>}text1')), tdEmpty));
           tableNodeView.update(newNodeWithUnchangedAttributes, []);
           expect(renderSpy).not.toHaveBeenCalled();
         });
 
         it('rerenders when attributes change', () => {
           const newNodeWithChangedAttributes = createTableNode({
-            isNumberColumnEnabled: true,
+            isNumberColumnEnabled: false,
           })(tr(td()(p('{<>}text1')), tdEmpty));
 
           tableNodeView.update(newNodeWithChangedAttributes, []);
+          expect(renderSpy).toHaveBeenCalled();
+        });
+
+        it('rerenders when hovered rows change but attributes dont change', () => {
+          const newNodeWithUnchangedAttributes = createTableNode({
+            isNumberColumnEnabled: true,
+          })(tr(td()(p('{<>}text1')), tdEmpty));
+
+          hoverRows([1])(view.state, view.dispatch);
+          tableNodeView.update(newNodeWithUnchangedAttributes, []);
           expect(renderSpy).toHaveBeenCalled();
         });
       });

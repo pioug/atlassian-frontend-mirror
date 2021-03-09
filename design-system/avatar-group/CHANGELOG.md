@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.0.15
+
+### Patch Changes
+
+- [`dd0ddc74ee4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0ddc74ee4) - Support onClick handlers on anchor elements in Avatar Group
+
 ## 8.0.14
 
 ### Patch Changes

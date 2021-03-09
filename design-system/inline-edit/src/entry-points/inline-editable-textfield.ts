@@ -1,1 +1,1 @@
-export { default as InlineEditableTextfield } from '../inline-editable-textfield';
+export { default } from '../inline-editable-textfield';

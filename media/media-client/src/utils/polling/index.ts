@@ -53,10 +53,14 @@ export class PollingFunction {
 
     if (PollingFunction.failures >= poll_maxGlobalFailures) {
       // hard kill, maximum failures on page allowed
-      return this.fail(new PollingError('maxFailuresExceeded', this.attempt));
+      return this.fail(
+        new PollingError('pollingMaxFailuresExceeded', this.attempt),
+      );
     } else if (poll_maxAttempts === 0) {
       // hard kill, polling disabled
-      return this.fail(new PollingError('maxAttemptsExceeded', this.attempt));
+      return this.fail(
+        new PollingError('pollingMaxAttemptsExceeded', this.attempt),
+      );
     }
 
     try {
@@ -70,7 +74,9 @@ export class PollingFunction {
 
       if (this.attempt >= poll_maxAttempts) {
         // max iterations exceeded, let the consumer know
-        return this.fail(new PollingError('maxAttemptsExceeded', this.attempt));
+        return this.fail(
+          new PollingError('pollingMaxAttemptsExceeded', this.attempt),
+        );
       }
 
       this.poll_intervalMs = this.getIntervalMsForIteration(this.attempt);

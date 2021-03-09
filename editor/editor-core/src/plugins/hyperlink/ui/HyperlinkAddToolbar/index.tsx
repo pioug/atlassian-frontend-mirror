@@ -10,13 +10,6 @@ import WithPluginState from '../../../../ui/WithPluginState';
 export interface Props {
   view: EditorView;
   providerFactory: ProviderFactory;
-  onBlur?: (
-    type: string,
-    url: string,
-    title: string | undefined,
-    displayText: string | undefined,
-    isTabPressed?: boolean,
-  ) => void;
   onSubmit: (
     href: string,
     title: string | undefined,
@@ -34,7 +27,6 @@ export default class HyperlinkAddToolbar extends React.PureComponent<
   render() {
     const {
       onSubmit,
-      onBlur,
       displayText,
       displayUrl,
       providerFactory,
@@ -55,7 +47,6 @@ export default class HyperlinkAddToolbar extends React.PureComponent<
                 activityProvider={activityProvider}
                 searchProvider={searchProvider}
                 onSubmit={onSubmit}
-                onBlur={onBlur}
                 displayText={displayText}
                 displayUrl={displayUrl}
                 pluginState={hyperlinkPluginState}

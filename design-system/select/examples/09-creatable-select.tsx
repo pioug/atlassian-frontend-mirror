@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CreatableSelect } from '../src';
+import { CreatableSelect, OptionType, ValueType } from '../src';
 
 const defaultOptions = [
   { label: 'Adelaide', value: 'adelaide' },
@@ -20,7 +20,7 @@ const createOption = (label: string) => ({
 interface State {
   isLoading: boolean;
   options: Array<{ label: string; value: string }>;
-  value?: {};
+  value?: ValueType<OptionType>;
 }
 
 export default class CreatableAdvanced extends Component<{}, State> {

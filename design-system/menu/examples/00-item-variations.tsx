@@ -15,12 +15,9 @@ import {
   SkeletonItem,
 } from '../src';
 
-const RouterLink = (props: CustomItemComponentProps) => (
-  <Link to="/my-route" {...props} />
-);
-
 const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
 const Star = <StarIcon label="" />;
+
 const ItemVariants = () => {
   return (
     <div
@@ -112,7 +109,8 @@ const ItemVariants = () => {
       </CustomItem>
       <HashRouter>
         <CustomItem
-          component={RouterLink}
+          component={Link}
+          to="/my-route"
           testId="item-custom-router"
           description="some custom text"
           isSelected

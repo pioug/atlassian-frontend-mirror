@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'ยกเลิก',
-  'fabric.elements.mentions.team.member.50plus': 'สมาชิกมากกว่า 50 คน',
+  'fabric.elements.mentions.team.member.50plus': 'ทีม • สมาชิกมากกว่า 50 คน',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    'สมาชิก 50 คนขึ้นไปรวมคุณด้วย',
+    'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, other {สมาชิก {0} คน}}',
+    '{0, plural, other {ทีม • สมาชิก {0} คน}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, other {สมาชิก {0} คน รวมคุณด้วย}}',
+    '{0, plural, other {ทีม • สมาชิก {0} คน รวมคุณด้วย}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'ให้ทุกคนดูหน้าเพจได้ในคลิกเดียว ไม่มีทีมใช่ไหม',
   'fabric.elements.mentions.team.mention.highlight.description.link':

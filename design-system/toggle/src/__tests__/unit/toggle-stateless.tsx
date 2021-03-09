@@ -4,6 +4,9 @@ import { fireEvent, render } from '@testing-library/react';
 
 import Toggle from '../../toggle';
 
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
 describe('Toggle component', () => {
   describe('defaultChecked is absent', () => {
     it('should be stateless when defaultChecked is absent - is not checked', () => {
@@ -28,8 +31,8 @@ describe('Toggle component', () => {
           context: [
             {
               componentName: 'toggle',
-              packageName: '@atlaskit/toggle',
-              packageVersion: '999.9.9',
+              packageName,
+              packageVersion,
             },
           ],
         }),

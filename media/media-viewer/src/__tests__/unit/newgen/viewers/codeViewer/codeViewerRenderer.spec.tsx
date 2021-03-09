@@ -6,9 +6,10 @@ import {
   State,
 } from '../../../../../newgen/viewers/codeViewer/codeViewerRenderer';
 import { Spinner } from '../../../../../newgen/loading';
-import { createError, ErrorMessage } from '../../../../../newgen/error';
+import { ErrorMessage } from '../../../../../newgen/errorMessage';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { Outcome } from '../../../../../newgen/domain';
+import { MediaViewerError } from '../../../../../newgen/errors';
 import { CodeBlock } from '@atlaskit/code';
 
 const defaultSrc = 'hello\n';
@@ -21,6 +22,14 @@ function createFixture(doc: any, customSrc?: string) {
 
   const el = mountWithIntlContext<Props, State>(
     <CodeViewRenderer
+      item={{
+        id: '1',
+        status: 'processing',
+        mediaType: 'doc',
+        mimeType: 'text/plain',
+        name: 'file.txt',
+        size: 1,
+      }}
       src={customSrc || defaultSrc}
       onClose={onClose}
       onSuccess={onSuccess}
@@ -43,7 +52,9 @@ describe('CodeViewRenderer', () => {
   });
 
   it('shows an error message when the code file could not be loaded', async () => {
-    const content = Outcome.failed(createError('previewFailed'));
+    const content = Outcome.failed(
+      new MediaViewerError('codeviewer-fetch-src'),
+    );
     const { el } = createFixture(content);
 
     el.update();
@@ -51,8 +62,8 @@ describe('CodeViewRenderer', () => {
     const errorMessage = el.find(ErrorMessage);
 
     expect(errorMessage).toHaveLength(1);
-    expect(errorMessage.text()).toContain(
-      "We couldn't generate a preview for this file",
+    expect(errorMessage.prop('error').message).toContain(
+      'codeviewer-fetch-src',
     );
     expect(errorMessage.find(Button)).toHaveLength(0);
   });

@@ -26,7 +26,7 @@ export default function (eventEmitter: PopupUploadEventEmitter): Middleware {
         case 'upload-error': {
           const { error } = event.data;
           eventEmitter.emitUploadError(fileId, error);
-          handleError(error.name, error.description);
+          handleError(error.name, error.description, error.rawError);
           break;
         }
       }

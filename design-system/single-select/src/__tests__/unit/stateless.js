@@ -10,9 +10,7 @@ import InitialLoadingElement from '../../styled/InitialLoading';
 import Content from '../../styled/Content';
 import Trigger from '../../styled/Trigger';
 
-import { name } from '../../version.json';
-
-describe(name, () => {
+describe('@atlaskit/single-select', () => {
   const animStub = window.cancelAnimationFrame;
 
   let rootElement;

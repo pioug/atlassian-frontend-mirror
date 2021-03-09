@@ -21,6 +21,7 @@ import {
   checkWebpSupport,
   isRequestError,
   isMediaStoreError,
+  MediaStoreError,
 } from '../..';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
 
@@ -595,7 +596,7 @@ describe('MediaStore', () => {
           }
 
           expect(err.attributes).toMatchObject({
-            reason: 'serverError',
+            reason: 'serverForbidden',
             statusCode: 403,
             bodyAsText: 'something went wrong',
           });
@@ -1075,6 +1076,24 @@ describe('MediaStore', () => {
       }
 
       expect.assertions(1);
+    });
+  });
+
+  describe('MediaStoreError', () => {
+    it('should be identifiable', () => {
+      const unknownError = new Error('unknown error');
+      expect(isMediaStoreError(unknownError)).toBeFalsy();
+      const mediaStoreError = new MediaStoreError('failedAuthProvider');
+      expect(isMediaStoreError(mediaStoreError)).toBeTruthy();
+    });
+
+    it('should return the right arguments', () => {
+      const error = new Error('error');
+      const mediaStoreError = new MediaStoreError('failedAuthProvider', error);
+      expect(mediaStoreError.attributes).toMatchObject({
+        reason: 'failedAuthProvider',
+        innerError: error,
+      });
     });
   });
 });

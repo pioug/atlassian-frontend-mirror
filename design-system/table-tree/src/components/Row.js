@@ -9,12 +9,11 @@ import {
 
 import { TreeRowContainer } from '../styled';
 import toItemId from '../utils/toItemId';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import Chevron from './Chevron';
+
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 
 class Row extends Component {
   state = { isExpanded: this.props.isDefaultExpanded || false };

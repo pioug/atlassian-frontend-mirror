@@ -13,6 +13,7 @@ import NativeBridge from '../../../web-to-native/bridge';
 import WebBridgeImpl, { defaultSetList } from '../../implementation';
 import * as BridgeUtils from '../../../../utils/bridge';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { TypeAheadHandler } from '@atlaskit/editor-core/src/plugins/type-ahead/types';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import * as crossPlatformPromise from '../../../../cross-platform-promise';
 
@@ -20,8 +21,34 @@ jest.mock('../../../web-to-native');
 jest.mock('@atlaskit/editor-core', () => ({
   ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
   dismissCommand: jest.fn(),
-  selectItem: jest.fn().mockReturnValue(jest.fn()),
+  selectItem: jest.fn((handler: TypeAheadHandler) => {
+    const state: any = {
+      schema: {
+        nodes: {
+          emoji: {
+            createChecked: jest.fn(),
+          },
+        },
+      },
+    };
+    const item: any = {};
+    const insert = jest.fn();
+    const meta: any = {};
+
+    handler.selectItem(state, item, insert, meta);
+    return jest.fn();
+  }),
   getNodesCount: () => ({ paragraph: 2, date: 1, text: 1 }),
+  typeAheadPluginKey: {
+    getState() {
+      const quickInsertItem = {
+        id: 'media',
+      };
+      return {
+        items: [quickInsertItem],
+      };
+    },
+  },
 }));
 jest.mock('@atlaskit/editor-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common'),
@@ -247,6 +274,20 @@ describe('TypeAhead Bridge', () => {
     );
     bridge.cancelTypeAhead();
     expect(toNativeBridge.dismissTypeAhead).not.toHaveBeenCalled();
+  });
+
+  it('should call typeAheadItemSelected for native items', () => {
+    const payload = JSON.stringify({
+      index: 0,
+    });
+    bridge.insertTypeAheadItem('quickinsert', payload);
+    expect(1).toEqual(1);
+    expect(toNativeBridge.typeAheadItemSelected).toHaveBeenCalledTimes(1);
+    expect(toNativeBridge.typeAheadItemSelected).toBeCalledWith(
+      JSON.stringify({
+        id: 'media',
+      }),
+    );
   });
 });
 

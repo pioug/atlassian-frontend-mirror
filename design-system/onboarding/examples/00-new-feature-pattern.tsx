@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius } from '@atlaskit/theme/constants';
 
 import {

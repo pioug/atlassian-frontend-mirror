@@ -19,6 +19,12 @@ import { toggleContextualMenu } from '../../commands';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import messages from '../../ui/messages';
+import {
+  DispatchAnalyticsEvent,
+  AnalyticsEventPayload,
+  CONTENT_COMPONENT,
+} from '../../../analytics/types';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import { tableFloatingCellButtonStyles } from './styles.css';
 import { Node as PMNode } from 'prosemirror-model';
 
@@ -33,6 +39,7 @@ export interface Props {
   layout?: TableLayout;
   isNumberColumnEnabled?: boolean;
   stickyHeader?: RowStickyState;
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
 const ButtonWrapper = styled.div`
@@ -53,9 +60,32 @@ class FloatingContextualButton extends React.Component<
       targetCellPosition,
       isContextualMenuOpen,
       intl: { formatMessage },
+      dispatchAnalyticsEvent,
     } = this.props; //  : Props & InjectedIntlProps
     const domAtPos = editorView.domAtPos.bind(editorView);
-    const targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
+    let targetCellRef: Node | undefined;
+    try {
+      targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn(error);
+      if (dispatchAnalyticsEvent) {
+        const payload: AnalyticsEventPayload = {
+          action: ACTION.ERRORED,
+          actionSubject: ACTION_SUBJECT.CONTENT_COMPONENT,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: {
+            component: CONTENT_COMPONENT.FLOATING_CONTEXTUAL_BUTTON,
+            selection: editorView.state.selection.toJSON(),
+            position: targetCellPosition,
+            docSize: editorView.state.doc.nodeSize,
+            error: error.toString(),
+            errorStack: error.stack || undefined,
+          },
+        };
+        dispatchAnalyticsEvent(payload);
+      }
+    }
 
     if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
       return null;

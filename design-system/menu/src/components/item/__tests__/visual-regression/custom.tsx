@@ -1,6 +1,11 @@
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 
-import { hover, mouseDown, verifyElementIn } from '../../../__tests__/_helper';
+import {
+  focus,
+  hover,
+  mouseDown,
+  verifyElementIn,
+} from '../../../__tests__/_helper';
 
 const customItem = '[data-testid="item-custom-em"]';
 const customItemDisabled = '[data-testid="item-custom-em-disabled"]';
@@ -26,6 +31,10 @@ describe('<CustomItem />', () => {
 
   it('should match the clicked state', async () => {
     await verifyElementMatchProductionImage(customItem, mouseDown(customItem));
+  });
+
+  it('should match the focused state', async () => {
+    await verifyElementMatchProductionImage(customItem, focus(customItem));
   });
 
   it('should match the disabled state', async () => {

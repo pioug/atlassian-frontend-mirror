@@ -3,10 +3,9 @@ import { shallow, mount } from 'enzyme';
 import { toClass } from 'recompose';
 
 import Item, { itemThemeNamespace } from '../../..';
-import { name } from '../../../version.json';
 import { After, Before, Content, Description } from '../../../styled/ItemParts';
 
-describe(`${name} - Item`, () => {
+describe('@atlaskit/item - Item', () => {
   let wrapper;
   afterEach(() => {
     if (wrapper) wrapper.unmount();

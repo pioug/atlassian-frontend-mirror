@@ -95,7 +95,7 @@ export default () => (
           <Field<ValueType<OptionType>>
             name="colors"
             label="Select a colour"
-            defaultValue={[]}
+            defaultValue={null}
           >
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
@@ -110,14 +110,14 @@ export default () => (
               </Fragment>
             )}
           </Field>
-          <Field<ValueType<OptionType>>
+          <Field<ValueType<OptionType, true>>
             name="icecream"
             label="Select a flavor"
             defaultValue={[]}
           >
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
-                <Select<OptionType>
+                <Select
                   validationState={error ? 'error' : 'default'}
                   inputId={id}
                   {...rest}
@@ -128,19 +128,14 @@ export default () => (
               </Fragment>
             )}
           </Field>
-          <Field<ValueType<OptionType>>
+          <Field<ValueType<OptionType, true>>
             name="suits"
             label="Select suits"
             defaultValue={suits.slice(2)}
           >
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
-                <Select<OptionType>
-                  inputId={id}
-                  {...rest}
-                  options={suits}
-                  isMulti
-                />
+                <Select inputId={id} {...rest} options={suits} isMulti />
                 {error && <ErrorMessage>{error}</ErrorMessage>}
               </Fragment>
             )}

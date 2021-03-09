@@ -73,3 +73,4 @@ export const contextualMenuTriggerSize = 16;
 export const contextualMenuDropdownWidth = 180;
 export const stickyRowZIndex = resizeHandlerZIndex + 2;
 export const stickyRowOffsetTop = 8;
+export const stickyHeaderBorderBottomWidth = 1;

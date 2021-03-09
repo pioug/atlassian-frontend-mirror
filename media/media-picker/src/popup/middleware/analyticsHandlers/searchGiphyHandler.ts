@@ -1,14 +1,15 @@
 import { Action } from 'redux';
-import { SCREEN_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
-import { HandlerResult } from '.';
+
 import { isSearchGiphyAction } from '../../actions/searchGiphy';
+import { HandlerResult } from '.';
 
 export default (action: Action): HandlerResult => {
   if (isSearchGiphyAction(action)) {
     return [
       {
+        eventType: 'screen',
+        actionSubject: 'cloudBrowserModal',
         name: 'cloudBrowserModal',
-        eventType: SCREEN_EVENT_TYPE,
         attributes: {
           cloudType: 'giphy',
         },

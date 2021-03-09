@@ -2,6 +2,7 @@ export type Language = { name: string; alias: string[] };
 
 // We expect alias[0] to be used for the ADF attribute, see ED-2813
 export const DEFAULT_LANGUAGES: Language[] = [
+  { name: '(None)', alias: ['none'] },
   { name: 'ABAP', alias: ['abap'] },
   { name: 'ActionScript', alias: ['actionscript', 'actionscript3', 'as'] },
   { name: 'Ada', alias: ['ada', 'ada95', 'ada2005'] },
@@ -143,6 +144,9 @@ export function getLanguageIdentifier(language: Language): string {
 
 export function createLanguageList(supportedLanguages: Language[]) {
   return supportedLanguages.sort((left, right) => {
+    if (left.alias[0] === 'none') {
+      return -1;
+    }
     if (left.name.toLowerCase() > right.name.toLowerCase()) {
       return 1;
     }

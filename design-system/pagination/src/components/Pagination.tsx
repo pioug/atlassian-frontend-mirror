@@ -8,14 +8,13 @@ import {
 
 import { PaginationPropTypes } from '../types';
 import collapseRangeHelper from '../util/collapseRange';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import { LeftNavigator, RightNavigator } from './Navigators';
 import PageComponent from './Page';
 import renderDefaultEllipsis from './renderEllipsis';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 interface State {
   selectedIndex: number;

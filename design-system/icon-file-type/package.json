@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "6.1.4",
+  "version": "6.2.0",
   "description": "A file type icon is used to represent specific types of content used across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -8,27 +8,31 @@
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
-  "main": "cjs/index.js",
-  "module": "cjs/index.js",
-  "types": "cjs/index.d.ts",
-  "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Icon File Type"
     }
   },
+  "af:exports": {
+    "./internal": "./src/entry-points/internal.ts",
+    "./metadata": "./src/entry-points/metadata.ts",
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "update": "ts-node --project build/cjs/tsconfig.json ./build/index.ts && yarn build:typescript:cjs",
-    "build:typescript:cjs": "NODE_ENV=production tsc --project build/cjs/tsconfig.json"
+    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0",
-    "tslib": "^2.0.0"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -43,6 +47,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/visual-regression": "*",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
     "jscodeshift": "^0.7.0",

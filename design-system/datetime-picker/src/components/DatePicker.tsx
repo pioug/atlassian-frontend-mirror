@@ -11,7 +11,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import Calendar, { CalendarInternalRef } from '@atlaskit/calendar';
+import Calendar, { CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import {
   createLocalizationProvider,
@@ -38,10 +38,9 @@ import {
 } from '../internal';
 import FixedLayer from '../internal/FixedLayer';
 import { Appearance, SelectProps, Spacing } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
@@ -167,7 +166,7 @@ const Menu = ({
           disabled={selectProps.calendarDisabled}
           onChange={selectProps.onCalendarChange}
           onSelect={selectProps.onCalendarSelect}
-          internalRef={selectProps.calendarRef}
+          calendarRef={selectProps.calendarRef}
           selected={[selectProps.calendarValue]}
           innerProps={innerProps}
           locale={selectProps.calendarLocale}
@@ -205,7 +204,7 @@ const datePickerDefaultProps = {
 };
 
 class DatePicker extends React.Component<DatePickerProps, State> {
-  calendarRef: CalendarInternalRef | null = null;
+  calendarRef: CalendarRef | null = null;
   containerRef: HTMLElement | null = null;
 
   static defaultProps = datePickerDefaultProps;
@@ -415,7 +414,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     }
   };
 
-  refCalendar = (ref: CalendarInternalRef | null) => {
+  refCalendar = (ref: CalendarRef | null) => {
     this.calendarRef = ref;
   };
 

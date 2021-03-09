@@ -1,5 +1,15 @@
 # @atlaskit/onboarding
 
+## 10.2.0
+
+### Minor Changes
+
+- [`1b1cb960767`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b1cb960767) - The `headingAfterElement` prop has been added to the spotlight component which can be used to add a supplementary action.
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+
 ## 10.1.9
 
 ### Patch Changes

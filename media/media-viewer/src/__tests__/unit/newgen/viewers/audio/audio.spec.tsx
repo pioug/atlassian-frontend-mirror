@@ -15,7 +15,7 @@ import { Auth } from '@atlaskit/media-core';
 import { AudioViewer } from '../../../../../newgen/viewers/audio';
 import { Props } from '../../../../../newgen/viewers/video';
 import { DefaultCoverWrapper, AudioCover } from '../../../../../newgen/styled';
-import { ErrorMessage } from '../../../../../newgen/error';
+import { ErrorMessage } from '../../../../../newgen/errorMessage';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
 
 const token = 'some-token';
@@ -60,6 +60,8 @@ function createFixture(
 
   const el = mountWithIntlContext(
     <AudioViewer
+      onCanPlay={() => {}}
+      onError={() => {}}
       mediaClient={mediaClient}
       item={item || audioItem}
       collectionName={collectionName}
@@ -192,6 +194,8 @@ describe('Audio viewer', () => {
 
         const el = mountWithIntlContext(
           <AudioViewer
+            onCanPlay={() => {}}
+            onError={() => {}}
             mediaClient={mediaClient}
             item={audioItem}
             collectionName="collectionName"

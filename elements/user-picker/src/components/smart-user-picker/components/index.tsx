@@ -76,7 +76,7 @@ export interface SmartProps {
    * the value "Context" which will tell the server to extract the
    * principalId from the context.
    */
-  principalId: string;
+  principalId?: string;
   childObjectId?: string;
   /**
    * Product identifier. Currently supports 'jira' 'confluence' 'people'

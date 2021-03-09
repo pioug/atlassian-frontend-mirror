@@ -186,6 +186,11 @@ export interface TableAttributes {
   isNumberColumnEnabled?: boolean;
   layout?: Layout;
   __autoSize?: boolean;
+  /**
+   * @stage 0
+   * @minLength 1
+   */
+  localId?: string;
 }
 
 /**
@@ -253,49 +258,62 @@ export interface TableHeader {
 }
 
 // TODO: Fix any, potential issue. ED-5048
-export const table: NodeSpec = {
-  content: 'tableRow+',
-  attrs: {
+const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
+  const attrs = {
     isNumberColumnEnabled: { default: false },
     layout: { default: 'default' },
     __autoSize: { default: false },
-  },
-  marks: 'unsupportedMark unsupportedNodeAttribute',
-  tableRole: 'table',
-  isolating: true,
-  selectable: false,
-  group: 'block',
-  parseDOM: [
-    {
-      tag: 'table',
-      getAttrs: (node: string | Node) => {
-        const dom = node as HTMLElement;
-        const breakoutWrapper = dom.parentElement?.parentElement;
+  };
+  const finalAttrs = allowLocalId
+    ? {
+        ...attrs,
+        localId: { default: '' },
+      }
+    : attrs;
+  const tableNodeSpec: NodeSpec = {
+    content: 'tableRow+',
+    attrs: finalAttrs,
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    tableRole: 'table',
+    isolating: true,
+    selectable: false,
+    group: 'block',
+    parseDOM: [
+      {
+        tag: 'table',
+        getAttrs: (node: string | Node) => {
+          const dom = node as HTMLElement;
+          const breakoutWrapper = dom.parentElement?.parentElement;
 
-        return {
-          isNumberColumnEnabled:
-            dom.getAttribute('data-number-column') === 'true' ? true : false,
-          layout:
-            // copying from editor
-            dom.getAttribute('data-layout') ||
-            // copying from renderer
-            breakoutWrapper?.getAttribute('data-layout') ||
-            'default',
-          __autoSize:
-            dom.getAttribute('data-autosize') === 'true' ? true : false,
-        };
+          return {
+            isNumberColumnEnabled:
+              dom.getAttribute('data-number-column') === 'true' ? true : false,
+            layout:
+              // copying from editor
+              dom.getAttribute('data-layout') ||
+              // copying from renderer
+              breakoutWrapper?.getAttribute('data-layout') ||
+              'default',
+            __autoSize:
+              dom.getAttribute('data-autosize') === 'true' ? true : false,
+          };
+        },
       },
+    ],
+    toDOM(node: PmNode) {
+      const attrs = {
+        'data-number-column': node.attrs.isNumberColumnEnabled,
+        'data-layout': node.attrs.layout,
+        'data-autosize': node.attrs.__autoSize,
+      };
+      return ['table', attrs, ['tbody', 0]];
     },
-  ],
-  toDOM(node: PmNode) {
-    const attrs = {
-      'data-number-column': node.attrs.isNumberColumnEnabled,
-      'data-layout': node.attrs.layout,
-      'data-autosize': node.attrs.__autoSize,
-    };
-    return ['table', attrs, ['tbody', 0]];
-  },
+  };
+  return tableNodeSpec;
 };
+
+export const table = createTableSpec(false);
+export const tableWithLocalId = createTableSpec(true);
 
 export const tableToJSON = (node: PmNode) => ({
   attrs: Object.keys(node.attrs)

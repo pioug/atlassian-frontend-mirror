@@ -6,7 +6,7 @@ import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-import { OptionProps } from '../types';
+import { OptionProps, OptionType } from '../types';
 
 const getPrimitiveStyles = (
   props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>,
@@ -102,7 +102,10 @@ interface OptionState {
   isActive?: boolean;
 }
 
-class ControlOption extends Component<OptionProps, OptionState> {
+class ControlOption<
+  Option = OptionType,
+  IsMulti extends boolean = false
+> extends Component<OptionProps<Option, IsMulti>, OptionState> {
   state: OptionState = { isActive: false };
 
   onMouseDown = () => this.setState({ isActive: true });
@@ -167,8 +170,8 @@ class ControlOption extends Component<OptionProps, OptionState> {
   }
 }
 
-export const CheckboxOption: FC<OptionProps> = props => (
-  <ControlOption Icon={CheckboxIcon} {...props} />
+export const CheckboxOption: FC<OptionProps<OptionType, true>> = props => (
+  <ControlOption<OptionType, true> Icon={CheckboxIcon} {...props} />
 );
 export const RadioOption: FC<OptionProps> = props => (
   <ControlOption Icon={RadioIcon} {...props} />

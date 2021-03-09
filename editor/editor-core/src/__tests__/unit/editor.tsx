@@ -148,6 +148,31 @@ describe(name, () => {
         return analyticsClient(analyticsEventHandler);
       };
 
+      const setupMockPerformanceObserver = (
+        performanceNowFixedTime: number,
+      ) => {
+        let prevPerformanceObserver = window.PerformanceObserver;
+        let prevPerformanceNow = window.performance.now;
+        class MockPerformanceObserver extends PerformanceObserver {
+          static supportedEntryTypes = ['longtask'];
+          constructor(cb: PerformanceObserverCallback) {
+            super(cb);
+          }
+          disconnect() {}
+          observe() {}
+          takeRecords() {
+            return [];
+          }
+        }
+        window.PerformanceObserver = MockPerformanceObserver;
+        window.performance.now = () => performanceNowFixedTime;
+        const cleanup = () => {
+          window.PerformanceObserver = prevPerformanceObserver;
+          window.performance.now = prevPerformanceNow;
+        };
+        return { cleanup };
+      };
+
       const appearances: {
         appearance: EditorAppearance;
         analyticsAppearance: EDITOR_APPEARANCE_CONTEXT;
@@ -196,6 +221,47 @@ describe(name, () => {
         wrapper.setProps({
           children: <Editor appearance="full-width" allowAnalyticsGASV3 />,
         });
+      });
+
+      it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', done => {
+        const nowTime = 100;
+        const { cleanup } = setupMockPerformanceObserver(nowTime);
+        const mockAnalyticsClient = (
+          done: jest.DoneCallback,
+        ): AnalyticsWebClient => {
+          const analyticsEventHandler = (
+            event: GasPurePayload | GasPureScreenEventPayload,
+          ) => {
+            expect(event).toEqual(
+              expect.objectContaining({
+                action: 'tti',
+                actionSubject: 'editor',
+                attributes: expect.objectContaining({
+                  tti: nowTime,
+                  ttiFromInvocation: 0,
+                  canceled: false,
+                  ttiSeverity: 'normal',
+                  ttiFromInvocationSeverity: 'normal',
+                }),
+              }),
+            );
+            done();
+          };
+
+          return analyticsClient(analyticsEventHandler);
+        };
+
+        mount(
+          <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+            <Editor
+              allowAnalyticsGASV3
+              performanceTracking={{
+                ttiTracking: { enabled: true, trackSeverity: true },
+              }}
+            />
+          </FabricAnalyticsListeners>,
+        );
+        cleanup();
       });
     });
 

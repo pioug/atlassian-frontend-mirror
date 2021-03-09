@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.8
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+
 ## 10.0.7
 
 ### Patch Changes

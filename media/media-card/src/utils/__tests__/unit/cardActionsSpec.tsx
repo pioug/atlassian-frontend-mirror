@@ -218,7 +218,7 @@ describe('CardActions', () => {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId,
-          attributes: expect.objectContaining({ label }),
+          attributes: { label },
         },
       });
     const matchingPrimaryAction = (label: string) =>
@@ -259,6 +259,7 @@ describe('CardActions', () => {
           action: 'clicked',
           actionSubject: 'button',
           actionSubjectId: 'mediaCardDropDownMenu',
+          attributes: {},
         }),
       });
 

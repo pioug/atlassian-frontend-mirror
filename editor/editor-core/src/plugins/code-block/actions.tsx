@@ -7,11 +7,12 @@ import {
 } from 'prosemirror-utils';
 import { NodeSelection } from 'prosemirror-state';
 import { Command } from '../../types';
-import { CodeBlockAttrs } from '@atlaskit/adf-schema';
 import { pluginKey } from './plugin-key';
-import { CodeBlockState } from './pm-plugins/main';
+import { CodeBlockState } from './pm-plugins/main-state';
 import { ACTIONS } from './pm-plugins/actions';
 import { copyToClipboard } from '../../utils/clipboard';
+import { addAnalytics } from '../analytics/utils';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/types';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 export const removeCodeBlock: Command = (state, dispatch) => {
@@ -35,40 +36,34 @@ export const changeLanguage = (language: string): Command => (
   state,
   dispatch,
 ) => {
-  const {
-    schema: {
-      nodes: { codeBlock },
-    },
-    tr,
-  } = state;
+  const { codeBlock } = state.schema.nodes;
+  const pos = pluginKey.getState(state)?.pos;
 
-  const attrs: CodeBlockAttrs = { language };
-  const codeBlockState: CodeBlockState | undefined = pluginKey.getState(state);
-  if (codeBlockState === undefined) {
-    return false;
-  }
-  const { pos } = codeBlockState;
-  if (pos === null) {
+  if (typeof pos !== 'number') {
     return false;
   }
 
-  let changeLanguageTr = tr;
+  const tr = state.tr
+    .setNodeMarkup(pos, codeBlock, { language })
+    .setMeta('scrollIntoView', false);
 
-  const shouldRestoreNodeSelection = isNodeSelection(tr.selection);
+  const selection = isNodeSelection(state.selection)
+    ? NodeSelection.create(tr.doc, pos)
+    : tr.selection;
 
-  changeLanguageTr = tr.setNodeMarkup(pos, codeBlock, attrs);
+  const result = tr.setSelection(selection);
 
-  if (shouldRestoreNodeSelection) {
-    changeLanguageTr = changeLanguageTr.setSelection(
-      NodeSelection.create(changeLanguageTr.doc, pos),
+  if (dispatch) {
+    dispatch(
+      addAnalytics(state, result, {
+        action: ACTION.LANGUAGE_SELECTED,
+        actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+        attributes: { language },
+        eventType: EVENT_TYPE.TRACK,
+      }),
     );
   }
 
-  changeLanguageTr.setMeta('scrollIntoView', false);
-
-  if (dispatch) {
-    dispatch(changeLanguageTr);
-  }
   return true;
 };
 

@@ -1,5 +1,14 @@
 import { RequestOptions } from './types';
 
+export type {
+  RequestErrorReason,
+  RequestErrorMetadata,
+  RequestErrorAttributes,
+} from './types';
+
+export { RequestError, isRequestError } from './errors';
+export { isRateLimitedError, getErrorName } from './helpers';
+
 import {
   createUrl,
   fetchRetry,

@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 74.1.0
+
+### Minor Changes
+
+- [`4f08f25ebfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f08f25ebfe) - NO-ISSUE pass through feature flags into renderer
+
+### Patch Changes
+
+- [`1f0d35a781f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f0d35a781f) - Links on images now open in the same tab
+- [`ef16937952e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef16937952e) - CCP-853 Remove react-dom/server from client-side
+- [`695ce4fe717`](https://bitbucket.org/atlassian/atlassian-frontend/commits/695ce4fe717) - Adds additional request access metadata to forbidden urls if avalible
+- Updated dependencies
+
 ## 74.0.1
 
 ### Patch Changes

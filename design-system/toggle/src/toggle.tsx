@@ -14,7 +14,6 @@ import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
 import { getStyles } from './internal/styles';
 import { Size, ToggleProps } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
 
 export const getIconSize = (size: Size) =>
   size === 'large' ? 'large' : 'small';
@@ -23,8 +22,8 @@ const noop = () => {};
 
 const analyticsAttributes = {
   componentName: 'toggle',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 interface ExtendedToggleProps extends ToggleProps {

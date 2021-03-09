@@ -30,7 +30,6 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
   role="img"
 >
   <svg
-    focusable="false"
     height="24"
     role="presentation"
     viewBox="0 0 24 24"

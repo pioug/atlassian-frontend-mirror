@@ -6,7 +6,15 @@ import { AppearanceType, SizeType } from '@atlaskit/avatar';
 
 import AvatarGroup from '../../AvatarGroup';
 
-const generateData = (avatarCount: number) => {
+const generateData = ({
+  avatarCount,
+  href,
+  onClick,
+}: {
+  avatarCount: number;
+  href?: string;
+  onClick?: () => void;
+}) => {
   const data = [];
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < avatarCount; i++) {
@@ -15,6 +23,8 @@ const generateData = (avatarCount: number) => {
       src: `#${i}`,
       size: 'medium' as SizeType,
       appearance: 'circle' as AppearanceType,
+      href,
+      onClick,
     });
   }
   return data;
@@ -26,7 +36,7 @@ describe('<AvatarGroup />', () => {
     const { getByTestId } = render(
       <AvatarGroup
         testId="test"
-        data={generateData(2)}
+        data={generateData({ avatarCount: 2 })}
         maxCount={1}
         overrides={{
           AvatarGroupItem: {
@@ -54,7 +64,11 @@ describe('<AvatarGroup />', () => {
 
   it('should display a single avatar', () => {
     const { queryByTestId } = render(
-      <AvatarGroup testId="test" appearance="stack" data={generateData(1)} />,
+      <AvatarGroup
+        testId="test"
+        appearance="stack"
+        data={generateData({ avatarCount: 1 })}
+      />,
     );
 
     expect(queryByTestId('test--avatar-0')).not.toBeNull();
@@ -62,7 +76,11 @@ describe('<AvatarGroup />', () => {
 
   it('should not render overflow menu trigger when none avatars have been overflowed', () => {
     const { queryByTestId } = render(
-      <AvatarGroup testId="test" appearance="stack" data={generateData(1)} />,
+      <AvatarGroup
+        testId="test"
+        appearance="stack"
+        data={generateData({ avatarCount: 1 })}
+      />,
     );
 
     expect(queryByTestId('test--overflow-menu--trigger')).toEqual(null);
@@ -70,7 +88,11 @@ describe('<AvatarGroup />', () => {
 
   it('should render the second avatar', () => {
     const { queryByTestId } = render(
-      <AvatarGroup testId="test" appearance="stack" data={generateData(2)} />,
+      <AvatarGroup
+        testId="test"
+        appearance="stack"
+        data={generateData({ avatarCount: 2 })}
+      />,
     );
 
     expect(queryByTestId('test--avatar-1')).not.toBeNull();
@@ -78,7 +100,11 @@ describe('<AvatarGroup />', () => {
 
   it('should render the third avatar', () => {
     const { queryByTestId } = render(
-      <AvatarGroup testId="test" appearance="stack" data={generateData(3)} />,
+      <AvatarGroup
+        testId="test"
+        appearance="stack"
+        data={generateData({ avatarCount: 3 })}
+      />,
     );
 
     expect(queryByTestId('test--avatar-2')).not.toBeNull();
@@ -89,7 +115,7 @@ describe('<AvatarGroup />', () => {
       <AvatarGroup
         testId="test"
         appearance="stack"
-        data={generateData(5)}
+        data={generateData({ avatarCount: 5 })}
         // While max count is 3 - 3 items will be moved into the overflow menu
         // because the third item will now be the trigger itself!
         maxCount={3}
@@ -136,7 +162,7 @@ describe('<AvatarGroup />', () => {
       <AvatarGroup
         testId="test"
         appearance="stack"
-        data={generateData(2)}
+        data={generateData({ avatarCount: 2 })}
         maxCount={1}
       />,
     );
@@ -153,7 +179,7 @@ describe('<AvatarGroup />', () => {
       <AvatarGroup
         testId="test"
         appearance="stack"
-        data={generateData(4)}
+        data={generateData({ avatarCount: 4 })}
         maxCount={3}
         overrides={{
           AvatarGroupItem: {
@@ -179,7 +205,7 @@ describe('<AvatarGroup />', () => {
       <AvatarGroup
         testId="test"
         appearance="stack"
-        data={generateData(4)}
+        data={generateData({ avatarCount: 4 })}
         maxCount={3}
         overrides={{
           Avatar: {
@@ -201,7 +227,7 @@ describe('<AvatarGroup />', () => {
     const { getByTestId } = render(
       <AvatarGroup
         testId="test"
-        data={generateData(4)}
+        data={generateData({ avatarCount: 4 })}
         maxCount={3}
         onAvatarClick={onClick}
       />,
@@ -218,7 +244,7 @@ describe('<AvatarGroup />', () => {
     const { getByTestId, queryByTestId } = render(
       <AvatarGroup
         testId="test"
-        data={generateData(4)}
+        data={generateData({ avatarCount: 4 })}
         maxCount={3}
         showMoreButtonProps={{
           onClick,
@@ -239,7 +265,7 @@ describe('<AvatarGroup />', () => {
     const { getByTestId, queryByTestId } = render(
       <AvatarGroup
         testId="test"
-        data={generateData(4)}
+        data={generateData({ avatarCount: 4 })}
         maxCount={3}
         onMoreClick={onClick}
       />,
@@ -303,5 +329,83 @@ describe('<AvatarGroup />', () => {
       expect.anything(),
       0,
     );
+  });
+
+  it('should call onClick provided with avatar data on anchor elements in avatar group popup', () => {
+    const onClick = jest.fn();
+    const onAvatarClick = jest.fn();
+
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 4, href: '#', onClick })}
+        maxCount={3}
+        onAvatarClick={onAvatarClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+
+    // onClick should take precedence over onAvatarClick
+    expect(onClick).toHaveBeenCalled();
+    expect(onAvatarClick).not.toHaveBeenCalled();
+  });
+
+  it('should call onClick provided with avatar data on button elements in avatar group popup', () => {
+    const onClick = jest.fn();
+    const onAvatarClick = jest.fn();
+
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 4, onClick })}
+        maxCount={3}
+        onAvatarClick={onAvatarClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+
+    // onClick should take precedence over onAvatarClick
+    expect(onClick).toHaveBeenCalled();
+    expect(onAvatarClick).not.toHaveBeenCalled();
+  });
+
+  it('should call onAvatarClick on href elements in avatar group popup if onClick is not provided', () => {
+    const onAvatarClick = jest.fn();
+
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 4, href: '#' })}
+        maxCount={3}
+        onAvatarClick={onAvatarClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+
+    expect(onAvatarClick).toHaveBeenCalled();
+  });
+
+  it('should call onAvatarClick on button elements in avatar group popup if onClick is not provided', () => {
+    const onAvatarClick = jest.fn();
+
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 4 })}
+        maxCount={3}
+        onAvatarClick={onAvatarClick}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+
+    expect(onAvatarClick).toHaveBeenCalled();
   });
 });

@@ -19,13 +19,19 @@ import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 import WithPluginState from '../../ui/WithPluginState';
 import { EditorPlugin } from '../../types';
 import { Dispatch } from '../../event-dispatcher';
-import { ToolbarLoader } from './ui/ToolbarLoader';
-import { FloatingToolbarHandler, FloatingToolbarConfig } from './types';
-
+import {
+  DispatchAnalyticsEvent,
+  AnalyticsEventPayload,
+  CONTENT_COMPONENT,
+} from '../analytics/types';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import {
   pluginKey as editorDisabledPluginKey,
   EditorDisabledPluginState,
 } from '../editor-disabled';
+
+import { ToolbarLoader } from './ui/ToolbarLoader';
+import { FloatingToolbarHandler, FloatingToolbarConfig } from './types';
 import { findNode } from './utils';
 
 type ConfigWithNodeInfo = {
@@ -97,11 +103,36 @@ export const getRelevantConfig = (
   return;
 };
 
-const getDomRefFromSelection = (view: EditorView) =>
-  findDomRefAtPos(
-    view.state.selection.from,
-    view.domAtPos.bind(view),
-  ) as HTMLElement;
+const getDomRefFromSelection = (
+  view: EditorView,
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+) => {
+  try {
+    return findDomRefAtPos(
+      view.state.selection.from,
+      view.domAtPos.bind(view),
+    ) as HTMLElement;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(error);
+    if (dispatchAnalyticsEvent) {
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.ERRORED,
+        actionSubject: ACTION_SUBJECT.CONTENT_COMPONENT,
+        eventType: EVENT_TYPE.OPERATIONAL,
+        attributes: {
+          component: CONTENT_COMPONENT.FLOATING_TOOLBAR,
+          selection: view.state.selection.toJSON(),
+          position: view.state.selection.from,
+          docSize: view.state.doc.nodeSize,
+          error: error.toString(),
+          errorStack: error.stack || undefined,
+        },
+      };
+      dispatchAnalyticsEvent(payload);
+    }
+  }
+};
 
 function filterUndefined<T>(x?: T): x is T {
   return !!x;
@@ -168,7 +199,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             forcePlacement,
             onPositionCalculated,
           } = floatingToolbarState.config;
-          const targetRef = getDomRef(editorView);
+          const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
           if (
             !targetRef ||

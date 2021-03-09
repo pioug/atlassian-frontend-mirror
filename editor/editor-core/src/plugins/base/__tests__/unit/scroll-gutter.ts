@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import basePlugin from '../../';
 import { GUTTER_SELECTOR } from '../../pm-plugins/scroll-gutter';
+import * as mobileScrollUtils from '../../../mobile-scroll/utils';
 
 function createScrollContainer(height: number) {
   const scrollableContent = document.createElement('div');
@@ -85,27 +86,6 @@ describe('ScrollGutter Plugin', () => {
     expect(scrollIntoViewSpy).not.toHaveBeenCalled();
   });
 
-  it('should persist the scroll gutter when persistScrollGutter is true', () => {
-    const scrollableContent = createScrollContainer(1000);
-    const contentContainer = createScrollContainer(200);
-    const { editorView } = createEditor({
-      attachTo: contentContainer,
-      preset: new Preset<LightEditorPlugin>().add([
-        basePlugin,
-        {
-          allowScrollGutter: {
-            getScrollElement: () => scrollableContent,
-            persistScrollGutter: true,
-          },
-        },
-      ]),
-    });
-
-    insertText(editorView, 'hi');
-
-    expect(contentContainer.querySelector(GUTTER_SELECTOR)).not.toBe(null);
-  });
-
   it('should set the gutter size based on the plugin option', () => {
     const scrollableContent = createScrollContainer(1000);
     const contentContainer = createScrollContainer(2000);
@@ -151,5 +131,119 @@ describe('ScrollGutter Plugin', () => {
       (contentContainer.querySelector(GUTTER_SELECTOR) as HTMLElement).style
         .paddingBottom,
     ).toBe('120px');
+  });
+});
+
+describe('Mobile scenarios', () => {
+  const createEditor = createProsemirrorEditorFactory();
+
+  it('should not add the scroll gutter when the content is not inserted', () => {
+    jest
+      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .mockReturnValue({
+        keyboardHeight: 345,
+        heightDiff: -1,
+        windowHeight: 770,
+        mobilePaddingTop: 5,
+      });
+    const scrollableContent = createScrollContainer(770);
+    const contentContainer = createScrollContainer(400);
+    createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+            gutterSize: 50,
+          },
+        },
+      ]),
+    });
+    expect(contentContainer.querySelector(GUTTER_SELECTOR)).toBe(null);
+  });
+
+  it('should add the scroll gutter when the content is inserted just above the keyboard', () => {
+    jest
+      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .mockReturnValue({
+        keyboardHeight: 345,
+        heightDiff: -1,
+        windowHeight: 770,
+        mobilePaddingTop: 5,
+      });
+    const scrollableContent = createScrollContainer(770);
+    const contentContainer = createScrollContainer(400);
+    const { editorView } = createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+            gutterSize: 50,
+          },
+        },
+      ]),
+    });
+    insertText(editorView, 'hello');
+    expect(contentContainer.querySelector(GUTTER_SELECTOR)).not.toBe(null);
+  });
+
+  it('should add gutter when content is added, when persistScrollGutter is true', () => {
+    jest
+      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .mockReturnValue({
+        keyboardHeight: 345,
+        heightDiff: -1,
+        windowHeight: 770,
+        mobilePaddingTop: 5,
+      });
+    const scrollableContent = createScrollContainer(10);
+    const contentContainer = createScrollContainer(50);
+    const { editorView } = createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+            gutterSize: 50,
+            persistScrollGutter: true,
+          },
+        },
+      ]),
+    });
+    insertText(editorView, 'hello');
+    expect(contentContainer.querySelector(GUTTER_SELECTOR)).not.toBe(null);
+  });
+
+  it('should not add the gutter when content is empty, when persistScrollGutter is true', () => {
+    jest
+      .spyOn(mobileScrollUtils, 'getmobileScrollPluginState')
+      .mockReturnValue({
+        keyboardHeight: 345,
+        heightDiff: -1,
+        windowHeight: 770,
+        mobilePaddingTop: 5,
+      });
+    const scrollableContent = createScrollContainer(50);
+    const contentContainer = createScrollContainer(100);
+    const { editorView } = createEditor({
+      attachTo: contentContainer,
+      preset: new Preset<LightEditorPlugin>().add([
+        basePlugin,
+        {
+          allowScrollGutter: {
+            getScrollElement: () => scrollableContent,
+            gutterSize: 50,
+            persistScrollGutter: true,
+          },
+        },
+      ]),
+    });
+
+    insertText(editorView, '');
+    expect(contentContainer.querySelector(GUTTER_SELECTOR)).toBe(null);
   });
 });

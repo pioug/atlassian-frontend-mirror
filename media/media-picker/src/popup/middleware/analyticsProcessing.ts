@@ -1,51 +1,59 @@
 import { MiddlewareAPI, Dispatch, Action } from 'redux';
+import pick from 'lodash/pick';
+
 import {
   UIAnalyticsEvent,
   UIAnalyticsEventHandler,
 } from '@atlaskit/analytics-next';
 
+import {
+  ANALYTICS_MEDIA_CHANNEL,
+  MediaFeatureFlags,
+} from '@atlaskit/media-common';
+
+import analyticsActionHandlers from './analyticsHandlers';
 import { State } from '../domain';
-import { version, name } from '../../version.json';
+import { AnalyticsEventPayload } from '../../types';
+import { getPackageAttributes } from '../../util/analytics';
 
-import analyticsActionHandlers, { Payload } from './analyticsHandlers';
-import { ANALYTICS_MEDIA_CHANNEL } from '../../components/media-picker-analytics-error-boundary';
+const COMPONENT_NAME = 'popup';
 
-const getMediaRegion = () => {
-  return (
-    window &&
-    window.sessionStorage &&
-    window.sessionStorage.getItem('media-api-region')
-  );
-};
-
-// TODO https://product-fabric.atlassian.net/browse/MS-598
-
-const createAndFire = (
-  payload: Payload,
+const createAndFireAnalyticsEvent = (
   handlers: UIAnalyticsEventHandler[],
+  payload: AnalyticsEventPayload,
+  featureFlags?: MediaFeatureFlags,
 ) => {
-  const mediaRegion = getMediaRegion();
+  const {
+    packageName,
+    packageVersion,
+    componentName,
+    component,
+  } = getPackageAttributes(COMPONENT_NAME);
 
   new UIAnalyticsEvent({
-    context: [{}],
-    handlers,
-    payload: {
-      ...payload,
-      attributes: {
-        ...payload.attributes,
-        componentName: 'mediaPicker',
-        packageName: name,
-        componentVersion: version,
-        ...(mediaRegion ? { mediaRegion } : undefined),
+    context: [
+      {
+        packageName,
+        packageVersion,
+        componentName,
+        component,
+        attributes: {
+          featureFlags: pick(featureFlags, [
+            'newCardExperience',
+            'folderUploads',
+          ]),
+        },
       },
-    },
+    ],
+    handlers,
+    payload,
   }).fire(ANALYTICS_MEDIA_CHANNEL);
 };
 
 export default (store: MiddlewareAPI<State>) => (next: Dispatch<State>) => (
   action: Action,
 ) => {
-  const proxyReactContext = store.getState().config.proxyReactContext;
+  const { featureFlags, proxyReactContext } = store.getState().config;
 
   if (
     proxyReactContext &&
@@ -56,7 +64,11 @@ export default (store: MiddlewareAPI<State>) => (next: Dispatch<State>) => (
     for (const handler of analyticsActionHandlers) {
       const payloads = handler(action, store) || [];
       payloads.forEach(payload =>
-        createAndFire(payload, atlaskitAnalyticsEventHandlers),
+        createAndFireAnalyticsEvent(
+          atlaskitAnalyticsEventHandlers,
+          payload,
+          featureFlags,
+        ),
       );
     }
   }

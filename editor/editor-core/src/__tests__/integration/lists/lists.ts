@@ -58,7 +58,10 @@ BrowserTestCase(
   { skip: ['edge', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, { appearance: 'full-page' });
+    await mountEditor(page, {
+      appearance: 'full-page',
+      UNSAFE_predictableLists: false,
+    });
     await page.click(editable);
     await insertList(page, KEY.CONTROL, 'number');
     await insertList(page, KEY.CONTROL, 'bullet');
@@ -73,7 +76,10 @@ BrowserTestCase(
   { skip: ['edge', 'chrome', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, { appearance: 'full-page' });
+    await mountEditor(page, {
+      appearance: 'full-page',
+      UNSAFE_predictableLists: false,
+    });
     await page.click(editable);
     await insertList(page, KEY.META, 'number');
     await insertList(page, KEY.META, 'bullet');
@@ -110,6 +116,7 @@ BrowserTestCase(
       },
       defaultValue: floatsAdf,
       shouldFocus: true,
+      UNSAFE_predictableLists: false,
     });
 
     // These loops navigate up and down the lists
@@ -144,6 +151,7 @@ BrowserTestCase(
       appearance: fullpage.appearance,
       defaultValue: listsAdf,
       shouldFocus: true,
+      UNSAFE_predictableLists: false,
     });
 
     //Case 2 with indented child
@@ -214,6 +222,7 @@ BrowserTestCase(
       appearance: fullpage.appearance,
       defaultValue: listsAdf,
       shouldFocus: true,
+      UNSAFE_predictableLists: false,
     });
 
     //Case 2 with indented child

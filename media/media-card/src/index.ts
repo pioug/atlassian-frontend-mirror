@@ -17,10 +17,6 @@ import { CardPreview } from './root/card/getCardPreview';
 import { CardStatus } from './types';
 
 export type { NumericalCardDimensions } from '@atlaskit/media-common';
-export type {
-  MediaCardAnalyticsPayload,
-  MediaCardAnalyticsFileAttributes,
-} from './utils/analytics';
 
 export { default as Card } from './root/card/cardLoader';
 
@@ -78,6 +74,7 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly shouldOpenMediaViewer?: boolean;
   readonly mediaViewerDataSource?: MediaViewerDataSource;
   readonly contextId?: string;
+  readonly shouldEnableDownloadButton?: boolean;
 }
 
 export interface CardState {

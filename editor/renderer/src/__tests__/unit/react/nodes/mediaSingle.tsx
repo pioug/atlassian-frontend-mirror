@@ -100,9 +100,7 @@ describe('MediaSingle', () => {
 
     it('renders media with link correctly', () => {
       expect(
-        mediaSingle.find(
-          'MediaLink[href="http://atlassian.com"][target="_blank"]',
-        ),
+        mediaSingle.find('MediaLink[href="http://atlassian.com"]'),
       ).toHaveLength(1);
     });
 

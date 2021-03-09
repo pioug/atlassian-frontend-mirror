@@ -1,5 +1,18 @@
 # @atlaskit/icon-priority
 
+## 6.2.0
+
+### Minor Changes
+
+- [`d7a5826fd09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7a5826fd09) - Icon priority now utilises the base icon from `@atlaskit/icon`.
+- [`6a64d27e250`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a64d27e250) - Icon priority now ships with cjs, esm, and es2019 bundles for for exported components and utils. Glyphs unfortunately aren't included and still only export cjs bundles.
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`f922302ad53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f922302ad53) - Icons no longer ship with the `focusable` attribute in their glyph exports. This attribute was only required for IE11 support. This is purely a build change and has no effect on user API.
+- Updated dependencies
+
 ## 6.1.4
 
 ### Patch Changes

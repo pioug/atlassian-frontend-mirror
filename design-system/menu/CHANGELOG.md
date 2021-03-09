@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 0.7.3
+
+### Patch Changes
+
+- [`451f220a771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/451f220a771) - Set disabled/aria-disabled for menu item HTML elements, and prevent mouse events when the item is disabled
+- [`981c9be6b32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981c9be6b32) - Fix generics for custom item to work with typed components from external libs
+- [`11fea0f7e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11fea0f7e4b) - Memoise menu item variants
+
 ## 0.7.2
 
 ### Patch Changes

@@ -3,11 +3,12 @@ import {
   MediaClient,
   FileIdentifier,
   Identifier,
+  isFileIdentifier,
   isExternalImageIdentifier,
   MediaCollectionItem,
 } from '@atlaskit/media-client';
 import { Outcome } from './domain';
-import ErrorMessage, { createError, MediaViewerError } from './error';
+import ErrorMessage from './errorMessage';
 import { List } from './list';
 import { Subscription } from 'rxjs/Subscription';
 import { toIdentifier } from './utils';
@@ -15,6 +16,7 @@ import { Spinner } from './loading';
 import { WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { MediaViewerExtensions } from '../components/types';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaViewerError } from './errors';
 
 export type Props = Readonly<
   {
@@ -31,10 +33,13 @@ export type Props = Readonly<
 >;
 
 export type State = {
-  items: Outcome<MediaCollectionItem[], MediaViewerError>;
+  items: Outcome<MediaCollectionItem[], Error>;
+  item?: Identifier;
 };
 
-const initialState: State = { items: Outcome.pending() };
+const initialState: State = {
+  items: Outcome.pending(),
+};
 
 export class Collection extends React.Component<Props, State> {
   state: State = initialState;
@@ -90,7 +95,15 @@ export class Collection extends React.Component<Props, State> {
           />
         );
       },
-      failed: err => <ErrorMessage error={err} />,
+      failed: error => {
+        const { item } = this.state;
+        return (
+          <ErrorMessage
+            fileId={item && isFileIdentifier(item) ? item.id : 'undefined'}
+            error={error}
+          />
+        );
+      },
     });
   }
 
@@ -115,9 +128,11 @@ export class Collection extends React.Component<Props, State> {
             });
           }
         },
-        error: () => {
+        error: (error: Error) => {
           this.setState({
-            items: Outcome.failed(createError('metadataFailed')),
+            items: Outcome.failed(
+              new MediaViewerError('collection-fetch-metadata', error),
+            ),
           });
         },
       });
@@ -143,6 +158,7 @@ export class Collection extends React.Component<Props, State> {
       pageSize,
       onNavigationChange,
     } = this.props;
+    this.setState({ item });
     if (this.shouldLoadNext(item)) {
       mediaClient.collection.loadNextPage(collectionName, {
         limit: pageSize,

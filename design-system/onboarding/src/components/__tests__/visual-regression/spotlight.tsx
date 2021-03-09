@@ -8,6 +8,7 @@ const openButtonSelector = '[data-testid="open-spotlight"]';
 const spotlightTargetSelector = '[data-testid="spotlight--target"]';
 const spotlightDialogSelector = '[data-testid="spotlight--dialog"]';
 const focusLockSelector = 'div[data-focus-lock-disabled="false"]';
+const spotlightContainer = '[data-testid="spotlight-examples"]';
 
 // https://ecosystem.atlassian.net/browse/DS-7006
 describe('onboarding spotlight visual regression', () => {
@@ -72,5 +73,21 @@ describe('onboarding spotlight visual regression', () => {
     await page.waitForSelector(focusLockSelector);
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should inherit button theme from parent buttons', async () => {
+    const { __BASEURL__, page } = global;
+    const url = getExampleUrl(
+      'design-system',
+      'onboarding',
+      'different-spotlights',
+      __BASEURL__,
+    );
+
+    await loadPage(page, url);
+
+    expect(
+      await takeElementScreenShot(page, spotlightContainer),
+    ).toMatchProdImageSnapshot();
   });
 });

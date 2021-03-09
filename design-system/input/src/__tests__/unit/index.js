@@ -2,9 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Input from '../..';
-import { name } from '../../version.json';
 
-describe(name, () => {
+describe('@atlaskit/input', () => {
   it('selects the input when select() is called', () => {
     const value = 'my-value';
     const wrapper = mount(

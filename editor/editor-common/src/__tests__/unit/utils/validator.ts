@@ -1010,6 +1010,98 @@ describe('Renderer - Validator', () => {
       });
     });
 
+    describe('table', () => {
+      const tableContent = [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      it('should not return any attrs when adfStage=final', () => {
+        const { type, attrs, content } = getValidNode(
+          {
+            type: 'table',
+            content: tableContent,
+          },
+          schema,
+          'final',
+        );
+
+        expect(type).toBe('table');
+        expect(attrs).toEqual(undefined);
+        expect(content).toStrictEqual(tableContent);
+      });
+
+      it.each<
+        [
+          string,
+          {
+            provideAttributes: boolean;
+            providedLocalId?: string;
+          },
+        ]
+      >([
+        [
+          'stage0: SHUOLD generate localId for table if attr is missing',
+          { provideAttributes: false },
+        ],
+        [
+          'stage0: SHUOLD generate localId for table if attr does not have localId',
+          { provideAttributes: true },
+        ],
+        [
+          'stage0: should not override a provided localid attr',
+          {
+            provideAttributes: true,
+            providedLocalId: 'some-uuid-fyi-mochi-is-a-fluffy-cat',
+          },
+        ],
+      ])('%s', (_, { provideAttributes, providedLocalId }) => {
+        const attrsToValidate = {
+          localId: providedLocalId,
+        };
+        const { type, attrs, content } = getValidNode(
+          {
+            type: 'table',
+            content: tableContent,
+            attrs: provideAttributes && attrsToValidate,
+          },
+          schema,
+          'stage0',
+        );
+
+        expect(type).toBe('table');
+        if (provideAttributes) {
+          expect(attrs).not.toEqual(undefined);
+          if (providedLocalId) {
+            // If we provided a localId, it should equal that
+            expect(attrs.localId).toEqual(providedLocalId);
+          } else {
+            // If we didn't give a localId, it should be generated for us
+            expect(attrs.localId).not.toEqual(undefined);
+          }
+        } else {
+          // Otherwise an attributes object should exist & have a localId
+          // generated for us
+          expect(attrs).not.toEqual(undefined);
+          expect(attrs.localId).not.toEqual(undefined);
+        }
+        expect(content).toStrictEqual(tableContent);
+      });
+    });
+
     ['tableCell', 'tableHeader'].forEach(nodeName => {
       describe(nodeName, () => {
         const cellAttrs = {

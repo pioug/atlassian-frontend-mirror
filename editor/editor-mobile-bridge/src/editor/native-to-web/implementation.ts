@@ -618,6 +618,15 @@ export default class WebBridgeImpl
                 );
                 return;
               }
+              const nativeQuickInsertItems = ['hyperlink', 'media'];
+              const { id } = quickInsertItem;
+
+              if (id && nativeQuickInsertItems.indexOf(id) > -1) {
+                // Call native side for items that have to be handled natively
+                toNativeBridge.typeAheadItemSelected(
+                  JSON.stringify(quickInsertItem),
+                );
+              }
 
               return enableQuickInsert && quickInsertItem.action(insert, state);
             }

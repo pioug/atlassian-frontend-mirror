@@ -8,11 +8,7 @@ import {
 } from './pm-plugins/main';
 import {
   removeLink,
-  setLinkText,
-  insertLink,
   editInsertedLink,
-  hideLinkToolbar,
-  setLinkHref,
   updateLink,
   insertLinkWithAnalytics,
 } from './commands';
@@ -60,56 +56,6 @@ function getLinkText(
   }
   return activeLinkMark.node.text;
 }
-
-const handleBlur = (
-  activeLinkMark: EditInsertedState | InsertState,
-  view: EditorView,
-) => (
-  type: string,
-  url: string,
-  title?: string,
-  displayText?: string,
-  isTabPressed?: boolean,
-) => {
-  const text = title || displayText;
-  switch (type) {
-    case 'url': {
-      if (url) {
-        return setLinkHref(
-          url,
-          isEditLink(activeLinkMark) ? activeLinkMark.pos : activeLinkMark.from,
-          isEditLink(activeLinkMark) ? undefined : activeLinkMark.to,
-          isTabPressed,
-        )(view.state, view.dispatch);
-      }
-      if (isEditLink(activeLinkMark) && activeLinkMark.node && !url) {
-        removeLink(activeLinkMark.pos)(view.state, view.dispatch);
-      }
-      return hideLinkToolbar()(view.state, view.dispatch);
-    }
-    case 'text': {
-      if (text && url) {
-        return activeLinkMark.type === 'INSERT'
-          ? insertLink(
-              activeLinkMark.from,
-              activeLinkMark.to,
-              url,
-              undefined,
-              text,
-              undefined,
-            )(view.state, view.dispatch)
-          : setLinkText(text, (activeLinkMark as EditInsertedState).pos)(
-              view.state,
-              view.dispatch,
-            );
-      }
-      return hideLinkToolbar()(view.state, view.dispatch);
-    }
-    default: {
-      return hideLinkToolbar()(view.state, view.dispatch);
-    }
-  }
-};
 
 export const getToolbarConfig: FloatingToolbarHandler = (
   state,
@@ -269,7 +215,6 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                           )(view.state, view.dispatch);
                       view.focus();
                     }}
-                    onBlur={handleBlur(activeLinkMark, view)}
                   />
                 );
               },

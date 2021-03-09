@@ -80,6 +80,7 @@ export {
 export type { MediaSingleDefinition } from './media-single';
 export {
   table,
+  tableWithLocalId,
   tableToJSON,
   tableCell,
   toJSONTableCell,

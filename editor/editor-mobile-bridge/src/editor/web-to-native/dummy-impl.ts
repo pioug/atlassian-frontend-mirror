@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 import { Color as StatusColor } from '@atlaskit/status/element';
+import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
 import NativeBridge, { EditorBridges, EditorBridgeNames } from './bridge';
 import { sendToBridge } from '../../bridge-utils';
+import { Serialized } from '../../types';
 
 const callsFromDummyBridge = new Map<string, any[][]>();
 
@@ -152,6 +154,10 @@ export default class DummyBridge implements NativeBridge {
     this.log(
       `typeAheadQuery(query=${query}, trigger=${trigger}), items=${items}`,
     );
+  }
+
+  typeAheadItemSelected(quickInsertItem: Serialized<QuickInsertItem>): void {
+    this.log(`typeAheadItemSelected(quickInsertItem=${quickInsertItem}`);
   }
 
   onNodeSelected(nodeType: string, items: string) {

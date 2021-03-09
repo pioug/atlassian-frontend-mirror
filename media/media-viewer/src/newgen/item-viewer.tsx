@@ -2,10 +2,12 @@ import React from 'react';
 import {
   MediaClient,
   FileState,
+  ProcessedFileState,
+  UploadingFileState,
+  ProcessingFileState,
   Identifier,
   isExternalImageIdentifier,
   isFileIdentifier,
-  isRateLimitedError,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -18,33 +20,20 @@ import { CodeViewer } from './viewers/codeViewer';
 import { Spinner } from './loading';
 import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
-import ErrorMessage, {
-  createError,
-  MediaViewerError,
-  ErrorName,
-  hasErrorStatus,
-} from './error';
+import ErrorMessage from './errorMessage';
+import { MediaViewerError, MediaViewerErrorReason } from './errors';
 import { ErrorViewDownloadButton } from './download';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import {
-  ViewerLoadPayload,
-  mediaFileCommencedEvent,
-  mediaFileLoadSucceededEvent,
-  mediaFileLoadFailedEvent,
-} from './analytics/item-viewer';
-import { channel } from './analytics/index';
-import {
-  GasPayload,
-  GasScreenEventPayload,
-} from '@atlaskit/analytics-gas-types';
+import { createCommencedEvent } from './analytics/events/operational/commenced';
+import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';
+import { fireAnalytics } from './analytics';
 import { AudioViewer } from './viewers/audio';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
-import { getErrorName } from '@atlaskit/media-client';
 
 export type Props = Readonly<{
   identifier: Identifier;
@@ -58,7 +47,7 @@ export type Props = Readonly<{
   WithShowControlMethodProp;
 
 export type State = {
-  item: Outcome<FileState, MediaViewerError>;
+  item: Outcome<FileState, Error>;
 };
 
 const initialState: State = {
@@ -90,68 +79,24 @@ export class ItemViewerBase extends React.Component<Props, State> {
     this.init(this.props);
   }
 
-  private onImageViewerLoaded = (payload: ViewerLoadPayload) => {
+  private onSuccess = () => {
     const { item } = this.state;
-    // the item.whenFailed case is handled in the "init" method
     item.whenSuccessful(fileState => {
-      if (fileState.status === 'processed') {
-        const { identifier } = this.props;
-        if (payload.status === 'success') {
-          this.fireAnalytics(mediaFileLoadSucceededEvent(fileState));
-        } else if (payload.status === 'error' && isFileIdentifier(identifier)) {
-          const { id } = identifier;
-          this.fireAnalytics(
-            mediaFileLoadFailedEvent(
-              id,
-              payload.errorMessage || 'ImageViewer error',
-              fileState,
-            ),
-          );
-        }
-      }
+      fireAnalytics(createLoadSucceededEvent(fileState), this.props);
     });
   };
 
-  private onCanPlay = (fileState: FileState) => () => {
-    if (fileState.status === 'processed') {
-      this.fireAnalytics(mediaFileLoadSucceededEvent(fileState));
-    }
+  private onLoadFail = (errorReason: MediaViewerErrorReason) => (
+    error: Error,
+  ) => {
+    this.setState({
+      item: Outcome.failed(new MediaViewerError(errorReason, error)),
+    });
   };
 
-  private onArchiveError = (fileState: FileState) => (error: Error) => {
-    if (fileState.status === 'processed') {
-      this.fireAnalytics(
-        mediaFileLoadFailedEvent(fileState.id, error.message, fileState),
-      );
-    }
-  };
-
-  private onError = (fileState: FileState) => () => {
-    if (fileState.status === 'processed') {
-      this.fireAnalytics(
-        mediaFileLoadFailedEvent(fileState.id, 'Playback failed', fileState),
-      );
-    }
-  };
-
-  private onDocError = (fileState: FileState) => (error: Error) => {
-    const processedFileState =
-      fileState.status === 'processed' ? fileState : undefined;
-    const httpStatus = hasErrorStatus(error) ? `status=${error.status}` : '';
-    this.fireAnalytics(
-      mediaFileLoadFailedEvent(
-        fileState.id,
-        `${error.name} ${httpStatus}`,
-        processedFileState,
-      ),
-    );
-  };
-
-  private renderFileState(item: FileState) {
-    if (item.status === 'error') {
-      return this.renderError('previewFailed', item);
-    }
-
+  private renderItem(
+    fileState: ProcessedFileState | UploadingFileState | ProcessingFileState,
+  ) {
     const {
       mediaClient,
       identifier,
@@ -166,7 +111,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       : undefined;
     const viewerProps = {
       mediaClient,
-      item,
+      item: fileState,
       collectionName,
       onClose,
       previewCount,
@@ -174,22 +119,23 @@ export class ItemViewerBase extends React.Component<Props, State> {
 
     if (
       getMediaFeatureFlag('codeViewer', featureFlags) &&
-      isCodeViewerItem(item.name)
+      isCodeViewerItem(fileState.name)
     ) {
       return (
         <CodeViewer
-          onSuccess={this.onCanPlay(item)}
-          onError={this.onDocError(item)}
+          onSuccess={this.onSuccess}
+          onError={this.onLoadFail('codeviewer-onerror')}
           {...viewerProps}
         />
       );
     }
 
-    switch (item.mediaType) {
+    switch (fileState.mediaType) {
       case 'image':
         return (
           <ImageViewer
-            onLoad={this.onImageViewerLoaded}
+            onLoad={this.onSuccess}
+            onError={this.onLoadFail('imageviewer-onerror')}
             contextId={contextId}
             {...viewerProps}
           />
@@ -198,8 +144,8 @@ export class ItemViewerBase extends React.Component<Props, State> {
         return (
           <AudioViewer
             showControls={showControls}
-            onCanPlay={this.onCanPlay(item)}
-            onError={this.onError(item)}
+            onCanPlay={this.onSuccess}
+            onError={this.onLoadFail('audioviewer-onerror')}
             {...viewerProps}
           />
         );
@@ -207,16 +153,16 @@ export class ItemViewerBase extends React.Component<Props, State> {
         return (
           <VideoViewer
             showControls={showControls}
-            onCanPlay={this.onCanPlay(item)}
-            onError={this.onError(item)}
+            onCanPlay={this.onSuccess}
+            onError={this.onLoadFail('videoviewer-onerror')}
             {...viewerProps}
           />
         );
       case 'doc':
         return (
           <DocViewer
-            onSuccess={this.onCanPlay(item)}
-            onError={this.onDocError(item)}
+            onSuccess={this.onSuccess}
+            onError={this.onLoadFail('docviewer-onerror')}
             {...viewerProps}
           />
         );
@@ -224,31 +170,39 @@ export class ItemViewerBase extends React.Component<Props, State> {
         if (getMediaFeatureFlag('zipPreviews', featureFlags)) {
           return (
             <ArchiveViewerLoader
-              onZipFileLoadError={this.onArchiveError(item)}
-              onSuccess={this.onCanPlay(item)}
+              onSuccess={this.onSuccess}
+              onError={this.onLoadFail('archiveviewer-onerror')}
               {...viewerProps}
             />
           );
         }
-        return this.renderError('unsupported', item);
-      default:
-        return this.renderError('unsupported', item);
     }
+
+    return this.renderError(new MediaViewerError('unsupported'), fileState);
   }
 
-  private renderError(errorName: ErrorName, file?: FileState) {
-    if (file) {
-      const err = createError(errorName, undefined, file);
+  private renderError(error: Error, fileState?: FileState) {
+    const { identifier } = this.props;
+    if (fileState) {
       return (
-        <ErrorMessage error={err}>
+        <ErrorMessage
+          fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
+          error={error}
+          fileState={fileState}
+        >
           <p>
             <FormattedMessage {...messages.try_downloading_file} />
           </p>
-          {this.renderDownloadButton(file, err)}
+          {this.renderDownloadButton(fileState, error)}
         </ErrorMessage>
       );
     } else {
-      return <ErrorMessage error={createError(errorName)} />;
+      return (
+        <ErrorMessage
+          fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
+          error={error}
+        />
+      );
     }
   }
 
@@ -261,35 +215,41 @@ export class ItemViewerBase extends React.Component<Props, State> {
     }
 
     return item.match({
-      successful: item => {
-        switch (item.status) {
+      successful: fileState => {
+        switch (fileState.status) {
           case 'processed':
           case 'uploading':
           case 'processing':
-            return this.renderFileState(item);
+            return this.renderItem(fileState);
           case 'failed-processing':
-            return this.renderError('failedProcessing', item);
+            return this.renderError(
+              new MediaViewerError('itemviewer-file-failed-processing-status'),
+              fileState,
+            );
           case 'error':
-            return this.renderError('previewFailed', item);
+            return this.renderError(
+              new MediaViewerError('itemviewer-file-error-status'),
+              fileState,
+            );
           default:
             return <Spinner />;
         }
       },
       pending: () => <Spinner />,
-      failed: err => this.renderError(err.errorName, item.data),
+      failed: error => this.renderError(error, item.data),
     });
   }
 
-  private renderDownloadButton(state: FileState, err: MediaViewerError) {
+  private renderDownloadButton(fileState: FileState, error: Error) {
     const { mediaClient, identifier } = this.props;
     const collectionName = isFileIdentifier(identifier)
       ? identifier.collectionName
       : undefined;
     return (
       <ErrorViewDownloadButton
-        state={state}
+        fileState={fileState}
         mediaClient={mediaClient}
-        err={err}
+        error={error}
         collectionName={collectionName}
       />
     );
@@ -303,7 +263,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
     }
 
     const { id } = identifier;
-    this.fireAnalytics(mediaFileCommencedEvent(id));
+    fireAnalytics(createCommencedEvent(id), this.props);
     this.subscription = mediaClient.file
       .getFileState(id, {
         collectionName: identifier.collectionName,
@@ -314,35 +274,15 @@ export class ItemViewerBase extends React.Component<Props, State> {
             item: Outcome.successful(file),
           });
         },
-        error: err => {
-          const isRateLimited: Boolean = isRateLimitedError(err);
-
-          // initial failure reason either (1) rate limited (2) metadata failed
-
-          const analyticsReason = isRateLimited
-            ? 'Tenant has been rate limited'
-            : 'Metadata fetching failed';
-
+        error: (error: Error) => {
           this.setState({
             item: Outcome.failed(
-              createError(
-                getErrorName(err, 'metadataFailed') as ErrorName,
-                err,
-              ),
+              new MediaViewerError('imageviewer-onerror', error),
             ),
           });
-          this.fireAnalytics(mediaFileLoadFailedEvent(id, analyticsReason));
         },
       });
   }
-
-  private fireAnalytics = (payload: GasPayload | GasScreenEventPayload) => {
-    const { createAnalyticsEvent } = this.props;
-    if (createAnalyticsEvent) {
-      const ev = createAnalyticsEvent(payload);
-      ev.fire(channel);
-    }
-  };
 
   // It's possible that a different identifier or mediaClient was passed.
   // We therefore need to reset Media Viewer.

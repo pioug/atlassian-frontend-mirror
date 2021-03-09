@@ -9,10 +9,8 @@ import {
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface Props extends WithAnalyticsEventsProps {
   /** The content to render inside the action button. */

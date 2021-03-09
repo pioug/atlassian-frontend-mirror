@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Afvis',
-  'fabric.elements.mentions.team.member.50plus': '50+ medlemmer',
+  'fabric.elements.mentions.team.member.50plus': 'Team • Over 50 medlemmer',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50+ medlemmer, inklusive dig',
+    'Team • Over 50 medlemmer, inklusive dig',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} medlem} other {{0} medlemmer}}',
+    '{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmer}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} medlem, inklusive dig} other {{0} medlemmer, inklusive dig}}',
+    '{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmer, inklusive dig}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Få alle med på siden med ét klik. Har du ikke et team?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

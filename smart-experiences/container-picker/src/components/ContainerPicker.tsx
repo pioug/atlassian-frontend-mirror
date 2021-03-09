@@ -4,9 +4,8 @@ import memoizeOne from 'memoize-one';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import debounce from 'lodash/debounce';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { FormatOptionLabelMeta } from 'react-select';
 
-import Select from '@atlaskit/select';
+import Select, { FormatOptionLabelMeta, ValueType } from '@atlaskit/select';
 import {
   WithAnalyticsEventsProps,
   withAnalyticsEvents,
@@ -286,7 +285,7 @@ export class ContainerPickerWithoutAnalytics extends React.Component<
         inputValue={inputValue}
         isClearable
         isLoading={isLoading || this.state.loading}
-        isMulti={isMulti}
+        isMulti={isMulti as false}
         isSearchable
         isFocused={menuIsOpen}
         menuIsOpen={menuIsOpen}
@@ -297,7 +296,7 @@ export class ContainerPickerWithoutAnalytics extends React.Component<
         onClose={this.handleBlur}
         options={this.getOptions()}
         placeholder="Choose a Container"
-        value={value}
+        value={value as ValueType<ContainerOption, false>}
       />
     );
   }

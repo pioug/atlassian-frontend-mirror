@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Schließen',
-  'fabric.elements.mentions.team.member.50plus': 'Mehr als 50 Mitglieder',
+  'fabric.elements.mentions.team.member.50plus': 'Team • über 50 Mitglieder',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    'Mehr als 50 Mitglieder, einschließlich Ihnen',
+    'Team • über 50 Mitglieder, einschließlich Ihnen',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} Mitglied} other {{0} Mitglieder}}',
+    '{0, plural, one {Team • 1 Mitglied} other {Team • {0} Mitglieder}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} Mitglied, Sie eingeschlossen} other {{0} Mitglieder, Sie eingeschlossen}}',
+    '{0, plural, one {Team • 1 Mitglied, einschließlich Ihnen} other {Team • {0} Mitglieder, einschließlich Ihnen}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Holen Sie alle mit einem Klick an Bord. Noch kein Team?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

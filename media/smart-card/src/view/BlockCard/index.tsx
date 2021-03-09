@@ -15,8 +15,9 @@ import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
 import { getDefinitionId } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
-import { getEmptyJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { ExtractBlockOpts } from '../../extractors/block/types';
+import { extractRequestAccessContext } from '../../extractors/common/context';
 
 export const BlockCard: FC<BlockCardProps> = ({
   url,
@@ -75,6 +76,12 @@ export const BlockCard: FC<BlockCardProps> = ({
       );
     case 'forbidden':
       const forbiddenViewProps = extractBlockProps(data, extractorOpts);
+      const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
+      const requestAccessContext = extractRequestAccessContext({
+        jsonLd: cardMetadata,
+        url,
+        context: forbiddenViewProps.context?.text,
+      });
       return (
         <BlockCardForbiddenView
           {...forbiddenViewProps}
@@ -82,6 +89,7 @@ export const BlockCard: FC<BlockCardProps> = ({
           showActions={showActions}
           actions={handleAuthorize ? [ForbiddenAction(handleAuthorize)] : []}
           onClick={handleFrameClick}
+          requestAccessContext={requestAccessContext}
         />
       );
     case 'not_found':

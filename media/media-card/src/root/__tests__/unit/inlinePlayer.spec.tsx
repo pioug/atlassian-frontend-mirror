@@ -398,6 +398,7 @@ describe('<InlinePlayer />', () => {
       action: 'clicked',
       actionSubject: 'mediaCard',
       actionSubjectId: 'mediaCardInlinePlayer',
+      attributes: {},
     });
     expect(actualReturnedEvent.hasFired).toEqual(false);
     expect(actualReturnedEvent.payload.action).toEqual('clicked');

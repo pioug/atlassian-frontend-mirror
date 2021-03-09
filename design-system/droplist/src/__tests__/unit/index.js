@@ -9,7 +9,6 @@ import Spinner from '@atlaskit/spinner';
 import { DroplistWithoutAnalytics as Droplist } from '../../components/Droplist';
 import DroplistWithAnalytics from '../../index';
 import { Content, Trigger } from '../../styled/Droplist';
-import { name } from '../../version.json';
 
 jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js');
@@ -32,7 +31,7 @@ const itemsList = (
   </ItemGroup>
 );
 
-describe(`${name} - core`, () => {
+describe('@atlaskit/droplist - core', () => {
   it('should be possible to create a component', () => {
     expect(shallow(<Droplist>test</Droplist>)).not.toBe(undefined);
   });

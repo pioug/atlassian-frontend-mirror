@@ -15,10 +15,11 @@ import { JsonLd } from 'json-ld-types';
 
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
-import { getEmptyJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';
 import { getDefinitionId } from '../../state/helpers';
+import { extractRequestAccessContext } from '../../extractors/common/context';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   (
@@ -111,6 +112,12 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         );
       case 'forbidden':
         const forbiddenViewProps = extractEmbedProps(data, platform);
+        const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
+        const requestAccessContext = extractRequestAccessContext({
+          jsonLd: cardMetadata,
+          url,
+          context: forbiddenViewProps.context?.text,
+        });
         return (
           <EmbedCardForbiddenView
             {...forbiddenViewProps}
@@ -118,6 +125,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             onAuthorise={handleAuthorize}
             inheritDimensions={inheritDimensions}
             onClick={handleFrameClick}
+            requestAccessContext={requestAccessContext}
           />
         );
       case 'not_found':

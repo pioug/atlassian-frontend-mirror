@@ -1,5 +1,5 @@
 import React from 'react';
-import { md, Example, Props, code } from '@atlaskit/docs';
+import { md, Example, code } from '@atlaskit/docs';
 
 const PitchSentence = () => (
   <p>
@@ -32,11 +32,4 @@ ${(
 )}
 
 ${(<PitchSentence />)}
-
-${(
-  <Props
-    heading="Icon Props"
-    props={require('!!extract-react-types-loader!../src/components/Icon')}
-  />
-)}
 `;

@@ -42,6 +42,7 @@ describe('RetryButton', () => {
       action: 'clicked',
       actionSubject: 'button',
       actionSubjectId: 'mediaCardRetry',
+      attributes: {},
     });
   });
 });
@@ -79,6 +80,7 @@ describe('NewExpRetryButton', () => {
       action: 'clicked',
       actionSubject: 'button',
       actionSubjectId: 'mediaCardRetry',
+      attributes: {},
     });
   });
 });

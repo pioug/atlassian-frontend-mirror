@@ -4,11 +4,10 @@ import { fireEvent, render, wait } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import Tag, { RemovableTagProps } from '../../index';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Tag analytics', () => {
   const tagProps: RemovableTagProps = {

@@ -2,10 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { MultiSelectStateless } from '../..';
-import { name } from '../../version.json';
 
 /* eslint-disable jest/no-disabled-tests */
-describe(`${name} - stateless`, () => {
+describe('@atlaskit/multi-select - stateless', () => {
   const animStub = window.cancelAnimationFrame;
   beforeEach(() => {
     window.cancelAnimationFrame = () => {};

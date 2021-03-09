@@ -4,8 +4,9 @@ import {
   goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
 import { insertBlockMenuItem } from '../_helpers';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
-const editorSelector = '.ProseMirror';
+const editorSelector = selectors.editor;
 const calendar = '[aria-label="calendar"]';
 const dateView = `span.dateView-content-wrap`;
 

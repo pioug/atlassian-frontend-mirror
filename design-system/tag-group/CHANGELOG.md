@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.0.5
+
+### Patch Changes
+
+- [`afbc1c0b7b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afbc1c0b7b5) - Removing dormant file from tag-group
+
 ## 10.0.4
 
 ### Patch Changes

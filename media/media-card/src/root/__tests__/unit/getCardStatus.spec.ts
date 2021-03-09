@@ -4,11 +4,6 @@ import {
   getCardStatusFromFileState,
 } from '../../card/getCardStatus';
 import { CardState, CardProps } from '../../..';
-import {
-  getAnalyticsLoadingStatus,
-  AnalyticsLoadingStatusArgs,
-  AnalyticsLoadingFailReason,
-} from '../../../utils/analytics';
 
 describe('getCardStatus()', () => {
   it('should keep current status if identifier is not a file', () => {
@@ -60,106 +55,6 @@ describe('getCardStatus()', () => {
     } as CardProps;
 
     expect(getCardStatus(state, props)).toEqual('error');
-  });
-});
-
-describe('getAnalyticsLoadingStatus', () => {
-  it('should return undefined if did receive dataURI or any non-error card status', () => {
-    const args: AnalyticsLoadingStatusArgs = {
-      cardStatus: 'error',
-      metadata: { id: 'some-id' },
-      dataURI: 'some-data-uri',
-    };
-    expect(getAnalyticsLoadingStatus(args)).toBeUndefined();
-
-    const noErrorArgs: AnalyticsLoadingStatusArgs = {
-      cardStatus: 'processing',
-      metadata: { id: 'some-id' },
-      dataURI: 'some-data-uri',
-    };
-    expect(getAnalyticsLoadingStatus(noErrorArgs)).toBeUndefined();
-  });
-
-  it('should return a `media-client-error` if receives an error', () => {
-    const args: AnalyticsLoadingStatusArgs = {
-      cardStatus: 'error',
-      metadata: { id: 'some-id' },
-      error: new Error('some-error'),
-    };
-    expect(getAnalyticsLoadingStatus(args)).toEqual({
-      action: 'failed',
-      failReason: AnalyticsLoadingFailReason.MEDIA_CLIENT,
-      error: 'some-error',
-    });
-  });
-
-  it('should return a `file-status-error` if cardStatus is failed-processing OR error', () => {
-    const id = 'some-id';
-
-    const errorFileState: FileState = {
-      id,
-      status: 'error',
-      message: 'some-nice-message',
-    };
-    const errorArgs: AnalyticsLoadingStatusArgs = {
-      cardStatus: errorFileState.status,
-      metadata: { id },
-      fileState: errorFileState,
-    };
-    expect(getAnalyticsLoadingStatus(errorArgs)).toEqual({
-      action: 'failed',
-      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
-      error: errorFileState.message,
-    });
-
-    const failedFileState: FileState = {
-      id,
-      name: 'image.jpg',
-      size: 10,
-      artifacts: {},
-      mediaType: 'image',
-      mimeType: 'image/jpeg',
-      status: 'failed-processing',
-    };
-    const failedArgs: AnalyticsLoadingStatusArgs = {
-      cardStatus: failedFileState.status,
-      metadata: { id, name: failedFileState.name },
-      fileState: failedFileState,
-    };
-    expect(getAnalyticsLoadingStatus(failedArgs)).toEqual({
-      action: 'failed',
-      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
-      error: 'unknown error',
-    });
-
-    const failedArgsWithNoFileName = { ...failedArgs, metadata: { id, name } };
-    expect(getAnalyticsLoadingStatus(failedArgsWithNoFileName)).toEqual({
-      action: 'failed',
-      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
-      error:
-        'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
-    });
-  });
-
-  it('should return succeeded if card status is complete', () => {
-    const id = 'some-id';
-    const fileState: FileState = {
-      id,
-      name: 'image.jpg',
-      size: 10,
-      artifacts: {},
-      mediaType: 'image',
-      mimeType: 'image/jpeg',
-      status: 'processed',
-    };
-    const failedArgs: AnalyticsLoadingStatusArgs = {
-      cardStatus: 'complete',
-      metadata: { id, name: fileState.name },
-      fileState: fileState,
-    };
-    expect(getAnalyticsLoadingStatus(failedArgs)).toEqual({
-      action: 'succeeded',
-    });
   });
 });
 

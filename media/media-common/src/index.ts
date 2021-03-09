@@ -9,12 +9,22 @@ export type MediaType =
   | 'archive'
   | 'unknown';
 
+export type FileStatus =
+  | 'uploading'
+  | 'processing'
+  | 'processed'
+  | 'error'
+  | 'failed-processing';
+
 // Media Feature Flags
 export {
   getMediaFeatureFlag,
   defaultMediaFeatureFlags,
 } from './mediaFeatureFlags';
-export type { MediaFeatureFlags } from './mediaFeatureFlags';
+export type {
+  MediaFeatureFlags,
+  WithMediaFeatureFlags,
+} from './mediaFeatureFlags';
 // TODO EDM-689 Please, consolidate these two CardDimensions types
 export interface NumericalCardDimensions {
   width: number;
@@ -23,6 +33,8 @@ export interface NumericalCardDimensions {
 
 // Analytics base types
 export type {
+  PackageAttributes,
+  WithFileAttributes,
   FileAttributes,
   SuccessAttributes,
   FailureAttributes,
@@ -34,4 +46,12 @@ export type {
   ScreenEventPayload,
   TrackAttributes,
   TrackEventPayload,
-} from './analytics';
+  ContextPublicAttributes,
+  ContextStaticProps,
+} from './analytics/types';
+
+// Analytics context
+export { withMediaAnalyticsContext } from './analytics/withMediaAnalyticsContext';
+
+// Analytics constants
+export { ANALYTICS_MEDIA_CHANNEL } from './analytics/constants';

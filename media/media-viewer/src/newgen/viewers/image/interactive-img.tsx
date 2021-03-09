@@ -7,6 +7,7 @@ import {
   Rectangle,
   Vector2,
 } from '@atlaskit/media-ui';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { MAX_RESOLUTION } from '@atlaskit/media-client/constants';
 import {
   withAnalyticsEvents,
@@ -25,8 +26,7 @@ import {
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
 import { ZoomControls } from '../../zoomControls';
-import { closedEvent } from '../../analytics/closed';
-import { channel } from '../../analytics';
+import { createClosedEvent } from '../../analytics/events/ui/closed';
 
 export function zoomLevelAfterResize(
   newCamera: Camera,
@@ -325,7 +325,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 
 export const InteractiveImg = withAnalyticsEvents({
   onBlanketClicked: createAnalyticsEvent => {
-    const event = createAnalyticsEvent(closedEvent('blanket'));
-    event.fire(channel);
+    const event = createAnalyticsEvent(createClosedEvent('blanket'));
+    event.fire(ANALYTICS_MEDIA_CHANNEL);
   },
 })(InteractiveImgComponent);

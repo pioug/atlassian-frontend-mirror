@@ -21,6 +21,10 @@ import { checkIfNumberColumnEnabled } from '../../utils';
 
 import getPopupOptions from './getPopupOptions';
 import InsertButton from './InsertButton';
+import {
+  DispatchAnalyticsEvent,
+  AnalyticsEventPayload,
+} from '../../../analytics/types';
 
 export interface Props {
   editorView: EditorView;
@@ -34,7 +38,14 @@ export interface Props {
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
   hasStickyHeaders?: boolean;
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  CONTENT_COMPONENT,
+} from '../../../analytics/types/enums';
 
 class FloatingInsertButton extends React.Component<
   Props & InjectedIntlProps,
@@ -59,6 +70,7 @@ class FloatingInsertButton extends React.Component<
       boundariesElement,
       isHeaderColumnEnabled,
       isHeaderRowEnabled,
+      dispatchAnalyticsEvent,
     } = this.props;
 
     const type =
@@ -105,7 +117,30 @@ class FloatingInsertButton extends React.Component<
 
     const domAtPos = editorView.domAtPos.bind(editorView);
     const pos = cellPosition + tablePos.start + 1;
-    const target = findDomRefAtPos(pos, domAtPos);
+
+    let target: Node | undefined;
+    try {
+      target = findDomRefAtPos(pos, domAtPos);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn(error);
+      if (dispatchAnalyticsEvent) {
+        const payload: AnalyticsEventPayload = {
+          action: ACTION.ERRORED,
+          actionSubject: ACTION_SUBJECT.CONTENT_COMPONENT,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: {
+            component: CONTENT_COMPONENT.FLOATING_INSERT_BUTTON,
+            selection: editorView.state.selection.toJSON(),
+            position: pos,
+            docSize: editorView.state.doc.nodeSize,
+            error: error.toString(),
+            errorStack: error.stack || undefined,
+          },
+        };
+        dispatchAnalyticsEvent(payload);
+      }
+    }
     if (!target || !(target instanceof HTMLElement)) {
       return null;
     }

@@ -341,7 +341,37 @@ export interface EditorProps {
     | boolean;
 
   /**
-   * @description Short lived feature flags for experiments and gradual rollouts
+   * @default undefined
+   * @description
+   * Short lived feature flags for experiments and gradual rollouts
+   * Flags are expected to follow these rules or they are filtered out
+   *
+   * 1. cased in kebab-case (match [a-z-])
+   * 2. have boolean values
+   *
+   * @example
+   * ```tsx
+   * (<Editor featureFlags={{ 'my-feature': true }} />);
+   * getFeatureFlags()?.myFeature === true;
+   * ```
+   *
+   * @example
+   * ```tsx
+   * (<Editor featureFlags={{ 'my-feature': 'thing' }} />);
+   * getFeatureFlags()?.myFeature === undefined;
+   * ```
+   *
+   * @example
+   * ```tsx
+   * (<Editor featureFlags={{ 'product.my-feature': false }} />);
+   * getFeatureFlags()?.myFeature === undefined;
+   * getFeatureFlags()?.productMyFeature === undefined;
+   * ```
    */
+
+  /* @description Enables using node's data as a source of another node
+   */
+  allowReferentiality?: boolean;
+
   featureFlags?: { [featureFlag: string]: string | boolean };
 }

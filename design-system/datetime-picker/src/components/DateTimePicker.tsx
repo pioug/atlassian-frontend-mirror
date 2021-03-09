@@ -18,13 +18,12 @@ import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
 import { Appearance, Spacing } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import DatePicker, { Props as DatePickerProps } from './DatePicker';
 import TimePicker, { Props as TimePickerProps } from './TimePicker';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {

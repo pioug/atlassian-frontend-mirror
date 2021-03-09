@@ -144,7 +144,7 @@ function CustomSelect({
       name={name}
       label={label}
       isRequired={isRequired}
-      defaultValue={defaultValue}
+      defaultValue={defaultValue as ValueType<Option, false>}
       validate={value => validate(field, value)}
     >
       {({ fieldProps, error }) => (
@@ -157,7 +157,8 @@ function CustomSelect({
                   fieldProps.onChange(value);
                   onBlur(name);
                 }}
-                isMulti={isMultiple || false}
+                // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
+                isMulti={(isMultiple || false) as false}
                 isClearable={true}
                 isValidNewOption={(value: string) => isCreatable && value}
                 validationState={error ? 'error' : 'default'}

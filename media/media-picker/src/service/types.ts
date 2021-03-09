@@ -36,9 +36,9 @@ export interface UploadService {
 }
 
 export enum LocalFileSource {
-  PastedFile,
-  PastedScreenshot,
-  LocalUpload,
+  PastedFile = 'pastedFile',
+  PastedScreenshot = 'pastedScreenshot',
+  LocalUpload = 'localUpload',
 }
 
 export interface LocalFileWithSource {

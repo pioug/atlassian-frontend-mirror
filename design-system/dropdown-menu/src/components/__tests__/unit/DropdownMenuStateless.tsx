@@ -5,14 +5,13 @@ import { mount, shallow } from 'enzyme';
 
 import Droplist from '@atlaskit/droplist';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import DropdownItemFocusManager from '../../context/DropdownItemFocusManager';
 import DropdownMenuStatelessWithAnalytics, {
   DropdownMenuStatelessWithoutAnalytics as DropdownMenuStateless,
 } from '../../DropdownMenuStateless';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 // TODO: create integration tests to replace these See https://ecosystem.atlassian.net/browse/AK-5183
 describe('dropdown menu - DropdownMenuStateless', () => {

@@ -64,6 +64,13 @@ export default () => {
     key: pluginKey,
 
     appendTransaction: (transactions, oldState, newState) => {
+      const hasHandlePasteMeta = transactions.find(tran =>
+        tran.getMeta(pluginKey),
+      );
+      if (hasHandlePasteMeta) {
+        return closeHistory(newState.tr);
+      }
+
       const enterStep = getEnterKeyboardActionStep(transactions);
       if (!enterStep) {
         return;

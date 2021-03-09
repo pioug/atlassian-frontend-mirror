@@ -42,6 +42,7 @@ import {
   stickyRowZIndex,
   columnControlsDecorationHeight,
   stickyRowOffsetTop,
+  stickyHeaderBorderBottomWidth,
 } from './consts';
 
 import {
@@ -225,7 +226,7 @@ export const tableStyles = css`
     }
 
     tr.sticky th {
-      border-bottom: 1px solid ${tableBorderColor};
+      border-bottom: ${stickyHeaderBorderBottomWidth}px solid ${tableBorderColor};
       margin-right: -1px;
     }
 

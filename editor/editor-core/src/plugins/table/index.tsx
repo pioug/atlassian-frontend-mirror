@@ -3,7 +3,13 @@ import React from 'react';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
 
-import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+import {
+  table,
+  tableWithLocalId,
+  tableCell,
+  tableHeader,
+  tableRow,
+} from '@atlaskit/adf-schema';
 
 import { toggleTable, tooltip } from '../../keymaps';
 import { EditorPlugin } from '../../types';
@@ -57,6 +63,7 @@ interface TablePluginOptions {
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
+  allowReferentiality?: boolean;
 }
 
 const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
@@ -64,7 +71,10 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
 
   nodes() {
     return [
-      { name: 'table', node: table },
+      {
+        name: 'table',
+        node: options?.allowReferentiality ? tableWithLocalId : table,
+      },
       { name: 'tableHeader', node: tableHeader },
       { name: 'tableRow', node: tableRow },
       { name: 'tableCell', node: tableCell },
@@ -82,6 +92,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             wasFullWidthEnabled,
             breakoutEnabled,
             tableOptions,
+            allowReferentiality,
           } = options || ({} as TablePluginOptions);
           return createPlugin(
             dispatch,
@@ -92,6 +103,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             breakoutEnabled,
             fullWidthEnabled,
             wasFullWidthEnabled,
+            allowReferentiality,
           );
         },
       },
@@ -134,6 +146,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
     popupsMountPoint,
     popupsBoundariesElement,
     popupsScrollableElement,
+    dispatchAnalyticsEvent,
   }) {
     return (
       <WithPluginState
@@ -192,6 +205,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                     mountPoint={popupsMountPoint}
                     targetCellPosition={targetCellPosition}
                     scrollableElement={popupsScrollableElement}
+                    dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                     isContextualMenuOpen={isContextualMenuOpen}
                     layout={layout}
                     stickyHeader={stickyHeader}
@@ -210,6 +224,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                   boundariesElement={popupsBoundariesElement}
                   scrollableElement={popupsScrollableElement}
                   hasStickyHeaders={stickyHeader && stickyHeader.sticky}
+                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                 />
               )}
               <FloatingContextualMenu

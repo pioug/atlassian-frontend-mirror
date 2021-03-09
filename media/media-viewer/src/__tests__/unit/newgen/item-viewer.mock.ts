@@ -1,5 +1,9 @@
 /** Extracted into its own file so the mock variables can be instantiated before other imports in the test file that would otherwise be hoisted before it */
-import { setViewerPayload, ImageViewer } from '../../mocks/_image-viewer';
+import {
+  setViewerError,
+  clearViewerError,
+  ImageViewer,
+} from '../../mocks/_image-viewer';
 
 const mockImageViewer = {
   ImageViewer,
@@ -15,4 +19,4 @@ jest.mock('unzipit', () => ({
   HTTPRangeReader: () => 'reader',
 }));
 
-export { setViewerPayload };
+export { setViewerError, clearViewerError };

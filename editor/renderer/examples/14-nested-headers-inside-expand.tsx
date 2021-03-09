@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { RadioGroup } from '@atlaskit/radio';
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
-import debounce from 'lodash/debounce';
 import { OptionsPropType } from '@atlaskit/radio/types';
 import Button from '@atlaskit/button/standard-button';
 import styled from 'styled-components';
@@ -76,10 +75,7 @@ export default function Example() {
           </Button>
         </Container>
       }
-      onDocumentChange={debounce(
-        () => setHeadings(getHeaderIdsAsRadioOptions()),
-        100,
-      )}
+      onDocumentChange={() => setHeadings(getHeaderIdsAsRadioOptions())}
       allowHeadingAnchorLinks={{
         allowNestedHeaderLinks: true,
         activeHeadingId,

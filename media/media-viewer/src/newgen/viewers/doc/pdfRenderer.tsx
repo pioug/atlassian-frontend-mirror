@@ -1,4 +1,5 @@
 import React from 'react';
+import { FileState } from '@atlaskit/media-client';
 import * as PDFJSViewer from 'pdfjs-dist/web/pdf_viewer';
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import { injectGlobal } from 'styled-components';
@@ -7,13 +8,9 @@ import { PDFWrapper } from '../../styled';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
-import ErrorMessage, {
-  createError,
-  MediaViewerError,
-  ErrorName,
-} from '../../error';
+import ErrorMessage from '../../errorMessage';
+import { MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
-import { getErrorName } from '@atlaskit/media-client';
 
 export const pdfViewerClassName = 'pdfViewer';
 
@@ -90,6 +87,7 @@ const fetchPdf = (url: string): Promise<PDFDocumentProxy> => {
 };
 
 export type Props = {
+  item: FileState;
   src: string;
   onClose?: () => void;
   onSuccess?: () => void;
@@ -97,7 +95,7 @@ export type Props = {
 };
 
 export type State = {
-  doc: Outcome<any, MediaViewerError>;
+  doc: Outcome<any, Error>;
   zoomLevel: ZoomLevel;
 };
 
@@ -137,15 +135,14 @@ export class PDFRenderer extends React.Component<Props, State> {
           onSuccess();
         }
       });
-    } catch (err) {
+    } catch (error) {
+      const pdfError = new MediaViewerError('docviewer-fetch-pdf', error);
       this.setState({
-        doc: Outcome.failed(
-          createError(getErrorName(err, 'previewFailed') as ErrorName, err),
-        ),
+        doc: Outcome.failed(pdfError),
       });
 
       if (onError) {
-        onError(err);
+        onError(pdfError);
       }
     }
   }
@@ -187,7 +184,10 @@ export class PDFRenderer extends React.Component<Props, State> {
           />
         </PDFWrapper>
       ),
-      failed: err => <ErrorMessage error={err} />,
+      failed: error => {
+        const { item } = this.props;
+        return <ErrorMessage fileId={item.id} fileState={item} error={error} />;
+      },
     });
   }
 }

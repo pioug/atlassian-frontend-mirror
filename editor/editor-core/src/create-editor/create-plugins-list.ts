@@ -245,7 +245,9 @@ export default function createPluginsList(
   }
 
   // Needs to be after allowTextColor as order of buttons in toolbar depends on it
-  if (props.UNSAFE_predictableLists) {
+  // UNSAFE_predictableLists is now opt out only.
+  // Once legacy lists are removed, the option to opt out will also be removed.
+  if (props.UNSAFE_predictableLists !== false) {
     preset.add(listsPredictablePlugin);
   } else {
     preset.add(listsPlugin);

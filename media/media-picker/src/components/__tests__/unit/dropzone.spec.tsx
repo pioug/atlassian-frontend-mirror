@@ -4,11 +4,16 @@ import { Dropzone, DropzoneBase } from '../../dropzone/dropzone';
 import { mount, ReactWrapper } from 'enzyme';
 import { DropzoneDragEnterEventPayload } from '../../types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import {
+  ANALYTICS_MEDIA_CHANNEL,
+  MediaFeatureFlags,
+} from '@atlaskit/media-common';
 import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 
 async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
-  return new Promise(tickFinished => {
+  return new Promise<void>(tickFinished => {
     process.nextTick(() => {
       wrapper.update();
       tickFinished();
@@ -96,15 +101,23 @@ const container = document.createElement('div');
   {
     config: { container, uploadParams: {} },
     expectedContainer: container,
+    defaultFeatureFlags: {
+      folderUploads: false,
+      newCardExperience: false,
+    },
   },
   {
     config: { uploadParams: {} },
     expectedContainer: document.body,
+    defaultFeatureFlags: {
+      folderUploads: false,
+      newCardExperience: false,
+    },
   },
 ].forEach(data => {
   describe(`Dropzone with config: ${JSON.stringify(data.config)}`, () => {
     let component: ReactWrapper;
-    const { config, expectedContainer } = data;
+    const { config, expectedContainer, defaultFeatureFlags } = data;
     beforeEach(() => {
       asMockFunction(isWebkitSupported).mockReset();
     });
@@ -338,31 +351,36 @@ const container = document.createElement('div');
     });
 
     describe('Analytics', () => {
-      const expectedChannel = 'media';
-      const expectedContext = [
+      const expectedContext = (featureFlags: MediaFeatureFlags) => [
         {
-          attributes: {
-            componentName: 'dropzone',
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+          packageName: '@atlaskit/media-picker',
+          packageVersion: '999.9.9',
+          componentName: 'dropzone',
+          component: 'dropzone',
+          [MEDIA_CONTEXT]: {
+            featureFlags,
           },
         },
       ];
       it('should fire a draggedInto event when a file is dragged over dropzone', async () => {
-        const expectedPayload = {
+        const expectedPayload = (featureFlags: MediaFeatureFlags) => ({
           eventType: 'ui',
           action: 'draggedInto',
           actionSubject: 'dropzone',
           attributes: {
-            packageName: '@atlaskit/media-picker',
             fileCount: 1,
           },
-        };
+        });
         const handleAnalyticsEvent = jest.fn();
 
         component = mount(
           <AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-            <Dropzone mediaClient={mediaClient} config={config} />,
+            <Dropzone
+              mediaClient={mediaClient}
+              config={config}
+              featureFlags={defaultFeatureFlags}
+            />
+            ,
           </AnalyticsListener>,
         );
 
@@ -371,28 +389,32 @@ const container = document.createElement('div');
         expect(handleAnalyticsEvent).toHaveBeenCalledTimes(1);
         expect(handleAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
-            payload: expectedPayload,
-            context: expectedContext,
+            context: expectedContext(defaultFeatureFlags),
+            payload: expectedPayload(defaultFeatureFlags),
           }),
-          expectedChannel,
+          ANALYTICS_MEDIA_CHANNEL,
         );
       });
 
       it('should fire a draggedOut event when mouse leaves dropzone', async () => {
-        const expectedPayload = {
+        const expectedPayload = (featureFlags: MediaFeatureFlags) => ({
           eventType: 'ui',
           action: 'draggedOut',
           actionSubject: 'dropzone',
           attributes: {
-            packageName: '@atlaskit/media-picker',
             fileCount: 1,
           },
-        };
+        });
         const handleAnalyticsEvent = jest.fn();
 
         component = mount(
           <AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-            <Dropzone mediaClient={mediaClient} config={config} />,
+            <Dropzone
+              mediaClient={mediaClient}
+              config={config}
+              featureFlags={defaultFeatureFlags}
+            />
+            ,
           </AnalyticsListener>,
         );
 
@@ -406,28 +428,32 @@ const container = document.createElement('div');
         expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
           2,
           expect.objectContaining({
-            payload: expectedPayload,
-            context: expectedContext,
+            context: expectedContext(defaultFeatureFlags),
+            payload: expectedPayload(defaultFeatureFlags),
           }),
-          expectedChannel,
+          ANALYTICS_MEDIA_CHANNEL,
         );
       });
 
       it('should fire a droppedInto event when a file is dropped in dropzone', async () => {
-        const expectedPayload = {
+        const expectedPayload = (featureFlags: MediaFeatureFlags) => ({
           eventType: 'ui',
           action: 'droppedInto',
           actionSubject: 'dropzone',
           attributes: {
-            packageName: '@atlaskit/media-picker',
             fileCount: 1,
           },
-        };
+        });
         const handleAnalyticsEvent = jest.fn();
 
         component = mount(
           <AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-            <Dropzone mediaClient={mediaClient} config={config} />,
+            <Dropzone
+              mediaClient={mediaClient}
+              config={config}
+              featureFlags={defaultFeatureFlags}
+            />
+            ,
           </AnalyticsListener>,
         );
 
@@ -439,10 +465,10 @@ const container = document.createElement('div');
         expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
           2,
           expect.objectContaining({
-            payload: expectedPayload,
-            context: expectedContext,
+            context: expectedContext(defaultFeatureFlags),
+            payload: expectedPayload(defaultFeatureFlags),
           }),
-          expectedChannel,
+          ANALYTICS_MEDIA_CHANNEL,
         );
       });
 
@@ -456,7 +482,6 @@ const container = document.createElement('div');
           action: 'folderDroppedInto',
           actionSubject: 'dropzone',
           attributes: {
-            packageName: '@atlaskit/media-picker',
             fileCount: 1,
           },
         };
@@ -467,7 +492,7 @@ const container = document.createElement('div');
             <Dropzone
               mediaClient={mediaClient}
               config={config}
-              featureFlags={{ folderUploads: true }}
+              featureFlags={{ folderUploads: true, newCardExperience: true }}
             />
             ,
           </AnalyticsListener>,
@@ -480,10 +505,13 @@ const container = document.createElement('div');
         expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
           1,
           expect.objectContaining({
+            context: expectedContext({
+              folderUploads: true,
+              newCardExperience: true,
+            }),
             payload: expectedPayload,
-            context: expectedContext,
           }),
-          expectedChannel,
+          ANALYTICS_MEDIA_CHANNEL,
         );
       });
     });

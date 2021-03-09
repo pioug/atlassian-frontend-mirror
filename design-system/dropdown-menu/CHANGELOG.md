@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 10.1.3
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- Updated dependencies
+
 ## 10.1.2
 
 ### Patch Changes

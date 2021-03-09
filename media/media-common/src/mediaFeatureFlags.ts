@@ -17,6 +17,10 @@ export interface MediaFeatureFlags extends PollingOptions {
   codeViewer?: boolean;
 }
 
+export interface WithMediaFeatureFlags {
+  featureFlags?: MediaFeatureFlags;
+}
+
 // default values defined here, not necessary for components to know directly as they should use the function below
 export const defaultMediaFeatureFlags: MediaFeatureFlags = {
   newCardExperience: false,

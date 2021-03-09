@@ -5,10 +5,9 @@ import { fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('analysis', () => {
   describe('Breadcrumbs', () => {

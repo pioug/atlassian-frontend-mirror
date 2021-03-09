@@ -5,15 +5,11 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import Tooltip from '../../Tooltip';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 
 const analyticsAttributes = {
   componentName: 'tooltip',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 jest.useFakeTimers();

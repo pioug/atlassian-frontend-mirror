@@ -4,14 +4,14 @@ import { css, jsx } from '@emotion/core';
 import GlobalTheme from '@atlaskit/theme/components';
 import type { Theme, ThemeModes } from '@atlaskit/theme/types';
 
-import type { sizeOpts } from '../types';
+import type { Size } from '../types';
 import { sizes } from '../constants';
 import { getBackground } from './utils';
 
 type WrapperProps = {
   primaryColor?: string;
   secondaryColor?: string;
-  size?: sizeOpts;
+  size?: Size;
   mode: ThemeModes;
 } & Omit<HTMLProps<HTMLSpanElement>, 'size'>;
 
@@ -91,7 +91,7 @@ export interface IconProps {
   /**
    * Control the size of the icon.
    */
-  size?: sizeOpts;
+  size?: Size;
 
   /**
    * A `testId` prop is provided for specified elements,

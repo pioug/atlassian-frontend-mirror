@@ -1,5 +1,7 @@
-import type { CalendarProps as Props } from '../src/types';
+import type { CalendarBaseProps } from '../src/types';
 
-export default function CalendarProps(_: Props) {
+// TODO: Replace `CalendarBaseProps` with `CalendarProps` from types file. Using
+// `CalendarBaseProps` to hide `calendarRef` prop from the documentation.
+export default function CalendarProps(_: CalendarBaseProps) {
   return null;
 }

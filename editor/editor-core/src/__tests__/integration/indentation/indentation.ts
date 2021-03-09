@@ -1,10 +1,11 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { fullpage, getDocFromElement } from '../_helpers';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
 // Modifiers like Ctrl, Shift, Alt and Meta will stay pressed so you need to trigger them again to release them.
 
-const editorSelector = '.ProseMirror';
+const editorSelector = selectors.editor;
 
 const createRepeatedArray = <T>(seq: T[], timesRepeated: number): T[] => {
   let out = [] as T[];

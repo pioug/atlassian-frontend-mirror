@@ -14,6 +14,7 @@ import {
   nextTick,
 } from '@atlaskit/media-test-helpers';
 import { Spinner } from '../../../../../newgen/loading';
+import { MediaViewerError } from '../../../../../newgen/errors';
 import { DocViewer, Props } from '../../../../../newgen/viewers/doc/index';
 import { BaseState } from '../../../../../newgen/viewers/base-viewer';
 import { Content } from '../../../../../newgen/content';
@@ -50,6 +51,7 @@ function createFixture(
       item={item}
       mediaClient={mediaClient}
       collectionName={collectionName}
+      onSuccess={() => {}}
       onError={onError}
     />,
   );
@@ -154,15 +156,16 @@ describe('DocViewer', () => {
   });
 
   it('should call onError when an error happens', async () => {
+    const error = new MediaViewerError('docviewer-fetch-url');
     const fetchPromise = Promise.resolve();
     const { el, onError } = createFixture(
       fetchPromise,
       item,
       undefined,
-      Promise.reject('some error'),
+      Promise.reject(new MediaViewerError('docviewer-fetch-url')),
     );
     await (el as any).instance()['init']();
-    expect(onError).toBeCalledWith('some error');
+    expect(onError).toBeCalledWith(error);
   });
 
   it('should use local preview when available', async () => {

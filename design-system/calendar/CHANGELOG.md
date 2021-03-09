@@ -1,5 +1,34 @@
 # @atlaskit/calendar
 
+## 10.3.1
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`42785088a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42785088a12) - - Migrate old entry points to new one. Calendar now has only following exports:
+
+  - **default export**. Can be imported like:
+    - `import Calendar from '@atlaskit/calendar'`
+  - **named type exports** (`CalendarProps`, `ChangeEvent`, `SelectEvent`).
+    Can be imported like:
+    - `import { CalendarProps, ChangeEvent, SelectEvent } from '@atlaskit/calendar'`
+    - `import { CalendarProps, ChangeEvent, SelectEvent } from '@atlaskit/calendar/types'`.
+
+  **Internal change**
+
+  - Remove reference of private types and props from the documentation. Right now private type is `CalendarInternalRef` and private prop is `calendarRef`.
+  - Rename calendar exported private ref type from `CalendarInternalRef` to `CalendarRef`.
+  - Rename calendar private prop from `internalRef` to `calendarRef`.
+
+- [`f74ba30c53c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f74ba30c53c) - **Internal change**
+
+  - We have improved re-rendering quite a bit by memoizing components, loops and rendered elements.
+  - Duplicate "pad-to-two" util has been removed.
+  - Refactored few variables/functions/types.
+  - Extracted out few components for readability purpose.
+
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

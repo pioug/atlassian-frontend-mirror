@@ -73,6 +73,7 @@ export default {
     'tablePMColResizing',
     'hyperlinkKeymap',
     'tableColResizing',
+    'undoRedoKeyMap',
     'blockTypeKeyMap',
     'tableEditing',
     'filterStepsPlugin',

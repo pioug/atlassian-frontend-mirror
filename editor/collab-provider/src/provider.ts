@@ -35,7 +35,9 @@ import {
   CATCHUP_SUCCESS,
   STEPS_REJECTED,
   STEPS_ADDED,
+  ACK_MAX_TRY,
 } from './const';
+import { ErrorCodeMapper } from './error-code-mapper';
 
 const logger = createLogger('Provider', 'yellow');
 
@@ -252,7 +254,7 @@ export class Provider
       return;
     }
 
-    const currentVersion = getVersion(this.getState!());
+    const currentVersion = this.getCurrentPmVersion();
     const expectedVersion = currentVersion + data.steps.length;
 
     if (data.version === currentVersion) {
@@ -272,6 +274,10 @@ export class Provider
     );
   };
 
+  private getCurrentPmVersion = () => {
+    return getVersion(this.getState!());
+  };
+
   /**
    * Called when:
    *   * session established(offline -> online)
@@ -285,68 +291,81 @@ export class Provider
     }
     this.pauseQueue = true;
     try {
-      const currentVersion = getVersion(this.getState!());
       const {
         doc,
         stepMaps: serverStepMaps,
         version: serverVersion,
         metadata,
-      } = await this.channel.fetchCatchup(currentVersion);
+      } = await this.channel.fetchCatchup(this.getCurrentPmVersion());
       if (doc) {
+        const currentPmVersion = this.getCurrentPmVersion();
         if (typeof serverVersion === 'undefined') {
           logger(`Could not determine server version`);
-          return;
-        }
-        if (serverVersion === currentVersion) {
+        } else if (serverVersion <= currentPmVersion) {
           logger(`Catchup steps we already have. Ignoring.`);
-          return;
-        }
-        const { steps: unconfirmedSteps } = sendableSteps(this.getState!()) || {
-          steps: [],
-        };
-        logger(
-          `Too far behind[current: v${currentVersion}, server: v${serverVersion}. ${serverStepMaps.length} steps need to catchup]`,
-        );
-        /**
-         * Remove steps from queue where the version is older than
-         * the version we received from service. Keep steps that might be
-         * newer.
-         */
-        this.queue = this.queue.filter(data => data.version > serverVersion);
-        // We are too far behind - replace the entire document
-        logger(`Replacing document: ${doc}`);
-        logger(`getting metadata: ${metadata}`);
-        // Replace local document and version number
-        this.emit('init', {
-          doc: JSON.parse(doc),
-          version: serverVersion,
-          metadata,
-        });
-        if (metadata) {
-          this.metadata = metadata;
-          this.emit('metadata:changed', metadata);
-        }
-        // After replacing the whole document in the editor, we need to reapply the unconfirmed
-        // steps back into the editor, so we don't lose any data. But before that, we need to rebase
-        // those steps since their position could be changed after replacing.
-        // https://prosemirror.net/docs/guide/#transform.rebasing
-        if (unconfirmedSteps.length) {
-          const catchupAnalytics: GasPurePayload = buildAnalyticsPayload(
-            CATCHUP_SUCCESS,
+        } else {
+          const { steps: unconfirmedSteps } = sendableSteps(
+            this.getState!(),
+          ) || {
+            steps: [],
+          };
+          logger(
+            `Too far behind[current: v${currentPmVersion}, server: v${serverVersion}. ${serverStepMaps.length} steps need to catchup]`,
           );
-          // Create StepMap from StepMap JSON
-          const stepMaps = serverStepMaps.map((map: any) => new StepMap(map));
-          // create Mappng used for Step.map
-          const mapping: Mapping = new Mapping(stepMaps);
-          logger(`${unconfirmedSteps.length} unconfirmed steps before rebased`);
-          const newUnconfirmedSteps: Step[] = rebaseSteps(
-            unconfirmedSteps,
-            mapping,
-          );
-          logger(`Re-aply ${newUnconfirmedSteps.length} unconfirmed steps`);
-          // Re-aply local steps
-          this.emit('local-steps', { steps: newUnconfirmedSteps });
-          this.fireAnalyticsEvent(catchupAnalytics);
+          /**
+           * Remove steps from queue where the version is older than
+           * the version we received from service. Keep steps that might be
+           * newer.
+           */
+          this.queue = this.queue.filter(data => data.version > serverVersion);
+          // We are too far behind - replace the entire document
+          logger(`Replacing document: ${doc}`);
+          logger(`getting metadata: ${metadata}`);
+          // Replace local document and version number
+          this.emit('init', {
+            doc: JSON.parse(doc),
+            version: serverVersion,
+            metadata,
+            reserveCursor: true,
+          });
+          if (metadata) {
+            this.metadata = metadata;
+            this.emit('metadata:changed', metadata);
+          }
+          // After replacing the whole document in the editor, we need to reapply the unconfirmed
+          // steps back into the editor, so we don't lose any data. But before that, we need to rebase
+          // those steps since their position could be changed after replacing.
+          // https://prosemirror.net/docs/guide/#transform.rebasing
+          if (unconfirmedSteps.length) {
+            const catchupAnalytics: GasPurePayload = buildAnalyticsPayload(
+              CATCHUP_SUCCESS,
+            );
+            // Create StepMap from StepMap JSON
+            const stepMaps = serverStepMaps.map((map: any) => new StepMap(map));
+            // create Mappng used for Step.map
+            const mapping: Mapping = new Mapping(stepMaps);
+            logger(
+              `${
+                unconfirmedSteps.length
+              } unconfirmed steps before rebased: ${JSON.stringify(
+                unconfirmedSteps,
+              )}`,
+            );
+            const newUnconfirmedSteps: Step[] = rebaseSteps(
+              unconfirmedSteps,
+              mapping,
+            );
+            logger(
+              `Re-aply ${
+                newUnconfirmedSteps.length
+              } mapped unconfirmed steps: ${JSON.stringify(
+                newUnconfirmedSteps,
+              )}`,
+            );
+            // Re-aply local steps
+            this.emit('local-steps', { steps: newUnconfirmedSteps });
+            this.fireAnalyticsEvent(catchupAnalytics);
+          }
         }
       }
     } catch (err) {
@@ -356,27 +375,55 @@ export class Provider
       );
       this.fireAnalyticsEvent(catchupFailureAnalytics);
       logger(`Catch-Up Failed:`, err.message);
+    } finally {
+      this.pauseQueue = false;
+      this.processQueue();
+      this.throttledSend();
+      this.stepRejectCounter = 0;
+      if (this.catchupTimeout) {
+        clearTimeout(this.catchupTimeout);
+        this.catchupTimeout = undefined;
+      }
     }
-    this.pauseQueue = false;
-    this.processQueue();
-    this.throttledSend();
-    this.stepRejectCounter = 0;
-    if (this.catchupTimeout) {
-      clearTimeout(this.catchupTimeout);
-      this.catchupTimeout = undefined;
+  };
+
+  private errorCodeMapper = (error: ErrorPayload | string) => {
+    switch ((error as ErrorPayload).code) {
+      case 'INSUFFICIENT_EDITING_PERMISSION':
+        return {
+          status: 401,
+          code: ErrorCodeMapper.noPermissionError.code,
+          message: ErrorCodeMapper.noPermissionError.message,
+        };
+      case 'FAILED_ON_S3':
+      case 'DYNAMO_ERROR':
+        return {
+          status: 500,
+          code: ErrorCodeMapper.failToSave.code,
+          message: ErrorCodeMapper.failToSave.message,
+        };
+      case 'CATCHUP_FAILED':
+      case 'GET_QUERY_TIME_OUT':
+        return {
+          status: 500,
+          code: ErrorCodeMapper.internalError.code,
+          message: ErrorCodeMapper.internalError.message,
+        };
+      default:
+        break;
     }
   };
 
   private onErrorHandled = (error: ErrorPayload | string) => {
-    const stepRejectAnalytics: GasPurePayload = buildAnalyticsPayload(
-      STEPS_REJECTED,
-      error,
-    );
     if (
       error &&
       ((error as ErrorPayload).code === 'HEAD_VERSION_UPDATE_FAILED' ||
         (error as ErrorPayload).code === 'VERSION_NUMBER_ALREADY_EXISTS')
     ) {
+      const stepRejectAnalytics: GasPurePayload = buildAnalyticsPayload(
+        STEPS_REJECTED,
+        error,
+      );
       this.fireAnalyticsEvent(stepRejectAnalytics);
       this.stepRejectCounter++;
       if (!this.catchupTimeout) {
@@ -387,6 +434,10 @@ export class Provider
     }
     if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
       this.throttledCatchup();
+    }
+    const errorToEmit = this.errorCodeMapper(error);
+    if (errorToEmit) {
+      this.emit('error', errorToEmit);
     }
     logger(`Error from collab service`, error);
   };
@@ -414,7 +465,7 @@ export class Provider
 
     if (this.queue.length > 0) {
       const firstItem = this.queue.shift();
-      const currentVersion = getVersion(this.getState!());
+      const currentVersion = this.getCurrentPmVersion();
       const expectedVersion = currentVersion + firstItem!.steps.length;
       if (firstItem!.version === expectedVersion) {
         logger(`Applying data from queue!`);
@@ -723,6 +774,21 @@ export class Provider
    */
   async getFinalAcknowledgedState() {
     const state = this.getState!();
+    let count = 0;
+    let unconfirmedSteps =
+      sendableSteps(this.getState!()) && sendableSteps(this.getState!())?.steps;
+
+    while (unconfirmedSteps && unconfirmedSteps.length) {
+      this.throttledSend();
+      await sleep(500);
+      unconfirmedSteps =
+        sendableSteps(this.getState!()) &&
+        sendableSteps(this.getState!())?.steps;
+      if (count++ >= ACK_MAX_TRY) {
+        throw new Error("Can't syncup with Collab Service");
+      }
+    }
+
     return {
       content: state.doc.toJSON(),
       title: this.metadata.title,
@@ -738,4 +804,10 @@ export class Provider
     this.channel.disconnect();
     return this;
   }
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }

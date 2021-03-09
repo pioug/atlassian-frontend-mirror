@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
 
 import FieldRadioGroup, { AkFieldRadioGroup } from '../..';
-import { name } from '../../version.json';
 import Radio from '../../RadioBase';
 
-describe(name, () => {
+describe('@atlaskit/field-radio-group', () => {
   describe('FieldRadioGroup (smart)', () => {
     const sampleItems = [
       { name: 'test', value: '1', label: 'one' },

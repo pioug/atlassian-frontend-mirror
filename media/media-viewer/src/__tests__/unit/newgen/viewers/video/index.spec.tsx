@@ -25,7 +25,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
 import { VideoViewer, Props } from '../../../../../newgen/viewers/video';
-import { ErrorMessage } from '../../../../../newgen/error';
+import { ErrorMessage } from '../../../../../newgen/errorMessage';
 
 const token = 'some-token';
 const clientId = 'some-client-id';
@@ -96,6 +96,8 @@ async function setup(options: SetupOptions = {}) {
 
   const el = mountWithIntlContext(
     <VideoViewer
+      onCanPlay={() => {}}
+      onError={() => {}}
       mediaClient={mediaClient}
       item={item || videoItem}
       {...props}

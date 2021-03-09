@@ -12,6 +12,7 @@ import {
   TablePluginState,
 } from '../../../types';
 import {
+  stickyHeaderBorderBottomWidth,
   stickyRowOffsetTop,
   tableControlsSpacing,
   tableScrollbarOffset,
@@ -202,7 +203,14 @@ export class TableRowNodeView implements NodeView {
         const newHeight = entry.contentRect
           ? entry.contentRect.height
           : (entry.target as HTMLElement).offsetHeight;
-        if (newHeight !== this.stickyRowHeight && this.sentinels.bottom) {
+
+        if (
+          this.sentinels.bottom &&
+          // When the table header is sticky, it would be taller by a 1px (border-bottom),
+          // So we adding this check to allow a 1px difference.
+          Math.abs(newHeight - (this.stickyRowHeight || 0)) >
+            stickyHeaderBorderBottomWidth
+        ) {
           this.stickyRowHeight = newHeight;
           this.sentinels.bottom.style.bottom = `${
             tableScrollbarOffset + stickyRowOffsetTop + newHeight
@@ -377,6 +385,15 @@ export class TableRowNodeView implements NodeView {
     const tree = this.tree;
     if (!tree) {
       return;
+    }
+
+    // when header rows are toggled off - mark sentinels as unobserved
+    if (!state.isHeaderRowEnabled) {
+      [this.sentinels.top, this.sentinels.bottom].forEach(el => {
+        if (el) {
+          delete el.dataset.isObserved;
+        }
+      });
     }
 
     const isCurrentTableSelected = tableRef === tree.table;

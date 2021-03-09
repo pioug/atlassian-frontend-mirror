@@ -13,16 +13,15 @@ import Blanket from '@atlaskit/blanket';
 import { WIDTH_ENUM, WidthNames } from '../shared-variables';
 import { Dialog, FillScreen as StyledFillScreen } from '../styled/Modal';
 import { ScrollBehavior } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import { Animation } from './Animation';
 import Content from './Content';
 import FocusLock from './FocusLock';
 import { WrapperProps as OuterProps } from './ModalWrapper';
 import Positioner from './Positioner';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 function getScrollDistance() {
   return (

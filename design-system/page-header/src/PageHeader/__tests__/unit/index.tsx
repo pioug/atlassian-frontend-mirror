@@ -4,10 +4,9 @@ import { mount, shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import PageHeader from '../../../index';
-import { name } from '../../../version.json';
 import { StyledTitle } from '../../styled';
 
-describe(name, () => {
+describe('@atlaskit/page-header', () => {
   it('should render correctly', () => {
     const BreadCrumbs = () => <div>Breadcrumb</div>;
     const Actions = () => <div>Action</div>;

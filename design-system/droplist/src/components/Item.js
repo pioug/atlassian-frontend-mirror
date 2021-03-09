@@ -21,12 +21,11 @@ import {
   InputWrapper,
 } from '../styled/Item';
 import { getInputBackground, getInputFill } from '../utils';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import Element from './Element';
+
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 
 const inputTypes = { checkbox: Checkbox, radio: Radio };
 

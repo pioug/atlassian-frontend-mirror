@@ -1,6 +1,6 @@
 import cases from 'jest-in-case';
 
-import type { Date as CalendarDate } from '../../types';
+import type { CalendarDate, WeekDay } from '../../types';
 import getBaseCalendar from '../get-base-calendar';
 
 cases(
@@ -14,7 +14,7 @@ cases(
     year: number;
     month: number;
     options?: {
-      weekStartDay?: number;
+      weekStartDay?: WeekDay;
     };
     output: CalendarDate[];
   }) => {

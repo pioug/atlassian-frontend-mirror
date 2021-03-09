@@ -1,28 +1,16 @@
-import {
-  TRACK_EVENT_TYPE,
-  OPERATIONAL_EVENT_TYPE,
-} from '@atlaskit/analytics-gas-types';
 import { Action, MiddlewareAPI } from 'redux';
+import { FileAttributes } from '@atlaskit/media-common';
+
 import { State } from '../../domain';
 import { isHandleCloudFetchingEventAction } from '../../actions/handleCloudFetchingEvent';
 import { MediaFile } from '../../../types';
 import { HandlerResult } from '.';
-import {
-  FailurePayload,
-  SuccessPayload,
-} from '../../../components/localUploadReact';
 import { RemoteUploadFailPayload } from '../../tools/websocket/upload/wsUploadEvents';
 
-const commonPayload = {
-  actionSubject: 'mediaUpload',
-  actionSubjectId: 'cloudMedia',
-};
-
-const fileAttributes = (file: MediaFile) => ({
+const getFileAttributes = (file: MediaFile): FileAttributes => ({
   fileId: file.id,
   fileSize: file.size,
   fileMimetype: file.type,
-  fileSource: 'mediapicker',
 });
 
 export default (action: Action, store: MiddlewareAPI<State>): HandlerResult => {
@@ -32,53 +20,61 @@ export default (action: Action, store: MiddlewareAPI<State>): HandlerResult => {
     const { timeStarted } = remoteUpload || { timeStarted: undefined };
     const uploadDurationMsec =
       timeStarted !== undefined ? Date.now() - timeStarted : -1;
-    const commonAttributes = {
-      sourceType: 'cloud',
-      serviceName: payload.serviceName,
-    };
+
     if (event === 'RemoteUploadStart') {
       return [
         {
+          eventType: 'operational',
           action: 'commenced',
-          ...commonPayload,
+          actionSubject: 'mediaUpload',
+          actionSubjectId: 'cloudMedia',
           attributes: {
-            fileAttributes: fileAttributes(file),
-            ...commonAttributes,
+            fileAttributes: getFileAttributes(file),
+            sourceType: 'cloud',
+            serviceName: payload.serviceName,
           },
-          eventType: OPERATIONAL_EVENT_TYPE,
         },
       ];
-    } else if (event === 'RemoteUploadEnd') {
-      return [
-        {
-          action: 'uploaded',
-          ...commonPayload,
-          attributes: {
-            fileAttributes: fileAttributes(file),
-            ...commonAttributes,
-            status: 'success',
-            uploadDurationMsec,
-          } as SuccessPayload,
-          eventType: TRACK_EVENT_TYPE,
-        },
-      ];
-    } else if (event === 'RemoteUploadFail') {
-      return [
-        {
-          action: 'uploaded',
-          ...commonPayload,
-          attributes: {
-            fileAttributes: fileAttributes(file),
-            ...commonAttributes,
-            status: 'fail',
-            uploadDurationMsec,
-            failReason: (payload as RemoteUploadFailPayload).description,
-          } as FailurePayload,
-          eventType: TRACK_EVENT_TYPE,
-        },
-      ];
-    } else {
-      return [];
     }
+
+    if (event === 'RemoteUploadEnd') {
+      return [
+        {
+          eventType: 'operational',
+          action: 'succeeded',
+          actionSubject: 'mediaUpload',
+          actionSubjectId: 'cloudMedia',
+          attributes: {
+            status: 'success',
+            fileAttributes: getFileAttributes(file),
+            sourceType: 'cloud',
+            serviceName: payload.serviceName,
+            uploadDurationMsec,
+          },
+        },
+      ];
+    }
+
+    if (event === 'RemoteUploadFail') {
+      return [
+        {
+          eventType: 'operational',
+          action: 'failed',
+          actionSubject: 'mediaUpload',
+          actionSubjectId: 'cloudMedia',
+          attributes: {
+            status: 'fail',
+            failReason: 'remote_upload_fail',
+            error: (payload as RemoteUploadFailPayload).description,
+            fileAttributes: getFileAttributes(file),
+            uploadDurationMsec,
+            sourceType: 'cloud',
+            serviceName: payload.serviceName,
+          },
+        },
+      ];
+    }
+
+    return [];
   }
 };

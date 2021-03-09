@@ -8,13 +8,6 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Dispensar',
-  'fabric.elements.mentions.team.member.50plus': 'Mais de 50 membros',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Mais de 50 membros, incluindo o utilizador',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} membro} other {{0} membros}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} membro, incluindo o utilizador} other {{0} membros, incluindo o utilizador}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Mantenha todos os utilizadores a par com apenas um clique. Ainda não tem uma equipa?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

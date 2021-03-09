@@ -9,14 +9,15 @@ import * as defaultComponents from './components';
 import baseStyles from './styles';
 
 export default function createSelect(WrappedComponent: ComponentType<any>) {
-  return class AtlaskitSelect<Option = OptionType> extends Component<
-    SelectProps<Option>
-  > {
-    components: SelectComponentsConfig<Option> = {};
+  return class AtlaskitSelect<
+    Option = OptionType,
+    IsMulti extends boolean = false
+  > extends Component<SelectProps<Option, IsMulti>> {
+    components: SelectComponentsConfig<Option, IsMulti> = {};
 
     select: Select<Option> | null = null;
 
-    constructor(props: SelectProps<Option>) {
+    constructor(props: SelectProps<Option, IsMulti>) {
       super(props);
       this.cacheComponents = memoizeOne(this.cacheComponents, isEqual).bind(
         this,
@@ -34,16 +35,16 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       styles: {},
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: SelectProps<Option>) {
+    UNSAFE_componentWillReceiveProps(nextProps: SelectProps<Option, IsMulti>) {
       this.cacheComponents(nextProps.components!, nextProps.enableAnimation);
     }
 
     cacheComponents = (
-      components: SelectComponentsConfig<Option>,
+      components: SelectComponentsConfig<Option, IsMulti>,
       enableAnimation: boolean,
     ) => {
       this.components = enableAnimation
-        ? makeAnimated({
+        ? makeAnimated<Option, IsMulti>({
             ...defaultComponents,
             ...components,
           })
@@ -95,7 +96,10 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
           isMulti={isMulti}
           {...props}
           components={this.components}
-          styles={mergeStyles(baseStyles(validationState!, isCompact), styles!)}
+          styles={mergeStyles(
+            baseStyles<Option, IsMulti>(validationState!, isCompact),
+            styles!,
+          )}
         />
       );
     }

@@ -5,7 +5,7 @@
  */
 
 import { daysPerWeek, monthsPerYear } from '../constants';
-import type { Date as CalendarDate } from '../types';
+import type { CalendarDate, WeekDay } from '../types';
 
 import getDaysInMonth from './get-days-in-month';
 
@@ -15,7 +15,7 @@ export default function getBaseCalendar(
   {
     weekStartDay = 0,
   }: {
-    weekStartDay?: number;
+    weekStartDay?: WeekDay;
   } = {
     weekStartDay: 0,
   },
@@ -36,7 +36,7 @@ export default function getBaseCalendar(
   const lastDateOfPreviousMonth = getDaysInMonth(utcYear, utcMonth - 1);
 
   let dateCounter = firstDate;
-  let currentDay: number;
+  let currentDay: WeekDay;
   let currentDate: number;
   let currentDateObject: CalendarDate | null = null;
   let calculatedMonth: number | undefined;
@@ -50,9 +50,9 @@ export default function getBaseCalendar(
 
   while (dateCounter < maxDateCount) {
     currentDate = dateCounter + 1;
-    currentDay =
-      ((dateCounter < 1 ? daysPerWeek + dateCounter : dateCounter) + firstDay) %
-      daysPerWeek;
+    currentDay = (((dateCounter < 1 ? daysPerWeek + dateCounter : dateCounter) +
+      firstDay) %
+      daysPerWeek) as WeekDay;
 
     if (currentDate < 1 || currentDate > lastDate) {
       if (currentDate < 1) {

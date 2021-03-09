@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
-import { sizeOpts } from '../src/types';
+import { Size } from '../src/types';
 
 import ActivityIcon from '../glyph/activity';
 import AddCircleIcon from '../glyph/add-circle';
@@ -43,10 +43,10 @@ const demoIcons = [
   ArrowUpIcon,
 ];
 
-const sizes: sizeOpts[] = ['small', 'medium', 'large', 'xlarge'];
+const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
 
 const IconSizeExample = () => {
-  const [size, setSize] = useState<sizeOpts>('medium');
+  const [size, setSize] = useState<Size>('medium');
 
   return (
     <div id="size-example">

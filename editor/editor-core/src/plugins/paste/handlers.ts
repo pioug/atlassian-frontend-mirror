@@ -57,7 +57,7 @@ import {
   isSelectionInsidePanel,
 } from './util';
 import { getFeatureFlags } from '../feature-flags-context';
-import { isListNode } from '../lists-predictable/utils/node';
+import { isListNode, isListItemNode } from '../lists-predictable/utils/node';
 import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
 
 // remove text attribute from mention for copy/paste (GDPR)
@@ -655,21 +655,15 @@ export function insertSlice({ tr, slice }: { tr: Transaction; slice: Slice }) {
   }
 }
 
-function isList(schema: Schema, node: PMNode | null | undefined) {
-  const { bulletList, orderedList } = schema.nodes;
-  return node && (node.type === bulletList || node.type === orderedList);
-}
-
-function flattenList(state: EditorState, node: PMNode, nodesArr: PMNode[]) {
-  const { listItem } = state.schema.nodes;
-  node.content.forEach(child => {
+function rollupLeafListItems(list: PMNode, leafListItems: PMNode[]) {
+  list.content.forEach(child => {
     if (
-      isList(state.schema, child) ||
-      (child.type === listItem && isList(state.schema, child.firstChild))
+      isListNode(child) ||
+      (isListItemNode(child) && isListNode(child.firstChild))
     ) {
-      flattenList(state, child, nodesArr);
+      rollupLeafListItems(child, leafListItems);
     } else {
-      nodesArr.push(child);
+      leafListItems.push(child);
     }
   });
 }
@@ -679,7 +673,7 @@ function shouldFlattenList(state: EditorState, slice: Slice) {
   return (
     node &&
     insideTable(state) &&
-    isList(state.schema, node) &&
+    isListNode(node) &&
     slice.openStart > slice.openEnd
   );
 }
@@ -763,6 +757,49 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
   });
 }
 
+/**
+ * ED-6300: When a nested list is pasted in a table cell and the slice has openStart > openEnd,
+ * it splits the table. As a workaround, we flatten the list to even openStart and openEnd.
+ *
+ * Note: this only happens if the first child is a list
+ *
+ * Example: copying "one" and "two"
+ * - zero
+ *   - one
+ * - two
+ *
+ * Before:
+ * ul
+ *   ┗━ li
+ *     ┗━ ul
+ *       ┗━ li
+ *         ┗━ p -> "one"
+ *   ┗━ li
+ *     ┗━ p -> "two"
+ *
+ * After:
+ * ul
+ *   ┗━ li
+ *     ┗━ p -> "one"
+ *   ┗━ li
+ *     ┗━p -> "two"
+ */
+export function flattenNestedListInSlice(slice: Slice) {
+  if (!slice.content.firstChild) {
+    return slice;
+  }
+
+  const listToFlatten = slice.content.firstChild;
+  const leafListItems: PMNode[] = [];
+  rollupLeafListItems(listToFlatten, leafListItems);
+
+  const contentWithFlattenedList = slice.content.replaceChild(
+    0,
+    listToFlatten.type.createChecked(listToFlatten.attrs, leafListItems),
+  );
+  return new Slice(contentWithFlattenedList, slice.openEnd, slice.openEnd);
+}
+
 export function handleRichText(slice: Slice): Command {
   return (state, dispatch) => {
     const { codeBlock, panel } = state.schema.nodes;
@@ -772,35 +809,9 @@ export function handleRichText(slice: Slice): Command {
     if (hasInlineCode(state, slice)) {
       removePrecedingBackTick(tr);
     }
-    /**
-     * ED-6300: When a nested list is pasted in a table cell and the slice has openStart > openEnd,
-     * it splits the table. As a workaround, we flatten the list to even openStart and openEnd
-     *
-     *  Before:
-     *  ul
-     *    ┗━ li
-     *      ┗━ ul
-     *        ┗━ li
-     *          ┗━ p -> "one"
-     *    ┗━ li
-     *      ┗━ p -> "two"
-     *
-     *  After:
-     *  ul
-     *    ┗━ li
-     *      ┗━ p -> "one"
-     *    ┗━ li
-     *      ┗━p -> "two"
-     */
-    if (shouldFlattenList(state, slice) && slice.content.firstChild) {
-      const node = slice.content.firstChild;
-      const nodes: PMNode[] = [];
-      flattenList(state, node, nodes);
-      slice = new Slice(
-        Fragment.from(node.type.createChecked(node.attrs, nodes)),
-        slice.openEnd,
-        slice.openEnd,
-      );
+
+    if (shouldFlattenList(state, slice)) {
+      slice = flattenNestedListInSlice(slice);
     }
 
     closeHistory(tr);
@@ -810,8 +821,8 @@ export function handleRichText(slice: Slice): Command {
 
     if (
       allowPredictableLists &&
-      (isList(state.schema, slice.content.firstChild) ||
-        isList(state.schema, slice.content.lastChild))
+      (isListNode(slice.content.firstChild) ||
+        isListNode(slice.content.lastChild))
     ) {
       insertSlice({ tr, slice });
     } else {

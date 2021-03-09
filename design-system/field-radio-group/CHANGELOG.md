@@ -1,5 +1,12 @@
 # @atlaskit/field-radio-group
 
+## 8.0.5
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- Updated dependencies
+
 ## 8.0.4
 
 ### Patch Changes

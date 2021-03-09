@@ -11,12 +11,11 @@ import {
   inputStyles as getInputStyles,
 } from './styles';
 import { InternalProps, PublicProps } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
 
 const analyticsParams = {
   componentName: 'textField',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 const TextfieldWithMode = forwardRef((props: InternalProps, ref) => {

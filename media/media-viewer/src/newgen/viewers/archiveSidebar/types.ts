@@ -1,9 +1,9 @@
 import { MediaClient, FileState } from '@atlaskit/media-client';
 
 export type ArchiveViewerProps = {
-  mediaClient: MediaClient;
   item: FileState;
+  mediaClient: MediaClient;
   collectionName?: string;
-  onZipFileLoadError: (error: Error) => void;
+  onError: (error: Error) => void;
   onSuccess: () => void;
 };

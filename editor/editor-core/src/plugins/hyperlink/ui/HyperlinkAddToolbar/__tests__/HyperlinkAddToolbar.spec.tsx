@@ -43,6 +43,7 @@ import {
 import hyperlinkPlugin from '../../../index';
 import { a, doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plugins/actions';
+import * as Commands from '../../../commands';
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
   searchRecentPromise?: ReturnType<ActivityProvider['searchRecent']>;
@@ -103,6 +104,7 @@ describe('HyperlinkLinkAddToolbar', () => {
     clock.restore();
   });
   afterEach(() => {
+    jest.clearAllMocks();
     clock.reset();
   });
 
@@ -122,6 +124,14 @@ describe('HyperlinkLinkAddToolbar', () => {
         inputMethod: INPUT_METHOD.SHORTCUT,
       },
     } = options;
+
+    const eventListenerMap: {
+      [prop: string]: EventListenerOrEventListenerObject;
+    } = {};
+
+    document.addEventListener = jest.fn((event, cb) => {
+      eventListenerMap[event] = cb;
+    });
 
     const createEditor = createProsemirrorEditorFactory();
     const editor = (doc: any) => {
@@ -252,6 +262,7 @@ describe('HyperlinkLinkAddToolbar', () => {
       recentItemsPromise,
       searchRecentPromise,
       quickSearchPromises,
+      eventListenerMap,
       updateInputField,
       updateInputFieldWithStateUpdated,
       pressReturnInputField,
@@ -1607,6 +1618,34 @@ describe('HyperlinkLinkAddToolbar', () => {
   });
 
   describe('others', () => {
+    it('should call card hideLinkToolbar when mousedown outside element', async () => {
+      const spyHideLinkToolbar = jest.spyOn(Commands, 'hideLinkToolbar');
+
+      const { eventListenerMap } = await setup();
+
+      const mousedown = eventListenerMap.mousedown as EventListener;
+
+      mousedown({
+        target: document.body as EventTarget,
+      } as Event);
+
+      expect(spyHideLinkToolbar).toBeCalled();
+    });
+
+    it('should not call card hideLinkToolbar when mousedown inside element', async () => {
+      const spyHideLinkToolbar = jest.spyOn(Commands, 'hideLinkToolbar');
+
+      const { eventListenerMap, component } = await setup();
+
+      const mousedown = eventListenerMap.mousedown as EventListener;
+
+      mousedown({
+        target: component.instance(),
+      } as Event);
+
+      expect(spyHideLinkToolbar).not.toBeCalled();
+    });
+
     it('should not trigger search if the input query starts with https://', async () => {
       const {
         component,

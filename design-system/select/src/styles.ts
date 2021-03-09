@@ -7,10 +7,10 @@ const BORDER_WIDTH = 2;
 const ICON_PADDING = 2;
 const paddingExcludingBorder = gridSize() - BORDER_WIDTH;
 
-export default function baseStyles(
+export default function baseStyles<Option, IsMulti extends boolean>(
   validationState: ValidationState,
   isCompact: boolean,
-): StylesConfig {
+): StylesConfig<Option, IsMulti> {
   return {
     container: (css, { isDisabled }) => ({
       ...css,
@@ -181,7 +181,13 @@ export default function baseStyles(
       padding: '2px',
       paddingRight: '2px',
     }),
-    multiValueRemove: (css, { isFocused }) => ({
+    multiValueRemove: (
+      css,
+      {
+        // @ts-ignore: missing in @types/react-select
+        isFocused,
+      },
+    ) => ({
       ...css,
       backgroundColor: isFocused && colors.R75,
       color: isFocused && colors.R400,

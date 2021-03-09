@@ -59,4 +59,34 @@ export interface RendererProps {
   allowUgcScrubber?: boolean;
   allowSelectAllTrap?: boolean;
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
+
+  /**
+   * @default undefined
+   * @description
+   * Short lived feature flags for experiments and gradual rollouts
+   * Flags are expected to follow these rules or they are filtered out
+   *
+   * 1. cased in kebab-case (match [a-z-])
+   * 2. have boolean values
+   *
+   * @example
+   * ```tsx
+   * (<Renderer featureFlags={{ 'my-feature': true }} />);
+   * getFeatureFlags()?.myFeature === true;
+   * ```
+   *
+   * @example
+   * ```tsx
+   * (<Renderer featureFlags={{ 'my-feature': 'thing' }} />);
+   * getFeatureFlags()?.myFeature === undefined;
+   * ```
+   *
+   * @example
+   * ```tsx
+   * (<Renderer featureFlags={{ 'product.my-feature': false }} />);
+   * getFeatureFlags()?.myFeature === undefined;
+   * getFeatureFlags()?.productMyFeature === undefined;
+   * ```
+   */
+  featureFlags?: { [featureFlag: string]: boolean };
 }

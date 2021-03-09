@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "10.1.9",
+  "version": "10.2.0",
   "description": "Highlight elements of the UI to the user and display a complementary dialog.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/icon": "^21.4.0",
     "@atlaskit/progress-indicator": "^9.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

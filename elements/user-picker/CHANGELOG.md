@@ -1,5 +1,18 @@
 # @atlaskit/user-picker
 
+## 7.5.5
+
+### Patch Changes
+
+- [`12493bf342e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12493bf342e) - Add bugfix to make principalId actually optional. Backwards compatible.
+
+## 7.5.4
+
+### Patch Changes
+
+- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- Updated dependencies
+
 ## 7.5.3
 
 ### Patch Changes

@@ -4,7 +4,13 @@ import { parse, stringify } from 'query-string';
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
 
-import { CreateUrlOptions, RequestHeaders, RetryOptions } from './types';
+import {
+  CreateUrlOptions,
+  RequestErrorReason,
+  RequestErrorMetadata,
+  RequestHeaders,
+  RetryOptions,
+} from './types';
 
 export function clientTimeoutPromise(timeout: number) {
   return new Promise<Response>((resolve, reject) => {
@@ -26,6 +32,66 @@ export function isAbortedRequestError(err: any): boolean {
 // fetch throws TypeError for network errors
 export function isFetchNetworkError(err: any): err is TypeError {
   return err instanceof TypeError;
+}
+
+export function isRateLimitedError(error: Error | undefined) {
+  return (
+    (!!error && isRequestError(error) && error.attributes.statusCode === 429) ||
+    (!!error && !!error.message && error.message.includes('429'))
+  );
+}
+
+export function getErrorName(
+  error: Error | undefined,
+  defaultErrorName: string,
+) {
+  return isRateLimitedError(error) ? 'rateLimited' : defaultErrorName;
+}
+
+export function createRequestErrorReason(
+  responseStatus: number,
+): RequestErrorReason {
+  switch (responseStatus) {
+    case 400:
+      return 'serverBadRequest';
+    case 401:
+      return 'serverUnauthorized';
+    case 403:
+      return 'serverForbidden';
+    case 404:
+      return 'serverNotFound';
+    case 429:
+      return 'serverRateLimited';
+    case 500:
+      return 'serverInternalError';
+    case 502:
+      return 'serverBadGateway';
+    default:
+      return 'serverUnexpectedError';
+  }
+}
+
+export async function createRequestError(
+  response: Response,
+): Promise<RequestError> {
+  const reason = createRequestErrorReason(response.status);
+  const bodyAsText = await response.text();
+  return new RequestError(reason, {
+    statusCode: response.status,
+    bodyAsText,
+  });
+}
+
+export function cloneRequestError(
+  error: RequestError,
+  extraMetadata: Partial<RequestErrorMetadata>,
+): RequestError {
+  const { reason, metadata } = error;
+
+  return new RequestError(reason, {
+    ...metadata,
+    ...extraMetadata,
+  });
 }
 
 export function extract(url: string): { baseUrl: string; queryParams?: any } {
@@ -163,8 +229,16 @@ export async function fetchRetry(
     }
   }
 
-  throw new RequestError('clientExhaustedRetries', {
+  if (isRequestError(lastError)) {
+    throw cloneRequestError(lastError, {
+      attempts,
+      clientExhaustedRetries: true,
+    });
+  }
+
+  throw new RequestError('serverUnexpectedError', {
     attempts,
+    clientExhaustedRetries: true,
     innerError: lastError,
   });
 }
@@ -175,10 +249,6 @@ export async function processFetchResponse(
   if (response.ok || response.status < 400) {
     return response;
   }
-
-  const bodyAsText = await response.text();
-  throw new RequestError('serverError', {
-    statusCode: response.status,
-    bodyAsText,
-  });
+  const requestError = await createRequestError(response);
+  throw requestError;
 }

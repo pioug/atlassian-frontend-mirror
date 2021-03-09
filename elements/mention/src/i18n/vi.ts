@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Bỏ qua',
-  'fabric.elements.mentions.team.member.50plus': 'hơn 50 thành viên',
+  'fabric.elements.mentions.team.member.50plus': 'Nhóm • 50+ thành viên',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    'Có trên 50 thành viên, bao gồm cả bạn',
+    'Nhóm • 50+ thành viên, bao gồm cả bạn',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, other {{0} thành viên}}',
+    '{0, plural, other {Nhóm • {0} thành viên}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, other {{0} thành viên, bao gồm cả bạn}}',
+    '{0, plural, other {Nhóm • {0} thành viên, bao gồm cả bạn}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Đưa mọi người đến trang này chỉ bằng một cú nhấp chuột. Không có nhóm?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

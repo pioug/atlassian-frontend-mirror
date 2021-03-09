@@ -9,19 +9,18 @@ import {
 } from '@atlaskit/analytics-next';
 
 import Avatar from '../../index';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Avatar', () => {
-  it('should render a span when neither onClick or href us supplied', () => {
+  it('should render a span when neither onClick or href are supplied', () => {
     const { getByTestId } = render(<Avatar testId={'avatar'} />);
 
     expect(getByTestId('avatar--inner').tagName).toEqual('SPAN');
   });
 
-  it('should render a button when onClick us supplied', () => {
+  it('should render a button when onClick is supplied', () => {
     const { getByTestId } = render(
       <Avatar testId={'avatar'} onClick={(event, analyticsEvent) => null} />,
     );
@@ -57,7 +56,7 @@ describe('Avatar', () => {
     expect(element.hasAttribute('disabled')).toBeTruthy();
   });
 
-  it('should render an anchor when href us supplied', () => {
+  it('should render an anchor when href is supplied', () => {
     const { getByTestId } = render(
       <Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'} />,
     );
@@ -127,13 +126,30 @@ describe('Avatar', () => {
           actionSubject: 'avatar',
           attributes: {
             componentName: 'avatar',
-            packageName: '@atlaskit/avatar',
-            packageVersion: '999.9.9',
+            packageName,
+            packageVersion,
           },
         },
       }),
       'atlaskit',
     );
+  });
+
+  it('should call onClick when clicked on an anchor component', () => {
+    const onClick = jest.fn();
+
+    const { getByTestId } = render(
+      <Avatar
+        testId={'avatar'}
+        href={'https://atlaskit.atlassian.com/'}
+        onClick={event => onClick(event)}
+      />,
+    );
+
+    const element = getByTestId('avatar--inner');
+    fireEvent.click(element);
+
+    expect(onClick).toHaveBeenCalled();
   });
 
   it('should call onClick with analytics event when a custom component is clicked', () => {
@@ -177,8 +193,8 @@ describe('Avatar', () => {
           actionSubject: 'avatar',
           attributes: {
             componentName: 'avatar',
-            packageName: '@atlaskit/avatar',
-            packageVersion: '999.9.9',
+            packageName,
+            packageVersion,
           },
         },
       }),

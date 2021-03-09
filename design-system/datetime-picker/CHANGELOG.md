@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 10.0.9
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`c20be966f07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c20be966f07) - **Internal change**
+
+  - Change `@atlaskit/calendar` ref type import name from `CalendarInternalRef` to `CalendarRef`.
+  - Change prop name which is being passed to `@atlaskit/calendar` from `internalRef` to `calendarRef`.
+
+- Updated dependencies
+
 ## 10.0.8
 
 ### Patch Changes

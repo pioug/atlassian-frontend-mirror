@@ -1,4 +1,3 @@
-import { fileStateToFileGasPayload } from '../../../../newgen/analytics/index';
 import {
   ProcessedFileState,
   ProcessingFileState,
@@ -6,6 +5,10 @@ import {
   ErrorFileState,
   ProcessingFailedState,
 } from '@atlaskit/media-client';
+import { getFileAttributes } from '../../../../newgen/analytics';
+import { MediaViewerError } from '../../../../newgen/errors';
+import { createLoadFailedEvent } from '../../../../newgen/analytics/events/operational/loadFailed';
+import { createZipEntryLoadFailedEvent } from '../../../../newgen/analytics/events/operational/zipEntryLoadFailed';
 
 export const processedFile: ProcessedFileState = {
   status: 'processed',
@@ -41,7 +44,7 @@ export const uploadingFile: UploadingFileState = {
 export const fileWithError: ErrorFileState = {
   status: 'error',
   id: 'some-id',
-  message: 'some error',
+  message: 'some-error',
 };
 
 export const processingError: ProcessingFailedState = {
@@ -62,34 +65,91 @@ const commonFileProperties = {
   fileSize: 100,
 };
 
-describe('fileStateToFileGasPayload', () => {
+describe('getFileAttributes()', () => {
   it('should extract right payload from processed files', () => {
-    expect(fileStateToFileGasPayload(processedFile)).toEqual(
-      commonFileProperties,
-    );
+    expect(getFileAttributes(processedFile)).toEqual(commonFileProperties);
   });
 
   it('should extract right payload from processing files', () => {
-    expect(fileStateToFileGasPayload(processingFile)).toEqual(
-      commonFileProperties,
-    );
+    expect(getFileAttributes(processingFile)).toEqual(commonFileProperties);
   });
 
   it('should extract right payload from uploading files', () => {
-    expect(fileStateToFileGasPayload(uploadingFile)).toEqual(
-      commonFileProperties,
-    );
+    expect(getFileAttributes(uploadingFile)).toEqual(commonFileProperties);
   });
 
   it('should extract right payload from files that failed to be processed', () => {
-    expect(fileStateToFileGasPayload(processingError)).toEqual(
-      commonFileProperties,
-    );
+    expect(getFileAttributes(processingError)).toEqual(commonFileProperties);
   });
 
   it('should extract the minimum payload when error', () => {
-    expect(fileStateToFileGasPayload(fileWithError)).toEqual({
+    expect(getFileAttributes(fileWithError)).toEqual({
       fileId: 'some-id',
+    });
+  });
+
+  it('should capture errorDetail when nativeError as secondary reason for load fail event', () => {
+    expect(
+      createLoadFailedEvent(
+        'some-id',
+        new MediaViewerError(
+          'imageviewer-fetch-url',
+          new Error('some-error-message'),
+        ),
+      ),
+    ).toEqual({
+      action: 'loadFailed',
+      actionSubject: 'mediaFile',
+      attributes: {
+        error: 'nativeError',
+        errorDetail: 'some-error-message',
+        failReason: 'imageviewer-fetch-url',
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: undefined,
+          fileMimetype: undefined,
+          fileSize: undefined,
+        },
+        status: 'fail',
+      },
+      eventType: 'operational',
+    });
+  });
+
+  it('should capture errorDetail when nativeError as secondary reason for zip fail event', () => {
+    expect(
+      createZipEntryLoadFailedEvent(
+        {
+          id: 'some-id',
+          status: 'error',
+        },
+        new MediaViewerError(
+          'imageviewer-fetch-url',
+          new Error('some-error-message'),
+        ),
+      ),
+    ).toEqual({
+      action: 'zipEntryLoadFailed',
+      actionSubject: 'mediaFile',
+      attributes: {
+        error: 'nativeError',
+        errorDetail: 'some-error-message',
+        failReason: 'imageviewer-fetch-url',
+        compressedSize: -1,
+        size: -1,
+        encrypted: false,
+        mimeType: 'undefined',
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: undefined,
+          fileMimetype: undefined,
+          fileSize: undefined,
+          fileSource: undefined,
+          fileStatus: undefined,
+        },
+        status: 'fail',
+      },
+      eventType: 'operational',
     });
   });
 });

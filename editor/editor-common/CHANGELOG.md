@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 55.4.0
+
+### Minor Changes
+
+- [`b74caaa43e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74caaa43e9) - add reserveCursor option to init event
+- [`4f08f25ebfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f08f25ebfe) - NO-ISSUE pass through feature flags into renderer
+- [`d33f17ed9b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d33f17ed9b6) - ED-11153: additionally map tti values in editor tti event to severity strings
+
+### Patch Changes
+
+- [`0d2d52fc9a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d2d52fc9a4) - ED-12207 fix emoji in panels overflow
+- [`ffbe78153cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffbe78153cf) - New stage0 ADF change: localId attribute on Table nodes
+- [`e2bb7c1adbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2bb7c1adbc) - ED-9699 Fix codeblock in list within panel UI
+- Updated dependencies
+
 ## 55.3.0
 
 ### Minor Changes

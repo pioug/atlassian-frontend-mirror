@@ -21,6 +21,7 @@ import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { clickFirstCell } from '../../../__tests__/__helpers/page-objects/_table';
 import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
+import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
 
 type ToggleFullWidthOptions = {
   // Focus is lost after toggling full width mode so if your test
@@ -103,15 +104,14 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
   });
 
   describe('Breakout', () => {
-    const codeSelector = '.code-block';
     it('hides breakout buttons in full-width mode and shows them in default mode', async () => {
       await initEditor(breakoutAdf);
-      await page.waitForSelector(codeSelector);
-      await page.click(codeSelector);
+      await page.waitForSelector(codeBlockSelectors.codeBlock);
+      await page.click(codeBlockSelectors.codeBlock);
       await toggleFullWidthMode({
         postToggleCallback: async () => {
           // re-click the codeblock to see its UI controls.
-          await page.click(codeSelector);
+          await page.click(codeBlockSelectors.codeBlock);
         },
       });
     });

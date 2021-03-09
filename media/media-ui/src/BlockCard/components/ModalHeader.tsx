@@ -54,7 +54,7 @@ export const Header = ({
         borderBottom: `1px solid ${N30A}`,
       }}
     >
-      <div>
+      <div css={{ flex: 1 }}>
         <div css={{ display: 'flex' }}>
           {icon && <Icon {...icon} />}
           <div css={{ paddingLeft: gs(2), paddingBottom: gs(2) }}>

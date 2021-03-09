@@ -2,9 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import SmartSelect, { StatelessSelect } from '../..';
 
-import { name } from '../../version.json';
-
-describe(`${name} - smart`, () => {
+describe('@atlaskit/single-select - smart', () => {
   const animStub = window.cancelAnimationFrame;
   beforeEach(() => {
     window.cancelAnimationFrame = () => {};

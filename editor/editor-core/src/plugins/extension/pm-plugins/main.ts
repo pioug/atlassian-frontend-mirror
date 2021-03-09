@@ -140,6 +140,7 @@ const createPlugin = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   useLongPressSelection: boolean = false,
+  allowReferentiality?: boolean,
 ) => {
   const state = createPluginState(dispatch, {
     layout: 'default',
@@ -232,18 +233,21 @@ const createPlugin = (
           eventDispatcher,
           providerFactory,
           extensionHandlers,
+          allowReferentiality,
         ),
         bodiedExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
           extensionHandlers,
+          allowReferentiality,
         ),
         inlineExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
           extensionHandlers,
+          allowReferentiality,
         ),
       },
       handleClickOn: createSelectionClickHandler(

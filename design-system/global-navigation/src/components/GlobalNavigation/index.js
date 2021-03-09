@@ -4,16 +4,15 @@ import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import { GlobalNav } from '@atlaskit/navigation-next';
 import Drawer from '@atlaskit/drawer';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import generateDefaultConfig from '../../config/default-config';
 import generateProductConfig from '../../config/product-config';
 import ItemComponent from '../ItemComponent';
 import ScreenTracker from '../ScreenTracker';
 import { analyticsIdMap, fireDrawerDismissedEvents } from './analytics';
 import NotificationDrawerContents from '../../platform-integration';
+
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 
 const noop = () => {};
 

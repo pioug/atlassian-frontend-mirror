@@ -1,4 +1,5 @@
 import { Color as StatusColor } from '@atlaskit/status/element';
+import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
 import {
   AnalyticsBridge,
   CollabBridge,
@@ -26,6 +27,7 @@ import {
   EditorLifecycleAnalyticsEvents,
 } from '../../analytics/lifecycle';
 import { ActionSubject, EventType } from '../../analytics/enums';
+import { Serialized } from '../../types';
 
 export default class AndroidBridge implements NativeBridge {
   mentionBridge: MentionBridge;
@@ -270,6 +272,11 @@ export default class AndroidBridge implements NativeBridge {
   typeAheadQuery(query: string, trigger: string): void {}
 
   typeAheadDisplayItems(query: string, trigger: string, items: string): void {}
+  typeAheadItemSelected(quickInsertItem: Serialized<QuickInsertItem>): void {
+    if (this.typeAheadBridge) {
+      this.typeAheadBridge.typeAheadItemSelected(quickInsertItem);
+    }
+  }
 
   dismissTypeAhead() {
     if (this.typeAheadBridge) {

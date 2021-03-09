@@ -12,10 +12,10 @@ import { MenuDialog, DummyControl, defaultComponents } from './components';
 import {
   GroupType,
   OptionType,
-  ValueType,
   ActionMeta,
   ReactSelectProps,
   StylesConfig,
+  ValueType,
 } from '../types';
 
 /** Are we rendering on the client or server? */
@@ -37,8 +37,11 @@ type PopperPropsNoChildren<Modifiers> = Omit<
   'children'
 >;
 
-export interface PopupSelectProps<Option = OptionType, Modifiers = {}>
-  extends ReactSelectProps<Option> {
+export interface PopupSelectProps<
+  Option = OptionType,
+  IsMulti extends boolean = false,
+  Modifiers = {}
+> extends ReactSelectProps<Option, IsMulti> {
   closeMenuOnSelect?: boolean;
   footer?: ReactNode;
   popperProps?: PopperPropsNoChildren<Modifiers>;
@@ -55,10 +58,6 @@ interface State<Modifiers = {}> {
 // ==============================
 // Class
 // ==============================
-
-const defaultStyles: StylesConfig = {
-  groupHeading: provided => ({ ...provided, color: N80 }),
-};
 
 const defaultPopperProps: PopperPropsNoChildren<
   'offset' | 'preventOverflow'
@@ -81,14 +80,18 @@ const defaultPopperProps: PopperPropsNoChildren<
 
 const isEmpty = (obj: Object) => Object.keys(obj).length === 0;
 
-export default class PopupSelect<Option = OptionType> extends PureComponent<
-  PopupSelectProps<Option>,
-  State
-> {
+export default class PopupSelect<
+  Option = OptionType,
+  IsMulti extends boolean = false
+> extends PureComponent<PopupSelectProps<Option, IsMulti>, State> {
   focusTrap: FocusTrap | null = null;
   menuRef: HTMLElement | null = null;
-  selectRef: Select<Option> | null = null;
+  selectRef: Select<Option, IsMulti> | null = null;
   targetRef: HTMLElement | null = null;
+
+  defaultStyles: StylesConfig<Option, IsMulti> = {
+    groupHeading: provided => ({ ...provided, color: N80 }),
+  };
 
   state = {
     isOpen: false,
@@ -185,7 +188,10 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
     }
   };
 
-  handleSelectChange = (value: ValueType<Option>, actionMeta: ActionMeta) => {
+  handleSelectChange = (
+    value: ValueType<Option, IsMulti>,
+    actionMeta: ActionMeta<Option>,
+  ) => {
     const { closeMenuOnSelect, onChange } = this.props;
     if (closeMenuOnSelect && actionMeta.action !== 'clear') {
       this.close();
@@ -283,7 +289,7 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
     }
   };
 
-  getSelectRef = (ref: Select<Option>) => {
+  getSelectRef = (ref: Select<Option, IsMulti>) => {
     this.selectRef = ref;
   };
 
@@ -360,7 +366,7 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
                 minWidth={minMenuWidth}
                 maxWidth={maxMenuWidth}
               >
-                <Select<Option>
+                <Select<Option, IsMulti>
                   backspaceRemovesValue={false}
                   controlShouldRenderValue={false}
                   isClearable={false}
@@ -369,7 +375,7 @@ export default class PopupSelect<Option = OptionType> extends PureComponent<
                   ref={this.getSelectRef}
                   {...props}
                   isSearchable={showSearchControl}
-                  styles={{ ...defaultStyles, ...props.styles }}
+                  styles={{ ...this.defaultStyles, ...props.styles }}
                   maxMenuHeight={this.getMaxHeight()}
                   components={components}
                   onChange={this.handleSelectChange}

@@ -137,7 +137,6 @@ export default class TableView extends ReactNodeView<Props> {
             containerWidth,
           } = pluginStates;
           const tableActive = props.getPos() === pluginState.tablePos;
-
           return (
             <TableComponent
               view={props.view}
@@ -161,8 +160,16 @@ export default class TableView extends ReactNodeView<Props> {
     );
   }
 
+  private hasHoveredRows = false;
   viewShouldUpdate(nextNode: PmNode) {
     if (this.tableRenderOptimization) {
+      const { hoveredRows } = getPluginState(this.view.state);
+      const hoveredRowsChanged = !!hoveredRows?.length !== this.hasHoveredRows;
+      if (nextNode.attrs.isNumberColumnEnabled && hoveredRowsChanged) {
+        this.hasHoveredRows = !!hoveredRows?.length;
+        return true;
+      }
+
       const node = this.getNode();
       if (typeof node.attrs !== typeof nextNode.attrs) {
         return true;
@@ -188,6 +195,8 @@ export default class TableView extends ReactNodeView<Props> {
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
+
+    super.destroy();
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/custom-theme-button';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
 import { h400 } from '@atlaskit/theme/typography';
 
@@ -30,7 +30,7 @@ const copy =
   'Quickly switch between your most recent projects by selecting the project name and icon.';
 
 export default () => (
-  <Wrapper>
+  <Wrapper data-testid="spotlight-examples">
     <SpotlightCard
       actions={[{ text: 'Next', onClick: () => {} }]}
       actionsBeforeElement="1/3"

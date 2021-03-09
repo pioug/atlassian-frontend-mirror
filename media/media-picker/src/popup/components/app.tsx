@@ -257,15 +257,16 @@ export class App extends Component<AppProps, AppState> {
     const config: ClipboardConfig = {
       uploadParams: tenantUploadParams,
       shouldCopyFileToRecents: false,
+      featureFlags,
     };
 
     return (
       <Clipboard
         mediaClient={this.componentMediaClient}
         config={config}
+        featureFlags={featureFlags}
         onUploadsStart={this.onDrop}
         onError={onUploadError}
-        featureFlags={featureFlags}
       />
     );
   };
@@ -273,14 +274,16 @@ export class App extends Component<AppProps, AppState> {
   private renderBrowser = () => {
     const {
       tenantUploadParams,
+      featureFlags,
       onUploadsStart,
       onUploadError,
-      featureFlags,
     } = this.props;
+
     const config = {
       uploadParams: tenantUploadParams,
       shouldCopyFileToRecents: false,
       multiple: true,
+      featureFlags,
     };
 
     return (
@@ -288,9 +291,9 @@ export class App extends Component<AppProps, AppState> {
         ref={this.browserRef}
         mediaClient={this.componentMediaClient}
         config={config}
+        featureFlags={featureFlags}
         onUploadsStart={onUploadsStart}
         onError={onUploadError}
-        featureFlags={featureFlags}
       />
     );
   };
@@ -301,6 +304,7 @@ export class App extends Component<AppProps, AppState> {
     const config: DropzoneConfig = {
       uploadParams: tenantUploadParams,
       shouldCopyFileToRecents: false,
+      featureFlags,
     };
 
     return (

@@ -3,9 +3,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Page from '../../index';
-import { name } from '../../version.json';
 
-describe(name, () => {
+describe('@atlaskit/page', () => {
   it('page should accept navigation as a property', () => {
     const Navigation = () => <span>Navigation</span>;
     expect(

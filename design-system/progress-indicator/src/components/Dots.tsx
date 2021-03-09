@@ -8,10 +8,9 @@ import {
 } from '@atlaskit/analytics-next';
 
 import { Container, IndicatorButton, IndicatorDiv } from '../styled/Dots';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export type DotsAppearance = 'default' | 'help' | 'inverted' | 'primary';
 export type Spacing = 'comfortable' | 'cozy' | 'compact';

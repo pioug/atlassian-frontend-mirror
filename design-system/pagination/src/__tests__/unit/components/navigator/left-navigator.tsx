@@ -6,9 +6,8 @@ import Button from '@atlaskit/button/custom-theme-button';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 
 import LeftNavigator from '../../../../components/Navigators/LeftNavigator';
-import { name } from '../../../../version.json';
 
-describe(`${name} - LeftNavigator`, () => {
+describe('@atlaskit/pagination - LeftNavigator', () => {
   it('default props', () => {
     const wrapper = mount(<LeftNavigator />);
     expect(wrapper.find(Button).prop('aria-label')).toBe('previous');

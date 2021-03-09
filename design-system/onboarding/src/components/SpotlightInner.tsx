@@ -135,6 +135,7 @@ class SpotlightInner extends React.Component<Props, State> {
                     footer={this.props.footer}
                     header={this.props.header}
                     heading={this.props.heading}
+                    headingAfterElement={this.props.headingAfterElement}
                     image={this.props.image}
                     targetNode={replacementElement || targetNode}
                     animationStyles={animationStyles}

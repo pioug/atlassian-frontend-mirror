@@ -121,7 +121,6 @@ const listPlugin = (): EditorPlugin => ({
     isToolbarReducedSpacing,
   }) {
     const isSmall = toolbarSize < ToolbarSize.L;
-    const isSeparator = toolbarSize >= ToolbarSize.S;
 
     return (
       <WithPluginState
@@ -129,7 +128,7 @@ const listPlugin = (): EditorPlugin => ({
         render={({ listsState }) => (
           <ToolbarLists
             isSmall={isSmall}
-            isSeparator={isSeparator}
+            isSeparator={true}
             isReducedSpacing={isToolbarReducedSpacing}
             disabled={disabled}
             editorView={editorView}

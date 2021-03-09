@@ -187,33 +187,34 @@ export const getStyles = memoizeOne(
 );
 
 export const getPopupStyles = memoizeOne(
-  (width: string | number, flip?: boolean, isMulti?: boolean) => ({
-    ...getStyles(width, isMulti),
-    container: (css: any) => ({
-      ...css,
-      display: flip ? 'flex' : 'block',
-      flexDirection: 'column-reverse',
-    }),
-    // there is not any avatar on the left of the placeholder
-    placeholder: (css: any, state: any) => {
-      const avatarSize = getAvatarSize(state.selectProps.appearance);
-      if (css.position === 'absolute' && !css.left) {
-        css.left = `${BORDER_PADDING}px`;
-      }
-      return {
+  (width: string | number, flip?: boolean, isMulti?: boolean) =>
+    ({
+      ...getStyles(width, isMulti),
+      container: (css: any) => ({
         ...css,
-        paddingTop: 2,
-        paddingLeft: isMulti
-          ? 'none'
-          : AVATAR_PADDING + 2 * BORDER_WIDTH + AVATAR_SIZES[avatarSize],
-        paddingRight: INDICATOR_WIDTH,
-        display: 'block',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        maxWidth: '100%',
-        margin: 0,
-      };
-    },
-  }),
+        display: flip ? 'flex' : 'block',
+        flexDirection: 'column-reverse',
+      }),
+      // there is not any avatar on the left of the placeholder
+      placeholder: (css: any, state: any) => {
+        const avatarSize = getAvatarSize(state.selectProps.appearance);
+        if (css.position === 'absolute' && !css.left) {
+          css.left = `${BORDER_PADDING}px`;
+        }
+        return {
+          ...css,
+          paddingTop: 2,
+          paddingLeft: isMulti
+            ? 'none'
+            : AVATAR_PADDING + 2 * BORDER_WIDTH + AVATAR_SIZES[avatarSize],
+          paddingRight: INDICATOR_WIDTH,
+          display: 'block',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          maxWidth: '100%',
+          margin: 0,
+        };
+      },
+    } as StylesConfig),
 );

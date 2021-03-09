@@ -154,7 +154,6 @@ exports[`BackButton Should match snapshot 1`] = `
         role="presentation"
       >
         <svg
-          focusable="false"
           height="24"
           role="presentation"
           viewBox="0 0 24 24"

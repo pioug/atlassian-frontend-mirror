@@ -101,7 +101,12 @@ export { default as ModalSpinner } from './modalSpinner';
 export { MediaImage } from './mediaImage';
 export type { MediaImageProps, MediaImageState } from './mediaImage';
 export { InactivityDetector } from './inactivityDetector/inactivityDetector';
-export type { WithShowControlMethodProp } from './types';
+export type {
+  WithShowControlMethodProp,
+  AccessTypes,
+  AccessContext,
+  RequestAccessContextProps,
+} from './types';
 export { isIntersectionObserverSupported } from './intersectionObserver';
 export { Truncate } from './truncateText';
 export type { TruncateProps } from './truncateText';

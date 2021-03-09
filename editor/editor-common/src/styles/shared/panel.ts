@@ -142,6 +142,11 @@ export const panelSharedStyles = css`
     .ak-editor-panel__content {
       margin: 1px 0 1px;
       flex: 1 0 0;
+      /* 
+        https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox 
+        The default value for min-width is auto, which is computed to zero. When an element is a flex item, the value of min-width doesn’t compute to zero. The minimum size of a flex item is equal to the size of its contents.
+      */
+      min-width: 0;
     }
 
     &[data-panel-type='${PanelType.NOTE}'] {

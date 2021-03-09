@@ -6,8 +6,9 @@ import {
 } from '../../__helpers/testing-example-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { KEY } from '../../__helpers/page-objects/_keyboard';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
-const editorSelector = '.ProseMirror';
+const editorSelector = selectors.editor;
 
 const insertHeadings = async (page: Page, modifierKeys: string[]) => {
   await page.click(editorSelector);

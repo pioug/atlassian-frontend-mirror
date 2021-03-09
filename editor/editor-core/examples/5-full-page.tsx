@@ -23,6 +23,8 @@ import {
   ExtensionProvider,
   combineExtensionProviders,
   Providers,
+  TTI_SEVERITY_THRESHOLD_DEFAULTS,
+  TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common';
 
 import { EmojiProvider } from '@atlaskit/emoji/resource';
@@ -306,7 +308,6 @@ export class ExampleEditorComponent extends React.Component<
             <SmartCardProvider client={smartCardClient}>
               <Editor
                 UNSAFE_allowUndoRedoButtons={true}
-                UNSAFE_predictableLists={true}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
@@ -452,7 +453,18 @@ export class ExampleEditorComponent extends React.Component<
                 insertMenuItems={customInsertMenuItems}
                 extensionHandlers={extensionHandlers}
                 performanceTracking={{
-                  ttiTracking: { enabled: true },
+                  ttiTracking: {
+                    enabled: true,
+                    trackSeverity: true,
+                    ttiSeverityNormalThreshold:
+                      TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL,
+                    ttiSeverityDegradedThreshold:
+                      TTI_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
+                    ttiFromInvocationSeverityNormalThreshold:
+                      TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.NORMAL,
+                    ttiFromInvocationSeverityDegradedThreshold:
+                      TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
+                  },
                   transactionTracking: { enabled: true },
                   uiTracking: { enabled: true },
                   nodeViewTracking: { enabled: true },

@@ -30,6 +30,10 @@ const imageFile: MediaFile = {
 class DummyLocalUploadComponent extends LocalUploadComponentReact<
   LocalUploadComponentBaseProps
 > {
+  constructor(props: LocalUploadComponentBaseProps) {
+    super(props, 'popup');
+  }
+
   render() {
     return null;
   }
@@ -120,11 +124,13 @@ describe('LocalUploadReact', () => {
 
   it('should call uploadComponent.emitUploadError with proper arguments', () => {
     const emitUploadError = jest.spyOn(uploadComponent, 'emitUploadError');
+    const error = new Error('failed to upload');
     const payload: UploadErrorEventPayload = {
       fileId: imageFile.id,
       error: {
         name: 'object_create_fail',
         description: 'error',
+        rawError: error,
       },
     };
     (localUploadComponentInstance as any).onUploadError(payload);

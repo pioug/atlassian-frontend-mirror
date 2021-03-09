@@ -149,14 +149,14 @@ export default () => (
               </Fragment>
             )}
           </Field>
-          <Field<ValueType<OptionType>>
+          <Field<ValueType<OptionType, true>>
             name="icecream"
             label="Select a flavor"
             defaultValue={[]}
           >
             {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
-                <Select<OptionType>
+                <Select
                   validationState={error ? 'error' : 'default'}
                   inputId={id}
                   {...rest}

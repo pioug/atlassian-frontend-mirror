@@ -38,13 +38,13 @@ class MultiPopupSelectExample extends Component<{}, State> {
     }));
   }
 
-  onChange = (values: ValueType<OptionType>) => {
+  onChange = (values: ValueType<OptionType, true>) => {
     if (!values) {
       return;
     }
 
     this.setState({
-      values: values as OptionsType,
+      values: values,
       valuesString: values.map((option: OptionType) => option.label).join(', '),
     });
   };
@@ -78,7 +78,7 @@ class MultiPopupSelectExample extends Component<{}, State> {
           }}
         >
           <PopupSelect
-            {...(defaults as any)}
+            {...defaults}
             controlShouldRenderValue={controlShouldRenderValue}
             backspaceRemovesValue
             closeMenuOnSelect={false}

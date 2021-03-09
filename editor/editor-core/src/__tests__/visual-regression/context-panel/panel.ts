@@ -1,6 +1,7 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 
 import adfWithMixedContent from './__fixtures__/content.adf.json';
+import adfWithNoBreakoutContent from './__fixtures__/content-nobreakout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { scrollToTop } from '../../__helpers/page-objects/_editor';
 
@@ -34,6 +35,14 @@ describe('Context panel', () => {
         await scrollToTop(page);
         await snapshot(page, {}, 'body');
       });
+    });
+  });
+
+  describe(`full page (1950px)`, () => {
+    it('should display sidebar without pushing content if it does not overlap editor', async () => {
+      await initEditor(adfWithNoBreakoutContent, Appearance.fullPage, 1950);
+      await scrollToTop(page);
+      await snapshot(page, {}, 'body');
     });
   });
 

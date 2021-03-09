@@ -371,3 +371,9 @@ export const SpinnerWrapper = styled.div`
   align-items: center;
   height: 100%;
 `;
+
+export const ErrorReasonTip = styled.div`
+  font-size: 10pt;
+  margin: 10px 0 40px 0;
+  color: ${DN400};
+`;

@@ -21,14 +21,13 @@ import {
   OnOpenChangeArgs,
 } from '../types';
 import { KEY_DOWN, KEY_ENTER, KEY_SPACE } from '../util/keys';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import DropdownItemClickManager from './context/DropdownItemClickManager';
 import DropdownItemFocusManager from './context/DropdownItemFocusManager';
 import DropdownItemSelectionCache from './context/DropdownItemSelectionCache';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 interface OpenCloseArgs {
   event: MouseEvent | KeyboardEvent;

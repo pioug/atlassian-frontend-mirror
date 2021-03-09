@@ -1,5 +1,15 @@
 # @atlaskit/media-test-helpers
 
+## 28.6.0
+
+### Minor Changes
+
+- [`37d4add135f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37d4add135f) - Provide Media Client Error creators
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.5.2
 
 ### Patch Changes

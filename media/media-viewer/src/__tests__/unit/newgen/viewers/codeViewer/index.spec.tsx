@@ -1,3 +1,13 @@
+jest.mock('@atlaskit/media-client', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-client');
+  return {
+    ...actualModule,
+    request: jest.fn().mockResolvedValue({
+      text: jest.fn().mockResolvedValue('some-src'),
+      arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
+    }),
+  };
+});
 import React from 'react';
 import {
   globalMediaEventEmitter,
@@ -14,6 +24,7 @@ import {
   asMockFunction,
 } from '@atlaskit/media-test-helpers';
 import { Spinner } from '../../../../../newgen/loading';
+import { MediaViewerError } from '../../../../../newgen/errors';
 import { BaseState } from '../../../../../newgen/viewers/base-viewer';
 import { Content } from '../../../../../newgen/content';
 import {
@@ -32,9 +43,11 @@ function createFixture(
   codeItem: FileState,
   collectionName?: string,
   mockReturnGetFileBinaryURL?: Promise<string>,
+  props: Partial<Props> = {},
 ) {
   const mediaClient = fakeMediaClient();
   const onClose = jest.fn(() => fetchPromise);
+  const onSuccess = jest.fn();
   const onError = jest.fn();
 
   jest
@@ -51,11 +64,13 @@ function createFixture(
       item={codeItem}
       mediaClient={mediaClient}
       collectionName={collectionName}
+      onSuccess={onSuccess}
       onError={onError}
+      {...props}
     />,
   );
   (el as any).instance()['fetch'] = jest.fn();
-  return { mediaClient, el, onClose, onError };
+  return { mediaClient, el, onClose, onSuccess, onError };
 }
 
 const codeItem: ProcessedFileState = {
@@ -112,11 +127,24 @@ describe('CodeViewer', () => {
     await nextTick();
     await nextTick();
     await nextTick();
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    await nextTick();
     expect(el.state().content.status).toEqual('SUCCESSFUL');
   });
 
   it('triggers media-viewed when successful', async () => {
     await getSuccessDocument(codeItem);
+    // TODO: clean up these awaits, figure out how to express better...
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    await nextTick();
+
     expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
     expectFunctionToHaveBeenCalledWith(globalMediaEventEmitter.emit, [
       'media-viewed',
@@ -150,15 +178,16 @@ describe('CodeViewer', () => {
   });
 
   it('should call onError when an error happens', async () => {
+    const error = new MediaViewerError('codeviewer-fetch-src');
     const fetchPromise = Promise.resolve();
     const { el, onError } = createFixture(
       fetchPromise,
       codeItem,
       undefined,
-      Promise.reject('some error'),
+      Promise.reject(error),
     );
     await (el as any).instance()['init']();
-    expect(onError).toBeCalledWith('some error');
+    expect(onError).toBeCalledWith(error);
   });
 });
 

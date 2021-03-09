@@ -1,18 +1,22 @@
-import { SCREEN_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
 import { Action } from 'redux';
-import { HandlerResult } from '.';
+
 import { isShowPopupAction } from '../../actions/showPopup';
+import { HandlerResult } from '.';
 
 export default (action: Action): HandlerResult => {
   if (isShowPopupAction(action)) {
     return [
       {
+        eventType: 'screen',
+        actionSubject: 'mediaPickerModal',
         name: 'mediaPickerModal',
-        eventType: SCREEN_EVENT_TYPE,
+        attributes: {},
       },
       {
+        eventType: 'screen',
+        actionSubject: 'recentFilesBrowserModal',
         name: 'recentFilesBrowserModal',
-        eventType: SCREEN_EVENT_TYPE,
+        attributes: {},
       },
     ];
   }

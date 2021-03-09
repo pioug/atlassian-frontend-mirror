@@ -1,63 +1,74 @@
-import { FileState, MediaType } from '@atlaskit/media-client';
+import { FileState } from '@atlaskit/media-client';
+import {
+  FileAttributes,
+  WithFileAttributes,
+  FailureAttributes,
+  ANALYTICS_MEDIA_CHANNEL,
+} from '@atlaskit/media-common';
+import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { AvailableErrorReason } from '../errors';
+
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
-import { ZipEntry } from 'unzipit';
-import { getMimeTypeFromFilename } from '../utils';
 
-export const channel = 'media';
+import { MediaViewerEventPayload } from './events';
 
-export const packageAttributes: PackageAttributes = {
-  componentName: 'media-viewer',
+const componentName = 'mediaViewer';
+
+export {
   packageName,
   packageVersion,
+  componentName,
+  componentName as component,
 };
 
-export interface PackageAttributes {
-  componentName: string;
-  packageName: string;
-  packageVersion: string;
-}
-export interface FileGasPayload {
-  fileId: string;
-  fileMediatype?: MediaType;
-  fileMimetype?: string;
-  fileSize?: number;
-}
-
-export interface ZipEntryGasPayload {
-  size?: number;
-  encrypted?: boolean;
-  compressedSize?: number;
-  mimeType?: string;
-}
-
-export function fileStateToFileGasPayload(state: FileState): FileGasPayload {
-  const basePayload = {
-    fileId: state.id,
-  };
-  switch (state.status) {
+export function getFileAttributes(fileState?: FileState): FileAttributes {
+  if (!fileState) {
+    return {
+      fileId: 'undefined',
+    };
+  }
+  const { id: fileId } = fileState;
+  switch (fileState.status) {
     case 'uploading':
     case 'failed-processing':
     case 'processing':
     case 'processed':
+      const {
+        mediaType: fileMediatype,
+        mimeType: fileMimetype,
+        size: fileSize,
+      } = fileState;
       return {
-        ...basePayload,
-        fileMediatype: state.mediaType,
-        fileMimetype: state.mimeType,
-        fileSize: state.size,
+        fileId,
+        fileMediatype,
+        fileMimetype,
+        fileSize,
       };
     case 'error':
-      return basePayload;
+      return {
+        fileId,
+      };
   }
 }
 
-export function entryToZipEntryGasPayload(entry: ZipEntry): ZipEntryGasPayload {
-  return {
-    size: entry.size,
-    encrypted: entry.encrypted,
-    compressedSize: entry.compressedSize,
-    mimeType: getMimeTypeFromFilename(entry.name),
-  };
+/** This type takes FailureAttributes and redefines `failReason` to be the strong media-viewer type */
+export type MediaViewerFailureAttributes = Omit<
+  FailureAttributes,
+  'failReason'
+> & {
+  failReason: AvailableErrorReason;
+} & WithFileAttributes;
+
+export function fireAnalytics(
+  payload: MediaViewerEventPayload,
+  props: WithAnalyticsEventsProps,
+) {
+  const { createAnalyticsEvent } = props;
+  if (createAnalyticsEvent) {
+    const ev = createAnalyticsEvent(payload);
+    ev.fire(ANALYTICS_MEDIA_CHANNEL);
+  }
 }

@@ -9,11 +9,10 @@ import {
 } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { DrawerBase } from '../../index';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 // This is a global mock for this file that will mock all components wrapped with analytics
 // and replace them with an empty SFC that returns null. This includes components imported

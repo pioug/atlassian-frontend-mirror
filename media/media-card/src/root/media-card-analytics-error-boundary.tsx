@@ -1,12 +1,10 @@
 import React from 'react';
-
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import AnalyticsErrorBoundary from '@atlaskit/analytics-next/AnalyticsErrorBoundary';
 
 export type MediaCardAnalyticsErrorBoundaryProps = {
   data?: { [k: string]: any };
 };
-
-export const ANALYTICS_MEDIA_CHANNEL = 'media';
 
 export default class MediaCardAnalyticsErrorBoundary extends React.Component<
   MediaCardAnalyticsErrorBoundaryProps

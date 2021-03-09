@@ -4,6 +4,8 @@ import { TextSelection, Selection } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import * as prosemirrorUtils from 'prosemirror-utils';
+
 import {
   annotation,
   code_block,
@@ -31,6 +33,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  CONTENT_COMPONENT,
 } from '../../../analytics/types/enums';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import { AnnotationTestIds } from '../../types';
@@ -229,6 +232,61 @@ describe('annotation', () => {
       const createComponent = contentComponent.find(nullComponent);
       const textSelection = createComponent.prop('textSelection');
       expect(textSelection).toBe('helloworld');
+    });
+
+    describe('view annotation when findDomRefAtPos returns null', () => {
+      beforeEach(async () => {
+        const mock = jest.spyOn(prosemirrorUtils, 'findDomRefAtPos');
+        mock.mockImplementation((pos, domAtPos) => {
+          throw new Error('Error message from mock');
+        });
+
+        const { editorView } = editor(
+          doc(
+            p(
+              annotation({
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+                id: 'first123',
+              })('{start}hell{<>}o'),
+            ),
+            p('world'),
+          ),
+        );
+
+        // Let the getState promise resolve
+        await flushPromises();
+        contentComponent = mountContentComponent(editorView);
+      });
+
+      it('sends error analytics event', () => {
+        // The first analytics event is the editor starting
+        expect(createAnalyticsEvent).toHaveBeenCalledTimes(2);
+        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          action: ACTION.ERRORED,
+          actionSubject: ACTION_SUBJECT.CONTENT_COMPONENT,
+          eventType: EVENT_TYPE.OPERATIONAL,
+          attributes: expect.objectContaining({
+            component: CONTENT_COMPONENT.INLINE_COMMENT,
+            docSize: 16,
+            error: 'Error: Error message from mock',
+            position: 5,
+            selection: {
+              anchor: 5,
+              head: 5,
+              type: 'text',
+            },
+          }),
+        });
+      });
+
+      it("doesn't render", () => {
+        const saveSelector = selectorById(AnnotationTestIds.componentSave);
+        expect(saveSelector).toBeTruthy();
+        const saveButton = contentComponent.find(saveSelector);
+        expect(saveButton.length).toBe(0);
+        const viewComponent = contentComponent.find(nullComponent);
+        expect(viewComponent.length).toBe(0);
+      });
     });
 
     describe('view annotation', () => {

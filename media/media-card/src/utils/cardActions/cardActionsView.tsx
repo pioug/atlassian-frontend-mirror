@@ -10,7 +10,7 @@ import {
 import { CardActionIconButtonVariant } from './styled';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
 import { PreventClickThrough } from '../preventClickThrough';
-import { createAndFireMediaEvent } from '../analytics';
+import { createAndFireMediaCardEvent } from '../analytics';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -59,19 +59,22 @@ export class CardActionsView extends Component<CardActionsViewProps> {
   ): JSX.Element {
     const { triggerColor, variant } = this.props;
     const { icon, handler, label } = action;
+    const actionSubjectId = isPrimary
+      ? 'mediaCardPrimaryActionButton'
+      : 'mediaCardSecondaryActionButton';
+
     const CardActionIconButtonWithAnalytics = withAnalyticsEvents({
-      onClick: createAndFireMediaEvent({
+      onClick: createAndFireMediaCardEvent({
         eventType: 'ui',
         action: 'clicked',
         actionSubject: 'button',
-        actionSubjectId: isPrimary
-          ? 'mediaCardPrimaryActionButton'
-          : 'mediaCardSecondaryActionButton',
+        actionSubjectId,
         attributes: {
           label,
         },
       }),
     })(CardActionIconButtonWithProps);
+
     return (
       <CardActionIconButtonWithAnalytics
         icon={icon}

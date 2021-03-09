@@ -1,6 +1,6 @@
 /** Extracted into its own file so the mock variables can be instantiated before other imports in the test file that would otherwise be hoisted before it */
 import {
-  setState as setInteractiveImgState,
+  setHasError as setInteractiveImgHasError,
   InteractiveImg,
 } from '../../../../mocks/_interactive-img';
 
@@ -12,4 +12,4 @@ jest.mock(
   () => mockInteractiveImg,
 );
 
-export { setInteractiveImgState };
+export { setInteractiveImgHasError };

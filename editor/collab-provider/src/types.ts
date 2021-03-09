@@ -1,5 +1,6 @@
 import { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { Manager } from 'socket.io-client';
 
 export interface Storage {
   get(key: string): Promise<string>;
@@ -34,6 +35,7 @@ export interface Socket extends SimpleEventEmitter {
   connect(): Socket;
   emit(event: string, ...args: any[]): Socket;
   close(): Socket;
+  io?: Manager;
 }
 
 export type LifecycleEvents = 'save' | 'restore';

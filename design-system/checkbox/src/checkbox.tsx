@@ -23,7 +23,6 @@ import {
   RequiredIndicator,
 } from './internal';
 import { CheckboxProps, Size } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
 
 type InnerProps = CheckboxProps & {
   mode: ThemeModes;
@@ -36,25 +35,38 @@ const sizes = {
   xlarge: '48',
 };
 
+function getIcon(isIndeterminate: boolean, isChecked: boolean) {
+  if (isIndeterminate) {
+    return <rect fill="inherit" x="8" y="11" width="8" height="2" rx="1" />;
+  }
+
+  if (isChecked) {
+    return (
+      <path
+        d="M9.707 11.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414L11 12.586l-1.293-1.293z"
+        fill="inherit"
+      />
+    );
+  }
+
+  // No icon
+  return null;
+}
+
 // An svg is used so we don't pull in styled-components as well as
 // a wrapping span. This approach is more performant.
-const CheckboxIcon = memo(
-  ({ size, isIndeterminate }: { size: Size; isIndeterminate: boolean }) => (
-    <svg width={sizes[size]} height={sizes[size]} viewBox="0 0 24 24">
-      <g fillRule="evenodd">
-        <rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
-        {isIndeterminate ? (
-          <rect fill="inherit" x="8" y="11" width="8" height="2" rx="1" />
-        ) : (
-          <path
-            d="M9.707 11.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414L11 12.586l-1.293-1.293z"
-            fill="inherit"
-          />
-        )}
-      </g>
-    </svg>
-  ),
-);
+const CheckboxIcon = memo<{
+  size: Size;
+  isIndeterminate: boolean;
+  isChecked: boolean;
+}>(({ size, isIndeterminate, isChecked }) => (
+  <svg width={sizes[size]} height={sizes[size]} viewBox="0 0 24 24">
+    <g fillRule="evenodd">
+      <rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
+      {getIcon(isIndeterminate, isChecked)}
+    </g>
+  </svg>
+));
 
 const CheckboxWithMode = forwardRef(function Checkbox(
   props: InnerProps,
@@ -97,8 +109,8 @@ const CheckboxWithMode = forwardRef(function Checkbox(
     action: 'changed',
     analyticsData: analyticsContext,
     componentName: 'checkbox',
-    packageName,
-    packageVersion,
+    packageName: process.env._PACKAGE_NAME_ as string,
+    packageVersion: process.env._PACKAGE_VERSION_ as string,
   });
 
   // Use isChecked from the state if it is controlled
@@ -130,7 +142,11 @@ const CheckboxWithMode = forwardRef(function Checkbox(
         data-testid={testId && `${testId}--hidden-checkbox`}
         data-invalid={isInvalid ? 'true' : undefined}
       />
-      <CheckboxIcon size={size} isIndeterminate={isIndeterminate} />
+      <CheckboxIcon
+        size={size}
+        isIndeterminate={isIndeterminate}
+        isChecked={isChecked}
+      />
       <LabelText>
         {label}
         {isRequired && <RequiredIndicator aria-hidden="true" />}

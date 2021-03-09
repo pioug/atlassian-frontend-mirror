@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 11.8.1
+
+### Patch Changes
+
+- [`ffbe78153cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffbe78153cf) - New stage0 ADF change: localId attribute on Table nodes
+- Updated dependencies
+
 ## 11.8.0
 
 ### Minor Changes

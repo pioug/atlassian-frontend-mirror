@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.2.0
+
+### Minor Changes
+
+- [`5d37f7fc1f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d37f7fc1f9) - Revert ED-9960. UNSAFE_predictableLists no longer defaulted to enabled.
+- [`761283d9f4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/761283d9f4f) - Removed arch-v3 files
+- [`1bf9a0ebc55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bf9a0ebc55) - EDM-1615: implement typeAheadItemSelected(quickInsertItem: string)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.6
 
 ### Patch Changes

@@ -15,6 +15,7 @@ export interface KitchenSinkRendererProps {
   document: any;
   isFullPage: boolean;
   locale: string;
+  featureFlags: Record<string, boolean>;
 }
 
 export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererProps> = React.memo(
@@ -43,6 +44,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             allowCopyToClipboard={true}
             useSpecBasedValidator={true}
             allowSelectAllTrap
+            featureFlags={props.featureFlags}
           />
         </SmartCardProvider>
       </RendererPadding>

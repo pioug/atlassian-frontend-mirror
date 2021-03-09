@@ -13,6 +13,7 @@ import {
   FieldDefinition,
   Fieldset,
   Parameters,
+  NestedFieldDefinition,
 } from '@atlaskit/editor-common/extensions';
 
 import { flushPromises } from '../../__helpers/utils';
@@ -380,15 +381,33 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(onChange).toHaveBeenCalledWith({ n: 123 });
           });
 
-          it('should show an InvalidError and skip submission for invalid values', async () => {
-            const { wrapper, trySubmit } = await mountNumber();
+          if (autoSave) {
+            it('should show an InvalidError and do partial submit for invalid values', async () => {
+              const { wrapper, trySubmit } = await mountNumber();
 
-            typeInField(wrapper.find('input[autoFocus=true]'), 'not a number');
-            await trySubmit();
+              typeInField(
+                wrapper.find('input[autoFocus=true]'),
+                'not a number',
+              );
+              await trySubmit();
 
-            expect(onChange).toBeCalledTimes(0);
-            expect(getFieldErrors(wrapper)).toStrictEqual(['invalid']);
-          });
+              expect(onChange).toBeCalledWith({});
+              expect(getFieldErrors(wrapper)).toStrictEqual(['invalid']);
+            });
+          } else {
+            it('should show an InvalidError and skip submission for invalid values', async () => {
+              const { wrapper, trySubmit } = await mountNumber();
+
+              typeInField(
+                wrapper.find('input[autoFocus=true]'),
+                'not a number',
+              );
+              await trySubmit();
+
+              expect(onChange).toBeCalledTimes(0);
+              expect(getFieldErrors(wrapper)).toStrictEqual(['invalid']);
+            });
+          }
 
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
@@ -982,6 +1001,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           isDynamic: boolean,
           otherProps: Record<string, any> = {},
           transformerType: string = 'json-group',
+          options?: { extraFields?: NestedFieldDefinition[] },
         ) {
           return mountWithProviders({
             ...defaultProps,
@@ -1018,6 +1038,9 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                         },
                       },
                     },
+                    ...(options && options.extraFields
+                      ? options.extraFields
+                      : []),
                   ],
                 },
               ],
@@ -1212,6 +1235,36 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             ]);
           });
 
+          it('should show required fields when first rendering', async () => {
+            const { wrapper } = await mountFieldSet(
+              true,
+              undefined,
+              undefined,
+              {
+                extraFields: [
+                  { name: 'ID', label: 'id', type: 'string', isRequired: true },
+                  {
+                    name: 'ID2',
+                    label: 'id',
+                    type: 'string',
+                    isRequired: true,
+                  },
+                  {
+                    name: 'ID3',
+                    label: 'id',
+                    type: 'string',
+                    isRequired: true,
+                  },
+                ],
+              },
+            );
+            expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
+              'settings.ID',
+              'settings.ID2',
+              'settings.ID3',
+            ]);
+          });
+
           it('should allow adding more fields when clicking the + button', async () => {
             const { wrapper } = await mountFieldSet(true);
             expect(getAllExistingVisibleFieldNames(wrapper)).toEqual([
@@ -1320,6 +1373,32 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             ]);
 
             expect(hasAddButton(wrapper)).toBe(true);
+          });
+
+          it('should not allow to remove required fields', async () => {
+            const { wrapper } = await mountFieldSet(
+              true,
+              {
+                parameters: {
+                  settings: JSON.stringify({
+                    Q: 'foo',
+                    depth: 123,
+                    USER: 'u123i1431',
+                  }),
+                },
+              },
+              undefined,
+              {
+                extraFields: [
+                  { name: 'ID', label: 'id', type: 'string', isRequired: true },
+                ],
+              },
+            );
+
+            expect(
+              wrapper.find('RemovableField').find('[testId="remove-field-ID"]')
+                .length,
+            ).toBe(0);
           });
 
           it("shouldn't remove the last visible field", async () => {

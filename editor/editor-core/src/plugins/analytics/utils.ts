@@ -17,18 +17,11 @@ import {
 import { SELECTION_TYPE, SELECTION_POSITION } from './types/utils';
 import { analyticsPluginKey } from './plugin-key';
 import { HigherOrderCommand } from '../../types/command';
-import { fireAnalyticsEvent } from './fire-analytics-event';
 
 function getCreateUIAnalyticsEvent(
   editorState: EditorState,
 ): CreateUIAnalyticsEvent | null | undefined {
-  const pluginState = analyticsPluginKey.getState(editorState);
-  return pluginState
-    ? (pluginState.createAnalyticsEvent as
-        | CreateUIAnalyticsEvent
-        | null
-        | undefined)
-    : undefined;
+  return analyticsPluginKey.getState(editorState)?.createAnalyticsEvent;
 }
 
 export function getStateContext(
@@ -153,9 +146,6 @@ export function addAnalytics(
     const { storedMarks } = tr;
     tr.step(
       new AnalyticsStep(
-        (payload: AnalyticsEventPayload, channel: string) => {
-          fireAnalyticsEvent(createAnalyticsEvent)({ payload, channel });
-        },
         [
           {
             payload,

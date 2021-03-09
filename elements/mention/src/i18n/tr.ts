@@ -8,13 +8,6 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Kapat',
-  'fabric.elements.mentions.team.member.50plus': "50'den fazla üye",
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    "Siz de dahil olmak üzere 50'den fazla üye",
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} üye} other {{0} üye}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {Siz de dahil olmak üzere {0} üye} other {Siz de dahil olmak üzere {0} üye}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Tek tıklamayla bu sayfadaki herkesi ekleyin. Takımınız yok mu?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

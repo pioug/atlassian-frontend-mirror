@@ -122,7 +122,7 @@ describe('Polling Function', () => {
       return expect(isPollingError(errorThrown)).toBeTruthy();
     }
 
-    expect(errorThrown.attributes.reason).toEqual('maxAttemptsExceeded');
+    expect(errorThrown.attributes.reason).toEqual('pollingMaxAttemptsExceeded');
     expect(errorThrown.attributes.attempts).toBe(1);
     done();
   });
@@ -199,7 +199,7 @@ describe('Polling Function', () => {
       return expect(isPollingError(errorThrown)).toBeTruthy();
     }
 
-    expect(errorThrown.attributes.reason).toEqual('maxFailuresExceeded');
+    expect(errorThrown.attributes.reason).toEqual('pollingMaxFailuresExceeded');
     expect(errorThrown.attributes.attempts).toBe(1);
 
     PollingFunction.failures = originalMaxFailures;
@@ -220,8 +220,8 @@ describe('Polling Function', () => {
   });
 
   it('should detect a polling error', () => {
-    const error2 = new PollingError('maxAttemptsExceeded', 1);
-    const error3 = new PollingError('maxFailuresExceeded', 3);
+    const error2 = new PollingError('pollingMaxAttemptsExceeded', 1);
+    const error3 = new PollingError('pollingMaxFailuresExceeded', 3);
     const error4 = new Error();
     expect(isPollingError(error2)).toBeTruthy();
     expect(isPollingError(error3)).toBeTruthy();

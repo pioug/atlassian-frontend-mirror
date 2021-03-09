@@ -24,17 +24,19 @@ export type AnnotationAEP = TrackAEP<
 >;
 
 export type AnnotationAEPAttributes =
+  | undefined
+  | {}
   | AnnotationDraftAEPAttributes
   | AnnotationResolvedAEPAttributes;
 
 export type AnnotationDraftAEPAttributes = {
-  inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
+  inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
   //overlap is how many other annotations are within or overlapping with the new selection
-  overlap?: number;
+  overlap: number;
 };
 
 export type AnnotationResolvedAEPAttributes = {
-  method?: RESOLVE_METHOD;
+  method: RESOLVE_METHOD;
 };
 
 export enum RESOLVE_METHOD {

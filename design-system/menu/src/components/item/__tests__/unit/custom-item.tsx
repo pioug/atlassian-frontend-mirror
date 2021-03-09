@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 import serializer, { matchers } from 'jest-emotion';
+import { HashRouter, Link } from 'react-router-dom';
 
 import { CSSFn, CustomItemComponentProps } from '../../../types';
 import CustomItem from '../../custom-item';
@@ -147,9 +148,9 @@ describe('<CustomItem />', () => {
     const Link = ({
       children,
       ...props
-    }: CustomItemComponentProps & { href: string }) => (
-      <a {...props}>{children}</a>
-    );
+    }: CustomItemComponentProps & {
+      href: string;
+    }) => <a {...props}>{children}</a>;
 
     const { getByTestId } = render(
       <CustomItem href="/my-details" component={Link} testId="target">
@@ -158,5 +159,17 @@ describe('<CustomItem />', () => {
     );
 
     expect(getByTestId('target').getAttribute('href')).toEqual('/my-details');
+  });
+
+  it('should work with a component from an external library', () => {
+    const { getByTestId } = render(
+      <HashRouter>
+        <CustomItem to="/my-details" component={Link} testId="target">
+          Hello world
+        </CustomItem>
+      </HashRouter>,
+    );
+
+    expect(getByTestId('target').getAttribute('href')).toEqual('#/my-details');
   });
 });

@@ -104,6 +104,8 @@ type EditorTTIAEP = OperationalAEP<
     tti: number;
     ttiFromInvocation: number;
     canceled: boolean;
+    ttiSeverity?: SEVERITY;
+    ttiFromInvocationSeverity?: SEVERITY;
   },
   undefined
 >;
@@ -353,6 +355,16 @@ type RichMediaLayoutAEP = TrackAEP<
   undefined
 >;
 
+type CodeBlockLanguageSelectedAEP = TrackAEP<
+  ACTION.LANGUAGE_SELECTED,
+  ACTION_SUBJECT.CODE_BLOCK,
+  undefined,
+  {
+    language: string;
+  },
+  undefined
+>;
+
 export type GeneralEventPayload =
   | AnnotateButtonAEP
   | AnnotationAEP
@@ -381,4 +393,5 @@ export type GeneralEventPayload =
   | TypeAheadQuickInsertAEP
   | TypeAheadRenderedAEP
   | UploadExternalFailedAEP
-  | WithPluginStateCalledAEP;
+  | WithPluginStateCalledAEP
+  | CodeBlockLanguageSelectedAEP;

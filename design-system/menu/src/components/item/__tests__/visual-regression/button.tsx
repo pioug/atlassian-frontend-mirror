@@ -1,6 +1,11 @@
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 
-import { hover, mouseDown, verifyElementIn } from '../../../__tests__/_helper';
+import {
+  focus,
+  hover,
+  mouseDown,
+  verifyElementIn,
+} from '../../../__tests__/_helper';
 
 const buttonLink = "[data-testid='item-button']";
 const buttonLinkAtScale = "[data-testid='item-button-at-scale']";
@@ -35,6 +40,10 @@ describe('<ButtonItem />', () => {
     await verifyElementMatchProductionImage(buttonLink, mouseDown(buttonLink));
   });
 
+  it('should match the focused state', async () => {
+    await verifyElementMatchProductionImage(buttonLink, focus(buttonLink));
+  });
+
   it('should match item with before element', async () => {
     await verifyElementMatchProductionImage(buttonLinkBefore);
   });
@@ -49,6 +58,13 @@ describe('<ButtonItem />', () => {
 
   it('should match disabled item', async () => {
     await verifyElementMatchProductionImage(buttonLinkDisabled);
+  });
+
+  it('should match disabled item in focused state', async () => {
+    await verifyElementMatchProductionImage(
+      buttonLinkDisabled,
+      focus(buttonLinkDisabled),
+    );
   });
 
   it('should match selected item', async () => {

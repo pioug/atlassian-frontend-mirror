@@ -1,5 +1,5 @@
 import { EditorState } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode, MarkType } from 'prosemirror-model';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { absoluteBreakoutWidth } from '@atlaskit/editor-common';
 import {
@@ -13,6 +13,7 @@ import {
   LAYOUT_COLUMN_PADDING,
 } from '../plugins/layout/styles';
 import { BODIED_EXT_PADDING } from '../plugins/extension/ui/Extension/styles';
+import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 
 /**
  * Calculates width of parent node of a nested node (inside layouts, extension)
@@ -104,4 +105,15 @@ const calcBreakoutNodeWidth = (
         akEditorFullWidthLayoutWidth,
       )
     : absoluteBreakoutWidth(layout, containerWidth.width);
+};
+
+/**
+ * Returns the breakout mode of a given node
+ */
+export const getBreakoutMode = (
+  node: PMNode,
+  breakout: MarkType,
+): BreakoutMarkAttrs['mode'] | undefined => {
+  const breakoutMark = breakout && breakout.isInSet(node.marks);
+  return breakoutMark ? breakoutMark.attrs.mode : node.attrs.layout;
 };

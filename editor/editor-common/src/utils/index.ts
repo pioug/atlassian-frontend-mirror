@@ -64,7 +64,12 @@ export type {
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { measureRender } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
-export { measureTTI } from './performance/measure-tti';
+export {
+  measureTTI,
+  getTTISeverity,
+  TTI_SEVERITY_THRESHOLD_DEFAULTS,
+  TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
+} from './performance/measure-tti';
 export {
   isPerformanceAPIAvailable,
   isPerformanceObserverAvailable,

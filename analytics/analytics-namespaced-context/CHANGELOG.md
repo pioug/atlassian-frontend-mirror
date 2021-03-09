@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.0.0
+
+### Major Changes
+
+- [`4f1d3a6b22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f1d3a6b22a) - Refactored Media Analytics Namespaced Context (now delivered by our HOC in media-common)
+
 ## 5.1.4
 
 ### Patch Changes

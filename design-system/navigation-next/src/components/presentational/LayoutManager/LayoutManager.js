@@ -10,10 +10,6 @@ import {
   GLOBAL_NAV_WIDTH,
   HORIZONTAL_GLOBAL_NAV_HEIGHT,
 } from '../../../common/constants';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import RenderBlocker from '../../common/RenderBlocker';
 import { ContainerNavigationMask } from '../ContentNavigation/primitives';
 import ResizeTransition, { isTransitioning } from '../ResizeTransition';
@@ -30,6 +26,9 @@ import {
 } from './primitives';
 import ResizeControl from './ResizeControl';
 import { pageContainerCSS } from './styles';
+
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 
 function defaultTooltipContent(isCollapsed) {
   return isCollapsed

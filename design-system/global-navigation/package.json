@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-navigation",
-  "version": "10.0.5",
+  "version": "10.0.6",
   "description": "Global navigation component for Atlassian",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,13 +23,13 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^5.0.0",
+    "@atlaskit/analytics-namespaced-context": "^6.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/badge": "^14.0.0",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/dropdown-menu": "^10.1.0",
-    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/icon": "^21.4.0",
     "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/notification-indicator": "^8.0.0",
     "@atlaskit/notification-log-client": "^5.0.0",
@@ -42,7 +42,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^7.0.0",
+    "@atlaskit/analytics-listeners": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
@@ -50,7 +50,7 @@
     "@atlaskit/field-radio-group": "^8.0.0",
     "@atlaskit/logo": "^13.0.0",
     "@atlaskit/modal-dialog": "^11.2.0",
-    "@atlaskit/onboarding": "^10.1.0",
+    "@atlaskit/onboarding": "^10.2.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/tag": "^11.0.0",
     "@atlaskit/toggle": "^12.0.0",

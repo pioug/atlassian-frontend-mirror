@@ -8,13 +8,6 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Zrušiť',
-  'fabric.elements.mentions.team.member.50plus': 'Viac ako 50 členov',
-  'fabric.elements.mentions.team.member.50plus.including.you':
-    'Viac ako 50 členov vrátane vás',
-  'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} člen} few {{0} členovia} many {{0} člena} other {{0} členov}}',
-  'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} člen (vrátane vás)} few {{0} členovia (vrátane vás)} many {{0} člena (vrátane vás)} other {{0} členov (vrátane vás)}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Informujte každého jedným kliknutím. Nemáte tím?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

@@ -6,15 +6,20 @@ import {
 } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import {
-  createAndFireCustomMediaEvent,
-  AnalyticsLoadingAction,
-  getLoadingStatusAnalyticsPayload,
-  AnalyticsLoadingFailReason,
-} from '../../../utils/analytics';
-import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import {
+  fireMediaCardEvent,
+  RenderEventAction,
+  getRenderSucceededEventPayload,
+  getRenderFailedFileUriPayload,
+  getRenderFailedExternalUriPayload,
+} from '../../../utils/analytics';
+import {
+  withFileAttributes,
+  WithFileAttributesProps,
+} from '../../../utils/fileAttributesContext';
 
 export type ImageRendererProps = {
   readonly dataURI: string;
@@ -32,10 +37,10 @@ export const resizeModeToMediaImageProps = (resizeMode?: ImageResizeMode) => ({
   stretch: resizeMode === 'stretchy-fit',
 });
 
-export class ImageRendererWithoutAnalytics extends React.Component<
-  ImageRendererProps & WithAnalyticsEventsProps
+export class ImageRendererBase extends React.Component<
+  ImageRendererProps & WithAnalyticsEventsProps & WithFileAttributesProps
 > {
-  private lastAnalyticsAction?: AnalyticsLoadingAction;
+  private lastAnalyticsAction?: RenderEventAction;
 
   componentDidMount() {
     // TODO: trigger accordingly with the succeeded event. This could be a breaking change
@@ -46,43 +51,38 @@ export class ImageRendererWithoutAnalytics extends React.Component<
   }
 
   onImageLoad = () => {
-    this.fireLoadingStatusAnalyticsEvent('succeeded');
+    const { createAnalyticsEvent, fileAttributes } = this.props;
+    if (fileAttributes && this.shouldFireEvent(RenderEventAction.SUCCEEDED)) {
+      fireMediaCardEvent(
+        getRenderSucceededEventPayload(fileAttributes),
+        createAnalyticsEvent,
+      );
+    }
   };
 
   onImageError = () => {
-    this.fireLoadingStatusAnalyticsEvent('failed');
-    const { onImageError } = this.props;
+    const { onImageError, fileAttributes } = this.props;
     onImageError && onImageError();
-  };
 
-  shouldFireLoadingStatusAnalyticsEvent = (action: AnalyticsLoadingAction) =>
-    !this.lastAnalyticsAction || this.lastAnalyticsAction !== action;
-
-  fireLoadingStatusAnalyticsEvent = (action: AnalyticsLoadingAction) => {
-    const { createAnalyticsEvent, mediaItemType } = this.props;
-
-    if (this.shouldFireLoadingStatusAnalyticsEvent(action)) {
-      this.lastAnalyticsAction = action;
-
-      if (action === 'failed') {
-        createAndFireCustomMediaEvent(
-          getLoadingStatusAnalyticsPayload({
-            action,
-            failReason:
-              mediaItemType === 'external-image'
-                ? AnalyticsLoadingFailReason.EXTERNAL_FILE_URI
-                : AnalyticsLoadingFailReason.FILE_URI,
-          }),
+    if (fileAttributes && this.shouldFireEvent(RenderEventAction.FAILED)) {
+      const { createAnalyticsEvent, mediaItemType } = this.props;
+      if (mediaItemType === 'file') {
+        fireMediaCardEvent(
+          getRenderFailedFileUriPayload(fileAttributes),
           createAnalyticsEvent,
         );
-      } else {
-        createAndFireCustomMediaEvent(
-          getLoadingStatusAnalyticsPayload({ action }),
+      } else if (mediaItemType === 'external-image') {
+        fireMediaCardEvent(
+          getRenderFailedExternalUriPayload(fileAttributes),
           createAnalyticsEvent,
         );
       }
     }
   };
+
+  // TODO: this check should be based on Component props, not in event actions
+  shouldFireEvent = (action: RenderEventAction) =>
+    !this.lastAnalyticsAction || this.lastAnalyticsAction !== action;
 
   render() {
     const { dataURI, previewOrientation, alt, resizeMode } = this.props;
@@ -101,5 +101,5 @@ export class ImageRendererWithoutAnalytics extends React.Component<
 }
 
 export const ImageRenderer = withAnalyticsEvents()(
-  ImageRendererWithoutAnalytics,
+  withFileAttributes(ImageRendererBase),
 );

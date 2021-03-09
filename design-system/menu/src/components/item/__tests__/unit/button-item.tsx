@@ -86,22 +86,44 @@ describe('<ButtonItem />', () => {
   });
 
   it('should respect the cssFn prop', () => {
-    const customCss: CSSFn = state => ({
-      ...(state.isSelected && { border: '1px solid' }),
-      ...(state.isDisabled && { pointerEvents: 'none' as const }),
+    const customCssSelected = { border: '1px solid' };
+    const customCssDisabled = { pointerEvents: 'none' as const };
+    const customCss = {
       padding: '10px',
       opacity: 0.75,
       borderRadius: '5px',
-    });
+    };
+
+    const cssFn: CSSFn = state => {
+      return {
+        ...(state.isSelected && customCssSelected),
+        ...(state.isDisabled && customCssDisabled),
+        ...customCss,
+      };
+    };
+
     const { container } = render(
-      <ButtonItem cssFn={customCss} isSelected isDisabled onClick={noop}>
+      <ButtonItem cssFn={cssFn} isSelected isDisabled onClick={noop}>
         Helloo
       </ButtonItem>,
     );
 
-    expect(container.firstChild).toHaveStyleRule('padding', '10px');
-    expect(container.firstChild).toHaveStyleRule('opacity', '0.75');
-    expect(container.firstChild).toHaveStyleRule('border-radius', '5px');
-    expect(container.firstChild).toHaveStyleRule('border', '1px solid');
+    expect(container.firstChild).toHaveStyleRule('padding', customCss.padding);
+    expect(container.firstChild).toHaveStyleRule(
+      'opacity',
+      String(customCss.opacity),
+    );
+    expect(container.firstChild).toHaveStyleRule(
+      'border-radius',
+      customCss.borderRadius,
+    );
+    expect(container.firstChild).toHaveStyleRule(
+      'border',
+      customCssSelected.border,
+    );
+    expect(container.firstChild).toHaveStyleRule(
+      'pointer-events',
+      customCssDisabled.pointerEvents,
+    );
   });
 });

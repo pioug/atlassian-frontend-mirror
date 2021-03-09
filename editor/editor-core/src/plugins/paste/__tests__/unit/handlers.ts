@@ -16,6 +16,7 @@ import {
   table,
   tr,
   td,
+  hardBreak,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {
@@ -23,7 +24,11 @@ import {
   DocumentType,
 } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { toJSON } from '../../../../utils';
-import { handleParagraphBlockMarks, insertSlice } from '../../handlers';
+import {
+  handleParagraphBlockMarks,
+  insertSlice,
+  flattenNestedListInSlice,
+} from '../../handlers';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -919,123 +924,6 @@ describe('paste list', () => {
       ),
     ),
   ];
-
-  // TODO: caseX & caseY to be turned on as part of https://product-fabric.atlassian.net/browse/ED-10942
-  // const caseX: [string, string, DocumentType, DocumentType, DocumentType] = [
-  //   'destination is a selection across four levels of list item and ends midway through a list item',
-  //   'paste content is a bullet list',
-  //   // Destination
-  //   // prettier-ignore
-  //   doc(
-  //     ul(
-  //       li(p('A')),
-  //       li(
-  //         p('{<}B'),
-  //         ul(
-  //           li(
-  //             p('B1'),
-  //             ul(
-  //               li(
-  //                 p('B2'),
-  //                 ul(
-  //                   li(p('B{>}3')),
-  //                   li(p('B4')),
-  //                 )
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //       li(p('C')),
-  //     ),
-  //   ),
-  //   // Pasted Content
-  //   // prettier-ignore
-  //   doc(
-  //     '{<}',
-  //     ul(
-  //       li(p('foo')),
-  //       li(p('bar')),
-  //       li(p('baz{>}')),
-  //     ),
-  //   ),
-  //   // Expected Document
-  //   // prettier-ignore
-  //   doc(
-  //     ul(
-  //       li(p('A')),
-  //       li(p('foo')),
-  //       li(p('bar')),
-  //       li(
-  //         p('baz3'),
-  //         ul(
-  //           li(p('B4')),
-  //           ),
-  //       ),
-  //       li(p('C')),
-  //     ),
-  //   ),
-  // ];
-
-  // const caseY: [string, string, DocumentType, DocumentType, DocumentType] = [
-  //   'destination is a selection across four levels of list item and last list item an extra unselected paragraph',
-  //   'paste content is a bullet list',
-  //   // Destination
-  //   // prettier-ignore
-  //   doc(
-  //     ul(
-  //       li(p('A')),
-  //       li(
-  //         p('{<}B'),
-  //         ul(
-  //           li(
-  //             p('B1'),
-  //             ul(
-  //               li(
-  //                 p('B2'),
-  //                 ul(
-  //                   li(
-  //                     p('B3{>}'),
-  //                     p('B4')
-  //                   ),
-  //                   li(p('B5')),
-  //                 )
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //       li(p('C')),
-  //     ),
-  //   ),
-  //   // Pasted Content
-  //   // prettier-ignore
-  //   doc(
-  //     '{<}',
-  //     ul(
-  //       li(p('foo')),
-  //       li(p('bar')),
-  //       li(p('baz{>}')),
-  //     ),
-  //   ),
-  //   // Expected Document
-  //   // prettier-ignore
-  //   doc(
-  //     ul(
-  //       li(p('A')),
-  //       li(p('foo')),
-  //       li(p('bar')),
-  //       li(
-  //         p('baz'),
-  //         p('B4'),
-  //         ul(
-  //           li(p('B5')),
-  //           ),
-  //       ),
-  //       li(p('C')),
-  //     ),
-  //   ),
-  // ];
 
   const case17: [string, string, DocumentType, DocumentType, DocumentType] = [
     'destination is an empty panel node',
@@ -1971,6 +1859,115 @@ describe('paste list', () => {
     ),
   ];
 
+  const case37: [string, string, DocumentType, DocumentType, DocumentType] = [
+    'destination is a selection across four levels of list item and ends midway through a list item',
+    'paste content is a bullet list',
+    // Destination
+    // prettier-ignore
+    doc(
+      ul(
+        li(p('A')),
+        li(
+          p('{<}B'),
+          ul(
+            li(
+              p('B1'),
+              ul(
+                li(
+                  p('B{>}2'),
+                  ul(
+                    li(p('B3')),
+                  )
+                ),
+              ),
+            ),
+          ),
+        ),
+        li(p('C')),
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      '{<}',
+      ul(
+        li(p('foo')),
+        li(p('bar')),
+        li(p('baz{>}')),
+      ),
+    ),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      ul(
+        li(p('A')),
+        li(p('foo')),
+        li(p('bar')),
+        li(
+          p('baz2'),
+          ul(
+            li(p('B3')),
+            ),
+        ),
+        li(p('C')),
+      ),
+    ),
+  ];
+
+  const case38: [string, string, DocumentType, DocumentType, DocumentType] = [
+    'destination is a selection across four levels of list item and last list item contains an extra unselected paragraph',
+    'paste content is a bullet list',
+    // Destination
+    // prettier-ignore
+    doc(
+      ul(
+        li(p('A')),
+        li(
+          p('{<}B'),
+          ul(
+            li(
+              p('B1'),
+              ul(
+                li(
+                  p('B2'),
+                  ul(
+                    li(
+                      p('B3{>}', hardBreak(), 'B4'),
+                    ),
+                    li(p('B5')),
+                  )
+                ),
+              ),
+            ),
+          ),
+        ),
+        li(p('C')),
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      '{<}',
+      ul(
+        li(p('foo')),
+        li(p('bar')),
+        li(p('baz{>}')),
+      ),
+    ),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      ul(
+        li(p('A')),
+        li(p('foo')),
+        li(p('bar')),
+        li(p('baz', hardBreak(), 'B4')),
+        li(p('B5')),
+        li(p('C')),
+      ),
+    ),
+  ];
+
   describe.each<[string, string, DocumentType, DocumentType, DocumentType]>([
     case0,
     case1,
@@ -2009,7 +2006,8 @@ describe('paste list', () => {
     case34,
     case35,
     case36,
-    // caseX & caseY to be turned on as part of https://product-fabric.atlassian.net/browse/ED-10942
+    case37,
+    case38,
   ])(
     '[case%#] when %s and %s',
     (
@@ -2037,4 +2035,169 @@ describe('paste list', () => {
       });
     },
   );
+});
+
+describe('handleRichText', () => {
+  describe('pasting into a table', () => {
+    it('should flatten nested list on its own', () => {
+      // prettier-ignore
+      const pasteContent = doc(
+        ul(
+          li(
+            p('a'),
+            '{<}',
+            ul(
+              li(
+                p('b')
+              )
+            )
+          ),
+          li(
+            p('c{>}')
+          )
+        )
+      );
+      const pasteOriginState = createEditorState(pasteContent);
+      const pasteSlice = pasteOriginState.doc.slice(
+        pasteOriginState.selection.from,
+        pasteOriginState.selection.to,
+        // @ts-ignore
+        true, // include parents
+      );
+
+      // prettier-ignore
+      const expectedContent = doc(
+        ul(
+          li(
+            p('b')
+          ),
+          li(
+            p('c')
+          )
+        )
+      )(defaultSchema);
+      const expectedSlice = Slice.fromJSON(defaultSchema, {
+        content: toJSON(expectedContent).content,
+        openStart: 3,
+        openEnd: 3,
+      });
+
+      const flattenedSlice = flattenNestedListInSlice(pasteSlice);
+      expect(flattenedSlice.eq(expectedSlice)).toBeTruthy();
+    });
+
+    it('should flatten nested list and preserve following contents (single paragraph)', () => {
+      // prettier-ignore
+      const pasteContent = doc(
+        ul(
+          li(
+            p('a'),
+            '{<}',
+            ul(
+              li(
+                p('b')
+              )
+            )
+          ),
+          li(
+            p('c')
+          ),
+        ),
+        p('text after list{>}')
+      );
+      const pasteOriginState = createEditorState(pasteContent);
+      const pasteSlice = pasteOriginState.doc.slice(
+        pasteOriginState.selection.from,
+        pasteOriginState.selection.to,
+        // @ts-ignore
+        true, // include parents
+      );
+
+      // prettier-ignore
+      const expectedContent = doc(
+        ul(
+          li(
+            p('b')
+          ),
+          li(
+            p('c')
+          )
+        ),
+        p('text after list')
+      )(defaultSchema);
+      const expectedSlice = Slice.fromJSON(defaultSchema, {
+        content: toJSON(expectedContent).content,
+        openStart: 1,
+        openEnd: 1,
+      });
+
+      const flattenedSlice = flattenNestedListInSlice(pasteSlice);
+      expect(flattenedSlice.eq(expectedSlice)).toBeTruthy();
+    });
+
+    it('should flatten nested list and preserve following contents (paragraph + separate list)', () => {
+      // prettier-ignore
+      const pasteContent = doc(
+        ul(
+          li(
+            p('a'),
+            '{<}',
+            ul(
+              li(
+                p('b')
+              )
+            )
+          ),
+          li(
+            p('c')
+          ),
+        ),
+        p('text between lists'),
+        ul(
+          li(
+            p('d'),
+          ),
+          li(
+            p('e{>}')
+          ),
+        )
+      );
+      const pasteOriginState = createEditorState(pasteContent);
+      const pasteSlice = pasteOriginState.doc.slice(
+        pasteOriginState.selection.from,
+        pasteOriginState.selection.to,
+        // @ts-ignore
+        true, // include parents
+      );
+
+      // prettier-ignore
+      const expectedContent = doc(
+        ul(
+          li(
+            p('b')
+          ),
+          li(
+            p('c')
+          )
+        ),
+        p('text between lists'),
+        ul(
+          li(
+            p('d')
+          ),
+          li(
+            p('e')
+          )
+        )
+      )(defaultSchema);
+      const expectedSlice = Slice.fromJSON(defaultSchema, {
+        content: toJSON(expectedContent).content,
+        openStart: 3,
+        openEnd: 3,
+      });
+
+      const flattenedSlice = flattenNestedListInSlice(pasteSlice);
+      expect(flattenedSlice.eq(expectedSlice)).toBeTruthy();
+    });
+  });
 });

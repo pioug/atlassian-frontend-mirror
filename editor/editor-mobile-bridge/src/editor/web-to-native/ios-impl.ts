@@ -1,4 +1,5 @@
 import { Color as StatusColor } from '@atlaskit/status/element';
+import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
 import NativeBridge, { EditorBridges, EditorBridgeNames } from './bridge';
 import { sendToBridge } from '../../bridge-utils';
 import {
@@ -6,6 +7,7 @@ import {
   EditorLifecycleAnalyticsEvents,
 } from '../../analytics/lifecycle';
 import { ActionSubject, EventType } from '../../analytics/enums';
+import { Serialized } from '../../types';
 
 export default class IosBridge implements NativeBridge {
   private _editorReady: boolean = false;
@@ -374,6 +376,17 @@ export default class IosBridge implements NativeBridge {
   typeAheadQuery(query: string, trigger: string): void {}
 
   typeAheadDisplayItems(query: string, trigger: string, items: string): void {}
+  typeAheadItemSelected(quickInsertItem: Serialized<QuickInsertItem>): void {
+    if (
+      this.window.webkit &&
+      this.window.webkit.messageHandlers.typeAheadBridge
+    ) {
+      this.window.webkit.messageHandlers.typeAheadBridge.postMessage({
+        name: 'typeAheadItemSelected',
+        quickInsertItem,
+      });
+    }
+  }
 
   dismissTypeAhead() {
     if (

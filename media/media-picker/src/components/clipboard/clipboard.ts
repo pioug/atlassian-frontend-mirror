@@ -1,8 +1,12 @@
 import {
   CreateUIAnalyticsEvent,
-  withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+
+import {
+  ANALYTICS_MEDIA_CHANNEL,
+  withMediaAnalyticsContext,
+} from '@atlaskit/media-common';
 
 import {
   LocalUploadComponentReact,
@@ -15,13 +19,9 @@ import {
   UploadService,
 } from '../../service/types';
 
-import { ANALYTICS_MEDIA_CHANNEL } from '../media-picker-analytics-error-boundary';
-import { ClipboardConfig } from '../../types';
+import { ClipboardPastePayload, ClipboardConfig } from '../../types';
+import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 
 export const getFilesFromClipboard = (files: FileList) => {
   return Array.from(files).map(file => {
@@ -45,28 +45,21 @@ export type ClipboardProps = LocalUploadComponentBaseProps & {
 };
 
 const defaultConfig: ClipboardConfig = { uploadParams: {} };
+const COMPONENT_NAME = 'clipboard';
 
 class ClipboardImpl {
   static instances: ClipboardImpl[] = [];
-  uploadService: UploadService;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-
-  constructor(uploadService: UploadService) {
-    this.uploadService = uploadService;
-  }
+  constructor(
+    private readonly uploadService: UploadService,
+    private readonly createAnalyticsEvent?: CreateUIAnalyticsEvent,
+  ) {}
 
   static get latestInstance(): ClipboardImpl | undefined {
     return ClipboardImpl.instances[ClipboardImpl.instances.length - 1];
   }
 
-  public activate(opts?: {
-    createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  }): void {
+  public activate(): void {
     this.deactivate();
-
-    if (opts && opts.createAnalyticsEvent) {
-      this.createAnalyticsEvent = opts.createAnalyticsEvent;
-    }
 
     document.addEventListener('paste', ClipboardImpl.handleEvent);
     ClipboardImpl.instances.push(this);
@@ -88,46 +81,48 @@ class ClipboardImpl {
 
   public onFilesPasted(files: LocalFileWithSource[]) {
     this.uploadService.addFilesWithSource(files);
-    this.fireAnalyticsEvent('pasted', files);
+    this.fireAnalyticsEvent(files);
   }
 
-  private fireAnalyticsEvent(
-    action: string,
-    files: LocalFileWithSource[],
-  ): void {
+  private fireAnalyticsEvent(files: LocalFileWithSource[]): void {
     if (this.createAnalyticsEvent) {
-      const analyticsEvent = this.createAnalyticsEvent({
+      const payload: ClipboardPastePayload = {
         eventType: 'ui',
+        action: 'pasted',
         actionSubject: 'clipboard',
-        action,
         attributes: {
-          packageName,
           fileCount: files.length,
-          fileAttributes: files.map(({ file: { type, size } }) => ({
+          fileAttributes: files.map(({ file: { type, size }, source }) => ({
+            fileSource: source,
             fileMimetype: type,
             fileSize: size,
           })),
         },
-      });
+      };
+
+      const analyticsEvent = this.createAnalyticsEvent(payload);
       analyticsEvent.fire(ANALYTICS_MEDIA_CHANNEL);
     }
   }
 
-  static handleEvent = (event: Event): void => {
+  static handleEvent = (event: ClipboardEvent): void => {
     // last in, first served to support multiple instances listening at once
     const instance = ClipboardImpl.latestInstance;
     if (instance) {
       /*
         Browser behaviour for getting files from the clipboard is very inconsistent and buggy.
-        @see https://extranet.atlassian.com/display/FIL/RFC+099%3A+Clipboard+browser+inconsistency
+        @see https://hello.atlassian.net/wiki/spaces/FIL/pages/141485494/RFC+099+Clipboard+browser+inconsistency
+
+        TODO https://product-fabric.atlassian.net/browse/BMPT-1285 Investigate implementation
       */
-      const { clipboardData } = event as ClipboardEvent;
+      const { clipboardData } = event;
 
       if (clipboardData && clipboardData.files) {
         const fileSource =
           clipboardData.types.length === 1
             ? LocalFileSource.PastedScreenshot
             : LocalFileSource.PastedFile;
+
         const filesArray: LocalFileWithSource[] = getFilesFromClipboard(
           clipboardData.files,
         ).map((file: File) => ({ file, source: fileSource }));
@@ -142,16 +137,21 @@ class ClipboardImpl {
 }
 
 export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
-  clipboard: ClipboardImpl = new ClipboardImpl(this.uploadService);
+  clipboard: ClipboardImpl = new ClipboardImpl(
+    this.uploadService,
+    this.props.createAnalyticsEvent,
+  );
+
+  constructor(props: ClipboardProps) {
+    super(props, COMPONENT_NAME);
+  }
 
   static defaultProps = {
     config: defaultConfig,
   };
 
   componentDidMount() {
-    this.clipboard.activate({
-      createAnalyticsEvent: this.props.createAnalyticsEvent,
-    });
+    this.clipboard.activate();
   }
 
   componentWillUnmount() {
@@ -163,10 +163,9 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
   }
 }
 
-export const Clipboard = withAnalyticsContext({
-  attributes: {
-    componentName: 'clipboard',
-    packageName,
-    packageVersion,
+export const Clipboard = withMediaAnalyticsContext(
+  getPackageAttributes(COMPONENT_NAME),
+  {
+    filterFeatureFlags: ['folderUploads', 'newCardExperience'],
   },
-})(withAnalyticsEvents()(ClipboardBase));
+)(withAnalyticsEvents()(ClipboardBase));

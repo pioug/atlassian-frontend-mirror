@@ -4,39 +4,56 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-const viewport = { width: 465, height: 3500 };
+import { extensionSelectors } from '../../../__tests__/__helpers/page-objects/_extensions';
+
+export async function goToConfigPanelWithParameters() {
+  const url = getExampleUrl(
+    'editor',
+    'editor-core',
+    'config-panel-with-parameters',
+  );
+
+  const { page } = global;
+  await loadPage(page, url);
+  await page.waitForSelector(extensionSelectors.configPanel);
+
+  return page;
+}
 
 describe('Snapshot Test', () => {
   it('should display config panels with fields correctly', async () => {
-    const url = getExampleUrl(
-      'editor',
-      'editor-core',
-      'config-panel-with-parameters',
+    const page = await goToConfigPanelWithParameters();
+
+    const image = await takeElementScreenShot(
+      page,
+      extensionSelectors.configPanel,
     );
-    const { page } = global;
-    await loadPage(page, url);
-    await page.setViewport(viewport);
-    await page.waitForSelector('[data-testid="extension-config-panel"]');
-    const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('should display select options with icons correctly', async () => {
-    const url = getExampleUrl(
-      'editor',
-      'editor-core',
-      'config-panel-with-parameters',
-    );
     const iconSelectSelector = 'div[id^="enum-select-icon"]';
-    const { page } = global;
-    await loadPage(page, url);
-    await page.setViewport(viewport);
-    await page.waitForSelector('[data-testid="extension-config-panel"]');
+    const page = await goToConfigPanelWithParameters();
 
     await page.click(iconSelectSelector);
     const iconSelectDropDownSelector =
       'div[id^="enum-select-icon"] div[class*="MenuList"]';
     const image = await takeElementScreenShot(page, iconSelectDropDownSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should position calendar for datefield correctly', async () => {
+    const dateInputSelector = 'input[name="date-start"]';
+    const page = await goToConfigPanelWithParameters();
+    const dateInputElement = await page.$(dateInputSelector);
+    await page.evaluateHandle(el => {
+      const dateFieldElement = el.nextElementSibling;
+      dateFieldElement.click();
+    }, dateInputElement);
+    const image = await takeElementScreenShot(
+      page,
+      extensionSelectors.configPanel,
+    );
     expect(image).toMatchProdImageSnapshot();
   });
 });

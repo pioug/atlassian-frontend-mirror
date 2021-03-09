@@ -11,7 +11,9 @@ import { ThemeModes } from '@atlaskit/theme/types';
 
 import getRadioStyles from './styles';
 import { RadioProps } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const fontFamily = getFontFamily();
 

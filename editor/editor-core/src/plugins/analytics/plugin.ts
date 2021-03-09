@@ -10,6 +10,11 @@ import { getAnalyticsEventsFromTransaction } from './utils';
 import { analyticsPluginKey } from './plugin-key';
 import { fireAnalyticsEvent } from './fire-analytics-event';
 import { getFeatureFlags } from '../feature-flags-context';
+import {
+  AnalyticsStep,
+  AnalyticsWithChannel,
+} from '@atlaskit/adf-schema/steps';
+import { generateUndoRedoInputSoucePayload } from '../undo-redo/undo-redo-input-source';
 
 interface AnalyticsPluginOptions {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -68,6 +73,51 @@ const analyticsPlugin = (options: AnalyticsPluginOptions): EditorPlugin => ({
         plugin: () => createPlugin(options),
       },
     ];
+  },
+
+  onEditorViewStateUpdated({
+    originalTransaction,
+    transactions,
+    newEditorState,
+  }) {
+    const pluginState = analyticsPluginKey.getState(newEditorState);
+
+    if (!pluginState || !pluginState.createAnalyticsEvent) {
+      return;
+    }
+
+    const steps = transactions.reduce<AnalyticsWithChannel<any>[]>(
+      (acc, tr) => {
+        const payloads: AnalyticsWithChannel<any>[] = tr.steps
+          .filter(
+            (step): step is AnalyticsStep<any> => step instanceof AnalyticsStep,
+          )
+          .map(x => x.analyticsEvents)
+          .reduce((acc, val) => acc.concat(val), []);
+
+        acc.push(...payloads);
+
+        return acc;
+      },
+      [],
+    );
+
+    if (steps.length === 0) {
+      return;
+    }
+
+    const { createAnalyticsEvent } = pluginState;
+    const undoAnaltyicsEventTransformer = generateUndoRedoInputSoucePayload(
+      originalTransaction,
+    );
+    steps.forEach(({ payload, channel }) => {
+      const nextPayload = undoAnaltyicsEventTransformer(payload);
+
+      fireAnalyticsEvent(createAnalyticsEvent)({
+        payload: nextPayload,
+        channel,
+      });
+    });
   },
 });
 

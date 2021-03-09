@@ -9,6 +9,9 @@ import rafSchedule from 'raf-schd';
 import { SmartCardProps, Card } from './genericCard';
 import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { registerCard } from '../pm-plugins/actions';
+import InlineNodeWrapper, {
+  createMobileInlineDomRef,
+} from '../../../ui/InlineNodeWrapper';
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;
@@ -84,19 +87,32 @@ const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInline);
 export type InlineCardNodeViewProps = Pick<
   SmartCardProps,
   'useAlternativePreloader'
->;
+> & { useInlineWrapper?: boolean };
 
 export class InlineCard extends ReactNodeView<InlineCardNodeViewProps> {
+  createDomRef() {
+    if (this.reactComponentProps.useInlineWrapper) {
+      return createMobileInlineDomRef();
+    }
+
+    return super.createDomRef();
+  }
+
   render() {
-    const { useAlternativePreloader } = this.reactComponentProps;
+    const {
+      useInlineWrapper,
+      useAlternativePreloader,
+    } = this.reactComponentProps;
 
     return (
-      <WrappedInlineCard
-        node={this.node}
-        view={this.view}
-        getPos={this.getPos}
-        useAlternativePreloader={useAlternativePreloader}
-      />
+      <InlineNodeWrapper useInlineWrapper={useInlineWrapper}>
+        <WrappedInlineCard
+          node={this.node}
+          view={this.view}
+          getPos={this.getPos}
+          useAlternativePreloader={useAlternativePreloader}
+        />
+      </InlineNodeWrapper>
     );
   }
 }

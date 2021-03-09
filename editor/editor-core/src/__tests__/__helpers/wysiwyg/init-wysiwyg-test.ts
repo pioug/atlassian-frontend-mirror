@@ -1,16 +1,19 @@
+import { RendererProps } from '@atlaskit/renderer';
 import {
   getExampleUrl,
   navigateToUrl,
   PuppeteerElementHandle,
   PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
-
+import { EditorProps } from '../../../types/editor-props';
 import { mountWysiwygTest, WysiwygMount } from './mount-wysiwyg-test';
 
 export interface WysiwygInitOptions {
   adf: any;
   editorSelector: string;
   rendererSelector: string;
+  editorProps?: Partial<EditorProps>;
+  rendererProps?: Partial<RendererProps>;
 }
 
 export interface WysiwygTest extends WysiwygMount {
@@ -27,6 +30,8 @@ export async function initWysiwygTest(
 
   const { $editor, $renderer } = await mountWysiwygTest(page, {
     adf: options.adf,
+    editorProps: options.editorProps,
+    rendererProps: options.rendererProps,
   });
 
   const [editorId, rendererId] = await Promise.all([

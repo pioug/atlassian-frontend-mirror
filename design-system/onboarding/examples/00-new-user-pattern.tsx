@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/custom-theme-button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { gridSize } from '@atlaskit/theme/constants';
 

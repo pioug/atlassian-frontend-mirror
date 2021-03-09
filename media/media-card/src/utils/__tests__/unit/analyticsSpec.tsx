@@ -8,29 +8,28 @@ import {
 } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
-  createAndFireMediaEvent,
-  MediaCardAnalyticsPayload,
-  createAndFireCustomMediaEvent,
-  getBaseAnalyticsContext,
+  createAndFireMediaCardEvent,
+  fireMediaCardEvent,
+  MediaCardAnalyticsEventPayload,
+  getRenderFailedMediaClientPayload,
+  getRenderFailedMediaClientFailReason,
+  RenderEventAction,
 } from '../../analytics';
-import {
-  version as packageVersion,
-  name as packageName,
-} from '../../../version.json';
+import { FileAttributes } from '@atlaskit/media-common';
+import { createRateLimitedError } from '@atlaskit/media-test-helpers';
+import { getMediaClientErrorReason } from '@atlaskit/media-client';
 
-const somePayload: MediaCardAnalyticsPayload = {
+const somePayload: MediaCardAnalyticsEventPayload = {
   eventType: 'ui',
-  action: 'the-action',
+  action: 'clicked',
   actionSubject: 'the-subject',
   actionSubjectId: 'the-subject-id',
   attributes: {
-    attr1: 'this',
-    attr2: 'is',
-    attr3: 'nice',
+    label: 'somelabel',
   },
 };
 
-const mediaPayload: MediaCardAnalyticsPayload = {
+const mediaPayload: MediaCardAnalyticsEventPayload = {
   ...somePayload,
   attributes: {
     ...somePayload.attributes,
@@ -43,7 +42,7 @@ describe('Media Analytics', () => {
       <span onClick={onClick}>Hi!</span>
     );
     const SomeWrappedComponent = withAnalyticsEvents({
-      onClick: createAndFireMediaEvent(somePayload),
+      onClick: createAndFireMediaCardEvent(somePayload),
     })(SomeComponent);
 
     const analyticsEventHandler = jest.fn();
@@ -63,13 +62,13 @@ describe('Media Analytics', () => {
     expect(actualEvent.payload).toMatchObject(mediaPayload);
   });
 
-  it('Should provide a custom analytics event creator for Media Card', () => {
+  it('Should provide an analytics event trigger for Media Card', () => {
     type SomeComponentProps = {
       createAnalyticsEvent: CreateUIAnalyticsEvent;
     };
     const SomeComponent = (props: SomeComponentProps) => {
       const onCustomEvent = () => {
-        createAndFireCustomMediaEvent(somePayload, props.createAnalyticsEvent);
+        fireMediaCardEvent(somePayload, props.createAnalyticsEvent);
       };
       onCustomEvent();
       return <span>'Hi!'</span>;
@@ -92,14 +91,31 @@ describe('Media Analytics', () => {
     expect(actualEvent.payload).toMatchObject(mediaPayload);
   });
 
-  it('should generate Base Analytics Context data', () => {
-    const expectedContextData = {
-      packageVersion,
-      packageName,
-      componentName: 'mediaCard',
+  describe('getRenderFailedMediaClientPayload', () => {
+    const fileAttributes: FileAttributes = {
+      fileId: 'some-id',
+      fileSize: 10,
+      fileMediatype: 'image',
+      fileMimetype: 'image/png',
+      fileStatus: 'processed',
     };
-
-    const contextData = getBaseAnalyticsContext();
-    expect(contextData).toMatchObject(expectedContextData);
+    it('should attach FailedSubscriptionFailReason to failReason and MediaClientErrorReason to error', () => {
+      const error = createRateLimitedError();
+      expect(
+        getRenderFailedMediaClientPayload(fileAttributes, error),
+      ).toMatchObject({
+        eventType: 'operational',
+        action: RenderEventAction.FAILED,
+        actionSubject: 'mediaCardRender',
+        attributes: {
+          fileAttributes,
+          status: 'fail',
+          failReason: getRenderFailedMediaClientFailReason(
+            fileAttributes.fileStatus,
+          ),
+          error: getMediaClientErrorReason(error),
+        },
+      });
+    });
   });
 });

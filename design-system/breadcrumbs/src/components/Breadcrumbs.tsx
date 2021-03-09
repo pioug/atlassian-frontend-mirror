@@ -12,10 +12,6 @@ import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
 import { getStyles } from '../internal/styles';
 import { BreadcrumbsProps } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import EllipsisItem from './EllipsisItem';
 
@@ -29,8 +25,8 @@ interface ThemedBreadcrumbsProps extends BreadcrumbsProps {
 
 const analyticsAttributes = {
   componentName: 'breadcrumbs',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
 const noop = () => {};

@@ -8,7 +8,7 @@ import {
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import { Outcome } from '../domain';
-import ErrorMessage, { MediaViewerError } from '../error';
+import ErrorMessage from '../errorMessage';
 import { Spinner } from '../loading';
 import { ErrorViewDownloadButton } from '../download';
 
@@ -19,7 +19,7 @@ export type BaseProps = {
 };
 
 export type BaseState<Content> = {
-  content: Outcome<Content, MediaViewerError>;
+  content: Outcome<Content, Error>;
 };
 
 export abstract class BaseViewer<
@@ -59,14 +59,17 @@ export abstract class BaseViewer<
     return this.state.content.match({
       pending: () => <Spinner />,
       successful: content => this.renderSuccessful(content),
-      failed: err => (
-        <ErrorMessage error={err}>
-          <p>
-            <FormattedMessage {...messages.try_downloading_file} />
-          </p>
-          {this.renderDownloadButton(err)}
-        </ErrorMessage>
-      ),
+      failed: error => {
+        const { item } = this.props;
+        return (
+          <ErrorMessage fileId={item.id} fileState={item} error={error}>
+            <p>
+              <FormattedMessage {...messages.try_downloading_file} />
+            </p>
+            {this.renderDownloadButton(error)}
+          </ErrorMessage>
+        );
+      },
     });
   }
 
@@ -75,13 +78,13 @@ export abstract class BaseViewer<
     return this.initialState;
   }
 
-  private renderDownloadButton(err: MediaViewerError) {
+  private renderDownloadButton(error: Error) {
     const { item, mediaClient, collectionName } = this.props;
     return (
       <ErrorViewDownloadButton
-        state={item}
+        fileState={item}
         mediaClient={mediaClient}
-        err={err}
+        error={error}
         collectionName={collectionName}
       />
     );

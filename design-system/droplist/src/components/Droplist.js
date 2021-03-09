@@ -19,10 +19,9 @@ import Wrapper, {
   Trigger,
 } from '../styled/Droplist';
 import itemTheme from '../theme/item-theme';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
+
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 
 const halfFocusRing = 1;
 const dropOffset = `0, ${gridSize()}px`;

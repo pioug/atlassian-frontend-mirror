@@ -1,44 +1,47 @@
 import { Action, MiddlewareAPI } from 'redux';
+
 import { State } from '../../domain';
 import { isHidePopupAction } from '../../actions/hidePopup';
-import { buttonClickPayload, HandlerResult } from '.';
+import { HandlerResult } from '.';
 import { normalizeRecentFilesAge } from '../../tools/normalizeRecentFilesAge';
 
 export default (action: Action, store: MiddlewareAPI<State>): HandlerResult => {
   if (isHidePopupAction(action)) {
     const { selectedItems = [] } = store.getState();
+
     const actionSubjectId =
       selectedItems.length > 0 ? 'insertFilesButton' : 'cancelButton';
 
+    const serviceNames =
+      selectedItems.length > 0
+        ? selectedItems.map(i => i.serviceName)
+        : undefined;
+
     const files =
-      actionSubjectId === 'insertFilesButton'
+      selectedItems.length > 0
         ? selectedItems.map(item => ({
+            serviceName: item.serviceName,
+            accountId: item.accountId,
             fileId: item.id,
             fileMimetype: item.mimeType,
             fileSize: item.size,
-            accountId: item.accountId,
-            serviceName: item.serviceName,
-            ...(item.serviceName === 'recent_files'
-              ? { fileAge: normalizeRecentFilesAge(item.createdAt) }
-              : {}),
+            fileAge:
+              item.serviceName === 'recent_files'
+                ? normalizeRecentFilesAge(item.createdAt)
+                : undefined,
           }))
-        : [];
-
-    const serviceNames =
-      selectedItems.length > 0
-        ? {
-            serviceNames: selectedItems.map(i => i.serviceName),
-          }
-        : {};
+        : undefined;
 
     return [
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId,
         attributes: {
           fileCount: selectedItems.length,
-          ...serviceNames,
-          ...(actionSubjectId === 'insertFilesButton' ? { files } : {}),
+          serviceNames,
+          files,
         },
       },
     ];

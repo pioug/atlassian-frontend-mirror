@@ -1,10 +1,3 @@
-import {
-  GasCorePayload,
-  GasScreenEventPayload,
-  UI_EVENT_TYPE,
-  EventType,
-} from '@atlaskit/analytics-gas-types';
-
 import handleCloudFetchingEventHandler from './handleCloudFetchingEventHandler';
 import editorCloseHandler from './editorCloseHandler';
 import editRemoteImageHandler from './editRemoteImageHandler';
@@ -20,14 +13,9 @@ import failureErrorLoggerHandler from './failureErrorLoggerHandler';
 
 import { Action, MiddlewareAPI } from 'redux';
 import { State } from '../../domain';
-export type BasePayload = GasCorePayload | GasScreenEventPayload;
-export type Payload = { action?: string } & BasePayload;
-export type HandlerResult = Payload[] | void;
-export const buttonClickPayload: GasCorePayload & { action: string } = {
-  action: 'clicked',
-  actionSubject: 'button',
-  eventType: UI_EVENT_TYPE as EventType,
-};
+import { AnalyticsEventPayload } from '../../../types';
+
+export type HandlerResult = Array<AnalyticsEventPayload> | void;
 
 export default [
   handleCloudFetchingEventHandler,

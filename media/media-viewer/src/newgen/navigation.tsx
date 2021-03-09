@@ -13,11 +13,8 @@ import {
 } from '@atlaskit/analytics-next';
 import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styled';
 import { getSelectedIndex } from './utils';
-import { channel } from './analytics';
-import {
-  createNavigationEvent,
-  NavigationGasPayload,
-} from './analytics/navigation';
+import { createNavigatedEvent } from './analytics/events/ui/navigated';
+import { fireAnalytics } from './analytics';
 
 export type NavigationDirection = 'prev' | 'next';
 
@@ -43,19 +40,14 @@ export class NavigationBase extends Component<NavigationProps, {}> {
           : items[selectedIndex - 1];
 
       if (newItem) {
-        this.fireAnalytics(createNavigationEvent(direction, source, newItem));
+        fireAnalytics(
+          createNavigatedEvent(direction, source, newItem),
+          this.props,
+        );
         onChange(newItem);
       }
     };
   }
-
-  private fireAnalytics = (payload: NavigationGasPayload) => {
-    const { createAnalyticsEvent } = this.props;
-    if (createAnalyticsEvent) {
-      const ev = createAnalyticsEvent(payload);
-      ev.fire(channel);
-    }
-  };
 
   get selectedIndex() {
     const { items, selectedItem } = this.props;

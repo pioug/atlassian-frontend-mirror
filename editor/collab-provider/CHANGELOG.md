@@ -1,5 +1,24 @@
 # @atlaskit/collab-provider
 
+## 6.0.0
+
+### Major Changes
+
+- [`b010a665e13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b010a665e13) - Bump socket IO to version 3 for collab provider
+
+### Minor Changes
+
+- [`29746d1123e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29746d1123e) - Emit errors to consumers
+
+### Patch Changes
+
+- [`b74caaa43e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74caaa43e9) - add reserveCursor option to init event
+- [`c54aacca521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54aacca521) - getFinalAcknowledgedState ensure unconfirmed steps confirmed
+- [`cff5c406985`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cff5c406985) - Fix issue with socket io client v3 not attaching cookies into request
+- [`226fce80d0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/226fce80d0d) - Fix: potential race condition for catchup
+- [`09040efc1a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09040efc1a4) - pauseQueue should always reset
+- Updated dependencies
+
 ## 5.2.0
 
 ### Minor Changes

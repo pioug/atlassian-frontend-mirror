@@ -33,15 +33,13 @@ import {
   AnalyticsEventPayload,
   DispatchAnalyticsEvent,
   EVENT_TYPE,
+  fireAnalyticsEvent,
   FULL_WIDTH_MODE,
   getAnalyticsEventsFromTransaction,
   PLATFORMS,
 } from '../plugins/analytics';
-import { fireAnalyticsEvent } from '../plugins/analytics/fire-analytics-event';
-import {
-  getEnabledFeatureFlagKeys,
-  createFeatureFlagsFromProps,
-} from '../plugins/feature-flags-context/feature-flags-from-props';
+import { createFeatureFlagsFromProps } from '../plugins/feature-flags-context/feature-flags-from-props';
+import { getEnabledFeatureFlagKeys } from '../plugins/feature-flags-context/get-enabled-feature-flag-keys';
 import {
   EditorAppearance,
   EditorConfig,
@@ -79,6 +77,7 @@ import {
   DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
 } from './consts';
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
+import { FireAnalyticsEventPayload } from '../plugins/analytics/fire-analytics-event';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -148,10 +147,6 @@ export default class ReactEditorView<T = {}> extends React.Component<
   editorState: EditorState;
   errorReporter: ErrorReporter;
   dispatch: Dispatch;
-  analyticsEventHandler!: (payloadChannel: {
-    payload: AnalyticsEventPayload;
-    channel?: string;
-  }) => void;
   proseMirrorRenderedSeverity?: SEVERITY;
   transactionTracker: TransactionTracker;
   validTransactionCount: number;
@@ -210,6 +205,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     super(props, context);
 
     this.eventDispatcher = new EventDispatcher();
+
     this.dispatch = createDispatch(this.eventDispatcher);
     this.errorReporter = createErrorReporter(
       props.editorProps.errorReporterHandler,
@@ -226,23 +222,27 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
     this.validTransactionCount = 0;
 
+    const featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
+    const featureFlagsEnabled = featureFlags
+      ? getEnabledFeatureFlagKeys(featureFlags)
+      : [];
+
+    // START TEMPORARY CODE ED-10584
+    if (this.props.createAnalyticsEvent) {
+      (this.props.createAnalyticsEvent as any).__queueAnalytics =
+        featureFlags.queueAnalytics;
+    }
+    // END TEMPORARY CODE ED-10584
+
     // This needs to be before initialising editorState because
     // we dispatch analytics events in plugin initialisation
-    const { createAnalyticsEvent, allowAnalyticsGASV3 } = props;
-    if (allowAnalyticsGASV3) {
-      this.activateAnalytics(createAnalyticsEvent);
-    }
+    this.eventDispatcher.on(analyticsEventKey, this.handleAnalyticsEvent);
 
     this.editorState = this.createEditorState({
       props,
       context,
       replaceDoc: true,
     });
-
-    const featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
-    const featureFlagsEnabled = featureFlags
-      ? getEnabledFeatureFlagKeys(featureFlags)
-      : [];
 
     this.dispatchAnalyticsEvent({
       action: ACTION.STARTED,
@@ -256,6 +256,17 @@ export default class ReactEditorView<T = {}> extends React.Component<
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
+    // START TEMPORARY CODE ED-10584
+    if (
+      nextProps.createAnalyticsEvent &&
+      nextProps.createAnalyticsEvent !== this.props.createAnalyticsEvent
+    ) {
+      const featureFlags = createFeatureFlagsFromProps(nextProps.editorProps);
+      (nextProps.createAnalyticsEvent as any).__queueAnalytics =
+        featureFlags.queueAnalytics;
+    }
+    // END TEMPORARY CODE ED-10584
+
     if (
       this.view &&
       this.props.editorProps.disabled !== nextProps.editorProps.disabled
@@ -270,24 +281,6 @@ export default class ReactEditorView<T = {}> extends React.Component<
         nextProps.editorProps.shouldFocus
       ) {
         this.focusTimeoutId = handleEditorFocus(this.view);
-      }
-    }
-
-    // Activate or deactivate analytics if change property
-    if (this.props.allowAnalyticsGASV3 !== nextProps.allowAnalyticsGASV3) {
-      if (nextProps.allowAnalyticsGASV3) {
-        this.activateAnalytics(nextProps.createAnalyticsEvent);
-      } else {
-        this.deactivateAnalytics();
-      }
-    } else {
-      // Allow analytics is the same, check if we receive a new create analytics prop
-      if (
-        this.props.allowAnalyticsGASV3 &&
-        nextProps.createAnalyticsEvent !== this.props.createAnalyticsEvent
-      ) {
-        this.deactivateAnalytics(); // Deactivate the old one
-        this.activateAnalytics(nextProps.createAnalyticsEvent); // Activate the new one
       }
     }
 
@@ -342,7 +335,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       this.getPlugins(
         props.editorProps,
         this.props.editorProps,
-        props.createAnalyticsEvent,
+        this.props.createAnalyticsEvent,
       ),
     );
 
@@ -372,25 +365,12 @@ export default class ReactEditorView<T = {}> extends React.Component<
     return this.view.update({ ...this.view.props, state: newState });
   };
 
-  /**
-   * Deactivate analytics event handler, if exist any.
-   */
-  deactivateAnalytics() {
-    if (this.analyticsEventHandler) {
-      this.eventDispatcher.off(analyticsEventKey, this.analyticsEventHandler);
+  handleAnalyticsEvent = (payload: FireAnalyticsEventPayload) => {
+    if (!this.props.allowAnalyticsGASV3) {
+      return;
     }
-  }
-
-  /**
-   * Create analytics event handler, if createAnalyticsEvent exist
-   * @param createAnalyticsEvent
-   */
-  activateAnalytics(createAnalyticsEvent?: CreateUIAnalyticsEvent) {
-    if (createAnalyticsEvent) {
-      this.analyticsEventHandler = fireAnalyticsEvent(createAnalyticsEvent);
-      this.eventDispatcher.on(analyticsEventKey, this.analyticsEventHandler);
-    }
-  }
+    fireAnalyticsEvent(this.props.createAnalyticsEvent)(payload);
+  };
 
   componentDidMount() {
     // Transaction dispatching is already enabled by default prior to
@@ -433,6 +413,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       });
     }
     // this.view will be destroyed when React unmounts in handleEditorViewRef
+
+    this.eventDispatcher.off(analyticsEventKey, this.handleAnalyticsEvent);
   }
 
   // Helper to allow tests to inject plugins directly

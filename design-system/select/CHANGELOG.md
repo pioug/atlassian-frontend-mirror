@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 13.2.0
+
+### Minor Changes
+
+- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- Updated dependencies
+
 ## 13.1.1
 
 ### Patch Changes

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Doesn't insert a link via hyperlinktoolbar when clicking out of toolbar 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`Doesn't insert a link via hyperlinktoolbar when switching between fields 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`Inserts a link via hyperlinktoolbar 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://www.atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Hello world!",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`Inserts a link when tabbing through hyperlinktoolbar 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://www.atlassian.com",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "Hello world!",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

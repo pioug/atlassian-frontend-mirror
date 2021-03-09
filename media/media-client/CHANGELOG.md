@@ -1,5 +1,25 @@
 # @atlaskit/media-client
 
+## 13.0.0
+
+### Major Changes
+
+- [`1a37545d238`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a37545d238) - File Fetcher is now emitting errors from upload/copyFile operations from ReplaySubject instead of creating an ErrorFileState
+
+### Minor Changes
+
+- [`1d09c9ed549`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d09c9ed549) - refactor media-viewer for better analytics and error handling
+- [`37d4add135f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37d4add135f) - Refactored Media Client Error interface and types
+- [`398fee1d575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/398fee1d575) - detect zero version (empty) files in media-client, throw FileFetcherError
+
+### Patch Changes
+
+- [`3a350428814`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a350428814) - Moved request error reason "clientExhaustedRetries" into an attribute to not obscure original error
+- [`ce5671da5e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce5671da5e7) - keep media analytics fileAttributes nested in attributes
+  move FileStatus from media-client to media-common, maintaing export from media-client
+- [`6611b6b3975`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6611b6b3975) - Fixed isMediaClientError method to accept any type as input
+- Updated dependencies
+
 ## 12.4.1
 
 ### Patch Changes

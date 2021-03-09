@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.0.1
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`08c1f789a45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c1f789a45) - [ux] Fixes flickering when transitioning to and from indeterminate states
+
 ## 12.0.0
 
 ### Major Changes

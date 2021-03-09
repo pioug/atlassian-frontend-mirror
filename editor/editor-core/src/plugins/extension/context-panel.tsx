@@ -13,6 +13,7 @@ import { updateState } from './commands';
 import type { EditorView } from 'prosemirror-view';
 import type { ContentNodeWithPos } from 'prosemirror-utils';
 import type { ExtensionState } from './types';
+import { SaveIndicator } from './ui/SaveIndicator/SaveIndicator';
 
 const areParametersEqual = (
   firstParameters: any,
@@ -62,54 +63,65 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
       : parameters;
 
     return (
-      <WithEditorActions
-        render={actions => {
-          const editorView = actions._privateGetEditorView();
-
-          if (!editorView) {
-            return null;
-          }
-
+      <SaveIndicator duration={5000}>
+        {({ onSaveStarted, onSaveEnded }) => {
           return (
-            <ConfigPanelLoader
-              showHeader
-              closeOnEsc
-              extensionType={extensionType}
-              extensionKey={extKey}
-              nodeKey={nodeKey}
-              extensionParameters={parameters}
-              parameters={configParams}
-              extensionProvider={extensionProvider}
-              autoSave={allowAutoSave}
-              autoSaveTrigger={autoSaveResolve}
-              onChange={async updatedParameters => {
-                await onChangeAction(
-                  editorView,
-                  updatedParameters,
-                  parameters,
-                  nodeWithPos,
+            <WithEditorActions
+              render={actions => {
+                const editorView = actions._privateGetEditorView();
+
+                if (!editorView) {
+                  return null;
+                }
+
+                return (
+                  <ConfigPanelLoader
+                    showHeader
+                    closeOnEsc
+                    extensionType={extensionType}
+                    extensionKey={extKey}
+                    nodeKey={nodeKey}
+                    extensionParameters={parameters}
+                    parameters={configParams}
+                    extensionProvider={extensionProvider}
+                    autoSave={allowAutoSave}
+                    autoSaveTrigger={autoSaveResolve}
+                    onChange={async updatedParameters => {
+                      await onChangeAction(
+                        editorView,
+                        updatedParameters,
+                        parameters,
+                        nodeWithPos,
+                        onSaveStarted,
+                      );
+                      onSaveEnded();
+
+                      if (autoSaveResolve) {
+                        autoSaveResolve();
+                      }
+                    }}
+                    onCancel={async () => {
+                      if (allowAutoSave) {
+                        await new Promise(resolve => {
+                          forceAutoSave(resolve)(
+                            editorView.state,
+                            editorView.dispatch,
+                          );
+                        });
+                      }
+
+                      clearEditingContext(
+                        editorView.state,
+                        editorView.dispatch,
+                      );
+                    }}
+                  />
                 );
-
-                if (autoSaveResolve) {
-                  autoSaveResolve();
-                }
-              }}
-              onCancel={async () => {
-                if (allowAutoSave) {
-                  await new Promise(resolve => {
-                    forceAutoSave(resolve)(
-                      editorView.state,
-                      editorView.dispatch,
-                    );
-                  });
-                }
-
-                clearEditingContext(editorView.state, editorView.dispatch);
               }}
             />
           );
         }}
-      />
+      </SaveIndicator>
     );
   }
 };
@@ -119,6 +131,7 @@ export async function onChangeAction(
   updatedParameters: object,
   oldParameters: object,
   nodeWithPos: ContentNodeWithPos,
+  onSaving?: () => void,
 ) {
   // WARNING: editorView.state stales quickly, do not unpack
   const { processParametersAfter, processParametersBefore } = getPluginState(
@@ -135,6 +148,10 @@ export async function onChangeAction(
   // todo: update to only check parameters which are in the manifest's field definitions
   if (areParametersEqual(unwrappedOldParameters, updatedParameters)) {
     return;
+  }
+
+  if (onSaving) {
+    onSaving();
   }
 
   const key = Date.now();

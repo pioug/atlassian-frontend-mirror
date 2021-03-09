@@ -1,87 +1,207 @@
 import {
   FileDetails,
-  MediaType,
-  FileState,
-  Identifier,
-  isPollingError,
+  FileStatus,
+  MediaClientErrorReason,
+  getMediaClientErrorReason,
 } from '@atlaskit/media-client';
-import { MediaAnalyticsData } from '@atlaskit/analytics-namespaced-context';
-import { CardStatus } from '../';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { GasCorePayload } from '@atlaskit/analytics-gas-types';
+
 import {
-  version as packageVersion,
-  name as packageName,
-} from '../version.json';
+  ANALYTICS_MEDIA_CHANNEL,
+  FileAttributes,
+  OperationalEventPayload,
+  UIEventPayload,
+  WithFileAttributes,
+  SuccessAttributes,
+  FailureAttributes,
+} from '@atlaskit/media-common';
+
 import {
   CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
 
-import { ANALYTICS_MEDIA_CHANNEL } from '../root/media-card-analytics-error-boundary';
-
-export interface MediaCardAnalyticsFileAttributes {
-  fileSource: string;
-  fileMediatype?: MediaType;
-  fileMimetype?: string;
-  fileId?: string;
-  fileStatus?: FileState['status'];
-  fileSize?: number;
+export enum RenderEventAction {
+  COMMENCED = 'commenced',
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed',
 }
 
-export type MediaCardAnalyticsPayload = Partial<GasCorePayload> & {
-  action?: string;
-  attributes?: GasCorePayload['attributes'] & {
-    fileAttributes?: MediaCardAnalyticsFileAttributes;
-    failReason?: AnalyticsLoadingFailReason;
-    error?: string;
-    featureFlags?: MediaFeatureFlags;
-  };
-};
+export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
+export type FailedMediaClientFailReason = 'upload' | 'metadata-fetch';
 
-export function getBaseAnalyticsContext(
-  componentName = 'mediaCard',
-): GasCorePayload['attributes'] {
-  /*
-    This Context provides data needed to build packageHierarchy in Atlaskit Analytics Listener and Media Analytics Listener
-  */
-  return {
-    packageVersion,
-    packageName,
-    componentName,
-    component: componentName,
-  };
-}
+export type RenderEventFailReason =
+  | FailedMediaClientFailReason
+  | 'failed-processing'
+  | FileUriFailReason
+  | 'external-uri';
+
+export type RenderFailedEventPayload = OperationalEventPayload<
+  WithFileAttributes &
+    FailureAttributes & {
+      failReason: RenderEventFailReason;
+      error?: MediaClientErrorReason | 'unknown';
+    },
+  RenderEventAction.FAILED,
+  'mediaCardRender'
+>;
+
+export type RenderSucceededEventPayload = OperationalEventPayload<
+  WithFileAttributes & SuccessAttributes,
+  RenderEventAction.SUCCEEDED,
+  'mediaCardRender'
+>;
+
+export type RenderCommencedEventPayload = OperationalEventPayload<
+  WithFileAttributes,
+  RenderEventAction.COMMENCED,
+  'mediaCardRender'
+>;
+
+export type RenderEventPayload =
+  | RenderCommencedEventPayload
+  | RenderSucceededEventPayload
+  | RenderFailedEventPayload;
+
+export type CopiedFileEventPayload = UIEventPayload<{}, 'copied', string>;
+
+export type ClickedEventPayload = UIEventPayload<
+  { label?: string },
+  'clicked',
+  string
+>;
+
+export type MediaCardAnalyticsEventPayload =
+  | RenderEventPayload
+  | CopiedFileEventPayload
+  | ClickedEventPayload;
 
 export const getFileAttributes = (
-  metadata?: FileDetails,
-  fileStatus?: FileState['status'],
-): MediaCardAnalyticsFileAttributes => ({
-  fileSource: 'mediaCard',
-  fileMediatype: metadata && metadata.mediaType,
-  fileMimetype: metadata && metadata.mimeType,
-  fileId: metadata && metadata.id,
-  fileSize: metadata && metadata.size,
+  metadata: FileDetails,
+  fileStatus?: FileStatus,
+): FileAttributes => ({
+  fileMediatype: metadata.mediaType,
+  fileMimetype: metadata.mimeType,
+  fileId: metadata.id,
+  fileSize: metadata.size,
   fileStatus,
 });
 
-export function getMediaCardAnalyticsContext(
-  metadata?: FileDetails,
-  fileStatus?: FileState,
-  featureFlags?: MediaFeatureFlags,
-): MediaAnalyticsData {
-  return {
-    fileAttributes: getFileAttributes(
-      metadata,
-      fileStatus && fileStatus.status,
-    ),
-    featureFlags,
-  };
-}
+export const isRenderFailedEventPayload = (
+  payload?: RenderEventPayload,
+): payload is RenderFailedEventPayload => payload?.action === 'failed';
 
-export function createAndFireCustomMediaEvent(
-  payload: MediaCardAnalyticsPayload,
+export const getRenderCommencedEventPayload = (
+  fileAttributes: FileAttributes,
+): RenderCommencedEventPayload => ({
+  eventType: 'operational',
+  action: RenderEventAction.COMMENCED,
+  actionSubject: 'mediaCardRender',
+  attributes: { fileAttributes },
+});
+
+export const getRenderSucceededEventPayload = (
+  fileAttributes: FileAttributes,
+): RenderSucceededEventPayload => ({
+  eventType: 'operational',
+  action: RenderEventAction.SUCCEEDED,
+  actionSubject: 'mediaCardRender',
+  attributes: {
+    fileAttributes,
+    status: 'success',
+  },
+});
+
+export const getFailedFileUriFailReason = (
+  fileStatus?: FileStatus,
+): FileUriFailReason => {
+  if (!fileStatus) {
+    // This fail reason will come from a bug, most likely.
+    return `unknown-uri`;
+  } else if (fileStatus === 'uploading') {
+    return 'local-uri';
+  }
+  return 'remote-uri';
+};
+
+export const getRenderFailedFileUriPayload = (
+  fileAttributes: FileAttributes,
+): RenderFailedEventPayload => ({
+  eventType: 'operational',
+  action: RenderEventAction.FAILED,
+  actionSubject: 'mediaCardRender',
+  attributes: {
+    fileAttributes,
+    status: 'fail',
+    failReason: getFailedFileUriFailReason(fileAttributes.fileStatus),
+  },
+});
+
+export const getRenderFailedExternalUriPayload = (
+  fileAttributes: FileAttributes,
+): RenderFailedEventPayload => ({
+  eventType: 'operational',
+  action: RenderEventAction.FAILED,
+  actionSubject: 'mediaCardRender',
+  attributes: {
+    fileAttributes,
+    status: 'fail',
+    failReason: 'external-uri',
+  },
+});
+
+export const getRenderFailedMediaClientFailReason = (
+  fileStatus?: FileStatus,
+): FailedMediaClientFailReason => {
+  // If the last status got is uploading and there is an error, we can tell that uploading failed.
+  // Any other case, including "no filestatus", it is a metadata fetch problem.
+  switch (fileStatus) {
+    case 'uploading':
+      return 'upload';
+    default:
+      return 'metadata-fetch';
+  }
+};
+
+export const getRenderFailedMediaClientPayload = (
+  fileAttributes: FileAttributes,
+  error: Error,
+): RenderFailedEventPayload => ({
+  eventType: 'operational',
+  action: RenderEventAction.FAILED,
+  actionSubject: 'mediaCardRender',
+  attributes: {
+    fileAttributes,
+    status: 'fail',
+    failReason: getRenderFailedMediaClientFailReason(fileAttributes.fileStatus),
+    error: getMediaClientErrorReason(error),
+  },
+});
+
+export const getRenderFailedFileStatusPayload = (
+  fileAttributes: FileAttributes,
+): RenderFailedEventPayload => ({
+  eventType: 'operational',
+  action: RenderEventAction.FAILED,
+  actionSubject: 'mediaCardRender',
+  attributes: {
+    fileAttributes,
+    status: 'fail',
+    failReason: 'failed-processing',
+  },
+});
+
+export const getCopiedFilePayload = (
+  fileId: string,
+): CopiedFileEventPayload => ({
+  eventType: 'ui',
+  action: 'copied',
+  actionSubject: 'file',
+  actionSubjectId: fileId,
+  attributes: {},
+});
+
+export function fireMediaCardEvent(
+  payload: MediaCardAnalyticsEventPayload,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) {
   if (createAnalyticsEvent) {
@@ -90,178 +210,8 @@ export function createAndFireCustomMediaEvent(
   }
 }
 
-type CreateAndFireMediaEvent = (
-  basePayload: MediaCardAnalyticsPayload,
-) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent;
-
-export const createAndFireMediaEvent: CreateAndFireMediaEvent = payload => {
+export const createAndFireMediaCardEvent = (
+  payload: MediaCardAnalyticsEventPayload,
+) => {
   return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(payload);
-};
-
-export type AnalyticsLoadingAction = 'succeeded' | 'failed';
-export enum AnalyticsLoadingFailReason {
-  // TODO: replace 'media-client-error' and 'file-status-error' with common values for all Media Components types
-  MEDIA_CLIENT = 'media-client-error',
-  FILE_STATUS = 'file-status-error',
-  FILE_URI = 'file-uri',
-  EXTERNAL_FILE_URI = 'external-file-uri',
-}
-
-export type AnalyticsLoadingStatus = {
-  action: AnalyticsLoadingAction;
-  failReason?: AnalyticsLoadingFailReason;
-  error?: string;
-};
-
-export type AnalyticsLoadingStatusArgs = {
-  cardStatus: CardStatus;
-  metadata: FileDetails;
-  fileState?: FileState;
-  dataURI?: string;
-  error?: Error;
-};
-
-/**
- * This function decides if we can fire an event at this stage,
- * returning a base for the corresponding payload,
- * or void in case we can't fire any event
- * based on arguments provided
- */
-export const getAnalyticsLoadingStatus = ({
-  cardStatus,
-  metadata,
-  fileState,
-  dataURI,
-  error,
-}: AnalyticsLoadingStatusArgs): AnalyticsLoadingStatus | void => {
-  // If we do have dataURI and there is an error, we should not fire a failed event.
-  // Render something is the priority. Any supported file by the browser that has been
-  // failed to process, we should try to render.
-  if (!dataURI && ['error', 'failed-processing'].includes(cardStatus)) {
-    const action = 'failed';
-    if (error) {
-      const message = error instanceof Error ? error.message : error;
-      if (isPollingError(error)) {
-        // we don't track a failure event for this case, treat it as a success
-        // TODO: treat it as an error, but ensure a proper failReason,
-        // then filter it out on SLO side...
-        // this can be part of https://product-fabric.atlassian.net/browse/BMPT-970
-        return { action: 'succeeded' };
-      }
-      return {
-        action,
-        failReason: AnalyticsLoadingFailReason.MEDIA_CLIENT,
-        error: message,
-      };
-    }
-
-    const errorMessage =
-      fileState && 'message' in fileState && fileState.message;
-    if (errorMessage) {
-      return {
-        action,
-        failReason: AnalyticsLoadingFailReason.FILE_STATUS,
-        error: errorMessage,
-      };
-    }
-
-    if (!metadata.name) {
-      return {
-        action,
-        failReason: AnalyticsLoadingFailReason.FILE_STATUS,
-        error:
-          'Does not have minimal metadata (filename and filesize) OR metadata/media-type is undefined',
-      };
-    }
-
-    return {
-      action,
-      failReason: AnalyticsLoadingFailReason.FILE_STATUS,
-      error: 'unknown error',
-    };
-  }
-  // If we have no dataURI and the card is complete, we can say that
-  // we intend to not display an image, therefore the fetching is a success.
-  if (!dataURI && cardStatus === 'complete') {
-    return {
-      action: 'succeeded',
-    };
-  }
-};
-
-export const getCopiedFileAnalyticsPayload = (
-  identifier: Identifier,
-  featureFlags?: MediaFeatureFlags,
-): MediaCardAnalyticsPayload => {
-  const payload: MediaCardAnalyticsPayload = {
-    eventType: 'ui',
-    action: 'copied',
-    actionSubject: 'file',
-    actionSubjectId:
-      identifier.mediaItemType === 'file'
-        ? identifier.id
-        : identifier.mediaItemType,
-  };
-  if (featureFlags) {
-    payload.attributes = { featureFlags };
-  }
-  return payload;
-};
-
-export const getMediaCardCommencedAnalyticsPayload = (
-  actionSubjectId: string,
-  featureFlags?: MediaFeatureFlags,
-): MediaCardAnalyticsPayload => {
-  const payload: MediaCardAnalyticsPayload = {
-    eventType: 'operational',
-    action: 'commenced',
-    actionSubject: 'mediaCardRender',
-    actionSubjectId,
-  };
-  if (featureFlags) {
-    payload.attributes = { featureFlags };
-  }
-  return payload;
-};
-
-export type LoadingStatusPayloadArgs = {
-  action: string;
-  actionSubjectId?: string;
-  fileAttributes?: MediaCardAnalyticsFileAttributes;
-  failReason?: AnalyticsLoadingFailReason;
-  error?: string;
-  featureFlags?: MediaFeatureFlags;
-};
-
-export type LoadingStatusPayload = (
-  args: LoadingStatusPayloadArgs,
-) => MediaCardAnalyticsPayload;
-
-export const getLoadingStatusAnalyticsPayload: LoadingStatusPayload = ({
-  action,
-  actionSubjectId,
-  fileAttributes,
-  failReason,
-  error,
-  featureFlags,
-}) => {
-  const payload: MediaCardAnalyticsPayload = {
-    eventType: 'operational',
-    action,
-    actionSubject: 'mediaCardRender',
-    actionSubjectId,
-  };
-  if (fileAttributes) {
-    payload.attributes = { ...payload.attributes, fileAttributes };
-  }
-  if (featureFlags) {
-    payload.attributes = { ...payload.attributes, featureFlags };
-  }
-  if (failReason) {
-    payload.attributes = { ...payload.attributes, failReason };
-  }
-  if (error) {
-    payload.attributes = { ...payload.attributes, error };
-  }
-  return payload;
 };

@@ -104,7 +104,6 @@ function FieldComponent({
           onBlur={onBlur}
         />
       );
-
     case 'custom':
       return (
         <CustomSelect
@@ -200,7 +199,7 @@ export default function FormContent({
           <RemovableField
             key={name}
             name={name}
-            canRemoveField={canRemoveFields}
+            canRemoveField={canRemoveFields && !field.isRequired}
             onClickRemove={onClickRemove}
           >
             {fieldElement}

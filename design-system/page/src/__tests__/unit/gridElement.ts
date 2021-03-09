@@ -1,7 +1,6 @@
 import { getMargin, getMaxWidth, getPadding } from '../../internal/GridElement';
-import { name } from '../../version.json';
 
-describe(name, () => {
+describe('@atlaskit/page', () => {
   it('grid should have no max-width if fluid', () => {
     const props = {};
     const result = getMaxWidth(props);

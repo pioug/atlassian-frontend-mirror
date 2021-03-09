@@ -127,6 +127,12 @@ export interface DateRangeField extends BaseFieldDefinition {
   items: Option[];
 }
 
+export interface DataSourceField extends BaseFieldDefinition {
+  type: 'datasource';
+  defaultValue?: string;
+  placeholder?: string;
+  nodeType: string;
+}
 export interface DateRangeResult {
   type: 'date-range';
   value: 'custom' | any;
@@ -175,7 +181,8 @@ export type NativeField =
   | NumberField
   | BooleanField
   | DateField
-  | DateRangeField;
+  | DateRangeField
+  | DataSourceField;
 
 export type NestedFieldDefinition = NativeField | CustomField | UserField;
 

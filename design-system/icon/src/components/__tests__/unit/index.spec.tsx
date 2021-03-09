@@ -4,7 +4,6 @@ import { render, cleanup } from '@testing-library/react';
 import path from 'path';
 import fs from 'fs';
 import { size } from '../../..';
-import { name } from '../../../version.json';
 import BookIcon from '../../../../glyph/book';
 import { size as defaultSize } from '../../..';
 import metadata from '../../../metadata';
@@ -25,7 +24,7 @@ const walkSync = (dir: string, filelist: string[]) => {
   return filelist;
 };
 
-describe(name, () => {
+describe('@atlaskit/icon', () => {
   afterEach(cleanup);
   describe('exports', () => {
     it('are properly defined for atomic ones', () => {

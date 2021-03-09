@@ -3,9 +3,8 @@ import { mount } from 'enzyme';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import MultiSelect, { MultiSelectStateless } from '../..';
-import { name } from '../../version.json';
 
-describe(`${name} - smart`, () => {
+describe('@atlaskit/multi-select - smart', () => {
   const animStub = window.cancelAnimationFrame;
   beforeEach(() => {
     window.cancelAnimationFrame = () => {};

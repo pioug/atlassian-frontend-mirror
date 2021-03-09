@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     '閉じる',
-  'fabric.elements.mentions.team.member.50plus': '50 人以上のメンバー',
+  'fabric.elements.mentions.team.member.50plus': 'チーム • 50 人以上のメンバー',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50 人以上のメンバー (あなたを含む)',
+    'チーム • あなたを含む 50 人以上のメンバー',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, other {{0} 人のメンバー}}',
+    '{0, plural, other {チーム • {0} 人のメンバー}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, other {{0} 人のメンバー（あなたを含む）}}',
+    '{0, plural, other {チーム • あなたを含む {0} 人のメンバー}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'ワンクリックで全員をページに連れてきましょう。チームがなければ、',
   'fabric.elements.mentions.team.mention.highlight.description.link':

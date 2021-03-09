@@ -16,8 +16,9 @@ import {
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
-const editorSelector = '.ProseMirror';
+const editorSelector = selectors.editor;
 
 /*
  NOTE: this only works on this url:

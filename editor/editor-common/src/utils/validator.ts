@@ -654,6 +654,16 @@ export const getValidNode = (
           content.length > 0 &&
           !content.some(e => e.type !== 'tableRow')
         ) {
+          if (adfStage === 'stage0') {
+            return {
+              type,
+              content,
+              attrs: {
+                ...attrs,
+                localId: attrs?.localId || uuid(),
+              },
+            };
+          }
           return {
             type,
             content,

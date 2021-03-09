@@ -25,7 +25,12 @@ export default function SelectField({
     <Field<ValueType<Option>>
       name={name}
       label={field.label}
-      defaultValue={getOptionFromValue(field.items, field.defaultValue)}
+      defaultValue={
+        getOptionFromValue(field.items, field.defaultValue) as ValueType<
+          Option,
+          false
+        >
+      }
       isRequired={field.isRequired}
       validate={(value: ValueType<Option>) =>
         validate<ValueType<Option>>(field, value)
@@ -39,12 +44,14 @@ export default function SelectField({
               fieldProps.onChange(value);
               onBlur(name);
             }}
-            isMulti={field.isMultiple || false}
+            // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
+            isMulti={(field.isMultiple || false) as false}
             options={field.items || []}
             isClearable={false}
             validationState={error ? 'error' : 'default'}
             formatOptionLabel={formatOptionLabel}
             autoFocus={autoFocus}
+            menuPlacement="auto"
             placeholder={placeholder}
           />
           <FieldMessages error={error} description={field.description} />

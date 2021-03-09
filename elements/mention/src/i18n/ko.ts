@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     '해제',
-  'fabric.elements.mentions.team.member.50plus': '구성원 50명 이상',
+  'fabric.elements.mentions.team.member.50plus': '팀 • 구성원 50명 이상',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '자신을 포함 구성원 50명 이상',
+    '팀 • 자신을 포함하여 구성원 50명 이상',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, other {{0}명 구성원}}',
+    '{0, plural, other {팀 • 구성원 {0}명}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, other {사용자를 포함한 {0}명의 구성원}}',
+    '{0, plural, other {팀 • 자신을 포함하여 구성원 {0}명}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     '한 번의 클릭으로 모든 참여할 수 있습니다. 팀이 없으신가요?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

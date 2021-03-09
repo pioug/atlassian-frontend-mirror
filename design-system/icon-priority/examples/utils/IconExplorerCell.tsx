@@ -1,5 +1,5 @@
 import React, { Component, ElementType } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
 import Modal, { ModalTransition } from '@atlaskit/modal-dialog';

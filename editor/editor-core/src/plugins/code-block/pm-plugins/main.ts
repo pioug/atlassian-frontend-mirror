@@ -1,36 +1,13 @@
-import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
+import { Plugin, NodeSelection } from 'prosemirror-state';
 import { codeBlockNodeView } from '../nodeviews/code-block';
-import { CommandDispatch } from '../../../types';
+import { highlightingCodeBlockNodeView } from '../nodeviews/highlighting-code-block';
 import { createSelectionClickHandler } from '../../selection/utils';
 import { pluginKey } from '../plugin-key';
 import { ACTIONS } from './actions';
 import { findCodeBlock } from '../utils';
 import { codeBlockClassNames } from '../ui/class-names';
-
-export type CodeBlockState = {
-  pos: number | null;
-  contentCopied: boolean;
-  isNodeSelected: boolean;
-};
-
-export const getPluginState = (state: EditorState): CodeBlockState =>
-  pluginKey.getState(state);
-
-export const setPluginState = (stateProps: Object) => (
-  state: EditorState,
-  dispatch: CommandDispatch,
-): boolean => {
-  const pluginState = getPluginState(state);
-  dispatch(
-    state.tr.setMeta(pluginKey, {
-      ...pluginState,
-      ...stateProps,
-    }),
-  );
-  return true;
-};
-
-export type CodeBlockStateSubscriber = (state: CodeBlockState) => any;
+import { CodeBlockState } from './main-state';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 export const createPlugin = (useLongPressSelection: boolean = false) =>
   new Plugin({
@@ -50,9 +27,7 @@ export const createPlugin = (useLongPressSelection: boolean = false) =>
         newState,
       ): CodeBlockState {
         if (tr.docChanged || tr.selectionSet) {
-          const { selection } = newState;
-
-          const node = findCodeBlock(newState, selection);
+          const node = findCodeBlock(newState, tr.selection);
           const newPluginState: CodeBlockState = {
             ...pluginState,
             pos: node ? node.pos : null,
@@ -62,7 +37,8 @@ export const createPlugin = (useLongPressSelection: boolean = false) =>
         }
 
         const meta = tr.getMeta(pluginKey);
-        if (meta && meta.type === ACTIONS.SET_COPIED_TO_CLIPBOARD) {
+
+        if (meta?.type === ACTIONS.SET_COPIED_TO_CLIPBOARD) {
           return {
             ...pluginState,
             contentCopied: meta.data,
@@ -75,7 +51,13 @@ export const createPlugin = (useLongPressSelection: boolean = false) =>
     key: pluginKey,
     props: {
       nodeViews: {
-        codeBlock: codeBlockNodeView(),
+        codeBlock(node, view, getPos) {
+          const featureFlags = getFeatureFlags(view.state);
+          const createCodeBlockNodeView = featureFlags?.codeBlockSyntaxHighlighting
+            ? highlightingCodeBlockNodeView()
+            : codeBlockNodeView();
+          return createCodeBlockNodeView(node, view, getPos);
+        },
       },
       handleClickOn: createSelectionClickHandler(
         ['codeBlock'],

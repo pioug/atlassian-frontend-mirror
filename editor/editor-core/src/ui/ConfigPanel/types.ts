@@ -13,3 +13,7 @@ export enum FieldTypeError {
 
 export type Entry<T> = [string, T];
 export type OnBlur = (name: string) => void;
+
+export interface ValidationErrors {
+  [key: string]: any;
+}

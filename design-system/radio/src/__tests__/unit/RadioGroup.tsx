@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import RadioGroup from '../../RadioGroup';
-import { name } from '../../version.json';
 
 const sampleOptions = [
   { name: 'test', value: '1', label: 'one' },
@@ -11,7 +10,7 @@ const sampleOptions = [
   { name: 'test', value: '3', label: 'three', isDisabled: true },
 ];
 
-describe(name, () => {
+describe('@atlaskit/radio', () => {
   describe('RadioGroup', () => {
     describe('props', () => {
       describe('options prop', () => {

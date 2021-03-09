@@ -25,10 +25,6 @@ import {
   RowCellType,
   SortOrderType,
 } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import Body from './Body';
 import LoadingContainer from './LoadingContainer';
@@ -36,6 +32,9 @@ import LoadingContainerAdvanced from './LoadingContainerAdvanced';
 import ManagedPagination from './managedPagination';
 import RankableTableBody from './rankable/Body';
 import TableHead from './TableHead';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 function toggleSortOrder(currentSortOrder?: SortOrderType) {
   switch (currentSortOrder) {

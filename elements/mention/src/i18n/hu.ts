@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Bezárás',
-  'fabric.elements.mentions.team.member.50plus': '50+ tag',
+  'fabric.elements.mentions.team.member.50plus': 'Csapat • 50+ tag',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50+ tag, ideértve téged is',
+    'Csapat • 50+ tag veled együtt',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} tag} other {{0} tag}}',
+    '{0, plural, one {Csapat • 1 tag} other {Csapat • {0} tag}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} tag, veled együtt} other {{0} tag, veled együtt}}',
+    '{0, plural, one {Csapat • 1 tag veled együtt} other {Csapat • {0} tag veled együtt}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Egyetlen kattintással mindenkit felvehetsz az oldalra. Nincs csapatod?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

@@ -50,29 +50,41 @@ const populateFromParameters = (
     }
   }
 };
-
-const populateWithTheFirst = (
+const populateFromRequired = (
   fields: FieldDefinition[],
 ): string[] | undefined => {
-  if (Array.isArray(fields) && fields.length > 0) {
-    return [fields[0].name];
-  }
+  return fields.filter(field => field.isRequired).map(field => field.name);
 };
 
 const getInitialFields = (
   parameters: Parameters = {},
   fields: FieldDefinition[],
   isDynamic?: boolean,
-): string[] => {
+): Set<string> => {
   if (!isDynamic) {
-    return fields.map(field => field.name);
+    return new Set(fields.map(field => field.name));
+  }
+  const dynamicFields: string[] = [];
+
+  const fromRequired = populateFromRequired(fields);
+  if (fromRequired) {
+    dynamicFields.push(...fromRequired);
   }
 
-  return (
-    populateFromParameters(parameters, fields) ||
-    populateWithTheFirst(fields) ||
-    []
-  );
+  const fromParameters = populateFromParameters(parameters, fields);
+  if (fromParameters) {
+    dynamicFields.push(...fromParameters);
+  }
+
+  if (
+    dynamicFields.length === 0 &&
+    Array.isArray(fields) &&
+    fields.length > 0
+  ) {
+    dynamicFields.push(fields[0].name);
+  }
+
+  return new Set(dynamicFields);
 };
 
 type Props = {
@@ -97,12 +109,10 @@ class FieldsetField extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const initialFields = new Set<FieldDefinition['name']>(
-      getInitialFields(
-        props.parameters,
-        props.field.fields,
-        props.field.options.isDynamic,
-      ),
+    const initialFields = getInitialFields(
+      props.parameters,
+      props.field.fields,
+      props.field.options.isDynamic,
     );
 
     this.state = {

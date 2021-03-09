@@ -12,7 +12,7 @@ export default md`
   ## Usage
 
   ${code`
-  import { InlineEditableTextfield } from '@atlaskit/inline-edit';
+  import InlineEditableTextfield from '@atlaskit/inline-edit/inline-editable-textfield';
   `}
 
   ${(

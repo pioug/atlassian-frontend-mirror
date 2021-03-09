@@ -5,8 +5,9 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
-const editorSelector = '.ProseMirror';
+const editorSelector = selectors.editor;
 
 BrowserTestCase(
   'media: when message is not a media image node does nothing',

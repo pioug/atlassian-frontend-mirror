@@ -59,6 +59,32 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
+      it("shouldn't submit after clicking between inputs", async () => {
+        await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
+        await page.click('.ProseMirror');
+
+        await triggerHyperLinkToolBar(page);
+
+        await page.click('[data-testid="link-url"]');
+        await page.type(
+          '[data-testid="link-url"]',
+          'https://www.atlassian.com',
+        );
+
+        // test that it doesn't just insert the url after switching to the other input
+        await page.click('[data-testid="link-label"]');
+        await page.type('[data-testid="link-label"]', 'Hello world!');
+
+        await retryUntilStablePosition(
+          page,
+          () => page.click('[data-testid="link-url"]'),
+          '[aria-label="Floating Toolbar"]',
+          1000,
+        );
+
+        await snapshot(page);
+      });
+
       it('should highlight items with mouse over', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');

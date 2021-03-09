@@ -1,17 +1,15 @@
 import React from 'react';
+import { FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
 import { CodeBlock } from '@atlaskit/code';
-import ErrorMessage, {
-  createError,
-  MediaViewerError,
-  ErrorName,
-} from '../../error';
+import ErrorMessage from '../../errorMessage';
+import { MediaViewerError } from '../../errors';
 import { CodeViewWrapper, CodeViewerHeaderBar } from './styled';
 import { lineCount } from './util';
-import { getErrorName } from '@atlaskit/media-client';
 
 export type Props = {
+  item: FileState;
   src: string;
   language: string;
   onClose?: () => void;
@@ -20,7 +18,7 @@ export type Props = {
 };
 
 export type State = {
-  doc: Outcome<any, MediaViewerError>;
+  doc: Outcome<any, Error>;
 };
 
 const initialState: State = {
@@ -49,21 +47,19 @@ export class CodeViewRenderer extends React.Component<Props, State> {
       if (onSuccess) {
         onSuccess();
       }
-    } catch (err) {
+    } catch (error) {
       this.setState({
-        doc: Outcome.failed(
-          createError(getErrorName(err, 'previewFailed') as ErrorName, err),
-        ),
+        doc: Outcome.failed(new MediaViewerError('codeviewer-load-src', error)),
       });
 
       if (onError) {
-        onError(err);
+        onError(error);
       }
     }
   }
 
   render() {
-    const { src, language } = this.props;
+    const { item, src, language } = this.props;
     const selectedLanguage =
       lineCount(src) > MAX_FORMATTED_LINES ? 'text' : language;
 
@@ -75,7 +71,9 @@ export class CodeViewRenderer extends React.Component<Props, State> {
           <CodeBlock language={selectedLanguage} text={src} />
         </CodeViewWrapper>
       ),
-      failed: err => <ErrorMessage error={err} />,
+      failed: error => (
+        <ErrorMessage fileId={item.id} fileState={item} error={error} />
+      ),
     });
   }
 }

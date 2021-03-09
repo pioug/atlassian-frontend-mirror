@@ -17,7 +17,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { createAndFireMediaEvent } from '../analytics';
+import { createAndFireMediaCardEvent } from '../analytics';
 
 export type CardActionsDropdownMenuProps = {
   readonly actions: CardAction[];
@@ -34,11 +34,12 @@ const CardActionButtonWithProps = (
 ) => <CardActionButton {...props} />;
 
 const CardActionButtonWithAnalytics = withAnalyticsEvents({
-  onClick: createAndFireMediaEvent({
+  onClick: createAndFireMediaCardEvent({
     eventType: 'ui',
     action: 'clicked',
     actionSubject: 'button',
     actionSubjectId: 'mediaCardDropDownMenu',
+    attributes: {},
   }),
 })(CardActionButtonWithProps);
 
@@ -50,7 +51,7 @@ const DropdownItemWithProps = (props: DropdownItemProps) => (
 const createDropdownItemWithAnalytics = (action: CardAction, index: number) => {
   const { label, handler } = action;
   const DropdownItemWithAnalytics = withAnalyticsEvents({
-    onClick: createAndFireMediaEvent({
+    onClick: createAndFireMediaCardEvent({
       eventType: 'ui',
       action: 'clicked',
       actionSubject: 'button',

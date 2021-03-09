@@ -11,9 +11,14 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
+import { Selection } from 'prosemirror-state';
+import * as pmUtils from 'prosemirror-utils';
 
 import tablePlugin from '../../../../table';
 import { pluginKey } from '../../../pm-plugins/plugin-factory';
+import { setEditorFocus } from '../../../../table/commands/misc';
+import * as miscCommands from '../../../../table/commands/misc';
+import { NodeType } from 'prosemirror-model';
 
 describe('tables: main plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -54,5 +59,44 @@ describe('tables: main plugin', () => {
     ).toEqual(0);
 
     emitMock.mockClear();
+  });
+
+  it('should call setTableRef() if it can find a table at the current position', async () => {
+    const spied = jest.spyOn(miscCommands, 'setTableRef');
+
+    const { editorView } = editor(doc(table()(tr(tdCursor, tdEmpty))));
+    setEditorFocus(true)(editorView.state, editorView.dispatch);
+
+    expect(spied).toBeCalled();
+
+    spied.mockClear();
+  });
+
+  it('should not call setTableRef() if it cannot find a table at the current position', async () => {
+    const spied = jest.spyOn(miscCommands, 'setTableRef');
+
+    const findParentDomRefOfTypeMock = jest
+      .spyOn(pmUtils, 'findParentDomRefOfType')
+      // (nodeType: NodeType | NodeType[], domAtPos: DomAtPos):
+      //   (selection: Selection)
+      //     => Node | undefined
+      .mockImplementation(
+        (
+          nodeType: NodeType | NodeType[],
+          domAtPos: pmUtils.DomAtPos,
+        ): ((selection: Selection) => Node | undefined) => {
+          const parent = document.createElement('p');
+          parent.querySelector = () => null;
+          return () => parent;
+        },
+      );
+
+    const { editorView } = editor(doc(table()(tr(tdCursor, tdEmpty))));
+    setEditorFocus(true)(editorView.state, editorView.dispatch);
+
+    expect(spied).not.toBeCalled();
+
+    spied.mockClear();
+    findParentDomRefOfTypeMock.mockClear();
   });
 });

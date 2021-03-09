@@ -1,12 +1,50 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
-jest.mock('socket.io-client');
+
+jest.mock('prosemirror-collab', () => {
+  return {
+    sendableSteps: function (state: any) {
+      return state.collab;
+    },
+    getVersion: function (state: any) {
+      return (state.collab as any).version;
+    },
+  };
+});
+
+jest.mock('../../channel', () => {
+  const events = new Map<string, (...args: any) => {}>();
+
+  function Channel(config: any) {
+    return {
+      getSocket: () => ({
+        emit: (event: string, ...args: any[]) => {
+          const handler = events.get(event);
+          if (handler) {
+            handler(...args);
+          }
+        },
+      }),
+      on: jest
+        .fn()
+        .mockImplementation(function (this: any, eventName, callback) {
+          events.set(eventName, callback);
+          return this;
+        }),
+      connect: jest.fn(),
+      broadcast: () => jest.fn(),
+    };
+  }
+  return {
+    Channel,
+  };
+});
+
 import { Channel } from '../../channel';
 import {
   MAX_STEP_REJECTED_ERROR,
   CATCHUP_THROTTLE_TIMEOUT,
   CollabErrorPayload,
 } from '../../provider';
-jest.mock('../../channel');
 
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
@@ -39,6 +77,15 @@ describe('provider unit tests', () => {
         },
       },
     ],
+    collab: {
+      steps: [],
+      version: 0,
+    },
+    doc: {
+      toJSON: () => {
+        return 'test';
+      },
+    },
   };
 
   it('should emit connected event when provider is connected via socketIO', async done => {
@@ -89,6 +136,7 @@ describe('provider unit tests', () => {
       .spyOn(provider as any, 'throttledCatchup')
       .mockImplementation(() => {});
     const stepRejectedError: CollabErrorPayload = {
+      status: 409,
       code: 'HEAD_VERSION_UPDATE_FAILED',
       meta: 'The version number does not match the current head version.',
       message: 'Version number does not match current head version.',
@@ -108,6 +156,7 @@ describe('provider unit tests', () => {
       .spyOn(provider as any, 'throttledCatchup')
       .mockImplementation(() => {});
     const stepRejectedError: CollabErrorPayload = {
+      status: 409,
       code: 'HEAD_VERSION_UPDATE_FAILED',
       meta: 'The version number does not match the current head version.',
       message: 'Version number does not match current head version.',
@@ -251,6 +300,7 @@ describe('provider unit tests', () => {
       testProviderConfigWithAnalytics,
     );
     const stepRejectedError: CollabErrorPayload = {
+      status: 409,
       code: 'HEAD_VERSION_UPDATE_FAILED',
       meta: 'The version number does not match the current head version.',
       message: 'Version number does not match current head version.',
@@ -258,5 +308,129 @@ describe('provider unit tests', () => {
     provider.initialize(() => editorState);
     socket.emit('error', stepRejectedError);
     expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+  });
+
+  it('should emit failed_to_save S3 errors to consumer', done => {
+    const testProviderConfigWithAnalytics = {
+      url: `http://provider-url:66661`,
+      documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+    };
+    const provider = createSocketIOCollabProvider(
+      testProviderConfigWithAnalytics,
+    );
+    provider.on('error', error => {
+      expect(error).toEqual({
+        status: 500,
+        code: 'FAIL_TO_SAVE',
+        message: 'Collab service is not able to save changes',
+      });
+      done();
+    });
+    const failedOnS3Error: CollabErrorPayload = {
+      status: 500,
+      code: 'FAILED_ON_S3',
+      meta: 'Request to S3 failed',
+      message: 'Unable to save into S3',
+    };
+    provider.initialize(() => editorState);
+    socket.emit('error', failedOnS3Error);
+  });
+
+  it('should emit failed_to_save dynamo errors to consumer', done => {
+    const testProviderConfigWithAnalytics = {
+      url: `http://provider-url:66661`,
+      documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+    };
+    const provider = createSocketIOCollabProvider(
+      testProviderConfigWithAnalytics,
+    );
+    provider.on('error', error => {
+      expect(error).toEqual({
+        status: 500,
+        code: 'FAIL_TO_SAVE',
+        message: 'Collab service is not able to save changes',
+      });
+      done();
+    });
+    const failedOnDynamo: CollabErrorPayload = {
+      status: 500,
+      code: 'DYNAMO_ERROR',
+    };
+    provider.initialize(() => editorState);
+    socket.emit('error', failedOnDynamo);
+  });
+
+  it('should emit no permission errors to consumer', done => {
+    const testProviderConfigWithAnalytics = {
+      url: `http://provider-url:66661`,
+      documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+    };
+    const provider = createSocketIOCollabProvider(
+      testProviderConfigWithAnalytics,
+    );
+    provider.on('error', error => {
+      expect(error).toEqual({
+        status: 401,
+        code: 'NO_PERMISSION_ERROR',
+        message: 'User does not have permissions to access this document',
+      });
+      done();
+    });
+    const noPermissionError: CollabErrorPayload = {
+      status: 401,
+      code: 'INSUFFICIENT_EDITING_PERMISSION',
+      meta:
+        'The user does not have sufficient permission to collab editing the resource',
+      message: 'No permission!',
+    };
+    provider.initialize(() => editorState);
+    socket.emit('error', noPermissionError);
+  });
+
+  it('should emit catchup failed errors to consumer', done => {
+    const testProviderConfigWithAnalytics = {
+      url: `http://provider-url:66661`,
+      documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+    };
+    const provider = createSocketIOCollabProvider(
+      testProviderConfigWithAnalytics,
+    );
+    provider.on('error', error => {
+      expect(error).toEqual({
+        status: 500,
+        code: 'INTERNAL_SERVICE_ERROR',
+        message: 'Collab service has return internal server error',
+      });
+      done();
+    });
+    const catchupError: CollabErrorPayload = {
+      status: 500,
+      code: 'CATCHUP_FAILED',
+      message: 'Cannot fetch catchup from collab service',
+    };
+    provider.initialize(() => editorState);
+    socket.emit('error', catchupError);
+  });
+
+  describe('getFinalAcknowledgedState', () => {
+    it('should return the final state', async () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      provider.initialize(() => editorState);
+      const finalAck = await provider.getFinalAcknowledgedState();
+      expect(finalAck).toEqual({
+        content: 'test',
+        stepVersion: 0,
+      });
+    });
+
+    it("should throw when can't syncup with server", async () => {
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const newState = JSON.parse(JSON.stringify(editorState));
+      newState.collab.steps = [1];
+      provider.initialize(() => newState);
+      await expect(provider.getFinalAcknowledgedState()).rejects.toThrowError(
+        new Error("Can't syncup with Collab Service"),
+      );
+    });
   });
 });

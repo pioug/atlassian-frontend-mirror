@@ -39,14 +39,14 @@ const selectOptions = [
 ];
 
 const InlineEditExample = () => {
-  const [editValue, setEditValue] = useState<OptionType[]>([]);
+  const [editValue, setEditValue] = useState<ValueType<OptionType, true>>([]);
 
-  const onConfirm = (value: ValueType<OptionType>) => {
+  const onConfirm = (value: ValueType<OptionType, true>) => {
     if (!value) {
       return;
     }
 
-    setEditValue(value as OptionType[]);
+    setEditValue(value);
   };
 
   return (
@@ -55,12 +55,12 @@ const InlineEditExample = () => {
         padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
       }}
     >
-      <InlineEdit<ValueType<OptionType>>
+      <InlineEdit<ValueType<OptionType, true>>
         defaultValue={editValue}
         label="Inline edit select"
         editView={fieldProps => (
           <EditViewContainer>
-            <Select<OptionType>
+            <Select
               {...fieldProps}
               options={selectOptions}
               isMulti
@@ -70,14 +70,15 @@ const InlineEditExample = () => {
           </EditViewContainer>
         )}
         readView={() =>
-          editValue.length === 0 ? (
+          editValue && editValue.length === 0 ? (
             <ReadViewContainer>Click to choose options</ReadViewContainer>
           ) : (
             <div style={{ padding: `${gridSize() / 2}px` }}>
               <Group>
-                {editValue.map((option: OptionType) => (
-                  <Tag text={option.label} key={option.label} />
-                ))}
+                {editValue &&
+                  editValue.map((option: OptionType) => (
+                    <Tag text={option.label} key={option.label} />
+                  ))}
               </Group>
             </div>
           )

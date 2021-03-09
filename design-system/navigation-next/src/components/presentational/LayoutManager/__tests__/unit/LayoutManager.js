@@ -20,6 +20,8 @@ import {
 } from '../../primitives';
 import ResizeControl from '../../ResizeControl';
 
+const packageName = process.env._PACKAGE_NAME_;
+
 describe('LayoutManager', () => {
   let defaultProps;
   let mockNavigationUIController;
@@ -838,7 +840,7 @@ describe('LayoutManager', () => {
           horizontalGlobalNavEnabled: false,
         },
         componentName: 'navigation',
-        packageName: '@atlaskit/navigation-next',
+        packageName,
         packageVersion: expect.any(String),
       });
     });
@@ -859,7 +861,7 @@ describe('LayoutManager', () => {
           horizontalGlobalNavEnabled: false,
         },
         componentName: 'navigation',
-        packageName: '@atlaskit/navigation-next',
+        packageName,
         packageVersion: expect.any(String),
       });
     });
@@ -880,7 +882,7 @@ describe('LayoutManager', () => {
           horizontalGlobalNavEnabled: false,
         },
         componentName: 'navigation',
-        packageName: '@atlaskit/navigation-next',
+        packageName,
         packageVersion: expect.any(String),
       });
     });
@@ -902,7 +904,7 @@ describe('LayoutManager', () => {
           horizontalGlobalNavEnabled: false,
         },
         componentName: 'navigation',
-        packageName: '@atlaskit/navigation-next',
+        packageName,
         packageVersion: expect.any(String),
       });
     });
@@ -923,7 +925,7 @@ describe('LayoutManager', () => {
           horizontalGlobalNavEnabled: true,
         },
         componentName: 'navigation',
-        packageName: '@atlaskit/navigation-next',
+        packageName,
         packageVersion: expect.any(String),
       });
     });

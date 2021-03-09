@@ -75,12 +75,12 @@ export class ValidatingKitchenSinkEditor extends React.Component<
     return (
       <SmartCardProvider client={smartCardClient}>
         <Editor
+          allowReferentiality={true}
           appearance={appearance}
           quickInsert={{
             provider: this.quickInsertProviderPromise,
           }}
           UNSAFE_allowUndoRedoButtons={true}
-          UNSAFE_predictableLists={true}
           allowTextColor={true}
           allowTables={{
             advanced: true,

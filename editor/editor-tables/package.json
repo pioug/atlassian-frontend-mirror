@@ -29,7 +29,7 @@
     "prosemirror-view": "1.15.4"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^13.2.0",
+    "@atlaskit/adf-schema": "^14.0.0",
     "@atlaskit/editor-test-helpers": "^14.0.0"
   },
   "techstack": {

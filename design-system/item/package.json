@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/item",
-  "version": "12.0.4",
+  "version": "12.0.5",
   "description": "A generic item component to be used within other components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/icon": "^21.4.0",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.0.0",

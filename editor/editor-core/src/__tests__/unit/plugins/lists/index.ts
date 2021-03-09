@@ -55,6 +55,7 @@ describe('lists', () => {
         allowTables: true,
         media: { allowMediaSingle: true },
         quickInsert: true,
+        UNSAFE_predictableLists: false,
       },
       createAnalyticsEvent,
       pluginKey,

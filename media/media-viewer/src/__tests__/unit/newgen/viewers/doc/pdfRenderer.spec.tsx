@@ -28,7 +28,7 @@ import {
 } from '../../../../../newgen/viewers/doc/pdfRenderer';
 import { ZoomControls } from '../../../../../newgen/zoomControls';
 import { Spinner } from '../../../../../newgen/loading';
-import { ErrorMessage } from '../../../../../newgen/error';
+import { ErrorMessage } from '../../../../../newgen/errorMessage';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 
 function createFixture(documentPromise: Promise<any>) {
@@ -39,7 +39,19 @@ function createFixture(documentPromise: Promise<any>) {
   });
 
   const el = mountWithIntlContext<Props, State>(
-    <PDFRenderer src={''} onClose={onClose} onSuccess={onSuccess} />,
+    <PDFRenderer
+      item={{
+        id: '1',
+        status: 'processing',
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+        name: 'file.pdf',
+        size: 1,
+      }}
+      src={''}
+      onClose={onClose}
+      onSuccess={onSuccess}
+    />,
   );
   return { el, onClose, onSuccess };
 }

@@ -12,7 +12,6 @@ import {
   EmptyViewWithFixedHeight,
 } from '../../../styled/EmptyBody';
 import { RowCellType, RowType, StatelessProps } from '../../../types';
-import { name } from '../../../version.json';
 import Body from '../../Body';
 import LoadingContainer from '../../LoadingContainer';
 import LoadingContainerAdvanced from '../../LoadingContainerAdvanced';
@@ -24,7 +23,7 @@ import TableHead from '../../TableHead';
 import { head, rows, rowsWithKeys, secondSortKey } from './_data';
 import { headNumeric, rowsNumeric } from './_dataNumeric';
 
-describe(name, () => {
+describe('@atlaskit/dynamic-table', () => {
   describe('stateless', () => {
     it('should render TableHead when items length is 0 and not render EmptyViewContainer if emptyView prop is ommitted', () => {
       const wrapper = mount(<DynamicTableStateless head={head} />);

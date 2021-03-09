@@ -25,10 +25,10 @@ export const handleInit = (
   view: EditorView,
   options?: PrivateCollabEditOptions,
 ) => {
-  const { doc, json, version } = initData;
+  const { doc, json, version, reserveCursor } = initData;
   if (doc) {
     const { state } = view;
-    const tr = replaceDocument(doc, state, version, options);
+    const tr = replaceDocument(doc, state, version, options, reserveCursor);
     tr.setMeta('isRemote', true);
     view.dispatch(tr);
   } else if (json) {

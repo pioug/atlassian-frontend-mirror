@@ -3,9 +3,7 @@ import { mount } from 'enzyme';
 
 import { MultiSelectStateless } from '../..';
 
-import { name } from '../../version.json';
-
-describe(`${name} - stateless`, () => {
+describe('@atlaskit/multi-select - stateless', () => {
   const animStub = window.cancelAnimationFrame;
   beforeEach(() => {
     window.cancelAnimationFrame = () => {};

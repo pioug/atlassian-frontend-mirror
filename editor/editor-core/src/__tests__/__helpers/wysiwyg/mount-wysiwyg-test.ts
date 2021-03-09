@@ -10,13 +10,21 @@ export interface WysiwygMount {
 
 export interface WysiwygOptions {
   adf: any;
+  editorProps: any;
+  rendererProps: any;
 }
 
 export async function mountWysiwygTest(
   page: PuppeteerPage,
   options: WysiwygOptions,
 ): Promise<WysiwygMount> {
-  await page.evaluate(adf => (window as any).__mount(adf), options.adf);
+  const { editorProps, rendererProps } = options;
+
+  await page.evaluate(
+    (adf, props) => (window as any).__mount(adf, props),
+    options.adf,
+    { editorProps, rendererProps },
+  );
 
   const [$renderer, $editor] = await Promise.all([
     page.waitForSelector('#renderer-container'),

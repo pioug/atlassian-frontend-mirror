@@ -68,6 +68,7 @@ export const createPlugin = (
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
+  allowReferentiality?: boolean,
 ) => {
   isBreakoutEnabled = breakoutEnabled;
   isDynamicTextSizingEnabled = dynamicTextSizing;
@@ -155,7 +156,7 @@ export const createPlugin = (
           const { state, dispatch } = view;
           const { selection } = state;
           const pluginState = getPluginState(state);
-          let tableRef;
+          let tableRef: HTMLTableElement | undefined;
           let tableNode;
           if (pluginState.editorHasFocus) {
             const parent = findParentDomRefOfType(
@@ -163,11 +164,15 @@ export const createPlugin = (
               domAtPos,
             )(selection);
             if (parent) {
-              tableRef = (parent as HTMLElement).querySelector('table');
+              tableRef =
+                (parent as HTMLElement).querySelector<HTMLTableElement>(
+                  'table',
+                ) || undefined;
             }
 
             tableNode = findTable(state.selection);
           }
+
           if (pluginState.tableRef !== tableRef) {
             setTableRef(tableRef)(state, dispatch);
           }
@@ -260,6 +265,7 @@ export const createPlugin = (
               dynamicTextSizing: isDynamicTextSizingEnabled,
               isFullWidthModeEnabled,
               wasFullWidthModeEnabled,
+              allowReferentiality,
             },
           ),
       },

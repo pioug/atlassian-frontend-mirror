@@ -44,11 +44,6 @@ export default function keymapPlugin(schema: Schema): Plugin {
     tryUndoInputRuleElseUndoHistory,
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.findKeyMapForBrowser(keymaps.redoBarred)!,
-    commands.preventDefault(),
-    list,
-  );
 
   keymaps.bindKeymapWithCommand(
     keymaps.backspace.common!,

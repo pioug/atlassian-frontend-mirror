@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Odrzuć',
-  'fabric.elements.mentions.team.member.50plus': 'Ponad 50 członków',
+  'fabric.elements.mentions.team.member.50plus': 'Zespół z ponad 50 członkami',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    'Ponad 50 członków, wliczając Ciebie',
+    'Zespół z ponad 50 członkami, łącznie z Tobą',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} członek} few {{0} członków} many {{0} członków} other {{0} członka}}',
+    '{0, plural, one {Zespół z 1 członkiem} few {Zespół z {0} członkami} many {Zespół z {0} członkami} other {Zespół z {0} członka}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} członek razem z Tobą} few {{0} członków razem z Tobą} many {{0} członków razem z Tobą} other {{0} członka razem z Tobą}}',
+    '{0, plural, one {Zespół z 1 członkiem, łącznie z Tobą} few {Zespół z {0} członkami, łącznie z Tobą} many {Zespół z {0} członkami, łącznie z Tobą} other {Zespół z {0} członka, łącznie z Tobą}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Przekieruj wszystkich na stronę za pomocą jednego kliknięcia. Nie masz zespołu?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

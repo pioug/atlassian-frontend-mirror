@@ -1,12 +1,15 @@
 import { Action } from 'redux';
+
 import { isStartAuthAction } from '../../actions/startAuth';
-import { buttonClickPayload, HandlerResult } from '.';
+import { HandlerResult } from '.';
 
 export default (action: Action): HandlerResult => {
   if (isStartAuthAction(action)) {
     return [
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'linkCloudAccountButton',
         attributes: {
           cloudType: action.serviceName,

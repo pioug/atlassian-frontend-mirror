@@ -86,4 +86,67 @@ describe('Forbidden view', () => {
     expect(element.find(LockIcon)).toHaveLength(1);
     expect(element.find(LockIcon).prop('label')).toBe('error');
   });
+
+  it('should show correct text if request access type is DIRECT_ACCESS', () => {
+    const requestAccessContext = { callToActionMessageKey: 'click_to_join' };
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView
+          url={URL}
+          requestAccessContext={requestAccessContext as any}
+          context="Jira"
+        />
+      </IntlProvider>,
+    );
+    expect(element.text()).toEqual(`${URL} - Join Jira`);
+  });
+
+  it('should do promise if Join to preview clicked', () => {
+    const promise = jest.fn();
+    const requestAccessContext = {
+      callToActionMessageKey: 'click_to_join',
+      action: { promise },
+    };
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView
+          url={URL}
+          requestAccessContext={requestAccessContext as any}
+        />
+      </IntlProvider>,
+    );
+    element.find('[type="button"]').at(0).simulate('click');
+    expect(promise).toHaveBeenCalledTimes(1);
+  });
+
+  it('should show correct text if request access type is REQUEST_ACCESS', () => {
+    const requestAccessContext = { callToActionMessageKey: 'request_access' };
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView
+          url={URL}
+          requestAccessContext={requestAccessContext as any}
+        />
+      </IntlProvider>,
+    );
+    expect(element.text()).toEqual(`${URL} - Request access`);
+  });
+
+  it('should do promise if request access is clicked', () => {
+    const promise = jest.fn();
+    const requestAccessContext = {
+      callToActionMessageKey: 'request_access',
+      action: { promise },
+    };
+    const element = mount(
+      <IntlProvider locale={'en'}>
+        <InlineCardForbiddenView
+          url={URL}
+          requestAccessContext={requestAccessContext as any}
+        />
+      </IntlProvider>,
+    );
+    element.find('[type="button"]').at(0).simulate('click');
+    expect(promise).toHaveBeenCalledTimes(1);
+  });
 });

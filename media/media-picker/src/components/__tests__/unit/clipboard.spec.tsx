@@ -4,20 +4,29 @@ jest.mock('../../../service/uploadServiceImpl');
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   ClipboardMockFile,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
 import { LocalFileSource } from '../../../service/types';
 import { Clipboard, ClipboardBase } from '../../clipboard/clipboard';
+import { ClipboardConfig } from '../../../types';
 import { mount } from 'enzyme';
 
 describe('Clipboard', () => {
   const mediaClient = fakeMediaClient();
   let eventsMap: Record<string, Function>;
 
-  const config = {
+  const someFeatureFlags: MediaFeatureFlags = {
+    folderUploads: true,
+    newCardExperience: false,
+  };
+
+  const config: ClipboardConfig = {
     uploadParams: {},
+    featureFlags: someFeatureFlags,
   };
 
   beforeEach(() => {
@@ -254,7 +263,11 @@ describe('Clipboard', () => {
         channel={FabricChannel.media}
         onEvent={analyticsHandler}
       >
-        <Clipboard mediaClient={mediaClient} config={config} />
+        <Clipboard
+          mediaClient={mediaClient}
+          config={config}
+          featureFlags={someFeatureFlags}
+        />
       </AnalyticsListener>,
     );
 
@@ -284,14 +297,37 @@ describe('Clipboard', () => {
     expect(analyticsHandler).toHaveBeenCalledTimes(1);
     expect(analyticsHandler).toBeCalledWith(
       expect.objectContaining({
-        payload: expect.objectContaining({
+        context: [
+          {
+            packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'clipboard',
+            component: 'clipboard',
+            [MEDIA_CONTEXT]: {
+              featureFlags: someFeatureFlags,
+            },
+          },
+        ],
+        payload: {
           eventType: 'ui',
           action: 'pasted',
           actionSubject: 'clipboard',
-          attributes: expect.objectContaining({
+          attributes: {
             fileCount: 2,
-          }),
-        }),
+            fileAttributes: expect.arrayContaining([
+              {
+                fileMimetype: '',
+                fileSize: 0,
+                fileSource: 'pastedFile',
+              },
+              {
+                fileMimetype: '',
+                fileSize: 0,
+                fileSource: 'pastedFile',
+              },
+            ]),
+          },
+        },
       }),
       FabricChannel.media,
     );

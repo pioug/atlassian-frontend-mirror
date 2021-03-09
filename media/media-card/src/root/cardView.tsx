@@ -18,7 +18,7 @@ import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
 import { getCSSUnitValue } from '../utils/getCSSUnitValue';
 import { getElementDimension } from '../utils/getElementDimension';
 import { Wrapper } from './styled';
-import { createAndFireMediaEvent } from '../utils/analytics';
+import { createAndFireMediaCardEvent } from '../utils/analytics';
 import { attachDetailsToActions } from '../actions';
 import { getErrorMessage } from '../utils/getErrorMessage';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
@@ -598,9 +598,10 @@ export class CardViewBase extends React.Component<
 }
 
 export const CardView = withAnalyticsEvents({
-  onClick: createAndFireMediaEvent({
+  onClick: createAndFireMediaCardEvent({
     eventType: 'ui',
     action: 'clicked',
     actionSubject: 'mediaCard',
+    attributes: {},
   }),
 })(CardViewBase);

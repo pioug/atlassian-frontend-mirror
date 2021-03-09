@@ -1,21 +1,35 @@
+import { Schema } from 'prosemirror-model';
 import {
   doc,
   ul,
   li,
   p,
   code_block,
+  RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { deleteKeyCommand } from '../../../../../plugins/lists/commands';
 import { listDelete } from '../../../../../plugins/lists/commands/listDelete';
+import { EditorProps } from '../../../../../types';
 
 describe('deleteKeyCommand', () => {
   const createEditor = createEditorFactory();
+  const createEditorWithLegacyLists = ({
+    doc,
+    editorProps,
+  }: {
+    doc: (schema: Schema) => RefsNode;
+    editorProps?: EditorProps;
+  }) =>
+    createEditor({
+      editorProps: { UNSAFE_predictableLists: false, ...editorProps },
+      doc,
+    });
 
   describe("when case isn't a list delete case", () => {
     it('should ignore when there is no next node', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -23,7 +37,7 @@ describe('deleteKeyCommand', () => {
 
     it('should ignore when previous node is not in a list', () => {
       const unchangedDoc = doc(p('a{<>}'), ul(li(p('b'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -31,7 +45,7 @@ describe('deleteKeyCommand', () => {
 
     it('should ignore when next node is not in a paragraph', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}')), li(code_block()('b'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -39,7 +53,7 @@ describe('deleteKeyCommand', () => {
 
     it('should ignore when selection is not the last child of its parent', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}'), p('b')), li(p('c'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -47,7 +61,7 @@ describe('deleteKeyCommand', () => {
 
     it('should ignore when selection is not empty and at the end', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}b')), li(p('c'))));
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -59,7 +73,7 @@ describe('deleteKeyCommand', () => {
         code_block()('c'),
         code_block()('d'),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -69,7 +83,7 @@ describe('deleteKeyCommand', () => {
       const unchangedDoc = doc(
         ul(li(p('a'), p('b{<>}')), li(code_block()('c'), code_block()('d'))),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -90,7 +104,7 @@ describe('deleteKeyCommand', () => {
           ),
         ),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -103,7 +117,7 @@ describe('deleteKeyCommand', () => {
           li(code_block()('d'), code_block()('e')),
         ),
       );
-      const { editorView } = createEditor({ doc: unchangedDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: unchangedDoc });
       const commandReturn = listDelete(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(unchangedDoc);
       expect(commandReturn).toBeFalsy();
@@ -116,7 +130,7 @@ describe('deleteKeyCommand', () => {
       const initialDoc = doc(ul(li(p('{<>}'))), p(''));
       const expectedDoc = doc(ul(li(p('{<>}'))));
 
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
 
       deleteKeyCommand(editorView.state, editorView.dispatch);
 
@@ -131,7 +145,7 @@ describe('deleteKeyCommand', () => {
       );
       const expectedDoc = doc(ul(li(code_block()('a'), p('b{<>}c'))), p('d'));
 
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
 
       deleteKeyCommand(editorView.state, editorView.dispatch);
 
@@ -143,7 +157,7 @@ describe('deleteKeyCommand', () => {
     it('should lift the next listitem into the previous when they both have empty paragraphs', () => {
       const initialDoc = doc(ul(li(p('{<>}')), li(p(''))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -162,7 +176,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('g'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -172,7 +186,7 @@ describe('deleteKeyCommand', () => {
     it('should lift the indented listItem into the previous when they both have empty paragraphs', () => {
       const initialDoc = doc(ul(li(p('{<>}'), ul(li(p(''))))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -189,7 +203,7 @@ describe('deleteKeyCommand', () => {
         ul(li(code_block()('a'), p('b{<>}c'), code_block()('d'))),
         p('e'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -217,7 +231,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('g'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -245,7 +259,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('g'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -277,7 +291,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('i'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -287,7 +301,7 @@ describe('deleteKeyCommand', () => {
     it('should lift the unindented listItem into the previous when both contain blank paragraphs', () => {
       const initialDoc = doc(ul(li(p(''), ul(li(p('{<>}')))), li(p(''))));
       const expectedDoc = doc(ul(li(p(''), ul(li(p(''))))));
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -307,7 +321,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('f'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -334,7 +348,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('h'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
@@ -374,7 +388,7 @@ describe('deleteKeyCommand', () => {
         ),
         p('j'),
       );
-      const { editorView } = createEditor({ doc: initialDoc });
+      const { editorView } = createEditorWithLegacyLists({ doc: initialDoc });
       deleteKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });

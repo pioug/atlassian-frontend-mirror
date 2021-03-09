@@ -14,8 +14,7 @@ export {
   FabricEditorAnalyticsContext,
 } from './FabricEditorAnalyticsContext';
 
-export { MEDIA_CONTEXT, MediaAnalyticsContext } from './MediaAnalyticsContext';
-export type { MediaAnalyticsData } from './MediaAnalyticsContext';
+export { MEDIA_CONTEXT } from './MediaAnalyticsContext';
 
 export {
   PEOPLE_TEAMS_CONTEXT,

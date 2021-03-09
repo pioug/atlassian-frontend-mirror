@@ -1,5 +1,12 @@
 # @atlaskit/container-picker
 
+## 1.1.7
+
+### Patch Changes
+
+- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

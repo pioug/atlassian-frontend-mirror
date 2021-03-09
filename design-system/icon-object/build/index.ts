@@ -15,7 +15,9 @@ const config16 = {
   maxHeight: 16,
   glob: '**/16.svg',
   size: 'small',
+  baseIconEntryPoint: '@atlaskit/icon/base',
 };
+
 const config24 = {
   srcDir: path.resolve(root!, 'svgs_raw'),
   processedDir: path.resolve(root!, 'svgs'),
@@ -24,6 +26,7 @@ const config24 = {
   maxHeight: 24,
   glob: '**/24.svg',
   size: 'medium',
+  baseIconEntryPoint: '@atlaskit/icon/base',
 };
 
 tidy(config16)

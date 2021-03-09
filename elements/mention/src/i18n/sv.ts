@@ -8,13 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     'Stäng',
-  'fabric.elements.mentions.team.member.50plus': '50+ medlemmar',
+  'fabric.elements.mentions.team.member.50plus': 'Team • 50+ medlemmar',
   'fabric.elements.mentions.team.member.50plus.including.you':
-    '50+ medlemmar, inklusive du',
+    'Team • 50+ medlemmar, inklusive dig',
   'fabric.elements.mentions.team.member.count':
-    '{0, plural, one {{0} medlem} other {{0} medlemmar}}',
+    '{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmar}}',
   'fabric.elements.mentions.team.member.count.including.you':
-    '{0, plural, one {{0} medlem, inklusive dig} other {{0} medlemmar, inklusive dig}}',
+    '{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmar, inklusive dig}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     'Få alla till sidan med ett klick. Har ni inget team?',
   'fabric.elements.mentions.team.mention.highlight.description.link':

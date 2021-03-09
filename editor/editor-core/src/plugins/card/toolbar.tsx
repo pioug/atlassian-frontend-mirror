@@ -269,7 +269,7 @@ export const floatingToolbar = (
       ...toolbarOffset,
       getDomRef: view => {
         const element = findDomRefAtPos(
-          state.selection.from,
+          view.state.selection.from,
           view.domAtPos.bind(view),
         ) as HTMLElement;
         if (!element) {

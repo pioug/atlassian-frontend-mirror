@@ -1,7 +1,6 @@
 import { getColumnWidth } from '../../internal/GridColumnElement';
-import { name } from '../../version.json';
 
-describe(name, () => {
+describe('@atlaskit/page', () => {
   it('gridColumns should have an auto flex-basis', () => {
     const props = {};
     const result = getColumnWidth(props);

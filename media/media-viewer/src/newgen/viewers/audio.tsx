@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/media-client';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
 import { Outcome } from '../domain';
+import { MediaViewerError } from '../errors';
 import {
   AudioPlayer,
   AudioCover,
@@ -15,7 +16,6 @@ import {
   blanketColor,
   CustomAudioPlayerWrapper,
 } from '../styled';
-import { createError, MediaViewerError } from '../error';
 import { BaseState, BaseViewer } from './base-viewer';
 import { isIE } from '../utils/isIE';
 import {
@@ -30,8 +30,8 @@ export type Props = Readonly<
     mediaClient: MediaClient;
     collectionName?: string;
     previewCount: number;
-    onCanPlay?: () => void;
-    onError?: () => void;
+    onCanPlay: () => void;
+    onError: (error: Error) => void;
   } & WithShowControlMethodProp
 >;
 
@@ -57,7 +57,7 @@ const getCoverUrl = (
 export class AudioViewer extends BaseViewer<string, Props, State> {
   protected get initialState() {
     return {
-      content: Outcome.pending<string, MediaViewerError>(),
+      content: Outcome.pending<string, Error>(),
     };
   }
 
@@ -88,8 +88,13 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
     });
   };
 
+  private onError = () => {
+    const { onError } = this.props;
+    onError && onError(new MediaViewerError('audioviewer-playback'));
+  };
+
   protected renderSuccessful(src: string) {
-    const { showControls, previewCount, onCanPlay, onError } = this.props;
+    const { showControls, previewCount, onCanPlay } = this.props;
 
     const useCustomAudioPlayer = !isIE();
     const isAutoPlay = previewCount === 0;
@@ -105,7 +110,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
             showControls={showControls}
             onCanPlay={onCanPlay}
             onFirstPlay={this.onFirstPlay}
-            onError={onError}
+            onError={this.onError}
           />
         </CustomAudioPlayerWrapper>
       </AudioPlayer>
@@ -163,7 +168,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
         );
 
         if (!audioUrl) {
-          throw new Error('No audio artifacts found');
+          throw new MediaViewerError('audioviewer-missing-artefact');
         }
       } else {
         audioUrl = await getObjectUrlFromFileState(item);
@@ -178,9 +183,11 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
       this.setState({
         content: Outcome.successful(audioUrl),
       });
-    } catch (err) {
+    } catch (error) {
       this.setState({
-        content: Outcome.failed(createError('previewFailed', err, item)),
+        content: Outcome.failed(
+          new MediaViewerError('audioviewer-fetch-url', error),
+        ),
       });
     }
   }

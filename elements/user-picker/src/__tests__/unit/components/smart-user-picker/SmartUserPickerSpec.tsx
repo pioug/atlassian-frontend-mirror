@@ -564,6 +564,19 @@ describe('SmartUserPicker', () => {
     expect(component.find(UserPicker).prop('options')).toEqual([user3]);
   });
 
+  it('should pass default principalId if principalId not provided as props', async () => {
+    const component = smartUserPickerWrapper({ principalId: undefined });
+    component.find(UserPicker).props().onFocus('new-session');
+    expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+    expect(getUserRecommendationsMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        context: expect.objectContaining({
+          principalId: 'Context',
+        }),
+      }),
+    );
+  });
+
   describe('analytics', () => {
     const onEvent = jest.fn();
     let component: ReactWrapper;

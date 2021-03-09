@@ -1,4 +1,4 @@
-import { EditorState, Selection } from 'prosemirror-state';
+import { EditorState, Selection, TextSelection } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import * as themeColors from '@atlaskit/theme/colors';
@@ -112,6 +112,7 @@ export const replaceDocument = (
   state: EditorState,
   version?: number,
   options?: CollabEditOptions,
+  reserveCursor?: boolean,
 ) => {
   const { schema, tr } = state;
 
@@ -123,7 +124,19 @@ export const replaceDocument = (
   if (hasContent) {
     tr.setMeta('addToHistory', false);
     tr.replaceWith(0, state.doc.nodeSize - 2, content!);
-    tr.setSelection(Selection.atStart(tr.doc));
+    const selection = state.selection;
+    if (reserveCursor) {
+      // If the cursor is still in the range of the new document,
+      // keep where it was.
+      if (selection.to < tr.doc.content.size - 2) {
+        const $from = tr.doc.resolve(selection.from);
+        const $to = tr.doc.resolve(selection.to);
+        const newselection = new TextSelection($from, $to);
+        tr.setSelection(newselection);
+      }
+    } else {
+      tr.setSelection(Selection.atStart(tr.doc));
+    }
     tr.setMeta('replaceDocument', true);
 
     if (typeof version !== undefined && options && options.useNativePlugin) {

@@ -9,7 +9,8 @@ import {
   blanketColor,
 } from '../../styled';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
-import ErrorMessage, { MediaViewerError, createError } from '../../error';
+import ErrorMessage from '../../errorMessage';
+import { ArchiveViewerError } from '../../errors';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
@@ -24,38 +25,26 @@ import {
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
 import { getMediaTypeFromFilename, rejectAfter } from '../../../newgen/utils';
 import { Spinner } from '../../loading';
-import {
-  ENCRYPTED_ENTRY_ERROR_MESSAGE,
-  NO_NAME_OR_SRC_ERROR_MESSAGE,
-} from './consts';
+import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from './consts';
+import { ArchiveViewerProps } from './types';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import {
-  GasPayload,
-  GasScreenEventPayload,
-} from '@atlaskit/analytics-gas-types';
-import { channel } from '../../analytics/index';
-import { zipEntryLoadSucceededEvent } from '../../analytics/archive-viewer';
+import { fireAnalytics } from '../../analytics';
+import { ArchiveViewerErrorReason } from '../../errors';
+import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
+import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
 
-export type Props = {
-  mediaClient: MediaClient;
-  item: FileState;
-  collectionName?: string;
-  onZipFileLoadError: (error: Error) => void;
-  onSuccess: () => void;
-} & WithAnalyticsEventsProps;
+export type Props = ArchiveViewerProps & WithAnalyticsEventsProps;
 
 export type Content = {
   src?: string;
   name?: string;
   isDirectory?: boolean;
   selectedArchiveEntry?: ZipEntry;
-  isArchiveEntryLoading?: boolean;
-  isErrored?: boolean;
+  hasLoadedEntries?: boolean;
   error?: Error;
-  item?: FileState;
 };
 
 export const getArchiveEntriesFromFileState = async (
@@ -75,27 +64,15 @@ export const getArchiveEntriesFromFileState = async (
 
 export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   protected async init() {
-    const content = Outcome.successful<Content, MediaViewerError>({
-      src: '',
-      name: '',
-      isDirectory: true,
-      isErrored: false,
-      item: this.props.item,
-    });
-
-    this.setState({
-      content,
-    });
+    this.setState(this.initialState);
   }
 
   protected get initialState() {
     return {
-      content: Outcome.successful<Content, MediaViewerError>({
+      content: Outcome.successful<Content, Error>({
         src: '',
         name: '',
         isDirectory: true,
-        isErrored: false,
-        item: this.props.item,
       }),
     };
   }
@@ -109,95 +86,54 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     URL.revokeObjectURL(content.data.src);
   }
 
-  protected renderSuccessful(content: Content) {
-    return (
-      <ArchiveLayout>
-        {this.renderArchiveSideBar()}
-        <ArchiveViewerWrapper>
-          {this.renderArchiveItemViewer(content)}
-        </ArchiveViewerWrapper>
-      </ArchiveLayout>
-    );
-  }
-
   private onError = (error: Error, entry?: ZipEntry) => {
-    !entry && this.props.onZipFileLoadError(error);
+    this.props.onError(error);
 
     this.setState({
-      content: Outcome.successful<Content, MediaViewerError>({
+      content: Outcome.successful<Content, Error>({
         ...this.state.content.data,
-        isArchiveEntryLoading: false,
-        isErrored: true,
         selectedArchiveEntry: entry,
         error,
       }),
     });
   };
 
-  private renderArchiveSideBar() {
-    const { item, mediaClient, collectionName, onSuccess } = this.props;
-    const isArchiveEntryLoading =
-      !this.state.content.data ||
-      this.state.content.data.isArchiveEntryLoading === undefined
-        ? true
-        : this.state.content.data.isArchiveEntryLoading;
-    return (
-      <ArchiveSidebarRenderer
-        selectedFileState={item}
-        mediaClient={mediaClient}
-        onSelectedArchiveEntryChange={this.onSelectedArchiveEntryChange}
-        onHeaderClicked={this.onHeaderClicked}
-        isArchiveEntryLoading={isArchiveEntryLoading}
-        collectionName={collectionName}
-        onError={this.onError}
-        onSuccess={onSuccess}
-      />
-    );
-  }
-
-  private fireAnalytics = (payload: GasPayload | GasScreenEventPayload) => {
-    const { createAnalyticsEvent } = this.props;
-    if (createAnalyticsEvent) {
-      const ev = createAnalyticsEvent(payload);
-      ev.fire(channel);
-    }
-  };
-
   private onSelectedArchiveEntryChange = async (
     selectedArchiveEntry: ZipEntry,
   ) => {
     this.setState({
-      content: Outcome.successful<Content, MediaViewerError>({
+      content: Outcome.successful<Content, Error>({
         ...this.state.content.data,
-        isArchiveEntryLoading: true,
+        selectedArchiveEntry: undefined,
       }),
     });
-    const fileState = this.state.content.data
-      ? this.state.content.data.item
-      : undefined;
     let src = '';
     if (!selectedArchiveEntry.isDirectory) {
       try {
         src = URL.createObjectURL(
           await rejectAfter(() => selectedArchiveEntry.blob()),
         );
-        this.fireAnalytics(
-          zipEntryLoadSucceededEvent(selectedArchiveEntry, fileState),
-        );
       } catch (error) {
-        return this.onError(error, selectedArchiveEntry);
+        return this.onError(
+          new ArchiveViewerError(
+            error.message === ENCRYPTED_ENTRY_ERROR_MESSAGE
+              ? 'archiveviewer-encrypted-entry'
+              : 'archiveviewer-create-url',
+            error,
+          ),
+          selectedArchiveEntry,
+        );
       }
     }
 
     this.setState({
-      content: Outcome.successful<Content, MediaViewerError>({
+      content: Outcome.successful<Content, Error>({
         ...this.state.content.data,
         selectedArchiveEntry,
-        isArchiveEntryLoading: false,
         src,
         name: selectedArchiveEntry.name,
         isDirectory: selectedArchiveEntry.isDirectory,
-        isErrored: false,
+        error: undefined,
       }),
     });
   };
@@ -205,127 +141,183 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   private onHeaderClicked = () => {
     // This will set the preview to show the Folder icon
     this.setState({
-      content: Outcome.successful<Content, MediaViewerError>({
+      content: Outcome.successful<Content, Error>({
         ...this.state.content.data,
-        selectedArchiveEntry: undefined,
       }),
     });
   };
 
+  private onViewerLoad = (selectedArchiveEntry: ZipEntry) => () => {
+    fireAnalytics(
+      createZipEntryLoadSucceededEvent(this.props.item, selectedArchiveEntry),
+      this.props,
+    );
+  };
+
+  private onViewerError = (
+    errorReason: ArchiveViewerErrorReason,
+    selectedArchiveEntry: ZipEntry,
+  ) => (error?: Error) => {
+    this.onError(
+      new ArchiveViewerError(errorReason, error, selectedArchiveEntry),
+    );
+  };
+
+  private onSidebarLoaded = () => {
+    this.setState({
+      content: Outcome.successful<Content, Error>({
+        ...this.state.content.data,
+        hasLoadedEntries: true,
+      }),
+    });
+    this.props.onSuccess();
+  };
+
+  protected renderSuccessful(content: Content) {
+    const { item, mediaClient, collectionName } = this.props;
+    const { selectedArchiveEntry, hasLoadedEntries } = content;
+    const hasSelectedArchiveEntry = selectedArchiveEntry !== undefined;
+
+    return (
+      <ArchiveLayout>
+        <ArchiveSidebarRenderer
+          selectedFileState={item}
+          mediaClient={mediaClient}
+          onSelectedArchiveEntryChange={this.onSelectedArchiveEntryChange}
+          onHeaderClicked={this.onHeaderClicked}
+          isArchiveEntryLoading={!hasSelectedArchiveEntry}
+          collectionName={collectionName}
+          onError={this.onError}
+          onSuccess={this.onSidebarLoaded}
+        />
+        <ArchiveViewerWrapper>
+          {!hasSelectedArchiveEntry && !hasLoadedEntries ? (
+            <ArchiveViewerWrapper>
+              <Spinner />
+            </ArchiveViewerWrapper>
+          ) : (
+            this.renderArchiveItemViewer(content)
+          )}
+        </ArchiveViewerWrapper>
+      </ArchiveLayout>
+    );
+  }
+
   private renderArchiveItemViewer(content: Content) {
-    const {
-      src,
-      name,
-      isDirectory,
-      isErrored,
-      error,
-      isArchiveEntryLoading,
-      selectedArchiveEntry,
-      item,
-    } = content;
-    let archiveItemViewer;
+    const { item } = this.props;
+    const { src, name, isDirectory, error, selectedArchiveEntry } = content;
 
-    if (isArchiveEntryLoading) {
-      return (
-        <ArchiveItemViewerWrapper>
-          <Spinner />
-        </ArchiveItemViewerWrapper>
-      );
+    if (error) {
+      return this.renderPreviewError(error, selectedArchiveEntry);
     }
 
-    if (isErrored) {
-      return (
-        <ArchiveItemViewerWrapper>
-          {this.renderPreviewError(error, selectedArchiveEntry, item)}
-        </ArchiveItemViewerWrapper>
-      );
-    }
-
-    if (!isDirectory) {
+    if (!isDirectory && selectedArchiveEntry) {
       if (!name || !src) {
-        return (
-          <ArchiveItemViewerWrapper>
-            {this.renderPreviewError(
-              new Error(NO_NAME_OR_SRC_ERROR_MESSAGE),
-              selectedArchiveEntry,
-              item,
-            )}
-          </ArchiveItemViewerWrapper>
+        return this.renderPreviewError(
+          new ArchiveViewerError('archiveviewer-missing-name-src'),
+          selectedArchiveEntry,
         );
       }
+
       const mediaType = getMediaTypeFromFilename(name);
       switch (mediaType) {
         case 'image':
-          archiveItemViewer = this.renderImage(src);
-          break;
+          return (
+            <ArchiveItemViewerWrapper>
+              <InteractiveImg
+                src={src}
+                onLoad={this.onViewerLoad(selectedArchiveEntry)}
+                onError={this.onViewerError(
+                  'archiveviewer-imageviewer-onerror',
+                  selectedArchiveEntry,
+                )}
+              />
+            </ArchiveItemViewerWrapper>
+          );
         case 'video':
-          archiveItemViewer = this.renderVideo(src);
-          break;
+          return (
+            <ArchiveItemViewerWrapper>
+              <CustomVideoPlayerWrapper data-testid="media-viewer-video-content">
+                <CustomMediaPlayer
+                  type="video"
+                  isAutoPlay={false}
+                  src={src}
+                  onCanPlay={this.onViewerLoad(selectedArchiveEntry)}
+                  onError={this.onViewerError(
+                    'archiveviewer-videoviewer-onerror',
+                    selectedArchiveEntry,
+                  )}
+                />
+              </CustomVideoPlayerWrapper>
+            </ArchiveItemViewerWrapper>
+          );
         case 'audio':
-          archiveItemViewer = this.renderAudio(src);
-          break;
+          return (
+            <ArchiveItemViewerWrapper>
+              <AudioPlayer data-testid="media-viewer-audio-content">
+                <DefaultCoverWrapper>
+                  <AudioIcon
+                    label="cover"
+                    size="xlarge"
+                    primaryColor={blanketColor}
+                  />
+                </DefaultCoverWrapper>
+                <CustomAudioPlayerWrapper>
+                  <CustomMediaPlayer
+                    type="audio"
+                    isAutoPlay={false}
+                    src={src}
+                    onCanPlay={this.onViewerLoad(selectedArchiveEntry)}
+                    onError={this.onViewerError(
+                      'archiveviewer-audioviewer-onerror',
+                      selectedArchiveEntry,
+                    )}
+                  />
+                </CustomAudioPlayerWrapper>
+              </AudioPlayer>
+            </ArchiveItemViewerWrapper>
+          );
         case 'doc':
-          archiveItemViewer = this.renderDocument(src);
-          break;
+          return (
+            <ArchiveItemViewerWrapper>
+              <PDFRenderer
+                item={item}
+                src={src}
+                onSuccess={this.onViewerLoad(selectedArchiveEntry)}
+                onError={this.onViewerError(
+                  'archiveviewer-docviewer-onerror',
+                  selectedArchiveEntry,
+                )}
+              />
+            </ArchiveItemViewerWrapper>
+          );
         case 'archive':
-          archiveItemViewer = ''; //BMPT-388 - Add illustration here, currently empty viewer
-          break;
+          //BMPT-388 - Add illustration here, currently empty viewer
+          return <ArchiveItemViewerWrapper></ArchiveItemViewerWrapper>;
         default:
-          archiveItemViewer = this.renderPreviewError();
+          return this.renderPreviewError(
+            new ArchiveViewerError('archiveviewer-unsupported'),
+            selectedArchiveEntry,
+          );
       }
     }
-    return (
-      <ArchiveItemViewerWrapper>{archiveItemViewer}</ArchiveItemViewerWrapper>
+  }
+
+  private renderPreviewError(error: Error, entry?: ZipEntry) {
+    const { item } = this.props;
+
+    fireAnalytics(
+      createZipEntryLoadFailedEvent(this.props.item, error, entry),
+      this.props,
     );
-  }
 
-  private renderImage(src: string) {
-    return <InteractiveImg src={src} />;
-  }
-
-  private renderVideo(src: string) {
     return (
-      <CustomVideoPlayerWrapper data-testid="media-viewer-video-content">
-        <CustomMediaPlayer type="video" isAutoPlay={false} src={src} />
-      </CustomVideoPlayerWrapper>
-    );
-  }
-
-  private renderAudio(src: string) {
-    return (
-      <AudioPlayer data-testid="media-viewer-audio-content">
-        {this.renderAudioCover()}
-        <CustomAudioPlayerWrapper>
-          <CustomMediaPlayer type="audio" isAutoPlay={false} src={src} />
-        </CustomAudioPlayerWrapper>
-      </AudioPlayer>
-    );
-  }
-
-  private renderAudioCover() {
-    return (
-      <DefaultCoverWrapper>
-        <AudioIcon label="cover" size="xlarge" primaryColor={blanketColor} />
-      </DefaultCoverWrapper>
-    );
-  }
-
-  private renderDocument(src: string) {
-    return <PDFRenderer src={src} />;
-  }
-
-  private renderPreviewError(
-    thrownError?: Error,
-    entry?: ZipEntry,
-    item?: FileState,
-  ) {
-    const errorName =
-      thrownError && thrownError.message === ENCRYPTED_ENTRY_ERROR_MESSAGE
-        ? 'encryptedEntryPreviewFailed'
-        : 'previewFailed';
-    const error = createError(errorName, thrownError, item, entry);
-    return (
-      <ErrorMessage error={error}>
+      <ErrorMessage
+        fileId={item.id}
+        fileState={item}
+        error={error}
+        supressAnalytics={true}
+      >
         <p>
           <FormattedMessage {...messages.try_downloading_file} />
         </p>

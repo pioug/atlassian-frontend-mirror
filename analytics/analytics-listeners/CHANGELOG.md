@@ -1,5 +1,16 @@
 # @atlaskit/analytics-listeners
 
+## 8.0.0
+
+### Major Changes
+
+- [`d59eaef1c0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d59eaef1c0d) - Changes in MediaAnalyticsListener's processEvent(): not using namespace context anymore, AnalyticsContext will be solely used for retrieving packageName&version and computing packageHierarchy
+
+### Patch Changes
+
+- [`4f1d3a6b22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f1d3a6b22a) - Refactored Media Analytics Namespaced Context (now delivered by our HOC in media-common)
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

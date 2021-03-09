@@ -10,11 +10,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { CardViewBase, CardViewOwnProps } from '../../root/cardView';
 import { CardStatus } from '../../';
-import {
-  FileDetails,
-  RequestError,
-  PollingError,
-} from '@atlaskit/media-client';
+import { FileDetails } from '@atlaskit/media-client';
 import { PlayButton } from '../../root/ui/playButton/playButton';
 import { Blanket } from '../../root/ui/blanket/styled';
 import { TitleBox } from '../../root/ui/titleBox/titleBox';
@@ -40,6 +36,11 @@ import {
   RateLimited,
 } from '../../root/ui/iconMessage';
 import { LoadingRateLimited } from '../../root/ui/loadingRateLimited/loadingRateLimited';
+import {
+  createPollingMaxFailuresError,
+  createPollingMaxAttemptsError,
+  createRateLimitedError,
+} from '@atlaskit/media-test-helpers';
 
 const containerWidth = 150;
 (getElementDimension as jest.Mock).mockReturnValue(containerWidth);
@@ -315,12 +316,9 @@ describe('CardView New Experience', () => {
       expect(failedTitleBoxB.props().onRetry).toBe(onRetry);
     });
 
-    it.each([
-      new PollingError('maxAttemptsExceeded', 1),
-      new PollingError('maxFailuresExceeded', 1),
-    ])(
+    it.each([createPollingMaxAttemptsError(), createPollingMaxFailuresError()])(
       `should not render FailedTitleBox when there is the polling error "%s"`,
-      (error: PollingError) => {
+      (error: Error) => {
         const onRetry = () => {};
         const metadata: FileDetails = {
           id: 'some-id',
@@ -381,9 +379,7 @@ describe('CardView New Experience', () => {
         mediaType: 'image',
       };
 
-      const error = new RequestError('serverError', {
-        statusCode: 429,
-      });
+      const error = createRateLimitedError();
 
       const component = shallowCardViewBase({
         error,
@@ -397,9 +393,7 @@ describe('CardView New Experience', () => {
     });
 
     it(`should render LoadingRateLimited (UI for borked state) when a card is rate limited (429 error) with no metadata`, () => {
-      const error = new RequestError('serverError', {
-        statusCode: 429,
-      });
+      const error = createRateLimitedError();
 
       const component = shallowCardViewBase({
         error,
@@ -425,12 +419,9 @@ describe('CardView New Experience', () => {
       expect(previewUnavailable).toHaveLength(1);
     });
 
-    it.each([
-      new PollingError('maxAttemptsExceeded', 1),
-      new PollingError('maxFailuresExceeded', 1),
-    ])(
+    it.each([createPollingMaxAttemptsError(), createPollingMaxFailuresError()])(
       `should render PreviewCurrentlyUnavailable when there is the polling error "%s"`,
-      (error: PollingError) => {
+      (error: Error) => {
         const metadata: FileDetails = {
           id: 'some-id',
           name: 'some-name',

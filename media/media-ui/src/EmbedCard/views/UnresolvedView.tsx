@@ -77,7 +77,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
           appearance={button.appearance}
           onClick={onClick}
         >
-          <FormattedMessage {...messages[button.text]} />
+          <FormattedMessage {...messages[button.text]} values={{ context }} />
         </Button>
       )}
     </div>

@@ -482,6 +482,7 @@ export class KitchenSink extends React.Component<
                 dataProviders={this.dataProviders}
                 isFullPage={this.state.appearance.startsWith('full')}
                 locale={this.props.locale}
+                featureFlags={parseSafely(this.state.featureFlagInput)}
               />
             </Column>
             {this.state.showADF ? (

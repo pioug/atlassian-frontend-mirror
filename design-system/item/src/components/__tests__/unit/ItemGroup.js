@@ -3,14 +3,13 @@ import { shallow, mount } from 'enzyme';
 
 import Item, { ItemGroup } from '../../..';
 
-import { name } from '../../../version.json';
 import {
   GroupTitle,
   GroupTitleText,
   GroupTitleAfter,
 } from '../../../styled/ItemGroup';
 
-describe(`${name} - ItemGroup`, () => {
+describe('@atlaskit/item - ItemGroup', () => {
   describe('props', () => {
     describe('children', () => {
       it('should render provided children', () => {

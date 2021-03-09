@@ -125,7 +125,7 @@ const AdfPanel: React.FC<AdfPanelProps> = function AdfPanel(props) {
   });
 
   return (
-    <ContextPanel visible={props.open} width={500}>
+    <ContextPanel visible={props.open}>
       <div
         id="adf-input"
         contentEditable

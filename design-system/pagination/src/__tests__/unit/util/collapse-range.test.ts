@@ -1,9 +1,8 @@
 import { ReactChild } from 'react';
 
 import collapseRange from '../../../util/collapseRange';
-import { name } from '../../../version.json';
 
-describe(`${name} - collapse range`, () => {
+describe('@atlaskit/pagination - collapse range', () => {
   const renderEllipsis = jest.fn(({ key }) => key);
   it('should not throw', () => {
     expect(() => {

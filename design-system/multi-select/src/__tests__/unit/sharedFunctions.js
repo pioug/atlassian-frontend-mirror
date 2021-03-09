@@ -1,11 +1,10 @@
-import { name } from '../../version.json';
 import {
   getNextFocusable,
   getPrevFocusable,
   filterItems,
 } from '../../internal/sharedFunctions';
 
-describe(`${name} - shared functions`, () => {
+describe('@atlaskit/multi-select - shared functions', () => {
   describe('filterItems', () => {
     it('should return items intact if nothing is selected and filter is empty', () => {
       const items = [

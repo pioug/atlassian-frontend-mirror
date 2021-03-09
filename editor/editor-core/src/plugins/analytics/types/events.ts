@@ -14,7 +14,12 @@ import { FindReplaceEventPayload } from './find-replace-events';
 import { ConfigPanelEventPayload } from './config-panel-events';
 import { ElementBrowserEventPayload } from './element-browser-events';
 import { OperationalAEP } from './utils';
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  CONTENT_COMPONENT,
+} from './enums';
 import { SimplifiedNode } from '../../../utils/document-logger';
 import { DateEventPayload } from './date-events';
 import { SelectionEventPayload } from './selection-events';
@@ -54,6 +59,9 @@ export type AnalyticsDispatch = Dispatch<{
   payload: AnalyticsEventPayload;
   channel?: string;
 }>;
+
+// Error events need to be in this file as they reference AnalyticsEventPayloadWithChannel
+// and so there would be a circular dependency if they were in their own file
 
 type InvalidTransactionErrorAEP = OperationalAEP<
   ACTION.DISPATCHED_INVALID_TRANSACTION,
@@ -121,9 +129,25 @@ type SynchronyEntityErrorAEP = OperationalAEP<
   undefined
 >;
 
+type ContentComponentErrorAEP = OperationalAEP<
+  ACTION.ERRORED,
+  ACTION_SUBJECT.CONTENT_COMPONENT,
+  undefined,
+  {
+    component: CONTENT_COMPONENT;
+    error: string;
+    errorStack?: string;
+    selection: { [key: string]: string };
+    position: number;
+    docSize: number;
+  },
+  undefined
+>;
+
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
   | InvalidTransactionStepErrorAEP
   | FailedToUnmountErrorAEP
   | SynchronyErrorAEP
-  | SynchronyEntityErrorAEP;
+  | SynchronyEntityErrorAEP
+  | ContentComponentErrorAEP;

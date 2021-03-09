@@ -1,7 +1,10 @@
 import { Component } from 'react';
 import { start, end } from 'perf-marks';
-import { MediaClient } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import { MediaClient, getMediaClientErrorReason } from '@atlaskit/media-client';
+import {
+  ANALYTICS_MEDIA_CHANNEL,
+  MediaFeatureFlags,
+} from '@atlaskit/media-common';
 import { UploadService } from '../service/types';
 import {
   UploadEndEventPayload,
@@ -10,20 +13,13 @@ import {
   UploadsStartEventPayload,
   UploadEventPayloadMap,
   UploadParams,
-  MediaFile,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
 import { LocalUploadConfig } from './types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-  TRACK_EVENT_TYPE,
-  OPERATIONAL_EVENT_TYPE,
-  GasPurePayload,
-  GasCorePayload,
-} from '@atlaskit/analytics-gas-types';
-import { name as packageName } from '../version.json';
-import { ANALYTICS_MEDIA_CHANNEL } from './media-picker-analytics-error-boundary';
+import { AnalyticsEventPayload } from '../types';
+import { ComponentName } from '../util/analytics';
 
 export type LocalUploadComponentBaseProps = {
   mediaClient: MediaClient;
@@ -35,59 +31,6 @@ export type LocalUploadComponentBaseProps = {
   featureFlags?: MediaFeatureFlags;
 } & WithAnalyticsEventsProps;
 
-interface BasePayload {
-  attributes: {
-    packageName: string;
-    sourceType: 'local' | 'cloud';
-    fileAttributes?: {
-      fileSize: number;
-      fileMimetype: string;
-    };
-  };
-}
-
-export type FailurePayload = {
-  status: 'fail';
-  uploadDurationMsec: number;
-  failReason: any;
-};
-
-export type SuccessPayload = {
-  status: 'success';
-  uploadDurationMsec: number;
-};
-
-type AdditionalPayloadAttributes = {} | FailurePayload | SuccessPayload;
-
-type AnalyticsPayload = GasCorePayload &
-  BasePayload &
-  AdditionalPayloadAttributes & {
-    action: 'commenced' | 'uploaded';
-  };
-
-type SizeAndType = Pick<MediaFile, 'size' | 'type'>;
-
-const basePayload = (
-  sizeAndType: SizeAndType | undefined,
-  additionalAttributes: AdditionalPayloadAttributes = {},
-): GasPurePayload & BasePayload & AdditionalPayloadAttributes => ({
-  actionSubject: 'mediaUpload',
-  actionSubjectId: 'localMedia',
-  attributes: {
-    packageName,
-    sourceType: 'local',
-    ...(sizeAndType
-      ? {
-          fileAttributes: {
-            fileSize: sizeAndType.size,
-            fileMimetype: sizeAndType.type,
-          },
-        }
-      : {}),
-    ...additionalAttributes,
-  },
-});
-
 export class LocalUploadComponentReact<
   Props extends LocalUploadComponentBaseProps,
   M extends UploadEventPayloadMap = UploadEventPayloadMap
@@ -95,7 +38,7 @@ export class LocalUploadComponentReact<
   protected readonly uploadService: UploadService;
   protected uploadComponent = new UploadComponent();
 
-  constructor(props: Props) {
+  constructor(props: Props, protected readonly componentName: ComponentName) {
     super(props);
 
     const {
@@ -137,45 +80,89 @@ export class LocalUploadComponentReact<
   }
 
   private fireCommencedEvent = (payload: UploadsStartEventPayload) => {
-    payload.files.forEach(({ id, size, type }) => {
-      start(`MediaPicker.fireUpload.${id}`);
-      this.createAndFireAnalyticsEvent({
-        ...basePayload({ size, type }),
-        action: 'commenced',
-        eventType: OPERATIONAL_EVENT_TYPE,
-      });
-    });
+    payload.files.forEach(
+      ({ id: fileId, size: fileSize, type: fileMimetype }) => {
+        start(`MediaPicker.fireUpload.${fileId}`);
+
+        this.createAndFireAnalyticsEvent({
+          eventType: 'operational',
+          action: 'commenced',
+          actionSubject: 'mediaUpload',
+          actionSubjectId: 'localMedia',
+          attributes: {
+            sourceType: 'local',
+            serviceName: 'upload',
+            fileAttributes: {
+              fileId,
+              fileSize,
+              fileMimetype,
+            },
+          },
+        });
+      },
+    );
   };
 
   private fireUploadSucceeded = (payload: UploadEndEventPayload) => {
-    const { size, type, id } = payload.file;
+    const {
+      file: { id: fileId, size: fileSize, type: fileMimetype },
+    } = payload;
 
-    const { duration = -1 } = end(`MediaPicker.fireUpload.${id}`);
+    const { duration: uploadDurationMsec = -1 } = end(
+      `MediaPicker.fireUpload.${fileId}`,
+    );
+
     this.createAndFireAnalyticsEvent({
-      ...basePayload({ size, type }, {
+      eventType: 'operational',
+      action: 'succeeded',
+      actionSubject: 'mediaUpload',
+      actionSubjectId: 'localMedia',
+      attributes: {
+        sourceType: 'local',
+        serviceName: 'upload',
         status: 'success',
-        uploadDurationMsec: duration,
-      } as SuccessPayload),
-      action: 'uploaded',
-      eventType: TRACK_EVENT_TYPE,
+        fileAttributes: {
+          fileId,
+          fileSize,
+          fileMimetype,
+        },
+        uploadDurationMsec,
+      },
     });
   };
 
   private fireUploadFailed = async (payload: UploadErrorEventPayload) => {
-    const { duration = -1 } = end(`MediaPicker.fireUpload.${payload.fileId}`);
+    const {
+      fileId,
+      error: { name: errorName, rawError },
+    } = payload;
+
+    const { duration: uploadDurationMsec = -1 } = end(
+      `MediaPicker.fireUpload.${fileId}`,
+    );
+
     this.createAndFireAnalyticsEvent({
-      ...basePayload(undefined, {
+      eventType: 'operational',
+      action: 'failed',
+      actionSubject: 'mediaUpload',
+      actionSubjectId: 'localMedia',
+      attributes: {
+        sourceType: 'local',
+        serviceName: 'upload',
         status: 'fail',
-        failReason: payload.error.description,
-        uploadDurationMsec: duration,
-      } as FailurePayload),
-      action: 'uploaded',
-      eventType: TRACK_EVENT_TYPE,
+        failReason: errorName,
+        error: !!rawError ? getMediaClientErrorReason(rawError) : 'unknown',
+        fileAttributes: {
+          fileId,
+        },
+        uploadDurationMsec,
+      },
     });
   };
 
-  private createAndFireAnalyticsEvent = (payload: AnalyticsPayload) => {
+  private createAndFireAnalyticsEvent = (payload: AnalyticsEventPayload) => {
     const { createAnalyticsEvent } = this.props;
+
     if (createAnalyticsEvent) {
       createAnalyticsEvent(payload).fire(ANALYTICS_MEDIA_CHANNEL);
     }

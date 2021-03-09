@@ -8,7 +8,6 @@ import {
   TabContentComponentProvided,
   TabItemComponentProvided,
 } from '../../../types';
-import { name } from '../../../version.json';
 import { TabsWithoutAnalytics as Tabs } from '../../Tabs';
 
 declare var global: any;
@@ -23,7 +22,7 @@ const clickTab = (tabsComponent: ReactWrapper, tabIndex: number) => {
   tabsComponent.find(TabItem).at(tabIndex).simulate('click');
 };
 
-describe(name, () => {
+describe('@atlaskit/tabs', () => {
   describe('Tabs', () => {
     describe('rendering', () => {
       const wrapper = mount(<Tabs tabs={tabs} />);

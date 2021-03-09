@@ -12,7 +12,7 @@ var _base = _interopRequireDefault(require("@atlaskit/icon/base"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const EditorDividerIcon = props => /*#__PURE__*/_react.default.createElement(_base.default, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><rect x="5" y="11" width="14" height="2" rx="1" fill="currentColor" fill-rule="evenodd"/></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><rect x="5" y="11" width="14" height="2" rx="1" fill="currentColor" fill-rule="evenodd"/></svg>`
 }, props));
 
 EditorDividerIcon.displayName = 'EditorDividerIcon';

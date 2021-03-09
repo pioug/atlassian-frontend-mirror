@@ -20,7 +20,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CodeBlockState } from '../../pm-plugins/main';
+import { CodeBlockState } from '../../pm-plugins/main-state';
 import { pluginKey as codeBlockPluginKey } from '../../plugin-key';
 import {
   removeCodeBlock,

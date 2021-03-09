@@ -9,8 +9,8 @@ import {
   skeleton as skeletonColorFn,
 } from '@atlaskit/theme/colors';
 import {
-  borderRadius,
-  fontSize,
+  borderRadius as borderRadiusFn,
+  fontSize as fontSizeFn,
   gridSize as gridSizeFn,
   skeletonShimmer,
 } from '@atlaskit/theme/constants';
@@ -19,6 +19,8 @@ import { headingSizes } from '@atlaskit/theme/typography';
 import { Width } from '../types';
 
 const gridSize = gridSizeFn();
+const borderRadius = borderRadiusFn();
+const fontSize = fontSizeFn();
 
 const itemElemSpacing = gridSize * 1.5;
 const itemExpectedElemSize = gridSize * 3;
@@ -59,6 +61,9 @@ const disabledStyles = {
     backgroundColor: 'transparent',
     color: N200,
   },
+  '&:focus': {
+    boxShadow: 'none',
+  },
 };
 
 const selectedStyles = {
@@ -75,7 +80,7 @@ const baseItemCSS = (
 ): CSSObject => ({
   padding: `${itemTopBottomPadding}px ${itemSidePadding}px`,
   cursor: 'pointer',
-  fontSize: fontSize(),
+  fontSize: fontSize,
   // IE11 fix - wrapping container needs to be flex as well for vertical centering to work.
   display: 'flex',
   boxSizing: 'border-box',
@@ -92,7 +97,7 @@ const baseItemCSS = (
   },
   '&:focus': {
     outline: 'none',
-    boxShadow: isDisabled ? 'none' : `${B100} 0 0 0 2px inset`,
+    boxShadow: `${B100} 0 0 0 2px inset`,
   },
   '&:active': {
     boxShadow: 'none',
@@ -113,8 +118,6 @@ export const buttonItemCSS = (
   ...buttonOverrides,
   ...baseItemCSS(isDisabled, isSelected),
 });
-
-export const itemCSS = baseItemCSS;
 
 export const contentCSS = {
   flexGrow: 1,
@@ -212,7 +215,7 @@ export const itemSkeletonCSS = (
   width?: string | number,
   isShimmering?: boolean,
 ): CSSObject => ({
-  ...itemCSS(false, false),
+  ...baseItemCSS(false, false),
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
@@ -253,7 +256,7 @@ export const itemSkeletonCSS = (
       width: skeletonItemElemSize,
       height: skeletonItemElemSize,
       marginLeft: itemElemSkeletonOffset,
-      borderRadius: hasAvatar ? '100%' : borderRadius(),
+      borderRadius: hasAvatar ? '100%' : borderRadius,
       flexShrink: 0,
     },
   }),

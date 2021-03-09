@@ -39,7 +39,6 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
-      UNSAFE_predictableLists: true,
     });
     await page.click(editable);
 
@@ -64,7 +63,6 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
-      UNSAFE_predictableLists: true,
     });
     await page.click(editable);
     await insertList(page, KEY.CONTROL, 'number');
@@ -82,7 +80,6 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
-      UNSAFE_predictableLists: true,
     });
     await page.click(editable);
     await insertList(page, KEY.META, 'number');
@@ -115,7 +112,6 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
-      UNSAFE_predictableLists: true,
       media: {
         allowMediaSingle: true,
       },
@@ -153,7 +149,6 @@ BrowserTestCase(
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_predictableLists: true,
       defaultValue: listsAdf,
       shouldFocus: true,
     });
@@ -224,7 +219,6 @@ BrowserTestCase(
 
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_predictableLists: true,
       defaultValue: listsAdf,
       shouldFocus: true,
     });
@@ -291,7 +285,6 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_predictableLists: true,
       defaultValue: listsAdf,
       shouldFocus: true,
     });
@@ -314,7 +307,6 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_predictableLists: true,
       defaultValue: listsAdf,
       shouldFocus: true,
     });

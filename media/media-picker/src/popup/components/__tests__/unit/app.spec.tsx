@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { createStore, applyMiddleware, Middleware } from 'redux';
 import { Store } from 'react-redux';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
   getComponentClassWithStore,
@@ -51,6 +52,10 @@ describe('App', () => {
     const userMediaClient = fakeMediaClient({
       authProvider: userAuthProvider,
     });
+    const someFeatureFlags: MediaFeatureFlags = {
+      folderUploads: true,
+      newCardExperience: true,
+    };
     return {
       handlers: {
         onStartApp: jest.fn(),
@@ -67,6 +72,7 @@ describe('App', () => {
       userMediaClient,
       store: mockStore(),
       userAuthProvider,
+      someFeatureFlags,
     };
   };
 
@@ -199,7 +205,13 @@ describe('App', () => {
 
   describe('Dropzone', () => {
     it('should render <Dropzone />', () => {
-      const { handlers, store, mediaClient, userMediaClient } = setup();
+      const {
+        handlers,
+        store,
+        mediaClient,
+        userMediaClient,
+        someFeatureFlags,
+      } = setup();
 
       const element = (
         <App
@@ -210,6 +222,7 @@ describe('App', () => {
           userMediaClient={userMediaClient}
           isVisible={true}
           tenantUploadParams={tenantUploadParams}
+          featureFlags={someFeatureFlags}
           {...handlers}
         />
       );
@@ -224,6 +237,7 @@ describe('App', () => {
       expect(JSON.stringify(dropzone.prop('mediaClient'))).toEqual(
         JSON.stringify(dropzoneMediaClient),
       );
+      expect(dropzone.prop('featureFlags')).toEqual(someFeatureFlags);
       const dropzoneConfigProp = dropzone.prop('config');
 
       expect(dropzoneConfigProp).toHaveProperty(
@@ -233,6 +247,10 @@ describe('App', () => {
       expect(dropzoneConfigProp).toHaveProperty(
         'shouldCopyFileToRecents',
         false,
+      );
+      expect(dropzoneConfigProp).toHaveProperty(
+        'featureFlags',
+        someFeatureFlags,
       );
     });
 
@@ -264,7 +282,13 @@ describe('App', () => {
   });
 
   it('should render <Browser />', () => {
-    const { handlers, store, mediaClient, userMediaClient } = setup();
+    const {
+      handlers,
+      store,
+      mediaClient,
+      userMediaClient,
+      someFeatureFlags,
+    } = setup();
 
     const element = (
       <App
@@ -275,16 +299,43 @@ describe('App', () => {
         userMediaClient={userMediaClient}
         isVisible={true}
         tenantUploadParams={tenantUploadParams}
+        featureFlags={someFeatureFlags}
         {...handlers}
       />
     );
+
+    const browserMediaClient = new MediaClient({
+      authProvider: mediaClient.config.authProvider,
+      userAuthProvider: mediaClient.config.authProvider,
+    });
 
     const wrapper = mount(element);
     expect(wrapper.find(MediaPickerBrowser)).toHaveLength(1);
+
+    const browser = wrapper.find(MediaPickerBrowser);
+    expect(JSON.stringify(browser.prop('mediaClient'))).toEqual(
+      JSON.stringify(browserMediaClient),
+    );
+    expect(browser.prop('featureFlags')).toEqual(someFeatureFlags);
+
+    const browserConfigProp = browser.prop('config');
+    expect(browserConfigProp).toHaveProperty(
+      'uploadParams',
+      tenantUploadParams,
+    );
+    expect(browserConfigProp).toHaveProperty('shouldCopyFileToRecents', false);
+    expect(browserConfigProp).toHaveProperty('multiple', true);
+    expect(browserConfigProp).toHaveProperty('featureFlags', someFeatureFlags);
   });
 
   it('should render <Clipboard />', () => {
-    const { handlers, store, mediaClient, userMediaClient } = setup();
+    const {
+      handlers,
+      store,
+      mediaClient,
+      userMediaClient,
+      someFeatureFlags,
+    } = setup();
 
     const element = (
       <App
@@ -295,12 +346,38 @@ describe('App', () => {
         userMediaClient={userMediaClient}
         isVisible={true}
         tenantUploadParams={tenantUploadParams}
+        featureFlags={someFeatureFlags}
         {...handlers}
       />
     );
 
+    const clipboardMediaClient = new MediaClient({
+      authProvider: mediaClient.config.authProvider,
+      userAuthProvider: mediaClient.config.authProvider,
+    });
+
     const wrapper = mount(element);
     expect(wrapper.find(MediaPickerClipboard)).toHaveLength(1);
+
+    const clipboard = wrapper.find(MediaPickerClipboard);
+    expect(JSON.stringify(clipboard.prop('mediaClient'))).toEqual(
+      JSON.stringify(clipboardMediaClient),
+    );
+    expect(clipboard.prop('featureFlags')).toEqual(someFeatureFlags);
+
+    const clipboardConfigProp = clipboard.prop('config');
+    expect(clipboardConfigProp).toHaveProperty(
+      'uploadParams',
+      tenantUploadParams,
+    );
+    expect(clipboardConfigProp).toHaveProperty(
+      'shouldCopyFileToRecents',
+      false,
+    );
+    expect(clipboardConfigProp).toHaveProperty(
+      'featureFlags',
+      someFeatureFlags,
+    );
   });
 
   it('should render media-editor view with localUploader', () => {
@@ -327,19 +404,35 @@ describe('App', () => {
 });
 
 describe('Connected App', () => {
-  const setup = () => {
-    const store = mockStore();
+  const setup = (
+    featureFlags?: MediaFeatureFlags,
+    store: Store<State> = mockStore(),
+    shallowMount = true,
+  ) => {
     const dispatch = store.dispatch;
+
     // TODO: Fix this
     const ConnectedAppWithStore = getComponentClassWithStore(
       ConnectedApp,
     ) as any;
-    const component = shallow(
-      <ConnectedAppWithStore
-        store={store}
-        tenantUploadParams={tenantUploadParams}
-      />,
+
+    const component = (shallowMount
+      ? shallow(
+          <ConnectedAppWithStore
+            store={store}
+            tenantUploadParams={tenantUploadParams}
+            featureFlags={featureFlags}
+          />,
+        )
+      : mount(
+          <ConnectedAppWithStore
+            store={store}
+            tenantUploadParams={tenantUploadParams}
+            featureFlags={featureFlags}
+          />,
+        )
     ).find(App);
+
     return { dispatch, component };
   };
 
@@ -376,6 +469,9 @@ describe('Connected App', () => {
 
   it('should fire an analytics events when provided with a react mediaClient via a store', () => {
     const handler = jest.fn();
+    const someFeatureFlags: MediaFeatureFlags = {
+      folderUploads: true,
+    };
     const store: Store<State> = createStore<State>(
       state => state,
       mockStore({
@@ -393,6 +489,7 @@ describe('Connected App', () => {
           isCancelling: false,
         },
         config: {
+          featureFlags: someFeatureFlags,
           proxyReactContext: {
             getAtlaskitAnalyticsEventHandlers: () => [handler],
           },
@@ -401,24 +498,27 @@ describe('Connected App', () => {
       applyMiddleware(analyticsProcessing as Middleware),
     );
 
-    // TODO: fix this
-    const ConnectedAppWithStore = getComponentClassWithStore(
-      ConnectedApp,
-    ) as any;
-    const component = mount(
-      <ConnectedAppWithStore store={store} tenantUploadParams={{}} />,
-    );
+    const { component } = setup(someFeatureFlags, store, false);
+
     component.find(LocalBrowserButton).simulate('click');
-    expect(handler).toBeCalledWith(
+    expect(handler).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: {
-          attributes: {
-            componentName: 'mediaPicker',
-            componentVersion: expect.any(String),
+        context: [
+          {
             packageName: '@atlaskit/media-picker',
+            packageVersion: '999.9.9',
+            componentName: 'popup',
+            component: 'popup',
+            attributes: {
+              featureFlags: someFeatureFlags,
+            },
           },
+        ],
+        payload: {
           eventType: 'screen',
+          actionSubject: 'localFileBrowserModal',
           name: 'localFileBrowserModal',
+          attributes: {},
         },
       }),
       'media',

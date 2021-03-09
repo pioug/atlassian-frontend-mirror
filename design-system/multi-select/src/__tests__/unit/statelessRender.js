@@ -17,9 +17,7 @@ import { TriggerDiv } from '../../styled/Trigger';
 import Footer from '../../components/Footer';
 import FooterDiv from '../../styled/Footer';
 
-import { name } from '../../version.json';
-
-describe(`${name} - stateless`, () => {
+describe('@atlaskit/multi-select - stateless', () => {
   const animStub = window.cancelAnimationFrame;
   beforeEach(() => {
     window.cancelAnimationFrame = () => {};

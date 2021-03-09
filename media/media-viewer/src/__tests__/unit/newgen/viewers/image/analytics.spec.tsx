@@ -14,6 +14,7 @@ import {
   nextTick,
 } from '@atlaskit/media-test-helpers';
 import { ImageViewer } from '../../../../../newgen/viewers/image';
+import { MediaViewerError } from '../../../../../newgen/errors';
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {
@@ -33,14 +34,16 @@ function createFixture(response: Promise<Blob>) {
   const mediaClient = fakeMediaClient();
   asMock(mediaClient.getImage).mockReturnValue(response);
   const onClose = jest.fn();
-  const onLoaded = jest.fn();
+  const onLoad = jest.fn();
+  const onError = jest.fn();
   const el = mountWithIntlContext(
     <ImageViewer
       mediaClient={mediaClient}
       item={imageItem}
       collectionName={collectionName}
       onClose={onClose}
-      onLoad={onLoaded}
+      onLoad={onLoad}
+      onError={onError}
     />,
   );
 
@@ -57,7 +60,7 @@ describe('ImageViewer analytics', () => {
   });
 
   it('should trigger media-viewed when image is displayed', async () => {
-    mocks.setInteractiveImgState('success');
+    mocks.setInteractiveImgHasError(false);
     const response = Promise.resolve(new Blob());
     createFixture(response);
 
@@ -75,36 +78,33 @@ describe('ImageViewer analytics', () => {
   });
 
   it('should call onLoad with success', async () => {
-    mocks.setInteractiveImgState('success');
+    mocks.setInteractiveImgHasError(false);
     const response = Promise.resolve(new Blob());
     const { el } = createFixture(response);
 
     await response;
     await nextTick();
-    expect(el.prop('onLoad')).toHaveBeenCalledWith({ status: 'success' });
+    expect(el.prop('onLoad')).toHaveBeenCalledWith();
   });
 
   it('should call onLoad with error if interactive-img fails', async () => {
-    mocks.setInteractiveImgState('error');
+    mocks.setInteractiveImgHasError(true);
     const response = Promise.resolve(new Blob());
     const { el } = createFixture(response);
 
     await response;
     await nextTick();
-    expect(el.prop('onLoad')).toHaveBeenCalledWith({
-      status: 'error',
-      errorMessage: 'Interactive-img render failed',
-    });
+    expect(el.prop('onError')).toHaveBeenCalledWith(
+      new MediaViewerError('imageviewer-src-onerror'),
+    );
   });
 
   it('should call onLoad with error if there is an error fetching metadata', async () => {
-    const response = Promise.reject(new Error('test_error'));
+    const error = new MediaViewerError('imageviewer-fetch-url');
+    const response = Promise.reject(error);
     const { el } = createFixture(response);
 
-    await awaitError(response, 'test_error');
-    expect(el.prop('onLoad')).toHaveBeenCalledWith({
-      status: 'error',
-      errorMessage: 'test_error',
-    });
+    await awaitError(response, 'imageviewer-fetch-url');
+    expect(el.prop('onError')).toHaveBeenCalledWith(error);
   });
 });

@@ -9,11 +9,7 @@ import {
 import { Slice } from 'prosemirror-model';
 
 export const analyticsStepType = 'atlaskit-analytics';
-
-export type HandleAnalyticsEvent<P extends AnalyticsPayload> = (
-  payload: P,
-  channel: string,
-) => void;
+export const analyticsInvertStepType = 'atlaskit-analytics-invert';
 
 export interface AnalyticsPayload {
   action: string;
@@ -47,6 +43,11 @@ interface RedoAnalyticsEventPayload {
   eventType: string;
 }
 
+type AnalyticsInvertPayload =
+  | UndoAnalyticsEventPayload
+  | RedoAnalyticsEventPayload;
+type AnalyticsInvert = AnalyticsWithChannel<AnalyticsInvertPayload>;
+
 /** Creates undo event from a normal analytics event */
 function createUndoEvent<P extends AnalyticsPayload>(
   analyticsEvent: AnalyticsWithChannel<P>,
@@ -60,6 +61,7 @@ function createUndoEvent<P extends AnalyticsPayload>(
       attributes: {
         ...analyticsEvent.payload.attributes,
         actionSubjectId: analyticsEvent.payload.actionSubjectId,
+        inputMethod: analyticsEvent.payload.attributes?.inputMethod || '',
       },
       eventType: 'track',
     },
@@ -71,9 +73,7 @@ const toggleEventAction = (
   analyticsEvent: AnalyticsWithChannel<
     UndoAnalyticsEventPayload | RedoAnalyticsEventPayload
   >,
-): AnalyticsWithChannel<
-  UndoAnalyticsEventPayload | RedoAnalyticsEventPayload
-> => ({
+): AnalyticsInvert => ({
   ...analyticsEvent,
   payload: {
     ...analyticsEvent.payload,
@@ -95,25 +95,24 @@ function isHistoryAnalyticsEvent(
   );
 }
 
+export type AnalyticsInvertStep = AnalyticsStep<AnalyticsInvertPayload>;
+
 /**
  * Custom Prosemirror Step to fire our GAS V3 analytics events
  * Using a Step means that it will work with prosemirror-history and we get
  * undo/redo events for free
  */
 export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
-  analyticsEvents: AnalyticsWithChannel<P>[] = [];
-  handleAnalyticsEvent: HandleAnalyticsEvent<P>;
+  public analyticsEvents: AnalyticsWithChannel<P>[] = [];
   pos?: number;
   private actionsToIgnore: string[] = [];
 
   constructor(
-    handleAnalyticsEvent: HandleAnalyticsEvent<P>,
     analyticsEvents: AnalyticsWithChannel<P>[],
     actionsToIgnore: string[] = [],
     pos?: number, // Used to create the map, prevent splitting history.
   ) {
     super();
-    this.handleAnalyticsEvent = handleAnalyticsEvent;
     this.analyticsEvents = analyticsEvents;
     this.actionsToIgnore = actionsToIgnore;
     this.pos = pos;
@@ -123,27 +122,23 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
    * Generate new undo/redo analytics event when step is inverted
    */
   invert() {
-    const analyticsEvents: AnalyticsWithChannel<P>[] = this.analyticsEvents
+    const analyticsEvents: AnalyticsInvert[] = this.analyticsEvents
       .filter(
         analyticsEvent =>
           this.actionsToIgnore.indexOf(analyticsEvent.payload.action) === -1,
       )
       .map(analyticsEvent => {
         if (isHistoryAnalyticsEvent(analyticsEvent)) {
-          return toggleEventAction(analyticsEvent) as AnalyticsWithChannel<P>;
+          return toggleEventAction(analyticsEvent);
         } else {
-          return createUndoEvent(analyticsEvent) as AnalyticsWithChannel<P>;
+          return createUndoEvent(analyticsEvent);
         }
       });
 
-    return new AnalyticsStep(this.handleAnalyticsEvent, analyticsEvents);
+    return new AnalyticsStep(analyticsEvents, []);
   }
 
   apply(doc: PMNode) {
-    for (const analyticsEvent of this.analyticsEvents) {
-      this.handleAnalyticsEvent(analyticsEvent.payload, analyticsEvent.channel);
-    }
-
     return StepResult.ok(doc);
   }
 
@@ -154,7 +149,6 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
     }
     // Return the same events, this step will never be removed
     return new AnalyticsStep(
-      this.handleAnalyticsEvent,
       this.analyticsEvents,
       this.actionsToIgnore,
       newPos,
@@ -172,7 +166,7 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
     if (other instanceof AnalyticsStep) {
       const otherAnalyticsEvents = (other as AnalyticsStep<P>)
         .analyticsEvents as AnalyticsWithChannel<P>[];
-      return new AnalyticsStep(this.handleAnalyticsEvent, [
+      return new AnalyticsStep([
         ...otherAnalyticsEvents,
         ...this.analyticsEvents,
       ]);

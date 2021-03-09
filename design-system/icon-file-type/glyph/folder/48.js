@@ -7,12 +7,12 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _Icon = _interopRequireDefault(require("../../cjs/components/Icon"));
+var _internal = _interopRequireDefault(require("@atlaskit/icon-file-type/internal"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const Folder48Icon = props => /*#__PURE__*/_react.default.createElement(_Icon.default, Object.assign({
-  dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" focusable="false" role="presentation"><g fill="#B3D4FF" fill-rule="evenodd"><path d="M20 16h24a4 4 0 014 4v28a4 4 0 01-4 4H4a4 4 0 01-4-4V16a4 4 0 014-4h12a4 4 0 014 4z"/><path d="M0 20h48v28a4 4 0 01-4 4H4a4 4 0 01-4-4V20z" style="mix-blend-mode:multiply"/></g></svg>`
+const Folder48Icon = props => /*#__PURE__*/_react.default.createElement(_internal.default, Object.assign({
+  dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" role="presentation"><g fill="#B3D4FF" fill-rule="evenodd"><path d="M20 16h24a4 4 0 014 4v28a4 4 0 01-4 4H4a4 4 0 01-4-4V16a4 4 0 014-4h12a4 4 0 014 4z"/><path d="M0 20h48v28a4 4 0 01-4 4H4a4 4 0 01-4-4V20z" style="mix-blend-mode:multiply"/></g></svg>`
 }, props, {
   size: "xlarge"
 }));

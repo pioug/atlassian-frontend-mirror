@@ -5,10 +5,9 @@ import { fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { Checkbox } from '../../index';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Checkbox analytics', () => {
   it(`should fire an event on the public channel and the internal channel when checkbox is clicked`, () => {

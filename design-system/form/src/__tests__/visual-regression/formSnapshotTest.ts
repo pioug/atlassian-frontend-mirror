@@ -13,7 +13,8 @@ const submissionValidationEmail = '[name="email"]';
 const submitBtn = 'button[type="submit"]';
 const submissionValidationError = '[data-testid="userSubmissionError"]';
 
-describe('Snapshot Test', () => {
+//TODO: Will be unskipped in Master soon.
+describe.skip('Snapshot Test', () => {
   it('Create repository should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

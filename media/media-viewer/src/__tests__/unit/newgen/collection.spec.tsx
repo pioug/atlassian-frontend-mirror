@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { Collection, Props, State } from '../../../newgen/collection';
-import { ErrorMessage } from '../../../newgen/error';
+import { ErrorMessage } from '../../../newgen/errorMessage';
 import { List } from '../../../newgen/list';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { nextNavButtonId } from '../../../newgen/navigation';
@@ -104,14 +104,15 @@ describe('<Collection />', () => {
   it('should show an error if items failed to be fetched', () => {
     const mediaClient = fakeMediaClient();
     const subject = new ReplaySubject(1);
-    subject.error('');
+    const error = new Error('some-error');
+    subject.error(error);
     asMock(mediaClient.collection.getItems).mockReturnValue(subject);
     const el = createFixture(mediaClient, identifier);
     el.update();
     const errorMessage = el.find(ErrorMessage);
     expect(errorMessage).toHaveLength(1);
-    expect(errorMessage.text()).toContain(
-      'Something went wrong.It might just be a hiccup.',
+    expect(errorMessage.prop('error').message).toEqual(
+      'collection-fetch-metadata',
     );
   });
 

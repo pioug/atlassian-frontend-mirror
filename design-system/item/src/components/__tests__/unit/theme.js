@@ -4,9 +4,7 @@ import {
   getThemeStyle,
 } from '../../../util/theme';
 
-import { name } from '../../../version.json';
-
-describe(`${name} - theme`, () => {
+describe('@atlaskit/item - theme', () => {
   const themeWithChildAndParentKeys = { hover: { text: 'purple' } };
   const themeWithParentButNotChild = { hover: { blah: 'purple' } };
 

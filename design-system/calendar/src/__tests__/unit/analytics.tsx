@@ -6,10 +6,9 @@ import cases from 'jest-in-case';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import Calendar from '../../index';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Calendar analytics', () => {
   const setup = (analyticsContext = {}) => {

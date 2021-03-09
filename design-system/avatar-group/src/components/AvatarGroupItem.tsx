@@ -43,6 +43,9 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
     />
   );
 
+  // onClick handler provided with avatar data takes precedence, same as with the normal avatar item
+  const callback = onClick || onAvatarClick;
+
   if (href) {
     return (
       <LinkItem
@@ -51,17 +54,21 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
         rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
         iconBefore={AvatarIcon}
         testId={testId}
+        onClick={event =>
+          callback &&
+          callback(event as React.MouseEvent<Element>, undefined, index)
+        }
       >
         {avatar.name}
       </LinkItem>
     );
   }
-  if (typeof onAvatarClick === 'function') {
+  if (typeof callback === 'function') {
     return (
       <ButtonItem
         onClick={event =>
-          onAvatarClick &&
-          onAvatarClick(event as React.MouseEvent<Element>, undefined, index)
+          callback &&
+          callback(event as React.MouseEvent<Element>, undefined, index)
         }
         iconBefore={AvatarIcon}
         testId={testId}

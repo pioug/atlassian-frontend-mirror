@@ -12,7 +12,7 @@ var _base = _interopRequireDefault(require("@atlaskit/icon/base"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const EditorOutdentIcon = props => /*#__PURE__*/_react.default.createElement(_base.default, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path d="M9 9V7l-3 3 3 3v-2h2.51a.49.49 0 00.49-.505v-.99A.495.495 0 0011.51 9H9zm4-1.495c0-.279.228-.505.491-.505h5.018a.49.49 0 01.491.505v.99a.503.503 0 01-.491.505h-5.018A.49.49 0 0113 8.495v-.99zm0 4c0-.279.228-.505.491-.505h5.018a.49.49 0 01.491.505v.99a.503.503 0 01-.491.505h-5.018a.49.49 0 01-.491-.505v-.99zm-6 4c0-.279.229-.505.5-.505h11c.276 0 .5.214.5.505v.99a.506.506 0 01-.5.505h-11a.495.495 0 01-.5-.505v-.99z" fill="currentColor" fill-rule="evenodd"/></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path d="M9 9V7l-3 3 3 3v-2h2.51a.49.49 0 00.49-.505v-.99A.495.495 0 0011.51 9H9zm4-1.495c0-.279.228-.505.491-.505h5.018a.49.49 0 01.491.505v.99a.503.503 0 01-.491.505h-5.018A.49.49 0 0113 8.495v-.99zm0 4c0-.279.228-.505.491-.505h5.018a.49.49 0 01.491.505v.99a.503.503 0 01-.491.505h-5.018a.49.49 0 01-.491-.505v-.99zm-6 4c0-.279.229-.505.5-.505h11c.276 0 .5.214.5.505v.99a.506.506 0 01-.5.505h-11a.495.495 0 01-.5-.505v-.99z" fill="currentColor" fill-rule="evenodd"/></svg>`
 }, props));
 
 EditorOutdentIcon.displayName = 'EditorOutdentIcon';

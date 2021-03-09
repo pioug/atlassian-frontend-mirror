@@ -1,5 +1,19 @@
 # @atlaskit/inline-edit
 
+## 12.0.4
+
+### Patch Changes
+
+- [`ca0546ece25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca0546ece25) - Fixed InlineEditableTextfield entry point config issue, it should have its own entry point as default export.
+
+## 12.0.3
+
+### Patch Changes
+
+- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- Updated dependencies
+
 ## 12.0.2
 
 ### Patch Changes

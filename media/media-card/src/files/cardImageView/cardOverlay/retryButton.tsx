@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAndFireMediaEvent } from '../../../utils/analytics';
+import { createAndFireMediaCardEvent } from '../../../utils/analytics';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -27,11 +27,12 @@ const NewExpRetryWithProps = (props: NewExpRetryProps) => (
 );
 
 const createRetryWithAnalytics = withAnalyticsEvents({
-  onClick: createAndFireMediaEvent({
+  onClick: createAndFireMediaCardEvent({
     eventType: 'ui',
     action: 'clicked',
     actionSubject: 'button',
     actionSubjectId: 'mediaCardRetry',
+    attributes: {},
   }),
 });
 

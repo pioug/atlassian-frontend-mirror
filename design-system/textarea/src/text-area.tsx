@@ -18,7 +18,9 @@ import GlobalTheme from '@atlaskit/theme/components';
 
 import { borderWidth, getBaseStyles, themeStyles } from './styles';
 import { Theme, ThemeTokens } from './theme';
-import { name as packageName, version as packageVersion } from './version.json';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface Props extends WithAnalyticsEventsProps {
   /**

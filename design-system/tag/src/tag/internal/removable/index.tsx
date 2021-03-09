@@ -12,12 +12,11 @@ import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import GlobalTheme from '@atlaskit/theme/components';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
-import { getThemeColors } from '../../../theme';
 // eslint-disable-next-line import/order
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
+import { getThemeColors } from '../../../theme';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface RemovableTagProps
   extends SimpleTagProps,

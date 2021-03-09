@@ -1,18 +1,23 @@
-import { SCREEN_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
 import { Action } from 'redux';
-import { buttonClickPayload, HandlerResult } from '.';
+
 import { isStartFileBrowserAction } from '../../actions/startFileBrowser';
+import { HandlerResult } from '.';
 
 export default (action: Action): HandlerResult => {
   if (isStartFileBrowserAction(action)) {
     return [
       {
+        eventType: 'screen',
+        actionSubject: 'localFileBrowserModal',
         name: 'localFileBrowserModal',
-        eventType: SCREEN_EVENT_TYPE,
+        attributes: {},
       },
       {
-        ...buttonClickPayload,
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
         actionSubjectId: 'localFileBrowserButton',
+        attributes: {},
       },
     ];
   }

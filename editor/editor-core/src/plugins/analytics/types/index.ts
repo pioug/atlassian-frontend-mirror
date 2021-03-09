@@ -5,6 +5,7 @@ export {
   EVENT_TYPE,
   INPUT_METHOD,
   TRIGGER_METHOD,
+  CONTENT_COMPONENT,
 } from './enums';
 export type {
   AnalyticsDispatch,

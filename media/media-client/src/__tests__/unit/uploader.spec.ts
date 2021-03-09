@@ -196,6 +196,31 @@ describe('Uploader', () => {
     expect(error).toEqual('some upload error');
   });
 
+  it('should reject if deferredUploadId rejects', async () => {
+    const { mediaStore } = setup();
+
+    const failedUploadIdError = new Error('some-failed-upload-id');
+
+    const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
+      id: 'some-file-id',
+      occurrenceKey: 'some-occurrence-key',
+      deferredUploadId: Promise.reject(failedUploadIdError),
+    };
+
+    const err = await new Promise((resolve, reject) => {
+      uploadFile(
+        { content: '' },
+        mediaStore as MediaStore,
+        uploadableFileUpfrontIds,
+        {
+          onProgress: jest.fn(),
+          onUploadFinish: err => (err ? resolve(err) : reject()),
+        },
+      );
+    });
+    expect(err).toEqual(failedUploadIdError);
+  });
+
   it('should create the file after all chunks have been appended', async () => {
     const { mediaStore, appendChunksToUpload, createFileFromUpload } = setup();
 

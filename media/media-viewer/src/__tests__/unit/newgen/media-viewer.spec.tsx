@@ -28,10 +28,6 @@ import {
   MediaViewerExtensions,
 } from '../../../components/types';
 import { Blanket } from '../../../newgen/styled';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 function createFixture(
   items: Identifier[],
   identifier: Identifier,
@@ -115,11 +111,6 @@ describe('<MediaViewer />', () => {
       const { onEvent } = createFixture([identifier], identifier);
       const mediaViewerModalEvent = onEvent.mock.calls[0][0].payload;
       expect(mediaViewerModalEvent).toEqual({
-        attributes: {
-          componentName: 'media-viewer',
-          packageName,
-          packageVersion,
-        },
         action: 'viewed',
         actionSubject: 'mediaViewerModal',
         eventType: 'screen',

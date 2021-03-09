@@ -137,7 +137,13 @@ function ElementList({
                       )}
                       height={height}
                       width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
-                      key={containerWidth} // Refresh Collection on WidthObserver value change.
+                      /**
+                       * Refresh Collection on WidthObserver value change.
+                       * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
+                       * scroll position after updating the data. If new data has different number of cells, a re-render
+                       * is forced to prevent the scroll position render bug.
+                       */
+                      key={containerWidth + items.length}
                       scrollToCell={selectedItemIndex}
                     />
                   )}

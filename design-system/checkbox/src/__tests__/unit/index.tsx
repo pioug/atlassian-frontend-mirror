@@ -3,11 +3,10 @@ import React, { ChangeEvent, createRef } from 'react';
 import { render } from '@testing-library/react';
 
 import Checkbox from '../../checkbox';
-import { name } from '../../version.json';
 
 declare var global: any;
 
-describe(name, () => {
+describe('@atlaskit/checkbox', () => {
   const renderCheckbox = (overridingProps: any) =>
     render(
       <Checkbox

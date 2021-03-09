@@ -2,13 +2,12 @@ import React from 'react';
 import { cleanup, render as r } from '@testing-library/react';
 
 import { background } from '@atlaskit/theme/colors';
-import { name } from '../../../version.json';
 import Icon, { size, IconProps } from '../../..';
 import AddIcon from '../../../../glyph/add';
 import { sizes as sizeValues } from '../../../constants';
-import { sizeOpts } from '../../../types';
+import { Size } from '../../../types';
 
-describe(name, () => {
+describe('@atlaskit/icon', () => {
   afterEach(cleanup);
   describe('Icon', () => {
     const secretContent = 'secret content';
@@ -109,7 +108,7 @@ describe(name, () => {
     });
 
     describe('size property', () => {
-      const sizes: sizeOpts[] = ['small', 'medium', 'large', 'xlarge'];
+      const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
 
       sizes.forEach(s => {
         it(`with value ${s}`, () => {

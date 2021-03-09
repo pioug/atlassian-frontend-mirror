@@ -5,12 +5,11 @@ import { fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { FlagProps } from '../../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 function WithBoth({
   onAtlaskitEvent,

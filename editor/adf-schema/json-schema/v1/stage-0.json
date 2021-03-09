@@ -1816,6 +1816,10 @@
                 "full-width",
                 "default"
               ]
+            },
+            "localId": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "additionalProperties": false

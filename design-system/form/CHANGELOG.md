@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 8.2.2
+
+### Patch Changes
+
+- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

@@ -398,7 +398,7 @@ describe('MediaClient', () => {
         };
       });
 
-      return new Promise(resolve => {
+      return new Promise<void>(resolve => {
         mediaClient.file
           .upload(file, controller, uploadableFileUpfrontIds)
           .subscribe({
@@ -409,19 +409,21 @@ describe('MediaClient', () => {
             },
           });
         controller.abort();
+        expect.assertions(2);
       });
     });
 
-    it('should emit error fileState when upload fail', done => {
+    it('should emit error when upload fail', done => {
       const { mediaClient, mockUploadFile } = setup();
 
       const file: UploadableFile = {
         content: new Blob([]),
       };
 
+      const error = new Error('some-error-description');
+
       mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
-        callbacks &&
-          callbacks.onUploadFinish(new Error('some-error-description'));
+        callbacks && callbacks.onUploadFinish(error);
         return {
           cancel: jest.fn(),
         };
@@ -435,18 +437,18 @@ describe('MediaClient', () => {
         })
         .subscribe({
           next: fileState => {
-            if (!isErrorFileState(fileState)) {
-              return expect(isErrorFileState(fileState)).toBeTruthy();
+            // shouldn't emit any error fileState
+            if (isErrorFileState(fileState)) {
+              return expect(isErrorFileState(fileState)).toBeFalsy();
             }
-
-            expect(fileState).toEqual({
-              id: 'some-upfront-file-id',
-              status: 'error',
-              message: 'some-error-description',
-            });
+          },
+          error: err => {
+            expect(err).toEqual(error);
             done();
           },
         });
+
+      expect.assertions(1);
     });
 
     it('should not emit error fileState when upload cancelled', done => {

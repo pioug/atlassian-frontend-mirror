@@ -66,7 +66,8 @@ export interface AvatarGroupProps {
   data: Array<AvatarProps>;
 
   /**
-   * Handle the click event on the avatar item
+   * Handle the click event on the avatar item.
+   * Note that if an onClick prop is provided as part of avatar data, it will take precedence over onAvatarClick.
    */
   onAvatarClick?: onAvatarClickHandler;
 

@@ -7,7 +7,7 @@ export interface Context {
   contextType: string;
   objectId?: string;
   sessionId?: string;
-  principalId: string;
+  principalId?: string;
   childObjectId?: string;
   productKey: 'jira' | 'confluence' | 'people' | 'bitbucket';
   siteId: string;

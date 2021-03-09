@@ -1,1 +1,1 @@
-export type sizeOpts = 'small' | 'medium' | 'large' | 'xlarge';
+export type Size = 'small' | 'medium' | 'large' | 'xlarge';

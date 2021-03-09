@@ -6,10 +6,6 @@ import { CSSObject, jsx } from '@emotion/core';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import { BaseProps } from '../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import blockEvents from './block-events';
 import { getContentStyle, getFadingCss, getIconStyle, overlayCss } from './css';
@@ -90,8 +86,8 @@ export default React.forwardRef<HTMLElement, Props>(function ButtonBase(
     fn: providedOnClick,
     action: 'clicked',
     componentName: 'button',
-    packageName,
-    packageVersion,
+    packageName: process.env._PACKAGE_NAME_ as string,
+    packageVersion: process.env._PACKAGE_VERSION_ as string,
     analyticsData: analyticsContext,
   });
 

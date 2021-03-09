@@ -16,12 +16,11 @@ import Buttons from './internal/buttons';
 import useButtonFocusHook from './internal/hooks/use-button-focus-hook';
 import ReadView from './internal/read-view';
 import { InlineEditProps } from './types';
-import { name as packageName, version as packageVersion } from './version.json';
 
 const analyticsAttributes = {
   componentName: 'inlineEdit',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 interface ExtendedInlineEditProps<FieldValue>
   extends InlineEditProps<FieldValue> {

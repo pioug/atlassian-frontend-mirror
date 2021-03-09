@@ -5,7 +5,7 @@ import {
   isPreviewableFileState,
 } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
-import { createError, MediaViewerError } from '../../error';
+import { MediaViewerError } from '../../errors';
 import { Spinner } from '../../loading';
 import { Props as RendererProps } from './pdfRenderer';
 import { ComponentClass } from 'react';
@@ -14,7 +14,7 @@ import { getObjectUrlFromFileState } from '../../utils/getObjectUrlFromFileState
 
 const moduleLoader = () =>
   import(
-    /* webpackChunkName:"@atlaskit-internal_media-viewer-pdf-viewer" */ './pdfRenderer'
+    /* webpackChunkName: "@atlaskit-internal_media-viewer-pdf-viewer" */ './pdfRenderer'
   );
 
 const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
@@ -25,12 +25,12 @@ export type Props = {
   item: FileState;
   collectionName?: string;
   onClose?: () => void;
-  onError?: (error: Error) => void;
-  onSuccess?: () => void;
+  onError: (error: Error) => void;
+  onSuccess: () => void;
 };
 
 export type State = {
-  content: Outcome<string, MediaViewerError>;
+  content: Outcome<string, Error>;
 };
 
 export class DocViewer extends BaseViewer<string, Props> {
@@ -38,7 +38,7 @@ export class DocViewer extends BaseViewer<string, Props> {
 
   protected get initialState() {
     return {
-      content: Outcome.pending<string, MediaViewerError>(),
+      content: Outcome.pending<string, Error>(),
     };
   }
 
@@ -70,12 +70,13 @@ export class DocViewer extends BaseViewer<string, Props> {
         this.setState({
           content: Outcome.successful(src),
         });
-      } catch (err) {
+      } catch (error) {
+        const docError = new MediaViewerError('docviewer-fetch-url', error);
         this.setState({
-          content: Outcome.failed(createError('previewFailed', err, item)),
+          content: Outcome.failed(docError),
         });
         if (onError) {
-          onError(err);
+          onError(docError);
         }
       }
     }
@@ -96,7 +97,7 @@ export class DocViewer extends BaseViewer<string, Props> {
   }
 
   protected renderSuccessful(content: string) {
-    const { onClose, onSuccess, onError } = this.props;
+    const { item, onClose, onSuccess, onError } = this.props;
     const { PDFComponent } = DocViewer;
 
     if (!PDFComponent) {
@@ -104,6 +105,7 @@ export class DocViewer extends BaseViewer<string, Props> {
     }
     return (
       <PDFComponent
+        item={item}
         src={content}
         onSuccess={onSuccess}
         onError={onError}

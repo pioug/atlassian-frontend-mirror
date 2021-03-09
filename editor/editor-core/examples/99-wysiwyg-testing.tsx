@@ -100,9 +100,15 @@ export default function WysiwygTesting() {
   ] = useProps<RendererProps>();
 
   const __mount = React.useCallback(
-    (content: any) => {
-      __mountEditor({ defaultValue: content });
-      __mountRenderer({ document: content });
+    (
+      content: any,
+      {
+        editorProps = {},
+        rendererProps = {},
+      }: { editorProps: any; rendererProps: any },
+    ) => {
+      __mountEditor({ ...editorProps, defaultValue: content });
+      __mountRenderer({ ...rendererProps, document: content });
     },
     [__mountEditor, __mountRenderer],
   );

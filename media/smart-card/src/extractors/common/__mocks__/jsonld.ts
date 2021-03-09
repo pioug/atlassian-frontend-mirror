@@ -36,6 +36,10 @@ export const TEST_BASE_DATA: JsonLd.Data.BaseData = {
     schema: 'http://schema.org/',
   },
 };
+export const TEST_META_DATA: JsonLd.Meta.BaseMeta = {
+  access: 'forbidden',
+  visibility: 'restricted',
+};
 
 export const TEST_DOCUMENT: JsonLd.Data.Document = {
   ...TEST_OBJECT,

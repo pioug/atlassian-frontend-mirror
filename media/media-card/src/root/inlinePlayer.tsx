@@ -22,7 +22,7 @@ import {
   WithAnalyticsEventsProps,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { createAndFireMediaEvent } from '../utils/analytics';
+import { createAndFireMediaCardEvent } from '../utils/analytics';
 
 export interface InlinePlayerOwnProps {
   identifier: FileIdentifier;
@@ -232,10 +232,11 @@ export class InlinePlayerBase extends Component<
 }
 
 export const InlinePlayer = withAnalyticsEvents({
-  onClick: createAndFireMediaEvent({
+  onClick: createAndFireMediaCardEvent({
     eventType: 'ui',
     action: 'clicked',
     actionSubject: 'mediaCard',
     actionSubjectId: 'mediaCardInlinePlayer',
+    attributes: {},
   }),
 })(InlinePlayerBase);

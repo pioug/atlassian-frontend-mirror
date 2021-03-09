@@ -2,6 +2,10 @@ import { TestPage, PuppeteerPage } from './_types';
 import { waitForFloatingControl } from './_toolbar';
 import { selectors } from './_editor';
 
+export const extensionSelectors = {
+  configPanel: '[data-testid="extension-config-panel"]',
+};
+
 function getExtensionSelector(type: string, key: string) {
   return `[extensionType="${type}"][extensionKey="${key}"]`;
 }

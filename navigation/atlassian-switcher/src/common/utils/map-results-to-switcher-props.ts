@@ -30,6 +30,10 @@ import {
   collectSuggestedLinks,
 } from '../../cross-flow/utils/cross-flow-link-collector';
 import { collectJoinableSiteLinks } from '../../cross-join/utils/cross-join-link-collector';
+import {
+  UserSiteDataErrorReason,
+  UserSiteDataError,
+} from './errors/user-site-data-error';
 
 function collectAvailableProductLinks(
   cloudId: string | null | undefined,
@@ -129,6 +133,19 @@ function asUserSiteDataProviderResult(
     case Status.ERROR:
       return availableProductsProvider;
     case Status.COMPLETE:
+      if (availableProductsProvider.data.sites.length === 0) {
+        const reason = availableProductsProvider.data.isPartial
+          ? UserSiteDataErrorReason.APS_PARTIAL_EMPTY_RESULT
+          : UserSiteDataErrorReason.APS_EMPTY_RESULT;
+        return {
+          status: Status.ERROR,
+          data: null,
+          error: new UserSiteDataError(
+            reason,
+            `Available products returned an empty list`,
+          ),
+        };
+      }
       const site = availableProductsProvider.data.sites.find(
         site =>
           (cloudId && site.cloudId === cloudId) ||
@@ -141,7 +158,8 @@ function asUserSiteDataProviderResult(
         return {
           status: Status.ERROR,
           data: null,
-          error: new Error(
+          error: new UserSiteDataError(
+            UserSiteDataErrorReason.APS_NO_SITE_MATCH,
             `could not find site in availableProducts for cloudId ${cloudId}`,
           ),
         };

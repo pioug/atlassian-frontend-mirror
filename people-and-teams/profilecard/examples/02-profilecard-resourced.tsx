@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ProfileCardResourced from '../src';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
-import { analyticsHandler, getMockProfileClient } from './helper/util';
+import { getMockProfileClient } from './helper/util';
 
 export const Wrap = styled.div`
   margin-bottom: 20px;
@@ -22,7 +22,6 @@ const mockClient = getMockProfileClient(10, 0);
 const defaultProps = {
   cloudId: 'dummy-cloud',
   resourceClient: mockClient,
-  analytics: analyticsHandler,
   actions: [
     {
       label: 'View profile',

@@ -1,7 +1,7 @@
 import React from 'react';
 import throttle from 'lodash/throttle';
 import { prefetch } from '../../prefetch';
-import now from '../../common/utils/performance-now';
+import { now } from '../../common/utils/performance-now';
 import {
   NAVIGATION_CHANNEL,
   NavigationAnalyticsContext,

@@ -10,9 +10,11 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { IntlProvider } from 'react-intl';
 import { AvailableProductsResponse, Product } from '../../../../types';
 import { enrichFetchError } from '../../../../common/utils/fetch';
+import isMatch from 'lodash/isMatch';
 import { createAvailableProductsProvider } from '../../../../create-custom-provider';
 
 // Just a helper function for better readibility in tests
+
 const createAnalyticsEventsSpy = () => {
   const spyFn = jest.fn();
   const handlerFn = (event: UIAnalyticsEvent) => {
@@ -22,12 +24,9 @@ const createAnalyticsEventsSpy = () => {
     expectedArgs: Record<string, unknown>,
     expectedCallTimes: number,
   ) => {
-    const keysToCompare = Object.keys(expectedArgs);
-    const matchingCalls = spyFn.mock.calls.filter(([actualArg]) => {
-      return keysToCompare.every(
-        keyToCompare => expectedArgs[keyToCompare] === actualArg[keyToCompare],
-      );
-    });
+    const matchingCalls = spyFn.mock.calls.filter(([actualArg]) =>
+      isMatch(actualArg, expectedArgs),
+    );
     function prettyDebug(callCount: number) {
       return `${JSON.stringify(expectedArgs)}, called ${callCount} times`;
     }
@@ -41,6 +40,16 @@ const createAnalyticsEventsSpy = () => {
     expectAnalyticsToHaveBeenCalledWith,
   };
 };
+
+const mockNow = jest.fn();
+
+jest.mock('../../../../common/utils/performance-now.ts', () => ({
+  now: mockNow,
+}));
+
+beforeEach(() => {
+  mockNow.mockReset().mockReturnValueOnce(0).mockReturnValue(250);
+});
 
 const noop = () => void 0;
 
@@ -65,7 +74,7 @@ describe('Atlassian Switcher', () => {
   });
   [Product.JIRA, Product.CONFLUENCE].forEach(product => {
     describe(`good/bad SLIs for a ${product} switcher`, () => {
-      const scenarios: Array<{
+      type SLIScenario = {
         scenarioName: string;
         input: {
           mockApis: Function;
@@ -75,7 +84,9 @@ describe('Atlassian Switcher', () => {
           errorBoundaryRendered: boolean;
           eventsSent: [number, EventExpectation][];
         };
-      }> = [
+      };
+
+      const scenarios: Array<SLIScenario> = [
         {
           scenarioName: `custom links and APS APIs succeed and there is a matching site`,
           input: {
@@ -114,6 +125,10 @@ describe('Atlassian Switcher', () => {
                 {
                   actionSubject: 'atlassianSwitcherCustomLinks',
                   action: 'rendered',
+                  attributes: {
+                    duration: 250,
+                    bucket: '500',
+                  },
                   eventType: 'operational',
                 },
               ],
@@ -129,6 +144,10 @@ describe('Atlassian Switcher', () => {
                 {
                   actionSubject: 'atlassianSwitcher',
                   action: 'rendered',
+                  attributes: {
+                    duration: 250,
+                    bucket: '500',
+                  },
                   eventType: 'operational',
                 },
               ],
@@ -174,6 +193,9 @@ describe('Atlassian Switcher', () => {
                   actionSubject: 'atlassianSwitcherCustomLinks',
                   action: 'not_rendered',
                   eventType: 'operational',
+                  attributes: {
+                    notRenderedReason: 'aps_no_site_match',
+                  },
                 },
               ],
               [
@@ -188,38 +210,116 @@ describe('Atlassian Switcher', () => {
                 {
                   actionSubject: 'atlassianSwitcher',
                   action: 'rendered',
+                  attributes: {
+                    duration: 250,
+                    bucket: '500',
+                  },
                   eventType: 'operational',
                 },
               ],
             ],
           },
         },
-        // {
-        //   scenarioName: `custom links API succeeds and APS returns an empty list of sites`,
-        //   input: {
-        //     mockApis: () => {
-        //       mockEndpoints(product, (originalMockData) => {
-        //         const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
-        //         return {
-        //           ...originalMockData,
-        //           AVAILABLE_PRODUCTS_DATA: {
-        //             ...availableProducts,
-        //             sites: [],
-        //           }
-        //         };
-        //       });
-        //     },
-        //     cloudID: 'some-cloud-id',
-        //   },
-        //   expect: {
-        //     errorBoundaryRendered: false,
-        //     events: [
-        //       ['errorBoundary', 'rendered', 'operational', 0],
-        //       ['atlassianSwitcher', 'rendered', 'operational', 1],
-        //       ['atlassianSwitcherCustomLinks', 'rendered', 'operational', 1]
-        //     ]
-        //   },
-        // },
+        {
+          scenarioName: `Custom links API succeeds and APS returns a partial response with an empty list of sites`,
+          input: {
+            mockApis: () => {
+              mockEndpoints(product, originalMockData => {
+                const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
+                return {
+                  ...originalMockData,
+                  AVAILABLE_PRODUCTS_DATA: {
+                    ...availableProducts,
+                    isPartial: true,
+                    sites: [],
+                  },
+                };
+              });
+            },
+            cloudID: 'some-cloud-id',
+          },
+          expect: {
+            errorBoundaryRendered: false,
+            eventsSent: [
+              [0, { actionSubject: 'errorBoundary' }],
+              [
+                1,
+                {
+                  actionSubject: 'atlassianSwitcherCustomLinks',
+                  eventType: 'operational',
+                },
+              ],
+              [
+                1,
+                {
+                  actionSubject: 'atlassianSwitcherCustomLinks',
+                  action: 'not_rendered',
+                  eventType: 'operational',
+                  attributes: {
+                    notRenderedReason: 'aps_partial_response_empty_result',
+                  },
+                },
+              ],
+              [
+                0,
+                {
+                  actionSubject: 'atlassianSwitcher',
+                  eventType: 'operational',
+                },
+              ],
+            ],
+          },
+        },
+        {
+          scenarioName: `Custom links API succeeds and APS returns an empty list of sites`,
+          input: {
+            mockApis: () => {
+              mockEndpoints(product, originalMockData => {
+                const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
+                return {
+                  ...originalMockData,
+                  AVAILABLE_PRODUCTS_DATA: {
+                    ...availableProducts,
+                    isPartial: false,
+                    sites: [],
+                  },
+                };
+              });
+            },
+            cloudID: 'some-cloud-id',
+          },
+          expect: {
+            errorBoundaryRendered: false,
+            eventsSent: [
+              [0, { actionSubject: 'errorBoundary' }],
+              [
+                1,
+                {
+                  actionSubject: 'atlassianSwitcherCustomLinks',
+                  eventType: 'operational',
+                },
+              ],
+              [
+                1,
+                {
+                  actionSubject: 'atlassianSwitcherCustomLinks',
+                  action: 'not_rendered',
+                  eventType: 'operational',
+                  attributes: {
+                    notRenderedReason: 'aps_empty_result',
+                  },
+                },
+              ],
+              [
+                0,
+                {
+                  actionSubject: 'atlassianSwitcher',
+                  eventType: 'operational',
+                },
+              ],
+            ],
+          },
+        },
         {
           scenarioName: `custom links API succeeds and APS fails`,
           input: {
@@ -286,6 +386,9 @@ describe('Atlassian Switcher', () => {
                   actionSubject: 'atlassianSwitcherCustomLinks',
                   action: 'not_rendered',
                   eventType: 'operational',
+                  attributes: {
+                    notRenderedReason: 'custom_links_api_error',
+                  },
                 },
               ],
               [
@@ -293,6 +396,10 @@ describe('Atlassian Switcher', () => {
                 {
                   actionSubject: 'atlassianSwitcher',
                   action: 'rendered',
+                  attributes: {
+                    duration: 250,
+                    bucket: '500',
+                  },
                   eventType: 'operational',
                 },
               ],

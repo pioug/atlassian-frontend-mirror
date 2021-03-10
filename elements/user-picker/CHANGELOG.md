@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.6.0
+
+### Minor Changes
+
+- [`0076cad2d37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0076cad2d37) - Added the prop bootstrapOptions for Smart User Picker. This allows to override the bootstrap options.
+
 ## 7.5.5
 
 ### Patch Changes

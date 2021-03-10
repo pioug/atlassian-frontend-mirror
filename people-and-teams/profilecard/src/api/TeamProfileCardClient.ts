@@ -1,4 +1,6 @@
-import { ProfileClientOptions, Team } from '../types';
+import type { ProfileClientOptions, Team } from '../types';
+import { teamRequestAnalytic } from '../util/analytics';
+import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
 import { graphqlQuery } from './graphqlUtils';
@@ -50,7 +52,11 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
     );
   }
 
-  getProfile(teamId: string, orgId?: string): Promise<Team> {
+  getProfile(
+    teamId: string,
+    orgId?: string,
+    analytics?: (event: Record<string, any>) => void,
+  ): Promise<Team> {
     if (!teamId) {
       return Promise.reject(new Error('teamId is missing'));
     }
@@ -62,14 +68,34 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
     }
 
     return new Promise((resolve, reject) => {
+      const startTime = getPageTime();
+
+      if (analytics) {
+        analytics(teamRequestAnalytic('triggered'));
+      }
+
       this.makeRequest(teamId)
         .then((data: Team) => {
           if (this.cache) {
             this.setCachedProfile(teamId, data);
           }
+          if (analytics) {
+            analytics(
+              teamRequestAnalytic('succeeded', {
+                duration: getPageTime() - startTime,
+              }),
+            );
+          }
           resolve(data);
         })
         .catch(error => {
+          if (analytics) {
+            analytics(
+              teamRequestAnalytic('failed', {
+                duration: getPageTime() - startTime,
+              }),
+            );
+          }
           reject(error);
         });
     });

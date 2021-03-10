@@ -88,6 +88,7 @@ describe('map-results-to-switcher-props', () => {
                 act959Enabled: act959Enabled,
               },
               sites: [],
+              isPartial: false,
             }),
           },
           defaultFeatures,
@@ -171,6 +172,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...loadingProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [
               generateSite('emu', SwitcherProductType.JIRA_SERVICE_DESK),
               generateSite(
@@ -252,6 +254,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...loadingProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [
               generateSite('site60', SwitcherProductType.JIRA_SOFTWARE),
               generateSite('site30', SwitcherProductType.JIRA_SOFTWARE),
@@ -303,6 +306,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...loadingProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [
               generateSite('site50', SwitcherProductType.JIRA_SERVICE_DESK),
               generateSite('site30', SwitcherProductType.JIRA_BUSINESS),
@@ -337,6 +341,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...loadingProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [
               generateSite('site10', SwitcherProductType.JIRA_SERVICE_DESK),
               generateSite('site10', SwitcherProductType.JIRA_BUSINESS),
@@ -365,6 +370,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...loadingProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [
               generateSite(
                 'opsgenie',
@@ -416,6 +422,7 @@ describe('map-results-to-switcher-props', () => {
           ]),
           managePermission: asCompletedProvider(true),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite('site40', SwitcherProductType.CONFLUENCE)],
           }),
         },
@@ -445,6 +452,7 @@ describe('map-results-to-switcher-props', () => {
           ]),
           managePermission: asCompletedProvider(true),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite('site40', SwitcherProductType.CONFLUENCE)],
           }),
         },
@@ -488,6 +496,7 @@ describe('map-results-to-switcher-props', () => {
             ],
           }),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
@@ -517,6 +526,7 @@ describe('map-results-to-switcher-props', () => {
             CollaborationGraphContainersResponse
           >({ collaborationGraphEntities: null }),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
@@ -569,6 +579,7 @@ describe('map-results-to-switcher-props', () => {
           {
             ...completedProvidersResult,
             availableProducts: asCompletedProvider<AvailableProductsResponse>({
+              isPartial: false,
               sites: [
                 generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE),
                 generateSite(CLOUD_ID, SwitcherProductType.TRELLO),
@@ -633,6 +644,7 @@ describe('map-results-to-switcher-props', () => {
           {
             ...completedProvidersResult,
             availableProducts: asCompletedProvider<AvailableProductsResponse>({
+              isPartial: false,
               sites: [
                 generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE),
                 generateSite(CLOUD_ID, SwitcherProductType.CONFLUENCE),
@@ -672,6 +684,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...completedProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite(CLOUD_ID, SwitcherProductType.CONFLUENCE)],
           }),
         },
@@ -696,6 +709,7 @@ describe('map-results-to-switcher-props', () => {
         {
           ...completedProvidersResult,
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [
               generateSite(CLOUD_ID, SwitcherProductType.JIRA_SERVICE_DESK),
             ],
@@ -728,6 +742,7 @@ describe('map-results-to-switcher-props', () => {
             },
           ]),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
@@ -765,6 +780,7 @@ describe('map-results-to-switcher-props', () => {
             ],
           }),
           availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
             sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_SOFTWARE)],
           }),
         },
@@ -841,6 +857,7 @@ const loadingProvidersResult = {
   productRecommendations: loadingProviderResultObject,
   collaborationGraphRecentContainers: loadingProviderResultObject,
   availableProducts: asCompletedProvider<AvailableProductsResponse>({
+    isPartial: false,
     sites: [],
   }),
   joinableSites: asCompletedProvider<JoinableSitesResponse>({

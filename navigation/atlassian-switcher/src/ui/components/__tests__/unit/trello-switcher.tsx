@@ -58,6 +58,7 @@ describe('trello-switcher', () => {
   it('should use a custom availableProductsDataProvider if given', () => {
     const mockProducts = {
       sites: [],
+      isPartial: false,
     };
     const mockFetcher = jest.fn(() => Promise.resolve(mockProducts));
 

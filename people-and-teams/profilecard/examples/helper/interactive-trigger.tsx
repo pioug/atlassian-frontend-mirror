@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { ProfileCardTrigger } from '../../src';
 import { ProfilecardTriggerPosition, ProfileClient } from '../../src/types';
 
-import { analyticsHandler } from './util';
-
 const positionsOrder: ProfilecardTriggerPosition[] = [
   'bottom-start',
   'bottom',
@@ -101,7 +99,6 @@ export default class InteractiveTrigger extends Component<Props, State> {
                 callback: () => {},
               },
             ]}
-            analytics={analyticsHandler}
           >
             {this.renderTrigger()}
           </ProfileCardTrigger>

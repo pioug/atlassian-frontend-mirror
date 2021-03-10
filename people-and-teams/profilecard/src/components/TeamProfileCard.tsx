@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
@@ -9,6 +9,7 @@ import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
+import { layers } from '@atlaskit/theme/constants';
 
 import messages from '../messages';
 import { ErrorWrapper, TeamErrorText, TeamErrorTitle } from '../styled/Error';
@@ -25,43 +26,64 @@ import {
   TeamName,
   WrappedButton,
 } from '../styled/TeamCard';
-import { ProfileCardAction, Team, TeamProfilecardProps } from '../types';
+import type {
+  AnalyticsFunction,
+  ProfileCardAction,
+  Team,
+  TeamProfilecardProps,
+} from '../types';
+import {
+  errorRetryClicked,
+  moreActionsClicked,
+  moreMembersClicked,
+  teamActionClicked,
+  teamAvatarClicked,
+  teamProfileCardRendered,
+} from '../util/analytics';
 
 import { ErrorIllustration } from './ErrorIllustration';
 import TeamLoadingState from './TeamLoadingState';
 
 interface TeamMembers {
+  analytics: AnalyticsFunction;
   members?: Team['members'];
+  includingYou?: boolean;
 }
 
 type TeamMembersProps = TeamMembers &
-  Pick<
-    TeamProfilecardProps,
-    'generateUserLink' | 'onUserClick' | 'viewingUserId'
-  >;
+  Pick<TeamProfilecardProps, 'generateUserLink' | 'onUserClick'>;
 
 const LARGE_MEMBER_COUNT = 50;
 
 function onMemberClick(
   callback: Required<TeamMembersProps>['onUserClick'],
   userId: string,
+  analytics: AnalyticsFunction,
+  index: number,
+  hasHref: boolean,
 ) {
   return (event: React.MouseEvent<Element>) => {
-    // Analytics
+    analytics(duration =>
+      teamAvatarClicked({
+        duration,
+        hasHref,
+        hasOnClick: !!callback,
+        index,
+      }),
+    );
+
     callback(userId, event);
   };
 }
 
 const TeamMembers = ({
+  analytics,
   generateUserLink,
   members,
   onUserClick,
-  viewingUserId,
+  includingYou,
 }: TeamMembersProps) => {
   const count = members ? members.length : 0;
-
-  const includingYou =
-    members && members.some(member => member.id === viewingUserId);
 
   const message = includingYou
     ? count >= LARGE_MEMBER_COUNT
@@ -70,6 +92,25 @@ const TeamMembers = ({
     : count >= LARGE_MEMBER_COUNT
     ? messages.membersMoreThan50
     : messages.memberCount;
+
+  // Use a ref to track whether this is currently open, so we can fire events
+  // iff the more section is being opened (not closed).
+  const isMoreMembersOpen = useRef(false);
+
+  const onMoreClick = useCallback(() => {
+    const { current: isOpen } = isMoreMembersOpen;
+
+    if (!isOpen) {
+      analytics(duration =>
+        moreMembersClicked({
+          duration,
+          memberCount: count,
+        }),
+      );
+    }
+
+    isMoreMembersOpen.current = !isOpen;
+  }, [analytics, count]);
 
   return (
     <>
@@ -80,7 +121,7 @@ const TeamMembers = ({
         <AvatarSection>
           <AvatarGroup
             appearance="stack"
-            data={members.map(member => {
+            data={members.map((member, index) => {
               const linkProps = generateUserLink
                 ? {
                     href: generateUserLink(member.id),
@@ -89,7 +130,13 @@ const TeamMembers = ({
 
               const onClickProps = onUserClick
                 ? {
-                    onClick: onMemberClick(onUserClick, member.id),
+                    onClick: onMemberClick(
+                      onUserClick,
+                      member.id,
+                      analytics,
+                      index,
+                      !!generateUserLink,
+                    ),
                   }
                 : {};
 
@@ -102,6 +149,7 @@ const TeamMembers = ({
               };
             })}
             maxCount={9}
+            showMoreButtonProps={{ onClick: onMoreClick }}
           />
         </AvatarSection>
       )}
@@ -109,21 +157,46 @@ const TeamMembers = ({
   );
 };
 
-function onActionClick(callback: ProfileCardAction['callback']) {
+function onActionClick(
+  action: ProfileCardAction,
+  analytics: AnalyticsFunction,
+  index: number,
+) {
   return (...args: any) => {
-    // Analytics
-    if (callback) {
+    analytics(duration =>
+      teamActionClicked({
+        duration,
+        hasHref: !!action.link,
+        hasOnClick: !!action.callback,
+        index,
+        actionId: action.id || '',
+      }),
+    );
+
+    if (action.callback) {
       args[0].preventDefault();
-      callback(...args);
+      action.callback(...args);
     }
   };
 }
 
-const ActionButton = ({ label, callback, link }: ProfileCardAction) => {
+const ActionButton = ({
+  action,
+  analytics,
+  index,
+}: {
+  action: ProfileCardAction;
+  analytics: AnalyticsFunction;
+  index: number;
+}) => {
   return (
     <WrappedButton>
-      <Button shouldFitContainer onClick={onActionClick(callback)} href={link}>
-        {label}
+      <Button
+        href={action.link}
+        onClick={onActionClick(action, analytics, index)}
+        shouldFitContainer
+      >
+        {action.label}
       </Button>
     </WrappedButton>
   );
@@ -131,12 +204,32 @@ const ActionButton = ({ label, callback, link }: ProfileCardAction) => {
 
 interface ActionProps {
   actions: ProfileCardAction[];
+  analytics: AnalyticsFunction;
 }
 
-const ExtraActions = ({ actions }: ActionProps) => {
+const ExtraActions = ({ actions, analytics }: ActionProps) => {
   const [isOpen, setOpen] = useState(false);
 
-  if (!actions.length) {
+  const count = actions.length;
+
+  const onMoreClick = useCallback(
+    (shouldBeOpen: boolean) => {
+      if (shouldBeOpen) {
+        // Only fire this event when OPENING the dropdown
+        analytics(duration =>
+          moreActionsClicked({
+            duration,
+            numActions: count + 2,
+          }),
+        );
+      }
+
+      setOpen(shouldBeOpen);
+    },
+    [analytics, count],
+  );
+
+  if (!count) {
     return null;
   }
 
@@ -150,7 +243,7 @@ const ExtraActions = ({ actions }: ActionProps) => {
           <MenuGroup>
             {actions.map((action, index) => (
               <LinkItem
-                onClick={onActionClick(action.callback)}
+                onClick={onActionClick(action, analytics, index + 2)}
                 key={action.id || index}
                 href={action.link}
               >
@@ -164,16 +257,17 @@ const ExtraActions = ({ actions }: ActionProps) => {
             testId="more-actions-button"
             {...triggerProps}
             isSelected={isOpen}
-            onClick={() => setOpen(!isOpen)}
+            onClick={() => onMoreClick(!isOpen)}
             iconAfter={<MoreIcon label="actions" />}
           />
         )}
+        zIndex={layers.modal()}
       />
     </MoreButton>
   );
 };
 
-const ButtonSection = ({ actions }: ActionProps) => {
+const ButtonSection = ({ actions, analytics }: ActionProps) => {
   if (!actions) {
     return null;
   }
@@ -185,9 +279,16 @@ const ButtonSection = ({ actions }: ActionProps) => {
     <ButtonGroup>
       <ActionButtons>
         {initialActions.map((action, index) => (
-          <ActionButton {...action} key={index} />
+          <ActionButton
+            action={action}
+            analytics={analytics}
+            index={index}
+            key={index}
+          />
         ))}
-        {extraActions && <ExtraActions actions={extraActions} />}
+        {extraActions && (
+          <ExtraActions actions={extraActions} analytics={analytics} />
+        )}
       </ActionButtons>
     </ButtonGroup>
   );
@@ -195,6 +296,7 @@ const ButtonSection = ({ actions }: ActionProps) => {
 
 const TeamProfilecardContent = ({
   actions,
+  analytics,
   team,
   viewingUserId,
   generateUserLink,
@@ -207,9 +309,27 @@ const TeamProfilecardContent = ({
       label: <FormattedMessage {...messages.teamViewProfile} />,
       link: viewProfileLink,
       callback: viewProfileOnClick,
+      id: 'view-profile',
     },
     ...(actions || []),
   ];
+
+  const includingYou =
+    team.members && team.members.some(member => member.id === viewingUserId);
+
+  useEffect(() => {
+    analytics(duration =>
+      teamProfileCardRendered('content', {
+        duration,
+        numActions: allActions.length,
+        memberCount: team.members?.length,
+        includingYou,
+        descriptionLength: team.description.length,
+        titleLength: team.displayName.length,
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [analytics]);
 
   return (
     <CardWrapper data-testid="team-profilecard">
@@ -219,9 +339,10 @@ const TeamProfilecardContent = ({
       <CardContent>
         <TeamName>{team.displayName}</TeamName>
         <TeamMembers
+          analytics={analytics}
           members={team.members}
           generateUserLink={generateUserLink}
-          viewingUserId={viewingUserId}
+          includingYou={includingYou}
           onUserClick={onUserClick}
         />
         {team.description.trim() && (
@@ -229,19 +350,44 @@ const TeamProfilecardContent = ({
             <Description>{team.description}</Description>
           </DescriptionWrapper>
         )}
-        <ButtonSection actions={allActions} />
+        <ButtonSection actions={allActions} analytics={analytics} />
       </CardContent>
     </CardWrapper>
   );
 };
 
 const ErrorMessage = ({
+  analytics,
   clientFetchProfile,
   isLoading,
 }: {
   clientFetchProfile?: () => void;
   isLoading?: boolean;
+  analytics: AnalyticsFunction;
 }) => {
+  const hasRetry = !!clientFetchProfile;
+
+  useEffect(() => {
+    analytics(duration =>
+      teamProfileCardRendered('error', {
+        duration,
+        hasRetry,
+      }),
+    );
+  }, [analytics, hasRetry]);
+
+  const retry = useCallback(() => {
+    analytics(duration =>
+      errorRetryClicked({
+        duration,
+      }),
+    );
+
+    if (clientFetchProfile) {
+      clientFetchProfile();
+    }
+  }, [analytics, clientFetchProfile]);
+
   return (
     <ErrorWrapper data-testid="team-profilecard-error">
       <ErrorIllustration />
@@ -257,7 +403,7 @@ const ErrorMessage = ({
             <LoadingButton
               testId="client-fetch-profile-button"
               shouldFitContainer
-              onClick={clientFetchProfile}
+              onClick={retry}
               isLoading={isLoading}
             >
               <FormattedMessage {...messages.teamErrorButton} />
@@ -270,12 +416,13 @@ const ErrorMessage = ({
 };
 
 const TeamProfileCard = (props: TeamProfilecardProps) => {
-  const { clientFetchProfile, hasError, isLoading, team } = props;
+  const { analytics, clientFetchProfile, hasError, isLoading, team } = props;
 
   if (hasError) {
     return (
       <CardWrapper data-testid="team-profilecard">
         <ErrorMessage
+          analytics={analytics}
           clientFetchProfile={clientFetchProfile}
           isLoading={isLoading}
         />
@@ -284,7 +431,7 @@ const TeamProfileCard = (props: TeamProfilecardProps) => {
   }
 
   if (isLoading) {
-    return <TeamLoadingState />;
+    return <TeamLoadingState analytics={analytics} />;
   }
 
   if (team) {

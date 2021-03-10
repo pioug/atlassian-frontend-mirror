@@ -3,10 +3,25 @@ import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../../src/api/ProfileCardClient';
-import TeamProfileCardTrigger from '../../../src/components/TeamProfileCardTrigger';
+import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/TeamProfileCardTrigger';
+import { teamCardTriggered, teamRequestAnalytic } from '../../util/analytics';
+
+const createAnalyticsEvent = jest.fn(body => {
+  // Mocking an implementation of this so tests will run successfully
+  const event = {
+    dummy: 'hello',
+    clone: () => ({
+      fire: () => undefined,
+    }),
+  };
+
+  return event as any;
+});
 
 const defaultProps = {
+  createAnalyticsEvent,
   viewProfileLink: 'http://example.com/team/123',
   teamId: '123',
   orgId: 'DUMMY-ORG-ID',
@@ -20,6 +35,7 @@ const sampleProfile = {
   id: '123',
   displayName: 'The cool cats',
   description: 'A team',
+  members: [],
 };
 
 const mockResourceClient: unknown = {
@@ -28,9 +44,20 @@ const mockResourceClient: unknown = {
   },
 };
 
+function flexiTime(event: Record<string, any>) {
+  return {
+    ...event,
+    attributes: {
+      ...event.attributes,
+      firedAt: expect.anything(),
+    },
+  };
+}
+
 describe('TeamProfileCardTrigger', () => {
   describe('Open and close conditions', () => {
     beforeEach(() => {
+      createAnalyticsEvent.mockClear();
       jest.useFakeTimers();
     });
 
@@ -57,6 +84,10 @@ describe('TeamProfileCardTrigger', () => {
         fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
         jest.runAllTimers();
       });
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        flexiTime(teamCardTriggered('click')),
+      );
 
       expect(getByTestId('team-profilecard')).toBeDefined();
 
@@ -88,6 +119,10 @@ describe('TeamProfileCardTrigger', () => {
         fireEvent.mouseOver(getByTestId('team-profilecard-trigger-wrapper'));
         jest.runAllTimers();
       });
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        flexiTime(teamCardTriggered('hover')),
+      );
 
       expect(getByTestId('team-profilecard')).toBeDefined();
 
@@ -328,6 +363,109 @@ describe('TeamProfileCardTrigger', () => {
 
       expect(await findByText(sampleProfile.displayName)).toBeDefined();
       expect(getTeamProfile).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('Profile client analytics', () => {
+    beforeEach(() => {
+      createAnalyticsEvent.mockClear();
+      jest.useFakeTimers();
+    });
+
+    it('Request success analytics', async () => {
+      const MockTeamClient = getMockTeamClient({
+        team: sampleProfile,
+        timeout: 0,
+        error: undefined,
+        errorRate: 0,
+      });
+
+      const clientArgs = {
+        cacheSize: 10,
+        cacheMaxAge: 0,
+        url: 'DUMMY',
+      };
+
+      const profileClient = new ProfileClient(clientArgs, {
+        teamClient: new MockTeamClient(clientArgs),
+      });
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCardTrigger
+          {...defaultProps}
+          resourceClient={profileClient}
+          trigger="click"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </TeamProfileCardTrigger>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
+        jest.runAllTimers();
+      });
+
+      await new Promise(setImmediate);
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        flexiTime(teamRequestAnalytic('triggered')),
+      );
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        flexiTime(
+          teamRequestAnalytic('succeeded', {
+            duration: expect.anything(),
+          }),
+        ),
+      );
+    });
+
+    it('Request failure analytics', async () => {
+      const MockTeamClient = getMockTeamClient({
+        team: sampleProfile,
+        timeout: 0,
+        error: 1,
+        errorRate: 1,
+      });
+
+      const clientArgs = {
+        cacheSize: 10,
+        cacheMaxAge: 0,
+        url: 'DUMMY',
+      };
+
+      const profileClient = new ProfileClient(clientArgs, {
+        teamClient: new MockTeamClient(clientArgs),
+      });
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCardTrigger
+          {...defaultProps}
+          resourceClient={profileClient}
+          trigger="click"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </TeamProfileCardTrigger>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
+        jest.runAllTimers();
+      });
+
+      await new Promise(setImmediate);
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        flexiTime(teamRequestAnalytic('triggered')),
+      );
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        flexiTime(
+          teamRequestAnalytic('failed', {
+            duration: expect.anything(),
+          }),
+        ),
+      );
     });
   });
 });

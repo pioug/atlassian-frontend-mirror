@@ -9,6 +9,14 @@ export default function getMockTeamClient(data: {
 }) {
   return class MockTeamClient extends TeamProfileCardClient {
     makeRequest(teamId: string): Promise<Team> {
+      if (!data.timeout) {
+        if (data.error && Math.random() < data.errorRate) {
+          return Promise.reject({ reason: data.error });
+        }
+
+        return Promise.resolve(data.team);
+      }
+
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           if (data.error && Math.random() < data.errorRate) {

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ProfileCardTrigger } from '../src';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
-import { analyticsHandler, getMockProfileClient } from './helper/util';
+import { getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
 const mockClientForInactiveAccount = getMockProfileClient(10, 0, {
@@ -33,7 +33,6 @@ export const Section = styled.div`
 const defaultProps = {
   cloudId: 'DUMMY-10ae0bf3-157e-43f7-be45-f1bb13b39048',
   resourceClient: mockClient,
-  analytics: analyticsHandler,
 };
 
 export default function Example() {

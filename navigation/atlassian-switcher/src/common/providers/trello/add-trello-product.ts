@@ -21,6 +21,7 @@ export const addTrelloProduct = (
 
     return createResultComplete({
       unstableFeatures: availableProducts.data.unstableFeatures,
+      isPartial: availableProducts.data.isPartial,
       sites: [
         ...availableProducts.data.sites,
         {

@@ -4,7 +4,7 @@ import Textfield from '@atlaskit/textfield';
 import Select from '@atlaskit/select';
 import Button from '@atlaskit/button/standard-button';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-
+import { exampleOptions } from '../example-helpers';
 import {
   SupportedProduct,
   SmartUserPicker,
@@ -27,11 +27,13 @@ type State = {
   includeUsers: boolean;
   includeGroups: boolean;
   includeTeams: boolean;
+  isPrefetchOn: boolean;
   fieldId: string;
   childObjectId?: string;
   objectId?: string;
   containerId?: string;
   productAttributes: BitbucketAttributes;
+  bootstrapOptions: boolean;
 };
 const productsMap = products
   .map(p => ({ [p.value]: p }))
@@ -46,6 +48,7 @@ const SmartUserPickerCustomizableExample = () => {
     includeUsers: true,
     includeGroups: false,
     includeTeams: true,
+    isPrefetchOn: false,
     childObjectId: undefined,
     objectId: undefined,
     containerId: undefined,
@@ -54,6 +57,7 @@ const SmartUserPickerCustomizableExample = () => {
       emailDomain: 'atlassian.com',
       isPublicRepo: true,
     },
+    bootstrapOptions: false,
   });
 
   let onInputChange: OnInputChange = (query?: string, sessionId?: string) => {
@@ -72,7 +76,12 @@ const SmartUserPickerCustomizableExample = () => {
   };
 
   let createBoolean = (
-    id: 'includeUsers' | 'includeGroups' | 'includeTeams',
+    id:
+      | 'includeUsers'
+      | 'includeGroups'
+      | 'includeTeams'
+      | 'bootstrapOptions'
+      | 'isPrefetchOn',
     label: string,
   ) => {
     return (
@@ -208,6 +217,8 @@ const SmartUserPickerCustomizableExample = () => {
 
       {createBoolean('includeUsers', 'include Users (includeUsers)')}
       {createBoolean('includeTeams', 'include Teams (includeTeams)')}
+      {createBoolean('bootstrapOptions', 'bootstrapOptions')}
+      {createBoolean('isPrefetchOn', 'prefetch')}
 
       {state.product === 'bitbucket' && (
         <Fragment>
@@ -264,7 +275,6 @@ const SmartUserPickerCustomizableExample = () => {
           </div>
         </Fragment>
       )}
-
       <hr />
       <label htmlFor="user-picker">User Picker</label>
       <AnalyticsListener onEvent={onEvent} channel="fabric-elements">
@@ -284,7 +294,8 @@ const SmartUserPickerCustomizableExample = () => {
           containerId={state.containerId}
           childObjectId={state.childObjectId}
           debounceTime={400}
-          prefetch={true}
+          prefetch={state.isPrefetchOn}
+          bootstrapOptions={state.bootstrapOptions ? exampleOptions : undefined}
           productAttributes={{
             emailDomain: state.productAttributes.emailDomain,
             isPublicRepo: state.productAttributes.isPublicRepo,

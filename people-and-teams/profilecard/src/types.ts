@@ -115,8 +115,6 @@ export interface TeamProfilecardCoreProps {
     "including you" or not.
    */
   viewingUserId?: string;
-  /** Analytics are yet to be implemented. */
-  analytics?: any;
   /**
     A list of extra buttons to be displayed at the bottom of the card.
     View Profile is always included by default.
@@ -267,6 +265,10 @@ export interface ProfilecardProps {
   hasDisabledAccountLozenge?: boolean;
 }
 
+export type AnalyticsFromDuration = (duration: number) => Record<string, any>;
+
+export type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
+
 export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
   /** Indicates whether the team's details are still loading. */
   isLoading?: boolean;
@@ -278,6 +280,8 @@ export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
   team?: Team;
   /** A callback that will try to re-fetch data in case an error occurred. */
   clientFetchProfile?: () => void;
+  /** Details relevant to passing around analytics. */
+  analytics: AnalyticsFunction;
 }
 
 export interface MessageIntlProviderProps {
@@ -300,7 +304,11 @@ export interface ProfileClient {
     cloudId: string,
     userId: string,
   ) => Promise<ProfileCardClientData>;
-  getTeamProfile: (teamId: string, orgId?: string) => Promise<Team>;
+  getTeamProfile: (
+    teamId: string,
+    orgId?: string,
+    fireAnalytics?: (event: Record<string, any>) => void,
+  ) => Promise<Team>;
 }
 
 export type ProfilecardTriggerPosition =

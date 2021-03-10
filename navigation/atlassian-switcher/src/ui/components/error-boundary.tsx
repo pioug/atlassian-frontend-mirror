@@ -119,6 +119,8 @@ interface ErrorBoundaryProps {
   product: Product;
   children: React.ReactNode;
   appearance?: Appearance;
+  triggerSubject?: string;
+  hideFallbackUI?: boolean;
 }
 
 type ErrorBoundaryState = {
@@ -137,7 +139,7 @@ class ErrorBoundary extends React.Component<
       this.props
         .createAnalyticsEvent({
           eventType: OPERATIONAL_EVENT_TYPE,
-          actionSubject: TRIGGER_SUBJECT,
+          actionSubject: this.props.triggerSubject || TRIGGER_SUBJECT,
           ...payload,
         })
         .fire(NAVIGATION_CHANNEL);
@@ -284,8 +286,12 @@ class ErrorBoundary extends React.Component<
   }
 
   render() {
-    const { appearance } = this.props;
+    const { appearance, hideFallbackUI } = this.props;
     const { hasError } = this.state;
+
+    if (hasError && hideFallbackUI) {
+      return <></>;
+    }
 
     if (hasError) {
       return (

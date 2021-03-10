@@ -27,7 +27,10 @@ export const createAvailableProductsProvider = (
         const usingExperimentApi = url.indexOf('experiment-api') > -1;
 
         if (usingExperimentApi && e.status === 401) {
-          const defaultUnauthorizedResponse = Promise.resolve({ sites: [] });
+          const defaultUnauthorizedResponse = Promise.resolve({
+            sites: [],
+            isPartial: false,
+          });
           return defaultUnauthorizedResponse;
         }
         throw e;

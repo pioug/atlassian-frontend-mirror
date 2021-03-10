@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher-test-utils
 
+## 0.6.2
+
+### Patch Changes
+
+- [`c950dd7f5bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c950dd7f5bb) - Mock responses have been updated to include new `isPartial` field.
+
 ## 0.6.1
 
 ### Patch Changes

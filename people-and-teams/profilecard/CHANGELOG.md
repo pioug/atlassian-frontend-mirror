@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.2.0
+
+### Minor Changes
+
+- [`61544638935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61544638935) - Added analytics to the Team profile card
+
 ## 15.1.3
 
 ### Patch Changes

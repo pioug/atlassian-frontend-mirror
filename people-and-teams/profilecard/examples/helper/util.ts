@@ -27,9 +27,6 @@ export const getMockProfileClient = (
   });
 };
 
-export const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log('Analytics event invoked: ', actionName, props);
-
 export default null;
 
 export { getMockTeamClient };

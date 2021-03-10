@@ -1,25 +1,38 @@
 import React, { Suspense } from 'react';
 
+import {
+  CreateUIAnalyticsEvent,
+  withAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../internal/filterActions';
-import {
+import type {
+  AnalyticsFromDuration,
   ProfileCardAction,
   Team,
   TeamProfilecardProps,
   TeamProfileCardTriggerProps,
   TeamProfileCardTriggerState,
 } from '../types';
+import {
+  firePeopleTeamsEvent,
+  teamCardTriggered,
+  teamProfileCardRendered,
+} from '../util/analytics';
+import { getPageTime } from '../util/performance';
 
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
 import ErrorBoundary from './ErrorBoundary';
 import { TeamProfileCardLazy } from './lazyTeamProfileCard';
 import TeamLoadingState from './TeamLoadingState';
 
-class TeamProfileCardTrigger extends React.PureComponent<
-  TeamProfileCardTriggerProps,
+export class TeamProfileCardTriggerInternal extends React.PureComponent<
+  TeamProfileCardTriggerProps & {
+    createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  },
   TeamProfileCardTriggerState
 > {
   static defaultProps: Partial<TeamProfileCardTriggerProps> = {
@@ -34,6 +47,24 @@ class TeamProfileCardTrigger extends React.PureComponent<
   hideTimer: number = 0;
 
   openedByHover: boolean = false;
+
+  openTime = 0;
+
+  fireAnalytics = (payload: Record<string, any>) => {
+    // Don't fire any analytics if the component is unmounted
+    if (!this._isMounted) {
+      return;
+    }
+
+    if (this.props.createAnalyticsEvent) {
+      firePeopleTeamsEvent(payload)(this.props.createAnalyticsEvent);
+    }
+  };
+
+  fireAnalyticsWithDuration = (generator: AnalyticsFromDuration) => {
+    const event = generator(getPageTime() - this.openTime);
+    this.fireAnalytics(event);
+  };
 
   hideProfilecard = (delay = 0) => {
     clearTimeout(this.showTimer);
@@ -51,6 +82,7 @@ class TeamProfileCardTrigger extends React.PureComponent<
     this.showTimer = window.setTimeout(() => {
       if (!this.state.visible) {
         this.clientFetchProfile();
+        this.openTime = getPageTime();
         this.setState({ visible: true });
       }
     }, delay);
@@ -77,6 +109,10 @@ class TeamProfileCardTrigger extends React.PureComponent<
     if (this.props.trigger !== 'hover') {
       this.openedByHover = false;
       this.showProfilecard(0);
+
+      if (!this.state.visible) {
+        this.fireAnalytics(teamCardTriggered('click'));
+      }
     }
   };
 
@@ -87,6 +123,8 @@ class TeamProfileCardTrigger extends React.PureComponent<
 
     if (!this.state.visible) {
       this.openedByHover = true;
+
+      this.fireAnalytics(teamCardTriggered('hover'));
     }
 
     this.showProfilecard(DELAY_MS_SHOW);
@@ -165,8 +203,12 @@ class TeamProfileCardTrigger extends React.PureComponent<
         data: null,
       },
       () => {
+        const fireEvent = (event: Record<string, any>) => {
+          this.fireAnalytics(event);
+        };
+
         this.props.resourceClient
-          .getTeamProfile(teamId, orgId)
+          .getTeamProfile(teamId, orgId, fireEvent)
           .then(
             res => this.handleClientSuccess(res),
             err => this.handleClientError(err),
@@ -177,6 +219,12 @@ class TeamProfileCardTrigger extends React.PureComponent<
   };
 
   onErrorBoundary = () => {
+    this.fireAnalytics(
+      teamProfileCardRendered('errorBoundary', {
+        duration: 0,
+      }),
+    );
+
     this.setState({
       renderError: true,
     });
@@ -211,18 +259,13 @@ class TeamProfileCardTrigger extends React.PureComponent<
   }
 
   renderProfileCard = () => {
-    const {
-      analytics,
-      viewingUserId,
-      viewProfileLink,
-      viewProfileOnClick,
-    } = this.props;
+    const { viewingUserId, viewProfileLink, viewProfileOnClick } = this.props;
     const { data, error, hasError, isLoading } = this.state;
 
     const newProps: TeamProfilecardProps = {
       clientFetchProfile: this.clientFetchProfile,
       actions: this.filterActions(),
-      analytics,
+      analytics: this.fireAnalyticsWithDuration,
       team: data || undefined,
       viewingUserId,
       viewProfileLink,
@@ -232,7 +275,11 @@ class TeamProfileCardTrigger extends React.PureComponent<
     return (
       <div {...this.cardListeners}>
         {this.state.visible && (
-          <Suspense fallback={<TeamLoadingState />}>
+          <Suspense
+            fallback={
+              <TeamLoadingState analytics={this.fireAnalyticsWithDuration} />
+            }
+          >
             <TeamProfileCardLazy
               {...newProps}
               isLoading={isLoading}
@@ -305,4 +352,4 @@ class TeamProfileCardTrigger extends React.PureComponent<
   }
 }
 
-export default TeamProfileCardTrigger;
+export default withAnalyticsEvents()(TeamProfileCardTriggerInternal);

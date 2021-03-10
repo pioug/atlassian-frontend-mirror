@@ -151,6 +151,10 @@ export interface Props
    *  will remove inactive users from the list of suggestions.
    */
   searchQueryFilter?: string;
+  /**
+   * The array that is passed in will override the options that are offered when query="" (bootstrap)
+   */
+  bootstrapOptions?: OptionData[];
 }
 
 export interface State {
@@ -161,6 +165,7 @@ export interface State {
   query: string;
   sessionId?: string;
   defaultValue?: OptionData[];
+  bootstrapOptions: OptionData[];
 }
 
 export interface RecommendationRequest {
@@ -277,6 +282,7 @@ class SmartUserPicker extends React.Component<Props, State> {
     closed: true,
     query: '',
     defaultValue: [],
+    bootstrapOptions: [],
   };
 
   static defaultProps = {
@@ -327,8 +333,9 @@ class SmartUserPicker extends React.Component<Props, State> {
       });
     }
     if (
-      this.state.sessionId !== prevState.sessionId ||
-      this.state.query !== prevState.query
+      (this.state.sessionId !== prevState.sessionId ||
+        this.state.query !== prevState.query) &&
+      (this.state.query !== '' || !this.props.bootstrapOptions)
     ) {
       this.debouncedGetUsers();
     }
@@ -345,6 +352,7 @@ class SmartUserPicker extends React.Component<Props, State> {
 
   filterOptions = (users: OptionData[]) =>
     this.props.filterOptions ? this.props.filterOptions(users) : users;
+
   getUsers = async () => {
     const { query, sessionId } = this.state;
     const {
@@ -444,6 +452,18 @@ class SmartUserPicker extends React.Component<Props, State> {
 
   filterUsers = () => {
     const { loading, users, query } = this.state;
+    //If bootstrapOptions have been passed in and it is bootstrap
+    if (
+      this.props.bootstrapOptions &&
+      this.props.bootstrapOptions.length !== 0 &&
+      query === ''
+    ) {
+      this.fireEvent(filterUsersEvent, {
+        filtered: getUsersForAnalytics(this.state.bootstrapOptions),
+        all: getUsersForAnalytics(this.state.bootstrapOptions),
+      });
+      return this.props.bootstrapOptions;
+    }
     // while when not loading just return already filtered result from server.
     if (!loading) {
       return users;
@@ -498,7 +518,10 @@ class SmartUserPicker extends React.Component<Props, State> {
         onFocus={this.onFocus}
         defaultValue={this.state.defaultValue}
         isLoading={
-          this.props.isLoading || (this.state.loading && !this.state.closed)
+          this.props.isLoading ||
+          (this.state.loading &&
+            !this.state.closed &&
+            (!this.props.bootstrapOptions || this.state.query !== ''))
         }
         options={this.filterUsers()}
       />

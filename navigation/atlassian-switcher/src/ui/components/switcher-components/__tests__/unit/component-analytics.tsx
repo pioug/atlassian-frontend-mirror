@@ -10,6 +10,7 @@ import createStream, { Stream } from '../../../../../../test-helpers/stream';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SwitcherProductType } from '../../../../../types';
 import { mapResultsToSwitcherProps } from '../../../../../common/utils/map-results-to-switcher-props';
+import { Status } from '../../../../../common/providers/as-data-provider';
 
 // Includes viewed and rendered events
 const EXPECTED_RENDER_EVENTS = 6;
@@ -911,6 +912,7 @@ describe('Atlassian Switcher - SLIs', () => {
       const rawProviderResults = {
         customLinks: {
           data: null,
+          status: Status.ERROR,
         },
       };
       mount(
@@ -936,12 +938,9 @@ describe('Atlassian Switcher - SLIs', () => {
       expect(
         customLinksContainersPayload.attributes.duration,
       ).toBeGreaterThanOrEqual(0);
-      expect(customLinksContainersPayload.attributes).toHaveProperty(
-        'providerFailed',
+      expect(customLinksContainersPayload.attributes.notRenderedReason).toEqual(
+        'custom_links_api_error',
       );
-      expect(
-        customLinksContainersPayload.attributes.providerFailed,
-      ).toBeTruthy();
     });
   });
 });

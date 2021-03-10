@@ -35,7 +35,6 @@ const profileClient = new ProfileClient({
       callback: () => {}
     }
   ]}
-  analytics={analytics}
 >
   <Avatar ... />
 </ProfileCardTrigger>

@@ -18,7 +18,7 @@ import {
   getRecentContainersRenderTracker,
   getCustomLinksRenderTracker,
 } from '../../../common/utils/analytics';
-import now from '../../../common/utils/performance-now';
+import { now } from '../../../common/utils/performance-now';
 import { Appearance } from '../../theme/types';
 import {
   TriggerXFlowCallback,
@@ -30,12 +30,14 @@ import {
   FeatureMap,
   DiscoverLinkItemKeys,
   GetExtendedAnalyticsAttributes,
+  Product,
 } from '../../../types';
 import { CrossJoinSection } from '../../../cross-join/components/cross-join-section';
 import { CrossFlowSection } from '../../../cross-flow/components/cross-flow-section';
 import { SwitchToSection } from './switch-to-section';
 import { RecentSection } from './recent-section';
 import { CustomLinksSection } from './custom-links-section';
+import ErrorBoundary from '../error-boundary';
 
 export type SwitcherProps = {
   triggerXFlow: TriggerXFlowCallback;
@@ -67,6 +69,7 @@ export type SwitcherProps = {
    */
   disableSwitchToHeading?: boolean;
   appearance?: Appearance;
+  product?: Product;
   /**
    * Links for experimental "Discover" section
    * which is a variation of suggestedProductLinks and fixedLinks combined
@@ -106,7 +109,9 @@ export default class Switcher extends React.Component<SwitcherProps> {
   }
 
   timeSinceMounted(): number {
-    return this.mountedAt ? Math.round(now() - this.mountedAt) : 0;
+    return this.mountedAt !== undefined
+      ? Math.round(now() - this.mountedAt)
+      : 0;
   }
 
   /** https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/6522/issue-prst-13-adding-discover-more-button/
@@ -149,6 +154,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
       triggerXFlow,
       slackDiscoveryClickHandler,
       getExtendedAnalyticsAttributes,
+      product,
     } = this.props;
     /**
      * It is essential that switchToLinks reflects the order corresponding nav items
@@ -296,33 +302,39 @@ export default class Switcher extends React.Component<SwitcherProps> {
               getExtendedAnalyticsAttributes={getExtendedAnalyticsAttributes}
             />
           )}
-          <CrossJoinSection
-            appearance={appearance}
-            joinableSiteLinks={joinableSiteLinks}
-            licensedProductLinks={licensedProductLinks}
-            onJoinableSiteClicked={onJoinableSiteClicked}
-            onClose={onClose}
-            rawProviderResults={rawProviderResults}
-          />
-          {isDiscoverSectionEnabled && (
-            <CrossFlowSection
+          <ErrorBoundary
+            product={product as Product}
+            triggerSubject="nonCoreErrorBoundary"
+            hideFallbackUI
+          >
+            <CrossJoinSection
               appearance={appearance}
-              onDiscoverMoreClicked={this.onDiscoverMoreClicked}
-              triggerXFlow={triggerXFlow}
-              discoverSectionLinks={discoverSectionLinks}
-              suggestedProductLinks={suggestedProductLinks}
+              joinableSiteLinks={joinableSiteLinks}
+              licensedProductLinks={licensedProductLinks}
+              onJoinableSiteClicked={onJoinableSiteClicked}
+              onClose={onClose}
               rawProviderResults={rawProviderResults}
-              isSlackDiscoveryEnabled={features.isSlackDiscoveryEnabled}
-              slackDiscoveryClickHandler={slackDiscoveryClickHandler}
             />
-          )}
-          <RecentSection appearance={appearance} recentLinks={recentLinks} />
-          <CustomLinksSection
-            appearance={appearance}
-            customLinks={customLinks}
-          />
-          {!hasLoadedCritical && <Skeleton />}
-          {manageLink && <ManageButton href={manageLink} />}
+            {isDiscoverSectionEnabled && (
+              <CrossFlowSection
+                appearance={appearance}
+                onDiscoverMoreClicked={this.onDiscoverMoreClicked}
+                triggerXFlow={triggerXFlow}
+                discoverSectionLinks={discoverSectionLinks}
+                suggestedProductLinks={suggestedProductLinks}
+                rawProviderResults={rawProviderResults}
+                isSlackDiscoveryEnabled={features.isSlackDiscoveryEnabled}
+                slackDiscoveryClickHandler={slackDiscoveryClickHandler}
+              />
+            )}
+            <RecentSection appearance={appearance} recentLinks={recentLinks} />
+            <CustomLinksSection
+              appearance={appearance}
+              customLinks={customLinks}
+            />
+            {!hasLoadedCritical && <Skeleton />}
+            {manageLink && <ManageButton href={manageLink} />}
+          </ErrorBoundary>
         </SwitcherWrapper>
       </NavigationAnalyticsContext>
     );

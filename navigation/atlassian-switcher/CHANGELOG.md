@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-switcher
 
+## 9.2.0
+
+### Minor Changes
+
+- [`fbdae3a5627`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbdae3a5627) - - Improved analyics.
+  - Improved error handling. Global error boundary will no longer be displayed when there is an error outside of the 'Switch to' section.
+
 ## 9.1.1
 
 ### Patch Changes

@@ -46,7 +46,11 @@ describe('generic-switcher', () => {
     };
   });
   it('should not pass featureFlags to the recommendation resolver when recommendationFeatureFlags is not set', () => {
-    mount(<GenericSwitcher {...defaultProps} />);
+    mount(
+      <IntlProvider locale="en">
+        <GenericSwitcher {...defaultProps} />
+      </IntlProvider>,
+    );
     expect(mockResolveRecommendations).toBeCalledWith({});
   });
   it('should pass featureFlags to the recommendations resolver when recommendationFeatureFlags is set', () => {

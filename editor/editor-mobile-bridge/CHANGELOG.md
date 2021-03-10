@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.2.1
+
+### Patch Changes
+
+- [`1782690487b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1782690487b) - Group mobile integration test by file to reduce parallelism
+
 ## 25.2.0
 
 ### Minor Changes

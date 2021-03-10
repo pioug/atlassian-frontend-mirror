@@ -36,7 +36,7 @@ describe('default-available-products-provider', () => {
       'http://my-api/experiment-api/content',
     );
     const expectedResult = await fetchMethod();
-    expect(expectedResult).toEqual({ sites: [] });
+    expect(expectedResult).toEqual({ sites: [], isPartial: false });
   });
 
   test('should return a normal 401 when fetchJson returns 401 and not hitting experiment-api', async () => {

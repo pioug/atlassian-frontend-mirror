@@ -1,5 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import { IntlProvider } from 'react-intl';
 import AddIcon from '@atlaskit/icon/glyph/add';
 
 import Switcher from '../../switcher';
@@ -13,6 +14,7 @@ import FormattedMessage from '../../../../../ui/primitives/formatted-message';
 import { createIcon } from '../../../../../common/utils/icon-themes';
 import messages from '../../../../../common/utils/messages';
 import { SwitcherItemType } from '../../../../../common/utils/links';
+import ErrorBoundary from '../../../error-boundary';
 
 const noop = () => void 0;
 const providerResults: ProviderResults & SyntheticProviderResults = {
@@ -51,7 +53,7 @@ const providerResults: ProviderResults & SyntheticProviderResults = {
     status: Status.COMPLETE,
   },
   availableProducts: {
-    data: { sites: [] },
+    data: { sites: [], isPartial: false },
     status: Status.COMPLETE,
   },
   productRecommendations: {
@@ -68,6 +70,22 @@ const generateDiscoverMoreLinks = (): SwitcherItemType[] => [
     href: '',
   },
 ];
+
+jest.mock('../../custom-links-section', () => {
+  let shouldThrowError = false;
+  const setShouldThrowError = (val: boolean) => {
+    shouldThrowError = val;
+  };
+  return {
+    CustomLinksSection: () => {
+      if (shouldThrowError) {
+        throw new Error('');
+      }
+      return <p>Rendered</p>;
+    },
+    __setShouldThrowError: setShouldThrowError,
+  };
+});
 
 describe('Switcher', () => {
   it('should render sections with headers by default', () => {
@@ -145,5 +163,82 @@ describe('Switcher', () => {
         />,
       ),
     ).toMatchSnapshot();
+  });
+
+  describe('Non-Core ErrorBoundary', () => {
+    it('should render when there is an error in the non-core sections', () => {
+      const customLinksModule = require('../../custom-links-section');
+      customLinksModule.__setShouldThrowError(true);
+
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <Switcher
+            triggerXFlow={noop}
+            hasLoaded
+            hasLoadedCritical
+            hasLoadedInstanceProviders
+            onDiscoverMoreClicked={noop}
+            licensedProductLinks={[]}
+            suggestedProductLinks={[]}
+            joinableSiteLinks={[]}
+            fixedLinks={[]}
+            adminLinks={[]}
+            recentLinks={[]}
+            customLinks={[
+              {
+                key: 'discover-more',
+                label: 'test',
+                Icon: createIcon(AddIcon, { size: 'medium' }),
+                href: '',
+              },
+            ]}
+            discoverSectionLinks={[]}
+            rawProviderResults={providerResults}
+            features={{} as FeatureMap}
+            getExtendedAnalyticsAttributes={() => ({})}
+          />
+        </IntlProvider>,
+      );
+      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find(ErrorBoundary).html()).toEqual('');
+    });
+
+    it('should not render when there is no error in the non-core sections', () => {
+      const customLinksModule = require('../../custom-links-section');
+      customLinksModule.__setShouldThrowError(false);
+
+      const wrapper = mount(
+        <IntlProvider locale="en">
+          <Switcher
+            triggerXFlow={noop}
+            hasLoaded
+            hasLoadedCritical
+            hasLoadedInstanceProviders
+            onDiscoverMoreClicked={noop}
+            licensedProductLinks={[]}
+            suggestedProductLinks={[]}
+            joinableSiteLinks={[]}
+            fixedLinks={[]}
+            adminLinks={[]}
+            recentLinks={[]}
+            customLinks={[
+              {
+                key: 'discover-more',
+                label: 'test',
+                Icon: createIcon(AddIcon, { size: 'medium' }),
+                href: '',
+              },
+            ]}
+            discoverSectionLinks={[]}
+            rawProviderResults={providerResults}
+            features={{} as FeatureMap}
+            getExtendedAnalyticsAttributes={() => ({})}
+          />
+        </IntlProvider>,
+      );
+
+      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find(ErrorBoundary).html()).not.toEqual('');
+    });
   });
 });

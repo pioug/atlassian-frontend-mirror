@@ -11,14 +11,22 @@ import {
   OPERATIONAL_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import {
-  AnalyticsItemType,
   ProviderResults,
   SyntheticProviderResults,
-} from '../../types';
-import { SwitcherItemType } from './links';
-import { SwitcherProductType } from '../../types';
-import { JoinableSiteItemType } from '../../cross-join/utils/cross-join-links';
-
+  UserSiteDataResponse,
+  AnalyticsItemType,
+  SwitcherProductType,
+} from '../../../types';
+import { SwitcherItemType } from '../links';
+import { getRenderBucket } from '../render-tracker-bucketing';
+import { JoinableSiteItemType } from '../../../cross-join/utils/cross-join-links';
+import {
+  ProviderResult,
+  ResultError,
+  Status,
+} from '../../providers/as-data-provider';
+import { CLLoggableErrorReason } from './types';
+import { UserSiteDataError } from '../errors/user-site-data-error';
 type PropsToContextMapper<P, C> = (props: P) => C;
 
 type PIIFreeString = string;
@@ -71,9 +79,16 @@ export const withAnalyticsContextData = function <P, C>(
   };
 };
 
+const isValidDuration = (duration: number | undefined): duration is number => {
+  return duration !== null && duration !== undefined && duration >= 0;
+};
+
 interface RenderTrackerProps extends WithAnalyticsEventsProps {
   subject: string;
-  data?: object;
+  data?: {
+    [otherOptions: string]: unknown;
+    duration?: number;
+  };
   onRender?: any;
 }
 
@@ -82,11 +97,17 @@ export const RenderTracker = withAnalyticsEvents({
     createAnalyticsEvent: CreateUIAnalyticsEvent,
     props: RenderTrackerProps,
   ) => {
+    const duration = props.data?.duration;
     return createAnalyticsEvent({
       eventType: OPERATIONAL_EVENT_TYPE,
       action: RENDERED_ACTION,
       actionSubject: props.subject,
-      attributes: props.data,
+      attributes: {
+        ...props.data,
+        ...(isValidDuration(duration) && {
+          bucket: getRenderBucket(duration),
+        }),
+      },
     }).fire(NAVIGATION_CHANNEL);
   },
 })(
@@ -148,6 +169,40 @@ export const ViewedTracker = withAnalyticsEvents({
     }
   },
 );
+
+const renderTrackerWithReason = <T,>({
+  subject,
+  notRenderedReason,
+  emptyRenderExpected,
+  data,
+}: {
+  subject: string;
+  notRenderedReason: T | null;
+  emptyRenderExpected: boolean;
+  data?: object;
+}) => {
+  if (notRenderedReason) {
+    return (
+      <NotRenderedTracker
+        subject={subject}
+        data={{
+          ...data,
+          notRenderedReason,
+        }}
+      />
+    );
+  }
+
+  return (
+    <RenderTracker
+      subject={subject}
+      data={{
+        ...data,
+        emptyRender: emptyRenderExpected,
+      }}
+    />
+  );
+};
 
 const renderTracker = ({
   subject,
@@ -283,7 +338,7 @@ export const getRecentContainersRenderTracker = (
 
 export const getCustomLinksRenderTracker = (
   customLinksProviderResult: ProviderResults['customLinks'] | undefined,
-  userSiteDataProviderResult: SyntheticProviderResults['userSiteData'],
+  userSiteDataProviderResult: ProviderResult<UserSiteDataResponse>,
   customLinks: SwitcherItemType[],
   data?: object,
 ) => {
@@ -292,16 +347,28 @@ export const getCustomLinksRenderTracker = (
     return;
   }
 
-  const providerFailed =
-    customLinksProviderResult.data === null ||
-    userSiteDataProviderResult.data === null;
   const emptyRenderExpected = customLinks.length === 0;
 
-  return renderTracker({
+  function getNotRenderedReason(): CLLoggableErrorReason | null {
+    if (customLinksProviderResult?.status === Status.ERROR) {
+      return 'custom_links_api_error';
+    }
+    const error = (userSiteDataProviderResult as ResultError).error;
+    if (!error) {
+      return null;
+    }
+    if (error instanceof UserSiteDataError) {
+      return error.reason;
+    } else {
+      return 'usd_unknown';
+    }
+  }
+
+  const notRenderedReason = getNotRenderedReason();
+  return renderTrackerWithReason<CLLoggableErrorReason>({
     subject: SWITCHER_CUSTOM_LINKS,
-    providerFailed,
+    notRenderedReason,
     emptyRenderExpected,
-    linksRendered: customLinks,
     data,
   });
 };

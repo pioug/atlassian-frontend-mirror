@@ -38,6 +38,10 @@ const props = {
   ],
 };
 
+function analytics(gen: (duration: number) => Record<string, any>) {
+  console.log('Analytics', gen(1000));
+}
+
 const actionCounts = [0, 1, 2, 3, 4];
 
 export default function Example() {
@@ -61,6 +65,7 @@ export default function Example() {
         <MainStage>
           <CardWrapper>
             <TeamProfileCard
+              analytics={analytics}
               generateUserLink={() => 'about:blank'}
               hasError={hasError}
               isLoading={isLoading}

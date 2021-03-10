@@ -198,6 +198,7 @@ export interface AvailableSite {
 
 export interface AvailableProductsResponse {
   sites: AvailableSite[];
+  isPartial: boolean;
   unstableFeatures?: {
     act959Enabled?: boolean; // [FD-15975]: Remove after the featue flag is rolled out to 100%
   };

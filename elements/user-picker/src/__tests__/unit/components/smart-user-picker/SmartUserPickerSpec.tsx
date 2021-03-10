@@ -765,6 +765,56 @@ describe('SmartUserPicker', () => {
       );
     });
 
+    it('should return the options that it was passed in bootstrapOptions', async () => {
+      getUserRecommendationsMock.mockReturnValue(
+        Promise.resolve(mockReturnOptions),
+      );
+
+      const exampleUsers: OptionData[] = [
+        {
+          id: 'id2',
+          avatarUrl: 'someavatar1.com',
+          name: 'Ann Other',
+        },
+        {
+          id: 'id1',
+          avatarUrl: 'someavatar.com',
+          name: 'Oliver Oldfield-Hodge',
+        },
+        {
+          id: 'id2',
+          avatarUrl: 'someavatar.com',
+          name: 'Kira Molloy',
+        },
+      ];
+      const bootstrapOptions = exampleUsers;
+
+      const component = smartUserPickerWrapper({
+        bootstrapOptions,
+      });
+
+      expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+
+      expect(component.find(UserPicker).prop('options')).toEqual(exampleUsers);
+    });
+
+    it('should return the empty options that it was passed in bootstrapOptions', async () => {
+      getUserRecommendationsMock.mockReturnValue(
+        Promise.resolve(mockReturnOptions),
+      );
+
+      const exampleUsers: OptionData[] = [];
+      const bootstrapOptions = exampleUsers;
+
+      const component = smartUserPickerWrapper({
+        bootstrapOptions,
+      });
+
+      expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+
+      expect(component.find(UserPicker).prop('options')).toEqual(exampleUsers);
+    });
+
     it('should trigger preparedUsers loaded event', async () => {
       component = mountWithIntl(AnalyticsTestComponent({ prefetch: true }));
 

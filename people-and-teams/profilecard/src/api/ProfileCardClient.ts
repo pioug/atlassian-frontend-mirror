@@ -21,8 +21,12 @@ class ProfileCardClient {
     return this.userClient.getProfile(cloudId, userId);
   }
 
-  getTeamProfile(teamId: string, orgId?: string) {
-    return this.teamClient.getProfile(teamId, orgId);
+  getTeamProfile(
+    teamId: string,
+    orgId?: string,
+    analytics?: (event: Record<string, any>) => void,
+  ) {
+    return this.teamClient.getProfile(teamId, orgId, analytics);
   }
 }
 

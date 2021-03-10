@@ -14,6 +14,7 @@ export interface MockData {
 // Mock data can be overriden in the story so be careful when testing.
 const ORIGINAL_MOCK_DATA: MockData = {
   AVAILABLE_PRODUCTS_DATA: {
+    isPartial: false,
     sites: [
       {
         adminAccess: false,

@@ -56,11 +56,11 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
   };
 
   private getLozengeProps = () =>
-    this.props.group.lozenge
+    typeof this.props.group.lozenge === 'string'
       ? {
           text: this.props.group.lozenge,
         }
-      : undefined;
+      : this.props.group.lozenge;
 
   render() {
     return (

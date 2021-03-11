@@ -65,11 +65,11 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
   };
 
   private getLozengeProps = () =>
-    this.props.user.lozenge
+    typeof this.props.user.lozenge === 'string'
       ? {
           text: this.props.user.lozenge,
         }
-      : undefined;
+      : this.props.user.lozenge;
 
   render() {
     return (

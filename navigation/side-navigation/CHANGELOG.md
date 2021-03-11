@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 0.8.3
+
+### Patch Changes
+
+- [`e6f96e8d782`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f96e8d782) - Fix styling for hover and active states for disabled items
+
 ## 0.8.2
 
 ### Patch Changes

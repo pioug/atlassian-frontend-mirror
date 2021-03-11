@@ -11,7 +11,7 @@ import {
   FullNameLabel,
   SpinnerContainer,
 } from '../../styled/Card';
-import { ProfilecardProps } from '../../types';
+import { LozengeProps, ProfilecardProps } from '../../types';
 
 import mockGlobalDate from './helper/_mock-global-date';
 
@@ -269,6 +269,43 @@ describe('Profilecard', () => {
             <p>this is a custom message for inactive account</p>
           ),
         });
+
+        expect(card).toMatchSnapshot();
+      });
+    });
+
+    describe('customLozenges property', () => {
+      const customLozenges: LozengeProps[] = [
+        {
+          text: 'Guest',
+          appearance: 'new',
+          isBold: true,
+        },
+        {
+          text: 'Cool Bean',
+          appearance: 'removed',
+        },
+        {
+          text: 'Another Role',
+          appearance: 'inprogress',
+          isBold: true,
+        },
+      ];
+
+      it('should match snapshot when no custom lozenges are specified', () => {
+        const card = renderShallow();
+
+        expect(card).toMatchSnapshot();
+      });
+
+      it('should match snapshot when one custom lozenge is specified', () => {
+        const card = renderShallow({ customLozenges: [customLozenges[0]] });
+
+        expect(card).toMatchSnapshot();
+      });
+
+      it('should match snapshot when multiple custom lozenges are specified', () => {
+        const card = renderShallow({ customLozenges });
 
         expect(card).toMatchSnapshot();
       });

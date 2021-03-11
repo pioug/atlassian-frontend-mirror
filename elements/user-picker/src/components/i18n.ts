@@ -95,4 +95,15 @@ export const messages = defineMessages({
     defaultMessage: 'GitHub',
     description: 'This external user is sourced from GitHub provider',
   },
+  memberLozengeText: {
+    id: 'fabric.elements.user-picker.member.lozenge.text',
+    defaultMessage: 'MEMBER',
+    description: 'Text within the Lozenge when the user is a workspace member',
+  },
+  guestLozengeText: {
+    id: 'fabric.elements.user-picker.guest.lozenge.text',
+    defaultMessage: 'GUEST',
+    description:
+      'Text within the lozenge when the user is a guest of confluence',
+  },
 });

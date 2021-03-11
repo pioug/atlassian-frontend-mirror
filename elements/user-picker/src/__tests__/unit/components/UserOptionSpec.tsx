@@ -1,6 +1,7 @@
 import * as colors from '@atlaskit/theme/colors';
 import { shallow } from 'enzyme';
 import React from 'react';
+import { LozengeProps } from '../../../types';
 import {
   AvatarItemOption,
   TextWrapper,
@@ -18,6 +19,7 @@ describe('User Option', () => {
     byline: 'Teammate',
     lozenge: 'WORKSPACE',
   };
+
   const shallowOption = (props: Partial<UserOptionProps> = {}) =>
     shallow<UserOption>(
       <UserOption
@@ -82,6 +84,48 @@ describe('User Option', () => {
         </React.Fragment>,
       ],
       secondaryText: <TextWrapper color={colors.N50}>Teammate</TextWrapper>,
+    });
+  });
+
+  it('should render lozenge when providing LozengeProps type object', () => {
+    const lozengeObject: LozengeProps = {
+      text: 'GUEST',
+      appearance: 'new',
+    };
+
+    const userWithLozenge = {
+      ...user,
+      lozenge: lozengeObject,
+    };
+
+    const component = shallowOption({ user: userWithLozenge });
+
+    const avatarItemOption = component.find(AvatarItemOption);
+    expect(avatarItemOption.props()).toMatchObject({
+      avatar: (
+        <SizeableAvatar
+          appearance="big"
+          src="http://avatars.atlassian.com/jace.png"
+          presence="approved"
+          name="Jace Beleren"
+        />
+      ),
+      primaryText: [
+        <TextWrapper key="name" color={colors.N800}>
+          <HighlightText>Jace Beleren</HighlightText>
+        </TextWrapper>,
+        <React.Fragment key="publicName">
+          {' '}
+          <TextWrapper color={colors.N200}>
+            (<HighlightText>jbeleren</HighlightText>)
+          </TextWrapper>
+        </React.Fragment>,
+      ],
+      secondaryText: <TextWrapper color={colors.N200}>Teammate</TextWrapper>,
+      lozenge: {
+        text: 'GUEST',
+        appearance: 'new',
+      },
     });
   });
 

@@ -69,6 +69,19 @@ const mockReturnOptions: OptionData[] = [
   },
 ];
 
+const mockConfluenceGuestUserOptions: OptionData[] = [
+  {
+    avatarUrl: 'someavatar.com',
+    id: 'id1',
+    name: 'Pranay Marella',
+    type: 'user',
+    lozenge: {
+      text: 'GUEST',
+      appearance: 'new',
+    },
+  },
+];
+
 const usersById = [
   {
     id: 'id1',
@@ -402,10 +415,55 @@ describe('SmartUserPicker', () => {
     expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({ query: '' }),
+      expect.objectContaining({ defaultLocale: 'en' }),
     );
     expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
       2,
       expect.objectContaining({ query: 'a' }),
+      expect.objectContaining({ defaultLocale: 'en' }),
+    );
+  });
+
+  it('should fetch a confluence guest user', async () => {
+    getUserRecommendationsMock.mockReturnValue(
+      Promise.resolve(mockConfluenceGuestUserOptions),
+    );
+
+    const guestUser: OptionData[] = [
+      {
+        avatarUrl: 'someavatar.com',
+        id: 'id1',
+        name: 'Pranay Marella',
+        type: 'user',
+        lozenge: {
+          text: 'GUEST',
+          appearance: 'new',
+        },
+      },
+    ];
+
+    const filterOptions = jest.fn(() => {
+      return guestUser;
+    });
+
+    const component = smartUserPickerWrapper({
+      filterOptions,
+      productKey: 'confluence',
+    });
+
+    // trigger on focus
+    await component.find(UserPicker).props().onFocus('new-session');
+
+    // expect api to run and fetch a guest user
+    expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+    // expect filterOptions to be called, mocks the response of a guest user
+    expect(filterOptions).toHaveBeenCalledTimes(1);
+
+    await component.update();
+    // expect the user picker options prop to match the mock guest user data
+    expect(component.find(UserPicker).prop('options')).toEqual(
+      mockConfluenceGuestUserOptions,
     );
   });
 
@@ -570,10 +628,9 @@ describe('SmartUserPicker', () => {
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
     expect(getUserRecommendationsMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        context: expect.objectContaining({
-          principalId: 'Context',
-        }),
+        context: expect.objectContaining({ principalId: 'Context' }),
       }),
+      expect.objectContaining({ defaultLocale: 'en' }),
     );
   });
 

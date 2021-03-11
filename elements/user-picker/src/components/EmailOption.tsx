@@ -22,11 +22,11 @@ const getAddEmailMessage: (
 
 export class EmailOption extends React.PureComponent<EmailOptionProps> {
   private getLozengeProps = () =>
-    this.props.email.lozenge
+    typeof this.props.email.lozenge === 'string'
       ? {
           text: this.props.email.lozenge,
         }
-      : undefined;
+      : this.props.email.lozenge;
 
   private renderOption = (
     label: string,

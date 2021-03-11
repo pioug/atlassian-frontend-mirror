@@ -197,4 +197,55 @@ describe('<SideNavigation /> integration tests', () => {
       await takeElementScreenShot(global.page, spotlightClone),
     ).toMatchProdImageSnapshot();
   });
+
+  it('should match the hover states', async () => {
+    const settingsButton = "[data-testid='settings-nesting-item--item']";
+    const dropboxButton = "[data-testid='dropbox-nesting-item--item']";
+
+    await openExamplesAndWaitFor(
+      'nested-side-navigation',
+      '[data-custom-icon]',
+    );
+
+    const { page } = global;
+    await page.hover(settingsButton);
+
+    expect(
+      await takeElementScreenShot(global.page, settingsButton),
+    ).toMatchProdImageSnapshot();
+
+    await page.hover(dropboxButton);
+
+    expect(
+      await takeElementScreenShot(global.page, dropboxButton),
+    ).toMatchProdImageSnapshot();
+  });
+
+  it('should match the active states', async () => {
+    const settingsButton = "[data-testid='settings-nesting-item--item']";
+    const dropboxButton = "[data-testid='dropbox-nesting-item--item']";
+
+    await openExamplesAndWaitFor(
+      'nested-side-navigation',
+      '[data-custom-icon]',
+    );
+
+    const { page } = global;
+
+    await page.waitForSelector(settingsButton);
+    await page.hover(settingsButton);
+    await page.mouse.down();
+
+    expect(
+      await takeElementScreenShot(global.page, settingsButton),
+    ).toMatchProdImageSnapshot();
+
+    await page.waitForSelector(dropboxButton);
+    await page.hover(dropboxButton);
+    await page.mouse.down();
+
+    expect(
+      await takeElementScreenShot(global.page, dropboxButton),
+    ).toMatchProdImageSnapshot();
+  });
 });

@@ -1,7 +1,12 @@
 import { transformUsers } from './users-transformer';
 import { getConfig } from '../config';
 import { OptionData } from '../../../types';
-import { ProductAttributes, RecommendationRequest } from '../components';
+import {
+  ProductAttributes,
+  ConfluenceAttributes,
+  RecommendationRequest,
+} from '../components';
+import { InjectedIntl } from 'react-intl';
 export interface Context {
   containerId?: string;
   contextType: string;
@@ -16,6 +21,7 @@ export interface Context {
 
 const getUserRecommendations = (
   request: RecommendationRequest,
+  intl: InjectedIntl,
 ): Promise<OptionData[]> => {
   const url = getConfig().getRecommendationServiceUrl(request.baseUrl || '');
   return fetch(url, {
@@ -36,6 +42,10 @@ const getUserRecommendations = (
           query: '',
           field: '',
         },
+        ...((request.context?.productAttributes as ConfluenceAttributes)
+          ?.isEntitledConfluenceExternalCollaborator && {
+          productAccessPermissionIds: ['write', 'external-collaborator-write'],
+        }),
         customQuery: '',
         customerDirectoryId: '',
         filter: request.searchQueryFilter || '',
@@ -57,7 +67,7 @@ const getUserRecommendations = (
         message: `error calling smart service, statusCode=${response.status}, statusText=${response.statusText}`,
       });
     })
-    .then(transformUsers);
+    .then(response => transformUsers(response, intl));
 };
 
 export default getUserRecommendations;

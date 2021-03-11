@@ -36,35 +36,32 @@ export const overrideStyleFunction = <TState>(
 };
 
 export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
-  let backgroundColor = navigationBackgroundColor;
-  let color = itemTextColor;
-
-  if (isSelected) {
-    backgroundColor = itemHoverBackgroundColor;
-    color = itemTextSelectedColor;
-  }
-
-  if (isDisabled) {
-    backgroundColor = `${navigationBackgroundColor} !important`;
-  }
-
   return {
     // This padding is set to ensure that the center of the left icon
     // is approximately center aligned with the horizontal app switcher.
     padding: `${gridSize}px ${ITEM_SIDE_PADDING}px`,
     borderRadius,
-    backgroundColor,
-    color,
-    '&:hover': {
+    backgroundColor: navigationBackgroundColor,
+    color: itemTextColor,
+    ...(!isDisabled && {
+      '&:hover': {
+        backgroundColor: itemHoverBackgroundColor,
+        textDecoration: 'none',
+        color: itemTextColor,
+      },
+      '&:active': {
+        color: itemTextSelectedColor,
+        backgroundColor: itemActiveBackgroundColor,
+        boxShadow: 'none',
+      },
+    }),
+    ...(isDisabled && {
+      backgroundColor: `${navigationBackgroundColor} !important`,
+    }),
+    ...(isSelected && {
       backgroundColor: itemHoverBackgroundColor,
-      textDecoration: 'none',
-      color,
-    },
-    '&:active': {
       color: itemTextSelectedColor,
-      backgroundColor: itemActiveBackgroundColor,
-      boxShadow: 'none',
-    },
+    }),
     ['& [data-item-elem-before]']: {
       // center align icons with app-switcher regardless of size
       display: 'flex',

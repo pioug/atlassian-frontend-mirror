@@ -1,5 +1,151 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Profilecard ProfileCard customLozenges property should match snapshot when multiple custom lozenges are specified 1`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <Styled(styled.div)>
+          <Lozenge
+            appearance="new"
+            isBold={true}
+            maxWidth={200}
+          >
+            Guest
+          </Lozenge>
+          <Lozenge
+            appearance="removed"
+            isBold={false}
+            maxWidth={200}
+          >
+            Cool Bean
+          </Lozenge>
+          <Lozenge
+            appearance="inprogress"
+            isBold={true}
+            maxWidth={200}
+          >
+            Another Role
+          </Lozenge>
+        </Styled(styled.div)>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard customLozenges property should match snapshot when no custom lozenges are specified 1`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Profilecard ProfileCard customLozenges property should match snapshot when one custom lozenge is specified 1`] = `
+<styled.div>
+  <styled.div
+    isDisabledUser={false}
+  >
+    <styled.div>
+      <Avatar
+        borderColor="#FFFFFF"
+        size="xlarge"
+      />
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <styled.span
+          noMeta={true}
+        >
+          full name test (jscrazy) 
+        </styled.span>
+        <Styled(styled.div)>
+          <Lozenge
+            appearance="new"
+            isBold={true}
+            maxWidth={200}
+          >
+            Guest
+          </Lozenge>
+        </Styled(styled.div)>
+        <IconLabel
+          icon="email"
+        />
+        <IconLabel
+          icon="time"
+        />
+        <IconLabel
+          icon="companyName"
+        >
+          Atlassian
+        </IconLabel>
+        <IconLabel
+          icon="location"
+        />
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
 exports[`Profilecard ProfileCard fullName property should match snapshot when fullName and nickName are equal 1`] = `
 <styled.div>
   <styled.div

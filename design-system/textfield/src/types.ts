@@ -1,4 +1,4 @@
-import React, { AllHTMLAttributes } from 'react';
+import React, { AllHTMLAttributes, FormEventHandler } from 'react';
 
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -83,6 +83,11 @@ export interface PublicProps
    * Placeholder text to display in the text field whenever it is empty.
    */
   placeholder?: string;
+
+  /**
+   * Handler called when the inputs value changes.
+   */
+  onChange?: FormEventHandler<HTMLInputElement>;
 }
 
 export interface InternalProps extends PublicProps {

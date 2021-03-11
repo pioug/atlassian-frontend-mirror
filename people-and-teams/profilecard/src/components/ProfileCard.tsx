@@ -18,6 +18,7 @@ import {
   CardContainer,
   CardContent,
   CardWrapper,
+  CustomLozengeContainer,
   DetailsGroup,
   DisabledInfo,
   FullNameLabel,
@@ -26,7 +27,7 @@ import {
   ProfileImage,
   SpinnerContainer,
 } from '../styled/Card';
-import { ProfilecardProps } from '../types';
+import { LozengeProps, ProfilecardProps } from '../types';
 
 import ErrorMessage from './ErrorMessage';
 import IconLabel from './IconLabel';
@@ -41,6 +42,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     isNotMentionable: false,
     actions: [],
     hasDisabledAccountLozenge: true,
+    customLozenges: [],
     analytics: () => null,
     clientFetchProfile: () => null,
   };
@@ -122,12 +124,20 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   }
 
   renderCardDetailsDefault() {
-    const { meta, location, email, timestring, companyName } = this.props;
+    const {
+      meta,
+      location,
+      email,
+      timestring,
+      companyName,
+      customLozenges,
+    } = this.props;
 
     return (
       <DetailsGroup>
         {this.renderFullNameAndPublicName(meta)}
         {meta && <JobTitleLabel>{meta}</JobTitleLabel>}
+        {customLozenges && this.renderCustomLozenges(customLozenges)}
         <IconLabel icon="email">{email}</IconLabel>
         <IconLabel icon="time">{timestring}</IconLabel>
         <IconLabel icon="companyName">{companyName}</IconLabel>
@@ -234,6 +244,18 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
         : `${fullName}${nickname ? ` (${nickname}) ` : ''}`;
 
     return <FullNameLabel noMeta={!meta}>{displayName}</FullNameLabel>;
+  }
+
+  // Pass lozenges as an array rather taking it from the props. This will allow us combine the
+  // other lozenges (like the "deactivated" lozenge) if we need to.
+  renderCustomLozenges(lozenges: LozengeProps[]) {
+    return lozenges.length > 0 ? (
+      <CustomLozengeContainer>
+        {lozenges.map(({ text, ...otherProps }) => (
+          <Lozenge {...otherProps}>{text}</Lozenge>
+        ))}
+      </CustomLozengeContainer>
+    ) : null;
   }
 
   renderCardDetailsApp() {

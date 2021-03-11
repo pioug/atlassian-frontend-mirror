@@ -10,7 +10,11 @@ import {
   SmartUserPicker,
 } from '../src/components/smart-user-picker/index';
 import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
-import { BitbucketAttributes } from '../src/components/smart-user-picker/components';
+import {
+  BitbucketAttributes,
+  ConfluenceAttributes,
+} from '../src/components/smart-user-picker/components';
+import { IntlProvider } from 'react-intl';
 setSmartUserPickerEnv('local');
 
 const products = [
@@ -32,8 +36,9 @@ type State = {
   childObjectId?: string;
   objectId?: string;
   containerId?: string;
-  productAttributes: BitbucketAttributes;
   bootstrapOptions: boolean;
+  bitbucketAttributes: BitbucketAttributes;
+  confluenceAttributes: ConfluenceAttributes;
 };
 const productsMap = products
   .map(p => ({ [p.value]: p }))
@@ -52,13 +57,27 @@ const SmartUserPickerCustomizableExample = () => {
     childObjectId: undefined,
     objectId: undefined,
     containerId: undefined,
-    productAttributes: {
+    confluenceAttributes: {
+      isEntitledConfluenceExternalCollaborator: false,
+    },
+    bitbucketAttributes: {
       workspaceIds: ['workspace-1', 'workspace-2'],
       emailDomain: 'atlassian.com',
       isPublicRepo: true,
     },
     bootstrapOptions: false,
   });
+
+  const getProductAttributes = (product: SupportedProduct) => {
+    switch (product) {
+      case 'bitbucket':
+        return state.bitbucketAttributes;
+      case 'confluence':
+        return state.confluenceAttributes;
+      default:
+        return undefined;
+    }
+  };
 
   let onInputChange: OnInputChange = (query?: string, sessionId?: string) => {
     console.log(`onInputChange query=${query} sessionId=${sessionId}`);
@@ -212,13 +231,40 @@ const SmartUserPickerCustomizableExample = () => {
         Child Object Id [Optional] (childObjectId)
       </label>
       {createText('childObjectId', 'large')}
-      {state.product === 'confluence' &&
-        createBoolean('includeGroups', 'include Groups (includeGroups)')}
-
       {createBoolean('includeUsers', 'include Users (includeUsers)')}
       {createBoolean('includeTeams', 'include Teams (includeTeams)')}
       {createBoolean('bootstrapOptions', 'bootstrapOptions')}
       {createBoolean('isPrefetchOn', 'prefetch')}
+
+      {state.product === 'confluence' && (
+        <Fragment>
+          <h5>Confluence props</h5>
+          {createBoolean('includeGroups', 'include Groups (includeGroups)')}
+          <div>
+            <input
+              checked={Boolean(
+                state.confluenceAttributes
+                  .isEntitledConfluenceExternalCollaborator,
+              )}
+              id="includeGuests"
+              onChange={e => {
+                // @ts-ignore
+                setState({
+                  ...state,
+                  confluenceAttributes: {
+                    ...state.confluenceAttributes,
+                    isEntitledConfluenceExternalCollaborator: !state
+                      .confluenceAttributes
+                      .isEntitledConfluenceExternalCollaborator,
+                  },
+                });
+              }}
+              type="checkbox"
+            />
+            <label htmlFor="includeGuests">include Guests</label>
+          </div>
+        </Fragment>
+      )}
 
       {state.product === 'bitbucket' && (
         <Fragment>
@@ -226,12 +272,12 @@ const SmartUserPickerCustomizableExample = () => {
           <label htmlFor="workspaceIds">Workspace Ids (workspaceIds)</label>
           <Textfield
             name="workspaceIds"
-            value={state.productAttributes.workspaceIds || ''}
+            value={state.bitbucketAttributes.workspaceIds || ''}
             onChange={e => {
               setState({
                 ...state,
-                productAttributes: {
-                  ...state.productAttributes,
+                bitbucketAttributes: {
+                  ...state.bitbucketAttributes,
                   // @ts-ignore
                   workspaceIds: e.currentTarget.value,
                 },
@@ -241,13 +287,13 @@ const SmartUserPickerCustomizableExample = () => {
           <label htmlFor="emailDomain">Email domain (emailDomain)</label>
           <Textfield
             name="emailDomain"
-            value={state.productAttributes.emailDomain || ''}
+            value={state.bitbucketAttributes.emailDomain || ''}
             onChange={e => {
               // @ts-ignore
               setState({
                 ...state,
-                productAttributes: {
-                  ...state.productAttributes,
+                bitbucketAttributes: {
+                  ...state.bitbucketAttributes,
                   emailDomain: e.currentTarget.value,
                 },
               });
@@ -255,15 +301,15 @@ const SmartUserPickerCustomizableExample = () => {
           />
           <div>
             <input
-              checked={Boolean(state.productAttributes.isPublicRepo)}
+              checked={Boolean(state.bitbucketAttributes.isPublicRepo)}
               id="isPublicRepo"
               onChange={e => {
                 // @ts-ignore
                 setState({
                   ...state,
-                  productAttributes: {
-                    ...state.productAttributes,
-                    isPublicRepo: !state.productAttributes.isPublicRepo,
+                  bitbucketAttributes: {
+                    ...state.bitbucketAttributes,
+                    isPublicRepo: !state.bitbucketAttributes.isPublicRepo,
                   },
                 });
               }}
@@ -278,33 +324,33 @@ const SmartUserPickerCustomizableExample = () => {
       <hr />
       <label htmlFor="user-picker">User Picker</label>
       <AnalyticsListener onEvent={onEvent} channel="fabric-elements">
-        <SmartUserPicker
-          maxOptions={10}
-          isMulti
-          includeUsers={state.includeUsers}
-          includeGroups={state.includeGroups}
-          includeTeams={state.includeTeams}
-          fieldId={state.fieldId}
-          onChange={onChange}
-          onInputChange={onInputChange}
-          principalId={state.userId}
-          siteId={state.tenantId}
-          productKey={state.product}
-          objectId={state.objectId}
-          containerId={state.containerId}
-          childObjectId={state.childObjectId}
-          debounceTime={400}
-          prefetch={state.isPrefetchOn}
-          bootstrapOptions={state.bootstrapOptions ? exampleOptions : undefined}
-          productAttributes={{
-            emailDomain: state.productAttributes.emailDomain,
-            isPublicRepo: state.productAttributes.isPublicRepo,
-            workspaceIds: state.productAttributes.workspaceIds,
-          }}
-          onError={e => {
-            console.error(e);
-          }}
-        />
+        <IntlProvider locale="en">
+          <SmartUserPicker
+            maxOptions={10}
+            isMulti
+            includeUsers={state.includeUsers}
+            includeGroups={state.includeGroups}
+            includeTeams={state.includeTeams}
+            fieldId={state.fieldId}
+            onChange={onChange}
+            onInputChange={onInputChange}
+            principalId={state.userId}
+            siteId={state.tenantId}
+            productKey={state.product}
+            objectId={state.objectId}
+            containerId={state.containerId}
+            childObjectId={state.childObjectId}
+            debounceTime={400}
+            prefetch={true}
+            bootstrapOptions={
+              state.bootstrapOptions ? exampleOptions : undefined
+            }
+            productAttributes={getProductAttributes(state.product)}
+            onError={e => {
+              console.error(e);
+            }}
+          />
+        </IntlProvider>
       </AnalyticsListener>
     </div>
   );

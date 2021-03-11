@@ -104,6 +104,20 @@ export const LozengeWrapper = styled.div`
   display: block;
 `;
 
+export const CustomLozengeContainer = styled(LozengeWrapper)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: ${multiply(gridSize, 1.5)}px;
+  > * {
+    margin-top: ${multiply(gridSize, 0.5)}px;
+    &:not(:last-child) {
+      margin-right: ${multiply(gridSize, 0.5)}px;
+    }
+  }
+`;
+
 export const JobTitleLabel = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;

@@ -11,45 +11,54 @@ import SelectPopup from '../../examples/constellation/select-popup';
 import SelectAsync from '../../examples/constellation/select-async';
 import SelectAsyncCreatable from '../../examples/constellation/select-async-creatable';
 import SelectCountry from '../../examples/constellation/select-country';
+import SelectGroupedOptions from '../../examples/constellation/select-grouped-options';
 
 ## Single select
 
-Allows the user to select a single item from a dropdown menu.
+Allows the user to select a single item from a dropdown list of options.
 
 <Example Component={SelectSingle} packageName="@atlaskit/select" />
 
+### Grouped options
+
+Related options can be grouped together in both a single and multi select.
+
+<Example Component={SelectGroupedOptions} packageName="@atlaskit/select" />
+
 ## Multi select
 
-Allows the user to select a multiple items from a dropdown menu.
+Allows the user to select multiple items from a dropdown list of options.
 
 <Example Component={SelectMulti} packageName="@atlaskit/select" />
 
-## Popup select
+## Named exports
 
-A searchable select where the input is detached from the trigger. Use this select in scenarios where the trigger needs a custom appearance, or must occupy very limited horizontal space.
+To consolidate patterns and improve developer experience,
+select provides some pre-configured components as named exports.
+
+### Popup select
+
+Use `PopupSelect` in scenarios where the trigger needs a custom appearance,
+or must occupy very limited horizontal space.
 
 <Example Component={SelectPopup} packageName="@atlaskit/select" />
 
-## Named exports
-
-To consolidate patterns and improve developer experience Select provides some pre-configured components as named exports.
-
 ### Radio select
 
-A select with inline radio elements in the options.
+Use `RadioSelect` to display the list of options as radio elements.
 
 <Example Component={SelectRadio} packageName="@atlaskit/select" />
 
 ### Checkbox select
 
-A select with inline checkbox elements in the options displayed in the menu.
-Use this select when displaying selected multi select options is imperative, but there may not be enough real-estate in the control.
+Use `CheckboxSelect` to display the list of options as checkbox elements.
+Use this when it is imperative to show multiple selected options, but there may not be enough real-estate in the control.
 
 <Example Component={SelectCheckbox} packageName="@atlaskit/select" />
 
 ### Country select
 
-Use CountrySelect to add a country picker to the select component.
+Use `CountrySelect` to add a country picker to the dropdown list of options.
 
 <Example Component={SelectCountry} packageName="@atlaskit/select" />
 
@@ -61,13 +70,13 @@ Use `AsyncSelect` to load asynchronous data from a remote source either during l
 
 ### Creatable select
 
-Allows the user to insert an item into the list for selection.
+Use `CreatableSelect` to allow the user to insert an item into the list for selection.
 
 <Example Component={SelectCreatable} packageName="@atlaskit/select" />
 
 ### Async creatable
 
-Use `AsyncCreatableSelect` to allow people to create new options asynchronously.
+Use `AsyncCreatableSelect` to allow users to create new options asynchronously.
 For example, execute async calls before creating the option.
 
 <Example Component={SelectAsyncCreatable} packageName="@atlaskit/select" />

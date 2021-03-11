@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.3.0
+
+### Minor Changes
+
+- [`5e7fbaa154f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e7fbaa154f) - [ux] Added an optional prop to the Profilecard component for displaying custom lozenges
+
 ## 15.2.0
 
 ### Minor Changes

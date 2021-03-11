@@ -38,6 +38,10 @@ All components in Atlassian Frontend, including Switcher, follow semantic versio
 
 Once the branch is merged, a new version of Switcher will be released automatically. You then need to follow the [bumping instructions](https://product-fabric.atlassian.net/wiki/spaces/YW/pages/1719797663/Atlassian+Switcher+-+List+of+consumers+and+bumping+instructions) to update the version of Switcher in all of the products that require your change.
 
+## Pollinator checks
+
+If you would like to add the switcher to your product, we _highly_ recommend you to add pollinator checks. A repository has been setup to make it simple to add new checks for your product while keeping them in a centralised location. This will send high-priority alerts to product teams and low-priority alert to us. To create new checks, follow the README in https://bitbucket.org/atlassian/switcher-pollinator/src/master/
+
 ## Verifying changes in product
 
 You can verify complex Switcher changes in-product by using branch deploys. Branch deploys are a way to publish changes to all packages you've made in your development branch to s3 as a published package bundle that can then be installed in any product.

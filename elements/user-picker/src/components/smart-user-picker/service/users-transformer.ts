@@ -4,9 +4,12 @@ import {
   Group,
   TeamType,
   UserType,
+  LozengeProps,
   GroupType,
   OptionData,
 } from '../../../types';
+import { messages } from '../../i18n';
+import { InjectedIntl } from 'react-intl';
 
 interface ServerItem {
   id: string;
@@ -42,6 +45,7 @@ interface ServerGroup extends ServerItem {
 
 interface ServerResponse {
   recommendedUsers: ServerItem[];
+  intl: InjectedIntl;
 }
 
 enum EntityType {
@@ -50,16 +54,36 @@ enum EntityType {
   GROUP = 'GROUP',
 }
 
-const transformUser = (item: ServerItem): User | Team | Group | void => {
+const getLozenzeProperties = (
+  user: ServerUser,
+  intl: InjectedIntl,
+): string | LozengeProps | undefined => {
+  if (user.attributes?.workspaceMember) {
+    return intl.formatMessage(messages.memberLozengeText);
+  }
+
+  if (user.attributes?.isConfluenceExternalCollaborator) {
+    const guestUserLozengeProps: LozengeProps = {
+      text: intl.formatMessage(messages.guestLozengeText),
+      appearance: 'new',
+    };
+
+    return guestUserLozengeProps;
+  }
+
+  return undefined;
+};
+
+const transformUser = (
+  item: ServerItem,
+  intl: InjectedIntl,
+): User | Team | Group | void => {
   const type = item.entityType;
 
   if (type === EntityType.USER) {
     const user = item as ServerUser;
 
-    const lozenge =
-      user.attributes && user.attributes['workspaceMember']
-        ? 'MEMBER'
-        : undefined;
+    const lozenge = getLozenzeProperties(user, intl);
 
     return {
       id: user.id,
@@ -96,8 +120,11 @@ const transformUser = (item: ServerItem): User | Team | Group | void => {
   return;
 };
 
-export const transformUsers = (serverResponse: ServerResponse): OptionData[] =>
+export const transformUsers = (
+  serverResponse: ServerResponse,
+  intl: InjectedIntl,
+): OptionData[] =>
   (serverResponse.recommendedUsers || [])
-    .map(transformUser)
+    .map(item => transformUser(item, intl))
     .filter(user => !!user)
     .map(user => user as OptionData);

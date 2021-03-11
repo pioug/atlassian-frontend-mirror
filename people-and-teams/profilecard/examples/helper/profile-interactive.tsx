@@ -9,7 +9,11 @@ import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
 
 import { profiles } from '../../mock-helpers';
 import { ProfileCard } from '../../src';
-import { StatusModifiedDateType, StatusType } from '../../src/types';
+import {
+  LozengeProps,
+  StatusModifiedDateType,
+  StatusType,
+} from '../../src/types';
 
 const StoryWrapper = styled.div`
   label {
@@ -37,6 +41,12 @@ const handleActionClick = (title: string) => () => {
 const getTimeString = (showWeekday: boolean = false) => {
   return showWeekday ? 'Thu 9:56am' : '9:56am';
 };
+
+const exampleLozenges: LozengeProps[] = [
+  { text: 'Guest', appearance: 'new', isBold: true },
+  { text: 'Cool Bean', appearance: 'removed' },
+  { text: 'Another Role', appearance: 'inprogress', isBold: true },
+];
 
 type Props = {};
 
@@ -70,6 +80,10 @@ type State = {
   hasErrorState: boolean;
   hasDisabledAccountMessage: boolean;
   hasDisabledAccountLozenge: boolean;
+
+  showCustomLozenge1: boolean;
+  showCustomLozenge2: boolean;
+  showCustomLozenge3: boolean;
 };
 
 export default class ProfilecardInteractive extends Component<Props, State> {
@@ -103,6 +117,10 @@ export default class ProfilecardInteractive extends Component<Props, State> {
     hasErrorState: false,
     hasDisabledAccountMessage: false,
     hasDisabledAccountLozenge: false,
+
+    showCustomLozenge1: false,
+    showCustomLozenge2: false,
+    showCustomLozenge3: false,
   };
 
   actions = [
@@ -218,6 +236,21 @@ export default class ProfilecardInteractive extends Component<Props, State> {
     );
   }
 
+  createCustomLozengeArray(): LozengeProps[] | undefined {
+    let customLozenges: LozengeProps[] | undefined;
+    if (
+      this.state.showCustomLozenge1 ||
+      this.state.showCustomLozenge2 ||
+      this.state.showCustomLozenge3
+    ) {
+      customLozenges = [];
+      this.state.showCustomLozenge1 && customLozenges.push(exampleLozenges[0]);
+      this.state.showCustomLozenge2 && customLozenges.push(exampleLozenges[1]);
+      this.state.showCustomLozenge3 && customLozenges.push(exampleLozenges[2]);
+    }
+    return customLozenges;
+  }
+
   render() {
     const customActions = [
       { label: 'Foo', id: 'foo', callback: handleActionClick('Foo') },
@@ -276,6 +309,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
                 ) : undefined
               }
               hasDisabledAccountLozenge={this.state.hasDisabledAccountLozenge}
+              customLozenges={this.createCustomLozengeArray()}
             />
           </ProfileCardWrapper>
 
@@ -301,6 +335,18 @@ export default class ProfilecardInteractive extends Component<Props, State> {
               <li>{this.createCheckboxBooleanAttribute('hasErrorState')}</li>
               <li>{this.createCheckboxBooleanAttribute('isBot')}</li>
               <li>{this.createCheckboxBooleanAttribute('hasDarkTheme')}</li>
+            </ul>
+
+            <ul>
+              <li>
+                {this.createCheckboxBooleanAttribute('showCustomLozenge1')}
+              </li>
+              <li>
+                {this.createCheckboxBooleanAttribute('showCustomLozenge2')}
+              </li>
+              <li>
+                {this.createCheckboxBooleanAttribute('showCustomLozenge3')}
+              </li>
             </ul>
           </div>
 

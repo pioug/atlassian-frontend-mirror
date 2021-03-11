@@ -108,6 +108,7 @@ const BasicExample = () => {
               id="3"
               iconBefore={<SettingsIcon label="" />}
               title="Settings"
+              testId="settings-nesting-item"
             >
               <Section>
                 <LanguageSettings />
@@ -117,6 +118,7 @@ const BasicExample = () => {
               id="4"
               iconBefore={<DropboxIcon label="" />}
               title="Dropbox"
+              testId="dropbox-nesting-item"
               isDisabled
             >
               <span />

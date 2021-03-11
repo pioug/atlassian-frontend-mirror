@@ -87,11 +87,11 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
   };
 
   private getLozengeProps = () =>
-    this.props.team.lozenge
+    typeof this.props.team.lozenge === 'string'
       ? {
           text: this.props.team.lozenge,
         }
-      : undefined;
+      : this.props.team.lozenge;
 
   render() {
     return (

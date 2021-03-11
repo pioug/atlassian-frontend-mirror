@@ -234,6 +234,20 @@ export interface ProfileCardAction {
   link?: string;
 }
 
+export type LozengeColor =
+  | 'default'
+  | 'success'
+  | 'removed'
+  | 'inprogress'
+  | 'new'
+  | 'moved';
+
+export interface LozengeProps {
+  text: string;
+  appearance?: LozengeColor; // defaults to 'default'
+  isBold?: boolean; // defaults to false
+}
+
 export interface ProfilecardProps {
   isLoading?: boolean;
   hasError?: boolean;
@@ -263,6 +277,8 @@ export interface ProfilecardProps {
   disabledAccountMessage?: React.ReactNode;
   // Allow to show a status lozenge for disabled account which `status` prop is `inactive` or `closed`
   hasDisabledAccountLozenge?: boolean;
+  // Allow consumers to pass in custom lozenges that will be displayed under the heading
+  customLozenges?: LozengeProps[];
 }
 
 export type AnalyticsFromDuration = (duration: number) => Record<string, any>;

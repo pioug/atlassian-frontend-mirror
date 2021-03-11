@@ -5,6 +5,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import {
   requestUsersEvent,
@@ -44,7 +45,7 @@ type OnEmpty = (query: string) => Promise<OptionData[]>;
 
 export type SupportedProduct = 'jira' | 'confluence' | 'people' | 'bitbucket';
 
-export type ProductAttributes = BitbucketAttributes;
+export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes;
 
 type FilterOptions = (options: OptionData[]) => OptionData[];
 
@@ -61,6 +62,13 @@ export interface BitbucketAttributes {
    * The users current email domain which may be used to boost the results for relevant users.
    */
   emailDomain?: string;
+}
+
+export interface ConfluenceAttributes {
+  /**
+   * Identifies whether this user is a confluence guest
+   */
+  isEntitledConfluenceExternalCollaborator?: boolean;
 }
 
 export interface SmartProps {
@@ -99,7 +107,7 @@ export interface SmartProps {
 
   /**
    * Product Attributes - you should pass in the attribute type that matches your current SupportedProduct.
-   * Currently we only support additional attributes (BitbucketAttributes) for bitbucket.
+   * Currently we support additional attributes (BitbucketAttributes) for bitbucket and (ConfluenceAttributes) for Confluence.
    */
   productAttributes?: ProductAttributes;
 }
@@ -274,7 +282,10 @@ export async function hydrateDefaultValues(
   return sortResults(results, accountIds);
 }
 
-class SmartUserPicker extends React.Component<Props, State> {
+class SmartUserPicker extends React.Component<
+  Props & InjectedIntlProps,
+  State
+> {
   state: State = {
     users: [],
     loading: false,
@@ -370,6 +381,7 @@ class SmartUserPicker extends React.Component<Props, State> {
       searchQueryFilter,
       onEmpty,
       productAttributes,
+      intl,
     } = this.props;
 
     const maxNumberOfResults = maxOptions || 100;
@@ -396,7 +408,7 @@ class SmartUserPicker extends React.Component<Props, State> {
     };
     try {
       this.fireEvent(requestUsersEvent);
-      const users = await getUserRecommendations(recommendationsRequest);
+      const users = await getUserRecommendations(recommendationsRequest, intl);
       const elapsedTimeMilli = window.performance.now() - startTime;
 
       const filteredUsers = this.filterOptions(users);
@@ -529,4 +541,4 @@ class SmartUserPicker extends React.Component<Props, State> {
   }
 }
 
-export default withAnalyticsEvents()(SmartUserPicker);
+export default withAnalyticsEvents()(injectIntl(SmartUserPicker));

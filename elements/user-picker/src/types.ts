@@ -204,7 +204,7 @@ export interface OptionData {
   name: string;
   type?: 'user' | 'team' | 'email' | 'group';
   fixed?: boolean;
-  lozenge?: string;
+  lozenge?: string | LozengeProps;
 }
 
 export const UserType = 'user';

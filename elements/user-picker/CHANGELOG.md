@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.7.0
+
+### Minor Changes
+
+- [`de8d3656da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8d3656da6) - Added user markes to user-picker/smart-user-picker. Confluence guests will now appear with a lozenge containing the text 'GUEST'. Updated tests to match this behaviour and updated the smart-user-picker example.
+
 ## 7.6.0
 
 ### Minor Changes

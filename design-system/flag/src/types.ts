@@ -69,7 +69,20 @@ type AutoDismissFlagPropsWithoutId = {
   [button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)
   example of what this component should look like. */
   linkComponent?: ComponentType<CustomThemeButtonProps>;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+
+   * Will set these elements when defined:
+
+   * - Flag root element - `{testId}`
+   * - Close button visible on default flags - `{testId}-dismiss`
+   * - Toggle button visible on bold flags - `{testId}-toggle`
+   * - Flag content which wraps the description and actions - `{testId}-expander`
+   * - Flag description - `{testId}-description`
+   * - Flag actions - `{testId}-actions`
+   */
   testId?: string;
   /** Additional information to be included in the `context` of analytics events that come from flag */
   analyticsContext?: Record<string, any>;

@@ -1,0 +1,20 @@
+name: sync-fork
+
+on:
+  schedule:
+    - cron: '*/45 * * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions"
+          git remote add atlassian https://bitbucket.com/atlassian/atlassian-frontend-mirror.git
+          git fetch atlassian
+          git rebase atlassian/master
+          git push --force

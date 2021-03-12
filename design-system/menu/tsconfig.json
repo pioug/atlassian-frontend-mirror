@@ -9,7 +9,7 @@
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx"
-  ],
+, "extract-react-types/custom-item-hack-for-ert.tsx"  ],
   "compilerOptions": {
     "baseUrl": "./"
   }

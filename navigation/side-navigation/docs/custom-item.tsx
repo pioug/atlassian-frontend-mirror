@@ -39,7 +39,7 @@ const Container = (props: CustomItemComponentProps) => {
     <Props
       heading="Props"
       // We point to the original props object because for some reason ERT can't follow package boundaries.
-      props={require('!!extract-react-types-loader!../../../design-system/menu/src/components/item/custom-item-hack-for-ert')}
+      props={require('!!extract-react-types-loader!../../../design-system/menu/extract-react-types/custom-item-hack-for-ert')}
     />
   )}
 `;

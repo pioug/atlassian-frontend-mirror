@@ -38,7 +38,7 @@ ${(
 ${(
   <Props
     heading="Props"
-    props={require('!!extract-react-types-loader!../src/components/item/custom-item-hack-for-ert.tsx')}
+    props={require('!!extract-react-types-loader!../extract-react-types/custom-item-hack-for-ert.tsx')}
   />
 )}
 `;

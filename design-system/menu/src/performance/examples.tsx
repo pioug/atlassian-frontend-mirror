@@ -6,13 +6,10 @@ import {
   PublicInteractionTask,
 } from 'storybook-addon-performance';
 
-import ButtonItem from '../../src/components/item/button-item';
-import CustomItem from '../../src/components/item/custom-item';
-import LinkItem from '../../src/components/item/link-item';
-import {
-  CustomItemComponentProps,
-  CustomItemProps,
-} from '../../src/components/types';
+import ButtonItem from '../menu-item/button-item';
+import CustomItem from '../menu-item/custom-item';
+import LinkItem from '../menu-item/link-item';
+import type { CustomItemComponentProps, CustomItemProps } from '../types';
 
 export default {
   title: 'Menu',

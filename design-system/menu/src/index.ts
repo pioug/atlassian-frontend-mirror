@@ -1,14 +1,15 @@
-export {
-  ButtonItem,
-  LinkItem,
-  CustomItem,
-  HeadingItem,
-  SkeletonItem,
-  SkeletonHeadingItem,
-  MenuGroup,
-  PopupMenuGroup,
-  Section,
-} from './components';
+export { default as ButtonItem } from './menu-item/button-item';
+export { default as LinkItem } from './menu-item/link-item';
+export { default as CustomItem } from './menu-item/custom-item';
+export { default as SkeletonItem } from './menu-item/skeleton-item';
+
+export { default as HeadingItem } from './menu-item/heading-item';
+export { default as SkeletonHeadingItem } from './menu-item/skeleton-heading-item';
+
+export { default as Section } from './menu-section/section';
+export { default as MenuGroup } from './menu-section/menu-group';
+export { default as PopupMenuGroup } from './menu-section/popup-menu-group';
+
 export type {
   ButtonItemProps,
   CSSFn,
@@ -22,11 +23,11 @@ export type {
   SectionProps,
   SkeletonHeadingItemProps,
   SkeletonItemProps,
-  Width,
+  Dimension,
   BaseItemProps,
   Overrides,
   MenuGroupSizing,
   RenderFunction,
   SectionBaseProps,
   TitleOverrides,
-} from './components/types';
+} from './types';

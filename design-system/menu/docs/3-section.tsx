@@ -34,7 +34,7 @@ import { Section } from '@atlaskit/menu';
   This is done in a way to provide some added accessiblity features (see 'Accessibility' below).
 
   -  If a \`title\` prop is not provided, the \`SectionHeading\` component will not be rendered.
-  -   The header text for the \`HeadingItem\` can be set with the \`title\` prop, and styles for the 
+  -   The header text for the \`HeadingItem\` can be set with the \`title\` prop, and styles for the
       \`HeadingItem\` can be set with the \`cssFn\` prop.
   -   The \`testID\` will be applied to parent section component; the internal HeadingItem has'--heading'
       appended to the value of the testID prop.
@@ -70,8 +70,8 @@ import { Section } from '@atlaskit/menu';
 
   When there are a large number of items in a menu, allowing users who navigate with a screen reader
   to skip over sections can greatly improve the user experience. This behaviour is done by default with
-  this component by setting a group role and label. 
-  
+  this component by setting a group role and label.
+
   It may be necessary to manually set the HeadingItem; in these cases the below code provides an example
   of how to recreate this accessibility feature.
 
@@ -103,14 +103,14 @@ import { HeadingItem } from '@atlaskit/menu';
   ${(
     <Props
       heading="Section Props"
-      props={require('!!extract-react-types-loader!../src/components/section/section.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-section/section.tsx')}
     />
   )}
 
   ${(
     <Props
       heading="Heading Props"
-      props={require('!!extract-react-types-loader!../src/components/item/heading-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/heading-item.tsx')}
     />
   )}
 

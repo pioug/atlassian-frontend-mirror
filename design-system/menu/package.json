@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,12 +16,24 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Menu"
     }
+  },
+  "af:exports": {
+    "./button-item": "./src/entry-points/menu-item/button-item.ts",
+    "./link-item": "./src/entry-points/menu-item/link-item.ts",
+    "./custom-item": "./src/entry-points/menu-item/custom-item.ts",
+    "./heading-item": "./src/entry-points/menu-item/heading-item.ts",
+    "./skeleton-item": "./src/entry-points/menu-item/skeleton-item.ts",
+    "./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.ts",
+    "./section": "./src/entry-points/menu-section/section.ts",
+    "./menu-group": "./src/entry-points/menu-section/menu-group.ts",
+    "./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.ts",
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0",

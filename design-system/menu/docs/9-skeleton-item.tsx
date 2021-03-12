@@ -30,7 +30,7 @@ ${(
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/item/skeleton-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/skeleton-item.tsx')}
     />
   )}
 `;

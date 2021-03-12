@@ -36,7 +36,7 @@ import { LinkItem } from '@atlaskit/menu';
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/item/link-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/link-item.tsx')}
     />
   )}
 `;

@@ -27,7 +27,7 @@ import { MenuGroup } from '@atlaskit/menu';
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/section/menu-group.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-section/menu-group.tsx')}
     />
   )}
 `;

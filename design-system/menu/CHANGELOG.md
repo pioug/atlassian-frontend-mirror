@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.7.4
+
+### Patch Changes
+
+- [`a1def13c6fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1def13c6fb) - Restructure the package to align with lite mode convention, and introduce entry points to each item type
+
 ## 0.7.3
 
 ### Patch Changes

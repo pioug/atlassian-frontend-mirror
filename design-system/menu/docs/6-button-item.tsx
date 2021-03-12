@@ -35,7 +35,7 @@ import { ButtonItem } from '@atlaskit/menu';
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/item/button-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/button-item.tsx')}
     />
   )}
 `;

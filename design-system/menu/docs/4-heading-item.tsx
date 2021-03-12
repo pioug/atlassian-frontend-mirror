@@ -27,7 +27,7 @@ import { HeadingItem } from '@atlaskit/menu';
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/item/heading-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/heading-item.tsx')}
     />
   )}
 `;

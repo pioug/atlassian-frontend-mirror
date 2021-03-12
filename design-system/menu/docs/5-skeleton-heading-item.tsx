@@ -32,7 +32,7 @@ import { SkeletonHeadingItem } from '@atlaskit/menu';
   ${(
     <Props
       heading=""
-      props={require('!!extract-react-types-loader!../src/components/item/skeleton-heading-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/skeleton-heading-item.tsx')}
     />
   )}
 `;

@@ -33,7 +33,7 @@ import { LinkItem } from '@atlaskit/side-navigation';
     <Props
       heading="Props"
       // We point to the original props object because for some reason ERT can't follow package boundaries.
-      props={require('!!extract-react-types-loader!../../../design-system/menu/src/components/item/link-item')}
+      props={require('!!extract-react-types-loader!../../../design-system/menu/src/menu-item/link-item')}
     />
   )}
 `;

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.8.0
+
+### Minor Changes
+
+- [`3f551db7bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f551db7bed) - filterOptions will include the query as an optional import
+
 ## 7.7.0
 
 ### Minor Changes

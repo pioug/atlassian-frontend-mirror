@@ -81,7 +81,18 @@ export interface ProfileCardResourcedState {
 
 export interface ProfileCardTriggerProps {
   userId: string;
-  cloudId: string;
+  /**
+    A cloudId can be provided, and we'll verify that the target userId is an
+    actual user in the specified site.
+
+    Instead you can omit the cloudId and we won't do such a check.
+
+    If you have a cloudId and only want to show users who are in that site
+    then please provide it. If you're a site-less product or don't care about
+    verifying that the shown user is in a particular site, don't provide a
+    cloudId.
+   */
+  cloudId?: string;
   resourceClient: ProfileClient;
   actions?: ProfileCardAction[];
   analytics?: any;

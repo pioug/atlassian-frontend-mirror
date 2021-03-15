@@ -485,7 +485,7 @@ describe('SmartUserPicker', () => {
       .onInputChange('user', 'new-session');
     await flushPromises();
     component.update();
-    expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions);
+    expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions, 'user');
     expect(component.find(UserPicker).prop('options')).toEqual(
       filterOptions(mockReturnOptions),
     );

@@ -104,8 +104,8 @@ export default class UserProfileCardClient extends CachingClient<any> {
   }
 
   getProfile(cloudId: string, userId: string): Promise<any> {
-    if (!cloudId || !userId) {
-      return Promise.reject(new Error('cloudId or userId missing'));
+    if (!userId) {
+      return Promise.reject(new Error('userId missing'));
     }
 
     const cacheIdentifier = `${cloudId}/${userId}`;

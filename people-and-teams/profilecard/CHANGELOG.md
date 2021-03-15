@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 15.4.0
+
+### Minor Changes
+
+- [`e76cdc56e39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e76cdc56e39) - Made cloudId optional, to increase usability in site-less contexts like new products.
+
+## 15.3.1
+
+### Patch Changes
+
+- [`620ddc14690`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620ddc14690) - [ux] Correct styling on Profile Card triggers
+
 ## 15.3.0
 
 ### Minor Changes

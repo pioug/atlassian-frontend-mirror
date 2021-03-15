@@ -4,7 +4,7 @@ import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../internal/filterActions';
-import { CardTriggerWrapper, CardWrapper } from '../styled/Card';
+import { CardWrapper } from '../styled/Card';
 import {
   ProfileCardAction,
   ProfileCardClientData,
@@ -116,7 +116,7 @@ class ProfilecardTrigger extends React.PureComponent<
       },
       () => {
         this.props.resourceClient
-          .getProfile(cloudId, userId)
+          .getProfile(cloudId || '', userId)
           .then(
             res => this.handleClientSuccess(res),
             err => this.handleClientError(err),
@@ -206,9 +206,9 @@ class ProfilecardTrigger extends React.PureComponent<
         trigger={triggerProps => {
           const { ref, ...innerProps } = triggerProps;
           return (
-            <CardTriggerWrapper {...innerProps} {...this.containerListeners}>
-              <span ref={ref}>{this.props.children}</span>
-            </CardTriggerWrapper>
+            <span {...innerProps} {...this.containerListeners} ref={ref}>
+              {this.props.children}
+            </span>
           );
         }}
         zIndex={layers.modal()}

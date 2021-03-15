@@ -16,9 +16,9 @@ const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
 
 export default () => (
   <div data-testid="button-items">
-    <ButtonItem>Activate</ButtonItem>
     <ButtonItem isSelected>Activate</ButtonItem>
     <ButtonItem isDisabled>Activate</ButtonItem>
+    <ButtonItem>Activate</ButtonItem>
     <ButtonItem description="Next-gen software project">Activate</ButtonItem>
     <ButtonItem
       iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}

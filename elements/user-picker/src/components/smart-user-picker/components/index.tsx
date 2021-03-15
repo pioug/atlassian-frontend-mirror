@@ -47,7 +47,7 @@ export type SupportedProduct = 'jira' | 'confluence' | 'people' | 'bitbucket';
 
 export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes;
 
-type FilterOptions = (options: OptionData[]) => OptionData[];
+type FilterOptions = (options: OptionData[], query: string) => OptionData[];
 
 export interface BitbucketAttributes {
   /**
@@ -362,7 +362,9 @@ class SmartUserPicker extends React.Component<
   };
 
   filterOptions = (users: OptionData[]) =>
-    this.props.filterOptions ? this.props.filterOptions(users) : users;
+    this.props.filterOptions
+      ? this.props.filterOptions(users, this.state.query)
+      : users;
 
   getUsers = async () => {
     const { query, sessionId } = this.state;

@@ -13,22 +13,9 @@ import {
   State,
 } from '../../../components/ShareDialogContainer';
 import { ShareDialogWithTrigger } from '../../../components/ShareDialogWithTrigger';
-import {
-  OriginTracing,
-  TooltipPosition,
-  ShareToSlackClient,
-} from '../../../types';
+import { OriginTracing, TooltipPosition } from '../../../types';
 import { PropsOf } from '../_testUtils';
 import { copyLinkButtonClicked } from '../../../components/analytics';
-import { getDefaultSlackWorkSpace } from '../../../components/localStorageUtils';
-
-jest.mock('../../../components/localStorageUtils.ts', () => {
-  return {
-    getDefaultSlackWorkSpace: jest.fn(() => {
-      return '2';
-    }),
-  };
-});
 
 function currentEventLoopEnd() {
   return new Promise(resolve => setImmediate(resolve));
@@ -46,7 +33,6 @@ describe('ShareDialogContainer', () => {
     mode: 'EXISTING_USERS_ONLY',
     allowComment: true,
   };
-  let mockShareToSlackClient: ShareToSlackClient;
   let mockRequestService: jest.Mock;
   let mockGetConfig: jest.Mock;
   let mockShare: jest.Mock;
@@ -86,11 +72,6 @@ describe('ShareDialogContainer', () => {
       id: 'id',
       addToUrl: jest.fn(),
       toAnalyticsAttributes: jest.fn(),
-    };
-    mockShareToSlackClient = {
-      getConversations: jest.fn(),
-      getTeams: jest.fn().mockReturnValue({ teams: [] }),
-      share: jest.fn(),
     };
     mockOriginTracingFactory = jest
       .fn<{}, []>()
@@ -152,7 +133,6 @@ describe('ShareDialogContainer', () => {
     ShareDialogContainerInternal
   > {
     let props: PropsOf<ShareDialogContainerInternal> = {
-      shareToSlackClient: mockShareToSlackClient,
       shareClient: mockShareClient,
       urlShortenerClient: mockShortenerClient,
       cloudId: mockCloudId,
@@ -603,30 +583,6 @@ describe('ShareDialogContainer', () => {
     });
 
     describe('analytics', () => {
-      it('should send an analytics on slack share data fetching', async () => {
-        const wrapper = getWrapper({
-          enableShareToSlack: true,
-        });
-
-        expect(mockCreateAnalyticsEvent).not.toHaveBeenCalled();
-
-        await wrapper.instance().handleDialogOpen();
-
-        expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(1);
-        expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-          eventType: 'operational',
-          action: 'fetched',
-          actionSubject: 'slackShareData',
-          actionSubjectId: undefined,
-          source: 'shareSlackModal',
-          attributes: {
-            packageName: expect.any(String),
-            packageVersion: expect.any(String),
-            numberOfSlackWorkspaces: 0,
-          },
-        });
-      });
-
       it('should send an analytics on short URL request', () => {
         const wrapper = getWrapper({
           useUrlShortener: true,
@@ -1068,68 +1024,6 @@ describe('ShareDialogContainer', () => {
       // all good, the old response was ignored
       expect(wrapper.state().shortenedCopyLink).toEqual(SHORTENED_URL_2);
       expect(wrapper.instance().getCopyLink()).toEqual(SHORTENED_URL_2);
-    });
-  });
-  describe('Slack teams', () => {
-    it('should call fetchSlackTeams every time the dialog open and share to slack is enabled', () => {
-      const wrapper = getWrapper({
-        enableShareToSlack: true,
-      });
-
-      const fetchConfig = (wrapper.instance().fetchConfig = jest.fn(
-        wrapper.instance().fetchConfig,
-      ));
-      const fetchSlackTeams = (wrapper.instance().fetchSlackTeams = jest.fn(
-        wrapper.instance().fetchSlackTeams,
-      ));
-
-      expect(fetchSlackTeams).not.toHaveBeenCalled();
-
-      wrapper.instance().handleDialogOpen();
-
-      expect(fetchConfig).toHaveBeenCalledTimes(1);
-      expect(fetchSlackTeams).toHaveBeenCalledTimes(1);
-    });
-    it('should fetch default slack team if avaialble from local storage and set in state', async () => {
-      const slackClient = {
-        ...mockShareToSlackClient,
-        getTeams: jest.fn().mockReturnValue({
-          teams: [
-            {
-              id: '1',
-              name: 'Test team 1',
-              avatar: 'http:/av1',
-            },
-            {
-              id: '2',
-              name: 'Test team 2',
-              avatar: 'http://av2',
-            },
-          ],
-        }),
-      };
-
-      const wrapper = getWrapper({
-        enableShareToSlack: true,
-        shareToSlackClient: slackClient,
-      });
-
-      const fetchSlackTeams = (wrapper.instance().fetchSlackTeams = jest.fn(
-        wrapper.instance().fetchSlackTeams,
-      ));
-
-      wrapper.instance().handleDialogOpen();
-      await fetchSlackTeams;
-
-      expect(fetchSlackTeams).toHaveBeenCalledTimes(1);
-      expect(slackClient.getTeams).toHaveBeenCalledTimes(1);
-      expect(getDefaultSlackWorkSpace).toHaveBeenCalled();
-
-      expect(wrapper.state().defaultSlackTeam).toEqual({
-        label: 'Test team 2',
-        value: '2',
-        avatarUrl: 'http://av2',
-      });
     });
   });
 });

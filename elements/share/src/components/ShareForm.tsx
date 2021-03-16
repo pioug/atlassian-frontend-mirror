@@ -16,13 +16,11 @@ import {
   DialogContentState,
   FormChildrenArgs,
   ProductName,
-  SlackTeamsResponse,
 } from '../types';
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
 import { ShareHeader } from './ShareHeader';
 import { UserPickerField } from './UserPickerField';
-import SlackButton from './SlackButton';
 
 const SubmitButtonWrapper = styled.div`
   display: flex;
@@ -37,13 +35,6 @@ const CenterAlignedIconWrapper = styled.div`
   > div {
     line-height: 1;
   }
-`;
-const SlackCopyWrapper = styled.div`
-  font-size: 13px;
-  color: #9b9b9b;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 18px;
 `;
 
 export const FormWrapper = styled.div`
@@ -87,9 +78,6 @@ export type Props = {
   defaultValue?: DialogContentState;
   isFetchingConfig?: boolean;
   product: ProductName;
-  enableShareToSlack?: boolean;
-  toggleShareToSlack?: () => void;
-  slackTeams: SlackTeamsResponse;
   onUserInputChange?: (query?: string, sessionId?: string) => void;
   enableSmartUserPicker?: boolean;
   loggedInAccountId?: string;
@@ -99,6 +87,7 @@ export type Props = {
   selectPortalRef?: React.Ref<HTMLDivElement>;
   isDisabled?: boolean;
   isPublicLink?: boolean;
+  isSplitButton?: boolean;
 };
 
 export type InternalFormProps = FormChildrenArgs<ShareData> &
@@ -164,16 +153,6 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     );
   };
 
-  shouldShowShareToSlack = (): Boolean => {
-    const { slackTeams, enableShareToSlack } = this.props;
-
-    if (slackTeams.length && enableShareToSlack) {
-      return true;
-    }
-
-    return false;
-  };
-
   render() {
     const {
       formProps,
@@ -186,7 +165,6 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       config,
       isFetchingConfig,
       product,
-      toggleShareToSlack,
       onUserInputChange,
       enableSmartUserPicker,
       loggedInAccountId,
@@ -234,18 +212,6 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
             />
             {this.renderSubmitButton()}
           </FormFooter>
-          {this.shouldShowShareToSlack() && (
-            <>
-              <SlackCopyWrapper>
-                <FormattedMessage {...messages.shareToSlackOption} />
-              </SlackCopyWrapper>
-              <SlackButton
-                onClick={toggleShareToSlack}
-                shouldFitContainer={true}
-                text={<FormattedMessage {...messages.shareToSlackButtonText} />}
-              />
-            </>
-          )}
         </form>
       </FormWrapper>
     );

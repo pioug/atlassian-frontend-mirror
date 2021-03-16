@@ -20,6 +20,7 @@ export function Wrapper({
         border: `1px solid ${colors.N50}`,
         borderRadius: `${gridSize() / 2}px`,
         padding: `${gridSize()}px`,
+        backgroundColor: `#ffffff`,
       }}
       data-testid={testId}
     >

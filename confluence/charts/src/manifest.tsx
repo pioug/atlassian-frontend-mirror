@@ -6,6 +6,8 @@ import {
   FieldDefinition,
 } from '@atlaskit/editor-common/extensions';
 
+import { ChartTypes } from './ui/charts';
+
 const fieldDefinition: FieldDefinition[] = [
   // {
   //   name: 'datasource',
@@ -17,19 +19,23 @@ const fieldDefinition: FieldDefinition[] = [
   //   isMultiple: false,
   // },
   {
-    name: 'type',
+    name: 'chartType',
     type: 'enum',
     style: 'select',
     isMultiple: false,
-    defaultValue: 'line',
+    defaultValue: ChartTypes.LINE,
     items: [
       {
         label: 'Line',
-        value: 'line',
+        value: ChartTypes.LINE,
       },
       {
         label: 'Bar',
-        value: 'bar',
+        value: ChartTypes.BAR,
+      },
+      {
+        label: 'Pie',
+        value: ChartTypes.PIE,
       },
     ],
     label: 'Chart type',

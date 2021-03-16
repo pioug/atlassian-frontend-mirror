@@ -4,6 +4,21 @@ interface DocumentReflowDetectorInit {
   onReflow(height: number): void;
 }
 
+/**
+ *  Adding this is a temporary fix for a type error from @visx/responsive.
+ *  We use @visx/responsive for our new charts library.
+ *  It has a global decleration of ResizeObserver type
+ *  that causes type errors in this file.
+ *  We filed an issue at https://github.com/airbnb/visx/issues/1104.
+ *  Will remove this once we get a fix on the Visx side.
+ * */
+declare class ResizeObserver {
+  constructor(callback: ResizeObserverCallback);
+  disconnect(): void;
+  observe(target: Element, options?: ResizeObserverOptions): void;
+  unobserve(target: Element): void;
+}
+
 const isHtmlElement = (node: Node): node is HTMLElement => node.nodeType === 1;
 const isImageElement = (node: HTMLElement): node is HTMLImageElement =>
   node.tagName === 'IMG';

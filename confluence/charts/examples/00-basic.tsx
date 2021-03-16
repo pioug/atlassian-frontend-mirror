@@ -7,7 +7,7 @@ import { DefaultExtensionProvider } from '@atlaskit/editor-common';
 import ExtensionConfigPanel from '@atlaskit/editor-core/example-helpers/config-panel/ConfigPanelWithProviders';
 
 import { manifest } from '../src/manifest';
-import { LineChart } from '../src/ui/charts/LineChart';
+import { Chart } from '../src/ui/charts';
 
 import { ExampleTable } from './example-table';
 
@@ -52,7 +52,7 @@ export default function Basic() {
   return (
     <ExampleGroup>
       <ChartPane>
-        <LineChart testId="charts" data={tableData} {...parameters} />
+        <Chart testId="charts" data={tableData} {...parameters} />
       </ChartPane>
       <InputPane>
         <textarea

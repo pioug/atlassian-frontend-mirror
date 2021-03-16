@@ -21,8 +21,6 @@ import {
   Props,
   ShareDialogWithTriggerInternal,
   State,
-  SlackOnboardingFooter,
-  CloseButton,
 } from '../../../components/ShareDialogWithTrigger';
 import { ShareData, ShareForm } from '../../../components/ShareForm';
 
@@ -36,12 +34,7 @@ import {
 } from '../../../types';
 import { Omit, PropsOf } from '../_testUtils';
 import mockPopper from '../_mockPopper';
-import SlackButton from '../../../components/SlackButton';
-import { SlackForm } from '../../../components/SlackForm';
-import {
-  getIsOnboardingDismissed,
-  setIsOnboardingDismissed,
-} from '../../../components/localStorageUtils';
+import SplitButton from '../../../components/SplitButton';
 
 jest.mock('../../../components/localStorageUtils.ts', () => {
   return {
@@ -60,14 +53,6 @@ describe('ShareDialogWithTrigger', () => {
   const mockShowFlags: jest.Mock = jest.fn();
   const mockOnDialogOpen: jest.Mock = jest.fn();
   const mockOnTriggerButtonClick: jest.Mock = jest.fn();
-  const mockFetchSlackConversations: jest.Mock = jest.fn();
-  const mockTeams = [
-    {
-      label: 'test',
-      value: '1',
-      avatarUrl: 'http://test',
-    },
-  ];
 
   function getWrapper(
     overrides: Partial<
@@ -84,11 +69,6 @@ describe('ShareDialogWithTrigger', () => {
       showFlags: mockShowFlags,
       createAnalyticsEvent: mockCreateAnalyticsEvent,
       product: 'confluence',
-      slackTeams: [],
-      isFetchingSlackConversations: false,
-      isFetchingSlackTeams: false,
-      slackConversations: [],
-      fetchSlackConversations: mockFetchSlackConversations,
       ...overrides,
     };
 
@@ -112,11 +92,6 @@ describe('ShareDialogWithTrigger', () => {
       showFlags: mockShowFlags,
       createAnalyticsEvent: mockCreateAnalyticsEvent,
       product: 'confluence',
-      slackTeams: [],
-      isFetchingSlackConversations: false,
-      isFetchingSlackTeams: false,
-      slackConversations: [],
-      fetchSlackConversations: mockFetchSlackConversations,
       ...overrides,
     };
 
@@ -402,244 +377,14 @@ describe('ShareDialogWithTrigger', () => {
     });
   });
 
-  describe('enableShareToSlack prop', () => {
-    it('should pass the correct value to ShareForm', () => {
+  describe('SplitButton props and functions', () => {
+    it('should render when shareIntegrations and shareIntegrationsHandler are passed', () => {
       const wrapper = getMountWrapper({
-        enableShareToSlack: true,
+        shareIntegrations: [
+          { type: 'Slack', Icon: () => <div />, Content: () => <div /> },
+        ],
       });
-
-      wrapper.setState({ isDialogOpen: true });
-      const popupContent = shallow(wrapper.find(Popup).prop('content')());
-      const ShareFormProps = popupContent.find(ShareForm).props();
-
-      expect(ShareFormProps.enableShareToSlack).toEqual(true);
-    });
-
-    it('should render the Share to Slack button if true', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      expect(getIsOnboardingDismissed).toHaveBeenCalled();
-
-      const popupContent = mountWithIntl(wrapper.find(Popup).prop('content')());
-      const slackButtonComponent = popupContent.find(SlackButton);
-
-      expect(slackButtonComponent.length).toEqual(1);
-    });
-
-    it('should switch to Slack form if Share to Slack button is clicked', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = mountWithIntl(wrapper.find(Popup).prop('content')());
-      popupContent.find(SlackButton).simulate('click');
-      popupContent.update();
-      wrapper.update();
-
-      expect((wrapper.state() as State).showSlackForm).toEqual(true);
-      expect(wrapper.find(SlackForm).length).toEqual(1);
-    });
-
-    it('send analytics if Share to Slack button is clicked', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = mountWithIntl(wrapper.find(Popup).prop('content')());
-      popupContent.find(SlackButton).simulate('click');
-
-      // Share to slack button clicked event
-      expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'button',
-        actionSubjectId: 'shareSlackButton',
-        source: 'shareModal',
-        attributes: {
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
-        },
-      });
-
-      // screen event
-      expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-        eventType: 'screen',
-        name: 'shareSlackModal',
-        attributes: {
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
-        },
-      });
-    });
-
-    it('should switch back to Share form if state is changed', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = mountWithIntl(wrapper.find(Popup).prop('content')());
-      popupContent.find(SlackButton).simulate('click');
-
-      expect((wrapper.state() as State).showSlackForm).toEqual(true);
-
-      wrapper.setState({
-        showSlackForm: false,
-      });
-
-      expect(wrapper.find(SlackForm).length).toEqual(0);
-      expect(wrapper.find(ShareForm).length).toEqual(1);
-    });
-
-    it('should render the Share to Slack onboarding message if true', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = mountWithIntl(wrapper.find(Popup).prop('content')());
-      const slackFooter = popupContent.find(SlackOnboardingFooter);
-
-      expect(slackFooter.length).toEqual(1);
-    });
-
-    it('should hide the Slack onboarding message if you click the cross icon', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = mountWithIntl(
-        wrapper.find(Popup).first().prop('content')(),
-      );
-
-      const closeButton = popupContent.find(CloseButton);
-      expect(closeButton.length).toEqual(1);
-      expect((wrapper.state() as any).isSlackOnboardingDismissed).toBe(false);
-
-      closeButton.simulate('click');
-
-      // Because of the render prop, we need force the update, and re-mount the
-      // render prop contents.
-      wrapper.update();
-      const popupContentUpdated = mountWithIntl(
-        wrapper.find(Popup).first().prop('content')(),
-      );
-
-      expect((wrapper.state() as any).isSlackOnboardingDismissed).toBe(true);
-      expect(setIsOnboardingDismissed).toHaveBeenCalled();
-      expect(popupContentUpdated.find(SlackOnboardingFooter).length).toEqual(0);
-    });
-
-    it('should hide the Slack onboarding message if you click the Share to slack button', () => {
-      const wrapper = getMountWrapper({
-        enableShareToSlack: true,
-        slackTeams: mockTeams,
-      });
-      wrapper.setState({ isDialogOpen: true });
-
-      const popupContent = mountWithIntl(wrapper.find(Popup).prop('content')());
-      popupContent.find(SlackButton).simulate('click');
-      popupContent.update();
-
-      expect(setIsOnboardingDismissed).toHaveBeenCalled();
-
-      wrapper.setState({
-        showSlackForm: false,
-      });
-
-      // Because of the render prop, we need force the update, and re-mount the
-      // render prop contents.
-      wrapper.update();
-      const popupContentUpdated = mountWithIntl(
-        wrapper.find(Popup).first().prop('content')(),
-      );
-
-      expect(popupContentUpdated.find(SlackOnboardingFooter).length).toEqual(0);
-    });
-
-    describe('handleSlackFormDismiss', () => {
-      it('should send back button clicked analytics', () => {
-        const wrapper = getMountWrapper({
-          enableShareToSlack: true,
-          slackTeams: mockTeams,
-        });
-        wrapper.setState({ isDialogOpen: true });
-
-        const popupContent = mountWithIntl(
-          wrapper.find(Popup).prop('content')(),
-        );
-        popupContent.find(SlackButton).simulate('click');
-
-        expect((wrapper.state() as State).showSlackForm).toEqual(true);
-
-        // Because of the render prop, we need force the update, and re-mount the
-        // render prop contents.
-        wrapper.update();
-        const popupContentUpdated = mountWithIntl(
-          wrapper.find(Popup).first().prop('content')(),
-        );
-
-        popupContentUpdated
-          .find('button[data-testid="back-button"]')
-          .first()
-          .simulate('click');
-
-        // share to slack back button event
-        expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-          eventType: 'ui',
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'backButton',
-          source: 'shareSlackModal',
-          attributes: {
-            packageName: expect.any(String),
-            packageVersion: expect.any(String),
-          },
-        });
-      });
-    });
-
-    describe('handleOnboardingDismiss', () => {
-      it('should send dismiss button clicked analytics', () => {
-        const wrapper = getMountWrapper({
-          enableShareToSlack: true,
-          slackTeams: mockTeams,
-        });
-        wrapper.setState({ isDialogOpen: true });
-
-        const popupContent = mountWithIntl(
-          wrapper.find(Popup).first().prop('content')(),
-        );
-        const closeButton = popupContent.find(CloseButton);
-
-        expect(closeButton.length).toEqual(1);
-        closeButton.simulate('click');
-
-        // dismiss slack onboarding button clicked event
-        expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-          eventType: 'ui',
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'shareSlackOnboardingDismissButton',
-          source: 'shareModal',
-          attributes: {
-            packageName: expect.any(String),
-            packageVersion: expect.any(String),
-          },
-        });
-      });
+      expect(wrapper.find(SplitButton)).toHaveLength(1);
     });
   });
 
@@ -699,7 +444,6 @@ describe('ShareDialogWithTrigger', () => {
         .find(Popup)
         .simulate('close', { isOpen: false, event: { type: 'submit' } });
       expect((wrapper.state() as State).isDialogOpen).toEqual(false);
-      expect((wrapper.state() as State).showSlackForm).toEqual(false);
     });
 
     it('should be triggered when the Popup is closed', () => {
@@ -714,7 +458,6 @@ describe('ShareDialogWithTrigger', () => {
         .find(Popup)
         .simulate('close', { isOpen: false, event: mockClickEvent });
       expect((wrapper.state() as State).isDialogOpen).toEqual(false);
-      expect((wrapper.state() as State).showSlackForm).toEqual(false);
     });
   });
 
@@ -763,7 +506,6 @@ describe('ShareDialogWithTrigger', () => {
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(1);
       expect((wrapper.state() as State).isDialogOpen).toBeTruthy();
       expect((wrapper.state() as State).ignoreIntermediateState).toBeFalsy();
-      expect((wrapper.state() as State).showSlackForm).toBeFalsy();
       expect((wrapper.state() as State).shareError).toBeInstanceOf(Error);
     });
 

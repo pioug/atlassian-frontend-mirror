@@ -15,3 +15,14 @@ export type MetaData = {
   atlOriginId: string;
   shareeAction?: 'view' | 'edit';
 };
+
+// Third party integrations
+export type IntegrationContentProps = {
+  onClose: () => void;
+};
+
+export type Integration = {
+  type: string;
+  Icon: React.ComponentType;
+  Content: React.ComponentType<IntegrationContentProps>;
+};

@@ -27,23 +27,14 @@ export type {
   DialogBoundariesElement,
   RenderCustomTriggerButton,
 } from './ShareDialogWithTrigger';
-export type { Comment, Content, MetaData } from './ShareEntities';
 export type { User, UserWithEmail, UserWithId } from './User';
 export type {
-  ShareToSlackResponse,
-  SlackTeamsResponse,
-  SlackTeamsServiceResponse,
-  SlackConversationsResponse,
-  SlackConversationsServiceResponse,
-  SelectOption,
-  SlackContentState,
-  Channel,
-  SlackUser,
-  Workspace,
-  Team,
-  Conversation,
-} from './ShareToSlackEntities';
-export type { ShareToSlackClient } from '../clients/ShareToSlackClient';
+  Comment,
+  Content,
+  MetaData,
+  Integration,
+  IntegrationContentProps,
+} from './ShareEntities';
 
 export type KeysOfType<T, TProp> = {
   [P in keyof T]: T[P] extends TProp ? P : never;

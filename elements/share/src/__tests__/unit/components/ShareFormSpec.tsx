@@ -1,8 +1,9 @@
 import Button from '@atlaskit/button/custom-theme-button';
-import Form, { HelperMessage } from '@atlaskit/form';
+import Form, { FormProps, HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Tooltip from '@atlaskit/tooltip';
 import { shallow } from 'enzyme';
+import { shallowWithIntl } from 'enzyme-react-intl';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CommentField } from '../../../components/CommentField';
@@ -30,7 +31,7 @@ describe('ShareForm', () => {
         mode: 'EXISTING_USERS_ONLY',
         allowComment,
       };
-      const component = shallow(
+      const component = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
@@ -39,11 +40,10 @@ describe('ShareForm', () => {
           config={config}
           submitButtonLabel={submitButtonLabel}
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = component.find<any>(Form);
+      const akForm = component.find<FormProps<{}>>(Form);
       expect(akForm).toHaveLength(1);
       expect(akForm.prop('onSubmit')).toBe(onSubmit);
 
@@ -90,17 +90,16 @@ describe('ShareForm', () => {
     it('should set isLoading prop to true to the Send button', () => {
       const mockLink = 'link';
       const loadOptions = jest.fn();
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
           isSharing
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()
@@ -113,18 +112,17 @@ describe('ShareForm', () => {
       const mockLink = 'link';
       const mockShareError: ShareError = { message: 'error' };
       const loadOptions = jest.fn();
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
           shareError={mockShareError}
           isSharing
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()
@@ -140,17 +138,16 @@ describe('ShareForm', () => {
     it('should set isLoading prop to true to the UserPickerField', () => {
       const mockLink = 'link';
       const loadOptions = jest.fn();
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink={mockLink}
           loadOptions={loadOptions}
           isFetchingConfig
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()
@@ -163,17 +160,16 @@ describe('ShareForm', () => {
   describe('shareError prop', () => {
     it('should render Retry button with an ErrorIcon and Tooltip', () => {
       const mockShareError: ShareError = { message: 'error' };
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
           shareError={mockShareError}
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()
@@ -200,17 +196,16 @@ describe('ShareForm', () => {
 
   describe('shareFieldsFooter prop', () => {
     it('should render the shareForm with the fields footer content', () => {
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
           product="confluence"
-          slackTeams={[]}
           fieldsFooter={'Some message'}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()
@@ -233,7 +228,7 @@ describe('ShareForm', () => {
       mode: 'EXISTING_USERS_ONLY',
       allowComment: true,
     };
-    const component = shallow(
+    const component = (shallowWithIntl as typeof shallow)(
       <ShareForm
         copyLink={mockLink}
         loadOptions={loadOptions}
@@ -241,11 +236,10 @@ describe('ShareForm', () => {
         defaultValue={defaultValue}
         config={config}
         product="confluence"
-        slackTeams={[]}
       />,
     );
     const formProps = {};
-    const akForm = component.find<any>(Form);
+    const akForm = component.find<FormProps<{}>>(Form);
     const form = renderProp(akForm, 'children', { formProps }).dive().dive();
 
     expect(form.find(UserPickerField).prop('defaultValue')).toBe(
@@ -258,17 +252,16 @@ describe('ShareForm', () => {
 
   describe('isPublicLink prop', () => {
     it('should render Share button with the correct text', () => {
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
           isPublicLink={true}
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()
@@ -283,18 +276,17 @@ describe('ShareForm', () => {
     });
 
     it('should pass value to CopyLinkButton', () => {
-      const wrapper = shallow(
+      const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           copyLink="link"
           loadOptions={jest.fn()}
           isPublicLink={true}
           isDisabled={true}
           product="confluence"
-          slackTeams={[]}
         />,
       );
 
-      const akForm = wrapper.find<any>(Form);
+      const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
         .dive()

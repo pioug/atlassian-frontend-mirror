@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,6 +27,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
+    "@atlaskit/dropdown-menu": "^10.0.6",
     "@atlaskit/field-text-area": "^8.0.0",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/icon": "^21.1.0",
@@ -56,6 +57,7 @@
     "@atlaskit/util-data-test": "^15.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-react-intl": "^2.0.6",
     "jest-fetch-mock": "^3.0.3",
     "react": "^16.8.0",
     "react-intl": "^2.6.0",

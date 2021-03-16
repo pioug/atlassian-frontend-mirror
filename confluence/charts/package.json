@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/charts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -25,11 +25,17 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@atlaskit/code": "^13.1.1",
     "@atlaskit/editor-common": "^55.4.0",
+    "@atlaskit/editor-core": "^137.0.1",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
-    "@visx/xychart": "^1.4.0",
+    "@visx/group": "^1.7.0",
+    "@visx/responsive": "^1.7.0",
+    "@visx/scale": "^1.7.0",
+    "@visx/shape": "^1.7.0",
+    "@visx/xychart": "^1.7.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {

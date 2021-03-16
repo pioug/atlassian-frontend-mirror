@@ -5,14 +5,12 @@ import {
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { Appearance } from '@atlaskit/button/types';
-import Button from '@atlaskit/button/custom-theme-button';
+import SplitButton from './SplitButton';
 import ShareIcon from '@atlaskit/icon/glyph/share';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';
-import SectionMessage from '@atlaskit/section-message';
 import Aktooltip from '@atlaskit/tooltip';
 import { gridSize, layers } from '@atlaskit/theme/constants';
-import { h500 } from '@atlaskit/theme/typography';
 import { LoadOptions, Value } from '@atlaskit/user-picker';
 import React from 'react';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
@@ -31,11 +29,7 @@ import {
   ShareButtonStyle,
   ShareError,
   TooltipPosition,
-  SlackTeamsResponse,
-  SlackConversationsResponse,
-  SlackContentState,
-  Conversation,
-  Team,
+  Integration,
 } from '../types';
 import {
   cancelShare,
@@ -44,37 +38,25 @@ import {
   formShareSubmitted,
   screenEvent,
   shareTriggerButtonClicked,
-  shareSlackModalScreenEvent,
-  shareSlackButtonEvent,
-  submitShareSlackButtonEvent,
-  dismissSlackOnboardingEvent,
-  shareSlackBackButtonEvent,
+  shareSplitButtonEvent,
   ANALYTICS_SOURCE,
 } from './analytics';
 import ShareButton from './ShareButton';
 import { ShareForm } from './ShareForm';
 import { showAdminNotifiedFlag, generateSelectZIndex } from './utils';
 import { IconProps } from '@atlaskit/icon';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import PeopleIcon from '@atlaskit/icon/glyph/people';
-import { SlackForm } from './SlackForm';
-import {
-  getIsOnboardingDismissed,
-  setIsOnboardingDismissed,
-} from './localStorageUtils';
 import { InlineDialogContentWrapper } from './styles';
+import { IntegrationForm } from './IntegrationForm';
 
 type DialogState = {
   isDialogOpen: boolean;
   isSharing: boolean;
-  isSlackSharing: boolean;
   shareError?: ShareError;
-  slackShareError?: ShareError;
   ignoreIntermediateState: boolean;
   defaultValue: DialogContentState;
-  defaultSlackValue: SlackContentState;
-  showSlackForm: boolean;
-  isSlackOnboardingDismissed: boolean;
+  isUsingSplitButton: boolean;
+  showIntegrationForm: boolean;
+  selectedIntegration: Integration | null;
 };
 
 export type State = DialogState;
@@ -95,7 +77,6 @@ export type Props = {
   loadUserOptions?: LoadOptions;
   onDialogOpen?: () => void;
   onShareSubmit?: (shareContentState: DialogContentState) => Promise<any>;
-  onSlackSubmit?: (slackShareContent: SlackContentState) => Promise<any>;
   renderCustomTriggerButton?: RenderCustomTriggerButton;
   shareContentType: string;
   shareFormTitle?: React.ReactNode;
@@ -116,17 +97,11 @@ export type Props = {
   submitButtonLabel?: React.ReactNode;
   product: ProductName;
   customFooter?: React.ReactNode;
-  enableShareToSlack?: boolean;
-  isFetchingSlackTeams?: boolean;
-  defaultSlackTeam?: Team;
-  slackTeams: SlackTeamsResponse;
-  isFetchingSlackConversations: boolean;
-  slackConversations: SlackConversationsResponse;
-  fetchSlackConversations: (teamId: string) => void;
   onUserSelectionChange?: (value: Value) => void;
   shareFieldsFooter?: React.ReactNode;
   isCopyDisabled?: boolean;
   isPublicLink?: boolean;
+  shareIntegrations?: Array<Integration>;
   /** Atlassian Resource Identifier of a Site resource to be shared. */
   shareAri?: string;
   tabIndex?: number;
@@ -158,75 +133,6 @@ export const defaultShareContentState: DialogContentState = {
   },
 };
 
-export const defaultSlackContentState: SlackContentState = {
-  team: {
-    avatarUrl: '',
-    label: '',
-    value: '',
-  },
-  conversation: {
-    label: '',
-    value: '',
-  },
-  comment: {
-    format: 'plain_text' as const,
-    value: '',
-  },
-};
-
-const SlackOnboardingFooterWrapper = styled.div`
-  width: 400px;
-  white-space: normal;
-  margin-top: 20px;
-  > * {
-    border-radius: 0;
-  }
-
-  /* jira has a class override font settings on h1 in gh-custom-field-pickers.css */
-  #ghx-modes-tools #ghx-share & h1:first-child {
-    ${h500()}
-    margin-top: 0;
-  }
-`;
-
-const DismissOnboardingWrapper = styled.div`
-  float: right;
-  /* To position the cross icon */
-  margin-top: -30px;
-`;
-
-export const CloseButton = (props: { dismissHandler: () => void }) => (
-  <Button
-    appearance="subtle-link"
-    onClick={() => {
-      props.dismissHandler();
-    }}
-  >
-    <CrossIcon label="dismiss message" />
-  </Button>
-);
-
-export const SlackOnboardingFooter = (
-  props: {
-    dismissHandler: () => void;
-  } & InjectedIntlProps,
-) => (
-  <CustomFooterWrapper>
-    <SlackOnboardingFooterWrapper>
-      <SectionMessage
-        appearance="change"
-        icon={PeopleIcon}
-        title={props.intl.formatMessage(messages.slackOnboardingFooterTitle)}
-      >
-        <DismissOnboardingWrapper>
-          <CloseButton dismissHandler={props.dismissHandler} />
-        </DismissOnboardingWrapper>
-        <FormattedMessage {...messages.slackOnboardingFooterDescription} />
-      </SectionMessage>
-    </SlackOnboardingFooterWrapper>
-  </CustomFooterWrapper>
-);
-
 type ShareDialogWithTriggerInternalProps = Props &
   InjectedIntlProps &
   WithAnalyticsEventsProps;
@@ -256,29 +162,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   state: State = {
     isDialogOpen: false,
     isSharing: false,
-    isSlackSharing: false,
     ignoreIntermediateState: false,
     defaultValue: defaultShareContentState,
-    defaultSlackValue: defaultSlackContentState,
-    showSlackForm: false,
-    isSlackOnboardingDismissed: false,
+    isUsingSplitButton: false,
+    showIntegrationForm: false,
+    selectedIntegration: null,
   };
-
-  constructor(props: ShareDialogWithTriggerInternalProps) {
-    super(props);
-
-    let isSlackOnboardingDismissed = getIsOnboardingDismissed(props.product);
-
-    if (isSlackOnboardingDismissed === null) {
-      isSlackOnboardingDismissed = 'no';
-    }
-
-    this.state = {
-      ...this.state,
-      isSlackOnboardingDismissed:
-        isSlackOnboardingDismissed === 'no' ? false : true,
-    };
-  }
 
   componentDidMount() {
     if (this.props.isAutoOpenDialog) {
@@ -298,12 +187,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   private closeAndResetDialog = () => {
     this.setState({
       defaultValue: defaultShareContentState,
-      defaultSlackValue: defaultSlackContentState,
       ignoreIntermediateState: true,
       shareError: undefined,
-      slackShareError: undefined,
       isDialogOpen: false,
-      showSlackForm: false,
+      showIntegrationForm: false,
+      selectedIntegration: null,
     });
 
     const { onUserSelectionChange } = this.props;
@@ -368,29 +256,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     return flags;
   };
 
-  private getSlackFlags = (slackEntity: string) => {
-    const { formatMessage } = this.props.intl;
-    const flags: Array<Flag> = [];
-
-    flags.push({
-      appearance: 'success',
-      title: {
-        ...messages.slackSuccessMessage,
-        defaultMessage: formatMessage(messages.slackSuccessMessage, {
-          slackEntity,
-        }),
-      },
-      type: OBJECT_SHARED,
-    });
-
-    // The reason for providing message property is that in jira,
-    // the Flag system takes only Message Descriptor as payload
-    // and formatMessage is called for every flag
-    // if the translation data is not provided, a translated default message
-    // will be displayed
-    return flags;
-  };
-
   private handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const { isDialogOpen } = this.state;
     const { shouldCloseOnEscapePress } = this.props;
@@ -425,20 +290,18 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       state => ({
         isDialogOpen: !state.isDialogOpen,
         ignoreIntermediateState: false,
+        showIntegrationForm: false,
+        selectedIntegration: null,
       }),
       () => {
-        const { onDialogOpen, isPublicLink, enableShareToSlack } = this.props;
-        const { isDialogOpen, isSlackOnboardingDismissed } = this.state;
+        const { onDialogOpen, isPublicLink } = this.props;
+        const { isDialogOpen } = this.state;
         if (isDialogOpen) {
           this.start = Date.now();
 
-          const shareSlackOnboardingShown =
-            enableShareToSlack && !isSlackOnboardingDismissed;
           this.createAndFireEvent(
             screenEvent({
               isPublicLink,
-              enableShareToSlack,
-              shareSlackOnboardingShown,
             }),
           );
 
@@ -464,7 +327,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   private handleCloseDialog = (): void => {
-    this.setState({ isDialogOpen: false, showSlackForm: false });
+    this.setState({
+      isDialogOpen: false,
+      showIntegrationForm: false,
+      selectedIntegration: null,
+    });
   };
 
   private handleShareSubmit = (data: DialogContentState) => {
@@ -515,12 +382,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     );
   };
 
-  private handleSlackFormDismiss = (data: SlackContentState) => {
-    this.setState(({ ignoreIntermediateState }) =>
-      ignoreIntermediateState ? null : { defaultSlackValue: data },
-    );
-  };
-
   handleCopyLink = () => {
     const {
       copyLinkOrigin,
@@ -539,37 +400,17 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     );
   };
 
-  private handleSlackSubmit = async (data: SlackContentState) => {
-    const { onSlackSubmit, showFlags, config, shareContentType } = this.props;
-    if (!onSlackSubmit) {
-      return;
-    }
-
-    this.setState({ isSlackSharing: true });
-
-    // Form share submitted event
-    this.createAndFireEvent(
-      submitShareSlackButtonEvent(data, config, shareContentType),
-    );
-
-    try {
-      await onSlackSubmit(data);
-
-      this.closeAndResetDialog();
-      this.setState({ isSlackSharing: false });
-      showFlags(this.getSlackFlags((data.conversation as Conversation).label));
-    } catch (err) {
-      this.setState({
-        isSlackSharing: false,
-        slackShareError: {
-          message: err.message,
-        },
-      });
-    }
+  handleIntegrationClick = (integration: Integration) => {
+    this.setState({
+      isUsingSplitButton: false,
+      isDialogOpen: true,
+      showIntegrationForm: true,
+      selectedIntegration: integration,
+    });
   };
 
   renderShareTriggerButton = (triggerProps: TriggerProps) => {
-    const { isDialogOpen } = this.state;
+    const { isDialogOpen, isUsingSplitButton } = this.state;
     const {
       intl: { formatMessage },
       isDisabled,
@@ -579,6 +420,9 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       triggerButtonTooltipPosition,
       triggerButtonAppearance,
       triggerButtonStyle,
+      shareIntegrations,
+      dialogZIndex,
+      dialogPlacement,
     } = this.props;
 
     let button: React.ReactNode;
@@ -594,6 +438,21 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           onClick: this.onTriggerClick,
         },
         triggerProps,
+      );
+    } else if (shareIntegrations?.length) {
+      button = (
+        <SplitButton
+          shareButton={button}
+          handleOpenSplitButton={this.handleOpenSplitButton}
+          handleCloseSplitButton={this.handleCloseSplitButton}
+          isUsingSplitButton={isUsingSplitButton}
+          triggerButtonAppearance={triggerButtonAppearance}
+          dialogZIndex={dialogZIndex}
+          dialogPlacement={dialogPlacement}
+          shareIntegrations={shareIntegrations}
+          onIntegrationClick={this.handleIntegrationClick}
+          createAndFireEvent={this.createAndFireEvent}
+        />
       );
     } else {
       button = (
@@ -623,8 +482,10 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       button = (
         <Aktooltip
           content={
-            triggerButtonTooltipText ||
-            formatMessage(messages.shareTriggerButtonTooltipText)
+            !isUsingSplitButton
+              ? triggerButtonTooltipText ||
+                formatMessage(messages.shareTriggerButtonTooltipText)
+              : null
           }
           position={triggerButtonTooltipPosition}
           hideTooltipOnClick
@@ -637,59 +498,28 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     return button;
   };
 
-  toggleShareToSlack = () => {
-    this.setState(
-      {
-        showSlackForm: !this.state.showSlackForm,
-      },
-      () => {
-        const { showSlackForm } = this.state;
-        this.handleOnboardingDismiss(true);
-
-        if (showSlackForm) {
-          this.createAndFireEvent(shareSlackButtonEvent());
-        } else {
-          this.createAndFireEvent(shareSlackBackButtonEvent());
-        }
-      },
-    );
-  };
-
-  handleSlackFormOpen = () => {
-    this.createAndFireEvent(shareSlackModalScreenEvent());
-  };
-
-  handleOnboardingDismiss = (doNotFireEvent: Boolean = false) => {
+  handleOpenSplitButton = () => {
+    this.handleDialogOpen();
     this.setState({
-      isSlackOnboardingDismissed: true,
+      isUsingSplitButton: true,
     });
-
-    if (doNotFireEvent === false) {
-      this.createAndFireEvent(dismissSlackOnboardingEvent());
-    }
-
-    setIsOnboardingDismissed(this.props.product, 'yes');
+    this.createAndFireEvent(shareSplitButtonEvent());
   };
 
-  handleUserInputChanged = (query?: string) => {
-    const { enableShareToSlack } = this.props;
-    const { isSlackOnboardingDismissed } = this.state;
-    if (enableShareToSlack && !isSlackOnboardingDismissed && query) {
-      this.handleOnboardingDismiss(true);
-    }
+  handleCloseSplitButton = () => {
+    this.setState({
+      isUsingSplitButton: false,
+    });
   };
 
   render() {
     const {
       isDialogOpen,
       isSharing,
-      isSlackSharing,
       shareError,
-      slackShareError,
       defaultValue,
-      defaultSlackValue,
-      showSlackForm,
-      isSlackOnboardingDismissed,
+      showIntegrationForm,
+      selectedIntegration,
     } = this.state;
     const {
       copyLink,
@@ -703,28 +533,16 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       submitButtonLabel,
       product,
       customFooter,
-      enableShareToSlack,
-      isFetchingSlackTeams,
-      slackTeams,
-      isFetchingSlackConversations,
-      fetchSlackConversations,
-      slackConversations,
-      defaultSlackTeam,
       enableSmartUserPicker,
       loggedInAccountId,
       cloudId,
       shareFieldsFooter,
       onUserSelectionChange,
       dialogZIndex,
-      isCopyDisabled,
       isPublicLink,
       tabIndex,
     } = this.props;
 
-    const showSlackOnboardingBanner =
-      enableShareToSlack &&
-      !isSlackOnboardingDismissed &&
-      slackTeams.length > 0;
     const style =
       typeof tabIndex !== 'undefined' && tabIndex >= 0
         ? { outline: 'none' }
@@ -741,29 +559,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           content={() => (
             <AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
               <InlineDialogContentWrapper innerRef={this.containerRef}>
-                {showSlackForm ? (
+                {showIntegrationForm && selectedIntegration !== null ? (
                   <InlineDialogFormWrapper>
-                    <SlackForm
-                      loadOptions={loadUserOptions}
-                      isSharing={isSlackSharing}
-                      onSubmit={this.handleSlackSubmit}
-                      contentPermissions={contentPermissions}
-                      shareError={slackShareError}
-                      onOpen={this.handleSlackFormOpen}
-                      onDismiss={this.handleSlackFormDismiss}
-                      defaultValue={defaultSlackValue}
-                      config={config}
-                      isFetchingConfig={isFetchingConfig}
-                      toggleShareToSlack={this.toggleShareToSlack}
-                      isFetchingSlackTeams={isFetchingSlackTeams}
-                      defaultSlackTeam={defaultSlackTeam}
-                      slackTeams={slackTeams}
-                      isFetchingSlackConversations={
-                        isFetchingSlackConversations
-                      }
-                      fetchSlackConversations={fetchSlackConversations}
-                      slackConversations={slackConversations}
-                      product={product}
+                    <IntegrationForm
+                      Content={selectedIntegration.Content}
+                      onIntegrationClose={this.handleCloseDialog}
                     />
                   </InlineDialogFormWrapper>
                 ) : (
@@ -783,34 +583,21 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                       isFetchingConfig={isFetchingConfig}
                       submitButtonLabel={submitButtonLabel}
                       product={product}
-                      enableShareToSlack={enableShareToSlack}
-                      toggleShareToSlack={this.toggleShareToSlack}
-                      slackTeams={slackTeams}
-                      onUserInputChange={this.handleUserInputChanged}
                       enableSmartUserPicker={enableSmartUserPicker}
                       loggedInAccountId={loggedInAccountId}
                       cloudId={cloudId}
                       onUserSelectionChange={onUserSelectionChange}
                       fieldsFooter={shareFieldsFooter}
                       selectPortalRef={this.selectPortalRef}
-                      isDisabled={isCopyDisabled}
                       isPublicLink={isPublicLink}
                     />
                   </InlineDialogFormWrapper>
                 )}
-                {!showSlackOnboardingBanner &&
-                !isFetchingSlackTeams &&
-                bottomMessage ? (
+                {bottomMessage ? (
                   <BottomMessageWrapper>{bottomMessage}</BottomMessageWrapper>
                 ) : null}
                 {customFooter && (
                   <CustomFooterWrapper>{customFooter}</CustomFooterWrapper>
-                )}
-                {showSlackOnboardingBanner && (
-                  <SlackOnboardingFooter
-                    dismissHandler={this.handleOnboardingDismiss}
-                    intl={this.props.intl}
-                  />
                 )}
               </InlineDialogContentWrapper>
             </AnalyticsContext>

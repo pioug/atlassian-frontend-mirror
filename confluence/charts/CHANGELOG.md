@@ -1,5 +1,11 @@
 # @atlaskit/charts
 
+## 0.0.4
+
+### Patch Changes
+
+- [`043b95951cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/043b95951cd) - [ux] Adding Pie and Bar charts to the charts Package
+
 ## 0.0.3
 
 ### Patch Changes

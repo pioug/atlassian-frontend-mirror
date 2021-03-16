@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.26.0
+
+### Minor Changes
+
+- [`044fc424693`](https://bitbucket.org/atlassian/atlassian-frontend/commits/044fc424693) - [ux] Remove Share to slack and adds split button feature which allows for multiple integrations to be added to the share button
+
 ## 0.25.0
 
 ### Minor Changes

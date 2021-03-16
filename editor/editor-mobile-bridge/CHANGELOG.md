@@ -1,5 +1,16 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.3.0
+
+### Minor Changes
+
+- [`49bf29ce37b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49bf29ce37b) - - Adding a type decleration as a temporary fix to subdue a type error being raised in editor-mobile-bridge component caused due to @visx/responsive.
+  - @visx/responsive is a charting library we are using for our new Charts module.
+  - @visx/responsive has a global declaration of the ResizeObserver type and is responsible for type type errors in the editor-mobile-bridge file.
+  - Without this additional decleration editor-mobile-bridge/src/document-reflow-detector.ts will pull in the incorrect global decleration.
+  - We filed an issue at https://github.com/airbnb/visx/issues/1104.
+  - Will remove the additional type declaration once we get a fix in on the Visx side.
+
 ## 25.2.1
 
 ### Patch Changes

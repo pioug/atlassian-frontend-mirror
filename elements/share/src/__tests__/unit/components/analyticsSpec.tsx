@@ -4,22 +4,14 @@ import {
   copyLinkButtonClicked,
   errorEncountered,
   formShareSubmitted,
-  screenEvent,
   shareTriggerButtonClicked,
   shortUrlGenerated,
   shortUrlRequested,
-  shareSlackModalScreenEvent,
-  dismissSlackOnboardingEvent,
-  shareSlackBackButtonEvent,
-  shareSlackButtonEvent,
-  submitShareSlackButtonEvent,
-  slackDataFetched,
 } from '../../../components/analytics';
 import {
   ConfigResponse,
   DialogContentState,
   OriginTracing,
-  SlackContentState,
 } from '../../../types';
 
 describe('share analytics', () => {
@@ -30,22 +22,6 @@ describe('share analytics', () => {
       originIdGenerated: 'abc-123',
       originProduct: 'jest',
     })),
-  });
-
-  describe('slackDataFetched', () => {
-    it('should create a correct event payload', () => {
-      expect(slackDataFetched(10)).toMatchObject({
-        eventType: 'operational',
-        action: 'fetched',
-        actionSubject: 'slackShareData',
-        source: 'shareSlackModal',
-        attributes: expect.objectContaining({
-          numberOfSlackWorkspaces: 10,
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
-      });
-    });
   });
 
   describe('errorEncountered', () => {
@@ -131,83 +107,6 @@ describe('share analytics', () => {
     });
   });
 
-  describe('screenEvent', () => {
-    it('should create event payload with shareSlack props based on input', () => {
-      expect(screenEvent({})).toMatchObject({
-        eventType: 'screen',
-        name: 'shareModal',
-        attributes: expect.objectContaining({
-          isPublicLink: false,
-          shareSlackEnabled: false,
-          shareSlackOnboardingShown: false,
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
-      });
-    });
-  });
-
-  describe('shareSlackModalScreenEvent', () => {
-    it('should create event payload', () => {
-      expect(shareSlackModalScreenEvent()).toMatchObject({
-        eventType: 'screen',
-        name: 'shareSlackModal',
-        attributes: expect.objectContaining({
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
-      });
-    });
-  });
-
-  describe('shareSlackButtonClickedEvent', () => {
-    it('should create event payload', () => {
-      expect(shareSlackButtonEvent()).toMatchObject({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'button',
-        actionSubjectId: 'shareSlackButton',
-        source: 'shareModal',
-        attributes: expect.objectContaining({
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
-      });
-    });
-  });
-
-  describe('dismissShareToSlackBannerButtonClicked', () => {
-    it('should create event payload', () => {
-      expect(dismissSlackOnboardingEvent()).toMatchObject({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'button',
-        actionSubjectId: 'shareSlackOnboardingDismissButton',
-        source: 'shareModal',
-        attributes: expect.objectContaining({
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
-      });
-    });
-  });
-
-  describe('shareSlackBackButtonClicked', () => {
-    it('should create event payload', () => {
-      expect(shareSlackBackButtonEvent()).toMatchObject({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'button',
-        actionSubjectId: 'backButton',
-        source: 'shareSlackModal',
-        attributes: expect.objectContaining({
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
-      });
-    });
-  });
-
   describe('copyLinkButtonClicked', () => {
     it('should create event payload without origin id', () => {
       expect(copyLinkButtonClicked(100)).toMatchObject({
@@ -248,48 +147,6 @@ describe('share analytics', () => {
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledWith({
         hasGeneratedId: true,
-      });
-    });
-  });
-
-  describe('submitShareSlackButtonEvent', () => {
-    const defaultSlackContentState: SlackContentState = {
-      team: {
-        avatarUrl: '',
-        label: '',
-        value: 'teamId',
-      },
-      conversation: {
-        label: '',
-        value: 'convId|convType',
-      },
-      comment: {
-        format: 'plain_text',
-        value: '',
-      },
-    };
-
-    it('should create event payload based on input', () => {
-      expect(
-        submitShareSlackButtonEvent(
-          defaultSlackContentState,
-          undefined,
-          'page',
-        ),
-      ).toMatchObject({
-        eventType: 'ui',
-        action: 'clicked',
-        actionSubject: 'button',
-        actionSubjectId: 'shareButton',
-        source: 'shareSlackModal',
-        attributes: expect.objectContaining({
-          contentType: 'page',
-          chatTeamId: 'teamId',
-          conversationId: 'convId',
-          messageLength: 0,
-          packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
-        }),
       });
     });
   });

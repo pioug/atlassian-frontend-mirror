@@ -9,12 +9,10 @@ export {
 } from './types';
 export type {
   // Types
-  Channel,
   Comment,
   ConfigResponse,
   ConfigResponseMode,
   Content,
-  Conversation,
   DialogContentState,
   DialogPlacement,
   Flag,
@@ -31,25 +29,13 @@ export type {
   ProductId,
   ProductName,
   RenderCustomTriggerButton,
-  SelectOption,
   ShareButtonStyle,
   ShareContentState,
   ShareError,
   ShareRequest,
   ShareResponse,
-  ShareToSlackResponse,
-  SlackContentState,
-  SlackConversationsResponse,
-  SlackConversationsServiceResponse,
-  SlackTeamsResponse,
-  SlackTeamsServiceResponse,
-  SlackUser,
-  Team,
   TooltipPosition,
   User,
   UserWithEmail,
   UserWithId,
-  Workspace,
-  // Interfaces
-  ShareToSlackClient,
 } from './types';

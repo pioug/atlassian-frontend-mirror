@@ -6,14 +6,7 @@ import {
   OptionData,
   Team,
 } from '@atlaskit/user-picker';
-import {
-  ConfigResponse,
-  DialogContentState,
-  OriginTracing,
-  SlackContentState,
-  Team as SlackTeam,
-  Conversation,
-} from '../types';
+import { ConfigResponse, DialogContentState, OriginTracing } from '../types';
 import {
   name as packageName,
   version as packageVersion,
@@ -52,87 +45,23 @@ const createScreenEvent = (
 
 export const CHANNEL_ID = 'fabric-elements';
 export const ANALYTICS_SOURCE = 'shareModal';
-export const SHARE_SLACK_BANNER_SOURCE = 'shareSlackOnboardingBanner';
-export const SHARE_SLACK_MODAL_SOURCE = 'shareSlackModal';
 
-export const shareSlackModalScreenEvent = () =>
-  createScreenEvent(SHARE_SLACK_MODAL_SOURCE);
-
-export const screenEvent = ({
-  isPublicLink = false,
-  enableShareToSlack = false,
-  shareSlackOnboardingShown = false,
-}) =>
+export const screenEvent = ({ isPublicLink = false }) =>
   createScreenEvent(ANALYTICS_SOURCE, {
     isPublicLink,
-    shareSlackEnabled: enableShareToSlack,
-    shareSlackOnboardingShown,
   });
 
-export const shareSlackButtonEvent = () =>
-  createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'shareSlackButton');
+export const shareSplitButtonEvent = () =>
+  createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'shareSplitButton');
 
-export const dismissSlackOnboardingEvent = () =>
+export const shareIntegrationButtonEvent = () =>
   createEvent(
     'ui',
     ANALYTICS_SOURCE,
     'clicked',
     'button',
-    'shareSlackOnboardingDismissButton',
+    'shareIntegrationButton',
   );
-
-export const shareSlackBackButtonEvent = () =>
-  createEvent(
-    'ui',
-    SHARE_SLACK_MODAL_SOURCE,
-    'clicked',
-    'button',
-    'backButton',
-  );
-
-export const slackDataFetched = (numberOfSlackWorkspaces: number) =>
-  createEvent(
-    'operational',
-    SHARE_SLACK_MODAL_SOURCE,
-    'fetched',
-    'slackShareData',
-    undefined,
-    {
-      numberOfSlackWorkspaces,
-    },
-  );
-
-export const submitShareSlackButtonEvent = (
-  shareContent: SlackContentState,
-  config?: ConfigResponse,
-  shareContentType?: string,
-) => {
-  const { team, conversation, comment } = shareContent;
-  const teamId = team ? (team as SlackTeam).value : undefined;
-  const [conversationId] = conversation
-    ? (conversation as Conversation).value.split('|')
-    : [];
-
-  return createEvent(
-    'ui',
-    SHARE_SLACK_MODAL_SOURCE,
-    'clicked',
-    'button',
-    'shareButton',
-    {
-      contentType: shareContentType,
-      chatTeamId: teamId,
-      conversationId: conversationId,
-      messageLength:
-        config &&
-        config.allowComment &&
-        comment &&
-        comment.format === 'plain_text'
-          ? comment.value.length
-          : 0,
-    },
-  );
-};
 
 export const errorEncountered = (
   actionSubjectId: string | undefined,

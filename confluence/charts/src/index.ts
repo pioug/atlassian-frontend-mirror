@@ -1,3 +1,3 @@
 import { manifest } from './manifest';
-export { LineChart } from './ui/charts/LineChart';
+export { Chart, ChartTypes } from './ui/charts';
 export default manifest;

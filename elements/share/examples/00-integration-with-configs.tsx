@@ -5,11 +5,7 @@ import Select from '@atlaskit/select';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Toggle from '@atlaskit/toggle';
 import { OptionData } from '@atlaskit/user-picker';
-import {
-  userPickerData,
-  slackWorkspacesData,
-  slackConversationsData,
-} from '@atlaskit/util-data-test';
+import { userPickerData } from '@atlaskit/util-data-test';
 import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { Appearance } from '@atlaskit/button/types';
 import SectionMessage from '@atlaskit/section-message';
@@ -34,16 +30,16 @@ import {
   ShareResponse,
   TooltipPosition,
   User,
-  ShareToSlackResponse,
-  SlackTeamsServiceResponse,
-  SlackConversationsServiceResponse,
-  ShareToSlackClient,
+  Integration,
+  IntegrationContentProps,
 } from '../src/types';
 import {
   ShortenResponse,
   UrlShortenerClient,
   ShortenRequest,
 } from '../src/clients/AtlassianUrlShortenerClient';
+import SlackIcon from '../src/components/monochromeSlackIcon';
+import Icon from '@atlaskit/icon';
 
 type UserData = {
   avatarUrl?: string;
@@ -190,11 +186,12 @@ type ExampleState = {
   shortLinkData?: ShortenRequest;
   product: ProductName;
   hasFooter: boolean;
-  shareToSlack: boolean;
   enableSmartUserPicker: boolean;
   hasShareFieldsFooter: boolean;
   isCopyDisabled: boolean;
   isPublicLink: boolean;
+  isSplitButton: boolean;
+  shareIntegrations: Array<Integration>;
 };
 
 type State = ConfigResponse & {
@@ -275,6 +272,19 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
   );
 };
 
+const IntegrationContent = ({ onClose }: IntegrationContentProps) => {
+  return (
+    <>
+      <div>Share to Integration form</div>
+      <button onClick={onClose}>Close</button>
+    </>
+  );
+};
+
+const IntegrationIcon = () => (
+  <Icon glyph={SlackIcon} label="Integration icon" size="small" />
+);
+
 setSmartUserPickerEnv('local');
 
 export default class Example extends React.Component<{}, State> {
@@ -298,11 +308,12 @@ export default class Example extends React.Component<{}, State> {
     triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,
     product: 'confluence',
     hasFooter: false,
-    shareToSlack: false,
     enableSmartUserPicker: false,
     hasShareFieldsFooter: false,
     isCopyDisabled: false,
     isPublicLink: false,
+    isSplitButton: false,
+    shareIntegrations: [],
   };
 
   key: number = 0;
@@ -343,62 +354,6 @@ export default class Example extends React.Component<{}, State> {
     share: this.share,
   };
 
-  getTeams = (
-    product: string,
-    cloudId: string,
-  ): Promise<SlackTeamsServiceResponse> =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(slackWorkspacesData);
-      }, 1000);
-    });
-
-  getConversations = (
-    teamId: string,
-    product: string,
-    cloudId: string,
-  ): Promise<SlackConversationsServiceResponse> =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(slackConversationsData);
-      }, 1000);
-    });
-
-  shareToSlack = (
-    teamId: string,
-    conversationId: string,
-    conversationType: string,
-    link: string,
-    product: string,
-    cloudId: string,
-    message?: string,
-  ) => {
-    console.info('Share', {
-      teamId,
-      conversationId,
-      conversationType,
-      link,
-      product,
-      cloudId,
-    });
-
-    return new Promise<ShareToSlackResponse>(resolve => {
-      setTimeout(
-        () =>
-          resolve({
-            ok: true,
-          }),
-        2000,
-      );
-    });
-  };
-
-  shareToSlackClient: ShareToSlackClient = {
-    getTeams: this.getTeams,
-    getConversations: this.getConversations,
-    share: this.shareToSlack,
-  };
-
   urlShortenerClient: UrlShortenerClient = new MockUrlShortenerClient();
 
   render() {
@@ -422,11 +377,12 @@ export default class Example extends React.Component<{}, State> {
       restrictionMessage,
       useUrlShortener,
       shortLinkData,
-      shareToSlack,
       enableSmartUserPicker,
       hasShareFieldsFooter,
       isCopyDisabled,
       isPublicLink,
+      isSplitButton,
+      shareIntegrations,
     } = this.state;
 
     this.key++;
@@ -443,7 +399,6 @@ export default class Example extends React.Component<{}, State> {
                     key={`key-${this.key}`}
                     shareClient={this.shareClient}
                     urlShortenerClient={this.urlShortenerClient}
-                    shareToSlackClient={this.shareToSlackClient}
                     cloudId={JDOG_CLOUD_ID}
                     dialogPlacement={dialogPlacement}
                     loadUserOptions={loadUserOptions}
@@ -478,7 +433,6 @@ export default class Example extends React.Component<{}, State> {
                     shortLinkData={shortLinkData}
                     product={product}
                     customFooter={hasFooter ? <CustomFooter /> : undefined}
-                    enableShareToSlack={shareToSlack}
                     onUserSelectionChange={console.log}
                     shareFieldsFooter={
                       hasShareFieldsFooter ? <ShareFieldsFooter /> : undefined
@@ -488,6 +442,9 @@ export default class Example extends React.Component<{}, State> {
                     }}
                     isCopyDisabled={isCopyDisabled}
                     isPublicLink={isPublicLink}
+                    shareIntegrations={
+                      isSplitButton ? shareIntegrations : undefined
+                    }
                   />
                 </WrapperWithMarginTop>
                 <h4>Options</h4>
@@ -641,15 +598,6 @@ export default class Example extends React.Component<{}, State> {
                     />
                   </WrapperWithMarginTop>
                   <WrapperWithMarginTop>
-                    Enable Share to Slack
-                    <Toggle
-                      isChecked={shareToSlack}
-                      onChange={() =>
-                        this.setState({ shareToSlack: !shareToSlack })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
                     Enable Smart User Picker
                     <Toggle
                       isChecked={enableSmartUserPicker}
@@ -667,6 +615,24 @@ export default class Example extends React.Component<{}, State> {
                       onChange={() =>
                         this.setState({
                           hasShareFieldsFooter: !hasShareFieldsFooter,
+                        })
+                      }
+                    />
+                  </WrapperWithMarginTop>
+                  <WrapperWithMarginTop>
+                    Enable Split Button
+                    <Toggle
+                      isChecked={isSplitButton}
+                      onChange={() =>
+                        this.setState({
+                          isSplitButton: !isSplitButton,
+                          shareIntegrations: [
+                            {
+                              type: 'Slack',
+                              Icon: IntegrationIcon,
+                              Content: IntegrationContent,
+                            },
+                          ],
                         })
                       }
                     />

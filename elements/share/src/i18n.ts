@@ -177,72 +177,16 @@ export const messages = defineMessages({
       '}',
     description: 'Default text for share success message displayed in a flag',
   },
-  slackSuccessMessage: {
-    id: 'fabric.elements.slack.success.message',
-    defaultMessage: 'Shared to {slackEntity}',
-    description:
-      'Default text for slack share success message displayed in a flag',
-  },
   adminNotifiedMessage: {
     id: 'fabric.elements.share.admin.notified.message',
     defaultMessage: 'Your admin has been notified',
     description:
       'Default text for admin notified message displayed in a flag when a share action is successful',
   },
-  shareToSlackButtonText: {
-    id: 'fabric.elements.share.to.slack.button',
-    defaultMessage: 'Share to Slack',
+  shareToIntegrationButtonText: {
+    id: 'fabric.elements.share.to.integration.button',
+    defaultMessage: 'Share to {integrationName}',
     description:
-      'Default text for the button which triggers the share to slack workflow',
-  },
-  shareToSlackOption: {
-    id: 'fabric.elements.share.to.slack.option',
-    defaultMessage: 'OR',
-    description:
-      'Text for the option to choose between regular share and slack share',
-  },
-  backButtonText: {
-    id: 'fabric.elements.share.to.slack.back.button',
-    defaultMessage: 'Back',
-    description:
-      'Default text for the button which reverts to regular share workflow',
-  },
-  slackShareButtonText: {
-    id: 'fabric.elements.share.to.slack.form.submit.button',
-    defaultMessage: 'Send',
-    description: 'Default text for the button which shares to slack',
-  },
-  workspaceSelectorPlaceholder: {
-    id: 'fabric.elements.share.to.slack.form.workspace-selector.placeholder',
-    defaultMessage: 'Slack workspace...',
-    description: 'Default text for the Workspace selector',
-  },
-  channelSelectorPlaceholder: {
-    id: 'fabric.elements.share.to.slack.form.channel-selector.placeholder',
-    defaultMessage: 'Person or channel...',
-    description: 'Default text for the channel selector',
-  },
-  slackOnboardingFooterTitle: {
-    id: 'fabric.elements.share.to.slack.onboarding.footer.title',
-    defaultMessage: 'Keep your team in the loop',
-    description: 'Title for the Slack onboarding footer',
-  },
-  slackOnboardingFooterDescription: {
-    id: 'fabric.elements.share.to.slack.onboarding.footer.description',
-    defaultMessage:
-      'Now you can easily share content with your teammates on Slack.',
-    description: 'Description for Slack onboarding footer',
-  },
-  slackWorkspacePickerRequiredMessage: {
-    id: 'fabric.elements.share.to.slack.workspace-picker.validation.required',
-    defaultMessage: 'Select a Slack workspace.',
-    description:
-      'Required error message for the team picker field in Share to Slack form.',
-  },
-  slackChannelPickerRequiredMessage: {
-    id: 'fabric.elements.share.to.slack.channel-picker.validation.required',
-    defaultMessage: 'Select a person or channel.',
-    description:
-      'Required error message for the channel picker field in Share to Slack form.',
+      'Text for the button that allows the user to share the currently viewed item through a 3rd party app like Slack',
   },
 });

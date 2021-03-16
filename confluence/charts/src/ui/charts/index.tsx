@@ -1,8 +1,18 @@
 import React from 'react';
 
+import { LinearChart } from './LinearChart';
+import { PieChart } from './PieChart';
 import { Wrapper } from './styled';
-import { ChartsProps } from './types';
+import { ChartTypes } from './types';
 
-export default function Charts({ testId }: ChartsProps) {
-  return <Wrapper testId={testId}>Hello world 👋</Wrapper>;
-}
+export { ChartTypes };
+
+export const Chart = ({ testId, chartType, data }: any) => {
+  const ChartComponent = chartType === ChartTypes.PIE ? PieChart : LinearChart;
+  const chartProps = { testId, chartType, data };
+  return (
+    <Wrapper testId={testId}>
+      <ChartComponent {...chartProps} />
+    </Wrapper>
+  );
+};

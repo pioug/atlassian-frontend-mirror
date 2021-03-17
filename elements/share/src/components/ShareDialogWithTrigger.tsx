@@ -429,6 +429,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     const ShareButtonIcon: React.ComponentType<IconProps> =
       triggerButtonIcon || ShareIcon;
 
+    // Render a custom or standard button.
     if (renderCustomTriggerButton) {
       const { shareError } = this.state;
       button = renderCustomTriggerButton(
@@ -438,21 +439,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           onClick: this.onTriggerClick,
         },
         triggerProps,
-      );
-    } else if (shareIntegrations?.length) {
-      button = (
-        <SplitButton
-          shareButton={button}
-          handleOpenSplitButton={this.handleOpenSplitButton}
-          handleCloseSplitButton={this.handleCloseSplitButton}
-          isUsingSplitButton={isUsingSplitButton}
-          triggerButtonAppearance={triggerButtonAppearance}
-          dialogZIndex={dialogZIndex}
-          dialogPlacement={dialogPlacement}
-          shareIntegrations={shareIntegrations}
-          onIntegrationClick={this.handleIntegrationClick}
-          createAndFireEvent={this.createAndFireEvent}
-        />
       );
     } else {
       button = (
@@ -478,6 +464,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       );
     }
 
+    // If the button only shows the icon, wrap it in a tooltip containing the button text.
     if (triggerButtonStyle === 'icon-only') {
       button = (
         <Aktooltip
@@ -492,6 +479,24 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         >
           {button}
         </Aktooltip>
+      );
+    }
+
+    // If there are any integrations, wrap the share button in a split button with integrations.
+    if (shareIntegrations?.length) {
+      button = (
+        <SplitButton
+          shareButton={button}
+          handleOpenSplitButton={this.handleOpenSplitButton}
+          handleCloseSplitButton={this.handleCloseSplitButton}
+          isUsingSplitButton={isUsingSplitButton}
+          triggerButtonAppearance={triggerButtonAppearance}
+          dialogZIndex={dialogZIndex}
+          dialogPlacement={dialogPlacement}
+          shareIntegrations={shareIntegrations}
+          onIntegrationClick={this.handleIntegrationClick}
+          createAndFireEvent={this.createAndFireEvent}
+        />
       );
     }
 

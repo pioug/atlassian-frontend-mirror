@@ -16,6 +16,7 @@ export default function ThemeExample() {
   return (
     <AtlaskitThemeProvider mode={themeMode}>
       <TextField
+        aria-label="themed text field"
         name="event-handlers"
         onChange={() => {}}
         readOnly

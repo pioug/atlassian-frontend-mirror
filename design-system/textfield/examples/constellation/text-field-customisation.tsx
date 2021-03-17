@@ -6,6 +6,7 @@ import Textfield from '../../src';
 export default function TextFieldCustomizationExample() {
   return (
     <Textfield
+      aria-label="customized text field"
       css={{
         // container style
         padding: 5,

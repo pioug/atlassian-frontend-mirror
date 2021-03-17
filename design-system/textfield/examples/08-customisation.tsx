@@ -7,6 +7,7 @@ import TextField from '../src';
 export default function OverrideStyleExample() {
   return (
     <TextField
+      aria-label="customized text field"
       testId="testOverride"
       width="large"
       css={{

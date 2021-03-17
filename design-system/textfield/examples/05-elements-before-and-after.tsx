@@ -12,6 +12,7 @@ export default function ElementsBeforeAfterExample() {
       <label htmlFor="after-input">After input</label>
       <Textfield
         testId="after-input"
+        id="after-input"
         elemAfterInput={
           <div style={{ paddingRight: '6px', lineHeight: '100%' }}>
             <ErrorIcon label="error" />
@@ -22,6 +23,7 @@ export default function ElementsBeforeAfterExample() {
       <label htmlFor="before-input">Before input</label>
       <Textfield
         testId="before-input"
+        id="before-input"
         elemBeforeInput={
           <div style={{ paddingLeft: '6px', lineHeight: '100%' }}>
             <Avatar size="small" borderColor="transparent" />

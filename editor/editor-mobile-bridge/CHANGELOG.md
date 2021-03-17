@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.3.1
+
+### Patch Changes
+
+- [`3a1ba537b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a1ba537b1b) - Unify test file into single file
+
 ## 25.3.0
 
 ### Minor Changes

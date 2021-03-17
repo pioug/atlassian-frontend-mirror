@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.26.1
+
+### Patch Changes
+
+- [`f4a6138b7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4a6138b7aa) - Fix share button not rendering when integrations provided
+
 ## 0.26.0
 
 ### Minor Changes

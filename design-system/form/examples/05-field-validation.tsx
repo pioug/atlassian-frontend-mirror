@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import Select from '@atlaskit/select';
+import type { ValueType } from '@atlaskit/select/types';
 import TextField from '@atlaskit/textfield';
 
 import Form, {
@@ -12,6 +14,22 @@ import Form, {
 } from '../src';
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+interface OptionType {
+  label: string;
+  value: string;
+}
+
+const colors = [
+  { label: 'blue', value: 'blue' },
+  { label: 'red', value: 'red' },
+  { label: 'purple', value: 'purple' },
+  { label: 'black', value: 'black' },
+  { label: 'white', value: 'white' },
+  { label: 'gray', value: 'gray' },
+  { label: 'yellow', value: 'yellow' },
+  { label: 'orange', value: 'orange' },
+  { label: 'teal', value: 'teal' },
+];
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Component<{}> {
@@ -83,6 +101,34 @@ export default class extends Component<{}> {
                         Username already taken, try another one
                       </ErrorMessage>
                     )}
+                  </Fragment>
+                )}
+              </Field>
+              <Field<ValueType<OptionType>>
+                name="colors"
+                label="Select a color"
+                defaultValue={null}
+                isRequired
+                validate={async value => {
+                  if (value) {
+                    return undefined;
+                  }
+
+                  return new Promise(resolve => setTimeout(resolve, 300)).then(
+                    () => 'Please select a color',
+                  );
+                }}
+              >
+                {({ fieldProps: { id, ...rest }, error }) => (
+                  <Fragment>
+                    <Select<OptionType>
+                      validationState={error ? 'error' : 'default'}
+                      inputId={id}
+                      {...rest}
+                      options={colors}
+                      isClearable
+                    />
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
                   </Fragment>
                 )}
               </Field>

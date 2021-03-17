@@ -37,6 +37,7 @@ export default function VariationsExample() {
         onChange={handleOnChange}
         onBlur={handleOnBlur}
         onFocus={handleOnFocus}
+        id="event-handlers"
       />
       <div style={eventResultStyle}>{eventResult}</div>
 
@@ -44,7 +45,11 @@ export default function VariationsExample() {
       <label htmlFor="default-value">
         Default value (not the same as a placeholder)
       </label>
-      <Textfield testId="default-value" defaultValue="candy" />
+      <Textfield
+        testId="default-value"
+        defaultValue="candy"
+        id="default-value"
+      />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="disabled">Disabled</label>
@@ -52,19 +57,24 @@ export default function VariationsExample() {
         testId="disabled"
         isDisabled
         defaultValue="can't touch this..."
+        id="disabled"
       />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="required">Required</label>
-      <Textfield testId="required" isRequired />
+      <Textfield testId="required" id="required" isRequired />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="invalid">Invalid</label>
-      <Textfield testId="invalid" isInvalid />
+      <Textfield testId="invalid" id="invalid" isInvalid />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="placeholder">Placeholder</label>
-      <Textfield testId="placeholder" placeholder="Click here to input..." />
+      <Textfield
+        testId="placeholder"
+        id="placeholder"
+        placeholder="Click here to input..."
+      />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="auto-focus">Auto Focus</label>
@@ -72,6 +82,7 @@ export default function VariationsExample() {
         testId="auto-focus"
         autoFocus
         defaultValue="Text is normal font"
+        id="auto-focus"
       />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
@@ -81,11 +92,12 @@ export default function VariationsExample() {
         spellCheck
         isMonospaced
         defaultValue="Text is monospaced font"
+        id="spell-check"
       />
 
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="compact">Compact</label>
-      <Textfield testId="compact" isCompact />
+      <Textfield testId="compact" id="compact" isCompact />
     </div>
   );
 }

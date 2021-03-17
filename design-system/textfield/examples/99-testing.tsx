@@ -11,6 +11,7 @@ export default function TestingExample() {
         name="event-handlers"
         testId="the-textfield"
         defaultValue="I have a data-testid"
+        id="event-handlers"
       />
     </div>
   );

@@ -25,7 +25,7 @@ export default function BasicExample() {
       >
         Basic text field
       </label>
-      <Textfield name="basic" />
+      <Textfield name="basic" id="basic" />
     </div>
   );
 }

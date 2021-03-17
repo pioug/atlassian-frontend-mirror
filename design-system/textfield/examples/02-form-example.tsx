@@ -14,7 +14,11 @@ export default function FormExample() {
     >
       {({ formProps }: any) => (
         <form {...formProps}>
-          <Field name="example-text" defaultValue="a default value">
+          <Field
+            name="example-text"
+            defaultValue="a default value"
+            label="With default value"
+          >
             {({ fieldProps }: any) => (
               <Fragment>
                 <Textfield {...fieldProps} />

@@ -25,7 +25,7 @@ export default function MaxValueExample() {
       >
         Max length of 5
       </label>
-      <Textfield name="max" maxLength={5} />
+      <Textfield name="max" maxLength={5} id="max" />
     </div>
   );
 }

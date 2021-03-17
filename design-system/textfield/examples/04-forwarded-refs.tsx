@@ -19,7 +19,7 @@ export default function ForwardRefExample() {
 
   return (
     <div>
-      <Textfield ref={handleRef} />
+      <Textfield ref={handleRef} aria-label="textfield label" />
       <p>
         <Button appearance="primary" onClick={handleFocus}>
           Focus TextField

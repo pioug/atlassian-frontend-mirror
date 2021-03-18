@@ -25,7 +25,7 @@ const createBodiedExtensionNodeSpec = (
     group: 'block',
     marks: 'link',
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | extension | unsupportedBlock)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | extension | unsupportedBlock | embedCard)+',
     defining: true,
     selectable: true,
     isolating: true,

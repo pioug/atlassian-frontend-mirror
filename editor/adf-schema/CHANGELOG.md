@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 14.1.0
+
+### Minor Changes
+
+- [`e6033cf5a7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6033cf5a7b) - HOT-94716 Add embedCard to allowable content in bodiedExtension
+
 ## 14.0.0
 
 ### Major Changes

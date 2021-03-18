@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.1.0
+
+### Minor Changes
+
+- [`a882576542d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a882576542d) - Adjust status node colors - ADFS-40
+
 ## 9.0.1
 
 ### Patch Changes

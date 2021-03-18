@@ -4,20 +4,20 @@ import CustomThemeButtonProps from '!!extract-react-types-loader!../../extract-r
 
 ### Shared props
 
-These props can be applied to all button variants (`Button`, `LoadingButton` and `CustomThemeButton`)
+These props can be applied to all button variants (`Button`, `LoadingButton` and `CustomThemeButton`).
+
+All button variants also support all valid `HTMLElement` props, except for `disabled`. We control the `disabled` prop through the `isDisabled` prop.
 
 <PropsTable heading="" props={SharedProps} />
 
-All button variants will also support all valid `HTMLElement` props, except for `disabled`. We control the `disabled` prop through the `isDisabled` prop
-
 ### Loading button props
 
-The `LoadingButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop
+The `LoadingButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop.
 
 <PropsTable heading="" props={LoadingButtonProps} />
 
 ### Custom theme button props
 
-The `CustomThemeButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop, and an optional `theme` prop
+The `CustomThemeButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop, and an optional `theme` prop.
 
 <PropsTable heading="" props={CustomThemeButtonProps} />

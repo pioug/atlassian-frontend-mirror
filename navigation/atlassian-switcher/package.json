@@ -62,7 +62,6 @@
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/textfield": "^5.0.0",
-    "bolt": "^0.24.4",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",

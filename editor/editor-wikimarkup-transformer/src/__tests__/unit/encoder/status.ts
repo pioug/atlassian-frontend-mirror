@@ -32,4 +32,17 @@ describe('ADF => WikiMarkup - Status', () => {
     )(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });
+  test('should convert status node with unknown color', () => {
+    const node = doc(
+      p(
+        'This document is already ',
+        status({
+          text: 'unknown',
+          color: 'orange',
+          localId: '3cf433a6-5fd1-4803-9488-8b1b09a293b3',
+        }),
+      ),
+    )(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
 });

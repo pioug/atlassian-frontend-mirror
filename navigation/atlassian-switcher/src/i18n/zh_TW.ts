@@ -26,8 +26,6 @@ export default {
     '請確認您的電子郵件地址以檢視可用產品清單。',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     '免費文件共同作業，最多可容納 10 位使用者',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    '免費 IT 服務與客戶服務台，最多可供 3 位工作人員使用',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     '免費的協作 IT 服務管理，最多可供 3 位專員使用',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -43,7 +41,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': '更多產品',
   'fabric.atlassianSwitcher.product.description.confluence': '文件共同作業',
   'fabric.atlassianSwitcher.product.description.dragonfruit': '元件管理員',
-  'fabric.atlassianSwitcher.product.description.jsd': 'IT 服務台與客戶服務',
   'fabric.atlassianSwitcher.product.description.jsm': '協作 IT 服務管理',
   'fabric.atlassianSwitcher.product.description.jsw': '專案追蹤與問題追蹤',
   'fabric.atlassianSwitcher.product.description.opsgenie': '新式事件管理',

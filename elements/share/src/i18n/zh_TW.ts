@@ -42,24 +42,8 @@ export default {
     '請選取至少一個使用者、團隊或電子郵件。',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {已分享部落格貼文} board {已分享看板} calendar {已分享日曆} draft {已分享草稿} filter {已分享篩選條件} issue {已分享問題} media {已分享媒體} page {已分享頁面} project {已分享專案} pullrequest {已分享提取請求} question {已分享問題} report {已分享報告} repository {已分享存放庫} request {已分享請求} roadmap {已分享藍圖} site {已分享網站} space {已分享空間} other {已分享連結}}',
-  'fabric.elements.share.to.slack.back.button': '返回',
-  'fabric.elements.share.to.slack.button': '分享到 Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    '選取人員或管道。',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    '人員或管道...',
-  'fabric.elements.share.to.slack.form.submit.button': '傳送',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack 工作區...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    '現在您可以輕鬆地在 Slack 上與團隊成員分享內容。',
-  'fabric.elements.share.to.slack.onboarding.footer.title': '讓所有人得到資訊',
-  'fabric.elements.share.to.slack.option': '或',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    '選取 Slack 工作區。',
   'fabric.elements.share.trigger.button.icon.label': '分享圖示',
   'fabric.elements.share.trigger.button.invite.text': '邀請',
   'fabric.elements.share.trigger.button.text': '分享',
   'fabric.elements.share.trigger.button.tooltip.text': '分享',
-  'fabric.elements.slack.success.message': '已與 {slackEntity} 分享',
 };

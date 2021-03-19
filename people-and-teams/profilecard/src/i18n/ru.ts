@@ -37,4 +37,17 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     'Его аккаунт был отключен на этой неделе.',
   'pt.profile-card.inactive.account.no.date': 'Его аккаунт был отключен.',
+  'pt.team-profile-card.error.refresh-button': 'Повторить попытку',
+  'pt.team-profile-card.error.suggestion':
+    'Повторите попытку через несколько секунд.',
+  'pt.team-profile-card.error.title':
+    'При получении данных этой команды возникла проблема',
+  'pt.team-profile-card.team.action.view-profile': 'Посмотреть профиль',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Команда • {count} участник} few {Команда • {count} участника} many {Команда • {count} участников} other {Команда • {count} участника}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Команда • {count} участник, включая вас} few {Команда • {count} участника, включая вас} many {Команда • {count} участников, включая вас} other {Команда • {count} участника, включая вас}}',
+  'pt.team-profile-card.team.member.many': 'Команда • более 50 участников',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Команда • более 50 участников, включая вас',
 };

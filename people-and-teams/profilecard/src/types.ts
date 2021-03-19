@@ -254,7 +254,7 @@ export type LozengeColor =
   | 'moved';
 
 export interface LozengeProps {
-  text: string;
+  text: React.ReactNode;
   appearance?: LozengeColor; // defaults to 'default'
   isBold?: boolean; // defaults to false
 }

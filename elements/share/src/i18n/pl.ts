@@ -45,25 +45,8 @@ export default {
     'Wybierz co najmniej jednego użytkownika, jeden zespół lub adres e-mail.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Udostępniono wpis na blogu} board {Udostępniono tablicę} calendar {Udostępniono kalendarz} draft {Udostępniono wersję roboczą} filter {Udostępniono filtr} issue {Udostępniono zgłoszenie} media {Udostępniono media} page {Udostępniono stronę} project {Udostępniono projekt} pullrequest {Udostępniono pull request} question {Udostępniono pytanie} report {Udostępniono raport} repository {Udostępniono repozytorium} request {Udostępniono wniosek} roadmap {Udostępniono harmonogram} site {Udostępniono witrynę} space {Udostępniono przestrzeń} other {Udostępniono łącze}}',
-  'fabric.elements.share.to.slack.back.button': 'Wstecz',
-  'fabric.elements.share.to.slack.button': 'Udostępnij w Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Wybierz osobę lub kanał.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Osoba lub kanał…',
-  'fabric.elements.share.to.slack.form.submit.button': 'Wyślij',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Przestrzeń robocza Slack…',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Teraz możesz z łatwością udostępniać swoje treści członkom zespołu w Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Bądź zawsze w kontakcie z zespołem',
-  'fabric.elements.share.to.slack.option': 'LUB',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Wybierz przestrzeń roboczą Slack.',
   'fabric.elements.share.trigger.button.icon.label': 'Ikona udostępniania',
   'fabric.elements.share.trigger.button.invite.text': 'Zaproś',
   'fabric.elements.share.trigger.button.text': 'Udostępnij',
   'fabric.elements.share.trigger.button.tooltip.text': 'Udostępnij',
-  'fabric.elements.slack.success.message': 'Udostępniono w {slackEntity}',
 };

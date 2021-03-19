@@ -27,8 +27,6 @@ export default {
     'Bekräfta din e-postadress för att visa en lista över tillgängliga produkter.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Gratis dokumentsamarbete för upp till 10 användare',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Gratis servicedesk för IT-tjänster och kundtjänst för upp till 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Gratis samarbetsorienterad IT-tjänsthantering för upp till 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -44,8 +42,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Fler produkter',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbete',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT-servicedesk och kundtjänst',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Samarbetsorienterad IT-tjänsthantering',
   'fabric.atlassianSwitcher.product.description.jsw':

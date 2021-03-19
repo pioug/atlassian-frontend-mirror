@@ -45,7 +45,7 @@ const getTimeString = (showWeekday: boolean = false) => {
 const exampleLozenges: LozengeProps[] = [
   { text: 'Guest', appearance: 'new', isBold: true },
   { text: 'Cool Bean', appearance: 'removed' },
-  { text: 'Another Role', appearance: 'inprogress', isBold: true },
+  { text: <div>Another Role</div>, appearance: 'inprogress', isBold: true },
 ];
 
 type Props = {};

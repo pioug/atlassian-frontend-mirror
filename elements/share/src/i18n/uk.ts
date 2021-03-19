@@ -49,25 +49,8 @@ export default {
     'Виберіть принаймні одного користувача, команду або електронну адресу.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Ви поділилися дописом у блозі} board {Ви поділилися дошкою} calendar {Ви поділилися календарем} draft {Ви поділилися чернеткою} filter {Ви поділилися фільтром} issue {Ви поділилися проблемою} media {Ви поділилися файлом мультимедіа} page {Ви поділилися сторінкою} project {Ви поділилися проектом} pullrequest {Ви поділилися запитом Pull request} question {Ви поділилися запитанням} report {Ви поділилися звітом} repository {Ви поділилися сховищем} request {Ви поділилися запитом} roadmap {Ви поділилися календарним планом} site {Ви поділилися сайтом} space {Ви поділилися розділом} other {Ви поділилися посиланням}}',
-  'fabric.elements.share.to.slack.back.button': 'Назад',
-  'fabric.elements.share.to.slack.button': 'Надіслати в Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Виберіть користувача або канал.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Виберіть користувача або канал…',
-  'fabric.elements.share.to.slack.form.submit.button': 'Надіслати',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Робоча область Slack…',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Відтепер ви можете зручно ділитися контентом з учасниками команди в Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Тримайте команду в курсі новин',
-  'fabric.elements.share.to.slack.option': 'або',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Виберіть робочу область Slack.',
   'fabric.elements.share.trigger.button.icon.label': 'Надіслати піктограму',
   'fabric.elements.share.trigger.button.invite.text': 'Запросити',
   'fabric.elements.share.trigger.button.text': 'Поділитися',
   'fabric.elements.share.trigger.button.tooltip.text': 'Поділитися',
-  'fabric.elements.slack.success.message': 'Надіслано в {slackEntity}',
 };

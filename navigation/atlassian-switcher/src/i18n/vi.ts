@@ -27,8 +27,6 @@ export default {
     'Vui lòng xác nhận địa chỉ email của bạn để xem danh sách các sản phẩm hiện có.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Miễn phí cộng tác tài liệu cho 10 người dùng',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Miễn phí dịch vụ IT và dịch vụ hỗ trợ khách hàng cho 3 nhân viên',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Quản lý dịch vụ CNTT cộng tác miễn phí cho tối đa 3 nhân viên',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -46,8 +44,8 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Sản phẩm khác',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Cộng tác tài liệu',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'Dịch vụ hỗ trợ IT và chăm sóc khách hàng',
+  'fabric.atlassianSwitcher.product.description.dragonfruit':
+    'Nhà quản lý thành phần',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Quản lý dịch vụ CNTT cộng tác',
   'fabric.atlassianSwitcher.product.description.jsw': 'Theo dõi dự án và lỗi',

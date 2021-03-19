@@ -45,25 +45,8 @@ export default {
     'ユーザー、チーム、メールを少なくとも 1 つ選択してください。',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {ブログ投稿が共有されました} board {ボードが共有されました} calendar {カレンダーが共有されました} draft {下書きが共有されました} filter {フィルターが共有されました} issue {課題が共有されました} media {メディアが共有されました} page {ページが共有されました} project {プロジェクトが共有されました} pullrequest {プルリクエストが共有されました} question {質問が共有されました} report {レポートが共有されました} repository {リポジトリが共有されました} request {リクエストが共有されました} roadmap {ロードマップが共有されました} site {サイトが共有されました} space {スペースが共有されました} other {リンクが共有されました}}',
-  'fabric.elements.share.to.slack.back.button': '戻る',
-  'fabric.elements.share.to.slack.button': 'Slack に共有',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'ユーザーまたはチャンネルを選択してください。',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'ユーザーまたはチャンネル',
-  'fabric.elements.share.to.slack.form.submit.button': '送信',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack のワークスペース',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'チームメイトと簡単に Slack でコンテンツを共有できるようになりました。',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'チームで常に最新情報を共有',
-  'fabric.elements.share.to.slack.option': 'または',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Slack のワークスペースを選択してください。',
   'fabric.elements.share.trigger.button.icon.label': '共有アイコン',
   'fabric.elements.share.trigger.button.invite.text': '招待',
   'fabric.elements.share.trigger.button.text': '共有',
   'fabric.elements.share.trigger.button.tooltip.text': '共有',
-  'fabric.elements.slack.success.message': '{slackEntity} に共有されました',
 };

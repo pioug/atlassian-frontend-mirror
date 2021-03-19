@@ -10,6 +10,7 @@ export default {
   'fabric.elements.user-picker.email.add.potential': 'ป้อนอีเมลเพื่อเชิญ',
   'fabric.elements.user-picker.email.select.to.add': 'เลือกเพื่อเชิญ',
   'fabric.elements.user-picker.external.sourced.from': 'พบใน:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'กลุ่มที่ผู้ดูแลระบบจัดการ',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
@@ -18,11 +19,11 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more': 'เพิ่มคนอื่น ๆ ...',
   'fabric.elements.user-picker.single.clear': 'ล้าง',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': 'สมาชิกมากกว่า 50 คน',
+  'fabric.elements.user-picker.team.member.50plus': 'ทีม • สมาชิกมากกว่า 50 คน',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'สมาชิก 50 คนขึ้นไปรวมคุณด้วย',
+    'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, other {สมาชิก {count} คน}}',
+    '{count, plural, other {ทีม • สมาชิก {count} คน}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, other {สมาชิก {count} คน รวมคุณด้วย}}',
+    '{count, plural, other {ทีม • สมาชิก {count} คน รวมคุณด้วย}}',
 };

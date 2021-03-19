@@ -16,10 +16,4 @@ export default {
   'fabric.elements.user-picker.placeholder': 'Zadajte ľudí alebo tímy...',
   'fabric.elements.user-picker.placeholder.add-more': 'pridať ďalších ľudí...',
   'fabric.elements.user-picker.single.clear': 'Vymazať',
-  'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Viac ako 50 členov vrátane vás',
-  'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} člen} few {{count} členovia} many {{count} člena} other {{count} členov}}',
-  'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} člen (vrátane vás)} few {{count} členovia (vrátane vás)} many {{count} člena (vrátane vás)} other {{count} členov (vrátane vás)}}',
 };

@@ -12,20 +12,23 @@ export default {
   'fabric.elements.user-picker.email.select.to.add':
     'Vyberte adresu osoby, kterou chcete pozvat',
   'fabric.elements.user-picker.external.sourced.from': 'Nalezen v:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Skupina spravovaná administrátorem',
+  'fabric.elements.user-picker.guest.lozenge.text': 'HOST',
+  'fabric.elements.user-picker.member.lozenge.text': 'ČLEN',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Odstranit',
   'fabric.elements.user-picker.placeholder': 'Zadejte osoby nebo týmy...',
   'fabric.elements.user-picker.placeholder.add-more': 'přidat více lidí...',
   'fabric.elements.user-picker.single.clear': 'Vymazat',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': '50+ členů',
+  'fabric.elements.user-picker.team.member.50plus': 'Tým • 50 a více členů',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Přes 50 členů, včetně vás',
+    'Tým • 50 a více členů včetně vás',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} člen} few {{count} členové} many {{count} člena} other {{count} členů}}',
+    '{count, plural, one {Tým • {count} člen} few {Tým • {count} členové} many {Tým • {count} člena} other {Tým • {count} členů}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} člen (včetně vás)} few {{count} členové (včetně vás)} many {{count} člena (včetně vás)} other {{count} členů (včetně vás)}}',
+    '{count, plural, one {Tým • {count} člen včetně vás} few {Tým • {count} členové včetně vás} many {Tým • {count} člena včetně vás} other {Tým • {count} členů včetně vás}}',
 };

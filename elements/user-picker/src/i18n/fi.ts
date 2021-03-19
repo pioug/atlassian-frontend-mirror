@@ -11,8 +11,11 @@ export default {
     'Kutsu syöttämällä sähköpostiosoite',
   'fabric.elements.user-picker.email.select.to.add': 'Kutsu valitsemalla',
   'fabric.elements.user-picker.external.sourced.from': 'Löydetty kohteesta:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Ylläpitäjän hallitsema ryhmä',
+  'fabric.elements.user-picker.guest.lozenge.text': 'VIERAS',
+  'fabric.elements.user-picker.member.lozenge.text': 'Jäsen',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Poista',
   'fabric.elements.user-picker.placeholder': 'Syötä henkilöitä tai tiimejä...',
@@ -20,11 +23,11 @@ export default {
     'lisää muita henkilöitä...',
   'fabric.elements.user-picker.single.clear': 'Tyhjennä',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': '50+ jäsentä',
+  'fabric.elements.user-picker.team.member.50plus': 'Tiimi • 50+ jäsentä',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    '50+ jäsentä sinä mukaan lukien',
+    'Tiimi • 50+ jäsentä sinä mukaan lukien',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} jäsen} other {{count} jäsentä}}',
+    '{count, plural, one {Tiimi • {count} jäsen} other {Tiimi • {count} jäsentä}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} jäsen, mukaan luettuna sinä} other {{count} jäsentä, mukaan luettuna sinä}}',
+    '{count, plural, one {Tiimi • {count} jäsen sinä mukaan lukien} other {Tiimi • {count} jäsentä sinä mukaan lukien}}',
 };

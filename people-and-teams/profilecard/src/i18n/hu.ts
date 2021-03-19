@@ -37,4 +37,16 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     'A fiókját ezen a héten inaktiváltuk.',
   'pt.profile-card.inactive.account.no.date': 'A fiókját inaktiváltuk.',
+  'pt.team-profile-card.error.refresh-button': 'Próbáld újra',
+  'pt.team-profile-card.error.suggestion':
+    'Várj egy pillanatot, majd próbálkozz újra.',
+  'pt.team-profile-card.error.title': 'Nem sikerül lekérni a csapat adatait',
+  'pt.team-profile-card.team.action.view-profile': 'Profil megtekintése',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Csapat • {count} tag} other {Csapat • {count} tag}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Csapat • {count} tag veled együtt} other {Csapat • {count} tag veled együtt}}',
+  'pt.team-profile-card.team.member.many': 'Csapat • 50+ tag',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Csapat • 50+ tag veled együtt',
 };

@@ -10,19 +10,22 @@ export default {
   'fabric.elements.user-picker.email.add.potential': '초대할 이메일 입력',
   'fabric.elements.user-picker.email.select.to.add': '선택하여 초대',
   'fabric.elements.user-picker.external.sourced.from': '찾은 위치:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': '관리자가 관리하는 그룹',
+  'fabric.elements.user-picker.guest.lozenge.text': '게스트',
+  'fabric.elements.user-picker.member.lozenge.text': '구성원',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': '제거',
   'fabric.elements.user-picker.placeholder': '사용자 또는 팀 입력...',
   'fabric.elements.user-picker.placeholder.add-more': '사람 더 추가...',
   'fabric.elements.user-picker.single.clear': '지우기',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': '50명 이상 구성원',
+  'fabric.elements.user-picker.team.member.50plus': '팀 • 구성원 50명 이상',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    '자신을 포함하여 50명 이상의 구성원',
+    '팀 • 자신을 포함하여 구성원 50명 이상',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, other {{count}명 구성원}}',
+    '{count, plural, other {팀 • 구성원 {count}명}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, other {사용자를 포함한 {count}명의 구성원}}',
+    '{count, plural, other {팀 • 자신을 포함하여 구성원 {count}명}}',
 };

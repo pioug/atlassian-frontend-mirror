@@ -2,12 +2,12 @@ import React from 'react';
 import { Card } from '@atlaskit/smart-card';
 import { EventHandlers, UnsupportedInline } from '@atlaskit/editor-common';
 
-import { getEventHandler } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 import {
   withSmartCardStorage,
   WithSmartCardStorageProps,
 } from '../../ui/SmartCardStorage';
+import { getCardClickHandler } from '../utils/getCardClickHandler';
 
 export interface InlineCardProps {
   url?: string;
@@ -20,11 +20,7 @@ const InlineCard: React.FunctionComponent<
   InlineCardProps & WithSmartCardStorageProps
 > = props => {
   const { url, data, eventHandlers, portal } = props;
-  const handler = getEventHandler(eventHandlers, 'smartCard');
-  const onClick =
-    url && handler
-      ? (e: React.MouseEvent<HTMLElement>) => handler(e, url)
-      : undefined;
+  const onClick = getCardClickHandler(eventHandlers, url);
 
   const cardProps = { url, data, onClick, container: portal };
   return (

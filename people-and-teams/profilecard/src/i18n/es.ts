@@ -37,4 +37,17 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     'Su cuenta se ha desactivado esta semana.',
   'pt.profile-card.inactive.account.no.date': 'Su cuenta está desactivada.',
+  'pt.team-profile-card.error.refresh-button': 'Volver a intentarlo',
+  'pt.team-profile-card.error.suggestion':
+    'Espera unos momentos y vuelve a intentarlo.',
+  'pt.team-profile-card.error.title':
+    'Estamos teniendo algunos problemas para recuperar la información de este equipo',
+  'pt.team-profile-card.team.action.view-profile': 'Ver perfil',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Equipo • {count} miembro} other {Equipo • {count} miembros}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Equipo • {count} miembro, incluyéndote a ti} other {Equipo • {count} miembros, incluyéndote a ti}}',
+  'pt.team-profile-card.team.member.many': 'Equipo • Más de 50 miembros',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Equipo • Más de 50 miembros, incluyéndote a ti',
 };

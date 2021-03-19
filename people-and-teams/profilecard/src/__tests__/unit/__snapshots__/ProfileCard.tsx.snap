@@ -38,7 +38,9 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
             isBold={true}
             maxWidth={200}
           >
-            Another Role
+            <div>
+              Another Role
+            </div>
           </Lozenge>
         </Styled(styled.div)>
         <IconLabel

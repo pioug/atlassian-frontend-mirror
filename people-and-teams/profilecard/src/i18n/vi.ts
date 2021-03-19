@@ -38,4 +38,16 @@ export default {
     'Tài khoản của họ đã bị hủy kích hoạt trong tuần này.',
   'pt.profile-card.inactive.account.no.date':
     'Tài khoản của họ đã bị hủy kích hoạt.',
+  'pt.team-profile-card.error.refresh-button': 'Thử lại',
+  'pt.team-profile-card.error.suggestion': 'Hãy đợi một lát, rồi thử lại.',
+  'pt.team-profile-card.error.title':
+    'Chúng tôi đang gặp sự cố khi truy xuất thông tin nhóm này',
+  'pt.team-profile-card.team.action.view-profile': 'Xem hồ sơ',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, other {Nhóm • {count} thành viên}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, other {Nhóm • {count} thành viên, bao gồm cả bạn}}',
+  'pt.team-profile-card.team.member.many': 'Nhóm • 50+ thành viên',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Nhóm • 50+ thành viên, bao gồm cả bạn',
 };

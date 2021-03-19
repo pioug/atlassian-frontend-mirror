@@ -45,26 +45,9 @@ export default {
     'Selecione pelo menos um usuário, equipe ou e-mail.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Postagem de blog compartilhada} board {Painel compartilhado} calendar {Calendário compartilhado} draft {Rascunho compartilhado} filter {Filtro compartilhado} issue {Item compartilhado} media {Mídia compartilhada} page {Página compartilhada} project {Projeto compartilhado} pullrequest {Solicitação pull compartilhada} question {Pergunta compartilhada} report {Relatório compartilhado} repository {Repositório compartilhado} request {Solicitação compartilhada} roadmap {Roteiro compartilhado} site {Site compartilhado} space {Espaço compartilhado} other {Link compartilhado}}',
-  'fabric.elements.share.to.slack.back.button': 'Voltar',
-  'fabric.elements.share.to.slack.button': 'Compartilhar no Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Selecione uma pessoa ou um canal.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Pessoa ou canal...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Enviar',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Espaço de trabalho do Slack...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Agora ficou fácil compartilhar conteúdo com os seus colegas de equipe no Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Mantenha sua equipe informada',
-  'fabric.elements.share.to.slack.option': 'OU',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Selecione um espaço de trabalho do Slack.',
   'fabric.elements.share.trigger.button.icon.label':
     'Ícone de compartilhamento',
   'fabric.elements.share.trigger.button.invite.text': 'Convidar',
   'fabric.elements.share.trigger.button.text': 'Compartilhar',
   'fabric.elements.share.trigger.button.tooltip.text': 'Compartilhar',
-  'fabric.elements.slack.success.message': 'Compartilhado em {slackEntity}',
 };

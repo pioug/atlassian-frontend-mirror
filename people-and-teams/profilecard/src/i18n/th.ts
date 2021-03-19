@@ -38,4 +38,16 @@ export default {
     'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในสัปดาห์นี้',
   'pt.profile-card.inactive.account.no.date':
     'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้ว',
+  'pt.team-profile-card.error.refresh-button': 'ลองอีกครั้ง',
+  'pt.team-profile-card.error.suggestion': 'โปรดรอสักครู่แล้วลองอีกครั้ง',
+  'pt.team-profile-card.error.title':
+    'เรากำลังมีปัญหาในการเรียกข้อมูลของทีมนี้',
+  'pt.team-profile-card.team.action.view-profile': 'ดูโปรไฟล์',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, other {ทีม • สมาชิก {count} คน}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, other {ทีม • สมาชิก {count} คน รวมคุณด้วย}}',
+  'pt.team-profile-card.team.member.many': 'ทีม • สมาชิกมากกว่า 50 คน',
+  'pt.team-profile-card.team.member.many-including-you':
+    'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
 };

@@ -11,6 +11,7 @@ export default {
     'Angiv e-mail for at invitere',
   'fabric.elements.user-picker.email.select.to.add': 'Vælg for at invitere',
   'fabric.elements.user-picker.external.sourced.from': 'Fundet i:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Administreret gruppe',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
@@ -20,10 +21,11 @@ export default {
     'tilføj flere personer ...',
   'fabric.elements.user-picker.single.clear': 'Ryd',
   'fabric.elements.user-picker.slack.provider': 'Slack',
+  'fabric.elements.user-picker.team.member.50plus': 'Team • Over 50 medlemmer',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Over 50 medlemmer inklusive dig',
+    'Team • Over 50 medlemmer, inklusive dig',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} medlem} other {{count} medlemmer}}',
+    '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmer}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} medlem, inklusive dig} other {{count} medlemmer, inklusive dig}}',
+    '{count, plural, one {Team • {count} medlem, inklusive dig} other {Team • {count} medlemmer, inklusive dig}}',
 };

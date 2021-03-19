@@ -11,18 +11,26 @@ export default {
     'A meghíváshoz írd be az e-mail-címet',
   'fabric.elements.user-picker.email.select.to.add':
     'Jelöld ki a meghívandó személyeket',
+  'fabric.elements.user-picker.external.sourced.from': 'Itt található:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
+  'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Adminisztrátor által kezelt csoport',
+  'fabric.elements.user-picker.guest.lozenge.text': 'VENDÉG',
+  'fabric.elements.user-picker.member.lozenge.text': 'TAG',
+  'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Eltávolítás',
   'fabric.elements.user-picker.placeholder':
     'Adjon meg személyeket vagy csapatokat...',
   'fabric.elements.user-picker.placeholder.add-more':
     'további személyek hozzáadása...',
   'fabric.elements.user-picker.single.clear': 'Törlés',
+  'fabric.elements.user-picker.slack.provider': 'Slack',
+  'fabric.elements.user-picker.team.member.50plus': 'Csapat • 50+ tag',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Veled együtt több mint 50 fő',
+    'Csapat • 50+ tag veled együtt',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} tag} other {{count} tag}}',
+    '{count, plural, one {Csapat • {count} tag} other {Csapat • {count} tag}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} tag, veled együtt} other {{count} tag, veled együtt}}',
+    '{count, plural, one {Csapat • {count} tag veled együtt} other {Csapat • {count} tag veled együtt}}',
 };

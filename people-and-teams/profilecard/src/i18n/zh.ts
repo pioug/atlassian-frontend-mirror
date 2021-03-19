@@ -36,4 +36,15 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     '他们的帐户本周已被停用。',
   'pt.profile-card.inactive.account.no.date': '他们的帐户已被停用。',
+  'pt.team-profile-card.error.refresh-button': '请重试',
+  'pt.team-profile-card.error.suggestion': '请稍等，然后重试。',
+  'pt.team-profile-card.error.title': '检索此团队信息时遇到问题',
+  'pt.team-profile-card.team.action.view-profile': '查看个人资料',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, other {团队 • {count} 名成员}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, other {团队 • {count} 名成员，包括您自己}}',
+  'pt.team-profile-card.team.member.many': '团队 • 50 多名成员',
+  'pt.team-profile-card.team.member.many-including-you':
+    '团队 • 50 多名成员，包括您自己',
 };

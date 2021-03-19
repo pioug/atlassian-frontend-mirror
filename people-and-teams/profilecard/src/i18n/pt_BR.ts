@@ -38,4 +38,17 @@ export default {
     'A conta do usuário foi desativada nesta semana.',
   'pt.profile-card.inactive.account.no.date':
     'A conta do usuário foi desativada.',
+  'pt.team-profile-card.error.refresh-button': 'Tentar novamente',
+  'pt.team-profile-card.error.suggestion':
+    'Aguarde alguns instantes e depois tente de novo.',
+  'pt.team-profile-card.error.title':
+    'Há alguns problemas para recuperar as informações desta equipe',
+  'pt.team-profile-card.team.action.view-profile': 'Visualizar perfil',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Equipe • {count} membro} other {Equipe • {count} membros}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Equipe • {count} membro, incluindo você} other {Equipe • {count} membros, incluindo você}}',
+  'pt.team-profile-card.team.member.many': 'Equipe • Mais de 50 membros',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Equipe • Mais de 50 membros, incluindo você',
 };

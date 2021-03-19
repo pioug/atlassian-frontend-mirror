@@ -43,25 +43,8 @@ export default {
     'Vyberte aspoň jedného používateľa, tím alebo e-mail.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogový príspevok sa zdieľal} board {Nástenka sa zdieľala} calendar {Kalendár sa zdieľal} draft {Koncept sa zdieľal} filter {Filter sa zdieľal} issue {Problém sa zdieľal} media {Mediálny súbor sa zdieľal} page {Stránka sa zdieľala} project {Projekt sa zdieľal} pullrequest {Požiadavka na stiahnutie a posúdenie sa zdieľala} question {Otázka sa zdieľala} report {Zostava sa zdieľala} repository {Repozitár sa zdieľal} request {Žiadosť sa zdieľala} roadmap {Plán sa zdieľal} site {Web sa zdieľal} space {Priestor sa zdieľal} other {Prepojenie sa zdieľalo}}',
-  'fabric.elements.share.to.slack.back.button': 'Späť',
-  'fabric.elements.share.to.slack.button': 'Zdieľať v službe Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Vyberte osobu alebo kanál.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Osoba alebo kanál…',
-  'fabric.elements.share.to.slack.form.submit.button': 'Odoslať',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Pracovný priestor Slack…',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Teraz môžete jednoducho zdieľať obsah so svojimi kolegami v službe Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Postarajte sa, aby bol váš tím informovaný',
-  'fabric.elements.share.to.slack.option': 'alebo',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Vyberte pracovný priestor Slack.',
   'fabric.elements.share.trigger.button.icon.label': 'Ikona zdieľania',
   'fabric.elements.share.trigger.button.invite.text': 'Pozvať',
   'fabric.elements.share.trigger.button.text': 'Zdieľať',
   'fabric.elements.share.trigger.button.tooltip.text': 'Zdieľanie',
-  'fabric.elements.slack.success.message': 'Zdieľané s: {slackEntity}',
 };

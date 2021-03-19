@@ -45,25 +45,8 @@ export default {
     'Välj minst en användare, ett team eller en e-postadress.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogginlägg delat} board {Tavla delad} calendar {Kalender delad} draft {Utkast delat} filter {Filter delat} issue {Ärende delat} media {Media delad} page {Sida delad} project {Projekt delat} pullrequest {Pull-begäran delad} question {Fråga delad} report {Rapport delad} repository {Lagringsplats delad} request {Förfrågan delad} roadmap {Översikt delad} site {Plats delad} space {Utrymme delat} other {Länk delad}}',
-  'fabric.elements.share.to.slack.back.button': 'Tillbaka',
-  'fabric.elements.share.to.slack.button': 'Dela till Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Välj en person eller kanal.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Person eller kanal …',
-  'fabric.elements.share.to.slack.form.submit.button': 'Skicka',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack-arbetsplats …',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Nu kan du enkelt dela innehåll med de andra i teamet på Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Håll ditt team uppdaterat',
-  'fabric.elements.share.to.slack.option': 'eller',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Välj en Slack-arbetsplats.',
   'fabric.elements.share.trigger.button.icon.label': 'Dela-ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Bjud In',
   'fabric.elements.share.trigger.button.text': 'Dela',
   'fabric.elements.share.trigger.button.tooltip.text': 'Dela',
-  'fabric.elements.slack.success.message': 'Delades till {slackEntity}',
 };

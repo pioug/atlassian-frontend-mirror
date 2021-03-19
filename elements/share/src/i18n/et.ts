@@ -43,25 +43,8 @@ export default {
     'Valige vähemalt üks kasutaja, tiim või meil.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogipostitus jagatud} board {Töölaud jagatud} calendar {Kalender jagatud} draft {Mustand jagatud} filter {Filter jagatud} issue {Probleem jagatud} media {Meediafail jagatud} page {Leht jagatud} project {Projekt jagatud} pullrequest {Tõmbekutse jagatud} question {Küsimus jagatud} report {Raport jagatud} repository {Koodihoidla jagatud} request {Taotlus jagatud} roadmap {Tööplaan jagatud} site {Sait jagatud} space {Ruum jagatud} other {Link jagatud}}',
-  'fabric.elements.share.to.slack.back.button': 'Tagasi',
-  'fabric.elements.share.to.slack.button': 'Jaga Slackis',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Valige inimene või kanal.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Inimene või kanal ...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Saada',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slacki tööala ...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Nüüd saate sisu oma tiimikaaslastega Slackis hõlpsasti jagada.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Hoidke tiimi kõigega kursis',
-  'fabric.elements.share.to.slack.option': 'VÕI',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Valige Slacki tööala.',
   'fabric.elements.share.trigger.button.icon.label': 'Jagamisikoon',
   'fabric.elements.share.trigger.button.invite.text': 'Kutsu',
   'fabric.elements.share.trigger.button.text': 'Jaga',
   'fabric.elements.share.trigger.button.tooltip.text': 'Jaga',
-  'fabric.elements.slack.success.message': 'Jagatud üksuses {slackEntity}',
 };

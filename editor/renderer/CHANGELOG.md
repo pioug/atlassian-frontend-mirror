@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 74.1.1
+
+### Patch Changes
+
+- [`1330382a0af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1330382a0af) - Fix event handlers for fallback card
+
 ## 74.1.0
 
 ### Minor Changes

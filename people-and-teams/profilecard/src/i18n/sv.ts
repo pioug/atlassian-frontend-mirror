@@ -38,4 +38,15 @@ export default {
     'Personens konto inaktiverades den här veckan.',
   'pt.profile-card.inactive.account.no.date':
     'Personens konto har inaktiverats.',
+  'pt.team-profile-card.error.refresh-button': 'Försök igen',
+  'pt.team-profile-card.error.suggestion': 'Vänta ett tag och försök igen.',
+  'pt.team-profile-card.error.title': 'Vi kan inte hämta information om teamet',
+  'pt.team-profile-card.team.action.view-profile': 'Visa profil',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmar}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Team • {count} medlem, inklusive dig} other {Team • {count} medlemmar, inklusive dig}}',
+  'pt.team-profile-card.team.member.many': 'Team • 50+ medlemmar',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Team • 50+ medlemmar, inklusive dig',
 };

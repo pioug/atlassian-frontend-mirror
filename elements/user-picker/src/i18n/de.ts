@@ -12,9 +12,12 @@ export default {
   'fabric.elements.user-picker.email.select.to.add':
     'Für die Einladung auswählen',
   'fabric.elements.user-picker.external.sourced.from': 'Gefunden in:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Vom Administrator verwaltete Gruppe',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GAST',
+  'fabric.elements.user-picker.member.lozenge.text': 'Mitglied',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Entfernen',
   'fabric.elements.user-picker.placeholder': 'Personen oder Teams eingeben …',
@@ -22,11 +25,11 @@ export default {
     'weitere Personen hinzufügen …',
   'fabric.elements.user-picker.single.clear': 'Löschen',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': 'Über 50 Mitglieder',
+  'fabric.elements.user-picker.team.member.50plus': 'Team • über 50 Mitglieder',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Über 50 Mitglieder, einschließlich Ihnen',
+    'Team • über 50 Mitglieder, einschließlich Ihnen',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} Mitglied} other {{count} Mitglieder}}',
+    '{count, plural, one {Team • {count} Mitglied} other {Team • {count} Mitglieder}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} Mitglied, Sie eingeschlossen} other {{count} Mitglieder, Sie eingeschlossen}}',
+    '{count, plural, one {Team • {count} Mitglied, einschließlich Ihnen} other {Team • {count} Mitglieder, einschließlich Ihnen}}',
 };

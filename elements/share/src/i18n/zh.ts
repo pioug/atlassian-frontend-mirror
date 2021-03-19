@@ -42,25 +42,8 @@ export default {
     '请至少选择一个用户、团队或电子邮件地址。',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {已共享博客文章} board {已共享看板} calendar {已共享日历} draft {已共享草稿} filter {已共享筛选器} issue {已共享事务} media {已共享媒体} page {已共享页面} project {已共享项目} pullrequest {已共享拉取请求} question {已共享问题} report {已共享报告} repository {已共享存储库} request {已共享请求} roadmap {已共享路线图} site {已共享站点} space {已共享空间} other {已共享链接}}',
-  'fabric.elements.share.to.slack.back.button': '返回',
-  'fabric.elements.share.to.slack.button': '共享到 Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    '请选择一个人员或渠道。',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    '人员或渠道...',
-  'fabric.elements.share.to.slack.form.submit.button': '发送',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack 工作空间...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    '现在，您可以轻松地在 Slack 上与您的队友共享内容。',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    '一有消息就通知您的团队',
-  'fabric.elements.share.to.slack.option': '或者',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    '请选择 Slack 工作空间。',
   'fabric.elements.share.trigger.button.icon.label': '共享图标',
   'fabric.elements.share.trigger.button.invite.text': '邀请',
   'fabric.elements.share.trigger.button.text': '共享',
   'fabric.elements.share.trigger.button.tooltip.text': '共享',
-  'fabric.elements.slack.success.message': '已共享到 {slackEntity}',
 };

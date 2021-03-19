@@ -1,5 +1,11 @@
 # @atlaskit/charts
 
+## 0.0.5
+
+### Patch Changes
+
+- [`c59fe03fddb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c59fe03fddb) - Remove editor-core as dependency (is already a devDependency)
+
 ## 0.0.4
 
 ### Patch Changes

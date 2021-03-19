@@ -27,8 +27,6 @@ export default {
     'Bekræft din e-mailadresse for at få vist en liste over tilgængelige produkter.',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     'Gratis for op til 10 brugere at samarbejde om dokumenter',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    'Gratis IT- og kundeservice for op til 3 agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     'Gratis fælles it-serviceadministration til op til tre agenter',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -44,8 +42,6 @@ export default {
   'fabric.atlassianSwitcher.moreProductsLink': 'Flere produkter',
   'fabric.atlassianSwitcher.product.description.confluence':
     'Dokumentsamarbejde',
-  'fabric.atlassianSwitcher.product.description.jsd':
-    'IT-service desk og kundeservice',
   'fabric.atlassianSwitcher.product.description.jsm':
     'Fælles it-serviceadministration',
   'fabric.atlassianSwitcher.product.description.jsw': 'Projekt- og sagssporing',

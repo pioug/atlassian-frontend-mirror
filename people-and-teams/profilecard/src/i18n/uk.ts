@@ -39,4 +39,16 @@ export default {
     'Обліковий запис користувача деактивовано цього тижня.',
   'pt.profile-card.inactive.account.no.date':
     'Обліковий запис користувача деактивовано.',
+  'pt.team-profile-card.error.refresh-button': 'Повторіть спробу',
+  'pt.team-profile-card.error.suggestion': 'Повторіть спробу за кілька хвилин.',
+  'pt.team-profile-card.error.title':
+    'Не вдалось отримати інформацію про цю команду',
+  'pt.team-profile-card.team.action.view-profile': 'Переглянути профіль',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Команда • {count} учасник} few {Команда • {count} учасники} many {Команда • {count} учасників} other {Команда • {count} учасника}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Команда • {count} учасник включно з вами} few {Команда • {count} учасники включно з вами} many {Команда • {count} учасників включно з вами} other {Команда • {count} учасника включно з вами}}',
+  'pt.team-profile-card.team.member.many': 'Команда • Понад 50 учасників',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Команда • Понад 50 учасників включно з вами',
 };

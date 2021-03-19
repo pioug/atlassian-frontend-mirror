@@ -1,5 +1,8 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
+
+import { Card } from '@atlaskit/smart-card';
+
 import InlineCard from '../../../../react/nodes/inlineCard';
 
 describe('Renderer - React/Nodes/InlineCard', () => {
@@ -36,5 +39,32 @@ describe('Renderer - React/Nodes/InlineCard', () => {
   it('should render with data if prop exists', () => {
     node = mount(<InlineCard data={data} />);
     expect(node.find(InlineCard).prop('data')).toEqual(data);
+  });
+
+  it('should render with onClick if eventHandlers has correct event key', () => {
+    const mockedOnClick = jest.fn();
+    const mockedEvent = { target: {} };
+    node = mount(
+      <InlineCard
+        url={url}
+        eventHandlers={{
+          smartCard: {
+            onClick: mockedOnClick,
+          },
+        }}
+      />,
+    );
+
+    const onClick = node.find(Card).prop('onClick');
+
+    onClick(mockedEvent);
+
+    expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
+  });
+
+  it('should render with onClick as undefined if eventHandlers is not present', () => {
+    node = mount(<InlineCard url={url} />);
+
+    expect(node.find(Card).prop('onClick')).toBeUndefined();
   });
 });

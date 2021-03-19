@@ -12,8 +12,11 @@ export default {
   'fabric.elements.user-picker.email.select.to.add':
     'Selecteer om uit te nodigen',
   'fabric.elements.user-picker.external.sourced.from': 'Gevonden in:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Door beheerder beheerde groep',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GAST',
+  'fabric.elements.user-picker.member.lozenge.text': 'LID',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Verwijderen',
   'fabric.elements.user-picker.placeholder': 'Mensen of teams invoeren...',
@@ -21,11 +24,11 @@ export default {
     'meer gebruikers toevoegen...',
   'fabric.elements.user-picker.single.clear': 'Wissen',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': 'Meer dan 50 leden',
+  'fabric.elements.user-picker.team.member.50plus': 'Team • 50+ leden',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Meer dan 50 leden, met jou erbij',
+    'Team • 50+ leden, inclusief jezelf.',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} lid} other {{count} leden}}',
+    '{count, plural, one {Team • {count} lid} other {Team • {count} leden}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} lid, inclusief jijzelf} other {{count} leden, inclusief jijzelf}}',
+    '{count, plural, one {Team • {count} lid, inclusief jezelf} other {Team •{count} leden, inclusief jezelf}}',
 };

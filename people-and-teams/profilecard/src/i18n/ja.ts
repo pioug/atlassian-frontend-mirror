@@ -38,4 +38,17 @@ export default {
     'アカウントは今週無効になりました。',
   'pt.profile-card.inactive.account.no.date':
     'アカウントは無効になっています。',
+  'pt.team-profile-card.error.refresh-button': '再試行',
+  'pt.team-profile-card.error.suggestion':
+    'しばらく待ってから、もう一度お試しください。',
+  'pt.team-profile-card.error.title':
+    'このチーム情報の取得で問題が発生しています',
+  'pt.team-profile-card.team.action.view-profile': 'プロフィールを表示',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, other {チーム • {count} 人のメンバー}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, other {チーム • {count} 人のメンバー (あなたを含む)}}',
+  'pt.team-profile-card.team.member.many': 'チーム • 50 人以上のメンバー',
+  'pt.team-profile-card.team.member.many-including-you':
+    'チーム • 50 人以上のメンバー (あなたを含む)',
 };

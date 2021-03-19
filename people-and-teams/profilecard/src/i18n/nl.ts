@@ -38,4 +38,17 @@ export default {
     'Zijn/haar account is deze week gedeactiveerd.',
   'pt.profile-card.inactive.account.no.date':
     'Zijn/haar account is gedeactiveerd.',
+  'pt.team-profile-card.error.refresh-button': 'Opnieuw proberen',
+  'pt.team-profile-card.error.suggestion':
+    'Wacht even en probeer het vervolgens opnieuw.',
+  'pt.team-profile-card.error.title':
+    'We hebben problemen bij het ophalen van de informatie van dit team',
+  'pt.team-profile-card.team.action.view-profile': 'Profiel bekijken',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Team • {count} lid} other {Team • {count} leden.}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Team • {count} lid, inclusief jezelf} other {Team •{count} leden, inclusief jezelf}}',
+  'pt.team-profile-card.team.member.many': 'Team • 50+ leden',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Team • 50+ leden, inclusief jezelf.',
 };

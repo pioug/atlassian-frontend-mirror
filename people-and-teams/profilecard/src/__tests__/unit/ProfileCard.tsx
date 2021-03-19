@@ -286,7 +286,7 @@ describe('Profilecard', () => {
           appearance: 'removed',
         },
         {
-          text: 'Another Role',
+          text: <div>Another Role</div>,
           appearance: 'inprogress',
           isBold: true,
         },

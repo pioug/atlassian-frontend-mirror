@@ -38,4 +38,16 @@ export default {
     'Vedkommendes konto ble deaktivert denne uken.',
   'pt.profile-card.inactive.account.no.date':
     'Vedkommendes konto er deaktivert.',
+  'pt.team-profile-card.error.refresh-button': 'Prøv på nytt',
+  'pt.team-profile-card.error.suggestion': 'Vent litt og prøv på nytt.',
+  'pt.team-profile-card.error.title':
+    'Vi har visst problemer med å hente dette teamets informasjon',
+  'pt.team-profile-card.team.action.view-profile': 'Se profil',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmer}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Team • {count} medlem, inkludert deg} other {Team • {count} medlemmer, inkludert deg}}',
+  'pt.team-profile-card.team.member.many': 'Team • flere enn 50 medlemmer',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Team • flere enn 50 medlemmer, inkludert deg',
 };

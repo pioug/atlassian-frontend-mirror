@@ -38,4 +38,17 @@ export default {
     'Jej konto zostało zdezaktywowane w tym tygodniu.',
   'pt.profile-card.inactive.account.no.date':
     'Jej konto zostało zdezaktywowane pomyślnie.',
+  'pt.team-profile-card.error.refresh-button': 'Spróbuj ponownie',
+  'pt.team-profile-card.error.suggestion':
+    'Poczekaj chwilę i spróbuj ponownie.',
+  'pt.team-profile-card.error.title':
+    'Mamy problemy z pobraniem informacji dotyczących tego zespołu',
+  'pt.team-profile-card.team.action.view-profile': 'Wyświetl profil',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Zespół z {count} członkiem} few {Zespół z {count} członkami} many {Zespół z {count} członkami} other {Zespół z {count} członka}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Zespół z {count} członkiem, łącznie z Tobą} few {Zespół z {count} członkami, łącznie z Tobą} many {Zespół z {count} członkami, łącznie z Tobą} other {Zespół z {count} członka, łącznie z Tobą}}',
+  'pt.team-profile-card.team.member.many': 'Zespół z ponad 50 członkami',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Zespół z ponad 50 członkami, łącznie z Tobą',
 };

@@ -25,8 +25,6 @@ export default {
     '请确认您的电子邮件地址以查看可用产品列表。',
   'fabric.atlassianSwitcher.free.edition.product.description.confluence':
     '免费文档协作（最多 10 个用户）',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsd':
-    '免费的 IT 服务和客户服务台（最多 3 个支持人员）',
   'fabric.atlassianSwitcher.free.edition.product.description.jsm':
     '为多达三名支持人员提供免费的协作式 IT 服务管理',
   'fabric.atlassianSwitcher.free.edition.product.description.jsw':
@@ -41,7 +39,6 @@ export default {
   'fabric.atlassianSwitcher.moreAtlassianProducts': '更多 Atlassian 产品',
   'fabric.atlassianSwitcher.moreProductsLink': '更多产品',
   'fabric.atlassianSwitcher.product.description.confluence': '文档协作',
-  'fabric.atlassianSwitcher.product.description.jsd': 'IT 服务台和客户服务',
   'fabric.atlassianSwitcher.product.description.jsm': '协作式 IT 服务管理',
   'fabric.atlassianSwitcher.product.description.jsw': '项目和事务跟踪',
   'fabric.atlassianSwitcher.product.description.opsgenie': '现代事件管理',

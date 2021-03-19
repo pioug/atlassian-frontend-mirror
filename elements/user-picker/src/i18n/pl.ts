@@ -11,6 +11,7 @@ export default {
     'Wprowadź adres e-mail, aby zaprosić',
   'fabric.elements.user-picker.email.select.to.add': 'Wybierz do zaproszenia',
   'fabric.elements.user-picker.external.sourced.from': 'Znaleziono w:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Grupa zarządzana przez administratora',
@@ -22,11 +23,12 @@ export default {
     'dodaj więcej użytkowników...',
   'fabric.elements.user-picker.single.clear': 'Wyczyść',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': 'Ponad 50 członków',
+  'fabric.elements.user-picker.team.member.50plus':
+    'Zespół z ponad 50 członkami',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Ponad 50 członków, łącznie z Tobą',
+    'Zespół z ponad 50 członkami, łącznie z Tobą',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} członek} few {{count} członków} many {{count} członków} other {{count} członka}}',
+    '{count, plural, one {Zespół z {count} członkiem} few {Zespół z {count} członkami} many {Zespół z {count} członkami} other {Zespół z {count} członka}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} członek razem z Tobą} few {{count} członków razem z Tobą} many {{count} członków razem z Tobą} other {{count} członka razem z Tobą}}',
+    '{count, plural, one {Zespół z {count} członkiem, łącznie z Tobą} few {Zespół z {count} członkami, łącznie z Tobą} many {Zespół z {count} członkami, łącznie z Tobą} other {Zespół z {count} członka, łącznie z Tobą}}',
 };

@@ -45,25 +45,8 @@ export default {
     'Selecciona al menos un usuario, equipo o correo electrónico.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Entrada de blog compartida} board {Tablero compartido} calendar {Calendario compartido} draft {Borrador compartido} filter {Filtro compartido} issue {Incidencia compartida} media {Soportes compartidos} page {Página compartida} project {Proyecto compartido} pullrequest {Solicitud de extracción compartida} question {Pregunta compartida} report {Informe compartido} repository {Repositorio compartido} request {Solicitud compartida} roadmap {Hoja de ruta compartida} site {Sitio compartido} space {Espacio compartido} other {Enlace compartido}}',
-  'fabric.elements.share.to.slack.back.button': 'Atrás',
-  'fabric.elements.share.to.slack.button': 'Compartir en Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Selecciona una persona o canal.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Persona o canal...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Enviar',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Espacio de trabajo de Slack...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Ya puedes compartir contenido fácilmente con tus compañeros de equipo en Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Mantén a tu equipo informado',
-  'fabric.elements.share.to.slack.option': 'o',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Selecciona un espacio de trabajo de Slack.',
   'fabric.elements.share.trigger.button.icon.label': 'Icono de compartir',
   'fabric.elements.share.trigger.button.invite.text': 'Invitar',
   'fabric.elements.share.trigger.button.text': 'Compartir',
   'fabric.elements.share.trigger.button.tooltip.text': 'Compartir',
-  'fabric.elements.slack.success.message': 'Compartido en {slackEntity}',
 };

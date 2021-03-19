@@ -11,19 +11,24 @@ export default {
     'Angi en e-post for å invitere',
   'fabric.elements.user-picker.email.select.to.add': 'Velg for å invitere',
   'fabric.elements.user-picker.external.sourced.from': 'Funnet på:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Gruppe administrert av administrator',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GJEST',
+  'fabric.elements.user-picker.member.lozenge.text': 'Medlem',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Fjern',
   'fabric.elements.user-picker.placeholder': 'Angi personer eller team ...',
   'fabric.elements.user-picker.placeholder.add-more': 'Legg til flere personer',
   'fabric.elements.user-picker.single.clear': 'Tøm',
   'fabric.elements.user-picker.slack.provider': 'Slack',
+  'fabric.elements.user-picker.team.member.50plus':
+    'Team • flere enn 50 medlemmer',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    '50+ medlemmer, inkludert deg',
+    'Team • flere enn 50 medlemmer, inkludert deg',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} medlem} other {{count} medlemmer}}',
+    '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmer}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} medlem, medregnet deg} other {{count} medlemmer, medregnet deg}}',
+    '{count, plural, one {Team • {count} medlem, inkludert deg} other {Team • {count} medlemmer, inkludert deg}}',
 };

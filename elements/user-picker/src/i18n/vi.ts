@@ -10,6 +10,7 @@ export default {
   'fabric.elements.user-picker.email.add.potential': 'Nhập email để mời',
   'fabric.elements.user-picker.email.select.to.add': 'Chọn để mời',
   'fabric.elements.user-picker.external.sourced.from': 'Tìm thấy trong:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Nhóm có quản trị viên',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
@@ -18,11 +19,11 @@ export default {
   'fabric.elements.user-picker.placeholder.add-more': 'thêm nhiều người hơn...',
   'fabric.elements.user-picker.single.clear': 'Xóa',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': 'hơn 50 thành viên',
+  'fabric.elements.user-picker.team.member.50plus': 'Nhóm • 50+ thành viên',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Có trên 50 thành viên, bao gồm cả bạn',
+    'Nhóm • 50+ thành viên, bao gồm cả bạn',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, other {{count} thành viên}}',
+    '{count, plural, other {Nhóm • {count} thành viên}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, other {{count} thành viên, bao gồm cả bạn}}',
+    '{count, plural, other {Nhóm • {count} thành viên, bao gồm cả bạn}}',
 };

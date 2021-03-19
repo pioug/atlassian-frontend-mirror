@@ -38,4 +38,16 @@ export default {
     'Il suo account è stato disattivato questa settimana.',
   'pt.profile-card.inactive.account.no.date':
     'Il suo account è stato disattivato.',
+  'pt.team-profile-card.error.refresh-button': 'Riprova',
+  'pt.team-profile-card.error.suggestion': 'Attendi alcuni istanti e riprova.',
+  'pt.team-profile-card.error.title':
+    'Stiamo riscontrando problemi nel recuperare queste informazioni sul team',
+  'pt.team-profile-card.team.action.view-profile': 'Visualizza profilo',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Team • {count} membro} other {Team • {count} membri}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Team • {count} membro, te compreso} other {Team • {count} membri, te compreso}}',
+  'pt.team-profile-card.team.member.many': 'Team • 50+ membri',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Team • 50+ membri, te compreso',
 };

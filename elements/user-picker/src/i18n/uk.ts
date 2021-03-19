@@ -11,9 +11,12 @@ export default {
     'Введіть адресу електронної пошти',
   'fabric.elements.user-picker.email.select.to.add': 'Виберіть користувача',
   'fabric.elements.user-picker.external.sourced.from': 'Знайдено в:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline':
     'Група, яку модерує адміністратор',
+  'fabric.elements.user-picker.guest.lozenge.text': 'ГІСТЬ',
+  'fabric.elements.user-picker.member.lozenge.text': 'Учасник',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Видалити',
   'fabric.elements.user-picker.placeholder':
@@ -22,11 +25,12 @@ export default {
     'додайте інших користувачів…',
   'fabric.elements.user-picker.single.clear': 'Очистити',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': 'Понад 50 учасників',
+  'fabric.elements.user-picker.team.member.50plus':
+    'Команда • Понад 50 учасників',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    'Понад 50 учасників разом із вами',
+    'Команда • Понад 50 учасників включно з вами',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} учасник} few {{count} учасники} many {{count} учасників} other {{count} учасників}}',
+    '{count, plural, one {Команда • {count} учасник} few {Команда • {count} учасники} many {Команда • {count} учасників} other {Команда • {count} учасника}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} учасник, включно з вами} few {{count} учасники, включно з вами} many {{count} учасників, включно з вами} other {{count} учасників, включно з вами}}',
+    '{count, plural, one {Команда • {count} учасник включно з вами} few {Команда • {count} учасники включно з вами} many {Команда • {count} учасників включно з вами} other {Команда • {count} учасника включно з вами}}',
 };

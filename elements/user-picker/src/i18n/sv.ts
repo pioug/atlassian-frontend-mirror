@@ -11,8 +11,11 @@ export default {
     'Ange e-postadress för inbjudan',
   'fabric.elements.user-picker.email.select.to.add': 'Välj för att bjuda in',
   'fabric.elements.user-picker.external.sourced.from': 'Hittades i:',
+  'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Administratörshanterad grupp',
+  'fabric.elements.user-picker.guest.lozenge.text': 'GÄST',
+  'fabric.elements.user-picker.member.lozenge.text': 'medlem',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Ta bort',
   'fabric.elements.user-picker.placeholder': 'Ange personer eller team ...',
@@ -20,11 +23,11 @@ export default {
     'lägg till fler personer ...',
   'fabric.elements.user-picker.single.clear': 'Rensa',
   'fabric.elements.user-picker.slack.provider': 'Slack',
-  'fabric.elements.user-picker.team.member.50plus': '50+ medlemmar',
+  'fabric.elements.user-picker.team.member.50plus': 'Team • 50+ medlemmar',
   'fabric.elements.user-picker.team.member.50plus.including.you':
-    '50+ medlemmar, inklusive dig',
+    'Team • 50+ medlemmar, inklusive dig',
   'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} medlem} other {{count} medlemmar}}',
+    '{count, plural, one {Team • {count} medlem} other {Team • {count} medlemmar}}',
   'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} medlem, inklusive du} other {{count} medlemmar, inklusive du}}',
+    '{count, plural, one {Team • {count} medlem, inklusive dig} other {Team • {count} medlemmar, inklusive dig}}',
 };

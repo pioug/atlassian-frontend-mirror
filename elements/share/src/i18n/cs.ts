@@ -46,25 +46,8 @@ export default {
     'Vyberte alespoň jednoho uživatele, tým nebo e-mail.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Příspěvek na blogu je sdílen} board {Board je sdílen} calendar {Kalendář je sdílen} draft {Koncept je sdílen} filter {Filtr je sdílen} issue {Požadavek je sdílen} media {Multimediální soubor je sdílen} page {Stránka je sdílena} project {Projekt je sdílen} pullrequest {Pull request je sdílen} question {Otázka je sdílena} report {Sestava je sdílena} repository {Repozitář je sdílen} request {Žádost je sdílena} roadmap {Plán je sdílen} site {Web je sdílen} space {Prostor je sdílen} other {Odkaz je sdílen}}',
-  'fabric.elements.share.to.slack.back.button': 'Zpět',
-  'fabric.elements.share.to.slack.button': 'Sdílet ve službě Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Vyberte osobu nebo kanál.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Osoba nebo kanál…',
-  'fabric.elements.share.to.slack.form.submit.button': 'Odeslat',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Pracovní prostor Slack…',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Nyní můžete snadno sdílet obsah se svými kolegy ve službě Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Informujte svůj tým',
-  'fabric.elements.share.to.slack.option': 'nebo',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Vyberte pracovní prostor Slack.',
   'fabric.elements.share.trigger.button.icon.label': 'Ikona sdílení',
   'fabric.elements.share.trigger.button.invite.text': 'Pozvat',
   'fabric.elements.share.trigger.button.text': 'Sdílet',
   'fabric.elements.share.trigger.button.tooltip.text': 'Sdílet',
-  'fabric.elements.slack.success.message': 'Sdíleno s: {slackEntity}',
 };

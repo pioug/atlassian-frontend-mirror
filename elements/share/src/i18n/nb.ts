@@ -47,25 +47,8 @@ export default {
     'Velg minst én bruker, arbeidsgruppe eller e-postadresse.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogginnlegg delt} board {Tavle delt} calendar {Kalender delt} draft {Utkast delt} filter {Filter delt} issue {Sak delt} media {Media delt} page {Side delt} project {Prosjekt delt} pullrequest {Pull-forespørsel delt} question {Spørsmål delt} report {Rapport delt} repository {Repositorium delt} request {Forespørsel delt} roadmap {Veikart delt} site {Side delt} space {Område delt} other {Kobling delt}}',
-  'fabric.elements.share.to.slack.back.button': 'Tilbake',
-  'fabric.elements.share.to.slack.button': 'Del til Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Velg en person eller kanal.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Person eller kanal ...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Send',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack-arbeidsområde ...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Nå kan du enkelt dele innhold med medarbeidere på Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Hold teamet ditt løpende orientert',
-  'fabric.elements.share.to.slack.option': 'eller',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Velg et Slack-arbeidsormåde.',
   'fabric.elements.share.trigger.button.icon.label': 'Dele-ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Inviter',
   'fabric.elements.share.trigger.button.text': 'Del',
   'fabric.elements.share.trigger.button.tooltip.text': 'Del',
-  'fabric.elements.slack.success.message': 'Delt til {slackEntity}',
 };

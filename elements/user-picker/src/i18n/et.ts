@@ -15,10 +15,4 @@ export default {
   'fabric.elements.user-picker.placeholder': 'Sisesta inimesi või meeskondi...',
   'fabric.elements.user-picker.placeholder.add-more': 'Lisa veel inimesi...',
   'fabric.elements.user-picker.single.clear': 'Tühjenda',
-  'fabric.elements.user-picker.team.member.50plus.including.you':
-    '50+ liiget, sh teie',
-  'fabric.elements.user-picker.team.member.count':
-    '{count, plural, one {{count} liige} other {{count} liiget}}',
-  'fabric.elements.user-picker.team.member.count.including.you':
-    '{count, plural, one {{count} liige, sh teie} other {{count} liiget, sh teie}}',
 };

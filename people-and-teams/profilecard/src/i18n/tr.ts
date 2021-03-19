@@ -38,4 +38,17 @@ export default {
     'Bu kullanıcının hesabı bu hafta devre dışı bırakıldı.',
   'pt.profile-card.inactive.account.no.date':
     'Bu kullanıcının hesabı devre dışı bırakıldı.',
+  'pt.team-profile-card.error.refresh-button': 'Yeniden deneyin',
+  'pt.team-profile-card.error.suggestion':
+    'Lütfen birkaç dakika bekleyip yeniden deneyin.',
+  'pt.team-profile-card.error.title':
+    'Bu takımın bilgileri alınırken bir sorunla karşılaşıldı',
+  'pt.team-profile-card.team.action.view-profile': 'Profili görüntüle',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Takım • {count} üye} other {Takım • {count} üye}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Takım • Siz de dahil olmak üzere {count} üye} other {Takım • Siz de dahil olmak üzere {count} üye}}',
+  'pt.team-profile-card.team.member.many': "Takım • 50'den fazla üye",
+  'pt.team-profile-card.team.member.many-including-you':
+    "Takım • Siz de dahil olmak üzere 50'den fazla üye",
 };

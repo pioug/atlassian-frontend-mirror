@@ -14,6 +14,7 @@ export default {
     'Hivatkozás átmásolva a vágólapra',
   'fabric.elements.share.copylink.button.icon.label': 'Hivatkozásikon másolása',
   'fabric.elements.share.copylink.button.text': 'Hivatkozás másolása',
+  'fabric.elements.share.copypubliclink.button.text': 'Publikus link másolása',
   'fabric.elements.share.failure.icon.label': 'Hiba ikon',
   'fabric.elements.share.failure.message': 'Nem lehet megosztani',
   'fabric.elements.share.form.comment.placeholder': 'Üzenet hozzáadása',
@@ -21,6 +22,7 @@ export default {
     'A hozzáféréssel nem rendelkező személyek csatlakozási meghívót fognak kapni',
   'fabric.elements.share.form.info.message.pending.invite':
     'A meghívódat a rendszer elküldi egy adminisztrátornak jóváhagyásra',
+  'fabric.elements.share.form.public.send': 'Publikus link küldése',
   'fabric.elements.share.form.retry': 'Újra',
   'fabric.elements.share.form.send': 'Küldés',
   'fabric.elements.share.form.title': 'Megosztás',
@@ -43,25 +45,8 @@ export default {
     'Válassz ki legalább egy felhasználót, csapatot vagy e-mail-címet.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogposzt megosztva} board {Tábla megosztva} calendar {Naptár megosztva} draft {Piszkozat megosztva} filter {Szűrő megosztva} issue {Ügy megosztva} media {Médiatartalom megosztva} page {Oldal megosztva} project {Projekt megosztva} pullrequest {Pull-kérelem megosztva} question {Kérdés megosztva} report {Jelentés megosztva} repository {Adattár megosztva} request {Kérés megosztva} roadmap {Útvonalterv megosztva} site {Webhely megosztva} space {Munkatér megosztva} other {Link megosztva}}',
-  'fabric.elements.share.to.slack.back.button': 'Vissza',
-  'fabric.elements.share.to.slack.button': 'Megosztás Slackben',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Válaszd ki a kívánt személyt vagy csatornát.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Személy vagy csatorna…',
-  'fabric.elements.share.to.slack.form.submit.button': 'Küldés',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack-munkaterület…',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Mostantól egyszerűen oszthatsz meg tartalmat a csapatod tagjaival a Slackben.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Folyamatosan tájékoztathatod csapatodat',
-  'fabric.elements.share.to.slack.option': 'vagy',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Válassz Slack-munkaterületet.',
   'fabric.elements.share.trigger.button.icon.label': 'Ikon megosztása',
   'fabric.elements.share.trigger.button.invite.text': 'Meghívás',
   'fabric.elements.share.trigger.button.text': 'Megosztás',
   'fabric.elements.share.trigger.button.tooltip.text': 'Megosztás',
-  'fabric.elements.slack.success.message': 'Megosztottad vele: {slackEntity}',
 };

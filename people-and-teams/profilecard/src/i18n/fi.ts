@@ -38,4 +38,17 @@ export default {
     'Hänen tilinsä poistettiin käytöstä tällä viikolla.',
   'pt.profile-card.inactive.account.no.date':
     'Hänen tilinsä on poistettu käytöstä.',
+  'pt.team-profile-card.error.refresh-button': 'Yritä uudelleen',
+  'pt.team-profile-card.error.suggestion':
+    'Odota hetki ja yritä sitten uudelleen.',
+  'pt.team-profile-card.error.title':
+    'Meillä on vaikeuksia näyttää tämän tiimin tietoja',
+  'pt.team-profile-card.team.action.view-profile': 'Näytä profiili',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Tiimi • {count} jäsen} other {Tiimi • {count} jäsentä}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Tiimi • {count} jäsen sinä mukaan lukien} other {Tiimi • {count} jäsentä sinä mukaan lukien}}',
+  'pt.team-profile-card.team.member.many': 'Tiimi • 50+ jäsentä',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Tiimi • 50+ jäsentä sinä mukaan lukien',
 };

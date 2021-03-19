@@ -46,25 +46,8 @@ export default {
     'Chọn ít nhất một người dùng, nhóm hoặc email.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Đã chia sẻ bài đăng} board {Đã chia sẻ bảng} calendar {Đã chia sẻ lịch} draft {Đã chia sẻ bản nháp} filter {Đã chia sẻ bộ lọc} issue {Đã chia sẻ vấn đề} media {Đã chia sẻ phương tiện} page {Đã chia sẻ trang} project {Đã chia sẻ dự án} pullrequest {Đã chia sẻ yêu cầu kéo} question {Đã chia sẻ câu hỏi} report {Đã chia sẻ báo cáo} repository {Đã chia sẻ kho lưu trữ} request {Đã chia sẻ yêu cầu} roadmap {Đã chia sẻ lộ trình} site {Đã chia sẻ trang} space {Đã chia sẻ không gian} other {Đã chia sẻ liên kết}}',
-  'fabric.elements.share.to.slack.back.button': 'Quay lại',
-  'fabric.elements.share.to.slack.button': 'Chia sẻ qua Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Chọn một người hoặc kênh.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Người hoặc kênh...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Gửi',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Không gian làm việc Slack...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Giờ bạn có thể dễ dàng chia sẻ nội dung với người cùng nhóm qua Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Chủ động giữ liên lạc trong nhóm',
-  'fabric.elements.share.to.slack.option': 'HOẶC',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Chọn một không gian làm việc Slack.',
   'fabric.elements.share.trigger.button.icon.label': 'Biểu tượng chia sẻ',
   'fabric.elements.share.trigger.button.invite.text': 'Mời',
   'fabric.elements.share.trigger.button.text': 'Chia sẻ',
   'fabric.elements.share.trigger.button.tooltip.text': 'Chia sẻ',
-  'fabric.elements.slack.success.message': 'Chia sẻ qua {slackEntity}',
 };

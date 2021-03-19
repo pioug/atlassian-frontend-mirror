@@ -45,25 +45,8 @@ export default {
     'Valitse vähintään yksi käyttäjä, tiimi tai sähköpostiosoite.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogijulkaisu jaettu} board {Taulu jaettu} calendar {Kalenteri jaettu} draft {Luonnos jaettu} filter {Suodatin jaettu} issue {Asia jaettu} media {Media jaettu} page {Sivu jaettu} project {Projekti jaettu} pullrequest {Pull-pyyntö jaettu} question {Kysymys jaettu} report {Raportti jaettu} repository {Säilö jaettu} request {Pyyntö jaettu} roadmap {Etenemissuunnitelma jaettu} site {Sivusto jaettu} space {Työtila jaettu} other {Linkki jaettu}}',
-  'fabric.elements.share.to.slack.back.button': 'Takaisin',
-  'fabric.elements.share.to.slack.button': 'Jaa Slackissa',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Valitse henkilö tai kanava.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Henkilö tai kanava...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Lähetä',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack-työtila...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Nyt voit helposti jakaa sisältöä tiimisi jäsenten kanssa Slackissa.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Pidä tiimisi ajan tasalla',
-  'fabric.elements.share.to.slack.option': 'tai',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Valitse Slack-työtila.',
   'fabric.elements.share.trigger.button.icon.label': 'Jaa kuvake',
   'fabric.elements.share.trigger.button.invite.text': 'Kutsu',
   'fabric.elements.share.trigger.button.text': 'Jaa',
   'fabric.elements.share.trigger.button.tooltip.text': 'Jaa',
-  'fabric.elements.slack.success.message': 'Jaettu kohteeseen {slackEntity}',
 };

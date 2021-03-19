@@ -39,4 +39,17 @@ export default {
     'Das Konto dieser Person wurde diese Woche deaktiviert.',
   'pt.profile-card.inactive.account.no.date':
     'Das Konto dieser Person wurde deaktiviert.',
+  'pt.team-profile-card.error.refresh-button': 'Versuchen Sie es erneut.',
+  'pt.team-profile-card.error.suggestion':
+    'Bitte warten Sie einen Augenblick und versuchen Sie es dann erneut.',
+  'pt.team-profile-card.error.title':
+    'Beim Abrufen von Informationen für dieses Team ist ein Problem aufgetreten.',
+  'pt.team-profile-card.team.action.view-profile': 'Profil anzeigen',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, one {Team • {count} Mitglied} other {Team • {count} Mitglieder}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, one {Team • {count} Mitglied, einschließlich Ihnen} other {Team • {count} Mitglieder, einschließlich Ihnen}}',
+  'pt.team-profile-card.team.member.many': 'Team • über 50 Mitglieder',
+  'pt.team-profile-card.team.member.many-including-you':
+    'Team • über 50 Mitglieder, einschließlich Ihnen',
 };

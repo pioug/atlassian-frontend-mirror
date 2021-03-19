@@ -1,5 +1,8 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
+
+import { Card } from '@atlaskit/smart-card';
+
 import BlockCard from '../../../../react/nodes/blockCard';
 
 describe('Renderer - React/Nodes/BlockCard', () => {
@@ -36,5 +39,32 @@ describe('Renderer - React/Nodes/BlockCard', () => {
   it('should render with data if prop exists', () => {
     node = mount(<BlockCard data={data} />);
     expect(node.find(BlockCard).prop('data')).toEqual(data);
+  });
+
+  it('should render with onClick if eventHandlers has correct event key', () => {
+    const mockedOnClick = jest.fn();
+    const mockedEvent = { target: {} };
+    node = mount(
+      <BlockCard
+        url={url}
+        eventHandlers={{
+          smartCard: {
+            onClick: mockedOnClick,
+          },
+        }}
+      />,
+    );
+
+    const onClick = node.find(Card).prop('onClick');
+
+    onClick(mockedEvent);
+
+    expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
+  });
+
+  it('should render with onClick as undefined if eventHandlers is not present', () => {
+    node = mount(<BlockCard url={url} />);
+
+    expect(node.find(Card).prop('onClick')).toBeUndefined();
   });
 });

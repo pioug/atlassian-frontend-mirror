@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.0
+
+### Minor Changes
+
+- [`54f4ce55485`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54f4ce55485) - Changed ProfileCard's customLozenges' 'text' prop type to accept a ReactNode to allow internationalized <FormattedMessage> elements in addition to string
+
 ## 15.4.0
 
 ### Minor Changes

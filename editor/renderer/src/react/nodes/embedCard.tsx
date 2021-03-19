@@ -20,12 +20,13 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 
-import { getEventHandler, getPlatform } from '../../utils';
+import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 
 import styled from 'styled-components';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
+import { getCardClickHandler } from '../utils/getCardClickHandler';
 
 const EmbedCardWrapper = styled.div`
   width: 100%;
@@ -76,14 +77,8 @@ export default function EmbedCard(props: {
     allowDynamicTextSizing,
     rendererAppearance,
   } = props;
-
   const embedIframeRef = useRef(null);
-
-  const handler = getEventHandler(eventHandlers, 'smartCard');
-  const onClick =
-    url && handler
-      ? (e: React.MouseEvent<HTMLElement>) => handler(e, url)
-      : undefined;
+  const onClick = getCardClickHandler(eventHandlers, url);
 
   const platform = useMemo(() => getPlatform(rendererAppearance), [
     rendererAppearance,

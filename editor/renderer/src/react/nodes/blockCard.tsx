@@ -2,9 +2,10 @@ import React, { useMemo } from 'react';
 import { Card } from '@atlaskit/smart-card';
 import { EventHandlers, UnsupportedBlock } from '@atlaskit/editor-common';
 
-import { getEventHandler, getPlatform } from '../../utils';
+import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 import { RendererAppearance } from '../../ui/Renderer/types';
+import { getCardClickHandler } from '../utils/getCardClickHandler';
 
 export default function BlockCard(props: {
   url?: string;
@@ -14,17 +15,14 @@ export default function BlockCard(props: {
   rendererAppearance?: RendererAppearance;
 }) {
   const { url, data, eventHandlers, portal, rendererAppearance } = props;
-  const handler = getEventHandler(eventHandlers, 'smartCard');
-  const onClick =
-    url && handler
-      ? (e: React.MouseEvent<HTMLElement>) => handler(e, url)
-      : undefined;
+  const onClick = getCardClickHandler(eventHandlers, url);
 
   const platform = useMemo(() => getPlatform(rendererAppearance), [
     rendererAppearance,
   ]);
 
   const cardProps = { url, data, onClick, container: portal };
+
   return (
     <div
       className="blockCardView-content-wrap"

@@ -46,25 +46,8 @@ export default {
     'Selecteer minimaal één gebruiker, team of e-mailadres.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blog gedeeld} board {Bord gedeeld} calendar {Kalender gedeeld} draft {Concept gedeeld} filter {Filter gedeeld} issue {Issue gedeeld} media {Media gedeeld} page {Pagina gedeeld} project {Project gedeeld} pullrequest {Pull-aanvraag gedeeld} question {Vraag gedeeld} report {Rapport gedeeld} repository {Repository gedeeld} request {Aanvraag gedeeld} roadmap {Roadmap gedeeld} site {Site gedeeld} space {Space gedeeld} other {Link gedeeld}}',
-  'fabric.elements.share.to.slack.back.button': 'Terug',
-  'fabric.elements.share.to.slack.button': 'Delen met Slack',
-  'fabric.elements.share.to.slack.channel-picker.validation.required':
-    'Selecteer een persoon of een kanaal.',
-  'fabric.elements.share.to.slack.form.channel-selector.placeholder':
-    'Persoon of kanaal...',
-  'fabric.elements.share.to.slack.form.submit.button': 'Verzenden',
-  'fabric.elements.share.to.slack.form.workspace-selector.placeholder':
-    'Slack-workspace...',
-  'fabric.elements.share.to.slack.onboarding.footer.description':
-    'Nu kun je eenvoudig content delen met je teamleden op Slack.',
-  'fabric.elements.share.to.slack.onboarding.footer.title':
-    'Houd je team op de hoogte',
-  'fabric.elements.share.to.slack.option': 'of',
-  'fabric.elements.share.to.slack.workspace-picker.validation.required':
-    'Selecteer een Slack-workspace.',
   'fabric.elements.share.trigger.button.icon.label': "Pictogram 'Delen'",
   'fabric.elements.share.trigger.button.invite.text': 'Uitnodigen',
   'fabric.elements.share.trigger.button.text': 'Delen',
   'fabric.elements.share.trigger.button.tooltip.text': 'Delen',
-  'fabric.elements.slack.success.message': 'Gedeeld met {slackEntity}',
 };

@@ -37,4 +37,16 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     '계정이 이번 주에 비활성화되었습니다.',
   'pt.profile-card.inactive.account.no.date': '계정이 비활성화되었습니다.',
+  'pt.team-profile-card.error.refresh-button': '다시 시도',
+  'pt.team-profile-card.error.suggestion': '잠시 기다린 후에 다시 시도하세요.',
+  'pt.team-profile-card.error.title':
+    '이 팀의 정보를 가져오는 데 문제가 발생했습니다',
+  'pt.team-profile-card.team.action.view-profile': '프로필 보기',
+  'pt.team-profile-card.team.member.count':
+    '{count, plural, other {팀 • 구성원 {count}명}}',
+  'pt.team-profile-card.team.member.count-including-you':
+    '{count, plural, other {팀 • 자신을 포함하여 구성원 {count}명}}',
+  'pt.team-profile-card.team.member.many': '팀 • 구성원 50명 이상',
+  'pt.team-profile-card.team.member.many-including-you':
+    '팀 • 자신을 포함하여 구성원 50명 이상',
 };

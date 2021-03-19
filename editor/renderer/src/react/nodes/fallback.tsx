@@ -1,6 +1,4 @@
 import React from 'react';
-import { EventHandlers } from '@atlaskit/editor-common';
-import { getEventHandler } from '../../utils';
 
 export type CardErrorBoundaryProps = {
   unsupportedComponent: React.ComponentType;
@@ -10,20 +8,19 @@ export class CardErrorBoundary extends React.PureComponent<
   {
     url?: string;
     data?: object;
-    eventHandlers?: EventHandlers;
+    onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
   } & CardErrorBoundaryProps
 > {
   state = {
     isError: false,
   };
 
-  onClickFallback = (e: React.MouseEvent) => {
+  onClickFallback = (e: React.MouseEvent<HTMLElement>) => {
+    const { onClick, url } = this.props;
     e.preventDefault();
 
-    const { eventHandlers, url } = this.props;
-    const handler = getEventHandler(eventHandlers, 'smartCard');
-    if (url && handler) {
-      handler(url);
+    if (onClick) {
+      onClick(e, url);
     }
   };
 

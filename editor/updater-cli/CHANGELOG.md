@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.0.15
+
+### Patch Changes
+
+- [`84270dcf31a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84270dcf31a) - Bump dependency "meow" to version ^6.0.0
+
 ## 2.0.14
 
 ### Patch Changes

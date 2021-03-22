@@ -32,7 +32,7 @@ export function run() {
 
   if (command === 'update') {
     return updateCommand(inputs, {
-      exclude: (cli.flags.exclude || '').split(','),
+      exclude: ((cli.flags.exclude as string) || '').split(','),
       force: cli.flags.force,
       preset: cli.flags.preset,
     } as UpdateTaskFlags);

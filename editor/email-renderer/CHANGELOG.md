@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 6.1.6
+
+### Patch Changes
+
+- [`985d30e44ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985d30e44ef) - Upgraded dependency 'juice' to ^7.0.0 to remove vulnerable transitive dependency 'request'
+
 ## 6.1.5
 
 ### Patch Changes

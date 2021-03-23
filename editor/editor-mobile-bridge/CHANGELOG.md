@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.3.4
+
+### Patch Changes
+
+- [`3feef06e39e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3feef06e39e) - EDM-1381: Match Confluence's stage0 prop on the Mobile renderer
+
+## 25.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.3.2
 
 ### Patch Changes

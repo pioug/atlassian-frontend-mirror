@@ -2,6 +2,8 @@ import { DateLozenge, Color } from './DateLozenge';
 import React from 'react';
 import format from 'date-fns/format';
 
+import { legacyParse, convertTokens } from '@date-fns/upgrade/v2';
+
 export type ValueType = number;
 
 export type OnClick = (
@@ -47,7 +49,10 @@ export class Date extends React.Component<Props> {
       }
       return this.props.children;
     }
-    return format(this.props.value, this.props.format);
+    return format(
+      legacyParse(this.props.value),
+      convertTokens(this.props.format || ''),
+    );
   };
 
   render() {

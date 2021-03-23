@@ -4,6 +4,7 @@ import { setADFContent } from '../_utils/afe-app-helpers';
 import { loadRenderer } from '../_page-objects/hybrid-renderer-page';
 import mediaGroupAdf from '../__fixtures__/media-group.adf.json';
 import mediaSingleAdf from '../__fixtures__/media-single.adf.json';
+import mediaSingleWithCaptionAdf from '../__fixtures__/media-single-caption.adf.json';
 import { mobileSnapshot } from '../_utils/snapshot';
 
 export default async () => {
@@ -31,6 +32,34 @@ export default async () => {
       await page.waitForSelector(
         '[data-testid="media-file-card-view"][data-test-status="complete"]',
       );
+    },
+  );
+
+  MobileTestCase(
+    'Renderer Media: Load ADF with a MediaSingle with caption node',
+    {},
+    async client => {
+      const page = await Page.create(client);
+      await loadRenderer(page, 'allowCaptions=true');
+      await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');
+      await page.waitForSelector(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      );
+      await mobileSnapshot(page);
+    },
+  );
+
+  MobileTestCase(
+    'Renderer Media: Should not render caption when caption is turned off',
+    {},
+    async client => {
+      const page = await Page.create(client);
+      await loadRenderer(page);
+      await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');
+      await page.waitForSelector(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      );
+      await mobileSnapshot(page);
     },
   );
 };

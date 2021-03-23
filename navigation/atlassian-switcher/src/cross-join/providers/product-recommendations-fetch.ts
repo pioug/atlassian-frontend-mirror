@@ -6,17 +6,31 @@ import {
   ProductKey,
   ProductRecommendationsResponse,
 } from '../../types';
-import { fetchJson } from '../../common/utils/fetch';
+import { enrichFetchError } from '../../common/utils/fetch';
 
 /* Joinable Sites API was replaced by Product Recommendations API as part of productionizing the Joinable Sites
    experimental API. This code maps Product Recommendations API results into Joinable Sites API results for
    compatibility with existing UI elements.
  */
 
-/* Urls which we will be hitting in staging and prod
-'https://api-private.atlassian.com/gateway/api/invitations/v1/product-recommendations/';
-'https://id-invitations-service.staging.atl-paas.net/api/v1/product-recommendations';
-*/
+/* We are supporting services supplying this endpoint: id-invidations for Trello aa-mastered users and
+ * experiment-api for Trello non-aa-masterered users. The consuming component supplies the base url for
+ * the service based on local context.
+ *
+ * We expect to drop support for Trello non-aa-mastered users in FY22. At this point we expect to define the
+ * sole service host here.
+ */
+const productRecommendationsUrl = (baseUrl: string): string => {
+  return (
+    baseUrl +
+    '/v1/product-recommendations' +
+    // Query parameters are optional filters. All results are returned by default.
+    '?capability=DIRECT_ACCESS' +
+    // Subsequent conditions are prefaced with '&'
+    // i.e. + '&product=confluence'
+    '&product=jira-software&product=jira-servicedesk&product=jira-core&product=confluence'
+  );
+};
 
 type ARI = {
   // Always 'ari' for valid ARI
@@ -54,26 +68,6 @@ const nonTenantedProducts: {[key: string]: string}  = {
   'trello': ProductKey.TRELLO,
 }
 */
-
-export const fetchProductRecommendationsInternal = (
-  baseUrl: string = '',
-): Promise<JoinableSitesResponse> => {
-  return fetchJson<ProductRecommendationsResponse>(
-    `${baseUrl}/v1/product-recommendations` +
-      // Query parameters are optional filters. All results are returned by default.
-      '?capability=DIRECT_ACCESS' +
-      // Subsequent conditions are prefaced with '&'
-      // i.e. + '&product=confluence'
-      '&product=jira-software&product=jira-servicedesk&product=jira-core&product=confluence',
-    {
-      method: 'get',
-    },
-  ).then(response => {
-    return convertProductRecommendationsResponseToJoinableSitesResponse(
-      response,
-    );
-  });
-};
 
 const convertProductRecommendationsResponseToJoinableSitesResponse = (
   input: ProductRecommendationsResponse,
@@ -196,6 +190,52 @@ const parseAri = (input: string): ARI => {
     resourceType: slashSplitInput[0],
     resourceId: slashSplitInput[1],
   };
+};
+
+const isPublicEmailDomainError = (errorResponse: Response): Boolean => {
+  return (
+    errorResponse.statusText === 'Request requires a domain which is not public'
+  );
+};
+
+const emptyProductRecommendationResponse: ProductRecommendationsResponse = {
+  capability: { DIRECT_ACCESS: [], REQUEST_ACCESS: [] },
+};
+
+// We are unable to use fetchJson from packages/navigation/atlassian-switcher/src/common/utils/fetch.ts
+// because some 400 errors from productRecommendation API are expected and should be handled as empty data
+export const fetchJsonOrEmptyJoinableSitesResponse = <T>(
+  url: string,
+  init?: RequestInit,
+): Promise<T> =>
+  fetch(url, { credentials: 'include', ...init }).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    if (isPublicEmailDomainError(response)) {
+      return emptyProductRecommendationResponse;
+    }
+    throw enrichFetchError(
+      new Error(
+        `Unable to fetch ${url} ${response.status} ${response.statusText}`,
+      ),
+      response.status,
+    );
+  });
+
+export const fetchProductRecommendationsInternal = (
+  baseUrl: string = '',
+): Promise<JoinableSitesResponse> => {
+  return fetchJsonOrEmptyJoinableSitesResponse<ProductRecommendationsResponse>(
+    productRecommendationsUrl(baseUrl),
+    {
+      method: 'get',
+    },
+  ).then(response => {
+    return convertProductRecommendationsResponseToJoinableSitesResponse(
+      response,
+    );
+  });
 };
 
 export const fetchProductRecommendations = (baseUrl: string) => () =>

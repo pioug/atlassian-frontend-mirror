@@ -100,7 +100,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = props => {
   const onIntegrationButtonClick = useCallback(
     (integration: Integration) => {
       onIntegrationClick(integration);
-      createAndFireEvent(shareIntegrationButtonEvent);
+      createAndFireEvent(shareIntegrationButtonEvent(integration.type));
     },
     [createAndFireEvent, onIntegrationClick],
   );
@@ -108,6 +108,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = props => {
   return (
     <DropdownMenuWrapper>
       <DropdownMenuStateless
+        data-testid="split-button-dropdown"
         triggerButtonProps={{
           appearance: triggerButtonAppearance,
         }}
@@ -118,7 +119,10 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = props => {
       >
         <DropdownItemGroup>
           {shareIntegrations.map((integration: Integration) => (
-            <DropdownItem key={integration.type}>
+            <DropdownItem
+              key={integration.type}
+              data-testid={`split-button-dropdownitem-${integration.type}`}
+            >
               <DropDownIntegrationButtonWrapper>
                 <IntegrationButton
                   textColor={N800}
@@ -152,7 +156,7 @@ export default function SplitButton({
   createAndFireEvent,
 }: SplitButtonProps): JSX.Element {
   return (
-    <SplitButtonWrapper>
+    <SplitButtonWrapper data-testid="split-button">
       {shareButton}
       <SplitButtonDropdown
         shareIntegrations={shareIntegrations}

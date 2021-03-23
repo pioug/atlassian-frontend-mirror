@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/task-decision",
-  "version": "17.0.10",
+  "version": "17.0.11",
   "description": "Tasks and decisions react components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,8 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
-    "date-fns": "^1.30.1",
+    "@date-fns/upgrade": "^1.0.3",
+    "date-fns": "^2.17.0",
     "uuid": "^3.1.0"
   },
   "peerDependencies": {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-// eslint-disable-next-line no-restricted-imports
-import { format } from 'date-fns';
+import { convertTokens } from '@date-fns/upgrade/v2';
+import format from 'date-fns/format';
 
 import { Label } from '@atlaskit/field-base';
 
@@ -10,7 +10,7 @@ import { DatePicker } from '../src';
 function now(day: number) {
   const date = new Date();
   date.setDate(day);
-  return format(date, 'YYYY-MM-DD');
+  return format(date, convertTokens('YYYY-MM-DD'));
 }
 
 export default () => {

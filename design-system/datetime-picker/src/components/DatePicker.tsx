@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
 
+import { convertTokens, legacyParse } from '@date-fns/upgrade/v2';
 import styled from '@emotion/styled';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, lastDayOfMonth, parse } from 'date-fns';
@@ -136,9 +137,9 @@ function getDateObj(date: Date): DateObj {
 }
 
 function getValidDate(iso: string) {
-  const date: Date = parse(iso);
+  const date: Date = parse(iso, 'yyyy-MM-dd', new Date());
 
-  return isValid(date) ? getDateObj(date) : {};
+  return isValid(legacyParse(date)) ? getDateObj(date) : {};
 }
 
 const StyledMenu = styled.div`
@@ -204,10 +205,9 @@ const datePickerDefaultProps = {
 };
 
 class DatePicker extends React.Component<DatePickerProps, State> {
+  static defaultProps = datePickerDefaultProps;
   calendarRef: CalendarRef | null = null;
   containerRef: HTMLElement | null = null;
-
-  static defaultProps = datePickerDefaultProps;
 
   constructor(props: any) {
     super(props);
@@ -259,9 +259,11 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     const parsedYear: number = parseInt(year, 10);
 
     const lastDayInMonth: number = lastDayOfMonth(
-      new Date(
-        parsedYear,
-        parsedMonth - 1, // This needs to be -1, because the Date constructor expects an index of the given month
+      legacyParse(
+        new Date(
+          parsedYear,
+          parsedMonth - 1, // This needs to be -1, because the Date constructor expects an index of the given month
+        ),
       ),
     ).getDate();
 
@@ -327,7 +329,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       if (parsed && isValid(parsed)) {
         // We format the parsed date to YYYY-MM-DD here because
         // this is the format expected by the @atlaskit/calendar component
-        this.setState({ view: format(parsed, 'YYYY-MM-DD') });
+        this.setState({
+          view: format(parsed, convertTokens('YYYY-MM-DD')),
+        });
       }
     }
 
@@ -393,7 +397,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     let changedState: {} = {
       selectedValue: '',
       value: '',
-      view: this.props.defaultValue || format(new Date(), 'YYYY-MM-DD'),
+      view:
+        this.props.defaultValue ||
+        format(new Date(), convertTokens('YYYY-MM-DD')),
     };
 
     if (!this.props.hideIcon) {
@@ -474,10 +480,10 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     if (formatDisplayLabel) {
       return formatDisplayLabel(value, dateFormat || defaultDateFormat);
     }
-
-    const date = parse(value);
+    // TODO: Needs to migrate to parse, cannot use `parse(value, 'yyyy-MM-dd', new Date())` as this case '02/22/2020' was supported in the legacy version.
+    const date = legacyParse(value);
     if (dateFormat) {
-      return format(date, dateFormat);
+      return format(date, convertTokens(dateFormat));
     }
 
     return l10n.formatDate(date);

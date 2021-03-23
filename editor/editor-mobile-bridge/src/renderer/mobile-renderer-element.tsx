@@ -141,6 +141,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   return (
     <ReactRenderer
       innerRef={innerRef}
+      adfStage="stage0"
       document={document}
       annotationProvider={annotationProvider}
       allowAnnotations={allowAnnotations}

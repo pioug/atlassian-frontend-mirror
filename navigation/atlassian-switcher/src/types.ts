@@ -389,9 +389,9 @@ export interface CustomizeLinks {
 }
 
 //
-export type ProductRecommendationsResponse = {
+export interface ProductRecommendationsResponse {
   capability: ProductRecommendationsCapabilityProperty;
-};
+}
 
 export type ProductRecommendationsCapabilityProperty = {
   REQUEST_ACCESS: Array<ProductRecommendationResource>;

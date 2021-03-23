@@ -1,5 +1,7 @@
-import isBefore from 'date-fns/is_before';
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import isBefore from 'date-fns/isBefore';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+
+import { legacyParse } from '@date-fns/upgrade/v2';
 
 const ISO_FORMAT = 'YYYY-MM-DD';
 const DEFAULT_FORMAT = 'DD MMM YYYY';
@@ -80,15 +82,18 @@ export const timestampToIsoFormat = (timestamp: string | number): string => {
 
 export const isPastDate = (timestamp: string | number): boolean => {
   return isBefore(
-    timestampToIsoFormat(Number(timestamp)),
-    timestampToIsoFormat(new Date().valueOf()),
+    legacyParse(timestampToIsoFormat(Number(timestamp))),
+    legacyParse(timestampToIsoFormat(new Date().valueOf())),
   );
 };
 
 export const timestampToTaskContext = (timestamp: string | number): string => {
   const curDate = new Date();
   const givenDate = new Date(Number(timestamp));
-  const distance = differenceInCalendarDays(givenDate, curDate);
+  const distance = differenceInCalendarDays(
+    legacyParse(givenDate),
+    legacyParse(curDate),
+  );
   const sameYear = givenDate.getUTCFullYear() === curDate.getUTCFullYear();
   let pattern = '';
 

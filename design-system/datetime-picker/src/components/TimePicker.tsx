@@ -1,7 +1,8 @@
 import React, { CSSProperties } from 'react';
 
-// eslint-disable-next-line no-restricted-imports
-import { format, isValid } from 'date-fns';
+import { convertTokens, legacyParse } from '@date-fns/upgrade/v2';
+import format from 'date-fns/format';
+import isValid from 'date-fns/isValid';
 import pick from 'lodash/pick';
 
 import {
@@ -226,8 +227,10 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       // TODO parseInputValue doesn't accept `timeFormat` as an function arg yet...
       const value =
         format(
-          parseInputValue(inputValue, timeFormat || defaultTimeFormat),
-          'HH:mm',
+          legacyParse(
+            parseInputValue(inputValue, timeFormat || defaultTimeFormat),
+          ),
+          convertTokens('HH:mm'),
         ) || '';
       this.setState({ value });
       this.props.onChange(value);
@@ -313,6 +316,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     }
 
     const date = parseTime(time);
+
     if (!(date instanceof Date)) {
       return '';
     }
@@ -322,7 +326,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     }
 
     if (timeFormat) {
-      return format(date, timeFormat);
+      return format(date, convertTokens(timeFormat));
     }
 
     return l10n.formatTime(date);

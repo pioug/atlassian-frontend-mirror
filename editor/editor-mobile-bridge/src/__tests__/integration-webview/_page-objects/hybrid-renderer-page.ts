@@ -18,10 +18,10 @@ export const SELECTORS_WEB = {
  * This function will leave you in the webview context so that you
  * can immediately interact with the renderer bridge methods.
  */
-export async function loadRenderer(page: Page) {
+export async function loadRenderer(page: Page, params = '') {
   const url = URL.resolve(
     `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`,
-    'renderer.html',
+    `renderer.html?${params}`,
   );
   await page.loadUrl(url, SELECTORS_WEB.RENDERER);
 }

@@ -386,6 +386,12 @@ describe('ShareDialogWithTrigger', () => {
       });
       expect(wrapper.find(SplitButton)).toHaveLength(1);
     });
+    it('should not render when shareIntegrations is an empty array', () => {
+      const wrapper = getMountWrapper({
+        shareIntegrations: [],
+      });
+      expect(wrapper.find(SplitButton)).toHaveLength(0);
+    });
   });
 
   describe('handleOpenDialog', () => {

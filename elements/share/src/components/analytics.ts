@@ -45,6 +45,7 @@ const createScreenEvent = (
 
 export const CHANNEL_ID = 'fabric-elements';
 export const ANALYTICS_SOURCE = 'shareModal';
+export const INTEGRATION_MODAL_SOURCE = 'integrationShareModal';
 
 export const screenEvent = ({ isPublicLink = false }) =>
   createScreenEvent(ANALYTICS_SOURCE, {
@@ -52,15 +53,24 @@ export const screenEvent = ({ isPublicLink = false }) =>
   });
 
 export const shareSplitButtonEvent = () =>
-  createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'shareSplitButton');
-
-export const shareIntegrationButtonEvent = () =>
   createEvent(
     'ui',
-    ANALYTICS_SOURCE,
+    INTEGRATION_MODAL_SOURCE,
     'clicked',
     'button',
-    'shareIntegrationButton',
+    'shareSplitButton',
+  );
+
+export const shareIntegrationButtonEvent = (type: string = '') =>
+  createEvent(
+    'ui',
+    INTEGRATION_MODAL_SOURCE,
+    'clicked',
+    'button',
+    'shareToIntegration',
+    {
+      integrationType: type.toLowerCase(),
+    },
   );
 
 export const errorEncountered = (

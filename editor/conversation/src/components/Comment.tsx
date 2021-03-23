@@ -8,7 +8,7 @@ import { WithProviders } from '@atlaskit/editor-common';
 import { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import React from 'react';
 import styled from 'styled-components';
 import { HttpError } from '../api/HttpError';
@@ -24,6 +24,8 @@ import Editor from './Editor';
 import { SharedProps, RenderEditorWithComments } from './types';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import isEqual from 'lodash/isEqual';
+
+import { legacyParse } from '@date-fns/upgrade/v2';
 
 export interface Props extends SharedProps {
   conversationId: string;
@@ -674,7 +676,7 @@ export default class Comment extends React.Component<Props, State> {
             onClick={this.handleTimeClick}
             href={disableScrollTo ? undefined : `#${commentId}`}
           >
-            {distanceInWordsToNow(new Date(comment.createdAt), {
+            {formatDistanceToNow(legacyParse(new Date(comment.createdAt)), {
               addSuffix: true,
             })}
           </CommentTime>

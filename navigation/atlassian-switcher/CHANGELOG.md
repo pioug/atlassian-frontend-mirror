@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 9.2.1
+
+### Patch Changes
+
+- [`71142a859bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71142a859bb) - Updated productRecommendationFetch to handle 400 "Request requires a domain which is not public" errors as empty return values
+
 ## 9.2.0
 
 ### Minor Changes

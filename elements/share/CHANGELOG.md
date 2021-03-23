@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 0.26.3
+
+### Patch Changes
+
+- [`cc8196efa6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc8196efa6f) - Add attribute for tests
+
+## 0.26.2
+
+### Patch Changes
+
+- [`3093cc9c0e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3093cc9c0e4) - Update analytics for the split button experiment
+
 ## 0.26.1
 
 ### Patch Changes

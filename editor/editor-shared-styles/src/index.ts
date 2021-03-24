@@ -85,6 +85,7 @@ export {
   VIEWPORT_SIZES,
   akEditorMobileMaxWidth,
   getTableCellBackgroundDarkModeColors,
+  ATLASSIAN_NAVIGATION_HEIGHT,
 } from './consts';
 export type { EditorTheme } from './consts';
 

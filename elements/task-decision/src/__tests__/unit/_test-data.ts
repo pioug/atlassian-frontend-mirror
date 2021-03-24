@@ -3,9 +3,7 @@ import { ServiceTask, Task } from '../../types';
 import { convertServiceTaskToTask } from '../../api/TaskDecisionUtils';
 
 import { taskDecision } from '@atlaskit/util-data-test';
-import addMinutes from 'date-fns/addMinutes';
-
-import { legacyParse } from '@date-fns/upgrade/v2';
+import addMinutes from 'date-fns/add_minutes';
 
 export const { getServiceTasksResponse, getParticipants } = taskDecision;
 
@@ -50,4 +48,4 @@ export const content = (text: string): any => ({
 });
 
 export const datePlus = (minutes: number): Date =>
-  addMinutes(legacyParse(new Date()), minutes);
+  addMinutes(new Date(), minutes);

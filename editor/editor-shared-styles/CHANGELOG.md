@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 1.4.0
+
+### Minor Changes
+
+- [`e2fb7440936`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2fb7440936) - ED-12430: Fix issue with Editor showing double scrollbar when context panel is visible.Update context panel to have same height as editor content area when using position absolute styles
+
 ## 1.3.0
 
 ### Minor Changes

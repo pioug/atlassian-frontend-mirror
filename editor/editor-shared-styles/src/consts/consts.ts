@@ -118,6 +118,8 @@ export const blockNodesVerticalMargin = '0.75rem';
 export const DEFAULT_EMBED_CARD_WIDTH = 680;
 export const DEFAULT_EMBED_CARD_HEIGHT = 480;
 
+export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
+
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const editorFontSize = ({ theme }: { theme: EditorTheme }) =>

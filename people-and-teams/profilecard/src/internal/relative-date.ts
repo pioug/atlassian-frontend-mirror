@@ -1,17 +1,12 @@
-import { legacyParse } from '@date-fns/upgrade/v2';
-import differenceInMonths from 'date-fns/differenceInMonths';
-import isThisMonth from 'date-fns/isThisMonth';
-import isThisWeek from 'date-fns/isThisWeek';
-import isValid from 'date-fns/isValid';
+import differenceInMonths from 'date-fns/difference_in_months';
+import isThisMonth from 'date-fns/is_this_month';
+import isThisWeek from 'date-fns/is_this_week';
+import isValid from 'date-fns/is_valid';
 
 import { RelativeDateKeyType } from '../types';
 
 export function isValidDate(date: Date, today: Date = new Date()) {
-  return (
-    !!date.getTime &&
-    isValid(legacyParse(date)) &&
-    date.getTime() <= today.getTime()
-  );
+  return !!date.getTime && isValid(date) && date.getTime() <= today.getTime();
 }
 
 export default function getRelativeDateKey(
@@ -22,11 +17,11 @@ export default function getRelativeDateKey(
     return null;
   }
 
-  if (isThisWeek(legacyParse(date))) {
+  if (isThisWeek(date)) {
     return 'ThisWeek';
   }
 
-  if (isThisMonth(legacyParse(date))) {
+  if (isThisMonth(date)) {
     return 'ThisMonth';
   }
 
@@ -37,10 +32,7 @@ export default function getRelativeDateKey(
     return 'LastMonth';
   }
 
-  const diffInMonths = differenceInMonths(
-    legacyParse(today),
-    legacyParse(date),
-  );
+  const diffInMonths = differenceInMonths(today, date);
   if (diffInMonths < 6) {
     return 'AFewMonths';
   }

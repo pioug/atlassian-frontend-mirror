@@ -1,12 +1,10 @@
 import { formatDateType, dateTypeToDate, dateToDateType } from './formatParse';
 import { DateType } from '../types';
-import addDays from 'date-fns/addDays';
-import addMonths from 'date-fns/addMonths';
-import addYears from 'date-fns/addYears';
+import addDays from 'date-fns/add_days';
+import addMonths from 'date-fns/add_months';
+import addYears from 'date-fns/add_years';
 
 import { DateSegment } from '../types';
-
-import { legacyParse } from '@date-fns/upgrade/v2';
 
 export function padToTwo(number: number) {
   return number <= 99 ? `0${number}`.slice(-2) : `${number}`;
@@ -175,10 +173,10 @@ export function adjustDate(
 
   const newDate: Date =
     activeSegment === 'day'
-      ? addDays(legacyParse(originalDate), adjustment)
+      ? addDays(originalDate, adjustment)
       : activeSegment === 'month'
-      ? addMonths(legacyParse(originalDate), adjustment)
-      : addYears(legacyParse(originalDate), adjustment);
+      ? addMonths(originalDate, adjustment)
+      : addYears(originalDate, adjustment);
 
   return dateToDateType(newDate);
 }

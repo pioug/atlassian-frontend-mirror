@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { convertTokens } from '@date-fns/upgrade/v2';
 import styled from '@emotion/styled';
 // eslint-disable-next-line no-restricted-imports
-import { format, isValid, parseISO } from 'date-fns';
+import { format, isValid, parse } from 'date-fns';
 import pick from 'lodash/pick';
 
 import {
@@ -282,15 +281,20 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
       return this.props.parseValue(value, dateValue, timeValue, zoneValue);
     }
 
-    const parsed = parseISO(value);
+    const parsed = parse(value);
+    const valid = isValid(parsed);
 
-    return isValid(parsed)
+    return valid
       ? {
-          dateValue: format(parsed, convertTokens('YYYY-MM-DD')),
-          timeValue: format(parsed, convertTokens('HH:mm')),
-          zoneValue: format(parsed, convertTokens('ZZ')),
+          dateValue: format(parsed, 'YYYY-MM-DD'),
+          timeValue: format(parsed, 'HH:mm'),
+          zoneValue: format(parsed, 'ZZ'),
         }
-      : { dateValue, timeValue, zoneValue };
+      : {
+          dateValue,
+          timeValue,
+          zoneValue,
+        };
   }
 
   onBlur = (event: React.FocusEvent<HTMLInputElement>) => {

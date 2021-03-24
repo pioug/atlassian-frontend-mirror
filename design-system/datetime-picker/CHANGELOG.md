@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 10.0.11
+
+### Patch Changes
+
+- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+  We discovered big bundle size increases associated with the date-fns upgrade.
+  We're reverting the upgarde to investigate
+
 ## 10.0.10
 
 ### Patch Changes

@@ -74,11 +74,11 @@ const clock = sinon.useFakeTimers(
 );
 jest.unmock('lodash/debounce');
 
-jest.mock('date-fns/differenceInCalendarDays', () => {
+jest.mock('date-fns/difference_in_calendar_days', () => {
   return jest.fn().mockImplementation(() => -5);
 });
 
-jest.mock('date-fns/formatDistanceToNow', () => ({
+jest.mock('date-fns/distance_in_words_to_now', () => ({
   __esModule: true,
   default: () => 'just a minute',
 }));

@@ -9,6 +9,7 @@ import {
   akEditorWideLayoutWidth,
   akEditorBreakoutPadding,
   akEditorContextPanelWidth,
+  ATLASSIAN_NAVIGATION_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { ContextPanelConsumer } from './context';
 import WithPluginState from '../WithPluginState';
@@ -53,6 +54,7 @@ type PanelProps = StyleProps & {
 const absolutePanelStyles = css`
   position: absolute;
   right: 0;
+  height: calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT});
 `;
 
 /**
@@ -203,6 +205,7 @@ export class SwappableContentArea extends React.PureComponent<
               panelWidth={width}
               visible={visible}
               editorWidth={editorWidth}
+              data-testid="context-panel-panel"
             >
               <Content panelWidth={width} visible={visible}>
                 {this.showPluginContent() ||

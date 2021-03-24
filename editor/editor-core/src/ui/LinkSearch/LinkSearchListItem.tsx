@@ -6,14 +6,12 @@ import styled from 'styled-components';
 import { fontSizeSmall } from '@atlaskit/theme';
 import { N20, N800, N100 } from '@atlaskit/theme/colors';
 import { LinkSearchListItemData } from './types';
-import formatDistance from 'date-fns/formatDistance';
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import distanceInWords from 'date-fns/distance_in_words';
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import format from 'date-fns/format';
 
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import messages from '../../messages';
-
-import { legacyParse, convertTokens } from '@date-fns/upgrade/v2';
 
 interface ContainerProps {
   selected: boolean;
@@ -141,20 +139,15 @@ class LinkSearchListItem extends React.PureComponent<
         break;
     }
 
-    if (
-      differenceInCalendarDays(
-        legacyParse(timeStamp),
-        legacyParse(Date.now()),
-      ) < -7
-    ) {
+    if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
       return this.renderWithSpaces(
         pageActionText,
-        format(legacyParse(timeStamp), convertTokens('MMMM DD, YYYY')),
+        format(timeStamp, 'MMMM DD, YYYY'),
       );
     }
     return this.renderWithSpaces(
       pageActionText,
-      formatDistance(legacyParse(timeStamp), legacyParse(Date.now())),
+      distanceInWords(timeStamp, Date.now()),
       intl.formatMessage(messages.timeAgo),
     );
   }

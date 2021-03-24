@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { convertTokens, legacyParse } from '@date-fns/upgrade/v2';
 import { fireEvent, render } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { mount, shallow } from 'enzyme';
 
 import Select from '@atlaskit/select';
@@ -19,7 +18,8 @@ test('DatePicker requires no props to be used', () => {
 test('DatePicker, custom formatDisplayLabel', () => {
   const dateValue = new Date('06/08/2018').toUTCString();
   const formatDisplayLabel = (date: string, dateFormat: string) => {
-    return format(legacyParse(date), convertTokens(dateFormat));
+    const parsed = parse(date);
+    return format(parsed, dateFormat);
   };
   const expectedResult = 'June/08';
   const datePickerWrapper = mount<DatePicker>(

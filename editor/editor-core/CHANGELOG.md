@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 139.0.3
+
+### Patch Changes
+
+- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+  We discovered big bundle size increases associated with the date-fns upgrade.
+  We're reverting the upgarde to investigate
+
+## 139.0.2
+
+### Patch Changes
+
+- [`e2fb7440936`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2fb7440936) - ED-12430: Fix issue with Editor showing double scrollbar when context panel is visible.Update context panel to have same height as editor content area when using position absolute styles
+- Updated dependencies
+
 ## 139.0.1
 
 ### Patch Changes

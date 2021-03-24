@@ -1,6 +1,5 @@
-import { legacyParse } from '@date-fns/upgrade/v2';
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import isBefore from 'date-fns/isBefore';
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import isBefore from 'date-fns/is_before';
 import { InjectedIntl } from 'react-intl';
 
 enum FORMATS {
@@ -78,8 +77,8 @@ export const timestampToIsoFormat = (timestamp: string | number): string => {
 
 export const isPastDate = (timestamp: string | number): boolean => {
   return isBefore(
-    legacyParse(timestampToIsoFormat(Number(timestamp))),
-    legacyParse(timestampToIsoFormat(Number(todayTimestampInUTC()))),
+    timestampToIsoFormat(Number(timestamp)),
+    timestampToIsoFormat(Number(todayTimestampInUTC())),
   );
 };
 
@@ -89,10 +88,7 @@ export const timestampToTaskContext = (
 ): string => {
   const curDate = new Date(Number(todayTimestampInUTC()));
   const givenDate = new Date(Number(timestamp));
-  const distance = differenceInCalendarDays(
-    legacyParse(givenDate),
-    legacyParse(curDate),
-  );
+  const distance = differenceInCalendarDays(givenDate, curDate);
   const sameYear = givenDate.getUTCFullYear() === curDate.getUTCFullYear();
 
   if (intl && [-1, 0, 1].indexOf(distance) > -1) {

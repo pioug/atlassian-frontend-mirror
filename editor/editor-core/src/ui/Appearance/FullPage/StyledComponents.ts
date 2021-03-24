@@ -4,6 +4,7 @@ import {
   akEditorGutterPadding,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
+  ATLASSIAN_NAVIGATION_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import ContentStyles from '../../ContentStyles';
@@ -13,7 +14,6 @@ import { scrollbarStyles } from '../../styles';
 
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const TOTAL_PADDING = akEditorGutterPadding * 2;
-const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 export const FullPageEditorWrapper = styled.div`
   min-width: 340px;

@@ -46,6 +46,28 @@ const fieldDefinition: FieldDefinition[] = [
     defaultValue: 350,
     label: 'Height',
   },
+  {
+    name: 'legendPosition',
+    type: 'enum',
+    style: 'select',
+    isMultiple: false,
+    defaultValue: 'auto',
+    items: [
+      { label: 'Auto', value: 'auto' },
+      { label: 'Top', value: 'top' },
+    ],
+    label: 'Legend position',
+  } as EnumSelectField,
+  {
+    name: 'showLegend',
+    type: 'boolean',
+    label: 'Show legend',
+  },
+  {
+    name: 'chartTitle',
+    type: 'string',
+    label: 'Chart title',
+  },
 ];
 
 export const manifest: ExtensionManifest = {

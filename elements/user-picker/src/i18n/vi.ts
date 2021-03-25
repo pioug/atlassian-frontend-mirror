@@ -13,6 +13,8 @@ export default {
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'Nhóm có quản trị viên',
+  'fabric.elements.user-picker.guest.lozenge.text': 'KHÁCH',
+  'fabric.elements.user-picker.member.lozenge.text': 'Thành viên',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Xóa',
   'fabric.elements.user-picker.placeholder': 'Nhập người hoặc nhóm...',

@@ -1,5 +1,11 @@
 # @atlaskit/charts
 
+## 0.0.6
+
+### Patch Changes
+
+- [`5c79fa0767b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c79fa0767b) - [ux] CEMS-1676: improve support for chart legends
+
 ## 0.0.5
 
 ### Patch Changes

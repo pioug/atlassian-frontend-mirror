@@ -44,6 +44,7 @@ export default {
     '사용자, 팀 또는 이메일을 하나 이상 선택하세요.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {블로그 게시물 공유됨} board {보드 공유됨} calendar {캘린더 공유됨} draft {초안 공유됨} filter {필터 공유됨} issue {이슈 공유됨} media {미디어 공유됨} page {페이지 공유됨} project {프로젝트 공유됨} pullrequest {풀 리퀘스트 공유됨} question {질문 공유됨} report {보고서 공유됨} repository {리포지토리 공유됨} request {요청 공유됨} roadmap {로드맵 공유됨} site {사이트 공유됨} space {스페이스 공유됨} other {링크 공유됨}}',
+  'fabric.elements.share.to.integration.button': '{integrationName}에 공유',
   'fabric.elements.share.trigger.button.icon.label': '공유 아이콘',
   'fabric.elements.share.trigger.button.invite.text': '초대',
   'fabric.elements.share.trigger.button.text': '공유',

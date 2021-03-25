@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@testing-library/react';
 
-import { Chart, ChartTypes } from './index';
+import { Chart, ChartTypes } from '../../ui/charts';
 
 describe('Charts', () => {
   describe('testId property', () => {

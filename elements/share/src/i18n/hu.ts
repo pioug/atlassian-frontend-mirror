@@ -45,6 +45,8 @@ export default {
     'Válassz ki legalább egy felhasználót, csapatot vagy e-mail-címet.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogposzt megosztva} board {Tábla megosztva} calendar {Naptár megosztva} draft {Piszkozat megosztva} filter {Szűrő megosztva} issue {Ügy megosztva} media {Médiatartalom megosztva} page {Oldal megosztva} project {Projekt megosztva} pullrequest {Pull-kérelem megosztva} question {Kérdés megosztva} report {Jelentés megosztva} repository {Adattár megosztva} request {Kérés megosztva} roadmap {Útvonalterv megosztva} site {Webhely megosztva} space {Munkatér megosztva} other {Link megosztva}}',
+  'fabric.elements.share.to.integration.button':
+    'Megosztás itt: {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Ikon megosztása',
   'fabric.elements.share.trigger.button.invite.text': 'Meghívás',
   'fabric.elements.share.trigger.button.text': 'Megosztás',

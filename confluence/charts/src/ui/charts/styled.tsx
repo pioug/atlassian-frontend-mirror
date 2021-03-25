@@ -11,7 +11,7 @@ export function Wrapper({
   children,
   testId,
 }: {
-  children: ReactNode;
+  children?: ReactNode;
   testId?: string;
 }) {
   return (

@@ -47,6 +47,7 @@ export default {
     'Bitte wählen Sie mindestens einen Benutzer, ein Team oder eine E-Mail-Adresse aus.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Geteilter Blogpost} board {Geteiltes Board} calendar {Geteilter Kalender} draft {Geteilter Entwurf} filter {Geteilter Filter} issue {Geteilter Vorgang} media {Geteilte Medien} page {Geteilte Seite} project {Geteiltes Projekt} pullrequest {Geteilte Pull-Anfrage} question {Geteilte Frage} report {Geteilter Bericht} repository {Geteiltes Repository} request {Geteilte Anfrage} roadmap {Geteilte Roadmap} site {Geteilte Site} space {Geteilter Bereich} other {Geteilter Link}}',
+  'fabric.elements.share.to.integration.button': 'Mit {integrationName} teilen',
   'fabric.elements.share.trigger.button.icon.label': 'Teilen-Symbol',
   'fabric.elements.share.trigger.button.invite.text': 'Einladen',
   'fabric.elements.share.trigger.button.text': 'Teilen',

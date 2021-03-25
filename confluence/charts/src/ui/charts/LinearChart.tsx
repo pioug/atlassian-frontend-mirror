@@ -1,17 +1,40 @@
 import React from 'react';
 
+import styled from '@emotion/styled';
+import { LegendItem, LegendLabel, LegendOrdinal } from '@visx/legend';
+import { PickD3Scale } from '@visx/scale';
 import {
   AnimatedAxis,
   AnimatedBarGroup,
   AnimatedBarSeries,
   AnimatedGrid,
   AnimatedLineSeries,
-  lightTheme,
+  buildChartTheme,
   XYChart,
 } from '@visx/xychart';
 
+import { N40, N400 } from '@atlaskit/theme/colors';
+
+import { colorSequence } from '../../colors';
+
 import { ChartTypes } from './types';
-import { tableToColumnSet } from './utilities';
+
+const customTheme = buildChartTheme({
+  backgroundColor: '#ffffff',
+  gridColor: N40,
+  gridColorDark: N400,
+  tickLength: 4,
+  colors: colorSequence,
+});
+
+export const CenteredLegend = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: 11px;
+  justify-content: center;
+  top: 20px;
+  position: relative;
+`;
 
 const LineComponent = (props: {
   seriesNames: any;
@@ -52,23 +75,42 @@ const BarComponent = (props: {
 );
 
 export const LinearChart = (props: {
-  data: any;
   testId?: string;
   chartType: ChartTypes;
   height?: number;
-  xAccesor: any | undefined;
+  xAccessor: any;
   yLabel: any | undefined;
+  seriesNames: string[];
+  tableData: number[][];
+  showLegend?: boolean;
+  chartScale: PickD3Scale<'ordinal', any, any>;
 }) => {
-  if (!props.data) {
-    return null;
-  }
+  const { seriesNames, tableData, xAccessor, showLegend, chartScale } = props;
 
-  const [seriesNames, tableData] = tableToColumnSet(props.data);
-  const xAccessor = props.xAccesor || seriesNames[0];
+  const legend = (
+    <LegendOrdinal scale={chartScale}>
+      {labels => (
+        <CenteredLegend>
+          {labels.map((label, i) => (
+            <LegendItem key={`legend-quantile-${i}`} margin="0 5px">
+              <svg width={8} height={8}>
+                <circle fill={label.value} r={4} cx={4} cy={4} />
+              </svg>
+              <LegendLabel align="left" margin="0 0 0 4px">
+                {label.text}
+              </LegendLabel>
+            </LegendItem>
+          ))}
+        </CenteredLegend>
+      )}
+    </LegendOrdinal>
+  );
+
   return (
     <div data-testId={props.testId}>
+      {showLegend && legend}
       <XYChart
-        theme={lightTheme}
+        theme={customTheme}
         xScale={{
           type: 'band',
         }}

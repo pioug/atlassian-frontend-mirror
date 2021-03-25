@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.3.7
+
+### Patch Changes
+
+- [`98b1799faaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98b1799faaf) - Bumps devDependency to resolve security vulnerability
+
 ## 25.3.6
 
 ### Patch Changes

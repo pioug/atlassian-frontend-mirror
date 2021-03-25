@@ -45,6 +45,7 @@ export default {
     'เลือกผู้ใช้ ทีม หรืออีเมลอย่างน้อยหนึ่งรายการ',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {แชร์บล็อกโพสต์แล้ว} board {แชร์บอร์ดแล้ว} calendar {แชร์ปฏิทินแล้ว} draft {แชร์ข้อความร่างแล้ว} filter {แชร์ตัวกรองแล้ว} issue {แชร์ปัญหาแล้ว} media {แชร์สื่อแล้ว} page {แชร์หน้าแล้ว} project {แชร์โครงการแล้ว} pullrequest {แชร์ Pull Request แล้ว} question {แชร์คำถามแล้ว} report {แชร์รายงานแล้ว} repository {แชร์คลังเก็บข้อมูลแล้ว} request {แชร์คำร้องแล้ว} roadmap {แชร์แผนงานแล้ว} site {แชร์ไซต์แล้ว} space {แชร์พื้นที่แล้ว} other {แชร์ลิงก์แล้ว}}',
+  'fabric.elements.share.to.integration.button': 'แชร์ไปยัง {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'แชร์ไอคอน',
   'fabric.elements.share.trigger.button.invite.text': 'เชิญ',
   'fabric.elements.share.trigger.button.text': 'แชร์',

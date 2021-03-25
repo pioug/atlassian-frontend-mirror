@@ -46,6 +46,7 @@ export default {
     'Selecteer minimaal één gebruiker, team of e-mailadres.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blog gedeeld} board {Bord gedeeld} calendar {Kalender gedeeld} draft {Concept gedeeld} filter {Filter gedeeld} issue {Issue gedeeld} media {Media gedeeld} page {Pagina gedeeld} project {Project gedeeld} pullrequest {Pull-aanvraag gedeeld} question {Vraag gedeeld} report {Rapport gedeeld} repository {Repository gedeeld} request {Aanvraag gedeeld} roadmap {Roadmap gedeeld} site {Site gedeeld} space {Space gedeeld} other {Link gedeeld}}',
+  'fabric.elements.share.to.integration.button': 'Delen met {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': "Pictogram 'Delen'",
   'fabric.elements.share.trigger.button.invite.text': 'Uitnodigen',
   'fabric.elements.share.trigger.button.text': 'Delen',

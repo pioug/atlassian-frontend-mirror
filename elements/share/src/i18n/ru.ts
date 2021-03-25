@@ -47,6 +47,8 @@ export default {
     'Выберите хотя бы 1 пользователя, команду или адрес эл. почты.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Вы поделились записью в блоге} board {Вы поделились доской} calendar {Вы поделились календарем} draft {Вы поделились черновиком} filter {Вы поделились фильтром} issue {Вы поделились задачей} media {Вы поделились объектом мультимедиа} page {Вы поделились страницей} project {Вы поделились проектом} pullrequest {Вы поделились запросом pull} question {Вы поделились вопросом} report {Вы поделились отчетом} repository {Вы поделились репозиторием} request {Вы поделились запросом} roadmap {Вы поделились дорожной картой} site {Вы поделились сайтом} space {Вы поделились разделом} other {Вы поделились ссылкой}}',
+  'fabric.elements.share.to.integration.button':
+    'Поделиться в {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Значок «Поделиться»',
   'fabric.elements.share.trigger.button.invite.text': 'Пригласить',
   'fabric.elements.share.trigger.button.text': 'Поделиться',

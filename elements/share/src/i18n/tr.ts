@@ -47,6 +47,8 @@ export default {
     'En az bir kullanıcı, takım veya e-posta adresi seçin.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blog gönderisi paylaşıldı} board {Pano paylaşıldı} calendar {Takvim paylaşıldı} draft {Taslak paylaşıldı} filter {Filtre paylaşıldı} issue {Konu paylaşıldı} media {Medya paylaşıldı} page {Sayfa paylaşıldı} project {Proje paylaşıldı} pullrequest {Çekme İsteği paylaşıldı} question {Soru paylaşıldı} report {Rapor paylaşıldı} repository {Depo paylaşıldı} request {Talep paylaşıldı} roadmap {Yol haritası paylaşıldı} site {Site paylaşıldı} space {Alan paylaşıldı} other {Bağlantı paylaşıldı}}',
+  'fabric.elements.share.to.integration.button':
+    '{integrationName} üzerinden paylaş',
   'fabric.elements.share.trigger.button.icon.label': 'Paylaşma simgesi',
   'fabric.elements.share.trigger.button.invite.text': 'Davet Et',
   'fabric.elements.share.trigger.button.text': 'Paylaş',

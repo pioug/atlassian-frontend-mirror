@@ -46,6 +46,8 @@ export default {
     'Chọn ít nhất một người dùng, nhóm hoặc email.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Đã chia sẻ bài đăng} board {Đã chia sẻ bảng} calendar {Đã chia sẻ lịch} draft {Đã chia sẻ bản nháp} filter {Đã chia sẻ bộ lọc} issue {Đã chia sẻ vấn đề} media {Đã chia sẻ phương tiện} page {Đã chia sẻ trang} project {Đã chia sẻ dự án} pullrequest {Đã chia sẻ yêu cầu kéo} question {Đã chia sẻ câu hỏi} report {Đã chia sẻ báo cáo} repository {Đã chia sẻ kho lưu trữ} request {Đã chia sẻ yêu cầu} roadmap {Đã chia sẻ lộ trình} site {Đã chia sẻ trang} space {Đã chia sẻ không gian} other {Đã chia sẻ liên kết}}',
+  'fabric.elements.share.to.integration.button':
+    'Chia sẻ với {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Biểu tượng chia sẻ',
   'fabric.elements.share.trigger.button.invite.text': 'Mời',
   'fabric.elements.share.trigger.button.text': 'Chia sẻ',

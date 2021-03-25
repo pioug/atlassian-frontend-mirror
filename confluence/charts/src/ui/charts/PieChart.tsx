@@ -2,20 +2,10 @@ import React from 'react';
 
 import { Group } from '@visx/group';
 import { withParentSize } from '@visx/responsive';
-import { scaleOrdinal } from '@visx/scale';
 import { Pie } from '@visx/shape';
 import { animated, interpolate, useTransition } from 'react-spring';
 
-import { tableToColumnSet } from './utilities';
-
 const getValueOf = (key: any) => (data: any) => data[key];
-
-const getLetterFrequencyColorOf = (values: any[], accessor: string) =>
-  scaleOrdinal({
-    domain: values.map(l => l[accessor]),
-    // @TODO: need to update this part based on the feedback from the designers
-    range: ['#1800f3', '#04b922', '#f3a000', '#def603', '#8f11b', '#5a08f1'],
-  });
 
 const fromLeaveTransition = ({ endAngle }: { endAngle: number }) => ({
   // enter from 360° if end angle is > 180°
@@ -89,7 +79,7 @@ const AnimatedPie = (props: any) => {
   );
 };
 
-const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
 export const PieChart: any = withParentSize((props: any) => {
   const innerWidth = props.parentWidth - margin.left - margin.right;
@@ -101,7 +91,7 @@ export const PieChart: any = withParentSize((props: any) => {
   const left = centerX + margin.left;
   const pieSortValues = (a: number, b: number) => b - a;
 
-  const [seriesNames, tableData] = tableToColumnSet(props.data);
+  const { seriesNames, tableData, chartScale } = props;
 
   return (
     <svg width={props.parentWidth} height={350}>
@@ -116,12 +106,7 @@ export const PieChart: any = withParentSize((props: any) => {
             <AnimatedPie
               {...pie}
               getKey={({ data }: any) => data[seriesNames[0]]}
-              getColor={({ data }: any) =>
-                getLetterFrequencyColorOf(
-                  tableData,
-                  seriesNames[0],
-                )(data[seriesNames[0]])
-              }
+              getColor={({ data }: any) => chartScale(data[seriesNames[0]])}
             />
           )}
         </Pie>

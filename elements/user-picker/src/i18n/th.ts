@@ -13,6 +13,8 @@ export default {
   'fabric.elements.user-picker.github.provider': 'GitHub',
   'fabric.elements.user-picker.google.provider': 'Google',
   'fabric.elements.user-picker.group.byline': 'กลุ่มที่ผู้ดูแลระบบจัดการ',
+  'fabric.elements.user-picker.guest.lozenge.text': 'ผู้ใช้ทั่วไป',
+  'fabric.elements.user-picker.member.lozenge.text': 'สมาชิก',
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'ลบออก',
   'fabric.elements.user-picker.placeholder': 'ป้อนบุคคลหรือทีม...',

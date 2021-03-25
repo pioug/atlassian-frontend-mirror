@@ -47,6 +47,7 @@ export default {
     'Velg minst én bruker, arbeidsgruppe eller e-postadresse.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogginnlegg delt} board {Tavle delt} calendar {Kalender delt} draft {Utkast delt} filter {Filter delt} issue {Sak delt} media {Media delt} page {Side delt} project {Prosjekt delt} pullrequest {Pull-forespørsel delt} question {Spørsmål delt} report {Rapport delt} repository {Repositorium delt} request {Forespørsel delt} roadmap {Veikart delt} site {Side delt} space {Område delt} other {Kobling delt}}',
+  'fabric.elements.share.to.integration.button': 'Del til {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Dele-ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Inviter',
   'fabric.elements.share.trigger.button.text': 'Del',

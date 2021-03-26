@@ -56,7 +56,7 @@ type TeamMembersProps = TeamMembers &
 const LARGE_MEMBER_COUNT = 50;
 
 function onMemberClick(
-  callback: Required<TeamMembersProps>['onUserClick'],
+  callback: TeamMembersProps['onUserClick'],
   userId: string,
   analytics: AnalyticsFunction,
   index: number,
@@ -72,7 +72,9 @@ function onMemberClick(
       }),
     );
 
-    callback(userId, event);
+    if (callback) {
+      callback(userId, event);
+    }
   };
 }
 
@@ -122,34 +124,27 @@ const TeamMembers = ({
           <AvatarGroup
             appearance="stack"
             data={members.map((member, index) => {
-              const linkProps = generateUserLink
-                ? {
-                    href: generateUserLink(member.id),
-                  }
-                : {};
+              const href = generateUserLink?.(member.id);
 
-              const onClickProps = onUserClick
-                ? {
-                    onClick: onMemberClick(
-                      onUserClick,
-                      member.id,
-                      analytics,
-                      index,
-                      !!generateUserLink,
-                    ),
-                  }
-                : {};
+              const onClick = onMemberClick(
+                onUserClick,
+                member.id,
+                analytics,
+                index,
+                !!generateUserLink,
+              );
 
               return {
                 key: member.id,
                 name: member.fullName,
                 src: member.avatarUrl,
-                ...linkProps,
-                ...onClickProps,
+                href,
+                onClick,
               };
             })}
             maxCount={9}
             showMoreButtonProps={{ onClick: onMoreClick }}
+            testId="profilecard-avatar-group"
           />
         </AvatarSection>
       )}

@@ -192,28 +192,33 @@ const parseAri = (input: string): ARI => {
   };
 };
 
-const isPublicEmailDomainError = (errorResponse: Response): Boolean => {
-  return (
-    errorResponse.statusText === 'Request requires a domain which is not public'
-  );
+const isPublicEmailDomainError = (body: any): Boolean => {
+  // Public Email Domain Error returns a body with the following content:
+  // {"code":"email-public-domain","message":"Request requires a domain which is not public"}
+  return body?.code && body.code === 'email-public-domain';
 };
 
 const emptyProductRecommendationResponse: ProductRecommendationsResponse = {
   capability: { DIRECT_ACCESS: [], REQUEST_ACCESS: [] },
 };
 
-// We are unable to use fetchJson from packages/navigation/atlassian-switcher/src/common/utils/fetch.ts
-// because some 400 errors from productRecommendation API are expected and should be handled as empty data
-export const fetchJsonOrEmptyJoinableSitesResponse = <T>(
+/* We are unable to use fetchJson from packages/navigation/atlassian-switcher/src/common/utils/fetch.ts
+ * because some 400 errors from productRecommendation API are expected and should be handled as empty data
+ */
+export const fetchJsonOrEmptyProductRecommendationsResponse = (
   url: string,
   init?: RequestInit,
-): Promise<T> =>
-  fetch(url, { credentials: 'include', ...init }).then(response => {
+): Promise<ProductRecommendationsResponse> =>
+  fetch(url, { credentials: 'include', ...init }).then(async response => {
+    const jsonPromise = response.json();
     if (response.ok) {
-      return response.json();
+      return jsonPromise;
     }
-    if (isPublicEmailDomainError(response)) {
-      return emptyProductRecommendationResponse;
+    if (response.status === 400) {
+      const json = await jsonPromise;
+      if (isPublicEmailDomainError(json)) {
+        return emptyProductRecommendationResponse;
+      }
     }
     throw enrichFetchError(
       new Error(
@@ -226,7 +231,7 @@ export const fetchJsonOrEmptyJoinableSitesResponse = <T>(
 export const fetchProductRecommendationsInternal = (
   baseUrl: string = '',
 ): Promise<JoinableSitesResponse> => {
-  return fetchJsonOrEmptyJoinableSitesResponse<ProductRecommendationsResponse>(
+  return fetchJsonOrEmptyProductRecommendationsResponse(
     productRecommendationsUrl(baseUrl),
     {
       method: 'get',

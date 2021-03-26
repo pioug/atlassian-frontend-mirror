@@ -251,8 +251,10 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   renderCustomLozenges(lozenges: LozengeProps[]) {
     return lozenges.length > 0 ? (
       <CustomLozengeContainer>
-        {lozenges.map(({ text, ...otherProps }) => (
-          <Lozenge {...otherProps}>{text}</Lozenge>
+        {lozenges.map(({ text, ...otherProps }, index) => (
+          <Lozenge {...otherProps} key={index}>
+            {text}
+          </Lozenge>
         ))}
       </CustomLozengeContainer>
     ) : null;

@@ -22,6 +22,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
           <Lozenge
             appearance="new"
             isBold={true}
+            key="0"
             maxWidth={200}
           >
             Guest
@@ -29,6 +30,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
           <Lozenge
             appearance="removed"
             isBold={false}
+            key="1"
             maxWidth={200}
           >
             Cool Bean
@@ -36,6 +38,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
           <Lozenge
             appearance="inprogress"
             isBold={true}
+            key="2"
             maxWidth={200}
           >
             <div>
@@ -123,6 +126,7 @@ exports[`Profilecard ProfileCard customLozenges property should match snapshot w
           <Lozenge
             appearance="new"
             isBold={true}
+            key="0"
             maxWidth={200}
           >
             Guest

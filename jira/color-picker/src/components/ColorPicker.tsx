@@ -4,10 +4,6 @@ import Trigger from './Trigger';
 import { Palette, Color } from '../types';
 import * as components from './components';
 import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-import {
   withAnalyticsEvents,
   withAnalyticsContext,
   createAndFireEvent,
@@ -39,6 +35,9 @@ const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {
   modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
   placement: 'bottom-start',
 };
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export class ColorPickerWithoutAnalytics extends React.Component<Props> {
   createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

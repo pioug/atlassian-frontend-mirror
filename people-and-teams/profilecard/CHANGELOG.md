@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.3
+
+### Patch Changes
+
+- [`e7d0d61bfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d0d61bfc0) - Fixed analytics issues in Team Profilecard avatars and added key to User Profilecard lozenges
+
 ## 15.5.2
 
 ### Patch Changes

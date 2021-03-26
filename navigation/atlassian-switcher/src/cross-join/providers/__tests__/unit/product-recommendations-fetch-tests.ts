@@ -94,10 +94,15 @@ describe('product-recommendations-fetch-test', () => {
   test('should return empty joinable sites when fetch returns 400 "Request requires a domain which is not public"', async () => {
     fetchMock.get(
       'https://example.com/v1/product-recommendations?capability=DIRECT_ACCESS&product=jira-software&product=jira-servicedesk&product=jira-core&product=confluence',
-      new Response('', {
-        status: 400,
-        statusText: 'Request requires a domain which is not public',
-      }),
+      new Response(
+        JSON.stringify({
+          code: 'email-public-domain',
+          message: 'Request requires a domain which is not public',
+        }),
+        {
+          status: 400,
+        },
+      ),
     );
 
     return fetchProductRecommendationsInternal('https://example.com').then(

@@ -9,6 +9,7 @@ import {
   moreActionsClicked,
   moreMembersClicked,
   teamActionClicked,
+  teamAvatarClicked,
   teamProfileCardRendered,
 } from '../../util/analytics';
 
@@ -42,6 +43,19 @@ function flexiTime(event: Record<string, any>) {
     },
   };
 }
+
+const generateMembers = (n: number) => {
+  const members = [];
+  while (n-- > 0) {
+    members.push({
+      id: Math.random().toString(),
+      fullName: Math.random().toString(),
+      avatarUrl: '',
+    });
+  }
+
+  return members;
+};
 
 describe('TeamProfileCard', () => {
   beforeEach(() => {
@@ -327,19 +341,6 @@ describe('TeamProfileCard', () => {
   });
 
   describe('Member count', () => {
-    const generateMembers = (n: number) => {
-      const members = [];
-      while (n-- > 0) {
-        members.push({
-          id: Math.random().toString(),
-          fullName: Math.random().toString(),
-          avatarUrl: '',
-        });
-      }
-
-      return members;
-    };
-
     it('should include the "Team" label', () => {
       const numMembers = Math.floor(randInt(0, 100));
       const { getByText } = renderWithIntl(
@@ -493,6 +494,204 @@ describe('TeamProfileCard', () => {
           }),
         ),
       );
+    });
+  });
+
+  describe('Avatar group', () => {
+    beforeEach(() => {
+      analyticsListener.mockReset();
+    });
+
+    it('should show expected href on avatars', () => {
+      const members = generateMembers(3);
+
+      const generateUserLink = (userId: string) =>
+        `https://example.com/user/${userId}`;
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCard
+          {...defaultProps}
+          team={{
+            id: '123',
+            displayName: 'Team name',
+            description: 'A team',
+            members,
+          }}
+          generateUserLink={generateUserLink}
+        />,
+      );
+
+      const expectedLink = generateUserLink(members[0].id);
+
+      expect(
+        getByTestId('profilecard-avatar-group--avatar-0').firstChild,
+      ).toHaveAttribute('href', expectedLink);
+    });
+
+    it('should fire analytics on avatar click', () => {
+      const members = generateMembers(3);
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCard
+          {...defaultProps}
+          team={{
+            id: '123',
+            displayName: 'Team name',
+            description: 'A team',
+            members,
+          }}
+        />,
+      );
+
+      act(() => {
+        fireEvent.click(
+          getByTestId('profilecard-avatar-group--avatar-0')
+            .firstChild as Element,
+        );
+      });
+
+      expect(analyticsListener).toHaveBeenCalledWith(
+        flexiTime(
+          teamAvatarClicked({
+            duration: SAMPLE_DURATION,
+            hasOnClick: false,
+            hasHref: false,
+            index: 0,
+          }),
+        ),
+      );
+    });
+
+    it('should fire analytics on avatar click when href is provided', () => {
+      const members = generateMembers(3);
+
+      const generateUserLink = (userId: string) =>
+        `https://example.com/user/${userId}`;
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCard
+          {...defaultProps}
+          team={{
+            id: '123',
+            displayName: 'Team name',
+            description: 'A team',
+            members,
+          }}
+          generateUserLink={generateUserLink}
+        />,
+      );
+
+      act(() => {
+        fireEvent.click(
+          getByTestId('profilecard-avatar-group--avatar-0')
+            .firstChild as Element,
+        );
+      });
+
+      expect(analyticsListener).toHaveBeenCalledWith(
+        flexiTime(
+          teamAvatarClicked({
+            duration: SAMPLE_DURATION,
+            hasOnClick: false,
+            hasHref: true,
+            index: 0,
+          }),
+        ),
+      );
+    });
+
+    it('should fire analytics on avatar click when onClick is provided and call onClick', () => {
+      const members = generateMembers(3);
+
+      const onUserClick = jest.fn();
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCard
+          {...defaultProps}
+          team={{
+            id: '123',
+            displayName: 'Team name',
+            description: 'A team',
+            members,
+          }}
+          onUserClick={onUserClick}
+        />,
+      );
+
+      act(() => {
+        fireEvent.click(
+          getByTestId('profilecard-avatar-group--avatar-0')
+            .firstChild as Element,
+        );
+      });
+
+      expect(analyticsListener).toHaveBeenCalledWith(
+        flexiTime(
+          teamAvatarClicked({
+            duration: SAMPLE_DURATION,
+            hasOnClick: true,
+            hasHref: false,
+            index: 0,
+          }),
+        ),
+      );
+
+      expect(onUserClick).toHaveBeenCalledWith(
+        members[0].id,
+        expect.anything(),
+      );
+    });
+
+    it('should fire analytics on avatar click when onClick and link are provided and call onClick', () => {
+      const members = generateMembers(3);
+
+      const onUserClick = jest.fn();
+
+      const generateUserLink = (userId: string) =>
+        `https://example.com/user/${userId}`;
+
+      const { getByTestId } = renderWithIntl(
+        <TeamProfileCard
+          {...defaultProps}
+          team={{
+            id: '123',
+            displayName: 'Team name',
+            description: 'A team',
+            members,
+          }}
+          onUserClick={onUserClick}
+          generateUserLink={generateUserLink}
+        />,
+      );
+
+      act(() => {
+        fireEvent.click(
+          getByTestId('profilecard-avatar-group--avatar-0')
+            .firstChild as Element,
+        );
+      });
+
+      expect(analyticsListener).toHaveBeenCalledWith(
+        flexiTime(
+          teamAvatarClicked({
+            duration: SAMPLE_DURATION,
+            hasOnClick: true,
+            hasHref: true,
+            index: 0,
+          }),
+        ),
+      );
+
+      expect(onUserClick).toHaveBeenCalledWith(
+        members[0].id,
+        expect.anything(),
+      );
+
+      const expectedLink = generateUserLink(members[0].id);
+
+      expect(
+        getByTestId('profilecard-avatar-group--avatar-0').firstChild,
+      ).toHaveAttribute('href', expectedLink);
     });
   });
 });

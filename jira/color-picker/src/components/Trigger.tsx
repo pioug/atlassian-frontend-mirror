@@ -16,6 +16,8 @@ export default class ColorCard extends React.PureComponent<Props> {
   onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { onClick } = this.props;
 
+    event.currentTarget.focus();
+
     if (onClick) {
       event.preventDefault();
       onClick();

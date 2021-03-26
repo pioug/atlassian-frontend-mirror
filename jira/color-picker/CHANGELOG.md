@@ -1,5 +1,17 @@
 # @atlaskit/color-picker
 
+## 1.2.1
+
+### Patch Changes
+
+- [`76b3b72511e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76b3b72511e) - Use injected package name and version for analytics instead of version.json.
+
+## 1.2.0
+
+### Minor Changes
+
+- [`5076c4c7f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5076c4c7f34) - [ux] Color picker will now regain focus after a selection has been made instead of giving focus to last focused element on the page
+
 ## 1.1.1
 
 ### Patch Changes

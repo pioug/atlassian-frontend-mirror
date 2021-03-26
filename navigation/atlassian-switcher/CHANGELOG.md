@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 9.2.2
+
+### Patch Changes
+
+- [`d971122352b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d971122352b) - Updated Product Recommendation fetch handle 400 "public domain" errors from the product-recommendation endpoint. This update reads the distinguishing properties of the message from the response body.
+
 ## 9.2.1
 
 ### Patch Changes

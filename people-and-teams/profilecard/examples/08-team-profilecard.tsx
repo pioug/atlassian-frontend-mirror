@@ -67,6 +67,9 @@ export default function Example() {
             <TeamProfileCard
               analytics={analytics}
               generateUserLink={() => 'about:blank'}
+              onUserClick={(userId: string) => {
+                console.log(`User with id: (${userId}) has been clicked.`);
+              }}
               hasError={hasError}
               isLoading={isLoading}
               team={team}

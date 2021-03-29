@@ -4,6 +4,8 @@ exports[`ADF => WikiMarkup - Media should convert external image 1`] = `"!https:
 
 exports[`ADF => WikiMarkup - Media should convert media with alt text 1`] = `"!abc-123-uuid|width=100,height=100,alt=\\"Helo world\\"!"`;
 
+exports[`ADF => WikiMarkup - Media should convert media with image links 1`] = `"!abc-123-uuid|width=100,height=100,alt=\\"Helo world\\",href=\\"google.com\\"!"`;
+
 exports[`ADF => WikiMarkup - Media should convert media with no context 1`] = `"!abc-123-uuid|width=100,height=100!"`;
 
 exports[`ADF => WikiMarkup - Media should convert mediaGroup node 1`] = `

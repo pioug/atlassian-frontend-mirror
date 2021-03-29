@@ -10,10 +10,7 @@ const Padded = (props: { children: React.ReactNode }) => (
 
 export default () => (
   <div style={{ width: 400 }}>
-    <Banner
-      icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}
-      isOpen
-    >
+    <Banner icon={<WarningIcon label="" secondaryColor="inherit" />} isOpen>
       JIRA Service Desk pricing has been updated. Please migrate within 3
       months.
     </Banner>

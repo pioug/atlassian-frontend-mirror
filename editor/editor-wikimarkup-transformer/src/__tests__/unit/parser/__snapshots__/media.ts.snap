@@ -757,6 +757,51 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Images and attachments Should parse image with links 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": null,
+            "__fileName": null,
+            "__fileSize": null,
+            "alt": null,
+            "collection": "",
+            "height": 250,
+            "id": "73b39312-2853-486c-bc63-9ce187c4bfc7",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": 250,
+          },
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "http://google.com",
+              },
+              "type": "link",
+            },
+          ],
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Images and attachments should add collection from context 1`] = `
 Object {
   "content": Array [

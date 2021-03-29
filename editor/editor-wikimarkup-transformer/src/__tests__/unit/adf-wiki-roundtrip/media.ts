@@ -6,6 +6,7 @@ import {
   mediaGroup,
   media,
   mediaSingle,
+  a,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Context } from '../../../interfaces';
 
@@ -56,6 +57,26 @@ describe('ADF => WikiMarkup - Media', () => {
           width: 200,
           height: 183,
         })(),
+      ),
+    )(defaultSchema);
+    const wiki = transformer.encode(node, adfContext);
+    const adf = transformer.parse(wiki, wikiContext).toJSON();
+    expect(adf).toEqual(node.toJSON());
+  });
+
+  test('should preserve media links', () => {
+    const node = doc(
+      mediaSingle({ layout: 'center' })(
+        a({ href: 'google.com' })(
+          media({
+            id: 'abc-1',
+            type: 'file',
+            collection: '',
+            alt: 'Hello world',
+            width: 200,
+            height: 183,
+          })(),
+        ),
       ),
     )(defaultSchema);
     const wiki = transformer.encode(node, adfContext);

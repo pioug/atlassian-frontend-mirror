@@ -7,7 +7,7 @@ import Banner from '../../src';
 export default () => (
   <Banner
     appearance="error"
-    icon={<ErrorIcon label="Error icon" secondaryColor="inherit" />}
+    icon={<ErrorIcon label="" secondaryColor="inherit" />}
     isOpen
   >
     Error message goes here

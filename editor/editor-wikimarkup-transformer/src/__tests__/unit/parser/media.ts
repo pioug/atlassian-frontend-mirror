@@ -96,6 +96,10 @@ yep`,
 !2.png|thumbnail!
 foo`,
     ],
+    [
+      'Should parse image with links',
+      '!73b39312-2853-486c-bc63-9ce187c4bfc7|width=250,height=250,href="http://google.com"!',
+    ],
   ];
 
   const context: Context = {

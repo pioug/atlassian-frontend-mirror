@@ -38,8 +38,10 @@ ${(
 )}
 
 ### Custom skip links
-Sometimes it may be required to add a skip link to a section of the page which is not one of the slots provided by PageLayout. This is where the \`useCustomSkipLink\` hook comes in handy.
+Sometimes it may be necessary to add a skip link to a section of the page which is not one of the slots provided by PageLayout. This is where the \`useCustomSkipLink\` hook comes in handy.
 Here's an example of using the  \`useCustomSkipLink\` to set up skip links to elements that are not direct children of a PageLayout slot.
+
+You can choose the position the link will show up in the menu by using the optional \`listIndex\` prop. Positions are zero-indexed.
 
 **Note:** Although \`useCustomSkipLink\` can link to DOM elements outside of PageLayout using the HTML id, it needs to be called from within PageLayout, since it relies on the context provider that wraps PageLayout.
 

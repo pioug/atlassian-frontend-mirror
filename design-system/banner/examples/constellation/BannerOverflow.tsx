@@ -9,10 +9,7 @@ const message: string =
 
 export default () => (
   <div style={{ maxWidth: 400, margin: 'auto' }}>
-    <Banner
-      icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}
-      isOpen
-    >
+    <Banner icon={<WarningIcon label="" secondaryColor="inherit" />} isOpen>
       {message}
     </Banner>
   </div>

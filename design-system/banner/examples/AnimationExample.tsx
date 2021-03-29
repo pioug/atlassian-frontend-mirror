@@ -11,7 +11,7 @@ interface ItemProps {
   isOpen: boolean;
 }
 
-const Icon = <WarningIcon label="Warning icon" secondaryColor="inherit" />;
+const Icon = <WarningIcon label="" secondaryColor="inherit" />;
 
 const WarningBanner = ({ isOpen = true }: { isOpen: boolean }) => (
   <Banner icon={Icon} isOpen={isOpen} appearance="warning">

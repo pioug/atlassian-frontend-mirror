@@ -6,7 +6,7 @@ import Banner from '../src';
 
 export default () => (
   <Banner
-    icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}
+    icon={<WarningIcon label="" secondaryColor="inherit" />}
     isOpen
     testId="myBannerTestId"
   >

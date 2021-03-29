@@ -24,6 +24,13 @@ export const media: NodeEncoder = (
     wikiAttrs.push(`alt="${node.attrs.alt}"`);
   }
 
+  if (node.marks.length) {
+    const linkMark = node.marks.find(mark => mark.type.name === 'link');
+    if (linkMark) {
+      wikiAttrs.push(`href="${linkMark?.attrs.href}"`);
+    }
+  }
+
   let fileName: string;
 
   if (node.attrs.type === 'external') {

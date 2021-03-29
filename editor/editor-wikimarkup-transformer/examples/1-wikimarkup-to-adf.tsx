@@ -138,6 +138,9 @@ class Example extends React.PureComponent<{}, State> {
             document={doc}
             dataProviders={providerFactory}
             schema={defaultSchema}
+            media={{
+              allowLinking: true,
+            }}
           />
         </div>
         <pre id="output">{JSON.stringify(doc, null, 2)}</pre>

@@ -72,7 +72,11 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                       stickToolbarToBottom: true,
                     }}
                     allowDate={true}
-                    media={{ provider: mediaProvider, allowMediaSingle: true }}
+                    media={{
+                      provider: mediaProvider,
+                      allowMediaSingle: true,
+                      allowLinking: true,
+                    }}
                     disabled={disabled}
                     mentionProvider={Promise.resolve(
                       mention.storyData.resourceProvider,

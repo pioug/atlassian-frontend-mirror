@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.2.0
+
+### Minor Changes
+
+- [`e00e0159214`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e00e0159214) - ADFS-456: Add support for image links in wikimarkup converter
+
 ## 9.1.0
 
 ### Minor Changes

@@ -9,6 +9,7 @@ import {
   table,
   tr,
   td,
+  a,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Context } from '../../../interfaces';
 
@@ -157,6 +158,24 @@ describe('ADF => WikiMarkup - Media', () => {
           height: 100,
           alt: 'Helo world',
         })(),
+      ),
+    )(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('should convert media with image links', () => {
+    const node = doc(
+      mediaSingle()(
+        a({ href: 'google.com' })(
+          media({
+            id: 'abc-123-uuid',
+            type: 'file',
+            collection: 'tmp',
+            width: 100,
+            height: 100,
+            alt: 'Helo world',
+          })(),
+        ),
       ),
     )(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();

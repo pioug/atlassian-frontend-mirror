@@ -22,6 +22,8 @@ export default function getMediaSingleNodeView(
   context: Context = {},
 ): PMNode {
   const { media, mediaSingle } = schema.nodes;
+  const { link } = schema.marks;
+  const mediaMarks = [];
 
   let mediaNodeAttrs: { width?: number; height?: number; alt?: string } = {
     width: defaultWidth,
@@ -51,6 +53,11 @@ export default function getMediaSingleNodeView(
     }
   }
 
+  if (attrs.href) {
+    const href = attrs.href.replace(/^"(.+)"$/, '$1');
+    mediaMarks.push(link.create({ href }));
+  }
+
   if (attrs.alt) {
     // strip wrapping quotes if they exist
     const altText = attrs.alt.replace(/^"(.+)"$/, '$1');
@@ -58,11 +65,15 @@ export default function getMediaSingleNodeView(
   }
 
   if (filename.match(LINK_TEXT_REGEXP)) {
-    const externalMediaNode = media.createChecked({
-      type: 'external',
-      url: filename,
-      ...mediaNodeAttrs,
-    });
+    const externalMediaNode = media.createChecked(
+      {
+        type: 'external',
+        url: filename,
+        ...mediaNodeAttrs,
+      },
+      undefined,
+      mediaMarks,
+    );
 
     return mediaSingle.createChecked(mediaSingleAttrs, externalMediaNode);
   } else {
@@ -74,12 +85,16 @@ export default function getMediaSingleNodeView(
       context.hydration &&
       context.hydration.media &&
       context.hydration.media.targetCollectionId;
-    const mediaNode = media.createChecked({
-      id,
-      type: 'file',
-      collection: collection || '',
-      ...mediaNodeAttrs,
-    });
+    const mediaNode = media.createChecked(
+      {
+        id,
+        type: 'file',
+        collection: collection || '',
+        ...mediaNodeAttrs,
+      },
+      undefined,
+      mediaMarks,
+    );
 
     return mediaSingle.createChecked(mediaSingleAttrs, mediaNode);
   }

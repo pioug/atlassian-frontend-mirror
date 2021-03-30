@@ -20,6 +20,7 @@ import {
   tr,
   td,
   th,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -39,7 +40,7 @@ describe('tasks and decisions', () => {
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
@@ -236,7 +237,10 @@ describe('tasks and decisions', () => {
 
       describe('when inside table', () => {
         let editorView: EditorView;
-        const shouldNotJoinContent = (view: EditorView, targetDoc: any) => {
+        const shouldNotJoinContent = (
+          view: EditorView,
+          targetDoc: DocBuilder,
+        ) => {
           it('should not join nodes outside of current cell', () => {
             // Forward delete
             sendKeyToPm(view, 'Delete');

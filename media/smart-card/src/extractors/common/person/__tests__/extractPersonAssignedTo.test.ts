@@ -32,6 +32,6 @@ describe('extractors.person.assigned', () => {
         ...BASE_DATA,
         'atlassian:assignedTo': TEST_PERSON,
       }),
-    ).toEqual({ name: TEST_NAME, icon: TEST_URL });
+    ).toEqual({ name: TEST_NAME, src: TEST_URL });
   });
 });

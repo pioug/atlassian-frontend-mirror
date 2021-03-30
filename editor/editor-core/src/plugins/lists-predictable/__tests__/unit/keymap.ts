@@ -10,6 +10,7 @@ import {
   media,
   mediaSingle,
   br,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -34,7 +35,7 @@ describe('lists plugin -> keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
@@ -159,7 +160,7 @@ describe('lists plugin -> keymap', () => {
   });
 
   describe('when hit Backspace', () => {
-    const backspaceCheck = (beforeDoc: any, afterDoc: any) => {
+    const backspaceCheck = (beforeDoc: DocBuilder, afterDoc: DocBuilder) => {
       const { editorView } = editor(beforeDoc);
       sendKeyToPm(editorView, 'Backspace');
 

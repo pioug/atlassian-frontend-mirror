@@ -5,6 +5,7 @@ import {
   table,
   tdEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   Preset,
@@ -26,7 +27,7 @@ describe('table plugin: commands', () => {
       tableOptions: { allowHeaderColumn: true },
     },
   ]);
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,
       preset,

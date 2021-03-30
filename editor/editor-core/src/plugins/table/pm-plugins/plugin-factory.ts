@@ -3,8 +3,9 @@ import { PluginKey } from 'prosemirror-state';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { handleDocOrSelectionChanged } from '../handlers';
 import reducer from '../reducer';
+import { TablePluginState } from '../types';
 
-export const pluginKey = new PluginKey('tablePlugin');
+export const pluginKey = new PluginKey<TablePluginState>('tablePlugin');
 export const {
   createPluginState,
   createCommand,

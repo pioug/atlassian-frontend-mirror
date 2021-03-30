@@ -5,6 +5,7 @@ import {
   getPrimaryErrorReason,
   getSecondaryErrorReason,
   getErrorDetail,
+  MediaViewerError,
 } from '../../../errors';
 
 export type LoadFailedEventPayload = MediaFileEventPayload<
@@ -14,7 +15,7 @@ export type LoadFailedEventPayload = MediaFileEventPayload<
 
 export const createLoadFailedEvent = (
   fileId: string,
-  error: Error,
+  error: MediaViewerError,
   fileState?: FileState,
 ): LoadFailedEventPayload => {
   const { fileMediatype, fileMimetype, fileSize } = getFileAttributes(

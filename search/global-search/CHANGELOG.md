@@ -1,5 +1,13 @@
 # @atlaskit/global-search
 
+## 13.0.11
+
+### Patch Changes
+
+- [`c119fdd32e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c119fdd32e7) - Internal change to update usage of the custom `glyph` prop in @atlaskit/icon.
+- [`675be14d787`](https://bitbucket.org/atlassian/atlassian-frontend/commits/675be14d787) - Unused props on icons have been removed.
+- Updated dependencies
+
 ## 13.0.10
 
 ### Patch Changes

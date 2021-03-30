@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/portal",
-  "version": "4.0.5",
+  "version": "4.1.0",
   "description": "Atlaskit wrapper for rendering components in React portals",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,33 +16,37 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Portal"
     }
   },
+  "af:exports": {
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/theme": "^11.0.0",
-    "@babel/runtime": "^7.0.0",
-    "exenv": "^1.2.2",
-    "tiny-invariant": "^0.0.3"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^14.0.0",
-    "@atlaskit/icon": "^21.1.0",
+    "@atlaskit/icon": "^21.5.0",
     "@atlaskit/inline-dialog": "^13.0.0",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/onboarding": "^10.1.0",
-    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "storybook-addon-performance": "0.13.0",
@@ -57,6 +61,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   }
 }

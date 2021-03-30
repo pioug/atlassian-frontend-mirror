@@ -35,18 +35,13 @@ import {
   createPlugin as createStickyHeadersPlugin,
   findStickyHeaderForTable,
   pluginKey as stickyHeadersPluginKey,
-  StickyPluginState,
 } from './pm-plugins/sticky-headers';
 import {
   createPlugin as createFlexiResizingPlugin,
   pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
 import { getToolbarConfig } from './toolbar';
-import {
-  ColumnResizingPluginState,
-  PluginConfig,
-  TablePluginState,
-} from './types';
+import { ColumnResizingPluginState, PluginConfig } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
@@ -159,10 +154,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
           tableResizingPluginState: resizingPluginState,
           stickyHeadersState,
           tablePluginState,
-        }: {
-          tableResizingPluginState?: ColumnResizingPluginState;
-          stickyHeadersState?: StickyPluginState;
-          tablePluginState: TablePluginState;
         }) => {
           const { state } = editorView;
           const isDragging = resizingPluginState?.dragging;
@@ -180,7 +171,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             isHeaderRowEnabled,
             tableWrapperTarget,
             tableWidth,
-          } = tablePluginState;
+          } = tablePluginState!;
 
           const { allowControls } = pluginConfig;
           const { tableRenderOptimization } = getFeatureFlags(state) || {};

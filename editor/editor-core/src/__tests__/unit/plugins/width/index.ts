@@ -2,6 +2,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import {
   doc,
   p as paragraph,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { pluginKey } from '../../../../plugins/width';
@@ -9,7 +10,7 @@ import { pluginKey } from '../../../../plugins/width';
 describe('width plugin', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
     });

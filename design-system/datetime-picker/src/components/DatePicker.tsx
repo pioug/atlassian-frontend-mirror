@@ -159,7 +159,7 @@ const Menu = ({
     inputValue={selectProps.inputValue}
     containerRef={selectProps.calendarContainerRef}
     content={
-      <StyledMenu>
+      <StyledMenu {...innerProps}>
         <Calendar
           {...getValidDate(selectProps.calendarValue)}
           {...getValidDate(selectProps.calendarView)}
@@ -168,7 +168,6 @@ const Menu = ({
           onSelect={selectProps.onCalendarSelect}
           calendarRef={selectProps.calendarRef}
           selected={[selectProps.calendarValue]}
-          innerProps={innerProps}
           locale={selectProps.calendarLocale}
           testId={selectProps.testId}
         />

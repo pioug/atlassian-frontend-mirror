@@ -8,6 +8,7 @@ import {
   mediaSingle,
   p,
   code_block,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { setNodeSelection } from '../../../../utils';
 import {
@@ -24,7 +25,7 @@ describe('image-upload', () => {
     'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>';
   const testImg = () =>
     mediaSingle()(media({ type: 'external', url: testImgSrc })());
-  const editor = (doc: any, imageUploadProvider?: any) =>
+  const editor = (doc: DocBuilder, imageUploadProvider?: any) =>
     createEditor({
       doc,
       editorProps: {

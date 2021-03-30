@@ -1,5 +1,16 @@
 # @atlaskit/media-viewer
 
+## 45.8.0
+
+### Minor Changes
+
+- [`0a8ad595765`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a8ad595765) - Further restrict primary and secondary error reasons in media-viewer
+
+### Patch Changes
+
+- [`8a83bcb9db7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a83bcb9db7) - Ensure external image reports success/failure for media-viewer
+- Updated dependencies
+
 ## 45.7.0
 
 ### Minor Changes

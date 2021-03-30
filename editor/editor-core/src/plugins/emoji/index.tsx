@@ -178,10 +178,10 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
       },
       forceSelect(query: string, items: Array<TypeAheadItem>) {
         const normalizedQuery = ':' + query;
-        return (
-          !!isFullShortName(normalizedQuery) &&
-          !!items.find(item => item.title.toLowerCase() === normalizedQuery)
-        );
+        const matchedItem = isFullShortName(normalizedQuery)
+          ? items.find(item => item.title.toLowerCase() === normalizedQuery)
+          : undefined;
+        return matchedItem;
       },
       selectItem(state, item, insert, { mode }) {
         const { id = '', fallback, shortName } = item.emoji;
@@ -263,7 +263,7 @@ export const setResults = (results: {
   return true;
 };
 
-export const emojiPluginKey = new PluginKey('emojiPlugin');
+export const emojiPluginKey = new PluginKey<EmojiPluginState>('emojiPlugin');
 
 export function getEmojiPluginState(state: EditorState) {
   return (emojiPluginKey.getState(state) || {}) as EmojiPluginState;

@@ -1,5 +1,5 @@
 import { toggleMark } from 'prosemirror-commands';
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { Dispatch } from '../../../event-dispatcher';
@@ -9,32 +9,11 @@ import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-for
 // eslint-disable-next-line no-duplicate-imports
 import * as commands from '../commands/text-formatting';
 import { anyMarkActive } from '../utils';
+import { TextFormattingState } from '../types';
+import { pluginKey } from './plugin-key';
 
-export const pluginKey = new PluginKey('textFormatting');
-
-export interface TextFormattingState {
-  emActive?: boolean;
-  emDisabled?: boolean;
-  emHidden?: boolean;
-  codeActive?: boolean;
-  codeDisabled?: boolean;
-  codeHidden?: boolean;
-  underlineActive?: boolean;
-  underlineDisabled?: boolean;
-  underlineHidden?: boolean;
-  strikeActive?: boolean;
-  strikeDisabled?: boolean;
-  strikeHidden?: boolean;
-  strongActive?: boolean;
-  strongDisabled?: boolean;
-  strongHidden?: boolean;
-  superscriptActive?: boolean;
-  superscriptDisabled?: boolean;
-  superscriptHidden?: boolean;
-  subscriptActive?: boolean;
-  subscriptDisabled?: boolean;
-  subscriptHidden?: boolean;
-}
+export { pluginKey };
+export type { TextFormattingState };
 
 const getTextFormattingState = (
   editorState: EditorState,

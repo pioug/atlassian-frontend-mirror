@@ -15,7 +15,9 @@ import { HistoryPluginState } from './types';
  * https://github.com/ProseMirror/prosemirror-history
  */
 
-export const historyPluginKey = new PluginKey('historyPlugin');
+export const historyPluginKey = new PluginKey<HistoryPluginState>(
+  'historyPlugin',
+);
 
 const getInitialState = (): HistoryPluginState => ({
   canUndo: false,

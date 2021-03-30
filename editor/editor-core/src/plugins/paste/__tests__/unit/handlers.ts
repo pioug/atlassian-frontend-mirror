@@ -11,23 +11,23 @@ import {
   panel,
   code_block,
   hr,
+  h1,
   expand,
   nestedExpand,
   table,
   tr,
   td,
   hardBreak,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import {
-  createEditorState,
-  DocumentType,
-} from '@atlaskit/editor-test-helpers/create-editor-state';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { toJSON } from '../../../../utils';
 import {
   handleParagraphBlockMarks,
   insertSlice,
   flattenNestedListInSlice,
+  insertIntoPanel,
 } from '../../handlers';
 
 describe('handleParagraphBlockMarks', () => {
@@ -183,7 +183,7 @@ describe('handleParagraphBlockMarks', () => {
 });
 
 describe('paste list', () => {
-  const case0: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case0: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a empty panel',
     'paste content has a simple list',
     // Destination
@@ -204,7 +204,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case1: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case1: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is the start of paragraph',
     'paste content has a simple list',
     // Destination
@@ -226,7 +226,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case2: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case2: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is the end of paragraph',
     'paste content has a simple list',
     // Destination
@@ -248,7 +248,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case3: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case3: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is the start of paragraph',
     'paste content has a nested list',
     // Destination
@@ -284,7 +284,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case4: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case4: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is the end of paragraph',
     'paste content has a nested list',
     // Destination
@@ -320,7 +320,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case5: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case5: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a empty panel selected by node selection',
     'paste content has a simple list',
     // Destination
@@ -340,7 +340,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case6: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case6: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'the document is empty',
     'paste content has a simple list',
     // Destination
@@ -354,7 +354,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case7: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case7: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection over two nested list items',
     'paste content is a bullet list',
     // Destination
@@ -398,7 +398,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case8: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case8: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection over two nested list items',
     'paste content is a nested bullet list',
     // Destination
@@ -454,7 +454,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case9: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case9: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection at the start of an empty list item',
     'paste content is a bullet list',
     // Destination
@@ -517,7 +517,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case10: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case10: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection at the start of an empty list item',
     'paste content is a text from a bullet list',
     // Destination
@@ -568,7 +568,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case11: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case11: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across two levels of list item and has nested children',
     'paste content is a bullet list',
     // Destination
@@ -632,7 +632,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case12: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case12: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across two levels of list item and has nested children',
     'paste content is a bullet list with a code block in a list item',
     // Destination
@@ -702,7 +702,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case13: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case13: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across three levels of list item and has nested children',
     'paste content is a bullet list',
     // Destination
@@ -759,7 +759,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case14: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case14: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across three levels of list item and the last item has a sibling thats unselected',
     'paste content is a bullet list',
     // Destination
@@ -812,7 +812,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case15: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case15: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across four levels of list item and the last item has a sibling thats unselected',
     'paste content is a bullet list',
     // Destination
@@ -868,7 +868,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case16: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case16: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across four levels of list item, has an empty list item sibling',
     'paste content is a bullet list',
     // Destination
@@ -925,7 +925,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case17: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case17: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel node',
     'paste content is a paragraph, followed by a divider, then a list',
     // Destination
@@ -947,8 +947,8 @@ describe('paste list', () => {
     // Expected Document
     // prettier-ignore
     doc(
-      panel()(p('')),
-      p('hello'),
+      panel()(
+        p('hello')),
       hr(),
       ul(
         li(p('foo')),
@@ -958,7 +958,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case18: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case18: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel node, selection is a ghost selection caused by right clicking to paste which ends in the next node',
     'paste content is a paragraph, followed by a divider, then a list',
     // Destination
@@ -1003,7 +1003,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case19: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case19: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is the start of an empty paragraph after a divider and a list item, the selection is followed by empty paragraphs',
     'paste content is list item directly after a divider',
     // Destination
@@ -1041,7 +1041,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case20: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case20: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty list item at the end of a nested list, with an empty parent list item',
     'paste content is single level list',
     // Destination
@@ -1086,7 +1086,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case21: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case21: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel inside a table cell',
     'paste content is single level list',
     // Destination
@@ -1131,7 +1131,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case22: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case22: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty expand inside a table cell',
     'paste content is single level list',
     // Destination
@@ -1176,7 +1176,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case23: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case23: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty expand',
     'paste content is single level list',
     // Destination
@@ -1207,7 +1207,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case24: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case24: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel inside an expand',
     'paste content is single level list',
     // Destination
@@ -1244,7 +1244,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case25: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case25: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel inside a table cell',
     'paste content is nested list',
     // Destination
@@ -1305,7 +1305,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case26: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case26: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty expand inside a table cell',
     'paste content is nested list',
     // Destination
@@ -1364,7 +1364,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case27: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case27: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty expand',
     'paste content is nested list',
     // Destination
@@ -1411,7 +1411,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case28: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case28: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel inside an expand',
     'paste content is nested list',
     // Destination
@@ -1464,7 +1464,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case29: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case29: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across two separate lists',
     'paste content is single level list',
     // Destination
@@ -1522,7 +1522,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case30: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case30: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across two separate lists',
     'paste content is nested list',
     // Destination
@@ -1596,7 +1596,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case31: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case31: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a nested list',
     'paste content contains two separate lists',
     // Destination
@@ -1677,7 +1677,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case32: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case32: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty paragraph',
     'paste content is a nested list item across two levels',
     // Destination
@@ -1717,7 +1717,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case33: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case33: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty paragraph',
     'paste content is a single nested list item',
     // Destination
@@ -1751,7 +1751,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case34: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case34: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty paragraph',
     'paste content is a single nested list item, which has a nested child',
     // Destination
@@ -1790,7 +1790,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case35: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case35: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel selected by node selection',
     'paste content is a single nested list item',
     // Destination
@@ -1824,7 +1824,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case36: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case36: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is an empty panel',
     'paste content is a single nested list item',
     // Destination
@@ -1859,7 +1859,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case37: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case37: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across four levels of list item and ends midway through a list item',
     'paste content is a bullet list',
     // Destination
@@ -1914,7 +1914,7 @@ describe('paste list', () => {
     ),
   ];
 
-  const case38: [string, string, DocumentType, DocumentType, DocumentType] = [
+  const case38: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
     'destination is a selection across four levels of list item and last list item contains an extra unselected paragraph',
     'paste content is a bullet list',
     // Destination
@@ -1968,7 +1968,219 @@ describe('paste list', () => {
     ),
   ];
 
-  describe.each<[string, string, DocumentType, DocumentType, DocumentType]>([
+  const case39: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is an empty panel node',
+    'paste content is a bullet list and a selection of the sublist',
+    // Destination
+    // prettier-ignore
+    doc(
+      panel()(
+        p('{<>}')
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      panel()(
+        ul(
+          li(p('foo')),
+          li(p('{<}bar')),
+          li(p('baz{>}')),
+        )
+      )
+    ),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      panel()(
+        ul(
+          li(p('bar')),
+          li(p('baz{<>}')),
+        )
+      )
+    ),
+  ];
+
+  const case40: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is an empty panel node',
+    'paste content is nested list and the selection is a sublist',
+    // Destination
+    // prettier-ignore
+    doc(
+      panel()(
+        p('{<>}')
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      panel()
+        (ul(
+          li(
+            p('a'),
+            ul(
+              li(
+                p('{<}b'),
+                ul(
+                  li(p('c{>}'))
+                )
+              )
+            )
+          )
+          )
+        )),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      panel()(
+        ul(
+          li(
+            p('b'),
+            ul(
+              li(p('c{<>}'))
+            )
+          )
+        )
+      )
+    ),
+  ];
+
+  const case41: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is an empty panel node',
+    'paste content is a paragraph, header and list and paragraph',
+    // Destination
+    // prettier-ignore
+    doc(
+      panel()(
+        p('{<>}')
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      panel()(
+        p('{<}start'),
+        h1('H1'),
+        ul(
+          li(p('a')),
+          li(p('b'))
+        ),
+        p('end{>}')
+      )
+    ),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      panel()(
+        p('start'),
+        h1('H1'),
+        ul(
+          li(p('a')),
+          li(p('b'))
+        ),
+        p('end{<>}')
+      )
+    ),
+  ];
+
+  const case42: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is an empty panel inside a table cell',
+    'paste content is a sub list of a single level list',
+    // Destination
+    // prettier-ignore
+    doc(
+      table()(
+        tr(
+          td()(
+            panel()(
+              p('{<>}')
+            )
+          )
+        )
+      )
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(p('a')),
+        li(p('{<}b')),
+        li(p('c{>}'))
+      ),
+    ),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      table()(
+        tr(
+          td()(
+            panel()(
+              ul(
+                li(p('b')),
+                li(p('c{<>}'))
+              ),
+            )
+          )
+        )
+      )
+    ),
+  ];
+
+  const case43: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is an empty panel inside a table cell',
+    'paste content is a sub list of a 2-level list',
+    // Destination
+    // prettier-ignore
+    doc(
+      table()(
+        tr(
+          td()(
+            panel()(
+              p('{<>}')
+            )
+          )
+        )
+      )
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      panel()(
+        ul(
+          li(p('a'),
+            ul(
+              li(p('{<}b'),
+                ul(
+                  li(p('c{>}'))
+                )
+              )
+            )
+          )
+        )
+      ),
+    ),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      table()(
+        tr(
+          td()(
+            panel()(
+              ul(
+                li(p('b'),
+                  ul(
+                    li(p('c{<>}'))
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    ),
+  ];
+
+  describe.each<[string, string, DocBuilder, DocBuilder, DocBuilder]>([
     case0,
     case1,
     case2,
@@ -2008,6 +2220,11 @@ describe('paste list', () => {
     case36,
     case37,
     case38,
+    case39,
+    case40,
+    case41,
+    case42,
+    case43,
   ])(
     '[case%#] when %s and %s',
     (
@@ -2198,6 +2415,55 @@ describe('handleRichText', () => {
 
       const flattenedSlice = flattenNestedListInSlice(pasteSlice);
       expect(flattenedSlice.eq(expectedSlice)).toBeTruthy();
+    });
+
+    it('should copy list inside a panel accordingly', () => {
+      // prettier-ignore
+      const originalDoc = createEditorState(
+        doc(
+          panel()(
+            ul(
+              li(p('{<}a')),
+              li(p('b{>}'))
+            ),
+          ),
+        )
+      );
+      const { tr } = originalDoc;
+
+      // prettier-ignore
+      const pasteOriginState = createEditorState(
+        doc(
+          panel()(
+            ul(
+              li(p('{<}1')),
+              li(p('2{>}'))
+            ),
+          ),
+        )
+      );
+
+      const pasteSlice = pasteOriginState.doc.slice(
+        pasteOriginState.selection.from,
+        pasteOriginState.selection.to,
+        // @ts-ignore
+        true, // include parents
+      );
+
+      // prettier-ignore
+      const resultDoc = doc(
+        panel()(
+          ul(
+            li(p('1')),
+            li(p('2{<>}'))
+          ),
+        ),
+      )(defaultSchema);
+
+      const { panel: panelNode } = pasteOriginState.schema.nodes;
+
+      insertIntoPanel(tr, pasteSlice, panelNode);
+      expect(tr).toEqualDocumentAndSelection(resultDoc);
     });
   });
 });

@@ -4,6 +4,7 @@ import {
   li,
   p,
   code_block,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -18,7 +19,7 @@ import codeBlockPlugin from '../../../../code-block';
 describe('backspaceKeyCommand', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
       .add(codeBlockPlugin);

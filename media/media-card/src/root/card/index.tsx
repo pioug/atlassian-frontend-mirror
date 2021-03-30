@@ -27,6 +27,7 @@ import {
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
   isPreviewableType,
+  isPreviewableFileState,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
@@ -51,8 +52,7 @@ import {
 import { extendMetadata } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import { createObjectURLCache } from '../../utils/objectURLCache';
-import { getCardStatus, getCardStatusFromFileState } from './getCardStatus';
-import { updateProgressFromFileState } from './getCardProgress';
+import { getCardStatus } from './getCardStatus';
 import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
 import {
   fireMediaCardEvent,
@@ -80,7 +80,6 @@ export class CardBase extends Component<
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
-  private processingProgressTimer?: number;
   private intersectionObserver?: IntersectionObserver;
 
   cardRef: React.RefObject<CardViewBase | InlinePlayerBase> = React.createRef();
@@ -341,6 +340,8 @@ export class CardBase extends Component<
     const { mediaType, mimeType } = fileState;
     const requestedDimensions = this.getRequestedDimensions();
 
+    // TODO: align these checks with helpers from Media Client
+    // https://product-fabric.atlassian.net/browse/BMPT-1300
     const shouldUseLocalPreview =
       mediaType !== 'doc' &&
       !!mimeType &&
@@ -382,18 +383,26 @@ export class CardBase extends Component<
   };
 
   subscribeInternalFile(identifier: FileIdentifier, mediaClient: MediaClient) {
-    const { featureFlags } = this.props;
     const { id, collectionName, occurrenceKey } = identifier;
     this.subscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
         next: async fileState => {
-          let { progress: lastProgress, status: lastStatus } = this.state;
           this.lastFileState = fileState;
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
           const metadata = extendMetadata(fileState, this.state.metadata);
-          const status = getCardStatusFromFileState(fileState, featureFlags);
+          const status = getCardStatus(fileState.status, {
+            // TODO: align this check with helpers from Media Client
+            // https://product-fabric.atlassian.net/browse/BMPT-1300
+            isPreviewableType:
+              !!metadata.mediaType &&
+              isPreviewableType(metadata.mediaType, this.props.featureFlags),
+            hasFilesize: !!metadata && !!metadata.size,
+            // TODO: we are assuming that the local preview will succeed rendering. We should check this first
+            // https://product-fabric.atlassian.net/browse/BMPT-1131
+            isPreviewableFileState: isPreviewableFileState(fileState),
+          });
           this.safeSetState({ metadata });
 
           /**
@@ -424,6 +433,8 @@ export class CardBase extends Component<
              *
              */
 
+            // TODO: ErrorFileState should be handled by the error callback
+            // Will be fixed in https://product-fabric.atlassian.net/browse/BMPT-1287
             if (['error', 'failed-processing'].includes(status)) {
               this.fireFailedFileStatusEvent();
             }
@@ -439,43 +450,25 @@ export class CardBase extends Component<
             this.safeSetState({
               status,
               cardPreview,
+              progress:
+                status === 'uploading' && fileState.status === 'uploading'
+                  ? fileState.progress
+                  : 1,
             });
 
-            this.processingProgressTimer = updateProgressFromFileState(
-              fileState,
-              status,
-              (progress: number) =>
-                this.safeSetState({
-                  progress,
-                }),
-              {
-                lastStatus,
-                lastProgress,
-                lastTimer: this.processingProgressTimer,
-                featureFlags,
-              },
-            );
             this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
           }
         },
         error: error => {
-          /**
-           * If, for any reason, file state subscription decides that the card is completed
-           * and later there is an error, we won't change the card's status.
-           * An example is a frontend unpreviewable file which
-           * is being processed in the backend and polling times out.
-           * This is the only case that requires this feature:
-           *  - doucment media type
-           *  - Media Card Classic Experience
-           *
-           * This feature might die after Classic goes away
-           */
+          // If file state subscription decides that the card is complete
+          // and later there is an error, we won't change the card's status.
           if (this.state.status === 'complete') {
             return;
           }
           const cardStatus: CardStatus = 'error';
           this.safeSetState({ error, status: cardStatus });
           this.fireFailedMediaClientEvent(error);
+          this.lastCardStatusUpdateTimestamp = (performance || Date).now();
         },
       });
   }
@@ -770,6 +763,7 @@ export class CardBase extends Component<
     } = this.props;
     const { mediaItemType } = identifier;
     const {
+      status,
       metadata,
       progress,
       cardPreview: { dataURI, orientation } = {
@@ -785,7 +779,6 @@ export class CardBase extends Component<
       actions,
       onMouseEnter,
     } = this;
-    const status = getCardStatus(this.state, this.props);
 
     const card = (
       <CardView

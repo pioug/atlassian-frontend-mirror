@@ -2,7 +2,9 @@ import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { Dispatch } from '../../event-dispatcher';
 
-export const pluginKey = new PluginKey('maxContentSizePlugin');
+export const pluginKey = new PluginKey<MaxContentSizePluginState>(
+  'maxContentSizePlugin',
+);
 
 export type MaxContentSizePluginState = { maxContentSizeReached: boolean };
 

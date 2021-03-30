@@ -1,5 +1,9 @@
 import { EditorView } from 'prosemirror-view';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -15,7 +19,7 @@ describe('find/replace commands: toggleMatchCase', () => {
   let editorView: EditorView;
   let refs: { [name: string]: number };
 
-  const initEditor = (doc: any) => {
+  const initEditor = (doc: DocBuilder) => {
     ({ editorView, refs } = editor(doc, createAnalyticsEvent));
   };
 

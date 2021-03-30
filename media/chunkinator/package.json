@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/chunkinator",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Upload large files from the browser with ease",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -1,10 +1,14 @@
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 describe('Delete', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editorFactory = (doc: any) =>
+  const editorFactory = (doc: DocBuilder) =>
     createEditor({
       doc,
     });

@@ -391,7 +391,7 @@ export class Provider
     switch ((error as ErrorPayload).code) {
       case 'INSUFFICIENT_EDITING_PERMISSION':
         return {
-          status: 401,
+          status: 403,
           code: ErrorCodeMapper.noPermissionError.code,
           message: ErrorCodeMapper.noPermissionError.message,
         };

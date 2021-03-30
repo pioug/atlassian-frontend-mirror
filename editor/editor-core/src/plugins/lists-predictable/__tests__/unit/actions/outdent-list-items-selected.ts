@@ -1,4 +1,3 @@
-import { Schema } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
   p,
@@ -10,15 +9,13 @@ import {
   mention,
   media,
   mediaSingle,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { outdentListItemsSelected } from '../../../actions/outdent-list-items-selected';
 
-type DocumentType = (schema: Schema) => RefsNode;
-
 describe('outdent-list-items-selected', () => {
-  const case0: [string, DocumentType, DocumentType] = [
+  const case0: [string, DocBuilder, DocBuilder] = [
     'cursor selection is inside of a nested list item',
     // Scenario
     // prettier-ignore
@@ -58,7 +55,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case1: [string, DocumentType, DocumentType] = [
+  const case1: [string, DocBuilder, DocBuilder] = [
     'cursor selection is inside of the last nested list item',
     // Scenario
     // prettier-ignore
@@ -94,7 +91,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case2: [string, DocumentType, DocumentType] = [
+  const case2: [string, DocBuilder, DocBuilder] = [
     'range selection is surrounding a list item with nested items and it have a sibling with nested list',
     // Scenario
     // prettier-ignore
@@ -140,7 +137,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case3: [string, DocumentType, DocumentType] = [
+  const case3: [string, DocBuilder, DocBuilder] = [
     'range selection is surrounding a list item with nested items and it have previous sibling with nested list',
     // Scenario
     // prettier-ignore
@@ -190,7 +187,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case4: [string, DocumentType, DocumentType] = [
+  const case4: [string, DocBuilder, DocBuilder] = [
     'range selection is inside of a nested list item around two list items',
     // Scenario
     // prettier-ignore
@@ -225,7 +222,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case5: [string, DocumentType, DocumentType] = [
+  const case5: [string, DocBuilder, DocBuilder] = [
     'range selection is inside of a nested list item around all list items',
     // Scenario
     // prettier-ignore
@@ -256,7 +253,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case6: [string, DocumentType, DocumentType] = [
+  const case6: [string, DocBuilder, DocBuilder] = [
     'range selection is inside of a nested list item leaving only the last list item',
     // Scenario
     // prettier-ignore
@@ -291,7 +288,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case7: [string, DocumentType, DocumentType] = [
+  const case7: [string, DocBuilder, DocBuilder] = [
     'range selection is from a first level list item with nested items until the next sibling',
     // Scenario
     // prettier-ignore
@@ -322,7 +319,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case8: [string, DocumentType, DocumentType] = [
+  const case8: [string, DocBuilder, DocBuilder] = [
     'range selection is from a first level list item to inside of a nested list item selection all list items',
     // Scenario
     // prettier-ignore
@@ -353,7 +350,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case9: [string, DocumentType, DocumentType] = [
+  const case9: [string, DocBuilder, DocBuilder] = [
     'range selection is in the last list item',
     // Scenario
     // prettier-ignore
@@ -388,7 +385,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case10: [string, DocumentType, DocumentType] = [
+  const case10: [string, DocBuilder, DocBuilder] = [
     'cursor selection is inside a list item with nested items and it have a sibling with nested list',
     // Scenario
     // prettier-ignore
@@ -434,7 +431,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case11: [string, DocumentType, DocumentType] = [
+  const case11: [string, DocBuilder, DocBuilder] = [
     'range selection is surrounding from a level one list item to until his second last nested list item',
     // Scenario
     // prettier-ignore
@@ -486,7 +483,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case12: [string, DocumentType, DocumentType] = [
+  const case12: [string, DocBuilder, DocBuilder] = [
     'range selection is surrounding a deep nested item until its cousin',
     // Scenario
     // prettier-ignore
@@ -532,7 +529,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case13: [string, DocumentType, DocumentType] = [
+  const case13: [string, DocBuilder, DocBuilder] = [
     'range selection is surrounding a deep nested item until two level up sibling',
     // Scenario
     // prettier-ignore
@@ -588,7 +585,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case14: [string, DocumentType, DocumentType] = [
+  const case14: [string, DocBuilder, DocBuilder] = [
     'range selection coming from a nested list until the first list item with nested list',
     // Scenario
     // prettier-ignore
@@ -668,7 +665,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case15: [string, DocumentType, DocumentType] = [
+  const case15: [string, DocBuilder, DocBuilder] = [
     'range selection is coming from a nested item going by three last nested list items',
     // Scenario
     // prettier-ignore
@@ -726,7 +723,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case16: [string, DocumentType, DocumentType] = [
+  const case16: [string, DocBuilder, DocBuilder] = [
     'list is inside of block node',
     // Scenario
     // prettier-ignore
@@ -766,7 +763,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case17: [string, DocumentType, DocumentType] = [
+  const case17: [string, DocBuilder, DocBuilder] = [
     'cursor selection is inside a bullet list and the parent is a ordered list',
     // Scenario
     // prettier-ignore
@@ -806,7 +803,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case18: [string, DocumentType, DocumentType] = [
+  const case18: [string, DocBuilder, DocBuilder] = [
     'cursor selection at the top of ordered list with a nested bullet list',
     // Scenario
     // prettier-ignore
@@ -836,7 +833,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case19: [string, DocumentType, DocumentType] = [
+  const case19: [string, DocBuilder, DocBuilder] = [
     'cursor selection is a the begin of the first list item',
     // Scenario
     // prettier-ignore
@@ -862,7 +859,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case20: [string, DocumentType, DocumentType] = [
+  const case20: [string, DocBuilder, DocBuilder] = [
     'cursor selection is a the begin of the first list item inside a block node',
     // Scenario
     // prettier-ignore
@@ -892,7 +889,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case21: [string, DocumentType, DocumentType] = [
+  const case21: [string, DocBuilder, DocBuilder] = [
     'range selection is at the begin of the first list item',
     // Scenario
     // prettier-ignore
@@ -918,7 +915,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case22: [string, DocumentType, DocumentType] = [
+  const case22: [string, DocBuilder, DocBuilder] = [
     'range selection is at the begin of the first list item inside a block node',
     // Scenario
     // prettier-ignore
@@ -948,7 +945,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case23: [string, DocumentType, DocumentType] = [
+  const case23: [string, DocBuilder, DocBuilder] = [
     'cursor selection is a node selection',
     // Scenario
     // prettier-ignore
@@ -978,7 +975,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  const case24: [string, DocumentType, DocumentType] = [
+  const case24: [string, DocBuilder, DocBuilder] = [
     'range selection surrouding a media single',
     // Scenario
     // prettier-ignore
@@ -1034,7 +1031,7 @@ describe('outdent-list-items-selected', () => {
     ),
   ];
 
-  describe.each<[string, DocumentType, DocumentType]>([
+  describe.each<[string, DocBuilder, DocBuilder]>([
     // prettier-ignore
     case0,
     case1,

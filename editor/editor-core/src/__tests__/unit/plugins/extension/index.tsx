@@ -33,6 +33,7 @@ import {
   media,
   mediaSingle,
   underline,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -72,7 +73,7 @@ describe('extension', () => {
   const ExtensionHandlerComponent = () => <div>Awesome Extension</div>;
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     extensionHandlers?: ExtensionHandlers,
     extensionProviders?: ExtensionProvider[],
   ) => {

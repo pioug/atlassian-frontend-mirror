@@ -39,7 +39,7 @@ const getHeaderElements = (renderResult: RenderResult, values: string[]) =>
   renderResult.getByRole(
     (content, element) =>
       content === 'presentation' &&
-      element.firstChild?.nodeName.toLowerCase() === 'thead' &&
+      element.firstChild?.nodeName.toLowerCase() === 'div' &&
       element.firstChild?.textContent === values.join(''),
   );
 
@@ -78,7 +78,7 @@ describe('Calendar', () => {
     const { renderResult } = setup();
 
     expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-      'Wed Jan 01 2020',
+      'Sun Dec 01 2019',
     );
   });
 
@@ -97,7 +97,7 @@ describe('Calendar', () => {
       expect(renderResult.getByText('November 2019')).toBeInTheDocument();
 
       expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-        'Sun Dec 01 2019',
+        'Fri Nov 01 2019',
       );
 
       expect(props.onChange).toHaveBeenCalledWith(
@@ -114,7 +114,7 @@ describe('Calendar', () => {
       expect(renderResult.getByText('January 2020')).toBeInTheDocument();
 
       expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-        'Sat Feb 01 2020',
+        'Wed Jan 01 2020',
       );
 
       expect(props.onChange).toHaveBeenCalledWith(
@@ -199,12 +199,12 @@ describe('Calendar', () => {
     it('show cursor pointer', () => {
       const { renderResult } = setup();
       const cell = getDayElement(renderResult, '15');
-      expect(cell.firstChild).toHaveStyle('cursor: pointer');
+      expect(cell).toHaveStyle('cursor: pointer');
     });
     it('cursor not-allowed when disabled', () => {
       const { renderResult } = setup();
       const disabledCell = getDayElement(renderResult, '4');
-      expect(disabledCell.firstChild).toHaveStyle('cursor: not-allowed');
+      expect(disabledCell).toHaveStyle('cursor: not-allowed');
     });
   });
 
@@ -225,21 +225,21 @@ describe('Calendar', () => {
 
     expect(props.onFocus).toHaveBeenCalledTimes(1);
     expect(getAnnouncerElementTextContent(container)).toContain(
-      'Wed Jan 01 2020',
+      'Sun Dec 01 2019',
     );
 
     fireEvent.blur(calendarContainerElement);
 
     expect(props.onBlur).toHaveBeenCalledTimes(1);
     expect(getAnnouncerElementTextContent(container)).toContain(
-      'Tue Dec 31 2019',
+      'Sun Dec 01 2019',
     );
 
     fireEvent.focus(calendarContainerElement);
 
     expect(props.onFocus).toHaveBeenCalledTimes(2);
     expect(getAnnouncerElementTextContent(container)).toContain(
-      'Wed Jan 01 2020',
+      'Sun Dec 01 2019',
     );
   });
 
@@ -473,13 +473,13 @@ describe('Calendar', () => {
     });
 
     expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-      'Mon Jun 10 2019',
+      'Fri May 10 2019',
     );
 
     renderResult.rerender(<Calendar day={15} month={5} year={2019} />);
 
     expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-      'Sat Jun 15 2019',
+      'Wed May 15 2019',
     );
   });
 

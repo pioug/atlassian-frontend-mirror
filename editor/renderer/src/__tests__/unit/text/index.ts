@@ -858,4 +858,118 @@ describe('Renderer - TextSerializer', () => {
 
     expect(render(doc)).toEqual('<> This is a decision');
   });
+
+  it('should render date', () => {
+    const doc = {
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'This is a date ',
+            },
+            {
+              type: 'date',
+              attrs: {
+                timestamp: '1640908800000',
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(render(doc)).toEqual('This is a date 2021-12-31');
+  });
+
+  it('should render inline card with url attribute', () => {
+    const doc = {
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Inline card with url attribute ',
+            },
+            {
+              type: 'inlineCard',
+              attrs: {
+                url: 'https://jdog.jira-dev.com/browse/TDM-1',
+                data: {
+                  url: 'https://example.org',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(render(doc)).toEqual(
+      'Inline card with url attribute https://jdog.jira-dev.com/browse/TDM-1',
+    );
+  });
+
+  it('should render inline card with data.url attribute', () => {
+    const doc = {
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Inline card with data attribute ',
+            },
+            {
+              type: 'inlineCard',
+              attrs: {
+                data: {
+                  url: 'https://example.org',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(render(doc)).toEqual(
+      'Inline card with data attribute https://example.org',
+    );
+  });
+
+  it('should render status', () => {
+    const doc = {
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'A status ',
+            },
+            {
+              type: 'status',
+              attrs: {
+                text: 'à la carte',
+                color: 'neutral',
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(render(doc)).toEqual('A status [ À LA CARTE ]');
+  });
 });

@@ -121,6 +121,22 @@ describe('shouldFetchRemoteFileStates()', () => {
       ),
     ).toBeTruthy();
   });
+
+  it('should fetch remote fileStates if getVideoDimensionsFromBlob() throws an exception', async () => {
+    const { defaultFilePreview } = setup({ mimeType: 'video/mp4' });
+
+    asMockFunction(getVideoDimensionsFromBlob).mockImplementation(() =>
+      Promise.reject(new Error('unexpected error')),
+    );
+
+    expect(
+      await shouldFetchRemoteFileStates(
+        'video',
+        'video/mp4',
+        defaultFilePreview,
+      ),
+    ).toBeTruthy();
+  });
 });
 
 describe('shouldFetchRemoteFileStatesObservable()', () => {

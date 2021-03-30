@@ -1,11 +1,4 @@
 import { PureComponent } from 'react';
+import type { GlyphProps } from '@atlaskit/icon/types';
 
-type Props = {
-  label: string;
-  size?: 'small' | 'medium' | 'large' | 'xlarge';
-  primaryColor?: string;
-  secondaryColor?: string;
-  testId?: string;
-};
-
-export default class extends PureComponent<Props> {}
+export default class extends PureComponent<Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>> {}

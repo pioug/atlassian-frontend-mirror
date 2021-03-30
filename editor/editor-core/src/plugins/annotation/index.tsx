@@ -20,7 +20,6 @@ import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
 import { getPluginState, inlineCommentPluginKey } from './utils';
 import { buildToolbar } from './toolbar';
 import { InlineCommentView } from './ui/InlineCommentView';
-import { InlineCommentPluginState } from './pm-plugins/types';
 
 const annotationPlugin = (
   annotationProviders?: AnnotationProviders,
@@ -94,11 +93,8 @@ const annotationPlugin = (
             selectionState: reactPluginKey,
             inlineCommentState: inlineCommentPluginKey,
           }}
-          render={(pluginStates: any) => {
-            const pluginState: InlineCommentPluginState =
-              pluginStates.inlineCommentState;
-
-            if (pluginState && !pluginState.isVisible) {
+          render={({ inlineCommentState }) => {
+            if (inlineCommentState && !inlineCommentState.isVisible) {
               return null;
             }
 

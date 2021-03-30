@@ -6,6 +6,7 @@ import randomId from '@atlaskit/editor-test-helpers/random-id';
 import {
   media,
   mediaGroup,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
@@ -75,7 +76,7 @@ export const waitForAllPickersInitialised = async (
 
 const createEditor = createEditorFactory<MediaPluginState>();
 export const mediaEditor = (
-  doc: any,
+  doc: DocBuilder,
   additionalProps: Partial<EditorProps> = {},
   uploadErrorHandler?: () => void,
 ) => {

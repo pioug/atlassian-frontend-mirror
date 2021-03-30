@@ -9,6 +9,7 @@ import {
   tdEmpty,
   tdCursor,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -53,7 +54,7 @@ describe('Table analytic events', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

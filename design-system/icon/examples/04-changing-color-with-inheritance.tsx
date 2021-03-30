@@ -34,11 +34,11 @@ const ChangingColorWithInheritance = () => {
       <p css={paragraphStyles(isColorFlipped)}>
         Icons inherit color from their parent by default.
       </p>
-      <BookIcon size="large" label="book" />
-      <ArrowUpIcon size="large" label="arrowup" />
-      <ArrowDownIcon size="large" label="arrowdown" />
-      <ArrowLeftIcon size="large" label="arrowleft" />
-      <ArrowRightIcon size="large" label="arrowright" />
+      <BookIcon size="xlarge" label="book" />
+      <ArrowUpIcon size="xlarge" label="arrowup" />
+      <ArrowDownIcon size="xlarge" label="arrowdown" />
+      <ArrowLeftIcon size="xlarge" label="arrowleft" />
+      <ArrowRightIcon size="xlarge" label="arrowright" />
       <p css={paragraphStyles(isColorFlipped)}>
         <Button
           appearance="subtle-link"

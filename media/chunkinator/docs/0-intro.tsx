@@ -10,8 +10,12 @@ export default md`
 
   ${code`
     import {chunkinator} from '@atlaskit/chunkinator';
+    import { Subject } from "rxjs";
+    import { takeUntil } from "rxjs/operators";
 
-    const { response, cancel } = chunkinator(
+    const cancelSubject = new Subject<void>()
+
+    const chunkinatorObservable = chunkinator(
       blob,
       {
         hashingConcurrency: 5,
@@ -29,6 +33,8 @@ export default md`
         },
       },
     );
+
+    await chunkinatorObservable.pipe(takeUntil(cancelSubject)).toPromise();
   `}
 
   ${(

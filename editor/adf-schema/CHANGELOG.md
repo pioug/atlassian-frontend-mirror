@@ -1,5 +1,21 @@
 # @atlaskit/adf-schema
 
+## 15.0.0
+
+### Major Changes
+
+- [`db9dec112b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db9dec112b1) - ED-10613: clean up text colour experiment
+
+### Minor Changes
+
+- [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
+
+### Patch Changes
+
+- [`e6bd5669a53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6bd5669a53) - ED-10888 Deduplicate AJV initialization from our codebase
+- [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
+- [`fe1c96a3d28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe1c96a3d28) - added DocBuilder type to @atlaskit/editor-test-helpers, replaced duplicate definitions and DocumentType
+
 ## 14.1.0
 
 ### Minor Changes

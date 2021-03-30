@@ -1,4 +1,5 @@
 import {
+  DocBuilder,
   doc,
   p,
   Refs,
@@ -18,7 +19,6 @@ import {
   createCellColorB,
   createCellColorC,
   CreateTransaction,
-  DocBuilder,
   removeColumnAtFactory,
   setup,
   tdColorA,

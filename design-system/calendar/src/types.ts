@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,
@@ -32,8 +34,6 @@ export interface CalendarBaseProps extends WithAnalyticsEventsProps {
   /** Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates provided are greyed out.
    This does not prevent these dates being selected. */
   disabled?: Array<string>;
-  /** Props to apply to the container. **/
-  innerProps?: Object;
   /** The number of the month (from 1 to 12) which the calendar should be on. */
   month?: number;
   /** Function which is called when the calendar is no longer focused. */
@@ -83,6 +83,14 @@ export interface CalendarBaseProps extends WithAnalyticsEventsProps {
    * testId--selected-day - The currently selected day (may be missing if a date isn’t selected)
    * */
   testId?: string;
+  /**
+   * Class name to apply to the calendar
+   */
+  className?: string;
+  /**
+   * Style customization to apply to the calendar
+   */
+  style?: CSSProperties;
 }
 
 export interface CalendarProps extends CalendarBaseProps {

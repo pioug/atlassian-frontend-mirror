@@ -5,7 +5,12 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { floatingToolbarPlugin, panelPlugin } from '../../../../plugins';
 import { FloatingToolbarConfig } from '../../../../plugins/floating-toolbar/types';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  panel,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import { AllSelection } from 'prosemirror-state';
 import { Node } from 'prosemirror-model';
@@ -15,7 +20,7 @@ describe('floating toolbar', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
   ) => {
     preset.add(floatingToolbarPlugin);

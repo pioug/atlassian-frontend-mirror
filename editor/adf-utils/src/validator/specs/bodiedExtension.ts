@@ -15,6 +15,7 @@ export default {
         localId: { type: 'string', minLength: 1, optional: true },
       },
     },
+    marks: { type: 'array', items: [], optional: true },
     content: {
       type: 'array',
       items: ['non_nestable_block_content'],

@@ -27,6 +27,7 @@ export const altTextButton = (
   const title = intl.formatMessage(message);
   return {
     title,
+    id: 'editor.media.altText',
     type: 'button',
     onClick: openMediaAltTextMenu,
     showTitle: true,

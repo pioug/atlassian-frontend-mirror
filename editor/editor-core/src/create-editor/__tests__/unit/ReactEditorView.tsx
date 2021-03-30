@@ -973,4 +973,22 @@ describe('@atlaskit/editor-core', () => {
       expect(actual).toBe(false);
     });
   });
+
+  describe('dangerouslyAppendPlugins', () => {
+    it('should call pmPlugins factory of passed plugin', () => {
+      const pmPlugins = jest.fn(() => []);
+      const __plugins = [{ name: 'dangerouslyAppendPlugins', pmPlugins }];
+
+      mountWithIntl(
+        <ReactEditorView
+          {...requiredProps()}
+          editorProps={{
+            dangerouslyAppendPlugins: { __plugins },
+          }}
+        />,
+      );
+
+      expect(pmPlugins).toHaveBeenCalled();
+    });
+  });
 });

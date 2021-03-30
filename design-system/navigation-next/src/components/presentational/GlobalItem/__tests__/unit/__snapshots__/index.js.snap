@@ -244,6 +244,7 @@ exports[`GlobalItem should render correctly 1`] = `
                             onMouseDown={[Function]}
                             onMouseOut={[Function]}
                             onMouseOver={[Function]}
+                            role="presentation"
                           >
                             <div
                               className="emotion-2"

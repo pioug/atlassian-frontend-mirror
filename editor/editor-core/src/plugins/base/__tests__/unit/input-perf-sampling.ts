@@ -1,12 +1,15 @@
 import { replaceRaf } from 'raf-stub';
-import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import {
   Preset,
   LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import {
@@ -44,7 +47,7 @@ describe('Input performance latency', () => {
   const editorFactory = createProsemirrorEditorFactory();
 
   const createEditor = (
-    doc: (schema: Schema) => RefsNode,
+    doc: DocBuilder,
     trackSeverity?: boolean,
     severityNormalThreshold?: number,
     severityDegradedThreshold?: number,

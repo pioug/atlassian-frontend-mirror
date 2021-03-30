@@ -16,6 +16,7 @@ import {
   hardBreak,
   panel,
   BuilderContent,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -116,7 +117,7 @@ describe('text-formatting input rules', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
 
-  const editor = (doc: any, disableCode = false) => {
+  const editor = (doc: DocBuilder, disableCode = false) => {
     createAnalyticsEvent = createAnalyticsEventMock();
     const editorWrapper = createEditor({
       doc,

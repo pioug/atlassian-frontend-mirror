@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.acme.editor",
+        "text": "Block extension demo",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+            "macroParams": {},
+            "macroMetadata": {
+                "placeholder": [
+                    {
+                        "data": {
+                            "url": ""
+                        },
+                        "type": "icon"
+                    }
+                ]
+            }
+        },
+        "layout": "default"
+      },
+      "marks": [
+          {
+              "type": "dataConsumer",
+              "attrs": {
+                  "sources": ["someblockid"]
+              }
+          }
+      ],
+      "content": [
+          {
+              "type": "paragraph",
+              "content": [
+                {
+                "type": "text",
+                "text": "some"
+                }
+              ]
+          }
+      ]
+    }
+  ]
+}

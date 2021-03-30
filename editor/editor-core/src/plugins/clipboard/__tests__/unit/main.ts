@@ -15,6 +15,7 @@ import {
   tr,
   th,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import rulePlugin from '../../../rule';
 import layoutPlugin from '../../../layout';
@@ -37,7 +38,7 @@ describe('clipboard plugin', () => {
     .add(layoutPlugin)
     .add(tablePlugin);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<undefined, PluginKey>({
       doc,
       preset,

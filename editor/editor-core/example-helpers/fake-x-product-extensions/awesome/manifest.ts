@@ -47,6 +47,16 @@ const manifest: ExtensionManifest = {
           parameters: {},
         },
       },
+      {
+        key: 'daterange',
+        title: 'Awesome date range',
+        icon: () => import('@atlaskit/icon/glyph/tray'),
+        action: {
+          type: 'node',
+          key: 'daterange',
+          parameters: {},
+        },
+      },
     ],
     nodes: {
       default: {
@@ -125,6 +135,34 @@ const manifest: ExtensionManifest = {
               label: 'Do you want to receive more information?',
               isRequired: true,
               type: 'boolean',
+            },
+          ]),
+      },
+      daterange: {
+        type: 'extension',
+        render: () => import('./extension-handler'),
+        update: (data, actions) => {
+          return new Promise(() => {
+            actions!.editInContextPanel(
+              parameters => parameters,
+              parameters => Promise.resolve(parameters),
+            );
+          });
+        },
+        getFieldsDefinition: () =>
+          Promise.resolve([
+            {
+              name: 'required-date',
+              label: 'Required date range',
+              type: 'date-range',
+              isRequired: true,
+              items: [],
+            },
+            {
+              name: 'optional-date',
+              label: 'Optional date range',
+              type: 'date-range',
+              items: [],
             },
           ]),
       },

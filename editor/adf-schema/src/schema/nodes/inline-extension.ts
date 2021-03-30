@@ -2,14 +2,29 @@ import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { uuid } from '../../utils/uuid';
 import { getExtensionAttrs } from '../../utils/extensions';
 import { InlineExtensionAttributes } from './types/extensions';
+import { MarksObject, NoMark } from './types/mark';
+import { DataConsumerDefinition } from '../marks/data-consumer';
 
 /**
  * @name inlineExtension_node
  */
-export interface InlineExtensionDefinition {
+export interface InlineExtensionBaseDefinition {
   type: 'inlineExtension';
   attrs: InlineExtensionAttributes;
+  marks?: Array<any>;
 }
+
+/**
+ * @name inlineExtension_with_no_marks_node
+ */
+export type InlineExtensionDefinition = InlineExtensionBaseDefinition & NoMark;
+
+/**
+ * @name inlineExtension_with_marks_node
+ * @stage 0
+ */
+export type InlineExtensionWithMarksDefinition = InlineExtensionBaseDefinition &
+  MarksObject<DataConsumerDefinition>;
 
 const createInlineExtensionNodeSpec = (
   allowLocalId: boolean = false,

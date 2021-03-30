@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default () => (
-  <svg width="24px" height="24px" viewBox="0 0 24 24">
+import { CustomGlyphProps } from '@atlaskit/icon/types';
+
+export default (props: CustomGlyphProps) => (
+  <svg {...props} width="24px" height="24px" viewBox="0 0 24 24">
     <g
       id="stretched-icon---yes"
       stroke="none"

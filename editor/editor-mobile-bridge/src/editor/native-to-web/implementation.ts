@@ -8,7 +8,6 @@ import {
   createTable,
   CustomMediaPicker,
   EditorActions,
-  indentList,
   INPUT_METHOD,
   InsertBlockInputMethodToolbar,
   insertBlockTypesWithAnalytics,
@@ -22,7 +21,6 @@ import {
   ListInputMethod,
   ListsState,
   MentionPluginState,
-  outdentList,
   QuickInsertItem,
   selectItem as selectTypeAheadItem,
   setBlockTypeWithAnalytics,
@@ -33,10 +31,8 @@ import {
   StatusState,
   TextFormattingInputMethodBasic,
   TextFormattingState,
-  toggleBulletList,
   toggleCodeWithAnalytics,
   toggleEmWithAnalytics,
-  toggleOrderedList,
   toggleStrikeWithAnalytics,
   toggleStrongWithAnalytics,
   toggleSubscriptWithAnalytics,
@@ -50,6 +46,7 @@ import {
   insertRule,
   QuickInsertItemId,
   dismissCommand,
+  getListCommands,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
@@ -425,24 +422,39 @@ export default class WebBridgeImpl
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      toggleOrderedList(this.editorView, inputMethod);
+      getListCommands(
+        this.editorConfiguration.isPredictableListEnabled(),
+      ).toggleOrderedList(this.editorView, inputMethod);
     }
   }
+
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      toggleBulletList(this.editorView, inputMethod);
+      getListCommands(
+        this.editorConfiguration.isPredictableListEnabled(),
+      ).toggleBulletList(this.editorView, inputMethod);
     }
   }
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      indentList(inputMethod)(this.editorView.state, this.editorView.dispatch);
+      getListCommands(
+        this.editorConfiguration.isPredictableListEnabled(),
+      ).indentList(inputMethod)(
+        this.editorView.state,
+        this.editorView.dispatch,
+      );
     }
   }
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      outdentList(inputMethod)(this.editorView.state, this.editorView.dispatch);
+      getListCommands(
+        this.editorConfiguration.isPredictableListEnabled(),
+      ).outdentList(inputMethod)(
+        this.editorView.state,
+        this.editorView.dispatch,
+      );
     }
   }
 

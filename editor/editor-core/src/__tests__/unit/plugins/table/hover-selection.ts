@@ -12,6 +12,7 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { selectColumns } from '@atlaskit/editor-test-helpers/table';
 
@@ -32,7 +33,7 @@ import { getDecorations } from '../../../../plugins/table/pm-plugins/decorations
 describe('table hover selection plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

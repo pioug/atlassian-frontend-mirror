@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 11.2.9
+
+### Patch Changes
+
+- [`624d33651cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/624d33651cf) - Fix content remounts in version >= 11.1.3
+- Updated dependencies
+
 ## 11.2.8
 
 ### Patch Changes

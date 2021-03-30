@@ -42,11 +42,6 @@ describe('Toolbar', () => {
     await waitForTooltip(page, 'Text styles');
   });
 
-  it('should display text formatting menu correctly', async () => {
-    await clickToolbarMenu(page, ToolbarMenuItem.moreFormatting);
-    await waitForTooltip(page, 'More formatting');
-  });
-
   it('should display text color menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.textColor);
     await waitForTooltip(page, 'Text color');
@@ -161,5 +156,9 @@ describe('Toolbar: Undo Redo', () => {
     // Add a bullet list to the doc so something can be undone and the Undo button become active
     await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
     await clickToolbarMenu(page, ToolbarMenuItem.undo);
+  });
+
+  it('should not have overlapping buttons on smaller devices', async () => {
+    await page.setViewport({ width: 400, height: 350 });
   });
 });

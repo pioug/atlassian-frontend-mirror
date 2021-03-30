@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 11.9.0
+
+### Minor Changes
+
+- [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.8.1
 
 ### Patch Changes

@@ -58,6 +58,7 @@ export {
 export type {
   ADDoc,
   ADFStage,
+  ADFStages,
   ADMark,
   ADMarkSimple,
   ADNode,
@@ -115,6 +116,8 @@ export {
   getExtensionModuleNode,
   getQuickInsertItemsFromModule,
   getNodeRenderer,
+  getContextualToolbarlItemsFromModule,
+  buildMenuItem,
   resolveImport,
 } from './extensions';
 
@@ -136,6 +139,8 @@ export type {
   ExtensionParams,
   ExtensionProvider,
   ExtensionType,
+  ExtensionToolbarButton,
+  ExtensionModuleToolbarItem,
   MaybeADFEntity,
   Parameters,
   MenuItem,

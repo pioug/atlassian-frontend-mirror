@@ -9,6 +9,7 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { TablePluginState } from '../../../../../plugins/table/types';
@@ -22,7 +23,7 @@ import { getDecorations } from '../../../../../plugins/table/pm-plugins/decorati
 describe('TableFloatingControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

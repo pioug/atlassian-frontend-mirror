@@ -16,11 +16,9 @@ async function waitForCalendarPicker(page: PuppeteerPage, theme: string) {
   await page.waitForSelector(
     `div[data-testid="date-picker-${theme}--current-month-year"]`,
   );
+  await page.waitForSelector(`div[data-testid="date-picker-${theme}--month"]`);
   await page.waitForSelector(
-    `tbody[data-testid="date-picker-${theme}--month"]`,
-  );
-  await page.waitForSelector(
-    `td[data-testid="date-picker-${theme}--selected-day"]`,
+    `button[data-testid="date-picker-${theme}--selected-day"]`,
   );
 }
 

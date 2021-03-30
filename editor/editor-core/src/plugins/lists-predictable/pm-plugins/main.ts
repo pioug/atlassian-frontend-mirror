@@ -15,7 +15,9 @@ import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { ListsPluginState } from '../types';
 import { findRootParentListNode } from '../utils/find';
 
-const predictableListsPluginKey = new PluginKey('listsPredictablePlugin');
+const predictableListsPluginKey = new PluginKey<ListsPluginState>(
+  'listsPredictablePlugin',
+);
 export const pluginKey = predictableListsPluginKey;
 
 const initialState: ListsPluginState = {

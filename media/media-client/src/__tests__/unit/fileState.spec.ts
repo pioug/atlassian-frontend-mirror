@@ -5,6 +5,8 @@ import {
   ProcessingFailedState,
   ProcessedFileState,
   ProcessingFileState,
+  isPreviewableFileState,
+  FileState,
 } from '../..';
 
 describe('isErrorFileState()', () => {
@@ -130,5 +132,28 @@ describe('isImageRepresentationReady()', () => {
         artifacts: {},
       }),
     ).toBeFalsy();
+  });
+});
+
+describe('isPreviewableFileState()', () => {
+  it('should return true if the input has defined preview attribute', () => {
+    expect(
+      isPreviewableFileState(({
+        preview: 'some-preview',
+      } as unknown) as FileState),
+    ).toBe(true);
+  });
+
+  it('should return false if the input has nullish preview attribute', () => {
+    expect(
+      isPreviewableFileState(({
+        preview: undefined,
+      } as unknown) as FileState),
+    );
+    expect(
+      isPreviewableFileState(({
+        preview: null,
+      } as unknown) as FileState),
+    ).toBe(false);
   });
 });

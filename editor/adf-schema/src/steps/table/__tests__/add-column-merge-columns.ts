@@ -1,4 +1,5 @@
 import {
+  DocBuilder,
   doc,
   tdEmpty,
   table,
@@ -20,7 +21,6 @@ import {
   addColumnAtFactory,
   removeColumnAtFactory,
   CreateTransaction,
-  DocBuilder,
   testHistory,
 } from './_utils';
 import { AddColumnStep } from '../add-column';

@@ -1,5 +1,6 @@
 import path from 'path';
-import buildIcons from '@atlaskit/icon-build-process';
+import buildIcons, { createIconDocs } from '@af/icon-build-process';
+import type { IconBuildConfig } from '@af/icon-build-process';
 import pkgDir from 'pkg-dir';
 import fs from 'fs-extra';
 
@@ -9,7 +10,7 @@ if (!root) {
   throw new Error('Root directory was not found');
 }
 
-const config = {
+const config: IconBuildConfig = {
   srcDir: path.resolve(root!, 'svgs_raw'),
   processedDir: path.resolve(root!, 'svgs'),
   destDir: path.resolve(root!, 'glyph'),
@@ -17,19 +18,14 @@ const config = {
   maxHeight: 24,
   glob: '**/*.svg',
   baseIconEntryPoint: '@atlaskit/icon/base',
+  isColorsDisabled: true,
 };
 
-interface IconConfig {
-  fileKey: string;
-  displayName: string;
-}
+buildIcons(config).then(icons => {
+  const iconDocs = createIconDocs(icons, '@atlaskit/icon-priority', {}, [
+    'priority',
+    'icon-priority',
+  ]);
 
-buildIcons(config).then((icons: IconConfig[]) => {
-  const iconDocs = buildIcons.createIconDocs(
-    icons,
-    '@atlaskit/icon-priority',
-    {},
-    ['priority', 'icon-priority'],
-  );
   return fs.outputFile(path.resolve(root!, 'src/metadata.ts'), iconDocs);
 });

@@ -13,10 +13,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { ContextPanelConsumer } from './context';
 import WithPluginState from '../WithPluginState';
-import {
-  pluginKey as contextPanelPluginKey,
-  ContextPanelPluginState,
-} from '../../plugins/context-panel';
+import { pluginKey as contextPanelPluginKey } from '../../plugins/context-panel';
 import {
   pluginKey as widthPluginKey,
   WidthPluginState,
@@ -246,9 +243,6 @@ export default class ContextPanel extends React.Component<Props> {
                   width: 0,
                   lineLength: akEditorDefaultLayoutWidth,
                 },
-              }: {
-                contextPanel?: ContextPanelPluginState;
-                widthState?: WidthPluginState;
               }) => {
                 const firstContent =
                   contextPanel && contextPanel.contents.find(Boolean);

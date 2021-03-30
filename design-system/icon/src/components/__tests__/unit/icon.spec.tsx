@@ -120,6 +120,28 @@ describe('@atlaskit/icon', () => {
           expect(element).toHaveStyleDeclaration('width', sizeValues[s]);
         });
       });
+
+      it(`should use width/height if provided`, () => {
+        const label = 'width';
+        const props = { width: 10, height: 10 } as any;
+        const { getByLabelText } = r(
+          <Icon glyph={empty} label={label} {...props} />,
+        );
+        const element = getByLabelText(label);
+        expect(element).toHaveStyleDeclaration('height', '10px');
+        expect(element).toHaveStyleDeclaration('width', '10px');
+      });
+
+      it(`should use width/height above size`, () => {
+        const size = 'large';
+        const props = { width: 10, height: 10 } as any;
+        const { getByLabelText } = r(
+          <Icon glyph={empty} label={size} size={size} {...props} />,
+        );
+        const element = getByLabelText(size);
+        expect(element).toHaveStyleDeclaration('height', '10px');
+        expect(element).toHaveStyleDeclaration('width', '10px');
+      });
     });
 
     describe('primaryColor property', () => {
@@ -127,9 +149,8 @@ describe('@atlaskit/icon', () => {
       it('is set to inherit the text color by default', () => {
         const { getByLabelText } = r(<MyIcon label={testLabel} />);
 
-        expect(getByLabelText(testLabel)).toHaveStyleDeclaration(
-          'color',
-          'currentColor',
+        expect(getByLabelText(testLabel).firstChild).toHaveStyle(
+          `color: currentColor`,
         );
       });
 
@@ -139,9 +160,8 @@ describe('@atlaskit/icon', () => {
           <MyIcon label={testLabel} primaryColor={primaryColor} />,
         );
 
-        expect(getByLabelText(testLabel)).toHaveStyleDeclaration(
-          'color',
-          primaryColor,
+        expect(getByLabelText(testLabel).firstChild).toHaveStyle(
+          `color: ${primaryColor}`,
         );
       });
 
@@ -151,9 +171,8 @@ describe('@atlaskit/icon', () => {
           <MyIcon label={testLabel} primaryColor={primaryColor} />,
         );
 
-        expect(getByLabelText(testLabel)).toHaveStyleDeclaration(
-          'color',
-          primaryColor,
+        expect(getByLabelText(testLabel).firstChild).toHaveStyle(
+          `color: ${primaryColor}`,
         );
       });
     });
@@ -163,9 +182,8 @@ describe('@atlaskit/icon', () => {
         const label = 'default secondaryColor';
         const { getByLabelText } = r(<MyIcon label={label} />);
 
-        expect(getByLabelText(label)).toHaveStyleDeclaration(
-          'fill',
-          background().toString(),
+        expect(getByLabelText(label).firstChild).toHaveStyle(
+          `fill: ${background().toString()}`,
         );
       });
 
@@ -176,9 +194,8 @@ describe('@atlaskit/icon', () => {
           <MyIcon label={label} secondaryColor={secondaryColor} />,
         );
 
-        expect(getByLabelText(label)).toHaveStyleDeclaration(
-          'fill',
-          secondaryColor,
+        expect(getByLabelText(label).firstChild).toHaveStyle(
+          `fill: ${secondaryColor}`,
         );
       });
 
@@ -189,9 +206,8 @@ describe('@atlaskit/icon', () => {
           <MyIcon label={label} secondaryColor={secondaryColor} />,
         );
 
-        expect(getByLabelText(label)).toHaveStyleDeclaration(
-          'fill',
-          secondaryColor,
+        expect(getByLabelText(label).firstChild).toHaveStyle(
+          `fill: ${secondaryColor}`,
         );
       });
     });

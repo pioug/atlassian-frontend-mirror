@@ -1,4 +1,5 @@
 import { customPanel } from './nodes/panel';
+import { dataConsumer } from './marks/data-consumer';
 import { createSchema, SchemaConfig } from './create-schema';
 import { mediaSingleWithCaption } from './nodes';
 
@@ -136,7 +137,7 @@ export const defaultSchemaConfig: SchemaConfig<
     'annotation',
     'unsupportedMark',
     'unsupportedNodeAttribute',
-    'typeAheadQuery', // https://product-fabric.atlassian.net/browse/ED-10214
+    'typeAheadQuery', // https://product-fabric.atlassian.net/browse/ED-10214,
   ],
 };
 
@@ -146,6 +147,9 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
     defaultSchemaConfig.customNodeSpecs = {
       panel: customPanel,
       mediaSingle: mediaSingleWithCaption,
+    };
+    defaultSchemaConfig.customMarkSpecs = {
+      dataConsumer: dataConsumer,
     };
   }
   return createSchema(defaultSchemaConfig);

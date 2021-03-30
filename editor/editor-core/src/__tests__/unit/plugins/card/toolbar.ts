@@ -7,6 +7,7 @@ import {
   inlineCard,
   blockCard,
   embedCard,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { floatingToolbar } from '../../../../plugins/card/toolbar';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
@@ -28,7 +29,7 @@ describe('card', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       providerFactory,

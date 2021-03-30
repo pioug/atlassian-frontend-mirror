@@ -7,7 +7,13 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, li, p, ul } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  li,
+  p,
+  ul,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import listPlugin from '../..';
 import analyticsPlugin, {
   ACTION,
@@ -27,7 +33,7 @@ describe('list-indent', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
   });
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);

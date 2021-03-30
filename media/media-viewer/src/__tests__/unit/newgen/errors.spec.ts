@@ -4,7 +4,6 @@ import {
 } from '@atlaskit/media-client';
 import {
   MediaViewerError,
-  getErrorReason,
   getPrimaryErrorReason,
   getSecondaryErrorReason,
   getErrorDetail,
@@ -24,32 +23,10 @@ describe('Errors', () => {
     return error as MediaClientError<any>;
   };
 
-  describe('General error reason', () => {
-    it('should detect media-viewer primary reason from MediaViewerError', () => {
-      expect(getErrorReason(MVError('docviewer-fetch-url'))).toEqual(
-        'docviewer-fetch-url',
-      );
-    });
-
-    it('should detect media-client primary error reason from MediaClientError', () => {
-      expect(getErrorReason(MCError('invalidFileId'))).toEqual('invalidFileId');
-    });
-
-    it('should detect nativeError from native error', () => {
-      expect(getErrorReason(new Error('some-error'))).toEqual('nativeError');
-    });
-  });
-
   describe('Primary error reason', () => {
     it('should detect media-viewer primary reason from MediaViewerError', () => {
       expect(getPrimaryErrorReason(MVError('docviewer-fetch-url'))).toEqual(
         'docviewer-fetch-url',
-      );
-    });
-
-    it('should detect nativeError from native error', () => {
-      expect(getPrimaryErrorReason(new Error('some-error'))).toEqual(
-        'nativeError',
       );
     });
   });
@@ -63,24 +40,20 @@ describe('Errors', () => {
       ).toEqual('nativeError');
     });
 
-    it('should detect MediaViewerError reason from MediaViewerError with MediaViewerError secondary error', () => {
+    it('should detect media-client secondary error reason', () => {
       expect(
         getSecondaryErrorReason(
-          MVError('docviewer-fetch-url', MVError('audioviewer-playback')),
+          MVError('imageviewer-fetch-url', MCError('invalidFileId')),
         ),
-      ).toEqual('audioviewer-playback');
-    });
-
-    it('should detect media-client secondary error reason', () => {
-      expect(getSecondaryErrorReason(MCError('invalidFileId'))).toEqual(
-        'invalidFileId',
-      );
+      ).toEqual('invalidFileId');
     });
 
     it('should detect nativeError from native error', () => {
-      expect(getSecondaryErrorReason(new Error('some-error'))).toEqual(
-        'nativeError',
-      );
+      expect(
+        getSecondaryErrorReason(
+          MVError('imageviewer-fetch-url', new Error('some-error')),
+        ),
+      ).toEqual('nativeError');
     });
   });
 

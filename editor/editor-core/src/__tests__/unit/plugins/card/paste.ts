@@ -6,6 +6,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,
+  DocBuilder,
   p,
   inlineCard,
   blockquote,
@@ -16,7 +17,7 @@ import {
 describe('card', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       editorProps: {

@@ -1,7 +1,6 @@
 import { IntlProvider } from 'react-intl';
 import { PluginKey, NodeSelection } from 'prosemirror-state';
 import { isNodeSelection } from 'prosemirror-utils';
-import { Schema } from 'prosemirror-model';
 import {
   code_block,
   doc,
@@ -9,7 +8,7 @@ import {
   table,
   tr,
   td,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -43,7 +42,7 @@ describe('code-block', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
 
-  const editor = (doc: (schema: Schema) => RefsNode) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = createAnalyticsEventMock();
 
     return createEditor<CodeBlockState, PluginKey>({

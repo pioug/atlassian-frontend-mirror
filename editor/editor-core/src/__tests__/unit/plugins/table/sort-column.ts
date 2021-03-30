@@ -8,6 +8,7 @@ import {
   td,
   th,
   strong,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   TablePluginState,
@@ -20,7 +21,7 @@ import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugin
 describe('table plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

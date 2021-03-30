@@ -1,10 +1,10 @@
-import { Node as ProseMirrorNode, Schema } from 'prosemirror-model';
+import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { EditorState, Plugin, Transaction } from 'prosemirror-state';
 import { history, undo } from 'prosemirror-history';
 import {
+  DocBuilder,
   p,
   Refs,
-  RefsNode,
   td,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
@@ -45,7 +45,6 @@ export const applyAndInvertTransaction = (doc: ProseMirrorNode) => (
   return localState;
 };
 
-export type DocBuilder = (schema: Schema) => RefsNode;
 export type CreateTransaction = (
   editorState: EditorState,
   refs: Refs,

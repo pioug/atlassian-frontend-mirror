@@ -4,6 +4,7 @@ import {
   ol,
   li,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   UIAnalyticsEvent,
@@ -28,7 +29,7 @@ describe('lists plugin -> commands -> outdentList', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
   });
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);

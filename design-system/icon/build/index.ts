@@ -1,5 +1,6 @@
 import path from 'path';
-import buildIcons from '@atlaskit/icon-build-process';
+import buildIcons, { createIconDocs } from '@af/icon-build-process';
+import type { IconBuildConfig } from '@af/icon-build-process';
 import pkgDir from 'pkg-dir';
 import fs from 'fs-extra';
 import synonyms from '../utils/synonyms';
@@ -10,7 +11,7 @@ if (!root) {
   throw new Error('Root directory was not found');
 }
 
-const config = {
+const config: IconBuildConfig = {
   srcDir: path.resolve(root, 'svgs_raw'),
   processedDir: path.resolve(root, 'svgs'),
   destDir: path.resolve(root, 'glyph'),
@@ -20,13 +21,11 @@ const config = {
   baseIconEntryPoint: '@atlaskit/icon/base',
 };
 
-buildIcons(config).then((icons: any) => {
-  const iconDocs = buildIcons.createIconDocs(
-    icons,
-    '@atlaskit/icon',
-    synonyms,
-    ['icon', 'core'],
-  );
+buildIcons(config).then(icons => {
+  const iconDocs = createIconDocs(icons, '@atlaskit/icon', synonyms, [
+    'icon',
+    'core',
+  ]);
 
   return fs.outputFile(path.resolve(root, 'src/metadata.ts'), iconDocs);
 });

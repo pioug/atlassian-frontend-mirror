@@ -1,11 +1,16 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, status } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  status,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 describe('status - keymaps', () => {
   const createEditor = createEditorFactory();
 
-  const editorFactory = (doc: any) =>
+  const editorFactory = (doc: DocBuilder) =>
     createEditor({
       editorProps: {
         allowStatus: true,

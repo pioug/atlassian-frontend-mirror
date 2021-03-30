@@ -33,6 +33,7 @@ Only one of these three can be found as a top DOM element:
 - \`[data-testid="media-card-actions-menu-item"]\`: Action dropdown item
 - \`[data-testid="media-image"]\`: Actual image (\`<img />\`) of a card
 - \`[data-testid="media-card-file-name"]\`: Element that contains filename
+- \`[data-testid="media-card-play-button"]\`: Button containing a play button in preview mode
 - \`[data-testid="custom-media-player"]\`: Wrapper around custom media player
   - These controls can be found as part of Card's inline media player:
   - \`[data-testid="custom-media-player-fullscreen-button"]\`: Fullscreen button

@@ -9,13 +9,14 @@ import {
   ul,
   li,
   ol,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import listPlugin from '../../..';
 import { pluginKey, getDecorations } from '../../../pm-plugins/main';
 
 describe('lists', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(listPlugin),

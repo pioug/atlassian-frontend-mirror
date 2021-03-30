@@ -1,5 +1,12 @@
 # @atlaskit/reduced-ui-pack
 
+## 13.1.1
+
+### Patch Changes
+
+- [`01d837cb7f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d837cb7f5) - Local build tooling has been improved.
+- [`d98f1bb1169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d98f1bb1169) - Local build tooling improvements.
+
 ## 13.1.0
 
 ### Minor Changes

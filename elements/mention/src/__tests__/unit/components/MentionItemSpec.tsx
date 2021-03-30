@@ -4,7 +4,8 @@ import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import MentionItem from '../../../components/MentionItem';
 import { Props, State } from '../../../components/MentionList';
-import { MentionDescription } from '../../../types';
+import { MentionDescription, LozengeProps } from '../../../types';
+import Lozenge from '@atlaskit/lozenge';
 
 const mentionWithNickname = {
   id: '0',
@@ -71,5 +72,23 @@ describe('MentionItem', () => {
       avatarUrl: '',
     });
     expect(component.find(LockCircleIcon)).toHaveLength(0);
+  });
+
+  it('should display lozenge when passing in a LozengeProps object', () => {
+    const lozengeObject: LozengeProps = {
+      text: 'GUEST',
+      appearance: 'new',
+    };
+
+    const component = setupMentionItem({
+      id: '1',
+      name: 'Pranay Marella',
+      mentionName: 'Pmarella',
+      avatarUrl: '',
+      lozenge: lozengeObject,
+    });
+
+    expect(component.find(Lozenge).text()).toContain('GUEST');
+    expect(component.find(Lozenge).prop('appearance')).toEqual('new');
   });
 });

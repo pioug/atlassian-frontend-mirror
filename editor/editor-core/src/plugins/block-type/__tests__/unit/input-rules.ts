@@ -11,6 +11,12 @@ import {
   code,
   hardBreak,
   a as link,
+  strong,
+  table,
+  tr,
+  td,
+  th,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -33,13 +39,14 @@ import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
 import hyperlinkPlugin from '../../../hyperlink';
 import textFormattingPlugin from '../../../text-formatting';
+import tablePlugin from '../../../table';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
     return createEditor({
@@ -53,7 +60,8 @@ describe('inputrules', () => {
         .add(codeBlockPlugin)
         .add(textFormattingPlugin)
         .add(hyperlinkPlugin)
-        .add(typeAheadPlugin),
+        .add(typeAheadPlugin)
+        .add(tablePlugin),
     });
   };
 
@@ -375,6 +383,48 @@ describe('inputrules', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(p(' '), code_block()()),
         );
+      });
+
+      it('should fire analytics event', () => {
+        expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
+      });
+    });
+
+    describe('typing "```" before formatted text', () => {
+      it('should convert "```" to a code block', () => {
+        const { editorView, sel } = editor(doc(p(strong('``{<>}bold')), p()));
+        insertText(editorView, '`', sel);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(code_block({})('bold'), p()),
+        );
+      });
+
+      it('should fire analytics event', () => {
+        expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
+      });
+    });
+
+    describe('typing "```" in a table header', () => {
+      it('should convert "```" to a code block', () => {
+        const { editorView, sel } = editor(
+          doc(
+            table({ isNumberColumnEnabled: false, layout: 'default' })(
+              tr(th({})(p(strong('``{<>}'))), td({})(p())),
+            ),
+          ),
+        );
+        insertText(editorView, '`', sel);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            table({ isNumberColumnEnabled: false, layout: 'default' })(
+              tr(th({})(code_block({})()), td({})(p())),
+            ),
+          ),
+        );
+        // It should also put the cursor into the codeblock
+        expect(editorView.state.selection.anchor).toEqual(4);
       });
 
       it('should fire analytics event', () => {

@@ -3,6 +3,7 @@ import {
   a as link,
   doc,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -18,7 +19,7 @@ import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
 describe('linking', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(hyperlinkPlugin),

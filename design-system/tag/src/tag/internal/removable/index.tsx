@@ -59,8 +59,8 @@ enum TagStatus {
   Removed = 'removed',
 }
 
-const InnerRemovableTag = forwardRef(
-  (props: ThemedRemovableTagProps, ref: React.Ref<any>) => {
+const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
+  (props, ref) => {
     const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
 
     const {
@@ -209,15 +209,13 @@ const InnerRemovableTag = forwardRef(
 );
 
 const RemovableTag = memo(
-  forwardRef((props: RemovableTagProps, ref: React.Ref<any>) => {
-    return (
-      <GlobalTheme.Consumer>
-        {(tokens: GlobalThemeTokens) => {
-          return <InnerRemovableTag {...props} mode={tokens.mode} ref={ref} />;
-        }}
-      </GlobalTheme.Consumer>
-    );
-  }),
+  forwardRef<any, RemovableTagProps>((props, ref) => (
+    <GlobalTheme.Consumer>
+      {(tokens: GlobalThemeTokens) => (
+        <InnerRemovableTag {...props} mode={tokens.mode} ref={ref} />
+      )}
+    </GlobalTheme.Consumer>
+  )),
 );
 
 export default RemovableTag;

@@ -1,7 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  panel,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
 import { EditorView } from 'prosemirror-view';
@@ -11,11 +16,11 @@ import {
 } from '../../../../plugins/selection/gap-cursor-selection';
 import * as utils from '../../../../utils/dom';
 import * as commands from '../../../../commands';
+import * as actions from '../../../../../src/plugins/selection/gap-cursor/actions';
 
-import * as gapCursorSelection from '../../../../plugins/selection/gap-cursor/actions';
 describe('Editor click area handler', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowPanel: true },
@@ -48,11 +53,6 @@ describe('Editor click area handler', () => {
     jest.restoreAllMocks();
   });
   describe('for append paragraph', () => {
-    beforeEach(() => {
-      jest
-        .spyOn(gapCursorSelection, 'setCursorForTopLevelBlocks')
-        .mockReturnValue(jest.fn().mockReturnValue(false));
-    });
     it('should call view.focus when an empty paragraph is created', () => {
       editorView = editor(doc(p('Hello world'))).editorView;
       const focusSpy = jest.spyOn(editorView, 'focus');
@@ -66,73 +66,55 @@ describe('Editor click area handler', () => {
     });
 
     describe('when editor has focus true', () => {
-      let editorFocusSpy: any;
-      let createParagraphAtEndMock: any;
-      let createParagraphAtEndReturnFunctionMock: any;
+      let addParagraphAtEndMock: any;
+      let setSelectionTopLevelBlockMock: any;
 
       beforeEach(() => {
-        editorFocusSpy = jest.spyOn(editorView, 'focus');
-        editorFocusSpy.mockImplementation(() => {});
         const hasFocusSpy = jest.spyOn(editorView, 'hasFocus');
         hasFocusSpy.mockReturnValue(true);
-
-        createParagraphAtEndMock = jest.spyOn(commands, 'createParagraphAtEnd');
-        createParagraphAtEndReturnFunctionMock = jest.fn();
-        createParagraphAtEndMock.mockReturnValue(
-          createParagraphAtEndReturnFunctionMock,
+        addParagraphAtEndMock = jest.spyOn(commands, 'addParagraphAtEnd');
+        addParagraphAtEndMock.mockImplementation(() => {});
+        setSelectionTopLevelBlockMock = jest.spyOn(
+          actions,
+          'setSelectionTopLevelBlocks',
         );
+        setSelectionTopLevelBlockMock.mockImplementation(() => {});
       });
       it('should append paragraph after last node, when clicked outside ak-editor-content-area', () => {
-        createParagraphAtEndReturnFunctionMock.mockReturnValue(true);
-
         wrapper
           .find('.outside-ak-editor-content-area')
           .simulate('click', { clientY: 10 });
-        expect(createParagraphAtEndMock).toHaveBeenCalledTimes(1);
-        expect(createParagraphAtEndReturnFunctionMock).toHaveBeenCalledWith(
-          editorView.state,
-          editorView.dispatch,
-        );
-        expect(editorFocusSpy).toHaveBeenCalledTimes(1);
+        expect(addParagraphAtEndMock).toHaveBeenCalledTimes(1);
+        expect(setSelectionTopLevelBlockMock).toHaveBeenCalledTimes(1);
       });
 
       it('should append paragraph after last node, when clicked on ak-editor-content-area', () => {
-        createParagraphAtEndReturnFunctionMock.mockReturnValue(true);
         wrapper
           .find('.ak-editor-content-area')
           .simulate('click', { clientY: 10 });
-
-        expect(createParagraphAtEndMock).toHaveBeenCalledTimes(1);
-        expect(createParagraphAtEndReturnFunctionMock).toHaveBeenCalledWith(
-          editorView.state,
-          editorView.dispatch,
-        );
+        expect(addParagraphAtEndMock).toHaveBeenCalledTimes(1);
+        expect(setSelectionTopLevelBlockMock).toHaveBeenCalledTimes(1);
       });
 
       it('should not append paragraph after last node, when clicked on children of ak-editor-content-area', () => {
-        createParagraphAtEndReturnFunctionMock.mockReturnValue(false);
         wrapper
           .find('.child-ak-editor-content-area')
           .simulate('click', { clientY: 10 });
-        expect(createParagraphAtEndMock).not.toHaveBeenCalled();
+        expect(addParagraphAtEndMock).not.toHaveBeenCalled();
+        expect(setSelectionTopLevelBlockMock).not.toHaveBeenCalled();
       });
 
       it('should not append paragraph after last node, when clicked at a height less that editor', () => {
-        createParagraphAtEndReturnFunctionMock.mockReturnValue(false);
+        addParagraphAtEndMock.mockReturnValue(false);
         wrapper
           .find('.ak-editor-content-area')
           .simulate('click', { clientY: 0 });
-        expect(createParagraphAtEndMock).not.toHaveBeenCalled();
+        expect(addParagraphAtEndMock).not.toHaveBeenCalled();
       });
     });
   });
 
   describe('for gap cursor', () => {
-    beforeEach(() => {
-      jest
-        .spyOn(commands, 'createParagraphAtEnd')
-        .mockReturnValue(jest.fn().mockReturnValue(false));
-    });
     it('should set a Gap cursor when clicked on to a side(left/right) of a node', () => {
       editorView = editor(doc(panel()(p('{<>}')))).editorView;
       wrapper.find('.ak-editor-content-area').simulate('click', {

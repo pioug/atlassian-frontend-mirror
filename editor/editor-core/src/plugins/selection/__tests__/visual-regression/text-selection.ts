@@ -1,4 +1,7 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForLoadedBackgroundImages,
+} from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -10,6 +13,7 @@ import { selectAtPosWithProseMirror } from '../../../../__tests__/__helpers/page
 import selectionKitchenSink1Adf from './__fixtures__/kitchen-sink-1.adf.json';
 import selectionKitchenSink2Adf from './__fixtures__/kitchen-sink-2.adf.json';
 import selectionKitchenSink3Adf from './__fixtures__/kitchen-sink-3.adf.json';
+import { emojiSelectors } from '../../../../__tests__/__helpers/page-objects/_emoji';
 
 describe('Selection:', () => {
   let page: PuppeteerPage;
@@ -118,6 +122,17 @@ describe('Selection:', () => {
           viewport: { width: 1040, height: 1200 },
         });
         await page.focus(pmSelector);
+
+        const hasEmojiInDoc = await page.evaluate(
+          (emojiNodeSelector: string) => {
+            return document.querySelector(emojiNodeSelector);
+          },
+          emojiSelectors.node,
+        );
+
+        if (hasEmojiInDoc) {
+          await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
+        }
 
         if (beforeSelect) {
           await beforeSelect(page);

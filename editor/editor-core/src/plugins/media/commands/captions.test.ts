@@ -5,9 +5,8 @@ import {
   media,
   mediaSingle,
   p,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { Schema } from 'prosemirror-model';
 import * as analyticsUtils from '../../analytics/utils';
 import {
   insertAndSelectCaptionFromMediaSinglePos,
@@ -16,7 +15,7 @@ import {
 
 describe('Caption plugin', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: (schema: Schema) => RefsNode, opts = {}) =>
+  const editor = (doc: DocBuilder, opts = {}) =>
     createEditor({
       doc,
       ...opts,

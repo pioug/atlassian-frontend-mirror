@@ -6,7 +6,7 @@ export const pluginKey = new PluginKey(
   'clearMarksOnChangeToEmptyDocumentPlugin',
 );
 
-export function createPlugin(): Plugin | undefined {
+export function createPlugin(): Plugin {
   return new Plugin({
     key: pluginKey,
     appendTransaction: (

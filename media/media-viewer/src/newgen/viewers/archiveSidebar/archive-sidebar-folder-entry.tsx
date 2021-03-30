@@ -17,6 +17,7 @@ import {
   isMacPrivateFile,
   rejectAfter,
 } from '../../../newgen/utils';
+import { ArchiveViewerError } from '../../../newgen/errors';
 export interface ArchiveSidebarFolderProps {
   root: string;
   entries: { [key: string]: ZipEntry };
@@ -25,7 +26,7 @@ export interface ArchiveSidebarFolderProps {
   name?: string;
   mediaClient: MediaClient;
   isArchiveEntryLoading: boolean;
-  onError: (error: Error, entry?: ZipEntry) => void;
+  onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
 }
 
 export class ArchiveSidebarFolderEntry extends React.Component<

@@ -104,6 +104,19 @@ export interface Presence {
   status?: string;
 }
 
+export type LozengeColor =
+  | 'default'
+  | 'success'
+  | 'removed'
+  | 'inprogress'
+  | 'new'
+  | 'moved';
+
+export interface LozengeProps {
+  text: string;
+  appearance?: LozengeColor;
+}
+
 export interface MentionDescription {
   id: string;
   avatarUrl?: string;
@@ -111,7 +124,7 @@ export interface MentionDescription {
   mentionName?: string;
   nickname?: string;
   highlight?: Highlight;
-  lozenge?: string;
+  lozenge?: string | LozengeProps;
   presence?: Presence;
   accessLevel?: string;
   inContext?: boolean;

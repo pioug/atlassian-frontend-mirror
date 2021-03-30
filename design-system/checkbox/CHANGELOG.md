@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.0.2
+
+### Patch Changes
+
+- [`e0278312c57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0278312c57) - Checkbox now uses the new `SVG` component from @atlaskit/icon.
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

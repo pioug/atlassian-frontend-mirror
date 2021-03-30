@@ -12,7 +12,7 @@ import {
   createInitialPluginState,
   createPlugin,
   pluginKey as typeAheadPluginKey,
-  PluginState as TypeAheadPluginState,
+  TypeAheadPluginState,
 } from './pm-plugins/main';
 import { TypeAheadHandler } from './types';
 import { TypeAhead } from './ui/TypeAhead';
@@ -60,7 +60,7 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => ({
         render={({
           typeAhead = createInitialPluginState(),
         }: {
-          typeAhead: TypeAheadPluginState;
+          typeAhead?: TypeAheadPluginState;
         }) => {
           if (
             typeAhead.typeAheadHandler &&

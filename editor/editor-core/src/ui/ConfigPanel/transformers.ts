@@ -121,7 +121,7 @@ export const deserialize = async (
     const { name } = field;
 
     // missing? do nothing
-    if (!(name in data)) {
+    if (!data || !(name in data)) {
       continue;
     }
 

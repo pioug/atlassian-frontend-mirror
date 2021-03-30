@@ -4,9 +4,11 @@ import { Dispatch } from '../../event-dispatcher';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
 
-export const pluginKey = new PluginKey('editorDisabledPlugin');
-
 export type EditorDisabledPluginState = { editorDisabled: boolean };
+
+export const pluginKey = new PluginKey<EditorDisabledPluginState>(
+  'editorDisabledPlugin',
+);
 
 function reducer(
   _pluginState: EditorDisabledPluginState,

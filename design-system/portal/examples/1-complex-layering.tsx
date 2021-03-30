@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Flag, { FlagGroup } from '@atlaskit/flag';
@@ -17,13 +17,17 @@ import Tooltip from '@atlaskit/tooltip';
 const TooltipButton = ({
   children,
   onClick,
+  id,
 }: {
   children: ReactNode;
   onClick: () => void;
+  id?: string;
 }) => (
   <div style={{ backgroundColor: 'white' }}>
     <Tooltip content="Click me">
-      <Button onClick={onClick}>{children}</Button>
+      <Button id={id} onClick={onClick}>
+        {children}
+      </Button>
     </Tooltip>
   </div>
 );
@@ -36,180 +40,147 @@ type SpotlightProps = {
   onFinish: () => void;
 };
 
-class ThreeStepSpotlight extends React.Component<
-  SpotlightProps,
-  { step: number }
-> {
-  state = {
-    step: 1,
-  };
+function ThreeStepSpotlight(props: SpotlightProps) {
+  const [step, setStep] = useState(1);
+  const { stepOne, stepTwo, stepThree, open, onFinish } = props;
 
-  next = () => {
-    const nextStep = this.state.step + 1;
+  const next = () => {
+    const nextStep = step + 1;
     if (nextStep > 3) {
-      this.setState({ step: 1 });
-      this.props.onFinish();
+      setStep(1);
+      onFinish();
     } else {
-      this.setState({ step: nextStep });
+      setStep(nextStep);
     }
   };
 
-  render() {
-    const { stepOne, stepTwo, stepThree, open } = this.props;
-    const { step } = this.state;
-    return (
-      <SpotlightManager>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '24px',
-          }}
-        >
-          <SpotlightTarget name="1">{stepOne}</SpotlightTarget>
-          <SpotlightTarget name="2">{stepTwo}</SpotlightTarget>
-          <SpotlightTarget name="3">{stepThree}</SpotlightTarget>
-        </div>
-        <SpotlightTransition>
-          {open && (
-            <Spotlight
-              actions={[
-                { onClick: this.next, text: step === 3 ? 'Close' : 'Next' },
-              ]}
-              heading={`Here is step ${step} of 3`}
-              key={`${step}`}
-              target={`${step}`}
-            />
-          )}
-        </SpotlightTransition>
-      </SpotlightManager>
-    );
-  }
+  return (
+    <SpotlightManager>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '24px',
+        }}
+      >
+        <SpotlightTarget name="1">{stepOne}</SpotlightTarget>
+        <SpotlightTarget name="2">{stepTwo}</SpotlightTarget>
+        <SpotlightTarget name="3">{stepThree}</SpotlightTarget>
+      </div>
+      <SpotlightTransition>
+        {open && (
+          <Spotlight
+            actions={[{ onClick: next, text: step === 3 ? 'Close' : 'Next' }]}
+            heading={`Here is step ${step} of 3`}
+            key={`${step}`}
+            target={`${step}`}
+          />
+        )}
+      </SpotlightTransition>
+    </SpotlightManager>
+  );
 }
-
-type ModalState = {
-  onboardingOpen: boolean;
-  inlineOpen: boolean;
-  flags: number[];
-};
 
 type ModalProps = {
   onOpen: () => void;
   onClose: () => void;
 };
 
-class Modal extends React.Component<ModalProps, ModalState> {
-  state = {
-    onboardingOpen: false,
-    inlineOpen: false,
-    flags: [],
-  };
+function Modal(props: ModalProps) {
+  const [onboardingOpen, setOnboardingOpen] = useState(false);
+  const [inlineOpen, setInlineOpen] = useState(false);
+  const [flags, setFlags] = useState<number[]>([]);
 
-  toggleOnboarding = (onboardingOpen: boolean) =>
-    this.setState({ onboardingOpen });
+  const toggleOnboarding = (onboardingOpen: boolean) =>
+    setOnboardingOpen(onboardingOpen);
 
-  toggleInline = (inlineOpen: boolean) => this.setState({ inlineOpen });
+  const toggleInline = (inlineOpen: boolean) => setInlineOpen(inlineOpen);
 
-  addFlag = () =>
-    this.setState({ flags: [this.state.flags.length, ...this.state.flags] });
+  const addFlag = () => setFlags([flags.length, ...flags]);
 
-  removeFlag = (id: number | string) =>
-    this.setState({ flags: this.state.flags.filter(v => v !== id) });
+  const removeFlag = (id: number | string) =>
+    setFlags(flags.filter(v => v !== id));
 
-  render() {
-    const { onboardingOpen, inlineOpen, flags } = this.state;
-    return (
-      <React.Fragment>
-        <ModalDialog
-          heading="Modal dialog 🔥"
-          onClose={this.props.onClose}
-          actions={[
-            { text: 'Close', onClick: this.props.onClose },
-            { text: 'Open another', onClick: this.props.onOpen },
-          ]}
-        >
-          <p>This dialog has three great features:</p>
-          <ThreeStepSpotlight
-            open={onboardingOpen}
-            onFinish={() => this.toggleOnboarding(false)}
-            stepOne={
-              <TooltipButton onClick={() => this.toggleOnboarding(true)}>
-                Show onboarding
+  const { onClose, onOpen } = props;
+
+  return (
+    <React.Fragment>
+      <ModalDialog
+        heading="Modal dialog 🔥"
+        onClose={onClose}
+        actions={[
+          { text: 'Close', onClick: onClose },
+          { text: 'Open another', onClick: onOpen },
+        ]}
+      >
+        <p>This dialog has three great features:</p>
+        <ThreeStepSpotlight
+          open={onboardingOpen}
+          onFinish={() => toggleOnboarding(false)}
+          stepOne={
+            <TooltipButton
+              onClick={() => toggleOnboarding(true)}
+              id={'showOnboardingBtn'}
+            >
+              Show onboarding
+            </TooltipButton>
+          }
+          stepTwo={
+            <InlineDialog
+              content="This button is very nice"
+              isOpen={inlineOpen}
+            >
+              <TooltipButton onClick={() => toggleInline(!inlineOpen)}>
+                Show an inline dialog
               </TooltipButton>
-            }
-            stepTwo={
-              <InlineDialog
-                content="This button is very nice"
-                isOpen={inlineOpen}
-              >
-                <TooltipButton onClick={() => this.toggleInline(!inlineOpen)}>
-                  Show an inline dialog
-                </TooltipButton>
-              </InlineDialog>
-            }
-            stepThree={
-              <TooltipButton onClick={() => this.addFlag()}>
-                Show an flag
-              </TooltipButton>
-            }
+            </InlineDialog>
+          }
+          stepThree={
+            <TooltipButton onClick={() => addFlag()} id={'showFlagBtn'}>
+              Show an flag
+            </TooltipButton>
+          }
+        />
+      </ModalDialog>
+      <FlagGroup onDismissed={(id: number | string) => removeFlag(id)}>
+        {flags.map(id => (
+          <Flag
+            id={id}
+            key={`${id}`}
+            icon={<EmojiIcon label="Smiley face" />}
+            title={`${id + 1}: Whoa a new flag!`}
           />
-        </ModalDialog>
-        <FlagGroup onDismissed={(id: number | string) => this.removeFlag(id)}>
-          {flags.map(id => (
-            <Flag
-              id={id}
-              key={`${id}`}
-              icon={<EmojiIcon label="Smiley face" />}
-              title={`${id + 1}: Whoa a new flag!`}
-            />
-          ))}
-        </FlagGroup>
-      </React.Fragment>
-    );
-  }
+        ))}
+      </FlagGroup>
+    </React.Fragment>
+  );
 }
 
-type State = {
-  modals: number[];
-};
+function App() {
+  const [modals, setModals] = useState<number[]>([]);
 
-class App extends React.Component<{}, State> {
-  state = {
-    modals: [],
-  };
+  const nextId = modals.length + 1;
 
-  render() {
-    const { modals } = this.state;
-    const nextId = modals.length + 1;
-    return (
-      <React.Fragment>
-        <ModalTransition>
-          {modals.map(id => (
-            <Modal
-              key={id}
-              onOpen={() => this.setState({ modals: [...modals, nextId] })}
-              onClose={() =>
-                this.setState({ modals: modals.filter(i => i !== id) })
-              }
-            />
-          ))}
-        </ModalTransition>
-        <p>
-          This example shows off all components that rely on portalling and
-          layering to appear in the expected order.
-        </p>
-        <TooltipButton
-          onClick={() =>
-            this.setState({
-              modals: [1],
-            })
-          }
-        >
-          Open Dialog
-        </TooltipButton>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <ModalTransition>
+        {modals.map((id: number) => (
+          <Modal
+            key={id}
+            onOpen={() => setModals([...modals, nextId])}
+            onClose={() => setModals(modals.filter((i: number) => i !== id))}
+          />
+        ))}
+      </ModalTransition>
+      <p>
+        This example shows off all components that rely on portalling and
+        layering to appear in the expected order.
+      </p>
+      <TooltipButton id={'openDialogBtn'} onClick={() => setModals([1])}>
+        Open Dialog
+      </TooltipButton>
+    </React.Fragment>
+  );
 }
 
 export default App;

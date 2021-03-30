@@ -1,6 +1,10 @@
 import { EditorView, Decoration } from 'prosemirror-view';
 import createStub from 'raf-stub';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -50,7 +54,7 @@ const findCommand = async (keyword?: string) => {
   rafStub.flush();
 };
 
-const initEditor = async (doc: any, query = 'document') => {
+const initEditor = async (doc: DocBuilder, query = 'document') => {
   ({ editorView, refs } = editor(doc, createAnalyticsEvent));
   dispatchSpy = jest.spyOn(editorView, 'dispatch');
 

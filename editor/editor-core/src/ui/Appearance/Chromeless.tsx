@@ -53,7 +53,7 @@ export default class Editor extends React.Component<
   private renderChrome = ({
     maxContentSize,
   }: {
-    maxContentSize: MaxContentSizePluginState;
+    maxContentSize?: MaxContentSizePluginState;
   }) => {
     const {
       editorDOMElement,
@@ -70,8 +70,9 @@ export default class Editor extends React.Component<
       disabled,
       dispatchAnalyticsEvent,
     } = this.props;
-    const maxContentSizeReached =
-      maxContentSize && maxContentSize.maxContentSizeReached;
+    const maxContentSizeReached = Boolean(
+      maxContentSize?.maxContentSizeReached,
+    );
 
     return (
       <WithFlash animate={maxContentSizeReached}>

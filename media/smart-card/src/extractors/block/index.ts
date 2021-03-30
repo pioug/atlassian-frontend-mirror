@@ -18,6 +18,14 @@ import {
   LinkSubscriberType,
 } from '../common/detail';
 import { LinkDetail } from '../common/detail/types';
+import { LinkPerson } from '../common/person/types';
+import { extractMembers } from '../common/person/extractMembers';
+import { extractPersonAssignedTo } from '../common/person/extractPersonAssignedTo';
+import { extractPersonCreatedBy } from '../common/person/extractPersonCreatedBy';
+import {
+  extractPersonUpdatedBy,
+  LinkTypeUpdatedBy,
+} from '../common/person/extractPersonUpdatedBy';
 import { extractByline } from '../common/byline/extractByline';
 import { extractImage } from '../common/preview/extractImage';
 import { extractActions } from '../common/actions/extractActions';
@@ -69,6 +77,27 @@ export const extractBlockActions = (
   return [];
 };
 
+export const extractBlockUsers = (
+  jsonLd: JsonLd.Data.BaseData,
+): LinkPerson[] | undefined => {
+  if (jsonLd['@type'] === 'atlassian:Project') {
+    return extractMembers(jsonLd as JsonLd.Data.Project);
+  } else if (jsonLd['@type'] === 'atlassian:Task') {
+    const assignedMembers = extractPersonAssignedTo(jsonLd as JsonLd.Data.Task);
+    if (assignedMembers) {
+      return [assignedMembers];
+    }
+  } else {
+    const updatedBy = extractPersonUpdatedBy(jsonLd as LinkTypeUpdatedBy);
+    let updatedByMembers;
+    if (updatedBy) {
+      updatedByMembers = [updatedBy];
+    }
+    const createdByMembers = extractPersonCreatedBy(jsonLd);
+    return updatedByMembers || createdByMembers;
+  }
+};
+
 export const extractBlockProps = (
   jsonLd: JsonLd.Data.BaseData,
   opts?: ExtractBlockOpts,
@@ -83,9 +112,7 @@ export const extractBlockProps = (
     details: extractBlockDetails(jsonLd),
     byline: extractSummary(jsonLd) || extractByline(jsonLd),
     thumbnail: extractImage(jsonLd),
-    // TODO, EDM-564: re-enable after sparring with Magda, currently
-    // renders nothing - no good data sources for
-    users: [], // extractBlockUsers(jsonLd);
+    users: extractBlockUsers(jsonLd),
   };
   return { ...props, actions: extractBlockActions(props, jsonLd, opts) };
 };

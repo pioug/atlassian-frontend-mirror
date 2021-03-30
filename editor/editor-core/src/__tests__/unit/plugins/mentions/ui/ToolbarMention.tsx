@@ -1,12 +1,16 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import ToolbarMention from '../../../../../plugins/mentions/ui/ToolbarMention';
 
 describe('ToolbarMention', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { mentionProvider: new Promise(() => {}) },

@@ -1,10 +1,9 @@
-import { Schema } from 'prosemirror-model';
 import {
   p,
   ul,
   li,
   doc,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { calcJoinListScenario, listBackspace } from '../../listBackspace';
@@ -77,7 +76,7 @@ describe('list-predictable-backspace', () => {
     (addAnalytics as jest.Mock).mockReset();
   });
 
-  describe.each<[string, (schema: Schema) => RefsNode, string]>([
+  describe.each<[string, DocBuilder, string]>([
     ['joining sibling itens', documentCase2, LIST_TEXT_SCENARIOS.JOIN_SIBLINGS],
     [
       'joining descendant itens into the parent',

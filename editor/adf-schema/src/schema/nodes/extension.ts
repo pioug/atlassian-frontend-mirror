@@ -1,14 +1,29 @@
 import { Node as PMNode, NodeSpec } from 'prosemirror-model';
 import { ExtensionAttributes } from './types/extensions';
 import { getExtensionAttrs } from '../../utils/extensions';
+import { MarksObject, NoMark } from './types/mark';
+import { DataConsumerDefinition } from '../marks/data-consumer';
 
 /**
  * @name extension_node
  */
-export interface ExtensionDefinition {
+export interface ExtensionBaseDefinition {
   type: 'extension';
   attrs: ExtensionAttributes;
+  marks?: Array<any>;
 }
+
+/**
+ * @name extension_with_no_marks_node
+ */
+export type ExtensionDefinition = ExtensionBaseDefinition & NoMark;
+
+/**
+ * @name extension_with_marks_node
+ * @stage 0
+ */
+export type ExtensionWithMarksDefinition = ExtensionBaseDefinition &
+  MarksObject<DataConsumerDefinition>;
 
 const createExtensionNodeSpec = (allowLocalId: boolean = false): NodeSpec => {
   const nodeSpec: NodeSpec = {

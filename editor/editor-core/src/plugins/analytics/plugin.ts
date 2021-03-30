@@ -15,9 +15,11 @@ import {
   AnalyticsWithChannel,
 } from '@atlaskit/adf-schema/steps';
 import { generateUndoRedoInputSoucePayload } from '../undo-redo/undo-redo-input-source';
+import { PerformanceTracking } from '../../types/performance-tracking';
 
 interface AnalyticsPluginOptions {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  performanceTracking?: PerformanceTracking;
 }
 
 function createPlugin(options: AnalyticsPluginOptions) {

@@ -20,6 +20,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
       offset: [0, 6],
       items: [
         {
+          id: 'editor.expand.delete',
           type: 'button',
           appearance: 'danger',
           icon: RemoveIcon,

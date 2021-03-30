@@ -27,8 +27,7 @@ import {
 } from './styles';
 import * as keymaps from '../../../keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
-import { toolbarMessages as textFormattingMessages } from '../../text-formatting/ui/ToolbarTextFormatting/toolbar-messages';
-import { toolbarMessages as advancedTextFormattingMessages } from '../../text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
+import { toolbarMessages } from '../../text-formatting/ui/Toolbar/toolbar-messages';
 import { messages as listMessages } from '../../lists/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../block-type/messages';
@@ -94,45 +93,45 @@ export const formatting: (intl: InjectedIntl) => Format[] = ({
   formatMessage,
 }) => [
   {
-    name: formatMessage(textFormattingMessages.bold),
+    name: formatMessage(toolbarMessages.bold),
     type: 'strong',
     keymap: () => keymaps.toggleBold,
     autoFormatting: () => (
       <span>
         <CodeLg>
           **
-          <FormattedMessage {...textFormattingMessages.bold} />
+          <FormattedMessage {...toolbarMessages.bold} />
           **
         </CodeLg>
       </span>
     ),
   },
   {
-    name: formatMessage(textFormattingMessages.italic),
+    name: formatMessage(toolbarMessages.italic),
     type: 'em',
     keymap: () => keymaps.toggleItalic,
     autoFormatting: () => (
       <span>
         <CodeLg>
-          *<FormattedMessage {...textFormattingMessages.italic} />*
+          *<FormattedMessage {...toolbarMessages.italic} />*
         </CodeLg>
       </span>
     ),
   },
   {
-    name: formatMessage(advancedTextFormattingMessages.underline),
+    name: formatMessage(toolbarMessages.underline),
     type: 'underline',
     keymap: () => keymaps.toggleUnderline,
   },
   {
-    name: formatMessage(advancedTextFormattingMessages.strike),
+    name: formatMessage(toolbarMessages.strike),
     type: 'strike',
     keymap: () => keymaps.toggleStrikethrough,
     autoFormatting: () => (
       <span>
         <CodeLg>
           ~~
-          <FormattedMessage {...advancedTextFormattingMessages.strike} />
+          <FormattedMessage {...toolbarMessages.strike} />
           ~~
         </CodeLg>
       </span>
@@ -266,13 +265,13 @@ export const formatting: (intl: InjectedIntl) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(advancedTextFormattingMessages.code),
+    name: formatMessage(toolbarMessages.code),
     type: 'code',
     keymap: () => keymaps.toggleCode,
     autoFormatting: () => (
       <span>
         <CodeLg>
-          `<FormattedMessage {...advancedTextFormattingMessages.code} />`
+          `<FormattedMessage {...toolbarMessages.code} />`
         </CodeLg>
       </span>
     ),
@@ -325,7 +324,7 @@ const otherFormatting: (intl: InjectedIntl) => Format[] = ({
   formatMessage,
 }) => [
   {
-    name: formatMessage(advancedTextFormattingMessages.clearFormatting),
+    name: formatMessage(toolbarMessages.clearFormatting),
     type: 'clearFormatting',
     keymap: () => keymaps.clearFormatting,
   },

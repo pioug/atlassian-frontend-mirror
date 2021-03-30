@@ -30,7 +30,7 @@ describe('extractors.person.members', () => {
         ...BASE_DATA,
         'atlassian:member': TEST_PERSON,
       }),
-    ).toEqual([{ name: TEST_NAME, icon: TEST_URL }]);
+    ).toEqual([{ name: TEST_NAME, src: TEST_URL }]);
   });
 
   it('returns empty array when members not present - empty collection', () => {
@@ -48,6 +48,6 @@ describe('extractors.person.members', () => {
         ...BASE_DATA,
         'atlassian:member': { totalItems: 1, items: [TEST_PERSON] },
       }),
-    ).toEqual([{ name: TEST_NAME, icon: TEST_URL }]);
+    ).toEqual([{ name: TEST_NAME, src: TEST_URL }]);
   });
 });

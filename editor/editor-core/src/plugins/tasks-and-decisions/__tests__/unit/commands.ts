@@ -17,6 +17,7 @@ import {
   panel,
   taskItem,
   taskList,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -47,7 +48,7 @@ describe('tasks and decisions - commands', () => {
     uuid.setStatic(false);
   });
 
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     providerFactory = new ProviderFactory();
     providerFactory.setProvider(

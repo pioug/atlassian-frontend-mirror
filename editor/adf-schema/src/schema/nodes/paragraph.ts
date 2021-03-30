@@ -51,7 +51,7 @@ export const paragraph: NodeSpec = {
   content: 'inline*',
   group: 'block',
   marks:
-    'strong code em link strike subsup textColor typeAheadQuery underline confluenceInlineComment action annotation unsupportedMark unsupportedNodeAttribute',
+    'strong code em link strike subsup textColor typeAheadQuery underline confluenceInlineComment action annotation unsupportedMark unsupportedNodeAttribute dataConsumer',
   parseDOM: [{ tag: 'p' }],
   toDOM() {
     return pDOM;

@@ -15,6 +15,7 @@ import {
   tdCursor,
   tdEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test';
@@ -34,7 +35,7 @@ describe('tasks and decisions - keymaps', () => {
     uuid.setStatic(false);
   });
 
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

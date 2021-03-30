@@ -1,6 +1,7 @@
 import {
   waitForLoadedImageElements,
   waitForElementCount,
+  evaluateTeardownMockDate,
 } from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import adf from './__fixtures__/embed-card-layouts-adf.json';
@@ -12,7 +13,6 @@ import {
   waitForSuccessfullyResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
 
-// TODO unskip it as part of https://product-fabric.atlassian.net/browse/EDM-1787 ticket
 describe.skip('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {
     const { page } = global;
@@ -32,10 +32,15 @@ describe.skip('Embed Cards:', () => {
           allowEmbeds: true,
         },
       },
+      undefined,
+      undefined,
+      true,
     );
+    await evaluateTeardownMockDate(page);
     await waitForElementCount(page, embedCardSelector(), 6);
     await waitForSuccessfullyResolvedEmbedCard(page, 6);
     await waitForLoadedImageElements(page, 3000);
+
     // wait for iframes to be loaded
     await waitForElementCount(page, '[originalheight="282"]', 5);
     await waitForElementCount(page, '[originalheight="319"]', 1);
@@ -61,7 +66,11 @@ describe.skip('Embed Cards:', () => {
           allowEmbeds: true,
         },
       },
+      undefined,
+      undefined,
+      true,
     );
+    await evaluateTeardownMockDate(page);
 
     await waitForSuccessfullyResolvedEmbedCard(page);
     await waitForLoadedImageElements(page, 3000);
@@ -96,6 +105,7 @@ describe.skip('Embed Cards:', () => {
           undefined,
           true,
         );
+        await evaluateTeardownMockDate(page);
 
         await waitForSuccessfullyResolvedEmbedCard(page, 2);
         await waitForLoadedImageElements(page, 3000);

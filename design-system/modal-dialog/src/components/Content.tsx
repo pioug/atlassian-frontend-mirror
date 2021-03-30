@@ -42,6 +42,12 @@ function mergeRefs(refs: any) {
   };
 }
 
+const fakeTarget: EventTarget = {
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => true,
+};
+
 interface Props {
   /**
    * Buttons to render in the footer.
@@ -166,7 +172,7 @@ export default class Content extends React.Component<Props, State> {
 
   _isMounted: boolean = false;
 
-  scrollContainer: HTMLElement | null = null;
+  bodyRef: HTMLElement | null = null;
 
   state: State = getInitialState();
 
@@ -176,14 +182,10 @@ export default class Content extends React.Component<Props, State> {
     document.addEventListener('keydown', this.handleKeyDown, false);
     document.addEventListener('keyup', this.handleKeyUp, false);
 
-    if (this.scrollContainer) {
-      const capturedScrollContainer = this.scrollContainer;
+    if (this.bodyRef) {
+      const target = this.bodyRef;
       window.addEventListener('resize', this.determineKeylines, false);
-      capturedScrollContainer.addEventListener(
-        'scroll',
-        this.determineKeylines,
-        false,
-      );
+      target.addEventListener('scroll', this.determineKeylines, false);
       this.determineKeylines();
     }
 
@@ -207,7 +209,7 @@ export default class Content extends React.Component<Props, State> {
 
     // Check that custom body components have used ForwardRef to attach to a DOM element
     if (this.props.components.Body) {
-      if (!(this.scrollContainer instanceof HTMLElement)) {
+      if (!(this.bodyRef instanceof HTMLElement)) {
         console.warn(
           '@atlaskit/modal-dialog: Warning - Ref must attach to a DOM element; check you are using forwardRef and attaching the ref to an appropriate element. Check the examples for more details.',
         );
@@ -231,23 +233,19 @@ export default class Content extends React.Component<Props, State> {
     document.removeEventListener('keydown', this.handleKeyDown, false);
     document.removeEventListener('keyup', this.handleKeyUp, false);
 
-    if (this.scrollContainer) {
-      const capturedScrollContainer = this.scrollContainer;
+    if (this.bodyRef) {
+      const target = this.bodyRef;
       window.removeEventListener('resize', this.determineKeylines, false);
-      capturedScrollContainer.removeEventListener(
-        'scroll',
-        this.determineKeylines,
-        false,
-      );
+      target.removeEventListener('scroll', this.determineKeylines, false);
     }
   }
 
   determineKeylines = rafSchedule(() => {
-    if (!this.scrollContainer) {
+    if (!this.bodyRef) {
       return;
     }
 
-    const { scrollTop, scrollHeight, clientHeight } = this.scrollContainer;
+    const { scrollTop, scrollHeight, clientHeight } = this.bodyRef;
     const scrollableDistance = scrollHeight - clientHeight;
     const showHeaderKeyline = scrollTop > keylineHeight;
     const showFooterKeyline = scrollTop <= scrollableDistance - keylineHeight;
@@ -259,11 +257,11 @@ export default class Content extends React.Component<Props, State> {
     });
   });
 
-  getScrollContainer = (ref: HTMLElement) => {
+  setBodyRef = (ref: HTMLElement) => {
     if (!ref) {
       return;
     }
-    this.scrollContainer = ref;
+    this.bodyRef = ref;
   };
 
   handleKeyUp = () => {
@@ -344,42 +342,32 @@ export default class Content extends React.Component<Props, State> {
               testId={testId}
             />
             {/* Backwards compatibility for styled-components innerRefs */}
-            {this.scrollContainer instanceof HTMLElement ? (
-              <TouchScrollable>
-                {(touchRef: HTMLElement | null) => (
+            <TouchScrollable>
+              {(touchRef: (node: EventTarget | null) => void) => {
+                // touchRef always needs an EventTarget. If a consumer provides their own `Body` that
+                // does not forward a ref, today we log a warning (ideally it would be a type error)
+                // So we need to provide a fake EventTarget to touchRef incase a consumer is not
+                // forwarding the ref on their `Body`
+                if (CustomBody || DeprecatedBody) {
+                  touchRef(fakeTarget);
+                }
+                return (
                   <Body
                     tabIndex={showContentFocus ? 0 : undefined}
                     css={bodyStyles(shouldScroll)}
                     {...(!Body.hasOwnProperty('styledComponentId')
                       ? {
-                          ref: mergeRefs([touchRef, this.getScrollContainer]),
+                          ref: mergeRefs([touchRef, this.setBodyRef]),
                         }
                       : {
-                          innerRef: mergeRefs([
-                            touchRef,
-                            this.getScrollContainer,
-                          ]),
+                          innerRef: mergeRefs([touchRef, this.setBodyRef]),
                         })}
                   >
                     {children}
                   </Body>
-                )}
-              </TouchScrollable>
-            ) : (
-              <Body
-                tabIndex={showContentFocus ? 0 : undefined}
-                css={bodyStyles(shouldScroll)}
-                {...(!Body.hasOwnProperty('styledComponentId')
-                  ? {
-                      ref: this.getScrollContainer,
-                    }
-                  : {
-                      innerRef: this.getScrollContainer,
-                    })}
-              >
-                {children}
-              </Body>
-            )}
+                );
+              }}
+            </TouchScrollable>
             <Footer
               actions={actions}
               appearance={appearance}

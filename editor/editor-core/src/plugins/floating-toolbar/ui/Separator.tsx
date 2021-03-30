@@ -8,6 +8,7 @@ const Separator = styled.div`
   width: 1px;
   height: 20px;
   margin: 0 4px;
+  align-self: center;
 `;
 
 export default () => <Separator className="separator" />;

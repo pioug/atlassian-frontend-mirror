@@ -189,7 +189,7 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
               isDisabled={disabled}
               isReducedSpacing={isToolbarReducedSpacing}
               setBlockType={boundSetBlockType}
-              pluginState={pluginState}
+              pluginState={pluginState!}
               popupsMountPoint={popupsMountPoint}
               popupsBoundariesElement={popupsBoundariesElement}
               popupsScrollableElement={popupsScrollableElement}

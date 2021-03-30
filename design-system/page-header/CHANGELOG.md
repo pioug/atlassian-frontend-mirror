@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.0.9
+
+### Patch Changes
+
+- [`8450e34990c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8450e34990c) - [ux] Conditionally render ActionsWrapper for PageHeader's actions when provided.
+
 ## 10.0.8
 
 ### Patch Changes

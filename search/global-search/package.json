@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/global-search",
-  "version": "13.0.10",
+  "version": "13.0.11",
   "description": "A cross-product search component (batteries included)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,8 +31,8 @@
     "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/feedback-collector": "^6.0.0",
     "@atlaskit/flag": "^14.0.0",
-    "@atlaskit/icon": "^21.4.0",
-    "@atlaskit/icon-file-type": "^6.2.0",
+    "@atlaskit/icon": "^21.5.0",
+    "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/logo": "^13.0.0",

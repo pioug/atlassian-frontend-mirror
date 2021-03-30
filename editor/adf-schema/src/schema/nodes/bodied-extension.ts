@@ -2,20 +2,35 @@ import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { uuid } from '../../utils/uuid';
 import { getExtensionAttrs } from '../../utils/extensions';
 import { ExtensionAttributes } from './types/extensions';
+import { MarksObject, NoMark } from './types/mark';
 import { NonNestableBlockContent } from './types/non-nestable-block-content';
+import { DataConsumerDefinition } from '../marks/data-consumer';
 
 /**
  * @name bodiedExtension_node
  */
-export interface BodiedExtensionDefinition {
+export interface BodiedExtensionBaseDefinition {
   type: 'bodiedExtension';
   attrs: ExtensionAttributes;
+  marks?: Array<any>;
   /**
    * @minItems 1
    * @allowUnsupportedBlock true
    */
   content: Array<NonNestableBlockContent>;
 }
+
+/**
+ * @name bodiedExtension_with_no_marks_node
+ */
+export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition & NoMark;
+
+/**
+ * @name bodiedExtension_with_marks_node
+ * @stage 0
+ */
+export type BodiedExtensionWithMarksDefinition = BodiedExtensionBaseDefinition &
+  MarksObject<DataConsumerDefinition>;
 
 const createBodiedExtensionNodeSpec = (
   allowLocalId: boolean = false,

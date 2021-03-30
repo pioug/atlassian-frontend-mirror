@@ -110,6 +110,18 @@ type EditorTTIAEP = OperationalAEP<
   undefined
 >;
 
+type EditorContentRetrievalPerformedAEP = OperationalAEP<
+  ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    success: boolean;
+    errorInfo?: string;
+    errorStack?: string;
+  },
+  undefined
+>;
+
 type BrowserFreezePayload = OperationalAEPWithObjectId<
   ACTION.BROWSER_FREEZE,
   ACTION_SUBJECT.EDITOR,
@@ -394,4 +406,5 @@ export type GeneralEventPayload =
   | TypeAheadRenderedAEP
   | UploadExternalFailedAEP
   | WithPluginStateCalledAEP
-  | CodeBlockLanguageSelectedAEP;
+  | CodeBlockLanguageSelectedAEP
+  | EditorContentRetrievalPerformedAEP;

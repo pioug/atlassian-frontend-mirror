@@ -3,21 +3,17 @@ import { ComponentType } from 'react';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
 import { ExtensionParams, UpdateExtension } from './extension-handler';
+import {
+  ExtensionIconModule,
+  MaybeESModule,
+} from './extension-manifest-common';
+import { ExtensionModuleToolbarItem } from './extension-manifest-toolbar-item';
 import { Parameters } from './extension-parameters';
 import { FieldDefinition, Option, UserFieldContext } from './field-definitions';
-
-export type ESModule<T> = {
-  __esModule?: boolean;
-  default: T;
-};
-
-export type MaybeESModule<T> = ESModule<T> | T;
 
 export type ExtensionType = string;
 export type ExtensionKey = string;
 export type ExtensionModuleKey = string;
-export type ExtensionIcon = ComponentType<any>;
-export type ExtensionIconModule = Promise<MaybeESModule<ExtensionIcon>>;
 export type ExtensionComponentProps<T extends Parameters = Parameters> = {
   node: ExtensionParams<T>;
   [key: string]: any; // many renderers pass their own context through too
@@ -120,6 +116,8 @@ export type ExtensionModules<T extends Parameters = Parameters> = {
   fields?: ExtensionModuleFields<T>;
   // define how/when to convert pasted content to this extension
   autoConvert?: ExtensionModuleAutoConvert;
+  // define buttons in toolbars for certain node types
+  contextualToolbarItems?: ExtensionModuleToolbarItem[];
 };
 
 export type ExtensionQuickInsertModule = 'quickInsert';

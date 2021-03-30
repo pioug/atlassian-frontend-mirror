@@ -4,6 +4,7 @@ import { ProcessedFileState } from '@atlaskit/media-client';
 import { BaseProps, BaseViewer } from '../../../../newgen/viewers/base-viewer';
 import { Outcome } from '../../../../newgen/domain';
 import { ErrorMessage } from '../../../../newgen/errorMessage';
+import { MediaViewerError } from '../../../../newgen/errors';
 import { Spinner } from '../../../../newgen/loading';
 import {
   mountWithIntlContext,
@@ -32,7 +33,7 @@ function createProps(): BaseProps {
 
 function createInitialState() {
   return {
-    content: Outcome.pending<string, Error>(),
+    content: Outcome.pending<string, MediaViewerError>(),
   };
 }
 

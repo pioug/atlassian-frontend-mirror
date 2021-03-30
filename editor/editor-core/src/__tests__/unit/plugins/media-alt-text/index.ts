@@ -9,6 +9,7 @@ import {
   media,
   p,
   Refs,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { getFreshMediaProvider } from '../media/_utils';
@@ -33,7 +34,10 @@ describe('media alt text', () => {
 
   const mediaProvider = getFreshMediaProvider();
 
-  const editor = (doc: any, createEditorOptions?: CreateEditorOptions) => {
+  const editor = (
+    doc: DocBuilder,
+    createEditorOptions?: CreateEditorOptions,
+  ) => {
     return createEditor({
       ...createEditorOptions,
       doc,

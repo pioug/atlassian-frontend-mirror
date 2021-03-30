@@ -28,11 +28,11 @@ export function isMediaViewerError(err: Error): err is MediaViewerError {
 
 export class ArchiveViewerError extends MediaViewerError {
   constructor(
-    reason: ArchiveViewerErrorReason,
-    innerError?: Error,
+    readonly primaryReason: ArchiveViewerErrorReason,
+    readonly secondaryError?: Error,
     readonly zipEntry?: ZipEntry,
   ) {
-    super(reason, innerError);
+    super(primaryReason, secondaryError);
   }
 }
 
@@ -43,9 +43,12 @@ export function isArchiveViewerError(err: Error): err is ArchiveViewerError {
 export type MediaViewerErrorReason =
   | 'collection-fetch-metadata'
   | 'header-fetch-metadata'
+  | 'itemviewer-onerror'
+  | 'itemviewer-fetch-metadata'
   | 'itemviewer-file-error-status'
   | 'itemviewer-file-failed-processing-status'
   | 'imageviewer-onerror'
+  | 'imageviewer-external-onerror'
   | 'imageviewer-fetch-url'
   | 'imageviewer-src-onerror'
   | 'audioviewer-onerror'
@@ -65,6 +68,7 @@ export type MediaViewerErrorReason =
   | 'codeviewer-parse-email'
   | 'archiveviewer-onerror'
   | 'unsupported';
+
 export type ArchiveViewerErrorReason =
   | 'archiveviewer-bundle-loader'
   | 'archiveviewer-read-binary'
@@ -77,44 +81,42 @@ export type ArchiveViewerErrorReason =
   | 'archiveviewer-unsupported'
   | 'archiveviewer-encrypted-entry';
 
-export type AvailableErrorReason =
-  | MediaClientErrorReason
+export type PrimaryErrorReason =
   | MediaViewerErrorReason
-  | ArchiveViewerErrorReason
-  | 'unknown'
-  | 'nativeError';
+  | ArchiveViewerErrorReason;
 
-export function getErrorReason(error: Error): AvailableErrorReason {
-  if (isMediaViewerError(error)) {
-    return error.primaryReason;
-  } else if (isMediaClientError(error)) {
-    return getMediaClientErrorReason(error);
-  }
-  return 'nativeError';
+export type SecondaryErrorReason =
+  | MediaClientErrorReason
+  | 'unknown' // this is because when we use getMediaClientErrorReason() we could get back "unknown"
+  | 'nativeError' // a javascript error
+  | undefined; // not supplied, so just a primary reason
+
+export function getPrimaryErrorReason(
+  error: MediaViewerError,
+): PrimaryErrorReason {
+  return error.primaryReason;
 }
 
-export function getPrimaryErrorReason(error: Error): AvailableErrorReason {
-  if (isMediaViewerError(error)) {
-    return error.primaryReason;
+export function getSecondaryErrorReason(
+  error: MediaViewerError,
+): SecondaryErrorReason {
+  const { secondaryError } = error;
+  if (secondaryError) {
+    if (isMediaClientError(secondaryError)) {
+      return getMediaClientErrorReason(secondaryError);
+    }
+    return 'nativeError';
   }
-  return 'nativeError';
-}
-
-export function getSecondaryErrorReason(error: Error): string | undefined {
-  if (isMediaViewerError(error) && error.secondaryError) {
-    return getErrorReason(error.secondaryError);
-  } else if (isMediaClientError(error)) {
-    return getMediaClientErrorReason(error);
-  }
-  return 'nativeError';
 }
 
 export function getErrorDetail(error?: Error): string | undefined {
+  // when the secondaryReason is "nativeError" we extract the error message for debugging
   if (
     error &&
     isMediaViewerError(error) &&
     getSecondaryErrorReason(error) === 'nativeError'
   ) {
-    return error.secondaryError?.message;
+    // pls don't send stack traces, they can get polluted and blow out payload sizes
+    return error.secondaryError && error.secondaryError.message;
   }
 }

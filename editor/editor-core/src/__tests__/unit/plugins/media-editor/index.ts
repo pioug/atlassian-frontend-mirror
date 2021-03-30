@@ -8,6 +8,7 @@ import {
   p,
   mediaSingle,
   media,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { nextTick } from '@atlaskit/media-test-helpers';
@@ -29,7 +30,10 @@ describe('media editor', () => {
 
   const mediaProvider = getFreshMediaProvider();
 
-  const editor = (doc: any, createEditorOptions?: CreateEditorOptions) => {
+  const editor = (
+    doc: DocBuilder,
+    createEditorOptions?: CreateEditorOptions,
+  ) => {
     return createEditor({
       ...createEditorOptions,
       doc,

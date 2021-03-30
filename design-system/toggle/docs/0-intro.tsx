@@ -52,7 +52,7 @@ import Toggle from '@atlaskit/toggle';
   ${(
     <Props
       heading="Toggle Props"
-      props={require('!!extract-react-types-loader!../src/toggle')}
+      props={require('!!extract-react-types-loader!../src')}
     />
   )}
 

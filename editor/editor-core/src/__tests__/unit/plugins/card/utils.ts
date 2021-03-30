@@ -4,6 +4,7 @@ import {
   layoutSection,
   layoutColumn,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { isRichMediaInsideOfBlockNode } from '../../../../utils/rich-media-utils';
@@ -11,7 +12,7 @@ import { CardOptions } from '@atlaskit/editor-common';
 
 describe('Rich Media utils:', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any, cardProps?: Partial<CardOptions>) => {
+  const editor = (doc: DocBuilder, cardProps?: Partial<CardOptions>) => {
     return createEditor({
       doc,
       editorProps: {

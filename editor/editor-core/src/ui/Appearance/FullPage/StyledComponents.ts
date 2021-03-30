@@ -101,7 +101,7 @@ export const EditorContentArea = styled.div`
   .fabric-editor--full-width-mode {
     /* Full Width Mode styles for ignoring breakout sizes */
     .fabric-editor-breakout-mark,
-    .extension-container,
+    .extension-container.block,
     .pm-table-container {
       width: 100% !important;
     }

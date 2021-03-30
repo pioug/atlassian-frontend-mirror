@@ -123,6 +123,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.onEditorCreated = this.onEditorCreated.bind(this);
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
     this.editorActions = (context || {}).editorActions || new EditorActions();
+    this.trackEditorActions(this.editorActions, props);
 
     startMeasure(measurements.EDITOR_MOUNTED);
     if (
@@ -247,6 +248,88 @@ export default class Editor extends React.Component<EditorProps, State> {
     clearMeasure(measurements.EDITOR_MOUNTED);
   }
 
+  trackEditorActions(
+    editorActions: EditorActions & {
+      _contentRetrievalTracking?: {
+        getValueTracked: boolean;
+        samplingCounters: { success: number; failure: number };
+      };
+    },
+    props: EditorProps,
+  ) {
+    if (props?.performanceTracking?.contentRetrievalTracking?.enabled) {
+      const DEFAULT_SAMPLING_RATE = 100;
+      const getValue = editorActions.getValue.bind(editorActions);
+      if (!editorActions._contentRetrievalTracking) {
+        editorActions._contentRetrievalTracking = {
+          samplingCounters: {
+            success: 1,
+            failure: 1,
+          },
+          getValueTracked: false,
+        };
+      }
+      const {
+        _contentRetrievalTracking: { samplingCounters, getValueTracked },
+      } = editorActions;
+
+      if (!getValueTracked) {
+        const getValueWithTracking = async () => {
+          try {
+            const value = await getValue();
+            if (
+              samplingCounters.success ===
+              (props?.performanceTracking?.contentRetrievalTracking
+                ?.successSamplingRate ?? DEFAULT_SAMPLING_RATE)
+            ) {
+              this.handleAnalyticsEvent({
+                payload: {
+                  action: ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
+                  actionSubject: ACTION_SUBJECT.EDITOR,
+                  attributes: {
+                    success: true,
+                  },
+                  eventType: EVENT_TYPE.OPERATIONAL,
+                },
+              });
+              samplingCounters.success = 0;
+            }
+            samplingCounters.success++;
+            return value;
+          } catch (err) {
+            if (
+              samplingCounters.failure ===
+              (props?.performanceTracking?.contentRetrievalTracking
+                ?.failureSamplingRate ?? DEFAULT_SAMPLING_RATE)
+            ) {
+              this.handleAnalyticsEvent({
+                payload: {
+                  action: ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
+                  actionSubject: ACTION_SUBJECT.EDITOR,
+                  attributes: {
+                    success: false,
+                    errorInfo: err.toString(),
+                    errorStack: props?.performanceTracking
+                      ?.contentRetrievalTracking?.reportErrorStack
+                      ? err.stack
+                      : undefined,
+                  },
+                  eventType: EVENT_TYPE.OPERATIONAL,
+                },
+              });
+              samplingCounters.failure = 0;
+            }
+            samplingCounters.failure++;
+            throw err;
+          }
+        };
+        editorActions.getValue = getValueWithTracking;
+        editorActions._contentRetrievalTracking.getValueTracked = true;
+      }
+    }
+    return editorActions;
+  }
+
   prepareExtensionProvider = memoizeOne(
     (extensionProviders?: ExtensionProvidersProp) => {
       if (!extensionProviders) {
@@ -314,12 +397,6 @@ export default class Editor extends React.Component<EditorProps, State> {
       allowConfluenceInlineComment: {
         message:
           'To integrate inline comments use experimental annotationProvider – <Editor annotationProviders={{ provider }} />',
-        type: 'removed',
-      },
-
-      transactionTracking: {
-        message:
-          'Deprecated. To enable transaction tracking use performanceTracking prop instead: performanceTracking={{ transactionTracking: { enabled: true } }}',
         type: 'removed',
       },
     };
@@ -586,6 +663,13 @@ export default class Editor extends React.Component<EditorProps, State> {
                                     }
                                     persistScrollGutter={
                                       this.props.persistScrollGutter
+                                    }
+                                    enableToolbarMinWidth={
+                                      this.props.featureFlags
+                                        ?.toolbarMinWidthOverflow != null
+                                        ? !!this.props.featureFlags
+                                            ?.toolbarMinWidthOverflow
+                                        : this.props.UNSAFE_allowUndoRedoButtons
                                     }
                                   />
                                 </BaseTheme>

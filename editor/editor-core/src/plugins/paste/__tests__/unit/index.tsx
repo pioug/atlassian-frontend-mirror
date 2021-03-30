@@ -47,6 +47,7 @@ import {
   a,
   inlineCard,
   annotation,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createFakeExtensionManifest,
@@ -129,7 +130,7 @@ describe('paste plugins', () => {
   }
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     pluginsOptions?: PluginsOptions,
     attachTo?: HTMLElement,
   ) => {
@@ -212,7 +213,7 @@ describe('paste plugins', () => {
             ? { platform: 'web', ...pasteOptions.cardOptions }
             : { platform: 'web' },
         ])
-        .add(featureFlags)
+        .add([featureFlags, { predictableLists: true }])
         .add([
           mediaPlugin,
           {

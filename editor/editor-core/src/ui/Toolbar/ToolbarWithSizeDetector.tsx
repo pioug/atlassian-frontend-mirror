@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { ComponentClass, HTMLAttributes } from 'react';
+import styled from 'styled-components';
 import { WidthObserver } from '@atlaskit/width-detector';
+import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 import { useElementWidth } from './hooks';
 import { ToolbarWithSizeDetectorProps } from './toolbar-types';
-import { widthToToolbarSize } from './toolbar-size';
+import { widthToToolbarSize, toolbarSizeToWidth } from './toolbar-size';
 import { Toolbar } from './Toolbar';
-import styled from 'styled-components';
-import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+import { ToolbarSize } from './types';
 
-const StyledToolBar = styled.div`
+const StyledToolBar: ComponentClass<
+  HTMLAttributes<{}> & {
+    minWidth?: string;
+  }
+> = styled.div`
   width: 100%;
-  min-width: 254px;
+  min-width: ${({ minWidth }) => minWidth};
   position: relative;
   @media (max-width: ${akEditorMobileMaxWidth}px) {
     grid-column: 1 / 2;
@@ -18,6 +23,7 @@ const StyledToolBar = styled.div`
     margin: 0 15px;
   }
 `;
+
 export const ToolbarWithSizeDetector: React.FunctionComponent<ToolbarWithSizeDetectorProps> = props => {
   const ref = React.createRef<HTMLDivElement>();
   const [width, setWidth] = React.useState<number | undefined>(undefined);
@@ -30,8 +36,12 @@ export const ToolbarWithSizeDetector: React.FunctionComponent<ToolbarWithSizeDet
       ? undefined
       : widthToToolbarSize((width || elementWidth)!, props.appearance);
 
+  const toolbarMinWidth = toolbarSizeToWidth(ToolbarSize.S, props.appearance);
+
   return (
-    <StyledToolBar>
+    <StyledToolBar
+      minWidth={props.hasMinWidth ? `${toolbarMinWidth}px` : '254px'}
+    >
       <WidthObserver setWidth={setWidth} />
       {props.editorView && toolbarSize ? (
         <Toolbar {...props} toolbarSize={toolbarSize} />

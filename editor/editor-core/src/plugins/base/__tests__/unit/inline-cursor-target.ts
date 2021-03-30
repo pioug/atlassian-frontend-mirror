@@ -6,6 +6,7 @@ import {
   tr,
   td,
   tdEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -29,7 +30,7 @@ const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('Inline cursor target', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editorFactory = (doc: any) =>
+  const editorFactory = (doc: DocBuilder) =>
     createEditor<InlineCursorTargetState, PluginKey>({
       doc,
       providerFactory,

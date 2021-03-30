@@ -8,6 +8,7 @@ import {
   panel,
   p,
   emoji,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PanelType } from '@atlaskit/adf-schema';
@@ -24,7 +25,7 @@ describe('panel actions', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any, UNSAFE_allowCustomPanel?: boolean) => {
+  const editor = (doc: DocBuilder, UNSAFE_allowCustomPanel?: boolean) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
       .add([panelPlugin, { UNSAFE_allowCustomPanel }])

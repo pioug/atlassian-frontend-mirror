@@ -1,10 +1,9 @@
-import { Schema } from 'prosemirror-model';
 import {
   p,
   ul,
   li,
   doc,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { calcJoinListScenario } from '../../../actions/join-list-items-forward';
@@ -149,7 +148,7 @@ describe('list-predictable-delete', () => {
     ),
   );
 
-  describe.each<[string, (schema: Schema) => RefsNode, string]>([
+  describe.each<[string, DocBuilder, string]>([
     [
       'joining a list item with a paragraph',
       documentCase1,

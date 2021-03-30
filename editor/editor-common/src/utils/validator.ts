@@ -10,7 +10,12 @@ import {
   generateUuid as uuid,
 } from '@atlaskit/adf-schema';
 
-export type ADFStage = 'stage0' | 'final';
+export const ADFStages = {
+  FINAL: 'final',
+  STAGE_0: 'stage0',
+} as const;
+
+export type ADFStage = typeof ADFStages[keyof typeof ADFStages];
 
 export interface ADDoc {
   version: 1;
@@ -53,6 +58,7 @@ export const markOrder = [
   'code',
   'confluenceInlineComment',
   'annotation',
+  'dataConsumer',
 ];
 
 export const isSubSupType = (type: string): type is 'sub' | 'sup' => {
@@ -851,6 +857,12 @@ export const getValidMark = (
   if (adfStage === 'stage0') {
     switch (type) {
       case 'confluenceInlineComment': {
+        return {
+          type,
+          attrs,
+        };
+      }
+      case 'dataConsumer': {
         return {
           type,
           attrs,

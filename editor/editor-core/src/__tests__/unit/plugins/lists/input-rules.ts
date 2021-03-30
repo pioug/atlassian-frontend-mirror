@@ -12,6 +12,7 @@ import {
   p,
   ul,
   hardBreak,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
@@ -28,7 +29,7 @@ describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
     return createEditor({

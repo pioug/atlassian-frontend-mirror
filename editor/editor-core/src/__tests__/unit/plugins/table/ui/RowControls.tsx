@@ -9,6 +9,7 @@ import {
   tdEmpty,
   thEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
 import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
@@ -65,7 +66,7 @@ describe('RowControls', () => {
     jest.clearAllMocks();
   });
 
-  const editor = (doc: any, props?: EditorProps) =>
+  const editor = (doc: DocBuilder, props?: EditorProps) =>
     createEditor({
       doc,
       editorProps: { allowTables: true, ...props },

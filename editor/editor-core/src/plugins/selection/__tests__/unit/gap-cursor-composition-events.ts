@@ -1,5 +1,9 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { EditorView } from 'prosemirror-view';
 
 import { setGapCursorSelection } from '../../../../utils';
@@ -11,7 +15,7 @@ import {
   BlockNodesKeys,
   LeafBlockNodesKeys,
 } from './_gap-cursor-utils';
-import { gapCursorPluginKey } from '../../../../plugins/selection/types';
+import { gapCursorPluginKey } from '../../pm-plugins/gap-cursor-plugin-key';
 
 const deleteContentBackward = (view: EditorView) => {
   view.dom.dispatchEvent(
@@ -25,7 +29,7 @@ const deleteContentBackward = (view: EditorView) => {
 describe('gap-cursor: composition events', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

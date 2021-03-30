@@ -1,6 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { doc, embedCard } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  embedCard,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { CardOptions } from '@atlaskit/editor-common';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import ResizableEmbedCard, {
@@ -9,7 +13,7 @@ import ResizableEmbedCard, {
 
 describe('ResizableEmbedCard', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any, cardProps?: Partial<CardOptions>) => {
+  const editor = (doc: DocBuilder, cardProps?: Partial<CardOptions>) => {
     return createEditor({
       doc,
       editorProps: {

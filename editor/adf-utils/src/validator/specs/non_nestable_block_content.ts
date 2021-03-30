@@ -13,7 +13,7 @@ export default [
   'mediaGroup',
   'decisionList',
   'taskList',
-  'extension',
+  'extension_with_no_marks',
   'embedCard',
   'table',
 ];

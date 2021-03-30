@@ -11,6 +11,7 @@ import {
   doc,
   p,
   inlineCard,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { CardOptions } from '@atlaskit/editor-common';
 import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
@@ -21,7 +22,7 @@ import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 describe('<HyperlinkToolbarAppearance />', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       providerFactory,

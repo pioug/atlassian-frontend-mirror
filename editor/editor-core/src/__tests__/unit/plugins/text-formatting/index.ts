@@ -11,6 +11,7 @@ import {
   subsup,
   mention,
   code_block,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -34,7 +35,7 @@ describe('text-formatting', () => {
   const createEditor = createEditorFactory<TextFormattingState>();
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,

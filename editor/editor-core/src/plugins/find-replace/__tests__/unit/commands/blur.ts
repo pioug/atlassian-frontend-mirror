@@ -1,5 +1,9 @@
 import { EditorView } from 'prosemirror-view';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { activate, blur } from '../../../commands';
 import { editor } from '../_utils';
 import { getPluginState } from '../../../plugin';
@@ -7,7 +11,7 @@ import { getPluginState } from '../../../plugin';
 describe('find/replace commands: blur', () => {
   let editorView: EditorView;
 
-  const initEditor = (doc: any) => {
+  const initEditor = (doc: DocBuilder) => {
     ({ editorView } = editor(doc));
   };
 

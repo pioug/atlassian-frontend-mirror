@@ -10,6 +10,7 @@ import {
   a,
   extension,
   unsupportedBlock,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import {
@@ -38,7 +39,7 @@ const createMediaState = (
 
 describe('media-single', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const providerFactory = ProviderFactory.create({
       contextIdentifierProvider,

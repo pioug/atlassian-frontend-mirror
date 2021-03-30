@@ -19,12 +19,21 @@ const areParametersEqual = (
   firstParameters: any,
   secondParameters: any,
 ): boolean => {
-  const firstKeys = Object.keys(firstParameters);
-  const secondKeys = Object.keys(secondParameters);
-  return (
-    firstKeys.length === secondKeys.length &&
-    firstKeys.every(key => firstParameters[key] === secondParameters[key])
-  );
+  if (
+    typeof firstParameters === 'object' &&
+    typeof secondParameters === 'object' &&
+    firstParameters !== null &&
+    secondParameters !== null
+  ) {
+    const firstKeys = Object.keys(firstParameters);
+    const secondKeys = Object.keys(secondParameters);
+    return (
+      firstKeys.length === secondKeys.length &&
+      firstKeys.every(key => firstParameters[key] === secondParameters[key])
+    );
+  }
+
+  return firstParameters === secondParameters;
 };
 
 export const getContextPanel = (allowAutoSave?: boolean) => (
@@ -128,8 +137,8 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
 
 export async function onChangeAction(
   editorView: EditorView,
-  updatedParameters: object,
-  oldParameters: object,
+  updatedParameters: object = {},
+  oldParameters: object = {},
   nodeWithPos: ContentNodeWithPos,
   onSaving?: () => void,
 ) {

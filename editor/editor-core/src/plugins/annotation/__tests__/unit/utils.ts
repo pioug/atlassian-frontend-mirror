@@ -13,6 +13,7 @@ import {
   hardBreak,
   RefsNode,
   panel,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -88,7 +89,7 @@ function mockCommentsStateWithAnnotations(annotations: InlineCommentMap) {
 
 describe('annotation', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       providerFactory,

@@ -25,6 +25,7 @@ import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
 import { setTableSize } from '../commands';
 import { getFeatureFlags } from '../../feature-flags-context';
+import type { TableColumnOrdering } from '../types';
 
 const tableAttributes = (node: PmNode) => {
   return {
@@ -136,7 +137,7 @@ export default class TableView extends ReactNodeView<Props> {
             pluginState,
             containerWidth,
           } = pluginStates;
-          const tableActive = props.getPos() === pluginState.tablePos;
+          const tableActive = props.getPos() === pluginState!.tablePos;
           return (
             <TableComponent
               view={props.view}
@@ -144,14 +145,14 @@ export default class TableView extends ReactNodeView<Props> {
               eventDispatcher={props.eventDispatcher}
               getPos={props.getPos}
               options={props.options}
-              allowControls={pluginState.pluginConfig.allowControls}
-              isHeaderRowEnabled={pluginState.isHeaderRowEnabled}
-              isHeaderColumnEnabled={pluginState.isHeaderColumnEnabled}
+              allowControls={pluginState!.pluginConfig.allowControls!}
+              isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
+              isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
               tableActive={tableActive}
-              ordering={pluginState.ordering}
+              ordering={pluginState!.ordering as TableColumnOrdering}
               tableResizingPluginState={tableResizingPluginState}
               getNode={this.getNode}
-              containerWidth={containerWidth}
+              containerWidth={containerWidth!}
               contentDOM={forwardRef}
             />
           );

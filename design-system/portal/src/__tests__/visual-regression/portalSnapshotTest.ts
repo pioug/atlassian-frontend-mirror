@@ -1,5 +1,15 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
+const openDialogButtonSelector = '#openDialogBtn';
+const portalSelector = '.atlaskit-portal';
+const dialogSelector = '.atlaskit-portal div[role="dialog"]';
+const lastDialogSelector = '.atlaskit-portal:nth-last-child(2)';
+const openAnotherButtonSelector = 'footer div div:last-child button';
+const showFlagButtonSelector = '#showFlagBtn';
+const showOnboardingButtonSelector = '#showOnboardingBtn';
+const toggleZIndexButtonSelector = '#toggleZIndexBtn';
+const changeChildValueButtonSelector = '#changeChildValue';
+
 describe('Snapshot Test', () => {
   it(`Portal stacking context should match prod`, async () => {
     const url = getExampleUrl(
@@ -10,7 +20,68 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector('.atlaskit-portal');
+    await page.waitForSelector(portalSelector);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+  it(`Changing z-index of portal should change stacking context`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'portal',
+      'portal-re-render',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(portalSelector);
+    await page.waitForSelector(toggleZIndexButtonSelector);
+    const btn = await page.$(toggleZIndexButtonSelector);
+    await btn?.click();
+    await page.waitForSelector(portalSelector);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+  it(`Changing children of portal should not affect stacking context`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'portal',
+      'portal-re-render',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(portalSelector);
+    await page.waitForSelector(changeChildValueButtonSelector);
+    const btn = await page.$(changeChildValueButtonSelector);
+    await btn?.click();
+    await page.waitForSelector(portalSelector);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+  it(`Portal should create portals with different stacking context for different layers`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'portal',
+      'complex-layering',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(openDialogButtonSelector);
+    const openDialogButton = await page.$(openDialogButtonSelector);
+    await openDialogButton?.click();
+    const dialog = await page.waitForSelector(dialogSelector);
+    const openAnotherButton = await dialog.$(openAnotherButtonSelector);
+    await openAnotherButton?.click();
+    const lastDialog = await page.$(lastDialogSelector);
+    const showFlagButton = await lastDialog?.$(showFlagButtonSelector);
+    await showFlagButton?.click();
+
+    const showOnboardingButton = await lastDialog?.$(
+      showOnboardingButtonSelector,
+    );
+    await showOnboardingButton?.click();
+
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

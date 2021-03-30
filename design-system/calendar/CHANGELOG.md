@@ -1,5 +1,44 @@
 # @atlaskit/calendar
 
+## 11.0.0
+
+### Major Changes
+
+- [`8ed4c2efc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed4c2efc42) - In this version we made calendar dramatically faster and lighter 🤩
+
+  - General performance improvements
+  - Moved from using tables to CSS grid to display the days
+  - Removed unnecessary DOM elements
+  - The `className` and `style` props have been added
+  - **BREAKING** The `innerProps` prop has been removed, generally consumers have only used this for style props which are now available directly
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/calendar@^11.0.0
+  ```
+
+  Once upgraded,
+  use `@atlaskit/codemod-cli` via `npx`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/calendar@^11.0.0` and you will automatically be upgraded.
+  If your usage of calendar cannot be upgraded a comment will be left that a manual change is required.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians,
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- [`c119fdd32e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c119fdd32e7) - Internal change to update usage of the custom `glyph` prop in @atlaskit/icon.
+- Updated dependencies
+
 ## 10.3.3
 
 ### Patch Changes

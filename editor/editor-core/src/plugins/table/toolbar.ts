@@ -78,18 +78,21 @@ export const getToolbarMenuConfig = (
 ): FloatingToolbarItem<Command> => {
   const options = [
     {
+      id: 'editor.table.headerRow',
       title: formatMessage(messages.headerRow),
       onClick: toggleHeaderRowWithAnalytics(),
       selected: state.isHeaderRowEnabled,
       hidden: !config.allowHeaderRow,
     },
     {
+      id: 'editor.table.headerColumn',
       title: formatMessage(messages.headerColumn),
       onClick: toggleHeaderColumnWithAnalytics(),
       selected: state.isHeaderColumnEnabled,
       hidden: !config.allowHeaderColumn,
     },
     {
+      id: 'editor.table.numberedColumn',
       title: formatMessage(messages.numberedColumn),
       onClick: toggleNumberColumnWithAnalytics(),
       selected: state.isNumberColumnEnabled,
@@ -98,6 +101,7 @@ export const getToolbarMenuConfig = (
   ];
 
   return {
+    id: 'editor.table.tableOptions',
     type: 'dropdown',
     title: formatMessage(messages.tableOptions),
     hidden: options.every(option => option.hidden),
@@ -119,6 +123,7 @@ export const getToolbarCellOptionsConfig = (
 
   const options = [
     {
+      id: 'editor.table.insertColumn',
       title: formatMessage(tableMessages.insertColumn),
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         const selectionRect = getClosestSelectionRect(state);
@@ -135,6 +140,7 @@ export const getToolbarCellOptionsConfig = (
       disabled: false,
     },
     {
+      id: 'editor.table.insertRow',
       title: formatMessage(tableMessages.insertRow),
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         const selectionRect = getClosestSelectionRect(state);
@@ -151,6 +157,7 @@ export const getToolbarCellOptionsConfig = (
       disabled: false,
     },
     {
+      id: 'editor.table.removeColumns',
       title: formatMessage(tableMessages.removeColumns, {
         0: numberOfColumns,
       }),
@@ -168,6 +175,7 @@ export const getToolbarCellOptionsConfig = (
       disabled: false,
     },
     {
+      id: 'editor.table.removeRows',
       title: formatMessage(tableMessages.removeRows, {
         0: numberOfRows,
       }),
@@ -186,18 +194,21 @@ export const getToolbarCellOptionsConfig = (
       disabled: false,
     },
     {
+      id: 'editor.table.mergeCells',
       title: formatMessage(ContextualMenuMessages.mergeCells),
       onClick: mergeCellsWithAnalytics(),
       selected: false,
       disabled: !canMergeCells(editorState.tr),
     },
     {
+      id: 'editor.table.splitCell',
       title: formatMessage(ContextualMenuMessages.splitCell),
       onClick: splitCellWithAnalytics(),
       selected: false,
       disabled: !splitCell(editorState),
     },
     {
+      id: 'editor.table.clearCells',
       title: formatMessage(ContextualMenuMessages.clearCells, {
         0: Math.max(numberOfColumns, numberOfRows),
       }),
@@ -215,6 +226,7 @@ export const getToolbarCellOptionsConfig = (
   ];
 
   return {
+    id: 'editor.table.cellOptions',
     type: 'dropdown',
     title: formatMessage(tableMessages.cellOptions),
     hidden: true,
@@ -268,6 +280,11 @@ export const getToolbarConfig: FloatingToolbarHandler = (
         separator(menu.hidden),
         ...cellItems,
         {
+          type: 'extensions-placeholder',
+          separator: 'end',
+        },
+        {
+          id: 'editor.table.delete',
           type: 'button',
           appearance: 'danger',
           icon: RemoveIcon,

@@ -461,6 +461,10 @@ export function toJSON(node: Node): JSONDocNode {
   return transformer.encode(node);
 }
 
+export function nodeToJSON(node: Node): JSONNode {
+  return transformer.encodeNode(node);
+}
+
 /**
  * Repeating string for multiple times
  */

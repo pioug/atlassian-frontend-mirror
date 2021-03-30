@@ -7,6 +7,7 @@ import {
   ul,
   li,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -19,7 +20,7 @@ describe('lists plugin -> quick insert', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

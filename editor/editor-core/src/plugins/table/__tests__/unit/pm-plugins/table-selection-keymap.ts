@@ -15,6 +15,7 @@ import {
   p,
   panel,
   code_block as codeBlock,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
@@ -33,7 +34,7 @@ describe('table selection keymap', () => {
     .add(panelPlugin)
     .add(codeBlockPlugin);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,
       preset,

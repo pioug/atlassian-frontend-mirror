@@ -27,6 +27,7 @@ import {
   code_block,
   Refs,
   RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -101,7 +102,7 @@ describe('Media plugin', () => {
   });
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     editorProps = {},
     dropzoneContainer: HTMLElement = document.body,
   ) => {

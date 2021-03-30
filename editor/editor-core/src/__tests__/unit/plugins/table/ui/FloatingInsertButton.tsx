@@ -7,6 +7,7 @@ import {
   tdEmpty,
   thEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   selectCell,
@@ -37,7 +38,7 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },
@@ -127,7 +128,7 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
 describe('Floating Insert Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

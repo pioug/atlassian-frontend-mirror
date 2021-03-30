@@ -43,16 +43,16 @@ const buildUrl = (
       }
     }
   }
-  let seperator = '';
-  if (path && baseUrl.substr(-1) !== '/') {
-    seperator = '/';
+  let separator = '';
+  if (path && baseUrl.substr(-1) !== '/' && !path.startsWith('/')) {
+    separator = '/';
   }
   let params = searchParam.toString();
   if (params) {
     params = '?' + params;
   }
 
-  return `${baseUrl}${seperator}${path}${params}`;
+  return `${baseUrl}${separator}${path}${params}`;
 };
 
 const addToHeaders = (headers: KeyValues, keyValues?: KeyValues) => {

@@ -8,6 +8,7 @@ import {
   tr,
   td,
   expand,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   analyticsPluginKey,
@@ -29,7 +30,7 @@ describe('analytics implicitAttributes', () => {
   let createAnalyticsEvent: jest.Mock;
   let fireMock: jest.Mock;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     fireMock = jest.fn();
     createAnalyticsEvent = jest.fn(() => ({ fire: fireMock }));
     return createEditor({

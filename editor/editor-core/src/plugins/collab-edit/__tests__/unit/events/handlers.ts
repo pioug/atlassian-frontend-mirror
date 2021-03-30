@@ -4,7 +4,7 @@ import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { p, DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
 import { CollabEditProvider } from '@atlaskit/editor-common';
 import collabEditPlugin from '../../../index';
 import { Cleanup, subscribe } from '../../../events/handlers';
@@ -32,7 +32,7 @@ describe('collab-edit: handlers.ts', () => {
   ]);
 
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: collabPreset,

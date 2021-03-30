@@ -13,6 +13,7 @@ import {
   tr,
   table,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { temporaryMedia } from './_utils';
@@ -25,7 +26,7 @@ const fragment = (...args: any) => (schema: Schema) =>
 
 describe('Media plugin', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

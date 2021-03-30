@@ -6,6 +6,16 @@ jest.mock('../../root/card/getCardPreview', () => {
     getCardPreviewFromFileState: jest.fn(),
   };
 });
+jest.mock('../../root/card/getCardStatus', () => {
+  const actualModule = jest.requireActual('../../root/card/getCardStatus');
+  return {
+    __esModule: true,
+    ...actualModule,
+    getCardStatus: jest.fn((...params) =>
+      actualModule.getCardStatus(...params),
+    ),
+  };
+});
 jest.mock('../../utils/intersectionObserver');
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import React from 'react';
@@ -64,6 +74,7 @@ import {
   getRenderFailedMediaClientFailReason,
 } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
+import { getCardStatus } from '../../root/card/getCardStatus';
 
 type AnalyticsHandlerResultType = ReturnType<
   typeof AnalyticsListener.prototype['props']['onEvent']
@@ -619,7 +630,7 @@ describe('Card', () => {
     expectToEqual(component.state().progress, 0);
   });
 
-  it('should set right state when file is processing', async () => {
+  it('should set right state when file is processing with no preview', async () => {
     const mediaClient = createMediaClientWithGetFile({
       ...defaultFileState,
       status: 'processing',
@@ -631,10 +642,12 @@ describe('Card', () => {
 
     const { status } = component.state();
 
-    expectToEqual(status, 'uploading'); // processing progress is when card status = 'uploading'
+    expectToEqual(status, 'processing');
   });
 
-  it('should set right state when file is processing', async () => {
+  // TODO: Update this test to differenciate files unsupported by the browser
+  // https://product-fabric.atlassian.net/browse/BMPT-1308
+  it('should set complete state when file is processing with preview', async () => {
     const mediaClient = createMediaClientWithGetFile({
       ...defaultFileState,
       status: 'processing',
@@ -649,7 +662,7 @@ describe('Card', () => {
 
     const { status, progress } = component.state();
 
-    expectToEqual(status, 'complete'); // we can fully render the card using local preview
+    expectToEqual(status, 'complete');
     expectToEqual(progress, 1);
   });
 
@@ -744,6 +757,8 @@ describe('Card', () => {
 
     expectToEqual(cardPreviewAfterSecondFileState.orientation, 6);
     expectToEqual(cardPreviewAfterSecondFileState.dataURI, 'some-data-uri');
+    // TODO: Update this test to differenciate files unsupported by the browser
+    // https://product-fabric.atlassian.net/browse/BMPT-1308
     expectToEqual(statusAfterSecondFileState, 'complete');
     expectToEqual(progressAfterSecondFileState, 1);
 
@@ -770,7 +785,8 @@ describe('Card', () => {
     expectToEqual(cardPreviewAfterFirstFileState.dataURI, 'some-data-uri');
     expectToEqual(cardPreviewAfterFirstFileState.orientation, 6);
 
-    // overall CardStatus shouldn't change back to `uploading`
+    // TODO: Update this test to differenciate files unsupported by the browser
+    // https://product-fabric.atlassian.net/browse/BMPT-1308
     expectToEqual(statusAfterFirstFileState, 'complete');
     expectToEqual(progressAfterFirstFileState, 1);
   });
@@ -825,18 +841,10 @@ describe('Card', () => {
     expect(component.find(CardView).prop('status')).toEqual('error');
   });
 
-  /**
-   * If, for any reason, file state subscription decides that the card is completed
-   * and later there is an error, we won't change the card's status.
-   * An example is a frontend unpreviewable file which
-   * is being processed in the backend and polling times out.
-   * This is the only case that requires this feature:
-   *  - doucment media type
-   *  - Media Card Classic Experience
-   *
-   * This feature might die after Classic goes away
-   */
-  it('should not render error card when getFileState fails and previous state is complete', async () => {
+  // If file state subscription decides that the card is completed
+  // and later there is an error, we won't change the card's status.
+  it('should not render error card when getFileState throws and previous state is complete', async () => {
+    asMockFunction(getCardStatus).mockReturnValueOnce('complete');
     const mediaClient = fakeMediaClient();
     const fileStateSubject = createFileStateSubject();
     asMockReturnValue(mediaClient.file.getFileState, fileStateSubject);
@@ -846,7 +854,8 @@ describe('Card', () => {
       id: 'some-id',
       name: 'some-name',
       size: 10,
-      status: 'processing',
+      status: 'uploading',
+      progress: 0.5,
       mediaType: 'doc',
       mimeType: 'application/pdf',
     });
@@ -1732,7 +1741,7 @@ describe('Card', () => {
       );
     });
 
-    it('should fire load commenced and failed events if card status is error', async () => {
+    it('should fire load commence and failure events if file status is error and dataURI is not resolved', async () => {
       asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
 
       const baseState: FileState = {
@@ -1819,7 +1828,7 @@ describe('Card', () => {
       );
     });
 
-    it('should fire commenced and failed events if the subject throws an error', async () => {
+    it('should fire commence and failure events if the subject throws an error', async () => {
       const error = createRateLimitedError();
 
       const subject = new ReplaySubject<FileState>(1);
@@ -1971,7 +1980,7 @@ describe('Card', () => {
       );
     });
 
-    it('should fire commenced and succeeded events if card status is complete and dataURI is not resolved', async () => {
+    it('should fire commenced and success events if file status is processed and dataURI is not resolved', async () => {
       asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
 
       const commencedFileState: FileState = {
@@ -2057,7 +2066,7 @@ describe('Card', () => {
       );
     });
 
-    it('should fire load commenced and failed events if file status is failed-processing', async () => {
+    it('should fire load commence and failure events if file status is failed-processing and dataURI is not resolved', async () => {
       asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
 
       const docFileState: FileState = {

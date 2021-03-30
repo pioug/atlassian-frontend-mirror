@@ -6,6 +6,7 @@ import {
   code_block,
   panel,
   hardBreak,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -21,7 +22,7 @@ import listPlugin from '../../../lists';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

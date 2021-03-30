@@ -17,6 +17,7 @@ import {
   td,
   layoutSection,
   layoutColumn,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { MockMentionResource } from '@atlaskit/util-data-test';
 import {
@@ -40,7 +41,7 @@ describe('media-files', () => {
   const mediaProvider = getFreshMediaProvider();
   providerFactory.setProvider('mediaProvider', mediaProvider);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

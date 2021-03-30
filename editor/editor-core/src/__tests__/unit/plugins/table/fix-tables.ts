@@ -6,6 +6,7 @@ import {
   tr,
   td,
   th,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   TablePluginState,
@@ -19,7 +20,7 @@ describe('fix tables', () => {
   // @ts-ignore
   global['fetch'] = jest.fn();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

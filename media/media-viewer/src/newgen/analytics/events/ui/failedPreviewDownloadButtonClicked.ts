@@ -2,11 +2,15 @@ import { WithFileAttributes } from '@atlaskit/media-common';
 import { FileStatus, FileState } from '@atlaskit/media-client';
 import { getFileAttributes } from '../..';
 import { ButtonClickEventPayload } from './_clickedButton';
-import { AvailableErrorReason, getPrimaryErrorReason } from '../../../errors';
+import {
+  PrimaryErrorReason,
+  getPrimaryErrorReason,
+  MediaViewerError,
+} from '../../../errors';
 
 export type FailedPreviewDownloadButtonClickedAttributes = WithFileAttributes & {
   fileProcessingStatus: FileStatus;
-  failReason: AvailableErrorReason;
+  failReason: PrimaryErrorReason;
 };
 
 export type FailedPreviewDownloadButtonClickedEventPayload = ButtonClickEventPayload<
@@ -15,7 +19,7 @@ export type FailedPreviewDownloadButtonClickedEventPayload = ButtonClickEventPay
 
 export const createFailedPreviewDownloadButtonClickedEvent = (
   fileState: FileState,
-  error: Error,
+  error: MediaViewerError,
 ): FailedPreviewDownloadButtonClickedEventPayload => {
   const { fileId, fileMediatype, fileMimetype, fileSize } = getFileAttributes(
     fileState,

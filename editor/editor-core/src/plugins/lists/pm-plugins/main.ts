@@ -4,7 +4,7 @@ import { isWrappingPossible } from '../utils';
 import { Dispatch } from '../../../event-dispatcher';
 import { removeBlockMarks } from '../../../utils/mark';
 
-export const pluginKey = new PluginKey('listsPlugin');
+export const pluginKey = new PluginKey<ListsPluginState>('listsPlugin');
 
 export interface ListsPluginState {
   bulletListActive: boolean;

@@ -1,4 +1,5 @@
-import { createCommand, RowStickyState } from './plugin-state';
+import { createCommand } from './plugin-state';
+import { RowStickyState } from './types';
 
 export const updateStickyState = (rowState: RowStickyState) =>
   createCommand({ name: 'UPDATE', state: rowState }, tr =>

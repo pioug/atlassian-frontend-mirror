@@ -6,6 +6,7 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../plugins/table/types';
 import {
@@ -19,17 +20,9 @@ import {
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 
 describe('table event handlers', () => {
-  let editor: any;
-
-  beforeEach(() => {
-    const createEditor = createEditorFactory<TablePluginState>();
-    editor = (doc: any) =>
-      createEditor({
-        doc,
-        editorProps: { allowTables: true },
-        pluginKey,
-      });
-  });
+  const createEditor = createEditorFactory<TablePluginState>();
+  const editor = (doc: DocBuilder) =>
+    createEditor({ doc, editorProps: { allowTables: true }, pluginKey });
 
   describe('#handleMouseOver', () => {
     describe('when insert col/row button is hidden', () => {
@@ -63,7 +56,7 @@ describe('table event handlers', () => {
         const event = {
           target: firstCell.node,
         };
-        expect(handleMouseOver(editorView, event as MouseEvent)).toEqual(true);
+        expect(handleMouseOver(editorView, event as any)).toEqual(true);
       });
     });
   });
@@ -82,7 +75,7 @@ describe('table event handlers', () => {
         const event = {
           target: firstCell.node,
         };
-        expect(handleMouseMove(editorView, event as MouseEvent)).toEqual(false);
+        expect(handleMouseMove(editorView, event as any)).toEqual(false);
       });
     });
   });

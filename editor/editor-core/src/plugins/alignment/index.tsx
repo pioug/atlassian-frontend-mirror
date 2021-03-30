@@ -43,12 +43,12 @@ const alignmentPlugin = (): EditorPlugin => ({
         render={({ align }) => {
           return (
             <ToolbarAlignment
-              pluginState={align}
+              pluginState={align!}
               isReducedSpacing={isToolbarReducedSpacing}
               changeAlignment={(align: AlignmentState) =>
                 changeAlignment(align)(editorView.state, editorView.dispatch)
               }
-              disabled={disabled || !align.isEnabled}
+              disabled={disabled || !align!.isEnabled}
               popupsMountPoint={popupsMountPoint}
               popupsBoundariesElement={popupsBoundariesElement}
               popupsScrollableElement={popupsScrollableElement}

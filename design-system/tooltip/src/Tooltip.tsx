@@ -308,6 +308,7 @@ function Tooltip({
         onBlur={onBlur}
         ref={setRef}
         data-testid={testId ? `${testId}--container` : undefined}
+        role="presentation"
       >
         {children}
       </CastTargetContainer>
@@ -318,7 +319,7 @@ function Tooltip({
             referenceElement={getReferentElement()}
             strategy={strategy}
           >
-            {({ ref, style }) => (
+            {({ ref, style, update }) => (
               <ExitingPersistence appear>
                 {shouldRenderTooltipChildren && (
                   <FadeIn
@@ -334,7 +335,9 @@ function Tooltip({
                         placement={tooltipPosition}
                         testId={testId}
                       >
-                        {content}
+                        {typeof content === 'function'
+                          ? content({ update })
+                          : content}
                       </Container>
                     )}
                   </FadeIn>

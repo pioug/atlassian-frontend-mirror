@@ -8,9 +8,8 @@ import {
   status,
   panel,
   code_block,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { Schema } from 'prosemirror-model';
 import { joinListItemForward } from '../../../commands/join-list-item-forward';
 import {
   CreateUIAnalyticsEvent,
@@ -47,7 +46,7 @@ describe('join-list-item-forward', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
   });
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
       .add(basePlugins)
@@ -64,7 +63,7 @@ describe('join-list-item-forward', () => {
     });
   };
 
-  const case1: [string, (schema: Schema) => RefsNode, string] = [
+  const case1: [string, DocBuilder, string] = [
     'joining a list item with a paragraph',
     // prettier-ignore
     doc(
@@ -78,7 +77,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST,
   ];
 
-  const case2: [string, (schema: Schema) => RefsNode, string] = [
+  const case2: [string, DocBuilder, string] = [
     'joining a sibling list item',
     // prettier-ignore
     doc(
@@ -95,7 +94,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_SIBLINGS,
   ];
 
-  const case3: [string, (schema: Schema) => RefsNode, string] = [
+  const case3: [string, DocBuilder, string] = [
     'joining a sub list descendants into the parent',
     // prettier-ignore
     doc(
@@ -118,7 +117,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_DESCENDANT_TO_PARENT,
   ];
 
-  const case4: [string, (schema: Schema) => RefsNode, string] = [
+  const case4: [string, DocBuilder, string] = [
     'joining a parent sibling to the current level',
     // prettier-ignore
     doc(
@@ -144,7 +143,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_PARENT_SIBLING_TO_PARENT_CHILD,
   ];
 
-  const case5: [string, (schema: Schema) => RefsNode, string] = [
+  const case5: [string, DocBuilder, string] = [
     'Empty paragraph followed by a single level list',
     // prettier-ignore
     doc(
@@ -161,7 +160,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case6: [string, (schema: Schema) => RefsNode, string] = [
+  const case6: [string, DocBuilder, string] = [
     'Empty paragraph followed by a nested list',
     // prettier-ignore
     doc(
@@ -186,7 +185,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case7: [string, (schema: Schema) => RefsNode, string] = [
+  const case7: [string, DocBuilder, string] = [
     'Paragraph followed by a single level list',
     // prettier-ignore
     doc(
@@ -203,7 +202,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case8: [string, (schema: Schema) => RefsNode, string] = [
+  const case8: [string, DocBuilder, string] = [
     'Paragraph followed by a nested list',
     // prettier-ignore
     doc(
@@ -233,7 +232,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case9: [string, (schema: Schema) => RefsNode, string] = [
+  const case9: [string, DocBuilder, string] = [
     'Paragraph followed by a single list item',
     // prettier-ignore
     doc(
@@ -247,7 +246,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case10: [string, (schema: Schema) => RefsNode, string] = [
+  const case10: [string, DocBuilder, string] = [
     'Paragraph followed by an empty list item',
     // prettier-ignore
     doc(
@@ -266,7 +265,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case11: [string, (schema: Schema) => RefsNode, string] = [
+  const case11: [string, DocBuilder, string] = [
     'Paragraph followed by an empty list item with no nested lists',
     // prettier-ignore
     doc(
@@ -286,7 +285,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case12: [string, (schema: Schema) => RefsNode, string] = [
+  const case12: [string, DocBuilder, string] = [
     'Paragraph followed by an empty list with nested lists and siblings',
     // prettier-ignore
     doc(
@@ -322,7 +321,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case13: [string, (schema: Schema) => RefsNode, string] = [
+  const case13: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with a paragraph and its first child is a hard break',
     // prettier-ignore
     doc(
@@ -342,7 +341,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case14: [string, (schema: Schema) => RefsNode, string] = [
+  const case14: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with multiple paragraphs, and siblings',
     // prettier-ignore
     doc(
@@ -364,7 +363,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case15: [string, (schema: Schema) => RefsNode, string] = [
+  const case15: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with multiple paragraphs, the first is empty, and siblings',
     // prettier-ignore
     doc(
@@ -386,7 +385,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case16: [string, (schema: Schema) => RefsNode, string] = [
+  const case16: [string, DocBuilder, string] = [
     'Status node followed by a list item with inline code and text',
     // prettier-ignore
     doc(
@@ -406,7 +405,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case17: [string, (schema: Schema) => RefsNode, string] = [
+  const case17: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with inline code and text, and siblings',
     // prettier-ignore
     doc(
@@ -425,7 +424,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case18: [string, (schema: Schema) => RefsNode, string] = [
+  const case18: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with multiple paragraphs (the first with inline code and text), and siblings',
     // prettier-ignore
     doc(
@@ -445,7 +444,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case19: [string, (schema: Schema) => RefsNode, string] = [
+  const case19: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with multiple paragraphs (the first with inline code and text)',
     // prettier-ignore
     doc(
@@ -463,7 +462,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case20: [string, (schema: Schema) => RefsNode, string] = [
+  const case20: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with inline code and text, and a nested list',
     // prettier-ignore
     doc(
@@ -483,7 +482,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case21: [string, (schema: Schema) => RefsNode, string] = [
+  const case21: [string, DocBuilder, string] = [
     'Paragraph followed by a list item with inline code and text, a nested list, and siblings',
     // prettier-ignore
     doc(
@@ -504,7 +503,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case22: [string, (schema: Schema) => RefsNode, string] = [
+  const case22: [string, DocBuilder, string] = [
     'Panel node followed by a list item with inline code and text',
     // prettier-ignore
     doc(
@@ -523,7 +522,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case23: [string, (schema: Schema) => RefsNode, string] = [
+  const case23: [string, DocBuilder, string] = [
     'Panel node followed by a list item with inline code and text, and siblings',
     // prettier-ignore
     doc(
@@ -543,7 +542,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  const case24: [string, (schema: Schema) => RefsNode, string] = [
+  const case24: [string, DocBuilder, string] = [
     'Panel node followed by a list item with inline code and text, and a nested list, and siblings',
     // prettier-ignore
     doc(
@@ -566,7 +565,7 @@ describe('join-list-item-forward', () => {
     LIST_TEXT_SCENARIOS.JOIN_LIST_ITEM_WITH_PARAGRAPH,
   ];
 
-  describe.each<[string, (schema: Schema) => RefsNode, string]>([
+  describe.each<[string, DocBuilder, string]>([
     case1,
     case2,
     case3,

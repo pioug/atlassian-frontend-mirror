@@ -15,6 +15,7 @@ import { Node } from 'prosemirror-model';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
+import { pluginKey as extensionsPluginKey } from '../extension/plugin-key';
 
 import WithPluginState from '../../ui/WithPluginState';
 import { EditorPlugin } from '../../types';
@@ -25,10 +26,7 @@ import {
   CONTENT_COMPONENT,
 } from '../analytics/types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
-import {
-  pluginKey as editorDisabledPluginKey,
-  EditorDisabledPluginState,
-} from '../editor-disabled';
+import { pluginKey as editorDisabledPluginKey } from '../editor-disabled';
 
 import { ToolbarLoader } from './ui/ToolbarLoader';
 import { FloatingToolbarHandler, FloatingToolbarConfig } from './types';
@@ -170,13 +168,12 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
         plugins={{
           floatingToolbarState: pluginKey,
           editorDisabledPlugin: editorDisabledPluginKey,
+          extensionsState: extensionsPluginKey,
         }}
         render={({
           editorDisabledPlugin,
           floatingToolbarState,
-        }: {
-          floatingToolbarState?: ConfigWithNodeInfo;
-          editorDisabledPlugin: EditorDisabledPluginState;
+          extensionsState,
         }) => {
           if (
             !floatingToolbarState ||
@@ -250,6 +247,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 popupsBoundariesElement={popupsBoundariesElement}
                 popupsScrollableElement={popupsScrollableElement}
                 dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                extensionsProvider={extensionsState?.extensionProvider}
               />
             </Popup>
           );
@@ -269,7 +267,9 @@ export default floatingToolbarPlugin;
 
 // We throttle update of this plugin with RAF.
 // So from other plugins you will always get the previous state.
-export const pluginKey = new PluginKey('floatingToolbarPluginKey');
+export const pluginKey = new PluginKey<ConfigWithNodeInfo>(
+  'floatingToolbarPluginKey',
+);
 
 /**
  * Clean up floating toolbar configs from undesired properties.

@@ -1,5 +1,9 @@
 import { EditorView } from 'prosemirror-view';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
@@ -32,7 +36,7 @@ describe('feedbackDialogPlugin', () => {
     Promise.resolve(() => {}),
   );
 
-  const editor = (doc: any, _trackEvent?: () => {}) => {
+  const editor = (doc: DocBuilder, _trackEvent?: () => {}) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
     return createEditor({

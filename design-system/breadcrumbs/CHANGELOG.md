@@ -1,5 +1,12 @@
 # @atlaskit/breadcrumbs
 
+## 11.0.3
+
+### Patch Changes
+
+- [`b7c722cb270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c722cb270) - The `react-loosely-lazy` dependency has been upgraded to `v0.4.4`.
+- Updated dependencies
+
 ## 11.0.2
 
 ### Patch Changes

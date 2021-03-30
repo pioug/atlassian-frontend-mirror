@@ -1,5 +1,9 @@
 import { EditorView } from 'prosemirror-view';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -26,7 +30,7 @@ describe('collab-edit: actions', () => {
   const providerFactory = ProviderFactory.create({ mentionProvider });
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     collabEditOptions: PrivateCollabEditOptions = {},
   ) => {
     return createEditor({

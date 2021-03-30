@@ -7,6 +7,7 @@ export {
   getExtensionModuleNode,
   getQuickInsertItemsFromModule,
   getNodeRenderer,
+  getContextualToolbarlItemsFromModule,
   resolveImport,
   getCustomFieldResolver,
   getFieldSerializer,
@@ -14,6 +15,7 @@ export {
   isFieldset,
   isDateRange,
   getUserFieldContextProvider,
+  buildMenuItem,
 } from './extensions/index';
 export type {
   ExtensionAutoConvertHandler,
@@ -34,6 +36,8 @@ export type {
   ExtensionParams,
   ExtensionProvider,
   ExtensionType,
+  ExtensionToolbarButton,
+  ExtensionModuleToolbarItem,
   Icon,
   MaybeADFEntity,
   MenuItem,

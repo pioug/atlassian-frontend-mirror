@@ -3,13 +3,14 @@ import { EditorState } from 'prosemirror-state';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {
   doc,
+  DocBuilder,
   p,
   tr as row,
   table,
   td,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
-import { cEmpty, DocBuilder } from '../../../__tests__/__helpers/doc-builder';
+import { cEmpty } from '../../../__tests__/__helpers/doc-builder';
 import { getSelectionRangeInRow } from '../../get-selection-range-in-row';
 
 const init = (docBuilder: DocBuilder) => {

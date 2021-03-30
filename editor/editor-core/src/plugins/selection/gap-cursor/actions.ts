@@ -3,6 +3,7 @@ import {
   Selection,
   TextSelection,
   NodeSelection,
+  Transaction,
 } from 'prosemirror-state';
 import { removeNodeBefore, findDomRefAtPos } from 'prosemirror-utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common';
@@ -15,7 +16,7 @@ import {
   atTheBeginningOfDoc,
   atTheEndOfDoc,
 } from '../../../utils/prosemirror/position';
-import { gapCursorPluginKey } from '../types';
+import { gapCursorPluginKey } from '../pm-plugins/gap-cursor-plugin-key';
 
 type MapDirection = { [name in Direction]: number };
 const mapDirection: MapDirection = {
@@ -267,7 +268,7 @@ const captureCursorCoords = (
     left: number;
     top: number;
   }) => { pos: number; inside: number } | null | void,
-  state: EditorState,
+  tr: Transaction,
 ): { position?: number; side: Side } | null => {
   const rect = editorRef.getBoundingClientRect();
 
@@ -283,7 +284,7 @@ const captureCursorCoords = (
       top: event.clientY,
     });
     if (coords && coords.inside > -1) {
-      const $from = state.doc.resolve(coords.inside);
+      const $from = tr.doc.resolve(coords.inside);
       const start = $from.before(1);
 
       const side = event.clientX < rect.left ? Side.LEFT : Side.RIGHT;
@@ -291,7 +292,7 @@ const captureCursorCoords = (
       if (side === Side.LEFT) {
         position = start;
       } else {
-        const node = state.doc.nodeAt(start);
+        const node = tr.doc.nodeAt(start);
         if (node) {
           position = start + node.nodeSize;
         }
@@ -304,7 +305,8 @@ const captureCursorCoords = (
   return null;
 };
 
-export const setCursorForTopLevelBlocks = (
+export const setSelectionTopLevelBlocks = (
+  tr: Transaction,
   event: React.MouseEvent<any>,
   editorRef: HTMLElement,
   posAtCoords: (coords: {
@@ -312,28 +314,19 @@ export const setCursorForTopLevelBlocks = (
     top: number;
   }) => { pos: number; inside: number } | null | void,
   editorFocused: boolean,
-): Command => (state, dispatch) => {
-  // plugin is disabled
-  if (!gapCursorPluginKey.get(state)) {
-    return false;
-  }
-  const cursorCoords = captureCursorCoords(
-    event,
-    editorRef,
-    posAtCoords,
-    state,
-  );
+) => {
+  const cursorCoords = captureCursorCoords(event, editorRef, posAtCoords, tr);
   if (!cursorCoords) {
-    return false;
+    return;
   }
 
   const $pos =
     cursorCoords.position !== undefined
-      ? state.doc.resolve(cursorCoords.position!)
+      ? tr.doc.resolve(cursorCoords.position!)
       : null;
 
   if ($pos === null) {
-    return false;
+    return;
   }
 
   const isGapCursorAllowed =
@@ -343,33 +336,46 @@ export const setCursorForTopLevelBlocks = (
 
   if (isGapCursorAllowed && GapCursorSelection.valid($pos)) {
     // this forces PM to re-render the decoration node if we change the side of the gap cursor, it doesn't do it by default
-    if (state.selection instanceof GapCursorSelection) {
-      if (dispatch) {
-        dispatch(state.tr.setSelection(Selection.near($pos)));
-      }
+    if (tr.selection instanceof GapCursorSelection) {
+      tr.setSelection(Selection.near($pos));
+    } else {
+      tr.setSelection(new GapCursorSelection($pos, cursorCoords.side));
     }
-    if (dispatch) {
-      dispatch(
-        state.tr.setSelection(new GapCursorSelection($pos, cursorCoords.side)),
-      );
-    }
-    return true;
   }
   // try to set text selection if the editor isnt focused
   // if the editor is focused, we are most likely dragging a selection outside.
   else if (editorFocused === false) {
-    const selection = Selection.findFrom(
+    const selectionTemp = Selection.findFrom(
       $pos,
       cursorCoords.side === Side.LEFT ? 1 : -1,
       true,
     );
-    if (selection) {
-      if (dispatch) {
-        dispatch(state.tr.setSelection(selection));
-      }
-      return true;
+    if (selectionTemp) {
+      tr.setSelection(selectionTemp);
     }
+  }
+};
+
+export const setCursorForTopLevelBlocks = (
+  event: React.MouseEvent<any>,
+  editorRef: HTMLElement,
+  posAtCoords: (coords: {
+    left: number;
+    top: number;
+  }) => { pos: number; inside: number } | null | void,
+  editorFocused: boolean,
+): Command => (state, dispatch) => {
+  const { tr } = state;
+  setSelectionTopLevelBlocks(tr, event, editorRef, posAtCoords, editorFocused);
+
+  if (tr.selectionSet && dispatch) {
+    dispatch(tr);
+    return true;
   }
 
   return false;
+};
+
+export const hasGapCursorPlugin = (state: EditorState): boolean => {
+  return Boolean(gapCursorPluginKey.get(state));
 };

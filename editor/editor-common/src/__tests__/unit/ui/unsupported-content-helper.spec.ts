@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
+  DocBuilder,
   unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
@@ -17,7 +18,7 @@ describe('getUnsupportedContent', () => {
     description: 'Unsupported content',
   };
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
     });

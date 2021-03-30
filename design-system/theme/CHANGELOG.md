@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 11.0.3
+
+### Patch Changes
+
+- [`bb0886583a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb0886583a0) - Adding new Layers type for optimised layer name to z-index conversion
+
 ## 11.0.2
 
 ### Patch Changes

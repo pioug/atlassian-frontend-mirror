@@ -27,9 +27,9 @@ import {
   EVENT_TYPE,
 } from '../../../analytics';
 import {
-  ExperimentalTextColorSelectedAEP,
-  ExperimentalTextColorShowMoreToggleAEP,
-  ExperimentalTextColorShowPaletteToggleAEP,
+  TextColorSelectedAEP,
+  TextColorShowMoreToggleAEP,
+  TextColorShowPaletteToggleAEP,
   TextColorSelectedAttr,
   TextColorShowMoreToggleAttr,
   TextColorShowPaletteToggleAttr,
@@ -219,7 +219,7 @@ class ToolbarTextColor extends React.Component<
         !originalTextColors.some(col => col.value === color);
 
       this.dispatchAnalyticsEvent(
-        this.buildExperimentalAnalyticsSelectColor({
+        this.buildAnalyticsSelectColor({
           color: (swatch ? swatch.label : color).toLowerCase(),
           isShowingMoreColors,
           isNewColor,
@@ -261,14 +261,10 @@ class ToolbarTextColor extends React.Component<
 
     if (logCloseEvent) {
       this.dispatchAnalyticsEvent(
-        this.buildExperimentalAnalyticsPalette(
-          isOpen ? ACTION.OPENED : ACTION.CLOSED,
-          {
-            isShowingMoreColors:
-              isExtendedPaletteSelected || isShowingMoreColors,
-            noSelect: isOpen === false,
-          },
-        ),
+        this.buildAnalyticsPalette(isOpen ? ACTION.OPENED : ACTION.CLOSED, {
+          isShowingMoreColors: isExtendedPaletteSelected || isShowingMoreColors,
+          noSelect: isOpen === false,
+        }),
       );
     }
   };
@@ -283,7 +279,7 @@ class ToolbarTextColor extends React.Component<
     }
     if (isOpen === true) {
       this.dispatchAnalyticsEvent(
-        this.buildExperimentalAnalyticsPalette(ACTION.CLOSED, {
+        this.buildAnalyticsPalette(ACTION.CLOSED, {
           isShowingMoreColors,
           noSelect: true,
         }),
@@ -301,7 +297,7 @@ class ToolbarTextColor extends React.Component<
 
     this.setState(state => {
       this.dispatchAnalyticsEvent(
-        this.buildExperimentalAnalyticsShowMore(
+        this.buildAnalyticsShowMore(
           state.isShowingMoreColors ? ACTION.CLOSED : ACTION.OPENED,
           {
             showMoreButton: !state.isShowingMoreColors,
@@ -316,7 +312,7 @@ class ToolbarTextColor extends React.Component<
     });
   };
 
-  private getCommonExperimentalAnalyticsAttributes() {
+  private getCommonAnalyticsAttributes() {
     const { showMoreColorsToggle } = this.props;
     return {
       experiment: EXPERIMENT_NAME,
@@ -326,48 +322,48 @@ class ToolbarTextColor extends React.Component<
     };
   }
 
-  private buildExperimentalAnalyticsPalette(
+  private buildAnalyticsPalette(
     action: ACTION.OPENED | ACTION.CLOSED,
     data: TextColorShowPaletteToggleAttr,
-  ): ExperimentalTextColorShowPaletteToggleAEP {
+  ): TextColorShowPaletteToggleAEP {
     return {
       action,
       actionSubject: ACTION_SUBJECT.TOOLBAR,
       actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
       eventType: EVENT_TYPE.TRACK,
       attributes: {
-        ...this.getCommonExperimentalAnalyticsAttributes(),
+        ...this.getCommonAnalyticsAttributes(),
         ...data,
       },
     };
   }
 
-  private buildExperimentalAnalyticsShowMore(
+  private buildAnalyticsShowMore(
     action: ACTION.OPENED | ACTION.CLOSED,
     data: TextColorShowMoreToggleAttr,
-  ): ExperimentalTextColorShowMoreToggleAEP {
+  ): TextColorShowMoreToggleAEP {
     return {
       action,
       actionSubject: ACTION_SUBJECT.TOOLBAR,
       actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
       eventType: EVENT_TYPE.TRACK,
       attributes: {
-        ...this.getCommonExperimentalAnalyticsAttributes(),
+        ...this.getCommonAnalyticsAttributes(),
         ...data,
       },
     };
   }
 
-  private buildExperimentalAnalyticsSelectColor(
+  private buildAnalyticsSelectColor(
     data: TextColorSelectedAttr,
-  ): ExperimentalTextColorSelectedAEP {
+  ): TextColorSelectedAEP {
     return {
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
       eventType: EVENT_TYPE.TRACK,
       attributes: {
-        ...this.getCommonExperimentalAnalyticsAttributes(),
+        ...this.getCommonAnalyticsAttributes(),
         ...data,
       },
     };

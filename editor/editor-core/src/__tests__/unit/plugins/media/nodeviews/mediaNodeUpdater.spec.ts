@@ -344,4 +344,56 @@ describe('MediaNodeUpdater', () => {
       });
     });
   });
+
+  describe('getRemoteDimensions()', () => {
+    it('should call getImageMetadata when file has an image representation', async () => {
+      const { mediaNodeUpdater } = setup();
+
+      const mediaClient = fakeMediaClient();
+      asMockReturnValue(getMediaClient, mediaClient);
+
+      for (const status of ['processing', 'processed', 'failed-processing']) {
+        asMock(mediaClient.file.getCurrentState).mockReturnValueOnce(
+          Promise.resolve({
+            id: 'source-file-id',
+            status,
+            representations: { image: {} },
+          }),
+        );
+
+        await mediaNodeUpdater.getRemoteDimensions();
+      }
+
+      expect(mediaClient.file.getCurrentState).toHaveBeenCalledTimes(3);
+      expect(mediaClient.getImageMetadata).toHaveBeenCalledTimes(3);
+    });
+
+    it('should not call getImageMetadata when file has no image representation', async () => {
+      const { mediaNodeUpdater } = setup();
+
+      const mediaClient = fakeMediaClient();
+      asMockReturnValue(getMediaClient, mediaClient);
+
+      for (const status of [
+        'uploading',
+        'processing',
+        'processed',
+        'failed-processing',
+        'error',
+      ]) {
+        asMock(mediaClient.file.getCurrentState).mockReturnValueOnce(
+          Promise.resolve({
+            id: 'source-file-id',
+            status,
+            representation: status !== 'error' ? {} : undefined,
+          }),
+        );
+
+        await mediaNodeUpdater.getRemoteDimensions();
+      }
+
+      expect(mediaClient.file.getCurrentState).toHaveBeenCalledTimes(5);
+      expect(mediaClient.getImageMetadata).toHaveBeenCalledTimes(0);
+    });
+  });
 });

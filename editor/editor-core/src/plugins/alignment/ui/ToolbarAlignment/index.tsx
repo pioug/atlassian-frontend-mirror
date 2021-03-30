@@ -1,17 +1,18 @@
 import React from 'react';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import Dropdown from '../../../../ui/Dropdown';
-
+import Alignment from '../../../../ui/Alignment';
+import { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
 import {
   ExpandIconWrapper,
   Separator,
   TriggerWrapper,
   Wrapper,
 } from './styles';
-import Alignment from '../../../../ui/Alignment';
-import { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
 import { iconMap } from './icon-map';
+import { messages } from './messages';
 
 export interface State {
   isOpen: boolean;
@@ -27,7 +28,10 @@ export interface Props {
   disabled?: boolean;
 }
 
-class AlignmentToolbar extends React.Component<Props, State> {
+class AlignmentToolbar extends React.Component<
+  Props & InjectedIntlProps,
+  State
+> {
   static displayName = 'AlignmentToolbar';
 
   state: State = {
@@ -43,7 +47,10 @@ class AlignmentToolbar extends React.Component<Props, State> {
       isReducedSpacing,
       pluginState,
       disabled,
+      intl,
     } = this.props;
+
+    const title = intl.formatMessage(messages.alignment);
 
     return (
       <Wrapper>
@@ -54,14 +61,14 @@ class AlignmentToolbar extends React.Component<Props, State> {
           isOpen={this.state.isOpen}
           handleClickOutside={this.hide}
           handleEscapeKeydown={this.hide}
-          fitWidth={242}
+          fitWidth={112}
           fitHeight={80}
           trigger={
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}
               disabled={disabled}
               selected={isOpen}
-              title="Text alignment"
+              title={title}
               aria-label="Text alignment"
               className="align-btn"
               onClick={this.toggleOpen}
@@ -106,4 +113,4 @@ class AlignmentToolbar extends React.Component<Props, State> {
   };
 }
 
-export default AlignmentToolbar;
+export default injectIntl(AlignmentToolbar);

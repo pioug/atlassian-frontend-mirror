@@ -110,6 +110,41 @@ describe('Block card views - Resolved', () => {
     );
   });
 
+  it('renders an avatar group when avatars are passed', () => {
+    const users = [
+      {
+        name: 'User A',
+        src: '#',
+      },
+      {
+        name: 'User B',
+        src: '#',
+      },
+    ];
+    const resolvedProps = {
+      ...props,
+      users: users,
+    };
+    const { getByTestId } = renderWithIntl(
+      <BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
+    );
+    const avatarGroup = getByTestId(
+      'resolved-view-collaborator-list--avatar-group',
+    );
+    expect(avatarGroup.childElementCount).toBe(2);
+  });
+
+  it('does not render an avatar group if no avatars are passed', () => {
+    const resolvedProps = {
+      ...props,
+      users: [],
+    };
+    const { queryByTestId } = renderWithIntl(
+      <BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
+    );
+    expect(queryByTestId('resolved-view-avatars--avatar-group')).toBeNull();
+  });
+
   it('clicking on link should have no side-effects', () => {
     const { getByTestId } = renderWithIntl(
       <BlockCardResolvedView testId="resolved-view" {...props} />,

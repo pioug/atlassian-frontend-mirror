@@ -8,10 +8,7 @@ import {
 } from '../../../utils/input-rules';
 import { TypeAheadHandler } from '../types';
 
-import {
-  pluginKey as typeAheadPluginKey,
-  PluginState as TypeAheadPluginState,
-} from './main';
+import { pluginKey as typeAheadPluginKey, TypeAheadPluginState } from './main';
 
 // We cannot set a proper plugin key on input rule plugins, so instead, once
 // the plugin is created we save its key to this variable

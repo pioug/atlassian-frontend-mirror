@@ -1,5 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { EditorActions, EventDispatcher } from '@atlaskit/editor-core';
 import { useEditorLifecycle } from '../../../hooks/use-editor-life-cycle';
@@ -8,7 +12,7 @@ import WebBridgeImpl from '../../../native-to-web';
 
 describe('useEditorLifecycle hook', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const { editorView } = createEditor({
       doc,
     });

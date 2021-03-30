@@ -12,11 +12,11 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { GridPluginState, GridType } from './types';
-import { pluginKey as widthPlugin, WidthPluginState } from '../width/index';
+import { pluginKey as widthPlugin } from '../width/index';
 import WithPluginState from '../../ui/WithPluginState';
 import { EventDispatcher, createDispatch } from '../../event-dispatcher';
 
-export const stateKey = new PluginKey('gridPlugin');
+export const stateKey = new PluginKey<GridPluginState>('gridPlugin');
 export const GRID_SIZE = 12;
 
 export type Highlights = Array<'wide' | 'full-width' | number>;
@@ -211,9 +211,6 @@ const gridPlugin = (options?: GridPluginOptions): EditorPlugin => ({
         render={({
           grid,
           widthState = { width: akEditorFullPageMaxWidth },
-        }: {
-          grid?: GridPluginState;
-          widthState?: WidthPluginState;
         }) => {
           if (!grid) {
             return null;

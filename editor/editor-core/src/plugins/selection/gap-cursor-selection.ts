@@ -1,2 +1,6 @@
 export { GapCursorSelection, Side } from './gap-cursor/selection';
-export { setCursorForTopLevelBlocks } from './gap-cursor/actions';
+export {
+  setCursorForTopLevelBlocks,
+  setSelectionTopLevelBlocks,
+  hasGapCursorPlugin,
+} from './gap-cursor/actions';

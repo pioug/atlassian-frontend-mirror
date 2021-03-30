@@ -2,7 +2,7 @@ import { PluginKey } from 'prosemirror-state';
 import { MediaEditorAction, MediaEditorState } from '../types';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 
-export const pluginKey = new PluginKey('mediaEditorPlugin');
+export const pluginKey = new PluginKey<MediaEditorState>('mediaEditorPlugin');
 
 export const reducer = (
   state: MediaEditorState,

@@ -22,7 +22,7 @@ import {
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { ExtensionProvider } from '@atlaskit/editor-common';
-import { EditorAppearance } from '../../types';
+import { EditorAppearance, EditorProps } from '../../types';
 import * as extensionUtils from '../../utils/extensions';
 
 import {
@@ -32,7 +32,7 @@ import {
 import ReactEditorView, {
   EditorViewProps,
 } from '../../create-editor/ReactEditorView';
-import { MediaOptions } from '../..';
+import { EditorActions, EditorContext, MediaOptions } from '../..';
 import { CardOptions } from '@atlaskit/editor-common';
 import { asMock } from '@atlaskit/media-test-helpers';
 
@@ -262,6 +262,187 @@ describe(name, () => {
           </FabricAnalyticsListeners>,
         );
         cleanup();
+      });
+
+      describe('contentRetrievalPerformed events', () => {
+        const setup = async ({
+          editorProps,
+          editorActions,
+          useOnReadyEditorActions,
+        }: {
+          editorProps: EditorProps;
+          editorActions?: EditorActions;
+          useOnReadyEditorActions?: boolean;
+        }) => {
+          let onReadyEditorActions: EditorActions;
+          const wrapper = mount<Editor>(
+            <EditorContext editorActions={editorActions}>
+              <Editor
+                onEditorReady={localEditorActions =>
+                  (onReadyEditorActions = localEditorActions)
+                }
+                {...editorProps}
+              />
+            </EditorContext>,
+          );
+          const editorWrapper = wrapper.find(Editor);
+          const instance = editorWrapper.instance() as Editor;
+          instance.handleAnalyticsEvent = jest.fn();
+          try {
+            await (useOnReadyEditorActions
+              ? onReadyEditorActions!.getValue()
+              : editorActions?.getValue());
+          } catch (err) {
+          } finally {
+            // eslint-disable-next-line no-unsafe-finally
+            return { handleAnalyticsEventMock: instance.handleAnalyticsEvent };
+          }
+        };
+        it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is not set', async () => {
+          const { handleAnalyticsEventMock } = await setup({
+            editorProps: {},
+            editorActions: undefined,
+            useOnReadyEditorActions: true,
+          });
+          expect(handleAnalyticsEventMock).not.toHaveBeenCalledWith({
+            payload: {
+              action: 'contentRetrievalPerformed',
+              actionSubject: 'editor',
+              attributes: { success: true },
+              eventType: 'operational',
+            },
+          });
+        });
+        it('should not dispatch a contentRetrievalPerformed event success=false if contentRetrievalTracking prop is not set and an exception is thrown', async () => {
+          const badEditorActions = new EditorActions();
+          badEditorActions.getValue = async () => {
+            throw new Error('a bad error');
+          };
+          const { handleAnalyticsEventMock } = await setup({
+            editorProps: {
+              performanceTracking: {},
+            },
+            editorActions: badEditorActions,
+            useOnReadyEditorActions: true,
+          });
+          expect(handleAnalyticsEventMock).not.toHaveBeenCalledWith({
+            payload: {
+              action: 'contentRetrievalPerformed',
+              actionSubject: 'editor',
+              attributes: {
+                success: false,
+                errorInfo: 'Error: a bad error',
+                errorStack: undefined,
+              },
+              eventType: 'operational',
+            },
+          });
+        });
+        it('should not dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is enabled=false', async () => {
+          const { handleAnalyticsEventMock } = await setup({
+            editorProps: {
+              performanceTracking: {
+                contentRetrievalTracking: {
+                  enabled: false,
+                  successSamplingRate: 1,
+                },
+              },
+            },
+            editorActions: undefined,
+            useOnReadyEditorActions: true,
+          });
+          expect(handleAnalyticsEventMock).not.toHaveBeenCalledWith({
+            payload: {
+              action: 'contentRetrievalPerformed',
+              actionSubject: 'editor',
+              attributes: { success: true },
+              eventType: 'operational',
+            },
+          });
+        });
+        it('should dispatch a contentRetrievalPerformed event with success=true if contentRetrievalTracking prop is set', async () => {
+          const { handleAnalyticsEventMock } = await setup({
+            editorProps: {
+              performanceTracking: {
+                contentRetrievalTracking: {
+                  enabled: true,
+                  successSamplingRate: 1,
+                },
+              },
+            },
+            editorActions: undefined,
+            useOnReadyEditorActions: true,
+          });
+          expect(handleAnalyticsEventMock).toHaveBeenCalledWith({
+            payload: {
+              action: 'contentRetrievalPerformed',
+              actionSubject: 'editor',
+              attributes: { success: true },
+              eventType: 'operational',
+            },
+          });
+        });
+        it('should dispatch a contentRetrievalPerformed event success=false if contentRetrievalTracking prop is set and an exception is thrown', async () => {
+          const badEditorActions = new EditorActions();
+          badEditorActions.getValue = async () => {
+            throw new Error('a bad error');
+          };
+          const { handleAnalyticsEventMock } = await setup({
+            editorProps: {
+              performanceTracking: {
+                contentRetrievalTracking: {
+                  enabled: true,
+                  failureSamplingRate: 1,
+                },
+              },
+            },
+            editorActions: badEditorActions,
+            useOnReadyEditorActions: true,
+          });
+          expect(handleAnalyticsEventMock).toHaveBeenCalledWith({
+            payload: {
+              action: 'contentRetrievalPerformed',
+              actionSubject: 'editor',
+              attributes: {
+                success: false,
+                errorInfo: 'Error: a bad error',
+                errorStack: undefined,
+              },
+              eventType: 'operational',
+            },
+          });
+        });
+        it('should dispatch a contentRetrievalPerformed event success=false with error stack trace if contentRetrievalTracking prop is set with reportErrorStack=true and an exception is thrown', async () => {
+          const badEditorActions = new EditorActions();
+          badEditorActions.getValue = async () => {
+            throw new Error('a bad error');
+          };
+          const { handleAnalyticsEventMock } = await setup({
+            editorProps: {
+              performanceTracking: {
+                contentRetrievalTracking: {
+                  enabled: true,
+                  failureSamplingRate: 1,
+                  reportErrorStack: true,
+                },
+              },
+            },
+            editorActions: badEditorActions,
+            useOnReadyEditorActions: true,
+          });
+          expect(handleAnalyticsEventMock).toHaveBeenCalledWith({
+            payload: {
+              action: 'contentRetrievalPerformed',
+              actionSubject: 'editor',
+              attributes: {
+                success: false,
+                errorInfo: 'Error: a bad error',
+                errorStack: expect.any(String),
+              },
+              eventType: 'operational',
+            },
+          });
+        });
       });
     });
 

@@ -13,6 +13,7 @@ import { Command } from '../../types';
 import commonMessages from '../../messages';
 import { MacroState } from '../macro';
 import {
+  FloatingToolbarConfig,
   FloatingToolbarHandler,
   FloatingToolbarItem,
 } from '../floating-toolbar/types';
@@ -102,6 +103,7 @@ const editButton = (
 
   return [
     {
+      id: 'editor.extension.edit',
       type: 'button',
       icon: EditIcon,
       testId: 'extension-toolbar-edit-button',
@@ -125,7 +127,8 @@ const editButton = (
 
 export const getToolbarConfig = (
   breakoutEnabled: boolean = true,
-): FloatingToolbarHandler => (state, { formatMessage }) => {
+): FloatingToolbarHandler => (state, intl) => {
+  const { formatMessage } = intl;
   const extensionState = getPluginState(state);
 
   if (
@@ -160,6 +163,11 @@ export const getToolbarConfig = (
             editButtonArray.length === 0 && breakoutButtonArray.length === 0,
         },
         {
+          type: 'extensions-placeholder',
+          separator: 'end',
+        },
+        {
+          id: 'editor.extension.delete',
           type: 'button',
           icon: RemoveIcon,
           appearance: 'danger',
@@ -169,7 +177,7 @@ export const getToolbarConfig = (
           title: formatMessage(commonMessages.remove),
         },
       ],
-    };
+    } as FloatingToolbarConfig;
   }
   return;
 };

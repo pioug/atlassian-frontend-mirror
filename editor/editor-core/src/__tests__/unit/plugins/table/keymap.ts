@@ -23,6 +23,7 @@ import {
   tdCursor,
   thEmpty,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { pmNodeBuilder } from '@atlaskit/editor-test-helpers/schema-element-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
@@ -81,7 +82,7 @@ describe('table keymap', () => {
     .add([analyticsPlugin, { createAnalyticsEvent }])
     .add([featureFlagsPlugin]);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,
       preset,

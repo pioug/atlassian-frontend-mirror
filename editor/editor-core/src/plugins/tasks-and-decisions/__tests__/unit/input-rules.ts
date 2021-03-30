@@ -26,6 +26,7 @@ import {
   thCursor,
   thEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -45,7 +46,7 @@ describe('tasks and decisions - input rules', () => {
     uuid.setStatic(false);
   });
 
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       editorProps: {

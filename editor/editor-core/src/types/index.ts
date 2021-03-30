@@ -27,9 +27,9 @@ export type {
 export type {
   PMPlugin,
   PMPluginFactory,
-  PMPluginCreateConfig,
   PMPluginFactoryParams,
 } from './pm-plugin';
+export type { PMPluginCreateConfig } from './pm-plugin-list';
 export type { NodeViewConfig, MarkConfig, NodeConfig } from './pm-config';
 export type {
   UIComponentFactory,

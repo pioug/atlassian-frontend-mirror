@@ -14,7 +14,7 @@ export function createInitialPluginState(
   };
 }
 
-export const pluginKey = new PluginKey('alignmentPlugin');
+export const pluginKey = new PluginKey<AlignmentPluginState>('alignmentPlugin');
 
 export function createPlugin(
   dispatch: Dispatch,
@@ -27,7 +27,7 @@ export function createPlugin(
         return createInitialPluginState(editorState, pluginConfig);
       },
       apply(_tr, state: AlignmentPluginState, _prevState, nextState) {
-        const nextPluginState = getActiveAlignment(nextState);
+        const nextPluginState = getActiveAlignment(nextState)!;
         const isEnabled = isAlignable(nextPluginState)(nextState);
         const newState = {
           ...state,

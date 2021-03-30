@@ -8,9 +8,14 @@ It is a copy paste of the `TooltipProps` from `types.ts` except for the `tag` pr
 
 type Props = {
   /**
-   * The content of the tooltip
+   * The content of the tooltip. It can be either a:
+   * 1. `ReactNode`
+   * 2. Function which returns a `ReactNode`
+   
+   * The benefit of the second approach is that it allows you to consume the `update` render prop.
+   * This `update` function can be called to manually recalculate the position of the tooltip.
    */
-  content: ReactNode;
+  content: ReactNode | (({ update }: { update: () => void }) => ReactNode);
 
   /**
    * Extend `TooltipPrimitive` to create your own tooltip and pass it as component

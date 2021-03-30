@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 75.0.0
+
+### Minor Changes
+
+- [`ada3c26e788`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ada3c26e788) - Add text rendering support for inlineCard node
+- [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
+- [`efdcfff1c0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efdcfff1c0b) - Add text rendering support for date node
+- [`b5065367a66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5065367a66) - Improve rendering of the status node in plain text: done -> [ DONE ]
+
+### Patch Changes
+
+- [`e6bd5669a53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6bd5669a53) - ED-10888 Deduplicate AJV initialization from our codebase
+- [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
+- [`fe1c96a3d28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe1c96a3d28) - added DocBuilder type to @atlaskit/editor-test-helpers, replaced duplicate definitions and DocumentType
+- Updated dependencies
+
 ## 74.1.1
 
 ### Patch Changes

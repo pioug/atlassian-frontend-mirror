@@ -27,7 +27,7 @@ export function Toolbar({ containerElement }: Props) {
           popupsMountPoint={config.popupsMountPoint}
           popupsBoundariesElement={config.popupsBoundariesElement}
           popupsScrollableElement={config.popupsScrollableElement}
-          disabled={disabled.editorDisabled}
+          disabled={disabled?.editorDisabled ?? false}
           containerElement={containerElement}
         />
       )}

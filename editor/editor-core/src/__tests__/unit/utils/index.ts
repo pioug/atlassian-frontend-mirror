@@ -19,6 +19,7 @@ import {
   media,
   mediaGroup,
   mediaSingle,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { MockMentionResource } from '@atlaskit/util-data-test';
@@ -40,7 +41,7 @@ import { closestElement } from '../../../utils/dom';
 describe('@atlaskit/editore-core/utils', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

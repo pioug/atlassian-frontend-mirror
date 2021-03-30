@@ -10,12 +10,18 @@ import {
 import { ErrorMessageWrapper, ErrorImage } from './styled';
 import { errorLoadingFile } from './error-images';
 import { fireAnalytics } from './analytics';
-import { getPrimaryErrorReason, AvailableErrorReason } from './errors';
+import {
+  PrimaryErrorReason,
+  SecondaryErrorReason,
+  MediaViewerError,
+  getPrimaryErrorReason,
+  getSecondaryErrorReason,
+} from './errors';
 import { createLoadFailedEvent } from './analytics/events/operational/loadFailed';
 import { createPreviewUnsupportedEvent } from './analytics/events/operational/previewUnsupported';
 
 export type Props = Readonly<{
-  error: Error;
+  error: MediaViewerError;
   supressAnalytics?: boolean;
   fileId: string;
   fileState?: FileState;
@@ -38,8 +44,8 @@ const errorLoadingFileImage = (formatMessage: FormatMessageFn) => (
   />
 );
 
-export const errorReasonToMessageMap: Array<[
-  AvailableErrorReason,
+export const errorReasonToMessages: Array<[
+  PrimaryErrorReason | SecondaryErrorReason,
   FormattedMessage.MessageDescriptor,
 ]> = [
   ['serverRateLimited', i18nMessages.might_be_a_hiccup],
@@ -57,11 +63,13 @@ export const errorReasonToMessageMap: Array<[
   ],
 ];
 
-export const getErrorMessageFromErrorReason = (
-  errorReason: AvailableErrorReason,
+export const getErrorMessageFromError = (
+  error: MediaViewerError,
 ): FormattedMessage.MessageDescriptor | undefined => {
-  const matchingRow = errorReasonToMessageMap.find(
-    row => row[0] === errorReason,
+  const matchingRow = errorReasonToMessages.find(
+    row =>
+      row[0] === getPrimaryErrorReason(error) ||
+      row[0] === getSecondaryErrorReason(error),
   );
   return matchingRow ? matchingRow[1] : undefined;
 };
@@ -75,7 +83,6 @@ export class ErrorMessage extends React.Component<
       intl: { formatMessage },
       error,
     } = this.props;
-    const failReason = getPrimaryErrorReason(error);
     const errorInfo = {
       icon: errorLoadingFileImage(formatMessage),
       messages: [
@@ -83,7 +90,7 @@ export class ErrorMessage extends React.Component<
         i18nMessages.couldnt_generate_preview,
       ],
     };
-    const message = getErrorMessageFromErrorReason(failReason);
+    const message = getErrorMessageFromError(error);
     if (message) {
       errorInfo.messages.push(message);
     }
@@ -91,16 +98,24 @@ export class ErrorMessage extends React.Component<
   }
 
   componentDidMount() {
-    const { error, fileState, supressAnalytics, fileId } = this.props;
+    const { props } = this;
+    const { supressAnalytics, error, fileState, fileId } = props;
     if (supressAnalytics !== true) {
-      if (fileState && getPrimaryErrorReason(error) === 'unsupported') {
-        fireAnalytics(createPreviewUnsupportedEvent(fileState), this.props);
-      } else {
-        fireAnalytics(
-          createLoadFailedEvent(fileId, error, fileState),
-          this.props,
-        );
-      }
+      const payload = ErrorMessage.getEventPayload(error, fileId, fileState);
+      fireAnalytics(payload, props);
+    }
+  }
+
+  static getEventPayload(
+    error: MediaViewerError,
+    fileId: string,
+    fileState?: FileState,
+  ) {
+    if (fileState && getPrimaryErrorReason(error) === 'unsupported') {
+      // this is not an SLI, its just a useful metric for unsupported
+      return createPreviewUnsupportedEvent(fileState);
+    } else {
+      return createLoadFailedEvent(fileId, error, fileState);
     }
   }
 

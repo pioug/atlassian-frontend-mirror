@@ -4,7 +4,12 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, a, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  a,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -23,7 +28,7 @@ describe('hyperlink', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });

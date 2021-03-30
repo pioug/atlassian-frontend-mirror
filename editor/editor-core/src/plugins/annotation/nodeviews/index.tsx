@@ -2,7 +2,6 @@ import React from 'react';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common';
 import { ReactNodeView, ForwardRef } from '../../../nodeviews';
 import WithPluginState from '../../../ui/WithPluginState';
-import { InlineCommentPluginState } from '../pm-plugins/types';
 import { inlineCommentPluginKey } from '../utils';
 
 export class AnnotationNodeView extends ReactNodeView {
@@ -23,21 +22,13 @@ export class AnnotationNodeView extends ReactNodeView {
           inlineCommentState: inlineCommentPluginKey,
         }}
         editorView={this.view}
-        render={({
-          inlineCommentState,
-        }: {
-          inlineCommentState: InlineCommentPluginState;
-        }) => {
-          // Check if selection includes current annotation ID
-          const {
-            annotations,
-            selectedAnnotations,
-            isVisible,
-          } = inlineCommentState;
-
-          if (!isVisible) {
+        render={({ inlineCommentState }) => {
+          if (!inlineCommentState?.isVisible) {
             return <span ref={forwardRef} />;
           }
+
+          // Check if selection includes current annotation ID
+          const { annotations, selectedAnnotations } = inlineCommentState;
 
           const id = this.node.attrs.id;
           const isUnresolved = annotations[id] === false;

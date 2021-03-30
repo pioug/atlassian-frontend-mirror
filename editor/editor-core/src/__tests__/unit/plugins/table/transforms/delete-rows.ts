@@ -10,6 +10,7 @@ import {
   th,
   thEmpty,
   tdEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { deleteRows } from '../../../../../plugins/table/transforms';
@@ -25,7 +26,7 @@ const rowsToRect = (rows: Array<number>, noOfColumns: number): Rect => ({
 describe('table plugin -> transforms -> delete rows', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

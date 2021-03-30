@@ -9,7 +9,9 @@ export interface ClearFormattingState {
   formattingIsPresent?: boolean;
 }
 
-export const pluginKey = new PluginKey('clearFormattingPlugin');
+export const pluginKey = new PluginKey<ClearFormattingState>(
+  'clearFormattingPlugin',
+);
 
 export const plugin = (dispatch: Dispatch) =>
   new Plugin({

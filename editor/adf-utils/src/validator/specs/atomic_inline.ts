@@ -2,7 +2,7 @@ export default [
   'hardBreak',
   'mention',
   'emoji',
-  'inlineExtension',
+  'inlineExtension_with_no_marks',
   'date',
   'placeholder',
   'inlineCard',

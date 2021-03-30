@@ -14,6 +14,7 @@ import {
   bodiedExtension,
   layoutSection,
   layoutColumn,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { TableLayout } from '@atlaskit/adf-schema';
@@ -32,7 +33,7 @@ describe('table toolbar', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     permittedLayouts: PermittedLayoutsDescriptor = 'all',
   ) => {
     const tableOptions = {

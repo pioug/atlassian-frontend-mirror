@@ -6,6 +6,7 @@ import {
   doc,
   mediaSingle,
   media,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { stateKey as mediaPluginKey } from '../../../../../plugins/media/pm-plugins/main';
 import { getFreshMediaProvider, testCollectionName } from '../_utils';
@@ -32,7 +33,7 @@ describe('Media plugin commands', () => {
   });
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     editorProps = {},
     dropzoneContainer: HTMLElement = document.body,
   ) => {

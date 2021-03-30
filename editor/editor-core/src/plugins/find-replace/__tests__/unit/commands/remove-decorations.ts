@@ -1,5 +1,9 @@
 import { EditorView, Decoration } from 'prosemirror-view';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { addDecorations, removeDecorations } from '../../../commands';
 import { editor } from '../_utils';
 import { getPluginState } from '../../../plugin';
@@ -17,7 +21,7 @@ const oliveDec = Decoration.inline(11, 14, {
 describe('find/replace commands: removeDecorations', () => {
   let editorView: EditorView;
 
-  const initEditor = (doc: any) => {
+  const initEditor = (doc: DocBuilder) => {
     ({ editorView } = editor(doc));
   };
 

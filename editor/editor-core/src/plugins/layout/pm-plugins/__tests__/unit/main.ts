@@ -8,6 +8,7 @@ import {
   doc,
   p,
   RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -31,7 +32,7 @@ describe('layout', () => {
     allowBreakout: true,
     UNSAFE_addSidebarLayouts: true,
   });
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

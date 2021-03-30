@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 18.2.2
+
+### Patch Changes
+
+- [`87d5fffa13c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87d5fffa13c) - [ux] Fixed an issue where the Reaction trigger resizes and causes flickering
+- Updated dependencies
+
 ## 18.2.1
 
 ### Patch Changes

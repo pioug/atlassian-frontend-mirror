@@ -3,14 +3,19 @@ import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, expand } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  expand,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { toggleExpandExpanded } from '../../commands';
 import expandPlugin from '../../index';
 
 describe('Expand Commands', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(expandPlugin),

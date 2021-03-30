@@ -5,6 +5,7 @@ import {
   h1,
   blockquote,
   indentation,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
@@ -21,7 +22,7 @@ const { indent, outdent } = indentationCommands;
 describe('indentation', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

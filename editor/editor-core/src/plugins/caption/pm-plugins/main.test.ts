@@ -11,16 +11,15 @@ import {
   media,
   mediaSingle,
   p,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { pluginKey } from './plugin-key';
 import { setTextSelection } from '../../../utils/selection';
-import { Schema } from 'prosemirror-model';
 import * as analyticsUtils from '../../analytics/utils';
 
 describe('Caption plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: (schema: Schema) => RefsNode) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       pluginKey: pluginKey,

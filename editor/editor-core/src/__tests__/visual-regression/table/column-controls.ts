@@ -1,7 +1,6 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 import {
-  clickCellOptions,
   getSelectorForTableCell,
   selectCellOption,
   tableSelectors,
@@ -41,8 +40,6 @@ describe('Table context menu: merge-split cells', () => {
     await page.click(toCell);
     await pressKeyUp(page, 'Shift');
     await page.waitForSelector(tableSelectors.selectedCell);
-    await clickCellOptions(page);
-    await animationFrame(page);
     await selectCellOption(page, tableSelectors.mergeCellsText);
     await snapshot(page);
   };

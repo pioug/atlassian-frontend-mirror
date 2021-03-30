@@ -3,7 +3,6 @@ import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { ResolvedPos } from 'prosemirror-model';
 import { findPositionOfNodeBefore } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { gapCursorPluginKey } from '../types';
 import { hideCaretModifier } from '../gap-cursor/styles';
 import { GapCursorSelection, JSON_ID, Side } from '../gap-cursor/selection';
 import {
@@ -13,6 +12,7 @@ import {
 import { toDOM } from '../gap-cursor/utils/place-gap-cursor';
 import { deleteNode, setGapCursorAtPos } from '../gap-cursor/actions';
 import { Direction } from '../gap-cursor/direction';
+import { gapCursorPluginKey } from './gap-cursor-plugin-key';
 
 const plugin = new Plugin({
   key: gapCursorPluginKey,

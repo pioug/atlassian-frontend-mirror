@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 15.1.0
+
+### Minor Changes
+
+- [`dfbb0a86959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfbb0a86959) - [ux] Add ability for avatars to be shown in card view through adding the extractBlockUsers method
+- [`203e4021ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/203e4021ada) - [ux] Add support of .docx, .xlsx, .pptx, .rar mime types and folder; fix .doc and .ppt
+
+### Patch Changes
+
+- [`77cb0c11652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77cb0c11652) - Fix person avatar in block view
+- [`9f46fd1bdc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f46fd1bdc5) - EDM-1835: Slack message links will now be rendered as block by default
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

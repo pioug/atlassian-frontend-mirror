@@ -1,5 +1,9 @@
 import { name } from '../../../../version.json';
-import { doc, embedCard } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  DocBuilder,
+  embedCard,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/plugin-key';
 
@@ -7,7 +11,7 @@ describe(name, () => {
   describe('Plugins -> Card', () => {
     const createEditor = createEditorFactory();
 
-    const editor = (doc: any) => {
+    const editor = (doc: DocBuilder) => {
       return createEditor({
         doc,
         pluginKey,

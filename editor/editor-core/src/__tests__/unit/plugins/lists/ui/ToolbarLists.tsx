@@ -2,7 +2,11 @@ import React from 'react';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   ListsPluginState,
   pluginKey,
@@ -10,7 +14,9 @@ import {
 import { messages } from '../../../../../plugins/lists/messages';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../../ui/DropdownMenu';
-import ToolbarLists from '../../../../../plugins/lists/ui/ToolbarLists';
+import ToolbarLists, {
+  Props as ToolbarListsProps,
+} from '../../../../../plugins/lists/ui/ToolbarLists';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
 
@@ -38,7 +44,7 @@ describe('ToolbarLists', () => {
     }
   });
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = createAnalyticsEventMock();
     return createEditor({
       doc,
@@ -52,8 +58,11 @@ describe('ToolbarLists', () => {
     });
   };
 
-  const setup = ({ doc: any = doc(p('text')), ...toolbarProps }: any = {}) => {
-    const editorWrapper = editor(doc);
+  const setup = (
+    props: { doc?: DocBuilder } & Partial<ToolbarListsProps> = {},
+  ) => {
+    const { doc: setupDoc, ...toolbarProps } = props;
+    const editorWrapper = editor(setupDoc || doc(p('text')));
     const toolBarListsWrapper = mountWithIntl(
       <ToolbarLists editorView={editorWrapper.editorView} {...toolbarProps} />,
     );

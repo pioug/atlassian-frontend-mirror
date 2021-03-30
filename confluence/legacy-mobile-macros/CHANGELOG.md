@@ -1,5 +1,15 @@
 # @atlaskit/legacy-mobile-macros
 
+## 0.3.0
+
+### Minor Changes
+
+- [`b15bcd24496`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b15bcd24496) - [ux] Link presentation for mobile macros is being disabled due to issues with the approach to rendering those links. Macros that were intended to be rendered as links on mobile will revert to the previous macro fallback behavior until this issue is resolved.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

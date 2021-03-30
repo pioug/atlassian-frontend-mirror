@@ -1,5 +1,19 @@
 # @atlaskit/icon-file-type
 
+## 6.3.0
+
+### Minor Changes
+
+- [`62968ed79be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62968ed79be) - Icon file type now utilises the base icon from `@atlaskit/icon`.
+
+### Patch Changes
+
+- [`469f36d9629`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469f36d9629) - Icon build tooling has been updated.
+- [`3de10e7652e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3de10e7652e) - Documentation updates and fixes to types for all icon packages.
+- [`d98f1bb1169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d98f1bb1169) - Local build tooling improvements.
+- [`3f36b048938`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f36b048938) - The color props have been removed from the TypeScript type definitions. The behavior has never worked with the glyphs but was included in the type definitions incorrectly.
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

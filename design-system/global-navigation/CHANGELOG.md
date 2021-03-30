@@ -1,5 +1,12 @@
 # @atlaskit/global-navigation
 
+## 10.0.7
+
+### Patch Changes
+
+- [`c119fdd32e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c119fdd32e7) - Internal change to update usage of the custom `glyph` prop in @atlaskit/icon.
+- Updated dependencies
+
 ## 10.0.6
 
 ### Patch Changes

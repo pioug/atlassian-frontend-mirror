@@ -3,18 +3,7 @@ import { css, jsx } from '@emotion/core';
 import { memo, FC } from 'react';
 
 import { sizes } from '../constants';
-import { Size } from '../types';
-
-export type SkeletonProps = {
-  /* Sets the color of the skeleton. By default it will inherit the current text color. */
-  color?: string;
-  /* Controls the size of the skeleton */
-  size?: Size;
-  /* Determines the opacity of the skeleton */
-  weight?: 'normal' | 'strong';
-  /** A unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
-  testId?: string;
-};
+import { SkeletonProps } from '../types';
 
 const Skeleton: FC<SkeletonProps> = ({
   testId,

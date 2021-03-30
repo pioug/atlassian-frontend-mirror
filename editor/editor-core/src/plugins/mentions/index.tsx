@@ -33,7 +33,7 @@ import WithPluginState from '../../ui/WithPluginState';
 import {
   createInitialPluginState,
   pluginKey as typeAheadPluginKey,
-  PluginState as TypeAheadPluginState,
+  TypeAheadPluginState,
 } from '../type-ahead/pm-plugins/main';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from './ui/InviteItem';
 import ToolbarMention from './ui/ToolbarMention';
@@ -170,9 +170,6 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
           render={({
             typeAheadState = createInitialPluginState(),
             mentionState = {},
-          }: {
-            typeAheadState: TypeAheadPluginState;
-            mentionState: MentionPluginState;
           }) =>
             !mentionState.mentionProvider ? null : (
               <ToolbarMention
@@ -566,7 +563,9 @@ export const setContext = (
  *
  */
 
-export const mentionPluginKey = new PluginKey('mentionPlugin');
+export const mentionPluginKey = new PluginKey<MentionPluginState>(
+  'mentionPlugin',
+);
 
 export function getMentionPluginState(state: EditorState) {
   return mentionPluginKey.getState(state) as MentionPluginState;

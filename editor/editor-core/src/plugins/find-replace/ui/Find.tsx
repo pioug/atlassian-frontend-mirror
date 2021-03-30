@@ -190,10 +190,6 @@ class Find extends React.Component<FindProps & InjectedIntlProps> {
 
   handleMatchCaseClick = (buttonRef: React.RefObject<HTMLButtonElement>) => {
     if (this.props.allowMatchCase && this.props.onToggleMatchCase) {
-      if (buttonRef.current) {
-        buttonRef.current.focus();
-      }
-
       this.props.onToggleMatchCase();
       this.props.onFind(this.props.findText);
     }

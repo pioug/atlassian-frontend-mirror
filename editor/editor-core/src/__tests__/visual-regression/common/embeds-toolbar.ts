@@ -22,6 +22,9 @@ describe('Embed Cards:', () => {
           allowEmbeds: true,
         },
       },
+      undefined,
+      undefined,
+      true,
     );
     await evaluateTeardownMockDate(page);
 

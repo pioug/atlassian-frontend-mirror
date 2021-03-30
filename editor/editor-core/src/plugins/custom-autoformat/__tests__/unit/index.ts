@@ -3,7 +3,13 @@ import {
   ProviderFactory,
   AutoformattingProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { doc, p, ul, li } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  ul,
+  li,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
@@ -40,7 +46,7 @@ describe('custom-autoformat', () => {
   const promises: Array<Promise<ADFEntity>> = [];
   const providerFactory = new ProviderFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

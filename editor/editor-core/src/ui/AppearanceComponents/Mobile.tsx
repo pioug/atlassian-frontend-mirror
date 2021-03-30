@@ -53,11 +53,12 @@ export function MobileAppearance({
       maxContentSize,
       mobileScroll,
     }: {
-      maxContentSize: MaxContentSizePluginState;
-      mobileScroll: MobileScrollPluginState;
+      maxContentSize?: MaxContentSizePluginState;
+      mobileScroll?: MobileScrollPluginState;
     }) => {
-      const maxContentSizeReached =
-        maxContentSize && maxContentSize.maxContentSizeReached;
+      const maxContentSizeReached = Boolean(
+        maxContentSize?.maxContentSizeReached,
+      );
 
       let minHeight = 100;
       if (mobileScroll) {

@@ -6,7 +6,7 @@ import {
   Node as PMNode,
   ParseOptions,
 } from 'prosemirror-model';
-import { RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
+import { DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TextSelection } from 'prosemirror-state';
 
 export const fromHTML = (
@@ -25,10 +25,7 @@ export const toDOM = (node: PMNode, schema: Schema): Node => {
   return serializer.serializeFragment(Fragment.from(node));
 };
 
-export const toContext = (
-  node: (schema: Schema) => RefsNode,
-  schema: Schema,
-) => {
+export const toContext = (node: DocBuilder, schema: Schema) => {
   const document = node(schema);
   const selection = TextSelection.near(
     document.resolve(document.refs['<>'] || 0),

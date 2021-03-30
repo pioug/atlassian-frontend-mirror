@@ -10,6 +10,7 @@ import {
   getMediaClient,
   isMediaBlobUrl,
   getAttrsFromUrl,
+  isImageRepresentationReady,
 } from '@atlaskit/media-client';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
@@ -238,18 +239,27 @@ export class MediaNodeUpdater {
 
     const viewMediaClientConfig = mediaProvider.viewMediaClientConfig;
     const mediaClient = getMediaClient(viewMediaClientConfig);
-    const state = await mediaClient.getImageMetadata(id, {
+
+    const currentState = await mediaClient.file.getCurrentState(id, {
+      collectionName: collection,
+    });
+
+    if (!isImageRepresentationReady(currentState)) {
+      return false;
+    }
+
+    const imageMetadata = await mediaClient.getImageMetadata(id, {
       collection,
     });
 
-    if (!state || !state.original) {
+    if (!imageMetadata || !imageMetadata.original) {
       return false;
     }
 
     return {
       id,
-      height: state.original.height || DEFAULT_IMAGE_HEIGHT,
-      width: state.original.width || DEFAULT_IMAGE_WIDTH,
+      height: imageMetadata.original.height || DEFAULT_IMAGE_HEIGHT,
+      width: imageMetadata.original.width || DEFAULT_IMAGE_WIDTH,
     };
   }
 

@@ -61,11 +61,9 @@ export default () => {
       day={state.day}
       month={state.month}
       year={state.year}
-      innerProps={{
-        style: {
-          border: '1px solid red',
-          display: 'inline-block',
-        },
+      style={{
+        border: '1px solid red',
+        display: 'inline-block',
       }}
       onBlur={() => log('blur')}
       onChange={handleChange}

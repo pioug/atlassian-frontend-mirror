@@ -7,6 +7,7 @@ import {
   a,
   strong,
   panel,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   TextColorPluginState,
@@ -16,7 +17,7 @@ import {
 describe('text-color', () => {
   const createEditor = createEditorFactory<TextColorPluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTextColor: true, allowPanel: true },

@@ -24,6 +24,7 @@ import {
   decisionItem,
   taskList,
   taskItem,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { taskDecision } from '@atlaskit/util-data-test';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -159,7 +160,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
     ),
   });
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

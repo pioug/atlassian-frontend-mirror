@@ -135,32 +135,32 @@ export type NodeViewTracking = {
   slowThreshold?: number;
 };
 
-export type BFreezeTracking = {
+export type BrowserFreezetracking = {
   enabled?: boolean; // not implemented
 
   /**
    * @description Control whether browser freeze interaction type is tracked. When this is false the interaction type is not recorded.
    * @default false
    */
-  trackInteractionType: boolean;
+  trackInteractionType?: boolean;
 
   /**
    * @description Control whether browser freeze severity is tracked. When this is false the severity is not recorded.
    * @default false
    */
-  trackSeverity: boolean;
+  trackSeverity?: boolean;
 
   /**
    * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
    * @default 2000
    */
-  severityNormalThreshold: number;
+  severityNormalThreshold?: number;
 
   /**
    * @description Control for calculating severity level (NORMAL/DEGRADED/BLOCKING). Depends on severityTracking being true.
    * @default 3000
    */
-  severityDegradedThreshold: number;
+  severityDegradedThreshold?: number;
 };
 
 export type ProseMirrorRenderedTracking = {
@@ -235,6 +235,33 @@ export interface InputTracking {
   severityDegradedThreshold?: number;
 }
 
+export type ContentRetrievalTracking = {
+  /**
+   * @description Control whether editor content retrieval success and failure events are dispatched.
+   * When this is false no events are sampled or sent.
+   * @default false
+   */
+  enabled: boolean;
+
+  /**
+   * @description Control how frequently/at what rate successful editor content retrieval events are dispatched.
+   * @default 100
+   */
+  successSamplingRate?: number;
+
+  /**
+   * @description Control how frequently/at what rate failed editor content retrieval events are dispatched.
+   * @default 100
+   */
+  failureSamplingRate?: number;
+
+  /**
+   * @description Control whether the failed editor content retrieval event includes the error stack trace.
+   * @default false
+   */
+  reportErrorStack?: boolean;
+};
+
 export type PerformanceTracking = {
   /**
    * @description Control whether measurements for all analytics events are performed
@@ -270,10 +297,15 @@ export type PerformanceTracking = {
    * @description Control whether browser freezes / long tasks are tracked
    */
 
-  bFreezeTracking?: BFreezeTracking;
+  bFreezeTracking?: BrowserFreezetracking;
 
   /**
    * @description Control whether proseMirror rendered event is tracked
    */
   proseMirrorRenderedTracking?: ProseMirrorRenderedTracking;
+
+  /**
+   * @description Control whether editor content retrieval events are tracked
+   */
+  contentRetrievalTracking?: ContentRetrievalTracking;
 };

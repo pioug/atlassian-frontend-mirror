@@ -17,6 +17,7 @@ import {
   tdCursor,
   tdEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import tablePlugin from '../../../../../table';
@@ -31,7 +32,7 @@ import { TableDecorations, TablePluginState } from '../../../../types';
 
 describe('tables: column resizing decorations', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>().add([

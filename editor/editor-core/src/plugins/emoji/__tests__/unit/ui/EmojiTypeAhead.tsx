@@ -1,12 +1,13 @@
 import { EmojiDescription } from '@atlaskit/emoji';
 import { EditorState } from 'prosemirror-state';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, emoji, p } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   createProsemirrorEditorFactory,
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 // Editor plugins
 import { selectCurrentItem } from '../../../../type-ahead/commands/select-item';
@@ -99,6 +100,60 @@ describe('EmojiTypeAhead', () => {
         attributes: expect.objectContaining({ inputMethod: 'typeAhead' }),
         eventType: 'track',
       });
+    });
+
+    it('should select valid emoji on typing second colon', () => {
+      const catEmojis = [
+        {
+          title: ':cat:',
+          emoji: {
+            id: 'catId',
+            type: 'catType',
+            shortName: ':cat:',
+            fallback: '🐱',
+          },
+        },
+        {
+          title: ':cat2:',
+          emoji: {
+            id: 'cat2Id',
+            type: 'cat2Type',
+            shortName: ':cat2:',
+            fallback: '🐈',
+          },
+        },
+        {
+          title: ':cat3:',
+          emoji: {
+            id: 'cat3Id',
+            type: 'cat3Type',
+            shortName: ':cat3:',
+            fallback: '🐈',
+          },
+        },
+        {
+          title: ':cat4:',
+          emoji: {
+            id: 'cat4Id',
+            type: 'cat4Type',
+            shortName: ':cat4:',
+            fallback: '🐈',
+          },
+        },
+      ];
+      const { editorView, sel } = editor(
+        () => catEmojis,
+        false,
+        dispatchAnalyticsSpy,
+      );
+
+      insertText(editorView, ':cat', sel);
+      sendKeyToPm(editorView, 'ArrowDown');
+      sendKeyToPm(editorView, 'ArrowDown');
+      insertText(editorView, ':', sel + 4);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(p(emoji(catEmojis[0].emoji)(), ' ')),
+      );
     });
   });
 

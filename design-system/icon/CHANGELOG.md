@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 21.5.0
+
+### Minor Changes
+
+- [`017587eca78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/017587eca78) - Icon now exposes an additional component `SVG` which can be used to for custom icon use cases.
+- [`4203387aa43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4203387aa43) - Internal changes to the way Icon styles are generated. Additional types have also been exposed to match the glyph component.
+
+### Patch Changes
+
+- [`469f36d9629`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469f36d9629) - Icon build tooling has been updated.
+- [`d6580503ce9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6580503ce9) - Internal refactor for JSDoc annotated modules.
+- [`3de10e7652e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3de10e7652e) - Documentation updates and fixes to types for all icon packages.
+- [`d98f1bb1169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d98f1bb1169) - Local build tooling improvements.
+
 ## 21.4.0
 
 ### Minor Changes

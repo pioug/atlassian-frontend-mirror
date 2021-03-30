@@ -51,7 +51,7 @@ export type TextColorKey =
   | 'Green'
   | 'Red'
   | 'Orange'
-  // row 1 experimental extras
+  // row 1 extended extras
   | 'Dark gray'
   | 'Blue'
   | 'Yellow'
@@ -81,8 +81,8 @@ const colorArrayPalette: Array<[string, TextColorKey]> = [
   [Y400, 'Orange'],
 ];
 
-// ED-8368: used for A/B testing of text color picker
-const colorArrayPaletteExperimental: Array<[string, TextColorKey]> = [
+// used for extended palette in text color picker
+const colorArrayPaletteExtended: Array<[string, TextColorKey]> = [
   // default row - first color is added programatically
   // [N800, 'Squid ink'], // default dark gray
   [B100, 'Blue'], // Arvo breeze
@@ -111,13 +111,13 @@ const colorArrayPaletteExperimental: Array<[string, TextColorKey]> = [
 
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
 export const colorPalette = new Map<string, TextColorKey>();
-export const colorPaletteExperimental = new Map<string, TextColorKey>();
+export const colorPaletteExtended = new Map<string, TextColorKey>();
 
 colorArrayPalette.forEach(([color, label]) =>
   colorPalette.set(color.toLowerCase(), label),
 );
-colorArrayPaletteExperimental.forEach(([color, label]) =>
-  colorPaletteExperimental.set(color.toLowerCase(), label),
+colorArrayPaletteExtended.forEach(([color, label]) =>
+  colorPaletteExtended.set(color.toLowerCase(), label),
 );
 
 export const textColor: MarkSpec = {
@@ -137,7 +137,7 @@ export const textColor: MarkSpec = {
         }
         // else handle other colour formats
         return hexColor &&
-          (colorPalette.has(hexColor) || colorPaletteExperimental.has(hexColor))
+          (colorPalette.has(hexColor) || colorPaletteExtended.has(hexColor))
           ? { color: hexColor }
           : false;
       },

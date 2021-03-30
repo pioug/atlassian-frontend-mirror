@@ -1,6 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { Schema } from 'prosemirror-model';
 
 import {
   doc,
@@ -19,7 +18,7 @@ import {
   code_block,
   indentation,
   BuilderContent,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   enterKeyCommand,
@@ -35,7 +34,7 @@ describe('lists plugin -> commands', () => {
     doc,
     editorProps,
   }: {
-    doc: (schema: Schema) => RefsNode;
+    doc: DocBuilder;
     editorProps?: EditorProps;
   }) =>
     createEditor({

@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.extensions.noupdate",
+        "extensionKey": "test-key-456",
+        "layout": "default"
+      },
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "someid",
+              "secondid"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "bodiedExtension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "bodied-eh",
+        "parameters": {
+          "macroParams": {},
+          "macroMetadata": {
+            "placeholder": [
+              {
+                "data": {
+                  "url": ""
+                },
+                "type": "icon"
+              }
+            ]
+          }
+        },
+        "layout": "default"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": []
+        }
+      ],
+      "marks": [
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "someid"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineExtension",
+          "attrs": {
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "extensionKey": "inline-eh",
+            "parameters": {
+              "macroParams": {},
+              "macroMetadata": {
+                "placeholder": [
+                  {
+                    "data": {
+                      "url": ""
+                    },
+                    "type": "icon"
+                  }
+                ]
+              }
+            },
+            "text": "Inline extension demo"
+          },
+          "marks": [
+            {
+              "type": "dataConsumer",
+              "attrs": {
+                "sources": [
+                  "someidinline"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

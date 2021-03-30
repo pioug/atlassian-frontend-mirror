@@ -15,6 +15,7 @@ import {
   extractArchiveFolderName,
   rejectAfter,
 } from '../../../newgen/utils';
+import { ArchiveViewerError } from '../../../newgen/errors';
 
 export interface ArchiveSidebarProps {
   entries: { [key: string]: ZipEntry };
@@ -22,7 +23,7 @@ export interface ArchiveSidebarProps {
   mediaClient: MediaClient;
   onHeaderClicked: () => void;
   isArchiveEntryLoading: boolean;
-  onError: (error: Error, entry?: ZipEntry) => void;
+  onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
 }
 
 export type ArchiveSidebarState = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { replaceRaf } from 'raf-stub';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -8,6 +9,7 @@ import {
   tr,
   td,
   tdEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { findTable, selectTable } from '@atlaskit/editor-tables/utils';
 import { TableCssClassName as ClassName } from '../../../../../plugins/table/types';
@@ -15,11 +17,15 @@ import { TablePluginState } from '../../../../../plugins/table/types';
 import TableComponent from '../../../../../plugins/table/nodeviews/TableComponent';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 import { EventDispatcher } from '../../../../../event-dispatcher';
+import { toggleNumberColumn } from '../../../../../plugins/table/commands';
+
+replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as any;
 
 describe('table -> nodeviews -> TableComponent.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {
@@ -42,6 +48,38 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       expect(
         tableContainer!.classList.contains(ClassName.TABLE_SELECTED),
       ).toBeTruthy();
+    });
+  });
+
+  describe('when the numbered column attribute is changed', () => {
+    it('should not resize the columns', () => {
+      const { editorView } = editor(
+        doc(
+          table({ isNumberColumnEnabled: false, layout: 'default' })(
+            tr(
+              td({ colwidth: [1400] })(p('{<>}')),
+              td({ colwidth: [48] })(p()),
+              td({ colwidth: [48] })(p()),
+            ),
+          ),
+        ),
+      );
+      const { state, dispatch } = editorView;
+      const tableCell = state.schema.nodes.tableCell;
+      const columnWidths: number[][] = [];
+
+      toggleNumberColumn(state, dispatch);
+      requestAnimationFrame.step();
+
+      editorView.state.doc.nodesBetween(3, 14, node => {
+        if (node.type === tableCell) {
+          columnWidths.push(node.attrs.colwidth);
+        }
+
+        return node.type !== tableCell;
+      });
+
+      expect(columnWidths).toEqual([[1400], [48], [48]]);
     });
   });
 

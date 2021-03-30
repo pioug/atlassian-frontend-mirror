@@ -13,6 +13,7 @@ import { findReplacePluginKey } from '../../types';
 import { selectedSearchMatchClass } from '../../styles';
 import analyticsPlugin from '../../../analytics/plugin';
 import { textFormattingPlugin } from '../../../index';
+import { DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
 
 export const createEditor = createProsemirrorEditorFactory();
 
@@ -28,7 +29,7 @@ export const getFindReplacePreset = (
 };
 
 export const editor = (
-  doc: any,
+  doc: DocBuilder,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
   options: Partial<CreatePMEditorOptions> = {},
 ) => {

@@ -6,6 +6,7 @@ import {
   tr,
   td,
   th,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { removeColumnAt } from '@atlaskit/editor-tables/utils';
 import {
@@ -19,7 +20,7 @@ import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugin
 describe('Tables with Collab editing', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

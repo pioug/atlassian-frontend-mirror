@@ -9,11 +9,7 @@ jest.mock(
 );
 import React from 'react';
 import { mount } from 'enzyme';
-import {
-  ErrorMessage,
-  errorReasonToMessageMap,
-  getErrorMessageFromErrorReason,
-} from '../../../newgen/errorMessage';
+import { ErrorMessage } from '../../../newgen/errorMessage';
 import { MediaViewerError } from '../../../newgen/errors';
 import Button from '@atlaskit/button/custom-theme-button';
 import {
@@ -42,13 +38,6 @@ describe('Error Message', () => {
         i18nMessages.image_format_invalid_error.defaultMessage,
       );
     });
-
-    it.each(errorReasonToMessageMap)(
-      'should render correct message for error reason "%s" ',
-      (errorReason, message) => {
-        expect(getErrorMessageFromErrorReason(errorReason)).toEqual(message);
-      },
-    );
   });
 
   it('should render a child component', () => {
@@ -97,7 +86,7 @@ describe('Error Message', () => {
     });
 
     it('should trigger load fail event when displayed if error reason not "unsupported"', () => {
-      const error = new Error('some-error');
+      const error = new MediaViewerError('imageviewer-fetch-url');
       mount(
         <ErrorMessage
           intl={fakeIntl}
@@ -118,7 +107,7 @@ describe('Error Message', () => {
 
     it('should not trigger loadFailed if supressAnalytics prop passed', () => {
       jest.resetAllMocks();
-      const error = new Error('some-error');
+      const error = new MediaViewerError('imageviewer-fetch-url');
       mount(
         <ErrorMessage
           intl={fakeIntl}
@@ -131,6 +120,42 @@ describe('Error Message', () => {
         </ErrorMessage>,
       );
       expect(createLoadFailedEvent).not.toHaveBeenCalled();
+      expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
+    });
+
+    it('should give unsupported payload for correct error', () => {
+      ErrorMessage.getEventPayload(
+        new MediaViewerError('unsupported'),
+        'some-id',
+        fileState,
+      );
+      expect(createPreviewUnsupportedEvent).toHaveBeenCalledWith(fileState);
+      expect(createLoadFailedEvent).not.toHaveBeenCalled();
+    });
+
+    it('should give external image fail payload for correct error', () => {
+      ErrorMessage.getEventPayload(
+        new MediaViewerError('imageviewer-external-onerror'),
+        'some-id',
+        fileState,
+      );
+      expect(createLoadFailedEvent).toHaveBeenCalledWith(
+        'some-id',
+        new Error('imageviewer-external-onerror'),
+        fileState,
+      );
+      expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
+    });
+
+    it('should give load fail for other MediaViewerErrors', () => {
+      const error = new MediaViewerError('imageviewer-fetch-url');
+      ErrorMessage.getEventPayload(error, 'some-id', fileState);
+      expect(createLoadFailedEvent).toHaveBeenCalledWith(
+        'some-id',
+        error,
+        fileState,
+      );
+      expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
     });
   });
 });

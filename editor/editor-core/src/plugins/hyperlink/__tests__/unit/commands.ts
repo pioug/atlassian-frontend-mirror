@@ -6,6 +6,7 @@ import {
   code,
   strong,
   emoji,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -59,7 +60,7 @@ describe('hyperlink commands', () => {
     provider: Promise.resolve(new EditorTestCardProvider()),
   };
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(
       () => ({ fire: () => {} } as UIAnalyticsEvent),
     );

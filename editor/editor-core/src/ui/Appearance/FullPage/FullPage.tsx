@@ -92,7 +92,9 @@ export class FullPageEditor extends React.Component<
         <FullPageEditorWrapper className="akEditor">
           <FullPageToolbar
             appearance={props.appearance}
+            beforeIcon={props.primaryToolbarIconBefore}
             collabEdit={props.collabEdit}
+            containerElement={this.scrollContainer}
             customPrimaryToolbarComponents={
               props.customPrimaryToolbarComponents
             }
@@ -102,14 +104,13 @@ export class FullPageEditor extends React.Component<
             editorDOMElement={props.editorDOMElement}
             editorView={props.editorView!}
             eventDispatcher={props.eventDispatcher!}
+            hasMinWidth={props.enableToolbarMinWidth}
             popupsBoundariesElement={props.popupsBoundariesElement}
             popupsMountPoint={props.popupsMountPoint}
             popupsScrollableElement={props.popupsScrollableElement}
             primaryToolbarComponents={props.primaryToolbarComponents}
             providerFactory={props.providerFactory}
             showKeyline={showKeyline}
-            containerElement={this.scrollContainer}
-            beforeIcon={props.primaryToolbarIconBefore}
           />
           <FullPageContentArea
             allowAnnotation={props.allowAnnotation}

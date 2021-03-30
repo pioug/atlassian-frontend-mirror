@@ -9,6 +9,7 @@ import {
   tr as row,
   th,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { copyPreviousRow } from '../../../../../plugins/table/utils/row-controls';
@@ -16,7 +17,7 @@ import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factor
 
 describe('table plugin: utils/row-controls.js', () => {
   const createEditor = createEditorFactory<TablePluginState>();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

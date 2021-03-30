@@ -15,6 +15,7 @@ import {
   panel,
   hardBreak,
   Refs,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { EventDispatcher } from '../../../../event-dispatcher';
 import { inlineCommentProvider, nullComponent, selectorById } from '../_utils';
@@ -50,7 +51,7 @@ describe('annotation', () => {
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     inlineCommentOptions?: InlineCommentAnnotationProvider,
   ) =>
     createEditor({

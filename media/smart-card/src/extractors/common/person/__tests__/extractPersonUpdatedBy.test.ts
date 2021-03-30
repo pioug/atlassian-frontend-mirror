@@ -32,6 +32,6 @@ describe('extractors.person.updatedBy', () => {
         ...BASE_DATA,
         'atlassian:updatedBy': TEST_PERSON,
       }),
-    ).toEqual({ name: TEST_NAME, icon: TEST_URL });
+    ).toEqual({ name: TEST_NAME, src: TEST_URL });
   });
 });

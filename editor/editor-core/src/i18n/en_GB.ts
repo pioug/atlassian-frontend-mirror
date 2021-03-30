@@ -25,7 +25,6 @@ export default {
   'fabric.editor.editMode.inviteToEditButton.title': 'Invite to edit',
   'fabric.editor.saveButton': 'Save',
   'fabric.editor.cancelButton': 'Cancel',
-  'fabric.editor.alignment': 'Alignment',
   'fabric.editor.normal': 'Normal text',
   'fabric.editor.heading1': 'Heading 1',
   'fabric.editor.heading1Description': 'Use this for a top level heading',

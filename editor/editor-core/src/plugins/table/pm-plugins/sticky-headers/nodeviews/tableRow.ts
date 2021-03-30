@@ -230,6 +230,12 @@ export class TableRowNodeView implements NodeView {
         const { table } = this.tree;
         entries.forEach(entry => {
           const target = entry.target as HTMLElement;
+
+          // if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
+          if (entry.rootBounds?.height === 0) {
+            return;
+          }
+
           if (target.classList.contains(ClassName.TABLE_STICKY_SENTINEL_TOP)) {
             const sentinelIsBelowScrollArea =
               (entry.rootBounds?.bottom || 0) < entry.boundingClientRect.bottom;

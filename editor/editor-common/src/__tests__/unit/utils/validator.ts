@@ -7,6 +7,7 @@ import {
 
 import {
   ADDoc,
+  ADFStages,
   ADNode,
   getMarksByOrder,
   getValidDocument,
@@ -1619,6 +1620,33 @@ describe('Renderer - Validator', () => {
         });
       });
     });
+
+    describe('dataConsumer', () => {
+      it('final: should return null for "dataConsumer"', () => {
+        expect(getValidMark({ type: 'dataConsumer' })).toEqual(null);
+      });
+      describe('stage0:', () => {
+        it('should return a "dataConsumer"', () => {
+          expect(
+            getValidMark({ type: 'dataConsumer' }, ADFStages.STAGE_0),
+          ).toEqual({
+            type: 'dataConsumer',
+          });
+        });
+        it('should return a "dataConsumer" with some attributes', () => {
+          const someAttrs = { foo: 'bar' };
+          expect(
+            getValidMark(
+              { type: 'dataConsumer', attrs: someAttrs },
+              ADFStages.STAGE_0,
+            ),
+          ).toStrictEqual({
+            type: 'dataConsumer',
+            attrs: someAttrs,
+          });
+        });
+      });
+    });
   });
 
   describe('getMarksByOrder', () => {
@@ -1886,7 +1914,9 @@ describe('Renderer - Validator', () => {
         ],
       };
 
-      expect(getValidDocument(original, schema, 'stage0')).toStrictEqual({
+      expect(
+        getValidDocument(original, schema, ADFStages.STAGE_0),
+      ).toStrictEqual({
         type: 'doc',
         content: [
           {

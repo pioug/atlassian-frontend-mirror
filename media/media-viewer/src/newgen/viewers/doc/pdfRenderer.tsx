@@ -91,11 +91,11 @@ export type Props = {
   src: string;
   onClose?: () => void;
   onSuccess?: () => void;
-  onError?: (error: Error) => void;
+  onError?: (error: MediaViewerError) => void;
 };
 
 export type State = {
-  doc: Outcome<any, Error>;
+  doc: Outcome<any, MediaViewerError>;
   zoomLevel: ZoomLevel;
 };
 

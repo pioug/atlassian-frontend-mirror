@@ -26,6 +26,7 @@ import {
   mediaGroup,
   mediaSingle,
   media,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -57,7 +58,7 @@ import {
 describe('table plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

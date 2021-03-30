@@ -38,7 +38,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             allowAltTextOnImages={true}
             extensionHandlers={extensionHandlers}
             media={{
-              featureFlags: exampleMediaFeatureFlags,
+              featureFlags: { ...exampleMediaFeatureFlags, captions: true },
               allowLinking: true,
             }}
             allowCopyToClipboard={true}

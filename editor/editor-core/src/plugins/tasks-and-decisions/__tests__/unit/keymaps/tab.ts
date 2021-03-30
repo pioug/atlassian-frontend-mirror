@@ -14,6 +14,7 @@ import {
   taskList,
   td,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   buildKeyEvent,
@@ -49,7 +50,7 @@ describe('tasks and decisions - keymaps', () => {
     uuid.setStatic(false);
   });
 
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     return createEditor({
       doc,
       editorProps,
@@ -359,7 +360,7 @@ describe('tasks and decisions - keymaps', () => {
   });
 
   describe('allowNestedTasks', () => {
-    let simpleFactory = (doc: any) => {
+    let simpleFactory = (doc: DocBuilder) => {
       return createEditor({
         doc,
         editorProps: { ...editorProps, allowNestedTasks: false },

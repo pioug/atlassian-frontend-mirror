@@ -38,6 +38,7 @@ export interface FullPageToolbarProps {
   showKeyline: boolean;
   containerElement: HTMLElement | null;
   beforeIcon?: ReactElement;
+  hasMinWidth?: boolean;
 }
 
 export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = React.memo(
@@ -65,6 +66,7 @@ export const FullPageToolbar: React.FunctionComponent<FullPageToolbarProps> = Re
               disabled={props.disabled}
               dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
               containerElement={props.containerElement}
+              hasMinWidth={props.hasMinWidth}
             />
             <MainToolbarCustomComponentsSlot>
               <AvatarsWithPluginState

@@ -62,7 +62,7 @@ BrowserTestCase(
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
-    await page.type(editable, '```');
+    await page.type(editable, ['``', '`']);
     await page.waitForSelector(codeBlockSelectors.code, { timeout: 1000 });
     await page.type(editable, ':smile:');
     const doc = await page.$eval(editable, getDocFromElement);

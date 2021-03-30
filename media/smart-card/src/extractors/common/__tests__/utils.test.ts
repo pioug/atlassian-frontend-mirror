@@ -85,7 +85,7 @@ describe('extractor.utils', () => {
     it('returns person with name, icon - object', () => {
       expect(extractPersonFromJsonLd(TEST_OBJECT)).toEqual({
         name: TEST_NAME,
-        icon: TEST_URL,
+        src: TEST_URL,
       });
     });
   });

@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 70.5.0
+
+### Minor Changes
+
+- [`56104b9cc12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56104b9cc12) - add data-testid="media-card-play-button" for video files on preview mode
+
+### Patch Changes
+
+- [`d933aa659a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d933aa659a2) - Removed feature that integrates processing times in the uploading progress bar for a reduced amount of file types
+- Updated dependencies
+
 ## 70.4.0
 
 ### Minor Changes

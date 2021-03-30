@@ -7,6 +7,7 @@ import {
   code_block,
   blockquote,
   panel,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
@@ -39,7 +40,7 @@ import codeBlockPlugin from '../../../../code-block';
 describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<BlockTypeState, PluginKey>({
       doc,
       pluginKey,

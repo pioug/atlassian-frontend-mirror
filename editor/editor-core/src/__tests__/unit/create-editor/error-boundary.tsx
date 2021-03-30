@@ -14,7 +14,9 @@ const mockCtxIdentifierProvider = {
 const contextIdentifierProvider = storyContextIdentifierProviderFactory(
   mockCtxIdentifierProvider,
 );
-const createAnalyticsEvent = jest.fn() as CreateUIAnalyticsEvent;
+const createAnalyticsEvent: CreateUIAnalyticsEvent = jest
+  .fn()
+  .mockReturnValue({ fire: jest.fn() });
 
 function Foo() {
   return <div>Foo</div>;
@@ -129,10 +131,23 @@ describe('create-editor/error-boundary', () => {
         errorInfo: expect.objectContaining({
           componentStack: expect.any(String),
         }),
+        errorId: expect.any(String),
+      },
+    };
+    const expectedAdditionalInformationAnalyticsEvent = {
+      action: ACTION.EDITOR_CRASHED_ADDITIONAL_INFORMATION,
+      actionSubject: ACTION_SUBJECT.EDITOR,
+      eventType: EVENT_TYPE.OPERATIONAL,
+      attributes: {
+        errorId: expect.any(String),
+        errorStack: expect.any(String),
       },
     };
     expect(createAnalyticsEvent).toHaveBeenCalledWith(
       expect.objectContaining(expectedAnalyticsEvent),
+    );
+    expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect.objectContaining(expectedAdditionalInformationAnalyticsEvent),
     );
   });
 

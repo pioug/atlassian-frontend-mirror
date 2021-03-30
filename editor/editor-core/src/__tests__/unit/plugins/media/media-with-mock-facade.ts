@@ -4,7 +4,11 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/main';
 import { waitForAllPickersInitialised } from './_utils';
@@ -24,7 +28,7 @@ describe('Media with mock facade', () => {
   const providerFactory = ProviderFactory.create({ mediaProvider });
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     editorProps = {},
     dropzoneContainer: HTMLElement = document.body,
   ) =>

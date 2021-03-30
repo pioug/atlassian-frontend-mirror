@@ -52,6 +52,8 @@ export interface MarkMeta {
   eventHandlers?: EventHandlers;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   markKey?: any;
+  // Whether the node this mark belongs to is an inline node, if available
+  isInline?: boolean;
   [key: string]: any;
 }
 

@@ -24,7 +24,7 @@ export type ImageViewerProps = {
   item: FileState;
   collectionName?: string;
   onLoad: () => void;
-  onError: (error: Error) => void;
+  onError: (error: MediaViewerError) => void;
   onClose?: () => void;
   contextId?: string;
 };
@@ -49,7 +49,7 @@ export class ImageViewer extends BaseViewer<
   ImageViewerProps
 > {
   protected get initialState() {
-    return { content: Outcome.pending<ImageViewerContent, Error>() };
+    return { content: Outcome.pending<ImageViewerContent, MediaViewerError>() };
   }
 
   private cancelImageFetch?: () => void;

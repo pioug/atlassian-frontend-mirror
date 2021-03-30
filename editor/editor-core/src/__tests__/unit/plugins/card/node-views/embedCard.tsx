@@ -5,7 +5,11 @@ jest.mock('raf-schd', () => (cb: Function) => {
 
 import React from 'react';
 import { mount } from 'enzyme';
-import { embedCard, doc } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  embedCard,
+  doc,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { Card, IframelyResizeMessageListener } from '@atlaskit/smart-card';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '@atlaskit/editor-common';
@@ -23,7 +27,7 @@ describe('EmbedCard', () => {
   let allowColumnResizing: boolean;
 
   let mockDispatchAnalytics: DispatchAnalyticsEvent;
-  const editor = (doc: any, cardProps?: Partial<CardOptions>) => {
+  const editor = (doc: DocBuilder, cardProps?: Partial<CardOptions>) => {
     return createEditor({
       doc,
       editorProps: {

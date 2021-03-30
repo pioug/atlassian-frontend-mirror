@@ -21,6 +21,7 @@ export type RenderOptionsProps = RenderOptionsPropsT<Command>;
 export type AlignType = 'left' | 'center' | 'right';
 
 export type FloatingToolbarButton<T> = {
+  id?: string;
   type: 'button';
   title: string;
   onClick: T;
@@ -61,6 +62,7 @@ export type FloatingToolbarCustom = {
 };
 
 export type FloatingToolbarSelect<T> = {
+  id?: string;
   type: 'select';
   options: SelectOption[];
   hidden?: boolean;
@@ -77,6 +79,7 @@ export type FloatingToolbarSeparator = {
 };
 
 export type FloatingToolbarDropdown<T> = {
+  id?: string;
   type: 'dropdown';
   title: string;
   icon?: Icon;
@@ -87,14 +90,20 @@ export type FloatingToolbarDropdown<T> = {
   tooltip?: string;
 };
 
+type FloatingToolbarExtensionsPlaceholder = {
+  type: 'extensions-placeholder';
+  hidden?: boolean;
+  separator?: 'start' | 'end' | 'both';
+};
+
 export type FloatingToolbarItem<T> =
   | FloatingToolbarButton<T>
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
   | FloatingToolbarInput<T>
   | FloatingToolbarCustom
-  | FloatingToolbarSeparator;
-
+  | FloatingToolbarSeparator
+  | FloatingToolbarExtensionsPlaceholder;
 export interface FloatingToolbarConfig {
   title: string;
   /**

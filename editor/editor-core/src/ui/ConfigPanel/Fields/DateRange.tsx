@@ -45,11 +45,13 @@ const DateField = ({
   fieldName,
   onBlur,
   intl,
+  isRequired,
 }: {
   parentField: DateRangeField;
   scope: string;
   fieldName: 'from' | 'to';
   onBlur: OnBlur;
+  isRequired?: boolean;
 } & InjectedIntlProps) => (
   <HorizontalFieldWrapper key={fieldName}>
     <Field
@@ -59,10 +61,10 @@ const DateField = ({
         parentField,
         fieldName as keyof DateRangeResult,
       )}
-      isRequired
-      validate={(value?: string) =>
-        validateRequired<string | undefined>({ isRequired: true }, value)
-      }
+      isRequired={isRequired}
+      validate={(value?: string) => {
+        return validateRequired<string | undefined>({ isRequired }, value);
+      }}
     >
       {({ fieldProps, error }) => (
         <Fragment>
@@ -161,6 +163,7 @@ const DateRange = function ({
             fieldName="from"
             onBlur={onBlur}
             intl={intl}
+            isRequired={field.isRequired}
           />
           <DateField
             scope={name}
@@ -168,6 +171,7 @@ const DateRange = function ({
             fieldName="to"
             onBlur={onBlur}
             intl={intl}
+            isRequired={field.isRequired}
           />
         </HorizontalFields>
       )}

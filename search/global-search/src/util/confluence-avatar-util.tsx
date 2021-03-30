@@ -14,10 +14,6 @@ import PdfDocumentIcon from '@atlaskit/icon-file-type/glyph/pdf-document/24';
 import GenericIcon from '@atlaskit/icon-file-type/glyph/generic/24';
 
 import Avatar from '@atlaskit/avatar';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors } from '@atlaskit/theme';
-
 export interface ExtensionMatcher {
   regexp: RegExp;
   avatar: any; // can't seem to find a type that doesn't complain here.
@@ -105,9 +101,9 @@ export const getAvatarForConfluenceObjectResult = (
   result: ConfluenceObjectResult,
 ) => {
   if (result.contentType === ContentType.ConfluencePage) {
-    return <PageIcon primaryColor={colors.B200} label={result.name} />;
+    return <PageIcon label={result.name} />;
   } else if (result.contentType === ContentType.ConfluenceBlogpost) {
-    return <BlogIcon label={result.name} primaryColor={colors.B200} />;
+    return <BlogIcon label={result.name} />;
   } else if (result.contentType === ContentType.ConfluenceAttachment) {
     return getMediaTypeAvatarForResult(result);
   } else {

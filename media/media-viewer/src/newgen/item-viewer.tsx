@@ -8,6 +8,7 @@ import {
   Identifier,
   isExternalImageIdentifier,
   isFileIdentifier,
+  ExternalImageIdentifier,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -29,7 +30,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { createCommencedEvent } from './analytics/events/operational/commenced';
 import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';
-import { fireAnalytics } from './analytics';
+import { fireAnalytics, getFileAttributes } from './analytics';
 import { AudioViewer } from './viewers/audio';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
@@ -46,13 +47,23 @@ export type Props = Readonly<{
   WithAnalyticsEventsProps &
   WithShowControlMethodProp;
 
+export type FileItem = FileState | 'external-image';
+
+export const isExternalImageItem = (
+  fileItem: FileItem,
+): fileItem is 'external-image' => fileItem === 'external-image';
+
+export const isFileStateItem = (fileItem: FileItem): fileItem is FileState =>
+  !isExternalImageItem(fileItem);
+
 export type State = {
-  item: Outcome<FileState, Error>;
+  item: Outcome<FileItem, MediaViewerError>;
 };
 
 const initialState: State = {
   item: Outcome.pending(),
 };
+
 export class ItemViewerBase extends React.Component<Props, State> {
   state: State = initialState;
 
@@ -81,16 +92,36 @@ export class ItemViewerBase extends React.Component<Props, State> {
 
   private onSuccess = () => {
     const { item } = this.state;
-    item.whenSuccessful(fileState => {
-      fireAnalytics(createLoadSucceededEvent(fileState), this.props);
+    item.whenSuccessful(fileItem => {
+      if (isFileStateItem(fileItem)) {
+        const fileAttributes = getFileAttributes(fileItem);
+        fireAnalytics(createLoadSucceededEvent(fileAttributes), this.props);
+      }
     });
   };
 
-  private onLoadFail = (errorReason: MediaViewerErrorReason) => (
-    error: Error,
+  private onLoadFail = (primaryReason: MediaViewerErrorReason) => (
+    secondaryError: Error,
   ) => {
     this.setState({
-      item: Outcome.failed(new MediaViewerError(errorReason, error)),
+      item: Outcome.failed(new MediaViewerError(primaryReason, secondaryError)),
+    });
+  };
+
+  private onExternalImgSuccess = () => {
+    fireAnalytics(
+      createLoadSucceededEvent({
+        fileId: 'external-image',
+      }),
+      this.props,
+    );
+  };
+
+  private onExternalImgError = () => {
+    this.setState({
+      item: Outcome.failed(
+        new MediaViewerError('imageviewer-external-onerror'),
+      ),
     });
   };
 
@@ -181,9 +212,17 @@ export class ItemViewerBase extends React.Component<Props, State> {
     return this.renderError(new MediaViewerError('unsupported'), fileState);
   }
 
-  private renderError(error: Error, fileState?: FileState) {
+  private renderError(error: MediaViewerError, fileItem?: FileItem) {
     const { identifier } = this.props;
-    if (fileState) {
+    if (fileItem) {
+      let fileState: FileState;
+      if (fileItem === 'external-image') {
+        // external image error outcome
+        fileState = { id: 'external-image', status: 'error' };
+      } else {
+        // FileState error outcome
+        fileState = fileItem;
+      }
       return (
         <ErrorMessage
           fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
@@ -207,32 +246,42 @@ export class ItemViewerBase extends React.Component<Props, State> {
   }
 
   render() {
-    const { identifier } = this.props;
     const { item } = this.state;
-    if (isExternalImageIdentifier(identifier)) {
-      const { dataURI } = identifier;
-      return <InteractiveImg src={dataURI} />;
-    }
+    const { identifier } = this.props;
 
     return item.match({
-      successful: fileState => {
-        switch (fileState.status) {
-          case 'processed':
-          case 'uploading':
-          case 'processing':
-            return this.renderItem(fileState);
-          case 'failed-processing':
-            return this.renderError(
-              new MediaViewerError('itemviewer-file-failed-processing-status'),
-              fileState,
-            );
-          case 'error':
-            return this.renderError(
-              new MediaViewerError('itemviewer-file-error-status'),
-              fileState,
-            );
-          default:
-            return <Spinner />;
+      successful: fileItem => {
+        if (fileItem === 'external-image') {
+          // render an external image
+          const { dataURI } = identifier as ExternalImageIdentifier;
+          return (
+            <InteractiveImg
+              src={dataURI}
+              onLoad={this.onExternalImgSuccess}
+              onError={this.onExternalImgError}
+            />
+          );
+        } else {
+          // render a FileState fetched through media-client
+          const fileState = fileItem;
+          switch (fileState.status) {
+            case 'processed':
+            case 'uploading':
+            case 'processing':
+              return this.renderItem(fileState);
+            case 'failed-processing':
+              return this.renderError(
+                new MediaViewerError(
+                  'itemviewer-file-failed-processing-status',
+                ),
+                fileState,
+              );
+            case 'error':
+              return this.renderError(
+                new MediaViewerError('itemviewer-file-error-status'),
+                fileState,
+              );
+          }
         }
       },
       pending: () => <Spinner />,
@@ -240,7 +289,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
     });
   }
 
-  private renderDownloadButton(fileState: FileState, error: Error) {
+  private renderDownloadButton(fileState: FileState, error: MediaViewerError) {
     const { mediaClient, identifier } = this.props;
     const collectionName = isFileIdentifier(identifier)
       ? identifier.collectionName
@@ -259,6 +308,12 @@ export class ItemViewerBase extends React.Component<Props, State> {
     const { mediaClient, identifier } = props;
 
     if (isExternalImageIdentifier(identifier)) {
+      // external images do not need to talk to our backend,
+      // so therefore no need for media-client subscriptions.
+      // just set a successful outcome of type "external-image".
+      this.setState({
+        item: Outcome.successful('external-image'),
+      });
       return;
     }
 
@@ -277,7 +332,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         error: (error: Error) => {
           this.setState({
             item: Outcome.failed(
-              new MediaViewerError('imageviewer-onerror', error),
+              new MediaViewerError('itemviewer-fetch-metadata', error),
             ),
           });
         },

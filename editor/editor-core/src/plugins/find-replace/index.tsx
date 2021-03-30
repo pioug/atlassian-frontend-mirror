@@ -141,14 +141,14 @@ export const findReplacePlugin = (): EditorPlugin => {
             return (
               <FindReplaceToolbarButton
                 allowMatchCase={findReplaceMatchCase}
-                shouldMatchCase={findReplaceState.shouldMatchCase}
+                shouldMatchCase={findReplaceState!.shouldMatchCase}
                 onToggleMatchCase={handleToggleMatchCase}
-                isActive={findReplaceState.isActive}
-                findText={findReplaceState.findText}
-                index={findReplaceState.index}
-                numMatches={findReplaceState.matches.length}
-                replaceText={findReplaceState.replaceText}
-                shouldFocus={findReplaceState.shouldFocus}
+                isActive={findReplaceState!.isActive}
+                findText={findReplaceState!.findText}
+                index={findReplaceState!.index}
+                numMatches={findReplaceState!.matches.length}
+                replaceText={findReplaceState!.replaceText}
+                shouldFocus={findReplaceState!.shouldFocus}
                 popupsBoundariesElement={popupsBoundariesElement}
                 popupsMountPoint={popupsMountPoint}
                 popupsScrollableElement={popupsScrollableElement}

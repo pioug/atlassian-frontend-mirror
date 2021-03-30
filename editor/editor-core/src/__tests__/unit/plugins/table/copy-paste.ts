@@ -21,6 +21,7 @@ import {
   br,
   expand,
   panel,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {
@@ -53,7 +54,7 @@ const selectCell = (cell: {
 describe('table plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

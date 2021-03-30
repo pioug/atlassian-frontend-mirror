@@ -29,6 +29,72 @@ test('should render a modal dialog with content', () => {
   expect(wrapper.find(Content)).toHaveLength(1);
 });
 
+describe('components body', () => {
+  it('should mount only once', () => {
+    const mock = jest.fn();
+    const CountContent = () => {
+      mock();
+      return <div>Hello</div>;
+    };
+    const Body = React.forwardRef<
+      HTMLDivElement,
+      React.AllHTMLAttributes<HTMLDivElement>
+    >((props, ref) => <div ref={ref}>{props.children}</div>);
+
+    mount(
+      <ModalTransition>
+        <ModalDialog onClose={noop} components={{ Body }}>
+          <CountContent />
+        </ModalDialog>
+      </ModalTransition>,
+    );
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should be rendered correctly without attaching ref on its DOM element', () => {
+    const Body = React.forwardRef<
+      HTMLDivElement,
+      React.AllHTMLAttributes<HTMLDivElement>
+    >((props, ref) => <div>{props.children}</div>);
+
+    const wrapper = mount(
+      <ModalTransition>
+        <ModalDialog onClose={noop} components={{ Body }}>
+          <MyContent />
+        </ModalDialog>
+      </ModalTransition>,
+    );
+    const deprecatedWrapper = mount(
+      <ModalTransition>
+        <ModalDialog onClose={noop} body={Body}>
+          <MyContent />
+        </ModalDialog>
+      </ModalTransition>,
+    );
+    expect(wrapper.find(Content)).toHaveLength(1);
+    expect(deprecatedWrapper.find(Content)).toHaveLength(1);
+  });
+});
+
+describe('modal-dialog children', () => {
+  it('should mount only once', () => {
+    const mock = jest.fn();
+    const CountContent = () => {
+      mock();
+      return <div>Hello</div>;
+    };
+
+    mount(
+      <ModalTransition>
+        <ModalDialog onClose={noop}>
+          <CountContent />
+        </ModalDialog>
+      </ModalTransition>,
+    );
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('modal-dialog', () => {
   describe('props', () => {
     describe('height', () => {

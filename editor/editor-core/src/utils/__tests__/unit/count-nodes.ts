@@ -8,12 +8,9 @@ import {
   td,
   unsupportedInline,
   unsupportedBlock,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { countNodes } from '../../count-nodes';
-import { Schema } from 'prosemirror-model';
-
-type DocBuilder = (schema: Schema) => RefsNode;
 
 describe('#countNodes', () => {
   const createEditor = createEditorFactory();

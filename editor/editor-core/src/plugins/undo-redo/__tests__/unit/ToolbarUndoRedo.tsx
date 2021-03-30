@@ -7,8 +7,11 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { p, doc } from '@atlaskit/editor-test-helpers/schema-builder';
-import { DocumentType } from '@atlaskit/editor-test-helpers/create-editor-state';
+import {
+  p,
+  doc,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import historyPlugin from '../../../history';
 import { historyPluginKey } from '../../../history';
@@ -31,7 +34,7 @@ const mockIntl = { formatMessage: text => text };
 
 describe('ToolbarUndoRedo', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocumentType) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

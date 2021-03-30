@@ -18,6 +18,7 @@ import {
   annotation,
   unsupportedMark,
   unsupportedNodeAttribute,
+  dataConsumer,
 } from './marks';
 
 import {
@@ -197,6 +198,7 @@ const marksInOrder: SchemaBuiltInItem[] = [
   { name: 'confluenceInlineComment', spec: confluenceInlineComment },
   ...markGroupDeclarations,
   { name: 'breakout', spec: breakout },
+  { name: 'dataConsumer', spec: dataConsumer },
   { name: 'indentation', spec: indentation },
   { name: 'unsupportedMark', spec: unsupportedMark },
   { name: 'unsupportedNodeAttribute', spec: unsupportedNodeAttribute },

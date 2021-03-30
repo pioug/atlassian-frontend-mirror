@@ -124,6 +124,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               },
             },
             {
+              id: 'editor.link.edit',
               type: 'button',
               onClick: editInsertedLink(),
               selected: false,
@@ -134,6 +135,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               type: 'separator',
             },
             {
+              id: 'editor.link.openLink',
               type: 'button',
               disabled: !isValidUrl,
               target: '_blank',
@@ -148,6 +150,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               type: 'separator',
             },
             {
+              id: 'editor.link.unlink',
               type: 'button',
               onClick: removeLink(pos),
               selected: false,

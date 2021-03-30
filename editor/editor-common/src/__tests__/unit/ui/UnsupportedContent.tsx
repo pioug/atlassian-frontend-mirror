@@ -8,6 +8,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
+  DocBuilder,
   p,
   unsupportedBlock,
   unsupportedInline,
@@ -36,7 +37,7 @@ describe('Unsupported Content', () => {
       wrapper.unmount();
     });
 
-    const editor = (doc: any) => {
+    const editor = (doc: DocBuilder) => {
       return createEditor({
         doc,
       });
@@ -242,7 +243,7 @@ describe('Unsupported Content', () => {
 
     describe('content lozenge', () => {
       const createEditor = createEditorFactory();
-      const editor = (doc: any) => {
+      const editor = (doc: DocBuilder) => {
         return createEditor({
           doc,
         });
@@ -345,7 +346,7 @@ describe('Unsupported Content', () => {
       wrapper.unmount();
     });
 
-    const editor = (doc: any) => {
+    const editor = (doc: DocBuilder) => {
       return createEditor({
         doc,
       });
@@ -551,7 +552,7 @@ describe('Unsupported Content', () => {
 
     describe('content lozenge', () => {
       const createEditor = createEditorFactory();
-      const editor = (doc: any) => {
+      const editor = (doc: DocBuilder) => {
         return createEditor({
           doc,
         });

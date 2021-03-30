@@ -1,10 +1,10 @@
-import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {
   BuilderContent,
   doc,
+  DocBuilder,
   p,
   RefsNode,
   table,
@@ -12,7 +12,6 @@ import {
   th,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
-export type DocBuilder = (schema: Schema) => RefsNode;
 export const createEditorState = (content: DocBuilder) => {
   return EditorState.create({
     doc: content(defaultSchema),

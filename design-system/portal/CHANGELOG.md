@@ -1,5 +1,16 @@
 # @atlaskit/portal
 
+## 4.1.0
+
+### Minor Changes
+
+- [`d4f0c36ac36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4f0c36ac36) - Converted class based portal component to functional component and dropped unused ie11 specific code
+
+### Patch Changes
+
+- [`9e94c1beb76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e94c1beb76) - Removed deprecated auto entry points and added new entry points in Portal
+- [`e87c4a5ae8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e87c4a5ae8b) - Optimisation of z-index to layer name by removing dependency on atlaskit theme package
+
 ## 4.0.5
 
 ### Patch Changes

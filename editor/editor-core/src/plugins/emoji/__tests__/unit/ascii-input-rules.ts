@@ -8,6 +8,7 @@ import {
   hardBreak,
   emoji,
   typeAheadQuery,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
@@ -39,7 +40,7 @@ describe('ascii emojis - input rules', () => {
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

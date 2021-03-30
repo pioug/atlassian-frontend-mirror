@@ -10,11 +10,13 @@ import {
 } from '@atlaskit/editor-common';
 import { Date } from '@atlaskit/date';
 import { setDatePickerAt } from '../actions';
+import { getPosHandler } from '../../../nodeviews';
 
 export interface Props {
   children?: React.ReactNode;
   view: EditorView;
   node: PMNode;
+  getPos?: getPosHandler;
 }
 
 class DateNodeView extends React.Component<Props & InjectedIntlProps> {
@@ -24,15 +26,20 @@ class DateNodeView extends React.Component<Props & InjectedIntlProps> {
         attrs: { timestamp },
       },
       view: {
-        state: { schema, selection },
+        state: { doc, schema, selection },
       },
       intl,
+      getPos,
     } = this.props;
 
-    const parent = selection.$from.parent;
+    // We fall back to selection.$from even though it does not cover all use cases
+    // eg. upon Editor init, selection is at the start, not at the Date node
+    const $nodePos =
+      typeof getPos === 'function' ? doc.resolve(getPos()) : selection.$from;
+
+    const parent = $nodePos.parent;
     const withinIncompleteTask =
       parent.type === schema.nodes.taskItem && parent.attrs.state !== 'DONE';
-
     const color =
       withinIncompleteTask && isPastDate(timestamp) ? 'red' : undefined;
 

@@ -468,8 +468,8 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
               render={({ width, mediaPluginState }) => {
                 return (
                   <MediaSingleNode
-                    width={width.width}
-                    lineLength={width.lineLength}
+                    width={width!.width}
+                    lineLength={width!.lineLength}
                     node={this.node}
                     getPos={getPos}
                     mediaProvider={mediaProvider}

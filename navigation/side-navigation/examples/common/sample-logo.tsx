@@ -1,8 +1,11 @@
 import React from 'react';
 
-const RocketIcon = () => {
+import { CustomGlyphProps } from '@atlaskit/icon/types';
+
+const RocketIcon = (props: CustomGlyphProps) => {
   return (
     <svg
+      {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="251"
       height="211"

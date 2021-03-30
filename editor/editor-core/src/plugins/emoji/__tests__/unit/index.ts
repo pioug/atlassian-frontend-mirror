@@ -10,6 +10,7 @@ import {
   li,
   p,
   ul,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -51,7 +52,7 @@ describe('emojis', () => {
   const providerFactory = ProviderFactory.create({ emojiProvider });
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,

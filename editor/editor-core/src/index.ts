@@ -67,12 +67,6 @@ export { pluginKey as listsStateKey } from './plugins/lists/pm-plugins/main';
 export type { ListsPluginState as ListsState } from './plugins/lists/pm-plugins/main';
 export { pluginKey as listsPredictableStateKey } from './plugins/lists-predictable/pm-plugins/main';
 export type { ListsPluginState as ListsPredictableState } from './plugins/lists-predictable/types';
-export {
-  indentList,
-  outdentList,
-  toggleOrderedList,
-  toggleBulletList,
-} from './plugins/lists/commands';
 export type { InputMethod as ListInputMethod } from './plugins/lists/commands';
 export {
   toggleSuperscript,
@@ -156,6 +150,7 @@ export {
   measurements,
   hasVisibleContent,
 } from './utils';
+export { getListCommands } from './utils/list-commands';
 export { ReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export type {

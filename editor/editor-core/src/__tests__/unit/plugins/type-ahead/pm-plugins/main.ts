@@ -10,6 +10,7 @@ import { insertText, insert } from '@atlaskit/editor-test-helpers/transactions';
 import { createTypeAheadPlugin } from './_create-type-ahead-plugin';
 import { selectCurrentItem } from '../../../../../plugins/type-ahead/commands/select-item';
 import { pluginKey as typeAheadPluginKey } from '../../../../../plugins/type-ahead/pm-plugins/main';
+import { TypeAheadItem } from '../../../../../plugins/type-ahead/types';
 
 describe('typeAhead main plugin', () => {
   const createEditor = createEditorFactory();
@@ -128,5 +129,67 @@ describe('typeAhead main plugin', () => {
     insert(editorView, ['']);
 
     expect(editorView.state.doc).toEqualDocument(doc(p('')));
+  });
+
+  it('should insert item returned by forceSelect. ', () => {
+    const mockItems = [
+      { title: 'Item 11' },
+      { title: 'Item 12' },
+      { title: 'Item 13' },
+      { title: 'Item 14' },
+      { title: 'Item 15' },
+    ];
+
+    const plugin = createTypeAheadPlugin({
+      trigger: ':',
+      getItems(query: string) {
+        return mockItems;
+      },
+      forceSelect(query: string, items: Array<TypeAheadItem>) {
+        return query.indexOf(':') > -1 ? items[1] : undefined;
+      },
+      selectItem(state, _item, insert) {
+        return insert(_item.title);
+      },
+    });
+    const { editorView, sel } = createEditor({
+      doc: doc(p('{<>}')),
+      editorPlugins: [plugin],
+    });
+    insertText(editorView, ':1', sel);
+    sendKeyToPm(editorView, 'ArrowDown');
+    sendKeyToPm(editorView, 'ArrowDown');
+    sendKeyToPm(editorView, 'ArrowDown');
+    insertText(editorView, ':', sel + 2);
+    expect(editorView.state.doc).toEqualDocument(doc(p('Item 12')));
+  });
+
+  it('should insert current index if forceSelect is not defined. ', () => {
+    const mockItems = [
+      { title: 'Item 11' },
+      { title: 'Item 12' },
+      { title: 'Item 13' },
+      { title: 'Item 14' },
+      { title: 'Item 15' },
+    ];
+
+    const plugin = createTypeAheadPlugin({
+      trigger: ':',
+      getItems(query: string) {
+        return mockItems;
+      },
+      selectItem(state, _item, insert) {
+        return insert(_item.title);
+      },
+    });
+    const { editorView, sel } = createEditor({
+      doc: doc(p('{<>}')),
+      editorPlugins: [plugin],
+    });
+    insertText(editorView, ':1', sel);
+    sendKeyToPm(editorView, 'ArrowDown');
+    sendKeyToPm(editorView, 'ArrowDown');
+    sendKeyToPm(editorView, 'Enter');
+    expect(editorView.state.doc).toEqualDocument(doc(p('Item 13')));
   });
 });

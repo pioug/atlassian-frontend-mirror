@@ -11,6 +11,7 @@ import {
   tdEmpty,
   thEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TableRowNodeView } from '../../../../pm-plugins/sticky-headers';
 import tablePlugin from '../../../../../table';
@@ -44,7 +45,7 @@ import {
 describe('TableRowNodeView', () => {
   let tableRowNodeView: TableRowNodeView;
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any, stickyHeadersOptimization?: boolean) =>
+  const editor = (doc: DocBuilder, stickyHeadersOptimization?: boolean) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
@@ -140,6 +141,7 @@ describe('TableRowNodeView', () => {
       rootBounds: {
         bottom: number;
         top: number;
+        height?: number;
       };
       boundingClientRect: {
         bottom: number;
@@ -289,6 +291,39 @@ describe('TableRowNodeView', () => {
     });
 
     describe('updates sticky header state', () => {
+      it('top sentinel does nothing if the rootBounds has height 0', () => {
+        const tableComponent = mountTableComponent();
+        const sentinelWrapperTop = tableComponent.find(
+          `.${TableCssClassName.TABLE_STICKY_SENTINEL_TOP}`,
+        );
+        const sentinelTop = sentinelWrapperTop.getDOMNode() as HTMLElement;
+
+        triggerElementIntersect({
+          target: sentinelTop,
+          isIntersecting: false,
+          rootBounds: { bottom: 0, top: 0, height: 0 },
+          boundingClientRect: { bottom: 0, top: 0 },
+        });
+
+        expect(updateStickyState).not.toHaveBeenCalled();
+      });
+
+      it('bottom sentinel does nothing if the rootBounds has height 0', () => {
+        const tableComponent = mountTableComponent();
+        const sentinelWrapperBottom = tableComponent.find(
+          `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
+        );
+        const sentinelBottom = sentinelWrapperBottom.getDOMNode() as HTMLElement;
+        triggerElementIntersect({
+          target: sentinelBottom,
+          isIntersecting: false,
+          rootBounds: { bottom: 0, top: 0, height: 0 },
+          boundingClientRect: { bottom: 0, top: 0 },
+        });
+
+        expect(updateStickyState).not.toHaveBeenCalled();
+      });
+
       it('when top sentinel leaves scroll area', () => {
         const tableComponent = mountTableComponent();
         const sentinelWrapperTop = tableComponent.find(

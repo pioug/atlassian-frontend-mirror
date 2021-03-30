@@ -1,5 +1,9 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 import { EditorView } from 'prosemirror-view';
 import { buildLayoutForWidths } from '../../../../../plugins/layout/__tests__/unit/_utils';
@@ -30,7 +34,7 @@ describe('Media Single Utils', () => {
     100: 1800,
   };
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowLayouts: true },

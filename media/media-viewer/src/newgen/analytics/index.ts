@@ -6,7 +6,7 @@ import {
   ANALYTICS_MEDIA_CHANNEL,
 } from '@atlaskit/media-common';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { AvailableErrorReason } from '../errors';
+import { PrimaryErrorReason } from '../errors';
 
 import {
   name as packageName,
@@ -59,7 +59,7 @@ export type MediaViewerFailureAttributes = Omit<
   FailureAttributes,
   'failReason'
 > & {
-  failReason: AvailableErrorReason;
+  failReason: PrimaryErrorReason;
 } & WithFileAttributes;
 
 export function fireAnalytics(

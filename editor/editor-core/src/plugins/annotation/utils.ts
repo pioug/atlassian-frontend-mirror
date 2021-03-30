@@ -231,7 +231,9 @@ export function getSelectionPositions(
   return editorState.selection;
 }
 
-export const inlineCommentPluginKey = new PluginKey('inlineCommentPluginKey');
+export const inlineCommentPluginKey = new PluginKey<InlineCommentPluginState>(
+  'inlineCommentPluginKey',
+);
 
 export const getPluginState = (
   state: EditorState,

@@ -8,7 +8,12 @@ import { findChildrenByType, NodeWithPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers/constants';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, status } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  status,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
@@ -59,7 +64,7 @@ describe('status plugin: plugin', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let editorView: EditorView;
 
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       editorProps: {

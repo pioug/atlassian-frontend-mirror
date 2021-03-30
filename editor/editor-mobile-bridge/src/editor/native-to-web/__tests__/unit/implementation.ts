@@ -4,7 +4,11 @@ import {
   EditorActions,
   EventDispatcher,
 } from '@atlaskit/editor-core';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  DocBuilder,
+  doc,
+  p,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { PluginKey } from 'prosemirror-state';
 import { EditorViewWithComposition } from '../../../../types';
@@ -471,7 +475,7 @@ describe('replaceContent', () => {
 
 describe('Register and Unregister Editor', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const { editorView } = createEditor({
       doc,
     });

@@ -3,7 +3,7 @@ import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
 import { Dispatch } from '../../../event-dispatcher';
 import {
   textColorPalette,
-  textColorPaletteExperimental,
+  textColorPaletteExtended,
 } from '../../../ui/ColorPalette/Palettes/textColorPalette';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
@@ -37,18 +37,16 @@ export type TextColorDefaultColor = {
 
 export interface TextColorPluginConfig {
   defaultColor?: TextColorDefaultColor;
-  // Allow experimental testing for "show more colours" (ED-8368)
-  EXPERIMENTAL_allowMoreTextColors?: boolean;
+  // Allow "show more colours" option
+  allowMoreTextColors?: boolean;
 }
 
 export function createInitialPluginState(
   editorState: EditorState,
   pluginConfig?: TextColorPluginConfig,
 ): TextColorPluginState {
-  const defaultColor =
-    (pluginConfig && pluginConfig.defaultColor) || DEFAULT_COLOR;
-  const showMoreColorsToggle =
-    (pluginConfig && pluginConfig.EXPERIMENTAL_allowMoreTextColors) || false;
+  const defaultColor = pluginConfig?.defaultColor || DEFAULT_COLOR;
+  const showMoreColorsToggle = pluginConfig?.allowMoreTextColors || false;
 
   const palette: Array<PaletteColor> = [
     {
@@ -56,7 +54,7 @@ export function createInitialPluginState(
       label: defaultColor.label,
       border: DEFAULT_BORDER_COLOR,
     },
-    ...(showMoreColorsToggle ? textColorPaletteExperimental : textColorPalette),
+    ...(showMoreColorsToggle ? textColorPaletteExtended : textColorPalette),
   ];
 
   const state = {
@@ -66,7 +64,7 @@ export function createInitialPluginState(
     defaultColor: defaultColor.color,
   };
 
-  // break up the palette for A/B testing experiment ED-8368
+  // break up the palette for extended colors
   if (showMoreColorsToggle) {
     // defined palette order: [normal, dark, light] (but normal[0] is default/dark)
     // expanded palette: [dark, normal, light] with normal[0] on the dark row
@@ -96,7 +94,7 @@ export enum ACTIONS {
   DISABLE,
 }
 
-export const pluginKey = new PluginKey('textColorPlugin');
+export const pluginKey = new PluginKey<TextColorPluginState>('textColorPlugin');
 
 export function createPlugin(
   dispatch: Dispatch,

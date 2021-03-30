@@ -6,6 +6,7 @@ import {
   em,
   taskList,
   taskItem,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -31,7 +32,7 @@ describe('content-in-selection', () => {
     .add(panelPlugin)
     .add(tasksAndDecisionsPlugin);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<SelectionPluginState, PluginKey>({
       doc,
       preset,

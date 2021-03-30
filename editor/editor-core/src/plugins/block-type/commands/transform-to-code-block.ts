@@ -1,6 +1,6 @@
-import { EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
 import { mapSlice } from '../../../utils/slice';
-import { Mark } from 'prosemirror-model';
+import { NodeType, Fragment } from 'prosemirror-model';
 
 export function transformToCodeBlockAction(
   state: EditorState,
@@ -11,7 +11,7 @@ export function transformToCodeBlockAction(
     return state.tr;
   }
 
-  const codeBlock = state.schema.nodes.codeBlock;
+  const codeBlock: NodeType = state.schema.nodes.codeBlock;
   const startOfCodeBlockText = state.selection.$from;
   const parentPos = startOfCodeBlockText.before();
   const end = startOfCodeBlockText.end();
@@ -33,20 +33,45 @@ export function transformToCodeBlockAction(
     },
   );
 
-  const tr = state.tr.replaceRange(
-    startOfCodeBlockText.pos,
-    end,
-    codeBlockSlice,
-  );
-  // If our offset isnt at 3 (backticks) at the start of line, cater for content.
+  const tr = state.tr;
+
+  /**
+   * If our offset isnt at 3 (backticks) at the start of line...
+   * - replace the content after our cursor with codeBlockSlice
+   * - split the node in two and turn the second half into a codeblock
+   */
   if (startOfCodeBlockText.parentOffset >= 3) {
+    tr.replaceRange(startOfCodeBlockText.pos, end, codeBlockSlice);
     return tr.split(startOfCodeBlockText.pos, undefined, [
       { type: codeBlock, attrs },
     ]);
   }
-  // TODO: Check parent node for valid code block marks, ATM It's not necessary because code block doesn't have any valid mark.
-  const codeBlockMarks: Array<Mark> = [];
-  return tr.setNodeMarkup(parentPos, codeBlock, attrs, codeBlockMarks);
+
+  /**
+   * Otherwise replace the paragraph itself with a codeblock node
+   * But by doing this we need to add back in the 2 backticks that
+   * is deleted after this transaction returns in getCodeBlockRules()
+   *
+   * @see packages/editor/editor-core/src/plugins/block-type/pm-plugins/input-rule.ts
+   */
+  const doubleBacktick = Fragment.from(state.schema.text('``'));
+  const codeBlockNode = codeBlock.createChecked(
+    attrs,
+    doubleBacktick.append(codeBlockSlice.content),
+    [],
+  );
+  tr.replaceWith(
+    parentPos,
+    parentPos + startOfCodeBlockText.node().nodeSize,
+    codeBlockNode,
+  );
+  // Reposition cursor when inserting into layouts or table headers
+  return tr.setSelection(
+    TextSelection.create(
+      tr.doc,
+      parentPos + startOfCodeBlockText.node().nodeSize - 1,
+    ),
+  );
 }
 
 export function isConvertableToCodeBlock(state: EditorState): boolean {

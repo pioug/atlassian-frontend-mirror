@@ -18,6 +18,9 @@ export type {
   ExtensionProvider,
   ExtensionQuickInsertModule,
   ExtensionType,
+  ExtensionToolbarButton,
+  ExtensionModuleToolbarItem,
+  ExtensionModuleToolbarButton,
   Icon,
   MaybeADFEntity,
   MenuItem,
@@ -64,6 +67,8 @@ export {
   createAutoConverterRunner,
   getExtensionAutoConvertersFromProvider,
   getQuickInsertItemsFromModule,
+  getContextualToolbarlItemsFromModule,
+  buildMenuItem,
 } from './module-helpers';
 
 export { getExtensionModuleNode, getNodeRenderer } from './extension-handlers';

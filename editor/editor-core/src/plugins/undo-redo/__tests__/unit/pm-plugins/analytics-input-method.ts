@@ -3,13 +3,18 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  p,
+  ul,
+  li,
+  doc,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   undo as pmHistoryUndo,
   redo as pmHistoryRedo,
 } from 'prosemirror-history';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { DocumentType } from '@atlaskit/editor-test-helpers/create-editor-state';
 import undoPlugin from '../../..';
 import panelPlugin from '../../../../panel';
 import analyticsPlugin, {
@@ -27,7 +32,7 @@ describe('change input method from undo/redo events', () => {
   let fireMock: jest.Mock;
   let createAnalyticsEvent: jest.Mock;
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocumentType) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

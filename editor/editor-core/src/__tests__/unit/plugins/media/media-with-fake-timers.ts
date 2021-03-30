@@ -2,7 +2,11 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { MediaState } from '../../../../plugins/media/types';
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
@@ -22,7 +26,7 @@ describe('Media plugin', () => {
   const mediaProvider = getFreshMediaProvider();
   const providerFactory = ProviderFactory.create({ mediaProvider });
 
-  const editor = (doc: any, editorProps = {}) =>
+  const editor = (doc: DocBuilder, editorProps = {}) =>
     createEditor({
       doc,
       editorProps: {

@@ -1,4 +1,3 @@
-import { Schema } from 'prosemirror-model';
 import {
   p,
   ul,
@@ -6,19 +5,17 @@ import {
   li,
   doc,
   h1,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { ListsPluginState } from '../../../types';
 import { pluginKey, createPlugin } from '../../../pm-plugins/main';
 import { DecorationSet } from 'prosemirror-view';
 
-type DocumentType = (schema: Schema) => RefsNode;
-
 describe('outdent-list-items-selected', () => {
   const eventDispatch = jest.fn();
   const predictableListsPlugin = createPlugin(eventDispatch);
-  const case0: [string, DocumentType, ListsPluginState] = [
+  const case0: [string, DocBuilder, ListsPluginState] = [
     'should enable the orderedList options when ordered list is selected',
     // Scenario
     // prettier-ignore
@@ -37,7 +34,7 @@ describe('outdent-list-items-selected', () => {
       decorationSet: DecorationSet.empty,
     },
   ];
-  const case1: [string, DocumentType, ListsPluginState] = [
+  const case1: [string, DocBuilder, ListsPluginState] = [
     'should enable the bulletList options when bullet list is selected',
     // Scenario
     // prettier-ignore
@@ -57,7 +54,7 @@ describe('outdent-list-items-selected', () => {
     },
   ];
 
-  const case2: [string, DocumentType, ListsPluginState] = [
+  const case2: [string, DocBuilder, ListsPluginState] = [
     'should set any list active option as false when there is no list selected',
     // Scenario
     // prettier-ignore
@@ -78,7 +75,7 @@ describe('outdent-list-items-selected', () => {
     },
   ];
 
-  const case3: [string, DocumentType, ListsPluginState] = [
+  const case3: [string, DocBuilder, ListsPluginState] = [
     'should disable any list options when is not allowed to add a list in that position',
     // Scenario
     // prettier-ignore
@@ -99,7 +96,7 @@ describe('outdent-list-items-selected', () => {
     },
   ];
 
-  it.each<[string, DocumentType, ListsPluginState]>([
+  it.each<[string, DocBuilder, ListsPluginState]>([
     // prettier-ignore
     case0,
     case1,

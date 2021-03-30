@@ -33,7 +33,7 @@ export type Props = Readonly<
 >;
 
 export type State = {
-  items: Outcome<MediaCollectionItem[], Error>;
+  items: Outcome<MediaCollectionItem[], MediaViewerError>;
   item?: Identifier;
 };
 

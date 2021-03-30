@@ -15,6 +15,7 @@ import {
   td,
   tr,
   ul,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import * as analytics from '../../../../../plugins/analytics/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
@@ -76,7 +77,7 @@ describe('media', () => {
 
   let createAnalyticsEvent: jest.Mock<any>;
 
-  const editor = (doc: any, mediaPropsOverride: MediaOptions = {}) => {
+  const editor = (doc: DocBuilder, mediaPropsOverride: MediaOptions = {}) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const providerFactory = ProviderFactory.create({
       contextIdentifierProvider,

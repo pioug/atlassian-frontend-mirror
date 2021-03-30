@@ -5,7 +5,7 @@ import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import { ProviderFactory } from '@atlaskit/editor-common';
+import { ExtensionProvider, ProviderFactory } from '@atlaskit/editor-common';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
@@ -18,6 +18,8 @@ import Dropdown from './Dropdown';
 import Select, { SelectOption } from './Select';
 import Separator from './Separator';
 import Input from './Input';
+import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 const akGridSize = gridSize();
 
@@ -36,6 +38,7 @@ export interface Props {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   target?: HTMLElement;
   node: Node;
+  extensionsProvider?: ExtensionProvider;
 }
 
 const ToolbarContainer = styled.div`
@@ -127,6 +130,8 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
       return false;
     case 'separator':
       return compareItemWithKeys(leftItem, rightItem as typeof leftItem);
+    case 'extensions-placeholder':
+      return compareItemWithKeys(leftItem, rightItem as typeof leftItem);
   }
   return true;
 };
@@ -161,6 +166,8 @@ export default class Toolbar extends Component<Props> {
       popupsScrollableElement,
       className,
       editorView,
+      node,
+      extensionsProvider,
     } = this.props;
     if (!items || !items.length) {
       return null;
@@ -261,7 +268,24 @@ export default class Toolbar extends Component<Props> {
                       filterOption={item.filterOption}
                     />
                   );
-
+                case 'extensions-placeholder':
+                  if (!editorView || !extensionsProvider) {
+                    return null;
+                  }
+                  const { extendFloatingToolbar } =
+                    getFeatureFlags(editorView.state) || {};
+                  if (!extendFloatingToolbar) {
+                    return null;
+                  }
+                  return (
+                    <ExtensionsPlaceholder
+                      key={idx}
+                      node={node}
+                      editorView={editorView}
+                      extensionProvider={extensionsProvider}
+                      separator={item.separator}
+                    />
+                  );
                 case 'separator':
                   return <Separator key={idx} />;
               }

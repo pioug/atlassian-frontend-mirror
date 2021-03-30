@@ -105,7 +105,7 @@ export const retryUntilStablePosition = async (
   page: any,
   callback: () => Promise<any>,
   stablePosTargetSelector: string,
-  stableDuration: number,
+  stableDuration: number = 1000,
   // ED:10448 - Because retries may involve click-based
   // and other operations that modify text selection, we
   // now support consumers explicitly declaring whether

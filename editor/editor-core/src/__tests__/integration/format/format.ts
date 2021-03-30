@@ -37,20 +37,23 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  'format.ts: user should be able to format bold and italics with markdown',
+  'format.ts: user should be able to format bold, italics and strikethrough with markdown',
   { skip: ['edge'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, { appearance: 'full-page' });
     await page.click(fullpage.placeholder);
-    const markdown = '__bold__ _italics_ **starbold** *staritalics*';
-    // // Investigate why string based input (without an array) fails in firefox
-    // // https://product-fabric.atlassian.net/browse/ED-7044
+    const markdown =
+      '__bold__ _italics_ **starbold** *staritalics* ~~strikethrough~~';
+    // Investigate why string based input (without an array) fails in firefox
+    // https://product-fabric.atlassian.net/browse/ED-7044
     const input = markdown.split('');
     await page.keys(input);
     await page.pause(100);
 
     await page.waitForSelector('strong');
+    await page.waitForSelector('em');
+    await page.waitForSelector('s');
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

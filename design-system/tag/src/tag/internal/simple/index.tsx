@@ -87,15 +87,13 @@ const InnerSimpleTag = forwardRef(
 );
 
 const SimpleTag = memo(
-  forwardRef((props: SimpleTagProps, ref: React.Ref<any>) => {
-    return (
-      <GlobalTheme.Consumer>
-        {(tokens: GlobalThemeTokens) => {
-          return <InnerSimpleTag {...props} mode={tokens.mode} ref={ref} />;
-        }}
-      </GlobalTheme.Consumer>
-    );
-  }),
+  forwardRef<any, SimpleTagProps>((props, ref) => (
+    <GlobalTheme.Consumer>
+      {(tokens: GlobalThemeTokens) => (
+        <InnerSimpleTag {...props} mode={tokens.mode} ref={ref} />
+      )}
+    </GlobalTheme.Consumer>
+  )),
 );
 
 export default SimpleTag;

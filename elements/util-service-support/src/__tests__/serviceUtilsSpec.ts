@@ -149,4 +149,24 @@ describe('requestService', () => {
       .then(() => expect(true).toEqual(true))
       .catch(() => expect(false).toEqual(true)); // should not error
   });
+  it('builds URLs when path is absolute', () => {
+    fetchMock.mock({
+      matcher: `begin:${url}`,
+      response: 204,
+      name: 'request',
+    });
+    const serviceConfig: ServiceConfig = {
+      url,
+    };
+    const options: RequestServiceOptions = {
+      path: '/path',
+    };
+    return requestService(serviceConfig, options).then(() => {
+      const refreshCalls = fetchMock.calls('request');
+      expect(refreshCalls.length).toEqual(1);
+      const url = refreshCalls[0][0];
+
+      expect(url).toEqual('http://cheese/path');
+    });
+  });
 });

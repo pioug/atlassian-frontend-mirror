@@ -205,6 +205,13 @@ export type FeatureFlags = {
    * @default false
    */
   queueAnalytics?: boolean;
+
+  /**
+   * Enable extend floating toolbars
+   * @see https://product-fabric.atlassian.net/browse/ED-11963
+   * @default false
+   */
+  extendFloatingToolbar?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

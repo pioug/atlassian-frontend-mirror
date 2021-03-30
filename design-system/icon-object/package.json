@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "An object icon is used to represent an entity specific to a product, such as a pull request for Bitbucket.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,22 +30,22 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },
   "dependencies": {
-    "@atlaskit/icon": "21.4.0",
+    "@atlaskit/icon": "21.5.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/icon-build-process": "^0.3.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon-build-process": "^0.2.0",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^11.0.0",
-    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
     "@emotion/styled": "^10.0.7",
     "enzyme": "^3.10.0",

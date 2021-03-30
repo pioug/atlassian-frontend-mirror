@@ -28,6 +28,16 @@ const mockProvidersResponse: ORSProvidersResponse = {
         },
       ],
     },
+    {
+      key: 'slack-object-provider',
+      patterns: [
+        {
+          source:
+            '^https:\\/\\/.+?\\.slack\\.com\\/archives\\/[CG][A-Z0-9][^/]+\\/?$|^https:\\/\\/app\\.slack\\.com\\/client\\/T[A-Z0-9]+\\/[CG][A-Z0-9][^/]+\\/?$|^https:\\/\\/.+?\\.slack\\.com\\/archives\\/[CG][A-Z0-9][^/]+\\/p[0-9]+(\\?.*)?$',
+          flags: '',
+        },
+      ],
+    },
   ],
 };
 
@@ -129,6 +139,40 @@ describe('providers > editor', () => {
       attrs: {
         url,
         layout: 'wide',
+      },
+    });
+  });
+
+  it('returns blockCard when Slack message link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url =
+      'https://atlassian.slack.com/archives/C014W1DTRHS/p1614244582005100';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'blockCard',
+      attrs: {
+        url,
+      },
+    });
+  });
+
+  it('returns blockCard when Slack message in thread link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url =
+      'https://atlassian.slack.com/archives/C014W1DTRHS/p1614306173007200?thread_ts=1614244582.005100&cid=C014W1DTRHS';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'blockCard',
+      attrs: {
+        url,
       },
     });
   });

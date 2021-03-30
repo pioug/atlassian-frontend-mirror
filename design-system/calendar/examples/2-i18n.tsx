@@ -36,11 +36,9 @@ export default () => {
         defaultSelected={['2020-12-08']}
         defaultMonth={12}
         defaultYear={2020}
-        innerProps={{
-          style: {
-            border: '1px solid red',
-            display: 'inline-block',
-          },
+        style={{
+          border: '1px solid red',
+          display: 'inline-block',
         }}
         onBlur={() => log('blur')}
         onChange={() => log('change')}
@@ -54,9 +52,9 @@ export default () => {
       <Select<WeekStartDayOption>
         inputId="week-start-day"
         styles={{
-          container: css => ({ ...css, width: 300, margin: '0.5em 0' }),
-          dropdownIndicator: css => ({ ...css, paddingLeft: 0 }),
-          menu: css => ({ ...css, width: 300 }),
+          container: (css: {}) => ({ ...css, width: 300, margin: '0.5em 0' }),
+          dropdownIndicator: (css: {}) => ({ ...css, paddingLeft: 0 }),
+          menu: (css: {}) => ({ ...css, width: 300 }),
         }}
         options={[
           { label: 'Sunday', value: 0 },

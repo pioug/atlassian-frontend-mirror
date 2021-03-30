@@ -16,6 +16,7 @@ import {
   table,
   tr,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -38,7 +39,7 @@ import { INPUT_METHOD } from '../../../../plugins/analytics';
 describe('lists', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
       .add(blockTypePlugin)

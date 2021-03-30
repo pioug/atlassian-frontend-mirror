@@ -34,12 +34,9 @@ const hoverBackground = { light: N30, dark: N800 };
 const textHoverSelected = { light: N600, dark: N600 };
 const backgroundColorSelectedAfter = { light: N700, dark: N700 };
 
-export const tdStyle: CSSObject = {
-  border: 0,
-  padding: 0,
-  textAlign: 'center',
-};
 export const dateCellStyle = (mode: ThemeModes): CSSObject => ({
+  all: 'unset',
+  display: 'block',
   backgroundColor: transparent[mode],
   border: `2px solid ${transparent[mode]}`,
   borderRadius: 3,

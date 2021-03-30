@@ -2,6 +2,7 @@ import {
   createFakeAutoConvertModule,
   createFakeExtensionManifest,
   createFakeModule,
+  fakeIcon,
 } from '@atlaskit/editor-test-helpers/extensions';
 import {
   bodiedExtension,
@@ -12,9 +13,14 @@ import {
   buildMenuItem,
   createAutoConverterRunner,
   getAutoConvertPatternsFromModule,
+  getContextualToolbarlItemsFromModule,
   getQuickInsertItemsFromModule,
 } from '../../module-helpers';
-import { ExtensionManifest, MenuItem } from '../../types';
+import {
+  ExtensionManifest,
+  ExtensionModuleToolbarButton,
+  MenuItem,
+} from '../../types';
 
 describe('module-helpers', () => {
   let confluenceAwesomeMacro: ExtensionManifest;
@@ -313,6 +319,191 @@ describe('module-helpers', () => {
         const runner = createAutoConverterRunner(autoConvertHandlers);
 
         expect(runner('http://amazing-async-node/ox')).toBe(undefined);
+      });
+    });
+  });
+
+  describe('getContextualToolbarlItemsFromModule', () => {
+    describe('returns toolbar items based on extension manifest', () => {
+      const extensionKey = 'table-floating-toolbar';
+      const itemKey = 'item-1';
+      const testAction = () => Promise.resolve();
+
+      it.each<[string, object, object]>([
+        [
+          'with icon and label by default',
+          {
+            icon: fakeIcon,
+            label: 'test label',
+            tooltip: 'tooltip',
+          },
+          {
+            tooltip: 'tooltip',
+            label: 'test label',
+            icon: fakeIcon,
+          },
+        ],
+        [
+          'with icon only when display is set to icon',
+          {
+            display: 'icon',
+            icon: fakeIcon,
+            label: 'test label',
+            tooltip: 'tooltip',
+          },
+          {
+            tooltip: 'tooltip',
+            icon: fakeIcon,
+          },
+        ],
+        [
+          'with label only when display is set to label',
+          {
+            display: 'label',
+            icon: fakeIcon,
+            label: 'test label',
+            tooltip: 'tooltip',
+          },
+          {
+            tooltip: 'tooltip',
+            label: 'test label',
+          },
+        ],
+      ])('%s', (_, item, expectedItem) => {
+        const testItem = {
+          context: {
+            type: 'node',
+            nodeType: 'table',
+          },
+          label: 'test',
+          key: 'test',
+          action: testAction,
+          ...item,
+        } as ExtensionModuleToolbarButton;
+
+        const extensionButtonsMacro: ExtensionManifest = {
+          title: 'Table floating toolbar',
+          icons: {
+            '16': fakeIcon,
+            '24': fakeIcon,
+            '48': fakeIcon,
+          },
+          type: 'com.ext.test',
+          key: extensionKey,
+          description: 'test',
+          modules: {
+            contextualToolbarItems: [testItem],
+          },
+        };
+
+        const fakeNode = {
+          type: {
+            name: 'table',
+          },
+          attrs: {
+            extensionType: '',
+            extensionKey: '',
+          },
+        } as any;
+        const toolbarItems = getContextualToolbarlItemsFromModule(
+          [extensionButtonsMacro],
+          fakeNode,
+        );
+
+        expect(toolbarItems).toEqual([
+          {
+            key: `${extensionKey}:${testItem.key}`,
+            action: testItem.action,
+            ...expectedItem,
+          },
+        ]);
+      });
+
+      it.each<[string, object, object, boolean]>([
+        [
+          'adds to table node if context type matches',
+          {
+            type: 'node',
+            nodeType: 'table',
+          },
+          {
+            type: {
+              name: 'table',
+            },
+            attrs: {
+              extensionType: '',
+              extensionKey: '',
+            },
+          },
+          true,
+        ],
+        [
+          'adds to extension if extensionKey matches and extensionType not given',
+          {
+            type: 'extension',
+            nodeType: 'extension',
+            extensionKey: 'test-key',
+          },
+          {
+            type: {
+              name: 'extension',
+            },
+            attrs: {
+              extensionKey: 'test-key',
+            },
+          },
+          true,
+        ],
+        [
+          'does not add to extension if extensionType does not match',
+          {
+            type: 'extension',
+            nodeType: 'extension',
+            extensionKey: 'test-key',
+            extensionType: 'test-type',
+          },
+          {
+            type: {
+              name: 'extension',
+            },
+            attrs: {
+              extensionKey: 'test-key',
+              extensionType: 'test-another-type',
+            },
+          },
+          false,
+        ],
+      ])('%s', (_, context, nodeData, shouldAdd) => {
+        const testItem = {
+          context,
+          key: itemKey,
+          action: testAction,
+          icon: fakeIcon,
+          label: 'test label',
+          tooltip: 'tooltip',
+        } as ExtensionModuleToolbarButton;
+
+        const extensionButtonsMacro: ExtensionManifest = {
+          title: 'Table floating toolbar',
+          icons: {
+            '16': fakeIcon,
+            '24': fakeIcon,
+            '48': fakeIcon,
+          },
+          type: 'com.ext.test',
+          key: extensionKey,
+          description: 'test',
+          modules: {
+            contextualToolbarItems: [testItem],
+          },
+        };
+
+        const toolbarItems = getContextualToolbarlItemsFromModule(
+          [extensionButtonsMacro],
+          nodeData as any,
+        );
+
+        expect(!!toolbarItems.length).toBe(shouldAdd);
       });
     });
   });

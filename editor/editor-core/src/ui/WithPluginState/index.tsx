@@ -16,6 +16,7 @@ import {
 import { analyticsEventKey } from '../../plugins/analytics/consts';
 import { analyticsPluginKey } from '../../plugins/analytics/plugin-key';
 import { getParticipantsCount } from '../../plugins/collab-edit/get-participants-count';
+import { NamedPluginKeys, NamedPluginStates, Writeable } from './types';
 
 const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 4;
@@ -36,12 +37,12 @@ export type Context = {
   editorSharedConfig?: EditorSharedConfig;
 };
 
-export interface Props {
+export interface Props<P extends NamedPluginKeys> {
   debounce?: boolean;
   eventDispatcher?: EventDispatcher;
   editorView?: EditorView;
-  plugins: PluginsConfig;
-  render: (pluginsState: any) => React.ReactElement<any> | null;
+  plugins: P;
+  render: (pluginState: NamedPluginStates<P>) => React.ReactElement | null;
 }
 
 /**
@@ -60,7 +61,9 @@ export interface Props {
  *
  * renderComponent: ({ hyperlink }) => React.Component;
  */
-export default class WithPluginState extends React.Component<Props, State> {
+export default class WithPluginState<
+  P extends NamedPluginKeys
+> extends React.Component<Props<P>, State> {
   static displayName = 'WithPluginState';
 
   private listeners = {};
@@ -73,20 +76,14 @@ export default class WithPluginState extends React.Component<Props, State> {
     editorActions: PropTypes.object,
     editorSharedConfig: PropTypes.object,
   };
-
-  state = {};
   context!: Context;
-
-  constructor(props: Props, context: Context) {
-    super(props);
-    this.state = this.getPluginsStates(
-      props.plugins,
-      this.getEditorView(props, context),
-    );
-  }
+  state: NamedPluginStates<P> = this.getPluginsStates(
+    this.props.plugins,
+    this.getEditorView(this.props, this.context),
+  );
 
   private getEditorView(
-    maybeProps?: Props,
+    maybeProps?: Props<P>,
     maybeContext?: Context,
   ): EditorView | undefined {
     const props = maybeProps || this.props;
@@ -102,7 +99,9 @@ export default class WithPluginState extends React.Component<Props, State> {
     );
   }
 
-  private getEventDispatcher(maybeProps?: Props): EventDispatcher | undefined {
+  private getEventDispatcher(
+    maybeProps?: Props<P>,
+  ): EventDispatcher | undefined {
     const props = maybeProps || this.props;
     return (
       props.eventDispatcher ||
@@ -198,24 +197,27 @@ export default class WithPluginState extends React.Component<Props, State> {
   };
 
   private getPluginsStates(
-    plugins: { [name: string]: PluginKey },
+    plugins: P,
     editorView?: EditorView,
-  ) {
+  ): NamedPluginStates<P> {
     if (!editorView || !plugins) {
-      return {};
+      return {} as NamedPluginStates<P>;
     }
 
-    return Object.keys(plugins).reduce<Record<string, any>>((acc, propName) => {
-      const pluginKey = plugins[propName];
+    const keys = Object.keys(plugins);
+    return keys.reduce<Writeable<NamedPluginStates<P>>>((acc, propName) => {
+      const pluginKey = plugins[propName as keyof P];
       if (!pluginKey) {
         return acc;
       }
-      acc[propName] = pluginKey.getState(editorView.state);
+      acc[propName as keyof NamedPluginStates<P>] = pluginKey.getState(
+        editorView.state,
+      );
       return acc;
-    }, {});
+    }, {} as Writeable<NamedPluginStates<P>>);
   }
 
-  private subscribe(props: Props): void {
+  private subscribe(props: Props<P>): void {
     const plugins = props.plugins;
     const eventDispatcher = this.getEventDispatcher(props);
     const editorView = this.getEditorView(props);
@@ -239,7 +241,8 @@ export default class WithPluginState extends React.Component<Props, State> {
     this.setState(pluginsStates);
 
     Object.keys(plugins).forEach(propName => {
-      const pluginKey = plugins[propName];
+      const pluginKey = plugins[propName as keyof P];
+
       if (!pluginKey) {
         return;
       }
@@ -308,7 +311,7 @@ export default class WithPluginState extends React.Component<Props, State> {
     this.subscribeToContextUpdates(this.context);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props<P>) {
     if (!this.isSubscribed) {
       this.subscribe(nextProps);
     }

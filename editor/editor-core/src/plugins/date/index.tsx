@@ -16,10 +16,7 @@ import keymap from './pm-plugins/keymap';
 
 import { getFeatureFlags } from '../feature-flags-context';
 
-import {
-  EditorDisabledPluginState,
-  pluginKey as editorDisabledPluginKey,
-} from '../editor-disabled';
+import { pluginKey as editorDisabledPluginKey } from '../editor-disabled';
 import { IconDate } from '../quick-insert/assets';
 import {
   ACTION,
@@ -32,7 +29,6 @@ import {
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { DateType } from './types';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
-import { DatePluginState } from './pm-plugins/types';
 
 const DatePicker = Loadable({
   loader: () =>
@@ -83,20 +79,14 @@ const datePlugin = (): EditorPlugin => ({
           datePlugin: datePluginKey,
           editorDisabledPlugin: editorDisabledPluginKey,
         }}
-        render={({
-          editorDisabledPlugin,
-          datePlugin,
-        }: {
-          editorDisabledPlugin: EditorDisabledPluginState;
-          datePlugin: DatePluginState;
-        }) => {
-          const { showDatePickerAt, isNew, focusDateInput } = datePlugin;
+        render={({ editorDisabledPlugin, datePlugin }) => {
           if (
-            !showDatePickerAt ||
-            (editorDisabledPlugin || {}).editorDisabled
+            !datePlugin?.showDatePickerAt ||
+            editorDisabledPlugin?.editorDisabled
           ) {
             return null;
           }
+          const { showDatePickerAt, isNew, focusDateInput } = datePlugin;
 
           const element = findDomRefAtPos(
             showDatePickerAt,

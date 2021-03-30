@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 15.3.2
+
+### Patch Changes
+
+- [`9e0a877809a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e0a877809a) - Add test-ids to BlockCard/CollaboratorList
+- Updated dependencies
+
 ## 15.3.1
 
 ### Patch Changes

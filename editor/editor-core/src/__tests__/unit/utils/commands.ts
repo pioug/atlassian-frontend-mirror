@@ -25,6 +25,7 @@ import {
   code,
   emoji,
   mention,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -398,7 +399,7 @@ describe('utils -> commands', () => {
   describe('toggleMark', () => {
     const helgaMention = mention({ id: '1234', text: '@helga' });
     const grinningEmoji = emoji({ shortName: ':grinning:', text: '😀' });
-    const editor = (doc: any) => {
+    const editor = (doc: DocBuilder) => {
       return createEditor({
         doc,
         editorProps: {

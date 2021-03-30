@@ -12,7 +12,7 @@ import { jsx } from '@emotion/core';
 
 import { ThemeModes } from '@atlaskit/theme/types';
 
-import { dateCellStyle as getDateCellStyle, tdStyle } from '../styles/date';
+import { dateCellStyle as getDateCellStyle } from '../styles/date';
 import type { DateObj } from '../types';
 import noop from '../utils/noop';
 
@@ -47,7 +47,7 @@ const Date = memo(
       mode,
       testId,
     }: Props,
-    ref: React.Ref<HTMLTableDataCellElement>,
+    ref: React.Ref<HTMLButtonElement>,
   ) {
     const dateRef = useRef({
       day,
@@ -94,20 +94,20 @@ const Date = memo(
     const dateCellStyle = useMemo(() => getDateCellStyle(mode), [mode]);
 
     return (
-      <td
-        css={tdStyle}
+      <button
+        css={dateCellStyle}
         aria-selected={isSelected ? 'true' : 'false'}
+        tabIndex={isSelected ? 0 : -1}
         role="gridcell"
         onClick={handleClick}
         ref={ref}
+        {...cellControlProps}
         data-testid={
           testId && isSelected ? `${testId}--selected-day` : undefined
         }
       >
-        <div css={dateCellStyle} {...cellControlProps}>
-          {day}
-        </div>
-      </td>
+        {day}
+      </button>
     );
   }),
 );

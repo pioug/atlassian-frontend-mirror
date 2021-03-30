@@ -1,5 +1,20 @@
 # @atlaskit/tooltip
 
+## 17.2.0
+
+### Minor Changes
+
+- [`8386261266c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8386261266c) - Tooltip `content` now supports an optional render props API.
+  This API provides an `update` function which can be called to manually recalculate the position of the tooltip.
+
+  This `update` function is useful if you are changing the content of the tooltip while it is being displayed.
+
+### Patch Changes
+
+- [`1bcfae1edb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bcfae1edb9) - Add role presentation to tooltip.
+- [`7116601e1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7116601e1b2) - Internal typing refactored to be readable by extract-react-types.
+- Updated dependencies
+
 ## 17.1.3
 
 ### Patch Changes

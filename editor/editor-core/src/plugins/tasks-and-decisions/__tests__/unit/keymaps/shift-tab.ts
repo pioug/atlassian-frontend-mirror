@@ -8,6 +8,7 @@ import {
   doc,
   taskItem,
   taskList,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test';
@@ -36,7 +37,7 @@ describe('tasks and decisions - keymaps', () => {
   };
 
   createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     return createEditor({
       doc,
       editorProps,
@@ -276,7 +277,7 @@ describe('tasks and decisions - keymaps', () => {
   });
 
   describe('allowNestedTasks', () => {
-    let simpleFactory = (doc: any) => {
+    let simpleFactory = (doc: DocBuilder) => {
       return createEditor({
         doc,
         editorProps: { ...editorProps, allowNestedTasks: false },

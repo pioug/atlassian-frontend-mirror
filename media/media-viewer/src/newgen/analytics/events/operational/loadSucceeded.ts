@@ -1,7 +1,9 @@
-import { FileState } from '@atlaskit/media-client';
-import { SuccessAttributes, WithFileAttributes } from '@atlaskit/media-common';
+import {
+  SuccessAttributes,
+  WithFileAttributes,
+  FileAttributes,
+} from '@atlaskit/media-common';
 import { MediaFileEventPayload } from './_mediaFile';
-import { getFileAttributes } from '../..';
 
 export type LoadSucceededAttributes = SuccessAttributes & WithFileAttributes;
 
@@ -10,12 +12,12 @@ export type LoadSucceededEventPayload = MediaFileEventPayload<
   'loadSucceeded'
 >;
 
-export const createLoadSucceededEvent = (
-  fileState: FileState,
-): LoadSucceededEventPayload => {
-  const { fileId, fileMediatype, fileMimetype, fileSize } = getFileAttributes(
-    fileState,
-  );
+export const createLoadSucceededEvent = ({
+  fileId,
+  fileMediatype,
+  fileMimetype,
+  fileSize,
+}: FileAttributes): LoadSucceededEventPayload => {
   return {
     eventType: 'operational',
     actionSubject: 'mediaFile',

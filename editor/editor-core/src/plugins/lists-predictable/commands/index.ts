@@ -245,7 +245,7 @@ export function wrapInList(nodeType: NodeType): Command {
 }
 
 /**
- * Implemetation taken and modified for our needs from PM
+ * Implementation taken and modified for our needs from PM
  * @param itemType Node
  * Splits the list items, specific implementation take from PM
  */

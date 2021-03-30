@@ -30,15 +30,14 @@ import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
 import { LayoutPluginOptions } from '../plugins/layout/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
+import { DataConsumerPluginOptions } from '../plugins/data-consumer/types';
 import { ExtensionConfig } from './extension-config';
 import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
 import { EditorOnChangeHandler } from './editor-onchange';
-import {
-  TransactionTracking,
-  PerformanceTracking,
-} from './performance-tracking';
+import { PerformanceTracking } from './performance-tracking';
 import { PanelPluginConfig } from './../plugins/panel/types';
+import { EditorPlugin } from './editor-plugin';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -89,6 +88,9 @@ export interface EditorProps {
   // Enables new breakout mark.
   // This mark is being used for making code-blocks breakout.
   allowBreakout?: boolean;
+
+  // Enables new data consumer mark (for extensions)
+  UNSAFE_allowDataConsumer?: boolean | DataConsumerPluginOptions;
 
   // Enables horizontal rules.
   allowRule?: boolean;
@@ -309,12 +311,6 @@ export interface EditorProps {
   UNSAFE_useAnalyticsContext?: boolean;
 
   /**
-   * @default 100
-   * @deprecated Use performanceTracking.transactionTracking instead https://product-fabric.atlassian.net/browse/ED-8985
-   */
-  transactionTracking?: TransactionTracking;
-
-  /**
    * @description Control performance metric measurements and tracking
    */
   performanceTracking?: PerformanceTracking;
@@ -339,6 +335,12 @@ export interface EditorProps {
         samplingRate: number;
       }
     | boolean;
+
+  /**
+   * @default undefined
+   * @description Enables using node's data as a source of another node
+   */
+  allowReferentiality?: boolean;
 
   /**
    * @default undefined
@@ -368,10 +370,16 @@ export interface EditorProps {
    * getFeatureFlags()?.productMyFeature === undefined;
    * ```
    */
-
-  /* @description Enables using node's data as a source of another node
-   */
-  allowReferentiality?: boolean;
-
   featureFlags?: { [featureFlag: string]: string | boolean };
+
+  /**
+   * @deprecated Do not use outside of Editor team.
+   * This has subtle side effects - you __WILL__ break functionality without implementer knowledge of editor-core internals
+   */
+  dangerouslyAppendPlugins?: {
+    /**
+     * @deprecated Do not use outside of Editor team.
+     */
+    __plugins: EditorPlugin[];
+  };
 }

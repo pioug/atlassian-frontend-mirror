@@ -9,6 +9,7 @@ import {
   tdCursor,
   tdEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { selectColumn } from '../../../../commands';
@@ -21,7 +22,7 @@ import { TableDecorations, TablePluginState } from '../../../../types';
 
 describe('decorations plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

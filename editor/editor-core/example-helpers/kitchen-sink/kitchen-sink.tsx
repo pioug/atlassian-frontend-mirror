@@ -2,6 +2,7 @@ import React from 'react';
 
 import { addLocaleData } from 'react-intl';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
+import { Checkbox } from '@atlaskit/checkbox';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import Flag from '@atlaskit/flag';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
@@ -13,7 +14,7 @@ import {
   mediaProvider,
   LOCALSTORAGE_defaultDocKey,
 } from '../../examples/5-full-page';
-import { EditorAppearance } from '../../src/types';
+import { EditorAppearance, EditorPlugin } from '../../src/types';
 import { EditorActions, ContextPanel } from '../../src';
 
 import * as ADFUrl from '../adf-url';
@@ -28,6 +29,7 @@ import { KitchenSinkRenderer } from './kitchen-sink-renderer';
 import { KitchenSinkEditor } from './kitchen-sink-editor';
 import { isEmptyDocument } from '../../src/utils/document';
 import { getExampleExtensionProviders } from '../get-example-extension-providers';
+import { exampleSelectionDebugger } from '../example-editor-plugins';
 
 addGlobalEventEmitterListeners();
 
@@ -97,6 +99,7 @@ export type KitchenSinkState = {
   theme: Theme;
 
   warning?: ADFUrl.Message;
+  positionDebuggerEnabled?: boolean;
 };
 
 function getInitialTheme(): Theme {
@@ -233,6 +236,7 @@ export class KitchenSink extends React.Component<
     waitingToValidate: false,
     scrubContent: this.params.get('scrub') === 'true',
     theme: getInitialTheme(),
+    positionDebuggerEnabled: false,
   };
 
   private dataProviders = ProviderFactory.create({
@@ -410,6 +414,21 @@ export class KitchenSink extends React.Component<
     this.setState({ featureFlagInput: event.target.value });
   };
 
+  private onPositionDebuggerEnabled = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    this.setState({ positionDebuggerEnabled: event.target.checked });
+  };
+
+  private customPlugins = [exampleSelectionDebugger()];
+  private noopPlugins = [];
+
+  private editorPlugins(): EditorPlugin[] {
+    return this.state.positionDebuggerEnabled
+      ? this.customPlugins
+      : this.noopPlugins;
+  }
+
   private loadLocale = async (locale: string) => {
     const localeData = await import(
       `react-intl/locale-data/${locale.substring(0, 2)}`
@@ -466,6 +485,7 @@ export class KitchenSink extends React.Component<
                 appearance={this.state.appearance}
                 disabled={this.state.disabled}
                 featureFlags={parseSafely(this.state.featureFlagInput)}
+                editorPlugins={this.editorPlugins()}
                 extensionProviders={editorActions => [
                   getExampleExtensionProviders(editorActions),
                 ]}
@@ -521,6 +541,15 @@ export class KitchenSink extends React.Component<
                         )}
                       />
                     </label>
+                    <div>
+                      <label>Options</label>
+                      <Checkbox
+                        onChange={this.onPositionDebuggerEnabled}
+                        isChecked={this.state.positionDebuggerEnabled}
+                        label="Position debugger enabled"
+                        size="large"
+                      />
+                    </div>
                   </div>
                 </ContextPanel>
               </Rail>

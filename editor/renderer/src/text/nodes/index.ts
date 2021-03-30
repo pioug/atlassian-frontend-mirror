@@ -1,9 +1,11 @@
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import blockquote from './blockquote';
 import bulletList from './bulletList';
+import date from './date';
 import decisionItem from './decisionItem';
 import hardBreak from './hardBreak';
 import heading from './heading';
+import inlineCard from './inlineCard';
 import listItem from './listItem';
 import mediaGroup from './mediaGroup';
 import mention from './mention';
@@ -11,6 +13,7 @@ import orderedList from './orderedList';
 import panel from './panel';
 import paragraph from './paragraph';
 import rule from './rule';
+import status from './status';
 import table from './table';
 import taskItem from './taskItem';
 import unknown from './unknown';
@@ -26,9 +29,11 @@ export const reduce: NodeReducer = (node: PMNode, schema: Schema) => {
 export const nodeToReducerMapping: { [key: string]: NodeReducer } = {
   blockquote,
   bulletList,
+  date,
   decisionItem,
   hardBreak,
   heading,
+  inlineCard,
   listItem,
   mediaGroup,
   mention,
@@ -36,6 +41,7 @@ export const nodeToReducerMapping: { [key: string]: NodeReducer } = {
   panel,
   paragraph,
   rule,
+  status,
   table,
   taskItem,
   unknown,

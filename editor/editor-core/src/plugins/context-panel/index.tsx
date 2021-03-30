@@ -4,7 +4,9 @@ import { EditorPlugin } from '../../types';
 import { ContextPanelHandler } from './types';
 import { Dispatch } from '../../event-dispatcher';
 
-export const pluginKey = new PluginKey('contextPanelPluginKey');
+export const pluginKey = new PluginKey<ContextPanelPluginState>(
+  'contextPanelPluginKey',
+);
 
 export type ContextPanelPluginState = {
   handlers: ContextPanelHandler[];

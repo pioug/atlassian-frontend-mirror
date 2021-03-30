@@ -12,6 +12,7 @@ import {
   li,
   code_block,
   mediaSingle,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -29,7 +30,7 @@ import { createHorizontalRule } from '../../../plugins/rule/pm-plugins/input-rul
 
 describe('@atlaskit/editor-core/utils insert', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       editorProps: {

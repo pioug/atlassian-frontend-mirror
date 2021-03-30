@@ -17,7 +17,7 @@ import { mention } from '@atlaskit/util-data-test/mention';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import Editor from '../../src/editor';
-import { EditorAppearance, EditorProps } from '../../src/types';
+import { EditorAppearance, EditorPlugin, EditorProps } from '../../src/types';
 import { EditorActions } from '../../src';
 
 import {
@@ -40,6 +40,7 @@ export type ValidatingKitchenSinkEditorProps = {
   onDocumentValidated?: (errors?: Error[]) => void;
   extensionProviders: EditorProps['extensionProviders'];
   featureFlags: EditorProps['featureFlags'];
+  editorPlugins?: EditorPlugin[];
 };
 
 export type ValidatingKitchenSinkEditorState = {
@@ -48,6 +49,7 @@ export type ValidatingKitchenSinkEditorState = {
 
 const smartCardClient = new ConfluenceCardClient('stg');
 const DEFAULT_VALIDATION_TIMEOUT = 500;
+const EMPTY: EditorPlugin[] = [];
 
 export class ValidatingKitchenSinkEditor extends React.Component<
   ValidatingKitchenSinkEditorProps,
@@ -88,9 +90,11 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowBreakout={true}
           allowJiraIssue={true}
           allowPanel={true}
+          UNSAFE_allowDataConsumer
           allowExtension={{
             allowBreakout: true,
             allowAutoSave: true,
+            allowExtendFloatingToolbars: true,
           }}
           allowRule={true}
           allowDate={true}
@@ -122,7 +126,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             allowLinking: true,
             allowResizingInTables: true,
             allowAltTextOnImages: true,
-            featureFlags: exampleMediaFeatureFlags,
+            featureFlags: { ...exampleMediaFeatureFlags, captions: true },
           }}
           insertMenuItems={customInsertMenuItems}
           extensionHandlers={extensionHandlers}
@@ -135,6 +139,9 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
           featureFlags={this.props.featureFlags}
+          dangerouslyAppendPlugins={{
+            __plugins: this.props.editorPlugins ?? EMPTY,
+          }}
         />
       </SmartCardProvider>
     );
@@ -241,9 +248,13 @@ export class ValidatingKitchenSinkEditor extends React.Component<
 
       const { entity } = validate(doc as ADFEntity, errorCb);
 
-      findErrorsRecursively(entity as ADFEntity, schema, (error, entity) =>
-        errors.push({ entity, error }),
-      );
+      findErrorsRecursively(entity as ADFEntity, schema, (error, entity) => {
+        errors.push({ entity, error });
+        // TODO: investigate why `getAttr` can't source an error for `unsupportedNodeAttribute`s now
+        if (!error) {
+          console.error('Got an undefined error in `findErrorsRecursively`?');
+        }
+      });
 
       this.props.onDocumentValidated(errors);
     });

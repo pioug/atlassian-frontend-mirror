@@ -8,6 +8,7 @@ import {
   MentionDescription,
   OnMentionEvent,
   Presence,
+  LozengeProps,
 } from '../../types';
 import { NoAccessLabel } from '../../util/i18n';
 import { leftClick } from '../../util/mouse';
@@ -25,9 +26,13 @@ import {
 import { renderHighlight } from './MentionHighlightHelpers';
 import MentionDescriptionByline from '../MentionDescriptionByline';
 
-function renderLozenge(lozenge?: string) {
-  if (lozenge) {
+function renderLozenge(lozenge?: string | LozengeProps) {
+  if (typeof lozenge === 'string') {
     return <Lozenge>{lozenge}</Lozenge>;
+  }
+  if (typeof lozenge === 'object') {
+    const { appearance, text } = lozenge;
+    return <Lozenge appearance={appearance}>{text}</Lozenge>;
   }
   return null;
 }

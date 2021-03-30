@@ -1,8 +1,8 @@
 import React from 'react';
 import Icon from '@atlaskit/icon';
 
-const RecentIconGlyph = () => (
-  <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+const RecentIconGlyph = props => (
+  <svg {...props} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
     <title>Recents icon B050 - svg - dark</title>
     <desc>Created with Sketch.</desc>
     <g

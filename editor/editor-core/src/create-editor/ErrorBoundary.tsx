@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../plugins/analytics';
@@ -42,6 +43,8 @@ export default class ErrorBoundary extends React.Component<
     this.getProductName()
       .then(product => {
         if (createAnalyticsEvent) {
+          const { error, errorInfo, errorStack } = analyticsErrorPayload;
+          const sharedId = uuid();
           createAnalyticsEvent({
             action: ACTION.EDITOR_CRASHED,
             actionSubject: ACTION_SUBJECT.EDITOR,
@@ -52,8 +55,18 @@ export default class ErrorBoundary extends React.Component<
                 window && window.navigator && window.navigator.userAgent
                   ? window.navigator.userAgent
                   : 'unknown',
-
-              ...analyticsErrorPayload,
+              error,
+              errorInfo,
+              errorId: sharedId,
+            },
+          }).fire(editorAnalyticsChannel);
+          createAnalyticsEvent({
+            action: ACTION.EDITOR_CRASHED_ADDITIONAL_INFORMATION,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            eventType: EVENT_TYPE.OPERATIONAL,
+            attributes: {
+              errorStack,
+              errorId: sharedId,
             },
           }).fire(editorAnalyticsChannel);
         } else {
@@ -90,7 +103,11 @@ export default class ErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: AnalyticsErrorBoundaryErrorInfo) {
     // Log the error
-    this.fireAnalytics({ error: error.toString(), errorInfo });
+    this.fireAnalytics({
+      error: error.toString(),
+      errorInfo,
+      errorStack: error.stack,
+    });
 
     // Update state to allow a re-render to attempt graceful recovery (in the event that
     // the error was caused by a race condition or is intermittent)

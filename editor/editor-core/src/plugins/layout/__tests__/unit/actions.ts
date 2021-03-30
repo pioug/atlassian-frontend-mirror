@@ -8,6 +8,7 @@ import {
   layoutColumn,
   doc,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
@@ -32,7 +33,7 @@ describe('layout actions', () => {
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let editorView: EditorView;
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
       .add(layoutPlugin)

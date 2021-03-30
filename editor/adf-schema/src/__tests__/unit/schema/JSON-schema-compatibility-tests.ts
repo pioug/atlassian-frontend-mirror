@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/editor-test-helpers/schema-element-builder';
 import { defaultSchema } from '../../../schema';
 import * as v1schema from '../../../../json-schema/v1/full.json';
-import Ajv from 'ajv';
+import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import { NodeType, MarkType, Node } from 'prosemirror-model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 
@@ -14,25 +14,7 @@ import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 /**
  * Check if JSON is valid according to JSON schema.
  */
-const ajv = new Ajv({
-  schemaId: 'auto',
-  meta: false, // optional, to prevent adding draft-06 meta-schema
-  extendRefs: true, // optional, current default is to 'fail', spec behaviour is to 'ignore'
-  unknownFormats: 'ignore', // optional, current default is true (fail)
-});
-
-const metaSchema = require('ajv/lib/refs/json-schema-draft-04.json');
-ajv.addMetaSchema(metaSchema);
-(ajv._opts as any).defaultMeta = metaSchema.id;
-
-// optional, using unversioned URI is out of spec, see https://github.com/json-schema-org/json-schema-spec/issues/216
-(ajv as any)['http://json-schema.org/schema'] =
-  'http://json-schema.org/draft-04/schema';
-
-// Optionally you can also disable keywords defined in draft-06
-ajv.removeKeyword('propertyNames');
-ajv.removeKeyword('contains');
-ajv.removeKeyword('const');
+const ajv = initialize();
 
 const validate = ajv.compile(v1schema);
 const isValidJSONSchema = (json: { version: number }) => {

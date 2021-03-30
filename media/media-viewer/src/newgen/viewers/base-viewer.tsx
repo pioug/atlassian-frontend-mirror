@@ -11,6 +11,7 @@ import { Outcome } from '../domain';
 import ErrorMessage from '../errorMessage';
 import { Spinner } from '../loading';
 import { ErrorViewDownloadButton } from '../download';
+import { MediaViewerError } from '../errors';
 
 export type BaseProps = {
   mediaClient: MediaClient;
@@ -19,7 +20,7 @@ export type BaseProps = {
 };
 
 export type BaseState<Content> = {
-  content: Outcome<Content, Error>;
+  content: Outcome<Content, MediaViewerError>;
 };
 
 export abstract class BaseViewer<
@@ -78,7 +79,7 @@ export abstract class BaseViewer<
     return this.initialState;
   }
 
-  private renderDownloadButton(error: Error) {
+  private renderDownloadButton(error: MediaViewerError) {
     const { item, mediaClient, collectionName } = this.props;
     return (
       <ErrorViewDownloadButton

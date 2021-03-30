@@ -37,7 +37,10 @@ export type TypeAheadHandler = {
   trigger: string;
   customRegex?: string;
   headless?: boolean;
-  forceSelect?: (query: string, items: Array<TypeAheadItem>) => boolean;
+  forceSelect?: (
+    query: string,
+    items: Array<TypeAheadItem>,
+  ) => TypeAheadItem | undefined;
   getItems: (
     query: string,
     editorState: EditorState,
@@ -57,4 +60,21 @@ export type TypeAheadHandler = {
 export type TypeAheadItemsLoader = null | {
   promise: Promise<Array<TypeAheadItem>>;
   cancel(): void;
+};
+
+export type TypeAheadPluginState = {
+  isAllowed: boolean;
+  active: boolean;
+  prevActiveState: boolean;
+  query: string | null;
+  trigger: string | null;
+  typeAheadHandler: TypeAheadHandler | null;
+  items: Array<TypeAheadItem>;
+  itemsLoader: TypeAheadItemsLoader;
+  currentIndex: number;
+  queryMarkPos: number | null;
+  queryStarted: number;
+  upKeyCount: number;
+  downKeyCount: number;
+  highlight?: JSX.Element | null;
 };

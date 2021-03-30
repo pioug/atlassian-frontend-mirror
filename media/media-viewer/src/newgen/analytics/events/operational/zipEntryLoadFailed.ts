@@ -7,6 +7,7 @@ import {
   getPrimaryErrorReason,
   getSecondaryErrorReason,
   getErrorDetail,
+  MediaViewerError,
 } from '../../../errors';
 
 export type ZipEntryLoadFailedAttributes = MediaViewerFailureAttributes & {
@@ -23,7 +24,7 @@ export type ZipEntryLoadFailedEventPayload = MediaFileEventPayload<
 
 export const createZipEntryLoadFailedEvent = (
   fileState: FileState,
-  error: Error,
+  error: MediaViewerError,
   zipEntry?: ZipEntry,
 ): ZipEntryLoadFailedEventPayload => {
   const {

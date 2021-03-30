@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import type { ThemeModes } from '@atlaskit/theme/types';
 
-import { tbodyStyle } from '../styles/table';
+import { daysGridStyle } from '../styles/grid';
 import { DateObj, Week } from '../types';
 
 import DateComponent from './date';
@@ -24,9 +24,9 @@ const WeekDays = memo(function WeekDays({
   testId,
 }: Props) {
   return (
-    <tbody css={tbodyStyle} data-testid={testId && `${testId}--month`}>
+    <div role="grid" data-testid={testId && `${testId}--month`}>
       {weeks.map(week => (
-        <tr key={week.id}>
+        <div role="row" key={week.id} css={daysGridStyle}>
           {week.values.map(
             ({
               id,
@@ -58,9 +58,9 @@ const WeekDays = memo(function WeekDays({
               </DateComponent>
             ),
           )}
-        </tr>
+        </div>
       ))}
-    </tbody>
+    </div>
   );
 });
 

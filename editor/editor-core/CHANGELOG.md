@@ -1,5 +1,102 @@
 # @atlaskit/editor-core
 
+## 140.0.0
+
+### Major Changes
+
+- [`5a02668a6f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a02668a6f1) - [ED-12169] Removes the following methods being exposed from `@atlaskit/editor-core`
+
+  ```
+  indentList
+  outdentList
+  toggleOrderedList
+  toggleBulletList
+  ```
+
+  Instead, these methods are replaced by a getter function `getListCommands` that allows opting into the new predictable list behaviours.
+
+  BEFORE
+
+  ```
+  import { indentList } from '@atlaskit/editor-core';
+  indentList(inputMethod)(editorView.state, editorView.dispatch);
+  ```
+
+  AFTER
+
+  ```
+  import { getListCommands } from '@atlaskit/editor-core';
+  getListCommands(
+    isPredictableListEnabled,
+  ).indentList(inputMethod)(
+    editorView.state,
+    editorView.dispatch,
+  );
+  ```
+
+- [`db9dec112b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db9dec112b1) - ED-10613: clean up text colour experiment
+- [`f33c11a9d0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f33c11a9d0f) - PluginStates types in render of WithPluginState added.
+- [`26da2d23264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26da2d23264) - ED-8985 Remove deprecated transactionTracking prop
+- [`d2a715d1130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2a715d1130) - ED-10260 Remove deprecated inputSamplingLimit prop
+
+### Minor Changes
+
+- [`811d400dbd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/811d400dbd0) - [ux] ED-12109 - Update Config Panel DateRange field custom "from" and "to" fields to be optional. Previously when DateRange value was "custom", the "from" and "to" fields were required by default. This update will allow "isRequired" prop to be passed on to "from" and "to" fields.
+- [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
+- [`5b0477e64f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b0477e64f6) - [ux] ED-11418 - Remove "Match case" button focus after click to fix bug with selection being updated. This is a workaround to fix the matched search being updated after "match case" is toggled.
+- [`39a4c042483`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39a4c042483) - ED-11072 WithPluginState infer states based on the pluginKey
+- [`af2b3d57f85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af2b3d57f85) - ED-12238 expose dangerouslyAppendPlugins API for plugin injection
+- [`31253d55150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31253d55150) - [ED-12132] Enable responsiveness for texting formatting toolbar menu
+
+  This PR will introduce a new option to the text formatting plugin "textFormatting.responsiveToolbarMenu: boolean".
+
+  When this option is true, Bold and Italic buttons will be hidden inside the toolbar menu when the viewport is less than 480px. For now, we are using this configuration for Undo Project only.
+
+  # New Editor Props:
+
+  ```
+    <Editor
+      textFormatting={{
+        responsiveToolbarMenu: true,
+      }}
+
+    />
+
+  ```
+
+- [`b7e61c08ef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e61c08ef5) - [ux] ED-11916 Extended floating toolbars on table and exension nodes with buttons that can be provided by extensions
+- [`5dd24d55d31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dd24d55d31) - [ME-536] Added unique identifiers for each floating toolbar capability in order to distinguish them. This was needed for mobile to filter out some capabilities that are not available as well as set actions for custom buttons.
+
+### Patch Changes
+
+- [`d0892017fb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0892017fb3) - Improve kitchen sink handling `unsupportedNodeAttribute` cases
+- [`df18d9fe342`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df18d9fe342) - [ux] ED-12340 Remove mouse positioning on tooltip on items in element browser UI, it will now default to position tooltip below the item
+
+  This affects both the insert menu and the element browser when the `elementBrowser` prop is configured
+
+- [`351001c0366`](https://bitbucket.org/atlassian/atlassian-frontend/commits/351001c0366) - ED-12397: Add analytics tracking to editorActions getValue calls
+- [`3d4094f6eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d4094f6eff) - [ux] set minWidth on full page toolbar when undo redo is enabled to prevent overlapping buttons on smaller devices
+- [`b94ebf23e84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b94ebf23e84) - ED-11863: Fix - update extension to allow extension manifest with empty parameters
+- [`7a6420be0e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a6420be0e2) - [ED-12063] Predictable List: Copying a Nested Sublist to an empty panel results to a no-operation
+- [`31a0f2723b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31a0f2723b9) - Fixed potential 404 call on /file/{id}/image/metadata in mediaNodeUpdater
+- [`d0060c9bc7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0060c9bc7a) - ED-12313 add separators in between toolbar items
+- [`05ffc60fd6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05ffc60fd6e) - [ux] ED-7874: don't resize columns when toggling numbered columns option on a table
+- [`e664334062d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e664334062d) - [ux] ED-11603: fixed creation of codeblock via markup when it includes bold text
+- [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
+- [`fe1c96a3d28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe1c96a3d28) - added DocBuilder type to @atlaskit/editor-test-helpers, replaced duplicate definitions and DocumentType
+- [`c119fdd32e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c119fdd32e7) - Internal change to update usage of the custom `glyph` prop in @atlaskit/icon.
+- [`b2a2c3cf8d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2a2c3cf8d1) - [ux] ED-8566 Add internationalisation for alignment buttons
+- [`937ccae721d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/937ccae721d) - [ED-11971] - Remove multi-dispatch calls in the editor codebase
+- [`51acc122625`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51acc122625) - [ux] ED-12382: fixed color not showing up as red for overdue dates nested in actions upon editor init
+- [`9586ac165a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9586ac165a6) - ED-12188 Fix sticky header flicker preview
+- [`ee188b01fc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee188b01fc0) - ED-12339 added adf information to be passed into extension button on click action
+- [`8baca10d489`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8baca10d489) - ED-12178 ED-11099 Fix inline extension style issues
+- [`d1c48d92b73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1c48d92b73) - [ED-120632] part 2. This is a bug fix I found in my original ticket. It fixes copying lists in panel and pasting it in another panel
+- [`54a3c3fffee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a3c3fffee) - Emoji typeahead, selecting valid emoji on final ':', bug is fixed.
+- [`487fc396b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/487fc396b80) - ED:12137: capture JS stack trace info via errorBoundary on editor crashes
+- [`7baf62daafb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7baf62daafb) - EDM-1638: add media mobile VR test for captions
+- Updated dependencies
+
 ## 139.0.3
 
 ### Patch Changes

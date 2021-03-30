@@ -6,6 +6,7 @@ import {
   code_block,
   hardBreak,
   blockquote,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -15,7 +16,7 @@ describe('inputrules', () => {
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,

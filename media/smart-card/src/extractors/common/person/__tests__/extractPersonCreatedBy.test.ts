@@ -47,7 +47,7 @@ describe('extractors.person.createdBy', () => {
         ...BASE_DATA,
         attributedTo: TEST_OBJECT,
       }),
-    ).toEqual([{ name: TEST_NAME, icon: TEST_URL }]);
+    ).toEqual([{ name: TEST_NAME, src: TEST_URL }]);
   });
 
   it('returns person with name when createdBy is present - object array', () => {
@@ -56,6 +56,6 @@ describe('extractors.person.createdBy', () => {
         ...BASE_DATA,
         attributedTo: [TEST_OBJECT],
       }),
-    ).toEqual([{ name: TEST_NAME, icon: TEST_URL }]);
+    ).toEqual([{ name: TEST_NAME, src: TEST_URL }]);
   });
 });

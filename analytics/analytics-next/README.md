@@ -10,4 +10,4 @@ yarn add @atlaskit/analytics-next
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/analytics-next).
+Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/analytics/analytics-next).

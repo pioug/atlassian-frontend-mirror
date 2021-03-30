@@ -11,6 +11,7 @@ import {
   code,
   hardBreak,
   a,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { HyperlinkState, InsertStatus, stateKey } from '../../pm-plugins/main';
@@ -26,7 +27,7 @@ describe('hyperlink - keymap with no card provider', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
@@ -269,7 +270,7 @@ describe('hyperlink - keymap with card provider', () => {
     }),
   };
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });

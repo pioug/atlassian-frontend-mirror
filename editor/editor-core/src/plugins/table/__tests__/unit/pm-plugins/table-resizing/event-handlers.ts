@@ -7,6 +7,7 @@ import {
   td,
   p,
   panel,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   ACTION_SUBJECT,
@@ -24,7 +25,7 @@ describe('table-resizing/event-handlers', () => {
   let editor: any;
   beforeEach(() => {
     const createEditor = createEditorFactory<TablePluginState>();
-    editor = (doc: any) =>
+    editor = (doc: DocBuilder) =>
       createEditor({
         doc,
         editorProps: {

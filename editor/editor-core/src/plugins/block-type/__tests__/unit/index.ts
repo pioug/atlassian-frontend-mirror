@@ -10,6 +10,7 @@ import {
   h5,
   h6,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -52,7 +53,7 @@ describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(
       () =>
         ({
@@ -433,7 +434,7 @@ describe('block-type', () => {
   });
 
   describe('block type in comment editor', () => {
-    const editor = (doc: any) =>
+    const editor = (doc: DocBuilder) =>
       createEditor({
         doc,
         preset: new Preset<LightEditorPlugin>()

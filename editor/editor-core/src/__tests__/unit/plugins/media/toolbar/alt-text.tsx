@@ -5,6 +5,7 @@ import {
   doc,
   media,
   mediaSingle,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
@@ -45,7 +46,7 @@ describe('media', () => {
 
   const createEditor = createEditorFactory<MediaPluginState>();
 
-  const editor = (doc: any, mediaPropsOverride: MediaOptions = {}) => {
+  const editor = (doc: DocBuilder, mediaPropsOverride: MediaOptions = {}) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const mediaProvider = getFreshMediaProvider();
     const providerFactory = ProviderFactory.create({
@@ -92,7 +93,7 @@ describe('media', () => {
   const docWithoutAltText = doc(temporaryMediaSingleWithoutAltText);
 
   async function setupToolbar(
-    doc: any,
+    doc: DocBuilder,
     allowAltTextOnImages = false,
   ): Promise<ToolbarWrapper> {
     // Setup editor

@@ -135,10 +135,10 @@ const listPlugin = (): EditorPlugin => ({
             popupsMountPoint={popupsMountPoint}
             popupsBoundariesElement={popupsBoundariesElement}
             popupsScrollableElement={popupsScrollableElement}
-            bulletListActive={listsState.bulletListActive}
-            bulletListDisabled={listsState.bulletListDisabled}
-            orderedListActive={listsState.orderedListActive}
-            orderedListDisabled={listsState.orderedListDisabled}
+            bulletListActive={listsState!.bulletListActive}
+            bulletListDisabled={listsState!.bulletListDisabled}
+            orderedListActive={listsState!.orderedListActive}
+            orderedListDisabled={listsState!.orderedListDisabled}
           />
         )}
       />

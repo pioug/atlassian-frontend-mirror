@@ -13,7 +13,7 @@ import {
 } from '../../__helpers/testing-example-helpers';
 
 const calendar = '[aria-label="calendar"]';
-const nextDate = 'td[aria-selected=true] + td';
+const nextDate = 'button[aria-selected=true] + button';
 
 BrowserTestCase(
   'change-date-inside-table.ts: Change date inside table',

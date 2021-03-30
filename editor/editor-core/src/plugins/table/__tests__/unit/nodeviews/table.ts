@@ -8,6 +8,7 @@ import {
   td,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TableAttributes } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
@@ -26,7 +27,7 @@ describe('table -> nodeviews -> table.tsx', () => {
   const createTableNode = (attrs?: TableAttributes) => (...args: any) =>
     table(attrs)(...args)(defaultSchema);
 
-  const editor = (doc: any, props?: EditorProps) =>
+  const editor = (doc: DocBuilder, props?: EditorProps) =>
     createEditor({
       doc,
       editorProps: {

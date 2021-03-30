@@ -18,6 +18,7 @@ import {
   layoutColumn,
   ul,
   li,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { setTextSelection } from '../../../../../utils';
@@ -29,7 +30,7 @@ import listPlugin from '../../../../lists';
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor<HyperlinkState, PluginKey>({
       doc,
       pluginKey: hyperlinkStateKey,

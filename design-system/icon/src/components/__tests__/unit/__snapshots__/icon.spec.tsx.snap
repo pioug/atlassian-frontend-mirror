@@ -2,9 +2,7 @@
 
 exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 .emotion-0 {
-  color: currentColor;
   display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -14,12 +12,14 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 .emotion-0 > svg {
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: currentColor;
+  fill: #FFFFFF;
 }
 
-.emotion-0 stop {
+.emotion-0 > svg stop {
   stop-color: currentColor;
 }
 
@@ -46,9 +46,7 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 
 exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
 .emotion-0 {
-  color: currentColor;
   display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -58,12 +56,14 @@ exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
 .emotion-0 > svg {
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: currentColor;
+  fill: #FFFFFF;
 }
 
-.emotion-0 stop {
+.emotion-0 > svg stop {
   stop-color: currentColor;
 }
 

@@ -10,6 +10,7 @@ import {
   tdCursor,
   tdEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { Selection } from 'prosemirror-state';
 import * as pmUtils from 'prosemirror-utils';
@@ -22,7 +23,7 @@ import { NodeType } from 'prosemirror-model';
 
 describe('tables: main plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(tablePlugin),

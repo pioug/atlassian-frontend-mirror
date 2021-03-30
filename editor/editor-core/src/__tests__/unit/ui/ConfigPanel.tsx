@@ -482,6 +482,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         describe('type: date-range', () => {
           const mountDateRangeWithParameters = async (
             params: Parameters,
+            isRequired: boolean = false,
           ): Promise<MountResult<Props>> => {
             return await mountWithProviders({
               ...defaultProps,
@@ -498,6 +499,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                     { label: 'Last month', value: 'now(-1M)' },
                     { label: 'Last year', value: 'now(-1y)' },
                   ],
+                  isRequired,
                 },
               ]),
               parameters: {
@@ -585,6 +587,42 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 value: 'now(-1M)',
                 from: 'now(-1M)',
               },
+            });
+          });
+
+          describe('prop: isRequired', () => {
+            it('should not show validation error if not required on submit', async () => {
+              const { wrapper, trySubmit } = await mountDateRangeWithParameters(
+                {
+                  type: 'date-range',
+                  value: 'custom',
+                },
+              );
+
+              await trySubmit();
+              expect(getFieldErrors(wrapper)).toStrictEqual([]);
+              expect(onChange).toHaveBeenCalledWith({
+                created: {
+                  type: 'date-range',
+                  value: 'custom',
+                  from: undefined,
+                  to: undefined,
+                },
+              });
+            });
+            it('should show validation error if required on submit', async () => {
+              const { wrapper, trySubmit } = await mountDateRangeWithParameters(
+                {
+                  type: 'date-range',
+                  value: 'custom',
+                },
+                true,
+              );
+              await trySubmit();
+              expect(getFieldErrors(wrapper)).toStrictEqual([
+                'required',
+                'required',
+              ]);
             });
           });
         });

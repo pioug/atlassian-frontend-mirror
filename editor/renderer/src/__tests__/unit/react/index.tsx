@@ -6,6 +6,7 @@ import {
   defaultSchema as schema,
   createSchema,
   defaultSchemaConfig,
+  getSchemaBasedOnStage,
 } from '@atlaskit/adf-schema';
 import { Heading } from '../../../react/nodes';
 import { Expand } from '../../../react/nodes';
@@ -14,7 +15,15 @@ import { LayoutColumn } from '../../../react/nodes';
 import { Panel } from '../../../react/nodes';
 import { Table } from '../../../react/nodes';
 
+import {
+  Extension,
+  BodiedExtension,
+  InlineExtension,
+} from '../../../react/nodes';
+import { DataConsumer } from '../../../react/marks';
+
 import * as doc from '../../__fixtures__/hello-world.adf.json';
+import * as dataConsumerDoc from '../../__fixtures__/data-consumer.adf.json';
 import * as headingDoc from '../../__fixtures__/heading-doc.adf.json';
 import * as nestedHeadingsDoc from '../../__fixtures__/nested-headings-adf.json';
 import * as nestedHeadingsWithPanelLayoutTableDoc from '../../__fixtures__/nested-headings-adf-panel-layout-table.json';
@@ -29,6 +38,8 @@ import { Node as PMNode } from 'prosemirror-model';
 import { AnalyticsEventPayload } from '../../../analytics/events';
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
+const stage0schema = getSchemaBasedOnStage('stage0');
+const dataConsumerDocFromSchema = stage0schema.nodeFromJSON(dataConsumerDoc);
 const nestedHeadingsDocFromSchema = schema.nodeFromJSON(nestedHeadingsDoc);
 const nestedHeadingsWithPanelLayoutTableDocFromSchema = schema.nodeFromJSON(
   nestedHeadingsWithPanelLayoutTableDoc,
@@ -58,6 +69,45 @@ describe('Renderer - ReactSerializer', () => {
     await Promise.all([Emoji.preload()]);
   });
   describe('serializeFragment', () => {
+    describe('with varied data consumer marks on extension nodes', () => {
+      /**
+       * This should loosely cover the contract for nodes rendering different
+       * mark elements based on whether it's inline or not
+       */
+      it('should render document', () => {
+        const reactSerializer = new ReactSerializer({});
+        const reactDoc = mountWithIntl(
+          reactSerializer.serializeFragment(
+            dataConsumerDocFromSchema.content,
+          ) as any,
+        );
+
+        const root = reactDoc.find('div');
+        const extension = root.find(Extension);
+        const bodiedExtension = root.find(BodiedExtension);
+        const inlineExtension = root.find(InlineExtension);
+
+        const dataConsumer = root.find(DataConsumer);
+
+        const paragraph = root.find('p');
+
+        expect(root.length).not.toEqual(0);
+        expect(extension.length).toEqual(1);
+        expect(bodiedExtension.length).toEqual(1);
+        expect(inlineExtension.length).toEqual(1);
+        expect(dataConsumer.length).toEqual(3);
+        expect(paragraph.length).toEqual(2);
+
+        // block level extensions (extension+bodied extension) should be wrapped with span
+        expect(extension.parent().get(0).type).toEqual('div');
+        expect(bodiedExtension.parent().get(0).type).toEqual('div');
+        // inline Extension should be wrapped with span
+        expect(inlineExtension.parent().get(0).type).toEqual('span');
+
+        reactDoc.unmount();
+      });
+    });
+
     it('should render document', () => {
       const reactSerializer = new ReactSerializer({});
       const reactDoc = mountWithIntl(

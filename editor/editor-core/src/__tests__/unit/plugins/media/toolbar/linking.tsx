@@ -27,6 +27,7 @@ import {
   layoutSection,
   media,
   mediaSingle,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { ReactWrapper } from 'enzyme';
@@ -96,7 +97,7 @@ describe('media', () => {
   const createEditor = createEditorFactory<MediaPluginState>();
   const createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
 
-  const editor = (doc: any, mediaPropsOverride: MediaOptions = {}) => {
+  const editor = (doc: DocBuilder, mediaPropsOverride: MediaOptions = {}) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const mediaProvider = getFreshMediaProvider();
     const providerFactory = ProviderFactory.create({
@@ -186,7 +187,7 @@ describe('media', () => {
   );
 
   async function setupToolbar(
-    doc: any,
+    doc: DocBuilder,
     options: MediaFloatingToolbarOptions,
     pos: number = 0,
   ): Promise<ToolbarWrapper> {

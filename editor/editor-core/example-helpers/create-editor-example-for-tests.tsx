@@ -35,6 +35,7 @@ import { withSidebarContainer } from './SidebarContainer';
 import quickInsertProviderFactory from './quick-insert-provider';
 
 import { EditorProps } from '../src';
+import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/ui/__tests__/__helpers/extensions';
 
 const mediaMockServer = createEditorMediaMock();
 /**
@@ -250,6 +251,10 @@ function createProviders(
     providers.collabEditProvider = createCollabEditProvider(opts.collab);
   }
 
+  if (opts.extensionProviders) {
+    providers.extensionProviders = [createTestExtensionProvider(() => {})];
+  }
+
   return providers;
 }
 
@@ -266,6 +271,13 @@ export function mapPropsToProviders(
 
   if (props && props.media) {
     providers.media = true;
+  }
+
+  if (
+    typeof props.allowExtension === 'object' &&
+    props.allowExtension?.allowExtendFloatingToolbars
+  ) {
+    providers.extensionProviders = true;
   }
 
   return providers;

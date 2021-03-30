@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 6.1.7
+
+### Patch Changes
+
+- [`82f5dd62177`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f5dd62177) - Removed axios as a dev dependency since it's no longer used
+
 ## 6.1.6
 
 ### Patch Changes

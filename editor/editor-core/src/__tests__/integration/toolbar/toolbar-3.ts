@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
-import { toolbarMessages } from '../../../plugins/text-formatting/ui/ToolbarAdvancedTextFormatting/toolbar-messages';
+import { toolbarMessages } from '../../../plugins/text-formatting/ui/Toolbar/toolbar-messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,

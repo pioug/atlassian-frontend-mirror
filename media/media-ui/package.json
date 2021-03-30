@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "15.3.1",
+  "version": "15.3.2",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,8 +42,8 @@
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/field-base": "^15.0.0",
-    "@atlaskit/icon": "^21.4.0",
-    "@atlaskit/icon-file-type": "^6.2.0",
+    "@atlaskit/icon": "^21.5.0",
+    "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/lozenge": "^10.1.0",
     "@atlaskit/media-common": "^2.6.0",
@@ -53,7 +53,7 @@
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^11.0.0",
-    "@atlaskit/tooltip": "^17.1.0",
+    "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/width-detector": "^3.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
@@ -77,8 +77,10 @@
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/media-integration-test-helpers": "^2.3.3",
     "@atlaskit/media-test-helpers": "^28.6.0",
     "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "^0.4.0",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.1",
     "@types/bytes": "^2.4.33",

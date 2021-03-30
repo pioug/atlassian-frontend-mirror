@@ -166,6 +166,7 @@ export const floatingToolbar = (
   const items: Array<FloatingToolbarItem<Command>> = [
     ...toolbarButtons,
     {
+      id: 'editor.media.delete',
       type: 'button',
       appearance: 'danger',
       icon: RemoveIcon,

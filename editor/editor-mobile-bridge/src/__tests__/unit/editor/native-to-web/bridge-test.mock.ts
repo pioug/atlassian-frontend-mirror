@@ -14,10 +14,12 @@ jest.mock('../../../../version.json', () => ({
 
 const mockEditorCore = {
   ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
-  indentList: jest.fn(() => () => {}),
-  outdentList: jest.fn(() => () => {}),
-  toggleOrderedList: jest.fn(() => () => {}),
-  toggleBulletList: jest.fn(() => () => {}),
+  getListCommands: jest.fn(() => ({
+    indentList: jest.fn(() => () => {}),
+    outdentList: jest.fn(() => () => {}),
+    toggleOrderedList: jest.fn(() => () => {}),
+    toggleBulletList: jest.fn(() => () => {}),
+  })),
   insertLinkWithAnalyticsMobileNative: jest.fn(() => () => {}),
   isTextAtPos: jest.fn(pos => () => [2, 6].indexOf(pos) !== -1),
   isLinkAtPos: jest.fn(pos => () => pos === 6),

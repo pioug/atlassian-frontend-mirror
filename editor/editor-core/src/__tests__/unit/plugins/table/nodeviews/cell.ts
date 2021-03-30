@@ -10,6 +10,7 @@ import {
   tr,
   td,
   tdEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { tableBackgroundColorNames, rgbToHex } from '@atlaskit/adf-schema';
 import {
@@ -21,7 +22,7 @@ import TableCellViews from '../../../../../plugins/table/nodeviews/tableCell';
 describe('table -> nodeviews -> cell.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any, props?: PluginConfig) =>
+  const editor = (doc: DocBuilder, props?: PluginConfig) =>
     createEditor({
       doc,
       editorProps: {

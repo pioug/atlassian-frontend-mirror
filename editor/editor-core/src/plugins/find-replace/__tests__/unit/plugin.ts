@@ -1,7 +1,11 @@
 import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
 import { PluginKey } from 'prosemirror-state';
 import createStub from 'raf-stub';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   insertText,
   deleteText,
@@ -55,7 +59,7 @@ describe('find/replace plugin', () => {
     to: decoration.to += increment,
   });
 
-  const initEditor = (doc: any) => {
+  const initEditor = (doc: DocBuilder) => {
     // blockTypePlugin includes the keyboard shortcut for undo which we need
     const preset = getFindReplacePreset().add(blockTypePlugin);
     ({ editorView, refs } = createEditor<boolean, PluginKey>({

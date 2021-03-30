@@ -11,6 +11,4 @@ export const daysPerWeek = 7;
 
 export const monthsPerYear = 12;
 
-export const blankObject = {};
-
 export const blankStringArray: Array<string> = [];

@@ -6,7 +6,7 @@ import {
   mediaSingle,
   mediaSingleWithCaption,
 } from '@atlaskit/adf-schema';
-import { EditorPlugin, PMPluginFactoryParams } from '../../types';
+import { EditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
 import {
   stateKey as pluginKey,
   createPlugin,
@@ -24,7 +24,7 @@ import linkingPlugin from './pm-plugins/linking';
 import ToolbarMedia from './ui/ToolbarMedia';
 import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
 import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
-import { CustomMediaPicker, MediaEditorState, MediaOptions } from './types';
+import { CustomMediaPicker, MediaOptions } from './types';
 import { floatingToolbar } from './toolbar';
 
 import {
@@ -74,7 +74,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   },
 
   pmPlugins() {
-    const pmPlugins = [
+    const pmPlugins: Array<PMPlugin> = [
       {
         name: 'media',
         plugin: ({
@@ -174,13 +174,9 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
           editorView={editorView}
           plugins={{ mediaEditorState: mediaEditorPluginKey }}
           eventDispatcher={eventDispatcher}
-          render={({
-            mediaEditorState,
-          }: {
-            mediaEditorState: MediaEditorState;
-          }) => (
+          render={({ mediaEditorState }) => (
             <MediaEditor
-              mediaEditorState={mediaEditorState}
+              mediaEditorState={mediaEditorState!}
               view={editorView}
             />
           )}
@@ -197,7 +193,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
           render={({ mediaState }) => (
             <MediaPickerComponents
               editorDomElement={editorView.dom}
-              mediaState={mediaState}
+              mediaState={mediaState!}
               appearance={appearance}
             />
           )}

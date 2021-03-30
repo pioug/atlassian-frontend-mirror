@@ -116,7 +116,7 @@ BrowserTestCase(
       appearance: fullpage.appearance,
     });
 
-    await page.type(editable, '```');
+    await page.type(editable, ['``', '`']);
     await page.waitForSelector(codeBlockSelectors.code);
     await page.type(editable, ['this is a code block ', '@Caro']);
     await page.keys(['Return']);

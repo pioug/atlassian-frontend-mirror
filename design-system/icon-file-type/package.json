@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "A file type icon is used to represent specific types of content used across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,6 @@
     }
   },
   "af:exports": {
-    "./internal": "./src/entry-points/internal.ts",
     "./metadata": "./src/entry-points/metadata.ts",
     ".": "./src/index.ts"
   },
@@ -31,23 +30,24 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },
   "dependencies": {
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/icon": "21.5.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/icon-build-process": "^0.3.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/icon-build-process": "^0.2.0",
     "@atlaskit/modal-dialog": "^11.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
-    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
+    "@emotion/styled": "^10.0.7",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
     "jscodeshift": "^0.7.0",

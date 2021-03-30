@@ -105,7 +105,7 @@ export default (options: LayoutPluginOptions) =>
             pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
             selectedLayout: getSelectedLayout(
               maybeLayoutSection && maybeLayoutSection.node,
-              pluginState.selectedLayout,
+              pluginState.selectedLayout!,
             ),
           };
           return newPluginState;

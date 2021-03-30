@@ -17,6 +17,7 @@ import {
   tdEmpty,
   th,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import {
@@ -45,7 +46,7 @@ import { TablePluginState } from '../../types';
 describe('table plugin: actions', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any, props: Partial<EditorProps> = {}) =>
+  const editor = (doc: DocBuilder, props: Partial<EditorProps> = {}) =>
     createEditor({
       doc,
       editorProps: {

@@ -7,6 +7,7 @@ import {
   doc,
   p,
   extension,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import FullPage from '../../../ui/Appearance/FullPage';
@@ -17,7 +18,7 @@ const mountWithContext = (node: React.ReactNode) =>
 
 describe('full page editor', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowExtension: true },

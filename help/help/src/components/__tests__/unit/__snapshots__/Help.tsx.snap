@@ -148,11 +148,9 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-1 {
+  display: inline-block;
   height: 24px;
   width: 24px;
-  color: currentColor;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -164,12 +162,14 @@ exports[`BackButton Should match snapshot 1`] = `
   width: 24px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: currentColor;
+  fill: #FFFFFF;
 }
 
-.emotion-1 stop {
+.emotion-1 > svg stop {
   stop-color: currentColor;
 }
 
@@ -307,9 +307,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-6 {
-  color: currentColor;
   display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -319,12 +317,14 @@ exports[`BackButton Should match snapshot 1`] = `
 .emotion-6 > svg {
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: currentColor;
+  fill: #FFFFFF;
 }
 
-.emotion-6 stop {
+.emotion-6 > svg stop {
   stop-color: currentColor;
 }
 
@@ -485,7 +485,9 @@ exports[`BackButton Should match snapshot 1`] = `
       <div
         class="emotion-4"
       >
-        <div>
+        <div
+          role="presentation"
+        >
           <button
             class="emotion-3"
             tabindex="0"

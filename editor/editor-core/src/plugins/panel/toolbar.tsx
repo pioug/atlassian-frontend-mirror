@@ -86,6 +86,7 @@ export const getToolbarItems = (
 ): FloatingToolbarItem<Command>[] => {
   const items: FloatingToolbarItem<Command>[] = [
     {
+      id: 'editor.panel.info',
       type: 'button',
       icon: InfoIcon,
       onClick: changePanelType(PanelType.INFO),
@@ -93,6 +94,7 @@ export const getToolbarItems = (
       title: formatMessage(messages.info),
     },
     {
+      id: 'editor.panel.note',
       type: 'button',
       icon: NoteIcon,
       onClick: changePanelType(PanelType.NOTE),
@@ -100,6 +102,7 @@ export const getToolbarItems = (
       title: formatMessage(messages.note),
     },
     {
+      id: 'editor.panel.success',
       type: 'button',
       icon: SuccessIcon,
       onClick: changePanelType(PanelType.SUCCESS),
@@ -107,6 +110,7 @@ export const getToolbarItems = (
       title: formatMessage(messages.success),
     },
     {
+      id: 'editor.panel.warning',
       type: 'button',
       icon: WarningIcon,
       onClick: changePanelType(PanelType.WARNING),
@@ -114,6 +118,7 @@ export const getToolbarItems = (
       title: formatMessage(messages.warning),
     },
     {
+      id: 'editor.panel.error',
       type: 'button',
       icon: ErrorIcon,
       onClick: changePanelType(PanelType.ERROR),
@@ -195,6 +200,7 @@ export const getToolbarItems = (
       type: 'separator',
     },
     {
+      id: 'editor.panel.delete',
       type: 'button',
       appearance: 'danger',
       icon: RemoveIcon,

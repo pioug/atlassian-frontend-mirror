@@ -1,7 +1,11 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import {
   stateKey as mediaPluginKey,
@@ -28,7 +32,7 @@ describe('Media Analytics', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   let pickers: PickerFacade[];
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     mediaProvider = getFreshMediaProvider();
     providerFactory = ProviderFactory.create({

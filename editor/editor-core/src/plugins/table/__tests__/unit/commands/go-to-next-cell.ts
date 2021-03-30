@@ -1,5 +1,4 @@
 import { PluginKey } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
 
 import {
   createProsemirrorEditorFactory,
@@ -14,7 +13,7 @@ import {
   tdEmpty,
   tdCursor,
   p,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import tablePlugin from '../../../index';
@@ -27,7 +26,7 @@ const tdNextFocus = td()(p('{nextFocus}'));
 describe('table plugin: goToNextCell', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
-  const editor = (doc: (schema: Schema) => RefsNode) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({
       doc,
       preset,

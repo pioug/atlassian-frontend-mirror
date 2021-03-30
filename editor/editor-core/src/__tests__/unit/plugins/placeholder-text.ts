@@ -9,6 +9,7 @@ import { FakeTextCursorSelection } from '../../../plugins/fake-text-cursor/curso
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
+  DocBuilder,
   p,
   placeholder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
@@ -18,7 +19,7 @@ import { pluginKey } from '../../../plugins/placeholder-text/plugin-key';
 
 describe(name, () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any, options = { allowInserting: true }) =>
+  const editor = (doc: DocBuilder, options = { allowInserting: true }) =>
     createEditor({
       doc,
       editorProps: { allowTemplatePlaceholders: options },

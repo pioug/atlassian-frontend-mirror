@@ -39,6 +39,12 @@ export type {
   Serializer,
 } from './extension-manifest';
 
+export type {
+  ExtensionModuleToolbarItem,
+  ExtensionModuleToolbarButton,
+  ExtensionToolbarButton,
+} from './extension-manifest-toolbar-item';
+
 export type { Parameters } from './extension-parameters';
 
 export type { MenuItem, MenuItemMap } from './utils';

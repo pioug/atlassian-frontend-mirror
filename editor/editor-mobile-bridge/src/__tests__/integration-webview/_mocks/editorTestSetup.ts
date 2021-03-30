@@ -4,6 +4,7 @@ import {
   testMediaFileId,
   testMediaGroupFileId,
   testMediaEmptyImageFileId,
+  testVideoFileId,
 } from './utils';
 import { testImageDataURI } from './database/testImageDataURI';
 import { testEmptyImageDataURI } from './database/testEmptyImageDataURI';
@@ -33,6 +34,19 @@ const mediaMock = new MediaMock({
       processingStatus: 'succeeded',
       mediaType: 'image',
       mimeType: emptyImageblob.type,
+      size: emptyImageblob.size,
+      artifacts: {},
+      representations: {
+        image: {},
+      },
+    },
+    {
+      id: testVideoFileId,
+      name: 'video.mp4',
+      blob: emptyImageblob,
+      processingStatus: 'succeeded',
+      mediaType: 'video',
+      mimeType: 'video/mp4',
       size: emptyImageblob.size,
       artifacts: {},
       representations: {

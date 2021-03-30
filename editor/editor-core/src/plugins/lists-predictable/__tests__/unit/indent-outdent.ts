@@ -4,6 +4,7 @@ import {
   li,
   p,
   code_block,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -17,7 +18,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 describe('lists plugin -> indent and outdent', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
       .add(codeBlockPlugin);

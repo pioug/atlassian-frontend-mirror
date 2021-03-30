@@ -1,8 +1,11 @@
 import { EditorView } from 'prosemirror-view';
+import { Transaction } from 'prosemirror-state';
 import { closestElement } from '../../utils/dom';
-import { CommandDispatch } from '../../types';
-import { createParagraphAtEnd } from '../../commands';
-import { setCursorForTopLevelBlocks } from '../../plugins/selection/gap-cursor-selection';
+import {
+  setSelectionTopLevelBlocks,
+  hasGapCursorPlugin,
+} from '../../plugins/selection/gap-cursor-selection';
+import { addParagraphAtEnd } from '../../commands';
 
 // we ignore all of the clicks made inside <div class="ak-editor-content-area" /> (but not clicks on the node itself)
 const insideContentArea = (ref: HTMLElement | null): boolean => {
@@ -55,34 +58,43 @@ const outsideProsemirrorEditorClickHandler = (
   view: EditorView<any>,
   event: React.MouseEvent<any, MouseEvent>,
 ) => {
-  const { dispatch, dom } = view;
+  const { dispatch, dom, state } = view;
   const editorFocused = !!(view && view.hasFocus());
-  const isParagraphAppended = appendEmptyParagraph(event, dom, view, dispatch);
-  const isGapCursorSet = setCursorForTopLevelBlocks(
-    event,
-    dom as HTMLElement,
-    view.posAtCoords.bind(view),
-    editorFocused,
-  )(view.state, dispatch);
+  const { tr } = state;
 
-  if (isParagraphAppended || isGapCursorSet) {
-    view.focus();
-    event.stopPropagation();
-    event.preventDefault();
+  appendEmptyParagraph(event, dom, tr);
+  if (hasGapCursorPlugin(state)) {
+    setSelectionTopLevelBlocks(
+      tr,
+      event,
+      dom as HTMLElement,
+      view.posAtCoords.bind(view),
+      editorFocused,
+    );
   }
+
+  if (!tr.docChanged && !tr.selectionSet) {
+    return;
+  }
+
+  if (dispatch) {
+    dispatch(tr);
+  }
+
+  view.focus();
+  event.stopPropagation();
+  event.preventDefault();
 };
 
 const appendEmptyParagraph = (
   event: React.MouseEvent<any, MouseEvent>,
   dom: Element,
-  view: EditorView<any>,
-  dispatch: CommandDispatch | undefined,
+  tr: Transaction,
 ) => {
   const bottomAreaClicked = event.clientY > dom.getBoundingClientRect().bottom;
   if (bottomAreaClicked) {
-    return createParagraphAtEnd()(view.state, dispatch);
+    addParagraphAtEnd(tr);
   }
-  return false;
 };
 
 export { clickAreaClickHandler };

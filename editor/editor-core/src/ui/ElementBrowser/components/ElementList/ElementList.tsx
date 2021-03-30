@@ -261,11 +261,7 @@ function ElementItem({
 
   const { icon, title, description, keyshortcut } = item;
   return (
-    <Tooltip
-      content={description}
-      testId={`element-item-tooltip-${index}`}
-      position="mouse"
-    >
+    <Tooltip content={description} testId={`element-item-tooltip-${index}`}>
       <Item
         onClick={onClick}
         onDoubleClick={onDoubleClick}

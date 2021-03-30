@@ -10,8 +10,7 @@ const urlDateTimePicker = getExampleUrl(
 /* Css used for the test */
 const datePicker = '[data-testid="datePicker--container"]';
 const menu = `[aria-label="calendar"]`;
-const date =
-  '[aria-label="calendar"] > table > tbody > tr:nth-child(5) > td:nth-child(6)';
+const date = '[role=gridcell]:nth-child(6)';
 const input = 'input#react-select-datepicker-input';
 
 const value = `${datePicker} > div`;

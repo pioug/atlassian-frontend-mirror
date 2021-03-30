@@ -5,7 +5,10 @@ import { jsx } from '@emotion/core';
 
 import type { ThemeModes } from '@atlaskit/theme/types';
 
-import { thStyle as getThStyle, theadStyle } from '../styles/table';
+import {
+  dayNameGridStyle,
+  dayNameCellStyle as getDayNameCellStyle,
+} from '../styles/grid';
 
 interface Props {
   daysShort: string[];
@@ -13,18 +16,16 @@ interface Props {
 }
 
 const WeekHeader = memo(function WeekHeader({ daysShort, mode }: Props) {
-  const thStyle = useMemo(() => getThStyle(mode), [mode]);
+  const dayNameCellStyle = useMemo(() => getDayNameCellStyle(mode), [mode]);
 
   return (
-    <thead css={theadStyle}>
-      <tr>
-        {daysShort.map(shortDay => (
-          <th css={thStyle} key={shortDay}>
-            {shortDay}
-          </th>
-        ))}
-      </tr>
-    </thead>
+    <div css={dayNameGridStyle}>
+      {daysShort.map(shortDay => (
+        <span css={dayNameCellStyle} key={shortDay}>
+          {shortDay}
+        </span>
+      ))}
+    </div>
   );
 });
 

@@ -1,7 +1,6 @@
 import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
-  MacroProvider,
   ProviderFactory,
   Providers,
 } from '@atlaskit/editor-common/provider-factory';
@@ -9,6 +8,7 @@ import { setMacroProvider } from './actions';
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import { pluginKey } from './plugin-key';
+import { MacroState } from './types';
 
 export type {
   MacroProvider,
@@ -21,10 +21,7 @@ export {
   runMacroAutoConvert,
   setMacroProvider,
 } from './actions';
-
-export type MacroState = {
-  macroProvider: MacroProvider | null;
-};
+export type { MacroState };
 
 export const createPlugin = (
   dispatch: Dispatch,

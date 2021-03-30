@@ -52,8 +52,7 @@ const textColorPlugin = (
     disabled,
   }) {
     const config = pluginConfig(textColorConfig);
-    const showMoreColorsToggle =
-      config && config.EXPERIMENTAL_allowMoreTextColors;
+    const showMoreColorsToggle = config?.allowMoreTextColors;
 
     return (
       <WithPluginState
@@ -62,7 +61,7 @@ const textColorPlugin = (
         }}
         render={({ textColor }) => (
           <ToolbarTextColor
-            pluginState={textColor}
+            pluginState={textColor!}
             isReducedSpacing={isToolbarReducedSpacing}
             editorView={editorView}
             popupsMountPoint={popupsMountPoint}

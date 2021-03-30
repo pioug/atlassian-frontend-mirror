@@ -47,18 +47,18 @@ describe('Feature Flags from Props', () => {
       });
       expect(flags.moreTextColors).toBe(false);
     });
-    it('should set moreTextColors to false if allowTextColour.EXPERIMENTAL_allowMoreTextColors is false', () => {
+    it('should set moreTextColors to false if allowTextColour.allowMoreTextColors is false', () => {
       const flags = createFeatureFlagsFromProps({
         allowTextColor: {
-          EXPERIMENTAL_allowMoreTextColors: false,
+          allowMoreTextColors: false,
         },
       });
       expect(flags.moreTextColors).toBe(false);
     });
-    it('should set moreTextColors to true if allowTextColour.EXPERIMENTAL_allowMoreTextColors is true', () => {
+    it('should set moreTextColors to true if allowTextColour.allowMoreTextColors is true', () => {
       const flags = createFeatureFlagsFromProps({
         allowTextColor: {
-          EXPERIMENTAL_allowMoreTextColors: true,
+          allowMoreTextColors: true,
         },
       });
       expect(flags.moreTextColors).toBe(true);

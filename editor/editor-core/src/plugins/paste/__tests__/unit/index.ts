@@ -4,7 +4,11 @@ import {
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { EditorView } from 'prosemirror-view';
 import { toggleStrong } from '../../../text-formatting/commands/text-formatting';
 import pastePlugin from '../../index';
@@ -15,7 +19,7 @@ describe('Paste plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

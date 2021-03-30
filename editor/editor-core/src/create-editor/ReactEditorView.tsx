@@ -118,10 +118,22 @@ function handleEditorFocus(view: EditorView): number | undefined {
   }, 0);
 }
 
+const EMPTY: EditorPlugin[] = [];
+
 export function shouldReconfigureState(
   props: EditorProps,
   nextProps: EditorProps,
 ) {
+  const prevPlugins = props.dangerouslyAppendPlugins?.__plugins ?? EMPTY;
+  const nextPlugins = nextProps.dangerouslyAppendPlugins?.__plugins ?? EMPTY;
+
+  if (
+    nextPlugins.length !== prevPlugins.length ||
+    prevPlugins.some(p => nextPlugins.some(n => n.name === p.name && n !== p))
+  ) {
+    return true;
+  }
+
   const properties: Array<keyof EditorProps> = [
     'appearance',
     'persistScrollGutter',
@@ -179,18 +191,12 @@ export default class ReactEditorView<T = {}> extends React.Component<
     });
   };
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-8985
-  get transactionTrackingProp() {
-    const { editorProps } = this.props;
-    const { transactionTracking } = editorProps.performanceTracking
-      ? editorProps.performanceTracking
-      : editorProps;
-    return transactionTracking || { enabled: false };
-  }
-
-  get transactionTrackingOptions() {
-    const { enabled, ...tracking } = this.transactionTrackingProp;
-    return enabled ? tracking : {};
+  get transactionTracking() {
+    return (
+      this.props.editorProps.performanceTracking?.transactionTracking ?? {
+        enabled: false,
+      }
+    );
   }
 
   private getPluginNames() {
@@ -217,7 +223,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     )
       .withPlugins(() => this.getPluginNames())
       .withNodeCounts(() => this.countNodes())
-      .withOptions(() => this.transactionTrackingOptions)
+      .withOptions(() => this.transactionTracking)
       .withTransactionTracker(() => this.transactionTracker);
 
     this.validTransactionCount = 0;
@@ -305,7 +311,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       }
     }
 
-    if (!this.transactionTrackingProp.enabled) {
+    if (!this.transactionTracking.enabled) {
       this.pluginPerformanceObserver.disconnect();
     }
   }
@@ -350,9 +356,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       portalProviderAPI: props.portalProviderAPI,
       reactContext: () => this.context,
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-      performanceTracking: props.editorProps.performanceTracking || {
-        transactionTracking: this.transactionTrackingProp,
-      },
+      performanceTracking: props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
     });
 
@@ -382,7 +386,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     // ProseMirror transactions when a dismount is imminent.
     this.canDispatchTransactions = true;
 
-    if (this.transactionTrackingProp.enabled) {
+    if (this.transactionTracking.enabled) {
       this.pluginPerformanceObserver.observe();
     }
   }
@@ -423,7 +427,18 @@ export default class ReactEditorView<T = {}> extends React.Component<
     prevEditorProps?: EditorProps,
     createAnalyticsEvent?: CreateUIAnalyticsEvent,
   ): EditorPlugin[] {
-    return createPluginList(editorProps, prevEditorProps, createAnalyticsEvent);
+    const editorPlugins = editorProps.dangerouslyAppendPlugins?.__plugins ?? [];
+    const builtinPlugins = createPluginList(
+      editorProps,
+      prevEditorProps,
+      createAnalyticsEvent,
+    );
+
+    if (editorPlugins && editorPlugins.length > 0) {
+      builtinPlugins.push(...editorPlugins);
+    }
+
+    return builtinPlugins;
   }
 
   createEditorState = (options: {
@@ -470,9 +485,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       portalProviderAPI: this.props.portalProviderAPI,
       reactContext: () => options.context,
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-      performanceTracking: this.props.editorProps.performanceTracking || {
-        transactionTracking: this.transactionTrackingProp,
-      },
+      performanceTracking: this.props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
     });
 
@@ -523,7 +536,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
     oldEditorState: EditorState;
     newEditorState: EditorState;
   }) => {
-    const { enabled: trackinEnabled } = this.transactionTrackingProp;
+    const { enabled: trackinEnabled } = this.transactionTracking;
 
     this.config.onEditorViewStateUpdatedCallbacks.forEach(entry => {
       trackinEnabled &&
@@ -563,11 +576,11 @@ export default class ReactEditorView<T = {}> extends React.Component<
       return;
     }
 
-    this.transactionTracker.bumpDispatchCounter(this.transactionTrackingProp);
+    this.transactionTracker.bumpDispatchCounter(this.transactionTracking);
     const {
       startMeasure,
       stopMeasure,
-    } = this.transactionTracker.getMeasureHelpers(this.transactionTrackingProp);
+    } = this.transactionTracker.getMeasureHelpers(this.transactionTracking);
     startMeasure(EVENT_NAME_DISPATCH_TRANSACTION);
 
     const nodes: PMNode[] = findChangedNodesFromTransaction(transaction);

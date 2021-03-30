@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-import { DocNode } from '@atlaskit/adf-schema';
+// import { DocNode } from '@atlaskit/adf-schema';
 import { ExtensionParams } from '@atlaskit/editor-common';
 
-import { ExtensionKeys } from './constants';
-import { ExtensionLinkComponent } from './ExtensionLinkComponent';
+// import { ExtensionKeys } from './constants';
+// import { ExtensionLinkComponent } from './ExtensionLinkComponent';
 import { MacroComponent } from './MacroComponent';
 
-const shouldRenderAsLink = (extensionKey: string) => {
-  return [
-    ExtensionKeys.GOOGLE_DOCS,
-    ExtensionKeys.GOOGLE_SHEETS,
-    ExtensionKeys.GOOGLE_SLIDES,
-    ExtensionKeys.TRELLO_CARD,
-    ExtensionKeys.TRELLO_BOARD,
-  ].includes(extensionKey);
-};
+// const shouldRenderAsLink = (extensionKey: string) => {
+//   return [
+//     ExtensionKeys.GOOGLE_DOCS,
+//     ExtensionKeys.GOOGLE_SHEETS,
+//     ExtensionKeys.GOOGLE_SLIDES,
+//     ExtensionKeys.TRELLO_CARD,
+//     ExtensionKeys.TRELLO_BOARD,
+//   ].includes(extensionKey);
+// };
 
 const withLegacyMobileMacros = <
   P extends object,
@@ -63,26 +63,28 @@ const withLegacyMobileMacros = <
       });
   }, []);
 
-  const nestedRender = (document: DocNode) => {
-    const params = {
-      ...props,
-      document,
-    };
-    return <Component {...params} />;
-  };
+  // const nestedRender = (document: DocNode) => {
+  //   const params = {
+  //     ...props,
+  //     document,
+  //   };
+  //   return <Component {...params} />;
+  // };
 
   const getMacroExtensionHandler = () => {
-    return (extension: ExtensionParams<any>) =>
-      shouldRenderAsLink(extension.extensionKey) ? (
-        <ExtensionLinkComponent extension={extension} render={nestedRender} />
-      ) : (
-        <MacroComponent
-          extension={extension}
-          macroWhitelist={macroWhitelist}
-          createPromise={createPromise}
-          eventDispatcher={eventDispatcher}
-        />
-      );
+    return (extension: ExtensionParams<any>) => (
+      // NOTE: Rendering as link disabled until we can fix setContent overriding
+      //       nested renderer content
+      // shouldRenderAsLink(extension.extensionKey) ? (
+      //   <ExtensionLinkComponent extension={extension} render={nestedRender} />
+      // ) : (
+      <MacroComponent
+        extension={extension}
+        macroWhitelist={macroWhitelist}
+        createPromise={createPromise}
+        eventDispatcher={eventDispatcher}
+      />
+    );
   };
 
   const getExtensionHandlers = () => {

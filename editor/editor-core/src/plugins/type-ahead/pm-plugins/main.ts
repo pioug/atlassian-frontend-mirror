@@ -10,12 +10,13 @@ import { isMarkTypeAllowedInCurrentSelection } from '../../../utils';
 import { dismissCommand } from '../commands/dismiss';
 import { insertTypeAheadQuery } from '../commands/insert-query';
 import { itemsListUpdated } from '../commands/items-list-updated';
-import { selectCurrentItem } from '../commands/select-item';
+import { selectByIndex } from '../commands/select-item';
 import { updateQueryCommand } from '../commands/update-query';
 import {
-  TypeAheadHandler,
   TypeAheadItem,
   TypeAheadItemsLoader,
+  TypeAheadHandler,
+  TypeAheadPluginState,
 } from '../types';
 import { findTypeAheadQuery } from '../utils/find-query-mark';
 import { isQueryActive } from '../utils/is-query-active';
@@ -26,26 +27,12 @@ import { pluginKey } from './plugin-key';
 export { pluginKey } from './plugin-key';
 export { ACTIONS } from './actions';
 
-export type PluginState = {
-  isAllowed: boolean;
-  active: boolean;
-  prevActiveState: boolean;
-  query: string | null;
-  trigger: string | null;
-  typeAheadHandler: TypeAheadHandler | null;
-  items: Array<TypeAheadItem>;
-  itemsLoader: TypeAheadItemsLoader;
-  currentIndex: number;
-  queryMarkPos: number | null;
-  queryStarted: number;
-  upKeyCount: number;
-  downKeyCount: number;
-  highlight?: JSX.Element | null;
-};
+export type { TypeAheadPluginState } from '../types';
+
 export function createInitialPluginState(
   prevActiveState = false,
   isAllowed = true,
-): PluginState {
+): TypeAheadPluginState {
   return {
     isAllowed,
     active: false,
@@ -133,7 +120,7 @@ export function createPlugin(
         update(editorView) {
           const pluginState = pluginKey.getState(
             editorView.state,
-          ) as PluginState;
+          ) as TypeAheadPluginState;
 
           if (!pluginState) {
             return;
@@ -183,20 +170,26 @@ export function createPlugin(
       };
     },
     appendTransaction(_trs, _oldState, newState) {
-      const pluginState = pluginKey.getState(newState) as PluginState;
+      const pluginState = pluginKey.getState(newState) as TypeAheadPluginState;
       if (
         pluginState.active &&
         pluginState.query &&
         pluginState.typeAheadHandler &&
-        pluginState.typeAheadHandler.forceSelect &&
-        pluginState.typeAheadHandler.forceSelect(
-          pluginState.query,
-          pluginState.items,
-        )
+        pluginState.typeAheadHandler.forceSelect
       ) {
-        let newTr;
-        selectCurrentItem()(newState, tr => (newTr = tr));
-        return newTr;
+        const items = pluginState.items;
+        const matchedItem = pluginState.typeAheadHandler.forceSelect(
+          pluginState.query,
+          items,
+        );
+        if (matchedItem) {
+          let newTr;
+          selectByIndex(items.indexOf(matchedItem))(
+            newState,
+            tr => (newTr = tr),
+          );
+          return newTr;
+        }
       }
 
       return null;
@@ -254,7 +247,7 @@ export function createPlugin(
 
 export type ActionHandlerParams = {
   dispatch: Dispatch;
-  pluginState: PluginState;
+  pluginState: TypeAheadPluginState;
   tr: Transaction;
   params?: {
     currentIndex?: number;
@@ -290,10 +283,10 @@ export function defaultActionHandler({
   dispatch: Dispatch;
   reactContext: () => { [key: string]: any };
   typeAhead: Array<TypeAheadHandler>;
-  pluginState: PluginState;
+  pluginState: TypeAheadPluginState;
   state: EditorState;
   tr: Transaction;
-}): PluginState {
+}): TypeAheadPluginState {
   const { typeAheadQuery } = state.schema.marks;
   const { doc, selection } = state;
   const { from, to } = selection;
@@ -433,7 +426,7 @@ export function updateQueryHandler({
   dispatch,
   pluginState,
   params,
-}: ActionHandlerParams): PluginState {
+}: ActionHandlerParams): TypeAheadPluginState {
   if (!params) {
     return pluginState;
   }
@@ -450,7 +443,7 @@ export function updateQueryHandler({
 export function selectPrevActionHandler({
   dispatch,
   pluginState,
-}: ActionHandlerParams): PluginState {
+}: ActionHandlerParams): TypeAheadPluginState {
   const newIndex = pluginState.currentIndex - 1;
   const newPluginState = {
     ...pluginState,
@@ -464,7 +457,7 @@ export function selectPrevActionHandler({
 export function selectNextActionHandler({
   dispatch,
   pluginState,
-}: ActionHandlerParams): PluginState {
+}: ActionHandlerParams): TypeAheadPluginState {
   const newIndex = pluginState.currentIndex + 1;
   const newPluginState = {
     ...pluginState,
@@ -479,7 +472,7 @@ export function itemsListUpdatedActionHandler({
   dispatch,
   pluginState,
   tr,
-}: ActionHandlerParams): PluginState {
+}: ActionHandlerParams): TypeAheadPluginState {
   const items = tr.getMeta(pluginKey).items;
   const newPluginState = {
     ...pluginState,
@@ -494,7 +487,7 @@ export function itemsListUpdatedActionHandler({
 
 export function selectCurrentActionHandler({
   dispatch,
-}: ActionHandlerParams): PluginState {
+}: ActionHandlerParams): TypeAheadPluginState {
   const newPluginState = createInitialPluginState(false);
   dispatch(pluginKey, newPluginState);
   return newPluginState;

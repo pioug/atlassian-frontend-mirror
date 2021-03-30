@@ -10,7 +10,6 @@ import {
 } from '../../styled';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
 import ErrorMessage from '../../errorMessage';
-import { ArchiveViewerError } from '../../errors';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
@@ -32,7 +31,7 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { fireAnalytics } from '../../analytics';
-import { ArchiveViewerErrorReason } from '../../errors';
+import { ArchiveViewerErrorReason, ArchiveViewerError } from '../../errors';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
 
@@ -44,7 +43,7 @@ export type Content = {
   isDirectory?: boolean;
   selectedArchiveEntry?: ZipEntry;
   hasLoadedEntries?: boolean;
-  error?: Error;
+  error?: ArchiveViewerError;
 };
 
 export const getArchiveEntriesFromFileState = async (
@@ -69,7 +68,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 
   protected get initialState() {
     return {
-      content: Outcome.successful<Content, Error>({
+      content: Outcome.successful<Content, ArchiveViewerError>({
         src: '',
         name: '',
         isDirectory: true,
@@ -86,11 +85,11 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     URL.revokeObjectURL(content.data.src);
   }
 
-  private onError = (error: Error, entry?: ZipEntry) => {
+  private onError = (error: ArchiveViewerError, entry?: ZipEntry) => {
     this.props.onError(error);
 
     this.setState({
-      content: Outcome.successful<Content, Error>({
+      content: Outcome.successful<Content, ArchiveViewerError>({
         ...this.state.content.data,
         selectedArchiveEntry: entry,
         error,
@@ -102,7 +101,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     selectedArchiveEntry: ZipEntry,
   ) => {
     this.setState({
-      content: Outcome.successful<Content, Error>({
+      content: Outcome.successful<Content, ArchiveViewerError>({
         ...this.state.content.data,
         selectedArchiveEntry: undefined,
       }),
@@ -127,7 +126,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     }
 
     this.setState({
-      content: Outcome.successful<Content, Error>({
+      content: Outcome.successful<Content, ArchiveViewerError>({
         ...this.state.content.data,
         selectedArchiveEntry,
         src,
@@ -141,7 +140,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   private onHeaderClicked = () => {
     // This will set the preview to show the Folder icon
     this.setState({
-      content: Outcome.successful<Content, Error>({
+      content: Outcome.successful<Content, ArchiveViewerError>({
         ...this.state.content.data,
       }),
     });
@@ -155,17 +154,17 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
   };
 
   private onViewerError = (
-    errorReason: ArchiveViewerErrorReason,
+    primaryErrorReason: ArchiveViewerErrorReason,
     selectedArchiveEntry: ZipEntry,
   ) => (error?: Error) => {
     this.onError(
-      new ArchiveViewerError(errorReason, error, selectedArchiveEntry),
+      new ArchiveViewerError(primaryErrorReason, error, selectedArchiveEntry),
     );
   };
 
   private onSidebarLoaded = () => {
     this.setState({
-      content: Outcome.successful<Content, Error>({
+      content: Outcome.successful<Content, ArchiveViewerError>({
         ...this.state.content.data,
         hasLoadedEntries: true,
       }),
@@ -303,7 +302,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     }
   }
 
-  private renderPreviewError(error: Error, entry?: ZipEntry) {
+  private renderPreviewError(error: ArchiveViewerError, entry?: ZipEntry) {
     const { item } = this.props;
 
     fireAnalytics(

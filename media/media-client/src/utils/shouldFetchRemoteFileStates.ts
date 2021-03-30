@@ -39,8 +39,14 @@ export async function shouldFetchRemoteFileStates(
       return false;
     }
 
-    const { width, height } = await getVideoDimensionsFromBlob(content);
-    return !width && !height;
+    try {
+      const { width, height } = await getVideoDimensionsFromBlob(content);
+      return !width && !height;
+    } catch (e) {
+      // any exception from getVideoDimensionsFromBlob() may imply that local video isn't playable
+      // hence we'll need remote fileStates to grab a "processed" video
+      return true;
+    }
   }
 
   return false;

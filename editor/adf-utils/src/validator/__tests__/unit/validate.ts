@@ -73,14 +73,41 @@ describe('validate', () => {
           'hardBreak-with-wrong-text.json',
           'mediaSingle-with-caption.json',
           'media-with-link-mark.json',
+          'extension-with-data-consumer-mark.json',
+          'bodiedExtension-with-data-consumer-mark.json',
+          'inlineExtension-with-data-consumer-mark.json',
+        ];
+
+        /**
+         * TODO: there is a "mutation bug" in the validator
+         *
+         * (see https://product-fabric.atlassian.net/browse/ED-12054?focusedCommentId=197447)
+         */
+        const expectAnyErrorList = [
+          'extension-with-empty-local-id.json',
+          'extension-with-invalid-local-id.json',
         ];
         expect(true).toBe(true);
-        if (!ignoreList.includes(file.name)) {
-          const run = () => {
-            validate(file.data);
-          };
-          await Promise.resolve();
-          expect(run).toThrowError();
+        if (expectAnyErrorList.includes(file.name)) {
+          const errorCb = jest.fn();
+          validate(file.data, errorCb);
+          /**
+           * For now, work with the mutation bug & the assumptions that come
+           * with it; namely,
+           * - we should see the error callback to be called
+           * - rather than the validation run to throw entirely
+           *
+           *  given we are testing for optional attributes.
+           */
+          expect(errorCb).toBeCalled();
+        } else {
+          if (!ignoreList.includes(file.name)) {
+            const run = () => {
+              validate(file.data);
+            };
+            await Promise.resolve();
+            expect(run).toThrowError();
+          }
         }
       });
     });

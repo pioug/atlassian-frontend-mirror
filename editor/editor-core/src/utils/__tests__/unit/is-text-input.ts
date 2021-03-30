@@ -7,13 +7,14 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { isTextInput } from '../../is-text-input';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-factory';
 
 describe('#isTextInput', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

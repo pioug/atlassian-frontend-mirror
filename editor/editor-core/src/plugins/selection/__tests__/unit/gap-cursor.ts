@@ -10,6 +10,7 @@ import {
   tdCursor,
   h1,
   code_block,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -31,13 +32,12 @@ import {
 } from './_gap-cursor-utils';
 
 import { uuid } from '@atlaskit/adf-schema';
-
-import { gapCursorPluginKey } from '../../../../plugins/selection/types';
+import { gapCursorPluginKey } from '../../pm-plugins/gap-cursor-plugin-key';
 
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

@@ -85,7 +85,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
     mediaProvider?: Promise<MediaProvider>,
     contextIdentifierProvider?: Promise<ContextIdentifierProvider>,
   ) => {
-    return ({ width: editorWidth }: { width: WidthPluginState }) => {
+    return ({ width: editorWidth }: { width?: WidthPluginState }) => {
       const getPos = this.getPos as getPosHandlerNode;
       const { mediaOptions } = this.reactComponentProps;
 
@@ -110,8 +110,8 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
       height = height || DEFAULT_IMAGE_HEIGHT;
 
       const maxDimensions = {
-        width: `${editorWidth.width}px`,
-        height: `${(height / width) * editorWidth.width}px`,
+        width: `${editorWidth!.width}px`,
+        height: `${(height / width) * editorWidth!.width}px`,
       };
 
       const originalDimensions = {

@@ -3,4 +3,5 @@ export interface ExtensionConfig {
   allowBreakout?: boolean;
   allowAutoSave?: boolean;
   allowLocalIdGeneration?: boolean;
+  allowExtendFloatingToolbars?: boolean;
 }

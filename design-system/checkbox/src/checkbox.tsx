@@ -13,6 +13,8 @@ import { jsx } from '@emotion/core';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import GlobalTheme from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
 
@@ -26,13 +28,6 @@ import { CheckboxProps, Size } from './types';
 
 type InnerProps = CheckboxProps & {
   mode: ThemeModes;
-};
-
-const sizes = {
-  small: '16',
-  medium: '24',
-  large: '32',
-  xlarge: '48',
 };
 
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
@@ -53,19 +48,17 @@ function getIcon(isIndeterminate: boolean, isChecked: boolean) {
   return null;
 }
 
-// An svg is used so we don't pull in styled-components as well as
-// a wrapping span. This approach is more performant.
 const CheckboxIcon = memo<{
   size: Size;
   isIndeterminate: boolean;
   isChecked: boolean;
 }>(({ size, isIndeterminate, isChecked }) => (
-  <svg width={sizes[size]} height={sizes[size]} viewBox="0 0 24 24">
+  <PrimitiveSVGIcon label="" size={size}>
     <g fillRule="evenodd">
       <rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
       {getIcon(isIndeterminate, isChecked)}
     </g>
-  </svg>
+  </PrimitiveSVGIcon>
 ));
 
 const CheckboxWithMode = forwardRef(function Checkbox(

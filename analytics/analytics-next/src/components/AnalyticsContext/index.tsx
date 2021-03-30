@@ -3,7 +3,10 @@ import ModernAnalyticsContext from './ModernAnalyticsContext';
 import { AnalyticsContextFunction } from './types';
 
 let ExportedAnalyticsContext: AnalyticsContextFunction;
-if (process.env['ANALYTICS_NEXT_MODERN_CONTEXT']) {
+if (
+  typeof process !== 'undefined' &&
+  process.env['ANALYTICS_NEXT_MODERN_CONTEXT']
+) {
   ExportedAnalyticsContext = ModernAnalyticsContext as any;
 } else {
   ExportedAnalyticsContext = LegacyAnalyticsContext as any;

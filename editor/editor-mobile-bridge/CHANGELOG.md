@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.4.0
+
+### Minor Changes
+
+- [`5a02668a6f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a02668a6f1) - ED-12169 Hook predictableLists feature flag to predictableLists functions in editor-core
+
+### Patch Changes
+
+- [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
+- [`38ce6d21b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38ce6d21b07) - EDM-1841: media video file mobile vr tests
+- [`7baf62daafb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7baf62daafb) - EDM-1638: add media mobile VR test for captions
+- Updated dependencies
+
 ## 25.3.7
 
 ### Patch Changes

@@ -7,6 +7,7 @@ import {
   p,
   taskItem,
   taskList,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
@@ -44,7 +45,7 @@ describe('annotation', () => {
   const intlProvider = new IntlProvider({ locale: 'en' });
   const { intl } = intlProvider.getChildContext();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       providerFactory,

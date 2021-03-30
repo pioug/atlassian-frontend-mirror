@@ -16,6 +16,7 @@ import {
   code_block,
   indentation,
   BuilderContent,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   enterKeyCommand,
@@ -55,7 +56,7 @@ describe('lists plugin -> commands', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPredictablePlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])

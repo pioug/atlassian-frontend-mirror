@@ -36,6 +36,10 @@ export const extensionStyles = css`
       box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
       background-color: ${akEditorDeleteBackground};
     }
+
+    &.inline {
+      word-wrap: break-all;
+    }
   }
 
   .extensionView-content-wrap .extension-container {

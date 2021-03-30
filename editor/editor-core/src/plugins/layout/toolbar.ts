@@ -28,6 +28,7 @@ import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { PresetLayout } from './types';
 
 type PresetLayoutButtonItem = {
+  id?: string;
   type: PresetLayout;
   title: MessageDescriptor;
   icon: Icon;
@@ -35,11 +36,13 @@ type PresetLayoutButtonItem = {
 
 const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
   {
+    id: 'editor.layout.twoEquals',
     type: 'two_equal',
     title: toolbarMessages.twoColumns,
     icon: LayoutTwoEqualIcon,
   },
   {
+    id: 'editor.layout.threeEquals',
     type: 'three_equal',
     title: toolbarMessages.threeColumns,
     icon: LayoutThreeEqualIcon,
@@ -48,16 +51,19 @@ const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 
 const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
   {
+    id: 'editor.layout.twoRightSidebar',
     type: 'two_right_sidebar',
     title: toolbarMessages.rightSidebar,
     icon: LayoutTwoRightSidebarIcon,
   },
   {
+    id: 'editor.layout.twoLeftSidebar',
     type: 'two_left_sidebar',
     title: toolbarMessages.leftSidebar,
     icon: LayoutTwoLeftSidebarIcon,
   },
   {
+    id: 'editor.layout.threeWithSidebars',
     type: 'three_with_sidebars',
     title: toolbarMessages.threeColumnsWithSidebars,
     icon: LayoutThreeWithSidebarsIcon,
@@ -69,6 +75,7 @@ const buildLayoutButton = (
   item: PresetLayoutButtonItem,
   currentLayout: string | undefined,
 ): FloatingToolbarItem<Command> => ({
+  id: item.id,
   type: 'button',
   icon: item.icon,
   testId: item.title.id,
@@ -97,6 +104,7 @@ export const buildToolbar = (
     const nodeType = state.schema.nodes.layoutSection;
 
     const deleteButton: FloatingToolbarButton<Command> = {
+      id: 'editor.layout.delete',
       type: 'button',
       appearance: 'danger',
       icon: RemoveIcon,

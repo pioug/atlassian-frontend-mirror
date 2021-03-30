@@ -153,8 +153,8 @@ class Editor extends React.Component<
     maxContentSize,
     mediaState,
   }: {
-    maxContentSize: MaxContentSizePluginState;
-    mediaState: MediaPluginState;
+    maxContentSize?: MaxContentSizePluginState;
+    mediaState?: MediaPluginState;
   }) => {
     const {
       editorDOMElement,
@@ -177,8 +177,9 @@ class Editor extends React.Component<
       dispatchAnalyticsEvent,
       intl,
     } = this.props;
-    const maxContentSizeReached =
-      maxContentSize && maxContentSize.maxContentSizeReached;
+    const maxContentSizeReached = Boolean(
+      maxContentSize?.maxContentSizeReached,
+    );
     return (
       <WithFlash animate={maxContentSizeReached}>
         <CommentEditor maxHeight={maxHeight} className="akEditor">

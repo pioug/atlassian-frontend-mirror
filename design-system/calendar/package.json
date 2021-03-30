@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "10.3.3",
+  "version": "11.0.0",
   "description": "A React component for displaying a calendar.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/icon": "^21.4.0",
+    "@atlaskit/icon": "^21.5.0",
     "@atlaskit/locale": "^2.3.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
@@ -50,6 +50,7 @@
     "@testing-library/react": "^8.0.1",
     "date-fns": "^1.30.1",
     "jest-in-case": "^1.0.2",
+    "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "storybook-addon-performance": "0.13.0",

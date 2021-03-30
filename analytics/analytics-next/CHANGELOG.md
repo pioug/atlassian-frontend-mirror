@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.1.2
+
+### Patch Changes
+
+- [`b290f591719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b290f591719) - Add process type check in analytics next
+
 ## 8.1.1
 
 ### Patch Changes

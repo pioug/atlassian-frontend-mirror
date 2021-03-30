@@ -23,7 +23,7 @@ export class ReactNodeViewState {
   }
 }
 
-export const stateKey = new PluginKey('reactNodeView');
+export const stateKey = new PluginKey<ReactNodeViewState>('reactNodeView');
 
 export const plugin = new Plugin({
   state: {

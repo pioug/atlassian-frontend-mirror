@@ -1,5 +1,6 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
+  DocBuilder,
   doc,
   p,
   table,
@@ -14,7 +15,7 @@ import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factor
 describe('table plugin -> transforms -> merge cells', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

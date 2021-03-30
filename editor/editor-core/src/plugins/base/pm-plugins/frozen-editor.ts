@@ -18,7 +18,7 @@ import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 import { countNodes } from '../../../utils/count-nodes';
 import {
   InputTracking,
-  BFreezeTracking,
+  BrowserFreezetracking,
 } from '../../../types/performance-tracking';
 import { getContextIdentifier } from './context-identifier';
 import { setInteractionType } from '../utils/frozen-editor';
@@ -62,7 +62,7 @@ const dispatchLongTaskEvent = (
 export default (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   inputTracking?: InputTracking,
-  browserFreezeTracking?: BFreezeTracking,
+  browserFreezeTracking?: BrowserFreezetracking,
 ) => {
   let keystrokeCount = 0;
   let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
@@ -200,8 +200,10 @@ export default (
                 browserFreezeTracking?.trackSeverity
                   ? getAnalyticsEventSeverity(
                       duration,
-                      browserFreezeTracking.severityNormalThreshold,
-                      browserFreezeTracking.severityDegradedThreshold,
+                      browserFreezeTracking.severityNormalThreshold ||
+                        NORMAL_SEVERITY_THRESHOLD,
+                      browserFreezeTracking.severityDegradedThreshold ||
+                        DEGRADED_SEVERITY_THRESHOLD,
                     )
                   : undefined,
               );

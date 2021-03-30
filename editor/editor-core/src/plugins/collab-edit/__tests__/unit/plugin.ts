@@ -1,5 +1,9 @@
 import { CollabEditProvider } from '@atlaskit/editor-common';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import {
@@ -12,7 +16,7 @@ import collabEditPlugin from '../../';
 
 describe('collab-edit: plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any, providerFactory?: any) => {
+  const editor = (doc: DocBuilder, providerFactory?: any) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add([collabEditPlugin, {}]),

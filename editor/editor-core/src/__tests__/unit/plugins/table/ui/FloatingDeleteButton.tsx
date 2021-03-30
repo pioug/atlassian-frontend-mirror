@@ -7,6 +7,7 @@ import {
   tdEmpty,
   thEmpty,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
 import { ReactWrapper } from 'enzyme';
@@ -42,7 +43,7 @@ import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factor
 describe('Floating Delete Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

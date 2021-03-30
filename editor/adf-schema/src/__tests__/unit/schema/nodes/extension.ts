@@ -1,9 +1,27 @@
 import { name } from '../../../../version.json';
-import { schema, toDOM, fromHTML } from '../../../../../test-helpers';
+import { createSchema } from '../../../../schema/create-schema';
+import { toDOM, fromHTML } from '../../../../../test-helpers';
 import { extension } from '../../../../../src';
+import { dataConsumer } from '../../../../../src';
+import { Schema } from 'prosemirror-model';
 
 describe(`${name}/schema extension node`, () => {
+  let schema: Schema;
+  beforeEach(() => {
+    schema = makeSchema();
+  });
   describe('parse html', () => {
+    it('parses a dataConsumer mark correctly', () => {
+      const extensionHtml =
+        '<div data-node-type="extension" data-extension-type="com.example.ext" data-extension-key="gallery" />';
+      const withDataConsumerMark = `<span data-mark-type="dataConsumer" data-sources="[&quot;someid&quot;]">${extensionHtml}</span>`;
+      const doc = fromHTML(withDataConsumerMark, schema);
+      const extensionNode = doc.firstChild!;
+      const dataConsumerMark = doc.firstChild!.marks[0];
+      expect(dataConsumerMark.type.spec).toEqual(dataConsumer);
+      expect(extensionNode.type.spec).toEqual(extension);
+    });
+
     it('converts to extension PM node', () => {
       const doc = fromHTML(
         '<div data-node-type="extension" data-extension-type="com.example.ext" data-extension-key="gallery" />',
@@ -73,3 +91,10 @@ describe(`${name}/schema extension node`, () => {
     });
   });
 });
+
+function makeSchema() {
+  return createSchema({
+    nodes: ['doc', 'paragraph', 'text', 'extension'],
+    marks: ['dataConsumer'],
+  });
+}

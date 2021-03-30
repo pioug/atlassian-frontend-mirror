@@ -1,1 +1,1 @@
-export { default } from './components/Icon';
+export { default } from '@atlaskit/icon/base';

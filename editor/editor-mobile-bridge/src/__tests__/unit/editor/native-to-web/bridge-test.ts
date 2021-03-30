@@ -1,11 +1,7 @@
 import * as mocks from './bridge-test.mock';
-
 import {
   INPUT_METHOD,
-  indentList,
-  outdentList,
-  toggleOrderedList,
-  toggleBulletList,
+  getListCommands,
   insertLinkWithAnalyticsMobileNative,
   isTextAtPos,
   isLinkAtPos,
@@ -16,7 +12,6 @@ import {
   insertEmojiQuery,
   insertMentionQuery,
 } from '@atlaskit/editor-core';
-
 import WebBridgeImpl from '../../../../editor/native-to-web';
 import { defaultPadding } from '../../../../web-bridge';
 
@@ -30,8 +25,15 @@ describe('general', () => {
 
 describe('lists should work', () => {
   const bridge: any = new WebBridgeImpl();
+  const commands = {
+    indentList: jest.fn(() => () => {}),
+    outdentList: jest.fn(() => () => {}),
+    toggleOrderedList: jest.fn(() => () => {}),
+    toggleBulletList: jest.fn(() => () => {}),
+  };
 
   beforeEach(() => {
+    (getListCommands as jest.Mock).mockImplementationOnce(() => commands);
     mocks.mockCalls.length = 0;
     bridge.editorView = {};
     bridge.listBridgeState = {};
@@ -41,78 +43,78 @@ describe('lists should work', () => {
     bridge.editorView = undefined;
     bridge.listBridgeState = undefined;
 
-    ((indentList as Function) as jest.Mock<{}>).mockClear();
-    ((outdentList as Function) as jest.Mock<{}>).mockClear();
-    ((toggleOrderedList as Function) as jest.Mock<{}>).mockClear();
-    ((toggleBulletList as Function) as jest.Mock<{}>).mockClear();
+    ((commands.indentList as Function) as jest.Mock<{}>).mockClear();
+    ((commands.outdentList as Function) as jest.Mock<{}>).mockClear();
+    ((commands.toggleOrderedList as Function) as jest.Mock<{}>).mockClear();
+    ((commands.toggleBulletList as Function) as jest.Mock<{}>).mockClear();
   });
 
   it('should call ordered list toggle', () => {
     bridge.onOrderedListSelected();
-    expect(toggleOrderedList).toBeCalled();
+    expect(commands.toggleOrderedList).toBeCalled();
   });
 
   it('should not call ordered list if view is undefined', () => {
     bridge.editorView = undefined;
     bridge.onOrderedListSelected();
-    expect(toggleOrderedList).not.toBeCalled();
+    expect(commands.toggleOrderedList).not.toBeCalled();
   });
 
   it('should not call ordered list if state is undefined', () => {
     bridge.listBridgeState = undefined;
     bridge.onOrderedListSelected();
-    expect(toggleOrderedList).not.toBeCalled();
+    expect(commands.toggleOrderedList).not.toBeCalled();
   });
 
   it('should call bullet list toggle', () => {
     bridge.onBulletListSelected();
-    expect(toggleBulletList).toBeCalled();
+    expect(commands.toggleBulletList).toBeCalled();
   });
 
   it('should not call bullet list if view is undefined', () => {
     bridge.editorView = undefined;
     bridge.onBulletListSelected();
-    expect(toggleBulletList).not.toBeCalled();
+    expect(commands.toggleBulletList).not.toBeCalled();
   });
 
   it('should not call bullet list if state is undefined', () => {
     bridge.listBridgeState = undefined;
     bridge.onBulletListSelected();
-    expect(toggleBulletList).not.toBeCalled();
+    expect(commands.toggleBulletList).not.toBeCalled();
   });
 
   it('should call indent list', () => {
     bridge.onIndentList();
-    expect(indentList).toBeCalled();
+    expect(commands.indentList).toBeCalled();
   });
 
   it('should not call indent list if view is undefined', () => {
     bridge.editorView = undefined;
     bridge.onIndentList();
-    expect(indentList).not.toBeCalled();
+    expect(commands.indentList).not.toBeCalled();
   });
 
   it('should not call indent list if state is undefined', () => {
     bridge.listBridgeState = undefined;
     bridge.onIndentList();
-    expect(indentList).not.toBeCalled();
+    expect(commands.indentList).not.toBeCalled();
   });
 
   it('should call outdent list', () => {
     bridge.onOutdentList();
-    expect(outdentList).toBeCalled();
+    expect(commands.outdentList).toBeCalled();
   });
 
   it('should not call outdent list if view is undefined', () => {
     bridge.editorView = undefined;
     bridge.onOutdentList();
-    expect(outdentList).not.toBeCalled();
+    expect(commands.outdentList).not.toBeCalled();
   });
 
   it('should not call outdent list if state is undefined', () => {
     bridge.listBridgeState = undefined;
     bridge.onOutdentList();
-    expect(outdentList).not.toBeCalled();
+    expect(commands.outdentList).not.toBeCalled();
   });
 });
 

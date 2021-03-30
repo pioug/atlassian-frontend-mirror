@@ -21,7 +21,7 @@ import { registerCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 import { createDisplayGrid } from '../../../plugins/grid';
 import WithPluginState from '../../../ui/WithPluginState';
-import { pluginKey as widthPluginKey, WidthPluginState } from '../../width';
+import { pluginKey as widthPluginKey } from '../../width';
 
 import {
   floatingLayouts,
@@ -231,7 +231,7 @@ export class EmbedCardComponent extends React.PureComponent<
           plugins={{
             widthState: widthPluginKey,
           }}
-          render={({ widthState }: { widthState?: WidthPluginState }) => {
+          render={({ widthState }) => {
             const widthStateLineLength = widthState?.lineLength || 0;
             const widthStateWidth = widthState?.width || 0;
 

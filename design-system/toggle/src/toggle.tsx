@@ -30,8 +30,8 @@ interface ExtendedToggleProps extends ToggleProps {
   mode: ThemeModes;
 }
 
-const InnerToggle = forwardRef(
-  (props: ExtendedToggleProps, ref: React.Ref<HTMLInputElement>) => {
+const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
+  (props, ref) => {
     const {
       defaultChecked = false,
       isDisabled = false,
@@ -116,16 +116,12 @@ const InnerToggle = forwardRef(
 );
 
 const Toggle = memo(
-  forwardRef(function Toggle(
-    props: ToggleProps,
-    ref: React.Ref<HTMLInputElement>,
-  ) {
+  forwardRef<HTMLInputElement, ToggleProps>(function Toggle(props, ref) {
     return (
       <GlobalTheme.Consumer>
-        {(tokens: GlobalThemeTokens) => {
-          const mode = tokens.mode;
-          return <InnerToggle {...props} mode={mode} ref={ref} />;
-        }}
+        {(tokens: GlobalThemeTokens) => (
+          <InnerToggle {...props} mode={tokens.mode} ref={ref} />
+        )}
       </GlobalTheme.Consumer>
     );
   }),

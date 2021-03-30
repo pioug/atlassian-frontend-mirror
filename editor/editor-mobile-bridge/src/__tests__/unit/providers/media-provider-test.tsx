@@ -17,6 +17,7 @@ import {
   p,
   mediaSingle,
   media,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { randomId } from '@atlaskit/editor-test-helpers/random-id';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
@@ -133,7 +134,7 @@ describe('Mobile MediaProvider', () => {
     });
   });
 
-  const editor = (doc: any, mediaOptions: MediaOptions) =>
+  const editor = (doc: DocBuilder, mediaOptions: MediaOptions) =>
     createEditor({
       doc,
       editorProps: {

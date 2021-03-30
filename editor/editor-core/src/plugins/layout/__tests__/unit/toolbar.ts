@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -24,7 +24,7 @@ import {
 describe('layout toolbar', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   const createEditor = createEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

@@ -27,7 +27,7 @@ export type Props = {
   item: FileState;
   collectionName?: string;
   onClose?: () => void;
-  onError: (error: Error) => void;
+  onError: (error: MediaViewerError) => void;
   onSuccess: () => void;
 };
 
@@ -36,7 +36,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 
   protected get initialState() {
     return {
-      content: Outcome.pending<string, Error>(),
+      content: Outcome.pending<string, MediaViewerError>(),
     };
   }
 

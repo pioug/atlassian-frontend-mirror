@@ -284,7 +284,7 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
           const renderFn = ({
             editorDisabledPlugin,
           }: {
-            editorDisabledPlugin: EditorDisabledPluginState;
+            editorDisabledPlugin?: EditorDisabledPluginState;
           }) => {
             if (!mediaProvider) {
               return null;

@@ -53,7 +53,7 @@ const PageHeader = ({
             </StyledTitle>
           )}
         </TitleContainer>
-        <ActionsWrapper>{actions}</ActionsWrapper>
+        {actions && <ActionsWrapper>{actions}</ActionsWrapper>}
       </TitleWrapper>
       {bottomBar && <BottomBarWrapper> {bottomBar} </BottomBarWrapper>}
     </Outer>

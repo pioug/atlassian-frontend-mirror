@@ -1,16 +1,12 @@
 import { keymap } from 'prosemirror-keymap';
 import { Plugin, NodeSelection } from 'prosemirror-state';
-
 import * as keymaps from '../../../keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { Command } from '../../../types';
 import { MediaPluginState } from './types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { MediaOptions } from '../types';
-import {
-  insertAndSelectCaptionFromMediaSinglePos,
-  selectCaptionFromMediaSinglePos,
-} from '../commands/captions';
+import { setSelectCaptionFromMediaSinglePos } from '../commands/captions';
 
 export function keymapPlugin(options?: MediaOptions): Plugin {
   const list = {};
@@ -59,10 +55,11 @@ const insertAndSelectCaption: Command = (state, dispatch) => {
   ) {
     if (dispatch) {
       const { from, node } = selection;
-      if (
-        !insertAndSelectCaptionFromMediaSinglePos(from, node)(state, dispatch)
-      ) {
-        selectCaptionFromMediaSinglePos(from, node)(state, dispatch);
+      const { tr } = state;
+      let customTr = tr;
+      if (node.childCount !== 1) {
+        setSelectCaptionFromMediaSinglePos(from, node, customTr);
+        dispatch(customTr);
       }
     }
     return true;

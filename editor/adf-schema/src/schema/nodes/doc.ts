@@ -26,5 +26,5 @@ export interface DocNode {
 export const doc: NodeSpec = {
   content: '(block|layoutSection)+',
   marks:
-    'alignment breakout indentation link unsupportedMark unsupportedNodeAttribute',
+    'alignment breakout dataConsumer indentation link unsupportedMark unsupportedNodeAttribute',
 };

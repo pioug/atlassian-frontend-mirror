@@ -56,7 +56,7 @@ export type Props = {
 };
 
 export type State = {
-  item: Outcome<FileState, Error>;
+  item: Outcome<FileState, MediaViewerError>;
 };
 
 const initialState: State = {

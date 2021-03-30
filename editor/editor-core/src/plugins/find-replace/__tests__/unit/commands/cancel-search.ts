@@ -1,5 +1,9 @@
 import { EditorView } from 'prosemirror-view';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -15,7 +19,7 @@ const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
 );
 let editorView: EditorView;
 
-const initEditor = (doc: any) => {
+const initEditor = (doc: DocBuilder) => {
   ({ editorView } = editor(doc, createAnalyticsEvent));
 };
 

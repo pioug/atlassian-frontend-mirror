@@ -15,8 +15,8 @@ import {
   panel,
   decisionList,
   decisionItem,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { DocumentType } from '@atlaskit/editor-test-helpers/create-editor-state';
 import betterTypeHistoryPlugin from '../../';
 import blockTypePlugin from '../../../block-type';
 import panelPlugin from '../../../panel';
@@ -31,7 +31,7 @@ import {
 
 describe('close history', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocumentType) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
@@ -45,7 +45,7 @@ describe('close history', () => {
       pluginKey: undoRedoPluginKey,
     });
 
-  const case0: [string, DocumentType, DocumentType] = [
+  const case0: [string, DocBuilder, DocBuilder] = [
     'user press enter twice after type at the end of paragraph',
     // Scenario
     // prettier-ignore
@@ -62,7 +62,7 @@ describe('close history', () => {
     ),
   ];
 
-  const case1: [string, DocumentType, DocumentType] = [
+  const case1: [string, DocBuilder, DocBuilder] = [
     'user press enter twice inside of code block',
     // Scenario
     // prettier-ignore
@@ -78,7 +78,7 @@ describe('close history', () => {
     ),
   ];
 
-  const case2: [string, DocumentType, DocumentType] = [
+  const case2: [string, DocBuilder, DocBuilder] = [
     'user press enter twice inside of paragragh',
     // Scenario
     // prettier-ignore
@@ -95,7 +95,7 @@ describe('close history', () => {
     ),
   ];
 
-  describe.each<[string, DocumentType, DocumentType]>([
+  describe.each<[string, DocBuilder, DocBuilder]>([
     // prettier-ignore
     case0,
     case1,
@@ -195,7 +195,7 @@ describe('close history', () => {
   });
 
   describe('paste then undo', () => {
-    const case01: [string, DocumentType, DocumentType] = [
+    const case01: [string, DocBuilder, DocBuilder] = [
       'pasting text in an empty paragraph',
       // Scenario
       doc(
@@ -210,7 +210,7 @@ describe('close history', () => {
         p('INITIAL'),
       ),
     ];
-    const case02: [string, DocumentType, DocumentType] = [
+    const case02: [string, DocBuilder, DocBuilder] = [
       'pasting text at the end of paragraph',
       // Scenario
       doc(
@@ -226,7 +226,7 @@ describe('close history', () => {
       ),
     ];
 
-    const case03: [string, DocumentType, DocumentType] = [
+    const case03: [string, DocBuilder, DocBuilder] = [
       'pasting text in the middle of a paragraph',
       // Scenario
       doc(
@@ -242,7 +242,7 @@ describe('close history', () => {
       ),
     ];
 
-    const case04: [string, DocumentType, DocumentType] = [
+    const case04: [string, DocBuilder, DocBuilder] = [
       'copying text from a panel and pasting it in an empty paragraph',
       // Scenario
       // prettier-ignore
@@ -262,7 +262,7 @@ describe('close history', () => {
       ),
     ];
 
-    const case05: [string, DocumentType, DocumentType] = [
+    const case05: [string, DocBuilder, DocBuilder] = [
       'copying an empty panel and pasting it in an empty paragraph',
       // Scenario
       // prettier-ignore
@@ -282,7 +282,7 @@ describe('close history', () => {
       ),
     ];
 
-    const case06: [string, DocumentType, DocumentType] = [
+    const case06: [string, DocBuilder, DocBuilder] = [
       'copying an empty panel and pasting it in a paragraph',
       // Scenario
       // prettier-ignore
@@ -302,7 +302,7 @@ describe('close history', () => {
       ),
     ];
 
-    describe.each<[string, DocumentType, DocumentType]>([
+    describe.each<[string, DocBuilder, DocBuilder]>([
       // prettier-ignore
       case01,
       case02,

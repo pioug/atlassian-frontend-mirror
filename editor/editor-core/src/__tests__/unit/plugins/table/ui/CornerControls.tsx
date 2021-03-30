@@ -7,6 +7,7 @@ import {
   table,
   tr,
   thEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import {
@@ -24,7 +25,7 @@ const CornerButton = `.${ClassName.CONTROLS_CORNER_BUTTON}`;
 describe('CornerControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

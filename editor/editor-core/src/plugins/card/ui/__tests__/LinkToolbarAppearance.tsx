@@ -22,6 +22,7 @@ import {
   inlineCard,
   blockCard,
   panel as panelNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { pluginKey } from '../../pm-plugins/main';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -32,7 +33,7 @@ import { isSupportedInParent } from '../../../../utils/nodes';
 describe('LinkToolbarAppearance', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       providerFactory,

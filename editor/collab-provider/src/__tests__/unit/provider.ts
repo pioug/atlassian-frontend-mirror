@@ -370,14 +370,14 @@ describe('provider unit tests', () => {
     );
     provider.on('error', error => {
       expect(error).toEqual({
-        status: 401,
+        status: 403,
         code: 'NO_PERMISSION_ERROR',
         message: 'User does not have permissions to access this document',
       });
       done();
     });
     const noPermissionError: CollabErrorPayload = {
-      status: 401,
+      status: 403,
       code: 'INSUFFICIENT_EDITING_PERMISSION',
       meta:
         'The user does not have sufficient permission to collab editing the resource',

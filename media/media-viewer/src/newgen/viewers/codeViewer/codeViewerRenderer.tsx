@@ -14,11 +14,11 @@ export type Props = {
   language: string;
   onClose?: () => void;
   onSuccess?: () => void;
-  onError?: (error: Error) => void;
+  onError?: (error: MediaViewerError) => void;
 };
 
 export type State = {
-  doc: Outcome<any, Error>;
+  doc: Outcome<any, MediaViewerError>;
 };
 
 const initialState: State = {

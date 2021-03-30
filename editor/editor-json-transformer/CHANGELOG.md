@@ -1,5 +1,16 @@
 # @atlaskit/editor-json-transformer
 
+## 8.5.0
+
+### Minor Changes
+
+- [`96219e933e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96219e933e9) - Update json transformer for improving data-consumer support
+
+### Patch Changes
+
+- [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
+- Updated dependencies
+
 ## 8.4.5
 
 ### Patch Changes

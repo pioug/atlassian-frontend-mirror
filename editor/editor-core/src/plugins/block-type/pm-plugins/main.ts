@@ -116,7 +116,7 @@ const autoformatHeading = (
   return true;
 };
 
-export const pluginKey = new PluginKey('blockTypePlugin');
+export const pluginKey = new PluginKey<BlockTypeState>('blockTypePlugin');
 export const createPlugin = (
   dispatch: (eventName: string | PluginKey, data: any) => void,
   lastNodeMustBeParagraph?: boolean,

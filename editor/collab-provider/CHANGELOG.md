@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 6.1.0
+
+### Minor Changes
+
+- [`15d11ecc623`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15d11ecc623) - COLLAB-482: change no permission error code to 403
+
 ## 6.0.0
 
 ### Major Changes

@@ -9,6 +9,7 @@ import TooltipComponent from '../../examples/constellation/tooltip-component';
 import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
 import TooltipCustomization from '../../examples/constellation/tooltip-customization';
 import TooltipTag from '../../examples/constellation/tooltip-with-ref';
+import TooltipUpdate from '../../examples/constellation/tooltip-update';
 
 ## Default
 
@@ -53,3 +54,9 @@ Use `TooltipPrimitive` to customize the style of a default tooltip.
 By default, a `div` element is used to wrap everything for `Tooltip` in a container. Use `tag` to customize and render a different HTML tag to be used as the wrapping element.
 
 <Example Component={TooltipTag} packageName="@atlaskit/tooltip" />
+
+## Updating tooltip position
+
+When the content of a visible tooltip changes, its position is not recalculated and the tooltip may become misaligned. If you need the tooltip to recalculate its position you can control this manually using the `update` render prop.
+
+<Example Component={TooltipUpdate} packageName="@atlaskit/tooltip" />

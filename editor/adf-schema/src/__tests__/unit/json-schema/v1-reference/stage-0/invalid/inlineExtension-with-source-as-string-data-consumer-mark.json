@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+          {
+              "type": "text",
+              "text": "inline extension "
+          },
+          {
+              "type": "inlineExtension",
+              "attrs": {
+                  "extensionType": "com.acme.editor",
+                  "extensionKey": "inline-eh",
+                  "parameters": {
+                      "macroParams": {},
+                      "macroMetadata": {
+                          "placeholder": [
+                              {
+                                  "data": {
+                                      "url": ""
+                                  },
+                                  "type": "icon"
+                              }
+                          ]
+                      }
+                  },
+                  "text": "Inline extension demo"
+              },
+              "marks": [
+                  {
+                      "type": "dataConsumer",
+                      "attrs": {
+                          "sources": "some-source-for-inline-as-non-array"
+                      }
+                  }
+              ]
+          },
+          {
+              "type": "text",
+              "text": " "
+          }
+      ]
+  }
+  ]
+}

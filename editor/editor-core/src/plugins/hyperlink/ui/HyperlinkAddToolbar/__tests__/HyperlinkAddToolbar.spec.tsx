@@ -41,7 +41,12 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import hyperlinkPlugin from '../../../index';
-import { a, doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  a,
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plugins/actions';
 import * as Commands from '../../../commands';
 interface SetupArgumentObject {
@@ -134,7 +139,7 @@ describe('HyperlinkLinkAddToolbar', () => {
     });
 
     const createEditor = createProsemirrorEditorFactory();
-    const editor = (doc: any) => {
+    const editor = (doc: DocBuilder) => {
       return createEditor({
         doc,
         preset: new Preset<LightEditorPlugin>().add(hyperlinkPlugin),

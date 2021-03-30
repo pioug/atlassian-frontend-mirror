@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 13.0.1
+
+### Patch Changes
+
+- [`d6b31d9713d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6b31d9713d) - Fixed uncaught exceptions when uploading MP4/HEVC
+
 ## 13.0.0
 
 ### Major Changes

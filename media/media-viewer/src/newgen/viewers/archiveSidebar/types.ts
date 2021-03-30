@@ -1,9 +1,10 @@
 import { MediaClient, FileState } from '@atlaskit/media-client';
+import { ArchiveViewerError } from '../../errors';
 
 export type ArchiveViewerProps = {
   item: FileState;
   mediaClient: MediaClient;
   collectionName?: string;
-  onError: (error: Error) => void;
+  onError: (error: ArchiveViewerError) => void;
   onSuccess: () => void;
 };

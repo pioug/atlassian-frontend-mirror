@@ -80,6 +80,7 @@ export type {
   BlockContent,
   BlockQuoteDefinition,
   BodiedExtensionDefinition,
+  BodiedExtensionWithMarksDefinition,
   BulletListDefinition,
   CaptionDefinition,
   CardAttributes,
@@ -99,6 +100,7 @@ export type {
   EmojiDefinition,
   ExpandDefinition,
   ExtensionDefinition,
+  ExtensionWithMarksDefinition,
   ExtensionLayout,
   ExternalMediaAttributes,
   HardBreakDefinition,
@@ -112,6 +114,7 @@ export type {
   InlineCardDefinition,
   InlineCode,
   InlineExtensionDefinition,
+  InlineExtensionWithMarksDefinition,
   InlineFormattedText,
   InlineLinkText,
   LayoutColumnDefinition,
@@ -168,8 +171,9 @@ export {
   breakout,
   code,
   colorPalette,
-  colorPaletteExperimental,
+  colorPaletteExtended,
   confluenceInlineComment,
+  dataConsumer,
   em,
   indentation,
   link,
@@ -207,6 +211,8 @@ export type {
   UnderlineDefinition,
   AnnotationId,
   AnnotationDataAttributes,
+  DataConsumerAttributes,
+  DataConsumerDefinition,
 } from './marks';
 export { unsupportedNodeTypesForMediaCards } from './unsupported';
 export { inlineNodes } from './inline-nodes';

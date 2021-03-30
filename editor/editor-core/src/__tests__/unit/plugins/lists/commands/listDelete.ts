@@ -1,11 +1,10 @@
-import { Schema } from 'prosemirror-model';
 import {
   doc,
   ul,
   li,
   p,
   code_block,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { deleteKeyCommand } from '../../../../../plugins/lists/commands';
@@ -18,7 +17,7 @@ describe('deleteKeyCommand', () => {
     doc,
     editorProps,
   }: {
-    doc: (schema: Schema) => RefsNode;
+    doc: DocBuilder;
     editorProps?: EditorProps;
   }) =>
     createEditor({

@@ -232,7 +232,7 @@ export interface HyperlinkState {
   inputMethod?: INPUT_METHOD;
 }
 
-export const stateKey = new PluginKey('hyperlinkPlugin');
+export const stateKey = new PluginKey<HyperlinkState>('hyperlinkPlugin');
 
 export const plugin = (dispatch: Dispatch) =>
   new Plugin({

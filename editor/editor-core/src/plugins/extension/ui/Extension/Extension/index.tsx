@@ -10,10 +10,7 @@ import {
 import { Wrapper, Header, Content, ContentWrapper } from './styles';
 import { Overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
-import {
-  pluginKey as widthPluginKey,
-  WidthPluginState,
-} from '../../../../width';
+import { pluginKey as widthPluginKey } from '../../../../width';
 import WithPluginState from '../../../../../ui/WithPluginState';
 
 export interface Props {
@@ -44,16 +41,12 @@ const Extension = (props: Props & OverflowShadowProps) => {
       plugins={{
         widthState: widthPluginKey,
       }}
-      render={({
-        widthState = { width: 0 },
-      }: {
-        widthState?: WidthPluginState;
-      }) => {
+      render={({ widthState = { width: 0 } }) => {
         return (
           <Wrapper
             innerRef={handleRef}
             data-layout={node.attrs.layout}
-            className={`extension-container ${shadowClassNames} ${
+            className={`extension-container block ${shadowClassNames} ${
               hasBody ? '' : 'with-overlay'
             }`}
             style={{
@@ -77,7 +70,7 @@ const Extension = (props: Props & OverflowShadowProps) => {
                 <ContentWrapper>
                   <Content
                     innerRef={handleContentDOMRef}
-                    className="extension-content"
+                    className="extension-content block"
                   />
                 </ContentWrapper>
               )}

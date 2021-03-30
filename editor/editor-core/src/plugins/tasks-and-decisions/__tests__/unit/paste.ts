@@ -1,6 +1,9 @@
-import { Schema } from 'prosemirror-model';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { doc, p, RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -99,7 +102,7 @@ const expectedResult = {
 describe('Tasks and decisions', () => {
   const editorFactory = createProsemirrorEditorFactory();
 
-  const createEditor = (doc: (schema: Schema) => RefsNode) =>
+  const createEditor = (doc: DocBuilder) =>
     editorFactory({
       doc,
       pluginKey,

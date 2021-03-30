@@ -114,6 +114,7 @@ const SAVE_ACTION = () => console.log('Save');
 
 const mediaFeatureFlags: MediaFeatureFlags = {
   ...exampleMediaFeatureFlags,
+  captions: true,
 };
 
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
@@ -227,7 +228,6 @@ export interface ExampleProps {
 }
 
 const smartCardClient = new SmartCardClient('staging');
-
 export class ExampleEditorComponent extends React.Component<
   EditorProps & ExampleProps,
   State
@@ -311,7 +311,7 @@ export class ExampleEditorComponent extends React.Component<
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
-                  EXPERIMENTAL_allowMoreTextColors: true,
+                  allowMoreTextColors: true,
                 }}
                 allowTables={{
                   advanced: true,
@@ -322,6 +322,7 @@ export class ExampleEditorComponent extends React.Component<
                 allowBreakout={true}
                 allowJiraIssue={true}
                 allowPanel
+                UNSAFE_allowDataConsumer
                 allowExtension={{
                   allowBreakout: true,
                 }}
@@ -479,6 +480,12 @@ export class ExampleEditorComponent extends React.Component<
                     trackSeverity: true,
                     severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
                     severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+                  },
+                  contentRetrievalTracking: {
+                    enabled: true,
+                    successSamplingRate: 2,
+                    failureSamplingRate: 1,
+                    reportErrorStack: true,
                   },
                 }}
                 {...this.props}

@@ -1,5 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { EditorActions, EventDispatcher } from '@atlaskit/editor-core';
 import WebBridgeImpl from '../../../native-to-web';
@@ -13,7 +17,7 @@ jest.mock('@atlaskit/editor-core', () => ({
 
 describe('usePluginListeners Hook', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const { editorView } = createEditor({
       doc,
     });

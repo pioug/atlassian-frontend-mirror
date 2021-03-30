@@ -8,6 +8,7 @@ import {
   p,
   hr,
   mention,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { undo } from 'prosemirror-history';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
@@ -32,7 +33,7 @@ describe('media-common', () => {
     mediaProvider,
   });
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

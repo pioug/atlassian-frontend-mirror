@@ -18,8 +18,9 @@ describe('Snapshot Test', () => {
       'basic',
       global.__BASEURL__,
     );
+    const calendarSelector = '[data-testid="calendar--container"]';
     await loadPage(page, url);
-    const image = await page.screenshot();
+    const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -30,8 +31,9 @@ describe('Snapshot Test', () => {
       'controlled',
       global.__BASEURL__,
     );
+    const calendarSelector = '[data-testid="test--container"]';
     await loadPage(page, url);
-    const image = await page.screenshot();
+    const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();
 
     const dateCellSelector = '[role=gridcell]';
@@ -39,17 +41,26 @@ describe('Snapshot Test', () => {
     const cells = await page.$$(dateCellSelector);
 
     await cells[15].hover();
-    const imageOnHoveringDiffDate = await page.screenshot();
+    const imageOnHoveringDiffDate = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnHoveringDiffDate).toMatchProdImageSnapshot();
 
     await page.mouse.down();
-    const imageOnMouseDown = await page.screenshot();
+    const imageOnMouseDown = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnMouseDown).toMatchProdImageSnapshot();
 
     await cells[15].click();
     const calenderHeadingSelector = '[data-testid="test--current-month-year"]';
     await page.hover(calenderHeadingSelector);
-    const imageOnSwitchingToDiffDate = await page.screenshot();
+    const imageOnSwitchingToDiffDate = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnSwitchingToDiffDate).toMatchProdImageSnapshot();
   });
 
@@ -60,8 +71,9 @@ describe('Snapshot Test', () => {
       'controlled',
       global.__BASEURL__,
     );
+    const calendarSelector = '[data-testid="test--container"]';
     await loadPage(page, url);
-    const image = await page.screenshot();
+    const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();
 
     const dateCellSelector = '[role=gridcell]';
@@ -69,17 +81,26 @@ describe('Snapshot Test', () => {
     const cells = await page.$$(dateCellSelector);
 
     await cells[1].hover();
-    const imageOnHoveringDiffDate = await page.screenshot();
+    const imageOnHoveringDiffDate = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnHoveringDiffDate).toMatchProdImageSnapshot();
 
     await page.mouse.down();
-    const imageOnMouseDown = await page.screenshot();
+    const imageOnMouseDown = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnMouseDown).toMatchProdImageSnapshot();
 
     await cells[1].click();
     const calenderHeadingSelector = '[data-testid="test--current-month-year"]';
     await page.hover(calenderHeadingSelector);
-    const imageOnSwitchingToDiffDate = await page.screenshot();
+    const imageOnSwitchingToDiffDate = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnSwitchingToDiffDate).toMatchProdImageSnapshot();
   });
 
@@ -90,8 +111,9 @@ describe('Snapshot Test', () => {
       'controlled',
       global.__BASEURL__,
     );
+    const calendarSelector = '[data-testid="test--container"]';
     await loadPage(page, url);
-    const image = await page.screenshot();
+    const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();
 
     const dateCellSelector = '[role=gridcell]';
@@ -99,17 +121,26 @@ describe('Snapshot Test', () => {
     const cells = await page.$$(dateCellSelector);
 
     await cells[17].hover();
-    const imageOnHoveringDiffDate = await page.screenshot();
+    const imageOnHoveringDiffDate = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnHoveringDiffDate).toMatchProdImageSnapshot();
 
     await page.mouse.down();
-    const imageOnMouseDown = await page.screenshot();
+    const imageOnMouseDown = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnMouseDown).toMatchProdImageSnapshot();
 
     await cells[17].click();
     const calenderHeadingSelector = '[data-testid="test--current-month-year"]';
     await page.hover(calenderHeadingSelector);
-    const imageOnSwitchingToDiffDate = await page.screenshot();
+    const imageOnSwitchingToDiffDate = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnSwitchingToDiffDate).toMatchProdImageSnapshot();
   });
 
@@ -120,20 +151,27 @@ describe('Snapshot Test', () => {
       'controlled',
       global.__BASEURL__,
     );
+    const calendarSelector = '[data-testid="test--container"]';
     await loadPage(page, url);
-    const image = await page.screenshot();
+    const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();
 
     const nextMonthButtonSelector = '[data-testid="test--next-month"]';
     await page.waitForSelector(nextMonthButtonSelector);
     await page.click(nextMonthButtonSelector);
-    const imageOnSwitchingToNextMonth = await page.screenshot();
+    const imageOnSwitchingToNextMonth = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnSwitchingToNextMonth).toMatchProdImageSnapshot();
 
     const prevMonthButtonSelector = '[data-testid="test--previous-month"]';
     await page.waitForSelector(prevMonthButtonSelector);
     await page.click(prevMonthButtonSelector);
-    const imageOnSwitchingBackToPrevMonth = await page.screenshot();
+    const imageOnSwitchingBackToPrevMonth = await takeElementScreenShot(
+      page,
+      calendarSelector,
+    );
     expect(imageOnSwitchingBackToPrevMonth).toMatchProdImageSnapshot();
   });
 
@@ -166,8 +204,9 @@ describe('Snapshot Test', () => {
       'theme',
       global.__BASEURL__,
     );
+    const calendarSelector = '[data-testid="calendar--container"]';
     await loadPage(page, url);
-    const image = await page.screenshot();
+    const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 

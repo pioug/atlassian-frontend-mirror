@@ -8,6 +8,7 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import TableView from '../../../../plugins/table/nodeviews/table';
 import {
@@ -20,7 +21,7 @@ import { EventDispatcher } from '../../../../event-dispatcher';
 describe('TableView', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,

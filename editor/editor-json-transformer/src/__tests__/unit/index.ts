@@ -18,6 +18,7 @@ import {
   code,
   code_block,
   doc,
+  DocBuilder,
   em,
   emoji,
   expand,
@@ -70,7 +71,7 @@ describe('JSONTransformer:', () => {
   });
 
   describe('encode', () => {
-    const editor = (doc: any) =>
+    const editor = (doc: DocBuilder) =>
       createEditor({
         doc,
         editorProps: {

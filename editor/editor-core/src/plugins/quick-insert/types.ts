@@ -32,6 +32,7 @@ export type QuickInsertPluginState = {
   provider?: QuickInsertProvider;
 };
 
+export type QuickInsertPluginStateKeys = keyof QuickInsertPluginState;
 export interface QuickInsertPluginOptions {
   headless?: boolean;
   disableDefaultItems?: boolean;

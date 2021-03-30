@@ -1,6 +1,9 @@
 import { EditorView } from 'prosemirror-view';
 import { Schema } from 'prosemirror-model';
-import { RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  RefsNode,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
@@ -47,7 +50,7 @@ describe('commands', () => {
     .add(textFormatting)
     .add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }]);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       pluginKey: inlineCommentPluginKey,

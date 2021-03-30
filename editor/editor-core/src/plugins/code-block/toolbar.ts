@@ -63,6 +63,7 @@ export const getToolbarConfig = (
   }));
 
   const languageSelect: FloatingToolbarSelect<Command> = {
+    id: 'editor.codeBlock.languageOptions',
     type: 'select',
     onChange: option => changeLanguage(option.value),
     defaultValue: options.find(option => option.value === language),
@@ -79,6 +80,7 @@ export const getToolbarConfig = (
     ? []
     : ([
         {
+          id: 'editor.codeBlock.copy',
           type: 'button',
           appearance: 'subtle',
           icon: CopyIcon,
@@ -96,6 +98,7 @@ export const getToolbarConfig = (
       ] as const);
 
   const deleteButton: FloatingToolbarButton<Command> = {
+    id: 'editor.codeBlock.delete',
     type: 'button',
     appearance: 'danger',
     icon: RemoveIcon,

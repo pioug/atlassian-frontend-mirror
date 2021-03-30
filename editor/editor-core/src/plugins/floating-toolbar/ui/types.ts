@@ -6,6 +6,7 @@ export interface RenderOptionsPropsT<T> {
 }
 
 export interface DropdownOptionT<T> {
+  id?: string;
   title: string;
   onClick: T;
   selected?: boolean;

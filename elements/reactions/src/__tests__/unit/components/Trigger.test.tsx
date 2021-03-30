@@ -1,4 +1,4 @@
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { Trigger } from '../../../components/Trigger';

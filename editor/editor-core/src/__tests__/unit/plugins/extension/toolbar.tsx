@@ -3,7 +3,11 @@ import { IntlProvider } from 'react-intl';
 import { NodeSelection } from 'prosemirror-state';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, extension } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  extension,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import {
@@ -30,7 +34,7 @@ describe('extension toolbar', () => {
   });
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     props: Partial<EditorProps> = {},
     providerFactory?: ProviderFactory,
   ) => {

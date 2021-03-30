@@ -1,8 +1,6 @@
 import { DecorationSet } from 'prosemirror-view';
 import { PluginKey } from 'prosemirror-state';
 
-export const findReplacePluginKey = new PluginKey('findReplace');
-
 export interface FindReplacePluginState {
   /** Whether find/replace is active, i.e. displayed */
   isActive: boolean;
@@ -24,6 +22,10 @@ export interface FindReplacePluginState {
   /** Whether find/replace should match case when searching for results */
   shouldMatchCase: boolean;
 }
+
+export const findReplacePluginKey = new PluginKey<FindReplacePluginState>(
+  'findReplace',
+);
 
 export type Match = {
   /** Start position */

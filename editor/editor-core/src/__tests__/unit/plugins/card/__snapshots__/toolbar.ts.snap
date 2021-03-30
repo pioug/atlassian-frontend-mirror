@@ -53,6 +53,7 @@ Array [
   },
   Object {
     "icon": [Function],
+    "id": "editor.media.alignLeft",
     "onClick": [Function],
     "selected": false,
     "title": "Align left",
@@ -60,6 +61,7 @@ Array [
   },
   Object {
     "icon": [Function],
+    "id": "editor.media.alignCenter",
     "onClick": [Function],
     "selected": true,
     "title": "Align center",
@@ -67,6 +69,7 @@ Array [
   },
   Object {
     "icon": [Function],
+    "id": "editor.media.alignRight",
     "onClick": [Function],
     "selected": false,
     "title": "Align right",
@@ -77,6 +80,7 @@ Array [
   },
   Object {
     "icon": [Function],
+    "id": "editor.media.wrapLeft",
     "onClick": [Function],
     "selected": false,
     "title": "Wrap left",
@@ -84,6 +88,7 @@ Array [
   },
   Object {
     "icon": [Function],
+    "id": "editor.media.wrapRight",
     "onClick": [Function],
     "selected": false,
     "title": "Wrap right",

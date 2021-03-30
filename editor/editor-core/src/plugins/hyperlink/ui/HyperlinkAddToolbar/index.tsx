@@ -49,7 +49,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<
                 onSubmit={onSubmit}
                 displayText={displayText}
                 displayUrl={displayUrl}
-                pluginState={hyperlinkPluginState}
+                pluginState={hyperlinkPluginState!}
                 view={view}
               />
             )}

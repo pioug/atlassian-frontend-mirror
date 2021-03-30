@@ -40,6 +40,7 @@ import {
 import { PDFRenderer } from '../../../../../newgen/viewers/doc/pdfRenderer';
 import ArchiveSidebarRenderer from '../../../../../newgen/viewers/archiveSidebar/archive-sidebar-renderer';
 import ErrorMessage from '../../../../../newgen/errorMessage';
+import { ArchiveViewerError } from '../../../../../newgen/errors';
 import { Spinner } from '../../../../../newgen/loading';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../newgen/viewers/archiveSidebar/consts';
 import { createZipEntryLoadSucceededEvent } from '../../../../../newgen/analytics/events/operational/zipEntryLoadSucceeded';
@@ -235,12 +236,14 @@ describe('Archive', () => {
     const onErrorMock = jest.fn();
     const el = mountComponent({ onError: onErrorMock });
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
-    archiveSidebarRenderer.prop('onError')(new Error());
+    archiveSidebarRenderer.prop('onError')(
+      new ArchiveViewerError('archiveviewer-read-binary'),
+    );
     expect(onErrorMock).toBeCalledTimes(1);
   });
   it('onError should set the state as errored', async () => {
     const onErrorMock = jest.fn();
-    const error = new Error();
+    const error = new ArchiveViewerError('archiveviewer-create-url');
     const el = mountComponent({ onError: onErrorMock });
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
     archiveSidebarRenderer.prop('onError')(error);

@@ -34,7 +34,7 @@ const undoRedoPlugin = (): EditorPlugin => ({
             <ToolbarUndoRedo
               isReducedSpacing={isToolbarReducedSpacing}
               disabled={disabled}
-              historyState={historyState}
+              historyState={historyState!}
               editorView={editorView}
             />
           );

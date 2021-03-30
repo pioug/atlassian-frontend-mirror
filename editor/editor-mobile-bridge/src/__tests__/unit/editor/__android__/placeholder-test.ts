@@ -1,4 +1,8 @@
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
@@ -9,7 +13,7 @@ import { EditorViewWithComposition } from '../../../../types';
 describe('placeholder on mobile', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any): EditorViewWithComposition => {
+  const editor = (doc: DocBuilder): EditorViewWithComposition => {
     const { editorView } = createEditor({
       doc,
       editorProps: {

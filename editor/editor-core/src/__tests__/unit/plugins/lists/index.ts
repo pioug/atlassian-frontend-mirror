@@ -21,6 +21,7 @@ import {
   table,
   tr,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -42,7 +43,7 @@ describe('lists', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
@@ -107,7 +108,7 @@ describe('lists', () => {
     });
 
     describe('when hit Backspace', () => {
-      const backspaceCheck = (beforeDoc: any, afterDoc: any) => {
+      const backspaceCheck = (beforeDoc: DocBuilder, afterDoc: DocBuilder) => {
         const { editorView } = editor(beforeDoc);
         sendKeyToPm(editorView, 'Backspace');
 

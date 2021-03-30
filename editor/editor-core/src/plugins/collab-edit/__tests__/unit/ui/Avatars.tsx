@@ -3,7 +3,11 @@ import { EditorView } from 'prosemirror-view';
 import { PluginKey } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   createProsemirrorEditorFactory,
@@ -28,7 +32,7 @@ describe('collab-edit | Avatars', () => {
     mentionProvider: new Promise(() => {}),
   });
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<PluginState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()

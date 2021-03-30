@@ -10,27 +10,21 @@ import {
 } from '@atlaskit/adf-schema';
 
 import { EditorPlugin } from '../../types';
-import { ButtonGroup } from '../../ui/styles';
 import WithPluginState from '../../ui/WithPluginState';
 
-import {
-  plugin as clearFormattingPlugin,
-  pluginKey as clearFormattingPluginKey,
-} from './pm-plugins/clear-formatting';
-import clearFormattingKeymapPlugin from './pm-plugins/clear-formatting-keymap';
-import textFormattingCursorPlugin from './pm-plugins/cursor';
-import textFormattingInputRulePlugin from './pm-plugins/input-rule';
-import keymapPlugin from './pm-plugins/keymap';
 import {
   plugin as textFormattingPlugin,
   pluginKey as textFormattingPluginKey,
 } from './pm-plugins/main';
+
+import { plugin as clearFormattingPlugin } from './pm-plugins/clear-formatting';
+import clearFormattingKeymapPlugin from './pm-plugins/clear-formatting-keymap';
+import textFormattingCursorPlugin from './pm-plugins/cursor';
+import textFormattingInputRulePlugin from './pm-plugins/input-rule';
+import keymapPlugin from './pm-plugins/keymap';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import { TextFormattingOptions } from './types';
-import ToolbarAdvancedTextFormatting from './ui/ToolbarAdvancedTextFormatting';
-import ToolbarTextFormatting from './ui/ToolbarTextFormatting';
-import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
-import { pluginKey as widthPluginKey } from '../../plugins/width/index';
+import Toolbar from './ui/Toolbar';
 
 const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
   name: 'textFormatting',
@@ -93,41 +87,26 @@ const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
     popupsMountPoint,
     popupsScrollableElement,
     isToolbarReducedSpacing,
+    toolbarSize,
     disabled,
   }) {
     return (
       <WithPluginState
-        plugins={{
-          textFormattingState: textFormattingPluginKey,
-          clearFormattingState: clearFormattingPluginKey,
-          widthState: widthPluginKey,
-        }}
-        render={({
-          textFormattingState,
-          clearFormattingState,
-          widthState,
-        }): any => {
+        plugins={{ textFormattingState: textFormattingPluginKey }}
+        render={() => {
           return (
-            <ButtonGroup width={isToolbarReducedSpacing ? 'small' : 'large'}>
-              {/* render toolbar buttons for non-mobile views */}
-              {widthState.width > akEditorMobileMaxWidth && (
-                <ToolbarTextFormatting
-                  disabled={disabled}
-                  editorView={editorView}
-                  textFormattingState={textFormattingState}
-                  isReducedSpacing={isToolbarReducedSpacing}
-                />
+            <Toolbar
+              editorState={editorView.state}
+              popupsMountPoint={popupsMountPoint}
+              popupsScrollableElement={popupsScrollableElement}
+              toolbarSize={toolbarSize}
+              isReducedSpacing={isToolbarReducedSpacing}
+              editorView={editorView}
+              isToolbarDisabled={disabled}
+              shouldUseResponsiveToolbar={Boolean(
+                options.responsiveToolbarMenu,
               )}
-              <ToolbarAdvancedTextFormatting
-                editorView={editorView}
-                isDisabled={disabled}
-                isReducedSpacing={isToolbarReducedSpacing}
-                textFormattingState={textFormattingState}
-                clearFormattingState={clearFormattingState}
-                popupsMountPoint={popupsMountPoint}
-                popupsScrollableElement={popupsScrollableElement}
-              />
-            </ButtonGroup>
+            />
           );
         }}
       />

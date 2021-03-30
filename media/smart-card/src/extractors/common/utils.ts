@@ -42,7 +42,7 @@ export const extractPersonFromJsonLd = (
     if (person.name) {
       return {
         name: person.name,
-        icon: person.icon && extractUrlFromIconJsonLd(person.icon),
+        src: person.icon && extractUrlFromIconJsonLd(person.icon),
       };
     }
   }

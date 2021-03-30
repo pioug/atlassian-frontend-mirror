@@ -9,7 +9,11 @@ export default () => (
     extensionProviders={editorActions => [
       getExampleExtensionProviders(editorActions),
     ]}
-    allowExtension={{ allowAutoSave: true, allowLocalIdGeneration: true }}
+    allowExtension={{
+      allowAutoSave: true,
+      allowLocalIdGeneration: true,
+      allowExtendFloatingToolbars: true,
+    }}
     elementBrowser={{
       showModal: true,
       replacePlusMenu: true,

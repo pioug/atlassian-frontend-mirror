@@ -47,7 +47,13 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
   };
 
   private updatePopupPlacement = (placement: [string, string]) => {
-    this.setState({ popupPlacement: placement });
+    const { popupPlacement: previousPlacement } = this.state;
+    if (
+      placement[0] !== previousPlacement[0] ||
+      placement[1] !== previousPlacement[1]
+    ) {
+      this.setState({ popupPlacement: placement });
+    }
   };
 
   private handleClose = () => {
@@ -75,6 +81,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
           onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
           onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
           className={item.className}
+          aria-label={String(item.content)}
         >
           <ItemContentWrapper hasElemBefore={!!item.elemBefore}>
             {item.content}

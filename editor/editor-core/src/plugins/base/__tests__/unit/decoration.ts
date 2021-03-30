@@ -5,6 +5,7 @@ import {
   layoutColumn,
   p,
   mention,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -24,7 +25,7 @@ import mentionsPlugin from '../../../mentions';
 describe('decoration', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

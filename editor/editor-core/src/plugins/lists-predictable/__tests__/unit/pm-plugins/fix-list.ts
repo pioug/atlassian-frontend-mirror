@@ -10,22 +10,22 @@ import {
   ul,
   li,
   doc,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { DocumentType } from '@atlaskit/editor-test-helpers/create-editor-state';
 import listPlugin from '../../..';
 import panelPlugin from '../../../../panel';
 import { pluginKey as listPluginKey } from '../../../pm-plugins/main';
 
 describe('fix-invalid-list-children', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocumentType) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(listPlugin).add(panelPlugin),
       pluginKey: listPluginKey,
     });
 
-  const case0: [string, DocumentType, DocumentType] = [
+  const case0: [string, DocBuilder, DocBuilder] = [
     'should join two sibling lists',
     // Scenario
     // prettier-ignore
@@ -53,7 +53,7 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
-  const case1: [string, DocumentType, DocumentType] = [
+  const case1: [string, DocBuilder, DocBuilder] = [
     'lol1',
     // Scenario
     // prettier-ignore
@@ -75,7 +75,7 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
-  const case2: [string, DocumentType, DocumentType] = [
+  const case2: [string, DocBuilder, DocBuilder] = [
     'should not join two sibling lists of different types when it is not nested',
     // Scenario
     // prettier-ignore
@@ -99,7 +99,7 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
-  const case3: [string, DocumentType, DocumentType] = [
+  const case3: [string, DocBuilder, DocBuilder] = [
     'should not join two sibling lists of different types when it is nested inside of a panel',
     // Scenario
     // prettier-ignore
@@ -127,7 +127,7 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
-  const case4: [string, DocumentType, DocumentType] = [
+  const case4: [string, DocBuilder, DocBuilder] = [
     'should join two sibling lists of same type when it is nested inside of a panel',
     // Scenario
     // prettier-ignore
@@ -153,7 +153,7 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
-  const case5: [string, DocumentType, DocumentType] = [
+  const case5: [string, DocBuilder, DocBuilder] = [
     'with selection outside of the list - should not join lists',
     // Scenario
     // prettier-ignore
@@ -181,7 +181,7 @@ describe('fix-invalid-list-children', () => {
     ),
   ];
 
-  describe.each<[string, DocumentType, DocumentType]>([
+  describe.each<[string, DocBuilder, DocBuilder]>([
     // prettier-ignore
     case0,
     case1,

@@ -50,4 +50,6 @@ export interface EditorAppearanceComponentProps {
   allowDynamicTextSizing?: boolean;
   allowAnnotation?: boolean;
   persistScrollGutter?: boolean;
+
+  enableToolbarMinWidth?: boolean;
 }

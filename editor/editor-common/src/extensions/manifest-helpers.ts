@@ -1,7 +1,6 @@
 import { ADFEntity } from '@atlaskit/adf-utils';
 
 import {
-  ESModule,
   ExtensionKey,
   ExtensionManifest,
   ExtensionModuleAction,
@@ -10,6 +9,7 @@ import {
   ExtensionType,
   Module,
 } from './types/extension-manifest';
+import { ESModule } from './types/extension-manifest-common';
 
 export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 

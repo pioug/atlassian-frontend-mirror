@@ -226,6 +226,33 @@ describe('UploadService', () => {
       expect(callback).toHaveBeenCalledWith(expectedPayload);
     });
 
+    it('should emit empty file-preview-update if getPreviewFromBlob() fails', done => {
+      const { uploadService } = setup();
+      const file = { size: 100, name: 'some-filename', type: 'video/mp4' };
+
+      uploadService.on('file-preview-update', payload => {
+        expect(payload).toMatchObject({
+          file: {
+            creationDate: expect.any(Number),
+            id: expect.any(String),
+            name: 'some-filename',
+            size: 100,
+            type: 'video/mp4',
+            occurrenceKey: expect.any(String),
+          },
+          preview: {},
+        });
+        done();
+      });
+
+      (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
+        Promise.reject(new Error('Something went wrong')),
+      );
+
+      uploadService.addFiles([file as File]);
+      expect.assertions(1);
+    });
+
     it('should use getPreviewFromBlob for non-image files when emitting preview', async () => {
       const { uploadService, filesAddedPromise } = setup();
       const file = { size: 100, name: 'some-filename', type: 'video/mp4' };

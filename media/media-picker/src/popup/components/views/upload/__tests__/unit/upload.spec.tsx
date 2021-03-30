@@ -298,6 +298,9 @@ describe('<StatelessUploadView />', () => {
 
     it('should delete requested item when confirmation clicked', async () => {
       const component = await setupAndClickDelete();
+      // we need to call .setProps to re render React tree
+      // See https://github.com/enzymejs/enzyme/issues/2042 and https://github.com/enzymejs/enzyme/issues/2169
+      component.setProps({});
       const confirmButton = component.find(ModalDialog).find(Button).at(0);
       confirmButton.simulate('click');
       component.update();
@@ -308,6 +311,7 @@ describe('<StatelessUploadView />', () => {
 
     it('should close dialog without deleting file when cancel clicked', async () => {
       const component = await setupAndClickDelete();
+      component.setProps({});
       const confirmButton = component.find(ModalDialog).find(Button).at(1);
       confirmButton.simulate('click');
       component.update();
@@ -366,6 +370,7 @@ describe('<StatelessUploadView />', () => {
 
     it('should delete requested item when confirmation clicked', async () => {
       const component = await setupAndClickDelete();
+      component.setProps({});
       const confirmButton = component.find(ModalDialog).find(Button).at(0);
       confirmButton.simulate('click');
       component.update();

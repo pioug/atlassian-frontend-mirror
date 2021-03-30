@@ -10,6 +10,7 @@ import {
   p,
   taskItem,
   taskList,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm, {
@@ -38,7 +39,7 @@ describe('tasks and decisions - keymaps', () => {
     uuid.setStatic(false);
   });
 
-  const editorFactory = (doc: any) => {
+  const editorFactory = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,

@@ -1,5 +1,12 @@
+jest.mock('../../../newgen/analytics', () => {
+  const actualModule = jest.requireActual('../../../newgen/analytics');
+  return {
+    ...actualModule,
+    fireAnalytics: jest.fn(),
+  };
+});
+import { fireAnalytics } from '../../../newgen/analytics';
 import * as mocks from './item-viewer.mock';
-
 import React from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import Spinner from '@atlaskit/spinner';
@@ -452,36 +459,11 @@ describe('<ItemViewer />', () => {
   });
 
   describe('Analytics', () => {
-    it('should trigger commenced event when the viewer mounts', () => {
-      const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
-          id: identifier.id,
-          mediaType: 'unknown',
-          status: 'processed',
-          artifacts: {},
-          name: '',
-          size: 10,
-          mimeType: '',
-          representations: { image: {} },
-        }),
-      );
-      const { createAnalyticsEventSpy } = mountBaseComponent(
-        mediaClient,
-        identifier,
-      );
-      expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
-        action: 'commenced',
-        actionSubject: 'mediaFile',
-        attributes: {
-          fileAttributes: {
-            fileId: 'some-id',
-          },
-        },
-        eventType: 'operational',
-      });
+    beforeEach(() => {
+      asMock(fireAnalytics).mockReset();
     });
 
-    it('should trigger success event when the viewer loads successfully', async () => {
+    it('should trigger commence event when the viewer mounts', () => {
       const mediaClient = makeFakeMediaClient(
         createFileStateSubject({
           status: 'processed',
@@ -494,21 +476,114 @@ describe('<ItemViewer />', () => {
           representations: { image: {} },
         }),
       );
-      const { createAnalyticsEventSpy } = mountBaseComponent(
-        mediaClient,
-        identifier,
+      const { el } = mountComponent(mediaClient, identifier);
+      el.update();
+
+      expect(asMock(fireAnalytics).mock.calls[0][0]).toEqual({
+        action: 'commenced',
+        actionSubject: 'mediaFile',
+        attributes: {
+          fileAttributes: {
+            fileId: 'some-id',
+          },
+        },
+        eventType: 'operational',
+      });
+    });
+
+    it('should fire load success when external image loads', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'image',
+        status: 'processed',
+        artifacts: {},
+        name: '',
+        size: 10,
+        mimeType: '',
+        representations: { image: {} },
+      };
+      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const { el } = mountComponent(mediaClient, externalImageIdentifier);
+      el.update();
+
+      el.find(InteractiveImg).prop('onLoad')();
+
+      expect(asMock(fireAnalytics).mock.calls[0][0]).toEqual({
+        action: 'loadSucceeded',
+        actionSubject: 'mediaFile',
+        attributes: {
+          status: 'success',
+          fileAttributes: {
+            fileId: 'external-image',
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileSize: undefined,
+          },
+        },
+        eventType: 'operational',
+      });
+    });
+
+    it('should fire load fail when external image errors', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'image',
+        status: 'processed',
+        artifacts: {},
+        name: '',
+        size: 10,
+        mimeType: '',
+        representations: { image: {} },
+      };
+      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const { el } = mountComponent(mediaClient, externalImageIdentifier);
+      el.update();
+
+      el.find(InteractiveImg).prop('onError')();
+
+      expect(asMock(fireAnalytics).mock.calls[0][0]).toEqual({
+        action: 'loadFailed',
+        actionSubject: 'mediaFile',
+        attributes: {
+          failReason: 'imageviewer-external-onerror',
+          errorDetail: undefined,
+          status: 'fail',
+          fileAttributes: {
+            fileId: 'undefined',
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileSize: undefined,
+          },
+        },
+        eventType: 'operational',
+      });
+    });
+
+    it('should trigger success event when the viewer loads successfully', () => {
+      const mediaClient = makeFakeMediaClient(
+        createFileStateSubject({
+          status: 'processed',
+          id: identifier.id,
+          name: 'file-name',
+          size: 10,
+          artifacts: {},
+          mediaType: 'image',
+          mimeType: 'image/png',
+          representations: { image: {} },
+        }),
       );
-      await nextTick();
-      expect(createAnalyticsEventSpy).toHaveBeenCalledTimes(2);
-      expect(createAnalyticsEventSpy.mock.calls[1][0]).toEqual({
+      const { el } = mountComponent(mediaClient, identifier);
+      el.update();
+
+      expect(asMock(fireAnalytics).mock.calls[1][0]).toEqual({
         action: 'loadSucceeded',
         actionSubject: 'mediaFile',
         attributes: {
           fileAttributes: {
-            fileId: identifier.id,
+            fileId: 'some-id',
             fileMediatype: 'image',
-            fileSize: 10,
             fileMimetype: 'image/png',
+            fileSize: 10,
           },
           status: 'success',
         },
@@ -518,7 +593,7 @@ describe('<ItemViewer />', () => {
 
     it('should show error when metadata fetching ended with an error', () => {
       const subject = createFileStateSubject();
-      const errorReason: MediaViewerErrorReason = 'imageviewer-onerror';
+      const errorReason: MediaViewerErrorReason = 'itemviewer-fetch-metadata';
       subject.error(new MediaViewerError(errorReason));
       const mediaClient = makeFakeMediaClient(subject);
       const { el } = mountBaseComponent(mediaClient, identifier);

@@ -17,7 +17,7 @@ export interface ArchiveSidebarRendererProps {
   onHeaderClicked: () => void;
   isArchiveEntryLoading: boolean;
   collectionName?: string;
-  onError: (error: Error, entry?: ZipEntry) => void;
+  onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
   onSuccess: () => void;
 }
 

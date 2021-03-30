@@ -1,6 +1,9 @@
 import { EditorView } from 'prosemirror-view';
-import { Schema } from 'prosemirror-model';
-import { doc, p, RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -87,7 +90,7 @@ describe('collab-edit: plugin-state', () => {
 
   it('decorationSet should be updated correctly', () => {
     const document = doc(p('th{<>}is is a document'));
-    const editor = (document: (schema: Schema) => RefsNode) =>
+    const editor = (document: DocBuilder) =>
       createEditor({
         doc: document,
         preset: collabPreset,

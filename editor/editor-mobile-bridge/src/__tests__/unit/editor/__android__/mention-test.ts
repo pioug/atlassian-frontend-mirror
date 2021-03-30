@@ -9,6 +9,7 @@ import {
   doc,
   p,
   typeAheadQuery,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
@@ -26,7 +27,7 @@ describe('mentions on mobile', () => {
   );
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
   ): {
     editorView: EditorViewWithComposition;
     plugin: any;

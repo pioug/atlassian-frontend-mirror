@@ -5,7 +5,11 @@ import type { ThemeModes } from '@atlaskit/theme/types';
 // These values are enforced via unit tests
 const DN30 = '#1B2638';
 const N0 = '#FFFFFF';
-
 const themedBackground = { light: N0, dark: DN30 } as const;
+
+/**
+ * Returns the background color depending on the passed through mode.
+ * @param mode
+ */
 export const getBackground = (mode: ThemeModes = 'light') =>
   themedBackground[mode];

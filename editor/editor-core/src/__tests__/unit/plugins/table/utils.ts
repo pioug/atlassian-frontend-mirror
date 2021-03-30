@@ -7,6 +7,7 @@ import {
   td,
   tdCursor,
   tdEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   getColumnsWidths,
@@ -25,7 +26,7 @@ import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 describe('table plugin: utils', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

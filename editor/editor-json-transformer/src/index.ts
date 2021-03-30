@@ -54,6 +54,7 @@ const isExpand = isType('expand');
 const isNestedExpand = isType('nestedExpand');
 const isUnsupportedNode = (node: PMNode) =>
   isType('unsupportedBlock')(node) || isType('unsupportedInline')(node);
+const isDataConsumer = isType('dataConsumer');
 
 const filterNull = (subject: any) => {
   return Object.keys(subject).reduce((acc, key) => {
@@ -151,6 +152,10 @@ const toJSON = (node: PMNode): JSONNode => {
       }
       if (isLinkMark(mark)) {
         acc.push(linkToJSON(mark));
+        return acc;
+      }
+      if (isDataConsumer(mark) && mark.attrs.sources?.length === 0) {
+        // Remove intemediary state if we don't have any sources on data consumer
         return acc;
       }
       acc.push(mark.toJSON());

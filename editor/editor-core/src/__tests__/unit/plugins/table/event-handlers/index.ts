@@ -5,6 +5,7 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { whenTableInFocus } from '../../../../../plugins/table/event-handlers';
@@ -18,7 +19,7 @@ describe('event-handlers', () => {
     describe('when allowColumnResizing is false', () => {
       beforeEach(() => {
         const createEditor = createEditorFactory<TablePluginState>();
-        editor = (doc: any) =>
+        editor = (doc: DocBuilder) =>
           createEditor({
             doc,
             editorProps: {
@@ -47,7 +48,7 @@ describe('event-handlers', () => {
     describe('when allowColumnResizing is true', () => {
       beforeEach(() => {
         const createEditor = createEditorFactory<TablePluginState>();
-        editor = (doc: any) =>
+        editor = (doc: DocBuilder) =>
           createEditor({
             doc,
             editorProps: {

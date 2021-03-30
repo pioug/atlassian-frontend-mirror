@@ -14,6 +14,7 @@ import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
 import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadButtonWrapper } from './styled';
+import { MediaViewerError } from './errors';
 
 const downloadIcon = <DownloadIcon label="Download" />;
 
@@ -58,7 +59,7 @@ export const createItemDownloader = (
 export type ErrorViewDownloadButtonProps = {
   fileState: FileState;
   mediaClient: MediaClient;
-  error: Error;
+  error: MediaViewerError;
   collectionName?: string;
 };
 

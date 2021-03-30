@@ -1,6 +1,11 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  panel,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -12,7 +17,7 @@ describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: any, providerFactory?: any) => {
+  const editor = (doc: DocBuilder, providerFactory?: any) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,

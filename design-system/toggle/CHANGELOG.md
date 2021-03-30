@@ -1,5 +1,12 @@
 # @atlaskit/toggle
 
+## 12.0.5
+
+### Patch Changes
+
+- [`7116601e1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7116601e1b2) - Internal typing refactored to be readable by extract-react-types.
+- Updated dependencies
+
 ## 12.0.4
 
 ### Patch Changes

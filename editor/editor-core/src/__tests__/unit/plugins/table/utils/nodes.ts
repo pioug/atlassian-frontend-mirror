@@ -9,6 +9,7 @@ import {
   tdEmpty,
   tdCursor,
   thEmpty,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { containsHeaderColumn } from '../../../../../plugins/table/utils/nodes';
@@ -17,7 +18,7 @@ import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factor
 describe('table merging logic', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: { allowTables: true },

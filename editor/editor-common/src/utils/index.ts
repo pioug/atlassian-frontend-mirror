@@ -18,6 +18,7 @@ export {
 export type {
   ADDoc,
   ADFStage,
+  ADFStages,
   ADMark,
   ADMarkSimple,
   ADNode,

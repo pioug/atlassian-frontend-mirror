@@ -28,10 +28,7 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     moreTextColors:
       typeof props.allowTextColor === 'boolean'
         ? false
-        : Boolean(
-            props.allowTextColor &&
-              props.allowTextColor.EXPERIMENTAL_allowMoreTextColors === true,
-          ),
+        : Boolean(props.allowTextColor?.allowMoreTextColors === true),
 
     findReplace: !!props.allowFindReplace,
 
@@ -88,5 +85,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.tableRenderOptimization
         : typeof props.allowTables === 'object' &&
           !!props.allowTables?.tableRenderOptimization,
+
+    extendFloatingToolbar: Boolean(
+      typeof props.allowExtension === 'object' &&
+        props.allowExtension?.allowExtendFloatingToolbars,
+    ),
   };
 }

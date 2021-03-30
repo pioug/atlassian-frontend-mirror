@@ -29,6 +29,16 @@ describe('Tooltip', () => {
     expect(queryByTestId('tooltip')).toBeNull();
   });
 
+  it('should get tooltip by role', () => {
+    const { getByRole } = render(
+      <Tooltip testId="tooltip" content="hello world">
+        <button data-testid="trigger">focus me</button>
+      </Tooltip>,
+    );
+
+    expect(getByRole('presentation')).not.toBeNull();
+  });
+
   it('should be visible when trigger is hovered', () => {
     const onShow = jest.fn();
     const { getByTestId } = render(

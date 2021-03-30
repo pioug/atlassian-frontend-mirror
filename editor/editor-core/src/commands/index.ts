@@ -187,24 +187,33 @@ function topLevelNodeIsEmptyTextBlock(state: EditorState): boolean {
   );
 }
 
+export function addParagraphAtEnd(tr: Transaction) {
+  const {
+    doc: {
+      type: {
+        schema: {
+          nodes: { paragraph },
+        },
+      },
+    },
+    doc,
+  } = tr;
+  if (
+    doc.lastChild &&
+    !(doc.lastChild.type === paragraph && doc.lastChild.content.size === 0)
+  ) {
+    if (paragraph) {
+      tr.insert(doc.content.size, paragraph.createAndFill() as PMNode);
+    }
+  }
+  tr.setSelection(TextSelection.create(tr.doc, tr.doc.content.size - 1));
+  tr.scrollIntoView();
+}
+
 export function createParagraphAtEnd(): Command {
   return function (state, dispatch) {
-    const {
-      doc,
-      tr,
-      schema: { nodes },
-    } = state;
-    if (
-      doc.lastChild &&
-      !(
-        doc.lastChild.type === nodes.paragraph &&
-        doc.lastChild.content.size === 0
-      )
-    ) {
-      tr.insert(doc.content.size, nodes.paragraph.createAndFill() as PMNode);
-    }
-    tr.setSelection(TextSelection.create(tr.doc, tr.doc.content.size - 1));
-    tr.scrollIntoView();
+    const { tr } = state;
+    addParagraphAtEnd(tr);
     if (dispatch) {
       dispatch(tr);
     }

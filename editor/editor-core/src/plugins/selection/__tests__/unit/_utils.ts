@@ -7,6 +7,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
 
 import panelPlugin from '../../../panel';
 import layoutPlugin from '../../../layout';
@@ -23,7 +24,7 @@ const preset = new Preset<LightEditorPlugin>()
   .add(tasksDecisionsPlugin)
   .add(panelPlugin);
 
-export const editor = (doc: any) =>
+export const editor = (doc: DocBuilder) =>
   createEditor<SelectionPluginState, PluginKey>({
     doc,
     preset,

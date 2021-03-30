@@ -1,5 +1,11 @@
 # @atlaskit/util-service-support
 
+## 6.0.4
+
+### Patch Changes
+
+- [`0241ccdf088`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0241ccdf088) - Accept paths which already have a leading slash.
+
 ## 6.0.3
 
 ### Patch Changes

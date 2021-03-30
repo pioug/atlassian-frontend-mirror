@@ -13,11 +13,7 @@ export type { LinkAttributes, LinkDefinition } from './link';
 export { typeAheadQuery } from './type-ahead-query';
 export { subsup } from './subsup';
 export type { SubSupDefinition, SubSupAttributes } from './subsup';
-export {
-  textColor,
-  colorPalette,
-  colorPaletteExperimental,
-} from './text-color';
+export { textColor, colorPalette, colorPaletteExtended } from './text-color';
 export type { TextColorDefinition, TextColorAttributes } from './text-color';
 export { confluenceInlineComment } from './confluence-inline-comment';
 export { breakout } from './breakout';
@@ -45,3 +41,10 @@ export type {
 export { unsupportedMark } from './unsupported-mark';
 
 export { unsupportedNodeAttribute } from './unsupported-node-attributes';
+
+export type {
+  DataConsumerAttributes,
+  DataConsumerDefinition,
+} from './data-consumer';
+
+export { dataConsumer } from './data-consumer';

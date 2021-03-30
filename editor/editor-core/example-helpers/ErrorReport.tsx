@@ -27,14 +27,23 @@ const StyledReportEntry = styled.div`
 
 const ReportEntry = ({ error }: { error: Error }) => (
   <StyledReportEntry>
-    <h4>{error.error.message}</h4>
-    <code>
-      <pre>{JSON.stringify(error.entity, null, 2)}</pre>
-    </code>
-    {error.error.meta && (
+    {error.error ? (
       <>
-        <p>Meta: </p>
-        <pre>{JSON.stringify(error.error.meta)}</pre>
+        <h4>{error.error.message}</h4>
+        <code>
+          <pre>{JSON.stringify(error.entity, null, 2)}</pre>
+        </code>
+        {error.error.meta && (
+          <>
+            <p>Meta: </p>
+            <pre>{JSON.stringify(error.error.meta)}</pre>
+          </>
+        )}
+      </>
+    ) : (
+      <>
+        <h4>Empty error?</h4>
+        <pre>{JSON.stringify(error)}</pre>
       </>
     )}
   </StyledReportEntry>

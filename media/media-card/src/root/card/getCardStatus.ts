@@ -1,52 +1,41 @@
-import { FileState } from '@atlaskit/media-client';
-import { getMediaFeatureFlag, MediaFeatureFlags } from '@atlaskit/media-common';
-import { CardState, CardProps, CardStatus } from '../../';
-import { shouldShowProcessingProgress } from '../../utils/processingProgress';
+import { FileStatus } from '@atlaskit/media-client';
+import { CardStatus } from '../../';
 
-// we don't want to show complete status for empty files, ideally there should be no such file on the media api,
-// but there are some edge cases when using id upfront that can result on that.
-export const getCardStatus = (
-  state: CardState,
-  props: CardProps,
-): CardStatus => {
-  const { status, metadata, error } = state;
-  const { identifier } = props;
-
-  if (error) {
-    return 'error';
-  }
-
-  if (identifier.mediaItemType !== 'file') {
-    return status;
-  }
-
-  if (status === 'complete' && !!metadata && !metadata.size) {
-    return 'processing';
-  }
-
-  return status;
+export type GetCardStatusParams = {
+  isPreviewableType: boolean;
+  isPreviewableFileState: boolean;
+  hasFilesize: boolean;
 };
 
-export const getCardStatusFromFileState = (
-  fileState: FileState,
-  featureFlags?: MediaFeatureFlags,
+export const getCardStatus = (
+  fileStatus: FileStatus,
+  {
+    isPreviewableType,
+    hasFilesize,
+    isPreviewableFileState,
+  }: GetCardStatusParams,
 ): CardStatus => {
-  switch (fileState.status) {
+  switch (fileStatus) {
     case 'uploading':
     case 'failed-processing':
     case 'error':
-      return fileState.status;
-    case 'processed':
-      return 'complete';
+      return fileStatus;
     case 'processing':
-      if (shouldShowProcessingProgress(fileState, featureFlags)) {
-        // we want to show the user that they can download & view a file while a preview is being generated
-        if (getMediaFeatureFlag('newCardExperience', featureFlags)) {
-          return 'processing';
-        }
-        // processing of a file is part of upload time
-        return 'uploading';
+      // Legacy empty files logic
+      // isPreviewableType will most likely be false for empty files,
+      // therefore we need to do this cut before that check.
+      // TODO: https://product-fabric.atlassian.net/browse/BMPT-1247
+      if (!hasFilesize) {
+        return 'processing';
       }
+      // If we show no preview for this file
+      // we won't show the "creating preview" message
+      // i.e. Card is "complete".
+      if (!isPreviewableType || isPreviewableFileState) {
+        return 'complete';
+      }
+      return 'processing';
+    case 'processed':
       return 'complete';
     default:
       return 'loading';

@@ -12,6 +12,7 @@ import {
   table,
   tr,
   td,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
@@ -29,7 +30,7 @@ describe('toEqualDocumentAndSelection matches', () => {
     .add(rulePlugin)
     .add(tablePlugin);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset,

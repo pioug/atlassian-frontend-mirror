@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { B100, N30A, skeleton as skeletonColor } from './colors';
+import type { Layers } from './types';
 
 export const FLATTENED = '__FLATTENED__';
 export const CHANNEL = '__ATLASKIT_THEME__';
@@ -34,10 +35,10 @@ export const noFocusRing = () => `
   box-shadow: none;
 `;
 
-export const layers = {
+export const layers: { [P in keyof Layers]: () => Layers[P] } = {
   card: () => 100,
-  dialog: () => 300,
   navigation: () => 200,
+  dialog: () => 300,
   layer: () => 400,
   blanket: () => 500,
   modal: () => 510,

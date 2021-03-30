@@ -23,7 +23,7 @@ export type Props = Readonly<
     collectionName?: string;
     previewCount: number;
     onCanPlay: () => void;
-    onError: (error: Error) => void;
+    onError: (error: MediaViewerError) => void;
   } & WithShowControlMethodProp
 >;
 
@@ -42,7 +42,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
     const preferredQuality = localStorage.getItem(localStorageKeyName);
 
     return {
-      content: Outcome.pending<string, Error>(),
+      content: Outcome.pending<string, MediaViewerError>(),
       isHDActive: isHDAvailable(item) && preferredQuality !== 'sd',
     };
   }

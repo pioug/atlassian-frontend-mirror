@@ -26,6 +26,7 @@ import {
   QuickInsertHandler,
   QuickInsertPluginOptions,
   QuickInsertPluginState,
+  QuickInsertPluginStateKeys,
 } from './types';
 
 import ModalElementBrowser from './ui/ModalElementBrowser';
@@ -155,7 +156,8 @@ function quickInsertPluginFactory(
       apply(tr, pluginState) {
         const meta = tr.getMeta(pluginKey);
         if (meta) {
-          const changed = Object.keys(meta).some(key => {
+          const keys = Object.keys(meta) as Array<QuickInsertPluginStateKeys>;
+          const changed = keys.some(key => {
             return pluginState[key] !== meta[key];
           });
 

@@ -1,11 +1,16 @@
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  panel,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { sendKeyToPm } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 describe('Chromeless editor', () => {
   const createEditor = createEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       editorProps: {

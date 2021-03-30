@@ -1,2 +1,6 @@
 import { PluginKey } from 'prosemirror-state';
-export const pluginKey = new PluginKey('stickyHeadersPlugin');
+import { StickyPluginState } from './types';
+
+export const pluginKey = new PluginKey<StickyPluginState>(
+  'stickyHeadersPlugin',
+);

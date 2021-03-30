@@ -24,11 +24,9 @@ export default function ThemeExample() {
           defaultSelected={['2020-12-08']}
           defaultMonth={12}
           defaultYear={2020}
-          innerProps={{
-            style: {
-              border: '1px solid red',
-              display: 'inline-block',
-            },
+          style={{
+            border: '1px solid red',
+            display: 'inline-block',
           }}
           onBlur={() => log('blur')}
           onChange={() => log('change')}

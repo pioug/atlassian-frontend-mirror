@@ -34,6 +34,7 @@ import {
   isText,
   isLinkMark,
   processRawValue,
+  isEmptyParagraph,
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
@@ -593,17 +594,37 @@ export function insertSlice({ tr, slice }: { tr: Transaction; slice: Slice }) {
   if (panelNode && isEmptyNode(panelNode) && $from.node() === $to.node()) {
     const { from: panelPosition } = selection;
 
-    // if content of slice isn't valid for a panel node, insert slice after
+    // if content of slice isn't valid for a panel node, insert the invalid node and following content after
     if (
       panelNode &&
       !panelNode.type.validContent(Fragment.from(slice.content))
     ) {
-      const insertPosition = $to.pos + 2;
+      const insertPosition = $to.pos + 1;
       tr.replaceRange(insertPosition, insertPosition, slice);
+      // need to delete the empty paragraph at the top of the panel
+      const parentNode = tr.doc.resolve($from.before()).node();
+      if (
+        parentNode &&
+        parentNode.childCount > 1 &&
+        parentNode.firstChild?.type.name === 'paragraph' &&
+        isEmptyParagraph(parentNode.firstChild)
+      ) {
+        const startPosDelete = tr.doc.resolve($from.before()).posAtIndex(0);
+        const endPosDelete = tr.doc.resolve($from.before()).posAtIndex(1);
+        const SIZE_OF_EMPTY_PARAGRAPH = 2; // {startPos}<p>{startPos + 1}</p>{endPos}
+        if (endPosDelete - startPosDelete === SIZE_OF_EMPTY_PARAGRAPH) {
+          tr.delete(startPosDelete, endPosDelete);
+        }
+      }
       tr.setSelection(
         TextSelection.near(
-          tr.doc.resolve(insertPosition + slice.content.size),
-          -1,
+          tr.doc.resolve(
+            insertPosition +
+              slice.content.size -
+              slice.openStart -
+              slice.openEnd +
+              1,
+          ),
         ),
       );
       return;
@@ -800,6 +821,30 @@ export function flattenNestedListInSlice(slice: Slice) {
   return new Slice(contentWithFlattenedList, slice.openEnd, slice.openEnd);
 }
 
+export function insertIntoPanel(tr: Transaction, slice: Slice, panel: any) {
+  let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
+    tr.selection,
+  );
+  if (
+    tr.selection.$from === tr.selection.$to &&
+    panelParentOverCurrentSelection &&
+    !panelParentOverCurrentSelection.node.textContent
+  ) {
+    tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
+    // set selection to end of inserted content
+    const panelNode = findParentNodeOfType(panel)(tr.selection);
+    if (panelNode) {
+      tr.setSelection(
+        TextSelection.near(
+          tr.doc.resolve(panelNode.pos + panelNode.node.nodeSize),
+        ),
+      );
+    }
+  } else {
+    tr.replaceSelection(slice);
+  }
+}
+
 export function handleRichText(slice: Slice): Command {
   return (state, dispatch) => {
     const { codeBlock, panel } = state.schema.nodes;
@@ -819,33 +864,25 @@ export function handleRichText(slice: Slice): Command {
     const featureFlags = getFeatureFlags(state);
     const allowPredictableLists = featureFlags && featureFlags.predictableLists;
 
+    let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
+      tr.selection,
+    );
+
+    const isFirstChildListNode = isListNode(slice.content.firstChild);
+    const isLastChildListNode = isListNode(slice.content.lastChild);
+    const isSliceContentListNodes = isFirstChildListNode || isLastChildListNode;
+    const isTargetPanelEmpty =
+      panelParentOverCurrentSelection &&
+      panelParentOverCurrentSelection.node?.content.size === 2;
+
     if (
       allowPredictableLists &&
-      (isListNode(slice.content.firstChild) ||
-        isListNode(slice.content.lastChild))
+      (isSliceContentListNodes || isTargetPanelEmpty)
     ) {
       insertSlice({ tr, slice });
     } else {
       // if inside an empty panel, try and insert content inside it rather than replace it
-      let panelParent = findParentNodeOfType(panel)(tr.selection);
-      if (
-        tr.selection.$from === tr.selection.$to &&
-        panelParent &&
-        !panelParent.node.textContent
-      ) {
-        tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
-        // set selection to end of inserted content
-        panelParent = findParentNodeOfType(panel)(tr.selection);
-        if (panelParent) {
-          tr.setSelection(
-            TextSelection.near(
-              tr.doc.resolve(panelParent.pos + panelParent.node.nodeSize),
-            ),
-          );
-        }
-      } else {
-        tr.replaceSelection(slice);
-      }
+      insertIntoPanel(tr, slice, panel);
     }
 
     tr.setStoredMarks([]);

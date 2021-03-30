@@ -73,7 +73,11 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
     'Google Doc',
     () => import('@atlaskit/icon-file-type/glyph/google-doc/16'),
   ],
-  'application/vnd.ms-word': [
+  'application/msword': [
+    'Word document',
+    () => import('@atlaskit/icon-file-type/glyph/word-document/16'),
+  ],
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
     'Word document',
     () => import('@atlaskit/icon-file-type/glyph/word-document/16'),
   ],
@@ -97,6 +101,10 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
     'Excel spreadsheet',
     () => import('@atlaskit/icon-file-type/glyph/excel-spreadsheet/16'),
   ],
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
+    'Excel spreadsheet',
+    () => import('@atlaskit/icon-file-type/glyph/excel-spreadsheet/16'),
+  ],
   'application/vnd.oasis.opendocument.presentation': [
     'Presentation',
     () => import('@atlaskit/icon-file-type/glyph/presentation/16'),
@@ -109,7 +117,11 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
     'Google Slide',
     () => import('@atlaskit/icon-file-type/glyph/google-slide/16'),
   ],
-  'application/vnd.mspowerpoint': [
+  'application/vnd.ms-powerpoint': [
+    'PowerPoint presentation',
+    () => import('@atlaskit/icon-file-type/glyph/powerpoint-presentation/16'),
+  ],
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation': [
     'PowerPoint presentation',
     () => import('@atlaskit/icon-file-type/glyph/powerpoint-presentation/16'),
   ],
@@ -206,6 +218,10 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
     'Archive',
     () => import('@atlaskit/icon-file-type/glyph/archive/16'),
   ],
+  'application/vnd.rar': [
+    'Archive',
+    () => import('@atlaskit/icon-file-type/glyph/archive/16'),
+  ],
   'application/dmg': [
     'Executable',
     () => import('@atlaskit/icon-file-type/glyph/executable/16'),
@@ -236,4 +252,6 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
     'Sketch',
     () => import('@atlaskit/icon-file-type/glyph/sketch/16'),
   ],
+
+  folder: ['Folder', () => import('@atlaskit/icon-file-type/glyph/folder/16')],
 };

@@ -49,11 +49,12 @@ const IconSizeExample = () => {
   const [size, setSize] = useState<Size>('medium');
 
   return (
-    <div id="size-example">
+    <div>
       <ButtonGroup>
         {sizes.map(sizeOpt => (
           <div style={{ marginRight: 4 }} key={sizeOpt}>
             <Button
+              testId={sizeOpt}
               isSelected={sizeOpt === size}
               onClick={() => setSize(sizeOpt)}
             >
@@ -62,7 +63,7 @@ const IconSizeExample = () => {
           </div>
         ))}
       </ButtonGroup>
-      <div css={iconRow}>
+      <div id="size-example" css={iconRow}>
         {demoIcons.map((Icon, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <span css={iconWrapper} key={i}>

@@ -19,14 +19,14 @@ import { keymap } from '../../utils/keymap';
 import frozenEditor from './pm-plugins/frozen-editor';
 import {
   InputTracking,
-  BFreezeTracking,
+  BrowserFreezetracking,
 } from '../../types/performance-tracking';
 
 export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
   allowInlineCursorTarget?: boolean;
   inputTracking?: InputTracking;
-  bFreezeTracking?: BFreezeTracking;
+  browserFreezeTracking?: BrowserFreezetracking;
 }
 
 // Chrome >= 88
@@ -68,7 +68,7 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
             ? frozenEditor(
                 dispatchAnalyticsEvent,
                 options.inputTracking,
-                options.bFreezeTracking,
+                options.browserFreezeTracking,
               )
             : undefined;
         },

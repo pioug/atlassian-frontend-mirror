@@ -6,7 +6,12 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, hr, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  hr,
+  p,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
@@ -25,7 +30,7 @@ describe('selection plugin', () => {
     .add(selectionPlugin)
     .add(rulePlugin);
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor<SelectionPluginState, PluginKey>({
       doc,
       preset,

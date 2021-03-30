@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1
+
+### Patch Changes
+
+- [`ae0d7c24739`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae0d7c24739) - Updated Chunkinator@3 documentation
+
 ## 3.0.0
 
 ### Major Changes

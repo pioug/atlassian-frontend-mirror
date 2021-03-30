@@ -7,6 +7,7 @@ import {
   tr,
   tdEmpty,
   tdCursor,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { TablePluginState } from '../../../../plugins/table/types';
 import { handleDocOrSelectionChanged } from '../../../../plugins/table/handlers';
@@ -19,7 +20,7 @@ describe('table action handlers', () => {
 
   beforeEach(() => {
     const createEditor = createEditorFactory<TablePluginState>();
-    editor = (doc: any) =>
+    editor = (doc: DocBuilder) =>
       createEditor({
         doc,
         editorProps: { allowTables: true },

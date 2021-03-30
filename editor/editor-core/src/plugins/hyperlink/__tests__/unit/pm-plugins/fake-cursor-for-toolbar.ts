@@ -4,7 +4,12 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, a } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  doc,
+  p,
+  a,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { DecorationSet, Decoration } from 'prosemirror-view';
@@ -21,7 +26,7 @@ const getDecorations = (state: EditorState) =>
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(hyperlinkPlugin),

@@ -52,6 +52,8 @@ describe('Cards:', () => {
           },
         },
         getMode(theme),
+        undefined,
+        true,
       );
       await evaluateTeardownMockDate(page);
 
@@ -102,6 +104,9 @@ describe('Cards:', () => {
           allowEmbeds: true,
         },
       },
+      undefined,
+      undefined,
+      true,
     );
     await evaluateTeardownMockDate(page);
 
@@ -129,6 +134,9 @@ describe('Cards:', () => {
           allowEmbeds: true,
         },
       },
+      undefined,
+      undefined,
+      true,
     );
     await evaluateTeardownMockDate(page);
 
@@ -165,6 +173,9 @@ describe('Cards:', () => {
           allowEmbeds: true,
         },
       },
+      undefined,
+      undefined,
+      true,
     );
     await evaluateTeardownMockDate(page);
 

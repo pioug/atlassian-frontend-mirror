@@ -14,7 +14,7 @@ BrowserTestCase('A user is able to select a date', {}, async (client: any) => {
   const calendarPage = new Page(client);
   await calendarPage.goto(urlCalendar);
 
-  const expectedDayQuery = `${monthContainer} td`;
+  const expectedDayQuery = `${monthContainer} button`;
   const expectedDay = await calendarPage.getText(expectedDayQuery);
 
   await calendarPage.click(expectedDayQuery);

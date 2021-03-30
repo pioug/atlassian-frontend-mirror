@@ -2,11 +2,9 @@
 
 exports[`SwitchToSection when disableSwitchToHeading is false should render with expected title "Switch to" when showStartLink is false 1`] = `
 .emotion-0 {
+  display: inline-block;
   height: 24px;
   width: 24px;
-  color: #FFFFFF;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -18,12 +16,14 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
   width: 24px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: #FFFFFF;
+  fill: #FFFFFF;
 }
 
-.emotion-0 stop {
+.emotion-0 > svg stop {
   stop-color: currentColor;
 }
 
@@ -457,27 +457,15 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                           size="medium"
                                                         >
                                                           <Consumer>
-                                                            <Memo(IconWrapper)
+                                                            <span
+                                                              className="emotion-0"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
-                                                              mode="light"
-                                                              primaryColor="#FFFFFF"
                                                               role="presentation"
-                                                              size="medium"
-                                                            >
-                                                              <span
-                                                                className="emotion-0"
-                                                                dangerouslySetInnerHTML={
-                                                                  Object {
-                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                  }
-                                                                }
-                                                                role="presentation"
-                                                              />
-                                                            </Memo(IconWrapper)>
+                                                            />
                                                           </Consumer>
                                                         </Memo(Icon)>
                                                       </SettingsIcon>
@@ -527,11 +515,9 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
 
 exports[`SwitchToSection when disableSwitchToHeading is false should render with expected title "Switch toAtlassian Start" when showStartLink is true 1`] = `
 .emotion-4 {
+  display: inline-block;
   height: 24px;
   width: 24px;
-  color: #FFFFFF;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -543,12 +529,14 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
   width: 24px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: #FFFFFF;
+  fill: #FFFFFF;
 }
 
-.emotion-4 stop {
+.emotion-4 > svg stop {
   stop-color: currentColor;
 }
 
@@ -698,11 +686,9 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
 }
 
 .emotion-1 {
+  display: inline-block;
   height: 16px;
   width: 16px;
-  color: currentColor;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -714,12 +700,14 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
   width: 16px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: currentColor;
+  fill: #FFFFFF;
 }
 
-.emotion-1 stop {
+.emotion-1 > svg stop {
   stop-color: currentColor;
 }
 
@@ -1304,26 +1292,15 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                 size="small"
                                               >
                                                 <Consumer>
-                                                  <Memo(IconWrapper)
+                                                  <span
+                                                    className="emotion-1"
                                                     dangerouslySetInnerHTML={
                                                       Object {
                                                         "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 002 0V4a1 1 0 00-1-1h-4a1 1 0 000 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 10-1.414-1.414l-8 8a1 1 0 001.414 1.414z\\"/></g></svg>",
                                                       }
                                                     }
-                                                    mode="light"
                                                     role="presentation"
-                                                    size="small"
-                                                  >
-                                                    <span
-                                                      className="emotion-1"
-                                                      dangerouslySetInnerHTML={
-                                                        Object {
-                                                          "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 002 0V4a1 1 0 00-1-1h-4a1 1 0 000 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 10-1.414-1.414l-8 8a1 1 0 001.414 1.414z\\"/></g></svg>",
-                                                        }
-                                                      }
-                                                      role="presentation"
-                                                    />
-                                                  </Memo(IconWrapper)>
+                                                  />
                                                 </Consumer>
                                               </Memo(Icon)>
                                             </ShortcutIcon>
@@ -1514,27 +1491,15 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                                                           size="medium"
                                                         >
                                                           <Consumer>
-                                                            <Memo(IconWrapper)
+                                                            <span
+                                                              className="emotion-4"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
-                                                              mode="light"
-                                                              primaryColor="#FFFFFF"
                                                               role="presentation"
-                                                              size="medium"
-                                                            >
-                                                              <span
-                                                                className="emotion-4"
-                                                                dangerouslySetInnerHTML={
-                                                                  Object {
-                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                  }
-                                                                }
-                                                                role="presentation"
-                                                              />
-                                                            </Memo(IconWrapper)>
+                                                            />
                                                           </Consumer>
                                                         </Memo(Icon)>
                                                       </SettingsIcon>
@@ -1584,11 +1549,9 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
 
 exports[`SwitchToSection when disableSwitchToHeading is true should render with expected title "" when showStartLink is false 1`] = `
 .emotion-0 {
+  display: inline-block;
   height: 24px;
   width: 24px;
-  color: #FFFFFF;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1600,12 +1563,14 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
   width: 24px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: #FFFFFF;
+  fill: #FFFFFF;
 }
 
-.emotion-0 stop {
+.emotion-0 > svg stop {
   stop-color: currentColor;
 }
 
@@ -1984,27 +1949,15 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                           size="medium"
                                                         >
                                                           <Consumer>
-                                                            <Memo(IconWrapper)
+                                                            <span
+                                                              className="emotion-0"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
-                                                              mode="light"
-                                                              primaryColor="#FFFFFF"
                                                               role="presentation"
-                                                              size="medium"
-                                                            >
-                                                              <span
-                                                                className="emotion-0"
-                                                                dangerouslySetInnerHTML={
-                                                                  Object {
-                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                  }
-                                                                }
-                                                                role="presentation"
-                                                              />
-                                                            </Memo(IconWrapper)>
+                                                            />
                                                           </Consumer>
                                                         </Memo(Icon)>
                                                       </SettingsIcon>
@@ -2054,11 +2007,9 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
 
 exports[`SwitchToSection when disableSwitchToHeading is true should render with expected title "Atlassian Start" when showStartLink is true 1`] = `
 .emotion-4 {
+  display: inline-block;
   height: 24px;
   width: 24px;
-  color: #FFFFFF;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2070,12 +2021,14 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
   width: 24px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: #FFFFFF;
+  fill: #FFFFFF;
 }
 
-.emotion-4 stop {
+.emotion-4 > svg stop {
   stop-color: currentColor;
 }
 
@@ -2225,11 +2178,9 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
 }
 
 .emotion-1 {
+  display: inline-block;
   height: 16px;
   width: 16px;
-  color: currentColor;
-  display: inline-block;
-  fill: #FFFFFF;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2241,12 +2192,14 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
   width: 16px;
   max-height: 100%;
   max-width: 100%;
+  vertical-align: bottom;
   overflow: hidden;
   pointer-events: none;
-  vertical-align: bottom;
+  color: currentColor;
+  fill: #FFFFFF;
 }
 
-.emotion-1 stop {
+.emotion-1 > svg stop {
   stop-color: currentColor;
 }
 
@@ -2779,26 +2732,15 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                 size="small"
                                               >
                                                 <Consumer>
-                                                  <Memo(IconWrapper)
+                                                  <span
+                                                    className="emotion-1"
                                                     dangerouslySetInnerHTML={
                                                       Object {
                                                         "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 002 0V4a1 1 0 00-1-1h-4a1 1 0 000 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 10-1.414-1.414l-8 8a1 1 0 001.414 1.414z\\"/></g></svg>",
                                                       }
                                                     }
-                                                    mode="light"
                                                     role="presentation"
-                                                    size="small"
-                                                  >
-                                                    <span
-                                                      className="emotion-1"
-                                                      dangerouslySetInnerHTML={
-                                                        Object {
-                                                          "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><g fill=\\"currentColor\\"><path d=\\"M19.005 19c-.003 0-.005.002-.005.002l.005-.002zM5 19.006c0-.004-.002-.006-.005-.006H5v.006zM5 4.994V5v-.006zM19 19v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2H5v14h14zM5 4.994V5v-.006zm0 14.012c0-.004-.002-.006-.005-.006H5v.006zM11 5H5v14h14v-6h2v6.002A1.996 1.996 0 0119.005 21H4.995A1.996 1.996 0 013 19.006V4.994C3 3.893 3.896 3 4.997 3H11v2zm8 0v3a1 1 0 002 0V4a1 1 0 00-1-1h-4a1 1 0 000 2h3z\\"/><path d=\\"M12.707 12.707l8-8a1 1 0 10-1.414-1.414l-8 8a1 1 0 001.414 1.414z\\"/></g></svg>",
-                                                        }
-                                                      }
-                                                      role="presentation"
-                                                    />
-                                                  </Memo(IconWrapper)>
+                                                  />
                                                 </Consumer>
                                               </Memo(Icon)>
                                             </ShortcutIcon>
@@ -2989,27 +2931,15 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                                                           size="medium"
                                                         >
                                                           <Consumer>
-                                                            <Memo(IconWrapper)
+                                                            <span
+                                                              className="emotion-4"
                                                               dangerouslySetInnerHTML={
                                                                 Object {
                                                                   "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
                                                                 }
                                                               }
-                                                              mode="light"
-                                                              primaryColor="#FFFFFF"
                                                               role="presentation"
-                                                              size="medium"
-                                                            >
-                                                              <span
-                                                                className="emotion-4"
-                                                                dangerouslySetInnerHTML={
-                                                                  Object {
-                                                                    "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.701 16.7a5.002 5.002 0 110-10.003 5.002 5.002 0 010 10.004m8.368-3.117a1.995 1.995 0 01-1.346-1.885c0-.876.563-1.613 1.345-1.885a.48.48 0 00.315-.574 8.947 8.947 0 00-.836-1.993.477.477 0 00-.598-.195 2.04 2.04 0 01-1.29.08 1.988 1.988 0 01-1.404-1.395 2.04 2.04 0 01.076-1.297.478.478 0 00-.196-.597 8.98 8.98 0 00-1.975-.826.479.479 0 00-.574.314 1.995 1.995 0 01-1.885 1.346 1.994 1.994 0 01-1.884-1.345.482.482 0 00-.575-.315c-.708.2-1.379.485-2.004.842a.47.47 0 00-.198.582A2.002 2.002 0 014.445 7.06a.478.478 0 00-.595.196 8.946 8.946 0 00-.833 1.994.48.48 0 00.308.572 1.995 1.995 0 011.323 1.877c0 .867-.552 1.599-1.324 1.877a.479.479 0 00-.308.57 8.99 8.99 0 00.723 1.79.477.477 0 00.624.194c.595-.273 1.343-.264 2.104.238.117.077.225.185.302.3.527.8.512 1.58.198 2.188a.473.473 0 00.168.628 8.946 8.946 0 002.11.897.474.474 0 00.57-.313 1.995 1.995 0 011.886-1.353c.878 0 1.618.567 1.887 1.353a.475.475 0 00.57.313 8.964 8.964 0 002.084-.883.473.473 0 00.167-.631c-.318-.608-.337-1.393.191-2.195.077-.116.185-.225.302-.302.772-.511 1.527-.513 2.125-.23a.477.477 0 00.628-.19 8.925 8.925 0 00.728-1.793.478.478 0 00-.314-.573\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
-                                                                  }
-                                                                }
-                                                                role="presentation"
-                                                              />
-                                                            </Memo(IconWrapper)>
+                                                            />
                                                           </Consumer>
                                                         </Memo(Icon)>
                                                       </SettingsIcon>

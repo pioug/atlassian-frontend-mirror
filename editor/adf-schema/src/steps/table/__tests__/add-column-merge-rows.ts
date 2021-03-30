@@ -1,4 +1,5 @@
 import {
+  DocBuilder,
   doc,
   tdEmpty,
   table,
@@ -18,7 +19,6 @@ import {
   addColumnAtFactory,
   removeColumnAtFactory,
   CreateTransaction,
-  DocBuilder,
 } from './_utils';
 import { defaultSchema } from '../../../schema/default-schema';
 

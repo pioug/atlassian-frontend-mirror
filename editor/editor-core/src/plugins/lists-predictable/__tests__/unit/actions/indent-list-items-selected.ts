@@ -1,6 +1,6 @@
-import { Schema } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
+  DocBuilder,
   p,
   ol,
   ul,
@@ -9,15 +9,12 @@ import {
   code_block,
   panel,
   mention,
-  RefsNode,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { indentListItemsSelected } from '../../../actions/indent-list-items-selected';
 
-type DocumentType = (schema: Schema) => RefsNode;
-
 describe('indent-list-items-selected', () => {
-  const case0: [string, DocumentType, DocumentType] = [
+  const case0: [string, DocBuilder, DocBuilder] = [
     'cursor selection is inside of a nested list item',
     // Scenario
     // prettier-ignore
@@ -55,7 +52,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case1: [string, DocumentType, DocumentType] = [
+  const case1: [string, DocBuilder, DocBuilder] = [
     'cursor selection is at list item with nested list',
     // Scenario
     // prettier-ignore
@@ -91,7 +88,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case2: [string, DocumentType, DocumentType] = [
+  const case2: [string, DocBuilder, DocBuilder] = [
     'cursor selection is at the last list item inside a nested list',
     // Scenario
     // prettier-ignore
@@ -133,7 +130,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case3: [string, DocumentType, DocumentType] = [
+  const case3: [string, DocBuilder, DocBuilder] = [
     'range are selecting two sibling list items',
     // Scenario
     // prettier-ignore
@@ -173,7 +170,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case4: [string, DocumentType, DocumentType] = [
+  const case4: [string, DocBuilder, DocBuilder] = [
     'range is selecting list item with nested list before',
     // Scenario
     // prettier-ignore
@@ -208,7 +205,7 @@ describe('indent-list-items-selected', () => {
       ),
     ),
   ];
-  const case5: [string, DocumentType, DocumentType] = [
+  const case5: [string, DocBuilder, DocBuilder] = [
     'range are selecting from a nested list to an outer list item',
     // Scenario
     // prettier-ignore
@@ -248,7 +245,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case6: [string, DocumentType, DocumentType] = [
+  const case6: [string, DocBuilder, DocBuilder] = [
     'range are selecting from a list item with nested list to a sibling list item',
     // Scenario
     // prettier-ignore
@@ -288,7 +285,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case7: [string, DocumentType, DocumentType] = [
+  const case7: [string, DocBuilder, DocBuilder] = [
     'range are selecting from a list item with nested list to a sibling list item and previous node has nested list',
     // Scenario
     // prettier-ignore
@@ -334,7 +331,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case8: [string, DocumentType, DocumentType] = [
+  const case8: [string, DocBuilder, DocBuilder] = [
     'range are selecting the entire list item with nested list and previous node has nested list',
     // Scenario
     // prettier-ignore
@@ -380,7 +377,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case9: [string, DocumentType, DocumentType] = [
+  const case9: [string, DocBuilder, DocBuilder] = [
     'range are selecting the part of a list item with nested list and previous node has nested list',
     // Scenario
     // prettier-ignore
@@ -426,7 +423,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case10: [string, DocumentType, DocumentType] = [
+  const case10: [string, DocBuilder, DocBuilder] = [
     'cursor selection is in the last list item and and previous node has nested list',
     // Scenario
     // prettier-ignore
@@ -472,7 +469,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case11: [string, DocumentType, DocumentType] = [
+  const case11: [string, DocBuilder, DocBuilder] = [
     'cursor selection is in first list item',
     // Scenario
     // prettier-ignore
@@ -518,7 +515,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case12: [string, DocumentType, DocumentType] = [
+  const case12: [string, DocBuilder, DocBuilder] = [
     'range selection is wrapping two different lists',
     // Scenario
     // prettier-ignore
@@ -600,7 +597,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case13: [string, DocumentType, DocumentType] = [
+  const case13: [string, DocBuilder, DocBuilder] = [
     'range are selecting the part of a list item with nested list and previous node has deep nested list',
     // Scenario
     // prettier-ignore
@@ -652,7 +649,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case14: [string, DocumentType, DocumentType] = [
+  const case14: [string, DocBuilder, DocBuilder] = [
     'cursor selection is at list item with nested list and previous node has nested list',
     // Scenario
     // prettier-ignore
@@ -692,7 +689,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case15: [string, DocumentType, DocumentType] = [
+  const case15: [string, DocBuilder, DocBuilder] = [
     'range selection is coming from an outter list item to a nested list item',
     // Scenario
     // prettier-ignore
@@ -742,7 +739,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case16: [string, DocumentType, DocumentType] = [
+  const case16: [string, DocBuilder, DocBuilder] = [
     'cursor is a gapcursor followed by a code block inside of a list item',
     // Scenario
     // prettier-ignore
@@ -768,7 +765,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case17: [string, DocumentType, DocumentType] = [
+  const case17: [string, DocBuilder, DocBuilder] = [
     'range selection is coming from a root list item to the middle nested list children',
     // Scenario
     // prettier-ignore
@@ -816,7 +813,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case18: [string, DocumentType, DocumentType] = [
+  const case18: [string, DocBuilder, DocBuilder] = [
     'there is a non-visible selection in the range selection coming from a root list item to the middle nested list children',
     // Scenario
     // prettier-ignore
@@ -864,7 +861,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case19: [string, DocumentType, DocumentType] = [
+  const case19: [string, DocBuilder, DocBuilder] = [
     'cursor selection is a node selection',
     // Scenario
     // prettier-ignore
@@ -898,7 +895,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  const case20: [string, DocumentType, DocumentType] = [
+  const case20: [string, DocBuilder, DocBuilder] = [
     'node selection is the last element in the list item',
     // Scenario
     // prettier-ignore
@@ -936,7 +933,7 @@ describe('indent-list-items-selected', () => {
     ),
   ];
 
-  describe.each<[string, DocumentType, DocumentType]>([
+  describe.each<[string, DocBuilder, DocBuilder]>([
     // prettier-ignore
     case0,
     case1,

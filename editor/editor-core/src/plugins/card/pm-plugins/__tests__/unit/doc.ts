@@ -34,6 +34,7 @@ import {
   th,
   tr,
   ul,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
@@ -82,10 +83,10 @@ const inlineCardAdf = {
 describe('card', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
-  let editor: (doc: any) => EditorInstanceWithPlugin<any>;
+  let editor: (doc: DocBuilder) => EditorInstanceWithPlugin<any>;
 
   beforeEach(() => {
-    editor = (doc: any) => {
+    editor = (doc: DocBuilder) => {
       createAnalyticsEvent = createAnalyticsEventMock();
       const editorWrapper = createEditor({
         doc,
@@ -856,7 +857,10 @@ describe('card', () => {
         );
       });
 
-      function testWithContext(initialDoc: object, expectedContext: string) {
+      function testWithContext(
+        initialDoc: DocBuilder,
+        expectedContext: string,
+      ) {
         test(`should create analytics GAS V3 with node context ${expectedContext}`, async () => {
           const { editorView } = editor(initialDoc);
 

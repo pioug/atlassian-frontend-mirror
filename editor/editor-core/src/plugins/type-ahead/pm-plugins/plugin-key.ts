@@ -1,2 +1,4 @@
 import { PluginKey } from 'prosemirror-state';
-export const pluginKey = new PluginKey('typeAheadPlugin');
+import { TypeAheadPluginState } from '../types';
+
+export const pluginKey = new PluginKey<TypeAheadPluginState>('typeAheadPlugin');

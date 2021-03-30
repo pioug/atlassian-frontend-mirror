@@ -13,7 +13,7 @@ const dateTimePickerDate =
 
 const dateTimePickerDateMenu = `${dateTimePickerDate} [aria-label="calendar"]`;
 
-const date = `${dateTimePickerDateMenu} > table > tbody > tr:nth-child(5) > td:nth-child(6)`;
+const date = `[role=gridcell]:nth-child(6)`;
 
 const dateTimePickerTime =
   '[data-testid="dateTimePicker--timepicker--container"]';

@@ -10,6 +10,7 @@ import {
   inlineExtension,
   p as paragraph,
   BuilderContent,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
@@ -48,7 +49,7 @@ describe('extension context panel', () => {
   const createEditor = createEditorFactory();
 
   const editor = (
-    doc: any,
+    doc: DocBuilder,
     props: Partial<EditorProps> = {},
     providerFactory?: ProviderFactory,
   ) => {
@@ -70,7 +71,8 @@ describe('extension context panel', () => {
 
   const ExtensionHandlerComponent = () => <div>Awesome Extension</div>;
 
-  const transformBefore: TransformBefore = parameters => parameters.macroParams;
+  const transformBefore: TransformBefore = parameters =>
+    parameters && parameters.macroParams;
   const transformAfter: TransformAfter = parameters =>
     Promise.resolve({
       macroParams: parameters,
@@ -176,6 +178,35 @@ describe('extension context panel', () => {
       emitMock.mock.calls.filter(([e, _]) => e === 'contextPanelPluginKey$')
         .length,
     ).toEqual(1);
+  });
+
+  it('should allow an extension with no parameters to be updated', async () => {
+    const { props, dispatchMock } = await setupConfigPanel([
+      '{<node>}',
+      extension({
+        extensionType: 'fake.confluence',
+        extensionKey: 'expand',
+      })(),
+    ]);
+
+    props.onChange({
+      title: 'changed',
+      content: 'not that cool',
+    });
+
+    await flushPromises();
+
+    const lastDispatchedTr = dispatchMock.mock.calls.pop();
+
+    expect(
+      findExtension(lastDispatchedTr![0].doc.toJSON().content[0]).attrs
+        .parameters,
+    ).toEqual({
+      macroParams: {
+        title: 'changed',
+        content: 'not that cool',
+      },
+    });
   });
 
   const testSaving = (type: string, content: BuilderContent[]) => {

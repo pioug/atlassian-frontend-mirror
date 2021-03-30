@@ -124,6 +124,7 @@ export const ResolvedView = ({
               items={users}
               handleAvatarClick={handleAvatarClick}
               handleMoreAvatarsClick={handleMoreAvatarsClick}
+              testId={testId ? `${testId}-collaborator-list` : undefined}
             />
           </div>
           {resolvedByline}

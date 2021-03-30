@@ -1,11 +1,11 @@
 import { schema } from '@atlaskit/adf-schema/test-helpers';
 import {
+  DocBuilder,
   code_block,
   doc,
   hardBreak,
   p,
   panel,
-  RefsNode,
   status,
   strong,
   table,
@@ -13,7 +13,6 @@ import {
   th,
   tr,
 } from '@atlaskit/editor-test-helpers/schema-builder';
-import { Schema } from 'prosemirror-model';
 import { countMatches, getIndexMatch } from '../../matches-utils';
 
 describe('RendererActions matches', () => {
@@ -22,7 +21,7 @@ describe('RendererActions matches', () => {
       test.each<
         [
           string, // Test name
-          (schema: Schema) => RefsNode, // Doc builder
+          DocBuilder, // Doc builder
           string, // Expected textContent
         ]
       >([
@@ -88,7 +87,7 @@ describe('RendererActions matches', () => {
       test.each<
         [
           string, // Test name
-          (schema: Schema) => RefsNode, // Doc builder
+          DocBuilder, // Doc builder
           string, // Query text
           number, // Position of query
           { matchIndex: number; numMatches: number }, // Expected result

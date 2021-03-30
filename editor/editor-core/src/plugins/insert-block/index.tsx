@@ -1,15 +1,9 @@
 import React from 'react';
 import { EditorPlugin } from '../../types';
 import { WithProviders, Providers } from '@atlaskit/editor-common';
-import {
-  pluginKey as blockTypeStateKey,
-  BlockTypeState,
-} from '../block-type/pm-plugins/main';
+import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
-import {
-  stateKey as hyperlinkPluginKey,
-  HyperlinkState,
-} from '../hyperlink/pm-plugins/main';
+import { stateKey as hyperlinkPluginKey } from '../hyperlink/pm-plugins/main';
 import { mentionPluginKey } from '../mentions';
 import { pluginKey as layoutStateKey } from '../layout';
 import { MacroState, insertMacroFromMacroBrowser } from '../macro';
@@ -19,17 +13,9 @@ import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { insertBlockTypesWithAnalytics } from '../block-type/commands';
 import { startImageUpload } from '../image-upload/pm-plugins/commands';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/main';
-import { TypeAheadPluginState } from '../type-ahead';
-import { ImageUploadPluginState } from '../image-upload/types';
 import { INPUT_METHOD } from '../analytics';
-import { LayoutState } from '../layout/pm-plugins/types';
-import { PluginState as PlaceholderPluginState } from '../placeholder-text/types';
-import { MediaPluginState } from '../media/pm-plugins/types';
 import { stateKey as imageUploadStateKey } from '../image-upload/pm-plugins/plugin-key';
-import { MentionPluginState } from '../..';
-import { EmojiPluginState } from '../emoji/types';
 import { pluginKey as dateStateKey } from '../date/pm-plugins/plugin-key';
-import { DatePluginState } from '../date/pm-plugins/types';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
@@ -113,18 +99,6 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
             imageUpload,
             placeholderTextState,
             layoutState,
-          }: {
-            typeAheadState: TypeAheadPluginState | undefined;
-            mentionState: MentionPluginState | undefined;
-            blockTypeState: BlockTypeState | undefined;
-            mediaState: MediaPluginState | undefined;
-            macroState: MacroState | undefined;
-            hyperlinkState: HyperlinkState | undefined;
-            emojiState: EmojiPluginState | undefined;
-            dateState: DatePluginState | undefined;
-            imageUpload: ImageUploadPluginState | undefined;
-            placeholderTextState: PlaceholderPluginState | undefined;
-            layoutState: LayoutState | undefined;
           }) => (
             <ToolbarInsertBlock
               buttons={buttons}

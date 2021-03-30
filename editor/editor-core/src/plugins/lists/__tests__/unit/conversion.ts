@@ -4,6 +4,7 @@ import {
   p,
   ul,
   ol,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -32,7 +33,7 @@ describe('list-conversion', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
   });
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);

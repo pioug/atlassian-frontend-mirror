@@ -1,5 +1,4 @@
 import { EditorState, TextSelection, Selection } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
 import {
@@ -9,10 +8,11 @@ import {
   doc,
   code_block,
   RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { normalizeListItemsSelection } from '../../../utils/selection';
 
-type DocumentType = (schema: Schema) => RefsNode;
+type DocumentType = DocBuilder;
 function createRefsDocNode(documentNode: DocumentType): RefsNode {
   return documentNode(sampleSchema);
 }

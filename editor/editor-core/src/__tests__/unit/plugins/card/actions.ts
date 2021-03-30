@@ -10,6 +10,7 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
+  DocBuilder,
   p,
   inlineCard,
   blockCard,
@@ -27,7 +28,7 @@ describe('card', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = createAnalyticsEventMock();
     const wrapper = createEditor({
       doc,

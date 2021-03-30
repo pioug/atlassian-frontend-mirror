@@ -36,6 +36,21 @@ export const TEST_BASE_DATA: JsonLd.Data.BaseData = {
     schema: 'http://schema.org/',
   },
 };
+export const TEST_PROJECT: JsonLd.Data.Project = {
+  ...TEST_BASE_DATA,
+  '@type': 'atlassian:Project',
+  'atlassian:isDeleted': false,
+  'atlassian:member': TEST_PERSON,
+  'schema:dateCreated': '2018-07-10T15:00:32Z',
+};
+export const TEST_TASK: JsonLd.Data.Task = {
+  '@type': 'atlassian:Task',
+  '@context': {
+    '@vocab': 'https://www.w3.org/ns/activitystreams#',
+    atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+    schema: 'http://schema.org/',
+  },
+};
 export const TEST_META_DATA: JsonLd.Meta.BaseMeta = {
   access: 'forbidden',
   visibility: 'restricted',

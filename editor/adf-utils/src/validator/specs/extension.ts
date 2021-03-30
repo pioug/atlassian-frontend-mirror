@@ -15,5 +15,6 @@ export default {
         localId: { type: 'string', minLength: 1, optional: true },
       },
     },
+    marks: { type: 'array', items: [], optional: true },
   },
 };

@@ -13,6 +13,7 @@ import Alignment from './alignment';
 import Indentation from './indentation';
 import UnsupportedMark from './unsupportedMark';
 import UnsupportedNodeAttribute from './unsupportedNodeAttribute';
+import DataConsumer from './data-consumer';
 import Annotation, { isAnnotationMark } from './annotation';
 
 // Stage0
@@ -36,6 +37,7 @@ export const markToReact: { [key: string]: ComponentType<any> } = {
   indentation: Indentation,
   unsupportedMark: UnsupportedMark,
   unsupportedNodeAttribute: UnsupportedNodeAttribute,
+  dataConsumer: DataConsumer,
 };
 
 export const toReact = (mark: Mark): ComponentType<any> => {
@@ -56,4 +58,5 @@ export {
   UnsupportedMark,
   isAnnotationMark,
   UnsupportedNodeAttribute,
+  DataConsumer,
 };

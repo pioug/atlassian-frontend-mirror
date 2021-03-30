@@ -278,12 +278,19 @@ export class UploadServiceImpl implements UploadService {
           });
         });
       } else {
-        getPreviewFromBlob(mediaType, file).then(preview => {
-          this.emit('file-preview-update', {
-            file: mediaFile,
-            preview,
-          });
-        });
+        getPreviewFromBlob(mediaType, file)
+          .then(preview => {
+            this.emit('file-preview-update', {
+              file: mediaFile,
+              preview,
+            });
+          })
+          .catch(() =>
+            this.emit('file-preview-update', {
+              file: mediaFile,
+              preview: {},
+            }),
+          );
       }
     });
   }

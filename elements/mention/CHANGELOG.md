@@ -1,5 +1,17 @@
 # @atlaskit/mention
 
+## 19.4.0
+
+### Minor Changes
+
+- [`3dae9ea0c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3dae9ea0c02) - MentionItem now accepts and renders Lozenges when provided with a LozengeProps type object - ex. { text: 'GUEST', appearance: 'new' }. Previously, it only accepted a string.
+
+### Patch Changes
+
+- [`967aa365eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967aa365eff) - [ux] ED-11939: fix mentions showing the wrong name after unselect
+- [`b0ac0fc993d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0ac0fc993d) - Transferring mentions package ownership to Search & Smarts
+- Updated dependencies
+
 ## 19.3.1
 
 ### Patch Changes

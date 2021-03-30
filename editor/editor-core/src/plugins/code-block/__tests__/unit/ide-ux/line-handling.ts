@@ -2,6 +2,7 @@ import {
   doc,
   p,
   code_block,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -20,7 +21,7 @@ import codeBlockPlugin from '../../../';
 describe('IDE UX - Line Handling', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const getState = (doc: any) =>
+  const getState = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(codeBlockPlugin),

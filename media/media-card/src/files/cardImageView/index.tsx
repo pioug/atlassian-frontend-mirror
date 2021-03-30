@@ -250,7 +250,11 @@ export class FileCardImageViewBase extends Component<
     return (
       <PlayIconWrapper>
         <PlayIconBackground>
-          <VidPlayIcon label="play" size="large" />
+          <VidPlayIcon
+            testId="media-card-play-button"
+            label="play"
+            size="large"
+          />
         </PlayIconBackground>
       </PlayIconWrapper>
     );

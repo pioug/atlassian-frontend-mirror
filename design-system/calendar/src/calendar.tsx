@@ -10,7 +10,7 @@ import { ThemeModes } from '@atlaskit/theme/types';
 import HeadingComponent from './internal/components/heading';
 import WeekDaysComponent from './internal/components/week-days';
 import WeekHeaderComponent from './internal/components/week-header';
-import { blankObject, blankStringArray } from './internal/constants';
+import { blankStringArray } from './internal/constants';
 import useCalendarRef from './internal/hooks/use-calendar-ref';
 import useControlledDateState from './internal/hooks/use-controlled-date-state';
 import useFocusing from './internal/hooks/use-focusing';
@@ -23,7 +23,7 @@ import {
   announcerStyle,
   wrapperStyle as getWrapperStyle,
 } from './internal/styles/container';
-import { tableStyle } from './internal/styles/table';
+import { gridsContainerStyle } from './internal/styles/grid';
 import noop from './internal/utils/noop';
 import type { CalendarProps } from './types';
 
@@ -47,7 +47,6 @@ const CalendarWithMode = forwardRef(function Calendar(
     defaultSelected = blankStringArray,
     defaultYear = 0,
     disabled = undefined,
-    innerProps = blankObject,
     month = undefined,
     onBlur = noop,
     onChange = noop,
@@ -63,6 +62,8 @@ const CalendarWithMode = forwardRef(function Calendar(
     testId,
     calendarRef,
     mode,
+    className,
+    style,
   }: InternalProps,
   ref: React.Ref<HTMLDivElement>,
 ) {
@@ -122,7 +123,6 @@ const CalendarWithMode = forwardRef(function Calendar(
   });
 
   const { handleContainerBlur, handleContainerFocus } = useFocusing({
-    day: [dayValue, setDayValue],
     onFocus,
     onBlur,
   });
@@ -144,7 +144,7 @@ const CalendarWithMode = forwardRef(function Calendar(
 
   const announceId = useUniqueId('announce');
   const announcerDate = useMemo(
-    () => new Date(yearValue, monthValue, dayValue).toString(),
+    () => new Date(yearValue, monthValue - 1, dayValue).toString(),
     [dayValue, monthValue, yearValue],
   );
   const { monthsLong, daysShort } = useLocale({ locale, weekStartDay });
@@ -153,7 +153,8 @@ const CalendarWithMode = forwardRef(function Calendar(
 
   return (
     <div
-      {...innerProps}
+      className={className}
+      style={style}
       onBlur={handleContainerBlur}
       onFocus={handleContainerFocus}
       onKeyDown={handleContainerKeyDown}
@@ -183,9 +184,10 @@ const CalendarWithMode = forwardRef(function Calendar(
           year={yearValue}
           handleClickNext={handleClickNext}
           handleClickPrev={handleClickPrev}
+          mode={mode}
           testId={testId}
         />
-        <table css={tableStyle} role="presentation">
+        <div css={gridsContainerStyle} role="presentation">
           <WeekHeaderComponent daysShort={daysShort} mode={mode} />
           <WeekDaysComponent
             weeks={weeks}
@@ -193,7 +195,7 @@ const CalendarWithMode = forwardRef(function Calendar(
             mode={mode}
             testId={testId}
           />
-        </table>
+        </div>
       </div>
     </div>
   );

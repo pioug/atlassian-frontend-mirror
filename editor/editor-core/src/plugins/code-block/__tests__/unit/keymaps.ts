@@ -11,6 +11,7 @@ import {
   tdEmpty,
   layoutSection,
   layoutColumn,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -30,7 +31,7 @@ import listPlugin from '../../../lists';
 describe('codeBlock - keymaps', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()

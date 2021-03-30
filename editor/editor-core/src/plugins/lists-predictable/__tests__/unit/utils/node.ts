@@ -1,4 +1,3 @@
-import { Schema } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
   p,
@@ -7,12 +6,10 @@ import {
   li,
   doc,
   panel,
-  RefsNode,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { joinSiblingLists, JoinDirection } from '../../../utils/node';
-
-type DocumentType = (schema: Schema) => RefsNode;
 
 type ListsJoined = {
   orderedList: number;
@@ -24,8 +21,8 @@ describe('utils/node', () => {
     const case0: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'should join two list inside of the selection when the direction is right',
@@ -53,8 +50,8 @@ describe('utils/node', () => {
     const case1: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'should join two list inside of the selection when the direction is left',
@@ -82,8 +79,8 @@ describe('utils/node', () => {
     const case2: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'should join two ordered lists that are siblings into one ordered list',
@@ -127,8 +124,8 @@ describe('utils/node', () => {
     const case3: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'should join two lists sibling not nested from the same type',
@@ -156,8 +153,8 @@ describe('utils/node', () => {
     const case4: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'should not join two lists sibling not nested of diferent types',
@@ -191,8 +188,8 @@ describe('utils/node', () => {
     const case5: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'when the list are inside of block node should not join two lists sibling not nested of different types',
@@ -230,8 +227,8 @@ describe('utils/node', () => {
     const case6: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'when the list are inside of block node should join two lists sibling not nested from same type',
@@ -267,8 +264,8 @@ describe('utils/node', () => {
     const case7: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'when the selection is not inside a list',
@@ -362,8 +359,8 @@ describe('utils/node', () => {
     const case8: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'when there is more than one non-nested sibling lists to join',
@@ -415,8 +412,8 @@ describe('utils/node', () => {
     const case9: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'when there is more than one nested sibling lists to join',
@@ -472,8 +469,8 @@ describe('utils/node', () => {
     const case10: [
       string,
       JoinDirection,
-      DocumentType,
-      DocumentType,
+      DocBuilder,
+      DocBuilder,
       ListsJoined,
     ] = [
       'when there is more than one nested mixed sibling lists to join',
@@ -526,22 +523,22 @@ describe('utils/node', () => {
       },
     ];
 
-    describe.each<
-      [string, JoinDirection, DocumentType, DocumentType, ListsJoined]
-    >([
-      // prettier-ignore
-      case0,
-      case1,
-      case2,
-      case3,
-      case4,
-      case5,
-      case6,
-      case7,
-      case8,
-      case9,
-      case10,
-    ])(
+    describe.each<[string, JoinDirection, DocBuilder, DocBuilder, ListsJoined]>(
+      [
+        // prettier-ignore
+        case0,
+        case1,
+        case2,
+        case3,
+        case4,
+        case5,
+        case6,
+        case7,
+        case8,
+        case9,
+        case10,
+      ],
+    )(
       '[case%#] when %s',
       (_scenario, direction, previousDocument, expectedDocument, data) => {
         it('should match the expected document and keep the selection', () => {

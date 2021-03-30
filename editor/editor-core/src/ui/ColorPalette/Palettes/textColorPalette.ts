@@ -1,4 +1,4 @@
-import { colorPalette, colorPaletteExperimental } from '@atlaskit/adf-schema';
+import { colorPalette, colorPaletteExtended } from '@atlaskit/adf-schema';
 import { PaletteColor } from './type';
 import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';
@@ -18,11 +18,11 @@ const mapPaletteColor = (label: string, color: string) => {
 
 // row 1
 export const textColorPalette: Array<PaletteColor> = [];
-export const textColorPaletteExperimental: Array<PaletteColor> = [];
+export const textColorPaletteExtended: Array<PaletteColor> = [];
 
 colorPalette.forEach((label, color) => {
   textColorPalette.push(mapPaletteColor(label, color));
 });
-colorPaletteExperimental.forEach((label, color) => {
-  textColorPaletteExperimental.push(mapPaletteColor(label, color));
+colorPaletteExtended.forEach((label, color) => {
+  textColorPaletteExtended.push(mapPaletteColor(label, color));
 });

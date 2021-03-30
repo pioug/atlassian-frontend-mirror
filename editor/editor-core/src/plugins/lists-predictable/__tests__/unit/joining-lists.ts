@@ -4,6 +4,7 @@ import {
   ul,
   li,
   p,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import {
   createProsemirrorEditorFactory,
@@ -17,7 +18,7 @@ import { toggleOrderedList, toggleBulletList } from '../../commands';
 describe.skip('lists plugin -> joining lists', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>().add(listPredictablePlugin);
 
     return createEditor({

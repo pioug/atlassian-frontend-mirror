@@ -288,7 +288,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
       return this.renderMark(
         markToReact(mark),
-        this.withMediaMarkProps(node, mark, this.getMarkProps(mark, [])),
+        this.withMediaMarkProps(node, mark, this.getMarkProps(mark, [], node)),
         `${mark.type.name}-${index}`,
         content,
       );
@@ -689,17 +689,25 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     };
   };
 
-  private getMarkProps = (mark: Mark, marksParentPath: Mark[]): MarkMeta => {
+  private getMarkProps = (
+    mark: Mark,
+    marksParentPath: Mark[],
+    node?: Node,
+  ): MarkMeta => {
     if (isAnnotationMark(mark)) {
       return this.getAnnotationMarkProps(mark, marksParentPath);
     }
 
     const { key, ...otherAttrs } = mark.attrs;
+    const extraProps = {
+      isInline: node?.isInline,
+    };
     const props: MarkMeta = {
       eventHandlers: this.eventHandlers,
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       markKey: key,
       ...otherAttrs,
+      ...extraProps,
       dataAttributes: {
         'data-renderer-mark': true,
       },

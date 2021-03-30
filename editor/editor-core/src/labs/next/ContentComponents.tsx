@@ -24,7 +24,7 @@ export function ContentComponents(disabled?: any) {
           popupsBoundariesElement={config.popupsBoundariesElement}
           popupsScrollableElement={config.popupsScrollableElement}
           containerElement={null} // TODO: Figure out how to pass containerElement here ED-8448
-          disabled={disabled.editorDisabled}
+          disabled={disabled?.editorDisabled ?? false}
         />
       )}
     />

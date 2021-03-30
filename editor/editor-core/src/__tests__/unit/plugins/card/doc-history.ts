@@ -11,7 +11,12 @@ import { closeHistory } from 'prosemirror-history';
 
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, a } from '@atlaskit/editor-test-helpers/schema-builder';
+import {
+  DocBuilder,
+  doc,
+  p,
+  a,
+} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 
@@ -24,7 +29,7 @@ import { INPUT_METHOD } from '../../../../plugins/analytics';
 describe('card', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: any) => {
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
       editorProps: {

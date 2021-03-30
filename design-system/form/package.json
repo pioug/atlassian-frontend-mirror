@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.4.0",
+    "@atlaskit/icon": "^21.5.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "final-form": "^4.20.1",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/calendar": "^10.0.0",
+    "@atlaskit/calendar": "^11.0.0",
     "@atlaskit/checkbox": "^12.0.0",
     "@atlaskit/datetime-picker": "^10.0.0",
     "@atlaskit/docs": "^9.0.0",
@@ -58,7 +58,7 @@
     "@atlaskit/textarea": "^4.0.0",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/toggle": "^12.0.0",
-    "@atlaskit/tooltip": "^17.0.0",
+    "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",

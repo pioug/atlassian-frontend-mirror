@@ -7,6 +7,7 @@ import {
   table,
   td,
   tr,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/schema-builder';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 import tablePlugin from '../../../../plugins/table';
@@ -17,7 +18,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 describe('Mobile Appearance Component', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: any) =>
+  const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>().add(tablePlugin),

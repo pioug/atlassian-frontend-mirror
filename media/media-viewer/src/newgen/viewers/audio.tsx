@@ -31,7 +31,7 @@ export type Props = Readonly<
     collectionName?: string;
     previewCount: number;
     onCanPlay: () => void;
-    onError: (error: Error) => void;
+    onError: (error: MediaViewerError) => void;
   } & WithShowControlMethodProp
 >;
 
@@ -57,7 +57,7 @@ const getCoverUrl = (
 export class AudioViewer extends BaseViewer<string, Props, State> {
   protected get initialState() {
     return {
-      content: Outcome.pending<string, Error>(),
+      content: Outcome.pending<string, MediaViewerError>(),
     };
   }
 

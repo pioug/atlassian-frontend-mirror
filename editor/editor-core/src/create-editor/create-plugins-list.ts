@@ -4,6 +4,7 @@ import { EditorPlugin, EditorProps } from '../types';
 import {
   breakoutPlugin,
   collabEditPlugin,
+  dataConsumerMarkPlugin,
   datePlugin,
   emojiPlugin,
   extensionPlugin,
@@ -54,10 +55,6 @@ import { PrivateCollabEditOptions } from '../plugins/collab-edit/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import {
-  NORMAL_SEVERITY_THRESHOLD,
-  DEGRADED_SEVERITY_THRESHOLD,
-} from '../plugins/base/pm-plugins/frozen-editor';
-import {
   createDefaultPreset,
   DefaultPresetPluginOptions,
 } from '../labs/next/presets/default';
@@ -105,48 +102,8 @@ export function getDefaultPresetOptionsFromEditorProps(
 ): EditorPresetProps & DefaultPresetPluginOptions {
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
-  const isFullPage = fullPageCheck(appearance);
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-10260
-  const inputTracking =
-    props.performanceTracking && props.performanceTracking.inputTracking
-      ? props.performanceTracking.inputTracking
-      : {
-          enabled:
-            isFullPage ||
-            (typeof props.inputSamplingLimit !== 'undefined' &&
-              props.inputSamplingLimit > 0),
-          samplingRate: props.inputSamplingLimit,
-        };
-
-  // If the feature prop is not explicitly defined AND we are on a product-fabric branch deploy we force-enable node counting
-  // START: temporary code https://product-fabric.atlassian.net/browse/ED-10260
-  const hasInputTracking =
-    typeof props.performanceTracking?.inputTracking !== 'undefined';
-  inputTracking.countNodes =
-    !hasInputTracking && shouldForceTracking()
-      ? true
-      : inputTracking.countNodes;
-
-  const forceBFreezeTracking =
-    typeof props.performanceTracking?.bFreezeTracking === 'undefined' &&
-    shouldForceTracking();
-
-  const bFreezeTracking = {
-    trackInteractionType:
-      !!forceBFreezeTracking ||
-      !!props.performanceTracking?.bFreezeTracking?.trackInteractionType,
-    trackSeverity:
-      !!forceBFreezeTracking ||
-      !!props.performanceTracking?.bFreezeTracking?.trackSeverity,
-    severityNormalThreshold:
-      props.performanceTracking?.bFreezeTracking?.severityNormalThreshold ??
-      NORMAL_SEVERITY_THRESHOLD,
-    severityDegradedThreshold:
-      props.performanceTracking?.bFreezeTracking?.severityDegradedThreshold ??
-      DEGRADED_SEVERITY_THRESHOLD,
-  };
-  // END:  temporary code  https://product-fabric.atlassian.net/browse/ED-10260
+  const inputTracking = props.performanceTracking?.inputTracking;
 
   return {
     createAnalyticsEvent,
@@ -160,7 +117,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       allowInlineCursorTarget: !isMobile,
       allowScrollGutter: getScrollGutterOptions(props),
       inputTracking,
-      bFreezeTracking,
+      browserFreezeTracking: props.performanceTracking?.bFreezeTracking,
     },
     blockType: {
       lastNodeMustBeParagraph:
@@ -173,7 +130,13 @@ export function getDefaultPresetOptionsFromEditorProps(
       placeholderHints: props.placeholderHints,
       placeholderBracketHint: props.placeholderBracketHint,
     },
-    textFormatting: props.textFormatting,
+    textFormatting: {
+      ...(props.textFormatting || {}),
+      responsiveToolbarMenu:
+        props.textFormatting?.responsiveToolbarMenu != null
+          ? props.textFormatting.responsiveToolbarMenu
+          : props.UNSAFE_allowUndoRedoButtons,
+    },
     annotationProviders: props.annotationProviders,
     submitEditor: props.onSave,
     quickInsert: {
@@ -210,21 +173,13 @@ export default function createPluginsList(
   );
 
   if (props.allowAnalyticsGASV3) {
-    const { performanceTracking, transactionTracking } = props;
+    const { performanceTracking } = props;
 
     preset.add([
       analyticsPlugin,
       {
         createAnalyticsEvent,
-        // TODO: https://product-fabric.atlassian.net/browse/ED-8985
-        ...(performanceTracking || transactionTracking
-          ? {
-              performanceTracking: {
-                ...(performanceTracking || {}),
-                ...(transactionTracking ? { transactionTracking } : {}),
-              },
-            }
-          : {}),
+        performanceTracking,
       },
     ]);
   }
@@ -238,6 +193,24 @@ export default function createPluginsList(
 
   if (props.allowTextAlignment) {
     preset.add(alignmentPlugin);
+  }
+
+  // Referentiality can't exist without data consumer plugin
+  if (props.UNSAFE_allowDataConsumer || props.allowReferentiality) {
+    const dataConsumerConfig =
+      typeof props.UNSAFE_allowDataConsumer === 'object'
+        ? props.UNSAFE_allowDataConsumer
+        : {};
+
+    preset.add([
+      dataConsumerMarkPlugin,
+      {
+        allowDataConsumerMarks:
+          props.allowReferentiality ??
+          dataConsumerConfig.allowDataConsumerMarks ??
+          true,
+      },
+    ]);
   }
 
   if (props.allowTextColor) {

@@ -90,4 +90,5 @@ export interface RequestServiceOptions {
   path?: string;
   queryParams?: KeyValues;
   requestInit?: RequestInit;
+  ignoreResponsePayload?: boolean;
 }

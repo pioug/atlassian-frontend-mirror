@@ -58,6 +58,7 @@ export interface ProfileCardClientData {
   timestring?: string;
   status: StatusType;
   statusModifiedDate?: number | null;
+  customLozenges?: LozengeProps[];
 }
 
 export interface ProfileCardResourcedProps {

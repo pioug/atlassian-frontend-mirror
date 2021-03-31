@@ -1,5 +1,11 @@
 # @atlaskit/util-service-support
 
+## 6.0.5
+
+### Patch Changes
+
+- [`dfe01a5dad7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfe01a5dad7) - Added ability to ignore JSON payload on status.ok responses
+
 ## 6.0.4
 
 ### Patch Changes

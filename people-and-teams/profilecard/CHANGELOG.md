@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.4
+
+### Patch Changes
+
+- [`9f19d3e89fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f19d3e89fe) - CONFDEV-73945: Added optional customLozenges property to ProfileCardClientData so Typescript will allow custom UserProfileClients to add custom lozenges to the ProfileCard
+
 ## 15.5.3
 
 ### Patch Changes

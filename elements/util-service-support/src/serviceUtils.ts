@@ -98,6 +98,7 @@ export const requestService = <T>(
   const requestUrl = buildUrl(url, path, queryParams, secOptions);
   const headers = buildHeaders(secOptions, requestInit && requestInit.headers);
   const credentials = buildCredentials(secOptions);
+  const ignoreResponsePayload = options?.ignoreResponsePayload || false;
   const requestOptions: RequestInit = {
     ...requestInit,
     headers,
@@ -108,7 +109,7 @@ export const requestService = <T>(
     if (response.status === 204) {
       return Promise.resolve();
     } else if (response.ok) {
-      return response.json();
+      return ignoreResponsePayload ? Promise.resolve() : response.json();
     } else if (response.status === 401 && refreshedSecurityProvider) {
       // auth issue - try once
       return refreshedSecurityProvider().then(newSecOptions => {

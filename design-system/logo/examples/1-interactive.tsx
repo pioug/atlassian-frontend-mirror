@@ -141,7 +141,6 @@ export default class InteractiveLogo extends Component<Props, State> {
         {sizeRange(logos.ConfluenceLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.HipchatLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.JiraLogo, colorPreset, sizePreset, useProps)}
-        {sizeRange(logos.JiraCoreLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(
           logos.JiraServiceManagementLogo,
           colorPreset,
@@ -149,6 +148,12 @@ export default class InteractiveLogo extends Component<Props, State> {
           useProps,
         )}
         {sizeRange(logos.JiraSoftwareLogo, colorPreset, sizePreset, useProps)}
+        {sizeRange(
+          logos.JiraWorkManagementLogo,
+          colorPreset,
+          sizePreset,
+          useProps,
+        )}
         {sizeRange(logos.OpsGenieLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.StatuspageLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.StrideLogo, colorPreset, sizePreset, useProps)}

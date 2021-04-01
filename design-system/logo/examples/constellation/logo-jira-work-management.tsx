@@ -2,9 +2,13 @@ import React from 'react';
 
 import { B200, B400, N700 } from '@atlaskit/theme/colors';
 
-import { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from '../../src';
+import {
+  JiraWorkManagementIcon,
+  JiraWorkManagementLogo,
+  JiraWorkManagementWordmark,
+} from '../../src';
 
-const LogoJiraCore = () => (
+const LogoJiraWorkManagement = () => (
   <div>
     <table>
       <thead>
@@ -17,7 +21,7 @@ const LogoJiraCore = () => (
       <tbody>
         <tr>
           <td>
-            <JiraCoreLogo
+            <JiraWorkManagementLogo
               textColor={N700}
               iconColor={B200}
               iconGradientStart={B400}
@@ -25,10 +29,10 @@ const LogoJiraCore = () => (
             />
           </td>
           <td>
-            <JiraCoreWordmark textColor={N700} />
+            <JiraWorkManagementWordmark textColor={N700} />
           </td>
           <td>
-            <JiraCoreIcon
+            <JiraWorkManagementIcon
               iconColor={B200}
               iconGradientStart={B400}
               iconGradientStop={B200}
@@ -40,4 +44,4 @@ const LogoJiraCore = () => (
   </div>
 );
 
-export default LogoJiraCore;
+export default LogoJiraWorkManagement;

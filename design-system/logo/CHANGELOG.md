@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.2.0
+
+### Minor Changes
+
+- [`95838b0d7cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95838b0d7cf) - [ux] Add Jira Work Management Logo
+
 ## 13.1.2
 
 ### Patch Changes

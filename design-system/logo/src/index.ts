@@ -32,6 +32,11 @@ export {
   JiraSoftwareLogo,
   JiraSoftwareWordmark,
 } from './JiraSoftwareLogo';
+export {
+  JiraWorkManagementLogo,
+  JiraWorkManagementWordmark,
+  JiraWorkManagementIcon,
+} from './JiraWorkManagementLogo';
 export { OpsGenieIcon, OpsGenieLogo, OpsGenieWordmark } from './OpsGenieLogo';
 export {
   StatuspageIcon,

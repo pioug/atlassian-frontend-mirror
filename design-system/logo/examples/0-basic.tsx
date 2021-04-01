@@ -10,9 +10,6 @@ import {
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
-  HipchatIcon,
-  HipchatLogo,
-  HipchatWordmark,
   JiraCoreIcon,
   JiraCoreLogo,
   JiraCoreWordmark,
@@ -28,15 +25,15 @@ import {
   JiraSoftwareLogo,
   JiraSoftwareWordmark,
   JiraWordmark,
+  JiraWorkManagementIcon,
+  JiraWorkManagementLogo,
+  JiraWorkManagementWordmark,
   OpsGenieIcon,
   OpsGenieLogo,
   OpsGenieWordmark,
   StatuspageIcon,
   StatuspageLogo,
   StatuspageWordmark,
-  StrideIcon,
-  StrideLogo,
-  StrideWordmark,
   TrelloIcon,
   TrelloLogo,
   TrelloWordmark,
@@ -84,17 +81,6 @@ export default () => (
           </td>
           <td>
             <ConfluenceIcon />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <HipchatLogo />
-          </td>
-          <td>
-            <HipchatWordmark />
-          </td>
-          <td>
-            <HipchatIcon />
           </td>
         </tr>
         <tr>
@@ -154,6 +140,17 @@ export default () => (
         </tr>
         <tr>
           <td>
+            <JiraWorkManagementLogo />
+          </td>
+          <td>
+            <JiraWorkManagementWordmark />
+          </td>
+          <td>
+            <JiraWorkManagementIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
             <OpsGenieLogo />
           </td>
           <td>
@@ -172,17 +169,6 @@ export default () => (
           </td>
           <td>
             <StatuspageIcon />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <StrideLogo />
-          </td>
-          <td>
-            <StrideWordmark />
-          </td>
-          <td>
-            <StrideIcon />
           </td>
         </tr>
         <tr>

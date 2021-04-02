@@ -27,13 +27,39 @@ const customTheme = buildChartTheme({
   colors: colorSequence,
 });
 
-export const CenteredLegend = styled.div`
+export const Legend = styled.div<{ direction: string }>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${p =>
+    p.direction === 'left' || p.direction === 'right' ? 'column' : 'row'};
   font-size: 11px;
   justify-content: center;
-  top: 20px;
-  position: relative;
+
+  ${p =>
+    p.direction === 'top' || p.direction === 'auto'
+      ? `top: 20px;
+  position: relative;`
+      : ''}
+
+  ${p => (p.direction === 'bottom' ? `order: 1;` : '')}
+
+  ${p =>
+    p.direction === 'right'
+      ? `margin-left: -20px;
+  margin-right: 10px;
+  order: 1;`
+      : ''}
+
+  ${p =>
+    p.direction === 'left'
+      ? `margin-right: 10px;
+  margin-left: 10px;`
+      : ''}
+`;
+
+export const ChartLegendGroup = styled.div<{ direction: string }>`
+  display: flex;
+  flex-direction: ${p =>
+    p.direction === 'left' || p.direction === 'right' ? 'row' : 'column'};
 `;
 
 const LineComponent = (props: {
@@ -83,16 +109,24 @@ export const LinearChart = (props: {
   seriesNames: string[];
   tableData: number[][];
   showLegend?: boolean;
+  legendPosition: string;
   chartScale: PickD3Scale<'ordinal', any, any>;
 }) => {
-  const { seriesNames, tableData, xAccessor, showLegend, chartScale } = props;
+  const {
+    seriesNames,
+    tableData,
+    xAccessor,
+    showLegend,
+    chartScale,
+    legendPosition,
+  } = props;
 
   const legend = (
     <LegendOrdinal scale={chartScale}>
       {labels => (
-        <CenteredLegend>
+        <Legend direction={legendPosition}>
           {labels.map((label, i) => (
-            <LegendItem key={`legend-quantile-${i}`} margin="0 5px">
+            <LegendItem key={`legend-quantile-${i}`} margin={5}>
               <svg width={8} height={8}>
                 <circle fill={label.value} r={4} cx={4} cy={4} />
               </svg>
@@ -101,59 +135,62 @@ export const LinearChart = (props: {
               </LegendLabel>
             </LegendItem>
           ))}
-        </CenteredLegend>
+        </Legend>
       )}
     </LegendOrdinal>
   );
 
   return (
     <div data-testId={props.testId}>
-      {showLegend && legend}
-      <XYChart
-        theme={customTheme}
-        xScale={{
-          type: 'band',
-        }}
-        yScale={{
-          type: 'linear',
-        }}
-        height={350}
-      >
-        <AnimatedGrid
-          key={`grid-${123}`}
-          rows={true}
-          columns={false}
-          animationTrajectory={'center'}
-          numTicks={5}
-        />
-        {props.chartType === ChartTypes.BAR ? (
-          <BarComponent
-            seriesNames={seriesNames}
-            tableData={tableData}
-            xAccessor={xAccessor}
+      <ChartLegendGroup direction={legendPosition}>
+        {showLegend && legend}
+        <XYChart
+          theme={customTheme}
+          xScale={{
+            type: 'band',
+          }}
+          yScale={{
+            type: 'linear',
+          }}
+          height={props.height || 350}
+          key={`${showLegend} ${legendPosition}`}
+        >
+          <AnimatedGrid
+            key={`grid-${123}`}
+            rows={true}
+            columns={false}
+            animationTrajectory={'center'}
+            numTicks={5}
           />
-        ) : (
-          <LineComponent
-            seriesNames={seriesNames}
-            tableData={tableData}
-            xAccessor={xAccessor}
+          {props.chartType === ChartTypes.BAR ? (
+            <BarComponent
+              seriesNames={seriesNames}
+              tableData={tableData}
+              xAccessor={xAccessor}
+            />
+          ) : (
+            <LineComponent
+              seriesNames={seriesNames}
+              tableData={tableData}
+              xAccessor={xAccessor}
+            />
+          )}
+          <AnimatedAxis
+            key={`time-axis-${123}-${false}`}
+            orientation={'bottom'}
+            numTicks={6}
+            label={xAccessor}
+            animationTrajectory={'center'}
           />
-        )}
-        <AnimatedAxis
-          key={`time-axis-${123}-${false}`}
-          orientation={'bottom'}
-          numTicks={6}
-          label={xAccessor}
-          animationTrajectory={'center'}
-        />
-        <AnimatedAxis
-          key={`temp-axis-${123}-${false}`}
-          label={props.yLabel || 'count'}
-          orientation={'left'}
-          numTicks={5}
-          animationTrajectory={'center'}
-        />
-      </XYChart>
+          <AnimatedAxis
+            key={`temp-axis-${123}-${false}`}
+            label={props.yLabel || 'count'}
+            orientation={'left'}
+            numTicks={5}
+            animationTrajectory={'center'}
+          />
+        </XYChart>
+      </ChartLegendGroup>
     </div>
   );
 };

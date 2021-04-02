@@ -26,6 +26,8 @@ export const Chart = ({
   data,
   chartTitle,
   showLegend,
+  legendPosition,
+  height,
 }: any) => {
   if (!data) {
     return <Wrapper testId={testId} />;
@@ -50,6 +52,8 @@ export const Chart = ({
     tableData,
     chartScale: ordinalColorScale,
     xAccessor,
+    legendPosition,
+    height,
   };
 
   return (

@@ -1,5 +1,11 @@
 # @atlaskit/charts
 
+## 0.0.7
+
+### Patch Changes
+
+- [`ced7ff42642`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ced7ff42642) - [ux] Add repositionable legends
+
 ## 0.0.6
 
 ### Patch Changes

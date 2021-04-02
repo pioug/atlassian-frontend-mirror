@@ -55,6 +55,9 @@ const fieldDefinition: FieldDefinition[] = [
     items: [
       { label: 'Auto', value: 'auto' },
       { label: 'Top', value: 'top' },
+      { label: 'Left', value: 'left' },
+      { label: 'Right', value: 'right' },
+      { label: 'Bottom', value: 'bottom' },
     ],
     label: 'Legend position',
   } as EnumSelectField,

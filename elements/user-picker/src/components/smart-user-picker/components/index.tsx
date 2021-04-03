@@ -427,6 +427,7 @@ class SmartUserPicker extends React.Component<
         filteredUsers: getUsersForAnalytics(filteredUsers),
         elapsedTimeMilli,
         displayedUsers: getUsersForAnalytics(displayedList),
+        productAttributes,
       });
     } catch (e) {
       this.setState({
@@ -441,7 +442,10 @@ class SmartUserPicker extends React.Component<
         users: this.filterOptions(defaultUsers),
         loading: false,
       });
-      this.fireEvent(failedRequestUsersEvent, { elapsedTimeMilli });
+      this.fireEvent(failedRequestUsersEvent, {
+        elapsedTimeMilli,
+        productAttributes,
+      });
     }
   };
 

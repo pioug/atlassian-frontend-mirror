@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.9.0
+
+### Minor Changes
+
+- [`83812c6e1a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83812c6e1a6) - Add productAttributes into SmartUserPicker usersRequest analytics event
+
 ## 7.8.0
 
 ### Minor Changes

@@ -749,10 +749,15 @@ describe('SmartUserPicker', () => {
     });
 
     it('should trigger user request successful event', async () => {
+      const productAttributes = {
+        isEntitledConfluenceExternalCollaborator: false,
+      };
       const filterOptions = jest.fn((options: OptionData[]) => {
         return options.filter(option => option.type === 'user');
       });
-      component = mountWithIntl(AnalyticsTestComponent({ filterOptions }));
+      component = mountWithIntl(
+        AnalyticsTestComponent({ filterOptions, productAttributes }),
+      );
 
       await component.find(UserPicker).props().onFocus!('new-session');
       await flushPromises();
@@ -765,6 +770,7 @@ describe('SmartUserPicker', () => {
             {
               users: mockReturnOptionsForAnalytics,
               filteredUsers: [{ id: 'user1', type: 'user' }],
+              productAttributes,
             },
           ),
         }),

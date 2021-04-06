@@ -13,7 +13,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.js",
   "atlassian": {
-    "team": "Atlassian Frontend Platform",
+    "team": "AFP: App Infrastructure",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

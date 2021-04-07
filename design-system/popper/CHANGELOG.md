@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.1.0
+
+### Minor Changes
+
+- [`81f4f9f7562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81f4f9f7562) - Update core `@popperjs/core` dependency to `^2.9.1`, fixing some positioning bugs, such as in parents with `will-change` CSS properties set. For more information on the specific changes, see the popper docs.
+
 ## 5.0.4
 
 ### Patch Changes

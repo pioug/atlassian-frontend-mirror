@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "15.0.0",
+  "version": "15.0.1",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

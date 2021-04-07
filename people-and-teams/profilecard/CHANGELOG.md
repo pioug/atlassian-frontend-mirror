@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.5
+
+### Patch Changes
+
+- [`f5c41936feb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5c41936feb) - Fix the props to allow better customization of links on avatars in team profilecards.
+
 ## 15.5.4
 
 ### Patch Changes

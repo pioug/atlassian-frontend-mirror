@@ -259,7 +259,13 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
   }
 
   renderProfileCard = () => {
-    const { viewingUserId, viewProfileLink, viewProfileOnClick } = this.props;
+    const {
+      generateUserLink,
+      onUserClick,
+      viewingUserId,
+      viewProfileLink,
+      viewProfileOnClick,
+    } = this.props;
     const { data, error, hasError, isLoading } = this.state;
 
     const newProps: TeamProfilecardProps = {
@@ -267,6 +273,8 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
       actions: this.filterActions(),
       analytics: this.fireAnalyticsWithDuration,
       team: data || undefined,
+      generateUserLink,
+      onUserClick,
       viewingUserId,
       viewProfileLink,
       viewProfileOnClick,

@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 15.0.1
+
+### Patch Changes
+
+- [`83a7f464573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a7f464573) - Introduce new simple mock profilecard client to improve usability.
+
 ## 15.0.0
 
 ### Major Changes

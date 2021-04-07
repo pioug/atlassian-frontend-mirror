@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 13.3.0
+
+### Minor Changes
+
+- [`0115b3b722b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0115b3b722b) - Update PopupSelect dependency `@popperjs/core` to `^2.9.1`, fixing some positioning bugs, such as in parents with `will-change` CSS properties set. For more information on the specific changes, see the popper docs.
+
 ## 13.2.0
 
 ### Minor Changes

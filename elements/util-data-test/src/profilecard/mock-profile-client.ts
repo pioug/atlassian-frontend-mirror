@@ -37,3 +37,32 @@ export default function getMockProfileClient(
     }
   };
 }
+
+export const simpleMockProfileClient = (modifyResponse: any) => ({
+  getProfile: (cloudId: string, userId: string) => {
+    const matchError = userId.match(/^error:([0-9a-zA-Z\-]+)$/);
+    const error = matchError && matchError[1];
+
+    if (error) {
+      return Promise.reject({ reason: 'error' });
+    }
+
+    const profile = profiles[parseInt(userId, 10)];
+
+    if (!profile) {
+      return Promise.reject({ reason: 'default' });
+    }
+
+    const weekday = getWeekday();
+    const data: any = { ...profile };
+    data.remoteTimeString = getTimeString();
+    data.remoteWeekdayIndex = weekday.index;
+    data.remoteWeekdayString = weekday.string;
+
+    return Promise.resolve(modifyResponse(data));
+  },
+
+  getTeamProfile: (orgId: string, teamId: string, analytics: any) => {
+    return Promise.reject({ reason: 'not built yet' });
+  },
+});

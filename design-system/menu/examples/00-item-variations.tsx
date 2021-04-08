@@ -11,6 +11,7 @@ import {
   CustomItemComponentProps,
   HeadingItem,
   LinkItem,
+  Section,
   SkeletonHeadingItem,
   SkeletonItem,
 } from '../src';
@@ -42,6 +43,25 @@ const ItemVariants = () => {
         iconBefore={<StarIcon label="Icon before" />}
         iconAfter={<StarIcon label="Icon after" />}
         testId="item-button-at-scale-before-after"
+        description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
+      >
+        The long title (properly, the title in some jurisdictions) is the formal
+        title appearing at the head of a statute (such as an act of Parliament
+        or of Congress) or other legislative instrument.
+      </ButtonItem>
+      <ButtonItem
+        testId="item-button-at-scale-multiple-line-title"
+        shouldTitleWrap
+        description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
+      >
+        The long title (properly, the title in some jurisdictions) is the formal
+        title appearing at the head of a statute (such as an act of Parliament
+        or of Congress) or other legislative instrument.
+      </ButtonItem>
+      <ButtonItem
+        testId="item-button-at-scale-multiple-line-title-and-description"
+        shouldTitleWrap
+        shouldDescriptionWrap
         description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
       >
         The long title (properly, the title in some jurisdictions) is the formal
@@ -97,6 +117,21 @@ const ItemVariants = () => {
       >
         Selected Link Item
       </LinkItem>
+      <LinkItem
+        shouldTitleWrap
+        testId="item-link-multiple-line"
+        href="//www.atlassian.com"
+      >
+        Link item that takes you to atlassian home page, but with some extra
+        text to make the content a bit longer than usual.
+      </LinkItem>
+      <LinkItem
+        shouldTitleWrap
+        testId="item-link-long-url-multiple-line"
+        href="//www.atlassian.com"
+      >
+        https://atlassian.design/components/dropdown-menu/dropdown-menu-stateless/examples
+      </LinkItem>
       <CustomItem testId="item-custom-em" component={Emphasis}>
         Custom element using em tag
       </CustomItem>
@@ -106,6 +141,14 @@ const ItemVariants = () => {
         component={Emphasis}
       >
         Disabled custom element using em tag
+      </CustomItem>
+      <CustomItem
+        shouldTitleWrap
+        testId="item-custom-em-multiple-line"
+        component={Emphasis}
+      >
+        Custom element using em tag, but with some extra text to make the
+        content a bit longer than usual.
       </CustomItem>
       <HashRouter>
         <CustomItem
@@ -120,11 +163,14 @@ const ItemVariants = () => {
           I'm a react-router link rendered using CustomItem
         </CustomItem>
       </HashRouter>
-      <SkeletonHeadingItem testId="skeleton-heading-item" />
-      <SkeletonItem testId="skeleton-item" />
-      <SkeletonItem testId="skeleton-item-avatar" hasAvatar />
-      <SkeletonItem testId="skeleton-item-icon" hasIcon />
-      <SkeletonItem testId="skeleton-item-width" hasIcon width="100%" />
+
+      <Section>
+        <SkeletonHeadingItem testId="skeleton-heading-item" />
+        <SkeletonItem testId="skeleton-item" />
+        <SkeletonItem testId="skeleton-item-avatar" hasAvatar />
+        <SkeletonItem testId="skeleton-item-icon" hasIcon />
+        <SkeletonItem testId="skeleton-item-width" hasIcon width="100%" />
+      </Section>
     </div>
   );
 };

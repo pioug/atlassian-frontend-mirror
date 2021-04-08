@@ -24,6 +24,8 @@ const ButtonItem = memo(
         testId,
         overrides,
         onMouseDown,
+        shouldTitleWrap,
+        shouldDescriptionWrap,
         ...others
       } = props;
       const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
@@ -53,6 +55,8 @@ const ButtonItem = memo(
             iconBefore={iconBefore}
             iconAfter={iconAfter}
             description={description}
+            shouldTitleWrap={shouldTitleWrap}
+            shouldDescriptionWrap={shouldDescriptionWrap}
           >
             {children}
           </BaseItem>

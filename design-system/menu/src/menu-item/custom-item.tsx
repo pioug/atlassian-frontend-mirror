@@ -37,6 +37,8 @@ const CustomItem = memo(
         iconBefore,
         overrides,
         onMouseDown,
+        shouldTitleWrap,
+        shouldDescriptionWrap,
         ...rest
       }: // Type needed on props to extract types with extract react types.
       CustomItemProps,
@@ -75,6 +77,8 @@ const CustomItem = memo(
                 description={description}
                 iconAfter={iconAfter}
                 iconBefore={iconBefore}
+                shouldTitleWrap={shouldTitleWrap}
+                shouldDescriptionWrap={shouldDescriptionWrap}
               />
             </Component>
           )}

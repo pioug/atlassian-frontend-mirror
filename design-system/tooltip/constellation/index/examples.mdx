@@ -25,9 +25,12 @@ The tooltip text wraps when the content is wider than the max-width. Additionall
 
 ## Positioning
 
-The position of tooltips is flexible and will change depending on how close the element is to the edge of the screen. Tooltips have four standard positions available; `top`, `right`, `bottom`, and `left`. Each standard position center-aligns itself along the appropriate axis and appears outside the target element.
+The tooltip position is flexible and changes depending on how close the element is to the edge of the screen. 
 
-If set to "mouse" the tooltip will display next to the mouse pointer instead. Make sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.
+The `top`, `right`, `bottom`, and `left` positions appear outside the target element, center-aligned along the appropriate axis. To place a tooltip in non-centered positions, see other placement `Options` in the <a rel="noopener noreferrer" href="https://popper.js.org/docs/v2/constructors/#options" target="_blank">React Popper v2 documentation</a>.
+
+
+If set to `mouse`, the tooltip will display next to the mouse pointer. Use `mousePosition` if you want to customize where the tooltip shows in relation to the mouse.
 
 <Example Component={TooltipPosition} packageName="@atlaskit/tooltip" />
 

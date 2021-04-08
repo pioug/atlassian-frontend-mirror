@@ -11,6 +11,8 @@ import {
   elemAfterCSS,
   elemBeforeCSS,
   truncateCSS,
+  wrapDescriptionCSS,
+  wrapTextCSS,
 } from '../styles/menu-item/base-item';
 
 const defaultRender: RenderFunction = (Component, props) => (
@@ -24,6 +26,8 @@ const BaseItem = memo(
     iconAfter,
     iconBefore,
     overrides,
+    shouldTitleWrap = false,
+    shouldDescriptionWrap = false,
   }: BaseItemProps) => {
     const renderTitle =
       (overrides && overrides.Title && overrides.Title.render) || defaultRender;
@@ -41,13 +45,18 @@ const BaseItem = memo(
               {({ css }) =>
                 renderTitle('span', {
                   children,
-                  className: css(truncateCSS),
+                  className: css(shouldTitleWrap ? wrapTextCSS : truncateCSS),
                   'data-item-title': true,
                 })
               }
             </ClassNames>
             {description && (
-              <span data-item-description css={descriptionCSS}>
+              <span
+                data-item-description
+                css={
+                  shouldDescriptionWrap ? wrapDescriptionCSS : descriptionCSS
+                }
+              >
                 {description}
               </span>
             )}

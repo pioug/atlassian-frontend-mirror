@@ -8,6 +8,7 @@ import {
 } from '../../../__tests__/_helper';
 
 const customItem = '[data-testid="item-custom-em"]';
+const customItemMultipleLine = '[data-testid="item-custom-em-multiple-line"]';
 const customItemDisabled = '[data-testid="item-custom-em-disabled"]';
 const customItemRouter = '[data-testid="item-custom-router"]';
 
@@ -23,6 +24,10 @@ const verifyElementMatchProductionImage = verifyElementIn(url);
 describe('<CustomItem />', () => {
   it('should match the default state', async () => {
     await verifyElementMatchProductionImage(customItem);
+  });
+
+  it('should match item with lots of text - wrap text', async () => {
+    await verifyElementMatchProductionImage(customItemMultipleLine);
   });
 
   it('should match the hovered state', async () => {

@@ -28,6 +28,8 @@ const LinkItem = memo(
         testId,
         overrides,
         onMouseDown,
+        shouldTitleWrap,
+        shouldDescriptionWrap,
         ...others
       } = rest;
       const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
@@ -61,6 +63,8 @@ const LinkItem = memo(
             iconBefore={iconBefore}
             iconAfter={iconAfter}
             description={description}
+            shouldTitleWrap={shouldTitleWrap}
+            shouldDescriptionWrap={shouldDescriptionWrap}
           >
             {children}
           </BaseItem>

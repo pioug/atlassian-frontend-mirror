@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.4.0
 
 ### Minor Changes

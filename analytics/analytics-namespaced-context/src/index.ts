@@ -20,3 +20,8 @@ export {
   PEOPLE_TEAMS_CONTEXT,
   PeopleTeamsAnalyticsContext,
 } from './PeopleTeamsAnalyticsContext';
+
+export {
+  NOTIFICATIONS_CONTEXT,
+  NotificationsAnalyticsContext,
+} from './NotificationsAnalyticsContext';

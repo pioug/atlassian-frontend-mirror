@@ -20,6 +20,9 @@ const DummyAtlaskitComponent = createComponentWithAnalytics(
 const DummyNavigationComponent = createComponentWithAnalytics(
   FabricChannel.navigation,
 );
+const DummyNotificationsComponent = createComponentWithAnalytics(
+  FabricChannel.notifications,
+);
 
 const myOnClickHandler = () => {
   console.log('Button clicked ! Yay!');
@@ -59,6 +62,10 @@ function Example() {
           >
             <DummyNavigationComponent onClick={myOnClickHandler} />
           </AnalyticsContext>
+        </AnalyticsContext>
+
+        <AnalyticsContext data={{ attributes: { customAttribute: 'yes!' } }}>
+          <DummyNotificationsComponent onClick={myOnClickHandler} />
         </AnalyticsContext>
       </div>
     </FabricAnalyticsListeners>

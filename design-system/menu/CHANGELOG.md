@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.7.5
+
+### Patch Changes
+
+- [`21713b1335a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21713b1335a) - [ux] adding shouldTitleWrap and shouldDescriptionWrap prop to menu items for wrap long text in title and description
+
 ## 0.7.4
 
 ### Patch Changes

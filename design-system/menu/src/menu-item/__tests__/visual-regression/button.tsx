@@ -9,6 +9,10 @@ import {
 
 const buttonLink = "[data-testid='item-button']";
 const buttonLinkAtScale = "[data-testid='item-button-at-scale']";
+const buttonLinkAtScaleMultipleLineTitle =
+  "[data-testid='item-button-at-scale-multiple-line-title']";
+const buttonLinkAtScaleMultipleLineTitleAndDescription =
+  "[data-testid='item-button-at-scale-multiple-line-title-and-description']";
 const buttonLinkAtScaleBeforeAfter =
   "[data-testid='item-button-at-scale-before-after']";
 const buttonLinkDisabled = "[data-testid='item-button-disabled']";
@@ -77,6 +81,16 @@ describe('<ButtonItem />', () => {
 
   it('should match item with lots of text', async () => {
     await verifyElementMatchProductionImage(buttonLinkAtScale);
+  });
+
+  it('should match item with lots of text - wrap text', async () => {
+    await verifyElementMatchProductionImage(buttonLinkAtScaleMultipleLineTitle);
+  });
+
+  it('should match item with lots of text - wrap title and description', async () => {
+    await verifyElementMatchProductionImage(
+      buttonLinkAtScaleMultipleLineTitleAndDescription,
+    );
   });
 
   it('should match item with lots of text with before and after icon', async () => {

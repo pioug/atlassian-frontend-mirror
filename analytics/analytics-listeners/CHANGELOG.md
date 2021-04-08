@@ -1,5 +1,15 @@
 # @atlaskit/analytics-listeners
 
+## 8.1.0
+
+### Minor Changes
+
+- [`1ecfe397c00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ecfe397c00) - Added a notification channel
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

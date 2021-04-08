@@ -24,4 +24,5 @@ export enum FabricChannel {
   editor = 'editor',
   media = 'media',
   peopleTeams = 'peopleTeams',
+  notifications = 'notifications',
 }

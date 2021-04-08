@@ -171,6 +171,16 @@ export interface BaseItemProps {
    * Custom overrides for the composed components.
    */
   overrides?: Overrides;
+
+  /**
+   * When `true` the title of the item will wrap multiple lines if it's long enough.
+   */
+  shouldTitleWrap?: boolean;
+
+  /**
+   * When `true` the description of the item will wrap multiple lines if it's long enough.
+   */
+  shouldDescriptionWrap?: boolean;
 }
 
 export interface ButtonItemProps extends BaseItemProps {}

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-namespaced-context",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.0.0",
+    "@atlaskit/analytics-listeners": "^8.1.0",
     "@atlaskit/docs": "*",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

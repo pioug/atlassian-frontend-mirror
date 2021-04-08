@@ -88,6 +88,10 @@ export const truncateCSS = {
   whiteSpace: 'nowrap',
 } as CSSObject;
 
+export const wrapTextCSS = {
+  wordBreak: 'break-word',
+} as CSSObject;
+
 export const elemBeforeCSS = {
   display: 'flex',
   flexShrink: 0,
@@ -100,11 +104,20 @@ export const elemAfterCSS = {
   marginLeft: itemElemSpacing,
 };
 
-export const descriptionCSS = {
-  ...truncateCSS,
+const descriptionBaseCSS = {
   color: N200,
   marginTop: itemDescriptionSpacing,
   fontSize: headingSizes.h200.size,
+} as CSSObject;
+
+export const wrapDescriptionCSS = {
+  ...wrapTextCSS,
+  ...descriptionBaseCSS,
+} as CSSObject;
+
+export const descriptionCSS = {
+  ...truncateCSS,
+  ...descriptionBaseCSS,
 } as CSSObject;
 
 export const contentCSSWrapper = {

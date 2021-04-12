@@ -143,6 +143,7 @@ export interface ProvisionedProductsResponse extends ProvisionedProducts {}
 // Coincides with the product types in the Available Products Service
 export enum SwitcherProductType {
   JIRA_BUSINESS = 'JIRA_BUSINESS',
+  JIRA_WORK_MANAGEMENT = 'JIRA_WORK_MANAGEMENT',
   JIRA_SERVICE_DESK = 'JIRA_SERVICE_DESK',
   JIRA_SOFTWARE = 'JIRA_SOFTWARE',
   CONFLUENCE = 'CONFLUENCE',
@@ -201,6 +202,7 @@ export interface AvailableProductsResponse {
   isPartial: boolean;
   unstableFeatures?: {
     act959Enabled?: boolean; // [FD-15975]: Remove after the featue flag is rolled out to 100%
+    jwmRebrandEnabled?: boolean; // [FD-20847]: Remove after feature flag rolled out to 100%
   };
 }
 

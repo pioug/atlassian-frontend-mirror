@@ -80,7 +80,7 @@
     "@atlaskit/media-integration-test-helpers": "^2.3.3",
     "@atlaskit/media-test-helpers": "^28.6.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "^0.4.0",
+    "@atlaskit/visual-regression": "^0.5.0",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.1",
     "@types/bytes": "^2.4.33",

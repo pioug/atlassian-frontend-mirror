@@ -38,6 +38,9 @@ import {
 function collectAvailableProductLinks(
   cloudId: string | null | undefined,
   mapUrl: MapUrl,
+  features: {
+    jwmRebrandEnabled: boolean;
+  },
   availableProducts?: ProviderResults['availableProducts'],
 ): SwitcherItemType[] | undefined {
   if (availableProducts) {
@@ -45,7 +48,12 @@ function collectAvailableProductLinks(
       throw availableProducts.error;
     }
     if (isComplete(availableProducts)) {
-      return getAvailableProductLinks(availableProducts.data, cloudId, mapUrl);
+      return getAvailableProductLinks(
+        availableProducts.data,
+        cloudId,
+        mapUrl,
+        features,
+      );
     }
     return;
   }
@@ -208,6 +216,9 @@ export function mapResultsToSwitcherProps(
   const act959Enabled = Boolean(
     availableProducts.data?.unstableFeatures?.act959Enabled,
   );
+  const jwmRebrandEnabled = Boolean(
+    availableProducts.data?.unstableFeatures?.jwmRebrandEnabled,
+  );
   const provisionedProducts = asProvisionedProductsResult(availableProducts);
   const hasLoadedAvailableProducts = hasLoaded(availableProducts);
   const hasLoadedAdminLinks =
@@ -234,7 +245,12 @@ export function mapResultsToSwitcherProps(
   return {
     getExtendedAnalyticsAttributes,
     licensedProductLinks: collect(
-      collectAvailableProductLinks(cloudId, mapUrl, availableProducts),
+      collectAvailableProductLinks(
+        cloudId,
+        mapUrl,
+        { jwmRebrandEnabled },
+        availableProducts,
+      ),
       [],
     ),
     suggestedProductLinks: features.xflow

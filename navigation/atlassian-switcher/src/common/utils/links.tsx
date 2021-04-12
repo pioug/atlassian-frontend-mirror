@@ -30,6 +30,7 @@ import {
 import messages from './messages';
 import { CustomLink, SwitcherChildItem } from '../../types';
 import { createIcon, createImageIcon, IconType } from './icon-themes';
+import { getProductDataWithJwmRebrandFF } from './map-to-switcher-props-with-jwm-rebrand-ff';
 
 interface MessagesDict {
   [index: string]: FormattedMessageNamespace.MessageDescriptor;
@@ -90,6 +91,11 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
   },
   [SwitcherProductType.JIRA_BUSINESS]: {
     label: 'Jira Core',
+    Icon: createIcon(JiraCoreIcon, { size: 'small' }),
+    href: '/secure/BrowseProjects.jspa?selectedProjectType=business',
+  },
+  [SwitcherProductType.JIRA_WORK_MANAGEMENT]: {
+    label: 'Jira Work Management',
     Icon: createIcon(JiraCoreIcon, { size: 'small' }),
     href: '/secure/BrowseProjects.jspa?selectedProjectType=business',
   },
@@ -236,12 +242,15 @@ export const getProductSiteUrl = (connectedSite: ConnectedSite): string => {
 const getAvailableProductLinkFromSiteProduct = (
   connectedSites: ConnectedSite[],
   mapUrl: MapUrl,
+  jwmRebrandEnabled: boolean,
 ): SwitcherItemType => {
   const topSite =
     connectedSites.find(site => site.isCurrentSite) ||
     connectedSites.sort((a, b) => a.siteName.localeCompare(b.siteName))[0];
   const productType = topSite.product.productType;
-  const productLinkProperties = AVAILABLE_PRODUCT_DATA_MAP[productType];
+  const productLinkProperties = jwmRebrandEnabled
+    ? getProductDataWithJwmRebrandFF(productType, jwmRebrandEnabled)
+    : AVAILABLE_PRODUCT_DATA_MAP[productType];
 
   return {
     ...productLinkProperties,
@@ -266,6 +275,9 @@ export const getAvailableProductLinks = (
   availableProducts: AvailableProductsResponse,
   cloudId: string | null | undefined,
   mapUrl: MapUrl,
+  features: {
+    jwmRebrandEnabled: boolean;
+  },
 ): SwitcherItemType[] => {
   const productsMap: { [key: string]: ConnectedSite[] } = {};
   availableProducts.sites.forEach(site => {
@@ -291,7 +303,11 @@ export const getAvailableProductLinks = (
     const connectedSites = productsMap[productType];
     return (
       connectedSites &&
-      getAvailableProductLinkFromSiteProduct(connectedSites, mapUrl)
+      getAvailableProductLinkFromSiteProduct(
+        connectedSites,
+        mapUrl,
+        features.jwmRebrandEnabled,
+      )
     );
   }).filter(link => !!link);
 };

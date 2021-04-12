@@ -702,6 +702,59 @@ describe('map-results-to-switcher-props', () => {
     });
   });
 
+  describe('renders Jira Work Management correctly', () => {
+    it('should return Jira Core in licensed products with rebrand FF off', () => {
+      const props = mapResultsToSwitcherProps(
+        CLOUD_ID,
+        {
+          ...completedProvidersResult,
+          availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
+            sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_BUSINESS)],
+          }),
+        },
+        defaultFeatures,
+        Product.JIRA,
+      );
+
+      expect(props.licensedProductLinks).toMatchObject([
+        {
+          href:
+            'https://some-cloud-id.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=business',
+          key: 'JIRA_BUSINESSsome-cloud-id',
+          label: 'Jira Core',
+        },
+      ]);
+    });
+
+    it('should return Jira Work Management in licensed products with rebrand FF off', () => {
+      const props = mapResultsToSwitcherProps(
+        CLOUD_ID,
+        {
+          ...completedProvidersResult,
+          availableProducts: asCompletedProvider<AvailableProductsResponse>({
+            isPartial: false,
+            sites: [generateSite(CLOUD_ID, SwitcherProductType.JIRA_BUSINESS)],
+            unstableFeatures: {
+              jwmRebrandEnabled: true,
+            },
+          }),
+        },
+        defaultFeatures,
+        Product.JIRA,
+      );
+
+      expect(props.licensedProductLinks).toMatchObject([
+        {
+          href:
+            'https://some-cloud-id.atlassian.net/secure/BrowseProjects.jspa?selectedProjectType=business',
+          key: 'JIRA_BUSINESSsome-cloud-id',
+          label: 'Jira Work Management',
+        },
+      ]);
+    });
+  });
+
   describe('renders JSM correctly', () => {
     it('should return JSM in licensed products', () => {
       const props = mapResultsToSwitcherProps(

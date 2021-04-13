@@ -1,12 +1,7 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import {
-  doc,
-  p,
-  mention,
-  a,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, mention, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   MockMentionResource,
   MockMentionConfig,

@@ -54,6 +54,7 @@ export interface Props {
     isEditing?: boolean,
   ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+  allowReferentiality?: boolean;
 }
 
 export interface State {

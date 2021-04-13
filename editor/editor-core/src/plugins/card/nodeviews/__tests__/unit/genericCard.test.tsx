@@ -1,7 +1,7 @@
 jest.mock('../../../pm-plugins/doc');
 import React from 'react';
 import { Card } from '../../genericCard';
-import { inlineCard } from '@atlaskit/editor-test-helpers/schema-builder';
+import { inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';

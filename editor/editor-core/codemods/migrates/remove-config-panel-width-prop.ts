@@ -2,7 +2,7 @@ import core from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 import { findImportFromPackage } from '../utils';
 
-const createRemoveComponentPropTransaction = (
+const createRemoveComponentPropTransform = (
   pkg: string,
   component: string,
   propName: string,
@@ -31,7 +31,7 @@ const createRemoveComponentPropTransaction = (
   };
 };
 
-export const removeConfigPanelWidthProp = createRemoveComponentPropTransaction(
+export const removeConfigPanelWidthProp = createRemoveComponentPropTransform(
   '@atlaskit/editor-core',
   'ContextPanel',
   'width',

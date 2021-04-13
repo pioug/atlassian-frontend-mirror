@@ -23,7 +23,7 @@ import {
   blockCard,
   panel as panelNode,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '../../pm-plugins/main';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common';

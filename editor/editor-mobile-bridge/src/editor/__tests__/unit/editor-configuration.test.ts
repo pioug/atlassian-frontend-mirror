@@ -11,7 +11,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
     expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
   });
 
@@ -39,7 +39,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should set the locale value and retain the rest with default values', () => {
@@ -50,7 +50,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should set the isQuickInsertEnabled value and retain the rest with default values', () => {
@@ -63,7 +63,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should set the isSelectionObserverEnabled value and retain the rest with default values', () => {
@@ -76,7 +76,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(true);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should set the allowCollabProvider value and retain the rest with default values', () => {
@@ -89,7 +89,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(true);
-    expect(editorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should set the allowPredictableList value and retain the rest with default values', () => {
@@ -119,7 +119,7 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(newEditorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(newEditorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(newEditorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should clone and update the default configuration with the new configuration', () => {
@@ -135,7 +135,7 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(newEditorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(newEditorConfig.isPredictableListEnabled()).toEqual(false);
+    expect(newEditorConfig.isPredictableListEnabled()).toEqual(true);
   });
 
   it('should persist scroll gutter for compact editor', () => {

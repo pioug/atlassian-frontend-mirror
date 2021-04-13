@@ -19,7 +19,7 @@ import {
   td,
   hardBreak,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { toJSON } from '../../../../utils';

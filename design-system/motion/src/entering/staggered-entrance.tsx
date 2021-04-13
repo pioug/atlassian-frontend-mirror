@@ -3,7 +3,7 @@ import React, { createContext, Ref, useContext, useRef, useState } from 'react';
 import { useLayoutEffect } from '../utils/use-layout-effect';
 import { useUniqueId } from '../utils/use-unique-id';
 
-interface StaggeredEntranceProps {
+export interface StaggeredEntranceProps {
   /**
    * Delay in ms.
    * How long each element group will be staggered.

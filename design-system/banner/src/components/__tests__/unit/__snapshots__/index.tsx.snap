@@ -75,6 +75,22 @@ exports[`banner should render error banner correctly 1`] = `
   overflow: hidden;
 }
 
+@media screen and (-ms-high-contrast:white-on-black) {
+  .c3 {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .c3 {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    fill: #fff;
+  }
+}
+
 <div
   className="c0"
 >
@@ -177,6 +193,22 @@ exports[`banner should render warning banner correctly 1`] = `
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@media screen and (-ms-high-contrast:white-on-black) {
+  .c3 {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    fill: #000;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .c3 {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    fill: #fff;
+  }
 }
 
 <div

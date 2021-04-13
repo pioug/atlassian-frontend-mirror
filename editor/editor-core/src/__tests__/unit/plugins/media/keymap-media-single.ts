@@ -4,7 +4,7 @@ import {
   blockquote,
   mediaSingle,
   code_block,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import { temporaryMedia, mediaEditor } from './_utils';

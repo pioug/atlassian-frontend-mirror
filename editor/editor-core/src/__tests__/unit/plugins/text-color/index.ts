@@ -8,7 +8,7 @@ import {
   strong,
   panel,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   TextColorPluginState,
   pluginKey as textColorPluginKey,

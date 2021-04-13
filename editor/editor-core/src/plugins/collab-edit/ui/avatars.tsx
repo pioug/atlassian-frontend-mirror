@@ -25,7 +25,12 @@ export const Avatars: React.StatelessComponent<AvatarsProps> = React.memo(
 
     return (
       <AvatarContainer>
-        <AvatarGroup appearance="stack" size="medium" data={avatars} />
+        <AvatarGroup
+          appearance="stack"
+          size="medium"
+          data={avatars}
+          maxCount={3}
+        />
         {props.children}
       </AvatarContainer>
     );

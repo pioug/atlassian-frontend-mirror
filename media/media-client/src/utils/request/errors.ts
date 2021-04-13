@@ -10,6 +10,7 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
   constructor(
     readonly reason: RequestErrorReason,
     readonly metadata?: RequestErrorMetadata,
+    readonly innerError?: Error,
   ) {
     super(reason);
   }
@@ -18,20 +19,22 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
     const {
       reason,
       metadata: {
+        method,
+        endpoint,
         attempts,
         clientExhaustedRetries,
         statusCode,
-        bodyAsText,
-        innerError,
       } = {},
+      innerError,
     } = this;
 
     return {
       reason,
+      method,
+      endpoint,
       attempts,
       clientExhaustedRetries,
       statusCode,
-      bodyAsText,
       innerError,
     };
   }

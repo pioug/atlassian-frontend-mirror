@@ -6,7 +6,7 @@ import {
   layoutColumn,
   doc,
   p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 const schema = makeSchema();
 

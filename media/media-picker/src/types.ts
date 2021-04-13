@@ -1,4 +1,4 @@
-import { MediaClient } from '@atlaskit/media-client';
+import { MediaClient, RequestMetadata } from '@atlaskit/media-client';
 
 import {
   MediaFeatureFlags,
@@ -244,6 +244,7 @@ export type MediaUploadFailurePayload = OperationalEventPayload<
       sourceType: MediaUploadSource;
       serviceName: string;
       uploadDurationMsec: number;
+      request?: RequestMetadata;
     },
   'failed',
   'mediaUpload',

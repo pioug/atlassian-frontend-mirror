@@ -1,6 +1,7 @@
 import React from 'react';
 import { InjectedIntl } from 'react-intl';
 import { Plugin } from 'prosemirror-state';
+import memoizeOne from 'memoize-one';
 import {
   QuickInsertItem,
   QuickInsertProvider,
@@ -108,24 +109,19 @@ const quickInsertPlugin = (
 
 export default quickInsertPlugin;
 
-const itemsCache: Record<string, Array<QuickInsertItem>> = {};
 export const processItems = (
   items: Array<QuickInsertHandler>,
   intl: InjectedIntl,
 ) => {
-  if (!itemsCache[intl.locale]) {
-    itemsCache[intl.locale] = items.reduce(
-      (acc: Array<QuickInsertItem>, item) => {
-        if (typeof item === 'function') {
-          return acc.concat(item(intl));
-        }
-        return acc.concat(item);
-      },
-      [],
-    );
-  }
-  return itemsCache[intl.locale];
+  return items.reduce((acc: Array<QuickInsertItem>, item) => {
+    if (typeof item === 'function') {
+      return acc.concat(item(intl));
+    }
+    return acc.concat(item);
+  }, []);
 };
+
+const memoProcessItems = memoizeOne(processItems);
 
 const setProviderState = (
   providerState: Partial<QuickInsertPluginState>,
@@ -149,7 +145,10 @@ function quickInsertPluginFactory(
         return {
           isElementBrowserModalOpen: false,
           // lazy so it doesn't run on editor initialization
-          lazyDefaultItems: () => processItems(quickInsertItems || [], intl),
+          // memo here to avoid using a singleton cache, avoids editor
+          // getting confused when two editors exist within the same page.
+          lazyDefaultItems: () =>
+            memoProcessItems(quickInsertItems || [], intl),
         };
       },
 

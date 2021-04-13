@@ -9,7 +9,7 @@ import {
   hr,
   mention,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { undo } from 'prosemirror-history';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
 import { MockMentionResource } from '@atlaskit/util-data-test';

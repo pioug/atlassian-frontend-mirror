@@ -1,17 +1,11 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
-import { EditorView } from 'prosemirror-view';
+import { EditorState } from 'prosemirror-state';
 import { buildLayoutForWidths } from '../../../../../plugins/layout/__tests__/unit/_utils';
 import { calcMediaPxWidth } from '../../../../../plugins/media/utils/media-single';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe('Media Single Utils', () => {
-  const createEditor = createEditorFactory();
-
   const containerWidth = { width: 1920, lineLength: 760 };
   const origWidth = 100;
   const origHeight = 100;
@@ -34,29 +28,24 @@ describe('Media Single Utils', () => {
     100: 1800,
   };
 
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: { allowLayouts: true },
-    });
-
   describe('calcMediaPxWidth', () => {
-    let editorView: EditorView;
-    let sel: number;
+    let state: EditorState;
+    let pos: number;
     const calcWidth = (
       opts: Partial<Parameters<typeof calcMediaPxWidth>[0]> = {},
     ): number =>
       calcMediaPxWidth({
         origWidth,
         origHeight,
-        state: editorView.state,
+        state,
         containerWidth,
-        pos: sel,
+        pos,
         ...opts,
       });
 
     beforeEach(() => {
-      ({ editorView, sel } = editor(doc(p('{<>}'))));
+      state = createEditorState(doc(p('{<>}')));
+      pos = state.selection.from;
     });
 
     describe('wide media', () => {
@@ -188,9 +177,8 @@ describe('Media Single Utils', () => {
 
     describe('media inside layouts', () => {
       beforeEach(() => {
-        ({ editorView, sel } = editor(
-          doc(buildLayoutForWidths([50, 50], true)),
-        ));
+        state = createEditorState(doc(buildLayoutForWidths([50, 50], true)));
+        pos = state.selection.from;
       });
 
       describe('media smaller than layout column', () => {

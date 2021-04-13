@@ -5,7 +5,7 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { EmojiPickerButton } from '../emoji-picker-button';
 import { ReactWrapper } from 'enzyme';

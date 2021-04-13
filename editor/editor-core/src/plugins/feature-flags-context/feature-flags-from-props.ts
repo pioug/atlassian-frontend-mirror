@@ -90,5 +90,11 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof props.allowExtension === 'object' &&
         props.allowExtension?.allowExtendFloatingToolbars,
     ),
+
+    displayInlineBlockForInlineNodes: Boolean(
+      typeof props.featureFlags?.displayInlineBlockForInlineNodes === 'boolean'
+        ? !!props.featureFlags?.displayInlineBlockForInlineNodes
+        : true,
+    ),
   };
 }

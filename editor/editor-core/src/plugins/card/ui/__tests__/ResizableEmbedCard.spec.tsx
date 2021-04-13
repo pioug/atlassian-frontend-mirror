@@ -4,7 +4,7 @@ import {
   doc,
   embedCard,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { CardOptions } from '@atlaskit/editor-common';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import ResizableEmbedCard, {
@@ -72,7 +72,15 @@ describe('ResizableEmbedCard', () => {
     it('should have paddingBottom defined with default aspect ratio in %', () => {
       const { heightDefinerStyle } = setup();
       expect(heightDefinerStyle.height).not.toBeDefined();
-      expect(heightDefinerStyle.paddingBottom).toEqual('70.588%');
+      expect(heightDefinerStyle.paddingBottom).toEqual('calc(70.588% + 32px)');
+    });
+
+    it('should have paddingBottom defined with given aspect ratio in %', () => {
+      const { heightDefinerStyle } = setup({
+        aspectRatio: 1.7,
+      });
+      expect(heightDefinerStyle.height).not.toBeDefined();
+      expect(heightDefinerStyle.paddingBottom).toEqual('calc(58.824% + 32px)');
     });
 
     it('should have height defined when explicit height is given', () => {

@@ -627,7 +627,9 @@ export default class ReactEditorView<T = {}> extends React.Component<
     } else {
       const invalidNodes = nodes
         .filter(node => !validNode(node))
-        .map<SimplifiedNode | string>(node => getDocStructure(node));
+        .map<SimplifiedNode | string>(node =>
+          getDocStructure(node, { compact: true }),
+        );
 
       this.dispatchAnalyticsEvent({
         action: ACTION.DISPATCHED_INVALID_TRANSACTION,

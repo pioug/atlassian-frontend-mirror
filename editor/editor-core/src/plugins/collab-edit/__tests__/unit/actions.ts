@@ -1,9 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

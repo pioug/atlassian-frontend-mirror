@@ -1,6 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
-import { doc, mention, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, mention, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - Mention', () => {
   const transformer = new WikiMarkupTransformer();

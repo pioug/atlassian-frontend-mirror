@@ -68,7 +68,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
     );
 
     const configParams = processParametersBefore
-      ? processParametersBefore(parameters)
+      ? processParametersBefore(parameters || {})
       : parameters;
 
     return (

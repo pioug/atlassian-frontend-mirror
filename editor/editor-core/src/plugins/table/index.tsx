@@ -119,7 +119,10 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       { name: 'tableEditing', plugin: () => createDecorationsPlugin() },
       // Needs to be lower priority than editor-tables.tableEditing
       // plugin as it is currently swallowing backspace events inside tables
-      { name: 'tableKeymap', plugin: () => keymapPlugin() },
+      {
+        name: 'tableKeymap',
+        plugin: () => keymapPlugin(options?.allowReferentiality),
+      },
       {
         name: 'tableSelectionKeymap',
         plugin: () => tableSelectionKeymapPlugin(),
@@ -276,7 +279,12 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         keyshortcut: tooltip(toggleTable),
         icon: () => <IconTable label={formatMessage(messages.table)} />,
         action(insert, state) {
-          const tr = insert(createTable(state.schema));
+          const tr = insert(
+            createTable({
+              schema: state.schema,
+              allowLocalId: options?.allowReferentiality,
+            }),
+          );
           return addAnalytics(state, tr, {
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,

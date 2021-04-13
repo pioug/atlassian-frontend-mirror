@@ -45,7 +45,10 @@ export type {
   ExtensionToolbarButton,
 } from './extension-manifest-toolbar-item';
 
-export type { Parameters } from './extension-parameters';
+export type {
+  Parameters,
+  ParametersWithDuplicateFields,
+} from './extension-parameters';
 
 export type { MenuItem, MenuItemMap } from './utils';
 

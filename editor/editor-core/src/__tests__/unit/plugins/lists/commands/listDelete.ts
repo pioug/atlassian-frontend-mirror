@@ -5,7 +5,7 @@ import {
   p,
   code_block,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { deleteKeyCommand } from '../../../../../plugins/lists/commands';
 import { listDelete } from '../../../../../plugins/lists/commands/listDelete';

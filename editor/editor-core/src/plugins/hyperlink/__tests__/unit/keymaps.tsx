@@ -12,7 +12,7 @@ import {
   hardBreak,
   a,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { HyperlinkState, InsertStatus, stateKey } from '../../pm-plugins/main';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';

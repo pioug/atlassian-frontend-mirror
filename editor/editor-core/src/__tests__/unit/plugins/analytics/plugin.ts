@@ -11,11 +11,7 @@ import {
 import { extendPayload } from '../../../../plugins/analytics/plugin';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { CommandDispatch } from '../../../../types';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 

@@ -1,5 +1,25 @@
-import { FileStatus } from '@atlaskit/media-client';
-import { getCardStatus, GetCardStatusParams } from '../../card/getCardStatus';
+jest.mock('@atlaskit/media-client', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-client');
+  return {
+    __esModule: true,
+    ...actualModule,
+    isPreviewableType: jest.fn(() => 'isPreviewableType-return'),
+    isPreviewableFileState: jest.fn(() => 'isPreviewableFileState-return'),
+  };
+});
+import {
+  FileStatus,
+  FileState,
+  isPreviewableType,
+  isPreviewableFileState,
+  MediaType,
+} from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
+import {
+  getCardStatus,
+  GetCardStatusParams,
+  extractCardStatusParams,
+} from '../../card/getCardStatus';
 
 const defaultOptions: GetCardStatusParams = {
   isPreviewableType: true,
@@ -52,6 +72,66 @@ describe('getCardStatus()', () => {
 
   it('should return loading by default', () => {
     // forcing types to ensure the internal logic does not rely on
+    // a known file status or the options object
+    expect(
+      getCardStatus(
+        'unhandled-file-status' as FileStatus,
+        {} as GetCardStatusParams,
+      ),
+    ).toEqual('loading');
+  });
+});
+
+describe('extractCardStatusParams()', () => {
+  const dummyFeatureFlags = {} as MediaFeatureFlags;
+
+  it('should check if a local preview is available and the media type is listed as previewable', () => {
+    const dummyMediaType = 'some-mediaType' as MediaType;
+    const dummyFileStateWithMediaType = {
+      mediaType: dummyMediaType,
+    } as FileState;
+    expect(
+      extractCardStatusParams(dummyFileStateWithMediaType, dummyFeatureFlags),
+    ).toMatchObject(
+      expect.objectContaining({
+        isPreviewableType: isPreviewableType(dummyMediaType),
+        isPreviewableFileState: isPreviewableFileState(
+          dummyFileStateWithMediaType,
+        ),
+      }),
+    );
+    // Common helpers should be used for this operation
+    expect(isPreviewableType).toBeCalledWith(dummyMediaType, dummyFeatureFlags);
+    expect(isPreviewableFileState).toBeCalledWith(dummyFileStateWithMediaType);
+  });
+
+  it(`should use file state's file size`, () => {
+    const dummyFileStateWithoutSize = ({
+      size: undefined,
+    } as unknown) as FileState;
+    const dummyFileStateWithSize = ({
+      size: 1,
+    } as unknown) as FileState;
+
+    expect(
+      extractCardStatusParams(dummyFileStateWithoutSize, dummyFeatureFlags),
+    ).toMatchObject(
+      expect.objectContaining({
+        hasFilesize: false,
+      }),
+    );
+
+    expect(
+      extractCardStatusParams(dummyFileStateWithSize, dummyFeatureFlags),
+    ).toMatchObject(
+      expect.objectContaining({
+        hasFilesize: true,
+      }),
+    );
+  });
+
+  it('should return loading by default', () => {
+    // forcing types to ensure the internal logic does not rely in
     // a known file status or the options object
     expect(
       getCardStatus(

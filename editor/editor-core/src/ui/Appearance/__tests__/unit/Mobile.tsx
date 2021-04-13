@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  DocBuilder,
-  doc,
-  p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

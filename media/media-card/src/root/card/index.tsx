@@ -27,7 +27,6 @@ import {
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
   isPreviewableType,
-  isPreviewableFileState,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { Subscription } from 'rxjs/Subscription';
@@ -37,7 +36,6 @@ import {
   CardDimensions,
   CardProps,
   CardState,
-  CardStatus,
   NumericalCardDimensions,
 } from '../..';
 import { CardView, CardViewBase } from '../cardView';
@@ -52,20 +50,21 @@ import {
 import { extendMetadata } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import { createObjectURLCache } from '../../utils/objectURLCache';
-import { getCardStatus } from './getCardStatus';
+import { getCardStatus, extractCardStatusParams } from './getCardStatus';
 import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
 import {
   fireMediaCardEvent,
   getFileAttributes,
-  RenderEventPayload,
   getRenderCommencedEventPayload,
-  getRenderSucceededEventPayload,
-  getRenderFailedMediaClientPayload,
-  getRenderFailedFileStatusPayload,
   getCopiedFilePayload,
-  isRenderFailedEventPayload,
 } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
+import {
+  isLocalPreviewError,
+  MediaCardError,
+  ensureMediaCardError,
+} from '../../errors';
+import { fireOperationalEvent } from './cardAnalytics';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 
@@ -76,7 +75,6 @@ export class CardBase extends Component<
   CardState
 > {
   private hasBeenMounted: boolean = false;
-  private lastOperationalPayload?: RenderEventPayload = undefined;
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
@@ -213,6 +211,18 @@ export class CardBase extends Component<
     ) {
       this.fireCommencedEvent();
       this.updateStateForIdentifier();
+    }
+
+    if (this.state.status !== prevState.status) {
+      const { status, cardPreview, error } = this.state;
+      const { createAnalyticsEvent } = this.props;
+      createAnalyticsEvent &&
+        fireOperationalEvent(
+          createAnalyticsEvent,
+          status,
+          this.fileAttributes,
+          { cardPreview, error },
+        );
     }
   }
 
@@ -392,30 +402,33 @@ export class CardBase extends Component<
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
           const metadata = extendMetadata(fileState, this.state.metadata);
-          const status = getCardStatus(fileState.status, {
-            // TODO: align this check with helpers from Media Client
-            // https://product-fabric.atlassian.net/browse/BMPT-1300
-            isPreviewableType:
-              !!metadata.mediaType &&
-              isPreviewableType(metadata.mediaType, this.props.featureFlags),
-            hasFilesize: !!metadata && !!metadata.size,
-            // TODO: we are assuming that the local preview will succeed rendering. We should check this first
-            // https://product-fabric.atlassian.net/browse/BMPT-1131
-            isPreviewableFileState: isPreviewableFileState(fileState),
-          });
+          let status = getCardStatus(
+            fileState.status,
+            extractCardStatusParams(fileState, this.props.featureFlags),
+          );
           this.safeSetState({ metadata });
 
-          /**
-           * TODO: getCardPreview swallows the errors!!
-           * We should hendle them properly and fire analitics events accordingly
-           * https://product-fabric.atlassian.net/browse/BMPT-1131
-           */
-          const cardPreview = await this.getCardPreview(
-            mediaClient,
-            identifier,
-            fileState,
-            metadata,
-          );
+          let cardPreview: CardPreview | undefined;
+          let error: MediaCardError | undefined;
+          try {
+            cardPreview = await this.getCardPreview(
+              mediaClient,
+              identifier,
+              fileState,
+              metadata,
+            );
+          } catch (e) {
+            const wrappedError = ensureMediaCardError('preview-fetch', e);
+            // If the local preview fails, we don't need to display the error.
+            // TODO: if file has local preview card will be complete status. But if the local preview fails,
+            // and we don't change the status, we will have
+            // [ !cardPreview && status == complete -> log succeeded event ]
+            // https://product-fabric.atlassian.net/browse/BMPT-1315
+            if (!isLocalPreviewError(wrappedError)) {
+              status = 'error';
+              error = wrappedError;
+            }
+          }
 
           if (this.isLatestCardStatusUpdate(thisCardStatusUpdateTimestamp)) {
             // These status and progress must not override values representing more recent FileState
@@ -433,18 +446,11 @@ export class CardBase extends Component<
              *
              */
 
-            // TODO: ErrorFileState should be handled by the error callback
-            // Will be fixed in https://product-fabric.atlassian.net/browse/BMPT-1287
-            if (['error', 'failed-processing'].includes(status)) {
-              this.fireFailedFileStatusEvent();
-            }
-            /**
-             * A Card that is considered Complete and has no preview,
-             * reflects an expected behaviour, and thus a legitimate
-             * success case to be logged.
-             */
-            if (!cardPreview?.dataURI && status === 'complete') {
-              this.fireSucceededEvent();
+            if (status === 'error' && isErrorFileState(fileState) && !error) {
+              error = new MediaCardError(
+                'error-file-state',
+                new Error(fileState.message),
+              );
             }
 
             this.safeSetState({
@@ -454,20 +460,24 @@ export class CardBase extends Component<
                 status === 'uploading' && fileState.status === 'uploading'
                   ? fileState.progress
                   : 1,
+              error: status === 'error' && error ? error : undefined,
             });
 
             this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
           }
         },
-        error: error => {
+        error: e => {
           // If file state subscription decides that the card is complete
           // and later there is an error, we won't change the card's status.
           if (this.state.status === 'complete') {
             return;
           }
-          const cardStatus: CardStatus = 'error';
-          this.safeSetState({ error, status: cardStatus });
-          this.fireFailedMediaClientEvent(error);
+          const errorReason =
+            this.fileAttributes.fileStatus === 'uploading'
+              ? 'upload'
+              : 'metadata-fetch';
+          const error = new MediaCardError(errorReason, e);
+          this.safeSetState({ error, status: 'error' });
           this.lastCardStatusUpdateTimestamp = (performance || Date).now();
         },
       });
@@ -487,69 +497,13 @@ export class CardBase extends Component<
     return getFileAttributes(this.metadata, this.lastFileState?.status);
   }
 
-  private shouldFireOperationalEvent = (payload: RenderEventPayload) => {
-    const { action: lastAction = undefined } =
-      this.lastOperationalPayload || {};
-    const {
-      failReason: lastFailReason = undefined,
-      error: lastError = undefined,
-    } = isRenderFailedEventPayload(this.lastOperationalPayload)
-      ? this.lastOperationalPayload.attributes
-      : {};
-
-    const { action } = payload;
-    const {
-      failReason = undefined,
-      error = undefined,
-    } = isRenderFailedEventPayload(payload) ? payload.attributes : {};
-
-    const result =
-      action !== lastAction ||
-      failReason !== lastFailReason ||
-      error !== lastError;
-    return result;
-  };
-
-  private fireFailedMediaClientEvent = (error: Error) => {
-    const { createAnalyticsEvent } = this.props;
-    const payload = getRenderFailedMediaClientPayload(
-      this.fileAttributes,
-      error,
-    );
-    if (this.shouldFireOperationalEvent(payload)) {
-      fireMediaCardEvent(payload, createAnalyticsEvent);
-      this.lastOperationalPayload = payload;
-    }
-  };
-
-  private fireFailedFileStatusEvent = () => {
-    const { createAnalyticsEvent } = this.props;
-    const payload = getRenderFailedFileStatusPayload(this.fileAttributes);
-    if (this.shouldFireOperationalEvent(payload)) {
-      fireMediaCardEvent(payload, createAnalyticsEvent);
-      this.lastOperationalPayload = payload;
-    }
-  };
-
-  private fireSucceededEvent = () => {
-    const { createAnalyticsEvent } = this.props;
-    const payload = getRenderSucceededEventPayload(this.fileAttributes);
-    if (this.shouldFireOperationalEvent(payload)) {
-      fireMediaCardEvent(payload, createAnalyticsEvent);
-      this.lastOperationalPayload = payload;
-    }
-  };
-
   private fireCommencedEvent() {
     if (!this.state.isCardVisible) {
       return;
     }
     const { createAnalyticsEvent } = this.props;
     const payload = getRenderCommencedEventPayload(this.fileAttributes);
-    if (this.shouldFireOperationalEvent(payload)) {
-      fireMediaCardEvent(payload, createAnalyticsEvent);
-      this.lastOperationalPayload = payload;
-    }
+    fireMediaCardEvent(payload, createAnalyticsEvent);
   }
 
   private fireFileCopiedEvent = () => {
@@ -574,12 +528,10 @@ export class CardBase extends Component<
     if (this.hasBeenMounted) {
       this.setState({ cardPreview: undefined });
     }
-    this.lastOperationalPayload = undefined;
   };
 
   // This method is called when card fails and user press 'Retry'
   private onRetry = () => {
-    this.lastOperationalPayload = undefined;
     this.fireCommencedEvent();
     this.updateStateForIdentifier();
   };
@@ -783,7 +735,7 @@ export class CardBase extends Component<
     const card = (
       <CardView
         status={status}
-        error={error}
+        error={error && error.secondaryError}
         mediaItemType={mediaItemType}
         metadata={metadata}
         dataURI={dataURI}

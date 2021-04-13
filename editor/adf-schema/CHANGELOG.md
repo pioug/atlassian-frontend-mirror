@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 15.1.0
+
+### Minor Changes
+
+- [`330c1fce7f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330c1fce7f9) - ED-12264 Add unsupported content capability to panel and blockquote
+
+### Patch Changes
+
+- [`5089bd2544d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5089bd2544d) - ED-11919: generate localId for tables
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+
 ## 15.0.0
 
 ### Major Changes

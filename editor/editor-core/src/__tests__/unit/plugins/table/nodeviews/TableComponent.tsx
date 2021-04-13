@@ -10,7 +10,7 @@ import {
   td,
   tdEmpty,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { findTable, selectTable } from '@atlaskit/editor-tables/utils';
 import { TableCssClassName as ClassName } from '../../../../../plugins/table/types';
 import { TablePluginState } from '../../../../../plugins/table/types';

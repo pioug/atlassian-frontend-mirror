@@ -4,7 +4,7 @@ import {
   li,
   doc,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { calcJoinListScenario, listBackspace } from '../../listBackspace';
 import { walkPrevNode } from '../../../../../utils/commands';

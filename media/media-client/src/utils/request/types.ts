@@ -17,8 +17,12 @@ export type ClientOptions = {
   readonly clientTimeout?: number;
 };
 
-export type RequestOptions = {
+export type RequestMetadata = {
   readonly method?: RequestMethod;
+  readonly endpoint?: string;
+};
+
+export type RequestOptions = RequestMetadata & {
   readonly auth?: Auth;
   readonly params?: RequestParams;
   readonly headers?: RequestHeaders;
@@ -45,12 +49,10 @@ export type RequestErrorReason =
   | 'serverBadGateway'
   | 'serverUnexpectedError';
 
-export type RequestErrorMetadata = {
+export type RequestErrorMetadata = RequestMetadata & {
   readonly attempts?: number;
   readonly clientExhaustedRetries?: boolean;
   readonly statusCode?: number;
-  readonly bodyAsText?: string;
-  readonly innerError?: Error;
 };
 
 export type RequestErrorAttributes = RequestErrorMetadata & {

@@ -10,7 +10,7 @@ import {
   date,
   a,
   status,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
 import { mention as mentionDataTest } from '@atlaskit/util-data-test';
 import { sortByColumn } from '../../../../../plugins/table/commands/sort';

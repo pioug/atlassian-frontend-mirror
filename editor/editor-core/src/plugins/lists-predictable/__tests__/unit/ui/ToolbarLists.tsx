@@ -2,11 +2,7 @@ import React from 'react';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '../../../pm-plugins/main';
 import { ListsPluginState } from '../../../types';
 import { messages } from '../../../../../plugins/lists/messages';

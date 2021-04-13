@@ -5,7 +5,7 @@ import {
   em,
   p,
   strong,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { checkParseEncodeRoundTrips } from '../../_test-helpers';
 import { defaultSchema } from '@atlaskit/adf-schema';
 

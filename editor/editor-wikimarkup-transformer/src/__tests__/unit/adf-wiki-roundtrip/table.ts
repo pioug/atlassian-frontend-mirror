@@ -19,7 +19,7 @@ import {
   th,
   tr,
   ul,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - Table', () => {
   const transformer = new WikiMarkupTransformer();

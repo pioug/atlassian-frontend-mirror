@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 15.2.0
+
+### Minor Changes
+
+- [`e494a28d544`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e494a28d544) - New exported member `embedHeaderHeight` is added. Also all the instances of `onResolve` callback now return an object that contains optional extra property `aspectRatio`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.0
 
 ### Minor Changes

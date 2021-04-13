@@ -2,7 +2,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { PanelType } from '@atlaskit/adf-schema';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 import { Emoji } from '@atlaskit/editor-common';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';

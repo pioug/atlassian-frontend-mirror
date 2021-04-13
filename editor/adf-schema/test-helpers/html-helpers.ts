@@ -6,7 +6,7 @@ import {
   Node as PMNode,
   ParseOptions,
 } from 'prosemirror-model';
-import { DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
+import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TextSelection } from 'prosemirror-state';
 
 export const fromHTML = (

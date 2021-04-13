@@ -1,5 +1,30 @@
 # @atlaskit/adf-utils
 
+## 12.0.0
+
+### Major Changes
+
+- [`accd87f8116`](https://bitbucket.org/atlassian/atlassian-frontend/commits/accd87f8116) - ED-10216 Remove sanitizeNode helper function
+
+  BREAKING CHANGE:
+
+  ```javascript
+  // Before
+  import { sanitizeNode } from '@atlaskit/adf-utils';
+  import { sanitizeNode } from '@atlaskit/adf-utils/sanitize';
+
+  // After
+  import { sanitizeNode } from '@atlaskit/editor-json-transformer/sanitize';
+  ```
+
+### Minor Changes
+
+- [`330c1fce7f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330c1fce7f9) - ED-12264 Add unsupported content capability to panel and blockquote
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.9.0
 
 ### Minor Changes

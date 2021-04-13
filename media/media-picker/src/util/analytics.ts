@@ -1,3 +1,4 @@
+import { isRequestError, RequestMetadata } from '@atlaskit/media-client';
 import { PackageAttributes } from '@atlaskit/media-common';
 
 import {
@@ -16,4 +17,10 @@ export function getPackageAttributes(
     componentName,
     component: componentName,
   };
+}
+
+export function getRequestMetadata(error?: Error): RequestMetadata | undefined {
+  if (error && isRequestError(error)) {
+    return error.metadata;
+  }
 }

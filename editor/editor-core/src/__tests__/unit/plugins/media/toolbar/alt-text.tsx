@@ -6,7 +6,7 @@ import {
   media,
   mediaSingle,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl';

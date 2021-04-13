@@ -1,187 +1,242 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import {
+  cleanup,
+  fireEvent,
+  queryByAttribute,
+  render,
+} from '@testing-library/react';
 import cases from 'jest-in-case';
-import styled from 'styled-components';
 
-import Button from '@atlaskit/button/custom-theme-button';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
-import { Action, Title } from '../../components/styled';
 import SectionMessage from '../../index';
 import { Appearance } from '../../types';
 
-// We added a property `type` because `name` was clashing with `name` from jest-in-case
-const appearancesCase = [
+const mockConsoleErrorListener = jest.spyOn(console, 'error').mockReturnValue();
+const appearancesCases = [
   {
     name: 'info',
-    type: 'info',
-    icon: InfoIcon,
+    backgroundColor: '#DEEBFF',
+    icon: (props: {}) => <InfoIcon {...props} label="info" />,
   },
   {
     name: 'warning',
-    type: 'warning',
-    icon: WarningIcon,
+    backgroundColor: '#FFFAE6',
+    icon: (props: {}) => <WarningIcon {...props} label="warning" />,
   },
   {
     name: 'error',
-    type: 'error',
-    icon: ErrorIcon,
+    backgroundColor: '#FFEBE6',
+    icon: (props: {}) => <ErrorIcon {...props} label="error" />,
   },
   {
     name: 'confirmation',
-    type: 'confirmation',
-    icon: CheckCircleIcon,
+    backgroundColor: '#E3FCEF',
+    icon: (props: {}) => <CheckCircleIcon {...props} label="confirmation" />,
   },
   {
     name: 'change',
-    type: 'change',
-    icon: QuestionCircleIcon,
+    backgroundColor: '#EAE6FF',
+    icon: (props: {}) => <QuestionCircleIcon {...props} label="change" />,
   },
 ];
 
+const getByHref = queryByAttribute.bind(null, 'href');
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+// cleanup can be removed once we move to RTL v9
+afterEach(cleanup);
+
 describe('SectionMessage', () => {
   it('should render correct defaults', () => {
-    const wrapper = mount(<SectionMessage>boo</SectionMessage>);
-    expect(wrapper.prop('appearance')).toBe('info');
-    expect(wrapper.prop('title')).toBe(undefined);
-    expect(wrapper.prop('actions')).toBe(undefined);
+    const { getByText } = render(<SectionMessage>boo</SectionMessage>);
+
+    expect(getByText('boo')).toBeInTheDocument();
   });
 
-  it('should not render <Title /> if there is a title', () => {
-    const wrapper = shallow(
+  it('should render both <Title /> and children if there is a title', () => {
+    const { getByText } = render(
       <SectionMessage title="things">boo</SectionMessage>,
     );
-    const title = wrapper.find(Title);
-    expect(title.length).toBe(1);
+
+    expect(getByText('things')).toBeInTheDocument();
+    expect(getByText('boo')).toBeInTheDocument();
   });
 
   describe('actions', () => {
-    it('should render beneath the section message', () => {
-      const Aye = { key: 'aye', text: 'aye' };
-      const Bee = { key: 'bee', text: 'bee' };
-      const wrapper = shallow(
-        <SectionMessage actions={[Aye, Bee]}>boo</SectionMessage>,
+    it('should render actions beneath the section message description', () => {
+      const aye = { key: 'aye', text: 'aye' };
+      const bee = { key: 'bee', text: 'aye' };
+      const actions = [aye, bee];
+      const { getAllByText } = render(
+        <SectionMessage actions={actions}>boo</SectionMessage>,
       );
 
-      expect(wrapper.find(Action).length).toBe(2);
+      expect(getAllByText('aye')).toHaveLength(2);
     });
 
-    it('should use the key provided', () => {
+    it('should use the key provided to actions and not warn about unique "key" prop', () => {
       const Aye = { text: 'aye', key: 'ayeKey' };
-      const actionWrapper = shallow(
-        <SectionMessage actions={[Aye]}>boo</SectionMessage>,
-      )
-        .find(Action)
-        .at(0);
+      render(<SectionMessage actions={[Aye]}>boo</SectionMessage>);
 
-      expect(actionWrapper.key()).toBe('ayeKey');
+      expect(mockConsoleErrorListener.mock.calls.length).toBe(0);
     });
 
-    it('should render React Nodes as children', () => {
+    it('should warn about duplicate key prop', () => {
+      const aye = { text: 'aye', key: 'ayeKey' };
+      const bye = { text: 'bye', key: 'ayeKey' };
+      render(<SectionMessage actions={[aye, bye]}>boo</SectionMessage>);
+
+      expect(mockConsoleErrorListener.mock.calls.length).toBe(1);
+    });
+
+    it('should render React Nodes as actions', () => {
       const MyAction = () => <span>Hello, World!</span>;
-
       const Aye = { text: <MyAction />, key: 'greeting' };
-
-      const actionWrapper = shallow(
+      const { getByText } = render(
         <SectionMessage actions={[Aye]}>boo</SectionMessage>,
-      )
-        .find(Action)
-        .at(0)
-        .find(MyAction)
-        .dive();
+      );
 
-      expect(toJson(actionWrapper)).toMatchSnapshot();
+      expect(getByText('Hello, World!')).toBeInTheDocument();
     });
-  });
 
-  it('should render a link button when passed a link', () => {
-    const wrapper = shallow(
-      <SectionMessage actions={[{ key: 'aye', text: 'aye', href: 'Stuff' }]}>
-        boo
-      </SectionMessage>,
-    );
-    const btn = wrapper.find(Button);
-    expect(btn.length).toBe(1);
-    expect(btn.prop('appearance')).toBe('link');
-    expect(btn.prop('href')).toBe('Stuff');
-    expect(btn.prop('children')).toBe('aye');
-  });
+    it('should render a link when passed an action', () => {
+      const { container } = render(
+        <SectionMessage
+          actions={[
+            {
+              key: 'aye',
+              text: 'aye',
+              href: 'https://atlaskit.atlassian.com/',
+            },
+          ]}
+        >
+          boo
+        </SectionMessage>,
+      );
 
-  it('should render a button using a custom component', () => {
-    const Custom = styled.a``;
-    const wrapper = mount(
-      <SectionMessage
-        linkComponent={Custom}
-        actions={[{ key: 'aye', text: 'aye', href: 'Stuff' }]}
-      >
-        boo
-      </SectionMessage>,
-    );
-    expect(wrapper.find(Button).find(Custom).length).toBe(1);
-  });
+      expect(
+        getByHref(container, 'https://atlaskit.atlassian.com/')?.textContent,
+      ).toBe('aye');
+    });
 
-  it('should NOT render a button using a custom component for an action with onClick', () => {
-    const Custom = styled.a``;
-    const wrapper = mount(
-      <SectionMessage
-        linkComponent={Custom}
-        actions={[{ key: 'aye', text: 'aye', onClick: () => {} }]}
-      >
-        boo
-      </SectionMessage>,
-    );
-    expect(wrapper.find(Button).find(Custom).length).toBe(0);
-  });
+    it('should render a custom component when an action with href is passed', () => {
+      const Custom = (props: {}) => <button {...props}>hello world</button>;
+      const { container } = render(
+        <SectionMessage
+          linkComponent={Custom}
+          actions={[
+            {
+              key: 'aye',
+              text: 'aye',
+              href: 'https://atlaskit.atlassian.com/',
+            },
+          ]}
+        >
+          boo
+        </SectionMessage>,
+      );
 
-  it('should render a button using a custom component for action with href, but not action with onClick', () => {
-    const Custom = styled.a``;
-    const wrapper = mount(
-      <SectionMessage
-        linkComponent={Custom}
-        actions={[
-          { key: 'aye', text: 'aye', href: 'Stuff' },
-          { key: 'onClick', text: 'onClick', onClick: () => {} },
-        ]}
-      >
-        boo
-      </SectionMessage>,
-    );
-    expect(wrapper.find(Button).find(Custom).length).toBe(1);
-  });
+      expect(
+        getByHref(container, 'https://atlaskit.atlassian.com/')?.textContent,
+      ).toBe('hello world');
+    });
 
-  it('should accept a custom icon to use', () => {
-    const wrapper = mount(
-      <SectionMessage icon={WarningIcon}>boo</SectionMessage>,
-    );
-    expect(wrapper.find(InfoIcon).length).toBe(0);
-    expect(wrapper.find(WarningIcon).length).toBe(1);
+    it('should call "onClick" on the click of an action with "onClick" but no "href"', () => {
+      const action = { key: 'aye', text: 'aye', onClick: jest.fn() };
+      const { getByText } = render(
+        <SectionMessage actions={[action]}>boo</SectionMessage>,
+      );
+      const sectionMsgAction = getByText('aye');
+      fireEvent.click(sectionMsgAction);
+
+      expect(action.onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should NOT render custom component for an action with onClick but no href', () => {
+      const action = { key: 'aye', text: 'aye', onClick: jest.fn() };
+      const Custom = (props: {}) => <button {...props}>hello world</button>;
+      const { queryAllByText } = render(
+        <SectionMessage linkComponent={Custom} actions={[action]}>
+          boo
+        </SectionMessage>,
+      );
+      const sectionMsgAction = queryAllByText('hello world');
+
+      expect(sectionMsgAction).toHaveLength(0);
+    });
+
+    it('should NOT render custom component for action with no onClick and no href', () => {
+      const Custom = (props: {}) => <button {...props}>hello world</button>;
+      const action = {
+        key: 'aye',
+        text: 'aye',
+      };
+      const { queryAllByText } = render(
+        <SectionMessage linkComponent={Custom} actions={[action]}>
+          boo
+        </SectionMessage>,
+      );
+      const sectionMsgAction = queryAllByText('hello world');
+
+      expect(sectionMsgAction).toHaveLength(0);
+    });
   });
 
   cases(
     'appearances',
-    ({ type, icon }: { type: Appearance; icon: string }) => {
-      const wrapper = shallow(
-        <SectionMessage appearance={type}>boo</SectionMessage>,
+    ({
+      name,
+      icon,
+    }: {
+      name: Appearance;
+      icon: (props: {}) => JSX.Element;
+    }) => {
+      const { getByLabelText, getAllByRole } = render(
+        <SectionMessage icon={icon} appearance={name}>
+          boo
+        </SectionMessage>,
       );
 
-      const foundIcon = wrapper.find(icon);
-      expect(foundIcon.length).toBe(1);
+      const foundIcon = getByLabelText(name);
+
+      expect(foundIcon).toBeInTheDocument();
+      expect(
+        getAllByRole(
+          (content, element) =>
+            content === 'presentation' &&
+            element.tagName.toLowerCase() === 'svg',
+        ),
+      ).toHaveLength(1);
     },
-    appearancesCase,
+    appearancesCases,
   );
 
-  describe('styled rule', () => {
-    it('should have background color and default color', () => {
-      expect(shallow(<SectionMessage>test</SectionMessage>)).toHaveStyleRule(
-        'background-color',
-        '#DEEBFF',
+  cases(
+    'background color styled rule',
+    ({
+      name,
+      backgroundColor,
+    }: {
+      name: Appearance;
+      backgroundColor: string;
+    }) => {
+      const { getByTestId } = render(
+        <SectionMessage testId="section-msg" appearance={name}>
+          boo
+        </SectionMessage>,
       );
-    });
-  });
+      const sectionMsg = getByTestId('section-msg');
+
+      expect(sectionMsg).toHaveStyle(`background-color:${backgroundColor}`);
+    },
+    appearancesCases,
+  );
 });

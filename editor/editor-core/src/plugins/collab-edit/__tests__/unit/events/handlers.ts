@@ -4,7 +4,7 @@ import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { p, DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
+import { p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { CollabEditProvider } from '@atlaskit/editor-common';
 import collabEditPlugin from '../../../index';
 import { Cleanup, subscribe } from '../../../events/handlers';

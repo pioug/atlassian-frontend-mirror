@@ -1,32 +1,20 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { isValidPosition } from '../../selection';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-factory';
 
 describe('#isValidPosition', () => {
-  const createEditor = createEditorFactory();
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      pluginKey,
-    });
-
   it('should return true for valid positions', () => {
-    const { editorView } = editor(doc(p('')));
-    expect(isValidPosition(0, editorView.state)).toBe(true);
+    const editorState = createEditorState(doc(p('')));
+    expect(isValidPosition(0, editorState)).toBe(true);
   });
 
   it('should return false for positions greater than document size', () => {
-    const { editorView } = editor(doc(p('')));
-    expect(isValidPosition(3, editorView.state)).toBe(false);
+    const editorState = createEditorState(doc(p('')));
+    expect(isValidPosition(3, editorState)).toBe(false);
   });
 
   it('should return false for positions lower than 0', () => {
-    const { editorView } = editor(doc(p('')));
-    expect(isValidPosition(-1, editorView.state)).toBe(false);
+    const editorState = createEditorState(doc(p('')));
+    expect(isValidPosition(-1, editorState)).toBe(false);
   });
 });

@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 28.7.0
+
+### Minor Changes
+
+- [`bfd2f542849`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfd2f542849) - Add JestSpy and JestFunction members
+
+### Patch Changes
+
+- [`a8c69bc44f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c69bc44f9) - Added missing mock function in fake Media Client implementation
+- [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
+- Updated dependencies
+
 ## 28.6.0
 
 ### Minor Changes

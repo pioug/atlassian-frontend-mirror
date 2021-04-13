@@ -9,7 +9,7 @@ import {
   h4,
   h5,
   h6,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup => ADF - Heading', () => {
   const transformer = new WikiMarkupTransformer();

@@ -16,7 +16,7 @@ import {
   hardBreak,
   Refs,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { EventDispatcher } from '../../../../event-dispatcher';
 import { inlineCommentProvider, nullComponent, selectorById } from '../_utils';
 import {

@@ -3,6 +3,7 @@ import { localStoragePrefix } from '../../util/constants';
 import { EmojiDescription } from '../../types';
 import DuplicateLimitedQueue from '../../util/DuplicateLimitedQueue';
 import StoredDuplicateLimitedQueue from '../../util/StoredDuplicateLimitedQueue';
+import storageAvailable from '../../util/storage-available';
 
 /**
  * Keeps track of the last 150 emoji usages, although limiting the maximum count for a single emoji to 25 to
@@ -15,7 +16,7 @@ import StoredDuplicateLimitedQueue from '../../util/StoredDuplicateLimitedQueue'
  */
 export class UsageFrequencyTracker {
   private static readonly queueOptions = {
-    storage: typeof window !== 'undefined' && window.localStorage,
+    storage: storageAvailable('localStorage') ? window.localStorage : undefined,
     storagePrefix: localStoragePrefix,
     maxDuplicates: 25,
     minUniqueItems: 5,

@@ -12,7 +12,7 @@ import {
   DocBuilder,
   p,
   placeholder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { Selection } from 'prosemirror-state';
 import { pluginKey } from '../../../plugins/placeholder-text/plugin-key';

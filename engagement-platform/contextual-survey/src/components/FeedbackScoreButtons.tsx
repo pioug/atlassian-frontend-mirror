@@ -36,7 +36,6 @@ export default ({ onChange, value }: Props) => (
           flex: 1;
 
           & > button {
-            width: 100%;
             justify-content: center;
           }
         }
@@ -54,6 +53,7 @@ export default ({ onChange, value }: Props) => (
               aria-pressed={isSelected}
               aria-describedby="contextualSurveyStatement"
               aria-label={tooltipMessage[i]}
+              shouldFitContainer
             >
               {score}
             </Button>

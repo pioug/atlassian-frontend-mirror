@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
+import { ADFEntity } from '@atlaskit/adf-utils';
 import {
   ProviderFactory,
   WithProviders,
@@ -17,6 +18,7 @@ export interface Props {
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
   allowReferentiality?: boolean;
+  refNode?: ADFEntity;
 }
 
 export default class Extension extends Component<Props, any> {
@@ -43,12 +45,14 @@ export default class Extension extends Component<Props, any> {
       editorView,
       handleContentDOMRef,
       extensionHandlers,
+      refNode,
     } = this.props;
 
     return (
       <ExtensionComponent
         editorView={editorView}
         node={node}
+        refNode={refNode}
         extensionProvider={extensionProvider}
         handleContentDOMRef={handleContentDOMRef}
         extensionHandlers={extensionHandlers}

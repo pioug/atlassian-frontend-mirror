@@ -1,6 +1,7 @@
 import { NodeType, Node as PMNode, Schema } from 'prosemirror-model';
 
 import { tableNodeTypes } from './table-node-types';
+import { uuid } from './uuid';
 
 const createCell = (
   cellType: NodeType,
@@ -16,13 +17,24 @@ const createCell = (
 // Returns a table node of a given size.
 // `withHeaderRow` defines whether the first row of the table will be a header row.
 // `cellContent` defines the content of each cell.
-export const createTable = (
-  schema: Schema,
+
+type CreateTableProps = {
+  schema: Schema;
+  rowsCount?: number;
+  colsCount?: number;
+  withHeaderRow?: boolean;
+  cellContent?: PMNode;
+  allowLocalId?: boolean;
+};
+
+export const createTable = ({
+  schema,
   rowsCount = 3,
   colsCount = 3,
   withHeaderRow = true,
-  cellContent?: PMNode,
-): PMNode => {
+  cellContent,
+  allowLocalId = false,
+}: CreateTableProps): PMNode => {
   const {
     cell: tableCell,
     header_cell: tableHeader,
@@ -57,5 +69,6 @@ export const createTable = (
     );
   }
 
-  return table.createChecked(null, rows);
+  const attr = allowLocalId ? { localId: uuid.generate() } : null;
+  return table.createChecked(attr, rows);
 };

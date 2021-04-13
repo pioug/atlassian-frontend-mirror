@@ -7,7 +7,7 @@ import { Collection } from 'jscodeshift/src/Collection';
  * @param from String
  * @param toName String
  */
-const createRenameVariableTransaction = (from: string, toName: string) => {
+const createRenameVariableTransform = (from: string, toName: string) => {
   return (j: core.JSCodeshift, source: Collection<any>) => {
     source.find(j.Identifier, { name: from }).forEach(x => {
       x.replace(j.identifier(toName));
@@ -15,7 +15,7 @@ const createRenameVariableTransaction = (from: string, toName: string) => {
   };
 };
 
-export const renameExperimentalTextColorProp = createRenameVariableTransaction(
+export const renameExperimentalTextColorProp = createRenameVariableTransform(
   'EXPERIMENTAL_allowMoreTextColors',
   'allowMoreTextColors',
 );

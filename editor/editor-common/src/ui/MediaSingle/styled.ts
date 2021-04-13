@@ -161,14 +161,14 @@ export const MediaSingleDimensionHelper = ({
 `;
 
 export interface MediaWrapperProps {
-  ratio?: number;
+  paddingBottom?: string;
   height?: number;
   hasFallbackContainer?: boolean;
 }
 
 const RenderFallbackContainer = ({
   hasFallbackContainer,
-  ratio,
+  paddingBottom,
   height,
 }: MediaWrapperProps) => css`
   ${hasFallbackContainer
@@ -179,8 +179,8 @@ const RenderFallbackContainer = ({
     ${
       height
         ? `height: ${height}px;`
-        : ratio
-        ? `padding-bottom: ${ratio}%;`
+        : paddingBottom
+        ? `padding-bottom: ${paddingBottom};`
         : ''
     }
 

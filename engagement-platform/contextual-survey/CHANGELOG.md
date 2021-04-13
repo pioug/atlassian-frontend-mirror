@@ -1,5 +1,12 @@
 # @atlaskit/contextual-survey
 
+## 2.0.9
+
+### Patch Changes
+
+- [`cad4332df17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cad4332df17) - [ux] Fixed flickering in context survey by removing theme overrides
+- Updated dependencies
+
 ## 2.0.8
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import { ParagraphDefinition as Paragraph } from './paragraph';
 
 /**
  * @name blockquote_node
+ * @allowUnsupportedBlock true
  */
 export interface BlockQuoteDefinition {
   type: 'blockquote';
@@ -13,7 +14,7 @@ export interface BlockQuoteDefinition {
 }
 
 export const blockquote: NodeSpec = {
-  content: 'paragraph+',
+  content: '(paragraph | unsupportedBlock)+',
   group: 'block',
   defining: true,
   selectable: false,

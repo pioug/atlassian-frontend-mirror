@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 63.1.3
+
+### Patch Changes
+
+- [`6c5df7efe3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c5df7efe3d) - ED-11854 Improve localStorage detection
+- Updated dependencies
+
 ## 63.1.2
 
 ### Patch Changes

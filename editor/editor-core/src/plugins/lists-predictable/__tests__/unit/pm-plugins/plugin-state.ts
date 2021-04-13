@@ -6,7 +6,7 @@ import {
   doc,
   h1,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { ListsPluginState } from '../../../types';
 import { pluginKey, createPlugin } from '../../../pm-plugins/main';

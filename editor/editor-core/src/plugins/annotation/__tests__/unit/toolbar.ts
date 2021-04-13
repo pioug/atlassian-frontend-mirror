@@ -8,7 +8,7 @@ import {
   taskItem,
   taskList,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 import {

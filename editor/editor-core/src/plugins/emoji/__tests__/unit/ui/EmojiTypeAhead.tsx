@@ -1,6 +1,6 @@
 import { EmojiDescription } from '@atlaskit/emoji';
 import { EditorState } from 'prosemirror-state';
-import { doc, emoji, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, emoji, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   createProsemirrorEditorFactory,

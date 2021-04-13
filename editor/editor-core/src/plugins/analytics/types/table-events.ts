@@ -22,6 +22,7 @@ export enum TABLE_ACTION {
   SORTED_COLUMN = 'sortedColumn',
   REPLACED = 'replaced',
   ATTEMPTED_TABLE_WIDTH_CHANGE = 'attemptedTableWidthChange',
+  DISTRIBUTED_COLUMNS_WIDTHS = 'distributedColumnsWidths',
 }
 
 export enum TABLE_BREAKOUT {
@@ -144,6 +145,16 @@ type TableDeleteRowOrColumnAEP = TableAEP<
   undefined
 >;
 
+type TableDistributeColumnsWidthsAEP = TableAEP<
+  TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
+  {
+    inputMethod: INPUT_METHOD.CONTEXT_MENU;
+    position: number;
+    count: number;
+  } & TotalRowAndColCount,
+  undefined
+>;
+
 type TableSortColumnAEP = TableAEP<
   TABLE_ACTION.SORTED_COLUMN,
   {
@@ -188,4 +199,5 @@ export type TableEventPayload =
   | TableSortColumnAEP
   | TableDeleteRowOrColumnAEP
   | TableReplaceAEP
-  | TableAttemptedResizeAEP;
+  | TableAttemptedResizeAEP
+  | TableDistributeColumnsWidthsAEP;

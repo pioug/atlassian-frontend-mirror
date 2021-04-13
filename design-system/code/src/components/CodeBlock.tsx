@@ -1,8 +1,11 @@
 /** @jsx jsx */
-import React, { PureComponent } from 'react';
+import { HTMLProps, memo, useCallback } from 'react';
 
 import { InterpolationWithTheme, jsx } from '@emotion/core';
-import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+  PrismAsync as SyntaxHighlighter,
+  SyntaxHighlighterProps,
+} from 'react-syntax-highlighter';
 
 import type { ThemeProps } from '@atlaskit/theme/types';
 
@@ -10,6 +13,7 @@ import { normalizeLanguage } from '../supportedLanguages';
 import { applyTheme } from '../themes/themeBuilder';
 import type { CodeBlockTheme } from '../themes/types';
 
+import { useHighlightLines } from './hooks/use-highlight';
 import type { CommonCodeProps } from './types';
 
 export interface CodeBlockProps extends CommonCodeProps {
@@ -33,150 +37,68 @@ export interface CodeBlockProps extends CommonCodeProps {
   highlightedEndText?: string;
 }
 
-const LANGUAGE_FALLBACK = 'text';
-const DEFAULT_LINE_EL_ATTR_OBJ = { 'data-ds--code--row': '' };
+const CodeBlock = ({
+  showLineNumbers = true,
+  language = 'text',
+  theme = {},
+  themeOverride = {},
+  highlight = '',
+  highlightedStartText = 'Highlight start',
+  highlightedEndText = 'Highlight end',
+  testId,
+  text,
+}: CodeBlockProps) => {
+  // TODO look at memoising this
+  const numLines = (text || '').split('\n').length;
 
-const getLineStyleObject = (lineNumber: number, testId?: string) => {
-  return testId
-    ? {
-        'data-testid': `${testId}-line-${lineNumber}`,
-        ...DEFAULT_LINE_EL_ATTR_OBJ,
+  const {
+    lineNumberStyle,
+    codeBlockStyle,
+    codeContainerStyle,
+    codeLayoutContainer,
+  } = applyTheme({ ...theme, ...themeOverride }, numLines);
+
+  const { getHighlightStyles, highlightedLines } = useHighlightLines({
+    highlight,
+    testId,
+  });
+
+  const getLineProps = useCallback(
+    (line: number) => getHighlightStyles(line, highlightedLines),
+    [getHighlightStyles, highlightedLines],
+  );
+
+  const props: SyntaxHighlighterProps = {
+    language: normalizeLanguage(language),
+    PreTag: 'span',
+    style: codeBlockStyle,
+    lineNumberStyle,
+    showLineNumbers,
+    codeTagProps: {
+      style: codeContainerStyle(showLineNumbers),
+    } as HTMLProps<HTMLElement>,
+    // Wrap lines is needed to set styles on the line when highlighting.
+    wrapLines: highlight.length > 0 || testId,
+    lineProps: getLineProps,
+  };
+
+  return (
+    <div
+      data-testid={testId}
+      data-code-block=""
+      css={
+        codeLayoutContainer(
+          highlightedStartText,
+          highlightedEndText,
+          showLineNumbers,
+        ) as InterpolationWithTheme<any>
       }
-    : DEFAULT_LINE_EL_ATTR_OBJ;
+    >
+      <SyntaxHighlighter data-code-lang={language} {...props}>
+        {text}
+      </SyntaxHighlighter>
+    </div>
+  );
 };
 
-export default class CodeBlock extends PureComponent<CodeBlockProps, {}> {
-  static displayName = 'CodeBlock';
-
-  static defaultProps = {
-    showLineNumbers: true,
-    language: LANGUAGE_FALLBACK,
-    theme: {},
-    themeOverride: {},
-    highlight: '',
-    highlightedStartText: 'Highlight start',
-    highlightedEndText: 'Highlight end',
-  };
-
-  getHighlightStyles = (
-    lineNumber: number,
-    highlightedLines: number[],
-  ): React.HTMLProps<HTMLElement> => {
-    if (!this.props.highlight || highlightedLines.length === 0) {
-      return getLineStyleObject(
-        lineNumber,
-        this.props.testId,
-      ) as React.HTMLProps<HTMLElement>;
-    }
-
-    if (highlightedLines.includes(lineNumber)) {
-      const highlightedDataAttrObj = {
-        'data-ds--code--row--highlight': '',
-      } as React.HTMLProps<HTMLElement>;
-      return {
-        ...highlightedDataAttrObj,
-        ...getLineStyleObject(lineNumber, this.props.testId),
-      } as React.HTMLProps<HTMLElement>;
-    }
-
-    return getLineStyleObject(lineNumber, this.props.testId) as React.HTMLProps<
-      HTMLElement
-    >;
-  };
-
-  // TODO unclear if this is even used, investiagte removal?
-  handleCopy = (event: any) => {
-    /**
-     * We don't want to copy the markup after highlighting, but rather the preformatted text in the selection
-     */
-    const data = event.nativeEvent.clipboardData;
-    if (data) {
-      event.preventDefault();
-      const selection = window.getSelection();
-      if (selection === null) {
-        return;
-      }
-      const selectedText = selection.toString();
-      const document = `<!doctype html><html><head></head><body><pre>${selectedText}</pre></body></html>`;
-      data.clearData();
-      data.setData('text/html', document);
-      data.setData('text/plain', selectedText);
-    }
-  };
-
-  render() {
-    // TODO look at memoising this
-    const numLines = (this.props.text || '').split('\n').length;
-
-    const {
-      lineNumberStyle,
-      codeBlockStyle,
-      codeContainerStyle,
-      codeLayoutContainer,
-    } = applyTheme(
-      { ...this.props.theme, ...this.props.themeOverride },
-      numLines,
-    );
-
-    const props: SyntaxHighlighterProps = {
-      language: normalizeLanguage(this.props.language || LANGUAGE_FALLBACK),
-      PreTag: 'span',
-      style: codeBlockStyle,
-      lineNumberStyle,
-      showLineNumbers: this.props.showLineNumbers,
-      codeTagProps: {
-        style: codeContainerStyle(this.props.showLineNumbers),
-      } as React.HTMLProps<HTMLElement>,
-    };
-
-    const { highlightedStartText = '', highlightedEndText = '' } = this.props;
-
-    const highlightedLines =
-      this.props
-        .highlight!.split(',')
-        .map(num => {
-          if (num.indexOf('-') > 0) {
-            // We found a line group, e.g. 1-3
-            const [from, to] = num
-              .split('-')
-              .map(Number)
-              // Sort by lowest value first, highest value last.
-              .sort((a, b) => a - b);
-            return Array(to + 1)
-              .fill(undefined)
-              .map((_, index) => index)
-              .slice(from, to + 1);
-          }
-
-          return Number(num);
-        })
-        .reduce<number[]>((acc, val) => acc.concat(val), []) || [];
-
-    return (
-      <div
-        data-testid={this.props.testId}
-        data-code-block=""
-        css={
-          codeLayoutContainer(
-            highlightedStartText,
-            highlightedEndText,
-            this.props.showLineNumbers,
-          ) as InterpolationWithTheme<any>
-        }
-      >
-        <SyntaxHighlighter
-          data-code-lang={this.props.language}
-          // Wrap lines is needed to set styles on the line.
-          // We use this to set opacity if highlight specific lines.
-          wrapLines={this.props.highlight!.length > 0 || this.props.testId}
-          lineProps={(line: number) =>
-            this.getHighlightStyles(line, highlightedLines)
-          }
-          {...props}
-        >
-          {this.props.text}
-        </SyntaxHighlighter>
-      </div>
-    );
-  }
-}
+export default memo(CodeBlock);

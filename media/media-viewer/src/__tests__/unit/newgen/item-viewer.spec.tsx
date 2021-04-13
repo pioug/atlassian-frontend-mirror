@@ -603,7 +603,7 @@ describe('<ItemViewer />', () => {
     });
 
     it('should show error when viewer returned an error', () => {
-      const errorReason: MediaViewerErrorReason = 'imageviewer-onerror';
+      const errorReason: MediaViewerErrorReason = 'imageviewer-fetch-url';
       mocks.setViewerError(new MediaViewerError(errorReason));
       const mediaClient = makeFakeMediaClient(
         createFileStateSubject({
@@ -658,7 +658,7 @@ describe('<ItemViewer />', () => {
       const { el } = mountBaseComponent(mediaClient, identifier);
       el.update();
       const docViewer = el.find(DocViewer);
-      const mvError = new MediaViewerError('docviewer-onerror');
+      const mvError = new MediaViewerError('docviewer-fetch-url');
       expect(docViewer).toHaveLength(1);
       await nextTick();
       docViewer.prop('onError')(mvError);

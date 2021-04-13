@@ -200,9 +200,13 @@ const generateToolbarItems = (
     ];
 
     if (currentAppearance === 'embed') {
-      toolbarItems.unshift(...buildAlignmentOptions(state, intl), {
-        type: 'separator',
-      });
+      const alignmentOptions = buildAlignmentOptions(state, intl);
+      if (alignmentOptions.length) {
+        alignmentOptions.push({
+          type: 'separator',
+        });
+      }
+      toolbarItems.unshift(...alignmentOptions);
     }
     const { allowBlockCards, allowEmbeds } = cardOptions;
 

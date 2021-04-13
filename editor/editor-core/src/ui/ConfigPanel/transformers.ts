@@ -7,7 +7,9 @@ import {
   ExtensionManifest,
   getFieldSerializer,
   getFieldDeserializer,
+  ParametersWithDuplicateFields,
 } from '@atlaskit/editor-common/extensions';
+import { getNameFromDuplicateField, isDuplicateField } from './utils';
 
 const isOption = (option: any): option is Option => {
   return (
@@ -46,87 +48,125 @@ export const serialize = async (
   fields: FieldDefinition[],
   depth: number = 0,
 ) => {
-  const copy: Parameters = {};
-  for (const field of fields) {
-    const { name } = field;
+  const result: ParametersWithDuplicateFields = [];
 
-    // missing? do nothing
-    if (!(name in data)) {
-      continue;
-    }
-
-    // ignore undefined values
-    let value = extract(data[name], field);
-    if (value === undefined) {
-      continue;
-    }
-
-    // WARNING: don't recursively serialize, limit to depth < 1
-    // serializable?
-    if (isFieldset(field) && depth === 0) {
-      const fieldSerializer = await getFieldSerializer(
-        manifest,
-        field.options.transformer,
+  if (data) {
+    for (const name in data) {
+      const field = fields.find(
+        field => field.name === getNameFromDuplicateField(name),
       );
-
-      if (fieldSerializer) {
-        const { fields: fieldsetFields } = field;
-        const extracted = await serialize(
-          manifest,
-          value,
-          fieldsetFields,
-          depth + 1,
-        );
-        value = fieldSerializer(extracted);
+      if (field === undefined) {
+        continue;
       }
-    }
 
-    copy[name] = value;
+      // ignore undefined values
+      let value = extract(data[name], field);
+      if (value === undefined) {
+        continue;
+      }
+
+      // WARNING: don't recursively serialize, limit to depth < 1
+      // serializable?
+      if (isFieldset(field) && depth === 0) {
+        const fieldSerializer = await getFieldSerializer(
+          manifest,
+          field.options.transformer,
+        );
+
+        if (fieldSerializer) {
+          const { fields: fieldsetFields } = field;
+          const extracted = await serialize(
+            manifest,
+            value,
+            fieldsetFields,
+            depth + 1,
+          );
+          value = fieldSerializer(extracted);
+        }
+      }
+
+      result.push({ [field.name]: value });
+    }
   }
 
-  return copy;
+  // when there are duplicate fields we return an array eg. [{ title: 'one' }, { title: 'two' }]
+  // when there aren't we return an object eg. { title: 'one' }
+  const hasDuplicateFields = !!Object.keys(data).find(key =>
+    isDuplicateField(key),
+  );
+  if (hasDuplicateFields) {
+    return result;
+  }
+  return result.reduce<Parameters>((obj: Parameters, current: Parameters) => {
+    for (const key in current) {
+      obj[key] = current[key];
+    }
+    return obj;
+  }, {});
 };
 
-function injectDefaultValues(data: Parameters, fields: FieldDefinition[]) {
-  const copy: Parameters = { ...data };
+function injectDefaultValues(
+  data: Parameters | ParametersWithDuplicateFields,
+  fields: FieldDefinition[],
+) {
+  const copy: ParametersWithDuplicateFields = [
+    ...convertToParametersArray(data),
+  ];
 
   for (const field of fields) {
     const { name } = field;
-    if (name in copy && !isFieldset(field)) {
+    const fieldIndex = copy.findIndex(
+      (item: Parameters) => Object.entries(item)[0][0] === name,
+    );
+
+    if (fieldIndex >= 0 && !isFieldset(field)) {
       continue;
     }
 
     if (isFieldset(field)) {
       const { fields: fieldsetFields } = field;
-      copy[name] = injectDefaultValues(copy[name] || {}, fieldsetFields);
+      if (fieldIndex >= 0) {
+        const fieldValue = Object.entries(copy[fieldIndex])[0][1];
+        copy[fieldIndex] = {
+          [name]: injectDefaultValues(fieldValue, fieldsetFields),
+        };
+      } else {
+        copy.push({ [name]: injectDefaultValues({}, fieldsetFields) });
+      }
     }
 
     if ('defaultValue' in field) {
-      copy[name] = field.defaultValue;
+      copy.push({ [name]: field.defaultValue });
     }
   }
 
-  return copy;
+  if (doParametersContainDuplicateFields(copy)) {
+    return copy;
+  }
+  return convertToParametersObject(copy);
 }
 
 export const deserialize = async (
   manifest: ExtensionManifest,
-  data: Parameters,
+  data: Parameters | ParametersWithDuplicateFields,
   fields: FieldDefinition[],
   depth: number = 0,
-): Promise<Parameters> => {
-  const copy: Parameters = {};
+) => {
+  const dataArray = convertToParametersArray(data);
+  let result: Parameters | ParametersWithDuplicateFields = [];
+  const errors: ParametersWithDuplicateFields = [];
 
-  for (const field of fields) {
-    const { name } = field;
+  for (const item of dataArray) {
+    const [name, originalValue] = Object.entries(item)[0];
 
-    // missing? do nothing
-    if (!data || !(name in data)) {
+    const field = fields.find(
+      field => field.name === getNameFromDuplicateField(name),
+    );
+    if (field === undefined) {
       continue;
     }
 
-    // ignore undefined values
-    let value = extract(data[name], field);
+    let value = extract(originalValue, field);
     if (value === undefined) {
       continue;
     }
@@ -143,11 +183,7 @@ export const deserialize = async (
         try {
           value = fieldDeserializer(value);
         } catch (error) {
-          copy.errors = {
-            ...copy.errors,
-            [name]: error.message,
-          };
-
+          errors.push({ [name]: error.message });
           continue;
         }
 
@@ -155,8 +191,66 @@ export const deserialize = async (
       }
     }
 
-    copy[name] = value;
+    result.push({ [name]: value });
   }
 
-  return injectDefaultValues(copy, fields);
+  result = convertToParametersObject(result);
+
+  if (errors.length > 0) {
+    result.errors = convertToParametersObject(errors);
+  }
+
+  return injectDefaultValues(result, fields);
+};
+
+const doParametersContainDuplicateFields = (
+  parameters: ParametersWithDuplicateFields,
+) => {
+  const keyMap = new Set();
+  for (const param of parameters) {
+    const key = Object.keys(param)[0];
+    if (keyMap.has(key)) {
+      return true;
+    }
+    keyMap.add(key);
+  }
+};
+
+const convertToParametersObject = (
+  parameters: Parameters | ParametersWithDuplicateFields = [],
+) => {
+  if (!Array.isArray(parameters)) {
+    return parameters;
+  }
+
+  return parameters.reduce<Parameters>(
+    (obj: Parameters, current: Parameters) => {
+      for (const key in current) {
+        const keys = Object.keys(obj);
+        let resultKey = key;
+        let idx = 1;
+        while (keys.indexOf(resultKey) >= 0) {
+          resultKey = `${getNameFromDuplicateField(key)}:${idx}`;
+          idx++;
+        }
+
+        obj[resultKey] = current[key];
+      }
+      return obj;
+    },
+    {},
+  );
+};
+
+const convertToParametersArray = (
+  parameters: Parameters | ParametersWithDuplicateFields = {},
+): ParametersWithDuplicateFields => {
+  if (Array.isArray(parameters)) {
+    return parameters;
+  }
+  const dataArray = [];
+  for (const name in parameters) {
+    dataArray.push({ [name]: parameters[name] });
+  }
+  return dataArray;
 };

@@ -6,39 +6,11 @@ import {
   em,
   taskList,
   taskItem,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import {
-  createProsemirrorEditorFactory,
-  LightEditorPlugin,
-  Preset,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { PluginKey } from 'prosemirror-state';
-import {
-  selectionPluginKey,
-  SelectionPluginState,
-} from '../../../selection/types';
-import textFormattingPlugin from '../../../text-formatting';
-import panelPlugin from '../../../panel';
-import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { contentInSelection } from '../../content-in-selection';
-import { mobileSelectionPlugin } from '../../mobile-selection-plugin';
 
 describe('content-in-selection', () => {
-  const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>()
-    .add(mobileSelectionPlugin)
-    .add(textFormattingPlugin)
-    .add(panelPlugin)
-    .add(tasksAndDecisionsPlugin);
-
-  const editor = (doc: DocBuilder) =>
-    createEditor<SelectionPluginState, PluginKey>({
-      doc,
-      preset,
-      pluginKey: selectionPluginKey,
-    });
-
   test.each([
     ['paragraph', doc(p('{<}Hello{>}')), ['paragraph', 'text'], []],
     [
@@ -77,8 +49,8 @@ describe('content-in-selection', () => {
       ['strong', 'em'],
     ],
   ])('%s', (_, inputDoc, expectedNodes, expectedMarks) => {
-    const { editorView } = editor(inputDoc);
-    const { nodeTypes, markTypes } = contentInSelection(editorView.state);
+    const editorState = createEditorState(inputDoc);
+    const { nodeTypes, markTypes } = contentInSelection(editorState);
     expect(nodeTypes).toStrictEqual(expectedNodes);
     expect(markTypes).toStrictEqual(expectedMarks);
   });

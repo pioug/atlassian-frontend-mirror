@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.1.0
+
+### Minor Changes
+
+- [`02a0cdbd98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a0cdbd98b) - Added aria-invalid to checkbox input which corresponds the isInvalid prop
+
 ## 12.0.2
 
 ### Patch Changes

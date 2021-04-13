@@ -1,7 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import { doc, date, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, date, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - Dates', () => {
   const transformer = new WikiMarkupTransformer();

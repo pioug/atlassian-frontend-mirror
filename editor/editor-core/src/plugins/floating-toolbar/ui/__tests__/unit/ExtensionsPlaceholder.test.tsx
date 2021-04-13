@@ -15,7 +15,7 @@ import {
   p,
   RefsNode,
   inlineExtension,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from '@atlaskit/editor-test-helpers/schema';
 import { flushPromises } from '../../../../../__tests__/__helpers/utils';
 import { ExtensionsPlaceholder } from '../../ExtensionsPlaceholder';

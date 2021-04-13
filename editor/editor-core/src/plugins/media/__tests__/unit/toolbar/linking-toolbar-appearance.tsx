@@ -35,12 +35,12 @@ const waitForStateUpdate = async () => {
 
 import { MediaLinkingState } from '../../../pm-plugins/linking';
 
-import { RefsNode } from '@atlaskit/editor-test-helpers/schema-builder';
+import { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   mediaSingle,
   media,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { linkToolbarMessages } from '../../../../../messages';
 
 const defaultMediaLinkingState: MediaLinkingState = {

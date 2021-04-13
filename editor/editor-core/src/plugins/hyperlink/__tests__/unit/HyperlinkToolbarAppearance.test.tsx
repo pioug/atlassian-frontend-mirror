@@ -1,44 +1,25 @@
 import React from 'react';
 import { fakeIntl, asMock } from '@atlaskit/media-test-helpers';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { shallow } from 'enzyme';
 import { CardPlatform } from '@atlaskit/smart-card';
 import {
   ProviderFactory,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import {
-  doc,
-  p,
-  inlineCard,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import { CardOptions } from '@atlaskit/editor-common';
 import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
-import { stateKey } from '../../pm-plugins/main';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe('<HyperlinkToolbarAppearance />', () => {
-  const createEditor = createEditorFactory();
-  const providerFactory = new ProviderFactory();
-  const editor = (doc: DocBuilder) => {
-    return createEditor({
-      doc,
-      providerFactory,
-      editorProps: {
-        allowPanel: true,
-        UNSAFE_cards: {},
-      },
-      pluginKey: stateKey,
-    });
-  };
   class TestCardProvider implements CardProvider {
     resolve = jest.fn().mockReturnValue(Promise.resolve({}));
     findPattern = jest.fn().mockReturnValue(Promise.resolve(true));
   }
   const setup = () => {
-    const { editorView } = editor(
+    const editorState = createEditorState(
       doc(
         p(
           '{<node>}',
@@ -57,7 +38,7 @@ describe('<HyperlinkToolbarAppearance />', () => {
     const component = shallow(
       <HyperlinkToolbarAppearance
         intl={fakeIntl}
-        editorState={editorView.state}
+        editorState={editorState}
         providerFactory={providerFactory}
         url={url}
         platform={platform}

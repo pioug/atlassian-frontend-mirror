@@ -564,7 +564,7 @@ export default class WebBridgeImpl
         insertExpand(state, dispatch);
         return;
       case 'table':
-        createTable(state, dispatch);
+        createTable()(state, dispatch);
         return;
 
       default:

@@ -3,7 +3,7 @@ import { Schema } from 'prosemirror-model';
 import {
   RefsNode,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
@@ -11,7 +11,7 @@ import {
   p,
   annotation,
   strong,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   createProsemirrorEditorFactory,
   Preset,

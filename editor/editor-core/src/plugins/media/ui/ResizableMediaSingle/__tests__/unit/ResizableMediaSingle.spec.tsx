@@ -18,7 +18,7 @@ import {
   layoutSection,
   mediaSingle,
   media,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -41,7 +41,10 @@ import {
   nextTick,
 } from '@atlaskit/media-test-helpers';
 import ResizableMediaSingle, { calcOffsetLeft } from '../../index';
-import Resizer from '../../../../../../ui/Resizer';
+import Resizer, {
+  ResizerProps,
+  ResizerState,
+} from '../../../../../../ui/Resizer';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -98,7 +101,11 @@ describe('<ResizableMediaSingle />', () => {
   ) => {
     const { editorView } = getEditorView(document);
 
-    const resizableMediaSingle = shallow(
+    const resizableMediaSingle = shallow<
+      ResizableMediaSingle,
+      ResizerProps,
+      ResizerState
+    >(
       <ResizableMediaSingle
         updateSize={jest.fn()}
         displayGrid={jest.fn()}

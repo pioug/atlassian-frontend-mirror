@@ -29,7 +29,7 @@ import {
   mediaSingle,
   media,
   inlineCard,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Mark, Node as PMNode } from 'prosemirror-model';
 
 const transformer = new BitbucketTransformer(schema);

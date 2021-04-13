@@ -4,7 +4,7 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {
   decisionItem,
   decisionList,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { transformSliceToDecisionList } from '../../utils';
 

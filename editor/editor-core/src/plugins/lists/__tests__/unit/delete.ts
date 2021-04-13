@@ -1,13 +1,11 @@
-import { EditorState } from 'prosemirror-state';
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   p,
   ul,
   li,
   doc,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { calcJoinListScenario, listDelete } from '../../commands/listDelete';
 import { walkNextNode } from '../../../../utils/commands';
 import {
@@ -22,15 +20,6 @@ import {
 } from '../../../analytics';
 jest.mock('../../../analytics');
 
-function createEditorState(documentNode: RefsNode) {
-  const myState = EditorState.create({
-    doc: documentNode,
-  });
-  const { tr } = myState;
-  setSelectionTransform(documentNode, tr);
-  return myState.apply(tr);
-}
-
 describe('list-delete', () => {
   // prettier-ignore
   const documentCase1 = doc(
@@ -40,7 +29,7 @@ describe('list-delete', () => {
       ),
     ),
     p('B'),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase2 = doc(
@@ -53,7 +42,7 @@ describe('list-delete', () => {
       )
     ),
     p('B'),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase3 = doc(
@@ -72,7 +61,7 @@ describe('list-delete', () => {
         ),
       ),
     ),
-  )(sampleSchema);
+  );
 
   // prettier-ignore
   const documentCase4 = doc(
@@ -94,13 +83,13 @@ describe('list-delete', () => {
         ),
       ),
     ),
-  )(sampleSchema);
+  );
 
   afterEach(() => {
     (addAnalytics as jest.Mock).mockReset();
   });
 
-  describe.each<[string, RefsNode, string]>([
+  describe.each<[string, DocBuilder, string]>([
     [
       'joining a list item with a paragraph',
       documentCase1,

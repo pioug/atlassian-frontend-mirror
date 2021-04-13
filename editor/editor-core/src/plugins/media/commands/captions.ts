@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode, Schema } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { setTextSelection } from 'prosemirror-utils';
 import { Command } from '../../../types';
@@ -10,74 +10,31 @@ import {
   EVENT_TYPE,
 } from '../../analytics';
 
-export const setSelectCaptionFromMediaSinglePos = (
+export const selectCaptionFromMediaSinglePos = (
   mediaSingleNodePos: number,
   mediaSingleNode: PMNode,
-  tr: Transaction,
-) => {
+): Command => (state, dispatch) => {
   // node should have two children, media and caption
   if (mediaSingleNode.childCount !== 2) {
     return false;
   }
 
-  const media = mediaSingleNode.child(0);
-  const caption = mediaSingleNode.child(1);
+  if (dispatch) {
+    const media = mediaSingleNode.child(0);
+    const caption = mediaSingleNode.child(1);
+    let tr = state.tr;
 
-  setSelectionAtEndOfCaption(
-    tr,
-    mediaSingleNodePos,
-    media.nodeSize,
-    caption.nodeSize,
-  );
-  tr.setMeta('scrollIntoView', false);
+    tr = setSelectionAtEndOfCaption(
+      tr,
+      mediaSingleNodePos,
+      media.nodeSize,
+      caption.nodeSize,
+    );
+    tr.setMeta('scrollIntoView', false);
+    dispatch(tr);
+  }
 
   return true;
-};
-
-export const selectCaptionFromMediaSinglePos = (
-  mediaSingleNodePos: number,
-  mediaSingleNode: PMNode,
-): Command => (state, dispatch) => {
-  const { tr } = state;
-  const result = setSelectCaptionFromMediaSinglePos(
-    mediaSingleNodePos,
-    mediaSingleNode,
-    tr,
-  );
-
-  if (result && dispatch) {
-    dispatch(tr);
-    return true;
-  }
-  return false;
-};
-
-export const setInsertAndSelectCaptionFromMediaSinglePos = (
-  mediaSingleNodePos: number,
-  mediaSingleNode: PMNode,
-  tr: Transaction,
-) => {
-  // node should have one child, media
-  if (mediaSingleNode.childCount !== 1) {
-    return;
-  }
-
-  const {
-    doc: {
-      type: { schema },
-    },
-  } = tr;
-
-  const media = mediaSingleNode.child(0);
-  const caption = schema.nodes.caption.create();
-  tr.insert(mediaSingleNodePos + media.nodeSize + 1, caption);
-  setSelectionAtEndOfCaption(
-    tr,
-    mediaSingleNodePos,
-    media.nodeSize,
-    caption.nodeSize,
-  );
-  tr.setMeta('scrollIntoView', false);
 };
 
 export const insertAndSelectCaptionFromMediaSinglePos = (
@@ -85,24 +42,36 @@ export const insertAndSelectCaptionFromMediaSinglePos = (
   mediaSingleNode: PMNode,
 ): Command => (state, dispatch) => {
   let tr = state.tr;
-  setInsertAndSelectCaptionFromMediaSinglePos(
-    mediaSingleNodePos,
-    mediaSingleNode,
-    tr,
-  );
 
-  if (tr.docChanged && dispatch) {
-    addAnalytics(state, tr, {
+  // node should have one child, media
+  if (mediaSingleNode.childCount !== 1) {
+    return false;
+  }
+
+  if (dispatch) {
+    const schema = state.schema as Schema;
+    const media = mediaSingleNode.child(0);
+    const caption = schema.nodes.caption.create();
+    tr = state.tr.insert(mediaSingleNodePos + media.nodeSize + 1, caption);
+
+    tr = setSelectionAtEndOfCaption(
+      tr,
+      mediaSingleNodePos,
+      media.nodeSize,
+      caption.nodeSize,
+    );
+
+    tr.setMeta('scrollIntoView', false);
+    addAnalytics(state, state.tr, {
       action: ACTION.ADDED,
       eventType: EVENT_TYPE.TRACK,
       actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
       actionSubjectId: ACTION_SUBJECT_ID.CAPTION,
     });
     dispatch(tr);
-    return true;
   }
 
-  return false;
+  return true;
 };
 
 const setSelectionAtEndOfCaption = (

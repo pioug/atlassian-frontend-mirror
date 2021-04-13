@@ -21,7 +21,7 @@ export interface EmbedCardResolvedViewProps {
   /** will show the frame regardless of user interaction */
   isFrameVisible?: boolean;
   /** The src to be used for the `iframe` */
-  preview?: string;
+  preview?: { src: string; aspectRatio?: number };
   /** The optional click handler */
   onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only. */
@@ -70,7 +70,7 @@ export const EmbedCardResolvedView = React.forwardRef<
         onClick={onClick}
         inheritDimensions={inheritDimensions}
       >
-        <Frame url={preview} testId={testId} ref={embedIframeRef} />
+        <Frame url={preview?.src} testId={testId} ref={embedIframeRef} />
       </ExpandedFrame>
     );
   },

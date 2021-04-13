@@ -7,7 +7,7 @@ import {
   tr,
   thEmpty,
   tdEmpty,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { flushPromises } from '../../../../../__tests__/__helpers/utils';
 import Toolbar from '../../Toolbar';

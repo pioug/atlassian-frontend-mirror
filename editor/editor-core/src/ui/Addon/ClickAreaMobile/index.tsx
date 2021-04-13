@@ -52,8 +52,11 @@ export default class ClickAreaMobile extends React.Component<Props> {
       event.clientY > view.dom.getBoundingClientRect().bottom;
     // Reset the default prosemirror scrollIntoView logic by
     // clamping the scroll position to the bottom of the viewport.
-    if (scrollGutterClicked && this.clickElementRef.current) {
-      this.clickElementRef.current.scrollIntoView(false);
+    if (scrollGutterClicked) {
+      event.preventDefault();
+      if (this.clickElementRef.current) {
+        this.clickElementRef.current.scrollIntoView(false);
+      }
     }
   };
 

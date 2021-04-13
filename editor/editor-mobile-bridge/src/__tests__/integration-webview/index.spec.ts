@@ -11,6 +11,7 @@ import emojiEditorTests from './hybrid-editor-tests/emoji/_emoji-tests';
 import quickInsertEditorTests from './hybrid-editor-tests/quick-Insert/_quick-insert-tests';
 import unsupportedContentEditorTests from './hybrid-editor-tests/unsupported-content/_unsupported-content-tests';
 import mediaRendererTests from './hybrid-renderer-tests/_media-tests';
+import smartLinkEditorTests from './hybrid-editor-tests/media/_smart-link-tests';
 
 // compositionEditorTests();
 mediaEditorTests();
@@ -18,3 +19,4 @@ emojiEditorTests();
 quickInsertEditorTests();
 unsupportedContentEditorTests();
 mediaRendererTests();
+smartLinkEditorTests();

@@ -83,6 +83,7 @@ export enum ACTION {
   WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
   FIXED = 'fixed',
   RENDERED = 'rendered',
+  ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
 }
 
 export enum INPUT_METHOD {

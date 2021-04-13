@@ -50,6 +50,7 @@ export default class extends Component<{}, State> {
     return (
       <AnalyticsListener channel="atlaskit" onEvent={this.sendAnalytics}>
         <Pagination
+          testId="pagination"
           getPageLabel={(page: any) =>
             typeof page === 'object' ? page.value : page
           }

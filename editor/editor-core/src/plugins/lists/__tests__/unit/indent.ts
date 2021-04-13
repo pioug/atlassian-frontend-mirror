@@ -13,7 +13,7 @@ import {
   p,
   ul,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import listPlugin from '../..';
 import analyticsPlugin, {
   ACTION,

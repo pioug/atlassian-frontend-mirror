@@ -116,6 +116,12 @@ describe('@atlaskit/checkbox', () => {
 
       expect(checkbox.getAttribute('aria-checked')).toBe('mixed');
     });
+    it('should set aria-invalid attr to input when isInvalid is true', () => {
+      const { getByLabelText } = renderCheckbox({ isInvalid: true });
+
+      const checkbox = getByLabelText('stub');
+      expect(checkbox.getAttribute('aria-invalid')).toBe('true');
+    });
     it('should pass input props as attributes on the checkbox', () => {
       const onFocus = jest.fn();
       const { getByLabelText } = renderCheckbox({

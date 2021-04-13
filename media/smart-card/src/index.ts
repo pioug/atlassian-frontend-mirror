@@ -18,3 +18,4 @@ export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
 export { default as Context } from './state/context';
 export type { CardContext } from './state/context';
 export { IframelyResizeMessageListener } from './view/EmbedCard/IframelyResizeMessageListener';
+export { embedHeaderHeight } from '@atlaskit/media-ui/embeds';

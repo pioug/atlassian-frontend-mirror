@@ -10,7 +10,7 @@ import {
   p,
   typeAheadQuery,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import { MentionProvider } from '@atlaskit/mention/resource';

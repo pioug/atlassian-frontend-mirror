@@ -11,7 +11,7 @@ import {
   p,
   status,
   td,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { mention as mentionDataTest } from '@atlaskit/util-data-test';
 
 import { SortOrder } from '../../../types';

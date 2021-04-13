@@ -12,10 +12,15 @@ import {
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
   akEditorWideLayoutWidth,
+  akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
 
 import { containsClassName } from '../../../../../utils';
 import { TableOptions } from '../../../nodeviews/types';
+import { Node as PMNode } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import { pluginKey as widthPluginKey } from '../../../../width';
+import { getParentNodeWidth } from '../../../../../utils/node-width';
 
 export const tableLayoutToSize: Record<string, number> = {
   default: akEditorDefaultLayoutWidth,
@@ -102,3 +107,32 @@ export function domCellAround(target: HTMLElement | null): HTMLElement | null {
   }
   return target;
 }
+
+export const getTableMaxWidth = ({
+  table,
+  tableStart,
+  state,
+  layout,
+  dynamicTextSizing,
+}: {
+  table: PMNode;
+  tableStart: number;
+  state: EditorState;
+  layout: TableLayout;
+  dynamicTextSizing?: boolean;
+}) => {
+  const containerWidth = widthPluginKey.getState(state);
+  const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
+
+  let maxWidth =
+    parentWidth ||
+    getLayoutSize(layout, containerWidth.width, {
+      dynamicTextSizing,
+    });
+
+  if (table.attrs.isNumberColumnEnabled) {
+    maxWidth -= akEditorTableNumberColumnWidth;
+  }
+
+  return maxWidth;
+};

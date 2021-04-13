@@ -9,7 +9,7 @@ import {
   p,
   status,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Status } from '@atlaskit/status/element';
 import {
   ContainerProps,

@@ -10,7 +10,7 @@ import {
   doc,
   bodiedExtension as bodiedExt,
   p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe(`${name}/schema bodiedExtension node`, () => {
   describe('parse html', () => {

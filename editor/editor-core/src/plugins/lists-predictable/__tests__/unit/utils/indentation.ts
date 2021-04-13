@@ -1,23 +1,6 @@
-import { EditorState } from 'prosemirror-state';
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
-import {
-  p,
-  ol,
-  li,
-  doc,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import { p, ol, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { hasValidListIndentationLevel } from '../../../utils/indentation';
-
-function createEditorState(documentNode: RefsNode) {
-  const editorState = EditorState.create({
-    doc: documentNode,
-  });
-  const { tr } = editorState;
-  setSelectionTransform(documentNode, tr);
-  return editorState.apply(tr);
-}
 
 describe('utils', () => {
   describe('indentation', () => {
@@ -41,7 +24,7 @@ describe('utils', () => {
           )),
         )),
       ),
-    )(sampleSchema);
+    );
 
     describe('#hasValidListIndentationLevel', () => {
       it('should return true if indentation level is within the maximum', () => {

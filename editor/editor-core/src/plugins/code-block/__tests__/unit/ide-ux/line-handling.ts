@@ -1,14 +1,5 @@
-import {
-  doc,
-  p,
-  code_block,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import {
-  createProsemirrorEditorFactory,
-  LightEditorPlugin,
-  Preset,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { doc, p, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   getStartOfCurrentLine,
   getEndOfCurrentLine,
@@ -16,22 +7,13 @@ import {
   forEachLine,
   getLineInfo,
 } from '../../../ide-ux/line-handling';
-import codeBlockPlugin from '../../../';
 
 describe('IDE UX - Line Handling', () => {
-  const createEditor = createProsemirrorEditorFactory();
-
-  const getState = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      preset: new Preset<LightEditorPlugin>().add(codeBlockPlugin),
-    });
-
   describe('#getStartOfCurrentLine', () => {
     it('should return empty string when the cursor is at the start of the code block', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(p('before'), code_block()('{<>}hello world')));
+      const state = createEditorState(
+        doc(p('before'), code_block()('{<>}hello world')),
+      );
       expect(getStartOfCurrentLine(state)).toEqual({
         pos: 9,
         text: '',
@@ -39,9 +21,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the text from the start to the cursor when no previous newline', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(p('before'), code_block()('hello world{<>}')));
+      const state = createEditorState(
+        doc(p('before'), code_block()('hello world{<>}')),
+      );
       expect(getStartOfCurrentLine(state)).toEqual({
         pos: 9,
         text: 'hello world',
@@ -49,9 +31,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the text from the start to the previous newline', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(p('before'), code_block()('hello\nworld{<>}')));
+      const state = createEditorState(
+        doc(p('before'), code_block()('hello\nworld{<>}')),
+      );
       expect(getStartOfCurrentLine(state)).toEqual({
         pos: 15,
         text: 'world',
@@ -61,9 +43,9 @@ describe('IDE UX - Line Handling', () => {
 
   describe('#getEndOfCurrentLine', () => {
     it('should return empty string when the cursor is at the end of the code block', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(p('before'), code_block()('hello world{<>}')));
+      const state = createEditorState(
+        doc(p('before'), code_block()('hello world{<>}')),
+      );
       expect(getEndOfCurrentLine(state)).toEqual({
         pos: 20,
         text: '',
@@ -71,9 +53,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the text from the cursor to the end when no successive newline', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(p('before'), code_block()('hello{<>}world')));
+      const state = createEditorState(
+        doc(p('before'), code_block()('hello{<>}world')),
+      );
       expect(getEndOfCurrentLine(state)).toEqual({
         pos: 19,
         text: 'world',
@@ -81,9 +63,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the text from the cursor to the next newline', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(p('before'), code_block()('{<>}hello\nworld\n')));
+      const state = createEditorState(
+        doc(p('before'), code_block()('{<>}hello\nworld\n')),
+      );
       expect(getEndOfCurrentLine(state)).toEqual({
         pos: 14,
         text: 'hello',
@@ -93,9 +75,9 @@ describe('IDE UX - Line Handling', () => {
 
   describe('#getLinesFromSelection', () => {
     it('should return the current line when cursor selection is in the middle of the line', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(code_block()('start\nmid{<>}dle\nend')));
+      const state = createEditorState(
+        doc(code_block()('start\nmid{<>}dle\nend')),
+      );
       expect(getLinesFromSelection(state)).toEqual({
         text: 'middle',
         start: 7,
@@ -104,9 +86,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the current line when cursor selection is at the start of the line', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(code_block()('start\n{<>}middle\nend')));
+      const state = createEditorState(
+        doc(code_block()('start\n{<>}middle\nend')),
+      );
       expect(getLinesFromSelection(state)).toEqual({
         text: 'middle',
         start: 7,
@@ -115,9 +97,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the current line when cursor selection is at the end of the line', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(code_block()('start\nmiddle{<>}\nend')));
+      const state = createEditorState(
+        doc(code_block()('start\nmiddle{<>}\nend')),
+      );
       expect(getLinesFromSelection(state)).toEqual({
         text: 'middle',
         start: 7,
@@ -126,9 +108,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the neighbouring lines when selection only wraps a newline', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(code_block()('start{<}\n{>}middle\nend')));
+      const state = createEditorState(
+        doc(code_block()('start{<}\n{>}middle\nend')),
+      );
       expect(getLinesFromSelection(state)).toEqual({
         text: 'start\nmiddle',
         start: 1,
@@ -137,9 +119,9 @@ describe('IDE UX - Line Handling', () => {
     });
 
     it('should return the lines when selection is across multiple lines', async () => {
-      const {
-        editorView: { state },
-      } = await getState(doc(code_block()('start{<}\nmiddle\ne{>}nd')));
+      const state = createEditorState(
+        doc(code_block()('start{<}\nmiddle\ne{>}nd')),
+      );
       expect(getLinesFromSelection(state)).toEqual({
         text: 'start\nmiddle\nend',
         start: 1,

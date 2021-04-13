@@ -1,4 +1,4 @@
-import { RequestOptions } from './types';
+import { RequestMetadata, RequestOptions } from './types';
 
 export type {
   RequestErrorReason,
@@ -7,12 +7,12 @@ export type {
 } from './types';
 
 export { RequestError, isRequestError } from './errors';
-export { isRateLimitedError, getErrorName } from './helpers';
+export { isRateLimitedError } from './helpers';
 
 import {
   createUrl,
   fetchRetry,
-  processFetchResponse,
+  createProcessFetchResponse,
   withAuth,
 } from './helpers';
 
@@ -23,6 +23,7 @@ export async function request(
 ): Promise<Response> {
   const {
     method = 'GET',
+    endpoint,
     auth,
     params,
     headers,
@@ -30,6 +31,7 @@ export async function request(
     clientOptions = {},
   } = options;
   const { retryOptions } = clientOptions;
+  const metadata: RequestMetadata = { method, endpoint };
 
   // TODO BMPT-918: add client timeout feature behing a FF (using clientOptions.clientTimeout + Promise.race)
   const doFetch = (): Promise<Response> =>
@@ -38,7 +40,7 @@ export async function request(
       body,
       headers: withAuth(auth)(headers),
       signal: controller && controller.signal,
-    }).then(processFetchResponse);
+    }).then(createProcessFetchResponse(metadata));
 
-  return fetchRetry(doFetch, retryOptions);
+  return fetchRetry(doFetch, metadata, retryOptions);
 }

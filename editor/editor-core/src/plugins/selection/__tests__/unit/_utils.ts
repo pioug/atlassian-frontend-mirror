@@ -7,7 +7,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
+import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import panelPlugin from '../../../panel';
 import layoutPlugin from '../../../layout';

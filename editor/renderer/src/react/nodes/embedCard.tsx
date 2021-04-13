@@ -42,6 +42,7 @@ const EmbedCardWrapper = styled.div`
 
   margin: 0 auto;
 `;
+EmbedCardWrapper.displayName = 'EmbedCardWrapper';
 
 const ExtendedEmbedCard = styled(UIMediaSingle)`
   ${({ layout }) =>
@@ -52,6 +53,7 @@ const ExtendedEmbedCard = styled(UIMediaSingle)`
   `
       : ``}
 `;
+ExtendedEmbedCard.displayName = 'ExtendedEmbedCard';
 
 export default function EmbedCard(props: {
   url?: string;
@@ -92,13 +94,31 @@ export default function EmbedCard(props: {
     showActions: platform === 'web',
   };
 
-  const [actualHeight, setActualHeight] = useState<number | null>(null);
+  const [liveHeight, setLiveHeight] = useState<number | null>(null);
+  const [aspectRatio, setAspectRatio] = useState<number>();
 
-  const height = actualHeight || props.originalHeight;
+  const height = liveHeight || props.originalHeight;
+
+  // We start with height and width defined with default values
   let originalHeight = DEFAULT_EMBED_CARD_HEIGHT;
   let originalWidth: number | undefined = DEFAULT_EMBED_CARD_WIDTH;
 
-  if (height) {
+  // Then can override height and width with values from ADF if available
+  if (props.originalHeight && props.originalWidth) {
+    originalHeight = props.originalHeight;
+    originalWidth = props.originalWidth;
+  }
+
+  // Then we can override it with aspectRatio that is comming from iframely via `resolve()`
+  if (aspectRatio) {
+    originalHeight = 1;
+    originalWidth = aspectRatio;
+  }
+
+  // And finally if iframe sends live `height` events we use that as most precise measure.
+  const isHeightOnlyMode =
+    !(props.originalHeight && props.originalWidth) || liveHeight;
+  if (height && isHeightOnlyMode) {
     originalHeight = height;
     originalWidth = undefined;
   }
@@ -106,9 +126,14 @@ export default function EmbedCard(props: {
   const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
 
   const [hasPreview, setPreviewAvailableState] = useState(true);
+
   const cardContext = useContext(CardContext);
 
-  const onResolve = () => {
+  const onResolve = ({
+    aspectRatio: resolvedAspectRatio,
+  }: {
+    aspectRatio?: number;
+  }) => {
     const hasPreviewOnResolve = !!(
       cardContext &&
       url &&
@@ -117,6 +142,7 @@ export default function EmbedCard(props: {
     if (!hasPreviewOnResolve) {
       setPreviewAvailableState(false);
     }
+    setAspectRatio(resolvedAspectRatio);
   };
 
   return (
@@ -153,7 +179,7 @@ export default function EmbedCard(props: {
           >
             <IframelyResizeMessageListener
               embedIframeRef={embedIframeRef}
-              onHeightUpdate={setActualHeight}
+              onHeightUpdate={setLiveHeight}
             >
               <ExtendedEmbedCard
                 layout={layout}

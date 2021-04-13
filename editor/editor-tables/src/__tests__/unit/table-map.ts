@@ -5,7 +5,7 @@ import {
   table,
   td,
   tr,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { TableMap } from '../../table-map';
 

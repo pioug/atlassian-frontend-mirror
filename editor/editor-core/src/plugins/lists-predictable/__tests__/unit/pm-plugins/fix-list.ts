@@ -11,7 +11,7 @@ import {
   li,
   doc,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import listPlugin from '../../..';
 import panelPlugin from '../../../../panel';
 import { pluginKey as listPluginKey } from '../../../pm-plugins/main';

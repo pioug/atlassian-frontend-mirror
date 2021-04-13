@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ const Padding = styled.div`
 `;
 
 const Example = () => (
-  <Fragment>
+  <div id="appearance-example">
     <Padding>
       <SectionMessage appearance="info" title="More">
         <p>I count the steps from one end of my island to the other</p>
@@ -17,14 +17,36 @@ const Example = () => (
       </SectionMessage>
     </Padding>
     <Padding>
-      <SectionMessage appearance="warning">
+      <SectionMessage
+        appearance="warning"
+        actions={[
+          {
+            key: 'outtake',
+            href: 'https://www.youtube.com/watch?v=upjbIJESEUU',
+            text: 'Outtake',
+          },
+        ]}
+      >
         <p>And when I say I{"'"}ve learned all there is to know</p>
         <p>Well there{"'"}s another little island lesson</p>
         <p>Gramma Tala shows me</p>
       </SectionMessage>
     </Padding>
     <Padding>
-      <SectionMessage appearance="error">
+      <SectionMessage
+        appearance="error"
+        actions={[
+          {
+            key: 'outtake',
+            onClick: () => {},
+            text: 'Outtake',
+          },
+          {
+            key: 'moana',
+            text: 'Moana',
+          },
+        ]}
+      >
         <p>I know where I am from the scent of the breeze</p>
         <p>The ascent of the climb</p>
         <p>From the tangle of the trees</p>
@@ -44,7 +66,7 @@ const Example = () => (
         <p>I{"'"}ve been here before</p>
       </SectionMessage>
     </Padding>
-  </Fragment>
+  </div>
 );
 
 export default Example;

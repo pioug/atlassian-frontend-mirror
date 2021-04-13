@@ -52,7 +52,10 @@ export class CodeViewer extends BaseViewer<string, Props> {
           item.id,
           collectionName,
         );
-        const response = await request(downloadUrl);
+        const response = await request(downloadUrl, {
+          method: 'GET',
+          endpoint: '/file/{fileId}/binary',
+        });
         const ext = getExtension(item.name);
 
         // Pass through EmailViewer logic

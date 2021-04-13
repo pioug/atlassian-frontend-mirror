@@ -6,7 +6,7 @@ import {
   mediaSingle,
   p,
   RefsNode,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from 'prosemirror-model';
 import { setNodeSelection, setTextSelection } from '../../../utils';
 import { render, RenderResult } from '@testing-library/react';

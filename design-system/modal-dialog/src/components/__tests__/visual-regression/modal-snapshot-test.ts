@@ -1,0 +1,310 @@
+import {
+  getExampleUrl,
+  loadPage,
+  takeElementScreenShot,
+} from '@atlaskit/visual-regression/helper';
+
+import { openModal } from './_helper';
+
+const openModalBtn = "[type='button']";
+const modalDialog = "[role='dialog']";
+const modalHeader = `${modalDialog}>div>header`;
+const modalBody = `${modalDialog}>div>div`;
+const modalFooter = `${modalDialog}>div>footer`;
+const selectBtn = '.single-select';
+const scrollBehaviorGroup = "[role='group']";
+const scrollToBottomBtn = "[data-testid='scrollDown']";
+const largeModalBtn = "[data-testid='large']";
+const booleanBtn = "[data-testid='booleanBtn']";
+const autoFocusBtn = "[data-testid='autoFocusBtn']";
+const warningModalBtn = "[data-testid='warning']";
+const dangerModalBtn = "[data-testid='danger']";
+
+const defaultOptions = {
+  triggerSelector: openModalBtn,
+  modalSelector: modalDialog,
+  viewport: { width: 800, height: 600 },
+};
+
+describe('Snapshot test', () => {
+  it('Basic example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'defaultModal',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('User can use appearance to override button sequence as a walk-around', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'appearance-override',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Scroll behaviour inside should match (with bottom keyline only)', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'scroll',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    // When scroll is at the top, only bottom keyline is displayed.
+    const scrollToTop = await takeElementScreenShot(page, 'body');
+    expect(scrollToTop).toMatchProdImageSnapshot();
+  });
+
+  it('Scroll behaviour inside should match (with both top and bottom keylines)', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'scroll',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    // When scroll is in the middle, both top and bottom keylines are displayed.
+    await page.evaluate(
+      selector => document.querySelector(selector).scrollTo(0, 200),
+      modalBody,
+    );
+
+    const scrollToMiddle = await takeElementScreenShot(page, 'body');
+    expect(scrollToMiddle).toMatchProdImageSnapshot();
+  });
+
+  it('Scroll behaviour inside should match (with top keyline only)', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'scroll',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    // When scroll is at the bottom, only top keyline is displayed.
+    await page.click(scrollToBottomBtn);
+    await page.waitFor(1000);
+    const scrollToBottom = await takeElementScreenShot(page, 'body');
+    expect(scrollToBottom).toMatchProdImageSnapshot();
+  });
+
+  it('Scroll behaviour outside should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'scroll',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    const radioSelector = scrollBehaviorGroup + ' input[value="outside"]';
+    await page.waitForSelector(radioSelector);
+    await page.click(radioSelector);
+
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Scroll behaviour inside-wide should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'scroll',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    // Clicking the inside-wide radio button sets the body to 3000px
+    // which causes a page reflow. Rather than using an arbitrary wait
+    // time to let the content shifting settle, we resize the viewport
+    // to the same size before clicking it to lessen the effect.
+    await page.setViewport({ width: 3000, height: 600 });
+
+    const radioSelector = scrollBehaviorGroup + ' input[value="inside-wide"]';
+    await page.waitForSelector(radioSelector);
+    await page.click(radioSelector);
+
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Footer should not come over select dropdown', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'with-footer-and-select-option',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    await page.waitForSelector(selectBtn);
+    await page.click(selectBtn);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Example with focus on secondary button should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'with-focus-on-secondary-button',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    const image = await takeElementScreenShot(page, modalFooter);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Form example should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'form',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Multiple stacked modal example should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'multiple',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: largeModalBtn,
+    });
+
+    await page.waitFor(1000);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+
+    //open second stacked modal
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitFor(1000);
+    const image2 = await page.screenshot();
+    expect(image2).toMatchProdImageSnapshot();
+
+    //open third stacked modal
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitFor(1000);
+    const image3 = await page.screenshot();
+    expect(image3).toMatchProdImageSnapshot();
+  });
+
+  it('Autofocus on first button should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'autofocus',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: booleanBtn,
+    });
+
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Autofocus on first input should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'autofocus',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: autoFocusBtn,
+    });
+
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Warning modal appearance should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'appearance',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: warningModalBtn,
+    });
+
+    const header = await takeElementScreenShot(page, modalHeader);
+    expect(header).toMatchProdImageSnapshot();
+
+    const footer = await takeElementScreenShot(page, modalFooter);
+    expect(footer).toMatchProdImageSnapshot();
+  });
+
+  it('Danger modal appearance should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'appearance',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: dangerModalBtn,
+    });
+
+    const header = await takeElementScreenShot(page, modalHeader);
+    expect(header).toMatchProdImageSnapshot();
+
+    const footer = await takeElementScreenShot(page, modalFooter);
+    expect(footer).toMatchProdImageSnapshot();
+  });
+});

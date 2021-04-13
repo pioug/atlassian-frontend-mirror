@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 13.1.0
+
+### Minor Changes
+
+- [`07dc98acc92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07dc98acc92) - Added testId prop to pagination
+
 ## 13.0.10
 
 ### Patch Changes

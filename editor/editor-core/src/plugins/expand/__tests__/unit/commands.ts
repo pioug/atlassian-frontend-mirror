@@ -8,7 +8,7 @@ import {
   p,
   expand,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { toggleExpandExpanded } from '../../commands';
 import expandPlugin from '../../index';
 

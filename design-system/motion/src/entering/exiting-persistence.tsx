@@ -24,7 +24,7 @@ type ChildElement = JSX.Element | boolean;
  */
 type ChildNode = ChildElement[] | ChildElement;
 
-interface ExitingPersistenceProps {
+export interface ExitingPersistenceProps {
   /**
    * Children can be any valid react node.
    * Either a single element,

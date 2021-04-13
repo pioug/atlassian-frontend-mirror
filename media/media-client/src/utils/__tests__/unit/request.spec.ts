@@ -4,6 +4,7 @@ import { nextTick } from '@atlaskit/media-test-helpers';
 import { request } from '../../request';
 import { isRequestError, RequestError } from '../../request/errors';
 import { fetchRetry } from '../../request/helpers';
+import { RequestMetadata } from '../../request/types';
 
 interface ExtendedGlobal extends NodeJS.Global {
   fetch: FetchMock;
@@ -13,9 +14,11 @@ const extendedGlobal: ExtendedGlobal = global;
 
 describe('request', () => {
   describe('fetchRetry', () => {
+    const emptyMetadata: RequestMetadata = {};
+
     it('should run functionToRetry at least once', async () => {
       const functionToRetry = jest.fn();
-      await fetchRetry(functionToRetry, { maxAttempts: 1 });
+      await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 1 });
       expect(functionToRetry).toHaveBeenCalledTimes(1);
     });
 
@@ -27,8 +30,13 @@ describe('request', () => {
         throw fetchError;
       });
 
+      const requestMetadata: RequestMetadata = {
+        method: 'GET',
+        endpoint: '/uri',
+      };
+
       try {
-        const p = fetchRetry(functionToRetry, {
+        const p = fetchRetry(functionToRetry, requestMetadata, {
           startTimeoutInMs: 1,
           maxAttempts: 3,
           factor: 2,
@@ -54,6 +62,8 @@ describe('request', () => {
           reason: 'serverUnexpectedError',
           attempts: 3,
           clientExhaustedRetries: true,
+          method: 'GET',
+          endpoint: '/uri',
           innerError: fetchError,
         });
       }
@@ -66,18 +76,26 @@ describe('request', () => {
     it('should exhaust functionToRetry if request error using startTimeoutInMs * factor as delay', async () => {
       jest.useFakeTimers();
 
+      const requestMetadata: RequestMetadata = {
+        method: 'GET',
+        endpoint: '/uri',
+      };
+
       const fetchError = new TypeError('failed to fetch');
-      const requestError = new RequestError('serverBadGateway', {
-        statusCode: 502,
-        bodyAsText: 'error response',
-        innerError: fetchError,
-      });
+      const requestError = new RequestError(
+        'serverBadGateway',
+        {
+          ...requestMetadata,
+          statusCode: 502,
+        },
+        fetchError,
+      );
       const functionToRetry = jest.fn().mockImplementation(() => {
         throw requestError;
       });
 
       try {
-        const p = fetchRetry(functionToRetry, {
+        const p = fetchRetry(functionToRetry, requestMetadata, {
           startTimeoutInMs: 1,
           maxAttempts: 3,
           factor: 2,
@@ -103,8 +121,9 @@ describe('request', () => {
           reason: 'serverBadGateway',
           attempts: 3,
           clientExhaustedRetries: true,
+          method: 'GET',
+          endpoint: '/uri',
           statusCode: 502,
-          bodyAsText: 'error response',
           innerError: fetchError,
         });
       }
@@ -121,7 +140,7 @@ describe('request', () => {
       });
 
       try {
-        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+        await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 3 });
       } catch (err) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
@@ -141,7 +160,7 @@ describe('request', () => {
       });
 
       try {
-        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+        await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 3 });
       } catch (err) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
@@ -162,7 +181,7 @@ describe('request', () => {
       });
 
       try {
-        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+        await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 3 });
       } catch (err) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
@@ -177,16 +196,21 @@ describe('request', () => {
     });
 
     it('should not retry functionToRetry if backend error < 500', async () => {
+      const requestMetadata: RequestMetadata = {
+        method: 'GET',
+        endpoint: '/uri',
+      };
+
       const functionToRetry = jest.fn().mockImplementation(() => {
         const serverError = new RequestError('serverRateLimited', {
+          ...requestMetadata,
           statusCode: 429,
-          bodyAsText: 'Rate Limited',
         });
         throw serverError;
       });
 
       try {
-        await fetchRetry(functionToRetry, { maxAttempts: 3 });
+        await fetchRetry(functionToRetry, requestMetadata, { maxAttempts: 3 });
       } catch (err) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
@@ -194,8 +218,9 @@ describe('request', () => {
         expect(functionToRetry).toHaveBeenCalledTimes(1);
         expect(err.attributes).toMatchObject({
           reason: 'serverRateLimited',
+          method: 'GET',
+          endpoint: '/uri',
           statusCode: 429,
-          bodyAsText: 'Rate Limited',
         });
       }
 
@@ -315,7 +340,10 @@ describe('request', () => {
 
       let error;
       try {
-        await request(url);
+        await request(url, {
+          method: 'GET',
+          endpoint: '/uri',
+        });
       } catch (e) {
         error = e;
       }
@@ -326,8 +354,9 @@ describe('request', () => {
 
       expect(error.attributes).toMatchObject({
         reason: 'serverForbidden',
+        method: 'GET',
+        endpoint: '/uri',
         statusCode: 403,
-        bodyAsText: 'Access forbidden',
       });
 
       expect(extendedGlobal.fetch.mock.calls.length).toEqual(1); // meaning it didn't retry because it shouldn't retry on 4xx
@@ -390,6 +419,8 @@ describe('request', () => {
       let error;
       try {
         await request(url, {
+          method: 'GET',
+          endpoint: '/uri',
           clientOptions: {
             retryOptions: { startTimeoutInMs: 1, factor: 1 },
           },
@@ -404,8 +435,9 @@ describe('request', () => {
 
       expect(error.attributes).toMatchObject({
         reason: 'serverBadRequest',
+        method: 'GET',
+        endpoint: '/uri',
         statusCode: 400,
-        bodyAsText: 'Bad Request',
       });
 
       expect(extendedGlobal.fetch.mock.calls.length).toEqual(3); // should have retried twice and hit non-retryable error
@@ -420,6 +452,8 @@ describe('request', () => {
       let error;
       try {
         await request(url, {
+          method: 'GET',
+          endpoint: '/uri',
           clientOptions: {
             retryOptions: { startTimeoutInMs: 1, maxAttempts: 3, factor: 1 },
           },
@@ -436,8 +470,9 @@ describe('request', () => {
         reason: 'serverInternalError',
         attempts: 3,
         clientExhaustedRetries: true,
+        method: 'GET',
+        endpoint: '/uri',
         statusCode: 500,
-        bodyAsText: 'Internal Server Error',
       });
 
       expect(extendedGlobal.fetch.mock.calls.length).toEqual(3); // shoud have exhausted retries and failed

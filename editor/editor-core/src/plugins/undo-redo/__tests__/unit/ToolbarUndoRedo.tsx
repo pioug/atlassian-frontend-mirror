@@ -7,11 +7,7 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  p,
-  doc,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { p, doc, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import historyPlugin from '../../../history';
 import { historyPluginKey } from '../../../history';

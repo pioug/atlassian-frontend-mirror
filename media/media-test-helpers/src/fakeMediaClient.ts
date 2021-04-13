@@ -47,6 +47,9 @@ export const fakeMediaClient = (
     asMock(mediaClient.collection.getItems).mockReturnValue(of([]));
     asMock(mediaClient.file.copyFile).mockReturnValue({ id: 'copied-file-id' });
     asMock(mediaClient.file.getCurrentState).mockReturnValue({ id: 'file-id' });
+    asMock(mediaClient.file.getFileState).mockImplementation(() => ({
+      subscribe: jest.fn(),
+    }));
     asMock(mediaClient.stargate.fetchToken).mockImplementation(() =>
       Promise.resolve({
         data: {

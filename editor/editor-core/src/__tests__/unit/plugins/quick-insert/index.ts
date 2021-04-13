@@ -5,19 +5,24 @@ import {
   p,
   panel,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { pluginKey as quickInsertPluginKey } from '../../../../plugins/quick-insert/plugin-key';
 import { TypeAheadInsert } from '../../../../plugins/type-ahead/types';
+import { EditorProps } from '../../../../types/editor-props';
 
 describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (doc: DocBuilder, providerFactory?: any) => {
+  const editor = (
+    doc: DocBuilder,
+    providerFactory?: any,
+    extraProps: Partial<EditorProps> = {},
+  ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,
@@ -27,6 +32,7 @@ describe('Quick Insert', () => {
         quickInsert: true,
         allowPanel: true,
         allowAnalyticsGASV3: true,
+        ...extraProps,
       },
       createAnalyticsEvent,
     });
@@ -90,5 +96,27 @@ describe('Quick Insert', () => {
       attributes: { inputMethod: 'keyboard' },
       eventType: 'ui',
     });
+  });
+
+  /**
+   * @see ED-12480
+   * If you have more than one editor on a page with different feature sets (e.g. one has headings enabled, other one doesn't).
+   * The editor use to combine both feature sets into the quick insert menu. Now we want to ensure they dont overlap
+   */
+  it('ensures multiple editors with differing feature sets have unique quick insert items', () => {
+    const editorWithoutBlockQuote = editor(doc(p('{<>}')), undefined, {
+      allowBlockType: { exclude: ['blockquote', 'codeBlock', 'hardBreak'] },
+    });
+
+    const editorWithBlockQuote = editor(doc(p('{<>}')), undefined, {
+      allowBlockType: { exclude: ['codeBlock', 'hardBreak'] },
+    });
+
+    expect(
+      editorWithoutBlockQuote.pluginState.lazyDefaultItems(),
+    ).toContainEqual(expect.not.objectContaining({ id: 'blockquote' }));
+    expect(editorWithBlockQuote.pluginState.lazyDefaultItems()).toContainEqual(
+      expect.objectContaining({ id: 'blockquote' }),
+    );
   });
 });

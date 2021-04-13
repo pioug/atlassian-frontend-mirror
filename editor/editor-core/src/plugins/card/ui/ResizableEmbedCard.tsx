@@ -18,7 +18,7 @@ import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-
+import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { Wrapper } from '../../../ui/Resizer/styled';
 import {
   EnabledHandles,
@@ -40,9 +40,14 @@ type State = {
 export type Props = Omit<ResizerProps, 'height' | 'width'> & {
   width?: number;
   height?: number;
+  aspectRatio: number;
 };
 
 export default class ResizableEmbedCard extends React.Component<Props, State> {
+  static defaultProps = {
+    aspectRatio: DEFAULT_EMBED_CARD_WIDTH / DEFAULT_EMBED_CARD_HEIGHT,
+  };
+
   state: State = {
     offsetLeft: this.calcOffsetLeft(),
   };
@@ -311,18 +316,33 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
    * and hence we use `style` prop.
    */
   private getHeightDefiningComponent() {
-    const { height } = this.props;
+    const { height, aspectRatio } = this.props;
     let heightDefiningStyles: React.CSSProperties;
     if (height) {
       heightDefiningStyles = {
         height: `${height}px`,
       };
     } else {
+      // paddingBottom css trick defines ratio of `iframe height (y) + header (32)` to `width (x)`,
+      // where is `aspectRatio` defines iframe aspectRatio alone
+      // So, visually:
+      //
+      //            x
+      //       ┌──────────┐
+      //       │  header  │ 32
+      //       ├──────────┤
+      //       │          │
+      //       │  iframe  │ y
+      //       │          │
+      //       └──────────┘
+      //
+      // aspectRatio = x / y
+      // paddingBottom = (y + 32) / x
+      // which can be achieved with css calc() as (1 / (x/y)) * 100)% + 32px
       heightDefiningStyles = {
-        paddingBottom: `${(
-          (DEFAULT_EMBED_CARD_HEIGHT / DEFAULT_EMBED_CARD_WIDTH) *
-          100
-        ).toFixed(3)}%`,
+        paddingBottom: `calc(${((1 / aspectRatio) * 100).toFixed(
+          3,
+        )}% + ${embedHeaderHeight}px)`,
       };
     }
 

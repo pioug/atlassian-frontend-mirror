@@ -1,5 +1,21 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.5.0
+
+### Minor Changes
+
+- [`3cbac8569d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cbac8569d2) - MOBILE-1643 Disabled image resizing on mobile by default and put it behind a feature toggle.
+  It can be enabled via query param.`enableMediaResize` is they query param key.
+- [`5fff41bad66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fff41bad66) - Enable Predictable List on Editor
+
+### Patch Changes
+
+- [`baec4c0c383`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baec4c0c383) - add smart-links mobile VR tests
+- [`72d4113483d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d4113483d) - ED-12462 Add a wrapper for mobile-editor to fix - ios height not adjusting for compact and full editor
+- [`e2260ead0c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2260ead0c9) - [ME-1099] Fix image spacing in tables in the mobile renderer.
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- Updated dependencies
+
 ## 25.4.1
 
 ### Patch Changes

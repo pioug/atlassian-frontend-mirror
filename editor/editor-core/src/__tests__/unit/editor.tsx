@@ -1,3 +1,17 @@
+const mockStopMeasureDuration = 1234;
+jest.mock('@atlaskit/editor-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+  startMeasure: jest.fn(),
+  stopMeasure: jest.fn(
+    (
+      measureName: string,
+      onMeasureComplete?: (duration: number, startTime: number) => void,
+    ) => {
+      onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
+    },
+  ),
+}));
+
 import { name } from '../../version.json';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
@@ -442,6 +456,40 @@ describe(name, () => {
               eventType: 'operational',
             },
           });
+        });
+      });
+      describe('onEditorReady prop', () => {
+        it('should dispatch an onEditorReadyCallback event after the editor has called the onEditorReady callback', done => {
+          const mockAnalyticsClient = (
+            done: jest.DoneCallback,
+          ): AnalyticsWebClient => {
+            const analyticsEventHandler = (
+              event: GasPurePayload | GasPureScreenEventPayload,
+            ) => {
+              expect(event).toEqual(
+                expect.objectContaining({
+                  action: 'onEditorReadyCallback',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    // Check the duration (in this case supplied by the mock) is sent correctly
+                    duration: mockStopMeasureDuration,
+                  }),
+                }),
+              );
+              done();
+            };
+            return analyticsClient(analyticsEventHandler);
+          };
+
+          mount(
+            <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+              <Editor
+                allowAnalyticsGASV3={true}
+                // If no onEditorReady callback is given, the analytics event is not sent.
+                onEditorReady={() => {}}
+              />
+            </FabricAnalyticsListeners>,
+          );
         });
       });
     });

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -144,6 +140,79 @@ describe('comment editor', () => {
       } = mediaPluginState.mediaOptions as MediaOptions;
       expect(alignLeftOnInsert).toBe(true);
       expect(allowAdvancedToolBarOptions).toBe(true);
+    });
+  });
+  describe('secondary toolbar', () => {
+    it('should render the secondary toolbar if there is a save button', () => {
+      const { editorView } = editor(doc(p('Hello world')));
+      const fullPage = mountWithIntl(
+        <Comment
+          editorView={editorView}
+          onSave={true as any}
+          providerFactory={{} as any}
+          editorDOMElement={<div />}
+        />,
+      );
+      fullPage
+        .findWhere(elm => elm.name() === 'ContentArea')
+        .childAt(0)
+        .simulate('click');
+      expect(
+        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+      ).toBe(true);
+    });
+    it('should render the secondary toolbar if there is a cancel button', () => {
+      const { editorView } = editor(doc(p('Hello world')));
+      const fullPage = mountWithIntl(
+        <Comment
+          editorView={editorView}
+          onCancel={true as any}
+          providerFactory={{} as any}
+          editorDOMElement={<div />}
+        />,
+      );
+      fullPage
+        .findWhere(elm => elm.name() === 'ContentArea')
+        .childAt(0)
+        .simulate('click');
+      expect(
+        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+      ).toBe(true);
+    });
+    it('should render the secondary toolbar if there is a custom secondary toolbar button', () => {
+      const { editorView } = editor(doc(p('Hello world')));
+      const fullPage = mountWithIntl(
+        <Comment
+          editorView={editorView}
+          customSecondaryToolbarComponents={true as any}
+          providerFactory={{} as any}
+          editorDOMElement={<div />}
+        />,
+      );
+      fullPage
+        .findWhere(elm => elm.name() === 'ContentArea')
+        .childAt(0)
+        .simulate('click');
+      expect(
+        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+      ).toBe(true);
+    });
+    it('should not render the secondary toolbar if there is no save, cancel or custom button', () => {
+      const { editorView } = editor(doc(p('Hello world')));
+      const fullPage = mountWithIntl(
+        <Comment
+          editorView={editorView}
+          providerFactory={{} as any}
+          editorDOMElement={<div />}
+        />,
+      );
+      fullPage
+        .findWhere(elm => elm.name() === 'ContentArea')
+        .childAt(0)
+        .simulate('click');
+      expect(
+        fullPage.findWhere(elm => elm.name() === 'SecondaryToolbar').exists(),
+      ).toBe(false);
     });
   });
 });

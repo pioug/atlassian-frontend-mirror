@@ -1,4 +1,4 @@
-import { doc, p, a } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import { checkParseEncodeRoundTrips } from './_test-helpers';
 import { createJIRASchema } from '@atlaskit/adf-schema';
 

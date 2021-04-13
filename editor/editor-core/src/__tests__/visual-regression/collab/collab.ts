@@ -16,13 +16,19 @@ async function waitForCollabAvatars(page: PuppeteerPage) {
   await waitForElementCount(page, mainToolbarSelector, 2);
 
   // Wait for avatar image downloads
-  const avatarSelector = `span[class$="AvatarImage"][role="img"]`;
-  await waitForElementCount(page, avatarSelector, 6); // 3 images x 2 editor instances
-  await waitForLoadedBackgroundImages(page, avatarSelector);
+  const avatarSelectors = [
+    `span[aria-label="Rick Sanchez"][role="img"]`,
+    `span[aria-label="Morty Smith"][role="img"]`,
+    `span[aria-label="Summer Smith"][role="img"]`,
+  ];
+
+  avatarSelectors.forEach(async selector => {
+    await waitForElementCount(page, selector, 2);
+    await waitForLoadedBackgroundImages(page, selector);
+  });
 }
 
-// TODO: ED-11210
-describe.skip('Collab', () => {
+describe('Collab', () => {
   it('displays default collab UI', async () => {
     const page = global.page;
     const adf = {};

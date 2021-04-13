@@ -44,7 +44,7 @@ describe('mediaSingle', () => {
         const expectedRatio = (50 / 40) * 100;
         // To know what the value actually is
         expect(expectedRatio).toEqual(125);
-        expect(mediaWrapperProps.ratio).toEqual(expectedRatio);
+        expect(mediaWrapperProps.paddingBottom).toEqual('125.000%');
         expect(mediaSingleWrapperProps.width).toEqual(40);
       });
 
@@ -65,7 +65,7 @@ describe('mediaSingle', () => {
         expect(expectedHeight).toEqual(72);
         expect(expectedRatio).toEqual(25);
 
-        expect(mediaWrapperProps.ratio).toEqual(expectedRatio);
+        expect(mediaWrapperProps.paddingBottom).toEqual('25.000%');
         expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
       });
     });
@@ -90,7 +90,7 @@ describe('mediaSingle', () => {
         expect(expectedWidth).toEqual(348);
         expect(expectedRatio).toEqual(33.33333333333333);
 
-        expect(mediaWrapperProps.ratio).toEqual(expectedRatio);
+        expect(mediaWrapperProps.paddingBottom).toEqual('33.333%');
         expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
       });
     });
@@ -103,6 +103,24 @@ describe('mediaSingle', () => {
           height: 50,
         });
         expect(mediaSingleWrapperProps.containerWidth).toEqual(40);
+      });
+    });
+
+    describe('when node type is embedCard', () => {
+      it('should pass paddingBottom with header excluded from given ratio', () => {
+        const { mediaWrapperProps } = setup({
+          lineLength: 30,
+          width: 40,
+          height: 50,
+          nodeType: 'embedCard',
+        });
+
+        const expectedRatio = (50 / 40) * 100;
+        // To know what the value actually is
+        expect(expectedRatio).toEqual(125);
+        expect(mediaWrapperProps.paddingBottom).toEqual(
+          `calc(125.000% + 32px)`,
+        );
       });
     });
   });
@@ -121,7 +139,7 @@ describe('mediaSingle', () => {
           (600 + 24) /* 624 */ * 0.5 /* 312 */ - 24 /* 288 */ - 12; /* 276 */
         expect(expectedWidth).toEqual(276);
 
-        expect(mediaWrapperProps.ratio).toBeUndefined();
+        expect(mediaWrapperProps.paddingBottom).toBeUndefined();
         expect(mediaWrapperProps.height).toEqual(200);
         expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
       });
@@ -140,7 +158,7 @@ describe('mediaSingle', () => {
           const expectedWidth = 680 /* DEFAULT_EMBED_CARD_WIDTH */ - 12;
           expect(expectedWidth).toEqual(668);
 
-          expect(mediaWrapperProps.ratio).toBeUndefined();
+          expect(mediaWrapperProps.paddingBottom).toBeUndefined();
           expect(mediaWrapperProps.height).toEqual(200);
           expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
         },

@@ -1,4 +1,4 @@
-import { FileState } from '@atlaskit/media-client';
+import { FileState, RequestMetadata } from '@atlaskit/media-client';
 import {
   FileAttributes,
   WithFileAttributes,
@@ -60,6 +60,7 @@ export type MediaViewerFailureAttributes = Omit<
   'failReason'
 > & {
   failReason: PrimaryErrorReason;
+  request?: RequestMetadata;
 } & WithFileAttributes;
 
 export function fireAnalytics(

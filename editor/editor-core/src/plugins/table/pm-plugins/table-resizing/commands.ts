@@ -1,5 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
+
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { Command, DomAtPos } from '../../../../types';
@@ -16,6 +17,8 @@ import {
   ScaleOptions,
   scaleWithParent,
 } from './utils';
+
+import { ContentNodeWithPos } from 'prosemirror-utils';
 
 // Scale the table to meet new requirements (col, layout change etc)
 export const scaleTable = (
@@ -101,6 +104,22 @@ export const evenColumns = ({
   );
 
   return false;
+};
+
+export const distributeColumnsWidths = (
+  newResizeState: ResizeState,
+  table: ContentNodeWithPos,
+): Command => (state, dispatch) => {
+  if (dispatch) {
+    const tr = updateColumnWidths(
+      newResizeState,
+      table.node,
+      table.start,
+    )(state.tr);
+    stopResizing(tr)(state, dispatch);
+  }
+
+  return true;
 };
 
 export const setResizeHandlePos = (resizeHandlePos: number | null) =>

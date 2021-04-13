@@ -44,6 +44,7 @@ export interface InsertBlockOptions {
   nativeStatusSupported?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   showElementBrowserLink?: boolean;
+  allowReferentiality?: boolean;
 }
 
 /**
@@ -151,6 +152,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
               }
               showElementBrowserLink={options.showElementBrowserLink}
               showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
+              allowReferentiality={options.allowReferentiality}
             />
           )}
         />

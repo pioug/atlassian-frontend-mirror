@@ -15,7 +15,6 @@ import {
   validNode,
 } from '../../../../../utils/nodes';
 import { compose, toJSON } from '../../../../../utils';
-import { sanitizeNode } from '@atlaskit/adf-utils';
 import { EditorSharedConfig } from '../../context/shared-config';
 import { getDocStructure } from '../../../../../utils/document-logger';
 import { Dispatch } from '../../../../../event-dispatcher';
@@ -76,7 +75,6 @@ export function getEditorValue(
       transformer && transformer.encode
         ? transformer.encode(Node.fromJSON(editorView.state.schema, doc))
         : doc,
-    sanitizeNode,
     toJSON,
   )(editorView.state.doc);
 }

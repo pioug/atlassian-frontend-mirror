@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "15.1.0",
+  "version": "15.2.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/logo": "^13.1.0",
-    "@atlaskit/media-ui": "^15.3.0",
+    "@atlaskit/media-ui": "^16.0.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
@@ -41,7 +41,7 @@
     "async-retry": "^1.2.3",
     "bottleneck": "^2.19.5",
     "dataloader": "^1.4.0",
-    "json-ld-types": "^2.1.7",
+    "json-ld-types": "2.2.2",
     "react-lazily-render": "^1.2.0",
     "react-loadable": "^5.1.0",
     "redux": "^3.7.2",
@@ -55,12 +55,12 @@
   "devDependencies": {
     "@atlaskit/avatar": "^20.2.0",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/checkbox": "^12.0.0",
+    "@atlaskit/checkbox": "^12.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.2.0",
     "@atlaskit/inline-message": "^11.0.0",
     "@atlaskit/lozenge": "^10.1.2",
-    "@atlaskit/media-test-helpers": "^28.6.0",
+    "@atlaskit/media-test-helpers": "^28.7.0",
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/radio": "^5.0.0",
     "@atlaskit/select": "^13.2.0",

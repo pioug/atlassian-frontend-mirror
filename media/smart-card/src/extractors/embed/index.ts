@@ -4,15 +4,15 @@ import { EmbedCardResolvedViewProps } from '@atlaskit/media-ui/embeds';
 import { CardPlatform } from '../../view/Card/types';
 import { extractLink, extractTitle } from '../common/primitives';
 import { extractProvider } from '../common/context';
-import { extractPreview } from '../common/preview/extractPreview';
+import { extractPreview, LinkPreview } from '../common/preview/extractPreview';
 
 const extractEmbedPreview = (
   jsonLd: JsonLd.Data.BaseData,
   platform?: CardPlatform,
-): string | undefined => {
+): (LinkPreview & { src: string }) | undefined => {
   const preview = extractPreview(jsonLd, platform);
   if (preview && preview.src) {
-    return preview.src;
+    return { ...preview, src: preview.src };
   }
 };
 

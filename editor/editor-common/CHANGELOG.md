@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 55.5.0
+
+### Minor Changes
+
+- [`769e10a40a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/769e10a40a7) - ED-12108 Support duplicate named fields in config panel fieldset
+
+  For a field to be allowed to have duplicates you must set `allowDuplicates: true` on the field definition
+
+- [`f27507bc838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f27507bc838) - ED-12237: add editor referentiality plugin
+
+### Patch Changes
+
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- [`2942644d694`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2942644d694) - Some improvements used in rendering embeds in renderer around use of aspectRatio
+- Updated dependencies
+
 ## 55.4.3
 
 ### Patch Changes

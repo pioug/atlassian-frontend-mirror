@@ -250,14 +250,6 @@ const tableSortableColumnStyle = ({
   `;
 };
 
-const tableStyles = ({ appearance }: RendererWrapperProps) => {
-  if (appearance === 'mobile') {
-    return 'table-layout: auto';
-  }
-
-  return '';
-};
-
 const fullPageStyles = ({ theme, appearance }: RendererWrapperProps) => {
   if (appearance !== 'full-page' && appearance !== 'mobile') {
     return '';
@@ -454,7 +446,6 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     }
 
     table {
-      ${tableStyles};
       ${tableSortableColumnStyle};
       margin-left: 0;
       margin-right: 0;

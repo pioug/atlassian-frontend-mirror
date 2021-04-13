@@ -4,7 +4,7 @@ import parser from 'prettier/parser-babel';
 
 import TextArea from '@atlaskit/textarea';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
-import { builderEval } from '@atlaskit/editor-test-helpers/schema-builder';
+import { builderEval } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import EditorContext from '../src/ui/EditorContext';
 import { DevTools } from '../example-helpers/DevTools';

@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/media-client';
 import { getOrientation } from '@atlaskit/media-ui';
 import { NumericalCardDimensions } from '../../';
+import { MediaCardError } from '../../errors';
 
 export interface CardPreview {
   dataURI?: string;
@@ -38,6 +39,8 @@ export const getCardPreviewFromFileState = async (
     return;
   }
 
+  // TODO: implement more specific error handling
+  // https://product-fabric.atlassian.net/browse/BMPT-1342
   try {
     const { value } = await fileState.preview;
     if (value instanceof Blob) {
@@ -72,7 +75,7 @@ export const getCardPreviewFromFileState = async (
       };
     }
   } catch (e) {
-    // in case of an error or rejected Promise in "fileState.preview", we'll return undefined
+    throw new MediaCardError('local-preview-get', e);
   }
 };
 
@@ -102,7 +105,7 @@ export const getCardPreviewFromBackend = async (
         orientation: 1,
       };
     } catch (e) {
-      // We don't want to set status=error if the preview fails, we still want to display the metadata
+      throw new MediaCardError('remote-preview-fetch', e);
     }
   }
 };

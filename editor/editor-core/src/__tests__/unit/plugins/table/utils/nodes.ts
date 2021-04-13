@@ -10,7 +10,7 @@ import {
   tdCursor,
   thEmpty,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { containsHeaderColumn } from '../../../../../plugins/table/utils/nodes';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';

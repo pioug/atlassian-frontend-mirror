@@ -92,7 +92,7 @@ export interface Props extends WithAnalyticsEventsProps {
   isInvalid?: boolean;
   /** Hides icon for dropdown indicator. */
   hideIcon?: boolean;
-  /** DEPRECATED - Use locale instead. Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
+  /** Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
   timeFormat?: string;
   /** Placeholder text displayed in input */
   placeholder?: string;

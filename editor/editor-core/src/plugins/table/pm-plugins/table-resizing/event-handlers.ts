@@ -56,8 +56,8 @@ export const handleMouseDown = (
   const start = $cell.start(-1);
 
   let dom: HTMLTableElement = domAtPos(start).node as HTMLTableElement;
-  while (dom.nodeName !== 'TABLE') {
-    dom = dom.parentNode! as HTMLTableElement;
+  if (dom && dom.nodeName !== 'TABLE') {
+    dom = dom.closest('table') as HTMLTableElement;
   }
 
   const containerWidth = widthPluginKey.getState(state);

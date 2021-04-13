@@ -3,8 +3,9 @@ import {
   FileStatus,
   MediaClientErrorReason,
   getMediaClientErrorReason,
+  RequestMetadata,
+  isRequestError,
 } from '@atlaskit/media-client';
-
 import {
   ANALYTICS_MEDIA_CHANNEL,
   FileAttributes,
@@ -14,11 +15,15 @@ import {
   SuccessAttributes,
   FailureAttributes,
 } from '@atlaskit/media-common';
-
 import {
   CreateUIAnalyticsEvent,
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
+import {
+  isMediaCardError,
+  MediaCardError,
+  MediaCardErrorPrimaryReason,
+} from '../errors';
 
 export enum RenderEventAction {
   COMMENCED = 'commenced',
@@ -27,10 +32,10 @@ export enum RenderEventAction {
 }
 
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
-export type FailedMediaClientFailReason = 'upload' | 'metadata-fetch';
+export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';
 
 export type RenderEventFailReason =
-  | FailedMediaClientFailReason
+  | FailedErrorFailReason
   | 'failed-processing'
   | FileUriFailReason
   | 'external-uri';
@@ -39,7 +44,8 @@ export type RenderFailedEventPayload = OperationalEventPayload<
   WithFileAttributes &
     FailureAttributes & {
       failReason: RenderEventFailReason;
-      error?: MediaClientErrorReason | 'unknown';
+      error?: MediaClientErrorReason | 'nativeError';
+      request?: RequestMetadata;
     },
   RenderEventAction.FAILED,
   'mediaCardRender'
@@ -57,11 +63,6 @@ export type RenderCommencedEventPayload = OperationalEventPayload<
   'mediaCardRender'
 >;
 
-export type RenderEventPayload =
-  | RenderCommencedEventPayload
-  | RenderSucceededEventPayload
-  | RenderFailedEventPayload;
-
 export type CopiedFileEventPayload = UIEventPayload<{}, 'copied', string>;
 
 export type ClickedEventPayload = UIEventPayload<
@@ -71,7 +72,9 @@ export type ClickedEventPayload = UIEventPayload<
 >;
 
 export type MediaCardAnalyticsEventPayload =
-  | RenderEventPayload
+  | RenderCommencedEventPayload
+  | RenderSucceededEventPayload
+  | RenderFailedEventPayload
   | CopiedFileEventPayload
   | ClickedEventPayload;
 
@@ -85,10 +88,6 @@ export const getFileAttributes = (
   fileSize: metadata.size,
   fileStatus,
 });
-
-export const isRenderFailedEventPayload = (
-  payload?: RenderEventPayload,
-): payload is RenderFailedEventPayload => payload?.action === 'failed';
 
 export const getRenderCommencedEventPayload = (
   fileAttributes: FileAttributes,
@@ -149,22 +148,51 @@ export const getRenderFailedExternalUriPayload = (
   },
 });
 
-export const getRenderFailedMediaClientFailReason = (
-  fileStatus?: FileStatus,
-): FailedMediaClientFailReason => {
-  // If the last status got is uploading and there is an error, we can tell that uploading failed.
-  // Any other case, including "no filestatus", it is a metadata fetch problem.
-  switch (fileStatus) {
-    case 'uploading':
-      return 'upload';
-    default:
-      return 'metadata-fetch';
+export const getRenderErrorFailReason = (
+  error: MediaCardError,
+): FailedErrorFailReason => {
+  if (isMediaCardError(error)) {
+    return error.primaryReason;
+  } else {
+    return 'nativeError';
   }
 };
 
-export const getRenderFailedMediaClientPayload = (
+export const getRenderErrorErrorReason = (
+  error: MediaCardError,
+): MediaClientErrorReason | 'nativeError' => {
+  if (isMediaCardError(error) && error.secondaryError) {
+    const mediaClientReason = getMediaClientErrorReason(error.secondaryError);
+    if (mediaClientReason !== 'unknown') {
+      return mediaClientReason;
+    }
+  }
+  return 'nativeError';
+};
+
+export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
+  if (isMediaCardError(error) && error.secondaryError) {
+    return error.secondaryError.message;
+  } else {
+    return error.message;
+  }
+};
+
+export const getRenderErrorRequestMetadata = (
+  error: MediaCardError,
+): RequestMetadata | undefined => {
+  if (
+    isMediaCardError(error) &&
+    !!error.secondaryError &&
+    isRequestError(error.secondaryError)
+  ) {
+    return error.secondaryError.metadata;
+  }
+};
+
+export const getRenderErrorEventPayload = (
   fileAttributes: FileAttributes,
-  error: Error,
+  error: MediaCardError,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: RenderEventAction.FAILED,
@@ -172,8 +200,10 @@ export const getRenderFailedMediaClientPayload = (
   attributes: {
     fileAttributes,
     status: 'fail',
-    failReason: getRenderFailedMediaClientFailReason(fileAttributes.fileStatus),
-    error: getMediaClientErrorReason(error),
+    failReason: getRenderErrorFailReason(error),
+    error: getRenderErrorErrorReason(error),
+    errorDetail: getRenderErrorErrorDetail(error),
+    request: getRenderErrorRequestMetadata(error),
   },
 });
 

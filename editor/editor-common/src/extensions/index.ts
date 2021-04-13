@@ -27,6 +27,7 @@ export type {
   MenuItemMap,
   UpdateExtension,
   Parameters,
+  ParametersWithDuplicateFields,
   BooleanField,
   CustomField,
   CustomFieldResolver,

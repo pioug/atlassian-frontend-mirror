@@ -1,6 +1,6 @@
 import { EditorState } from 'prosemirror-state';
 
-import { p, td, th, tr } from '@atlaskit/editor-test-helpers/schema-builder';
+import { p, td, th, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   c,

@@ -27,7 +27,7 @@ import {
   mediaSingle,
   media,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
@@ -83,7 +83,7 @@ describe('table plugin', () => {
     describe('when the cursor is outside the table', () => {
       it('it should create a new table and return true', () => {
         const { editorView } = editor(doc(p('{<>}')));
-        expect(createTable(editorView.state, editorView.dispatch)).toEqual(
+        expect(createTable()(editorView.state, editorView.dispatch)).toEqual(
           true,
         );
         const tableNode = table()(
@@ -98,7 +98,7 @@ describe('table plugin', () => {
     describe('when selection has a mark', () => {
       it('it should create a new table and return true', () => {
         const { editorView } = editor(doc(p(strong('text{<>}'))));
-        expect(createTable(editorView.state, editorView.dispatch)).toEqual(
+        expect(createTable()(editorView.state, editorView.dispatch)).toEqual(
           true,
         );
         expect(editorView.state.doc).toEqualDocument(

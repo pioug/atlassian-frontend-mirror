@@ -24,7 +24,7 @@ import {
   thEmpty,
   p,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { pmNodeBuilder } from '@atlaskit/editor-test-helpers/schema-element-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';

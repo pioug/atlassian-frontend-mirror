@@ -1,6 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const createEditor = createEditorFactory();
 

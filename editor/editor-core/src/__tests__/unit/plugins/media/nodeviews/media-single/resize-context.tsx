@@ -10,7 +10,7 @@ import {
   table,
   td,
   tr,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaSingle } from '@atlaskit/editor-common';
 
 import { MediaOptions } from '../../../../../../plugins/media/types';

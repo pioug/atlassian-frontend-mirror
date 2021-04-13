@@ -51,7 +51,13 @@ export {
   sanitiseSelectionMarksForWrapping,
   sanitiseMarksInSelection,
 } from './mark';
-export { isParagraph, isText, isLinkMark } from './nodes';
+export {
+  findChangedNodesFromTransaction,
+  isParagraph,
+  isText,
+  isLinkMark,
+  validateNodes,
+} from './nodes';
 export {
   isChromeWithSelectionBug,
   normaliseNestedLayout,

@@ -2,7 +2,14 @@ import {
   isDateRange,
   DateRangeResult,
 } from '@atlaskit/editor-common/extensions';
-import { Parameters } from '@atlaskit/editor-common/extensions';
+import {
+  Parameters,
+  ParametersWithDuplicateFields,
+} from '@atlaskit/editor-common/extensions';
+import {
+  getNameFromDuplicateField,
+  toEntries,
+} from '../../src/ui/ConfigPanel/utils';
 
 function escapeHtmlEntities(value: string) {
   return value
@@ -62,7 +69,7 @@ function deserializeDateRangeEntry(dateRange: string): Entry<DateRangeResult> {
 }
 
 export const cqlSerializer = (content: Parameters) => {
-  const cql = Object.entries(content)
+  const cql = toEntries(content)
     .filter(entry => entry[1])
     .map(entry => {
       const [key, value] = entry;
@@ -77,9 +84,8 @@ export const cqlSerializer = (content: Parameters) => {
         result = `(${value.join(', ')})`;
       }
 
-      return `${key} ${joiner} ${result}`;
+      return `${getNameFromDuplicateField(key)} ${joiner} ${result}`;
     })
-    .filter(entry => entry[1])
     .join(' AND ');
 
   return cql;
@@ -87,35 +93,32 @@ export const cqlSerializer = (content: Parameters) => {
 
 type Entry<T> = [string, T];
 
-const fromEntries = <T>(iterable: Entry<T>[]): Parameters => {
-  return [...iterable].reduce<{ [key: string]: T }>((obj, [key, val]) => {
-    obj[key] = val;
-    return obj;
-  }, {});
-};
-
-export const cqlDeserializer = (value?: string): Parameters => {
+export const cqlDeserializer = (
+  value?: string,
+): ParametersWithDuplicateFields => {
   if (typeof value === 'undefined') {
-    return {};
+    return [];
   }
 
-  const entries = value
-    .split(' AND ')
-    .map<Entry<string | string[] | DateRangeResult>>(statement => {
-      const [key, separator, val] = statement.split(/\s(=|in)\s/);
+  const deserialized: Array<{
+    [name: string]: string | string[] | DateRangeResult;
+  }> = [];
+  value.split(' AND ').forEach(statement => {
+    const [key, separator, val] = statement.split(/\s(=|in)\s/);
 
-      let result: string | string[] | DateRangeResult = val;
+    let resultKey = key;
+    let result: string | string[] | DateRangeResult = val;
 
-      if (separator === 'in') {
-        result = val.replace(/(\(|\))/g, '').split(', ');
-      }
+    if (separator === 'in') {
+      result = val.replace(/(\(|\))/g, '').split(', ');
+    }
 
-      if (key.includes(escapeHtmlEntities('>='))) {
-        return deserializeDateRangeEntry(key);
-      }
+    if (key.includes(escapeHtmlEntities('>='))) {
+      return deserializeDateRangeEntry(key);
+    }
 
-      return [key, result];
-    });
+    deserialized.push({ [resultKey]: result });
+  });
 
-  return fromEntries<string | string[] | DateRangeResult>(entries);
+  return deserialized;
 };

@@ -16,6 +16,10 @@ const Wrapper = styled.div`
   margin-bottom: 24px;
 `;
 
+const Link = styled.a`
+  flex: 1 1 80%;
+`;
+
 const MiscActionsWrapper = styled.div`
   flex: 1 1 10%;
   align-content: flex-end;
@@ -37,7 +41,9 @@ export default class BreadcrumbsMiscActions extends React.Component<
   render() {
     return (
       <Wrapper>
-        <BreadcrumbWrapper>Breadcrumbs / Placeholder / ...</BreadcrumbWrapper>
+        <Link id="breadcrumb" href="#">
+          <BreadcrumbWrapper>Breadcrumbs / Placeholder / ...</BreadcrumbWrapper>
+        </Link>
         <MiscActionsWrapper>
           <LabelIcon label="I do nothing" />
           <LockFilledIcon label="I do nothing" primaryColor="#de350b" />

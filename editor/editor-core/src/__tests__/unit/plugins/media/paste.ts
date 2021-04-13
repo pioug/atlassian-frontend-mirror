@@ -1,6 +1,5 @@
 import { Node, Fragment, Slice, Schema } from 'prosemirror-model';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
   p,
@@ -13,8 +12,7 @@ import {
   tr,
   table,
   td,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { temporaryMedia } from './_utils';
 import { transformSliceForMedia } from '../../../../plugins/media/utils/media-single';
@@ -25,19 +23,6 @@ const fragment = (...args: any) => (schema: Schema) =>
   Fragment.from(args.map((i: any) => removeRef(i(schema))));
 
 describe('Media plugin', () => {
-  const createEditor = createEditorFactory();
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: {
-        allowLayouts: true,
-        media: {
-          allowMediaSingle: true,
-        },
-        allowTables: true,
-      },
-    });
-
   describe('#transformSliceForMedia', () => {
     const sliceWithAttributes = (schema: Schema) =>
       new Slice(
@@ -65,7 +50,7 @@ describe('Media plugin', () => {
       );
 
     it('removes mediaSingle attributes when pasted into a layoutSection', () => {
-      const { editorView } = editor(
+      const editorState = createEditorState(
         doc(
           layoutSection(
             layoutColumn({ width: 50 })(p('{<>}')),
@@ -74,48 +59,48 @@ describe('Media plugin', () => {
         ),
       );
 
-      const { selection, schema } = editorView.state;
+      const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
       ).toEqual(sliceWithoutAttributes(schema));
     });
 
     it('removes mediaSingle attributes when pasted into a table', () => {
-      const { editorView } = editor(
+      const editorState = createEditorState(
         doc(table()(tr(td()(p('hello {<>}')), td()(p())))),
       );
 
-      const { selection, schema } = editorView.state;
+      const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
       ).toEqual(sliceWithoutAttributes(schema));
     });
 
     it('removes mediaSingle attributes when pasted into an ordered list', () => {
-      const { editorView } = editor(
+      const editorState = createEditorState(
         doc(ol(li(p('hello {<>}')), li(p('world')))),
       );
 
-      const { selection, schema } = editorView.state;
+      const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
       ).toEqual(sliceWithoutAttributes(schema));
     });
 
     it('removes mediaSingle attributes when pasted into a bullet list', () => {
-      const { editorView } = editor(
+      const editorState = createEditorState(
         doc(ul(li(p('hello {<>}')), li(p('world')))),
       );
 
-      const { selection, schema } = editorView.state;
+      const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
       ).toEqual(sliceWithoutAttributes(schema));
     });
 
     it('maintains mediaSingle attributes when pasted into a top level paragraph', () => {
-      const { editorView } = editor(doc(p('hello {<>} world')));
-      const { selection, schema } = editorView.state;
+      const editorState = createEditorState(doc(p('hello {<>} world')));
+      const { selection, schema } = editorState;
       expect(
         transformSliceForMedia(sliceWithAttributes(schema), schema)(selection),
       ).toEqual(sliceWithAttributes(schema));

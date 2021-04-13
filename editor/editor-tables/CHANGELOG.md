@@ -1,5 +1,12 @@
 # @atlaskit/editor-tables
 
+## 1.1.5
+
+### Patch Changes
+
+- [`5089bd2544d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5089bd2544d) - ED-11919: generate localId for tables
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+
 ## 1.1.4
 
 ### Patch Changes

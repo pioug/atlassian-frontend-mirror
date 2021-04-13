@@ -127,14 +127,15 @@ describe('MediaStore', () => {
         await mediaStore.createUpload(undefined, 'my-collection');
 
         expect(mediaStore.request).toBeCalledWith('/upload', {
+          method: 'POST',
+          endpoint: '/upload',
           authContext: {
             collectionName: 'my-collection',
           },
+          params: { createUpTo: 1 },
           headers: {
             Accept: 'application/json',
           },
-          method: 'POST',
-          params: { createUpTo: 1 },
         });
       });
 
@@ -155,6 +156,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'POST',
+            endpoint: '/upload',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -243,6 +246,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'POST',
+            endpoint: '/chunk/probe',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -326,6 +331,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'POST',
+            endpoint: '/file/upload',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -385,6 +392,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'GET',
+            endpoint: '/file/{fileId}',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -597,8 +606,9 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverForbidden',
+            method: 'POST',
+            endpoint: '/upload/createWithFiles',
             statusCode: 403,
-            bodyAsText: 'something went wrong',
           });
         }
 
@@ -624,6 +634,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'POST',
+            endpoint: '/upload/createWithFiles',
             statusCode: 201,
             innerError: expect.any(Error),
           });
@@ -846,6 +858,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'POST',
+            endpoint: '/items',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -927,6 +941,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'GET',
+            endpoint: '/file/{fileId}/image/metadata',
             statusCode: 200,
             innerError: expect.any(Error),
           });
@@ -1045,6 +1061,8 @@ describe('MediaStore', () => {
 
           expect(err.attributes).toMatchObject({
             reason: 'serverInvalidBody',
+            method: 'POST',
+            endpoint: '/file/copy/withToken',
             statusCode: 201,
             innerError: expect.any(Error),
           });

@@ -50,6 +50,7 @@ import { ExtensionDefinition as Extension } from './extension';
 import { BlockCardDefinition as BlockCard } from './block-card';
 import { EmbedCardDefinition as EmbedCard } from './embed-card';
 import { NestedExpandDefinition as NestedExpand } from './nested-expand';
+import { uuid } from '../../utils/uuid';
 
 export type { CellAttributes };
 export const tablePrefixSelector = 'pm-table';
@@ -285,6 +286,13 @@ const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
           const dom = node as HTMLElement;
           const breakoutWrapper = dom.parentElement?.parentElement;
 
+          const localIdAttr = allowLocalId
+            ? {
+                localId:
+                  dom.getAttribute('data-table-local-id') || uuid.generate(),
+              }
+            : {};
+
           return {
             isNumberColumnEnabled:
               dom.getAttribute('data-number-column') === 'true' ? true : false,
@@ -296,15 +304,20 @@ const createTableSpec = (allowLocalId: boolean = false): NodeSpec => {
               'default',
             __autoSize:
               dom.getAttribute('data-autosize') === 'true' ? true : false,
+            ...localIdAttr,
           };
         },
       },
     ],
     toDOM(node: PmNode) {
+      const localIdAttr = allowLocalId
+        ? { 'data-table-local-id': node.attrs.localId }
+        : {};
       const attrs = {
         'data-number-column': node.attrs.isNumberColumnEnabled,
         'data-layout': node.attrs.layout,
         'data-autosize': node.attrs.__autoSize,
+        ...localIdAttr,
       };
       return ['table', attrs, ['tbody', 0]];
     },

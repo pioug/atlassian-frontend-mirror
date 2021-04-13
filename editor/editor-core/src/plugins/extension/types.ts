@@ -9,6 +9,7 @@ import {
 
 export type ExtensionState<T extends Parameters = Parameters> = {
   layout: ExtensionLayout;
+  localId?: string;
   autoSaveResolve?: () => void;
   showEditButton: boolean;
   showContextPanel: boolean;

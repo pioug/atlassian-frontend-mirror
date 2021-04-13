@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 10.1.4
+
+### Patch Changes
+
+- [`bc6de0e2e19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc6de0e2e19) - Internal change to use declarative entrypoints instead of the hardcoded ones.
+
 ## 10.1.3
 
 ### Patch Changes

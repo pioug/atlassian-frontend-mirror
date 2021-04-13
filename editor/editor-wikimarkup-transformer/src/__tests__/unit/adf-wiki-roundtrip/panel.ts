@@ -8,7 +8,7 @@ import {
   p,
   panel,
   ul,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - Panel', () => {
   const transformer = new WikiMarkupTransformer();

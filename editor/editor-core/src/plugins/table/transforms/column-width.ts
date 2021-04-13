@@ -26,6 +26,7 @@ export const updateColumnWidths = (
         ...table.nodeAt(cellPos)!.attrs,
       };
       const colspan = attrs.colspan || 1;
+
       if (attrs.colwidth && attrs.colwidth.length > colspan) {
         tr = setMeta({
           type: 'UPDATE_COLUMN_WIDTHS',
@@ -45,20 +46,23 @@ export const updateColumnWidths = (
         continue;
       }
 
-      let colwidth = attrs.colwidth
+      let colwidths = attrs.colwidth
         ? attrs.colwidth.slice()
         : Array.from({ length: colspan }, _ => 0);
 
-      colwidth[colspanIndex] = width;
-      if (colwidth.length > colspan) {
+      colwidths[colspanIndex] = width;
+      if (colwidths.length > colspan) {
         tr = setMeta({
           type: 'UPDATE_COLUMN_WIDTHS',
           problem: 'COLWIDTHS_AFTER_UPDATE',
-          data: { colwidths: colwidth, colspan },
+          data: { colwidths, colspan },
         })(tr);
-        colwidth = colwidth.slice(0, colspan);
+        colwidths = colwidths.slice(0, colspan);
       }
-      updatedCellsAttrs[cellPos] = { ...attrs, colwidth };
+      updatedCellsAttrs[cellPos] = {
+        ...attrs,
+        colwidth: colwidths.includes(0) ? undefined : colwidths,
+      };
     }
   }
 

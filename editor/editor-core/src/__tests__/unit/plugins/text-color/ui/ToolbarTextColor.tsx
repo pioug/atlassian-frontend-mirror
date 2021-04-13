@@ -7,7 +7,7 @@ import {
   code_block,
   p,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';

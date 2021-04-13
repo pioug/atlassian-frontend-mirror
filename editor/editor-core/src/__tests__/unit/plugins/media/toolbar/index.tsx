@@ -16,7 +16,7 @@ import {
   tr,
   ul,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import * as analytics from '../../../../../plugins/analytics/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 /**

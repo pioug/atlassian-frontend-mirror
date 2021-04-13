@@ -5,7 +5,7 @@ import {
   table,
   td,
   th,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { convertProsemirrorTableNodeToArrayOfRows } from '../../../utils/table';
 

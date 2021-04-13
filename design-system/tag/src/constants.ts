@@ -18,5 +18,5 @@ export const defaultRoundedBorderRadius = `${buttonWidthUnitless / 2}px`;
 export const defaultMargin = `${gridSizeValue / 2}px`;
 export const defaultTextPadding = `${gridSizeValue / 2}px`;
 export const textPaddingRight = `${2 * gridSizeValue}px`;
-export const textPaddingLeft = `${tagHeightUnitless}px`;
+export const textMarginLeft = `${tagHeightUnitless}px`;
 export const textFontSize = `${fontSizeValue}px`;

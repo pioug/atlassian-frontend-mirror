@@ -5,14 +5,16 @@ export const createLogger = (prefix: string, color: string = 'blue') => (
   msg: string,
   data: any = null,
 ) => {
-  // eslint-disable-next-line no-console
-  console.log(
-    `%cCollab-${prefix}: ${msg}`,
-    `color: ${color}; font-weight: bold`,
-  );
-  if (data) {
+  if ((window as any).COLLAB_PROVIDER_LOGGER) {
     // eslint-disable-next-line no-console
-    console.log(data);
+    console.log(
+      `%cCollab-${prefix}: ${msg}`,
+      `color: ${color}; font-weight: bold`,
+    );
+    if (data) {
+      // eslint-disable-next-line no-console
+      console.log(data);
+    }
   }
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, ReactWrapper, shallow } from 'enzyme';
 import { NumericalCardDimensions } from '@atlaskit/media-card';
 import { EditorView } from 'prosemirror-view';
-import { media } from '@atlaskit/editor-test-helpers/schema-builder';
+import { media } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import { ProviderFactory, browser } from '@atlaskit/editor-common';
 import { MediaFeatureFlags } from '@atlaskit/media-common';

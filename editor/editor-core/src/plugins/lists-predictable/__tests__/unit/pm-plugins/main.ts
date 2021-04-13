@@ -1,33 +1,11 @@
-import {
-  createProsemirrorEditorFactory,
-  LightEditorPlugin,
-  Preset,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  doc,
-  p,
-  ul,
-  li,
-  ol,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import listPlugin from '../../..';
-import { pluginKey, getDecorations } from '../../../pm-plugins/main';
+import { doc, p, ul, li, ol } from '@atlaskit/editor-test-helpers/doc-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import { getDecorations } from '../../../pm-plugins/main';
 
 describe('lists', () => {
-  const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      preset: new Preset<LightEditorPlugin>().add(listPlugin),
-      pluginKey,
-    });
-
   describe('styles', () => {
     it('should add decorations to indicate indentation level in a single nested list', () => {
-      const {
-        editorView: { state },
-      } = editor(
+      const state = createEditorState(
         // prettier-ignore
         doc(
         ol(
@@ -67,9 +45,7 @@ describe('lists', () => {
     });
 
     it('should add decorations to indicate indentation level in multiple nested lists', () => {
-      const {
-        editorView: { state },
-      } = editor(
+      const state = createEditorState(
         // prettier-ignore
         doc(
         ol(
@@ -111,9 +87,7 @@ describe('lists', () => {
     });
 
     it('should add decorations to indicate indentation level in multiple simple lists', () => {
-      const {
-        editorView: { state },
-      } = editor(
+      const state = createEditorState(
         // prettier-ignore
         doc(
         ul(
@@ -138,9 +112,7 @@ describe('lists', () => {
     });
 
     it('should add decorations to indicate indentation level in asymmetric lists', () => {
-      const {
-        editorView: { state },
-      } = editor(
+      const state = createEditorState(
         // prettier-ignore
         doc(
         ul(

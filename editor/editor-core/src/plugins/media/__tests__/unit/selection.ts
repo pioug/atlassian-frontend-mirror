@@ -11,7 +11,7 @@ import {
   mediaSingle,
   mediaGroup,
   RefsNode,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from '@atlaskit/editor-test-helpers/schema';
 
 describe('media selection', () => {

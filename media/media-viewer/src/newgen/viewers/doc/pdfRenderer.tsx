@@ -186,7 +186,14 @@ export class PDFRenderer extends React.Component<Props, State> {
       ),
       failed: error => {
         const { item } = this.props;
-        return <ErrorMessage fileId={item.id} fileState={item} error={error} />;
+        return (
+          <ErrorMessage
+            fileId={item.id}
+            fileState={item}
+            error={error}
+            supressAnalytics={true} // item-viewer.tsx will send
+          />
+        );
       },
     });
   }

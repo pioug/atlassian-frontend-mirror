@@ -1,6 +1,3 @@
-/** Extracted into its own file so the mock variables can be instantiated before other imports in the test file that would otherwise be hoisted before it */
-import { mockEvents } from '../../../view/__mocks__/events';
-
 jest.mock('react', () => ({
   useMemo: jest.fn().mockImplementation(fn => fn()),
   useCallback: jest.fn().mockImplementation(fn => fn),
@@ -13,7 +10,7 @@ performance = ({
   clearMarks: jest.fn(),
 } as unknown) as Performance;
 
-jest.doMock('../../../utils/analytics', () => mockEvents);
+jest.doMock('../../../utils/analytics/analytics');
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: jest.fn(),
 }));

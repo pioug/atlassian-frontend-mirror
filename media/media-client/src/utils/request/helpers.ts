@@ -9,6 +9,7 @@ import {
   RequestErrorReason,
   RequestErrorMetadata,
   RequestHeaders,
+  RequestMetadata,
   RetryOptions,
 } from './types';
 
@@ -39,59 +40,6 @@ export function isRateLimitedError(error: Error | undefined) {
     (!!error && isRequestError(error) && error.attributes.statusCode === 429) ||
     (!!error && !!error.message && error.message.includes('429'))
   );
-}
-
-export function getErrorName(
-  error: Error | undefined,
-  defaultErrorName: string,
-) {
-  return isRateLimitedError(error) ? 'rateLimited' : defaultErrorName;
-}
-
-export function createRequestErrorReason(
-  responseStatus: number,
-): RequestErrorReason {
-  switch (responseStatus) {
-    case 400:
-      return 'serverBadRequest';
-    case 401:
-      return 'serverUnauthorized';
-    case 403:
-      return 'serverForbidden';
-    case 404:
-      return 'serverNotFound';
-    case 429:
-      return 'serverRateLimited';
-    case 500:
-      return 'serverInternalError';
-    case 502:
-      return 'serverBadGateway';
-    default:
-      return 'serverUnexpectedError';
-  }
-}
-
-export async function createRequestError(
-  response: Response,
-): Promise<RequestError> {
-  const reason = createRequestErrorReason(response.status);
-  const bodyAsText = await response.text();
-  return new RequestError(reason, {
-    statusCode: response.status,
-    bodyAsText,
-  });
-}
-
-export function cloneRequestError(
-  error: RequestError,
-  extraMetadata: Partial<RequestErrorMetadata>,
-): RequestError {
-  const { reason, metadata } = error;
-
-  return new RequestError(reason, {
-    ...metadata,
-    ...extraMetadata,
-  });
 }
 
 export function extract(url: string): { baseUrl: string; queryParams?: any } {
@@ -152,30 +100,101 @@ export function withAuth(auth?: Auth) {
   };
 }
 
+/**
+ * @deprecated Helper is deprecated and will be removed in the next major version.
+ * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
+ */
 export async function mapResponseToJson(response: Response): Promise<any> {
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Helper is deprecated and will be remove in the next major version',
+  );
+
   try {
     return await response.json();
   } catch (err) {
-    throw new RequestError('serverInvalidBody', {
-      statusCode: response.status,
-      innerError: err,
-    });
+    throw new RequestError(
+      'serverInvalidBody',
+      {
+        statusCode: response.status,
+      },
+      err,
+    );
   }
 }
 
+/**
+ * @deprecated Helper is deprecated and will be removed in the next major version.
+ * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
+ */
 export async function mapResponseToBlob(response: Response): Promise<Blob> {
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Helper is deprecated and will be remove in the next major version',
+  );
+
   try {
     return await response.blob();
   } catch (err) {
-    throw new RequestError('serverInvalidBody', {
-      statusCode: response.status,
-      innerError: err,
-    });
+    throw new RequestError(
+      'serverInvalidBody',
+      {
+        statusCode: response.status,
+      },
+      err,
+    );
   }
 }
 
+/**
+ * @deprecated Helper is deprecated and will be removed in the next major version.
+ * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
+ */
 export function mapResponseToVoid(): Promise<void> {
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Helper is deprecated and will be remove in the next major version',
+  );
+
   return Promise.resolve();
+}
+
+export function createMapResponseToJson(
+  metadata: RequestMetadata,
+): (response: Response) => Promise<any> {
+  return async (response: Response) => {
+    try {
+      return await response.json();
+    } catch (err) {
+      throw new RequestError(
+        'serverInvalidBody',
+        {
+          ...metadata,
+          statusCode: response.status,
+        },
+        err,
+      );
+    }
+  };
+}
+
+export function createMapResponseToBlob(
+  metadata: RequestMetadata,
+): (response: Response) => Promise<Blob> {
+  return async (response: Response) => {
+    try {
+      return await response.blob();
+    } catch (err) {
+      throw new RequestError(
+        'serverInvalidBody',
+        {
+          ...metadata,
+          statusCode: response.status,
+        },
+        err,
+      );
+    }
+  };
 }
 
 export const DEFAULT_RETRY_OPTIONS: RetryOptions = {
@@ -184,8 +203,25 @@ export const DEFAULT_RETRY_OPTIONS: RetryOptions = {
   factor: 2, // Good for polling, which is out main use case
 };
 
+export function cloneRequestError(
+  error: RequestError,
+  extraMetadata: Partial<RequestErrorMetadata>,
+): RequestError {
+  const { reason, metadata, innerError } = error;
+
+  return new RequestError(
+    reason,
+    {
+      ...metadata,
+      ...extraMetadata,
+    },
+    innerError,
+  );
+}
+
 export async function fetchRetry(
   functionToRetry: () => Promise<Response>,
+  metadata: RequestMetadata,
   overwriteOptions: Partial<RetryOptions> = {},
 ): Promise<Response> {
   const options = {
@@ -212,7 +248,7 @@ export async function fetchRetry(
 
       // don't retry if request was aborted by user
       if (isAbortedRequestError(err)) {
-        throw new RequestError('clientAbortedRequest');
+        throw new RequestError('clientAbortedRequest', metadata, err);
       }
 
       if (
@@ -236,19 +272,61 @@ export async function fetchRetry(
     });
   }
 
-  throw new RequestError('serverUnexpectedError', {
-    attempts,
-    clientExhaustedRetries: true,
-    innerError: lastError,
+  throw new RequestError(
+    'serverUnexpectedError',
+    {
+      ...metadata,
+      attempts,
+      clientExhaustedRetries: true,
+    },
+    lastError,
+  );
+}
+
+export function createRequestErrorReason(
+  statusCode: number,
+): RequestErrorReason {
+  switch (statusCode) {
+    case 400:
+      return 'serverBadRequest';
+    case 401:
+      return 'serverUnauthorized';
+    case 403:
+      return 'serverForbidden';
+    case 404:
+      return 'serverNotFound';
+    case 429:
+      return 'serverRateLimited';
+    case 500:
+      return 'serverInternalError';
+    case 502:
+      return 'serverBadGateway';
+    default:
+      return 'serverUnexpectedError';
+  }
+}
+
+export function createRequestErrorFromResponse(
+  metadata: RequestErrorMetadata,
+  response: Response,
+): RequestError {
+  const { status: statusCode } = response;
+  const reason = createRequestErrorReason(statusCode);
+  return new RequestError(reason, {
+    ...metadata,
+    statusCode,
   });
 }
 
-export async function processFetchResponse(
-  response: Response,
-): Promise<Response> {
-  if (response.ok || response.status < 400) {
-    return response;
-  }
-  const requestError = await createRequestError(response);
-  throw requestError;
+export function createProcessFetchResponse(
+  metadata: RequestMetadata,
+): (response: Response) => Response {
+  return (response: Response) => {
+    if (response.ok || response.status < 400) {
+      return response;
+    }
+
+    const requestError = createRequestErrorFromResponse(metadata, response);
+    throw requestError;
+  };
 }

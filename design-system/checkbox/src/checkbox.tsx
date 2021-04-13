@@ -132,6 +132,7 @@ const CheckboxWithMode = forwardRef(function Checkbox(
         css={styles}
         onChange={onChangeAnalytics}
         aria-checked={isIndeterminate ? 'mixed' : isChecked}
+        aria-invalid={isInvalid ? 'true' : undefined}
         data-testid={testId && `${testId}--hidden-checkbox`}
         data-invalid={isInvalid ? 'true' : undefined}
       />

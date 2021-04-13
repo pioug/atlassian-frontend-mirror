@@ -1,3 +1,4 @@
+import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import {
   findParentNodeOfType,
@@ -21,33 +22,30 @@ export const getSelectedExtension = (
   );
 };
 
-export const getSelectedNonContentExtension = ({
-  schema,
-  selection,
-}: EditorState): NodeWithPos | undefined => {
-  const { inlineExtension, extension } = schema.nodes;
-  return findSelectedNodeOfType([inlineExtension, extension])(selection);
-};
-
 export const getSelectedDomElement = (
+  schema: Schema,
   domAtPos: DomAtPos,
-  selectedExtensionNode?: NodeWithPos,
-  isContentExtension: boolean = false,
+  selectedExtensionNode: NodeWithPos,
 ) => {
-  const selectedExtensionDomNode =
-    selectedExtensionNode &&
-    (findDomRefAtPos(selectedExtensionNode.pos, domAtPos) as HTMLElement);
+  const selectedExtensionDomNode = findDomRefAtPos(
+    selectedExtensionNode.pos,
+    domAtPos,
+  ) as HTMLElement;
 
-  // Non-content extension can be nested in bodied-extension, the following check is necessary for that case
-  return selectedExtensionNode && selectedExtensionDomNode!.querySelector
-    ? isContentExtension
-      ? selectedExtensionDomNode!.querySelector<HTMLElement>(
+  const isContentExtension =
+    selectedExtensionNode.node.type !== schema.nodes.bodiedExtension;
+
+  return (
+    // Content extension can be nested in bodied-extension, the following check is necessary for that case
+    (isContentExtension
+      ? // Search down
+        selectedExtensionDomNode.querySelector<HTMLElement>(
           '.extension-container',
-        ) || selectedExtensionDomNode
-      : closestElement(selectedExtensionDomNode!, '.extension-container') ||
-        selectedExtensionDomNode!.querySelector<HTMLElement>(
+        )
+      : // Try searching up and then down
+        closestElement(selectedExtensionDomNode, '.extension-container') ||
+        selectedExtensionDomNode.querySelector<HTMLElement>(
           '.extension-container',
-        ) ||
-        selectedExtensionDomNode
-    : undefined;
+        )) || selectedExtensionDomNode
+  );
 };

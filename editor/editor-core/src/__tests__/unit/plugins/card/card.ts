@@ -1,33 +1,11 @@
 import { name } from '../../../../version.json';
-import {
-  doc,
-  DocBuilder,
-  embedCard,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { pluginKey } from '../../../../plugins/card/pm-plugins/plugin-key';
+import { doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe(name, () => {
   describe('Plugins -> Card', () => {
-    const createEditor = createEditorFactory();
-
-    const editor = (doc: DocBuilder) => {
-      return createEditor({
-        doc,
-        pluginKey,
-        editorProps: {
-          allowAnalyticsGASV3: true,
-          UNSAFE_cards: {
-            allowBlockCards: true,
-            allowEmbeds: true,
-            allowResizing: true,
-          },
-        },
-      });
-    };
-
     it('should have default attributes', () => {
-      const { editorView } = editor(
+      const editorState = createEditorState(
         doc(
           '{<node>}',
           embedCard({
@@ -37,7 +15,7 @@ describe(name, () => {
         ),
       );
 
-      expect(editorView.state.doc).toEqualDocument(
+      expect(editorState.doc).toEqualDocument(
         doc(
           '{<node>}',
           embedCard({

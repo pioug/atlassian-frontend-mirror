@@ -24,11 +24,26 @@ BrowserTestCase(
 
     // both editor mounted and editor proseMirrorRendered events include timings
     // which will change each time so we exclude them
-    let logs = (
-      await getBridgeOutput(browser, 'analyticsBridge', 'trackEvent')
-    ).filter((log: any) => JSON.parse(log.event).action === 'started');
+    const outputEvents = await getBridgeOutput(
+      browser,
+      'analyticsBridge',
+      'trackEvent',
+    );
+    const trackEvents = outputEvents
+      .map((outputEvent: any) => JSON.parse(outputEvent.event))
+      .filter((analyticsEvent: any) => analyticsEvent.eventType === 'ui');
 
-    expect([logs]).toMatchCustomSnapshot(testName);
+    expect(trackEvents).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          actionSubject: 'editor',
+          action: 'started',
+          attributes: expect.objectContaining({
+            appearance: 'mobile',
+          }),
+        }),
+      ]),
+    );
   },
 );
 
@@ -43,12 +58,25 @@ BrowserTestCase(
     // just loading the renderer will fire two events:
     // renderer started, renderer rendered
     // renderer rendered includes timings which will change each time so we exclude it
-    const [rendererStartedEvent] = await getBridgeOutput(
+    const outputEvents = await getBridgeOutput(
       browser,
       'analyticsBridge',
       'trackEvent',
     );
+    const trackEvents = outputEvents
+      .map((outputEvent: any) => JSON.parse(outputEvent.event))
+      .filter((analyticsEvent: any) => analyticsEvent.eventType === 'ui');
 
-    expect(rendererStartedEvent).toMatchCustomSnapshot(testName);
+    expect(trackEvents).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          actionSubject: 'renderer',
+          action: 'started',
+          attributes: expect.objectContaining({
+            appearance: 'mobile',
+          }),
+        }),
+      ]),
+    );
   },
 );

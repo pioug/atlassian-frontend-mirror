@@ -32,6 +32,7 @@ export default class extends Component<{}, StateType> {
     return (
       <Fragment>
         <Pagination
+          testId="pagination"
           pages={PAGES}
           onChange={this.handleChange}
           getPageLabel={this.getLabel}

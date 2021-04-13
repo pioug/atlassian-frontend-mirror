@@ -26,6 +26,7 @@ export default class extends Component<{}, { max: number }> {
           </SectionMessage>
         </div>
         <Pagination
+          testId="pagination"
           renderEllipsis={({ key }: { key: string }) => (
             <Button
               onClick={() => this.handleEllipsisCLick()}

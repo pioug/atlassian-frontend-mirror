@@ -2,6 +2,8 @@ import {
   MediaClientErrorReason,
   getMediaClientErrorReason,
   isMediaClientError,
+  RequestMetadata,
+  isRequestError,
 } from '@atlaskit/media-client';
 import { ZipEntry } from 'unzipit';
 
@@ -47,26 +49,20 @@ export type MediaViewerErrorReason =
   | 'itemviewer-fetch-metadata'
   | 'itemviewer-file-error-status'
   | 'itemviewer-file-failed-processing-status'
-  | 'imageviewer-onerror'
   | 'imageviewer-external-onerror'
   | 'imageviewer-fetch-url'
   | 'imageviewer-src-onerror'
-  | 'audioviewer-onerror'
   | 'audioviewer-fetch-url'
   | 'audioviewer-missing-artefact'
   | 'audioviewer-playback'
-  | 'videoviewer-onerror'
   | 'videoviewer-fetch-url'
   | 'videoviewer-missing-artefact'
   | 'videoviewer-playback'
-  | 'docviewer-onerror'
   | 'docviewer-fetch-url'
   | 'docviewer-fetch-pdf'
-  | 'codeviewer-onerror'
   | 'codeviewer-fetch-src'
   | 'codeviewer-load-src'
   | 'codeviewer-parse-email'
-  | 'archiveviewer-onerror'
   | 'unsupported';
 
 export type ArchiveViewerErrorReason =
@@ -118,5 +114,16 @@ export function getErrorDetail(error?: Error): string | undefined {
   ) {
     // pls don't send stack traces, they can get polluted and blow out payload sizes
     return error.secondaryError && error.secondaryError.message;
+  }
+}
+
+export function getRequestMetadata(error?: Error): RequestMetadata | undefined {
+  if (
+    error &&
+    isMediaViewerError(error) &&
+    error.secondaryError &&
+    isRequestError(error.secondaryError)
+  ) {
+    return error.secondaryError.metadata;
   }
 }

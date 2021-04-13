@@ -4,17 +4,24 @@ jest.mock('raf-schd', () => (cb: Function) => {
 });
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import {
   embedCard,
   doc,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import { Card, IframelyResizeMessageListener } from '@atlaskit/smart-card';
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  Card,
+  CardProps,
+  IframelyResizeMessageListener,
+} from '@atlaskit/smart-card';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { CardOptions } from '@atlaskit/editor-common';
 import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common';
-import { EmbedCardComponent } from '../../../../../plugins/card/nodeviews/embedCard';
+import {
+  EmbedCardComponent,
+  EmbedCardState,
+} from '../../../../../plugins/card/nodeviews/embedCard';
 import ResizableEmbedCard from '../../../../../plugins/card/ui/ResizableEmbedCard';
 import { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 import { createCardContext } from '../_helpers';
@@ -59,7 +66,7 @@ describe('EmbedCard', () => {
     }
 
     const getPos = jest.fn(() => 0);
-    const component = mount(
+    const component = mount<EmbedCardComponent, SmartCardProps, EmbedCardState>(
       <EmbedCardComponent
         node={node}
         view={editorView}
@@ -70,7 +77,7 @@ describe('EmbedCard', () => {
         {...props}
       />,
     );
-    const cardComponent = component.find(Card);
+    const cardComponent = component.find(Card) as ReactWrapper<CardProps, any>;
     const resizeListener = component.find(IframelyResizeMessageListener);
     const resizableEmbedCard = component.find(ResizableEmbedCard);
     const richMediaWrapper = component.find(RichMediaWrapper);
@@ -119,8 +126,20 @@ describe('EmbedCard', () => {
         originalHeight: 42,
       },
     );
+    const { height } = resizableEmbedCard.props();
+    expect(height).toEqual(42);
+  });
 
-    expect(resizableEmbedCard.props().height).toEqual(42);
+  it('should not define height when ADF has both dimensions', () => {
+    const { resizableEmbedCard } = setup(
+      {},
+      {
+        originalHeight: 100,
+        originalWidth: 400,
+      },
+    );
+    expect(resizableEmbedCard.props().height).toBeUndefined();
+    expect(resizableEmbedCard.props().aspectRatio).toBe(400 / 100);
   });
 
   it('should use height sent via on onHeightUpdate', () => {
@@ -221,12 +240,44 @@ describe('EmbedCard', () => {
       expect(richMediaWrapperProps.width).toBeUndefined();
     });
 
+    it('should put dimensions defined by data from ADF', () => {
+      const { richMediaWrapper } = setup(
+        { allowResizing: false },
+        {
+          originalHeight: 100,
+          originalWidth: 400,
+        },
+      );
+
+      const richMediaWrapperProps = richMediaWrapper.props();
+      if (richMediaWrapperProps.width === undefined) {
+        expect(richMediaWrapperProps.width).toBeDefined();
+        return;
+      }
+      if (richMediaWrapperProps.height === undefined) {
+        expect(richMediaWrapperProps.height).toBeDefined();
+        return;
+      }
+      expect(
+        richMediaWrapperProps.width / richMediaWrapperProps.height,
+      ).toEqual(400 / 100);
+    });
+
     it('should put default dimensions on RichMediaWrapper when there is no originalHeight nor state one', () => {
       const { richMediaWrapper } = setup({ allowResizing: false });
 
       const richMediaWrapperProps = richMediaWrapper.props();
-      expect(richMediaWrapperProps.height).toEqual(480);
-      expect(richMediaWrapperProps.width).toEqual(680);
+      if (richMediaWrapperProps.width === undefined) {
+        expect(richMediaWrapperProps.width).toBeDefined();
+        return;
+      }
+      if (richMediaWrapperProps.height === undefined) {
+        expect(richMediaWrapperProps.height).toBeDefined();
+        return;
+      }
+      expect(
+        richMediaWrapperProps.width / richMediaWrapperProps.height,
+      ).toEqual(680 / 480);
     });
 
     it('should put height provided by onHeightChange on RichMediaWrapper', () => {
@@ -240,6 +291,26 @@ describe('EmbedCard', () => {
       const richMediaWrapperProps = richMediaWrapper.props();
       expect(richMediaWrapperProps.height).toEqual(50);
       expect(richMediaWrapperProps.width).toBeUndefined();
+    });
+
+    it('should use aspectRatio on RichMediaWrapper when there it is provided', () => {
+      const { cardComponent, component } = setup({ allowResizing: false });
+      const { onResolve } = cardComponent.props();
+      if (!onResolve) {
+        expect(onResolve).toBeDefined();
+        return;
+      }
+      onResolve({
+        url: 'some-url',
+        title: 'some title',
+        aspectRatio: 0.42,
+      });
+      component.update();
+      const richMediaWrapper = component.find(RichMediaWrapper);
+      const richMediaWrapperProps = richMediaWrapper.props();
+      expect(
+        (richMediaWrapperProps.width || 0) / richMediaWrapperProps.height,
+      ).toEqual(0.42 / 1);
     });
   });
 });

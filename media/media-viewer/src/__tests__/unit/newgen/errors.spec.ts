@@ -1,12 +1,14 @@
 import {
   MediaClientError,
   MediaClientErrorReason,
+  RequestError,
 } from '@atlaskit/media-client';
 import {
   MediaViewerError,
   getPrimaryErrorReason,
   getSecondaryErrorReason,
   getErrorDetail,
+  getRequestMetadata,
   MediaViewerErrorReason,
   ArchiveViewerErrorReason,
 } from '../../../../src/newgen/errors';
@@ -58,7 +60,7 @@ describe('Errors', () => {
   });
 
   describe('Error Detail', () => {
-    it('should detect error details for nativeError MediaViewEerrors', () => {
+    it('should detect error details for nativeError MediaViewerErrors', () => {
       expect(
         getErrorDetail(
           MVError('imageviewer-fetch-url', new Error('some-error-message')),
@@ -72,6 +74,32 @@ describe('Errors', () => {
 
     it('should detect undefined for non-nativeError detail', () => {
       expect(getErrorDetail(new Error('some-error'))).toBeUndefined();
+    });
+  });
+
+  describe('Request metadata', () => {
+    it('should detect request metadata for RequestError', () => {
+      expect(
+        getRequestMetadata(
+          MVError(
+            'imageviewer-fetch-url',
+            new RequestError('serverForbidden', {
+              method: 'GET',
+              endpoint: '/some-endpoint',
+            }),
+          ),
+        ),
+      ).toStrictEqual({ method: 'GET', endpoint: '/some-endpoint' });
+    });
+
+    it('should detect undefined for non-nativeError detail of MediaViewerErrors', () => {
+      expect(
+        getRequestMetadata(MVError('imageviewer-fetch-url')),
+      ).toBeUndefined();
+    });
+
+    it('should detect undefined for non-native errors', () => {
+      expect(getRequestMetadata(new Error('some-error'))).toBeUndefined();
     });
   });
 });

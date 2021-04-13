@@ -423,14 +423,15 @@ class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
+    const { editorView, allowReferentiality } = this.props;
+
     return commandWithAnalytics({
       action: ACTION.INSERTED,
       actionSubject: ACTION_SUBJECT.DOCUMENT,
       actionSubjectId: ACTION_SUBJECT_ID.TABLE,
       attributes: { inputMethod },
       eventType: EVENT_TYPE.TRACK,
-    })(createTable)(editorView.state, editorView.dispatch);
+    })(createTable(allowReferentiality))(editorView.state, editorView.dispatch);
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

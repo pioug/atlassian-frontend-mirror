@@ -154,6 +154,15 @@ export type FeatureFlags = {
 
   /**
    * @description
+   * Enables context menu to disribute columns inside table
+   *
+   * @see https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8394
+   * @default false
+   */
+  distributeColumns?: boolean;
+
+  /**
+   * @description
    * Enables performance optimization for sticky headers in tables
    *
    * @see https://product-fabric.atlassian.net/browse/ED-11807
@@ -212,6 +221,13 @@ export type FeatureFlags = {
    * @default false
    */
   extendFloatingToolbar?: boolean;
+
+  /**
+   * Set display inline-block; CSS to any inline node
+   * @see https://product-fabric.atlassian.net/browse/ED-12361
+   * @default true
+   */
+  displayInlineBlockForInlineNodes?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

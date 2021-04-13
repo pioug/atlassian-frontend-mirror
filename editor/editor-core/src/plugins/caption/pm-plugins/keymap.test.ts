@@ -7,7 +7,7 @@ import {
   mediaSingle,
   p,
   RefsNode,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from 'prosemirror-model';
 import { NodeSelection, TextSelection } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';

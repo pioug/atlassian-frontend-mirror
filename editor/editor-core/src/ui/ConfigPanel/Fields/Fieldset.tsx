@@ -19,6 +19,7 @@ import { messages } from '../messages';
 // eslint-disable-next-line import/no-cycle
 import FormContent from '../FormContent';
 import { OnBlur } from '../types';
+import { getNameFromDuplicateField, isDuplicateField } from '../utils';
 
 type OptionType = {
   label: string;
@@ -42,7 +43,7 @@ const populateFromParameters = (
   if (Object.keys(parameters).length) {
     const keys = Object.keys(parameters);
     const existingFieldKeys = keys.filter(key =>
-      fields.find(field => field.name === key),
+      fields.find(field => field.name === getNameFromDuplicateField(key)),
     );
 
     if (existingFieldKeys.length > 0) {
@@ -127,18 +128,31 @@ class FieldsetField extends React.Component<Props, State> {
   getSelectedFields = (visibleFields: Set<string>) => {
     const { field } = this.props;
 
-    return [...visibleFields].map(
-      fieldName =>
-        field.fields.find(field => field.name === fieldName) as FieldDefinition,
-    );
+    return [...visibleFields].map(fieldName => {
+      const originalFieldDef = field.fields.find(
+        field => field.name === getNameFromDuplicateField(fieldName),
+      ) as FieldDefinition;
+      const fieldDef = {
+        ...originalFieldDef,
+        name: fieldName,
+      };
+      // for duplicate fields we only want the first one to actually be required
+      if (originalFieldDef.name !== fieldName && fieldDef.isRequired === true) {
+        fieldDef.isRequired = false;
+      }
+      return fieldDef;
+    });
   };
 
   getSelectOptions = (visibleFields: Set<string>) => {
     const { field } = this.props;
 
     return field.fields
-      .filter(field => !visibleFields.has(field.name))
-      .map(field => ({
+      .filter(
+        (field: FieldDefinition) =>
+          field.allowDuplicates || !visibleFields.has(field.name),
+      )
+      .map((field: FieldDefinition) => ({
         value: field.name,
         label: field.label,
       }));
@@ -174,7 +188,16 @@ class FieldsetField extends React.Component<Props, State> {
 
   onSelectItem = (option: OptionType) => {
     const { visibleFields } = this.state;
-    this.setVisibleFields(visibleFields.add((option as OptionType).value));
+
+    let newItem = option.value;
+    const duplicates = [...visibleFields].filter(
+      field => getNameFromDuplicateField(field) === newItem,
+    );
+    if (duplicates.length > 0) {
+      newItem += `:${duplicates.length}`;
+    }
+
+    this.setVisibleFields(new Set([...visibleFields, newItem]));
     this.setIsAdding(false);
   };
 
@@ -184,9 +207,21 @@ class FieldsetField extends React.Component<Props, State> {
     visibleFields.delete(fieldName);
     this.setVisibleFields(new Set(visibleFields));
 
-    delete currentParameters[fieldName];
-
-    this.setCurrentParameters({ ...currentParameters });
+    const newParameters = { ...currentParameters };
+    delete newParameters[fieldName];
+    // if any there are duplicate fields that come after the one removed, we want to reduce their
+    // duplicate index eg. label:2 -> label:1
+    if (isDuplicateField(fieldName)) {
+      const [key, idx] = fieldName.split(':');
+      let currentIdx = +idx;
+      while (currentParameters[`${key}:${currentIdx + 1}`]) {
+        newParameters[`${key}:${currentIdx}`] =
+          currentParameters[`${key}:${currentIdx + 1}`];
+        currentIdx++;
+      }
+      delete newParameters[`${key}:${currentIdx}`];
+    }
+    this.setCurrentParameters(newParameters);
   };
 
   renderActions = () => {

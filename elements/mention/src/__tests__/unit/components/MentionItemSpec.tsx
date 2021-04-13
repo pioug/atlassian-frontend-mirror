@@ -22,6 +22,17 @@ const mentionWithoutNickname = {
   avatarUrl: '',
 };
 
+const lozengeExamples: LozengeProps[] = [
+  {
+    text: 'GUEST',
+    appearance: 'new',
+  },
+  {
+    text: <div>GUEST</div>,
+    appearance: 'new',
+  },
+];
+
 function setupMentionItem(
   mention: MentionDescription,
   props?: Props,
@@ -74,21 +85,18 @@ describe('MentionItem', () => {
     expect(component.find(LockCircleIcon)).toHaveLength(0);
   });
 
-  it('should display lozenge when passing in a LozengeProps object', () => {
-    const lozengeObject: LozengeProps = {
-      text: 'GUEST',
-      appearance: 'new',
-    };
+  lozengeExamples.forEach(example => {
+    it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, () => {
+      const component = setupMentionItem({
+        id: '1',
+        name: 'Pranay Marella',
+        mentionName: 'Pmarella',
+        avatarUrl: '',
+        lozenge: example,
+      });
 
-    const component = setupMentionItem({
-      id: '1',
-      name: 'Pranay Marella',
-      mentionName: 'Pmarella',
-      avatarUrl: '',
-      lozenge: lozengeObject,
+      expect(component.find(Lozenge).text()).toContain('GUEST');
+      expect(component.find(Lozenge).prop('appearance')).toEqual('new');
     });
-
-    expect(component.find(Lozenge).text()).toContain('GUEST');
-    expect(component.find(Lozenge).prop('appearance')).toEqual('new');
   });
 });

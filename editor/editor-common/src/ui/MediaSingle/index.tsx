@@ -94,14 +94,23 @@ export default function MediaSingle({
 
   // Media wrapper controls the height of the box.
   // We can define this height
-  // - via ratio (if we have both height and width) or
   // - via height directly
-  let mediaWrapperRatio: number | undefined;
+  // - via paddingBottom (if we have both height and width) which is a css trick to represent a ratio
   let mediaWrapperHeight: number | undefined;
+  let paddingBottom: string | undefined;
   if (isHeightOnly) {
     mediaWrapperHeight = height;
   } else if (width !== undefined) {
-    mediaWrapperRatio = (height / width) * 100;
+    const mediaWrapperRatio = (height / width) * 100;
+    paddingBottom = `${mediaWrapperRatio.toFixed(3)}%`;
+    if (nodeType === 'embedCard') {
+      // we want to set ratio of whole box (including header) buy knowing ratio of iframe itself
+
+      // For some reason importing `embedHeaderHeight` from '@atlaskit/smart-card' breaks
+      // packages/editor/editor-core/src/plugins/table/__tests__/unit/toolbar.ts 🤷‍️, but we have a test
+      // that uses imported value, so it's should be good.
+      paddingBottom = `calc(${paddingBottom} + 32px)`;
+    }
   }
 
   const [media, caption] = children;
@@ -129,8 +138,8 @@ export default function MediaSingle({
     >
       <MediaWrapper
         hasFallbackContainer={hasFallbackContainer}
-        ratio={mediaWrapperRatio}
         height={mediaWrapperHeight}
+        paddingBottom={paddingBottom}
       >
         {media}
       </MediaWrapper>

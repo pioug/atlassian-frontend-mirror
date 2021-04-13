@@ -317,6 +317,7 @@ export default function createPluginsList(
         fullWidthEnabled: props.appearance === 'full-width',
         wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
         dynamicSizingEnabled: props.allowDynamicTextSizing,
+        allowReferentiality: props.allowReferentiality,
       },
     ]);
   }
@@ -516,6 +517,7 @@ export default function createPluginsList(
         (props.elementBrowser && props.elementBrowser.showModal) || false,
       replacePlusMenuWithElementBrowser:
         (props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
+      allowReferentiality: props.allowReferentiality,
     },
   ]);
 

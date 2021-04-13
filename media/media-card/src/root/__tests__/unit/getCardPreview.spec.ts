@@ -10,6 +10,7 @@ jest.mock('video-snapshot', () => {
 jest.mock('@atlaskit/media-ui');
 import { getOrientation } from '@atlaskit/media-ui';
 import { getCardPreviewFromFileState } from '../../card/getCardPreview';
+import { isMediaCardError } from '../../../errors';
 
 describe('getCardPreviewFromFileState()', () => {
   it('should return undefined for error state', async () => {
@@ -51,20 +52,29 @@ describe('getCardPreviewFromFileState()', () => {
     expect(cardPreview).toBeUndefined();
   });
 
-  it('should return undefined from rejected preview promises', async () => {
-    const cardPreview = await getCardPreviewFromFileState({
-      status: 'processing',
-      id: '1',
-      name: 'video.mov',
-      size: 1,
-      mediaType: 'video',
-      mimeType: 'video/quicktime',
-      preview: Promise.reject(new Error("File preview isn't ready")),
-      artifacts: {},
-      representations: {},
-    });
-
-    expect(cardPreview).toBeUndefined();
+  it('should return wrap and throw rejected preview promises in a MediaCardError', async () => {
+    const anError = new Error("File preview isn't ready");
+    try {
+      await getCardPreviewFromFileState({
+        status: 'processing',
+        id: '1',
+        name: 'video.mov',
+        size: 1,
+        mediaType: 'video',
+        mimeType: 'video/quicktime',
+        preview: Promise.reject(anError),
+        artifacts: {},
+        representations: {},
+      });
+    } catch (e) {
+      expect(isMediaCardError(e)).toBe(true);
+      expect(e).toMatchObject(
+        expect.objectContaining({
+          primaryReason: 'local-preview-get',
+          secondaryError: anError,
+        }),
+      );
+    }
   });
 
   it('should return data uri for images', async () => {

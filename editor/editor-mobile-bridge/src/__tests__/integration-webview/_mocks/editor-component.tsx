@@ -7,17 +7,14 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from '../../../editor/mobile-editor-element';
-import {
-  createMentionProvider,
-  createCardClient,
-  createCardProvider,
-} from '../../../providers';
+import { createMentionProvider, createCardProvider } from '../../../providers';
 import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
 import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
 import { useEditorConfiguration } from '../../../editor/hooks/use-editor-configuration';
 import { emoji } from '@atlaskit/util-data-test';
+import { cardClient } from '@atlaskit/media-integration-test-helpers';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
@@ -29,7 +26,7 @@ const App = () => {
     <MobileEditor
       bridge={bridge}
       createCollabProvider={createCollabProviderFactory(fetchProxy)}
-      cardClient={createCardClient()}
+      cardClient={cardClient}
       cardProvider={createCardProvider()}
       emojiProvider={emojiProvider}
       mediaProvider={createMediaProvider()}

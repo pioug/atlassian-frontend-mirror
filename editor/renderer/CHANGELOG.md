@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 76.0.0
+
+### Patch Changes
+
+- [`e2260ead0c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2260ead0c9) - [ME-1099] Fix image spacing in tables in the mobile renderer.
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- [`2a8ef3203cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a8ef3203cf) - Fix event handlers for fallback card
+- Updated dependencies
+
 ## 75.0.0
 
 ### Minor Changes

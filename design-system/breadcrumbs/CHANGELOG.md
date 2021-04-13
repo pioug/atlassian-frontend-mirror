@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.1.0
+
+### Minor Changes
+
+- [`81020d0b345`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81020d0b345) - [ux] Wrapped breadcrumbs into nav tag; added label props that is used as aria-label of nav wrapper.
+
 ## 11.0.3
 
 ### Patch Changes

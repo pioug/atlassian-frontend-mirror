@@ -11,9 +11,15 @@ jest.mock('../../root/card/getCardStatus', () => {
   return {
     __esModule: true,
     ...actualModule,
-    getCardStatus: jest.fn((...params) =>
-      actualModule.getCardStatus(...params),
-    ),
+    getCardStatus: jest.fn(actualModule.getCardStatus),
+  };
+});
+jest.mock('../../root/card/cardAnalytics', () => {
+  const actualModule = jest.requireActual('../../root/card/cardAnalytics');
+  return {
+    __esModule: true,
+    ...actualModule,
+    fireOperationalEvent: jest.fn(actualModule.fireOperationalEvent),
   };
 });
 jest.mock('../../utils/intersectionObserver');
@@ -24,7 +30,11 @@ import { shallow, mount, ReactWrapper } from 'enzyme';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { AnalyticsListener, AnalyticsContext } from '@atlaskit/analytics-next';
+import {
+  AnalyticsListener,
+  AnalyticsContext,
+  CreateUIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
 import {
   MediaClient,
   FileState,
@@ -37,7 +47,6 @@ import {
   RECENTS_COLLECTION,
   createFileStateSubject,
   ProcessedFileState,
-  getMediaClientErrorReason,
 } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import {
@@ -49,7 +58,6 @@ import {
   asMockFunction,
   expectToEqual,
   flushPromises,
-  createRateLimitedError,
 } from '@atlaskit/media-test-helpers';
 
 import {
@@ -69,12 +77,12 @@ import {
 } from '../../root/card/getCardPreview';
 import * as IntersectionObserverUtils from '../../utils/intersectionObserver';
 import { IntlProvider } from 'react-intl';
-import {
-  getFileAttributes,
-  getRenderFailedMediaClientFailReason,
-} from '../../utils/analytics';
+import { getFileAttributes } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
 import { getCardStatus } from '../../root/card/getCardStatus';
+import { fireOperationalEvent } from '../../root/card/cardAnalytics';
+import { isMediaCardError, MediaCardError } from '../../errors';
+import { CardStatus } from '../../types';
 
 type AnalyticsHandlerResultType = ReturnType<
   typeof AnalyticsListener.prototype['props']['onEvent']
@@ -141,7 +149,7 @@ describe('Card', () => {
 
   const setup = (
     mediaClient: MediaClient = createMediaClientWithGetFile(),
-    props: Partial<CardProps> = {},
+    props: Partial<CardWithAnalyticsEventsProps> = {},
     cardPreview: Promise<CardPreview | undefined> = defaultCardPreview,
   ) => {
     asMockFunction(getCardPreviewFromFileState).mockReset();
@@ -185,6 +193,7 @@ describe('Card', () => {
   };
 
   beforeEach(() => {
+    asMockFunction(fireOperationalEvent).mockClear();
     mediaClient = fakeMediaClient();
     const fileStateSubject = createFileStateSubject({
       status: 'processed',
@@ -460,6 +469,15 @@ describe('Card', () => {
     intersectionTrigger();
     expect(mediaClient.file.getFileState).toBeCalledTimes(1);
     expect(disconnectMock).toBeCalledTimes(1);
+  });
+
+  it('should pass "secondary error" or actual error down to CardView', () => {
+    const { component } = setup(fakeMediaClient());
+    const someError = new Error('some-error');
+    const error = new MediaCardError('remote-preview-fetch', someError);
+
+    component.setState({ error });
+    expect(component.find(CardView).props().error).toBe(someError);
   });
 
   it('should pass properties down to CardView', () => {
@@ -791,16 +809,37 @@ describe('Card', () => {
     expectToEqual(progressAfterFirstFileState, 1);
   });
 
+  it('should set error card state and wrap the error when filestate subscription sends error', async () => {
+    const subject = new ReplaySubject<FileState>(1);
+    const mediaClient = fakeMediaClient();
+    asMockReturnValue(mediaClient.file.getFileState, subject);
+    const { component } = setup(mediaClient);
+
+    const errorThrown = new Error('this is an error');
+    subject.error(errorThrown);
+
+    expect(component.state('status')).toEqual('error');
+    const error = component.state('error');
+    expect(!!error && isMediaCardError(error)).toBe(true);
+    expect(error?.secondaryError).toBe(errorThrown);
+  });
+
   it('should render error card when getFileState resolves with status=error', async () => {
     const mediaClient = createMediaClientWithGetFile({
       ...defaultFileState,
       status: 'error',
+      message: 'some error here',
     });
     const { component } = setup(mediaClient);
 
     await nextTick();
-
     component.update();
+
+    expect(component.state('status')).toEqual('error');
+    const error = component.state('error');
+    expect(!!error && isMediaCardError(error)).toBe(true);
+    expect(error?.secondaryError?.message).toBe('some error here');
+
     expect(component.find(CardView).prop('status')).toEqual('error');
   });
 
@@ -833,10 +872,7 @@ describe('Card', () => {
     const fileStateSubject = createFileStateSubject();
     fileStateSubject.error('some-error');
     asMockReturnValue(mediaClient.file.getFileState, fileStateSubject);
-
     const { component } = setup(mediaClient);
-
-    expect(component.state('error')).toEqual('some-error');
     component.update();
     expect(component.find(CardView).prop('status')).toEqual('error');
   });
@@ -1471,6 +1507,19 @@ describe('Card', () => {
     });
   });
 
+  it('should not change card status if local preview throws an error', async () => {
+    asMockFunction(getCardPreviewFromFileState).mockRejectedValueOnce(
+      new MediaCardError('local-preview-get', new Error('some kind of error')),
+    );
+    const mediaClient = createMediaClientWithGetFile();
+    const { component } = setup(mediaClient, { isLazy: false });
+    await nextTick();
+    await nextTick();
+    await nextTick();
+    expect(getCardPreviewFromFileState).toHaveBeenCalled();
+    expect(component.state('status')).toBe('complete');
+  });
+
   describe('Analytics', () => {
     const callCopy = async () => {
       document.dispatchEvent(new Event('copy'));
@@ -1663,7 +1712,7 @@ describe('Card', () => {
       expect(onEvent).not.toBeCalled();
     });
 
-    it('should fire Analytics Event on file load start with static file Id', async () => {
+    it('should fire commenced analytics event on file load start with internal file Id', async () => {
       const subject = new ReplaySubject<FileState>(1);
       const mediaClient = fakeMediaClient();
       asMockReturnValue(mediaClient.file.getFileState, subject);
@@ -1700,7 +1749,7 @@ describe('Card', () => {
       );
     });
 
-    it('should fire Analytics Event on file load start with external file Id', async () => {
+    it('should fire commenced analytics event on file load start with external file Id', async () => {
       const mediaClient = fakeMediaClient();
       const analyticsHandler = getAnalyticsHandlerMock();
       const externalIdentifier: ExternalImageIdentifier = {
@@ -1741,407 +1790,41 @@ describe('Card', () => {
       );
     });
 
-    it('should fire load commence and failure events if file status is error and dataURI is not resolved', async () => {
-      asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
-
-      const baseState: FileState = {
-        id: defaultFileId,
+    it(`should fire an operational event on card status change`, () => {
+      const createAnalyticsEvent = ((() => ({
+        fire: () => {},
+      })) as unknown) as CreateUIAnalyticsEvent;
+      const { component } = setup(fakeMediaClient(), { createAnalyticsEvent });
+      const metadata: FileDetails = {
+        id: 'some-file-id',
         mediaType: 'image',
-        status: 'processing',
         mimeType: 'image/png',
         name: 'file-name',
         size: 10,
-        representations: {
-          image: {},
-        },
       };
-      const commencedFileState: FileState = {
-        ...baseState,
-        status: 'uploading',
-        progress: 1,
-      };
-      const errorFileState: FileState = {
-        ...baseState,
-        status: 'error',
-      };
+      const params = ({
+        cardPreview: 'some-card-preview',
+        error: 'some-error',
+      } as unknown) as CardState;
 
-      const subject = new ReplaySubject<FileState>(1);
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(mediaClient.file.getFileState, subject);
-      const analyticsHandler = getAnalyticsHandlerMock();
+      component.setState({ metadata, ...params });
 
-      mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={fileIdentifier}
-            isLazy={false}
-          />
-        </AnalyticsListener>,
+      component.setState({ status: 'some-status' as CardStatus });
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+        createAnalyticsEvent,
+        'some-status',
+        getFileAttributes(metadata),
+        params,
       );
 
-      subject.next(commencedFileState);
-      await nextTick();
-
-      subject.next(errorFileState);
-      await nextTick();
-
-      expect(analyticsHandler).toHaveBeenCalledTimes(2);
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'commenced',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-
-      // If there is status error, Media Client does not provide any metadata. Therefore we can't log it or test it
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'failed',
-            attributes: expect.objectContaining({
-              failReason: 'failed-processing',
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            }),
-          }),
-        }),
-        FabricChannel.media,
-      );
-    });
-
-    it('should fire commence and failure events if the subject throws an error', async () => {
-      const error = createRateLimitedError();
-
-      const subject = new ReplaySubject<FileState>(1);
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(mediaClient.file.getFileState, subject);
-      const analyticsHandler = getAnalyticsHandlerMock();
-
-      mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={fileIdentifier}
-            isLazy={false}
-          />
-        </AnalyticsListener>,
-      );
-
-      subject.error(error);
-      await nextTick();
-
-      expect(analyticsHandler).toHaveBeenCalledTimes(2);
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'commenced',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'failed',
-            attributes: expect.objectContaining({
-              //we have no file status to provide there
-              failReason: getRenderFailedMediaClientFailReason(),
-              error: getMediaClientErrorReason(error),
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            }),
-          }),
-        }),
-        FabricChannel.media,
-      );
-    });
-
-    it('should NOT fire same consecutive file states', async () => {
-      asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
-
-      const baseState: FileState = {
-        id: defaultFileId,
-        mediaType: 'image',
-        status: 'processing',
-        mimeType: 'image/png',
-        name: 'file-name',
-        size: 10,
-        representations: {
-          image: {},
-        },
-      };
-      const commencedFileState: FileState = {
-        ...baseState,
-        status: 'uploading',
-        progress: 1,
-      };
-      const errorFileState: FileState = {
-        ...baseState,
-        status: 'error',
-      };
-
-      const subject = new ReplaySubject<FileState>(1);
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(mediaClient.file.getFileState, subject);
-      const analyticsHandler = getAnalyticsHandlerMock();
-
-      mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={fileIdentifier}
-            isLazy={false}
-          />
-        </AnalyticsListener>,
-      );
-
-      subject.next(commencedFileState);
-      subject.next(errorFileState);
-      subject.next(errorFileState);
-      subject.next(errorFileState);
-
-      await nextTick();
-      await nextTick();
-
-      expect(analyticsHandler).toBeCalledTimes(2);
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'commenced',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'failed',
-            attributes: expect.objectContaining({
-              failReason: 'failed-processing',
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            }),
-          }),
-        }),
-        FabricChannel.media,
-      );
-    });
-
-    it('should fire commenced and success events if file status is processed and dataURI is not resolved', async () => {
-      asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
-
-      const commencedFileState: FileState = {
-        status: 'processed',
-        id: fileIdentifier.id,
-        name: 'file-name',
-        artifacts: {},
-        mediaType: 'doc',
-        size: 1,
-        mimeType: 'application/pdf',
-        preview: {
-          value: new File([], 'filename', { type: 'text/plain' }),
-        },
-        representations: {},
-      };
-
-      const featureFlags: MediaFeatureFlags = {
-        newCardExperience: false,
-      };
-
-      const subject = new ReplaySubject<FileState>(1);
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(mediaClient.file.getFileState, subject);
-      const analyticsHandler = getAnalyticsHandlerMock();
-
-      mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={identifier}
-            isLazy={false}
-            featureFlags={featureFlags}
-          />
-        </AnalyticsListener>,
-      );
-
-      subject.next(commencedFileState);
-      await nextTick();
-      await nextTick();
-
-      expect(analyticsHandler).toHaveBeenCalledTimes(2);
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'commenced',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            action: 'succeeded',
-            actionSubject: 'mediaCardRender',
-            attributes: {
-              fileAttributes: {
-                fileId: fileIdentifier.id,
-                fileMediatype: 'doc',
-                fileMimetype: 'application/pdf',
-                fileSize: 1,
-                fileStatus: 'processed',
-              },
-              status: 'success',
-            },
-            eventType: 'operational',
-          }),
-        }),
-        FabricChannel.media,
-      );
-    });
-
-    it('should fire load commence and failure events if file status is failed-processing and dataURI is not resolved', async () => {
-      asMockFunction(getCardPreviewFromFileState).mockReturnValue(emptyPreview);
-
-      const docFileState: FileState = {
-        status: 'failed-processing',
-        id: defaultFileId,
-        mimeType: 'application/pdf',
-      } as any;
-
-      const featureFlags: MediaFeatureFlags = {
-        newCardExperience: false,
-      };
-
-      const subject = new ReplaySubject<FileState>(1);
-      const mediaClient = fakeMediaClient();
-      asMockReturnValue(mediaClient.file.getFileState, subject);
-      const analyticsHandler = getAnalyticsHandlerMock();
-
-      mount(
-        <AnalyticsListener
-          channel={FabricChannel.media}
-          onEvent={analyticsHandler}
-        >
-          <Card
-            mediaClient={mediaClient}
-            identifier={identifier}
-            isLazy={false}
-            featureFlags={featureFlags}
-          />
-        </AnalyticsListener>,
-      );
-
-      await nextTick(); // Will cause result of getResolvedId to resolve
-
-      subject.next(docFileState);
-
-      await nextTick();
-      await nextTick();
-      await nextTick();
-      await nextTick();
-
-      expect(analyticsHandler).toHaveBeenCalledTimes(2);
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'commenced',
-            attributes: {
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            },
-          }),
-        }),
-        FabricChannel.media,
-      );
-
-      expect(analyticsHandler).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            eventType: 'operational',
-            actionSubject: 'mediaCardRender',
-            action: 'failed',
-            attributes: expect.objectContaining({
-              failReason: 'failed-processing',
-              fileAttributes: expect.objectContaining({
-                fileId: fileIdentifier.id,
-              }),
-            }),
-          }),
-        }),
-        FabricChannel.media,
+      component.setState({ status: 'another-status' as CardStatus });
+      expect(fireOperationalEvent).toBeCalledTimes(2);
+      expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+        createAnalyticsEvent,
+        'another-status',
+        getFileAttributes(metadata),
+        params,
       );
     });
   });

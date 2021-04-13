@@ -1,7 +1,12 @@
-import { RequestError, PollingError } from '@atlaskit/media-client';
+import {
+  RequestError,
+  RequestErrorMetadata,
+  PollingError,
+} from '@atlaskit/media-client';
 
-export const createRateLimitedError = () =>
+export const createRateLimitedError = (metadata: RequestErrorMetadata = {}) =>
   new RequestError('serverRateLimited', {
+    ...metadata,
     statusCode: 429,
   });
 

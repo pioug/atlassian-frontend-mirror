@@ -113,7 +113,7 @@ export type LozengeColor =
   | 'moved';
 
 export interface LozengeProps {
-  text: string;
+  text: React.ReactNode;
   appearance?: LozengeColor;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { act, ReactTestRenderer } from 'react-test-renderer';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory, TestEditor } from './__create-editor-helper';
 import EditorActions from '../../../../actions';
 

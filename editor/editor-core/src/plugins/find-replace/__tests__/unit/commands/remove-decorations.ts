@@ -1,9 +1,5 @@
 import { EditorView, Decoration } from 'prosemirror-view';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { addDecorations, removeDecorations } from '../../../commands';
 import { editor } from '../_utils';
 import { getPluginState } from '../../../plugin';

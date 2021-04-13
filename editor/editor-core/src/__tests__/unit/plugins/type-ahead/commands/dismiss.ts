@@ -3,7 +3,7 @@ import {
   doc,
   p,
   typeAheadQuery,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { dismissCommand } from '../../../../../plugins/type-ahead/commands/dismiss';
 
 describe('dismissCommand', () => {

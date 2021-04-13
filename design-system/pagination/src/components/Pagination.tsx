@@ -153,10 +153,10 @@ class Pagination extends Component<PaginationPropTypes, State> {
   };
 
   render() {
-    const { innerStyles } = this.props;
+    const { innerStyles, testId } = this.props;
 
     return (
-      <div style={{ display: 'flex', ...innerStyles }}>
+      <div data-testid={testId} style={{ display: 'flex', ...innerStyles }}>
         <Fragment>
           {this.renderLeftNavigator()}
           {this.renderPages()}

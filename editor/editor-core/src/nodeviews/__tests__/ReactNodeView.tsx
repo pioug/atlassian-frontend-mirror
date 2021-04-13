@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import ReactNodeView from '../ReactNodeView';
 import { EventDispatcher } from '../../event-dispatcher';
 

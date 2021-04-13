@@ -33,9 +33,10 @@ import { pluginKey as tableResizePluginKey } from '../../table/pm-plugins/table-
 import { ColumnResizingPluginState } from '../../table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 
-type EmbedCardState = {
+export type EmbedCardState = {
   hasPreview: boolean;
-  actualHeight?: number;
+  liveHeight?: number;
+  initialAspectRatio?: number;
 };
 
 export class EmbedCardComponent extends React.PureComponent<
@@ -73,10 +74,28 @@ export class EmbedCardComponent extends React.PureComponent<
     }
   };
 
-  onResolve = (data: { url?: string; title?: string }) => {
+  onResolve = (data: {
+    url?: string;
+    title?: string;
+    aspectRatio?: number;
+  }) => {
     const { view } = this.props;
 
-    const { title, url } = data;
+    const { title, url, aspectRatio } = data;
+    const { originalHeight, originalWidth } = this.props.node.attrs;
+    if (aspectRatio && !originalHeight && !originalWidth) {
+      // Assumption here is if ADF already have both height and width set,
+      // we will going to use that later on in this class as aspectRatio
+      // Most likely we dealing with an embed that received aspectRatio via onResolve previously
+      // and now this information already stored in ADF.
+      this.setState({
+        initialAspectRatio: aspectRatio,
+      });
+      this.saveOriginalDimensionsAttributes(
+        DEFAULT_EMBED_CARD_HEIGHT,
+        DEFAULT_EMBED_CARD_HEIGHT * aspectRatio,
+      );
+    }
 
     // don't dispatch immediately since we might be in the middle of
     // rendering a nodeview
@@ -158,7 +177,10 @@ export class EmbedCardComponent extends React.PureComponent<
    * it's good idea to store latest actual height in ADF, so that when renderer (well, editor as well) is loading
    * we will show embed window of appropriate size and avoid unnecessary content jumping.
    */
-  saveOriginalDimensionsAttributes = (height: number) => {
+  saveOriginalDimensionsAttributes = (
+    height: number,
+    width: number | undefined,
+  ) => {
     const { view } = this.props;
 
     const tableResizeState = tableResizePluginKey.getState(view.state) as
@@ -186,6 +208,7 @@ export class EmbedCardComponent extends React.PureComponent<
           .step(
             new SetAttrsStep(pos, {
               originalHeight: height,
+              originalWidth: width,
             }),
           )
           .setMeta('addToHistory', false),
@@ -194,8 +217,8 @@ export class EmbedCardComponent extends React.PureComponent<
   };
 
   onHeightUpdate = (height: number) => {
-    this.setState({ actualHeight: height });
-    this.saveOriginalDimensionsAttributes(height);
+    this.setState({ liveHeight: height });
+    this.saveOriginalDimensionsAttributes(height, undefined);
   };
 
   render() {
@@ -210,10 +233,27 @@ export class EmbedCardComponent extends React.PureComponent<
       getPos,
     } = this.props;
 
-    let { url, width: pctWidth, layout, originalHeight } = node.attrs;
-    const { hasPreview, actualHeight } = this.state;
+    let {
+      url,
+      width: pctWidth,
+      layout,
+      originalHeight,
+      originalWidth,
+    } = node.attrs;
+    const { hasPreview, liveHeight, initialAspectRatio } = this.state;
 
-    const height = actualHeight ?? originalHeight;
+    // We don't want to use `originalHeight` when `originalWidth` also present,
+    // since `heightAlone` is defined only when just height is available.
+    let heightAlone =
+      liveHeight ?? ((!originalWidth && originalHeight) || undefined);
+
+    const aspectRatio =
+      (!heightAlone && // No need getting aspectRatio if heightAlone defined already
+        (initialAspectRatio || // If we have initialAspectRatio (coming from iframely) we should go with that
+          (originalHeight &&
+            originalWidth &&
+            originalWidth / originalHeight))) || // If ADF contains both width and height we get ratio from that
+      undefined;
 
     const cardProps = {
       layout,
@@ -265,11 +305,27 @@ export class EmbedCardComponent extends React.PureComponent<
             );
 
             if (!allowResizing || !hasPreview) {
+              // There are two ways `width` and `height` can be defined here:
+              // 1) Either as `heightAlone` as height value and no width
+              // 2) or as `1` for height and aspectRation (defined or a default one) as a width
+              // See above for how aspectRation is calculated.
+              const defaultAspectRatio =
+                DEFAULT_EMBED_CARD_WIDTH / DEFAULT_EMBED_CARD_HEIGHT;
+
+              let richMediaWrapperHeight = 1;
+              let richMediaWrapperWidth: number | undefined =
+                aspectRatio || defaultAspectRatio;
+
+              if (heightAlone) {
+                richMediaWrapperHeight = heightAlone;
+                richMediaWrapperWidth = undefined;
+              }
+
               return (
                 <RichMediaWrapper
                   {...cardProps}
-                  height={height || DEFAULT_EMBED_CARD_HEIGHT}
-                  width={height ? undefined : DEFAULT_EMBED_CARD_WIDTH}
+                  height={richMediaWrapperHeight}
+                  width={richMediaWrapperWidth}
                   nodeType="embedCard"
                   hasFallbackContainer={hasPreview}
                   lineLength={lineLength}
@@ -283,7 +339,8 @@ export class EmbedCardComponent extends React.PureComponent<
             return (
               <ResizableEmbedCard
                 {...cardProps}
-                height={height}
+                height={heightAlone}
+                aspectRatio={aspectRatio}
                 view={this.props.view}
                 getPos={getPos}
                 lineLength={lineLength}

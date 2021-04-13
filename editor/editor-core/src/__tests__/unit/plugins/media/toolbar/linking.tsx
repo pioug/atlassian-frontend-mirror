@@ -28,7 +28,7 @@ import {
   media,
   mediaSingle,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { ReactWrapper } from 'enzyme';
 import { EditorView } from 'prosemirror-view';

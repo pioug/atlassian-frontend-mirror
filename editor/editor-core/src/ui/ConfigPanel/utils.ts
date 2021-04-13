@@ -20,6 +20,14 @@ export const fromEntries = <T>(iterable: Entry<T>[]): Parameters => {
   }, {});
 };
 
+export const toEntries = (parameters: Parameters): [string, unknown][] =>
+  Array.isArray(parameters)
+    ? parameters.reduce<[string, unknown][]>(
+        (prev, curr) => [...prev, ...Object.entries(curr)],
+        [],
+      )
+    : Object.entries(parameters);
+
 const isEmptyString = <T>(value: T) =>
   typeof value === 'string' && value === '';
 const isEmptyArray = <T>(value: T) =>
@@ -72,3 +80,10 @@ export const getSafeParentedName = (
 
   return name;
 };
+
+const duplicateFieldRegex = /:[0-9]+$/;
+
+export const isDuplicateField = (key: string) => duplicateFieldRegex.test(key);
+
+export const getNameFromDuplicateField = (key: string) =>
+  key.replace(duplicateFieldRegex, '');

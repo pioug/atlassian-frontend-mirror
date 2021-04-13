@@ -3,7 +3,7 @@ import {
   doc,
   media,
   mediaSingle,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   flushPromises,
   getDefaultMediaClientConfig,

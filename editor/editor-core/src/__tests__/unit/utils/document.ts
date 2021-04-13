@@ -15,7 +15,7 @@ import {
   mediaSingle,
   media,
   panel,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import schema from '@atlaskit/editor-test-helpers/schema';
 import {
@@ -302,6 +302,103 @@ describe(name, () => {
 
         expect(result).toBeDefined();
 
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap in unsupportedBlock for blockquote node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'blockquote',
+              content: [
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'paragraph1',
+                      content: [{ type: 'text', text: 'foo' }],
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          type: 'doc',
+          content: [
+            {
+              type: 'blockquote',
+              content: [
+                {
+                  type: 'paragraph1',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'foo',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap in unsupportedBlock for panel node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'panel',
+              attrs: {
+                panelType: 'info',
+              },
+              content: [
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'paragraph1',
+                      content: [{ type: 'text', text: 'foo' }],
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'panel',
+              attrs: {
+                panelType: 'info',
+              },
+              content: [
+                {
+                  type: 'paragraph1',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'foo',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
         expect(result!.toJSON()).toEqual(expected);
       });
 

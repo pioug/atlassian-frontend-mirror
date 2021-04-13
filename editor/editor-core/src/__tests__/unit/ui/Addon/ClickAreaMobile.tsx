@@ -1,11 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ClickAreaMobile } from '../../../../ui/Addon';
 import * as ClickAreaHelper from '../../../../ui/Addon/click-area-helper';
 
@@ -50,5 +46,17 @@ describe('ClickAreaMobile', () => {
   it('should set the min height of the click area as passed', () => {
     const clickWrapper = mount(<ClickAreaMobile minHeight={200} />);
     expect(clickWrapper).toMatchSnapshot();
+  });
+
+  it(`should call event.preventDefault when user clicks on click area beyond content area
+    to retain focus in editor content area`, () => {
+    window.HTMLElement.prototype.scrollIntoView = jest.fn();
+    const { editorView } = editor(doc(p('Hello world')));
+    const clickWrapper = mount(
+      <ClickAreaMobile editorView={editorView} minHeight={200} />,
+    );
+    const event = { clientX: 50, clientY: 100, preventDefault: jest.fn() };
+    clickWrapper.simulate('click', event);
+    expect(event.preventDefault).toHaveBeenCalled();
   });
 });

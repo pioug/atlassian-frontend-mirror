@@ -42,3 +42,12 @@ export const expectFunctionToHaveBeenCalledWith: ExpectFunctionToHaveBeenCalledW
   func,
   expectedArgs,
 ) => expect(func).toHaveBeenCalledWith(...expectedArgs);
+
+export type JestSpy<T extends (...args: any) => any> = jest.SpyInstance<
+  ReturnType<T>,
+  Parameters<T>
+>;
+export type JestFunction<T extends (...args: any) => any> = jest.Mock<
+  ReturnType<T>,
+  Parameters<T>
+>;

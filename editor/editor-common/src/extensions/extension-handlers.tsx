@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Node as PmNode } from 'prosemirror-model';
 import Loadable, { LoadingComponentProps } from 'react-loadable';
+
+import { ADFEntity } from '@atlaskit/adf-utils';
 
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import {
@@ -61,7 +62,7 @@ export function getNodeRenderer<T>(
   extensionType: ExtensionType,
   extensionKey: ExtensionKey,
 ) {
-  return Loadable<{ node: ExtensionParams<T>; refNode?: PmNode }, any>({
+  return Loadable<{ node: ExtensionParams<T>; refNode?: ADFEntity }, any>({
     loader: () => {
       return getExtensionModuleNode(
         extensionProvider,

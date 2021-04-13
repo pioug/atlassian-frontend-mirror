@@ -55,7 +55,7 @@ export interface Props extends WithAnalyticsEventsProps {
   isInvalid?: boolean;
   /** DEPRECATED - This is here only for backwards compatibility and doesn't do anything. It will be removed in the next MAJOR. */
   hideIcon?: boolean;
-  /** DEPRECATED - Use locale instead. Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
+  /** Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
   datePickerProps?: DatePickerProps;
   timePickerProps?: TimePickerProps;
@@ -72,7 +72,7 @@ export interface Props extends WithAnalyticsEventsProps {
   timePickerSelectProps?: SelectProps<any>;
   /** The times to show in the times dropdown. */
   times?: Array<string>;
-  /** DEPRECATED - Use locale instead. Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
+  /** Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format)*/
   timeFormat?: string;
   /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: Spacing;

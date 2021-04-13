@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 10.1.0
+
+### Minor Changes
+
+- [`069538e03c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/069538e03c6) - Prefixes the testId passed down to the nested Calendar component with '\${testId}--calendar' to ensure testIds are namespaced correctly. This change only affects calendar testIds when used within a DatePicker context.
+
 ## 10.0.12
 
 ### Patch Changes

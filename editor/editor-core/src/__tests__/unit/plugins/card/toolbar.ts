@@ -8,7 +8,8 @@ import {
   blockCard,
   embedCard,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+  expand,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { floatingToolbar } from '../../../../plugins/card/toolbar';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 
@@ -39,6 +40,7 @@ describe('card', () => {
           allowEmbeds: true,
           allowResizing: true,
         },
+        allowExpand: true,
       },
       pluginKey,
     });
@@ -115,6 +117,29 @@ describe('card', () => {
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
       expect(toolbarItems).toHaveLength(14);
+      expect(toolbarItems).toMatchSnapshot();
+    });
+
+    it('displays toolbar items in correct order for embedCard inside an expand', () => {
+      const { editorView } = editor(
+        doc(
+          '{<node>}',
+          expand()(
+            embedCard({
+              url: 'http://www.atlassian.com/',
+              layout: 'center',
+            })(),
+          ),
+        ),
+      );
+
+      const toolbar = floatingToolbar({
+        allowBlockCards: true,
+        allowEmbeds: true,
+        allowResizing: true,
+      })(editorView.state, intl, providerFactory);
+      const toolbarItems = getToolbarItems(toolbar!, editorView);
+      expect(toolbar).toBeDefined();
       expect(toolbarItems).toMatchSnapshot();
     });
 

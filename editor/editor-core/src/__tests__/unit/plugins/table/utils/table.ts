@@ -1,4 +1,3 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,
@@ -7,27 +6,17 @@ import {
   th,
   tr as row,
   tdEmpty,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { getCellsInRow } from '@atlaskit/editor-tables/utils';
 import { getMergedCellsPositions } from '../../../../../plugins/table/utils';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe('table utils', () => {
-  const createEditor = createEditorFactory();
-
   describe('#getMergedCellsPositions', () => {
     describe('when the table has not merged cells', () => {
       it('should returns an emppty array', () => {
-        const {
-          editorView: {
-            state: { tr },
-          },
-        } = createEditor({
-          editorProps: {
-            allowTables: {
-              advanced: true,
-            },
-          },
-          doc: doc(
+        const { tr } = createEditorState(
+          doc(
             table()(
               row(th({})(p('Number{<>}'))),
               row(td({})(p('10{<>}'))),
@@ -35,7 +24,7 @@ describe('table utils', () => {
               row(td({})(p('5'))),
             ),
           ),
-        });
+        );
 
         expect(getMergedCellsPositions(tr)).toHaveLength(0);
       });
@@ -43,17 +32,8 @@ describe('table utils', () => {
 
     describe('when the table has merged cells in columns', () => {
       it('should returns the positions', () => {
-        const {
-          editorView: {
-            state: { tr },
-          },
-        } = createEditor({
-          editorProps: {
-            allowTables: {
-              advanced: true,
-            },
-          },
-          doc: doc(
+        const { tr } = createEditorState(
+          doc(
             table()(
               row(
                 th({})(p('Number{<>}')),
@@ -66,7 +46,7 @@ describe('table utils', () => {
               row(td({})(p('5')), td({})(p('10{<>}')), tdEmpty, tdEmpty),
             ),
           ),
-        });
+        );
         const cells = getCellsInRow(2)(tr.selection)!;
         const tableStart = 1;
 
@@ -79,17 +59,8 @@ describe('table utils', () => {
 
     describe('when the table has merged cells in rows', () => {
       it('should returns the positions', () => {
-        const {
-          editorView: {
-            state: { tr },
-          },
-        } = createEditor({
-          editorProps: {
-            allowTables: {
-              advanced: true,
-            },
-          },
-          doc: doc(
+        const { tr } = createEditorState(
+          doc(
             table()(
               row(
                 th({})(p('Number{<>}')),
@@ -107,7 +78,7 @@ describe('table utils', () => {
               row(tdEmpty, tdEmpty),
             ),
           ),
-        });
+        );
 
         const cells = getCellsInRow(2)(tr.selection)!;
         const tableStart = 1;

@@ -53,7 +53,7 @@ describe('Snapshot Test: Cards', () => {
   it('displays links with correct appearance', async () => {
     await initRenderer(page, cardAdf, {
       width: 800,
-      height: 4600,
+      height: 5000,
     });
 
     // Render an assortment of inline cards.
@@ -98,7 +98,7 @@ describe('Snapshot Test: Cards', () => {
   it('displays request access forbidden links with correct appearance', async () => {
     await initRenderer(page, cardAdfRequestAccess, {
       width: 800,
-      height: 5000,
+      height: 5500,
     });
 
     await waitForResolvedInlineCard(page, 'forbidden');

@@ -22,7 +22,7 @@ import { Spinner } from './loading';
 import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
 import ErrorMessage from './errorMessage';
-import { MediaViewerError, MediaViewerErrorReason } from './errors';
+import { MediaViewerError } from './errors';
 import { ErrorViewDownloadButton } from './download';
 import {
   withAnalyticsEvents,
@@ -100,11 +100,9 @@ export class ItemViewerBase extends React.Component<Props, State> {
     });
   };
 
-  private onLoadFail = (primaryReason: MediaViewerErrorReason) => (
-    secondaryError: Error,
-  ) => {
+  private onLoadFail = (mediaViewerError: MediaViewerError) => {
     this.setState({
-      item: Outcome.failed(new MediaViewerError(primaryReason, secondaryError)),
+      item: Outcome.failed(mediaViewerError),
     });
   };
 
@@ -155,7 +153,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       return (
         <CodeViewer
           onSuccess={this.onSuccess}
-          onError={this.onLoadFail('codeviewer-onerror')}
+          onError={this.onLoadFail}
           {...viewerProps}
         />
       );
@@ -166,7 +164,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         return (
           <ImageViewer
             onLoad={this.onSuccess}
-            onError={this.onLoadFail('imageviewer-onerror')}
+            onError={this.onLoadFail}
             contextId={contextId}
             {...viewerProps}
           />
@@ -176,7 +174,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
           <AudioViewer
             showControls={showControls}
             onCanPlay={this.onSuccess}
-            onError={this.onLoadFail('audioviewer-onerror')}
+            onError={this.onLoadFail}
             {...viewerProps}
           />
         );
@@ -185,7 +183,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
           <VideoViewer
             showControls={showControls}
             onCanPlay={this.onSuccess}
-            onError={this.onLoadFail('videoviewer-onerror')}
+            onError={this.onLoadFail}
             {...viewerProps}
           />
         );
@@ -193,7 +191,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         return (
           <DocViewer
             onSuccess={this.onSuccess}
-            onError={this.onLoadFail('docviewer-onerror')}
+            onError={this.onLoadFail}
             {...viewerProps}
           />
         );
@@ -202,7 +200,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
           return (
             <ArchiveViewerLoader
               onSuccess={this.onSuccess}
-              onError={this.onLoadFail('archiveviewer-onerror')}
+              onError={this.onLoadFail}
               {...viewerProps}
             />
           );

@@ -21,6 +21,7 @@ import {
   ForwardRef,
 } from './types';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
+import { getFeatureFlags } from '../plugins/feature-flags-context';
 
 const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 7;
@@ -139,9 +140,19 @@ export default class ReactNodeView<P = ReactComponentProps>
   }
 
   createDomRef(): HTMLElement {
-    return this.node.isInline
-      ? document.createElement('span')
-      : document.createElement('div');
+    if (!this.node.isInline) {
+      return document.createElement('div');
+    }
+
+    const htmlElement = document.createElement('span');
+    const state = this.view.state;
+    const featureFlags = getFeatureFlags(state);
+
+    if (featureFlags && featureFlags.displayInlineBlockForInlineNodes) {
+      htmlElement.style.display = 'inline-block';
+    }
+
+    return htmlElement;
   }
 
   getContentDOM():

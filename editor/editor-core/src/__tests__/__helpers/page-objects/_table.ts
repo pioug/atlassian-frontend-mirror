@@ -44,6 +44,7 @@ export const tableSelectors = {
   hoveredColumn: `.${ClassName.HOVERED_COLUMN}`,
   breakoutButton: `.${ClassName.LAYOUT_BUTTON}`,
   mergeCellsText: `Merge cells`,
+  distributeColumnsText: `Distribute columns`,
   sortColumnASC: `Sort column A → Z`,
   sortColumnDESC: `Sort column Z → A`,
   splitCellText: `Split cell`,
@@ -416,6 +417,25 @@ export const mergeCells = async (
   await pressKeyUp(page, 'Shift');
   await page.waitForSelector(tableSelectors.selectedCell);
   await selectCellOption(page, tableSelectors.mergeCellsText);
+};
+
+export const distributeColumns = async (
+  page: any,
+  firstCell: string,
+  lastCell: string,
+) => {
+  await page.click(firstCell);
+  await pressKeyDown(page, 'Shift');
+  await page.click(lastCell);
+  await pressKeyUp(page, 'Shift');
+  await page.waitForSelector(tableSelectors.selectedCell);
+  await selectCellOption(page, tableSelectors.distributeColumnsText);
+};
+
+export const distributeAllColumns = async (page: any) => {
+  await selectTable(page);
+  await page.waitForSelector(tableSelectors.selectedCell);
+  await selectCellOption(page, tableSelectors.distributeColumnsText);
 };
 
 export const getSelectorForTableControl = (type: string, atIndex?: number) => {

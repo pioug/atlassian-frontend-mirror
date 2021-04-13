@@ -1,13 +1,13 @@
 import {
+  bodiedExtension,
+  p as paragraph,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import {
   createFakeAutoConvertModule,
   createFakeExtensionManifest,
   createFakeModule,
   fakeIcon,
 } from '@atlaskit/editor-test-helpers/extensions';
-import {
-  bodiedExtension,
-  p as paragraph,
-} from '@atlaskit/editor-test-helpers/schema-builder';
 
 import {
   buildMenuItem,

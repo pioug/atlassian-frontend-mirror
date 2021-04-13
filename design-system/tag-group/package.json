@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag-group",
-  "version": "10.0.5",
+  "version": "10.0.6",
   "description": "A React component used for grouping and controlling @atlskit/tag components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -5,11 +5,7 @@ import {
   LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import {

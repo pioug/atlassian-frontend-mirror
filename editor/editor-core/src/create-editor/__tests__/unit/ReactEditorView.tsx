@@ -2,7 +2,7 @@ import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   measureRender,
   ProviderFactory,
@@ -20,7 +20,7 @@ import {
   media,
   mediaGroup,
   mention,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { mention as mentionData } from '@atlaskit/util-data-test';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -337,13 +337,8 @@ describe('@atlaskit/editor-core', () => {
     });
 
     describe('when an invalid transaction is dispatched', () => {
-      function createInvalidCodeBlock(offset = 0) {
-        return {
-          type: 'codeBlock',
-          pos: offset,
-          nodeSize: 3,
-          content: [{ type: 'date', pos: offset, nodeSize: 1 }],
-        };
+      function createInvalidCodeBlock() {
+        return 'codebl(date())';
       }
 
       /** dispatches an invalid transaction which adds a code block with a date node child */

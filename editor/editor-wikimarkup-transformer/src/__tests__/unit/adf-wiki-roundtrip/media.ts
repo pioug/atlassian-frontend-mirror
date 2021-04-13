@@ -7,7 +7,7 @@ import {
   media,
   mediaSingle,
   a,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Context } from '../../../interfaces';
 
 const wikiContext: Context = {

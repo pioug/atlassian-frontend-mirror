@@ -1,6 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   setNodeSelection,

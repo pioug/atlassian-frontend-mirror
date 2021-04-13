@@ -13,7 +13,7 @@ import { findReplacePluginKey } from '../../types';
 import { selectedSearchMatchClass } from '../../styles';
 import analyticsPlugin from '../../../analytics/plugin';
 import { textFormattingPlugin } from '../../../index';
-import { DocBuilder } from '@atlaskit/editor-test-helpers/schema-builder';
+import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 export const createEditor = createProsemirrorEditorFactory();
 

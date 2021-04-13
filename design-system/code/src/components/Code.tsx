@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactNode } from 'react';
+import React, { memo, ReactNode } from 'react';
 
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 
@@ -16,32 +16,33 @@ export interface CodeProps extends CommonCodeProps {
   preTag?: ReactNode | string;
 }
 
-export default class Code extends PureComponent<CodeProps, {}> {
-  static defaultProps = {
-    theme: {},
-    codeTagProps: {},
-    preTag: 'span',
+const Code = ({
+  language = 'text',
+  theme = {},
+  codeStyle,
+  codeTagProps = {},
+  preTag = 'span',
+  testId,
+  text,
+}: CodeProps) => {
+  const { inlineCodeStyle } = applyTheme(theme);
+
+  const props = {
+    language: normalizeLanguage(language),
+    PreTag: preTag,
+    style: codeStyle || inlineCodeStyle,
+    codeTagProps: codeTagProps,
   };
 
-  render() {
-    const { inlineCodeStyle } = applyTheme(this.props.theme);
-    const language = normalizeLanguage(this.props.language);
+  return (
+    <SyntaxHighlighter
+      data-code-lang={language}
+      data-testid={testId}
+      {...props}
+    >
+      {text}
+    </SyntaxHighlighter>
+  );
+};
 
-    const props = {
-      language,
-      PreTag: this.props.preTag,
-      style: this.props.codeStyle || inlineCodeStyle,
-      codeTagProps: this.props.codeTagProps,
-    };
-
-    return (
-      <SyntaxHighlighter
-        data-code-lang={this.props.language}
-        data-testid={this.props.testId}
-        {...props}
-      >
-        {this.props.text}
-      </SyntaxHighlighter>
-    );
-  }
-}
+export default memo(Code);

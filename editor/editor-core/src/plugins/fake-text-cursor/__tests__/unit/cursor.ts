@@ -5,7 +5,7 @@ import {
   doc,
   p as paragraph,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   Preset,
   createProsemirrorEditorFactory,

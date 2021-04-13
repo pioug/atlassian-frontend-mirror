@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 45.8.1
+
+### Patch Changes
+
+- [`6e055f5d3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e055f5d3c8) - [ux] Fixing a UI bug where the header covered the first 3 lines of a text/codeviewer file for Jira specifically
+- [`341311b4eb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/341311b4eb4) - Fix double events firing for media-viewer when errorMessage is rendered twice
+- [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
+- Updated dependencies
+
 ## 45.8.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
-import { EditorState, TextSelection, Selection } from 'prosemirror-state';
+import { TextSelection, Selection } from 'prosemirror-state';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
 import {
   p,
   ul,
@@ -9,7 +9,7 @@ import {
   code_block,
   RefsNode,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { normalizeListItemsSelection } from '../../../utils/selection';
 
 type DocumentType = DocBuilder;
@@ -36,15 +36,6 @@ function fixedSelectionFromRefs(doc: RefsNode): Selection | null {
   }
 
   return null;
-}
-
-function createEditorState(doc: RefsNode) {
-  const myState = EditorState.create({
-    doc,
-  });
-  const { tr } = myState;
-  setSelectionTransform(doc, tr);
-  return myState.apply(tr);
 }
 
 describe('utils/selection', () => {
@@ -271,7 +262,7 @@ describe('utils/selection', () => {
     ])('[case%#] when %s', (_scenario, scenario) => {
       it('should match the expected selection', () => {
         const docRefs = createRefsDocNode(scenario);
-        const myState = createEditorState(docRefs);
+        const myState = createEditorState(scenario);
         const { selection, doc } = myState;
         const fixedSelection = fixedSelectionFromRefs(docRefs) || selection;
 

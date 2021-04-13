@@ -1,5 +1,16 @@
 # @atlaskit/editor-json-transformer
 
+## 8.6.0
+
+### Minor Changes
+
+- [`9c36253ed5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c36253ed5e) - ED-10216 Add sanitizeNode into @atlaskit/editor-json-transformer
+
+### Patch Changes
+
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

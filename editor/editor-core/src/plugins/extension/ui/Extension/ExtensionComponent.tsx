@@ -10,6 +10,7 @@ import {
   getNodeRenderer,
   ExtensionProvider,
 } from '@atlaskit/editor-common';
+import { ADFEntity } from '@atlaskit/adf-utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
@@ -20,7 +21,7 @@ export interface Props {
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
   extensionProvider?: Promise<ExtensionProvider>;
-  refNode?: PMNode;
+  refNode?: ADFEntity;
 }
 
 export interface State {

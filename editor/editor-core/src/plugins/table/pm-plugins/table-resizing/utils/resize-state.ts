@@ -5,11 +5,19 @@ import {
   tableCellMinWidth,
   tableNewColumnMinWidth,
 } from '@atlaskit/editor-common';
-
+import { Rect } from '@atlaskit/editor-tables/table-map';
+import { TableLayout } from '@atlaskit/adf-schema';
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
-import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';
+import {
+  getCellsRefsInColumn,
+  getColumnStateFromDOM,
+  ColumnState,
+} from './column-state';
 import { syncStickyRowToTable } from './dom';
-import { ResizeState } from './types';
+import { ResizeState, ResizeStateWithAnalytics } from './types';
+import { getTableMaxWidth } from './misc';
+import { EditorState } from 'prosemirror-state';
+import { getSelectedTableInfo } from '../../../utils';
 
 export const getResizeState = ({
   minWidth,
@@ -27,24 +35,41 @@ export const getResizeState = ({
   domAtPos: (pos: number) => { node: Node; offset: number };
 }): ResizeState => {
   if (hasTableBeenResized(table)) {
+    const cols = calcTableColumnWidths(table).map((width, index) => ({
+      width: width === 0 ? tableNewColumnMinWidth : width,
+      minWidth: width === 0 ? tableNewColumnMinWidth : minWidth,
+      index,
+    }));
+
+    const widths = cols.map(col => col.width);
+    const tableWidth = widths.reduce((sum, width) => sum + width, 0);
+    const overflow = tableWidth > maxSize;
+
     return {
-      cols: calcTableColumnWidths(table).map((width, index) => ({
-        width: width === 0 ? tableNewColumnMinWidth : width,
-        minWidth: width === 0 ? tableNewColumnMinWidth : minWidth,
-        index,
-      })),
+      cols,
+      widths,
       maxSize,
+      overflow,
     };
   }
 
   // Getting the resize state from DOM
   const colgroupChildren = insertColgroupFromNode(tableRef, table);
+  const cols = Array.from(colgroupChildren).map((_, index) => {
+    const cellsRefs = getCellsRefsInColumn(index, table, start, domAtPos);
+    return getColumnStateFromDOM(cellsRefs, index, minWidth);
+  });
+
+  const widths = cols.map(col => col.width);
+  const tableWidth = widths.reduce((sum, width) => sum + width, 0);
+
+  const overflow = tableWidth > maxSize;
+
   return {
-    cols: Array.from(colgroupChildren).map((_, index) => {
-      const cellsRefs = getCellsRefsInColumn(index, table, start, domAtPos);
-      return getColumnStateFromDOM(cellsRefs, index, minWidth);
-    }),
+    cols,
+    widths,
     maxSize,
+    overflow,
   };
 };
 
@@ -101,6 +126,48 @@ export const evenAllColumnsWidths = (resizeState: ResizeState): ResizeState => {
   const cols = resizeState.cols.map(col => ({ ...col, width: evenWidth }));
 
   return adjustColumnsWidths({ ...resizeState, cols }, maxSize);
+};
+
+const getSpace = (columns: ColumnState[], start: number, end: number) =>
+  columns
+    .slice(start, end)
+    .map(col => col.width)
+    .reduce((sum, width) => sum + width, 0);
+
+export const evenSelectedColumnsWidths = (
+  resizeState: ResizeState,
+  rect: Rect,
+): ResizeState => {
+  const cols = resizeState.cols;
+  const selectedSpace = getSpace(cols, rect.left, rect.right);
+  const allSpace = getSpace(cols, 0, cols.length);
+
+  const allWidth = allSpace / cols.length;
+  const width = selectedSpace / (rect.right - rect.left);
+
+  // Result equals even distribution of all columns -
+  // unset widths of all columns
+  if (!resizeState.overflow && allWidth === width) {
+    return {
+      ...resizeState,
+      widths: cols.map(() => width),
+      cols: resizeState.cols.map(col => ({
+        ...col,
+        width: 0,
+      })),
+    };
+  }
+
+  return {
+    ...resizeState,
+    widths: cols.map((col, i) =>
+      i >= rect.left && i < rect.right ? width : col.width,
+    ),
+    cols: cols.map((col, i) => ({
+      ...col,
+      width: i >= rect.left && i < rect.right ? width : col.width,
+    })),
+  };
 };
 
 export const bulkColumnsResize = (
@@ -197,4 +264,82 @@ export const areColumnsEven = (resizeState: ResizeState): boolean => {
   return newResizeState.cols.every(
     (col, i) => col.width === resizeState.cols[i].width,
   );
+};
+
+// Get the layout
+const normaliseTableLayout = (
+  input: string | undefined | null,
+): TableLayout => {
+  switch (input) {
+    case 'wide':
+      return input;
+    case 'full-width':
+      return input;
+    default:
+      return 'default';
+  }
+};
+
+export const getNewResizeStateFromSelectedColumns = (
+  rect: Rect,
+  state: EditorState,
+  domAtPos: (pos: number) => { node: Node; offset: number },
+  dynamicTextSizing?: boolean,
+): ResizeStateWithAnalytics | undefined => {
+  const { totalRowCount, totalColumnCount, table } = getSelectedTableInfo(
+    state.selection,
+  );
+
+  if (!table) {
+    return;
+  }
+
+  const maybeTable = domAtPos(table.start).node as HTMLElement;
+  const tableRef = maybeTable.closest('table');
+
+  if (!tableRef) {
+    return;
+  }
+
+  const layout = normaliseTableLayout(tableRef?.dataset.layout);
+
+  const maxSize = getTableMaxWidth({
+    table: table.node,
+    tableStart: table.start,
+    state,
+    layout,
+    dynamicTextSizing,
+  });
+
+  const resizeState = getResizeState({
+    minWidth: tableCellMinWidth,
+    maxSize,
+    table: table.node,
+    tableRef,
+    start: table.start,
+    domAtPos,
+  });
+
+  const newResizeState = evenSelectedColumnsWidths(resizeState, rect);
+
+  const widthsBefore = resizeState.widths;
+  const widthsAfter = newResizeState.widths;
+
+  const changed = resizeState.widths.some(
+    (widthBefore, index) => widthBefore !== widthsAfter[index],
+  );
+
+  return {
+    resizeState: newResizeState,
+    table,
+    changed,
+    attributes: {
+      position: rect.left,
+      count: rect.right - rect.left,
+      totalRowCount,
+      totalColumnCount,
+      widthsBefore,
+      widthsAfter,
+    },
+  };
 };

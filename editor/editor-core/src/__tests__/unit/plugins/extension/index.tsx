@@ -34,7 +34,7 @@ import {
   mediaSingle,
   underline,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';

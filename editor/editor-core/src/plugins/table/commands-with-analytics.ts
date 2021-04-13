@@ -36,6 +36,7 @@ import {
   toggleNumberColumn,
   toggleTableLayout,
 } from './commands/toggle';
+import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { deleteColumns, deleteRows, mergeCells } from './transforms';
 import {
@@ -50,6 +51,7 @@ import {
   getSelectedTableInfo,
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
+import { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
 
 const TABLE_BREAKOUT_NAME_MAPPING = {
   default: TABLE_BREAKOUT.NORMAL,
@@ -445,4 +447,28 @@ export const sortColumnWithAnalytics = (
       eventType: EVENT_TYPE.TRACK,
     };
   })(sortByColumn(columnIndex, sortOrder));
+
+export const distributeColumnsWidthsWithAnalytics = (
+  inputMethod: INPUT_METHOD.CONTEXT_MENU,
+  { resizeState, table, attributes }: ResizeStateWithAnalytics,
+) => {
+  return withAnalytics(() => {
+    return {
+      action: TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
+      actionSubject: ACTION_SUBJECT.TABLE,
+      actionSubjectId: null,
+      attributes: {
+        inputMethod,
+        ...attributes,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    };
+  })((state, dispatch) => {
+    if (dispatch) {
+      distributeColumnsWidths(resizeState, table)(state, dispatch);
+    }
+    return true;
+  });
+};
+
 // #endregion

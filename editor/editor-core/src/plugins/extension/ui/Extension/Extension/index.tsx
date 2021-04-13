@@ -7,6 +7,7 @@ import {
   OverflowShadowProps,
   ExtensionProvider,
 } from '@atlaskit/editor-common';
+import { ADFEntity } from '@atlaskit/adf-utils';
 import { Wrapper, Header, Content, ContentWrapper } from './styles';
 import { Overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
@@ -19,7 +20,7 @@ export interface Props {
   extensionProvider?: ExtensionProvider;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   children?: React.ReactNode;
-  refNode?: PmNode;
+  refNode?: ADFEntity;
 }
 
 const Extension = (props: Props & OverflowShadowProps) => {

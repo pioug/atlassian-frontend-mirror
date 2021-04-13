@@ -9,7 +9,7 @@ import {
   tr as row,
   table,
   td,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { Command } from '../../../../types/command';
 import { DropdownOptionT } from '../../../floating-toolbar/ui/types';
 import { splitCell } from '@atlaskit/editor-tables/utils';

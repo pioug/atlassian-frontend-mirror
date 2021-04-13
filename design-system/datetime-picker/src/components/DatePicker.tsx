@@ -44,7 +44,8 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 /* eslint-disable react/no-unused-prop-types */
 export interface Props extends WithAnalyticsEventsProps {
-  /** Defines the appearance which can be default or subtle - no borders, background or icon.
+  /**
+   * Defines the appearance which can be default or subtle - no borders, background or icon.
    * Appearance values will be ignored if styles are parsed via the selectProps.
    */
   appearance?: Appearance;
@@ -76,7 +77,7 @@ export interface Props extends WithAnalyticsEventsProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /** A function for parsing input characters and transforming them into a Date object. By default parses the date string based off the locale */
   parseInputValue?: (date: string, dateFormat: string) => Date;
-  /** DEPRECATED - Use locale instead. A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string*/
+  /** A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string*/
   formatDisplayLabel?: (value: string, dateFormat: string) => string;
   /** Props to apply to the select. This can be used to set options such as placeholder text.
    *  See [here](/packages/design-system/select) for documentation on select props. */
@@ -89,7 +90,7 @@ export interface Props extends WithAnalyticsEventsProps {
   isInvalid?: boolean;
   /** Hides icon for dropdown indicator. */
   hideIcon?: boolean;
-  /** DEPRECATED - Use locale instead. Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
+  /** Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
   /** Placeholder text displayed in input */
   placeholder?: string;
@@ -99,6 +100,7 @@ export interface Props extends WithAnalyticsEventsProps {
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    *  - `{testId}--container` wrapping element of date-picker
+   *  - `{testId}--calendar--container` nested calendar component
    **/
   testId?: string;
 }
@@ -169,7 +171,7 @@ const Menu = ({
           calendarRef={selectProps.calendarRef}
           selected={[selectProps.calendarValue]}
           locale={selectProps.calendarLocale}
-          testId={selectProps.testId}
+          testId={selectProps.testId && `${selectProps.testId}--calendar`}
         />
       </StyledMenu>
     }
@@ -253,11 +255,11 @@ class DatePicker extends React.Component<DatePickerProps, State> {
     const [year, month, date] = iso.split('-');
     let newIso = iso;
 
-    const parsedDate: number = parseInt(date, 10);
-    const parsedMonth: number = parseInt(month, 10);
-    const parsedYear: number = parseInt(year, 10);
+    const parsedDate = parseInt(date, 10);
+    const parsedMonth = parseInt(month, 10);
+    const parsedYear = parseInt(year, 10);
 
-    const lastDayInMonth: number = lastDayOfMonth(
+    const lastDayInMonth = lastDayOfMonth(
       new Date(
         parsedYear,
         parsedMonth - 1, // This needs to be -1, because the Date constructor expects an index of the given month
@@ -318,10 +320,10 @@ class DatePicker extends React.Component<DatePickerProps, State> {
   };
 
   onSelectInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value: string = event.target.value;
+    const value = event.target.value;
 
     if (value) {
-      const parsed: Date | null = this.parseDate(value);
+      const parsed = this.parseDate(value);
       // Only try to set the date if we have month & day
       if (parsed && isValid(parsed)) {
         // We format the parsed date to YYYY-MM-DD here because
@@ -334,10 +336,9 @@ class DatePicker extends React.Component<DatePickerProps, State> {
   };
 
   onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const { key, target } = event;
     const { view, selectedValue } = this.getSafeState();
 
-    const keyPressed = key.toLowerCase();
+    const keyPressed = event.key.toLowerCase();
     switch (keyPressed) {
       case 'arrowup':
       case 'arrowdown':
@@ -364,8 +365,8 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       case 'delete':
         if (
           selectedValue &&
-          target instanceof HTMLInputElement &&
-          target.value.length < 1
+          event.target instanceof HTMLInputElement &&
+          event.target.value.length < 1
         ) {
           // If being cleared from keyboard, don't change behaviour
           this.setState({ clearingFromIcon: false });
@@ -540,7 +541,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       calendarContainerRef: this.containerRef,
       calendarRef: this.refCalendar,
       calendarDisabled: disabled,
-      calendarValue: value,
+      calendarValue: value && format(parse(value), 'YYYY-MM-DD'),
       calendarView: view,
       onCalendarChange: this.onCalendarChange,
       onCalendarSelect: this.onCalendarSelect,

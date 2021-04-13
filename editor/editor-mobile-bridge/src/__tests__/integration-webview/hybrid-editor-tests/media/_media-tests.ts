@@ -8,10 +8,14 @@ import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/utils/mobile/keyboard/c
 import media2ColumnLayoutAdf from '../../__fixtures__/media-2-column-layout.adf.json';
 import media3ColumnLayoutAdf from '../../__fixtures__/media-3-column-layout.adf.json';
 import mediaGroupAdf from '../../__fixtures__/media-group.adf.json';
-
+import mediaImageTableAdf from '../../__fixtures__/media-image-table.adf.json';
 import { focusOnWebView } from '../../_page-objects/hybrid-editor-page';
 import mediaExpandAdf from '../../__fixtures__/media-expand.adf.json';
 import { mobileSnapshot } from '../../_utils/snapshot';
+import {
+  waitForAtLeastNumFileCards,
+  resizeMediaSingle,
+} from '../../_utils/media';
 
 export default async () => {
   MobileTestCase(
@@ -114,7 +118,7 @@ export default async () => {
   MobileTestCase('Media inside expand', {}, async client => {
     const page = await Page.create(client);
 
-    await loadEditor(page);
+    await loadEditor(page, 'enableMediaResize=true');
     await page.switchToWeb();
     await setADFContent(page, mediaExpandAdf);
     await page.waitForSelector(
@@ -129,7 +133,7 @@ export default async () => {
     {},
     async client => {
       const page = await Page.create(client);
-      await loadEditor(page);
+      await loadEditor(page, 'enableMediaResize=true');
       await page.switchToWeb();
       await setADFContent(page, mediaSingleAdf);
       await page.waitForSelector(
@@ -137,6 +141,56 @@ export default async () => {
       );
 
       await mobileSnapshot(page);
+    },
+  );
+
+  MobileTestCase(
+    'Media: Load ADF with media inside a table',
+    {},
+    async client => {
+      const page = await Page.create(client);
+      await loadEditor(page, 'enableMediaResize=true');
+      await page.switchToWeb();
+      await setADFContent(page, mediaImageTableAdf);
+      await page.waitForSelector(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      );
+
+      await mobileSnapshot(page);
+    },
+  );
+
+  MobileTestCase(
+    'Media: Resize a MediaSingle node',
+    // TODO: Enable ios resizing test https://product-fabric.atlassian.net/browse/EDM-1845
+    { skipPlatform: ['ios'] },
+    async client => {
+      const page = await Page.create(client);
+      await loadEditor(page, 'enableMediaResize=true');
+      await page.switchToWeb();
+      await setADFContent(page, mediaSingleAdf);
+      await waitForAtLeastNumFileCards(page, 1);
+
+      await resizeMediaSingle(page, {
+        units: 'pixels',
+        amount: 50,
+      });
+
+      await mobileSnapshot(page);
+    },
+  );
+
+  MobileTestCase(
+    'Media: Upload media should show the progressive bar',
+    {},
+    async client => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await page.switchToWeb();
+      await uploadMedia(page);
+      await page.waitForSelector(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      );
     },
   );
 };

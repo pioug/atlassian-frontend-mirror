@@ -32,7 +32,7 @@ import {
   th,
   tr,
   inlineCard,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 const markdownSerializer = new MarkdownSerializer(nodes, marks);

@@ -1,10 +1,6 @@
 import { EditorView } from 'prosemirror-view';
 import createStub from 'raf-stub';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,

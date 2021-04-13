@@ -2,10 +2,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
-import {
-  media,
-  mediaGroup,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';

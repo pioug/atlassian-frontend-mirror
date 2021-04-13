@@ -18,7 +18,7 @@ import {
   mediaSingle,
   media,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { randomId } from '@atlaskit/editor-test-helpers/random-id';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

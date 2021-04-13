@@ -10,7 +10,7 @@ import {
   thEmpty,
   tr,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
 import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
 import React from 'react';

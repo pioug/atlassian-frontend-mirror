@@ -5,7 +5,7 @@ import {
   tr,
   th,
   td,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createJIRASchema } from '@atlaskit/adf-schema';
 import { checkParseEncodeRoundTrips } from './_test-helpers';
 

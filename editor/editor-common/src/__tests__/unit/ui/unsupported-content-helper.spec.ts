@@ -5,7 +5,7 @@ import {
   doc,
   DocBuilder,
   unsupportedBlock,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { getUnsupportedContent } from '../../../ui/unsupported-content-helper';
 

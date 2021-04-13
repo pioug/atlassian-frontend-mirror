@@ -11,7 +11,7 @@ import {
   p as paragraph,
   BuilderContent,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import {

@@ -4,11 +4,7 @@ import {
   EditorActions,
   EventDispatcher,
 } from '@atlaskit/editor-core';
-import {
-  DocBuilder,
-  doc,
-  p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { PluginKey } from 'prosemirror-state';
 import { EditorViewWithComposition } from '../../../../types';

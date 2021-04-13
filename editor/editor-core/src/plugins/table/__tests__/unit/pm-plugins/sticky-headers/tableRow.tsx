@@ -12,7 +12,7 @@ import {
   thEmpty,
   tr,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { TableRowNodeView } from '../../../../pm-plugins/sticky-headers';
 import tablePlugin from '../../../../../table';
 import { pluginKey } from '../../../../pm-plugins/plugin-factory';

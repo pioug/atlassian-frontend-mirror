@@ -2,6 +2,7 @@ import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
 import { CardAuthFlowOpts } from '../../state/context/types';
 import { AnalyticsHandler } from '../../utils/types';
+import { OnResolveCallback } from '../Card/types';
 
 export type BlockCardProps = {
   url: string;
@@ -13,7 +14,7 @@ export type BlockCardProps = {
   handleInvoke: InvokeHandler;
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   isSelected?: boolean;
-  onResolve?: (data: { url?: string; title?: string }) => void;
+  onResolve?: OnResolveCallback;
   testId?: string;
   showActions?: boolean;
 };

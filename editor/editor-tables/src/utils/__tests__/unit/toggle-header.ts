@@ -1,10 +1,5 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
-import {
-  doc,
-  p,
-  table,
-  tr,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, table, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   c,

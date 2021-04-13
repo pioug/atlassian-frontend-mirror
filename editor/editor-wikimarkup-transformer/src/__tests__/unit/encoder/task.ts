@@ -5,7 +5,7 @@ import {
   doc,
   taskList,
   taskItem,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - Task', () => {
   const transformer = new WikiMarkupTransformer();

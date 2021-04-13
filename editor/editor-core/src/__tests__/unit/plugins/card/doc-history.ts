@@ -16,7 +16,7 @@ import {
   doc,
   p,
   a,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 

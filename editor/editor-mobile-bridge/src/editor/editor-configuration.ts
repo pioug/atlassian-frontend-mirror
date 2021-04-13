@@ -36,7 +36,7 @@ export default class MobileEditorConfiguration
   private enableQuickInsert: boolean = false;
   private selectionObserverEnabled: boolean = false;
   private allowCollabProvider: boolean = false;
-  private allowPredictableList: boolean = false;
+  private allowPredictableList: boolean = true;
   private placeholder?: string | undefined;
   private allowEmptyADFCheck: boolean = false;
 

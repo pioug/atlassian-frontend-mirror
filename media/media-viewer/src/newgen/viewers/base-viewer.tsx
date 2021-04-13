@@ -63,7 +63,12 @@ export abstract class BaseViewer<
       failed: error => {
         const { item } = this.props;
         return (
-          <ErrorMessage fileId={item.id} fileState={item} error={error}>
+          <ErrorMessage
+            fileId={item.id}
+            fileState={item}
+            error={error}
+            supressAnalytics={true} // item-viewer.tsx will send
+          >
             <p>
               <FormattedMessage {...messages.try_downloading_file} />
             </p>

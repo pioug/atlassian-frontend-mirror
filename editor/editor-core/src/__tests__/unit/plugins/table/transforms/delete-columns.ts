@@ -9,7 +9,7 @@ import {
   tdCursor,
   tdEmpty,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { deleteColumns } from '../../../../../plugins/table/transforms';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';

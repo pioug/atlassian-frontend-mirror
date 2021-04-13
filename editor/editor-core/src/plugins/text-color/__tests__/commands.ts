@@ -14,7 +14,7 @@ import {
   textColor,
   tr,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import blockTypePlugin from '../../block-type';
 import panelPlugin from '../../panel';

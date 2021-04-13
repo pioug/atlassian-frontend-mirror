@@ -4,7 +4,7 @@ import {
   p,
   bodiedExtension,
   extension,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertMacroFromMacroBrowser } from '../../../../plugins/macro';
 import {
   MacroAttributes,

@@ -31,6 +31,7 @@ export interface PanelAttributes {
 
 /**
  * @name panel_node
+ * @allowUnsupportedBlock true
  */
 export interface PanelDefinition {
   type: 'panel';
@@ -48,7 +49,8 @@ export interface DOMAttributes {
 //TODO: ED-10445 rename to panel and merge with the other panel node spec, after emoji panels moved to full schema
 export const customPanel: NodeSpec = {
   group: 'block',
-  content: '(paragraph | heading | bulletList | orderedList | blockCard)+',
+  content:
+    '(paragraph | heading | bulletList | orderedList | blockCard | unsupportedBlock)+',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   attrs: {
     panelType: { default: 'info' },
@@ -78,7 +80,8 @@ export const customPanel: NodeSpec = {
 
 export const panel: NodeSpec = {
   group: 'block',
-  content: '(paragraph | heading | bulletList | orderedList | blockCard)+',
+  content:
+    '(paragraph | heading | bulletList | orderedList | blockCard | unsupportedBlock)+',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   attrs: {
     panelType: { default: 'info' },

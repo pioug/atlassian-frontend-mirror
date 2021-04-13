@@ -4,6 +4,7 @@ import {
   UploadingFileState,
   ErrorFileState,
   ProcessingFailedState,
+  RequestError,
 } from '@atlaskit/media-client';
 import { getFileAttributes } from '../../../../newgen/analytics';
 import { MediaViewerError } from '../../../../newgen/errors';
@@ -104,6 +105,40 @@ describe('getFileAttributes()', () => {
         error: 'nativeError',
         errorDetail: 'some-error-message',
         failReason: 'imageviewer-fetch-url',
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: undefined,
+          fileMimetype: undefined,
+          fileSize: undefined,
+        },
+        status: 'fail',
+      },
+      eventType: 'operational',
+    });
+  });
+
+  it('should capture request metadata when requestError as secondary error for load fail event', () => {
+    expect(
+      createLoadFailedEvent(
+        'some-id',
+        new MediaViewerError(
+          'imageviewer-fetch-url',
+          new RequestError('serverInvalidBody', {
+            method: 'GET',
+            endpoint: '/some-endpoint',
+          }),
+        ),
+      ),
+    ).toEqual({
+      action: 'loadFailed',
+      actionSubject: 'mediaFile',
+      attributes: {
+        error: 'serverInvalidBody',
+        failReason: 'imageviewer-fetch-url',
+        request: {
+          method: 'GET',
+          endpoint: '/some-endpoint',
+        },
         fileAttributes: {
           fileId: 'some-id',
           fileMediatype: undefined,

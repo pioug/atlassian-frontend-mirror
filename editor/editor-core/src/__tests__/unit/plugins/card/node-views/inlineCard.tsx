@@ -27,7 +27,7 @@ jest.mock('@atlaskit/editor-common', () => ({
 }));
 
 import { mount } from 'enzyme';
-import { inlineCard } from '@atlaskit/editor-test-helpers/schema-builder';
+import { inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { Card } from '@atlaskit/smart-card';
 

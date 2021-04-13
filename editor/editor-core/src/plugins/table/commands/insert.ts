@@ -125,11 +125,17 @@ export const insertRow = (
   return true;
 };
 
-export const createTable: Command = (state, dispatch) => {
+export const createTable = (allowReferentiality?: boolean): Command => (
+  state,
+  dispatch,
+) => {
   if (!getPluginState(state)) {
     return false;
   }
-  const table = createTableNode(state.schema);
+  const table = createTableNode({
+    schema: state.schema,
+    allowLocalId: allowReferentiality,
+  });
 
   if (dispatch) {
     dispatch(safeInsert(table)(state.tr).scrollIntoView());

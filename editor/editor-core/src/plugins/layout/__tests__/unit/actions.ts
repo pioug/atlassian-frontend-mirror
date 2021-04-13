@@ -9,7 +9,7 @@ import {
   doc,
   p,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,

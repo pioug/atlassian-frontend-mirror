@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SectionMessage actions should render React Nodes as children 1`] = `
-<span>
-  Hello, World!
-</span>
-`;

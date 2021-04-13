@@ -1,5 +1,12 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.1.9
+
+### Patch Changes
+
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- Updated dependencies
+
 ## 8.1.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "13.2.1",
+  "version": "13.2.2",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,6 +45,7 @@
     "@atlaskit/visual-regression": "*",
     "@testing-library/react": "^8.0.1",
     "@types/jscodeshift": "^0.6.3",
+    "@types/react-syntax-highlighter": "^13.5.0",
     "color-contrast-checker": "^1.5.0",
     "jscodeshift": "^0.7.0",
     "react-dom": "^16.8.0",
@@ -58,6 +59,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/code/"

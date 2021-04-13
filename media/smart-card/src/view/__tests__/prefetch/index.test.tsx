@@ -1,7 +1,6 @@
-import { mockEvents } from '../../__mocks__/events';
 const mockAPIError = jest.fn();
 
-jest.mock('../../../utils/analytics', () => mockEvents);
+jest.mock('../../../utils/analytics/analytics');
 jest.mock('../../../client/errors', () => ({ APIError: mockAPIError }));
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) =>

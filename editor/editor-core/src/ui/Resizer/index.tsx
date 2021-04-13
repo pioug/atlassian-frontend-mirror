@@ -65,7 +65,7 @@ export type ResizerProps = Omit<
   ratio?: string;
 };
 
-type ResizerState = {
+export type ResizerState = {
   isResizing: boolean;
 };
 

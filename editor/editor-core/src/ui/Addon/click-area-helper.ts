@@ -83,7 +83,6 @@ const outsideProsemirrorEditorClickHandler = (
 
   view.focus();
   event.stopPropagation();
-  event.preventDefault();
 };
 
 const appendEmptyParagraph = (

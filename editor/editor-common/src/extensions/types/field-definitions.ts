@@ -31,6 +31,7 @@ interface BaseFieldDefinition {
   label: string;
   name: string;
   isRequired?: boolean;
+  allowDuplicates?: boolean;
 }
 
 interface BaseEnumField extends BaseFieldDefinition {

@@ -27,11 +27,16 @@ import { setTableSize } from '../commands';
 import { getFeatureFlags } from '../../feature-flags-context';
 import type { TableColumnOrdering } from '../types';
 
-const tableAttributes = (node: PmNode) => {
+const tableAttributes = (node: PmNode, allowLocalId: boolean) => {
+  const localIdAttr = allowLocalId
+    ? { 'data-table-local-id': node.attrs.localId || 'local-table' }
+    : {};
+
   return {
     'data-number-column': node.attrs.isNumberColumnEnabled,
     'data-layout': node.attrs.layout,
     'data-autosize': node.attrs.__autoSize,
+    ...localIdAttr,
   };
 };
 
@@ -44,7 +49,7 @@ const toDOM = (node: PmNode, props: Props) => {
 
   return [
     'table',
-    tableAttributes(node),
+    tableAttributes(node, props.options?.allowReferentiality ?? false),
     colgroup,
     ['tbody', 0],
   ] as DOMOutputSpec;
@@ -112,7 +117,10 @@ export default class TableView extends ReactNodeView<Props> {
       return;
     }
 
-    const attrs = tableAttributes(node);
+    const attrs = tableAttributes(
+      node,
+      this.reactComponentProps?.options?.allowReferentiality ?? false,
+    );
     (Object.keys(attrs) as Array<keyof typeof attrs>).forEach(attr => {
       this.table!.setAttribute(attr, attrs[attr]);
     });

@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.1.1
+
+### Patch Changes
+
+- [`2b5927de4d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b5927de4d4) - Added support for Windows high contrast mode for Banner Icon
+
 ## 11.1.0
 
 ### Minor Changes

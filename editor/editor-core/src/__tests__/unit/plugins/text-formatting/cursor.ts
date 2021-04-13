@@ -6,7 +6,7 @@ import {
   strong,
   emoji,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import textFormattingCursorPlugin from '../../../../plugins/text-formatting/pm-plugins/cursor';
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common';

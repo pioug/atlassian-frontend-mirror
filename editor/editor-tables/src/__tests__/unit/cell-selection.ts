@@ -7,7 +7,7 @@ import {
 } from 'prosemirror-state';
 
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { p, table, td, tr } from '@atlaskit/editor-test-helpers/schema-builder';
+import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';

@@ -1,5 +1,11 @@
 # @atlaskit/icon-priority
 
+## 6.2.2
+
+### Patch Changes
+
+- [`877e9e0b9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877e9e0b9f6) - Icon package dependency now uses carat range.
+
 ## 6.2.1
 
 ### Patch Changes

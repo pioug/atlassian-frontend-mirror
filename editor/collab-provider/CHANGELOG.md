@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 6.2.0
+
+### Minor Changes
+
+- [`e6cc5277203`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6cc5277203) - COLLAB-388: emit 404 error event when document not found in Collab Service
+
+### Patch Changes
+
+- [`a2d14a3865e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2d14a3865e) - VULN-304542: bump socket.io client to V4, it's major but no breaking change.
+- [`6f0c71a2a95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f0c71a2a95) - put collab-provider logger under flag, set `window.COLLAB_PROVIDER_LOGGER` to true to see the logs.
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

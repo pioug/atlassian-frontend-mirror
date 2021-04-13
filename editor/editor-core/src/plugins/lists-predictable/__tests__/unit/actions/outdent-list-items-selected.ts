@@ -10,7 +10,7 @@ import {
   media,
   mediaSingle,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { outdentListItemsSelected } from '../../../actions/outdent-list-items-selected';
 

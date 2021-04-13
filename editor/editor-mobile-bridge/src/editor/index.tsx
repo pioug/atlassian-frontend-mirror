@@ -23,6 +23,18 @@ interface AppProps {
 }
 
 export const App: React.FC<AppProps> = props => {
+  const isIOS = !!window.webkit;
+  if (isIOS) {
+    return (
+      <div style={{ minHeight: '46px' }}>
+        <Editor defaultValue={props.defaultValue}></Editor>
+      </div>
+    );
+  }
+  return <Editor defaultValue={props.defaultValue}></Editor>;
+};
+
+const Editor: React.FC<AppProps> = props => {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);

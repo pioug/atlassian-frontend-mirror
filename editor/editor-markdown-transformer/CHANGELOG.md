@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 4.1.9
+
+### Patch Changes
+
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- Updated dependencies
+
 ## 4.1.8
 
 ### Patch Changes

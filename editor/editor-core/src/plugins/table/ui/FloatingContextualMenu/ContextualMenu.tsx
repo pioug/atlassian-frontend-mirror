@@ -35,6 +35,7 @@ import {
   setColorWithAnalytics,
   sortColumnWithAnalytics,
   splitCellWithAnalytics,
+  distributeColumnsWidthsWithAnalytics,
 } from '../../commands-with-analytics';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { canMergeCells } from '../../transforms';
@@ -46,6 +47,8 @@ import {
 } from '../../utils';
 import tableMessages from '../messages';
 import { contextualMenuDropdownWidth } from '../consts';
+import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
+import { getFeatureFlags } from '../../../../plugins/feature-flags-context';
 
 export const messages = defineMessages({
   cellBackground: {
@@ -83,6 +86,11 @@ export const messages = defineMessages({
     id: 'fabric.editor.canNotSortTable',
     defaultMessage: `⚠️ You can't sort a table with merged cells`,
     description: `Split your cells to enable this feature`,
+  },
+  distributeColumns: {
+    id: 'fabric.editor.distributeColumns',
+    defaultMessage: `Distribute columns`,
+    description: `Distribute widths between selected columns`,
   },
 });
 
@@ -244,6 +252,22 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
       });
     }
 
+    if (getFeatureFlags(state)?.distributeColumns) {
+      const newResizeState = getNewResizeStateFromSelectedColumns(
+        selectionRect,
+        state,
+        editorView.domAtPos.bind(editorView),
+      );
+
+      const wouldChange = newResizeState?.changed ?? false;
+
+      items.push({
+        content: formatMessage(messages.distributeColumns),
+        value: { name: 'distribute_columns' },
+        isDisabled: !wouldChange,
+      });
+    }
+
     if (allowColumnSorting) {
       const hasMergedCellsInTable =
         getMergedCellsPositions(state.tr).length > 0;
@@ -281,8 +305,8 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
   private onMenuItemActivated = ({ item }: { item: DropdownItem }) => {
     const { editorView, selectionRect } = this.props;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
-    const { targetCellPosition } = getPluginState(editorView.state);
     const { state, dispatch } = editorView;
+    const { targetCellPosition } = getPluginState(state);
 
     switch (item.value.name) {
       case 'sort_column_desc':
@@ -308,6 +332,20 @@ class ContextualMenu extends Component<Props & InjectedIntlProps, State> {
       case 'split':
         splitCellWithAnalytics()(state, dispatch);
         this.toggleOpen();
+        break;
+      case 'distribute_columns':
+        const newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
+          selectionRect,
+          state,
+          editorView.domAtPos.bind(editorView),
+        );
+        if (newResizeStateWithAnalytics) {
+          distributeColumnsWidthsWithAnalytics(
+            INPUT_METHOD.CONTEXT_MENU,
+            newResizeStateWithAnalytics,
+          )(state, dispatch);
+          this.toggleOpen();
+        }
         break;
       case 'clear':
         emptyMultipleCellsWithAnalytics(

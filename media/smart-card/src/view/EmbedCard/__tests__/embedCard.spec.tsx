@@ -1,7 +1,12 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import {
+  expectFunctionToHaveBeenCalledWith,
+  JestFunction,
+} from '@atlaskit/media-test-helpers';
 import { EmbedCard } from '../index';
 import { CardState } from '../../../state/store/types';
+import { EmbedCardProps } from '../types';
 
 describe('EmbedCard view component', () => {
   describe('resolved embed with preview', () => {
@@ -29,12 +34,15 @@ describe('EmbedCard view component', () => {
             preview: {
               '@type': 'Link',
               href: 'http://some-preview-url.com',
+              'atlassian:aspectRatio': 0.72,
             },
           },
         },
       };
       const handleFrameClickMock = jest.fn();
-      const onResolveMock = jest.fn();
+      const onResolveMock: JestFunction<
+        Required<EmbedCardProps>['onResolve']
+      > = jest.fn();
       const ref = React.createRef<HTMLIFrameElement>();
 
       const { getByTestId, getByText } = render(
@@ -91,10 +99,13 @@ describe('EmbedCard view component', () => {
 
     it('should call onResolve right away', () => {
       const { onResolveMock } = setup();
-      expect(onResolveMock).toHaveBeenCalledWith({
-        title: expectedName,
-        url: expectedUrl,
-      });
+      expectFunctionToHaveBeenCalledWith(onResolveMock, [
+        {
+          title: expectedName,
+          url: expectedUrl,
+          aspectRatio: 0.72,
+        },
+      ]);
     });
 
     it('should pass iframe ref down to resolved view', () => {

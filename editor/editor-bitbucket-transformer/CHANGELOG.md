@@ -1,5 +1,12 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 7.1.7
+
+### Patch Changes
+
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- Updated dependencies
+
 ## 7.1.6
 
 ### Patch Changes

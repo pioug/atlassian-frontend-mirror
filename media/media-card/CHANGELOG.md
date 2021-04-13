@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 70.5.1
+
+### Patch Changes
+
+- [`859f4e95fb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/859f4e95fb7) - Fires analytics events from an internal module
+- [`a8c69bc44f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c69bc44f9) - Log analytics events for errors thrown from preview fetch
+- [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
+- Updated dependencies
+
 ## 70.5.0
 
 ### Minor Changes

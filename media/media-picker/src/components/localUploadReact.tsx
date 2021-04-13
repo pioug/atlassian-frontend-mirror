@@ -19,7 +19,7 @@ import { UploadServiceImpl } from '../service/uploadServiceImpl';
 import { LocalUploadConfig } from './types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { AnalyticsEventPayload } from '../types';
-import { ComponentName } from '../util/analytics';
+import { ComponentName, getRequestMetadata } from '../util/analytics';
 
 export type LocalUploadComponentBaseProps = {
   mediaClient: MediaClient;
@@ -152,6 +152,7 @@ export class LocalUploadComponentReact<
         status: 'fail',
         failReason: errorName,
         error: !!rawError ? getMediaClientErrorReason(rawError) : 'unknown',
+        request: !!rawError ? getRequestMetadata(rawError) : undefined,
         fileAttributes: {
           fileId,
         },

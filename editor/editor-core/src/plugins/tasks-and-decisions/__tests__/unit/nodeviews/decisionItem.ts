@@ -4,7 +4,7 @@ import {
   decisionItem,
   doc,
   p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { EventDispatcher } from '../../../../../event-dispatcher';
 import ReactNodeView from '../../../../../nodeviews/ReactNodeView';

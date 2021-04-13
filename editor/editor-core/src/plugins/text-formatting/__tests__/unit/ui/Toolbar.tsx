@@ -16,7 +16,7 @@ import {
   code_block as codeBlock,
   subsup,
   underline,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import textFormattingPlugin from '../../../';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';

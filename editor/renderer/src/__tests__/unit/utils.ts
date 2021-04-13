@@ -1,5 +1,5 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
-import { doc, p, strong } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, strong } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ADFEncoder } from '../../index';
 import { getText, findInTree } from '../../utils';
 

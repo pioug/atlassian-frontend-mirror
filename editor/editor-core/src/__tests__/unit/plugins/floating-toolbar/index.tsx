@@ -1,41 +1,17 @@
-import {
-  createProsemirrorEditorFactory,
-  Preset,
-  LightEditorPlugin,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { floatingToolbarPlugin, panelPlugin } from '../../../../plugins';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { FloatingToolbarConfig } from '../../../../plugins/floating-toolbar/types';
-import {
-  doc,
-  p,
-  panel,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import { AllSelection } from 'prosemirror-state';
 import { Node } from 'prosemirror-model';
 import { getRelevantConfig } from '../../../../plugins/floating-toolbar';
 
 describe('floating toolbar', () => {
-  const createEditor = createProsemirrorEditorFactory();
-
-  const editor = (
-    doc: DocBuilder,
-    preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
-  ) => {
-    preset.add(floatingToolbarPlugin);
-    preset.add(panelPlugin);
-    return createEditor({
-      doc,
-      preset: preset,
-    });
-  };
-
   describe('floating toolbar', () => {
     describe('getRelevantConfig', () => {
       it('gets correct config for text selection', () => {
-        const { editorView } = editor(doc(p('{<}test{>}')));
-        const selection = editorView.state.selection;
+        const editorState = createEditorState(doc(p('{<}test{>}')));
+        const selection = editorState.selection;
         const testConfig: FloatingToolbarConfig = {
           title: 'test toolbar',
           nodeType: defaultSchema.nodes['paragraph'],
@@ -62,25 +38,25 @@ describe('floating toolbar', () => {
         });
 
         it('when document contains node matching toolbar configuration', () => {
-          const { editorView } = editor(doc(p('{<}test{>}')));
-          const selection = new AllSelection(editorView.state.doc);
+          const editorState = createEditorState(doc(p('{<}test{>}')));
+          const selection = new AllSelection(editorState.doc);
 
           expectToolbarConfig(
             getRelevantConfig(selection, [testConfig]),
             testConfig,
-            editorView.state.doc.firstChild as Node,
+            editorState.doc.firstChild as Node,
             0,
           );
         });
 
         it('when document contains matching node nested inside other node', () => {
-          const { editorView } = editor(doc(panel()(p('{<}text{>}'))));
+          const editorState = createEditorState(doc(panel()(p('{<}text{>}'))));
 
-          const selection = new AllSelection(editorView.state.doc);
+          const selection = new AllSelection(editorState.doc);
           expectToolbarConfig(
             getRelevantConfig(selection, [testConfig]),
             testConfig,
-            editorView.state.doc.firstChild!.firstChild as Node,
+            editorState.doc.firstChild!.firstChild as Node,
             0,
           );
         });

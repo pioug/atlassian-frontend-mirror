@@ -5,7 +5,11 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { FileState, TouchFileDescriptor } from '@atlaskit/media-client';
+import {
+  FileState,
+  RequestError,
+  TouchFileDescriptor,
+} from '@atlaskit/media-client';
 import {
   ANALYTICS_MEDIA_CHANNEL,
   MediaFeatureFlags,
@@ -169,7 +173,12 @@ describe('Browser analytics instrumentation', () => {
   it('should fire an uploaded fail event on end', () => {
     const mediaClient = fakeMediaClient();
     const fileStateObservable = new ReplaySubject<FileState>(1);
-    fileStateObservable.error(new Error('oops'));
+    fileStateObservable.error(
+      new RequestError('serverBadGateway', {
+        method: 'GET',
+        endpoint: '/some-endpoint',
+      }),
+    );
     mediaClient.file.upload = jest.fn().mockReturnValue(fileStateObservable);
     mediaClient.file.touchFiles = jest.fn(
       (descriptors: TouchFileDescriptor[], collection?: string) =>
@@ -217,7 +226,8 @@ describe('Browser analytics instrumentation', () => {
           attributes: {
             status: 'fail',
             failReason: 'upload_fail',
-            error: 'unknown',
+            error: 'serverBadGateway',
+            request: { method: 'GET', endpoint: '/some-endpoint' },
             sourceType: 'local',
             serviceName: 'upload',
             fileAttributes: {

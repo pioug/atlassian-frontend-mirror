@@ -16,11 +16,7 @@ import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { createSelectionClickHandler } from '../../selection/utils';
 import ExtensionNodeView from '../nodeviews/extension';
 import { updateState, clearEditingContext } from '../commands';
-import {
-  getSelectedExtension,
-  getSelectedDomElement,
-  getSelectedNonContentExtension,
-} from '../utils';
+import { getSelectedExtension, getSelectedDomElement } from '../utils';
 import {
   createPluginState,
   getPluginState,
@@ -161,6 +157,7 @@ const createPlugin = (
           const { state, dispatch } = view;
           const {
             element,
+            localId,
             extensionProvider,
             showContextPanel,
           } = getPluginState(state);
@@ -176,20 +173,26 @@ const createPlugin = (
             return;
           }
 
-          const isContentExtension = !!getSelectedNonContentExtension(state);
-
+          const { node } = selectedExtension;
           const newElement = getSelectedDomElement(
+            state.schema,
             domAtPos,
             selectedExtension,
-            isContentExtension,
           );
 
-          if (element !== newElement) {
+          // New node is selection
+          if (
+            node.attrs.localId
+              ? localId !== node.attrs.localId
+              : // This is the current assumption and it's wrong but we are keeping it
+                // as fallback in case we need to turn off `allowLocalIdGeneration`
+                element !== newElement
+          ) {
             if (showContextPanel) {
               clearEditingContext(state, dispatch);
             }
 
-            const { extensionType } = selectedExtension.node.attrs;
+            const { extensionType } = node.attrs;
             const extensionHandler = extensionHandlers[extensionType];
 
             // showEditButton might change async based on results from extension providers
@@ -206,11 +209,10 @@ const createPlugin = (
               // do nothing;
             });
 
-            const layout = selectedExtension
-              ? selectedExtension.node.attrs.layout
-              : 'default';
+            const layout = selectedExtension ? node.attrs.layout : 'default';
 
             updateState({
+              localId: node.attrs.localId,
               showContextPanel: false,
               element: newElement,
               showEditButton,
@@ -218,6 +220,11 @@ const createPlugin = (
               layout,
             })(state, dispatch);
           }
+          // New DOM element doesn't necessarily mean it's a new Node
+          else if (element !== newElement) {
+            updateState({ element: newElement })(state, dispatch);
+          }
+
           return true;
         },
         destroy: () => {

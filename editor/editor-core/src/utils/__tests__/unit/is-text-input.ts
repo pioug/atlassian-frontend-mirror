@@ -1,5 +1,5 @@
 import { TextSelection } from 'prosemirror-state';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
   table,
@@ -7,54 +7,42 @@ import {
   tr,
   tdEmpty,
   tdCursor,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { isTextInput } from '../../is-text-input';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-factory';
 
 describe('#isTextInput', () => {
-  const createEditor = createEditorFactory();
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: { allowTables: true },
-      pluginKey,
-    });
-
   it('should return true for typing transactions', () => {
-    const { editorView, refs } = editor(doc(p('{pos}')));
-    const { tr: transaction } = editorView.state;
-    transaction.insertText('a', refs.pos);
+    const editorState = createEditorState(doc(p('{}')));
+    const { tr: transaction, selection } = editorState;
+    transaction.insertText('a', selection.from);
     expect(isTextInput(transaction)).toBe(true);
   });
 
   it('should return false for transactions that only change selection', () => {
-    const { editorView } = editor(
+    const editorState = createEditorState(
       doc(table()(tr(tdEmpty, tdCursor), tr(tdEmpty, tdEmpty))),
     );
-    const { tr: transaction } = editorView.state;
-    transaction.setSelection(
-      new TextSelection(editorView.state.doc.resolve(4)),
-    );
+    const { tr: transaction } = editorState;
+    transaction.setSelection(new TextSelection(editorState.doc.resolve(4)));
     expect(isTextInput(transaction)).toBe(false);
   });
 
   it('should return false for transactions that insert a node', () => {
-    const { editorView, refs } = editor(doc(p('{pos}')));
-    const { tr: transaction } = editorView.state;
-    transaction.insert(refs.pos, editorView.state.schema.text('hello'));
+    const editorState = createEditorState(doc(p('{}')));
+    const { tr: transaction, selection } = editorState;
+    transaction.insert(selection.from, editorState.schema.text('hello'));
     expect(isTextInput(transaction)).toBe(false);
   });
 
   it('should return false for transactions that delete a node', () => {
-    const { editorView } = editor(doc(p('text')));
-    const { tr: transaction } = editorView.state;
+    const editorState = createEditorState(doc(p('text')));
+    const { tr: transaction } = editorState;
     transaction.delete(1, 5);
     expect(isTextInput(transaction)).toBe(false);
   });
 
   it(`should return false for transactions that don't do anything`, () => {
-    const { editorView } = editor(doc(p('text')));
-    expect(isTextInput(editorView.state.tr)).toBe(false);
+    const editorState = createEditorState(doc(p('text')));
+    expect(isTextInput(editorState.tr)).toBe(false);
   });
 });

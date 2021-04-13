@@ -10,7 +10,7 @@ import {
   maxTextWidthUnitless,
   tagHeight,
   textFontSize,
-  textPaddingLeft,
+  textMarginLeft,
   textPaddingRight,
 } from '../../../constants';
 import { ChromeColors, ChromeLinkColors } from '../../../types';
@@ -100,7 +100,7 @@ export const hasAfterStyles: CSSObject = {
 };
 
 export const hasBeforeStyles: CSSObject = {
-  paddingLeft: `${textPaddingLeft}`,
+  marginLeft: `${textMarginLeft}`,
 };
 
 export const textStyles: CSSObject = {

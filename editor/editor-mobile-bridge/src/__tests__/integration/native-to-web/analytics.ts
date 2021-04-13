@@ -170,8 +170,8 @@ BrowserTestCase(
     await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
       {
-        action: 'formatted',
-        actionSubject: 'text',
+        action: 'inserted',
+        actionSubject: 'list',
         actionSubjectId: 'numberedList',
       },
       'onOrderedListSelected',
@@ -181,8 +181,8 @@ BrowserTestCase(
     await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
       {
-        action: 'formatted',
-        actionSubject: 'text',
+        action: 'inserted',
+        actionSubject: 'list',
         actionSubjectId: 'bulletedList',
       },
       'onBulletListSelected',
@@ -200,9 +200,9 @@ BrowserTestCase(
     await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
       {
-        action: 'formatted',
-        actionSubject: 'text',
-        actionSubjectId: 'indentation',
+        action: 'indented',
+        actionSubject: 'list',
+        actionSubjectId: 'bulletedList',
       },
       'onIndentList',
       INPUT_METHOD.TOOLBAR,
@@ -217,9 +217,9 @@ BrowserTestCase(
     await validateAnalyticsTrackEventAfterNativeBridgeMethod(
       client,
       {
-        action: 'formatted',
-        actionSubject: 'text',
-        actionSubjectId: 'indentation',
+        action: 'outdented',
+        actionSubject: 'list',
+        actionSubjectId: 'bulletedList',
       },
       'onOutdentList',
       INPUT_METHOD.TOOLBAR,

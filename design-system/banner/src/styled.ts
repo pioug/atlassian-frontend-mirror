@@ -77,6 +77,17 @@ export const Icon = styled.span`
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
+
+  /* Windows High Contrast Mode Support */
+  @media screen and (-ms-high-contrast: white-on-black) {
+    filter: grayscale(100%);
+    fill: #000;
+  }
+
+  @media screen and (-ms-high-contrast: black-on-white) {
+    filter: grayscale(100%);
+    fill: #fff;
+  }
 `;
 
 const textOverflow = ({ appearance }: AppearanceProp) =>

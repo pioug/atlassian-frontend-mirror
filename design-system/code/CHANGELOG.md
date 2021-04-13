@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 13.2.2
+
+### Patch Changes
+
+- [`c9da1eecd2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9da1eecd2a) - Internal changes moving class components to functional components, added updated types for react-syntax-highlighter
+
 ## 13.2.1
 
 ### Patch Changes

@@ -72,7 +72,12 @@ export class CodeViewRenderer extends React.Component<Props, State> {
         </CodeViewWrapper>
       ),
       failed: error => (
-        <ErrorMessage fileId={item.id} fileState={item} error={error} />
+        <ErrorMessage
+          fileId={item.id}
+          fileState={item}
+          error={error}
+          supressAnalytics={true} // item-viewer.tsx will send
+        />
       ),
     });
   }

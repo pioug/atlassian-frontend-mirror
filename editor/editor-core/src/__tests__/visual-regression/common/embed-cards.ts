@@ -6,14 +6,16 @@ import {
 import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import adf from './__fixtures__/embed-card-layouts-adf.json';
 import containerADF from './__fixtures__/embed-containers.adf.json';
+import embedSeperatorADF from './__fixtures__/embed-card-inside-expand.adf.json';
 import {
   embedCardSelector,
   embedCombinationsWithTitle,
   generateEmbedCombinationAdf,
   waitForSuccessfullyResolvedEmbedCard,
+  waitForEmbedCardSelection,
 } from '@atlaskit/media-integration-test-helpers';
 
-describe.skip('Embed Cards:', () => {
+describe('Embed Cards:', () => {
   it('displays embed properly with different layouts', async () => {
     const { page } = global;
 
@@ -113,4 +115,29 @@ describe.skip('Embed Cards:', () => {
       },
     ),
   );
+});
+
+it('Seperators are in correct locations in the toolbar', async () => {
+  const page = global.page;
+
+  await initFullPageEditorWithAdf(
+    page,
+    embedSeperatorADF,
+    Device.LaptopHiDPI,
+    {
+      width: 900,
+      height: 700,
+    },
+    {
+      UNSAFE_cards: {
+        resolveBeforeMacros: ['jira'],
+        allowBlockCards: true,
+        allowEmbeds: true,
+      },
+    },
+  );
+
+  await waitForSuccessfullyResolvedEmbedCard(page);
+  await waitForEmbedCardSelection(page);
+  await snapshot(page);
 });

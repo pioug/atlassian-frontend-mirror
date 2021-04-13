@@ -6,7 +6,7 @@ import {
   p,
   panel,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
 import { EditorView } from 'prosemirror-view';

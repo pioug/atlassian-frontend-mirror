@@ -19,7 +19,7 @@ import {
   mediaSingle,
   media,
   mediaGroup,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 const extensionAttrs = bodiedExtensionData[0].attrs;
 

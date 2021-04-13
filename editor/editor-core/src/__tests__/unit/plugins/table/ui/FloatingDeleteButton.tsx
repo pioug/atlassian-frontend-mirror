@@ -8,7 +8,7 @@ import {
   thEmpty,
   tr,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
 import { ReactWrapper } from 'enzyme';
 import { selectTable } from '@atlaskit/editor-tables/utils';

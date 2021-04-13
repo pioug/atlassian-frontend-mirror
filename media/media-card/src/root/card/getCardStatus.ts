@@ -1,4 +1,10 @@
-import { FileStatus } from '@atlaskit/media-client';
+import {
+  FileStatus,
+  FileState,
+  isPreviewableType,
+  isPreviewableFileState,
+} from '@atlaskit/media-client';
+import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { CardStatus } from '../../';
 
 export type GetCardStatusParams = {
@@ -6,6 +12,20 @@ export type GetCardStatusParams = {
   isPreviewableFileState: boolean;
   hasFilesize: boolean;
 };
+
+export const extractCardStatusParams = (
+  fileState: FileState,
+  featureFlags?: MediaFeatureFlags,
+) => ({
+  // TODO: align these checks with helpers from Media Client
+  // https://product-fabric.atlassian.net/browse/BMPT-1300
+  isPreviewableType:
+    'mediaType' in fileState &&
+    !!fileState.mediaType &&
+    isPreviewableType(fileState.mediaType, featureFlags),
+  hasFilesize: 'size' in fileState && !!fileState.size,
+  isPreviewableFileState: isPreviewableFileState(fileState),
+});
 
 export const getCardStatus = (
   fileStatus: FileStatus,

@@ -1,5 +1,49 @@
 # @atlaskit/editor-core
 
+## 141.0.0
+
+### Minor Changes
+
+- [`769e10a40a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/769e10a40a7) - ED-12108 Support duplicate named fields in config panel fieldset
+
+  For a field to be allowed to have duplicates you must set `allowDuplicates: true` on the field definition
+
+- [`330c1fce7f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330c1fce7f9) - ED-12264 Add unsupported content capability to panel and blockquote
+- [`f27507bc838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f27507bc838) - ED-12237: add editor referentiality plugin
+- [`fff89761e3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fff89761e3e) - [ux] ED-10732 implementation of Distribute Columns in table context menu
+
+### Patch Changes
+
+- [`150100fddec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150100fddec) - ED-12006 Move event.preventDefault to only occur within ClickAreaMobile
+- [`572ada5a337`](https://bitbucket.org/atlassian/atlassian-frontend/commits/572ada5a337) - [ED-12003] Fix cursor position at the end of inline nodes
+
+  This patch will set all react inline nodes as display: inline-block. That will fix the current position issues we are having on Chrome when the user tries to put the mouse at the end of the inline node, like Emoji.
+
+  However, this behavior can be disabled by feature flag if it's needed:
+
+  ```
+  <Editor
+    featureFlags={{
+      displayInlineBlockForInlineNodes: false,
+    }}
+   />
+  ```
+
+- [`752e64de8d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/752e64de8d3) - ED-12105 Add analytics to onEditorReady callback duration
+- [`be61d881112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be61d881112) - Use localId for change detection
+- [`649200b2318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649200b2318) - Removed extra seperator in embeds inside expands
+- [`f1a18dadb8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1a18dadb8f) - [ux][ed-11974] Change the maxCount on the AvatarGroup component from default 5 to 3 to create more room in the toolbar. This is for the collab avatars.
+- [`e82d44af176`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e82d44af176) - [ux][ed-11904] Remove secondary toolbar on comment if empty
+- [`9c36253ed5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c36253ed5e) - ED-10216 Add sanitizeNode into @atlaskit/editor-json-transformer
+- [`0293c05c966`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0293c05c966) - ed-12403: add compact stringification option to document-logger to decrease dispatchInvalidTransaction event payload size
+- [`81a55b3fe71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a55b3fe71) - Reverting handling of dispatch being passed across two functions
+- [`5089bd2544d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5089bd2544d) - ED-11919: generate localId for tables
+- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- [`fcec9613a7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcec9613a7e) - Fix extension selection issue
+- [`e2cc0eb2650`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2cc0eb2650) - ED-12480: Fixes bug where quick insert would combine feature sets from two editors
+- [`3d4caa9e46f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d4caa9e46f) - Turn off Atlaskit Select create animation in Config
+- Updated dependencies
+
 ## 140.0.0
 
 ### Major Changes

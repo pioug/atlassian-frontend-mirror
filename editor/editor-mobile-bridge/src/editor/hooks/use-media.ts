@@ -12,8 +12,6 @@ export function useMedia(
       provider: mediaProvider,
       allowMediaSingle: true,
       allowAltTextOnImages: true,
-      allowResizing: true,
-      allowResizingInTables: true,
       allowAdvancedToolBarOptions: true,
     };
   }, [mediaProvider]);

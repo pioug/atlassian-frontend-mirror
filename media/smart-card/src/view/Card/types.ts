@@ -6,6 +6,12 @@ export type CardAppearance = 'inline' | 'block' | 'embed';
 export type CardInnerAppearance = CardAppearance | 'preview';
 export type CardPlatform = JsonLd.Primitives.Platforms;
 
+export type OnResolveCallback = (data: {
+  url?: string;
+  title?: string;
+  aspectRatio?: number;
+}) => void;
+
 export interface CardProps extends WithAnalyticsEventsProps {
   appearance: CardAppearance;
   platform?: CardPlatform;
@@ -18,7 +24,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
   url?: string;
   testId?: string;
   showActions?: boolean;
-  onResolve?: (data: { url?: string; title?: string }) => void;
+  onResolve?: OnResolveCallback;
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
   inlinePreloaderStyle?: InlinePreloaderStyle;

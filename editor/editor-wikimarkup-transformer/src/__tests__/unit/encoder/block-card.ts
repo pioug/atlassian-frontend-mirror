@@ -1,7 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import { doc, blockCard } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, blockCard } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - BlockCard', () => {
   const transformer = new WikiMarkupTransformer();

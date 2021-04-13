@@ -395,6 +395,12 @@ export class Provider
           code: ErrorCodeMapper.noPermissionError.code,
           message: ErrorCodeMapper.noPermissionError.message,
         };
+      case 'DOCUMENT_NOT_FOUND':
+        return {
+          status: 404,
+          code: ErrorCodeMapper.documentNotFound.code,
+          message: ErrorCodeMapper.documentNotFound.message,
+        };
       case 'FAILED_ON_S3':
       case 'DYNAMO_ERROR':
         return {

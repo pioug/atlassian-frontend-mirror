@@ -11,11 +11,7 @@ import {
   EVENT_TYPE,
 } from '../../../analytics';
 import { SEVERITY } from '@atlaskit/editor-common';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import basePlugin from '../../';
 import * as frozenEditor from '../../pm-plugins/frozen-editor';
 import * as utils from '../../utils/frozen-editor';

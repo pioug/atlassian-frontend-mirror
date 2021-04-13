@@ -3,7 +3,7 @@ import {
   decisionList,
   taskItem,
   taskList,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 export type TestCase = [
   string,

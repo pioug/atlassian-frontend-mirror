@@ -1,13 +1,10 @@
 import React from 'react';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { Node as PmNode } from 'prosemirror-model';
-import {
-  ProviderFactory,
-  ExtensionHandlers,
-  ZERO_WIDTH_SPACE,
-} from '@atlaskit/editor-common';
+import { ProviderFactory, ExtensionHandlers } from '@atlaskit/editor-common';
 import { ReactNodeView } from '../../../nodeviews';
 import Extension from '../ui/Extension';
+import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { ForwardRef, getPosHandler } from '../../../nodeviews/';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -18,7 +15,7 @@ export interface Props {
   view: EditorView;
 }
 
-class ExtensionNode extends ReactNodeView {
+export class ExtensionNode extends ReactNodeView {
   ignoreMutation(
     mutation: MutationRecord | { type: 'selection'; target: Element },
   ) {
@@ -52,7 +49,7 @@ class ExtensionNode extends ReactNodeView {
     forwardRef: ForwardRef,
   ) {
     return (
-      <span>
+      <ExtensionNodeWrapper nodeType={this.node.type.name}>
         <Extension
           editorView={this.view}
           node={this.node}
@@ -61,8 +58,7 @@ class ExtensionNode extends ReactNodeView {
           extensionHandlers={props.extensionHandlers}
           allowReferentiality={props.allowReferentiality}
         />
-        {this.node.type.name === 'inlineExtension' && ZERO_WIDTH_SPACE}
-      </span>
+      </ExtensionNodeWrapper>
     );
   }
 }

@@ -36,6 +36,7 @@ import { withSystemTheme } from '../WithSystemTheme';
 import {
   getEnableLightDarkTheming,
   getAllowCaptions,
+  getMediaImageResize,
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
@@ -95,6 +96,8 @@ export function MobileEditor(props: MobileEditorProps) {
   // Hooks to create the options once and prevent rerender
   const mediaOptions = {
     ...useMedia(props.mediaProvider),
+    allowResizing: getMediaImageResize(),
+    allowResizingInTables: getMediaImageResize(),
     featureFlags: { captions: getAllowCaptions() },
   };
   const cardsOptions = useSmartCards(props.cardProvider);

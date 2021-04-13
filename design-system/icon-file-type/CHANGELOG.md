@@ -1,5 +1,11 @@
 # @atlaskit/icon-file-type
 
+## 6.3.1
+
+### Patch Changes
+
+- [`877e9e0b9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877e9e0b9f6) - Icon package dependency now uses carat range.
+
 ## 6.3.0
 
 ### Minor Changes

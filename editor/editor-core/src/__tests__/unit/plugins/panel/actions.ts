@@ -9,7 +9,7 @@ import {
   p,
   emoji,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PanelType } from '@atlaskit/adf-schema';
 import {

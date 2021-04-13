@@ -15,25 +15,15 @@ import {
 } from '@atlaskit/adf-schema';
 
 import { markOverrideRuleFor } from './markOverrideRules';
+import { sanitizeNode } from './sanitize/sanitize-node';
+import { JSONDocNode, JSONNode } from './types';
+
+export type { JSONDocNode, JSONNode } from './types';
 
 interface Transformer<T> {
   encode(node: PMNode): T;
   parse(content: T): PMNode;
 }
-
-export type JSONNode = {
-  type: string;
-  attrs?: object;
-  content?: Array<JSONNode | undefined>;
-  marks?: any[];
-  text?: string;
-};
-
-export type JSONDocNode = {
-  version: number;
-  type: 'doc';
-  content: JSONNode[];
-};
 
 const isType = (type: string) => (node: PMNode | PMMark) =>
   node.type.name === type;
@@ -203,7 +193,7 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
     const content: JSONNode[] = [];
 
     node.content.forEach(child => {
-      content.push(toJSON(child));
+      content.push(sanitizeNode(toJSON(child)));
     });
 
     if (!content || isEqual(content, emptyDoc.content)) {
@@ -235,6 +225,6 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
    * This method is used to encode a single node
    */
   encodeNode(node: PMNode): JSONNode {
-    return toJSON(node);
+    return sanitizeNode(toJSON(node));
   }
 }

@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.0.9
+
+### Patch Changes
+
+- [`4aa81830f92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4aa81830f92) - Fix space between Before element and text
+
 ## 11.0.8
 
 ### Patch Changes

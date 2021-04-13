@@ -5,14 +5,14 @@ import { InjectedIntl, InjectedIntlProps, IntlProvider } from 'react-intl';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   DocBuilder,
   p,
   unsupportedBlock,
   unsupportedInline,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 
 import * as Hooks from '../../../ui/unsupported-content-helper';

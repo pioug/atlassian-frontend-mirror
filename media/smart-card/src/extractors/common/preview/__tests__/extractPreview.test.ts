@@ -1,4 +1,6 @@
 import { extractPreview } from '../extractPreview';
+import { JsonLd } from 'json-ld-types';
+import { expectToEqual } from '@atlaskit/media-test-helpers';
 import {
   TEST_BASE_DATA,
   TEST_LINK,
@@ -9,15 +11,21 @@ import {
 
 describe('extractors.preview.preview', () => {
   it('returns raw string as src - link', () => {
-    const data = { ...TEST_BASE_DATA };
-    data.preview = TEST_LINK;
-    expect(extractPreview(data)).toEqual({ src: TEST_URL });
+    const data: JsonLd.Data.BaseData = { ...TEST_BASE_DATA };
+    data.preview = {
+      ...(TEST_LINK as JsonLd.Primitives.LinkModel),
+      'atlassian:aspectRatio': 0.72,
+    };
+    expectToEqual(extractPreview(data), { src: TEST_URL, aspectRatio: 0.72 });
   });
 
   it('returns raw url as src - object', () => {
     const data = { ...TEST_BASE_DATA };
-    data.preview = TEST_OBJECT;
-    expect(extractPreview(data)).toEqual({ src: TEST_URL });
+    data.preview = {
+      ...TEST_OBJECT,
+      'atlassian:aspectRatio': 0.72,
+    };
+    expectToEqual(extractPreview(data), { src: TEST_URL, aspectRatio: 0.72 });
   });
 
   it('returns raw HTML as content - object', () => {

@@ -7,205 +7,201 @@ import DatePicker from '../../../components/DatePicker';
 import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../../components/DateTimePicker';
 import TimePicker from '../../../components/TimePicker';
 
-test('DateTimePicker do not require all types to be passed in for date and time picker props', () => {
-  const { container } = render(
-    <DateTimePicker datePickerProps={{}} timePickerProps={{}} />,
-  );
+describe('DateTimePicker', () => {
+  it('should use custom parseValue when accessing state', () => {
+    const onChange = jest.fn();
+    const customParseValue = jest.fn().mockImplementation(() => ({
+      dateValue: '2018/05/02',
+      timeValue: '08:30',
+      zoneValue: '+0800',
+    }));
 
-  expect(container.firstChild).toBeInTheDocument();
-});
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker parseValue={customParseValue} onChange={onChange} />,
+    );
 
-test('custom parseValue is used when accessing state', () => {
-  const onChange = jest.fn();
-  const customParseValue = jest.fn().mockImplementation(() => ({
-    dateValue: '2018/05/02',
-    timeValue: '08:30',
-    zoneValue: '+0800',
-  }));
+    dateTimePickerWrapper.find(DatePicker).simulate('change', '2018/05/02');
 
-  const dateTimePickerWrapper = shallow(
-    <DateTimePicker parseValue={customParseValue} onChange={onChange} />,
-  );
+    expect(onChange).toHaveBeenCalledWith('2018/05/02T08:30+0800');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('change', '2018/05/02');
+  it('should not parse the date time value into the specified timezone', () => {
+    const dateTimePickerWrapper = shallow<DateTimePicker>(
+      <DateTimePicker
+        id="datetimepicker-1"
+        value="2018-05-02T08:00:00.000+0800"
+      />,
+    );
 
-  expect(onChange).toHaveBeenCalledWith('2018/05/02T08:30+0800');
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    dateTimePickerWrapper.find(DatePicker).simulate('change', '2018-05-02');
 
-test('default parseValue, does not parse the date time value into the specified timezone', () => {
-  const dateTimePickerWrapper = shallow<DateTimePicker>(
-    <DateTimePicker
-      id="datetimepicker-1"
-      value="2018-05-02T08:00:00.000+0800"
-    />,
-  );
+    expect(dateTimePickerWrapper.state().zoneValue).not.toEqual('+0800');
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('change', '2018-05-02');
+  it('should only be fired onChange when a valid date is supplied', () => {
+    const onChange = jest.fn();
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker onChange={onChange} />,
+    );
 
-  expect(dateTimePickerWrapper.state().zoneValue).not.toEqual('+0800');
-});
+    dateTimePickerWrapper.find(DatePicker).simulate('change', '2018/05/02');
 
-test('onChange will only be fired when a valid date is supplied', () => {
-  const onChange = jest.fn();
-  const dateTimePickerWrapper = shallow(<DateTimePicker onChange={onChange} />);
+    expect(onChange).not.toHaveBeenCalled();
 
-  dateTimePickerWrapper.find(DatePicker).simulate('change', '2018/05/02');
+    dateTimePickerWrapper.find(TimePicker).simulate('change', '10:45');
 
-  expect(onChange).not.toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith('2018/05/02T10:45');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-  dateTimePickerWrapper.find(TimePicker).simulate('change', '10:45');
+  it('should call onChange with the date, time and zone offset in the correct format', () => {
+    const dateValue = '2018-05-02';
+    const timeValue = '10:45';
+    const zoneValue = '+0800';
+    const customParseValue = jest
+      .fn()
+      .mockImplementation((value, date, time, zone) => {
+        return {
+          dateValue: date,
+          timeValue: time,
+          zoneValue: date && time ? zoneValue : '',
+        };
+      });
 
-  expect(onChange).toHaveBeenCalledWith('2018/05/02T10:45');
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    const onChange = jest.fn();
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker onChange={onChange} parseValue={customParseValue} />,
+    );
+    dateTimePickerWrapper.find(DatePicker).simulate('change', dateValue);
+    dateTimePickerWrapper.find(TimePicker).simulate('change', timeValue);
+    expect(onChange).toHaveBeenCalledWith(
+      `${dateValue}T${timeValue}${zoneValue}`,
+    );
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-test('onChange will only be fired with the date, time and zone offset ', () => {
-  const dateValue = '2018-05-02';
-  const timeValue = '10:45';
-  const zoneValue = '+0800';
-  const customParseValue = jest
-    .fn()
-    .mockImplementation((value, date, time, zone) => {
-      return {
-        dateValue: date,
-        timeValue: time,
-        zoneValue: date && time ? zoneValue : '',
-      };
-    });
+  it('fires onChange with empty string when the date is cleared, and there is a datetime value', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-  const onChange = jest.fn();
-  const dateTimePickerWrapper = shallow(
-    <DateTimePicker onChange={onChange} parseValue={customParseValue} />,
-  );
-  dateTimePickerWrapper.find(DatePicker).simulate('change', dateValue);
-  dateTimePickerWrapper.find(TimePicker).simulate('change', timeValue);
-  expect(onChange).toHaveBeenCalledWith(
-    `${dateValue}T${timeValue}${zoneValue}`,
-  );
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker value={dateTimeValue} onChange={onChange} />,
+    );
 
-test('fires onChange with empty string when the date is cleared, and there is a datetime value,', () => {
-  const onChange = jest.fn();
-  const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    dateTimePickerWrapper.find(DatePicker).simulate('change', '');
 
-  const dateTimePickerWrapper = shallow(
-    <DateTimePicker value={dateTimeValue} onChange={onChange} />,
-  );
+    expect(onChange).toHaveBeenCalledWith('');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('change', '');
+  it('fires onChange with empty string when the time is cleared, and there is a datetime value', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-  expect(onChange).toHaveBeenCalledWith('');
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker value={dateTimeValue} onChange={onChange} />,
+    );
 
-test('fires onChange with empty string when the time is cleared, and there is a datetime value,', () => {
-  const onChange = jest.fn();
-  const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    dateTimePickerWrapper.find(TimePicker).simulate('change', '');
 
-  const dateTimePickerWrapper = shallow(
-    <DateTimePicker value={dateTimeValue} onChange={onChange} />,
-  );
+    expect(onChange).toHaveBeenCalledWith('');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-  dateTimePickerWrapper.find(TimePicker).simulate('change', '');
+  it('fires onChange with empty string when the date is cleared, and there is a default datetime value', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-  expect(onChange).toHaveBeenCalledWith('');
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    const dateTimePickerWrapper = shallow<DateTimePicker>(
+      <DateTimePicker defaultValue={dateTimeValue} onChange={onChange} />,
+    );
 
-test('fires onChange with empty string when the date is cleared, and there is a default datetime value,', () => {
-  const onChange = jest.fn();
-  const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    dateTimePickerWrapper.find(DatePicker).simulate('change', '');
 
-  const dateTimePickerWrapper = shallow<DateTimePicker>(
-    <DateTimePicker defaultValue={dateTimeValue} onChange={onChange} />,
-  );
+    expect(onChange).toHaveBeenCalledWith('');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('change', '');
+  it('should not fire onChange with empty string when the time is cleared, and there is a default datetime value', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-  expect(onChange).toHaveBeenCalledWith('');
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker defaultValue={dateTimeValue} onChange={onChange} />,
+    );
 
-test('fires onChange with empty string when the time is cleared, and there is a default datetime value,', () => {
-  const onChange = jest.fn();
-  const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    dateTimePickerWrapper.find(TimePicker).simulate('change', '');
 
-  const dateTimePickerWrapper = shallow(
-    <DateTimePicker defaultValue={dateTimeValue} onChange={onChange} />,
-  );
+    expect(onChange).toHaveBeenCalledWith('');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-  dateTimePickerWrapper.find(TimePicker).simulate('change', '');
+  it('should not fire onChange when the date or time is cleared, but there is no datetime value', () => {
+    const onChange = jest.fn();
 
-  expect(onChange).toHaveBeenCalledWith('');
-  expect(onChange).toHaveBeenCalledTimes(1);
-});
+    const dateTimePickerWrapper = shallow(
+      <DateTimePicker onChange={onChange} />,
+    );
 
-test('does not fire onChange when the date or time is cleared, but there is no datetime value,', () => {
-  const onChange = jest.fn();
+    dateTimePickerWrapper.find(DatePicker).simulate('change', '');
+    dateTimePickerWrapper.find(TimePicker).simulate('change', '');
 
-  const dateTimePickerWrapper = shallow(<DateTimePicker onChange={onChange} />);
+    expect(onChange).not.toHaveBeenCalled();
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('change', '');
-  dateTimePickerWrapper.find(TimePicker).simulate('change', '');
+  it('should fire onFocus prop when datepicker is focused', () => {
+    const onFocus = jest.fn();
+    const dateTimePickerWrapper = shallow(<DateTimePicker onFocus={onFocus} />);
 
-  expect(onChange).not.toHaveBeenCalled();
-});
+    dateTimePickerWrapper.find(DatePicker).simulate('focus');
 
-test('fires onFocus prop when datepicker is focused', () => {
-  const onFocus = jest.fn();
-  const dateTimePickerWrapper = shallow(<DateTimePicker onFocus={onFocus} />);
+    expect(onFocus).toHaveBeenCalled();
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('focus');
+  it('should fire onBlur prop when datepicker is blurred', () => {
+    const onBlur = jest.fn();
+    const dateTimePickerWrapper = shallow(<DateTimePicker onBlur={onBlur} />);
 
-  expect(onFocus).toHaveBeenCalled();
-});
+    dateTimePickerWrapper.find(DatePicker).simulate('blur');
 
-test('fires onBlur prop when datepicker is blurred', () => {
-  const onBlur = jest.fn();
-  const dateTimePickerWrapper = shallow(<DateTimePicker onBlur={onBlur} />);
+    expect(onBlur).toHaveBeenCalled();
+  });
 
-  dateTimePickerWrapper.find(DatePicker).simulate('blur');
+  it('should fire onFocus prop when timepicker is focused', () => {
+    const onFocus = jest.fn();
+    const dateTimePickerWrapper = shallow(<DateTimePicker onFocus={onFocus} />);
 
-  expect(onBlur).toHaveBeenCalled();
-});
+    dateTimePickerWrapper.find(TimePicker).simulate('focus');
 
-test('fires onFocus prop when timepicker is focused', () => {
-  const onFocus = jest.fn();
-  const dateTimePickerWrapper = shallow(<DateTimePicker onFocus={onFocus} />);
+    expect(onFocus).toHaveBeenCalled();
+  });
 
-  dateTimePickerWrapper.find(TimePicker).simulate('focus');
+  it('should fire onBlur prop when timepicker is blurred', () => {
+    const onBlur = jest.fn();
+    const dateTimePickerWrapper = shallow(<DateTimePicker onBlur={onBlur} />);
 
-  expect(onFocus).toHaveBeenCalled();
-});
+    dateTimePickerWrapper.find(TimePicker).simulate('blur');
 
-test('fires onBlur prop when timepicker is blurred', () => {
-  const onBlur = jest.fn();
-  const dateTimePickerWrapper = shallow(<DateTimePicker onBlur={onBlur} />);
+    expect(onBlur).toHaveBeenCalled();
+  });
 
-  dateTimePickerWrapper.find(TimePicker).simulate('blur');
+  it('should fire onClear event when cleared', () => {
+    const onChange = jest.fn();
+    const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+    const testId = 'clear--test';
+    const { getByTestId } = render(
+      <DateTimePicker
+        value={dateTimeValue}
+        onChange={onChange}
+        testId={testId}
+      />,
+    );
 
-  expect(onBlur).toHaveBeenCalled();
-});
+    const clearButton = getByTestId(`${testId}--icon--container`);
+    clearButton.click();
 
-test('fires onClear event when cleared', () => {
-  const onChange = jest.fn();
-  const dateTimeValue = '2018-05-02T08:00:00.000+0800';
-  const testId = 'clear--test';
-  const dateTimePickerWrapper = render(
-    <DateTimePicker
-      value={dateTimeValue}
-      onChange={onChange}
-      testId={testId}
-    />,
-  );
-
-  const clearButton = dateTimePickerWrapper.getByTestId(
-    `${testId}--icon--container`,
-  );
-  clearButton.click();
-
-  expect(onChange).toHaveBeenCalledWith('');
-  expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith('');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 });

@@ -1,11 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ClickAreaInline } from '../../../../ui/Addon';
 
 describe('ClickAreaInline', () => {

@@ -11,7 +11,7 @@ import {
   decisionList,
   taskItem,
   taskList,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { editor, sendArrowRightKey } from '../../_utils';
 

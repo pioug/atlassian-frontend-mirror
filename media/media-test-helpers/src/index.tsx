@@ -124,6 +124,8 @@ export {
 export type {
   ExpectConstructorToHaveBeenCalledWith,
   ExpectFunctionToHaveBeenCalledWith,
+  JestSpy,
+  JestFunction,
 } from './jestHelpers';
 export { I18NWrapper } from './I18nWrapper';
 export type { I18NWrapperProps, I18NWrapperState } from './I18nWrapper';

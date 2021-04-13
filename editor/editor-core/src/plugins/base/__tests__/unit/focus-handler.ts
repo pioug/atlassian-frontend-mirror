@@ -1,8 +1,4 @@
-import {
-  doc,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { focusStateKey } from '../../pm-plugins/focus-handler';

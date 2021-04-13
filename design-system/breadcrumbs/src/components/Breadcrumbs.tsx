@@ -16,6 +16,7 @@ import { BreadcrumbsProps } from '../types';
 import EllipsisItem from './EllipsisItem';
 
 const defaultMaxItems = 8;
+const defaultBreadcrumbsLabel = 'Breadcrumbs';
 
 const { toArray } = React.Children;
 
@@ -43,6 +44,7 @@ const InnerBreadcrumbs = (props: ThemedBreadcrumbsProps) => {
     onExpand: providedExpanse = noop,
     analyticsContext,
     mode = 'light',
+    label = defaultBreadcrumbsLabel,
   } = props;
 
   const [expanded, setExpanse] = useState(defaultExpanded);
@@ -94,9 +96,11 @@ const InnerBreadcrumbs = (props: ThemedBreadcrumbsProps) => {
     shouldExpand || (maxItems && childrenArray.length <= maxItems);
 
   return (
-    <ol data-testid={testId} css={breadcrumbStyles}>
-      {shouldDisplayItems ? children : renderItemsWithEllipsis()}
-    </ol>
+    <nav aria-label={label}>
+      <ol data-testid={testId} css={breadcrumbStyles}>
+        {shouldDisplayItems ? children : renderItemsWithEllipsis()}
+      </ol>
+    </nav>
   );
 };
 

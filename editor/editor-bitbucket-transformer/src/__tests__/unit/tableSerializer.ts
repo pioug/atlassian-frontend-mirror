@@ -11,7 +11,7 @@ import {
   mention,
   ol,
   li,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 const markdownSerializer = new MarkdownSerializer(nodes, marks);
 

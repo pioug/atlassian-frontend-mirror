@@ -50,12 +50,15 @@ import {
   underline,
   unsupportedMark,
   unsupportedNodeAttribute,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 
-import { JSONDocNode, JSONTransformer } from '../../index';
+import { JSONDocNode, JSONNode, JSONTransformer } from '../../index';
 import * as markOverride from '../../markOverrideRules';
+import { sanitizeNode } from '../../sanitize/sanitize-node';
+
+jest.mock('../../sanitize/sanitize-node');
 
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);
@@ -68,6 +71,11 @@ describe('JSONTransformer:', () => {
   beforeAll(() => {
     // @ts-ignore
     global['fetch'] = () => Promise.resolve();
+    (sanitizeNode as jest.Mock).mockImplementation((node: JSONNode) => node);
+  });
+
+  beforeEach(() => {
+    (sanitizeNode as jest.Mock).mockClear();
   });
 
   describe('encode', () => {
@@ -145,6 +153,14 @@ describe('JSONTransformer:', () => {
           },
         ],
       });
+    });
+
+    it('should sanitize node on encode', () => {
+      const { editorView } = editor(doc(h1()));
+
+      toJSON(editorView.state.doc);
+
+      expect(sanitizeNode).toHaveBeenCalled();
     });
 
     it('should serialize common nodes/marks as ProseMirror does', () => {

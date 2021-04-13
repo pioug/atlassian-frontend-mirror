@@ -6,7 +6,7 @@ import {
   doc,
   hardBreak,
   p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup => ADF - BlockQuote', () => {
   test('should convert blockquote node', () => {

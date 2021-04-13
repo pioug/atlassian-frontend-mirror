@@ -8,7 +8,7 @@ import {
   p,
   ul,
   hardBreak,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - List', () => {
   const transformer = new WikiMarkupTransformer();

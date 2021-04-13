@@ -406,6 +406,8 @@ const cqlFields: NestedFieldDefinition[] = [
     type: 'string',
     name: 'text',
     label: 'Including text',
+    isRequired: true,
+    allowDuplicates: true,
   },
   {
     type: 'custom',

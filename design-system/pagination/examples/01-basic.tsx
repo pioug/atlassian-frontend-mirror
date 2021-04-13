@@ -20,7 +20,11 @@ export default class extends Component<{}, StateType> {
   render() {
     return (
       <Fragment>
-        <Pagination pages={Pages} onChange={this.handleChange} />
+        <Pagination
+          testId="pagination"
+          pages={Pages}
+          onChange={this.handleChange}
+        />
         <p>selected page from onChange hook: {this.state.onChangeEvent}</p>
       </Fragment>
     );

@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 57.3.2
+
+### Patch Changes
+
+- [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
+- Updated dependencies
+
 ## 57.3.1
 
 ### Patch Changes

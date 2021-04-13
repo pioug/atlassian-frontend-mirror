@@ -9,7 +9,7 @@ import {
   li,
   doc,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   undo as pmHistoryUndo,
   redo as pmHistoryRedo,

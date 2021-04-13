@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.4.1
+
+### Patch Changes
+
+- [`d5b0036f8c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5b0036f8c5) - Updated LozengeProps type to accept React.ReactNode instead of string. This makes it easier to pass in translations to this component from the consumer.
+
 ## 19.4.0
 
 ### Minor Changes

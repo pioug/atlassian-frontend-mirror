@@ -144,6 +144,7 @@ export type {
   RequestHeaders,
   RetryOptions,
   ClientOptions,
+  RequestMetadata,
   RequestOptions,
   CreateUrlOptions,
 } from './utils/request/types';

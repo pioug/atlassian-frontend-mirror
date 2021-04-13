@@ -15,6 +15,7 @@ import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 
 import { CardPreview } from './root/card/getCardPreview';
 import { CardStatus } from './types';
+import { MediaCardError } from './errors';
 
 export type { NumericalCardDimensions } from '@atlaskit/media-common';
 
@@ -85,7 +86,7 @@ export interface CardState {
   metadata?: FileDetails;
   progress?: number;
   cardPreview?: CardPreview;
-  error?: Error;
+  error?: MediaCardError;
 }
 
 export { CardLoading } from './utils/lightCards/cardLoading';

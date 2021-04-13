@@ -86,6 +86,7 @@ const PaginationWithSelectPage = ({
 }) => (
   <div style={{ marginTop: `${gridSize() * 3} px` }}>
     <Pagination
+      testId="pagination"
       innerStyles={{ marginTop: '24px' }}
       getPageLabel={(page: any) =>
         typeof page === 'object' ? page.label : page

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,10 +13,22 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/entry-points/types.ts",
+    "./curves": "./src/entry-points/curves.ts",
+    "./durations": "./src/entry-points/durations.ts",
+    "./accessibility": "./src/entry-points/accessibility.ts",
+    "./exiting-persistence": "./src/entry-points/exiting-persistence.ts",
+    "./fade-in": "./src/entry-points/fade-in.ts",
+    "./slide-in": "./src/entry-points/slide-in.ts",
+    "./zoom-in": "./src/entry-points/zoom-in.ts",
+    "./shrink-out": "./src/entry-points/shrink-out.ts",
+    "./staggered-entrance": "./src/entry-points/staggered-entrance.ts"
+  },
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {

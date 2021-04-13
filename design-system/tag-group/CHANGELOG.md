@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.0.6
+
+### Patch Changes
+
+- [`30a7d113d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30a7d113d24) - Workaround to force a build of tag-group on Confluence
+
 ## 10.0.5
 
 ### Patch Changes

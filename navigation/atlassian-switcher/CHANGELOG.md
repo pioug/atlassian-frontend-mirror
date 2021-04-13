@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 10.1.0
+
+### Minor Changes
+
+- [`602f3766dcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/602f3766dcd) - [ux] Update icon for JWM
+
 ## 10.0.0
 
 ### Major Changes

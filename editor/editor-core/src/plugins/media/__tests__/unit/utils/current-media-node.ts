@@ -3,7 +3,7 @@ import {
   p,
   mediaSingle,
   media,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import { EditorState } from 'prosemirror-state';
 import { currentMediaNode } from '../../../utils/current-media-node';

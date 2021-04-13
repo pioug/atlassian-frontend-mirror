@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 16.0.0
+
+### Major Changes
+
+- [`b94126fdf04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b94126fdf04) - EmbedCardResolvedViewProps.preview has been changed from being a string to shape of `{src: string, aspectRatio?: number}`, where `src` represent what has been previously a preview string value.
+
 ## 15.3.2
 
 ### Patch Changes

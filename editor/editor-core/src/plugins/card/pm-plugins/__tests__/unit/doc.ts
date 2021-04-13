@@ -35,7 +35,7 @@ import {
   tr,
   ul,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';

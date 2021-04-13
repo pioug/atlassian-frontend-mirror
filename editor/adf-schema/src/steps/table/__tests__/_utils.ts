@@ -6,7 +6,7 @@ import {
   p,
   Refs,
   td,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
 
 import { defaultSchema } from '../../../schema/default-schema';

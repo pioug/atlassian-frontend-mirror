@@ -123,7 +123,7 @@ export class ImageViewer extends BaseViewer<
     } catch (err) {
       // TODO : properly handle aborted requests (MS-2843)
       if (!isAbortedRequestError(err)) {
-        const imgError = new MediaViewerError('imageviewer-fetch-url');
+        const imgError = new MediaViewerError('imageviewer-fetch-url', err);
         this.setState({
           content: Outcome.failed(imgError),
         });

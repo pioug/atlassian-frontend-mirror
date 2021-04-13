@@ -3,10 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import {
-  mediaSingle,
-  media,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   ExternalMediaAttributes,
   defaultSchema,

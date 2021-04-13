@@ -92,6 +92,10 @@ export const tablesHaveDifferentColumnWidths = (
   let currentTableWidths = getTableWidths(currentTable);
   let previousTableWidths = getTableWidths(previousTable);
 
+  if (currentTableWidths.length !== previousTableWidths.length) {
+    return true;
+  }
+
   const sameWidths = currentTableWidths.every(
     (value: number, index: number) => {
       return value === previousTableWidths[index];

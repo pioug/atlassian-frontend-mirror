@@ -50,7 +50,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
       expect.any(String),
       'fallback',
       undefined,
@@ -58,7 +58,7 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('fallback', 'https://my', 'received bad request'),
     );
-    expect(analytics.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
   it('should render unauthorized on ResolveAuthError', async () => {
@@ -80,7 +80,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
       expect.any(String),
       'unauthorized',
       'provider-not-found',
@@ -88,7 +88,7 @@ describe('smart-card: error analytics', () => {
       undefined,
       undefined,
     );
-    expect(analytics.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
   it('should throw fatal error on ResolveUnsupportedError', async () => {
@@ -126,6 +126,7 @@ describe('smart-card: error analytics', () => {
         componentStack: expect.any(String),
       }),
     );
+    expect(analytics.unresolvedEvent).not.toHaveBeenCalled();
   });
 
   it('should throw error on ResolveFailedError', async () => {
@@ -150,7 +151,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
       undefined,
@@ -158,7 +159,7 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('error', 'https://my', 'received failure error'),
     );
-    expect(analytics.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
   it('should throw error on ResolveTimeoutError', async () => {
@@ -183,7 +184,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
       undefined,
@@ -191,7 +192,7 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('error', 'https://my', 'received timeout error'),
     );
-    expect(analytics.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
   it('should throw error on InternalServerError', async () => {
@@ -216,7 +217,7 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.instrumentEvent).toHaveBeenCalledWith(
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
       expect.any(String),
       'errored',
       undefined,
@@ -224,7 +225,7 @@ describe('smart-card: error analytics', () => {
       undefined,
       new APIError('error', 'https://my', 'received internal server error'),
     );
-    expect(analytics.unresolvedEvent).toHaveBeenCalled();
+    expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
   it('should throw fatal error on unexpected err', async () => {
@@ -258,6 +259,7 @@ describe('smart-card: error analytics', () => {
         componentStack: expect.any(String),
       }),
     );
+    expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
   it('should render with current data on unexpected err', async () => {
@@ -295,12 +297,10 @@ describe('smart-card: error analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(resolvedCard).toBeTruthy();
     expect(onError).not.toHaveBeenCalled();
-    expect(analytics.instrumentEvent).toBeCalledWith(
+    expect(analytics.resolvedEvent).toBeCalledWith(
       expect.any(String),
-      'resolved',
       'd1',
       'object-provider',
-      undefined,
       undefined,
     );
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);

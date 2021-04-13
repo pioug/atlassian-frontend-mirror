@@ -1,5 +1,25 @@
 # @atlaskit/motion
 
+## 0.4.7
+
+### Patch Changes
+
+- [`9d9f1490c22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d9f1490c22) - @atlaskit/motion now supports multi entry-points. Users can now import only the parts of this module they need, reducing the size of your final bundle.
+
+  Entry-points include:
+
+  ```
+  @atlaskit/motion/curves
+  @atlaskit/motion/durations
+  @atlaskit/motion/accessibility
+  @atlaskit/motion/exiting-persistence
+  @atlaskit/motion/fade-in
+  @atlaskit/motion/slide-in
+  @atlaskit/motion/zoom-in
+  @atlaskit/motion/shrink-out
+  @atlaskit/motion/staggered-entrance
+  ```
+
 ## 0.4.6
 
 ### Patch Changes

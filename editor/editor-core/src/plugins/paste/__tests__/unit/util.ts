@@ -6,7 +6,7 @@ import {
   strong,
   underline,
   annotation,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { toJSON } from '../../../../utils';

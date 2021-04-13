@@ -4,6 +4,7 @@ import SectionMessage from '../src';
 
 const Example = () => (
   <SectionMessage
+    testId="section-message"
     title="The Modern Prometheus"
     actions={[
       {

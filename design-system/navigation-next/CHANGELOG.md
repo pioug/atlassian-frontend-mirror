@@ -1,5 +1,11 @@
 # @atlaskit/navigation-next
 
+## 9.0.11
+
+### Patch Changes
+
+- [`614b41d5203`](https://bitbucket.org/atlassian/atlassian-frontend/commits/614b41d5203) - Fix unhandled exceptions caused when localStorage isn't available.
+
 ## 9.0.10
 
 ### Patch Changes

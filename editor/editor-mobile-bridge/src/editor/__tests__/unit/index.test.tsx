@@ -54,4 +54,22 @@ describe('Mobile Editor', () => {
 
     expect(useEditorConfiguration).toHaveBeenCalledWith(bridge);
   });
+
+  it('should have a wrapper with min-height of "46px" for iOS', () => {
+    window.webkit = {} as any;
+
+    const wrapper = mount(<App defaultValue={'defaultValue'} />);
+    const style = wrapper.childAt(0).props().style;
+
+    expect(style).toEqual({ minHeight: '46px' });
+  });
+
+  it('should not have a wrapper with min-height of "46px" for Android', () => {
+    window.webkit = undefined;
+
+    const wrapper = mount(<App defaultValue={'defaultValue'} />);
+    const style = wrapper.childAt(0).props().style;
+
+    expect(style).not.toEqual({ minHeight: '46px' });
+  });
 });

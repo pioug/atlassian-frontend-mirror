@@ -5,7 +5,8 @@ import { EmbedCardUnauthorisedView } from '../src/EmbedCard/views/UnauthorisedVi
 import { EmbedCardForbiddenView } from '../src/EmbedCard/views/ForbiddenView';
 import { EmbedCardNotFoundView } from '../src/EmbedCard/views/NotFoundView';
 
-const preview = 'https://www.youtube.com/embed/uhHyh55n5l0';
+const previewUrl = 'https://www.youtube.com/embed/uhHyh55n5l0';
+const preview = { src: previewUrl };
 const cardWrapperStyles = {
   borderBottom: '1px solid',
   paddingBottom: '15px',
@@ -37,7 +38,7 @@ export default () => {
       </div>
       <div style={cardWrapperStyles}>
         <EmbedCardResolvedView
-          link={preview}
+          link={previewUrl}
           preview={preview}
           context={{
             text: 'Hello world',
@@ -49,7 +50,7 @@ export default () => {
       <div style={cardWrapperStyles}>
         EmbedCardUnauthorisedView
         <EmbedCardUnauthorisedView
-          link={preview}
+          link={previewUrl}
           isSelected={isSelected}
           context={{
             text: 'Dropbox',
@@ -62,7 +63,7 @@ export default () => {
         EmbedCardForbiddenView
         <EmbedCardForbiddenView
           isSelected={isSelected}
-          link={preview}
+          link={previewUrl}
           context={{
             text: 'Dropbox',
             icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',
@@ -74,7 +75,7 @@ export default () => {
         EmbedCardNotFoundView
         <EmbedCardNotFoundView
           isSelected={isSelected}
-          link={preview}
+          link={previewUrl}
           context={{
             text: 'Dropbox',
             icon: 'https://www.dropbox.com/static/30168/images/favicon.ico',

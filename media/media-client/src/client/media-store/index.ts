@@ -18,15 +18,16 @@ import {
 import { request } from '../../utils/request';
 import {
   createUrl,
-  mapResponseToBlob,
-  mapResponseToJson,
-  mapResponseToVoid,
+  createMapResponseToJson,
+  createMapResponseToBlob,
 } from '../../utils/request/helpers';
 import {
   ClientOptions,
   RequestHeaders,
   RequestMethod,
   RequestParams,
+  RequestMetadata,
+  CreateUrlOptions,
 } from '../../utils/request/types';
 import { MediaStoreError } from './error';
 
@@ -70,7 +71,13 @@ export class MediaStore {
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
   ): Promise<MediaStoreResponse<MediaCollectionItems>> {
-    const response = await this.request(`/collection/${collectionName}/items`, {
+    const metadata: RequestMetadata = {
+      method: 'GET',
+      endpoint: '/collection/{collectionName}/items',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
       params: {
         ...defaultGetCollectionItems,
@@ -79,12 +86,19 @@ export class MediaStore {
       headers: {
         Accept: 'application/json',
       },
-    });
+    };
+
+    const response = await this.request(
+      `/collection/${collectionName}/items`,
+      options,
+    );
+
     const {
       data: { contents, nextInclusiveStartKey },
-    }: MediaStoreResponse<MediaCollectionItems> = await mapResponseToJson(
-      response,
-    );
+    }: MediaStoreResponse<MediaCollectionItems> = await createMapResponseToJson(
+      metadata,
+    )(response);
+
     // [TODO] MS-705: remove after backend adds filter
     // This prevents showing "ghost" files in recents
     const contentsWithoutEmptyFiles = contents.filter(
@@ -104,6 +118,11 @@ export class MediaStore {
     collectionName: string,
     occurrenceKey?: string,
   ): Promise<void> {
+    const metadata: RequestMetadata = {
+      method: 'PUT',
+      endpoint: '/collection/{collectionName}',
+    };
+
     const body = {
       actions: [
         {
@@ -117,23 +136,30 @@ export class MediaStore {
       ],
     };
 
-    await this.request(`/collection/${collectionName}`, {
-      method: 'PUT',
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
-      body: JSON.stringify(body),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+      body: JSON.stringify(body),
+    };
+
+    await this.request(`/collection/${collectionName}`, options);
   }
 
   createUpload(
     createUpTo: number = 1,
     collectionName?: string,
   ): Promise<MediaStoreResponse<MediaUpload[]>> {
-    return this.request(`/upload`, {
+    const metadata: RequestMetadata = {
       method: 'POST',
+      endpoint: '/upload',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
       params: {
         createUpTo,
@@ -141,68 +167,116 @@ export class MediaStore {
       headers: {
         Accept: 'application/json',
       },
-    }).then(mapResponseToJson);
+    };
+
+    return this.request(`/upload`, options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
-  uploadChunk(
+  async uploadChunk(
     etag: string,
     blob: Blob,
     collectionName?: string,
   ): Promise<void> {
-    return this.request(`/chunk/${etag}`, {
+    const metadata: RequestMetadata = {
       method: 'PUT',
+      endpoint: '/chunk/{etag}',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
       body: blob,
-    }).then(mapResponseToVoid);
+    };
+
+    await this.request(`/chunk/${etag}`, options);
   }
 
   probeChunks(
     chunks: string[],
     collectionName?: string,
   ): Promise<MediaStoreResponse<MediaChunksProbe>> {
-    return this.request(`/chunk/probe`, {
+    const metadata: RequestMetadata = {
       method: 'POST',
+      endpoint: '/chunk/probe',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
+      headers: jsonHeaders,
       body: JSON.stringify({
         chunks,
       }),
-      headers: jsonHeaders,
-    }).then(mapResponseToJson);
+    };
+
+    return this.request(`/chunk/probe`, options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
   createFileFromUpload(
     body: MediaStoreCreateFileFromUploadBody,
     params: MediaStoreCreateFileFromUploadParams = {},
   ): Promise<MediaStoreResponse<MediaFile>> {
-    return this.request('/file/upload', {
+    const metadata: RequestMetadata = {
       method: 'POST',
+      endpoint: '/file/upload',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName: params.collection },
       params,
-      body: JSON.stringify(body),
       headers: jsonHeaders,
-    }).then(mapResponseToJson);
+      body: JSON.stringify(body),
+    };
+
+    return this.request('/file/upload', options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
   touchFiles(
     body: MediaStoreTouchFileBody,
     params: MediaStoreTouchFileParams = {},
   ): Promise<MediaStoreResponse<TouchedFiles>> {
-    return this.request('/upload/createWithFiles', {
+    const metadata: RequestMetadata = {
       method: 'POST',
+      endpoint: '/upload/createWithFiles',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
+      authContext: { collectionName: params.collection },
       headers: jsonHeaders,
       body: JSON.stringify(body),
-      authContext: { collectionName: params.collection },
-    }).then(mapResponseToJson);
+    };
+
+    return this.request('/upload/createWithFiles', options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
   getFile(
     fileId: string,
     params: MediaStoreGetFileParams = {},
   ): Promise<MediaStoreResponse<MediaFile>> {
-    return this.request(`/file/${fileId}`, {
-      params,
+    const metadata: RequestMetadata = {
+      method: 'GET',
+      endpoint: '/file/{fileId}',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName: params.collection },
-    }).then(mapResponseToJson);
+      params,
+    };
+
+    return this.request(`/file/${fileId}`, options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
   async getFileImageURL(
@@ -211,23 +285,27 @@ export class MediaStore {
   ): Promise<string> {
     const auth = await this.config.authProvider();
 
-    return createUrl(`${auth.baseUrl}/file/${id}/image`, {
+    const options: CreateUrlOptions = {
       params: extendImageParams(params),
       auth,
-    });
+    };
+
+    return createUrl(`${auth.baseUrl}/file/${id}/image`, options);
   }
 
   async getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
     const auth = await this.config.authProvider({ collectionName });
 
-    return createUrl(`${auth.baseUrl}/file/${id}/binary`, {
+    const options: CreateUrlOptions = {
       params: {
         dl: true,
         collection: collectionName,
         'max-age': FILE_CACHE_MAX_AGE,
       },
       auth,
-    });
+    };
+
+    return createUrl(`${auth.baseUrl}/file/${id}/binary`, options);
   }
 
   async getArtifactURL(
@@ -242,10 +320,12 @@ export class MediaStore {
 
     const auth = await this.config.authProvider({ collectionName });
 
-    return createUrl(`${auth.baseUrl}${artifactUrl}`, {
+    const options: CreateUrlOptions = {
       params: { collection: collectionName, 'max-age': FILE_CACHE_MAX_AGE },
       auth,
-    });
+    };
+
+    return createUrl(`${auth.baseUrl}${artifactUrl}`, options);
   }
 
   async getImage(
@@ -262,15 +342,22 @@ export class MediaStore {
         accept: 'image/webp,image/*,*/*;q=0.8',
       };
     }
-    return this.request(
-      `/file/${id}/image`,
-      {
-        headers,
-        params: extendImageParams(params, fetchMaxRes),
-        authContext: { collectionName: params && params.collection },
-      },
-      controller,
-    ).then(mapResponseToBlob);
+
+    const metadata: RequestMetadata = {
+      method: 'GET',
+      endpoint: '/file/{fileId}/image',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
+      authContext: { collectionName: params && params.collection },
+      params: extendImageParams(params, fetchMaxRes),
+      headers,
+    };
+
+    return this.request(`/file/${id}/image`, options, controller).then(
+      createMapResponseToBlob(metadata),
+    );
   }
 
   async getItems(
@@ -283,54 +370,90 @@ export class MediaStore {
       collection: collectionName,
     }));
 
-    return this.request('/items', {
+    const metadata: RequestMetadata = {
       method: 'POST',
-      body: JSON.stringify({ descriptors }),
-      headers: jsonHeaders,
+      endpoint: '/items',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
-    }).then(mapResponseToJson);
+      headers: jsonHeaders,
+      body: JSON.stringify({ descriptors }),
+    };
+
+    return this.request('/items', options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
   async getImageMetadata(
     id: string,
     params?: MediaStoreGetFileImageParams,
   ): Promise<{ metadata: ImageMetadata }> {
-    return this.request(`/file/${id}/image/metadata`, {
-      params,
+    const metadata: RequestMetadata = {
+      method: 'GET',
+      endpoint: '/file/{fileId}/image/metadata',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName: params && params.collection },
-    }).then(mapResponseToJson);
+      params,
+    };
+
+    return this.request(`/file/${id}/image/metadata`, options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
-  appendChunksToUpload(
+  async appendChunksToUpload(
     uploadId: string,
     body: AppendChunksToUploadRequestBody,
     collectionName?: string,
   ): Promise<void> {
-    return this.request(`/upload/${uploadId}/chunks`, {
+    const metadata: RequestMetadata = {
       method: 'PUT',
+      endpoint: '/upload/{uploadId}/chunks',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName },
-      body: JSON.stringify(body),
       headers: jsonHeaders,
-    }).then(mapResponseToVoid);
+      body: JSON.stringify(body),
+    };
+
+    await this.request(`/upload/${uploadId}/chunks`, options);
   }
 
   copyFileWithToken(
     body: MediaStoreCopyFileWithTokenBody,
     params: MediaStoreCopyFileWithTokenParams,
   ): Promise<MediaStoreResponse<MediaFile>> {
-    return this.request('/file/copy/withToken', {
+    const metadata: RequestMetadata = {
       method: 'POST',
+      endpoint: '/file/copy/withToken',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
       authContext: { collectionName: params.collection }, // Contains collection name to write to
-      body: JSON.stringify(body), // Contains collection name to read from
-      headers: jsonHeaders,
       params, // Contains collection name to write to
-    }).then(mapResponseToJson);
+      headers: jsonHeaders,
+      body: JSON.stringify(body), // Contains collection name to read from
+    };
+
+    return this.request('/file/copy/withToken', options).then(
+      createMapResponseToJson(metadata),
+    );
   }
 
   async request(
     path: string,
     options: MediaStoreRequestOptions = {
       method: 'GET',
+      endpoint: undefined,
       authContext: {},
     },
     controller?: AbortController,
@@ -338,6 +461,7 @@ export class MediaStore {
     const { authProvider } = this.config;
     const {
       method,
+      endpoint,
       authContext,
       params,
       headers,
@@ -356,6 +480,7 @@ export class MediaStore {
       `${auth.baseUrl}${path}`,
       {
         method,
+        endpoint,
         auth,
         params,
         headers,
@@ -411,9 +536,9 @@ export interface MediaStoreResponse<Data> {
   readonly data: Data;
 }
 
-export type MediaStoreRequestOptions = {
+export type MediaStoreRequestOptions = RequestMetadata & {
   readonly method?: RequestMethod;
-  readonly authContext: AuthContext;
+  readonly authContext?: AuthContext;
   readonly params?: RequestParams;
   readonly headers?: RequestHeaders;
   readonly body?: any;

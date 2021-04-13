@@ -42,7 +42,7 @@ describe('Cards:', () => {
         Device.LaptopHiDPI,
         {
           width: 800,
-          height: 4200,
+          height: 4500,
         },
         {
           UNSAFE_cards: {
@@ -95,7 +95,7 @@ describe('Cards:', () => {
       Device.LaptopHiDPI,
       {
         width: 800,
-        height: 5000,
+        height: 5300,
       },
       {
         UNSAFE_cards: {

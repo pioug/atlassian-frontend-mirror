@@ -183,6 +183,9 @@ function getEditorProps(appearance: Appearance) {
     allowExpand: { allowInsertion: true },
     allowHelpDialog: true,
     codeBlock: { allowCopyToClipboard: true },
+    featureFlags: {
+      displayInlineBlockForInlineNodes: false,
+    },
   };
 
   if (

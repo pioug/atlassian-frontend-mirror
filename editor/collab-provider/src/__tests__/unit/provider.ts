@@ -412,6 +412,28 @@ describe('provider unit tests', () => {
     socket.emit('error', catchupError);
   });
 
+  it('should emit 404 errors to consumer', done => {
+    const testProviderConfigWithAnalytics = {
+      url: `http://provider-url:66661`,
+      documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+    };
+    const provider = createSocketIOCollabProvider(
+      testProviderConfigWithAnalytics,
+    );
+    provider.on('error', error => {
+      expect(error).toEqual({
+        status: 404,
+        code: 'DOCUMENT_NOT_FOUND',
+        message: 'The requested document is not found',
+      });
+      done();
+    });
+    provider.initialize(() => editorState);
+    socket.emit('error', {
+      code: 'DOCUMENT_NOT_FOUND',
+    });
+  });
+
   describe('getFinalAcknowledgedState', () => {
     it('should return the final state', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);

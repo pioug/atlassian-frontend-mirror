@@ -59,6 +59,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           onResolve({
             title: resolvedViewProps.title,
             url,
+            aspectRatio: resolvedViewProps.preview?.aspectRatio,
           });
         }
         if (resolvedViewProps.preview) {

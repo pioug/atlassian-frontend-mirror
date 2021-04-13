@@ -1,7 +1,5 @@
-import { EditorState } from 'prosemirror-state';
-
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   annotation,
   code_block,
@@ -12,24 +10,13 @@ import {
   mediaGroup,
   p,
   panel,
-  RefsNode,
   status,
-} from '@atlaskit/editor-test-helpers/schema-builder';
-import { setSelectionTransform } from '@atlaskit/editor-test-helpers/set-selection-transform';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
 } from '../../index';
-
-function createEditorState(documentNode: RefsNode) {
-  const myState = EditorState.create({
-    doc: documentNode,
-  });
-  const { tr } = myState;
-  setSelectionTransform(documentNode, tr);
-  return myState.apply(tr);
-}
 
 describe('annotation', () => {
   describe('#canApplyAnnotationOnRange', () => {
@@ -43,9 +30,7 @@ describe('annotation', () => {
         { from: -1, to: -1 },
         { from: -1, to: 10 },
       ])('should return false', selection => {
-        const { doc: docNode, schema } = createEditorState(
-          doc(p('Corsair'))(sampleSchema),
-        );
+        const { doc: docNode, schema } = createEditorState(doc(p('Corsair')));
 
         expect(
           canApplyAnnotationOnRange(
@@ -171,9 +156,7 @@ describe('annotation', () => {
       ],
     ])('when the selection is around %s', (testCase, inputDoc, expected) => {
       it(`should return ${expected}`, () => {
-        const { selection, doc, schema } = createEditorState(
-          inputDoc(sampleSchema),
-        );
+        const { selection, doc, schema } = createEditorState(inputDoc);
 
         expect(
           canApplyAnnotationOnRange(
@@ -240,9 +223,7 @@ describe('annotation', () => {
       },
     ].forEach(({ test, doc: testDoc, expected }) => {
       it(test, () => {
-        const { selection, doc: docNode, schema } = createEditorState(
-          testDoc(sampleSchema),
-        );
+        const { selection, doc: docNode, schema } = createEditorState(testDoc);
         expect(
           getAnnotationIdsFromRange(
             {

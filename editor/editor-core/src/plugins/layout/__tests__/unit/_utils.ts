@@ -2,7 +2,7 @@ import {
   layoutSection,
   layoutColumn,
   p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { PresetLayout } from '../../types';
 
 export const layouts: { name: PresetLayout; widths: number[] }[] = [

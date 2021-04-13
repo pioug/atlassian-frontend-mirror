@@ -9,7 +9,7 @@ import { useLayoutEffect } from '../utils/use-layout-effect';
 import { useExitingPersistence } from './exiting-persistence';
 import { MotionProps } from './types';
 
-interface ShrinkOutProps extends MotionProps<{ ref: React.Ref<any> }> {}
+export interface ShrinkOutProps extends MotionProps<{ ref: React.Ref<any> }> {}
 
 const ShrinkOut: React.FC<ShrinkOutProps> = ({
   children,

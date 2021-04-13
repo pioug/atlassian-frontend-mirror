@@ -7,6 +7,7 @@ import {
   ConfluenceIcon,
   JiraSoftwareIcon,
   JiraServiceManagementIcon,
+  JiraWorkManagementIcon,
   JiraCoreIcon,
   OpsGenieIcon,
   StatuspageIcon,
@@ -96,7 +97,7 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
   },
   [SwitcherProductType.JIRA_WORK_MANAGEMENT]: {
     label: 'Jira Work Management',
-    Icon: createIcon(JiraCoreIcon, { size: 'small' }),
+    Icon: createIcon(JiraWorkManagementIcon, { size: 'small' }),
     href: '/secure/BrowseProjects.jspa?selectedProjectType=business',
   },
   [SwitcherProductType.JIRA_SOFTWARE]: {

@@ -1,4 +1,4 @@
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   ContextIdentifierProvider,
   ProviderFactory,

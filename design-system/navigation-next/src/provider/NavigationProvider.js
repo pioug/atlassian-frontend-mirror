@@ -15,16 +15,20 @@ const DEFAULT_UI_STATE = {
 };
 
 function defaultGetCache() {
-  if (typeof localStorage !== 'undefined') {
+  try {
     const stored = localStorage.getItem(LS_KEY);
     return stored ? JSON.parse(stored) : DEFAULT_UI_STATE;
+  } catch {
+    // Handle exception if localStorage isn't available
   }
   return DEFAULT_UI_STATE;
 }
 
 function defaultSetCache(state) {
-  if (typeof localStorage !== 'undefined') {
+  try {
     localStorage.setItem(LS_KEY, JSON.stringify(state));
+  } catch {
+    // Handle exception if localStorage isn't available
   }
 }
 

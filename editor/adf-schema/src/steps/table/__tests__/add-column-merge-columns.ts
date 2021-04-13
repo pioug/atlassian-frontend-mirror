@@ -6,7 +6,7 @@ import {
   tr,
   p,
   Refs,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorState } from 'prosemirror-state';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { Step } from 'prosemirror-transform';

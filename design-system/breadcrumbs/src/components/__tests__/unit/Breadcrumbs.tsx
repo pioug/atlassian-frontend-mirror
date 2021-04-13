@@ -127,4 +127,39 @@ describe('Controlled breadcrumbs', () => {
       expect.arrayContaining(['item 3', 'item 4', 'item 5']),
     );
   });
+
+  it('should be wrapped into nav tag', () => {
+    const { container } = render(
+      <Breadcrumbs testId="breadcrumbs-container">
+        <BreadcrumbsItem href="/item" text="Item" />
+      </Breadcrumbs>,
+    );
+
+    const nav = container.querySelector('nav');
+    expect(nav).toBeDefined();
+  });
+
+  it('nav wrapper should have a default aria-label when no label passed through props', () => {
+    const { container } = render(
+      <Breadcrumbs testId="breadcrumbs-container">
+        <BreadcrumbsItem href="/item" text="Item" />
+      </Breadcrumbs>,
+    );
+
+    const nav = container.querySelector('nav');
+    expect(nav).toBeDefined();
+    expect(nav?.getAttribute('aria-label')).toBe('Breadcrumbs');
+  });
+
+  it('received label props should be set as aria-label of nav wrapper', () => {
+    const { container } = render(
+      <Breadcrumbs testId="breadcrumbs-container" label="Blog Breadcrumbs">
+        <BreadcrumbsItem href="/item" text="Item" />
+      </Breadcrumbs>,
+    );
+
+    const nav = container.querySelector('nav');
+    expect(nav).toBeDefined();
+    expect(nav?.getAttribute('aria-label')).toBe('Blog Breadcrumbs');
+  });
 });

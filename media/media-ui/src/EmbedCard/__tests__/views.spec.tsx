@@ -15,8 +15,11 @@ let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
   link:
     'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
-  preview:
-    'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
+  preview: {
+    src:
+      'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
+    aspectRatio: 0.6,
+  },
   title: 'Smart Link Assets',
   context: {
     text: 'Dropbox',
@@ -49,7 +52,7 @@ describe('EmbedCard Views', () => {
       const innerFrame = getByTestId('embed-card-resolved-view-frame');
       expect(outerFrame.textContent).toBe('Smart Link Assets');
       expect(innerFrame).toBeTruthy();
-      expect(innerFrame.getAttribute('src')).toBe(props.preview);
+      expect(innerFrame.getAttribute('src')).toBe(props.preview?.src);
     });
 
     it('should default to context text if title is missing', () => {

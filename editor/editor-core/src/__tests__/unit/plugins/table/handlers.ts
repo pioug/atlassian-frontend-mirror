@@ -8,7 +8,7 @@ import {
   tdEmpty,
   tdCursor,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { TablePluginState } from '../../../../plugins/table/types';
 import { handleDocOrSelectionChanged } from '../../../../plugins/table/handlers';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';

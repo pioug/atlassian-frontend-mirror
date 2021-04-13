@@ -11,13 +11,17 @@ import {
   createAndFireMediaCardEvent,
   fireMediaCardEvent,
   MediaCardAnalyticsEventPayload,
-  getRenderFailedMediaClientPayload,
-  getRenderFailedMediaClientFailReason,
+  getRenderErrorFailReason,
+  getRenderErrorErrorReason,
+  getRenderErrorErrorDetail,
+  getRenderErrorRequestMetadata,
+  getRenderErrorEventPayload,
   RenderEventAction,
 } from '../../analytics';
 import { FileAttributes } from '@atlaskit/media-common';
 import { createRateLimitedError } from '@atlaskit/media-test-helpers';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
+import { MediaCardError } from '../../../errors';
 
 const somePayload: MediaCardAnalyticsEventPayload = {
   eventType: 'ui',
@@ -91,7 +95,7 @@ describe('Media Analytics', () => {
     expect(actualEvent.payload).toMatchObject(mediaPayload);
   });
 
-  describe('getRenderFailedMediaClientPayload', () => {
+  describe('getRenderErrorEventPayload', () => {
     const fileAttributes: FileAttributes = {
       fileId: 'some-id',
       fileSize: 10,
@@ -100,21 +104,79 @@ describe('Media Analytics', () => {
       fileStatus: 'processed',
     };
     it('should attach FailedSubscriptionFailReason to failReason and MediaClientErrorReason to error', () => {
-      const error = createRateLimitedError();
-      expect(
-        getRenderFailedMediaClientPayload(fileAttributes, error),
-      ).toMatchObject({
+      const error = new MediaCardError(
+        'metadata-fetch',
+        createRateLimitedError(),
+      );
+      expect(getRenderErrorEventPayload(fileAttributes, error)).toMatchObject({
         eventType: 'operational',
         action: RenderEventAction.FAILED,
         actionSubject: 'mediaCardRender',
         attributes: {
           fileAttributes,
           status: 'fail',
-          failReason: getRenderFailedMediaClientFailReason(
-            fileAttributes.fileStatus,
-          ),
-          error: getMediaClientErrorReason(error),
+          failReason: getRenderErrorFailReason(error),
+          error: getRenderErrorErrorReason(error),
+          errorDetail: getRenderErrorErrorDetail(error),
+          request: getRenderErrorRequestMetadata(error),
         },
+      });
+    });
+  });
+
+  describe('Helpers', () => {
+    it('getRenderFailedPreviewFetchFailReason should return media card error primary reason', () => {
+      const error = new MediaCardError(
+        'local-preview-get',
+        new Error('some-error'),
+      );
+      expect(getRenderErrorFailReason(error)).toBe(error.primaryReason);
+    });
+
+    it('getRenderErrorErrorReason should return MediaClientErrorReason or nativeError', () => {
+      const someMediaClientError = createRateLimitedError();
+      expect(
+        getRenderErrorErrorReason(
+          new MediaCardError('preview-fetch', someMediaClientError),
+        ),
+      ).toBe(getMediaClientErrorReason(someMediaClientError));
+
+      expect(
+        getRenderErrorErrorReason(
+          new MediaCardError('preview-fetch', new Error('some-error')),
+        ),
+      ).toBe('nativeError');
+    });
+
+    it('getRenderErrorErrorDetail should return secondary error message', () => {
+      const someMediaClientError = createRateLimitedError();
+      expect(
+        getRenderErrorErrorDetail(
+          new MediaCardError('preview-fetch', someMediaClientError),
+        ),
+      ).toBe(someMediaClientError.message);
+
+      expect(
+        getRenderErrorErrorDetail(
+          new MediaCardError('preview-fetch', new Error('some-error-message')),
+        ),
+      ).toBe('some-error-message');
+    });
+
+    it('getRenderErrorRequestMetadata should return request metadata', () => {
+      const someMediaClientError = createRateLimitedError({
+        method: 'POST',
+        endpoint: '/some-endpoint',
+      });
+
+      expect(
+        getRenderErrorRequestMetadata(
+          new MediaCardError('preview-fetch', someMediaClientError),
+        ),
+      ).toStrictEqual({
+        method: 'POST',
+        endpoint: '/some-endpoint',
+        statusCode: 429,
       });
     });
   });

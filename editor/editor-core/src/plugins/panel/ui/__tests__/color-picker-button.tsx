@@ -5,7 +5,7 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, panel } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';

@@ -1,10 +1,4 @@
-import {
-  p,
-  ul,
-  ol,
-  li,
-  doc,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { p, ul, ol, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { countListItemsInSelection } from '../../../utils/analytics';
 

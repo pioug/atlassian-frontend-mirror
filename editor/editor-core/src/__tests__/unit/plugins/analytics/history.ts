@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
@@ -46,7 +46,7 @@ describe('Analytics Plugin: History Events', () => {
         inputMethod: INPUT_METHOD.TOOLBAR,
       },
       eventType: EVENT_TYPE.TRACK,
-    })(createTable)(editorView.state, editorView.dispatch);
+    })(createTable())(editorView.state, editorView.dispatch);
 
   const do3Times = (fn: Function) =>
     Array(3)

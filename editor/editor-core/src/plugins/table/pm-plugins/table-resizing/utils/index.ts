@@ -33,5 +33,5 @@ export {
 export { updateControls, isClickNear, getResizeCellPos } from './dom';
 export { scale, scaleWithParent } from './scale-table';
 export type { ScaleOptions } from './scale-table';
-export type { ResizeState } from './types';
+export type { ResizeState, ResizeStateWithAnalytics } from './types';
 export { resizeColumn } from './resize-column';

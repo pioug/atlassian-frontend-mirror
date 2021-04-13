@@ -7,6 +7,7 @@ import {
 import { CategoryId } from '../components/picker/categories';
 import { selectedToneStorageKey } from '../util/constants';
 import { isMediaEmoji, isPromise, toEmojiId } from '../util/type-helpers';
+import storageAvailable from '../util/storage-available';
 import {
   EmojiDescription,
   EmojiId,
@@ -139,7 +140,7 @@ export class EmojiResource
         });
     });
 
-    if (typeof window !== 'undefined' && window.localStorage) {
+    if (storageAvailable('localStorage')) {
       this.selectedTone = this.loadStoredTone();
     }
 
@@ -426,7 +427,7 @@ export class EmojiResource
 
   setSelectedTone(tone: ToneSelection) {
     this.selectedTone = tone;
-    if (window.localStorage) {
+    if (storageAvailable('localStorage')) {
       try {
         window.localStorage.setItem(
           selectedToneStorageKey,

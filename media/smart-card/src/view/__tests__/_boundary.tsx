@@ -28,7 +28,7 @@ export class TestErrorBoundary extends React.Component<
         data-testid={this.state.isError ? 'error-boundary' : 'my-component'}
       >
         Has error: {this.state.isError}
-        {this.props.children}
+        {this.state.isError ? null : this.props.children}
       </span>
     );
   }

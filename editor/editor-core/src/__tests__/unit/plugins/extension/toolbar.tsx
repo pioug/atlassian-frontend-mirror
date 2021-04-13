@@ -7,7 +7,7 @@ import {
   doc,
   extension,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import {

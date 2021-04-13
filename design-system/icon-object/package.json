@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "description": "An object icon is used to represent an entity specific to a product, such as a pull request for Bitbucket.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },
   "dependencies": {
-    "@atlaskit/icon": "21.5.0",
+    "@atlaskit/icon": "^21.5.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

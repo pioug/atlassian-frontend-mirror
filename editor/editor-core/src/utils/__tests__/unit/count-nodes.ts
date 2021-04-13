@@ -1,4 +1,4 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
   table,
@@ -8,20 +8,12 @@ import {
   td,
   unsupportedInline,
   unsupportedBlock,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { countNodes } from '../../count-nodes';
 
 describe('#countNodes', () => {
-  const createEditor = createEditorFactory();
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: { allowTables: true },
-    });
-
   it('should match empty 3x3 table and a paragraph', () => {
-    const { editorView } = editor(
+    const editorState = createEditorState(
       doc(
         table()(
           tr(th({})(p()), th({})(p()), th({})(p())),
@@ -31,7 +23,7 @@ describe('#countNodes', () => {
         p(),
       ),
     );
-    const nodeCount = countNodes(editorView.state);
+    const nodeCount = countNodes(editorState);
     const expected = {
       paragraph: 10,
       table: 1,
@@ -43,10 +35,10 @@ describe('#countNodes', () => {
   });
 
   it('should match unsupported contents', () => {
-    const { editorView } = editor(
+    const editorState = createEditorState(
       doc(p(unsupportedInline({})()), unsupportedBlock({})()),
     );
-    const nodeCount = countNodes(editorView.state);
+    const nodeCount = countNodes(editorState);
     const expected = {
       paragraph: 1,
       unsupportedBlock: 1,
@@ -56,8 +48,8 @@ describe('#countNodes', () => {
   });
 
   it('should match empty doc', () => {
-    const { editorView } = editor(doc(p('')));
-    const nodeCount = countNodes(editorView.state);
+    const editorState = createEditorState(doc(p('')));
+    const nodeCount = countNodes(editorState);
     const expected = {
       paragraph: 1,
     };

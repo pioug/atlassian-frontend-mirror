@@ -12,7 +12,7 @@ import {
   tdEmpty,
   th,
   tr,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import DropdownMenuWrapper from '../../../../../ui/DropdownMenu';
 import ContextualMenu from '../ContextualMenu';

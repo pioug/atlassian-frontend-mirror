@@ -184,31 +184,10 @@ export default class Editor extends React.Component<EditorProps, State> {
   }
 
   componentDidMount() {
-    stopMeasure(measurements.EDITOR_MOUNTED, (duration, startTime) => {
-      if (this.createAnalyticsEvent) {
-        const fireMounted = (objectId?: string) => {
-          fireAnalyticsEvent(this.createAnalyticsEvent)({
-            payload: {
-              action: ACTION.EDITOR_MOUNTED,
-              actionSubject: ACTION_SUBJECT.EDITOR,
-              attributes: {
-                duration,
-                startTime,
-                objectId,
-              },
-              eventType: EVENT_TYPE.OPERATIONAL,
-            },
-          });
-        };
-
-        Promise.resolve(this.props.contextIdentifierProvider).then(
-          (p?: ContextIdentifierProvider) => {
-            fireMounted(p?.objectId);
-          },
-          fireMounted,
-        );
-      }
-    });
+    stopMeasure(
+      measurements.EDITOR_MOUNTED,
+      this.sendDurationAnalytics(ACTION.EDITOR_MOUNTED),
+    );
     this.handleProviders(this.props);
   }
 
@@ -246,6 +225,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.unregisterEditorFromActions();
     this.providerFactory.destroy();
     clearMeasure(measurements.EDITOR_MOUNTED);
+    clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
   }
 
   trackEditorActions(
@@ -381,8 +361,42 @@ export default class Editor extends React.Component<EditorProps, State> {
     );
 
     if (this.props.onEditorReady) {
+      startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
       this.props.onEditorReady(this.editorActions);
+      stopMeasure(
+        measurements.ON_EDITOR_READY_CALLBACK,
+        this.sendDurationAnalytics(ACTION.ON_EDITOR_READY_CALLBACK),
+      );
     }
+  }
+
+  private sendDurationAnalytics(
+    action: ACTION.EDITOR_MOUNTED | ACTION.ON_EDITOR_READY_CALLBACK,
+  ) {
+    return (duration: number, startTime: number) => {
+      if (this.createAnalyticsEvent) {
+        const fireMounted = (objectId?: string) => {
+          fireAnalyticsEvent(this.createAnalyticsEvent)({
+            payload: {
+              action,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              attributes: {
+                duration,
+                startTime,
+                objectId,
+              },
+              eventType: EVENT_TYPE.OPERATIONAL,
+            },
+          });
+        };
+        Promise.resolve(this.props.contextIdentifierProvider).then(
+          (p?: ContextIdentifierProvider) => {
+            fireMounted(p?.objectId);
+          },
+          fireMounted,
+        );
+      }
+    };
   }
 
   private deprecationWarnings(props: EditorProps) {

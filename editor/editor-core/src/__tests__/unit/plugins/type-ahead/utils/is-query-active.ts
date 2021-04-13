@@ -1,22 +1,20 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,
   typeAheadQuery,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { isQueryActive } from '../../../../../plugins/type-ahead/utils/is-query-active';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe('findQueryMark', () => {
-  const createEditor = createEditorFactory();
-
   it('should return true if typeAheadQuery mark is active', () => {
-    const { editorView } = createEditor({
-      doc: doc(p(typeAheadQuery({ trigger: '/' })('/query'))),
-    });
+    const editorState = createEditorState(
+      doc(p(typeAheadQuery({ trigger: '/' })('/query'))),
+    );
 
     const queryMark = isQueryActive(
-      editorView.state.schema.marks.typeAheadQuery,
-      editorView.state.doc,
+      editorState.schema.marks.typeAheadQuery,
+      editorState.doc,
       0,
       8,
     );
@@ -25,13 +23,11 @@ describe('findQueryMark', () => {
   });
 
   it('should return false if query mark is not active', () => {
-    const { editorView } = createEditor({
-      doc: doc(p('/query')),
-    });
+    const editorState = createEditorState(doc(p('/query')));
 
     const queryMark = isQueryActive(
-      editorView.state.schema.marks.typeAheadQuery,
-      editorView.state.doc,
+      editorState.schema.marks.typeAheadQuery,
+      editorState.doc,
       0,
       8,
     );

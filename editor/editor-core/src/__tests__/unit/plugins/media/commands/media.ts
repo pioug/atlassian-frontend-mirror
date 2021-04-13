@@ -7,7 +7,7 @@ import {
   mediaSingle,
   media,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { stateKey as mediaPluginKey } from '../../../../../plugins/media/pm-plugins/main';
 import { getFreshMediaProvider, testCollectionName } from '../_utils';
 import { MediaAttributes } from '@atlaskit/adf-schema';

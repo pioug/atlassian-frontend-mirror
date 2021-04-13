@@ -1,11 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema';
 import WikiMarkupTransformer from '../../../index';
 
-import {
-  doc,
-  inlineCard,
-  p,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+import { doc, inlineCard, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup => ADF - Inline Card', () => {
   const transformer = new WikiMarkupTransformer();

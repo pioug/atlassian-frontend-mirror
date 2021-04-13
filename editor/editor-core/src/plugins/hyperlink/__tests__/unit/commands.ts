@@ -7,7 +7,7 @@ import {
   strong,
   emoji,
   DocBuilder,
-} from '@atlaskit/editor-test-helpers/schema-builder';
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { emoji as emojiData } from '@atlaskit/util-data-test';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';

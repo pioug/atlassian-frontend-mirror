@@ -9,7 +9,6 @@ import {
   getEditorValueWithMedia,
   __temporaryFixForConfigPanel,
 } from '../utils/action';
-import { sanitizeNode } from '@atlaskit/adf-utils';
 import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import { safeInsert } from 'prosemirror-utils';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
@@ -159,15 +158,11 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
     const doc = await getEditorValueWithMedia(editorView);
     const json = toJSON(doc);
-    const jsonSanitized = sanitizeNode(json);
     if (!this.contentEncode) {
-      return jsonSanitized;
+      return json;
     }
 
-    const nodeSanitized = Node.fromJSON(
-      this.editorView!.state.schema,
-      jsonSanitized,
-    );
+    const nodeSanitized = Node.fromJSON(this.editorView!.state.schema, json);
     return this.contentEncode(nodeSanitized);
   }
 

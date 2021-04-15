@@ -87,6 +87,7 @@ export default class ProgressIndicatorDots extends Component<{}, State> {
     this.setState(state => ({ selectedIndex: state.selectedIndex + 1 }));
   };
   /* eslint-disable */
+  /* prettier-ignore */
   handleSelect = ({
     event,
     index: selectedIndex,

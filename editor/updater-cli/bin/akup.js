@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable */
+/* prettier-ignore */
 
 const fs = require('fs');
 const path = require('path');

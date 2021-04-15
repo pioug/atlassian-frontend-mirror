@@ -70,12 +70,32 @@ describe('<Mention />', () => {
       );
     });
 
-    it('should render a restricted style lozenge if the user has non-CONTAINER permissions', () => {
+    it('should render a restricted style lozenge if the user has NONE permissions', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} accessLevel={'NONE'} />,
       );
       expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
         MentionType.RESTRICTED,
+      );
+    });
+
+    it('should render a unrestricted style lozenge if the user has CONTAINER permissions', () => {
+      const mention = mountWithIntl(
+        <Mention {...mentionData} accessLevel={'CONTAINER'} />,
+      );
+
+      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+        MentionType.DEFAULT,
+      );
+    });
+
+    it('should render a unrestricted style lozenge if the user has CONTAINER permissions', () => {
+      const mention = mountWithIntl(
+        <Mention {...mentionData} accessLevel={'APPLICATION'} />,
+      );
+
+      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+        MentionType.DEFAULT,
       );
     });
 

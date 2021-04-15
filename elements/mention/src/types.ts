@@ -205,9 +205,7 @@ export interface MentionNameDetails {
 }
 
 export function isRestricted(accessLevel?: string): boolean {
-  return (
-    !!accessLevel && accessLevel !== UserAccessLevel[UserAccessLevel.CONTAINER]
-  );
+  return !!accessLevel && accessLevel === UserAccessLevel[UserAccessLevel.NONE];
 }
 
 export function isSpecialMention(mention: MentionDescription): boolean {

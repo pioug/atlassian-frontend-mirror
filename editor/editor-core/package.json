@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "141.0.0",
+  "version": "141.0.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
     "@atlaskit/editor-json-transformer": "^8.6.0",
     "@atlaskit/editor-markdown-transformer": "^4.1.0",
     "@atlaskit/editor-shared-styles": "^1.4.0",
-    "@atlaskit/editor-tables": "^1.1.0",
+    "@atlaskit/editor-tables": "^2.0.0",
     "@atlaskit/emoji": "^63.1.0",
     "@atlaskit/empty-state": "^7.1.0",
     "@atlaskit/form": "^8.2.0",

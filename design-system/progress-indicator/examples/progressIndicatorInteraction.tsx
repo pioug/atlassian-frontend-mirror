@@ -33,6 +33,7 @@ export default class extends Component<Props, State> {
   };
 
   /* eslint-disable */
+  /* prettier-ignore */
   handleSelect = ({
     event,
     index: selectedIndex,

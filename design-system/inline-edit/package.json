@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-edit",
-  "version": "12.0.4",
+  "version": "12.0.5",
   "description": "A base component used to build inline-editable components that match the Atlassian Design Guidelines",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

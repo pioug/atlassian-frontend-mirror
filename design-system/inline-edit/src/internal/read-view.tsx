@@ -3,7 +3,11 @@ import React, { useRef } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { editButtonStyles, readViewContentWrapperStyles } from './styles';
+import {
+  editButtonStyles,
+  readViewContainerStyles,
+  readViewWrapperStyles,
+} from './styles';
 
 const DRAG_THRESHOLD = 5;
 
@@ -54,7 +58,7 @@ const ReadView = ({
 
   /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,jsx-a11y/no-noninteractive-element-interactions */
   return (
-    <React.Fragment>
+    <div css={readViewContainerStyles}>
       <button
         css={editButtonStyles}
         aria-label={editButtonLabel}
@@ -63,7 +67,7 @@ const ReadView = ({
         ref={editButtonRef}
       />
       <div
-        css={readViewContentWrapperStyles}
+        css={readViewWrapperStyles}
         onClick={onReadViewClick}
         onMouseDown={e => {
           startX.current = e.clientX;
@@ -73,7 +77,7 @@ const ReadView = ({
       >
         {readView()}
       </div>
-    </React.Fragment>
+    </div>
   );
   /* eslint-enable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,jsx-a11y/no-noninteractive-element-interactions */
 };

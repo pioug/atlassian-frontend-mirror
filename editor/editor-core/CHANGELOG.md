@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 141.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 141.0.1
+
+### Patch Changes
+
+- [`57ae710818f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57ae710818f) - Turn off CustomSelect create animation in Config Panel
+
 ## 141.0.0
 
 ### Minor Changes

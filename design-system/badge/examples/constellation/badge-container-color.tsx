@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { B200 } from '@atlaskit/theme/colors';
+import { B75 } from '@atlaskit/theme/colors';
 
 import { Container, Format } from '../../src';
 
 export default function Example() {
   return (
-    <Container textColor="inherit" backgroundColor={B200}>
+    <Container textColor="inherit" backgroundColor={B75}>
       <Format>{8}</Format>
     </Container>
   );

@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.0.0
+
+### Major Changes
+
+- [`71318e96b5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71318e96b5d) - NO-ISSUE Force bump editor-tables
+
 ## 1.1.5
 
 ### Patch Changes

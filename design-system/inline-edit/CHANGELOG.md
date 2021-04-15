@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 12.0.5
+
+### Patch Changes
+
+- [`d65547e28ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d65547e28ba) - Fixed a few UI defects:
+
+  - reset line-height to 1 for inline edit container
+  - fixed action buttons background color issue
+
 ## 12.0.4
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-common';
 import { taskDecision, emoji } from '@atlaskit/util-data-test';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import { cardClient } from '@atlaskit/media-integration-test-helpers';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -20,7 +20,7 @@ import Sidebar from '../helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
-import { EmbedHelper } from '@atlaskit/media-integration-test-helpers';
+import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
 import { GasPurePayload } from '@atlaskit/analytics-gas-types';
 

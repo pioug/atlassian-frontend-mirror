@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 10.1.1
+
+### Patch Changes
+
+- [`0fd661fb708`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fd661fb708) - Fix dependency for ak/logo in atlassian-switcher
+
 ## 10.1.0
 
 ### Minor Changes

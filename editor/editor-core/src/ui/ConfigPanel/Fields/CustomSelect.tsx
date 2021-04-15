@@ -157,6 +157,8 @@ function CustomSelect({
                   fieldProps.onChange(value);
                   onBlur(name);
                 }}
+                // @see DST-2386 & ED-12503
+                enableAnimation={false}
                 // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
                 isMulti={(isMultiple || false) as false}
                 isClearable={true}

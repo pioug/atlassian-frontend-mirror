@@ -55,6 +55,7 @@ const WrapperDiv = styled.div<WrapperDivProps>`
   background: ${props => props.background};
 `;
 /* eslint-disable */
+/* prettier-ignore */
 const Wrapper: React.FC<WrapperDivProps> = props => (
   <Fragment>
     <WrapperDiv {...props}>{props.children}</WrapperDiv>

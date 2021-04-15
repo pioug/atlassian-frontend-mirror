@@ -1,4 +1,5 @@
 /* eslint-disable */
+/* prettier-ignore */
 var Module = function(Module) {
   Module = Module || {};
 

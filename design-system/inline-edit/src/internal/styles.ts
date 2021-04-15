@@ -38,11 +38,14 @@ export const buttonsContainerStyles: CSSObject = {
 
 export const getButtonStyles = (mode: ThemeModes): CSSObject => ({
   ...getElevationStyleForMode(mode),
-  borderRadius: spacingUnit / 2 - 1,
-  boxSizing: 'border-box',
-  fontSize: fontSizeUnit,
   width: spacingUnit * 4,
   zIndex: 200,
+
+  backgroundColor: '#F5F6F8',
+
+  '&:hover': {
+    backgroundColor: '#ECEDF0',
+  },
 
   '&:last-child': {
     marginLeft: spacingUnit / 2,
@@ -70,7 +73,7 @@ export const errorIconContainerStyles: CSSObject = {
   paddingRight: spacingUnit - 2,
 };
 
-export const readViewContainerStyles: CSSObject = {
+export const readViewForTextFieldStyles: CSSObject = {
   display: 'flex',
   fontSize: fontSize(),
   lineHeight: (spacingUnit * 2.5) / fontSizeUnit,
@@ -86,7 +89,11 @@ export const readViewContainerStyles: CSSObject = {
   wordBreak: 'break-word',
 };
 
-export const readViewContentWrapperStyles: CSSObject = {
+export const readViewContainerStyles: CSSObject = {
+  lineHeight: 1,
+};
+
+export const readViewWrapperStyles: CSSObject = {
   boxSizing: 'border-box',
   border: '2px solid transparent',
   borderRadius: borderRadius(),

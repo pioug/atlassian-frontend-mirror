@@ -9,7 +9,7 @@ import { R400 } from '@atlaskit/theme/colors';
 import InlineEdit from './inline-edit';
 import {
   errorIconContainerStyles,
-  readViewContainerStyles,
+  readViewForTextFieldStyles,
 } from './internal/styles';
 import { InlineEditableTextfieldProps } from './types';
 
@@ -43,7 +43,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
       )}
       readView={() => (
         <div
-          css={readViewContainerStyles}
+          css={readViewForTextFieldStyles}
           data-compact={isCompact}
           data-testid={testId && `read-view-${testId}`}
         >

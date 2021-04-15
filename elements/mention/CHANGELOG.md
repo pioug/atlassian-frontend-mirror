@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.5.0
+
+### Minor Changes
+
+- [`c49d543a921`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c49d543a921) - Only restrict mentions view if UserAccessLevel is set to NONE
+
 ## 19.4.1
 
 ### Patch Changes

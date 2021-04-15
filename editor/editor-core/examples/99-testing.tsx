@@ -1,7 +1,10 @@
 import React from 'react';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import Button from '@atlaskit/button/standard-button';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
+import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
+import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 
 import {
@@ -11,10 +14,7 @@ import {
 import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
-import { cardClient } from '@atlaskit/media-integration-test-helpers';
 import { CollabEditOptions } from '../src/plugins/collab-edit';
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { EmbedHelper } from '@atlaskit/media-integration-test-helpers';
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
   return createEditorExampleForTests<any>(

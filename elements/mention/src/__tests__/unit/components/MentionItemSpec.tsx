@@ -53,13 +53,13 @@ describe('MentionItem', () => {
     expect(component.html()).not.toContain('@');
   });
 
-  it('should display access restriction if accessLevel is not CONTAINER', () => {
+  it('should display access restriction if accessLevel is NONE', () => {
     const component = setupMentionItem({
       id: '1',
       name: 'Kaitlyn Prouty',
       mentionName: 'Fidela',
       avatarUrl: '',
-      accessLevel: 'SITE',
+      accessLevel: 'NONE',
     });
     expect(component.find(LockCircleIcon)).toHaveLength(1);
   });

@@ -3,7 +3,7 @@ import { ProviderFactory } from '@atlaskit/editor-common';
 import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
 import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import { cardClient } from '@atlaskit/media-integration-test-helpers';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';

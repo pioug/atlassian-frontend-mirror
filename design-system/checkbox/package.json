@@ -46,7 +46,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
-    "jscodeshift": "^0.7.0",
+    "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "0.13.0",
     "typescript": "3.9.6",

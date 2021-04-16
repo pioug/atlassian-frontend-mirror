@@ -238,6 +238,8 @@ function updateAvatarItemProps(
           .forEach(container => {
             j(container).replaceWith(
               j.jsxExpressionContainer(
+                // Type 'JSXEmptyExpression' is not assignable to type 'ExpressionKind'.
+                // @ts-ignore TS2345
                 j.unaryExpression('!', container.node.expression),
               ),
             );

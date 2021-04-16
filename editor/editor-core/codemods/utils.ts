@@ -83,7 +83,7 @@ export const findImportFromPackage = (
           })
           .nodes()[0];
 
-        return importSpecifier.local !== null ? importSpecifier.local.name : '';
+        return importSpecifier.local?.name || '';
       })
       .filter(name => Boolean(name))
   );

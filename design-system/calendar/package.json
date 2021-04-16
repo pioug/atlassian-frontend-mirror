@@ -50,7 +50,7 @@
     "@testing-library/react": "^8.0.1",
     "date-fns": "^1.30.1",
     "jest-in-case": "^1.0.2",
-    "jscodeshift": "^0.7.0",
+    "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "storybook-addon-performance": "0.13.0",

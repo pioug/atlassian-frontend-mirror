@@ -212,7 +212,7 @@ export function addToImport({
           // we are appending to the existing specifiers
           // We are doing a filter hear because sometimes specifiers can be removed
           // but they hand around in the declaration
-          ...declaration.value.specifiers.filter(
+          ...(declaration.value.specifiers || []).filter(
             item => item.type === 'ImportSpecifier' && item.imported != null,
           ),
           importSpecifier,

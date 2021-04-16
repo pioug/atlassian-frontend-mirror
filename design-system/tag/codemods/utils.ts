@@ -132,7 +132,7 @@ const replaceImportStatementFor = (pkg: string, convertMap: any) => (
       (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
     )
     .forEach((path: ASTPath<ImportDeclaration>) => {
-      const defaultSpecifier = path.value.specifiers.filter(
+      const defaultSpecifier = (path.value.specifiers || []).filter(
         specifier => specifier.type === 'ImportDefaultSpecifier',
       );
 
@@ -140,7 +140,7 @@ const replaceImportStatementFor = (pkg: string, convertMap: any) => (
         return j.importDeclaration([s], j.literal(convertMap['default']));
       });
 
-      const otherSpecifier = path.value.specifiers.filter(
+      const otherSpecifier = (path.value.specifiers || []).filter(
         specifier => specifier.type === 'ImportSpecifier',
       );
 

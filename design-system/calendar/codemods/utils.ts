@@ -182,7 +182,8 @@ export const flattenCertainChildPropsAsProp = (
               if (
                 property.type === 'ObjectProperty' &&
                 property.key.type === 'Identifier' &&
-                property.key.name === childProp
+                property.key.name === childProp &&
+                element.node.openingElement.attributes
               ) {
                 element.node.openingElement.attributes.push(
                   j.jsxAttribute(

@@ -41,7 +41,11 @@ describe('Updates and removes current inline styles', () => {
       import { ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
-        return <ButtonItem cssFn={state => ({})} />;
+        return (
+          <ButtonItem cssFn={state => {
+
+          }} />
+        );
       }
   `,
     'should remove current styles from inline function',

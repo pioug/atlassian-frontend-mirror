@@ -199,6 +199,8 @@ function changeSpinnerUsage(j: core.JSCodeshift, source: string): string {
             j(container).replaceWith(
               j.jsxExpressionContainer(
                 j.conditionalExpression(
+                  // Type 'JSXEmptyExpression' is not assignable to type 'ExpressionKind'.
+                  // @ts-ignore TS2345
                   container.node.expression,
                   j.stringLiteral('invert'),
                   j.stringLiteral('inherit'),

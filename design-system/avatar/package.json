@@ -56,9 +56,9 @@
     "@atlaskit/webdriver-runner": "*",
     "@emotion/styled": "^10.0.7",
     "@testing-library/react": "^8.0.1",
-    "@types/jscodeshift": "^0.6.3",
+    "@types/jscodeshift": "^0.11.0",
     "color-contrast-checker": "^1.5.0",
-    "jscodeshift": "^0.7.0",
+    "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

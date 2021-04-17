@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 import { LegendItem, LegendLabel, LegendOrdinal } from '@visx/legend';
+import { MarkerCircle } from '@visx/marker';
 import { PickD3Scale } from '@visx/scale';
 import {
   AnimatedAxis,
@@ -66,18 +67,33 @@ const LineComponent = (props: {
   seriesNames: any;
   tableData: any;
   xAccessor: any;
+  showPoints?: boolean;
 }) =>
   props.seriesNames
     .filter((name: string) => name !== props.xAccessor)
-    .map((seriesName: any, idx: number) => (
-      <AnimatedLineSeries
-        key={seriesName}
-        dataKey={seriesName}
-        data={props.tableData}
-        xAccessor={(data: { [key: string]: any }) => data[props.xAccessor]}
-        yAccessor={(data: { [key: string]: any }) => data[seriesName]}
-      />
-    ));
+    .map((seriesName: any, idx: number) => {
+      return (
+        <>
+          {props.showPoints && (
+            <MarkerCircle
+              id={`marker-circle-${idx}`}
+              fill={colorSequence[idx]}
+              size={1.5}
+              refX={2}
+            />
+          )}
+          <AnimatedLineSeries
+            dataKey={`${seriesName}-${idx}`}
+            data={props.tableData}
+            xAccessor={(data: { [key: string]: any }) => data[props.xAccessor]}
+            yAccessor={(data: { [key: string]: any }) => data[seriesName]}
+            markerMid={`url(#marker-circle-${idx}`}
+            markerStart={`url(#marker-circle-${idx}`}
+            markerEnd={`url(#marker-circle-${idx}`}
+          />
+        </>
+      );
+    });
 
 const BarComponent = (props: {
   seriesNames: any;
@@ -111,6 +127,7 @@ export const LinearChart = (props: {
   showLegend?: boolean;
   legendPosition: string;
   chartScale: PickD3Scale<'ordinal', any, any>;
+  showPoints?: boolean;
 }) => {
   const {
     seriesNames,
@@ -119,6 +136,7 @@ export const LinearChart = (props: {
     showLegend,
     chartScale,
     legendPosition,
+    showPoints,
   } = props;
 
   const legend = (
@@ -141,7 +159,7 @@ export const LinearChart = (props: {
   );
 
   return (
-    <div data-testId={props.testId}>
+    <div data-testid={props.testId}>
       <ChartLegendGroup direction={legendPosition}>
         {showLegend && legend}
         <XYChart
@@ -173,6 +191,7 @@ export const LinearChart = (props: {
               seriesNames={seriesNames}
               tableData={tableData}
               xAccessor={xAccessor}
+              showPoints={showPoints}
             />
           )}
           <AnimatedAxis
@@ -181,6 +200,7 @@ export const LinearChart = (props: {
             numTicks={6}
             label={xAccessor}
             animationTrajectory={'center'}
+            strokeWidth={0}
           />
           <AnimatedAxis
             key={`temp-axis-${123}-${false}`}

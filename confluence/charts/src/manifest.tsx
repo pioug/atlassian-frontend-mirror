@@ -67,6 +67,11 @@ const fieldDefinition: FieldDefinition[] = [
     label: 'Show legend',
   },
   {
+    name: 'showPoints',
+    type: 'boolean',
+    label: 'Show data points',
+  },
+  {
     name: 'chartTitle',
     type: 'string',
     label: 'Chart title',

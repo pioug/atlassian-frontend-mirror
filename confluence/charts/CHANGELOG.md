@@ -1,5 +1,11 @@
 # @atlaskit/charts
 
+## 0.0.8
+
+### Patch Changes
+
+- [`c84c382f338`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c84c382f338) - [ux] Adding the ability to show Data Points on a Line chart
+
 ## 0.0.7
 
 ### Patch Changes

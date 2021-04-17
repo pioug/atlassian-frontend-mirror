@@ -26,6 +26,7 @@ export const Chart = ({
   data,
   chartTitle,
   showLegend,
+  showPoints,
   legendPosition,
   height,
 }: any) => {
@@ -48,6 +49,7 @@ export const Chart = ({
     data,
     chartTitle,
     showLegend,
+    showPoints,
     seriesNames,
     tableData,
     chartScale: ordinalColorScale,

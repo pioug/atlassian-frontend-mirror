@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.2.3
+
+### Patch Changes
+
+- [`2c8bafbcca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8bafbcca0) - ADFS-453 wiki transformer - Nested lists have size limit
+
 ## 9.2.2
 
 ### Patch Changes

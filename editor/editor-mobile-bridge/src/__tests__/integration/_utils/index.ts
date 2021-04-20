@@ -45,7 +45,7 @@ export const clipboardHelper = {
 
 export const selectionPluginHelper = {
   name: 'editor-with-selection-plugin',
-  path: getExampleUrl('editor', 'editor-mobile-bridge', 'editor', {
+  path: getExampleUrl('editor', 'editor-mobile-bridge', 'editor', undefined, {
     selectionObserverEnabled: true,
   }),
 };

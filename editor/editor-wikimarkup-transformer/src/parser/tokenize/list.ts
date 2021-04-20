@@ -6,7 +6,9 @@ import { parseMacroKeyword } from './keyword';
 import { Token, TokenType, parseToken, TokenParser } from './';
 import { parseNewlineOnly } from './whitespace';
 
-const LIST_ITEM_REGEXP = /^ *([*\-#]+) /;
+export const MAX_LIST_DEPTH = 20;
+
+const LIST_ITEM_REGEXP = new RegExp(`^ *([*\\-#]{1,${MAX_LIST_DEPTH}}) `);
 const EMPTY_LINE_REGEXP = /^[ \t]*\r?\n/;
 const RULER_SYMBOL_REGEXP = /^-{4,5}/;
 

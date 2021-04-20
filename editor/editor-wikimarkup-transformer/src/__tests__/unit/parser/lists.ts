@@ -104,6 +104,10 @@ sadfsadf
       `********************* a`,
     ],
     [
+      'ADFS-453 should NOT create a list of more than 20 levels of nesting when nesting different types of lists',
+      `# \n********************* a`,
+    ],
+    [
       'should correctly insert a ruler if it occurs within a list',
       `
 - a

@@ -1,4 +1,5 @@
 import { TokenType } from './';
+import { MAX_LIST_DEPTH } from './list';
 
 interface KeywordToken {
   type: TokenType;
@@ -131,7 +132,7 @@ const leadingKeywordTokenMap: KeywordToken[] = [
   {
     // Lists are limited to max 20 levels of depth
     type: TokenType.LIST,
-    regex: /^([*#]{1,20}|-) /,
+    regex: new RegExp(`^([*#]{1,${MAX_LIST_DEPTH}}|-) `),
   },
   {
     type: TokenType.TABLE,

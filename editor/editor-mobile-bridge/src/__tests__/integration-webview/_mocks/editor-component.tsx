@@ -14,7 +14,7 @@ import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
 import { useEditorConfiguration } from '../../../editor/hooks/use-editor-configuration';
 import { emoji } from '@atlaskit/util-data-test';
-import { cardClient } from '@atlaskit/media-integration-test-helpers';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 
 const App = () => {
   const fetchProxy = useFetchProxy();

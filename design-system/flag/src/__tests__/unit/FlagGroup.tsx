@@ -50,6 +50,14 @@ describe('FlagGroup', () => {
     );
   });
 
+  it('should allow falsy children', () => {
+    expect(() => {
+      render(<FlagGroup>{null}</FlagGroup>);
+      render(<FlagGroup>{false}</FlagGroup>);
+      render(<FlagGroup>{[]}</FlagGroup>);
+    }).not.toThrow();
+  });
+
   it('should move Flag children up when dismissed', () => {
     const spy = jest.fn();
     const { getByTestId, queryByTestId, rerender } = render(

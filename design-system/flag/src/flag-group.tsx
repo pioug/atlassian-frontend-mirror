@@ -16,7 +16,7 @@ type Props = {
   /** Describes the specific tag on which the screen reader text will be rendered (defaults to `h2`). */
   labelTag?: React.ElementType;
   /** Flag elements to be displayed. */
-  children?: Array<ReactElement> | ReactElement;
+  children?: Array<ReactElement> | ReactElement | null | boolean;
   /** Handler which will be called when a Flag's dismiss button is clicked.
    * Receives the id of the dismissed Flag as a parameter.
    */
@@ -90,7 +90,7 @@ const FlagGroup = (props: Props) => {
   } = props;
 
   const renderChildren = () => {
-    return children
+    return children && typeof children === 'object'
       ? Children.map(children, (flag: ReactElement, index: number) => {
           const isDismissAllowed: boolean = index === 0;
           const { id } = flag.props;
@@ -133,7 +133,7 @@ const FlagGroup = (props: Props) => {
     : Boolean(children);
 
   let firstFlagId: number | string | null = null;
-  if (hasFlags && children) {
+  if (hasFlags && children && typeof children === 'object') {
     firstFlagId = Array.isArray(children)
       ? children[0].props.id
       : children.props.id;

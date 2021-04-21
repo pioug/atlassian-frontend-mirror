@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.2.3
+
+### Patch Changes
+
+- [`57f551bad1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57f551bad1f) - Flag group children types now can have falsy children.
+
 ## 14.2.2
 
 ### Patch Changes

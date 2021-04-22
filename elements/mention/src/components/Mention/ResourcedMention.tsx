@@ -85,14 +85,14 @@ export default class ResourcedMention extends React.PureComponent<
   }
 
   private handleMentionProvider = (props: Props) => {
-    const { id, mentionProvider } = props;
+    const { id, mentionProvider, text } = props;
     if (mentionProvider) {
       mentionProvider
         .then(provider => {
           const newState: State = {
             isHighlighted: provider.shouldHighlightMention({ id }),
           };
-          if (isResolvingMentionProvider(provider)) {
+          if (!text && isResolvingMentionProvider(provider)) {
             const nameDetail = provider.resolveMentionName(id);
             if (isPromise(nameDetail)) {
               nameDetail.then(nameDetailResult => {

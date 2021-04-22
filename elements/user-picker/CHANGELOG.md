@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.9.1
+
+### Patch Changes
+
+- [`2ed498a11d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ed498a11d4) - Export getUserRecommendations for external use and test mocking
+
 ## 7.9.0
 
 ### Minor Changes

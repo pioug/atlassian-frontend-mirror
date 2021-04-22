@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.5.1
+
+### Patch Changes
+
+- [`3274237a5be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3274237a5be) - [ux] reverted changes in ED-11939
+
 ## 19.5.0
 
 ### Minor Changes

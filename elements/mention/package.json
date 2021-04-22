@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/mention",
-  "version": "19.5.0",
+  "version": "19.5.1",
   "description": "A React component used to display user profiles in a list for 'Mention' functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

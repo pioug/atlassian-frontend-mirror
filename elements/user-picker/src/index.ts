@@ -5,11 +5,13 @@ export type {
 } from './components/emailValidation';
 export { UserPicker as default } from './components/UserPicker';
 export {
+  getUserRecommendations,
   hydrateDefaultValues,
   SmartUserPicker,
   setSmartUserPickerEnv,
 } from './components/smart-user-picker/index';
 export type {
+  RecommendationRequest,
   SmartUserPickerProps,
   SupportedProduct,
 } from './components/smart-user-picker/index';

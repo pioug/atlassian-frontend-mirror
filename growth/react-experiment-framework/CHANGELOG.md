@@ -1,5 +1,11 @@
 # @atlaskit/react-experiment-framework
 
+## 0.7.4
+
+### Patch Changes
+
+- [`5eddf1c36bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eddf1c36bb) - remove version.json and replace with build time params
+
 ## 0.7.3
 
 ### Patch Changes

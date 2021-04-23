@@ -1,5 +1,21 @@
 # @atlaskit/feature-flag-client
 
+## 4.2.0
+
+### Minor Changes
+
+- [`1388ead86af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1388ead86af) - Migrated to declarative entry points. This has removed all entrypoints except for @atlaskit/feature-flag-client and @atlaskit/feature-flag-client/types
+- [`63c23e6bc25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c23e6bc25) - Added a new getRawValue method that can be used to evaluate flags without performing any type safety checks
+  Added a new getFlagStats method that returns usage information about each flag. This currently only contains an "evaluationCount" per used flag key.
+  Performance improvements for repeat evaluations. Flag objects are now cached after the first evaluation, so that subsequent evaluations do not need to perform the same validation checks again.
+  Added automatic exposure events for some error cases where the default value is served, such as when the flag does not exist or the value does not match one of the expected variants
+
+## 4.1.3
+
+### Patch Changes
+
+- [`5eddf1c36bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eddf1c36bb) - remove version.json and replace with build time params
+
 ## 4.1.2
 
 ### Patch Changes

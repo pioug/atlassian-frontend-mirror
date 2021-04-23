@@ -395,7 +395,7 @@ describe('Feature Flag Client', () => {
         expect(analyticsHandler).toHaveBeenCalledTimes(0);
       });
 
-      test('should return default if flag is not listed as oneOf, and still fire exposure event', () => {
+      test('should return default if flag is not listed as oneOf, and should not fire an exposure event', () => {
         const client = new FeatureFlagClient({
           analyticsHandler,
           flags: {
@@ -415,20 +415,7 @@ describe('Feature Flag Client', () => {
             oneOf: ['control', 'experiment'],
           }),
         ).toBe('control');
-        expect(analyticsHandler).toHaveBeenCalledTimes(1);
-        expect(analyticsHandler).toHaveBeenCalledWith({
-          action: 'exposed',
-          actionSubject: 'feature',
-          attributes: {
-            flagKey: 'my.variation.a',
-            reason: 'RULE_MATCH',
-            ruleId: '111-bbbbb-ccc',
-            value: 'variation-a',
-          },
-          tags: ['measurement'],
-          highPriority: true,
-          source: '@atlaskit/feature-flag-client',
-        });
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
       });
 
       test('should return the right value if flag is listed as oneOf, and fire exposure event', () => {
@@ -582,7 +569,7 @@ describe('Feature Flag Client', () => {
               }),
             ).toBe(STRING_DEFAULT_VALUE);
 
-            expect(client.flags['some-flag']).toEqual({
+            expect(client.flags.get('some-flag')).toEqual({
               value: wrongValue,
             });
           });
@@ -937,7 +924,7 @@ describe('Feature Flag Client', () => {
         });
 
         describe('Invalid types on default value and flag value', () => {
-          test('should send exposure event with errorKind if type of default value does not match type of flag value for flag with evaluation details', () => {
+          test('should send automatic exposure event with errorKind:WRONG_TYPE if type of default value does not match type of flag value for flag with evaluation details', () => {
             const client = new FeatureFlagClient({
               analyticsHandler,
               flags: {
@@ -984,7 +971,7 @@ describe('Feature Flag Client', () => {
             });
           });
 
-          test('should send exposure event with errorKind if type of default value does not match type of flag value for simple flag', () => {
+          test('should send automatic exposure event with errorKind:WRONG_TYPE if type of default value does not match type of flag value for simple flag', () => {
             const client = new FeatureFlagClient({
               analyticsHandler,
               flags: {
@@ -1019,6 +1006,141 @@ describe('Feature Flag Client', () => {
                 reason: 'ERROR',
                 value: true,
                 errorKind: 'WRONG_TYPE',
+              },
+              tags: ['autoExposure', 'measurement'],
+              highPriority: false,
+              source: '@atlaskit/feature-flag-client',
+            });
+          });
+        });
+
+        describe('Flag does not exist', () => {
+          test('should send automatic exposure event with errorKind:FLAG_NOT_FOUND if a flag is requested but does not exist', () => {
+            const client = new FeatureFlagClient({
+              analyticsHandler,
+              flags: {},
+            });
+
+            client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+
+            expect(
+              client.getBooleanValue('my.experiment', {
+                default: true,
+                shouldTrackExposureEvent: false,
+              }),
+            ).toBe(true);
+
+            expect(analyticsHandler).toHaveBeenCalledTimes(0);
+
+            expect(
+              automaticAnalyticsHandler.sendOperationalEvent,
+            ).toHaveBeenCalledTimes(1);
+
+            expect(
+              automaticAnalyticsHandler.sendOperationalEvent,
+            ).toHaveBeenCalledWith({
+              action: 'exposed',
+              actionSubject: 'feature',
+              attributes: {
+                flagKey: 'my.experiment',
+                reason: 'ERROR',
+                value: true,
+                errorKind: 'FLAG_NOT_FOUND',
+              },
+              tags: ['autoExposure', 'measurement'],
+              highPriority: false,
+              source: '@atlaskit/feature-flag-client',
+            });
+          });
+        });
+      });
+
+      describe('getVariantValue', () => {
+        describe('Variant does not exist in the provided oneOf argument', () => {
+          test('should send automatic exposure event with errorKind:VALIDATION_ERROR if the value does not exist in the provided oneOf for flag with evaluation details', () => {
+            const client = new FeatureFlagClient({
+              analyticsHandler,
+              flags: {
+                'my.experiment': {
+                  value: 'variant',
+                  explanation: {
+                    kind: 'RULE_MATCH',
+                    ruleId: '111-bbbbb-ccc',
+                  },
+                },
+              },
+            });
+
+            client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+
+            expect(
+              client.getVariantValue('my.experiment', {
+                default: 'control',
+                oneOf: ['control', 'experiment'],
+                shouldTrackExposureEvent: false,
+              }),
+            ).toBe('control');
+
+            expect(analyticsHandler).toHaveBeenCalledTimes(0);
+
+            expect(
+              automaticAnalyticsHandler.sendOperationalEvent,
+            ).toHaveBeenCalledTimes(1);
+
+            expect(
+              automaticAnalyticsHandler.sendOperationalEvent,
+            ).toHaveBeenCalledWith({
+              action: 'exposed',
+              actionSubject: 'feature',
+              attributes: {
+                flagKey: 'my.experiment',
+                ruleId: '111-bbbbb-ccc',
+                reason: 'ERROR',
+                value: 'control',
+                errorKind: 'VALIDATION_ERROR',
+              },
+              tags: ['autoExposure', 'measurement'],
+              highPriority: false,
+              source: '@atlaskit/feature-flag-client',
+            });
+          });
+
+          test('should send automatic exposure event with errorKind:VALIDATION_ERROR if the value does not exist in the provided oneOf for simple flag', () => {
+            const client = new FeatureFlagClient({
+              analyticsHandler,
+              flags: {
+                'my.experiment': {
+                  value: '111-bbbbbb-ccc',
+                },
+              },
+            });
+
+            client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+
+            expect(
+              client.getVariantValue('my.experiment', {
+                default: 'control',
+                oneOf: ['control', 'experiment'],
+                shouldTrackExposureEvent: false,
+              }),
+            ).toBe('control');
+
+            expect(analyticsHandler).toHaveBeenCalledTimes(0);
+
+            expect(
+              automaticAnalyticsHandler.sendOperationalEvent,
+            ).toHaveBeenCalledTimes(1);
+
+            expect(
+              automaticAnalyticsHandler.sendOperationalEvent,
+            ).toHaveBeenCalledWith({
+              action: 'exposed',
+              actionSubject: 'feature',
+              attributes: {
+                flagKey: 'my.experiment',
+                reason: 'ERROR',
+                value: 'control',
+                errorKind: 'VALIDATION_ERROR',
               },
               tags: ['autoExposure', 'measurement'],
               highPriority: false,

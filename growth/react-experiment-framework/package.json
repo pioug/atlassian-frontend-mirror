@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/react-experiment-framework",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Experimentation React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -7,26 +7,29 @@ import {
   ReservedAttributes,
   AutomaticAnalyticsHandler,
   ExposureEventAttributes,
+  FlagWrapper,
+  FlagStats,
+  FlagValue,
 } from './types';
+
 import {
   isObject,
   enforceAttributes,
-  isFlagWithEvaluationDetails,
-  isSimpleFlag,
   validateFlags,
   checkForReservedAttributes,
 } from './lib';
 
-import TrackedFlag from './tracked-flag';
-import UntrackedFlag from './untracked-flag';
+import MissingFlag from './missing-flag';
+import BasicFlag from './basic-flag';
 
 export default class FeatureFlagClient {
-  flags: Readonly<Flags> = {};
-  trackedFlags: { [flagKey: string]: boolean } = {};
+  flags: Map<String, FlagShape> = new Map();
+  flagWrapperCache: Map<string, FlagWrapper> = new Map();
+  trackedFlags: Set<string> = new Set();
   analyticsHandler?: AnalyticsHandler;
   automaticAnalyticsHandler?: AutomaticAnalyticsHandler;
   isAutomaticExposuresEnabled: boolean = false;
-  automaticExposuresCache: { [flagKey: string]: boolean } = {};
+  automaticExposuresCache: Set<string> = new Set();
 
   constructor(options: {
     flags?: Flags;
@@ -50,10 +53,17 @@ export default class FeatureFlagClient {
       validateFlags(flags);
     }
 
-    this.flags = {
-      ...this.flags,
-      ...flags,
-    };
+    Object.entries(flags).forEach(([flagKey, flag]) => {
+      this.flags.set(flagKey, flag);
+    });
+
+    // Clear any cached data for flags that have been passed in again,
+    // in case they have different values or explanations
+    for (const flagKey of this.flagWrapperCache.keys()) {
+      if (flags.hasOwnProperty(flagKey)) {
+        this.flagWrapperCache.delete(flagKey);
+      }
+    }
   }
 
   setAnalyticsHandler(analyticsHandler: AnalyticsHandler) {
@@ -78,28 +88,59 @@ export default class FeatureFlagClient {
     this.setAutomaticAnalyticsHandler(automaticAnalyticsHandler);
   }
 
-  getFlag(flagKey: string): TrackedFlag | UntrackedFlag | null {
-    const flag = this.flags[flagKey];
+  /**
+   * @todo Remove this method in a future major release.
+   * This method should not have been exposed publically, but unfortunately is still used in some products.
+   * We have created the getRawValue method already, which should solve the previous use-cases, but
+   * have kept the method in order to get the changes rolled out.
+   *
+   * @deprecated Since 4.2.0. Will be deleted in version 5.0. Please use getRawValue instead.
+   */
+  getFlag(flagKey: string): FlagWrapper | null {
+    const wrapper = this.getFlagWrapper(flagKey);
 
-    if (isFlagWithEvaluationDetails(flag)) {
-      return new TrackedFlag(
+    // This is added for backwards compatibility
+    if (wrapper instanceof MissingFlag) {
+      return null;
+    }
+
+    return wrapper;
+  }
+
+  /**
+   * This method returns the wrapper object for the given flag key.
+   * If the flag does not exist, this will return a stubbed flag following the null-object pattern,
+   * so it is always guaranteed to return an object.
+   *
+   * @todo In a future major release, we should look at removing getFlag from the public API, and merging
+   * these two methods together. getFlag has been left returning null values for backwards compatibility.
+   */
+  private getFlagWrapper(flagKey: string): FlagWrapper {
+    let wrapper: FlagWrapper | undefined = this.flagWrapperCache.get(flagKey);
+    if (wrapper !== undefined) {
+      return wrapper;
+    }
+
+    const flag = this.flags.get(flagKey);
+    if (flag) {
+      wrapper = new BasicFlag(
         flagKey,
         flag,
         this.trackExposure,
         this.sendAutomaticExposure,
       );
+    } else {
+      wrapper = new MissingFlag(flagKey, this.sendAutomaticExposure);
     }
 
-    if (isSimpleFlag(flag)) {
-      return new UntrackedFlag(flagKey, flag, this.sendAutomaticExposure);
-    }
-
-    return null;
+    this.flagWrapperCache.set(flagKey, wrapper);
+    return wrapper;
   }
 
   clear() {
-    this.flags = {};
-    this.trackedFlags = {};
+    this.flags.clear();
+    this.flagWrapperCache.clear();
+    this.trackedFlags.clear();
   }
 
   getBooleanValue(
@@ -111,19 +152,8 @@ export default class FeatureFlagClient {
     },
   ): boolean {
     enforceAttributes(options, ['default'], 'getBooleanValue');
-
-    const getterOptions = {
-      shouldTrackExposureEvent: true,
-      ...options,
-    };
-
-    const flag = this.getFlag(flagKey);
-
-    if (!flag) {
-      return options.default;
-    }
-
-    return flag.getBooleanValue(getterOptions);
+    const wrapper = this.getFlagWrapper(flagKey);
+    return wrapper.getBooleanValue(options);
   }
 
   getVariantValue(
@@ -136,29 +166,26 @@ export default class FeatureFlagClient {
     },
   ): string {
     enforceAttributes(options, ['default', 'oneOf'], 'getVariantValue');
-
-    const getterOptions = {
-      shouldTrackExposureEvent: true,
-      ...options,
-    };
-
-    const flag = this.getFlag(flagKey);
-
-    if (!flag) {
-      return options.default;
-    }
-
-    return flag.getVariantValue(getterOptions) as string;
+    const wrapper = this.getFlagWrapper(flagKey);
+    return wrapper.getVariantValue(options);
   }
 
   getJSONValue(flagKey: string): object {
-    const flag = this.getFlag(flagKey);
+    const wrapper = this.getFlagWrapper(flagKey);
+    return wrapper.getJSONValue();
+  }
 
-    if (!flag) {
-      return {};
-    }
-
-    return flag.getJSONValue();
+  getRawValue(
+    flagKey: string,
+    options: {
+      default: FlagValue;
+      shouldTrackExposureEvent?: boolean;
+      exposureData?: CustomAttributes;
+    },
+  ): FlagValue {
+    enforceAttributes(options, ['default'], 'getRawValue');
+    const wrapper = this.getFlagWrapper(flagKey);
+    return wrapper.getRawValue(options);
   }
 
   trackExposure = (
@@ -167,7 +194,7 @@ export default class FeatureFlagClient {
     exposureData: CustomAttributes = {},
   ) => {
     if (
-      this.trackedFlags[flagKey] ||
+      this.trackedFlags.has(flagKey) ||
       !flag ||
       !flag.explanation ||
       !this.analyticsHandler
@@ -195,7 +222,7 @@ export default class FeatureFlagClient {
 
     this.analyticsHandler(exposureEvent);
 
-    this.trackedFlags[flagKey] = true;
+    this.trackedFlags.add(flagKey);
   };
 
   private sendAutomaticExposure = (
@@ -204,10 +231,10 @@ export default class FeatureFlagClient {
     flagExplanation?: FlagShape['explanation'],
   ) => {
     if (
-      this.trackedFlags[flagKey] ||
-      this.automaticExposuresCache[flagKey] ||
-      !this.automaticAnalyticsHandler ||
-      !this.isAutomaticExposuresEnabled
+      this.automaticExposuresCache.has(flagKey) ||
+      !this.isAutomaticExposuresEnabled ||
+      this.trackedFlags.has(flagKey) ||
+      !this.automaticAnalyticsHandler
     ) {
       return;
     }
@@ -235,6 +262,19 @@ export default class FeatureFlagClient {
 
     this.automaticAnalyticsHandler.sendOperationalEvent(exposureEvent);
 
-    this.automaticExposuresCache[flagKey] = true;
+    this.automaticExposuresCache.add(flagKey);
   };
+
+  getFlagStats(): FlagStats {
+    return Object.entries(this.flagWrapperCache).reduce<FlagStats>(
+      (acc, [flagKey, wrapper]) => {
+        const { evaluationCount } = wrapper;
+        acc[flagKey] = {
+          evaluationCount,
+        };
+        return acc;
+      },
+      {},
+    );
+  }
 }

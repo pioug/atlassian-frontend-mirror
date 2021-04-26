@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 3.0.0
+
+### Major Changes
+
+- [`cbed2edbd0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbed2edbd0c) - [ux] Ranamed prop "title" to "headerTitle". Added the prop "headerContent" where we can pass a React.node to render underneath the header title
+
 ## 2.0.7
 
 ### Patch Changes

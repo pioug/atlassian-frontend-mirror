@@ -2,6 +2,7 @@ import { NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { serializeStyle } from '../serialize-style';
 import { createClassName } from '../styles/util';
+import { applyMarks } from '../apply-marks';
 
 const className = createClassName('media-single');
 export const styles = `
@@ -32,7 +33,11 @@ export const styles = `
 
 `;
 
-export default function mediaSingle({ attrs, text }: NodeSerializerOpts) {
+export default function mediaSingle({
+  attrs,
+  marks,
+  text,
+}: NodeSerializerOpts) {
   const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
   const style: any = {
     width: honorWidth ? `${attrs.width || 100}%` : '100%',
@@ -40,9 +45,10 @@ export default function mediaSingle({ attrs, text }: NodeSerializerOpts) {
   };
 
   const layoutClass = `${className}-${attrs.layout}`;
-  return createTag(
+  const mediaSingleTag = createTag(
     'div',
     { style: serializeStyle(style), class: layoutClass },
     text,
   );
+  return applyMarks(marks, mediaSingleTag);
 }

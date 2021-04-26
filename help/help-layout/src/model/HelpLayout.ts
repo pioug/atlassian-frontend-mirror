@@ -2,7 +2,9 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export interface HelpPanelHeader {
   // Title used in the header. This prop is optional, if is not defined, the default value is used ("Help")
-  title?: string;
+  headerTitle?: string;
+  // Content to render underneath the header title. This prop is optional
+  headerContent?: React.ReactNode;
   // Event handler for the "Close" button. This prop is optional, if this function is not defined the close button will not be displayed
   onCloseButtonClick?(
     event: React.MouseEvent<HTMLElement, MouseEvent>,

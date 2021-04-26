@@ -25,7 +25,9 @@ const Example: React.FC = () => {
           <AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
             <LocaleIntlProvider locale={'en'}>
               <HelpLayout
+                headerTitle="Header Title"
                 isBackbuttonVisible={true}
+                onCloseButtonClick={() => console.log('close')}
                 footer={
                   <FooterContent>
                     <span>Footer</span>

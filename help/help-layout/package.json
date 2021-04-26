@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "2.0.7",
+  "version": "3.0.0",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

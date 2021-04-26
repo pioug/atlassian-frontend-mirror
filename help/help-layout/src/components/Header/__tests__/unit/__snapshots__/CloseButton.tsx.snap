@@ -4,10 +4,7 @@ exports[`BackButton Should match snapshot 1`] = `
 .emotion-3 {
   position: absolute;
   right: 8px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  top: 12px;
 }
 
 .emotion-2,

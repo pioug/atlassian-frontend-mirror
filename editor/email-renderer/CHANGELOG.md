@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 6.2.0
+
+### Minor Changes
+
+- [`63b16140520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63b16140520) - ADFS-70 Allow marks on media single. This is to allow media items to be used as links in the email renderer
+
 ## 6.1.9
 
 ### Patch Changes

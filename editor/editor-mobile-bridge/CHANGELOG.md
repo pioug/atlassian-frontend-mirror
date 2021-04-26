@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 25.5.5
+
+### Patch Changes
+
+- [`97264580c25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97264580c25) - Use blank image for mobile media expand test
+
 ## 25.5.4
 
 ### Patch Changes

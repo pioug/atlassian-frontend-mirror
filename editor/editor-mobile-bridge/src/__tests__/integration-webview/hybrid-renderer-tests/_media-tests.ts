@@ -39,19 +39,23 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Renderer Media in Layouts: 2 column', {}, async client => {
-    const page = await Page.create(client);
+  MobileTestCase(
+    'Renderer Media in Layouts: 2 column',
+    { skipPlatform: ['android'] },
+    async client => {
+      const page = await Page.create(client);
 
-    await loadRenderer(page);
-    await page.switchToWeb();
-    await setADFContent(page, media2ColumnLayoutAdf, 'renderer');
-    await page.waitForSelector(
-      '[data-testid="media-file-card-view"][data-test-status="complete"]',
-    );
-    const layout = await page.$('[data-layout-section="true"]');
-    await layout.scrollIntoView();
-    await mobileSnapshot(page);
-  });
+      await loadRenderer(page);
+      await page.switchToWeb();
+      await setADFContent(page, media2ColumnLayoutAdf, 'renderer');
+      await page.waitForSelector(
+        '[data-testid="media-file-card-view"][data-test-status="complete"]',
+      );
+      const layout = await page.$('[data-layout-section="true"]');
+      await layout.scrollIntoView();
+      await mobileSnapshot(page);
+    },
+  );
 
   MobileTestCase('Renderer Media in Layouts: 3 columns', {}, async client => {
     const page = await Page.create(client);

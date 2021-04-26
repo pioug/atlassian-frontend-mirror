@@ -7,10 +7,11 @@ import { HelpPanelHeader } from '../../model/HelpLayout';
 
 import CloseButton from './CloseButton';
 import BackButton from './BackButton';
-import { HeaderContainer, HeaderTitle } from './styled';
+import { HeaderContainer, HeaderTitle, HeaderContent } from './styled';
 
 export const HelpContent: React.FC<HelpPanelHeader & InjectedIntlProps> = ({
-  title,
+  headerTitle,
+  headerContent,
   isBackbuttonVisible = false,
   onCloseButtonClick,
   onBackButtonClick,
@@ -32,9 +33,12 @@ export const HelpContent: React.FC<HelpPanelHeader & InjectedIntlProps> = ({
         isVisible={isBackbuttonVisible}
       />
       <HeaderTitle>
-        {title ? title : formatMessage(messages.help_panel_header_title)}
+        {headerTitle
+          ? headerTitle
+          : formatMessage(messages.help_panel_header_title)}
       </HeaderTitle>
       {onCloseButtonClick && <CloseButton onClick={onCloseButtonClick} />}
+      {headerContent && <HeaderContent>{headerContent}</HeaderContent>}
     </HeaderContainer>
   );
 };

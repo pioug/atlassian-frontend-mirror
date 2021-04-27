@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.6
+
+### Patch Changes
+
+- [`f8cf7c90c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8cf7c90c94) - Added error attributes to analytics after failures so we can track issue causes
+
 ## 15.5.5
 
 ### Patch Changes

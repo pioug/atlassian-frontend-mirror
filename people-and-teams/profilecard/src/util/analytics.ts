@@ -33,9 +33,12 @@ const createEvent = (
 export const teamCardTriggered = (method: 'hover' | 'click') =>
   createEvent('ui', 'triggered', TEAM_SUBJECT, undefined, { method });
 
-export const teamRequestAnalytic = (
+export const teamRequestAnalytics = (
   action: 'triggered' | 'succeeded' | 'failed',
-  attributes?: { duration: number },
+  attributes?: { duration: number } & Record<
+    string,
+    string | number | undefined
+  >,
 ) => createEvent('operational', action, TEAM_SUBJECT, 'request', attributes);
 
 export const teamProfileCardRendered = (

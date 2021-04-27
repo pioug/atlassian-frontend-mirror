@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../../src/api/ProfileCardClient';
 import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/TeamProfileCardTrigger';
-import { teamCardTriggered, teamRequestAnalytic } from '../../util/analytics';
+import { teamCardTriggered, teamRequestAnalytics } from '../../util/analytics';
 
 const createAnalyticsEvent = jest.fn(body => {
   // Mocking an implementation of this so tests will run successfully
@@ -408,12 +408,12 @@ describe('TeamProfileCardTrigger', () => {
       await new Promise(setImmediate);
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
-        flexiTime(teamRequestAnalytic('triggered')),
+        flexiTime(teamRequestAnalytics('triggered')),
       );
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         flexiTime(
-          teamRequestAnalytic('succeeded', {
+          teamRequestAnalytics('succeeded', {
             duration: expect.anything(),
           }),
         ),
@@ -421,10 +421,11 @@ describe('TeamProfileCardTrigger', () => {
     });
 
     it('Request failure analytics', async () => {
+      const error = 'An error occurred';
       const MockTeamClient = getMockTeamClient({
         team: sampleProfile,
         timeout: 0,
-        error: 1,
+        error,
         errorRate: 1,
       });
 
@@ -456,13 +457,14 @@ describe('TeamProfileCardTrigger', () => {
       await new Promise(setImmediate);
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
-        flexiTime(teamRequestAnalytic('triggered')),
+        flexiTime(teamRequestAnalytics('triggered')),
       );
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith(
         flexiTime(
-          teamRequestAnalytic('failed', {
+          teamRequestAnalytics('failed', {
             duration: expect.anything(),
+            errorReason: error,
           }),
         ),
       );

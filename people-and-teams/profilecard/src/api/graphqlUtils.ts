@@ -10,6 +10,11 @@ interface Query {
   variables: Record<string, string>;
 }
 
+export interface GraphQLError {
+  code?: number;
+  reason: string;
+}
+
 /**
  * @param {string} serviceUrl - GraphQL service endpoint
  * @param {Query} query - GraphQL query

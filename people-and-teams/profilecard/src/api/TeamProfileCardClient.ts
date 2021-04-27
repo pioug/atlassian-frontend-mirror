@@ -1,9 +1,9 @@
 import type { ProfileClientOptions, Team } from '../types';
-import { teamRequestAnalytic } from '../util/analytics';
+import { teamRequestAnalytics } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
-import { graphqlQuery } from './graphqlUtils';
+import { GraphQLError, graphqlQuery } from './graphqlUtils';
 
 /**
  * @param  {string} userId
@@ -71,7 +71,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
       const startTime = getPageTime();
 
       if (analytics) {
-        analytics(teamRequestAnalytic('triggered'));
+        analytics(teamRequestAnalytics('triggered'));
       }
 
       this.makeRequest(teamId)
@@ -81,18 +81,20 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
           }
           if (analytics) {
             analytics(
-              teamRequestAnalytic('succeeded', {
+              teamRequestAnalytics('succeeded', {
                 duration: getPageTime() - startTime,
               }),
             );
           }
           resolve(data);
         })
-        .catch(error => {
+        .catch((error: GraphQLError) => {
           if (analytics) {
             analytics(
-              teamRequestAnalytic('failed', {
+              teamRequestAnalytics('failed', {
                 duration: getPageTime() - startTime,
+                errorStatus: error.code,
+                errorReason: error.reason,
               }),
             );
           }

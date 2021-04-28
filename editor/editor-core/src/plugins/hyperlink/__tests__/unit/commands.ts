@@ -18,8 +18,6 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
-  setLinkHref,
-  setLinkText,
   showLinkToolbar,
   insertLink,
   hideLinkToolbar,
@@ -27,6 +25,7 @@ import {
   insertLinkWithAnalytics,
   updateLink,
   insertLinkWithAnalyticsMobileNative,
+  setLinkHref,
 } from '../../commands';
 import {
   stateKey as hyperlinkStateKey,
@@ -141,47 +140,7 @@ describe('hyperlink commands', () => {
       ).toBe(false);
     });
   });
-  describe('#setLinkText', () => {
-    it('should not set the link text when pos is not at a link node', () => {
-      const { editorView: view, sel } = editor(doc(p('{<>}')));
-      expect(setLinkText('google', sel)(view.state, view.dispatch)).toBe(false);
-    });
-    it('should not set the link text when text is an empty string', () => {
-      const { editorView: view, sel } = editor(
-        doc(p(a({ href: googleUrl })('{<>}text'))),
-      );
-      expect(setLinkText('', sel)(view.state, view.dispatch)).toBe(false);
-    });
-    it('should not set the link text when text is equal to the node.text', () => {
-      const { editorView: view, sel } = editor(
-        doc(p(a({ href: googleUrl })('{<>}google.com'))),
-      );
-      expect(setLinkText('google.com', sel)(view.state, view.dispatch)).toBe(
-        false,
-      );
-    });
-    it('should set the link text when the text is non-empty', () => {
-      const { editorView: view, sel } = editor(
-        doc(p(a({ href: googleUrl })('{<>}text'))),
-      );
-      expect(setLinkText('hi!', sel)(view.state, view.dispatch)).toBe(true);
-      expect(view.state.doc).toEqualDocument(
-        doc(p(a({ href: googleUrl })('hi!'))),
-      );
-    });
-    it('should set the link text on selection only', () => {
-      const { editorView: view } = editor(
-        doc(p('this is a ', a({ href: googleUrl })('{<}link{>}'))),
-      );
-      const { from, to } = view.state.selection;
-      expect(
-        setLinkText('selection', from, to)(view.state, view.dispatch),
-      ).toBe(true);
-      expect(view.state.doc).toEqualDocument(
-        doc(p('this is a ', a({ href: googleUrl })('{<}selection{>}'))),
-      );
-    });
-  });
+
   describe('#canLinkBeCreatedInRange', () => {
     it('should not allow creating link when selection is inside an incompatible node', () => {
       const { editorView: view, sel } = editor(doc(code_block()('{<>}')));

@@ -4,6 +4,7 @@ import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N20, DN50, DN700, B200, N20A, N70 } from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const padding = gridSize();
 export const BODIED_EXT_PADDING = padding * 2;
@@ -19,7 +20,7 @@ export const Wrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
   })};
   position: relative;
   vertical-align: middle;
-  font-size: ${fontSize()}px;
+  font-size: ${relativeFontSizeToBase16(fontSize())};
 
   .ProseMirror-selectednode > span > & > .extension-overlay {
     box-shadow: inset 0px 0px 0px 2px ${B200};

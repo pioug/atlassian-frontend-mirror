@@ -35,7 +35,6 @@ describe('trello-switcher', () => {
         enableRecentContainers: true,
         disableSwitchToHeading: false,
         xflow: true,
-        isDefaultEditionFreeExperimentEnabled: false,
         isDiscoverMoreForEveryoneEnabled: true,
         isEmceeLinkEnabled: true,
         isDiscoverSectionEnabled: true,

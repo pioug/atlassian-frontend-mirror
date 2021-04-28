@@ -231,4 +231,40 @@ export const adfs: Record<string, Object> = {
       },
     ],
   },
+
+  multipleMentions: {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'mention',
+            attrs: {
+              id: '0',
+              text: '@Carolyn',
+              accessLevel: '',
+            },
+          },
+          {
+            type: 'mention',
+            attrs: {
+              id: '0',
+              text: '@Carolyn',
+              accessLevel: '',
+            },
+          },
+          {
+            type: 'mention',
+            attrs: {
+              id: '0',
+              text: '@Carolyn',
+              accessLevel: '',
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

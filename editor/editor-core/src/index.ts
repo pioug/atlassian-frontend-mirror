@@ -124,8 +124,7 @@ export {
   insertLinkWithAnalytics,
   isTextAtPos,
   isLinkAtPos,
-  setLinkHref,
-  setLinkText,
+  updateLink,
 } from './plugins/hyperlink/commands';
 export type { LinkInputType as LinkInputMethod } from './plugins/hyperlink/types';
 export { historyPluginKey } from './plugins/history';

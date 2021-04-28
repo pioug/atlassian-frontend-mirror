@@ -1,7 +1,8 @@
+import useLazyRef from '@atlaskit/ds-lib/use-lazy-ref';
+
 import pad from '../utils/pad';
 
 import useControlled from './use-controlled';
-import useLazyRef from './use-lazy-ref';
 
 export default function useControlledDateState({
   day,
@@ -32,7 +33,9 @@ export default function useControlledDateState({
   previouslySelected?: Array<string>;
   defaultPreviouslySelected: Array<string>;
 }) {
-  const { thisDay, thisMonth, thisYear } = useLazyRef(() => {
+  const {
+    current: { thisDay, thisMonth, thisYear },
+  } = useLazyRef(() => {
     const now = new Date();
     const thisDay = now.getDate();
     const thisMonth = now.getMonth() + 1;

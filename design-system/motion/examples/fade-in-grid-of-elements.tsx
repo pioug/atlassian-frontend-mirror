@@ -7,13 +7,13 @@ import Button from '@atlaskit/button/standard-button';
 import {
   BitbucketIcon,
   ConfluenceIcon,
-  JiraCoreIcon,
   JiraIcon,
-  JiraServiceDeskIcon,
+  JiraServiceManagementIcon,
   JiraSoftwareIcon,
-  OpsGenieIcon,
+  JiraWorkManagementIcon,
+  OpsgenieIcon,
   StatuspageIcon,
-  StrideIcon,
+  TrelloIcon,
 } from '@atlaskit/logo';
 
 import { Block, RetryContainer } from '../examples-utils';
@@ -22,13 +22,13 @@ import { FadeIn, StaggeredEntrance } from '../src';
 const logos = [
   <BitbucketIcon size="xlarge" />,
   <ConfluenceIcon size="xlarge" />,
-  <JiraCoreIcon size="xlarge" />,
+  <JiraServiceManagementIcon size="xlarge" />,
   <JiraIcon size="xlarge" />,
-  <JiraServiceDeskIcon size="xlarge" />,
   <JiraSoftwareIcon size="xlarge" />,
-  <OpsGenieIcon size="xlarge" />,
-  <StrideIcon size="xlarge" />,
+  <JiraWorkManagementIcon size="xlarge" />,
+  <OpsgenieIcon size="xlarge" />,
   <StatuspageIcon size="xlarge" />,
+  <TrelloIcon size="xlarge" />,
 ];
 
 export default () => {

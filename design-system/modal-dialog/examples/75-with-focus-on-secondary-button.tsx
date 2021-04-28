@@ -32,7 +32,9 @@ export default class ExampleBasic extends React.PureComponent<{}, State> {
 
     return (
       <div>
-        <Button onClick={this.open}>Open Modal</Button>
+        <Button onClick={this.open} testId="modal-trigger">
+          Open Modal
+        </Button>
 
         <ModalTransition>
           {isOpen && (
@@ -41,6 +43,7 @@ export default class ExampleBasic extends React.PureComponent<{}, State> {
               appearance="danger"
               onClose={this.close}
               heading="Delete Repository"
+              testId="modal"
             >
               <Lorem count={2} />
             </Modal>

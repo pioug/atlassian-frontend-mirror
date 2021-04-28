@@ -21,7 +21,7 @@ export default md`
   ${(
     <Props
       heading="Tabs Props"
-      props={require('!!extract-react-types-loader!../src/components/Tabs')}
+      props={require('!!extract-react-types-loader!../src/components/tabs')}
     />
   )}
 
@@ -32,36 +32,36 @@ export default md`
   ${(
     <Props
       heading="TabContent Props"
-      props={require('!!extract-react-types-loader!../src/components/TabContent')}
+      props={require('!!extract-react-types-loader!../src/components/tab-panel')}
     />
   )}
 
   ${(
     <Example
       packageName="@atlaskit/tabs"
-      Component={require('../examples/30-custom-tab-content-component').default}
+      Component={require('../examples/30-custom-tab-panel-component').default}
       title="Custom Content component"
-      source={require('!!raw-loader!../examples/30-custom-tab-content-component')}
+      source={require('!!raw-loader!../examples/30-custom-tab-panel-component')}
     />
   )}
 
   ### Tab Item Provided Props
-  
+
   These props are provided to the component that you pass to \`components.Item\`.
 
   ${(
     <Props
       heading="TabItem Props"
-      props={require('!!extract-react-types-loader!../src/components/TabItem')}
+      props={require('!!extract-react-types-loader!../src/components/tab')}
     />
   )}
 
   ${(
     <Example
       packageName="@atlaskit/tabs"
-      Component={require('../examples/20-custom-tab-item-components').default}
+      Component={require('../examples/20-custom-tab-components').default}
       title="Custom Item component"
-      source={require('!!raw-loader!../examples/20-custom-tab-item-components')}
+      source={require('!!raw-loader!../examples/20-custom-tab-components')}
     />
   )}
 `;

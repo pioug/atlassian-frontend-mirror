@@ -131,6 +131,16 @@ export const relativeSize = (multiplier: number) => ({
   theme: EditorTheme;
 }) => editorFontSize({ theme }) * multiplier;
 
+export const relativeFontSizeToBase16 = (px: number | string) => {
+  if (typeof px === 'string') {
+    px = parseInt(px);
+  }
+  if (isNaN(px)) {
+    throw new Error(`Invalid font size: '${px}'`);
+  }
+  return `${px / 16}rem`;
+};
+
 export const getAkEditorFullPageMaxWidth = (
   allowDynamicTextSizing: boolean = false,
 ) =>

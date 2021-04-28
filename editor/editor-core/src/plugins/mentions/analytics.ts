@@ -199,6 +199,7 @@ export const buildTypeAheadInsertedPayload = (
       duration,
       position: getPosition(mentionList, mention),
       keyboardKey: isClicked(insertType) ? undefined : insertType,
+      source: mention.source,
       queryLength,
       spaceInQuery,
       isSpecial: isSpecialMention(mention),

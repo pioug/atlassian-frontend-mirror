@@ -53,7 +53,6 @@ export function collectSuggestedLinks(
   joinableSites: ProviderResults['joinableSites'],
   features: {
     isDiscoverSectionEnabled?: boolean;
-    isDefaultEditionFreeExperimentEnabled?: boolean;
   },
 ) {
   if (isError(isXFlowEnabled) || isError(provisionedProducts)) {

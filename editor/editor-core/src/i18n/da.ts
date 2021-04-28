@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Handlingsgenstand',
   'fabric.editor.action.description': 'Opret og tildel handlingsgenstande',
   'fabric.editor.addAltText': 'Alternativ tekst',
+  'fabric.editor.alignCenter': 'Centrér',
   'fabric.editor.alignImageCenter': 'Centrér',
   'fabric.editor.alignImageLeft': 'Venstrejustér',
   'fabric.editor.alignImageRight': 'Højrejustér',
-  'fabric.editor.alignment': 'Placering',
+  'fabric.editor.alignLeft': 'Venstrejustér',
+  'fabric.editor.alignRight': 'Højrejustér',
+  'fabric.editor.alignment': 'Tekstjustering',
   'fabric.editor.altText': 'Al tekst',
   'fabric.editor.alttext.validation': 'Fjern alle specialtegn i ALT-tekst.',
   'fabric.editor.annotate': 'Annotér',
@@ -77,6 +80,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Denne visningsmulighed er ikke tilgængelig i {node}',
   'fabric.editor.displayText': 'Vist tekst',
+  'fabric.editor.distributeColumns': 'Fordel kolonner',
   'fabric.editor.edit': 'Redigér',
   'fabric.editor.editAltText': 'Rediger alternativ tekst',
   'fabric.editor.editLink': 'Redigér link',
@@ -116,6 +120,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Vis fejl i et farvel panel',
   'fabric.editor.expand': 'Udvid',
   'fabric.editor.expand.description': 'Indsæt en udvidelse',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Alle ændringer gemmes altid automatisk',
   'fabric.editor.feedbackDialog': 'Giv feedback',
   'fabric.editor.feedbackDialog.description':
     'Fortæl os om din oplevelse med den nye editor.',

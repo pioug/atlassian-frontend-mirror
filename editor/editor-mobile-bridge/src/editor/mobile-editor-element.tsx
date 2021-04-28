@@ -194,6 +194,7 @@ export function MobileEditor(props: MobileEditorProps) {
               render={({ floatingToolbar }) => {
                 bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
                   floatingToolbar?.config,
+                  floatingToolbar?.node,
                 );
                 return null;
               }}

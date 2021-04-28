@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import { TELEPOINTER_DIM_CLASS } from './plugin-state';
 import { colors, Color } from './utils';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 const telepointerColorStyle = (color: Color, index: number) => `
   &.color-${index} {
@@ -29,7 +30,7 @@ export const telepointerStyle = css`
       position: absolute;
       display: block;
       top: -14px;
-      font-size: 9px;
+      font-size: ${relativeFontSizeToBase16(9)};
       padding: 2px;
       color: white;
       left: -1px;

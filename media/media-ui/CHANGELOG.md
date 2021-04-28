@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 16.0.1
+
+### Patch Changes
+
+- [`78c54a8761f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c54a8761f) - Rewording some comments/types/descriptions to remove unnecessarily gendered phrasing
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

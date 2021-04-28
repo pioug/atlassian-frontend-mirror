@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 142.0.0
+
+### Major Changes
+
+- [`864bae0214b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/864bae0214b) - Removed old methods for inserting a link as they were only being used by mobile. Fix hyperlink text removal on editor mobile bridge.
+
+### Minor Changes
+
+- [`262e3b64547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/262e3b64547) - [ux] ED-12492 Remove blue overlay on selected extension to allow better visibility of extension content and improve accessibility.
+- [`357edf7b4a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/357edf7b4a1) - ED-12266 Extend code block to support UnsupportedInline content.
+- [`f042eac9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f042eac9bf1) - Add SmartMentionResource to mentions with editor-core example
+- [`818ad5911c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/818ad5911c9) - [ux] ED-12552 Add ability to clear optional Select fields in config panel
+
+### Patch Changes
+
+- [`8aed23756e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aed23756e2) - Change to injected version information for analytics
+- [`df1da03ac3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df1da03ac3d) - define interface for api extension
+- [`0919b985b3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0919b985b3d) - [ux][ed-12525] Fix regression caused by changing inline nodes to display inline-block. Pressing cmd + shift + arrow left was not working as expected but by adding user-select: all solves this. Integration tests added for this too.
+- [`14050fe1345`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14050fe1345) - Incorrect use of modal dialog types has been fixed.
+- [`5a6e9efd99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a6e9efd99b) - ED-12508 implement api stub
+- [`573567c0132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/573567c0132) - [ux][ed-12493] Made redo button tooltip have the Cmd icon instead of 'Mod' text by swapping mod for either Ctrl of Cmd in the makeKeymap function
+- [`a1711bcd0c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1711bcd0c1) - [ux] ED-12409 fixed issue with inline comment toolbar appearing on empty selection
+- [`5c835144ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c835144ef0) - [ME-741][me-743] Remove PX references in editor packages and modify code block font size.
+- [`7044e6988ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7044e6988ac) - Updated card toolbar snapshots to include id property
+- [`d09597db582`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d09597db582) - ED-12505 Fix scoping of predictable lists input rule handlers
+- [`e50673cfb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e50673cfb2d) - Import embedHeaderHeight from media-ui package instead of smart-card
+- [`b4d175f5b2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4d175f5b2d) - ED-12075: hide plus button for empty lists
+- Updated dependencies
+
 ## 141.0.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "57.3.2",
+  "version": "57.3.3",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "bricks.js": "^1.8.0",
-    "dateformat": "^1.0.12",
+    "dateformat": "^4.5.1",
     "eventemitter2": "^4.1.0",
     "exenv": "^1.2.2",
     "filesize": "^3.2.1",
@@ -85,7 +85,7 @@
     "@atlaskit/toggle": "^12.0.0",
     "@atlaskit/webdriver-runner": "*",
     "@types/bricks.js": "^1.8.0",
-    "@types/dateformat": "^1.0.1",
+    "@types/dateformat": "^3.0.1",
     "@types/enzyme": "^3.1.15",
     "@types/eventemitter2": "^4.1.0",
     "@types/filesize": "^3.2.15",

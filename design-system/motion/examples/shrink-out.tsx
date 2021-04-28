@@ -12,8 +12,8 @@ import { ExitingPersistence, ShrinkOut, StaggeredEntrance } from '../src';
 const products = [
   'Confluence',
   'Bitbucket',
-  'Jira Service Desk',
-  'Ops Genie',
+  'Jira Service Management',
+  'Opsgenie',
   'Statuspage',
   'Jira Software',
 ];

@@ -10,7 +10,7 @@ import {
   DropdownOptionT,
   SelectOption,
 } from '@atlaskit/editor-core';
-import { NodeType } from 'prosemirror-model';
+import { NodeType, Node } from 'prosemirror-model';
 
 export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
   key?: string;
@@ -19,7 +19,10 @@ export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
 
 export default class MobileEditorToolbarActions {
   private previousItemsJson?: string | null;
-  private floatingToolbarItems?: Array<FloatingToolbarItem<Command>> | null;
+  private floatingToolbarItems?: Array<
+    FloatingToolbarItem<Command> | undefined
+  > | null;
+  private editAllowList = new Set();
 
   /**
    * Checks the available capabilities and translates them into a mobile specific DSL,
@@ -38,13 +41,18 @@ export default class MobileEditorToolbarActions {
    */
   notifyNativeBridgeForEditCapabilitiesChanges(
     floatingToolbarConfig?: FloatingToolbarConfig,
+    floatingToolbarNode?: Node,
   ): void {
-    if (floatingToolbarConfig && Array.isArray(floatingToolbarConfig.items)) {
+    const floatingToolbarConfigItems =
+      typeof floatingToolbarConfig?.items === 'function' && floatingToolbarNode
+        ? floatingToolbarConfig?.items(floatingToolbarNode)
+        : floatingToolbarConfig?.items;
+
+    if (floatingToolbarConfig && Array.isArray(floatingToolbarConfigItems)) {
       const nodeType = floatingToolbarConfig.nodeType;
       let nodeTypeName = this.getNodeTypeName(nodeType);
-      const items = this.translateToMobileDSL(floatingToolbarConfig.items);
+      const items = this.translateToMobileDSL(floatingToolbarConfigItems);
       this.floatingToolbarItems = items;
-
       const itemsJson = JSON.stringify(items, null);
 
       // If the content is same, there is no need to invoke the native side again.
@@ -81,31 +89,65 @@ export default class MobileEditorToolbarActions {
    * @param items is a list of floating toolbar items
    */
   private translateToMobileDSL(items: Array<FloatingToolbarItem<Command>>) {
-    return items.map((item: FloatingToolbarItem<Command>, index: number) => {
-      let newItem: MobileEditorToolbarItem;
-      switch (item.type) {
-        case 'button':
-          newItem = this.translateToolbarButton(item, index);
-          break;
-        case 'select':
-          newItem = this.translateToolbarSelect(item, index);
-          break;
-        case 'dropdown':
-          newItem = this.translateToolbarDropdown(item, index);
-          break;
-        default:
-          newItem = { ...item };
-          newItem.key = this.generateKey(index);
-          break;
-      }
-      return newItem;
-    });
+    let index = 0;
+    let visibleItemFound = false;
+    let newItems = items
+      .map((item: FloatingToolbarItem<Command>) => {
+        let newItem: MobileEditorToolbarItem | undefined;
+        switch (item.type) {
+          case 'button':
+            newItem = this.translateToolbarButton(item, index);
+            break;
+          case 'select':
+            newItem = this.translateToolbarSelect(item, index);
+            break;
+          case 'dropdown':
+            newItem = this.translateToolbarDropdown(item, index);
+            break;
+          case 'separator':
+            if (visibleItemFound) {
+              newItem = { ...item };
+              visibleItemFound = false;
+            }
+            break;
+        }
+        if (newItem) {
+          index++;
+          visibleItemFound = newItem.type !== `separator`;
+        }
+        return newItem;
+      })
+      .filter(item => !!item);
+
+    // Removes the trailing separators
+    while (newItems[newItems.length - 1]?.type === 'separator') {
+      newItems.pop();
+    }
+    return newItems;
+  }
+
+  /**
+   * If the allowed list is empty, it will consider every item allowed.
+   * Otherwise, it will check if it is in the allowed list.
+   * If the item does not have id, it will be considered as not-allowed.
+   */
+  private isItemAllowed(id?: string): boolean {
+    if (this.editAllowList.size === 0) {
+      return true;
+    }
+    if (id) {
+      return this.editAllowList.has(id);
+    }
+    return false;
   }
 
   private translateToolbarButton(
     item: FloatingToolbarButton<Command>,
     index: number,
-  ): MobileEditorToolbarItem {
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
     const newItem: MobileEditorToolbarItem = { ...item };
     newItem.key = this.generateKey(index);
     if (item.icon && item.icon.displayName) {
@@ -117,26 +159,39 @@ export default class MobileEditorToolbarActions {
   private translateToolbarDropdown(
     item: FloatingToolbarDropdown<Command>,
     index: number,
-  ): MobileEditorToolbarItem {
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
     const newItem: MobileEditorToolbarItem = { ...item };
-    newItem.key = this.generateKey(index);
-    if (Array.isArray(item.options)) {
-      newItem.options = item.options.map(
-        (option: DropdownOptionT<Command>, optionIndex: number) => {
+    let optionCount = 0;
+    if (Array.isArray(newItem.options)) {
+      newItem.options = newItem.options
+        .filter((option: DropdownOptionT<Command>) => {
+          return this.isItemAllowed(option.id);
+        })
+        .map((option: DropdownOptionT<Command>, optionIndex: number) => {
           return {
             ...option,
             key: this.generateKey(index, optionIndex),
           };
-        },
-      );
+        });
+      optionCount = newItem.options.length;
     }
-    return newItem;
+    if (optionCount !== 0) {
+      newItem.key = this.generateKey(index);
+      return newItem;
+    }
+    return;
   }
 
   private translateToolbarSelect(
     item: FloatingToolbarSelect<Command>,
     index: number,
-  ): MobileEditorToolbarItem {
+  ): MobileEditorToolbarItem | undefined {
+    if (!this.isItemAllowed(item.id)) {
+      return;
+    }
     const newItem: MobileEditorToolbarItem = { ...item };
     newItem.key = this.generateKey(index);
     newItem.options = item.options.map(
@@ -215,5 +270,21 @@ export default class MobileEditorToolbarActions {
       const childItem = dropdown.options[optionIndex];
       childItem.onClick(editorView.state, editorView.dispatch);
     }
+  }
+
+  /**
+   * When provided, given allowed list will be used to filter floating toolbar items.
+   *
+   * When it is empty, it will act as there is no filter, all items will be allowed.
+   *
+   * Each capability must be in the list.
+   * - Button: Straightforward. Each button id must be in the list.
+   * - Dropdown: The list must contain both dropdown id and each option ids.
+   * If there is only dropdown id but no options, dropdown item will be filtered out.
+   * - Select: An id for select type is enough.
+   * @param allowList is the array of ids.
+   */
+  setEditAllowList(allowList: string[]) {
+    this.editAllowList = new Set(allowList);
   }
 }

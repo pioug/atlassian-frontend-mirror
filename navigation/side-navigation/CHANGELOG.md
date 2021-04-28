@@ -1,5 +1,12 @@
 # @atlaskit/side-navigation
 
+## 0.8.4
+
+### Patch Changes
+
+- [`240c4120435`](https://bitbucket.org/atlassian/atlassian-frontend/commits/240c4120435) - Side navigation now uses the new common utility to calculate scrollbar width for offsetting keylines.
+- Updated dependencies
+
 ## 0.8.3
 
 ### Patch Changes

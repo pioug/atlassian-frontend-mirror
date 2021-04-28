@@ -19,7 +19,7 @@ type WrapProps = {
   inputRule: InputRuleWithHandler;
   listType: 'bulletList' | 'orderedList';
 };
-function wrapInputRuleIntoSanitizationContent({
+export function wrapInputRuleIntoSanitizationContent({
   inputRule,
   listType,
 }: WrapProps) {
@@ -27,7 +27,7 @@ function wrapInputRuleIntoSanitizationContent({
     listType === 'bulletList'
       ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
       : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
-  const originalHandler = inputRule.handler;
+  const originalHandler = inputRule.handler.bind(inputRule);
   inputRule.handler = (state: EditorState, match, start, end) => {
     const tr = originalHandler(state, match, start, end);
 

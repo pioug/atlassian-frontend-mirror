@@ -5,6 +5,7 @@ import styled from 'styled-components';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall } from '@atlaskit/theme';
 import { N20, N800, N100 } from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { LinkSearchListItemData } from './types';
 import distanceInWords from 'date-fns/distance_in_words';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
@@ -41,7 +42,7 @@ export const Name: ComponentClass<HTMLAttributes<{}>> = styled.div`
 export const ContainerName: ComponentClass<React.HTMLAttributes<{}>> = styled.div`
   color: ${N100};
   line-height: 14px;
-  font-size: ${fontSizeSmall()}px;
+  font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
 `;
 
 const Icon: ComponentClass<HTMLAttributes<{}>> = styled.span`

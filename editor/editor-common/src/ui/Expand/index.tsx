@@ -5,6 +5,7 @@ import {
   akEditorLineHeight,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
+  relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
@@ -144,7 +145,7 @@ const ContentStyles = css<StyleProps>`
 const TitleInputStyles = css`
   outline: none;
   border: none;
-  font-size: ${fontSize()}px;
+  font-size: ${relativeFontSizeToBase16(fontSize())};
   line-height: ${akEditorLineHeight};
   font-weight: normal;
   color: ${themed({ light: colors.N200A, dark: colors.DN600 })};
@@ -166,7 +167,7 @@ const TitleContainerStyles = css`
   align-items: flex-start;
   background: none;
   border: none;
-  font-size: ${fontSize()}px;
+  font-size: ${relativeFontSizeToBase16(fontSize())};
   width: 100%;
   color: ${themed({ light: colors.N300A, dark: colors.DN600 })};
   overflow: hidden;

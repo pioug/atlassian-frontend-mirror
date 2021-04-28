@@ -14,6 +14,7 @@ import {
   akEditorCodeFontFamily,
   akEditorSelectedNodeClassName,
   overflowShadow,
+  relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 
 import { codeBlockClassNames } from './ui/class-names';
@@ -56,7 +57,7 @@ export const highlightingCodeBlockStyles = css`
           display: inline-block;
           content: counter(line);
           counter-increment: line;
-          font-size: ${fontSize()}px;
+          font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 24px;
           color: ${themed({ light: colors.N400, dark: colors.DN400 })};
         }
@@ -87,7 +88,7 @@ export const highlightingCodeBlockStyles = css`
         tab-size: 4;
         cursor: text;
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
-        font-size: ${fontSize()}px;
+        font-size: ${relativeFontSizeToBase16(fontSize())};
         line-height: 24px;
         border-radius: ${borderRadius()}px;
         margin: ${gridSize()}px;
@@ -181,7 +182,7 @@ export const codeBlockStyles = css`
           display: inline-block;
           content: counter(line);
           counter-increment: line;
-          font-size: ${fontSize()}px;
+          font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 24px;
           color: ${themed({ light: colors.N400, dark: colors.DN400 })};
         }
@@ -197,7 +198,7 @@ export const codeBlockStyles = css`
         tab-size: 4;
         cursor: text;
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
-        font-size: ${fontSize()}px;
+        font-size: ${relativeFontSizeToBase16(fontSize())};
         line-height: 24px;
         color: ${themed({ light: colors.N800, dark: colors.DN800 })};
         border-radius: ${borderRadius()}px;

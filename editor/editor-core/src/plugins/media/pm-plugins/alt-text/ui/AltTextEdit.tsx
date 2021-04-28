@@ -26,6 +26,7 @@ import {
   FireAnalyticsCallback,
 } from '../../../../analytics';
 import { RECENT_SEARCH_WIDTH_IN_PX } from '../../../../../ui/LinkSearch/ToolbarComponents';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import { ErrorMessage } from '@atlaskit/editor-common';
 
@@ -34,7 +35,7 @@ export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 
 const SupportText = styled.p`
   color: ${N100};
-  font-size: 12px;
+  font-size: ${relativeFontSizeToBase16(12)};
   padding: 12px 40px;
   line-height: 20px;
   border-top: 1px solid ${N30};

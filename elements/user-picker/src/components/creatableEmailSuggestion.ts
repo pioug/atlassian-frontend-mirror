@@ -54,7 +54,7 @@ const isOptionDisabled = (
 };
 
 // Generates user picker props to always create an email item visible
-// to the user as a suggested option when he is typing in a value
+// to the user as a suggested option when they are typing in a value
 export const getCreatableSuggestedEmailProps = memoizeOne(
   (emailDomain: string, isValidEmail?: EmailValidator) => ({
     allowCreateWhileLoading: true,

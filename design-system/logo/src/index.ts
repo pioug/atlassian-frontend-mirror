@@ -37,7 +37,14 @@ export {
   JiraWorkManagementWordmark,
   JiraWorkManagementIcon,
 } from './JiraWorkManagementLogo';
-export { OpsGenieIcon, OpsGenieLogo, OpsGenieWordmark } from './OpsGenieLogo';
+export {
+  OpsGenieIcon,
+  OpsGenieLogo,
+  OpsGenieWordmark,
+  OpsgenieIcon,
+  OpsgenieLogo,
+  OpsgenieWordmark,
+} from './OpsGenieLogo';
 export {
   StatuspageIcon,
   StatuspageLogo,

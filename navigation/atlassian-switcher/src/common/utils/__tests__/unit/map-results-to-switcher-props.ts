@@ -27,7 +27,6 @@ const defaultFeatures = {
   disableSwitchToHeading: false,
   isEmceeLinkEnabled: false,
   isDiscoverSectionEnabled: false,
-  isDefaultEditionFreeExperimentEnabled: false,
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
   isSlackDiscoveryEnabled: false,

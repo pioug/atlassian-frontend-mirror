@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "inlineCard",
+                  "attrs": {
+                    "url": "https://inlineCardTestUrl"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                }
+              ]
+            }
+          ],
+          "attrs": {
+            "width": 50
+          }
+        },
+        {
+          "type": "layoutColumn",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": []
+            }
+          ],
+          "attrs": {
+            "width": 50
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

@@ -8,6 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     '關閉',
+  'fabric.elements.mentions.team.member.50plus': '團隊 • 50 名以上的成員',
+  'fabric.elements.mentions.team.member.50plus.including.you':
+    '團隊 • 50 名以上的成員，包含您',
+  'fabric.elements.mentions.team.member.count':
+    '{0, plural, other {團隊 • {0} 名成員}}',
+  'fabric.elements.mentions.team.member.count.including.you':
+    '{0, plural, other {團隊 • {0} 名成員，包含您}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     '只要按一下，在此頁面提及所有人。沒有團隊？',
   'fabric.elements.mentions.team.mention.highlight.description.link':

@@ -11,7 +11,10 @@ import {
   ExpandLayoutWrapper,
   ClearNextSiblingMarginTop,
 } from '@atlaskit/editor-common';
-import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorLineHeight,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -26,7 +29,7 @@ export interface StyleProps {
 const Title = styled.span`
   outline: none;
   border: none;
-  font-size: ${fontSize}px;
+  font-size: ${relativeFontSizeToBase16(fontSize())};
   line-height: ${akEditorLineHeight};
   font-weight: normal;
   display: flex;

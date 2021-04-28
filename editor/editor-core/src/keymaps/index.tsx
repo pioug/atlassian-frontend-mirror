@@ -229,7 +229,7 @@ const ALL = [
   shiftEnter,
 ];
 
-function makeKeymap(
+export function makeKeymap(
   description: string,
   windows: string,
   mac: string,
@@ -237,13 +237,16 @@ function makeKeymap(
 ): Keymap {
   return {
     description: description,
-    windows: windows,
-    mac: mac,
+    windows: windows.replace(/Mod/i, 'Ctrl'),
+    mac: mac.replace(/Mod/i, 'Cmd'),
     common: common,
   };
 }
 
-function makeKeyMapWithCommon(description: string, common: string): Keymap {
+export function makeKeyMapWithCommon(
+  description: string,
+  common: string,
+): Keymap {
   const windows = common.replace(/Mod/i, 'Ctrl');
   const mac = common.replace(/Mod/i, 'Cmd');
   return makeKeymap(description, windows, mac, common);

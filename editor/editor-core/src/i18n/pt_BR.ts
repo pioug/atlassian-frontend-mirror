@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Item de ação',
   'fabric.editor.action.description': 'Criar e atribuir itens de ação',
   'fabric.editor.addAltText': 'Texto alt',
+  'fabric.editor.alignCenter': 'Alinhar ao centro',
   'fabric.editor.alignImageCenter': 'Alinhar ao centro',
   'fabric.editor.alignImageLeft': 'Alinhar à esquerda',
   'fabric.editor.alignImageRight': 'Alinhar à direita',
-  'fabric.editor.alignment': 'Alinhamento',
+  'fabric.editor.alignLeft': 'Alinhar à esquerda',
+  'fabric.editor.alignRight': 'Alinhar à direita',
+  'fabric.editor.alignment': 'Alinhamento do texto',
   'fabric.editor.altText': 'Texto Alt',
   'fabric.editor.alttext.validation':
     'Remova todos os caracteres especiais em texto alt.',
@@ -79,6 +82,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Esta opção de exibição não está disponível em {node}',
   'fabric.editor.displayText': 'Texto a ser exibido',
+  'fabric.editor.distributeColumns': 'Distribuir colunas',
   'fabric.editor.edit': 'Editar',
   'fabric.editor.editAltText': 'Editar texto alt',
   'fabric.editor.editLink': 'Editar link',
@@ -118,6 +122,8 @@ export default {
     'Destacar erros em um painel colorido',
   'fabric.editor.expand': 'Expandir',
   'fabric.editor.expand.description': 'Inserir expansão',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Todas as alterações são salvas automaticamente',
   'fabric.editor.feedbackDialog': 'Enviar feedback',
   'fabric.editor.feedbackDialog.description':
     'Conte-nos sobre sua experiência com o novo editor',

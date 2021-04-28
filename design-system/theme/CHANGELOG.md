@@ -1,5 +1,14 @@
 # @atlaskit/theme
 
+## 11.1.0
+
+### Minor Changes
+
+- [`bc02e5ad605`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc02e5ad605) - Theme now exposes an additional custom hook for consumption of the theme that behave the same as the `Consumer` component. `useTheme` is returned in addition to the `Provider` and `Consumer` in the `createTheme` function.
+
+  For ease of consumption of the global theme, a pre-configured usage of `useTheme` hook has been also been exported
+  as `useGlobalTheme`.
+
 ## 11.0.3
 
 ### Patch Changes

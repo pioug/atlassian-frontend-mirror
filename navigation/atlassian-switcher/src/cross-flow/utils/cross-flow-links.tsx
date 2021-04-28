@@ -17,7 +17,6 @@ import {
 } from '../../types';
 import {
   AVAILABLE_PRODUCT_DATA_MAP,
-  FREE_EDITION_AVAILABLE_PRODUCT_DATA_MAP,
   TO_SWITCHER_PRODUCT_KEY,
   SwitcherItemType,
   getEmceeLink,
@@ -133,7 +132,6 @@ export const getSuggestedProductLink = (
   joinableSites: JoinableSite[],
   features?: {
     isDiscoverSectionEnabled?: boolean;
-    isDefaultEditionFreeExperimentEnabled?: boolean;
   },
 ): SwitcherItemType[] => {
   const collectedJoinableSites = Object.keys(
@@ -157,15 +155,11 @@ export const getSuggestedProductLink = (
     .map(legacyProduct => {
       const switcherProductKey =
         TO_SWITCHER_PRODUCT_KEY[legacyProduct.productKey];
-      return features?.isDefaultEditionFreeExperimentEnabled
-        ? {
-            key: legacyProduct.productKey,
-            ...FREE_EDITION_AVAILABLE_PRODUCT_DATA_MAP[switcherProductKey],
-          }
-        : {
-            key: legacyProduct.productKey,
-            ...AVAILABLE_PRODUCT_DATA_MAP[switcherProductKey],
-          };
+
+      return {
+        key: legacyProduct.productKey,
+        ...AVAILABLE_PRODUCT_DATA_MAP[switcherProductKey],
+      };
     })
     .slice(
       0,

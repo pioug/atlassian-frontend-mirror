@@ -16,22 +16,33 @@ export default class DefaultModal extends React.PureComponent<{}, State> {
 
   close = () => this.setState({ isOpen: false });
 
-  secondaryAction = ({ target }: any) => console.log(target.innerText);
+  secondaryAction = () => alert('Secondary button has been clicked!');
 
   render() {
     const { isOpen } = this.state;
     const actions = [
-      { text: 'Close', onClick: this.close },
-      { text: 'Secondary Action', onClick: this.secondaryAction },
+      { text: 'Close', onClick: this.close, testId: 'primary' },
+      {
+        text: 'Secondary Action',
+        onClick: this.secondaryAction,
+        testId: 'secondary',
+      },
     ];
 
     return (
       <div>
-        <Button onClick={this.open}>Open Modal</Button>
+        <Button onClick={this.open} testId="modal-trigger">
+          Open Modal
+        </Button>
 
         <ModalTransition>
           {isOpen && (
-            <Modal actions={actions} onClose={this.close} heading="Modal Title">
+            <Modal
+              actions={actions}
+              onClose={this.close}
+              heading="Modal Title"
+              testId="modal"
+            >
               <Lorem count={2} />
             </Modal>
           )}

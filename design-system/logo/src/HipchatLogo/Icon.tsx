@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 import { uid } from 'react-uid';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
 import { DefaultProps, Props } from '../constants';
 import Wrapper from '../Wrapper';
 
@@ -28,6 +30,11 @@ export class HipchatIcon extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {
+    if (process.env.NODE_ENV !== 'production') {
+      warnOnce(
+        'HipchatIcon has been deprecated and will be removed from @atlaskit/logo after June 30 2021.',
+      );
+    }
     return <Wrapper {...this.props} svg={svg} />;
   }
 }

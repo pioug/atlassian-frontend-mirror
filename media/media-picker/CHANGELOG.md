@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 57.3.3
+
+### Patch Changes
+
+- [`153f5588cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153f5588cab) - VULN-328572 - Upgrade dateformat to address security vuln
+
 ## 57.3.2
 
 ### Patch Changes

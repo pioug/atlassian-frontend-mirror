@@ -82,8 +82,6 @@ export enum Feature {
   isEmceeLinkEnabled = 'isEmceeLinkEnabled',
   // Enable Discover section - group suggested product links in Discover section
   isDiscoverSectionEnabled = 'isDiscoverSectionEnabled',
-  // Enable copy change for free editions of products in the Discover section
-  isDefaultEditionFreeExperimentEnabled = 'isDefaultEditionFreeExperimentEnabled',
   // Show JSW first in product recommendations
   isProductStoreInTrelloJSWFirstEnabled = 'isProductStoreInTrelloJSWFirstEnabled',
   // Show Confluence first in product recommendations
@@ -105,8 +103,6 @@ export type FeatureFlagProps = {
   isEmceeLinkEnabled?: boolean;
   /** Enable Discover section - group suggested product links in Discover section */
   isDiscoverSectionEnabled?: boolean;
-  /** Enable copy change for free editions of products in the Discover section  */
-  isDefaultEditionFreeExperimentEnabled?: boolean;
   /** Enable Integrations discovery in the discover more section  */
   isSlackDiscoveryEnabled?: boolean;
 };

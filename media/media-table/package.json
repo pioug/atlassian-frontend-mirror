@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "8.0.5",
+  "version": "8.0.6",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/tooltip": "^17.1.0",
     "@babel/runtime": "^7.0.0",
-    "dateformat": "^1.0.12",
+    "dateformat": "^4.5.1",
     "memoize-one": "^5.1.0"
   },
   "peerDependencies": {
@@ -52,6 +52,7 @@
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/media-test-helpers": "^28.7.0",
     "@atlaskit/ssr": "^0.2.0",
+    "@types/dateformat": "^3.0.1",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

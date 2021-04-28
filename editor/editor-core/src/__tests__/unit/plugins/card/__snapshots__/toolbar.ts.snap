@@ -10,6 +10,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "id": "editor.link.edit",
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -23,6 +24,7 @@ Array [
   Object {
     "className": "hyperlink-open-link",
     "icon": [Function],
+    "id": "editor.link.openLink",
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -33,6 +35,7 @@ Array [
   Object {
     "appearance": "danger",
     "icon": [Function],
+    "id": "editor.link.delete",
     "onClick": [Function],
     "onMouseEnter": [Function],
     "onMouseLeave": [Function],
@@ -98,6 +101,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "id": "editor.link.edit",
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -111,6 +115,7 @@ Array [
   Object {
     "className": "hyperlink-open-link",
     "icon": [Function],
+    "id": "editor.link.openLink",
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -121,6 +126,7 @@ Array [
   Object {
     "appearance": "danger",
     "icon": [Function],
+    "id": "editor.link.delete",
     "onClick": [Function],
     "onMouseEnter": [Function],
     "onMouseLeave": [Function],
@@ -133,6 +139,7 @@ Array [
 exports[`card toolbar displays toolbar items in correct order for embedCard inside an expand 1`] = `
 Array [
   Object {
+    "id": "editor.link.edit",
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -146,6 +153,7 @@ Array [
   Object {
     "className": "hyperlink-open-link",
     "icon": [Function],
+    "id": "editor.link.openLink",
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -156,6 +164,7 @@ Array [
   Object {
     "appearance": "danger",
     "icon": [Function],
+    "id": "editor.link.delete",
     "onClick": [Function],
     "onMouseEnter": [Function],
     "onMouseLeave": [Function],
@@ -175,6 +184,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "id": "editor.link.edit",
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -188,6 +198,7 @@ Array [
   Object {
     "className": "hyperlink-open-link",
     "icon": [Function],
+    "id": "editor.link.openLink",
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -197,6 +208,7 @@ Array [
   },
   Object {
     "icon": [Function],
+    "id": "editor.link.unlink",
     "onClick": [Function],
     "title": "Unlink",
     "type": "button",
@@ -204,6 +216,7 @@ Array [
   Object {
     "appearance": "danger",
     "icon": [Function],
+    "id": "editor.link.delete",
     "onClick": [Function],
     "onMouseEnter": [Function],
     "onMouseLeave": [Function],

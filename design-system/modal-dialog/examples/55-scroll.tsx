@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/standard-button';
 import FieldRadioGroup from '@atlaskit/field-radio-group';
 
 import Modal, { ModalTransition } from '../src';
-import { ScrollBehavior } from '../src/types';
+import { ScrollBehavior } from '../src/internal/types';
 
 const TallContainer = styled.div`
   height: 100%;
@@ -53,7 +53,7 @@ export default class ExampleScroll extends React.PureComponent<{}, State> {
   render() {
     const { isOpen, scrollBehavior } = this.state;
     const actions = [
-      { text: 'Close', onClick: this.close },
+      { text: 'Close', onClick: this.close, testId: 'primary' },
       {
         text: 'Scroll to bottom',
         onClick: this.scrollToBottom,
@@ -98,7 +98,9 @@ export default class ExampleScroll extends React.PureComponent<{}, State> {
           label="Scroll behavior:"
           onRadioChange={this.onScrollBehaviorChange}
         />
-        <Button onClick={this.open}>Open Modal</Button>
+        <Button onClick={this.open} testId="modal-trigger">
+          Open Modal
+        </Button>
         <ModalTransition>
           {isOpen && (
             <Modal

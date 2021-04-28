@@ -47,4 +47,4 @@ export type {
   DataConsumerDefinition,
 } from './data-consumer';
 
-export { dataConsumer } from './data-consumer';
+export { dataConsumer, toJSON as dataConsumerToJSON } from './data-consumer';

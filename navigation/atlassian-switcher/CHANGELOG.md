@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 10.2.0
+
+### Minor Changes
+
+- [`66d63228b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66d63228b29) - Remove isDefaultEditionFreeExperimentEnabled prop
+
 ## 10.1.1
 
 ### Patch Changes

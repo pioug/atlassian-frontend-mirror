@@ -10,6 +10,7 @@ import {
   SelectionStyle,
   getSelectionStyles,
   akEditorSelectedNodeClassName,
+  relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 
 export const emojiStyles = css`
@@ -88,7 +89,7 @@ export const emojiStylesNext = css`
       // packages/css-packs/reduced-ui-pack/src/tooltip.js:25
       color: ${N0};
       background-color: ${N900};
-      font-size: ${fontSize}px;
+      font-size: ${relativeFontSizeToBase16(fontSize)};
       line-height: ${lineHeight};
       max-width: ${maxWidth}px;
       border-radius: ${borderRadius()}px;

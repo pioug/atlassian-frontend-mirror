@@ -8,6 +8,7 @@ import {
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
+import { EditorProps } from '@atlaskit/editor-core';
 import { JIRATransformer } from '@atlaskit/editor-jira-transformer';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -17,11 +18,13 @@ import {
   br,
   code,
   code_block,
+  dataConsumer,
   doc,
   DocBuilder,
   em,
   emoji,
   expand,
+  extension,
   h1,
   h2,
   h3,
@@ -79,7 +82,12 @@ describe('JSONTransformer:', () => {
   });
 
   describe('encode', () => {
-    const editor = (doc: DocBuilder) =>
+    const editor = (
+      doc: DocBuilder,
+      options?: {
+        editorProps: Partial<EditorProps>;
+      },
+    ) =>
       createEditor({
         doc,
         editorProps: {
@@ -91,6 +99,7 @@ describe('JSONTransformer:', () => {
           allowRule: true,
           allowTables: true,
           allowExpand: true,
+          ...(options?.editorProps || {}),
         },
         providerFactory: ProviderFactory.create({ emojiProvider }),
       });
@@ -1646,6 +1655,67 @@ describe('JSONTransformer:', () => {
 
         let result = parseJSON(entity);
         expect(toJSON(result)).toEqual(expected);
+      });
+    });
+
+    describe('data consumer mark', () => {
+      it(`shouldn't drop data consumer mark with sources`, () => {
+        const { editorView } = editor(
+          doc(
+            dataConsumer({
+              sources: ['someid', 'secondid'],
+            })(
+              extension({
+                extensionKey: 'floof',
+                extensionType: 'com.atlaskats.meow',
+                layout: 'default',
+              })(),
+            ),
+          ),
+          {
+            editorProps: {
+              allowReferentiality: true,
+              allowExtension: true,
+            },
+          },
+        );
+
+        const { marks } = toJSON(editorView.state.doc).content[0];
+
+        expect(marks).toEqual([
+          {
+            type: 'dataConsumer',
+            attrs: {
+              sources: ['someid', 'secondid'],
+            },
+          },
+        ]);
+      });
+
+      it(`should drop an intermediary state of data consumer mark without sources`, () => {
+        const { editorView } = editor(
+          doc(
+            dataConsumer({
+              sources: [],
+            })(
+              extension({
+                extensionKey: 'floof',
+                extensionType: 'com.atlaskats.meow',
+                layout: 'default',
+              })(),
+            ),
+          ),
+          {
+            editorProps: {
+              allowReferentiality: true,
+              allowExtension: true,
+            },
+          },
+        );
+
+        const { marks } = toJSON(editorView.state.doc).content[0];
+
+        expect(marks).toBeUndefined();
       });
     });
   });

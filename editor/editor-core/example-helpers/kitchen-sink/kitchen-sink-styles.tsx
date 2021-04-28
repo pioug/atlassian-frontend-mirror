@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { N50, background, N30 } from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const Container = styled.div<{ vertical?: boolean; root?: boolean }>`
   display: flex;
@@ -73,7 +74,7 @@ export const Textarea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid lightgray;
   font-family: monospace;
-  font-size: 14px;
+  font-size: ${relativeFontSizeToBase16(14)};
   padding: 1em;
   width: 100%;
   height: 80%;

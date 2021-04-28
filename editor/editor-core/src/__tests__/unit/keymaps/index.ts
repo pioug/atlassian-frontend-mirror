@@ -110,4 +110,26 @@ describe('keymaps', () => {
       });
     });
   }
+
+  describe('makeKeyMapWithCommon', () => {
+    it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
+      expect(keymaps.makeKeyMapWithCommon('Undo', 'Mod-z')).toEqual({
+        common: 'Mod-z',
+        description: 'Undo',
+        mac: 'Cmd-z',
+        windows: 'Ctrl-z',
+      });
+    });
+  });
+
+  describe('makeKeyMap', () => {
+    it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
+      expect(keymaps.makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z')).toEqual({
+        common: undefined,
+        description: 'Redo',
+        mac: 'Cmd-Shift-z',
+        windows: 'Ctrl-y',
+      });
+    });
+  });
 });

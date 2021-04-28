@@ -12,7 +12,7 @@ import {
 const borderRadius = getBorderRadius();
 const gridSize = getGridSize();
 
-export const Content = ({
+export const Panel = ({
   children,
   testId,
 }: {

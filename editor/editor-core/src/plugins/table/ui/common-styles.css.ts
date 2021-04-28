@@ -14,7 +14,8 @@ import {
   akEditorStickyHeaderZIndex,
   akEditorTableToolbarSize,
   akEditorUnitZIndex,
-  akEditorSelectedNodeClassName
+  akEditorSelectedNodeClassName,
+  relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 
 import { scrollbarStyles } from '../../../ui/styles';
@@ -463,7 +464,7 @@ export const tableStyles = css`
       padding-bottom: 2px;
       padding: 10px 2px;
       text-align: center;
-      font-size: ${fontSize()}px;
+      font-size: ${relativeFontSizeToBase16(fontSize())};
       background-color: ${tableToolbarColor};
       color: ${tableTextColor};
       border-color: ${tableBorderColor};

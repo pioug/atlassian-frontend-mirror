@@ -219,7 +219,7 @@ describe(`${name}/schema codeBlock node`, () => {
 
 function makeSchema() {
   return createSchema({
-    nodes: ['doc', 'paragraph', 'text', 'codeBlock'],
+    nodes: ['doc', 'paragraph', 'text', 'codeBlock', 'unsupportedInline'],
     marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
   });
 }

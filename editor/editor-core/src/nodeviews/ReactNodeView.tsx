@@ -150,6 +150,7 @@ export default class ReactNodeView<P = ReactComponentProps>
 
     if (featureFlags && featureFlags.displayInlineBlockForInlineNodes) {
       htmlElement.style.display = 'inline-block';
+      htmlElement.style.userSelect = 'all';
     }
 
     return htmlElement;

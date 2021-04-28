@@ -6,6 +6,7 @@ import Item, { ItemGroup, itemThemeNamespace } from '@atlaskit/item';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import { Shortcut } from '../../../ui/styles';
 import IconFallback from '../../quick-insert/assets/fallback';
@@ -69,7 +70,7 @@ const ItemBody = styled.div`
 const ItemText = styled.div`
   white-space: initial;
   .item-description {
-    font-size: 11.67px;
+    font-size: ${relativeFontSizeToBase16(11.67)};
     color: ${colors.N200};
     margin-top: 4px;
   }

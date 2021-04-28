@@ -8,6 +8,7 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
 import { Icon } from '@atlaskit/editor-common/extensions';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import { messages } from './messages';
 
@@ -62,7 +63,7 @@ const ItemText = styled.div`
   max-width: 100%;
   white-space: initial;
   .item-summary {
-    font-size: 11.67px;
+    font-size: ${relativeFontSizeToBase16(11.67)};
     color: ${N200};
     margin-top: 4px;
 

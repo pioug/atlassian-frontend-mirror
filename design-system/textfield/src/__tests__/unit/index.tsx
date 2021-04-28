@@ -142,7 +142,7 @@ describe('Textfield', () => {
             it(`when isDisabled is set to ${isDisabled} & theme mode is ${mode}`, () => {
               const inputContainer = render(
                 <GlobalTheme.Provider
-                  value={t => ({ ...t({}), mode: themeMode })}
+                  value={t => ({ ...t(), mode: themeMode })}
                 >
                   <Textfield testId="test" isDisabled={isDisabled} />,
                 </GlobalTheme.Provider>,
@@ -226,7 +226,7 @@ describe('Textfield', () => {
       });
       it('should make input invalid in ', () => {
         const { getByTestId } = render(
-          <GlobalTheme.Provider value={t => ({ ...t({}), mode: 'dark' })}>
+          <GlobalTheme.Provider value={t => ({ ...t(), mode: 'dark' })}>
             <Textfield isInvalid testId="test" />
           </GlobalTheme.Provider>,
         );

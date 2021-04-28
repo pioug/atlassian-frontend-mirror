@@ -1,5 +1,12 @@
 # @atlaskit/spinner
 
+## 15.0.8
+
+### Patch Changes
+
+- [`7be17d84c4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7be17d84c4a) - Fix performance degradation caused by styles being continually re-calculated for the SVG animation. Fix a bug in which the Spinner was set to inline instead of inline-block. This reverts the component's layout behavior to version 12.
+- Updated dependencies
+
 ## 15.0.7
 
 ### Patch Changes

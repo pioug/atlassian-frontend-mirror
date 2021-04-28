@@ -40,7 +40,7 @@ export default md`
   ${(
     <Props
       heading="SectionMessage Props"
-      props={require('!!extract-react-types-loader!../src/components/SectionMessage')}
+      props={require('!!extract-react-types-loader!../src/section-message')}
     />
   )}
 `;

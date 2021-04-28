@@ -3,6 +3,7 @@ import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 
 import {
   codeBlockToJSON,
+  dataConsumerToJSON,
   defaultSchema,
   expandToJSON,
   linkToJSON,
@@ -119,38 +120,41 @@ const toJSON = (node: PMNode): JSONNode => {
   }
 
   if (node.marks.length) {
-    obj.marks = node.marks.reduce((acc: any, mark) => {
-      if (isUnsupportedMark(mark)) {
-        if (canOverrideMark(mark, node.marks)) {
-          return acc;
+    // Run any custom mark serialisers
+    const parsedMarks = node.marks
+      .map(mark => {
+        if (isUnsupportedMark(mark)) {
+          return canOverrideMark(mark, node.marks)
+            ? null
+            : mark.attrs.originalValue;
+        } else if (isUnsupportedNodeAttributeMark(mark)) {
+          return null;
+        } else if (isLinkMark(mark)) {
+          return linkToJSON(mark);
+        } else if (isDataConsumer(mark)) {
+          const serialised = dataConsumerToJSON(mark);
+          return !serialised.attrs.sources ||
+            serialised.attrs.sources?.length === 0
+            ? null
+            : serialised;
         } else {
-          acc.push(mark.attrs.originalValue);
-          return acc;
+          return mark.toJSON();
         }
-      }
-      if (isUnsupportedNodeAttributeMark(mark)) {
-        if (mark.attrs.type.nodeType === obj.type) {
-          const nodeAttributes = getUnwrappedNodeAttributes(node, mark, obj);
-          obj.attrs = { ...nodeAttributes };
-        }
+      })
+      .filter(maybeMark => maybeMark !== null);
 
-        if (node.marks.length === 1) {
-          return;
-        } else {
-          return acc;
-        }
-      }
-      if (isLinkMark(mark)) {
-        acc.push(linkToJSON(mark));
-        return acc;
-      }
-      if (isDataConsumer(mark) && mark.attrs.sources?.length === 0) {
-        // Remove intemediary state if we don't have any sources on data consumer
-        return acc;
-      }
-      acc.push(mark.toJSON());
-      return acc;
-    }, []);
+    // Only set if we have a non-empty array, otherwise explicitly undefine it (as we only run this path if `node.marks.length`)
+    obj.marks = parsedMarks?.length > 0 ? parsedMarks : undefined;
+
+    const nodeAttributeMark = node.marks.find(isUnsupportedNodeAttributeMark);
+    if (
+      nodeAttributeMark &&
+      nodeAttributeMark.attrs.type.nodeType === obj.type
+    ) {
+      obj.attrs = {
+        ...getUnwrappedNodeAttributes(node, nodeAttributeMark, obj),
+      };
+    }
   }
   return obj;
 };

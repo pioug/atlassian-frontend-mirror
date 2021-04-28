@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "11.1.1",
+  "version": "11.2.0",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

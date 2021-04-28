@@ -12,7 +12,6 @@ export default {
   'fabric.editor.alignImageCenter': 'Joonda keskele',
   'fabric.editor.alignImageLeft': 'Joonda vasakule',
   'fabric.editor.alignImageRight': 'Joonda paremale',
-  'fabric.editor.alignment': 'Joondamine',
   'fabric.editor.altText': 'Alt tekst',
   'fabric.editor.alttext.validation': 'Eemaldage asetekstist kõik erimärgid.',
   'fabric.editor.annotate': 'Lisa märge',

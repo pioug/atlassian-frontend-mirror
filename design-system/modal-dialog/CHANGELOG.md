@@ -1,5 +1,17 @@
 # @atlaskit/modal-dialog
 
+## 11.3.0
+
+### Minor Changes
+
+- [`0e0b2148d48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e0b2148d48) - Modal dialog now attaches data-testid to its header and footer.
+
+### Patch Changes
+
+- [`a9dc147612a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9dc147612a) - [litemode] Internal nested modal components have been re-written as hooks.
+- [`910c7744256`](https://bitbucket.org/atlassian/atlassian-frontend/commits/910c7744256) - Internal restructure of files and folders.
+- Updated dependencies
+
 ## 11.2.9
 
 ### Patch Changes

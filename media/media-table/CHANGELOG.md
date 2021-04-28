@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 8.0.6
+
+### Patch Changes
+
+- [`153f5588cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153f5588cab) - VULN-328572 - Upgrade dateformat to address security vuln
+
 ## 8.0.5
 
 ### Patch Changes

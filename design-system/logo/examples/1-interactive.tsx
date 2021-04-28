@@ -139,7 +139,6 @@ export default class InteractiveLogo extends Component<Props, State> {
         {sizeRange(logos.AtlassianLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.BitbucketLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.ConfluenceLogo, colorPreset, sizePreset, useProps)}
-        {sizeRange(logos.HipchatLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.JiraLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(
           logos.JiraServiceManagementLogo,
@@ -154,9 +153,8 @@ export default class InteractiveLogo extends Component<Props, State> {
           sizePreset,
           useProps,
         )}
-        {sizeRange(logos.OpsGenieLogo, colorPreset, sizePreset, useProps)}
+        {sizeRange(logos.OpsgenieLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.StatuspageLogo, colorPreset, sizePreset, useProps)}
-        {sizeRange(logos.StrideLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.TrelloLogo, colorPreset, sizePreset, useProps)}
       </div>
     );

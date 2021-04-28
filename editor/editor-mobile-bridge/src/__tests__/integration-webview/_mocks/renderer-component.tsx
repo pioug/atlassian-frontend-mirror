@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { getEmptyADF } from '@atlaskit/adf-utils';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import MobileRenderer from '../../../renderer/mobile-renderer-element';
-import { createMentionProvider, createCardClient } from '../../../providers';
+import { createMentionProvider } from '../../../providers';
 import { createEmojiProvider } from '../../../providers/emojiProvider';
 import { useFetchProxy } from '../../../utils/fetch-proxy';
 import { createMediaProvider } from './media-provider';
@@ -17,7 +18,7 @@ const App = () => {
 
   return (
     <MobileRenderer
-      cardClient={createCardClient()}
+      cardClient={cardClient}
       document={initialDocSerialized}
       emojiProvider={createEmojiProvider(fetchProxy)}
       mediaProvider={createMediaProvider()}

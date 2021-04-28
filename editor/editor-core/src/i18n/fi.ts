@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Tehtävä',
   'fabric.editor.action.description': 'Luo ja määrää toimintokohteita',
   'fabric.editor.addAltText': 'Vaihtoehtoinen teksti',
+  'fabric.editor.alignCenter': 'Tasaa keskelle',
   'fabric.editor.alignImageCenter': 'Tasaa keskelle',
   'fabric.editor.alignImageLeft': 'Tasaa vasemmalle',
   'fabric.editor.alignImageRight': 'Tasaa oikealle',
-  'fabric.editor.alignment': 'Tasaus',
+  'fabric.editor.alignLeft': 'Tasaa vasemmalle',
+  'fabric.editor.alignRight': 'Tasaa oikealle',
+  'fabric.editor.alignment': 'Tekstin tasaus',
   'fabric.editor.altText': 'Alt-teksti',
   'fabric.editor.alttext.validation':
     'Poista erikoismerkit vaihtoehtoisesta tekstistä.',
@@ -119,6 +122,8 @@ export default {
     'Paljasta virheet värillisessä paneelissa',
   'fabric.editor.expand': 'Laajenna',
   'fabric.editor.expand.description': 'Lisää laajennus',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Kaikki muutokset tallennetaan aina automaattisesti',
   'fabric.editor.feedbackDialog': 'Anna palautetta',
   'fabric.editor.feedbackDialog.description':
     'Kerro meille uuden muokkaajan käyttökokemuksestasi',

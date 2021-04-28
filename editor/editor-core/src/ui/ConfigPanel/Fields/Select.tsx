@@ -49,7 +49,7 @@ export default function SelectField({
             // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
             isMulti={(field.isMultiple || false) as false}
             options={field.items || []}
-            isClearable={false}
+            isClearable={!field.isRequired}
             validationState={error ? 'error' : 'default'}
             formatOptionLabel={formatOptionLabel}
             autoFocus={autoFocus}

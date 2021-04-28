@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { CSSObject } from '@emotion/core';
 
 import {
   borderRadius as getBorderRadius,
@@ -6,103 +6,124 @@ import {
 } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
 
-import { getNavItemColors, getNavLineColor } from './colors';
+import { getTabColors, getTabLineColor, getTabPanelFocusColor } from './colors';
 
 const borderRadius = getBorderRadius();
 const gridSize = getGridSize();
 
-/*
-  NOTE min-height attribute
-  FF http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox
-*/
-
-export const tabStyles = css`
-  display: flex;
-  flex-basis: 100%;
-  flex-direction: column;
-  flex-grow: 1;
-  max-width: 100%;
-  min-height: 0%; /* See min-height note */
-`;
-
-export const tabPaneStyles = css`
-  flex-grow: 1;
-  min-height: 0%; /* See min-height note */
-  padding-left: ${gridSize}px;
-  padding-right: ${gridSize}px;
-  display: none;
-  &[data-selected] {
-    display: flex;
-  }
-`;
-
-export const navWrapperStyles = css`
-  position: relative;
-`;
-
-export const navStyles = css`
-  display: flex;
-  font-weight: 500;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-`;
-
+const tabLeftRightPadding = `${gridSize}px`;
+const tabTopBottomPadding = `${gridSize / 2}px`;
 const underlineHeight = '2px';
 
-export const getNavLineStyles = (mode: ThemeModes) => {
-  const colors = getNavLineColor(mode);
-  return css`
-    background-color: ${colors.lineColor};
-    border-radius: ${underlineHeight};
-    bottom: 0;
-    content: '';
-    height: ${underlineHeight};
-    left: ${gridSize}px;
-    margin: 0;
-    position: absolute;
-    right: ${gridSize}px;
-    width: inherit;
-    &[data-selected] {
-      background-color: ${colors.selectedColor};
-    }
-  `;
+// Required so the focus ring is visible in high contrast mode
+const highContrastFocusRing = {
+  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+    '&:focus': {
+      boxShadow: `0 0 0 2px currentColor inset !important`,
+    },
+  },
 };
 
-export const getNavItemStyles = (mode: ThemeModes) => {
-  const colors = getNavItemColors(mode);
-  return css`
-    color: ${colors.labelColor};
-    cursor: pointer;
-    line-height: 1.8;
-    margin: 0;
-    padding: ${gridSize / 2}px ${gridSize}px;
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
+  flexGrow: 1,
+  /*
+    NOTE min-height set to 0% because of Firefox bug
+    FF http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox
+  */
+  minHeight: '0%',
+  display: 'flex',
+  padding: `0 ${tabLeftRightPadding}`,
+  '&:focus': {
+    boxShadow: `0 0 0 2px ${getTabPanelFocusColor(mode)} inset`,
+    borderRadius: borderRadius,
+    outline: 'none',
+  },
+  ...highContrastFocusRing,
+});
 
-    &:hover {
-      color: ${colors.hoverLabelColor};
-    }
-    &:active,
-    &:active::before {
-      color: ${colors.activeLabelColor};
-    }
+export const getTabsStyles = (mode: ThemeModes): CSSObject => ({
+  display: 'flex',
+  flexBasis: '100%',
+  flexDirection: 'column',
+  flexGrow: 1,
+  maxWidth: '100%',
+  minHeight: '0%' /* Same Firefox bug as above */,
 
-    &:focus {
-      border-radius: ${borderRadius}px;
-      /*
-        You can only focus on the selected tab
-        so use the selected color
-       */
-      box-shadow: 0 0 0 2px ${colors.selectedColor} inset;
-      outline: none;
-    }
+  '& [role="tabpanel"]': getTabPanelStyles(mode),
+  // The hidden attribute doesn't work on flex elements
+  // Change display to be none
+  '& > [hidden]': {
+    display: 'none',
+  },
+});
 
-    /* If selected then don't use any of these styles */
-    &&[data-selected] {
-      color: ${colors.selectedColor};
-    }
-  `;
+const tabLineStyles: CSSObject = {
+  content: '""',
+  borderRadius: underlineHeight,
+  bottom: 0,
+  margin: 0,
+  position: 'absolute',
+  width: 'inherit',
+  left: tabLeftRightPadding,
+  right: tabLeftRightPadding,
+};
+
+export const getTabListStyles = (mode: ThemeModes): CSSObject => ({
+  position: 'relative',
+  display: 'flex',
+  fontWeight: 500,
+  padding: 0,
+  margin: 0,
+  '&::before': {
+    ...tabLineStyles,
+    // This line is not a border so the selected line is visible in high contrast mode
+    backgroundColor: getTabLineColor(mode).lineColor,
+    height: underlineHeight,
+  },
+  '& [role="tab"]': getTabStyles(mode),
+});
+
+export const getTabStyles = (mode: ThemeModes): CSSObject => {
+  const colors = getTabColors(mode);
+  return {
+    color: colors.labelColor,
+    cursor: 'pointer',
+    lineHeight: 1.8,
+    margin: 0,
+    padding: `${tabTopBottomPadding} ${tabLeftRightPadding}`,
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    '&:hover': {
+      color: colors.hoverLabelColor,
+    },
+    '&:active, &:active::before': {
+      color: colors.activeLabelColor,
+    },
+
+    '&:focus': {
+      boxShadow: `0 0 0 2px ${colors.focusColor} inset`,
+      borderRadius: borderRadius,
+      outline: 'none',
+      // Hide TabLine on focus
+      '&::after': {
+        opacity: 0,
+      },
+    },
+    ...highContrastFocusRing,
+
+    '&[aria-selected="true"]': {
+      color: colors.selectedColor,
+      '&::after': {
+        ...tabLineStyles,
+        // This line is a border so it is visible in high contrast mode
+        borderBottom: `${underlineHeight} solid ${
+          getTabLineColor(mode).selectedColor
+        }`,
+        height: 0,
+      },
+    },
+  };
 };

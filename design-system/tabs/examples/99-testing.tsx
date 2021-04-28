@@ -1,35 +1,39 @@
 import React from 'react';
 
-import Tabs from '../src';
+import TabItem from '../src/components/tab';
+import TabList from '../src/components/tab-list';
+import TabPanel from '../src/components/tab-panel';
+import Tabs from '../src/components/tabs';
 
-import { Content } from './shared';
+import { Panel } from './shared';
 
-const tabs = [
-  {
-    label: 'Tab 1',
-    content: <Content testId="tab-content-1">One</Content>,
-    testId: 'tab-1',
-  },
-  {
-    label: 'Tab 2',
-    content: <Content testId="tab-content-2">Two</Content>,
-    testId: 'tab-2',
-  },
-  {
-    label: 'Tab 3',
-    content: <Content testId="tab-content-3">Three</Content>,
-    testId: 'tab-3',
-  },
-  {
-    label: 'Tab 4',
-    content: <Content testId="tab-content-4">Four</Content>,
-    testId: 'tab-4',
-  },
-];
-export default () => (
-  <Tabs
-    tabs={tabs}
-    onSelect={(_tab, index) => console.log('Selected Tab', index + 1)}
-    testId="tabs"
-  />
-);
+export default function testing() {
+  return (
+    <Tabs
+      onChange={index => {
+        console.log('selected index: ', index);
+      }}
+      testId="tabs"
+      id="testing"
+    >
+      <TabList>
+        <TabItem testId="tab-1">Tab 1</TabItem>
+        <TabItem testId="tab-2">Tab 2</TabItem>
+        <TabItem testId="tab-3">Tab 3</TabItem>
+        <TabItem testId="tab-4">Tab 4</TabItem>
+      </TabList>
+      <TabPanel testId="tab-panel-1">
+        <Panel>One</Panel>
+      </TabPanel>
+      <TabPanel testId="tab-panel-2">
+        <Panel>Two</Panel>
+      </TabPanel>
+      <TabPanel testId="tab-panel-3">
+        <Panel>Three</Panel>
+      </TabPanel>
+      <TabPanel testId="tab-panel-4">
+        <Panel>Four</Panel>
+      </TabPanel>
+    </Tabs>
+  );
+}

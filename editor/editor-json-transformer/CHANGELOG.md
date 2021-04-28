@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 8.6.1
+
+### Patch Changes
+
+- [`653093877f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/653093877f8) - Update data-consumer behaviour for json transforming
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

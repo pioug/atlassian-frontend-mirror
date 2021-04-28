@@ -402,6 +402,62 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
+      it('should wrap in unsupportedInline node for code block', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'none',
+                uniqueId: null,
+              },
+              content: [
+                {
+                  type: 'unsupportedInline',
+                  attrs: {
+                    originalValue: {
+                      type: 'unknownText',
+                      text: 'asd asdsfa safsasaf',
+                    },
+                  },
+                },
+                {
+                  type: 'text',
+                  text: ' some other text',
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'codeBlock',
+              attrs: {
+                language: 'none',
+              },
+              content: [
+                {
+                  type: 'unknownText',
+                  text: 'asd asdsfa safsasaf',
+                },
+                {
+                  type: 'text',
+                  text: ' some other text',
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
       it('should wrap unsupported mark for inline node where no marks specified in spec', () => {
         const unsupportedMark = {
           type: 'dasdsad',

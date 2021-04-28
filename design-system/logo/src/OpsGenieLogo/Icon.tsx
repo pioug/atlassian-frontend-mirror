@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 import { uid } from 'react-uid';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
 import { DefaultProps, Props } from '../constants';
 import Wrapper from '../Wrapper';
 
@@ -43,6 +45,19 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export class OpsGenieIcon extends Component<Props> {
+  static defaultProps = DefaultProps;
+
+  render() {
+    if (process.env.NODE_ENV !== 'production') {
+      warnOnce(
+        'OpsGenieIcon will be renamed to OpsgenieIcon after June 30 2021. Please use OpsgenieIcon instead.',
+      );
+    }
+    return <Wrapper {...this.props} svg={svg} />;
+  }
+}
+
+export class OpsgenieIcon extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

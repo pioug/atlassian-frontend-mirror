@@ -9,6 +9,7 @@ import { Shortcut } from '../../styles';
 import { GRID_SIZE, SEARCH_ITEM_HEIGHT_WIDTH } from '../constants';
 import useFocus from '../hooks/use-focus';
 import { Modes } from '../types';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 interface Props {
   onSearch: (value: string) => void;
@@ -96,7 +97,9 @@ const Wrapper = styled.div<WrapperProps>`
     overflow: ${Modes.inline ? 'revert' : 'visible'};
     & > [data-ds--text-field--input] {
       margin-bottom: ${Modes.inline ? 3 : 2}px;
-      font-size: ${Modes.inline ? 14 : GRID_SIZE * 2}px;
+      font-size: ${Modes.inline
+        ? relativeFontSizeToBase16(14)
+        : relativeFontSizeToBase16(GRID_SIZE * 2)};
       padding: ${GRID_SIZE}px 6px ${GRID_SIZE}px 0;
     }
   }

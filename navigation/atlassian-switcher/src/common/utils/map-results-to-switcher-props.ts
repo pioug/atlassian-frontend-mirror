@@ -262,8 +262,6 @@ export function mapResultsToSwitcherProps(
             joinableSites,
             {
               isDiscoverSectionEnabled: features.isDiscoverSectionEnabled,
-              isDefaultEditionFreeExperimentEnabled:
-                features.isDefaultEditionFreeExperimentEnabled,
             },
           ),
           [],

@@ -8,7 +8,7 @@ import {
   BitbucketIcon,
   ConfluenceIcon,
   JiraSoftwareIcon,
-  OpsGenieIcon,
+  OpsgenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
 import { B500, N10, N20 } from '@atlaskit/theme/colors';
@@ -22,7 +22,7 @@ const logos = [
   [<BitbucketIcon size="small" />, 'Bitbucket'],
   [<ConfluenceIcon size="small" />, 'Confluence'],
   [<JiraSoftwareIcon size="small" />, 'Jira Software'],
-  [<OpsGenieIcon size="small" />, 'Ops Genie'],
+  [<OpsgenieIcon size="small" />, 'Opsgenie'],
   [<StatuspageIcon size="small" />, 'Statuspage'],
 ];
 

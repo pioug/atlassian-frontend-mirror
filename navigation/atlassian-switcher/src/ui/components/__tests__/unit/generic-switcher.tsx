@@ -35,7 +35,6 @@ describe('generic-switcher', () => {
         isDiscoverMoreForEveryoneEnabled: true,
         isEmceeLinkEnabled: true,
         isDiscoverSectionEnabled: true,
-        isDefaultEditionFreeExperimentEnabled: false,
         isProductStoreInTrelloJSWFirstEnabled: false,
         isProductStoreInTrelloConfluenceFirstEnabled: false,
         isSlackDiscoveryEnabled: false,

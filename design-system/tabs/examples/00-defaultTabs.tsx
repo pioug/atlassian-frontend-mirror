@@ -1,19 +1,34 @@
 import React from 'react';
 
-import Tabs from '../src';
+import Tabs, { Tab, TabList, TabPanel } from '../src';
 
-import { Content } from './shared';
+import { Panel } from './shared';
 
-const tabs = [
-  { label: 'Tab 1', content: <Content>One</Content> },
-  { label: 'Tab 2', content: <Content>Two</Content> },
-  { label: 'Tab 3', content: <Content>Three</Content> },
-  { label: 'Tab 4', content: <Content>Four</Content> },
-];
-
-export default () => (
-  <Tabs
-    tabs={tabs}
-    onSelect={(_tab, index) => console.log('Selected Tab', index + 1)}
-  />
-);
+export default function defaultTabs() {
+  return (
+    <Tabs
+      onChange={index => console.log('Selected Tab', index + 1)}
+      id="default"
+      testId="default"
+    >
+      <TabList>
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+        <Tab>Tab 3</Tab>
+        <Tab>Tab 4</Tab>
+      </TabList>
+      <TabPanel>
+        <Panel>One</Panel>
+      </TabPanel>
+      <TabPanel>
+        <Panel>Two</Panel>
+      </TabPanel>
+      <TabPanel>
+        <Panel>Three</Panel>
+      </TabPanel>
+      <TabPanel>
+        <Panel>Four</Panel>
+      </TabPanel>
+    </Tabs>
+  );
+}

@@ -57,6 +57,13 @@ describe('ak-blanket', () => {
         expect(spy).toHaveBeenCalledTimes(1);
       });
     });
+
+    describe('testId', () => {
+      it('should be passed as data-testid attribute of the blanket', () => {
+        const wrapper = mount(<Blanket testId="blanket" />);
+        expect(wrapper.childAt(0).prop('data-testid')).toEqual('blanket');
+      });
+    });
   });
 });
 

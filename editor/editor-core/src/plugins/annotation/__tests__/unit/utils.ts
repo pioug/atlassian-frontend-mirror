@@ -74,13 +74,21 @@ const annotationPreset = new Preset<LightEditorPlugin>()
 const emojiProvider = emojiData.testData.getEmojiResourcePromise();
 const providerFactory = ProviderFactory.create({ emojiProvider });
 
-function mockCommentsStateWithAnnotations(annotations: InlineCommentMap) {
-  const testInlineCommentState: InlineCommentPluginState = {
-    annotations: annotations,
+function mockCommentsStateWithAnnotations(
+  annotations: InlineCommentMap,
+  options?: object,
+) {
+  const defaultOptions = {
     selectedAnnotations: [],
     mouseData: { isSelecting: false },
     disallowOnWhitespace: false,
     isVisible: true,
+  };
+
+  const testInlineCommentState: InlineCommentPluginState = {
+    annotations: annotations,
+    ...defaultOptions,
+    ...options,
   };
   return jest
     .spyOn(inlineCommentPluginKey, 'getState')
@@ -354,32 +362,79 @@ describe('annotation', () => {
   });
 
   describe('isSelectionValid', () => {
-    test.each([
-      ['text', doc(p('{<}Corsair smartly{>}')), AnnotationSelectionType.VALID],
-      [
-        'inline node',
-        doc(p('{<}Corsair', emoji({ shortName: ':smiley:' })(), '{>}')),
-        AnnotationSelectionType.DISABLED,
-      ],
-      [
-        'node selection',
-        doc(p('Corsair', '{<node>}', emoji({ shortName: ':smiley:' })())),
-        AnnotationSelectionType.INVALID,
-      ],
-      [
-        'empty selection',
-        doc(p('{<>}Corsair smartly')),
-        AnnotationSelectionType.INVALID,
-      ],
-      [
-        'no selection',
-        doc(p('{<>}Corsair smartly')),
-        AnnotationSelectionType.INVALID,
-      ],
-    ])('%s', (_, inputDoc, expected) => {
-      const { editorView } = editor(inputDoc);
+    let pluginState: jest.SpyInstance;
+    afterEach(() => {
+      pluginState.mockClear();
+    });
+    describe('with disallowOnWhitespace disabled', () => {
+      beforeEach(() => {
+        pluginState = mockCommentsStateWithAnnotations(
+          {},
+          { disallowOnWhitespace: false },
+        );
+      });
+      test.each([
+        [
+          'empty selection across multiple paragraphs',
+          doc(p('{<}'), p('{>}')),
+          AnnotationSelectionType.INVALID,
+        ],
+        [
+          'white space selection',
+          doc(p('{<} {>}')),
+          AnnotationSelectionType.VALID,
+        ],
+      ])('%s', (_, inputDoc, expected) => {
+        const { editorView } = editor(inputDoc);
 
-      expect(isSelectionValid(editorView.state)).toBe(expected);
+        expect(isSelectionValid(editorView.state)).toBe(expected);
+      });
+    });
+
+    describe('with disallowOnWhitespace enabled', () => {
+      beforeEach(() => {
+        pluginState = mockCommentsStateWithAnnotations(
+          {},
+          { disallowOnWhitespace: true },
+        );
+      });
+
+      test.each([
+        [
+          'text',
+          doc(p('{<}Corsair smartly{>}')),
+          AnnotationSelectionType.VALID,
+        ],
+        [
+          'inline node',
+          doc(p('{<}Corsair', emoji({ shortName: ':smiley:' })(), '{>}')),
+          AnnotationSelectionType.DISABLED,
+        ],
+        [
+          'node selection',
+          doc(p('Corsair', '{<node>}', emoji({ shortName: ':smiley:' })())),
+          AnnotationSelectionType.INVALID,
+        ],
+        [
+          'empty selection',
+          doc(p('{<>}Corsair smartly')),
+          AnnotationSelectionType.INVALID,
+        ],
+        [
+          'no selection',
+          doc(p('{<>}Corsair smartly')),
+          AnnotationSelectionType.INVALID,
+        ],
+        [
+          'white space selection',
+          doc(p('{<} {>}')),
+          AnnotationSelectionType.INVALID,
+        ],
+      ])('%s', (_, inputDoc, expected) => {
+        const { editorView } = editor(inputDoc);
+
+        expect(isSelectionValid(editorView.state)).toBe(expected);
+      });
     });
   });
 

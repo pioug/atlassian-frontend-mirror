@@ -7,7 +7,8 @@ const getDefaultTimeLocalStorageKey = (id: string) =>
 
 /**
  * Modules that stores watch time (a number) in local storage by unique identifier.
- * Used in Custom Media Player to enabled feature where user would resume watching from where he left over.
+ * Used in Custom Media Player to enable the feature where a user would resume watching
+ * from where they left off.
  */
 export class TimeSaver {
   constructor(readonly config?: TimeSaverConfig) {}

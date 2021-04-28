@@ -1,12 +1,12 @@
 import { css } from 'styled-components';
 
-import { relativeSize } from '@atlaskit/editor-shared-styles';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { N30A } from '@atlaskit/theme/colors';
 import { codeFontFamily } from '@atlaskit/theme/constants';
 
 export const codeMarkSharedStyles = css`
   span.code {
-    font-size: ${relativeSize(0.857)}px;
+    font-size: ${relativeFontSizeToBase16(13.712)};
     font-weight: normal;
     padding: 2px 0px 2px 0px;
     background-color: ${N30A};

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,28 +16,31 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Section message"
     }
   },
+  "af:exports": {
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.3.0",
-    "@atlaskit/theme": "^11.0.0",
-    "@babel/runtime": "^7.0.0"
+    "@atlaskit/theme": "^11.1.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/code": "^13.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/field-range": "^9.0.0",
+    "@atlaskit/range": "^5.0.7",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
@@ -47,11 +50,26 @@
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "storybook-addon-performance": "0.13.0",
+    "styled-components": "^3.2.6",
     "typescript": "3.9.6"
   },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/section-message/"

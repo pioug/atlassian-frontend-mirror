@@ -313,6 +313,10 @@ export const isSelectionValid = (
     return AnnotationSelectionType.INVALID;
   }
 
+  if (isEmptyTextSelection(selection, state.schema)) {
+    return AnnotationSelectionType.INVALID;
+  }
+
   return AnnotationSelectionType.VALID;
 };
 
@@ -327,6 +331,30 @@ export const hasInvalidNodes = (state: EditorState): boolean => {
     schema,
   );
 };
+
+/**
+ * Checks if selection contains only empty text
+ * e.g. when you select across multiple empty paragraphs
+ */
+function isEmptyTextSelection(
+  selection: TextSelection | AllSelection,
+  schema: any,
+) {
+  const { text, paragraph } = schema.nodes;
+  let hasContent = false;
+  selection.content().content.descendants(node => {
+    // for empty paragraph - consider empty (nothing to comment on)
+    if (node.type === paragraph && !node.content.size) {
+      return false;
+    }
+    // for not a text or nonempty text - consider nonempty (can comment if the node is supported for annotations)
+    if (node.type !== text || !node.textContent) {
+      hasContent = true;
+    }
+    return !hasContent;
+  });
+  return !hasContent;
+}
 
 /**
  * Checks if any of the nodes in a given selection are completely whitespace

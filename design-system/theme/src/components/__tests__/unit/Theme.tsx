@@ -25,9 +25,10 @@ describe('<Theme />', () => {
   it('should render without having a parent provider', done => {
     render(
       <Theme.Consumer>
-        {(t: any) => {
-          expect(t).toEqual({ mode: 'light' });
+        {tokens => {
+          expect(tokens).toEqual({ mode: 'light' });
           done();
+          return null;
         }}
       </Theme.Consumer>,
     );
@@ -37,12 +38,17 @@ describe('<Theme />', () => {
     const backgroundColor = '#fff';
     const textColor = '#000';
     render(
-      <Theme.Provider value={t => ({ backgroundColor, ...t({}) })}>
-        <Theme.Provider value={t => ({ ...t({}), textColor })}>
+      <Theme.Provider value={t => ({ backgroundColor, ...t() })}>
+        <Theme.Provider value={t => ({ ...t(), textColor })}>
           <Theme.Consumer>
-            {(t: any) => {
-              expect(t).toEqual({ backgroundColor, mode: 'light', textColor });
+            {tokens => {
+              expect(tokens).toEqual({
+                backgroundColor,
+                mode: 'light',
+                textColor,
+              });
               done();
+              return null;
             }}
           </Theme.Consumer>
         </Theme.Provider>

@@ -3,10 +3,11 @@ import { forwardRef, HTMLAttributes, Ref } from 'react';
 
 import { jsx } from '@emotion/core';
 
+import useScrollbarWidth from '@atlaskit/ds-lib/use-scrollbar-width';
+
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 import { containerCSS, innerContainerCSS, outerContainerCSS } from './styles';
-import { useScrollbarWidth } from './use-scrollbar-width';
 
 export interface NavigationContentProps {
   children: React.ReactNode;

@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Aktuální úkol',
   'fabric.editor.action.description': 'Vytvořit a přiřadit aktuální úkol',
   'fabric.editor.addAltText': 'Alternativní text',
+  'fabric.editor.alignCenter': 'Zarovnat na střed',
   'fabric.editor.alignImageCenter': 'Zarovnat na střed',
   'fabric.editor.alignImageLeft': 'Zarovnat vlevo',
   'fabric.editor.alignImageRight': 'Zarovnat vpravo',
-  'fabric.editor.alignment': 'Zarovnání',
+  'fabric.editor.alignLeft': 'Zarovnat vlevo',
+  'fabric.editor.alignRight': 'Zarovnat vpravo',
+  'fabric.editor.alignment': 'Zarovnání textu',
   'fabric.editor.altText': 'Alternativní text',
   'fabric.editor.alttext.validation':
     'Vymažte z alternativního textu všechny zvláštní znaky.',
@@ -79,6 +82,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Tato možnost zobrazení není v uzlu {node} dostupná',
   'fabric.editor.displayText': 'Text k zobrazení',
+  'fabric.editor.distributeColumns': 'Rozložení sloupců',
   'fabric.editor.edit': 'Upravit',
   'fabric.editor.editAltText': 'Upravit alternativní text',
   'fabric.editor.editLink': 'Upravit odkaz',
@@ -117,6 +121,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Chyby zobrazit v barevném panelu',
   'fabric.editor.expand': 'Rozbalení',
   'fabric.editor.expand.description': 'Vložit rozbalení',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Všechny změny jsou vždy automaticky ukládány',
   'fabric.editor.feedbackDialog': 'Poskytnout zpětnou vazbu',
   'fabric.editor.feedbackDialog.description':
     'Podělte se s námi o pocity z práce v novém editoru',

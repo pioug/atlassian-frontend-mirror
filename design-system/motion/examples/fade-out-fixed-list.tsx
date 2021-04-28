@@ -7,9 +7,9 @@ import Button from '@atlaskit/button/standard-button';
 import {
   BitbucketIcon,
   ConfluenceIcon,
-  JiraServiceDeskIcon,
+  JiraServiceManagementIcon,
   JiraSoftwareIcon,
-  OpsGenieIcon,
+  OpsgenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
 
@@ -88,8 +88,8 @@ export default () => {
               )}
               {count > 1 && (
                 <Card
-                  icon={<JiraServiceDeskIcon size="small" />}
-                  text="Jira Service Desk"
+                  icon={<JiraServiceManagementIcon size="small" />}
+                  text="Jira Service Management"
                 />
               )}
               {count > 4 && (
@@ -99,7 +99,7 @@ export default () => {
                 />
               )}
               {count > 5 && (
-                <Card icon={<OpsGenieIcon size="small" />} text="Ops Genie" />
+                <Card icon={<OpsgenieIcon size="small" />} text="Opsgenie" />
               )}
               {count > 3 && (
                 <Card

@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Actiepunt',
   'fabric.editor.action.description': 'Actie-items maken en toewijzen',
   'fabric.editor.addAltText': 'Alt-tekst',
+  'fabric.editor.alignCenter': 'Rechts uitlijnen',
   'fabric.editor.alignImageCenter': 'Rechts uitlijnen',
   'fabric.editor.alignImageLeft': 'Links uitlijnen',
   'fabric.editor.alignImageRight': 'Rechts uitlijnen',
-  'fabric.editor.alignment': 'Uitlijning',
+  'fabric.editor.alignLeft': 'Links uitlijnen',
+  'fabric.editor.alignRight': 'Rechts uitlijnen',
+  'fabric.editor.alignment': 'Tekstuitlijning',
   'fabric.editor.altText': 'Alt-tekst',
   'fabric.editor.alttext.validation':
     'Verwijder speciale tekens uit alt-tekst.',
@@ -79,6 +82,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Deze weergaveoptie is niet beschikbaar binnen {node}.',
   'fabric.editor.displayText': 'Tekst om te tonen',
+  'fabric.editor.distributeColumns': 'Kolommen verdelen',
   'fabric.editor.edit': 'Bewerken',
   'fabric.editor.editAltText': 'Alt-tekst bewerken',
   'fabric.editor.editLink': 'Link bewerken',
@@ -119,6 +123,8 @@ export default {
     'Bijschrift voor fouten maken in een gekleurd paneel',
   'fabric.editor.expand': 'Uitvouwen',
   'fabric.editor.expand.description': 'Uitvouwen toepassen',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Alle wijzigingen worden altijd automatisch opgeslagen',
   'fabric.editor.feedbackDialog': 'Feedback geven',
   'fabric.editor.feedbackDialog.description':
     'Vertel ons wat je vindt van de nieuwe editor',

@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': '작업 항목',
   'fabric.editor.action.description': '작업 항목 만들기 및 할당',
   'fabric.editor.addAltText': '대체 텍스트',
+  'fabric.editor.alignCenter': '가운데 정렬',
   'fabric.editor.alignImageCenter': '가운데 정렬',
   'fabric.editor.alignImageLeft': '왼쪽 정렬',
   'fabric.editor.alignImageRight': '오른쪽 정렬',
-  'fabric.editor.alignment': '정렬',
+  'fabric.editor.alignLeft': '왼쪽 정렬',
+  'fabric.editor.alignRight': '오른쪽 정렬',
+  'fabric.editor.alignment': '텍스트 정렬',
   'fabric.editor.altText': '대체 텍스트',
   'fabric.editor.alttext.validation':
     '대체 텍스트에서 특수 문자를 지워 주세요.',
@@ -77,6 +80,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     '이 표시 옵션은 {node} 내에서 사용할 수 없습니다.',
   'fabric.editor.displayText': '표시할 텍스트',
+  'fabric.editor.distributeColumns': '열 균등 맞춤',
   'fabric.editor.edit': '편집',
   'fabric.editor.editAltText': '대체 텍스트 편집',
   'fabric.editor.editLink': '링크 편집',
@@ -114,6 +118,8 @@ export default {
   'fabric.editor.errorPanel.description': '색상 있는 패널에서 오류 호출',
   'fabric.editor.expand': '확대',
   'fabric.editor.expand.description': '확대 삽입',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    '모든 변경 사항은 항상 자동으로 저장됩니다',
   'fabric.editor.feedbackDialog': '피드백 보내기',
   'fabric.editor.feedbackDialog.description':
     '새로운 편집기 사용 경험에 대한 의견을 보내 주십시오',

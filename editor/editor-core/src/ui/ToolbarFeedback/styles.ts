@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { HTMLAttributes, ImgHTMLAttributes, ComponentClass } from 'react';
 import { gridSize, borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N400, P400 } from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const ButtonContent: ComponentClass<HTMLAttributes<{}>> = styled.span`
   display: flex;
@@ -30,7 +31,7 @@ export const ConfirmationPopup: ComponentClass<HTMLAttributes<{}>> = styled.div`
 `;
 
 export const ConfirmationText: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  font-size: 14px;
+  font-size: ${relativeFontSizeToBase16(14)};
   word-spacing: 4px;
   line-height: 22px;
   color: ${N400};

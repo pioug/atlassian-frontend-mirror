@@ -7,27 +7,23 @@ import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 import {
   BitbucketIcon,
   ConfluenceIcon,
-  JiraCoreIcon,
   JiraIcon,
   JiraServiceManagementIcon,
   JiraSoftwareIcon,
   JiraWorkManagementIcon,
-  OpsGenieIcon,
+  OpsgenieIcon,
   StatuspageIcon,
-  StrideIcon,
   TrelloIcon,
 } from '../src';
 
 const logoOptions = [
   BitbucketIcon,
   ConfluenceIcon,
-  JiraCoreIcon,
   JiraIcon,
   JiraServiceManagementIcon,
   JiraSoftwareIcon,
   JiraWorkManagementIcon,
-  OpsGenieIcon,
-  StrideIcon,
+  OpsgenieIcon,
   StatuspageIcon,
   TrelloIcon,
 ];

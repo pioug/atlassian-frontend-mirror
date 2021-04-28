@@ -53,10 +53,13 @@ export default class ModalDemo extends React.Component<{}, State> {
       <div style={{ padding: 16 }}>
         <H4>Variants</H4>
         <ButtonGroup>
-          <Button testId="booleanBtn" onClick={() => this.open('root')}>
+          <Button testId="boolean-trigger" onClick={() => this.open('root')}>
             Boolean on dialog
           </Button>
-          <Button testId="autoFocusBtn" onClick={() => this.open('autoFocus')}>
+          <Button
+            testId="autofocus-trigger"
+            onClick={() => this.open('autoFocus')}
+          >
             using autoFocus attribute
           </Button>
         </ButtonGroup>

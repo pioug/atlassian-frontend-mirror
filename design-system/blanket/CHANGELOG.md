@@ -1,5 +1,15 @@
 # @atlaskit/blanket
 
+## 11.2.0
+
+### Minor Changes
+
+- [`990aefd838b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/990aefd838b) - Blanket now accepts testId prop to be used for automated testing purposes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

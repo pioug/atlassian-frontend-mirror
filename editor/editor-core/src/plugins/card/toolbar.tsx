@@ -133,6 +133,7 @@ const generateDeleteButton = (
 ): Array<FloatingToolbarItem<Command>> => {
   const { inlineCard } = state.schema.nodes;
   const removeButton: FloatingToolbarItem<Command> = {
+    id: 'editor.link.delete',
     type: 'button',
     appearance: 'danger',
     icon: RemoveIcon,
@@ -143,6 +144,7 @@ const generateDeleteButton = (
   };
   if (node.type === inlineCard) {
     const unlinkButton: FloatingToolbarItem<Command> = {
+      id: 'editor.link.unlink',
       type: 'button',
       title: intl.formatMessage(linkToolbarMessages.unlink),
       icon: UnlinkIcon,
@@ -180,6 +182,7 @@ const generateToolbarItems = (
   } else {
     const toolbarItems: Array<FloatingToolbarItem<Command>> = [
       {
+        id: 'editor.link.edit',
         type: 'button',
         selected: false,
         title: intl.formatMessage(linkToolbarMessages.editLink),
@@ -189,6 +192,7 @@ const generateToolbarItems = (
       },
       { type: 'separator' },
       {
+        id: 'editor.link.openLink',
         type: 'button',
         icon: OpenIcon,
         className: 'hyperlink-open-link',

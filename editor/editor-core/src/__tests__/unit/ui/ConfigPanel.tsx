@@ -746,6 +746,16 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             expect(onChange).toHaveBeenCalledWith({ list: 'a' });
           });
 
+          it('can be cleared if field is optional', async () => {
+            const { wrapper } = mountResult;
+
+            expect(await resolveOption(wrapper, 'A')).toBe(true);
+            wrapper.update();
+            const field = wrapper.find('Select');
+            const clearButton = field.find('span[aria-label="clear"]');
+            expect(clearButton.length).toBe(1);
+          });
+
           describe('prop: isRequired', () => {
             it('should show error and skip submission if not filled', async () => {
               const { wrapper, trySubmit } = await mountEnumWithProps({
@@ -756,6 +766,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 wrapper,
                 trySubmit,
               });
+            });
+
+            it('cannot be cleared if field is required', async () => {
+              const { wrapper } = await mountEnumWithProps({
+                isRequired: true,
+              });
+
+              expect(await resolveOption(wrapper, 'A')).toBe(true);
+              wrapper.update();
+              const field = wrapper.find('Select');
+              const clearButton = field.find('span[aria-label="clear"]');
+              expect(clearButton.length).toBe(0);
             });
           });
 
@@ -802,6 +824,18 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               expect(onChange).toHaveBeenCalledWith({ list: ['c', 'b'] });
             });
 
+            it('can be cleared if field is optional', async () => {
+              const { wrapper } = await mountEnumWithProps({
+                isMultiple: true,
+              });
+
+              expect(await resolveOption(wrapper, 'A')).toBe(true);
+              wrapper.update();
+              const field = wrapper.find('Select');
+              const clearButton = field.find('span[aria-label="clear"]');
+              expect(clearButton.length).toBe(1);
+            });
+
             describe('prop: isRequired', () => {
               it('should show error and skip submission if not filled', async () => {
                 const { wrapper, trySubmit } = await mountEnumWithProps({
@@ -813,6 +847,19 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                   wrapper,
                   trySubmit,
                 });
+              });
+
+              it('cannot be cleared if field is required', async () => {
+                const { wrapper } = await mountEnumWithProps({
+                  isRequired: true,
+                  isMultiple: true,
+                });
+
+                expect(await resolveOption(wrapper, 'A')).toBe(true);
+                wrapper.update();
+                const field = wrapper.find('Select');
+                const clearButton = field.find('span[aria-label="clear"]');
+                expect(clearButton.length).toBe(0);
               });
             });
 

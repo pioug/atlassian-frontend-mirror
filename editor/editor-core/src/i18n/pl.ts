@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Element akcji',
   'fabric.editor.action.description': 'Utwórz i przypisz elementy akcji',
   'fabric.editor.addAltText': 'Tekst alternatywny',
+  'fabric.editor.alignCenter': 'Wyrównaj do środka',
   'fabric.editor.alignImageCenter': 'Wyrównaj do środka',
   'fabric.editor.alignImageLeft': 'Wyrównaj do lewej',
   'fabric.editor.alignImageRight': 'Wyrównaj do prawej',
-  'fabric.editor.alignment': 'Wyrównanie',
+  'fabric.editor.alignLeft': 'Wyrównaj do lewej',
+  'fabric.editor.alignRight': 'Wyrównaj do prawej',
+  'fabric.editor.alignment': 'Wyrównanie tekstu',
   'fabric.editor.altText': 'Tekst alternatywny',
   'fabric.editor.alttext.validation':
     'Usuń wszystkie znaki specjalne z tekstu alternatywnego.',
@@ -80,6 +83,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Ta opcja wyświetlania nie jest dostępna w węźle {node}',
   'fabric.editor.displayText': 'Wyświetlany tekst',
+  'fabric.editor.distributeColumns': 'Wyrównaj kolumny',
   'fabric.editor.edit': 'Edytuj',
   'fabric.editor.editAltText': 'Edytuj tekst alternatywny',
   'fabric.editor.editLink': 'Edytuj łącze',
@@ -120,6 +124,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Wyróżniaj błędy kolorem',
   'fabric.editor.expand': 'Sekcja rozwijana',
   'fabric.editor.expand.description': 'Wstaw sekcję rozwijaną',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Wszystkie zmiany są zawsze zapisywane automatycznie',
   'fabric.editor.feedbackDialog': 'Prześlij opinię',
   'fabric.editor.feedbackDialog.description':
     'Opowiedz nam o swoich doświadczeniach podczas korzystania z nowego edytora',

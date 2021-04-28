@@ -5,6 +5,7 @@ import { MarksObject, NoMark } from './types/mark';
 
 /**
  * @name codeBlock_node
+ * @allowUnsupportedInline true
  */
 export type CodeBlockBaseDefinition = {
   type: 'codeBlock';
@@ -71,7 +72,7 @@ const removeLastNewLine = (dom: HTMLElement): HTMLElement => {
 
 export const codeBlock: NodeSpec = {
   attrs: { language: { default: null }, uniqueId: { default: null } },
-  content: 'text*',
+  content: '(text | unsupportedInline)*',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   group: 'block',
   code: true,

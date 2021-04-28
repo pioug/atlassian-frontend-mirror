@@ -10,11 +10,11 @@ import React, {
 
 import { jsx } from '@emotion/core';
 
+import noop from '@atlaskit/ds-lib/noop';
 import { ThemeModes } from '@atlaskit/theme/types';
 
 import { dateCellStyle as getDateCellStyle } from '../styles/date';
 import type { DateObj } from '../types';
-import noop from '../utils/noop';
 
 interface Props {
   children: number;

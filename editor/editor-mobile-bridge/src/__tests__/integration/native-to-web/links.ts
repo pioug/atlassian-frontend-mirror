@@ -178,7 +178,7 @@ BrowserTestCase(
     );
 
     await browser.keys([
-      'ArrowLeft',
+      ...times(4, constant('ArrowLeft')),
       'Shift',
       ...times(4, constant('ArrowRight')),
       'Shift',

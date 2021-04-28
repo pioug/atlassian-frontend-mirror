@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20 } from '@atlaskit/theme/colors';
-import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorSmallZIndex,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
 
 export const InviteTeamWrapper = styled.div`
   background: ${N20};
@@ -33,7 +36,7 @@ export const Badge = styled.div<{ color: string }>`
   border-radius: 3px;
   background: ${({ color }) => color};
   color: #fff;
-  font-size: 9px;
+  font-size: ${relativeFontSizeToBase16(9)};
   line-height: 0;
   padding-top: 7px;
   text-align: center;

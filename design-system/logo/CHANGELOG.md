@@ -1,5 +1,20 @@
 # @atlaskit/logo
 
+## 13.3.0
+
+### Minor Changes
+
+- [`c8afaa49d34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8afaa49d34) - Add `OpsgenieIcon`, `OpsgenieLogo` and `OpsgenieWordmark` in order to rename `OpsGenie` to `Opsgenie`, and deprecate the following logos:
+
+  - `JiraCoreIcon`, `JiraCoreLogo`, `JiraCoreWordmark`
+  - `JiraServiceDeskIcon`, `JiraServiceDeskLogo`, `JiraServiceDeskWordmark`
+  - `StrideIcon`, `StrideLogo`, `StrideWordmark`
+  - `HipchatIcon`, `HipchatLogo`, `HipchatWordmark`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

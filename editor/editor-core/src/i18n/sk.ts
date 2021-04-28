@@ -12,7 +12,6 @@ export default {
   'fabric.editor.alignImageCenter': 'Zarovnať do stredu',
   'fabric.editor.alignImageLeft': 'Zarovnať vľavo',
   'fabric.editor.alignImageRight': 'Zarovnať vpravo',
-  'fabric.editor.alignment': 'Zarovnanie',
   'fabric.editor.altText': 'Všetok text',
   'fabric.editor.alttext.validation':
     'Vymažte z alternatívneho textu všetky špeciálne znaky.',

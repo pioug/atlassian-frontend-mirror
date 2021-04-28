@@ -13,8 +13,6 @@ import {
 } from 'prosemirror-utils';
 
 import {
-  TransformBefore,
-  TransformAfter,
   UpdateExtension,
   UpdateContextActions,
 } from '@atlaskit/editor-common/extensions';
@@ -23,7 +21,6 @@ import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { mapFragment } from '../../utils/slice';
 import { Command, CommandDispatch } from '../../types';
 import EditorActions from '../../actions';
-import { insertMacroFromMacroBrowser } from '../macro';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -38,8 +35,11 @@ import {
 } from '../analytics/types/extension-events';
 
 import { getSelectedExtension } from './utils';
-import { setEditingContextToContextPanel } from './commands';
 import { getPluginState } from './pm-plugins/main';
+import {
+  getEditInLegacyMacroBrowser,
+  createUpdateContextActions,
+} from './update-context-actions';
 
 export const buildExtensionNode = <S extends Schema>(
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
@@ -185,30 +185,6 @@ export const updateExtensionParams = (
   return true;
 };
 
-const createUpdateContextActions = ({
-  editInLegacyMacroBrowser,
-}: {
-  editInLegacyMacroBrowser: () => void;
-}) => (
-  state: EditorState,
-  dispatch?: CommandDispatch,
-  view?: EditorView,
-): UpdateContextActions => {
-  return {
-    editInContextPanel: (
-      transformBefore: TransformBefore,
-      transformAfter: TransformAfter,
-    ) => {
-      setEditingContextToContextPanel(transformBefore, transformAfter)(
-        state,
-        dispatch,
-        view,
-      );
-    },
-    editInLegacyMacroBrowser,
-  };
-};
-
 export const editSelectedExtension = (editorActions: EditorActions) => {
   const editorView = editorActions._privateGetEditorView()!;
   const { updateExtension } = getPluginState(editorView.state);
@@ -229,18 +205,11 @@ export const editExtension = (
     return false;
   }
 
-  const editInLegacyMacroBrowser = () => {
-    if (!view) {
-      throw new Error(`Missing view. Can't update without EditorView`);
-    }
-    if (!macroProvider) {
-      throw new Error(
-        `Missing macroProvider. Can't use the macro browser for updates`,
-      );
-    }
-
-    insertMacroFromMacroBrowser(macroProvider, nodeWithPos.node, true)(view);
-  };
+  const editInLegacyMacroBrowser = getEditInLegacyMacroBrowser({
+    view,
+    macroProvider: macroProvider || undefined,
+    nodeWithPos,
+  });
 
   if (updateExtension) {
     updateExtension.then(updateMethod => {

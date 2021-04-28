@@ -25,10 +25,7 @@ export const extensionStyles = css`
 
     &:not(.danger).${akEditorSelectedNodeClassName} {
       & > span > .extension-container {
-        ${getSelectionStyles([
-          SelectionStyle.BoxShadow,
-          SelectionStyle.Blanket,
-        ])}
+        ${getSelectionStyles([SelectionStyle.BoxShadow])}
       }
     }
 

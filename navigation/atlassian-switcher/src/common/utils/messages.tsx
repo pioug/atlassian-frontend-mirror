@@ -156,36 +156,17 @@ const messages = defineMessages({
     defaultMessage: 'Document collaboration',
     description: 'Text displayed under the Confluence product recommendation.',
   },
-  freeEditionProductDescriptionConfluence: {
-    id: 'fabric.atlassianSwitcher.free.edition.product.description.confluence',
-    defaultMessage: 'Free document collaboration for up to 10 users',
-    description:
-      'Text displayed under the Confluence product recommendation for the free edition of the product.',
-  },
   productDescriptionJiraServiceManagement: {
     id: 'fabric.atlassianSwitcher.product.description.jsm',
     defaultMessage: 'Collaborative IT service management',
     description:
       'Text displayed under the Jira Service Management product recommendation.',
   },
-  freeEditionProductDescriptionJiraServiceManagement: {
-    id: 'fabric.atlassianSwitcher.free.edition.product.description.jsm',
-    defaultMessage:
-      'Free collaborative IT service management for up to 3 agents',
-    description:
-      'Text displayed under the Jira Service Management product recommendation for the free edition of the product.',
-  },
   productDescriptionJiraSoftware: {
     id: 'fabric.atlassianSwitcher.product.description.jsw',
     defaultMessage: 'Project and issue tracking',
     description:
       'Text displayed under the Jira Software product recommendation.',
-  },
-  freeEditionProductDescriptionJiraSoftware: {
-    id: 'fabric.atlassianSwitcher.free.edition.product.description.jsw',
-    defaultMessage: 'Free project and issue tracking for up to 10 users',
-    description:
-      'Text displayed under the Jira Software product recommendation for the free edition of the product.',
   },
   productDescriptionOpsgenie: {
     id: 'fabric.atlassianSwitcher.product.description.opsgenie',

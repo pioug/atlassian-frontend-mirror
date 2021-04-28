@@ -131,6 +131,7 @@ export interface MentionDescription {
   userType?: string;
   // Team mention can use context to store members data
   context?: MentionDescContext;
+  source?: string; //e.g. 'smarts'
 }
 
 export interface MentionDescContext {

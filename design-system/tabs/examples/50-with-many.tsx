@@ -1,28 +1,38 @@
 import React from 'react';
 
-import Tabs from '../src';
-import { OnSelectCallback } from '../src/types';
+import Tabs, { Tab, TabList, TabPanel } from '../src';
+import { OnChangeCallback } from '../src/types';
 
-import { Content } from './shared';
+import { Panel } from './shared';
 
-const handleTabSelect: OnSelectCallback = (_tab, index) => {
+const handleTabSelect: OnChangeCallback = index => {
   console.info(`Switched to tab at index ${index}`);
 };
 
-export default () => (
-  <Tabs
-    onSelect={handleTabSelect}
-    tabs={[
-      { label: 'Tab 1', content: <Content>Tab 1 content</Content> },
-      { label: 'Tab 2', content: <Content>Tab 2 content</Content> },
-      { label: 'Tab 3', content: <Content>Tab 3 content</Content> },
-      { label: 'Tab 4', content: <Content>Tab 4 content</Content> },
-      { label: 'Tab 5', content: <Content>Tab 5 content</Content> },
-      { label: 'Tab 6', content: <Content>Tab 6 content</Content> },
-      { label: 'Tab 7', content: <Content>Tab 7 content</Content> },
-      { label: 'Tab 8', content: <Content>Tab 8 content</Content> },
-      { label: 'Tab 9', content: <Content>Tab 9 content</Content> },
-      { label: 'Tab 10', content: <Content>Tab 10 content</Content> },
-    ]}
-  />
-);
+const tabs = [
+  { label: 'Tab 1', panel: <Panel>Tab 1 panel</Panel> },
+  { label: 'Tab 2', panel: <Panel>Tab 2 panel</Panel> },
+  { label: 'Tab 3', panel: <Panel>Tab 3 panel</Panel> },
+  { label: 'Tab 4', panel: <Panel>Tab 4 panel</Panel> },
+  { label: 'Tab 5', panel: <Panel>Tab 5 panel</Panel> },
+  { label: 'Tab 6', panel: <Panel>Tab 6 panel</Panel> },
+  { label: 'Tab 7', panel: <Panel>Tab 7 panel</Panel> },
+  { label: 'Tab 8', panel: <Panel>Tab 8 panel</Panel> },
+  { label: 'Tab 9', panel: <Panel>Tab 9 panel</Panel> },
+  { label: 'Tab 10', panel: <Panel>Tab 10 panel</Panel> },
+];
+
+export default function manyTabs() {
+  return (
+    <Tabs onChange={handleTabSelect} id="with-many">
+      <TabList>
+        {tabs.map((tab, index) => (
+          <Tab key={index}>{tab.label}</Tab>
+        ))}
+      </TabList>
+      {tabs.map((tab, index) => (
+        <TabPanel key={index}>{tab.panel}</TabPanel>
+      ))}
+    </Tabs>
+  );
+}

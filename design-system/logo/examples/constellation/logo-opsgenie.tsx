@@ -2,7 +2,7 @@ import React from 'react';
 
 import { B200, B400, N700 } from '@atlaskit/theme/colors';
 
-import { OpsGenieIcon, OpsGenieLogo, OpsGenieWordmark } from '../../src';
+import { OpsgenieIcon, OpsgenieLogo, OpsgenieWordmark } from '../../src';
 
 const LogoOpsgenie = () => (
   <div>
@@ -17,7 +17,7 @@ const LogoOpsgenie = () => (
       <tbody>
         <tr>
           <td>
-            <OpsGenieLogo
+            <OpsgenieLogo
               textColor={N700}
               iconColor={B200}
               iconGradientStart={B400}
@@ -25,10 +25,10 @@ const LogoOpsgenie = () => (
             />
           </td>
           <td>
-            <OpsGenieWordmark textColor={N700} />
+            <OpsgenieWordmark textColor={N700} />
           </td>
           <td>
-            <OpsGenieIcon
+            <OpsgenieIcon
               iconColor={B200}
               iconGradientStart={B400}
               iconGradientStop={B200}

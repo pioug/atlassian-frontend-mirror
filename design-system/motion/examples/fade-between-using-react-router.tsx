@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
 import Button from '@atlaskit/button/standard-button';
-import { ConfluenceIcon, JiraServiceDeskIcon } from '@atlaskit/logo';
+import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, FadeIn } from '../src';
@@ -30,7 +30,7 @@ const elements = [
     <ConfluenceIcon size="xlarge" />
   </EnteringBlock>,
   <EnteringBlock>
-    <JiraServiceDeskIcon size="xlarge" />
+    <JiraServiceManagementIcon size="xlarge" />
   </EnteringBlock>,
 ];
 

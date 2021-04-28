@@ -43,6 +43,7 @@ import {
   gridMediumMaxWidth,
   akEditorFullWidthLayoutWidth,
   akEditorStickyHeaderZIndex,
+  relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
@@ -345,7 +346,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
   & .UnknownBlock {
     font-family: ${fontFamily()};
-    font-size: ${fontSize()};
+    font-size: ${relativeFontSizeToBase16(fontSize())};
     font-weight: 400;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -423,11 +424,19 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
       overflow-x: auto;
     }
+
+    & .${RendererCssClassName.EXTENSION}:first-child {
+      margin-top: 0;
+    }
   }
 
-    .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
-      overflow-x: auto;
-    }
+  .${RendererCssClassName.EXTENSION} {
+    margin-top: ${blockNodesVerticalMargin};
+  }
+  
+  .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
+    overflow-x: auto;
+  }
 
   ${tableSharedStyle}
 
@@ -472,7 +481,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
           light: colors.N200,
           dark: colors.DN400
         })};
-        font-size: ${fontSize()}px;
+        font-size: ${relativeFontSizeToBase16(fontSize())};
       }
 
       .fixed .${RendererCssClassName.NUMBER_COLUMN} {

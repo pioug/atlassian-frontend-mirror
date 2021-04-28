@@ -26,7 +26,8 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     await waitForInlineCode(page);
-    const image = await page.screenshot();
+    const example = await page.waitForSelector('#inline-examples');
+    const image = await example.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
@@ -59,158 +60,35 @@ describe('Snapshot Test', () => {
 
     expect(image).toMatchProdImageSnapshot();
   });
-  it('AppleScript code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'applescript',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
 
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Clojure code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'clojure',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
+  [
+    'AppleScript',
+    'Clojure',
+    'Delphi',
+    'Diff',
+    'FoxPro',
+    'Object Pascal',
+    'QML',
+    'Standard ML',
+    'Visual Basic',
+    'Cascading Style Sheets',
+    'JSX',
+  ].forEach(language => {
+    const exampleUrl = language.split(' ').join('-').toLowerCase();
+    it(`${language} code example should match production example`, async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'code',
+        exampleUrl,
+        global.__BASEURL__,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      await waitForCodeblock(page);
+      const example = await page.waitForSelector('#examples > div');
+      const image = await example.screenshot();
 
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Delphi code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'delphi',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Diff code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'diff',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('FoxPro code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'foxpro',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Object Pascal code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'object-pascal',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('QML code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'qml',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Standard ML code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'standard-ml',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Visual Basic code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'visual-basic',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('CSS code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'cascading-style-sheets',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Javascript code example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'jsx',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCodeblock(page);
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 });

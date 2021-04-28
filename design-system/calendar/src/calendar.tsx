@@ -4,6 +4,7 @@ import React, { forwardRef, memo, useMemo } from 'react';
 import { jsx } from '@emotion/core';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import noop from '@atlaskit/ds-lib/noop';
 import GlobalTheme, { GlobalThemeTokens } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
 
@@ -24,7 +25,6 @@ import {
   wrapperStyle as getWrapperStyle,
 } from './internal/styles/container';
 import { gridsContainerStyle } from './internal/styles/grid';
-import noop from './internal/utils/noop';
 import type { CalendarProps } from './types';
 
 export interface InternalProps extends CalendarProps {

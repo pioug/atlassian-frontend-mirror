@@ -7,7 +7,7 @@ import Form, { CheckboxField, Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
 import ModalDialog, { ModalFooter, ModalTransition } from '../src';
-import { FooterProps } from '../src/components/Footer';
+import { FooterProps } from '../src/internal/components/footer';
 
 interface State {
   isOpen: boolean;
@@ -45,13 +45,16 @@ export default class AtlaskitFormDemo extends React.Component<{}, State> {
 
     return (
       <div>
-        <Button onClick={this.open}>Open Modal</Button>
+        <Button onClick={this.open} testId="modal-trigger">
+          Open Modal
+        </Button>
 
         <ModalTransition>
           {isOpen && (
             <ModalDialog
               heading="Form Demo"
               onClose={this.close}
+              testId="modal"
               components={{
                 Container: ({ children, className }: ContainerProps) => (
                   <Form onSubmit={this.onFormSubmit}>

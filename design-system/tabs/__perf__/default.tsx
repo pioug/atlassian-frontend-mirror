@@ -1,11 +1,22 @@
 import React from 'react';
 
-import Tabs from '../src';
+import Tabs, { Tab, TabList, TabPanel } from '../src';
 
-const tabs = [
-  { label: 'Tab 1', content: <div>One</div> },
-  { label: 'Tab 2', content: <div>Two</div> },
-  { label: 'Tab 3', content: <div>Three</div> },
-];
-
-export default () => <Tabs tabs={tabs} />;
+export default () => (
+  <Tabs id="test">
+    <TabList>
+      <Tab>Tab 1</Tab>
+      <Tab>Tab 2</Tab>
+      <Tab>Tab 3</Tab>
+    </TabList>
+    <TabPanel>
+      <div>One</div>
+    </TabPanel>
+    <TabPanel>
+      <div>Two</div>
+    </TabPanel>
+    <TabPanel>
+      <div>Three</div>
+    </TabPanel>
+  </Tabs>
+);

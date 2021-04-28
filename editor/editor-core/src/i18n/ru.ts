@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Задача',
   'fabric.editor.action.description': 'Создавайте и назначайте задачи',
   'fabric.editor.addAltText': 'Альтернативный текст',
+  'fabric.editor.alignCenter': 'Выровнять по центру',
   'fabric.editor.alignImageCenter': 'Выровнять по центру',
   'fabric.editor.alignImageLeft': 'Выровнять по левому краю',
   'fabric.editor.alignImageRight': 'Выровнять по правому краю',
-  'fabric.editor.alignment': 'Выравнивание',
+  'fabric.editor.alignLeft': 'Выровнять по левому краю',
+  'fabric.editor.alignRight': 'Выровнять по правому краю',
+  'fabric.editor.alignment': 'Выравнивание текста',
   'fabric.editor.altText': 'Альтернативный текст',
   'fabric.editor.alttext.validation':
     'Удалите специальные символы в alt-тексте.',
@@ -80,6 +83,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Этот параметр отображения недоступен внутри узла {node}',
   'fabric.editor.displayText': 'Текст для отображения',
+  'fabric.editor.distributeColumns': 'Распределить столбцы',
   'fabric.editor.edit': 'Изменить',
   'fabric.editor.editAltText': 'Изменить альтернативный текст',
   'fabric.editor.editLink': 'Изменить ссылку',
@@ -120,6 +124,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Выделить ошибки цветом',
   'fabric.editor.expand': 'Разворачивание',
   'fabric.editor.expand.description': 'Вставить элемент разворачивания',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Любые изменения всегда сохраняются автоматически',
   'fabric.editor.feedbackDialog': 'Оставить отзыв',
   'fabric.editor.feedbackDialog.description':
     'Поделитесь впечатлениями о новом редакторе',

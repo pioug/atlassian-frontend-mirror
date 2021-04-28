@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Uppgift',
   'fabric.editor.action.description': 'Skapa och tilldela åtgärdsuppgifter',
   'fabric.editor.addAltText': 'Alternativ text',
+  'fabric.editor.alignCenter': 'Centrera',
   'fabric.editor.alignImageCenter': 'Centrera',
   'fabric.editor.alignImageLeft': 'Vänsterjustera',
   'fabric.editor.alignImageRight': 'Högerjustera',
-  'fabric.editor.alignment': 'Justering',
+  'fabric.editor.alignLeft': 'Vänsterjustera',
+  'fabric.editor.alignRight': 'Högerjustera',
+  'fabric.editor.alignment': 'Textjustering',
   'fabric.editor.altText': 'Alt-text',
   'fabric.editor.alttext.validation':
     'Ta bort eventuella specialtecken i alternativ text.',
@@ -79,6 +82,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Det här visningsalternativet är inte tillgängligt inuti {node}',
   'fabric.editor.displayText': 'Text att visa',
+  'fabric.editor.distributeColumns': 'Fördela kolumner',
   'fabric.editor.edit': 'Redigera',
   'fabric.editor.editAltText': 'Redigera alternativ text',
   'fabric.editor.editLink': 'Redigera länk',
@@ -119,6 +123,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Meddela om fel i en färgad panel',
   'fabric.editor.expand': 'Expandera',
   'fabric.editor.expand.description': 'Infoga expandering',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Alla ändringar sparas alltid automatiskt',
   'fabric.editor.feedbackDialog': 'Ge feedback',
   'fabric.editor.feedbackDialog.description':
     'Berätta för oss om din upplevelse av den nya redigeraren',

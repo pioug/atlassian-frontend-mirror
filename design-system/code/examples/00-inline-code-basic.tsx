@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { Code } from '../src';
 
@@ -14,7 +14,7 @@ const theme = { mode: 'dark' };
 
 export default function Component() {
   return (
-    <Fragment>
+    <div id="inline-examples">
       <span>
         This is inline javascript code:{' '}
         <Code language="javascript" text={jsCode} />, check it out.
@@ -56,6 +56,6 @@ export default function Component() {
           text="x = 10 + 12"
         />
       </span>
-    </Fragment>
+    </div>
   );
 }

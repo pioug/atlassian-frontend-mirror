@@ -59,7 +59,6 @@ const ContentStyles = styled.div<ContentStylesProps>`
   .ProseMirror {
     outline: none;
     font-size: ${editorFontSize}px;
-
     ${whitespaceSharedStyles};
     ${paragraphSharedStyles};
     ${listsSharedStyles};

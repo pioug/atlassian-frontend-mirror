@@ -75,8 +75,6 @@ export type SwitcherProps = {
    * which is a variation of suggestedProductLinks and fixedLinks combined
    */
   isDiscoverSectionEnabled?: boolean;
-  // Enable copy change for free editions of products in the Discover section
-  isDefaultEditionFreeExperimentEnabled?: boolean;
   discoverSectionLinks: SwitcherItemType[];
   onJoinableSiteClicked?: JoinableSiteClickHandler;
   defaultSignupEmail?: string;

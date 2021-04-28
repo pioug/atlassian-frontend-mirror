@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 11.0.1
+
+### Patch Changes
+
+- [`4eb2615652c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb2615652c) - Internal refactor to use common utils.
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

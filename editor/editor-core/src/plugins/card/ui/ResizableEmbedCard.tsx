@@ -18,7 +18,7 @@ import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { embedHeaderHeight } from '@atlaskit/smart-card';
+import { embedHeaderHeight } from '@atlaskit/media-ui/embeds';
 import { Wrapper } from '../../../ui/Resizer/styled';
 import {
   EnabledHandles,

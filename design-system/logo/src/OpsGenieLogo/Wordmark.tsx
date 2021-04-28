@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
 import { DefaultProps, Props } from '../constants';
 import Wrapper from '../Wrapper';
 
@@ -12,6 +14,18 @@ const svg = `<canvas height="32" width="148" aria-hidden="true"></canvas>
 </svg>`;
 
 export class OpsGenieWordmark extends Component<Props> {
+  static defaultProps = DefaultProps;
+
+  render() {
+    if (process.env.NODE_ENV !== 'production') {
+      warnOnce(
+        'OpsGenieWordmark will be renamed to OpsgenieWordmark after June 30 2021. Please use OpsgenieWordmark instead.',
+      );
+    }
+    return <Wrapper {...this.props} svg={svg} />;
+  }
+}
+export class OpsgenieWordmark extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {

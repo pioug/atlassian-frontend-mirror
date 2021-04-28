@@ -21,7 +21,7 @@ import { flushPromises } from '../../../../../__tests__/__helpers/utils';
 import { ExtensionsPlaceholder } from '../../ExtensionsPlaceholder';
 import { createTestExtensionProvider } from '../__helpers/extensions';
 
-describe('ExtensonsPlaceholder', () => {
+describe('ExtensionsPlaceholder', () => {
   const createEditor = createEditorFactory();
   const testItemProps = {
     key: 'item-1',
@@ -166,7 +166,9 @@ describe('ExtensonsPlaceholder', () => {
     const buttonSelector = `button[aria-label="${testItemProps.label}"]`;
     expect(wrapper.find(buttonSelector).length).toBe(1);
     wrapper.find(buttonSelector).simulate('click');
+
     expect(action).toHaveBeenCalledWith(
+      // ADFEntity
       expect.objectContaining({
         attrs: {
           isNumberColumnEnabled: false,
@@ -174,6 +176,12 @@ describe('ExtensonsPlaceholder', () => {
         },
         content: expect.any(Array),
         type: 'table',
+      }),
+      // UpdateContextActions
+      expect.objectContaining({
+        editInContextPanel: expect.any(Function),
+        editInLegacyMacroBrowser: expect.any(Function),
+        insertAfter: expect.any(Function),
       }),
     );
   });

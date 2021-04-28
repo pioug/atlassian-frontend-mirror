@@ -7,6 +7,7 @@ import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Item from '@atlaskit/item';
 import { B100, N20, N200 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import {
   withAnalyticsContext,
@@ -395,7 +396,7 @@ const ItemDescription = styled.p`
   ${multilineStyle};
 
   overflow: hidden;
-  font-size: 11.67px;
+  font-size: ${relativeFontSizeToBase16(11.67)};
   color: ${N200};
   margin-top: 2px;
 `;

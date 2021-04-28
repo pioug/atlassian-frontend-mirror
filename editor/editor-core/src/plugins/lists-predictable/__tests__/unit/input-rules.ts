@@ -24,6 +24,8 @@ import analyticsPlugin from '../../../../plugins/analytics';
 import basePlugins from '../../../../plugins/base';
 import blockType from '../../../../plugins/block-type';
 import codeBlockTypePlugin from '../../../../plugins/code-block';
+import { InputRuleWithHandler } from './../../../../utils/input-rules';
+import { wrapInputRuleIntoSanitizationContent } from '../../pm-plugins/input-rules/create-list-input-rule';
 
 describe('inputrules', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -243,6 +245,38 @@ describe('inputrules', () => {
 
       insertText(editorView, '1. ');
       expect(editorView.state.doc).toEqualDocument(doc(code_block()('1. ')));
+    });
+  });
+
+  describe('wrapInputRuleIntoSanitizationContent', () => {
+    let valueOfThisInHandler: any;
+
+    class TestInputRule implements InputRuleWithHandler {
+      handler() {
+        valueOfThisInHandler = this;
+        return null;
+      }
+    }
+
+    let inputRule: TestInputRule;
+
+    beforeEach(() => {
+      inputRule = new TestInputRule();
+    });
+
+    it('input rule should have "this" defined with the correct scope', () => {
+      inputRule.handler();
+      expect(valueOfThisInHandler).toBeDefined();
+    });
+
+    it('input rule should have "this" defined with the correct scope after being wrapped', () => {
+      wrapInputRuleIntoSanitizationContent({
+        inputRule,
+        listType: 'bulletList',
+      });
+
+      inputRule.handler();
+      expect(valueOfThisInHandler).toBeDefined();
     });
   });
 });

@@ -1,5 +1,15 @@
 # @atlaskit/mention
 
+## 19.6.0
+
+### Minor Changes
+
+- [`f042eac9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f042eac9bf1) - Add SmartMentionResource to mentions with editor-core example
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.5.1
 
 ### Patch Changes

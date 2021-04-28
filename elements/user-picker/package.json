@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "7.9.1",
+  "version": "7.9.2",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/select": "^13.2.0",
     "@atlaskit/tag": "^11.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.1.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@babel/runtime": "^7.0.0",
     "apollo-client": "^2.5.1",

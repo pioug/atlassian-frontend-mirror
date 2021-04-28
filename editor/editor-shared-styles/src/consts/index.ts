@@ -76,6 +76,7 @@ export {
   gridMediumMaxWidth,
   getAkEditorFullPageMaxWidth,
   relativeSize,
+  relativeFontSizeToBase16,
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
   akEditorLineHeight,

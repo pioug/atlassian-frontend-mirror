@@ -42,7 +42,7 @@ export {
 } from './constants';
 export { Reset, ResetTheme } from './components/Reset';
 export type { ResetThemeProps, ResetThemeTokens } from './components/Reset';
-export { default } from './components/Theme';
+export { default, useGlobalTheme } from './components/Theme';
 export { withTheme } from './hoc';
 export { createTheme } from './utils/createTheme';
 export type { ThemeProp } from './utils/createTheme';

@@ -7,16 +7,25 @@ import {
   ExtensionToolbarButton,
   ExtensionManifest,
 } from '@atlaskit/editor-common';
-import Button from './Button';
+import { UpdateContextActions } from '@atlaskit/editor-common/extensions';
+import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { getContextualToolbarlItemsFromModule } from '@atlaskit/editor-common';
-import Separator from './Separator';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { ADFEntity } from '@atlaskit/adf-utils';
 import { nodeToJSON } from '../../../utils';
+import {
+  createUpdateContextActions,
+  getEditInLegacyMacroBrowser,
+} from '../../extension/update-context-actions';
+import Button from './Button';
+import Separator from './Separator';
+
+import { findParentNodeOfType } from 'prosemirror-utils';
 
 interface Props {
   node: PMNode;
   extensionProvider: ExtensionProvider;
+  macroProvider?: MacroProvider;
   editorView: EditorView;
   separator?: 'start' | 'end' | 'both';
 }
@@ -25,10 +34,11 @@ type ExtensionButtonProps = {
   item: ExtensionToolbarButton;
   editorView: EditorView;
   node: PMNode;
+  macroProvider?: MacroProvider;
 };
 
 const ExtensionButton = (props: ExtensionButtonProps) => {
-  const { item, node } = props;
+  const { item, node, editorView, macroProvider } = props;
 
   const ButtonIcon = item.icon
     ? Loadable<{ label: string }, never>({
@@ -38,14 +48,31 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
     : undefined;
 
   const onClick = () => {
-    const targetNodeAdf: ADFEntity = nodeToJSON(node);
-    if (typeof item.action === 'function') {
-      item.action(targetNodeAdf);
-    } else {
+    if (typeof item.action !== 'function') {
       throw new Error(
         `'action' of context toolbar item '${item.key}' is not a function`,
       );
     }
+
+    const targetNodeAdf: ADFEntity = nodeToJSON(node);
+    const { state, dispatch } = editorView;
+
+    const nodeWithPos = findParentNodeOfType(node.type)(state.selection);
+
+    if (!nodeWithPos) {
+      return;
+    }
+
+    const editInLegacyMacroBrowser = getEditInLegacyMacroBrowser({
+      view: editorView,
+      macroProvider,
+      nodeWithPos,
+    });
+    const api: UpdateContextActions = createUpdateContextActions({
+      editInLegacyMacroBrowser,
+    })(state, dispatch, editorView);
+
+    item.action(targetNodeAdf, api);
   };
 
   return (
@@ -61,7 +88,13 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 };
 
 export const ExtensionsPlaceholder = (props: Props) => {
-  const { node, editorView, extensionProvider, separator } = props;
+  const {
+    node,
+    editorView,
+    extensionProvider,
+    macroProvider,
+    separator,
+  } = props;
   const [extensions, setExtensions] = useState<ExtensionManifest<any>[]>([]);
   useEffect(() => {
     if (extensionProvider) {
@@ -90,7 +123,12 @@ export const ExtensionsPlaceholder = (props: Props) => {
   }
   extensionItems.forEach((item: any, index) => {
     children.push(
-      <ExtensionButton node={node} item={item} editorView={editorView} />,
+      <ExtensionButton
+        node={node}
+        item={item}
+        editorView={editorView}
+        macroProvider={macroProvider}
+      />,
     );
     if (index < extensionItems.length - 1) {
       children.push(<Separator />);

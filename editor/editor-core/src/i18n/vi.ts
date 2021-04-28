@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Mục thao tác',
   'fabric.editor.action.description': 'Tạo và chỉ định các mục thao tác',
   'fabric.editor.addAltText': 'Văn bản thay thế',
+  'fabric.editor.alignCenter': 'Căn giữa',
   'fabric.editor.alignImageCenter': 'Căn giữa',
   'fabric.editor.alignImageLeft': 'Căn trái',
   'fabric.editor.alignImageRight': 'Căn phải',
-  'fabric.editor.alignment': 'Căn chỉnh',
+  'fabric.editor.alignLeft': 'Căn trái',
+  'fabric.editor.alignRight': 'Căn phải',
+  'fabric.editor.alignment': 'Căn chỉnh văn bản',
   'fabric.editor.altText': 'Văn bản thay thế',
   'fabric.editor.alttext.validation':
     'Vui lòng xóa tất cả các ký tự đặc biệt trong văn bản thay thế.',
@@ -118,6 +121,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Chỉ ra lỗi bằng ô màu',
   'fabric.editor.expand': 'Mở rộng',
   'fabric.editor.expand.description': 'Chèn đoạn mở rộng',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Mọi thay đổi luôn được lưu tự động',
   'fabric.editor.feedbackDialog': 'Đưa ra phản hồi',
   'fabric.editor.feedbackDialog.description':
     'Cho chúng tôi biết về trải nghiệm của bạn khi sử dụng trình chỉnh sửa mới',

@@ -82,7 +82,6 @@ class InlineDialogSwitcherExample extends React.Component {
             appearance="standalone"
             theme={trelloTheme}
             isDiscoverSectionEnabled
-            isDefaultEditionFreeExperimentEnabled
             recommendationsFeatureFlags={{
               isProductStoreInTrelloEnabled: true,
             }}

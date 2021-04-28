@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { InputHTMLAttributes, ComponentClass } from 'react';
 import { N400, N800 } from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
 export const Input: ComponentClass<
@@ -15,7 +16,7 @@ export const Input: ComponentClass<
     box-sizing: content-box;
     color: ${N400};
     flex-grow: 1;
-    font-size: 13px;
+    font-size: ${relativeFontSizeToBase16(13)};
     line-height: 20px;
     padding: 0;
     ${props => (props.width ? `width: ${props.width}px` : '')};

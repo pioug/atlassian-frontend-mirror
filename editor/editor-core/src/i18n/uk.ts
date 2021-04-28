@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Задача',
   'fabric.editor.action.description': 'Створити та призначити задачу',
   'fabric.editor.addAltText': 'Текст заміщення',
+  'fabric.editor.alignCenter': 'Вирівнювання по центру',
   'fabric.editor.alignImageCenter': 'Вирівнювання по центру',
   'fabric.editor.alignImageLeft': 'Вирівнювання по лівому краю',
   'fabric.editor.alignImageRight': 'Вирівнювання по правому краю',
-  'fabric.editor.alignment': 'Вирівнювання',
+  'fabric.editor.alignLeft': 'Вирівнювання по лівому краю',
+  'fabric.editor.alignRight': 'Вирівнювання по правому краю',
+  'fabric.editor.alignment': 'Вирівнювання тексту',
   'fabric.editor.altText': 'Текст заміщення',
   'fabric.editor.alttext.validation':
     'Видаліть будь-які спеціальні символи з тексту заміщення.',
@@ -80,6 +83,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Цей параметр відображення недоступний для вузла {node}',
   'fabric.editor.displayText': 'Текст для відображення',
+  'fabric.editor.distributeColumns': 'Вирівняти стовпці по ширині',
   'fabric.editor.edit': 'Редагувати',
   'fabric.editor.editAltText': 'Редагувати текст заміщення',
   'fabric.editor.editLink': 'Редагування посилання',
@@ -120,6 +124,8 @@ export default {
     'Відобразити помилки на панелі з кольорами',
   'fabric.editor.expand': 'Розгортка',
   'fabric.editor.expand.description': 'Вставити розгортку',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Усі зміни завжди зберігаються автоматично',
   'fabric.editor.feedbackDialog': 'Залишити відгук',
   'fabric.editor.feedbackDialog.description':
     'Поділіться враженнями від нового редактора',

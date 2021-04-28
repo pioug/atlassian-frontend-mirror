@@ -48,6 +48,10 @@ Object {
           "text": "link",
           "type": "text",
         },
+        Object {
+          "text": "text",
+          "type": "text",
+        },
       ],
       "type": "paragraph",
     },

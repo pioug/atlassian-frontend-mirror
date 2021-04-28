@@ -2,13 +2,16 @@ import { ComponentClass } from 'react';
 import styled from 'styled-components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorUnitZIndex,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
 
 export const Header: any = styled.div`
   z-index: ${akEditorUnitZIndex};
   min-height: 24px;
   padding: 20px 40px;
-  font-size: 24px;
+  font-size: ${relativeFontSizeToBase16(24)};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +24,7 @@ export const Header: any = styled.div`
 
 export const Footer: any = styled.div`
   z-index: ${akEditorUnitZIndex};
-  font-size: 14px;
+  font-size: ${relativeFontSizeToBase16(14)};
   line-height: 20px;
   color: ${colors.N300};
   padding: 24px;
@@ -75,7 +78,7 @@ export const Row: ComponentClass = styled.div`
 `;
 
 export const Title: ComponentClass = styled.div`
-  font-size: 18px;
+  font-size: ${relativeFontSizeToBase16(18)};
   font-weight: 400;
 `;
 

@@ -7,12 +7,14 @@ import {
   render,
 } from '@testing-library/react';
 import cases from 'jest-in-case';
+import styled from 'styled-components';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import { h500 } from '@atlaskit/theme/typography';
 
 import SectionMessage from '../../index';
 import { Appearance } from '../../types';
@@ -68,6 +70,31 @@ describe('SectionMessage', () => {
 
     expect(getByText('things')).toBeInTheDocument();
     expect(getByText('boo')).toBeInTheDocument();
+  });
+
+  it('should match title style from theme typography', () => {
+    const Header = styled.h1`
+      ${h500}
+    `;
+    const { getByText } = render(<Header>Hello</Header>);
+
+    const styles = window.getComputedStyle(getByText('Hello'));
+
+    const { getByText: getByTextForSectionMessage } = render(
+      <SectionMessage title="header">boo</SectionMessage>,
+    );
+
+    expect(getByTextForSectionMessage('header')).toHaveStyle(
+      `
+      font-size: ${styles.fontSize};
+      font-style: ${styles.fontStyle};
+      line-height: ${styles.lineHeight};
+      margin: 0 0 8px;
+      color: ${styles.color};
+      font-weight: ${styles.fontWeight};
+      letter-spacing: ${styles.letterSpacing};
+     `,
+    );
   });
 
   describe('actions', () => {

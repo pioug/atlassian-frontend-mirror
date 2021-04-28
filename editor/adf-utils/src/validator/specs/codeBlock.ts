@@ -14,6 +14,7 @@ export default {
         ],
       ],
       optional: true,
+      allowUnsupportedInline: true,
     },
     marks: { type: 'array', items: [], optional: true },
     attrs: {

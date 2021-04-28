@@ -252,7 +252,27 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       });
     });
   });
+
   describe('plus menu', () => {
+    it('should not render for zero items', () => {
+      jest.mock(
+        '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/create-items',
+        () => ({
+          createItems: () => [],
+        }),
+      );
+
+      buildToolbar({
+        insertMenuItems: [],
+      });
+
+      expect(toolbarOption.find(DropdownMenu)).toHaveLength(0);
+
+      jest.unmock(
+        '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/create-items',
+      );
+    });
+
     describe('legacy', () => {
       describe('sort dropdown items', () => {
         it('should sort non macro items alphabetically', () => {
@@ -283,6 +303,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
           expect(items.items.map(item => item.content)).toEqual(expected);
         });
+
         it('should sort alphabetically with non-macro items at end', () => {
           const customItemsWithMacros = [
             {
@@ -309,6 +330,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
           expect(items.items.map(item => item.content)).toEqual(sortedItems);
         });
+
         it('macro browser should always be last item if there is no slash-onboarding', () => {
           const customItems = [
             {
@@ -335,6 +357,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
           expect(items.items.map(item => item.content)).toEqual(sortedItems);
         });
+
         it('slash onboarding should always be last item', () => {
           const customItems = [
             {

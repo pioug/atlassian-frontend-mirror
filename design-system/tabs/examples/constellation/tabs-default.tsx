@@ -1,14 +1,68 @@
-import React from 'react';
+/** @jsx jsx */
+import { ReactNode } from 'react';
 
-import Tabs from '../../src';
-import { Content } from '../shared';
+import { css, jsx } from '@emotion/core';
 
-const tabs = [
-  { label: 'Tab 1', content: <Content>One</Content> },
-  { label: 'Tab 2', content: <Content>Two</Content> },
-  { label: 'Tab 3', content: <Content>Three</Content> },
-];
+import { N20, N200 } from '@atlaskit/theme/colors';
+import {
+  borderRadius as getBorderRadius,
+  gridSize as getGridSize,
+} from '@atlaskit/theme/constants';
 
-const TabsDefaultExample = () => <Tabs tabs={tabs} />;
+import Tabs, { Tab, TabList, TabPanel } from '../../src';
 
-export default TabsDefaultExample;
+const borderRadius = getBorderRadius();
+const gridSize = getGridSize();
+
+export const Panel = ({
+  children,
+  testId,
+}: {
+  children: ReactNode;
+  testId?: string;
+}) => (
+  <div
+    css={css`
+      align-items: center;
+      background-color: ${N20};
+      border-radius: ${borderRadius}px;
+      color: ${N200};
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      font-size: 4em;
+      font-weight: 500;
+      justify-content: center;
+      margin-bottom: ${gridSize}px;
+      margin-top: ${gridSize * 2}px;
+      padding: ${gridSize * 4}px;
+    `}
+    data-testid={testId}
+  >
+    {children}
+  </div>
+);
+
+export default function TabsDefaultExample() {
+  return (
+    <Tabs
+      onChange={index => console.log('Selected Tab', index + 1)}
+      id="default"
+    >
+      <TabList>
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+        <Tab>Tab 3</Tab>
+      </TabList>
+      <TabPanel>
+        <Panel>One</Panel>
+      </TabPanel>
+      <TabPanel>
+        <Panel>Two</Panel>
+      </TabPanel>
+      <TabPanel>
+        <Panel>Three</Panel>
+      </TabPanel>
+    </Tabs>
+  );
+}

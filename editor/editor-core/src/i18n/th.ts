@@ -9,9 +9,12 @@ export default {
   'fabric.editor.action': 'รายการการดำเนินการ',
   'fabric.editor.action.description': 'สร้างและมอบหมายรายการการดำเนินการ',
   'fabric.editor.addAltText': 'ข้อความอธิบายรูปภาพ',
+  'fabric.editor.alignCenter': 'จัดแนวตรงกลาง',
   'fabric.editor.alignImageCenter': 'จัดแนวตรงกลาง',
   'fabric.editor.alignImageLeft': 'จัดแนวด้านซ้าย',
   'fabric.editor.alignImageRight': 'จัดแนวด้านขวา',
+  'fabric.editor.alignLeft': 'จัดแนวด้านซ้าย',
+  'fabric.editor.alignRight': 'จัดแนวด้านขวา',
   'fabric.editor.alignment': 'การจัดแนวข้อความ',
   'fabric.editor.altText': 'ข้อความอธิบายรูปภาพ',
   'fabric.editor.alttext.validation':
@@ -79,6 +82,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'ตัวเลือกการแสดงนี้ไม่พร้อมใช้งานภายใน {node}',
   'fabric.editor.displayText': 'ข้อความที่จะแสดง',
+  'fabric.editor.distributeColumns': 'แบ่งคอลัมน์',
   'fabric.editor.edit': 'แก้ไข',
   'fabric.editor.editAltText': 'แก้ไขข้อความอธิบายรูปภาพ',
   'fabric.editor.editLink': 'แก้ไขลิงก์',
@@ -117,6 +121,8 @@ export default {
   'fabric.editor.errorPanel.description': 'แสดงข้อผิดพลาดในแผงสี',
   'fabric.editor.expand': 'ส่วนขยาย',
   'fabric.editor.expand.description': 'ใส่ส่วนขยาย',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'การเปลี่ยนแปลงทั้งหมดจะได้รับการบันทึกโดยอัตโนมัติเสมอ',
   'fabric.editor.feedbackDialog': 'ให้ข้อคิดเห็น',
   'fabric.editor.feedbackDialog.description':
     'บอกให้เราทราบเกี่ยวกับประสบการณ์ของคุณในการใช้งานเครื่องมือแก้ไขแบบใหม่',

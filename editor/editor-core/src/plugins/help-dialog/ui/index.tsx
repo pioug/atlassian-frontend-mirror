@@ -10,7 +10,11 @@ import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { browser } from '@atlaskit/editor-common';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
+import type {
+  HeaderComponentProps,
+  FooterComponentProps,
+} from '@atlaskit/modal-dialog/types';
 import {
   Header,
   Footer,
@@ -78,8 +82,6 @@ const messages = defineMessages({
     description: 'Name of a feature, which let you insert items quickly.',
   },
 });
-
-const AkModalDialog: React.ComponentClass<any> = Modal;
 
 export interface Format {
   name: string;
@@ -431,7 +433,7 @@ const ModalHeader = injectIntl(
     onClose,
     showKeyline,
     intl: { formatMessage },
-  }: { onClose: () => void; showKeyline: boolean } & InjectedIntlProps) => (
+  }: HeaderComponentProps & InjectedIntlProps) => (
     <Header showKeyline={showKeyline}>
       <FormattedMessage {...messages.editorHelp} />
       <div>
@@ -451,7 +453,7 @@ const ModalHeader = injectIntl(
   ),
 );
 
-const ModalFooter = ({ showKeyline }: { showKeyline: boolean }) => (
+const ModalFooter = ({ showKeyline }: FooterComponentProps) => (
   <Footer showKeyline={showKeyline}>
     <FormattedMessage
       {...messages.helpDialogTips}

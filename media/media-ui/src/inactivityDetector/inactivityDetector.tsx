@@ -16,7 +16,7 @@ const mouseMovementDelay = 2000;
 
 /**
  * Hides all the child elements with `hideControlsClassName` classname when user is inactive,
- * which means he hasn't moved mouse over the component for `mouseMovementDelay` ms.
+ * which means they haven't moved mouse over the component for `mouseMovementDelay` ms.
  * Exception is if user holding mouse over one of the hideable elements (those that have specified classname).
  *
  */

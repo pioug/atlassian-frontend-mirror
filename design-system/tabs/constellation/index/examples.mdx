@@ -3,9 +3,49 @@ order: 0
 ---
 
 import TabsDefault from '../../examples/constellation/tabs-default';
+import TabsControlled from '../../examples/constellation/tabs-controlled';
+import TabTooltip from '../../examples/constellation/tab-tooltip';
+import TabCustom from '../../examples/constellation/tab-custom';
+import TabLink from '../../examples/constellation/tab-link';
+import TabPabelCustom from '../../examples/constellation/tab-panel-custom';
 
 ## Default
 
 The default form of tabs.
 
 <Example Component={TabsDefault} packageName="@atlaskit/tabs" />
+
+## Controlled
+
+Tabs can be used as a controlled component.
+
+<Example Component={TabsControlled} packageName="@atlaskit/tabs" />
+
+## Customizing tab
+
+### Wrapping tab
+
+You can wrap a tab in other presentational components.
+For accessibility reasons, any `div` that wraps a tab must have `role="presentation"`.
+
+In this example we have added a [tooltip](/components/tooltip) to each tab.
+
+<Example Component={TabTooltip} packageName="@atlaskit/tabs" />
+
+### Custom tab
+
+To customize a tab, call `useTab` and spread those attributes onto the custom tab.
+<Example Component={TabCustom} packageName="@atlaskit/tabs" />
+
+### Custom behavior with tab
+
+You can opt out of behavior by removing certain attributes.
+In this example, the tab is an anchor and `tabIndex` and `onKeyDown` have been removed so that the tab
+behaves like a regular link.
+
+<Example Component={TabLink} packageName="@atlaskit/tabs" />
+
+## Customizing tab panel
+
+To customize a tab panel, call `useTabPanel` and spread those attributes onto the custom tab panel.
+<Example Component={TabPabelCustom} packageName="@atlaskit/tabs" />

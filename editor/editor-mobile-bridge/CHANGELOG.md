@@ -1,5 +1,26 @@
 # @atlaskit/editor-mobile-bridge
 
+## 26.0.0
+
+### Major Changes
+
+- [`864bae0214b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/864bae0214b) - Removed old methods for inserting a link as they were only being used by mobile. Fix hyperlink text removal on editor mobile bridge.
+
+### Minor Changes
+
+- [`865761dd8f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/865761dd8f8) - ME-1154 Introduced an allowed list API to filter adaptive toolbar capabilities.
+  Native mobile can use this new bridge API to provide an allowed list.
+  When allowed is set, floating toolbar items will be filtered out based on the given list.
+  This will prevent to have capabilities enabled on the native side accidently.
+
+### Patch Changes
+
+- [`48de89b4b54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48de89b4b54) - Add smart-link mobile test cases
+- [`9e0d05b6e6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e0d05b6e6b) - reuse MediaMock from media-test-helpers
+- [`7513497739b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7513497739b) - fixed a bug where the native bridge wasn't being notified when user taps on a smartlink
+- [`44414d3dd1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44414d3dd1e) - Adds media group test
+- Updated dependencies
+
 ## 25.5.5
 
 ### Patch Changes

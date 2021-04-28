@@ -1,20 +1,22 @@
-export { default } from './components/ModalWrapper';
-export { default as ModalTransition } from './components/ModalTransition';
+export { default } from './internal/components/modal-wrapper';
+export { default as ModalTransition } from './internal/components/modal-transition';
 export {
   Body as ModalBody,
   Header as ModalHeader,
   Footer as ModalFooter,
   Title as ModalTitle,
-} from './styled/Content';
+} from './internal/styles/content';
 export type {
   BodyProps as BodyComponentProps,
   TitleTextProps as TitleComponentProps,
-} from './styled/Content';
+} from './internal/styles/content';
 export type {
   KeyboardOrMouseEvent,
+  AppearanceType,
   ActionProps,
   ScrollBehavior,
   ContainerComponentProps,
-} from './types';
-export type { FooterComponentProps } from './components/Footer';
-export type { HeaderComponentProps } from './components/Header';
+  ModalDialogProps,
+} from './internal/types';
+export type { FooterComponentProps } from './internal/components/footer';
+export type { HeaderComponentProps } from './internal/components/header';

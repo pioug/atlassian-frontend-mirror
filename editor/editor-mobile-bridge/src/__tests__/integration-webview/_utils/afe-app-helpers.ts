@@ -2,6 +2,7 @@ import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
 import { testMediaFileId, defaultCollectionName } from '../_mocks/utils';
+import { mockFiles } from '../_mocks/editorTestSetup';
 
 export const SELECTORS_WEB = {
   EDITOR: '#editor .ProseMirror',
@@ -50,11 +51,15 @@ export async function clearContent(page: Page) {
 /**
  * Mimic the flow of bridge calls to upload a media item
  */
-export async function uploadMedia(page: Page) {
+export async function uploadMedia(page: Page, id = testMediaFileId) {
+  const mediaFile = mockFiles.find(file => file.id === id);
+  if (!mediaFile) {
+    throw new Error(`No mock file found with id ${id}`);
+  }
   const defaultFileAttrs = {
     id: 'null',
-    name: 'test',
-    type: 'image/png',
+    name: mediaFile.name,
+    type: mediaFile.mimeType,
     dimensions: {
       width: 220,
       height: 140,
@@ -72,7 +77,7 @@ export async function uploadMedia(page: Page) {
 
   const uploadEndFile = {
     ...defaultFileAttrs,
-    publicId: testMediaFileId,
+    publicId: id,
     collectionName: defaultCollectionName,
   };
   await page.execute<void>(file => {

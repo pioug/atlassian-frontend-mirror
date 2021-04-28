@@ -1,3 +1,15 @@
-export { default } from './components/Tabs';
-export { default as TabContent } from './components/TabContent';
-export { default as TabItem } from './components/TabItem';
+export { default } from './components/tabs';
+export { default as TabPanel } from './components/tab-panel';
+export { default as Tab } from './components/tab';
+export { default as TabList } from './components/tab-list';
+export type {
+  TabProps,
+  TabPanelProps,
+  TabsProps,
+  TabListProps,
+  TabAttributesType,
+  TabListAttributesType,
+  TabPanelAttributesType,
+  TabData,
+} from './types';
+export { useTab, useTabPanel } from './hooks';

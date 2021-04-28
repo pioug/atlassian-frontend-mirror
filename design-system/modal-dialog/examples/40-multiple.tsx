@@ -79,6 +79,7 @@ export default class NestedDemo extends React.Component<{}, State> {
                   }
                   heading={`Modal: ${name}`}
                   width={name}
+                  testId="modal"
                 >
                   <Lorem count={2} />
                 </Modal>

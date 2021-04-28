@@ -10,14 +10,8 @@ import {
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
-  JiraCoreIcon,
-  JiraCoreLogo,
-  JiraCoreWordmark,
   JiraIcon,
   JiraLogo,
-  JiraServiceDeskIcon,
-  JiraServiceDeskLogo,
-  JiraServiceDeskWordmark,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
   JiraServiceManagementWordmark,
@@ -28,9 +22,9 @@ import {
   JiraWorkManagementIcon,
   JiraWorkManagementLogo,
   JiraWorkManagementWordmark,
-  OpsGenieIcon,
-  OpsGenieLogo,
-  OpsGenieWordmark,
+  OpsgenieIcon,
+  OpsgenieLogo,
+  OpsgenieWordmark,
   StatuspageIcon,
   StatuspageLogo,
   StatuspageWordmark,
@@ -96,28 +90,6 @@ export default () => (
         </tr>
         <tr>
           <td>
-            <JiraCoreLogo />
-          </td>
-          <td>
-            <JiraCoreWordmark />
-          </td>
-          <td>
-            <JiraCoreIcon />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <JiraServiceDeskLogo />
-          </td>
-          <td>
-            <JiraServiceDeskWordmark />
-          </td>
-          <td>
-            <JiraServiceDeskIcon />
-          </td>
-        </tr>
-        <tr>
-          <td>
             <JiraServiceManagementLogo />
           </td>
           <td>
@@ -151,13 +123,13 @@ export default () => (
         </tr>
         <tr>
           <td>
-            <OpsGenieLogo />
+            <OpsgenieLogo />
           </td>
           <td>
-            <OpsGenieWordmark />
+            <OpsgenieWordmark />
           </td>
           <td>
-            <OpsGenieIcon />
+            <OpsgenieIcon />
           </td>
         </tr>
         <tr>

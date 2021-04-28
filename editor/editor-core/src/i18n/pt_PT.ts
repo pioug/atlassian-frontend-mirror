@@ -12,7 +12,6 @@ export default {
   'fabric.editor.alignImageCenter': 'Alinhar ao centro',
   'fabric.editor.alignImageLeft': 'Alinhar à esquerda',
   'fabric.editor.alignImageRight': 'Alinhar à direita',
-  'fabric.editor.alignment': 'Alinhamento',
   'fabric.editor.altText': 'Todo o texto',
   'fabric.editor.alttext.validation':
     'Remova todos os carateres especiais no texto alternativo.',

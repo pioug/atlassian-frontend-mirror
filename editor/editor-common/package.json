@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "55.5.0",
+  "version": "55.5.1",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.3.0",
-    "@atlaskit/adf-schema": "^15.1.0",
-    "@atlaskit/adf-utils": "^12.0.0",
+    "@atlaskit/adf-schema": "^15.2.0",
+    "@atlaskit/adf-utils": "^12.1.0",
     "@atlaskit/analytics-namespaced-context": "^6.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/editor-json-transformer": "^8.6.0",
@@ -42,11 +42,11 @@
     "@atlaskit/media-card": "^70.5.0",
     "@atlaskit/media-client": "^13.1.0",
     "@atlaskit/media-picker": "^57.3.0",
-    "@atlaskit/mention": "^19.4.0",
+    "@atlaskit/mention": "^19.6.0",
     "@atlaskit/profilecard": "^15.0.0",
     "@atlaskit/smart-card": "^15.2.0",
     "@atlaskit/task-decision": "^17.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.1.0",
     "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/user-picker": "^7.3.0",
     "@atlaskit/width-detector": "^3.0.0",
@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.6.0",
-    "@atlaskit/editor-test-helpers": "^15.0.0",
+    "@atlaskit/editor-test-helpers": "^15.1.0",
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/visual-regression": "*",

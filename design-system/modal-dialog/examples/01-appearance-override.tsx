@@ -35,11 +35,18 @@ export default class DefaultModal extends React.PureComponent<{}, State> {
 
     return (
       <div>
-        <Button onClick={this.open}>Open Modal</Button>
+        <Button onClick={this.open} testId="modal-trigger">
+          Open Modal
+        </Button>
 
         <ModalTransition>
           {isOpen && (
-            <Modal actions={actions} onClose={this.close} heading="Modal Title">
+            <Modal
+              actions={actions}
+              onClose={this.close}
+              heading="Modal Title"
+              testId="modal"
+            >
               <Lorem count={2} />
             </Modal>
           )}

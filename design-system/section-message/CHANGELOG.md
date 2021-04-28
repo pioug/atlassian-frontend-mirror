@@ -1,5 +1,21 @@
 # @atlaskit/section-message
 
+## 5.2.0
+
+### Minor Changes
+
+- [`190c2c66087`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190c2c66087) - **Internal change from class to functional components**
+
+  - Converted all the components from class to functional. This improved performance quite a bit. Initial rendering, hydration and re-rendering all have been improved.
+  - Stopped exporting unused `theme` variable.
+  - Added `ref` support which points to the top level element. Earlier it was not officially supported.
+  - Dev changes includes: folder restructuring and cleanup, memoizing components, adding `techstack` in `package.json`, moving to declarative entry points, removing deprecated `version.json` etc.
+
+### Patch Changes
+
+- [`f10bc0d79f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10bc0d79f1) - Migrated from styled components to emotion
+- Updated dependencies
+
 ## 5.1.0
 
 ### Minor Changes

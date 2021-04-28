@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { InputHTMLAttributes, ComponentClass } from 'react';
-import { akEditorSubtleAccent } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorSubtleAccent,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N300, N50 } from '@atlaskit/theme/colors';
 
@@ -19,7 +22,7 @@ export const Input: ComponentClass<
     padding-left: 20px;
     padding-top: 12px;
     padding-bottom: 12px;
-    font-size: 14px;
+    font-size: ${relativeFontSizeToBase16(14)};
     width: 100%;
     font-weight: 400;
     line-height: 1.42857142857143;

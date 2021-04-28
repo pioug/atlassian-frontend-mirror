@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'Handlingselement',
   'fabric.editor.action.description': 'Opprett og tilordne handlinger',
   'fabric.editor.addAltText': 'Alternativ tekst',
+  'fabric.editor.alignCenter': 'Midtjustert',
   'fabric.editor.alignImageCenter': 'Midtjustert',
   'fabric.editor.alignImageLeft': 'Venstrejustert',
   'fabric.editor.alignImageRight': 'Høyrejustert',
-  'fabric.editor.alignment': 'Justering',
+  'fabric.editor.alignLeft': 'Venstrejustert',
+  'fabric.editor.alignRight': 'Høyrejustert',
+  'fabric.editor.alignment': 'Tekstjustering',
   'fabric.editor.altText': 'Alternativ tekst',
   'fabric.editor.alttext.validation': 'Fjern alle spesialtegn i alt-teksten.',
   'fabric.editor.annotate': 'Kommenter',
@@ -116,6 +119,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Trekk frem feil i et farget panel',
   'fabric.editor.expand': 'Utvidelse',
   'fabric.editor.expand.description': 'Sett inn en utvidelse',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Alle endringer blir alltid lagret automatisk',
   'fabric.editor.feedbackDialog': 'Gi en tilbakemelding',
   'fabric.editor.feedbackDialog.description':
     'Fortell oss hvordan du opplevde det nye redigeringsprogrammet',

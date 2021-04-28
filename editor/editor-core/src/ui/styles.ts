@@ -2,7 +2,10 @@ import { HTMLAttributes, ComponentClass } from 'react';
 import styled, { css } from 'styled-components';
 import { gridSize, borderRadius } from '@atlaskit/theme/constants';
 import { N30, N100 } from '@atlaskit/theme/colors';
-import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorMobileMaxWidth,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
 
 const akGridSize = gridSize() + 'px';
 
@@ -110,7 +113,7 @@ export const Shortcut = styled.div`
   border-radius: ${borderRadius()}px;
   padding: 4px;
   line-height: 12px;
-  font-size: 11.67px;
+  font-size: ${relativeFontSizeToBase16(11.67)};
   align-self: flex-end;
   @media (max-width: ${akEditorMobileMaxWidth}px) {
     display: none;

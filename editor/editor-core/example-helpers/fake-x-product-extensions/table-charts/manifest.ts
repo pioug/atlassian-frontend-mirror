@@ -1,4 +1,5 @@
 import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import { UpdateContextActions } from '@atlaskit/editor-common/extensions';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
 const manifest: ExtensionManifest = {
@@ -25,7 +26,7 @@ const manifest: ExtensionManifest = {
         display: 'icon',
         tooltip: 'This was added by the extension to the table node',
         icon: () => import('@atlaskit/icon/glyph/graph-bar'),
-        action: (adf: ADFEntity) =>
+        action: (adf: ADFEntity, api: UpdateContextActions) =>
           new Promise((resolve, reject) => {
             if (confirm(`Clicked ${adf.type} button`)) {
               resolve();

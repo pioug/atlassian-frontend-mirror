@@ -72,44 +72,49 @@ export default React.memo(
           // The Spinner animation uses a combination of two
           // css animations on two separate elements.
           return (
-            <svg
-              focusable="false"
-              height={size}
-              width={size}
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-              data-testid={testId}
-              ref={ref}
+            <span
+              /* This span exists to off-load animations from the circle element,
+               which were causing performance issues (style recalculations) on Safari and older versions of Chrome.
+               This can be removed and styles placed back on the circle element once Safari fixes this bug and off-loads rendering to the GPU from the CPU.
+               */
               css={css`
+                transform-origin: center;
+                animation: ${rotate} 0.86s infinite;
+                animation-delay: ${delay}ms;
+                animation-timing-function: cubic-bezier(0.4, 0.15, 0.6, 0.85);
+                height: ${size}px;
+                width: ${size}px;
+                display: inline-block;
                 /* align better inline with text */
                 vertical-align: middle;
-                /* We are going to animate this in */
-                opacity: 0;
-
-                animation: ${loadIn} 1s ease-in-out;
-                /* When the animation completes, stay at the last frame of the animation */
-                animation-fill-mode: forwards;
-                animation-delay: ${delay}ms;
               `}
             >
-              <circle
-                cx="8"
-                cy="8"
-                r="7"
+              <svg
+                height={size}
+                width={size}
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+                data-testid={testId}
+                ref={ref}
                 css={css`
+                  /* We are going to animate this in */
+                  opacity: 0;
+
+                  animation: ${loadIn} 1s ease-in-out;
+                  /* When the animation completes, stay at the last frame of the animation */
+                  animation-fill-mode: forwards;
+                  animation-delay: ${delay}ms;
                   fill: none;
                   stroke: ${strokeColor};
                   stroke-width: 1.5;
                   stroke-linecap: round;
                   stroke-dasharray: 60;
                   stroke-dashoffset: inherit;
-                  transform-origin: center;
-                  animation: ${rotate} 0.86s infinite;
-                  animation-delay: ${delay}ms;
-                  animation-timing-function: cubic-bezier(0.4, 0.15, 0.6, 0.85);
                 `}
-              />
-            </svg>
+              >
+                <circle cx="8" cy="8" r="7" />
+              </svg>
+            </span>
           );
         }}
       </GlobalTheme.Consumer>

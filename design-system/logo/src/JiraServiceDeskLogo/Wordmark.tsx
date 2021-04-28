@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
 import { DefaultProps, Props } from '../constants';
 import Wrapper from '../Wrapper';
 
@@ -15,6 +17,11 @@ export class JiraServiceDeskWordmark extends Component<Props> {
   static defaultProps = DefaultProps;
 
   render() {
+    if (process.env.NODE_ENV !== 'production') {
+      warnOnce(
+        'JiraServiceDeskWordmark has been deprecated and will be removed from @atlaskit/logo after June 30 2021, Please use JiraServiceManagementWordmark instead.',
+      );
+    }
     return <Wrapper {...this.props} svg={svg} />;
   }
 }

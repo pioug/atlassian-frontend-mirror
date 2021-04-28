@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 12.1.0
+
+### Minor Changes
+
+- [`357edf7b4a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/357edf7b4a1) - ED-12266 Extend code block to support UnsupportedInline content.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

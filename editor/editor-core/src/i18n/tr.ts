@@ -10,10 +10,13 @@ export default {
   'fabric.editor.action.description':
     'Yapılacaklar listesi oluşturun ve atayın',
   'fabric.editor.addAltText': 'Alternatif metin',
+  'fabric.editor.alignCenter': 'Ortaya hizala',
   'fabric.editor.alignImageCenter': 'Ortaya hizala',
   'fabric.editor.alignImageLeft': 'Sola hizala',
   'fabric.editor.alignImageRight': 'Sağa hizala',
-  'fabric.editor.alignment': 'Hizalama',
+  'fabric.editor.alignLeft': 'Sola hizala',
+  'fabric.editor.alignRight': 'Sağa hizala',
+  'fabric.editor.alignment': 'Metin hizalama',
   'fabric.editor.altText': 'Alternatif metin',
   'fabric.editor.alttext.validation':
     'Lütfen alt (alternatif metin) özniteliğindeki özel karakterleri kaldırın.',
@@ -79,6 +82,8 @@ export default {
   'fabric.editor.displayEmbed': 'Ekli nesne olarak göster',
   'fabric.editor.displayInline': 'Satır içi nesne olarak göster',
   'fabric.editor.displayLink': 'Metin olarak göster',
+  'fabric.editor.displayOptionUnavailableInParentNode':
+    '{node} düğümünde bu görüntüleme seçeneği kullanılamıyor',
   'fabric.editor.displayText': 'Görüntülenecek metin',
   'fabric.editor.edit': 'Düzenle',
   'fabric.editor.editAltText': 'Alternatif metni düzenle',
@@ -120,6 +125,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Renkli bir panoda hataları belirtin',
   'fabric.editor.expand': 'Genişlet',
   'fabric.editor.expand.description': 'Genişletme öğesi ekle',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'Tüm değişiklikler her zaman otomatik olarak kaydedilir',
   'fabric.editor.feedbackDialog': 'Geri bildirim verin',
   'fabric.editor.feedbackDialog.description':
     'Yeni düzenleyici hakkındaki deneyimlerinizi bizimle paylaşın',
@@ -253,6 +260,7 @@ export default {
   'fabric.editor.time.updated': 'Güncellendi:',
   'fabric.editor.time.viewed': 'Görüntülendi:',
   'fabric.editor.tooltip.blockPanel': 'pano',
+  'fabric.editor.tooltip.bulletList': 'bir liste',
   'fabric.editor.tooltip.decisionList': 'karar listesi',
   'fabric.editor.tooltip.defaultBlockNode': 'blok düğümü',
   'fabric.editor.tooltip.nestedExpand': 'iç içe geçmiş genişletme',

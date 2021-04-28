@@ -9,10 +9,13 @@ export default {
   'fabric.editor.action': 'アクション アイテム',
   'fabric.editor.action.description': 'アクション アイテムを作成して割り当て',
   'fabric.editor.addAltText': '代替テキスト',
+  'fabric.editor.alignCenter': '中央揃え',
   'fabric.editor.alignImageCenter': '中央揃え',
   'fabric.editor.alignImageLeft': '左揃え',
   'fabric.editor.alignImageRight': '右揃え',
-  'fabric.editor.alignment': '配置',
+  'fabric.editor.alignLeft': '左揃え',
+  'fabric.editor.alignRight': '右揃え',
+  'fabric.editor.alignment': 'テキストの配置',
   'fabric.editor.altText': '代替テキスト',
   'fabric.editor.alttext.validation':
     '代替テキスト内の特殊文字を削除してください。',
@@ -77,6 +80,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     '{node} 内ではこの表示オプションを使用できません',
   'fabric.editor.displayText': '表示するテキスト',
+  'fabric.editor.distributeColumns': '列の幅を揃える',
   'fabric.editor.edit': '編集',
   'fabric.editor.editAltText': '代替テキストを編集',
   'fabric.editor.editLink': 'リンクを編集',
@@ -117,6 +121,8 @@ export default {
     '色付きのパネルでエラーをコールアウト',
   'fabric.editor.expand': '展開',
   'fabric.editor.expand.description': '展開を挿入',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'すべての変更は常に自動保存されます',
   'fabric.editor.feedbackDialog': 'フィードバックを送信',
   'fabric.editor.feedbackDialog.description':
     '新しいエディターに関するご意見・ご感想をお聞かせください',

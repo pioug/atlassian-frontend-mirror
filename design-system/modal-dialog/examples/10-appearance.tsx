@@ -6,7 +6,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
 import Modal, { ModalTransition } from '../src';
-import { AppearanceType } from '../src/types';
+import { AppearanceType } from '../src/internal/types';
 
 const appearances: AppearanceType[] = ['warning', 'danger'];
 
@@ -55,6 +55,7 @@ export default class ExampleAppearance extends React.PureComponent<{}, State> {
                 appearance={name}
                 onClose={this.close}
                 heading={`Modal: ${name}`}
+                testId="modal"
               >
                 <Lorem count={2} />
               </Modal>

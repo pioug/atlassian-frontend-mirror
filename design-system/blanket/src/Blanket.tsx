@@ -19,6 +19,10 @@ interface Props extends WithAnalyticsEventsProps {
   isTinted?: boolean;
   /** Handler function to be called when the blanket is clicked */
   onBlanketClicked?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  /** A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests. */
+  testId?: string;
 }
 
 class Blanket extends React.Component<Props, {}> {
@@ -29,11 +33,11 @@ class Blanket extends React.Component<Props, {}> {
   };
 
   render() {
-    const { canClickThrough, isTinted, onBlanketClicked } = this.props;
+    const { canClickThrough, isTinted, onBlanketClicked, testId } = this.props;
     const onClick = canClickThrough ? undefined : onBlanketClicked;
     const containerProps = { canClickThrough, isTinted, onClick };
 
-    return <Div {...containerProps} />;
+    return <Div {...containerProps} data-testid={testId} />;
   }
 }
 

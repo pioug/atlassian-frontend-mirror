@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 15.2.0
+
+### Minor Changes
+
+- [`653093877f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/653093877f8) - Update data-consumer behaviour for json transforming
+- [`357edf7b4a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/357edf7b4a1) - ED-12266 Extend code block to support UnsupportedInline content.
+
 ## 15.1.1
 
 ### Patch Changes

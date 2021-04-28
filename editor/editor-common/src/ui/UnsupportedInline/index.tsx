@@ -4,6 +4,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import styled from 'styled-components';
 
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
 import { N30, N50 } from '@atlaskit/theme/colors';
 import { borderRadius, fontSize } from '@atlaskit/theme/constants';
@@ -23,7 +24,7 @@ const InlineNode = styled.span`
   box-sizing: border-box;
   cursor: default;
   display: inline-flex;
-  font-size: ${fontSize()}px;
+  font-size: ${relativeFontSizeToBase16(fontSize())};
   margin: 0 2px;
   min-height: 24px;
   padding: 0 10px;

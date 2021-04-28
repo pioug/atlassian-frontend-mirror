@@ -10,10 +10,13 @@ export default {
   'fabric.editor.action.description':
     'Műveleti elemek létrehozása és hozzárendelése',
   'fabric.editor.addAltText': 'Alternatív szöveg',
+  'fabric.editor.alignCenter': 'Középre igazítás',
   'fabric.editor.alignImageCenter': 'Középre igazítás',
   'fabric.editor.alignImageLeft': 'Balra igazítás',
   'fabric.editor.alignImageRight': 'Jobbra igazítás',
-  'fabric.editor.alignment': 'Igazítás',
+  'fabric.editor.alignLeft': 'Balra igazítás',
+  'fabric.editor.alignRight': 'Jobbra igazítás',
+  'fabric.editor.alignment': 'Szöveg igazítása',
   'fabric.editor.altText': 'Képleírás szövege',
   'fabric.editor.alttext.validation':
     'Távolíts el minden speciális karaktert az alternatív szövegből.',
@@ -82,6 +85,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Ez a megjelenítési lehetőség nem érhető el itt: {node}',
   'fabric.editor.displayText': 'Megjelenítendő szöveg',
+  'fabric.editor.distributeColumns': 'Oszlopok felosztása',
   'fabric.editor.edit': 'Szerkesztés',
   'fabric.editor.editAltText': 'Alternatív szöveg szerkesztése',
   'fabric.editor.editLink': 'Hivatkozás szerkesztése',
@@ -120,6 +124,8 @@ export default {
   'fabric.editor.errorPanel.description': 'Hibák megjelenítése színes panelen',
   'fabric.editor.expand': 'Kibontás',
   'fabric.editor.expand.description': 'Kibontás beillesztése',
+  'fabric.editor.extensions.config-panel.save-indicator':
+    'A rendszer mindig automatikusan menti a módosításokat',
   'fabric.editor.feedbackDialog': 'Visszajelzés küldése',
   'fabric.editor.feedbackDialog.description':
     'Számolj be nekünk az új szerkesztő használata során szerzett tapasztalataidról',

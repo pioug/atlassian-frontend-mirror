@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 76.1.0
+
+### Minor Changes
+
+- [`23de387a004`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23de387a004) - ED-12183 - add top margin to extension wrapper
+
+### Patch Changes
+
+- [`5c835144ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c835144ef0) - [ME-741][me-743] Remove PX references in editor packages and modify code block font size.
+- Updated dependencies
+
 ## 76.0.0
 
 ### Patch Changes

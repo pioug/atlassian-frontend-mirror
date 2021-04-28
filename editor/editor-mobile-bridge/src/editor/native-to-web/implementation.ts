@@ -16,7 +16,6 @@ import {
   insertMentionQuery,
   insertTaskDecision,
   isLinkAtPos,
-  isTextAtPos,
   LinkInputMethod,
   ListInputMethod,
   ListsState,
@@ -25,8 +24,6 @@ import {
   selectItem as selectTypeAheadItem,
   setBlockTypeWithAnalytics,
   setKeyboardHeight,
-  setLinkHref,
-  setLinkText,
   setMobilePaddingTop,
   StatusState,
   TextFormattingInputMethodBasic,
@@ -42,11 +39,13 @@ import {
   typeAheadPluginKey,
   TypeAheadPluginState,
   updateStatusWithAnalytics,
+  updateLink,
   insertExpand,
   insertRule,
   QuickInsertItemId,
   dismissCommand,
   getListCommands,
+  isTextAtPos,
 } from '@atlaskit/editor-core';
 import { EditorViewWithComposition } from '../../types';
 import { EditorState, Selection } from 'prosemirror-state';
@@ -59,7 +58,7 @@ import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Color as StatusColor } from '@atlaskit/status/element';
 import NativeToWebBridge from './bridge';
 import WebBridge from '../../web-bridge';
-import { createDeferred, DeferredValue, hasValue } from '../../utils';
+import { createDeferred, DeferredValue } from '../../utils';
 import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
 import { assertSelectionPayload } from '../../validation';
 import { CollabSocket } from './collab-socket';
@@ -470,7 +469,11 @@ export default class WebBridgeImpl
     const { state, dispatch } = this.editorView;
     const { from, to } = state.selection;
 
-    if (!isTextAtPos(from)(state)) {
+    // Inserting a new link on a block node or with no selection
+    if (
+      (!isLinkAtPos(from)(state) && from === to) ||
+      !isTextAtPos(from)(state)
+    ) {
       insertLinkWithAnalyticsMobileNative(
         inputMethod,
         from,
@@ -482,7 +485,7 @@ export default class WebBridgeImpl
       return;
     }
 
-    // if cursor is on link => modify the whole link
+    // Editing an existing link or inserting a link with a text selection
     const { leftBound, rightBound } = isLinkAtPos(from)(state)
       ? {
           leftBound: from - state.doc.resolve(from).textOffset,
@@ -490,25 +493,7 @@ export default class WebBridgeImpl
         }
       : { leftBound: from, rightBound: to };
 
-    [setLinkHref(url, leftBound, rightBound)]
-      .reduce(
-        (cmds, setLinkHrefCmd) =>
-          // if adding link => set link then set link text
-          // if removing link => execute the same reversed
-          hasValue(url)
-            ? [
-                setLinkHrefCmd,
-                setLinkText(text, leftBound, rightBound),
-                ...cmds,
-              ]
-            : [
-                setLinkText(text, leftBound, rightBound),
-                setLinkHrefCmd,
-                ...cmds,
-              ],
-        [] as Command[],
-      )
-      .forEach(cmd => cmd(this.editorView!.state, dispatch));
+    return updateLink(url, text || url, leftBound, rightBound)(state, dispatch);
   }
 
   insertBlockType(
@@ -916,5 +901,16 @@ export default class WebBridgeImpl
 
   performEditAction(key: string) {
     this.mobileEditingToolbarActions.performEditAction(key, this.editorView);
+  }
+
+  /**
+   * Sets an allowed editing capability list for the adaptive toolbar.
+   * When provided, given allowed list will be used to filter out floating toolbar items.
+   * When it is empty, it will act as there is no filter, all items will be allowed.
+   * @param allowedList is the json array of ids.
+   */
+  setToolbarEditAllowList(allowedList: string) {
+    let list = JSON.parse(allowedList);
+    this.mobileEditingToolbarActions.setEditAllowList(list);
   }
 }

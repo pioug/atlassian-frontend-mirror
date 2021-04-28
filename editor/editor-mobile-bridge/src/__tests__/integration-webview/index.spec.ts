@@ -12,6 +12,8 @@ import quickInsertEditorTests from './hybrid-editor-tests/quick-Insert/_quick-in
 import unsupportedContentEditorTests from './hybrid-editor-tests/unsupported-content/_unsupported-content-tests';
 import mediaRendererTests from './hybrid-renderer-tests/_media-tests';
 import smartLinkEditorTests from './hybrid-editor-tests/media/_smart-link-tests';
+import smartLinkRendererTests from './hybrid-renderer-tests/_smart-link-tests';
+import mediaGroupTests from './hybrid-editor-tests/media/_media-group-test';
 
 // compositionEditorTests();
 mediaEditorTests();
@@ -20,3 +22,5 @@ quickInsertEditorTests();
 unsupportedContentEditorTests();
 mediaRendererTests();
 smartLinkEditorTests();
+smartLinkRendererTests();
+mediaGroupTests();

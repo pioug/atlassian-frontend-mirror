@@ -8,6 +8,9 @@ import MentionResource, {
   TeamMentionResourceConfig,
   isResolvingMentionProvider,
 } from './api/MentionResource';
+import { SmartMentionConfig } from './api/SmartMentionResource';
+
+import SmartMentionResource from './api/SmartMentionResource';
 import TeamMentionResource from './api/TeamMentionResource';
 import PresenceResource, {
   PresenceProvider,
@@ -44,6 +47,7 @@ export {
   // Classes
   ContextMentionResource,
   MentionResource,
+  SmartMentionResource,
   TeamMentionResource,
   PresenceResource,
   DefaultMentionNameResolver,
@@ -80,6 +84,7 @@ export type {
   MentionStats,
   TeamMember,
   MentionResourceConfig,
+  SmartMentionConfig,
   TeamMentionResourceConfig,
   InviteExperimentCohort,
   InviteFlow,

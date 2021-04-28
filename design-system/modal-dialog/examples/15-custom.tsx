@@ -11,8 +11,8 @@ import InlineDialog from '@atlaskit/inline-dialog';
 import { N30, R400, subtleText } from '@atlaskit/theme/colors';
 
 import ModalDialog, { ModalFooter, ModalTransition } from '../src';
-import { FooterComponentProps } from '../src/components/Footer';
-import { HeaderComponentProps } from '../src/components/Header';
+import { FooterComponentProps } from '../src/internal/components/footer';
+import { HeaderComponentProps } from '../src/internal/components/header';
 
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];

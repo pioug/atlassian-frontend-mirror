@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 const Option = styled.div`
   display: flex;
@@ -7,7 +8,7 @@ const Option = styled.div`
 `;
 
 const Description = styled.div`
-  font-size: 12;
+  font-size: ${relativeFontSizeToBase16(12)};
   font-style: italic;
 `;
 

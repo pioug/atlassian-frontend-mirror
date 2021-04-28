@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import { ConfluenceIcon, JiraServiceDeskIcon } from '@atlaskit/logo';
+import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, FadeIn } from '../src';
@@ -42,7 +42,7 @@ const elements = [
   ),
   (exitThenEnter: boolean) => (
     <EnteringBlock exitThenEnter={exitThenEnter}>
-      <JiraServiceDeskIcon size="xlarge" />
+      <JiraServiceManagementIcon size="xlarge" />
     </EnteringBlock>
   ),
 ];

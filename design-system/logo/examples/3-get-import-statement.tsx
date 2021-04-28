@@ -18,14 +18,12 @@ const products: Product[] = [
   { label: 'Atlassian', value: 'Atlassian' },
   { label: 'Bitbucket', value: 'Bitbucket' },
   { label: 'Confluence', value: 'Confluence' },
-  { label: 'Hipchat', value: 'Hipchat' },
-  { label: 'JiraCore', value: 'JiraCore' },
   { label: 'Jira', value: 'Jira' },
   { label: 'JiraServiceManagement', value: 'JiraServiceManagement' },
   { label: 'JiraSoftware', value: 'JiraSoftware' },
-  { label: 'OpsGenie', value: 'OpsGenie' },
+  { label: 'JiraWorkManagement', value: 'JiraWorkManagement' },
+  { label: 'Opsgenie', value: 'Opsgenie' },
   { label: 'StatusPage', value: 'StatusPage' },
-  { label: 'Stride', value: 'Stride' },
   { label: 'Trello', value: 'Trello' },
 ];
 

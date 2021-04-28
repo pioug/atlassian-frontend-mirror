@@ -45,7 +45,9 @@ const DefaultModal = () => {
   };
   return (
     <div>
-      <Button onClick={open}>Open Modal</Button>
+      <Button onClick={open} testId="modal-trigger">
+        Open Modal
+      </Button>
       <ModalTransition>
         {isOpen && (
           <Modal
@@ -54,6 +56,7 @@ const DefaultModal = () => {
             }}
             onClose={close}
             heading="Modal Title"
+            testId="modal"
           >
             <div data-testid="dialog-body">
               <SingleExample />

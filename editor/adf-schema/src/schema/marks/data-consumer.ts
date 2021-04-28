@@ -58,3 +58,35 @@ export const dataConsumer: MarkSpec = {
     ];
   },
 };
+
+/**
+ * We want to ensure any "invalid ADF" doesn't get serialised, but the entire
+ * mark itself is not valid without a non-empty `sources`.
+ *
+ * We _almost could_ simply return `null` if sources length is < 0 & would fit
+ * the type signature of prosemirror-model's `fragment` but not `mark`'s toJSON.
+ *
+ * So we'll leave any extra transformation checks in
+ * `editor-json-transformer`(?)
+ */
+export const toJSON = (mark: Mark) => {
+  // // Remove intemediary state if we don't have any sources on data consumer
+  // if (mark.attrs?.sources?.length < 1) {
+  //   return null;
+  // }
+
+  return {
+    type: mark.type.name,
+    attrs: Object.keys(mark.attrs)
+      .filter(
+        key =>
+          key === 'sources' &&
+          mark.attrs[key].length > 0 &&
+          mark.attrs[key] !== null,
+      )
+      .reduce<typeof mark.attrs>((acc, key) => {
+        acc[key] = mark.attrs[key];
+        return acc;
+      }, {}),
+  };
+};

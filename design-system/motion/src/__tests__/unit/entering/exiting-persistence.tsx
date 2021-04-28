@@ -133,9 +133,9 @@ describe('<ExitingPersistence />', () => {
         {[
           <Motion id="element1" key="Bitbucket" />,
           <Motion id="element2" key="Confluence" />,
-          <Motion id="element3" key="Jira Service Desk" />,
+          <Motion id="element3" key="Jira Service Management" />,
           <Motion id="element4" key="Jira Software" />,
-          <Motion id="element5" key="Ops Genie" />,
+          <Motion id="element5" key="Opsgenie" />,
           <Motion id="element6" key="Statuspage" />,
         ]}
       </ExitingPersistence>,
@@ -146,7 +146,7 @@ describe('<ExitingPersistence />', () => {
           <Motion id="element1" key="Bitbucket" />,
           <Motion id="element2" key="Confluence" />,
           <Motion id="element4" key="Jira Software" />,
-          <Motion id="element5" key="Ops Genie" />,
+          <Motion id="element5" key="Opsgenie" />,
           <Motion id="element6" key="Statuspage" />,
         ]}
       </ExitingPersistence>,
@@ -158,9 +158,9 @@ describe('<ExitingPersistence />', () => {
         {[
           <Motion id="element1" key="Bitbucket" />,
           <Motion id="element2" key="Confluence" />,
-          <Motion id="element3" key="Jira Service Desk" />,
+          <Motion id="element3" key="Jira Service Management" />,
           <Motion id="element4" key="Jira Software" />,
-          <Motion id="element5" key="Ops Genie" />,
+          <Motion id="element5" key="Opsgenie" />,
           <Motion id="element6" key="Statuspage" />,
         ]}
       </ExitingPersistence>,

@@ -174,6 +174,7 @@ export {
   colorPaletteExtended,
   confluenceInlineComment,
   dataConsumer,
+  dataConsumerToJSON,
   em,
   indentation,
   link,

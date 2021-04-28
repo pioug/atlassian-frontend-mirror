@@ -5,6 +5,7 @@ import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { N800 } from '@atlaskit/theme/colors';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const Content: ComponentClass<HTMLAttributes<{}>> = styled.div`
   & div.toolsDrawer {
@@ -29,7 +30,7 @@ export const Content: ComponentClass<HTMLAttributes<{}>> = styled.div`
   }
 
   & input {
-    font-size: 13px;
+    font-size: ${relativeFontSizeToBase16(13)};
   }
 `;
 

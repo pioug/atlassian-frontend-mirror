@@ -152,34 +152,6 @@ export const AVAILABLE_PRODUCT_DATA_MAP: {
   },
 };
 
-export const FREE_EDITION_AVAILABLE_PRODUCT_DATA_MAP: {
-  [productKey in SwitcherProductType]: AvailableProductDetails;
-} = {
-  ...AVAILABLE_PRODUCT_DATA_MAP,
-  [SwitcherProductType.CONFLUENCE]: {
-    ...AVAILABLE_PRODUCT_DATA_MAP[SwitcherProductType.CONFLUENCE],
-    description: (
-      <FormattedMessage {...messages.freeEditionProductDescriptionConfluence} />
-    ),
-  },
-  [SwitcherProductType.JIRA_SOFTWARE]: {
-    ...AVAILABLE_PRODUCT_DATA_MAP[SwitcherProductType.JIRA_SOFTWARE],
-    description: (
-      <FormattedMessage
-        {...messages.freeEditionProductDescriptionJiraSoftware}
-      />
-    ),
-  },
-  [SwitcherProductType.JIRA_SERVICE_DESK]: {
-    ...AVAILABLE_PRODUCT_DATA_MAP[SwitcherProductType.JIRA_SERVICE_DESK],
-    description: (
-      <FormattedMessage
-        {...messages.freeEditionProductDescriptionJiraServiceManagement}
-      />
-    ),
-  },
-};
-
 const PRODUCT_ORDER = [
   SwitcherProductType.JIRA_SOFTWARE,
   SwitcherProductType.JIRA_SERVICE_DESK,

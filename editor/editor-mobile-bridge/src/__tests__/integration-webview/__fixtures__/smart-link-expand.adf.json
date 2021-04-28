@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "expand",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "inlineCard",
+              "attrs": {
+                "url": "https://inlineCardTestUrl"
+              }
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "title": ""
+      }
+    }
+  ]
+}

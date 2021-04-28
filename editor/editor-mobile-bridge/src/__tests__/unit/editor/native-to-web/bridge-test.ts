@@ -3,14 +3,13 @@ import {
   INPUT_METHOD,
   getListCommands,
   insertLinkWithAnalyticsMobileNative,
-  isTextAtPos,
   isLinkAtPos,
-  setLinkHref,
-  setLinkText,
+  isTextAtPos,
   clearEditorContent,
   setKeyboardHeight,
   insertEmojiQuery,
   insertMentionQuery,
+  updateLink,
 } from '@atlaskit/editor-core';
 import WebBridgeImpl from '../../../../editor/native-to-web';
 import { defaultPadding } from '../../../../web-bridge';
@@ -164,10 +163,9 @@ describe('links should work', () => {
     bridge.editorView = undefined;
 
     ((insertLinkWithAnalyticsMobileNative as Function) as jest.Mock<{}>).mockClear();
-    ((isTextAtPos as Function) as jest.Mock<{}>).mockClear();
     ((isLinkAtPos as Function) as jest.Mock<{}>).mockClear();
-    ((setLinkHref as Function) as jest.Mock<{}>).mockClear();
-    ((setLinkText as Function) as jest.Mock<{}>).mockClear();
+    ((isTextAtPos as Function) as jest.Mock<{}>).mockClear();
+    ((updateLink as Function) as jest.Mock<{}>).mockClear();
   });
 
   it('should call insertLinkWithAnalytics when not on text node', () => {
@@ -182,7 +180,7 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('text', 'url', INPUT_METHOD.KEYBOARD);
 
-    expect(isTextAtPos).toHaveBeenCalledWith(1);
+    expect(isLinkAtPos).toHaveBeenCalledWith(1);
     expect(insertLinkWithAnalyticsMobileNative).toHaveBeenCalledWith(
       INPUT_METHOD.KEYBOARD,
       1,
@@ -193,7 +191,7 @@ describe('links should work', () => {
     );
   });
 
-  it('should call setLinkHref then setLinkText when on text node', () => {
+  it('should call updateLink when on text node', () => {
     bridge.editorView = {
       state: {
         selection: {
@@ -204,16 +202,11 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('text', 'url');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(2);
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(setLinkHref).toHaveBeenCalledWith('url', 2, undefined);
-    expect(setLinkText).toHaveBeenCalledWith('text', 2, undefined);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkHref', 'setLinkText']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('url', 'text', 2, undefined);
   });
 
-  it('should call setLinkHref then setLinkText when on selected text node', () => {
+  it('should call updateLink when on selected text node', () => {
     bridge.editorView = {
       state: {
         selection: {
@@ -225,16 +218,11 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('text', 'url');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(2);
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(setLinkHref).toHaveBeenCalledWith('url', 2, 4);
-    expect(setLinkText).toHaveBeenCalledWith('text', 2, 4);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkHref', 'setLinkText']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('url', 'text', 2, 4);
   });
 
-  it('should call setLinkHref then setLinkText when providing url only', () => {
+  it('should call updateLink when providing url only', () => {
     bridge.editorView = {
       state: {
         selection: {
@@ -245,16 +233,11 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('', 'url');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(2);
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(setLinkHref).toHaveBeenCalledWith('url', 2, undefined);
-    expect(setLinkText).toHaveBeenCalledWith('', 2, undefined);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkHref', 'setLinkText']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('url', 'url', 2, undefined);
   });
 
-  it('should call setLinkHref then setLinkText when providing url only + selection', () => {
+  it('should call updateLink when providing url only + selection', () => {
     bridge.editorView = {
       state: {
         selection: {
@@ -266,16 +249,11 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('', 'url');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(2);
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(setLinkHref).toHaveBeenCalledWith('url', 2, 4);
-    expect(setLinkText).toHaveBeenCalledWith('', 2, 4);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkHref', 'setLinkText']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('url', 'url', 2, 4);
   });
 
-  it('should call setLinkHref then setLinkText using full link when on a link', () => {
+  it('should call updateLink using full link when on a link', () => {
     bridge.editorView = {
       state: {
         doc: {
@@ -289,17 +267,12 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('link', 'href');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(6);
     expect(isLinkAtPos).toHaveBeenCalledWith(6);
     expect(bridge.editorView.state.doc.resolve).toHaveBeenCalledWith(6);
-    expect(setLinkHref).toHaveBeenCalledWith('href', 5, undefined);
-    expect(setLinkText).toHaveBeenCalledWith('link', 5, undefined);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkHref', 'setLinkText']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('href', 'link', 5, undefined);
   });
 
-  it('should call setLinkText then setLinkHref when providing no url', () => {
+  it('should call updateLink when providing no url', () => {
     bridge.editorView = {
       state: {
         selection: {
@@ -310,16 +283,11 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('text', '');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(2);
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(setLinkHref).toHaveBeenCalledWith('', 2, undefined);
-    expect(setLinkText).toHaveBeenCalledWith('text', 2, undefined);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkText', 'setLinkHref']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('', 'text', 2, undefined);
   });
 
-  it('should call setLinkText then setLinkHref when providing no url + selection', () => {
+  it('should call updateLink when providing no url + selection', () => {
     bridge.editorView = {
       state: {
         selection: {
@@ -331,13 +299,8 @@ describe('links should work', () => {
 
     bridge.onLinkUpdate('text', '');
 
-    expect(isTextAtPos).toHaveBeenCalledWith(2);
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(setLinkHref).toHaveBeenCalledWith('', 2, 4);
-    expect(setLinkText).toHaveBeenCalledWith('text', 2, 4);
-    expect(mocks.mockCalls).toEqual(
-      expect.arrayContaining(['setLinkText', 'setLinkHref']),
-    );
+    expect(updateLink).toHaveBeenCalledWith('', 'text', 2, 4);
   });
 });
 

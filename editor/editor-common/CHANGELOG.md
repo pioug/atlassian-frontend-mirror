@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 55.5.1
+
+### Patch Changes
+
+- [`df1da03ac3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df1da03ac3d) - define interface for api extension
+- [`5a6e9efd99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a6e9efd99b) - ED-12508 implement api stub
+- [`5c835144ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c835144ef0) - [ME-741][me-743] Remove PX references in editor packages and modify code block font size.
+- Updated dependencies
+
 ## 55.5.0
 
 ### Minor Changes

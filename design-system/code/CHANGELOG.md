@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 13.2.3
+
+### Patch Changes
+
+- [`900819ca759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/900819ca759) - Update to VR test suite, to make diffs easier to reason about.
+- Updated dependencies
+
 ## 13.2.2
 
 ### Patch Changes

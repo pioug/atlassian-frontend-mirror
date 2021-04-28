@@ -41,12 +41,50 @@ describe('Notify editing capabilities to the native bridge', () => {
     ],
   };
 
+  const floatingToolbarConfigWithCallback: FloatingToolbarConfig = {
+    title: 'blockCard',
+    nodeType: defaultSchema.nodes['blockCard'],
+    items: node => {
+      if (!node) {
+        return [];
+      }
+      return [
+        {
+          type: 'button',
+          title: 'info',
+          onClick: jest.fn(),
+        },
+        {
+          type: 'dropdown',
+          title: 'Table Options',
+          options: [
+            {
+              title: 'option1',
+              onClick: jest.fn(),
+            },
+          ],
+        },
+        {
+          type: 'select',
+          onChange: jest.fn(),
+          options: [
+            {
+              label: 'Java',
+              value: 'java',
+            },
+          ],
+        },
+      ];
+    },
+  };
+
   beforeEach(() => {
     toolbarActions = new MobileEditorToolbarActions();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    toolbarActions.setEditAllowList([]);
   });
 
   it('should relay editing capabilities to the native bridge in a mobile specific DSL', () => {
@@ -80,6 +118,8 @@ describe('Notify editing capabilities to the native bridge', () => {
       },
     ];
 
+    toolbarActions.setEditAllowList([]);
+
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
       floatingToolbarConfig,
     );
@@ -87,6 +127,50 @@ describe('Notify editing capabilities to the native bridge', () => {
     const expectedItems = JSON.stringify(expectedMobileDsl);
     expect(toNativeBridge.onNodeSelected).toBeCalledWith(
       'panel',
+      expectedItems,
+    );
+  });
+
+  it('should relay editing capabilities to the native bridge in a mobile specific DSL when config uses an items callback', () => {
+    const expectedMobileDsl = [
+      {
+        type: 'button',
+        title: 'info',
+        key: '0',
+      },
+      {
+        type: 'dropdown',
+        title: 'Table Options',
+        options: [
+          {
+            title: 'option1',
+            key: '1.0',
+          },
+        ],
+        key: '1',
+      },
+      {
+        type: 'select',
+        options: [
+          {
+            label: 'Java',
+            value: 'java',
+            key: '2.0',
+          },
+        ],
+        key: '2',
+      },
+    ];
+    const dummyNode: any = 'dummy node';
+
+    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+      floatingToolbarConfigWithCallback,
+      dummyNode,
+    );
+
+    const expectedItems = JSON.stringify(expectedMobileDsl);
+    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
+      'blockCard',
       expectedItems,
     );
   });
@@ -162,6 +246,168 @@ describe('Notify editing capabilities to the native bridge', () => {
 
     expect(toNativeBridge.onNodeSelected).toBeCalledTimes(2);
     expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
+  });
+
+  it('should notify native side with allowed items only without redundant separators', () => {
+    const floatingToolbarConfig: FloatingToolbarConfig = {
+      title: 'floating',
+      nodeType: defaultSchema.nodes['panel'],
+      items: [
+        {
+          id: 'button1',
+          type: 'button',
+          title: 'info',
+          onClick: jest.fn(),
+        },
+        {
+          type: 'separator',
+        },
+        {
+          id: 'dropdown1',
+          type: 'dropdown',
+          title: 'Table Options',
+          options: [
+            {
+              id: 'dropdown1.option1',
+              title: 'option1',
+              onClick: jest.fn(),
+            },
+          ],
+        },
+        {
+          type: 'separator',
+        },
+        {
+          id: 'dropdown2',
+          type: 'dropdown',
+          title: 'Cell Options',
+          options: [
+            {
+              id: 'dropdown2.option1',
+              title: 'option1',
+              onClick: jest.fn(),
+            },
+            {
+              id: 'dropdown2.option2',
+              title: 'option2',
+              onClick: jest.fn(),
+            },
+          ],
+        },
+        {
+          type: 'separator',
+        },
+        {
+          id: 'button2',
+          type: 'button',
+          title: 'info',
+          onClick: jest.fn(),
+        },
+        {
+          type: 'separator',
+        },
+        {
+          id: 'select1',
+          type: 'select',
+          onChange: jest.fn(),
+          options: [
+            {
+              label: 'Java',
+              value: 'java',
+            },
+          ],
+        },
+      ],
+    };
+    const allowedList = ['button2', 'dropdown2', 'dropdown2.option2'];
+    toolbarActions.setEditAllowList(allowedList);
+
+    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+      floatingToolbarConfig,
+    );
+
+    const expectedMobileDsl = [
+      {
+        id: 'dropdown2',
+        type: 'dropdown',
+        title: 'Cell Options',
+        options: [
+          {
+            id: 'dropdown2.option2',
+            title: 'option2',
+            key: '0.0',
+            onClick: jest.fn(),
+          },
+        ],
+        key: '0',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        id: 'button2',
+        type: 'button',
+        title: 'info',
+        key: '2',
+      },
+    ];
+    const expectedItems = JSON.stringify(expectedMobileDsl);
+    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
+      'panel',
+      expectedItems,
+    );
+  });
+
+  it('should filter out dropdown completely if none of the options is allowed', () => {
+    const floatingToolbarConfig: FloatingToolbarConfig = {
+      title: 'floating',
+      nodeType: defaultSchema.nodes['panel'],
+      items: [
+        {
+          id: 'dropdown1',
+          type: 'dropdown',
+          title: 'Table Options',
+          options: [
+            {
+              id: 'dropdown1.option1',
+              title: 'option1',
+              onClick: jest.fn(),
+            },
+            {
+              id: 'dropdown1.option2',
+              title: 'option2',
+              onClick: jest.fn(),
+            },
+          ],
+        },
+        {
+          id: 'button2',
+          type: 'button',
+          title: 'info',
+          onClick: jest.fn(),
+        },
+      ],
+    };
+    const allowedList = ['button2', 'dropdown1'];
+    toolbarActions.setEditAllowList(allowedList);
+
+    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+      floatingToolbarConfig,
+    );
+
+    const expectedMobileDsl = [
+      {
+        id: 'button2',
+        type: 'button',
+        title: 'info',
+        key: '0',
+      },
+    ];
+    const expectedItems = JSON.stringify(expectedMobileDsl);
+    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
+      'panel',
+      expectedItems,
+    );
   });
 });
 

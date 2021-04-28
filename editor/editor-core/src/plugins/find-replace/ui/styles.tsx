@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { N60, N30A } from '@atlaskit/theme/colors';
 
 import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 // This is a workaround because React.memo does not play well with styled-components
 function StyledComponentsButton(props: ButtonProps) {
@@ -47,7 +48,7 @@ export const SectionWrapper = styled.div`
 
 export const Count = styled.span`
   color: ${N60};
-  font-size: 12px;
+  font-size: ${relativeFontSizeToBase16(12)};
   flex: 0 0 auto;
   justify-content: center;
   align-items: center;

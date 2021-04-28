@@ -135,7 +135,6 @@ const MentionWithAnalytics = withAnalyticsEvents({
     props: Props,
   ): UIAnalyticsEvent => {
     const { id, text, accessLevel } = props;
-
     const event = fireAnalyticsMentionEvent(createEvent)(
       'mention',
       'selected',

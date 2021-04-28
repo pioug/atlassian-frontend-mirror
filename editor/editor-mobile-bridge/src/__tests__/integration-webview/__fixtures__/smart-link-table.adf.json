@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "table",
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tableHeader",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "inlineCard",
+                      "attrs": {
+                        "url": "https://inlineCardTestUrl"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " "
+                    }
+                  ]
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "27lo591r-emi3-9180-7435-p8s2u43m91d0"
+      }
+    }
+  ]
+}

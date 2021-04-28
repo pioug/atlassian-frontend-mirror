@@ -1,5 +1,202 @@
 # @atlaskit/tabs
 
+## 13.0.0
+
+### Major Changes
+
+- [`c17fe6144f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17fe6144f8) - ### Major Changes
+
+  In this version, `Tabs` has had a pretty substantial rewrite. As well as now being dramatically faster and more lightweight, it has a brand new flexible composable API and a bunch of accessibility improvements.
+
+  ### Composable API
+
+  The old version of `Tabs` had a `tabs` prop that would map to `TabItem`'s and `TabContent`'s.
+
+  ```
+  import Tabs from '@atlaskit/tabs';
+
+  const ComponentUsingTabs = () => (
+    <Tabs tabs={
+      { label: 'Tab 1', content: 'One' },
+      { label: 'Tab 2', content: 'Two' },
+      { label: 'Tab 3', content: 'Three' },
+    ]} />
+  );
+  ```
+
+  We've changed the language to match the W3 spec so a `TabItem` is now a `Tab` and a `TabContent` is a `TabPanel`. We now export these components as well as a `TabList` so consumers use a composable API that matches the DOM structure.
+
+  ```
+  import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+
+  const ComponentUsingTabs = () => (
+    <Tabs
+      id="component-using-tabs"
+    >
+      <TabList>
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+        <Tab>Tab 3</Tab>
+      </TabList>
+      <TabPanel>
+        One
+      </TabPanel>
+      <TabPanel>
+        Two
+      </TabPanel>
+      <TabPanel>
+        Three
+      </TabPanel>
+    </Tabs>
+  );
+  ```
+
+  This allows you to easily customise your usage, for example if you want to add a tooltip.
+
+  ```
+  import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+  import Tooltip from '@atlaskit/tooltip';
+
+  const TooltipTab = ({ label, tooltip }: { label: string; tooltip: string }) => (
+    <Tooltip content={tooltip}>
+      <Tab>{label}</Tab>
+    </Tooltip>
+  );
+
+  const ComponentUsingTabs = () => (
+    <Tabs
+      id="component-using-tabs"
+    >
+      <TabList>
+        <TooltipTab label="Tab 1" tooltip="Tooltip for tab 1" />
+        <TooltipTab label="Tab 2" tooltip="Tooltip for tab 2" />
+        <TooltipTab label="Tab 3" tooltip="Tooltip for tab 3" />
+      </TabList>
+      <TabPanel>
+        One
+      </TabPanel>
+      <TabPanel>
+        Two
+      </TabPanel>
+      <TabPanel>
+        Three
+      </TabPanel>
+    </Tabs>
+  );
+  ```
+
+  ### Hooks replacing Component prop
+
+  The `component` prop allowed you to customise the `Tab` and `TabPanel`. This approach seemed counter-intuitive and had a performance impact regardless of whether you were using it. Instead with composability we have have added two hooks, `useTab` and `useTabPanel`.
+
+  To create a custom `Tab`, call `useTab` and spread those attributes onto the custom tab. From there you can use it in place of a `Tab`. For example if you want to change the font size you would do so like this.
+
+  ```
+  import { useTab } from '@atlaskit/tabs';
+
+  const CustomTab = ({ label }: { label: string }) => {
+    const tabAttributes = useTab();
+
+    return (
+      <div
+        style={{
+          fontSize: 16;
+        }}
+        {...tabAttributes}
+      >
+        {label}
+      </div>
+    );
+  };
+  ```
+
+  Likewise, to create a custom `TabPanel`, call `useTabPanel` and spread those attributes onto the custom tab panel.
+
+  ```
+  import { useTab } from '@atlaskit/tabs';
+
+  const CustomTabPanel = ({ body }: { body: string }) => {
+    const tabPanelAttributes = useTabPanel();
+
+    return (
+      <div
+        style={{
+          margin: 12
+        }}
+        {...tabPanelAttributes}
+      >
+        {body}
+      </div>
+    );
+  };
+  ```
+
+  ### onSelect -> onChange
+
+  The `onSelect` prop has been renamed to `onChange` to be consistent with other design system components. Internal state has now changed to keep track of the selected index. Previously the object in the `tabs` prop array of type `TabData` was passed as well as the index. If you were using this object you will have to change to use the index.
+
+  The type has changed from
+  `(selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;`
+  to
+  `(index: number, analyticsEvent: UIAnalyticsEvent) => void;`
+
+  This also means if you are using the `selected` prop you will have to ensure you are using the index of the selected tab instead of the object of type `TabData`.
+
+  ### isSelectedTest
+
+  Previously you could provide the prop `isSelectedTest` to `Tabs` and it would determine what tab is selected by seeing what tab returns true when `isSelectedTest` is called. This is a messy API that effectively means there were two ways of making `Tabs` controlled. If you are using `isSelectedTest` you should swap to using the `selected` prop to indicate that a tab is selected.
+
+  ### Accessibility and required ID
+
+  According to the w3 spec each tab should be linked to its corresponding tab panel. We have added the `aria-controls` attribute to tabs and the `aria-labelledby` attribute to tab panels. In order to do this we needed to generate a unique id for each tab and tab panel. To ensure these id's are unique if there are multiple `Tabs` components on the same page there is now a required `id` prop.
+
+  ### shouldUnmountTabPanelOnChange
+
+  There was previously a prop `isContentPersisted` which defaults to false. When true it would render all tab panels. The new default behaviour of `Tabs` is to leave each tab panel mounted on the page after it has been selected. This means that tab panels will only mount if selected and will not unmount and remount when changing tabs. In light of this change, `isContentPersisted` has been removed and `shouldUnmountTabPanelOnChange` has been introduced. It defaults to false and if it is set to true it will unmount a `TabPanel` when it is not selected. Effectively `shouldUnmountTabPanelOnChange` is the inverse of `isContentPersisted`.
+
+  ### Other changes
+
+  - Remove `TabItem` and `TabContent` export.
+  - Remove the types: `TabItemElementProps`, `TabItemComponentProvided`, `TabContentComponentProvided`, `TabItemType`, `TabContentType`, `SelectedProp`, `IsSelectedTestFunction`, `OnSelectCallback`, `TabsState`, `TabsNavigationProps` and `Mode`.
+
+  ### Automatic upgrading
+
+  There is a codemod that assists you in upgrading most of the changes from above.
+  Depending on your usage, you will most likely have to do a manual step as this is a fairly big change in API. The codemod will do its best job at making sure everything functions but you may want to clean up your usage of `@atlaskit/tabs`. It does these following changes:
+
+  - Adds a randomly generated ID
+  - Changes `onSelect` to `onChange` and defines a new inline function that will functionally work the same as it used to. It is however a messy solution and you may want to change the function to only use the selected index.
+  - Remove the `TabItem` and `TabContent` imports.
+  - Map the array you supplied as a `tabs` prop to create `Tab`'s and `TabPanel`'s.
+  - Remove the `component` and `isSelectedTest` prop.
+  - Removes types that no longer exist.
+  - Migrates your usage of `isContentPersisted` to one of `shouldUnmountTabPanelOnChange`.
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/tabs@^13.0.0
+  ```
+
+  Once upgraded,
+  use `@atlaskit/codemod-cli`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/tabs@^13.0.0` and you will automatically be upgraded.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians,
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- [`4a969d5c40f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a969d5c40f) - Fix a bug where the active element is blurred instead of the current element when clicked.
+- [`1adf9a493f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1adf9a493f5) - Fix codemod issue
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

@@ -1,3 +1,5 @@
+import { ADFEntity } from '@atlaskit/adf-utils';
+
 import { Parameters } from './extension-parameters';
 
 export interface ExtensionParams<T extends Parameters> {
@@ -30,6 +32,9 @@ export type UpdateContextActions<T extends Parameters = Parameters> = {
     transformAfter: TransformAfter<T>,
   ) => void;
   editInLegacyMacroBrowser: () => void;
+
+  // TODO: think about putting Boolean as the return value if we have a success in the function call
+  insertAfter: (adf: ADFEntity) => void;
 };
 
 export type UpdateExtension<T extends Parameters = Parameters> = (

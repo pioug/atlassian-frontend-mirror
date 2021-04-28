@@ -1,38 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import Tabs from '../src';
-import { TabData } from '../src/types';
+import Tabs, { Tab, TabList, TabPanel } from '../src';
+import { SelectedType } from '../src/types';
 
-import { Content } from './shared';
+import { Panel } from './shared';
 
-interface State {
-  selected: TabData;
-}
+export default function TabsControlledExample() {
+  const [selected, setSelected] = useState(0);
 
-const tabs = [
-  { label: 'Tab 1', content: <Content>One</Content> },
-  { label: 'Tab 2', content: <Content>Two</Content> },
-  { label: 'Tab 3', content: <Content>Three</Content> },
-  { label: 'Tab 4', content: <Content>Four</Content> },
-];
+  const handleUpdate = (index: SelectedType) => setSelected(index);
 
-export default class TabsControlledExample extends Component<{}, State> {
-  state = { selected: tabs[0] };
-
-  handleUpdate = (selected: TabData) => this.setState({ selected });
-
-  render() {
-    const { selected } = this.state;
-    return (
-      <div>
-        <Tabs onSelect={this.handleUpdate} selected={selected} tabs={tabs} />
-        <button
-          disabled={selected === tabs[3]}
-          onClick={() => this.handleUpdate(tabs[3])}
-        >
-          Select the last tab
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Tabs onChange={handleUpdate} selected={selected} id="controlled">
+        <TabList>
+          <Tab>Tab 1</Tab>
+          <Tab>Tab 2</Tab>
+          <Tab>Tab 3</Tab>
+          <Tab>Tab 4</Tab>
+        </TabList>
+        <TabPanel>
+          <Panel>One</Panel>
+        </TabPanel>
+        <TabPanel>
+          <Panel>Two</Panel>
+        </TabPanel>
+        <TabPanel>
+          <Panel>Three</Panel>
+        </TabPanel>
+        <TabPanel>
+          <Panel>Four</Panel>
+        </TabPanel>
+      </Tabs>
+      <button disabled={selected === 3} onClick={() => handleUpdate(3)}>
+        Select the last tab
+      </button>
+    </div>
+  );
 }

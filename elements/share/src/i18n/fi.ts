@@ -45,6 +45,8 @@ export default {
     'Valitse vähintään yksi käyttäjä, tiimi tai sähköpostiosoite.',
   'fabric.elements.share.success.message':
     '{object, select, blogpost {Blogijulkaisu jaettu} board {Taulu jaettu} calendar {Kalenteri jaettu} draft {Luonnos jaettu} filter {Suodatin jaettu} issue {Asia jaettu} media {Media jaettu} page {Sivu jaettu} project {Projekti jaettu} pullrequest {Pull-pyyntö jaettu} question {Kysymys jaettu} report {Raportti jaettu} repository {Säilö jaettu} request {Pyyntö jaettu} roadmap {Etenemissuunnitelma jaettu} site {Sivusto jaettu} space {Työtila jaettu} other {Linkki jaettu}}',
+  'fabric.elements.share.to.integration.button':
+    'Jaa kohteeseen {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Jaa kuvake',
   'fabric.elements.share.trigger.button.invite.text': 'Kutsu',
   'fabric.elements.share.trigger.button.text': 'Jaa',

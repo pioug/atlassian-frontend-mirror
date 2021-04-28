@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "inlineCard",
+                  "attrs": {
+                    "url": "https://inlineCardTestUrl"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "loremi hector"
+                },
+                {
+                  "type": "inlineCard",
+                  "attrs": {
+                    "url": "https://hello.atlassian.net/wiki/spaces/ET/pages/968692273?506428837"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "hello"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "lorem ipsum"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

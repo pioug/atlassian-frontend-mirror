@@ -10,6 +10,7 @@ import mediaSingleVideoAdf from '../__fixtures__/media-single-video.adf.json';
 import mediaExpandAdf from '../__fixtures__/media-expand.adf.json';
 import mediaSingleWithCaptionAdf from '../__fixtures__/media-single-caption.adf.json';
 import { mobileSnapshot } from '../_utils/snapshot';
+import { waitForMedia } from '../_utils/media';
 
 export default async () => {
   MobileTestCase(
@@ -19,9 +20,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await setADFContent(page, mediaGroupAdf, 'renderer');
-      await page.waitForSelector(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      );
+      await waitForMedia(page);
       await mobileSnapshot(page);
     },
   );
@@ -33,9 +32,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await setADFContent(page, mediaSingleAdf, 'renderer');
-      await page.waitForSelector(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      );
+      await waitForMedia(page);
     },
   );
 
@@ -63,9 +60,7 @@ export default async () => {
     await loadRenderer(page);
     await page.switchToWeb();
     await setADFContent(page, media3ColumnLayoutAdf, 'renderer');
-    await page.waitForSelector(
-      '[data-testid="media-file-card-view"][data-test-status="complete"]',
-    );
+    await waitForMedia(page);
     const layout = await page.$('[data-layout-section="true"]');
     await layout.scrollIntoView();
     await mobileSnapshot(page);
@@ -77,9 +72,7 @@ export default async () => {
     await loadRenderer(page);
     await page.switchToWeb();
     await setADFContent(page, mediaExpandAdf, 'renderer');
-    await page.waitForSelector(
-      '[data-testid="media-file-card-view"][data-test-status="complete"]',
-    );
+    await waitForMedia(page);
     await mobileSnapshot(page);
   });
 
@@ -88,9 +81,7 @@ export default async () => {
     await loadRenderer(page);
     await page.switchToWeb();
     await setADFContent(page, mediaSingleVideoAdf, 'renderer');
-    await page.waitForSelector(
-      '[data-testid="media-file-card-view"][data-test-status="complete"]',
-    );
+    await waitForMedia(page);
     await page.waitForSelector('[data-testid="media-card-play-button"]');
     await mobileSnapshot(page);
   });
@@ -102,9 +93,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadRenderer(page, 'allowCaptions=true');
       await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');
-      await page.waitForSelector(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      );
+      await waitForMedia(page);
       await mobileSnapshot(page);
     },
   );
@@ -116,9 +105,7 @@ export default async () => {
       const page = await Page.create(client);
       await loadRenderer(page);
       await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');
-      await page.waitForSelector(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      );
+      await waitForMedia(page);
       await mobileSnapshot(page);
     },
   );

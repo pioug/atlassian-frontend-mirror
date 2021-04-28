@@ -8,6 +8,13 @@
 export default {
   'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
     '放弃',
+  'fabric.elements.mentions.team.member.50plus': '团队 • 50 多名成员',
+  'fabric.elements.mentions.team.member.50plus.including.you':
+    '团队 • 50 多名成员，包括您',
+  'fabric.elements.mentions.team.member.count':
+    '{0, plural, other {团队 • {0} 名成员}}',
+  'fabric.elements.mentions.team.member.count.including.you':
+    '{0, plural, other {团队 • {0} 名成员，包括您}}',
   'fabric.elements.mentions.team.mention.highlight.description':
     '一键提及此页面的所有人。无需提及团队？',
   'fabric.elements.mentions.team.mention.highlight.description.link':

@@ -28,6 +28,7 @@ export {
   createJIRASchema,
   createSchema,
   dataConsumer,
+  dataConsumerToJSON,
   date,
   decisionItem,
   decisionList,

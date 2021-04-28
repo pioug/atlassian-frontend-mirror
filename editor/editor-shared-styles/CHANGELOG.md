@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 1.4.1
+
+### Patch Changes
+
+- [`5c835144ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c835144ef0) - [ME-741][me-743] Remove PX references in editor packages and modify code block font size.
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

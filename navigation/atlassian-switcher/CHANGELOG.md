@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 11.0.0
+
+### Major Changes
+
+- [`c6f5872cc9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6f5872cc9c) - remove isDiscoverMoreForEveryoneEnabled
+
 ## 10.2.0
 
 ### Minor Changes

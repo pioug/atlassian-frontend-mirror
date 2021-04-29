@@ -244,7 +244,6 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 { duration: this.timeSinceMounted() },
               )}
               {getDiscoverMoreRenderTracker(
-                features.isDiscoverMoreForEveryoneEnabled,
                 rawProviderResults.addProductsPermission,
                 rawProviderResults.managePermission,
                 [...adminLinks, ...fixedLinks, ...discoverSectionLinks].filter(

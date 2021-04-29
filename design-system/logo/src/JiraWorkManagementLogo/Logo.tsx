@@ -26,7 +26,7 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
     <stop offset="0" stop-color="${iconGradientStart}" ${
     iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
   } />
-    <stop offset="1" stop-color="${iconGradientStop}" />
+    <stop offset="100%" stop-color="${iconGradientStop}" />
   </linearGradient>
   <path
     d="m12.3893 6.29721-3.42568 13.18669c4.35918 1.2052 7.83828-.3558 9.17088-5.4802l1.9988-7.69729z"

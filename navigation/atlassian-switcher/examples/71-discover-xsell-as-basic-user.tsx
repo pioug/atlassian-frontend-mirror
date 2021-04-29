@@ -83,7 +83,6 @@ class JiraSwitcherExample extends React.Component {
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}
             isDiscoverSectionEnabled
-            isDiscoverMoreForEveryoneEnabled
             isEmceeLinkEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />

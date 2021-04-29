@@ -66,7 +66,6 @@ class StartSwitcherExample extends React.Component {
             product="start"
             triggerXFlow={this.onTriggerXFlow}
             isDiscoverSectionEnabled
-            isDiscoverMoreForEveryoneEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />
         </Drawer>

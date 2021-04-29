@@ -3,11 +3,13 @@ export {
   AtlassianLogo,
   AtlassianWordmark,
 } from './AtlassianLogo';
+export { AtlassianStartLogo } from './AtlassianStartLogo';
 export {
   BitbucketIcon,
   BitbucketLogo,
   BitbucketWordmark,
 } from './BitbucketLogo';
+export { CompassIcon, CompassLogo, CompassWordmark } from './Compass';
 export {
   ConfluenceIcon,
   ConfluenceLogo,

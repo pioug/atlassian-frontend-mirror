@@ -6,6 +6,7 @@ import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 
 import {
   BitbucketIcon,
+  CompassIcon,
   ConfluenceIcon,
   JiraIcon,
   JiraServiceManagementIcon,
@@ -18,6 +19,7 @@ import {
 
 const logoOptions = [
   BitbucketIcon,
+  CompassIcon,
   ConfluenceIcon,
   JiraIcon,
   JiraServiceManagementIcon,

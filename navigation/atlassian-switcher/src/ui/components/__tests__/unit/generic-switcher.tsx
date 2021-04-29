@@ -32,7 +32,6 @@ describe('generic-switcher', () => {
         enableRecentContainers: true,
         disableSwitchToHeading: false,
         xflow: true,
-        isDiscoverMoreForEveryoneEnabled: true,
         isEmceeLinkEnabled: true,
         isDiscoverSectionEnabled: true,
         isProductStoreInTrelloJSWFirstEnabled: false,

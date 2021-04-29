@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-switcher",
-  "version": "10.2.0",
+  "version": "11.0.0",
   "description": "App switcher component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

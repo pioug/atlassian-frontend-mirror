@@ -280,7 +280,6 @@ export const getRecommendedProductsRenderTracker = (
 };
 
 export const getDiscoverMoreRenderTracker = (
-  isDiscoverMoreForEveryoneEnabled: Boolean,
   addProductsPermissionProviderResult: ProviderResults['addProductsPermission'],
   managePermissionProviderResult: ProviderResults['managePermission'],
   discoverMoreLink: SwitcherItemType[],
@@ -289,15 +288,11 @@ export const getDiscoverMoreRenderTracker = (
   const providerFailed =
     addProductsPermissionProviderResult.data === null ||
     managePermissionProviderResult.data === null;
-  const shouldShowDiscoverMore =
-    addProductsPermissionProviderResult.data ||
-    managePermissionProviderResult.data ||
-    isDiscoverMoreForEveryoneEnabled;
 
   return renderTracker({
     subject: SWITCHER_DISCOVER_MORE,
     providerFailed,
-    emptyRenderExpected: !shouldShowDiscoverMore,
+    emptyRenderExpected: false,
     linksRendered: discoverMoreLink,
     data: {
       ...data,

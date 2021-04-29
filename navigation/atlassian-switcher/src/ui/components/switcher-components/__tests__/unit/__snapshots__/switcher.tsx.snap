@@ -224,29 +224,29 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
                       subject="atlassianSwitcherRecommendedProducts"
                     />
                   </WithAnalyticsEvents(_class)>
-                  <WithAnalyticsEvents(_class)
+                  <WithAnalyticsEvents(_class2)
                     data={
                       Object {
                         "duration": 0,
-                        "emptyRender": true,
                         "linkItems": Array [],
+                        "providerFailed": false,
                       }
                     }
                     subject="atlassianSwitcherDiscoverMore"
                   >
-                    <_class
+                    <_class2
                       createAnalyticsEvent={[Function]}
                       data={
                         Object {
                           "duration": 0,
-                          "emptyRender": true,
                           "linkItems": Array [],
+                          "providerFailed": false,
                         }
                       }
                       onRender={[Function]}
                       subject="atlassianSwitcherDiscoverMore"
                     />
-                  </WithAnalyticsEvents(_class)>
+                  </WithAnalyticsEvents(_class2)>
                   <WithAnalyticsEvents(_class)
                     data={
                       Object {
@@ -784,29 +784,29 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
                       subject="atlassianSwitcherRecommendedProducts"
                     />
                   </WithAnalyticsEvents(_class)>
-                  <WithAnalyticsEvents(_class)
+                  <WithAnalyticsEvents(_class2)
                     data={
                       Object {
                         "duration": 0,
-                        "emptyRender": true,
                         "linkItems": Array [],
+                        "providerFailed": false,
                       }
                     }
                     subject="atlassianSwitcherDiscoverMore"
                   >
-                    <_class
+                    <_class2
                       createAnalyticsEvent={[Function]}
                       data={
                         Object {
                           "duration": 0,
-                          "emptyRender": true,
                           "linkItems": Array [],
+                          "providerFailed": false,
                         }
                       }
                       onRender={[Function]}
                       subject="atlassianSwitcherDiscoverMore"
                     />
-                  </WithAnalyticsEvents(_class)>
+                  </WithAnalyticsEvents(_class2)>
                   <WithAnalyticsEvents(_class)
                     data={
                       Object {
@@ -994,12 +994,12 @@ exports[`Switcher should be able to disable switch to section header with "disab
       }
       subject="atlassianSwitcherRecommendedProducts"
     />
-    <WithAnalyticsEvents(_class)
+    <WithAnalyticsEvents(_class2)
       data={
         Object {
           "duration": 0,
-          "emptyRender": true,
           "linkItems": Array [],
+          "providerFailed": false,
         }
       }
       subject="atlassianSwitcherDiscoverMore"
@@ -1159,7 +1159,7 @@ exports[`Switcher should render discover more section 1`] = `
       data={
         Object {
           "duration": 0,
-          "emptyRender": true,
+          "emptyRender": false,
           "linkItems": Array [
             "discover-more",
           ],
@@ -1318,12 +1318,12 @@ exports[`Switcher should render sections with headers by default 1`] = `
       }
       subject="atlassianSwitcherRecommendedProducts"
     />
-    <WithAnalyticsEvents(_class)
+    <WithAnalyticsEvents(_class2)
       data={
         Object {
           "duration": 0,
-          "emptyRender": true,
           "linkItems": Array [],
+          "providerFailed": false,
         }
       }
       subject="atlassianSwitcherDiscoverMore"

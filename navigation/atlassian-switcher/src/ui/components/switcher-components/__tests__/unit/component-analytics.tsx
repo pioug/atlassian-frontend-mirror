@@ -406,10 +406,7 @@ describe('Atlassian Switcher - SLIs', () => {
     const PRECEDING_EVENTS = 4;
     it('discoverMoreForEveryone enabled - fires rendered event when the item is shown', async () => {
       mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          features={{ isDiscoverMoreForEveryoneEnabled: true }}
-        />,
+        <DefaultAtlassianSwitcher onEventFired={eventStream} features={{}} />,
       );
       eventStream.skip(PRECEDING_EVENTS);
 
@@ -436,7 +433,7 @@ describe('Atlassian Switcher - SLIs', () => {
       mount(
         <DefaultAtlassianSwitcher
           onEventFired={eventStream}
-          features={{ isDiscoverMoreForEveryoneEnabled: true }}
+          features={{}}
           overrideSwitcherLinks={overrideSwitcherLinks}
         />,
       );
@@ -536,40 +533,6 @@ describe('Atlassian Switcher - SLIs', () => {
       expect(
         renderRecommendedProductsPayload.attributes.providerFailed,
       ).toBeFalsy();
-    });
-
-    it('permissions based - fires rendered event if both providers return false and item is not rendered', async () => {
-      const overrideSwitcherLinks = {
-        adminLinks: [],
-      };
-      mount(
-        <DefaultAtlassianSwitcher
-          onEventFired={eventStream}
-          overrideSwitcherLinks={overrideSwitcherLinks}
-        />,
-      );
-      eventStream.skip(PRECEDING_EVENTS);
-
-      const {
-        payload: renderRecommendedProductsPayload,
-      } = await eventStream.next();
-      expect(renderRecommendedProductsPayload).toMatchObject({
-        eventType: 'operational',
-        action: 'rendered',
-        actionSubject: 'atlassianSwitcherDiscoverMore',
-      });
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'duration',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.duration,
-      ).toBeGreaterThanOrEqual(0);
-      expect(renderRecommendedProductsPayload.attributes).toHaveProperty(
-        'emptyRender',
-      );
-      expect(
-        renderRecommendedProductsPayload.attributes.emptyRender,
-      ).toBeTruthy();
     });
 
     it('permissions based - fires rendered event if the item is rendered', async () => {

@@ -70,7 +70,6 @@ class TeamCentralSwitcherExample extends React.Component {
             product="jira"
             triggerXFlow={this.onTriggerXFlow}
             isDiscoverSectionEnabled
-            isDiscoverMoreForEveryoneEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />
         </Drawer>

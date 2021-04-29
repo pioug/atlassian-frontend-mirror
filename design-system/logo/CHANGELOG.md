@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.4.0
+
+### Minor Changes
+
+- [`5f44a31b58a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f44a31b58a) - [ux] Add new Trello logo, Atlassian Start logo and Compass logo to `@atlaskit/logo`
+
 ## 13.3.0
 
 ### Minor Changes

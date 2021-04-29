@@ -268,16 +268,12 @@ export function mapResultsToSwitcherProps(
         )
       : [],
     fixedLinks: !features.isDiscoverSectionEnabled
-      ? collect(
-          collectFixedProductLinks(features.isDiscoverMoreForEveryoneEnabled),
-          [],
-        )
+      ? collect(collectFixedProductLinks(), [])
       : [],
     adminLinks: collect(
       collectAdminLinks(
         managePermission,
         addProductsPermission,
-        features.isDiscoverMoreForEveryoneEnabled,
         features.isEmceeLinkEnabled,
         product,
         features.isDiscoverSectionEnabled,
@@ -291,7 +287,6 @@ export function mapResultsToSwitcherProps(
           collectDiscoverSectionLinks(
             managePermission,
             addProductsPermission,
-            features.isDiscoverMoreForEveryoneEnabled,
             features.isEmceeLinkEnabled,
             product,
             recommendationsFeatureFlags,

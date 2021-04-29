@@ -77,7 +77,6 @@ export enum Feature {
   enableRecentContainers = 'enableRecentContainers',
   disableSwitchToHeading = 'disableSwitchToHeading',
   xflow = 'xflow',
-  isDiscoverMoreForEveryoneEnabled = 'isDiscoverMoreForEveryoneEnabled',
   // EMCEE stands for Embedded Marketplace with in the product
   isEmceeLinkEnabled = 'isEmceeLinkEnabled',
   // Enable Discover section - group suggested product links in Discover section
@@ -97,8 +96,6 @@ export type FeatureFlagProps = {
   enableRecentContainers?: boolean;
   /** Remove Switch-To section header - useful in nav v3  */
   disableSwitchToHeading?: boolean;
-  /** Enable discover more.  */
-  isDiscoverMoreForEveryoneEnabled?: boolean;
   /** Enable Embedded Marketplace within the product.  */
   isEmceeLinkEnabled?: boolean;
   /** Enable Discover section - group suggested product links in Discover section */

@@ -3,10 +3,14 @@ import React from 'react';
 import {
   AtlassianIcon,
   AtlassianLogo,
+  AtlassianStartLogo,
   AtlassianWordmark,
   BitbucketIcon,
   BitbucketLogo,
   BitbucketWordmark,
+  CompassIcon,
+  CompassLogo,
+  CompassWordmark,
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
@@ -57,6 +61,11 @@ export default () => (
         </tr>
         <tr>
           <td>
+            <AtlassianStartLogo />
+          </td>
+        </tr>
+        <tr>
+          <td>
             <BitbucketLogo />
           </td>
           <td>
@@ -64,6 +73,17 @@ export default () => (
           </td>
           <td>
             <BitbucketIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <CompassLogo />
+          </td>
+          <td>
+            <CompassWordmark />
+          </td>
+          <td>
+            <CompassIcon />
           </td>
         </tr>
         <tr>

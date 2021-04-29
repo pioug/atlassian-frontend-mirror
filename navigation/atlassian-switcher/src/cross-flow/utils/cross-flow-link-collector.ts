@@ -16,7 +16,6 @@ import {
 export function collectDiscoverSectionLinks(
   managePermission: ProviderResults['managePermission'],
   addProductsPermission: ProviderResults['addProductsPermission'],
-  isDiscoverMoreForEveryoneEnabled: boolean,
   isEmceeLinkEnabled: boolean,
   product?: Product,
   recommendationsFeatureFlags?: RecommendationsFeatureFlags,
@@ -35,7 +34,6 @@ export function collectDiscoverSectionLinks(
   );
 
   return getDiscoverSectionLinks({
-    isDiscoverMoreForEveryoneEnabled,
     isEmceeLinkEnabled,
     product,
     canManagePermission,
@@ -75,10 +73,6 @@ export function collectSuggestedLinks(
   }
 }
 
-export function collectFixedProductLinks(
-  isDiscoverMoreForEveryoneEnabled: boolean,
-): SwitcherItemType[] {
-  return getFixedProductLinks({
-    isDiscoverMoreForEveryoneEnabled,
-  });
+export function collectFixedProductLinks(): SwitcherItemType[] {
+  return getFixedProductLinks({});
 }

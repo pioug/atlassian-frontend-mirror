@@ -72,7 +72,6 @@ class InlineDialogSwitcherExample extends React.Component {
                   product="trello"
                   disableCustomLinks
                   disableSwitchToHeading
-                  isDiscoverMoreForEveryoneEnabled
                   cloudId="some-cloud-id"
                   triggerXFlow={this.onTriggerXFlow}
                   appearance="standalone"

@@ -11,12 +11,15 @@ import { Props as ConstantProps } from '../src/constants';
 interface Product {
   label: string;
   value: string;
+  isProperty?: boolean;
 }
 type File = Product;
 
 const products: Product[] = [
   { label: 'Atlassian', value: 'Atlassian' },
+  { label: 'AtlassianStart', value: 'AtlassianStart', isProperty: true },
   { label: 'Bitbucket', value: 'Bitbucket' },
+  { label: 'Compass', value: 'Compass' },
   { label: 'Confluence', value: 'Confluence' },
   { label: 'Jira', value: 'Jira' },
   { label: 'JiraServiceManagement', value: 'JiraServiceManagement' },
@@ -53,12 +56,22 @@ export default class GetPath extends Component<any, any> {
       [key: string]: ComponentType<ConstantProps>;
     })[name];
 
+    // There is no icon or wordmark file available for property logos
+    const fileOptions: File[] = selectedProduct.isProperty
+      ? files.filter(file => file.value === 'Logo')
+      : files;
+
+    const productOptions: Product[] =
+      selectedFile.value !== 'Logo'
+        ? products.filter(product => !product.isProperty)
+        : products;
+
     return (
       <div>
         <p>Select the product and the component you want to fetch from:</p>
         <SelectWrapper>
           <Select
-            options={products}
+            options={productOptions}
             value={selectedProduct}
             onChange={(product: ValueType<Product>) =>
               this.setState({ selectedProduct: product })
@@ -67,7 +80,7 @@ export default class GetPath extends Component<any, any> {
         </SelectWrapper>
         <SelectWrapper>
           <Select
-            options={files}
+            options={fileOptions}
             value={selectedFile}
             onChange={(file: ValueType<File>) =>
               this.setState({ selectedFile: file })

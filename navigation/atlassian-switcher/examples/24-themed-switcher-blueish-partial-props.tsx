@@ -51,7 +51,6 @@ class SwitcherExample extends React.Component {
             product="site-admin"
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}
-            isDiscoverMoreForEveryoneEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
             theme={blueishColorScheme}
           />

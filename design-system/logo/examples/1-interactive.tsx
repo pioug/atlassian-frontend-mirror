@@ -137,7 +137,9 @@ export default class InteractiveLogo extends Component<Props, State> {
           <RadioGroup items={radioItems} onRadioChange={this.onRadioChange} />
         </InlineFlex>
         {sizeRange(logos.AtlassianLogo, colorPreset, sizePreset, useProps)}
+        {sizeRange(logos.AtlassianStartLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.BitbucketLogo, colorPreset, sizePreset, useProps)}
+        {sizeRange(logos.CompassLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.ConfluenceLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(logos.JiraLogo, colorPreset, sizePreset, useProps)}
         {sizeRange(

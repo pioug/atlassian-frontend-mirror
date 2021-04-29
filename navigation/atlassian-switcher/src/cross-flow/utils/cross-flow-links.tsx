@@ -23,10 +23,8 @@ import {
 } from '../../common/utils/links';
 import SlackIcon from '../../ui/primitives/SlackIcon';
 
-export const getFixedProductLinks = (params: {
-  isDiscoverMoreForEveryoneEnabled: boolean;
-}): SwitcherItemType[] => {
-  return params.isDiscoverMoreForEveryoneEnabled ? [getDiscoverMoreLink()] : [];
+export const getFixedProductLinks = (params: {}): SwitcherItemType[] => {
+  return [getDiscoverMoreLink()];
 };
 
 const getDiscoverMoreLink = (
@@ -69,7 +67,6 @@ const getSlackIntegrationLink = (): SwitcherItemType => ({
 });
 
 export function getDiscoverSectionLinks({
-  isDiscoverMoreForEveryoneEnabled,
   isEmceeLinkEnabled,
   product,
   canManagePermission,
@@ -78,7 +75,6 @@ export function getDiscoverSectionLinks({
   isSlackDiscoveryEnabled,
   slackDiscoveryClickHandler,
 }: {
-  isDiscoverMoreForEveryoneEnabled: boolean;
   isEmceeLinkEnabled: boolean;
   product?: Product;
   canManagePermission: boolean;
@@ -88,12 +84,10 @@ export function getDiscoverSectionLinks({
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
 }) {
   const discoverLinks: SwitcherItemType[] = [];
-  const discoverMoreLink =
-    isDiscoverMoreForEveryoneEnabled &&
-    getDiscoverMoreLink(
-      DiscoverFilledGlyph,
-      isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler),
-    );
+  const discoverMoreLink = getDiscoverMoreLink(
+    DiscoverFilledGlyph,
+    isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler),
+  );
 
   const slackIntegrationLink = getSlackIntegrationLink();
 

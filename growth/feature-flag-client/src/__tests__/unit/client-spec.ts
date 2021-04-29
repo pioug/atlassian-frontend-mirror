@@ -78,6 +78,35 @@ describe('Feature Flag Client', () => {
   });
 
   describe('getters', () => {
+    describe('getFlag', () => {
+      test('should return an object with the correct flagKey and value if the flag exists', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.test.flag': { value: 'control' },
+          },
+        });
+
+        const flag = client.getFlag('my.test.flag');
+        expect(flag).not.toBeNull();
+        if (flag !== null) {
+          // required to appease type safety checks
+          expect(flag.value).toBe('control');
+          expect(flag.flagKey).toBe('my.test.flag');
+        }
+      });
+
+      test('should return null if the flag does not exist', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        const flag = client.getFlag('my.test.flag');
+        expect(flag).toBeNull();
+      });
+    });
+
     describe('getBooleanValue', () => {
       test('should throw if called without default', () => {
         const client = new FeatureFlagClient({
@@ -649,6 +678,353 @@ describe('Feature Flag Client', () => {
           footer: 'black',
         });
         expect(analyticsHandler).toHaveBeenCalledTimes(0);
+      });
+    });
+
+    describe('getRawValue', () => {
+      test('should throw if called without default', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        expect(() =>
+          client.getRawValue('my.flag', {
+            oneOf: ['control', 'experiment'],
+          } as any),
+        ).toThrow('getRawValue: Missing default');
+      });
+
+      test('should return default if flag is not set, and not fire exposure event', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        expect(
+          client.getRawValue('my.flag', {
+            default: 'control',
+          }),
+        ).toBe('control');
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
+      });
+
+      test('should return default if flag does not have a value attribute', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.variation.a': {
+              value: 'variation-a',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.flag', {
+            default: 'control',
+          }),
+        ).toBe('control');
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
+      });
+
+      test('should return the right value if the flag is a boolean, and fire exposure event', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: true,
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.experiment', {
+            default: false,
+          }),
+        ).toBe(true);
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: true,
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should return the right value if the flag is a string, and fire exposure event', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: 'variation',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.experiment', {
+            default: 'control',
+          }),
+        ).toBe('variation');
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: 'variation',
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should return the right value if the flag is an object, and fire exposure event', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: {
+                boolean: true,
+                string: 'control',
+              },
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.experiment', {
+            default: {},
+          }),
+        ).toEqual({
+          boolean: true,
+          string: 'control',
+        });
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: {
+              boolean: true,
+              string: 'control',
+            },
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should not fire exposure event if shouldTrackExposureEvent is false', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: 'experiment',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.experiment', {
+            default: 'control',
+            shouldTrackExposureEvent: false,
+          }),
+        ).toBe('experiment');
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
+      });
+
+      test('should allow for extra attributes in the exposure event', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: 'experiment',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.experiment', {
+            default: 'control',
+            exposureData: {
+              permissions: 'read',
+              container: 'space',
+            },
+          }),
+        ).toBe('experiment');
+        expect(analyticsHandler).toHaveBeenCalledTimes(1);
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: 'experiment',
+            permissions: 'read',
+            container: 'space',
+          },
+          tags: ['measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+    });
+
+    describe('getFlagStats', () => {
+      test('should reset the stats for any flags that are reset through setFlags', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: 'experiment',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(client.getFlagStats()).toEqual({});
+
+        client.getVariantValue('my.experiment', {
+          default: 'control',
+          oneOf: ['control', 'experiment'],
+        });
+
+        expect(client.getFlagStats()).toEqual({
+          'my.experiment': {
+            evaluationCount: 1,
+          },
+        });
+
+        client.setFlags({
+          'my.experiment': {
+            value: 'control',
+            explanation: {
+              kind: 'RULE_MATCH',
+              ruleId: '111-bbbbb-ccc',
+            },
+          },
+        });
+
+        expect(client.getFlagStats()).toEqual({});
+      });
+
+      test('should reset the stats if all flags are cleared', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: 'experiment',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(client.getFlagStats()).toEqual({});
+
+        client.getVariantValue('my.experiment', {
+          default: 'control',
+          oneOf: ['control', 'experiment'],
+        });
+
+        expect(client.getFlagStats()).toEqual({
+          'my.experiment': {
+            evaluationCount: 1,
+          },
+        });
+
+        client.clear();
+
+        expect(client.getFlagStats()).toEqual({});
+      });
+
+      test('should return the expected evaluation count for valid flags', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: true,
+            },
+          },
+        });
+
+        const evaluationCount = 5;
+        for (let i = 0; i < evaluationCount; i++) {
+          client.getBooleanValue('my.experiment', {
+            default: false,
+          });
+        }
+
+        expect(client.getFlagStats()).toEqual({
+          'my.experiment': {
+            evaluationCount,
+          },
+        });
+      });
+
+      test('should return the expected evaluation count for missing flags', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        const evaluationCount = 5;
+        for (let i = 0; i < evaluationCount; i++) {
+          client.getBooleanValue('my.experiment', {
+            default: false,
+          });
+        }
+
+        expect(client.getFlagStats()).toEqual({
+          'my.experiment': {
+            evaluationCount,
+          },
+        });
       });
     });
   });

@@ -5,7 +5,6 @@ import { Product, ProviderResults } from '../../types';
 export function collectAdminLinks(
   managePermission: ProviderResults['managePermission'],
   addProductsPermission: ProviderResults['addProductsPermission'],
-  isDiscoverMoreForEveryoneEnabled: boolean,
   isEmceeLinkEnabled: boolean,
   product?: Product,
   isDiscoverSectionEnabled?: boolean,
@@ -19,7 +18,6 @@ export function collectAdminLinks(
     if (managePermission.data || addProductsPermission.data) {
       return getAdministrationLinks(
         managePermission.data,
-        isDiscoverMoreForEveryoneEnabled,
         isEmceeLinkEnabled,
         product,
         isDiscoverSectionEnabled,

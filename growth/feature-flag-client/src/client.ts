@@ -96,15 +96,15 @@ export default class FeatureFlagClient {
    *
    * @deprecated Since 4.2.0. Will be deleted in version 5.0. Please use getRawValue instead.
    */
-  getFlag(flagKey: string): FlagWrapper | null {
+  getFlag(flagKey: string): BasicFlag | null {
     const wrapper = this.getFlagWrapper(flagKey);
 
-    // This is added for backwards compatibility
-    if (wrapper instanceof MissingFlag) {
-      return null;
+    if (wrapper instanceof BasicFlag) {
+      return wrapper;
     }
 
-    return wrapper;
+    // This is added for backwards compatibility
+    return null;
   }
 
   /**
@@ -266,15 +266,13 @@ export default class FeatureFlagClient {
   };
 
   getFlagStats(): FlagStats {
-    return Object.entries(this.flagWrapperCache).reduce<FlagStats>(
-      (acc, [flagKey, wrapper]) => {
-        const { evaluationCount } = wrapper;
-        acc[flagKey] = {
-          evaluationCount,
-        };
-        return acc;
-      },
-      {},
-    );
+    const flagStats: FlagStats = {};
+    for (const [flagKey, wrapper] of this.flagWrapperCache) {
+      const { evaluationCount } = wrapper;
+      flagStats[flagKey] = {
+        evaluationCount,
+      };
+    }
+    return flagStats;
   }
 }

@@ -16,18 +16,25 @@ export default class MissingFlag implements FlagWrapper {
     errorKind: 'FLAG_NOT_FOUND' as ErrorKind,
   };
 
-  key: string;
+  flagKey: string;
   sendAutomaticExposure: AutomaticExposureHandler;
   evaluationCount: number;
 
-  constructor(key: string, sendAutomaticExposure: AutomaticExposureHandler) {
-    this.key = key;
+  constructor(
+    flagKey: string,
+    sendAutomaticExposure: AutomaticExposureHandler,
+  ) {
+    this.flagKey = flagKey;
     this.sendAutomaticExposure = sendAutomaticExposure;
     this.evaluationCount = 0;
   }
 
   private evaluate<T extends FlagValue>(defaultValue: T) {
-    this.sendAutomaticExposure(this.key, defaultValue, MissingFlag.explanation);
+    this.sendAutomaticExposure(
+      this.flagKey,
+      defaultValue,
+      MissingFlag.explanation,
+    );
     this.evaluationCount++;
     return defaultValue;
   }

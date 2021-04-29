@@ -94,7 +94,6 @@ class InlineDialogSwitcherExample extends React.Component {
             recommendationsFeatureFlags={{
               isProductStoreInTrelloEnabled: true,
             }}
-            isDiscoverMoreForEveryoneEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
             triggerXFlow={this.onTriggerXFlow}
             joinableSitesDataProvider={joinableSitesDataProvider}

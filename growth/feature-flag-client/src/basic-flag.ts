@@ -14,21 +14,29 @@ import {
  * This class contains the base logic for evaluating feature flags.
  */
 export default class BasicFlag implements FlagWrapper {
-  key: string;
+  flagKey: string;
   flag: FlagShape;
   type: FlagType;
+  /**
+   * @todo The value is only required for backwards compatibility, since
+   * the object returned from client.getFlag has always contained this field.
+   * This field can be deleted once client.getFlag has been removed from
+   * the public API
+   */
+  value: FlagValue;
   evaluationCount: number;
   trackExposure: TriggeredExposureHandler;
   sendAutomaticExposure: AutomaticExposureHandler;
 
   constructor(
-    key: string,
+    flagKey: string,
     flag: FlagShape,
     trackExposure: TriggeredExposureHandler,
     sendAutomaticExposure: AutomaticExposureHandler,
   ) {
-    this.key = key;
+    this.flagKey = flagKey;
     this.flag = flag;
+    this.value = flag.value;
     this.type = getFlagType(flag.value);
     this.evaluationCount = 0;
     this.trackExposure = trackExposure;
@@ -65,10 +73,10 @@ export default class BasicFlag implements FlagWrapper {
     // For backwards compability, we only fire the opt-in exposure event in valid evaluations.
     // The automatic exposures can fire in all scenarios including errors.
     if (shouldTrackExposureEvent) {
-      this.trackExposure(this.key, this.flag, exposureData);
+      this.trackExposure(this.flagKey, this.flag, exposureData);
     }
 
-    this.sendAutomaticExposure(this.key, value, explanation);
+    this.sendAutomaticExposure(this.flagKey, value, explanation);
 
     this.evaluationCount++;
     return value;

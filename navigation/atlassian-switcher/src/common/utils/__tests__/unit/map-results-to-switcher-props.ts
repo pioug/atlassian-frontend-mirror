@@ -22,7 +22,6 @@ import {
 const defaultFeatures = {
   disableCustomLinks: false,
   enableRecentContainers: true,
-  isDiscoverMoreForEveryoneEnabled: false,
   xflow: true,
   disableSwitchToHeading: false,
   isEmceeLinkEnabled: false,

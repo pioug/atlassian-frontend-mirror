@@ -32,11 +32,8 @@ const generateProvisionedProducts = (
 describe('cross-flow-links', () => {
   describe('fixed product links', () => {
     it('should have discover more button if enabled', () => {
-      const isDiscoverMoreForEveryoneEnabled = true;
       const expectedProducts = ['discover-more'];
-      const fixedLinks = getFixedProductLinks({
-        isDiscoverMoreForEveryoneEnabled,
-      });
+      const fixedLinks = getFixedProductLinks({});
       expect(fixedLinks.map(({ key }) => key)).toMatchObject(expectedProducts);
     });
   });
@@ -194,7 +191,6 @@ describe('cross-flow-links', () => {
     const mockClickHandler = jest.fn();
     it('should return git tools link', () => {
       const result = getDiscoverSectionLinks({
-        isDiscoverMoreForEveryoneEnabled: true,
         isEmceeLinkEnabled: true,
         product: Product.BITBUCKET,
         canManagePermission: true,
@@ -211,7 +207,6 @@ describe('cross-flow-links', () => {
 
     it('should not return git tools link', () => {
       const result = getDiscoverSectionLinks({
-        isDiscoverMoreForEveryoneEnabled: true,
         isEmceeLinkEnabled: true,
         product: Product.BITBUCKET,
         canManagePermission: true,
@@ -227,7 +222,6 @@ describe('cross-flow-links', () => {
     });
     it('should have a different label for `discover-more` link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({
-        isDiscoverMoreForEveryoneEnabled: true,
         isSlackDiscoveryEnabled: true,
         slackDiscoveryClickHandler: mockClickHandler,
         isEmceeLinkEnabled: true,
@@ -245,7 +239,6 @@ describe('cross-flow-links', () => {
     });
     it('should return slack integration link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({
-        isDiscoverMoreForEveryoneEnabled: true,
         isSlackDiscoveryEnabled: true,
         slackDiscoveryClickHandler: mockClickHandler,
         product: Product.CONFLUENCE,

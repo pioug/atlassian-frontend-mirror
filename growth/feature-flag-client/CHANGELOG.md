@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.2.1
+
+### Patch Changes
+
+- [`1eb2ab20e1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1eb2ab20e1c) - Fix a bug which caused the value property to be removed from the object returned from getFlag
+
 ## 4.2.0
 
 ### Minor Changes

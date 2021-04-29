@@ -61,7 +61,6 @@ class InlineDialogSwitcherExample extends Component {
             product="jira"
             disableCustomLinks
             disableSwitchToHeading
-            isDiscoverMoreForEveryoneEnabled
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}
             appearance="standalone"

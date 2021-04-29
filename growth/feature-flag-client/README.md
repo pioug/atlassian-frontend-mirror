@@ -65,7 +65,13 @@ client.getVariantValue('my.experiment', {
   oneOf: ['control', 'variant-a'],
 }); // > control
 
+// flag set, returns real value
 client.getJSONFlag('my.json.flag'); // > { nav: 'blue', footer: 'black' }
+
+// flag set, returns real value
+client.getRawValue('my.delimited.flag', {
+  default: 'dashboard,issue-view,classic-board',
+}); // > dashboard,issue-view,classic-board,next-gen-board
 ```
 
 ### Setting flags asynchronously?
@@ -152,3 +158,20 @@ client.trackExposure(
   },
 );
 ```
+
+### Viewing flag stats
+
+The `getFlagStats` method can be called to collate some information about client usage. This method returns an object that maps each flag key to an object describing how it has been accessed.
+
+The only statistic that is currently returned for each flag is an `evaluationCount`, which indicates how many times the flag has been evaluated through any of the retrieval methods.
+
+```
+client.getVariantValue('my.experiment', {
+  default: 'control',
+  oneOf: ['control', 'experiment'],
+});
+
+client.getFlagStats(); // { 'my.experiment' : { evaluationCount: 1 }}
+```
+
+If you reset some flags using `setFlags` or `clear`, the stats collected for these flags will also be reset.

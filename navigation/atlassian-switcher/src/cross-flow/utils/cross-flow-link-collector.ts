@@ -49,9 +49,6 @@ export function collectSuggestedLinks(
   productRecommendations: ProviderResults['productRecommendations'],
   isXFlowEnabled: ProviderResults['isXFlowEnabled'],
   joinableSites: ProviderResults['joinableSites'],
-  features: {
-    isDiscoverSectionEnabled?: boolean;
-  },
 ) {
   if (isError(isXFlowEnabled) || isError(provisionedProducts)) {
     return [];
@@ -67,7 +64,6 @@ export function collectSuggestedLinks(
           provisionedProducts.data,
           productRecommendations.data,
           joinableSites.data.sites,
-          features,
         )
       : [];
   }

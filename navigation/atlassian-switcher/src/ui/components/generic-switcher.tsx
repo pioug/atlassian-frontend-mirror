@@ -54,6 +54,8 @@ export default (props: GenericSwitcherProps) => (
                 props.cloudId,
                 { ...providerResults, availableProducts, joinableSites },
                 props.features,
+                props.onDiscoverMoreClicked,
+                props.triggerXFlow,
                 props.product,
                 props.adminUrl,
                 undefined,

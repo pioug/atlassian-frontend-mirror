@@ -31,6 +31,7 @@ type JiraSwitcherProps = WithTheme &
     features: FeatureMap;
     triggerXFlow: TriggerXFlowCallback;
     onDiscoverMoreClicked: DiscoverMoreCallback;
+    isDiscoverMoreClickable: boolean;
     joinableSitesDataProvider?: JoinableSitesDataProvider;
     availableProductsDataProvider?: AvailableProductsDataProvider;
     slackDiscoveryClickHandler?: DiscoverMoreCallback;
@@ -54,8 +55,6 @@ export default (props: JiraSwitcherProps) => (
                 cloudId={props.cloudId}
                 enableRecentContainers={props.features.enableRecentContainers}
                 recommendationsFeatureFlags={{
-                  isDiscoverSectionEnabled:
-                    props.features.isDiscoverSectionEnabled,
                   ...props.recommendationsFeatureFlags,
                 }}
               >
@@ -72,6 +71,8 @@ export default (props: JiraSwitcherProps) => (
                       customLinks,
                     },
                     props.features,
+                    props.onDiscoverMoreClicked,
+                    props.triggerXFlow,
                     Product.JIRA,
                     undefined,
                     props.recommendationsFeatureFlags,

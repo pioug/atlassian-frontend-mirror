@@ -49,9 +49,5 @@ export function resolveRecommendations(
     return productStoreInTrelloRecommendation();
   }
 
-  if (featureFlags.isDiscoverSectionEnabled) {
-    return productStoreRecommendation();
-  }
-
-  return baseRecommendation();
+  return productStoreRecommendation();
 }

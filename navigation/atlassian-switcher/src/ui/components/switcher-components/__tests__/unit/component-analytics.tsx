@@ -126,6 +126,8 @@ const DefaultAtlassianSwitcher = (props: any = {}) => {
           {...props}
           rawProviderResults={rawProviderResults}
           enableRecentContainers={false}
+          onDiscoverMoreClicked={() => 'onDiscoverMoreClicked'}
+          isDiscoverMoreClickable={true}
         />
       </AnalyticsListener>
     </IntlProvider>
@@ -1010,7 +1012,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemType: 'product',
           itemId: null,
           itemsCount: 5,
-          groupItemsCount: 3,
+          groupItemsCount: 2,
         },
       },
       {
@@ -1019,18 +1021,9 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemType: 'product',
           itemId: null,
           itemsCount: 5,
-          groupItemsCount: 3,
+          groupItemsCount: 2,
         },
         subject: 'atlassianSwitcherItemExpand',
-      },
-      {
-        name: 'for suggestedProductLinks',
-        data: {
-          itemType: 'try',
-          itemId: 'confluence.ondemand',
-          itemsCount: 5,
-          groupItemsCount: 3,
-        },
       },
       {
         name: 'for adminLinks',
@@ -1038,7 +1031,17 @@ describe('Atlassian Switcher - Component Analytics', () => {
           itemType: 'admin',
           itemId: 'discover-more',
           itemsCount: 5,
-          groupItemsCount: 3,
+          groupItemsCount: 2,
+        },
+      },
+      {
+        name: 'for suggestedProductLinks',
+        data: {
+          group: 'discover',
+          itemType: 'try',
+          itemId: 'confluence.ondemand',
+          itemsCount: 5,
+          groupItemsCount: 1,
         },
       },
       {
@@ -1089,7 +1092,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
       itemType: 'product',
       itemId: null,
       itemsCount: 5,
-      groupItemsCount: 3,
+      groupItemsCount: 2,
       productType: SwitcherProductType.JIRA_BUSINESS,
     };
 

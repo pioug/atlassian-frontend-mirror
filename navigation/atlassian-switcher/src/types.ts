@@ -79,8 +79,6 @@ export enum Feature {
   xflow = 'xflow',
   // EMCEE stands for Embedded Marketplace with in the product
   isEmceeLinkEnabled = 'isEmceeLinkEnabled',
-  // Enable Discover section - group suggested product links in Discover section
-  isDiscoverSectionEnabled = 'isDiscoverSectionEnabled',
   // Show JSW first in product recommendations
   isProductStoreInTrelloJSWFirstEnabled = 'isProductStoreInTrelloJSWFirstEnabled',
   // Show Confluence first in product recommendations
@@ -98,8 +96,6 @@ export type FeatureFlagProps = {
   disableSwitchToHeading?: boolean;
   /** Enable Embedded Marketplace within the product.  */
   isEmceeLinkEnabled?: boolean;
-  /** Enable Discover section - group suggested product links in Discover section */
-  isDiscoverSectionEnabled?: boolean;
   /** Enable Integrations discovery in the discover more section  */
   isSlackDiscoveryEnabled?: boolean;
 };

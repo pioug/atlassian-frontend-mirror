@@ -74,7 +74,6 @@ export type SwitcherProps = {
    * Links for experimental "Discover" section
    * which is a variation of suggestedProductLinks and fixedLinks combined
    */
-  isDiscoverSectionEnabled?: boolean;
   discoverSectionLinks: SwitcherItemType[];
   onJoinableSiteClicked?: JoinableSiteClickHandler;
   defaultSignupEmail?: string;
@@ -84,6 +83,7 @@ export type SwitcherProps = {
   features: FeatureMap;
   slackDiscoveryClickHandler?: DiscoverMoreCallback;
   getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
+  isDiscoverMoreClickable: boolean;
 };
 
 const getAnalyticsContext = (itemsCount: number) => ({
@@ -142,7 +142,6 @@ export default class Switcher extends React.Component<SwitcherProps> {
       hasLoadedInstanceProviders,
       disableSwitchToHeading,
       appearance,
-      isDiscoverSectionEnabled,
       discoverSectionLinks,
       renderAddOn,
       rawProviderResults,
@@ -153,6 +152,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
       slackDiscoveryClickHandler,
       getExtendedAnalyticsAttributes,
       product,
+      isDiscoverMoreClickable,
     } = this.props;
     /**
      * It is essential that switchToLinks reflects the order corresponding nav items
@@ -241,6 +241,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 rawProviderResults.isXFlowEnabled,
                 rawProviderResults.provisionedProducts,
                 suggestedProductLinks,
+                isDiscoverMoreClickable,
                 { duration: this.timeSinceMounted() },
               )}
               {getDiscoverMoreRenderTracker(
@@ -251,6 +252,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
                     item.key === DiscoverLinkItemKeys.DISCOVER_MORE ||
                     item.key === DiscoverLinkItemKeys.GIT_TOOLS,
                 ),
+                isDiscoverMoreClickable,
                 { duration: this.timeSinceMounted() },
               )}
             </React.Fragment>
@@ -289,7 +291,6 @@ export default class Switcher extends React.Component<SwitcherProps> {
               appearance={appearance}
               disableHeading={disableSwitchToHeading}
               fixedLinks={fixedLinks}
-              isDiscoverSectionEnabled={isDiscoverSectionEnabled}
               licensedProductLinks={licensedProductLinks}
               onDiscoverMoreClicked={this.props.onDiscoverMoreClicked}
               showStartLink={this.props.showStartLink}
@@ -312,7 +313,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
               onClose={onClose}
               rawProviderResults={rawProviderResults}
             />
-            {isDiscoverSectionEnabled && (
+            {isDiscoverMoreClickable && (
               <CrossFlowSection
                 appearance={appearance}
                 onDiscoverMoreClicked={this.onDiscoverMoreClicked}

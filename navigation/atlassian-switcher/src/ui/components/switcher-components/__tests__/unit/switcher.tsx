@@ -108,6 +108,7 @@ describe('Switcher', () => {
           rawProviderResults={providerResults}
           features={{} as FeatureMap}
           getExtendedAnalyticsAttributes={() => ({})}
+          isDiscoverMoreClickable={true}
         />,
       ),
     ).toMatchSnapshot();
@@ -134,6 +135,7 @@ describe('Switcher', () => {
           rawProviderResults={providerResults}
           features={{} as FeatureMap}
           getExtendedAnalyticsAttributes={() => ({})}
+          isDiscoverMoreClickable={true}
         />,
       ),
     ).toMatchSnapshot();
@@ -160,6 +162,7 @@ describe('Switcher', () => {
           rawProviderResults={providerResults}
           features={{} as FeatureMap}
           getExtendedAnalyticsAttributes={() => ({})}
+          isDiscoverMoreClickable={true}
         />,
       ),
     ).toMatchSnapshot();
@@ -196,6 +199,7 @@ describe('Switcher', () => {
             rawProviderResults={providerResults}
             features={{} as FeatureMap}
             getExtendedAnalyticsAttributes={() => ({})}
+            isDiscoverMoreClickable={true}
           />
         </IntlProvider>,
       );
@@ -233,6 +237,7 @@ describe('Switcher', () => {
             rawProviderResults={providerResults}
             features={{} as FeatureMap}
             getExtendedAnalyticsAttributes={() => ({})}
+            isDiscoverMoreClickable={true}
           />
         </IntlProvider>,
       );

@@ -36,6 +36,7 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
     hasLoaded={true}
     hasLoadedCritical={true}
     hasLoadedInstanceProviders={true}
+    isDiscoverMoreClickable={true}
     joinableSiteLinks={Array []}
     licensedProductLinks={Array []}
     onDiscoverMoreClicked={[Function]}
@@ -295,7 +296,7 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
                           Object {
                             "attributes": Object {
                               "group": "switchTo",
-                              "groupItemsCount": 2,
+                              "groupItemsCount": 1,
                             },
                           }
                         }
@@ -306,7 +307,7 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
                               "navigationCtx": Object {
                                 "attributes": Object {
                                   "group": "switchTo",
-                                  "groupItemsCount": 2,
+                                  "groupItemsCount": 1,
                                 },
                               },
                             }
@@ -477,6 +478,117 @@ exports[`Switcher Non-Core ErrorBoundary should not render when there is no erro
                             </NavigationAnalyticsContext>
                           </Component>
                         </CrossJoinSection>
+                        <CrossFlowSection
+                          appearance="drawer"
+                          discoverSectionLinks={Array []}
+                          onDiscoverMoreClicked={[Function]}
+                          rawProviderResults={
+                            Object {
+                              "addProductsPermission": Object {
+                                "data": false,
+                                "status": "complete",
+                              },
+                              "availableProducts": Object {
+                                "data": Object {
+                                  "isPartial": false,
+                                  "sites": Array [],
+                                },
+                                "status": "complete",
+                              },
+                              "collaborationGraphRecentContainers": Object {
+                                "data": Object {
+                                  "collaborationGraphEntities": Array [],
+                                },
+                                "status": "complete",
+                              },
+                              "customLinks": Object {
+                                "data": Array [],
+                                "status": "complete",
+                              },
+                              "isXFlowEnabled": Object {
+                                "data": false,
+                                "status": "complete",
+                              },
+                              "joinableSites": Object {
+                                "data": Object {
+                                  "sites": Array [],
+                                },
+                                "status": "complete",
+                              },
+                              "managePermission": Object {
+                                "data": false,
+                                "status": "complete",
+                              },
+                              "productRecommendations": Object {
+                                "data": Array [],
+                                "status": "complete",
+                              },
+                              "provisionedProducts": Object {
+                                "data": Object {},
+                                "status": "complete",
+                              },
+                              "userSiteData": Object {
+                                "data": Object {
+                                  "currentSite": Object {
+                                    "products": Array [],
+                                    "url": "",
+                                  },
+                                },
+                                "status": "complete",
+                              },
+                            }
+                          }
+                          suggestedProductLinks={Array []}
+                          triggerXFlow={[Function]}
+                        >
+                          <Component
+                            appearance="drawer"
+                            sectionId="discover"
+                            title={
+                              <_default
+                                defaultMessage="Discover"
+                                description="The header of \\"Discover\\" section"
+                                id="fabric.atlassianSwitcher.discover"
+                              />
+                            }
+                          >
+                            <NavigationAnalyticsContext
+                              data={
+                                Object {
+                                  "attributes": Object {
+                                    "group": "discover",
+                                    "groupItemsCount": 1,
+                                  },
+                                }
+                              }
+                            >
+                              <AnalyticsContext
+                                data={
+                                  Object {
+                                    "navigationCtx": Object {
+                                      "attributes": Object {
+                                        "group": "discover",
+                                        "groupItemsCount": 1,
+                                      },
+                                    },
+                                  }
+                                }
+                              >
+                                <Section
+                                  appearance="drawer"
+                                  sectionId="discover"
+                                  title={
+                                    <_default
+                                      defaultMessage="Discover"
+                                      description="The header of \\"Discover\\" section"
+                                      id="fabric.atlassianSwitcher.discover"
+                                    />
+                                  }
+                                />
+                              </AnalyticsContext>
+                            </NavigationAnalyticsContext>
+                          </Component>
+                        </CrossFlowSection>
                         <RecentSection
                           appearance="drawer"
                           recentLinks={Array []}
@@ -596,6 +708,7 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
     hasLoaded={true}
     hasLoadedCritical={true}
     hasLoadedInstanceProviders={true}
+    isDiscoverMoreClickable={true}
     joinableSiteLinks={Array []}
     licensedProductLinks={Array []}
     onDiscoverMoreClicked={[Function]}
@@ -855,7 +968,7 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
                           Object {
                             "attributes": Object {
                               "group": "switchTo",
-                              "groupItemsCount": 2,
+                              "groupItemsCount": 1,
                             },
                           }
                         }
@@ -866,7 +979,7 @@ exports[`Switcher Non-Core ErrorBoundary should render when there is an error in
                               "navigationCtx": Object {
                                 "attributes": Object {
                                   "group": "switchTo",
-                                  "groupItemsCount": 2,
+                                  "groupItemsCount": 1,
                                 },
                               },
                             }
@@ -1089,6 +1202,69 @@ exports[`Switcher should be able to disable switch to section header with "disab
           }
         }
       />
+      <CrossFlowSection
+        appearance="drawer"
+        discoverSectionLinks={Array []}
+        onDiscoverMoreClicked={[Function]}
+        rawProviderResults={
+          Object {
+            "addProductsPermission": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "availableProducts": Object {
+              "data": Object {
+                "isPartial": false,
+                "sites": Array [],
+              },
+              "status": "complete",
+            },
+            "collaborationGraphRecentContainers": Object {
+              "data": Object {
+                "collaborationGraphEntities": Array [],
+              },
+              "status": "complete",
+            },
+            "customLinks": Object {
+              "data": Array [],
+              "status": "complete",
+            },
+            "isXFlowEnabled": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "joinableSites": Object {
+              "data": Object {
+                "sites": Array [],
+              },
+              "status": "complete",
+            },
+            "managePermission": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "productRecommendations": Object {
+              "data": Array [],
+              "status": "complete",
+            },
+            "provisionedProducts": Object {
+              "data": Object {},
+              "status": "complete",
+            },
+            "userSiteData": Object {
+              "data": Object {
+                "currentSite": Object {
+                  "products": Array [],
+                  "url": "",
+                },
+              },
+              "status": "complete",
+            },
+          }
+        }
+        suggestedProductLinks={Array []}
+        triggerXFlow={[Function]}
+      />
       <RecentSection
         appearance="drawer"
         recentLinks={Array []}
@@ -1252,6 +1428,82 @@ exports[`Switcher should render discover more section 1`] = `
           }
         }
       />
+      <CrossFlowSection
+        appearance="drawer"
+        discoverSectionLinks={
+          Array [
+            Object {
+              "Icon": [Function],
+              "href": "",
+              "key": "discover-more",
+              "label": <_default
+                defaultMessage="More Atlassian products"
+                description="The text of a link redirecting the user to Discover More Atlassian products"
+                id="fabric.atlassianSwitcher.moreAtlassianProducts"
+              />,
+            },
+          ]
+        }
+        onDiscoverMoreClicked={[Function]}
+        rawProviderResults={
+          Object {
+            "addProductsPermission": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "availableProducts": Object {
+              "data": Object {
+                "isPartial": false,
+                "sites": Array [],
+              },
+              "status": "complete",
+            },
+            "collaborationGraphRecentContainers": Object {
+              "data": Object {
+                "collaborationGraphEntities": Array [],
+              },
+              "status": "complete",
+            },
+            "customLinks": Object {
+              "data": Array [],
+              "status": "complete",
+            },
+            "isXFlowEnabled": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "joinableSites": Object {
+              "data": Object {
+                "sites": Array [],
+              },
+              "status": "complete",
+            },
+            "managePermission": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "productRecommendations": Object {
+              "data": Array [],
+              "status": "complete",
+            },
+            "provisionedProducts": Object {
+              "data": Object {},
+              "status": "complete",
+            },
+            "userSiteData": Object {
+              "data": Object {
+                "currentSite": Object {
+                  "products": Array [],
+                  "url": "",
+                },
+              },
+              "status": "complete",
+            },
+          }
+        }
+        suggestedProductLinks={Array []}
+        triggerXFlow={[Function]}
+      />
       <RecentSection
         appearance="drawer"
         recentLinks={Array []}
@@ -1411,6 +1663,69 @@ exports[`Switcher should render sections with headers by default 1`] = `
             },
           }
         }
+      />
+      <CrossFlowSection
+        appearance="drawer"
+        discoverSectionLinks={Array []}
+        onDiscoverMoreClicked={[Function]}
+        rawProviderResults={
+          Object {
+            "addProductsPermission": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "availableProducts": Object {
+              "data": Object {
+                "isPartial": false,
+                "sites": Array [],
+              },
+              "status": "complete",
+            },
+            "collaborationGraphRecentContainers": Object {
+              "data": Object {
+                "collaborationGraphEntities": Array [],
+              },
+              "status": "complete",
+            },
+            "customLinks": Object {
+              "data": Array [],
+              "status": "complete",
+            },
+            "isXFlowEnabled": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "joinableSites": Object {
+              "data": Object {
+                "sites": Array [],
+              },
+              "status": "complete",
+            },
+            "managePermission": Object {
+              "data": false,
+              "status": "complete",
+            },
+            "productRecommendations": Object {
+              "data": Array [],
+              "status": "complete",
+            },
+            "provisionedProducts": Object {
+              "data": Object {},
+              "status": "complete",
+            },
+            "userSiteData": Object {
+              "data": Object {
+                "currentSite": Object {
+                  "products": Array [],
+                  "url": "",
+                },
+              },
+              "status": "complete",
+            },
+          }
+        }
+        suggestedProductLinks={Array []}
+        triggerXFlow={[Function]}
       />
       <RecentSection
         appearance="drawer"

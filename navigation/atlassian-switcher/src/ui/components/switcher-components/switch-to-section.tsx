@@ -22,7 +22,6 @@ import {
   TriggerXFlowCallback,
 } from '../../../types';
 import { AdminSubsection } from '../../../admin/components/admin-subsection';
-import { CrossFlowSubsection } from '../../../cross-flow/components/cross-flow-subsection';
 
 const noop = () => void 0;
 
@@ -33,7 +32,6 @@ type SwitchToSectionProps = {
   showStartLink?: boolean;
   showNewHeading?: boolean;
   fixedLinks: SwitcherItemType[];
-  isDiscoverSectionEnabled?: boolean;
   licensedProductLinks: SwitcherItemType[];
   onDiscoverMoreClicked: DiscoverMoreCallback;
   suggestedProductLinks: SwitcherItemType[];
@@ -55,7 +53,6 @@ export const SwitchToSection = ({
   showNewHeading,
   disableHeading,
   fixedLinks,
-  isDiscoverSectionEnabled,
   licensedProductLinks,
   onDiscoverMoreClicked,
   suggestedProductLinks,
@@ -100,13 +97,6 @@ export const SwitchToSection = ({
           </SwitcherItemWithDropdown>
         </NavigationAnalyticsContext>
       )),
-      !isDiscoverSectionEnabled && suggestedProductLinks.length > 0 && (
-        <CrossFlowSubsection
-          key="xflow-item"
-          suggestedProductLinks={suggestedProductLinks}
-          triggerXFlow={triggerXFlow}
-        />
-      ),
       fixedLinks.map((item, groupIndex) => (
         <NavigationAnalyticsContext
           key={item.key}

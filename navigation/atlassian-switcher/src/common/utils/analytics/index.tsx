@@ -263,8 +263,12 @@ export const getRecommendedProductsRenderTracker = (
   xflowProviderResult: ProviderResults['isXFlowEnabled'],
   provisionedProductsProviderResult: SyntheticProviderResults['provisionedProducts'],
   suggestedProductLinks: SwitcherItemType[],
+  isDiscoverMoreClickable: boolean,
   data?: object,
 ) => {
+  if (!isDiscoverMoreClickable) {
+    return null;
+  }
   // The render is only considered failed when one of the providers failed, and empty render is a valid case
   const providerFailed =
     xflowProviderResult.data === null ||
@@ -283,8 +287,12 @@ export const getDiscoverMoreRenderTracker = (
   addProductsPermissionProviderResult: ProviderResults['addProductsPermission'],
   managePermissionProviderResult: ProviderResults['managePermission'],
   discoverMoreLink: SwitcherItemType[],
+  isDiscoverMoreClickable: boolean,
   data?: object,
 ) => {
+  if (!isDiscoverMoreClickable) {
+    return null;
+  }
   const providerFailed =
     addProductsPermissionProviderResult.data === null ||
     managePermissionProviderResult.data === null;

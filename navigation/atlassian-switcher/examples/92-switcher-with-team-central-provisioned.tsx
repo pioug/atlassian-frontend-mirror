@@ -69,7 +69,6 @@ class TeamCentralSwitcherExample extends React.Component {
           <AtlassianSwitcher
             product="jira"
             triggerXFlow={this.onTriggerXFlow}
-            isDiscoverSectionEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />
         </Drawer>

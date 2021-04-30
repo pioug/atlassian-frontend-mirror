@@ -63,11 +63,7 @@ describe('recommendations-provider-recommendations', () => {
   });
 
   it('should return product store recommendations if feature flag is matched', () => {
-    expect(
-      resolveRecommendations({
-        isDiscoverSectionEnabled: true,
-      }),
-    ).toEqual([
+    expect(resolveRecommendations({})).toEqual([
       { productKey: ProductKey.JIRA_SOFTWARE },
       { productKey: ProductKey.CONFLUENCE },
       { productKey: ProductKey.JIRA_SERVICE_DESK },

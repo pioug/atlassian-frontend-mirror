@@ -21,12 +21,12 @@ import {
   CustomizeLinks,
   MapUrl,
   GetExtendedAnalyticsAttributes,
+  TriggerXFlowCallback,
 } from '../../types';
 import { createCollector } from './create-collector';
 import { collectAdminLinks } from '../../admin/utils/admin-link-collector';
 import {
   collectDiscoverSectionLinks,
-  collectFixedProductLinks,
   collectSuggestedLinks,
 } from '../../cross-flow/utils/cross-flow-link-collector';
 import { collectJoinableSiteLinks } from '../../cross-join/utils/cross-join-link-collector';
@@ -34,6 +34,7 @@ import {
   UserSiteDataErrorReason,
   UserSiteDataError,
 } from './errors/user-site-data-error';
+import { getIsDiscoverMoreClickable } from './get-is-discover-more-clickable';
 
 function collectAvailableProductLinks(
   cloudId: string | null | undefined,
@@ -188,6 +189,8 @@ export function mapResultsToSwitcherProps(
   cloudId: string | null | undefined,
   results: ProviderResults,
   features: FeatureMap,
+  onDiscoverMoreClicked: DiscoverMoreCallback,
+  triggerXFlow: TriggerXFlowCallback,
   product?: Product,
   adminUrl?: string,
   recommendationsFeatureFlags?: RecommendationsFeatureFlags,
@@ -226,8 +229,14 @@ export function mapResultsToSwitcherProps(
   const hasLoadedSuggestedProducts = features.xflow
     ? hasLoaded(productRecommendations) && hasLoaded(isXFlowEnabled)
     : true;
+
+  const isDiscoverMoreClickable = getIsDiscoverMoreClickable(
+    onDiscoverMoreClicked,
+    triggerXFlow,
+  );
+
   const hasLoadedDiscoverSection =
-    features.isDiscoverSectionEnabled &&
+    isDiscoverMoreClickable &&
     hasLoadedAvailableProducts &&
     hasLoadedSuggestedProducts &&
     hasLoadedAdminLinks;
@@ -260,25 +269,13 @@ export function mapResultsToSwitcherProps(
             productRecommendations,
             isXFlowEnabled,
             joinableSites,
-            {
-              isDiscoverSectionEnabled: features.isDiscoverSectionEnabled,
-            },
           ),
           [],
         )
       : [],
-    fixedLinks: !features.isDiscoverSectionEnabled
-      ? collect(collectFixedProductLinks(), [])
-      : [],
+    fixedLinks: [],
     adminLinks: collect(
-      collectAdminLinks(
-        managePermission,
-        addProductsPermission,
-        features.isEmceeLinkEnabled,
-        product,
-        features.isDiscoverSectionEnabled,
-        adminUrl,
-      ),
+      collectAdminLinks(managePermission, addProductsPermission, adminUrl),
       [],
     ),
     joinableSiteLinks: collect(collectJoinableSiteLinks(joinableSites), []),
@@ -330,5 +327,6 @@ export function mapResultsToSwitcherProps(
       provisionedProducts,
     },
     features,
+    isDiscoverMoreClickable,
   };
 }

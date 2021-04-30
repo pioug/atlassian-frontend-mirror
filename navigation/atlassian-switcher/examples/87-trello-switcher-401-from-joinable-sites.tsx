@@ -103,7 +103,6 @@ class InlineDialogSwitcherExample extends React.Component {
             disableCustomLinks
             appearance="standalone"
             theme={trelloTheme}
-            isDiscoverSectionEnabled
             recommendationsFeatureFlags={{
               isProductStoreInTrelloEnabled: true,
             }}

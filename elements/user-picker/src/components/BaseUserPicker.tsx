@@ -503,7 +503,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         loadingMessage={loadingMessage}
         menuPlacement="auto"
         placeholder={
-          placeholder || <FormattedMessage {...messages.placeholder} />
+          placeholder ?? <FormattedMessage {...messages.placeholder} />
         }
         addMoreMessage={addMoreMessage}
         classNamePrefix="fabric-user-picker"

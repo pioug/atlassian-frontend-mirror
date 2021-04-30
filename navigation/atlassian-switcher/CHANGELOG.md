@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-switcher
 
+## 12.0.0
+
+### Major Changes
+
+- [`7ba3f857e0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba3f857e0f) - remove isDiscoverSectionEnabled feature flag and default it to true
+
+## 11.1.0
+
+### Minor Changes
+
+- [`ec18c3db11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec18c3db11f) - render discover only if onDiscoverMoreClicked and triggerXFlow are available
+
 ## 11.0.0
 
 ### Major Changes

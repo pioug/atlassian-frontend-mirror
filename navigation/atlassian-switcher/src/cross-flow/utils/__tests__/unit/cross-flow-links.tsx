@@ -47,7 +47,7 @@ describe('cross-flow-links', () => {
         suggestedProducts,
         [],
       );
-      expect(result).toHaveLength(2);
+      expect(result).toHaveLength(3);
       expect(result[0]).toHaveProperty('key', ProductKey.JIRA_SOFTWARE);
       expect(result[1]).toHaveProperty('key', ProductKey.CONFLUENCE);
     });
@@ -60,7 +60,7 @@ describe('cross-flow-links', () => {
         suggestedProducts,
         [],
       );
-      expect(result).toHaveLength(2);
+      expect(result).toHaveLength(3);
       expect(result[0]).toHaveProperty('key', ProductKey.JIRA_SOFTWARE);
       expect(result[1]).toHaveProperty('key', ProductKey.JIRA_SERVICE_DESK);
     });
@@ -73,7 +73,7 @@ describe('cross-flow-links', () => {
         suggestedProducts,
         [],
       );
-      expect(result).toHaveLength(2);
+      expect(result).toHaveLength(3);
       expect(result[0]).toHaveProperty('key', ProductKey.CONFLUENCE);
       expect(result[1]).toHaveProperty('key', ProductKey.JIRA_SERVICE_DESK);
     });
@@ -177,9 +177,6 @@ describe('cross-flow-links', () => {
         provisionedProducts,
         suggestedProducts,
         [],
-        {
-          isDiscoverSectionEnabled: true, // to return more than 2 products
-        },
       );
       expect(
         result.filter(product => product.key === ProductKey.OPSGENIE),

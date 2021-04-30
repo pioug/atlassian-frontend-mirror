@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.9.3
+
+### Patch Changes
+
+- [`40dc90330e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40dc90330e4) - UR-2530 accept empty placeholder values
+
 ## 7.9.2
 
 ### Patch Changes

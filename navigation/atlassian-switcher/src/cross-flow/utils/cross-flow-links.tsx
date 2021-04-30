@@ -124,9 +124,6 @@ export const getSuggestedProductLink = (
   provisionedProducts: ProvisionedProducts,
   productRecommendations: RecommendationsEngineResponse,
   joinableSites: JoinableSite[],
-  features?: {
-    isDiscoverSectionEnabled?: boolean;
-  },
 ): SwitcherItemType[] => {
   const collectedJoinableSites = Object.keys(
     collectJoinableSites(joinableSites),
@@ -155,15 +152,9 @@ export const getSuggestedProductLink = (
         ...AVAILABLE_PRODUCT_DATA_MAP[switcherProductKey],
       };
     })
-    .slice(
-      0,
-      features?.isDiscoverSectionEnabled
-        ? DISCOVER_PRODUCT_RECOMMENDATION_LIMIT
-        : PRODUCT_RECOMMENDATION_LIMIT,
-    );
+    .slice(0, DISCOVER_PRODUCT_RECOMMENDATION_LIMIT);
 };
 
-const PRODUCT_RECOMMENDATION_LIMIT = 2;
 const DISCOVER_PRODUCT_RECOMMENDATION_LIMIT = 3;
 
 const collectJoinableSites = (joinableSites: JoinableSite[]) =>

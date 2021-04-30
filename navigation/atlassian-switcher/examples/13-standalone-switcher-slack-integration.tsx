@@ -72,7 +72,6 @@ class InlineDialogSwitcherExample extends Component {
             product="jira"
             disableCustomLinks
             disableSwitchToHeading
-            isDiscoverSectionEnabled
             isSlackDiscoveryEnabled
             slackDiscoveryClickHandler={this.openModal}
             onDiscoverMoreClicked={() => {}}

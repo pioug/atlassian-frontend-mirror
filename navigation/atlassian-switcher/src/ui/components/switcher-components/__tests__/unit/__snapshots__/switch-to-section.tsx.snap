@@ -199,7 +199,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
         ]
       }
       getExtendedAnalyticsAttributes={[Function]}
-      isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={false}
@@ -223,7 +222,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
             Object {
               "attributes": Object {
                 "group": "switchTo",
-                "groupItemsCount": 3,
+                "groupItemsCount": 2,
               },
             }
           }
@@ -234,7 +233,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                 "navigationCtx": Object {
                   "attributes": Object {
                     "group": "switchTo",
-                    "groupItemsCount": 3,
+                    "groupItemsCount": 2,
                   },
                 },
               }
@@ -909,7 +908,6 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
         ]
       }
       getExtendedAnalyticsAttributes={[Function]}
-      isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={true}
@@ -945,7 +943,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
             Object {
               "attributes": Object {
                 "group": "switchTo",
-                "groupItemsCount": 3,
+                "groupItemsCount": 2,
               },
             }
           }
@@ -956,7 +954,7 @@ exports[`SwitchToSection when disableSwitchToHeading is false should render with
                 "navigationCtx": Object {
                   "attributes": Object {
                     "group": "switchTo",
-                    "groupItemsCount": 3,
+                    "groupItemsCount": 2,
                   },
                 },
               }
@@ -1731,7 +1729,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
         ]
       }
       getExtendedAnalyticsAttributes={[Function]}
-      isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={false}
@@ -1749,7 +1746,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
             Object {
               "attributes": Object {
                 "group": "switchTo",
-                "groupItemsCount": 3,
+                "groupItemsCount": 2,
               },
             }
           }
@@ -1760,7 +1757,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                 "navigationCtx": Object {
                   "attributes": Object {
                     "group": "switchTo",
-                    "groupItemsCount": 3,
+                    "groupItemsCount": 2,
                   },
                 },
               }
@@ -2381,7 +2378,6 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
         ]
       }
       getExtendedAnalyticsAttributes={[Function]}
-      isDiscoverSectionEnabled={true}
       licensedProductLinks={Array []}
       onDiscoverMoreClicked={[MockFunction]}
       showNewHeading={true}
@@ -2411,7 +2407,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
             Object {
               "attributes": Object {
                 "group": "switchTo",
-                "groupItemsCount": 3,
+                "groupItemsCount": 2,
               },
             }
           }
@@ -2422,7 +2418,7 @@ exports[`SwitchToSection when disableSwitchToHeading is true should render with 
                 "navigationCtx": Object {
                   "attributes": Object {
                     "group": "switchTo",
-                    "groupItemsCount": 3,
+                    "groupItemsCount": 2,
                   },
                 },
               }

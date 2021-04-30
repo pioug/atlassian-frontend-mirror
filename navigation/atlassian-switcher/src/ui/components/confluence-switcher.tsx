@@ -67,7 +67,8 @@ export default (props: ConfluenceSwitcherProps) => (
                       joinableSites,
                     },
                     props.features,
-
+                    props.onDiscoverMoreClicked,
+                    props.triggerXFlow,
                     Product.CONFLUENCE,
                     undefined,
                     undefined,

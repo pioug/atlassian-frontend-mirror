@@ -82,7 +82,6 @@ class BitbucketSwitcherExample extends React.Component {
             product="bitbucket"
             availableProductsDataProvider={customAvailableProductsDataProvider}
             triggerXFlow={this.onTriggerXFlow}
-            isDiscoverSectionEnabled
             isEmceeLinkEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />

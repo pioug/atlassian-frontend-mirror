@@ -148,6 +148,13 @@ describe('BaseUserPicker', () => {
     expect(select.prop('placeholder')).toEqual(custom);
   });
 
+  it('should set custom empty placeholder', () => {
+    const custom = '';
+    const component = shallowUserPicker({ placeholder: custom });
+    const select = component.find(Select);
+    expect(select.prop('placeholder')).toEqual(custom);
+  });
+
   it('should pass custom no options message to picker', () => {
     const customMessage = 'Custom';
     const component = shallowUserPicker({ noOptionsMessage: customMessage });

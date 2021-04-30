@@ -65,7 +65,6 @@ class StartSwitcherExample extends React.Component {
           <AtlassianSwitcher
             product="start"
             triggerXFlow={this.onTriggerXFlow}
-            isDiscoverSectionEnabled
             onDiscoverMoreClicked={this.onDiscoverMoreClicked}
           />
         </Drawer>

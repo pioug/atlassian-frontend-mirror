@@ -25,7 +25,6 @@ const defaultFeatures = {
   xflow: true,
   disableSwitchToHeading: false,
   isEmceeLinkEnabled: false,
-  isDiscoverSectionEnabled: false,
   isProductStoreInTrelloJSWFirstEnabled: false,
   isProductStoreInTrelloConfluenceFirstEnabled: false,
   isSlackDiscoveryEnabled: false,
@@ -90,6 +89,8 @@ describe('map-results-to-switcher-props', () => {
             }),
           },
           defaultFeatures,
+          () => {},
+          () => {},
           product,
         );
 
@@ -104,6 +105,8 @@ describe('map-results-to-switcher-props', () => {
         null,
         loadingProvidersResult,
         defaultFeatures,
+        () => {},
+        () => {},
       );
 
       expect(props.hasLoadedCritical).toEqual(true);
@@ -121,6 +124,8 @@ describe('map-results-to-switcher-props', () => {
           productRecommendations: asCompletedProvider([]),
         },
         defaultFeatures,
+        () => {},
+        () => {},
       );
 
       expect(props.hasLoadedCritical).toEqual(true);
@@ -138,6 +143,8 @@ describe('map-results-to-switcher-props', () => {
           productRecommendations: asFailedProvider(),
         },
         defaultFeatures,
+        () => {},
+        () => {},
       );
 
       expect(props.hasLoadedCritical).toEqual(true);
@@ -156,6 +163,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
       );
 
       expect(props.hasLoadedCritical).toEqual(true);
@@ -192,6 +201,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
       );
 
       expect(props.licensedProductLinks).toMatchObject([
@@ -265,6 +276,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
       );
 
       expect(props.licensedProductLinks).toMatchObject([
@@ -318,6 +331,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
       );
 
       expect(props.licensedProductLinks).toMatchObject([
@@ -352,6 +367,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
       );
 
       expect(props.licensedProductLinks).toMatchObject([
@@ -387,6 +404,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
       );
 
       expect(props.licensedProductLinks).toMatchObject([
@@ -428,6 +447,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           xflow: false,
         },
+        () => {},
+        () => {},
         Product.CONFLUENCE,
       );
 
@@ -459,6 +480,8 @@ describe('map-results-to-switcher-props', () => {
           disableCustomLinks: true,
           xflow: false,
         },
+        () => {},
+        () => {},
         Product.CONFLUENCE,
       );
 
@@ -502,6 +525,8 @@ describe('map-results-to-switcher-props', () => {
           ...defaultFeatures,
           enableRecentContainers: true,
         },
+        () => {},
+        () => {},
         Product.JIRA,
       );
 
@@ -529,6 +554,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.JIRA,
       );
 
@@ -585,6 +612,8 @@ describe('map-results-to-switcher-props', () => {
             }),
           },
           defaultFeatures,
+          () => {},
+          () => {},
           product,
           undefined,
           undefined,
@@ -651,6 +680,8 @@ describe('map-results-to-switcher-props', () => {
             }),
           },
           defaultFeatures,
+          () => {},
+          () => {},
           product,
           undefined,
           undefined,
@@ -687,6 +718,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.CONFLUENCE,
       );
       expect(
@@ -712,6 +745,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.JIRA,
       );
 
@@ -739,6 +774,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.JIRA,
       );
 
@@ -767,6 +804,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.JIRA,
       );
 
@@ -798,6 +837,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.JIRA,
       );
       expect(props.suggestedProductLinks).toMatchObject([
@@ -836,6 +877,8 @@ describe('map-results-to-switcher-props', () => {
           }),
         },
         defaultFeatures,
+        () => {},
+        () => {},
         Product.JIRA,
       );
 

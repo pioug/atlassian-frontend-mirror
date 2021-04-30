@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.1.1
+
+### Patch Changes
+
+- [`5942bf3060c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5942bf3060c) - Pass containerId through in atlaskit listener
+
 ## 8.1.0
 
 ### Minor Changes

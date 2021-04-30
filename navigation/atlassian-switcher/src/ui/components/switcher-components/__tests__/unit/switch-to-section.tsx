@@ -56,7 +56,6 @@ describe('SwitchToSection', () => {
                       href: 'http://admin.atlassian.com',
                     },
                   ]}
-                  isDiscoverSectionEnabled
                   licensedProductLinks={[]}
                   onDiscoverMoreClicked={jest.fn()}
                   showStartLink={showStartLink}

@@ -69,6 +69,7 @@ export default (event: UIAnalyticsEvent, logger: Logger): GasPayload | null => {
     action,
     actionSubjectId,
     attributes: payloadAttributes,
+    containerId,
   } = event.payload;
   const attributes = {
     listenerVersion,
@@ -91,6 +92,7 @@ export default (event: UIAnalyticsEvent, logger: Logger): GasPayload | null => {
         action,
         actionSubjectId,
         attributes,
+        containerId,
         tags: Array.from(tags),
       } as any;
     }

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-listeners",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "Fabric analytics listeners to be used by the products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

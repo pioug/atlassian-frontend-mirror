@@ -33,7 +33,6 @@ describe('generic-switcher', () => {
         disableSwitchToHeading: false,
         xflow: true,
         isEmceeLinkEnabled: true,
-        isDiscoverSectionEnabled: true,
         isProductStoreInTrelloJSWFirstEnabled: false,
         isProductStoreInTrelloConfluenceFirstEnabled: false,
         isSlackDiscoveryEnabled: false,

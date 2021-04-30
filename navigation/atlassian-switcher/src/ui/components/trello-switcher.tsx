@@ -112,6 +112,8 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
       onClose,
       availableProductsDataProvider,
       customizeLinks,
+      triggerXFlow,
+      onDiscoverMoreClicked,
     } = this.props;
     const {
       showJoinSiteBanner,
@@ -165,6 +167,8 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
                       isXFlowEnabled: createResultComplete(true),
                     },
                     features,
+                    onDiscoverMoreClicked,
+                    triggerXFlow,
                     Product.TRELLO,
                     undefined,
                     undefined,

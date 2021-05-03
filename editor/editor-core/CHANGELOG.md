@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 142.0.1
+
+### Patch Changes
+
+- [`c2c0160f566`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2c0160f566) - Bump editor-shared-styles to pick up relativeFontSizeToBase16
+- Updated dependencies
+
 ## 142.0.0
 
 ### Major Changes

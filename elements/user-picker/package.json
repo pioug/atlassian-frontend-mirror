@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "7.9.3",
+  "version": "7.10.1",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,6 +55,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/field-range": "^9.0.0",
+    "@atlaskit/modal-dialog": "^11.2.2",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@types/uuid": "^3.4.4",

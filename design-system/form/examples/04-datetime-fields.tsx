@@ -51,11 +51,12 @@ export default () => (
       {({ formProps }) => (
         <form {...formProps}>
           <Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
-            {({ fieldProps, error }) => (
+            {({ fieldProps: { id, ...rest }, error }) => (
               <Fragment>
                 <DatePicker
                   validationState={error ? 'error' : 'none'}
-                  {...fieldProps}
+                  selectProps={{ inputId: id }}
+                  {...rest}
                 />
                 {error && <ErrorMessage>{error}</ErrorMessage>}
               </Fragment>
@@ -67,14 +68,17 @@ export default () => (
             defaultValue=""
             isRequired
           >
-            {({ fieldProps, error }) => {
+            {({ fieldProps: { id, ...rest }, error }) => {
               const validationState = error ? 'error' : 'none';
               return (
                 <Fragment>
                   <DateTimePicker
-                    datePickerSelectProps={{ validationState }}
-                    timePickerSelectProps={{ validationState }}
-                    {...fieldProps}
+                    datePickerSelectProps={{ validationState, inputId: id }}
+                    timePickerSelectProps={{
+                      validationState,
+                      'aria-labelledby': `${id}-label`,
+                    }}
+                    {...rest}
                   />
                   {error && <ErrorMessage>{error}</ErrorMessage>}
                 </Fragment>

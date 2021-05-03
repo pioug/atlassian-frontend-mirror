@@ -1,5 +1,14 @@
 # @atlaskit/side-navigation
 
+## 0.8.5
+
+### Patch Changes
+
+- [`4e72825fa89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e72825fa89) - JET-1156:
+
+  - Export `VAR_SEPARATOR_COLOR` to override separator color when using custom backrounds in side navigation.
+  - Export `VAR_SCROLL_INDICATOR_COLOR` to override menu scroll indicator color when using custom backrounds in side navigation.
+
 ## 0.8.4
 
 ### Patch Changes

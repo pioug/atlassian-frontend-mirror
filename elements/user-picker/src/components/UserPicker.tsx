@@ -26,7 +26,9 @@ export class UserPickerWithoutAnalytics extends React.Component<
       anchor,
       menuPortalTarget,
       menuPosition,
+      menuShouldBlockScroll,
       captureMenuScroll,
+      closeMenuOnScroll,
     } = this.props;
     const width = this.props.width as string | number;
 
@@ -36,9 +38,11 @@ export class UserPickerWithoutAnalytics extends React.Component<
       : getCreatableProps(isValidEmail);
 
     const defaultPickerProps = {
-      menuPortalTarget: menuPortalTarget,
-      menuPosition: menuPosition,
-      captureMenuScroll: captureMenuScroll,
+      closeMenuOnScroll,
+      menuPortalTarget,
+      menuPosition,
+      menuShouldBlockScroll,
+      captureMenuScroll,
     };
 
     const pickerProps = allowEmail

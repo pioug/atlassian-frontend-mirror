@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 55.5.2
+
+### Patch Changes
+
+- [`c2c0160f566`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2c0160f566) - Bump editor-shared-styles to pick up relativeFontSizeToBase16
+- Updated dependencies
+
 ## 55.5.1
 
 ### Patch Changes

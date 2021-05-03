@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
-
-import Button from '@atlaskit/button/standard-button';
+import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
 export default function Example() {
-  const [isExpanded, setExpanse] = useState(false);
   return (
     <div>
-      <Breadcrumbs
-        itemsBeforeCollapse={3}
-        itemsAfterCollapse={2}
-        isExpanded={isExpanded}
-      >
+      <Breadcrumbs itemsBeforeCollapse={3} itemsAfterCollapse={2}>
         <BreadcrumbsItem href="/item" text="Item 1" />
         <BreadcrumbsItem href="/item" text="Item 2" />
         <BreadcrumbsItem href="/item" text="Item 3" />
@@ -24,9 +17,6 @@ export default function Example() {
         <BreadcrumbsItem href="/item" text="Item 9" />
         <BreadcrumbsItem href="/item" text="Item 10" />
       </Breadcrumbs>
-      <Button appearance="primary" onClick={() => setExpanse(!isExpanded)}>
-        Toggle
-      </Button>
     </div>
   );
 }

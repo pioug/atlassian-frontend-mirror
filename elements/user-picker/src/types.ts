@@ -124,6 +124,10 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   maxOptions?: number;
   /** Allows clicking on a label with the same id to open user picker. */
   inputId?: string;
+  /** Whether to close menu on scroll */
+  closeMenuOnScroll?: boolean | EventListener;
+  /** Whether to block scrolling actions */
+  menuShouldBlockScroll?: boolean;
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

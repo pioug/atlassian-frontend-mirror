@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 0.7.6
+
+### Patch Changes
+
+- [`9ea5f8887cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ea5f8887cd) - Internal change to menu styling to allow for the separator color to be customisable in side-navigation
+
 ## 0.7.5
 
 ### Patch Changes

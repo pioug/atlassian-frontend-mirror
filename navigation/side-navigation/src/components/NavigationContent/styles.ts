@@ -4,6 +4,8 @@ import { headingSizes } from '@atlaskit/theme/typography';
 import {
   navigationBackgroundColor,
   separatorColor,
+  VAR_SCROLL_INDICATOR_COLOR,
+  VAR_SEPARATOR_COLOR,
 } from '../../common/constants';
 
 const scrollIndicatorMaskZIndex = 2;
@@ -56,7 +58,7 @@ export const outerContainerCSS = (
       right: containerPadding + opts.scrollbarWidth,
       height: scrollIndicatorHeight,
       borderRadius: scrollIndicatorBorderRadius,
-      backgroundColor: separatorColor,
+      backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${separatorColor})`,
       position: 'absolute',
       zIndex: scrollIndicatorZIndex,
     },
@@ -72,7 +74,7 @@ export const outerContainerCSS = (
       right: containerPadding + opts.scrollbarWidth,
       bottom: 0,
       zIndex: scrollIndicatorZIndex,
-      backgroundColor: separatorColor,
+      backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${separatorColor})`,
     },
   } as const);
 
@@ -100,7 +102,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
           left: 0,
           right: 0,
           height: scrollIndicatorHeight,
-          backgroundColor: navigationBackgroundColor,
+          backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${navigationBackgroundColor})`,
           position: 'absolute',
           display: 'block',
           zIndex: scrollIndicatorMaskZIndex,
@@ -119,7 +121,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
       marginTop: 'auto',
       position: 'relative',
       zIndex: scrollIndicatorMaskZIndex,
-      backgroundColor: navigationBackgroundColor,
+      backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${navigationBackgroundColor})`,
     },
   } as const);
 

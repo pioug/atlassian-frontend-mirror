@@ -24,6 +24,7 @@ const skeletonHeadingBottomMargin =
   itemHeadingBottomMargin + skeletonHeadingMarginOffset;
 
 const sectionPaddingTopBottom = gridSize * 0.75;
+const VAR_SEPARATOR_COLOR = '--ds-menu-seperator-color';
 
 export const sectionCSS = (
   isScrollable?: boolean,
@@ -57,7 +58,7 @@ export const sectionCSS = (
       : { flexShrink: 0 }),
     ...(hasSeparator
       ? {
-          borderTop: `2px solid ${N30A}`,
+          borderTop: `2px solid var(${VAR_SEPARATOR_COLOR}, ${N30A})`,
         }
       : {
           // this is to ensure that adjacent sections without separators don't get additional margins.

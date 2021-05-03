@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 7.10.1
+
+### Patch Changes
+
+- [`772e15b76d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/772e15b76d2) - UR-1409 handle request races gracefully
+
+## 7.10.0
+
+### Minor Changes
+
+- [`659f69d349a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/659f69d349a) - [ux] Added closeMenuOnScroll and menuShouldBlockScroll Select props which allows easier integrations inside modals
+
 ## 7.9.3
 
 ### Patch Changes

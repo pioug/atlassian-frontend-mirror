@@ -147,7 +147,7 @@ describe('SmartUserPicker', () => {
 
   const smartUserPickerWrapper = (
     props: Partial<SmartUserPickerProps> = {},
-  ) => {
+  ): ReactWrapper => {
     const smartUserPickerProps = { ...defaultProps, ...props };
     return mountWithIntl(<SmartUserPicker {...smartUserPickerProps} />);
   };
@@ -421,6 +421,66 @@ describe('SmartUserPicker', () => {
       2,
       expect.objectContaining({ query: 'a' }),
       expect.objectContaining({ defaultLocale: 'en' }),
+    );
+  });
+
+  it('should use requests in submit order', async () => {
+    type Deferrable<T> = Promise<T> & {
+      resolve: (value: T) => void;
+      reject: (err: any) => void;
+    };
+
+    const defer = <T,>(): Deferrable<T> => {
+      let resolve: (value: T) => void;
+      let reject: (err: any) => void;
+
+      const p = new Promise((_resolve, _reject) => {
+        resolve = _resolve;
+        reject = _reject;
+      });
+
+      (p as any).resolve = (value: T) => resolve(value);
+      (p as any).reject = (err: any) => reject(err);
+      return p as any;
+    };
+
+    const queries = new Map<string, Deferrable<OptionData[]>>();
+
+    /**
+     * Simulate a requst race for two queries
+     * 1. query ''
+     * 2. query 'a'
+     * 3. response 'a' ➞ [{}, {}]
+     * 4. response '' ➞ []
+     */
+    getUserRecommendationsMock.mockImplementation(({ query }) => {
+      if (query === '') {
+        const empty = defer<OptionData[]>();
+        queries.set(query, empty);
+        return empty;
+      }
+
+      if (query === 'a') {
+        const empty = queries.get('');
+        return Promise.resolve(mockConfluenceGuestUserOptions).then(results => {
+          setTimeout(() => empty?.resolve([]), 0);
+          return results;
+        });
+      }
+
+      return Promise.resolve([]);
+    });
+
+    const component = smartUserPickerWrapper();
+    component.find(UserPicker).props().onFocus('new-session');
+    component.find(UserPicker).props().onInputChange('a', 'new-session');
+
+    // wait until the deferrable for the initial request has been resolved
+    await queries.get('');
+    component.update();
+
+    expect(component.find(UserPicker).prop('options')).toEqual(
+      mockConfluenceGuestUserOptions,
     );
   });
 

@@ -39,3 +39,8 @@ export type {
 } from './components';
 
 export { useShouldNestedElementRender } from './components/NestableNavigationContent/context';
+
+export {
+  VAR_SCROLL_INDICATOR_COLOR,
+  VAR_SEPARATOR_COLOR,
+} from './common/constants';

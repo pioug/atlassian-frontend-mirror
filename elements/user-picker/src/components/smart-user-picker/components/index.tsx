@@ -348,7 +348,7 @@ class SmartUserPicker extends React.Component<
         this.state.query !== prevState.query) &&
       (this.state.query !== '' || !this.props.bootstrapOptions)
     ) {
-      this.debouncedGetUsers();
+      this.getUsers();
     }
   }
 
@@ -366,7 +366,7 @@ class SmartUserPicker extends React.Component<
       ? this.props.filterOptions(users, this.state.query)
       : users;
 
-  getUsers = async () => {
+  getUsers = debounce(async () => {
     const { query, sessionId } = this.state;
     const {
       containerId,
@@ -410,24 +410,34 @@ class SmartUserPicker extends React.Component<
     };
     try {
       this.fireEvent(requestUsersEvent);
-      const users = await getUserRecommendations(recommendationsRequest, intl);
+      const recommendedUsers = await getUserRecommendations(
+        recommendationsRequest,
+        intl,
+      );
       const elapsedTimeMilli = window.performance.now() - startTime;
 
-      const filteredUsers = this.filterOptions(users);
+      const filteredUsers = this.filterOptions(recommendedUsers);
 
-      let displayedList = filteredUsers;
-      if (filteredUsers.length === 0 && onEmpty) {
-        displayedList = await onEmpty(query);
-        displayedList = displayedList || [];
-      }
+      const displayedUsers =
+        filteredUsers.length === 0 && onEmpty
+          ? (await onEmpty(query)) ?? []
+          : filteredUsers;
 
-      this.setState({ users: displayedList, loading: false });
-      this.fireEvent(successfulRequestUsersEvent, {
-        users: getUsersForAnalytics(users),
-        filteredUsers: getUsersForAnalytics(filteredUsers),
-        elapsedTimeMilli,
-        displayedUsers: getUsersForAnalytics(displayedList),
-        productAttributes,
+      this.setState(state => {
+        const applicable = state.query === query;
+        const users = applicable ? displayedUsers : state.users;
+        const loading = !applicable;
+
+        this.fireEvent(successfulRequestUsersEvent, {
+          users: getUsersForAnalytics(recommendedUsers),
+          filteredUsers: getUsersForAnalytics(filteredUsers),
+          elapsedTimeMilli,
+          displayedUsers: getUsersForAnalytics(displayedUsers),
+          productAttributes,
+          applicable,
+        });
+
+        return { users, loading };
       });
     } catch (e) {
       this.setState({
@@ -447,12 +457,7 @@ class SmartUserPicker extends React.Component<
         productAttributes,
       });
     }
-  };
-
-  debouncedGetUsers = debounce(
-    this.getUsers,
-    this.props.debounceTime ? this.props.debounceTime : 0,
-  );
+  }, this.props.debounceTime ?? 0);
 
   onInputChange = (newQuery?: string, sessionId?: string) => {
     const query = newQuery || '';
@@ -517,7 +522,7 @@ class SmartUserPicker extends React.Component<
   };
 
   onBlur = (sessionId?: string) => {
-    this.debouncedGetUsers.cancel();
+    this.getUsers.cancel();
     // clear old users if query is populated so that on refocus,
     // the old list is not shown
     const users = this.state.query.length === 0 ? this.state.users : [];

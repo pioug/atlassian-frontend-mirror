@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.10.2
+
+### Patch Changes
+
+- [`f310ccbe522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f310ccbe522) - Updated AK examples to use new jdog cloudid
+
 ## 7.10.1
 
 ### Patch Changes

@@ -9,7 +9,10 @@ import {
   SupportedProduct,
   SmartUserPicker,
 } from '../src/components/smart-user-picker/index';
-import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
+import {
+  setSmartUserPickerEnv,
+  JDOG_CLOUD_ID,
+} from '../src/components/smart-user-picker/config';
 import {
   BitbucketAttributes,
   ConfluenceAttributes,
@@ -47,7 +50,7 @@ const productsMap = products
 const SmartUserPickerCustomizableExample = () => {
   let [state, setState] = useState<State>({
     userId: 'Context',
-    tenantId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+    tenantId: JDOG_CLOUD_ID,
     fieldId: 'storybook',
     product: 'jira',
     includeUsers: true,
@@ -175,7 +178,7 @@ const SmartUserPickerCustomizableExample = () => {
           onClick={() => {
             setState({
               ...state,
-              tenantId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+              tenantId: JDOG_CLOUD_ID,
               product: 'jira',
               includeGroups: false,
             });

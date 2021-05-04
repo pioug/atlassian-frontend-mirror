@@ -57,7 +57,7 @@ const WrapperWithMarginTop = styled.div`
   margin-top: 10px;
 `;
 
-const JDOG_CLOUD_ID = '497ea592-beb4-43c3-9137-a6e5fa301088';
+const JDOG_CLOUD_ID = '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5';
 
 let factoryCount = 0;
 function originTracingFactory(): OriginTracing {

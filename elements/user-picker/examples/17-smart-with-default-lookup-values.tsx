@@ -1,7 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import SmartUserPicker from '../src/components/smart-user-picker/components';
-import { setSmartUserPickerEnv } from '../src/components/smart-user-picker/config';
+import {
+  setSmartUserPickerEnv,
+  JDOG_CLOUD_ID,
+} from '../src/components/smart-user-picker/config';
 setSmartUserPickerEnv('local');
 
 const Example: FunctionComponent = () => {
@@ -11,7 +14,7 @@ const Example: FunctionComponent = () => {
         <SmartUserPicker
           fieldId="example"
           productKey="jira"
-          siteId={'497ea592-beb4-43c3-9137-a6e5fa301088'}
+          siteId={JDOG_CLOUD_ID}
           onChange={console.log}
           onInputChange={onInputChange}
           isMulti

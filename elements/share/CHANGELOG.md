@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 0.26.4
+
+### Patch Changes
+
+- [`f310ccbe522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f310ccbe522) - Updated AK examples to use new jdog cloudid
+
 ## 0.26.3
 
 ### Patch Changes

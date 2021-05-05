@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.10.3
+
+### Patch Changes
+
+- [`ac30a1340a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac30a1340a2) - Groups with external collaborators will now have the Guest lozenge shown next to them on the smart user picker
+
 ## 7.10.2
 
 ### Patch Changes

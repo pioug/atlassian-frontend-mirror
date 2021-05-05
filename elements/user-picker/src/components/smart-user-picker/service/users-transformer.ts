@@ -41,6 +41,7 @@ interface ServerTeam extends ServerItem {
 
 interface ServerGroup extends ServerItem {
   entityType: EntityType.GROUP;
+  attributes?: Record<string, string>;
 }
 
 interface ServerResponse {
@@ -55,14 +56,14 @@ enum EntityType {
 }
 
 const getLozenzeProperties = (
-  user: ServerUser,
+  entity: ServerUser | ServerGroup,
   intl: InjectedIntl,
 ): string | LozengeProps | undefined => {
-  if (user.attributes?.workspaceMember) {
+  if (entity.attributes?.workspaceMember) {
     return intl.formatMessage(messages.memberLozengeText);
   }
 
-  if (user.attributes?.isConfluenceExternalCollaborator) {
+  if (entity.attributes?.isConfluenceExternalCollaborator) {
     const guestUserLozengeProps: LozengeProps = {
       text: intl.formatMessage(messages.guestLozengeText),
       appearance: 'new',
@@ -110,10 +111,14 @@ const transformUser = (
 
   if (type === EntityType.GROUP) {
     const group = item as ServerGroup;
+
+    const lozenge = getLozenzeProperties(group, intl);
+
     return {
       id: group.id,
       type: GroupType,
       name: group.name || '',
+      lozenge: lozenge,
     };
   }
 

@@ -82,6 +82,28 @@ const mockConfluenceGuestUserOptions: OptionData[] = [
   },
 ];
 
+const mockConfluenceGuestUserAndGroupOptions: OptionData[] = [
+  {
+    avatarUrl: 'someavatar.com',
+    id: 'id1',
+    name: 'Pranay Marella',
+    type: 'user',
+    lozenge: {
+      text: 'GUEST',
+      appearance: 'new',
+    },
+  },
+  {
+    id: 'id2',
+    type: 'group',
+    name: 'Group with Guests',
+    lozenge: {
+      text: 'GUEST',
+      appearance: 'new',
+    },
+  },
+];
+
 const usersById = [
   {
     id: 'id1',
@@ -484,9 +506,9 @@ describe('SmartUserPicker', () => {
     );
   });
 
-  it('should fetch a confluence guest user', async () => {
+  it('should fetch a confluence guest user and guest group', async () => {
     getUserRecommendationsMock.mockReturnValue(
-      Promise.resolve(mockConfluenceGuestUserOptions),
+      Promise.resolve(mockConfluenceGuestUserAndGroupOptions),
     );
 
     const guestUser: OptionData[] = [
@@ -495,6 +517,15 @@ describe('SmartUserPicker', () => {
         id: 'id1',
         name: 'Pranay Marella',
         type: 'user',
+        lozenge: {
+          text: 'GUEST',
+          appearance: 'new',
+        },
+      },
+      {
+        id: 'id2',
+        type: 'group',
+        name: 'Group with Guests',
         lozenge: {
           text: 'GUEST',
           appearance: 'new',
@@ -523,7 +554,7 @@ describe('SmartUserPicker', () => {
     await component.update();
     // expect the user picker options prop to match the mock guest user data
     expect(component.find(UserPicker).prop('options')).toEqual(
-      mockConfluenceGuestUserOptions,
+      mockConfluenceGuestUserAndGroupOptions,
     );
   });
 

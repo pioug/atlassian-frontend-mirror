@@ -13,6 +13,8 @@ import {
   testMediaGroupFileId1,
   testMediaGroupFileId2,
   testMediaGroupFileId3,
+  testVideoFailedFileId,
+  testEmptyFileId,
 } from './utils';
 import { testImageDataURI } from './database/testImageDataURI';
 import { testEmptyImageDataURI } from './database/testEmptyImageDataURI';
@@ -61,6 +63,19 @@ export const mockFiles: MockFile[] = [
     },
   },
   {
+    id: testVideoFailedFileId,
+    name: 'video.mp4',
+    blob: emptyImageblob,
+    processingStatus: 'failed',
+    mediaType: 'video',
+    mimeType: 'video/mp4',
+    size: emptyImageblob.size,
+    artifacts: {},
+    representations: {
+      image: {},
+    },
+  },
+  {
     id: testMediaGroupFileId,
     name: 'text_file.txt',
     mediaType: 'doc',
@@ -100,6 +115,12 @@ export const mockFiles: MockFile[] = [
     size: mediaGroupBlob.size,
     blob: mediaGroupBlob,
   },
+  {
+    id: testEmptyFileId,
+    // This is to mimic the response of an empty file
+    // which doesn't have any metadata. We cast it to
+    // any to make typescript happy
+  } as any,
 ];
 export const collections: MockCollections = {
   [defaultCollectionName]: mockFiles,

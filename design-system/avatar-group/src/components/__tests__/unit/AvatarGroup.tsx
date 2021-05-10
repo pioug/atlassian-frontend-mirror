@@ -157,6 +157,47 @@ describe('<AvatarGroup />', () => {
     ).toEqual('#');
   });
 
+  it('should set labels to avatar items', async () => {
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 5 })}
+        // While max count is 4 - 2 items will be moved into the overflow menu
+        // because the fourth item will now be the trigger itself!
+        maxCount={4}
+      />,
+    );
+
+    const avatarGroup = getByTestId('test--avatar-group');
+
+    const avatarLabelList = avatarGroup.querySelectorAll('span[aria-label]');
+    // there are should be 3 avatar and 1 dropdown trigger button
+    expect(avatarLabelList).toHaveLength(3);
+
+    avatarLabelList.forEach((element, i) => {
+      expect(element.getAttribute('aria-label')).toBe(`Name ${i}`);
+    });
+  });
+
+  it('should NOT set labels to dropdown avatar items', async () => {
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 5 })}
+        // While max count is 3 - 3 items will be moved into the overflow menu
+        // because the third item will now be the trigger itself!
+        maxCount={3}
+      />,
+    );
+
+    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+
+    const overflowMenu = getByTestId('test--overflow-menu');
+    const avatarLabelList = overflowMenu.querySelectorAll('span[aria-label]');
+
+    expect(avatarLabelList).toHaveLength(0);
+  });
+
   it('should ensure href is not set on the avatar inside the overflowed dropdown item', () => {
     const { getByTestId } = render(
       <AvatarGroup

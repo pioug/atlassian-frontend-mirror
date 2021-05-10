@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "15.2.0",
+  "version": "15.2.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/logo": "^13.1.0",
     "@atlaskit/media-ui": "^16.0.0",
     "@atlaskit/outbound-auth-flow-client": "^3.1.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@testing-library/react-hooks": "^1.0.4",
     "async-retry": "^1.2.3",

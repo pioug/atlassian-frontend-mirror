@@ -87,6 +87,7 @@ describe(name, () => {
             reactContext: () => ({} as any),
             dispatchAnalyticsEvent: () => {},
             performanceTracking: {},
+            featureFlags: {},
           }).length,
         ).toEqual(1);
       });

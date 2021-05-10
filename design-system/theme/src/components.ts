@@ -15,7 +15,7 @@ export { default as Appearance } from './components/Appearance';
 export type { ResetThemeProps, ResetThemeTokens } from './components/Reset';
 export { ResetTheme, Reset } from './components/Reset';
 
-export { default } from './components/Theme';
+export { default, useGlobalTheme } from './components/Theme';
 export { withTheme } from './hoc';
 
 export type { ThemeProp } from './utils/createTheme';

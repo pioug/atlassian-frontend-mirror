@@ -10,9 +10,8 @@ const openModalBtn = "[data-testid='modal-trigger']";
 const modalDialog = "[data-testid='modal']";
 const modalHeader = "[data-testid='modal-dialog-content--header']";
 const modalFooter = "[data-testid='modal-dialog-content--footer']";
-const modalBody = "[data-testid='modal-dialog-content--body']";
+const modalBody = "[data-testid='modal-dialog-content--scrollable']";
 const selectBtn = '.single-select';
-const scrollBehaviorGroup = "[role='group']";
 const scrollToBottomBtn = "[data-testid='scrollDown']";
 const largeModalBtn = "[data-testid='large']";
 const booleanBtn = "[data-testid='boolean-trigger']";
@@ -118,7 +117,7 @@ describe('Snapshot test', () => {
     const { page } = global;
     await loadPage(page, url);
 
-    const radioSelector = scrollBehaviorGroup + ' input[value="outside"]';
+    const radioSelector = 'input[value="outside"]';
     await page.waitForSelector(radioSelector);
     await page.click(radioSelector);
 
@@ -146,7 +145,7 @@ describe('Snapshot test', () => {
     // to the same size before clicking it to lessen the effect.
     await page.setViewport({ width: 3000, height: 600 });
 
-    const radioSelector = scrollBehaviorGroup + ' input[value="inside-wide"]';
+    const radioSelector = 'input[value="inside-wide"]';
     await page.waitForSelector(radioSelector);
     await page.click(radioSelector);
 
@@ -332,11 +331,16 @@ describe('Snapshot test', () => {
     const url = getExampleUrl(
       'design-system',
       'modal-dialog',
-      'scroll-without-header-footer',
+      'scroll',
       global.__BASEURL__,
     );
+    const { page } = global;
+    await loadPage(page, url);
 
-    const page = await openModal(url, defaultOptions);
+    const visibilitySelector = '[data-testid="visibility--checkbox-label"]';
+    await page.waitForSelector(visibilitySelector);
+    await page.click(visibilitySelector);
+    await openModal(url, { ...defaultOptions, shouldLoadPage: false });
 
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();

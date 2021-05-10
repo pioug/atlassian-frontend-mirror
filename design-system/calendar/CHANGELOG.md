@@ -1,5 +1,15 @@
 # @atlaskit/calendar
 
+## 11.1.0
+
+### Minor Changes
+
+- [`d872280cff1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d872280cff1) - Calendar now exports a `WeekDay` type. This is the type used by the `weekStartDay` prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

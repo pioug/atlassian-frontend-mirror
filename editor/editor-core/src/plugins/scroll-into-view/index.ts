@@ -2,6 +2,7 @@ import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
 
 import { EditorPlugin } from '../../types';
 import { typeAheadInputRulesPluginKey } from '../type-ahead/pm-plugins/input-rules';
+import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules';
 
 /**
  * Plugin to scroll the user's selection into view whenever the user updates
@@ -36,7 +37,9 @@ const createPlugin = () =>
         // ignore collab changes from another user
         !tr.getMeta('isRemote') &&
         // ignore typeahead triggers
-        !tr.getMeta(typeAheadInputRulesPluginKey)
+        !tr.getMeta(typeAheadInputRulesPluginKey) &&
+        // ignore any transaction coming from the input text rule plugin
+        !tr.getMeta(TEXT_INPUT_RULE_TRANSACTION_KEY)
       ) {
         return newState.tr.scrollIntoView();
       }

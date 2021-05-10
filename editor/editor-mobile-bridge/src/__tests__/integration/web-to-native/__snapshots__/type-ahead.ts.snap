@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`type-ahead.ts: /link opens link dialog window 1`] = `
+Array [
+  "{\\"id\\":\\"hyperlink\\",\\"title\\":\\"Link\\",\\"description\\":\\"Insert a link\\",\\"keywords\\":[\\"hyperlink\\",\\"url\\"],\\"priority\\":1200,\\"keyshortcut\\":\\"Ctrl+K\\"}",
+]
+`;
+
 exports[`type-ahead.ts: Sends correct typing events 1`] = `
 Array [
   Object {

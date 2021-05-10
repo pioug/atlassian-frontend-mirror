@@ -8,4 +8,5 @@ interface SaveIndicatorRenderOptions {
 export interface SaveIndicatorProps {
   children: (options: SaveIndicatorRenderOptions) => ReactNode;
   duration: number;
+  visible?: boolean;
 }

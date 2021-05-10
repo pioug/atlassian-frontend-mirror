@@ -1,16 +1,17 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
 import {
-  insertMedia,
-  waitForMediaToBeLoaded,
   clickMediaInPosition,
   clickOnToolbarButton,
+  insertMedia,
   MediaToolbarButton,
   waitForActivityItems,
+  waitForMediaToBeLoaded,
 } from '../../__helpers/page-objects/_media';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mediaSingleVideoAligmentAdf from './__fixtures__/mediaSingle-video-alignment.adf.json';
 import mediaSingleVideoWrapAdf from './__fixtures__/mediaSingle-video-wrap.adf.json';
+import videoInsideExpandAdf from './__fixtures__/video-inside-expand-toolbar.adf.json';
 import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 
 describe('Snapshot Test: Media', () => {
@@ -112,6 +113,24 @@ describe('Snapshot Test: Media', () => {
     it('should show floating toolbar center relatively to the file with wrap-left layout', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
+        adf: mediaSingleVideoWrapAdf,
+        editorProps: {
+          media: {
+            allowMediaSingle: true,
+            allowResizing: true,
+          },
+        },
+      });
+
+      await waitForMediaToBeLoaded(page);
+      await page.click('[data-testid="media-file-card-view"]');
+      await page.waitForSelector('[data-testid="media-card-inline-player"]');
+      await page.click('[data-testid="media-card-inline-player"]');
+      await snapshot(page);
+    });
+    it('should show floating toolbar center relatively to the file with align-start layout', async () => {
+      await initEditorWithAdf(page, {
+        appearance: Appearance.fullPage,
         adf: mediaSingleVideoAligmentAdf,
         editorProps: {
           media: {
@@ -120,18 +139,24 @@ describe('Snapshot Test: Media', () => {
           },
         },
       });
+
       await waitForMediaToBeLoaded(page);
+      await page.click('[data-testid="media-file-card-view"]');
+      await page.waitForSelector('[data-testid="media-card-inline-player"]');
+      await page.click('[data-testid="media-card-inline-player"]');
       await snapshot(page);
     });
-    it('should show floating toolbar center relatively to the file with align-start layout', async () => {
+    it('should render seperators correctly when placed inside an expand', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
-        adf: mediaSingleVideoWrapAdf,
+        adf: videoInsideExpandAdf,
         editorProps: {
           media: {
             allowMediaSingle: true,
             allowResizing: true,
+            allowAltTextOnImages: true,
           },
+          allowExpand: true,
         },
       });
       await waitForMediaToBeLoaded(page);

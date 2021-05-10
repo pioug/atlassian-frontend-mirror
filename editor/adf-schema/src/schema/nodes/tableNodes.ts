@@ -46,7 +46,10 @@ import { MediaSingleDefinition as MediaSingle } from './media-single';
 import { DecisionListDefinition as DecisionList } from './decision-list';
 import { TaskListDefinition as TaskList } from './task-list';
 // eslint-disable-next-line import/no-cycle
-import { ExtensionDefinition as Extension } from './extension';
+import {
+  ExtensionDefinition as Extension,
+  ExtensionWithMarksDefinition as ExtensionWithMarks,
+} from './extension';
 import { BlockCardDefinition as BlockCard } from './block-card';
 import { EmbedCardDefinition as EmbedCard } from './embed-card';
 import { NestedExpandDefinition as NestedExpand } from './nested-expand';
@@ -235,6 +238,7 @@ export type TableCellContent = Array<
   | DecisionList
   | TaskList
   | Extension
+  | ExtensionWithMarks
   | BlockCard
   | NestedExpand
   | EmbedCard
@@ -361,7 +365,7 @@ export const tableCell: NodeSpec = {
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle |  mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
   attrs: cellAttrs,
   tableRole: 'cell',
-  marks: 'link alignment unsupportedMark unsupportedNodeAttribute',
+  marks: 'link alignment dataConsumer unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [
     // Ignore number cell copied from renderer
@@ -396,7 +400,7 @@ export const tableHeader: NodeSpec = {
   attrs: cellAttrs,
   tableRole: 'header_cell',
   isolating: true,
-  marks: 'link alignment unsupportedMark unsupportedNodeAttribute',
+  marks: 'link alignment dataConsumer unsupportedMark unsupportedNodeAttribute',
   parseDOM: [
     {
       tag: 'th',

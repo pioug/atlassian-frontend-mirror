@@ -100,9 +100,11 @@ export const floatingToolbar = (
       }
     }
 
-    if (allowLinking && shouldShowMediaLinkToolbar(state)) {
-      const showSeparatorLeft = toolbarButtons.length > 0;
+    if (toolbarButtons.length) {
+      toolbarButtons.push({ type: 'separator' });
+    }
 
+    if (allowLinking && shouldShowMediaLinkToolbar(state)) {
       toolbarButtons.push({
         type: 'custom',
         render: (editorView, idx) => {
@@ -138,17 +140,12 @@ export const floatingToolbar = (
                 onAddLink={editLink}
                 onEditLink={editLink}
                 onOpenLink={openLink}
-                showSeparatorLeft={showSeparatorLeft}
               />
             );
           }
           return null;
         },
       });
-    }
-
-    if (toolbarButtons.length) {
-      toolbarButtons.push({ type: 'separator' });
     }
   }
 

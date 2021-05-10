@@ -1,5 +1,15 @@
 # @atlaskit/avatar-group
 
+## 8.1.0
+
+### Minor Changes
+
+- [`c40dcf42d93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c40dcf42d93) - [ux] Added passing an empty name prop to Avatar in the AvararGroupItem that is used for overflow dropdown menu. Screen reader does not announce name twice now.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.15
 
 ### Patch Changes

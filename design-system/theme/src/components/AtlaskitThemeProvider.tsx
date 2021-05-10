@@ -73,15 +73,8 @@ export default class AtlaskitThemeProvider extends Component<
   Props,
   AtlaskitThemeProps
 > {
-  stylesheet: any;
-
-  /**
-   * This function never changes its reference because it accesses
-   * `this` in the function call - thereby sidestepping the need for
-   * creating a new reference everytime theme state changes.
-   * NOTE: When moving to hooks watch out for this regressing.
-   */
-  getThemeMode: GetMode = () => ({ mode: this.state.theme[CHANNEL].mode });
+  stylesheet?: HTMLStyleElement;
+  themeFnMap: Record<ThemeModes, GetMode>;
 
   static defaultProps = {
     mode: DEFAULT_THEME_MODE,
@@ -99,6 +92,10 @@ export default class AtlaskitThemeProvider extends Component<
   constructor(props: Props) {
     super(props);
     this.state = buildThemeState(props.mode);
+    this.themeFnMap = {
+      dark: () => ({ mode: this.state.theme[CHANNEL].mode }),
+      light: () => ({ mode: this.state.theme[CHANNEL].mode }),
+    };
   }
 
   getChildContext() {
@@ -144,7 +141,7 @@ export default class AtlaskitThemeProvider extends Component<
       allows us to use components converted to use the new API with consumers
       using the old provider along side components that may still be using the
       old theming API. */
-      <Theme.Provider value={this.getThemeMode}>
+      <Theme.Provider value={this.themeFnMap[this.props.mode]}>
         <ThemeProvider theme={theme}>
           <LegacyReset background={this.props.background}>
             {children}

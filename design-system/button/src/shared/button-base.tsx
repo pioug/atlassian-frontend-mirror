@@ -4,12 +4,12 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { CSSObject, jsx } from '@emotion/core';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 
 import { BaseProps } from '../types';
 
 import blockEvents from './block-events';
 import { getContentStyle, getFadingCss, getIconStyle, overlayCss } from './css';
-import useAutoFocus from './use-auto-focus';
 
 function noop() {}
 

@@ -1,4 +1,5 @@
 import { WidthConsumer, ProviderFactory } from '@atlaskit/editor-common';
+import { ContextPanelConsumer } from '../../ContextPanel/context';
 import { EditorView } from 'prosemirror-view';
 import React, { ReactElement } from 'react';
 
@@ -49,56 +50,67 @@ export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 export const FullPageContentArea: React.FunctionComponent<FullPageEditorContentAreaProps> = React.memo(
   props => {
     return (
-      <ContentArea data-testid={CONTENT_AREA_TEST_ID}>
-        <ScrollContainer
-          innerRef={props.scrollContainerRef}
-          allowAnnotation={props.allowAnnotation}
-          className="fabric-editor-popup-scroll-parent"
-        >
-          <ClickAreaBlock editorView={props.editorView}>
-            <WidthConsumer>
-              {({ width }) => (
-                <EditorContentArea
-                  fullWidthMode={props.appearance === 'full-width'}
-                  innerRef={props.contentAreaRef}
-                  containerWidth={width}
+      <WidthConsumer>
+        {({ width }) => (
+          <ContextPanelConsumer>
+            {({ positionedOverEditor }) => (
+              <ContentArea
+                data-testid={CONTENT_AREA_TEST_ID}
+                positionedOverEditor={positionedOverEditor}
+              >
+                <ScrollContainer
+                  innerRef={props.scrollContainerRef}
+                  allowAnnotation={props.allowAnnotation}
+                  className="fabric-editor-popup-scroll-parent"
                 >
-                  <EditorContentGutter
-                    className={[
-                      'ak-editor-content-area',
-                      props.appearance === 'full-width'
-                        ? 'fabric-editor--full-width-mode'
-                        : '',
-                    ].join(' ')}
-                  >
-                    {props.customContentComponents}
-                    <PluginSlot
-                      editorView={props.editorView}
-                      editorActions={props.editorActions}
-                      eventDispatcher={props.eventDispatcher}
-                      providerFactory={props.providerFactory}
-                      appearance={props.appearance}
-                      items={props.contentComponents}
-                      contentArea={props.contentArea}
-                      popupsMountPoint={props.popupsMountPoint}
-                      popupsBoundariesElement={props.popupsBoundariesElement}
-                      popupsScrollableElement={props.popupsScrollableElement}
-                      disabled={!!props.disabled}
-                      containerElement={props.scrollContainer}
-                      dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-                    />
-                    {props.editorDOMElement}
-                  </EditorContentGutter>
-                </EditorContentArea>
-              )}
-            </WidthConsumer>
-          </ClickAreaBlock>
-        </ScrollContainer>
-        <SidebarArea>
-          {props.contextPanel || <ContextPanel visible={false} />}
-        </SidebarArea>
-        <WidthEmitter editorView={props.editorView} />
-      </ContentArea>
+                  <ClickAreaBlock editorView={props.editorView}>
+                    <EditorContentArea
+                      fullWidthMode={props.appearance === 'full-width'}
+                      innerRef={props.contentAreaRef}
+                      containerWidth={width}
+                    >
+                      <EditorContentGutter
+                        className={[
+                          'ak-editor-content-area',
+                          props.appearance === 'full-width'
+                            ? 'fabric-editor--full-width-mode'
+                            : '',
+                        ].join(' ')}
+                      >
+                        {props.customContentComponents}
+                        <PluginSlot
+                          editorView={props.editorView}
+                          editorActions={props.editorActions}
+                          eventDispatcher={props.eventDispatcher}
+                          providerFactory={props.providerFactory}
+                          appearance={props.appearance}
+                          items={props.contentComponents}
+                          contentArea={props.contentArea}
+                          popupsMountPoint={props.popupsMountPoint}
+                          popupsBoundariesElement={
+                            props.popupsBoundariesElement
+                          }
+                          popupsScrollableElement={
+                            props.popupsScrollableElement
+                          }
+                          disabled={!!props.disabled}
+                          containerElement={props.scrollContainer}
+                          dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+                        />
+                        {props.editorDOMElement}
+                      </EditorContentGutter>
+                    </EditorContentArea>
+                  </ClickAreaBlock>
+                </ScrollContainer>
+                <SidebarArea>
+                  {props.contextPanel || <ContextPanel visible={false} />}
+                </SidebarArea>
+                <WidthEmitter editorView={props.editorView} />
+              </ContentArea>
+            )}
+          </ContextPanelConsumer>
+        )}
+      </WidthConsumer>
     );
   },
 );

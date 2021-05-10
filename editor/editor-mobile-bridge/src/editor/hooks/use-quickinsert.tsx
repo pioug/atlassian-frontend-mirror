@@ -6,8 +6,10 @@ import WebBridgeImpl from '../native-to-web';
 import {
   EditorProps,
   processQuickInsertItems,
+  QuickInsertItem,
   quickInsertPluginKey,
 } from '@atlaskit/editor-core';
+import { toNativeBridge } from '../web-to-native';
 
 export function useQuickInsert(
   bridge: WebBridgeImpl,
@@ -18,21 +20,35 @@ export function useQuickInsert(
     allowListPayloadType
   >(bridge.allowList);
 
-  const quickInsert = React.useMemo(() => {
-    if (!isQuickInsertEnabled) {
-      return false;
-    }
-
+  const quickInsertItems = React.useMemo(() => {
     if (bridge.editorView) {
       const quickInsertPluginState = quickInsertPluginKey.getState(
         bridge.editorView.state,
       );
-      bridge.quickInsertItems.resolve(
-        processQuickInsertItems(
-          quickInsertPluginState.lazyDefaultItems(),
-          intl,
-        ),
+      return processQuickInsertItems(
+        quickInsertPluginState.lazyDefaultItems(),
+        intl,
+        {
+          hyperlink: (quickInsertItem: QuickInsertItem) => {
+            // Call native side for items that have to be handled natively
+            toNativeBridge.typeAheadItemSelected(
+              JSON.stringify(quickInsertItem),
+            );
+          },
+        },
       );
+    }
+  }, [bridge.editorView, intl]);
+
+  React.useEffect(() => {
+    if (quickInsertItems) {
+      bridge.quickInsertItems.resolve(quickInsertItems);
+    }
+  }, [bridge.quickInsertItems, intl, quickInsertItems]);
+
+  const quickInsert = React.useMemo(() => {
+    if (!isQuickInsertEnabled) {
+      return false;
     }
 
     return {
@@ -42,13 +58,7 @@ export function useQuickInsert(
         isQuickInsertEnabled,
       ),
     };
-  }, [
-    bridge.editorView,
-    bridge.quickInsertItems,
-    isQuickInsertEnabled,
-    intl,
-    quickAllowList,
-  ]);
+  }, [bridge.quickInsertItems, isQuickInsertEnabled, quickAllowList]);
 
   const updateQuickAllowList = React.useCallback(
     (payload: allowListPayloadType) => {

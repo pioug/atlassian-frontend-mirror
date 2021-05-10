@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "expand",
+      "attrs": {
+        "title": ""
+      },
+      "content": [
+        {
+          "type": "mediaSingle",
+          "attrs": {
+            "width": 83.33333333333334,
+            "layout": "center"
+          },
+          "content": [
+            {
+              "type": "media",
+              "attrs": {
+                "id": "0c3c64b9-65ad-4592-89d0-f838beebd81e",
+                "type": "file",
+                "collection": "MediaServicesSample",
+                "width": 640,
+                "height": 368
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

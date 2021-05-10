@@ -5,7 +5,9 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
-import type { ArrowKeys, DateObj, ISODate, WeekDay } from './internal/types';
+import type { ArrowKeys, DateObj, ISODate } from './internal/types';
+
+export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type ChangeEvent = {
   iso: ISODate;

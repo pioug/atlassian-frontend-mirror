@@ -100,6 +100,8 @@ BrowserTestCase(
 
     await page.type(editable, '`this is inline code ');
     await insertMention(page, 'Carolyn');
+    // Remove weird space after the mention
+    await page.keys('Backspace');
     await page.type(editable, '`');
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

@@ -47,6 +47,7 @@ import {
   EditorPlugin,
   EditorProps,
 } from '../types';
+import { FeatureFlags } from '../types/feature-flags';
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import {
   createErrorReporter,
@@ -176,6 +177,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
   private pluginPerformanceObserver: PluginPerformanceObserver;
 
+  private featureFlags: FeatureFlags;
+
   private onPluginObservation = (
     report: PluginPerformanceReportData,
     editorState: EditorState,
@@ -228,15 +231,15 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
     this.validTransactionCount = 0;
 
-    const featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
-    const featureFlagsEnabled = featureFlags
-      ? getEnabledFeatureFlagKeys(featureFlags)
+    this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
+    const featureFlagsEnabled = this.featureFlags
+      ? getEnabledFeatureFlagKeys(this.featureFlags)
       : [];
 
     // START TEMPORARY CODE ED-10584
     if (this.props.createAnalyticsEvent) {
-      (this.props.createAnalyticsEvent as any).__queueAnalytics =
-        featureFlags.queueAnalytics;
+      (this.props
+        .createAnalyticsEvent as any).__queueAnalytics = this.featureFlags.queueAnalytics;
     }
     // END TEMPORARY CODE ED-10584
 
@@ -358,6 +361,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
       performanceTracking: props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
+      featureFlags: this.featureFlags,
     });
 
     const newState = state.reconfigure({ plugins });
@@ -487,6 +491,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
       performanceTracking: this.props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
+      featureFlags: this.featureFlags,
     });
 
     this.contentTransformer = contentTransformerProvider
@@ -621,7 +626,26 @@ export default class ReactEditorView<T = {}> extends React.Component<
 
         startMeasure(EVENT_NAME_ON_CHANGE);
         this.props.editorProps.onChange(this.view, { source });
-        stopMeasure(EVENT_NAME_ON_CHANGE);
+        stopMeasure(
+          EVENT_NAME_ON_CHANGE,
+          (duration: number, startTime: number) => {
+            if (
+              this.props.editorProps.performanceTracking
+                ?.onChangeCallbackTracking?.enabled !== true
+            ) {
+              return;
+            }
+            this.dispatchAnalyticsEvent({
+              action: ACTION.ON_CHANGE_CALLBACK,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              eventType: EVENT_TYPE.OPERATIONAL,
+              attributes: {
+                duration,
+                startTime,
+              },
+            });
+          },
+        );
       }
       this.editorState = editorState;
     } else {
@@ -756,6 +780,8 @@ export default class ReactEditorView<T = {}> extends React.Component<
       className={getUAPrefix()}
       key="ProseMirror"
       ref={this.handleEditorViewRef}
+      aria-label="Main content area"
+      role="textbox"
     />
   );
 

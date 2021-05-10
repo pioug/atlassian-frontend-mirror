@@ -78,6 +78,7 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   measureContentRenderedPerformance,
   PerformanceMatrices,
+  isContentEmpty,
 } from '../../utils/bridge';
 import MobileEditorToolbarActions from '../mobile-editor-toolbar';
 
@@ -103,6 +104,7 @@ export const defaultSetList: QuickInsertItemId[] = [
   'warningpanel',
   'errorpanel',
   'layout',
+  'hyperlink',
 ];
 
 type InsertQueryMethod = (
@@ -322,17 +324,19 @@ export default class WebBridgeImpl
         } catch (e) {
           return;
         }
-        measureContentRenderedPerformance(
-          adfContent,
-          (totalNodeSize, nodes, actualRenderingDuration) => {
-            toNativeBridge.onContentRendered(
-              totalNodeSize,
-              nodes,
-              actualRenderingDuration,
-              performanceMatrices.duration,
-            );
-          },
-        );
+        if (!isContentEmpty(adfContent)) {
+          measureContentRenderedPerformance(
+            adfContent,
+            (totalNodeSize, nodes, actualRenderingDuration) => {
+              toNativeBridge.onContentRendered(
+                totalNodeSize,
+                nodes,
+                actualRenderingDuration,
+                performanceMatrices.duration,
+              );
+            },
+          );
+        }
       }
     }
   }
@@ -606,7 +610,6 @@ export default class WebBridgeImpl
               const quickInsertItem = items[parsedPayload.index] as
                 | QuickInsertItem
                 | undefined;
-
               if (!quickInsertItem) {
                 // eslint-disable-next-line no-console
                 console.error(
@@ -615,16 +618,6 @@ export default class WebBridgeImpl
                 );
                 return;
               }
-              const nativeQuickInsertItems = ['hyperlink', 'media'];
-              const { id } = quickInsertItem;
-
-              if (id && nativeQuickInsertItems.indexOf(id) > -1) {
-                // Call native side for items that have to be handled natively
-                toNativeBridge.typeAheadItemSelected(
-                  JSON.stringify(quickInsertItem),
-                );
-              }
-
               return enableQuickInsert && quickInsertItem.action(insert, state);
             }
             case 'mention': {

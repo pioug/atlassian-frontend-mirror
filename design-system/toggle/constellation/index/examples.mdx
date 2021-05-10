@@ -7,6 +7,7 @@ import ToggleStateless from '../../examples/constellation/toggle-stateless-defau
 import ToggleLarge from '../../examples/constellation/toggle-large';
 import ToggleDisabled from '../../examples/constellation/toggle-disabled';
 import ToggleTooltip from '../../examples/constellation/toggle-tooltip';
+import ToggleLabeled from '../../examples/constellation/toggle-label';
 
 ## Size
 
@@ -49,3 +50,9 @@ Set the initial checked value by setting `defaultChecked` (this is optional, by 
 In a stateless Toggle, manage the checked state of the input by providing the `isChecked` prop. This requires an `onChange` handler to control the state value that you pass into the `isChecked` prop.
 
 <Example Component={ToggleStateless} packageName="@atlaskit/toggle" />
+
+## Labeled
+
+You should use `label` prop when there isn't visible label that you can pair toggle with.
+
+<Example Component={ToggleLabeled} packageName="@atlaskit/toggle" />

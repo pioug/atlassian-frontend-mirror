@@ -94,8 +94,7 @@ export class InlineCard extends ReactNodeView<InlineCardNodeViewProps> {
     if (this.reactComponentProps.useInlineWrapper) {
       return createMobileInlineDomRef();
     }
-
-    return super.createDomRef();
+    return super.createDomRef({ displayInlineBlockForInlineNodes: false });
   }
 
   render() {

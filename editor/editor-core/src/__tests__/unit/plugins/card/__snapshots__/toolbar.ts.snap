@@ -11,6 +11,10 @@ Array [
   },
   Object {
     "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -25,6 +29,10 @@ Array [
     "className": "hyperlink-open-link",
     "icon": [Function],
     "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -102,6 +110,10 @@ Array [
   },
   Object {
     "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -116,6 +128,10 @@ Array [
     "className": "hyperlink-open-link",
     "icon": [Function],
     "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -140,6 +156,10 @@ exports[`card toolbar displays toolbar items in correct order for embedCard insi
 Array [
   Object {
     "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": undefined,
+    },
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -154,6 +174,10 @@ Array [
     "className": "hyperlink-open-link",
     "icon": [Function],
     "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": undefined,
+    },
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -185,6 +209,10 @@ Array [
   },
   Object {
     "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
     "onClick": [Function],
     "selected": false,
     "showTitle": true,
@@ -199,6 +227,10 @@ Array [
     "className": "hyperlink-open-link",
     "icon": [Function],
     "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
     "onClick": [Function],
     "title": "Open link in a new tab",
     "type": "button",
@@ -221,6 +253,36 @@ Array [
     "onMouseEnter": [Function],
     "onMouseLeave": [Function],
     "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar metadata correctly resolves url and title from plugin state 1`] = `
+Array [
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": "hey hey hey",
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": "hey hey hey",
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
     "type": "button",
   },
 ]

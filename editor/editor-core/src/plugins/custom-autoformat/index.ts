@@ -79,7 +79,7 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
 
           Object.keys(ruleset).forEach(rule => {
             const inputRule: InputRule = {
-              matchTyping: new RegExp('(\\s+|^)' + rule + '(\\s)$'),
+              matchTyping: new RegExp('(\\s+|^)' + rule + '(\\s|,|.)$'),
               matchEnter: new RegExp('(\\s+|^)' + rule + '()$'),
               handler: buildHandler(rule, ruleset[rule]),
             };

@@ -60,17 +60,34 @@
     body {
       width: 100%;
       height: 100%;
-      -webkit-text-size-adjust: 100%;
+      -webkit-text-size-adjust: none;
     }
 
     #renderer {
       box-sizing: border-box;
     }
 
+    /* iOS default font size. */
+    @supports (-webkit-overflow-scrolling: touch) {
+      html {
+        font-size: 17px;
+      }
+    }
+
+    /* Android default font size. */
+    @supports not (-webkit-touch-callout: none) {
+      html {
+        font-size: 16px;
+      }
+    }
+
+    body > #renderer .ak-renderer-document {
+      font-size: 1rem !important;
+    }
+
     body {
       color: #172B4D;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      font-size: 14px;
       font-style: normal;
       font-weight: 400;
       line-height: 1.42857142857143;

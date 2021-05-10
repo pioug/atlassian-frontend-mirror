@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 45.8.2
+
+### Patch Changes
+
+- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
+- Updated dependencies
+
 ## 45.8.1
 
 ### Patch Changes

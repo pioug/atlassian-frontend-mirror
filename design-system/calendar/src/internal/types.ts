@@ -1,3 +1,5 @@
+import type { WeekDay } from '../types';
+
 export type ArrowKeys = 'left' | 'up' | 'right' | 'down';
 
 export type DateObj = {
@@ -29,7 +31,5 @@ export interface CalendarDate extends DateObj {
   weekDay?: WeekDay;
   siblingMonth?: boolean;
 }
-
-export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type ISODate = string;

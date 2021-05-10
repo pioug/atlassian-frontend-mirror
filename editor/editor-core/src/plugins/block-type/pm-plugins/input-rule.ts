@@ -1,16 +1,18 @@
-import {
-  textblockTypeInputRule,
-  wrappingInputRule,
-} from 'prosemirror-inputrules';
 import { Schema, NodeType } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 import {
-  createInputRule,
-  instrumentedInputRule,
-  defaultInputRuleHandler,
-  leafNodeReplacementCharacter,
-  InputRuleWithHandler,
+  createRule,
+  createPlugin,
+  createJoinNodesRule,
+  createWrappingTextBlockRule,
+  ruleWithAnalytics,
 } from '../../../utils/input-rules';
+import { FeatureFlags } from '../../../types/feature-flags';
+
+import {
+  leafNodeReplacementCharacter,
+  InputRuleWrapper,
+} from '@atlaskit/prosemirror-input-rules';
 import {
   isConvertableToCodeBlock,
   transformToCodeBlockAction,
@@ -18,14 +20,11 @@ import {
 import { insertBlock } from '../commands/insert-block';
 import { safeInsert } from 'prosemirror-utils';
 import {
-  addAnalytics,
   INPUT_METHOD,
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
-  ruleWithAnalytics,
 } from '../../analytics';
 
 import { HeadingLevelsAndNormalText } from '../types';
@@ -41,19 +40,22 @@ function getHeadingLevel(
 }
 
 export function headingRule(nodeType: NodeType, maxLevel: number) {
-  return textblockTypeInputRule(
-    new RegExp('^(#{1,' + maxLevel + '})\\s$'),
+  return createWrappingTextBlockRule({
+    match: new RegExp('^(#{1,' + maxLevel + '})\\s$'),
     nodeType,
-    getHeadingLevel,
-  ) as InputRuleWithHandler;
+    getAttrs: getHeadingLevel,
+  });
 }
 
 export function blockQuoteRule(nodeType: NodeType) {
-  return wrappingInputRule(/^\s*>\s$/, nodeType) as InputRuleWithHandler;
+  return createJoinNodesRule(/^\s*>\s$/, nodeType) as InputRuleWrapper;
 }
 
 export function codeBlockRule(nodeType: NodeType) {
-  return textblockTypeInputRule(/^```$/, nodeType);
+  return createWrappingTextBlockRule({
+    match: /^```$/,
+    nodeType,
+  });
 }
 
 /**
@@ -62,14 +64,11 @@ export function codeBlockRule(nodeType: NodeType) {
  * @param {Schema} schema
  * @returns {InputRuleWithHandler[]}
  */
-function getHeadingRules(schema: Schema): InputRuleWithHandler[] {
+function getHeadingRules(schema: Schema): InputRuleWrapper[] {
   // '# ' for h1, '## ' for h2 and etc
-  const hashRule = defaultInputRuleHandler(
-    headingRule(schema.nodes.heading, MAX_HEADING_LEVEL),
-    true,
-  );
+  const hashRule = headingRule(schema.nodes.heading, MAX_HEADING_LEVEL);
 
-  const leftNodeReplacementHashRule = createInputRule(
+  const leftNodeReplacementHashRule = createRule(
     new RegExp(`${leafNodeReplacementCharacter}(#{1,6})\\s$`),
     (state, match, start, end) => {
       const level = match[1].length;
@@ -82,19 +81,18 @@ function getHeadingRules(schema: Schema): InputRuleWithHandler[] {
         { level },
       );
     },
-    true,
   );
 
   // New analytics handler
   const ruleWithHeadingAnalytics = ruleWithAnalytics(
-    (_state, match: string[]) => ({
+    (_state, matchResult: RegExpExecArray) => ({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
       actionSubjectId: ACTION_SUBJECT_ID.FORMAT_HEADING,
       attributes: {
         inputMethod: INPUT_METHOD.FORMATTING,
-        newHeadingLevel: getHeadingLevel(match).level,
+        newHeadingLevel: getHeadingLevel(matchResult).level,
       },
     }),
   );
@@ -111,14 +109,11 @@ function getHeadingRules(schema: Schema): InputRuleWithHandler[] {
  * @param {Schema} schema
  * @returns {InputRuleWithHandler[]}
  */
-function getBlockQuoteRules(schema: Schema): InputRuleWithHandler[] {
+function getBlockQuoteRules(schema: Schema): InputRuleWrapper[] {
   // '> ' for blockquote
-  const greatherThanRule = defaultInputRuleHandler(
-    blockQuoteRule(schema.nodes.blockquote),
-    true,
-  );
+  const greatherThanRule = blockQuoteRule(schema.nodes.blockquote);
 
-  const leftNodeReplacementGreatherRule = createInputRule(
+  const leftNodeReplacementGreatherRule = createRule(
     new RegExp(`${leafNodeReplacementCharacter}\\s*>\\s$`),
     (state, _match, start, end) => {
       return insertBlock(
@@ -129,11 +124,10 @@ function getBlockQuoteRules(schema: Schema): InputRuleWithHandler[] {
         end,
       );
     },
-    true,
   );
 
   // Analytics V3 handler
-  const ruleWithBlockQuoteAnalytics = ruleWithAnalytics(() => ({
+  const ruleWithBlockQuoteAnalytics = ruleWithAnalytics({
     action: ACTION.FORMATTED,
     actionSubject: ACTION_SUBJECT.TEXT,
     eventType: EVENT_TYPE.TRACK,
@@ -141,7 +135,7 @@ function getBlockQuoteRules(schema: Schema): InputRuleWithHandler[] {
     attributes: {
       inputMethod: INPUT_METHOD.FORMATTING,
     },
-  }));
+  });
 
   return [
     ruleWithBlockQuoteAnalytics(greatherThanRule),
@@ -155,66 +149,68 @@ function getBlockQuoteRules(schema: Schema): InputRuleWithHandler[] {
  * @param {Schema} schema
  * @returns {InputRuleWithHandler[]}
  */
-function getCodeBlockRules(schema: Schema): InputRuleWithHandler[] {
-  const analyticsPayload: AnalyticsEventPayload = {
+function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
+  const ruleAnalytics = ruleWithAnalytics({
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
     attributes: { inputMethod: INPUT_METHOD.FORMATTING },
     eventType: EVENT_TYPE.TRACK,
-  };
+  });
 
-  const threeTildeRule = createInputRule(
-    /((^`{3,})|(\s`{3,}))(\S*)$/,
+  const threeTildeRule = createRule(
+    /(?!\s)(`{3,})$/,
     (state, match, start, end) => {
       const attributes: any = {};
       if (match[4]) {
         attributes.language = match[4];
       }
-      const newStart = match[0][0] === ' ' ? start + 1 : start;
       if (isConvertableToCodeBlock(state)) {
-        const tr = transformToCodeBlockAction(state, attributes)
-          // remove markdown decorator ```
-          .delete(newStart, end)
-          .scrollIntoView();
-        return addAnalytics(state, tr, analyticsPayload);
+        return transformToCodeBlockAction(state, start, end, attributes);
       }
-      let { tr } = state;
-      tr = tr.delete(newStart, end);
-      const codeBlock = state.schema.nodes.codeBlock.createChecked();
-      return safeInsert(codeBlock)(tr);
+
+      const tr = state.tr;
+      tr.delete(start, end);
+      const codeBlock = tr.doc.type.schema.nodes.codeBlock.createChecked();
+      safeInsert(codeBlock)(tr);
+
+      return tr;
     },
-    true,
   );
 
-  const leftNodeReplacementThreeTildeRule = createInputRule(
-    new RegExp(`((${leafNodeReplacementCharacter}\`{3,})|(\\s\`{3,}))(\\S*)$`),
+  const leftNodeReplacementThreeTildeRule = createRule(
+    new RegExp(`((${leafNodeReplacementCharacter}\`{3,})|^\\s(\`{3,}))(\\S*)$`),
     (state, match, start, end) => {
       const attributes: any = {};
       if (match[4]) {
         attributes.language = match[4];
       }
-      let tr = insertBlock(
+      const inlineStart = Math.max(
+        match.index + state.selection.$from.start(),
+        1,
+      );
+      return insertBlock(
         state,
         schema.nodes.codeBlock,
         'codeblock',
-        start,
+        inlineStart,
         end,
         attributes,
       );
-      if (tr) {
-        tr = addAnalytics(state, tr, analyticsPayload);
-      }
-      return tr;
     },
-    true,
   );
 
-  return [threeTildeRule, leftNodeReplacementThreeTildeRule];
+  return [
+    ruleAnalytics(threeTildeRule),
+    ruleAnalytics(leftNodeReplacementThreeTildeRule),
+  ];
 }
 
-export function inputRulePlugin(schema: Schema): Plugin | undefined {
-  const rules: Array<InputRuleWithHandler> = [];
+export function inputRulePlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin | undefined {
+  const rules: Array<InputRuleWrapper> = [];
 
   if (schema.nodes.heading) {
     rules.push(...getHeadingRules(schema));
@@ -229,8 +225,12 @@ export function inputRulePlugin(schema: Schema): Plugin | undefined {
   }
 
   if (rules.length !== 0) {
-    return instrumentedInputRule('block-type', { rules });
+    return createPlugin('block-type', rules, {
+      isBlockNodeRule: true,
+      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
+    });
   }
+
   return;
 }
 

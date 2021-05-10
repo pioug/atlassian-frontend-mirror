@@ -62,12 +62,16 @@ function assertNavigationButtonRendering(
 describe('Pagination', () => {
   afterEach(cleanup);
 
-  const setup = (paginationProps: Partial<PaginationPropTypes> = {}) => {
+  const setup = <T extends any = number>(
+    paginationProps: Partial<PaginationPropTypes<T>> = {},
+  ) => {
     const props = {
-      pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as T[],
     };
 
-    const renderResult = render(<Pagination {...props} {...paginationProps} />);
+    const renderResult = render(
+      <Pagination<T> {...props} {...paginationProps} />,
+    );
 
     return {
       renderResult,
@@ -505,17 +509,13 @@ describe('Pagination', () => {
         { page: '6', isSelected: false },
         { page: '7', isSelected: true },
         { page: '8', isSelected: false },
-        // TODO: Uncomment below once we fix ellipsis bug: https://product-fabric.atlassian.net/browse/DST-2264
-        // { page: '9', isSelected: false },
+        { page: '9', isSelected: false },
         { page: '10', isSelected: false },
       ].forEach(({ page, isSelected }) => {
         assertPageButtonRendering(renderResult, { page, isSelected });
       });
 
-      // TODO: Replace below with `expect(renderResult.getByText('...')).toBeInTheDocument();`
-      // once we fix ellipsis bug: https://product-fabric.atlassian.net/browse/DST-2264
-      expect(renderResult.getAllByText('...')[0]).toBeInTheDocument();
-
+      expect(renderResult.getByText('...')).toBeInTheDocument();
       ['2', '3', '4', '5'].forEach(page => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
       });

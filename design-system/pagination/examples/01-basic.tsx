@@ -1,32 +1,19 @@
-import React, { Component, Fragment, SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
 import Pagination from '../src';
 
 const Pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-type StateType = {
-  onChangeEvent: any;
-};
+export default function BasicExample() {
+  const [onChangeEvent, setOnChangeEvent] = useState(1);
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends Component<{}, StateType> {
-  state = {
-    onChangeEvent: 1,
-  };
+  const handleChange = (event: SyntheticEvent, newPage: any) =>
+    setOnChangeEvent(newPage);
 
-  handleChange = (event: SyntheticEvent, newPage: any) =>
-    this.setState({ onChangeEvent: newPage });
-
-  render() {
-    return (
-      <Fragment>
-        <Pagination
-          testId="pagination"
-          pages={Pages}
-          onChange={this.handleChange}
-        />
-        <p>selected page from onChange hook: {this.state.onChangeEvent}</p>
-      </Fragment>
-    );
-  }
+  return (
+    <>
+      <Pagination testId="pagination" pages={Pages} onChange={handleChange} />
+      <p>selected page from onChange hook: {onChangeEvent}</p>
+    </>
+  );
 }

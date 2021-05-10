@@ -40,6 +40,7 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
       testId={testId && `${testId}--avatar`}
       borderColor="transparent"
       size="small"
+      name=""
     />
   );
 

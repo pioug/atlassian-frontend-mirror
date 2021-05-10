@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { RequestAccessMessageKeys } from './messages';
+import { RequestAccessMessageKey } from './messages';
 import { ActionProps } from './BlockCard/components/Action';
 
 export interface WithShowControlMethodProp {
@@ -32,8 +32,8 @@ export interface AccessContext {
 
 export interface RequestAccessContextProps extends AccessContext {
   action?: ActionProps;
-  callToActionMessageKey?: RequestAccessMessageKeys;
-  descriptiveMessageKey?: RequestAccessMessageKeys;
+  callToActionMessageKey?: RequestAccessMessageKey;
+  descriptiveMessageKey?: RequestAccessMessageKey;
 }
 
 export type InlinePreloaderStyle =

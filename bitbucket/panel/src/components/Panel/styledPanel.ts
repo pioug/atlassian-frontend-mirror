@@ -1,3 +1,5 @@
+import type { FC, HTMLProps } from 'react';
+
 import { withFocusWithin } from 'react-focus-within';
 import styled, { css } from 'styled-components';
 
@@ -31,7 +33,9 @@ export const ButtonWrapper = styled.div<{ isHidden: boolean }>`
   }
 `;
 
-export const PanelHeader = withFocusWithin(styled.div<{ isFocused?: boolean }>`
+export const PanelHeader: FC<
+  HTMLProps<HTMLDivElement> & { isFocused?: boolean }
+> = withFocusWithin(styled.div`
   align-items: center;
   background-color: ${props => props.isFocused && colors.N20};
   border-radius: ${borderRadius}px;

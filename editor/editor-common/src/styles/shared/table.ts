@@ -161,7 +161,7 @@ const tableSharedStyle = css`
             }
 
             /* this is only relevant to the element taken care of by renderer */
-            [data-code-block] > span:last-child {
+            [data-ds--code--code-block] {
               background-image: ${overflowShadow({
                 background: themed({
                   light: 'rgb(235, 237, 240)',
@@ -176,10 +176,10 @@ const tableSharedStyle = css`
               })}!important;
 
               // selector lives inside @atlaskit/code
-              --line-number-bg-color: ${themed({
+              --ds--code--line-number-bg-color: ${themed({
                 light: 'rgb(226, 229, 233)',
                 dark: DN20,
-              })} !important;
+              })};
             }
           }
         }

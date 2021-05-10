@@ -26,6 +26,8 @@ export interface ProgressTrackerProps {
   animated: boolean;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /** Text to be used as an aria-label of progress tracker */
+  label?: string;
 }
 
 interface State {
@@ -35,6 +37,7 @@ interface State {
 const TRANSITION_SPEED = 300;
 const LINEAR_TRANSITION_SPEED = 50;
 const easeOut = 'cubic-bezier(0.15,1,0.3,1)';
+const defaultLabel = 'Progress';
 
 export default class ProgressTracker extends PureComponent<
   ProgressTrackerProps,
@@ -47,6 +50,7 @@ export default class ProgressTracker extends PureComponent<
       link: (props: LinkComponentProps) => <ProgressTrackerLink {...props} />,
     },
     animated: true,
+    label: defaultLabel,
   };
 
   createTheme = () => ({
@@ -73,7 +77,7 @@ export default class ProgressTracker extends PureComponent<
   }
 
   render() {
-    const { testId } = this.props;
+    const { testId, label } = this.props;
     const progressChanges = this.props.items.filter(
       (stage, index) =>
         stage.percentageComplete !==
@@ -131,7 +135,9 @@ export default class ProgressTracker extends PureComponent<
     return (
       <ThemeProvider theme={this.createTheme()}>
         <Grid testId={testId}>
-          <ProgressTrackerContainer>{items}</ProgressTrackerContainer>
+          <ProgressTrackerContainer aria-label={label}>
+            {items}
+          </ProgressTrackerContainer>
         </Grid>
       </ThemeProvider>
     );

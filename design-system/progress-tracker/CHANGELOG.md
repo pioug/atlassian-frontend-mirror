@@ -1,5 +1,15 @@
 # @atlaskit/progress-tracker
 
+## 8.0.0
+
+### Major Changes
+
+- [`3e1d0e22b98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e1d0e22b98) - [ux] Marked a progress tracker wrapper as unordered list. Step component wrapper has been changed to li tag for each step. Added label prop that is used as aria-label.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

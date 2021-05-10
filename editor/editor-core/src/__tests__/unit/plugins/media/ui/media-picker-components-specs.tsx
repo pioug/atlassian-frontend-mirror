@@ -4,6 +4,12 @@ jest.mock('@atlaskit/editor-common', () => {
     findOverflowScrollParent: jest.fn(),
   };
 });
+jest.mock('../../../../../ui/WithPluginState', () => ({
+  __esModule: true,
+  default: ({ render }: any) => {
+    return render({ focus: true });
+  },
+}));
 import { findOverflowScrollParent } from '@atlaskit/editor-common';
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
@@ -104,7 +110,7 @@ describe('MediaPickerComponents', () => {
     expect(wrapper.state()).toHaveProperty('isPopupOpened', false);
   });
 
-  it('should render <ClipboardWrapper /> component', () => {
+  it('should render <ClipboardWrapper /> component when editor is focused', () => {
     wrapper = mount(
       <MediaPickerComponents
         editorDomElement={editorDomElement}

@@ -5,6 +5,7 @@ import {
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
   ATLASSIAN_NAVIGATION_HEIGHT,
+  akEditorContextPanelWidth,
 } from '@atlaskit/editor-shared-styles';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import ContentStyles from '../../ContentStyles';
@@ -36,11 +37,18 @@ export const ScrollContainer = styled(ContentStyles)`
 `;
 ScrollContainer.displayName = 'ScrollContainer';
 
-export const ContentArea = styled.div`
+export const ContentArea = styled.div<{ positionedOverEditor: boolean }>`
   display: flex;
   flex-direction: row;
   height: calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT});
   box-sizing: border-box;
+  margin: 0;
+  padding: 0 ${p => (p.positionedOverEditor ? akEditorContextPanelWidth : 0)}px;
+
+  // transition used to match scrollbar with config panel opening animation
+  // only use animation when opening as there is a bug with floating toolbars.
+  transition: padding ${p => (p.positionedOverEditor ? 500 : 0)}ms
+    ${akEditorSwoopCubicBezier};
 `;
 ContentArea.displayName = 'ContentArea';
 

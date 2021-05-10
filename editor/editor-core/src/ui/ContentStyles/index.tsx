@@ -46,7 +46,7 @@ import { statusStyles } from '../../plugins/status/styles';
 import { smartCardStyles } from '../../plugins/card/styles';
 import { dateStyles } from '../../plugins/date/styles';
 import { embedCardStyles } from '../../plugins/card/ui/styled';
-import { FeatureFlags } from '../../plugins/feature-flags-context/types';
+import type { FeatureFlags } from '../../types/feature-flags';
 import { useFeatureFlags } from '../../plugins/feature-flags-context';
 
 type ContentStylesProps = {

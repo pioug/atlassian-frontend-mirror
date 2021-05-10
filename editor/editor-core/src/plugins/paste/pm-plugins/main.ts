@@ -195,7 +195,16 @@ export function createPlugin(
         const { state } = view;
         // creating a custom dispatch because we want to add a meta whenever we do a paste.
         const dispatch = (tr: Transaction) => {
-          tr.setMeta(betterTypePluginKey, true);
+          // https://product-fabric.atlassian.net/browse/ED-12633
+          // don't add closeHistory call if we're pasting a text inside placeholder text as we want the whole action
+          // to be atomic
+          const { placeholder } = state.schema.nodes;
+          if (
+            state.doc.resolve(state.selection.$anchor.pos).nodeAfter?.type !==
+            placeholder
+          ) {
+            tr.setMeta(betterTypePluginKey, true);
+          }
           view.dispatch(tr);
         };
 

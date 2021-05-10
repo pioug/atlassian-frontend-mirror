@@ -63,4 +63,43 @@ describe('ReactNodeView', () => {
       editorView.destroy();
     });
   });
+
+  describe('createDomRef', () => {
+    let nodeView: ReactNodeView | undefined;
+
+    beforeEach(() => {
+      const { editorView } = createEditor({
+        doc: doc(p()),
+        editorPlugins: [],
+      });
+
+      const node = editorView.state.schema.nodes.unsupportedInline.createAndFill();
+
+      nodeView = new ReactNodeView(
+        node,
+        editorView,
+        getPos,
+        portalProviderAPI,
+        eventDispatcher,
+      ).init();
+    });
+
+    it('should not add inline-block when displayInlineBlockForInlineNodes = false', () => {
+      expect(
+        nodeView!.createDomRef({ displayInlineBlockForInlineNodes: false })
+          .style.display,
+      ).toBe('');
+    });
+
+    it('should add inline-block when displayInlineBlockForInlineNodes = true', () => {
+      expect(
+        nodeView!.createDomRef({ displayInlineBlockForInlineNodes: true }).style
+          .display,
+      ).toBe('inline-block');
+    });
+
+    it('should add inline-block when displayInlineBlockForInlineNodes is not passed in', () => {
+      expect(nodeView!.createDomRef().style.display).toBe('inline-block');
+    });
+  });
 });

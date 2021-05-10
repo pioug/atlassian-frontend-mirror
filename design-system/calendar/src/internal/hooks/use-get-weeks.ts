@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
+import type { WeekDay } from '../../types';
 import { daysPerWeek } from '../constants';
-import type { CalendarDate, Week, WeekDay } from '../types';
+import type { CalendarDate, Week } from '../types';
 import dateToString from '../utils/date-to-string';
 import getBaseCalendar from '../utils/get-base-calendar';
 

@@ -43,6 +43,7 @@ const SaveIndicatorText = styled.span`
 export const SaveIndicator: FunctionComponent<SaveIndicatorProps> = ({
   children,
   duration,
+  visible = true,
 }) => {
   const [saving, setSaving] = useState(false);
   const shown = useRef(false);
@@ -67,7 +68,7 @@ export const SaveIndicator: FunctionComponent<SaveIndicatorProps> = ({
   return (
     <>
       <div>{children({ onSaveStarted, onSaveEnded: noop })}</div>
-      {saving && (
+      {visible && saving && (
         <SaveIndicatorWrapper>
           <SaveIndicatorContent data-testid="save-indicator-content">
             <CheckCircleIcon label="Saving" primaryColor={G300} size="small" />

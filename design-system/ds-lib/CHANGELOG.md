@@ -1,5 +1,16 @@
 # @atlaskit/ds-lib
 
+## 1.2.0
+
+### Minor Changes
+
+- [`742b9d82cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/742b9d82cdc) - Added `useControlled` hook which can be used to be handle controlled & uncontrolled behaviour of a componenent.
+- [`e1d9004d5ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1d9004d5ee) - Adds new utility to merge refs.
+- [`40d5bb8a2f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40d5bb8a2f4) - New `useAutoFocus` hook to be used when wanting to focus on an element during initial mount.
+- [`c60505b8a38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c60505b8a38) - Adds new `useCloseOnEscapePress` hook, to be used exclusively for closing layered components.
+- [`cade298437d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cade298437d) - Adds three new hooks (`useElementEvent`, `useDocumentEvent`, `useWindowEvent`) for listening to native browser events.
+- [`2d996ae3869`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d996ae3869) - Adds new hook `usePreviousValue`.
+
 ## 1.1.0
 
 ### Minor Changes

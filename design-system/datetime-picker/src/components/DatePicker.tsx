@@ -96,13 +96,23 @@ export interface Props extends WithAnalyticsEventsProps {
   placeholder?: string;
   /** Locale used to format the the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) */
   locale?: string;
-
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    *  - `{testId}--container` wrapping element of date-picker
    *  - `{testId}--calendar--container` nested calendar component
    **/
   testId?: string;
+  /**
+   * Start day of the week for the calendar.
+   * - `0` sunday (default value)
+   * - `1` monday
+   * - `2` tuesday
+   * - `3` wednesday
+   * - `4` thursday
+   * - `5` friday
+   * - `6` saturday
+   */
+  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 type DatePickerProps = typeof datePickerDefaultProps & Props;
@@ -172,6 +182,7 @@ const Menu = ({
           selected={[selectProps.calendarValue]}
           locale={selectProps.calendarLocale}
           testId={selectProps.testId && `${selectProps.testId}--calendar`}
+          weekStartDay={selectProps.calendarWeekStartDay}
         />
       </StyledMenu>
     }
@@ -509,6 +520,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       spacing,
       locale,
       testId,
+      weekStartDay,
     } = this.props;
     const BORDER_WIDTH = 2;
     const ICON_PADDING = 2;
@@ -546,6 +558,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
       onCalendarChange: this.onCalendarChange,
       onCalendarSelect: this.onCalendarSelect,
       calendarLocale: locale,
+      calendarWeekStartDay: weekStartDay,
     };
 
     return (

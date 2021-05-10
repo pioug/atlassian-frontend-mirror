@@ -59,7 +59,6 @@ export {
   getAnalyticsEventsFromTransaction,
   getSelectionType,
   getStateContext,
-  ruleWithAnalytics,
   mapActionSubjectIdToAttributes,
 } from './utils';
 

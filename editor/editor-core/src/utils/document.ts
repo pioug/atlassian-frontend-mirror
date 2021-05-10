@@ -294,14 +294,49 @@ export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
   state.selection.$to.parent.type === state.schema.nodes.paragraph &&
   state.selection.$to.pos === state.doc.resolve(state.selection.$to.pos).end();
 
+export type ChangedFn = (
+  node: Node<any>,
+  pos: number,
+  parent: Node<any>,
+  index: number,
+) => boolean | null | undefined | void;
+
+export function getChangedNodesIn({
+  tr,
+  doc,
+}: {
+  tr: Transaction;
+  doc: Node;
+}): { node: Node; pos: number }[] {
+  const nodes: { node: Node; pos: number }[] = [];
+  const stepRange = getStepRange(tr);
+
+  if (!stepRange) {
+    return nodes;
+  }
+
+  const from = Math.min(doc.nodeSize - 2, stepRange.from);
+  const to = Math.min(doc.nodeSize - 2, stepRange.to);
+
+  doc.nodesBetween(from, to, (node, pos) => {
+    nodes.push({ node, pos });
+  });
+
+  return nodes;
+}
+
+export function getChangedNodes(
+  tr: Transaction,
+): { node: Node; pos: number }[] {
+  return getChangedNodesIn({
+    tr: tr,
+    doc: tr.doc,
+  });
+}
+
 export function nodesBetweenChanged(
   tr: Transaction,
-  f: (
-    node: Node<any>,
-    pos: number,
-    parent: Node<any>,
-    index: number,
-  ) => boolean | null | undefined | void,
+  f: ChangedFn,
   startPos?: number,
 ) {
   const stepRange = getStepRange(tr);

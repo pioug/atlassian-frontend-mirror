@@ -80,6 +80,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Dette visningsalternativet er ikke tilgjengelig innenfor {node}',
   'fabric.editor.displayText': 'Tekst som skal vises',
+  'fabric.editor.distributeColumns': 'Distribuer kolonner',
   'fabric.editor.edit': 'Rediger',
   'fabric.editor.editAltText': 'Rediger alternativ tekst',
   'fabric.editor.editLink': 'Rediger kobling',

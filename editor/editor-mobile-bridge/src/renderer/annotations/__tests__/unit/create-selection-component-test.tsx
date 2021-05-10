@@ -111,10 +111,58 @@ describe('Mobile Renderer: Annotations/create-selection-component', () => {
     });
 
     describe('when the mouseup happens', () => {
+      beforeEach(() => {
+        onCloseMock.mockClear();
+      });
+
       it('should call the onClose prop', () => {
         expect(onCloseMock).toHaveBeenCalledTimes(0);
 
         renderSelectionComponent();
+
+        act(() => {
+          const event = new Event('mouseup');
+          document.dispatchEvent(event);
+        });
+
+        expect(onCloseMock).toHaveBeenCalledTimes(1);
+      });
+
+      it('should call the onClose prop after "APPLY_DRAFT_ANNOTATION"', () => {
+        expect(onCloseMock).toHaveBeenCalledTimes(0);
+
+        renderSelectionComponent();
+
+        act(() => {
+          mobileBridgeEventDispatcher.emit(
+            EmitterEvents.APPLY_DRAFT_ANNOTATION,
+          );
+        });
+
+        act(() => {
+          const event = new Event('mouseup');
+          document.dispatchEvent(event);
+        });
+
+        expect(onCloseMock).toHaveBeenCalledTimes(0);
+      });
+
+      it('should call the onClose prop after cancel an annotation ', () => {
+        expect(onCloseMock).toHaveBeenCalledTimes(0);
+
+        renderSelectionComponent();
+
+        act(() => {
+          mobileBridgeEventDispatcher.emit(
+            EmitterEvents.APPLY_DRAFT_ANNOTATION,
+          );
+        });
+
+        act(() => {
+          mobileBridgeEventDispatcher.emit(
+            EmitterEvents.REMOVE_DRAFT_ANNOTATION,
+          );
+        });
 
         act(() => {
           const event = new Event('mouseup');

@@ -8,15 +8,15 @@ const urlI18nDateTimePicker = getExampleUrl(
   'i18n',
 );
 
-const timePicker = '[data-testid="timePicker--container"]';
-const timePickerInput = 'input#react-select-timepicker-4-input';
-const timePickerMenu = '.timepicker-select__menu-list';
-const timePickerValue = `${timePicker} > div > div > div > div:first-child`;
+const timePicker = '[data-testid="time-picker--container"]';
+const timePickerInput = '.time-picker--select__input input';
+const timePickerMenu = '.time-picker--select__menu-list';
+const timePickerValue = '.time-picker--select__value-container > div';
 
 const calendarMenu = '[aria-label="calendar"]';
-const dateTimePicker = '[data-testid="dateTimePicker--datepicker--container"]';
-const dateTimePickerInput = 'input#react-select-datetimepicker-1-input';
-const dateTimePickerValue = `${dateTimePicker} > div > div > div > div`;
+const dateTimePicker = '[data-testid="datetime-picker--datepicker--container"]';
+const dateTimePickerInput = '.date-picker--select__input input';
+const dateTimePickerValue = '.date-picker--select__single-value';
 
 BrowserTestCase(
   '[i18n] When entering a new time in Timepicker Editable, the time should be updated to the new value',

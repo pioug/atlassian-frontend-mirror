@@ -37,6 +37,7 @@ export type {
   ExtensionProvider,
   ExtensionType,
   ExtensionToolbarButton,
+  ExtensionModuleToolbarButton,
   ExtensionModuleToolbarItem,
   Icon,
   MaybeADFEntity,
@@ -69,7 +70,7 @@ export type {
   UserFieldContextProvider,
   FieldHandlerLink,
   OnSaveCallback,
-  UpdateContextActions,
+  ExtensionAPI,
   TransformBefore,
   TransformAfter,
   // DEPRECATED

@@ -59,6 +59,7 @@ export class TitleInput extends React.Component<
     return (
       <TitleArea
         id="editor-title"
+        data-test-id="editor-title"
         placeholder={this.state.placeholder}
         rows={1}
         value={this.props.value}

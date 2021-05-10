@@ -52,14 +52,14 @@ export default function Component() {
         <div
           dangerouslySetInnerHTML={{
             __html: ReactDOMServer.renderToString(
-              <CodeBlock language="java" text={exampleCodeBlock} />,
+              <CodeBlock language="jsx" text={exampleCodeBlock} />,
             ),
           }}
         />
       </div>
       <div>
         <H2>Hydrated</H2>
-        <CodeBlock language="java" text={exampleCodeBlock} />
+        <CodeBlock language="jsx" text={exampleCodeBlock} />
       </div>
       <div>
         <H2>SSR</H2>
@@ -68,7 +68,7 @@ export default function Component() {
             __html: ReactDOMServer.renderToString(
               <CodeBlock
                 showLineNumbers={false}
-                language="java"
+                language="jsx"
                 text={exampleCodeBlock}
               />,
             ),
@@ -79,7 +79,7 @@ export default function Component() {
         <H2>Hydrated</H2>
         <CodeBlock
           showLineNumbers={false}
-          language="java"
+          language="jsx"
           text={exampleCodeBlock}
         />
       </div>

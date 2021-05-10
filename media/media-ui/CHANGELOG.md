@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 16.0.2
+
+### Patch Changes
+
+- [`bdd31628e87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdd31628e87) - Fix translation not available for new strings
+- [`8f3399a7c9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f3399a7c9d) - Updates to types consumed from @atlaskit/code
+- Updated dependencies
+
 ## 16.0.1
 
 ### Patch Changes

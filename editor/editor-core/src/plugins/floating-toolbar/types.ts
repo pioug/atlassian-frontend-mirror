@@ -39,6 +39,8 @@ export type FloatingToolbarButton<T> = {
   tooltipContent?: React.ReactNode;
   testId?: string;
   hideTooltipOnClick?: boolean;
+  // For sending data over the mobile bridge
+  metadata?: { [key: string]: number | string };
 };
 
 export type FloatingToolbarInput<T> = {

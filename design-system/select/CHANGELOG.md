@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 13.3.1
+
+### Patch Changes
+
+- [`0e3333cd10a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e3333cd10a) - Corrects usage of modal dialog types.
+- Updated dependencies
+
 ## 13.3.0
 
 ### Minor Changes

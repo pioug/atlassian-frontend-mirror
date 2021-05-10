@@ -65,7 +65,7 @@ describe('ReactionContext', () => {
     [ari]: [
       reaction(':fire:', 2, true),
       reaction(':thumbsup:', 3, false),
-      reaction(':thumbsdown:', 1, true),
+      reaction(':clap:', 1, true),
     ],
   });
 
@@ -112,7 +112,7 @@ describe('ReactionContext', () => {
               reactions: [
                 reaction(':thumbsup:', 3, false),
                 reaction(':fire:', 2, true),
-                reaction(':thumbsdown:', 1, true),
+                reaction(':clap:', 1, true),
               ],
             },
           },
@@ -144,7 +144,7 @@ describe('ReactionContext', () => {
               reactions: [
                 reaction(':thumbsup:', 3, false),
                 reaction(':fire:', 2, true),
-                reaction(':thumbsdown:', 1, true),
+                reaction(':clap:', 1, true),
               ],
             },
           },
@@ -182,7 +182,7 @@ describe('ReactionContext', () => {
           [`${containerAri}|${ari}`]: {
             reactions: [
               reaction(':thumbsup:', 3, false),
-              reaction(':thumbsdown:', 3, true),
+              reaction(':clap:', 3, true),
             ],
             status: ReactionStatus.ready,
           },
@@ -215,7 +215,7 @@ describe('ReactionContext', () => {
                   ...reaction(':thumbsup:', 3, false),
                   users: [user('id', 'Some real user')],
                 },
-                reaction(':thumbsdown:', 3, true),
+                reaction(':clap:', 3, true),
               ],
             },
           },
@@ -239,7 +239,7 @@ describe('ReactionContext', () => {
                 ...reaction(':thumbsup:', 4, true),
                 optimisticallyUpdated: true,
               },
-              reaction(':thumbsdown:', 3, true),
+              reaction(':clap:', 3, true),
             ],
           },
         },
@@ -262,7 +262,7 @@ describe('ReactionContext', () => {
                 ...reaction(':thumbsup:', 4, true),
                 optimisticallyUpdated: true,
               },
-              reaction(':thumbsdown:', 3, true),
+              reaction(':clap:', 3, true),
             ],
           },
         },
@@ -270,7 +270,7 @@ describe('ReactionContext', () => {
     });
 
     it('should flash reaction when the user tries to add it again', () => {
-      store.addReaction(containerAri, ari, '1f44e');
+      store.addReaction(containerAri, ari, '1f44f');
 
       expect(store.getState()).toMatchObject({
         reactions: {
@@ -278,12 +278,12 @@ describe('ReactionContext', () => {
             status: ReactionStatus.ready,
             reactions: [
               reaction(':thumbsup:', 3, false),
-              reaction(':thumbsdown:', 3, true),
+              reaction(':clap:', 3, true),
             ],
           },
         },
         flash: {
-          [`${containerAri}|${ari}`]: { '1f44e': true },
+          [`${containerAri}|${ari}`]: { '1f44f': true },
         },
       });
 
@@ -291,7 +291,7 @@ describe('ReactionContext', () => {
     });
 
     it('should call adaptor to remove reaction', () => {
-      store.toggleReaction(containerAri, ari, '1f44e');
+      store.toggleReaction(containerAri, ari, '1f44f');
 
       expect(store.getState()).toMatchObject({
         reactions: {
@@ -300,7 +300,7 @@ describe('ReactionContext', () => {
             reactions: [
               reaction(':thumbsup:', 3, false),
               {
-                ...reaction(':thumbsdown:', 2, false),
+                ...reaction(':clap:', 2, false),
                 optimisticallyUpdated: true,
               },
             ],
@@ -317,7 +317,7 @@ describe('ReactionContext', () => {
           [`${containerAri}|${ari}`]: {
             reactions: [
               reaction(':thumbsup:', 3, false),
-              reaction(':thumbsdown:', 3, true),
+              reaction(':clap:', 3, true),
             ],
             status: ReactionStatus.ready,
           },

@@ -150,6 +150,7 @@ const nodeTypes: Record<string, NodeMapping> = {
   alignment: { name: 'alignment', attrs: ['align'] },
   breakout: { name: 'breakout', attrs: ['mode'] },
   indentation: { name: 'indentation', attrs: ['level'] },
+  dataConsumer: { name: 'dataConsumer', attrs: ['sources'] },
 };
 nodeTypes.link = nodeTypes.a;
 

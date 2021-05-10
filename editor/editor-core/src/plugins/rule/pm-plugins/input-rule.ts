@@ -1,12 +1,10 @@
-import { InputRule } from 'prosemirror-inputrules';
+import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Fragment, Schema, Slice } from 'prosemirror-model';
 import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { FeatureFlags } from '../../../types/feature-flags';
 
-import {
-  createInputRule,
-  instrumentedInputRule,
-  leafNodeReplacementCharacter,
-} from '../../../utils/input-rules';
+import { createRule, createPlugin } from '../../../utils/input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { safeInsert } from '../../../utils/insert';
 import {
   ACTION,
@@ -74,23 +72,23 @@ const createHorizontalRuleAutoformat = (
   return createHorizontalRule(state, start, end, INPUT_METHOD.FORMATTING);
 };
 
-export function inputRulePlugin(schema: Schema): Plugin | undefined {
-  const rules: Array<InputRule> = [];
+export function inputRulePlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin | undefined {
+  const rules: Array<InputRuleWrapper> = [];
 
   if (schema.nodes.rule) {
     // '---' and '***' for hr
     rules.push(
-      createInputRule(
-        /^(\-\-\-|\*\*\*)$/,
-        (state, _match, start, end) =>
-          createHorizontalRuleAutoformat(state, start, end),
-        true,
+      createRule(/^(\-\-\-|\*\*\*)$/, (state, _match, start, end) =>
+        createHorizontalRuleAutoformat(state, start, end),
       ),
     );
 
     // '---' and '***' after shift+enter for hr
     rules.push(
-      createInputRule(
+      createRule(
         new RegExp(`${leafNodeReplacementCharacter}(\\-\\-\\-|\\*\\*\\*)`),
         (state, _match, start, end) => {
           const { hardBreak } = state.schema.nodes;
@@ -99,13 +97,15 @@ export function inputRulePlugin(schema: Schema): Plugin | undefined {
           }
           return createHorizontalRuleAutoformat(state, start, end);
         },
-        true,
       ),
     );
   }
 
   if (rules.length !== 0) {
-    return instrumentedInputRule('rule', { rules });
+    return createPlugin('rule', rules, {
+      isBlockNodeRule: true,
+      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
+    });
   }
 
   return;

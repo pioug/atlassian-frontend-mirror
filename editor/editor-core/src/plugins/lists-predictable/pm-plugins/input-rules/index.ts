@@ -1,19 +1,23 @@
-import { InputRule } from 'prosemirror-inputrules';
+import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { instrumentedInputRule } from '../../../../utils/input-rules';
+import { createPlugin } from '../../../../utils/input-rules';
 import { createRuleForListType } from './create-list-input-rule';
+import { FeatureFlags } from '../../../../types/feature-flags';
 
-export default function inputRulePlugin(schema: Schema): Plugin | undefined {
+export default function inputRulePlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin | undefined {
   const {
     nodes: { bulletList, orderedList },
   } = schema;
-  const rules: InputRule[] = [];
+  const rules: InputRuleWrapper[] = [];
 
   if (bulletList) {
     rules.push(
       createRuleForListType({
-        expression: /^\s*([\*\-]) $/,
+        expression: /^\s*([\*\-\•]) $/,
         listType: bulletList,
       }),
     );
@@ -29,7 +33,9 @@ export default function inputRulePlugin(schema: Schema): Plugin | undefined {
   }
 
   if (rules.length !== 0) {
-    return instrumentedInputRule('lists', { rules });
+    return createPlugin('lists', rules, {
+      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
+    });
   }
 
   return;

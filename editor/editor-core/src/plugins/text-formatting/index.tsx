@@ -58,13 +58,14 @@ const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
       },
       {
         name: 'textFormattingInputRule',
-        plugin: ({ schema }) => textFormattingInputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          textFormattingInputRulePlugin(schema, featureFlags),
       },
       {
         name: 'textFormattingSmartRule',
-        plugin: () =>
+        plugin: ({ featureFlags }) =>
           !options.disableSmartTextCompletion
-            ? textFormattingSmartInputRulePlugin
+            ? textFormattingSmartInputRulePlugin(featureFlags)
             : undefined,
       },
       {

@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 17.1.5
+
+### Patch Changes
+
+- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+
 ## 17.1.4
 
 ### Patch Changes

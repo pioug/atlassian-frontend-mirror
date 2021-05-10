@@ -14,7 +14,7 @@ const spotlightPortalSelector = `div.atlaskit-portal[style="z-index: ${spotlight
 const openDialogButtonSelector = 'span=Open Dialog';
 const showOnboardingButtonSelector = 'span=Show onboarding';
 const clickMeTooltipSelector = 'div[role="tooltip"]=Click me';
-const parentModalDialogSelector = 'div[role="dialog"]';
+const parentModalDialogSelector = 'section[role="dialog"]';
 
 BrowserTestCase(
   'When we hover over "Open Dialog" button then "Click Me" tooltip should be visible and a portal should be created',

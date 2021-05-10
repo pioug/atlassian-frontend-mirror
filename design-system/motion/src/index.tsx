@@ -11,7 +11,10 @@ export type { FadeKeyframesMotionProps } from './entering/fade-in';
 export { default as StaggeredEntrance } from './entering/staggered-entrance';
 export type { StaggeredEntranceProps } from './entering/staggered-entrance';
 export { useResizingHeight, ResizingHeight } from './resizing/height';
-export { default as ExitingPersistence } from './entering/exiting-persistence';
+export {
+  default as ExitingPersistence,
+  useExitingPersistence,
+} from './entering/exiting-persistence';
 export type { ExitingPersistenceProps } from './entering/exiting-persistence';
 export {
   default as ZoomIn,

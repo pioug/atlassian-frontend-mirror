@@ -3,12 +3,11 @@ import { EmojiDescription } from '@atlaskit/emoji/types';
 import { Schema, Node } from 'prosemirror-model';
 import { EditorState, Transaction, Plugin, PluginKey } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import {
-  createInputRule,
-  instrumentedInputRule,
-  leafNodeReplacementCharacter,
-} from '../../../utils/input-rules';
+import { createRule, createPlugin } from '../../../utils/input-rules';
+
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { isMarkTypeAllowedInCurrentSelection } from '../../../utils';
+import { FeatureFlags } from '../../../types/feature-flags';
 import {
   addAnalytics,
   ACTION,
@@ -22,17 +21,18 @@ let matcher: AsciiEmojiMatcher;
 
 export function inputRulePlugin(
   schema: Schema,
-  providerFactory?: ProviderFactory,
+  providerFactory: ProviderFactory,
+  featureFlags: FeatureFlags,
 ): Plugin | undefined {
   if (schema.nodes.emoji && providerFactory) {
     initMatcher(providerFactory);
-    const asciiEmojiRule = createInputRule(
+    const asciiEmojiRule = createRule(
       AsciiEmojiMatcher.REGEX,
       inputRuleHandler,
     );
 
-    return instrumentedInputRule('emoji', {
-      rules: [asciiEmojiRule],
+    return createPlugin('emoji', [asciiEmojiRule], {
+      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
     });
   }
   return;
@@ -289,8 +289,12 @@ class AsciiEmojiTransactionCreator {
 
 export const stateKey = new PluginKey('asciiEmojiPlugin');
 
-const plugins = (schema: Schema, providerFactory?: ProviderFactory) => {
-  return [inputRulePlugin(schema, providerFactory)].filter(
+const plugins = (
+  schema: Schema,
+  providerFactory: ProviderFactory,
+  featureFlags: FeatureFlags,
+) => {
+  return [inputRulePlugin(schema, providerFactory, featureFlags)].filter(
     plugin => !!plugin,
   ) as Plugin[];
 };

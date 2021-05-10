@@ -1,4 +1,4 @@
-import { memo, useCallback, useLayoutEffect } from 'react';
+import { memo, useCallback, useLayoutEffect, useState } from 'react';
 import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -19,9 +19,12 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
       getAnnotationIndexMatch,
     } = props;
 
+    const [isDraftMode, setIsDraftMode] = useState(false);
+
     const onNativeSideCreatesAnnotation = useCallback(
       ({ annotationId }) => {
         onClose();
+        setIsDraftMode(false);
         const result = onCreate(annotationId);
 
         if (result && result.doc) {
@@ -41,7 +44,13 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
       }
 
       applyDraftMode(false);
+      setIsDraftMode(true);
     }, [applyDraftMode, getAnnotationIndexMatch]);
+
+    const onRemoveDraftMode = useCallback(() => {
+      removeDraftMode();
+      setIsDraftMode(false);
+    }, [removeDraftMode]);
 
     useLayoutEffect(() => {
       webToNativeBridgeAPI.canApplyAnnotationOnCurrentSelection([
@@ -54,7 +63,9 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
 
     useLayoutEffect(() => {
       const onMouseUp = () => {
-        onClose();
+        if (!isDraftMode) {
+          onClose();
+        }
       };
 
       document.addEventListener('mouseup', onMouseUp);
@@ -69,7 +80,7 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
       );
       mobileBridgeEventDispatcher.on(
         EmitterEvents.REMOVE_DRAFT_ANNOTATION,
-        removeDraftMode,
+        onRemoveDraftMode,
       );
 
       return () => {
@@ -87,14 +98,16 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
 
         mobileBridgeEventDispatcher.off(
           EmitterEvents.REMOVE_DRAFT_ANNOTATION,
-          removeDraftMode,
+          onRemoveDraftMode,
         );
       };
     }, [
       onClose,
       onNativeSideCreatesAnnotation,
       onApplyDraftMode,
+      onRemoveDraftMode,
       removeDraftMode,
+      isDraftMode,
     ]);
     return null;
   });

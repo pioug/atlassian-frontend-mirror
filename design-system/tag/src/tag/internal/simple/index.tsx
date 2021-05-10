@@ -72,7 +72,6 @@ const InnerSimpleTag = forwardRef(
         ref={ref}
         testId={testId}
         tagCss={tagCss}
-        role={isLink ? 'link' : undefined}
         before={
           <Before
             isRounded={isRounded}

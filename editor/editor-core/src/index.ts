@@ -111,7 +111,7 @@ export { typeAheadPluginKey } from './plugins/type-ahead';
 export type { TypeAheadPluginState } from './plugins/type-ahead';
 export {
   pluginKey as quickInsertPluginKey,
-  processItems as processQuickInsertItems,
+  memoProcessItems as processQuickInsertItems,
 } from './plugins/quick-insert';
 export type { QuickInsertPluginState } from './plugins/quick-insert';
 export type { TypeAheadItem } from './plugins/type-ahead/types';

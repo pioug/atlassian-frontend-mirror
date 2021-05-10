@@ -16,6 +16,7 @@ import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
 import { EditorSharedConfig } from '../../context/shared-config';
 import { EditorPropsExtended } from '../../editor-props-type';
 import { createSchema } from '../../../../../create-editor/create-schema';
+import { FeatureFlags } from '../../../../../types/feature-flags';
 
 export function createEditor({
   context,
@@ -39,6 +40,7 @@ export function createEditor({
   onChange,
   onDestroy,
   onMount,
+  featureFlags,
 }: CreateEditorParams): EditorSharedConfig | null {
   if (!ref) {
     return null;
@@ -67,6 +69,7 @@ export function createEditor({
     // TODO: ED-8133 Need to make types more generic otherwise it's not extensible.
     dispatchAnalyticsEvent: onAnalyticsEvent as any,
     performanceTracking: {},
+    featureFlags,
   });
   const state = EditorState.create({
     schema,
@@ -134,4 +137,5 @@ export type CreateEditorParams = Pick<
   portalProviderAPI: PortalProviderAPI;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   editorActions: EditorActions;
+  featureFlags: FeatureFlags;
 };

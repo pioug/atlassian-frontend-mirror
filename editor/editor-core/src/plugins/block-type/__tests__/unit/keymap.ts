@@ -84,7 +84,7 @@ describe('codeBlock - keymaps', () => {
         insertText(editorView, '# ', sel);
         expect(editorView.state.doc).toEqualDocument(doc(h1()));
         sendKeyToPm(editorView, 'Mod-z');
-        expect(editorView.state.doc).toEqualDocument(doc(p('# ')));
+        expect(editorView.state.doc).toEqualDocument(doc(p('#')));
       });
     });
 

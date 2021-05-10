@@ -177,11 +177,13 @@ describe('ExtensionsPlaceholder', () => {
         content: expect.any(Array),
         type: 'table',
       }),
-      // UpdateContextActions
+      // ExtensionAPI
       expect.objectContaining({
         editInContextPanel: expect.any(Function),
-        editInLegacyMacroBrowser: expect.any(Function),
-        insertAfter: expect.any(Function),
+        _editInLegacyMacroBrowser: expect.any(Function),
+        doc: expect.objectContaining({
+          insertAfter: expect.any(Function),
+        }),
       }),
     );
   });

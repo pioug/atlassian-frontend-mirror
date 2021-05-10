@@ -2,7 +2,6 @@
 import React, { Component, Fragment, KeyboardEvent, MouseEvent } from 'react';
 
 import { findDOMNode } from 'react-dom';
-import { uid } from 'react-uid';
 
 import {
   createAndFireEvent,
@@ -35,7 +34,6 @@ interface OpenCloseArgs {
 }
 
 interface State {
-  id: string;
   autoFocusDropdownItems: boolean;
 }
 
@@ -71,7 +69,6 @@ export class DropdownMenuStateless extends Component<
   };
 
   state = {
-    id: uid({ id: this.constructor.name }),
     autoFocusDropdownItems: false,
   };
 
@@ -306,7 +303,6 @@ export class DropdownMenuStateless extends Component<
     // ts doesn't like destructuring copy - so converting to object.assign
     const triggerProps = Object.assign({}, triggerButtonProps);
     const defaultButtonProps = {
-      'aria-controls': this.state.id,
       'aria-expanded': isOpen,
       'aria-haspopup': true,
       isSelected: isOpen,
@@ -392,11 +388,9 @@ export class DropdownMenuStateless extends Component<
 
   renderDeprecated = () => {
     const { items, shouldFitContainer } = this.props;
-    const { id } = this.state;
 
     return (
       <div
-        id={id}
         ref={ref => {
           this.domMenuContainer = ref;
           this.domItemsList = ref
@@ -453,7 +447,6 @@ export class DropdownMenuStateless extends Component<
       shouldFlip,
       testId,
     } = this.props;
-    const { id } = this.state;
     const isDeprecated = this.isUsingDeprecatedAPI();
 
     const deprecatedProps = isDeprecated
@@ -491,7 +484,6 @@ export class DropdownMenuStateless extends Component<
             this.renderDeprecated()
           ) : (
             <WidthConstrainer
-              id={id}
               role="menu"
               shouldFitContainer={shouldFitContainer}
             >

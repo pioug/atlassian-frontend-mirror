@@ -10,6 +10,12 @@ async function waitForBannerVisible(page: PuppeteerPage) {
   });
 }
 
+async function waitForAnnouncementBannerVisible(page: PuppeteerPage) {
+  await page.waitForSelector('div[aria-hidden="false"][role="region"]', {
+    visible: true,
+  });
+}
+
 describe('Snapshot Test', () => {
   it('Announcement banner example should match production example', async () => {
     const url = getExampleUrl(
@@ -20,7 +26,7 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await waitForBannerVisible(page);
+    await waitForAnnouncementBannerVisible(page);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.1.3
+
+### Patch Changes
+
+- [`5a9b102eef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a9b102eef0) - Add optional actionSubject parameter to usePlatformLeafHandlerHook
+
 ## 8.1.2
 
 ### Patch Changes

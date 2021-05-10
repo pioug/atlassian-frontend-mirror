@@ -113,6 +113,79 @@ const checkboxStyles = css`
   &:disabled:checked + svg {
     --checkbox-tick-color: var(--local-tick-disabled);
   }
+
+  /** Edge high contrast mode styles */
+  @media (-ms-high-contrast: white-on-black) {
+    & + svg {
+      --checkbox-background-color: #000000;
+      --checkbox-border-color: #ffffff;
+      --checkbox-tick-color: #ffffff;
+    }
+
+    &:checked + svg,
+    &:checked:hover + svg {
+      --checkbox-background-color: #ffffff;
+      --checkbox-border-color: #ffffff;
+      --checkbox-tick-color: #000000;
+    }
+
+    &:focus + svg rect:first-of-type {
+      stroke: Highlight;
+    }
+
+    &[data-invalid] + svg {
+      --checkbox-border-color: Highlight;
+    }
+    &:checked[data-invalid] + svg {
+      --checkbox-border-color: Highlight;
+    }
+
+    &:disabled + svg,
+    &:disabled:hover + svg,
+    &:disabled:focus + svg,
+    &:disabled:active + svg,
+    &:disabled[data-invalid] + svg {
+      --checkbox-background-color: #000000;
+      --checkbox-border-color: GrayText;
+      --checkbox-tick-color: #ffffff;
+    }
+  }
+
+  @media screen and (-ms-high-contrast: black-on-white) {
+    & + svg {
+      --checkbox-background-color: #ffffff;
+      --checkbox-border-color: #000000;
+      --checkbox-tick-color: #ffffff;
+    }
+
+    &:checked + svg,
+    &:checked:hover + svg {
+      --checkbox-background-color: #000000;
+      --checkbox-border-color: #000000;
+      --checkbox-tick-color: #ffffff;
+    }
+
+    &:focus + svg rect:first-of-type {
+      stroke: Highlight;
+    }
+
+    &[data-invalid] + svg {
+      --checkbox-border-color: Highlight;
+    }
+    &:checked[data-invalid] + svg {
+      --checkbox-border-color: Highlight;
+    }
+
+    &:disabled + svg,
+    &:disabled:hover + svg,
+    &:disabled:focus + svg,
+    &:disabled:active + svg,
+    &:disabled[data-invalid] + svg {
+      --checkbox-background-color: #ffffff;
+      --checkbox-border-color: GrayText;
+      --checkbox-tick-color: #000000;
+    }
+  }
 `;
 
 const checkboxThemeColors = {

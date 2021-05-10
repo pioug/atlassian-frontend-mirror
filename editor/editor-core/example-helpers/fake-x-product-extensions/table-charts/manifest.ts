@@ -1,5 +1,5 @@
 import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
-import { UpdateContextActions } from '@atlaskit/editor-common/extensions';
+import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
 const manifest: ExtensionManifest = {
@@ -26,14 +26,29 @@ const manifest: ExtensionManifest = {
         display: 'icon',
         tooltip: 'This was added by the extension to the table node',
         icon: () => import('@atlaskit/icon/glyph/graph-bar'),
-        action: (adf: ADFEntity, api: UpdateContextActions) =>
-          new Promise((resolve, reject) => {
-            if (confirm(`Clicked ${adf.type} button`)) {
-              resolve();
-            } else {
-              reject('REASON');
-            }
-          }),
+        action: async (adf: ADFEntity, api: ExtensionAPI) => {
+          const localId: string = adf.attrs?.localId || '';
+          const chartADF: ADFEntity = {
+            type: 'extension',
+            attrs: {
+              extensionType: 'com.atlassian.forge',
+              extensionKey: 'awesome:list',
+              parameters: {
+                items: ['a', 'b', 'c', 'd'],
+              },
+            },
+            marks: [
+              {
+                type: 'dataConsumer',
+                attrs: {
+                  sources: [localId],
+                },
+              },
+            ],
+          };
+
+          api.doc.insertAfter(localId, chartADF);
+        },
       },
       {
         context: {
@@ -44,7 +59,7 @@ const manifest: ExtensionManifest = {
         label: 'Hide data source',
         tooltip: 'This was added by the extension to the table node',
         icon: () => import('@atlaskit/icon/glyph/stopwatch'),
-        action: (adf: ADFEntity) =>
+        action: (adf: ADFEntity, api: ExtensionAPI) =>
           new Promise((resolve, reject) => {
             if (confirm(`Clicked ${adf.type} button`)) {
               resolve();
@@ -64,7 +79,7 @@ const manifest: ExtensionManifest = {
         label: 'Extension button',
         tooltip: 'This was added by the extension to the extension node',
         icon: () => import('@atlaskit/icon/glyph/stopwatch'),
-        action: (adf: ADFEntity) =>
+        action: (adf: ADFEntity, api: ExtensionAPI) =>
           new Promise((resolve, reject) => {
             if (confirm(`Clicked ${adf.type} button`)) {
               resolve();

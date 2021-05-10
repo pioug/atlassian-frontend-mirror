@@ -1,6 +1,7 @@
 import { measureRender } from '@atlaskit/editor-common';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
+  isContentEmpty,
   measureContentRenderedPerformance,
   PerformanceMatrices,
 } from '../../bridge';
@@ -73,5 +74,35 @@ describe('PerformanceMatrices', () => {
     jest.spyOn(performance, 'now').mockReturnValueOnce(1100);
 
     expect(performanceMatrices.duration).toBe(100);
+  });
+});
+
+describe('isContentEmpty', () => {
+  it('should return false when the content is not empty', () => {
+    const content: JSONDocNode = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: ' ',
+            },
+          ],
+        },
+      ],
+    };
+    expect(isContentEmpty(content)).toBe(false);
+  });
+
+  it('should return true when the content is empty', () => {
+    const content: JSONDocNode = {
+      version: 1,
+      type: 'doc',
+      content: [],
+    };
+    expect(isContentEmpty(content)).toBe(true);
   });
 });

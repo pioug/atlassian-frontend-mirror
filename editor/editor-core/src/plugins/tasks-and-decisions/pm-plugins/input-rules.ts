@@ -1,4 +1,5 @@
-import { InputRule } from 'prosemirror-inputrules';
+import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import { FeatureFlags } from '../../../types/feature-flags';
 import { Node, Schema } from 'prosemirror-model';
 import {
   EditorState,
@@ -8,17 +9,14 @@ import {
 } from 'prosemirror-state';
 import { canInsert } from 'prosemirror-utils';
 
-import {
-  createInputRule,
-  instrumentedInputRule,
-  leafNodeReplacementCharacter,
-} from '../../../utils/input-rules';
+import { createRule, createPlugin } from '../../../utils/input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { INPUT_METHOD } from '../../analytics';
 import { changeInDepth, insertTaskDecisionWithAnalytics } from '../commands';
 import { AddItemTransactionCreator, TaskDecisionListType } from '../types';
 
 const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
-  return createInputRule(
+  return createRule(
     regex,
     (
       state: EditorState,
@@ -35,7 +33,6 @@ const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
 
       return insertTr;
     },
-    true,
   );
 };
 
@@ -103,8 +100,11 @@ const addItem = (start: number, end: number): AddItemTransactionCreator => ({
   return tr;
 };
 
-export function inputRulePlugin(schema: Schema): Plugin {
-  const rules: InputRule[] = [];
+export function inputRulePlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin {
+  const rules: InputRuleWrapper[] = [];
 
   const { decisionList, decisionItem, taskList, taskItem } = schema.nodes;
 
@@ -126,7 +126,10 @@ export function inputRulePlugin(schema: Schema): Plugin {
     );
   }
 
-  return instrumentedInputRule('tasks-and-decisions', { rules });
+  return createPlugin('tasks-and-decisions', rules, {
+    isBlockNodeRule: true,
+    useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
+  });
 }
 
 export default inputRulePlugin;

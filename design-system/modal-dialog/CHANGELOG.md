@@ -1,5 +1,25 @@
 # @atlaskit/modal-dialog
 
+## 11.4.0
+
+### Minor Changes
+
+- [`c0dbb6425f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0dbb6425f7) - [ux] Changed ModalDialog html tag from "div" to "section", changed ModalDialog heading from "h4" to "h1"
+- [`7e3e3e16b55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e3e3e16b55) - Entry points are now defined using the declarative format.
+- [`441b1eded91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/441b1eded91) - [ux] Modal dialog no longer attaches keylines in its header/footer – it now shows and hides keylines in its body during scroll when the content overflows.
+- [`96f56104518`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96f56104518) - Adds ability to pass a element ref to the `autoFocus` prop to specifically focus on an element during initial mount.
+- [`6ebee3d941d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ebee3d941d) - Internal refactor converting to hooks.
+- [`e100d801223`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e100d801223) - [ux] Modal dialog now uses @atlaskit/motion for its entering/exiting animations.
+- [`8a22ca5357b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a22ca5357b) - Event handler types are now exposed in the primary and types entrypoints.
+
+### Patch Changes
+
+- [`8db8f3a22cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8db8f3a22cb) - Modal dialog now uses css props for styling.
+- [`022ec2307a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/022ec2307a9) - The `onClose` callback now correctly has its second argument types as an analytic event.
+- [`d7d64aac39d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7d64aac39d) - Fixed `onStackChange` from firing on inital mount. It will now only fire after the initial mount and its stack position has changed.
+- [`1195a2abbbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1195a2abbbf) - Modal dialog now uses new utility from ds-lib to merge refs.
+- Updated dependencies
+
 ## 11.3.0
 
 ### Minor Changes

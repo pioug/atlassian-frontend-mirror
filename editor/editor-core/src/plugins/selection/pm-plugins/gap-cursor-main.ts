@@ -1,10 +1,15 @@
-import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { ResolvedPos } from 'prosemirror-model';
 import { findPositionOfNodeBefore } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { hideCaretModifier } from '../gap-cursor/styles';
-import { GapCursorSelection, JSON_ID, Side } from '../gap-cursor/selection';
+import {
+  GapCursorSelection,
+  JSON_ID,
+  Side as GapCursorSide,
+  Side,
+} from '../gap-cursor/selection';
 import {
   getBreakoutModeFromTargetNode,
   isIgnoredClick,
@@ -22,7 +27,28 @@ const plugin = new Plugin({
       return newState.selection instanceof GapCursorSelection;
     },
   },
-  view: () => {
+  view: view => {
+    /**
+     * If the selection is at the beginning of a document and is a NodeSelection,
+     * convert to a GapCursor selection. This is to stop users accidentally replacing
+     * the first node of a document by accident.
+     */
+    if (
+      view.state.selection.anchor === 0 &&
+      view.state.selection instanceof NodeSelection
+    ) {
+      // This is required otherwise the dispatch doesn't trigger in the correct place
+      window.requestAnimationFrame(() => {
+        view.dispatch(
+          view.state.tr.setSelection(
+            new GapCursorSelection(
+              view.state.doc.resolve(0),
+              GapCursorSide.LEFT,
+            ),
+          ),
+        );
+      });
+    }
     return {
       update(view, state) {
         const pluginState = gapCursorPluginKey.getState(state);

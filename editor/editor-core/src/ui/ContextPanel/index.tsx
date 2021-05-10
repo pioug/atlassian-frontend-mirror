@@ -29,7 +29,6 @@ export type Props = {
 };
 
 const ANIM_SPEED_MS = 500;
-export const DEFAULT_CONTEXT_PANEL_WIDTH = 360;
 const EDITOR_WIDTH = akEditorDefaultLayoutWidth + akEditorBreakoutPadding;
 const WIDE_EDITOR_WIDTH = akEditorWideLayoutWidth + akEditorBreakoutPadding;
 const FULLWIDTH_MODE = 'full-width';
@@ -45,7 +44,7 @@ type StyleProps = {
 };
 
 type PanelProps = StyleProps & {
-  editorWidth?: EditorWidth;
+  positionPanelOverEditor: boolean;
 };
 
 const absolutePanelStyles = css`
@@ -54,31 +53,36 @@ const absolutePanelStyles = css`
   height: calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT});
 `;
 
-/**
- * Only use absolute position for panel when screen size is wide enough
- * to accomodate breakout content and editor is not in wide mode.
- */
-const panelSlideStyles = ({ panelWidth, editorWidth }: PanelProps) => {
-  if (!editorWidth) {
-    return;
-  }
-  const { lineLength, width, contentBreakoutModes } = editorWidth;
+export const shouldPanelBePositionedOverEditor = (
+  editorWidth: EditorWidth,
+  panelWidth: number,
+): boolean => {
+  const { lineLength, containerWidth = 0, contentBreakoutModes } = editorWidth;
   const editorNotFullWidth = !(
     lineLength && lineLength > akEditorDefaultLayoutWidth
   );
   const hasSpaceForPanel =
-    !contentBreakoutModes.length && width >= panelWidth * 2 + EDITOR_WIDTH;
+    !contentBreakoutModes.length &&
+    containerWidth >= panelWidth * 2 + EDITOR_WIDTH;
   const hasSpaceForWideBreakoutsAndPanel =
     !contentBreakoutModes.includes(FULLWIDTH_MODE) &&
     contentBreakoutModes.includes(WIDE_MODE) &&
-    width >= panelWidth * 2 + WIDE_EDITOR_WIDTH;
+    containerWidth >= panelWidth * 2 + WIDE_EDITOR_WIDTH;
 
-  if (
-    editorNotFullWidth &&
-    (hasSpaceForPanel || hasSpaceForWideBreakoutsAndPanel)
-  ) {
+  return (
+    editorNotFullWidth && (hasSpaceForPanel || hasSpaceForWideBreakoutsAndPanel)
+  );
+};
+
+/**
+ * Only use absolute position for panel when screen size is wide enough
+ * to accomodate breakout content and editor is not in wide mode.
+ */
+const panelSlideStyles = ({ positionPanelOverEditor }: PanelProps) => {
+  if (positionPanelOverEditor) {
     return absolutePanelStyles;
   }
+  return;
 };
 
 export const Panel = styled.div<PanelProps>`
@@ -194,14 +198,19 @@ export class SwappableContentArea extends React.PureComponent<
 
     return (
       <ContextPanelConsumer>
-        {({ broadcastWidth }) => {
+        {({ broadcastWidth, broadcastPosition, positionedOverEditor }) => {
+          const newPosition = editorWidth
+            ? shouldPanelBePositionedOverEditor(editorWidth, width)
+            : false;
           broadcastWidth(visible ? width : 0);
+          (newPosition && visible) !== positionedOverEditor &&
+            broadcastPosition(newPosition && visible);
 
           return (
             <Panel
               panelWidth={width}
               visible={visible}
-              editorWidth={editorWidth}
+              positionPanelOverEditor={newPosition}
               data-testid="context-panel-panel"
             >
               <Content panelWidth={width} visible={visible}>
@@ -241,6 +250,7 @@ export default class ContextPanel extends React.Component<Props> {
                 contextPanel,
                 widthState = {
                   width: 0,
+                  containerWidth: 0,
                   lineLength: akEditorDefaultLayoutWidth,
                 },
               }) => {

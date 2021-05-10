@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "__tests__/**/*.ts",
+    "__tests__/**/*.tsx",
+    "docs/**/*.ts",
+    "docs/**/*.tsx",
+    "examples/**/*.ts",
+    "examples/**/*.tsx"
+  ],
+  "types": ["cypress", "cypress-file-upload"],
+  "files": ["../../../cypress/support/index.d.ts"],
+  "compilerOptions": {
+    "baseUrl": "./"
+  }
+}

@@ -1,2 +1,2 @@
-export { default } from './components/Pagination';
+export { default } from './pagination';
 export type { PaginationPropTypes } from './types';

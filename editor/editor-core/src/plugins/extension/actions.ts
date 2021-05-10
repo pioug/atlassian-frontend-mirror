@@ -1,5 +1,11 @@
 import { EditorView } from 'prosemirror-view';
-import { Slice, Schema, Node as PmNode, Fragment } from 'prosemirror-model';
+import {
+  Slice,
+  Schema,
+  Node as PmNode,
+  Fragment,
+  Mark,
+} from 'prosemirror-model';
 import {
   EditorState,
   Selection,
@@ -14,7 +20,7 @@ import {
 
 import {
   UpdateExtension,
-  UpdateContextActions,
+  ExtensionAPI,
 } from '@atlaskit/editor-common/extensions';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 
@@ -38,22 +44,23 @@ import { getSelectedExtension } from './utils';
 import { getPluginState } from './pm-plugins/main';
 import {
   getEditInLegacyMacroBrowser,
-  createUpdateContextActions,
-} from './update-context-actions';
+  createExtensionAPI,
+} from './extension-api';
 
 export const buildExtensionNode = <S extends Schema>(
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
   schema: S,
   attrs: object,
   content?: Fragment,
+  marks?: Mark<S>[],
 ) => {
   switch (type) {
     case 'extension':
-      return schema.nodes.extension.createChecked(attrs);
+      return schema.nodes.extension.createChecked(attrs, content, marks);
     case 'inlineExtension':
-      return schema.nodes.inlineExtension.createChecked(attrs);
+      return schema.nodes.inlineExtension.createChecked(attrs, content, marks);
     case 'bodiedExtension':
-      return schema.nodes.bodiedExtension.create(attrs, content);
+      return schema.nodes.bodiedExtension.create(attrs, content, marks);
   }
 };
 
@@ -61,6 +68,7 @@ export const performNodeUpdate = (
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
   newAttrs: object,
   content: Fragment<any>,
+  marks: Mark[],
   shouldScrollIntoView: boolean,
 ): Command => (_state, _dispatch, view) => {
   if (!view) {
@@ -70,7 +78,13 @@ export const performNodeUpdate = (
   // the latest one from `view` @see HOT-93986
   const { state, dispatch } = view;
 
-  const newNode = buildExtensionNode(type, state.schema, newAttrs, content);
+  const newNode = buildExtensionNode(
+    type,
+    state.schema,
+    newAttrs,
+    content,
+    marks,
+  );
 
   if (!newNode) {
     return false;
@@ -149,13 +163,13 @@ export const performNodeUpdate = (
 export const updateExtensionParams = (
   updateExtension: UpdateExtension<object>,
   node: { node: PmNode; pos: number },
-  actions: UpdateContextActions,
+  actions: ExtensionAPI,
 ) => async (
   state: EditorState,
   dispatch?: CommandDispatch,
   view?: EditorView,
 ): Promise<boolean> => {
-  const { attrs, type, content } = node.node;
+  const { attrs, type, content, marks } = node.node;
 
   if (!state.schema.nodes[type.name]) {
     return false;
@@ -178,6 +192,7 @@ export const updateExtensionParams = (
         type.name as 'inlineExtension' | 'extension' | 'bodiedExtension',
         newAttrs,
         content,
+        marks,
         true,
       )(state, dispatch, view);
     }
@@ -199,6 +214,10 @@ export const editExtension = (
   macroProvider: MacroProvider | null,
   updateExtension?: Promise<UpdateExtension<object> | void>,
 ): Command => (state, dispatch, view): boolean => {
+  if (!view) {
+    return false;
+  }
+
   const nodeWithPos = getSelectedExtension(state, true);
 
   if (!nodeWithPos) {
@@ -208,15 +227,15 @@ export const editExtension = (
   const editInLegacyMacroBrowser = getEditInLegacyMacroBrowser({
     view,
     macroProvider: macroProvider || undefined,
-    nodeWithPos,
   });
 
   if (updateExtension) {
     updateExtension.then(updateMethod => {
       if (updateMethod && view) {
-        const actions = createUpdateContextActions({
+        const actions = createExtensionAPI({
+          editorView: view,
           editInLegacyMacroBrowser,
-        })(state, dispatch, view);
+        });
 
         updateExtensionParams(updateMethod, nodeWithPos, actions)(
           state,

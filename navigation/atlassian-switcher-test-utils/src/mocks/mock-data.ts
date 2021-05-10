@@ -150,7 +150,7 @@ const ORIGINAL_MOCK_DATA: MockData = {
             url: null,
           },
         ],
-        cloudId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+        cloudId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
         displayName: 'jdog',
         url: 'https://jdog.jira-dev.com',
         avatar:

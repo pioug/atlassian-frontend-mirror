@@ -19,11 +19,15 @@ function getMediaContexts(event: UIAnalyticsEvent) {
 }
 
 function getMediaRegion() {
-  return (
-    window &&
-    window.sessionStorage &&
-    window.sessionStorage.getItem('media-api-region')
-  );
+  try {
+    return (
+      window &&
+      window.sessionStorage &&
+      window.sessionStorage.getItem('media-api-region')
+    );
+  } catch (e) {
+    return;
+  }
 }
 
 export function processEvent(event: UIAnalyticsEvent): GasPayload {

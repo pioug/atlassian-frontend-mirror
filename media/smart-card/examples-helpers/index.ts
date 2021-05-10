@@ -123,3 +123,5 @@ const responses = {
     ],
   },
 };
+
+export { responses };

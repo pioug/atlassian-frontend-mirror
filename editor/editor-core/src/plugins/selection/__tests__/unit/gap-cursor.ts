@@ -1,4 +1,4 @@
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection, PluginKey } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -11,6 +11,8 @@ import {
   h1,
   code_block,
   DocBuilder,
+  mediaSingle,
+  media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -33,6 +35,14 @@ import {
 
 import { uuid } from '@atlaskit/adf-schema';
 import { gapCursorPluginKey } from '../../pm-plugins/gap-cursor-plugin-key';
+import createStub from 'raf-stub';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import mediaPlugin from '../../../media';
+import selectionPlugin from '../../../selection';
 
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
@@ -481,6 +491,68 @@ describe('gap-cursor', () => {
           );
         });
       });
+    });
+  });
+
+  describe('selection at front of document', () => {
+    const createProsemirrorEditor = createProsemirrorEditorFactory();
+    let stub: any;
+    let rafSpy: any;
+    const editor = (doc: DocBuilder) => {
+      return createProsemirrorEditor<boolean, PluginKey>({
+        doc,
+        pluginKey: gapCursorPluginKey,
+        preset: new Preset<LightEditorPlugin>()
+          .add([mediaPlugin, { allowMediaSingle: true }])
+          .add(selectionPlugin),
+      });
+    };
+
+    beforeEach(() => {
+      stub = createStub();
+      rafSpy = jest
+        // @ts-ignore
+        .spyOn(global, 'requestAnimationFrame')
+        .mockImplementation((stub as any).add);
+    });
+
+    afterEach(() => {
+      rafSpy.mockRestore();
+    });
+
+    it('should change selection to gap cursor if media is first', () => {
+      const { editorView } = editor(
+        doc(
+          mediaSingle()(
+            media({
+              id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+              type: 'file',
+              collection: 'MediaServicesSample',
+            })(),
+          ),
+          p('Line text'),
+        ),
+      );
+      stub.step();
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          '{<gap|>}',
+          mediaSingle()(
+            media({
+              id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+              type: 'file',
+              collection: 'MediaServicesSample',
+            })(),
+          ),
+          p('Line text'),
+        ),
+      );
+    });
+
+    it('should leave selection as text selection if node is not first', () => {
+      const { editorView } = editor(doc(p('Praesent ullamcorper natoque')));
+      stub.step();
+      expect(editorView.state.selection).toBeInstanceOf(TextSelection);
     });
   });
 });

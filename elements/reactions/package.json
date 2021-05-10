@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "18.2.2",
+  "version": "19.0.0",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/emoji": "^63.1.0",
     "@atlaskit/icon": "^21.5.0",
     "@atlaskit/popper": "^5.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.2.0",
     "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/util-service-support": "^6.0.0",
     "@babel/runtime": "^7.0.0",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-test-helpers": "^15.0.0",
+    "@atlaskit/editor-test-helpers": "^15.2.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/util-data-test": "^15.0.0",

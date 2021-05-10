@@ -6,6 +6,7 @@ import { EditorReactContext } from '../types';
 import { Dispatch, EventDispatcher } from '../event-dispatcher';
 import { PortalProviderAPI } from '../ui/PortalProvider';
 import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
+import type { FeatureFlags } from './feature-flags';
 
 export type PMPluginFactoryParams = {
   schema: Schema;
@@ -16,6 +17,7 @@ export type PMPluginFactoryParams = {
   portalProviderAPI: PortalProviderAPI;
   reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+  featureFlags: FeatureFlags;
 };
 
 export type PMPluginFactory = (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import Theme, { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import { CodeBlock } from '../src';
 
@@ -24,15 +24,29 @@ export default function Component() {
   return (
     <>
       <AtlaskitThemeProvider mode="dark">
-        <CodeBlock language="java" text={exampleCodeBlock} />
+        <CodeBlock language="jsx" text={exampleCodeBlock} />
       </AtlaskitThemeProvider>
 
       <AtlaskitThemeProvider mode="dark">
         <CodeBlock
-          language="java"
+          language="jsx"
           text={exampleCodeBlock}
           highlight="2,5-7,12-15"
         />
+      </AtlaskitThemeProvider>
+      <AtlaskitThemeProvider mode="light">
+        <Theme.Provider
+          value={() => ({
+            mode: 'dark',
+          })}
+        >
+          <CodeBlock
+            language="jsx"
+            text={exampleCodeBlock}
+            highlight="2,
+          5-7,12-15"
+          />
+        </Theme.Provider>
       </AtlaskitThemeProvider>
     </>
   );

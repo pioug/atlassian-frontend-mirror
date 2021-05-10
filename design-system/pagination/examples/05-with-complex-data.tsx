@@ -1,4 +1,4 @@
-import React, { Component, Fragment, SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
 import Pagination from '../src';
 
@@ -7,43 +7,31 @@ const PAGES = [...Array(10)].map((_, i) => ({
   href: `page-${i + 1}`,
 }));
 
-type StateType = {
-  onChangeEvent: {
-    label: number;
-    href: string;
-  };
-};
+export default function ComplexDataExample() {
+  const [onChangeEvent, setOnChangeEvent] = useState({
+    label: 1,
+    href: 'page-1',
+  });
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends Component<{}, StateType> {
-  state = {
-    onChangeEvent: {
-      label: 1,
-      href: 'page-1',
-    },
-  };
+  const handleChange = (event: SyntheticEvent, newPage: any) =>
+    setOnChangeEvent(newPage);
 
-  handleChange = (event: SyntheticEvent, newPage: any) =>
-    this.setState({ onChangeEvent: newPage });
+  const getLabel = ({ label }: any) => label;
 
-  getLabel = ({ label }: any) => label;
-
-  render() {
-    return (
-      <Fragment>
-        <Pagination
-          testId="pagination"
-          pages={PAGES}
-          onChange={this.handleChange}
-          getPageLabel={this.getLabel}
-        />
-        <p>Received onChange event:</p>
-        <pre>
-          label: {this.state.onChangeEvent.label}
-          <br />
-          href: {this.state.onChangeEvent.href}
-        </pre>
-      </Fragment>
-    );
-  }
+  return (
+    <>
+      <Pagination
+        testId="pagination"
+        pages={PAGES}
+        onChange={handleChange}
+        getPageLabel={getLabel}
+      />
+      <p>Received onChange event:</p>
+      <pre>
+        label: {onChangeEvent.label}
+        <br />
+        href: {onChangeEvent.href}
+      </pre>
+    </>
+  );
 }

@@ -27,7 +27,7 @@ module.exports = async function createWebpackConfig(_, args) {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'public/editor.html.test.ejs'),
+        template: path.join(__dirname, 'public/editor.html.ejs'),
         chunks: ['editor', 'editorTestSetup'],
         chunksSortMode: 'manual',
         filename: 'editor.html',

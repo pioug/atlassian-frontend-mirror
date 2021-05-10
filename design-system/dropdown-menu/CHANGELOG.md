@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 10.1.5
+
+### Patch Changes
+
+- [`8ec43d970dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ec43d970dd) - Removed 'aria-controls' and unused id's from the Dropdown component
+- Updated dependencies
+
 ## 10.1.4
 
 ### Patch Changes

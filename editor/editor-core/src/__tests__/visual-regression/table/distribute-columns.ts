@@ -104,12 +104,23 @@ describe('Distribute Columns with feature flag', () => {
     });
   });
 
-  it('when all column is selected and distributed, new added columns should have uniform width', async () => {
-    await pageInit(defaultTableResizedWithoutOverflow);
-    await distributeAllColumns(page);
-    await insertColumn(page, 0, 'right', true);
-    await insertColumn(page, 0, 'right', true);
-    await insertColumn(page, 0, 'right', true);
-    await snapshot(page);
+  describe('all of the columns should distribute and new added column should have uniform width', () => {
+    it('on table without overflow', async () => {
+      await pageInit(defaultTableResizedWithoutOverflow);
+      await distributeAllColumns(page);
+      await insertColumn(page, 0, 'right', true);
+      await insertColumn(page, 0, 'right', true);
+      await insertColumn(page, 0, 'right', true);
+      await snapshot(page);
+    });
+
+    it('on table with overflow', async () => {
+      await pageInit(defaultTableResizedWithOverflow);
+      await distributeAllColumns(page);
+      await insertColumn(page, 0, 'right', true);
+      await insertColumn(page, 0, 'right', true);
+      await insertColumn(page, 0, 'right', true);
+      await snapshot(page);
+    });
   });
 });

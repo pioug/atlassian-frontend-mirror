@@ -1,12 +1,12 @@
 import {
   ExtensionManifest,
-  UpdateContextActions,
+  ExtensionAPI,
 } from '@atlaskit/editor-common/extensions';
 import { LoremParams } from './extension-handler';
 
 async function defaultUpdate(
   data: LoremParams,
-  actions?: UpdateContextActions<LoremParams>,
+  actions?: ExtensionAPI<LoremParams>,
 ) {
   actions!.editInContextPanel(
     (parameters: LoremParams) => parameters,

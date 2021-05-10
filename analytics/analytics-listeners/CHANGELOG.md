@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.1.2
+
+### Patch Changes
+
+- [`db441ee18c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db441ee18c3) - Handle localStorage and sessionStorage safely
+
 ## 8.1.1
 
 ### Patch Changes

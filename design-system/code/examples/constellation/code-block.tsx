@@ -20,10 +20,6 @@ ReactDOM.render(
 
 export default function CodeBlockDefaultExample() {
   return (
-    <CodeBlock
-      language="javascript"
-      showLineNumbers={false}
-      text={exampleCodeBlock}
-    />
+    <CodeBlock language="jsx" showLineNumbers={false} text={exampleCodeBlock} />
   );
 }

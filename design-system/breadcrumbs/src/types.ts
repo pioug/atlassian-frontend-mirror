@@ -36,12 +36,17 @@ export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
    * Text to be used as label of navigation region that wraps the breadcrumbs
    */
   label?: string;
+
+  /** Text to be used as label of ellipsis button */
+  ellipsisLabel?: string;
 }
 
 export interface EllipsisItemProps {
   onClick?: (event: React.MouseEvent<Element>) => void;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /** A `label` prop is used as aria-label for ellipsis button */
+  label: string;
 }
 
 export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {

@@ -7,6 +7,7 @@ import * as keymaps from '../../../keymaps';
 import * as commands from '../../../commands';
 import * as blockTypes from '../types';
 import { keymap } from '../../../utils/keymap';
+import { FeatureFlags } from '../../../types/feature-flags';
 import {
   cleanUpAtTheStartOfDocument,
   insertBlockTypesWithAnalytics,
@@ -15,7 +16,10 @@ import { INPUT_METHOD } from '../../analytics';
 
 const tryUndoInputRuleElseUndoHistory = chainCommands(undoInputRule, undo);
 
-export default function keymapPlugin(schema: Schema): Plugin {
+export default function keymapPlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -41,7 +45,9 @@ export default function keymapPlugin(schema: Schema): Plugin {
 
   keymaps.bindKeymapWithCommand(
     keymaps.undo.common!,
-    tryUndoInputRuleElseUndoHistory,
+    featureFlags.useUnpredictableInputRule
+      ? tryUndoInputRuleElseUndoHistory
+      : undo,
     list,
   );
 

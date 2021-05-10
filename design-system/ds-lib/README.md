@@ -10,7 +10,7 @@ your app will break if you use this directly!
 yarn add @atlaskit/ds-lib
 ```
 
-## API
+## Utilities
 
 ### `noop()`
 
@@ -20,18 +20,84 @@ import noop from '@atlaskit/ds-lib/noop';
 noop();
 ```
 
+### `warnOnce()`
+
+```tsx
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
+function Component() {
+  // Print the warning messagein in the Web console only once per session.
+  if (process.env.NODE_ENV !== 'production') {
+    warnOnce('This component has been deprecated.');
+  }
+
+  return <div>This component has been deprecated</div>;
+}
+```
+
+### `mergeRefs()`
+
+```tsx
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+
+const Component = forwardRef((props, ref) => {
+  const customRef = useRef<HTMLElement | null>(null);
+
+  return (
+    // Use the utility function to merge the forwarded ref
+    // with the created ref.
+    <div ref={mergeRefs[ref, customRef]} />
+  );
+}
+```
+
+## React hooks
+
 ### `useLazyRef()`
 
 ```tsx
 import useLazyRef from '@atlaskit/ds-lib/use-lazy-ref';
 
-function expensiveFunction() {
-  // Value returned after expensive calculations
-}
-
 function Component({ onClick }) {
-  const ref = useLazyRef(() => expensiveFunction());
+  // Initialize the ref
+  const ref = useLazyRef(() => {
+    /* Return initial data */
+  });
+
+  // Access like a normal ref
   return <button onClick={() => onClick(ref.current)}>Click me!</button>;
+}
+```
+
+### `useControlled()`
+
+```tsx
+import useControlled from '@atlaskit/ds-lib/use-controlled';
+
+function ControlledComponent({ value, defaultValue = 0 }) {
+  const [uncontrolledState, setUncontrolledState] = useControlled(
+    value,
+    () => defaultValue,
+  );
+  return (
+    <button onClick={() => setUncontrolledState(uncontrolledState + 1)}>
+      Update state
+    </button>
+  );
+}
+```
+
+### `usePreviousValue()`
+
+```js
+function Component() {
+  const [currentValue] = useState(1);
+  const previousValue = usePreviousValue(currentValue);
+
+  previousValue; // undefined
+  currentValue; // 1
+
+  return null;
 }
 ```
 
@@ -41,8 +107,8 @@ function Component({ onClick }) {
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 
 function Component() {
+  // `callback` always has the same reference.
   const callback = useLazyCallback(() => {
-    // `callback` always has the same reference.
     // Watch out for its stale closure however!
   });
 
@@ -61,6 +127,7 @@ function Component() {
   // Access the latest value, even inside stale closures.
   console.log(valueRef.current);
 
+  // Update state as you would with use state
   return <div onClick={() => setState(prev => prev + 1)} />;
 ```
 
@@ -82,17 +149,52 @@ function Component() {
 }
 ```
 
-### `warnOnce()`
+### `useDocumentEvent()`
 
 ```tsx
-import warnOnce from '@atlaskit/ds-lib/warn-once';
+import useDocumentEvent from '@atlaskit/ds-lib/use-document-event';
 
-function Component() {
-  // Print the warning messagein in the Web console only once per session.
-  if (process.env.NODE_ENV !== 'production') {
-    warnOnce('This component has been deprecated.');
-  }
+// Ensure callback has a stable reference
+useDocumentEvent('click', callback);
+```
 
-  return <div>This component has been deprecated</div>;
-}
+### `useWindowEvent()`
+
+```tsx
+import useWindowEvent from '@atlaskit/ds-lib/use-window-event';
+
+// Ensure callback has a stable reference
+useWindowEvent('click', callback);
+```
+
+### `useElementEvent()`
+
+```tsx
+import useElementEvent from '@atlaskit/ds-lib/use-element-event';
+
+// Ensure callback has a stable reference
+useElementEvent(element, 'click', callback);
+```
+
+### `useCloseOnEscapePress()`
+
+```tsx
+import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
+
+// Will callback when escape is pressed
+useCloseOnEscapePress({
+  onClose: () => {},
+  isDisabled: false,
+});
+```
+
+### `useAutoFocus()`
+
+```tsx
+import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+
+const elementRef = useRef();
+useAutoFocus(elementRef, true);
+
+<div ref={elementRef} />;
 ```

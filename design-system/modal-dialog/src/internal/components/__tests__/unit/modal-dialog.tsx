@@ -2,11 +2,14 @@ import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
+
 import ModalDialog, { ModalTransition } from '../../../../index';
 import { WIDTH_ENUM } from '../../../constants';
 import { dialogHeight, dialogWidth } from '../../../styles/modal';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);
+jest.mock('@atlaskit/ds-lib/warn-once');
 
 const noop = () => {};
 const MyContent = () => <div data-testid="test-content">Hello</div>;
@@ -99,6 +102,8 @@ describe('modal-dialog children', () => {
 });
 
 describe('modal-dialog', () => {
+  afterEach(cleanup);
+
   describe('props', () => {
     describe('height', () => {
       it('should be passed to Dialog', () => {
@@ -178,21 +183,15 @@ describe('modal-dialog', () => {
         expect(queryByTestId('custom-header')).not.toBeNull();
       });
       it('should render when set via (deprecated) header prop', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
         const node = <span data-testid="custom-header">My header</span>;
         const { queryByTestId } = render(
           <ModalDialog header={() => node} onClose={noop} />,
         );
 
         expect(queryByTestId('custom-header')).not.toBeNull();
-        expect(warnSpy).toHaveBeenCalled();
+        expect(warnOnce).toHaveBeenCalled();
       });
       it('should prefer the components prop over header prop ', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
         const node = <span data-testid="custom-header">My header</span>;
         const nodeDeprecated = (
           <span data-testid="custom-deprecated-header">
@@ -210,7 +209,7 @@ describe('modal-dialog', () => {
 
         expect(queryByTestId('custom-header')).not.toBeNull();
         expect(queryByTestId('custom-deprecated-header')).toBeNull();
-        expect(warnSpy).toHaveBeenCalled();
+        expect(warnOnce).toHaveBeenCalled();
       });
     });
 
@@ -224,21 +223,15 @@ describe('modal-dialog', () => {
         expect(queryByTestId('custom-footer')).not.toBeNull();
       });
       it('should render when set via (deprecated) footer prop', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
         const node = <span data-testid="custom-footer">My footer</span>;
         const { queryByTestId } = render(
           <ModalDialog footer={() => node} onClose={noop} />,
         );
 
         expect(queryByTestId('custom-footer')).not.toBeNull();
-        expect(warnSpy).toHaveBeenCalled();
+        expect(warnOnce).toHaveBeenCalled();
       });
       it('should prefer the components prop over footer prop ', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
         const node = <span data-testid="custom-footer">My footer</span>;
         const nodeDeprecated = (
           <span data-testid="custom-deprecated-footer">
@@ -256,7 +249,7 @@ describe('modal-dialog', () => {
 
         expect(queryByTestId('custom-footer')).not.toBeNull();
         expect(queryByTestId('custom-deprecated-footer')).toBeNull();
-        expect(warnSpy).toHaveBeenCalled();
+        expect(warnOnce).toHaveBeenCalled();
       });
     });
 
@@ -278,10 +271,6 @@ describe('modal-dialog', () => {
       });
 
       it('should render when set via (deprecated) body prop', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
-
         const node = React.forwardRef((_, ref: any) => (
           <span data-testid="custom-body" ref={ref}>
             My body
@@ -293,13 +282,10 @@ describe('modal-dialog', () => {
         );
 
         expect(queryByTestId('custom-body')).not.toBeNull();
-        expect(warnSpy).toHaveBeenCalled();
+        expect(warnOnce).toHaveBeenCalled();
       });
 
       it('should prefer the components prop over body prop ', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
         const node = React.forwardRef((_, ref: any) => {
           return (
             <span data-testid="custom-body" ref={ref}>
@@ -322,33 +308,7 @@ describe('modal-dialog', () => {
 
         expect(queryByTestId('custom-body')).not.toBeNull();
         expect(queryByTestId('custom-deprecated-body')).toBeNull();
-        expect(warnSpy).toHaveBeenCalled();
-      });
-
-      it('should warn the user about using forwardRef if not present on a custom body', () => {
-        const warnSpy = jest
-          .spyOn(console, 'warn')
-          .mockImplementation(() => {});
-
-        const errorSpy = jest
-          .spyOn(console, 'error')
-          .mockImplementation(() => {});
-
-        const node = (props: any) => {
-          return (
-            <>
-              <span data-testid="custom-body">My body</span>
-              {props.children}
-            </>
-          );
-        };
-
-        render(<ModalDialog components={{ Body: node }} />);
-
-        expect(errorSpy).toHaveBeenCalled();
-        expect(warnSpy).toHaveBeenCalledWith(
-          expect.stringMatching(/forwardRef/),
-        );
+        expect(warnOnce).toHaveBeenCalled();
       });
     });
 
@@ -453,6 +413,8 @@ describe('modal-dialog', () => {
 });
 
 describe('multiple modals', () => {
+  afterEach(cleanup);
+
   it('should position a modal dialog behind two others', () => {
     const { getByTestId } = render(
       <>
@@ -573,29 +535,111 @@ describe('multiple modals', () => {
       '1',
     );
   });
+
+  it('should not callback if the position has not changed', () => {
+    const callback = jest.fn();
+    const { rerender } = render(
+      <>
+        <ModalDialog testId="second">second</ModalDialog>
+        <ModalDialog onStackChange={callback} testId="first">
+          first
+        </ModalDialog>
+      </>,
+    );
+
+    rerender(
+      <>
+        {false}
+        <ModalDialog onStackChange={callback} testId="first">
+          first
+        </ModalDialog>
+      </>,
+    );
+
+    expect(callback).toHaveBeenCalledTimes(0);
+  });
+
+  it('should callback on stack change when going to the front', () => {
+    const callback = jest.fn();
+    const { rerender } = render(
+      <>
+        <ModalDialog onStackChange={callback} testId="second">
+          second
+        </ModalDialog>
+        <ModalDialog testId="first">first</ModalDialog>
+      </>,
+    );
+
+    rerender(
+      <>
+        <ModalDialog onStackChange={callback} testId="second">
+          second
+        </ModalDialog>
+        {false}
+      </>,
+    );
+
+    expect(callback).toHaveBeenLastCalledWith(0);
+  });
+
+  it('should callback on stack change when going to the back', () => {
+    const callback = jest.fn();
+    const { rerender } = render(
+      <>
+        {false}
+        <ModalDialog onStackChange={callback} testId="first">
+          first
+        </ModalDialog>
+      </>,
+    );
+
+    rerender(
+      <>
+        <ModalDialog testId="second">second</ModalDialog>
+        <ModalDialog onStackChange={callback} testId="first">
+          first
+        </ModalDialog>
+      </>,
+    );
+
+    expect(callback).toHaveBeenCalledWith(1);
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
 });
 
-// beautiful-dnd will miscalculate positions if the container has a transform applied to it.
-test('no transform is applied to content', () => {
-  jest.useFakeTimers();
-  const { getByTestId } = render(<ModalDialog testId="modal" />);
-  jest.runAllTimers();
-
-  const positioner = getByTestId('modal--positioner');
-  expect(positioner).not.toHaveStyleDeclaration(
-    'transform',
-    expect.any(String),
+test('no animation is applied to the active modal after stack shift has finished', () => {
+  const { getByTestId, rerender } = render(
+    <>
+      <ModalDialog testId="back">back</ModalDialog>
+      <ModalDialog testId="front">front</ModalDialog>
+    </>,
   );
-});
 
-test('should throw deprecation error when using a function for auto focus', () => {
-  const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
-  expect(() =>
-    render(<ModalDialog autoFocus={() => document.createElement('div')} />),
-  ).toThrowError();
-  expect(spy).toHaveBeenCalled();
-  // needed otherwise global no console check will fail
-  jest.resetAllMocks();
+  // This transform is applied to animate during a stack shift.
+  // 8px is the vertical offset for one modal during a stack shift.
+  expect(getByTestId('back--positioner')).toHaveStyleDeclaration(
+    'transform',
+    'translateY(8px)',
+  );
+
+  expect(getByTestId('front--positioner')).toHaveStyleDeclaration(
+    'transform',
+    'none',
+  );
+
+  rerender(
+    <>
+      <ModalDialog testId="back">back</ModalDialog>
+      {false}
+    </>,
+  );
+
+  // Now that the modal has shifted to the front and is active,
+  // it should set transform back to 'none'.
+  expect(getByTestId('back--positioner')).toHaveStyleDeclaration(
+    'transform',
+    'none',
+  );
 });
 
 describe('ModalDialog', () => {
@@ -606,6 +650,8 @@ describe('ModalDialog', () => {
   afterEach(() => {
     (global.console.warn as jest.Mock).mockRestore();
     (global.console.error as jest.Mock).mockRestore();
+
+    cleanup();
   });
 
   it('should mount without errors', () => {

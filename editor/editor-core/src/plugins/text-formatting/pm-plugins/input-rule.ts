@@ -1,13 +1,16 @@
-import { InputRule } from 'prosemirror-inputrules';
 import { MarkType, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-
-import { applyMarkOnRange } from '../../../utils/commands';
 import {
-  createInputRule,
-  InputRuleHandler,
-  instrumentedInputRule,
+  createPlugin,
+  createRule,
+  ruleWithAnalytics,
 } from '../../../utils/input-rules';
+import { getFeatureFlags } from '../../feature-flags-context';
+import {
+  leafNodeReplacementCharacter,
+  InputRuleWrapper,
+  InputRuleHandler,
+} from '@atlaskit/prosemirror-input-rules';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -15,70 +18,83 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../analytics';
-import { ruleWithAnalytics } from '../../analytics/utils';
+import { FeatureFlags } from '../../../types/feature-flags';
+import { transformSmartCharsMentionsAndEmojis } from '../commands/transform-to-code';
 
-const validCombos = {
-  '**': ['_', '~~'],
-  '*': ['__', '~~'],
-  __: ['*', '~~'],
-  _: ['**', '~~'],
-  '~~': ['__', '_', '**', '*'],
-};
+enum ValidAutoformatChars {
+  STRONG = '__',
+  STRIKE = '~~',
+  STRONG_MARKDOWN = '**',
+  ITALIC_MARKDOWN = '*',
+  ITALIC = '_',
+  CODE = '`',
+}
 
-export type ValidCombosKey = keyof typeof validCombos;
-
-const validRegex = (char: ValidCombosKey, str: string): boolean => {
-  for (let i = 0; i < validCombos[char].length; i++) {
-    const ch = validCombos[char][i];
-    if (ch === str) {
-      return true;
-    }
-    const matchLength = str.length - ch.length;
-    if (str.substr(matchLength, str.length) === ch) {
-      return validRegex(ch as ValidCombosKey, str.substr(0, matchLength));
-    }
-  }
-  return false;
+export const ValidCombinations: Record<ValidAutoformatChars, string[]> = {
+  [ValidAutoformatChars.STRIKE]: [
+    // e.g: _~~lol~~_
+    ValidAutoformatChars.ITALIC,
+    // e.g: __~~lol~~__
+    ValidAutoformatChars.STRONG,
+    // e.g: **~~lol~~**
+    ValidAutoformatChars.STRONG_MARKDOWN,
+    // e.g: *~~lol~~*
+    ValidAutoformatChars.ITALIC_MARKDOWN,
+  ],
+  [ValidAutoformatChars.STRONG]: [
+    // e.g: ~~__lol__~~
+    ValidAutoformatChars.STRIKE,
+    // e.g: *__lol__*
+    ValidAutoformatChars.ITALIC_MARKDOWN,
+  ],
+  [ValidAutoformatChars.STRONG_MARKDOWN]: [
+    // e.g: _**lol**_
+    ValidAutoformatChars.ITALIC,
+    // e.g: ~~**lol**~~
+    ValidAutoformatChars.STRIKE,
+  ],
+  [ValidAutoformatChars.ITALIC_MARKDOWN]: [
+    // e.g: ~~*lol*~~
+    ValidAutoformatChars.STRIKE,
+    // e.g: __*lol*__
+    ValidAutoformatChars.STRONG,
+  ],
+  [ValidAutoformatChars.ITALIC]: [
+    // e.g: ~~_lol_~~
+    ValidAutoformatChars.STRIKE,
+    // e.g: **_lol_**
+    ValidAutoformatChars.STRONG_MARKDOWN,
+  ],
+  [ValidAutoformatChars.CODE]: [
+    // e.g: loko (`some code`
+    '( ',
+  ],
 };
 
 function addMark(
   markType: MarkType,
   schema: Schema,
-  charSize: number,
-  char: ValidCombosKey,
+  char: ValidAutoformatChars,
 ): InputRuleHandler {
   return (state, match, start, end) => {
-    const [, prefix, textWithCombo] = match;
-    const to = end;
-    // in case of *string* pattern it matches the text from beginning of the paragraph,
-    // because we want ** to work for strong text
-    // that's why "start" argument is wrong and we need to calculate it ourselves
-    const from = textWithCombo ? start + prefix.length : start;
-    const nodeBefore = state.doc.resolve(start + prefix.length).nodeBefore;
+    const { doc, schema, tr } = state;
+    const textPrefix = state.doc.textBetween(start, start + char.length);
 
-    if (
-      prefix &&
-      prefix.length > 0 &&
-      !validRegex(char, prefix) &&
-      !(nodeBefore && nodeBefore.type === state.schema.nodes.hardBreak)
-    ) {
-      return null;
-    }
     // fixes the following case: my `*name` is *
     // expected result: should ignore special characters inside "code"
     if (
-      state.schema.marks.code &&
-      state.schema.marks.code.isInSet(state.doc.resolve(from + 1).marks())
+      textPrefix !== char ||
+      schema?.marks?.code?.isInSet(doc.resolve(start + 1).marks())
     ) {
       return null;
     }
 
     // Prevent autoformatting across hardbreaks
     let containsHardBreak: boolean | undefined;
-    state.doc.nodesBetween(from, to, node => {
+    doc.nodesBetween(start, end, node => {
       if (node.type === schema.nodes.hardBreak) {
         containsHardBreak = true;
-        return false;
+        return null;
       }
       return !containsHardBreak;
     });
@@ -88,103 +104,120 @@ function addMark(
 
     // fixes autoformatting in heading nodes: # Heading *bold*
     // expected result: should not autoformat *bold*; <h1>Heading *bold*</h1>
-    if (state.doc.resolve(from).sameParent(state.doc.resolve(to))) {
-      if (!state.doc.resolve(from).parent.type.allowsMarkType(markType)) {
-        return null;
+    const startPosResolved = doc.resolve(start);
+    const endPosResolved = doc.resolve(end);
+    if (
+      startPosResolved.sameParent(endPosResolved) &&
+      !startPosResolved.parent.type.allowsMarkType(markType)
+    ) {
+      return null;
+    }
+
+    if (markType.name === 'code') {
+      transformSmartCharsMentionsAndEmojis(
+        tr.mapping.map(start),
+        tr.mapping.map(end),
+        tr,
+      );
+    }
+
+    const mappedStart = tr.mapping.map(start);
+    const mappedEnd = tr.mapping.map(end);
+
+    tr.addMark(mappedStart, mappedEnd, markType.create());
+
+    const textSuffix = tr.doc.textBetween(mappedEnd - char.length, mappedEnd);
+    if (textSuffix === char) {
+      tr.delete(mappedEnd - char.length, mappedEnd);
+    }
+
+    const { useUnpredictableInputRule } = getFeatureFlags(state);
+    if (useUnpredictableInputRule) {
+      // THe unpredictable input rule is keeping the last char in the document
+      // for example: `lol` the second stick need to removed
+      if (char.length === 2) {
+        tr.delete(mappedEnd - 1, mappedEnd);
+      }
+
+      // And for range selection too
+      if (!tr.selection.empty) {
+        tr.deleteSelection();
       }
     }
 
-    // apply mark to the range (from, to)
-    let tr = state.tr.addMark(from, to, markType.create());
-
-    if (charSize > 1) {
-      // delete special characters after the text
-      // Prosemirror removes the last symbol by itself, so we need to remove "charSize - 1" symbols
-      tr = tr.delete(to - (charSize - 1), to);
+    if (textPrefix === char) {
+      tr.delete(mappedStart, mappedStart + char.length);
     }
 
-    return (
-      tr
-        // delete special characters before the text
-        .delete(from, from + charSize)
-        .removeStoredMark(markType)
-    );
+    return tr.removeStoredMark(markType);
   };
 }
 
-function addCodeMark(
-  markType: MarkType,
-  specialChar: string,
-): InputRuleHandler {
-  return (state, match, start, end) => {
-    if (match[1] && match[1].length > 0) {
-      const allowedPrefixConditions = [
-        (prefix: string): boolean => {
-          return prefix === '(';
-        },
-        (prefix: string): boolean => {
-          const nodeBefore = state.doc.resolve(start + prefix.length)
-            .nodeBefore;
-          return (
-            (nodeBefore && nodeBefore.type === state.schema.nodes.hardBreak) ||
-            false
-          );
-        },
-      ];
-
-      if (allowedPrefixConditions.every(condition => !condition(match[1]))) {
-        return null;
-      }
+class ReverseRegexExp extends RegExp {
+  exec(str: string): RegExpExecArray | null {
+    if (!str) {
+      return null;
     }
-    // fixes autoformatting in heading nodes: # Heading `bold`
-    // expected result: should not autoformat *bold*; <h1>Heading `bold`</h1>
-    if (state.doc.resolve(start).sameParent(state.doc.resolve(end))) {
-      if (!state.doc.resolve(start).parent.type.allowsMarkType(markType)) {
-        return null;
+
+    const reverseStr = [...str].reverse().join('');
+
+    const result = super.exec(reverseStr);
+
+    if (!result) {
+      return null;
+    }
+
+    for (let i = 0; i < result.length; i++) {
+      if (result[i] && typeof result[i] === 'string') {
+        result[i] = [...result[i]].reverse().join('');
       }
     }
 
-    let tr = state.tr;
-    // checks if a selection exists and needs to be removed
-    if (state.selection.from !== state.selection.to) {
-      tr.delete(state.selection.from, state.selection.to);
-      end -= state.selection.to - state.selection.from;
+    if (result.input && typeof result.input === 'string') {
+      result.input = [...result.input].reverse().join('');
     }
 
-    const hasTrailingSpecialChar = state.doc
-      .textBetween(start, end)
-      .endsWith(specialChar);
-
-    // Remove unwanted trailing specialChars, so marks are added in the
-    // correct position. Fixes issues related to isComposing keyboard events
-    if (hasTrailingSpecialChar) {
-      tr.delete(end - specialChar.length, end);
-      end -= specialChar.length;
+    if (result.input && result[0]) {
+      result.index = result.input.length - result[0].length;
     }
 
-    const regexStart = end - match[2].length + 1;
-    const codeMark = state.schema.marks.code.create();
-    return applyMarkOnRange(regexStart, end, false, codeMark, tr)
-      .setStoredMarks([codeMark])
-      .delete(regexStart, regexStart + specialChar.length)
-      .removeStoredMark(markType);
-  };
+    return result;
+  }
 }
 
-export const strongRegex1 = /(\S*)(\_\_([^\_\s](\_(?!\_)|[^\_])*[^\_\s]|[^\_\s])\_\_)$/;
-export const strongRegex2 = /(\S*)(\*\*([^\*\s](\*(?!\*)|[^\*])*[^\*\s]|[^\*\s])\*\*)$/;
-export const italicRegex1 = /(\S*)(\_([^\_\s]([^\_])*[^\_\s]|[^\_\s])\_)$/;
-export const italicRegex2 = /(\S*)(\*([^\*\s]([^\*])*[^\*\s]|[^\*\s])\*)$/;
-export const strikeRegex = /(\S*)(\~\~([^\s\~](\~(?!\~)|[^\~])*[^\s\~]|[^\s\~])\~\~)$/;
-export const codeRegex = /(\S*)(`[^\s][^`]*`)$/;
+const buildRegex = (char: ValidAutoformatChars) => {
+  const escapedChar = char.replace(/(\W)/g, '\\$1');
+  const combinations = ValidCombinations[char]
+    .map(c => c.replace(/(\W)/g, '\\$1'))
+    .join('|');
+
+  // Single X - https://regex101.com/r/McT3yq/14/
+  // Double X - https://regex101.com/r/pQUgjx/1/
+  const baseRegex = '^X(?=[^X\\s]).*?[^\\sX]X(?=[\\sOBJECT_REPLACEMENT_CHARACTER]COMBINATIONS|$)'
+    .replace('OBJECT_REPLACEMENT_CHARACTER', leafNodeReplacementCharacter)
+    .replace('COMBINATIONS', combinations ? `|${combinations}` : '');
+
+  const replacedRegex = baseRegex.replaceAll
+    ? baseRegex.replaceAll('X', escapedChar)
+    : baseRegex.replace(/X/g, escapedChar);
+
+  return new ReverseRegexExp(replacedRegex);
+};
+
+export const strongRegex1 = buildRegex(ValidAutoformatChars.STRONG);
+export const strongRegex2 = buildRegex(ValidAutoformatChars.STRONG_MARKDOWN);
+export const italicRegex1 = buildRegex(ValidAutoformatChars.ITALIC);
+export const italicRegex2 = buildRegex(ValidAutoformatChars.ITALIC_MARKDOWN);
+export const strikeRegex = buildRegex(ValidAutoformatChars.STRIKE);
+export const codeRegex = buildRegex(ValidAutoformatChars.CODE);
 
 /**
  * Create input rules for strong mark
  *
  * @param {Schema} schema
- * @returns {InputRule[]}
+ * @returns {InputRuleWrapper[]}
  */
-function getStrongInputRules(schema: Schema): InputRule[] {
+function getStrongInputRules(schema: Schema): InputRuleWrapper[] {
   const ruleWithStrongAnalytics = ruleWithAnalytics(() => ({
     action: ACTION.FORMATTED,
     actionSubject: ACTION_SUBJECT.TEXT,
@@ -195,16 +228,14 @@ function getStrongInputRules(schema: Schema): InputRule[] {
     },
   }));
   // **string** or __strong__ should bold the text
-
-  const markLength = 2;
-  const doubleUnderscoreRule = createInputRule(
+  const doubleUnderscoreRule = createRule(
     strongRegex1,
-    addMark(schema.marks.strong, schema, markLength, '__'),
+    addMark(schema.marks.strong, schema, ValidAutoformatChars.STRONG),
   );
 
-  const doubleAsterixRule = createInputRule(
+  const doubleAsterixRule = createRule(
     strongRegex2,
-    addMark(schema.marks.strong, schema, markLength, '**'),
+    addMark(schema.marks.strong, schema, ValidAutoformatChars.STRONG_MARKDOWN),
   );
 
   return [
@@ -217,9 +248,9 @@ function getStrongInputRules(schema: Schema): InputRule[] {
  * Create input rules for em mark
  *
  * @param {Schema} schema
- * @returns {InputRule[]}
+ * @returns {InputRuleWrapper[]}
  */
-function getItalicInputRules(schema: Schema): InputRule[] {
+function getItalicInputRules(schema: Schema): InputRuleWrapper[] {
   const ruleWithItalicAnalytics = ruleWithAnalytics(() => ({
     action: ACTION.FORMATTED,
     actionSubject: ACTION_SUBJECT.TEXT,
@@ -230,17 +261,14 @@ function getItalicInputRules(schema: Schema): InputRule[] {
     },
   }));
 
-  // *string* or _string_ should italic the text
-  const markLength = 1;
-
-  const underscoreRule = createInputRule(
+  const underscoreRule = createRule(
     italicRegex1,
-    addMark(schema.marks.em, schema, markLength, '_'),
+    addMark(schema.marks.em, schema, ValidAutoformatChars.ITALIC),
   );
 
-  const asterixRule = createInputRule(
+  const asterixRule = createRule(
     italicRegex2,
-    addMark(schema.marks.em, schema, markLength, '*'),
+    addMark(schema.marks.em, schema, ValidAutoformatChars.ITALIC_MARKDOWN),
   );
 
   return [
@@ -253,9 +281,9 @@ function getItalicInputRules(schema: Schema): InputRule[] {
  * Create input rules for strike mark
  *
  * @param {Schema} schema
- * @returns {InputRule[]}
+ * @returns {InputRuleWrapper[]}
  */
-function getStrikeInputRules(schema: Schema): InputRule[] {
+function getStrikeInputRules(schema: Schema): InputRuleWrapper[] {
   const ruleWithStrikeAnalytics = ruleWithAnalytics(() => ({
     action: ACTION.FORMATTED,
     actionSubject: ACTION_SUBJECT.TEXT,
@@ -266,10 +294,9 @@ function getStrikeInputRules(schema: Schema): InputRule[] {
     },
   }));
 
-  const markLength = 2;
-  const doubleTildeRule = createInputRule(
+  const doubleTildeRule = createRule(
     strikeRegex,
-    addMark(schema.marks.strike, schema, markLength, '~~'),
+    addMark(schema.marks.strike, schema, ValidAutoformatChars.STRIKE),
   );
 
   return [ruleWithStrikeAnalytics(doubleTildeRule)];
@@ -279,9 +306,9 @@ function getStrikeInputRules(schema: Schema): InputRule[] {
  * Create input rules for code mark
  *
  * @param {Schema} schema
- * @returns {InputRule[]}
+ * @returns {InputRuleWrapper[]}
  */
-function getCodeInputRules(schema: Schema): InputRule[] {
+function getCodeInputRules(schema: Schema): InputRuleWrapper[] {
   const ruleWithCodeAnalytics = ruleWithAnalytics(() => ({
     action: ACTION.FORMATTED,
     actionSubject: ACTION_SUBJECT.TEXT,
@@ -292,16 +319,19 @@ function getCodeInputRules(schema: Schema): InputRule[] {
     },
   }));
 
-  const backTickRule = createInputRule(
+  const backTickRule = createRule(
     codeRegex,
-    addCodeMark(schema.marks.code, '`'),
+    addMark(schema.marks.code, schema, ValidAutoformatChars.CODE),
   );
 
   return [ruleWithCodeAnalytics(backTickRule)];
 }
 
-export function inputRulePlugin(schema: Schema): Plugin | undefined {
-  const rules: Array<InputRule> = [];
+export function inputRulePlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin | undefined {
+  const rules: Array<InputRuleWrapper> = [];
 
   if (schema.marks.strong) {
     rules.push(...getStrongInputRules(schema));
@@ -320,7 +350,9 @@ export function inputRulePlugin(schema: Schema): Plugin | undefined {
   }
 
   if (rules.length !== 0) {
-    return instrumentedInputRule('text-formatting', { rules });
+    return createPlugin('text-formatting', rules, {
+      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
+    });
   }
   return;
 }

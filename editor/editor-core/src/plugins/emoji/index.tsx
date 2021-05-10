@@ -121,8 +121,8 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => ({
       },
       {
         name: 'emojiAsciiInputRule',
-        plugin: ({ schema, providerFactory }) =>
-          asciiInputRulePlugin(schema, providerFactory),
+        plugin: ({ schema, providerFactory, featureFlags }) =>
+          asciiInputRulePlugin(schema, providerFactory, featureFlags),
       },
     ];
   },

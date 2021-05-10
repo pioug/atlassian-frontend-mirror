@@ -1,5 +1,11 @@
-export { default as Code } from './ThemedCode';
-export { default as CodeBlock } from './ThemedCodeBlock';
+export { default as Code, getCodeStyles } from './code';
+export { default as CodeBlock } from './code-block';
 
-export type { SupportedLanguages } from './supportedLanguages';
-export type { CodeBlockTheme, CodeTheme } from './themes/types';
+export type {
+  CodeBlockProps,
+  CodeProps,
+  SupportedLanguages,
+  LanguageAlias,
+} from './types';
+
+export { SUPPORTED_LANGUAGES } from './constants';

@@ -25,6 +25,7 @@ import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import { FloatingToolbarButton } from '../../../../plugins/floating-toolbar/types';
 import { Command } from '../../../../types';
 import { getToolbarItems } from '../floating-toolbar/_helpers';
+import * as CardUtils from '../../../../plugins/card/utils';
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -141,6 +142,37 @@ describe('card', () => {
       const toolbarItems = getToolbarItems(toolbar!, editorView);
       expect(toolbar).toBeDefined();
       expect(toolbarItems).toMatchSnapshot();
+    });
+
+    it('metadata correctly resolves url and title from plugin state', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            '{<node>}',
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+          ),
+        ),
+      );
+
+      jest.spyOn(CardUtils, 'findCardInfo').mockImplementationOnce(() => {
+        return {
+          title: 'hey hey hey',
+          pos: 1,
+        };
+      });
+
+      const toolbar = floatingToolbar({
+        allowBlockCards: true,
+        allowEmbeds: true,
+        allowResizing: true,
+      })(editorView.state, intl, providerFactory);
+      const toolbarItems = getToolbarItems(toolbar!, editorView);
+      expect(toolbar).toBeDefined();
+      expect(
+        toolbarItems.filter(object => object.hasOwnProperty('metadata')),
+      ).toMatchSnapshot();
     });
 
     it('has an unlink button for inlineCard', () => {

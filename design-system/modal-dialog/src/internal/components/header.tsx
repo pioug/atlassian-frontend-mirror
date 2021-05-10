@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -7,22 +7,24 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import {
-  Header,
-  Title,
-  titleIconWrapperStyles,
-  TitleText,
+  getTitleIconStyles,
+  getTitleTextStyles,
+  headerStyles,
+  titleStyles,
 } from '../styles/content';
 import { AppearanceType, KeyboardOrMouseEvent } from '../types';
 
-const TitleIcon = ({ appearance }: { appearance?: 'danger' | 'warning' }) => {
-  if (!appearance) {
-    return null;
-  }
+const TitleIcon = ({
+  appearance,
+}: Required<Pick<HeaderProps, 'appearance'>>) => {
+  const titleIconStyles = useMemo(() => {
+    return getTitleIconStyles(appearance);
+  }, [appearance]);
 
   const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
 
   return (
-    <span css={titleIconWrapperStyles(appearance)}>
+    <span css={titleIconStyles}>
       <Icon label={`${appearance} icon`} />
     </span>
   );
@@ -78,58 +80,50 @@ export interface HeaderComponentProps {
   testId?: string;
 }
 
-export default class ModalHeader extends React.Component<HeaderProps, {}> {
-  static defaultProps = {
-    isHeadingMultiline: true,
-  };
+export default function ModalHeader(props: HeaderProps) {
+  const {
+    id,
+    appearance,
+    component,
+    heading,
+    onClose,
+    testId,
+    isHeadingMultiline = true,
+  } = props;
+  const warning = 'You can provide `component` OR `heading`, not both.';
+  const titleTextStyles = useMemo(() => {
+    return getTitleTextStyles(isHeadingMultiline);
+  }, [isHeadingMultiline]);
 
-  render() {
-    const {
-      id,
-      appearance,
-      component,
-      heading,
-      onClose,
-      showKeyline,
-      isHeadingMultiline,
-      testId,
-    } = this.props;
-    const warning = 'You can provide `component` OR `heading`, not both.';
-
-    if (!component && !heading) {
-      return null;
-    }
-    if (component && heading) {
-      console.warn(warning); // eslint-disable-line no-console
-      return null;
-    }
-    if (component) {
-      return React.createElement(component, {
-        id,
-        testId,
-        appearance,
-        onClose,
-        showKeyline,
-        isHeadingMultiline,
-      });
-    }
-
-    return (
-      <Header
-        showKeyline={showKeyline}
-        data-testid={testId && `${testId}--header`}
-      >
-        <Title>
-          <TitleIcon appearance={appearance} />
-          <TitleText
-            isHeadingMultiline={isHeadingMultiline}
-            id={id}
-            data-testid={testId && `${testId}-heading`}
-          >
-            {heading}
-          </TitleText>
-        </Title>
-      </Header>
-    );
+  if (!component && !heading) {
+    return null;
   }
+  if (component && heading) {
+    console.warn(warning); // eslint-disable-line no-console
+    return null;
+  }
+  if (component) {
+    return React.createElement(component, {
+      id,
+      testId,
+      appearance,
+      onClose,
+      isHeadingMultiline,
+    });
+  }
+
+  return (
+    <header css={headerStyles} data-testid={testId && `${testId}--header`}>
+      <h1 css={titleStyles}>
+        {appearance ? <TitleIcon appearance={appearance} /> : null}
+        <span
+          id={id}
+          css={titleTextStyles}
+          data-testid={testId && `${testId}-heading`}
+        >
+          {heading}
+        </span>
+      </h1>
+    </header>
+  );
 }

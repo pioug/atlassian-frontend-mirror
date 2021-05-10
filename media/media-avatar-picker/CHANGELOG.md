@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 22.1.6
+
+### Patch Changes
+
+- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- Updated dependencies
+
 ## 22.1.5
 
 ### Patch Changes

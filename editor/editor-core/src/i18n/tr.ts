@@ -85,6 +85,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     '{node} düğümünde bu görüntüleme seçeneği kullanılamıyor',
   'fabric.editor.displayText': 'Görüntülenecek metin',
+  'fabric.editor.distributeColumns': 'Sütunları eşit dağıt',
   'fabric.editor.edit': 'Düzenle',
   'fabric.editor.editAltText': 'Alternatif metni düzenle',
   'fabric.editor.editLink': 'Bağlantıyı düzenleyin',

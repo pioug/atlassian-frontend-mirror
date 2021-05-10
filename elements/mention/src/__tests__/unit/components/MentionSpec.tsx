@@ -10,6 +10,7 @@ import { MentionType, MentionNameStatus } from '../../../types';
 import MentionResource, { MentionProvider } from '../../../api/MentionResource';
 import { MentionNameResolver } from '../../../api/MentionNameResolver';
 import {
+  flushPromises,
   mockMentionData as mentionData,
   mockMentionProvider as mentionProvider,
 } from '../_test-helpers';
@@ -37,6 +38,7 @@ describe('<Mention />', () => {
 
   afterEach(() => {
     jest.useRealTimers();
+    jest.clearAllMocks();
   });
 
   describe('Mention', () => {
@@ -273,6 +275,36 @@ describe('<Mention />', () => {
           mentionProvider={resolvingMentionProvider}
         />,
       );
+      expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
+      expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
+    });
+
+    it('prefers text from prop over mention resolver', async () => {
+      const resolvedProps = {
+        id: '1',
+        name: 'resolved name',
+        status: MentionNameStatus.OK,
+      };
+      ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
+        resolvedProps,
+      );
+      const mentionProps = {
+        id: '1',
+        text: '',
+      };
+      const mention = mountWithIntl(
+        <ResourcedMention
+          {...mentionProps}
+          mentionProvider={resolvingMentionProvider}
+        />,
+      );
+      await flushPromises();
+      expect(mention.find(Mention).first().text()).toEqual(
+        `@${resolvedProps.name}`,
+      );
+      expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+      ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockClear();
+      mention.setProps({ ...mentionData });
       expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
       expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
     });

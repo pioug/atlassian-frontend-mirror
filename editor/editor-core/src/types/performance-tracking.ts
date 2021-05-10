@@ -262,6 +262,23 @@ export type ContentRetrievalTracking = {
   reportErrorStack?: boolean;
 };
 
+export type OnChangeCallbackTracking = {
+  /**
+   * @description Whether onChange callback tracking should be enabled. Requires TransactionTracking
+   * to be enabled.
+   * @default: false
+   */
+  enabled: boolean;
+};
+
+export type OnEditorReadyCallbackTracking = {
+  /**
+   * @description Control whether onEditorReady callback tracking should be enabled.
+   * @default false
+   */
+  enabled: boolean;
+};
+
 export type PerformanceTracking = {
   /**
    * @description Control whether measurements for all analytics events are performed
@@ -308,4 +325,15 @@ export type PerformanceTracking = {
    * @description Control whether editor content retrieval events are tracked
    */
   contentRetrievalTracking?: ContentRetrievalTracking;
+
+  /**
+   * @description Control onChange callback is tracked. Requires TransactionTracking to be enabled,
+   * and uses the sampling rate in TransactionTracking.
+   */
+  onChangeCallbackTracking?: OnChangeCallbackTracking;
+
+  /**
+   * @description Control wether onEditorReady callback is tracked.
+   */
+  onEditorReadyCallbackTracking?: OnEditorReadyCallbackTracking;
 };

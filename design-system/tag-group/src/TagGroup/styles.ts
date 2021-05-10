@@ -6,6 +6,3 @@ export const containerStyles = (justify: 'start' | 'end'): CSSObject => ({
   justifyContent: `flex-${justify}`,
   width: '100%',
 });
-
-// TODO: remove this comment
-// < force a build of the tag-group package on Confluence >

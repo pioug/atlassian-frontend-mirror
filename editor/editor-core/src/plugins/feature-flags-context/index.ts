@@ -1,7 +1,7 @@
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { useEditorContext } from '../../ui/EditorContext';
-import { FeatureFlags } from './types';
+import type { FeatureFlags } from '../../types/feature-flags';
 
 export const pluginKey = new PluginKey('featureFlagsContextPlugin');
 

@@ -38,7 +38,7 @@ const createBodiedExtensionNodeSpec = (
   const nodeSpec: NodeSpec = {
     inline: false,
     group: 'block',
-    marks: 'link',
+    marks: 'link dataConsumer',
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | extension | unsupportedBlock | embedCard)+',
     defining: true,

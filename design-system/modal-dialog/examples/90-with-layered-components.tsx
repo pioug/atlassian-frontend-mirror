@@ -10,11 +10,12 @@ import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
-import FieldRadioGroup from '@atlaskit/field-radio-group';
 import Flag, { FlagGroup } from '@atlaskit/flag';
+import { Field } from '@atlaskit/form';
 import Info from '@atlaskit/icon/glyph/info';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
+import { RadioGroup } from '@atlaskit/radio';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { P300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -73,11 +74,17 @@ export default () => {
         This is the bit that makes the page horizontally scrollable. The width
         of the paragraph is set to 250vw.
       </OverflowedText>
-      <FieldRadioGroup
-        items={scrollBehaviors}
-        label="Scroll behavior:"
-        onRadioChange={onScrollBehaviorChange}
-      />
+
+      <Field name="sb" label="Scroll behavior:">
+        {() => (
+          <RadioGroup
+            options={scrollBehaviors}
+            defaultValue="inside-wide"
+            onChange={onScrollBehaviorChange}
+          />
+        )}
+      </Field>
+
       <Button onClick={open} testId="open-modal">
         Open modal
       </Button>
@@ -231,7 +238,6 @@ const scrollBehaviors = [
     name: 'scrollBehavior',
     value: 'inside-wide',
     label: 'inside-wide',
-    defaultSelected: true,
   },
 ];
 

@@ -31,10 +31,10 @@ export class MediaImageLoader extends React.PureComponent<
       try {
         const [mediaClient, mediaImageModule] = await Promise.all([
           import(
-            /* webpackChunkName:"@atlaskit-media-client" */ '@atlaskit/media-client'
+            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
           ),
           import(
-            /* webpackChunkName:"@atlaskit-internal_media-image" */ './mediaImage'
+            /* webpackChunkName: "@atlaskit-internal_media-image" */ './mediaImage'
           ),
         ]);
 

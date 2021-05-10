@@ -18,11 +18,5 @@ ReactDOM.render(
 );`;
 
 export default function CodeBlockLineHighlightExample() {
-  return (
-    <CodeBlock
-      language="javascript"
-      text={exampleCodeBlock}
-      highlight="2,5-7"
-    />
-  );
+  return <CodeBlock language="jsx" text={exampleCodeBlock} highlight="2,5-7" />;
 }

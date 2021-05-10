@@ -101,6 +101,13 @@ function rebaseSteps(steps: Step[], mapping: Mapping): Step[] {
   return newSteps;
 }
 
+type EditorStateGetter = () => EditorState;
+
+type InitializeOptions = {
+  getState: EditorStateGetter;
+  clientId: string;
+};
+
 export class Provider
   extends Emitter<CollabEvents>
   implements
@@ -145,12 +152,20 @@ export class Provider
    * Called by collab plugin in editor when it's ready to
    * initialize a collab session.
    */
-  initialize(getState: () => EditorState) {
-    this.getState = getState;
+  initialize(getState: EditorStateGetter): this;
+  initialize(options: InitializeOptions): this;
+  initialize(optionsOrGetState: InitializeOptions | EditorStateGetter): this {
+    this.getState =
+      typeof optionsOrGetState === 'function'
+        ? optionsOrGetState
+        : optionsOrGetState.getState;
 
-    // Quick-hack to get clientID from native collab-plugin.
-    this.clientId = (getState!().plugins.find((p: any) => p.key === 'collab$')!
-      .spec as any).config.clientID;
+    this.clientId =
+      typeof optionsOrGetState === 'function'
+        ? // Quick-hack to get clientID from native collab-plugin.
+          (this.getState().plugins.find((p: any) => p.key === 'collab$')!
+            .spec as any).config.clientID
+        : optionsOrGetState.clientId;
 
     this.channel
       .on('connected', ({ sid }) => {

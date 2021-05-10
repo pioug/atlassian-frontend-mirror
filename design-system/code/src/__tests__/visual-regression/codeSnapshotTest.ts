@@ -5,14 +5,11 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 async function waitForInlineCode(page: PuppeteerPage) {
-  await page.waitForSelector('code > .token');
-  await page.waitForSelector('code > .token,operator');
-  await page.waitForSelector('code > .token,punctuation');
+  return page.waitForSelector('[data-testid="code-h1"]');
 }
 
 async function waitForCodeblock(page: PuppeteerPage) {
-  await waitForInlineCode(page);
-  await page.waitForSelector('code > .react-syntax-highlighter-line-number');
+  return page.waitForSelector('[data-ds--code--code-block]');
 }
 
 describe('Snapshot Test', () => {
@@ -21,6 +18,21 @@ describe('Snapshot Test', () => {
       'design-system',
       'code',
       'inline-code-basic',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForInlineCode(page);
+    const example = await page.waitForSelector('#inline-examples');
+    const image = await example.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+  it('Inline Code (dark) basic example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'code',
+      'inline-code-basic-dark',
       global.__BASEURL__,
     );
     const { page } = global;
@@ -73,6 +85,7 @@ describe('Snapshot Test', () => {
     'Visual Basic',
     'Cascading Style Sheets',
     'JSX',
+    'No leaking styles',
   ].forEach(language => {
     const exampleUrl = language.split(' ').join('-').toLowerCase();
     it(`${language} code example should match production example`, async () => {

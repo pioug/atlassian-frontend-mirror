@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 4.1.1
+
+### Patch Changes
+
+- [`8b360a4ac06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b360a4ac06) - NO-ISSUE Update modal dialog selector for VR & integration tests
+- Updated dependencies
+
 ## 4.1.0
 
 ### Minor Changes

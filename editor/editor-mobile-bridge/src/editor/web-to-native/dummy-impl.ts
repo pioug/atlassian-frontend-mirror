@@ -158,6 +158,7 @@ export default class DummyBridge implements NativeBridge {
 
   typeAheadItemSelected(quickInsertItem: Serialized<QuickInsertItem>): void {
     this.log(`typeAheadItemSelected(quickInsertItem=${quickInsertItem}`);
+    this.call('typeAheadBridge', 'typeAheadItemSelected', quickInsertItem);
   }
 
   onNodeSelected(nodeType: string, items: string) {

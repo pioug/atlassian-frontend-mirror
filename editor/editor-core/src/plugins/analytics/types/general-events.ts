@@ -11,7 +11,7 @@ import {
   INPUT_METHOD,
 } from './enums';
 import { PluginPerformanceReportData } from '../../../utils/performance/plugin-performance-report';
-import { FeatureFlagKey } from '../../feature-flags-context/types';
+import { FeatureFlagKey } from '../../../types/feature-flags';
 import { AnnotationAEP } from './inline-comment-events';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SEVERITY } from '@atlaskit/editor-common';
@@ -85,7 +85,8 @@ type EditorStartAEP = UIAEP<
 type EditorPerfAEP = OperationalAEPWithObjectId<
   | ACTION.EDITOR_MOUNTED
   | ACTION.PROSEMIRROR_RENDERED
-  | ACTION.ON_EDITOR_READY_CALLBACK,
+  | ACTION.ON_EDITOR_READY_CALLBACK
+  | ACTION.ON_CHANGE_CALLBACK,
   ACTION_SUBJECT.EDITOR,
   undefined,
   {

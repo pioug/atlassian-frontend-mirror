@@ -4,7 +4,7 @@ import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
 import Select, { ValueType } from '@atlaskit/select';
 
 import Calendar from '../src';
-import { WeekDay } from '../src/internal/types';
+import type { WeekDay } from '../src/types';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
 

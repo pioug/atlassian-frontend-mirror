@@ -5,6 +5,7 @@ import {
   doc,
   hardBreak,
   p,
+  a,
   panel,
   status,
   strong,
@@ -133,7 +134,7 @@ describe('RendererActions matches', () => {
           'repeated content over one paragraph',
           doc(
             p('Oat Oat Oat Oat Oat Oat Oat Oat Oat Oat Oat Oat'),
-            //                                  TARGET ^^^
+            //                      TARGET ^^^
           ),
           'Oat',
           33,
@@ -145,14 +146,49 @@ describe('RendererActions matches', () => {
             p('Gummies Oat cake'),
             p('Gummies Oat cake'),
             p('Gummies Oat cake'),
-            //          TARGET ^^^
+            //  TARGET ^^^
             p('Gummies Oat cake'),
           ),
           'Oat',
           45,
           { matchIndex: 2, numMatches: 4 },
         ],
-      ])('%s', (testName, docNode, query, from, expectedMatch) => {
+        [
+          'links',
+          doc(
+            p(
+              'Test session link: ',
+              a({
+                href: 'https://www.google.com',
+              })('https://www.google.com'),
+            ),
+          ),
+          'https://www.google.com',
+          20,
+          { matchIndex: 0, numMatches: 1 },
+        ],
+        [
+          'links with parameters',
+          doc(
+            p(
+              'Test session link: ',
+              a({
+                href: 'https://www.google.com/results?page=1',
+              })('https://www.google.com/results?page=1'),
+            ),
+          ),
+          'results?page=1',
+          43,
+          { matchIndex: 0, numMatches: 1 },
+        ],
+        [
+          'plain text links',
+          doc(p('See results at: https://www.google.com/results?page=1')),
+          'https://www.google.com/results?page=1',
+          17,
+          { matchIndex: 0, numMatches: 1 },
+        ],
+      ])('%s', (_testName, docNode, query, from, expectedMatch) => {
         const result = getIndexMatch(docNode(schema), schema, query, from);
         expect(result).toEqual(expect.objectContaining(expectedMatch));
       });
@@ -172,7 +208,14 @@ describe('RendererActions matches', () => {
       ['case sensitive mixed', 'DOGdog', 'dog', 1],
       ['respects punctuation', 'd--o--g', 'dog', 0],
       ['respects punctuation in query', 'd-o-g!!!', 'd-o-g', 1],
-    ])('%s', (testName, searchString, query, expected) => {
+      ['links', 'https://www.google.com/', 'https://www.google.com/', 1],
+      [
+        'links with parameters',
+        'https://www.google.com/results?page=1',
+        'results?page=1',
+        1,
+      ],
+    ])('%s', (_testName, searchString, query, expected) => {
       expect(countMatches(searchString, query)).toEqual(expected);
     });
   });

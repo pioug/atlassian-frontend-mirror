@@ -26,6 +26,7 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { IconTable } from '../quick-insert/assets';
 
 import { pluginConfig } from './create-plugin-config';
+import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
@@ -134,6 +135,14 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         plugin: ({ dispatch, eventDispatcher }) =>
           options && options.tableOptions.stickyHeaders
             ? createStickyHeadersPlugin(dispatch, eventDispatcher)
+            : undefined,
+      },
+
+      {
+        name: 'tableLocalId',
+        plugin: () =>
+          options && options?.allowReferentiality
+            ? createTableLocalIdPlugin()
             : undefined,
       },
     ];

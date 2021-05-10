@@ -26,7 +26,6 @@ export interface LinkingToolbarProps {
   onAddLink: React.MouseEventHandler;
   onEditLink: React.MouseEventHandler;
   onOpenLink: React.MouseEventHandler;
-  showSeparatorLeft: boolean;
 }
 
 // need this wrapper, need to have 4px between items.
@@ -40,7 +39,6 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
   editorState,
   mediaLinkingState,
   intl,
-  showSeparatorLeft,
   onAddLink,
   onEditLink,
   onOpenLink,
@@ -81,11 +79,6 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
 
     return (
       <>
-        {showSeparatorLeft && (
-          <Wrapper>
-            <Separator />
-          </Wrapper>
-        )}
         <Wrapper>
           <ToolbarButton
             onClick={onEditLink}
@@ -109,17 +102,13 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
           icon={<OpenIcon label={linkTitle}></OpenIcon>}
           className="hyperlink-open-link"
         />
+        <Separator />
       </>
     );
   } else {
     const title = intl.formatMessage(linkToolbarMessages.addLink);
     return (
       <>
-        {showSeparatorLeft && (
-          <Wrapper>
-            <Separator />
-          </Wrapper>
-        )}
         <ToolbarButton
           testId="add-link-button"
           onClick={onAddLink}
@@ -129,6 +118,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
           }
           icon={<LinkIcon label={title} />}
         />
+        <Separator />
       </>
     );
   }

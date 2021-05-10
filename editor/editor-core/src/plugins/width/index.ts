@@ -5,6 +5,7 @@ import { EditorPlugin } from '../../types';
 
 export type WidthPluginState = {
   width: number;
+  containerWidth?: number;
   lineLength?: number;
 };
 
@@ -16,9 +17,11 @@ export function createPlugin(
   return new Plugin({
     key: pluginKey,
     state: {
-      init: () => ({
-        width: document.body.offsetWidth,
-      }),
+      init: () =>
+        ({
+          width: document.body.offsetWidth,
+          containerWidth: document.body.offsetWidth,
+        } as WidthPluginState),
       apply(tr, pluginState: WidthPluginState) {
         const meta: WidthPluginState | undefined = tr.getMeta(pluginKey);
 
@@ -32,9 +35,10 @@ export function createPlugin(
         };
 
         if (
-          newPluginState &&
-          (pluginState.width !== newPluginState.width ||
-            pluginState.lineLength !== newPluginState.lineLength)
+          (newPluginState &&
+            (pluginState.width !== newPluginState.width ||
+              pluginState.lineLength !== newPluginState.lineLength)) ||
+          pluginState.containerWidth !== newPluginState.containerWidth
         ) {
           dispatch(pluginKey, newPluginState);
           return newPluginState;
@@ -64,6 +68,10 @@ const widthPlugin = (): EditorPlugin => ({
 
     if (containerElement) {
       newState.width = containerElement.offsetWidth;
+
+      // wrapper width is used by context panel to determine whether there is
+      // enough space to open without overlapping the editor
+      newState.containerWidth = containerElement.parentElement?.offsetWidth;
     }
 
     const tr = editorView.state.tr.setMeta(pluginKey, newState);

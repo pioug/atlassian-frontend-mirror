@@ -98,11 +98,6 @@ export class CodeBlockView {
         text: node.textContent,
         language: node.attrs.language,
         showLineNumbers: false,
-        themeOverride: {
-          backgroundColor: 'transparent',
-          codeFontSize: 14,
-          codeLineHeight: '24px',
-        },
       }),
       highlighting,
     );

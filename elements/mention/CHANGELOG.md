@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 19.6.1
+
+### Patch Changes
+
+- [`f5eba1a5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5eba1a5c71) - ED-11989 fixed mention displaying old cached name
+- Updated dependencies
+
 ## 19.6.0
 
 ### Minor Changes

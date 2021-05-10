@@ -5,10 +5,12 @@ import { MarksObject, NoMark } from './types/mark';
 
 /**
  * @name codeBlock_node
- * @allowUnsupportedInline true
  */
 export type CodeBlockBaseDefinition = {
   type: 'codeBlock';
+  /**
+   * @allowUnsupportedInline true
+   */
   content?: Array<Text & NoMark>;
   marks?: Array<any>;
   attrs?: CodeBlockAttrs;

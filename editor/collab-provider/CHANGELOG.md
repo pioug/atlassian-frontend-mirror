@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 6.3.0
+
+### Minor Changes
+
+- [`8734a8b70a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8734a8b70a8) - allow consumers to circumvent hard editor coupling
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

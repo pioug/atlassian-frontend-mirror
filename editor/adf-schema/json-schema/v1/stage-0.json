@@ -2037,6 +2037,9 @@
             "$ref": "#/definitions/extension_with_no_marks_node"
           },
           {
+            "$ref": "#/definitions/extension_with_marks_node"
+          },
+          {
             "$ref": "#/definitions/embedCard_node"
           },
           {
@@ -2170,6 +2173,9 @@
         },
         {
           "$ref": "#/definitions/extension_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/extension_with_marks_node"
         },
         {
           "$ref": "#/definitions/embedCard_node"

@@ -1,5 +1,25 @@
 # @atlaskit/logo
 
+## 13.4.1
+
+### Patch Changes
+
+- [`0017d2a8439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0017d2a8439) - Since the logo, icon and workmard components of JiraCore, JiraServiceDesk, OpsGenie, Stride and Hipchat are deprecated in `@atlaskit/logo`, we provided a codemod to help consumers upgrade their components.
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest avatar installed before you can run the codemod**
+
+  `yarn upgrade @atlaskit/logo`
+
+  Once upgraded, use the Atlaskit codemod-cli;
+
+  `npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
+
+  Or run `npx @atlaskit/codemod-cli -h` for more details on usage. For Atlassians, refer to this doc for more details on the codemod CLI.
+
+- Updated dependencies
+
 ## 13.4.0
 
 ### Minor Changes

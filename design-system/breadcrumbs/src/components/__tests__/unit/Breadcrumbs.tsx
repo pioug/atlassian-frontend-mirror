@@ -162,4 +162,40 @@ describe('Controlled breadcrumbs', () => {
     expect(nav).toBeDefined();
     expect(nav?.getAttribute('aria-label')).toBe('Blog Breadcrumbs');
   });
+
+  it('render ellipsis - default aria-label', () => {
+    const { getByTestId } = render(
+      <Breadcrumbs testId="breadcrumbs-container" maxItems={2}>
+        <BreadcrumbsItem href="/item" text="Item" />
+        <BreadcrumbsItem href="/item" text="Another item" />
+        <BreadcrumbsItem href="/item" text="A third item" />
+      </Breadcrumbs>,
+    );
+
+    const ellipsis = getByTestId('breadcrumbs-container--breadcrumb-ellipsis');
+    expect(ellipsis).toBeDefined();
+
+    const ariaLabel = ellipsis.getAttribute('aria-label');
+    expect(ariaLabel).toBe('Show more breadcrumbs');
+  });
+
+  it('render ellipsis - received aria-label', () => {
+    const { getByTestId } = render(
+      <Breadcrumbs
+        testId="breadcrumbs-container"
+        maxItems={2}
+        ellipsisLabel="Test label"
+      >
+        <BreadcrumbsItem href="/item" text="Item" />
+        <BreadcrumbsItem href="/item" text="Another item" />
+        <BreadcrumbsItem href="/item" text="A third item" />
+      </Breadcrumbs>,
+    );
+
+    const ellipsis = getByTestId('breadcrumbs-container--breadcrumb-ellipsis');
+    expect(ellipsis).toBeDefined();
+
+    const ariaLabel = ellipsis.getAttribute('aria-label');
+    expect(ariaLabel).toBe('Test label');
+  });
 });

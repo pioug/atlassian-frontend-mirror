@@ -24,8 +24,6 @@ import analyticsPlugin from '../../../../plugins/analytics';
 import basePlugins from '../../../../plugins/base';
 import blockType from '../../../../plugins/block-type';
 import codeBlockTypePlugin from '../../../../plugins/code-block';
-import { InputRuleWithHandler } from './../../../../utils/input-rules';
-import { wrapInputRuleIntoSanitizationContent } from '../../pm-plugins/input-rules/create-list-input-rule';
 
 describe('inputrules', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -50,25 +48,6 @@ describe('inputrules', () => {
 
   describe('bullet list rule', () => {
     describe('type "* "', () => {
-      it('should convert to a bullet list item', () => {
-        const editorView = editor(doc(p('{<>}')));
-
-        insertText(editorView, '* ');
-        expect(editorView.state.doc).toEqualDocument(doc(ul(li(p()))));
-      });
-
-      it('should create analytics GAS V3 event', () => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'inserted',
-          actionSubject: 'list',
-          eventType: 'track',
-          actionSubjectId: 'bulletedList',
-          attributes: expect.objectContaining({
-            inputMethod: 'autoformatting',
-          }),
-        });
-      });
-
       it('should not convert to a bullet list item after shift+enter ', () => {
         const documentNode = doc(p('test', hardBreak(), '{<>}'));
         const expectedDocumentNode = doc(p('test', hardBreak(), '* '));
@@ -104,11 +83,14 @@ describe('inputrules', () => {
       });
     });
 
-    describe('type "- "', () => {
+    describe.each<[string, string]>([
+      ['dash', '-'],
+      ['asterisk', '*'],
+      ['bullet point', '•'],
+    ])(`type "%s "`, (_testName, inputCharacter) => {
       beforeEach(() => {
         editorView = editor(doc(p('{<>}')));
-
-        insertText(editorView, '- ');
+        insertText(editorView, `${inputCharacter} `);
       });
 
       it('should convert to a bullet list item', () => {
@@ -245,38 +227,6 @@ describe('inputrules', () => {
 
       insertText(editorView, '1. ');
       expect(editorView.state.doc).toEqualDocument(doc(code_block()('1. ')));
-    });
-  });
-
-  describe('wrapInputRuleIntoSanitizationContent', () => {
-    let valueOfThisInHandler: any;
-
-    class TestInputRule implements InputRuleWithHandler {
-      handler() {
-        valueOfThisInHandler = this;
-        return null;
-      }
-    }
-
-    let inputRule: TestInputRule;
-
-    beforeEach(() => {
-      inputRule = new TestInputRule();
-    });
-
-    it('input rule should have "this" defined with the correct scope', () => {
-      inputRule.handler();
-      expect(valueOfThisInHandler).toBeDefined();
-    });
-
-    it('input rule should have "this" defined with the correct scope after being wrapped', () => {
-      wrapInputRuleIntoSanitizationContent({
-        inputRule,
-        listType: 'bulletList',
-      });
-
-      inputRule.handler();
-      expect(valueOfThisInHandler).toBeDefined();
     });
   });
 });

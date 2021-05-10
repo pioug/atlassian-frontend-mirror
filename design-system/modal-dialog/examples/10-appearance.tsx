@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
@@ -10,58 +10,46 @@ import { AppearanceType } from '../src/internal/types';
 
 const appearances: AppearanceType[] = ['warning', 'danger'];
 
-interface State {
-  isOpen: string | null;
-}
+export default function ExampleAppearance() {
+  const [isOpen, setIsOpen] = useState<number | string>('');
+  const open = (name: string) => setIsOpen(name);
+  const close = () => setIsOpen('');
 
-export default class ExampleAppearance extends React.PureComponent<{}, State> {
-  state = { isOpen: null };
+  const actions = [
+    { text: 'Close', onClick: close },
+    { text: 'Secondary Action' },
+  ];
 
-  open = (isOpen: string) => this.setState({ isOpen });
+  return (
+    <div>
+      <ButtonGroup>
+        {appearances.map(name => (
+          <Button
+            key={`${name}-trigger`}
+            testId={name}
+            onClick={() => open(name)}
+          >
+            Open: {name}
+          </Button>
+        ))}
+      </ButtonGroup>
 
-  close = () => this.setState({ isOpen: null });
-
-  secondaryAction = ({ currentTarget }: React.MouseEvent<HTMLElement>) =>
-    console.log(currentTarget.innerText);
-
-  render() {
-    const { isOpen } = this.state;
-    const actions = [
-      { text: 'Close', onClick: this.close },
-      { text: 'Secondary Action', onClick: this.secondaryAction },
-    ];
-
-    return (
-      <div>
-        <ButtonGroup>
-          {appearances.map(name => (
-            <Button
-              key={`${name}-trigger`}
-              testId={name}
-              onClick={() => this.open(name)}
+      <ModalTransition>
+        {appearances
+          .filter(a => a === isOpen)
+          .map(name => (
+            <Modal
+              key="active-modal"
+              actions={actions}
+              appearance={name}
+              onClose={close}
+              heading={`Modal: ${name}`}
+              testId="modal"
             >
-              Open: {name}
-            </Button>
+              <Lorem count={2} />
+            </Modal>
           ))}
-        </ButtonGroup>
-
-        <ModalTransition>
-          {appearances
-            .filter(a => a === isOpen)
-            .map(name => (
-              <Modal
-                key="active-modal"
-                actions={actions}
-                appearance={name}
-                onClose={this.close}
-                heading={`Modal: ${name}`}
-                testId="modal"
-              >
-                <Lorem count={2} />
-              </Modal>
-            ))}
-        </ModalTransition>
-      </div>
-    );
-  }
+      </ModalTransition>
+    </div>
+  );
 }

@@ -33,7 +33,8 @@ const rulePlugin = (): EditorPlugin => ({
     return [
       {
         name: 'ruleInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, featureFlags),
       },
       {
         name: 'ruleKeymap',

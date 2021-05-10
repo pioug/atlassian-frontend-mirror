@@ -3,12 +3,12 @@ import { ParagraphDefinition as Paragraph } from './paragraph';
 
 /**
  * @name blockquote_node
- * @allowUnsupportedBlock true
  */
 export interface BlockQuoteDefinition {
   type: 'blockquote';
   /**
    * @minItems 1
+   * @allowUnsupportedBlock true
    */
   content: Array<Paragraph>;
 }

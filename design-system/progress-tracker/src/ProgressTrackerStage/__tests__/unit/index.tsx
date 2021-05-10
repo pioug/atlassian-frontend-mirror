@@ -2,13 +2,13 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 
-import { GridColumn } from '@atlaskit/page';
 import * as colors from '@atlaskit/theme/colors';
 
 import ProgressTrackerLink from '../../../ProgressTrackerLink';
 import { LinkComponentProps, Stage } from '../../../types';
 import ProgressTrackerStage from '../../index';
 import {
+  ProgressTrackerListItem,
   ProgressTrackerStageBar,
   ProgressTrackerStageContainer,
   ProgressTrackerStageMarker,
@@ -38,9 +38,8 @@ describe('ak-progress-tracker/progress-tracker-stage', () => {
       />,
     );
     expect(wrapper.length).toBeGreaterThan(0);
-    const gridColumn = wrapper.find(GridColumn);
+    const gridColumn = wrapper.find(ProgressTrackerListItem);
     expect(gridColumn).toHaveLength(1);
-    expect(gridColumn.props().medium).toBe(2);
     expect(wrapper.find(ProgressTrackerStageContainer)).toHaveLength(1);
     expect(wrapper.find(ProgressTrackerStageMarker)).toHaveLength(1);
     expect(wrapper.find(ProgressTrackerStageBar)).toHaveLength(1);

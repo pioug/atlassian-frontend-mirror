@@ -16,7 +16,7 @@ describe(`${name}/schema code mark`, () => {
     const schema = makeSchema();
     const node = schema.text('foo', [schema.marks.code.create()]);
     expect(toHTML(node, schema)).toEqual(
-      '<span style="white-space: pre-wrap;" class="code" spellcheck="false">foo</span>',
+      '<span class="code" spellcheck="false">foo</span>',
     );
   });
 });

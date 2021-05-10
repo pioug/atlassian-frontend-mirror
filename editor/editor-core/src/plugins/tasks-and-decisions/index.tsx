@@ -96,7 +96,8 @@ const tasksAndDecisionsPlugin = ({
       },
       {
         name: 'tasksAndDecisionsInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, featureFlags),
       },
       {
         name: 'tasksAndDecisionsKeyMap',

@@ -226,6 +226,7 @@ const editorProps = ({
   allowTextColor: true,
   allowDate: true,
   allowPanel: true,
+  allowReferentiality: true,
   allowTables: {
     advanced: true,
   },

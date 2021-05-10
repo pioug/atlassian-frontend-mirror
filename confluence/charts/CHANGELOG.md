@@ -1,5 +1,14 @@
 # @atlaskit/charts
 
+## 0.0.9
+
+### Patch Changes
+
+- [`0d3249e4eb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d3249e4eb4) - [ux] Adding new chart icons.
+- [`5eab33d9b88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eab33d9b88) - ED-12398: referentiality custom fields resolver
+- [`47acef70b7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47acef70b7f) - [ux] Ui changes to include Adding chart from the toolbar button and moving the edit button location on chart extension, Adding chart options and edit source to the Charts extension toolbar and Making bar chart as the default chart option.
+- Updated dependencies
+
 ## 0.0.8
 
 ### Patch Changes

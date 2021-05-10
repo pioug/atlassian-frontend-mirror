@@ -1,5 +1,15 @@
 import { defineMessages, FormattedMessage } from 'react-intl';
 
+export type RequestAccessMessageKey =
+  | 'request_access_description'
+  | 'click_to_join_description'
+  | 'request_access_pending_description'
+  | 'click_to_join'
+  | 'request_access'
+  | 'request_access_pending'
+  | 'forbidden_description'
+  | 'request_denied_description';
+
 export type MessageKey =
   | 'retry'
   | 'failed_to_load'
@@ -111,23 +121,13 @@ export type MessageKey =
   | 'close_and_reopen'
   | 'viewer_rateLimited'
   | 'zip_entry_load_fail'
-  | RequestAccessMessageKeys;
+  | RequestAccessMessageKey;
 
-export type RequestAccessMessageKeys =
-  | 'request_access_description'
-  | 'click_to_join_description'
-  | 'request_access_pending_description'
-  | 'click_to_join'
-  | 'request_access'
-  | 'request_access_pending'
-  | 'forbidden_description'
-  | 'request_denied_description';
+type Messages = {
+  [K in MessageKey]: FormattedMessage.MessageDescriptor;
+};
 
-type Messages = { [K in MessageKey]: FormattedMessage.MessageDescriptor };
-
-const requestAccessMessages: {
-  [K in RequestAccessMessageKeys]: FormattedMessage.MessageDescriptor;
-} = {
+export const messages = defineMessages<Messages>({
   click_to_join: {
     id: 'fabric.media.click_to_join',
     defaultMessage: 'Join {context}',
@@ -175,10 +175,6 @@ const requestAccessMessages: {
     description:
       'Informs the user that their request to view this content was denied',
   },
-};
-
-export const messages = defineMessages<Messages>({
-  ...requestAccessMessages,
   retry: {
     id: 'fabric.media.retry',
     defaultMessage: 'Retry',

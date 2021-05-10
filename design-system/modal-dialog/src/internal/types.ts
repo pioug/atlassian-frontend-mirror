@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
 
 import type { FooterComponentProps } from './components/footer';
@@ -9,7 +9,9 @@ import type { WidthNames } from './constants';
 
 export type KeyboardOrMouseEvent =
   | React.MouseEvent<any>
-  | React.KeyboardEvent<any>;
+  | React.KeyboardEvent<any>
+  | KeyboardEvent;
+
 export type AppearanceType = 'danger' | 'warning';
 
 export type ScrollBehavior = 'inside' | 'outside' | 'inside-wide';
@@ -25,7 +27,21 @@ export interface ContainerComponentProps {
   children?: React.ReactNode;
 }
 
-export interface ModalDialogProps extends WithAnalyticsEventsProps {
+export type OnCloseHandler = (
+  e: KeyboardOrMouseEvent,
+  analyticEvent: UIAnalyticsEvent,
+) => void;
+
+export type OnCloseCompleteHandler = (element: HTMLElement) => void;
+
+export type OnOpenCompleteHandler = (
+  node: HTMLElement,
+  isAppearing: boolean,
+) => void;
+
+export type OnStackChangeHandler = (stackIndex: number) => void;
+
+export interface ModalDialogProps {
   /**
    * Buttons to render in the footer.
    * The first element in the array will implictly become the primary action.
@@ -38,11 +54,10 @@ export interface ModalDialogProps extends WithAnalyticsEventsProps {
   appearance?: AppearanceType;
 
   /**
-   * Will focus on the first interactive element inside the modal dialog when `true`.
-   * Pass in a callback function to return a HTML element to focus if you need more control.
-   * Defaults to `true`.
+   * Focus is moved to the first interactive element inside the modal dialog when `true`.
+   * Pass an element `ref` to focus on a specific element.
    */
-  autoFocus?: boolean | (() => HTMLElement | null);
+  autoFocus?: boolean | RefObject<HTMLElement | null | undefined>;
 
   /**
    * Contents of the modal dialog.
@@ -84,7 +99,6 @@ export interface ModalDialogProps extends WithAnalyticsEventsProps {
 
   /**
    * When `true` will allow the heading to span multiple lines.
-   * Defaults to `false`.
    */
   isHeadingMultiline?: boolean;
 
@@ -97,29 +111,28 @@ export interface ModalDialogProps extends WithAnalyticsEventsProps {
   /**
    * Width of the modal dialog.
    * The recommended way to specify modal width is using named size options.
-   * Defaults to `medium`.
    */
   width?: number | string | WidthNames;
 
   /**
    * Callback function called when the modal dialog is requesting to be closed.
    */
-  onClose?: (event: KeyboardOrMouseEvent) => void;
+  onClose?: OnCloseHandler;
 
   /**
    * Callback function called when the modal dialog has finished closing.
    */
-  onCloseComplete?: (element: HTMLElement) => void;
+  onCloseComplete?: OnCloseCompleteHandler;
 
   /**
    * Callback function called when the modal dialog has finished opening.
    */
-  onOpenComplete?: (node: HTMLElement, isAppearing: boolean) => void;
+  onOpenComplete?: OnOpenCompleteHandler;
 
   /**
    * Callback function called when the modal changes position in the stack.
    */
-  onStackChange?: (stackIndex: number) => void;
+  onStackChange?: OnStackChangeHandler;
 
   /**
    * Controls the positioning and scroll behaviour of the modal dialog.
@@ -131,13 +144,11 @@ export interface ModalDialogProps extends WithAnalyticsEventsProps {
 
   /**
    * Calls `onClose` when clicking the blanket behind the modal dialog.
-   * Defaults to `true`.
    */
   shouldCloseOnOverlayClick?: boolean;
 
   /**
    * Calls `onClose` when pressing escape.
-   * Defaults to `true`.
    */
   shouldCloseOnEscapePress?: boolean;
 
@@ -172,6 +183,7 @@ export interface ModalDialogProps extends WithAnalyticsEventsProps {
    * - Modal header - `{testId}-dialog-content--header`
    * - Modal heading - `{testId}-dialog-content-heading`
    * - Modal body - `{test-id}-dialog-content--body`
+   * - Scrollable body content - `{testId}-dialog-content--scrollable`
    * - Modal footer - `{test-id}-dialog-content--footer`
    * - Blanket - `{test-id}--blanket`
    */

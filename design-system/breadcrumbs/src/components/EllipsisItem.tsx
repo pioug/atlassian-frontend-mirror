@@ -12,7 +12,7 @@ import { EllipsisItemProps } from '../types';
 const noop = () => {};
 
 const EllipsisItem = memo((props: EllipsisItemProps) => {
-  const { onClick = noop, testId } = props;
+  const { onClick = noop, testId, label } = props;
 
   return (
     <li css={itemWrapperStyles}>
@@ -21,6 +21,7 @@ const EllipsisItem = memo((props: EllipsisItemProps) => {
         spacing="none"
         testId={testId}
         onClick={onClick}
+        aria-label={label}
       >
         &hellip;
       </Button>

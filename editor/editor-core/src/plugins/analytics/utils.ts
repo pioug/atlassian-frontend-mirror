@@ -3,7 +3,6 @@ import { findParentNode } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { InputRuleWithHandler } from '../../utils/input-rules';
 import { GapCursorSelection, Side } from '../selection/gap-cursor/selection';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { editorAnalyticsChannel } from './consts';
@@ -190,36 +189,6 @@ export function withAnalytics(
       },
       view,
     );
-}
-
-export function ruleWithAnalytics(
-  getPayload: (
-    state: EditorState,
-    match: string[],
-    start: number,
-    end: number,
-  ) => AnalyticsEventPayload,
-) {
-  return (rule: InputRuleWithHandler) => {
-    // Monkey patching handler to add analytics
-    const handler = rule.handler;
-
-    rule.handler = (
-      state: EditorState,
-      match,
-      start,
-      end,
-    ): Transaction<any> | null => {
-      let tr = handler(state, match, start, end);
-
-      if (tr) {
-        const payload = getPayload(state, match, start, end);
-        tr = addAnalytics(state, tr, payload);
-      }
-      return tr;
-    };
-    return rule;
-  };
 }
 
 export function getAnalyticsEventsFromTransaction(

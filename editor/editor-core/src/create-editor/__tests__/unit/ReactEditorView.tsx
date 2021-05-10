@@ -1,3 +1,19 @@
+const mockStopMeasureDuration = 1234;
+jest.mock('@atlaskit/editor-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common'),
+  startMeasure: jest.fn(),
+  measureRender: jest.fn(),
+  stopMeasure: jest.fn(
+    (
+      measureName: string,
+      onMeasureComplete?: (duration: number, startTime: number) => void,
+    ) => {
+      onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
+    },
+  ),
+  isPerformanceAPIAvailable: jest.fn(() => true),
+}));
+
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
@@ -46,11 +62,6 @@ import {
 } from '../../consts';
 
 import * as FireAnalyticsEvent from '../../../plugins/analytics/fire-analytics-event';
-
-jest.mock('@atlaskit/editor-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common'),
-  measureRender: jest.fn(),
-}));
 
 const portalProviderAPI: any = {
   render() {},
@@ -247,6 +258,103 @@ describe('@atlaskit/editor-core', () => {
 
         wrapper.unmount();
         expect(unmountSpy).toHaveBeenCalledTimes(2);
+      });
+
+      describe('valid analytics events with perf tracking and no sampling', () => {
+        const performanceNowFixedTime = 100;
+        let wrapper: ReactWrapper;
+
+        const setupEditor = (
+          performanceTracking?: EditorProps['performanceTracking'],
+        ) => {
+          let validTr;
+          wrapper = mountWithIntl(
+            <ReactEditorView
+              {...requiredProps()}
+              {...analyticsProps()}
+              editorProps={{
+                allowDate: true,
+                ...analyticsProps(),
+                performanceTracking,
+                onChange: () => {}, // For testing onChange analytics
+              }}
+            />,
+          );
+          let editor: any = wrapper.instance() as ReactEditorView;
+
+          const dispatchValidTransaction = () => {
+            const { tr } = editor.view.state;
+            validTr = tr.insertText('hello');
+            editor.view.dispatch(validTr);
+          };
+          const dispatchValidTransactionNthTimes = (times: number) => {
+            for (let count = 0; count < times; count++) {
+              dispatchValidTransaction();
+            }
+          };
+          // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+          //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+          mockFire.mockClear();
+          return {
+            dispatchValidTransactionNthTimes,
+          };
+        };
+
+        beforeEach(() => {
+          jest
+            .spyOn(window.performance, 'now')
+            .mockReturnValue(performanceNowFixedTime);
+        });
+
+        afterEach(() => {
+          wrapper.unmount();
+          jest.spyOn(window.performance, 'now').mockRestore();
+        });
+
+        it(`doesn't send onChange analytics event when performance object doesn't include onChangeCallbackTracking`, () => {
+          const { dispatchValidTransactionNthTimes } = setupEditor();
+          dispatchValidTransactionNthTimes(1);
+          const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
+            mockCall => mockCall[0].payload.action === 'onChangeCalled',
+          );
+          expect(onChangeEvents.length).toBe(0);
+        });
+
+        it(`doesn't send onChange analytics event when TransactionTracking not enabled`, () => {
+          const { dispatchValidTransactionNthTimes } = setupEditor({
+            onChangeCallbackTracking: { enabled: true },
+          });
+          dispatchValidTransactionNthTimes(1);
+          const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
+            mockCall => mockCall[0].payload.action === 'onChangeCalled',
+          );
+          expect(onChangeEvents.length).toBe(0);
+        });
+
+        it('sends onChange analytics event when enabled and TransactionTracking enabled', () => {
+          const { dispatchValidTransactionNthTimes } = setupEditor({
+            transactionTracking: { enabled: true, samplingRate: 1 },
+            onChangeCallbackTracking: { enabled: true },
+          });
+          dispatchValidTransactionNthTimes(1);
+          const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
+            mockCall => mockCall[0].payload.action === 'onChangeCalled',
+          );
+          expect(onChangeEvents.length).toBe(1);
+          expect(onChangeEvents[0]).toEqual([
+            {
+              payload: {
+                action: 'onChangeCalled',
+                actionSubject: 'editor',
+                eventType: 'operational',
+                attributes: {
+                  duration: 0,
+                  startTime: 100,
+                },
+              },
+            },
+          ]);
+        });
       });
 
       describe('valid transaction analytic events (with sampling)', () => {

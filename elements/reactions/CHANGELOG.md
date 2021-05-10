@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 19.0.0
+
+### Major Changes
+
+- [`2f55d66e464`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f55d66e464) - [ux] Updated the default emoji set that pops up when adding a new reaction and created a pill shaped outline around the reaction.
+
+  Default emoji set: replaced thumsdown with clap, heart_eyes with hearts, joy with astonished, and cry with thinking.
+
+  Pill shape outline: reactions outlined with a pill shape, there is a smaller gap between the emoji and the emoji count, a smaller set width, and the emoji and emoji count are centered.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.2
 
 ### Patch Changes

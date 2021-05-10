@@ -62,6 +62,7 @@ describe('WidthEmiter', () => {
 
       expect(tr.setMeta).toHaveBeenCalledWith(widthPluginKey, {
         width: fakeContainerWidth,
+        containerWidth: fakeContainerWidth,
         lineLength: editorView.dom.clientWidth,
       });
     });
@@ -82,6 +83,13 @@ describe('WidthEmiter', () => {
     let mockOffsetWidth: jest.SpyInstance;
     let tr: any;
     let editorView: any;
+    const contextPanelWidth = 33;
+    const defaultContextPanelProviderProps = {
+      width: contextPanelWidth,
+      broadcastWidth: () => {},
+      positionedOverEditor: false,
+      broadcastPosition: () => {},
+    };
 
     beforeEach(() => {
       mockOffsetWidth = jest
@@ -109,12 +117,8 @@ describe('WidthEmiter', () => {
 
     describe('when there is no WidthProvider', () => {
       it('should not call the dispatch function with the transaction', () => {
-        const contextPanelWidth = 33;
-        const broadcastWidth = () => {};
         mount(
-          <ContextPanelProvider
-            value={{ width: contextPanelWidth, broadcastWidth }}
-          >
+          <ContextPanelProvider value={{ ...defaultContextPanelProviderProps }}>
             <WidthEmitter editorView={editorView} />
           </ContextPanelProvider>,
         );
@@ -124,12 +128,9 @@ describe('WidthEmiter', () => {
     });
 
     it('should set the meta information in the transaction', () => {
-      const contextPanelWidth = 33;
       mount(
         <WidthProvider>
-          <ContextPanelProvider
-            value={{ width: contextPanelWidth, broadcastWidth: () => {} }}
-          >
+          <ContextPanelProvider value={{ ...defaultContextPanelProviderProps }}>
             <WidthEmitter editorView={editorView} />
           </ContextPanelProvider>
         </WidthProvider>,
@@ -137,6 +138,7 @@ describe('WidthEmiter', () => {
 
       expect(tr.setMeta).toHaveBeenCalledWith(widthPluginKey, {
         width: fakeContainerWidth - contextPanelWidth,
+        containerWidth: fakeContainerWidth,
         lineLength: editorView.dom.clientWidth,
       });
     });
@@ -144,7 +146,9 @@ describe('WidthEmiter', () => {
     it('should call the dispatch function with the transaction', () => {
       mount(
         <WidthProvider>
-          <ContextPanelProvider value={{ width: 0, broadcastWidth: () => {} }}>
+          <ContextPanelProvider
+            value={{ ...defaultContextPanelProviderProps, width: 0 }}
+          >
             <WidthEmitter editorView={editorView} />
           </ContextPanelProvider>
         </WidthProvider>,

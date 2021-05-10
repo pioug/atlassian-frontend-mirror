@@ -30,6 +30,7 @@ const ButtonUsingHook = ({
   onActivate,
   action,
   componentName,
+  actionSubject,
   packageName,
   packageVersion,
   analyticsData,
@@ -43,6 +44,7 @@ const ButtonUsingHook = ({
   ) => void;
   action: string;
   componentName: string;
+  actionSubject?: string;
   packageName: string;
   packageVersion: string;
   analyticsData?: Record<string, any>;
@@ -51,6 +53,7 @@ const ButtonUsingHook = ({
     fn: onClick,
     action,
     componentName,
+    actionSubject,
     packageName,
     packageVersion,
     analyticsData,
@@ -82,6 +85,7 @@ const UnderTest = ({
   onClick = () => {},
   action,
   componentName,
+  actionSubject,
   packageName,
   packageVersion,
   analyticsData,
@@ -94,6 +98,7 @@ const UnderTest = ({
   ) => void;
   action: string;
   componentName: string;
+  actionSubject?: string;
   packageName: string;
   packageVersion: string;
   analyticsData?: Record<string, any>;
@@ -105,6 +110,7 @@ const UnderTest = ({
         onClick={onClick}
         action={action}
         componentName={componentName}
+        actionSubject={actionSubject}
         packageName={packageName}
         packageVersion={packageVersion}
         analyticsData={analyticsData}
@@ -163,6 +169,66 @@ describe('usePlatformLeafEventHandler', () => {
       {
         action: 'click',
         actionSubject: 'button',
+        attributes: {
+          componentName: 'button',
+          packageName: '@atlaskit/button',
+          packageVersion: '1.1.1',
+        },
+      },
+      'atlaskit',
+    );
+  });
+
+  it('should provide a callback that creates an event and fires on the channel with actionSubject if it is passed', () => {
+    const onEvent = jest.fn();
+    const onClick = jest.fn();
+
+    const eventHandler = (
+      analyticsEvent: UIAnalyticsEvent,
+      channel?: string,
+    ) => {
+      onEvent(analyticsEvent.context, analyticsEvent.payload, channel);
+    };
+
+    const context: AnalyticsReactContextInterface = {
+      getAtlaskitAnalyticsContext: () => [{ ticket: 'AFP-123' }],
+      getAtlaskitAnalyticsEventHandlers: () => [eventHandler],
+    };
+
+    const analyticsData = {
+      breakfast: 'toast',
+    };
+
+    const { getByTestId } = render(
+      <UnderTest
+        context={context}
+        onClick={onClick}
+        action="click"
+        componentName="button"
+        actionSubject="buttonActionSubject"
+        packageName="@atlaskit/button"
+        packageVersion="1.1.1"
+        analyticsData={analyticsData}
+      />,
+    );
+
+    fireEvent.click(getByTestId('button'));
+
+    expect(onClick).toBeCalled(); // called with synthetic mouse event
+
+    expect(onEvent).toBeCalledWith(
+      [
+        { ticket: 'AFP-123' },
+        {
+          componentName: 'button',
+          packageName: '@atlaskit/button',
+          packageVersion: '1.1.1',
+          breakfast: 'toast',
+        },
+      ],
+      {
+        action: 'click',
+        actionSubject: 'buttonActionSubject',
         attributes: {
           componentName: 'button',
           packageName: '@atlaskit/button',

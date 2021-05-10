@@ -18,6 +18,7 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   measureContentRenderedPerformance,
   PerformanceMatrices,
+  isContentEmpty,
 } from '../../utils/bridge';
 import RendererConfiguration from '../renderer-configuration';
 
@@ -79,17 +80,19 @@ class RendererBridgeImplementation
       content: adfContent,
     });
 
-    measureContentRenderedPerformance(
-      adfContent,
-      (totalNodeSize, nodes, actualRenderingDuration) => {
-        nativeBridgeAPI.onContentRendered(
-          totalNodeSize,
-          nodes,
-          actualRenderingDuration,
-          performanceMatrices.duration,
-        );
-      },
-    );
+    if (!isContentEmpty(adfContent)) {
+      measureContentRenderedPerformance(
+        adfContent,
+        (totalNodeSize, nodes, actualRenderingDuration) => {
+          nativeBridgeAPI.onContentRendered(
+            totalNodeSize,
+            nodes,
+            actualRenderingDuration,
+            performanceMatrices.duration,
+          );
+        },
+      );
+    }
   }
 
   async setContentPayload(uuid: string) {

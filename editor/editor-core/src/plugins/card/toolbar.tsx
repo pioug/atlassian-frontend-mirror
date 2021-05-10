@@ -164,8 +164,15 @@ const generateToolbarItems = (
   platform?: CardPlatform,
 ) => (node: Node): Array<FloatingToolbarItem<Command>> => {
   const { url } = titleUrlPairFromNode(node);
+  let metadata = {};
   if (url && !isSafeUrl(url)) {
     return [];
+  } else {
+    const { title } = displayInfoForCard(node, findCardInfo(state));
+    metadata = {
+      url: url,
+      title: title,
+    };
   }
 
   const pluginState: CardPluginState = pluginKey.getState(state);
@@ -185,6 +192,7 @@ const generateToolbarItems = (
         id: 'editor.link.edit',
         type: 'button',
         selected: false,
+        metadata: metadata,
         title: intl.formatMessage(linkToolbarMessages.editLink),
         showTitle: true,
         testId: 'link-toolbar-edit-link-button',
@@ -195,6 +203,7 @@ const generateToolbarItems = (
         id: 'editor.link.openLink',
         type: 'button',
         icon: OpenIcon,
+        metadata: metadata,
         className: 'hyperlink-open-link',
         title: intl.formatMessage(linkMessages.openLink),
         onClick: visitCardLink,

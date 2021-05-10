@@ -74,6 +74,13 @@ export function measureContentRenderedPerformance(
   );
 }
 
+export function isContentEmpty(content: JSONDocNode) {
+  if (content && content.content && content.content.length > 0) {
+    return false;
+  }
+  return true;
+}
+
 export class PerformanceMatrices {
   private readonly startTime: number;
 

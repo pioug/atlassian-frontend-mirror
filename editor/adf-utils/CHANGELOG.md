@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 12.2.0
+
+### Minor Changes
+
+- [`8c84c29006b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c84c29006b) - Improve data-consumer mark being nested, aAdd basic doc tests for data consumer
+- [`621f12ec284`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621f12ec284) - Update adf util specs to support unsupported content changes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

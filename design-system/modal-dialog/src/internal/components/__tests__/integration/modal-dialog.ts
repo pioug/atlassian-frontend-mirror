@@ -9,7 +9,7 @@ const primaryBtn = "[data-testid='primary']";
 const secondaryBtn = "[data-testid='secondary']";
 
 BrowserTestCase(
-  'Modal should have first focus on primary action, have a clickable secondary action, and be closed',
+  'Modal should have first focus on primary action, and be closed',
   {},
   async (client: any) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'defaultModal');
@@ -31,11 +31,7 @@ BrowserTestCase(
     modalTest.keys('Tab', true);
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
 
-    await modalTest.click(secondaryBtn);
-    const textAlert = await modalTest.getAlertText();
-    expect(textAlert).toBe('Secondary button has been clicked!');
-
-    await modalTest.acceptAlert();
+    // Close the modal dialog
     await modalTest.click(primaryBtn);
 
     // As we have closed the modal-dialog, only the open modal button should be visible.
@@ -49,7 +45,8 @@ BrowserTestCase(
   {},
   async (client: any) => {
     const url = getExampleUrl('design-system', 'modal-dialog', 'scroll');
-    const modalDialogContent = "[data-testid='modal-dialog-content--body']";
+    const modalDialogContent =
+      "[data-testid='modal-dialog-content--scrollable']";
     const scrollDownBtn = "[data-testid='scrollDown']";
 
     const modalTest = new Page(client);

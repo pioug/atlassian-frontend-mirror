@@ -55,4 +55,11 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
    * You can provide a onChange function to be notified of checked value changes
    * */
   isChecked?: boolean;
+
+  /**
+   * Text to be used as aria-label of toggle component.
+   *
+   * Use when there is not visible label that you can pair toggle with
+   */
+  label?: string;
 }

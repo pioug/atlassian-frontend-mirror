@@ -106,12 +106,7 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 const TRACKING_DEFAULT = { enabled: false };
 
 export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
-  const {
-    editorConfig,
-    performanceTracking = {},
-    transactionTracker,
-    ...rest
-  } = config;
+  const { editorConfig, performanceTracking = {}, transactionTracker } = config;
   const {
     uiTracking = TRACKING_DEFAULT,
     transactionTracking = TRACKING_DEFAULT,
@@ -145,7 +140,19 @@ export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
 
   return editorConfig.pmPlugins
     .sort(sortByOrder('plugins'))
-    .map(({ plugin }) => plugin(rest))
+    .map(({ plugin }) =>
+      plugin({
+        schema: config.schema,
+        dispatch: config.dispatch,
+        eventDispatcher: config.eventDispatcher,
+        providerFactory: config.providerFactory,
+        errorReporter: config.errorReporter,
+        portalProviderAPI: config.portalProviderAPI,
+        reactContext: config.reactContext,
+        dispatchAnalyticsEvent: config.dispatchAnalyticsEvent,
+        featureFlags: config.featureFlags || {},
+      }),
+    )
     .filter((plugin): plugin is Plugin => typeof plugin !== 'undefined')
     .map(instrumentPlugin);
 }

@@ -225,7 +225,8 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.unregisterEditorFromActions();
     this.providerFactory.destroy();
     clearMeasure(measurements.EDITOR_MOUNTED);
-    clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+    this.props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
+      clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
   }
 
   trackEditorActions(
@@ -361,12 +362,16 @@ export default class Editor extends React.Component<EditorProps, State> {
     );
 
     if (this.props.onEditorReady) {
-      startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+      this.props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
+        startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+
       this.props.onEditorReady(this.editorActions);
-      stopMeasure(
-        measurements.ON_EDITOR_READY_CALLBACK,
-        this.sendDurationAnalytics(ACTION.ON_EDITOR_READY_CALLBACK),
-      );
+
+      this.props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
+        stopMeasure(
+          measurements.ON_EDITOR_READY_CALLBACK,
+          this.sendDurationAnalytics(ACTION.ON_EDITOR_READY_CALLBACK),
+        );
     }
   }
 

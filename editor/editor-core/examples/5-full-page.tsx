@@ -309,6 +309,7 @@ export class ExampleEditorComponent extends React.Component<
               <Editor
                 UNSAFE_allowUndoRedoButtons={true}
                 allowAnalyticsGASV3={true}
+                allowReferentiality={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
                   allowMoreTextColors: true,
@@ -487,6 +488,7 @@ export class ExampleEditorComponent extends React.Component<
                     failureSamplingRate: 1,
                     reportErrorStack: true,
                   },
+                  onEditorReadyCallbackTracking: { enabled: true },
                 }}
                 {...this.props}
                 appearance={this.state.appearance}

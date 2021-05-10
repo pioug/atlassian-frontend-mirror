@@ -1,6 +1,7 @@
-import styled from 'styled-components';
 import { N50, background, N30 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import styled from 'styled-components';
+import ContentStyles from '../../src/ui/ContentStyles';
 
 export const Container = styled.div<{ vertical?: boolean; root?: boolean }>`
   display: flex;
@@ -56,9 +57,11 @@ export const EditorColumn = styled.div<{
 
 export const PopupWrapper = styled.div.attrs({ className: 'popups-wrapper' })`
   position: relative;
+  height: 100%;
 `;
 
-export const PopUps = styled.div.attrs({ className: 'popups' })`
+/** Without ContentStyles some SVGs in floating toolbar are missing .hyperlink-open-link styles */
+export const PopUps = styled(ContentStyles).attrs({ className: 'popups' })`
   z-index: 9999;
 `;
 

@@ -332,8 +332,10 @@ export class Renderer extends PureComponent<RendererProps> {
         schema,
         adfStage,
         this.props.useSpecBasedValidator,
+        this.id,
         this.fireAnalyticsEvent,
         this.props.unsupportedContentLevelsTracking,
+        this.props.appearance,
       );
 
       if (onComplete) {

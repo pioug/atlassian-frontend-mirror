@@ -1,8 +1,9 @@
-/*
+import type { SupportedLanguages } from '@atlaskit/code/types';
+
+/**
  * Given an item, it grabs the file name of that item. For example, an item with the filename item.txt
  * would return the extension txt
  */
-
 export function getExtension(filename: string) {
   if (filename.indexOf('.') > -1) {
     return filename.split('.').pop() as string;
@@ -18,7 +19,7 @@ export function isCodeViewerItem(name: string) {
  * Given an item, it assigns the corresponding language for that item if it is a code item. For example, an item with the filename test.py
  * would return the language 'python'. If an item is not a code item, the language returned is 'null'.
  */
-export function getLanguageType(name: string): string | null {
+export function getLanguageType(name: string): SupportedLanguages | null {
   const ext = getExtension(name);
   switch (ext) {
     case 'abap':

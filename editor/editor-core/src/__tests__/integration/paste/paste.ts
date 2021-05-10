@@ -222,7 +222,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
 
     const data =
-      '<div class="ak-renderer-document"><p data-renderer-start-pos="1">hello</p><div class="code-block"><div data-code-block=""><span><code><span class="linenumber react-syntax-highlighter-line-number">1</span><span>world</span></code></span></div></div></div>';
+      '<div class="ak-renderer-document"><p data-renderer-start-pos="1">hello</p><div class="code-block"><span data-ds--code--code-block=""><code><span class="linenumber react-syntax-highlighter-line-number">1</span><span>world</span></code></span></div></div>';
     await copyAsHTML(page, data);
 
     await mountEditor(page, {

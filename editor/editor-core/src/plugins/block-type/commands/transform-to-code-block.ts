@@ -1,9 +1,11 @@
 import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
 import { mapSlice } from '../../../utils/slice';
-import { NodeType, Fragment } from 'prosemirror-model';
+import { NodeType } from 'prosemirror-model';
 
 export function transformToCodeBlockAction(
   state: EditorState,
+  start: number,
+  end: number,
   attrs?: any,
 ): Transaction {
   if (!state.selection.empty) {
@@ -11,13 +13,13 @@ export function transformToCodeBlockAction(
     return state.tr;
   }
 
-  const codeBlock: NodeType = state.schema.nodes.codeBlock;
   const startOfCodeBlockText = state.selection.$from;
-  const parentPos = startOfCodeBlockText.before();
-  const end = startOfCodeBlockText.end();
+  const endLinePosition = startOfCodeBlockText.end();
+  const startLinePosition = startOfCodeBlockText.start();
+  const parentStartPosition = startOfCodeBlockText.before();
 
   const codeBlockSlice = mapSlice(
-    state.doc.slice(startOfCodeBlockText.pos, end),
+    state.doc.slice(startOfCodeBlockText.pos, endLinePosition),
     node => {
       if (node.type === state.schema.nodes.hardBreak) {
         return state.schema.text('\n');
@@ -35,41 +37,31 @@ export function transformToCodeBlockAction(
 
   const tr = state.tr;
 
-  /**
-   * If our offset isnt at 3 (backticks) at the start of line...
-   * - replace the content after our cursor with codeBlockSlice
-   * - split the node in two and turn the second half into a codeblock
-   */
-  if (startOfCodeBlockText.parentOffset >= 3) {
-    tr.replaceRange(startOfCodeBlockText.pos, end, codeBlockSlice);
-    return tr.split(startOfCodeBlockText.pos, undefined, [
-      { type: codeBlock, attrs },
-    ]);
-  }
+  // Replace current block node
+  const startMapped = startLinePosition === start ? parentStartPosition : start;
 
-  /**
-   * Otherwise replace the paragraph itself with a codeblock node
-   * But by doing this we need to add back in the 2 backticks that
-   * is deleted after this transaction returns in getCodeBlockRules()
-   *
-   * @see packages/editor/editor-core/src/plugins/block-type/pm-plugins/input-rule.ts
-   */
-  const doubleBacktick = Fragment.from(state.schema.text('``'));
-  const codeBlockNode = codeBlock.createChecked(
-    attrs,
-    doubleBacktick.append(codeBlockSlice.content),
-    [],
-  );
+  const codeBlock: NodeType = state.schema.nodes.codeBlock;
+  const codeBlockNode = codeBlock.createChecked(attrs, codeBlockSlice.content);
   tr.replaceWith(
-    parentPos,
-    parentPos + startOfCodeBlockText.node().nodeSize,
+    startMapped,
+    Math.min(endLinePosition, tr.doc.content.size),
     codeBlockNode,
   );
+
   // Reposition cursor when inserting into layouts or table headers
+  const mapped = tr.doc.resolve(tr.mapping.map(startMapped) + 1);
+  const selection = TextSelection.findFrom(mapped, 1, true);
+  if (selection) {
+    return tr.setSelection(selection);
+  }
+
   return tr.setSelection(
     TextSelection.create(
       tr.doc,
-      parentPos + startOfCodeBlockText.node().nodeSize - 1,
+      Math.min(
+        start + startOfCodeBlockText.node().nodeSize - 1,
+        tr.doc.content.size,
+      ),
     ),
   );
 }

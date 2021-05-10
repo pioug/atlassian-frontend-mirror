@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.1.1
+
+### Patch Changes
+
+- [`a99925b1634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a99925b1634) - Added styles for edge high contrast modes (black on white and white on black)
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

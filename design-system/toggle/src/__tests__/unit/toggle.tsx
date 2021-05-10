@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
@@ -8,6 +9,8 @@ import Toggle from '../../toggle';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+expect.extend(toHaveNoViolations);
 
 describe('Toggle component', () => {
   it('should be able to switch', () => {
@@ -60,6 +63,57 @@ describe('Toggle component', () => {
     expect(onChange).not.toHaveBeenCalled();
 
     expect(label?.getAttribute('data-checked')).toBe(null);
+  });
+
+  it('should set received label to input', () => {
+    const { container } = render(<Toggle label="Allow pull request" />);
+    const input = container.querySelector('input[type="checkbox"]');
+
+    expect(input).toBeDefined();
+    expect(input?.getAttribute('aria-label')).toBe('Allow pull request');
+  });
+
+  it('due to check and cross icons are decorative they should not have a label', () => {
+    const { getByTestId } = render(<Toggle testId="Test" />);
+
+    const crossIcon = getByTestId('Test--toggle-check-icon');
+    expect(crossIcon).toBeDefined();
+
+    const checkIcon = getByTestId('Test--toggle-check-icon');
+    expect(checkIcon).toBeDefined();
+
+    expect(crossIcon.getAttribute('aria-label')).toBeNull();
+    expect(crossIcon.getAttribute('aria-label')).toBeNull();
+  });
+
+  describe('axe violations', () => {
+    it('should not have violations when have label', async () => {
+      const { container } = render(<Toggle label="Toggle" />);
+      const result = await axe(container);
+
+      expect(result).toHaveNoViolations();
+    });
+
+    it('should not have violations when have paired label', async () => {
+      const { container } = render(
+        <>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
+          <label htmlFor="toggle">Toggle</label>
+          <Toggle id="toggle" />
+        </>,
+      );
+
+      const result = await axe(container);
+      expect(result).toHaveNoViolations();
+    });
+
+    it('should have axe violations when received empty label', async () => {
+      const { container } = render(<Toggle label="" />);
+      const result = await axe(container);
+
+      // there is a only toHaveNoViolations provided by jest-axe, so double negation is used here
+      expect(result).not.toHaveNoViolations();
+    });
   });
 
   describe('analytics', () => {

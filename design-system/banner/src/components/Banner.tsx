@@ -43,17 +43,43 @@ class Banner extends React.Component<Props, { height: number }> {
     this.getHeight();
   };
 
+  getA11yProps = (
+    appearance?: 'warning' | 'error' | 'announcement',
+  ): {
+    role: string;
+    'aria-hidden': boolean;
+    tabIndex?: number;
+    'aria-label'?: string;
+  } => {
+    const { isOpen } = this.props;
+
+    const defaultProps = {
+      'aria-hidden': !isOpen,
+      role: 'alert',
+    };
+
+    if (appearance === 'announcement') {
+      return {
+        ...defaultProps,
+        'aria-label': 'announcement',
+        tabIndex: 0,
+        role: 'region',
+      };
+    }
+    return defaultProps;
+  };
+
   render() {
     const { appearance, children, icon, isOpen, testId } = this.props;
+    const allyProps = this.getA11yProps(appearance);
 
     return (
       <Visibility bannerHeight={this.state.height} isOpen={isOpen}>
         <Container
           innerRef={this.innerRef}
           appearance={appearance}
-          aria-hidden={!isOpen}
-          role="alert"
           data-testid={testId}
+          {...allyProps}
         >
           <Content appearance={appearance}>
             <Icon>{icon}</Icon>

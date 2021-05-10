@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.0.7
+
+### Patch Changes
+
+- [`c4820147878`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4820147878) - Removed temporary comment introduced in previous patch
+
 ## 10.0.6
 
 ### Patch Changes

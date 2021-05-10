@@ -84,6 +84,7 @@ export enum ACTION {
   FIXED = 'fixed',
   RENDERED = 'rendered',
   ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
+  ON_CHANGE_CALLBACK = 'onChangeCalled',
 }
 
 export enum INPUT_METHOD {

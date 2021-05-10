@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 56.0.0
+
+### Major Changes
+
+- [`4befa7c039c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4befa7c039c) - ED-12593: rename ExtensionAPI.editInLegacyMacroBrowser() to \_editInLegacyMacroBrowser()
+
+  Also cleaned up the options for createExtensionAPI() for easier use.
+
+- [`e20ad95e07f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e20ad95e07f) - implemented ExtensionAPI.doc.insertAfter()
+
+### Minor Changes
+
+- [`eb2ccccfa14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2ccccfa14) - ED-12514: Add sampling rate controls to unsupported content levels tracking
+- [`a6a270c4645`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6a270c4645) - ED-12713 exposed extention module toolbar button type for usage in extension manifests
+- [`d575abf3498`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d575abf3498) - EDM-1640: Introduce Cypress in-product tests in Atlassian Frontend
+
+  Example test:
+
+  ```
+  import { editorFundamentalsTestCollection } from '@atlaskit/editor-common/in-product';
+
+  //code to navigate to the page
+
+  editorFundamentalsTestCollection({}).test(cy);
+
+  ```
+
+### Patch Changes
+
+- [`ac2eeccc60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac2eeccc60b) - Update internal use of code block selector in editor packages.
+- [`b78cea62de8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b78cea62de8) - Table contextual panel flicker issue fixed.
+- [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
+- Updated dependencies
+
 ## 55.5.2
 
 ### Patch Changes

@@ -43,11 +43,13 @@ export default class CardLoader extends React.PureComponent<
           mediaCardErrorBoundaryModule,
         ] = await Promise.all([
           import(
-            /* webpackChunkName:"@atlaskit-media-client" */ '@atlaskit/media-client'
+            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
           ),
-          import(/* webpackChunkName:"@atlaskit-internal_Card" */ './index'),
           import(
-            /* webpackChunkName:"@atlaskit-internal_MediaCardErrorBoundary" */ '../media-card-analytics-error-boundary'
+            /* webpackChunkName: "@atlaskit-internal_media-card" */ './index'
+          ),
+          import(
+            /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../media-card-analytics-error-boundary'
           ),
         ]);
 

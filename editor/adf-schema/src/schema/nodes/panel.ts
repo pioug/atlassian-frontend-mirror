@@ -31,13 +31,13 @@ export interface PanelAttributes {
 
 /**
  * @name panel_node
- * @allowUnsupportedBlock true
  */
 export interface PanelDefinition {
   type: 'panel';
   attrs: PanelAttributes;
   /**
    * @minItems 1
+   * @allowUnsupportedBlock true
    */
   content: Array<Paragraph | Heading | OrderedList | BulletList | BlockCard>;
 }

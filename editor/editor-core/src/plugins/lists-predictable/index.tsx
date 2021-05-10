@@ -38,7 +38,8 @@ const listPlugin = (): EditorPlugin => ({
       },
       {
         name: 'listsPredictableInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, featureFlags),
       },
       { name: 'listsPredictableKeymap', plugin: () => keymapPlugin() },
     ];

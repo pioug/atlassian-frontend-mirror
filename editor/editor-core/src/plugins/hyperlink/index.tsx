@@ -38,7 +38,8 @@ const hyperlinkPlugin = (options?: CardOptions): EditorPlugin => ({
       },
       {
         name: 'hyperlinkInputRule',
-        plugin: ({ schema }) => createInputRulePlugin(schema, skipAnalytics),
+        plugin: ({ schema, featureFlags }) =>
+          createInputRulePlugin(schema, skipAnalytics, featureFlags),
       },
       {
         name: 'hyperlinkKeymap',

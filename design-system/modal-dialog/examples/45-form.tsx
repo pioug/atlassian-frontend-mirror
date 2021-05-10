@@ -1,110 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import RadioGroup, { AkRadio } from '@atlaskit/field-radio-group';
 import Form, { CheckboxField, Field } from '@atlaskit/form';
+import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-import ModalDialog, { ModalFooter, ModalTransition } from '../src';
-import { FooterProps } from '../src/internal/components/footer';
+import ModalDialog, { ModalTransition } from '../src';
 
-interface State {
-  isOpen: boolean;
-}
-export default class AtlaskitFormDemo extends React.Component<{}, State> {
-  state = { isOpen: false };
+export default function ModalDialogForm() {
+  const [isOpen, setIsOpen] = useState(false);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
+  const onFormSubmit = (data: Object) => alert(JSON.stringify(data, null, 4));
 
-  open = () => this.setState({ isOpen: true });
+  return (
+    <div>
+      <Button onClick={open} testId="modal-trigger">
+        Open Modal
+      </Button>
 
-  close = () => this.setState({ isOpen: false });
+      <ModalTransition>
+        {isOpen && (
+          <ModalDialog
+            heading="Form Demo"
+            onClose={close}
+            testId="modal"
+            actions={[{ text: 'Submit', type: 'submit', form: 'modal-form' }]}
+          >
+            <Form onSubmit={onFormSubmit}>
+              {({ formProps }) => (
+                <form {...formProps} id="modal-form">
+                  <p>
+                    Enter some text then submit the form to see the response.
+                  </p>
 
-  onFormSubmit = (data: Object) => console.log(JSON.stringify(data));
+                  <Field label="Name" name="my-name" defaultValue="">
+                    {({ fieldProps }) => <Textfield {...fieldProps} />}
+                  </Field>
 
-  render() {
-    const { isOpen } = this.state;
-    const footer = (props: FooterProps) => (
-      <ModalFooter showKeyline={props.showKeyline}>
-        <span />
-        <Button appearance="primary" type="submit">
-          Submit to Console
-        </Button>
-      </ModalFooter>
-    );
-
-    const radioItems = [
-      { name: 'color', value: 'red', label: 'Red' },
-      { name: 'color', value: 'blue', label: 'Blue' },
-      { name: 'color', value: 'yellow', label: 'Yellow' },
-    ];
-
-    interface ContainerProps {
-      children: React.ReactNode;
-      className?: string;
-    }
-
-    return (
-      <div>
-        <Button onClick={this.open} testId="modal-trigger">
-          Open Modal
-        </Button>
-
-        <ModalTransition>
-          {isOpen && (
-            <ModalDialog
-              heading="Form Demo"
-              onClose={this.close}
-              testId="modal"
-              components={{
-                Container: ({ children, className }: ContainerProps) => (
-                  <Form onSubmit={this.onFormSubmit}>
-                    {({ formProps }) => (
-                      <form {...formProps} className={className}>
-                        {children}
-                      </form>
+                  <Field label="Email" name="my-email" defaultValue="">
+                    {({ fieldProps }) => (
+                      <Textfield
+                        autoComplete="off"
+                        placeholder="gbelson@hooli.com"
+                        {...fieldProps}
+                      />
                     )}
-                  </Form>
-                ),
-                Footer: footer,
-              }}
-            >
-              <p>Enter some text then submit the form to see the response.</p>
-              <Field label="Name" name="my-name" defaultValue="">
-                {({ fieldProps }) => <Textfield {...fieldProps} />}
-              </Field>
-              <Field label="Email" name="my-email" defaultValue="">
-                {({ fieldProps }) => (
-                  <Textfield
-                    autoComplete="off"
-                    placeholder="gbelson@hooli.com"
-                    {...fieldProps}
-                  />
-                )}
-              </Field>
+                  </Field>
 
-              <CheckboxField name="checkbox" defaultIsChecked>
-                {({ fieldProps }) => (
-                  <Checkbox {...fieldProps} value="example" label="Checkbox" />
-                )}
-              </CheckboxField>
+                  <CheckboxField name="checkbox" defaultIsChecked>
+                    {({ fieldProps }) => (
+                      <Checkbox
+                        {...fieldProps}
+                        value="example"
+                        label="Checkbox"
+                      />
+                    )}
+                  </CheckboxField>
 
-              <Field name="radiogroup" defaultValue="">
-                {({ fieldProps: { value, ...others } }) => (
-                  <RadioGroup
-                    items={radioItems}
+                  <Field
+                    name="radiogroup"
+                    defaultValue=""
                     label="Basic Radio Group Example"
-                    {...others}
                   >
-                    <AkRadio name="standalone" value="singleButton">
-                      Radio button
-                    </AkRadio>
-                  </RadioGroup>
-                )}
-              </Field>
-            </ModalDialog>
-          )}
-        </ModalTransition>
-      </div>
-    );
-  }
+                    {({ fieldProps }) => (
+                      <RadioGroup
+                        options={[
+                          { name: 'color', value: 'red', label: 'Red' },
+                          { name: 'color', value: 'blue', label: 'Blue' },
+                          { name: 'color', value: 'yellow', label: 'Yellow' },
+                        ]}
+                        {...fieldProps}
+                      />
+                    )}
+                  </Field>
+                </form>
+              )}
+            </Form>
+          </ModalDialog>
+        )}
+      </ModalTransition>
+    </div>
+  );
 }

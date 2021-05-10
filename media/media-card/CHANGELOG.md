@@ -1,5 +1,27 @@
 # @atlaskit/media-card
 
+## 70.6.0
+
+### Minor Changes
+
+- [`d575abf3498`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d575abf3498) - EDM-1640: Introduce Cypress in-product tests in Atlassian Frontend
+
+  Example test:
+
+  ```
+  import { editorFundamentalsTestCollection } from '@atlaskit/editor-common/in-product';
+
+  //code to navigate to the page
+
+  editorFundamentalsTestCollection({}).test(cy);
+
+  ```
+
+### Patch Changes
+
+- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- Updated dependencies
+
 ## 70.5.1
 
 ### Patch Changes

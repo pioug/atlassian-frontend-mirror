@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "13.3.0",
+  "version": "13.3.1",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/icon": "^21.4.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@popperjs/core": "^2.9.1",
@@ -52,7 +52,7 @@
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/modal-dialog": "^11.2.0",
+    "@atlaskit/modal-dialog": "^11.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",

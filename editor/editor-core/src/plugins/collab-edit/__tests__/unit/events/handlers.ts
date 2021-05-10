@@ -51,9 +51,9 @@ describe('collab-edit: handlers.ts', () => {
       collabOptions: PrivateCollabEditOptions,
     ): {
       cleanup: Cleanup;
-      onSpy: jest.SpyInstance<void>;
-      offSpy: jest.SpyInstance<void>;
-      entity: EventEmitter.EventEmitter;
+      onSpy: jest.SpyInstance<EventEmitter>;
+      offSpy: jest.SpyInstance<EventEmitter>;
+      entity: EventEmitter;
     } => {
       const entity = new EventEmitter();
       // default handlers to avoid unhandled exception

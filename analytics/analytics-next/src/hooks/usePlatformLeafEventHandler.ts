@@ -9,6 +9,7 @@ export type UsePlatformLeafEventHandlerHookArgs<T> = {
   fn: (value: T, analyticsEvent: UIAnalyticsEvent) => void;
   action: string;
   componentName: string;
+  actionSubject?: string;
   packageName: string;
   packageVersion: string;
   analyticsData?: Record<string, any>;
@@ -26,6 +27,7 @@ export function usePlatformLeafEventHandler<T>({
   fn,
   action,
   componentName,
+  actionSubject,
   packageName,
   packageVersion,
   analyticsData,
@@ -43,7 +45,7 @@ export function usePlatformLeafEventHandler<T>({
     value => {
       const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
         action,
-        actionSubject: componentName,
+        actionSubject: actionSubject || componentName,
         attributes: {
           componentName,
           packageName,
@@ -75,6 +77,7 @@ export function usePlatformLeafEventHandler<T>({
       // These are strings and won't change
       action,
       componentName,
+      actionSubject,
       packageName,
       packageVersion,
       // This function is memoized in the context

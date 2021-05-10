@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 15.3.0
+
+### Minor Changes
+
+- [`8c84c29006b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c84c29006b) - Improve data-consumer mark being nested, aAdd basic doc tests for data consumer
+- [`621f12ec284`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621f12ec284) - Update adf util specs to support unsupported content changes
+
+### Patch Changes
+
+- [`794b81df22c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/794b81df22c) - Removes surplus style whitespace rule on code mark.
+
 ## 15.2.0
 
 ### Minor Changes

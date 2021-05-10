@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 76.2.0
+
+### Minor Changes
+
+- [`eb2ccccfa14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2ccccfa14) - ED-12514: Add sampling rate controls to unsupported content levels tracking
+
+### Patch Changes
+
+- [`fda67081c09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fda67081c09) - ED-12408 Fix annotation selection over links and other text with regex-like syntax
+- [`ac2eeccc60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac2eeccc60b) - Update internal use of code block selector in editor packages.
+- [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
+- Updated dependencies
+
 ## 76.1.1
 
 ### Patch Changes

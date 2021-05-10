@@ -21,7 +21,6 @@ export default {
     },
     content: {
       type: 'array',
-      allowUnsupportedBlock: true,
       items: [
         [
           'blockCard',
@@ -32,6 +31,7 @@ export default {
         ],
       ],
       minItems: 1,
+      allowUnsupportedBlock: true,
     },
   },
 };

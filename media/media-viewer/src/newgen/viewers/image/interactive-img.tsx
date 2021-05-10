@@ -145,6 +145,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 
     const canDrag = (camera && zoomLevel.value > camera.scaleToFit) || false;
     // We use style attr instead of SC prop for perf reasons
+    // @ts-ignore
     const imgStyle: CSSProperties =
       (camera && camera.scaledImg(zoomLevel.value)) || {};
     if (orientation) {

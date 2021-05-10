@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -7,9 +8,6 @@ import useModalStack from '../hooks/use-modal-stack';
 import type { ModalDialogProps } from '../types';
 
 import Modal from './modal';
-import { useModalTransition } from './modal-transition';
-
-const noop = () => {};
 
 export default function ModalWrapper({
   autoFocus = true,
@@ -20,24 +18,12 @@ export default function ModalWrapper({
   width = 'medium',
   isHeadingMultiline = true,
   onClose = noop,
+  stackIndex: stackIndexOverride,
+  onStackChange = noop,
   children,
-  stackIndex: consumerDefinedStackIndex,
   ...props
 }: ModalDialogProps) {
-  const { isOpen, onExited } = useModalTransition();
-  const stackIndex = useModalStack(isOpen);
-  const onModalClosed = useCallback(
-    (e: HTMLElement) => {
-      if (onExited) {
-        onExited();
-      }
-
-      if (props.onCloseComplete) {
-        props.onCloseComplete(e);
-      }
-    },
-    [onExited, props],
-  );
+  const stackIndex = useModalStack({ onStackChange });
 
   return (
     <Portal zIndex={layers.modal()}>
@@ -51,9 +37,7 @@ export default function ModalWrapper({
         width={width}
         isHeadingMultiline={isHeadingMultiline}
         onClose={onClose}
-        isOpen={isOpen}
-        stackIndex={consumerDefinedStackIndex || stackIndex}
-        onCloseComplete={onModalClosed}
+        stackIndex={stackIndexOverride || stackIndex}
       >
         {children}
       </Modal>

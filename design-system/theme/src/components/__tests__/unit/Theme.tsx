@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import { render } from '@testing-library/react';
-import Theme from '../../Theme';
+import Theme, { useGlobalTheme } from '../../Theme';
 import AtlaskitThemeProvider from '../../AtlaskitThemeProvider';
+import type { ThemeModes } from '../../../types';
 
 interface RenderCountProps {
-  onRender: () => void;
+  onRender: (...args: any[]) => void;
 }
 const RenderCount = (props: RenderCountProps) => {
   props.onRender();
@@ -19,6 +20,15 @@ const ThemedComponent = memo((props: RenderCountProps) => {
       {() => <RenderCount onRender={props.onRender} />}
     </Theme.Consumer>
   );
+});
+
+/**
+ * This will re-render even if props didn't change if theme has an unstable reference.
+ */
+const HookThemedComponent = memo((props: RenderCountProps) => {
+  const theme = useGlobalTheme();
+  props.onRender(theme.mode);
+  return null;
 });
 
 describe('<Theme />', () => {
@@ -88,5 +98,46 @@ describe('<Theme />', () => {
     rerender(markup());
 
     expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  it('should re-render child when parent legacy theme mode updates', () => {
+    const callback = jest.fn();
+    const markup = (mode: ThemeModes = 'light') => (
+      <AtlaskitThemeProvider mode={mode}>
+        <ThemedComponent onRender={callback} />
+      </AtlaskitThemeProvider>
+    );
+
+    // expecting initial render => update when prop changes => update again when prop changes
+    const { rerender } = render(markup());
+
+    rerender(markup('dark'));
+    rerender(markup('dark'));
+    rerender(markup('light'));
+    rerender(markup());
+
+    expect(callback).toHaveBeenCalledTimes(3);
+  });
+
+  it('should get new hook state when parent legacy theme mode updates', () => {
+    const callback = jest.fn();
+    const markup = (mode: ThemeModes = 'light') => (
+      <AtlaskitThemeProvider mode={mode}>
+        <HookThemedComponent onRender={callback} />
+      </AtlaskitThemeProvider>
+    );
+
+    // expecting initial render => update when prop changes => update again when prop changes
+    const { rerender } = render(markup());
+
+    rerender(markup('dark'));
+    rerender(markup('dark'));
+    rerender(markup('light'));
+    rerender(markup());
+
+    expect(callback).toHaveBeenCalledTimes(3);
+    expect(callback).toHaveBeenNthCalledWith(1, 'light');
+    expect(callback).toHaveBeenNthCalledWith(2, 'dark');
+    expect(callback).toHaveBeenNthCalledWith(3, 'light');
   });
 });

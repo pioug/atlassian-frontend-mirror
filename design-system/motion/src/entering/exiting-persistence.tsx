@@ -1,6 +1,7 @@
 import React, {
   Children,
   createContext,
+  ReactNode,
   useContext,
   useMemo,
   useRef,
@@ -14,16 +15,6 @@ import { useForceRender } from '../utils/use-force-render';
  */
 type ElementWithKey = JSX.Element & { key: string };
 
-/**
- * Externally children may or may not have a key.
- */
-type ChildElement = JSX.Element | boolean;
-
-/**
- * Consumers can use either a single element or multiple elements.
- */
-type ChildNode = ChildElement[] | ChildElement;
-
 export interface ExitingPersistenceProps {
   /**
    * Children can be any valid react node.
@@ -31,7 +22,7 @@ export interface ExitingPersistenceProps {
    * multiple elements,
    * or multiple elements in an array.
    */
-  children: ChildNode;
+  children?: ReactNode;
 
   /**
    * When elements are exiting will exit all elements first and then mount the new ones.
@@ -135,14 +126,15 @@ const spliceNewElementsIntoPrevious = (
 /**
  * This function will convert all children types to an array while also filtering out non-valid React elements.
  */
-const childrenToArray = (children: ChildNode): ElementWithKey[] => {
+const childrenToArray = (children?: ReactNode): ElementWithKey[] => {
   const childrenAsArray: ElementWithKey[] = [];
 
   // We convert children to an array using this helper method as it will add keys to children that do not
   // have them, such as when we have hardcoded children that are conditionally rendered.
   Children.toArray(children).forEach(child => {
-    // We ignore any boolean children to make our code a little more simple later on.
-    if (typeof child !== 'boolean') {
+    // We ignore any boolean children to make our code a little more simple later on,
+    // and also filter out any falsies (empty strings, nulls, and undefined).
+    if (typeof child !== 'boolean' && Boolean(child)) {
       // Children WILL have a key after being forced into an array using the React.Children helper.
       childrenAsArray.push(child as ElementWithKey);
     }

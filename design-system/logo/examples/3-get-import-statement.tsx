@@ -2,7 +2,7 @@ import React, { Component, ComponentType } from 'react';
 
 import styled from 'styled-components';
 
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/block';
 import Select, { ValueType } from '@atlaskit/select';
 
 import * as Logos from '../src';

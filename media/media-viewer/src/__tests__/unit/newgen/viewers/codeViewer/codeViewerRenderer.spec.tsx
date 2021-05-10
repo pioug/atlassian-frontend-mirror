@@ -35,6 +35,7 @@ function createFixture(doc: any, customSrc?: string) {
       onSuccess={onSuccess}
       onError={onError}
       language={defaultLanguage}
+      testId="codeViewRenderer"
     />,
   );
 
@@ -74,7 +75,7 @@ describe('CodeViewRenderer', () => {
 
     expect(onSuccess).toHaveBeenCalled();
 
-    const codeBlock = el.find(CodeBlock);
+    const codeBlock = el.find(`[data-testid='codeViewRenderer']`).last();
     expect(codeBlock).toHaveLength(1);
 
     expect(
@@ -92,7 +93,7 @@ describe('CodeViewRenderer', () => {
 
     expect(onSuccess).toHaveBeenCalled();
 
-    const codeBlock = el.find(CodeBlock);
+    const codeBlock = el.find(`[data-testid='codeViewRenderer']`).last();
     expect(codeBlock).toHaveLength(1);
 
     expect(

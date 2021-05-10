@@ -21,7 +21,7 @@ export default () => {
 
       <Centered css={{ height: '82px' }}>
         <StaggeredEntrance>
-          <ExitingPersistence>
+          <ExitingPersistence appear>
             {isIn && (
               <React.Fragment>
                 <ZoomIn>

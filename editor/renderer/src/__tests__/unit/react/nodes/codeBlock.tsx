@@ -5,14 +5,14 @@ import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 
 const textSample = 'window.alert';
 const render = (overrides = {}) => {
-  const props = {
-    language: 'javascript',
-    allowCopyToClipboard: false,
-    text: textSample,
-    ...overrides,
-  };
-
-  return mountWithIntl(<CodeBlock {...props}>foo</CodeBlock>);
+  return mountWithIntl(
+    <CodeBlock
+      language="javascript"
+      allowCopyToClipboard={false}
+      text={textSample}
+      {...overrides}
+    />,
+  );
 };
 describe('Renderer - React/Nodes/CodeBlock', () => {
   it('should render @atlaskit/code component', () => {

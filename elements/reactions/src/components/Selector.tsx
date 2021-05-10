@@ -59,11 +59,11 @@ const revealDelay = (index: number) => ({ animationDelay: `${index * 50}ms` });
 
 export const defaultReactions: EmojiId[] = [
   { id: '1f44d', shortName: ':thumbsup:' },
-  { id: '1f44e', shortName: ':thumbsdown:' },
+  { id: '1f44f', shortName: ':clap:' },
   { id: '1f525', shortName: ':fire:' },
-  { id: '1f60d', shortName: ':heart_eyes:' },
-  { id: '1f602', shortName: ':joy:' },
-  { id: '1f622', shortName: ':cry:' },
+  { id: '2665', shortName: ':hearts:' },
+  { id: '1f632', shortName: ':astonished:' },
+  { id: '1f914', shortName: ':thinking:' },
 ];
 
 export const defaultReactionsByShortName: Map<string, EmojiId> = new Map<

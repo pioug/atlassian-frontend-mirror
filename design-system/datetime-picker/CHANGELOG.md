@@ -1,5 +1,15 @@
 # @atlaskit/datetime-picker
 
+## 10.2.0
+
+### Minor Changes
+
+- [`1ad2a658d5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ad2a658d5d) - [ux] Added `weekStartDay` prop which gets passed to the underlying `Calendar` instance.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

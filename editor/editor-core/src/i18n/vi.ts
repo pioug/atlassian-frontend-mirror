@@ -82,6 +82,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Tùy chọn hiển thị này không dùng được bên trong {node}',
   'fabric.editor.displayText': 'Văn bản cần hiển thị',
+  'fabric.editor.distributeColumns': 'Phân phối cột',
   'fabric.editor.edit': 'Chỉnh sửa',
   'fabric.editor.editAltText': 'Chỉnh sửa văn bản thay thế',
   'fabric.editor.editLink': 'Chỉnh sửa liên kết',

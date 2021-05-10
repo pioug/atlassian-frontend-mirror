@@ -4,14 +4,15 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { keyframes, style } from 'typestyle';
 
+import { akHeight } from './Reaction';
+
 const animationTime = 300;
 
 export const countStyle = style({
-  fontSize: '12px',
-  lineHeight: '24px',
+  fontSize: '11px',
   color: N90,
   overflow: 'hidden',
-  height: 24,
+  height: akHeight,
   transition: `width ${animationTime}ms ease-in-out`,
 });
 
@@ -132,8 +133,9 @@ export class Counter extends React.PureComponent<Props, State> {
 
     const currentClassName = cx({ [highlightStyle]: highlight });
 
+    // WS-2525 With the pill UI updates, width of * 10 was too much so dropped down to * 7
     return (
-      <div className={className} style={{ width: label.length * 10 }}>
+      <div className={className} style={{ width: label.length * 7 }}>
         <CSSTransition
           classNames={{ enter: enterClass }}
           timeout={animationTime}

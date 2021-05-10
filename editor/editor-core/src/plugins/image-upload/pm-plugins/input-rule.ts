@@ -1,18 +1,19 @@
 import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import {
-  createInputRule,
-  instrumentedInputRule,
-} from '../../../utils/input-rules';
+import { createRule, createPlugin } from '../../../utils/input-rules';
 import { createExternalMediaNode } from '../utils';
+import { FeatureFlags } from '../../../types/feature-flags';
 
-export function inputRulePlugin(schema: Schema): Plugin | undefined {
+export function inputRulePlugin(
+  schema: Schema,
+  featureFlags: FeatureFlags,
+): Plugin | undefined {
   if (!schema.nodes.media || !schema.nodes.mediaSingle) {
     return;
   }
 
   // ![something](link) should convert to an image
-  const imageRule = createInputRule(
+  const imageRule = createRule(
     /!\[(.*)\]\((\S+)\)$/,
     (state, match, start, end) => {
       const { schema } = state;
@@ -30,8 +31,8 @@ export function inputRulePlugin(schema: Schema): Plugin | undefined {
     },
   );
 
-  return instrumentedInputRule('image-upload', {
-    rules: [imageRule],
+  return createPlugin('image-upload', [imageRule], {
+    useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
   });
 }
 

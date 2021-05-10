@@ -1,33 +1,52 @@
-import React from 'react';
+/** @jsx jsx */
+
+import React, { ReactNode, useMemo } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import { WidthNames } from '../constants';
 import {
-  PositionerAbsolute,
-  PositionerFixed,
-  PositionerRelative,
+  getPositionAbsoluteStyles,
+  getPositionFixedStyles,
+  getPositionRelativeStyles,
 } from '../styles/modal';
 import { ScrollBehavior } from '../types';
 
 export interface PositionerProps {
   scrollBehavior: ScrollBehavior;
-  style: Object;
+  stackIndex: number;
   widthName?: WidthNames;
   widthValue?: string | number;
+  children: ReactNode;
+  testId?: string;
 }
 
 const Positioner: React.ComponentType<PositionerProps> = function Positioner({
   scrollBehavior,
-  ...props
+  stackIndex,
+  widthName,
+  widthValue,
+  children,
+  testId,
 }: PositionerProps) {
-  // default 'inside'
-  let PositionComponent = PositionerAbsolute;
-  if (scrollBehavior === 'outside') {
-    PositionComponent = PositionerRelative;
-  } else if (scrollBehavior === 'inside-wide') {
-    PositionComponent = PositionerFixed;
-  }
+  const positionerStyles = useMemo(() => {
+    const opts = { stackIndex, widthName, widthValue };
+    switch (scrollBehavior) {
+      case 'outside':
+        return getPositionRelativeStyles(opts);
+      case 'inside-wide':
+        return getPositionFixedStyles(opts);
+      default:
+        return getPositionAbsoluteStyles(opts);
+    }
+  }, [scrollBehavior, stackIndex, widthName, widthValue]);
 
-  return <PositionComponent {...props} />;
+  return (
+    <div css={positionerStyles} data-testid={testId && `${testId}--positioner`}>
+      {children}
+    </div>
+  );
 };
 
+Positioner.displayName = 'Positioner';
 export default Positioner;

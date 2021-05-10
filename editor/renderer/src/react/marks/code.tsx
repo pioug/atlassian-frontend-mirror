@@ -1,10 +1,11 @@
 import React from 'react';
-import { MarkProps } from '../types';
+import AkCode from '@atlaskit/code/inline';
+import type { MarkProps } from '../types';
 
 export default function Code(props: MarkProps) {
   return (
-    <span className="code" {...props.dataAttributes}>
+    <AkCode className="code" {...props.dataAttributes}>
       {props.children}
-    </span>
+    </AkCode>
   );
 }

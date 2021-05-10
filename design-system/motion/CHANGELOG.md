@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 0.4.8
+
+### Patch Changes
+
+- [`12f99a7b1ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12f99a7b1ab) - Export useExitingPersistence from @atlaskit/motion, and fix types for children of ExitingPersistence.
+
 ## 0.4.7
 
 ### Patch Changes

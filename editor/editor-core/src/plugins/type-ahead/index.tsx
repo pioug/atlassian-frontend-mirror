@@ -37,7 +37,8 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => ({
       },
       {
         name: 'typeAheadInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema, typeAhead),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, typeAhead, featureFlags),
       },
       {
         name: 'typeAheadKeymap',

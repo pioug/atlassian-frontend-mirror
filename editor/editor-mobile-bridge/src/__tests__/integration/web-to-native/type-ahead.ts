@@ -73,3 +73,24 @@ BrowserTestCase(
     expect(typeAheadPayloads.length).toEqual(1);
   },
 );
+
+BrowserTestCase(
+  `type-ahead.ts: /link opens link dialog window`,
+  { skip: skip.concat('safari') },
+  async (client: any, testName: string) => {
+    const browser = new Page(client);
+    await browser.goto(editor.path);
+    await browser.waitForSelector(editable);
+
+    await browser.type(editable, '/link');
+    await browser.keys(['Enter']);
+
+    const typeAheadPayloads = await getBridgeOutput(
+      browser,
+      'typeAheadBridge',
+      'typeAheadItemSelected',
+    );
+
+    expect(typeAheadPayloads).toMatchCustomSnapshot(testName);
+  },
+);

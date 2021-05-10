@@ -8,7 +8,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
 
   static moduleImporter(target: CardWithDataRenderer) {
     import(
-      /* webpackChunkName:"@atlaskit-internal-smartcard-datacardcontent" */ './component'
+      /* webpackChunkName: "@atlaskit-internal_smartcard-datacardcontent" */ './component'
     ).then(module => {
       CardWithDataRenderer.CardContent = module.CardWithDataContent;
       target.forceUpdate();

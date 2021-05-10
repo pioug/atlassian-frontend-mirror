@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
@@ -6,50 +6,38 @@ import Button from '@atlaskit/button/standard-button';
 
 import Modal, { ModalTransition } from '../src';
 
-interface State {
-  isOpen: boolean;
-}
-export default class ExampleBasic extends React.PureComponent<{}, State> {
-  state: State = { isOpen: false };
+export default function ExampleBasic() {
+  const [isOpen, setIsOpen] = useState(false);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
-  open = () => this.setState({ isOpen: true });
+  const actions = [
+    { text: 'Delete', onClick: close },
+    {
+      text: 'Cancel',
+      autoFocus: true,
+    },
+  ];
 
-  close = () => this.setState({ isOpen: false });
+  return (
+    <div>
+      <Button onClick={open} testId="modal-trigger">
+        Open Modal
+      </Button>
 
-  secondaryAction = ({ currentTarget }: React.MouseEvent<HTMLElement>) =>
-    console.log(currentTarget.innerText);
-
-  render() {
-    const { isOpen } = this.state;
-    const actions = [
-      { text: 'Delete', onClick: this.close },
-      {
-        text: 'Cancel',
-        onClick: this.secondaryAction,
-        autoFocus: true,
-      },
-    ];
-
-    return (
-      <div>
-        <Button onClick={this.open} testId="modal-trigger">
-          Open Modal
-        </Button>
-
-        <ModalTransition>
-          {isOpen && (
-            <Modal
-              actions={actions}
-              appearance="danger"
-              onClose={this.close}
-              heading="Delete Repository"
-              testId="modal"
-            >
-              <Lorem count={2} />
-            </Modal>
-          )}
-        </ModalTransition>
-      </div>
-    );
-  }
+      <ModalTransition>
+        {isOpen && (
+          <Modal
+            actions={actions}
+            appearance="danger"
+            onClose={close}
+            heading="Delete Repository"
+            testId="modal"
+          >
+            <Lorem count={2} />
+          </Modal>
+        )}
+      </ModalTransition>
+    </div>
+  );
 }

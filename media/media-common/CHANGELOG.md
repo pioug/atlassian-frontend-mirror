@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.6.1
+
+### Patch Changes
+
+- [`db441ee18c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db441ee18c3) - Handle localStorage and sessionStorage safely
+
 ## 2.6.0
 
 ### Minor Changes

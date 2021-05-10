@@ -27,6 +27,9 @@ const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 7;
 let nodeViewEventsCounter = 0;
 
+interface CreateDomRefOptions {
+  displayInlineBlockForInlineNodes: boolean;
+}
 export default class ReactNodeView<P = ReactComponentProps>
   implements NodeView {
   private domRef?: HTMLElement;
@@ -139,7 +142,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.portalProviderAPI.render(component, this.domRef!, this.hasContext);
   }
 
-  createDomRef(): HTMLElement {
+  createDomRef(options?: CreateDomRefOptions): HTMLElement {
     if (!this.node.isInline) {
       return document.createElement('div');
     }
@@ -148,7 +151,11 @@ export default class ReactNodeView<P = ReactComponentProps>
     const state = this.view.state;
     const featureFlags = getFeatureFlags(state);
 
-    if (featureFlags && featureFlags.displayInlineBlockForInlineNodes) {
+    if (
+      featureFlags &&
+      featureFlags.displayInlineBlockForInlineNodes &&
+      options?.displayInlineBlockForInlineNodes !== false
+    ) {
       htmlElement.style.display = 'inline-block';
       htmlElement.style.userSelect = 'all';
     }

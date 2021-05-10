@@ -1,5 +1,23 @@
 # @atlaskit/editor-mobile-bridge
 
+## 26.1.0
+
+### Minor Changes
+
+- [`9532245d3bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9532245d3bb) - [ux] Allow for quick insert to work with both typeahead toolbar and with /link + enter
+- [`5c6fbdb545d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c6fbdb545d) - ME-1163 When a content is set, onContentRendered event is invoked in the mobile bridge. It uses measureRender utility method to fire an event for the first rendered frame.
+
+  In mobile, WebView is reused, therefore in the native side an empty content is set on each WebView stop. This causes issues if measureRender is invoked again. Therefore, this changeset prevents to use measureRender when the content is empty. Content is set properly, but there won't be any onContentRendered invocation.
+
+### Patch Changes
+
+- [`71cdf0a5a2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71cdf0a5a2f) - [ME-742] Change default font size for iOS and Android Hybrid Editor and Renderer.
+- [`a575b6e860e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a575b6e860e) - [ME-742] Update default font size for iOS and Android.
+- [`581d587fade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/581d587fade) - ED-12410 prevent renderer cancels highlight when tapping
+- [`8342001ec9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8342001ec9b) - Update Android media snapshots.
+- [`8efee2de0c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8efee2de0c3) - Add more media test
+- Updated dependencies
+
 ## 26.0.2
 
 ### Patch Changes

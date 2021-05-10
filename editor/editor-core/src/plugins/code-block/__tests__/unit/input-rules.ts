@@ -22,70 +22,81 @@ import listPlugin from '../../../lists';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocBuilder) => {
-    return createEditor({
-      doc,
-      preset: new Preset<LightEditorPlugin>()
-        .add(blockTypePlugin)
-        .add(codeBlockPlugin)
-        .add(panelPlugin)
-        .add(listPlugin)
-        .add([
-          textFormattingPlugin,
-          {
-            disableCode: true,
+
+  describe.each([true, false])(
+    'when useUnpredictableInputRule is %s',
+    useUnpredictableInputRule => {
+      const editor = (doc: DocBuilder) => {
+        return createEditor({
+          featureFlags: {
+            useUnpredictableInputRule,
           },
-        ]),
-    });
-  };
-  describe('codeblock rule', () => {
-    describe('when node is not convertable to code block', () => {
-      it('should append a code block to the doc', () => {
-        const { editorView, sel } = editor(doc(panel()(p('{<>}hello'))));
+          doc,
+          preset: new Preset<LightEditorPlugin>()
+            .add(blockTypePlugin)
+            .add(codeBlockPlugin)
+            .add(panelPlugin)
+            .add(listPlugin)
+            .add([
+              textFormattingPlugin,
+              {
+                disableCode: true,
+              },
+            ]),
+        });
+      };
+      describe('codeblock rule', () => {
+        describe('when node is not convertable to code block', () => {
+          it('should append a code block to the doc', () => {
+            const { editorView, sel } = editor(doc(panel()(p('{<>}hello'))));
 
-        insertText(editorView, '```', sel);
-        expect(editorView.state.doc).toEqualDocument(
-          doc(panel()(p('hello')), code_block()()),
-        );
-      });
-    });
+            insertText(editorView, '```', sel);
+            expect(editorView.state.doc).toEqualDocument(
+              doc(panel()(p('hello')), code_block()()),
+            );
+          });
+        });
 
-    describe('when cursor is inside lists', () => {
-      it('should convert "```" to a code block\t', () => {
-        const { editorView, sel } = editor(doc(ul(li(p('{<>}hello')))));
+        describe('when cursor is inside lists', () => {
+          it('should convert "```" to a code block\t', () => {
+            const { editorView, sel } = editor(doc(ul(li(p('{<>}hello')))));
 
-        insertText(editorView, '```', sel);
+            insertText(editorView, '```', sel);
 
-        expect(editorView.state.doc).toEqualDocument(
-          doc(ul(li(code_block()('hello')))),
-        );
-      });
+            expect(editorView.state.doc).toEqualDocument(
+              doc(ul(li(code_block()('hello')))),
+            );
+          });
 
-      describe('when cursor is in a new line created with shift+enter', () => {
-        it('should convert "```" to a code block\t', () => {
-          const { editorView, sel } = editor(
-            doc(ul(li(p('text', hardBreak(), '{<>}hello')))),
-          );
+          describe('when cursor is in a new line created with shift+enter', () => {
+            it('should convert "```" to a code block\t', () => {
+              const { editorView, sel } = editor(
+                doc(ul(li(p('text', hardBreak(), '{<>}hello')))),
+              );
 
-          insertText(editorView, '```', sel);
+              insertText(editorView, '```', sel);
 
-          expect(editorView.state.doc).toEqualDocument(
-            doc(ul(li(p('text'), code_block()('hello')))),
-          );
+              expect(editorView.state.doc).toEqualDocument(
+                doc(ul(li(p('text', hardBreak()), code_block()('hello')))),
+              );
+            });
+          });
+        });
+
+        describe('when node is convertable to code block', () => {
+          describe('when converted node has no content', () => {
+            it('should convert "```" to a code block\t', () => {
+              const { editorView, sel } = editor(doc(p('{<>}')));
+
+              insertText(editorView, '```', sel);
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(code_block({})()),
+              );
+            });
+          });
         });
       });
-    });
-
-    describe('when node is convertable to code block', () => {
-      describe('when converted node has no content', () => {
-        it('should convert "```" to a code block\t', () => {
-          const { editorView, sel } = editor(doc(p('{<>}')));
-
-          insertText(editorView, '```', sel);
-
-          expect(editorView.state.doc).toEqualDocument(doc(code_block({})()));
-        });
-      });
-    });
-  });
+    },
+  );
 });

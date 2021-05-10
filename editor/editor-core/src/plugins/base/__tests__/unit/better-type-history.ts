@@ -15,6 +15,7 @@ import {
   panel,
   decisionList,
   decisionItem,
+  placeholder,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import betterTypeHistoryPlugin from '../../';
@@ -24,6 +25,7 @@ import hyperlinkPlugin from '../../../hyperlink';
 import pastePlugin from '../../../paste';
 import codeBlockPlugin from '../../../code-block';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
+import placeholderTextPlugin from '../../../placeholder-text';
 import {
   pluginKey as undoRedoPluginKey,
   default as createPMPlugin,
@@ -41,6 +43,7 @@ describe('close history', () => {
         .add(betterTypeHistoryPlugin)
         .add(panelPlugin)
         .add(codeBlockPlugin)
+        .add([placeholderTextPlugin, { allowInserting: true }])
         .add(tasksAndDecisionsPlugin),
       pluginKey: undoRedoPluginKey,
     });
@@ -302,6 +305,22 @@ describe('close history', () => {
       ),
     ];
 
+    const case07: [string, DocBuilder, DocBuilder] = [
+      'copying text from a paragraph and pasting it in an placeholder',
+      // Scenario
+      // prettier-ignore
+      doc(
+        p('{nextPos}', placeholder({ text: 'Type something' })),
+        p('{<}INITIAL{>}')
+      ),
+      // Expected Document
+      doc(
+        // prettier-ignore
+        p(placeholder({ text: 'Type something' })),
+        p('INITIAL'),
+      ),
+    ];
+
     describe.each<[string, DocBuilder, DocBuilder]>([
       // prettier-ignore
       case01,
@@ -310,6 +329,7 @@ describe('close history', () => {
       case04,
       case05,
       case06,
+      case07,
     ])(
       '[case%#] when %s and undo',
       (_scenario, scenarioDocument, expectedDocument) => {

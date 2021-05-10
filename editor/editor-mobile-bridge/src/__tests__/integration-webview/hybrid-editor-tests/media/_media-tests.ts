@@ -9,6 +9,8 @@ import media2ColumnLayoutAdf from '../../__fixtures__/media-2-column-layout.adf.
 import media3ColumnLayoutAdf from '../../__fixtures__/media-3-column-layout.adf.json';
 import mediaGroupAdf from '../../__fixtures__/media-group.adf.json';
 import mediaImageTableAdf from '../../__fixtures__/media-image-table.adf.json';
+import mediaSingleVideoFailedProcessingAdf from '../../__fixtures__/media-single-video-failed-processing.adf.json';
+import mediaSingleEmptyFileAdf from '../../__fixtures__/media-single-empty-file.adf.json';
 import { focusOnWebView } from '../../_page-objects/hybrid-editor-page';
 import mediaExpandAdf from '../../__fixtures__/media-expand.adf.json';
 import { mobileSnapshot } from '../../_utils/snapshot';
@@ -108,16 +110,20 @@ export default async () => {
     expect(mediaGroupExists).toBeFalsy();
   });
 
-  MobileTestCase('Media inside expand', {}, async client => {
-    const page = await Page.create(client);
+  MobileTestCase(
+    'Media inside expand',
+    { skipPlatform: ['android', 'ios'] },
+    async client => {
+      const page = await Page.create(client);
 
-    await loadEditor(page, 'enableMediaResize=true');
-    await page.switchToWeb();
-    await setADFContent(page, mediaExpandAdf);
-    await page.waitForSelector(mediaCardSelector());
-    await focusOnWebView(page);
-    await mobileSnapshot(page);
-  });
+      await loadEditor(page, 'enableMediaResize=true');
+      await page.switchToWeb();
+      await setADFContent(page, mediaExpandAdf);
+      await page.waitForSelector(mediaCardSelector());
+      await focusOnWebView(page);
+      await mobileSnapshot(page);
+    },
+  );
 
   MobileTestCase(
     'Media: Load ADF with a MediaSingle node',
@@ -167,15 +173,23 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
-    'Media: Upload media should show the progressive bar',
-    {},
-    async client => {
-      const page = await Page.create(client);
-      await loadEditor(page);
-      await page.switchToWeb();
-      await uploadMedia(page);
-      await page.waitForSelector(mediaCardSelector());
-    },
-  );
+  MobileTestCase('Media: failed processing', {}, async client => {
+    const page = await Page.create(client);
+
+    await loadEditor(page);
+    await page.switchToWeb();
+    await setADFContent(page, mediaSingleVideoFailedProcessingAdf);
+    await page.waitForSelector(mediaCardSelector('failed-processing'));
+    await mobileSnapshot(page);
+  });
+
+  MobileTestCase('Media: error', {}, async client => {
+    const page = await Page.create(client);
+
+    await loadEditor(page);
+    await page.switchToWeb();
+    await setADFContent(page, mediaSingleEmptyFileAdf);
+    await page.waitForSelector(mediaCardSelector('error'));
+    await mobileSnapshot(page);
+  });
 };

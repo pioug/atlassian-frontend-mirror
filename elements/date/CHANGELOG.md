@@ -1,5 +1,12 @@
 # @atlaskit/date
 
+## 0.8.7
+
+### Patch Changes
+
+- [`644b8b0710e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/644b8b0710e) - NO-ISSUE - TO BE REMOVED - Product fabric @atlaskit/date patch
+- Updated dependencies
+
 ## 0.8.6
 
 ### Patch Changes

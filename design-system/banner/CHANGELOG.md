@@ -1,5 +1,15 @@
 # @atlaskit/banner
 
+## 11.2.0
+
+### Minor Changes
+
+- [`262bfb58dcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/262bfb58dcd) - [ux] Add focus opportunity for Banner with announcement appearance
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

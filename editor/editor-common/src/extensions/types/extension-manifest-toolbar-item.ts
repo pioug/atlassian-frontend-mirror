@@ -1,13 +1,13 @@
 import { ADFEntity } from '@atlaskit/adf-utils';
 
-import { UpdateContextActions } from './extension-handler';
+import { ExtensionAPI } from './extension-handler';
 import { ExtensionIconModule } from './extension-manifest-common';
 
 export type ExtensionModuleToolbarItem = ExtensionModuleToolbarButton;
 
 export type ToolbarButtonAction = (
   adf: ADFEntity,
-  api: UpdateContextActions,
+  api: ExtensionAPI,
 ) => Promise<void>;
 
 export type ExtensionModuleToolbarButton = ExtensionModuleToolbarItemCommon &

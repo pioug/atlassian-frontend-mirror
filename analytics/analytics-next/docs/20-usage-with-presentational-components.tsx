@@ -315,6 +315,7 @@ const MyButton = ({ onClick = () => {}, onActivate = () => {}}) => {
     fn: wrapped, // use onClick instead if you want to just fire on 'atlaskit'
     action: 'clicked',
     componentName: 'my-button',
+    actionSubject : 'clickButton', // will use componentName as fallback if actionSubject is not passed
     packageName: '@atlaskit/my-button',
     packageVersion: '1.0.0',
     analyticsData: {

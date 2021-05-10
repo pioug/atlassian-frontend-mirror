@@ -26,20 +26,21 @@ export type TransformAfter<T extends Parameters = Parameters> = (
   data: any,
 ) => Promise<Partial<T>>;
 
-export type UpdateContextActions<T extends Parameters = Parameters> = {
+export type ExtensionAPI<T extends Parameters = Parameters> = {
   editInContextPanel: (
     transformBefore: TransformBefore<T>,
     transformAfter: TransformAfter<T>,
   ) => void;
-  editInLegacyMacroBrowser: () => void;
+  _editInLegacyMacroBrowser: () => void;
 
-  // TODO: think about putting Boolean as the return value if we have a success in the function call
-  insertAfter: (adf: ADFEntity) => void;
+  doc: {
+    insertAfter: (localId: string, adf: ADFEntity) => void;
+  };
 };
 
 export type UpdateExtension<T extends Parameters = Parameters> = (
   extensionParameters: T,
-  actions?: UpdateContextActions<T>,
+  actions?: ExtensionAPI<T>,
 ) => Promise<T | void>;
 
 export interface Extension<T extends Parameters = Parameters> {

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
+import GlobalTheme from '@atlaskit/theme/components';
+import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { CodeBlock } from '../../src';
 
@@ -38,10 +40,10 @@ ReactDOM.render(<PointLogger message="Position {point}" point={coords} />, mount
 `;
 
 export default function CodeBlockHighlightColorsExample() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState<ThemeModes>('light');
 
   return (
-    <>
+    <GlobalTheme.Provider value={() => ({ mode })}>
       <div>
         <Button
           appearance="primary"
@@ -51,7 +53,7 @@ export default function CodeBlockHighlightColorsExample() {
         </Button>
       </div>
       <br />
-      <CodeBlock language="tsx" text={exampleCodeBlock} theme={{ mode }} />
-    </>
+      <CodeBlock language="tsx" text={exampleCodeBlock} />
+    </GlobalTheme.Provider>
   );
 }

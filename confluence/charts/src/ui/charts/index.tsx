@@ -29,14 +29,21 @@ export const Chart = ({
   showPoints,
   legendPosition,
   height,
+  xAccessor,
+  dataSeries,
 }: any) => {
   if (!data) {
     return <Wrapper testId={testId} />;
   }
 
   const ChartComponent = chartType === ChartTypes.PIE ? PieChart : LinearChart;
-  const [seriesNames, tableData] = tableToColumnSet(data);
-  const xAccessor = seriesNames[0];
+
+  const [seriesNames, tableData] = tableToColumnSet(
+    data,
+    dataSeries,
+    xAccessor,
+  );
+  const xAccessorProp = xAccessor ?? seriesNames[0];
 
   const ordinalColorScale = scaleOrdinal({
     domain: seriesNames.filter(name => name !== xAccessor),
@@ -53,7 +60,7 @@ export const Chart = ({
     seriesNames,
     tableData,
     chartScale: ordinalColorScale,
-    xAccessor,
+    xAccessor: xAccessorProp,
     legendPosition,
     height,
   };

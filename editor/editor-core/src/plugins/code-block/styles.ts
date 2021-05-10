@@ -28,6 +28,7 @@ export const highlightingCodeBlockStyles = css`
     })};
     background-repeat: no-repeat;
     background-color: ${themed({ light: colors.N20, dark: colors.DN50 })};
+    --ds--code--bg-color: transparent;
     background-attachment: local, scroll, scroll;
     background-size: 8px 100%, 8px 100%, 8px 100%;
     background-position: 100% 0, 100% 0, 0 0;
@@ -75,6 +76,11 @@ export const highlightingCodeBlockStyles = css`
       left: 0;
       pointer-events: none;
       overflow: hidden;
+
+      & [data-ds--code--code-block] {
+        font-size: ${relativeFontSizeToBase16(fontSize())};
+        line-height: 24px;
+      }
     }
 
     .${codeBlockClassNames.content} {
@@ -152,6 +158,7 @@ export const codeBlockStyles = css`
       background: themed({ light: colors.N20, dark: colors.DN50 }),
       width: '8px',
     })};
+    --ds--code--bg-color: transparent;
     background-repeat: no-repeat;
     background-color: ${themed({ light: colors.N20, dark: colors.DN50 })};
     background-attachment: local, scroll, scroll;

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { mount, shallow } from 'enzyme';
+import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 import * as renderer from 'react-test-renderer';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
@@ -15,6 +16,15 @@ import {
   Visibility,
 } from '../../../styled';
 import Banner from '../../Banner';
+
+const axeRules: JestAxeConfigureOptions = {
+  rules: {
+    'color-contrast': { enabled: false },
+  },
+  resultTypes: ['violations', 'incomplete'],
+};
+
+expect.extend(toHaveNoViolations);
 
 describe('banner', () => {
   it('basic sanity check', () =>
@@ -70,11 +80,39 @@ describe('banner', () => {
   });
 
   describe('a11y', () => {
-    it('should have role=alert', () =>
+    it('should not fail an aXe audit', async () => {
+      const container = mount(<Banner appearance="announcement" />);
+      const results = await axe(container.getDOMNode(), axeRules);
+
+      expect(results).toHaveNoViolations();
+    });
+
+    it('should have role=alert by default', () =>
       expect(
         shallow(<Banner />)
           .find(Container)
           .is('[role="alert"]'),
+      ).toBe(true));
+
+    it('should have role=alert when appearance is "error"', () =>
+      expect(
+        shallow(<Banner appearance="error" />)
+          .find(Container)
+          .is('[role="alert"]'),
+      ).toBe(true));
+
+    it('should have role=region when appearance is "announcement"', () =>
+      expect(
+        shallow(<Banner appearance="announcement" />)
+          .find(Container)
+          .is('[role="region"]'),
+      ).toBe(true));
+
+    it('should have tabIndex=0 when appearance is "announcement"', () =>
+      expect(
+        shallow(<Banner appearance="announcement" />)
+          .find(Container)
+          .is('[tabIndex=0]'),
       ).toBe(true));
 
     it('should be aria-hidden=false when isOpen is true', () =>

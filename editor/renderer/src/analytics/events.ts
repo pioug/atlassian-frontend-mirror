@@ -53,6 +53,7 @@ type RendererUnsupportedContentLevelsTrackingSucceeded = AEP<
   ACTION_SUBJECT.RENDERER,
   undefined,
   {
+    appearance?: string;
     platform: PLATFORM.WEB;
     unsupportedContentLevelSeverity: UNSUPPORTED_CONTENT_LEVEL_SEVERITY;
     unsupportedContentLevelPercentage: number;

@@ -275,20 +275,6 @@ describe('TypeAhead Bridge', () => {
     bridge.cancelTypeAhead();
     expect(toNativeBridge.dismissTypeAhead).not.toHaveBeenCalled();
   });
-
-  it('should call typeAheadItemSelected for native items', () => {
-    const payload = JSON.stringify({
-      index: 0,
-    });
-    bridge.insertTypeAheadItem('quickinsert', payload);
-    expect(1).toEqual(1);
-    expect(toNativeBridge.typeAheadItemSelected).toHaveBeenCalledTimes(1);
-    expect(toNativeBridge.typeAheadItemSelected).toBeCalledWith(
-      JSON.stringify({
-        id: 'media',
-      }),
-    );
-  });
 });
 
 describe('Bridge with editorConfiguration and onEditorConfigChange', () => {

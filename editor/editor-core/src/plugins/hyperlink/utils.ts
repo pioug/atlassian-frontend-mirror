@@ -44,19 +44,42 @@ export function getLinkMatch(str: string): Match | LinkifyMatch | null {
  * Extending it directly from class Regex was introducing some issues, thus that has been avoided.
  */
 export class LinkMatcher {
-  exec(str: string): Match[] | null {
-    if (str.endsWith(' ')) {
-      const chunks = str.slice(0, str.length - 1).split(' ');
-      const lastChunk = chunks[chunks.length - 1];
-      const links: null | Match[] = linkify.match(lastChunk);
-      if (links && links.length > 0) {
+  static create(useUnpredictableInputRule: boolean): RegExp {
+    class LinkMatcherRegex {
+      exec(str: string): Match | null {
+        const stringsBySpace = str.slice(0, str.length - 1).split(' ');
+        const lastStringBeforeSpace = stringsBySpace[stringsBySpace.length - 1];
+        const isLastStringValid = lastStringBeforeSpace.length > 0;
+
+        if (!str.endsWith(' ') || !isLastStringValid) {
+          return null;
+        }
+
+        const links: null | Match[] = linkify.match(lastStringBeforeSpace);
+        if (!links || links.length === 0) {
+          return null;
+        }
+        const lastMatch = links[links.length - 1];
         const lastLink: Match = links[links.length - 1];
-        lastLink.input = lastChunk;
+
+        lastLink.input = str.substring(lastMatch.index);
         lastLink.length = lastLink.lastIndex - lastLink.index + 1;
-        return [lastLink];
+        lastLink.index =
+          str.lastIndexOf(lastStringBeforeSpace) + lastMatch.index;
+
+        if (useUnpredictableInputRule) {
+          // ugly hack to make this works with unpredictable input rules
+          // prosemirror does this to find the positions:
+          // `(match[0].length - text.length)`
+          // @ts-ignore
+          lastLink[0] = lastLink;
+        }
+
+        return lastLink;
       }
     }
-    return null;
+
+    return new LinkMatcherRegex() as RegExp;
   }
 }
 

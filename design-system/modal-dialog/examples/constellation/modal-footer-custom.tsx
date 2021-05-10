@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
-import { N30, N50 } from '@atlaskit/theme/colors';
+import { N30 } from '@atlaskit/theme/colors';
 
 import Modal, {
   FooterComponentProps,
@@ -17,7 +17,6 @@ const CustomFooter = (props: FooterComponentProps) => {
       style={{
         padding: 24,
         backgroundColor: N30,
-        boxShadow: props.showKeyline ? `0 -2px 0 0 ${N50}` : 'none',
       }}
     >
       <span />

@@ -180,18 +180,18 @@ export const LinearChart = (props: {
             animationTrajectory={'center'}
             numTicks={5}
           />
-          {props.chartType === ChartTypes.BAR ? (
-            <BarComponent
-              seriesNames={seriesNames}
-              tableData={tableData}
-              xAccessor={xAccessor}
-            />
-          ) : (
+          {props.chartType === ChartTypes.LINE ? (
             <LineComponent
               seriesNames={seriesNames}
               tableData={tableData}
               xAccessor={xAccessor}
               showPoints={showPoints}
+            />
+          ) : (
+            <BarComponent
+              seriesNames={seriesNames}
+              tableData={tableData}
+              xAccessor={xAccessor}
             />
           )}
           <AnimatedAxis

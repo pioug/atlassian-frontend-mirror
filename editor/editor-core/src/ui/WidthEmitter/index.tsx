@@ -66,6 +66,7 @@ const WidthEmitter = ({ editorView }: Props) => {
 
     tr.setMeta(widthPluginKey, {
       width,
+      containerWidth,
       lineLength: dom ? dom.clientWidth : undefined,
     });
 

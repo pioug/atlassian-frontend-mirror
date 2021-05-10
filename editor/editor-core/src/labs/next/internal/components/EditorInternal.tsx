@@ -61,6 +61,7 @@ export function EditorInternal(
     onMount,
 
     providerFactory,
+    featureFlags: {},
   });
 
   return (

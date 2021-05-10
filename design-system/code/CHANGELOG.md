@@ -1,5 +1,67 @@
 # @atlaskit/code
 
+## 14.0.0
+
+### Major Changes
+
+- [`e8f66c36dd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8f66c36dd7) - **BREAKING CHANGES**
+
+  This version includes several breaking changes to improve performance of the `@atlaskit/code` package.
+
+  `<Code />` no longer supports syntax highlighting, greatly simplifying the component. Additionally, the `text` prop has been removed in favour of using `children` directly. This allows users to provide complex nodes (not just plain text) to Code.
+
+  ```jsx
+  // previous
+  <Code text="const x = 10;" language="js" />
+  // now with language no longer supported
+  <Code>const x = 10;</Code>
+  ```
+
+  Component theming is no longer supported in `<Code />` or `<CodeBlock />`; this change does not effect global theming. As an escape hatch, two CSS variables are exposed:
+
+  - `--ds--code--line-number-bg-color`: which controls the background color of the line numbers if set
+  - `--ds--code--bg-color`: which controls the background color of the block body if set
+
+  Components can now be imported individually using individual entrypoints. Using these entrypoints will reduce the overall bundle size of this package if you do not need both components.
+
+  ```js
+  import { Code } from '@atlaskit/code';
+  // --> to
+  import Code from '@atlaskit/code/inline';
+
+  import { CodeBlock } from '@atlaskit/code';
+  // --> to
+  import CodeBlock from '@atlaskit/code/block';
+
+  // note this will still work
+  import { Code, CodeBlock } from '@atlaskit/code';
+  ```
+
+  Finally, `CodeBlock` has had type improvements, and internal optimisations to facilitate faster rendering and updates.
+
+- [`7e091c1d415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e091c1d415) - BREAKING CHANGE:
+
+  The `codeStyle` prop has now been removed on the `Code` component.
+
+  For reference, previously this type of usage would effect the styling of any numbers in the code text.
+
+  ```js
+  <Code codeStyle={{ number: 'red' }} text={someCode} />
+  ```
+
+  Due to internal changes the above usage is no longer possible.
+
+  This release also includes internal changes to the syntax highlighting element to use class names instead of inline styles for syntax highlighting. This results in a substantial performance gain.
+
+### Minor Changes
+
+- [`07e012bfc5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07e012bfc5b) - Updates to internal package structure, exposing additional entrypoints. Types also tightened for language support to better match underlying component.
+
+### Patch Changes
+
+- [`b46ca884bc8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b46ca884bc8) - Add a codemod to remove usages of the `language` prop and convert the `text` prop to be a child.
+- Updated dependencies
+
 ## 13.2.3
 
 ### Patch Changes

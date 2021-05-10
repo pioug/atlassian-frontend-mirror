@@ -77,7 +77,6 @@ describe('dropdown menu', () => {
         expect(button.prop('isSelected')).toBe(menu.props().defaultOpen);
         expect(button.prop('aria-haspopup')).toBe(true);
         expect(button.prop('aria-expanded')).toBe(menu.props().defaultOpen);
-        expect(button.prop('aria-controls')).not.toBe(undefined);
       });
     });
 

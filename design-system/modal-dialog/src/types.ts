@@ -5,6 +5,10 @@ export type {
   KeyboardOrMouseEvent,
   ScrollBehavior,
   ModalDialogProps,
+  OnCloseHandler,
+  OnCloseCompleteHandler,
+  OnOpenCompleteHandler,
+  OnStackChangeHandler,
 } from './internal/types';
 export type { FooterComponentProps } from './internal/components/footer';
 export type { HeaderComponentProps } from './internal/components/header';

@@ -140,6 +140,7 @@ export type {
   ExtensionProvider,
   ExtensionType,
   ExtensionToolbarButton,
+  ExtensionModuleToolbarButton,
   ExtensionModuleToolbarItem,
   MaybeADFEntity,
   Parameters,

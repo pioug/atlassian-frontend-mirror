@@ -92,6 +92,8 @@ describe('ScrollIntoView plugin', () => {
   it("doesn't scroll into view when typeahead trigger transaction", () => {
     const { selection } = state;
     insertText(editorView, '/', selection.from);
-    expect(getAppendedTr()).toBeUndefined();
+    const spyAppendedTr = getAppendedTr();
+    // The next input rule plugin will use the append transaction flow
+    expect(spyAppendedTr).toBeUndefined();
   });
 });

@@ -9,6 +9,7 @@ import cardListAppearanceAdf from './__fixtures__/card-list-appearance.adf.json'
 import cardInsideLayout from './__fixtures__/card-inside-layout-adf.json';
 import cardListBlueLinkAppearanceAdf from './__fixtures__/card-list-blue-link-appearance.adf.json';
 import cardInsideUnsupportedNodesAdf from './__fixtures__/card_inside_unsupported_nodes.adf.json';
+import cardInsideTable from './__fixtures__/card-inside-table.adf.json';
 import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
@@ -165,5 +166,14 @@ describe('Cards:', () => {
     await waitForElementCount(page, '[data-iframe-loaded="true"]', 1);
     await page.hover('.embed-header');
     await snapshot(page);
+  });
+
+  it('should wrap from the first line when its wider than its container', async () => {
+    await initEditor(cardInsideTable, {
+      width: 850,
+      height: 280,
+    });
+    await waitForResolvedInlineCard(page);
+    await snapshot(page, undefined, '.pm-table-wrapper');
   });
 });

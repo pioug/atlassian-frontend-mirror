@@ -1,5 +1,4 @@
-/* eslint-disable react/no-multi-comp */
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 import {
@@ -62,7 +61,6 @@ interface Item {
 interface ItemLineCardProps {
   item: Item;
   index: number;
-  isReorderEnabled: boolean;
   children: (
     isHovering: boolean,
     isActive: boolean,
@@ -72,85 +70,67 @@ interface ItemLineCardProps {
   onClick: (item: Item, e?: any) => void;
 }
 
-interface ItemLineCardState {
-  isHovering: boolean;
-  isActive: boolean;
-  isFocused: boolean;
-}
+function ItemLineCard(props: ItemLineCardProps) {
+  const { onClick = noop, item, children, index } = props;
+  const [isHovering, setIsHovering] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
-class ItemLineCard extends React.Component<
-  ItemLineCardProps,
-  ItemLineCardState
-> {
-  static defaultProps = {
-    isReorderEnabled: true,
-    onClick: noop,
+  const propagateClick = (event: React.MouseEvent) => {
+    event.persist();
+    onClick(item, event);
   };
 
-  state = {
-    isHovering: false,
-    isActive: false,
-    isFocused: false,
-  };
-
-  eventHandlers = {
-    onBlur: () => this.setState({ isFocused: false }),
+  const eventHandlers = {
+    onBlur: () => setIsFocused(false),
     onClick: (event: React.MouseEvent) => {
       // Middle clicks are handled in onMouseDown
       // for cross browser support.
       if (!isMiddleClick(event)) {
-        this.propagateClick(event);
+        propagateClick(event);
       }
     },
-    onFocus: () => this.setState({ isFocused: true }),
-    onMouseEnter: () => this.setState({ isHovering: true }),
-    onMouseLeave: () => this.setState({ isHovering: false, isActive: false }),
+    onFocus: () => setIsFocused(true),
+    onMouseEnter: () => setIsHovering(true),
+    onMouseLeave: () => {
+      setIsActive(false);
+      setIsHovering(false);
+    },
     onMouseDown: (event: React.MouseEvent) => {
       if (isMiddleClick(event)) {
-        this.propagateClick(event);
+        propagateClick(event);
       }
-      this.setState({ isActive: true });
+
+      setIsActive(true);
     },
-    onMouseUp: () => this.setState({ isActive: false }),
+    onMouseUp: () => setIsActive(false),
   };
 
-  propagateClick = (event: React.MouseEvent) => {
-    event.persist();
-    this.props.onClick(this.props.item, event);
-  };
-
-  renderCard = (cardProps: CardProps) => {
-    const { isHovering, isFocused } = this.state;
-    const isActive = !!cardProps.isDragging || this.state.isActive;
+  const renderCard = (cardProps: CardProps) => {
+    const innerIsActive = !!cardProps.isDragging || isActive;
     return (
-      <Card {...cardProps} {...this.state} isActive={isActive}>
-        {this.props.children(isHovering, isActive, isFocused, this.props.item)}
+      <Card {...cardProps} isHovering={isHovering} isActive={innerIsActive}>
+        {children(isHovering, innerIsActive, isFocused, item)}
       </Card>
     );
   };
 
-  renderDraggableCard() {
-    return (
-      <Draggable draggableId={this.props.item.id} index={this.props.index}>
-        {(provided, snapshot) => (
-          <div>
-            {this.renderCard({
-              ref: provided.innerRef,
-              isDraggable: true,
-              isDragging: snapshot.isDragging,
-              ...provided.draggableProps,
-              ...provided.dragHandleProps,
-              ...this.eventHandlers,
-            })}
-          </div>
-        )}
-      </Draggable>
-    );
-  }
-
-  render() {
-    return this.renderDraggableCard();
-  }
+  return (
+    <Draggable draggableId={item.id} index={index}>
+      {(provided, snapshot) => (
+        <div>
+          {renderCard({
+            ref: provided.innerRef,
+            isDraggable: true,
+            isDragging: snapshot.isDragging,
+            ...provided.draggableProps,
+            ...provided.dragHandleProps,
+            ...eventHandlers,
+          })}
+        </div>
+      )}
+    </Draggable>
+  );
 }
 
 interface ItemLineCardGroupProps {
@@ -172,13 +152,16 @@ interface ItemLineCardGroupProps {
   onClick: () => void;
 }
 
-class ItemLineCardGroup extends React.Component<ItemLineCardGroupProps> {
-  static defaultProps = {
-    onOrderChange: noop,
-    onClick: noop,
-  };
+function ItemLineCardGroup(props: ItemLineCardGroupProps) {
+  const {
+    onOrderChange = noop,
+    onClick = noop,
+    groupId,
+    items: consumerItems,
+    children,
+  } = props;
 
-  onDragEnd = (result: DropResult) => {
+  const onDragEnd = (result: DropResult) => {
     const { source } = result;
     const { destination } = result;
 
@@ -186,7 +169,7 @@ class ItemLineCardGroup extends React.Component<ItemLineCardGroupProps> {
       return;
     }
 
-    const items = [...this.props.items];
+    const items = [...consumerItems];
     const target = items.find(item => item.id === result.draggableId);
 
     if (!target) {
@@ -196,132 +179,112 @@ class ItemLineCardGroup extends React.Component<ItemLineCardGroupProps> {
     // Move the dropped item into the correct spot
     items.splice(source.index, 1);
     items.splice(destination.index, 0, target);
-
-    this.props.onOrderChange(items, target, source.index, destination.index);
+    onOrderChange(items, target, source.index, destination.index);
   };
 
-  renderList(props: { isDraggingOver: boolean; provided: DroppableProvided }) {
+  const renderList = (props: {
+    isDraggingOver: boolean;
+    provided: DroppableProvided;
+  }) => {
     const { provided } = props;
     return (
       <div ref={provided.innerRef} {...provided.droppableProps}>
-        {this.props.items.map((item, index) => (
+        {consumerItems.map((item, index) => (
           <ItemLineCard
             key={item.id}
             item={item}
             index={index}
-            onClick={this.props.onClick}
+            onClick={onClick}
           >
-            {this.props.children}
+            {children}
           </ItemLineCard>
         ))}
         {provided.placeholder}
       </div>
     );
-  }
+  };
 
-  renderDraggableCards() {
-    return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId={this.props.groupId}>
-          {(provided, snapshot) =>
-            this.renderList({
-              isDraggingOver: snapshot.isDraggingOver,
-              provided,
-            })
-          }
-        </Droppable>
-      </DragDropContext>
-    );
-  }
-
-  render() {
-    return this.renderDraggableCards();
-  }
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId={groupId}>
+        {(provided, snapshot) =>
+          renderList({
+            isDraggingOver: snapshot.isDraggingOver,
+            provided,
+          })
+        }
+      </Droppable>
+    </DragDropContext>
+  );
 }
 
-const items = [...new Array(5).keys()].map(item => ({
+const ITEMS = [...new Array(5).keys()].map(item => ({
   id: `id-${item}`,
   message: `Line item card ${item}: `,
 }));
 
-interface WrapperState {
-  items: Item[];
+function Wrapper() {
+  const [items, setItems] = useState(() => [...ITEMS]);
+
+  return (
+    <ItemLineCardGroup
+      groupId="test-group"
+      items={items}
+      onOrderChange={updated => {
+        setItems([...updated]);
+      }}
+      isReorderEnabled
+      onClick={() => console.log('on click')}
+    >
+      {(isHovering, isActive, isFocused, item) => (
+        <div>
+          <span>{item.message}</span>
+          <span>
+            isHovering=
+            {isHovering.toString()}
+          </span>
+          <span>
+            , isActive=
+            {isActive.toString()}
+          </span>
+          <span>
+            , isFocused=
+            {isFocused.toString()}
+          </span>
+        </div>
+      )}
+    </ItemLineCardGroup>
+  );
 }
 
-class Wrapper extends React.Component<any, WrapperState> {
-  state = {
-    items: [...items],
-  };
+export default function Example() {
+  const [isOpen, setIsOpen] = useState(false);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
-  render() {
-    return (
-      <ItemLineCardGroup
-        groupId="test-group"
-        items={this.state.items}
-        onOrderChange={updated => {
-          this.setState({ items: [...updated] });
-        }}
-        isReorderEnabled
-        onClick={() => console.log('on click')}
-      >
-        {(isHovering, isActive, isFocused, item) => (
-          <div>
-            <span>{item.message}</span>
-            <span>
-              isHovering=
-              {isHovering.toString()}
-            </span>
-            <span>
-              , isActive=
-              {isActive.toString()}
-            </span>
-            <span>
-              , isFocused=
-              {isFocused.toString()}
-            </span>
-          </div>
+  return (
+    <div>
+      <Button testId={'open-modal'} onClick={open}>
+        Open Modal
+      </Button>
+      <p>
+        We remove the transform css rule used for animating transitions after
+        the enter animation occurs to work around an issue in
+        react-beautiful-dnd where ancestor elements with a transform property
+        cause dragging position issues. See AK-4328.
+      </p>
+      <ModalTransition>
+        {isOpen && (
+          <Modal
+            heading="Drag and drop"
+            actions={[{ text: 'Close', onClick: close }]}
+            onClose={close}
+            testId={'my-modal'}
+          >
+            <Wrapper />
+          </Modal>
         )}
-      </ItemLineCardGroup>
-    );
-  }
-}
-
-interface State {
-  isOpen: boolean;
-}
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.PureComponent<{}, State> {
-  state: State = { isOpen: false };
-
-  open = () => this.setState({ isOpen: true });
-
-  close = () => this.setState({ isOpen: false });
-
-  secondaryAction = ({ currentTarget }: React.MouseEvent<HTMLElement>) =>
-    console.log(currentTarget.innerText);
-
-  render() {
-    const { isOpen } = this.state;
-
-    return (
-      <div>
-        <Button testId={'open-modal'} onClick={this.open}>
-          Open Modal
-        </Button>
-        <p>
-          We remove the transform css rule used for animating transitions after
-          the enter animation occurs to work around an issue in
-          react-beautiful-dnd where ancestor elements with a transform property
-          cause dragging position issues. See AK-4328.
-        </p>
-        <ModalTransition>
-          {isOpen && (
-            <Modal onClose={this.close} testId={'my-modal'}>
-              <Wrapper />
-            </Modal>
-          )}
-        </ModalTransition>
-      </div>
-    );
-  }
+      </ModalTransition>
+    </div>
+  );
 }

@@ -49,6 +49,7 @@ export function countMatches(searchString: string, query: string): number {
   if (searchString === '' || query === '') {
     return 0;
   }
-  const reg = new RegExp(query, 'g');
+  // Escape characters that would trigger as syntax in a regex query before converting to the query
+  const reg = new RegExp(query.replace(/(?=[.\\+*?[^\]$(){}\|])/g, '\\'), 'g');
   return (searchString.match(reg) || []).length;
 }

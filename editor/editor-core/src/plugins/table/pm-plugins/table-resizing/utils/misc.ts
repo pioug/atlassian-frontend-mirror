@@ -108,19 +108,21 @@ export function domCellAround(target: HTMLElement | null): HTMLElement | null {
   return target;
 }
 
+interface getTableMaxWidthProps {
+  table: PMNode;
+  tableStart: number;
+  state: EditorState;
+  layout: TableLayout;
+  dynamicTextSizing?: boolean;
+}
+
 export const getTableMaxWidth = ({
   table,
   tableStart,
   state,
   layout,
   dynamicTextSizing,
-}: {
-  table: PMNode;
-  tableStart: number;
-  state: EditorState;
-  layout: TableLayout;
-  dynamicTextSizing?: boolean;
-}) => {
+}: getTableMaxWidthProps) => {
   const containerWidth = widthPluginKey.getState(state);
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 

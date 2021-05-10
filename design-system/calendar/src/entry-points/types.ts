@@ -8,4 +8,5 @@ export type {
   // consumers can ensure that they are calling the internal api's correctly.
   // Currently @atlaskit/datetime-picker is using it directly.
   CalendarRef,
+  WeekDay,
 } from '../types';

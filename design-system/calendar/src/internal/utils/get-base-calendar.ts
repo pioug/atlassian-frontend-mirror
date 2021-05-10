@@ -4,8 +4,9 @@
  * Not changing much code below. Just removed those parts which we don't need.
  */
 
+import type { WeekDay } from '../../types';
 import { daysPerWeek, monthsPerYear } from '../constants';
-import type { CalendarDate, WeekDay } from '../types';
+import type { CalendarDate } from '../types';
 
 import getDaysInMonth from './get-days-in-month';
 

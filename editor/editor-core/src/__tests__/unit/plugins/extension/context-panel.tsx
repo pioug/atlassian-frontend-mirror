@@ -96,7 +96,10 @@ describe('extension context panel', () => {
     ),
   });
 
-  const setupConfigPanel = async (content: BuilderContent[]) => {
+  const setupConfigPanel = async (
+    content: BuilderContent[],
+    autoSave = true,
+  ) => {
     const { editorView, eventDispatcher } = editor(
       doc(...content),
       {},
@@ -110,7 +113,7 @@ describe('extension context panel', () => {
       editorView.dispatch,
     );
 
-    const contextPanel = getContextPanel(true)(editorView.state);
+    const contextPanel = getContextPanel(autoSave)(editorView.state);
 
     expect(contextPanel).toBeTruthy();
     const editorActions = new EditorActions();
@@ -207,6 +210,47 @@ describe('extension context panel', () => {
         content: 'not that cool',
       },
     });
+  });
+
+  it('should not close the config panel after save if autosave is on', async () => {
+    const { props, editorView } = await setupConfigPanel([
+      '{<node>}',
+      extension({
+        extensionType: 'fake.confluence',
+        extensionKey: 'expand',
+      })(),
+    ]);
+
+    props.onChange({
+      title: 'changed',
+      content: 'not that cool',
+    });
+
+    await flushPromises();
+    const pluginState = pluginKey.getState(editorView.state);
+    expect(pluginState.showContextPanel).toBeTruthy();
+  });
+
+  it('should close the config panel after save if autosave is off', async () => {
+    const { props, editorView } = await setupConfigPanel(
+      [
+        '{<node>}',
+        extension({
+          extensionType: 'fake.confluence',
+          extensionKey: 'expand',
+        })(),
+      ],
+      false,
+    );
+
+    props.onChange({
+      title: 'changed',
+      content: 'not that cool',
+    });
+
+    await flushPromises();
+    const pluginState = pluginKey.getState(editorView.state);
+    expect(pluginState.showContextPanel).toBeFalsy();
   });
 
   const testSaving = (type: string, content: BuilderContent[]) => {

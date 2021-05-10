@@ -13,7 +13,8 @@ const imageUpload = (): EditorPlugin => ({
       },
       {
         name: 'imageUploadInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, featureFlags),
       },
     ];
   },

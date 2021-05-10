@@ -26,7 +26,11 @@ const getText = (child: Nestable): string => {
 
 // x-axis picker from column
 // y-value is that column value
-export const tableToColumnSet = (inputData: TableData) => {
+export const tableToColumnSet = (
+  inputData: TableData,
+  dataSeries?: string[],
+  xAccessor?: string,
+) => {
   const firstRow = inputData.content[0];
   const seriesNames = firstRow.content.map(child => getText(child));
 
@@ -35,12 +39,23 @@ export const tableToColumnSet = (inputData: TableData) => {
     tableRow.content.map(child => Number(getText(child))),
   );
 
+  const isxAccessor = (colIdx: number) =>
+    seriesNames[colIdx] === xAccessor || (!xAccessor && colIdx === 0);
+
   // convert [2012, 8, 153, 121] into
   // { year: 2012, a: 8, b: 153, c: 121 }
   const namedTableData = tableData.map((dataRow, rowIdx) =>
     dataRow.reduce((namedData, colData, colIdx) => {
-      namedData[seriesNames[colIdx]] = colData;
-      namedData['idx'] = rowIdx;
+      if (
+        // Filter columns that are not listed in dataSeries (if dataSeries passed)
+        // and that are not a dimension (xAccessor if passed or first column)
+        !dataSeries ||
+        dataSeries.includes(seriesNames[colIdx]) ||
+        isxAccessor(colIdx)
+      ) {
+        namedData[seriesNames[colIdx]] = colData;
+        namedData['idx'] = rowIdx;
+      }
       return namedData;
     }, {} as any),
   );

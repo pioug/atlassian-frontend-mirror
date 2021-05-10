@@ -144,13 +144,15 @@ const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
       },
       {
         name: 'blockTypeInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, featureFlags),
       },
       // Needs to be lower priority than editor-tables.tableEditing
       // plugin as it is currently swallowing right/down arrow events inside tables
       {
         name: 'blockTypeKeyMap',
-        plugin: ({ schema }) => keymapPlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          keymapPlugin(schema, featureFlags),
       },
     ];
   },

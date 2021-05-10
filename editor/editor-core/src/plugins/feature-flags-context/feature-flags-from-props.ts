@@ -1,6 +1,6 @@
 import { EditorProps } from '../../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
-import { FeatureFlags } from './types';
+import type { FeatureFlags } from '../../types/feature-flags';
 
 /**
  * Transforms EditorProps to an FeatureFlags object,
@@ -94,6 +94,14 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     displayInlineBlockForInlineNodes: Boolean(
       typeof props.featureFlags?.displayInlineBlockForInlineNodes === 'boolean'
         ? !!props.featureFlags?.displayInlineBlockForInlineNodes
+        : true,
+    ),
+
+    useUnpredictableInputRule: Boolean(
+      typeof props.featureFlags?.useUnpredictableInputRule === 'boolean'
+        ? !!props.featureFlags?.useUnpredictableInputRule
+        : props.UNSAFE_allowUndoRedoButtons
+        ? false
         : true,
     ),
   };

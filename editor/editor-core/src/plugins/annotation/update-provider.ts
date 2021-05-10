@@ -12,10 +12,4 @@ export class AnnotationUpdateEmitter extends EventEmitter {
   on(event: string, listener: AnnotationCallback | VisibilityCallback): this {
     return super.on(event, listener);
   }
-
-  emit(event: VisibilityEvent, isVisible: boolean): this;
-  emit(event: UpdateEvent, annotationId: string): this;
-  emit(event: string, params: string | boolean): this {
-    return super.emit(event, params);
-  }
 }

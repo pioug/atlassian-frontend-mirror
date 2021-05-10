@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "13.2.3",
+  "version": "14.0.0",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,7 +16,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
@@ -27,15 +26,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/theme": "^11.1.0",
+    "@atlaskit/codemod-utils": "^3.0.0",
+    "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "memoize-one": "^5.1.0",
     "react-syntax-highlighter": "^15.4.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -48,6 +47,7 @@
     "@types/react-syntax-highlighter": "^13.5.0",
     "color-contrast-checker": "^1.5.0",
     "jscodeshift": "^0.11.0",
+    "prismjs": "^1.21.0",
     "react-dom": "^16.8.0",
     "typescript": "3.9.6"
   },
@@ -56,6 +56,12 @@
     "react",
     "ui"
   ],
+  "af:exports": {
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts",
+    "./block": "./src/entry-points/block.ts",
+    "./inline": "./src/entry-points/inline.ts"
+  },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"

@@ -37,7 +37,6 @@ export const code: MarkSpec = {
     return [
       'span',
       {
-        style: 'white-space: pre-wrap;',
         class: 'code',
         spellcheck: 'false',
       },

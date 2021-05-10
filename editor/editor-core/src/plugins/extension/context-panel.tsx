@@ -6,10 +6,8 @@ import { getSelectedExtension } from './utils';
 import WithEditorActions from '../../ui/WithEditorActions';
 import ConfigPanelLoader from '../../ui/ConfigPanel/ConfigPanelLoader';
 import { duplicateSelection } from '../../utils/selection';
-import { clearEditingContext, forceAutoSave } from './commands';
+import { clearEditingContext, forceAutoSave, updateState } from './commands';
 import { buildExtensionNode } from './actions';
-import { updateState } from './commands';
-
 import type { EditorView } from 'prosemirror-view';
 import type { ContentNodeWithPos } from 'prosemirror-utils';
 import type { ExtensionState } from './types';
@@ -72,7 +70,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
       : parameters;
 
     return (
-      <SaveIndicator duration={5000}>
+      <SaveIndicator duration={5000} visible={allowAutoSave}>
         {({ onSaveStarted, onSaveEnded }) => {
           return (
             <WithEditorActions
@@ -107,6 +105,12 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
 
                       if (autoSaveResolve) {
                         autoSaveResolve();
+                      }
+                      if (!allowAutoSave) {
+                        clearEditingContext(
+                          editorView.state,
+                          editorView.dispatch,
+                        );
                       }
                     }}
                     onCancel={async () => {
@@ -197,6 +201,7 @@ export async function onChangeAction(
       },
     },
     node.content,
+    node.marks,
   );
 
   if (!newNode) {

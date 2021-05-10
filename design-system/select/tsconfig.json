@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.json",
   "include": [
+    "constellation",
     "__perf__",
     "./src/**/*.ts",
     "./src/**/*.tsx",

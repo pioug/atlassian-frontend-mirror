@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/block';
 import Range from '@atlaskit/range';
 
 import SectionMessage from '../src';

@@ -1,6 +1,6 @@
 import React, { Component, Fragment, MouseEvent, ReactNode } from 'react';
 import styled from 'styled-components';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, { ModalTransition, OnCloseHandler } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/custom-theme-button';
 
 const Cell = styled.td`
@@ -20,8 +20,6 @@ interface State {
   modalIsOpen: boolean;
 }
 
-type KeyboardOrMouseEvent = React.MouseEvent<any> | React.KeyboardEvent<any>;
-
 export default class PropStatus extends Component<Props, State> {
   state = {
     modalIsOpen: false,
@@ -34,7 +32,7 @@ export default class PropStatus extends Component<Props, State> {
     });
   };
 
-  onClose = (event: KeyboardOrMouseEvent) => {
+  onClose: OnCloseHandler = event => {
     event.preventDefault();
     this.setState({
       modalIsOpen: false,

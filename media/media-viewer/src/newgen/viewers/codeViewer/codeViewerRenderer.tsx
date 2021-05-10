@@ -2,7 +2,8 @@ import React from 'react';
 import { FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
-import { CodeBlock } from '@atlaskit/code';
+import type { SupportedLanguages } from '@atlaskit/code/types';
+import CodeBlock from '@atlaskit/code/block';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
 import { CodeViewWrapper, CodeViewerHeaderBar } from './styled';
@@ -11,7 +12,8 @@ import { lineCount } from './util';
 export type Props = {
   item: FileState;
   src: string;
-  language: string;
+  language: SupportedLanguages;
+  testId?: string;
   onClose?: () => void;
   onSuccess?: () => void;
   onError?: (error: MediaViewerError) => void;
@@ -59,14 +61,14 @@ export class CodeViewRenderer extends React.Component<Props, State> {
   }
 
   render() {
-    const { item, src, language } = this.props;
+    const { item, src, language, testId } = this.props;
     const selectedLanguage =
       lineCount(src) > MAX_FORMATTED_LINES ? 'text' : language;
 
     return this.state.doc.match({
       pending: () => <Spinner />,
       successful: () => (
-        <CodeViewWrapper>
+        <CodeViewWrapper data-testid={testId}>
           <CodeViewerHeaderBar />
           <CodeBlock language={selectedLanguage} text={src} />
         </CodeViewWrapper>

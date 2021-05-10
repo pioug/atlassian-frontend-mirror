@@ -21,6 +21,11 @@ import { EventDispatcher } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
 import contextPanelPlugin from '../../../plugins/context-panel';
 import {
+  ContextPanelConsumer,
+  ContextPanelWidthProvider,
+} from '../../../ui/ContextPanel/context';
+
+import {
   isPushingEditorContent,
   editorWithWideBreakoutAndSidebarWidth,
 } from '../../__helpers/page-objects/_context-panel';
@@ -78,6 +83,7 @@ describe('SwappableContentArea', () => {
           visible
           editorWidth={{
             width: akEditorDefaultLayoutWidth,
+            containerWidth: akEditorDefaultLayoutWidth,
             lineLength: akEditorDefaultLayoutWidth,
             contentBreakoutModes: [],
           }}
@@ -93,6 +99,7 @@ describe('SwappableContentArea', () => {
           visible
           editorWidth={{
             width: akEditorFullWidthLayoutWidth,
+            containerWidth: akEditorFullWidthLayoutWidth,
             lineLength: akEditorDefaultLayoutWidth,
             contentBreakoutModes: [],
           }}
@@ -108,6 +115,7 @@ describe('SwappableContentArea', () => {
           visible
           editorWidth={{
             width: akEditorFullWidthLayoutWidth,
+            containerWidth: akEditorFullWidthLayoutWidth,
             lineLength: akEditorDefaultLayoutWidth,
             contentBreakoutModes: ['full-width'],
           }}
@@ -123,6 +131,7 @@ describe('SwappableContentArea', () => {
           visible
           editorWidth={{
             width: akEditorFullWidthLayoutWidth,
+            containerWidth: akEditorFullWidthLayoutWidth,
             lineLength: akEditorDefaultLayoutWidth,
             contentBreakoutModes: ['wide'],
           }}
@@ -138,6 +147,7 @@ describe('SwappableContentArea', () => {
           visible
           editorWidth={{
             width: editorWithWideBreakoutAndSidebarWidth,
+            containerWidth: editorWithWideBreakoutAndSidebarWidth,
             lineLength: akEditorDefaultLayoutWidth,
             contentBreakoutModes: ['wide'],
           }}
@@ -153,6 +163,7 @@ describe('SwappableContentArea', () => {
           visible
           editorWidth={{
             width: akEditorFullWidthLayoutWidth,
+            containerWidth: akEditorFullWidthLayoutWidth,
             lineLength: akEditorFullWidthLayoutLineLength,
             contentBreakoutModes: [],
           }}
@@ -171,7 +182,114 @@ describe('SwappableContentArea', () => {
   });
 });
 
-// ContextPanel uses WithEditorActions
+describe('ContextPanelWidthProvider', () => {
+  let wrapper: ReactWrapper | undefined;
+
+  afterEach(() => {
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = undefined;
+    }
+  });
+  it('should broadcast width', () => {
+    let broadCast: (wdith: number) => void = width => {};
+    wrapper = mount(
+      <ContextPanelWidthProvider>
+        <ContextPanelConsumer>
+          {({ width, broadcastWidth }) => {
+            broadCast = broadcastWidth;
+            return <div>{width}</div>;
+          }}
+        </ContextPanelConsumer>
+      </ContextPanelWidthProvider>,
+    );
+    broadCast(320);
+    wrapper.update();
+    expect(wrapper.text()).toBe('320');
+  });
+
+  it('should broadcast positionedOverEditor', () => {
+    let broadCast: (
+      positionedOverEditor: boolean,
+    ) => void = positionedOverEditor => {};
+    wrapper = mount(
+      <ContextPanelWidthProvider>
+        <ContextPanelConsumer>
+          {({ positionedOverEditor, broadcastPosition }) => {
+            broadCast = broadcastPosition;
+            return <div>{positionedOverEditor ? 'true' : 'false'}</div>;
+          }}
+        </ContextPanelConsumer>
+      </ContextPanelWidthProvider>,
+    );
+    broadCast(true);
+    wrapper.update();
+    expect(wrapper.text()).toBe('true');
+  });
+
+  it('should broadcast width with SwappableContentArea', () => {
+    wrapper = mount(
+      <ContextPanelWidthProvider>
+        <SwappableContentArea visible>
+          <ContextPanelConsumer>
+            {({ width }) => {
+              return <div>{width}</div>;
+            }}
+          </ContextPanelConsumer>
+        </SwappableContentArea>
+      </ContextPanelWidthProvider>,
+    );
+    expect(wrapper.text()).toBe('320');
+  });
+
+  it('should broadcast positionOverEditor to be true if panel is not pushing Editor', () => {
+    wrapper = mount(
+      <ContextPanelWidthProvider>
+        <SwappableContentArea
+          editorWidth={{
+            width: akEditorFullWidthLayoutWidth,
+            containerWidth: akEditorFullWidthLayoutWidth,
+            lineLength: akEditorDefaultLayoutWidth,
+            contentBreakoutModes: [],
+          }}
+          visible
+        >
+          <ContextPanelConsumer>
+            {({ positionedOverEditor }) => {
+              return <div>{positionedOverEditor ? 'true' : 'false'}</div>;
+            }}
+          </ContextPanelConsumer>
+        </SwappableContentArea>
+      </ContextPanelWidthProvider>,
+    );
+    expect(wrapper.text()).toBe('true');
+  });
+
+  it('should broadcast positionOverEditor to be false if panel is pushing Editor', () => {
+    wrapper = mount(
+      <ContextPanelWidthProvider>
+        <SwappableContentArea
+          editorWidth={{
+            width: akEditorDefaultLayoutWidth,
+            containerWidth: akEditorDefaultLayoutWidth,
+            lineLength: akEditorDefaultLayoutWidth,
+            contentBreakoutModes: [],
+          }}
+          visible
+        >
+          <ContextPanelConsumer>
+            {({ positionedOverEditor }) => {
+              return <div>{positionedOverEditor ? 'true' : 'false'}</div>;
+            }}
+          </ContextPanelConsumer>
+        </SwappableContentArea>
+      </ContextPanelWidthProvider>,
+    );
+    expect(wrapper.text()).toBe('false');
+  });
+});
+
+//ContextPanel uses WithEditorActions
 const mountWithContext = (node: React.ReactNode, actions?: EditorActions) =>
   mount(<EditorContext editorActions={actions}>{node}</EditorContext>);
 

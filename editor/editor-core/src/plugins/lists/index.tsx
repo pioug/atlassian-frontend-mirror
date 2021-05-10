@@ -35,7 +35,8 @@ const listPlugin = (): EditorPlugin => ({
       { name: 'lists', plugin: ({ dispatch }) => createPlugin(dispatch) },
       {
         name: 'listsInputRule',
-        plugin: ({ schema }) => inputRulePlugin(schema),
+        plugin: ({ schema, featureFlags }) =>
+          inputRulePlugin(schema, featureFlags),
       },
       { name: 'listsKeymap', plugin: () => keymapPlugin() },
     ];

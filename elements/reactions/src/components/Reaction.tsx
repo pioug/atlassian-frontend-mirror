@@ -4,8 +4,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { borderRadius } from '@atlaskit/theme/constants';
-import { N30A, N400 } from '@atlaskit/theme/colors';
+import { N20, N40, N400 } from '@atlaskit/theme/colors';
 import cx from 'classnames';
 import React from 'react';
 import { PureComponent, SyntheticEvent } from 'react';
@@ -21,43 +20,50 @@ import { FlashAnimation } from './FlashAnimation';
 import { ReactionTooltip } from './ReactionTooltip';
 import { isLeftClick } from './utils';
 
-const akBorderRadius = `${borderRadius()}px`;
-const akColorN30A = N30A;
-const akColorN400 = N400;
+export const akHeight = '24px';
+
+/**
+ * Styling Note:
+ * Padding and line height are set within the child components
+ * of FlashAnimation b/c it otherwise throws off the flash styling
+ */
 
 const emojiStyle = style({
   transformOrigin: 'center center 0',
-  margin: '0 4px',
+  lineHeight: '12px',
+  padding: '4px 4px 4px 8px',
 });
 
 const reactionStyle = style({
   outline: 'none',
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'flex-start',
   minWidth: '36px',
-  height: '24px',
-  lineHeight: '24px',
+  height: akHeight,
   background: 'transparent',
-  border: '0',
-  borderRadius: akBorderRadius,
-  color: akColorN400,
+  border: `1px solid ${N40}`,
+  boxSizing: 'border-box',
+  borderRadius: '20px',
+  color: `${N400}`,
   cursor: 'pointer',
-  padding: 0,
   margin: 0,
+  padding: 0,
   transition: '200ms ease-in-out',
-  $nest: { '&:hover': { background: akColorN30A } },
+  $nest: { '&:hover': { background: `${N20}` } },
 });
 
 const flashStyle = style({
   display: 'flex',
   flexDirection: 'row',
-  borderRadius: akBorderRadius,
+  borderRadius: '10px',
+  height: akHeight,
 });
 
 const counterStyle = style({
-  padding: '0 4px 0 0',
+  padding: '4px 8px 4px 0',
+  lineHeight: '14px',
 });
-
 export interface ReactionOnClick {
   (emojiId: string, event?: SyntheticEvent<any>): void;
 }

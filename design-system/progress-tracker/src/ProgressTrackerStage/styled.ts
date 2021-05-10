@@ -137,3 +137,29 @@ export const ProgressTrackerStageTitle = styled.div<StageTitleProps>`
       cubic-bezier(0.2, 0, 0, 1);
   }
 `;
+
+interface ListItemProps {
+  theme: { columns: number; spacing: string };
+}
+
+// Copied styles of GridColumn from @atlaskit/page
+const availableColumns = (props: ListItemProps) => props.theme.columns;
+const columns = (props: ListItemProps) => Math.min(availableColumns(props), 2);
+const gridSpacing = (props: ListItemProps) => spacing[props.theme.spacing];
+
+const getMaxWidthColumnRatio = (props: ListItemProps) => {
+  if (columns(props) >= availableColumns(props)) {
+    return '100%';
+  }
+  return `99.9999% / ${availableColumns(props)} * ${columns(props)}`;
+};
+
+export const ProgressTrackerListItem = styled.li<Partial<ListItemProps>>`
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin: 0 ${props => spacing[props.theme.spacing] / 2}px;
+  word-wrap: break-word;
+
+  max-width: calc(${getMaxWidthColumnRatio} - ${gridSpacing}px);
+  min-width: calc(99.9999% / ${availableColumns} - ${gridSpacing}px);
+`;

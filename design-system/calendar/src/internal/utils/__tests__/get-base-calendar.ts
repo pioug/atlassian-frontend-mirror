@@ -1,6 +1,7 @@
 import cases from 'jest-in-case';
 
-import type { CalendarDate, WeekDay } from '../../types';
+import type { WeekDay } from '../../../types';
+import type { CalendarDate } from '../../types';
 import getBaseCalendar from '../get-base-calendar';
 
 cases(

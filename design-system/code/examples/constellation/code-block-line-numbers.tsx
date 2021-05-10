@@ -19,5 +19,5 @@ ReactDOM.render(
 );`;
 
 export default function CodeBlockLineNumbersExample() {
-  return <CodeBlock language="javascript" text={exampleCodeBlock} />;
+  return <CodeBlock language="jsx" text={exampleCodeBlock} />;
 }

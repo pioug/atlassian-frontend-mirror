@@ -14,13 +14,17 @@ import { useFetchProxy } from '../src/utils/fetch-proxy';
 import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
+import MobileEditorConfiguration from '../src/editor/editor-configuration';
 
 window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
-  const editorConfiguration = useEditorConfiguration(bridge);
+  const editorConfiguration = useEditorConfiguration(
+    bridge,
+    new MobileEditorConfiguration('{ "enableQuickInsert": "true" }'),
+  );
 
   return (
     <Editor

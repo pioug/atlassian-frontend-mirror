@@ -22,19 +22,17 @@ function onClose() {
   console.log('the "onClose" handler is fired');
 }
 
-export default class ModalWithPopupSelect extends React.Component<{}> {
-  render() {
-    return (
-      <ModalDialog onClose={onClose}>
-        <PopupSelect
-          {...defaults}
-          target={({ ref }: { ref: React.RefObject<any> }) => (
-            <button ref={ref}>Click me</button>
-          )}
-          popperProps={{ placement: 'bottom', strategy: 'fixed' }}
-          searchThreshold={10}
-        />
-      </ModalDialog>
-    );
-  }
+export default function ModalWithPopupSelect() {
+  return (
+    <ModalDialog onClose={onClose}>
+      <PopupSelect
+        {...defaults}
+        target={({ ref }: { ref: React.RefObject<any> }) => (
+          <button ref={ref}>Click me</button>
+        )}
+        popperProps={{ placement: 'bottom', strategy: 'fixed' }}
+        searchThreshold={10}
+      />
+    </ModalDialog>
+  );
 }

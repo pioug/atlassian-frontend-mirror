@@ -7,7 +7,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
 import { Block, Centered } from '../examples-utils';
-import { ExitingPersistence, ShrinkOut, StaggeredEntrance } from '../src';
+import { ExitingPersistence, ShrinkOut } from '../src';
 
 const products = [
   'Confluence',
@@ -30,35 +30,33 @@ export default () => {
       </div>
 
       <Centered css={{ height: '82px' }}>
-        <StaggeredEntrance>
-          <ExitingPersistence>
-            {actualProducts.map(product => (
-              <ShrinkOut key={product}>
-                {props => (
-                  <Block
-                    {...props}
-                    appearance="small"
-                    css={{
-                      width: 'auto',
-                      margin: '4px',
-                      overflow: 'hidden',
+        <ExitingPersistence>
+          {actualProducts.map(product => (
+            <ShrinkOut key={product}>
+              {props => (
+                <Block
+                  {...props}
+                  appearance="small"
+                  css={{
+                    width: 'auto',
+                    margin: '4px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      setProducts(prods =>
+                        prods.filter(val => val !== product),
+                      );
                     }}
                   >
-                    <Button
-                      onClick={() => {
-                        setProducts(prods =>
-                          prods.filter(val => val !== product),
-                        );
-                      }}
-                    >
-                      {product}
-                    </Button>
-                  </Block>
-                )}
-              </ShrinkOut>
-            ))}
-          </ExitingPersistence>
-        </StaggeredEntrance>
+                    {product}
+                  </Button>
+                </Block>
+              )}
+            </ShrinkOut>
+          ))}
+        </ExitingPersistence>
       </Centered>
     </div>
   );

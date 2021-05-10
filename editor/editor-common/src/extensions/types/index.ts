@@ -4,7 +4,7 @@ export type {
   UpdateExtension,
   Extension,
   ExtensionHandlers,
-  UpdateContextActions,
+  ExtensionAPI,
   OnSaveCallback,
   TransformBefore,
   TransformAfter,

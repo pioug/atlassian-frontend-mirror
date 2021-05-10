@@ -17,6 +17,7 @@ import EllipsisItem from './EllipsisItem';
 
 const defaultMaxItems = 8;
 const defaultBreadcrumbsLabel = 'Breadcrumbs';
+const defaultEllipsisLabel = 'Show more breadcrumbs';
 
 const { toArray } = React.Children;
 
@@ -45,6 +46,7 @@ const InnerBreadcrumbs = (props: ThemedBreadcrumbsProps) => {
     analyticsContext,
     mode = 'light',
     label = defaultBreadcrumbsLabel,
+    ellipsisLabel = defaultEllipsisLabel,
   } = props;
 
   const [expanded, setExpanse] = useState(defaultExpanded);
@@ -85,6 +87,7 @@ const InnerBreadcrumbs = (props: ThemedBreadcrumbsProps) => {
         key="ellipsis"
         testId={testId && `${testId}--breadcrumb-ellipsis`}
         onClick={handleExpansion}
+        label={ellipsisLabel}
       />,
       ...afterItems,
     ];

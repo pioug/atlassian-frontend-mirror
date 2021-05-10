@@ -125,7 +125,7 @@ export default class ResourcedMention extends React.PureComponent<
     return (
       <Mention
         id={props.id}
-        text={state.resolvedMentionName || props.text}
+        text={props.text || state.resolvedMentionName || ''}
         isHighlighted={state.isHighlighted}
         accessLevel={props.accessLevel}
         onClick={props.onClick}

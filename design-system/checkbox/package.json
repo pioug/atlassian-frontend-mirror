@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/checkbox",
-  "version": "12.1.0",
+  "version": "12.1.1",
   "description": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/icon": "^21.5.0",
-    "@atlaskit/theme": "^11.0.0",
+    "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -42,13 +42,13 @@
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^12.0.0",
+    "@atlaskit/toggle": "^12.1.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@testing-library/react": "^8.0.1",
     "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "0.13.0",
+    "storybook-addon-performance": "^0.15.1",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },

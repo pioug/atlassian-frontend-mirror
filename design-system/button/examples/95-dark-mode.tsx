@@ -48,7 +48,7 @@ function ThemeModeSwitcher({
       >
         <GlobalTheme.Provider value={getMode}>
           <ButtonTheme.Provider
-            value={(current, props) => current({ ...props, mode: mode as any })}
+            value={(current, props) => current({ ...props, mode })}
           >
             <ButtonGroup>
               <Component>Default Button</Component>

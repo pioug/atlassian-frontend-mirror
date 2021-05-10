@@ -1,0 +1,173 @@
+import {
+  ExtensionAPI,
+  TransformBefore,
+  TransformAfter,
+} from '@atlaskit/editor-common/extensions';
+import { ADFEntity } from '@atlaskit/adf-utils';
+import { Node as PMNode, NodeType, Fragment, Mark } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import type { EditorView } from 'prosemirror-view';
+import {
+  insertMacroFromMacroBrowser,
+  MacroProvider,
+  MacroState,
+} from '../macro';
+import { pluginKey as macroPluginKey } from '../macro/plugin-key';
+import { setEditingContextToContextPanel } from './commands';
+import { NodeWithPos } from 'prosemirror-utils';
+import { getSelectedExtension } from './utils';
+
+interface EditInLegacyMacroBrowserArgs {
+  view: EditorView;
+  macroProvider?: MacroProvider;
+}
+export const getEditInLegacyMacroBrowser = ({
+  view,
+  macroProvider,
+}: EditInLegacyMacroBrowserArgs) => {
+  return () => {
+    if (!view) {
+      throw new Error(`Missing view. Can't update without EditorView`);
+    }
+    if (!macroProvider) {
+      throw new Error(
+        `Missing macroProvider. Can't use the macro browser for updates`,
+      );
+    }
+
+    const nodeWithPos = getSelectedExtension(view.state, true);
+
+    if (!nodeWithPos) {
+      throw new Error(`Missing nodeWithPos. Can't determine position of node`);
+    }
+
+    insertMacroFromMacroBrowser(macroProvider, nodeWithPos.node, true)(view);
+  };
+};
+
+interface CreateExtensionAPIOptions {
+  editorView: EditorView;
+  editInLegacyMacroBrowser?: () => void;
+}
+
+export const findNodePosWithLocalId = (
+  state: EditorState,
+  localId: string,
+): NodeWithPos | undefined => {
+  let node: PMNode | undefined;
+  let pos: number = 0;
+
+  state.doc.descendants((n: PMNode, nPos: number) => {
+    if (n.attrs.localId === localId) {
+      node = n;
+      pos = nPos;
+    }
+
+    // stop traversing once we found the node
+    return !node;
+  });
+
+  return !node
+    ? undefined
+    : {
+        node,
+        pos,
+      };
+};
+
+export const createExtensionAPI = (
+  options: CreateExtensionAPIOptions,
+): ExtensionAPI => {
+  const doc = {
+    insertAfter: (localId: string, adf: ADFEntity) => {
+      const { editorView } = options;
+      const { dispatch } = editorView;
+
+      // Be extra cautious since 3rd party devs can use regular JS without type safety
+      if (typeof localId !== 'string' || localId === '') {
+        throw new Error(`insertAfter(): Invalid localId '${localId}'.`);
+      }
+      if (typeof adf !== 'object' || Array.isArray(adf)) {
+        throw new Error(`insertAfter(): Invalid ADF given.`);
+      }
+
+      // Find the node + position matching the given ID
+      const { state } = editorView;
+      const nodePos = findNodePosWithLocalId(state, localId);
+
+      if (!nodePos) {
+        throw new Error(
+          `insertAfter(): Could not find node with ID '${localId}'.`,
+        );
+      }
+
+      // Validate the given ADF
+      const { tr, schema } = state;
+      const nodeType: NodeType | undefined = schema.nodes[adf.type];
+
+      if (!nodeType) {
+        throw new Error(`insertAfter(): Invalid ADF type '${adf.type}'.`);
+      }
+
+      const fragment = Fragment.fromJSON(schema, adf.content);
+      const marks = (adf.marks || []).map(markEntity =>
+        Mark.fromJSON(schema, markEntity),
+      );
+      const newNode = nodeType?.createChecked(adf.attrs, fragment, marks);
+
+      if (!newNode) {
+        throw new Error(
+          'insertAfter(): Could not create a node for given ADFEntity.',
+        );
+      }
+
+      tr.insert(nodePos.pos + nodePos.node.nodeSize, newNode);
+
+      // Validate if the document is valid at this point
+      try {
+        tr.doc.check();
+      } catch (err) {
+        throw new Error(
+          `insertAfter(): The given ADFEntity cannot not be inserted in the current position.\n${err}`,
+        );
+      }
+
+      dispatch(tr);
+    },
+  };
+
+  return {
+    editInContextPanel: (
+      transformBefore: TransformBefore,
+      transformAfter: TransformAfter,
+    ) => {
+      const { editorView } = options;
+
+      setEditingContextToContextPanel(transformBefore, transformAfter)(
+        editorView.state,
+        editorView.dispatch,
+        editorView,
+      );
+    },
+
+    _editInLegacyMacroBrowser: () => {
+      const { editorView } = options;
+      let editInLegacy = options.editInLegacyMacroBrowser;
+
+      if (!editInLegacy) {
+        const macroState: MacroState = macroPluginKey.getState(
+          editorView.state,
+        );
+
+        editInLegacy = getEditInLegacyMacroBrowser({
+          view: options.editorView,
+          macroProvider: macroState?.macroProvider || undefined,
+        });
+      }
+
+      editInLegacy();
+    },
+
+    doc,
+  };
+};

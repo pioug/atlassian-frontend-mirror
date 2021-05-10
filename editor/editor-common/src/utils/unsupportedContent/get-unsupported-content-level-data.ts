@@ -14,6 +14,9 @@ type UnsupportedContentLevelThresholds = {
 export type UnsupportedContentLevelsTracking = {
   enabled: boolean;
   thresholds?: Partial<UnsupportedContentLevelThresholds>;
+  samplingRates?: {
+    [key: string]: number;
+  };
 };
 
 export const UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS = {

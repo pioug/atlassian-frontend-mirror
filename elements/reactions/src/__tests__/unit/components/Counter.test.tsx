@@ -46,7 +46,7 @@ describe('Counter', () => {
 
     expect(counter.children().first().prop('style')).toHaveProperty(
       'width',
-      20,
+      14,
     );
   });
 

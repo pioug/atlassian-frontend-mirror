@@ -1,5 +1,15 @@
 # @atlaskit/toggle
 
+## 12.1.0
+
+### Minor Changes
+
+- [`ab26e3b8958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab26e3b8958) - Added label, checkIconLabel and crossIconLabel props. Label - text that is used as aria-label, checkIconLabel and crossIconLabel texts that are used as labels of icons
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.5
 
 ### Patch Changes

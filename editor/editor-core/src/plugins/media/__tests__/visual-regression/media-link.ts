@@ -8,10 +8,7 @@ import {
   Device,
 } from '../../../../__tests__/visual-regression/_utils';
 import { waitForMediaToBeLoaded } from '../../../../__tests__/__helpers/page-objects/_media';
-import {
-  waitForFloatingControl,
-  retryUntilStablePosition,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 
 const getMediaWithLink = (link: string) => ({
   version: 1,
@@ -63,17 +60,18 @@ async function initEditor(page: PuppeteerPage, mediaLink: string) {
   );
 
   await waitForMediaToBeLoaded(page);
-  await waitForFloatingControl(page, 'Media floating controls');
   await retryUntilStablePosition(
     page,
-    async () => await page.click('.mediaSingleView-content-wrap'),
+    async () => await page.click('[data-testid="media-file-card-view"]'),
     '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Edit link"]',
     2000,
   );
-  await page.waitForSelector(linkButtonSelector, {
-    visible: true,
-  });
-  await page.hover(linkButtonSelector);
+  await retryUntilStablePosition(
+    page,
+    async () => await page.hover(linkButtonSelector),
+    '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"] [aria-label="Edit link"]',
+    2000,
+  );
 }
 
 describe('Snapshot Test: Media with link', () => {

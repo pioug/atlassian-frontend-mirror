@@ -1,4 +1,4 @@
 /**
- * An empty function which returns nothing
+ * An empty function which does nothing.
  */
-export default function noop() {}
+export default function noop(): void {}

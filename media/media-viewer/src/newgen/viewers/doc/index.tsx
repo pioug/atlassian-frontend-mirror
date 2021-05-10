@@ -14,7 +14,7 @@ import { getObjectUrlFromFileState } from '../../utils/getObjectUrlFromFileState
 
 const moduleLoader = () =>
   import(
-    /* webpackChunkName: "@atlaskit-internal_media-viewer-pdf-viewer" */ './pdfRenderer'
+    /* webpackChunkName: "@atlaskit-internal_media-pdf-viewer" */ './pdfRenderer'
   );
 
 const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>

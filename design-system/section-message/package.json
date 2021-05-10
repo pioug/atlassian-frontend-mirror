@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.3.0",
-    "@atlaskit/theme": "^11.1.0",
+    "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
-    "@atlaskit/code": "^13.0.0",
+    "@atlaskit/code": "^14.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/range": "^5.0.7",
     "@atlaskit/ssr": "*",
@@ -49,7 +49,7 @@
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
-    "storybook-addon-performance": "0.13.0",
+    "storybook-addon-performance": "^0.15.1",
     "styled-components": "^3.2.6",
     "typescript": "3.9.6"
   },

@@ -46,6 +46,7 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
       id,
       testId,
       mode,
+      label,
     } = props;
 
     const isControlled = typeof isChecked === 'undefined';
@@ -107,9 +108,18 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
           type="checkbox"
           value={value}
           data-testid={testId && `${testId}--input`}
+          aria-label={label}
         />
-        <CheckIcon label="check" size={getIconSize(size)} />
-        <CloseIcon label="cross" size={getIconSize(size)} />
+        <CheckIcon
+          label=""
+          size={getIconSize(size)}
+          testId={testId && `${testId}--toggle-check-icon`}
+        />
+        <CloseIcon
+          label=""
+          size={getIconSize(size)}
+          testId={testId && `${testId}--toggle-cross-icon`}
+        />
       </label>
     );
   },

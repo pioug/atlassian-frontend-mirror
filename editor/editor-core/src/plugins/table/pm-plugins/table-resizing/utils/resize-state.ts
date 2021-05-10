@@ -147,7 +147,7 @@ export const evenSelectedColumnsWidths = (
 
   // Result equals even distribution of all columns -
   // unset widths of all columns
-  if (!resizeState.overflow && allWidth === width) {
+  if (allWidth === width) {
     return {
       ...resizeState,
       widths: cols.map(() => width),

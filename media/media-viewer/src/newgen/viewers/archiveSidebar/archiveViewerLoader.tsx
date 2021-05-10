@@ -22,7 +22,7 @@ export default class ArchiveViewerLoader extends React.PureComponent<
     if (!this.state.ArchiveViewer) {
       try {
         const archive = await import(
-          /* webpackChunkName: "@atlaskit-internal_archive-viewer" */ './archive'
+          /* webpackChunkName: "@atlaskit-internal_media-archive-viewer" */ './archive'
         );
         ArchiveViewerLoader.ArchiveViewer = archive.ArchiveViewer;
 

@@ -8,6 +8,7 @@ import ModalDanger from '../../examples/constellation/modal-danger';
 import ModalWidth from '../../examples/constellation/modal-width';
 import ModalScroll from '../../examples/constellation/modal-scroll';
 import ModalContainerCustom from '../../examples/constellation/modal-container-custom';
+import FocusSpecificElement from '../../examples/constellation/focus-specific-element';
 
 ## Default
 
@@ -48,6 +49,13 @@ The width of the modal can be specified in different ways:
 - If a string including pixels or a percentage is provided, the width will be directly applied as a style.
 
 <Example Component={ModalWidth} packageName="@atlaskit/modal-dialog" />
+
+## Focus management
+
+Focus is moved to the first interactive element inside the modal dialog when rendered.
+Pass the `autoFocus` prop an element `ref` to focus on a specific element.
+
+<Example Component={FocusSpecificElement} packageName="@atlaskit/modal-dialog" />
 
 ## Scrolling behavior
 

@@ -83,6 +83,7 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Tämä näyttövaihtoehto ei ole saatavana solmussa {node}',
   'fabric.editor.displayText': 'Näytettävä teksti',
+  'fabric.editor.distributeColumns': 'Jaa sarakkeet',
   'fabric.editor.edit': 'Muokkaa',
   'fabric.editor.editAltText': 'Muokkaa vaihtoehtoista tekstiä',
   'fabric.editor.editLink': 'Muokkaa linkkiä',

@@ -42,8 +42,6 @@ export interface State {
   popup?: HTMLElement;
 
   position?: Position;
-
-  overflowScrollParent: HTMLElement | false;
   validPosition: boolean;
 }
 
@@ -55,7 +53,6 @@ export default class Popup extends React.Component<Props, State> {
   };
 
   state: State = {
-    overflowScrollParent: false,
     validPosition: true,
   };
 
@@ -64,7 +61,7 @@ export default class Popup extends React.Component<Props, State> {
   /**
    * Calculates new popup position
    */
-  private updatePosition(props = this.props, state = this.state) {
+  private calculatePosition(props: Props, popup?: HTMLElement) {
     const {
       target,
       fitHeight,
@@ -80,10 +77,9 @@ export default class Popup extends React.Component<Props, State> {
       allowOutOfBounds,
       rect,
     } = props;
-    const { popup } = state;
 
     if (!target || !popup) {
-      return;
+      return {};
     }
 
     const placement = calculatePlacement(
@@ -112,10 +108,22 @@ export default class Popup extends React.Component<Props, State> {
     });
     position = onPositionCalculated ? onPositionCalculated(position) : position;
 
-    this.setState({
+    return {
       position,
       validPosition: validatePosition(target),
-    });
+    };
+  }
+
+  private updatePosition(props = this.props, state = this.state) {
+    const { popup } = state;
+    const { position, validPosition } = this.calculatePosition(props, popup);
+
+    if (position && validPosition) {
+      this.setState({
+        position,
+        validPosition,
+      });
+    }
   }
 
   private cannotSetPopup(
@@ -153,10 +161,21 @@ export default class Popup extends React.Component<Props, State> {
       return;
     }
 
-    this.setState(
-      { popup, overflowScrollParent },
-      this.scheduledUpdatePosition,
-    );
+    this.setState({
+      popup,
+    });
+    /**
+     * Some plugins (like image) have async rendering of component in floating toolbar(which is popup).
+     * Now, floating toolbar position depends on it's size.
+     * Size of floating toolbar changes, when async component renders.
+     * There is currently, no way to re position floating toolbar or
+     *  better to not show floating toolbar till all the async component are ready to render.
+     * Also, it is not even Popup's responsibility to take care of it as popup's children are passed
+     *  as a prop.
+     * So, calling scheduledUpdatePosition to position popup on next request animation frame,
+     * which is currently working for most of the floating toolbar and other popups.
+     */
+    this.scheduledUpdatePosition();
   }
 
   private handleRef = (popup: HTMLDivElement) => {

@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 15.1.6
+
+### Patch Changes
+
+- [`49961803553`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49961803553) - Now utlises the auto focus hook from `ds-lib`.
+- Updated dependencies
+
 ## 15.1.5
 
 ### Patch Changes

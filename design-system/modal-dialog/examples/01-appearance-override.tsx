@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
@@ -6,52 +6,41 @@ import Button from '@atlaskit/button/standard-button';
 
 import Modal, { ActionProps, ModalTransition } from '../src';
 
-interface State {
-  isOpen: boolean;
-}
-export default class DefaultModal extends React.PureComponent<{}, State> {
-  state: State = { isOpen: false };
+export default function DefaultModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
-  open = () => this.setState({ isOpen: true });
+  const actions: ActionProps[] = [
+    {
+      appearance: 'default',
+      text: 'Close',
+      onClick: close,
+    },
+    {
+      appearance: 'primary',
+      text: 'Secondary Action',
+    },
+  ];
 
-  close = () => this.setState({ isOpen: false });
+  return (
+    <div>
+      <Button onClick={open} testId="modal-trigger">
+        Open Modal
+      </Button>
 
-  secondaryAction = ({ target }: any) => console.log(target.innerText);
-
-  render() {
-    const { isOpen } = this.state;
-    const actions: ActionProps[] = [
-      {
-        appearance: 'default',
-        text: 'Close',
-        onClick: this.close,
-      },
-      {
-        appearance: 'primary',
-        text: 'Secondary Action',
-        onClick: this.secondaryAction,
-      },
-    ];
-
-    return (
-      <div>
-        <Button onClick={this.open} testId="modal-trigger">
-          Open Modal
-        </Button>
-
-        <ModalTransition>
-          {isOpen && (
-            <Modal
-              actions={actions}
-              onClose={this.close}
-              heading="Modal Title"
-              testId="modal"
-            >
-              <Lorem count={2} />
-            </Modal>
-          )}
-        </ModalTransition>
-      </div>
-    );
-  }
+      <ModalTransition>
+        {isOpen && (
+          <Modal
+            actions={actions}
+            onClose={close}
+            heading="Modal Title"
+            testId="modal"
+          >
+            <Lorem count={2} />
+          </Modal>
+        )}
+      </ModalTransition>
+    </div>
+  );
 }

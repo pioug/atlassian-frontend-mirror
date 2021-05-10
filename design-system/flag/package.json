@@ -49,7 +49,7 @@
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
     "react-dom": "^16.8.0",
-    "storybook-addon-performance": "0.13.0",
+    "storybook-addon-performance": "^0.15.1",
     "typescript": "3.9.6"
   },
   "keywords": [

@@ -1,11 +1,17 @@
+/** @jsx jsx */
+
 import React from 'react';
+
+import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 
-import { ActionItem, Actions, Footer } from '../styles/content';
+import {
+  actionItemStyles,
+  actionWrapperStyles,
+  footerStyles,
+} from '../styles/content';
 import { ActionProps, AppearanceType, KeyboardOrMouseEvent } from '../types';
-
-const JustifyShim = (props: any) => <span {...props} />;
 
 export interface FooterProps extends FooterComponentProps {
   /**
@@ -44,56 +50,43 @@ export interface FooterComponentProps {
   testId?: string;
 }
 
-export default class ModalFooter extends React.Component<FooterProps, {}> {
-  render() {
-    const {
-      actions,
-      appearance,
-      component,
-      onClose,
-      showKeyline,
-      testId,
-    } = this.props;
-    const warning = 'You can provide `component` OR `actions`, not both.';
+export default function ModalFooter(props: FooterProps) {
+  const { actions, appearance, component, onClose, testId } = props;
+  const warning = 'You can provide `component` OR `actions`, not both.';
 
-    if (!component && !actions) {
-      return null;
-    }
-    if (component && actions) {
-      console.warn(warning); // eslint-disable-line no-console
-      return null;
-    }
-    if (component) {
-      return React.createElement(component, {
-        appearance,
-        onClose,
-        showKeyline,
-      });
-    }
-
-    return (
-      <Footer
-        showKeyline={showKeyline}
-        data-testid={testId && `${testId}--footer`}
-      >
-        <JustifyShim />
-        <Actions>
-          {actions
-            ? actions.map(({ text, ...rest }, index) => {
-                const variant =
-                  index !== 0 ? 'subtle' : appearance || 'primary';
-
-                return (
-                  <ActionItem key={index}>
-                    <Button appearance={variant} {...rest}>
-                      {text}
-                    </Button>
-                  </ActionItem>
-                );
-              })
-            : null}
-        </Actions>
-      </Footer>
-    );
+  if (!component && !actions) {
+    return null;
   }
+  if (component && actions) {
+    console.warn(warning); // eslint-disable-line no-console
+    return null;
+  }
+  if (component) {
+    return React.createElement(component, {
+      appearance,
+      onClose,
+    });
+  }
+
+  return (
+    <footer css={footerStyles} data-testid={testId && `${testId}--footer`}>
+      {/** This span is here to push footer's elements to the right. */}
+      <span />
+      <div css={actionWrapperStyles}>
+        {actions
+          ? actions.map(({ text, ...rest }, index) => {
+              const variant = index !== 0 ? 'subtle' : appearance || 'primary';
+
+              return (
+                <div css={actionItemStyles} key={index}>
+                  <Button appearance={variant} {...rest}>
+                    {text}
+                  </Button>
+                </div>
+              );
+            })
+          : null}
+      </div>
+    </footer>
+  );
 }

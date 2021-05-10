@@ -18,3 +18,5 @@ export const testMediaGroupFileId1 = 'a3d20d67-14b1-4cfc-8ba8-918bbc8d71e1';
 export const testMediaGroupFileId2 = 'a3d20d67-14b1-4cfc-8ba8-918bbc8d71e2';
 export const testMediaGroupFileId3 = 'a3d20d67-14b1-4cfc-8ba8-918bbc8d71e3';
 export const testMediaEmptyImageFileId = 'f7ea49e7-d55f-4c4b-b34c-bfd6409022bc';
+export const testVideoFailedFileId = '893c64b9-65ad-4592-89d0-f838beebd97e';
+export const testEmptyFileId = '563c64b9-65ad-4572-89d0-f838beedjh89';

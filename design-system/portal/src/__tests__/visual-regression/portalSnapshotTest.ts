@@ -2,7 +2,7 @@ import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 const openDialogButtonSelector = '#openDialogBtn';
 const portalSelector = '.atlaskit-portal';
-const dialogSelector = '.atlaskit-portal div[role="dialog"]';
+const dialogSelector = '.atlaskit-portal section[role="dialog"]';
 const lastDialogSelector = '.atlaskit-portal:nth-last-child(2)';
 const openAnotherButtonSelector = 'footer div div:last-child button';
 const showFlagButtonSelector = '#showFlagBtn';

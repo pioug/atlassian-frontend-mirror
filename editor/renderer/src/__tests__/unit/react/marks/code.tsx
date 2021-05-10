@@ -17,7 +17,7 @@ describe('Renderer - React/Marks/Code', () => {
       <Code dataAttributes={{ 'data-renderer-mark': true }}>This is code</Code>,
     );
     expect(mark.html()).toContain(
-      '<span class="code" data-renderer-mark="true">This is code</span>',
+      `<code class="code css-1yoxkll-Code" data-renderer-mark="true">This is code</code>`,
     );
     mark.unmount();
   });
@@ -29,7 +29,7 @@ describe('Renderer - React/Marks/Code', () => {
       </Code>,
     );
     expect(markWithArray.html()).toContain(
-      '<span class="code" data-renderer-mark="true">This is code</span>',
+      `<code class="code css-1yoxkll-Code" data-renderer-mark="true">This is code</code>`,
     );
     markWithArray.unmount();
   });
@@ -47,7 +47,7 @@ describe('Renderer - React/Marks/Code', () => {
       </Code>,
     );
     expect(marks.html()).toContain(
-      '<span class="code" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code</span></span>',
+      `<code class="code css-1yoxkll-Code" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code</span></code>`,
     );
     marks.unmount();
   });

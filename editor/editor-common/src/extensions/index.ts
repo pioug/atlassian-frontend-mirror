@@ -52,7 +52,7 @@ export type {
   StringMultilineField,
   FieldHandlerLink,
   OnSaveCallback,
-  UpdateContextActions,
+  ExtensionAPI,
   TransformBefore,
   TransformAfter,
   // DEPRECATED

@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react';
 
 import { CSSTransition } from 'react-transition-group';
 
-import { GridColumn } from '@atlaskit/page';
 import * as colors from '@atlaskit/theme/colors';
 
 import { ProgressTrackerStageRenderProp, Stage, StatusType } from '../types';
 
 import {
+  ProgressTrackerListItem,
   ProgressTrackerStageBar,
   ProgressTrackerStageContainer,
   ProgressTrackerStageMarker,
@@ -124,8 +124,10 @@ export default class ProgressTrackerStage extends PureComponent<
       });
     };
 
+    const ariaCurrent = item.status === 'current' ? 'step' : 'false';
+
     return (
-      <GridColumn medium={2}>
+      <ProgressTrackerListItem aria-current={ariaCurrent}>
         <ProgressTrackerStageContainer>
           <CSSTransition
             appear
@@ -174,7 +176,7 @@ export default class ProgressTrackerStage extends PureComponent<
             </ProgressTrackerStageTitle>
           </CSSTransition>
         </ProgressTrackerStageContainer>
-      </GridColumn>
+      </ProgressTrackerListItem>
     );
   }
 }

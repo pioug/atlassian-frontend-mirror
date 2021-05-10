@@ -6,12 +6,16 @@ type Options = {
   modalSelector: string;
   scrollSelector?: string;
   scrollTo?: { x: number; y: number };
+  shouldLoadPage?: boolean;
 };
 
 export const openModal = async (url: string, options: Options) => {
   const { page } = global;
+  const { shouldLoadPage = true } = options;
 
-  await loadPage(page, url);
+  if (shouldLoadPage) {
+    await loadPage(page, url);
+  }
 
   const viewport = options.viewport || { width: 800, height: 600 };
   await page.setViewport(viewport);

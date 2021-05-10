@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 11.0.10
+
+### Patch Changes
+
+- [`753dd89d2db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/753dd89d2db) - Removed redundant role attribute of Simple and Removable tags
+- Updated dependencies
+
 ## 11.0.9
 
 ### Patch Changes

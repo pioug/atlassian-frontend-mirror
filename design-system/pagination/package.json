@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pagination",
-  "version": "13.1.0",
+  "version": "13.2.0",
   "description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,23 +16,27 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Pagination"
     }
   },
+  "af:exports": {
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
+    "@atlaskit/ds-lib": "^1.2.0",
     "@atlaskit/icon": "^21.4.0",
-    "@atlaskit/theme": "^11.0.0",
-    "@babel/runtime": "^7.0.0"
+    "@atlaskit/theme": "^11.2.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/build-utils": "*",
@@ -47,7 +51,7 @@
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
-    "storybook-addon-performance": "0.13.0",
+    "storybook-addon-performance": "^0.15.1",
     "tiny-invariant": "^0.0.3",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
@@ -55,6 +59,20 @@
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "ui-components": [
+        "lite-mode"
+      ],
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "new-theming-api"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/pagination/"

@@ -487,6 +487,45 @@ describe(name, () => {
                 allowAnalyticsGASV3={true}
                 // If no onEditorReady callback is given, the analytics event is not sent.
                 onEditorReady={() => {}}
+                performanceTracking={{
+                  onEditorReadyCallbackTracking: { enabled: true },
+                }}
+              />
+            </FabricAnalyticsListeners>,
+          );
+        });
+
+        it('should not dispatch an onEditorReadyCallback event if disabled', done => {
+          const mockAnalyticsClient = (
+            done: jest.DoneCallback,
+          ): AnalyticsWebClient => {
+            const analyticsEventHandler = (
+              event: GasPurePayload | GasPureScreenEventPayload,
+            ) => {
+              expect(event).not.toEqual(
+                expect.objectContaining({
+                  action: 'onEditorReadyCallback',
+                  actionSubject: 'editor',
+                  attributes: expect.objectContaining({
+                    // Check the duration (in this case supplied by the mock) is sent correctly
+                    duration: mockStopMeasureDuration,
+                  }),
+                }),
+              );
+              done();
+            };
+            return analyticsClient(analyticsEventHandler);
+          };
+
+          mount(
+            <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+              <Editor
+                allowAnalyticsGASV3={true}
+                // If no onEditorReady callback is given, the analytics event is not sent.
+                onEditorReady={() => {}}
+                performanceTracking={{
+                  onEditorReadyCallbackTracking: { enabled: false },
+                }}
               />
             </FabricAnalyticsListeners>,
           );

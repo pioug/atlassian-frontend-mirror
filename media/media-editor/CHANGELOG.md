@@ -1,5 +1,12 @@
 # @atlaskit/media-editor
 
+## 38.1.9
+
+### Patch Changes
+
+- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- Updated dependencies
+
 ## 38.1.8
 
 ### Patch Changes

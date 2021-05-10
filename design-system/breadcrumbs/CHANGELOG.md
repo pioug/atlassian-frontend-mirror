@@ -1,5 +1,15 @@
 # @atlaskit/breadcrumbs
 
+## 11.2.0
+
+### Minor Changes
+
+- [`b5bbdf4acb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5bbdf4acb3) - [ux] Added an 'ellipsisLabel' prop to the Breadcrumbs component. This text is passed to the aria-label attribute on the ellipsis button (conditionally rendered when there are many items).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

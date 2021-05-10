@@ -109,19 +109,48 @@ const quickInsertPlugin = (
 
 export default quickInsertPlugin;
 
-export const processItems = (
+const processItems = (
   items: Array<QuickInsertHandler>,
   intl: InjectedIntl,
+  extendedActions?: Record<string, Function>,
 ) => {
-  return items.reduce((acc: Array<QuickInsertItem>, item) => {
+  const reducedItems = items.reduce((acc: Array<QuickInsertItem>, item) => {
     if (typeof item === 'function') {
-      return acc.concat(item(intl));
+      const quickInsertItems = item(intl);
+      return acc.concat(quickInsertItems);
     }
     return acc.concat(item);
   }, []);
+  return extendQuickInsertAction(reducedItems, extendedActions);
 };
 
-const memoProcessItems = memoizeOne(processItems);
+export const memoProcessItems = memoizeOne(processItems);
+
+/**
+ * Allows for extending the quickInsertItems actions with the provided extendedActions.
+ * The provided extended action will then be called after the original action is executed.
+ * This is useful for mobile communications where we need to talk to the mobile bridge.
+ */
+const extendQuickInsertAction = (
+  quickInsertItems: QuickInsertItem[],
+  extendedActions?: Record<string, Function>,
+) => {
+  if (!extendedActions) {
+    return quickInsertItems;
+  }
+  return quickInsertItems.map(quickInsertItem => {
+    const quickInsertId = quickInsertItem.id;
+    if (quickInsertId && extendedActions[quickInsertId]) {
+      const originalAction = quickInsertItem.action;
+      quickInsertItem.action = (insert, state) => {
+        const result = originalAction(insert, state);
+        extendedActions[quickInsertId](quickInsertItem);
+        return result;
+      };
+    }
+    return quickInsertItem;
+  });
+};
 
 const setProviderState = (
   providerState: Partial<QuickInsertPluginState>,

@@ -1,5 +1,54 @@
 # @atlaskit/editor-core
 
+## 143.0.0
+
+### Major Changes
+
+- [`4befa7c039c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4befa7c039c) - ED-12593: rename ExtensionAPI.editInLegacyMacroBrowser() to \_editInLegacyMacroBrowser()
+
+  Also cleaned up the options for createExtensionAPI() for easier use.
+
+### Minor Changes
+
+- [`9741a93417b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9741a93417b) - ED-12646 Add horizontal margin to editor content area when context panel is positioned over editor.
+
+  Handled by adding new prop 'positionedOverEditor' to 'ContextPanelWidthProvider' which broadcasts whether the context panel is opened and positioned over (when there is enough space to open and not cover the editor area) the Editor content area instead of "pushing" it (when there isn't enough space to open the panel without covering the Editor).
+
+- [`0fe1b02cf1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fe1b02cf1a) - ED-11790 Add analytics for onChange callback prop timing
+- [`61c3c00a566`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61c3c00a566) - ED-12599 hook up onEditorReady callback analytics to only fire if enabled in performanceTracking Editor prop - e.g. performanceTracking={{ onEditorReadyCallbackTracking: { enabled: true } }}
+- [`d401f589e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d401f589e88) - [ux] When a block node is the first node of the editor instead of selecting the node on load, it will insert a gap cursor in front. This is to alleviate issues where users will open a page with an image first, go to insert a new image and just replace the existing image because it's automatically selected and they didn't notice.
+- [`33f40b09da3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f40b09da3) - ED-12729 Add container width to width plugin for use with context panel gutter calculation.
+- [`d024b505c12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d024b505c12) - [ux] ED-12598 Update extension config panel to close after saving if autosave is set to false
+- [`0bc660b480b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bc660b480b) - [ux] Allow extension of quickInsertAction with provided function for quickInsert plugin
+- [`93d599c4044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93d599c4044) - [ED-11915] Add new undo/redo behavior for autoformatting
+- [`142f8d6c4e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/142f8d6c4e2) - [ux] add role and aria-label for div
+- [`0c2f73791da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c2f73791da) - [ED-11915] Add useUnpredictableInputRule for editor prosemirror plugins
+- [`00cf4f4451d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00cf4f4451d) - Ensure context-panel doesn't delete marks
+- [`3defe8bdf01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3defe8bdf01) - Fix node mutation bug on extension insertion
+
+### Patch Changes
+
+- [`75a5f1e2489`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75a5f1e2489) - Fix types for EventEmitters
+- [`83eb0880a09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83eb0880a09) - [ED-12710] Fix hyperlink conversion when there is content before the link
+- [`957abc45935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/957abc45935) - Ensure localId never clashes for tables
+- [`b95e9f97253`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95e9f97253) - [ux][ed-12529] Add an additional catch to set smart links to display: inline to resolve a regression caused by setting inline nodes to display: inline-block (which solves selection issues).
+- [`73fb0f146bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73fb0f146bd) - [ux] Allow undo of text alignment when auto-formatting to a list
+- [`a874f299a93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a874f299a93) - [ED-12633] Fix paste + undo issue in a placeholder text
+- [`8c84c29006b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c84c29006b) - Improve data-consumer mark being nested, aAdd basic doc tests for data consumer
+- [`e20ad95e07f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e20ad95e07f) - implemented ExtensionAPI.doc.insertAfter()
+- [`8510da483e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8510da483e5) - added metadata property to floating toolbar buttons to use as a data payload for the mobile bridge
+- [`e0e56c9d7d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0e56c9d7d3) - Removed extra seperator in media floating toolbar when placed inside an expand
+- [`e047cefd6ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e047cefd6ee) - ED-11929: handle table node mutation observation
+- [`ac2eeccc60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac2eeccc60b) - Update internal use of code block selector in editor packages.
+- [`e0147cf2af5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0147cf2af5) - allowed autoformat to accept a comma to end matched rules
+- [`a25e6616895`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a25e6616895) - allow Toolbar to update if the localId of a node differs
+- [`9a77b3a5b06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a77b3a5b06) - Only use Clipboard component when editor is focused
+- [`693b2a6765b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/693b2a6765b) - Code snippet floating toolbar jumping only in kitchen sink bug fixed.
+- [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
+- [`05c0e1cc1e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05c0e1cc1e5) - ED-12553 fix distribute columns bug on overflow table
+- [`372a82eb975`](https://bitbucket.org/atlassian/atlassian-frontend/commits/372a82eb975) - [ux] ED-12587 Add ability to use • to insert a bullet list
+- Updated dependencies
+
 ## 142.0.1
 
 ### Patch Changes

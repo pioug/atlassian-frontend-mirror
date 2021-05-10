@@ -93,7 +93,6 @@ const setup = async (
       onAddLink={jest.fn()}
       onEditLink={jest.fn()}
       onOpenLink={jest.fn()}
-      showSeparatorLeft={true}
     />,
   );
 

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { createLocalizationProvider } from '@atlaskit/locale';
 
-import type { WeekDay } from '../types';
+import type { WeekDay } from '../../types';
 
 export default function useLocale({
   locale,

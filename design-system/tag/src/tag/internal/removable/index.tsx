@@ -188,7 +188,6 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
                   tagCss={tagCss}
                   data-removable
                   data-removing={status === TagStatus.Removing}
-                  role={isLink ? 'link' : undefined}
                   before={
                     <Before
                       isRounded={isRounded}

@@ -1,5 +1,15 @@
 # @atlaskit/theme
 
+## 11.2.0
+
+### Minor Changes
+
+- [`20c3881896c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20c3881896c) - Exposes `useGlobalTheme` from components entrypoint
+
+### Patch Changes
+
+- [`0d348445e23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d348445e23) - AKThemeProvider now correctly refreshes the ThemeProvider context when the mode changes.
+
 ## 11.1.0
 
 ### Minor Changes

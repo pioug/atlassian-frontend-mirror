@@ -23,17 +23,17 @@ export default function Component() {
     <div>
       <h2>Showing code without line numbers</h2>
       <CodeBlock
-        language="java"
+        language="jsx"
         text={exampleCodeBlock}
         showLineNumbers={false}
       />
 
       <h2>Showing code with line numbers</h2>
-      <CodeBlock language="java" text={exampleCodeBlock} />
+      <CodeBlock language="jsx" text={exampleCodeBlock} />
 
       <h2>Highlighting specific lines</h2>
       <CodeBlock
-        language="java"
+        language="jsx"
         text={exampleCodeBlock}
         highlight="2,5-7,12-15"
       />

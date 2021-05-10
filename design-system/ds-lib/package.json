@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -20,16 +20,24 @@
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "This is an internal package and should not be used directly.",
-      "name": "DS Lib"
+      "name": "DSLib"
     }
   },
   "af:exports": {
     "./noop": "./src/utils/noop.ts",
     "./warn-once": "./src/utils/warn-once.ts",
+    "./merge-refs": "./src/utils/merge-refs.ts",
+    "./use-controlled": "./src/hooks/use-controlled.ts",
     "./use-lazy-ref": "./src/hooks/use-lazy-ref.ts",
     "./use-lazy-callback": "./src/hooks/use-lazy-callback.ts",
     "./use-state-ref": "./src/hooks/use-state-ref.ts",
-    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.ts"
+    "./use-element-event": "./src/hooks/use-element-event.ts",
+    "./use-document-event": "./src/hooks/use-document-event.ts",
+    "./use-window-event": "./src/hooks/use-window-event.ts",
+    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.ts",
+    "./use-previous-value": "./src/hooks/use-previous-value.ts",
+    "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.ts",
+    "./use-auto-focus": "./src/hooks/use-auto-focus.ts"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0"
@@ -38,6 +46,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "jest-in-case": "^1.0.2",

@@ -25,6 +25,7 @@ import RendererDefaultComponent, {
   NORMAL_SEVERITY_THRESHOLD,
   DEGRADED_SEVERITY_THRESHOLD,
 } from '../../';
+import { RendererAppearance } from '../../types';
 import { SelectionComponentWrapper } from '../../../annotations/selection';
 import { Paragraph } from '../../../../react/nodes';
 
@@ -294,7 +295,19 @@ describe('unsupported content levels severity', () => {
     () => ({ fire() {} } as UIAnalyticsEvent),
   );
 
+  let RendererIsolated: any;
+
   beforeEach(() => {
+    jest.useFakeTimers();
+    jest.resetModuleRegistry();
+    jest.isolateModules(() => {
+      let { Renderer } = require('../..');
+      RendererIsolated = Renderer;
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
     jest.clearAllMocks();
   });
 
@@ -316,17 +329,44 @@ describe('unsupported content levels severity', () => {
       },
     ],
   };
-  const renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {
+  let rendererWrapper: ShallowWrapper | null = null;
+
+  const renderDoc = (
+    doc: any,
+    unsupportedContentLevelsTracking: any,
+    appearance?: RendererAppearance,
+  ) => {
     act(() => {
-      shallow(
-        <Renderer
+      rendererWrapper = shallow(
+        <RendererIsolated
           document={doc}
           useSpecBasedValidator
           unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
           createAnalyticsEvent={createAnalyticsEvent}
+          appearance={appearance}
         />,
       );
     });
+  };
+
+  type TimesToRenderMap = { [appearance: string]: number };
+
+  const renderDocs = (
+    timesToRenderMap: TimesToRenderMap,
+    validDoc: any,
+    unsupportedContentLevels: any,
+  ) => {
+    for (const [appearance, timesToRender] of Object.entries(
+      timesToRenderMap,
+    )) {
+      for (let i = 0; i < timesToRender; i++) {
+        renderDoc(
+          validDoc,
+          unsupportedContentLevels,
+          appearance as RendererAppearance,
+        );
+      }
+    }
   };
 
   describe('unsupportedContentLevelsTracking.enabled = false', () => {
@@ -336,8 +376,11 @@ describe('unsupported content levels severity', () => {
         version: 1,
         content: [validParagraph],
       };
-      const unsupportedContentLevelsTracking = { enabled: false };
+      const unsupportedContentLevelsTracking = {
+        enabled: false,
+      };
       renderDoc(validDoc, unsupportedContentLevelsTracking);
+      jest.runAllTimers();
       expect(createAnalyticsEvent).not.toHaveBeenCalledWith(
         expect.objectContaining({
           action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -365,6 +408,7 @@ describe('unsupported content levels severity', () => {
           content: [validParagraph],
         };
         renderDoc(validDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -393,6 +437,7 @@ describe('unsupported content levels severity', () => {
           ],
         };
         renderDoc(partiallyInvalidDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -421,6 +466,7 @@ describe('unsupported content levels severity', () => {
           ],
         };
         renderDoc(mostlyInvalidDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -436,6 +482,80 @@ describe('unsupported content levels severity', () => {
           }),
         );
       });
+
+      it('should only fire unsupportedContentLevelsTrackingSucceeded event for initial render of renderer instance', () => {
+        const expectUnsupportedContentTrackingCalledNTimes = (
+          nTimes: number,
+        ) => {
+          expect(
+            (createAnalyticsEvent as jest.Mock).mock.calls.filter(
+              callArgs =>
+                callArgs[0].action ===
+                'unsupportedContentLevelsTrackingSucceeded',
+            ).length,
+          ).toEqual(nTimes);
+        };
+        const validDoc = {
+          type: 'doc',
+          version: 1,
+          content: [validParagraph],
+        };
+        expectUnsupportedContentTrackingCalledNTimes(0);
+        const levels = {
+          ...unsupportedContentLevelsTracking,
+          samplingRates: {
+            comment: 3,
+          },
+        };
+        renderDoc(validDoc, levels, 'comment');
+        for (let i = 0; i < 10; i++) {
+          rendererWrapper!.instance().render();
+        }
+        jest.runAllTimers();
+        expectUnsupportedContentTrackingCalledNTimes(1);
+      });
+
+      it('should fire unsupportedContentLevelsTrackingSucceeded event at sampled rates by appearance for all renderer instances', () => {
+        const expectTrackingCalledNTimesByAppearance = (
+          nTimes: number,
+          appearance: string,
+        ) => {
+          expect(
+            (createAnalyticsEvent as jest.Mock).mock.calls.filter(
+              callArgs =>
+                callArgs[0].action ===
+                  'unsupportedContentLevelsTrackingSucceeded' &&
+                callArgs[0].attributes.appearance === appearance,
+            ).length,
+          ).toEqual(nTimes);
+        };
+        const validDoc = {
+          type: 'doc',
+          version: 1,
+          content: [validParagraph],
+        };
+        const unsupportedContentLevels = {
+          enabled: true,
+          thresholds: {
+            degraded: 10,
+            blocking: 50,
+          },
+          samplingRates: {
+            comment: 3,
+            'full-page': 2,
+          },
+        };
+        const timesToRenderMap = {
+          comment: 12,
+          'full-page': 5,
+          mobile: 101,
+        };
+        renderDocs(timesToRenderMap, validDoc, unsupportedContentLevels);
+        jest.runAllTimers();
+        expectTrackingCalledNTimesByAppearance(4, 'comment');
+        expectTrackingCalledNTimesByAppearance(3, 'fixedWidth');
+        expectTrackingCalledNTimesByAppearance(2, 'mobile');
+      });
     });
 
     describe('without user-defined thresholds (i.e. with default thresholds)', () => {
@@ -449,6 +569,7 @@ describe('unsupported content levels severity', () => {
           content: [validParagraph],
         };
         renderDoc(validDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -477,6 +598,7 @@ describe('unsupported content levels severity', () => {
           ],
         };
         renderDoc(partiallyInvalidDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -505,6 +627,7 @@ describe('unsupported content levels severity', () => {
           ],
         };
         renderDoc(mostlyInvalidDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingSucceeded',
@@ -533,11 +656,16 @@ describe('unsupported content levels severity', () => {
             throw new Error('custom mocked error');
           }),
         }));
-        const { Renderer } = require('../../');
+
+        jest.isolateModules(() => {
+          let { Renderer } = require('../..');
+          RendererIsolated = Renderer;
+        });
+
         renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {
           act(() => {
             shallow(
-              <Renderer
+              <RendererIsolated
                 document={doc}
                 useSpecBasedValidator
                 unsupportedContentLevelsTracking={
@@ -564,6 +692,7 @@ describe('unsupported content levels severity', () => {
           content: [validParagraph],
         };
         renderDoc(validDoc, unsupportedContentLevelsTracking);
+        jest.runAllTimers();
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             action: 'unsupportedContentLevelsTrackingErrored',

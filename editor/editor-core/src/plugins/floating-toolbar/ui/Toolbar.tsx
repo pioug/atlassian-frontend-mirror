@@ -9,7 +9,6 @@ import { ExtensionProvider, ProviderFactory } from '@atlaskit/editor-common';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
-import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { FloatingToolbarItem } from '../types';
@@ -21,7 +20,6 @@ import Separator from './Separator';
 import Input from './Input';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import { getFeatureFlags } from '../../feature-flags-context';
-import { pluginKey as macroPluginKey } from '../../macro/plugin-key';
 
 const akGridSize = gridSize();
 
@@ -280,17 +278,12 @@ export default class Toolbar extends Component<Props> {
                     return null;
                   }
 
-                  const macroState = macroPluginKey.getState(editorView.state);
-                  const macroProvider: MacroProvider =
-                    macroState?.macroProvider;
-
                   return (
                     <ExtensionsPlaceholder
                       key={idx}
                       node={node}
                       editorView={editorView}
                       extensionProvider={extensionsProvider}
-                      macroProvider={macroProvider}
                       separator={item.separator}
                     />
                   );
@@ -306,6 +299,7 @@ export default class Toolbar extends Component<Props> {
   shouldComponentUpdate(nextProps: Props) {
     return (
       this.props.node.type !== nextProps.node.type ||
+      this.props.node.attrs.localId !== nextProps.node.attrs.localId ||
       !areSameItems(this.props.items, nextProps.items)
     );
   }

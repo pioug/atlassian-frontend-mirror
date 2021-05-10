@@ -5,6 +5,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EventDispatcher, Dispatch } from '../event-dispatcher';
 import { MarkConfig, NodeConfig } from '../types/pm-config';
 import { EditorReactContext } from '../types/editor-react-context';
+import { FeatureFlags } from '../types/feature-flags';
 
 export type LightPMPluginFactoryParams = {
   // We can type this safe, we already remove the real code from this types
@@ -18,6 +19,7 @@ export type LightPMPluginFactoryParams = {
   portalProviderAPI: any;
   reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: any;
+  featureFlags: FeatureFlags;
 };
 export type LightPMPluginFactory = (
   params: LightPMPluginFactoryParams,

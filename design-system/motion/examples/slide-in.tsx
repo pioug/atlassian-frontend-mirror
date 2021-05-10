@@ -45,7 +45,7 @@ export default () => {
             position: 'relative',
           }}
         >
-          <ExitingPersistence>
+          <ExitingPersistence appear>
             {isIn && (
               <SlideIn enterFrom={froms[fromIndex]} fade={fades[fadeIndex]}>
                 {props => (

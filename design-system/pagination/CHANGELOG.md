@@ -1,5 +1,18 @@
 # @atlaskit/pagination
 
+## 13.2.0
+
+### Minor Changes
+
+- [`0c29d48ebf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c29d48ebf8) - Convert class to functional components & analytics HOC to hooks
+
+### Patch Changes
+
+- [`6cba681e2d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cba681e2d7) - Fixed ellipsis button incorrectly showing when it could show the actual button instead.
+- [`a44cece0063`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a44cece0063) - Removed deprecated auto entry points and added new entry points in Pagination package
+- [`e30a953977b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30a953977b) - Convert pagination from styled to emotion CSS"
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

@@ -64,4 +64,14 @@ describe('Extension Context Panel - Save Indicator', () => {
 
     expect(queryByTestId('save-indicator-content')).toBeNull();
   });
+
+  it('should not show the save indicator after saving when visible is false ', () => {
+    const { onSaveStarted, queryByTestId } = setup({ visible: false });
+
+    act(() => {
+      onSaveStarted();
+    });
+
+    expect(queryByTestId('save-indicator-content')).toBeNull();
+  });
 });

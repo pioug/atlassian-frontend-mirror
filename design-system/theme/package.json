@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "11.1.0",
+  "version": "11.2.0",
   "description": "The Atlaskit theme framework",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/datetime-picker": "^10.0.0",
+    "@atlaskit/datetime-picker": "^10.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/section-message": "^5.2.0",

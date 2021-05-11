@@ -21,7 +21,7 @@ export {
   RIGHT_SIDEBAR_WIDTH,
 } from './common/constants';
 
-export { usePageLayoutResize } from './controllers';
+export { usePageLayoutResize, useLeftSidebarFlyoutLock } from './controllers';
 
 export type {
   SlotHeightProps,

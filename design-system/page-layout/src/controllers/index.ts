@@ -3,6 +3,7 @@ export { default as publishGridState } from './use-page-layout-grid';
 export {
   SidebarResizeContext,
   usePageLayoutResize,
+  useLeftSidebarFlyoutLock,
 } from './sidebar-resize-context';
 export { SidebarResizeController } from './sidebar-resize-controller';
 

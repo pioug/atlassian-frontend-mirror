@@ -47,6 +47,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     isLeftSidebarCollapsed: false,
     leftSidebarWidth: 0,
     lastLeftSidebarWidth: 0,
+    flyoutLockCount: 0,
   });
 
   const { isLeftSidebarCollapsed } = leftSidebarState;
@@ -94,7 +95,11 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   ]);
 
   const expandLeftSidebar = useCallback(() => {
-    const { lastLeftSidebarWidth, isResizing } = leftSidebarState;
+    const {
+      lastLeftSidebarWidth,
+      isResizing,
+      flyoutLockCount,
+    } = leftSidebarState;
 
     if (isResizing) {
       return;
@@ -108,6 +113,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       leftSidebarWidth: width,
       lastLeftSidebarWidth,
       isResizing,
+      flyoutLockCount,
     };
     setLeftSidebarState(updatedLeftSidebarState);
 
@@ -122,7 +128,11 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       event?: MouseEvent | KeyboardEvent,
       collapseWithoutTransition?: boolean,
     ) => {
-      const { leftSidebarWidth, isResizing } = leftSidebarState;
+      const {
+        leftSidebarWidth,
+        isResizing,
+        flyoutLockCount,
+      } = leftSidebarState;
       if (isResizing) {
         return;
       }
@@ -135,6 +145,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
         lastLeftSidebarWidth: leftSidebarWidth,
         isResizing,
+        flyoutLockCount,
       };
       setLeftSidebarState(updatedLeftSidebarState);
 

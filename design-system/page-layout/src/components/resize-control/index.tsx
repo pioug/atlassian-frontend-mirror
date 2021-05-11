@@ -4,6 +4,7 @@ import {
   KeyboardEvent as ReactKeyboardEvent,
   MouseEvent as ReactMouseEvent,
   useCallback,
+  useContext,
   useMemo,
   useRef,
   useState,
@@ -27,7 +28,7 @@ import {
 } from '../../common/utils';
 import {
   LeftSidebarState,
-  usePageLayoutResize,
+  SidebarResizeContext,
 } from '../../controllers/sidebar-resize-context';
 /* import useUpdateCssVar from '../../controllers/use-update-css-vars'; */
 
@@ -54,7 +55,7 @@ const ResizeControl = ({
     collapseLeftSidebar,
     leftSidebarState,
     setLeftSidebarState,
-  } = usePageLayoutResize();
+  } = useContext(SidebarResizeContext);
   const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
   const x = useRef(leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown

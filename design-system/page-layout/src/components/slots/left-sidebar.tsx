@@ -1,5 +1,10 @@
 /** @jsx jsx */
-import { MouseEvent as ReactMouseEvent, useEffect, useRef } from 'react';
+import {
+  MouseEvent as ReactMouseEvent,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -20,7 +25,7 @@ import {
 } from '../../common/utils';
 import {
   publishGridState,
-  usePageLayoutResize,
+  SidebarResizeContext,
   useSkipLinks,
 } from '../../controllers';
 import ResizeControl from '../resize-control';
@@ -57,14 +62,55 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   const mouseOverEventRef = useRef<(event: MouseEvent) => void | null>();
   const leftSideBarRef = useRef(null);
 
-  const { leftSidebarState, setLeftSidebarState } = usePageLayoutResize();
+  const { leftSidebarState, setLeftSidebarState } = useContext(
+    SidebarResizeContext,
+  );
   const {
     isFlyoutOpen,
     isResizing,
+    flyoutLockCount,
     isLeftSidebarCollapsed,
     leftSidebarWidth,
     lastLeftSidebarWidth,
   } = leftSidebarState;
+
+  const isLocked = flyoutLockCount > 0;
+
+  const isLockedRef = useRef(isLocked);
+  const mouseXRef = useRef<number>(0);
+  const handlerRef = useRef<((event: MouseEvent) => void) | null>(null);
+  useEffect(() => {
+    isLockedRef.current = isLocked;
+
+    // I tried a one-time `mousemove` handler that gets attached
+    // when the lock releases. This is not robust because
+    // the mouse can stay still after release (e.g. using keyboard)
+    // and the sidebar will erroneously stay open.
+    //
+    // The following solution is likely less performant but more robust.
+
+    if (isLocked && !handlerRef.current) {
+      handlerRef.current = (event: MouseEvent) => {
+        mouseXRef.current = event.clientX;
+      };
+
+      document.addEventListener('mousemove', handlerRef.current);
+    }
+
+    if (!isLocked && handlerRef.current) {
+      if (mouseXRef.current >= lastLeftSidebarWidth) {
+        setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
+      }
+      document.removeEventListener('mousemove', handlerRef.current);
+      handlerRef.current = null;
+    }
+
+    return () => {
+      if (handlerRef.current) {
+        document.removeEventListener('mousemove', handlerRef.current);
+      }
+    };
+  }, [isLocked, lastLeftSidebarWidth, leftSidebarState, setLeftSidebarState]);
 
   const _width = Math.max(width || 0, DEFAULT_LEFT_SIDEBAR_WIDTH);
 
@@ -128,6 +174,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       isLeftSidebarCollapsed: cachedCollapsedState,
       leftSidebarWidth,
       lastLeftSidebarWidth,
+      flyoutLockCount: 0,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -174,7 +221,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       mouseOverEventRef.current = (event: MouseEvent) => {
         const leftSidebar: HTMLElement | null = leftSideBarRef.current;
 
-        if (leftSidebar === null) {
+        if (leftSidebar === null || isLockedRef.current) {
           return;
         }
 
@@ -184,7 +231,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           flyoutTimerRef.current && clearTimeout(flyoutTimerRef.current);
 
           onFlyoutCollapse && onFlyoutCollapse();
-          setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
+          setLeftSidebarState(current => ({
+            ...current,
+            isFlyoutOpen: false,
+          }));
 
           removeMouseOverListener();
         }
@@ -201,7 +251,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     );
 
     flyoutTimerRef.current = setTimeout(() => {
-      setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: true });
+      setLeftSidebarState(current => ({
+        ...current,
+        isFlyoutOpen: true,
+      }));
       onFlyoutExpand && onFlyoutExpand();
     }, FLYOUT_DELAY);
   };
@@ -227,12 +280,19 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}]`) ||
       (event.target as Element).matches(`[${RESIZE_BUTTON_SELECTOR}] *`);
 
-    if (isMouseOnResizeButton || !isLeftSidebarCollapsed) {
+    if (
+      isMouseOnResizeButton ||
+      !isLeftSidebarCollapsed ||
+      flyoutLockCount > 0
+    ) {
       return;
     }
     onFlyoutCollapse && onFlyoutCollapse();
     setTimeout(() => {
-      setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
+      setLeftSidebarState(current => ({
+        ...current,
+        isFlyoutOpen: false,
+      }));
     }, FLYOUT_DELAY);
   };
 

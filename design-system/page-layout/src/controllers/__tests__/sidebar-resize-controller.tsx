@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
 
@@ -10,7 +10,7 @@ import { Content, LeftSidebar, Main, PageLayout } from '../../components';
 import { getDimension } from '../../components/__tests__/unit/__utils__/get-dimension';
 import * as raf from '../../components/__tests__/unit/__utils__/raf';
 import { triggerTransitionEnd } from '../../components/__tests__/unit/__utils__/transition-end';
-import { usePageLayoutResize } from '../sidebar-resize-context';
+import { SidebarResizeContext } from '../sidebar-resize-context';
 
 const completeAnimations = () => {
   act(() => raf.flush());
@@ -23,7 +23,7 @@ export const ResizeControlledConsumer = () => {
     collapseLeftSidebar,
     leftSidebarState,
     setLeftSidebarState,
-  } = usePageLayoutResize();
+  } = useContext(SidebarResizeContext);
 
   const setWidth = (event: any) => {
     setLeftSidebarState({
@@ -488,6 +488,7 @@ describe('SidebarResizeController', () => {
         isResizing: false,
         lastLeftSidebarWidth: 240,
         leftSidebarWidth: 240,
+        flyoutLockCount: 0,
       });
     });
 
@@ -516,6 +517,7 @@ describe('SidebarResizeController', () => {
         isResizing: false,
         lastLeftSidebarWidth: 240,
         leftSidebarWidth: 20,
+        flyoutLockCount: 0,
       });
     });
   });

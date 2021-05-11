@@ -1,5 +1,15 @@
 # @atlaskit/page-layout
 
+## 0.11.0
+
+### Minor Changes
+
+- [`13d7f548f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13d7f548f14) - The `usePageLayoutResize` hook no longer exposes the internal `setLeftSidebarState` method.
+
+### Patch Changes
+
+- [`ddff790f9fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddff790f9fd) - [ux] Added a new hook (`useLeftSidebarFlyoutLock`) which allows locking the sidebar in a flyout state.
+
 ## 0.10.14
 
 ### Patch Changes

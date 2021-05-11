@@ -105,9 +105,9 @@
 
     return (
       <div
-        style={{
-          fontSize: 16;
-        }}
+        css={css`
+          font-size: 16px;
+        `}
         {...tabAttributes}
       >
         {label}
@@ -119,16 +119,16 @@
   Likewise, to create a custom `TabPanel`, call `useTabPanel` and spread those attributes onto the custom tab panel.
 
   ```
-  import { useTab } from '@atlaskit/tabs';
+  import { useTabPanel } from '@atlaskit/tabs';
 
   const CustomTabPanel = ({ body }: { body: string }) => {
     const tabPanelAttributes = useTabPanel();
 
     return (
       <div
-        style={{
-          margin: 12
-        }}
+        css={css`
+          margin: 12px;
+        `}
         {...tabPanelAttributes}
       >
         {body}

@@ -50,7 +50,9 @@
     "@atlaskit/docs": "*",
     "@atlaskit/single-select": "^10.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "typescript": "3.9.6"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

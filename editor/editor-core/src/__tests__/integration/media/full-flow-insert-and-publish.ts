@@ -12,13 +12,12 @@ type ClientType = Parameters<typeof goToFullPage>[0];
 // Skipping safari because of ongoing issue (comms via email with support with Browserstack atm)
 // Skipping IE because editor doesn't load properly and media button is not activated on time.
 // Skipping Edge because sometimes it fails due to "The uploadFile command is not available in msedge". (comms via email with support with Browserstack atm)
-const skipVersions: Parameters<typeof BrowserTestCase>[1] = {
-  skip: ['safari', 'edge'],
-};
 
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag folder that contains a folder (which has multiple images), verify, wait',
-  skipVersions,
+  {
+    skip: ['safari', 'edge'],
+  },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
 
@@ -38,7 +37,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag folder (contains an image), verify, wait',
-  skipVersions,
+  {
+    skip: ['safari', 'edge'],
+  },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
 
@@ -58,7 +59,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait',
-  skipVersions,
+  {
+    skip: ['safari', 'edge'],
+  },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
 
@@ -77,7 +80,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, publish, check',
-  skipVersions,
+  {
+    skip: ['safari', 'edge'],
+  },
   async (client: ClientType) => {
     const page = await goToFullPage(client);
 
@@ -125,7 +130,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Click paragraph, ensure editor loads',
-  skipVersions,
+  {
+    skip: ['safari', 'edge'],
+  },
   async (client: ClientType) => {
     const page = await goToFullPageClickToEdit(client);
 
@@ -157,7 +164,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, publish, close media viewer and make sure editor not opened',
-  skipVersions,
+  {
+    skip: ['safari', 'edge'],
+  },
   async (client: ClientType) => {
     const page = await goToFullPageClickToEdit(client);
 

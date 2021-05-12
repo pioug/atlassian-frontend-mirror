@@ -9,9 +9,10 @@ interface CheckedItems {
   [value: string]: boolean;
 }
 
-const PARENT_ID: string = 'PARENT';
-const CHILD_1_ID: string = 'CHILD1';
-const CHILD_2_ID: string = 'CHILD2';
+const PARENT_ID: string = 'All projects';
+const CHILD_1_ID: string = 'Design System';
+const CHILD_2_ID: string = 'Jira Software';
+const CHILD_3_ID: string = 'Confluence';
 
 const getCheckedChildrenCount = (checkedItems: CheckedItems) => {
   const childItems = Object.keys(checkedItems).filter(i => i !== PARENT_ID);
@@ -23,7 +24,7 @@ const getCheckedChildrenCount = (checkedItems: CheckedItems) => {
 
 const getIsParentIndeterminate = (checkedItems: CheckedItems) => {
   const checkedChildrenCount = getCheckedChildrenCount(checkedItems);
-  return checkedChildrenCount > 0 && checkedChildrenCount < 2;
+  return checkedChildrenCount > 0 && checkedChildrenCount < 3;
 };
 
 const IndeterminateCheckbox = () => {
@@ -31,6 +32,7 @@ const IndeterminateCheckbox = () => {
     [PARENT_ID]: false,
     [CHILD_1_ID]: false,
     [CHILD_2_ID]: false,
+    [CHILD_3_ID]: false,
   };
   const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
 
@@ -71,7 +73,7 @@ const IndeterminateCheckbox = () => {
         isChecked={checkedItems[PARENT_ID]}
         isIndeterminate={getIsParentIndeterminate(checkedItems)}
         onChange={onChange}
-        label="Parent Checkbox"
+        label="All projects"
         value={PARENT_ID}
         name="parent"
         testId="parent"
@@ -86,7 +88,7 @@ const IndeterminateCheckbox = () => {
         <Checkbox
           isChecked={checkedItems[CHILD_1_ID]}
           onChange={onChange}
-          label="Child Checkbox 1"
+          label="Design System"
           value={CHILD_1_ID}
           name="child-1"
           testId="child-1"
@@ -94,10 +96,18 @@ const IndeterminateCheckbox = () => {
         <Checkbox
           isChecked={checkedItems[CHILD_2_ID]}
           onChange={onChange}
-          label="Child Checkbox 2"
+          label="Jira Software"
           value={CHILD_2_ID}
           name="child-2"
           testId="child-2"
+        />
+        <Checkbox
+          isChecked={checkedItems[CHILD_3_ID]}
+          onChange={onChange}
+          label="Confluence"
+          value={CHILD_3_ID}
+          name="child-3"
+          testId="child-3"
         />
       </div>
     </div>

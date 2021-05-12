@@ -40,6 +40,7 @@ import {
   teamAvatarClicked,
   teamProfileCardRendered,
 } from '../util/analytics';
+import { isBasicClick } from '../util/click';
 
 import { ErrorIllustration } from './ErrorIllustration';
 import TeamLoadingState from './TeamLoadingState';
@@ -157,7 +158,7 @@ function onActionClick(
   analytics: AnalyticsFunction,
   index: number,
 ) {
-  return (...args: any) => {
+  return (event: React.MouseEvent | React.KeyboardEvent, ...args: any) => {
     analytics(duration =>
       teamActionClicked({
         duration,
@@ -168,9 +169,9 @@ function onActionClick(
       }),
     );
 
-    if (action.callback) {
-      args[0].preventDefault();
-      action.callback(...args);
+    if (action.callback && isBasicClick(event)) {
+      event.preventDefault();
+      action.callback(event, ...args);
     }
   };
 }

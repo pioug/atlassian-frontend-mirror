@@ -22,6 +22,7 @@ import {
   teamCardTriggered,
   teamProfileCardRendered,
 } from '../util/analytics';
+import { isBasicClick } from '../util/click';
 import { getPageTime } from '../util/performance';
 
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from './config';
@@ -90,12 +91,9 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 
   onClick = (event: React.MouseEvent<HTMLElement>) => {
     if (this.props.triggerLinkType === 'link') {
-      const isModifiedClick =
-        event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
-
-      // We want to prevent navigation occurring on regular click, but it's important that
+      // We want to prevent navigation occurring on basic click, but it's important that
       // cmd+click, ctrl+click, etc. still work as expected.
-      if (!isModifiedClick) {
+      if (isBasicClick(event)) {
         event.preventDefault();
       }
     }

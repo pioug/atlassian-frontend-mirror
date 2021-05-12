@@ -40,8 +40,10 @@
     }
   },
   "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/prosemirror-collab": "^1.1.1",
     "@types/prosemirror-state": "^1.2.0",
     "typescript": "3.9.6"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

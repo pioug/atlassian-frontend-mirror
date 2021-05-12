@@ -28,6 +28,7 @@ import {
   SpinnerContainer,
 } from '../styled/Card';
 import { LozengeProps, ProfilecardProps } from '../types';
+import { isBasicClick } from '../util/click';
 
 import ErrorMessage from './ErrorMessage';
 import IconLabel from './IconLabel';
@@ -104,14 +105,14 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
             <Button
               appearance={idx === 0 ? 'default' : 'subtle'}
               key={action.id || idx}
-              onClick={(...args: any) => {
+              onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) => {
                 this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
                   id: action.id || null,
                   duration: this.durationSince(this.timeOpen),
                 });
-                if (action.callback) {
-                  args[0].preventDefault();
-                  action.callback(...args);
+                if (action.callback && isBasicClick(event)) {
+                  event.preventDefault();
+                  action.callback(event, ...args);
                 }
               }}
               href={action.link}

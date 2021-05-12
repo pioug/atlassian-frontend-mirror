@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 15.5.7
+
+### Patch Changes
+
+- [`8b87ba0c18c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b87ba0c18c) - Fix the behavior of command click and shift click on links
+
 ## 15.5.6
 
 ### Patch Changes

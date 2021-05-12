@@ -137,19 +137,91 @@ describe('Profilecard', () => {
         expect(buttonTexts).toEqual(actions.map(action => action.label));
       });
 
-      it('should call callback handler when action button is clicked', () => {
-        const spy = jest.fn().mockImplementation(() => {}); // eslint-disable-line no-undef
-        card.setProps({
-          actions: [
-            {
-              label: 'test',
-              callback: spy,
-            },
-          ],
+      describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
+        it('should call callback handler for basic click', () => {
+          const spy = jest.fn().mockImplementation(() => {});
+          card.setProps({
+            actions: [
+              {
+                label: 'test',
+                callback: spy,
+              },
+            ],
+          });
+          const actionsWrapper = card.find(ActionButtonGroup);
+          const event = { preventDefault: jest.fn() };
+          actionsWrapper.find(Button).first().simulate('click', event);
+          expect(spy).toHaveBeenCalledTimes(1);
+          expect(event.preventDefault).toHaveBeenCalledTimes(1);
         });
-        const actionsWrapper = card.find(ActionButtonGroup);
-        actionsWrapper.find(Button).first().simulate('click');
-        expect(spy.mock.calls.length).toBe(1);
+
+        it('should call callback handler for cmd+click', () => {
+          const spy = jest.fn().mockImplementation(() => {});
+          card.setProps({
+            actions: [
+              {
+                label: 'test',
+                callback: spy,
+              },
+            ],
+          });
+          const actionsWrapper = card.find(ActionButtonGroup);
+          const event = { preventDefault: jest.fn(), metaKey: true };
+          actionsWrapper.find(Button).first().simulate('click', event);
+          expect(spy).not.toHaveBeenCalled();
+          expect(event.preventDefault).not.toHaveBeenCalled();
+        });
+
+        it('should call callback handler for alt+click', () => {
+          const spy = jest.fn().mockImplementation(() => {});
+          card.setProps({
+            actions: [
+              {
+                label: 'test',
+                callback: spy,
+              },
+            ],
+          });
+          const actionsWrapper = card.find(ActionButtonGroup);
+          const event = { preventDefault: jest.fn(), altKey: true };
+          actionsWrapper.find(Button).first().simulate('click', event);
+          expect(spy).not.toHaveBeenCalled();
+          expect(event.preventDefault).not.toHaveBeenCalled();
+        });
+
+        it('should call callback handler for ctrl+click', () => {
+          const spy = jest.fn().mockImplementation(() => {});
+          card.setProps({
+            actions: [
+              {
+                label: 'test',
+                callback: spy,
+              },
+            ],
+          });
+          const actionsWrapper = card.find(ActionButtonGroup);
+          const event = { preventDefault: jest.fn(), ctrlKey: true };
+          actionsWrapper.find(Button).first().simulate('click', event);
+          expect(spy).not.toHaveBeenCalled();
+          expect(event.preventDefault).not.toHaveBeenCalled();
+        });
+
+        it('should call callback handler for shift+click', () => {
+          const spy = jest.fn().mockImplementation(() => {});
+          card.setProps({
+            actions: [
+              {
+                label: 'test',
+                callback: spy,
+              },
+            ],
+          });
+          const actionsWrapper = card.find(ActionButtonGroup);
+          const event = { preventDefault: jest.fn(), shiftKey: true };
+          actionsWrapper.find(Button).first().simulate('click', event);
+          expect(spy).not.toHaveBeenCalled();
+          expect(event.preventDefault).not.toHaveBeenCalled();
+        });
       });
 
       it('should not render any action buttons if actions property is not set', () => {

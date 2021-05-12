@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { getMockTeamClient } from '../../../examples/helper/util';
@@ -201,6 +201,93 @@ describe('TeamProfileCardTrigger', () => {
   });
 
   describe('Trigger wrapping', () => {
+    describe('Link type trigger click behaviour', () => {
+      const setupClickTest = () => {
+        const viewProfileOnClick = jest.fn();
+
+        const { getByTestId } = renderWithIntl(
+          <TeamProfileCardTrigger
+            {...defaultProps}
+            resourceClient={mockResourceClient as ProfileClient}
+            triggerLinkType="link"
+            trigger="hover-click"
+            viewProfileOnClick={viewProfileOnClick}
+          >
+            <span data-testid="test-inner-trigger">This is the trigger</span>
+          </TeamProfileCardTrigger>,
+        );
+
+        const trigger = getByTestId('team-profilecard-trigger-wrapper');
+
+        return { trigger };
+      };
+
+      it('should preventDefault on basic click', () => {
+        const { trigger } = setupClickTest();
+
+        const basicClick = createEvent.click(trigger);
+        basicClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(trigger, basicClick);
+        });
+
+        expect(basicClick.preventDefault).toHaveBeenCalledTimes(1);
+      });
+
+      it('should not preventDefault on cmd+click', () => {
+        const { trigger } = setupClickTest();
+
+        const cmdClick = createEvent.click(trigger, { metaKey: true });
+        cmdClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(trigger, cmdClick);
+        });
+
+        expect(cmdClick.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should not preventDefault on alt+click', () => {
+        const { trigger } = setupClickTest();
+
+        const altClick = createEvent.click(trigger, { altKey: true });
+        altClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(trigger, altClick);
+        });
+
+        expect(altClick.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should not preventDefault on ctrl+click', () => {
+        const { trigger } = setupClickTest();
+
+        const ctrlClick = createEvent.click(trigger, { ctrlKey: true });
+        ctrlClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(trigger, ctrlClick);
+        });
+
+        expect(ctrlClick.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should not preventDefault on shift+click', () => {
+        const { trigger } = setupClickTest();
+
+        const shiftClick = createEvent.click(trigger, { shiftKey: true });
+        shiftClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(trigger, shiftClick);
+        });
+
+        expect(shiftClick.preventDefault).not.toHaveBeenCalled();
+      });
+    });
+
     it('should wrap in an anchor tag for link type triggers', () => {
       const viewProfileOnClick = jest.fn();
 

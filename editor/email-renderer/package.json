@@ -38,6 +38,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/util-data-test": "^15.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "mkdirp": "^0.5.1",
     "mockdate": "^3.0.2",
     "react": "^16.8.0",
@@ -45,5 +46,6 @@
     "svgexport": "^0.4.0",
     "ts-node": "^6.1.1",
     "typescript": "3.9.6"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

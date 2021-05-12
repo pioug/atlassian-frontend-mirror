@@ -59,6 +59,7 @@
     "@atlaskit/section-message": "^5.1.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/js-search": "^1.4.0",
     "@types/react-virtualized": "^9.18.12",
     "enzyme": "^3.10.0",
@@ -78,5 +79,6 @@
   "keywords": [
     "fabric",
     "ui"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

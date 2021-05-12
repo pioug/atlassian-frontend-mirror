@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import TeamProfileCard from '../../components/TeamProfileCard';
@@ -151,6 +151,100 @@ describe('TeamProfileCard', () => {
   });
 
   describe('Action buttons', () => {
+    describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
+      const setupClickTest = () => {
+        const onClick = jest.fn();
+        const { getByText } = renderWithIntl(
+          <TeamProfileCard
+            {...defaultProps}
+            team={{
+              id: '123',
+              displayName: 'Team name',
+              description: 'A team',
+            }}
+            viewProfileOnClick={onClick}
+          />,
+        );
+
+        const button = getByText('View profile');
+
+        return {
+          onClick,
+          button,
+        };
+      };
+
+      it('should call onClick for basic click', () => {
+        const { button, onClick } = setupClickTest();
+
+        const basicClick = createEvent.click(button);
+        basicClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(button, basicClick);
+        });
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(basicClick.preventDefault).toHaveBeenCalledTimes(1);
+      });
+
+      it('should not call onClick for cmd+click', () => {
+        const { button, onClick } = setupClickTest();
+
+        const commandClick = createEvent.click(button, { metaKey: true });
+        commandClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(button, commandClick);
+        });
+
+        expect(onClick).not.toHaveBeenCalled();
+        expect(commandClick.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should not call onClick for alt+click', () => {
+        const { button, onClick } = setupClickTest();
+
+        const altClick = createEvent.click(button, { altKey: true });
+        altClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(button, altClick);
+        });
+
+        expect(onClick).not.toHaveBeenCalled();
+        expect(altClick.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should not call onClick for ctrl+click', () => {
+        const { button, onClick } = setupClickTest();
+
+        const controlClick = createEvent.click(button, { ctrlKey: true });
+        controlClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(button, controlClick);
+        });
+
+        expect(onClick).not.toHaveBeenCalled();
+        expect(controlClick.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should not call onClick for shift+click', () => {
+        const { button, onClick } = setupClickTest();
+
+        const shiftClick = createEvent.click(button, { shiftKey: true });
+        shiftClick.preventDefault = jest.fn();
+
+        act(() => {
+          fireEvent(button, shiftClick);
+        });
+
+        expect(onClick).not.toHaveBeenCalled();
+        expect(shiftClick.preventDefault).not.toHaveBeenCalled();
+      });
+    });
+
     describe('View profile button', () => {
       it('should call viewProfileOnClick on click if provided', () => {
         const onClick = jest.fn();

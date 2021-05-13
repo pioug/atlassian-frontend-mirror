@@ -43,6 +43,7 @@
     "@atlaskit/select": "^13.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "react-dom": "^16.8.0",
@@ -60,5 +61,6 @@
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

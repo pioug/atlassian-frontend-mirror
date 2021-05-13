@@ -42,6 +42,7 @@
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "@types/jscodeshift": "^0.11.0",
     "@types/react-syntax-highlighter": "^13.5.0",
@@ -81,5 +82,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/code/"
+  "homepage": "https://atlassian.design/components/code/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

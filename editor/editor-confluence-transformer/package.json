@@ -43,9 +43,11 @@
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.2.0",
     "@atlaskit/util-data-test": "^15.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/prosemirror-model": "^1.11.0",
     "pretty-data": "^0.40.0",
     "styled-components": "^3.2.6",
     "typescript": "3.9.6"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

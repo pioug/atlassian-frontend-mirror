@@ -36,6 +36,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "ast-types": "^0.13.3",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -52,5 +53,6 @@
   "af:exports": {
     "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
     ".": "./src/index.ts"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

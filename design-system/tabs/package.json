@@ -41,6 +41,7 @@
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "jscodeshift": "^0.11.0",
@@ -74,5 +75,6 @@
     "./types": "./src/types.ts",
     "./hooks": "./src/hooks.ts"
   },
-  "homepage": "https://atlassian.design/components/tabs/"
+  "homepage": "https://atlassian.design/components/tabs/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

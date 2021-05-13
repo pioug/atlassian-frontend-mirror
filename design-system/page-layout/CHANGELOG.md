@@ -1,5 +1,21 @@
 # @atlaskit/page-layout
 
+## 1.0.1
+
+### Patch Changes
+
+- [`7d0905b4e81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d0905b4e81) - Fix bug where right sidebar styles were being calculated with the wrong variable.
+
+## 1.0.0
+
+### Major Changes
+
+- [`7727f723965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7727f723965) - Internal change to the release model from continous to scheduled release. There are **NO API CHANGES** in this release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.0
 
 ### Minor Changes

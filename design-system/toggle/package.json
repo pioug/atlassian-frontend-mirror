@@ -43,6 +43,7 @@
     "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/styled": "^10.0.7",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
@@ -78,5 +79,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/toggle/"
+  "homepage": "https://atlassian.design/components/toggle/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

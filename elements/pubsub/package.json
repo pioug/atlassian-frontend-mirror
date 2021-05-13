@@ -40,9 +40,11 @@
     "@atlaskit/field-text": "^11.0.0",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/theme": "^11.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",
     "jest-fetch-mock": "^3.0.3",
     "typescript": "3.9.6"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -50,6 +50,7 @@
     "@atlaskit/logo": "^13.0.0",
     "@atlaskit/navigation-next": "^9.0.0",
     "@atlaskit/ssr": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "typescript": "3.9.6"
@@ -63,5 +64,6 @@
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

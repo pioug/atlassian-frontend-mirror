@@ -30,6 +30,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/json-schema-generator": "^3.1.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react": "^16.8.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
@@ -40,5 +41,6 @@
         "file-level"
       ]
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

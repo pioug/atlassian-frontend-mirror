@@ -9,7 +9,6 @@ import {
   IS_SIDEBAR_DRAGGING,
   LEFT_PANEL,
   LEFT_PANEL_WIDTH,
-  LEFT_SIDEBAR_WIDTH,
   RIGHT_PANEL,
   RIGHT_PANEL_WIDTH,
   RIGHT_SIDEBAR_WIDTH,
@@ -130,7 +129,7 @@ export const rightSidebarStyles = (isFixed?: boolean): CSSObject => ({
     '&::after': {
       content: "''",
       display: 'inline-block',
-      width: `${LEFT_SIDEBAR_WIDTH}`,
+      width: `${RIGHT_SIDEBAR_WIDTH}`,
     },
   }),
 });

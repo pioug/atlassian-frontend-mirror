@@ -78,6 +78,7 @@
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/html-webpack-plugin": "^3.2.1",
@@ -114,5 +115,6 @@
       ]
     }
   },
-  "homepage": "https://bitbucket.org/atlaskit/atlaskit-mk-2#readme"
+  "homepage": "https://bitbucket.org/atlaskit/atlaskit-mk-2#readme",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -10,12 +10,12 @@ export const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
 
 export default class NotificationLogClient implements NotificationLogProvider {
   private serviceConfig: ServiceConfig;
-  private cloudId: string;
+  private cloudId?: string;
   private source: string;
 
   constructor(
     baseUrl: string,
-    cloudId: string,
+    cloudId?: string,
     source: string = DEFAULT_SOURCE,
   ) {
     this.serviceConfig = { url: baseUrl };
@@ -27,10 +27,10 @@ export default class NotificationLogClient implements NotificationLogProvider {
     options: RequestServiceOptions = {},
   ): Promise<NotificationCountResponse> {
     const mergedOptions: RequestServiceOptions = {
-      path: 'api/2/notifications/count/unseen',
+      path: '/api/2/notifications/count/unseen',
       ...options,
       queryParams: {
-        cloudId: this.cloudId,
+        ...(this.cloudId && { cloudId: this.cloudId }),
         source: this.source,
         ...(options.queryParams || {}),
       },

@@ -40,11 +40,13 @@
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/navigation": "^37.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "prop-types": "^15.5.10",
     "react": "^16.8.0",
     "sinon": "^2.2.0",
     "typescript": "3.9.6",
     "uuid": "^3.1.0"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

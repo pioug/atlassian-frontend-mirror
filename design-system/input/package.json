@@ -38,6 +38,7 @@
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/ssr": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0"
   },
@@ -45,5 +46,6 @@
     "atlaskit",
     "ui",
     "internal"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

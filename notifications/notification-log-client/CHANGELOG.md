@@ -1,5 +1,11 @@
 # @atlaskit/notification-log-service
 
+## 5.1.0
+
+### Minor Changes
+
+- [`72b2c53156e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72b2c53156e) - Changing cloudId input parameter to be nullable
+
 ## 5.0.4
 
 ### Patch Changes

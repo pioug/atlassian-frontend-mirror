@@ -36,6 +36,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/page": "^12.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "typescript": "3.9.6"
   },
@@ -43,5 +44,6 @@
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

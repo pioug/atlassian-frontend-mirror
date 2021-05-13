@@ -24,6 +24,7 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "fetch-mock": "^8.0.0",
     "graphql": "^14.2.1",
     "typescript": "3.9.6"
@@ -32,5 +33,6 @@
     "@atlassian/frontend": {
       "tree-shaking": []
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -65,6 +65,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/deep-equal": "^1.0.1",
     "@types/enzyme": "^3.1.15",
     "@types/mime": "^2.0.1",
@@ -74,5 +75,6 @@
     "react-intl": "^2.6.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

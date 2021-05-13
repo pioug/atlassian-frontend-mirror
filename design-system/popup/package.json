@@ -44,12 +44,13 @@
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/menu": "^0.7.0",
+    "@atlaskit/menu": "^1.0.0",
     "@atlaskit/radio": "^5.0.0",
     "@atlaskit/select": "^13.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "ast-types": "^0.13.3",
@@ -84,5 +85,6 @@
         "no-deprecated-imports"
       ]
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

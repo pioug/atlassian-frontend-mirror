@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/flag",
-  "version": "14.2.3",
+  "version": "14.2.4",
   "description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/icon": "^21.4.0",
-    "@atlaskit/motion": "^0.4.0",
+    "@atlaskit/motion": "^1.0.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
@@ -46,6 +46,7 @@
     "@atlaskit/theme": "^11.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
     "react-dom": "^16.8.0",
@@ -73,5 +74,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/flag/"
+  "homepage": "https://atlassian.design/components/flag/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

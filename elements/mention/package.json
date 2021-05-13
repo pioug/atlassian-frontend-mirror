@@ -51,6 +51,7 @@
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/util-data-test": "^15.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@babel/types": "^7.5.5",
     "@types/query-string": "^4.3.1",
     "enzyme": "^3.10.0",
@@ -70,5 +71,6 @@
     "mention",
     "fabric",
     "teams"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

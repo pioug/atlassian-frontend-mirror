@@ -50,6 +50,7 @@
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/media-test-helpers": "^28.6.0",
     "@atlaskit/ssr": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/debounce": "^1.2.0",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",
@@ -57,5 +58,6 @@
     "rxjs": "^5.5.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

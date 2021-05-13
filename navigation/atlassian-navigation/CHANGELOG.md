@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 1.0.0
+
+### Major Changes
+
+- [`68c25f52345`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68c25f52345) - This `1.0.0` release denotes that the package API is now stable and is no longer in developer preview. There are **NO API CHANGES** in this release.
+
 ## 0.12.6
 
 ### Patch Changes

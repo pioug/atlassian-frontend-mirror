@@ -40,6 +40,7 @@
     "@atlaskit/section-message": "^5.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.7",
     "@testing-library/react": "^8.0.1",
@@ -69,5 +70,6 @@
     "./math": "./src/math.ts",
     "./types": "./src/types.ts",
     "./typography": "./src/typography.ts"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

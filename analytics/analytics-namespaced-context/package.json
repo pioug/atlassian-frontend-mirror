@@ -36,6 +36,7 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.1.0",
     "@atlaskit/docs": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "react": "^16.8.0",
@@ -44,5 +45,6 @@
   "keywords": [
     "fabric",
     "ui"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

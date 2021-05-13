@@ -46,6 +46,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "exenv": "^1.2.2",
@@ -75,5 +76,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/pagination/"
+  "homepage": "https://atlassian.design/components/pagination/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

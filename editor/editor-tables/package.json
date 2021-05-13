@@ -30,7 +30,8 @@
   },
   "devDependencies": {
     "@atlaskit/adf-schema": "^15.1.0",
-    "@atlaskit/editor-test-helpers": "^15.0.0"
+    "@atlaskit/editor-test-helpers": "^15.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -39,5 +40,6 @@
       ],
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

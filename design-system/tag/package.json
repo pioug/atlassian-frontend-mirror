@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag",
-  "version": "11.0.10",
+  "version": "11.0.11",
   "description": "A tag labels UI objects for quick recognition and navigation.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/icon": "^21.5.0",
-    "@atlaskit/motion": "^0.4.3",
+    "@atlaskit/motion": "^1.0.0",
     "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
@@ -46,6 +46,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/styled": "^10.0.7",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
@@ -77,5 +78,6 @@
         "no-deprecated-imports"
       ]
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

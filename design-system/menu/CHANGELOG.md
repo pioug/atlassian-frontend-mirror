@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.0.0
+
+### Major Changes
+
+- [`7727f723965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7727f723965) - Internal change to the release model from continous to scheduled release. There are **NO API CHANGES** in this release.
+
 ## 0.7.6
 
 ### Patch Changes

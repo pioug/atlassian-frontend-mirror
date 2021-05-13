@@ -52,6 +52,7 @@
     "@atlaskit/media-core": "^32.1.0",
     "@atlaskit/media-test-helpers": "^28.7.0",
     "@atlaskit/ssr": "^0.2.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/dateformat": "^3.0.1",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",
@@ -62,5 +63,6 @@
   },
   "resolutions": {
     "lru-fast": "0.2.2"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

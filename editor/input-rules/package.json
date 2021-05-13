@@ -25,6 +25,7 @@
   "devDependencies": {
     "@atlaskit/adf-schema": "^15.3.0",
     "@atlaskit/editor-test-helpers": "^15.2.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/prosemirror-history": "^1.0.1",
     "@types/prosemirror-model": "^1.11.0",
     "@types/prosemirror-state": "^1.2.0",
@@ -41,5 +42,6 @@
   },
   "af:exports": {
     ".": "./src/index.ts"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

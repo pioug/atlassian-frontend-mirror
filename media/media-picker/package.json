@@ -84,6 +84,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.1.0",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/bricks.js": "^1.8.0",
     "@types/dateformat": "^3.0.1",
     "@types/enzyme": "^3.1.15",
@@ -106,5 +107,6 @@
     "rxjs": "^5.5.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

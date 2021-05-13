@@ -41,6 +41,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.5.0",
     "@atlaskit/section-message": "^5.1.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "bolt": "^0.24.8",
     "cheerio": "^0.22.0",
     "glob": "^7.1.2",
@@ -51,5 +52,6 @@
   },
   "af:exports": {
     ".": "./src/bundle.css"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

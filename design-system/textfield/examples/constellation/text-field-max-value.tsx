@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+
+import Button from '@atlaskit/button/standard-button';
+import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
 
 import Textfield from '../../src';
 
 export default function TextFieldMaxValueExample() {
   return (
-    <div>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
-      <label htmlFor="max">
-        Max length of 5
-        <Textfield id="max" name="max" maxLength={5} />
-      </label>
-    </div>
+    <Form onSubmit={formData => console.log('form data', formData)}>
+      {({ formProps }) => (
+        <form {...formProps} name="max-length-example">
+          <Field
+            label="Example for using maxlength"
+            name="max-length"
+            defaultValue=""
+          >
+            {({ fieldProps }: any) => (
+              <Fragment>
+                <Textfield {...fieldProps} maxLength={5} />
+                <HelperMessage>Max length of 5</HelperMessage>
+              </Fragment>
+            )}
+          </Field>
+          <FormFooter>
+            <Button type="submit" appearance="primary">
+              Submit
+            </Button>
+          </FormFooter>
+        </form>
+      )}
+    </Form>
   );
 }

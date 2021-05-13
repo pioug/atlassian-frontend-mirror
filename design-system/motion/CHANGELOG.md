@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.0.0
+
+### Major Changes
+
+- [`4925538af72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4925538af72) - This `1.0.0` release denotes that the package API is now stable and is no longer in developer preview. There are **NO API CHANGES** in this release.
+
 ## 0.4.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "0.4.8",
+  "version": "1.0.0",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,6 +53,7 @@
     "@atlaskit/theme": "^11.2.0",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
@@ -71,5 +72,6 @@
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

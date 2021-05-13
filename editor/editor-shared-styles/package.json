@@ -31,6 +31,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "3.9.6"
   },
   "techstack": {
@@ -40,5 +41,6 @@
       ],
       "import-structure": "atlassian-conventions"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

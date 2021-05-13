@@ -15,7 +15,8 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "team": "AFP: Monorepo"
   },
   "scripts": {
     "ak-postbuild": "ls -d dist/* | xargs -n 1 cp -v -r src/json-data"
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "3.9.6"
   },
   "keywords": [
@@ -48,5 +50,6 @@
     "test",
     "data",
     "sample"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -55,11 +55,13 @@
     "@atlaskit/tag": "^11.0.0",
     "@atlaskit/toggle": "^12.0.0",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
     "react-lorem-component": "^0.13.0"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

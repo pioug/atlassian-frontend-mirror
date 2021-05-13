@@ -36,6 +36,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/date-fns": "^2.6.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -47,5 +48,6 @@
     "date",
     "fabric",
     "teams"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

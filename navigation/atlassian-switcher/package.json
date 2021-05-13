@@ -50,7 +50,7 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^0.12.0",
+    "@atlaskit/atlassian-navigation": "^1.0.0",
     "@atlaskit/atlassian-switcher-test-utils": "^0.6.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^6.0.0",
@@ -62,11 +62,13 @@
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/textfield": "^5.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
     "react-intl": "^2.6.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

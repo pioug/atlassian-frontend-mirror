@@ -57,6 +57,7 @@
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/tooltip": "^17.2.0",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@babel/core": "^7.12.3",
     "@emotion/babel-preset-css-prop": "^10.0.7",
     "@testing-library/react": "^8.0.1",
@@ -90,5 +91,6 @@
         "no-deprecated-imports"
       ]
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

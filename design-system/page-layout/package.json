@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "0.11.0",
+  "version": "1.0.1",
   "description": "A collection of components which let you compose an application's page layout",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -18,14 +18,14 @@
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "continuous",
+    "releaseModel": "scheduled",
     "website": {
       "name": "Page Layout"
     }
   },
   "dependencies": {
     "@atlaskit/icon": "^21.0.0",
-    "@atlaskit/motion": "^0.4.0",
+    "@atlaskit/motion": "^1.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
@@ -36,7 +36,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^0.12.0",
+    "@atlaskit/atlassian-navigation": "^1.0.0",
     "@atlaskit/atlassian-notifications": "^0.2.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.5",
@@ -44,17 +44,18 @@
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/icon": "*",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/menu": "^0.7.0",
+    "@atlaskit/menu": "^1.0.0",
     "@atlaskit/notification-indicator": "^8.0.0",
     "@atlaskit/notification-log-client": "^5.0.0",
     "@atlaskit/onboarding": "^10.2.0",
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/section-message": "^5.0.0",
-    "@atlaskit/side-navigation": "^0.8.0",
+    "@atlaskit/side-navigation": "^1.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "jest-emotion": "^10.0.32",
@@ -85,5 +86,6 @@
         "no-deprecated-imports"
       ]
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -50,6 +50,7 @@
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/renderer": "^76.2.0",
     "@atlaskit/util-data-test": "^15.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/url-search-params": "^0.10.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -65,5 +66,6 @@
     "@atlassian/frontend": {
       "tree-shaking": []
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

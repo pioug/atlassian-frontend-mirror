@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "0.7.6",
+  "version": "1.0.0",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,7 +17,7 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
-    "releaseModel": "continuous",
+    "releaseModel": "scheduled",
     "website": {
       "name": "Menu"
     }
@@ -54,6 +54,7 @@
     "@atlaskit/section-message": "^5.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "@types/react-router-dom": "^4.3.1",
@@ -88,5 +89,6 @@
         "no-deprecated-imports"
       ]
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

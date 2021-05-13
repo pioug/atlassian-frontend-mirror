@@ -42,6 +42,7 @@
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "polished": "1.9.3",
     "react-dom": "^16.8.0",
@@ -54,5 +55,6 @@
     "atlaskit",
     "react",
     "ui"
-  ]
+  ],
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -44,6 +44,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "exenv": "^1.2.2",
     "jest-in-case": "^1.0.2",
@@ -72,5 +73,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/section-message/"
+  "homepage": "https://atlassian.design/components/section-message/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

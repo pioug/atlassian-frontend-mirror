@@ -41,6 +41,7 @@
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
@@ -52,5 +53,6 @@
       "import-structure": "atlassian-conventions"
     }
   },
-  "homepage": "https://atlassian.design/components/progress-tracker/"
+  "homepage": "https://atlassian.design/components/progress-tracker/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

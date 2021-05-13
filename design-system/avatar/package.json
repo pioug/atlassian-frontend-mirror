@@ -54,6 +54,7 @@
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/styled": "^10.0.7",
     "@testing-library/react": "^8.0.1",
     "@types/jscodeshift": "^0.11.0",
@@ -87,5 +88,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/avatar/"
+  "homepage": "https://atlassian.design/components/avatar/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -24,12 +24,6 @@ export default {
     'Не удалось загрузить список. Обновите страницу и повторите попытку.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Подтвердите электронный адрес, чтобы увидеть список доступных продуктов.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Совместная работа с документами — до 10 пользователей бесплатно',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Управление ИТ-услугами с поддержкой совместной работы. До 3 агентов — бесплатно',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Отслеживание проектов и задач — до 10 пользователей бесплатно',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub и многое другое',
   'fabric.atlassianSwitcher.gittools.label': 'Интеграции Git для Jira',

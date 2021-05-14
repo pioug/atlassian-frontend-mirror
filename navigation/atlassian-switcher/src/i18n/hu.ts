@@ -25,12 +25,6 @@ export default {
     'Nem sikerült betölteni ezt a listát. Frissítsd az oldalt, és próbáld meg újra.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Erősítsd meg az e-mail-címedet, hogy megnézhesd az elérhető termékek listáját.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Dokumentumokon végzett ingyenes együttműködés legfeljebb 10 felhasználó számára',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Ingyenes IT-szolgáltatáskezelés akár 3 ügynök együttműködéséhez',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Ingyenes projekt- és ügykövetés legfeljebb 10 felhasználó számára',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub és egyebek',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integrációk a Jirához',

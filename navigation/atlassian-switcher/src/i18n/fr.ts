@@ -25,12 +25,6 @@ export default {
     'Impossible de charger la liste. Actualisez la page, puis réessayez.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Veuillez confirmer votre adresse e-mail pour afficher une liste des produits disponibles.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Collaboration documentaire gratuite pour un maximum de 10 utilisateurs',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Gestion des services informatiques collaborative et gratuite, pour un maximum de 3 agents',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Outil gratuit de suivi des projets et des tickets pour un maximum de 10 utilisateurs',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub, et bien plus encore',
   'fabric.atlassianSwitcher.gittools.label': 'Intégrations Git pour Jira',

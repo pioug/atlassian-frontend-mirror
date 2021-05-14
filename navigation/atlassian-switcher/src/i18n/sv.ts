@@ -25,12 +25,6 @@ export default {
     'Vi kunde inte läsa in listan. Uppdatera sidan och försök igen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Bekräfta din e-postadress för att visa en lista över tillgängliga produkter.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Gratis dokumentsamarbete för upp till 10 användare',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Gratis samarbetsorienterad IT-tjänsthantering för upp till 3 agenter',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Gratis projekt- och ärendespårning för upp till 10 användare',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub med mera',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integrationer för Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-projekt',

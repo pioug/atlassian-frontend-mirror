@@ -23,10 +23,6 @@ export default {
     'Não foi possível carregar esta lista. Recarregue a página e tente novamente.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Confirme o seu endereço de e-mail para ver uma lista dos produtos disponíveis.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Colaboração em documentos grátis para até 10 utilizadores',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Acompanhamento de projetos e problemas grátis para até 10 utilizadores',
   'fabric.atlassianSwitcher.jiraProject': 'Projeto do JIRA',
   'fabric.atlassianSwitcher.join': 'Aderir',
   'fabric.atlassianSwitcher.login': 'Iniciar sessão',

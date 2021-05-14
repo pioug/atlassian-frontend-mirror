@@ -24,4 +24,39 @@ describe('getNotificationsSrc', () => {
       '/home/notificationsDrawer/iframe.html?locale=en-us&product=jira',
     );
   });
+
+  it('old route ignores the subproduct', () => {
+    expect(
+      getNotificationsSrc({
+        locale: 'en-us',
+        product: 'jira',
+        subproduct: 'software',
+      }),
+    ).toEqual(
+      '/home/notificationsDrawer/iframe.html?locale=en-us&product=jira',
+    );
+  });
+
+  it('returns the correct url for the new experience', () => {
+    expect(
+      getNotificationsSrc({
+        locale: 'en-us',
+        product: 'jira',
+        isNewExperience: true,
+      }),
+    ).toEqual('/home/notificationList/index.html?locale=en-us&product=jira');
+  });
+
+  it('returns the correct url for the new experience with a subproduct', () => {
+    expect(
+      getNotificationsSrc({
+        locale: 'en-us',
+        product: 'jira',
+        subproduct: 'software',
+        isNewExperience: true,
+      }),
+    ).toEqual(
+      '/home/notificationList/index.html?locale=en-us&product=jira&subproduct=software',
+    );
+  });
 });

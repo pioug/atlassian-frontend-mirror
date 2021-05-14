@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-notifications
 
+## 0.3.0
+
+### Minor Changes
+
+- [`b0b891e9edf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0b891e9edf) - Adding new optional prop to enable new notification experience
+
 ## 0.2.4
 
 ### Patch Changes

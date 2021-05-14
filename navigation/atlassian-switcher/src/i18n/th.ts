@@ -25,12 +25,6 @@ export default {
     'เราไม่สามารถดาวน์โหลดรายการนี้ได้ โปรดดาวน์โหลดหน้าข้อมูลใหม่แล้วลองอีกครั้ง',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'โปรดยืนยันที่อยู่อีเมลของคุณเพื่อดูรายการผลิตภัณฑ์ที่มีอยู่',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'การรวบรวมเอกสารฟรีสำหรับผู้ใช้มากถึง 10 คน',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'การจัดการบริการด้าน IT แบบร่วมกันฟรีสำหรับพนักงานบริการลูกค้าสูงสุด 3 ราย',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'การติดตามโปรเจ็กต์และปัญหาฟรีสำหรับผู้ใช้มากถึง 10 คน',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub และอีกมากมาย',
   'fabric.atlassianSwitcher.gittools.label': 'การผสานรวม Git สำหรับ Jira',

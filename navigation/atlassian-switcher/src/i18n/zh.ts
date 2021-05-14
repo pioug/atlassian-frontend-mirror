@@ -23,12 +23,6 @@ export default {
     '无法加载此列表。请重新加载页面，然后重试。',
   'fabric.atlassianSwitcher.errorTextUnverified':
     '请确认您的电子邮件地址以查看可用产品列表。',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    '免费文档协作（最多 10 个用户）',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    '为多达三名支持人员提供免费的协作式 IT 服务管理',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    '免费项目和事务跟踪（最多 10 个用户）',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、GitHub 等等',
   'fabric.atlassianSwitcher.gittools.label': '适用于 Jira 的 Git 集成',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 项目',

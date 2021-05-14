@@ -25,12 +25,6 @@ export default {
     'Chúng tôi không thể tải danh sách này. Vui lòng tải lại trang và thử lại.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Vui lòng xác nhận địa chỉ email của bạn để xem danh sách các sản phẩm hiện có.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Miễn phí cộng tác tài liệu cho 10 người dùng',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Quản lý dịch vụ CNTT cộng tác miễn phí cho tối đa 3 nhân viên',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Miễn phí theo dõi dự án và lỗi cho 10 người dùng',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub và nhiều dịch vụ khác',
   'fabric.atlassianSwitcher.gittools.label': 'Các tích hợp Git cho Jira',

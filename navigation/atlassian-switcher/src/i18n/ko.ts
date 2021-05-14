@@ -25,12 +25,6 @@ export default {
     '이 목록을 로드하지 못했습니다. 새로 고치고 다시 시도해주세요.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     '사용 가능한 제품의 목록을 보려면 이메일 주소를 확인하세요.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    '무료 문서 협업 - 최대 10명 사용자까지',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    '최대 3명의 에이전트를 위한 협업 IT 서비스 관리',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    '무료 프로젝트 및 이슈 추적 - 최대 10명 사용자까지',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub 등',
   'fabric.atlassianSwitcher.gittools.label': 'Jira용 Git 통합',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 프로젝트',

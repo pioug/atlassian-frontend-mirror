@@ -22,10 +22,6 @@ export default {
     'Nepodarilo sa načítať tento zoznam. Obnovte stránku a skúste to znova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Zoznam dostupných produktov sa vám zobrazí, až keď potvrdíte svoju e-mailovú adresu.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Bezplatná spolupráca na dokumentoch pre maximálne 10 používateľov',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Bezplatné sledovanie projektov a problémov pre maximálne 10 používateľov',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',
   'fabric.atlassianSwitcher.join': 'Pripojiť sa',
   'fabric.atlassianSwitcher.login': 'Prihlásiť sa',

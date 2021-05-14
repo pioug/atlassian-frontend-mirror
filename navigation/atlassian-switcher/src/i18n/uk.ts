@@ -25,12 +25,6 @@ export default {
     'Список не завантажено. Оновіть сторінку та спробуйте знову.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Підтвердьте свою електронну адресу, щоб переглянути список доступних продуктів.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Безкоштовна спільна робота з документами (до 10 користувачів)',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Об’єднана служба ІТ-підтримки — безкоштовно до 3 агентів',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Безкоштовне відстеження стану проекту та проблемних питань (до 10 користувачів)',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub тощо',
   'fabric.atlassianSwitcher.gittools.label': 'Інтеграція Git із Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Проект у Jira',

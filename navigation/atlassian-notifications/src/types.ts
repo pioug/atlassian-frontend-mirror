@@ -10,5 +10,7 @@ export type NotificationsProps = Omit<IframeProps, 'src'> & {
   _url?: string;
   locale?: string;
   product?: 'confluence' | 'jira' | string;
+  subproduct?: 'software' | 'serviceManagement' | 'workManagement' | string;
   testId?: string;
+  isNewExperience?: boolean;
 };

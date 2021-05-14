@@ -24,12 +24,6 @@ export default {
     'Bu liste yüklenemedi. Lütfen sayfayı yeniden yükleyin ve tekrar deneyin.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Kullanabileceğiniz ürünlerin listesini görmek için lütfen e-posta adresinizi doğrulayın.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    '10 kullanıcıya kadar ücretsiz belge paylaşımı',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'En fazla 3 temsilcinin yararlanabileceği, ücretsiz, iş birliğine dayalı BT hizmeti yönetimi',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    '10 kullanıcıya kadar ücretsiz proje ve sorun takibi',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub ve daha fazlası',
   'fabric.atlassianSwitcher.gittools.label': 'Jira için Git tümleştirmeleri',

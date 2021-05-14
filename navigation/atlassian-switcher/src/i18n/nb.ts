@@ -25,12 +25,6 @@ export default {
     'Vi kunne ikke laste denne listen. Last inn siden på nytt og prøv igjen.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Bekreft e-postadressen din for å se en liste over tilgjengelige produkter.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Kostnadsfritt dokumentsamarbeid for opptil ti brukere',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Gratis samarbeidsbasert IT-serviceadministrasjon for opptil tre agenter',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Kostnadsfri prosjekt- og sakssporing for opptil ti brukere',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub med mer',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integrasjoner for Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-prosjekt',

@@ -24,12 +24,6 @@ export default {
     'Nie udało się załadować tej listy. Załaduj stronę ponownie i spróbuj ponownie.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Potwierdź swój adres e-mail, aby wyświetlić listę dostępnych produktów.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Bezpłatna współpraca nad dokumentami — do 10 użytkowników',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Bezpłatne i oparte na współpracy zarządzanie usługami IT dla maksymalnie 3 agentów',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Bezpłatne śledzenie projektów i zgłoszeń — do 10 użytkowników',
   'fabric.atlassianSwitcher.gittools.description':
     'Bitbucket, GitHub i nie tylko',
   'fabric.atlassianSwitcher.gittools.label': 'Integracje Git dla systemu Jira',

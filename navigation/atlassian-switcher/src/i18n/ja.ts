@@ -25,12 +25,6 @@ export default {
     'このリストを読み込めませんでした。ページを読み込み直してもう一度お試しください。',
   'fabric.atlassianSwitcher.errorTextUnverified':
     '利用可能な製品の一覧を見るには、メールアドレスを確認してください。',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    '最大 10 ユーザーまで使用できる無料のドキュメント コラボレーション',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    '最大 3 エージェントまで無料でコラボレーション可能な IT サービス管理',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    '最大 10 ユーザーまで使用できる無料のプロジェクトと課題トラッキング',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、GitHub など',
   'fabric.atlassianSwitcher.gittools.label': 'Jira 向け Git 統合',
   'fabric.atlassianSwitcher.jiraProject': 'Jira プロジェクト',

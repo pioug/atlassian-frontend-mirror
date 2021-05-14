@@ -25,12 +25,6 @@ export default {
     'De lijst met artikelen kan niet worden geladen. Laad de pagina opnieuw en probeer het nog eens.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Bevestig je e-mailadres om een lijst met beschikbare producten te bekijken.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Gratis samenwerken aan bestanden voor maximaal 10 gebruikers',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Gratis coöperatief IT-servicebeheer voor tot 3 agents',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Gratis projecten en issues volgen voor maximaal 10 gebruikers',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub en meer',
   'fabric.atlassianSwitcher.gittools.label': 'Git-integraties voor Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Jira-project',

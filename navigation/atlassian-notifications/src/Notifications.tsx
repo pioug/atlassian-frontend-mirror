@@ -7,7 +7,15 @@ import { NotificationsProps } from './types';
 import { getNotificationsSrc } from './utils';
 
 export const Notifications = (props: NotificationsProps) => {
-  const { _url, locale, product, testId, ...iframeProps } = props;
+  const {
+    _url,
+    locale,
+    product,
+    subproduct,
+    testId,
+    isNewExperience,
+    ...iframeProps
+  } = props;
   const ref = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,7 +54,13 @@ export const Notifications = (props: NotificationsProps) => {
       data-testid={testId}
       onLoad={onLoad}
       ref={ref}
-      src={getNotificationsSrc({ _url, locale, product })}
+      src={getNotificationsSrc({
+        _url,
+        locale,
+        product,
+        subproduct,
+        isNewExperience,
+      })}
     />
   );
 };

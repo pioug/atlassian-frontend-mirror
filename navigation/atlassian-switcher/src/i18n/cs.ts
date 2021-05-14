@@ -24,12 +24,6 @@ export default {
     'Tento seznam se nám nepodařilo načíst. Obnovte stránku a zkuste to znova.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Seznam dostupných produktů se vám zobrazí až poté, co potvrdíte svou e-mailovou adresu.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Bezplatná spolupráce na dokumentech pro až 10 uživatelů',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    'Kolaborativní správa IT služeb zdarma pro až tři agenty',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Bezplatné sledování projektů a požadavků pro až 10 uživatelů',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket, GitHub a další',
   'fabric.atlassianSwitcher.gittools.label': 'Integrace Git pro Jira',
   'fabric.atlassianSwitcher.jiraProject': 'Projekt Jira',

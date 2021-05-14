@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-notifications",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Notifications for Atlassian products",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,9 +15,9 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Notifications Platform",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

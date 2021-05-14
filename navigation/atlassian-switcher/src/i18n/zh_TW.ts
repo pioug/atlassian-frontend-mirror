@@ -24,12 +24,6 @@ export default {
     '無法載入此清單。請重新載入頁面，然後再試一次。',
   'fabric.atlassianSwitcher.errorTextUnverified':
     '請確認您的電子郵件地址以檢視可用產品清單。',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    '免費文件共同作業，最多可容納 10 位使用者',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsm':
-    '免費的協作 IT 服務管理，最多可供 3 位專員使用',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    '免費追蹤專案與問題，最多可容納 10 位使用者',
   'fabric.atlassianSwitcher.gittools.description': 'Bitbucket、GitHub 等等',
   'fabric.atlassianSwitcher.gittools.label': 'Jira 適用的 Git 整合',
   'fabric.atlassianSwitcher.jiraProject': 'Jira 專案',

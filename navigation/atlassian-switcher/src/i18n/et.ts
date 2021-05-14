@@ -23,10 +23,6 @@ export default {
     'Meil ei õnnestunud seda loendit laadida. Laadi lehte ja proovi uuesti.',
   'fabric.atlassianSwitcher.errorTextUnverified':
     'Saadaolevate toodete loendi kuvamiseks kinnitage oma meiliaadress.',
-  'fabric.atlassianSwitcher.free.edition.product.description.confluence':
-    'Tasuta dokumendialane koostöö kuni 10 kasutajale',
-  'fabric.atlassianSwitcher.free.edition.product.description.jsw':
-    'Tasuta projektide ja probleemide jälgimine kuni 10 kasutajale',
   'fabric.atlassianSwitcher.jiraProject': 'Jira projekt',
   'fabric.atlassianSwitcher.join': 'Liituge',
   'fabric.atlassianSwitcher.login': 'Logi sisse',

@@ -47,6 +47,31 @@ describe('NotificationDrawerContents', () => {
     );
   });
 
+  it('should ignore subproduct in legacy experience', () => {
+    const notifications = mount(
+      <Notifications locale="en" product="jira" subproduct="jira_software" />,
+    );
+    testIframeUrl(
+      notifications,
+      '/home/notificationsDrawer/iframe.html?locale=en&product=jira',
+    );
+  });
+
+  it('should add the correct url to the iframe when the new experience is enabled', () => {
+    const notifications = mount(
+      <Notifications
+        locale="en"
+        product="jira"
+        subproduct="software"
+        isNewExperience
+      />,
+    );
+    testIframeUrl(
+      notifications,
+      '/home/notificationList/index.html?locale=en&product=jira&subproduct=software',
+    );
+  });
+
   it('should add override the default URL when passing the `_url` prop', () => {
     const notifications = mount(
       <Notifications

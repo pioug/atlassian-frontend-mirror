@@ -35,7 +35,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -105,7 +106,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -184,7 +186,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -260,7 +263,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -342,7 +346,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -413,7 +418,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -481,7 +487,8 @@ describe('change onSelect to onChange', () => {
     }
     `,
     `
-    /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+    /* TODO: (from codemod) 
+    This file uses onSelect and this prop has been changed names to onChange.
 
     The type of onChange has also changed from
     (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;

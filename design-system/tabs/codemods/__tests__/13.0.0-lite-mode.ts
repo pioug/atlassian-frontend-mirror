@@ -62,7 +62,8 @@ describe('all transforms should be applied', () => {
     `
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
-      /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+      /* TODO: (from codemod) 
+      This file uses onSelect and this prop has been changed names to onChange.
 
       The type of onChange has also changed from
       (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -78,7 +79,8 @@ describe('all transforms should be applied', () => {
 
       If you are using the selected prop you will need to ensure that you are passing in the index
       of the selected tab as it also doesn't accept TabData anymore. */
-      /* TODO: (from codemod) We could not automatically convert this code to the new API.
+      /* TODO: (from codemod) 
+      We could not automatically convert this code to the new API.
 
       This file uses \`Tabs\`’s \`component\` prop. This has been removed as part of moving to
       a compositional API.
@@ -88,7 +90,8 @@ describe('all transforms should be applied', () => {
 
       To create a custom tab panel (replacement for \`Content\` component) refer to the docs at
       https://atlassian.design/components/tabs/examples#customizing-tab-panel */
-      /* TODO: (from codemod) We could not automatically convert this code to the new API.
+      /* TODO: (from codemod) 
+      We could not automatically convert this code to the new API.
 
       This file uses \`Tabs\`’s \`isSelectedTest\` prop. This has been removed as it is a second way
       to make \`Tabs\` controlled and is not needed.
@@ -177,7 +180,8 @@ describe('all transforms should be applied', () => {
     `
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
-      /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+      /* TODO: (from codemod) 
+      This file uses onSelect and this prop has been changed names to onChange.
 
       The type of onChange has also changed from
       (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -193,7 +197,8 @@ describe('all transforms should be applied', () => {
 
       If you are using the selected prop you will need to ensure that you are passing in the index
       of the selected tab as it also doesn't accept TabData anymore. */
-      /* TODO: (from codemod) We could not automatically convert this code to the new API.
+      /* TODO: (from codemod) 
+      We could not automatically convert this code to the new API.
 
       This file uses \`Tabs\`’s \`component\` prop. This has been removed as part of moving to
       a compositional API.
@@ -203,7 +208,8 @@ describe('all transforms should be applied', () => {
 
       To create a custom tab panel (replacement for \`Content\` component) refer to the docs at
       https://atlassian.design/components/tabs/examples#customizing-tab-panel */
-      /* TODO: (from codemod) We could not automatically convert this code to the new API.
+      /* TODO: (from codemod) 
+      We could not automatically convert this code to the new API.
 
       This file uses \`Tabs\`’s \`isSelectedTest\` prop. This has been removed as it is a second way
       to make \`Tabs\` controlled and is not needed.
@@ -297,7 +303,8 @@ describe('all transforms should be applied', () => {
     `
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
-      /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+      /* TODO: (from codemod) 
+      This file uses onSelect and this prop has been changed names to onChange.
 
       The type of onChange has also changed from
       (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -382,7 +389,8 @@ describe('all transforms should be applied', () => {
     `
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
-      /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+      /* TODO: (from codemod) 
+      This file uses onSelect and this prop has been changed names to onChange.
 
       The type of onChange has also changed from
       (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -398,7 +406,8 @@ describe('all transforms should be applied', () => {
 
       If you are using the selected prop you will need to ensure that you are passing in the index
       of the selected tab as it also doesn't accept TabData anymore. */
-      /* TODO: (from codemod) This file is spreading props on the Tabs component.
+      /* TODO: (from codemod) 
+      This file is spreading props on the Tabs component.
 
       The API has changed to be composable and a number of props have changed.
       - isSelectedTest no longer exists.
@@ -479,7 +488,8 @@ describe('all transforms should be applied', () => {
     `
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
-      /* TODO: (from codemod) This file uses onSelect and this prop has been changed names to onChange.
+      /* TODO: (from codemod) 
+      This file uses onSelect and this prop has been changed names to onChange.
 
       The type of onChange has also changed from
       (selected: TabData, selectedIndex: number, analyticsEvent: UIAnalyticsEvent) => void;
@@ -495,7 +505,8 @@ describe('all transforms should be applied', () => {
 
       If you are using the selected prop you will need to ensure that you are passing in the index
       of the selected tab as it also doesn't accept TabData anymore. */
-      /* TODO: (from codemod) We could not automatically convert this code to the new API.
+      /* TODO: (from codemod) 
+      We could not automatically convert this code to the new API.
 
       This file uses \`Tabs\`’s \`component\` prop. This has been removed as part of moving to
       a compositional API.
@@ -505,7 +516,8 @@ describe('all transforms should be applied', () => {
 
       To create a custom tab panel (replacement for \`Content\` component) refer to the docs at
       https://atlassian.design/components/tabs/examples#customizing-tab-panel */
-      /* TODO: (from codemod) We could not automatically convert this code to the new API.
+      /* TODO: (from codemod) 
+      We could not automatically convert this code to the new API.
 
       This file uses \`Tabs\`’s \`isSelectedTest\` prop. This has been removed as it is a second way
       to make \`Tabs\` controlled and is not needed.

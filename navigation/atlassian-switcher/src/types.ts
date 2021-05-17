@@ -339,6 +339,8 @@ export type AtlassianSwitcherProps = WithTheme &
     availableProductsDataProvider?: AvailableProductsDataProvider;
     // Optional custom provider for joinable sites
     joinableSitesDataProvider?: JoinableSitesDataProvider;
+    // Optional ability to highlight a joinable site
+    highlightedJoinableItemHref?: string;
     // Optional function allowing to close the switcher, e.g. after a joinable site link is clicked
     onClose?: () => void;
     // Optional parameter to indicate that the user does not have a linked Atlassian account (Trello specific)

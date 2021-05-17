@@ -39,7 +39,8 @@ describe('remove components prop', () => {
     }
     `,
     `
-    /* TODO: (from codemod) We could not automatically convert this code to the new API.
+    /* TODO: (from codemod) 
+    We could not automatically convert this code to the new API.
 
     This file uses \`Tabs\`’s \`component\` prop. This has been removed as part of moving to
     a compositional API.
@@ -109,7 +110,8 @@ describe('remove components prop', () => {
     }
     `,
     `
-    /* TODO: (from codemod) We could not automatically convert this code to the new API.
+    /* TODO: (from codemod) 
+    We could not automatically convert this code to the new API.
 
     This file uses \`Tabs\`’s \`component\` prop. This has been removed as part of moving to
     a compositional API.

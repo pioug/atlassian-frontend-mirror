@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 12.1.0
+
+### Minor Changes
+
+- [`9747cf677f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9747cf677f3) - [ux] Add highlight option to ItemWithAvatarGroup.
+
 ## 12.0.0
 
 ### Major Changes

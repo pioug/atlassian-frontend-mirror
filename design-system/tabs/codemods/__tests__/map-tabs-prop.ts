@@ -270,7 +270,8 @@ describe('map tabs prop to components', () => {
     );
     `,
     `
-    /* TODO: (from codemod) This file is spreading props on the Tabs component.
+    /* TODO: (from codemod) 
+    This file is spreading props on the Tabs component.
 
     The API has changed to be composable and a number of props have changed.
     - isSelectedTest no longer exists.

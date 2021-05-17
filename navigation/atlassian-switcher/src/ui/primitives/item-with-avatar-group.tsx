@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import AvatarGroup from '@atlaskit/avatar-group';
+import { N0, N40 } from '@atlaskit/theme/colors';
 
 import { JoinableSiteUserAvatarPropTypes } from '../../types';
 import {
@@ -24,9 +25,57 @@ export interface ItemWithAvatarGroupProps extends WithAnalyticsEventsProps {
   users?: JoinableSiteUserAvatarPropTypes[];
   target?: string;
   rel?: string;
+  highlighted?: boolean;
 }
 
-const Wrapper = styled.div`
+const BORDER_RADIUS = '3px';
+
+const pulseAnimation = keyframes`
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    67% {
+      transform: scale(1.02857, 1.17021);
+      opacity: 0.67;
+    }
+    100% {
+      transform: scale(1.02857, 1.17021);
+      opacity: 0;
+    }
+`;
+
+const highlightStyles = css`
+  position: relative;
+  border-radius: ${BORDER_RADIUS};
+
+  &::before,
+  &::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    border-radius: ${BORDER_RADIUS};
+  }
+
+  &::before {
+    z-index: -1;
+    background-color: ${N0};
+    border: 1px solid ${N40};
+  }
+
+  &::after {
+    z-index: -2;
+    background-color: ${N40};
+    transform-origin: center;
+    animation: ${pulseAnimation} 1.5s ease-out infinite;
+  }
+`;
+
+const Wrapper = styled.div<{ highlighted?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,17 +86,26 @@ const Wrapper = styled.div`
   > div {
     width: 100%;
   }
+
+  ${({ highlighted }) => highlighted && highlightStyles}
 `;
 
 const noop = () => {};
 
 class ItemWithAvatarGroup extends React.Component<ItemWithAvatarGroupProps> {
   render() {
-    const { icon, description, users = [], onItemClick, ...rest } = this.props;
+    const {
+      icon,
+      description,
+      users = [],
+      onItemClick,
+      highlighted,
+      ...rest
+    } = this.props;
 
     return (
       <FadeIn>
-        <Wrapper>
+        <Wrapper highlighted={highlighted}>
           <ThemedItem
             description={description}
             icon={icon}

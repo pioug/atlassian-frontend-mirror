@@ -59,7 +59,7 @@ describe('auth()', () => {
     );
   });
 
-  it('should not reject when the message indicates success and is from another window', done => {
+  it('should not reject when the message indicates success and is from another window', (done) => {
     const promise = auth('/');
 
     window.dispatchEvent(
@@ -82,7 +82,7 @@ describe('auth()', () => {
     }, 500);
   });
 
-  it('should not reject when the message indicates failure and is from another window', done => {
+  it('should not reject when the message indicates failure and is from another window', (done) => {
     const promise = auth('/');
 
     window.dispatchEvent(

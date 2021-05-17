@@ -40,7 +40,8 @@ describe('remove isSelectedTest prop', () => {
     }
     `,
     `
-    /* TODO: (from codemod) We could not automatically convert this code to the new API.
+    /* TODO: (from codemod) 
+    We could not automatically convert this code to the new API.
 
     This file uses \`Tabs\`’s \`isSelectedTest\` prop. This has been removed as it is a second way
     to make \`Tabs\` controlled and is not needed.
@@ -108,7 +109,8 @@ describe('remove isSelectedTest prop', () => {
     }
     `,
     `
-    /* TODO: (from codemod) We could not automatically convert this code to the new API.
+    /* TODO: (from codemod) 
+    We could not automatically convert this code to the new API.
 
     This file uses \`Tabs\`’s \`isSelectedTest\` prop. This has been removed as it is a second way
     to make \`Tabs\` controlled and is not needed.

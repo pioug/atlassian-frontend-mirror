@@ -6,7 +6,8 @@ const transformer = createTransformer([removeLanguageProp]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
-export const comment = `/* TODO: (from codemod) We could not automatically convert this code to the new API.
+export const comment = `/* TODO: (from codemod) 
+    We could not automatically convert this code to the new API.
 
     This file uses \`Code\`’s \`language\` prop. The support for syntax highlighting has
     been removed to make \`Code\` lighter, quicker and more composable. If you need syntax

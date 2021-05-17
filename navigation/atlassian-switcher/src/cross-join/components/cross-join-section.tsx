@@ -24,6 +24,7 @@ interface CrossJoinSectionProps {
   joinableSiteLinks?: JoinableSiteItemType[];
   appearance?: Appearance;
   onJoinableSiteClicked?: JoinableSiteClickHandler;
+  highlightedJoinableItemHref?: string;
   onClose?: () => void;
   rawProviderResults: ProviderResults & SyntheticProviderResults;
 }
@@ -33,6 +34,7 @@ export const CrossJoinSection: FunctionComponent<CrossJoinSectionProps> = props 
     appearance,
     joinableSiteLinks = [],
     onJoinableSiteClicked,
+    highlightedJoinableItemHref,
     onClose,
     licensedProductLinks,
   } = props;
@@ -61,6 +63,7 @@ export const CrossJoinSection: FunctionComponent<CrossJoinSectionProps> = props 
               description={description}
               users={users}
               href={href}
+              highlighted={highlightedJoinableItemHref === href}
               onItemClick={(event: React.SyntheticEvent) => {
                 if (onJoinableSiteClicked) {
                   onJoinableSiteClicked({

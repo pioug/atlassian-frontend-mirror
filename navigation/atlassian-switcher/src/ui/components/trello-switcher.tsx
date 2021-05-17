@@ -43,6 +43,7 @@ export type TrelloSwitcherProps = WithTheme &
     onDiscoverMoreClicked: DiscoverMoreCallback;
     joinableSitesDataProvider?: JoinableSitesDataProvider;
     onJoinableSiteClicked?: JoinableSiteClickHandler;
+    highlightedJoinableItemHref?: string;
     nonAaMastered?: boolean;
     defaultSignupEmail?: string;
     onClose?: () => void;
@@ -101,6 +102,14 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
       );
       onClose && onClose();
     }
+  };
+
+  onJoinableSiteClicked = (data: JoinableSiteClickHandlerData) => {
+    if (this.props.nonAaMastered) {
+      this.showSignupBanner(data);
+    }
+
+    this.props.onJoinableSiteClicked?.(data);
   };
 
   render() {
@@ -179,11 +188,7 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
                     <Switcher
                       {...this.props}
                       {...switcherLinks}
-                      onJoinableSiteClicked={
-                        this.props.nonAaMastered
-                          ? this.showSignupBanner
-                          : undefined
-                      }
+                      onJoinableSiteClicked={this.onJoinableSiteClicked}
                       renderAddOn={
                         this.props.nonAaMastered ? renderAddOn : undefined
                       }

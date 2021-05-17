@@ -76,6 +76,7 @@ export type SwitcherProps = {
    */
   discoverSectionLinks: SwitcherItemType[];
   onJoinableSiteClicked?: JoinableSiteClickHandler;
+  highlightedJoinableItemHref?: string;
   defaultSignupEmail?: string;
   onClose?: () => void;
   renderAddOn?: RenderAddOn;
@@ -148,6 +149,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
       features,
       onClose,
       onJoinableSiteClicked,
+      highlightedJoinableItemHref,
       triggerXFlow,
       slackDiscoveryClickHandler,
       getExtendedAnalyticsAttributes,
@@ -310,6 +312,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
               joinableSiteLinks={joinableSiteLinks}
               licensedProductLinks={licensedProductLinks}
               onJoinableSiteClicked={onJoinableSiteClicked}
+              highlightedJoinableItemHref={highlightedJoinableItemHref}
               onClose={onClose}
               rawProviderResults={rawProviderResults}
             />

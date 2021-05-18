@@ -29,7 +29,7 @@ const defaultImage = css`
 `;
 
 export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
-  ${props => {
+  ${(props) => {
     if (props.isLoading) {
       return loadingImage;
     }

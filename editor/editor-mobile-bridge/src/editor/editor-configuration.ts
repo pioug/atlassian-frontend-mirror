@@ -24,6 +24,7 @@ interface EditorConfig {
   selectionObserverEnabled?: boolean;
   allowCollabProvider?: boolean;
   allowPredictableList?: boolean;
+  useUnpredictableInputRule?: boolean;
   placeholder?: string;
   allowEmptyADFCheck?: boolean;
 }
@@ -37,6 +38,7 @@ export default class MobileEditorConfiguration
   private selectionObserverEnabled: boolean = false;
   private allowCollabProvider: boolean = false;
   private allowPredictableList: boolean = true;
+  private useUnpredictableInputRule: boolean = true;
   private placeholder?: string | undefined;
   private allowEmptyADFCheck: boolean = false;
 
@@ -68,6 +70,10 @@ export default class MobileEditorConfiguration
       config.allowPredictableList !== undefined
         ? config.allowPredictableList
         : this.allowPredictableList;
+    this.useUnpredictableInputRule =
+      config.useUnpredictableInputRule !== undefined
+        ? config.useUnpredictableInputRule
+        : this.useUnpredictableInputRule;
     this.placeholder =
       config.placeholder !== undefined ? config.placeholder : this.placeholder;
     this.allowEmptyADFCheck =
@@ -104,8 +110,15 @@ export default class MobileEditorConfiguration
     return this.allowPredictableList;
   }
 
+  isUnpredictableInputRuleEnabled(): boolean {
+    return this.useUnpredictableInputRule;
+  }
+
   isScrollGutterPersisted(): boolean {
     return this.getEditorAppearance() === EditorAppearance.COMPACT;
+  }
+  isIndentationAllowed(): boolean {
+    return this.getEditorAppearance() !== EditorAppearance.COMPACT;
   }
 
   getPlaceholder(): string | undefined {

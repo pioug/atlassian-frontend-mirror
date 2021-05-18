@@ -33,7 +33,7 @@ describe('Profilecard', () => {
     describe('should render LabelIcon with valid icons', () => {
       const validIcons = ['location', 'time', 'email'];
 
-      validIcons.forEach(label => {
+      validIcons.forEach((label) => {
         it(`should render LabelIcon for ${label}`, () => {
           const wrapper = mount(<IconLabel icon={label}>Labeltext</IconLabel>);
           expect(wrapper.length).toBeGreaterThan(0);

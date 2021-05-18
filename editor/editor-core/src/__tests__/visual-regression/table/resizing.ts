@@ -36,12 +36,25 @@ describe('Snapshot Test: table resizing', () => {
       page = global.page;
     });
 
-    beforeEach(async () => {
-      await initFullPageEditorWithAdf(page, adf);
+    async function initEditorWithTable(featureFlags?: {
+      [featureFlag: string]: string | boolean;
+    }) {
+      await initFullPageEditorWithAdf(
+        page,
+        adf,
+        undefined,
+        undefined,
+        featureFlags
+          ? {
+              featureFlags,
+            }
+          : undefined,
+      );
       await insertTable(page);
-    });
+    }
 
     it(`resize a column with content width`, async () => {
+      await initEditorWithTable();
       await resizeColumnAndReflow(page, { colIdx: 2, amount: 123, row: 2 });
       await animationFrame(page);
       await animationFrame(page);
@@ -55,13 +68,20 @@ describe('Snapshot Test: table resizing', () => {
     });
 
     it(`snaps back to layout width after column removal`, async () => {
+      await initEditorWithTable();
       await deleteColumn(page, 1);
 
       await waitToolbarThenSnapshot(page);
     });
 
-    describe('Overflow Table', () => {
+    describe.each([
+      ['without tableOverflowShadowsOptimization', false],
+      ['with tableOverflowShadowsOptimization', true],
+    ])('Overflow Table %s', tableOverflowShadowsOptimization => {
       beforeEach(async () => {
+        await initEditorWithTable({
+          tableOverflowShadowsOptimization,
+        });
         // Go to overflow
         await resizeColumn(page, { colIdx: 2, amount: 500, row: 2 });
       });
@@ -103,6 +123,7 @@ describe('Snapshot Test: table resizing', () => {
     });
 
     it('should preserve the selection after resizing', async () => {
+      await initEditorWithTable();
       await clickFirstCell(page);
 
       const controlSelector = `.${ClassName.COLUMN_CONTROLS_DECORATIONS}[data-start-index="0"]`;

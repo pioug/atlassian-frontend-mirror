@@ -16,15 +16,18 @@ import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { h500 } from '@atlaskit/theme/typography';
 
-import SectionMessage from '../../index';
+import SectionMessage, { SectionMessageAction } from '../../index';
 import { Appearance } from '../../types';
 
-const mockConsoleErrorListener = jest.spyOn(console, 'error').mockReturnValue();
-const appearancesCases = [
+const appearancesCases: {
+  name: Appearance;
+  backgroundColor: string;
+  icon: ({}) => JSX.Element;
+}[] = [
   {
-    name: 'info',
+    name: 'information',
     backgroundColor: '#DEEBFF',
-    icon: (props: {}) => <InfoIcon {...props} label="info" />,
+    icon: (props: {}) => <InfoIcon {...props} label="information" />,
   },
   {
     name: 'warning',
@@ -37,22 +40,26 @@ const appearancesCases = [
     icon: (props: {}) => <ErrorIcon {...props} label="error" />,
   },
   {
-    name: 'confirmation',
+    name: 'success',
     backgroundColor: '#E3FCEF',
-    icon: (props: {}) => <CheckCircleIcon {...props} label="confirmation" />,
+    icon: (props: {}) => <CheckCircleIcon {...props} label="success" />,
   },
   {
-    name: 'change',
+    name: 'discovery',
     backgroundColor: '#EAE6FF',
-    icon: (props: {}) => <QuestionCircleIcon {...props} label="change" />,
+    icon: (props: {}) => <QuestionCircleIcon {...props} label="discovery" />,
   },
 ];
+const CustomLinkComponent = React.forwardRef(
+  (props = {}, ref: React.Ref<HTMLButtonElement>) => (
+    <button {...props} ref={ref}>
+      hello world
+    </button>
+  ),
+);
 
 const getByHref = queryByAttribute.bind(null, 'href');
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
 // cleanup can be removed once we move to RTL v9
 afterEach(cleanup);
 
@@ -99,9 +106,10 @@ describe('SectionMessage', () => {
 
   describe('actions', () => {
     it('should render actions beneath the section message description', () => {
-      const aye = { key: 'aye', text: 'aye' };
-      const bee = { key: 'bee', text: 'aye' };
-      const actions = [aye, bee];
+      const actions = [
+        <SectionMessageAction>aye</SectionMessageAction>,
+        <SectionMessageAction>aye</SectionMessageAction>,
+      ];
       const { getAllByText } = render(
         <SectionMessage actions={actions}>boo</SectionMessage>,
       );
@@ -109,24 +117,13 @@ describe('SectionMessage', () => {
       expect(getAllByText('aye')).toHaveLength(2);
     });
 
-    it('should use the key provided to actions and not warn about unique "key" prop', () => {
-      const Aye = { text: 'aye', key: 'ayeKey' };
-      render(<SectionMessage actions={[Aye]}>boo</SectionMessage>);
-
-      expect(mockConsoleErrorListener.mock.calls.length).toBe(0);
-    });
-
-    it('should warn about duplicate key prop', () => {
-      const aye = { text: 'aye', key: 'ayeKey' };
-      const bye = { text: 'bye', key: 'ayeKey' };
-      render(<SectionMessage actions={[aye, bye]}>boo</SectionMessage>);
-
-      expect(mockConsoleErrorListener.mock.calls.length).toBe(1);
-    });
-
     it('should render React Nodes as actions', () => {
       const MyAction = () => <span>Hello, World!</span>;
-      const Aye = { text: <MyAction />, key: 'greeting' };
+      const Aye = (
+        <SectionMessageAction>
+          <MyAction />
+        </SectionMessageAction>
+      );
       const { getByText } = render(
         <SectionMessage actions={[Aye]}>boo</SectionMessage>,
       );
@@ -137,13 +134,11 @@ describe('SectionMessage', () => {
     it('should render a link when passed an action', () => {
       const { container } = render(
         <SectionMessage
-          actions={[
-            {
-              key: 'aye',
-              text: 'aye',
-              href: 'https://atlaskit.atlassian.com/',
-            },
-          ]}
+          actions={
+            <SectionMessageAction href="https://atlaskit.atlassian.com/">
+              aye
+            </SectionMessageAction>
+          }
         >
           boo
         </SectionMessage>,
@@ -155,17 +150,16 @@ describe('SectionMessage', () => {
     });
 
     it('should render a custom component when an action with href is passed', () => {
-      const Custom = (props: {}) => <button {...props}>hello world</button>;
       const { container } = render(
         <SectionMessage
-          linkComponent={Custom}
-          actions={[
-            {
-              key: 'aye',
-              text: 'aye',
-              href: 'https://atlaskit.atlassian.com/',
-            },
-          ]}
+          actions={
+            <SectionMessageAction
+              href="https://atlaskit.atlassian.com/"
+              linkComponent={CustomLinkComponent}
+            >
+              aye
+            </SectionMessageAction>
+          }
         >
           boo
         </SectionMessage>,
@@ -177,23 +171,31 @@ describe('SectionMessage', () => {
     });
 
     it('should call "onClick" on the click of an action with "onClick" but no "href"', () => {
-      const action = { key: 'aye', text: 'aye', onClick: jest.fn() };
+      const onClick = jest.fn();
+      const action = (
+        <SectionMessageAction onClick={onClick}>aye</SectionMessageAction>
+      );
       const { getByText } = render(
         <SectionMessage actions={[action]}>boo</SectionMessage>,
       );
       const sectionMsgAction = getByText('aye');
       fireEvent.click(sectionMsgAction);
 
-      expect(action.onClick).toHaveBeenCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
 
     it('should NOT render custom component for an action with onClick but no href', () => {
-      const action = { key: 'aye', text: 'aye', onClick: jest.fn() };
-      const Custom = (props: {}) => <button {...props}>hello world</button>;
+      const onClick = jest.fn();
+      const action = (
+        <SectionMessageAction
+          onClick={onClick}
+          linkComponent={CustomLinkComponent}
+        >
+          aye
+        </SectionMessageAction>
+      );
       const { queryAllByText } = render(
-        <SectionMessage linkComponent={Custom} actions={[action]}>
-          boo
-        </SectionMessage>,
+        <SectionMessage actions={[action]}>boo</SectionMessage>,
       );
       const sectionMsgAction = queryAllByText('hello world');
 
@@ -201,15 +203,13 @@ describe('SectionMessage', () => {
     });
 
     it('should NOT render custom component for action with no onClick and no href', () => {
-      const Custom = (props: {}) => <button {...props}>hello world</button>;
-      const action = {
-        key: 'aye',
-        text: 'aye',
-      };
+      const action = (
+        <SectionMessageAction linkComponent={CustomLinkComponent}>
+          aye
+        </SectionMessageAction>
+      );
       const { queryAllByText } = render(
-        <SectionMessage linkComponent={Custom} actions={[action]}>
-          boo
-        </SectionMessage>,
+        <SectionMessage actions={[action]}>boo</SectionMessage>,
       );
       const sectionMsgAction = queryAllByText('hello world');
 

@@ -1,11 +1,38 @@
+import { EditorState } from 'prosemirror-state';
 import { TableCssClassName as ClassName } from '../types';
+import { getFeatureFlags } from '../../feature-flags-context';
 
+export const updateShadowListForStickyStyles = (
+  heightStyle: string,
+
+  shadows: HTMLCollection,
+) => {
+  Array.from(shadows).forEach(shadow => {
+    if (shadow.classList.contains(ClassName.TABLE_STICKY_SHADOW)) {
+      if (
+        shadow instanceof HTMLElement &&
+        shadow.style.height !== heightStyle
+      ) {
+        shadow.style.height = heightStyle;
+      }
+    }
+  });
+};
+
+/**
+ * Update overflow shadows for a given wrapper & table.
+ * if `overflowShadowOptimization` is enabled, this will exit early.
+ */
 export const updateOverflowShadows = (
+  editorState: EditorState,
   wrapper?: HTMLElement | null,
   table?: HTMLElement | null,
   rightShadows?: NodeListOf<HTMLElement> | null,
   leftShadows?: NodeListOf<HTMLElement> | null,
 ) => {
+  if (getFeatureFlags(editorState)?.tableOverflowShadowsOptimization === true) {
+    return false;
+  }
   // Right shadow
   if (table && wrapper) {
     const stickyRow = wrapper.querySelector('tr.sticky');
@@ -41,5 +68,4 @@ export const updateOverflowShadows = (
       }
     }
   }
-  return;
 };

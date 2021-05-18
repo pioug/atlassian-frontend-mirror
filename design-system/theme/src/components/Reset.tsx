@@ -62,7 +62,7 @@ export const ResetTheme = createTheme<ResetThemeTokens, ResetThemeProps>(
     headingColor: colors.N800,
     subtleHeadingColor: colors.N200,
     subtleTextColor: colors.N200,
-    textColor: colors.N900,
+    textColor: colors.N800,
   }),
 );
 

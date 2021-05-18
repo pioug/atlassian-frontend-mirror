@@ -4,12 +4,15 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { Field } from '@atlaskit/form';
+import { RadioGroup } from '@atlaskit/radio';
 
 import Modal, { ModalTransition } from '../src';
 
 const sizes = ['large', 'medium', 'small'];
 
 export default function NestedDemo() {
+  const [scroll, setScroll] = useState<'inside' | 'outside'>('inside');
   const [openModals, setOpenModals] = useState<{ [key: string]: boolean }>({});
   const open = (name: string) =>
     setOpenModals(prev => ({ ...prev, [name]: true }));
@@ -31,12 +34,31 @@ export default function NestedDemo() {
 
   return (
     <div style={{ maxWidth: 400, padding: 16 }}>
+      <Field name="sb" label="Scrolling behavior">
+        {() => (
+          <RadioGroup
+            value={scroll}
+            onChange={e => setScroll(e.target.value as 'inside' | 'outside')}
+            options={[
+              {
+                label: 'inside',
+                value: 'inside',
+                testId: 'inside',
+              },
+              {
+                label: 'outside',
+                value: 'outside',
+                testId: 'outside',
+              },
+            ]}
+          />
+        )}
+      </Field>
+
       <ButtonGroup>
-        {sizes.map(name => (
-          <Button key={name} testId={name} onClick={() => open(name)}>
-            Open: {name}
-          </Button>
-        ))}
+        <Button testId="large" onClick={() => open('large')}>
+          Open
+        </Button>
       </ButtonGroup>
       <p>
         For illustrative purposes three {'"stacked"'} modals can be opened in
@@ -62,6 +84,7 @@ export default function NestedDemo() {
           <ModalTransition key={name}>
             {openModals[name] && (
               <Modal
+                scrollBehavior={scroll}
                 actions={actions}
                 onClose={() => close(name)}
                 onCloseComplete={() => handleCloseComplete(name)}

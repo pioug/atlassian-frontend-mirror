@@ -230,7 +230,7 @@ const FieldsFooterWrapper = styled.div`
 
 const CustomFooter = () => (
   <FooterWrapper>
-    <SectionMessage appearance="info" title="Footer">
+    <SectionMessage appearance="information" title="Footer">
       <p>This is a sample footer for the Share dialog</p>
     </SectionMessage>
   </FooterWrapper>
@@ -252,7 +252,7 @@ class MockUrlShortenerClient implements UrlShortenerClient {
   }
 
   public shorten(): Promise<ShortenResponse> {
-    return new Promise<ShortenResponse>(resolve => {
+    return new Promise<ShortenResponse>((resolve) => {
       this.count++;
       setTimeout(() => {
         resolve({
@@ -319,7 +319,7 @@ export default class Example extends React.Component<{}, State> {
   key: number = 0;
 
   getConfig = (product: string, cloudId: string): Promise<ConfigResponse> =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(this.state);
       }, 1000);
@@ -338,7 +338,7 @@ export default class Example extends React.Component<{}, State> {
       _comment,
     });
 
-    return new Promise<ShareResponse>(resolve => {
+    return new Promise<ShareResponse>((resolve) => {
       setTimeout(
         () =>
           resolve({
@@ -390,7 +390,7 @@ export default class Example extends React.Component<{}, State> {
       <AnalyticsListener onEvent={listenerHandler} channel="fabric-elements">
         <IntlProvider locale="en">
           <App>
-            {showFlags => (
+            {(showFlags) => (
               <>
                 <h4>Share Component</h4>
                 <WrapperWithMarginTop>
@@ -641,7 +641,7 @@ export default class Example extends React.Component<{}, State> {
                     Dialog Placement
                     <Select
                       value={dialogPlacementOptions.find(
-                        option => option.value === dialogPlacement,
+                        (option) => option.value === dialogPlacement,
                       )}
                       options={dialogPlacementOptions}
                       onChange={(option: any) =>
@@ -652,7 +652,9 @@ export default class Example extends React.Component<{}, State> {
                   <WrapperWithMarginTop>
                     Share Configs
                     <Select
-                      value={modeOptions.find(option => option.value === mode)}
+                      value={modeOptions.find(
+                        (option) => option.value === mode,
+                      )}
                       options={modeOptions}
                       onChange={(mode: any) =>
                         this.setState({ mode: mode.value })

@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 17.1.6
+
+### Patch Changes
+
+- [`17b0f1123c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17b0f1123c6) - Update media-image package.json with correct description
+
 ## 17.1.5
 
 ### Patch Changes

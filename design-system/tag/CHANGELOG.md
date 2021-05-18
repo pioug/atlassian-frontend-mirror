@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.1.0
+
+### Minor Changes
+
+- [`4a9029c3018`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a9029c3018) - Add aria-label to Remove button in tag
+
 ## 11.0.11
 
 ### Patch Changes

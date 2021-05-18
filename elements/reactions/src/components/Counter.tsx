@@ -89,6 +89,8 @@ export class Counter extends React.PureComponent<Props, State> {
     const { overLimitLabel } = this.props;
     if (this.hasReachedLimit(value)) {
       return overLimitLabel || '';
+    } else if (value === 0) {
+      return '';
     } else {
       return value.toString();
     }

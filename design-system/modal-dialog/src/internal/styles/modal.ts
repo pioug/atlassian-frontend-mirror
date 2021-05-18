@@ -3,84 +3,56 @@ import { css } from '@emotion/core';
 import { prefersReducedMotion } from '@atlaskit/motion/accessibility';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
-import { DN50, N0, N30A, N60A, text } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
+import { N0, N30A, N60A, text } from '@atlaskit/theme/colors';
 import { borderRadius, layers } from '@atlaskit/theme/constants';
 
-import { PositionerProps } from '../components/positioner';
 import { gutter, verticalOffset, WIDTH_ENUM, WidthNames } from '../constants';
 import { ModalDialogProps } from '../types';
 
-const maxDimensions = `calc(100% - ${gutter * 2}px)`;
-const maxHeightDimensions = `calc(100% - ${gutter * 2 - 1}px)`;
+const maxWidthDimensions = `calc(100vw - ${gutter * 2}px)`;
+const maxHeightDimensions = `calc(100vh - ${gutter * 2 - 1}px)`;
 
-interface DialogWidth {
-  widthName?: WidthNames;
-  widthValue?: string | number;
-}
-
-export const dialogWidth = ({ widthName, widthValue }: DialogWidth) => {
-  if (typeof widthValue === 'number') {
-    return `${widthValue}px`;
+export const dialogWidth = (width?: ModalDialogProps['width']) => {
+  if (!width) {
+    return 'auto';
   }
 
-  return widthName ? `${WIDTH_ENUM.widths[widthName]}px` : widthValue || 'auto';
-};
+  const isWidthName = WIDTH_ENUM.values.indexOf(width.toString()) !== -1;
+  const widthName = isWidthName && (width as WidthNames);
 
-interface DialogHeight {
-  heightValue?: string | number;
-}
-
-export const dialogHeight = ({ heightValue }: DialogHeight) => {
-  if (typeof heightValue === 'number') {
-    return `${heightValue}px`;
+  if (widthName) {
+    return `${WIDTH_ENUM.widths[widthName]}px`;
   }
-  return heightValue || 'auto';
+
+  return typeof width === 'number' ? `${width}px` : width;
 };
 
-/**
-  NOTE:
-  z-index
-  - temporarily added to beat @atlaskit/navigation
+export const dialogHeight = (height?: ModalDialogProps['height']) => {
+  if (!height) {
+    return 'auto';
+  }
 
-  absolute + top
-  - rather than fixed position so popper.js children are properly positioned
+  return typeof height === 'number' ? `${height}px` : height;
+};
 
-  overflow-y
-  - only active when popper.js children invoked below the dialog
-*/
 export const getFillScreenStyles = (scrollDistance: number) => css`
   height: 100vh;
-  left: 0;
-  overflow-y: auto;
+  width: 100vw;
+
+  // This instead of fixed so PopupSelect's
+  // children are properly positioned.
   position: absolute;
   top: ${scrollDistance}px;
-  width: 100%;
+
   z-index: ${layers.modal()};
+  overflow-y: auto; // Enables scroll outside.
   -webkit-overflow-scrolling: touch;
 `;
 
-type PositionerStyles = Omit<PositionerProps, 'scrollBehavior' | 'children'>;
-const positionerBaseStyles = ({
-  stackIndex,
-  ...widthOptions
-}: PositionerStyles) => css`
-  display: flex;
-  flex-direction: column;
-  height: ${maxHeightDimensions};
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: ${maxDimensions};
-  top: ${gutter}px;
-  width: ${dialogWidth(widthOptions)};
-  z-index: ${layers.modal()};
-  pointer-events: none;
-
+const modalStackTransition = (stackIndex: number) => css`
   // We only want to apply transform on modals shifting to the back of the stack.
-  transform: ${stackIndex! > 0
-    ? `translateY(${stackIndex! * (verticalOffset / 2)}px)`
+  transform: ${stackIndex > 0
+    ? `translateY(${stackIndex * (verticalOffset / 2)}px)`
     : 'none'};
   transition-property: transform;
   transition-duration: ${mediumDurationMs}ms;
@@ -88,65 +60,97 @@ const positionerBaseStyles = ({
   ${prefersReducedMotion()};
 `;
 
-const positionerResponsiveBaseStyles = css`
-  height: 100%;
+const positionerBaseStyles = css`
+  top: ${gutter}px;
   left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  max-width: ${maxWidthDimensions};
+  max-height: ${maxHeightDimensions};
+
+  pointer-events: none;
+  width: max-content;
+`;
+
+const positionerResponsiveBaseStyles = css`
   position: fixed;
+  left: 0;
   top: 0;
-  max-width: 100%;
+
+  height: 100%;
   width: 100%;
-`;
+  max-width: 100%;
 
-export const getPositionRelativeStyles = (props: PositionerStyles) => css`
-  margin: ${gutter}px auto;
-  position: relative;
-  width: ${dialogWidth(props)};
   z-index: ${layers.modal()};
+`;
 
-  @media (max-width: 480px) {
-    ${positionerResponsiveBaseStyles};
-    margin: 0;
+export const getPositionRelativeStyles = (stackIndex: number) => css`
+  ${positionerResponsiveBaseStyles};
+  ${modalStackTransition(stackIndex)};
+
+  margin: 0;
+
+  @media (min-width: 480px) {
+    position: relative;
+    margin: ${gutter}px auto;
+    width: max-content;
   }
 `;
 
-export const getPositionAbsoluteStyles = (props: PositionerStyles) => css`
-  ${positionerBaseStyles(props)};
-  position: absolute;
+export const getPositionAbsoluteStyles = (stackIndex: number) => css`
+  ${positionerResponsiveBaseStyles};
+  ${modalStackTransition(stackIndex)};
 
-  @media (max-width: 480px) {
-    ${positionerResponsiveBaseStyles};
+  @media (min-width: 480px) {
+    ${positionerBaseStyles};
+    position: absolute;
   }
 `;
 
-export const getPositionFixedStyles = (props: PositionerStyles) => css`
-  ${positionerBaseStyles(props)};
-  position: fixed;
+export const getPositionFixedStyles = (stackIndex: number) => css`
+  ${positionerResponsiveBaseStyles};
+  ${modalStackTransition(stackIndex)};
 
-  @media (max-width: 480px) {
-    ${positionerResponsiveBaseStyles};
+  @media (min-width: 480px) {
+    ${positionerBaseStyles};
+    position: fixed;
   }
 `;
 
-type DialogStyles = Pick<ModalDialogProps, 'isChromeless' | 'height'>;
-export const getDialogStyles = ({ isChromeless, height }: DialogStyles) => css`
+type DialogStyles = Pick<ModalDialogProps, 'isChromeless' | 'height' | 'width'>;
+export const getDialogStyles = ({
+  isChromeless,
+  height,
+  width,
+}: DialogStyles) => css`
   color: ${text()};
   display: flex;
   flex-direction: column;
-  height: ${dialogHeight({ heightValue: height })};
-  max-height: 100%;
-  outline: 0;
+
   pointer-events: auto;
+
+  height: 100%;
+  width: 100%;
+  max-height: 100vh;
+  max-width: 100vw;
 
   ${isChromeless !== true &&
   css`
-    background-color: ${themed({ light: N0, dark: DN50 })()};
-    border-radius: ${borderRadius()}px;
-    box-shadow: 0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A};
+    background-color: ${N0};
   `}
 
-  @media (max-width: 480px) {
-    height: 100%;
-    max-height: 100%;
-    border-radius: 0;
+  @media (min-width: 480px) {
+    height: ${dialogHeight(height)};
+    width: ${dialogWidth(width)};
+    max-height: inherit;
+    max-width: inherit;
+
+    ${isChromeless !== true &&
+    css`
+      border-radius: ${borderRadius()}px;
+      box-shadow: 0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A};
+    `}
   }
 `;

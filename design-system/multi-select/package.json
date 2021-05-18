@@ -28,7 +28,7 @@
     "@atlaskit/field-base": "^15.0.0",
     "@atlaskit/icon": "^21.4.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/tag": "^11.0.0",
+    "@atlaskit/tag": "^11.1.0",
     "@atlaskit/tag-group": "^10.0.0",
     "@atlaskit/theme": "^11.0.0",
     "@babel/runtime": "^7.0.0",
@@ -43,7 +43,7 @@
     "@atlaskit/avatar": "^20.0.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0"

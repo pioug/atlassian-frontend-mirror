@@ -1,5 +1,48 @@
 # @atlaskit/pagination
 
+## 14.0.0
+
+### Major Changes
+
+- [`517850f6451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/517850f6451) - In this version we made pagination dramatically faster and lighter 🤩
+
+  - General performance improvements.
+  - Accesbility improvemnts (Change Pagination wrapper tag from div to nav).
+  - Changed to on demand dyanmic generation of page components for better performance.
+
+  - **BREAKING**
+    Renamed `innerStyles` -> `style` prop & `PaginationPropTypes` -> `PaginationProps`.
+    Removed `i18n` prop and flattened its child props `prev`, `next` as standalone props `nextLabel`and `prevLabel`.
+    Added `label` prop for adding aria-label on pagination wrapper.
+    Removed `collapseRange` props beacause of its limited use & achieving better performance.
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/pagination@^14.0.0
+  ```
+
+  Once upgraded,
+  use `@atlaskit/codemod-cli`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/pagination@^14.0.0` and you will automatically be upgraded.
+  If your usage of pagination cannot be upgraded, a comment will be left that a manual change is required.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+  For Atlassians,
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- [`200ebeada19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/200ebeada19) - Updated codemods to handle edge cases
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

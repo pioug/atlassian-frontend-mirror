@@ -64,7 +64,7 @@ export const updateControls = (state: EditorState) => {
     `.${ClassName.TABLE_LEFT_SHADOW}`,
   );
 
-  updateOverflowShadows(wrapper, tableRef, rightShadows, leftShadows);
+  updateOverflowShadows(state, wrapper, tableRef, rightShadows, leftShadows);
 };
 
 export const isClickNear = (

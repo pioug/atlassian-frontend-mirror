@@ -38,7 +38,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   private portalProviderAPI: PortalProviderAPI;
   private hasContext: boolean;
   private _viewShouldUpdate?: shouldUpdate;
-  private eventDispatcher?: EventDispatcher;
+  protected eventDispatcher?: EventDispatcher;
 
   reactComponentProps: P;
 

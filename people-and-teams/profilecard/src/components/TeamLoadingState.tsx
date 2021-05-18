@@ -15,7 +15,7 @@ export default (props: { analytics: AnalyticsFunction }) => {
   const { analytics } = props;
 
   useEffect(() => {
-    analytics(duration => teamProfileCardRendered('spinner', { duration }));
+    analytics((duration) => teamProfileCardRendered('spinner', { duration }));
   }, [analytics]);
 
   return (

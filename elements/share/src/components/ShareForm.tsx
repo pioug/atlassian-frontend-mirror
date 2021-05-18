@@ -220,7 +220,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
 const InternalFormWithIntl = injectIntl(InternalForm);
 
-export const ShareForm: React.FC<Props> = props => (
+export const ShareForm: React.FC<Props> = (props) => (
   <Form<ShareData> onSubmit={props.onSubmit!}>
     {({ formProps, getValues }) => (
       <InternalFormWithIntl

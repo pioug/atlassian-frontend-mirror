@@ -18,4 +18,8 @@ export function getFormat(language: string, ext: string | undefined) {
   }
 }
 
-export const lineCount = (text: string) => text.split(/\r\n|\r|\n/).length;
+export const lineCount = (text: string) =>
+  normaliseLineBreaks(text).split(/\n/).length;
+
+export const normaliseLineBreaks = (text: string) =>
+  text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');

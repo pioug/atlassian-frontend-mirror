@@ -10,7 +10,6 @@ import { ErrorIcon } from '../../../utils/errorIcon';
 import CardActions from '../../../utils/cardActions';
 import { CardAction, CardEventHandler } from '../../../actions';
 import { CardStatus } from '../../../index';
-import { RetryButton } from './retryButton';
 
 import {
   TickBox,
@@ -24,7 +23,6 @@ import {
   TitleWrapper,
   Subtitle,
   Metadata,
-  ErrorWrapper,
   AltWrapper,
 } from './styled';
 
@@ -57,7 +55,6 @@ export interface CardOverlayProps {
   error?: ReactNode;
   alt?: string;
   noHover?: boolean;
-  onRetry?: () => void;
 
   actions?: Array<CardAction>;
   icon?: string;
@@ -159,6 +156,7 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
       error && (
         <>
           <ErrorLine>
+            <ErrorIcon />
             <ErrorMessage>{error}</ErrorMessage>
           </ErrorLine>
           {alt && (
@@ -180,20 +178,9 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
   }
 
   bottomLeftColumn() {
-    const { error, onRetry } = this.props;
+    const { error } = this.props;
 
-    if (error) {
-      if (!onRetry) {
-        return <ErrorIcon />;
-      }
-
-      return (
-        <ErrorWrapper>
-          <ErrorIcon />
-          <RetryButton onClick={onRetry} />
-        </ErrorWrapper>
-      );
-    } else {
+    if (!error) {
       const { mediaType, subtitle, icon } = this.props;
       const classNames = cx('metadata');
 

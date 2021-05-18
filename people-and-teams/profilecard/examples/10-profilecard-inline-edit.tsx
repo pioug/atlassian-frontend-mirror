@@ -118,7 +118,7 @@ function MiniEditor(props: {
     <InlineEdit<ValueType<OptionType>>
       defaultValue={value}
       label={props.label}
-      editView={fieldProps => (
+      editView={(fieldProps) => (
         <EditViewContainer>
           <Select<OptionType>
             {...fieldProps}
@@ -208,7 +208,7 @@ export default function InlineEditExample() {
         </Container>
         <Container>
           <TeamCustomizer
-            setTeam={team => {
+            setTeam={(team) => {
               baseTeam.team = team;
             }}
           />
@@ -216,7 +216,7 @@ export default function InlineEditExample() {
           <Radios
             label="actions"
             options={[0, 1, 2, 3, 4]}
-            setter={value => {
+            setter={(value) => {
               setNumActions(value);
             }}
             currentValue={numActions}

@@ -116,7 +116,7 @@ function CustomizationPanel() {
       <Radios
         label="timeout"
         options={[0, 100, 500, 1000, 3000, 10000]}
-        setter={value => {
+        setter={(value) => {
           setTimeout(value);
           teamClientData.timeout = value;
         }}
@@ -126,7 +126,7 @@ function CustomizationPanel() {
       <Radios
         label="errorRate"
         options={[0, 0.2, 0.5, 0.8, 1]}
-        setter={value => {
+        setter={(value) => {
           setErrorRate(value);
           teamClientData.errorRate = value;
         }}
@@ -209,7 +209,7 @@ export default function Example() {
             </label>
           </p>
           <TeamCustomizer
-            setTeam={team => {
+            setTeam={(team) => {
               teamClientData.team = team;
             }}
           />
@@ -217,7 +217,7 @@ export default function Example() {
           <Radios
             label="actions"
             options={[0, 1, 2, 3, 4]}
-            setter={value => {
+            setter={(value) => {
               setNumActions(value);
             }}
             currentValue={numActions}

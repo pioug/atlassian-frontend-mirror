@@ -10,7 +10,7 @@ import { MediaViewerError } from '../../errors';
 import { Spinner } from '../../loading';
 import { Props as RendererProps } from './codeViewerRenderer';
 import { BaseViewer } from '../base-viewer';
-import { DEFAULT_LANGUAGE } from './util';
+import { DEFAULT_LANGUAGE, normaliseLineBreaks } from './util';
 import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
 import { msgToText } from './msg-parser';
 
@@ -66,7 +66,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
           if (typeof src === 'string') {
             this.onMediaDisplayed();
             this.setState({
-              content: Outcome.successful(src),
+              content: Outcome.successful(normaliseLineBreaks(src)),
             });
           } else {
             throw new MediaViewerError('codeviewer-parse-email');
@@ -75,7 +75,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
           const src = await response.text();
           this.onMediaDisplayed();
           this.setState({
-            content: Outcome.successful(src),
+            content: Outcome.successful(normaliseLineBreaks(src)),
           });
         }
       } catch (error) {

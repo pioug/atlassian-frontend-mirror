@@ -59,7 +59,7 @@ export const highlightingCodeBlockStyles = css`
           content: counter(line);
           counter-increment: line;
           font-size: ${relativeFontSizeToBase16(fontSize())};
-          line-height: 24px;
+          line-height: 1.5rem;
           color: ${themed({ light: colors.N400, dark: colors.DN400 })};
         }
       }
@@ -76,10 +76,11 @@ export const highlightingCodeBlockStyles = css`
       left: 0;
       pointer-events: none;
       overflow: hidden;
+      tab-size: 4;
 
       & [data-ds--code--code-block] {
         font-size: ${relativeFontSizeToBase16(fontSize())};
-        line-height: 24px;
+        line-height: 1.5rem;
       }
     }
 
@@ -95,7 +96,7 @@ export const highlightingCodeBlockStyles = css`
         cursor: text;
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
         font-size: ${relativeFontSizeToBase16(fontSize())};
-        line-height: 24px;
+        line-height: 1.5rem;
         border-radius: ${borderRadius()}px;
         margin: ${gridSize()}px;
         white-space: pre;
@@ -190,7 +191,7 @@ export const codeBlockStyles = css`
           content: counter(line);
           counter-increment: line;
           font-size: ${relativeFontSizeToBase16(fontSize())};
-          line-height: 24px;
+          line-height: 1.5rem;
           color: ${themed({ light: colors.N400, dark: colors.DN400 })};
         }
       }
@@ -206,7 +207,7 @@ export const codeBlockStyles = css`
         cursor: text;
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
         font-size: ${relativeFontSizeToBase16(fontSize())};
-        line-height: 24px;
+        line-height: 1.5rem;
         color: ${themed({ light: colors.N800, dark: colors.DN800 })};
         border-radius: ${borderRadius()}px;
         margin: ${gridSize()}px;

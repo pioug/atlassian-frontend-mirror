@@ -66,7 +66,7 @@ const manifest: ExtensionManifest = {
             setSmartUserPickerEnv('local');
 
             return {
-              siteId: '497ea592-beb4-43c3-9137-a6e5fa301088',
+              siteId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
               principalId: 'Context',
               fieldId: 'storybook',
               productKey: 'jira',

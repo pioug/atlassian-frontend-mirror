@@ -198,7 +198,7 @@ const getOriginTracingAttributes = (origin?: OriginTracing) =>
 const extractIdsByType = <T extends OptionData>(
   data: DialogContentState,
   checker: (option: OptionData) => option is T,
-): string[] => data.users.filter(checker).map(option => option.id);
+): string[] => data.users.filter(checker).map((option) => option.id);
 
 const extractMemberCountsFromTeams = (
   data: DialogContentState,
@@ -206,4 +206,4 @@ const extractMemberCountsFromTeams = (
 ): number[] =>
   // teams with zero memberships cannot exist in share, so we use that
   // as the default value for undefined team member counts
-  data.users.filter(checker).map(option => option.memberCount || 0);
+  data.users.filter(checker).map((option) => option.memberCount || 0);

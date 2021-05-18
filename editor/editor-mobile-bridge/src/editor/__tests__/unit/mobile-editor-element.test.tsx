@@ -174,6 +174,15 @@ describe('mobile editor element', () => {
       expect(mockedAllowPredictableList).toBeCalled();
     });
 
+    it('should have called isUnpredictableInputRuleEnabled', () => {
+      const mockedUseUnpredictableInputRule = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isUnpredictableInputRuleEnabled',
+      );
+      initEditor();
+      expect(mockedUseUnpredictableInputRule).toBeCalled();
+    });
+
     it('should have called isScrollGutterPersisted', () => {
       const mockedPersistScrollGutter = jest.spyOn(
         MobileEditorConfiguration.prototype,
@@ -185,10 +194,15 @@ describe('mobile editor element', () => {
       expect(mockedPersistScrollGutter).toBeCalled();
     });
 
-    it('should allow the indentation', () => {
-      const mobileEditor = initEditor();
+    it('should have called isIndentationAllowed', () => {
+      const mockedisIndentationAllowed = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isIndentationAllowed',
+      );
 
-      expect(mobileEditor.find('Editor').prop('allowIndentation')).toBe(true);
+      initEditor();
+
+      expect(mockedisIndentationAllowed).toBeCalled();
     });
   });
 
@@ -201,6 +215,16 @@ describe('mobile editor element', () => {
       initEditor();
       bridge.configure('{"allowPredictableList": true}');
       expect(mockedAllowPredictableList).toBeCalled();
+    });
+
+    it('should have called isUnpredictableInputRuleEnabled', () => {
+      const mockedUseUnpredictableInputRule = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isUnpredictableInputRuleEnabled',
+      );
+      initEditor();
+      bridge.configure('{"useUnpredictableInputRule": false}');
+      expect(mockedUseUnpredictableInputRule).toBeCalled();
     });
   });
 

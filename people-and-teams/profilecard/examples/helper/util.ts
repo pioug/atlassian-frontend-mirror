@@ -13,7 +13,7 @@ export const getMockProfileClient = (
   const MockProfileClient = getMockProfileClientUtil(
     ProfileClient,
     // @ts-ignore
-    response => {
+    (response) => {
       return {
         ...modifyResponse(response),
         ...extraProps,

@@ -1,6 +1,7 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
+import type { HeaderComponentProps } from '../components/header';
 import {
   actionMargin,
   dangerColor,
@@ -9,7 +10,7 @@ import {
   titleMargin,
   warningColor,
 } from '../constants';
-import { AppearanceType } from '../types';
+import type { AppearanceType } from '../types';
 
 // Wrapper
 // ==============================
@@ -17,9 +18,12 @@ import { AppearanceType } from '../types';
 export const wrapperStyles = css`
   display: flex;
   flex-direction: column;
+
+  /**
+  * This ensures that the element fills the whole modal dialog space
+  * and its content does not overflow (since flex items don't
+  * shrink past its content size by default). */
   flex: 1 1 auto;
-  max-height: 100%;
-  /* necessary to fix overflow issue in Safari 14.0.3 */
   min-height: 0;
 `;
 
@@ -33,13 +37,13 @@ export interface HeaderProps {
 }
 
 export const headerStyles = css`
-  align-items: center;
   display: flex;
-  flex: 0 0 auto;
+  align-items: center;
   justify-content: space-between;
+
   position: relative;
-  padding: ${modalPadding}px ${modalPadding}px ${modalPadding - keylineHeight}px
-    ${modalPadding}px;
+  padding: ${modalPadding}px;
+  padding-bottom: ${modalPadding - keylineHeight}px;
 `;
 
 // TODO: This is a public API, so should remove during breaking change later.
@@ -48,15 +52,17 @@ export const Header = styled.header<HeaderProps>`
 `;
 
 export const titleStyles = css`
-  align-items: center;
   display: flex;
+  align-items: center;
+
   font-size: 20px;
   font-style: inherit;
   font-weight: 500;
   letter-spacing: -0.008em;
   line-height: 1;
-  margin: 0;
+
   min-width: 0;
+  margin: 0;
 `;
 
 // TODO: This is a public API, so should remove during breaking change later.
@@ -71,14 +77,29 @@ export interface TitleTextProps {
   isHeadingMultiline?: boolean;
 }
 
+/** 20 = font size, 1.2 = adjusted line height.
+ * When the heading is truncated (not multi-line), we adjust the
+ * line height to avoid cropping the descenders. This removes
+ * the extra spacing that we get from that adjustment.
+ */
+const lineHeightOffset = 20 - 20 * 1.2;
+
 export const getTitleTextStyles = (isHeadingMultiline?: boolean) => css`
+  word-wrap: break-word;
+
+  /**
+  * This ensures that the element fills the whole header space
+  * and its content does not overflow (since flex items don't
+  * shrink past its content size by default). */
   flex: 1 1 auto;
   min-width: 0;
-  word-wrap: break-word;
-  width: 100%;
 
   ${isHeadingMultiline !== true &&
   css`
+    line-height: 1.2;
+    margin-top: ${lineHeightOffset / 2}px;
+    margin-bottom: ${lineHeightOffset / 2}px;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -91,10 +112,21 @@ const iconColor: iconColorType = {
   warning: warningColor,
 };
 
-export const getTitleIconStyles = (appearance: AppearanceType) => css`
+export const getTitleIconStyles = ({
+  appearance,
+  isHeadingMultiline,
+}: Required<
+  Pick<HeaderComponentProps, 'appearance' | 'isHeadingMultiline'>
+>) => css`
+  flex: 0 0 auto; // Keeps the size of the icon the same, in case the text element grows in width.
   color: ${iconColor[appearance]};
   margin-right: ${titleMargin}px;
-  flex: 0 0 auto;
+
+  ${isHeadingMultiline !== true &&
+  css`
+    line-height: 1.2;
+    margin-bottom: ${lineHeightOffset / 2}px;
+  `};
 `;
 
 // Body
@@ -107,13 +139,12 @@ export interface BodyProps {
 }
 
 /**
-  Adding the padding here avoids cropping the keyline on its sides.
-  The combined vertical spacing is maintained by subtracting the
-  keyline height from header and footer.
-*/
-
+ * Adding the padding here avoids cropping the keyline on its sides.
+ * The combined vertical spacing is maintained by subtracting the
+ * keyline height from header and footer.
+ */
 export const bodyStyles = css`
-  flex: 1 1 auto;
+  flex: 1 1 auto; // Ensures the body fills the whole space between header and footer.
   padding: ${keylineHeight}px ${modalPadding}px;
 `;
 
@@ -131,27 +162,46 @@ export interface FooterProps {
   showKeyline?: boolean;
 }
 
-export const footerStyles = css`
-  position: relative;
-  align-items: center;
+const baseFooterStyles = css`
   display: flex;
-  flex: 0 0 auto;
+  align-items: center;
+
+  position: relative;
+  padding: ${modalPadding}px;
+  padding-top: ${modalPadding - keylineHeight}px;
+
+  & [data-ds--modal-dialog--action] {
+    margin-left: ${actionMargin}px;
+  }
+`;
+
+/** This is the styles we use in our public Footer component,
+ *  used when users build their own custom footer. */
+const externalFooterStyles = css`
+  ${baseFooterStyles}
+
+  /**
+   * Some of our users rely on this behavior
+   * to put actions on the left-hand side.
+   * e.g. https://atlaskit.atlassian.com/examples/editor/editor-core/full-page-with-x-extensions
+   * (Click '+' -> 'View more' to see the element browser in a modal).
+   */
   justify-content: space-between;
-  padding: ${modalPadding - keylineHeight}px ${modalPadding}px ${modalPadding}px
-    ${modalPadding}px;
+`;
+
+/** This is the styles we use in our internal Footer component,
+ *  used when users opt into our default footer + actions API. */
+export const internalFooterStyles = css`
+  ${baseFooterStyles}
+
+  /**
+  * When we're /not/ using a custom footer, we place
+  * all actions on the right-hand side by default.
+  */
+  justify-content: flex-end;
 `;
 
 // TODO: This is a public API, so should remove during breaking change later.
 export const Footer = styled.footer<FooterProps>`
-  ${footerStyles};
-`;
-
-export const actionWrapperStyles = css`
-  display: inline-flex;
-  margin: 0 -${actionMargin}px;
-`;
-
-export const actionItemStyles = css`
-  flex: 1 0 auto;
-  margin: 0 ${actionMargin}px;
+  ${externalFooterStyles};
 `;

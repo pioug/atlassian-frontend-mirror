@@ -219,7 +219,7 @@ export class FileFetcherImpl implements FileFetcher {
       });
 
       if (!response) {
-        throw new FileFetcherError('invalidFileId', id, {
+        throw new FileFetcherError('emptyItems', id, {
           collectionName,
           occurrenceKey,
         });

@@ -1,30 +1,40 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import { P100 } from '@atlaskit/theme/colors';
 
-import SectionMessage from '../src';
+import SectionMessage, { SectionMessageAction } from '../src';
 
-const CustomLink = styled.button`
-  background-color: ${P100} !important;
-`;
+const CustomLink = React.forwardRef(
+  (props = {}, ref: React.Ref<HTMLButtonElement>) => (
+    <button
+      css={css`
+        background-color: ${P100} !important;
+      `}
+      ref={ref}
+      {...props}
+    />
+  ),
+);
 
 const Example = () => (
   <SectionMessage
     title="The Modern Prometheus"
-    linkComponent={CustomLink}
     actions={[
-      {
-        key: 'mary',
-        href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-        text: 'Mary',
-      },
-      {
-        key: 'villa',
-        href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-        text: 'Villa Diodatti',
-      },
+      <SectionMessageAction
+        href="https://en.wikipedia.org/wiki/Mary_Shelley"
+        linkComponent={CustomLink}
+      >
+        Mary
+      </SectionMessageAction>,
+      <SectionMessageAction
+        href="https://en.wikipedia.org/wiki/Villa_Diodati"
+        linkComponent={CustomLink}
+      >
+        Villa Diodatti
+      </SectionMessageAction>,
     ]}
   >
     <p>

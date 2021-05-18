@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 12.3.0
+
+### Minor Changes
+
+- [`1fbe305bf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fbe305bf7d) - ED-12273 Unsupported content support for Layout
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

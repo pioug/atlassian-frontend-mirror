@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 26.2.0
+
+### Minor Changes
+
+- [`272aae086cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/272aae086cb) - [ME-740] Read in user device font settings
+- [`3cd8ee5491b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd8ee5491b) - ED-12790 Disable the indentation for compact editor
+
+### Patch Changes
+
+- [`50deb33bb0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50deb33bb0d) - Make code block scale to device font size in the Hybrid Renderer.
+- [`e90db7597b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e90db7597b2) - [ED-12772] This PR adds the feature flag for 'useUnpredictableInputRules' to the mobile bridge. When set to false, the new predictable input rules code will be used for auto-formatting.
+- Updated dependencies
+
 ## 26.1.0
 
 ### Minor Changes

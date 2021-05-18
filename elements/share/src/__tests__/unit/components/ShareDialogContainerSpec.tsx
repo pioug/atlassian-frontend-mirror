@@ -18,7 +18,7 @@ import { PropsOf } from '../_testUtils';
 import { copyLinkButtonClicked } from '../../../components/analytics';
 
 function currentEventLoopEnd() {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise((resolve) => setImmediate(resolve));
 }
 
 // alias for clarity
@@ -649,7 +649,7 @@ describe('ShareDialogContainer', () => {
             useUrlShortener: true,
           });
           let resolveShortening: any;
-          const shortenResult = new Promise(resolve => {
+          const shortenResult = new Promise((resolve) => {
             resolveShortening = resolve;
           });
           (mockShortenerClient.shorten as jest.Mock).mockReturnValue(
@@ -686,7 +686,7 @@ describe('ShareDialogContainer', () => {
             useUrlShortener: true,
           });
           let resolveShortening: any;
-          const shortenResult = new Promise(resolve => {
+          const shortenResult = new Promise((resolve) => {
             resolveShortening = resolve;
           });
           (mockShortenerClient.shorten as jest.Mock).mockReturnValue(
@@ -985,10 +985,10 @@ describe('ShareDialogContainer', () => {
         shorten: jest
           .fn()
           .mockReturnValueOnce(
-            new Promise<string>(resolve => (resolve1 = resolve)),
+            new Promise<string>((resolve) => (resolve1 = resolve)),
           )
           .mockReturnValueOnce(
-            new Promise<string>(resolve => (resolve2 = resolve)),
+            new Promise<string>((resolve) => (resolve2 = resolve)),
           ),
       };
       const wrapper = getWrapper({

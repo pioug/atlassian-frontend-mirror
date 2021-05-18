@@ -152,6 +152,7 @@ export class AvatarPickerDialog extends PureComponent<
       <ModalDialog
         height={`${AVATAR_DIALOG_HEIGHT}px`}
         width={`${AVATAR_DIALOG_WIDTH}px`}
+        scrollBehavior="outside"
         components={{
           Header: this.headerContent,
           Footer: this.footerContent,

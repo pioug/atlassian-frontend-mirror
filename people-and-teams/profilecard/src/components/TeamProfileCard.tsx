@@ -64,7 +64,7 @@ function onMemberClick(
   hasHref: boolean,
 ) {
   return (event: React.MouseEvent<Element>) => {
-    analytics(duration =>
+    analytics((duration) =>
       teamAvatarClicked({
         duration,
         hasHref,
@@ -104,7 +104,7 @@ const TeamMembers = ({
     const { current: isOpen } = isMoreMembersOpen;
 
     if (!isOpen) {
-      analytics(duration =>
+      analytics((duration) =>
         moreMembersClicked({
           duration,
           memberCount: count,
@@ -159,7 +159,7 @@ function onActionClick(
   index: number,
 ) {
   return (event: React.MouseEvent | React.KeyboardEvent, ...args: any) => {
-    analytics(duration =>
+    analytics((duration) =>
       teamActionClicked({
         duration,
         hasHref: !!action.link,
@@ -212,7 +212,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
     (shouldBeOpen: boolean) => {
       if (shouldBeOpen) {
         // Only fire this event when OPENING the dropdown
-        analytics(duration =>
+        analytics((duration) =>
           moreActionsClicked({
             duration,
             numActions: count + 2,
@@ -248,7 +248,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
             ))}
           </MenuGroup>
         )}
-        trigger={triggerProps => (
+        trigger={(triggerProps) => (
           <Button
             testId="more-actions-button"
             {...triggerProps}
@@ -311,10 +311,10 @@ const TeamProfilecardContent = ({
   ];
 
   const includingYou =
-    team.members && team.members.some(member => member.id === viewingUserId);
+    team.members && team.members.some((member) => member.id === viewingUserId);
 
   useEffect(() => {
-    analytics(duration =>
+    analytics((duration) =>
       teamProfileCardRendered('content', {
         duration,
         numActions: allActions.length,
@@ -364,7 +364,7 @@ const ErrorMessage = ({
   const hasRetry = !!clientFetchProfile;
 
   useEffect(() => {
-    analytics(duration =>
+    analytics((duration) =>
       teamProfileCardRendered('error', {
         duration,
         hasRetry,
@@ -373,7 +373,7 @@ const ErrorMessage = ({
   }, [analytics, hasRetry]);
 
   const retry = useCallback(() => {
-    analytics(duration =>
+    analytics((duration) =>
       errorRetryClicked({
         duration,
       }),

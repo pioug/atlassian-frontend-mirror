@@ -4,7 +4,6 @@ import React, { ReactNode, useMemo } from 'react';
 
 import { jsx } from '@emotion/core';
 
-import { WidthNames } from '../constants';
 import {
   getPositionAbsoluteStyles,
   getPositionFixedStyles,
@@ -15,8 +14,6 @@ import { ScrollBehavior } from '../types';
 export interface PositionerProps {
   scrollBehavior: ScrollBehavior;
   stackIndex: number;
-  widthName?: WidthNames;
-  widthValue?: string | number;
   children: ReactNode;
   testId?: string;
 }
@@ -24,22 +21,19 @@ export interface PositionerProps {
 const Positioner: React.ComponentType<PositionerProps> = function Positioner({
   scrollBehavior,
   stackIndex,
-  widthName,
-  widthValue,
   children,
   testId,
 }: PositionerProps) {
   const positionerStyles = useMemo(() => {
-    const opts = { stackIndex, widthName, widthValue };
     switch (scrollBehavior) {
       case 'outside':
-        return getPositionRelativeStyles(opts);
+        return getPositionRelativeStyles(stackIndex);
       case 'inside-wide':
-        return getPositionFixedStyles(opts);
+        return getPositionFixedStyles(stackIndex);
       default:
-        return getPositionAbsoluteStyles(opts);
+        return getPositionAbsoluteStyles(stackIndex);
     }
-  }, [scrollBehavior, stackIndex, widthName, widthValue]);
+  }, [scrollBehavior, stackIndex]);
 
   return (
     <div css={positionerStyles} data-testid={testId && `${testId}--positioner`}>

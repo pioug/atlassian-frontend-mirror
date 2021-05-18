@@ -1,5 +1,5 @@
 import { selectTable } from '@atlaskit/editor-tables/utils';
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection, NodeSelection } from 'prosemirror-state';
 // @ts-ignore
 import { __serializeForClipboard } from 'prosemirror-view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -11,6 +11,9 @@ import { handleCut } from '../../../event-handlers';
 import {
   doc,
   p,
+  expand,
+  layoutColumn,
+  layoutSection,
   table,
   tr,
   td,
@@ -23,6 +26,8 @@ import {
 } from '../../../../../plugins/table/types';
 import { pluginKey as tablePluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
 import { CellSelection } from '@atlaskit/editor-tables';
+
+import { uuid } from '@atlaskit/adf-schema';
 
 const mockUuidGenerated = 'a-mock-uuid';
 const mockUuidGenerate = jest.fn().mockReturnValue(mockUuidGenerated);
@@ -49,12 +54,20 @@ describe('table local id plugin', () => {
     return createEditor({
       doc,
       editorProps: {
+        allowExpand: true,
+        allowLayouts: true,
         allowReferentiality: true,
         allowTables: tableOptions,
       },
       pluginKey: tablePluginKey,
     });
   };
+
+  const localIdString = 'mochi-is-fluffy';
+  const localIdString2 = 'neko-is-hungry';
+  const flooFirst = 'floo-the-first';
+  const flooSecond = 'floo-the-second';
+  const flooThird = 'floo-the-third';
 
   const generateTableWithLocalId = (localId: string) =>
     table({ localId: localId })(
@@ -63,11 +76,13 @@ describe('table local id plugin', () => {
       tr(td()(p('7')), td()(p('8')), td()(p('9'))),
     );
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('Table localId duplication plugin', () => {
     describe('basic editing of a table', () => {
       it('should NOT touch/overwrite localIds if inserting text inside a table', () => {
-        const localIdString = 'mochi-is-fluffy';
-        const localIdString2 = 'neko-is-hungry';
         const { editorView, sel } = editor(
           doc(
             table({ localId: localIdString })(tr(th()(p('{<>}1')))),
@@ -89,9 +104,7 @@ describe('table local id plugin', () => {
     });
     describe('basic copy paste', () => {
       it('generates a new ID when encountering a duplicate', () => {
-        const flooFirst = 'floo-the-first';
-        mockUuidGenerate.mockReturnValueOnce(flooFirst);
-        const localIdString = 'mochi-is-fluffy';
+        const spy = jest.spyOn(uuid, 'generate').mockReturnValueOnce(flooFirst);
         const {
           editorView,
           refs: { paragraphPos },
@@ -128,17 +141,110 @@ describe('table local id plugin', () => {
             table({ localId: flooFirst })(tr(th()(p('1')))),
           ),
         );
+        expect(spy).toBeCalledTimes(1);
       });
     });
     describe('cut & multiple pastes', () => {
+      it('detects duplicates inside expand & tables', () => {
+        const spy = jest
+          .spyOn(uuid, 'generate')
+          .mockReturnValueOnce(flooSecond)
+          .mockReturnValueOnce(flooThird);
+
+        const {
+          editorView,
+          refs: { from, to, insideExpandPos, insideLayoutPos },
+        } = editor(
+          doc(
+            expand({ title: '' })(p('{insideExpandPos}')),
+            layoutSection(
+              layoutColumn({ width: 50 })(
+                table({ localId: flooFirst })(
+                  tr(th()(p('{from}1')), th()(p('2')), th()(p('3'))),
+                  tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+                  tr(td()(p('7')), td()(p('8')), td()(p('{to}9'))),
+                ),
+              ),
+              layoutColumn({ width: 50 })(p('{insideLayoutPos}')),
+            ),
+            p(''),
+          ),
+        );
+
+        let { state } = editorView;
+        // select table
+        const sel = new CellSelection(
+          state.doc.resolve(from - 2),
+          state.doc.resolve(to - 2),
+        );
+        editorView.dispatch(state.tr.setSelection(sel as any));
+
+        // "copy" table
+        const { dom, text } = __serializeForClipboard(
+          editorView,
+          sel.content(),
+        );
+        let state2 = editorView.state;
+        const insideLayout = state2.doc.resolve(insideLayoutPos);
+        // Move cursor inside layout
+        state2 = state2.apply(
+          state2.tr.setSelection(new TextSelection(insideLayout)),
+        );
+        editorView.updateState(state2);
+
+        // paste into layout, expect new ID
+        dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            expand({ title: '' })(p('')),
+            layoutSection(
+              layoutColumn({ width: 50 })(generateTableWithLocalId(flooFirst)),
+              layoutColumn({ width: 50 })(generateTableWithLocalId(flooSecond)),
+            ),
+            p(),
+          ),
+        );
+        expect(spy).toBeCalledTimes(1);
+
+        let state3 = editorView.state;
+        const insideExpand = state3.doc.resolve(insideExpandPos);
+        // Move cursor inside layout
+        state3 = state3.apply(
+          state3.tr.setSelection(new TextSelection(insideExpand)),
+        );
+        editorView.updateState(state3);
+        dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
+
+        /**
+         * The end result order of IDs that we'll now observe is the following:
+         *  1. flooFirst
+         *  2. flooThird
+         *  3. flooSecond
+         *
+         * This is because we had `flooFirst` in our clipboard. We've now pasted
+         * it into the expand, so that becomes the first observed instance of
+         * the table. The "third" ID (second unique regeneration) then gets
+         * replaced in the first layout column.
+         *
+         */
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            expand({ title: '' })(generateTableWithLocalId(flooFirst)),
+            layoutSection(
+              layoutColumn({ width: 50 })(generateTableWithLocalId(flooThird)),
+              layoutColumn({ width: 50 })(generateTableWithLocalId(flooSecond)),
+            ),
+            p(),
+          ),
+        );
+        expect(spy).toBeCalledTimes(2);
+      });
       it('generates a new ID when pasting a table with an existing ID', () => {
-        const flooFirst = 'floo-the-first';
-        const flooSecond = 'floo-the-second';
-        mockUuidGenerate
+        const spy = jest
+          .spyOn(uuid, 'generate')
           .mockReturnValueOnce(flooFirst)
           .mockReturnValueOnce(flooSecond);
 
-        const localIdString = 'mochi-is-fluffy';
         const {
           editorView,
           refs: { from, to },
@@ -206,6 +312,43 @@ describe('table local id plugin', () => {
             generateTableWithLocalId(flooSecond),
           ),
         );
+        expect(spy).toBeCalledTimes(2);
+      });
+      it('_retains_ IDs when pasting the same table IDs over existing IDs', () => {
+        const spy = jest
+          .spyOn(uuid, 'generate')
+          .mockReturnValueOnce(flooFirst)
+          .mockReturnValueOnce(flooSecond);
+
+        const localIdString = 'mochi-is-fluffy';
+        const { editorView } = editor(
+          doc(
+            table({ localId: localIdString })(
+              tr(th()(p('1')), th()(p('2')), th()(p('3'))),
+              tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+              tr(td()(p('7')), td()(p('8')), td()(p('9'))),
+            ),
+            p(''),
+          ),
+        );
+
+        let { state } = editorView;
+        // select doc
+        const sel = NodeSelection.create(state.doc, 0);
+        editorView.dispatch(state.tr.setSelection(sel));
+
+        // "copy" entire doc
+        const { dom, text } = __serializeForClipboard(
+          editorView,
+          sel.content(),
+        );
+
+        // Paste it & ensure we retain the same ID
+        dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(generateTableWithLocalId(localIdString), p('')),
+        );
+        expect(spy).not.toBeCalled();
       });
     });
   });

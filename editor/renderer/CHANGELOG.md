@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 76.3.0
+
+### Minor Changes
+
+- [`50deb33bb0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50deb33bb0d) - Make code block scale to device font size in the Hybrid Renderer.
+- [`4c05694bca8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c05694bca8) - Changed componentName to renderer in AnalyticsContext.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 76.2.0
 
 ### Minor Changes

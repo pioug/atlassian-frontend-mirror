@@ -16,6 +16,16 @@ import { pluginKey as macroPluginKey } from '../macro/plugin-key';
 import { setEditingContextToContextPanel } from './commands';
 import { NodeWithPos } from 'prosemirror-utils';
 import { getSelectedExtension } from './utils';
+import {
+  addAnalytics,
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
+  AnalyticsEventPayload,
+} from '../analytics';
+import { getNodeTypesReferenced, getDataConsumerMark } from './utils';
 
 interface EditInLegacyMacroBrowserArgs {
   view: EditorView;
@@ -128,10 +138,62 @@ export const createExtensionAPI = (
         tr.doc.check();
       } catch (err) {
         throw new Error(
-          `insertAfter(): The given ADFEntity cannot not be inserted in the current position.\n${err}`,
+          `insertAfter(): The given ADFEntity cannot be inserted in the current position.\n${err}`,
         );
       }
 
+      // Analytics - tracking the api call
+      const apiCallPayload: AnalyticsEventPayload = {
+        action: ACTION.INVOKED,
+        actionSubject: ACTION_SUBJECT.EXTENSION,
+        actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_API,
+        attributes: {
+          functionName: 'insertAfter',
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+
+      addAnalytics(state, tr, apiCallPayload);
+
+      // Analytics - tracking node types added
+      const nodesAdded: PMNode[] = [newNode];
+
+      newNode.descendants((node: PMNode) => {
+        nodesAdded.push(node);
+        return true;
+      });
+
+      nodesAdded.forEach(node => {
+        const { extensionKey, extensionType } = node.attrs;
+        const dataConsumerMark = getDataConsumerMark(node);
+        const stringIds: string[] =
+          dataConsumerMark?.attrs.sources.map((sourceId: string) => sourceId) ||
+          [];
+
+        const hasReferentiality = !!dataConsumerMark;
+        const nodeTypesReferenced = hasReferentiality
+          ? getNodeTypesReferenced(stringIds, state)
+          : undefined;
+
+        // fire off analytics for this ADF
+        const payload: AnalyticsEventPayload = {
+          action: ACTION.INSERTED,
+          actionSubject: ACTION_SUBJECT.DOCUMENT,
+          // actionSubjectId: ACTION_SUBJECT_ID.NODE,
+          attributes: {
+            nodeType: node.type.name,
+            inputMethod: INPUT_METHOD.EXTENSION_API,
+            hasReferentiality,
+            nodeTypesReferenced,
+            layout: node.attrs.layout,
+            extensionType,
+            extensionKey,
+          },
+          eventType: EVENT_TYPE.TRACK,
+        };
+
+        addAnalytics(state, tr, payload);
+      });
       dispatch(tr);
     },
   };

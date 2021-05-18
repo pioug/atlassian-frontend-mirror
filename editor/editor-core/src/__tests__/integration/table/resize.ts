@@ -184,26 +184,41 @@ BrowserTestCase(
   },
 );
 
-BrowserTestCase(
-  'Should stack columns to the right and go to overflow',
-  { skip: ['edge'] },
-  async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
-
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: JSON.stringify(resizedTableWithStackedColumns),
-      allowTables: {
-        advanced: true,
-      },
-    });
-
-    await resizeColumn(page, { cellHandlePos: 2, resizeWidth: 420 });
-
-    const doc = await page.$eval(editable, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testName);
+[
+  {
+    test: 'Should stack columns to the right and go to overflow',
+    featureFlags: {},
   },
-);
+  {
+    test:
+      'Should stack columns to the right and go to overflow with overflowShadowsOptimisation',
+    featureFlags: {
+      tableOverflowShadowsOptimization: true,
+    },
+  },
+].forEach(({ test, featureFlags }) => {
+  BrowserTestCase(
+    test,
+    { skip: ['edge'] },
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+
+      await mountEditor(page, {
+        appearance: fullpage.appearance,
+        defaultValue: JSON.stringify(resizedTableWithStackedColumns),
+        allowTables: {
+          advanced: true,
+        },
+        featureFlags,
+      });
+
+      await resizeColumn(page, { cellHandlePos: 2, resizeWidth: 420 });
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+});
 
 BrowserTestCase(
   'Should bulk resize 3 columns in 4 columns table',

@@ -13,4 +13,12 @@ export class MediaCardPageObject {
           .should('have.attr', 'data-test-status', 'complete');
       });
   }
+
+  public findCardNth(nth: number) {
+    return this.cy
+      .get('[data-test-media-name][data-test-status="complete"]')
+      .should('have.length.at.least', nth)
+      .should('be.visible')
+      .eq(nth - 1);
+  }
 }

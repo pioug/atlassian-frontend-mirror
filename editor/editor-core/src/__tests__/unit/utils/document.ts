@@ -402,6 +402,385 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
+      it('should wrap unsupported children in unsupportedBlock for layoutSection node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'layoutCol',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [{ type: 'text', text: 'hello' }],
+                        },
+                      ],
+                      attrs: { width: 50 },
+                    },
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  attrs: { width: 50 },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'world' }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutCol',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'hello',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 50,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'world',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 50,
+                  },
+                },
+              ],
+            },
+          ],
+        });
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap layoutColumn children in unsupportedBlock for LayoutSection node when passing more than the maximum allowed children', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'first',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'second',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'third',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'layoutColumn',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'forth and false',
+                            },
+                          ],
+                        },
+                      ],
+                      attrs: {
+                        width: 33.33,
+                      },
+                    },
+                  },
+                },
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'layoutColumn',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'fifth and false',
+                            },
+                          ],
+                        },
+                      ],
+                      attrs: {
+                        width: 33.33,
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'first',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'second',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'third',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'forth and false',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'fifth and false',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 33.33,
+                  },
+                },
+              ],
+            },
+          ],
+        });
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap unsupported children in unsupportedBlock for layoutColumn node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutColumn',
+                  attrs: { width: 50 },
+                  content: [
+                    {
+                      type: 'unsupportedBlock',
+                      attrs: {
+                        originalValue: {
+                          type: 'para',
+                          content: [{ type: 'text', text: 'hello' }],
+                        },
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: 'layoutColumn',
+                  attrs: { width: 50 },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'world' }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'layoutSection',
+              content: [
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'para',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'hello',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 50,
+                  },
+                },
+                {
+                  type: 'layoutColumn',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'world',
+                        },
+                      ],
+                    },
+                  ],
+                  attrs: {
+                    width: 50,
+                  },
+                },
+              ],
+            },
+          ],
+        });
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
       it('should wrap in unsupportedInline node for code block', () => {
         const expected = {
           type: 'doc',

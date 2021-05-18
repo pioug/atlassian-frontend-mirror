@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 14.0.1
+
+### Patch Changes
+
+- [`596f1eb2fca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/596f1eb2fca) - [ux] Line height property remvoved from inline code. This was a bug as the line height was being under calculated relative to the code's font size. It now inherits correctly.
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

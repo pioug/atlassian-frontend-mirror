@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.0.9
+
+### Patch Changes
+
+- [`90c7384c2fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c7384c2fb) - [ux] add support for Windows high contrast mode
+
 ## 15.0.8
 
 ### Patch Changes

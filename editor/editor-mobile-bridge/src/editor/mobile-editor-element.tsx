@@ -7,6 +7,7 @@ import {
   EditorContext,
   WithPluginState,
   floatingToolbarPluginKey,
+  EditorFeatureFlags,
 } from '@atlaskit/editor-core';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
@@ -152,6 +153,13 @@ export function MobileEditor(props: MobileEditorProps) {
     },
   };
 
+  // Editor config overrides feature flags from props
+  type Flags = { [key: string]: string | boolean };
+  const featureFlags: EditorFeatureFlags = {
+    ...props.featureFlags,
+    useUnpredictableInputRule: editorConfiguration.isUnpredictableInputRuleEnabled(),
+  };
+
   return (
     <FabricAnalyticsListeners client={analyticsClient}>
       <SmartCardProvider client={props.cardClient} authFlow={authFlow}>
@@ -164,7 +172,7 @@ export function MobileEditor(props: MobileEditorProps) {
               media={mediaOptions}
               allowConfluenceInlineComment={true}
               onChange={handleChange}
-              allowIndentation={true}
+              allowIndentation={editorConfiguration.isIndentationAllowed()}
               allowPanel={true}
               allowTables={tableOptions}
               UNSAFE_cards={cardsOptions}
@@ -185,6 +193,7 @@ export function MobileEditor(props: MobileEditorProps) {
               collabEdit={collabEdit}
               performanceTracking={performanceTracking}
               {...props}
+              featureFlags={featureFlags as Flags}
               mentionProvider={props.mentionProvider}
               emojiProvider={props.emojiProvider}
               placeholder={editorConfiguration.getPlaceholder()}

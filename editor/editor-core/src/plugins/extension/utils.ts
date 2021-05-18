@@ -1,5 +1,6 @@
-import { Schema } from 'prosemirror-model';
+import { Schema, Mark } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
+import { Node as PMNode } from 'prosemirror-model';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
@@ -48,4 +49,27 @@ export const getSelectedDomElement = (
           '.extension-container',
         )) || selectedExtensionDomNode
   );
+};
+
+export const getDataConsumerMark = (newNode: PMNode): Mark | undefined =>
+  newNode.marks?.find((mark: Mark) => mark.type.name === 'dataConsumer');
+
+export const getNodeTypesReferenced = (
+  ids: string[],
+  state: EditorState,
+): string[] => {
+  const nodeTypesReferenced: string[] = [];
+
+  ids.map((id: string) => {
+    if (state.doc.attrs.localId === id) {
+      nodeTypesReferenced.push(state.doc.type.name);
+    }
+    state.doc.descendants((node: PMNode) => {
+      if (node.attrs.localId === id) {
+        nodeTypesReferenced.push(node.type.name);
+      }
+      return true;
+    });
+  });
+  return nodeTypesReferenced;
 };

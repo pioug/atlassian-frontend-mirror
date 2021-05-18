@@ -1,34 +1,37 @@
-import React, { Fragment } from 'react';
+/** @jsx jsx */
+import React from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
-import SectionMessage from '../src';
+import SectionMessage, { SectionMessageAction } from '../src';
 
-const Padding = styled.div`
+const spacingStyles = css`
   padding: 8px;
 `;
 
 const Example = () => (
-  <Fragment>
-    <Padding>
+  <React.Fragment>
+    <div css={spacingStyles}>
       <SectionMessage
-        appearance="info"
+        appearance="information"
         title="Atlassian"
         testId="info-section-message"
-        actions={[
-          {
-            key: 'bitbucket',
-            href: 'https://www.atlassian.com/software/bitbucket',
-            text: 'Bitbucket',
-            testId: 'bitbucket',
-          },
-          {
-            key: 'jira',
-            href: 'https://www.atlassian.com/software/jira',
-            text: 'Jira',
-            testId: 'jira',
-          },
-        ]}
+        actions={
+          <React.Fragment>
+            <SectionMessageAction
+              href="https://www.atlassian.com/software/bitbucket"
+              testId="bitbucket"
+            >
+              Bitbucket
+            </SectionMessageAction>
+            <SectionMessageAction
+              href="https://www.atlassian.com/software/jira"
+              testId="jira"
+            >
+              Jira
+            </SectionMessageAction>
+          </React.Fragment>
+        }
       >
         <p>
           Atlassian provides the tools to help every team unleash their full
@@ -44,19 +47,16 @@ const Example = () => (
         <b>Jira:</b>
         <p>The #1 software development tool used by agile teams.</p>
       </SectionMessage>
-    </Padding>
-    <Padding>
+    </div>
+    <div css={spacingStyles}>
       <SectionMessage
         appearance="error"
         testId="error-section-message"
-        actions={[
-          {
-            key: 'google',
-            href: 'https://about.google/',
-            text: 'Google',
-            testId: 'google',
-          },
-        ]}
+        actions={
+          <SectionMessageAction href="https://about.google/" testId="google">
+            Google
+          </SectionMessageAction>
+        }
       >
         <p />
         <b>Google:</b>
@@ -65,8 +65,8 @@ const Example = () => (
           universally accessible and useful.
         </p>
       </SectionMessage>
-    </Padding>
-  </Fragment>
+    </div>
+  </React.Fragment>
 );
 
 export default Example;

@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.6.2
+
+### Patch Changes
+
+- [`49363db4abf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49363db4abf) - Modify getLocalMediaFeature to accept extra param and add unit tests
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

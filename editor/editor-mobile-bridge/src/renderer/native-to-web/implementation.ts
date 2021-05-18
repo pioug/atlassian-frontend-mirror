@@ -296,6 +296,16 @@ class RendererBridgeImplementation
   getConfiguration(): RendererConfiguration {
     return this.configuration;
   }
+
+  updateSystemFontSize(fontSize: string) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+    html {
+      font-size: ${fontSize}px;
+    }
+    `;
+    document.head.appendChild(style);
+  }
 }
 
 export default RendererBridgeImplementation;

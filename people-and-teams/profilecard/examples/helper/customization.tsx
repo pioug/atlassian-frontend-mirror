@@ -18,7 +18,7 @@ export function Radios<T extends { toString(): string }>({
 }) {
   return (
     <ul>
-      {options.map(value => {
+      {options.map((value) => {
         return (
           <label htmlFor={`${label}-${value}`} key={value.toString()}>
             <input

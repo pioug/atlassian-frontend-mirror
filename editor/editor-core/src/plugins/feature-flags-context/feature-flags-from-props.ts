@@ -86,6 +86,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : typeof props.allowTables === 'object' &&
           !!props.allowTables?.tableRenderOptimization,
 
+    tableOverflowShadowsOptimization:
+      typeof props.featureFlags?.tableOverflowShadowsOptimization === 'boolean'
+        ? !!props.featureFlags?.tableOverflowShadowsOptimization
+        : typeof props.allowTables === 'object' &&
+          !!props.allowTables?.tableOverflowShadowsOptimization,
+
     extendFloatingToolbar: Boolean(
       typeof props.allowExtension === 'object' &&
         props.allowExtension?.allowExtendFloatingToolbars,

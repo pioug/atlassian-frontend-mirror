@@ -11,6 +11,10 @@ const columnLayoutSharedStyle = css`
       min-width: 0;
     }
 
+    & > .unsupportedBlockView-content-wrap {
+      min-width: initial;
+    }
+
     @media screen and (max-width: ${gridMediumMaxWidth}px) {
       flex-direction: column;
     }

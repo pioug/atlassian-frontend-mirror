@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 11.5.0
+
+### Minor Changes
+
+- [`c9cca93180b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9cca93180b) - [ux] Removes unnecessary dom nodes and refactors styles in modal dialog.
+
+### Patch Changes
+
+- [`e48c323dd75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e48c323dd75) - [ux] Fixed `outside` scrolling offset positioning when multiple modals are open.
+- [`78803694b8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78803694b8c) - [ux] Fixes display of focus ring on modal dialog content – now only shown when triggered by keyboard.
+
 ## 11.4.1
 
 ### Patch Changes

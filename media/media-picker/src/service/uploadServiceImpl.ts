@@ -16,6 +16,7 @@ import {
   getFileStreamsCache,
   MediaClient,
   globalMediaEventEmitter,
+  RequestError,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { EventEmitter2 } from 'eventemitter2';
@@ -86,6 +87,12 @@ export class UploadServiceImpl implements UploadService {
     );
   }
 
+  addFile(file: File, replaceFileId?: string) {
+    this.addFilesWithSource([
+      { file, source: LocalFileSource.LocalUpload, replaceFileId },
+    ]);
+  }
+
   addFilesWithSource(files: LocalFileWithSource[]): void {
     if (files.length === 0) {
       return;
@@ -113,8 +120,9 @@ export class UploadServiceImpl implements UploadService {
       occurrenceKey: string;
     })[] = [];
     for (let i = 0; i < files.length; i++) {
+      const { replaceFileId } = files[i];
       touchFileDescriptors.push({
-        fileId: uuidV4(),
+        fileId: replaceFileId || uuidV4(),
         occurrenceKey: uuidV4(),
         collection,
       });
@@ -130,18 +138,36 @@ export class UploadServiceImpl implements UploadService {
         const { file, source } = fileWithSource;
 
         const { fileId: id, occurrenceKey } = touchFileDescriptors[i];
-        const deferredUploadId = promisedTouchFiles.then(touchedFiles => {
-          const touchedFile = touchedFiles.created.find(
-            touchedFile => touchedFile.fileId === id,
-          );
-          if (!touchedFile) {
-            // TODO No one seems to be caring about this error
-            throw new Error(
-              'Cant retrieve uploadId from result of touch endpoint call',
+        const deferredUploadId = promisedTouchFiles
+          .then(touchedFiles => {
+            const touchedFile = touchedFiles.created.find(
+              touchedFile => touchedFile.fileId === id,
             );
-          }
-          return touchedFile.uploadId;
-        });
+            if (!touchedFile) {
+              // TODO No one seems to be caring about this error
+              throw new Error(
+                'Cant retrieve uploadId from result of touch endpoint call',
+              );
+            }
+            return touchedFile.uploadId;
+          })
+          .catch(error => {
+            // note: any failures in this block will result in an error event being bubbled as required
+            if (error instanceof RequestError) {
+              const requestError = error as RequestError;
+              if (
+                requestError.metadata &&
+                requestError.metadata.statusCode === 409
+              ) {
+                return mediaClient.mediaStore
+                  .createUpload(1, collection)
+                  .then(res => {
+                    return res.data[0].id;
+                  });
+              }
+            }
+            throw error;
+          });
 
         const uploadableFile: UploadableFile = {
           collection,

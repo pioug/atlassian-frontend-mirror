@@ -15,7 +15,7 @@ export const CommentField: React.StatelessComponent<Props> = ({
   <Field<Comment> name="comment" defaultValue={defaultValue}>
     {({ fieldProps }) => (
       <FormattedMessage {...messages.commentPlaceholder}>
-        {placeholder => (
+        {(placeholder) => (
           <FieldTextArea
             {...fieldProps}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

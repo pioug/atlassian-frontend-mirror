@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.0.9
+
+### Patch Changes
+
+- [`25e6994ab97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25e6994ab97) - Update internal component usage
+
 ## 9.0.8
 
 ### Patch Changes

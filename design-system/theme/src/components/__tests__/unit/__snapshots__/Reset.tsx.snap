@@ -3,7 +3,7 @@
 exports[`reset 1`] = `
 .c0 {
   background-color: #FFFFFF;
-  color: #091E42;
+  color: #172B4D;
 }
 
 .c0 a {
@@ -50,7 +50,7 @@ exports[`reset 1`] = `
         linkColorOutline="#4C9AFF"
         subtleHeadingColor="#6B778C"
         subtleTextColor="#6B778C"
-        textColor="#091E42"
+        textColor="#172B4D"
       >
         <div
           className="c0"

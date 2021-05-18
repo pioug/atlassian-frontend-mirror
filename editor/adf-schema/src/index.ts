@@ -239,7 +239,6 @@ export {
   B50,
   B500,
   B75,
-  DEFAULT_LANGUAGES,
   G200,
   G300,
   G400,
@@ -282,13 +281,9 @@ export {
   Y75,
   acNameToEmoji,
   acShortcutToEmoji,
-  createLanguageList,
   emojiIdToAcName,
-  filterSupportedLanguages,
-  findMatchedLanguage,
   generateUuid,
   getEmojiAcName,
-  getLanguageIdentifier,
   getLinkMatch,
   hexToRgb,
   hexToRgba,
@@ -300,4 +295,4 @@ export {
   rgbToHex,
   uuid,
 } from './utils';
-export type { Language, Match, NameToEmoji } from './utils';
+export type { Match, NameToEmoji } from './utils';

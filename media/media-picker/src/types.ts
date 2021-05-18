@@ -85,6 +85,7 @@ export interface Popup
 export interface BrowserConfig extends LocalUploadConfig {
   readonly multiple?: boolean;
   readonly fileExtensions?: Array<string>;
+  readonly replaceFileId?: string /* allow consumer to provide fileId (for replacement uploads). Passing this value will force multiple to be false */;
 }
 
 export interface ClipboardConfig extends LocalUploadConfig {}
@@ -121,7 +122,8 @@ export type MediaErrorName =
   | 'token_source_empty'
   | 'upload_fail'
   | 'user_token_fetch_fail'
-  | 'remote_upload_fail';
+  | 'remote_upload_fail'
+  | 'invalid_uuid';
 
 export type MediaError = {
   readonly fileId?: string;
@@ -261,6 +263,15 @@ export type UnhandledErrorPayload = OperationalEventPayload<
   'error'
 >;
 
+export type UUIDValidationErrorPayload = OperationalEventPayload<
+  OperationalAttributes &
+    FailureAttributes & {
+      uuid: string;
+    },
+  'failed',
+  'mediaUpload'
+>;
+
 export type AnalyticsEventPayload =
   | ButtonClickedPayload
   | ClipboardPastePayload
@@ -272,4 +283,5 @@ export type AnalyticsEventPayload =
   | MediaUploadCommencedPayload
   | MediaUploadSuccessPayload
   | MediaUploadFailurePayload
-  | UnhandledErrorPayload;
+  | UnhandledErrorPayload
+  | UUIDValidationErrorPayload;

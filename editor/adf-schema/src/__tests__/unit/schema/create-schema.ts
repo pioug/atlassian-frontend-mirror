@@ -1,5 +1,6 @@
 import { name } from '../../../version.json';
 import { code as codeBase, createSchema, sanitizeNodes } from '../../..';
+import { sanitizeNodeSpecContent } from '../../../schema/create-schema';
 const filterGroupDecMark = (marks: Array<string>) =>
   marks.filter(mark => mark[0] !== '_' || mark[1] !== '_');
 
@@ -154,6 +155,17 @@ describe(`${name}/schema createSchema helper`, () => {
           content: 'node2',
         },
       });
+    });
+
+    it('should remove unsupported block from content', () => {
+      const nodes = {
+        node1: {
+          content: '(node2 | unsupportedBlock){2,3} unsupportedBlock*',
+        },
+        node2: { content: 'node2' },
+      };
+      const content = '(node2 | unsupportedBlock){2,3} unsupportedBlock*';
+      expect(sanitizeNodeSpecContent(nodes, content)).toEqual('(node2 ){2,3}');
     });
 
     it('modifies node immutably', () => {

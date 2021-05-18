@@ -155,3 +155,29 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
   );
   */
 });
+
+// https://product-fabric.atlassian.net/browse/ED-12780
+BrowserTestCase(
+  `code-block: code-highlighting layer is empty for plain text`,
+  { skip: ['safari', 'edge'] },
+  async (client: any) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    await mountEditor(page, {
+      appearance: 'full-page',
+      featureFlags: {
+        'code-block-syntax-highlighting': true,
+      },
+    });
+
+    await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+    await page.click('.code-content code');
+    await page.keyboard.type('.', []);
+
+    const highlightedCode = await page.$eval(
+      '.code-highlighting',
+      el => el?.innerText,
+    );
+    expect(highlightedCode).toBe('');
+  },
+);

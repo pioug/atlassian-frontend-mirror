@@ -16,9 +16,7 @@ import { FormattedMessage } from 'react-intl';
 
 describe('FailedTitleBox', () => {
   it('should render FailedTitleBox properly', () => {
-    const component = shallow(
-      <FailedTitleBox breakpoint={Breakpoint.SMALL} onRetry={() => {}} />,
-    );
+    const component = shallow(<FailedTitleBox breakpoint={Breakpoint.SMALL} />);
     const wrapper = component.find(TitleBoxWrapper);
     expect(wrapper).toHaveLength(1);
     expect(wrapper.prop('breakpoint')).toBe(Breakpoint.SMALL);

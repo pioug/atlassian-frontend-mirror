@@ -87,10 +87,10 @@ export default class ProfileCardResourced extends React.PureComponent<
         this.props.resourceClient
           .getProfile(cloudId, userId)
           .then(
-            res => this.handleClientSuccess(res),
-            err => this.handleClientError(err),
+            (res) => this.handleClientSuccess(res),
+            (err) => this.handleClientError(err),
           )
-          .catch(err => this.handleClientError(err));
+          .catch((err) => this.handleClientError(err));
       },
     );
   };

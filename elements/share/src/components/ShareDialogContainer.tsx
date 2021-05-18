@@ -340,7 +340,7 @@ export class ShareDialogContainerInternal extends React.Component<
         }
 
         // renew Origin Tracing Id per share action succeeded
-        this.setState(state => ({
+        this.setState((state) => ({
           shareActionCount: state.shareActionCount + 1,
         }));
       });
@@ -422,7 +422,7 @@ export class ShareDialogContainerInternal extends React.Component<
     const start = Date.now();
     return this.urlShortenerClient
       .shorten(data)
-      .then(response => {
+      .then((response) => {
         this.createAndFireEvent(
           shortUrlGenerated(start, this._lastUrlShorteningWasTooSlow),
         );
@@ -521,7 +521,7 @@ export class ShareDialogContainerInternal extends React.Component<
 
     const shortLink = this.getUpToDateShortenedCopyLink(shortLinkData);
     const requestCounter = this._urlShorteningRequestCounter;
-    shortLink.then(shortenedCopyLink => {
+    shortLink.then((shortenedCopyLink) => {
       if (!this._isMounted) {
         return;
       }

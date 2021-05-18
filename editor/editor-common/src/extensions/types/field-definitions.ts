@@ -127,13 +127,6 @@ export interface DateRangeField extends BaseFieldDefinition {
   defaultValue?: DateRangeResult;
   items: Option[];
 }
-
-export interface DataSourceField extends BaseFieldDefinition {
-  type: 'datasource';
-  defaultValue?: string;
-  placeholder?: string;
-  nodeType: string;
-}
 export interface DateRangeResult {
   type: 'date-range';
   value: 'custom' | any;
@@ -182,8 +175,7 @@ export type NativeField =
   | NumberField
   | BooleanField
   | DateField
-  | DateRangeField
-  | DataSourceField;
+  | DateRangeField;
 
 export type NestedFieldDefinition = NativeField | CustomField | UserField;
 
@@ -197,7 +189,7 @@ export interface Fieldset extends BaseFieldDefinition {
   };
 }
 
-export type FieldDefinition = NestedFieldDefinition | Fieldset;
+export type FieldDefinition = NestedFieldDefinition | Fieldset | GroupingField;
 
 export const isFieldset = (field: FieldDefinition): field is Fieldset => {
   return field.type === 'fieldset';
@@ -206,3 +198,14 @@ export const isFieldset = (field: FieldDefinition): field is Fieldset => {
 export const isDateRange = (value: any): value is DateRangeResult => {
   return value && value.hasOwnProperty('type') && value.type === 'date-range';
 };
+
+export interface GroupedField extends BaseFieldDefinition {
+  fields: FieldDefinition[];
+}
+
+export interface ExpandField extends GroupedField {
+  type: 'expand';
+  isExpanded?: boolean;
+}
+
+export type GroupingField = ExpandField;

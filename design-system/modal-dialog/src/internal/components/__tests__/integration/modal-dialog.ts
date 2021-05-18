@@ -21,14 +21,27 @@ BrowserTestCase(
     await modalTest.waitFor(modalDialog, 5000);
 
     expect(await modalTest.isVisible(modalDialog)).toBe(true);
+
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(primaryBtn),
+      'Primary button does not have initial focus.',
+    );
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
 
     modalTest.keys('Tab', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(secondaryBtn),
+      'Secondary button does not have focus after tab.',
+    );
     expect(await modalTest.hasFocus(secondaryBtn)).toBe(true);
 
     // Focus should go back to primary action, not content body,
     // because this modal is not scrollable.
     modalTest.keys('Tab', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(primaryBtn),
+      'Focus is not back on primary button.',
+    );
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
 
     // Close the modal dialog
@@ -56,18 +69,35 @@ BrowserTestCase(
     await modalTest.waitFor(modalDialog, 5000);
 
     expect(await modalTest.isVisible(modalDialog)).toBe(true);
+
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(primaryBtn),
+      'Primary button does not have initial focus.',
+    );
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
 
     modalTest.keys('Tab', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(scrollDownBtn),
+      'Scroll down button does not have focus after tab.',
+    );
     expect(await modalTest.hasFocus(scrollDownBtn)).toBe(true);
 
     // Focus should go to content body,
     // because this modal is scrollable.
     modalTest.keys('Tab', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(modalDialogContent),
+      'Modal dialog content does not have focus after tab.',
+    );
     expect(await modalTest.hasFocus(modalDialogContent)).toBe(true);
 
     // Focus should go back to primary action.
     modalTest.keys('Tab', true);
+    await modalTest.waitUntil(
+      () => modalTest.hasFocus(primaryBtn),
+      'Focus is not back on primary button.',
+    );
     expect(await modalTest.hasFocus(primaryBtn)).toBe(true);
   },
 );

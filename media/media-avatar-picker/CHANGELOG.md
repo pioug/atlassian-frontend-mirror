@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 22.1.7
+
+### Patch Changes
+
+- [`d61fa7df04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d61fa7df04b) - [ux] Removes unnecessary scroll in media's avatar picker dialog.
+- Updated dependencies
+
 ## 22.1.6
 
 ### Patch Changes

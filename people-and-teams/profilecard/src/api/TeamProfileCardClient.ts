@@ -48,7 +48,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
     const query = buildTeamQuery(teamId);
 
     return graphqlQuery<{ Team: Team }>(this.options.url, query).then(
-      data => data.Team,
+      (data) => data.Team,
     );
   }
 

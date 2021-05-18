@@ -1,5 +1,16 @@
 # @atlaskit/media-ui
 
+## 16.1.0
+
+### Minor Changes
+
+- [`93232471b86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93232471b86) - allow to pass size to MediaTypeIcon
+  expose loading_file locale
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

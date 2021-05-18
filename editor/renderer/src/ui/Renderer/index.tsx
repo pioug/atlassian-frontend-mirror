@@ -437,7 +437,7 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
       appearance: getAnalyticsAppearance(props.appearance),
       packageName: name,
       packageVersion: version,
-      componentName: 'editorCore',
+      componentName: 'renderer',
     }}
   >
     <WithCreateAnalyticsEvent

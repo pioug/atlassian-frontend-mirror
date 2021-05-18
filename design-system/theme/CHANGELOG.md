@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 11.2.1
+
+### Patch Changes
+
+- [`adf3cbfbd47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adf3cbfbd47) - [ux] Fix Reset text color
+
 ## 11.2.0
 
 ### Minor Changes

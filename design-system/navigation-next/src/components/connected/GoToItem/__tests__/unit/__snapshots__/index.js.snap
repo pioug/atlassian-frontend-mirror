@@ -66,6 +66,22 @@ exports[`GoToItemBase Default After prop should show a spinner if the incoming v
   stroke-dashoffset: inherit;
 }
 
+@media screen and (-ms-high-contrast:white-on-black) {
+  .emotion-0 {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    stroke: #FFFFFF;
+  }
+}
+
+@media screen and (-ms-high-contrast:black-on-white) {
+  .emotion-0 {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    stroke: #000000;
+  }
+}
+
 <ForwardRef(Spinner)
   delay={200}
   invertColor={true}

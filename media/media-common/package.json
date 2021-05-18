@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
   "scripts": {},
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.5",
-    "@atlaskit/analytics-namespaced-context": "^6.0.0",
+    "@atlaskit/analytics-namespaced-context": "^6.2.0",
     "@atlaskit/analytics-next": "^8.1.1",
     "@babel/runtime": "^7.0.0"
   },

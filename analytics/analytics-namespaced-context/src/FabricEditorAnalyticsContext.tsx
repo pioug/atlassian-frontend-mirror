@@ -16,7 +16,7 @@ type FabricEditorAnalyticsContextProps = Props & {
     appearance: EDITOR_APPEARANCE_CONTEXT | undefined;
     packageName: string;
     packageVersion: string;
-    componentName: 'editorCore';
+    componentName: 'renderer' | 'editorCore';
   };
 };
 

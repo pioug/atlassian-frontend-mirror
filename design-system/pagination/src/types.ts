@@ -1,14 +1,8 @@
-import { ReactElement, SyntheticEvent } from 'react';
+import type { CSSProperties, ReactElement, SyntheticEvent } from 'react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export interface PaginationPropTypes<T = unknown> {
-  /** Custom collapse range function */
-  collapseRange?: (
-    pages: ReactElement[],
-    selectedIndex: number,
-    arg: { max: number; ellipsis: (arg: { key: string }) => ReactElement },
-  ) => ReactElement[];
   /** Replace the built-in Page, Previous, Next and/ or Ellipsis component */
   components?: {
     Page?: React.ElementType;
@@ -19,13 +13,14 @@ export interface PaginationPropTypes<T = unknown> {
   defaultSelectedIndex?: number;
   /** Helper function to get text displayed on the page button. It is helpful in scenarios when page the page passed in is an object  */
   getPageLabel?: (page: T, pageIndex: number) => number | string;
-  /** The aria-label for next and previous buttons */
-  i18n?: {
-    prev: string;
-    next: string;
-  };
-  /** Styles to spread on the container element */
-  innerStyles?: Object;
+  /** The aria-label for the pagination wrapper */
+  label?: string;
+  /** The aria-label for the next button */
+  nextLabel?: string;
+  /** The aria-label for the previous button */
+  previousLabel?: string;
+  /** Style to spread on the container element */
+  style?: CSSProperties;
   /** Maximum number of pages to be displayed in the pagination */
   max?: number;
   /** The onChange handler which is called when the page is changed */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
-
+import isValidId from 'uuid-validate';
 import { BrowserConfig } from '../../types';
 import {
   LocalUploadComponentReact,
@@ -32,6 +32,31 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 
   constructor(props: BrowserProps) {
     super(props, COMPONENT_NAME);
+    const { config, onError } = props;
+
+    const { replaceFileId } = config;
+    if (replaceFileId && !isValidId(replaceFileId)) {
+      this.createAndFireAnalyticsEvent({
+        eventType: 'operational',
+        action: 'failed',
+        actionSubject: 'mediaUpload',
+        actionSubjectId: 'localMedia',
+        attributes: {
+          status: 'fail',
+          failReason: 'invalid_uuid',
+          uuid: replaceFileId,
+        },
+      });
+      onError &&
+        onError({
+          fileId: replaceFileId,
+          error: {
+            description: 'Invalid replaceFileId format',
+            name: 'invalid_uuid',
+            fileId: replaceFileId,
+          },
+        });
+    }
   }
 
   static defaultProps = {
@@ -42,10 +67,14 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
     if (!event.target) {
       return;
     }
-
+    const { replaceFileId } = this.props.config;
     const filesArray = [].slice.call(event.target.files);
     try {
-      this.uploadService.addFiles(filesArray);
+      if (replaceFileId) {
+        this.uploadService.addFile(filesArray[0], replaceFileId);
+      } else {
+        this.uploadService.addFiles(filesArray);
+      }
     } finally {
       if (this.browserRef.current) {
         this.browserRef.current.value = '';
@@ -94,7 +123,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 
   render() {
     const { config, children } = this.props;
-    const multiple = config.multiple;
+    const { multiple, replaceFileId } = config;
     const fileExtensions =
       config.fileExtensions && config.fileExtensions.join(',');
 
@@ -105,7 +134,11 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
           ref={this.browserRef}
           type="file"
           style={{ display: 'none' }}
-          multiple={multiple}
+          multiple={
+            replaceFileId
+              ? false
+              : multiple /* if the consumer passes the fileId we must work in single selection mode */
+          }
           accept={fileExtensions}
           onChange={this.onFilePicked}
         />

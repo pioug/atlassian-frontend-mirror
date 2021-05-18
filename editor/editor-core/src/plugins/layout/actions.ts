@@ -162,16 +162,20 @@ function columnWidth(node: Node, schema: Schema, widths: number[]): Fragment {
   const { layoutColumn } = schema.nodes;
   const truncatedWidths: number[] = widths.map(w => Number(w.toFixed(2)));
 
-  return flatmap(node.content, (column, idx) =>
-    layoutColumn.create(
-      {
-        ...column.attrs,
-        width: truncatedWidths[idx],
-      },
-      column.content,
-      column.marks,
-    ),
-  );
+  return flatmap(node.content, (column, idx) => {
+    if (column.type === layoutColumn) {
+      return layoutColumn.create(
+        {
+          ...column.attrs,
+          width: truncatedWidths[idx],
+        },
+        column.content,
+        column.marks,
+      );
+    } else {
+      return column;
+    }
+  });
 }
 
 function forceColumnWidths(

@@ -8,7 +8,7 @@ import ProfileClient from '../../../src/api/ProfileCardClient';
 import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/TeamProfileCardTrigger';
 import { teamCardTriggered, teamRequestAnalytics } from '../../util/analytics';
 
-const createAnalyticsEvent = jest.fn(body => {
+const createAnalyticsEvent = jest.fn((body) => {
   // Mocking an implementation of this so tests will run successfully
   const event = {
     dummy: 'hello',

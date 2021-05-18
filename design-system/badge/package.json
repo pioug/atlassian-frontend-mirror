@@ -47,6 +47,7 @@
     "@types/react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
+    "storybook-addon-performance": "^0.15.1",
     "typescript": "3.9.6"
   },
   "techstack": {

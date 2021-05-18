@@ -118,10 +118,10 @@ class ProfilecardTrigger extends React.PureComponent<
         this.props.resourceClient
           .getProfile(cloudId || '', userId)
           .then(
-            res => this.handleClientSuccess(res),
-            err => this.handleClientError(err),
+            (res) => this.handleClientSuccess(res),
+            (err) => this.handleClientError(err),
           )
-          .catch(err => this.handleClientError(err));
+          .catch((err) => this.handleClientError(err));
       },
     );
   };
@@ -203,7 +203,7 @@ class ProfilecardTrigger extends React.PureComponent<
         onClose={this.hideProfilecard}
         placement={this.props.position}
         content={this.renderCard}
-        trigger={triggerProps => {
+        trigger={(triggerProps) => {
           const { ref, ...innerProps } = triggerProps;
           return (
             <span {...innerProps} {...this.containerListeners} ref={ref}>

@@ -15,6 +15,7 @@ export interface RowCellType {
 export interface I18nShape {
   prev: string;
   next: string;
+  label: string;
 }
 
 export interface StatelessProps extends WithAnalyticsEventsProps {
@@ -121,8 +122,8 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   onRankEnd?: (rankEnd: RankEnd, uiAnalyticsEvent?: UIAnalyticsEvent) => void;
 
   /**
-   * Labels for the previous and next buttons used in pagination.
-   * Defaults to `"previous"` and `"next"`.
+   * Labels for the pagination wrapper, previous and next buttons used in pagination.
+   * Defaults to `"pagination"`, `"previous"` and `"next"`.
    */
   paginationi18n?: I18nShape;
 

@@ -14,8 +14,15 @@ type ScrollableOptions = {
   shouldScroll?: boolean;
 };
 
+const outline = css`
+  outline-offset: -1px;
+  outline-style: dotted;
+  outline-color: ${focusOutlineColor};
+  outline-width: thin;
+`;
+
 const keyline = (showKeyline: boolean) =>
-  showKeyline ? `${keylineHeight}px solid ${keylineColor()}` : 'unset';
+  showKeyline ? `${keylineHeight}px solid ${keylineColor}` : 'unset';
 
 export const scrollableStyles = ({
   showTopKeyline,
@@ -51,10 +58,17 @@ export const scrollableStyles = ({
   margin: -${shouldScroll ? 0 : keylineHeight}px 0px;
 
   &:focus {
-    outline-offset: -1px;
-    outline-style: dotted;
-    outline-color: ${focusOutlineColor};
-    outline-width: thin;
+    ${outline}
+  }
+
+  @supports selector(:focus-visible) {
+    &:focus {
+      outline: unset;
+    }
+
+    &:focus-visible {
+      ${outline}
+    }
   }
 
   @media (min-width: 480px) {

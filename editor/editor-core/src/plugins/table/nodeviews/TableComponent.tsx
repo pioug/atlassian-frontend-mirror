@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 import classnames from 'classnames';
 import { Node as PmNode } from 'prosemirror-model';
@@ -38,6 +38,7 @@ import {
   TableCssClassName as ClassName,
   ColumnResizingPluginState,
   TableColumnOrdering,
+  ShadowEvent,
 } from '../types';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
@@ -51,9 +52,12 @@ import { updateOverflowShadows } from './update-overflow-shadows';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { ForwardRef } from '../../../nodeviews/types';
 import { getFeatureFlags } from '../../feature-flags-context';
+import memoizeOne from 'memoize-one';
+import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 
 const isIE11 = browser.ie_version === 11;
 
+const NOOP = () => undefined;
 export interface ComponentProps {
   view: EditorView;
   getNode: () => PmNode;
@@ -78,6 +82,8 @@ interface TableState {
   parentWidth?: number;
   isLoading: boolean;
   stickyHeader?: RowStickyState;
+  [ShadowEvent.SHOW_BEFORE_SHADOW]: boolean;
+  [ShadowEvent.SHOW_AFTER_SHADOW]: boolean;
 }
 
 // in Chrome, if none of the parent elements
@@ -108,6 +114,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     tableContainerWidth: 'inherit',
     parentWidth: undefined,
     isLoading: true,
+    [ShadowEvent.SHOW_BEFORE_SHADOW]: false,
+    [ShadowEvent.SHOW_AFTER_SHADOW]: false,
   };
 
   private wrapper?: HTMLDivElement | null;
@@ -116,6 +124,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private node: PmNode;
   private containerWidth?: WidthPluginState;
   private layoutSize?: number;
+  private overflowShadowsObserver?: OverflowShadowsObserver;
 
   constructor(props: ComponentProps) {
     super(props);
@@ -199,34 +208,45 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       window.cancelAnimationFrame(this.frameId);
     }
 
+    if (this.overflowShadowsObserver) {
+      this.overflowShadowsObserver.dispose();
+    }
+
     this.props.eventDispatcher.off(
       (stickyHeadersPluginKey as any).key,
       this.onStickyState,
     );
   }
 
-  private updateShadows() {
-    if (this.wrapper && this.wrapper.parentElement) {
-      const rightShadows = this.wrapper.parentElement.querySelectorAll<
-        HTMLElement
-      >(`.${ClassName.TABLE_RIGHT_SHADOW}`);
-
-      const leftShadows = this.wrapper.parentElement.querySelectorAll<
-        HTMLElement
-      >(`.${ClassName.TABLE_LEFT_SHADOW}`);
-
-      updateOverflowShadows(
-        this.wrapper,
-        this.table,
-        rightShadows,
-        leftShadows,
-      );
-    }
-  }
-
   componentDidUpdate(prevProps: ComponentProps) {
-    this.updateShadows();
-    const currentTable = this.props.getNode();
+    const { view, getNode } = this.props;
+    const { tableOverflowShadowsOptimization } =
+      getFeatureFlags(view.state) || {};
+
+    if (!tableOverflowShadowsOptimization) {
+      this.updateShadows();
+    } else {
+      if (
+        this.wrapper?.parentElement &&
+        this.table &&
+        !this.overflowShadowsObserver
+      ) {
+        this.overflowShadowsObserver = new OverflowShadowsObserver(
+          this.updateShadowState,
+          this.table,
+          this.wrapper,
+        );
+      }
+
+      if (this.overflowShadowsObserver) {
+        this.overflowShadowsObserver.observeCells(
+          this.state.stickyHeader?.sticky,
+          containsHeaderRow(view.state, getNode()),
+        );
+      }
+    }
+
+    const currentTable = getNode();
     if (currentTable.attrs.__autoSize) {
       // Wait for next tick to handle auto sizing, gives the browser time to do layout calc etc.
       this.handleAutoSizeDebounced();
@@ -247,7 +267,41 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
   }
 
+  private updateShadows() {
+    const parent = this.wrapper?.parentElement;
+    if (this.wrapper && parent) {
+      const rightShadows = parent.querySelectorAll<HTMLElement>(
+        `.${ClassName.TABLE_RIGHT_SHADOW}`,
+      );
+      const leftShadows = parent.querySelectorAll<HTMLElement>(
+        `.${ClassName.TABLE_LEFT_SHADOW}`,
+      );
+
+      updateOverflowShadows(
+        this.props.view.state,
+        this.wrapper,
+        this.table,
+        rightShadows,
+        leftShadows,
+      );
+    }
+  }
+
+  private updateShadowState = (shadowKey: ShadowEvent, value: boolean) => {
+    if (this.state[shadowKey] === value) {
+      return;
+    }
+    // need this check to satisfy types for the setState argument
+    if (shadowKey === ShadowEvent.SHOW_BEFORE_SHADOW) {
+      return this.setState({ [shadowKey]: value });
+    }
+    this.setState({ [shadowKey]: value });
+  };
+
   onStickyState = (state: StickyPluginState) => {
+    const { tableOverflowShadowsOptimization } =
+      getFeatureFlags(this.props.view.state) || {};
+
     const pos = this.props.getPos();
     if (!isValidPosition(pos, this.props.view.state)) {
       return;
@@ -255,6 +309,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const stickyHeader = findStickyHeaderForTable(state, pos);
     if (stickyHeader !== this.state.stickyHeader) {
       this.setState({ stickyHeader });
+      if (tableOverflowShadowsOptimization && this.overflowShadowsObserver) {
+        this.overflowShadowsObserver.updateStickyShadows();
+      }
     }
   };
 
@@ -272,7 +329,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       tableActive,
       containerWidth,
     } = this.props;
-    const { isLoading, tableContainerWidth } = this.state;
+    const {
+      isLoading,
+      tableContainerWidth,
+      showBeforeShadow,
+      showAfterShadow,
+    } = this.state;
     const node = getNode();
     // doesn't work well with WithPluginState
     const { isInDanger, hoveredRows } = getPluginState(view.state);
@@ -281,6 +343,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       stickyHeadersOptimization,
       initialRenderOptimization,
       tableRenderOptimization,
+      tableOverflowShadowsOptimization,
     } = getFeatureFlags(view.state) || {};
 
     const tableRef = this.table || undefined;
@@ -293,6 +356,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     //dont need to change tableHeight with tableRenderOptimization because it will be observed inside floating components
     const tableHeight =
       tableRef && !tableRenderOptimization ? tableRef.offsetHeight : undefined;
+
+    const hasHeaderRow = containsHeaderRow(view.state, node);
     const rowControls = (
       <div className={ClassName.ROW_CONTROLS_WRAPPER}>
         <TableFloatingControls
@@ -306,7 +371,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           isHeaderRowEnabled={isHeaderRowEnabled}
           ordering={ordering}
           isHeaderColumnEnabled={isHeaderColumnEnabled}
-          hasHeaderRow={containsHeaderRow(view.state, node)}
+          hasHeaderRow={hasHeaderRow}
           // pass `selection` and `tableHeight` to control re-render
           selection={view.state.selection}
           tableHeight={tableHeight}
@@ -321,6 +386,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         ? -tableToolbarSize
         : tableMarginSides;
 
+    const shadowStyle = tableOverflowShadowsOptimization
+      ? memoizeOne(
+          visible =>
+            ({ visibility: visible ? 'visible' : 'hidden' } as CSSProperties),
+        )
+      : NOOP;
+
     return (
       <div
         style={{
@@ -329,7 +401,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         }}
         className={classnames(ClassName.TABLE_CONTAINER, {
           [ClassName.WITH_CONTROLS]: allowControls && tableActive,
-          [ClassName.TABLE_STICKY]: this.state.stickyHeader,
+          [ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
           [ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
           [ClassName.TABLE_SELECTED]: isTableSelected(view.state.selection),
           'less-padding': containerWidth.width < akEditorMobileBreakoutPoint,
@@ -344,11 +416,19 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         {allowControls &&
           (!isLoading || initialRenderOptimization) &&
           rowControls}
-        <div className={ClassName.TABLE_LEFT_SHADOW} />
+        <div
+          style={shadowStyle(showBeforeShadow)}
+          className={ClassName.TABLE_LEFT_SHADOW}
+        />
         {this.state.stickyHeader && (
           <div
             className={`${ClassName.TABLE_LEFT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
             style={{
+              visibility: tableOverflowShadowsOptimization
+                ? showBeforeShadow && hasHeaderRow
+                  ? 'visible'
+                  : 'hidden'
+                : undefined,
               top: `${
                 this.state.stickyHeader.top +
                 this.state.stickyHeader.padding +
@@ -372,8 +452,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             }
           }}
         />
-
-        <div className={ClassName.TABLE_RIGHT_SHADOW} />
+        <div
+          style={shadowStyle(showAfterShadow)}
+          className={ClassName.TABLE_RIGHT_SHADOW}
+        />
         {this.state.stickyHeader && (
           <div
             style={{
@@ -384,6 +466,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             <div
               className={`${ClassName.TABLE_RIGHT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
               style={{
+                visibility: tableOverflowShadowsOptimization
+                  ? showAfterShadow && hasHeaderRow
+                    ? 'visible'
+                    : 'hidden'
+                  : undefined,
                 top: `${
                   this.state.stickyHeader.top +
                   this.state.stickyHeader.padding +
@@ -431,7 +518,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       }
     }
 
-    this.updateShadows();
+    const { tableOverflowShadowsOptimization } =
+      getFeatureFlags(this.props.view.state) || {};
+
+    if (!tableOverflowShadowsOptimization) {
+      this.updateShadows();
+    }
   };
 
   private handleTableResizing = () => {

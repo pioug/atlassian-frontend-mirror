@@ -26,7 +26,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^6.0.0",
+    "@atlaskit/analytics-namespaced-context": "^6.2.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/icon": "^21.5.0",
     "@atlaskit/theme": "^11.2.0",
@@ -46,9 +46,9 @@
     "@atlaskit/analytics-listeners": "^8.0.0",
     "@atlaskit/avatar": "^20.2.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^56.0.0",
+    "@atlaskit/editor-common": "^57.0.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/renderer": "^76.2.0",
+    "@atlaskit/renderer": "^76.3.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/url-search-params": "^0.10.0",

@@ -178,6 +178,28 @@ describe('@atlaskit/tabs', () => {
     });
 
     describe('can navigate via keyboard', () => {
+      it('pressing HOME fires onChange for the first tab', () => {
+        const spy = jest.fn();
+        const { getByText } = render(
+          renderTabList({ selected: 2, onChange: spy }),
+        );
+
+        fireEvent.keyDown(getByText('Tab 3 label'), { key: 'Home' });
+
+        expect(spy).toHaveBeenCalledWith(0);
+      });
+
+      it('pressing END fires onChange for the first tab', () => {
+        const spy = jest.fn();
+        const { getByText } = render(
+          renderTabList({ selected: 2, onChange: spy }),
+        );
+
+        fireEvent.keyDown(getByText('Tab 1 label'), { key: 'End' });
+
+        expect(spy).toHaveBeenCalledWith(2);
+      });
+
       it('pressing LEFT arrow fires onChange for the first tab', () => {
         const spy = jest.fn();
         const { getByText } = render(
@@ -200,7 +222,7 @@ describe('@atlaskit/tabs', () => {
         expect(spy).toHaveBeenCalledWith(2);
       });
 
-      it('pressing the LEFT arrow when on the first tab does not fire onChange', () => {
+      it('pressing the LEFT arrow when on the first tab fires onChange for the last tab', () => {
         const spy = jest.fn();
         const { getByText } = render(
           renderTabList({ selected: 0, onChange: spy }),
@@ -208,10 +230,10 @@ describe('@atlaskit/tabs', () => {
 
         fireEvent.keyDown(getByText('Tab 1 label'), { key: 'ArrowLeft' });
 
-        expect(spy).not.toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(2);
       });
 
-      it('pressing the RIGHT arrow when on the last tab does not fire onChange', () => {
+      it('pressing the RIGHT arrow when on the last tab fires onChange for the first tab', () => {
         const spy = jest.fn();
         const { getByText } = render(
           renderTabList({ selected: 2, onChange: spy }),
@@ -219,7 +241,7 @@ describe('@atlaskit/tabs', () => {
 
         fireEvent.keyDown(getByText('Tab 3 label'), { key: 'ArrowRight' });
 
-        expect(spy).not.toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(0);
       });
 
       it('navigating by keyboard still works after adding a tab', () => {

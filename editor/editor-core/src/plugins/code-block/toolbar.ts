@@ -1,11 +1,6 @@
 import { defineMessages } from 'react-intl';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-import {
-  createLanguageList,
-  DEFAULT_LANGUAGES,
-  getLanguageIdentifier,
-} from '@atlaskit/adf-schema';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import {
   FloatingToolbarHandler,
@@ -25,6 +20,11 @@ import { Command } from '../../types';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { pluginKey } from './plugin-key';
 import { SelectOption } from '../floating-toolbar/ui/Select';
+import {
+  createLanguageList,
+  DEFAULT_LANGUAGES,
+  getLanguageIdentifier,
+} from './language-list';
 
 export const messages = defineMessages({
   selectLanguage: {

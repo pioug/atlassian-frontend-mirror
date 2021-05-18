@@ -278,7 +278,6 @@ describe('CardView New Experience', () => {
     });
 
     it(`should render FailedTitleBox when there is an error state or dataURI fails to load`, () => {
-      const onRetry = () => {};
       const metadata: FileDetails = {
         id: 'some-id',
         name: 'some-file-name',
@@ -289,18 +288,15 @@ describe('CardView New Experience', () => {
       const componentA = shallowCardViewBase({
         metadata,
         status: 'error',
-        onRetry: onRetry,
       });
       const failedTitleBoxA = componentA.find(FailedTitleBox);
       expect(failedTitleBoxA).toHaveLength(1);
       expect(failedTitleBoxA.props().breakpoint).toBeDefined();
-      expect(failedTitleBoxA.props().onRetry).toBe(onRetry);
 
       // With broken dataURI
       const componentB = shallowCardViewBase({
         metadata,
         status: 'complete',
-        onRetry: onRetry,
         dataURI: 'some-data-uri',
       });
 
@@ -313,13 +309,11 @@ describe('CardView New Experience', () => {
       const failedTitleBoxB = componentB.find(FailedTitleBox);
       expect(failedTitleBoxB).toHaveLength(1);
       expect(failedTitleBoxB.props().breakpoint).toBeDefined();
-      expect(failedTitleBoxB.props().onRetry).toBe(onRetry);
     });
 
     it.each([createPollingMaxAttemptsError(), createPollingMaxFailuresError()])(
       `should not render FailedTitleBox when there is the polling error "%s"`,
       (error: Error) => {
-        const onRetry = () => {};
         const metadata: FileDetails = {
           id: 'some-id',
           name: 'some-file-name',
@@ -330,7 +324,6 @@ describe('CardView New Experience', () => {
         const componentB = shallowCardViewBase({
           metadata,
           status: 'processing',
-          onRetry: onRetry,
           dataURI: 'some-data-uri',
           error,
         });
@@ -499,7 +492,8 @@ describe('CardView New Experience', () => {
       expect(componentD.find(TickBox)).toHaveLength(0);
     });
 
-    it('should render the tooltip if there is filename', () => {
+    it('should render the tooltip when overlay is enabled and there is filename', () => {
+      // With filename and overlay enabled
       const component = shallowCardViewBase({
         metadata: { name: 'charlie.jpg' } as any,
       });
@@ -510,9 +504,27 @@ describe('CardView New Experience', () => {
       expect(tooltip.prop('tag')).toBe('div');
     });
 
+    it('should not render the tooltip when overlay is disabled and there is filename', () => {
+      // With filename and overlay disabled
+      const component = shallowCardViewBase({
+        metadata: { name: 'charlie.jpg' } as any,
+        disableOverlay: true,
+      });
+
+      const tooltip = component.find(Tooltip);
+      expect(tooltip).toHaveLength(0);
+    });
+
     it('should not render the tooltip if there is no filename', () => {
-      const component = shallowCardViewBase();
-      expect(component.find(Tooltip)).toHaveLength(0);
+      // Without filename and overlay enabled
+      const componentA = shallowCardViewBase();
+      expect(componentA.find(Tooltip)).toHaveLength(0);
+
+      // Without filename and overlay disabled
+      const componentB = shallowCardViewBase({
+        disableOverlay: true,
+      });
+      expect(componentB.find(Tooltip)).toHaveLength(0);
     });
   });
 });

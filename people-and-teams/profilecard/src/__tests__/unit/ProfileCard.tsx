@@ -129,12 +129,12 @@ describe('Profilecard', () => {
         const buttonTexts = card
           .find(Button)
           .children()
-          .map(node => node.text());
+          .map((node) => node.text());
 
         expect(actionsWrapper.children().first().children()).toHaveLength(
           actions.length,
         );
-        expect(buttonTexts).toEqual(actions.map(action => action.label));
+        expect(buttonTexts).toEqual(actions.map((action) => action.label));
       });
 
       describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {

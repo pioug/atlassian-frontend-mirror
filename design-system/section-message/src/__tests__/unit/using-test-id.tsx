@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import SectionMessage from '../../index';
+import SectionMessage, { SectionMessageAction } from '../../index';
 
 const sectionMessageInfoId = 'info-section-message';
 const sectionMessageInfoBBId = 'jira';
@@ -10,22 +10,22 @@ const sectionMessageInfoJiraId = 'bitbucket';
 
 const sectionMessageWrapperWithTestIds = (
   <SectionMessage
-    appearance="info"
+    appearance="information"
     title="Atlassian"
     testId={sectionMessageInfoId}
     actions={[
-      {
-        key: 'bitbucket',
-        href: 'https://www.atlassian.com/software/bitbucket',
-        text: 'Bitbucket',
-        testId: sectionMessageInfoBBId,
-      },
-      {
-        key: 'jira',
-        href: 'https://www.atlassian.com/software/jira',
-        text: 'Jira',
-        testId: sectionMessageInfoJiraId,
-      },
+      <SectionMessageAction
+        href="https://www.atlassian.com/software/bitbucket"
+        testId={sectionMessageInfoBBId}
+      >
+        Bitbucket
+      </SectionMessageAction>,
+      <SectionMessageAction
+        href="https://www.atlassian.com/software/jira"
+        testId={sectionMessageInfoJiraId}
+      >
+        Jira
+      </SectionMessageAction>,
     ]}
   >
     <p>

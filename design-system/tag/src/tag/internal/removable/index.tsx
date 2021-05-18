@@ -149,7 +149,7 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
           isRounded ? roundedBorderStyles : undefined,
         ]}
         tabIndex={0}
-        aria-label={removeButtonLabel}
+        aria-label={`${removeButtonLabel} ${text}`}
         onClick={handleRemoveRequest}
         onFocus={removingTag}
         onBlur={showingTag}

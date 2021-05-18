@@ -9,6 +9,7 @@ import { TitleWrapper } from '../IconAndTitleLayout/styled';
 export interface WrapperProps {
   isSelected?: boolean;
   isInteractive?: boolean;
+  withoutHover?: boolean;
   withoutBackground?: boolean;
 }
 
@@ -60,6 +61,16 @@ const isSelected = ({ isSelected }: WrapperProps) => {
   }
 };
 
+const withoutHover = ({ withoutHover }: WrapperProps) => {
+  return withoutHover
+    ? `
+    &:hover {
+      text-decoration: none;
+    }
+  `
+    : '';
+};
+
 /*
   Inline smart cards should have the following layout:
   ------------------------------------
@@ -90,10 +101,12 @@ export const Wrapper: ComponentClass<
   ${props => (props.withoutBackground ? '' : e100())};
   ${isInteractive}
   ${isSelected};
+  ${withoutHover}
   transition: 0.1s all ease-in-out;
   -moz-user-select: none;
 
   &:hover ${TitleWrapper} {
-    text-decoration: underline;
+    text-decoration: ${({ withoutHover }) =>
+      withoutHover ? 'none' : 'underline'};
   }
 `;

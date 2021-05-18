@@ -246,19 +246,26 @@ export function sanitizeNodes(
         .join(' ');
     }
     if (nodeSpec.content) {
-      const content = nodeSpec.content.replace(/\W/g, ' ');
-      const contentKeys = content.split(' ');
-      const unsupportedContentKeys = contentKeys.filter(
-        contentKey => !isContentSupported(nodes, contentKey),
-      );
-      nodeSpec.content = unsupportedContentKeys.reduce(
-        (newContent, nodeName) => sanitizedContent(newContent, nodeName),
-        nodeSpec.content,
-      );
+      nodeSpec.content = sanitizeNodeSpecContent(nodes, nodeSpec.content);
     }
     nodes[nodeKey] = nodeSpec;
   });
   return nodes;
+}
+
+export function sanitizeNodeSpecContent(
+  nodes: { [key: string]: NodeSpec },
+  rawContent: string,
+): string {
+  const content = rawContent.replace(/\W/g, ' ');
+  const contentKeys = content.split(' ');
+  const unsupportedContentKeys = contentKeys.filter(
+    contentKey => !isContentSupported(nodes, contentKey),
+  );
+  return unsupportedContentKeys.reduce(
+    (newContent, nodeName) => sanitizedContent(newContent, nodeName),
+    rawContent,
+  );
 }
 
 function sanitizedContent(
@@ -273,18 +280,11 @@ function sanitizedContent(
     return '';
   }
 
-  const newContent = content
-    .replace(
-      new RegExp(
-        `(${invalidContent}((\\s)*\\|)+)|((\\|(\\s)*)+${invalidContent})|(${invalidContent}$)`,
-        'g',
-      ),
-      '',
-    )
+  const pattern = `(${invalidContent}((\\s)*\\|)+)|((\\|(\\s)*)+${invalidContent})|(${invalidContent}$)|(${invalidContent}(\\+|\\*))`;
+  return content
+    .replace(new RegExp(pattern, 'g'), '')
     .replace('  ', ' ')
     .trim();
-
-  return newContent;
 }
 
 function isContentSupported(

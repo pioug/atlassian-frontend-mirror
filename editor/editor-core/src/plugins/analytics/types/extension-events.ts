@@ -45,7 +45,11 @@ type ExtensionUpdateAEP = TrackAEP<
   {
     // com.atlassian.ecosystem - Forge
     extensionType: string;
-    // toc - Table of Contents
+    /**
+     * extensionkey follows this format:
+     * `${manifest.key}:${manifest.modules.nodes.name}`
+     * e.g: 'awesome:item', 'awesome:default', 'awesome:list'
+     */
     extensionKey: string;
     layout?: ExtensionLayout;
     // UUID
@@ -57,4 +61,16 @@ type ExtensionUpdateAEP = TrackAEP<
   INPUT_METHOD.MACRO_BROWSER | INPUT_METHOD.CONFIG_PANEL | INPUT_METHOD.TOOLBAR
 >;
 
-export type ExtensionEventPayload = ExtensionUpdateAEP;
+type ExtensionAPICalledPayload = TrackAEP<
+  ACTION.INVOKED,
+  ACTION_SUBJECT.EXTENSION,
+  ACTION_SUBJECT_ID.EXTENSION_API,
+  {
+    functionName: string;
+  },
+  INPUT_METHOD.EXTENSION_API
+>;
+
+export type ExtensionEventPayload =
+  | ExtensionUpdateAEP
+  | ExtensionAPICalledPayload;

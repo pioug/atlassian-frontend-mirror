@@ -47,7 +47,7 @@ We have created a codemod which aims to reduce the amount of busy work to upgrad
 - **collapseRange**: A function which should return an Array of react Nodes to be rendered by Pagination component
 - **components**: You can replace the default page, previous and next component by passing in your custom components here.
 - **renderEllipsis**: A function that returns a react node to be rendered instead of default ellipsis.
-- **innerStyles**: A styles object that is spread on the styles on the div wrapping pagination. Ideal for adding margins as required by the ADG guideline.
+- **style**: A style object that is spread on the style on the div wrapping pagination. Ideal for adding margins as required by the ADG guideline.
 
 ### 🚨 Deprecated Props:
 

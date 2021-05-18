@@ -1,5 +1,19 @@
 # @atlaskit/adf-schema
 
+## 16.0.0
+
+### Major Changes
+
+- [`f973bb5dde8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f973bb5dde8) - [ux] ED-12782 Remove codeblock languages from adf-schema
+
+  BREAKING CHANGE
+
+  `@atlaskit/adf-schema` is not longer exporting: `DEFAULT_LANGUAGES`, `createLanguageList`, `filterSupportedLanguages`, `findMatchedLanguage`, `getLanguageIdentifier` and `Language`. This are now used internally in `@atlaskit/editor-core`
+
+### Minor Changes
+
+- [`1fbe305bf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fbe305bf7d) - ED-12273 Unsupported content support for Layout
+
 ## 15.3.0
 
 ### Minor Changes

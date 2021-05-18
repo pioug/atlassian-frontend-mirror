@@ -65,6 +65,7 @@ export type {
   EnumSelectField,
   FieldDefinition,
   Fieldset,
+  GroupingField,
   NativeField,
   NestedFieldDefinition,
   NumberField,

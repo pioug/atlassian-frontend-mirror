@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/media-image",
-  "version": "17.1.5",
-  "description": "Atlassian Editor component for JIRA",
+  "version": "17.1.6",
+  "description": "Media image element - provides single display of image",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

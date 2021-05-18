@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
     "@atlaskit/icon": "^21.0.0",
     "@atlaskit/icon-file-type": "^6.0.0",
     "@atlaskit/icon-object": "^6.0.0",
-    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

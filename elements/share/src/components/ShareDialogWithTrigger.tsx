@@ -287,7 +287,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 
   private handleDialogOpen = () => {
     this.setState(
-      state => ({
+      (state) => ({
         isDialogOpen: !state.isDialogOpen,
         ignoreIntermediateState: false,
         showIntegrationForm: false,

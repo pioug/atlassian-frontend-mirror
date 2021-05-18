@@ -361,7 +361,7 @@ export default class ReactEditorView<T = {}> extends React.Component<
       dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
       performanceTracking: props.editorProps.performanceTracking,
       transactionTracker: this.transactionTracker,
-      featureFlags: this.featureFlags,
+      featureFlags: createFeatureFlagsFromProps(props.editorProps),
     });
 
     const newState = state.reconfigure({ plugins });

@@ -477,6 +477,9 @@ describe('Media', () => {
       component.update();
       expect(component.find(MediaCardInternal).state('fileState')).toEqual({
         id: 'file-id',
+        mediaType: 'image',
+        name: 'file_name',
+        status: 'processed',
       });
     });
 

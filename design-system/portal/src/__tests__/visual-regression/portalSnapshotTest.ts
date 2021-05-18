@@ -4,7 +4,8 @@ const openDialogButtonSelector = '#openDialogBtn';
 const portalSelector = '.atlaskit-portal';
 const dialogSelector = '.atlaskit-portal section[role="dialog"]';
 const lastDialogSelector = '.atlaskit-portal:nth-last-child(2)';
-const openAnotherButtonSelector = 'footer div div:last-child button';
+const openAnotherButtonSelector =
+  '[data-testid="modal-dialog-content--action-1"]';
 const showFlagButtonSelector = '#showFlagBtn';
 const showOnboardingButtonSelector = '#showOnboardingBtn';
 const toggleZIndexButtonSelector = '#toggleZIndexBtn';

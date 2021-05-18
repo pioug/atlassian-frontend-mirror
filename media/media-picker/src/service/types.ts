@@ -22,6 +22,7 @@ export const MAX_FILE_SIZE_FOR_PREVIEW = 10e6; // 10 MB
 
 export interface UploadService {
   setUploadParams(uploadParams: UploadParams): void;
+  addFile(file: File, replaceFileId?: string): void;
   addFiles(files: File[]): void;
   addFilesWithSource(files: LocalFileWithSource[]): void;
   cancel(id?: string): void;
@@ -44,4 +45,5 @@ export enum LocalFileSource {
 export interface LocalFileWithSource {
   file: File;
   source: LocalFileSource;
+  replaceFileId?: string;
 }

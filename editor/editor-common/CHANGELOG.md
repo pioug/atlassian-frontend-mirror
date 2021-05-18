@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 57.0.0
+
+### Major Changes
+
+- [`713dcb9d058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/713dcb9d058) - remove DataSourceField
+
+### Minor Changes
+
+- [`81a08ceb2e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a08ceb2e0) - ED-12653 added field definitions for GroupingField and ExpandField.
+
+### Patch Changes
+
+- [`1fbe305bf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fbe305bf7d) - ED-12273 Unsupported content support for Layout
+- Updated dependencies
+
 ## 56.0.0
 
 ### Major Changes
@@ -688,7 +703,7 @@
   import { WidthObserver } from '@atlaskit/width-detector';
 
   <WidthObserver
-    setWidth={width => console.log(`width has changed to ${width}`)}
+    setWidth={(width) => console.log(`width has changed to ${width}`)}
   />;
   ```
 

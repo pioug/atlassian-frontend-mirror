@@ -115,7 +115,7 @@ export default class extends Component {
     const { items } = this.state;
     return (
       <div>
-        <SectionMessage appearance="change">
+        <SectionMessage appearance="discovery">
           <p>
             This examples uses{' '}
             <b>

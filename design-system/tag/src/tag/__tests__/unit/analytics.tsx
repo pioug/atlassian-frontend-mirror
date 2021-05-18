@@ -41,7 +41,7 @@ describe('Tag analytics', () => {
         },
       },
     });
-    fireEvent.click(getByLabelText('Remove'));
+    fireEvent.click(getByLabelText('Remove Post Removal Hook'));
 
     await wait(() => {
       const mock: jest.Mock = onAtlaskitEvent;

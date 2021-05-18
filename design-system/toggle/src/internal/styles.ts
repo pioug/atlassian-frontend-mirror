@@ -153,5 +153,11 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
         width: '20px',
       },
     }),
+
+    '@media screen and (-ms-high-contrast:white-on-black), @media screen and (-ms-high-contrast:black-on-white)': {
+      '::before': {
+        filter: 'grayscale(100%) invert(1)',
+      },
+    },
   };
 };

@@ -1,5 +1,4 @@
-import { DN30, N30, N800, R400, Y400 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
+import { N30, N800, R400, Y400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 
 export const WIDTH_ENUM: WidthEnumType = {
@@ -27,11 +26,11 @@ export const verticalOffset = gridSize() * 2;
 
 export const modalPadding = gridSize() * 3;
 
-export const actionMargin = gridSize() / 2;
+export const actionMargin = gridSize();
 export const titleMargin = gridSize();
 
 export const keylineHeight = 2;
-export const keylineColor = themed({ light: N30, dark: DN30 });
+export const keylineColor = N30;
 
 export const focusOutlineColor = N800;
 export const dangerColor = R400;

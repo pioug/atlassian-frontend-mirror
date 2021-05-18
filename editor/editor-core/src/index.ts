@@ -9,6 +9,7 @@ export { default as CollapsedEditor } from './ui/CollapsedEditor';
 export { default as ToolbarHelp } from './ui/ToolbarHelp';
 export { default as ToolbarFeedback } from './ui/ToolbarFeedback';
 export { default as ContextPanel } from './ui/ContextPanel';
+export type { FeatureFlags as EditorFeatureFlags } from './types/feature-flags';
 
 export { EmojiResource } from '@atlaskit/emoji/resource';
 export { default as mediaPlugin, insertMediaSingleNode } from './plugins/media';

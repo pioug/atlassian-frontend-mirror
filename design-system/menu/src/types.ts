@@ -109,7 +109,6 @@ export interface SectionProps extends SectionBaseProps {
    */
   title?: string;
 }
-
 export interface BaseItemProps {
   /**
    * A function that can be used to override the styles of the component.
@@ -183,7 +182,17 @@ export interface BaseItemProps {
   shouldDescriptionWrap?: boolean;
 }
 
-export interface ButtonItemProps extends BaseItemProps {}
+export interface ButtonItemProps extends BaseItemProps {
+  /**
+   * Unique identifier for the element.
+   */
+  id?: string;
+
+  /**
+   * Used to override the accessibility role for the element.
+   */
+  role?: string;
+}
 
 export interface LinkItemProps extends BaseItemProps {
   /**

@@ -157,6 +157,7 @@ describe('Feature Flags from Props', () => {
       'initialRenderOptimization',
       'mouseMoveOptimization',
       'tableRenderOptimization',
+      'tableOverflowShadowsOptimization',
     ])('%s', flagName => {
       it.each<{ actual?: any; expected?: any }>([
         { actual: true, expected: true },
@@ -167,10 +168,10 @@ describe('Feature Flags from Props', () => {
         const { actual, expected } = testData;
         const flags = createFeatureFlagsFromProps({
           featureFlags: {
-            stickyHeadersOptimization: actual,
+            [flagName]: actual,
           },
         });
-        expect(flags.stickyHeadersOptimization).toBe(expected);
+        expect((flags as any)[flagName]).toBe(expected);
       });
     });
   });

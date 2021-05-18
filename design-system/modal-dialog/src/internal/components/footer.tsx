@@ -6,11 +6,7 @@ import { jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 
-import {
-  actionItemStyles,
-  actionWrapperStyles,
-  footerStyles,
-} from '../styles/content';
+import { internalFooterStyles } from '../styles/content';
 import { ActionProps, AppearanceType, KeyboardOrMouseEvent } from '../types';
 
 export interface FooterProps extends FooterComponentProps {
@@ -69,24 +65,22 @@ export default function ModalFooter(props: FooterProps) {
   }
 
   return (
-    <footer css={footerStyles} data-testid={testId && `${testId}--footer`}>
-      {/** This span is here to push footer's elements to the right. */}
-      <span />
-      <div css={actionWrapperStyles}>
-        {actions
-          ? actions.map(({ text, ...rest }, index) => {
-              const variant = index !== 0 ? 'subtle' : appearance || 'primary';
-
-              return (
-                <div css={actionItemStyles} key={index}>
-                  <Button appearance={variant} {...rest}>
-                    {text}
-                  </Button>
-                </div>
-              );
-            })
-          : null}
-      </div>
+    <footer
+      css={internalFooterStyles}
+      data-testid={testId && `${testId}--footer`}
+    >
+      {actions &&
+        actions.map(({ text, ...rest }, index) => (
+          <Button
+            key={index}
+            appearance={index !== 0 ? 'subtle' : appearance || 'primary'}
+            data-ds--modal-dialog--action
+            testId={testId && `${testId}--action-${index}`}
+            {...rest}
+          >
+            {text}
+          </Button>
+        ))}
     </footer>
   );
 }

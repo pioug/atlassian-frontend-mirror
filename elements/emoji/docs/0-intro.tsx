@@ -1,6 +1,8 @@
 import React from 'react';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage, {
+  SectionMessageAction,
+} from '@atlaskit/section-message';
 import SimpleEmojiExample from '../examples/00-simple-emoji';
 
 const SimpleEmojiSource = require('!!raw-loader!../examples/00-simple-emoji');
@@ -89,7 +91,9 @@ export default md`
             'https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/packages/elements/emoji/src/components/common/Emoji.tsx',
           text: 'Emoji Props',
         },
-      ]}
+      ].map(({ text, ...restAction }) => (
+        <SectionMessageAction {...restAction}>{text}</SectionMessageAction>
+      ))}
     >
       <p>You can still find props in the source code.</p>
     </SectionMessage>

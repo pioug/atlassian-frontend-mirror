@@ -26,6 +26,7 @@ import { Props, TableOptions } from './types';
 import { setTableSize } from '../commands';
 import { getFeatureFlags } from '../../feature-flags-context';
 import type { TableColumnOrdering } from '../types';
+import { EmitterEvents } from '../../../extensibility';
 
 const tableAttributes = (node: PmNode, allowLocalId: boolean) => {
   const localIdAttr = allowLocalId
@@ -60,6 +61,7 @@ export default class TableView extends ReactNodeView<Props> {
   private resizeObserver?: ResizeObserver;
   private editorView: EditorView;
   private tableRenderOptimization?: boolean;
+  eventDispatcher?: EventDispatcher;
 
   getPos: getPosHandlerNode;
 
@@ -75,6 +77,7 @@ export default class TableView extends ReactNodeView<Props> {
     this.getPos = props.getPos;
     this.editorView = props.view;
     this.tableRenderOptimization = props.tableRenderOptimization;
+    this.eventDispatcher = props.eventDispatcher;
   }
 
   getContentDOM() {
@@ -204,6 +207,8 @@ export default class TableView extends ReactNodeView<Props> {
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
+
+    this.eventDispatcher?.emit(EmitterEvents.TABLE_DELETED, this.node);
 
     super.destroy();
   }

@@ -2,33 +2,46 @@
 order: 0
 ---
 
-import SectionMessageDefault from '../../examples/constellation/SectionMessageDefault';
-import SectionMessageWarning from '../../examples/constellation/SectionMessageWarning';
-import SectionMessageError from '../../examples/constellation/SectionMessageError';
-import SectionMessageConfirmation from '../../examples/constellation/SectionMessageConfirmation';
-import SectionMessageChange from '../../examples/constellation/SectionMessageChange';
+import SectionMessageDefault from '../../examples/constellation/section-message-default';
+import SectionMessageWarning from '../../examples/constellation/section-message-warning';
+import SectionMessageError from '../../examples/constellation/section-message-error';
+import SectionMessageSuccess from '../../examples/constellation/section-message-success';
+import SectionMessageDiscovery from '../../examples/constellation/section-message-discovery';
 
 ## Appearance
 
-By default, all section message comes with an icon and an area for content. A `title` and `actions` can also be added.
+By default, all section message come with an icon and an area for content. A `title` and `actions` can also be added.
 
-### Info
+### Information
 
-Info section messages are the default style used to signify a change in state or important information.
+The `information` section message is the default appearance used to signify a change in state or important information.
 
 <Example
   Component={SectionMessageDefault}
   packageName="@atlaskit/section-message"
 />
 
+### Success
+
+Use a `success` section message to let the user know that an action or event has happened successfully.
+
+Not a common use case for section messages.
+
+<Example
+  Component={SectionMessageSuccess}
+  packageName="@atlaskit/section-message"
+/>
+
 ### Warning
 
-Warning section messages are the most common. They help users:
+Use a `warning` section message to help users:
 
 - avoid errors
 - manage authentication issues
 - take the actions needed to avoid potentially dangerous actions
-- feel certain they're making the decision, for example, in confirmation modals.
+- feel certain they're making the decision, for example, in confirmation modals
+
+These are the most common use cases for section messages.
 
 <Example
   Component={SectionMessageWarning}
@@ -37,33 +50,24 @@ Warning section messages are the most common. They help users:
 
 ### Error
 
-Error section messages let the user know when:
+Use an `error` section message to let the user know when:
 
 - something destructive or critical has happened
 - access has been denied
-- there are connectivity issues.
+- there are connectivity issues
 
-They are not a common use case for section messages.
+Not a common use case for section messages.
 
 <Example
   Component={SectionMessageError}
   packageName="@atlaskit/section-message"
 />
 
-### Confirmation
+### Discovery
 
-Confirmation section messages let the user know that an action or event has happened successfully. They are not a common use case for section messages.
-
-<Example
-  Component={SectionMessageConfirmation}
-  packageName="@atlaskit/section-message"
-/>
-
-### Change
-
-Change section messages let the user know about new features or for onboarding. They are not a common use case for section messages.
+Use a `discovery` section message to signify an update to the UI or provide information around new features and onboarding.
 
 <Example
-  Component={SectionMessageChange}
+  Component={SectionMessageDiscovery}
   packageName="@atlaskit/section-message"
 />

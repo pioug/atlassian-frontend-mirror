@@ -262,6 +262,36 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
         });
       });
 
+      describe('Expand', () => {
+        it('should serialize a correct object', async () => {
+          const { wrapper, trySubmit } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                name: 'expandField',
+                type: 'expand',
+                label: 'awesome expand field',
+                fields: [
+                  {
+                    name: 'textField',
+                    type: 'string',
+                    label: 'Free text',
+                  },
+                ],
+              },
+            ]),
+          });
+
+          const field = wrapper.find('Textfield');
+          typeInField(field.find('input'), 'hello');
+          await trySubmit();
+
+          expect(onChange).toHaveBeenCalledWith({
+            expandField: { textField: 'hello' },
+          });
+        });
+      });
+
       describe('Native types', () => {
         describe('type: string', () => {
           async function mountString(attributes?: Partial<StringField>) {

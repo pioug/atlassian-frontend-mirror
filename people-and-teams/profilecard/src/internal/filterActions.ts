@@ -4,7 +4,7 @@ const filterActions = (
   actions: ProfileCardAction[] = [],
   data: any,
 ): ProfileCardAction[] => {
-  return actions.filter(action => {
+  return actions.filter((action) => {
     if (!action.shouldRender) {
       return true;
     } else if (typeof action.shouldRender !== 'function') {

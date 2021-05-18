@@ -69,4 +69,83 @@ describe('Browser', () => {
     browser.find(Button).simulate('click');
     expect(inputOnClick).toBeCalled();
   });
+
+  it('should call onError if invalid replaceFileId given', () => {
+    const onError = jest.fn();
+    mount(
+      <Browser
+        mediaClient={mediaClient}
+        config={{
+          ...browseConfig,
+          replaceFileId: 'some-invalid-id',
+        }}
+        onError={onError}
+      />,
+    );
+    expect(onError).toHaveBeenCalledWith({
+      error: {
+        description: 'Invalid replaceFileId format',
+        fileId: 'some-invalid-id',
+        name: 'invalid_uuid',
+      },
+      fileId: 'some-invalid-id',
+    });
+  });
+
+  it('should emit fail event if invalid replaceFileId given', () => {
+    const createAnalyticsEvent = jest.fn().mockReturnValue({ fire: jest.fn() });
+    mount(
+      <BrowserBase
+        mediaClient={mediaClient}
+        config={{
+          ...browseConfig,
+          replaceFileId: 'some-invalid-id',
+        }}
+        createAnalyticsEvent={createAnalyticsEvent}
+      />,
+    );
+    expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      action: 'failed',
+      actionSubject: 'mediaUpload',
+      actionSubjectId: 'localMedia',
+      attributes: {
+        failReason: 'invalid_uuid',
+        status: 'fail',
+        uuid: 'some-invalid-id',
+      },
+      eventType: 'operational',
+    });
+  });
+
+  it('should force multiple to false if replaceFileId passed', () => {
+    const browser = mount(
+      <Browser
+        mediaClient={mediaClient}
+        config={{
+          ...browseConfig,
+          multiple: true,
+          replaceFileId: 'some-file-id',
+        }}
+      />,
+    );
+    expect(browser.find('input').prop('multiple')).toBeFalsy();
+  });
+
+  it('should add single upload file when user picks some passing replaceFileId', () => {
+    const browser = mount(
+      <Browser
+        mediaClient={mediaClient}
+        config={{
+          ...browseConfig,
+          replaceFileId: 'some-file-id',
+        }}
+      />,
+    );
+    const instance = browser.find(BrowserBase).instance();
+    const addFileSpy = jest.spyOn((instance as any).uploadService, 'addFile');
+    browser.find('input').simulate('change');
+
+    expect(addFileSpy).toHaveBeenCalledTimes(1);
+    expect(addFileSpy).toBeCalledWith(undefined, 'some-file-id');
+  });
 });

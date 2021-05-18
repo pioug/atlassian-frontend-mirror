@@ -1,1 +1,5 @@
-export type { Appearance, SectionMessageProps } from '../types';
+export type {
+  Appearance,
+  SectionMessageProps,
+  SectionMessageActionProps,
+} from '../types';

@@ -289,6 +289,9 @@ export const tableStyles = css`
     ${props => props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
 
     ${OverflowShadow}
+    .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
+      height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts
+    }
     .less-padding {
       padding: 0 ${tablePadding}px;
 
@@ -565,6 +568,11 @@ export const tableStyles = css`
       left: -${tableToolbarSize}px;
     }
     .${ClassName.TABLE_NODE_WRAPPER} {
+      /* 
+      compensating for half of the insert column button
+      that is aligned to the right edge initially on hover of the top right column control when table overflown,
+      its center should be aligned with the edge
+       */
       padding-right: ${tableInsertColumnButtonSize / 2}px;
       margin-right: -${tableInsertColumnButtonSize / 2}px;
       padding-top: ${tableInsertColumnButtonSize / 2}px;

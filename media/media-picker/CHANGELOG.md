@@ -1,5 +1,16 @@
 # @atlaskit/media-picker
 
+## 57.4.0
+
+### Minor Changes
+
+- [`8bf3df4d99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bf3df4d99b) - Accept single fileId for Browser component uploads
+
+### Patch Changes
+
+- [`e1a0b97f790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1a0b97f790) - Exported missing types for Media Picker
+- Updated dependencies
+
 ## 57.3.4
 
 ### Patch Changes

@@ -12,7 +12,6 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import FadeIn from '@atlaskit/motion/fade-in';
 
-import { WIDTH_ENUM, WidthNames } from '../constants';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
 import usePreventProgrammaticScroll from '../hooks/use-prevent-programmatic-scroll';
 import { getDialogStyles, getFillScreenStyles } from '../styles/modal';
@@ -44,7 +43,6 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
     onClose,
     onCloseComplete,
     onOpenComplete,
-    onStackChange,
     shouldCloseOnEscapePress,
     shouldCloseOnOverlayClick,
     stackIndex,
@@ -91,22 +89,13 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
     typeof autoFocus === 'object',
   );
 
-  // If a custom width (number or percentage) is supplied, set inline style
-  // otherwise allow styled component to consume as named prop
-  const widthName = width
-    ? WIDTH_ENUM.values.indexOf(width.toString()) !== -1
-      ? (width as WidthNames)
-      : undefined
-    : undefined;
-  const widthValue = widthName ? undefined : width;
-
   const fillScreenStyles = useMemo(() => {
     return getFillScreenStyles(scrollDistance);
   }, [scrollDistance]);
 
   const dialogStyles = useMemo(() => {
-    return getDialogStyles({ isChromeless, height });
-  }, [isChromeless, height]);
+    return getDialogStyles({ isChromeless, height, width });
+  }, [isChromeless, height, width]);
 
   return (
     <FadeIn>
@@ -131,49 +120,43 @@ function ModalDialogInner(props: ModalDialogInnerProps) {
             />
             <Positioner
               scrollBehavior={scrollBehavior}
-              widthName={widthName}
-              widthValue={widthValue}
               stackIndex={stackIndex}
               testId={testId}
             >
               <FadeIn entranceDirection="bottom" onFinish={onMotionFinish}>
-                {bottomFadeInProps => {
-                  return (
-                    <section
-                      {...bottomFadeInProps}
-                      ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
-                      css={dialogStyles}
-                      role="dialog"
-                      aria-labelledby={`dialog-heading-${id}`}
-                      data-testid={testId}
-                      tabIndex={-1}
+                {bottomFadeInProps => (
+                  <section
+                    {...bottomFadeInProps}
+                    ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
+                    css={dialogStyles}
+                    role="dialog"
+                    aria-labelledby={`dialog-heading-${id}`}
+                    data-testid={testId}
+                    tabIndex={-1}
+                  >
+                    <Content
+                      actions={actions}
+                      appearance={appearance}
+                      components={components}
+                      header={header}
+                      body={body}
+                      footer={footer}
+                      heading={heading}
+                      headingId={`dialog-heading-${id}`}
+                      testId={testId && `${testId}-dialog-content`}
+                      isChromeless={isChromeless}
+                      isHeadingMultiline={isHeadingMultiline}
+                      onClose={onCloseHandler}
+                      stackIndex={stackIndex}
+                      shouldScroll={
+                        scrollBehavior === 'inside' ||
+                        scrollBehavior === 'inside-wide'
+                      }
                     >
-                      <Content
-                        actions={actions}
-                        appearance={appearance}
-                        components={components}
-                        footer={footer}
-                        heading={heading}
-                        headingId={`dialog-heading-${id}`}
-                        testId={testId && `${testId}-dialog-content`}
-                        isHeadingMultiline={isHeadingMultiline}
-                        header={header}
-                        onClose={onCloseHandler}
-                        shouldScroll={
-                          scrollBehavior === 'inside' ||
-                          scrollBehavior === 'inside-wide'
-                        }
-                        shouldCloseOnEscapePress={shouldCloseOnEscapePress}
-                        onStackChange={onStackChange}
-                        isChromeless={isChromeless}
-                        stackIndex={stackIndex}
-                        body={body}
-                      >
-                        {children}
-                      </Content>
-                    </section>
-                  );
-                }}
+                      {children}
+                    </Content>
+                  </section>
+                )}
               </FadeIn>
             </Positioner>
           </FocusLock>

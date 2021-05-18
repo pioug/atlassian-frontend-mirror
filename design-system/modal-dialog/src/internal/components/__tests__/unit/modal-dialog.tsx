@@ -112,36 +112,38 @@ describe('modal-dialog', () => {
         );
 
         const dialog = getByTestId('modal');
-        expect(dialog).toHaveStyleDeclaration('height', '42%');
+        expect(dialog).toHaveStyleDeclaration('height', '42%', {
+          media: '(min-width: 480px)',
+        });
       });
 
       it('should return px if number', () => {
-        expect(dialogHeight({ heightValue: 42 })).toBe('42px');
+        expect(dialogHeight(42)).toBe('42px');
       });
 
       it('should return raw value if string', () => {
-        expect(dialogHeight({ heightValue: '42%' })).toBe('42%');
-        expect(dialogHeight({ heightValue: '42em' })).toBe('42em');
-        expect(dialogHeight({ heightValue: 'initial' })).toBe('initial');
+        expect(dialogHeight('42%')).toBe('42%');
+        expect(dialogHeight('42em')).toBe('42em');
+        expect(dialogHeight('initial')).toBe('initial');
       });
 
       it('should return "auto" if not supplied', () => {
-        expect(dialogHeight({})).toBe('auto');
+        expect(dialogHeight()).toBe('auto');
       });
     });
     describe('width', () => {
       it('should return px if number', () => {
-        expect(dialogWidth({ widthValue: 42 })).toBe('42px');
+        expect(dialogWidth(42)).toBe('42px');
       });
 
       it('should return raw value if string', () => {
-        expect(dialogWidth({ widthValue: '42%' })).toBe('42%');
-        expect(dialogWidth({ widthValue: '42em' })).toBe('42em');
-        expect(dialogWidth({ widthValue: 'auto' })).toBe('auto');
+        expect(dialogWidth('42%')).toBe('42%');
+        expect(dialogWidth('42em')).toBe('42em');
+        expect(dialogWidth('auto')).toBe('auto');
       });
 
       it('should return "auto" if not supplied', () => {
-        expect(dialogWidth({})).toBe('auto');
+        expect(dialogWidth()).toBe('auto');
       });
 
       Object.entries(WIDTH_ENUM.widths).forEach(([widthName, widthValue]) => {
@@ -150,8 +152,10 @@ describe('modal-dialog', () => {
             <ModalDialog width={widthName} onClose={noop} testId="modal" />,
           );
 
-          const dialog = getByTestId('modal--positioner');
-          expect(dialog).toHaveStyleDeclaration('width', `${widthValue}px`);
+          const dialog = getByTestId('modal');
+          expect(dialog).toHaveStyleDeclaration('width', `${widthValue}px`, {
+            media: '(min-width: 480px)',
+          });
         });
       });
     });

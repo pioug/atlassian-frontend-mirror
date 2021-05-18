@@ -9,6 +9,7 @@ import {
   p,
   RefsNode,
   DocBuilder,
+  unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -411,6 +412,36 @@ describe('layout', () => {
           layoutSection(
             layoutColumn({ width: 33.33 })(p('Not Overflow')),
             layoutColumn({ width: 66.66 })(p('Column')),
+          ),
+        ),
+      );
+    });
+
+    it('should display unsupported content as child of layout section', () => {
+      const { editorView } = editor(
+        doc(
+          layoutSection(
+            layoutColumn({ width: 50 })(p('Overfl{<>}ow')),
+            unsupportedBlock({
+              originalValue: {
+                attrs: { width: 50 },
+                type: 'layout-column',
+              },
+            })(),
+          ),
+        ),
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          layoutSection(
+            layoutColumn({ width: 50 })(p('Overfl{<>}ow')),
+            unsupportedBlock({
+              originalValue: {
+                attrs: { width: 50 },
+                type: 'layout-column',
+              },
+            })(),
           ),
         ),
       );

@@ -59,6 +59,7 @@ export interface PluginConfig {
   stickyHeadersOptimization?: boolean;
   initialRenderOptimization?: boolean;
   mouseMoveOptimization?: boolean;
+  tableOverflowShadowsOptimization?: boolean;
 }
 
 export interface ColumnResizingPluginState {
@@ -332,3 +333,8 @@ export interface ToolbarMenuContext {
 export type ElementContentRects = {
   [key: string]: ResizeObserverEntry['contentRect'];
 };
+
+export enum ShadowEvent {
+  SHOW_BEFORE_SHADOW = 'showBeforeShadow',
+  SHOW_AFTER_SHADOW = 'showAfterShadow',
+}

@@ -357,9 +357,38 @@ describe('@atlaskit/tabs', () => {
             );
           });
 
-          it('pressing the LEFT arrow twice leaves selection on the first tab', () => {
+          it('pressing the LEFT arrow twice selects the last tab', () => {
             simulateKeyboardNav(2, 'ArrowLeft');
             simulateKeyboardNav(1, 'ArrowLeft');
+
+            expect(
+              wrapper.getByText('Tab 3 label').getAttribute('aria-selected'),
+            ).toBeTruthy();
+            expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
+            expect(onChange).toHaveBeenCalledTimes(2);
+            expect(onChange).toHaveBeenCalledWith(
+              0,
+              expect.objectContaining({}),
+            );
+          });
+
+          it('pressing the RIGHT arrow twice selects the first tab', () => {
+            simulateKeyboardNav(2, 'ArrowRight');
+            simulateKeyboardNav(3, 'ArrowRight');
+
+            expect(
+              wrapper.getByText('Tab 1 label').getAttribute('aria-selected'),
+            ).toBeTruthy();
+            expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
+            expect(onChange).toHaveBeenCalledTimes(2);
+            expect(onChange).toHaveBeenCalledWith(
+              2,
+              expect.objectContaining({}),
+            );
+          });
+
+          it('pressing the HOME key selects the first tab', () => {
+            simulateKeyboardNav(2, 'Home');
 
             expect(
               wrapper.getByText('Tab 1 label').getAttribute('aria-selected'),
@@ -372,9 +401,8 @@ describe('@atlaskit/tabs', () => {
             );
           });
 
-          it('pressing the RIGHT arrow twice leaves selection on the last tab', () => {
-            simulateKeyboardNav(2, 'ArrowRight');
-            simulateKeyboardNav(3, 'ArrowRight');
+          it('pressing the END key selects the last tab', () => {
+            simulateKeyboardNav(2, 'End');
 
             expect(
               wrapper.getByText('Tab 3 label').getAttribute('aria-selected'),

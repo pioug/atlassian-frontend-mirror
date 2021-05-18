@@ -61,11 +61,3 @@ export {
 } from './colors';
 export { getLinkMatch, isSafeUrl, normalizeUrl } from './url';
 export type { Match } from './url';
-export {
-  DEFAULT_LANGUAGES,
-  createLanguageList,
-  filterSupportedLanguages,
-  findMatchedLanguage,
-  getLanguageIdentifier,
-} from './languageList';
-export type { Language } from './languageList';

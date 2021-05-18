@@ -47,7 +47,7 @@ const fakeData = (data = {}): ProfilecardProps => {
   return (
     Object.keys(newData)
       // @ts-ignore
-      .filter(key => Boolean(newData[key]))
+      .filter((key) => Boolean(newData[key]))
       .reduce((result, item) => {
         return {
           ...result,

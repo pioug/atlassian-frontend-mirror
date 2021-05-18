@@ -6,3 +6,7 @@ export const ellipsisStyle: CSSObject = {
   alignItems: 'center',
   padding: '0 8px',
 };
+
+export const navStyle: CSSObject = {
+  display: 'flex',
+};

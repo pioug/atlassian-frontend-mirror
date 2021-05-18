@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 143.1.0
+
+### Minor Changes
+
+- [`1fbe305bf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fbe305bf7d) - ED-12273 Unsupported content support for Layout
+- [`90cb0207d4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90cb0207d4e) - Make code block content dynamic to different font sizes.
+- [`f973bb5dde8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f973bb5dde8) - [ux] ED-12782 Remove codeblock languages from adf-schema
+
+  BREAKING CHANGE
+
+  `@atlaskit/adf-schema` is not longer exporting: `DEFAULT_LANGUAGES`, `createLanguageList`, `filterSupportedLanguages`, `findMatchedLanguage`, `getLanguageIdentifier` and `Language`. This are now used internally in `@atlaskit/editor-core`
+
+- [`225c79d708a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c79d708a) - Simplify unique ID appendTransaction
+- [`81a08ceb2e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81a08ceb2e0) - ED-12653 added field definitions for GroupingField and ExpandField.
+
+### Patch Changes
+
+- [`3832da8481b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3832da8481b) - [ED-12772] Reconfigure the editor state when an editor props feature flag changes
+- [`4e77e02a234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e77e02a234) - ED-12769 Update editor example pages to point new JDog instance
+- [`b0f14fe83a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f14fe83a5) - ED-12715: set initial value for refNode in ExtensionWithDataSource and emit on table deletion
+- [`de8814276f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8814276f1) - Update editor content area context panel gutter margin to padding instead. This is to fix a bug with width emitter not including margin in the width.
+- [`e90db7597b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e90db7597b2) - [ED-12772] This PR adds the feature flag for 'useUnpredictableInputRules' to the mobile bridge. When set to false, the new predictable input rules code will be used for auto-formatting.
+- [`37cf63fa6b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37cf63fa6b9) - ED-12465 add analytics to extensionAPI.doc.insertAfter()
+- [`53211b3f035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53211b3f035) - ED-12442 workaround a codeblock selection issue on firefox.
+- [`7fc538e08c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc538e08c0) - ED-11781 Added overflowShadowOptimization to improve table overflow shadows performance
+- [`2dbbed3493d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2dbbed3493d) - ED-12780 prevent offset duplicate code block content
+- Updated dependencies
+
 ## 143.0.0
 
 ### Major Changes

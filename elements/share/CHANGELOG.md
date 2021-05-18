@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 0.26.5
+
+### Patch Changes
+
+- [`be80d157d5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be80d157d5f) - Update internal component usage
+- Updated dependencies
+
 ## 0.26.4
 
 ### Patch Changes

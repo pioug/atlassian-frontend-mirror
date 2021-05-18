@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.2.0
+
+### Minor Changes
+
+- [`242d84dc481`](https://bitbucket.org/atlassian/atlassian-frontend/commits/242d84dc481) - [ux] Fix toggle shape in windows high contrast mode
+
 ## 12.1.0
 
 ### Minor Changes

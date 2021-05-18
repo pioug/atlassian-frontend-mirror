@@ -35,9 +35,34 @@ const TabListWithMode = (props: InnerProps) => {
 
   const styles = useMemo(() => getTabListStyles(mode), [mode]);
 
+  const selectTabByIndex = useCallback(
+    (index: number) => {
+      const newSelectedNode:
+        | HTMLElement
+        | undefined
+        | null = ref.current?.querySelector(`[id='${tabsId}-${index}']`);
+
+      if (newSelectedNode) {
+        newSelectedNode.focus();
+      }
+      onChange(index);
+    },
+    [tabsId, ref, onChange],
+  );
+
   const onKeyDown = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
-      if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) {
+      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(e.key)) {
+        return;
+      }
+
+      // preventing horizontal or vertical scroll
+      e.preventDefault();
+      const lastTabIndex = length - 1;
+
+      if (['Home', 'End'].includes(e.key)) {
+        const newSelected = e.key === 'Home' ? 0 : lastTabIndex;
+        selectTabByIndex(newSelected);
         return;
       }
 
@@ -48,23 +73,16 @@ const TabListWithMode = (props: InnerProps) => {
         parseInt(e.currentTarget.getAttribute('aria-posinset') || '0') - 1;
 
       const modifier = e.key === 'ArrowRight' ? 1 : -1;
-      const newSelected = selectedIndex + modifier;
+      let newSelected = selectedIndex + modifier;
 
       if (newSelected < 0 || newSelected >= length) {
-        return;
+        // Cycling focus to move from last to first and from first to last
+        newSelected = newSelected < 0 ? lastTabIndex : 0;
       }
 
-      const newSelectedNode:
-        | HTMLElement
-        | undefined
-        | null = ref.current?.querySelector(`[id='${tabsId}-${newSelected}']`);
-
-      if (newSelectedNode) {
-        newSelectedNode.focus();
-      }
-      onChange(newSelected);
+      selectTabByIndex(newSelected);
     },
-    [length, onChange, tabsId, ref],
+    [length, selectTabByIndex],
   );
 
   // Memoized so the function isn't recreated each time

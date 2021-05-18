@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 19.1.0
+
+### Minor Changes
+
+- [`7de0b9572f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7de0b9572f0) - [ux] Updated reactions so that if there is a reaction with count 0, it will now render as just the emoji with no counter (now an empty string). Previously in this scenario it would show the emoji with the number 0 next to it. This should only affect direct usages of the standalone Reactions components, anyone using ConnectedReactionsView (the standard use case) should see no difference as this component already filters out any reactions with a count of 0.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.0
 
 ### Major Changes

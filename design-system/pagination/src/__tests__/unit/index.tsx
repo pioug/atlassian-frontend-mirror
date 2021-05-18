@@ -120,40 +120,16 @@ describe('Pagination', () => {
         isEnabled: true,
       });
     });
+    it('should have a nav tag', () => {
+      const { renderResult } = setup({ testId: 'test' });
+      const pagination = renderResult.getByTestId('test');
+
+      expect(pagination).not.toBeNull();
+      expect(pagination.tagName).toBe('NAV');
+    });
   });
 
   describe('props', () => {
-    describe('#collapseRange', () => {
-      it('should get called with some arguments', () => {
-        const collapseRange = jest.fn();
-        const ellipsis = jest.fn();
-        const { renderResult, props } = setup({
-          collapseRange,
-          renderEllipsis: ellipsis,
-        });
-
-        expect(collapseRange).toHaveBeenCalledWith(expect.any(Array), 0, {
-          max: 7,
-          ellipsis,
-        });
-
-        const newCollapseRange = jest.fn();
-        renderResult.rerender(
-          <Pagination
-            {...props}
-            max={4}
-            collapseRange={newCollapseRange}
-            renderEllipsis={ellipsis}
-          />,
-        );
-
-        expect(newCollapseRange).toHaveBeenCalledWith(expect.any(Array), 0, {
-          max: 4,
-          ellipsis,
-        });
-      });
-    });
-
     describe('#components', () => {
       it('should render custom components', () => {
         function Page(
@@ -237,10 +213,12 @@ describe('Pagination', () => {
       });
     });
 
-    describe('#i18n', () => {
+    describe('aria-labels', () => {
       it('should apply different labels to navigation buttons', () => {
         const { renderResult, props } = setup({
-          i18n: { prev: 'p', next: 'n' },
+          label: 'pagination',
+          previousLabel: 'p',
+          nextLabel: 'n',
         });
 
         assertNavigationButtonRendering(renderResult, {
@@ -253,7 +231,12 @@ describe('Pagination', () => {
         });
 
         renderResult.rerender(
-          <Pagination {...props} i18n={{ prev: 'pr', next: 'ne' }} />,
+          <Pagination
+            {...props}
+            label="pagination"
+            previousLabel="pr"
+            nextLabel="ne"
+          />,
         );
 
         assertNavigationButtonRendering(renderResult, {
@@ -267,10 +250,10 @@ describe('Pagination', () => {
       });
     });
 
-    describe('#innerStyles', () => {
-      it('should apply styles to container', () => {
+    describe('#style', () => {
+      it('should apply style to container', () => {
         const { renderResult, props } = setup({
-          innerStyles: { border: '1px solid red' },
+          style: { border: '1px solid red' },
         });
 
         expect(renderResult.container.firstElementChild).toHaveStyle(
@@ -278,7 +261,7 @@ describe('Pagination', () => {
         );
 
         renderResult.rerender(
-          <Pagination {...props} innerStyles={{ top: '50px' }} />,
+          <Pagination {...props} style={{ top: '50px' }} />,
         );
 
         expect(renderResult.container.firstElementChild).not.toHaveStyle(

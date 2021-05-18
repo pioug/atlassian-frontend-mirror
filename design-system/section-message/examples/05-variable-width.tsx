@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CodeBlock from '@atlaskit/code/block';
 import Range from '@atlaskit/range';
 
-import SectionMessage from '../src';
+import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => {
   const [width, setWidth] = useState(800);
@@ -16,16 +16,12 @@ const Example = () => {
         <SectionMessage
           title="The Modern Prometheus"
           actions={[
-            {
-              key: 'mary',
-              href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-              text: 'Mary',
-            },
-            {
-              key: 'villa',
-              href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-              text: 'Villa Diodatti',
-            },
+            <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+              Mary
+            </SectionMessageAction>,
+            <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+              Villa Diodatti
+            </SectionMessageAction>,
           ]}
         >
           <p>

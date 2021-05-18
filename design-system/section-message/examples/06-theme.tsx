@@ -5,7 +5,7 @@ import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
-import SectionMessage from '../src';
+import SectionMessage, { SectionMessageAction } from '../src';
 
 const LIGHT = 'light';
 const DARK = 'dark';
@@ -22,16 +22,12 @@ export default function ThemeExample() {
         testId="section-message"
         title="The Modern Prometheus"
         actions={[
-          {
-            key: 'mary',
-            href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-            text: 'Mary',
-          },
-          {
-            key: 'villa',
-            href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-            text: 'Villa Diodatti',
-          },
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+            Mary
+          </SectionMessageAction>,
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+            Villa Diodatti
+          </SectionMessageAction>,
         ]}
       >
         <p>
@@ -43,19 +39,15 @@ export default function ThemeExample() {
         </p>
       </SectionMessage>
       <SectionMessage
-        appearance="change"
+        appearance="discovery"
         title="The Modern Prometheus"
         actions={[
-          {
-            key: 'mary',
-            href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-            text: 'Mary',
-          },
-          {
-            key: 'villa',
-            href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-            text: 'Villa Diodatti',
-          },
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+            Mary
+          </SectionMessageAction>,
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+            Villa Diodatti
+          </SectionMessageAction>,
         ]}
       >
         <p>
@@ -67,19 +59,15 @@ export default function ThemeExample() {
         </p>
       </SectionMessage>
       <SectionMessage
-        appearance="confirmation"
+        appearance="success"
         title="The Modern Prometheus"
         actions={[
-          {
-            key: 'mary',
-            href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-            text: 'Mary',
-          },
-          {
-            key: 'villa',
-            href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-            text: 'Villa Diodatti',
-          },
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+            Mary
+          </SectionMessageAction>,
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+            Villa Diodatti
+          </SectionMessageAction>,
         ]}
       >
         <p>
@@ -94,16 +82,12 @@ export default function ThemeExample() {
         appearance="error"
         title="The Modern Prometheus"
         actions={[
-          {
-            key: 'mary',
-            href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-            text: 'Mary',
-          },
-          {
-            key: 'villa',
-            href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-            text: 'Villa Diodatti',
-          },
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+            Mary
+          </SectionMessageAction>,
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+            Villa Diodatti
+          </SectionMessageAction>,
         ]}
       >
         <p>
@@ -118,16 +102,12 @@ export default function ThemeExample() {
         appearance="warning"
         title="The Modern Prometheus"
         actions={[
-          {
-            key: 'mary',
-            href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-            text: 'Mary',
-          },
-          {
-            key: 'villa',
-            href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-            text: 'Villa Diodatti',
-          },
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+            Mary
+          </SectionMessageAction>,
+          <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+            Villa Diodatti
+          </SectionMessageAction>,
         ]}
       >
         <p>

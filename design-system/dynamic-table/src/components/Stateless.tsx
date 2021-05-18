@@ -72,6 +72,7 @@ class DynamicTable extends React.Component<Props, State> {
     paginationi18n: {
       prev: 'Prev',
       next: 'Next',
+      label: 'Pagination',
     },
   };
 

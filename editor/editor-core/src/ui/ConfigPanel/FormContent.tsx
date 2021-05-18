@@ -18,6 +18,7 @@ import Number from './Fields/Number';
 import String from './Fields/String';
 import UnhandledType from './Fields/UnhandledType';
 import UserSelect from './Fields/UserSelect';
+import Expand from './Fields/Expand';
 
 import RemovableField from './NestedForms/RemovableField';
 import { OnBlur } from './types';
@@ -139,6 +140,19 @@ function FieldComponent({
           extensionManifest={extensionManifest}
           onBlur={onBlur}
         />
+      );
+
+    case 'expand':
+      return (
+        <Expand field={field} isExpanded={field.isExpanded}>
+          <FormContent
+            parentName={field.name}
+            fields={field.fields}
+            parameters={defaultValue}
+            onFieldBlur={onBlur}
+            extensionManifest={extensionManifest}
+          />
+        </Expand>
       );
 
     default:

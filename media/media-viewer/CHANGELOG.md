@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 45.8.3
+
+### Patch Changes
+
+- [`611e08796a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/611e08796a4) - fix minor bugs with media-viewer::CodeViewer
+- Updated dependencies
+
 ## 45.8.2
 
 ### Patch Changes

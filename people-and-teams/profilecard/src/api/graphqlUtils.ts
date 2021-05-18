@@ -31,7 +31,7 @@ export function graphqlQuery<D>(serviceUrl: string, query: Query): Promise<D> {
       body: JSON.stringify(query),
     }),
   )
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         return Promise.reject({
           code: response.status,
@@ -41,8 +41,8 @@ export function graphqlQuery<D>(serviceUrl: string, query: Query): Promise<D> {
 
       return response;
     })
-    .then(response => response.json())
-    .then(json => {
+    .then((response) => response.json())
+    .then((json) => {
       if (json.errors) {
         return Promise.reject({
           reason: json.errors[0]?.category || 'default',

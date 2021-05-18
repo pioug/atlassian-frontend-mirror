@@ -55,7 +55,6 @@ interface State {
   disableOverlay: boolean;
   selectable: boolean;
   selected: boolean;
-  hasRetry: boolean;
   withDataURI: boolean;
   withMetadata: boolean;
   hasActions: boolean;
@@ -71,7 +70,6 @@ class Example extends React.Component<{}, State> {
     disableOverlay: false,
     selectable: true,
     selected: false,
-    hasRetry: false,
     withDataURI: true,
     withMetadata: true,
     hasActions: true,
@@ -140,13 +138,6 @@ class Example extends React.Component<{}, State> {
             isChecked={this.state.selected}
             onChange={this.onCheckboxChange}
             name="selected"
-          />
-          <Checkbox
-            value="hasRetry"
-            label="Has retry function?"
-            isChecked={this.state.hasRetry}
-            onChange={this.onCheckboxChange}
-            name="hasRetry"
           />
           <Checkbox
             value="hasActions"
@@ -257,7 +248,6 @@ class Example extends React.Component<{}, State> {
       disableOverlay,
       selectable,
       selected,
-      hasRetry,
       withDataURI,
       withMetadata,
       hasActions,
@@ -327,7 +317,6 @@ class Example extends React.Component<{}, State> {
           selected={selected}
           actions={hasActions ? actions : []}
           dataURI={dataURI}
-          onRetry={hasRetry ? () => console.log('retrying...') : undefined}
           dimensions={dimensions}
           titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
           titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}

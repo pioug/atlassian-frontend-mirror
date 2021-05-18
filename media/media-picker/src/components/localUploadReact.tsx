@@ -161,7 +161,7 @@ export class LocalUploadComponentReact<
     });
   };
 
-  private createAndFireAnalyticsEvent = (payload: AnalyticsEventPayload) => {
+  protected createAndFireAnalyticsEvent = (payload: AnalyticsEventPayload) => {
     const { createAnalyticsEvent } = this.props;
 
     if (createAnalyticsEvent) {

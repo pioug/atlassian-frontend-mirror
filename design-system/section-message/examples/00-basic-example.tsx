@@ -1,22 +1,18 @@
 import React from 'react';
 
-import SectionMessage from '../src';
+import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
   <SectionMessage
     testId="section-message"
     title="The Modern Prometheus"
     actions={[
-      {
-        key: 'mary',
-        href: 'https://en.wikipedia.org/wiki/Mary_Shelley',
-        text: 'Mary',
-      },
-      {
-        key: 'villa',
-        href: 'https://en.wikipedia.org/wiki/Villa_Diodati',
-        text: 'Villa Diodatti',
-      },
+      <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+        Mary
+      </SectionMessageAction>,
+      <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+        Villa Diodatti
+      </SectionMessageAction>,
     ]}
   >
     <p>

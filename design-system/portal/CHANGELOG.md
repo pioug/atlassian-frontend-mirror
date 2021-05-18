@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.1.2
+
+### Patch Changes
+
+- [`28f40bac160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28f40bac160) - Updates targets for modal dialog in VR tests.
+
 ## 4.1.1
 
 ### Patch Changes

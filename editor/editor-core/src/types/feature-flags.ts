@@ -198,6 +198,15 @@ export type FeatureFlags = {
   tableRenderOptimization?: boolean;
 
   /**
+   * @description
+   * Enables performance optimization for table rendering on keypress
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-11781
+   * @default false
+   */
+  tableOverflowShadowsOptimization?: boolean;
+
+  /**
    * @decsription
    * Enables optional code syntax highlighting for code-block nodes
    *

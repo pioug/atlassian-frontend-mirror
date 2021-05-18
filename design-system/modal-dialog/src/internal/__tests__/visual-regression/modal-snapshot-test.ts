@@ -18,6 +18,9 @@ const booleanBtn = "[data-testid='boolean-trigger']";
 const autoFocusBtn = "[data-testid='autofocus-trigger']";
 const warningModalBtn = "[data-testid='warning']";
 const dangerModalBtn = "[data-testid='danger']";
+const visibilitySelector = '[data-testid="visibility--checkbox-label"]';
+const multilineSelector = '[data-testid="multiline--checkbox-label"]';
+const scrollOutsideSelector = '[data-testid="outside--radio-label"]';
 
 const defaultOptions = {
   triggerSelector: openModalBtn,
@@ -233,6 +236,44 @@ describe('Snapshot test', () => {
     expect(image3).toMatchProdImageSnapshot();
   });
 
+  it('Multiple stacked modal outside scroll example should match production', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'multiple',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.waitForSelector(scrollOutsideSelector);
+    await page.click(scrollOutsideSelector);
+
+    await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: largeModalBtn,
+      shouldLoadPage: false,
+    });
+
+    await page.waitFor(1000);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+
+    //open second stacked modal
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitFor(1000);
+    const image2 = await page.screenshot();
+    expect(image2).toMatchProdImageSnapshot();
+
+    //open third stacked modal
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitFor(1000);
+    const image3 = await page.screenshot();
+    expect(image3).toMatchProdImageSnapshot();
+  });
+
   it('Autofocus on first button should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -337,10 +378,39 @@ describe('Snapshot test', () => {
     const { page } = global;
     await loadPage(page, url);
 
-    const visibilitySelector = '[data-testid="visibility--checkbox-label"]';
     await page.waitForSelector(visibilitySelector);
     await page.click(visibilitySelector);
     await openModal(url, { ...defaultOptions, shouldLoadPage: false });
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Modal with truncated long heading should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'multi-line-headings',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Modal with multi-line heading should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'multi-line-headings',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, defaultOptions);
+    await page.waitForSelector(multilineSelector);
+    await page.click(multilineSelector);
 
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();

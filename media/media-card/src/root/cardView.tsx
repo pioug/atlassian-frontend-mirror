@@ -55,7 +55,6 @@ export interface CardViewOwnProps extends SharedCardProps {
   readonly metadata?: FileDetails;
   readonly error?: Error;
 
-  readonly onRetry?: () => void;
   readonly onClick?: (
     event: React.MouseEvent<HTMLDivElement>,
     analyticsEvent?: UIAnalyticsEvent,
@@ -289,11 +288,10 @@ export class CardViewBase extends React.Component<
   }
 
   private renderFailedTitleBox() {
-    const { onRetry } = this.props;
     if (!this.showFailedTitleBox()) {
       return null;
     }
-    return <FailedTitleBox onRetry={onRetry} breakpoint={this.breakpoint} />;
+    return <FailedTitleBox breakpoint={this.breakpoint} />;
   }
 
   private renderProgressBar() {
@@ -516,7 +514,10 @@ export class CardViewBase extends React.Component<
       selectable &&
       !selected
     );
-    const shouldDisplayTooltip = !!name;
+    // Make tooltip optional for media singles - images, videos.
+    // Intention is to show full file name when it's truncate in titlebox,
+    // and to hide it when no titlebox exists.
+    const shouldDisplayTooltip = !!name && !disableOverlay;
     return (
       <NewFileExperienceWrapper
         data-testid={testId || 'media-card-view'}
@@ -553,7 +554,6 @@ export class CardViewBase extends React.Component<
       metadata,
       dataURI,
       progress,
-      onRetry,
       resizeMode,
       dimensions,
       selectable,
@@ -586,7 +586,6 @@ export class CardViewBase extends React.Component<
         mediaItemType={mediaItemType}
         progress={progress}
         resizeMode={resizeMode}
-        onRetry={onRetry}
         onDisplayImage={onDisplayImage}
         actions={actionsWithDetails}
         disableOverlay={disableOverlay}

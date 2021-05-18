@@ -66,7 +66,6 @@ export interface FileCardImageViewProps {
   readonly error?: ReactNode;
 
   readonly actions?: CardAction[];
-  readonly onRetry?: () => void;
   readonly onDisplayImage?: () => void;
   readonly previewOrientation?: number;
 }
@@ -156,7 +155,6 @@ export class FileCardImageViewBase extends Component<
       alt,
       mediaName,
       mediaType,
-      onRetry,
       actions,
       fileSize,
     } = this.props;
@@ -171,7 +169,6 @@ export class FileCardImageViewBase extends Component<
           mediaName={mediaName}
           mediaType={mediaType}
           alt={alt}
-          onRetry={onRetry}
           subtitle={fileSize}
           actions={actions}
         />

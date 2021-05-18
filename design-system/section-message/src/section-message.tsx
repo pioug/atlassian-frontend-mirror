@@ -14,18 +14,14 @@ import {
   titleStyle,
 } from './internal/styles';
 import { appearanceIconTheming } from './internal/styles/theme';
-import type { ActionType } from './internal/types';
-import SectionMessageAction from './section-message-action';
 import type { Appearance, SectionMessageProps } from './types';
-
-const defaultActions: ActionType[] = [];
 
 function getAppearanceIconTheme(
   appearance: Appearance,
   icon: SectionMessageProps['icon'],
 ) {
   const appearanceIconTheme =
-    appearanceIconTheming[appearance] || appearanceIconTheming.info;
+    appearanceIconTheming[appearance] || appearanceIconTheming.information;
   const Icon = icon || appearanceIconTheme.Icon;
 
   return {
@@ -41,11 +37,10 @@ interface InternalProps extends SectionMessageProps {
 const SectionMessageWithMode = forwardRef(function SectionMessage(
   {
     children,
-    appearance = 'info',
-    actions = defaultActions,
+    appearance = 'information',
+    actions,
     title,
     icon,
-    linkComponent,
     testId,
     mode,
   }: InternalProps,
@@ -62,6 +57,7 @@ const SectionMessageWithMode = forwardRef(function SectionMessage(
   );
 
   const memoizedTitleStyle = useMemo(() => titleStyle(mode), [mode]);
+  const actionsArray = React.Children.toArray(actions);
 
   return (
     <section css={containerStyleWithBackground} data-testid={testId} ref={ref}>
@@ -74,19 +70,8 @@ const SectionMessageWithMode = forwardRef(function SectionMessage(
       <div css={contentContainerStyle}>
         {title ? <h1 css={memoizedTitleStyle}>{title}</h1> : null}
         <div>{children}</div>
-        {actions.length > 0 ? (
-          <ul css={actionsStyle}>
-            {actions.map(action => (
-              <SectionMessageAction
-                text={action.text}
-                onClick={action.onClick}
-                href={action.href}
-                key={action.key}
-                testId={action.testId}
-                linkComponent={linkComponent}
-              />
-            ))}
-          </ul>
+        {actionsArray.length > 0 ? (
+          <ul css={actionsStyle}>{actionsArray}</ul>
         ) : null}
       </div>
     </section>

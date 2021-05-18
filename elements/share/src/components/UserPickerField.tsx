@@ -262,7 +262,7 @@ export class UserPickerField extends React.Component<Props> {
           return (
             <>
               <FormattedMessage {...messages.userPickerAddMoreMessage}>
-                {addMore => (
+                {(addMore) => (
                   <UserPickerComponent
                     {...fieldProps}
                     {...commonPickerProps}

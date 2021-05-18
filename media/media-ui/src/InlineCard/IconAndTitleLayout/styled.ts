@@ -19,7 +19,7 @@ export const IconObjectOverrides = `
 `;
 // TODO: remove this override behaviour for @atlaskit/icon
 export const IconOverrides = `
-  & > span > span {
+  & > * > span {
     height: 16px;
     width: 14px;
     position: absolute;

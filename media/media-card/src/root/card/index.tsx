@@ -530,12 +530,6 @@ export class CardBase extends Component<
     }
   };
 
-  // This method is called when card fails and user press 'Retry'
-  private onRetry = () => {
-    this.fireCommencedEvent();
-    this.updateStateForIdentifier();
-  };
-
   get actions(): CardAction[] {
     const { actions = [], identifier, shouldEnableDownloadButton } = this.props;
     const { status, metadata } = this.state;
@@ -724,13 +718,7 @@ export class CardBase extends Component<
       },
       error,
     } = this.state;
-    const {
-      onRetry,
-      onCardViewClick,
-      onDisplayImage,
-      actions,
-      onMouseEnter,
-    } = this;
+    const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
     const card = (
       <CardView
@@ -750,7 +738,6 @@ export class CardBase extends Component<
         onMouseEnter={onMouseEnter}
         disableOverlay={disableOverlay}
         progress={progress}
-        onRetry={onRetry}
         onDisplayImage={onDisplayImage}
         previewOrientation={orientation}
         ref={this.cardRef}

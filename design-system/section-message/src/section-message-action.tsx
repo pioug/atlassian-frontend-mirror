@@ -9,7 +9,7 @@ import { actionStyle } from './internal/styles';
 import type { SectionMessageActionProps } from './types';
 
 const SectionMessageAction = memo(function SectionMessageAction({
-  text,
+  children,
   onClick,
   href,
   testId,
@@ -25,10 +25,10 @@ const SectionMessageAction = memo(function SectionMessageAction({
           href={href}
           component={href ? linkComponent : undefined}
         >
-          {text}
+          {children}
         </Button>
       ) : (
-        text
+        children
       )}
     </li>
   );

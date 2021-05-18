@@ -1,5 +1,58 @@
 # @atlaskit/section-message
 
+## 6.0.0
+
+### Major Changes
+
+- [`5b0461cc42d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b0461cc42d) - [ux] In this version we made **SectionMessage** dramatically faster and lighter
+
+  - General performance improvements
+
+  - We are now exporting a new component and few new types. The new component is `SectionMessageAction`, which you can use with the `actions` props. New types are `SectionMessageProps` and `SectionMessageActionProps`.
+
+  - **BREAKING** The `actions` prop now accepts either a single JSX element, or an array with JSX elements.
+
+  - **BREAKING** `linkComponent` prop is now moved to `SectionMessageAction`.
+
+  - **BREAKING** The values for the `appearance` prop have changed:
+    - `info` is now `information`
+    - `confirmation` is now `success`
+    - `change` is now `discovery`
+
+  **Running the codemod cli**
+
+  To run the codemod: **You first need to have the latest version installed**
+
+  ```bash
+  yarn upgrade @atlaskit/section-message@^6.0.0
+  ```
+
+  Once upgraded, use `@atlaskit/codemod-cli` via `npx`:
+
+  ```bash
+  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
+  ```
+
+  The CLI will show a list of components and versions so select `@atlaskit/section-message@^6.0.0` and you will automatically be upgraded.
+
+  What will be changed:
+
+  - It will convert the `actions` prop from an array of objects to an array of `SectionMessageAction`.
+  - It will move `linkComponent` prop from `SectionMessage` to `SectionMessageAction`.
+  - It will update the `appearance` prop values.
+
+  If your usage of **SectionMessage** cannot be upgraded a comment will be left that a manual change is required.
+
+  Run `npx @atlaskit/codemod-cli -h` for more details on usage.
+
+  For Atlassians,
+
+  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.0
 
 ### Minor Changes

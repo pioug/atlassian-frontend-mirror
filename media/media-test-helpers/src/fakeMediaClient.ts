@@ -46,7 +46,14 @@ export const fakeMediaClient = (
     asMock(mediaClient.getImage).mockImplementation(mockMediaStore.getImage);
     asMock(mediaClient.collection.getItems).mockReturnValue(of([]));
     asMock(mediaClient.file.copyFile).mockReturnValue({ id: 'copied-file-id' });
-    asMock(mediaClient.file.getCurrentState).mockReturnValue({ id: 'file-id' });
+    asMock(mediaClient.file.getCurrentState).mockReturnValue(
+      Promise.resolve({
+        id: 'file-id',
+        status: 'processed',
+        mediaType: 'image',
+        name: 'file_name',
+      }),
+    );
     asMock(mediaClient.file.getFileState).mockImplementation(() => ({
       subscribe: jest.fn(),
     }));

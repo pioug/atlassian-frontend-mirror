@@ -9,11 +9,9 @@ export type OnRetryFunction = () => void;
 
 export type FailedTitleBoxProps = {
   breakpoint: Breakpoint;
-  onRetry?: OnRetryFunction;
 };
 
 export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
-  onRetry,
   breakpoint,
 }) => {
   return (

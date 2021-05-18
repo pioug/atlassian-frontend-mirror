@@ -8,7 +8,7 @@ const pageBtnSelector = 'button[page]';
 const pageTextSelector = '#examples > p';
 const nextPageBtnSelector = 'button[aria-label="next"]';
 const previousPageBtnSelector = 'button[aria-label="previous"]';
-const ellipsisSelector = '#examples > div > span';
+const ellipsisSelector = '#examples > nav > span';
 
 BrowserTestCase(
   'A user will be able to change page by clicking page number button',

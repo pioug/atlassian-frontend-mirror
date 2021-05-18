@@ -6,6 +6,7 @@ export interface FrameViewProps {
   isSelected?: boolean;
   /** A flag that determines whether the card needs a backgorund or not */
   withoutBackground?: boolean;
+  withoutHover?: boolean;
   children?: React.ReactNode;
   link?: string;
   /** The optional click handler */
@@ -48,6 +49,7 @@ export class Frame extends React.Component<FrameViewProps> {
       onClick,
       link,
       withoutBackground,
+      withoutHover,
       testId,
     } = this.props;
     const isInteractive = Boolean(onClick);
@@ -55,6 +57,7 @@ export class Frame extends React.Component<FrameViewProps> {
       <Wrapper
         href={link}
         withoutBackground={withoutBackground}
+        withoutHover={withoutHover}
         isSelected={isSelected}
         isInteractive={isInteractive}
         tabIndex={isInteractive ? 0 : undefined}

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,11 +23,14 @@
     }
   },
   "af:exports": {
+    "./section-message": "./src/entry-points/section-message.ts",
+    "./section-message-action": "./src/entry-points/section-message-action.ts",
     "./types": "./src/entry-points/types.ts",
     ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/button": "^15.1.0",
+    "@atlaskit/codemod-utils": "^3.2.0",
     "@atlaskit/icon": "^21.3.0",
     "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
@@ -37,6 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/analytics-next": "^8.1.2",
     "@atlaskit/build-utils": "*",
     "@atlaskit/code": "^14.0.0",
     "@atlaskit/docs": "*",
@@ -48,6 +52,7 @@
     "@testing-library/react": "^8.0.1",
     "exenv": "^1.2.2",
     "jest-in-case": "^1.0.2",
+    "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "storybook-addon-performance": "^0.15.1",

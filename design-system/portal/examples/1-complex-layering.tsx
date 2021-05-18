@@ -108,6 +108,7 @@ function Modal(props: ModalProps) {
       <ModalDialog
         heading="Modal dialog 🔥"
         onClose={onClose}
+        testId="modal"
         actions={[
           { text: 'Close', onClick: onClose },
           { text: 'Open another', onClick: onOpen },

@@ -906,4 +906,14 @@ export default class WebBridgeImpl
     let list = JSON.parse(allowedList);
     this.mobileEditingToolbarActions.setEditAllowList(list);
   }
+
+  updateSystemFontSize(fontSize: string) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+    html {
+      font-size: ${fontSize}px;
+    }
+    `;
+    document.head.appendChild(style);
+  }
 }

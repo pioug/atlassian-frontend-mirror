@@ -2,6 +2,48 @@ import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 
 export const nativeFields: FieldDefinition[] = [
   {
+    name: 'expand field',
+    type: 'expand',
+    label: 'awesome expand field',
+    fields: [
+      {
+        name: 'enum-select',
+        type: 'enum',
+        label: 'Select one',
+        isRequired: true,
+        description: 'Pick one',
+        style: 'select',
+        isMultiple: false,
+        placeholder: 'Selected option goes here',
+        items: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+        ],
+      },
+      {
+        name: 'enum-select-icon',
+        type: 'enum',
+        label: 'Select with icons',
+        description: 'Pick one',
+        style: 'select',
+        isMultiple: false,
+        items: [
+          {
+            label: 'Option A',
+            value: 'a',
+            description: 'Recommended',
+          },
+          {
+            label:
+              'Option B with a really really really really really really long label',
+            value: 'b',
+            description: 'One of the best options out there',
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: 'text-field',
     type: 'string',
     label: 'Free text',

@@ -238,7 +238,6 @@ export const generateStoriesForEditableCards = () => {
             </CardDimensionsWrapper>
             <EditableCardContent style={parentStyle}>
               <CardView
-                onRetry={() => console.log('onRetry')}
                 appearance={appearance}
                 status={status}
                 mediaItemType="file"

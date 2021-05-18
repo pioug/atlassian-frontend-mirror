@@ -136,8 +136,9 @@ export default class TableFloatingControls extends Component<Props, State> {
     }
 
     const stickyTop =
-      stickyHeader && stickyHeader.sticky ? stickyHeader.top : undefined;
-
+      stickyHeader && stickyHeader.sticky && hasHeaderRow
+        ? stickyHeader.top
+        : undefined;
     return (
       <div onMouseDown={e => e.preventDefault()}>
         {isNumberColumnEnabled ? (

@@ -671,7 +671,7 @@ describe('ShareDialogWithTrigger', () => {
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledWith(values);
 
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(wrapper.state('isDialogOpen')).toBeFalsy();
       expect(wrapper.state('defaultValue')).toEqual(defaultShareContentState);
@@ -710,7 +710,7 @@ describe('ShareDialogWithTrigger', () => {
 
       popupContent.find(ShareForm).simulate('submit', values);
 
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(mockShowFlags).toHaveBeenCalledTimes(1);
       expect(mockShowFlags).toHaveBeenCalledWith([

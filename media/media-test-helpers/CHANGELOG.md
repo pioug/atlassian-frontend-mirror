@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 28.7.1
+
+### Patch Changes
+
+- [`f0ee7740f45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0ee7740f45) - fix fakeMediaClient
+- Updated dependencies
+
 ## 28.7.0
 
 ### Minor Changes

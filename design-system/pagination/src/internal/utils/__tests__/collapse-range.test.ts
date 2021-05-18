@@ -2,12 +2,14 @@ import collapseRange from '../collapse-range';
 
 describe('#collapseRange', () => {
   const ellipsis = jest.fn(({ key }) => key);
+  const transform = jest.fn((p: any) => p);
 
   it('should not throw', () => {
     expect(() => {
       collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, {
         max: 5,
         ellipsis,
+        transform,
       });
     }).not.toThrow();
   });
@@ -16,6 +18,7 @@ describe('#collapseRange', () => {
     const pages = collapseRange<number>([1, 2, 3, 4], 2, {
       max: 4,
       ellipsis,
+      transform,
     });
 
     expect(pages).toEqual([1, 2, 3, 4]);
@@ -26,6 +29,7 @@ describe('#collapseRange', () => {
     const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8], 7, {
       max: 7,
       ellipsis,
+      transform,
     });
     const initialEllipsis = 'elipses-1';
 
@@ -37,6 +41,7 @@ describe('#collapseRange', () => {
     const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8], 0, {
       max: 7,
       ellipsis,
+      transform,
     });
     const endEllipsis = 'elipses-1';
 
@@ -48,6 +53,7 @@ describe('#collapseRange', () => {
     const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8], 4, {
       max: 7,
       ellipsis,
+      transform,
     });
     const startEllipsis = 'elipses-1';
 
@@ -59,6 +65,7 @@ describe('#collapseRange', () => {
     const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4, {
       max: 7,
       ellipsis,
+      transform,
     });
     const initialEllipsis = 'elipses-1';
     const endEllipsis = 'elipses-2';

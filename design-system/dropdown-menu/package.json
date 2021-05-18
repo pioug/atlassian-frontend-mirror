@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "10.1.5",
+  "version": "10.1.6",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "10.1.2",
-    "@atlaskit/modal-dialog": "^11.4.0",
+    "@atlaskit/modal-dialog": "^11.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",

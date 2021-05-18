@@ -208,10 +208,10 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
         this.props.resourceClient
           .getTeamProfile(teamId, orgId, fireEvent)
           .then(
-            res => this.handleClientSuccess(res),
-            err => this.handleClientError(err),
+            (res) => this.handleClientSuccess(res),
+            (err) => this.handleClientError(err),
           )
-          .catch(err => this.handleClientError(err));
+          .catch((err) => this.handleClientError(err));
       },
     );
   };
@@ -339,7 +339,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
           onClose={this.hideProfilecard}
           placement={this.props.position}
           content={this.renderProfileCard}
-          trigger={triggerProps => this.renderTrigger(triggerProps)}
+          trigger={(triggerProps) => this.renderTrigger(triggerProps)}
           zIndex={layers.modal()}
           shouldFlip
         />

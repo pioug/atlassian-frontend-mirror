@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CodeBlock as AkCodeBlock, SupportedLanguages } from '@atlaskit/code';
-import { overflowShadow } from '@atlaskit/editor-shared-styles';
+import {
+  overflowShadow,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
 import { N20, DN50 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import CopyButton from './codeBlockCopyButton';
 
@@ -31,8 +34,8 @@ function CodeBlock(props: Props) {
 export default styled(CodeBlock)`
   tab-size: 4;
   [data-ds--code--code-block] {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: ${relativeFontSizeToBase16(fontSize())};
+    line-height: 1.5rem;
     background-image: ${overflowShadow({
       background: themed({ light: N20, dark: DN50 }),
       width: `${gridSize()}px`,

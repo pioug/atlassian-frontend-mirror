@@ -8,7 +8,6 @@ import {
   Metadata,
   ErrorMessage,
 } from '../../cardImageView/cardOverlay/styled';
-import { RetryButton } from '../../cardImageView/cardOverlay/retryButton';
 import { CardActionsView } from '../../../utils/';
 
 describe('CardOverlay', () => {
@@ -93,22 +92,5 @@ describe('CardOverlay', () => {
   it('should pass triggerColor as "undefined" to Menu component when overlay is persistent', () => {
     card = shallow(<CardOverlay cardStatus="complete" persistent={true} />);
     expect(card.find(CardActionsView).props().triggerColor).toEqual(undefined);
-  });
-
-  it('should allow manual retry when "onRetry" is passed', () => {
-    const onRetry = jest.fn();
-    card = mountWithIntlContext(
-      <CardOverlay
-        cardStatus="complete"
-        persistent={false}
-        onRetry={onRetry}
-        error={errorMessage}
-      />,
-    );
-    const retryComponent = card.find(RetryButton);
-
-    expect(retryComponent).toHaveLength(1);
-    retryComponent.simulate('click');
-    expect(onRetry).toHaveBeenCalled();
   });
 });

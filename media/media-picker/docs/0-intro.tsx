@@ -269,7 +269,7 @@ ${code`<Clipboard
   * Or by using one of control props
     - **isOpen?**: \`boolean\` - when true, the dialog will show when the component is first rendered _(NOTE: without this value, no dialog will appear unless you use the **onBrowserFn** hook)_
     - **onBrowserFn?**: \`(browse: () => void) => void\` - provides a callback to manually invoke the dialog. This can be useful for cases where the action is required outside of React render lifecycle
-  
+
   To cancel an upload provide the following prop:
 
   * **onCancelFn?**: \`(cancel: (uniqueIdentifier: string) => void) => void\` - provides a callback which can be used to manually cancel an upload if required
@@ -278,11 +278,13 @@ ${code`<Clipboard
 
   * **multiple?**: \`boolean\` - whether or not to allow multiple files during selection
   * **fileExtensions?**: \`Array<string>\` - limit file types to given extensions
+  * **replaceFileId?**: \`string\` - a fileId to use instead of the default behaviour which is to create one for you. If the file exists it will be replaced, otherwise it will be created first time.
 
   Here's an example of using the component.
 
   **NOTE:**
 
+  * Passing \`replaceFileId\` forces the input element to only accept a single file, multiple uploads are not possible.
   * To cancel the upload take a look at the \`onCancelFn\` prop. You are passed a ref to a function which you can call later by passing an upload id you received before.
   * If you want to render the component without showing the native dialog immediately, you can use the \`onBrowseFn\` prop to receive a function which can be called later.
 

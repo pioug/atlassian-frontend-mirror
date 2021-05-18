@@ -1,4 +1,7 @@
-import React, { forwardRef, memo, SyntheticEvent } from 'react';
+/**  @jsx jsx */
+import { forwardRef, memo, SyntheticEvent } from 'react';
+
+import { jsx } from '@emotion/core';
 
 import {
   UIAnalyticsEvent,
@@ -13,7 +16,8 @@ import Navigator from './internal/components/navigator';
 import PageComponent from './internal/components/page';
 import renderDefaultEllipsis from './internal/components/render-ellipsis';
 import { emptyObject } from './internal/constants';
-import collapseRangeHelper from './internal/utils/collapse-range';
+import { navStyle } from './internal/styles';
+import collapseRange from './internal/utils/collapse-range';
 import { PaginationPropTypes } from './types';
 
 const analyticsAttributes = {
@@ -29,15 +33,13 @@ interface OnChangeData {
 
 function InnerPagination<T>(
   {
-    collapseRange = collapseRangeHelper,
     components = emptyObject,
     defaultSelectedIndex = 0,
     selectedIndex,
-    i18n = {
-      prev: 'previous',
-      next: 'next',
-    },
-    innerStyles = emptyObject,
+    label = 'pagination',
+    previousLabel = 'previous',
+    nextLabel = 'next',
+    style = emptyObject,
     max = 7,
     onChange = noop,
     pages,
@@ -69,29 +71,31 @@ function InnerPagination<T>(
     ...analyticsAttributes,
   });
 
-  const pagesToComponents = (pages: Array<T>) => {
-    return pages.map((page, index) => {
-      return (
-        <PageComponent
-          key={`page-${getPageLabel ? getPageLabel(page, index) : index}`}
-          component={components!.Page}
-          onClick={event =>
-            onChangeWithAnalytics({ event, selectedPageIndex: index })
-          }
-          isSelected={selectedIndexValue === index}
-          page={page}
-        >
-          {getPageLabel ? getPageLabel(page, index) : page}
-        </PageComponent>
-      );
-    });
+  const transform = (page: T, currPageIndex: number) => {
+    const selectedPage = pages[selectedIndexValue];
+    return (
+      <PageComponent
+        key={`page-${
+          getPageLabel ? getPageLabel(page, currPageIndex) : currPageIndex
+        }`}
+        component={components!.Page}
+        onClick={event =>
+          onChangeWithAnalytics({ event, selectedPageIndex: currPageIndex })
+        }
+        isSelected={page === selectedPage}
+        page={page}
+      >
+        {getPageLabel ? getPageLabel(page, currPageIndex) : page}
+      </PageComponent>
+    );
   };
 
   return (
-    <div
+    <nav
       data-testid={testId}
-      style={{ display: 'flex', ...innerStyles }}
+      css={{ ...navStyle, ...style }}
       ref={ref}
+      aria-label={label}
     >
       <Navigator
         key="left-navigator"
@@ -104,12 +108,13 @@ function InnerPagination<T>(
         }
         isDisabled={selectedIndexValue === 0}
         iconBefore={<ChevronLeftLargeIcon label="" />}
-        aria-label={i18n.prev}
+        aria-label={previousLabel}
         pages={pages}
       />
-      {collapseRange(pagesToComponents(pages), selectedIndexValue, {
+      {collapseRange(pages, selectedIndexValue, {
         max: max!,
         ellipsis: renderEllipsis!,
+        transform,
       })}
       <Navigator
         key="right-navigator"
@@ -122,10 +127,10 @@ function InnerPagination<T>(
         }
         isDisabled={selectedIndexValue === pages.length - 1}
         iconBefore={<ChevronRightLargeIcon label="" />}
-        aria-label={i18n!.next}
+        aria-label={nextLabel}
         pages={pages}
       />
-    </div>
+    </nav>
   );
 }
 

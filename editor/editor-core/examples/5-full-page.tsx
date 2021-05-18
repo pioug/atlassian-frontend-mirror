@@ -701,6 +701,7 @@ export default function Example(props: EditorProps & ExampleProps) {
     initialRenderOptimization: true,
     tableRenderOptimization: true,
     stickyHeadersOptimization: true,
+    tableOverflowShadowsOptimization: true,
   };
 
   const featureFlags =

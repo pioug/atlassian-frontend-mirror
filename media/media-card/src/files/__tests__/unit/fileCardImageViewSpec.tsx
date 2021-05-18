@@ -20,7 +20,6 @@ import { ProgressBar } from '../../../utils/progressBar';
 import CardActions from '../../../utils/cardActions';
 
 describe('FileCardImageView', () => {
-  let onRetry: FileCardImageViewProps['onRetry'];
   let onDisplayImage: FileCardImageViewProps['onDisplayImage'];
   let mediaName: FileCardImageViewProps['mediaName'];
   let mediaType: FileCardImageViewProps['mediaType'];
@@ -28,7 +27,6 @@ describe('FileCardImageView', () => {
   let fileSize: FileCardImageViewProps['fileSize'];
 
   beforeEach(() => {
-    onRetry = jest.fn();
     onDisplayImage = jest.fn();
     mediaName = 'some-media-name';
     mediaType = 'image';
@@ -82,7 +80,6 @@ describe('FileCardImageView', () => {
           alt="this is an alt text"
           status="error"
           mediaItemType="file"
-          onRetry={onRetry}
           onDisplayImage={onDisplayImage}
           mediaName={mediaName}
           mediaType={mediaType}
@@ -100,7 +97,6 @@ describe('FileCardImageView', () => {
       expectToEqual(card.find(CardOverlay).props(), {
         cardStatus: 'error',
         error: errorStr,
-        onRetry,
         persistent: true,
         mediaName,
         mediaType,
@@ -119,7 +115,6 @@ describe('FileCardImageView', () => {
         <FileCardImageView
           status="failed-processing"
           mediaItemType="file"
-          onRetry={onRetry}
           mediaName={mediaName}
           mediaType={mediaType}
           actions={actions}

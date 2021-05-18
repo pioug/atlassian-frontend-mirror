@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { N500 } from '@atlaskit/theme/colors';
 
 const IntegrationButtonCopyWrapper = styled.span`
-  color: ${props => props.theme.textColor || N500};
+  color: ${(props) => props.theme.textColor || N500};
   display: flex;
   justify-content: left;
 `;
@@ -20,7 +20,7 @@ type Props = CustomThemeButtonProps & {
   textColor?: string;
 };
 
-const IntegrationButton: React.FC<Props> = props => {
+const IntegrationButton: React.FC<Props> = (props) => {
   const { text, textColor, IntegrationIcon, ...restProps } = props;
   return (
     <Button {...restProps}>

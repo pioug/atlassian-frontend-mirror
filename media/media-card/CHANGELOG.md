@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 70.7.0
+
+### Minor Changes
+
+- [`edafe75c2c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edafe75c2c0) - Expose new InlineMediaCard component
+- [`6acd8953267`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acd8953267) - [ux] Removed Retry Button from Classic Experience
+- [`219ec9b60d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/219ec9b60d9) - Disable tooltip for images and videos without overlay
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.6.0
 
 ### Minor Changes

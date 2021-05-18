@@ -110,12 +110,14 @@ const Flag = (props: FlagProps) => {
       };
       let size: 'small' | 'large' = 'small';
       let buttonTestId = testId && `${testId}-dismiss`;
+      let a11yProps = {};
       if (isBold) {
         ButtonIcon = isExpanded ? ChevronUpIcon : ChevronDownIcon;
         buttonLabel = 'Toggle flag body';
         buttonAction = () => setIsExpanded(!isExpanded);
         size = 'large';
         buttonTestId = testId && `${testId}-toggle`;
+        a11yProps = { 'aria-expanded': isExpanded };
       }
       return (
         <button
@@ -136,10 +138,10 @@ const Flag = (props: FlagProps) => {
               box-shadow: 0 0 0 2px ${getFlagFocusRingColor(appearance, mode)};
             }
           `}
-          aria-expanded={isExpanded}
           onClick={buttonAction}
           data-testid={buttonTestId}
           type="button"
+          {...a11yProps}
         >
           <ButtonIcon label={buttonLabel} size={size} />
         </button>

@@ -7,6 +7,7 @@ import VideoIcon from '@atlaskit/icon/glyph/media-services/video';
 import DocIcon from '@atlaskit/icon/glyph/media-services/document';
 import ArchiveIcon from '@atlaskit/icon/glyph/media-services/zip';
 import UnknownIcon from '@atlaskit/icon/glyph/media-services/unknown';
+import { Size } from '@atlaskit/icon/types';
 import { MediaType } from '@atlaskit/media-common';
 
 export interface IconWrapperProps {
@@ -39,6 +40,7 @@ const icons = {
 
 export interface FileIconProps {
   type?: MediaType;
+  size?: Size;
 }
 
 const defaultType = 'unknown';
@@ -49,7 +51,7 @@ export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
   };
 
   render() {
-    const { type } = this.props;
+    const { type, size } = this.props;
     const typeWithDefault = type || defaultType;
     const Icon = icons[typeWithDefault] || icons[defaultType];
 
@@ -58,7 +60,7 @@ export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
         data-testid="media-viewer-file-type-icon"
         type={typeWithDefault}
       >
-        <Icon label="media-type" size="large" />
+        <Icon label="media-type" size={size || 'large'} />
       </IconWrapper>
     );
   }

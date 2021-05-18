@@ -42,6 +42,7 @@ export type MessageKey =
   | 'invalid_permissions_description'
   | 'upload_an_avatar'
   | 'loading'
+  | 'loading_file'
   | 'save'
   | 'or'
   | 'upload_photo'
@@ -349,6 +350,11 @@ export const messages = defineMessages<Messages>({
     id: 'fabric.media.loading',
     defaultMessage: 'Loading...',
     description: 'Indicates an element on a page is loading.',
+  },
+  loading_file: {
+    id: 'fabric.media.loading_file',
+    defaultMessage: 'Loading file...',
+    description: 'Shown when a file is being fetched',
   },
   save: {
     id: 'fabric.media.save',

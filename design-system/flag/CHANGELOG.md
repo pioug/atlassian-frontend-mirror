@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.3.0
+
+### Minor Changes
+
+- [`c139588c86d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c139588c86d) - Remove aria-expanded attribute from Flag close buttons
+
 ## 14.2.4
 
 ### Patch Changes

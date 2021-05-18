@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 63.1.4
+
+### Patch Changes
+
+- [`2c076bc792a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c076bc792a) - Update internal component usage
+
 ## 63.1.3
 
 ### Patch Changes

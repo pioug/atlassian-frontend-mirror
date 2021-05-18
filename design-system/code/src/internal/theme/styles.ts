@@ -196,7 +196,6 @@ export const getBaseCodeStyles = (theme: CodeTheme): CSSObject => ({
   fontSize: CODE_FONT_SIZE,
   fontFamily: theme.fontFamily,
   fontWeight: 'normal',
-  lineHeight: CODE_LINE_HEIGHT,
   backgroundColor: `var(${VAR_CODE_BG_COLOR},${theme.backgroundColor})`,
   color: theme.textColor,
   borderStyle: 'none',
@@ -220,6 +219,7 @@ export const getCodeBlockStyles = (theme: CodeBlockTheme) => (
     padding: hasLineNumbers ? `${SPACING}px 0` : SPACING,
   },
   display: 'flex',
+  lineHeight: CODE_LINE_HEIGHT,
   overflowX: 'auto',
   whiteSpace: 'pre',
   ...getBaseCodeStyles(theme),
@@ -297,10 +297,14 @@ export const getCodeStyles = (globalTheme: Theme): CSSObject => {
   const baseStyles = getBaseCodeStyles(theme);
   return {
     ...baseStyles,
-    fontSize: '0.875em',
-    lineHeight: 'inherit',
-    padding: '0.166em 0.33em',
     display: 'inline',
+    // monospace font appears slightly larger than the serif font so
+    // we use a relative size to better match when used inline
+    fontSize: '0.875em',
+    // NB vertical padding _will_ effect the boxes vertical alignment so it needs to be
+    // minimised. 2px provides a minumum and allows the line height to do the heavy lifting
+    // ; 0.5ch is to emulate the half space between the next word with varied font sizes.
+    padding: '2px 0.5ch',
     whiteSpace: 'pre-wrap',
     overflowWrap: 'break-word',
     overflow: 'auto',

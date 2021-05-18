@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pagination",
-  "version": "13.2.0",
+  "version": "14.0.0",
   "description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,18 +22,16 @@
       "name": "Pagination"
     }
   },
-  "af:exports": {
-    "./types": "./src/entry-points/types.ts",
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
+    "@atlaskit/codemod-utils": "^3.2.0",
     "@atlaskit/ds-lib": "^1.2.0",
     "@atlaskit/icon": "^21.4.0",
     "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/core": "^10.0.9"
+    "@emotion/core": "^10.0.9",
+    "memoize-one": "^5.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -42,7 +40,7 @@
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/dynamic-table": "^14.1.0",
-    "@atlaskit/section-message": "^5.0.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
@@ -50,6 +48,7 @@
     "@testing-library/dom": "^7.7.3",
     "@testing-library/react": "^8.0.1",
     "exenv": "^1.2.2",
+    "jscodeshift": "^0.11.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
     "storybook-addon-performance": "^0.15.1",
@@ -75,6 +74,10 @@
         "no-deprecated-imports"
       ]
     }
+  },
+  "af:exports": {
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
   },
   "homepage": "https://atlassian.design/components/pagination/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

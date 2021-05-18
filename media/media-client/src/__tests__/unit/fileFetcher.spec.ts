@@ -434,6 +434,32 @@ describe('FileFetcher', () => {
       });
     });
 
+    it('should create emptyItems error when no item returned', async done => {
+      const { fileFetcher, mediaStore, items } = setup();
+
+      mediaStore.getItems.mockImplementation(() =>
+        Promise.resolve({
+          data: {
+            items: [], // no item
+          },
+        }),
+      );
+
+      fileFetcher
+        .getFileState(items[0].id, { collectionName: items[0].collection })
+        .subscribe({
+          error: err => {
+            expect(err).toBeInstanceOf(FileFetcherError);
+            expect(err.attributes.reason).toEqual('emptyItems');
+            expect(err.attributes.id).toEqual(items[0].id);
+            expect(err.attributes.collectionName).toEqual(items[0].collection);
+            done();
+          },
+        });
+
+      expect.assertions(4);
+    });
+
     it('should return processing file state for empty files', async done => {
       const { fileFetcher, mediaStore, items } = setup();
       const next = jest.fn();

@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.0.1
+
+### Patch Changes
+
+- [`1648daf0308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648daf0308) - Updates button item props.
+
 ## 1.0.0
 
 ### Major Changes

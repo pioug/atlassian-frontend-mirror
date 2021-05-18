@@ -1,14 +1,20 @@
-export default function collapseRange<T>(
+import { ReactElement } from 'react';
+
+import memoizeOne from 'memoize-one';
+
+const collapseRange = <T>(
   pages: Array<T>,
   current: number,
   {
     max,
     ellipsis,
+    transform,
   }: {
     max: number;
-    ellipsis: (arg: { key: string }) => T;
+    ellipsis: (arg: { key: string }) => ReactElement;
+    transform: (page: T, index: number) => ReactElement;
   },
-): Array<T> {
+): ReactElement[] => {
   const total = pages.length;
   // only need ellipsis if we have more pages than we can display
   const needEllipsis = total > max;
@@ -16,35 +22,46 @@ export default function collapseRange<T>(
   const hasStartEllipsis = needEllipsis && max - 4 < current;
   // show end ellipsis if the current page is further than total - max + 3 from the last page
   const hasEndEllipsis = needEllipsis && current < total - max + 3;
+
+  const getPageComponents = memoizeOne(
+    (startIndex: number = 0, lastIndex: number = total) => {
+      return pages
+        .slice(startIndex, lastIndex)
+        .map((page, index) => transform(page, startIndex + index));
+    },
+  );
+
   if (!needEllipsis) {
-    return pages;
+    return getPageComponents(0, total);
   }
   if (hasStartEllipsis && !hasEndEllipsis) {
     const pageCount = max - 2;
     return [
-      pages[0],
+      ...getPageComponents(0, 1),
       ellipsis({ key: 'elipses-1' }),
-      ...pages.slice(total - pageCount),
+      ...getPageComponents(total - pageCount),
     ];
   }
   if (!hasStartEllipsis && hasEndEllipsis) {
     const pageCount = max - 2;
     return [
-      ...pages.slice(0, pageCount),
+      ...getPageComponents(0, pageCount),
       ellipsis({ key: 'elipses-1' }),
-      pages[total - 1],
+      ...getPageComponents(total - 1),
     ];
   }
   // we have both start and end ellipsis
   const pageCount = max - 4;
   return [
-    pages[0],
+    ...getPageComponents(0, 1),
     ellipsis({ key: 'elipses-1' }),
-    ...pages.slice(
+    ...getPageComponents(
       current - Math.floor(pageCount / 2),
       current + pageCount - 1,
     ),
     ellipsis({ key: 'elipses-2' }),
-    pages[total - 1],
+    ...getPageComponents(total - 1),
   ];
-}
+};
+
+export default collapseRange;

@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.2.0
+
+### Minor Changes
+
+- [`4c05694bca8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c05694bca8) - Changed componentName to renderer in AnalyticsContext.
+
 ## 6.1.0
 
 ### Minor Changes

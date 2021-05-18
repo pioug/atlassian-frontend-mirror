@@ -16,10 +16,11 @@ import { AppearanceType, KeyboardOrMouseEvent } from '../types';
 
 const TitleIcon = ({
   appearance,
-}: Required<Pick<HeaderProps, 'appearance'>>) => {
+  isHeadingMultiline,
+}: Required<Pick<HeaderProps, 'appearance' | 'isHeadingMultiline'>>) => {
   const titleIconStyles = useMemo(() => {
-    return getTitleIconStyles(appearance);
-  }, [appearance]);
+    return getTitleIconStyles({ appearance, isHeadingMultiline });
+  }, [appearance, isHeadingMultiline]);
 
   const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
 
@@ -115,7 +116,12 @@ export default function ModalHeader(props: HeaderProps) {
   return (
     <header css={headerStyles} data-testid={testId && `${testId}--header`}>
       <h1 css={titleStyles}>
-        {appearance ? <TitleIcon appearance={appearance} /> : null}
+        {appearance && (
+          <TitleIcon
+            appearance={appearance}
+            isHeadingMultiline={isHeadingMultiline}
+          />
+        )}
         <span
           id={id}
           css={titleTextStyles}

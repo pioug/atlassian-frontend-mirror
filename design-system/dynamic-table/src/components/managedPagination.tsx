@@ -10,6 +10,7 @@ interface Props {
   i18n?: {
     next: string;
     prev: string;
+    label: string;
   };
 }
 
@@ -31,7 +32,9 @@ export default class ManagedPagination extends React.Component<Props> {
     return (
       <Pagination
         selectedIndex={selectedIndex}
-        i18n={i18n}
+        label={i18n?.label}
+        nextLabel={i18n?.next}
+        previousLabel={i18n?.prev}
         onChange={this.onChange}
         pages={pages}
       />

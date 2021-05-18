@@ -2,6 +2,10 @@ import {
   isCodeViewerItem,
   getLanguageType,
 } from '@atlaskit/media-ui/codeViewer';
+import {
+  lineCount,
+  normaliseLineBreaks,
+} from '../../../../../newgen/viewers/codeViewer/util';
 
 describe('CodeViewer Utility Function', () => {
   const isCodeItemCasesDirectMapping = [
@@ -34,7 +38,7 @@ describe('CodeViewer Utility Function', () => {
   ];
 
   // testing the direct mapping cases for code items, i.e item with the filename test.c has the language "c"
-  test.each(isCodeItemCasesDirectMapping)(
+  it.each(isCodeItemCasesDirectMapping)(
     'should calculate based on the name %p that it IS a Codeviewer item with the language %p',
     name => {
       expect(getLanguageType(name)).toEqual(name.split('.').pop() as string);
@@ -88,6 +92,34 @@ describe('CodeViewer Utility Function', () => {
         expect(getLanguageType(name)).toEqual(language);
         expect(isCodeViewerItem(name)).toEqual(true);
       });
+    });
+  });
+
+  describe('normaliseLineBreaks()', () => {
+    it('should normalise CRLF correctly', () => {
+      expect(normaliseLineBreaks('\r\n\r\n')).toBe('\n\n');
+    });
+
+    it('should normalise LF correctly', () => {
+      expect(normaliseLineBreaks('\r\r')).toBe('\n\n');
+    });
+
+    it('should normalise mixed breaks correctly', () => {
+      expect(normaliseLineBreaks('\r\r\r\n\n')).toBe('\n\n\n\n');
+    });
+  });
+
+  describe('lineCount()', () => {
+    it('Should return text length with CRLF correctly', () => {
+      expect(lineCount('\r\n\r\n')).toBe(3);
+    });
+
+    it('Should return text length with LF correctly', () => {
+      expect(lineCount('\r\r')).toBe(3);
+    });
+
+    it('Should return text length with LF correctly', () => {
+      expect(lineCount('\r\r\r\n\n')).toBe(5);
     });
   });
 });

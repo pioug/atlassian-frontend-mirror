@@ -110,6 +110,14 @@ export default React.memo(
                   stroke-linecap: round;
                   stroke-dasharray: 60;
                   stroke-dashoffset: inherit;
+                  @media screen and (-ms-high-contrast: white-on-black) {
+                    filter: grayscale(100%);
+                    stroke: ${N0};
+                  }
+                  @media screen and (-ms-high-contrast: black-on-white) {
+                    filter: grayscale(100%);
+                    stroke: #000000;
+                  }
                 `}
               >
                 <circle cx="8" cy="8" r="7" />

@@ -75,7 +75,7 @@ const integrationButtonText = (integrationName: string) => (
   />
 );
 
-const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = props => {
+const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
   const {
     triggerButtonAppearance,
     isUsingSplitButton,

@@ -161,7 +161,7 @@ export const CardContainer = styled.div`
     ${(props: CardContainerProps) =>
         props.isDisabledUser ? headerBgColorDisabledUser : headerBgColor}
       0%,
-    ${props =>
+    ${(props) =>
         props.isDisabledUser ? headerBgColorDisabledUser : headerBgColor}
       100%
   );

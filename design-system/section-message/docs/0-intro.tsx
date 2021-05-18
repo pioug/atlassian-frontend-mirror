@@ -15,7 +15,7 @@ export default md`
 
   ## Usage
 
-  ${code`import SectionMessage from '@atlaskit/section-message';`}
+  ${code`import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';`}
 
   ${(
     <Example
@@ -41,6 +41,13 @@ export default md`
     <Props
       heading="SectionMessage Props"
       props={require('!!extract-react-types-loader!../src/section-message')}
+    />
+  )}
+
+  ${(
+    <Props
+      heading="SectionMessageAction Props"
+      props={require('!!extract-react-types-loader!../src/section-message-action')}
     />
   )}
 `;

@@ -20,7 +20,22 @@ export async function MediaPicker(
   return new PopupImpl(mediaClient, pickerConfig);
 }
 
-export type { DropzoneConfig } from './types';
+export type {
+  BrowserConfig,
+  DropzoneConfig,
+  UploadParams,
+  UploadsStartEventPayload,
+  UploadPreviewUpdateEventPayload,
+  UploadEndEventPayload,
+  UploadErrorEventPayload,
+  MediaFile,
+  Preview,
+  NonImagePreview,
+  ImagePreview,
+  MediaError,
+  MediaErrorName,
+} from './types';
+export type { LocalUploadConfig } from './components/types';
 
 // REACT COMPONENTS
 

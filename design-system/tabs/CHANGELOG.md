@@ -1,5 +1,15 @@
 # @atlaskit/tabs
 
+## 13.1.0
+
+### Minor Changes
+
+- [`4f40ecb4471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f40ecb4471) - [ux] Added `Home` and `End` keys handlers for tablist. Changed arrow keys handlers to make tabs cycled. Now when you press the left arrow key on the first tab the last tab will be selected and when you press right arrow key on the last tab the first tab will be selected
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.1
 
 ### Patch Changes

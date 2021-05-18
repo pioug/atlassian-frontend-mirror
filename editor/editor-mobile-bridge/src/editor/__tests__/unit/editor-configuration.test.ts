@@ -12,6 +12,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
     expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
   });
 
@@ -31,6 +32,22 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isScrollGutterPersisted()).toBe(false);
   });
 
+  it('should disable the indentations for compact editor', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"editorAppearance": "compact"}',
+    );
+
+    expect(editorConfig.isIndentationAllowed()).toEqual(false);
+  });
+
+  it('should enable the indentations for full editor', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"editorAppearance": "full"}',
+    );
+
+    expect(editorConfig.isIndentationAllowed()).toEqual(true);
+  });
+
   it('should set the mode value and retain the rest with default values', () => {
     const editorConfig = new MobileEditorConfiguration('{ "mode": "dark" }');
 
@@ -40,6 +57,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should set the locale value and retain the rest with default values', () => {
@@ -51,6 +69,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should set the isQuickInsertEnabled value and retain the rest with default values', () => {
@@ -64,6 +83,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should set the isSelectionObserverEnabled value and retain the rest with default values', () => {
@@ -77,6 +97,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(true);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should set the allowCollabProvider value and retain the rest with default values', () => {
@@ -90,6 +111,7 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(true);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should set the allowPredictableList value and retain the rest with default values', () => {
@@ -103,6 +125,21 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
+  });
+
+  it('should set the allowPredictableList value and retain the rest with default values', () => {
+    const editorConfig = new MobileEditorConfiguration(
+      '{"useUnpredictableInputRule": false}',
+    );
+
+    expect(editorConfig.getMode()).toEqual('light');
+    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
+    expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
+    expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
+    expect(editorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(editorConfig.isUnpredictableInputRuleEnabled()).toEqual(false);
   });
 
   it('should clone and update the current configuartion with the new configuration', () => {
@@ -120,6 +157,7 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(newEditorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(newEditorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should clone and update the default configuration with the new configuration', () => {
@@ -136,6 +174,7 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
     expect(newEditorConfig.isPredictableListEnabled()).toEqual(true);
+    expect(newEditorConfig.isUnpredictableInputRuleEnabled()).toEqual(true);
   });
 
   it('should persist scroll gutter for compact editor', () => {

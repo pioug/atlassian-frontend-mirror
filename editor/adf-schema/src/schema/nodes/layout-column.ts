@@ -13,15 +13,15 @@ export interface LayoutColumnDefinition {
      */
     width: number;
   };
-
   /**
    * @minItems 1
+   * @allowUnsupportedBlock true
    */
   content: Array<BlockContent>;
 }
 
 export const layoutColumn: NodeSpec = {
-  content: 'block+',
+  content: '(block|unsupportedBlock)+',
   isolating: true,
   marks: 'link alignment dataConsumer unsupportedMark unsupportedNodeAttribute',
   selectable: false,

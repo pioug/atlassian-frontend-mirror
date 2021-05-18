@@ -68,7 +68,7 @@ import {
   NumericalCardDimensions,
 } from '../..';
 import { Card, CardBase, CardWithAnalyticsEventsProps } from '../../root/card';
-import { CardView, CardViewOwnProps } from '../../root/cardView';
+import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
 import { LazyContent } from '../../utils/lazyContent';
 import {
@@ -1232,22 +1232,6 @@ describe('Card', () => {
 
     expect(cardPreview.orientation).toEqual(6);
     expect(newCardPreview.orientation).toEqual(6);
-  });
-
-  describe('Retry', () => {
-    it('should pass down "onRetry" prop when an error occurs', () => {
-      const { component, mediaClient } = setup();
-      const cardViewOnError = component
-        .find(CardView)
-        .prop('onRetry') as CardViewOwnProps['onRetry'];
-      if (!cardViewOnError) {
-        return expect(cardViewOnError).toBeDefined();
-      }
-      expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(1);
-      cardViewOnError();
-
-      expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(2);
-    });
   });
 
   describe('External image identifier', () => {

@@ -16,6 +16,7 @@ export type MediaClientErrorReason =
   | 'failedAuthProvider'
   // FileFetcherErrorReason ----------------------------
   | 'invalidFileId'
+  | 'emptyItems'
   | 'zeroVersionFile'
   // PollingErrorReason ----------------------------
   | 'pollingMaxAttemptsExceeded'

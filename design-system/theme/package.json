@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "11.2.0",
+  "version": "11.2.1",
   "description": "The Atlaskit theme framework",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
     "@atlaskit/datetime-picker": "^10.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^10.0.0",
-    "@atlaskit/section-message": "^5.2.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

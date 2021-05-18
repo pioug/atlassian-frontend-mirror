@@ -7,17 +7,17 @@ import { BreakoutMarkDefinition } from '../marks';
  */
 export type LayoutSectionDefinition = {
   type: 'layoutSection';
-
   /**
    * @minItems 2
    * @maxItems 3
+   * @allowUnsupportedBlock true
    */
   content: Array<LayoutColumnDefinition>;
   marks?: Array<BreakoutMarkDefinition>;
 };
 
 export const layoutSection: NodeSpec = {
-  content: 'layoutColumn{2,3}',
+  content: '(layoutColumn | unsupportedBlock){2,3} unsupportedBlock*',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [

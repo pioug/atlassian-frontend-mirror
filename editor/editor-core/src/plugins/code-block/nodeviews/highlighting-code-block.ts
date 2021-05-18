@@ -10,7 +10,7 @@ import { percentile } from '../../../utils/performance/percentile';
 const GUTTER = `.${codeBlockClassNames.gutter}`;
 const HIGHLIGHT = `.${codeBlockClassNames.highlighting}`;
 const CONTENT = `.${codeBlockClassNames.content}`;
-const NOOP_LANGUAGES = ['none', 'plaintext'];
+const NOOP_LANGUAGES = [null, undefined, 'none', 'plaintext'];
 
 const toDOM = (node: Node): DOMOutputSpec => [
   'div',
@@ -61,9 +61,7 @@ export class CodeBlockView {
     this.lineNumberGutter = this.dom.querySelector<HTMLElement>(GUTTER)!;
     this.ensureLineNumbers();
 
-    if (node.attrs.language && !NOOP_LANGUAGES.includes(node.attrs.language)) {
-      this.highlight(node);
-    }
+    this.highlight(node);
   }
 
   private measure(measurement: number) {
@@ -73,6 +71,10 @@ export class CodeBlockView {
   }
 
   private highlight(node = this.node, forced = false) {
+    if (NOOP_LANGUAGES.includes(node.attrs.language)) {
+      return;
+    }
+
     const highlighting = this.dom.querySelector<HTMLElement>(HIGHLIGHT);
     const content = this.dom.querySelector<HTMLElement>(CONTENT);
 

@@ -399,13 +399,18 @@ describe('@atlaskit/dynamic-table', () => {
           defaultPage={2}
           head={head}
           rows={rows}
-          paginationi18n={{ prev: 'Before', next: 'after' }}
+          paginationi18n={{
+            prev: 'Before',
+            next: 'after',
+            label: 'Pagination',
+          }}
         />,
       );
 
       expect(wrapper.find(Pagination).prop('i18n')).toMatchObject({
         prev: 'Before',
         next: 'after',
+        label: 'Pagination',
       });
     });
 
@@ -415,13 +420,18 @@ describe('@atlaskit/dynamic-table', () => {
           rowsPerPage={2}
           head={head}
           rows={rows}
-          paginationi18n={{ prev: 'Before', next: 'after' }}
+          paginationi18n={{
+            prev: 'Before',
+            next: 'after',
+            label: 'Pagination',
+          }}
         />,
       );
 
       expect(wrapper.find(Pagination).prop('i18n')).toMatchObject({
         prev: 'Before',
         next: 'after',
+        label: 'Pagination',
       });
     });
 

@@ -262,34 +262,11 @@ export const ErrorMessage = styled.div`
   max-width: ~'calc(100% - 24px)';
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: auto 3px;
 `;
 
 export const AltWrapper = styled(ErrorMessage)`
   font-weight: normal;
-`;
-
-export const Retry = styled.div`
-  user-select: none;
-  ${antialiased} box-sizing: border-box;
-  margin-left: 5px;
-  font-weight: bold;
-  color: ${colors.B400};
-  font-size: 12px;
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    color: ${colors.B300};
-  }
-`;
-
-export const NewExpRetry = styled.a`
-  user-select: none;
-  cursor: pointer;
-`;
-
-export const ErrorWrapper = styled.div`
-  display: flex;
 `;
 
 export const TitleWrapper = styled.div`

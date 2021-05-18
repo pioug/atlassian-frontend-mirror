@@ -29,7 +29,7 @@ interface AppearanceIconTheme {
 export const appearanceIconTheming: {
   [key in Appearance]: AppearanceIconTheme;
 } = {
-  info: {
+  information: {
     backgroundColor: B50,
     Icon: InfoIcon,
     primaryIconColor: B500,
@@ -44,12 +44,12 @@ export const appearanceIconTheming: {
     Icon: ErrorIcon,
     primaryIconColor: R500,
   },
-  confirmation: {
+  success: {
     backgroundColor: G50,
     Icon: CheckCircleIcon,
     primaryIconColor: G500,
   },
-  change: {
+  discovery: {
     backgroundColor: P50,
     Icon: QuestionCircleIcon,
     primaryIconColor: P500,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Pagination from '../../src';
 
-export function PaginationDefaultSelectedIndexExample() {
+export default function PaginationDefaultSelectedIndexExample() {
   return (
     <Pagination
       defaultSelectedIndex={5}

@@ -150,9 +150,10 @@ const calculateFinalLevel = (
 export const getItemById = (
   flattenedTree: FlattenedTree,
   id: ItemId,
-): FlattenedItem | undefined => flattenedTree.find(item => item.item.id === id);
+): FlattenedItem | undefined =>
+  flattenedTree.find((item) => item.item.id === id);
 
 export const getIndexById = (
   flattenedTree: FlattenedTree,
   id: ItemId,
-): number => flattenedTree.findIndex(item => item.item.id === id);
+): number => flattenedTree.findIndex((item) => item.item.id === id);

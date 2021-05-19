@@ -24,13 +24,13 @@ export default class TreeBuilder {
     const subTree = tree.build();
     this._addItemToRoot(`${this.rootId}-${subTree.rootId}`);
 
-    Object.keys(subTree.items).forEach(itemId => {
+    Object.keys(subTree.items).forEach((itemId) => {
       const finalId = `${this.rootId}-${itemId}`;
       this.items[finalId] = {
         ...subTree.items[itemId],
         id: finalId,
         children: subTree.items[itemId].children.map(
-          i => `${this.rootId}-${i}`,
+          (i) => `${this.rootId}-${i}`,
         ),
       };
     });

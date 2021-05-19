@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
-import resetCSS from './resetCss';
-import { ArticleFrame } from './styled';
 import debounce from 'lodash/debounce';
 import ReactDOM from 'react-dom';
+import { ReactRenderer } from '@atlaskit/renderer';
+
+import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
+import type { AdfDoc } from '../../model/HelpArticle';
+
+import resetCSS from './resetCss';
+import { ArticleFrame } from './styled';
 
 export interface Props {
   // Article Content
-  body?: string;
+  body?: string | AdfDoc;
+  // Format of the body content. The defaut value is "html"
+  bodyFormat: BODY_FORMAT_TYPES;
   // Function executed when the article rendering begins
   onArticleRenderBegin?(): void;
   // Function executed when the article rendering finishes
@@ -140,22 +147,40 @@ export const ArticleBody = (props: Props) => {
       });
     };
 
-    setIframeContent(props.body, props.onArticleRenderBegin);
-  }, [props.body, props.onArticleRenderBegin, props.onArticleRenderDone]);
+    if (
+      props.bodyFormat === BODY_FORMAT_TYPES.html &&
+      typeof props.body === 'string'
+    ) {
+      setIframeContent(props.body, props.onArticleRenderBegin);
+    }
+  }, [
+    props.body,
+    props.bodyFormat,
+    props.onArticleRenderBegin,
+    props.onArticleRenderDone,
+  ]);
 
   useEffect(() => {
-    /**
-     * Resize the iframe when the browser window resizes
-     */
-    const onWindowResize = debounce(() => resizeIframe(), 500);
-    window.addEventListener('resize', onWindowResize);
+    if (props.bodyFormat === BODY_FORMAT_TYPES.html) {
+      /**
+       * Resize the iframe when the browser window resizes
+       */
+      const onWindowResize = debounce(() => resizeIframe(), 500);
+      window.addEventListener('resize', onWindowResize);
 
-    return () => {
-      window.removeEventListener('resize', onWindowResize);
-    };
-  }, [props.onArticleRenderDone]);
+      return () => {
+        window.removeEventListener('resize', onWindowResize);
+      };
+    }
+  }, [props.onArticleRenderDone, props.bodyFormat]);
 
-  return props.body ? <div id={IFRAME_CONTAINER_ID} /> : null;
+  return props.body ? (
+    props.bodyFormat === BODY_FORMAT_TYPES.html ? (
+      <div id={IFRAME_CONTAINER_ID} />
+    ) : (
+      <ReactRenderer document={props.body} />
+    )
+  ) : null;
 };
 
 export default ArticleBody;

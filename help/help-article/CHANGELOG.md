@@ -1,5 +1,11 @@
 # @atlaskit/help-article
 
+## 3.0.0
+
+### Major Changes
+
+- [`f88acfa4736`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88acfa4736) - [ux] Add support for ADF documents. The prop "body" now accepts String and ADF object. The prop "bodyType" was added so the developer can specify which type of content the the "body" prop has ("html" or "adf")
+
 ## 2.0.5
 
 ### Patch Changes

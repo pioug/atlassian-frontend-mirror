@@ -1,5 +1,4 @@
-/* eslint import/no-extraneous-dependencies: 0*/
-const moduleResolveMapBuilder = require('@atlaskit/multi-entry-tools/module-resolve-map-builder');
+const { moduleResolveMapBuilder } = require('@atlaskit/multi-entry-tools');
 const { PORT } = require('./utils');
 
 const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {

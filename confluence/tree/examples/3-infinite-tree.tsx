@@ -60,7 +60,7 @@ const addRandomChildren = (
         data: { title: `Title ${path.length}` },
       };
     })
-    .forEach(c => {
+    .forEach((c) => {
       newChildrenHash[c.id] = c;
     });
   const newChildren = [

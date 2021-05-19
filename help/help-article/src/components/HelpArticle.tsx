@@ -1,29 +1,21 @@
 import React from 'react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 
+import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
+import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
+
 import {
   ArticleContentInner,
   ArticleContentTitle,
   ArticleContentTitleLink,
 } from './styled';
 import ArticleBody from './ArticleBody';
-export interface Props {
-  // Article Title
-  title?: string;
-  // Article Content
-  body?: string;
-  // URL used as href value of the Article Title. If is undefined, the title will a regular H2 tag instead of a link
-  titleLinkUrl?: string;
-  // Function executed when the article rendering begins
-  onArticleRenderBegin?(): void;
-  // Function executed when the article rendering finishes
-  onArticleRenderDone?(): void;
-}
 
-const HelpArticle = (props: Props) => {
+const HelpArticle = (props: HelpArticleType) => {
   const {
     title = '',
     body,
+    bodyFormat = BODY_FORMAT_TYPES.html,
     titleLinkUrl,
     onArticleRenderBegin,
     onArticleRenderDone,
@@ -48,6 +40,7 @@ const HelpArticle = (props: Props) => {
       )}
       <ArticleBody
         body={body}
+        bodyFormat={bodyFormat}
         onArticleRenderBegin={onArticleRenderBegin}
         onArticleRenderDone={onArticleRenderDone}
       />

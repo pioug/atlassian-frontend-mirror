@@ -95,7 +95,16 @@ const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
         props.newEditorState.tr,
       );
 
-      executeProviderCode(sendTransaction(props), addErrorAnalytics);
+      executeProviderCode(
+        sendTransaction({
+          originalTransaction: props.originalTransaction,
+          transactions: props.transactions,
+          oldEditorState: props.oldEditorState,
+          newEditorState: props.newEditorState,
+          useNativePlugin: options && options.useNativePlugin!,
+        }),
+        addErrorAnalytics,
+      );
     },
   };
 };

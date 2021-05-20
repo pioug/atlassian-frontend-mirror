@@ -85,7 +85,7 @@ describe('MentionItem', () => {
     expect(component.find(LockCircleIcon)).toHaveLength(0);
   });
 
-  lozengeExamples.forEach(example => {
+  lozengeExamples.forEach((example) => {
     it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, () => {
       const component = setupMentionItem({
         id: '1',

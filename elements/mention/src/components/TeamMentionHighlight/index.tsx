@@ -162,12 +162,12 @@ export class TeamMentionHighlightInternal extends React.Component<
               </Styled.Heading>
               <Styled.Body>
                 <TeamMentionHighlightDescription>
-                  {description => (
+                  {(description) => (
                     <div>
                       {description}
                       <span ref={this.elCreateTeamWrapper}>
                         <TeamMentionHighlightDescriptionLink>
-                          {linkText => (
+                          {(linkText) => (
                             <a href={createTeamLink} target="_blank">
                               {' '}
                               {linkText}
@@ -184,7 +184,7 @@ export class TeamMentionHighlightInternal extends React.Component<
             <Styled.Actions>
               <div ref={this.elCloseWrapper}>
                 <TeamMentionHighlightCloseTooltip>
-                  {tooltip => (
+                  {(tooltip) => (
                     <Tooltip content={tooltip} position="bottom">
                       <Button
                         appearance="subtle"

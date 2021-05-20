@@ -53,7 +53,9 @@ export default class MentionTextInput extends React.Component<Props, State> {
     }
   };
 
-  private updateSearch: React.ChangeEventHandler<HTMLInputElement> = event => {
+  private updateSearch: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     if (this.state.active) {
       this.setState({
         query: event.target.value || '',

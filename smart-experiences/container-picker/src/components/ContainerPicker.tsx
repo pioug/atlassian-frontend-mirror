@@ -255,14 +255,14 @@ export class ContainerPickerWithoutAnalytics extends React.Component<
     let filteredOptions = options;
     // Filter out previously selected options
     if (isMulti && Array.isArray(value)) {
-      const valueIds: string[] = value.map(item => item.value.id);
+      const valueIds: string[] = value.map((item) => item.value.id);
       filteredOptions = options.filter(
-        option => valueIds.indexOf(option.value.id) === -1,
+        (option) => valueIds.indexOf(option.value.id) === -1,
       );
     }
     if (!isMulti && value) {
       filteredOptions = options.filter(
-        option => option.value.id === (value as ContainerOption).value.id,
+        (option) => option.value.id === (value as ContainerOption).value.id,
       );
     }
     return filteredOptions.slice(0, maxOptions);

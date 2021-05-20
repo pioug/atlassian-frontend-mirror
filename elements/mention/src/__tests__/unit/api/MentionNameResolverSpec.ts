@@ -47,7 +47,7 @@ describe('MentionNameResolver', () => {
     expect(lookupMentionNames).toHaveBeenCalledTimes(0);
   });
 
-  it('lookup when not cached, and found in client', done => {
+  it('lookup when not cached, and found in client', (done) => {
     lookupMentionNames.mockReturnValue(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -63,7 +63,7 @@ describe('MentionNameResolver', () => {
     jest.runAllTimers();
     if (isPromise(namePromise)) {
       namePromise
-        .then(name => {
+        .then((name) => {
           expect(name).toEqual({
             id: 'cheese',
             name: 'bacon',
@@ -80,7 +80,7 @@ describe('MentionNameResolver', () => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           done();
         })
-        .catch(err => fail(`Promise was rejected ${err}`));
+        .catch((err) => fail(`Promise was rejected ${err}`));
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${typeof namePromise}`,
@@ -88,7 +88,7 @@ describe('MentionNameResolver', () => {
     }
   });
 
-  it('lookup when not cached, and not found in client', done => {
+  it('lookup when not cached, and not found in client', (done) => {
     lookupMentionNames.mockReturnValue(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -103,7 +103,7 @@ describe('MentionNameResolver', () => {
     jest.runAllTimers();
     if (isPromise(namePromise)) {
       namePromise
-        .then(name => {
+        .then((name) => {
           expect(name).toEqual({
             id: 'cheese',
             status: MentionNameStatus.UNKNOWN,
@@ -111,7 +111,7 @@ describe('MentionNameResolver', () => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           done();
         })
-        .catch(err => fail(`Promise was rejected ${err}`));
+        .catch((err) => fail(`Promise was rejected ${err}`));
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${typeof namePromise}`,
@@ -119,7 +119,7 @@ describe('MentionNameResolver', () => {
     }
   });
 
-  it('lookup when not cached, and error for id in client', done => {
+  it('lookup when not cached, and error for id in client', (done) => {
     lookupMentionNames.mockReturnValue(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -134,7 +134,7 @@ describe('MentionNameResolver', () => {
     jest.runAllTimers();
     if (isPromise(namePromise)) {
       namePromise
-        .then(name => {
+        .then((name) => {
           expect(name).toEqual({
             id: 'cheese',
             status: MentionNameStatus.SERVICE_ERROR,
@@ -142,7 +142,7 @@ describe('MentionNameResolver', () => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           done();
         })
-        .catch(err => fail(`Promise was rejected ${err}`));
+        .catch((err) => fail(`Promise was rejected ${err}`));
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${typeof namePromise}`,
@@ -150,7 +150,7 @@ describe('MentionNameResolver', () => {
     }
   });
 
-  it('lookup when not cached, and error in client', done => {
+  it('lookup when not cached, and error in client', (done) => {
     // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
     //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
     lookupMentionNames.mockReturnValue(Promise.reject('bad times'));
@@ -158,7 +158,7 @@ describe('MentionNameResolver', () => {
     jest.runAllTimers();
     if (isPromise(namePromise)) {
       namePromise
-        .then(name => {
+        .then((name) => {
           expect(name).toEqual({
             id: 'cheese',
             status: MentionNameStatus.SERVICE_ERROR,
@@ -166,7 +166,7 @@ describe('MentionNameResolver', () => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           done();
         })
-        .catch(err => fail(`Promise was rejected ${err}`));
+        .catch((err) => fail(`Promise was rejected ${err}`));
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${typeof namePromise}`,
@@ -174,7 +174,7 @@ describe('MentionNameResolver', () => {
     }
   });
 
-  it('lookup when not cached, exceed batch size', done => {
+  it('lookup when not cached, exceed batch size', (done) => {
     lookupMentionNames.mockReturnValueOnce(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -213,9 +213,9 @@ describe('MentionNameResolver', () => {
 
     jest.runAllTimers();
 
-    if (promises.every(p => isPromise(p))) {
+    if (promises.every((p) => isPromise(p))) {
       Promise.all(promises)
-        .then(names => {
+        .then((names) => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(2);
           expect(lookupMentionNames).toHaveBeenNthCalledWith(1, [
             'cheese',
@@ -258,19 +258,19 @@ describe('MentionNameResolver', () => {
           });
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           fail(`Promises were rejected ${err}`);
         });
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${promises.map(
-          p => typeof p,
+          (p) => typeof p,
         )}`,
       );
     }
   });
 
-  it('lookup twice when not cached, only one call to client, but both callbacks', done => {
+  it('lookup twice when not cached, only one call to client, but both callbacks', (done) => {
     lookupMentionNames.mockReturnValue(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -289,9 +289,9 @@ describe('MentionNameResolver', () => {
 
     jest.runAllTimers();
 
-    if (promises.every(p => isPromise(p))) {
+    if (promises.every((p) => isPromise(p))) {
       Promise.all(promises)
-        .then(names => {
+        .then((names) => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           expect(lookupMentionNames).toHaveBeenNthCalledWith(1, ['cheese']);
           expect(names[0]).toEqual({
@@ -313,21 +313,21 @@ describe('MentionNameResolver', () => {
           });
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           fail(`Promises were rejected ${err}`);
         });
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${promises.map(
-          p => typeof p,
+          (p) => typeof p,
         )}`,
       );
     }
   });
 
-  it('lookup twice when not cached, but first request is "processing"', done => {
+  it('lookup twice when not cached, but first request is "processing"', (done) => {
     let delayedResolve: any;
-    const delayedPromise = new Promise(resolve => {
+    const delayedPromise = new Promise((resolve) => {
       delayedResolve = resolve;
     });
     // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
@@ -357,9 +357,9 @@ describe('MentionNameResolver', () => {
       },
     ]);
 
-    if (promises.every(p => isPromise(p))) {
+    if (promises.every((p) => isPromise(p))) {
       Promise.all(promises)
-        .then(names => {
+        .then((names) => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           expect(names[0]).toEqual({
             id: 'cheese',
@@ -380,19 +380,19 @@ describe('MentionNameResolver', () => {
           });
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           fail(`Promises were rejected ${err}`);
         });
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${promises.map(
-          p => typeof p,
+          (p) => typeof p,
         )}`,
       );
     }
   });
 
-  it("processes queue if it's reached the queue limit", done => {
+  it("processes queue if it's reached the queue limit", (done) => {
     lookupMentionNames.mockReturnValueOnce(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -419,9 +419,9 @@ describe('MentionNameResolver', () => {
 
     // No need to run timers - should occur immediately
 
-    if (promises.every(p => isPromise(p))) {
+    if (promises.every((p) => isPromise(p))) {
       Promise.all(promises)
-        .then(names => {
+        .then((names) => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           expect(lookupMentionNames).toHaveBeenNthCalledWith(1, [
             'cheese',
@@ -452,19 +452,19 @@ describe('MentionNameResolver', () => {
           });
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           fail(`Promises were rejected ${err}`);
         });
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${promises.map(
-          p => typeof p,
+          (p) => typeof p,
         )}`,
       );
     }
   });
 
-  it('ensure debouncing of request to MentionNameClient', done => {
+  it('ensure debouncing of request to MentionNameClient', (done) => {
     lookupMentionNames.mockReturnValue(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -484,7 +484,7 @@ describe('MentionNameResolver', () => {
 
     if (isPromise(namePromise)) {
       namePromise
-        .then(name => {
+        .then((name) => {
           expect(name).toEqual({
             id: 'cheese',
             name: 'bacon',
@@ -501,7 +501,7 @@ describe('MentionNameResolver', () => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           done();
         })
-        .catch(err => fail(`Promise was rejected ${err}`));
+        .catch((err) => fail(`Promise was rejected ${err}`));
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${typeof namePromise}`,
@@ -509,7 +509,7 @@ describe('MentionNameResolver', () => {
     }
   });
 
-  it('lookup when not cached, missing id treated as Unknown', done => {
+  it('lookup when not cached, missing id treated as Unknown', (done) => {
     lookupMentionNames.mockReturnValueOnce(
       // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
       //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -531,9 +531,9 @@ describe('MentionNameResolver', () => {
 
     jest.runAllTimers();
 
-    if (promises.every(p => isPromise(p))) {
+    if (promises.every((p) => isPromise(p))) {
       Promise.all(promises)
-        .then(names => {
+        .then((names) => {
           expect(lookupMentionNames).toHaveBeenCalledTimes(1);
           expect(lookupMentionNames).toHaveBeenNthCalledWith(1, [
             'cheese',
@@ -562,13 +562,13 @@ describe('MentionNameResolver', () => {
           });
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           fail(`Promises were rejected ${err}`);
         });
     } else {
       fail(
         `Return type of lookupName is not a Promise, but a ${promises.map(
-          p => typeof p,
+          (p) => typeof p,
         )}`,
       );
     }
@@ -587,7 +587,7 @@ describe('MentionNameResolver', () => {
       mockCreateAnalyticsEvent.mockImplementation(
         // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-        payload => new UIAnalyticsEvent(payload),
+        (payload) => new UIAnalyticsEvent(payload),
       );
       mentionNameResolver = new DefaultMentionNameResolver(
         mentionNameClientMock,
@@ -617,7 +617,7 @@ describe('MentionNameResolver', () => {
       lookupMentionNames.mockReturnValue(
         // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-        new Promise(resolve => {
+        new Promise((resolve) => {
           setTimeout(() => {
             resolve([mentionName]);
           }, 1000);
@@ -629,7 +629,7 @@ describe('MentionNameResolver', () => {
 
       if (isPromise(namePromise)) {
         namePromise
-          .then(name => {
+          .then((name) => {
             expect(name).toEqual(mentionName);
             // Check analytics
             expect(mockCreateAnalyticsEvent).toBeCalledTimes(1);
@@ -664,7 +664,7 @@ describe('MentionNameResolver', () => {
             );
             done();
           })
-          .catch(err => fail(`Promise was rejected ${err}`));
+          .catch((err) => fail(`Promise was rejected ${err}`));
       } else {
         fail(
           `Return type of lookupName is not a Promise, but a ${typeof namePromise}`,
@@ -672,7 +672,7 @@ describe('MentionNameResolver', () => {
       }
     };
 
-    it('Uncached, then cached mention', done => {
+    it('Uncached, then cached mention', (done) => {
       analyticsTest(
         {
           id: 'cheese',
@@ -684,7 +684,7 @@ describe('MentionNameResolver', () => {
       );
     });
 
-    it('Uncached, cached mention with service error', done => {
+    it('Uncached, cached mention with service error', (done) => {
       analyticsTest(
         {
           id: 'cheese',
@@ -695,7 +695,7 @@ describe('MentionNameResolver', () => {
       );
     });
 
-    it('Uncached, cached unknown mention', done => {
+    it('Uncached, cached unknown mention', (done) => {
       analyticsTest(
         {
           id: 'cheese',

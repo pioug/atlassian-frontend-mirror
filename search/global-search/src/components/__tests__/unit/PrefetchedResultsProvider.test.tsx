@@ -38,7 +38,7 @@ describe('PrefetchedResultsProvider', () => {
     prefetchedResultsHelper = jest.fn();
     const child = (
       <GlobalSearchPreFetchContext.Consumer>
-        {prefetchedResults => {
+        {(prefetchedResults) => {
           prefetchedResultsHelper(prefetchedResults);
           return <div />;
         }}

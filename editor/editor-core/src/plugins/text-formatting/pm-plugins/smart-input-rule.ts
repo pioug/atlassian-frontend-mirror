@@ -33,14 +33,9 @@ function replaceTextUsingCaptureGroup(text: string): InputRuleHandler {
 
     let {
       tr,
-      selection: { $to, $from },
+      selection: { $to },
     } = state;
-    const inlineStart = Math.max(match.index + $from.start(), 1);
-    tr.replaceWith(
-      inlineStart,
-      end,
-      state.schema.text(replacement, $to.marks()),
-    );
+    tr.replaceWith(start, end, state.schema.text(replacement, $to.marks()));
     tr.setSelection(Selection.near(tr.doc.resolve(tr.selection.to)));
     return tr;
   };

@@ -30,7 +30,7 @@ export const collaborationGraphClient = (
       'content-type': 'application/json',
     },
   })
-    .then(response => {
+    .then((response) => {
       if (response.status === 200) {
         return response.json();
       }

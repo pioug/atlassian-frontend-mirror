@@ -219,7 +219,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
                  * onClick from firing.
                  */
                 onSelection={this.itemSelected}
-                ref={ref => {
+                ref={(ref) => {
                   if (ref) {
                     this.items[key] = ref;
                   } else {

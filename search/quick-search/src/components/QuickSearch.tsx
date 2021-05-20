@@ -42,7 +42,7 @@ const getResultIdByIndex = (array: ResultBase[], index: number | null) => {
  */
 const getResultById = (array: ResultBase[], id: SelectedResultId) =>
   (array &&
-    array.find(result => result.props && result.props.resultId === id)) ||
+    array.find((result) => result.props && result.props.resultId === id)) ||
   null;
 
 /**

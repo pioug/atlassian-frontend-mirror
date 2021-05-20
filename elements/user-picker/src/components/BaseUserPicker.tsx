@@ -121,9 +121,11 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   };
 
-  public nextOption = this.withSelectRef(select => select.focusOption('down'));
+  public nextOption = this.withSelectRef((select) =>
+    select.focusOption('down'),
+  );
 
-  public previousOption = this.withSelectRef(select =>
+  public previousOption = this.withSelectRef((select) =>
     select.focusOption('up'),
   );
 
@@ -139,7 +141,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   };
 
-  public selectOption = this.withSelectRef(select => {
+  public selectOption = this.withSelectRef((select) => {
     const focusedOption = select.state.focusedOption;
     select.selectOption(focusedOption);
   });
@@ -437,9 +439,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       let filteredOptions = options;
       // Filter out previously selected options
       if (isMulti && Array.isArray(value)) {
-        const valueIds: string[] = value.map(item => item.data.id);
+        const valueIds: string[] = value.map((item) => item.data.id);
         filteredOptions = options.filter(
-          option => valueIds.indexOf(option.data.id) === -1,
+          (option) => valueIds.indexOf(option.data.id) === -1,
         );
       }
       return filteredOptions.slice(0, maxOptions);

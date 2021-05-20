@@ -9,7 +9,7 @@ export const getAutocompleteText = memoizeOne(
       return query;
     }
     const lowerCaseQuery = query.toLowerCase();
-    const match = autocompleteSuggestions.find(suggestion =>
+    const match = autocompleteSuggestions.find((suggestion) =>
       suggestion.toLowerCase().startsWith(lowerCaseQuery),
     );
     if (!match) {

@@ -49,7 +49,7 @@ const mapResultsDataToComponents = (resultData: DataShape[]) => {
 
   return resultData.map((group: DataShape) => (
     <ResultItemGroup title={group.title} key={group.title}>
-      {group.items.map(props => {
+      {group.items.map((props) => {
         const Result: React.ComponentClass = availableResultTypes[props.type!];
         return Result ? <Result key={props.resultId} {...props} /> : null;
       })}
@@ -66,12 +66,12 @@ function contains(string: string, query: string) {
 function searchData(query: string): DataShape[] {
   const results = data
     .map(({ title, items }) => {
-      const filteredItems = items.filter(item =>
+      const filteredItems = items.filter((item) =>
         contains(item.name as string, query),
       );
       return { title, items: filteredItems };
     })
-    .filter(group => group.items.length);
+    .filter((group) => group.items.length);
   return results;
 }
 
@@ -143,8 +143,8 @@ export default class BasicQuickSearch extends React.Component<Props, State> {
     }
     const restTokens = tokens.slice(0, -1);
     const autocompleteList = mockAutocompleteData
-      .filter(token => token.startsWith(lastToken))
-      .map(token => restTokens.concat([token]).join(' '));
+      .filter((token) => token.startsWith(lastToken))
+      .map((token) => restTokens.concat([token]).join(' '));
     this.setState({
       autocompleteText: autocompleteList[0],
     });

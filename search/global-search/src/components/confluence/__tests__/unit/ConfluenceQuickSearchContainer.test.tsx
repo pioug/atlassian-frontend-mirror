@@ -371,7 +371,7 @@ describe('ConfluenceQuickSearchContainer', () => {
         ...mockCrossProductSearchClient,
         search({ scopes }: SearchParams) {
           // only return items when People scope is set
-          if (scopes.find(s => s === Scope.People)) {
+          if (scopes.find((s) => s === Scope.People)) {
             return mockSingleResultPromise(Scope.People, makePersonResult());
           }
 
@@ -700,7 +700,7 @@ describe('ConfluenceQuickSearchContainer', () => {
     });
 
     it('should not call redirect', () => {
-      const spy = jest.fn(e => e.preventDefault());
+      const spy = jest.fn((e) => e.preventDefault());
       const handleSearchSubmit = mountComponent(spy);
       const mockedEvent = mockEvent();
       handleSearchSubmit(mockedEvent, mockSearchSessionId);

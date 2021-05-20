@@ -10,7 +10,7 @@ const Example = () => {
       {({ onInputChange }) => (
         <UserPicker
           fieldId="example"
-          options={exampleOptions.filter(o => isExternalUser(o))}
+          options={exampleOptions.filter((o) => isExternalUser(o))}
           onChange={console.log}
           onInputChange={onInputChange}
           noOptionsMessage={() => null}

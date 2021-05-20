@@ -45,7 +45,7 @@ const getUsersById = (request: UsersRequest): Promise<User[]> => {
   const url = `${getConfig().getUsersServiceUrl(request.productKey)}`;
 
   let params = new URLSearchParams();
-  request.accountIds.map(id => params.append('accountId', id));
+  request.accountIds.map((id) => params.append('accountId', id));
   params.append('maxResults', '2000');
   return fetch(`${url}?${params}`, {
     method: 'GET',
@@ -54,7 +54,7 @@ const getUsersById = (request: UsersRequest): Promise<User[]> => {
       'content-type': 'application/json',
     },
   })
-    .then(response => {
+    .then((response) => {
       if (response.status === 200) {
         return response.json();
       }
@@ -72,8 +72,8 @@ const getUsersById = (request: UsersRequest): Promise<User[]> => {
 const transformJiraUsers = (userResponse: JiraUserResponse): User[] =>
   userResponse.values
     .map(transformJiraUser)
-    .filter(user => !!user)
-    .map(user => user as User);
+    .filter((user) => !!user)
+    .map((user) => user as User);
 
 const transformJiraUser = (item: JiraUserItem): User | null => {
   if (!item) {
@@ -93,8 +93,8 @@ const transformConfluenceUsers = (
 ): User[] =>
   userResponse.results
     .map(transformConfluenceUser)
-    .filter(user => !!user)
-    .map(user => user as User);
+    .filter((user) => !!user)
+    .map((user) => user as User);
 
 const transformConfluenceUser = (item: ConfluenceUserItem): User | null => {
   if (!item) {

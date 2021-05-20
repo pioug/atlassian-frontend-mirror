@@ -22,7 +22,7 @@ describe('CachingPeopleSearchClient', () => {
     },
   ];
 
-  const expectedResults: Result[] = mockUser.map(person => ({
+  const expectedResults: Result[] = mockUser.map((person) => ({
     resultType: ResultType.PersonResult,
     resultId: 'people-' + person.id,
     name: person.fullName,

@@ -39,7 +39,7 @@ describe('SearchSessionProvider', () => {
     const searchSessionId = children.first().prop('searchSessionId');
 
     expect(children).toHaveLength(3);
-    children.forEach(child => {
+    children.forEach((child) => {
       expect(child.prop('searchSessionId')).toEqual(searchSessionId);
     });
   });

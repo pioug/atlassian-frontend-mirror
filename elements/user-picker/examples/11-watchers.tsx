@@ -76,7 +76,7 @@ export default class Example extends React.PureComponent<Props, State> {
 
   private handleRemoveUser = (toRemove: OptionData) => {
     this.setState(({ value }) => ({
-      value: value.filter(user => user !== toRemove),
+      value: value.filter((user) => user !== toRemove),
     }));
   };
 
@@ -86,7 +86,7 @@ export default class Example extends React.PureComponent<Props, State> {
       <ExampleWrapper>
         {({ options, onInputChange }) => (
           <div>
-            {value.map(user => (
+            {value.map((user) => (
               <UserValue
                 key={user.id}
                 user={user}
@@ -95,7 +95,7 @@ export default class Example extends React.PureComponent<Props, State> {
             ))}
             <UserPicker
               fieldId="example"
-              options={options.filter(user => value.indexOf(user) === -1)}
+              options={options.filter((user) => value.indexOf(user) === -1)}
               value={null}
               onChange={this.handleOnChange}
               onInputChange={onInputChange}

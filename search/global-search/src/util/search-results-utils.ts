@@ -5,9 +5,9 @@ export const appendListWithoutDuplication = <T extends Result>(
   resultsSecond: T[],
 ) => {
   return resultsFirst.concat(
-    resultsSecond.filter(result => {
+    resultsSecond.filter((result) => {
       return (
-        resultsFirst.findIndex(o => {
+        resultsFirst.findIndex((o) => {
           return o.resultId === result.resultId;
         }) === -1
       );

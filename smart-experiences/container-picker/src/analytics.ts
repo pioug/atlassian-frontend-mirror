@@ -195,7 +195,7 @@ function durationSinceInputChange(session?: Session) {
 
 function position(state: ContainerPickerState, value?: ContainerOption) {
   return value
-    ? state.options.findIndex(option => option.value.id === value.value.id)
+    ? state.options.findIndex((option) => option.value.id === value.value.id)
     : -1;
 }
 
@@ -204,7 +204,7 @@ function result(option?: ContainerOption) {
 }
 
 function results(state: ContainerPickerState) {
-  return (state.options || []).map(option =>
+  return (state.options || []).map((option) =>
     optionData2Analytics(option.value),
   );
 }

@@ -85,7 +85,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
         {...messages.unknownUserError}
         values={{ userId: id.slice(-5) }}
       >
-        {message => `@${message}`}
+        {(message) => `@${message}`}
       </FormattedMessage>
     );
   }

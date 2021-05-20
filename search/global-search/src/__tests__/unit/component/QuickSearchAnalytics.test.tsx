@@ -32,7 +32,7 @@ const spyOnComponentDidUpdate = () => {
 
   const spy = jest.fn();
 
-  componentsToWaitFor.forEach(component => {
+  componentsToWaitFor.forEach((component) => {
     const baseComponentDidUpdateImplementation =
       component.prototype.componentDidUpdate;
 
@@ -73,7 +73,7 @@ const findAnalyticEventWithProperties = (
     .reverse()
     .find(([event]) =>
       Object.keys(analyticProperties).every(
-        key => event.payload[key] === (analyticProperties as any)[key],
+        (key) => event.payload[key] === (analyticProperties as any)[key],
       ),
     );
 
@@ -127,7 +127,7 @@ const AB_TEST_DATA = {
 const getRecentItems = (product: string) =>
   product === 'jira' ? JIRA_RECENT_ITEMS : CONFLUENCE_RECENT_ITEMS;
 
-['confluence', 'jira'].forEach(product => {
+['confluence', 'jira'].forEach((product) => {
   describe.skip(`${product} Quick Search Analytics`, () => {
     const updateSpy = spyOnComponentDidUpdate();
     const onEventSpy = jest.fn();
@@ -207,7 +207,7 @@ const getRecentItems = (product: string) =>
     };
 
     const waitForAllUpdates = () =>
-      new Promise(resolve => checkIfNoMoreUpdates(resolve));
+      new Promise((resolve) => checkIfNoMoreUpdates(resolve));
 
     const renderAndWaitForUpdate = async () => {
       const wrapper = renderComponent(onEventSpy);

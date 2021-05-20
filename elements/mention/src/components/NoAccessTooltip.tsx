@@ -9,7 +9,7 @@ type Props = {
 
 export const NoAccessTooltip = ({ name, children }: Props) => (
   <NoAccessWarning name={name}>
-    {text => (
+    {(text) => (
       <Tooltip content={text} position="right">
         {children}
       </Tooltip>

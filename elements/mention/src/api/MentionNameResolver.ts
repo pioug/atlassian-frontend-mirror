@@ -45,7 +45,7 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
       return name;
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const processingItems = this.processingQueue.get(id);
       if (processingItems) {
         this.processingQueue.set(id, [...processingItems, resolve]);
@@ -103,7 +103,7 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
     if (resolvers) {
       this.processingQueue.delete(id);
       this.nameCache.set(id, mentionDetail);
-      resolvers.forEach(resolve => {
+      resolvers.forEach((resolve) => {
         try {
           resolve(mentionDetail);
         } catch {
@@ -124,8 +124,8 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
     this.processingQueue = new Map([...this.processingQueue, ...queue]);
     this.client
       .lookupMentionNames(Array.from(queue.keys()))
-      .then(response => {
-        response.forEach(mentionDetail => {
+      .then((response) => {
+        response.forEach((mentionDetail) => {
           const { id } = mentionDetail;
           queue.delete(id);
           this.resolveQueueItem(mentionDetail);

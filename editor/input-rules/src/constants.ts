@@ -4,3 +4,4 @@
 // This can be used in an input rule regex to be able to include or exclude such nodes.
 export const leafNodeReplacementCharacter = '\ufffc';
 export const TEXT_INPUT_RULE_TRANSACTION_KEY = 'input_rule_plugin_transaction';
+export const MAX_REGEX_MATCH = 500;

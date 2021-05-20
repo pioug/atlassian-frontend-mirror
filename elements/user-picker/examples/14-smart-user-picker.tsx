@@ -44,7 +44,7 @@ type State = {
   confluenceAttributes: ConfluenceAttributes;
 };
 const productsMap = products
-  .map(p => ({ [p.value]: p }))
+  .map((p) => ({ [p.value]: p }))
   .reduce((acc, val) => ({ ...acc, ...val }), {});
 
 const SmartUserPickerCustomizableExample = () => {
@@ -139,7 +139,7 @@ const SmartUserPickerCustomizableExample = () => {
         width={width}
         name={id}
         value={(state[id] as string) || ''}
-        onChange={e => {
+        onChange={(e) => {
           // @ts-ignore
           setState({
             ...state,
@@ -154,7 +154,7 @@ const SmartUserPickerCustomizableExample = () => {
       <label htmlFor="product">Product</label>
       <Select
         width="medium"
-        onChange={selectedValue => {
+        onChange={(selectedValue) => {
           if (selectedValue) {
             setState({
               ...state,
@@ -250,7 +250,7 @@ const SmartUserPickerCustomizableExample = () => {
                   .isEntitledConfluenceExternalCollaborator,
               )}
               id="includeGuests"
-              onChange={e => {
+              onChange={(e) => {
                 // @ts-ignore
                 setState({
                   ...state,
@@ -276,7 +276,7 @@ const SmartUserPickerCustomizableExample = () => {
           <Textfield
             name="workspaceIds"
             value={state.bitbucketAttributes.workspaceIds || ''}
-            onChange={e => {
+            onChange={(e) => {
               setState({
                 ...state,
                 bitbucketAttributes: {
@@ -291,7 +291,7 @@ const SmartUserPickerCustomizableExample = () => {
           <Textfield
             name="emailDomain"
             value={state.bitbucketAttributes.emailDomain || ''}
-            onChange={e => {
+            onChange={(e) => {
               // @ts-ignore
               setState({
                 ...state,
@@ -306,7 +306,7 @@ const SmartUserPickerCustomizableExample = () => {
             <input
               checked={Boolean(state.bitbucketAttributes.isPublicRepo)}
               id="isPublicRepo"
-              onChange={e => {
+              onChange={(e) => {
                 // @ts-ignore
                 setState({
                   ...state,
@@ -349,7 +349,7 @@ const SmartUserPickerCustomizableExample = () => {
               state.bootstrapOptions ? exampleOptions : undefined
             }
             productAttributes={getProductAttributes(state.product)}
-            onError={e => {
+            onError={(e) => {
               console.error(e);
             }}
           />

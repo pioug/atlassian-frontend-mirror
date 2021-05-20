@@ -320,7 +320,7 @@ export class MentionResource
   ): Promise<void> {
     return this.recordSelection(mention, contextIdentifier).then(
       () => {},
-      error => debug(`error recording mention selection: ${error}`, error),
+      (error) => debug(`error recording mention selection: ${error}`, error),
     );
   }
 
@@ -385,7 +385,7 @@ export class MentionResource
     return (Object.keys(contextIdentifier) as Array<
       keyof MentionContextIdentifier
     >)
-      .filter(key => contextIdentifier[key])
+      .filter((key) => contextIdentifier[key])
       .reduce(
         (context, key) => ({
           [key]: contextIdentifier[key],
@@ -494,7 +494,7 @@ export class MentionResource
     result: MentionsResult,
     query: string,
   ): MentionsResult {
-    const mentions = result.mentions.map(mention => {
+    const mentions = result.mentions.map((mention) => {
       let lozenge: string | undefined;
       if (isAppMention(mention)) {
         lozenge = mention.userType;

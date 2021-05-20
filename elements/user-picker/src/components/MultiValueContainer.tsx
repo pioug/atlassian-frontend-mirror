@@ -78,7 +78,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
   private addPlaceholder = (placeholder: string) =>
     React.Children.map<React.ReactChild, React.ReactChild>(
       this.props.children,
-      child =>
+      (child) =>
         isChildInput(child) && this.showPlaceholder()
           ? React.cloneElement(child, { placeholder })
           : child,
@@ -95,7 +95,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
     if (addMoreMessage === undefined) {
       return (
         <FormattedMessage {...messages.addMore}>
-          {addMore => this.addPlaceholder(addMore as string)}
+          {(addMore) => this.addPlaceholder(addMore as string)}
         </FormattedMessage>
       );
     }

@@ -33,9 +33,9 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
   static defaultProps: Partial<Props> = {
     type: 'base',
     context: {
-      registerResult: result => {},
-      unregisterResult: result => {},
-      onMouseEnter: resultData => {},
+      registerResult: (result) => {},
+      unregisterResult: (result) => {},
+      onMouseEnter: (resultData) => {},
       onMouseLeave: () => {},
       // @ts-ignore
       sendAnalytics: (string, data) => {},
@@ -123,7 +123,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 
     return (
       <SelectedResultIdContext.Consumer>
-        {selectedResultId => (
+        {(selectedResultId) => (
           <ResultItem
             caption={caption}
             href={href}
@@ -149,6 +149,6 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 
 export default (props: Props) => (
   <ResultContext.Consumer>
-    {context => <ResultBase context={context} {...props} />}
+    {(context) => <ResultBase context={context} {...props} />}
   </ResultContext.Consumer>
 );

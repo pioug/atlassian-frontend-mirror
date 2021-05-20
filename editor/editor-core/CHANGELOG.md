@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 143.1.2
+
+### Patch Changes
+
+- [`312a2810b0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/312a2810b0b) - [ux] ED-12931 Fix input rules replacing text outside of matched word in a long paragraph
+
+## 143.1.1
+
+### Patch Changes
+
+- [`8efef26a27e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8efef26a27e) - [COLLAB-683] Fix editor collab plugin to always call the send function from collab provider when the native collab is enabled
+
+  # Why?
+
+  The new collab service uses the sendableSteps stored
+  at the `prosemirror-collab` plugin. There is no need for Editor
+  to stop this to been called.
+
 ## 143.1.0
 
 ### Minor Changes

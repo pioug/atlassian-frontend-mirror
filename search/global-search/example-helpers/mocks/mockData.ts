@@ -346,12 +346,12 @@ export function makeCrossProductSearchData(
       (result.space && result.space.key === filteredSpaceKey);
 
     const filteredConfResults = confData.filter(
-      result =>
+      (result) =>
         result.title.toLowerCase().indexOf(term) > -1 &&
         applySpaceFilter(result),
     );
 
-    const filteredJiraIssueResults = jiraObjects.filter(result => {
+    const filteredJiraIssueResults = jiraObjects.filter((result) => {
       const resultV1 = result as JiraItemV1;
       if (resultV1.fields && resultV1.fields.summary) {
         return resultV1.fields.summary.toLowerCase().indexOf(term) > -1;
@@ -360,34 +360,34 @@ export function makeCrossProductSearchData(
     });
 
     const filteredJiraContainerResults = jiraContainers.filter(
-      result =>
+      (result) =>
         (<JiraItemV2>result).name.toLocaleLowerCase().indexOf(term) > -1,
     );
 
-    const filteredNavResults = navResults.filter(result =>
+    const filteredNavResults = navResults.filter((result) =>
       result.query.toLocaleLowerCase().startsWith(term),
     );
 
     const filteredSpaceResults = spaceFilter
       ? []
       : confSpaceData.filter(
-          result => result.container.title.toLowerCase().indexOf(term) > -1,
+          (result) => result.container.title.toLowerCase().indexOf(term) > -1,
         );
 
     const filteredConfResultsWithAttachments = confDataWithAttachments.filter(
-      result =>
+      (result) =>
         result.title.toLowerCase().indexOf(term) > -1 &&
         applySpaceFilter(result),
     );
 
     const filteredPeopleResults = spaceFilter
       ? []
-      : peopleData.filter(item => item.name.toLowerCase().indexOf(term) > -1);
+      : peopleData.filter((item) => item.name.toLowerCase().indexOf(term) > -1);
 
     const filteredUrsPeopleResults = spaceFilter
       ? []
       : ursPeopleData.filter(
-          item => item.name.toLowerCase().indexOf(term) > -1,
+          (item) => item.name.toLowerCase().indexOf(term) > -1,
         );
 
     const abTest = {
@@ -496,7 +496,7 @@ export function makeCrossProductExperimentData(
   ];
 
   return (scopeNames: string[]) => ({
-    scopes: allScopes.filter(scope => scopeNames.includes(scope.id)),
+    scopes: allScopes.filter((scope) => scopeNames.includes(scope.id)),
   });
 }
 
@@ -519,7 +519,7 @@ export function makePeopleSearchData(
   return (term: string) => {
     term = term.toLowerCase();
     const filteredItems = items.filter(
-      item => item.fullName.toLowerCase().indexOf(term) > -1,
+      (item) => item.fullName.toLowerCase().indexOf(term) > -1,
     );
 
     return {
@@ -560,11 +560,11 @@ export function makeConfluenceRecentSpacesData(n: number = 15) {
 }
 
 export function makeAutocompleteData(): string[] {
-  const tokensPerPhrase: string[][] = mockCatchPhrases.map(phrase =>
+  const tokensPerPhrase: string[][] = mockCatchPhrases.map((phrase) =>
     phrase.split(/\W+/),
   );
   const tokens = tokensPerPhrase
     .reduce((acc, val) => acc.concat(val), [])
-    .map(token => token.toLowerCase());
+    .map((token) => token.toLowerCase());
   return [...new Set(tokens)];
 }

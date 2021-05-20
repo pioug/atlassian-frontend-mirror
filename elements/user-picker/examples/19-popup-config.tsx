@@ -7,7 +7,7 @@ import { PopupUserPicker } from '../src';
 
 export const MenuPlaceholder = styled.div`
   min-width: ${12}px;
-  visibility: ${props => (props ? 'visible' : 'hidden')};
+  visibility: ${(props) => (props ? 'visible' : 'hidden')};
   margin-left: ${4}px;
   position: relative;
 `;
@@ -79,7 +79,7 @@ type PopupState = {
 };
 
 const getSelectItems = <Option,>(options: Option[]) =>
-  options.map(option => ({
+  options.map((option) => ({
     label: option,
     value: option,
   }));
@@ -109,7 +109,7 @@ const Example = () => {
             <Select
               options={getSelectItems<Placement>(placementOptions)}
               defaultValue={state.placement}
-              onChange={value =>
+              onChange={(value) =>
                 value &&
                 setState({
                   ...state,
@@ -131,7 +131,7 @@ const Example = () => {
             <Select
               options={getSelectItems(boundariesElementOptions)}
               defaultValue={state.boundariesElement}
-              onChange={value =>
+              onChange={(value) =>
                 value &&
                 setState({
                   ...state,
@@ -175,7 +175,7 @@ const Example = () => {
           <input
             checked={Boolean(state.shouldFlip)}
             id="shouldFlip"
-            onChange={e => {
+            onChange={(e) => {
               // @ts-ignore
               setState({
                 ...state,

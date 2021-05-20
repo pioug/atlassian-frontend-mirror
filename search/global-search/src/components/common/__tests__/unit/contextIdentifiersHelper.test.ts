@@ -106,13 +106,13 @@ describe('searchSessionUtils', () => {
       confluenceBaseResults,
     );
 
-    expect(objects.items.map(o => o.href)).toEqual([
+    expect(objects.items.map((o) => o.href)).toEqual([
       'http://localhost/?search_id=searchSessionId',
     ]);
-    expect(spaces.items.map(o => o.href)).toEqual([
+    expect(spaces.items.map((o) => o.href)).toEqual([
       'http://localhost/?search_id=searchSessionId',
     ]);
-    expect(people.items.map(o => o.href)).toEqual(['http://localhost/']);
+    expect(people.items.map((o) => o.href)).toEqual(['http://localhost/']);
   });
 
   it('attaches the search session id and others in jira', () => {
@@ -121,13 +121,13 @@ describe('searchSessionUtils', () => {
       getJiraBaseResults(),
     );
 
-    expect(objects.map(o => o.href)).toEqual([
+    expect(objects.map((o) => o.href)).toEqual([
       'http://localhost/?searchSessionId=searchSessionId&searchContainerId=containerId&searchContentType=issue&searchObjectId=resultId',
     ]);
-    expect(containers.map(o => o.href)).toEqual([
+    expect(containers.map((o) => o.href)).toEqual([
       'http://localhost/?searchSessionId=searchSessionId&searchContainerId=containerId&searchContentType=project&searchObjectId=resultId',
     ]);
-    expect(people.map(o => o.href)).toEqual(['http://localhost/']);
+    expect(people.map((o) => o.href)).toEqual(['http://localhost/']);
   });
 
   it('attaches everything but not the container id jira', () => {
@@ -136,12 +136,12 @@ describe('searchSessionUtils', () => {
       getJiraBaseResults({ containerId: undefined }),
     );
 
-    expect(objects.map(o => o.href)).toEqual([
+    expect(objects.map((o) => o.href)).toEqual([
       'http://localhost/?searchSessionId=searchSessionId&searchContentType=issue&searchObjectId=resultId',
     ]);
-    expect(containers.map(o => o.href)).toEqual([
+    expect(containers.map((o) => o.href)).toEqual([
       'http://localhost/?searchSessionId=searchSessionId&searchContentType=project&searchObjectId=resultId',
     ]);
-    expect(people.map(o => o.href)).toEqual(['http://localhost/']);
+    expect(people.map((o) => o.href)).toEqual(['http://localhost/']);
   });
 });

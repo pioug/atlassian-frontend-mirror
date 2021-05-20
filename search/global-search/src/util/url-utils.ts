@@ -24,7 +24,7 @@ export const addQueryParam = (
   const existingQueries = queryString.split('&');
 
   const newQueryString = existingQueries
-    .filter(query => {
+    .filter((query) => {
       // If the query already exists we will replace it with the new one so we filter it out here
       return !query.startsWith(`${encodedQueryName}=`);
     })

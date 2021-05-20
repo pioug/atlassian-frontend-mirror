@@ -93,9 +93,9 @@ const getRecentItemMatches = (
   }
 
   const issueKeyMatches = recentItems.objects.filter(
-    result => result.objectKey && containsQuery(result.objectKey, query),
+    (result) => result.objectKey && containsQuery(result.objectKey, query),
   );
-  const titleMatches = recentItems.objects.filter(result =>
+  const titleMatches = recentItems.objects.filter((result) =>
     containsQuery(result.name, query),
   );
 
@@ -432,7 +432,7 @@ export class JiraQuickSearchContainer extends React.Component<
       return handlePromiseError<Result[]>(
         peoplePromise,
         [] as Result[],
-        error =>
+        (error) =>
           this.props.logger.safeError(
             LOGGER_NAME,
             'error in recently interacted people promise',
@@ -456,7 +456,7 @@ export class JiraQuickSearchContainer extends React.Component<
         mapItemToResult: (_: Scope, item: SearchItem) =>
           mapJiraItemToResult(AnalyticsType.RecentJira)(item as JiraItem),
       })
-      .then(xpRecentResults => {
+      .then((xpRecentResults) => {
         const objects = xpRecentResults.results[Scope.JiraIssue];
         const containers =
           xpRecentResults.results[Scope.JiraBoardProjectFilter];
@@ -467,7 +467,7 @@ export class JiraQuickSearchContainer extends React.Component<
           people: [],
         };
       })
-      .catch(error => {
+      .catch((error) => {
         this.props.logger.safeError(
           LOGGER_NAME,
           'error in recent Jira items promise',
@@ -492,7 +492,7 @@ export class JiraQuickSearchContainer extends React.Component<
       return handlePromiseError(
         this.props.jiraClient.canSearchUsers(),
         false,
-        error =>
+        (error) =>
           this.props.logger.safeError(
             LOGGER_NAME,
             'error fetching browse user permission',
@@ -505,7 +505,7 @@ export class JiraQuickSearchContainer extends React.Component<
   getRecentItems = (): PartiallyLoadedRecentItems<JiraResultsMap> => {
     return {
       eagerRecentItemsPromise: this.getJiraRecentItems().then(
-        results => ({ results } as ResultsWithTiming<JiraResultsMap>),
+        (results) => ({ results } as ResultsWithTiming<JiraResultsMap>),
       ),
       lazyLoadedRecentItemsPromise: Promise.all([
         this.getRecentlyInteractedPeople(),

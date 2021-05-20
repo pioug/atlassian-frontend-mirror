@@ -13,9 +13,9 @@ export type EmailOptionProps = {
   emailValidity: EmailValidationResponse;
 };
 
-const getAddEmailMessage: (
-  validity: EmailValidationResponse,
-) => any = validity =>
+const getAddEmailMessage: (validity: EmailValidationResponse) => any = (
+  validity,
+) =>
   validity === 'POTENTIAL'
     ? messages.continueToAddEmail
     : messages.selectToAddEmail;
@@ -53,7 +53,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
       this.renderOption(label, emailValidity, email.suggestion)
     ) : (
       <FormattedMessage {...getAddEmailMessage(emailValidity)}>
-        {label =>
+        {(label) =>
           this.renderOption(label as string, emailValidity, email.suggestion)
         }
       </FormattedMessage>

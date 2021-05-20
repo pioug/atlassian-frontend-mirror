@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 6.4.0
+
+### Minor Changes
+
+- [`8efef26a27e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8efef26a27e) - [COLLAB-683] Removed debounce and throttle from Collab Provider due to sync delay on Confluence
+
 ## 6.3.1
 
 ### Patch Changes

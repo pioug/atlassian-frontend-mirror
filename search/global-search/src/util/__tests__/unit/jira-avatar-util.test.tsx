@@ -29,7 +29,7 @@ describe('Default Jira Avatar', () => {
   });
 
   [null, undefined, ContentType.ConfluencePage].forEach(
-    notValidJiraContentType => {
+    (notValidJiraContentType) => {
       it('should return null for unsupported content types', () => {
         const avatar = getDefaultAvatar(notValidJiraContentType as ContentType);
         expect(avatar).toBe(null);

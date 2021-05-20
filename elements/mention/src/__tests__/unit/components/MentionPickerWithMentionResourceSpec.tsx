@@ -61,7 +61,7 @@ describe('MentionPicker', () => {
   it('should fire analytics when new mention data is fetched', () => {
     mentionResource.notify(Date.now(), mentionsResult, query);
 
-    return new Promise(resolve => window.setTimeout(resolve)).then(() => {
+    return new Promise((resolve) => window.setTimeout(resolve)).then(() => {
       expect(fireAnalyticsMock).toHaveBeenCalled();
 
       const firstArgument = fireAnalyticsMock.mock.calls[0][0];

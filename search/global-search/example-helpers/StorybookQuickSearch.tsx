@@ -90,7 +90,7 @@ export default class WithNavigation extends React.Component<Props, State> {
     return (
       <RadioGroup>
         <b>Context:</b>
-        {availableContext.map(context => (
+        {availableContext.map((context) => (
           <RadioWithLabel
             key={context}
             value={context}
@@ -152,7 +152,7 @@ export default class WithNavigation extends React.Component<Props, State> {
     return (
       <RadioGroup>
         <b>Connect to:</b>
-        {Object.keys(presetConfig).map(key => {
+        {Object.keys(presetConfig).map((key) => {
           return (
             <RadioWithLabel
               key={`config_${key}`}

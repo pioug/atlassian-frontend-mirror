@@ -34,7 +34,9 @@ export const buildAnalyticsPayload = (
   payload?: any,
 ): GasPurePayload => {
   return {
+    action: 'collab',
     actionSubject: subject,
+    source: 'unknown',
     attributes: {
       packageName: ATTRIBUTES_PACKAGE,
       payload,

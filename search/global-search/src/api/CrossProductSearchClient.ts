@@ -233,7 +233,7 @@ export default class CachingCrossProductSearchClientImpl
     });
 
     const matchingScope: ScopeResult | undefined = results.scopes.find(
-      scope => scope.id === Scope.NavSearchCompleteConfluence,
+      (scope) => scope.id === Scope.NavSearchCompleteConfluence,
     );
 
     const matchingDocuments = matchingScope ? matchingScope.results : [];
@@ -392,7 +392,7 @@ export default class CachingCrossProductSearchClientImpl
     );
 
     const scopeWithAbTest: Experiment | undefined = response.scopes.find(
-      s => s.id === scope,
+      (s) => s.id === scope,
     );
 
     const abTestPromise = scopeWithAbTest
@@ -433,9 +433,9 @@ export default class CachingCrossProductSearchClientImpl
   ): CrossProductSearchResults {
     let abTest: ABTest | undefined;
     const results: SearchResultsMap = response.scopes
-      .filter(scope => scope.results)
+      .filter((scope) => scope.results)
       .reduce((resultsMap, scopeResult) => {
-        const items = scopeResult.results.map(result =>
+        const items = scopeResult.results.map((result) =>
           mapItemToResult(scopeResult.id as Scope, result),
         );
 
@@ -533,5 +533,5 @@ function mapContextToScopes(context: QuickSearchContext) {
 }
 
 function areAllScopesInCache(scopes: Scope[], cache: SearchResultsMap) {
-  return scopes.filter(scope => cache[scope] === undefined).length === 0;
+  return scopes.filter((scope) => cache[scope] === undefined).length === 0;
 }

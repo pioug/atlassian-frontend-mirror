@@ -245,8 +245,8 @@ class SmartMentionResource extends AbstractMentionResource {
   ): MentionDescription[] {
     return (recommendationItems || [])
       .map(this.transformUserToMention, this)
-      .filter(user => !!user)
-      .map(user => user as MentionDescription);
+      .filter((user) => !!user)
+      .map((user) => user as MentionDescription);
   }
 }
 

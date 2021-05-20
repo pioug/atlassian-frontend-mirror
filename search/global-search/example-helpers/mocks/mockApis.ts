@@ -54,7 +54,7 @@ export const DEFAULT_MOCKS_CONFIG: MocksConfig = {
 };
 
 function delay<T>(millis: number, value?: T): Promise<T> {
-  return new Promise(resolve =>
+  return new Promise((resolve) =>
     window.setTimeout(() => resolve(value), millis),
   );
 }
@@ -172,10 +172,10 @@ function mockAutocompleteApi(delayMs: number, autocomplete: string[]) {
       }
       const restTokens = tokens.slice(0, -1);
       const autocompleteList = autocomplete
-        .filter(token =>
+        .filter((token) =>
           token.toLowerCase().startsWith(lastToken.toLowerCase()),
         )
-        .map(token => restTokens.concat([token]).join(' '));
+        .map((token) => restTokens.concat([token]).join(' '));
       return delay(delayMs, autocompleteList);
     },
   );

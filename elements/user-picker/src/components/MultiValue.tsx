@@ -103,7 +103,7 @@ export class MultiValue extends React.Component<Props> {
         <AddOptionAvatar size="small" label={selectProps.emailLabel} />
       ) : (
         <FormattedMessage {...messages.addEmail}>
-          {label => <AddOptionAvatar size="small" label={label as string} />}
+          {(label) => <AddOptionAvatar size="small" label={label as string} />}
         </FormattedMessage>
       );
     }
@@ -137,7 +137,7 @@ export class MultiValue extends React.Component<Props> {
     return (
       <div ref={this.containerRef}>
         <FormattedMessage {...messages.remove}>
-          {remove => (
+          {(remove) => (
             <TagContainer>
               <Tag
                 {...innerProps}

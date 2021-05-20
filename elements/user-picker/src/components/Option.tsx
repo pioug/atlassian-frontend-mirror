@@ -56,6 +56,6 @@ const dataOption = ({
   return null;
 };
 
-export const Option: FC<OptionProps> = props => (
+export const Option: FC<OptionProps> = (props) => (
   <components.Option {...(props as any)}>{dataOption(props)}</components.Option>
 );

@@ -41,7 +41,7 @@ const defaultReferralContext = {
 type GenericResultMap = JiraResultsMap | ConfluenceResultsMap;
 
 const mapToResultGroup = (resultMap: GenericResultMap): ResultsGroup[] =>
-  Object.keys(resultMap).map(key => ({
+  Object.keys(resultMap).map((key) => ({
     key,
     title: `title_${key}` as any,
     items: resultMap[key] as any[],
@@ -149,7 +149,7 @@ describe('QuickSearchContainer', () => {
     expect(lastCall).toMatchObject([
       expect.objectContaining({
         resultCount: Object.keys(recentItems)
-          .map(key => recentItems[key])
+          .map((key) => recentItems[key])
           .reduce((acc, arr) => acc + arr.length, 0),
         resultSectionCount: Object.keys(recentItems).length,
       }),
@@ -181,7 +181,7 @@ describe('QuickSearchContainer', () => {
     expect(lastCall).toMatchObject([
       expect.objectContaining({
         resultCount: Object.keys(searchResults)
-          .map(key => searchResults[key])
+          .map((key) => searchResults[key])
           .reduce((acc, arr) => acc + arr.length, 0),
         resultSectionCount: Object.keys(searchResults).length,
       }),
@@ -309,12 +309,12 @@ describe('QuickSearchContainer', () => {
 
       const eagerRecentItemsPromise: Promise<ResultsWithTiming<
         GenericResultMap
-      >> = new Promise(resolve => {
+      >> = new Promise((resolve) => {
         eagerResolveFn = () => resolve({ results: recentItems as any });
       });
       const lazyLoadedRecentItemsPromise: Promise<Partial<
         GenericResultMap
-      >> = new Promise(resolve => {
+      >> = new Promise((resolve) => {
         lazyResolveFn = () => resolve(lazyLoadedRecentItems as any);
       });
 

@@ -2,6 +2,7 @@ import type { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 
 import {
   leafNodeReplacementCharacter,
+  MAX_REGEX_MATCH,
   TEXT_INPUT_RULE_TRANSACTION_KEY,
 } from './constants';
 import type {
@@ -12,8 +13,6 @@ import type {
   OnBeforeRegexMatch,
   OnInputEvent,
 } from './types';
-
-const MAX_MATCH = 500;
 
 type Options = {
   pluginKey: PluginKey;
@@ -46,7 +45,7 @@ export const createInputEventHandler = ({
 
   const textBefore =
     $from.parent.textBetween(
-      Math.max(0, $from.parentOffset - MAX_MATCH),
+      Math.max(0, $from.parentOffset - MAX_REGEX_MATCH),
       $from.parentOffset,
       undefined,
       leafNodeReplacementCharacter,
@@ -110,7 +109,11 @@ function findMatchOnRules({
     }
 
     const parentNodeStartAt = state.selection.$from.start();
-    const fromFixed = Math.max(parentNodeStartAt + match.index, 1);
+    const offset = Math.max(
+      0,
+      state.selection.$from.parentOffset - MAX_REGEX_MATCH,
+    );
+    const fromFixed = Math.max(parentNodeStartAt + match.index + offset, 1);
     const transform: Transaction | null = rule.handler(
       state,
       match,

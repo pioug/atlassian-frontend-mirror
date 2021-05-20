@@ -32,7 +32,7 @@ describe('CachingConfluenceClient', () => {
 
   const prefetchedResults: ConfluenceRecentsMap = {
     objects: {
-      items: pages.map(page => ({
+      items: pages.map((page) => ({
         resultId: page.id + '',
         name: page.title || '',
         href: `${DUMMY_CONFLUENCE_HOST}${page.url}`,
@@ -48,7 +48,7 @@ describe('CachingConfluenceClient', () => {
       totalSize: pages.length,
     },
     spaces: {
-      items: spaces.map(space => ({
+      items: spaces.map((space) => ({
         resultId: space.id,
         name: space.name,
         href: `${DUMMY_CONFLUENCE_HOST}/spaces/${space.key}/overview`,

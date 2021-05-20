@@ -390,7 +390,7 @@ describe('SmartUserPicker', () => {
       throw mockError;
     });
 
-    const onValueError = jest.fn(error => {
+    const onValueError = jest.fn((error) => {
       expect(error).toEqual(mockError);
       return Promise.resolve(mockOnValueErrorDefaultValues);
     });
@@ -484,10 +484,12 @@ describe('SmartUserPicker', () => {
 
       if (query === 'a') {
         const empty = queries.get('');
-        return Promise.resolve(mockConfluenceGuestUserOptions).then(results => {
-          setTimeout(() => empty?.resolve([]), 0);
-          return results;
-        });
+        return Promise.resolve(mockConfluenceGuestUserOptions).then(
+          (results) => {
+            setTimeout(() => empty?.resolve([]), 0);
+            return results;
+          },
+        );
       }
 
       return Promise.resolve([]);
@@ -563,7 +565,7 @@ describe('SmartUserPicker', () => {
       Promise.resolve(mockReturnOptions),
     );
     const filterOptions = jest.fn((options: OptionData[]) => {
-      return options.filter(option => option.type === 'user');
+      return options.filter((option) => option.type === 'user');
     });
 
     let component = smartUserPickerWrapper({ filterOptions });
@@ -609,7 +611,7 @@ describe('SmartUserPicker', () => {
       throw mockError;
     });
     const filterOptions = jest.fn(() => mockReturnOptions);
-    const onError = jest.fn(error => {
+    const onError = jest.fn((error) => {
       expect(error).toEqual(mockError);
       return Promise.resolve(mockReturnOptions);
     });
@@ -844,7 +846,7 @@ describe('SmartUserPicker', () => {
         isEntitledConfluenceExternalCollaborator: false,
       };
       const filterOptions = jest.fn((options: OptionData[]) => {
-        return options.filter(option => option.type === 'user');
+        return options.filter((option) => option.type === 'user');
       });
       component = mountWithIntl(
         AnalyticsTestComponent({ filterOptions, productAttributes }),

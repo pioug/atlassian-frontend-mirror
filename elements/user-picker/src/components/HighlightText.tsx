@@ -31,7 +31,7 @@ export class HighlightText extends React.PureComponent<Props> {
           }
           return highlights;
         }, [])
-        .forEach(highlight => {
+        .forEach((highlight) => {
           const { start, end } = highlight;
           if (start >= end) {
             return;

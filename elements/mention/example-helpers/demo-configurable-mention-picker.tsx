@@ -15,7 +15,7 @@ const toJavascriptString = (obj: object | string | any[]) => {
       return arrString;
     }
     let objString = '{\n';
-    (Object.keys(obj) as (keyof typeof obj)[]).forEach(key => {
+    (Object.keys(obj) as (keyof typeof obj)[]).forEach((key) => {
       objString += `  ${key}: ${toJavascriptString(obj[key])},\n`;
     });
     objString += '}';
@@ -54,9 +54,9 @@ export default class ConfigurableMentionPicker extends React.Component<
     });
   }
 
-  mentionConfigChange: React.ChangeEventHandler<
-    HTMLTextAreaElement
-  > = event => {
+  mentionConfigChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    event,
+  ) => {
     // eslint-disable-next-line no-eval
     const config = eval(`( () => (${event.target.value}) )()`);
     this.refreshMentions(config);

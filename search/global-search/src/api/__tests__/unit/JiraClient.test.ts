@@ -73,7 +73,7 @@ describe('JiraClient', () => {
       expect(requestSpy).toHaveBeenCalledTimes(1);
     });
 
-    EXCEPTION_CASES.forEach(exceptionImpl => {
+    EXCEPTION_CASES.forEach((exceptionImpl) => {
       it('should throw exception if request fails', async () => {
         requestSpy.mockImplementation(exceptionImpl);
         try {
@@ -180,7 +180,7 @@ describe('JiraClient', () => {
       expect(requestSpy).toHaveBeenCalledTimes(0);
     });
 
-    EXCEPTION_CASES.forEach(mockImpl => {
+    EXCEPTION_CASES.forEach((mockImpl) => {
       it('should throws exception on error calling request', async () => {
         requestSpy.mockImplementation(mockImpl);
         try {
@@ -280,7 +280,7 @@ describe('JiraClient', () => {
         const boardObjectKeys = result
           .filter(({ contentType }) => contentType === ContentType.JiraBoard)
           .map(({ objectKey }) => objectKey);
-        boardObjectKeys.forEach(key => expect(key).toBeUndefined());
+        boardObjectKeys.forEach((key) => expect(key).toBeUndefined());
       });
     });
   });

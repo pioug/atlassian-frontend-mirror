@@ -66,10 +66,10 @@ const getSearchResultsEvent = (
       ...timings,
       searchSessionId: expect.any(String),
       resultCount: sections
-        .map(section => section.resultsCount)
+        .map((section) => section.resultsCount)
         .reduce((acc: number, value: number) => acc + value, 0),
       resultSectionCount: sections.length,
-      resultContext: sections.map(section => ({
+      resultContext: sections.map((section) => ({
         sectionId: section.id,
         results: generateResults(section),
       })),

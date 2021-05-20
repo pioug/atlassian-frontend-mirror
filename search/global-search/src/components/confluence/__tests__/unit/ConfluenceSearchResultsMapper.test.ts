@@ -100,13 +100,13 @@ const searchSessionId = 'searchSessionId';
 
         const groups = mapper(recentResultsMap, features, searchSessionId);
         expect(groups.length).toBe(3);
-        expect(groups.map(group => group.key)).toEqual([
+        expect(groups.map((group) => group.key)).toEqual([
           'objects',
           'spaces',
           'people',
         ]);
 
-        expect(groups.map(group => group.items.length)).toEqual([
+        expect(groups.map((group) => group.items.length)).toEqual([
           objectsCount || 0,
           spacesCount || 0,
           peopleCount || 0,
@@ -121,7 +121,7 @@ const searchSessionId = 'searchSessionId';
         spacesCount: MAX_SPACES + 4,
       });
       const groups = mapper(recentResultsMap, features, searchSessionId);
-      expect(groups.map(group => group.items.length)).toEqual([
+      expect(groups.map((group) => group.items.length)).toEqual([
         DEFAULT_MAX_OBJECTS,
         MAX_SPACES,
         MAX_PEOPLE,
@@ -138,7 +138,7 @@ const searchSessionId = 'searchSessionId';
       });
 
       const checkResultCounts = (groups: ResultsGroup[], expected: number) => {
-        expect(groups.map(group => group.items.length)).toEqual([
+        expect(groups.map((group) => group.items.length)).toEqual([
           expected,
           MAX_SPACES,
           MAX_PEOPLE,

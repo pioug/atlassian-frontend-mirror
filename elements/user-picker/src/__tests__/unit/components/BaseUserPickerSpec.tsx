@@ -408,7 +408,7 @@ describe('BaseUserPicker', () => {
     afterEach(() => jest.useRealTimers());
 
     it('should load users when picker open', () => {
-      const usersPromise = new Promise<User[]>(resolve =>
+      const usersPromise = new Promise<User[]>((resolve) =>
         window.setTimeout(() => resolve(options), 500),
       );
       const loadOptions = jest.fn(() => usersPromise);
@@ -427,8 +427,8 @@ describe('BaseUserPicker', () => {
     describe('onInputChange', () => {
       it.each([['input-change'], ['set-value']])(
         'should load users on input change with action "%s"',
-        action => {
-          const usersPromise = new Promise<User[]>(resolve =>
+        (action) => {
+          const usersPromise = new Promise<User[]>((resolve) =>
             window.setTimeout(() => resolve(options), 500),
           );
           const loadOptions = jest.fn(() => usersPromise);
@@ -461,10 +461,10 @@ describe('BaseUserPicker', () => {
             publicName: 'svalue2',
           },
         ];
-        const promise1 = new Promise<User[]>(resolve =>
+        const promise1 = new Promise<User[]>((resolve) =>
           window.setTimeout(() => resolve(options), 500),
         );
-        const promise2 = new Promise<User[]>(resolve =>
+        const promise2 = new Promise<User[]>((resolve) =>
           window.setTimeout(() => resolve(options2), 1000),
         );
         const loadOptions = (search?: string) =>
@@ -492,7 +492,7 @@ describe('BaseUserPicker', () => {
         const usersPromise = new Promise<User[]>((_, reject) =>
           window.setTimeout(() => reject('Bad loadOptions'), 500),
         );
-        const longerPromise = new Promise(resolve =>
+        const longerPromise = new Promise((resolve) =>
           window.setTimeout(() => resolve(1), 1000),
         );
         const loadOptions = jest.fn(() => usersPromise);
@@ -527,7 +527,7 @@ describe('BaseUserPicker', () => {
       });
 
       it('should debounce input change events', () => {
-        const usersPromise = new Promise<User[]>(resolve =>
+        const usersPromise = new Promise<User[]>((resolve) =>
           window.setTimeout(() => resolve(options), 500),
         );
         const loadOptions = jest.fn(() => usersPromise);
@@ -1643,7 +1643,7 @@ describe('BaseUserPicker', () => {
       describe('PII checks', () => {
         it('should set invalid ids as null for events containing ids fired when option is clicked', () => {
           const invalidOption = mixedOptions.find(
-            value => value.id === INVALID_ID_1,
+            (value) => value.id === INVALID_ID_1,
           );
           if (invalidOption) {
             component.setProps({ options: mixedOptions, value: invalidOption });
@@ -1694,7 +1694,7 @@ describe('BaseUserPicker', () => {
         it('should set invalid ids as null for events fired when selected values are cleared', () => {
           // clear event only fired for single pickers
           const invalidOption = mixedOptions.find(
-            value => value.id === INVALID_ID_1,
+            (value) => value.id === INVALID_ID_1,
           );
           if (invalidOption) {
             component.setProps({
@@ -1732,9 +1732,9 @@ describe('BaseUserPicker', () => {
         });
 
         it('should set invalid ids as null for events fired when selected user is removed', () => {
-          const validOption = mixedOptions.find(value => value.id === ID_1);
+          const validOption = mixedOptions.find((value) => value.id === ID_1);
           const invalidOption = mixedOptions.find(
-            value => value.id === INVALID_ID_1,
+            (value) => value.id === INVALID_ID_1,
           );
           if (validOption && invalidOption) {
             component.setProps({
@@ -1781,7 +1781,7 @@ describe('BaseUserPicker', () => {
          * Please add this check when testing for event firing.
          */
         const checkForPII = (mockOnEvent: jest.Mock) => {
-          mockOnEvent.mock.calls.map(args => {
+          mockOnEvent.mock.calls.map((args) => {
             // payload is always the first argument
             const payloadString = JSON.stringify(args[0]);
             // check against defined mock users

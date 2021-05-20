@@ -59,7 +59,7 @@ const getUserRecommendations = (
       },
     }),
   })
-    .then(response => {
+    .then((response) => {
       if (response.status === 200) {
         return response.json();
       }
@@ -67,7 +67,7 @@ const getUserRecommendations = (
         message: `error calling smart service, statusCode=${response.status}, statusText=${response.statusText}`,
       });
     })
-    .then(response => transformUsers(response, intl));
+    .then((response) => transformUsers(response, intl));
 };
 
 export default getUserRecommendations;

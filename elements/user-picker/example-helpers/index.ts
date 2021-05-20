@@ -18,5 +18,5 @@ export const assignToMe = { id: 'assign-me', name: 'Assign to me' };
 
 export const filterUsers = (searchText: string): OptionData[] =>
   exampleOptions.filter(
-    user => user.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1,
+    (user) => user.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1,
   );

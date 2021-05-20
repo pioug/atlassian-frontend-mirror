@@ -13,7 +13,7 @@ describe('handlePromiseError', () => {
     const defaultValue = 80;
 
     return handlePromiseError(promise, defaultValue, errorHandlerMock).then(
-      value => {
+      (value) => {
         expect(value).toBe(promiseValue);
         expect(errorHandlerMock.mock.calls.length).toBe(0);
       },
@@ -26,7 +26,7 @@ describe('handlePromiseError', () => {
     const defaultValue = 80;
     // @ts-ignore
     return handlePromiseError(promise, defaultValue, errorHandlerMock).then(
-      value => {
+      (value) => {
         expect(value).toBe(defaultValue);
         expect(errorHandlerMock.mock.calls.length).toBe(1);
       },
@@ -41,10 +41,10 @@ describe('handlePromiseError', () => {
     const defaultValue = 80;
     // @ts-ignore
     return handlePromiseError(promise, defaultValue, errorHandlerMock)
-      .then(value => {
+      .then((value) => {
         expect(value).toBe(defaultValue);
       })
-      .catch(error => {
+      .catch((error) => {
         throw new Error(
           'should never throw exception and never reach the catch block',
         );
@@ -78,7 +78,7 @@ describe('JiraIssueAdvancedSearchUrl method', () => {
     expect(url).toBe('/jira/people/search?q=PK');
   });
 
-  ['12', ' 33 '].forEach(query => {
+  ['12', ' 33 '].forEach((query) => {
     it('should return GIN url with numeric queries', () => {
       const issueUrl = getJiraAdvancedSearchUrl({
         entityType: JiraEntityTypes.Issues,
@@ -104,7 +104,7 @@ describe('redirectToJiraIssueAdvancedSearch', () => {
     window.location = originalWindowLocation;
   });
 
-  ['', '88', 'query'].forEach(query => {
+  ['', '88', 'query'].forEach((query) => {
     it('should always use quick search url', () => {
       redirectToJiraAdvancedSearch(JiraEntityTypes.Issues, query);
       expect(assignSpy).toBeCalledTimes(1);

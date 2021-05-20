@@ -43,7 +43,7 @@ export const checkForReservedAttributes = (
   ];
   const keys = Object.keys(customAttributes);
 
-  if (reservedAttributes.some(attribute => keys.includes(attribute))) {
+  if (reservedAttributes.some((attribute) => keys.includes(attribute))) {
     throw new TypeError(
       `exposureData contains a reserved attribute. Reserved attributes are: ${reservedAttributes.join(
         ', ',
@@ -66,5 +66,5 @@ const validateFlag: any = (flagKey: string, flag: FlagShape) => {
 };
 
 export const validateFlags = (flags: Flags) => {
-  Object.keys(flags).forEach(key => validateFlag(key, flags[key]));
+  Object.keys(flags).forEach((key) => validateFlag(key, flags[key]));
 };

@@ -43,7 +43,7 @@ import {
 } from '../SearchSessionProvider';
 
 const resultMapToArray = (results: ResultsGroup[]): Result[][] =>
-  results.map(result => result.items);
+  results.map((result) => result.items);
 
 export interface SearchResultProps<T> extends State<T> {
   retrySearch: () => void;
@@ -418,7 +418,7 @@ export class QuickSearchContainer<
         isLoading: false,
       });
 
-      lazyLoadedRecentItemsPromise.then(lazyLoadedRecentItems => {
+      lazyLoadedRecentItemsPromise.then((lazyLoadedRecentItems) => {
         this.setState(
           {
             recentItems: Object.assign({}, results, lazyLoadedRecentItems),

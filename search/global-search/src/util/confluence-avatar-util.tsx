@@ -74,7 +74,7 @@ const ATTACHMENT_FILE_EXTENSION_MATCHERS: ExtensionMatcher[] = [
 
 const getIconType = (iconClass: string, fileName: string) => {
   // Check the iconClass to make sure we're looking at an attachment
-  const prefixMatches = ATTACHMENT_ICON_CLASS_PREFIXES.find(prefix => {
+  const prefixMatches = ATTACHMENT_ICON_CLASS_PREFIXES.find((prefix) => {
     return iconClass.startsWith(prefix);
   });
 

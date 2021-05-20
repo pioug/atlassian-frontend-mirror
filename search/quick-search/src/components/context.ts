@@ -26,7 +26,7 @@ const defaultState: ResultContextType = {
   onMouseLeave: () => {},
   registerResult: () => {},
   unregisterResult: () => {},
-  getIndex: n => Number(n),
+  getIndex: (n) => Number(n),
 };
 
 export const ResultContext = React.createContext(defaultState);

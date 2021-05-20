@@ -41,7 +41,7 @@ describe('FeaturesProvider', () => {
     const features = children.first().prop('features');
 
     expect(children).toHaveLength(3);
-    children.forEach(child => {
+    children.forEach((child) => {
       expect(child.prop('features')).toEqual(features);
     });
   });

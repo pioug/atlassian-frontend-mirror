@@ -32,9 +32,9 @@ class SearchTextInput extends Component<Props, {}> {
     super(props);
   }
 
-  private handleKeyDown: React.KeyboardEventHandler<
-    HTMLInputElement
-  > = event => {
+  private handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     if (noModifiers(event)) {
       let notify;
       switch (event.keyCode /* eslint default-case: 0 */) {

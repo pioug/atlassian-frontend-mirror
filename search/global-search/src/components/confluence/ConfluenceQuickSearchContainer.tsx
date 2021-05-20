@@ -109,7 +109,7 @@ const getRecentItemMatches = (
   }
 
   return recentItems.objects.items
-    .filter(result => {
+    .filter((result) => {
       return result.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
     })
     .slice(0, MAX_RECENT_RESULTS_TO_SHOW);
@@ -257,7 +257,7 @@ export class ConfluenceQuickSearchContainer extends React.Component<
 
   handleSearchErrorAnalyticsThunk = (
     source: string,
-  ): ((reason: any) => void) => error => {
+  ): ((reason: any) => void) => (error) => {
     this.handleSearchErrorAnalytics(error, source);
     this.props.logger.safeError(
       LOGGER_NAME,
@@ -341,7 +341,7 @@ export class ConfluenceQuickSearchContainer extends React.Component<
             currentQuickSearchContext: 'confluence',
             resultLimit: 3,
           })
-          .then(xProductResult => {
+          .then((xProductResult) => {
             const recentPeople = xProductResult.results[Scope.UserConfluence];
             return recentPeople ? recentPeople.items : [];
           });
@@ -359,7 +359,7 @@ export class ConfluenceQuickSearchContainer extends React.Component<
 
     const recentActivityPromises: Promise<Result[]>[] = (Object.keys(
       recentActivityPromisesMap,
-    ) as Array<keyof typeof recentActivityPromisesMap>).map(key =>
+    ) as Array<keyof typeof recentActivityPromisesMap>).map((key) =>
       handlePromiseError(
         recentActivityPromisesMap[key],
         [],
@@ -395,7 +395,7 @@ export class ConfluenceQuickSearchContainer extends React.Component<
     return {
       eagerRecentItemsPromise: required,
       lazyLoadedRecentItemsPromise: this.getRecentPeople(sessionId).then(
-        recentPeople => ({
+        (recentPeople) => ({
           people: {
             items: recentPeople,
             totalSize: recentPeople.length,

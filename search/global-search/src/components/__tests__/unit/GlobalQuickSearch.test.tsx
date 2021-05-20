@@ -23,7 +23,7 @@ const DEFAULT_PROPS = {
   children: [],
   advancedSearchId: 'product_advanced_search',
 };
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function render(partialProps: Partial<Props>) {
   const props: Props = {
@@ -307,7 +307,7 @@ describe('GlobalQuickSearch', () => {
         .find('QuickSearch')
         .prop('firePrivateAnalyticsEvent');
 
-    ['ArrowUp', 'ArrowDown'].forEach(key => {
+    ['ArrowUp', 'ArrowDown'].forEach((key) => {
       it('should trigger highlight event', () => {
         const firePrivateAnalyticsEvent = deepRender();
         const eventData = {
@@ -334,7 +334,7 @@ describe('GlobalQuickSearch', () => {
         [
           fireAdvancedSearchSelectedEventSpy,
           fireSearchResultSelectedEventSpy,
-        ].forEach(spy => expect(spy.mock.calls.length).toBe(0));
+        ].forEach((spy) => expect(spy.mock.calls.length).toBe(0));
       });
     });
 
@@ -360,7 +360,7 @@ describe('GlobalQuickSearch', () => {
         fireAdvancedSearchSelectedEventSpy,
         fireSearchResultSelectedEventSpy,
         fireHighlightEventSpy,
-      ].forEach(spy => expect(spy.mock.calls.length).toBe(0));
+      ].forEach((spy) => expect(spy.mock.calls.length).toBe(0));
     });
 
     it('should fire selected search event', () => {
@@ -392,9 +392,10 @@ describe('GlobalQuickSearch', () => {
       );
 
       // verify
-      [fireAdvancedSearchSelectedEventSpy, fireHighlightEventSpy].forEach(spy =>
-        expect(spy.mock.calls.length).toBe(0),
-      );
+      [
+        fireAdvancedSearchSelectedEventSpy,
+        fireHighlightEventSpy,
+      ].forEach((spy) => expect(spy.mock.calls.length).toBe(0));
     });
 
     it('should fire advanced search event', () => {
@@ -426,7 +427,7 @@ describe('GlobalQuickSearch', () => {
       );
 
       // verify
-      [fireSearchResultSelectedEventSpy, fireHighlightEventSpy].forEach(spy =>
+      [fireSearchResultSelectedEventSpy, fireHighlightEventSpy].forEach((spy) =>
         expect(spy.mock.calls.length).toBe(0),
       );
     });

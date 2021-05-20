@@ -203,12 +203,12 @@ export class MentionPicker extends React.PureComponent<
     UtilAnalytics.fireAnalyticsMentionTypeaheadEvent(this.props)(
       'rendered',
       stats && stats.duration,
-      mentions.map(mention => mention.id),
+      mentions.map((mention) => mention.id),
       query,
     );
   };
 
-  private filterError: ErrorCallback = error => {
+  private filterError: ErrorCallback = (error) => {
     debug('ak-mention-picker.filterError', error);
     const wasVisible = this.state.visible;
     this.setState({
@@ -219,7 +219,7 @@ export class MentionPicker extends React.PureComponent<
     this.onFilterVisibilityChange(wasVisible, true);
   };
 
-  private filterInfo: InfoCallback = info => {
+  private filterInfo: InfoCallback = (info) => {
     debug('ak-mention-picker.filterInfo', info);
     this.setState({
       info,

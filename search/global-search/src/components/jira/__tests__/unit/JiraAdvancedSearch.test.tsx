@@ -32,7 +32,7 @@ describe('JiraAdvancedSearch', () => {
     const wrapper = renderComponent();
     const advancedSearchLinks = wrapper.find(Button);
     expect(advancedSearchLinks.length).toBe(5);
-    expect(advancedSearchLinks.map(link => link.props().href)).toMatchObject([
+    expect(advancedSearchLinks.map((link) => link.props().href)).toMatchObject([
       JiraEntityTypes.Issues,
       JiraEntityTypes.Boards,
       JiraEntityTypes.Projects,
@@ -53,7 +53,7 @@ describe('JiraAdvancedSearch', () => {
 
     const advancedSearchLinks = wrapper.find(Button);
     expect(advancedSearchLinks.length).toBe(4);
-    expect(advancedSearchLinks.map(link => link.props().href)).toMatchObject([
+    expect(advancedSearchLinks.map((link) => link.props().href)).toMatchObject([
       JiraEntityTypes.Issues,
       JiraEntityTypes.Projects,
       JiraEntityTypes.Filters,

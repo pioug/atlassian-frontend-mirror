@@ -146,8 +146,10 @@ export default class JiraClientImpl implements JiraClient {
         options,
       )) || [];
     const reduced = recentItems
-      .filter(group => JiraResponseGroupToContentType.hasOwnProperty(group.id))
-      .map(group => this.recentItemGroupToItems(group))
+      .filter((group) =>
+        JiraResponseGroupToContentType.hasOwnProperty(group.id),
+      )
+      .map((group) => this.recentItemGroupToItems(group))
       .reduce((acc, item) => [...acc, ...item], []);
 
     return reduced;
@@ -179,7 +181,7 @@ export default class JiraClientImpl implements JiraClient {
 
   private recentItemGroupToItems(group: JiraRecentItemGroup) {
     const { id, items } = group;
-    return items.map(item => this.recentItemToResultItem(item, id));
+    return items.map((item) => this.recentItemToResultItem(item, id));
   }
   private recentItemToResultItem(
     item: JiraRecentItem,
@@ -257,6 +259,6 @@ export default class JiraClientImpl implements JiraClient {
   private getRecentCountQueryParam(recentCounts: RecentItemsCounts): string {
     const keys = Object.keys(recentCounts) as Array<keyof typeof recentCounts>;
 
-    return keys.map(key => `${key}=${recentCounts[key]}`).join(',');
+    return keys.map((key) => `${key}=${recentCounts[key]}`).join(',');
   }
 }

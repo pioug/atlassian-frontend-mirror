@@ -390,7 +390,7 @@ describe('<Mention />', () => {
     });
 
     describe('resolving mention name', () => {
-      it('should render a mention and use the resolving provider to lookup the name (string result)', done => {
+      it('should render a mention and use the resolving provider to lookup the name (string result)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             {...mentionData}
@@ -412,7 +412,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (string result, unknown)', done => {
+      it('should render a mention and use the resolving provider to lookup the name (string result, unknown)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             id={mentionData.id}
@@ -435,7 +435,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (string result, service error)', done => {
+      it('should render a mention and use the resolving provider to lookup the name (string result, service error)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             id="123"
@@ -458,7 +458,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (Promise result)', done => {
+      it('should render a mention and use the resolving provider to lookup the name (Promise result)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             {...mentionData}
@@ -480,7 +480,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', done => {
+      it('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             {...mentionData}
@@ -503,7 +503,7 @@ describe('<Mention />', () => {
         });
       });
 
-      it('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', done => {
+      it('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', (done) => {
         const mention = mountWithIntl(
           <ResourcedMention
             id=""

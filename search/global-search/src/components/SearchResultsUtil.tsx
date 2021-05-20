@@ -20,7 +20,7 @@ export const isAdvancedSearchResult = (resultId: string) =>
     ADVANCED_CONFLUENCE_SEARCH_RESULT_ID,
     ADVANCED_JIRA_SEARCH_RESULT_ID,
     ADVANCED_PEOPLE_SEARCH_RESULT_ID,
-  ].some(advancedResultId => advancedResultId === resultId);
+  ].some((advancedResultId) => advancedResultId === resultId);
 
 export function getConfluenceAdvancedSearchLink(query?: string) {
   const queryString = query ? `?text=${encodeURIComponent(query)}` : '';
@@ -97,7 +97,7 @@ export function handlePromiseError<T>(
   defaultValue: T,
   errorHandler?: (reason: any) => T | void,
 ): Promise<T> {
-  return promise.catch(error => {
+  return promise.catch((error) => {
     try {
       if (errorHandler) {
         errorHandler(error);

@@ -135,7 +135,7 @@ describe('PresenceCache', () => {
     // Check cache only adds entries when hit by presence service
     expect(cache.contains(testIds[0])).toBe(false);
     cache.update(testPresenceMap);
-    let cacheHits = testIds.filter(id => cache.contains(id));
+    let cacheHits = testIds.filter((id) => cache.contains(id));
     expect(cacheHits).toHaveLength(7);
   });
 
@@ -158,7 +158,7 @@ describe('PresenceCache', () => {
     const limitedCache = new DefaultPresenceCache(-1, 5);
     limitedCache.update(testPresenceMap);
     limitedCache.update(extraPresences);
-    validPresenceData.data.PresenceBulk.forEach(response => {
+    validPresenceData.data.PresenceBulk.forEach((response) => {
       expect(limitedCache.contains(response.userId)).toBe(false);
     });
   });
@@ -189,7 +189,7 @@ describe('PresenceResource', () => {
   });
 
   describe('#refreshPresence', () => {
-    it('should result in fewer listener callbacks and service requests with cache', done => {
+    it('should result in fewer listener callbacks and service requests with cache', (done) => {
       const resource = new PresenceResource(apiConfig);
       try {
         // notifyListeners called twice as no cache hits so must call again after service query
@@ -207,7 +207,7 @@ describe('PresenceResource', () => {
       }
     });
 
-    it('should result in one callback after injecting a cache and only hitting existing ids', done => {
+    it('should result in one callback after injecting a cache and only hitting existing ids', (done) => {
       try {
         // Setup parser and cache with data
         const populatedCache = new DefaultPresenceCache();

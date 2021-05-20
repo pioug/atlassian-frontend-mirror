@@ -15,13 +15,13 @@ export default class CachingConfluenceClient extends ConfluenceClientImpl {
 
     this.itemCache = new SimpleCache(
       prefetchedResults &&
-        prefetchedResults.then(result => result.objects.items),
+        prefetchedResults.then((result) => result.objects.items),
       () => super.getRecentItems(),
     );
 
     this.spaceCache = new SimpleCache(
       prefetchedResults &&
-        prefetchedResults.then(result => result.spaces.items),
+        prefetchedResults.then((result) => result.spaces.items),
       () => super.getRecentSpaces(),
     );
   }

@@ -143,8 +143,8 @@ export class ExternalUserOption extends React.PureComponent<
         </span>
         <SourcesTooltipContainer>
           {(this.props.user.sources
-            .map(s => SourcesInfoMap.get(s))
-            .filter(s => s) as SourceInfo[]).map(({ key, icon, label }) => (
+            .map((s) => SourcesInfoMap.get(s))
+            .filter((s) => s) as SourceInfo[]).map(({ key, icon, label }) => (
             <SourceWrapper key={key}>
               <ImageContainer>{icon}</ImageContainer>
               <span>

@@ -459,7 +459,7 @@ describe('Jira Quick Search Container', () => {
       });
 
       it('should not call redirect', () => {
-        const spy = jest.fn(e => e.preventDefault());
+        const spy = jest.fn((e) => e.preventDefault());
         const handleSearchSubmit = mountComponent(spy);
         const mockedEvent = mockEvent();
         handleSearchSubmit(mockedEvent, mockSearchSessionId);
@@ -532,16 +532,17 @@ describe('Jira Quick Search Container', () => {
       expect(displayedResults.length).toBe(4);
       // Only show the first group (issues) when loading, we also expect the results to be filtered by name
       const issueNames = displayedResults
-        .find(result => result.key === 'issues')!
-        .items.map(issue => issue.name);
+        .find((result) => result.key === 'issues')!
+        .items.map((issue) => issue.name);
       expect(issueNames).toEqual([recentItemCommon1a, recentItemCommon1b]);
 
       // Expect all the other results to be empty (we also exclude issue-advanced because that's a group hacked on to show advanced search)
       displayedResults
         .filter(
-          result => result.key !== 'issues' && result.key !== 'issue-advanced',
+          (result) =>
+            result.key !== 'issues' && result.key !== 'issue-advanced',
         )
-        .forEach(resultGroup => {
+        .forEach((resultGroup) => {
           expect(resultGroup.items.length).toBe(0);
         });
     });
@@ -566,8 +567,8 @@ describe('Jira Quick Search Container', () => {
       expect(displayedResults.length).toBe(4);
       // The results are filtered by issue-key
       const issueKeys = displayedResults
-        .find(result => result.key === 'issues')!
-        .items.map(issue => issue.objectKey);
+        .find((result) => result.key === 'issues')!
+        .items.map((issue) => issue.objectKey);
       expect(issueKeys).toEqual(['TEST-123', 'TEST-1']);
     });
 
@@ -614,8 +615,8 @@ describe('Jira Quick Search Container', () => {
 
       expect(displayedResults.length).toBe(4);
       const issueKeys = displayedResults
-        .find(result => result.key === 'issues')!
-        .items.map(issue => issue.objectKey);
+        .find((result) => result.key === 'issues')!
+        .items.map((issue) => issue.objectKey);
       // The issueKey matches should appear before the title matches
       expect(issueKeys).toEqual(['TEST-123', 'TEST-12', 'TEST-4']);
     });
@@ -640,10 +641,10 @@ describe('Jira Quick Search Container', () => {
       expect(displayedResults.length).toBe(4);
       // Only show the first group (issues) when loading, we also expect the results to be filtered by name
       const issueNames = displayedResults
-        .find(result => result.key === 'issues')!
-        .items.map(issue => issue.name);
+        .find((result) => result.key === 'issues')!
+        .items.map((issue) => issue.name);
       const searchResultNames = mockSearchResults.objects.map(
-        issue => issue.name,
+        (issue) => issue.name,
       );
       expect(issueNames).toEqual([
         recentItemCommon1a,
@@ -653,8 +654,8 @@ describe('Jira Quick Search Container', () => {
 
       // Expect all the other results to not be empty (we also exclude search-jira because that's a group hacked on to show advanced search)
       displayedResults
-        .filter(result => result.key !== 'issues')
-        .forEach(resultGroup => {
+        .filter((result) => result.key !== 'issues')
+        .forEach((resultGroup) => {
           expect(resultGroup.items.length).not.toBe(0);
         });
     });

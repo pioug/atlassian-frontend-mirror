@@ -1,5 +1,11 @@
 # @atlaskit/prosemirror-input-rules
 
+## 2.0.1
+
+### Patch Changes
+
+- [`312a2810b0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/312a2810b0b) - [ux] ED-12931 Fix input rules replacing text outside of matched word in a long paragraph
+
 ## 2.0.0
 
 ### Major Changes

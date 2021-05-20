@@ -261,7 +261,7 @@ export default class GlobalQuickSearchWrapper extends React.Component<Props> {
   shouldComponentUpdate(nextProps: Props, nextState: any) {
     return (
       (Object.keys({ ...nextProps, ...this.props }) as Array<keyof Props>)
-        .map(key => this.props[key] !== nextProps[key])
+        .map((key) => this.props[key] !== nextProps[key])
         .reduce((acc, value) => acc || value, false) || this.state !== nextState
     );
   }
@@ -377,7 +377,7 @@ export default class GlobalQuickSearchWrapper extends React.Component<Props> {
     return (
       <MessagesIntlProvider>
         <GlobalSearchPreFetchContext.Consumer>
-          {prefetchedResults => {
+          {(prefetchedResults) => {
             const searchClients = configureSearchClients(
               this.props.cloudId,
               this.makeConfig(),
@@ -394,7 +394,7 @@ export default class GlobalQuickSearchWrapper extends React.Component<Props> {
                   searchClients.crossProductSearchClient
                 }
               >
-                {abTest => (
+                {(abTest) => (
                   <FeaturesProvider features={this.createFeatures(abTest)}>
                     {this.renderSearchContainer(searchClients, abTest)}
                   </FeaturesProvider>

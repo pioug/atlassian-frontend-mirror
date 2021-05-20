@@ -99,7 +99,7 @@ export default class PeopleSearchClientImpl implements PeopleSearchClient {
       return [];
     }
 
-    return response.data.Collaborators.map(record =>
+    return response.data.Collaborators.map((record) =>
       userSearchResultToResult(record, AnalyticsType.RecentPerson),
     );
   }

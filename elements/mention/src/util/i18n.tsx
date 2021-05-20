@@ -8,7 +8,7 @@ export type Formatter<
 
 export const noPropFormatter = (
   messageDescriptor: FormattedMessage.MessageDescriptor,
-): Formatter<{}> => props => (
+): Formatter<{}> => (props) => (
   <FormattedMessage {...props} {...messageDescriptor} />
 );
 

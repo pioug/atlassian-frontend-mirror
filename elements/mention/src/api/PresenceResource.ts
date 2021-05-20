@@ -128,8 +128,8 @@ class PresenceResource extends AbstractPresenceResource {
 
   private retrievePresence(userIds: string[]) {
     this.queryDirectoryForPresences(userIds)
-      .then(res => this.presenceParser.parse(res))
-      .then(presences => {
+      .then((res) => this.presenceParser.parse(res))
+      .then((presences) => {
         this.notifyListeners(presences);
         this.presenceCache.update(presences);
       });
@@ -163,7 +163,7 @@ class PresenceResource extends AbstractPresenceResource {
       credentials: 'include',
       body: JSON.stringify(query),
     };
-    return fetch(this.config.url, options).then(response => response.json());
+    return fetch(this.config.url, options).then((response) => response.json());
   }
 
   private static cleanUrl(url: string): string {
@@ -217,7 +217,7 @@ export class DefaultPresenceCache implements PresenceCache {
    * Cleans expired entries from cache
    */
   private _removeExpired(): void {
-    Object.keys(this.cache).forEach(id => {
+    Object.keys(this.cache).forEach((id) => {
       this._deleteIfExpired(id);
     });
   }
@@ -265,7 +265,7 @@ export class DefaultPresenceCache implements PresenceCache {
    * @returns string[] - ids missing from the cache
    */
   getMissingUserIds(userIds: string[]): string[] {
-    return userIds.filter(id => !this.contains(id));
+    return userIds.filter((id) => !this.contains(id));
   }
 
   /**
@@ -278,7 +278,7 @@ export class DefaultPresenceCache implements PresenceCache {
     if (this.size >= this.flushTrigger) {
       this._removeExpired();
     }
-    Object.keys(presMap).forEach(userId => {
+    Object.keys(presMap).forEach((userId) => {
       this.cache[userId] = new CacheEntry(presMap[userId], this.expiryInMillis);
       this.size++;
     });

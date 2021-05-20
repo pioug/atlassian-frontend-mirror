@@ -68,19 +68,19 @@ export default class JiraAdvancedSearch extends React.Component<Props, State> {
   renderLinks = () =>
     itemI18nKeySuffix
       .filter(
-        key =>
+        (key) =>
           !this.props.appPermission ||
           key !== JiraEntityTypes.Boards ||
           (this.props.appPermission &&
             this.props.appPermission.hasSoftwareAccess),
       )
-      .map(item => (
+      .map((item) => (
         <ButtonWrapper key={`btnwrapper_${item}`}>
           <Button
             key={`btn_${item}`}
             spacing="compact"
             onMouseEnter={(e: React.MouseEvent) => e.stopPropagation()}
-            onClick={e => this.props.onClick && this.props.onClick(e, item)}
+            onClick={(e) => this.props.onClick && this.props.onClick(e, item)}
             href={getJiraAdvancedSearchUrl({
               entityType: item,
               query: this.props.query,

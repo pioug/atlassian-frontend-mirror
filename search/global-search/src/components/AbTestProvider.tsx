@@ -28,12 +28,12 @@ export class ABTestProvider extends React.Component<Props, State> {
     if (!this.state.abTest) {
       crossProductSearchClient
         .getAbTestDataForProduct(context)
-        .then(abTest => {
+        .then((abTest) => {
           this.setState({
             abTest: abTest || DEFAULT_AB_TEST,
           });
         })
-        .catch(e => {
+        .catch((e) => {
           this.setState({
             abTest: DEFAULT_AB_TEST,
           });

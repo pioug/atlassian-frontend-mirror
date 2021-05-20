@@ -108,7 +108,7 @@ export function buildShownEventDetails(
   ...resultsArrays: Result[][]
 ): ShownAnalyticsAttributes {
   const sectionsWithContent = resultsArrays.filter(
-    section => section.length > 0,
+    (section) => section.length > 0,
   );
   const totalResultCount = resultsArrays.reduce(
     (prev, curr) => prev + curr.length,

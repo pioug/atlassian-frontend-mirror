@@ -130,6 +130,6 @@ export const transformUsers = (
   intl: InjectedIntl,
 ): OptionData[] =>
   (serverResponse.recommendedUsers || [])
-    .map(item => transformUser(item, intl))
-    .filter(user => !!user)
-    .map(user => user as OptionData);
+    .map((item) => transformUser(item, intl))
+    .filter((user) => !!user)
+    .map((user) => user as OptionData);

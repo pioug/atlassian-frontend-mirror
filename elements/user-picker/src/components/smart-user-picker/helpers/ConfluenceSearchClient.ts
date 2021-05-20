@@ -49,7 +49,7 @@ const getRecommendations = (
       const usersAndGroups = [...userList, ...groupList];
       return usersAndGroups;
     })
-    .catch(error => {
+    .catch((error) => {
       return [];
     });
 };

@@ -79,7 +79,7 @@ describe('TeamMentionResourceSpec', () => {
       .mock(
         /\/teams\/mentions\/search\?.*query=craig(&|$)/,
         // assume team request is slow
-        new Promise(resolve => {
+        new Promise((resolve) => {
           setTimeout(() => {
             resolve({ body: teamResults });
           }, REQUEST_DELAY);
@@ -95,7 +95,7 @@ describe('TeamMentionResourceSpec', () => {
       })
       .mock(
         /\/users\/mentions\/search\?.*query=cr(&|$)/,
-        new Promise(resolve => {
+        new Promise((resolve) => {
           setTimeout(() => {
             resolve({
               // delayed results
@@ -130,7 +130,7 @@ describe('TeamMentionResourceSpec', () => {
       .mock(
         /\/users\/mentions\/search\?.*team-faster-user(&|$)/,
         // user request is slower than team request
-        new Promise(resolve => {
+        new Promise((resolve) => {
           setTimeout(() => {
             resolve({ body: { mentions: resultCraig } });
           }, REQUEST_DELAY);
@@ -157,11 +157,11 @@ describe('TeamMentionResourceSpec', () => {
   });
 
   describe('#subscribe', () => {
-    it('should receive 2 updates: from user request first and then from team request', done => {
+    it('should receive 2 updates: from user request first and then from team request', (done) => {
       // the event is called twice
       // 1st: with user results
       // 2nd: with users and team results
-      resource.subscribe('craig', mentions => {
+      resource.subscribe('craig', (mentions) => {
         // the first is for user results
         if (currentCount === 1) {
           expect(mentions).toHaveLength(resultCraig.length);
@@ -194,8 +194,8 @@ describe('TeamMentionResourceSpec', () => {
       jest.runTimersToTime(REQUEST_DELAY);
     });
 
-    it('should receive 1 update when team request comes first and then from user request', done => {
-      resource.subscribe('team-faster-user', mentions => {
+    it('should receive 1 update when team request comes first and then from user request', (done) => {
+      resource.subscribe('team-faster-user', (mentions) => {
         expect(mentions).toHaveLength(resultCraig.length + teamResults.length);
         done();
       });
@@ -204,7 +204,7 @@ describe('TeamMentionResourceSpec', () => {
       jest.runTimersToTime(REQUEST_DELAY);
     });
 
-    it('should receive updates with credentials omitted', done => {
+    it('should receive updates with credentials omitted', (done) => {
       resource = new TeamMentionResource(
         {
           ...apiUserMentionConfig,
@@ -220,7 +220,7 @@ describe('TeamMentionResourceSpec', () => {
         },
       );
 
-      resource.subscribe('test3', mentions => {
+      resource.subscribe('test3', (mentions) => {
         expect(mentions).toHaveLength(0);
         const requestData = fetchMock.lastOptions();
 
@@ -231,8 +231,8 @@ describe('TeamMentionResourceSpec', () => {
       resource.filter('esoares');
     });
 
-    it('should still receive updates when the user request succeeds, but team request fails', done => {
-      resource.subscribe('test', mentions => {
+    it('should still receive updates when the user request succeeds, but team request fails', (done) => {
+      resource.subscribe('test', (mentions) => {
         // just have users result
         expect(mentions).toHaveLength(resultCr.length);
         done();
@@ -240,8 +240,8 @@ describe('TeamMentionResourceSpec', () => {
       resource.filter('query-only-teams-fail');
     });
 
-    it('should still receive updates when the user requests fails, but team request succeeds', done => {
-      resource.subscribe('test', mentions => {
+    it('should still receive updates when the user requests fails, but team request succeeds', (done) => {
+      resource.subscribe('test', (mentions) => {
         // just have users result
         expect(mentions).toHaveLength(teamResults.length);
         done();
@@ -250,11 +250,11 @@ describe('TeamMentionResourceSpec', () => {
       resource.filter('query-only-users-fail');
     });
 
-    it('should show error when both user and team requests fails', done => {
+    it('should show error when both user and team requests fails', (done) => {
       resource.subscribe(
         'test',
         () => done.fail('listener should not be called'),
-        error => {
+        (error) => {
           expect(error).toMatchObject({
             code: 500,
             reason: 'Internal Server Error',

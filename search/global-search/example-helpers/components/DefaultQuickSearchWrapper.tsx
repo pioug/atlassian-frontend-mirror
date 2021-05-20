@@ -18,12 +18,12 @@ class NoNavigationLinkComponent extends React.Component<any> {
     const out: any = {};
     Object.keys(props)
       .filter(
-        propName =>
+        (propName) =>
           propName in anchor ||
           propName.toLowerCase() in anchor ||
           SPECIAL_PROPS.includes(propName),
       )
-      .forEach(key => (out[key] = props[key]));
+      .forEach((key) => (out[key] = props[key]));
 
     return out;
   }
@@ -73,7 +73,7 @@ export class DefaultQuickSearchWrapper extends React.Component<PartialProps> {
           this.props.context === 'confluence' ? { spaceKey: 'TEST' } : {}
         }
         linkComponent={NoNavigationLinkComponent as any}
-        onAdvancedSearch={e => e.preventDefault()}
+        onAdvancedSearch={(e) => e.preventDefault()}
         {...this.props}
       />
     );

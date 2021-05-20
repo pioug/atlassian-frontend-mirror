@@ -31,6 +31,7 @@ describe('collab-edit: send-transaction.ts', () => {
     schema,
     plugins: [pmPlugin!],
   });
+  let useNativePlugin = false;
 
   // @ts-ignore
   const providerMock = { send: jest.fn() } as CollabEditProvider;
@@ -38,6 +39,7 @@ describe('collab-edit: send-transaction.ts', () => {
   beforeEach(() => {
     const { tr } = oldEditorState;
     tr.setMeta('collabInitialised', true);
+    useNativePlugin = true;
 
     oldEditorState = oldEditorState.apply(tr);
     // @ts-ignore
@@ -57,6 +59,7 @@ describe('collab-edit: send-transaction.ts', () => {
         transactions,
         oldEditorState,
         newEditorState,
+        useNativePlugin,
       })(providerMock);
 
       expect(providerMock.send).toHaveBeenCalled();
@@ -72,12 +75,14 @@ describe('collab-edit: send-transaction.ts', () => {
         state: newEditorState,
         transactions,
       } = oldEditorState.applyTransaction(transaction);
+      useNativePlugin = false;
 
       sendTransaction({
         originalTransaction: transaction,
         transactions,
         oldEditorState,
         newEditorState,
+        useNativePlugin,
       })(providerMock);
 
       expect(providerMock.send).not.toHaveBeenCalled();
@@ -99,9 +104,76 @@ describe('collab-edit: send-transaction.ts', () => {
         transactions,
         oldEditorState,
         newEditorState,
+        useNativePlugin,
       })(providerMock);
 
       expect(providerMock.send).toHaveBeenCalled();
+    });
+  });
+
+  describe('when the native collab plugin is enabled', () => {
+    it('should always send the current state as the last parameter to the send function', () => {
+      const transaction = oldEditorState.tr;
+      transaction.insertText('LOL');
+      const {
+        state: newEditorState,
+        transactions,
+      } = oldEditorState.applyTransaction(transaction);
+
+      sendTransaction({
+        originalTransaction: transaction,
+        transactions,
+        oldEditorState,
+        newEditorState,
+        useNativePlugin: true,
+      })(providerMock);
+
+      expect(providerMock.send).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.anything(),
+        newEditorState,
+      );
+    });
+
+    describe('and when the transaction is not changing the document', () => {
+      it('should call the send function', () => {
+        const transaction = oldEditorState.tr;
+        const {
+          state: newEditorState,
+          transactions,
+        } = oldEditorState.applyTransaction(transaction);
+
+        sendTransaction({
+          originalTransaction: transaction,
+          transactions,
+          oldEditorState,
+          newEditorState,
+          useNativePlugin: true,
+        })(providerMock);
+
+        expect(providerMock.send).toHaveBeenCalled();
+      });
+    });
+
+    describe('and when isRemote is part of the transaction metadata', () => {
+      it('should call the send function', () => {
+        const transaction = oldEditorState.tr;
+        transaction.setMeta('isRemote', true);
+        const {
+          state: newEditorState,
+          transactions,
+        } = oldEditorState.applyTransaction(transaction);
+
+        sendTransaction({
+          originalTransaction: transaction,
+          transactions,
+          oldEditorState,
+          newEditorState,
+          useNativePlugin: true,
+        })(providerMock);
+
+        expect(providerMock.send).toHaveBeenCalled();
+      });
     });
   });
 });

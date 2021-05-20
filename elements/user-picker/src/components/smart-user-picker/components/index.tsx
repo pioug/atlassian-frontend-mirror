@@ -218,10 +218,10 @@ const getUsersForAnalytics = (users: OptionData[]) =>
 
 const sortResults = (users: User[], sortIds: string[]): User[] => {
   const resultsMap = new Map<string, User>(
-    users.map(user => [user.id, user] as [string, User]),
+    users.map((user) => [user.id, user] as [string, User]),
   );
 
-  return sortIds.map(id => {
+  return sortIds.map((id) => {
     const user = resultsMap.get(id);
     if (user) {
       return user;
@@ -269,7 +269,7 @@ export async function hydrateDefaultValues(
   //hydrate
   let accountIds = [];
   if (Array.isArray(value)) {
-    accountIds = (value as OptionData[]).map(a => a.id);
+    accountIds = (value as OptionData[]).map((a) => a.id);
   } else {
     accountIds = [value.id];
   }
@@ -423,7 +423,7 @@ class SmartUserPicker extends React.Component<
           ? (await onEmpty(query)) ?? []
           : filteredUsers;
 
-      this.setState(state => {
+      this.setState((state) => {
         const applicable = state.query === query;
         const users = applicable ? displayedUsers : state.users;
         const loading = !applicable;
@@ -515,7 +515,7 @@ class SmartUserPicker extends React.Component<
         sessionId,
       });
     }
-    this.setState(currentState => ({ ...currentState, ...state }));
+    this.setState((currentState) => ({ ...currentState, ...state }));
     if (this.props.onFocus) {
       this.props.onFocus(sessionId);
     }

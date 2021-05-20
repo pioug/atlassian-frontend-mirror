@@ -123,7 +123,7 @@ it('should filter out empty groups', () => {
   const groups = wrapper.find(ResultGroup);
   expect(groups.length).toBe(2);
   groups
-    .map(group => ({
+    .map((group) => ({
       key: group.key(),
       sectionIndex: group.props().sectionIndex,
     }))

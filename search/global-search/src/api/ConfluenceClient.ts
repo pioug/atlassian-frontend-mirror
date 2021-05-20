@@ -56,8 +56,8 @@ export default class ConfluenceClientImpl implements ConfluenceClient {
     const baseUrl = this.serviceConfig.url;
 
     return recentPages
-      .filter(page => !!page.title)
-      .map(recentPage => recentPageToResult(recentPage, baseUrl));
+      .filter((page) => !!page.title)
+      .map((recentPage) => recentPageToResult(recentPage, baseUrl));
   }
 
   public async getRecentSpaces(): Promise<Result[]> {
@@ -66,7 +66,7 @@ export default class ConfluenceClientImpl implements ConfluenceClient {
     );
     const baseUrl = this.serviceConfig.url;
 
-    return recentSpaces.map(recentSpace =>
+    return recentSpaces.map((recentSpace) =>
       recentSpaceToResult(recentSpace, baseUrl),
     );
   }

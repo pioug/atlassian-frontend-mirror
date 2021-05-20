@@ -401,7 +401,7 @@ describe('inputrules', () => {
             insertText(editorView, '`', sel);
           });
 
-          it('should convert "```" to a code block without preceeding content', () => {
+          it('should convert "```" to a code block without preceding content', () => {
             expect(editorView.state.doc).toEqualDocument(
               doc(p('code '), code_block()()),
             );
@@ -409,6 +409,20 @@ describe('inputrules', () => {
 
           it('should fire analytics event', () => {
             expect(createAnalyticsEvent).toBeCalledWith(analyticsV3Payload);
+          });
+        });
+
+        describe('typing "```" at end of a long paragraph', () => {
+          const longParagraph = 'Hello world. '.repeat(50);
+          beforeEach(() => {
+            ({ editorView, sel } = editor(doc(p(`${longParagraph} \`\`{<>}`))));
+            insertText(editorView, '`', sel);
+          });
+
+          it('should not replace text outside of matched word', () => {
+            expect(editorView.state.doc).toEqualDocument(
+              doc(p(`${longParagraph} `), code_block()()),
+            );
           });
         });
 

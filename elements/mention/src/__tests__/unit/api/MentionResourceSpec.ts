@@ -113,7 +113,7 @@ describe('MentionResource', () => {
         })
         .mock(
           /\/mentions\/search\?.*query=cr(&|$)/,
-          new Promise(resolve => {
+          new Promise((resolve) => {
             window.setTimeout(() => {
               resolve({
                 // delayed results
@@ -145,12 +145,12 @@ describe('MentionResource', () => {
   });
 
   describe('#subscribe', () => {
-    it('should receive updates', done => {
+    it('should receive updates', (done) => {
       const resource = new MentionResource({
         ...apiConfig,
         containerId: 'defaultContainerId', // should be ignored
       });
-      resource.subscribe('test1', mentions => {
+      resource.subscribe('test1', (mentions) => {
         expect(mentions).toHaveLength(resultCraig.length);
 
         const queryParams = queryString.parse(
@@ -167,13 +167,13 @@ describe('MentionResource', () => {
       resource.filter('craig', FULL_CONTEXT);
     });
 
-    it('multiple subscriptions should receive updates', done => {
+    it('multiple subscriptions should receive updates', (done) => {
       const resource = new MentionResource({
         ...apiConfig,
         containerId: 'defaultContainerId',
       });
       let count = 0;
-      resource.subscribe('test1', mentions => {
+      resource.subscribe('test1', (mentions) => {
         expect(mentions).toHaveLength(resultCraig.length);
 
         const queryParams = queryString.parse(
@@ -187,7 +187,7 @@ describe('MentionResource', () => {
           done();
         }
       });
-      resource.subscribe('test2', mentions => {
+      resource.subscribe('test2', (mentions) => {
         expect(mentions).toHaveLength(resultCraig.length);
         count++;
         if (count === 2) {
@@ -197,9 +197,9 @@ describe('MentionResource', () => {
       resource.filter('craig');
     });
 
-    it('should receive updates with credentials omitted', done => {
+    it('should receive updates with credentials omitted', (done) => {
       const resource = new MentionResource(apiConfigWithoutCredentials);
-      resource.subscribe('test3', mentions => {
+      resource.subscribe('test3', (mentions) => {
         expect(mentions).toHaveLength(0);
         const requestData = fetchMock.lastOptions();
         expect(requestData.credentials).toEqual('omit');
@@ -264,7 +264,7 @@ describe('MentionResource', () => {
   });
 
   describe('#unsubscribe', () => {
-    it('subscriber should no longer called', done => {
+    it('subscriber should no longer called', (done) => {
       const resource = new MentionResource(apiConfig);
       const listener = jest.fn();
       resource.subscribe('test1', listener);
@@ -292,24 +292,30 @@ describe('MentionResource', () => {
     //   resource.filter('');
     // });
 
-    it('all results callback should receive all results', done => {
+    it('all results callback should receive all results', (done) => {
       const resource = new MentionResource(apiConfig);
       const results: MentionDescription[][] = [];
       const expected = [resultCraig, resultCr];
-      resource.subscribe('test1', undefined, undefined, undefined, mentions => {
-        results.push(mentions);
+      resource.subscribe(
+        'test1',
+        undefined,
+        undefined,
+        undefined,
+        (mentions) => {
+          results.push(mentions);
 
-        if (results.length === 2) {
-          checkOrder(expected, results);
+          if (results.length === 2) {
+            checkOrder(expected, results);
 
-          const queryParams = queryString.parse(
-            queryString.extract(fetchMock.lastUrl()),
-          );
-          expect(queryParams.containerId).toBe('someContainerId');
-          expect(queryParams.objectId).toBe('someObjectId');
-          done();
-        }
-      });
+            const queryParams = queryString.parse(
+              queryString.extract(fetchMock.lastUrl()),
+            );
+            expect(queryParams.containerId).toBe('someContainerId');
+            expect(queryParams.objectId).toBe('someObjectId');
+            done();
+          }
+        },
+      );
       resource.filter('cr', {
         containerId: 'someContainerId',
         objectId: 'someObjectId',
@@ -321,12 +327,12 @@ describe('MentionResource', () => {
     });
 
     // Temporarily disabled due to failing on Mobile Safari 9.0.0.
-    it.skip('out of order responses', done => {
+    it.skip('out of order responses', (done) => {
       // eslint-disable-line
       const resource = new MentionResource(apiConfig);
       const results: MentionDescription[][] = [];
       const expected = [resultCraig];
-      resource.subscribe('test1', mentions => {
+      resource.subscribe('test1', (mentions) => {
         results.push(mentions);
         if (results.length === 1) {
           checkOrder(expected, results);
@@ -342,7 +348,7 @@ describe('MentionResource', () => {
       }, 5);
     });
 
-    it('error response', done => {
+    it('error response', (done) => {
       const resource = new MentionResource(apiConfig);
       resource.subscribe(
         'test1',
@@ -357,20 +363,26 @@ describe('MentionResource', () => {
       resource.filter('broken');
     });
 
-    it('add APP lozenge for user of type App', done => {
+    it('add APP lozenge for user of type App', (done) => {
       const resource = new MentionResource(apiConfig);
-      resource.subscribe('test1', undefined, undefined, undefined, mentions => {
-        expect(mentions).toHaveLength(1);
-        expect(mentions[0].lozenge).toEqual('APP');
+      resource.subscribe(
+        'test1',
+        undefined,
+        undefined,
+        undefined,
+        (mentions) => {
+          expect(mentions).toHaveLength(1);
+          expect(mentions[0].lozenge).toEqual('APP');
 
-        done();
-      });
+          done();
+        },
+      );
       resource.filter('polly');
     });
   });
 
   describe('#filter auth issues', () => {
-    it('401 error once retry', done => {
+    it('401 error once retry', (done) => {
       const authUrl = 'https://authbogus/';
       const matcher = `begin:${authUrl}`;
 
@@ -418,7 +430,7 @@ describe('MentionResource', () => {
             done(ex);
           }
         },
-        err => {
+        (err) => {
           fail('listener error called');
           done(err);
         },
@@ -426,7 +438,7 @@ describe('MentionResource', () => {
       resource.filter('test');
     });
 
-    it('401 error twice retry', done => {
+    it('401 error twice retry', (done) => {
       const authUrl = 'https://authbogus/';
       const matcher = {
         name: 'authtwice',
@@ -470,7 +482,7 @@ describe('MentionResource', () => {
   });
 
   describe('#recordMentionSelection', () => {
-    it('should call record endpoint', done => {
+    it('should call record endpoint', (done) => {
       const resource = new MentionResource(apiConfig);
       resource
         .recordMentionSelection(
@@ -492,7 +504,7 @@ describe('MentionResource', () => {
         });
     });
 
-    it('should resolve the query parameters with a partial context', done => {
+    it('should resolve the query parameters with a partial context', (done) => {
       const resource = new MentionResource(apiConfig);
       resource
         .recordMentionSelection({ id: '666' }, PARTIAL_CONTEXT)
@@ -583,7 +595,7 @@ describe('MentionResource', () => {
     it('should use config if available', () => {
       const resource = new MentionResource({
         ...apiConfig,
-        shouldHighlightMention: mention => mention.id === 'abcd-abcd-abcd',
+        shouldHighlightMention: (mention) => mention.id === 'abcd-abcd-abcd',
       });
 
       expect(resource.shouldHighlightMention({ id: 'abcd-abcd-abcd' })).toBe(

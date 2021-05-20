@@ -191,7 +191,7 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
 
   private refreshPresences(mentions: MentionDescription[]) {
     if (this.props.presenceProvider) {
-      const ids = mentions.map(mention => mention.id);
+      const ids = mentions.map((mention) => mention.id);
       this.props.presenceProvider.refreshPresence(ids);
     }
   }

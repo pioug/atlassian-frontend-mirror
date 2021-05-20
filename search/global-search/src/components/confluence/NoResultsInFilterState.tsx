@@ -49,7 +49,7 @@ export default class NoResultsInFilterState extends React.Component<Props> {
               text={
                 <Button
                   shouldFitContainer={true}
-                  onClick={event => {
+                  onClick={(event) => {
                     if (this.props.onClickAdvancedSearch) {
                       this.props.onClickAdvancedSearch(
                         event,

@@ -30,13 +30,13 @@ export function getMentionItemById(
   itemId: string,
 ) {
   return component.findWhere(
-    n => !!n.length && n.is(MentionItem) && n.prop('mention').id === itemId,
+    (n) => !!n.length && n.is(MentionItem) && n.prop('mention').id === itemId,
   );
 }
 
 export function getSelectedMentionItem(component: ReactWrapper<any, any>) {
   return component.findWhere(
-    n => !!n.length && n.is(MentionItem) && n.prop('selected'),
+    (n) => !!n.length && n.is(MentionItem) && n.prop('selected'),
   );
 }
 
@@ -66,4 +66,4 @@ export function checkOrder(
 }
 
 export const flushPromises = () =>
-  new Promise(resolve => setImmediate(resolve));
+  new Promise((resolve) => setImmediate(resolve));

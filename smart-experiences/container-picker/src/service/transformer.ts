@@ -93,10 +93,10 @@ const getResponseTransformer = <T extends Result>(
   scopeId: string,
   resultTransformer: (_: T) => Option,
 ): ((_: SearchResponse<T>) => Option[]) => {
-  return searchResponse =>
+  return (searchResponse) =>
     searchResponse.scopes
-      .filter(scope => scope.id === scopeId)
-      .map(scope => scope.results)
+      .filter((scope) => scope.id === scopeId)
+      .map((scope) => scope.results)
       .reduce((acc, current) => [...acc, ...current], [] as T[])
       .map(resultTransformer);
 };
@@ -137,8 +137,8 @@ export const transformCollaborationGraphResponse = (
   response: CollaborationGraphResponse,
 ): ContainerOption[] => {
   return (response.collaborationGraphEntities || [])
-    .filter(container => container && container.containerDetails)
-    .map(container => ({
+    .filter((container) => container && container.containerDetails)
+    .map((container) => ({
       label: container.containerDetails!.name,
       value: {
         id: container.id,

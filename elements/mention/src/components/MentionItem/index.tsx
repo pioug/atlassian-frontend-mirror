@@ -124,7 +124,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
               <AccessSectionStyle>
                 <NoAccessLabel>
                   {
-                    text => (
+                    (text) => (
                       <LockCircleIcon label={text as string} />
                     ) /* safe to cast to string given there is no value binding */
                   }

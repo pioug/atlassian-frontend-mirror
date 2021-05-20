@@ -273,7 +273,7 @@ describe('<QuickSearch />', () => {
             keyCode: keycode('up'),
           });
           const kbCtrlsUsedEventsFired = onAnalyticsEventSpy.mock.calls.filter(
-            call => call[0] === QS_ANALYTICS_EV_KB_CTRLS_USED,
+            (call) => call[0] === QS_ANALYTICS_EV_KB_CTRLS_USED,
           );
           expect(kbCtrlsUsedEventsFired).toHaveLength(3);
         });
@@ -345,7 +345,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('one');
       expect(isInputFocused(searchInput)).toBe(true);
@@ -362,7 +362,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('two');
       expect(isInputFocused(searchInput)).toBe(true);
@@ -385,7 +385,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('one');
       expect(isInputFocused(searchInput)).toBe(true);
@@ -412,7 +412,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('one');
       expect(isInputFocused(searchInput)).toBe(true);
@@ -430,7 +430,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('three');
       expect(isInputFocused(searchInput)).toBe(true);
@@ -448,7 +448,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('three');
       expect(isInputFocused(searchInput)).toBe(true);
@@ -532,7 +532,7 @@ describe('<QuickSearch />', () => {
       wrapper.setProps({ children: newChildren });
       wrapper.update();
       expect(
-        wrapper.find(ResultItem).filterWhere(n => !!n.prop('isSelected')),
+        wrapper.find(ResultItem).filterWhere((n) => !!n.prop('isSelected')),
       ).toHaveLength(0);
       expect(isInputFocused(searchInput)).toBe(true);
     });
@@ -544,7 +544,7 @@ describe('<QuickSearch />', () => {
       expect(
         wrapper
           .find(ResultItem)
-          .filterWhere(n => !!n.prop('isSelected'))
+          .filterWhere((n) => !!n.prop('isSelected'))
           .prop('text'),
       ).toBe('three');
     });
@@ -552,7 +552,7 @@ describe('<QuickSearch />', () => {
     it('should clear selection onMouseLeave', () => {
       wrapper.find(ResultItem).at(2).find(ResultItem).simulate('mouseleave');
       expect(
-        wrapper.find(ResultItem).filterWhere(n => !!n.prop('isSelected')),
+        wrapper.find(ResultItem).filterWhere((n) => !!n.prop('isSelected')),
       ).toHaveLength(0);
     });
 
@@ -560,7 +560,7 @@ describe('<QuickSearch />', () => {
       searchInput.simulate('blur');
       expect(wrapper.find(ResultItem).length).toBeGreaterThan(0);
       expect(
-        wrapper.find(ResultItem).filterWhere(n => !!n.prop('isSelected')),
+        wrapper.find(ResultItem).filterWhere((n) => !!n.prop('isSelected')),
       ).toHaveLength(0);
     });
 

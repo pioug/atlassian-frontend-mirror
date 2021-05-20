@@ -116,7 +116,7 @@ describe('mapJiraItemToResult', () => {
   });
 
   [AnalyticsType.ResultJira, AnalyticsType.RecentJira].forEach(
-    analyticsType => {
+    (analyticsType) => {
       it(`should take the ${analyticsType} analytics type`, () => {
         const board = generateRandomJiraBoard() as JiraItemV2;
         const result = mapJiraItemToResult(analyticsType)(board);

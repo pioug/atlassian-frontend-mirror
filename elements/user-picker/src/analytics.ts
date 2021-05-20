@@ -345,7 +345,9 @@ function sessionId(session?: UserPickerSession) {
 }
 
 function position(state: UserPickerState, value?: Option) {
-  return value ? state.options.findIndex(option => option === value.data) : -1;
+  return value
+    ? state.options.findIndex((option) => option === value.data)
+    : -1;
 }
 
 function pickerType(props: UserPickerProps) {
@@ -367,7 +369,7 @@ function isLoading(props: UserPickerProps, state: UserPickerState) {
 function values(state: UserPickerState) {
   return state.value
     ? Array.isArray(state.value)
-      ? state.value.map(option => optionData2Analytics(option.data))
+      ? state.value.map((option) => optionData2Analytics(option.data))
       : [optionData2Analytics(state.value.data)]
     : [];
 }

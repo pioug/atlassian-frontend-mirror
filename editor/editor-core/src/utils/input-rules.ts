@@ -18,6 +18,7 @@ import {
   InputRuleHandler,
   OnInputEvent,
   OnHandlerApply,
+  MAX_REGEX_MATCH,
 } from '@atlaskit/prosemirror-input-rules';
 
 type GetPayload =
@@ -390,8 +391,12 @@ function createUnpredictableInputRulePlugin(
 
     inputRule.handler = (state: EditorState, match, start, end) => {
       const parentNodeStartAt = state.selection.$from.start();
+      const offset = Math.max(
+        0,
+        state.selection.$from.parentOffset - MAX_REGEX_MATCH,
+      );
       const fromFixed = Math.max(
-        parentNodeStartAt + (match as RegExpExecArray).index,
+        parentNodeStartAt + (match as RegExpExecArray).index + offset,
         1,
       );
 

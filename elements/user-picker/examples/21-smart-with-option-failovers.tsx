@@ -45,17 +45,17 @@ const Example: FunctionComponent = () => {
   mockClient.setRequestHandler(
     UserAndGroupSearchQuery,
     async ({ query }: { query: string }) => {
-      await new Promise(res => setTimeout(res, 1000));
+      await new Promise((res) => setTimeout(res, 1000));
       return {
         data: {
           userGroupSearch: {
             users: mockUsers.filter(
-              user =>
+              (user) =>
                 user.displayName &&
                 user.displayName.toLowerCase().indexOf(query) === -1,
             ),
             groups: mockGroups.filter(
-              group =>
+              (group) =>
                 group.name && group.name.toLowerCase().indexOf(query) === -1,
             ),
           },

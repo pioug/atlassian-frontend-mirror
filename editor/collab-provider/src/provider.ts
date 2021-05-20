@@ -1,9 +1,8 @@
 import { getVersion, sendableSteps } from 'prosemirror-collab';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step, StepMap, Mapping } from 'prosemirror-transform';
-import throttle from 'lodash/throttle';
-import debounce from 'lodash/debounce';
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import throttle from 'lodash/throttle';
 
 import { Emitter } from './emitter';
 import {
@@ -43,12 +42,13 @@ const logger = createLogger('Provider', 'yellow');
 
 const PARTICIPANT_UPDATE_INTERVAL = 300; // seconds
 const SEND_PRESENCE_INTERVAL = 150; // seconds
-const SEND_STEPS_THROTTLE = 0.1; // seconds
-const SEND_STEPS_DEBOUNCE = 0.2; // seconds
-const CATCHUP_THROTTLE = 1; // seconds
-const MAX_WAIT = 1000; // seconds
 export const MAX_STEP_REJECTED_ERROR = 10;
 export const CATCHUP_THROTTLE_TIMEOUT = 5000; // 5 seconds
+const SEND_STEPS_THROTTLE = 0.1; // seconds
+const FIVE_HUNDRED_MILLISECONDS = SEND_STEPS_THROTTLE * 500; // 500 ms
+
+const CATCHUP_THROTTLE = 1; // One seconds
+const TEN_SECONDS = CATCHUP_THROTTLE * 1000; // 10 seconds
 
 export type CollabConnectedPayload = EditorCollabConnetedData;
 export type CollabErrorPayload = ErrorPayload;
@@ -84,6 +84,36 @@ export interface CollabEvents {
   entity: any;
 }
 
+const commitStep = ({
+  channel,
+  steps,
+  version,
+  userId,
+  clientId,
+}: {
+  channel: Channel;
+  steps: Step[];
+  version: number;
+  userId: string;
+  clientId: string;
+}) => {
+  const stepsWithClientAndUserId = steps.map(step => ({
+    ...step.toJSON(),
+    clientId,
+    userId,
+  }));
+
+  channel.broadcast('steps:commit', {
+    steps: stepsWithClientAndUserId,
+    version,
+    userId,
+  });
+};
+
+const throttledCommitStep = throttle(commitStep, FIVE_HUNDRED_MILLISECONDS, {
+  leading: false,
+  trailing: true,
+});
 /**
  * Rebase the steps based on the mapping pipeline.
  * Some steps could be lost, if they are no longer
@@ -108,13 +138,12 @@ type InitializeOptions = {
   clientId: string;
 };
 
-export class Provider
-  extends Emitter<CollabEvents>
-  implements
-    Pick<
-      CollabEditProvider<CollabEvents>,
-      'initialize' | 'send' | 'sendMessage'
-    > {
+type BaseEvents = Pick<
+  CollabEditProvider<CollabEvents>,
+  'initialize' | 'send' | 'sendMessage'
+>;
+
+export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private participants: Map<
     string,
     CollabParticipant & { userId: string; clientId: string }
@@ -201,45 +230,31 @@ export class Provider
   }
 
   /**
-   * Send steps from transaction to other participants
+   * We can use this function to throttle/delay
+   * Any send steps operation
+   *
+   * The getState function will return the current EditorState
+   * from the EditorView.
    */
-  send(tr: Transaction, _oldState: EditorState, newState: EditorState) {
-    // Ignore transactions without steps
-    if (!tr.steps || !tr.steps.length) {
+  private sendStepsFromCurrentState() {
+    const state = this.getState && this.getState();
+    if (!state) {
       return;
     }
-    this.debouncedSend();
+
+    this.send(null, null, state);
   }
 
-  private throttledSend = throttle(
-    () => this.sendSteps(this.getState!()),
-    SEND_STEPS_THROTTLE * 1000,
-    { leading: false, trailing: true },
-  );
-
   /**
-   *  Introduced as a temp fix for CS-3100
+   * Send steps from transaction to other participants
    */
-  private debouncedSend = debounce(
-    () => this.sendSteps(this.getState!()),
-    SEND_STEPS_DEBOUNCE * MAX_WAIT,
-    { leading: true, trailing: true, maxWait: MAX_WAIT },
-  );
-
-  private throttledCatchup = throttle(
-    () => this.catchup(),
-    CATCHUP_THROTTLE * 1000,
-    { leading: false, trailing: true },
-  );
-
-  private fireAnalyticsEvent = (analyticsEvent?: GasPurePayload) => {
-    if (this.analyticsClient && analyticsEvent) {
-      this.analyticsClient.sendOperationalEvent(analyticsEvent);
-    }
-  };
-
-  private sendSteps(state: EditorState) {
-    const sendable = sendableSteps(state);
+  send(
+    _tr: Transaction | null,
+    _oldState: EditorState | null,
+    newState: EditorState,
+  ) {
+    const sendable = sendableSteps(newState);
+    const version = getVersion(newState);
 
     // Don't send any steps before we're ready.
     if (!sendable) {
@@ -247,16 +262,44 @@ export class Provider
     }
 
     const { steps } = sendable;
-    this.channel.broadcast('steps:commit', {
-      steps: steps.map(step => ({
-        ...step.toJSON(),
-        clientId: this.clientId!,
-        userId: this.userId!,
-      })),
-      version: getVersion(state),
+    if (!steps || !steps.length) {
+      return;
+    }
+
+    // Avoid reference issues using a
+    // method outside of the provider
+    // scope
+    throttledCommitStep({
+      channel: this.channel,
       userId: this.userId!,
+      clientId: this.clientId!,
+      steps,
+      version,
     });
   }
+
+  private fireAnalyticsEvent = (analyticsEvent?: GasPurePayload) => {
+    if (!this.analyticsClient || !analyticsEvent) {
+      return;
+    }
+
+    const client = this.analyticsClient;
+    const requestIdleCallbackFunction = (window as any).requestIdleCallback;
+    const runItLater =
+      typeof requestIdleCallbackFunction === 'function'
+        ? requestIdleCallbackFunction
+        : window.requestAnimationFrame;
+
+    // Let the browser figure out
+    // when it should send those events
+    runItLater(() => {
+      client.sendOperationalEvent({
+        action: 'collab',
+        ...analyticsEvent,
+        source: analyticsEvent.source || 'unknown',
+      });
+    });
+  };
 
   /**
    * Called when we receive steps from the service
@@ -293,6 +336,10 @@ export class Provider
     return getVersion(this.getState!());
   };
 
+  private throttledCatchup = throttle(() => this.catchup(), TEN_SECONDS, {
+    leading: false,
+    trailing: true,
+  });
   /**
    * Called when:
    *   * session established(offline -> online)
@@ -319,6 +366,8 @@ export class Provider
         } else if (serverVersion <= currentPmVersion) {
           logger(`Catchup steps we already have. Ignoring.`);
         } else {
+          // Please, do not use those steps inside of async
+          // method. That will lead to outdated steps
           const { steps: unconfirmedSteps } = sendableSteps(
             this.getState!(),
           ) || {
@@ -393,7 +442,7 @@ export class Provider
     } finally {
       this.pauseQueue = false;
       this.processQueue();
-      this.throttledSend();
+      this.sendStepsFromCurrentState();
       this.stepRejectCounter = 0;
       if (this.catchupTimeout) {
         clearTimeout(this.catchupTimeout);
@@ -512,7 +561,7 @@ export class Provider
 
       // Resend local steps if none of the received steps originated with us!
       if (clientIds.indexOf(this.clientId!) === -1) {
-        setTimeout(() => this.throttledSend(), 100);
+        setTimeout(() => this.sendStepsFromCurrentState(), 100);
       }
     }
   }
@@ -800,7 +849,7 @@ export class Provider
       sendableSteps(this.getState!()) && sendableSteps(this.getState!())?.steps;
 
     while (unconfirmedSteps && unconfirmedSteps.length) {
-      this.throttledSend();
+      this.sendStepsFromCurrentState();
       await sleep(500);
       unconfirmedSteps =
         sendableSteps(this.getState!()) &&

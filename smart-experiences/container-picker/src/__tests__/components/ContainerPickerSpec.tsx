@@ -88,7 +88,7 @@ describe('ContainerPicker', () => {
   it('should fetch containers on focus', async () => {
     getContainerRecommendationsMock.mockResolvedValue(mockReturnOptions);
     await component.find(Select).props().onFocus();
-    await new Promise(resolve => setImmediate(resolve));
+    await new Promise((resolve) => setImmediate(resolve));
     expect(getContainerRecommendationsMock).toHaveBeenCalledTimes(1);
     expect(component.find(Select).prop('options')).toEqual(mockReturnOptions);
   });
@@ -99,9 +99,9 @@ describe('ContainerPicker', () => {
       .mockResolvedValueOnce([mockReturnOptions[1]]);
     const componentProps = component.find(Select).props();
     await componentProps.onFocus();
-    await new Promise(resolve => setImmediate(resolve));
+    await new Promise((resolve) => setImmediate(resolve));
     await componentProps.onInputChange(queryString);
-    await new Promise(resolve => setImmediate(resolve));
+    await new Promise((resolve) => setImmediate(resolve));
     //product, context, contextType, query
     expect(getContainerRecommendationsMock).toHaveBeenCalledTimes(2);
     expect(getContainerRecommendationsMock).toHaveBeenNthCalledWith(
@@ -146,7 +146,7 @@ describe('ContainerPicker', () => {
       maxOptions: 1,
     });
     await component.find(Select).props().onFocus();
-    await new Promise(resolve => setImmediate(resolve));
+    await new Promise((resolve) => setImmediate(resolve));
     expect(component.find(Select).props().options).toEqual([
       mockReturnOptions[0],
     ]);
@@ -160,7 +160,7 @@ describe('ContainerPicker', () => {
       getContainerRecommendationsMock.mockResolvedValueOnce(mockReturnOptions);
       const componentProps = component.find(Select).props();
       await componentProps.onFocus();
-      await new Promise(resolve => setImmediate(resolve));
+      await new Promise((resolve) => setImmediate(resolve));
       // choose first option
       await componentProps.onChange([mockReturnOptions[0]], {
         action: 'select-option',

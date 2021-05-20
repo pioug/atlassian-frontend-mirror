@@ -117,7 +117,7 @@ describe('GlobalQuickSearchWrapper', () => {
       });
 
       it('should call prevent default and stop propagation', () => {
-        const spy = jest.fn(e => {
+        const spy = jest.fn((e) => {
           e.preventDefault();
         });
         const wrapper = shallow(

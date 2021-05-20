@@ -349,9 +349,9 @@ const getJiraPostQueryResults = (sessionId: string): ResultsGroup[] => [
     totalSize: 0,
   },
 ];
-const getConfluencePostQueryResults: (
-  sessionId: string,
-) => ResultsGroup[] = sessionId => [
+const getConfluencePostQueryResults: (sessionId: string) => ResultsGroup[] = (
+  sessionId,
+) => [
   {
     items: [],
     key: 'objects',

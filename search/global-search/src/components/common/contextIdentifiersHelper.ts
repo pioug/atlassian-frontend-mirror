@@ -23,14 +23,14 @@ const mapJiraResultMap = (
   const objectKeys = Object.keys(results) as (keyof JiraResultsMap)[];
 
   const nonMapped = objectKeys
-    .filter(key => !keysToMap.includes(key))
+    .filter((key) => !keysToMap.includes(key))
     .reduce(
       (accum, key) => ({ ...accum, [key]: results[key] }),
       {} as JiraResultsMap,
     );
 
   return Object.keys(results)
-    .filter(key => keysToMap.includes(key))
+    .filter((key) => keysToMap.includes(key))
     .reduce(
       (accum, resultType) => ({
         ...accum,
@@ -59,7 +59,7 @@ const mapConfluenceResultMap = (
   const objectKeys = Object.keys(results) as (keyof ConfluenceResultsMap)[];
 
   return objectKeys
-    .filter(key => keysToMap.includes(key))
+    .filter((key) => keysToMap.includes(key))
     .reduce(
       (accum, resultType) => {
         //It's currently impossible to type this due items being an union of arrays
@@ -140,7 +140,7 @@ export const attachJiraContextIdentifiers = (
   };
 
   return mapJiraResultMap(
-    r => attachJiraContext(attachSearchSessionId(r)),
+    (r) => attachJiraContext(attachSearchSessionId(r)),
     ['objects', 'containers'],
     results,
   );

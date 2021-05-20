@@ -246,7 +246,7 @@ describe('MentionPicker', () => {
     let chosenMention: MentionDescription;
 
     const component = setupPicker({
-      onSelection: mention => {
+      onSelection: (mention) => {
         chosenMention = mention;
       },
     } as Props);
@@ -275,7 +275,7 @@ describe('MentionPicker', () => {
     let chosenMention: MentionDescription;
 
     const component = setupPicker({
-      onSelection: mention => {
+      onSelection: (mention) => {
         chosenMention = mention;
       },
     } as Props);

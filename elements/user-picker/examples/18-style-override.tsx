@@ -11,12 +11,12 @@ import * as colors from '@atlaskit/theme/colors';
 setSmartUserPickerEnv('local');
 const Example = () => {
   const styles: StylesConfig = {
-    control: style => ({
+    control: (style) => ({
       ...style,
       backgroundColor: '#7B8597',
       borderRadius: 8,
     }),
-    input: style => ({
+    input: (style) => ({
       ...style,
       color: colors.N10,
     }),

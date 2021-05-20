@@ -12,7 +12,7 @@ describe('HighlightText', () => {
     const component = shallowHighlightText(props);
 
     const html = component
-      .map(wrapper => {
+      .map((wrapper) => {
         if (wrapper.html() === '') {
           return wrapper.text();
         }

@@ -13,7 +13,7 @@ describe('Result Base', () => {
       onMouseEnter: () => {},
       onMouseLeave: () => {},
       sendAnalytics: () => {},
-      getIndex: n => Number(n),
+      getIndex: (n) => Number(n),
     };
 
     resultWrapper = mount(

@@ -29,7 +29,7 @@ const TEST_FILE_PREFIXES = [
 function generateTestCasesForExtensions(extensionsToTest: Array<string>) {
   // generate a 2d array of filenames
   const tests = extensionsToTest.map((extension: string) => {
-    return TEST_FILE_PREFIXES.map(prefix => `${prefix}.${extension}`);
+    return TEST_FILE_PREFIXES.map((prefix) => `${prefix}.${extension}`);
   });
   // flatten the array, done
   return ([] as Array<string>).concat(...tests);
@@ -61,7 +61,7 @@ describe('confluence-avatar-util', () => {
   ) {
     describe(`${groupType} attachments`, () => {
       const testCases = generateTestCasesForExtensions(testExtensions);
-      testCases.forEach(testFileName => {
+      testCases.forEach((testFileName) => {
         it(`file name should be correctly mapped to the ${groupType} attachment icon: ${testFileName}`, () => {
           executeTest(testFileName, cqlIconClass, expectedAvatar);
           executeTest(testFileName, quickNavIconClass, expectedAvatar);
@@ -141,7 +141,7 @@ describe('confluence-avatar-util', () => {
       extensions: ['unknown', 'test'],
       expectedAvatar: FileTypes24File24GenericIcon,
     },
-  ].forEach(testGroup => {
+  ].forEach((testGroup) => {
     describeTestGroup(
       testGroup.id,
       testGroup.extensions,

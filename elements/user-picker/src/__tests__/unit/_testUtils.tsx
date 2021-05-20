@@ -23,5 +23,5 @@ export const testUser: User = {
 };
 
 export const flushPromises = () => {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise((resolve) => setImmediate(resolve));
 };

@@ -33,7 +33,7 @@ export class ExampleWrapper extends React.PureComponent<
 
   private loadUsers = (searchText?: string, sessionId?: string) => {
     if (searchText && searchText.length > 0) {
-      return new Promise<OptionData[]>(resolve => {
+      return new Promise<OptionData[]>((resolve) => {
         window.setTimeout(() => resolve(filterUsers(searchText)), 1000);
       });
     }
@@ -45,7 +45,7 @@ export class ExampleWrapper extends React.PureComponent<
     return [
       unassigned,
       assignToMe,
-      new Promise<OptionData[]>(resolve => {
+      new Promise<OptionData[]>((resolve) => {
         window.setTimeout(() => resolve(exampleOptions), 1000);
       }),
     ];

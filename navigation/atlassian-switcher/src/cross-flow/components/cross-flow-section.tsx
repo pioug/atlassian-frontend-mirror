@@ -30,7 +30,6 @@ interface CrossFlowSectionProps {
   discoverSectionLinks: SwitcherItemType[];
   onDiscoverMoreClicked: DiscoverMoreCallback;
   isSlackDiscoveryEnabled?: boolean;
-  slackDiscoveryClickHandler?: DiscoverMoreCallback;
 }
 
 const noop = () => {};
@@ -41,8 +40,6 @@ export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = props 
     discoverSectionLinks,
     onDiscoverMoreClicked,
     suggestedProductLinks,
-    isSlackDiscoveryEnabled,
-    slackDiscoveryClickHandler,
   } = props;
 
   return (
@@ -71,25 +68,13 @@ export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = props 
           <SwitcherThemedItemWithEvents
             icon={<item.Icon theme="discover" />}
             href={item.href}
+            target={item.target ? item.target : undefined}
             description={item.description}
             onClick={
               item.href
                 ? noop
-                : (event: any, analyticsEvent: UIAnalyticsEvent) => {
-                    if (
-                      item.key === 'slack-integration' &&
-                      isSlackDiscoveryEnabled &&
-                      slackDiscoveryClickHandler
-                    ) {
-                      slackDiscoveryClickHandler(
-                        event,
-                        analyticsEvent,
-                        item.key,
-                      );
-                    } else {
-                      onDiscoverMoreClicked(event, analyticsEvent, item.key);
-                    }
-                  }
+                : (event: any, analyticsEvent: UIAnalyticsEvent) =>
+                    onDiscoverMoreClicked(event, analyticsEvent, item.key)
             }
           >
             {item.label}

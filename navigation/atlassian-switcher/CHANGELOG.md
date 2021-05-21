@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 12.2.0
+
+### Minor Changes
+
+- [`74b737dba29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74b737dba29) - [ux] Remove slackDiscoveryClickHandler and Slack for Atlassian CTA goes to the Atlassian Slack partnerships page
+
 ## 12.1.0
 
 ### Minor Changes

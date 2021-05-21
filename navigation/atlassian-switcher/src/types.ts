@@ -349,8 +349,6 @@ export type AtlassianSwitcherProps = WithTheme &
     defaultSignupEmail?: string;
     // Optional admin URl (required for Statuspage)
     adminUrl?: string;
-    // Optional callback to be exectuted after a user clicks on Slack for Atlassian.
-    slackDiscoveryClickHandler?: DiscoverMoreCallback;
     // Optional callback to be executed for adding Origin Tracing info onto switcher links.
     customizeLinks?: CustomizeLinks;
   } & FeatureFlagProps;

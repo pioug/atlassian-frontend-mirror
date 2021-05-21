@@ -43,6 +43,7 @@ export type SwitcherItemType = {
   description?: React.ReactNode;
   Icon: IconType;
   href: string;
+  target?: string;
   childItems?: SwitcherChildItem[];
   productType?: SwitcherProductType;
   analyticsAttributes?: { [key: string]: string };

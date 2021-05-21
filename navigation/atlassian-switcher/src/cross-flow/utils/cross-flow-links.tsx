@@ -13,7 +13,6 @@ import {
   SwitcherProductType,
   RecommendationsFeatureFlags,
   DiscoverLinkItemKeys,
-  DiscoverMoreCallback,
 } from '../../types';
 import {
   AVAILABLE_PRODUCT_DATA_MAP,
@@ -22,6 +21,17 @@ import {
   getEmceeLink,
 } from '../../common/utils/links';
 import SlackIcon from '../../ui/primitives/SlackIcon';
+
+export const slackIntegrationProducts = [
+  'jira',
+  'halp',
+  'trello',
+  'confluence',
+  'bitbucket',
+  'opsgenie',
+  'statuspage',
+  'start',
+];
 
 export const getFixedProductLinks = (params: {}): SwitcherItemType[] => {
   return [getDiscoverMoreLink()];
@@ -59,11 +69,11 @@ const getGitToolsLink = (): SwitcherItemType => {
 };
 
 const getSlackIntegrationLink = (): SwitcherItemType => ({
-  // The Slack integration link href is intentionally empty to prioritise the slackDiscoveryClickHandler callback
   key: DiscoverLinkItemKeys.SLACK_INTEGRATION,
   label: <FormattedMessage {...messages.slackIntegrationLink} />,
   Icon: createIcon(SlackIcon, { size: 'medium' }),
-  href: '',
+  href: 'https://www.atlassian.com/partnerships/slack',
+  target: '_blank',
 });
 
 export function getDiscoverSectionLinks({
@@ -73,7 +83,6 @@ export function getDiscoverSectionLinks({
   canAddProducts,
   recommendationsFeatureFlags,
   isSlackDiscoveryEnabled,
-  slackDiscoveryClickHandler,
 }: {
   isEmceeLinkEnabled: boolean;
   product?: Product;
@@ -81,12 +90,11 @@ export function getDiscoverSectionLinks({
   canAddProducts: boolean;
   recommendationsFeatureFlags?: RecommendationsFeatureFlags;
   isSlackDiscoveryEnabled?: boolean;
-  slackDiscoveryClickHandler?: DiscoverMoreCallback;
 }) {
   const discoverLinks: SwitcherItemType[] = [];
   const discoverMoreLink = getDiscoverMoreLink(
     DiscoverFilledGlyph,
-    isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler),
+    isSlackDiscoveryEnabled,
   );
 
   const slackIntegrationLink = getSlackIntegrationLink();
@@ -105,7 +113,10 @@ export function getDiscoverSectionLinks({
   if (gitToolsLink) {
     discoverLinks.push(gitToolsLink);
   }
-  if (isSlackDiscoveryEnabled && Boolean(slackDiscoveryClickHandler)) {
+  if (
+    isSlackDiscoveryEnabled &&
+    slackIntegrationProducts.includes(product || 'unknown')
+  ) {
     discoverLinks.push(slackIntegrationLink);
   }
 

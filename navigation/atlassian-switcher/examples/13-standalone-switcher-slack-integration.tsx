@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 import {
   mockEndpoints,
   REQUEST_FAST,
@@ -21,7 +20,6 @@ const Container = styled.div`
 class InlineDialogSwitcherExample extends Component {
   state = {
     isLoaded: false,
-    isOpen: false,
   };
 
   componentDidMount() {
@@ -55,25 +53,15 @@ class InlineDialogSwitcherExample extends Component {
     );
   };
 
-  openModal = () => this.setState({ isOpen: true });
-
-  closeModal = () => this.setState({ isOpen: false });
-
   render() {
     return (
       this.state.isLoaded && (
         <Container>
-          <ModalTransition>
-            {this.state.isOpen && (
-              <Modal onClose={this.closeModal}>Integration modal</Modal>
-            )}
-          </ModalTransition>
           <AtlassianSwitcher
             product="jira"
             disableCustomLinks
             disableSwitchToHeading
             isSlackDiscoveryEnabled
-            slackDiscoveryClickHandler={this.openModal}
             onDiscoverMoreClicked={() => {}}
             cloudId="some-cloud-id"
             triggerXFlow={this.onTriggerXFlow}

@@ -181,7 +181,6 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
                     Product.TRELLO,
                     undefined,
                     undefined,
-                    undefined,
                     customizeLinks,
                   );
                   return (

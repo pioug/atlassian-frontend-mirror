@@ -34,7 +34,6 @@ type JiraSwitcherProps = WithTheme &
     isDiscoverMoreClickable: boolean;
     joinableSitesDataProvider?: JoinableSitesDataProvider;
     availableProductsDataProvider?: AvailableProductsDataProvider;
-    slackDiscoveryClickHandler?: DiscoverMoreCallback;
     customizeLinks?: CustomizeLinks;
   };
 
@@ -76,7 +75,6 @@ export default (props: JiraSwitcherProps) => (
                     Product.JIRA,
                     undefined,
                     props.recommendationsFeatureFlags,
-                    props.slackDiscoveryClickHandler,
                     props.customizeLinks,
                   );
 

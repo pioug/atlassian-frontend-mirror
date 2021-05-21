@@ -2,11 +2,13 @@
 order: 2
 ---
 
+import DoDont from '@atlaskit/gatsby-theme-brisk/src/components/do-dont';
+import SelectA11yDo from './images/select-a11y-do.png';
+import SelectA11yDont from './images/select-a11y-dont.png';
+
 ## Usage
 
-Select gives users the ability to choose a single item,
-or multiple items,
-from a list of options.
+Select lets people choose one or more items from a list of menu items.
 It’s usually found in [forms](/patterns/forms) or [inline edit](/patterns/inline-edit).
 
 ## Anatomy
@@ -15,44 +17,57 @@ It’s usually found in [forms](/patterns/forms) or [inline edit](/patterns/inli
 
 ![Single-select anatomy](images/single-select.png)
 
-1. **Label:** Labels should be sentence case and as short as possible while clearly explaining the content of the menu.
-2. **Menu:** Contains the list of all selectable items.
-   These can be grouped into sub-categories under headings.
+1. **Field label:** Field labels should indicate what information the field requires. The label is usually left-aligned above the input area.
+2. **Text input field:** The field people click in to receive the options they can choose from. Once selected, the option will be shown in the text input.
+3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories under headings.
+4. **Placeholder text:** Includes information that supports the field label and other contextual cues, for example, _“Start typing to see names”_. It should not be necessary to understand how to use the component. 
 
 ### Multi select
 
 ![Multi-select anatomy](images/multi-select.png)
 
-1. **Text input field:** The field where users click in to receive the suggestions they can choose from.
-   Once selected,
-   the user's choices are then shown in the field.
-2. **Menu:** Contains the list of all selectable items.
-   These can be grouped into sub-categories under headings.
-3. **Tag:** [Tags](/components/tag) show what options have been selected,
-   and can be removed by selecting the adjacent "x" (Clear all).
-4. **Clear all "x":** This clears everything in the text input field.
-   It only appears when a user has selected at least one option.
+1. **Field label:** Field labels should indicate what sort of information the field requires and are usually left-aligned directly above the input area.
+2. **Text input field:** The field people click in to receive the options they can choose from. Once selected, each option is shown in the text input.
+3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories under headings.
+4. **Selected item:** Displays what options have been selected. Users can remove selections by clicking the **x**.
+5. **Clear all:** The **x** clears everything in the text input field. It only appears when at least one option has been selected.
 
 ## Best practices
 
-- Order your list of options in a way that will make the most sense to the user.
-  This could be:
-  - alphabetically
-  - numerically
-  - by most commonly selected option
-- Remove options that rarely get used.
+- Order your list of options in a way that will make the most sense. This could be by the most commonly selected option or numerically.
+- Avoid putting things in alphabetical order because it isn’t localization-friendly.
 - Don’t overwhelm the user with too many options.
 
 ## Content guidelines
 
-- Use concise, descriptive labels so that users clearly know the purpose of the selection.
-  For example,
-  use a "Save to..." label for a list containing options such as "Cloud,
-  Local drive,
-  CD".
+- Use concise, descriptive field labels so that people clearly know the purpose of the selection. For example, use a **Save to** label for a list containing options such as _Cloud_ and _Local drive_.
 - Keep options to a single line of text.
-- Use commonly known terms for your options,
-  make sure they’re clear and direct and follow the [writing style](/content/writing-style).
+- Use commonly known terms for your options and make sure they’re clear and direct. Follow the [writing style](/content/writing-style).
+
+## Accessibility
+- Don’t rely on placeholder text for clarification of field inputs – use a combination of a concise field label and supportive helper text.
+- Use a field label to indicate what information goes in the text input. Ensure the label is positioned outside the field so it remains visible at all times.
+- Helper text can explain more about what to enter in the text input field. If the text is necessary to understand the field, put it above the text input (below the field label). Always keep this succinct.
+
+<DoDont
+  type="do"
+  image={{
+    url: SelectA11yDo,
+    alt: 'Select field displays a field label and helper text'
+  }}
+>
+  Use a field label and helper text to ensure all users can understand what’s required.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: SelectA11yDont,
+    alt: 'Select only uses placeholder text to label and describe the content required'
+  }}
+>
+  Use placeholder text instead of a field label. Context of the input is lost when information is entered.
+</DoDont>
 
 ## Server
 
@@ -60,7 +75,7 @@ Consult AUI for implementation details on [Single select](https://docs.atlassian
 
 ## Related
 
-- Use a [dropdown menu](/components/dropdown-menu) to select a single option which acts as a separate URL.
-- To turn an option on or off instantly use [toggles](/components/toggle).
-- To choose options that require a button press to apply the setting use a [checkbox](/components/checkbox).
+- Use a [dropdown menu](/components/dropdown-menu) to display a list of immediate actions to a user.
+- Use [toggles](/components/toggle) to turn an option on or off instantly.
+- Use [checkboxes](/components/checkbox) for options that require a button press to apply the setting.
 - Use [radio buttons](/components/radio) to choose a single option from a set of options.

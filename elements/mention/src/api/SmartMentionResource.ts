@@ -18,10 +18,13 @@ import {
   TeamMember,
   UserAccessLevel,
   UserType as MentionUserType,
+  MentionNameDetails,
+  MentionNameStatus,
+  MentionNameResolver,
 } from '../types';
 
 import { getUsersForAnalytics, defaultAttributes } from './analytics';
-import { AbstractMentionResource } from '../resource';
+import { AbstractMentionResource, ResolvingMentionProvider } from '../resource';
 
 const CONTEXT_TYPE = 'Mentions';
 
@@ -36,6 +39,7 @@ export interface SmartMentionConfig {
   includeUsers?: boolean;
   includeTeams?: boolean;
   includeGroups?: boolean;
+  mentionNameResolver?: MentionNameResolver;
   shouldHighlightMention?: (mention: MentionDescription) => boolean;
   maxNumberOfResults?: number;
 }
@@ -47,9 +51,12 @@ export interface SmartMentionConfig {
  * https://bitbucket.org/atlassian/atlassian-frontend/src/0884032d85f11f43c13532cd21f13f696b0d28a7/packages/editor/editor-core/src/plugins/mentions/index.tsx#lines-219
  *
  */
-class SmartMentionResource extends AbstractMentionResource {
+class SmartMentionResource
+  extends AbstractMentionResource
+  implements ResolvingMentionProvider {
   private smartMentionConfig: SmartMentionConfig;
   private lastReturnedSearch: number;
+  private contextIdentifier?: MentionContextIdentifier;
 
   constructor(smartMentionConfig: SmartMentionConfig) {
     super();
@@ -83,6 +90,7 @@ class SmartMentionResource extends AbstractMentionResource {
     query?: string,
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<void> {
+    this.contextIdentifier = contextIdentifier;
     const searchTime = Date.now();
     try {
       let results = await this.getRecommendedMentions(
@@ -101,7 +109,7 @@ class SmartMentionResource extends AbstractMentionResource {
   ): Promise<MentionsResult> {
     const startTime = window.performance.now();
     const conf = this.smartMentionConfig;
-    const maxNuberOfResults = conf.maxNumberOfResults || 100;
+    const maxNumberOfResults = conf.maxNumberOfResults || 100;
 
     if (conf.env) {
       setEnv(conf.env);
@@ -124,7 +132,7 @@ class SmartMentionResource extends AbstractMentionResource {
       },
       includeUsers:
         typeof conf.includeUsers === 'undefined' ? true : conf.includeUsers,
-      maxNumberOfResults: maxNuberOfResults,
+      maxNumberOfResults: maxNumberOfResults,
       query,
     };
     try {
@@ -247,6 +255,41 @@ class SmartMentionResource extends AbstractMentionResource {
       .map(this.transformUserToMention, this)
       .filter((user) => !!user)
       .map((user) => user as MentionDescription);
+  }
+
+  cacheMentionName(id: string, mentionName: string): void {
+    if (this.smartMentionConfig.mentionNameResolver) {
+      this.smartMentionConfig.mentionNameResolver.cacheName(id, mentionName);
+    }
+  }
+
+  resolveMentionName(
+    id: string,
+  ): Promise<MentionNameDetails> | MentionNameDetails {
+    if (!this.smartMentionConfig.mentionNameResolver) {
+      return {
+        id,
+        name: '',
+        status: MentionNameStatus.UNKNOWN,
+      };
+    }
+    return this.smartMentionConfig.mentionNameResolver.lookupName(id);
+  }
+
+  supportsMentionNameResolving(): boolean {
+    return !!this.smartMentionConfig.mentionNameResolver;
+  }
+
+  recordMentionSelection(_mention: MentionDescription): void {
+    this._notifyAnalyticsListeners(
+      SMART_EVENT_TYPE,
+      'usersRequest',
+      Actions.SELECTED,
+      {
+        selectedOption: _mention.id,
+        ...defaultAttributes(this.contextIdentifier),
+      },
+    );
   }
 }
 

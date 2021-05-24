@@ -148,6 +148,22 @@ describe('SmartMentionResource', () => {
     );
   });
 
+  it('should not support mention name resolving without supplying MentionNameResolver', () => {
+    const resource = new SmartMentionResource(smartConfig);
+    expect(resource.supportsMentionNameResolving()).toEqual(false);
+  });
+
+  it('should support mention name resolving when supplying MentionNameResolver', () => {
+    const resource = new SmartMentionResource({
+      ...smartConfig,
+      mentionNameResolver: {
+        cacheName: jest.fn(),
+        lookupName: jest.fn(),
+      },
+    });
+    expect(resource.supportsMentionNameResolving()).toEqual(true);
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });

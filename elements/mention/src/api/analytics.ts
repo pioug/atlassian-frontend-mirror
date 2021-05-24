@@ -8,12 +8,22 @@ export enum Actions {
   SUCCESSFUL = 'successful',
   SEARCHED = 'searched',
   FAILED = 'failed',
+  SELECTED = 'selected',
 }
+export type DefaultAttributes = {
+  [key: string]: any;
+  context: string;
+  sessionId: string;
+  pickerType: 'mentions';
+  source: 'smarts';
+};
 
-export const defaultAttributes: any = (context: MentionContextIdentifier) => {
+export const defaultAttributes = (
+  context?: MentionContextIdentifier,
+): DefaultAttributes => {
   return {
-    context: context.objectId,
-    sessionId: context.sessionId,
+    context: context?.objectId || '',
+    sessionId: context?.sessionId || '',
     pickerType: 'mentions',
     source: 'smarts',
   };

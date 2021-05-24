@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 19.6.2
+
+### Patch Changes
+
+- [`56ffe4d3c5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56ffe4d3c5a) - Add optional MentionNameResolver to SmartMentionResource config
+
 ## 19.6.1
 
 ### Patch Changes

@@ -106,7 +106,7 @@ export const BackButton: React.FC<Props & InjectedIntlProps> = ({
   );
 };
 
-const BackButtonWithContext: React.FC<Props & InjectedIntlProps> = props => {
+const BackButtonWithContext: React.FC<Props & InjectedIntlProps> = (props) => {
   return (
     <AnalyticsContext
       data={{

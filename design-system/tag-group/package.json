@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/tag-group",
   "version": "10.0.7",
-  "description": "A React component used for grouping and controlling @atlskit/tag components",
+  "description": "A tag group controls the layout and alignment for a collection of tags.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

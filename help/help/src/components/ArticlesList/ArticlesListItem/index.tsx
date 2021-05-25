@@ -105,7 +105,7 @@ export const ArticlesListItem: React.FC<
 
 const ArticlesListItemWithContext: React.FC<
   Props & Partial<ArticleItem> & InjectedIntlProps
-> = props => {
+> = (props) => {
   return (
     <AnalyticsContext
       data={{

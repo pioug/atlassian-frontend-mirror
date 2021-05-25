@@ -50,7 +50,7 @@ export const ArticleWasHelpfulNoButton: React.FC<Props & InjectedIntlProps> = ({
 
 const ArticleWasHelpfulNoButtonWithContext: React.FC<
   Props & InjectedIntlProps
-> = props => {
+> = (props) => {
   return (
     <AnalyticsContext
       data={{

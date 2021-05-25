@@ -351,13 +351,13 @@ export const articlesSearchExample = [
 
 export const getArticle = (id = '00') => {
   const articleIndex = parseInt(id, 10);
-  return new Promise(resolve => resolve(articleExamples[articleIndex]));
+  return new Promise((resolve) => resolve(articleExamples[articleIndex]));
 };
 
 export const searchArticle = (value: string) => {
   if (value === 'empty') {
-    return new Promise(resolve => resolve([]));
+    return new Promise((resolve) => resolve([]));
   } else {
-    return new Promise(resolve => resolve(articlesSearchExample));
+    return new Promise((resolve) => resolve(articlesSearchExample));
   }
 };

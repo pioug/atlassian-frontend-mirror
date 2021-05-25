@@ -39,9 +39,9 @@ type DefaultContentProps = {
 };
 
 export const DefaultContent = styled.div<DefaultContentProps>`
-  display: ${props => (props.isArticleFullyVisible ? 'none' : 'block')};
+  display: ${(props) => (props.isArticleFullyVisible ? 'none' : 'block')};
   height: 100%;
-  overflow: ${props => (props.isArticleVisible ? 'hidden' : 'auto')};
+  overflow: ${(props) => (props.isArticleVisible ? 'hidden' : 'auto')};
 `;
 
 export const DividerLine = styled.div`

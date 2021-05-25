@@ -1,0 +1,31 @@
+---
+order: 0
+---
+
+import TagGroupDefault from '../../examples/constellation/tag-group-default';
+import TagGroupAlignmentStart from '../../examples/constellation/tag-group-alignment-start';
+import TagGroupAlignmentEnd from '../../examples/constellation/tag-group-alignment-end';
+
+## Default
+
+By default, a tag group lays out a collection of [tags](/components/tag/) from left to right, handling overflow by wrapping to the next line.
+
+In most cases, all of the tags inside of a tag group should be of the same type to provide a consistent user experience.
+
+<Example Component={TagGroupDefault} packageName="@atlaskit/tag-group" />
+
+## Alignment
+
+The alignment direction can be set to either the `start` or `end` of the tag group container using the `alignment` prop. This will also impact the direction of the exiting animation when a removable tag is removed. 
+
+### Start
+
+Set the `alignment` prop to `"start"` to align the tags to the start of the tag group container. Tags will animate out to the left when removed.
+
+<Example Component={TagGroupAlignmentStart} packageName="@atlaskit/tag-group" />
+
+### End
+
+Set the `alignment` prop to `"end"` to align the tags to the end of the group. Tags will animate out to the right when removed.
+
+<Example Component={TagGroupAlignmentEnd} packageName="@atlaskit/tag-group" />

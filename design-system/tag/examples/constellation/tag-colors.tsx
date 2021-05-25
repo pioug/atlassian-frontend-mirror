@@ -1,9 +1,11 @@
 import React from 'react';
 
+import TagGroup from '@atlaskit/tag-group';
+
 import { SimpleTag as Tag } from '../../src';
 
 export default () => (
-  <>
+  <TagGroup>
     <Tag text="standard Tag" color="standard" />
     <Tag text="blue Tag" color="blue" />
     <Tag text="green Tag" color="green" />
@@ -19,5 +21,5 @@ export default () => (
     <Tag text="redLight Tag" color="redLight" />
     <Tag text="yellowLight Tag" color="yellowLight" />
     <Tag text="greyLight Tag" color="greyLight" />
-  </>
+  </TagGroup>
 );

@@ -46,10 +46,10 @@ const shimmer = keyframes`
 
 export const LoadingRectangle = styled.div<LoadingRectangleProps>`
   position: relative;
-  height: ${props => (props.contentHeight ? props.contentHeight : '1rem')};
-  margin-top: ${props =>
+  height: ${(props) => (props.contentHeight ? props.contentHeight : '1rem')};
+  margin-top: ${(props) =>
     props.marginTop ? props.marginTop : gridSize() + 'px'};
-  width: ${props => (props.contentWidth ? props.contentWidth : '100%')};
+  width: ${(props) => (props.contentWidth ? props.contentWidth : '100%')};
   border-radius: 2px;
   animation-duration: 1.2s;
   animation-fill-mode: forwards;

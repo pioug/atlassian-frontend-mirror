@@ -60,9 +60,9 @@ export const ArticleLoadingFail: React.FC<InjectedIntlProps & Props> = ({
   );
 };
 
-const ArticleLoadingFailWithContext: React.FC<
-  Props & InjectedIntlProps
-> = props => {
+const ArticleLoadingFailWithContext: React.FC<Props & InjectedIntlProps> = (
+  props,
+) => {
   return (
     <AnalyticsContext
       data={{

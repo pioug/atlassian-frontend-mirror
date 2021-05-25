@@ -69,7 +69,7 @@ export const CloseButton: React.FC<Props & InjectedIntlProps> = ({
   );
 };
 
-const CloseButtonWithContext: React.FC<Props & InjectedIntlProps> = props => {
+const CloseButtonWithContext: React.FC<Props & InjectedIntlProps> = (props) => {
   return (
     <AnalyticsContext
       data={{

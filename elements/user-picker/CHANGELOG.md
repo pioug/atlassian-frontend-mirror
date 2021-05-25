@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.10.4
+
+### Patch Changes
+
+- [`f22daa70ff0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f22daa70ff0) - Unit test and some doco for defaultValue
+
 ## 7.10.3
 
 ### Patch Changes

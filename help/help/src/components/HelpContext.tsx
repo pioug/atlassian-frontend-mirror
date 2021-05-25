@@ -138,7 +138,7 @@ export interface HelpContextInterface {
 }
 
 function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export const [useHelpContext, CtxProvider] = createCtx<HelpContextInterface>();
@@ -147,7 +147,7 @@ export const HelpContextProvider: React.FC<
   HelpInterface & {
     defaultContent?: React.ReactNode;
   }
-> = props => {
+> = (props) => {
   const [view, setView] = useState<VIEW>(VIEW.DEFAULT_CONTENT);
 
   // Article
@@ -218,7 +218,7 @@ export const HelpContextProvider: React.FC<
    * the ID, UID and state === 'reload'
    */
   const getSimpleHistory = useCallback((fullHistory: HistoryItem[]) => {
-    const copyHistory = fullHistory.map(tempHistoryItem => {
+    const copyHistory = fullHistory.map((tempHistoryItem) => {
       const { id, uid } = tempHistoryItem;
 
       return { id, uid, state: REQUEST_STATE.reload };
@@ -256,7 +256,7 @@ export const HelpContextProvider: React.FC<
   const updateHistoryItem = useCallback(
     (historyItem: HistoryItem, update?: Partial<HistoryItem>) => {
       const index = tempHistory.current.findIndex(
-        historyItemTemp => historyItemTemp.uid === historyItem.uid,
+        (historyItemTemp) => historyItemTemp.uid === historyItem.uid,
       );
 
       if (index !== -1) {

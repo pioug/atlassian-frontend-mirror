@@ -128,7 +128,7 @@ const Example: React.FC = () => {
     return new Promise((resolve, reject) => {
       index
         .search(query)
-        .then(result => {
+        .then((result) => {
           resolve(result.hits);
         })
         .catch(function (error) {

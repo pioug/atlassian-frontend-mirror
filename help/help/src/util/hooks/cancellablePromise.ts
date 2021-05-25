@@ -13,7 +13,7 @@ export function makeCancelable(promise: Promise<any>) {
       .then((val: any) =>
         isCanceled ? reject(new Error('Promise is canceled')) : resolve(val),
       )
-      .catch(error =>
+      .catch((error) =>
         isCanceled ? reject(new Error('Promise is canceled')) : reject(error),
       );
   });
@@ -41,12 +41,12 @@ export default function useCancellablePromise(cancelable = makeCancelable) {
   useEffect(() => {
     promises.current = promises.current;
     return function cancel() {
-      promises.current.forEach(p => p.cancel());
+      promises.current.forEach((p) => p.cancel());
       promises.current = [];
     };
   }, []);
 
-  const cancellablePromise: (p: Promise<any>) => Promise<any> = p => {
+  const cancellablePromise: (p: Promise<any>) => Promise<any> = (p) => {
     const cPromise: CancellablePromise = cancelable(p);
     promises.current.push(cPromise);
     return cPromise.promise;

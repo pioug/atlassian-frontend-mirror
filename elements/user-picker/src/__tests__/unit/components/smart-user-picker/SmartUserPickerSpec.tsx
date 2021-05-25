@@ -140,6 +140,19 @@ const defaultValue: DefaultValue = [
   },
 ];
 
+const preHydratedDefaultValues: OptionData[] = [
+  {
+    id: 'id1',
+    name: 'Pre Hydrated User 1',
+    type: 'user',
+  },
+  {
+    id: 'id2',
+    name: 'Pre Hydrated User 2',
+    type: 'user',
+  },
+];
+
 const mockOnValueErrorDefaultValues: OptionData[] = [
   {
     id: 'id1',
@@ -366,6 +379,40 @@ describe('SmartUserPicker', () => {
           id: 'id1',
           type: 'user',
           name: 'id1',
+        },
+      },
+    ]);
+  });
+
+  it('should set but not hydrate defaultValues if the full hydrated defaultValue is passed in', async () => {
+    getUsersByIdMock.mockReturnValue(Promise.resolve(usersById));
+
+    const component = smartUserPickerWrapper({
+      defaultValue: preHydratedDefaultValues,
+      productKey: 'people',
+    });
+
+    await flushPromises();
+    component.update();
+    expect(getUsersByIdMock).toHaveBeenCalledTimes(0);
+    const select = component.find(Select);
+    expect(select.prop('value')).toEqual([
+      {
+        label: 'Pre Hydrated User 1',
+        value: 'id1',
+        data: {
+          id: 'id1',
+          type: 'user',
+          name: 'Pre Hydrated User 1',
+        },
+      },
+      {
+        label: 'Pre Hydrated User 2',
+        value: 'id2',
+        data: {
+          id: 'id2',
+          type: 'user',
+          name: 'Pre Hydrated User 2',
         },
       },
     ]);

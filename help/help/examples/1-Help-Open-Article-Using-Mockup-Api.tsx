@@ -21,7 +21,7 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
 
 const Example: React.FC = () => {
   const onGetArticle = (articleId: string): Promise<any> => {
-    return new Promise(resolve => resolve(getArticle(articleId)));
+    return new Promise((resolve) => resolve(getArticle(articleId)));
   };
 
   return (

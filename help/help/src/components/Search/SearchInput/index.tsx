@@ -116,7 +116,7 @@ export const SearchInput: React.FC<InjectedIntlProps> = ({
   );
 };
 
-const SearchInputWithContext: React.FC<InjectedIntlProps> = props => {
+const SearchInputWithContext: React.FC<InjectedIntlProps> = (props) => {
   return (
     <AnalyticsContext
       data={{

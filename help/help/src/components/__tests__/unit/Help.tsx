@@ -22,9 +22,9 @@ const messageBack = intl.formatMessage(messages.help_navigation_back);
 let articleId = '';
 const mockArticleIdSetter = jest
   .fn()
-  .mockImplementation(id => (articleId = id));
+  .mockImplementation((id) => (articleId = id));
 const mockOnGetArticle = jest.fn().mockImplementation(
-  id =>
+  (id) =>
     new Promise((resolve, reject) => {
       if (id > 0) {
         setTimeout(() => {

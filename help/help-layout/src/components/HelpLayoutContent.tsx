@@ -14,7 +14,9 @@ import {
   LoadingRectangle,
 } from './styled';
 
-export const HelpContent: React.FC<HelpLayout & InjectedIntlProps> = props => {
+export const HelpContent: React.FC<HelpLayout & InjectedIntlProps> = (
+  props,
+) => {
   const {
     isLoading = false,
     footer,

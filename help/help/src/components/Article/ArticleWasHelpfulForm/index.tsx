@@ -316,9 +316,9 @@ export const ArticleWasHelpfulForm: React.FC<Props & InjectedIntlProps> = ({
   );
 };
 
-const ArticleWasHelpfulFormWithContext: React.FC<
-  Props & InjectedIntlProps
-> = props => {
+const ArticleWasHelpfulFormWithContext: React.FC<Props & InjectedIntlProps> = (
+  props,
+) => {
   return (
     <AnalyticsContext
       data={{

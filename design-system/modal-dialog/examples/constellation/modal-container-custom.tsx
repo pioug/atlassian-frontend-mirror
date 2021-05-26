@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { Field } from '@atlaskit/form';
+import { Field, HelperMessage } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
 import Modal, { ContainerComponentProps, ModalTransition } from '../../src';
@@ -25,7 +25,6 @@ export default function Example() {
           });
 
           setName(obj.name);
-          setIsOpen(false);
         }}
       >
         {props.children}
@@ -36,7 +35,7 @@ export default function Example() {
   return (
     <>
       <Button appearance="primary" onClick={open}>
-        {name ? `Hello, ${name}` : 'Open modal'}
+        Open modal
       </Button>
 
       <ModalTransition>
@@ -44,7 +43,7 @@ export default function Example() {
           <Modal
             actions={[
               { text: 'Create', type: 'submit' },
-              { text: 'Cancel', onClick: close },
+              { text: 'Close', onClick: close },
             ]}
             components={{
               Container: CustomContainer,
@@ -54,11 +53,14 @@ export default function Example() {
           >
             <Field id="name" name="name" label="Type your name to continue">
               {({ fieldProps }) => (
-                <Textfield
-                  {...fieldProps}
-                  defaultValue="Atlassy"
-                  value={undefined}
-                />
+                <Fragment>
+                  <Textfield
+                    {...fieldProps}
+                    defaultValue="Atlassy"
+                    value={undefined}
+                  />
+                  <HelperMessage>{name ? `Hello, ${name}` : ''}</HelperMessage>
+                </Fragment>
               )}
             </Field>
           </Modal>

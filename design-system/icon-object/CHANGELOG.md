@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 6.2.3
+
+### Patch Changes
+
+- [`72ef8bafec9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72ef8bafec9) - Add "./glyph" entry point.
+
 ## 6.2.2
 
 ### Patch Changes

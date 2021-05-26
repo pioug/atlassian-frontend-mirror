@@ -7,6 +7,7 @@ import SectionMessageWarning from '../../examples/constellation/section-message-
 import SectionMessageError from '../../examples/constellation/section-message-error';
 import SectionMessageSuccess from '../../examples/constellation/section-message-success';
 import SectionMessageDiscovery from '../../examples/constellation/section-message-discovery';
+import SectionMessageActions from '../../examples/constellation/section-message-actions';
 
 ## Appearance
 
@@ -69,5 +70,18 @@ Use a `discovery` section message to signify an update to the UI or provide info
 
 <Example
   Component={SectionMessageDiscovery}
+  packageName="@atlaskit/section-message"
+/>
+
+## Actions
+
+Use the `actions` prop to let users act on the content in the section message.
+
+The `SectionMessageAction` component is designed to work with the `actions` prop. In most cases you should use the section message action, but you can also use any JSX element in the `actions` array.
+
+An action will render a button if you supply an `onClick` handler, or a link if you supply an `href`. You can override the default link component using the `linkComponent` prop; this works well with router libraries.
+
+<Example
+  Component={SectionMessageActions}
   packageName="@atlaskit/section-message"
 />

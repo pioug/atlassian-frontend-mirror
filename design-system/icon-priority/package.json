@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-priority",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "description": "A priority icon is used in Jira to determine relative importance.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,6 +24,7 @@
   },
   "af:exports": {
     "./metadata": "./src/entry-points/metadata.ts",
+    "./glyph": "./glyph",
     ".": "./src/index.ts"
   },
   "scripts": {

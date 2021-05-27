@@ -14,7 +14,7 @@ import {
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import { MentionProvider } from '@atlaskit/mention/resource';
-import { mention as mentionData } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { androidComposeStart, androidComposeEnd } from '../../_utils';
 import { EditorViewWithComposition } from '../../../../types';
@@ -23,7 +23,7 @@ describe('mentions on mobile', () => {
   const createEditor = createEditorFactory<TypeAheadPluginState>();
 
   const mentionProvider: Promise<MentionProvider> = Promise.resolve(
-    mentionData.storyData.resourceProvider,
+    mentionResourceProvider,
   );
 
   const editor = (

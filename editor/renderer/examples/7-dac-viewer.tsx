@@ -7,7 +7,7 @@
  *
  */
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { emoji } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import React from 'react';
 import { ChangeEvent, PureComponent } from 'react';
@@ -38,7 +38,7 @@ const defaultDocument = {
 };
 
 const providerFactory = ProviderFactory.create({
-  emojiProvider: emoji.storyData.getEmojiResource(),
+  emojiProvider: getEmojiResource(),
 });
 
 const ajv = initialize();

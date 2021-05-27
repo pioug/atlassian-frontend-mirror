@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 7.10.5
+
+### Patch Changes
+
+- [`048fd26b847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/048fd26b847) - Updating Smart User Picker atlaskit documentation
+
 ## 7.10.4
 
 ### Patch Changes

@@ -5,7 +5,7 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { mention as mentionData } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
@@ -21,7 +21,7 @@ const initializeCollab = (view: EditorView) =>
 describe('collab-edit: actions', () => {
   const createEditor = createProsemirrorEditorFactory();
   const mentionProvider: Promise<MentionProvider> = Promise.resolve(
-    mentionData.storyData.resourceProvider,
+    mentionResourceProvider,
   );
   const providerFactory = ProviderFactory.create({ mentionProvider });
 

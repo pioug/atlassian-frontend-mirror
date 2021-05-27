@@ -12,7 +12,7 @@ import {
   status,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mention as mentionDataTest } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { SortOrder } from '../../../types';
 import { createCompareNodes } from '../../../utils/compareNodes';
@@ -45,9 +45,7 @@ describe('Compare Nodes', () => {
         allowTables: true,
         allowStatus: true,
         allowDate: true,
-        mentionProvider: Promise.resolve(
-          mentionDataTest.storyData.resourceProvider,
-        ),
+        mentionProvider: Promise.resolve(mentionResourceProvider),
         UNSAFE_cards: {},
       },
     }));

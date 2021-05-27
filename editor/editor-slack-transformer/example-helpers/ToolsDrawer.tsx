@@ -6,7 +6,8 @@ import { ActivityProvider } from '@atlaskit/activity';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { MentionProvider, MentionResource } from '@atlaskit/editor-core';
 import { EmojiProvider } from '@atlaskit/emoji';
-import { emoji, mention } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 import { SlackTransformer } from '../src';
 
@@ -19,7 +20,7 @@ const pendingPromise = new Promise<any>(() => {});
 
 const providers = {
   mentionProvider: {
-    resolved: Promise.resolve(mention.storyData.resourceProvider),
+    resolved: Promise.resolve(mentionResourceProvider),
     'resolved 2': Promise.resolve(
       new MentionResource({
         url:
@@ -33,7 +34,7 @@ const providers = {
     undefined: undefined,
   },
   emojiProvider: {
-    resolved: emoji.storyData.getEmojiResource({ uploadSupported: true }),
+    resolved: getEmojiResource({ uploadSupported: true }),
     pending: pendingPromise,
     rejected: rejectedPromise,
     undefined: undefined,

@@ -11,10 +11,14 @@ import {
   ConfigResponse,
 } from '@atlaskit/share';
 
-import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
-import { userPickerData } from '@atlaskit/util-data-test/userPickerData';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+import {
+  mentionResourceProviderWithResolver,
+  mentionResourceProviderWithResolver2,
+} from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
+
 import { OptionData, User } from '@atlaskit/user-picker';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -193,7 +197,7 @@ class DropzoneEditorWrapper extends React.Component<
 const mediaProvider1 = storyMediaProviderFactory();
 const mediaProvider2 = storyMediaProviderFactory();
 const mentionProvider2 = Promise.resolve<ResolvingMentionProvider>(
-  mention.storyData.resourceProviderWithResolver2,
+  mentionResourceProviderWithResolver2,
 );
 export type Props = {};
 
@@ -247,12 +251,10 @@ const editorProps = ({
   },
   emojiProvider: getEmojiProvider(),
   mentionProvider: Promise.resolve(
-    mentionProvider || mention.storyData.resourceProviderWithResolver,
+    mentionProvider || mentionResourceProviderWithResolver,
   ),
 
-  taskDecisionProvider: Promise.resolve(
-    taskDecision.getMockTaskDecisionResource(),
-  ),
+  taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
   collabEdit: {
     provider: createCollabEditProvider({ userId: sessionId }),

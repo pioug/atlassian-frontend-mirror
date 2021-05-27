@@ -1,5 +1,35 @@
 import * as sinon from 'sinon';
 
+import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
+import { getTestSiteEmojiRepository } from '@atlaskit/util-data-test/get-test-site-emoji-repository';
+import { mediaServiceEmoji } from '@atlaskit/util-data-test/media-service-emoji';
+import { mediaBaseUrl } from '@atlaskit/util-data-test/emoji-constants';
+import { getTestEmojis } from '@atlaskit/util-data-test/get-test-emojis';
+import { getTestAtlassianEmojis } from '@atlaskit/util-data-test/get-test-atlassian-emojis';
+import { getTestAtlassianServiceEmojis } from '@atlaskit/util-data-test/get-test-atlassian-service-emojis';
+import { getTestStandardEmojis } from '@atlaskit/util-data-test/get-test-standard-emojis';
+import { getTestStandardServiceEmojis } from '@atlaskit/util-data-test/get-test-standard-service-emojis';
+import { getTestSearchableEmojis } from '@atlaskit/util-data-test/get-test-searchable-emojis';
+import { getTestSiteEmojis } from '@atlaskit/util-data-test/get-test-site-emojis';
+import { getTestSiteServiceEmojis } from '@atlaskit/util-data-test/get-test-site-service-emojis';
+import { mediaEmoji as mediaEmojiData } from '@atlaskit/util-data-test/media-emoji';
+import { getTestSpriteEmoji } from '@atlaskit/util-data-test/get-test-sprite-emoji';
+import { getTestImageEmoji } from '@atlaskit/util-data-test/get-test-image-emoji';
+import { getTestSiteEmojiWtf } from '@atlaskit/util-data-test/get-test-site-emoji-wtf';
+import { getTestSiteEmojiFoo } from '@atlaskit/util-data-test/get-test-site-emoji-foo';
+
+import {
+  grinEmoji as getGrinEmoji,
+  atlassianBoomEmoji as getAtlassianBoomEmoji,
+  openMouthEmoji as getOpenMouthEmoji,
+  smileyEmoji as getSmileyEmoji,
+  thumbsdownEmoji as getThumbsDownEmoji,
+  thumbsupEmoji as getThumbsUpEmoji,
+  evilburnsEmoji as getEvilburnsEmoji,
+  blackFlagEmoji as getBlackFlagEmoji,
+  standardBoomEmoji as getStandardBoomEmoji,
+} from '@atlaskit/util-data-test/emoji-samples';
+
 import TokenManager from '../../api/media/TokenManager';
 import {
   EmojiDescription,
@@ -11,65 +41,65 @@ import {
   MediaApiToken,
 } from '../../types';
 import { convertMediaToImageRepresentation } from '../../util/type-helpers';
-import { emoji } from '@atlaskit/util-data-test';
-import EmojiRepository from '../../api/EmojiRepository';
 
-const testData = emoji.testData;
-
-export const {
-  mediaEmoji,
-  grinEmoji,
-  spriteEmoji,
-  imageEmoji,
-  mediaEmojiId,
+export {
   mediaEmojiImagePath,
   mediaBaseUrl,
-  atlassianEmojis,
-  atlassianBoomEmoji,
-  atlassianServiceEmojis,
-  standardServiceEmojis,
-  siteServiceEmojis,
-  siteEmojis,
-  emojis,
-  openMouthEmoji,
-  searchableEmojis,
-  standardEmojis,
-  smileyEmoji,
-  thumbsupEmoji,
-  thumbsdownEmoji,
-  evilburnsEmoji,
-  filterToSearchable,
-  mediaServiceEmoji,
-  getEmojiResourcePromise,
-  getEmojiResourcePromiseFromRepository,
-  getNonUploadingEmojiResourcePromise,
-  siteEmojiFoo,
-  siteEmojiWtf,
-  standardBoomEmoji,
-  blackFlagEmoji,
-} = testData;
+} from '@atlaskit/util-data-test/emoji-constants';
 
-export const newEmojiRepository: () => EmojiRepository =
-  testData.newEmojiRepository;
-export const newSiteEmojiRepository: () => EmojiRepository =
-  testData.newSiteEmojiRepository;
+export { mediaEmoji, mediaEmojiId } from '@atlaskit/util-data-test/media-emoji';
+export { mediaServiceEmoji } from '@atlaskit/util-data-test/media-service-emoji';
+export { filterToSearchable } from '@atlaskit/util-data-test/filter-to-searchable';
+
+export const grinEmoji = getGrinEmoji();
+export const atlassianBoomEmoji = getAtlassianBoomEmoji();
+export const openMouthEmoji = getOpenMouthEmoji();
+export const smileyEmoji = getSmileyEmoji();
+export const thumbsdownEmoji = getThumbsDownEmoji();
+export const thumbsupEmoji = getThumbsUpEmoji();
+export const evilburnsEmoji = getEvilburnsEmoji();
+export const blackFlagEmoji = getBlackFlagEmoji();
+export const standardBoomEmoji = getStandardBoomEmoji();
+
+export const emojis = getTestEmojis();
+export const atlassianEmojis = getTestAtlassianEmojis().emojis;
+export const standardEmojis = getTestStandardEmojis().emojis;
+export const siteEmojis = getTestSiteEmojis().emojis;
+
+export const searchableEmojis = getTestSearchableEmojis();
+
+export const atlassianServiceEmojis = getTestAtlassianServiceEmojis();
+export const standardServiceEmojis = getTestStandardServiceEmojis();
+export const siteServiceEmojis = getTestSiteServiceEmojis;
+
+export const spriteEmoji = getTestSpriteEmoji();
+export const imageEmoji = getTestImageEmoji();
+export const siteEmojiWtf = getTestSiteEmojiWtf();
+export const siteEmojiFoo = getTestSiteEmojiFoo();
+
+export { getTestEmojiResource as getEmojiResourcePromise } from '@atlaskit/util-data-test/get-test-emoji-resource';
+export { getTestEmojiResourceFromRepository as getEmojiResourcePromiseFromRepository } from '@atlaskit/util-data-test/get-test-emoji-resource-from-repository';
+export { getTestEmojiResourceNonUploading as getNonUploadingEmojiResourcePromise } from '@atlaskit/util-data-test/get-test-emoji-resource-non-uploading';
+
+export const newEmojiRepository = getTestEmojiRepository;
+export const newSiteEmojiRepository = getTestSiteEmojiRepository;
 
 export const loadedMediaEmoji: EmojiDescriptionWithVariations = {
-  ...mediaEmoji,
+  ...mediaEmojiData,
   representation: {
     imagePath: 'data:;base64,', // assumes an empty result is returned (e.g. via fetchMock for the mediaPath)
     width: 24,
     height: 24,
   },
   altRepresentation: convertMediaToImageRepresentation(
-    mediaEmoji.altRepresentation as MediaApiRepresentation,
+    mediaEmojiData.altRepresentation as MediaApiRepresentation,
   ),
 };
 
 export const loadedAltMediaEmoji: EmojiDescriptionWithVariations = {
-  ...mediaEmoji,
+  ...mediaEmojiData,
   representation: convertMediaToImageRepresentation(
-    mediaEmoji.representation as MediaApiRepresentation,
+    mediaEmojiData.representation as MediaApiRepresentation,
   ),
   altRepresentation: {
     imagePath: 'data:;base64,', // assumes an empty result is returned (e.g. via fetchMock for the mediaPath)
@@ -87,12 +117,12 @@ export const missingMediaEmojiId: EmojiId = {
 };
 
 export const missingMediaServiceEmoji: EmojiServiceDescription = {
-  ...testData.mediaServiceEmoji,
+  ...mediaServiceEmoji,
   ...missingMediaEmojiId,
 };
 
 export const missingMediaEmoji: EmojiDescription = {
-  ...(mediaEmoji as EmojiDescription),
+  ...(mediaEmojiData as EmojiDescription),
   ...missingMediaEmojiId,
 };
 
@@ -109,7 +139,7 @@ export const expiresAt = (offsetSeconds: number = 0): number =>
   Math.floor(Date.now() / 1000) + offsetSeconds;
 
 export const defaultMediaApiToken = (): MediaApiToken => ({
-  url: testData.mediaBaseUrl,
+  url: mediaBaseUrl,
   clientId: '1234',
   jwt: 'abcd',
   collectionName: 'emoji-collection',

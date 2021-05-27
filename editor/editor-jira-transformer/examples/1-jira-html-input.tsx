@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { mention } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import ToolsDrawer, { RenderEditorProps } from '../example-helpers/ToolsDrawer';
 import { JIRATransformer } from '../src';
@@ -53,9 +53,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                     shouldFocus={true}
                     allowRule={true}
                     disabled={disabled}
-                    mentionProvider={Promise.resolve(
-                      mention.storyData.resourceProvider,
-                    )}
+                    mentionProvider={Promise.resolve(mentionResourceProvider)}
                     onChange={onChange}
                     onSave={SAVE_ACTION}
                     onCancel={CANCEL_ACTION}

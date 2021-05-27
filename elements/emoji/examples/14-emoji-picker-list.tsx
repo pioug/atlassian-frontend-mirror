@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { getEmojis } from '../example-helpers';
+import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import EmojiPickerList from '../src/components/picker/EmojiPickerList';
 
 import * as styles from '../src/components/picker/styles';

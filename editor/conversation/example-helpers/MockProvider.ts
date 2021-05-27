@@ -1,7 +1,8 @@
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { MemoryReactionsStore } from '@atlaskit/reactions';
 import { MockReactionsClient } from '@atlaskit/reactions/src/client/MockReactionsClient';
-import { emoji, mention } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import {
   AbstractConversationResource,
   ConversationResourceConfig,
@@ -34,10 +35,8 @@ import {
 } from './MockData';
 
 const MockDataProviders = {
-  mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
-  emojiProvider: Promise.resolve(
-    emoji.storyData.getEmojiResource({ uploadSupported: true }),
-  ),
+  mentionProvider: Promise.resolve(mentionResourceProvider),
+  emojiProvider: Promise.resolve(getEmojiResource({ uploadSupported: true })),
   reactionsStore: Promise.resolve(
     new MemoryReactionsStore(new MockReactionsClient()),
   ),
@@ -153,7 +152,7 @@ export class MockProvider extends AbstractConversationResource {
 
     dispatch({ type: ADD_COMMENT_REQUEST, payload: result });
 
-    await new Promise(resolve => {
+    await new Promise<void>(resolve => {
       window.setTimeout(() => {
         const errResult = {
           ...result,

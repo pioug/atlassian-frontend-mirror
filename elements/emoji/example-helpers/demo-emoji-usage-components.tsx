@@ -1,4 +1,3 @@
-import { UsageClearEmojiResource } from '@atlaskit/util-data-test';
 import React from 'react';
 import { PureComponent } from 'react';
 import { EmojiProvider } from '../src/resource';
@@ -106,7 +105,7 @@ export class LocalStorageView extends PureComponent<
 }
 
 export interface UsagingShowingProps {
-  emojiResource: UsageClearEmojiResource;
+  emojiResource: any;
 }
 
 export interface UsageShowingState {

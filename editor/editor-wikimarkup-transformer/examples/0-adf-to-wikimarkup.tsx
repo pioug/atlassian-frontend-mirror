@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { mention } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
-import { taskDecision } from '@atlaskit/util-data-test';
 import ToolsDrawer, { RenderEditorProps } from '../example-helpers/ToolsDrawer';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
@@ -78,11 +78,9 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                       allowLinking: true,
                     }}
                     disabled={disabled}
-                    mentionProvider={Promise.resolve(
-                      mention.storyData.resourceProvider,
-                    )}
+                    mentionProvider={Promise.resolve(mentionResourceProvider)}
                     taskDecisionProvider={Promise.resolve(
-                      taskDecision.getMockTaskDecisionResource(),
+                      getMockTaskDecisionResource(),
                     )}
                     onChange={onChange}
                     onSave={SAVE_ACTION}

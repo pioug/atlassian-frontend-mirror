@@ -1,10 +1,8 @@
 import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { emoji } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import React from 'react';
 import { ConnectedReactionsView, ReactionServiceClient } from '../src';
 import { ReactionsExampleWrapper } from './examples-util';
-
-const { getEmojiResource } = emoji.storyData;
 
 const demoAri = (id: string) => `ari:cloud:owner:demo-cloud-id:item/${id}`;
 const containerAri = (id: string) =>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import {
-  getEmojiProvider,
   currentUser,
-} from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+  getEmojiProvider,
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -54,7 +54,7 @@ const smartMentionConfig: SmartMentionConfig = {
 
 const providers = {
   mentionProvider: {
-    resolved: Promise.resolve(mention.storyData.resourceProvider),
+    resolved: Promise.resolve(mentionResourceProvider),
     external: Promise.resolve(new MentionResource(userMentionConfig)),
     pending: pendingPromise,
     rejected: rejectedPromise,
@@ -89,7 +89,7 @@ const providers = {
     undefined: undefined,
   },
   taskDecisionProvider: {
-    resolved: Promise.resolve(taskDecision.getMockTaskDecisionResource()),
+    resolved: Promise.resolve(getMockTaskDecisionResource()),
     pending: pendingPromise,
     rejected: rejectedPromise,
     undefined: undefined,

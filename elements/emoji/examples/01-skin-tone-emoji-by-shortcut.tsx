@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+
 import { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
-
-import { getEmojiResource } from '../example-helpers';
 
 export default function Example() {
   return (

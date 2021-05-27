@@ -7,6 +7,7 @@ export default md`
   Smart User Picker extends on the User Picker component by providing a ML-backed list of suggested users
    when queried.
 
+  Smart User Picker has the ability to accept all User Picker props.
 
   ## Usage
 
@@ -23,4 +24,6 @@ export default md`
       }}
     />
   )}
+
+
 `;

@@ -12,11 +12,11 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import {
-  getEmojiProvider,
   currentUser,
-} from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+  getEmojiProvider,
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -126,10 +126,8 @@ const getProviders = (collectionName: string): Providers => {
         uploadSupported: true,
         currentUser,
       }),
-      mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
-      taskDecisionProvider: Promise.resolve(
-        taskDecision.getMockTaskDecisionResource(),
-      ),
+      mentionProvider: Promise.resolve(mentionResourceProvider),
+      taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
       contextIdentifierProvider,
       activityProvider: Promise.resolve(new MockActivityResource()),
       macroProvider: Promise.resolve(macroProvider),

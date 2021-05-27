@@ -1,6 +1,6 @@
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EmojiProvider } from '@atlaskit/emoji';
-import { emoji } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import ReactionsContainer, {
@@ -9,8 +9,6 @@ import ReactionsContainer, {
 import { ReactionConsumer } from '../../../reaction-store/ReactionConsumer';
 import { ReactionStatus } from '../../../types/ReactionStatus';
 import { ReactionSummary } from '../../../../src/types';
-
-const { getEmojiResourcePromise } = emoji.testData;
 
 describe('ReactionsContainer', () => {
   const containerAri = 'container-ari';
@@ -45,7 +43,7 @@ describe('ReactionsContainer', () => {
         store={store}
         containerAri={containerAri}
         ari={ari}
-        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
       />,
     ) as ReactWrapper<Props, {}>;
 

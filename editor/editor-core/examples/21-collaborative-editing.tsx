@@ -11,9 +11,9 @@ import WithEditorActions from './../src/ui/WithEditorActions';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { EditorActions } from '../src';
@@ -175,10 +175,10 @@ export default class Example extends React.Component<Props, State> {
                 allowPanel={true}
                 emojiProvider={getEmojiProvider()}
                 mentionProvider={Promise.resolve(
-                  mention.storyData.resourceProviderWithResolver,
+                  mentionResourceProviderWithResolver,
                 )}
                 taskDecisionProvider={Promise.resolve(
-                  taskDecision.getMockTaskDecisionResource(),
+                  getMockTaskDecisionResource(),
                 )}
                 contextIdentifierProvider={storyContextIdentifierProviderFactory()}
                 sanitizePrivateContent={true}

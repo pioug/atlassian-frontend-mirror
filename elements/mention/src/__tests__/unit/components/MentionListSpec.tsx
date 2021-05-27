@@ -1,6 +1,6 @@
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mention } from '@atlaskit/util-data-test';
+import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { InjectedIntlProps } from 'react-intl';
@@ -8,8 +8,6 @@ import MentionItem from '../../../components/MentionItem';
 import MentionList, { Props, State } from '../../../components/MentionList';
 import { isMentionItemSelected } from '../_test-helpers';
 
-const { mentionDataSize } = mention.mentionData;
-const mentions = mention.mentionData.mentionResult;
 // TODO: After updating to expect.hasAssertions(), it identified some tests that are not correctly written.
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183
 describe('MentionList', () => {
@@ -18,13 +16,13 @@ describe('MentionList', () => {
     let defaultMentionItemsShow: () => boolean;
     const setupList = (props?: Props) =>
       mountWithIntl<Props, State>(
-        <MentionList mentions={mentions} {...props} />,
+        <MentionList mentions={mentionTestResult} {...props} />,
       );
 
     beforeEach(() => {
       component = setupList();
       defaultMentionItemsShow = () =>
-        component.find(MentionItem).length === mentionDataSize;
+        component.find(MentionItem).length === mentionTestResult.length;
     });
 
     afterEach(() => {
@@ -33,8 +31,9 @@ describe('MentionList', () => {
 
     it('should have first item selected by default', () => {
       expect(component).toBeDefined();
+
       const firstItemSelected = () =>
-        isMentionItemSelected(component, mentions[0].id);
+        isMentionItemSelected(component, mentionTestResult[0].id);
 
       return waitUntil(defaultMentionItemsShow).then(() =>
         waitUntil(firstItemSelected),
@@ -44,7 +43,7 @@ describe('MentionList', () => {
     it('selectIndex selects correct item', () => {
       expect(component).toBeDefined();
       const thirdItemSelected = () => {
-        return isMentionItemSelected(component, mentions[2].id);
+        return isMentionItemSelected(component, mentionTestResult[2].id);
       };
 
       return waitUntil(defaultMentionItemsShow).then(() => {
@@ -58,11 +57,11 @@ describe('MentionList', () => {
     it('selectId selects correct item', () => {
       expect(component).toBeDefined();
       const thirdItemSelected = () =>
-        isMentionItemSelected(component, mentions[2].id);
+        isMentionItemSelected(component, mentionTestResult[2].id);
 
       return waitUntil(defaultMentionItemsShow).then(() => {
         const mentionList = component.instance() as MentionList;
-        mentionList.selectId(mentions[2].id);
+        mentionList.selectId(mentionTestResult[2].id);
         component.update();
         return waitUntil(thirdItemSelected);
       });
@@ -72,7 +71,7 @@ describe('MentionList', () => {
       expect(component).toBeDefined();
       return waitUntil(defaultMentionItemsShow).then(() => {
         const mentionList = component.instance() as MentionList;
-        expect(mentionList.mentionsCount()).toEqual(mentionDataSize);
+        expect(mentionList.mentionsCount()).toEqual(mentionTestResult.length);
       });
     });
 
@@ -85,11 +84,11 @@ describe('MentionList', () => {
         mentionList.selectIndex(2);
         component.update();
         const thirdItemSelected = () =>
-          isMentionItemSelected(component, mentions[2].id);
+          isMentionItemSelected(component, mentionTestResult[2].id);
 
         return waitUntil(thirdItemSelected).then(() => {
           // remove the first item from the mentions array and set the new mentions
-          const reducedMentionsList = mentions.slice(1);
+          const reducedMentionsList = mentionTestResult.slice(1);
           component.setProps({
             mentions: reducedMentionsList,
           });
@@ -115,14 +114,14 @@ describe('MentionList', () => {
       expect(component).toBeDefined();
       return waitUntil(defaultMentionItemsShow).then(() => {
         const firstItemSelected = () =>
-          isMentionItemSelected(component, mentions[0].id);
+          isMentionItemSelected(component, mentionTestResult[0].id);
         return waitUntil(firstItemSelected).then(() => {
           // move the first item to the third position in a new list.
           // Note that I've also removed a single item from the list so I can differentiate when the new mentions are shown using length
           const reducedMentionsList = [
-            ...mentions.slice(1, 3),
-            mentions[0],
-            ...mentions.slice(4),
+            ...mentionTestResult.slice(1, 3),
+            mentionTestResult[0],
+            ...mentionTestResult.slice(4),
           ];
 
           component.setProps({
@@ -154,7 +153,7 @@ describe('MentionList', () => {
     );
     const setupList = (props?: Partial<Props>) =>
       mountWithIntl<Props, State>(
-        <MentionList mentions={mentions} {...props} />,
+        <MentionList mentions={mentionTestResult} {...props} />,
       );
 
     beforeEach(() => {
@@ -163,7 +162,7 @@ describe('MentionList', () => {
       };
       component = setupList(props);
       defaultMentionItemsShow = () =>
-        component.find(MentionItem).length === mentionDataSize;
+        component.find(MentionItem).length === mentionTestResult.length;
     });
 
     afterEach(() => {
@@ -173,7 +172,7 @@ describe('MentionList', () => {
     it('should have first item selected by default', () => {
       expect(component).toBeDefined();
       const firstItemSelected = () =>
-        isMentionItemSelected(component, mentions[0].id);
+        isMentionItemSelected(component, mentionTestResult[0].id);
 
       return waitUntil(defaultMentionItemsShow).then(() =>
         waitUntil(firstItemSelected),

@@ -1,5 +1,5 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { MockEmojiResource } from '@atlaskit/util-data-test';
+import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { FormattedMessage } from 'react-intl';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji from '../../../../components/common/Emoji';

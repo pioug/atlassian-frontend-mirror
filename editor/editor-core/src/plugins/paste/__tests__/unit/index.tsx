@@ -62,10 +62,9 @@ import {
   ExtensionProvider,
 } from '@atlaskit/editor-common';
 import { EmojiProvider } from '@atlaskit/emoji';
-import {
-  emoji as emojiData,
-  mention as mentionData,
-} from '@atlaskit/util-data-test';
+import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
 import { TextSelection, Transaction } from 'prosemirror-state';
 import { uuid, AnnotationTypes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -135,7 +134,7 @@ describe('paste plugins', () => {
     attachTo?: HTMLElement,
   ) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
-    const emojiProvider = emojiData.storyData.getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<
+    const emojiProvider = getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<
       EmojiProvider
     >;
     const mediaProvider = Promise.resolve({
@@ -157,7 +156,7 @@ describe('paste plugins', () => {
       emojiProvider,
       mediaProvider,
       macroProvider: Promise.resolve(macroProvider),
-      mentionProvider: Promise.resolve(mentionData.storyData.resourceProvider),
+      mentionProvider: Promise.resolve(mentionResourceProvider),
       annotationProviders: Promise.resolve({
         inlineComment: inlineCommentProvider,
       }),

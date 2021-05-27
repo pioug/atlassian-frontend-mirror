@@ -1,6 +1,6 @@
 import { EmojiProvider, OnEmojiEvent } from '@atlaskit/emoji';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
-import { emoji } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   mountWithIntl,
   shallowWithIntl,
@@ -14,8 +14,6 @@ import {
   Selector,
 } from '../../../components/Selector';
 
-const { getEmojiResourcePromise } = emoji.testData;
-
 const renderSelector = (
   onSelection: OnEmojiEvent = () => {},
   showMore = false,
@@ -23,7 +21,7 @@ const renderSelector = (
 ) => {
   return (
     <Selector
-      emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+      emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
       onSelection={onSelection}
       showMore={showMore}
       onMoreClick={onMoreClick}

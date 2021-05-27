@@ -1,7 +1,6 @@
 import AkButton from '@atlaskit/button/custom-theme-button';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { MockEmojiResourceConfig } from '@atlaskit/util-data-test';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import Emoji from '../../../../components/common/Emoji';
@@ -26,6 +25,7 @@ import {
   WithAnalyticsEventsProps,
   AnalyticsListener,
 } from '@atlaskit/analytics-next';
+import type { MockEmojiResourceConfig } from '@atlaskit/util-data-test/emoji-types';
 
 export function setupPickerWithoutToneSelector(): Promise<
   ReactWrapper<any, any>

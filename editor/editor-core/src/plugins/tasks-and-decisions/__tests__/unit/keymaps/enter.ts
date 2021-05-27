@@ -16,10 +16,9 @@ import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm, {
   testKeymap,
 } from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import {
-  emoji as emojiData,
-  MockMentionResource,
-} from '@atlaskit/util-data-test';
+
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
+import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
 
 import { emojiPluginKey } from '../../../../../plugins/emoji';
 import { isEmptyTaskDecision } from '../../../../../plugins/tasks-and-decisions/pm-plugins/helpers';
@@ -172,12 +171,11 @@ describe('tasks and decisions - keymaps', () => {
           });
 
           it(`should not be an empty item when item contains non-text content only`, () => {
-            const { testData } = emojiData;
-            const grinEmoji = testData.grinEmoji;
+            const grin = grinEmoji();
             const grinEmojiId = {
-              shortName: grinEmoji.shortName,
-              id: grinEmoji.id,
-              fallback: grinEmoji.fallback,
+              shortName: grin.shortName,
+              id: grin.id,
+              fallback: grin.fallback,
             };
 
             const { editorView } = editorFactory(

@@ -13,14 +13,14 @@ import { createCollabProviderFactory } from '../../../providers/collab-provider'
 import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
 import { useEditorConfiguration } from '../../../editor/hooks/use-editor-configuration';
-import { emoji } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 
 const App = () => {
   const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
-  const emojiProvider = emoji.storyData.getEmojiResource();
+  const emojiProvider = getEmojiResource();
 
   return (
     <MobileEditor

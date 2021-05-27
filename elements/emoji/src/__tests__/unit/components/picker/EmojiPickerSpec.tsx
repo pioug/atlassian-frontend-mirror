@@ -1,5 +1,5 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test';
+import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import { ReactWrapper } from 'enzyme';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {

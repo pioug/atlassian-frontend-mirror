@@ -1,7 +1,10 @@
 import React from 'react';
 import EmojiUploader from '../src/components/uploader/EmojiUploader';
 
-import { getEmojiResource, loggedUser, lorem } from '../example-helpers';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { loggedUser } from '@atlaskit/util-data-test/logged-user';
+
+import { lorem } from '../example-helpers';
 import { EmojiProvider } from '../src/resource';
 
 export interface EmojiProps {}

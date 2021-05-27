@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+
 import { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
-import { getEmojiResource, lorem } from '../example-helpers';
+import { lorem } from '../example-helpers';
 
 interface SampleEmojiProps {
   emojiProvider?: Promise<EmojiProvider>;

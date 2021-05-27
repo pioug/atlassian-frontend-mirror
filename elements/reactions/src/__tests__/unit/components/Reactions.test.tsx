@@ -1,7 +1,7 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { EmojiProvider } from '@atlaskit/emoji';
 import Tooltip from '@atlaskit/tooltip';
-import { emoji } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   mountWithIntl,
   shallowWithIntl,
@@ -21,13 +21,11 @@ import { Trigger } from '../../../components/Trigger';
 import { ReactionStatus } from '../../../types/ReactionStatus';
 import { ReactWrapper } from 'enzyme';
 
-const { getEmojiResourcePromise } = emoji.testData;
-
 describe('@atlaskit/reactions/reactions', () => {
   const renderReactions = (extraProps: Partial<Props> = {}) =>
     shallowWithIntl(
       <ReactionsWithoutAnalytics
-        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
         reactions={[
           reaction(':fire:', 1, true),
           reaction(':thumbsup:', 9, false),
@@ -81,7 +79,7 @@ describe('@atlaskit/reactions/reactions', () => {
     const TestComponent = (props: Partial<Props>) => (
       <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
         <Reactions
-          emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+          emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
           reactions={[
             reaction(':fire:', 1, true),
             reaction(':thumbsup:', 9, false),

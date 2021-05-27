@@ -73,58 +73,86 @@ export interface ConfluenceAttributes {
 
 export interface SmartProps {
   /**
-   * The container Id to identify context. For bitbucket this is the repositoryId.
+   * The base URL of the site eg: hello.atlassian.net
+   */
+  baseUrl?: string;
+  /**
+   * Context information for analytics in URS. Eg: if a user picker was put inside a comment, the childObjectId would be the ID of the comment
+   */
+  childObjectId?: string;
+  /**
+   * The container Id to identify context. e.g. projectId/spaceId/repositoryId.
    */
   containerId?: string;
   /**
-   * An identifier of the closest context object, for example in bitbucket this may be a Pull Request Id, branch Id or commit Id
-   */
-  objectId?: string;
-  /** Id of the user interacting with the component. Default value is set to
-   * the value "Context" which will tell the server to extract the
-   * principalId from the context.
-   */
-  principalId?: string;
-  childObjectId?: string;
-  /**
-   * Product identifier. Currently supports 'jira' 'confluence' 'people'
-   */
-  productKey: SupportedProduct;
-  siteId: string;
-  baseUrl?: string;
-  /**
-   * Whether to include users in the resultset. The default for this is true.
-   */
-  includeUsers?: boolean;
-  /**
-   * Whether to include groups in the resultset. The default for this is false.
+   * Whether to include groups in the resultset. @default false
    */
   includeGroups?: boolean;
   /**
-   * Whether to include teams in the resultset. The default for this is false.
+   * Whether to include teams in the resultset. @default false
    */
   includeTeams?: boolean;
-
+  /**
+   * Whether to include users in the resultset. @default true
+   */
+  includeUsers?: boolean;
+  /**
+   * An identifier of the closest context object, e.g. issueId, pageId, pullRequestId
+   */
+  objectId?: string;
+  /**
+   * Id of the user interacting with the component.
+   * If principalId is not provided, server will extract principalId from the context header, assuming that the user is logged in when making the request @default “context”
+   */
+  principalId?: string;
   /**
    * Product Attributes - you should pass in the attribute type that matches your current SupportedProduct.
    * Currently we support additional attributes (BitbucketAttributes) for bitbucket and (ConfluenceAttributes) for Confluence.
    */
   productAttributes?: ProductAttributes;
+  /**
+   * Product identifier. Currently supports 'jira' 'confluence' 'people'
+   */
+  productKey: SupportedProduct;
+  /**
+   * Identifier for the product's tenant, also known as tenantId or cloudId
+   */
+  siteId: string;
 }
 
 export interface Props
   extends SmartProps,
     UserPickerProps,
     WithAnalyticsEventsProps {
-  /** Identifier for informing the server on where the user picker has been mounted.
+  /**
+   * User options to show when the query is blank. If not provided, smart user picker will still provide a ranked list of suggestions for blank queries.
+   */
+  bootstrapOptions?: OptionData[];
+  /**
+   * Time to debounce the suggestions fetching (in milliseconds)
+   */
+  debounceTime?: number;
+  /**
+   * Identifier for informing the server on where the user picker has been mounted.
    * Unlike User Picker, the fieldId in Smart User Picker is mandatory.
    * The server uses the fieldId to determine which model to utilize when
    * generating suggestions. Supported contexts: "assignee", "mentions".
    * All other fieldId will be bucketed into a generic model.
    */
   fieldId: string;
-  options?: [];
-  /** Error handler for when the server fails to suggest users and returns with an error response.
+  /**
+   * Function to transform options suggested by the server before showing to the user. Can be used to filter out suggestions.
+   * The options that are passed by the filterOptions are the options that are displayed in the list.
+   */
+  filterOptions?: FilterOptions;
+  onChange?: OnChange;
+  /**
+   * Custom handler to give opportunity for caller to return list of options when server returns empty list.
+   * this is called if server returns empty list or all returned list is filtered out by the passed filter {@see filterOptions}.
+   */
+  onEmpty?: OnEmpty;
+  /**
+   * Error handler for when the server fails to suggest users and returns with an error response.
    * `error`: the error.
    * `RecommendationRequest`: the original recommendationRequest containing the query and other search parameters.
    * This may be used to provide a fail over search direct to the product backend.
@@ -132,21 +160,13 @@ export interface Props
    * Note that OnError results are not filtered - so you may wish to provide additional `filterOptions`.
    */
   onError?: OnError;
+  onInputChange?: OnInputChange;
   /**
    * Error handler used to provide OptionData[] values when the server fails to hydrate `defaultValue` prop `OptionIdentifier` types.
    * error response. */
   onValueError?: OnValueError;
-  /** custom handler to give opportunity for caller to return list of options when server returns empty list.
-   * this is called if server returns empty list or all returned list is filtered out by the passed filter {@see filterOptions}.
-   */
-  onEmpty?: OnEmpty;
-  onChange?: OnChange;
-  onInputChange?: OnInputChange;
-  /** Function to filter out suggested items before showing to the user */
-  filterOptions?: FilterOptions;
-  /** Time to debounce the suggestions fetching (in milliseconds) */
-  debounceTime?: number;
-  /** Prefetch the list of suggested assignees before the user picker is focused.
+  /**
+   * Prefetch the list of suggested assignees before the user picker is focused.
    * WARNING: please consider carefully before deciding to prefetch your suggestions
    * as this will increase the load on the recommendations services.
    * A heads-up on #smrt-experiences for a ballpark on the expected request volume will
@@ -159,10 +179,6 @@ export interface Props
    *  will remove inactive users from the list of suggestions.
    */
   searchQueryFilter?: string;
-  /**
-   * The array that is passed in will override the options that are offered when query="" (bootstrap)
-   */
-  bootstrapOptions?: OptionData[];
 }
 
 export interface State {

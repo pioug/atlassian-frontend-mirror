@@ -7,14 +7,14 @@ import {
   toEmojiId,
 } from '@atlaskit/emoji';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { emoji } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import { hasSelector } from '../_test-utils';
 
-const { getEmojiResourcePromise, newEmojiRepository } = emoji.testData;
-const emojiRepository = newEmojiRepository();
+const emojiRepository = getTestEmojiRepository();
 
 const smiley: EmojiDescription = emojiRepository.findByShortName(
   ':smiley:',
@@ -26,7 +26,7 @@ const renderEmojiButton = (onClick: OnEmojiEvent = () => {}) => {
     <EmojiButton
       onClick={onClick}
       emojiId={emojiId}
-      emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+      emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
     />
   );
 };

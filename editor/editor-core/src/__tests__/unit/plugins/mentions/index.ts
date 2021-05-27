@@ -5,7 +5,7 @@ import { doc, p, mention, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   MockMentionResource,
   MockMentionConfig,
-} from '@atlaskit/util-data-test';
+} from '@atlaskit/util-data-test/mock-mention-resource';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import {
   MentionProvider,

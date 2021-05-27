@@ -6,7 +6,8 @@ import {
   EditorContext,
   WithEditorActions,
 } from '@atlaskit/editor-core';
-import { mention, taskDecision } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -81,16 +82,14 @@ class TransformerPanels extends React.PureComponent<Props, State> {
             <Editor
               appearance="comment"
               allowRule={true}
-              mentionProvider={Promise.resolve(
-                mention.storyData.resourceProvider,
-              )}
+              mentionProvider={Promise.resolve(mentionResourceProvider)}
               allowTables={{ isHeaderRowRequired: true }}
               legacyImageUploadProvider={Promise.resolve(imageUploadHandler)}
               contentTransformerProvider={schema =>
                 new BitbucketTransformer(schema)
               }
               taskDecisionProvider={Promise.resolve(
-                taskDecision.getMockTaskDecisionResource(),
+                getMockTaskDecisionResource(),
               )}
               onChange={this.handleChangeInTheEditor}
               UNSAFE_cards={{

@@ -1,7 +1,7 @@
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { MockEmojiResource } from '@atlaskit/util-data-test';
+import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 

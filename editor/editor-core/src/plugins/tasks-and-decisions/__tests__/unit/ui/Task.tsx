@@ -3,7 +3,7 @@ import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ResourcedTaskItem, TaskItem } from '@atlaskit/task-decision';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import Task from '../../../../../plugins/tasks-and-decisions/ui/Task';
 // avoid polluting test logs with error message in console
@@ -11,9 +11,7 @@ import Task from '../../../../../plugins/tasks-and-decisions/ui/Task';
 // eslint-disable-next-line no-console
 let consoleError = console.error;
 
-const taskDecisionProvider = Promise.resolve(
-  taskDecision.getMockTaskDecisionResource(),
-);
+const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const contextIdentifierProvider = Promise.resolve({
   objectId: 'abc',
   containerId: 'def',

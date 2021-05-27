@@ -1,13 +1,11 @@
 import { EmojiPicker, EmojiProvider } from '@atlaskit/emoji';
-import { emoji } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import { ReactionPicker } from '../../../components/ReactionPicker';
 import { revealStyle, Selector } from '../../../components/Selector';
 import { Trigger } from '../../../components/Trigger';
-
-const { getEmojiResourcePromise } = emoji.testData;
 
 describe('@atlaskit/reactions/reaction-picker', () => {
   const renderPicker = (
@@ -16,7 +14,7 @@ describe('@atlaskit/reactions/reaction-picker', () => {
   ) => {
     return (
       <ReactionPicker
-        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
         onSelection={onSelection}
         allowAllEmojis={true}
         disabled={disabled}

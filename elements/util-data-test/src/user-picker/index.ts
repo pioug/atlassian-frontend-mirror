@@ -1,3 +1,1 @@
-import userPickerData from './user-picker-data';
-
-export { userPickerData };
+export { userPickerData } from './user-picker-data';

@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
-import {
-  profilecard as profilecardUtils,
-  emoji,
-  taskDecision,
-} from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { CardEvent } from '@atlaskit/media-card';
 import { defaultSchema } from '@atlaskit/adf-schema';
 import {
@@ -43,8 +41,7 @@ import { CodeBlock } from '@atlaskit/code';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Schema } from 'prosemirror-model';
 
-const { getMockProfileClient: getMockProfileClientUtil } = profilecardUtils;
-const MockProfileClient = getMockProfileClientUtil(
+const MockProfileClient = getMockProfilecardClient(
   ProfileClient,
   modifyResponse,
 );
@@ -57,7 +54,7 @@ const mentionProvider = Promise.resolve({
 
 const mediaProvider = storyMediaProviderFactory();
 
-const emojiProvider = emoji.storyData.getEmojiResource();
+const emojiProvider = getEmojiResource();
 
 const profilecardProvider = Promise.resolve({
   cloudId: 'DUMMY-CLOUDID',
@@ -81,9 +78,7 @@ const profilecardProvider = Promise.resolve({
   },
 });
 
-const taskDecisionProvider = Promise.resolve(
-  taskDecision.getMockTaskDecisionResource(),
-);
+const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 

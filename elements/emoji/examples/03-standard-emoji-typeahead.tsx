@@ -1,13 +1,9 @@
 import { layers } from '@atlaskit/theme/constants';
 import React from 'react';
 import { Component } from 'react';
-import {
-  getEmojiResource,
-  lorem,
-  onClose,
-  onOpen,
-  onSelection,
-} from '../example-helpers';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+
+import { lorem, onClose, onOpen, onSelection } from '../example-helpers';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
 import {
   TypeaheadProps,

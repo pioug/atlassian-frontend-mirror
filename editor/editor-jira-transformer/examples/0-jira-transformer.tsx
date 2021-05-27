@@ -6,7 +6,9 @@ import {
   EditorContext,
   WithEditorActions,
 } from '@atlaskit/editor-core';
-import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { JIRATransformer } from '../src';
 
 const Container = styled.div`
@@ -31,8 +33,8 @@ const Container = styled.div`
   }
 `;
 
-const emojiProvider = emoji.storyData.getEmojiResource();
-const mentionProvider = Promise.resolve(mention.storyData.resourceProvider);
+const emojiProvider = getEmojiResource();
+const mentionProvider = Promise.resolve(mentionResourceProvider);
 const mentionEncoder = (userId: string) => `/secure/ViewProfile?name=${userId}`;
 
 type Props = { actions: any };
@@ -79,7 +81,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
             }
             onChange={this.handleChangeInTheEditor}
             taskDecisionProvider={Promise.resolve(
-              taskDecision.getMockTaskDecisionResource(),
+              getMockTaskDecisionResource(),
             )}
           />
         </div>

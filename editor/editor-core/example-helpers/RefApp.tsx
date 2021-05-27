@@ -1,8 +1,8 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ReactRenderer } from '@atlaskit/renderer';
 
 import { Content } from './styles';
@@ -13,10 +13,8 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 const emojiProvider = getEmojiProvider({
   uploadSupported: true,
 });
-const mentionProvider = Promise.resolve(mention.storyData.resourceProvider);
-const taskDecisionProvider = Promise.resolve(
-  taskDecision.getMockTaskDecisionResource(),
-);
+const mentionProvider = Promise.resolve(mentionResourceProvider);
+const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 
 export interface State {

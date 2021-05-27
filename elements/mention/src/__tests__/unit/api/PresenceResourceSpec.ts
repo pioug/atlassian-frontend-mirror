@@ -7,14 +7,15 @@ import PresenceResource, {
   DefaultPresenceParser,
   PresenceMap,
 } from '../../../api/PresenceResource';
-import { mention } from '@atlaskit/util-data-test';
+import {
+  validPresenceData,
+  invalidPresenceData,
+} from '@atlaskit/util-data-test/presence-data';
 
 // avoid polluting test logs with error message in console
 // please ensure you fix it if you expect console.error to be thrown
 // eslint-disable-next-line no-console
 let consoleError = console.error;
-
-const { validPresenceData, invalidPresenceData } = mention.presenceData;
 
 const baseUrl = 'https://bogus/presence';
 const dummyId = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';

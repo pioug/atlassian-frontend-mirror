@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Transformer } from '@atlaskit/editor-common';
 import { EditorActions } from '../../../index';
@@ -22,7 +22,7 @@ describe('Editor Actions', () => {
     it('filters out invalid marks when a contentTransformer is present', async () => {
       const wrapper = mount(
         <Editor
-          emojiProvider={emojiData.testData.getEmojiResourcePromise()}
+          emojiProvider={getTestEmojiResource()}
           contentTransformerProvider={() => mock}
         />,
       );

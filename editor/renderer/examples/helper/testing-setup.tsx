@@ -4,7 +4,8 @@ import {
   ProviderFactory,
   AnnotationUpdateEmitter,
 } from '@atlaskit/editor-common';
-import { taskDecision, emoji } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -37,15 +38,13 @@ const mediaMockServer = createEditorMediaMock();
 const mediaProvider = storyMediaProviderFactory({
   useMediaPickerAuthProvider: false,
 });
-const emojiProvider = emoji.storyData.getEmojiResource();
+const emojiProvider = getEmojiResource();
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const mentionProvider = Promise.resolve({
   shouldHighlightMention: (mention: { id: string }) =>
     mention.id === 'ABCDE-ABCDE-ABCDE-ABCDE',
 } as MentionProvider);
-const taskDecisionProvider = Promise.resolve(
-  taskDecision.getMockTaskDecisionResource(),
-);
+const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
 type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   showSidebar?: boolean;

@@ -33,7 +33,8 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
@@ -47,14 +48,11 @@ import layoutPlugin from '../../../layout';
 import rulePlugin from '../../../rule';
 import featureFlagsPlugin from '../../../feature-flags-context';
 import alignmentPlugin from '../../../alignment';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
 
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({
   emojiProvider,
-  taskDecisionProvider: Promise.resolve(
-    taskDecision.getMockTaskDecisionResource(),
-  ),
+  taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
 });
 
 describe('plugins/undo-redo/autoformatting: undo & redo', () => {

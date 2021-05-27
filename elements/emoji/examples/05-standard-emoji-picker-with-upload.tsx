@@ -1,14 +1,10 @@
 import React from 'react';
 import Layer from '@atlaskit/layer';
 import { EmojiPicker } from '../src/picker';
-
-import {
-  getEmojiResource,
-  getEmojiResourceWithStandardAndAtlassianEmojis,
-  loggedUser,
-  lorem,
-} from '../example-helpers';
-import { onSelection } from '../example-helpers/index';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
+import { loggedUser } from '@atlaskit/util-data-test/logged-user';
+import { lorem, onSelection } from '../example-helpers';
 import { EmojiProvider } from '../src/resource';
 
 export interface EmojiState {

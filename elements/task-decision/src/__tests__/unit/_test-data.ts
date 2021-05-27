@@ -2,10 +2,13 @@ import { ServiceTask, Task } from '../../types';
 
 import { convertServiceTaskToTask } from '../../api/TaskDecisionUtils';
 
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getServiceTasksResponse } from '@atlaskit/util-data-test/task-decision-story-data';
 import addMinutes from 'date-fns/add_minutes';
 
-export const { getServiceTasksResponse, getParticipants } = taskDecision;
+export {
+  getServiceTasksResponse,
+  getParticipants,
+} from '@atlaskit/util-data-test/task-decision-story-data';
 
 export interface GetItemsResponseOptions {
   hasMore?: boolean;

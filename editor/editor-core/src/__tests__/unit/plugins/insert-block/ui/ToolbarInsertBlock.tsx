@@ -5,7 +5,7 @@ import { EditorView } from 'prosemirror-view';
 
 import Item from '@atlaskit/item';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import Button from '@atlaskit/button/standard-button';
 import {
   CreateUIAnalyticsEvent,
@@ -26,7 +26,7 @@ import {
   taskItem,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { uuid } from '@atlaskit/adf-schema';
 import layoutPlugin from '../../../../../plugins/layout';
@@ -81,7 +81,7 @@ type ToolbarOptionWrapper = ReactWrapper<
   ToolbarInsertBlockProps & InjectedIntlProps
 >;
 
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 
 const mediaProvider: Promise<MediaProvider> = Promise.resolve({
   viewMediaClientConfig: {} as any,
@@ -155,9 +155,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
   const providerFactory = ProviderFactory.create({
     mediaProvider,
-    taskDecisionProvider: Promise.resolve(
-      taskDecision.getMockTaskDecisionResource(),
-    ),
+    taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   });
 
   const editor = (doc: DocBuilder) => {

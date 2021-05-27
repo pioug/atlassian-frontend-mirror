@@ -12,7 +12,7 @@ import {
   status,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
-import { mention as mentionDataTest } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { sortByColumn } from '../../../../../plugins/table/commands/sort';
 import { SortOrder } from '../../../../../plugins/table/types';
 
@@ -96,9 +96,7 @@ describe('Sort Table', () => {
           allowTables: {
             allowHeaderRow: true,
           },
-          mentionProvider: Promise.resolve(
-            mentionDataTest.storyData.resourceProvider,
-          ),
+          mentionProvider: Promise.resolve(mentionResourceProvider),
         },
         doc: doc(
           table()(

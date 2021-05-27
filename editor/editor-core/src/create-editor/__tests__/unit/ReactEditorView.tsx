@@ -37,7 +37,7 @@ import {
   mediaGroup,
   mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mention as mentionData } from '@atlaskit/util-data-test';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { EventDispatcher } from '../../../event-dispatcher';
 
@@ -822,7 +822,7 @@ describe('@atlaskit/editor-core', () => {
     )(defaultSchema);
 
     const mentionProvider: Promise<MentionProvider> = Promise.resolve(
-      mentionData.storyData.resourceProvider,
+      mentionResourceProvider,
     );
 
     it('mentions should be sanitized when sanitizePrivateContent true', () => {

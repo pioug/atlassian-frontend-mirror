@@ -13,7 +13,7 @@ import {
   validator,
 } from '@atlaskit/adf-utils';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import { mention } from '@atlaskit/util-data-test/mention';
+import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import Editor from '../../src/editor';
@@ -116,7 +116,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           codeBlock={{ allowCopyToClipboard: true }}
           {...providers}
           mentionProvider={Promise.resolve(
-            mention.storyData.resourceProviderWithTeamMentionHighlight,
+            mentionResourceProviderWithTeamMentionHighlight,
           )} // enable highlight only for kitchen sink example
           media={{
             provider: mediaProvider,

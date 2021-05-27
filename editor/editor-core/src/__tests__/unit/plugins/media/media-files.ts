@@ -19,7 +19,7 @@ import {
   layoutColumn,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MockMentionResource } from '@atlaskit/util-data-test';
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import {
   insertMediaGroupNode,
   getPosInList,

@@ -1,11 +1,9 @@
 import { EmojiProvider } from '@atlaskit/emoji';
-import { emoji } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
 import ReactionPickerContainer from '../../../containers/ReactionsPickerContainer';
 import { ReactionConsumer } from '../../../reaction-store/ReactionConsumer';
-
-const { getEmojiResourcePromise } = emoji.testData;
 
 describe('ReactionPickerContainer', () => {
   const containerAri = 'container-ari';
@@ -37,7 +35,7 @@ describe('ReactionPickerContainer', () => {
         store={store}
         containerAri={containerAri}
         ari={ari}
-        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
       />,
     );
 

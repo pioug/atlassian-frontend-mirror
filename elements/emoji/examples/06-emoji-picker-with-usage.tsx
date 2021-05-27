@@ -1,6 +1,6 @@
 import Layer from '@atlaskit/layer';
 import React from 'react';
-import { getUsageClearEmojiResource } from '../example-helpers';
+import { getEmojiResourceUsageClear } from '@atlaskit/util-data-test/get-emoji-resource-usage-clear';
 import {
   UsageShowAndClearComponent,
   UsagingShowingProps,
@@ -40,7 +40,7 @@ class UsageShowingEmojiPickerTextInput extends UsageShowAndClearComponent {
 export default function Example() {
   return (
     <UsageShowingEmojiPickerTextInput
-      emojiResource={getUsageClearEmojiResource()}
+      emojiResource={getEmojiResourceUsageClear()}
     />
   );
 }

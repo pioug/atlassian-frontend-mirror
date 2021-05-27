@@ -34,12 +34,12 @@ import {
 } from '@atlaskit/smart-card';
 
 import {
-  getEmojiProvider,
   currentUser,
-} from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
-import { profilecard as profilecardUtils } from '@atlaskit/util-data-test/profilecard';
+  getEmojiProvider,
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
 import Editor, { EditorProps, EditorAppearance } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
@@ -192,10 +192,8 @@ export const providers: Partial<Providers> = {
     uploadSupported: true,
     currentUser,
   }) as Promise<EmojiProvider>,
-  mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
-  taskDecisionProvider: Promise.resolve(
-    taskDecision.getMockTaskDecisionResource(),
-  ),
+  mentionProvider: Promise.resolve(mentionResourceProvider),
+  taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
   activityProvider: Promise.resolve(new MockActivityResource()),
   searchProvider: Promise.resolve(searchProvider),
@@ -564,8 +562,7 @@ export class ExampleEditorComponent extends React.Component<
 
 export const ExampleEditor = ExampleEditorComponent;
 
-const { getMockProfileClient: getMockProfileClientUtil } = profilecardUtils;
-const MockProfileClient = getMockProfileClientUtil(
+const MockProfileClient = getMockProfilecardClient(
   ProfileClient,
   modifyResponse,
 );
@@ -600,9 +597,7 @@ const profilecardProvider = Promise.resolve({
   },
 });
 
-const taskDecisionProvider = Promise.resolve(
-  taskDecision.getMockTaskDecisionResource(),
-);
+const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 

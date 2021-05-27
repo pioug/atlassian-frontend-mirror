@@ -8,7 +8,7 @@ import {
   emoji,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { CardOptions } from '@atlaskit/editor-common';
@@ -49,7 +49,7 @@ const confluenceUrl =
   'https://hello.atlassian.com/wiki/spaces/YEET/pages/11111111/spaghetti';
 const yahooUrl = 'https://yahoo.com';
 
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('hyperlink commands', () => {

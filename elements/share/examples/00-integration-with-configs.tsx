@@ -5,7 +5,7 @@ import Select from '@atlaskit/select';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Toggle from '@atlaskit/toggle';
 import { OptionData } from '@atlaskit/user-picker';
-import { userPickerData } from '@atlaskit/util-data-test';
+import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { Appearance } from '@atlaskit/button/types';
 import SectionMessage from '@atlaskit/section-message';

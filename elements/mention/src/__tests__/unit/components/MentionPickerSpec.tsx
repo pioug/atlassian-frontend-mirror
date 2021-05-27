@@ -1,6 +1,7 @@
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mention, MockMentionResource } from '@atlaskit/util-data-test';
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
+import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { HttpError } from '../../../api/MentionResource';
@@ -18,7 +19,6 @@ import { MentionDescription } from '../../../types';
 import { getMentionItemById, isMentionItemSelected } from '../_test-helpers';
 import * as Analytics from '../../../util/analytics';
 
-const mentions = mention.mentionData.mentionResult;
 const MAX_NOTIFIED_ITEMS = 20;
 
 function setupPicker(props?: Props): ReactWrapper<Props, State> {

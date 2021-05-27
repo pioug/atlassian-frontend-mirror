@@ -20,7 +20,7 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { EditorState } from 'prosemirror-state';
 
 // Editor Plugins
@@ -32,7 +32,7 @@ import blockTypePlugin from '../../../block-type';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
 
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('ascii emojis - input rules', () => {

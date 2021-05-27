@@ -1,12 +1,8 @@
 import { layers } from '@atlaskit/theme/constants';
 import React from 'react';
 import { Component } from 'react';
-import {
-  getUsageClearEmojiResource,
-  lorem,
-  onClose,
-  onOpen,
-} from '../example-helpers';
+import { lorem, onClose, onOpen } from '../example-helpers';
+import { getEmojiResourceUsageClear } from '@atlaskit/util-data-test/get-emoji-resource-usage-clear';
 import {
   UsageShowAndClearComponent,
   UsagingShowingProps,
@@ -171,7 +167,7 @@ class UsageShowingEmojiTypeAheadTextInput extends UsageShowAndClearComponent {
 export default function Example() {
   return (
     <UsageShowingEmojiTypeAheadTextInput
-      emojiResource={getUsageClearEmojiResource()}
+      emojiResource={getEmojiResourceUsageClear()}
     />
   );
 }

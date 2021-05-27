@@ -55,7 +55,7 @@ import {
   unsupportedNodeAttribute,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import { JSONDocNode, JSONNode, JSONTransformer } from '../../index';
 import * as markOverride from '../../markOverrideRules';
@@ -66,7 +66,7 @@ jest.mock('../../sanitize/sanitize-node');
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);
 const parseJSON = (node: JSONDocNode) => transformer.parse(node);
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 
 describe('JSONTransformer:', () => {
   const createEditor = createEditorFactory();

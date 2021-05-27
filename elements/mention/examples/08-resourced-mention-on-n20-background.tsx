@@ -4,7 +4,7 @@ import { N20 } from '@atlaskit/theme/colors';
 import debug from '../src/util/logger';
 import { onMentionEvent } from '../example-helpers/index';
 import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';
-import { mention } from '@atlaskit/util-data-test';
+import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { ELEMENTS_CHANNEL } from '../src/_constants';
 import ResourcedMention from '../src/components/Mention/ResourcedMention';
 import { IntlProvider } from 'react-intl';
@@ -27,9 +27,7 @@ const listenerHandler = (e: UIAnalyticsEvent) => {
 };
 
 export default function Example() {
-  const mentionProvider = Promise.resolve(
-    mention.storyData.resourceProviderWithResolver,
-  );
+  const mentionProvider = Promise.resolve(mentionResourceProviderWithResolver);
 
   return (
     <IntlProvider locale="en">

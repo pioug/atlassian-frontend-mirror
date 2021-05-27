@@ -11,7 +11,7 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { MockMentionResource } from '@atlaskit/util-data-test';
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 
 import { ListTypes } from './_helpers';
 

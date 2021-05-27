@@ -31,7 +31,7 @@ import {
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 describe('tasks and decisions - input rules', () => {
   const createEditor = createEditorFactory();
@@ -56,7 +56,7 @@ describe('tasks and decisions - input rules', () => {
         return createEditor({
           editorProps: {
             taskDecisionProvider: Promise.resolve(
-              taskDecision.getMockTaskDecisionResource(),
+              getMockTaskDecisionResource(),
             ),
             allowTables: true,
             allowExtension: true,

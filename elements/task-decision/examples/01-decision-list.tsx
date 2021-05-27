@@ -1,9 +1,10 @@
 import React from 'react';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
+import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import DecisionList from '../src/components/DecisionList';
 import DecisionItem from '../src/components/DecisionItem';
-import { dumpRef, document } from '../example-helpers/story-utils';
+import { dumpRef } from '../example-helpers/story-utils';
 
 export default () => (
   <div>

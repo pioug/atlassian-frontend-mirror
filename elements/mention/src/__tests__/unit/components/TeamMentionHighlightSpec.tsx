@@ -1,11 +1,12 @@
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { noop } from '@babel/types';
 import Button from '@atlaskit/button/custom-theme-button';
 import TeamMentionHighlight, {
   Props,
 } from '../../../components/TeamMentionHighlight';
 import * as TeamMentionHighlightAnalytics from '../../../util/analytics';
+
+const noop = () => {};
 
 function render(props: Partial<Props>) {
   return mountWithIntl(

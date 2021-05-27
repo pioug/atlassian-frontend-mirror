@@ -16,9 +16,9 @@ import Editor from './../src/editor';
 import {
   getEmojiProvider,
   currentUser,
-} from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { mediaProvider } from './5-full-page';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import styled from 'styled-components';
@@ -38,10 +38,8 @@ export const providers: any = {
     uploadSupported: true,
     currentUser,
   }) as Promise<EmojiProvider>,
-  taskDecisionProvider: Promise.resolve(
-    taskDecision.getMockTaskDecisionResource(),
-  ),
-  mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
+  taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
+  mentionProvider: Promise.resolve(mentionResourceProvider),
 };
 
 export default class Example extends React.Component<{}, AdfState> {

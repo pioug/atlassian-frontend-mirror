@@ -7,11 +7,9 @@ import { WikiMarkupTransformer } from '../src';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import {
-  profilecard as profilecardUtils,
-  emoji,
-  taskDecision,
-} from '@atlaskit/util-data-test';
+import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Context } from '../src/interfaces';
@@ -42,8 +40,7 @@ const Container = styled.div`
   }
 `;
 
-const { getMockProfileClient: getMockProfileClientUtil } = profilecardUtils;
-const MockProfileClient = getMockProfileClientUtil(
+const MockProfileClient = getMockProfilecardClient(
   ProfileClient,
   modifyResponse,
 );
@@ -54,10 +51,8 @@ const mentionProvider = Promise.resolve({
   },
 } as MentionProvider);
 const mediaProvider = storyMediaProviderFactory();
-const emojiProvider = emoji.storyData.getEmojiResource();
-const taskDecisionProvider = Promise.resolve(
-  taskDecision.getMockTaskDecisionResource(),
-);
+const emojiProvider = getEmojiResource();
+const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const profilecardProvider = Promise.resolve({
   cloudId: 'DUMMY-CLOUDID',
   resourceClient: new MockProfileClient({

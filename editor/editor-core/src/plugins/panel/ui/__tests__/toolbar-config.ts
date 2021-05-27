@@ -1,6 +1,6 @@
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { FormattedMessage } from 'react-intl';
 import { getToolbarItems } from '../../toolbar';
 
@@ -12,7 +12,7 @@ describe('getToolbarItems', () => {
   const providerFactory = new ProviderFactory();
   providerFactory.setProvider(
     'emojiProvider',
-    Promise.resolve(emojiData.testData.getEmojiResourcePromise()),
+    Promise.resolve(getTestEmojiResource()),
   );
   it('should return 7 items when isCustomPanelEnabled is false', () => {
     const items = getToolbarItems(

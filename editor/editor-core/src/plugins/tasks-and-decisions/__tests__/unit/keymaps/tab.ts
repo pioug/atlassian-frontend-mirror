@@ -20,7 +20,7 @@ import {
   buildKeyEvent,
   testKeymap,
 } from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { MockMentionResource } from '@atlaskit/util-data-test';
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 
 import { keymapPlugin } from '../../../../../plugins/tasks-and-decisions/pm-plugins/keymaps';
 

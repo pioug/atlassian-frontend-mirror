@@ -470,7 +470,7 @@ export const snapshot = async (
       collabPage,
       threshold,
       selector,
-      (_t, _n, _c, defaultIdentifier) => `Collab Page - ${defaultIdentifier}`,
+      ({ defaultIdentifier }) => `Collab Page - ${defaultIdentifier}`,
     );
     await page.bringToFront();
   }

@@ -1,7 +1,3 @@
-declare var require: {
-  <T>(path: string): T;
-};
-
 export interface PresenceValidInfo {
   data: Data;
 }

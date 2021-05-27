@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.2.3
+
+### Patch Changes
+
+- [`cbd4258c692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbd4258c692) - Update the `rows` prop types to extend HTML table row props
+
 ## 14.2.2
 
 ### Patch Changes

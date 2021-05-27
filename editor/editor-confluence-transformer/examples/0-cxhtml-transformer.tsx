@@ -13,7 +13,9 @@ import {
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Spinner from '@atlaskit/spinner';
 import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
@@ -60,15 +62,13 @@ const SaveAndCancelButtons = (props: any) => (
 );
 
 const providers = {
-  emojiProvider: emoji.storyData.getEmojiResource({
+  emojiProvider: getEmojiResource({
     uploadSupported: true,
   }),
-  mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
+  mentionProvider: Promise.resolve(mentionResourceProvider),
   activityProvider: Promise.resolve(new MockActivityResource()),
   macroProvider: Promise.resolve(macroProvider),
-  taskDecisionProvider: Promise.resolve(
-    taskDecision.getMockTaskDecisionResource(),
-  ),
+  taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
 };
 const mediaProvider = storyMediaProviderFactory();

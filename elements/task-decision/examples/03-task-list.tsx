@@ -1,12 +1,9 @@
 import React from 'react';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
+import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 import TaskList from '../src/components/TaskList';
 import TaskItem from '../src/components/TaskItem';
-import {
-  dumpRef,
-  document,
-  TaskStateManager,
-} from '../example-helpers/story-utils';
+import { dumpRef, TaskStateManager } from '../example-helpers/story-utils';
 
 export default () => (
   <div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common';
-import { getEmojiProvider } from '@atlaskit/util-data-test/getEmojiProvider';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -22,9 +22,7 @@ function useRendererProviderFactory() {
       shouldHighlightMention: (mention: { id: string }) =>
         mention.id === 'ABCDE-ABCDE-ABCDE-ABCDE',
     } as MentionProvider);
-    const taskDecisionProvider = Promise.resolve(
-      taskDecision.getMockTaskDecisionResource(),
-    );
+    const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
     return ProviderFactory.create({
       mediaProvider,

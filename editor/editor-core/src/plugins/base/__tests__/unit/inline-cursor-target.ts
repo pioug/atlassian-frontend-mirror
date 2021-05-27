@@ -14,7 +14,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   InlineCursorTargetState,
   inlineCursorTargetStateKey,
@@ -25,7 +25,7 @@ import basePlugin from '../../';
 import emojiPlugin from '../../../emoji';
 import tablesPlugin from '../../../table';
 
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('Inline cursor target', () => {

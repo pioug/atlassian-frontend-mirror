@@ -4,7 +4,7 @@ import { EditorView } from 'prosemirror-view';
 import styled from 'styled-components';
 
 import { Editor } from '@atlaskit/editor-core';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { JSONTransformer } from '../src';
 
@@ -52,9 +52,7 @@ export default class Example extends React.PureComponent<
           allowRule={true}
           allowTables={true}
           onChange={this.handleChangeInTheEditor}
-          taskDecisionProvider={Promise.resolve(
-            taskDecision.getMockTaskDecisionResource(),
-          )}
+          taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
         />
         <div
           id="output"

@@ -166,8 +166,9 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   /**
    * Rows to be placed in the table.
    * Each row contains cells which should map to the ones defined in the head.
+   * Rows accept standard HTML <tr> props in addition to those listed below.
 
-   * Ensure each cell has a unique `key` per column - this is used for both Reacts reconcilation of lists and column sorting.
+   * Ensure each cell has a unique `key` per column - this is used for both React's reconciliation of lists and column sorting.
    */
   rows?: Array<RowType>;
 
@@ -301,14 +302,14 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   testId?: string;
 }
 
-export type RowType = {
+export interface RowType extends React.ComponentPropsWithoutRef<'tr'> {
   cells: Array<RowCellType>;
   key?: string;
   onClick?: React.MouseEventHandler;
   onKeyPress?: React.KeyboardEventHandler;
   testId?: string;
   innerRef?: RefObject<HTMLElement>;
-};
+}
 
 export type SortOrderType = 'ASC' | 'DESC';
 

@@ -7,7 +7,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { MockMentionResource } from '@atlaskit/util-data-test';
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 
 import { ListTypes } from './_helpers';
 

@@ -5,7 +5,7 @@ import {
   EditorContext,
   WithEditorActions,
 } from '@atlaskit/editor-core';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { MarkdownTransformer } from '../src';
 import exampleMarkdown from '../example-helpers/exampleMarkdown';
 
@@ -67,9 +67,7 @@ class Example extends React.PureComponent<Props, State> {
             allowMediaSingle: true,
           }}
           contentTransformerProvider={schema => new MarkdownTransformer(schema)}
-          taskDecisionProvider={Promise.resolve(
-            taskDecision.getMockTaskDecisionResource(),
-          )}
+          taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
         />
       </Container>
     );

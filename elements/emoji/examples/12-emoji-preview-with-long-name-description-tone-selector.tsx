@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getEmojis } from '../example-helpers';
+import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 
 import EmojiPreview from '../src/components/common/EmojiPreview';
 

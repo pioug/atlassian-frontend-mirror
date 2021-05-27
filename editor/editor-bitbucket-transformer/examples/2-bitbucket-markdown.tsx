@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
-import { taskDecision } from '@atlaskit/util-data-test';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { BitbucketTransformer } from '../src';
 
@@ -69,7 +69,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                       new BitbucketTransformer(schema)
                     }
                     taskDecisionProvider={Promise.resolve(
-                      taskDecision.getMockTaskDecisionResource(),
+                      getMockTaskDecisionResource(),
                     )}
                   />
                 </CollapsedEditor>

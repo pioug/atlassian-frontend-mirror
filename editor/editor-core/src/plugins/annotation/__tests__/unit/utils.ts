@@ -23,7 +23,7 @@ import {
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { emoji as emojiData } from '@atlaskit/util-data-test';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   surroundingMarks,
   getAllAnnotations,
@@ -71,7 +71,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
     },
   ]);
 
-const emojiProvider = emojiData.testData.getEmojiResourcePromise();
+const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
 
 function mockCommentsStateWithAnnotations(

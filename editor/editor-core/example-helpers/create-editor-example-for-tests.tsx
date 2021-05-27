@@ -8,9 +8,9 @@ import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import {
   getEmojiProvider,
   currentUser,
-} from '@atlaskit/util-data-test/getEmojiProvider';
-import { mention } from '@atlaskit/util-data-test/mention';
-import { taskDecision } from '@atlaskit/util-data-test/taskDecision';
+} from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { ExtensionHandlers } from '@atlaskit/editor-common';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
@@ -229,10 +229,8 @@ function createProviders(
       uploadSupported: true,
       currentUser,
     }),
-    mentionProvider: Promise.resolve(mention.storyData.resourceProvider),
-    taskDecisionProvider: Promise.resolve(
-      taskDecision.getMockTaskDecisionResource(),
-    ),
+    mentionProvider: Promise.resolve(mentionResourceProvider),
+    taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
     contextIdentifierProvider: storyContextIdentifierProviderFactory(),
     activityProvider: Promise.resolve(new MockActivityResource()),
     macroProvider: Promise.resolve(macroProvider),

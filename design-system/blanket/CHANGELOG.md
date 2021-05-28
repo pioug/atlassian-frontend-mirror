@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 11.2.1
+
+### Patch Changes
+
+- [`e08a57e5055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e08a57e5055) - Added the `design-system` tech stacks to the `package.json`
+
 ## 11.2.0
 
 ### Minor Changes

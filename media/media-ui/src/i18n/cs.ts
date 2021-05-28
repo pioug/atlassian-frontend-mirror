@@ -30,6 +30,9 @@ export default {
     'Jejda! Nepodařilo se nám načíst žádné soubory.',
   'fabric.media.cant_retrieve_gifs': 'Nepodařilo se nám dohledat žádné GIFy.',
   'fabric.media.check_your_network': 'Zkontrolujte své připojení k síti.',
+  'fabric.media.click_to_join': 'Připojte se k {context}',
+  'fabric.media.click_to_join_description':
+    'Byli jste schváleni, takže se můžete okamžitě připojit k řešení {context}.',
   'fabric.media.close': 'Zavřít',
   'fabric.media.close_and_reopen':
     'Zkuste tento soubor zavřít a znovu otevřít.',
@@ -74,6 +77,8 @@ export default {
     'Zkuste to znovu a my se o to také pokusíme.',
   'fabric.media.error_loading_file': 'Chyba při načítání souboru',
   'fabric.media.failed_to_load': 'Nepodařilo se načíst',
+  'fabric.media.forbidden_description':
+    'K tomuto náhledu nemáte přístup. Pokud potřebujete přístup, obraťte se na správce webu.',
   'fabric.media.give_feedback': 'Váš názor',
   'fabric.media.image': 'obrázek',
   'fabric.media.image_format_invalid_error':
@@ -114,6 +119,14 @@ export default {
   'fabric.media.preview_unavailable': 'Náhled není k dispozici',
   'fabric.media.recent_uploads': 'Nedávno nahráno',
   'fabric.media.remove_image': 'Odstranit obrázek',
+  'fabric.media.request_access': 'Požádat o přístup',
+  'fabric.media.request_access_description':
+    'Pokud si chcete zobrazit tento náhled, požádejte o přístup k řešení {context}.',
+  'fabric.media.request_access_pending': 'Čeká se na vyřízení přístupu',
+  'fabric.media.request_access_pending_description':
+    'Vaše žádost o přístup čeká na vyřízení.',
+  'fabric.media.request_denied_description':
+    'Vaše žádost o přístup byla odmítnuta. Pokud stále potřebujete přístup, obraťte se na správce webu.',
   'fabric.media.retry': 'Zkusit znovu',
   'fabric.media.save': 'Uložit',
   'fabric.media.search': 'vyhledat',
@@ -143,6 +156,8 @@ export default {
     'Při načítání vašeho souboru došlo k potížím.',
   'fabric.media.webgl_warning_description':
     'Váš prohlížeč nepodporuje knihovnu WebGL. Chcete-li přidávat k obrázkům poznámky, použijte prohlížeč, který ji podporuje.',
+  'fabric.media.zip_entry_load_failed':
+    'Načtení daného souboru ZIP potřebného k náhledu se nezdařilo',
   'fabric.media.zoom_in': 'přiblížit',
   'fabric.media.zoom_out': 'oddálit',
 };

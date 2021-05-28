@@ -20,6 +20,13 @@ import { selectNode } from '../../../../utils/commands';
 import { pluginKey } from '../../../../plugins/quick-insert/plugin-key';
 import { datePlugin } from '../../../../plugins';
 
+jest.mock('@atlaskit/adf-schema', () => ({
+  ...jest.requireActual<Object>('@atlaskit/adf-schema'),
+  uuid: {
+    generate: () => 'testId',
+  },
+}));
+
 describe('Quick Insert Commands', () => {
   const createEditor = createEditorFactory();
 
@@ -232,6 +239,7 @@ describe('Quick Insert Commands', () => {
           return insert(
             state.schema.nodes.extension.createChecked({
               layout: 'full-width',
+              localId: 'testId',
             }),
           );
         },
@@ -242,11 +250,13 @@ describe('Quick Insert Commands', () => {
           bodiedExtension({
             extensionKey: 'fake.extension',
             extensionType: 'atlassian.com.editor',
+            localId: 'testId',
           })(
             extension({
               extensionKey: '',
               extensionType: '',
               layout: 'default',
+              localId: 'testId',
             })(),
           ),
         ),
@@ -277,6 +287,7 @@ describe('Quick Insert Commands', () => {
             state.schema.nodes.extension.createChecked({
               extensionKey: 'fake.extension.two',
               extensionType: 'atlassian.com.editor',
+              localId: 'testId',
             }),
           );
         },
@@ -287,6 +298,7 @@ describe('Quick Insert Commands', () => {
           extension({
             extensionKey: 'fake.extension.two',
             extensionType: 'atlassian.com.editor',
+            localId: 'testId',
           })(),
         ),
       );
@@ -314,6 +326,7 @@ describe('Quick Insert Commands', () => {
             state.schema.nodes.extension.createChecked({
               extensionKey: 'fake.extension.two',
               extensionType: 'atlassian.com.editor',
+              localId: 'testId',
             }),
           );
         },
@@ -324,10 +337,12 @@ describe('Quick Insert Commands', () => {
           bodiedExtension({
             extensionKey: 'fake.extension',
             extensionType: 'atlassian.com.editor',
+            localId: 'testId',
           })(
             extension({
               extensionKey: 'fake.extension.two',
               extensionType: 'atlassian.com.editor',
+              localId: 'testId',
             })(),
           ),
         ),

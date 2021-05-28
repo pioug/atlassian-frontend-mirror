@@ -11,6 +11,7 @@ Object {
         "extensionKey": "expand",
         "extensionType": "com.atlassian.confluence.macro.core",
         "layout": "default",
+        "localId": "testId",
         "parameters": null,
         "text": null,
       },

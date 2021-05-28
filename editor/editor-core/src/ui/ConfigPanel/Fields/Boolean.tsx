@@ -6,8 +6,9 @@ import { Field } from '@atlaskit/form';
 import { BooleanField } from '@atlaskit/editor-common/extensions';
 import AKToggle from '@atlaskit/toggle';
 
-import { ValidationError, OnBlur } from '../types';
+import { ValidationError, OnFieldChange } from '../types';
 import FieldMessages from '../FieldMessages';
+import { RequiredIndicator } from './common/RequiredIndicator';
 
 const ToggleFieldWrapper = styled.div`
   display: flex;
@@ -16,9 +17,6 @@ const ToggleLabel = styled.label`
   display: flex;
   padding: 3px 3px 3px 0px;
   flex-grow: 1;
-`;
-const RequiredIndicator = styled.span`
-  color: #bf2600;
 `;
 
 function validate(value: boolean | undefined, isRequired: boolean) {
@@ -29,21 +27,21 @@ function validate(value: boolean | undefined, isRequired: boolean) {
 
 function handleOnChange(
   onChange: (value: boolean) => void,
-  onBlur: (name: string) => void,
-  value?: React.ChangeEvent<HTMLInputElement>,
+  onFieldChange: OnFieldChange,
+  event: React.ChangeEvent<HTMLInputElement>,
 ) {
-  onChange(value?.target?.checked || false);
-  onBlur(name);
+  onChange(event?.target?.checked || false);
+  onFieldChange(name, true);
 }
 
 function Checkbox({
   name,
   field,
-  onBlur,
+  onFieldChange,
 }: {
   name: string;
   field: BooleanField;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
 }) {
   const {
     label,
@@ -66,8 +64,8 @@ function Checkbox({
             <AKCheckbox
               {...restFieldProps}
               label={label}
-              onChange={value =>
-                handleOnChange(fieldProps.onChange, onBlur, value)
+              onChange={event =>
+                handleOnChange(fieldProps.onChange, onFieldChange, event)
               }
               isChecked={isChecked}
             />
@@ -82,11 +80,11 @@ function Checkbox({
 function Toggle({
   name,
   field,
-  onBlur,
+  onFieldChange,
 }: {
   name: string;
   field: BooleanField;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
 }) {
   const {
     label,
@@ -115,8 +113,8 @@ function Toggle({
               </ToggleLabel>
               <AKToggle
                 {...restFieldProps}
-                onChange={value =>
-                  handleOnChange(fieldProps.onChange, onBlur, value)
+                onChange={event =>
+                  handleOnChange(fieldProps.onChange, onFieldChange, event)
                 }
                 isChecked={isChecked}
               />
@@ -132,14 +130,14 @@ function Toggle({
 export default function Boolean({
   name,
   field,
-  onBlur,
+  onFieldChange,
 }: {
   name: string;
   field: BooleanField;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
 }) {
   if (field.style === 'toggle') {
-    return <Toggle name={name} field={field} onBlur={onBlur} />;
+    return <Toggle name={name} field={field} onFieldChange={onFieldChange} />;
   }
-  return <Checkbox name={name} field={field} onBlur={onBlur} />;
+  return <Checkbox name={name} field={field} onFieldChange={onFieldChange} />;
 }

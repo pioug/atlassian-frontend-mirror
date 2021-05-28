@@ -68,7 +68,7 @@ export const CardDimensionsWrapper = styled.div`
   }
 `;
 
-export const MainWrapper = styled.div`
+export const FlexWrapper = styled.div`
   display: flex;
 `;
 export const CardPreviewWrapper = styled.div`
@@ -92,8 +92,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const CardFlowHeader = styled.div`
-  border-bottom: 1px solid;
-  margin-bottom: 10px;
+  margin: 20px auto;
   padding: 10px 0;
 `;
 

@@ -46,6 +46,15 @@ export const IconWrapper = styled.span`
   ${IconObjectOverrides}
 `;
 
+// Wraps all emoji in Inline Links similar to icon
+export const EmojiWrapper = styled.span`
+  display: inline-block;
+  margin-right: 2px;
+  user-select: none;
+  ${IconOverrides}
+  ${IconObjectOverrides}
+`;
+
 // The main 'wrapping' element, title of the content.
 // NB: `white-space` adds little whitespace before wrapping.
 // NB: `hyphens` enables hyphenation on word break.

@@ -25,7 +25,7 @@ export type ExtensionDefinition = ExtensionBaseDefinition & NoMark;
 export type ExtensionWithMarksDefinition = ExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;
 
-const createExtensionNodeSpec = (allowLocalId: boolean = false): NodeSpec => {
+const createExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {
     inline: false,
     group: 'block',
@@ -37,12 +37,12 @@ const createExtensionNodeSpec = (allowLocalId: boolean = false): NodeSpec => {
       parameters: { default: null },
       text: { default: null },
       layout: { default: 'default' },
+      localId: { default: null },
     },
     parseDOM: [
       {
         tag: '[data-node-type="extension"]',
-        getAttrs: domNode =>
-          getExtensionAttrs(domNode as HTMLElement, allowLocalId),
+        getAttrs: domNode => getExtensionAttrs(domNode as HTMLElement),
       },
     ],
     toDOM(node: PMNode) {
@@ -53,17 +53,13 @@ const createExtensionNodeSpec = (allowLocalId: boolean = false): NodeSpec => {
         'data-text': node.attrs.text,
         'data-parameters': JSON.stringify(node.attrs.parameters),
         'data-layout': node.attrs.layout,
+        'data-local-id:': node.attrs.localId,
       };
       return ['div', attrs];
     },
   };
 
-  if (allowLocalId && nodeSpec.attrs) {
-    nodeSpec.attrs.localId = { default: '' };
-  }
-
   return nodeSpec;
 };
 
 export const extension = createExtensionNodeSpec();
-export const extensionWithLocalId = createExtensionNodeSpec(true);

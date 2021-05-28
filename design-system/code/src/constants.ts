@@ -391,9 +391,16 @@ export const SUPPORTED_LANGUAGES = [
     alias: ['tsx'],
     value: 'tsx',
   },
+  {
+    name: 'SplunkSPL',
+    alias: ['splunk-spl'],
+    value: 'splunk-spl',
+  },
 ] as const;
 
 export { CODE_BLOCK_SELECTOR } from './internal/theme/constants';
+
+export type Language = typeof SUPPORTED_LANGUAGES[number];
 
 export type LanguageAlias = typeof SUPPORTED_LANGUAGES[number]['alias'][number];
 export type LanguageName = typeof SUPPORTED_LANGUAGES[number]['name'];

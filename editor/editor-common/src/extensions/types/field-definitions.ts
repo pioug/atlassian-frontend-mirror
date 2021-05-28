@@ -116,6 +116,11 @@ export interface BooleanField extends BaseFieldDefinition {
   style?: 'checkbox' | 'toggle';
 }
 
+export interface ColorField extends BaseFieldDefinition {
+  type: 'color';
+  defaultValue?: string;
+}
+
 export interface DateField extends BaseFieldDefinition {
   type: 'date';
   defaultValue?: string;
@@ -174,6 +179,7 @@ export type NativeField =
   | StringField
   | NumberField
   | BooleanField
+  | ColorField
   | DateField
   | DateRangeField;
 
@@ -194,13 +200,16 @@ export type FieldDefinition = NestedFieldDefinition | Fieldset | GroupingField;
 export const isFieldset = (field: FieldDefinition): field is Fieldset => {
   return field.type === 'fieldset';
 };
+export const isTabGroup = (field: FieldDefinition): field is Fieldset => {
+  return field.type === 'tab-group';
+};
 
 export const isDateRange = (value: any): value is DateRangeResult => {
   return value && value.hasOwnProperty('type') && value.type === 'date-range';
 };
 
 export interface GroupedField extends BaseFieldDefinition {
-  fields: FieldDefinition[];
+  fields: NestedFieldDefinition[];
 }
 
 export interface ExpandField extends GroupedField {
@@ -208,4 +217,17 @@ export interface ExpandField extends GroupedField {
   isExpanded?: boolean;
 }
 
-export type GroupingField = ExpandField;
+export interface TabGroupField extends Omit<GroupedField, 'fields'> {
+  type: 'tab-group';
+  // The name of the tab field which should be default
+  defaultTab?: string;
+  fields: TabField[];
+}
+
+export interface TabField extends Omit<GroupedField, 'fields'> {
+  type: 'tab';
+  // Allow Expands to be under tabs
+  fields: (NestedFieldDefinition | ExpandField)[];
+}
+
+export type GroupingField = ExpandField | TabGroupField;

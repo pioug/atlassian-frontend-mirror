@@ -36,6 +36,8 @@ export interface InlinePlayerOwnProps {
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
   testId?: string;
+  //To Forward Ref
+  readonly forwardRef?: React.Ref<HTMLDivElement>;
 }
 
 export type InlinePlayerProps = InlinePlayerOwnProps & WithAnalyticsEventsProps;
@@ -69,7 +71,6 @@ export class InlinePlayerBase extends Component<
 > {
   subscription?: Subscription;
   state: InlinePlayerState = {};
-  divRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   static defaultProps = {
     dimensions: defaultImageCardDimensions,
@@ -195,6 +196,7 @@ export class InlinePlayerBase extends Component<
       selected,
       testId,
       identifier,
+      forwardRef,
     } = this.props;
     const { fileSrc } = this.state;
 
@@ -207,7 +209,7 @@ export class InlinePlayerBase extends Component<
         data-testid={testId || 'media-card-inline-player'}
         selected={selected}
         onClick={onClick}
-        innerRef={this.divRef}
+        innerRef={forwardRef || undefined}
         dimensions={dimensions}
       >
         <InactivityDetector>
@@ -231,6 +233,13 @@ export class InlinePlayerBase extends Component<
   }
 }
 
+const InlinePlayerForwardRef = React.forwardRef<
+  HTMLDivElement,
+  InlinePlayerProps
+>((props, ref) => {
+  return <InlinePlayerBase {...props} forwardRef={ref} />;
+});
+
 export const InlinePlayer = withAnalyticsEvents({
   onClick: createAndFireMediaCardEvent({
     eventType: 'ui',
@@ -239,4 +248,4 @@ export const InlinePlayer = withAnalyticsEvents({
     actionSubjectId: 'mediaCardInlinePlayer',
     attributes: {},
   }),
-})(InlinePlayerBase);
+})(InlinePlayerForwardRef);

@@ -46,11 +46,10 @@ describe('resolveOption', () => {
     const wrapper = await mount(
       <AsyncSelect
         onChange={spy}
-        loadOptions={async () =>
-          new Promise(resolve => {
-            setTimeout(() => resolve([OPTION]), 200);
-          })
-        }
+        loadOptions={async () => {
+          await new Promise(resolve => setTimeout(resolve, 200));
+          return [OPTION];
+        }}
       />,
     );
 

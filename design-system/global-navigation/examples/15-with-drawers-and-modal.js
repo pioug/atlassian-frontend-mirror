@@ -124,13 +124,6 @@ class GlobalNavWithDrawers extends Component {
     />
   );
 
-  renderInviteDrawerContents = () => (
-    <DrawerContent
-      drawerTitle="Invite drawer"
-      drawerBody="Can be controlled by passing the onInviteClick prop"
-    />
-  );
-
   render() {
     const actions = [
       { text: 'Close', onClick: this.closeCreateModal },
@@ -147,7 +140,6 @@ class GlobalNavWithDrawers extends Component {
       isSearchDrawerFocusLockEnabled,
       isCreateDrawerFocusLockEnabled,
       isNotificationDrawerFocusLockEnabled,
-      isInviteDrawerFocusLockEnabled,
       isHelpDrawerFocusLockEnabled,
       isSettingsDrawerFocusLockEnabled,
       unmountOnExit,
@@ -207,11 +199,6 @@ class GlobalNavWithDrawers extends Component {
           onRecentDrawerCloseComplete={this.onCloseComplete}
           shouldRecentDrawerUnmountOnExit={unmountOnExit}
           isRecentDrawerFocusLockEnabled={isRecentDrawerFocusLockEnabled}
-          // Invite drawer
-          inviteDrawerContents={this.renderInviteDrawerContents}
-          onInviteDrawerCloseComplete={this.onCloseComplete}
-          shouldInviteDrawerUnmountOnExit={unmountOnExit}
-          isInviteDrawerFocusLockEnabled={isInviteDrawerFocusLockEnabled}
           // define drawer back icon
           drawerBackIcon={CrossIcon}
         />
@@ -244,7 +231,6 @@ export default class extends Component {
     isSearchDrawerFocusLockEnabled: true,
     isCreateDrawerFocusLockEnabled: true,
     isNotificationDrawerFocusLockEnabled: true,
-    isInviteDrawerFocusLockEnabled: true,
     isHelpDrawerFocusLockEnabled: true,
     isSettingsDrawerFocusLockEnabled: true,
   };
@@ -287,7 +273,6 @@ export default class extends Component {
       isSearchDrawerFocusLockEnabled,
       isCreateDrawerFocusLockEnabled,
       isNotificationDrawerFocusLockEnabled,
-      isInviteDrawerFocusLockEnabled,
       isHelpDrawerFocusLockEnabled,
       isSettingsDrawerFocusLockEnabled,
     } = this.state;
@@ -305,7 +290,6 @@ export default class extends Component {
         isNotificationDrawerFocusLockEnabled={
           isNotificationDrawerFocusLockEnabled
         }
-        isInviteDrawerFocusLockEnabled={isInviteDrawerFocusLockEnabled}
         isHelpDrawerFocusLockEnabled={isHelpDrawerFocusLockEnabled}
         isSettingsDrawerFocusLockEnabled={isSettingsDrawerFocusLockEnabled}
       />
@@ -398,13 +382,6 @@ export default class extends Component {
               <Checkbox
                 label="Create drawer"
                 id="CreateDrawer"
-                value="row"
-                onChange={this.toggleFocusLock}
-                defaultChecked
-              />
-              <Checkbox
-                label="Invite drawer"
-                id="InviteDrawer"
                 value="row"
                 onChange={this.toggleFocusLock}
                 defaultChecked

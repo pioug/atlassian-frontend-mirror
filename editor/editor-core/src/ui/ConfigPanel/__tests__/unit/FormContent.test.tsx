@@ -6,6 +6,8 @@ import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/exten
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { act } from '@testing-library/react-hooks';
 
+import { messages } from '../../messages';
+
 describe('<FormContent />', () => {
   const extensionManifest = createFakeExtensionManifest({
     title: 'Awesome macro',
@@ -25,11 +27,56 @@ describe('<FormContent />', () => {
         <FormContent
           fields={fields}
           extensionManifest={extensionManifest}
-          onFieldBlur={() => {}}
+          onFieldChange={() => {}}
         />
       </IntlProvider>,
     );
   };
+
+  describe('Error boundary', () => {
+    // This is deliberately missing 'field.options' to trigger a field error
+    const brokenFieldDefinition: FieldDefinition[] = [
+      {
+        name: 'badUser',
+        type: 'user',
+        label: 'Select a user',
+      } as any,
+    ];
+
+    it('should show error boundary if FormContent crashes unexpectedly', () => {
+      const wrapper = mountFormContent(brokenFieldDefinition);
+
+      expect(wrapper.find('FormContent').exists()).toBeTruthy();
+      expect(wrapper.find('FormErrorBoundary').exists()).toBeTruthy();
+      expect(wrapper.find('SectionMessage').exists()).toBeTruthy();
+
+      const heading = wrapper.find('h1');
+      expect(heading.exists()).toBeTruthy();
+      expect(heading.text()).toEqual(
+        messages.errorBoundaryTitle.defaultMessage,
+      );
+
+      expect(
+        wrapper
+          .findWhere(
+            el =>
+              el.name() === 'p' &&
+              el.text() === messages.errorBoundaryNote.defaultMessage,
+          )
+          .exists(),
+      ).toBeTruthy();
+
+      expect(
+        wrapper
+          .findWhere(
+            el =>
+              el.name() === 'i' &&
+              el.text() === `Cannot read property 'provider' of undefined`,
+          )
+          .exists(),
+      ).toBeTruthy();
+    });
+  });
 
   describe('Expand', () => {
     const expandFieldConf: FieldDefinition = {

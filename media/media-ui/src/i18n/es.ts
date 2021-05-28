@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     '¡Qué pena! No hemos recuperado ningún GIF',
   'fabric.media.check_your_network': 'Comprueba tu conexión de red',
+  'fabric.media.click_to_join': 'Únete a {context}',
+  'fabric.media.click_to_join_description':
+    'Se te ha aprobado, por lo que puedes unirte a {context} de inmediato.',
   'fabric.media.close': 'Cerrar',
   'fabric.media.close_and_reopen': 'Intenta cerrar este archivo y reabrirlo.',
   'fabric.media.connect_account_description':
@@ -76,6 +79,8 @@ export default {
     'Vuelve a probar y lo intentaremos otra vez.',
   'fabric.media.error_loading_file': 'Error al cargar el archivo',
   'fabric.media.failed_to_load': 'No se pudo cargar',
+  'fabric.media.forbidden_description':
+    'No puedes acceder a esta vista previa. Ponte en contacto con el administrador del sitio si tienes que acceder.',
   'fabric.media.give_feedback': 'Enviar comentarios',
   'fabric.media.image': 'imagen',
   'fabric.media.image_format_invalid_error':
@@ -116,6 +121,14 @@ export default {
   'fabric.media.preview_unavailable': 'Vista previa no disponible',
   'fabric.media.recent_uploads': 'Cargas recientes',
   'fabric.media.remove_image': 'Eliminar imagen',
+  'fabric.media.request_access': 'Solicitar acceso',
+  'fabric.media.request_access_description':
+    'Solicita acceso a {context} para ver esta vista previa.',
+  'fabric.media.request_access_pending': 'Acceso pendiente',
+  'fabric.media.request_access_pending_description':
+    'Tu solicitud de acceso está pendiente.',
+  'fabric.media.request_denied_description':
+    'Se ha denegado tu solicitud de acceso. Ponte en contacto con el administrador del sitio si sigues teniendo que acceder.',
   'fabric.media.retry': 'Reintentar',
   'fabric.media.save': 'Guardar',
   'fabric.media.search': 'Buscar',
@@ -144,6 +157,8 @@ export default {
     'Estamos teniendo dificultades para cargar el archivo.',
   'fabric.media.webgl_warning_description':
     'Tu navegador no admite WebGL. Usa un navegador compatible con WebGL para anotar imágenes.',
+  'fabric.media.zip_entry_load_failed':
+    'No se ha podido cargar el elemento de archivo comprimido para previsualizarlo',
   'fabric.media.zoom_in': 'acercar',
   'fabric.media.zoom_out': 'alejar',
 };

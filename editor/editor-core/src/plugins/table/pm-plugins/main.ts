@@ -68,7 +68,7 @@ export const createPlugin = (
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
-  allowReferentiality?: boolean,
+  allowLocalIdGeneration?: boolean,
 ) => {
   isBreakoutEnabled = breakoutEnabled;
   isDynamicTextSizingEnabled = dynamicTextSizing;
@@ -265,7 +265,7 @@ export const createPlugin = (
               dynamicTextSizing: isDynamicTextSizingEnabled,
               isFullWidthModeEnabled,
               wasFullWidthModeEnabled,
-              allowReferentiality,
+              allowLocalIdGeneration,
             },
           ),
       },

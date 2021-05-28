@@ -1,6 +1,6 @@
 import { TableAEP, UIAEP } from './utils';
 import { INPUT_METHOD, ACTION_SUBJECT } from './enums';
-import { SortOrder } from '../../table/types';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 
 //#region Constants
 export enum TABLE_ACTION {

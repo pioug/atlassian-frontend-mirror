@@ -6,6 +6,8 @@ import { Icon } from '../../../../InlineCard/Icon';
 import { IconAndTitleLayout } from '../../../IconAndTitleLayout';
 import { LozengeProps } from '../../../..';
 
+jest.mock('react-render-image');
+
 describe('ResolvedView', () => {
   it('should render the title', () => {
     const element = mount(<InlineCardResolvedView title="some text content" />);

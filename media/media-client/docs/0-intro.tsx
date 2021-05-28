@@ -1,8 +1,11 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
+
+  ${createRxjsNotice('Media Client')}
 
   This package is the Media Client API Web Client Library.
 

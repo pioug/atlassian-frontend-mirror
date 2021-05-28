@@ -23,7 +23,7 @@ async function setup(url: string) {
 
   await sleep(500);
   const image = await page.screenshot({
-    clip: { x: 0, y: 0, width: 800, height: 380 },
+    clip: { x: 0, y: 72, width: 800, height: 354 },
   });
   return { image };
 }

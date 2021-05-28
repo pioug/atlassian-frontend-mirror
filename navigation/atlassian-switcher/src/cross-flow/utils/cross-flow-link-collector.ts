@@ -10,6 +10,7 @@ import {
   ProviderResults,
   SyntheticProviderResults,
   RecommendationsFeatureFlags,
+  DiscoverMoreCallback,
 } from '../../types';
 
 export function collectDiscoverSectionLinks(
@@ -19,6 +20,7 @@ export function collectDiscoverSectionLinks(
   product?: Product,
   recommendationsFeatureFlags?: RecommendationsFeatureFlags,
   isSlackDiscoveryEnabled?: boolean,
+  slackDiscoveryClickHandler?: DiscoverMoreCallback,
 ) {
   const canManagePermission =
     !isError(managePermission) &&
@@ -38,6 +40,7 @@ export function collectDiscoverSectionLinks(
     canAddProducts,
     recommendationsFeatureFlags,
     isSlackDiscoveryEnabled,
+    slackDiscoveryClickHandler,
   });
 }
 

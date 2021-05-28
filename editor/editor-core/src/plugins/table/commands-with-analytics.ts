@@ -39,12 +39,9 @@ import {
 import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { deleteColumns, deleteRows, mergeCells } from './transforms';
-import {
-  InsertRowMethods,
-  InsertRowOptions,
-  RowInsertPosition,
-  SortOrder,
-} from './types';
+import { InsertRowMethods, InsertRowOptions, RowInsertPosition } from './types';
+
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import {
   checkIfNumberColumnEnabled,
   getSelectedCellInfo,

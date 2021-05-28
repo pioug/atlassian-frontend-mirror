@@ -28,6 +28,9 @@ export default {
   'fabric.media.cant_retrieve_files': '噢！检索不到任何文件',
   'fabric.media.cant_retrieve_gifs': '噢！检索不到任何 GIF',
   'fabric.media.check_your_network': '检查网络连接',
+  'fabric.media.click_to_join': '加入 {context}',
+  'fabric.media.click_to_join_description':
+    '您已获得批准，可以立即加入 {context}。',
   'fabric.media.close': '关闭',
   'fabric.media.close_and_reopen': '尝试关闭该文件并重新打开。',
   'fabric.media.connect_account_description':
@@ -64,6 +67,8 @@ export default {
   'fabric.media.error_hint_retry': '请重试，我们会再给您一次机会。',
   'fabric.media.error_loading_file': '加载文件时出现错误',
   'fabric.media.failed_to_load': '无法加载',
+  'fabric.media.forbidden_description':
+    '您无权访问此预览。如果需要访问，请联系站点管理员。',
   'fabric.media.give_feedback': '提供反馈意见',
   'fabric.media.image': '图像',
   'fabric.media.image_format_invalid_error': '无法加载图像，当前格式无效。',
@@ -96,6 +101,13 @@ export default {
   'fabric.media.preview_unavailable': '无法预览',
   'fabric.media.recent_uploads': '最近上传',
   'fabric.media.remove_image': '删除图像',
+  'fabric.media.request_access': '请求访问',
+  'fabric.media.request_access_description':
+    '请求访问 {context} 以查看此预览。',
+  'fabric.media.request_access_pending': '访问待处理',
+  'fabric.media.request_access_pending_description': '您的访问请求正等待处理。',
+  'fabric.media.request_denied_description':
+    '您的访问请求已被拒绝。如果您仍需访问，请联系站点管理员。',
   'fabric.media.retry': '重试',
   'fabric.media.save': '保存',
   'fabric.media.search': '搜索',
@@ -122,6 +134,7 @@ export default {
   'fabric.media.viewer_rateLimited': '加载您的文件时遇到问题。',
   'fabric.media.webgl_warning_description':
     '您的浏览器不支持 WebGL。请使用支持 WebGL 的浏览器来标注图像。',
+  'fabric.media.zip_entry_load_failed': '无法将此 zip 文件项目加载到预览',
   'fabric.media.zoom_in': '放大',
   'fabric.media.zoom_out': '缩小',
 };

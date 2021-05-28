@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import { AutoDismissFlagProps } from './types';
@@ -20,7 +20,7 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
 
   const {
     onDismissed: onDismissedFromFlagGroup,
-    dismissAllowed,
+    isDismissAllowed,
   } = useFlagGroup();
 
   const onDismissed = useCallback(
@@ -31,10 +31,6 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
     [onDismissedProp, onDismissedFromFlagGroup],
   );
 
-  const isDismissAllowed = dismissAllowed(id);
-
-  const isAutoDismissAllowed = isDismissAllowed && onDismissed;
-
   const onDismissedAnalytics = usePlatformLeafEventHandler({
     fn: onDismissed,
     action: 'dismissed',
@@ -44,12 +40,13 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
     packageVersion,
   });
 
+  const isAutoDismissAllowed = isDismissAllowed && onDismissed;
+
   const dismissFlag = useCallback(() => {
-    //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
     if (isAutoDismissAllowed) {
       onDismissedAnalytics(id);
     }
-  }, [id, isAutoDismissAllowed, onDismissedAnalytics]);
+  }, [id, onDismissedAnalytics, isAutoDismissAllowed]);
 
   const stopAutoDismissTimer = useCallback(() => {
     if (autoDismissTimer.current) {
@@ -69,7 +66,7 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
       dismissFlag,
       AUTO_DISMISS_SECONDS * 1000,
     );
-  }, [dismissFlag, isAutoDismissAllowed, stopAutoDismissTimer]);
+  }, [dismissFlag, stopAutoDismissTimer, isAutoDismissAllowed]);
 
   useEffect(() => {
     startAutoDismissTimer();

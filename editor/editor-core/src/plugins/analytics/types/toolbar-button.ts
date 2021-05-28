@@ -20,7 +20,7 @@ export enum TOOLBAR_ACTION_SUBJECT_ID {
 type ToolbarButtonClickedAEP = UIAEP<
   ACTION.CLICKED,
   ACTION_SUBJECT.TOOLBAR_BUTTON,
-  TOOLBAR_ACTION_SUBJECT_ID,
+  undefined,
   {},
   undefined
 >;

@@ -4,7 +4,6 @@ import StarLargeIcon from '@atlaskit/icon/glyph/star-large';
 import NotificationIcon from '@atlaskit/icon/glyph/notification';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
 import RecentIcon from '../components/CustomIcons';
 
 export default function generateDefaultConfig() {
@@ -47,14 +46,6 @@ export default function generateDefaultConfig() {
       rank: 5,
       tooltip: 'Create',
       id: 'create',
-    },
-    invite: {
-      icon: InviteTeamIcon,
-      label: 'Invite',
-      rank: 6,
-      section: 'primary',
-      tooltip: 'Invite',
-      id: 'inviteIcon',
     },
     // ==============  secondary section  ==============
     notification: {

@@ -279,6 +279,14 @@ export type OnEditorReadyCallbackTracking = {
   enabled: boolean;
 };
 
+export type PasteTracking = {
+  /**
+   * @description Control whether paste tracking should be enabled.
+   * @default false
+   */
+  enabled: boolean;
+};
+
 export type PerformanceTracking = {
   /**
    * @description Control whether measurements for all analytics events are performed
@@ -336,4 +344,9 @@ export type PerformanceTracking = {
    * @description Control wether onEditorReady callback is tracked.
    */
   onEditorReadyCallbackTracking?: OnEditorReadyCallbackTracking;
+
+  /**
+   * @description Control wether paste is tracked.
+   */
+  pasteTracking?: PasteTracking;
 };

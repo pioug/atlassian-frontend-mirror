@@ -7,20 +7,20 @@ import { DateField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 
 function Date({
   name,
   field,
   autoFocus,
-  onBlur,
+  onFieldChange,
   placeholder,
   intl,
 }: {
   name: string;
   field: DateField;
   autoFocus?: boolean;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   placeholder?: string;
 } & InjectedIntlProps) {
   const { label, description, defaultValue, isRequired } = field;
@@ -33,7 +33,7 @@ function Date({
       isRequired={isRequired}
       validate={(value?: string) => validate(field, value)}
     >
-      {({ fieldProps, error, valid }) => {
+      {({ fieldProps, error }) => {
         return (
           <>
             <DatePicker
@@ -41,7 +41,10 @@ function Date({
               autoFocus={autoFocus}
               onBlur={() => {
                 fieldProps.onBlur();
-                onBlur(name);
+              }}
+              onChange={(value: string) => {
+                fieldProps.onChange(value);
+                onFieldChange(name, true);
               }}
               locale={intl.locale}
               placeholder={placeholder}

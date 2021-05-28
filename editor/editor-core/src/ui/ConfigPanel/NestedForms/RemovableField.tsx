@@ -11,9 +11,10 @@ import * as colors from '@atlaskit/theme/colors';
 
 import { messages } from '../messages';
 
-const RemovableFieldWrapper = styled.div`
+const RemovableFieldWrapper = styled.div<{ hasMarginBottom: Boolean }>`
   position: relative;
-  margin-bottom: ${multiply(gridSize, 2)}px;
+  margin-bottom: ${props =>
+    props.hasMarginBottom ? multiply(gridSize, 2) : 0}px;
 `;
 
 const RemoveButtonWrapper = styled.div<{ testId: string }>`
@@ -33,7 +34,8 @@ type Props = {
   name: string;
   onClickRemove?: (fieldName: string) => void;
   canRemoveField?: boolean;
-  children: React.ReactNode;
+  children: React.ReactElement;
+  className?: string;
 } & InjectedIntlProps;
 
 const RemovableField = ({
@@ -42,13 +44,20 @@ const RemovableField = ({
   onClickRemove,
   children,
   intl,
+  className,
 }: Props) => {
   const onClickCallback = React.useCallback(
     () => onClickRemove && onClickRemove(name),
     [name, onClickRemove],
   );
+
+  const hasMarginBottom = children.props.field?.type !== 'expand';
+
   return (
-    <RemovableFieldWrapper>
+    <RemovableFieldWrapper
+      hasMarginBottom={hasMarginBottom}
+      className={className}
+    >
       {children}
       {canRemoveField && (
         <RemoveButtonWrapper

@@ -37,9 +37,9 @@ import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import {
   TableCssClassName as ClassName,
   ColumnResizingPluginState,
-  TableColumnOrdering,
   ShadowEvent,
 } from '../types';
+import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,

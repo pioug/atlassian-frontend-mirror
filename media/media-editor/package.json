@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-editor",
-  "version": "38.1.9",
+  "version": "38.1.10",
   "description": "Media component for image annotations",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,12 +34,12 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/field-range": "^9.0.0",
-    "@atlaskit/icon": "^21.4.0",
+    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/inline-dialog": "^13.0.0",
     "@atlaskit/media-card": "^70.6.0",
-    "@atlaskit/media-client": "^13.1.0",
-    "@atlaskit/media-ui": "^16.0.0",
-    "@atlaskit/modal-dialog": "^11.4.0",
+    "@atlaskit/media-client": "^13.2.0",
+    "@atlaskit/media-ui": "^16.2.0",
+    "@atlaskit/modal-dialog": "^11.6.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.2.0",
     "@atlaskit/tooltip": "^17.0.0",
@@ -57,6 +57,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "^9.0.0",
+    "@atlaskit/media-common": "^2.7.0",
     "@atlaskit/media-test-helpers": "^28.7.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

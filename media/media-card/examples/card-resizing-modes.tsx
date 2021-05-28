@@ -6,6 +6,7 @@ import {
   wideImageFileId,
   largeImageFileId,
 } from '@atlaskit/media-test-helpers';
+import { MainWrapper } from '../example-helpers';
 
 import { Card } from '../src';
 
@@ -169,16 +170,18 @@ const stretchyFitCards = [
 ];
 
 export default () => (
-  <div>
-    <h3>Default</h3>
-    <StoryList>{defaultCards}</StoryList>
-    <h3>Crop</h3>
-    <StoryList>{croppedCards}</StoryList>
-    <h3>Fit</h3>
-    <StoryList>{fitCards}</StoryList>
-    <h3>Full Fit</h3>
-    <StoryList>{fullFitCards}</StoryList>
-    <h3>Stretchy Fit</h3>
-    <StoryList>{stretchyFitCards}</StoryList>
-  </div>
+  <MainWrapper>
+    <div>
+      <h3>Default</h3>
+      <StoryList>{defaultCards}</StoryList>
+      <h3>Crop</h3>
+      <StoryList>{croppedCards}</StoryList>
+      <h3>Fit</h3>
+      <StoryList>{fitCards}</StoryList>
+      <h3>Full Fit</h3>
+      <StoryList>{fullFitCards}</StoryList>
+      <h3>Stretchy Fit</h3>
+      <StoryList>{stretchyFitCards}</StoryList>
+    </div>
+  </MainWrapper>
 );

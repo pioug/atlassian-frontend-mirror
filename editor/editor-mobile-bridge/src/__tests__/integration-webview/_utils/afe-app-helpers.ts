@@ -106,12 +106,17 @@ export async function validateFontSizeOverride(
   page: Page,
   adf: ADFEntity,
   selector: '.ProseMirror' | '.ak-renderer-document',
+  updatedFontSize: string,
   bridge: 'editor' | 'renderer' = 'editor',
 ) {
   const bridgeKey = bridge === 'renderer' ? 'rendererBridge' : 'bridge';
-  await page.execute<void>(_bridgeKey => {
-    (window as any)[_bridgeKey].updateSystemFontSize('24');
-  }, bridgeKey);
+  await page.execute<void>(
+    (_bridgeKey, _updatedFontSize) => {
+      (window as any)[_bridgeKey].updateSystemFontSize(_updatedFontSize);
+    },
+    bridgeKey,
+    updatedFontSize,
+  );
   await setADFContent(page, adf, bridge);
   const fontSize = await page.execute<{ p: string; h1: string }>(_selector => {
     const paragraph = document.querySelector(`${_selector} > p`);
@@ -126,6 +131,13 @@ export async function validateFontSizeOverride(
     }
     return { p: pSize, h1: hSize };
   }, selector);
-  expect(fontSize.p).toBe('24px');
-  expect(Math.round(parseFloat(fontSize.h1))).toBe(41);
+  if (Number(updatedFontSize) < 34) {
+    expect(fontSize.p).toBe(`${updatedFontSize}px`);
+    expect(Math.round(parseFloat(fontSize.h1))).toBe(
+      Math.round(Number(updatedFontSize) * 1.71428571),
+    );
+  } else {
+    expect(fontSize.p).toBe('34px');
+    expect(Math.round(parseFloat(fontSize.h1))).toBe(58);
+  }
 }

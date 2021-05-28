@@ -54,7 +54,7 @@ export interface Props {
     isEditing?: boolean,
   ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-  allowReferentiality?: boolean;
+  allowLocalIdGenerationOnTables?: boolean;
 }
 
 export interface State {

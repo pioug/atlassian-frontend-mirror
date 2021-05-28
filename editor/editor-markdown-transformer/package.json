@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-markdown-transformer",
-  "version": "4.1.11",
+  "version": "4.1.12",
   "description": "Editor Markdown transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^16.0.0",
-    "@atlaskit/editor-common": "^57.0.0",
+    "@atlaskit/adf-schema": "^17.0.0",
+    "@atlaskit/editor-common": "^57.1.0",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^10.0.0",
     "markdown-it-table": "^2.0.4",
@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^143.1.0",
-    "@atlaskit/editor-test-helpers": "^15.2.0",
+    "@atlaskit/editor-core": "^144.0.0",
+    "@atlaskit/editor-test-helpers": "^15.3.0",
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react": "^16.8.0",

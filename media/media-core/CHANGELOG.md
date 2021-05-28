@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 32.1.3
+
+### Patch Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+
 ## 32.1.2
 
 ### Patch Changes
@@ -921,7 +927,6 @@ const config: MediaClientConfig = {
 * breaking; Api for DataUriService has changed
 * before:
 * ```typescript
-
   ```
 
 * interface fetchImageDataUri(
@@ -936,7 +941,6 @@ const config: MediaClientConfig = {
 
 * after:
 * ```typescript
-
   ```
 
 * interface FetchImageOptions {

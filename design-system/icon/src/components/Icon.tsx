@@ -27,7 +27,7 @@ interface InternalIconProps extends IconProps {
   height?: number;
 }
 
-const Icon = memo(function Icon(props: IconProps) {
+export const Icon = memo(function Icon(props: IconProps) {
   const {
     glyph: Glyph,
     dangerouslySetGlyph,

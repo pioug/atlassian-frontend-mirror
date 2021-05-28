@@ -385,7 +385,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
         ...base,
         ...controlStyles,
       }),
-      menu: base => ({
+      menu: (base: any) => ({
         ...base,
         ...menuStyles,
         ...{

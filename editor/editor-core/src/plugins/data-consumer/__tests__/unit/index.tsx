@@ -26,6 +26,7 @@ const docWithNestedExtensions = () =>
             extensionType: 'com.atlassian.extensions.update',
             parameters: { count: 0 },
             layout: 'default',
+            localId: 'testId0',
           })(),
         ),
       ),
@@ -41,6 +42,7 @@ const docWithNestedExtensions = () =>
               extensionType: 'com.atlassian.extensions.update',
               parameters: { count: 0 },
               layout: 'default',
+              localId: 'testId1',
             })(),
           ),
         ),
@@ -53,6 +55,7 @@ const docWithNestedExtensions = () =>
               extensionType: 'com.atlassian.extensions.update',
               parameters: { count: 0 },
               layout: 'default',
+              localId: 'testId2',
             })(),
           ),
         ),
@@ -65,6 +68,7 @@ const docWithNestedExtensions = () =>
           extensionType: 'com.atlassian.extensions.update',
           parameters: { count: 0 },
           layout: 'default',
+          localId: 'testId3',
         })(),
       ),
     ),
@@ -77,6 +81,7 @@ const docWithNestedExtensions = () =>
         macroMetadata: { placeholder: [{ data: { url: '' }, type: 'icon' }] },
       },
       layout: 'default',
+      localId: 'testId4',
     })(
       dataConsumer({ sources: ['mochi-is-fluffy'] })(
         extension({
@@ -84,6 +89,7 @@ const docWithNestedExtensions = () =>
           extensionType: 'com.atlassian.extensions.update',
           parameters: { count: 0 },
           layout: 'default',
+          localId: 'testId5',
         })(),
       ),
     ),
@@ -99,7 +105,10 @@ describe('data consumer plugin', () => {
     return createEditor({
       doc,
       editorProps: {
-        allowReferentiality: true,
+        featureFlags: {
+          'local-id-generation-on-tables': true,
+          'data-consumer-mark': true,
+        },
         allowExtension: true,
         allowTables: true,
         allowLayouts: true,

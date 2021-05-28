@@ -9,11 +9,7 @@ describe(`${name}/schema unknownBlock node`, () => {
        * It's not going to work for extension since we made extension attrs parsing more strict.
        * Having an empty `data-extension-type` or `data-extension-key` won't be parsed as valid extension anymore.
        */
-      if (
-        node === 'image' ||
-        node === 'inlineExtension' ||
-        node === 'inlineExtensionWithLocalId'
-      ) {
+      if (node === 'image' || node === 'inlineExtension') {
         return;
       }
       it(node, () => {

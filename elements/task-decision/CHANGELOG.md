@@ -1,5 +1,15 @@
 # @atlaskit/task-decision
 
+## 17.1.0
+
+### Minor Changes
+
+- [`5be9ece5fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5be9ece5fd5) - Removed RxJS from peer dependencies
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.12
 
 ### Patch Changes

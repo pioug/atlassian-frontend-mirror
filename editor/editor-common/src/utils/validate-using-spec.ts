@@ -79,38 +79,20 @@ export const validationErrorHandler = (
 
   // TODO: We can repair missing content like `panel` without a `paragraph`.
   if (error.code === 'INVALID_CONTENT_LENGTH') {
-    if (error.meta) {
-      const meta = error.meta as ValidationErrorMap['INVALID_CONTENT_LENGTH'];
-      if (
-        options.allowUnsupportedBlock &&
-        meta.type === 'maximum' &&
-        entity.content
-      ) {
-        entity.content = entity.content
-          .filter((x): x is ADFEntity => !!x)
-          .map((child, index) => {
-            return index >= meta.requiredLength &&
-              child.type !== 'unsupportedBlock'
-              ? wrapWithUnsupported(child)
-              : validate(
-                  child,
-                  errorCallbackFor(marks, validate, dispatchAnalyticsEvent),
-                ).entity;
-          });
-      } else {
-        // Can't fix it by wrapping
-        if (dispatchAnalyticsEvent) {
-          trackValidationError(dispatchAnalyticsEvent, error, entity);
-        }
-      }
+    if (error.meta && options.allowUnsupportedBlock && entity.content) {
+      return getEntityForInvalidContentLength(
+        error,
+        entity,
+        validate,
+        marks,
+        dispatchAnalyticsEvent,
+      );
     } else {
       // Can't fix it by wrapping
       if (dispatchAnalyticsEvent) {
         trackValidationError(dispatchAnalyticsEvent, error, entity);
       }
     }
-
-    return entity;
   }
   if (options.allowUnsupportedBlock) {
     return wrapWithUnsupported(entity);
@@ -125,6 +107,41 @@ export const validationErrorHandler = (
   }
   return entity;
 };
+
+function getEntityForInvalidContentLength(
+  error: ValidationError,
+  entity: ADFEntity,
+  validate: Validate,
+  marks: string[],
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+): ADFEntity {
+  const meta = error.meta as ValidationErrorMap['INVALID_CONTENT_LENGTH'];
+  if (meta.type === 'maximum') {
+    entity.content = entity
+      .content!.filter((x): x is ADFEntity => !!x)
+      .map((child, index) => {
+        return index >= meta.requiredLength && child.type !== 'unsupportedBlock'
+          ? wrapWithUnsupported(child)
+          : validate(
+              child,
+              errorCallbackFor(marks, validate, dispatchAnalyticsEvent),
+            ).entity;
+      });
+  }
+  if (meta.type === 'minimum') {
+    if (entity.content!.length === 0) {
+      return wrapWithUnsupported(entity);
+    }
+    entity.content = entity
+      .content!.filter((x): x is ADFEntity => !!x)
+      .map(child => {
+        return child.type !== 'unsupportedBlock'
+          ? wrapWithUnsupported(child)
+          : child;
+      });
+  }
+  return entity;
+}
 
 function trackValidationError(
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,

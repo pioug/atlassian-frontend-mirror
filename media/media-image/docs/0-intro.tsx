@@ -6,11 +6,14 @@ import {
   Props,
   AtlassianInternalWarning,
 } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 import { Hr } from './shared';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
+
+  ${createRxjsNotice('Media Image')}
 
   ### 🛠 [Upgrade guide](/packages/media/media-image/docs/upgrade-guide)
 

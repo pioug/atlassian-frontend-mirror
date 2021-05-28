@@ -1,5 +1,15 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 9.3.0
+
+### Minor Changes
+
+- [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.4
 
 ### Patch Changes

@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     "Désolés, nous n'avons pu récupérer aucun GIF",
   'fabric.media.check_your_network': 'Vérifier votre connexion réseau',
+  'fabric.media.click_to_join': 'Rejoindre {context}',
+  'fabric.media.click_to_join_description':
+    "Vous avez reçu l'approbation, vous pouvez donc rejoindre {context} immédiatement.",
   'fabric.media.close': 'Fermer',
   'fabric.media.close_and_reopen':
     'Essayez de fermer ce fichier, puis de le rouvrir.',
@@ -75,6 +78,8 @@ export default {
   'fabric.media.error_hint_retry': 'Réessayez.',
   'fabric.media.error_loading_file': 'Erreur de chargement du fichier',
   'fabric.media.failed_to_load': 'Échec du chargement',
+  'fabric.media.forbidden_description':
+    "Vous n'avez pas accès à cet aperçu. Contactez l'administrateur de site si vous avez besoin d'y accéder.",
   'fabric.media.give_feedback': 'Envoyer un commentaire',
   'fabric.media.image': 'image',
   'fabric.media.image_format_invalid_error':
@@ -114,6 +119,14 @@ export default {
   'fabric.media.preview_unavailable': 'Aperçu non disponible',
   'fabric.media.recent_uploads': 'Importations récentes',
   'fabric.media.remove_image': "Supprimer l'image",
+  'fabric.media.request_access': "Demander l'accès",
+  'fabric.media.request_access_description':
+    'Demandez un accès à {context} pour voir cet aperçu.',
+  'fabric.media.request_access_pending': 'Accès en attente',
+  'fabric.media.request_access_pending_description':
+    "Votre demande d'accès est en attente.",
+  'fabric.media.request_denied_description':
+    "Votre demande d'accès a été refusée. Contactez l'administrateur de site pour demander l'accès.",
   'fabric.media.retry': 'Réessayer',
   'fabric.media.save': 'Enregistrer',
   'fabric.media.search': 'rechercher',
@@ -143,6 +156,8 @@ export default {
     'Nous rencontrons des difficultés pour charger votre fichier.',
   'fabric.media.webgl_warning_description':
     'Votre navigateur ne prend pas en charge WebGL. Utilisez un navigateur compatible WebGL pour annoter les images.',
+  'fabric.media.zip_entry_load_failed':
+    'Impossible de charger cet élément du fichier ZIP pour le prévisualiser',
   'fabric.media.zoom_in': 'zoomer',
   'fabric.media.zoom_out': 'réduire',
 };

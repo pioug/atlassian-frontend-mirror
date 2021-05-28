@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 28.7.2
+
+### Patch Changes
+
+- [`6be6879ef6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6be6879ef6d) - Added Media Feature Flags control in examples
+- Updated dependencies
+
 ## 28.7.1
 
 ### Patch Changes

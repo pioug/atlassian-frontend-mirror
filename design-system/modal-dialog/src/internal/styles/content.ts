@@ -47,7 +47,7 @@ export const headerStyles = css`
 `;
 
 // TODO: This is a public API, so should remove during breaking change later.
-export const Header = styled.header<HeaderProps>`
+export const Header = styled.div<HeaderProps>`
   ${headerStyles}
 `;
 
@@ -202,6 +202,6 @@ export const internalFooterStyles = css`
 `;
 
 // TODO: This is a public API, so should remove during breaking change later.
-export const Footer = styled.footer<FooterProps>`
+export const Footer = styled.div<FooterProps>`
   ${externalFooterStyles};
 `;

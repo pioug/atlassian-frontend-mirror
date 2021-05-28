@@ -66,6 +66,11 @@ export interface CardViewOwnProps extends SharedCardProps {
   readonly dataURI?: string;
   readonly progress?: number;
   readonly previewOrientation?: number;
+
+  // CardView can't implement forwardRef as it needs to pass and at the same time
+  // handle the HTML element internally. There is no standard way to do this.
+  // Therefore, we restrict the use of refs to callbacks only, not RefObjects.
+  readonly innerRef?: (instance: HTMLDivElement | null) => void;
 }
 
 export interface CardViewState {
@@ -92,6 +97,8 @@ export class CardViewBase extends React.Component<
 
   componentDidMount() {
     this.saveElementWidth();
+    const { innerRef } = this.props;
+    !!innerRef && !!this.divRef.current && innerRef(this.divRef.current);
   }
 
   componentDidUpdate({ dataURI: prevDataURI }: CardViewProps) {
@@ -133,7 +140,7 @@ export class CardViewBase extends React.Component<
 
   // If the dimensions.width is a percentage, we need to transform it
   // into a pixel value in order to get the right breakpoints applied.
-  saveElementWidth() {
+  saveElementWidth = () => {
     const { dimensions } = this.props;
     if (!dimensions) {
       return;
@@ -141,11 +148,11 @@ export class CardViewBase extends React.Component<
 
     const { width } = dimensions;
 
-    if (width && isValidPercentageUnit(width) && this.divRef.current) {
+    if (width && isValidPercentageUnit(width) && !!this.divRef.current) {
       const elementWidth = getElementDimension(this.divRef.current, 'width');
       this.setState({ elementWidth });
     }
-  }
+  };
 
   render() {
     const { featureFlags } = this.props;

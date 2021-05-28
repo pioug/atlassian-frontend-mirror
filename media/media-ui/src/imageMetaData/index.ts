@@ -8,7 +8,7 @@ import {
 } from './types';
 import { readImageMetaTags } from './metatags';
 
-import { loadImage } from '../util';
+import { loadImage, readImageNaturalOrientationFromDOM } from '../util';
 import { isRotated } from './imageOrientationUtil';
 
 const { Orientation, XResolution } = SupportedImageMetaTag;
@@ -133,26 +133,29 @@ export async function readImageMetaData(
     height = getMetaTagNumericValue(tags, 'PixelYDimension', 0);
   }
   // otherwise, load the image async (ideally avoid if found above due to being slightly expensive)
-  if (width === 0 && height === 0) {
-    let img;
+  const orientation = getOrientationFromTags(tags);
+  const isImageRotated = isRotated(orientation);
+  const data: ImageMetaData = {
+    type,
+    width,
+    height,
+    naturalWidth: width,
+    naturalHeight: height,
+    tags,
+  };
+
+  if (isImageRotated || (width === 0 && height === 0)) {
     try {
-      img = await loadImage(src);
+      const img = await loadImage(src);
+      const { width, height } = readImageNaturalOrientationFromDOM(img);
+      data.width = width;
+      data.height = height;
+      data.naturalWidth = img.naturalWidth;
+      data.naturalHeight = img.naturalHeight;
     } catch (e) {
       return null;
     }
-    const { naturalWidth, naturalHeight } = img;
-    width = naturalWidth;
-    height = naturalHeight;
   }
-  const orientation = getOrientationFromTags(tags);
-  const isImageRotated = isRotated(orientation);
-
-  const data: ImageMetaData = {
-    type,
-    width: isImageRotated ? height : width,
-    height: isImageRotated ? width : height,
-    tags,
-  };
 
   return data;
 }

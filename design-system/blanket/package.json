@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "11.2.0",
+  "version": "11.2.1",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,8 +41,10 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/dom": "^7.7.3",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
+    "storybook-addon-performance": "^0.15.1",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
@@ -53,6 +55,7 @@
   ],
   "techstack": {
     "@atlassian/frontend": {
+      "design-system": "v1",
       "import-structure": "atlassian-conventions"
     }
   },

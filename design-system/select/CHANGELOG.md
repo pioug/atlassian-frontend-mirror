@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 14.0.0
+
+### Major Changes
+
+- [`1f493e1dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f493e1dc65) - Bump `react-select` to v4. This brings some API changes and it uses `emotion` v11.
+
+### Patch Changes
+
+- [`6ac48c99a54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ac48c99a54) - The entire content of a selected country, including the abbreviated name and the country code, is announced to a screen reader not just the country name.
+- Updated dependencies
+
 ## 13.3.1
 
 ### Patch Changes

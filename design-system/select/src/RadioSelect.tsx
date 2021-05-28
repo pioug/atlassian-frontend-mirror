@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Props as ReactSelectProps } from 'react-select/src/Select';
 
 import Select from './Select';
 import { SelectProps, OptionType } from './types';

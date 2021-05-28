@@ -87,3 +87,14 @@ export const isDuplicateField = (key: string) => duplicateFieldRegex.test(key);
 
 export const getNameFromDuplicateField = (key: string) =>
   key.replace(duplicateFieldRegex, '');
+
+/* 
+    ColorPickerButton only accepts 8 digit hex alpha values, for example:
+    #123fffaa (8 digits, hex alpha)
+    */
+
+export const isValidHex = (color: string): boolean => {
+  const hexRegexPattern = new RegExp('^#([a-fA-F0-9]{8})$');
+
+  return hexRegexPattern.test(color);
+};

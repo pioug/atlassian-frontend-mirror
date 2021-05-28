@@ -4,6 +4,7 @@ import { useSmartCardActions as useSmartLinkActions } from '../actions';
 import { useSmartLinkConfig } from '../config';
 import { useSmartLinkAnalytics } from '../analytics';
 import { AnalyticsHandler } from '../../utils/types';
+import { useSmartLinkRenderers } from '../renderers';
 
 export function useSmartLink(
   id: string,
@@ -14,6 +15,7 @@ export function useSmartLink(
   const analytics = useSmartLinkAnalytics(dispatchAnalytics);
   const actions = useSmartLinkActions(id, url, analytics);
   const config = useSmartLinkConfig();
+  const renderers = useSmartLinkRenderers();
 
   // NB: used to propagate errors from hooks to error boundaries.
   const [, setState] = useState();
@@ -31,5 +33,5 @@ export function useSmartLink(
   useEffect(register, [url]);
 
   // Provide the state and card actions to consumers.
-  return { state, actions, config, analytics };
+  return { state, actions, config, analytics, renderers };
 }

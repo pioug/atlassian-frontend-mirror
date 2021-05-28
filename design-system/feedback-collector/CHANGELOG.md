@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 6.1.8
+
+### Patch Changes
+
+- [`b71e86a459f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b71e86a459f) - [ux] fixes bug in feedback collector examples where flag would not autodismiss
+- Updated dependencies
+
 ## 6.1.7
 
 ### Patch Changes

@@ -1,4 +1,9 @@
-import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import {
+  ExtensionManifest,
+  Parameters,
+  DynamicFieldDefinitions,
+  FieldDefinition,
+} from '@atlaskit/editor-common/extensions';
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { ADFEntity } from '@atlaskit/adf-utils';
 
@@ -15,6 +20,181 @@ const manifest: ExtensionManifest = {
   },
 
   modules: {
+    quickInsert: [
+      {
+        key: 'item',
+        title: 'Table chart',
+        icon: () => import('@atlaskit/icon/glyph/graph-bar'),
+        action: {
+          type: 'node',
+          key: 'chart',
+          parameters: {},
+        },
+      },
+    ],
+    nodes: {
+      chart: {
+        type: 'extension',
+        render: () => import('./extension-handler'),
+        getFieldsDefinition: async () => {
+          const getDynamicFieldsDef: DynamicFieldDefinitions<Parameters> = (
+            currentParams?: Parameters,
+          ) => {
+            const chartType = currentParams?.chartType || 'line';
+            const fields = [
+              {
+                type: 'enum',
+                style: 'radio',
+                label: 'Chart type',
+                name: 'chartType',
+                defaultValue: 'line',
+                items: [
+                  { label: 'Line chart', value: 'line' },
+                  { label: 'Bar chart', value: 'bar' },
+                  { label: 'World map', value: 'map' },
+                ],
+              },
+              // These fields depend on the value of chartType
+              chartType === 'line'
+                ? {
+                    type: 'color',
+                    label: 'Line color',
+                    name: 'lineChartColor',
+                  }
+                : undefined,
+              chartType === 'line'
+                ? {
+                    type: 'boolean',
+                    label: 'Smooth lines',
+                    name: 'lineChartSmooth',
+                  }
+                : undefined,
+              chartType === 'line' && currentParams?.lineChartSmooth
+                ? {
+                    type: 'boolean',
+                    label: 'Converge world lines',
+                    name: 'lineChartWorldLines',
+                  }
+                : undefined,
+              chartType === 'bar'
+                ? {
+                    type: 'number',
+                    label: 'Number of bars',
+                    name: 'barChartCount',
+                  }
+                : undefined,
+              chartType === 'bar'
+                ? { type: 'date', label: 'As of date', name: 'barChartDate' }
+                : undefined,
+              chartType === 'map'
+                ? {
+                    type: 'string',
+                    label: 'Secret code',
+                    name: 'mapChartSecret',
+                  }
+                : undefined,
+              chartType === 'map' &&
+              (currentParams?.mapChartSecret || '').toLowerCase() ===
+                'uuddlrlrba'
+                ? {
+                    type: 'boolean',
+                    label: 'Infinite undos',
+                    name: 'mapChartSecretToggle',
+                    style: 'toggle',
+                  }
+                : undefined,
+              {
+                type: 'tab-group',
+                label: 'Tab type',
+                name: 'tabGroup',
+                defaultTab: 'optionB',
+                fields: [
+                  {
+                    type: 'tab',
+                    label: 'Tab A',
+                    name: 'optionA',
+                    fields: [
+                      {
+                        type: 'color',
+                        label: 'Color A',
+                        name: 'colorA',
+                      },
+                      {
+                        name: 'expandField',
+                        type: 'expand',
+                        label: 'awesome expand field',
+                        fields: [
+                          {
+                            name: 'textFieldOne',
+                            type: 'string',
+                            label: 'Free text',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'tab',
+                    label: 'Tab B',
+                    name: 'optionB',
+                    fields: [
+                      {
+                        type: 'boolean',
+                        label: 'Boolean B',
+                        name: 'booleanB',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'tab',
+                    label: 'Tab C',
+                    name: 'optionC',
+                    fields: [
+                      {
+                        type: 'enum',
+                        label: 'Chart C',
+                        name: 'chartC',
+                        style: 'select',
+                        items: [
+                          { label: 'Line chart', value: 'line' },
+                          { label: 'Bar chart', value: 'bar' },
+                          { label: 'World map', value: 'map' },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                name: 'expandFieldTopLevel',
+                type: 'expand',
+                label: 'awesome expand field',
+                fields: [
+                  {
+                    name: 'textFieldOneNested',
+                    type: 'string',
+                    label: 'Free text',
+                  },
+                ],
+              },
+            ];
+
+            return fields.filter(Boolean) as FieldDefinition[];
+          };
+
+          return getDynamicFieldsDef;
+        },
+        // Needed for edit button to work
+        update: async (ignoreThis: Parameters, api?: ExtensionAPI) => {
+          api?.editInContextPanel(
+            (parameters: Parameters) => parameters,
+            async (parameters: Parameters) => {
+              return parameters;
+            },
+          );
+        },
+      },
+    },
     contextualToolbarItems: [
       {
         context: {

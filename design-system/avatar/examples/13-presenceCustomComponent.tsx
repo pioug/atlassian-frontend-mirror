@@ -1,5 +1,7 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
+// eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';
 
 // @ts-ignore

@@ -3,4 +3,5 @@ export type {
   CodeProps,
   SupportedLanguages,
   LanguageAlias,
+  Language,
 } from '../types';

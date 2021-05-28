@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import {
   createElement,
   forwardRef,
@@ -14,10 +15,15 @@ import {
 import { ClassNames, Interpolation, jsx } from '@emotion/core';
 
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { B200, N0, N70A } from '@atlaskit/theme/colors';
+import { B300, N0, N70A } from '@atlaskit/theme/colors';
 
 import AvatarImage from './AvatarImage';
-import { AVATAR_RADIUS, AVATAR_SIZES, BORDER_WIDTH } from './constants';
+import {
+  ACTIVE_SCALE_FACTOR,
+  AVATAR_RADIUS,
+  AVATAR_SIZES,
+  BORDER_WIDTH,
+} from './constants';
 import { PresenceWrapper } from './Presence';
 import { StatusWrapper } from './Status';
 import {
@@ -32,6 +38,10 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface CustomAvatarProps {
+  /**
+   * This is used in render props so is okay to be defined.
+   * eslint-disable-next-line consistent-props-definitions
+   */
   'aria-label'?: string;
   tabIndex?: number;
   testId?: string;
@@ -42,49 +52,84 @@ export interface CustomAvatarProps {
   ref: Ref<HTMLElement>;
 }
 
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface AvatarPropTypes {
-  /** Indicates the shape of the avatar. Most avatars are circular, but square avatars
-   can be used for 'container' objects. */
+  /**
+   * Indicates the shape of the avatar. Most avatars are circular, but square avatars
+   * can be used for 'container' objects.
+   */
   appearance?: AppearanceType;
-  /** Used to provide better content to screen readers when using presence/status. Rather
+  /**
+   * Used to provide better content to screen readers when using presence/status. Rather
    * than a screen reader speaking "online, approved, John Smith", passing in an label
-   * allows a custom message like "John Smith (approved and online)". */
+   * allows a custom message like "John Smith (approved and online)".
+   */
   label?: string;
-  /** Used to override the default border color around the avatar body.
-   Accepts any color argument that the border-color CSS property accepts. */
+  /**
+   * Used to override the default border color around the avatar body.
+   * Accepts any color argument that the border-color CSS property accepts.
+   */
   borderColor?: string;
-  /** Supply a custom avatar component instead of the default */
+  /**
+   * Supply a custom avatar component instead of the default
+   */
   children?: (props: CustomAvatarProps) => ReactNode;
-  /** Provides a url for avatars being used as a link. */
+  /**
+   * Provides a url for avatars being used as a link.
+   */
   href?: string;
-  /** Change the style to indicate the avatar is disabled. */
+  /**
+   * Change the style to indicate the avatar is disabled.
+   */
   isDisabled?: boolean;
-  /** Name will be displayed in a tooltip, also used by screen readers as fallback
-   content if the image fails to load. */
+  /**
+   * Name will be displayed in a tooltip, also used by screen readers as fallback
+   * content if the image fails to load.
+   */
   name?: string;
-  /** Indicates a user's online status by showing a small icon on the avatar.
-  Refer to presence values on the Presence component.
-  Alternatively accepts any React element. For best results, it is recommended to
-  use square content with height and width of 100%. */
+  /**
+   * Indicates a user's online status by showing a small icon on the avatar.
+   * Refer to presence values on the Presence component.
+   * Alternatively accepts any React element. For best results, it is recommended to
+   * use square content with height and width of 100%.
+   */
   presence?: ('online' | 'busy' | 'focus' | 'offline') | ReactNode;
-  /** Defines the size of the avatar */
+  /**
+   * Defines the size of the avatar
+   */
   size?: SizeType;
-  /** A url to load an image from (this can also be a base64 encoded image). */
+  /**
+   * A url to load an image from (this can also be a base64 encoded image).
+   */
   src?: string;
-  /** Indicates contextual information by showing a small icon on the avatar.
-   Refer to status values on the Status component. */
+  /**
+   * Indicates contextual information by showing a small icon on the avatar.
+   * Refer to status values on the Status component.
+   */
   status?: ('approved' | 'declined' | 'locked') | ReactNode;
-  /** The index of where this avatar is in the group `stack`. */
+  /**
+   * The index of where this avatar is in the group `stack`.
+   */
   stackIndex?: number;
-  /** Assign specific tabIndex order to the underlying node. */
+  /**
+   * Assign specific tabIndex order to the underlying node.
+   */
   tabIndex?: number;
-  /** Pass target down to the anchor, if href is provided. */
+  /**
+   * Pass target down to the anchor, if href is provided.
+   */
   target?: '_blank' | '_self' | '_top' | '_parent';
-  /** Handler to be called on click. */
+  /**
+   * Handler to be called on click.
+   */
   onClick?: AvatarClickEventHandler;
-  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   */
   testId?: string;
-  /** Analytics context meta data */
+  /**
+   * Analytics context meta data
+   */
   analyticsContext?: Record<string, any>;
 }
 
@@ -110,63 +155,65 @@ const getStyles = (
     isInteractive: boolean;
     isDisabled?: boolean;
   },
-) => css`
-  height: ${size}px;
-  width: ${size}px;
-  align-items: stretch;
-  background-color: ${borderColor};
-  border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
-  box-sizing: content-box;
-  cursor: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  outline: none;
-  overflow: hidden;
-  position: static;
-  transform: translateZ(0);
-  transition: transform 200ms, opacity 200ms;
-  box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
-  border: none;
-  margin: ${BORDER_WIDTH}px;
-  padding: 0;
-
-  /* Added font-size and font-family styles to fix alignment issue in firefox for interactive button avatar */
-  font-size: inherit;
-  font-family: inherit;
-
-  &::-moz-focus-inner {
-    border: 0;
-    margin: 0;
-    padding: 0;
-  }
-
-  &::after {
-    background-color: transparent;
-    bottom: 0px;
-
-    /* Added border-radius style to fix hover issue in safari */
+) =>
+  //eslint-disable-next-line @repo/internal/react/no-css-string-literals
+  css`
+    height: ${size}px;
+    width: ${size}px;
+    align-items: stretch;
+    background-color: ${borderColor};
     border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
-    content: ' ';
-    left: 0px;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    transition: opacity 200ms;
-    width: 100%;
-  }
+    box-sizing: content-box;
+    cursor: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    outline: none;
+    overflow: hidden;
+    position: static;
+    transform: translateZ(0);
+    transition: transform 200ms, opacity 200ms;
+    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
+    border: none;
+    margin: ${BORDER_WIDTH}px;
+    padding: 0;
 
-  ${stackIndex && `position: relative;`}
+    /* Added font-size and font-family styles to fix alignment issue in firefox for interactive button avatar */
+    font-size: inherit;
+    font-family: inherit;
 
-  ${isInteractive &&
-  `
+    &::-moz-focus-inner {
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    &::after {
+      background-color: transparent;
+      bottom: 0px;
+
+      /* Added border-radius style to fix hover issue in safari */
+      border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
+      content: ' ';
+      left: 0px;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      transition: opacity 200ms;
+      width: 100%;
+    }
+
+    ${stackIndex && `position: relative;`}
+
+    ${isInteractive &&
+    `
       cursor: pointer;
 
       :focus {
         outline: none;
-        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${B200}
+        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${B300}
       }
 
       :active,
@@ -178,12 +225,12 @@ const getStyles = (
       }
 
       :active {
-        transform: scale(0.9);
+        transform: scale(${ACTIVE_SCALE_FACTOR});
       }
     `}
 
     ${isDisabled &&
-  `
+    `
         cursor: not-allowed;
 
         &::after {
@@ -192,8 +239,17 @@ const getStyles = (
           background-color: ${N0};
         }
       `}
-`;
+  `;
 
+/**
+ * __Avatar__
+ *
+ * An avatar is a visual representation of a user or entity.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/examples)
+ * - [Code](https://atlassian.design/components/avatar/code)
+ * - [Usage](https://atlassian.design/components/avatar/usage)
+ */
 const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
   (
     {
@@ -245,7 +301,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
         /**
          * To avoid wrapping this component in AnalyticsContext we manually
          * push the parent context's meta data into the context.
-         **/
+         */
         const context: Record<string, any> = {
           componentName: 'avatar',
           packageName,
@@ -255,7 +311,9 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 
         analyticsEvent.context.push(context);
 
-        /** Replicating the logic in the `withAnalyticsEvents` HOC */
+        /**
+         * Replicating the logic in the `withAnalyticsEvents` HOC
+         */
         const clone: UIAnalyticsEvent | null = analyticsEvent.clone();
         if (clone) {
           clone.fire('atlaskit');

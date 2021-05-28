@@ -112,7 +112,7 @@ Content.displayName = 'Content';
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
-const mediaFeatureFlags: MediaFeatureFlags = {
+const defaultMediaFeatureFlags: MediaFeatureFlags = {
   ...exampleMediaFeatureFlags,
   captions: true,
 };
@@ -299,6 +299,10 @@ export class ExampleEditorComponent extends React.Component<
   };
 
   render() {
+    const { media } = this.props;
+    const mediaEditorProps = media
+      ? media.featureFlags
+      : defaultMediaFeatureFlags;
     return (
       <ExamplesErrorBoundary>
         <Wrapper>
@@ -307,7 +311,6 @@ export class ExampleEditorComponent extends React.Component<
               <Editor
                 UNSAFE_allowUndoRedoButtons={true}
                 allowAnalyticsGASV3={true}
-                allowReferentiality={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
                   allowMoreTextColors: true,
@@ -321,7 +324,6 @@ export class ExampleEditorComponent extends React.Component<
                 allowBreakout={true}
                 allowJiraIssue={true}
                 allowPanel
-                UNSAFE_allowDataConsumer
                 allowExtension={{
                   allowBreakout: true,
                 }}
@@ -376,7 +378,7 @@ export class ExampleEditorComponent extends React.Component<
                     return errors;
                   },
                   useMediaPickerPopup: false,
-                  featureFlags: mediaFeatureFlags,
+                  featureFlags: mediaEditorProps,
                 }}
                 allowHelpDialog
                 placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
@@ -487,8 +489,15 @@ export class ExampleEditorComponent extends React.Component<
                     reportErrorStack: true,
                   },
                   onEditorReadyCallbackTracking: { enabled: true },
+                  pasteTracking: { enabled: true },
                 }}
                 {...this.props}
+                featureFlags={{
+                  'local-id-generation-on-tables': true,
+                  'data-consumer-mark': true,
+                  // Spread here as we want to make sure we can still override flags added above
+                  ...this.props.featureFlags,
+                }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
                 trackValidTransactions={{ samplingRate: 100 }}
@@ -616,6 +625,7 @@ const Renderer = (props: {
   extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[];
   allowCustomPanel?: boolean;
   clickToEdit?: boolean;
+  mediaFeatureFlags?: MediaFeatureFlags;
 }) => {
   if (props.extensionProviders && props.extensionProviders.length > 0) {
     providerFactory.setProvider(
@@ -629,6 +639,10 @@ const Renderer = (props: {
     : typeof props.document === 'string'
     ? JSON.parse(props.document)
     : props.document;
+
+  const mediaFeatureFlags = props.mediaFeatureFlags
+    ? props.mediaFeatureFlags
+    : defaultMediaFeatureFlags;
 
   return (
     <div
@@ -710,6 +724,11 @@ export default function Example(props: EditorProps & ExampleProps) {
       (props.allowPanel as PanelPluginConfig).UNSAFE_allowCustomPanel || false;
   }
 
+  const { media } = props;
+  const mediaProps = media?.featureFlags
+    ? media.featureFlags
+    : defaultMediaFeatureFlags;
+
   return (
     <EditorContext>
       <div style={{ height: '100%' }}>
@@ -732,6 +751,7 @@ export default function Example(props: EditorProps & ExampleProps) {
             }
             allowCustomPanel={allowCustomPanel}
             clickToEdit={props.clickToEdit}
+            mediaFeatureFlags={mediaProps}
           />
         )}
       </div>

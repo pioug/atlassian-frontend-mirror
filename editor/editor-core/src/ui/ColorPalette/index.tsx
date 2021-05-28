@@ -10,7 +10,7 @@ import { N0, N500 } from '@atlaskit/theme/colors';
 export interface Props {
   palette: PaletteColor[];
   selectedColor: string | null;
-  onClick: (value: string) => void;
+  onClick: (value: string, label: string) => void;
   cols?: number;
   className?: string;
 }

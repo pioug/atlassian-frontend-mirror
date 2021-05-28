@@ -156,4 +156,36 @@ describe('Block card views - Resolved', () => {
     fireEvent.click(link!);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
+
+  it('renders should show emoji instead of document icon', () => {
+    const emoji = <span data-testid="emoji">😍</span>;
+    const resolvedProps = {
+      ...props,
+      icon: {
+        icon: <span key="document-icon" />,
+      },
+      titlePrefix: emoji,
+    };
+    const { getByTestId } = renderWithIntl(
+      <BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
+    );
+    const emojiTest = getByTestId('emoji');
+    expect(emojiTest.textContent).toBe('😍');
+  });
+
+  it('renders should show emoji instead of blog icon', () => {
+    const emoji = <span data-testid="emoji">😍</span>;
+    const resolvedProps = {
+      ...props,
+      icon: {
+        icon: <span key="blogpost-icon" />,
+      },
+      titlePrefix: emoji,
+    };
+    const { getByTestId } = renderWithIntl(
+      <BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
+    );
+    const emojiTest = getByTestId('emoji');
+    expect(emojiTest.textContent).toBe('😍');
+  });
 });

@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 11.6.0
+
+### Minor Changes
+
+- [`e1dc82f2825`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1dc82f2825) - Fix Modal header and footer tags
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.0
 
 ### Minor Changes

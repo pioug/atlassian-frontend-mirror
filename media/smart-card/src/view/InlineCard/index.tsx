@@ -23,6 +23,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   handleAuthorize,
   handleFrameClick,
   isSelected,
+  renderers,
   onResolve,
   testId,
   inlinePreloaderStyle,
@@ -45,6 +46,7 @@ export const InlineCard: FC<InlineCardProps> = ({
     case 'resolved':
       const resolvedProps = extractInlineProps(
         cardDetails as JsonLd.Data.BaseData,
+        renderers,
       );
 
       if (onResolve) {

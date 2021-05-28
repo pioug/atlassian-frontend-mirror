@@ -224,6 +224,28 @@ describe('FlagGroup', () => {
     expect(flagBSpy).not.toHaveBeenCalled();
   });
 
+  it('onDismissed provided by Flag should be called when child Flag wrapped within another component and dismissed', () => {
+    const spy = jest.fn();
+    const { getByTestId } = render(
+      <FlagGroup>
+        <div>
+          {generateFlag({
+            id: 'a',
+            testId: 'a',
+            onDismissed: spy,
+          })}
+        </div>
+        <div>{generateFlag({ id: 'b' })}</div>
+      </FlagGroup>,
+    );
+
+    fireEvent.click(getByTestId('a-dismiss'));
+    act(() => jest.runAllTimers());
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith('a', expect.anything());
+  });
+
   it('should render screen reader text only when FlagGroup has children', () => {
     const { queryByText } = render(<FlagGroup>{generateFlag()}</FlagGroup>);
     expect(queryByText('Flag notifications')).toBeTruthy();

@@ -14,6 +14,7 @@ export interface TaskListDefinition {
   type: 'taskList';
   /**
    * @minItems 1
+   * @allowUnsupportedBlock true
    */
   content: TaskListContent;
   attrs: {
@@ -29,7 +30,7 @@ export const taskList: NodeSpec = {
   group: 'block',
   defining: true,
   selectable: false,
-  content: 'taskItem+ (taskItem|taskList)*',
+  content: '(taskItem|unsupportedBlock)+ (taskItem|taskList|unsupportedBlock)*',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   attrs: {
     localId: { default: '' },

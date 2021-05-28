@@ -18,6 +18,13 @@ import {
 import { datePlugin } from '../../../../../plugins';
 import { TypeAheadSelectItem } from '../../../../../plugins/type-ahead/types';
 
+jest.mock('@atlaskit/adf-schema', () => ({
+  ...jest.requireActual<Object>('@atlaskit/adf-schema'),
+  uuid: {
+    generate: () => 'testId',
+  },
+}));
+
 const createTypeAheadPlugin = ({
   getItems,
   selectItem,
@@ -365,23 +372,25 @@ describe('typeahead plugin -> commands -> select-item', () => {
             insert(
               state.schema.nodes.extension.createChecked({
                 layout: 'full-width',
+                localId: 'testId',
               }),
             ),
           getItems: () => [],
         },
         { title: '1' },
       )(editorView.state, editorView.dispatch);
-
       expect(editorView.state.doc).toEqualDocument(
         doc(
           bodiedExtension({
             extensionKey: 'fake.extension',
             extensionType: 'atlassian.com.editor',
+            localId: 'testId',
           })(
             extension({
               extensionKey: '',
               extensionType: '',
               layout: 'default',
+              localId: 'testId',
             })(),
           ),
         ),

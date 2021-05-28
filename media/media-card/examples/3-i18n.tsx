@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   I18NWrapper,
   externaBrokenlIdentifier,
@@ -9,13 +9,13 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Card } from '../src';
 import styled from 'styled-components';
-import { Checkbox } from '@atlaskit/checkbox';
+import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
 const Wrapper = styled.div`
   max-width: 800px;
-  margin: auto;
+  margin: 20px auto;
 `;
 
 const CardContainer = styled.div`
@@ -37,29 +37,22 @@ const fileIds = [
 ];
 
 export default () => {
-  const [enableNewExp, setEnableNewExp] = useState(true);
   return (
     <Wrapper>
       <I18NWrapper>
-        <Checkbox
-          value="newExp"
-          label="Display the new experience?"
-          isChecked={enableNewExp}
-          onChange={e => setEnableNewExp(e.target.checked)}
-          name="isExternalImage"
-        />
-        {fileIds.map((fileId, fileIdIndex) =>
-          cardDimensions.map((dimensions, dimensionIndex) => (
-            <CardContainer key={`${dimensionIndex}${fileIdIndex}`}>
-              <Card
-                identifier={fileId}
-                mediaClientConfig={mediaClientConfig}
-                dimensions={dimensions}
-                featureFlags={{ newCardExperience: enableNewExp }}
-              />
-            </CardContainer>
-          )),
-        )}
+        <MainWrapper>
+          {fileIds.map((fileId, fileIdIndex) =>
+            cardDimensions.map((dimensions, dimensionIndex) => (
+              <CardContainer key={`${dimensionIndex}${fileIdIndex}`}>
+                <Card
+                  identifier={fileId}
+                  mediaClientConfig={mediaClientConfig}
+                  dimensions={dimensions}
+                />
+              </CardContainer>
+            )),
+          )}
+        </MainWrapper>
       </I18NWrapper>
     </Wrapper>
   );

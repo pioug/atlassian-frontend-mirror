@@ -1,5 +1,6 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { SideEffects, SideEffectsJSON } from './utils/side-effects/types';
+import { SortOrder } from './constants';
 
 export type ColumnInfo = Map<number, CellStep>;
 
@@ -39,4 +40,9 @@ export interface AddColumnStepJson {
   cells: CellStepJson[];
   sideEffects?: SideEffectsJSON;
   isDelete: boolean;
+}
+
+export interface TableColumnOrdering {
+  columnIndex: number;
+  order: SortOrder;
 }

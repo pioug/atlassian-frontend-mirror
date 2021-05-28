@@ -29,6 +29,9 @@ export default {
   'fabric.media.cant_retrieve_files': 'Ой! Не вдалося завантажити файли.',
   'fabric.media.cant_retrieve_gifs': 'Ой! Не вдалося завантажити файли GIF.',
   'fabric.media.check_your_network': 'Перевірте мережеве підключення',
+  'fabric.media.click_to_join': 'Використовувати {context}',
+  'fabric.media.click_to_join_description':
+    'Вас схвалено, тож ви можете приєднатися до продукту {context} вже зараз.',
   'fabric.media.close': 'Закрити',
   'fabric.media.close_and_reopen':
     'Спробуйте закрити й повторно відкрити файл.',
@@ -70,6 +73,8 @@ export default {
   'fabric.media.error_hint_retry': 'Повторіть спробу.',
   'fabric.media.error_loading_file': 'Помилка завантаження файлу',
   'fabric.media.failed_to_load': 'Помилка завантаження',
+  'fabric.media.forbidden_description':
+    'Ви не маєте доступу до цього вмісту. Якщо вам потрібен доступ, зверніться до адміністратора сайту.',
   'fabric.media.give_feedback': 'Залишити відгук',
   'fabric.media.image': 'зображення',
   'fabric.media.image_format_invalid_error':
@@ -110,6 +115,14 @@ export default {
   'fabric.media.preview_unavailable': 'Попередній перегляд недоступний',
   'fabric.media.recent_uploads': 'Недавні завантаження',
   'fabric.media.remove_image': 'Видалити зображення',
+  'fabric.media.request_access': 'Надіслати запит на доступ',
+  'fabric.media.request_access_description':
+    'Надішліть запит на доступ до {context}, щоб попередньо переглянути продукт.',
+  'fabric.media.request_access_pending': 'Очікується надання доступу',
+  'fabric.media.request_access_pending_description':
+    'Ваш запит на надання доступу в очікуванні.',
+  'fabric.media.request_denied_description':
+    'Ваш запит на надання доступу відхилено. Якщо вам усе ще потрібен доступ, зверніться до адміністратора сайту.',
   'fabric.media.retry': 'Повторити спробу',
   'fabric.media.save': 'Зберегти',
   'fabric.media.search': 'пошук',
@@ -138,6 +151,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'Не вдається завантажити файл.',
   'fabric.media.webgl_warning_description':
     'Ваш браузер не підтримує WebGL. Щоб додавати примітки до зображень, потрібен браузер із підтримкою WebGL.',
+  'fabric.media.zip_entry_load_failed':
+    'Не вдалося завантажити елемент ZIP-файлу для попереднього перегляду',
   'fabric.media.zoom_in': 'збільшення',
   'fabric.media.zoom_out': 'зменшення',
 };

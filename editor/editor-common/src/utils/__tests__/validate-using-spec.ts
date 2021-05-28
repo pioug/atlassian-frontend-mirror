@@ -276,25 +276,159 @@ describe('validationErrorHandler', () => {
     });
   });
 
-  it('should ignore minimum INVALID_CONTENT_LENGTH error', () => {
-    const invalidNode = unsupportedNode;
-    const invalidContentLengthError: ValidationError = {
-      code: 'INVALID_CONTENT_LENGTH',
-      message: "'content' should have more than 1 child",
-      meta: { length: 1, requiredLength: 2, type: 'minimum' },
-    };
-    const options = {
-      allowUnsupportedBlock: true,
-    };
-    const result = validationErrorHandler(
-      invalidNode,
-      invalidContentLengthError,
-      options,
-      marks,
-      validateMock,
-    );
-    expect(result).toBeDefined();
-    expect(result).toEqual(invalidNode);
+  describe('minimum INVALID_CONTENT_LENGTH error', () => {
+    it('should wrap into unsupported node for LayoutSection', () => {
+      const invalidNode = {
+        type: 'layoutSection',
+        content: [
+          {
+            type: 'layoutColumn',
+            attrs: {
+              width: 50,
+            },
+            content: [
+              {
+                type: 'paragraph',
+                content: [],
+              },
+            ],
+          },
+        ],
+      };
+      const expected = {
+        type: 'layoutSection',
+        content: [
+          {
+            type: 'unsupportedBlock',
+            attrs: {
+              originalValue: {
+                type: 'layoutColumn',
+                attrs: { width: 50 },
+                content: [{ type: 'paragraph', content: [] }],
+              },
+            },
+          },
+        ],
+      };
+      const invalidContentLengthError: ValidationError = {
+        code: 'INVALID_CONTENT_LENGTH',
+        message: "'content' should have more than 1 child",
+        meta: { length: 1, requiredLength: 2, type: 'minimum' },
+      };
+      const options = {
+        allowUnsupportedBlock: true,
+      };
+      const result = validationErrorHandler(
+        invalidNode,
+        invalidContentLengthError,
+        options,
+        marks,
+        validateMock,
+      );
+      expect(result).toBeDefined();
+      expect(result).toEqual(expected);
+    });
+
+    it('should not wrap a unsupported node in LayoutSection', () => {
+      const invalidNode = {
+        type: 'layoutSection',
+        content: [
+          {
+            type: 'unsupportedBlock',
+            attrs: {
+              originalValue: {
+                type: 'layoutColumn',
+                attrs: { width: 50 },
+                content: [{ type: 'paragraph', content: [] }],
+              },
+            },
+          },
+        ],
+      };
+      const invalidContentLengthError: ValidationError = {
+        code: 'INVALID_CONTENT_LENGTH',
+        message: "'content' should have more than 1 child",
+        meta: { length: 1, requiredLength: 2, type: 'minimum' },
+      };
+      const options = {
+        allowUnsupportedBlock: true,
+      };
+      const result = validationErrorHandler(
+        invalidNode,
+        invalidContentLengthError,
+        options,
+        marks,
+        validateMock,
+      );
+      expect(result).toBeDefined();
+      expect(result).toEqual(invalidNode);
+    });
+
+    it('should wrap into unsupported node for BlockQuote', () => {
+      const invalidNode = {
+        type: 'blockquote',
+        content: [],
+      };
+      const expected = {
+        type: 'unsupportedBlock',
+        attrs: {
+          originalValue: {
+            type: 'blockquote',
+            content: [],
+          },
+        },
+      };
+      const invalidContentLengthError: ValidationError = {
+        code: 'INVALID_CONTENT_LENGTH',
+        message: "'content' should have more than 1 child",
+        meta: { length: 1, requiredLength: 2, type: 'minimum' },
+      };
+      const options = {
+        allowUnsupportedBlock: true,
+      };
+      const result = validationErrorHandler(
+        invalidNode,
+        invalidContentLengthError,
+        options,
+        marks,
+        validateMock,
+      );
+      expect(result).toBeDefined();
+      expect(result).toEqual(expected);
+    });
+
+    it('should wrap into unsupported node for MediaSingle', () => {
+      const invalidNode = {
+        type: 'mediaSingle',
+        content: [],
+      };
+      const expected = {
+        type: 'unsupportedBlock',
+        attrs: {
+          originalValue: {
+            type: 'mediaSingle',
+            content: [],
+          },
+        },
+      };
+      const invalidContentLengthError: ValidationError = {
+        code: 'INVALID_CONTENT_LENGTH',
+        message: "'content' should have more than 1 child",
+        meta: { length: 1, requiredLength: 2, type: 'minimum' },
+      };
+      const options = {
+        allowUnsupportedBlock: true,
+      };
+      const result = validationErrorHandler(
+        invalidNode,
+        invalidContentLengthError,
+        options,
+        marks,
+        validateMock,
+      );
+      expect(result).toBeDefined();
+      expect(result).toEqual(expected);
+    });
   });
 
   it('should add empty content for paragraph with missing properties', () => {

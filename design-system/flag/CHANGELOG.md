@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 14.3.1
+
+### Patch Changes
+
+- [`1964787a3ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1964787a3ce) - [ux] fixes issue where flags wrapped in another component would fail to autodismiss after 8 seconds in FlagGroup
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

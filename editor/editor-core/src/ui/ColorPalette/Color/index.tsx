@@ -20,7 +20,7 @@ export interface Props {
   label: string;
   tabIndex?: number;
   isSelected?: boolean;
-  onClick: (value: string) => void;
+  onClick: (value: string, label: string) => void;
   borderColor: string;
   checkMarkColor?: string;
 }
@@ -67,9 +67,9 @@ class Color extends PureComponent<Props & InjectedIntlProps> {
   };
 
   onClick = (e: React.MouseEvent<{}>) => {
-    const { onClick, value } = this.props;
+    const { onClick, value, label } = this.props;
     e.preventDefault();
-    onClick(value);
+    onClick(value, label);
   };
 }
 

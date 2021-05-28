@@ -41,6 +41,7 @@
             ]
           }
         },
+        "localId": "testId", 
         "layout": "default"
       },
       "content": [

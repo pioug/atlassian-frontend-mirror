@@ -837,6 +837,281 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
+      it('should wrap in unsupportedBlock node for taskList node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'taskList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'NotAtaskItem',
+                      attrs: {
+                        localId: '456',
+                        state: 'TODO',
+                      },
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'This is a task',
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'taskList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'NotAtaskItem',
+                  attrs: {
+                    localId: '456',
+                    state: 'TODO',
+                  },
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'This is a task',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap in unsupportedInline node for taskItem node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'taskList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'taskItem',
+                  attrs: {
+                    localId: '456',
+                    state: 'TODO',
+                  },
+                  content: [
+                    {
+                      type: 'unsupportedInline',
+                      attrs: {
+                        originalValue: {
+                          type: 'notAValidChild',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'this is the first task',
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'taskList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'taskItem',
+                  attrs: {
+                    localId: '456',
+                    state: 'TODO',
+                  },
+                  content: [
+                    {
+                      type: 'notAValidChild',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'this is the first task',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap in unsupportedBlock node for decisionList node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'decisionList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'unsupportedBlock',
+                  attrs: {
+                    originalValue: {
+                      type: 'NotADecisionItem',
+
+                      attrs: {
+                        localId: '456',
+                        state: 'DECIDED',
+                      },
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'This is the first decision',
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'decisionList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'NotADecisionItem',
+                  attrs: {
+                    localId: '456',
+                    state: 'DECIDED',
+                  },
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'This is the first decision',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
+      it('should wrap in unsupportedInline node for decisionItem node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'decisionList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'decisionItem',
+                  attrs: {
+                    localId: '456',
+                    state: 'DECIDED',
+                  },
+                  content: [
+                    {
+                      type: 'unsupportedInline',
+                      attrs: {
+                        originalValue: {
+                          type: 'invalidChildComponent',
+
+                          content: [
+                            {
+                              type: 'text',
+
+                              text: 'This is the first decision',
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'decisionList',
+              attrs: {
+                localId: '123',
+              },
+              content: [
+                {
+                  type: 'decisionItem',
+                  attrs: {
+                    localId: '456',
+                    state: 'DECIDED',
+                  },
+                  content: [
+                    {
+                      type: 'invalidChildComponent',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'This is the first decision',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
       it('should wrap unsupported mark for inline node where no marks specified in spec', () => {
         const unsupportedMark = {
           type: 'dasdsad',
@@ -885,7 +1160,6 @@ describe(name, () => {
         });
 
         expect(result).toBeDefined();
-
         expect(result!.toJSON()).toEqual(expected);
       });
 
@@ -940,7 +1214,6 @@ describe(name, () => {
         });
 
         expect(result).toBeDefined();
-
         expect(result!.toJSON()).toEqual(expected);
       });
 

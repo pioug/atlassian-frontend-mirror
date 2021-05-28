@@ -1,5 +1,12 @@
 # @atlaskit/media-image
 
+## 17.1.7
+
+### Patch Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- Updated dependencies
+
 ## 17.1.6
 
 ### Patch Changes

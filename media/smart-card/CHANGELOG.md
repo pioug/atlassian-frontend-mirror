@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 15.3.0
+
+### Minor Changes
+
+- [`f7ff2c84451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ff2c84451) - bump json-ld-types from 2.2.2 to ^2.3.0"
+- [`c9dd0243320`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9dd0243320) - [ux] prepend page title with emoji icon for smart link and block card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.1
 
 ### Patch Changes

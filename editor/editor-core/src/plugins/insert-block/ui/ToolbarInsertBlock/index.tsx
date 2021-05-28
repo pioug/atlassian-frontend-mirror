@@ -314,7 +314,7 @@ class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView, allowReferentiality } = this.props;
+    const { editorView, allowLocalIdGenerationOnTables } = this.props;
 
     return commandWithAnalytics({
       action: ACTION.INSERTED,
@@ -322,7 +322,10 @@ class ToolbarInsertBlock extends React.PureComponent<
       actionSubjectId: ACTION_SUBJECT_ID.TABLE,
       attributes: { inputMethod },
       eventType: EVENT_TYPE.TRACK,
-    })(createTable(allowReferentiality))(editorView.state, editorView.dispatch);
+    })(createTable(allowLocalIdGenerationOnTables))(
+      editorView.state,
+      editorView.dispatch,
+    );
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

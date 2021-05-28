@@ -58,7 +58,7 @@ BrowserTestCase(
     await mountEditor(page, {
       appearance: 'full-page',
       withNewExtensions: true,
-      allowExtension: { allowAutoSave: true, allowLocalIdGeneration: true },
+      allowExtension: { allowAutoSave: true },
       elementBrowser: {
         showModal: true,
         replacePlusMenu: true,

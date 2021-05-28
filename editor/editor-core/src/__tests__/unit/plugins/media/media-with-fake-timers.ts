@@ -13,7 +13,7 @@ const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 const getFreshMediaProvider = () =>
   storyMediaProviderFactory({
     collectionName: testCollectionName,
-    includeUserAuthProvider: true,
+    includeUserAuthProvider: false,
     includeUploadMediaClientConfig: true,
   });
 

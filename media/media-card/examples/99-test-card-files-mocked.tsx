@@ -9,10 +9,10 @@ import {
   MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
-
 import { Card } from '../src';
 import { DelayedRender } from '../example-helpers/DelayedRender';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { MainWrapper } from '../example-helpers';
 
 const identifiers = [1, 2, 3, 4].map(
   (id: number): FileIdentifier => ({
@@ -160,16 +160,18 @@ const hiddenCardWithoutCacheAvailable = [
 ];
 
 export default () => (
-  <div>
-    <h1 style={{ margin: '10px 20px' }}>File cards</h1>
-    <div style={{ margin: '20px 40px' }}>
-      <h3>Standard</h3>
-      <StoryList>{standardCards}</StoryList>
-      <StoryList>{cardWithContextId}</StoryList>
-      <StoryList>{standardCardWithMediaViewer}</StoryList>
-      <StoryList>{loadingCard}</StoryList>
-      <StoryList>{hiddenCardWithoutCacheAvailable}</StoryList>
-      <StoryList>{hiddenCardWithCacheAvailable}</StoryList>
+  <MainWrapper>
+    <div>
+      <h1 style={{ margin: '10px 20px' }}>File cards</h1>
+      <div style={{ margin: '20px 40px' }}>
+        <h3>Standard</h3>
+        <StoryList>{standardCards}</StoryList>
+        <StoryList>{cardWithContextId}</StoryList>
+        <StoryList>{standardCardWithMediaViewer}</StoryList>
+        <StoryList>{loadingCard}</StoryList>
+        <StoryList>{hiddenCardWithoutCacheAvailable}</StoryList>
+        <StoryList>{hiddenCardWithCacheAvailable}</StoryList>
+      </div>
     </div>
-  </div>
+  </MainWrapper>
 );

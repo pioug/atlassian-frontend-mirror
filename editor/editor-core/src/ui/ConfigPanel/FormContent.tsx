@@ -1,12 +1,16 @@
 import React from 'react';
-import { ExtensionManifest } from '@atlaskit/editor-common';
+import {
+  ExtensionManifest,
+  ContextIdentifierProvider,
+} from '@atlaskit/editor-common';
 
 import {
   FieldDefinition,
   isFieldset,
   Parameters,
+  TabField,
 } from '@atlaskit/editor-common/extensions';
-
+import ColorPicker from './Fields/ColorPicker';
 import Boolean from './Fields/Boolean';
 import CustomSelect from './Fields/CustomSelect';
 import Date from './Fields/Date';
@@ -19,32 +23,37 @@ import String from './Fields/String';
 import UnhandledType from './Fields/UnhandledType';
 import UserSelect from './Fields/UserSelect';
 import Expand from './Fields/Expand';
+import TabGroup from './Fields/TabGroup';
 
 import RemovableField from './NestedForms/RemovableField';
-import { OnBlur } from './types';
+import { OnFieldChange } from './types';
 import { getSafeParentedName } from './utils';
+import { FormErrorBoundary } from './FormErrorBoundary';
 
-function FieldComponent({
-  field,
-  parameters,
-  parentName,
-  extensionManifest,
-  firstVisibleFieldName,
-  onBlur,
-}: {
+export interface FieldComponentProps {
   field: FieldDefinition;
   parameters: Parameters;
   parentName?: string;
   extensionManifest: ExtensionManifest;
   firstVisibleFieldName?: string;
-  onBlur: OnBlur;
-}) {
-  const { name } = field;
+  onFieldChange: OnFieldChange;
+}
+
+export function FieldComponent({
+  field,
+  parameters,
+  parentName,
+  extensionManifest,
+  firstVisibleFieldName,
+  onFieldChange,
+}: FieldComponentProps) {
+  const { name, type } = field;
   const autoFocus = name === firstVisibleFieldName;
   const defaultValue = parameters[name];
   const error = parameters.errors?.[name];
   const parentedName = getSafeParentedName(name, parentName);
-
+  const fieldDefaultValue =
+    field.type === 'enum' ? field.defaultValue : undefined;
   if (name in parameters && !isFieldset(field)) {
     field = { ...field, defaultValue };
   }
@@ -56,7 +65,7 @@ function FieldComponent({
           name={parentedName}
           field={field}
           autoFocus={autoFocus}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
           placeholder={field.placeholder}
         />
       );
@@ -67,13 +76,28 @@ function FieldComponent({
           name={parentedName}
           field={field}
           autoFocus={autoFocus}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
           placeholder={field.placeholder}
         />
       );
 
     case 'boolean':
-      return <Boolean name={parentedName} field={field} onBlur={onBlur} />;
+      return (
+        <Boolean
+          name={parentedName}
+          field={field}
+          onFieldChange={onFieldChange}
+        />
+      );
+
+    case 'color':
+      return (
+        <ColorPicker
+          name={parentedName}
+          field={field}
+          onFieldChange={onFieldChange}
+        />
+      );
 
     case 'date':
       return (
@@ -81,7 +105,7 @@ function FieldComponent({
           name={parentedName}
           field={field}
           autoFocus={autoFocus}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
           placeholder={field.placeholder}
         />
       );
@@ -92,7 +116,7 @@ function FieldComponent({
           name={parentedName}
           field={field}
           autoFocus={autoFocus}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
         />
       );
 
@@ -102,7 +126,8 @@ function FieldComponent({
           name={parentedName}
           field={field}
           autoFocus={autoFocus}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
+          fieldDefaultValue={fieldDefaultValue}
         />
       );
     case 'custom':
@@ -113,7 +138,7 @@ function FieldComponent({
           extensionManifest={extensionManifest}
           placeholder={field.placeholder}
           autoFocus={autoFocus}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
           parameters={parameters}
         />
       );
@@ -124,7 +149,7 @@ function FieldComponent({
           name={parentedName}
           field={field}
           firstVisibleFieldName={firstVisibleFieldName}
-          onFieldBlur={onBlur}
+          onFieldChange={onFieldChange}
           extensionManifest={extensionManifest}
           parameters={defaultValue || {}}
           error={error}
@@ -138,29 +163,45 @@ function FieldComponent({
           field={field}
           autoFocus={name === firstVisibleFieldName}
           extensionManifest={extensionManifest}
-          onBlur={onBlur}
+          onFieldChange={onFieldChange}
         />
       );
 
     case 'expand':
+      // if expand is under a tab.
+      const resolvedParentName = parentName
+        ? `${parentName}.${field.name}`
+        : field.name;
       return (
         <Expand field={field} isExpanded={field.isExpanded}>
           <FormContent
-            parentName={field.name}
+            parentName={resolvedParentName}
             fields={field.fields}
-            parameters={defaultValue}
-            onFieldBlur={onBlur}
+            parameters={parameters}
+            onFieldChange={onFieldChange}
             extensionManifest={extensionManifest}
           />
         </Expand>
       );
 
+    case 'tab-group':
+      const renderPanel = (tabField: TabField) => (
+        <FormContent
+          parentName={`${field.name}.${tabField.name}`}
+          fields={tabField.fields}
+          parameters={parameters}
+          onFieldChange={onFieldChange}
+          extensionManifest={extensionManifest}
+        />
+      );
+
+      return <TabGroup field={field} renderPanel={renderPanel} />;
+
     default:
       return (
         <UnhandledType
           field={field}
-          // @ts-ignore, not possible, but maybe Typescript is wrong
-          errorMessage={`Field "${name}" of type "${field.type}" not supported`}
+          errorMessage={`Field "${name}" of type "${type}" not supported`}
         />
       );
   }
@@ -177,8 +218,9 @@ export default function FormContent({
   extensionManifest,
   canRemoveFields,
   onClickRemove,
-  onFieldBlur,
+  onFieldChange,
   firstVisibleFieldName,
+  contextIdentifierProvider,
 }: {
   fields: FieldDefinition[];
   parentName?: string;
@@ -186,11 +228,16 @@ export default function FormContent({
   extensionManifest: ExtensionManifest;
   canRemoveFields?: boolean;
   onClickRemove?: (fieldName: string) => void;
-  onFieldBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   firstVisibleFieldName?: string;
+  contextIdentifierProvider?: ContextIdentifierProvider;
 }) {
   return (
-    <>
+    <FormErrorBoundary
+      contextIdentifierProvider={contextIdentifierProvider}
+      extensionKey={extensionManifest.key}
+      fields={fields}
+    >
       {fields.map((field: FieldDefinition) => {
         let fieldElement = (
           <FieldComponent
@@ -199,7 +246,7 @@ export default function FormContent({
             parentName={parentName}
             extensionManifest={extensionManifest}
             firstVisibleFieldName={firstVisibleFieldName}
-            onBlur={onFieldBlur}
+            onFieldChange={onFieldChange}
           />
         );
 
@@ -208,18 +255,19 @@ export default function FormContent({
           fieldElement = <Hidden>{fieldElement}</Hidden>;
         }
 
-        const { name } = field;
+        const { name, type } = field;
         return (
           <RemovableField
             key={name}
             name={name}
             canRemoveField={canRemoveFields && !field.isRequired}
             onClickRemove={onClickRemove}
+            className={`field-wrapper-${type}`}
           >
             {fieldElement}
           </RemovableField>
         );
       })}
-    </>
+    </FormErrorBoundary>
   );
 }

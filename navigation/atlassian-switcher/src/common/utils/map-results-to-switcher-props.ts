@@ -194,6 +194,7 @@ export function mapResultsToSwitcherProps(
   product?: Product,
   adminUrl?: string,
   recommendationsFeatureFlags?: RecommendationsFeatureFlags,
+  slackDiscoveryClickHandler?: DiscoverMoreCallback,
   customizeLinks?: CustomizeLinks,
 ) {
   const collect = createCollector();
@@ -287,6 +288,7 @@ export function mapResultsToSwitcherProps(
             product,
             recommendationsFeatureFlags,
             features.isSlackDiscoveryEnabled,
+            slackDiscoveryClickHandler,
           ),
           [],
         )

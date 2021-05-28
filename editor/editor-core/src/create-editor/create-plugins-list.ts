@@ -44,6 +44,7 @@ import {
   mobileSelectionPlugin,
   annotationPlugin,
   captionPlugin,
+  avatarGroupPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import {
@@ -171,6 +172,8 @@ export default function createPluginsList(
   const preset = createDefaultPreset(
     getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
   );
+  const featureFlags = createFeatureFlagsFromProps(props);
+  const allowLocalIdGenerationOnTables = featureFlags.localIdGenerationOnTables;
 
   if (props.allowAnalyticsGASV3) {
     const { performanceTracking } = props;
@@ -195,20 +198,11 @@ export default function createPluginsList(
     preset.add(alignmentPlugin);
   }
 
-  // Referentiality can't exist without data consumer plugin
-  if (props.UNSAFE_allowDataConsumer || props.allowReferentiality) {
-    const dataConsumerConfig =
-      typeof props.UNSAFE_allowDataConsumer === 'object'
-        ? props.UNSAFE_allowDataConsumer
-        : {};
-
+  if (featureFlags.dataConsumerMark) {
     preset.add([
       dataConsumerMarkPlugin,
       {
-        allowDataConsumerMarks:
-          props.allowReferentiality ??
-          dataConsumerConfig.allowDataConsumerMarks ??
-          true,
+        allowDataConsumerMarks: true,
       },
     ]);
   }
@@ -317,7 +311,7 @@ export default function createPluginsList(
         fullWidthEnabled: props.appearance === 'full-width',
         wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
         dynamicSizingEnabled: props.allowDynamicTextSizing,
-        allowReferentiality: props.allowReferentiality,
+        allowLocalIdGeneration: allowLocalIdGenerationOnTables,
       },
     ]);
   }
@@ -413,7 +407,6 @@ export default function createPluginsList(
           extensionConfig.allowBreakout !== false,
         stickToolbarToBottom: extensionConfig.stickToolbarToBottom,
         allowAutoSave: extensionConfig.allowAutoSave,
-        allowLocalIdGeneration: extensionConfig.allowLocalIdGeneration,
         extensionHandlers: props.extensionHandlers,
         useLongPressSelection: false,
       },
@@ -517,12 +510,26 @@ export default function createPluginsList(
         (props.elementBrowser && props.elementBrowser.showModal) || false,
       replacePlusMenuWithElementBrowser:
         (props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
-      allowReferentiality: props.allowReferentiality,
+      allowLocalIdGenerationOnTables: allowLocalIdGenerationOnTables,
     },
   ]);
 
+  if (props.featureFlags?.showAvatarGroupAsPlugin === true) {
+    preset.add([
+      avatarGroupPlugin,
+      {
+        collabEdit: props.collabEdit,
+      },
+    ]);
+  }
+
   if (props.allowFindReplace) {
-    preset.add(findReplacePlugin);
+    preset.add([
+      findReplacePlugin,
+      {
+        takeFullWidth: !!props.featureFlags?.showAvatarGroupAsPlugin === false,
+      },
+    ]);
   }
 
   const excludes = new Set<string>();

@@ -7,7 +7,6 @@ export const analyticsIdMap = {
   starred: 'starDrawer',
   help: 'helpDrawer',
   settings: 'settingsDrawer',
-  invite: 'inviteDrawer',
 };
 
 export const fireDrawerDismissedEvents = (

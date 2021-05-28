@@ -4,7 +4,7 @@ import { Checkbox as AKCheckbox } from '@atlaskit/checkbox';
 import { Field, Fieldset as AKFieldset, FieldProps } from '@atlaskit/form';
 import { EnumCheckboxField, Option } from '@atlaskit/editor-common/extensions';
 
-import { ValidationError, OnBlur } from '../types';
+import { ValidationError, OnFieldChange } from '../types';
 import FieldMessages from '../FieldMessages';
 
 function validate(value: string[] | undefined, isRequired: boolean) {
@@ -20,14 +20,14 @@ const RequiredIndicator = styled.span`
 function CheckboxGroupInner({
   label,
   description,
-  onBlur,
+  onFieldChange,
   options,
   error,
   fieldProps,
 }: {
   label: JSX.Element;
   description?: string;
-  onBlur: () => void;
+  onFieldChange: () => void;
   options: Option[];
   error?: string;
   fieldProps: FieldProps<string[], HTMLInputElement>;
@@ -43,7 +43,7 @@ function CheckboxGroupInner({
     }
 
     onChange([...active]);
-    onBlur();
+    onFieldChange();
   }
 
   return (
@@ -62,7 +62,6 @@ function CheckboxGroupInner({
               isRequired={false}
               label={optionLabel}
               isChecked={isChecked}
-              onBlur={onBlur}
               onChange={onOptionChange}
             />
           );
@@ -76,11 +75,11 @@ function CheckboxGroupInner({
 export default function CheckboxGroup({
   name,
   field,
-  onBlur,
+  onFieldChange,
 }: {
   name: string;
   field: EnumCheckboxField;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
 }) {
   const {
     label: labelBase,
@@ -99,9 +98,9 @@ export default function CheckboxGroup({
     </>
   );
 
-  const _onBlur = useCallback(() => {
-    onBlur(name);
-  }, [name, onBlur]);
+  const _onFieldChange = useCallback(() => {
+    onFieldChange(name, true);
+  }, [name, onFieldChange]);
 
   return (
     <Field<string[]>
@@ -116,7 +115,7 @@ export default function CheckboxGroup({
             label={label}
             description={description}
             options={options}
-            onBlur={_onBlur}
+            onFieldChange={_onFieldChange}
             {...props}
           />
         );

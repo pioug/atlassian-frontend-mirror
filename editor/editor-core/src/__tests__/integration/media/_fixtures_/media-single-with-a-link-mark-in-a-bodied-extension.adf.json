@@ -10,7 +10,8 @@
       "type": "bodiedExtension",
       "attrs": {
         "extensionType": "com.atlassian.confluence.macro.core",
-        "extensionKey": "expand"
+        "extensionKey": "expand",
+        "localId": "testId"
       },
       "content": [
         {

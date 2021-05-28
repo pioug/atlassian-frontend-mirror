@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { FC, Fragment, ReactNode } from 'react';
 
 import { background, G400, N40, N500, R400 } from '@atlaskit/theme/colors';
@@ -6,17 +7,24 @@ import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './IconWrapper';
 import { AppearanceType, IndicatorSizeType } from './types';
 
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type StatusType = ('approved' | 'declined' | 'locked') | ReactNode;
 
 export interface StatusProps {
-  /** Override the default border color of the status indicator. This accepts
-   any color argument that the CSS property `border-color` accepts. */
+  /**
+   * Override the default border color of the status indicator. This accepts
+   * any color argument that the CSS property `border-color` accepts.
+   */
   borderColor?: string;
-  /** Content to use as a custom status indicator. Not needed if consuming
-   `Status` separate to `Avatar`. */
+  /**
+   * Content to use as a custom status indicator. Not needed if consuming
+   * `Status` separate to `Avatar`.
+   */
   children?: ReactNode;
-  /** Content to use as a custom status indicator. Not needed if consuming
-   `Status` separate to `Avatar`. */
+  /**
+   * Content to use as a custom status indicator. Not needed if consuming
+   * `Status` separate to `Avatar`.
+   */
   status?: StatusType;
 }
 
@@ -59,7 +67,15 @@ function getStatus(status: StatusType) {
   }
 }
 
-const Status: FC<StatusProps> = ({
+/**
+ * __Avatar status__
+ *
+ * An avatar status shows contextual information, such as if someone approves or declines something.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/avatar-status/examples)
+ * - [Code](https://atlassian.design/components/avatar/avatar-status/code)
+ */
+const AvatarStatus: FC<StatusProps> = ({
   borderColor,
   children,
   status,
@@ -81,7 +97,7 @@ const Status: FC<StatusProps> = ({
   </IconWrapper>
 );
 
-export default Status;
+export default AvatarStatus;
 
 interface StatusWrapperProps extends StatusProps {
   appearance: AppearanceType;
@@ -90,6 +106,11 @@ interface StatusWrapperProps extends StatusProps {
   testId?: string;
 }
 
+/**
+ * Status wrapper**
+ *
+ * A status wrapper is used internally to position status ontop of the avatar.
+ */
 export const StatusWrapper: FC<StatusWrapperProps> = ({
   size,
   status,
@@ -111,9 +132,9 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
         width: `${ICON_SIZES[size]}px`,
       }}
     >
-      <Status borderColor={borderColor} status={!children && status}>
+      <AvatarStatus borderColor={borderColor} status={!children && status}>
         {children}
-      </Status>
+      </AvatarStatus>
     </span>
   );
 };

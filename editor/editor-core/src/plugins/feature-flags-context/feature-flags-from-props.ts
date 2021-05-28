@@ -36,13 +36,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof props.allowFindReplace === 'object' &&
       Boolean(props.allowFindReplace.allowMatchCase),
 
-    extensionLocalIdGeneration:
-      typeof props.allowExtension === 'boolean'
-        ? false
-        : !!(
-            props.allowExtension && props.allowExtension.allowLocalIdGeneration
-          ),
-
     keyboardAccessibleDatepicker:
       typeof props.allowKeyboardAccessibleDatepicker === 'boolean'
         ? props.allowKeyboardAccessibleDatepicker
@@ -109,6 +102,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : props.UNSAFE_allowUndoRedoButtons
         ? false
         : true,
+    ),
+
+    showAvatarGroupAsPlugin: Boolean(
+      typeof props.featureFlags?.showAvatarGroupAsPlugin === 'boolean'
+        ? !!props.featureFlags?.showAvatarGroupAsPlugin
+        : false,
     ),
   };
 }

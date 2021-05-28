@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 jest.autoMockOff();
 
 import * as transformer from '../19.0.0-render-props';

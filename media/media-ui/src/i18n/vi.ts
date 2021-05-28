@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Ôi! Chúng tôi không thể truy xuất bất kỳ tệp GIF nào',
   'fabric.media.check_your_network': 'Kiểm tra kết nối mạng của bạn',
+  'fabric.media.click_to_join': 'Tham gia {context}',
+  'fabric.media.click_to_join_description':
+    'Bạn đã được phê duyệt nên bạn có thể tham gia {context} ngay.',
   'fabric.media.close': 'Đóng',
   'fabric.media.close_and_reopen': 'Hãy thử đóng tệp này và mở lại.',
   'fabric.media.connect_account_description':
@@ -74,6 +77,8 @@ export default {
   'fabric.media.error_hint_retry': 'Hãy thử lại và chúng tôi sẽ chụp lại ảnh.',
   'fabric.media.error_loading_file': 'Lỗi khi tải tệp',
   'fabric.media.failed_to_load': 'Không thể tải',
+  'fabric.media.forbidden_description':
+    'Bạn không có quyền truy cập vào bản xem trước này. Hãy liên hệ với quản trị viên trang web nếu bạn cần quyền truy cập.',
   'fabric.media.give_feedback': 'Đưa ra phản hồi',
   'fabric.media.image': 'hình ảnh',
   'fabric.media.image_format_invalid_error':
@@ -113,6 +118,14 @@ export default {
   'fabric.media.preview_unavailable': 'Bản xem trước không khả dụng',
   'fabric.media.recent_uploads': 'Các nội dung tải lên gần đây',
   'fabric.media.remove_image': 'Xóa hình ảnh',
+  'fabric.media.request_access': 'Yêu cầu cấp quyền truy cập',
+  'fabric.media.request_access_description':
+    'Yêu cầu quyền truy cập để {context} xem bản xem trước này.',
+  'fabric.media.request_access_pending': 'Đang chờ xử lý quyền truy cập',
+  'fabric.media.request_access_pending_description':
+    'Đang chờ xử lý yêu cầu quyền truy cập của bạn.',
+  'fabric.media.request_denied_description':
+    'Yêu cầu quyền truy cập của bạn đã bị từ chối. Hãy liên hệ với quản trị viên trang web nếu bạn vẫn cần quyền truy cập.',
   'fabric.media.retry': 'Thử lại',
   'fabric.media.save': 'Lưu',
   'fabric.media.search': 'tìm kiếm',
@@ -141,6 +154,8 @@ export default {
     'Chúng tôi đang gặp sự cố khi tải tệp của bạn.',
   'fabric.media.webgl_warning_description':
     'Trình duyệt của bạn không hỗ trợ WebGL. Sử dụng trình duyệt đã bật WebGL để chú thích hình ảnh.',
+  'fabric.media.zip_entry_load_failed':
+    'Chúng tôi không thể tải mục tệp zip đó để xem trước',
   'fabric.media.zoom_in': 'phóng to',
   'fabric.media.zoom_out': 'thu nhỏ',
 };

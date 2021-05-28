@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 
+// eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';
 
 import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';

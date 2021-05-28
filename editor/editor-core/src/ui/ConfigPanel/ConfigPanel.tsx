@@ -13,12 +13,12 @@ import {
 } from '@atlaskit/analytics-next';
 import { ExtensionManifest } from '@atlaskit/editor-common';
 import Form from '@atlaskit/form';
-
 import {
   FieldDefinition,
   Parameters,
   OnSaveCallback,
 } from '@atlaskit/editor-common/extensions';
+import _isEqual from 'lodash/isEqual';
 
 import {
   fireAnalyticsEvent,
@@ -37,9 +37,11 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { FormFooter } from '@atlaskit/form';
 
+import { pluginKey as extensionPluginKey } from '../../plugins/extension/plugin-key';
+import WithPluginState from '../WithPluginState';
 import FormContent from './FormContent';
 import { messages } from './messages';
-import { OnBlur, ValidationErrors } from './types';
+import { OnFieldChange, ValidationErrors } from './types';
 
 function ConfigForm({
   canSave,
@@ -51,7 +53,7 @@ function ConfigForm({
   intl,
   isLoading,
   onCancel,
-  onFieldBlur,
+  onFieldChange,
   parameters,
   submitting,
 }: {
@@ -63,7 +65,7 @@ function ConfigForm({
   hasParsedParameters: boolean;
   isLoading: boolean;
   onCancel: () => void;
-  onFieldBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   parameters: Parameters;
   submitting: boolean;
 } & InjectedIntlProps) {
@@ -76,41 +78,47 @@ function ConfigForm({
   }
 
   return (
-    <>
-      <FormContent
-        fields={fields}
-        parameters={parameters}
-        extensionManifest={extensionManifest}
-        onFieldBlur={onFieldBlur}
-        firstVisibleFieldName={firstVisibleFieldName}
-      />
-      <div style={canSave ? {} : { display: 'none' }}>
-        <FormFooter align="start">
-          <ButtonGroup>
-            <Button type="submit" appearance="primary">
-              {intl.formatMessage(messages.submit)}
-            </Button>
-            <Button
-              appearance="default"
-              isDisabled={submitting}
-              onClick={onCancel}
-            >
-              {intl.formatMessage(messages.cancel)}
-            </Button>
-          </ButtonGroup>
-        </FormFooter>
-      </div>
-    </>
+    <WithPluginState
+      plugins={{ extension: extensionPluginKey }}
+      render={({ extension }) => (
+        <>
+          <FormContent
+            fields={fields}
+            parameters={parameters}
+            extensionManifest={extensionManifest}
+            onFieldChange={onFieldChange}
+            firstVisibleFieldName={firstVisibleFieldName}
+            contextIdentifierProvider={extension?.contextIdentifierProvider}
+          />
+          <div style={canSave ? {} : { display: 'none' }}>
+            <FormFooter align="start">
+              <ButtonGroup>
+                <Button type="submit" appearance="primary">
+                  {intl.formatMessage(messages.submit)}
+                </Button>
+                <Button
+                  appearance="default"
+                  isDisabled={submitting}
+                  onClick={onCancel}
+                >
+                  {intl.formatMessage(messages.cancel)}
+                </Button>
+              </ButtonGroup>
+            </FormFooter>
+          </div>
+        </>
+      )}
+    />
   );
 }
 
 const ConfigFormIntl = injectIntl(ConfigForm);
 
-const WithOnFieldBlur: FunctionComponent<{
+const WithOnFieldChange: FunctionComponent<{
   getState: () => { values: Parameters; errors: Record<string, any> };
   autoSave: boolean;
   handleSubmit: (parameters: Parameters) => void;
-  children: (onFieldBlur: OnBlur) => ReactElement;
+  children: (onFieldChange: OnFieldChange) => ReactElement;
 }> = ({ getState, autoSave, handleSubmit, children }) => {
   const getStateRef = useRef<
     () => { values: Parameters; errors: ValidationErrors }
@@ -120,26 +128,34 @@ const WithOnFieldBlur: FunctionComponent<{
     getStateRef.current = getState;
   }, [getState]);
 
-  const handleFieldBlur = useCallback(() => {
-    if (!autoSave) {
-      return;
-    }
-
-    const { errors, values } = getStateRef.current();
-
-    // Get only values that does not contain errors
-    const validValues: Parameters = {};
-    for (const key of Object.keys(values)) {
-      if (!errors[key]) {
-        // not has error
-        validValues[key] = values[key];
+  const handleFieldChange = useCallback(
+    (name: string, isDirty: boolean) => {
+      if (!autoSave) {
+        return;
       }
-    }
 
-    handleSubmit(validValues);
-  }, [autoSave, handleSubmit]);
+      // Don't trigger submit if nothing actually changed
+      if (!isDirty) {
+        return;
+      }
 
-  return children(handleFieldBlur);
+      const { errors, values } = getStateRef.current();
+
+      // Get only values that does not contain errors
+      const validValues: Parameters = {};
+      for (const key of Object.keys(values)) {
+        if (!errors[key]) {
+          // not has error
+          validValues[key] = values[key];
+        }
+      }
+
+      handleSubmit(validValues);
+    },
+    [autoSave, handleSubmit],
+  );
+
+  return children(handleFieldChange);
 };
 
 type Props = {
@@ -163,7 +179,7 @@ type State = {
 };
 
 class ConfigPanel extends React.Component<Props, State> {
-  onFieldBlur: OnBlur | null;
+  onFieldChange: OnFieldChange | null;
 
   constructor(props: Props) {
     super(props);
@@ -176,7 +192,7 @@ class ConfigPanel extends React.Component<Props, State> {
         : undefined,
     };
 
-    this.onFieldBlur = null;
+    this.onFieldChange = null;
   }
 
   componentDidMount() {
@@ -209,22 +225,18 @@ class ConfigPanel extends React.Component<Props, State> {
 
     if (
       (parameters && parameters !== prevProps.parameters) ||
-      (fields &&
-        (!prevProps.fields || fields.length !== prevProps.fields.length))
+      (fields && (!prevProps.fields || !_isEqual(fields, prevProps.fields)))
     ) {
       this.parseParameters(fields, parameters);
     }
 
-    if (
-      fields &&
-      (!prevProps.fields || fields.length !== prevProps.fields.length)
-    ) {
+    if (fields && (!prevProps.fields || !_isEqual(fields, prevProps.fields))) {
       this.setFirstVisibleFieldName(fields);
     }
 
     if (prevProps.autoSaveTrigger !== autoSaveTrigger) {
-      if (this.onFieldBlur) {
-        this.onFieldBlur('');
+      if (this.onFieldChange) {
+        this.onFieldChange('', true);
       }
     }
   }
@@ -357,13 +369,13 @@ class ConfigPanel extends React.Component<Props, State> {
       <Form onSubmit={handleSubmit}>
         {({ formProps, getState, submitting }) => {
           return (
-            <WithOnFieldBlur
+            <WithOnFieldChange
               autoSave={!!autoSave}
               getState={getState}
               handleSubmit={handleSubmit}
             >
-              {onFieldBlur => {
-                this.onFieldBlur = onFieldBlur;
+              {onFieldChange => {
+                this.onFieldChange = onFieldChange;
                 return (
                   <form
                     {...formProps}
@@ -381,14 +393,14 @@ class ConfigPanel extends React.Component<Props, State> {
                       hasParsedParameters={hasParsedParameters}
                       isLoading={isLoading || false}
                       onCancel={onCancel}
-                      onFieldBlur={onFieldBlur}
+                      onFieldChange={onFieldChange}
                       parameters={currentParameters}
                       submitting={submitting}
                     />
                   </form>
                 );
               }}
-            </WithOnFieldBlur>
+            </WithOnFieldChange>
           );
         }}
       </Form>

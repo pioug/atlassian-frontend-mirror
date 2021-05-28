@@ -14,7 +14,7 @@ import {
   getUserFieldContextProvider,
 } from '@atlaskit/editor-common/extensions';
 
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 import UnhandledType from './UnhandledType';
 import { validate } from '../utils';
 
@@ -135,12 +135,12 @@ export default function UserSelect({
   autoFocus,
   extensionManifest,
   field,
-  onBlur,
+  onFieldChange,
 }: {
   name: string;
   field: UserField;
   extensionManifest: ExtensionManifest;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   autoFocus?: boolean;
 }) {
   const [context, setContext] = useState({} as Partial<UserFieldContext>);
@@ -200,7 +200,7 @@ export default function UserSelect({
 
         function onChange(newValue: FieldValue) {
           fieldProps.onChange(newValue);
-          onBlur(name);
+          onFieldChange(name, true);
         }
 
         return (
@@ -210,7 +210,7 @@ export default function UserSelect({
               field={field}
               formFieldProps={fieldProps}
               autoFocus={autoFocus || false}
-              onBlur={() => onBlur(name)}
+              onBlur={() => onFieldChange(name, true)}
               onChange={onChange}
             />
             <FieldMessages error={error} description={description} />

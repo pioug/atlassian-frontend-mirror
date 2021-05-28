@@ -37,6 +37,7 @@ export type {
   MaybeADFEntity,
   Deserializer,
   Serializer,
+  DynamicFieldDefinitions,
 } from './extension-manifest';
 
 export type {
@@ -56,6 +57,7 @@ export { isFieldset, isDateRange } from './field-definitions';
 export type {
   BooleanField,
   CustomField,
+  ColorField,
   DateField,
   DateRangeField,
   DateRangeResult,
@@ -63,6 +65,7 @@ export type {
   EnumCheckboxField,
   EnumRadioField,
   EnumSelectField,
+  ExpandField,
   FieldDefinition,
   Fieldset,
   GroupingField,
@@ -73,6 +76,8 @@ export type {
   StringField,
   StringOneLineField,
   StringMultilineField,
+  TabGroupField,
+  TabField,
   UserField,
   UserFieldContext,
   FieldHandlerLink,

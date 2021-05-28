@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-switcher
 
+## 12.3.0
+
+### Minor Changes
+
+- [`f6d2a73d29a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6d2a73d29a) - Reverts the removal of the slackDiscoveryClickHandler
+
 ## 12.2.0
 
 ### Minor Changes

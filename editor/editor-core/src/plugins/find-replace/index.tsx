@@ -18,7 +18,9 @@ import FindReplaceToolbarButton from './ui/FindReplaceToolbarButton';
 import { TRIGGER_METHOD } from '../analytics';
 import { getFeatureFlags } from '../feature-flags-context';
 
-export const findReplacePlugin = (): EditorPlugin => {
+export const findReplacePlugin = (props: {
+  takeFullWidth: boolean;
+}): EditorPlugin => {
   return {
     name: 'findReplace',
 
@@ -162,6 +164,7 @@ export const findReplacePlugin = (): EditorPlugin => {
                 onFindPrev={handleFindPrev}
                 onReplace={handleReplace}
                 onReplaceAll={handleReplaceAll}
+                takeFullWidth={props.takeFullWidth}
               />
             );
           }}

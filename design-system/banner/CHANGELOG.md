@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.2.1
+
+### Patch Changes
+
+- [`e7034163b66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7034163b66) - Added the `design-system` tech stacks to the `package.json`
+
 ## 11.2.0
 
 ### Minor Changes

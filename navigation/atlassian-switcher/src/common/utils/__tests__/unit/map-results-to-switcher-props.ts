@@ -617,6 +617,7 @@ describe('map-results-to-switcher-props', () => {
           product,
           undefined,
           undefined,
+          undefined,
           mockCustomizeLinks,
         );
         expect(props.licensedProductLinks[0].href).not.toBeNull();
@@ -682,6 +683,7 @@ describe('map-results-to-switcher-props', () => {
           () => {},
           () => {},
           product,
+          undefined,
           undefined,
           undefined,
           mockCustomizeLinks,

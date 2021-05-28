@@ -29,6 +29,9 @@ export default {
   'fabric.media.cant_retrieve_files': 'К сожалению, не удалось получить файлы',
   'fabric.media.cant_retrieve_gifs': 'Не найдено ни одного файла GIF',
   'fabric.media.check_your_network': 'Проверьте подключение к сети',
+  'fabric.media.click_to_join': 'Подключить {context}',
+  'fabric.media.click_to_join_description':
+    'Вы получили одобрение и можете присоединиться к продукту {context} прямо сейчас.',
   'fabric.media.close': 'Закрыть',
   'fabric.media.close_and_reopen':
     'Попробуйте закрыть этот файл и открыть его повторно.',
@@ -71,6 +74,8 @@ export default {
   'fabric.media.error_hint_retry': 'Повторите попытку.',
   'fabric.media.error_loading_file': 'При загрузке файла произошла ошибка',
   'fabric.media.failed_to_load': 'Не удалось загрузить файл.',
+  'fabric.media.forbidden_description':
+    'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
   'fabric.media.give_feedback': 'Оставить отзыв',
   'fabric.media.image': 'изображение',
   'fabric.media.image_format_invalid_error':
@@ -110,6 +115,14 @@ export default {
   'fabric.media.preview_unavailable': 'Предварительный просмотр недоступен',
   'fabric.media.recent_uploads': 'Недавно загруженные файлы',
   'fabric.media.remove_image': 'Удалить изображение',
+  'fabric.media.request_access': 'Запросить доступ',
+  'fabric.media.request_access_description':
+    'Запросите доступ к продукту {context} для предварительного просмотра.',
+  'fabric.media.request_access_pending': 'Ожидается предоставление доступа',
+  'fabric.media.request_access_pending_description':
+    'Ваш запрос на доступ ожидает рассмотрения.',
+  'fabric.media.request_denied_description':
+    'Ваш запрос на доступ отклонен. Если вам требуется доступ, обратитесь к администратору сайта.',
   'fabric.media.retry': 'Повторить',
   'fabric.media.save': 'Сохраните',
   'fabric.media.search': 'Поиск',
@@ -136,6 +149,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'Не удается загрузить файл.',
   'fabric.media.webgl_warning_description':
     'Эта функция недоступна. Чтобы добавлять примечания к изображениям, используйте браузер с поддержкой WebGL.',
+  'fabric.media.zip_entry_load_failed':
+    'Не удалось загрузить ZIP-файл для предварительного просмотра',
   'fabric.media.zoom_in': 'увеличить',
   'fabric.media.zoom_out': 'уменьшить',
 };

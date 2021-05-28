@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 8.0.6
+
+### Patch Changes
+
+- [`7fc13cf50a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc13cf50a2) - Fixes interal test referencing a compponent directly.
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

@@ -150,7 +150,7 @@ class EditorWithSidebar extends React.Component {
         extensionProviders={editorActions => [
           getExampleExtensionProviders(editorActions),
         ]}
-        allowExtension={{ allowAutoSave: true, allowLocalIdGeneration: true }}
+        allowExtension={{ allowAutoSave: true }}
         contextPanel={
           <WithEditorActions
             render={actions => (

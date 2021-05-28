@@ -17,7 +17,7 @@ import {
 
 import FieldMessages from '../FieldMessages';
 import UnhandledType from './UnhandledType';
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 import { validate } from '../utils';
 
 function FieldError({ name, field }: { name: string; field: CustomField }) {
@@ -37,14 +37,14 @@ function CustomSelect({
   extensionManifest,
   placeholder,
   field,
-  onBlur,
+  onFieldChange,
   parameters,
   intl,
 }: {
   name: string;
   field: CustomField;
   extensionManifest: ExtensionManifest;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   autoFocus?: boolean;
   placeholder?: string;
   parameters?: Parameters;
@@ -155,7 +155,9 @@ function CustomSelect({
                 {...fieldProps}
                 onChange={value => {
                   fieldProps.onChange(value);
-                  onBlur(name);
+                  // We assume onChange is called whenever values actually changed
+                  // for isDirty
+                  onFieldChange(name, true);
                 }}
                 // @see DST-2386 & ED-12503
                 enableAnimation={false}

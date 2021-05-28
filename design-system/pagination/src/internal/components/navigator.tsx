@@ -1,7 +1,11 @@
+/** @jsx jsx */
 import React, { ReactElement, SyntheticEvent } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
-import { gridSize } from '@atlaskit/theme/constants';
+import { jsx } from '@emotion/core';
+
+import Button from '@atlaskit/button/standard-button';
+
+import { navigatorStyle } from '../styles';
 
 export type NavigatorPropsType<T> = {
   /** This will be passed in as aria-label to button. This is what screen reader will read */
@@ -21,21 +25,7 @@ export default function Navigator<T>(props: NavigatorPropsType<T>) {
       {...props}
       appearance="subtle"
       spacing="none"
-      theme={(currentTheme, themeProps) => {
-        const { buttonStyles, ...rest } = currentTheme(themeProps);
-        const halfGridSize = gridSize() / 2;
-        return {
-          buttonStyles: {
-            ...buttonStyles,
-            paddingLeft: `${halfGridSize}px`,
-            paddingRight: `${halfGridSize}px`,
-            'html[dir=rtl] &': {
-              transform: 'rotate(180deg)',
-            },
-          },
-          ...rest,
-        };
-      }}
+      css={navigatorStyle}
     />
   );
 }

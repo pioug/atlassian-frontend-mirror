@@ -30,6 +30,9 @@ export default {
     'Voi ei! Emme voineet noutaa yhtään tiedostoa',
   'fabric.media.cant_retrieve_gifs': 'Voi ei! Emme voineet noutaa yhtään GIFiä',
   'fabric.media.check_your_network': 'Tarkista verkkoyhteytesi',
+  'fabric.media.click_to_join': 'Liity käyttämään tuotetta {context}',
+  'fabric.media.click_to_join_description':
+    'Sinut on hyväksytty, joten voit liittyä heti tuotteen {context} käyttäjäksi.',
   'fabric.media.close': 'Sulje',
   'fabric.media.close_and_reopen':
     'Kokeile sulkea tämä tiedosto ja avata se uudelleen.',
@@ -73,6 +76,8 @@ export default {
     'Yritä uudelleen, ja mekin kokeilemme vielä kerran.',
   'fabric.media.error_loading_file': 'Virhe ladattaessa tiedostoa',
   'fabric.media.failed_to_load': 'Ei voitu ladata',
+  'fabric.media.forbidden_description':
+    'Sinulla ei ole tämän esikatselun käyttöoikeutta. Jos tarvitset käyttöoikeuden, ota yhteyttä sivuston ylläpitäjään.',
   'fabric.media.give_feedback': 'Anna palautetta',
   'fabric.media.image': 'kuva',
   'fabric.media.image_format_invalid_error':
@@ -112,6 +117,14 @@ export default {
   'fabric.media.preview_unavailable': 'Esikatselua ei saatavilla',
   'fabric.media.recent_uploads': 'Viimeaikaiset lataukset',
   'fabric.media.remove_image': 'Poista kuva',
+  'fabric.media.request_access': 'Pyydä pääsyä',
+  'fabric.media.request_access_description':
+    'Pyydä sovelluksen {context} käyttöoikeutta tämän esikatselun katsomista varten.',
+  'fabric.media.request_access_pending': 'Käyttöoikeuksia odotetaan',
+  'fabric.media.request_access_pending_description':
+    'Käyttöoikeuspyyntösi on vireillä.',
+  'fabric.media.request_denied_description':
+    'Käyttöoikeuspyyntösi evättiin. Ota yhteyttä sivustosi ylläpitäjään, jos silti tarvitset käyttöoikeuden.',
   'fabric.media.retry': 'Yritä uudelleen',
   'fabric.media.save': 'Tallenna',
   'fabric.media.search': 'Hae',
@@ -140,6 +153,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'Tiedostosi lataamisessa on ongelma.',
   'fabric.media.webgl_warning_description':
     'Selaimesi ei tue WebGL:ää. Käytä WebGL:ää tukevaa selainta, jos haluat tehdä merkintöjä kuviin.',
+  'fabric.media.zip_entry_load_failed':
+    'Emme voineet ladata kyseistä zip-tiedoston kohdetta esikatselua varten',
   'fabric.media.zoom_in': 'lähennä',
   'fabric.media.zoom_out': 'loitonna',
 };

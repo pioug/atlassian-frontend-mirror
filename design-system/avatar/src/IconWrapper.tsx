@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC, ReactNode } from 'react';
 
 import { jsx } from '@emotion/core';
@@ -12,6 +13,11 @@ interface IconWrapperProps {
   children?: ReactNode;
 }
 
+/**
+ * __Icon wrapper__
+ *
+ * An icon wrapper is used internally only.
+ */
 const IconWrapper: FC<IconWrapperProps> = ({ bgColor, children }) => (
   <span
     css={{

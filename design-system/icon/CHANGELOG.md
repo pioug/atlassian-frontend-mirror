@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.6.0
+
+### Minor Changes
+
+- [`b9c78813d40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9c78813d40) - Use named export of base icon instead of default in icon glyphs
+
 ## 21.5.1
 
 ### Patch Changes

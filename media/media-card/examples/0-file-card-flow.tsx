@@ -31,11 +31,13 @@ import {
   CardFlowHeader,
   CardsWrapper,
 } from '../example-helpers/styled';
+import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);
 
 export interface ComponentProps {}
+
 export interface ComponentState {
   fileIds: string[];
 }
@@ -139,7 +141,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 
   render() {
     return (
-      <div>
+      <>
         <CardFlowHeader>
           Upload file <input type="file" onChange={this.uploadFile} />
           <Button appearance="primary" onClick={this.cancelUpload}>
@@ -147,9 +149,17 @@ class Example extends Component<ComponentProps, ComponentState> {
           </Button>
         </CardFlowHeader>
         {this.renderCards()}
-      </div>
+      </>
     );
   }
 }
 
-export default () => <Example />;
+export default () => (
+  <MainWrapper>
+    <Example />
+  </MainWrapper>
+);
+
+// We export the example without FFs dropdown for SSR test:
+// packages/media/media-card/src/__tests__/unit/server-side-hydrate.tsx
+export const SSR = () => <Example />;

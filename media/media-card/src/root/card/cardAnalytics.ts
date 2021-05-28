@@ -1,4 +1,4 @@
-import { FileAttributes } from '@atlaskit/media-common';
+import { FileAttributes, MediaFeatureFlags } from '@atlaskit/media-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   fireMediaCardEvent,
@@ -10,6 +10,16 @@ import {
 import { CardStatus } from '../..';
 import { CardPreview } from './getCardPreview';
 import { MediaCardError } from './../../errors';
+
+export const relevantFeatureFlagNames: Array<keyof MediaFeatureFlags> = [
+  'newCardExperience',
+  'poll_intervalMs',
+  'poll_maxAttempts',
+  'poll_backoffFactor',
+  'poll_maxIntervalMs',
+  'poll_maxGlobalFailures',
+  'captions',
+];
 
 export type FireOperationalEventParams = {
   cardPreview?: CardPreview;

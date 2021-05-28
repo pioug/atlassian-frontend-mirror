@@ -121,7 +121,9 @@ describe('<Toolbar />', () => {
     const { editorView } = createEditor({
       doc: docNode,
       editorProps: {
-        allowReferentiality: true,
+        featureFlags: {
+          'local-id-generation-on-tables': true,
+        },
         allowTables: true,
         allowExtension: {
           allowExtendFloatingToolbars: true,

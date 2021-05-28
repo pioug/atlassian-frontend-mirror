@@ -1,6 +1,9 @@
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import { CardAuthFlowOpts } from '../../state/context/types';
+import {
+  CardAuthFlowOpts,
+  CardProviderRenderers,
+} from '../../state/context/types';
 import { AnalyticsHandler } from '../../utils/types';
 import { OnResolveCallback } from '../Card/types';
 
@@ -17,4 +20,5 @@ export type BlockCardProps = {
   onResolve?: OnResolveCallback;
   testId?: string;
   showActions?: boolean;
+  renderers?: CardProviderRenderers;
 };

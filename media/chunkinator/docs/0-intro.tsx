@@ -1,8 +1,11 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
+
+  ${createRxjsNotice('Chunkinator')}
 
   Upload large files from the browser with ease
 
@@ -10,10 +13,10 @@ export default md`
 
   ${code`
     import {chunkinator} from '@atlaskit/chunkinator';
-    import { Subject } from "rxjs";
-    import { takeUntil } from "rxjs/operators";
+    import {Subject} from "rxjs";
+    import {takeUntil} from "rxjs/operators";
 
-    const cancelSubject = new Subject<void>()
+    const cancelSubject = new Subject<void>();
 
     const chunkinatorObservable = chunkinator(
       blob,

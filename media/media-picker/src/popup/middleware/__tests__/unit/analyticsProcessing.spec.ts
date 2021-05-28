@@ -11,7 +11,6 @@ import { State, SelectedItem } from '../../../domain';
 import analyticsProcessing from '../../analyticsProcessing';
 import { showPopup } from '../../../actions/showPopup';
 import { editorShowImage } from '../../../actions/editorShowImage';
-import { searchGiphy } from '../../../actions';
 import { fileListUpdate } from '../../../actions/fileListUpdate';
 import { startAuth } from '../../../actions/startAuth';
 import { ServiceName } from '../../../domain';
@@ -19,100 +18,13 @@ import { hidePopup } from '../../../actions/hidePopup';
 import { changeService } from '../../../actions/changeService';
 import { editRemoteImage } from '../../../actions/editRemoteImage';
 import { editorClose } from '../../../actions/editorClose';
-import { handleCloudFetchingEvent } from '../../../actions/handleCloudFetchingEvent';
 import { startFileBrowser } from '../../../actions/startFileBrowser';
 import { GET_PREVIEW } from '../../../actions/getPreview';
-import {
-  MediaFile,
-  AnalyticsEventPayload,
-  MediaUploadCommencedPayload,
-  MediaUploadSuccessPayload,
-  MediaUploadFailurePayload,
-} from '../../../../types';
-
-type UploadType = 'cloudMedia' | 'localMedia';
+import { AnalyticsEventPayload } from '../../../../types';
 
 const GOOGLE: ServiceName = 'google';
-const DROPBOX: ServiceName = 'dropbox';
-const GIPHY: ServiceName = 'giphy';
 const UPLOAD: ServiceName = 'upload';
 const RECENT_FILES: ServiceName = 'recent_files';
-
-const testFile1: MediaFile = {
-  id: 'id1',
-  name: 'file1',
-  size: 1,
-  creationDate: 1,
-  type: 'type1',
-};
-
-const makeFileUploadCommencedPayload = (
-  file: MediaFile,
-  uploadType: UploadType,
-  serviceName: ServiceName,
-): MediaUploadCommencedPayload => ({
-  eventType: 'operational',
-  action: 'commenced',
-  actionSubject: 'mediaUpload',
-  actionSubjectId: uploadType,
-  attributes: {
-    sourceType: 'cloud',
-    serviceName,
-    fileAttributes: {
-      fileId: file.id,
-      fileSize: file.size,
-      fileMimetype: file.type,
-    },
-  },
-});
-
-const makeFileUploadSuccessPayload = (
-  file: MediaFile,
-  uploadType: UploadType,
-  serviceName: ServiceName,
-): MediaUploadSuccessPayload => ({
-  eventType: 'operational',
-  action: 'succeeded',
-  actionSubject: 'mediaUpload',
-  actionSubjectId: uploadType,
-  attributes: {
-    sourceType: 'cloud',
-    serviceName,
-    fileAttributes: {
-      fileId: file.id,
-      fileSize: file.size,
-      fileMimetype: file.type,
-    },
-    status: 'success',
-    uploadDurationMsec: 42,
-  },
-});
-
-const makeFileUploadFailurePayload = (
-  file: MediaFile,
-  uploadType: UploadType,
-  serviceName: ServiceName,
-  failReason: string,
-  error?: string,
-): MediaUploadFailurePayload => ({
-  eventType: 'operational',
-  action: 'failed',
-  actionSubject: 'mediaUpload',
-  actionSubjectId: uploadType,
-  attributes: {
-    sourceType: 'cloud',
-    serviceName,
-    fileAttributes: {
-      fileId: file.id,
-      fileSize: file.size,
-      fileMimetype: file.type,
-    },
-    status: 'fail',
-    failReason,
-    error,
-    uploadDurationMsec: 42,
-  },
-});
 
 describe('analyticsProcessing middleware', () => {
   let oldDateNowFn: () => number;
@@ -203,17 +115,6 @@ describe('analyticsProcessing middleware', () => {
     });
   });
 
-  it('should process action searchGiphy with any url, fire 1 event', () => {
-    verifyAnalyticsCall(searchGiphy('', true), {
-      eventType: 'screen',
-      actionSubject: 'cloudBrowserModal',
-      name: 'cloudBrowserModal',
-      attributes: {
-        cloudType: GIPHY,
-      },
-    });
-  });
-
   it('should process action fileListUpdate for google service, fire 1 event', () => {
     verifyAnalyticsCall(fileListUpdate('', [], [], GOOGLE), {
       eventType: 'screen',
@@ -241,17 +142,6 @@ describe('analyticsProcessing middleware', () => {
     });
   });
 
-  it('should process action fileListUpdate for dropbox, fire 1 event', () => {
-    verifyAnalyticsCall(fileListUpdate('', [], [], DROPBOX), {
-      eventType: 'screen',
-      actionSubject: 'cloudBrowserModal',
-      name: 'cloudBrowserModal',
-      attributes: {
-        cloudType: DROPBOX,
-      },
-    });
-  });
-
   it('should process action startAuth for google, fire 1 event', () => {
     verifyAnalyticsCall(startAuth(GOOGLE), {
       eventType: 'ui',
@@ -260,18 +150,6 @@ describe('analyticsProcessing middleware', () => {
       actionSubjectId: 'linkCloudAccountButton',
       attributes: {
         cloudType: GOOGLE,
-      },
-    });
-  });
-
-  it('should process action startAuth for dropbox, fire 1 event', () => {
-    verifyAnalyticsCall(startAuth(DROPBOX), {
-      eventType: 'ui',
-      action: 'clicked',
-      actionSubject: 'button',
-      actionSubjectId: 'linkCloudAccountButton',
-      attributes: {
-        cloudType: DROPBOX,
       },
     });
   });
@@ -486,30 +364,6 @@ describe('analyticsProcessing middleware', () => {
     });
   });
 
-  it('should process action changeService for dropbox, fire 1 event', () => {
-    verifyAnalyticsCall(changeService(DROPBOX), {
-      eventType: 'ui',
-      action: 'clicked',
-      actionSubject: 'button',
-      actionSubjectId: 'cloudBrowserButton',
-      attributes: {
-        cloudType: DROPBOX,
-      },
-    });
-  });
-
-  it('should process action changeService for giphy, fire 1 event', () => {
-    verifyAnalyticsCall(changeService(GIPHY), {
-      eventType: 'ui',
-      action: 'clicked',
-      actionSubject: 'button',
-      actionSubjectId: 'cloudBrowserButton',
-      attributes: {
-        cloudType: GIPHY,
-      },
-    });
-  });
-
   it('should process action editRemoteImage, fire 1 event', () => {
     verifyAnalyticsCall(
       editRemoteImage(
@@ -550,58 +404,6 @@ describe('analyticsProcessing middleware', () => {
       actionSubjectId: 'mediaEditorCloseButton',
       attributes: {},
     });
-  });
-
-  it('should process action handleCloudFetchingEvent with 1 upload, fire 1 event', () => {
-    verifyAnalyticsCall(
-      handleCloudFetchingEvent(testFile1, 'RemoteUploadStart', {
-        tenantFileId: 'upid1',
-        serviceName: DROPBOX,
-      }),
-      makeFileUploadCommencedPayload(testFile1, 'cloudMedia', DROPBOX),
-    );
-  });
-
-  it('should process action handleCloudFetchingEvent with RemoteUploadEnd event for 1 upload, fire 1 event', () => {
-    verifyAnalyticsCall(
-      handleCloudFetchingEvent(testFile1, 'RemoteUploadEnd', {
-        userFileId: 'id1',
-        tenantFileId: 'upid1',
-        serviceName: DROPBOX,
-      }),
-      makeFileUploadSuccessPayload(testFile1, 'cloudMedia', DROPBOX),
-      {
-        remoteUploads: {
-          upid1: {
-            timeStarted: 0,
-          },
-        },
-      },
-    );
-  });
-
-  it('should process action handleCloudFetchingEvent with RemoteUploadFail event for 1 upload, fire 1 event', () => {
-    verifyAnalyticsCall(
-      handleCloudFetchingEvent(testFile1, 'RemoteUploadFail', {
-        description: 'id1 failed',
-        tenantFileId: 'upid1',
-        serviceName: DROPBOX,
-      }),
-      makeFileUploadFailurePayload(
-        testFile1,
-        'cloudMedia',
-        DROPBOX,
-        'remote_upload_fail',
-        'id1 failed',
-      ),
-      {
-        remoteUploads: {
-          upid1: {
-            timeStarted: 0,
-          },
-        },
-      },
-    );
   });
 
   it("should not handle action it doesn't know about", () => {

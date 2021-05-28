@@ -13,7 +13,7 @@ import { TitleArea } from '../example-helpers/PageElements';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 export const mediaProvider = storyMediaProviderFactory({
-  includeUserAuthProvider: true,
+  includeUserAuthProvider: false,
 });
 
 /**

@@ -591,7 +591,7 @@ class DatePicker extends React.Component<DatePickerProps, State> {
           components={selectComponents}
           onChange={this.onSelectChange}
           styles={mergeStyles(selectStyles, {
-            control: base => ({
+            control: (base: any) => ({
               ...base,
               ...controlStyles,
               ...disabledStyle,

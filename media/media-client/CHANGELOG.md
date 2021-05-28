@@ -1,5 +1,17 @@
 # @atlaskit/media-client
 
+## 13.2.0
+
+### Minor Changes
+
+- [`65c76061dc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65c76061dc0) - Verifiy token expiration before performing requests or providing URLs
+
+### Patch Changes
+
+- [`78125228ee2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78125228ee2) - Fixed token expiration criteria
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- Updated dependencies
+
 ## 13.1.2
 
 ### Patch Changes

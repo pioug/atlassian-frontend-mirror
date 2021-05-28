@@ -1,46 +1,40 @@
 import React from 'react';
-import scrollParent from 'scrollparent';
 import styled from 'styled-components';
 import {
   createStorybookMediaClientConfig,
   genericFileId,
 } from '@atlaskit/media-test-helpers';
 import { Card } from '../src';
+import { MainWrapper } from '../example-helpers';
 
-const GradientBackground: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  background: linear-gradient(
-    to bottom,
-    rgba(226, 226, 226, 1) 0%,
-    rgba(254, 254, 254, 1) 100%
-  );
+const dimensions = { width: 500, height: 400 };
+
+const CardWrapper = styled.div`
+  width: ${dimensions.width}px;
+  margin: auto;
 `;
-
 const DummyContent: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  height: 125vh;
+  height: 300vh;
 `;
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
 class Example extends React.Component<{}, {}> {
-  handleMount = (el: any) => {
-    if (el) {
-      const parent = scrollParent(el);
-      parent.scrollTo(0, 9999);
-    }
-  };
-
   render() {
     return (
-      <div ref={this.handleMount}>
-        <GradientBackground>
-          <DummyContent />
+      <MainWrapper>
+        <DummyContent>
+          <h3>Scroll down to see Card loading once it hits the viewport</h3>
+        </DummyContent>
+        <CardWrapper>
           <Card
             mediaClientConfig={mediaClientConfig}
             identifier={genericFileId}
+            disableOverlay={true}
+            dimensions={dimensions}
           />
-          <DummyContent />
-        </GradientBackground>
-      </div>
+        </CardWrapper>
+      </MainWrapper>
     );
   }
 }

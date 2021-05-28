@@ -135,7 +135,7 @@ const getProviders = (collectionName: string): Providers => {
     };
     const mediaProvider = storyMediaProviderFactory({
       collectionName,
-      includeUserAuthProvider: true,
+      includeUserAuthProvider: false,
     });
     providers = {
       mediaProvider,

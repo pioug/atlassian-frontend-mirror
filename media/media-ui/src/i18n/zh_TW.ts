@@ -28,6 +28,9 @@ export default {
   'fabric.media.cant_retrieve_files': '唉呦！我們無法擷取任何檔案',
   'fabric.media.cant_retrieve_gifs': '唉呦！我們無法擷取任何 GIF',
   'fabric.media.check_your_network': '請檢查您的網路連線',
+  'fabric.media.click_to_join': '加入 {context}',
+  'fabric.media.click_to_join_description':
+    '您已獲得核准，因此可以立即加入 {context}。',
   'fabric.media.close': '關閉',
   'fabric.media.close_and_reopen': '請試著關閉此檔案，然後再重新開啟。',
   'fabric.media.connect_account_description':
@@ -64,6 +67,8 @@ export default {
   'fabric.media.error_hint_retry': '請再試一次。',
   'fabric.media.error_loading_file': '載入檔案時發生錯誤',
   'fabric.media.failed_to_load': '無法載入',
+  'fabric.media.forbidden_description':
+    '您沒有此預覽的存取權。如果您需要存取權，請連絡網站管理員。',
   'fabric.media.give_feedback': '提供意見反應',
   'fabric.media.image': '影像',
   'fabric.media.image_format_invalid_error': '無法載入影像，格式無效。',
@@ -96,6 +101,13 @@ export default {
   'fabric.media.preview_unavailable': '無法建立預覽',
   'fabric.media.recent_uploads': '最近上傳的項目',
   'fabric.media.remove_image': '移除影像',
+  'fabric.media.request_access': '要求存取權',
+  'fabric.media.request_access_description':
+    '要求 {context} 的存取權以檢視此預覽。',
+  'fabric.media.request_access_pending': '存取擱置',
+  'fabric.media.request_access_pending_description': '您的存取要求擱置中。',
+  'fabric.media.request_denied_description':
+    '您的存取要求遭到拒絕。如果您仍需要存取權，請連絡網站管理員。',
   'fabric.media.retry': '重試',
   'fabric.media.save': '儲存',
   'fabric.media.search': '搜尋',
@@ -122,6 +134,7 @@ export default {
   'fabric.media.viewer_rateLimited': '載入您的檔案時發生問題。',
   'fabric.media.webgl_warning_description':
     '您的瀏覽器不支援 WebGL。使用啟用 WebGL 的瀏覽器來為影像加上註解。',
+  'fabric.media.zip_entry_load_failed': '我們無法載入該 zip 檔案項目來進行預覽',
   'fabric.media.zoom_in': '縮小',
   'fabric.media.zoom_out': '放大',
 };

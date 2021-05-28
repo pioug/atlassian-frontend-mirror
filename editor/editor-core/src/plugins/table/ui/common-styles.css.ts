@@ -75,8 +75,7 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
   > .${ClassName.TABLE_STICKY_SENTINEL_TOP}, > .${ClassName.TABLE_STICKY_SENTINEL_BOTTOM} {
     position: absolute;
     width: 100%;
-    height: 1px;
-    margin-top: -1px;
+    height: 0px;
   }
   > .${ClassName.TABLE_STICKY_SENTINEL_TOP} {
     top: ${columnControlsDecorationHeight}px;

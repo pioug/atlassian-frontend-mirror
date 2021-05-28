@@ -8,6 +8,7 @@ import {
   errorFileId,
 } from '@atlaskit/media-test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
+import { MainWrapper } from '../example-helpers';
 
 import { Card } from '../src';
 import { createApiCards, actions } from '../example-helpers';
@@ -179,33 +180,35 @@ const collectionConfigCards = [
 ];
 
 export default () => (
-  <div>
-    <h1 style={{ margin: '10px 20px' }}>File cards</h1>
-    <div style={{ margin: '20px 40px' }}>
-      <h3>Standard</h3>
-      <StoryList>{standardCards}</StoryList>
-      <StoryList>{cardWithContextId}</StoryList>
+  <MainWrapper>
+    <div>
+      <h1 style={{ margin: '10px 20px' }}>File cards</h1>
+      <div style={{ margin: '20px 40px' }}>
+        <h3>Standard</h3>
+        <StoryList>{standardCards}</StoryList>
+        <StoryList>{cardWithContextId}</StoryList>
 
-      <h3>Error</h3>
-      <StoryList>{errorCards}</StoryList>
+        <h3>Error</h3>
+        <StoryList>{errorCards}</StoryList>
 
-      <h3>Menu</h3>
-      <StoryList>{menuCards}</StoryList>
+        <h3>Menu</h3>
+        <StoryList>{menuCards}</StoryList>
 
-      <h3>API Cards</h3>
-      <StoryList>{apiCards}</StoryList>
+        <h3>API Cards</h3>
+        <StoryList>{apiCards}</StoryList>
 
-      <h3>Thumbnail not available</h3>
-      <StoryList>{noThumbnailCards}</StoryList>
+        <h3>Thumbnail not available</h3>
+        <StoryList>{noThumbnailCards}</StoryList>
 
-      <h3>Lazy load</h3>
-      <StoryList>{lazyLoadCards}</StoryList>
+        <h3>Lazy load</h3>
+        <StoryList>{lazyLoadCards}</StoryList>
 
-      <h3>Collection configurations</h3>
-      <StoryList>{collectionConfigCards}</StoryList>
+        <h3>Collection configurations</h3>
+        <StoryList>{collectionConfigCards}</StoryList>
 
-      <h3>Overlay disabled</h3>
-      <StoryList>{noHoverStateCards}</StoryList>
+        <h3>Overlay disabled</h3>
+        <StoryList>{noHoverStateCards}</StoryList>
+      </div>
     </div>
-  </div>
+  </MainWrapper>
 );

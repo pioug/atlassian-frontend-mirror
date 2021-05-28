@@ -18,7 +18,7 @@ import {
 import { messages } from '../messages';
 // eslint-disable-next-line import/no-cycle
 import FormContent from '../FormContent';
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 import { getNameFromDuplicateField, isDuplicateField } from '../utils';
 
 type OptionType = {
@@ -93,7 +93,7 @@ type Props = {
   extensionManifest: ExtensionManifest;
   field: Fieldset;
   parameters?: Parameters;
-  onFieldBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   firstVisibleFieldName?: string;
   error?: string;
 } & InjectedIntlProps;
@@ -173,7 +173,7 @@ class FieldsetField extends React.Component<Props, State> {
       }),
       // callback required so autosave can be triggered on
       // the right moment if fields are being removed
-      () => this.props.onFieldBlur(this.props.field.name),
+      () => this.props.onFieldChange(this.props.field.name, true),
     );
   };
 
@@ -272,7 +272,7 @@ class FieldsetField extends React.Component<Props, State> {
       name,
       field,
       extensionManifest,
-      onFieldBlur,
+      onFieldChange,
       firstVisibleFieldName,
       error,
     } = this.props;
@@ -294,7 +294,7 @@ class FieldsetField extends React.Component<Props, State> {
             parameters={currentParameters}
             canRemoveFields={field.options.isDynamic && visibleFields.size > 1}
             onClickRemove={this.onClickRemove}
-            onFieldBlur={onFieldBlur}
+            onFieldChange={onFieldChange}
             firstVisibleFieldName={firstVisibleFieldName}
           />
 

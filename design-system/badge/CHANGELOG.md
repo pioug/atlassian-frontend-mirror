@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 14.1.1
+
+### Patch Changes
+
+- [`b71c7c1e132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b71c7c1e132) - Added the `design-system` tech stacks to the `package.json`
+
 ## 14.1.0
 
 ### Minor Changes

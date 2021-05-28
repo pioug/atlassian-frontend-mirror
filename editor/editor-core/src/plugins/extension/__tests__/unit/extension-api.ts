@@ -40,7 +40,10 @@ describe('ExtensionAPI', () => {
     const { editorView } = createEditorFn({
       doc,
       editorProps: {
-        allowReferentiality: true,
+        featureFlags: {
+          'local-id-generation-on-tables': true,
+          'data-consumer-mark': true,
+        },
         allowExtension: true,
         allowTables: true,
         allowLayouts: true,
@@ -437,7 +440,10 @@ describe('findNodePosWithLocalId', () => {
     const { editorView } = createEditorFn({
       doc,
       editorProps: {
-        allowReferentiality: true,
+        featureFlags: {
+          'local-id-generation-on-tables': true,
+          'data-consumer-mark': true,
+        },
         allowExtension: true,
         allowTables: true,
         allowLayouts: true,

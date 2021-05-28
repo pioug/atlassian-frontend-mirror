@@ -5,7 +5,7 @@ import { colors } from '@atlaskit/theme';
 import { PaletteColor } from './type';
 import { DEFAULT_BORDER_COLOR } from './common';
 
-const palette = [
+export const panelBackgroundPalette: PaletteColor[] = [
   { label: 'Doctor', value: colors.N0 },
   { label: 'Pixie dust', value: colors.B50 },
   { label: "Gram's sofa", value: colors.T50 },
@@ -29,8 +29,7 @@ const palette = [
   { label: 'Pub mix', value: colors.Y200 },
   { label: 'Alexandria', value: colors.R100 },
   { label: 'Herky jerky', value: colors.P100 },
-];
-export const panelBackgroundPalette: PaletteColor[] = palette.map(color => ({
+].map(color => ({
   ...color,
   border: DEFAULT_BORDER_COLOR,
 }));

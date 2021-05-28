@@ -1,6 +1,6 @@
 import React, { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import Select from 'react-select';
+import Select, { components as RSComponents } from 'react-select';
 import createFocusTrap, { FocusTrap } from 'focus-trap';
 import { Manager, Reference, Popper, PopperProps } from 'react-popper';
 import { Placement } from '@popperjs/core';
@@ -17,6 +17,8 @@ import {
   StylesConfig,
   ValueType,
 } from '../types';
+
+type SelectComponents = typeof RSComponents;
 
 /** Are we rendering on the client or server? */
 const canUseDOM = () =>
@@ -377,7 +379,7 @@ export default class PopupSelect<
                   isSearchable={showSearchControl}
                   styles={{ ...this.defaultStyles, ...props.styles }}
                   maxMenuHeight={this.getMaxHeight()}
-                  components={components}
+                  components={components as Partial<SelectComponents>}
                   onChange={this.handleSelectChange}
                 />
                 {footer}

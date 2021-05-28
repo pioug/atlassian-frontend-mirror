@@ -293,7 +293,7 @@ describe('MediaImage', () => {
         mockImageTag(component, [1000, 750], [100, 75], true);
         expectToEqual(
           component.find(ImageComponent).prop('style')!.height,
-          '75%',
+          '134%',
         );
       });
     });
@@ -384,7 +384,7 @@ describe('MediaImage', () => {
         mockImageTag(component, [1000, 750], [75, 100], true);
         expectToEqual(component.find(ImageComponent).prop('style'), {
           ...defaultTransform,
-          height: '75%',
+          height: '134%',
           transform: 'translate(-50%, -50%) rotate(90deg)',
         });
       });

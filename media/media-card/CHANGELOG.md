@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 70.7.1
+
+### Patch Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- [`6be6879ef6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6be6879ef6d) - Added Media Feature Flags control in examples
+- [`47ebd02a8d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47ebd02a8d1) - Removed lazy load logic from root component
+- Updated dependencies
+
 ## 70.7.0
 
 ### Minor Changes

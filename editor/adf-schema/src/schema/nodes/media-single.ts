@@ -64,7 +64,7 @@ export const mediaSingle: NodeSpec = {
   group: 'block',
   selectable: true,
   atom: true,
-  content: 'media | media unsupportedBlock',
+  content: 'media|unsupportedBlock+|media unsupportedBlock+',
   attrs: defaultAttrs,
   marks: 'unsupportedMark unsupportedNodeAttribute link',
   parseDOM: [
@@ -97,7 +97,8 @@ export const mediaSingle: NodeSpec = {
 
 export const mediaSingleWithCaption: NodeSpec = {
   ...mediaSingle,
-  content: 'media | media (caption | unsupportedBlock)',
+  content:
+    'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
 };
 
 export const toJSON = (node: Node) => ({

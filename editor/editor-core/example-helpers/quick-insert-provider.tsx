@@ -205,6 +205,7 @@ const items: Array<QuickInsertItem> = [
               ],
             },
           },
+          localId: 'testId',
         },
         content: [
           {

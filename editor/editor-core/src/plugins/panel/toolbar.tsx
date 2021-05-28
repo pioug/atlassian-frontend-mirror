@@ -21,7 +21,8 @@ import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 
 import { Command } from '../../types';
-import { ColorPickerButton } from './ui/color-picker-button';
+import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
+import ColorPickerButton from '../../ui/ColorPickerButton/color-picker-button';
 import { EmojiPickerButton } from './ui/emoji-picker-button';
 import {
   ProviderFactory,
@@ -174,9 +175,9 @@ export const getToolbarItems = (
           return (
             <ColorPickerButton
               key={idx}
-              view={view}
               title={formatMessage(messages.backgroundColor)}
               currentColor={panelColor}
+              colorPalette={panelBackgroundPalette}
               onChange={(color: string) => {
                 if (!view) {
                   return;
@@ -187,6 +188,7 @@ export const getToolbarItems = (
                   isCustomPanelEnabled,
                 )(view.state, view.dispatch);
               }}
+              placement="Panels"
             />
           );
         },

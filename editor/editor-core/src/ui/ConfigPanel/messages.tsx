@@ -68,4 +68,24 @@ export const messages = defineMessages({
     description:
       'Label for the end date when the option "Custom" is selected in the date range UI element',
   },
+  expand: {
+    id: 'fabric.editor.configPanel.dateRange.grouping.expand',
+    defaultMessage: 'Expand',
+    description: 'Label for expanding a group of fields',
+  },
+  collapse: {
+    id: 'fabric.editor.configPanel.dateRange.grouping.collapse',
+    defaultMessage: 'Collapse',
+    description: 'Label for collapsing a group of fields',
+  },
+  errorBoundaryTitle: {
+    id: 'fabric.editor.configPanel.errorBoundary.title',
+    defaultMessage: 'Something went wrong.',
+    description: 'Title for uncaught config panel error',
+  },
+  errorBoundaryNote: {
+    id: 'fabric.editor.configPanel.errorBoundary.note',
+    defaultMessage: `We've let the team know. You can still edit and publish this page, or check the error console for more information.`,
+    description: 'Note for uncaught config panel error',
+  },
 });

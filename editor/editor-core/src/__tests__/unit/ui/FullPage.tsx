@@ -53,7 +53,11 @@ describe('full page editor', () => {
     const { editorView } = editor(
       doc(
         p('Hello world'),
-        extension({ extensionKey: '123', extensionType: 'BLOCK' })(),
+        extension({
+          extensionKey: '123',
+          extensionType: 'BLOCK',
+          localId: 'testId',
+        })(),
       ),
     );
     fullPage = mountWithContext(
@@ -69,7 +73,11 @@ describe('full page editor', () => {
     expect(editorView.state.doc).toEqualDocument(
       doc(
         p('Hello world'),
-        extension({ extensionKey: '123', extensionType: 'BLOCK' })(),
+        extension({
+          extensionKey: '123',
+          extensionType: 'BLOCK',
+          localId: 'testId',
+        })(),
         p(''),
       ),
     );

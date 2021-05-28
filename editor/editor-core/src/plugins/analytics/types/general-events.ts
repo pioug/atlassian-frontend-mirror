@@ -359,6 +359,18 @@ type ExpandToggleAEP = TrackAEP<
   undefined
 >;
 
+export type ColorPickerAEP = TrackAEP<
+  ACTION.UPDATED,
+  ACTION_SUBJECT.PICKER,
+  ACTION_SUBJECT_ID.PICKER_COLOR,
+  {
+    color: string;
+    label?: string;
+    placement: string;
+  },
+  undefined
+>;
+
 type RichMediaLayoutAEP = TrackAEP<
   ACTION.SELECTED,
   ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
@@ -386,6 +398,7 @@ export type GeneralEventPayload =
   | BrowserFreezePayload
   | ButtonFeedbackAEP
   | ButtonHelpAEP
+  | ColorPickerAEP
   | DispatchedTransactionAEP
   | EditorPerfAEP
   | EditorStartAEP

@@ -230,7 +230,12 @@ const editorProps = ({
   allowTextColor: true,
   allowDate: true,
   allowPanel: true,
-  allowReferentiality: true,
+  allowFindReplace: true,
+  featureFlags: {
+    showAvatarGroupAsPlugin: true,
+    'local-id-generation-on-tables': true,
+    'data-consumer-mark': true,
+  },
   allowTables: {
     advanced: true,
   },

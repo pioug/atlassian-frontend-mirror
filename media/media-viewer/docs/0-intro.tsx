@@ -6,9 +6,12 @@ import {
   Props,
   AtlassianInternalWarning,
 } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
+
+${createRxjsNotice('Media Viewer')}
 
 MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate
 

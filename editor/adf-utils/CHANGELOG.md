@@ -1,5 +1,19 @@
 # @atlaskit/adf-utils
 
+## 13.0.0
+
+### Major Changes
+
+- [`9d3472d1a17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3472d1a17) - ED-12889: Remove heading with indentation from table cell content
+
+### Minor Changes
+
+- [`ee1c658ca80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee1c658ca80) - ED-12270 Add unsupported content support for decision lists and task lists
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

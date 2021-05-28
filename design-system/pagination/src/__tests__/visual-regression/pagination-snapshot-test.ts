@@ -91,6 +91,7 @@ describe('Snapshot Test', () => {
 
     const aboutPageSelector = 'button[aria-label="expand"]';
     await page.click(aboutPageSelector);
+    await page.click(paginationSelector);
     const imageAfterClickingCustomExpandEllipsis = await takeElementScreenShot(
       page,
       paginationSelector,

@@ -1,7 +1,12 @@
 import React from 'react';
-import { md, code, Props } from '@atlaskit/docs';
+import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 export default md`
+  ${(<AtlassianInternalWarning />)}
+
+  ${createRxjsNotice('Media Table')}
+
   # Media Table
 
   ## Usage

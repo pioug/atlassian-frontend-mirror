@@ -63,7 +63,7 @@ const checkForMediaElement = (
   children: React.ReactNode,
 ): ReactElement<MediaProps & MediaADFAttrs> => {
   const [media] = React.Children.toArray(children);
-  if (!isMediaElement(media) && (media as any).props.children) {
+  if (media && !isMediaElement(media) && (media as any).props.children) {
     return checkForMediaElement((media as any).props.children);
   }
   return media as ReactElement<MediaProps & MediaADFAttrs>;
@@ -113,7 +113,7 @@ class MediaSingle extends Component<Props & InjectedIntlProps, State> {
     if (!isMediaElement(node)) {
       const mediaElement = checkForMediaElement((node as any).props.children);
       if (!mediaElement) {
-        return null;
+        return node as React.ReactElement<MediaProps>;
       }
       media = mediaElement;
     } else {

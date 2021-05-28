@@ -115,23 +115,17 @@ export { taskList, taskListSelector } from './task-list';
 export type { TaskListDefinition, TaskListContent } from './task-list';
 export { taskItem } from './task-item';
 export type { TaskItemDefinition } from './task-item';
-export { extension, extensionWithLocalId } from './extension';
+export { extension } from './extension';
 export type {
   ExtensionDefinition,
   ExtensionWithMarksDefinition,
 } from './extension';
-export {
-  inlineExtension,
-  inlineExtensionWithLocalId,
-} from './inline-extension';
+export { inlineExtension } from './inline-extension';
 export type {
   InlineExtensionDefinition,
   InlineExtensionWithMarksDefinition,
 } from './inline-extension';
-export {
-  bodiedExtension,
-  bodiedExtensionWithLocalId,
-} from './bodied-extension';
+export { bodiedExtension } from './bodied-extension';
 export type {
   BodiedExtensionDefinition,
   BodiedExtensionWithMarksDefinition,

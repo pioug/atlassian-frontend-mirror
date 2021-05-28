@@ -4,12 +4,13 @@ import { mount } from 'enzyme';
 jest.mock('../../../service/uploadServiceImpl');
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { Browser, BrowserBase } from '../../browser/browser';
+import { BrowserConfig } from '../../../types';
 import Button from '@atlaskit/button';
 
 describe('Browser', () => {
   const mediaClient = fakeMediaClient();
-  const browseConfig = {
-    uploadParams: {},
+  const browseConfig: BrowserConfig = {
+    uploadParams: { collection: 'collectionA' },
   };
 
   it('should add upload files when user picks some', () => {
@@ -147,5 +148,32 @@ describe('Browser', () => {
 
     expect(addFileSpy).toHaveBeenCalledTimes(1);
     expect(addFileSpy).toBeCalledWith(undefined, 'some-file-id');
+  });
+
+  it('should use latest UploadParams during upload', () => {
+    const onBrowseFnMock = jest.fn();
+    const browser = mount(
+      <Browser
+        mediaClient={mediaClient}
+        config={browseConfig}
+        onBrowseFn={onBrowseFnMock}
+      />,
+    );
+
+    const newBrowseConfig: BrowserConfig = {
+      uploadParams: { collection: 'collectionB' },
+    };
+
+    browser.setProps({ config: newBrowseConfig });
+
+    const instance = browser.find(BrowserBase).instance();
+    const setUploadParamsSpy = jest.spyOn(
+      (instance as any).uploadService,
+      'setUploadParams',
+    );
+    browser.find('input').simulate('change');
+
+    expect(setUploadParamsSpy).toHaveBeenCalledTimes(1);
+    expect(setUploadParamsSpy).toBeCalledWith(newBrowseConfig.uploadParams);
   });
 });

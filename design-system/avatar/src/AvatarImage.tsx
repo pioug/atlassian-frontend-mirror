@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/core';
@@ -10,7 +11,7 @@ import { background, N90 } from '@atlaskit/theme/colors';
 import { AVATAR_RADIUS, AVATAR_SIZES } from './constants';
 import { AppearanceType, SizeType } from './types';
 
-interface Props {
+interface AvatarImageProps {
   appearance: AppearanceType;
   size: SizeType;
   alt?: string;
@@ -21,7 +22,12 @@ interface Props {
 export const ICON_BACKGROUND = background();
 export const ICON_COLOR = N90;
 
-const AvatarImage: FC<Props> = ({
+/**
+ * __Avatar image__
+ *
+ * An avatar image is an internal component used to control the rendering phases of an image.
+ */
+const AvatarImage: FC<AvatarImageProps> = ({
   alt = '',
   src,
   appearance,

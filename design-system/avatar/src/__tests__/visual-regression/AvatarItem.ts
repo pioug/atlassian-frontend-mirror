@@ -1,6 +1,8 @@
-/** This test is disabled due to flakiness
+/**
+ * This test is disabled due to flakiness
  * TODO: Fix flakiness DS-7541
  */
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import {
   getExampleUrl,
   takeElementScreenShot,

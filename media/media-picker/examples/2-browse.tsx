@@ -37,7 +37,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
       authProvider: mediaPickerAuthProvider(),
     };
     const uploadParams: UploadParams = {
-      collection: defaultMediaPickerCollectionName,
+      collection: this.state.collectionName,
     };
     const browseConfig: BrowserConfig = {
       multiple: true,

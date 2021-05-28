@@ -14,7 +14,7 @@ import {
 import { EditorView } from 'prosemirror-view';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { sortByColumn } from '../../../../../plugins/table/commands/sort';
-import { SortOrder } from '../../../../../plugins/table/types';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 
 describe('Sort Table', () => {
   const createEditor = createEditorFactory();

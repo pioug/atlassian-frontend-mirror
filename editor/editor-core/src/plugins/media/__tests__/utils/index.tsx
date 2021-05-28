@@ -49,7 +49,6 @@ import {
   temporaryMedia,
   temporaryMediaGroup,
   getFreshMediaProvider,
-  waitForAllPickersInitialised,
   testCollectionName,
   temporaryFileId,
 } from '../../../../__tests__/unit/plugins/media/_utils';
@@ -559,10 +558,6 @@ describe('Media plugin', () => {
 
     await getFreshMediaProvider();
     await getFreshMediaProvider();
-
-    await waitForAllPickersInitialised(pluginState);
-
-    expect(pluginState.pickers.length).toBe(1);
   });
 
   it('should re-use old pickers when new media provider is set', async () => {
@@ -571,14 +566,9 @@ describe('Media plugin', () => {
 
     await getFreshMediaProvider();
 
-    await waitForAllPickersInitialised(pluginState);
-
     const pickersAfterMediaProvider1 = pluginState.pickers;
-    expect(pickersAfterMediaProvider1.length).toBe(1);
 
     await getFreshMediaProvider();
-
-    await waitForAllPickersInitialised(pluginState);
 
     const pickersAfterMediaProvider2 = pluginState.pickers;
 
@@ -1453,12 +1443,7 @@ describe('Media plugin', () => {
   });
 
   it('should trigger cloud picker opened analytics event when opened via quick insert', async () => {
-    const { editorView, sel, pluginState } = editor(
-      doc(p('{<>}')),
-      {},
-      undefined,
-    );
-    await waitForAllPickersInitialised(pluginState);
+    const { editorView, sel } = editor(doc(p('{<>}')), {}, undefined);
     insertText(editorView, '/Files', sel);
     sendKeyToPm(editorView, 'Enter');
 

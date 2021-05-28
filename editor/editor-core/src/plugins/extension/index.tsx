@@ -1,10 +1,7 @@
 import {
   extension,
-  extensionWithLocalId,
   bodiedExtension,
-  bodiedExtensionWithLocalId,
   inlineExtension,
-  inlineExtensionWithLocalId,
 } from '@atlaskit/adf-schema';
 import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { EditorPlugin } from '../../types';
@@ -17,7 +14,6 @@ import { getContextPanel } from './context-panel';
 
 interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
-  allowLocalIdGeneration?: boolean;
   breakoutEnabled?: boolean;
   extensionHandlers?: ExtensionHandlers;
   // TODO: Remove this @see ED-8585
@@ -33,19 +29,15 @@ const extensionPlugin = (
     return [
       {
         name: 'extension',
-        node: options.allowLocalIdGeneration ? extensionWithLocalId : extension,
+        node: extension,
       },
       {
         name: 'bodiedExtension',
-        node: options.allowLocalIdGeneration
-          ? bodiedExtensionWithLocalId
-          : bodiedExtension,
+        node: bodiedExtension,
       },
       {
         name: 'inlineExtension',
-        node: options.allowLocalIdGeneration
-          ? inlineExtensionWithLocalId
-          : inlineExtension,
+        node: inlineExtension,
       },
     ];
   },
@@ -78,8 +70,7 @@ const extensionPlugin = (
       },
       {
         name: 'extensionUniqueId',
-        plugin: () =>
-          options.allowLocalIdGeneration ? createUniqueIdPlugin() : undefined,
+        plugin: () => createUniqueIdPlugin(),
       },
     ];
   },

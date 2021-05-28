@@ -1,5 +1,12 @@
 # @atlaskit/pagination
 
+## 14.0.1
+
+### Patch Changes
+
+- [`01918d5d885`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01918d5d885) - Reduce bundle size by replacing custom theme buttons to standard buttons in pagination component.
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

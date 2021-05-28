@@ -20,7 +20,8 @@
             ]
           }
         },
-        "layout": "default"
+        "layout": "default",
+        "localId": "testId"
       },
       "content": [
         {

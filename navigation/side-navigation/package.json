@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^1.1.0",
-    "@atlaskit/icon": "^21.0.0",
+    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/menu": "^1.0.0",
     "@atlaskit/motion": "^1.0.0",
     "@atlaskit/theme": "^11.1.0",
@@ -41,7 +41,7 @@
     "@atlaskit/logo": "^13.3.0",
     "@atlaskit/onboarding": "^10.1.0",
     "@atlaskit/section-message": "^6.0.0",
-    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/select": "^14.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

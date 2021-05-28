@@ -1,9 +1,15 @@
 /** @jsx jsx */
-import { Children, createContext, ReactElement, useContext } from 'react';
+import {
+  Children,
+  createContext,
+  ReactElement,
+  useContext,
+  useMemo,
+} from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import Portal from '@atlaskit/portal';
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
@@ -33,13 +39,17 @@ function noop() {}
 
 type FlagGroupAPI = {
   onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
-  dismissAllowed: (id: number | string) => Boolean;
+  isDismissAllowed: boolean;
 };
 
-export const FlagGroupContext = createContext<FlagGroupAPI>({
+const defaultFlagGroupContext = {
   onDismissed: () => {},
-  dismissAllowed: () => false,
-});
+  isDismissAllowed: false,
+};
+
+export const FlagGroupContext = createContext<FlagGroupAPI>(
+  defaultFlagGroupContext,
+);
 
 export function useFlagGroup() {
   return useContext(FlagGroupContext);
@@ -89,15 +99,25 @@ const FlagGroup = (props: Props) => {
     onDismissed = noop,
   } = props;
 
+  const hasFlags = Array.isArray(children)
+    ? children.length > 0
+    : Boolean(children);
+
+  const dismissFlagContext: FlagGroupAPI = useMemo(
+    () => ({
+      onDismissed: onDismissed,
+      isDismissAllowed: true,
+    }),
+    [onDismissed],
+  );
+
   const renderChildren = () => {
     return children && typeof children === 'object'
       ? Children.map(children, (flag: ReactElement, index: number) => {
-          const isDismissAllowed: boolean = index === 0;
-          const { id } = flag.props;
+          const isDismissAllowed = index === 0;
 
           return (
             <SlideIn
-              key={id}
               enterFrom={'left'}
               fade={'inout'}
               duration={flagAnimationTime}
@@ -119,7 +139,16 @@ const FlagGroup = (props: Props) => {
                       : ''}
                   `}
                 >
-                  {flag}
+                  <FlagGroupContext.Provider
+                    value={
+                      // Only the first flag should be able to be dismissed.
+                      isDismissAllowed
+                        ? dismissFlagContext
+                        : defaultFlagGroupContext
+                    }
+                  >
+                    {flag}
+                  </FlagGroupContext.Provider>
                 </div>
               )}
             </SlideIn>
@@ -128,60 +157,43 @@ const FlagGroup = (props: Props) => {
       : false;
   };
 
-  const hasFlags = Array.isArray(children)
-    ? children.length > 0
-    : Boolean(children);
-
-  let firstFlagId: number | string | null = null;
-  if (hasFlags && children && typeof children === 'object') {
-    firstFlagId = Array.isArray(children)
-      ? children[0].props.id
-      : children.props.id;
-  }
-
-  const api: FlagGroupAPI = {
-    onDismissed: onDismissed,
-    dismissAllowed: id => id === firstFlagId,
-  };
-
   return (
-    <FlagGroupContext.Provider value={api}>
-      <Portal zIndex={layers.flag()}>
-        <div
-          id={id}
-          css={css`
-            bottom: ${flagBottom}px;
-            left: ${flagLeft}px;
-            position: fixed;
-            z-index: ${layers.flag()};
-            @media (max-width: 560px) {
-              bottom: 0;
-              left: 0;
-            }
-          `}
-        >
-          {hasFlags ? (
-            <LabelTag
-              css={css`
-                border: 0;
-                clip: rect(1px, 1px, 1px, 1px);
-                height: 1px;
-                overflow: hidden;
-                padding: 0;
-                position: absolute;
-                white-space: nowrap;
-                width: 1px;
-              `}
-            >
-              {label}
-            </LabelTag>
-          ) : null}
-          <ExitingPersistence appear={false}>
-            {renderChildren()}
-          </ExitingPersistence>
-        </div>
-      </Portal>
-    </FlagGroupContext.Provider>
+    <Portal zIndex={layers.flag()}>
+      <div
+        id={id}
+        css={css`
+          bottom: ${flagBottom}px;
+          left: ${flagLeft}px;
+          position: fixed;
+          z-index: ${layers.flag()};
+          @media (max-width: 560px) {
+            bottom: 0;
+            left: 0;
+          }
+        `}
+      >
+        {hasFlags ? (
+          <LabelTag
+            css={css`
+              border: 0;
+              clip: rect(1px, 1px, 1px, 1px);
+              height: 1px;
+              overflow: hidden;
+              padding: 0;
+              position: absolute;
+              white-space: nowrap;
+              width: 1px;
+            `}
+          >
+            {label}
+          </LabelTag>
+        ) : null}
+
+        <ExitingPersistence appear={false}>
+          {renderChildren()}
+        </ExitingPersistence>
+      </div>
+    </Portal>
   );
 };
 

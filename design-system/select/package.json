@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "13.3.1",
+  "version": "14.0.0",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,19 +25,19 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/icon": "^21.4.0",
+    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@popperjs/core": "^2.9.1",
-    "@types/react-select": "^3.1.2",
+    "@types/react-select": "^4.0.13",
     "focus-trap": "^2.4.5",
     "memoize-one": "^5.1.0",
     "react-fast-compare": "^2.0.1",
     "react-node-resolver": "^1.0.1",
     "react-popper": "^2.2.3",
-    "react-select": "^3.0.4",
+    "react-select": "^4.3.1",
     "shallow-equal": "^1.0.0"
   },
   "peerDependencies": {
@@ -52,7 +52,7 @@
     "@atlaskit/drawer": "^6.0.0",
     "@atlaskit/form": "^8.1.0",
     "@atlaskit/logo": "^13.0.0",
-    "@atlaskit/modal-dialog": "^11.4.0",
+    "@atlaskit/modal-dialog": "^11.6.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.0.0",
     "@atlaskit/visual-regression": "*",

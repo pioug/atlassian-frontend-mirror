@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, RefObject } from 'react';
 import { Node, Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import EditorActions from '../actions';
@@ -30,7 +30,6 @@ import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
 import { LayoutPluginOptions } from '../plugins/layout/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
-import { DataConsumerPluginOptions } from '../plugins/data-consumer/types';
 import { ExtensionConfig } from './extension-config';
 import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
@@ -88,9 +87,6 @@ export interface EditorProps {
   // Enables new breakout mark.
   // This mark is being used for making code-blocks breakout.
   allowBreakout?: boolean;
-
-  // Enables new data consumer mark (for extensions)
-  UNSAFE_allowDataConsumer?: boolean | DataConsumerPluginOptions;
 
   // Enables horizontal rules.
   allowRule?: boolean;
@@ -338,9 +334,12 @@ export interface EditorProps {
 
   /**
    * @default undefined
-   * @description Enables using node's data as a source of another node
+   * @description
+   * Enables the sticky toolbar in the comment/standard editor.
+   * If a boolean is specified and it's `true`, the sticky toolbar will be enabled, sticking to the top of the scroll parent.
+   * Instead a reference can be specified to an existing sticky toolbar on the page that the editor toolbar should stay below (experimental).
    */
-  allowReferentiality?: boolean;
+  useStickyToolbar?: boolean | RefObject<HTMLElement>;
 
   /**
    * @default undefined

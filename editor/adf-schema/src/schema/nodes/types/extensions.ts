@@ -13,7 +13,6 @@ export interface ExtensionAttributes {
   text?: string;
   layout?: Layout;
   /**
-   * @stage 0
    * @minLength 1
    */
   localId?: string;
@@ -31,7 +30,6 @@ export interface InlineExtensionAttributes {
   parameters?: object;
   text?: string;
   /**
-   * @stage 0
    * @minLength 1
    */
   localId?: string;

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { CSSProperties, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
@@ -58,7 +58,7 @@ function ThemeModeSwitcher({
           </ButtonTheme.Provider>
           <Select
             styles={{
-              container: (provided: CSSProperties) => ({
+              container: provided => ({
                 ...provided,
                 marginTop: 10,
               }),

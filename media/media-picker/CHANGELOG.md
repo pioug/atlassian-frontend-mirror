@@ -1,5 +1,20 @@
 # @atlaskit/media-picker
 
+## 57.5.0
+
+### Minor Changes
+
+- [`f7ff2c84451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ff2c84451) - bump json-ld-types from 2.2.2 to ^2.3.0"
+- [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
+- [`f7f652aaefb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f652aaefb) - [ux] Removing sidebar items (googledrive/dropbox/giphy) from popup as popup is being deprecated
+
+### Patch Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- [`fc415b7d346`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc415b7d346) - Removing deprecated documentation about mediapicker popup (authProvider)
+- [`faaf4d29687`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faaf4d29687) - Fixed Media Picker's Browser component not refreshing upload collection on props change
+- Updated dependencies
+
 ## 57.4.0
 
 ### Minor Changes

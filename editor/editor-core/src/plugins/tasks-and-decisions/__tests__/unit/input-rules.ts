@@ -200,6 +200,7 @@ describe('tasks and decisions - input rules', () => {
                 bodiedExtension({
                   extensionKey: 'key',
                   extensionType: 'type',
+                  localId: 'testId',
                 })(p('{<>}')),
               ),
             );
@@ -210,6 +211,7 @@ describe('tasks and decisions - input rules', () => {
               bodiedExtension({
                 extensionKey: 'key',
                 extensionType: 'type',
+                localId: 'testId',
               })(list(listProps)(item(itemProps)('{<>}'))),
             );
             expect(editorView.state.doc).toEqualDocument(expectedDoc);

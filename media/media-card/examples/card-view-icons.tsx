@@ -5,6 +5,7 @@ import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl';
+import { MainWrapper } from '../example-helpers';
 
 type WrapperDimensions = {
   width: string;
@@ -90,19 +91,21 @@ function renderCardImageView(
   };
 
   return (
-    <CardWrapper key={key} {...wrapperDimensionsSmall}>
-      <CardView
-        featureFlags={{
-          newCardExperience: true,
-        }}
-        status={status}
-        mediaItemType="file"
-        metadata={metadata}
-        resizeMode="crop"
-        progress={0.5}
-        dimensions={dimensions}
-      />
-    </CardWrapper>
+    <MainWrapper>
+      <CardWrapper key={key} {...wrapperDimensionsSmall}>
+        <CardView
+          featureFlags={{
+            newCardExperience: true,
+          }}
+          status={status}
+          mediaItemType="file"
+          metadata={metadata}
+          resizeMode="crop"
+          progress={0.5}
+          dimensions={dimensions}
+        />
+      </CardWrapper>
+    </MainWrapper>
   );
 }
 export default () => <IconsTable />;

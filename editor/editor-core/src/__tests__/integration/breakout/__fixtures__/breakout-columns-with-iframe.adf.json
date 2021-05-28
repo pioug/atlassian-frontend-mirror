@@ -41,6 +41,7 @@
                     ]
                   }
                 },
+                "localId": "testId",
                 "text": "Full width block extension demo",
                 "layout": "default"
               }

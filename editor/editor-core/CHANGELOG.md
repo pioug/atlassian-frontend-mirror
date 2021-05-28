@@ -1,5 +1,76 @@
 # @atlaskit/editor-core
 
+## 144.0.0
+
+### Major Changes
+
+- [`566f674ac8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/566f674ac8f) - _Removes_ `allowReferentiality` & `UNSAFE_allowDataConsumer` props from editor props.
+  These can now be toggled via the feature flags prop, e.g.
+
+  ```tsx
+  <Editor
+    featureFlags={{
+      'allow-local-id-generation-on-tables': true,
+      'allow-data-consumer': true,
+    }}
+  />
+  ```
+
+- [`ddecaf6f306`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddecaf6f306) - ED-12436 remove 'allowLocalIdGeneration' from Editor as extension localId is added to full schema
+
+### Minor Changes
+
+- [`d5c4ee88681`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5c4ee88681) - [ux] ED-2942 Add option to enable sticky toolbar in the comment/standard editor.
+
+  Enabled using the `useStickyToolbar` editor prop.
+
+  If specified as `true`, the sticky toolbar will be enabled, sticking to the top of the scroll parent. Instead a reference can be specified to an existing sticky toolbar on the page that the editor toolbar should stay below (experimental).
+
+- [`e66cd2fe716`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e66cd2fe716) - ED-12655: added support for config panel tabs
+- [`2e51fbd1db2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e51fbd1db2) - [ux] ED-12733 Remove option to clear config panel select fields if there is a default value set.
+- [`11b9305ca1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11b9305ca1b) - [ux] ED-12649 add ColorField definition and UI to ConfigPanel
+- [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
+- [`8824d7de512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8824d7de512) - ED-12143 Paste performance analytics event added.
+- [`5d8e5bd7d50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d8e5bd7d50) - [ux] Added support for dynamic getFieldsDefinition() in Editor Extensions.
+
+  Made changes to the extension config panel fields so it triggers a submit only if the field is "dirty".
+
+- [`084abc13201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/084abc13201) - ED-12265 Add unsupport content support to media single
+  ED-12265 Remove `caption` from default schema - Renderer
+- [`9c449f9852b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c449f9852b) - [ux] Moved the avatar group into an actual plugin container to the left of findreplace. Findeplace also got a minor centering fix in css and has to adjust its css based on whether the avatar group feature flag is on or not.
+- [`7fbdeb26e81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fbdeb26e81) - Upgrade editor-core to directly import languages from @atlaskit/code.
+
+### Patch Changes
+
+- [`6ab1b4e3739`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ab1b4e3739) - [ux] ED-12739 polish expand field UI
+- [`77751bd59e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77751bd59e3) - Generate localIds for existing tables
+- [`e9265f59ae7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9265f59ae7) - ED-12651 add analytics to color-picker-button
+- [`cb105ce0163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb105ce0163) - ED-12985 make color picker one line
+- [`5fba22a5a21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fba22a5a21) - [NO ISSUE] Move Table Sort Custom Step to the ADF package
+- [`cef4a451c74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cef4a451c74) - [ux] ED-12658 added error boundary around config panel FormContent to catch unexpected errors without breaking the editor
+
+  Added ConfigPanelCrashedAEP for tracking config panel crashes
+
+- [`c193ef62683`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c193ef62683) - ED-12810 relocate color picker ui from within panel plugin to a general ui
+- [`35645d7d1b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35645d7d1b7) - ED-12762 Prevent nesting of GroupingFields (for now)
+  Added localization for expand field
+- [`4edb69b3efc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4edb69b3efc) - NO-ISSUE remove-unused-comment-in-extension-api-file
+- [`3c48c4147d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c48c4147d1) - ED-12966: fix language selection highlight
+- [`31d42e77267`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31d42e77267) - Add back initial preventDefault behaviour to the click-area-helper
+- [`ee023b6f981`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee023b6f981) - ED-12603 fixed issue with navigating into the table via keyboard
+- [`5e2f53b2a14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e2f53b2a14) - add classnames to RemovableField for easier targeting
+- [`427bdfcd794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/427bdfcd794) - Fix undo MediaSingle resize
+- [`fa92b08d5a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa92b08d5a7) - ED-12981 remove paddings from tab in config panel
+- [`de1ea3645b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de1ea3645b1) - [ux] extension config panels; fixed bug with custom/date/daterange fields not applying changes
+
+  - renamed OnBlur > OnFieldChange, onFieldBlur/onBlur > onFieldChange, WithOnFieldBlur > WithOnFieldChange
+  - removed blur event listeners on components which only update during onChange
+
+- [`88a1b60b052`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88a1b60b052) - ED-12789 fixed chart macro doesn't respect width adjustment
+- [`1f493e1dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f493e1dc65) - Bump `react-select` to v4.
+- [`b8ec1d5de7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8ec1d5de7d) - [ux] NO-ISSUE polish expand ui for margin bottom
+- Updated dependencies
+
 ## 143.1.2
 
 ### Patch Changes

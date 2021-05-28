@@ -13,8 +13,12 @@ import {
   EditableCardOptions,
   EditableCardContent,
 } from '../example-helpers/styled';
+import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
+
+const maxHeight = 1000;
+const maxWidth = 1000;
 
 export interface EditableCardState {
   identifier: Identifier;
@@ -24,33 +28,27 @@ export interface EditableCardState {
   isHeightPercentage: boolean;
   isLazy: boolean;
   useDimensions: boolean;
-  usePixelUnits: boolean;
 }
 
 class EditableCard extends Component<{}, EditableCardState> {
   state: EditableCardState = {
     identifier: genericFileId,
-    dimensions: { width: '100%', height: '50%' },
+    dimensions: { width: 100, height: 50 },
     parentDimensions: { height: 300, width: 500 },
     isWidthPercentage: true,
     isHeightPercentage: true,
     isLazy: false,
     useDimensions: true,
-    usePixelUnits: false,
   };
 
   onWidthChange = (e: any) => {
-    const dimensions = this.state.dimensions;
-
-    dimensions.width = e;
-    this.setState({ dimensions });
+    const { height } = this.state.dimensions;
+    this.setState({ dimensions: { width: parseInt(e, 0), height } });
   };
 
   onHeightChange = (e: any) => {
-    const dimensions = this.state.dimensions;
-
-    dimensions.height = e;
-    this.setState({ dimensions });
+    const { width } = this.state.dimensions;
+    this.setState({ dimensions: { height: parseInt(e, 0), width } });
   };
 
   onWidthPercentageChange = () => {
@@ -61,18 +59,14 @@ class EditableCard extends Component<{}, EditableCardState> {
     this.setState({ isHeightPercentage: !this.state.isHeightPercentage });
   };
 
-  onParentWidthChange = (width: any) => {
-    const parentDimensions = this.state.parentDimensions;
-
-    parentDimensions.width = width;
-    this.setState({ parentDimensions });
+  onParentWidthChange = (e: any) => {
+    const { height } = this.state.parentDimensions;
+    this.setState({ parentDimensions: { width: parseInt(e, 0), height } });
   };
 
-  onParentHeightChange = (height: any) => {
-    const parentDimensions = this.state.parentDimensions;
-
-    parentDimensions.height = height;
-    this.setState({ parentDimensions });
+  onParentHeightChange = (e: any) => {
+    const { width } = this.state.parentDimensions;
+    this.setState({ parentDimensions: { height: parseInt(e, 0), width } });
   };
 
   onIsLazyChange = () => {
@@ -83,113 +77,107 @@ class EditableCard extends Component<{}, EditableCardState> {
     this.setState({ useDimensions: !this.state.useDimensions });
   };
 
-  onPixelsUnitChange = () => {
-    this.setState({ usePixelUnits: !this.state.usePixelUnits });
+  printUnit = (dimension: `w` | `h`) => {
+    const isPercentage =
+      dimension === 'w'
+        ? this.state.isWidthPercentage
+        : this.state.isHeightPercentage;
+    return isPercentage ? '%' : 'px';
+  };
+
+  getCardDimensions = () => {
+    const {
+      dimensions: { width, height },
+    } = this.state;
+    return {
+      width: `${width}${this.printUnit('w')}`,
+      height: `${height}${this.printUnit('h')}`,
+    };
   };
 
   render() {
     const {
       identifier,
-      dimensions,
+      dimensions: { width, height },
       isWidthPercentage,
       isHeightPercentage,
-      parentDimensions,
+      parentDimensions: { width: parentWidth, height: parentHeight },
       isLazy,
       useDimensions,
-      usePixelUnits,
     } = this.state;
-    const width = parseInt(`${dimensions.width}`, 0);
-    const height = parseInt(`${dimensions.height}`, 0);
-    const { width: parentWidth, height: parentHeight } = parentDimensions;
     const parentStyle = { width: parentWidth, height: parentHeight };
-    const newDimensions: CardDimensions = { width, height };
-
-    if (isWidthPercentage) {
-      newDimensions.width = `${width}%`;
-    }
-
-    if (isHeightPercentage) {
-      newDimensions.height = `${height}%`;
-    }
-
-    if (usePixelUnits) {
-      newDimensions.width = `${width}px`;
-      newDimensions.height = `${height}px`;
-    }
-
+    const formattedWidth = this.getCardDimensions().width;
+    const formattedHeight = this.getCardDimensions().height;
     return (
-      <div>
-        <EditableCardOptions>
-          Card dimensions <hr />
-          <CardDimensionsWrapper>
-            <div>
-              Card Width ({width}) | Use percentage:
-              <Toggle
-                defaultChecked={isWidthPercentage}
-                onChange={this.onWidthPercentageChange}
-              />
-              <Slider
-                value={Number(width)}
-                min={0}
-                max={1000}
-                onChange={this.onWidthChange}
-              />
-            </div>
-            <div>
-              Card Height ({height}) | Use percentage:
-              <Toggle
-                defaultChecked={isHeightPercentage}
-                onChange={this.onHeightPercentageChange}
-              />
-              <Slider
-                value={Number(height)}
-                min={50}
-                max={1000}
-                onChange={this.onHeightChange}
-              />
-            </div>
-            <div>
-              Parent Width ({parentWidth})
-              <Slider
-                value={Number(parentWidth)}
-                min={0}
-                max={1000}
-                onChange={this.onParentWidthChange}
-              />
-            </div>
-            <div>
-              Parent Height ({parentHeight})
-              <Slider
-                value={Number(parentHeight)}
-                min={50}
-                max={1000}
-                onChange={this.onParentHeightChange}
-              />
-            </div>
-          </CardDimensionsWrapper>
-          isLazy
-          <Toggle defaultChecked={isLazy} onChange={this.onIsLazyChange} />
-          use dimensions
-          <Toggle
-            defaultChecked={useDimensions}
-            onChange={this.onUseDimensionsChange}
-          />
-          use pixels
-          <Toggle
-            defaultChecked={usePixelUnits}
-            onChange={this.onPixelsUnitChange}
-          />
-        </EditableCardOptions>
-        <EditableCardContent style={parentStyle}>
-          <Card
-            mediaClientConfig={mediaClientConfig}
-            identifier={identifier}
-            dimensions={useDimensions ? newDimensions : undefined}
-            isLazy={isLazy}
-            alt="this is an alt text"
-          />
-        </EditableCardContent>
-      </div>
+      <MainWrapper>
+        <div>
+          <EditableCardOptions>
+            Card dimensions <hr />
+            <CardDimensionsWrapper>
+              <div>
+                Card Width ({formattedWidth}) | Use percentage:
+                <Toggle
+                  defaultChecked={isWidthPercentage}
+                  onChange={this.onWidthPercentageChange}
+                />
+                <Slider
+                  value={width}
+                  min={10}
+                  max={isWidthPercentage ? 100 : maxWidth}
+                  onChange={this.onWidthChange}
+                />
+              </div>
+              <div>
+                Card Height ({formattedHeight}) | Use percentage:
+                <Toggle
+                  defaultChecked={isHeightPercentage}
+                  onChange={this.onHeightPercentageChange}
+                />
+                <Slider
+                  value={height}
+                  min={10}
+                  max={isHeightPercentage ? 100 : maxHeight}
+                  onChange={this.onHeightChange}
+                />
+              </div>
+              <div>
+                Parent Width ({parentWidth}px)
+                <Slider
+                  value={parentWidth}
+                  min={0}
+                  max={maxWidth}
+                  onChange={this.onParentWidthChange}
+                />
+              </div>
+              <div>
+                Parent Height ({parentHeight}px)
+                <Slider
+                  value={parentHeight}
+                  min={50}
+                  max={maxHeight}
+                  onChange={this.onParentHeightChange}
+                />
+              </div>
+            </CardDimensionsWrapper>
+            isLazy
+            <Toggle defaultChecked={isLazy} onChange={this.onIsLazyChange} />
+            use dimensions
+            <Toggle
+              defaultChecked={useDimensions}
+              onChange={this.onUseDimensionsChange}
+            />
+          </EditableCardOptions>
+          <EditableCardContent style={parentStyle}>
+            <Card
+              mediaClientConfig={mediaClientConfig}
+              identifier={identifier}
+              dimensions={useDimensions ? this.getCardDimensions() : undefined}
+              isLazy={isLazy}
+              alt="this is an alt text"
+            />
+          </EditableCardContent>
+        </div>
+      </MainWrapper>
     );
   }
 }

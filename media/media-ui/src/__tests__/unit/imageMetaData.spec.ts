@@ -32,6 +32,10 @@ describe('Image Meta Data', () => {
       naturalWidth: 1,
       naturalHeight: 2,
     } as unknown) as Promise<HTMLImageElement>);
+    jest.spyOn(util, 'readImageNaturalOrientationFromDOM').mockReturnValue({
+      width: 1,
+      height: 2,
+    });
     asMock(readImageMetaTags).mockReturnValue({ Orientation: 'top-right' });
   });
 
@@ -141,7 +145,11 @@ describe('Image Meta Data', () => {
       );
     });
 
-    it("should flip width and height when image is on it's side", async () => {
+    it('should flip width and height when image is on its side', async () => {
+      jest.spyOn(util, 'readImageNaturalOrientationFromDOM').mockReturnValue({
+        width: 100,
+        height: 75,
+      });
       loadImage.mockReturnValue({
         naturalWidth: 100,
         naturalHeight: 75,
@@ -150,8 +158,8 @@ describe('Image Meta Data', () => {
       const imageMetaData = (await readImageMetaData(
         fileInfo,
       )) as ImageMetaData;
-      expect(imageMetaData.width).toBe(75);
-      expect(imageMetaData.height).toBe(100);
+      expect(imageMetaData.width).toBe(100);
+      expect(imageMetaData.height).toBe(75);
     });
 
     it('should return null when images fail to load', async () => {

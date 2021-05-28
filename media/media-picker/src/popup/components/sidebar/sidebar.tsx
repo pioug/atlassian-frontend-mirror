@@ -1,9 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
-import GoogleDriveIcon from '@atlaskit/icon/glyph/googledrive';
-import GiphySidebarItem from './item/giphySidebarItem';
 import UploadIcon from '@atlaskit/icon/glyph/upload';
 import { FormattedMessage } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
@@ -44,30 +41,12 @@ export class StatelessSidebar extends Component<SidebarProps> {
   }
 
   private renderBuiltInPlugins = () => {
-    const { selected, useForgePlugins } = this.props;
+    const { useForgePlugins } = this.props;
     if (useForgePlugins) {
       return [];
     }
 
-    return [
-      <GiphySidebarItem key="giphy" isActive={selected === 'giphy'} />,
-      <SidebarItem
-        key="dropbox"
-        serviceName="dropbox"
-        serviceFullName="Dropbox"
-        isActive={selected === 'dropbox'}
-      >
-        <DropboxIcon label="dropbox" />
-      </SidebarItem>,
-      <SidebarItem
-        key="google"
-        serviceName="google"
-        serviceFullName="Google Drive"
-        isActive={selected === 'google'}
-      >
-        <GoogleDriveIcon label="google" />
-      </SidebarItem>,
-    ];
+    return [];
   };
 
   private renderCustomPluginItems = () => {

@@ -40,6 +40,7 @@ import {
 import { CodeBlock } from '@atlaskit/code';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Schema } from 'prosemirror-model';
+import { MediaOptions } from '@atlaskit/editor-core';
 
 const MockProfileClient = getMockProfilecardClient(
   ProfileClient,
@@ -164,6 +165,7 @@ export interface DemoRendererProps {
     severityDegradedThreshold: number;
   };
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
+  mediaOptions?: MediaOptions;
 }
 
 export interface DemoRendererState {
@@ -356,7 +358,7 @@ export default class RendererDemo extends React.Component<
       props.allowUgcScrubber = this.props.allowUgcScrubber;
       props.allowSelectAllTrap = this.props.allowSelectAllTrap;
       props.unsupportedContentLevelsTracking = this.props.unsupportedContentLevelsTracking;
-
+      props.media = this.props.mediaOptions;
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;
       }

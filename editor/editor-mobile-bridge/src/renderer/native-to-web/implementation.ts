@@ -21,6 +21,7 @@ import {
   isContentEmpty,
 } from '../../utils/bridge';
 import RendererConfiguration from '../renderer-configuration';
+import { trackFontSizeUpdated } from '../track-analytics';
 
 class RendererMobileWebBridgeOverride extends WebBridge {
   containerAri?: string;
@@ -297,14 +298,23 @@ class RendererBridgeImplementation
     return this.configuration;
   }
 
-  updateSystemFontSize(fontSize: string) {
+  // This function takes two parameters:
+  // relativeFontSize: the reference font size each platform uses
+  // actualFontSize: the true font size that appears on the screen
+  updateSystemFontSize(relativeFontSize: string, actualFontSize?: string) {
+    const setFontSize = Number(relativeFontSize) > 34 ? '34' : relativeFontSize;
     const style = document.createElement('style');
     style.innerHTML = `
     html {
-      font-size: ${fontSize}px;
+      font-size: ${setFontSize}px;
     }
     `;
     document.head.appendChild(style);
+
+    // Use correct font size value in analytics event.
+    const defaultFontSize = window.webkit ? '17' : '16';
+    const trueFontSize = actualFontSize ? actualFontSize : relativeFontSize;
+    trackFontSizeUpdated(defaultFontSize, trueFontSize);
   }
 }
 

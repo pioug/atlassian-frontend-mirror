@@ -35,7 +35,7 @@ export function CardWithUrlContent({
   inlinePreloaderStyle,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
-  const { state, actions, config, analytics } = useSmartLink(
+  const { state, actions, config, analytics, renderers } = useSmartLink(
     id,
     url,
     dispatchAnalytics,
@@ -134,6 +134,7 @@ export function CardWithUrlContent({
       return (
         <InlineCard
           url={url}
+          renderers={renderers}
           cardState={state}
           handleAuthorize={(services.length && handleAuthorize) || undefined}
           handleFrameClick={handleClickWrapper}
@@ -147,6 +148,7 @@ export function CardWithUrlContent({
       return (
         <BlockCard
           url={url}
+          renderers={renderers}
           authFlow={config && config.authFlow}
           cardState={state}
           handleAuthorize={(services.length && handleAuthorize) || undefined}

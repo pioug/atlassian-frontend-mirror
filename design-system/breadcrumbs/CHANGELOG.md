@@ -1,5 +1,12 @@
 # @atlaskit/breadcrumbs
 
+## 11.2.1
+
+### Patch Changes
+
+- [`5e221ab3244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e221ab3244) - Added the `design-system` tech stacks to the `package.json`
+- [`910c5ba2052`](https://bitbucket.org/atlassian/atlassian-frontend/commits/910c5ba2052) - Breadcrumbs component now correctly forwards ref.
+
 ## 11.2.0
 
 ### Minor Changes

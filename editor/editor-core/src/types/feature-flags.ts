@@ -244,6 +244,35 @@ export type FeatureFlags = {
    * @default true
    */
   useUnpredictableInputRule?: boolean;
+
+  /**
+   * Show the avatar group as a plugin
+   * @see https://product-fabric.atlassian.net/browse/CERN-747
+   * @default false
+   */
+  showAvatarGroupAsPlugin?: boolean;
+
+  /**
+   * @decsription
+   * Enables the marking up of nodes with data consumer marks
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-12102
+   * &&
+   * @see https://product-fabric.atlassian.net/browse/ED-12570
+   * @default false
+   */
+  dataConsumerMark?: boolean;
+
+  /**
+   * @decsription
+   * Enables local IDs on tables
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-12102
+   * &&
+   * @see https://product-fabric.atlassian.net/browse/ED-12570
+   * @default false
+   */
+  localIdGenerationOnTables?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

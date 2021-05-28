@@ -1,8 +1,11 @@
 import React from 'react';
 import { md, code, AtlassianInternalWarning } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
+
+  ${createRxjsNotice('Media Core')}
 
   This package is required by other Media Components, and should not be used
   directly.

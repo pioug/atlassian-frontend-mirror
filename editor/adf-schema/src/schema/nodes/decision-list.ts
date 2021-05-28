@@ -9,6 +9,7 @@ export interface DecisionListDefinition {
   type: 'decisionList';
   /**
    * @minItems 1
+   * @allowUnsupportedBlock true
    */
   content: Array<DecisionItemNode>;
   attrs: {
@@ -23,7 +24,7 @@ export const decisionListSelector = `[data-node-type="${name}"]`;
 export const decisionList: NodeSpec = {
   group: 'block',
   defining: true,
-  content: 'decisionItem+',
+  content: '(decisionItem|unsupportedBlock)+',
   marks: 'unsupportedMark unsupportedNodeAttribute',
   selectable: false,
   attrs: {

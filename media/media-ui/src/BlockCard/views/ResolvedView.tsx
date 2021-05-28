@@ -11,6 +11,7 @@ import { Name } from '../components/Name';
 import { Byline } from '../components/Byline';
 import { ActionList } from '../components/ActionList';
 import { CollaboratorList, Collaborator } from '../components/CollaboratorList';
+import { Emoji } from '../components/Emoji';
 import { Icon, IconProps } from '../components/Icon';
 import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
@@ -57,6 +58,8 @@ export interface ResolvedViewProps {
   isSelected?: boolean;
   testId?: string;
   showActions?: boolean;
+  /* The Emoji prefix component that was added to the title text via Add emoji button */
+  titlePrefix?: React.ReactNode;
 }
 
 export const ResolvedView = ({
@@ -66,6 +69,7 @@ export const ResolvedView = ({
   context = { text: '' },
   title = '',
   titleTextColor,
+  titlePrefix,
   isSelected = false,
   users = [],
   handleAvatarClick = () => {},
@@ -105,7 +109,7 @@ export const ResolvedView = ({
             }}
           >
             <ContentHeader onClick={handleClick} link={link}>
-              <Icon {...icon} />
+              {titlePrefix ? <Emoji emoji={titlePrefix} /> : <Icon {...icon} />}
               <Name name={title} textColor={titleTextColor} />
               {lozenge && (
                 <LozengeBlockWrapper

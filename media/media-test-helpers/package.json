@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "28.7.1",
+  "version": "28.7.2",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,33 +13,24 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    "./fakeMediaClient": "./src/fakeMediaClient.ts",
-    "./media-mock": "./src/mocks/media-mock.ts",
-    "./images": "./src/images.tsx",
-    "./jestHelpers": "./src/jestHelpers.ts",
-    "./collectionNames": "./src/collectionNames.ts",
-    "./exampleMediaItems": "./src/exampleMediaItems.ts",
-    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
-    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
-    "./userAuthProvider": "./src/userAuthProvider.ts",
-    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
-    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
-    "./mockData": "./src/utils/mockData.ts",
-    ".": "./src/index.tsx"
-  },
   "atlassian": {
     "team": "Media Platform",
     "inPublicMirror": true,
     "releaseModel": "scheduled"
   },
   "dependencies": {
+    "@atlaskit/button": "^15.1.2",
+    "@atlaskit/checkbox": "^12.0.2",
+    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/locale": "^2.1.0",
-    "@atlaskit/media-client": "^13.1.0",
-    "@atlaskit/media-common": "^2.6.0",
+    "@atlaskit/media-client": "^13.2.0",
+    "@atlaskit/media-common": "^2.7.0",
     "@atlaskit/media-core": "^32.1.0",
-    "@atlaskit/media-picker": "^57.4.0",
-    "@atlaskit/media-ui": "^16.1.0",
+    "@atlaskit/media-picker": "^57.5.0",
+    "@atlaskit/media-ui": "^16.2.0",
+    "@atlaskit/popup": "^1.0.6",
+    "@atlaskit/textfield": "^5.0.1",
+    "@atlaskit/tooltip": "^17.2.0",
     "@babel/runtime": "^7.0.0",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
@@ -59,8 +50,24 @@
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "react-dom": "^16.8.0",
     "rxjs": "^5.5.0",
     "typescript": "3.9.6"
+  },
+  "af:exports": {
+    "./fakeMediaClient": "./src/fakeMediaClient.ts",
+    "./media-mock": "./src/mocks/media-mock.ts",
+    "./images": "./src/images.tsx",
+    "./jestHelpers": "./src/jestHelpers.ts",
+    "./collectionNames": "./src/collectionNames.ts",
+    "./exampleMediaItems": "./src/exampleMediaItems.ts",
+    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
+    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
+    "./userAuthProvider": "./src/userAuthProvider.ts",
+    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
+    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+    "./mockData": "./src/utils/mockData.ts",
+    ".": "./src/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

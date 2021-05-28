@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { CSSProperties } from 'react';
 
 import { primary } from '@atlaskit/theme/colors';

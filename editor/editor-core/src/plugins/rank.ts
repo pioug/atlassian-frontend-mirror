@@ -112,6 +112,7 @@ export default {
     'analytics',
     'findReplace',
     'selection',
+    'avatarGroup',
   ],
   nodes: [
     'doc',

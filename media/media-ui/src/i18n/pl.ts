@@ -30,6 +30,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Ojej! Nie można pobrać żadnych plików GIF',
   'fabric.media.check_your_network': 'Sprawdź swoje połączenie sieciowe.',
+  'fabric.media.click_to_join': 'Zacznij korzystać z {context}',
+  'fabric.media.click_to_join_description':
+    'Uzyskano zatwierdzenie, więc możesz od razu dołączyć do {context}.',
   'fabric.media.close': 'Zamknij',
   'fabric.media.close_and_reopen':
     'Spróbuj zamknąć plik i otworzyć go ponownie.',
@@ -71,6 +74,8 @@ export default {
   'fabric.media.error_hint_retry': 'Spróbuj ponownie.',
   'fabric.media.error_loading_file': 'Błąd ładowania pliku',
   'fabric.media.failed_to_load': 'Niepowodzenie ładowania',
+  'fabric.media.forbidden_description':
+    'Nie masz dostępu do tego podglądu. Skontaktuj się z administratorem witryny, jeśli potrzebujesz dostępu.',
   'fabric.media.give_feedback': 'Prześlij opinię',
   'fabric.media.image': 'obraz',
   'fabric.media.image_format_invalid_error':
@@ -109,6 +114,14 @@ export default {
   'fabric.media.preview_unavailable': 'Podgląd niedostępny',
   'fabric.media.recent_uploads': 'Ostatnio przekazane',
   'fabric.media.remove_image': 'usuń obraz',
+  'fabric.media.request_access': 'Wyślij wniosek o dostęp',
+  'fabric.media.request_access_description':
+    'Poproś o dostęp do {context}, aby wyświetlić ten podgląd.',
+  'fabric.media.request_access_pending': 'Oczekuje na dostęp',
+  'fabric.media.request_access_pending_description':
+    'Twój wniosek o dostęp oczekuje na rozpatrzenie.',
+  'fabric.media.request_denied_description':
+    'Twój wniosek o dostęp został odrzucony. Skontaktuj się z administratorem witryny, jeśli dalej potrzebujesz dostępu.',
   'fabric.media.retry': 'Spróbuj ponownie',
   'fabric.media.save': 'Zapisz',
   'fabric.media.search': 'Szukaj',
@@ -138,6 +151,8 @@ export default {
     'Mamy problemy z załadowaniem Twojego pliku.',
   'fabric.media.webgl_warning_description':
     'Twoja przeglądarka nie obsługuje WebGL. Użyj przeglądarki z włączoną obsługą WebGL, aby dodawać adnotacje do obrazów',
+  'fabric.media.zip_entry_load_failed':
+    'Nie można załadować tego elementu pliku zip do podglądu',
   'fabric.media.zoom_in': 'powiększ',
   'fabric.media.zoom_out': 'pomniejsz',
 };

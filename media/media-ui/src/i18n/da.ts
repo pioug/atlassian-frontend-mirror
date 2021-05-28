@@ -28,6 +28,9 @@ export default {
   'fabric.media.cant_retrieve_files': 'Ups! Vi kunne ikke finde nogen filer',
   'fabric.media.cant_retrieve_gifs': "Ups! Vi kunne ikke hente GIF'er",
   'fabric.media.check_your_network': 'Tjek din netværksforbindelse',
+  'fabric.media.click_to_join': 'Tilmeld dig {context}',
+  'fabric.media.click_to_join_description':
+    'Du er blevet godkendt, så du kan deltage i {context} med det samme.',
   'fabric.media.close': 'Luk',
   'fabric.media.close_and_reopen': 'Prøv at lukke filen og åbne den igen.',
   'fabric.media.connect_account_description':
@@ -70,6 +73,8 @@ export default {
     'Prøv igen, så giver vi det endnu et forsøg.',
   'fabric.media.error_loading_file': 'Fejl ved indlæsning af fil',
   'fabric.media.failed_to_load': 'Kunne ikke indlæses',
+  'fabric.media.forbidden_description':
+    'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
   'fabric.media.give_feedback': 'Giv feedback',
   'fabric.media.image': 'billede',
   'fabric.media.image_format_invalid_error':
@@ -109,6 +114,14 @@ export default {
   'fabric.media.preview_unavailable': 'Forhåndsvisning er ikke tilgængelig',
   'fabric.media.recent_uploads': 'Senest uploadet',
   'fabric.media.remove_image': 'Fjern billede',
+  'fabric.media.request_access': 'Anmod om adgang',
+  'fabric.media.request_access_description':
+    'Anmod om adgang til {context} for at se denne forhåndsvisning.',
+  'fabric.media.request_access_pending': 'Afventer adgang',
+  'fabric.media.request_access_pending_description':
+    'Din anmodning om adgang afventer behandling.',
+  'fabric.media.request_denied_description':
+    'Din anmodning om adgang blev afvist. Kontakt webstedets administrator, hvis du stadig har brug for adgang.',
   'fabric.media.retry': 'Prøv igen',
   'fabric.media.save': 'Gem',
   'fabric.media.search': 'Søg',
@@ -136,6 +149,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'Vi har problemer med at indlæse din fil.',
   'fabric.media.webgl_warning_description':
     'Din browser understøtter ikke WebGL. Brug en WebGL-kompatibel browser for at annotere billeder.',
+  'fabric.media.zip_entry_load_failed':
+    'Vi kunne ikke indlæse zip-filelementet til forhåndsvisning',
   'fabric.media.zoom_in': 'zoom ind',
   'fabric.media.zoom_out': 'zoom ud',
 };

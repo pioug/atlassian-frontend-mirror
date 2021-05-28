@@ -8,7 +8,7 @@ import MediaSingle, {
 } from '../../../../react/nodes/mediaSingle';
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
-import { WidthProvider } from '@atlaskit/editor-common';
+import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import { InjectedIntlProps } from 'react-intl';
@@ -205,6 +205,34 @@ describe('MediaSingle', () => {
     it('should return default value when existing container width is not available and layout is not full-width or wide', () => {
       expect(getMediaContainerWidth(0, 'center')).toEqual(760);
       expect(getMediaContainerWidth(0, 'align-end')).toEqual(760);
+    });
+  });
+
+  describe('Unsupported content', () => {
+    it('should return Unsupported Block node when there is no media element', () => {
+      const unsupportedBlock = <UnsupportedBlock></UnsupportedBlock>;
+      const mediaSingle = mountWithIntl(
+        <WidthProvider>
+          <MediaSingle layout={'center'} rendererAppearance={'full-page'}>
+            {unsupportedBlock}
+          </MediaSingle>
+        </WidthProvider>,
+      );
+      expect(mediaSingle.find(UnsupportedBlock)).toHaveLength(1);
+    });
+
+    it('should return only Unsupported Block when there is no Media Element', () => {
+      const unsupportedBlock = <UnsupportedBlock></UnsupportedBlock>;
+      const mediaSingle = mountWithIntl(
+        <WidthProvider>
+          <MediaSingle layout={'center'} rendererAppearance={'full-page'}>
+            {unsupportedBlock}
+            {<Caption>This is a caption</Caption>}
+          </MediaSingle>
+        </WidthProvider>,
+      );
+      expect(mediaSingle.find(UnsupportedBlock)).toHaveLength(1);
+      expect(mediaSingle.find(Caption)).toHaveLength(0);
     });
   });
 });

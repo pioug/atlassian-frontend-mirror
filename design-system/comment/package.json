@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/icon": "^21.5.0",
+    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0"
@@ -36,10 +36,10 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^20.2.0",
+    "@atlaskit/avatar": "^20.3.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^143.0.0",
+    "@atlaskit/editor-core": "^144.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

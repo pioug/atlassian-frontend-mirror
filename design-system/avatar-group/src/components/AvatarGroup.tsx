@@ -174,6 +174,7 @@ const AvatarGroup = ({
         count={total - max}
         size={size}
         testId={testId && `${testId}--overflow-menu--trigger`}
+        isActive={isOpen}
         {...(props as any)}
       />
     );

@@ -181,3 +181,4 @@ export {
   createPollingMaxAttemptsError,
   createRateLimitedError,
 } from './mediaClientErrors';
+export { default as FeatureFlagsWrapper } from './featureFlagsWrapper';

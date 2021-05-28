@@ -6,6 +6,7 @@ export default {
       items: ['taskItem', ['taskItem', 'taskList']],
       isTupleLike: true,
       minItems: 1,
+      allowUnsupportedBlock: true,
     },
     attrs: { props: { localId: { type: 'string' } } },
   },

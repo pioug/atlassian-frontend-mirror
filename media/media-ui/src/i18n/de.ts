@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Hoppla, es konnten keine GIFs abgerufen werden.',
   'fabric.media.check_your_network': 'Überprüfen Sie Ihre Netzwerkverbindung.',
+  'fabric.media.click_to_join': 'Werden Sie ein Teil von {context}',
+  'fabric.media.click_to_join_description':
+    'Ihre Anfrage wurde genehmigt und Sie können {context} direkt beitreten.',
   'fabric.media.close': 'Schließen',
   'fabric.media.close_and_reopen':
     'Versuchen Sie, diese Datei zu schließen und erneut zu öffnen.',
@@ -76,6 +79,8 @@ export default {
   'fabric.media.error_hint_retry': 'Versuchen Sie es erneut.',
   'fabric.media.error_loading_file': 'Fehler beim Laden der Datei',
   'fabric.media.failed_to_load': 'Fehler beim Laden',
+  'fabric.media.forbidden_description':
+    'Sie haben keinen Zugriff auf diese Vorschau. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
   'fabric.media.give_feedback': 'Feedback geben',
   'fabric.media.image': 'Bild',
   'fabric.media.image_format_invalid_error':
@@ -118,6 +123,14 @@ export default {
   'fabric.media.preview_unavailable': 'Vorschau nicht verfügbar',
   'fabric.media.recent_uploads': 'Aktuelle Uploads',
   'fabric.media.remove_image': 'Bild löschen',
+  'fabric.media.request_access': 'Zugriff anfordern',
+  'fabric.media.request_access_description':
+    'Sie müssen Zugriff auf {context} anfordern, um diese Vorschau anzeigen zu können.',
+  'fabric.media.request_access_pending': 'Zugriff ausstehend',
+  'fabric.media.request_access_pending_description':
+    'Ihre Zugriffsanfrage ist ausstehend.',
+  'fabric.media.request_denied_description':
+    'Ihre Zugriffsanfrage wurde abgelehnt. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
   'fabric.media.retry': 'Erneut versuchen',
   'fabric.media.save': 'Speichern',
   'fabric.media.search': 'Suchen',
@@ -148,6 +161,8 @@ export default {
     'Beim Laden Ihrer Datei gibt es Schwierigkeiten.',
   'fabric.media.webgl_warning_description':
     'Ihr Browser unterstützt WebGL nicht. Verwenden Sie zum Kommentieren von Bildern einen WebGL-fähigen Browser.',
+  'fabric.media.zip_entry_load_failed':
+    'Eine Vorschau dieser ZIP-Datei konnte nicht geladen werden',
   'fabric.media.zoom_in': 'Vergrößern',
   'fabric.media.zoom_out': 'Verkleinern',
 };

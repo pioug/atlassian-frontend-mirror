@@ -1674,7 +1674,9 @@ describe('JSONTransformer:', () => {
           ),
           {
             editorProps: {
-              allowReferentiality: true,
+              featureFlags: {
+                'data-consumer-mark': true,
+              },
               allowExtension: true,
             },
           },
@@ -1707,7 +1709,9 @@ describe('JSONTransformer:', () => {
           ),
           {
             editorProps: {
-              allowReferentiality: true,
+              featureFlags: {
+                'data-consumer-mark': true,
+              },
               allowExtension: true,
             },
           },

@@ -168,12 +168,25 @@ describe('<ResizableMediaSingle />', () => {
     expect(resizableMediaSingle.state('isVideoFile')).toBeFalsy();
   });
 
-  it('should pass ratio to Resizable', () => {
+  it('should pass ratio to Resizer', () => {
     const { resizableMediaSingle } = setup(
       getMediaClient().mediaClient.mediaClientConfig,
     );
     const resizerProps = resizableMediaSingle.find(Resizer).props();
     expect(resizerProps.ratio).toBe('80.000');
+  });
+
+  it('should pass correct width to Resizer', () => {
+    const { resizableMediaSingle } = setup(
+      getMediaClient().mediaClient.mediaClientConfig,
+    );
+
+    expect(resizableMediaSingle.state('resizedPctWidth')).toBeUndefined();
+    expect(resizableMediaSingle.find(Resizer).prop('width')).toBe(362);
+    resizableMediaSingle.find(Resizer).prop('calcNewSize')(100, false);
+    // check that resizedPctWidth didn't affect width
+    expect(resizableMediaSingle.state('resizedPctWidth')).not.toBeUndefined();
+    expect(resizableMediaSingle.find(Resizer).prop('width')).toBe(362);
   });
 });
 

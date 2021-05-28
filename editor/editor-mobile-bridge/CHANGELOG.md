@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 26.3.0
+
+### Minor Changes
+
+- [`4b1e5c75a6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b1e5c75a6e) - Track font size analytics for the Hybrid Editor and Renderer.
+- [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
+- [`f582254da39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f582254da39) - [ME-1434] Set max font size on Hybrid Editor and Renderer.
+  [ME-1450] Fix decision panel overlap.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.2.3
 
 ### Patch Changes

@@ -8,6 +8,7 @@ Object {
         "extensionKey": "block-eh",
         "extensionType": "com.atlassian.confluence.macro.core",
         "layout": "default",
+        "localId": "testId",
         "parameters": Object {
           "macroMetadata": Object {
             "placeholder": Array [
@@ -38,6 +39,7 @@ Object {
         "extensionKey": "block-eh",
         "extensionType": "com.atlassian.confluence.macro.core",
         "layout": "full-width",
+        "localId": "testId",
         "parameters": Object {
           "macroMetadata": Object {
             "placeholder": Array [
@@ -68,6 +70,7 @@ Object {
         "extensionKey": "block-eh",
         "extensionType": "com.atlassian.confluence.macro.core",
         "layout": "wide",
+        "localId": "testId",
         "parameters": Object {
           "macroMetadata": Object {
             "placeholder": Array [

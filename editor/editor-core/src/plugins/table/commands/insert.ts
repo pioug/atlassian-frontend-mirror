@@ -125,7 +125,7 @@ export const insertRow = (
   return true;
 };
 
-export const createTable = (allowReferentiality?: boolean): Command => (
+export const createTable = (allowLocalIdGeneration?: boolean): Command => (
   state,
   dispatch,
 ) => {
@@ -134,7 +134,7 @@ export const createTable = (allowReferentiality?: boolean): Command => (
   }
   const table = createTableNode({
     schema: state.schema,
-    allowLocalId: allowReferentiality,
+    allowLocalId: allowLocalIdGeneration,
   });
 
   if (dispatch) {

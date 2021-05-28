@@ -7,19 +7,19 @@ import { StringField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 
 export default function String({
   name,
   field,
   autoFocus,
-  onBlur,
+  onFieldChange,
   placeholder,
 }: {
   name: string;
   field: StringField;
   autoFocus?: boolean;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   placeholder?: string;
 }) {
   const { label, description, defaultValue, isRequired } = field;
@@ -32,7 +32,7 @@ export default function String({
       isRequired={isRequired}
       validate={(value?: string) => validate<string>(field, value || '')}
     >
-      {({ fieldProps, error, valid }) => {
+      {({ fieldProps, error, meta }) => {
         if (field.style === 'multiline') {
           const { onChange, ...restFieldProps } = fieldProps;
           const { options } = field;
@@ -45,7 +45,7 @@ export default function String({
                 onChange={e => onChange(e.currentTarget.value)}
                 onBlur={() => {
                   fieldProps.onBlur();
-                  onBlur(name);
+                  onFieldChange(name, meta.dirty);
                 }}
                 placeholder={placeholder}
               />
@@ -62,7 +62,7 @@ export default function String({
               autoFocus={autoFocus}
               onBlur={() => {
                 fieldProps.onBlur();
-                onBlur(name);
+                onFieldChange(name, meta.dirty);
               }}
               placeholder={placeholder}
             />

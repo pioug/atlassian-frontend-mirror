@@ -82,6 +82,7 @@ export type SwitcherProps = {
   renderAddOn?: RenderAddOn;
   rawProviderResults: ProviderResults & SyntheticProviderResults;
   features: FeatureMap;
+  slackDiscoveryClickHandler?: DiscoverMoreCallback;
   getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes;
   isDiscoverMoreClickable: boolean;
 };
@@ -150,6 +151,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
       onJoinableSiteClicked,
       highlightedJoinableItemHref,
       triggerXFlow,
+      slackDiscoveryClickHandler,
       getExtendedAnalyticsAttributes,
       product,
       isDiscoverMoreClickable,
@@ -323,6 +325,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 suggestedProductLinks={suggestedProductLinks}
                 rawProviderResults={rawProviderResults}
                 isSlackDiscoveryEnabled={features.isSlackDiscoveryEnabled}
+                slackDiscoveryClickHandler={slackDiscoveryClickHandler}
               />
             )}
             <RecentSection appearance={appearance} recentLinks={recentLinks} />

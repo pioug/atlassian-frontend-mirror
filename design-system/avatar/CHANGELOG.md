@@ -1,5 +1,24 @@
 # @atlaskit/avatar
 
+## 20.3.0
+
+### Minor Changes
+
+- [`8f84c89cad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f84c89cad5) - [ux] The styles of overflow button of avatar group has been aligned with default button styles. Also, contrast issue of the button has been fixed.
+
+### Patch Changes
+
+- [`af5707375f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af5707375f7) - Internal code changes.
+- [`cfcefd986eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfcefd986eb) - Adds jsdoc description to exported components.
+- [`4e8f13c9b8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e8f13c9b8a) - Renames internal props to match naming convention.
+- [`1974621bc4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1974621bc4d) - Add eslint rule disable for enforcing filename and extension
+- [`9e335c673bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e335c673bb) - Rename no-type-suffix eslint rule to type-name-no-type-suffix-nor-props, and add restriction for nameing types props.
+- [`1512054d655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1512054d655) - Fixed no-type-suffix eslint errors
+- [`ebd98351a30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebd98351a30) - Corrects internal jsdoc declarations.
+- [`70679cfeb04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70679cfeb04) - Fixed eslint errors by using css object notation
+- [`7ea77bc9fbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ea77bc9fbe) - Internal changes.
+- Updated dependencies
+
 ## 20.2.2
 
 ### Patch Changes
@@ -113,7 +132,7 @@
   const initials = 'MCB';
 
   <Avatar
-    render={props => (
+    render={(props) => (
       <Button {...props}>{initials} // custom initials etc.</Button>
     )}
   />;

@@ -14,7 +14,6 @@ import NotificationIcon from '@atlaskit/icon/glyph/notification';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import SignInIcon from '@atlaskit/icon/glyph/sign-in';
 import QuestionIcon from '@atlaskit/icon/glyph/question-circle';
-import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import GlobalNavigation from '../../index';
@@ -116,11 +115,6 @@ describe('GlobalNavigation', () => {
         akIcon: RecentIcon,
         capitalisedName: 'Recent',
         name: 'recent',
-      },
-      {
-        akIcon: InviteTeamIcon,
-        capitalisedName: 'Invite',
-        name: 'invite',
       },
     ];
 
@@ -1064,10 +1058,6 @@ describe('GlobalNavigation', () => {
       {
         drawerName: 'create',
         analyticsId: 'createDrawer',
-      },
-      {
-        drawerName: 'invite',
-        analyticsId: 'inviteDrawer',
       },
       {
         drawerName: 'notification',

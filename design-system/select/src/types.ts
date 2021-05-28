@@ -4,7 +4,7 @@ import {
   FormatOptionLabelMeta as RSFormatOptionLabelMeta,
   ValueType as RSValueType,
   ActionMeta as RSActionMeta,
-  GroupType,
+  GroupTypeBase as GroupType,
   OptionsType as RSOptionsType,
   SelectComponentsConfig as RSSelectComponentsConfig,
   IndicatorComponentType as RSIndicatorComponentType,
@@ -22,10 +22,10 @@ import {
   ValueContainerProps as RSValueContainerProps,
   GroupedOptionsType,
 } from 'react-select';
+
 import { AsyncProps as ReactAsyncSelectProps } from 'react-select/async';
 
 export type ValidationState = 'default' | 'error' | 'success';
-
 export interface OptionType {
   [key: string]: any;
   label: string;

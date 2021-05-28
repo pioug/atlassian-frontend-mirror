@@ -29,8 +29,8 @@
     "prosemirror-view": "1.15.4"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^16.0.0",
-    "@atlaskit/editor-test-helpers": "^15.0.0",
+    "@atlaskit/adf-schema": "^17.0.0",
+    "@atlaskit/editor-test-helpers": "^15.3.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "techstack": {

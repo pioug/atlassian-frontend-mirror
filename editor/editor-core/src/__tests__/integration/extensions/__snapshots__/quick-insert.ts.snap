@@ -8,6 +8,7 @@ Object {
         "extensionKey": "bodied-eh",
         "extensionType": "com.atlassian.confluence.macro.core",
         "layout": "default",
+        "localId": "testId",
         "parameters": Object {
           "macroMetadata": Object {
             "placeholder": Array [

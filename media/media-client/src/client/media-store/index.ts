@@ -1,5 +1,4 @@
 import {
-  Auth,
   AsapBasedAuth,
   AuthContext,
   ClientAltBasedAuth,
@@ -29,7 +28,7 @@ import {
   RequestMetadata,
   CreateUrlOptions,
 } from '../../utils/request/types';
-import { MediaStoreError } from './error';
+import resolveAuth from './resolveAuth';
 
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
@@ -283,7 +282,8 @@ export class MediaStore {
     id: string,
     params?: MediaStoreGetFileImageParams,
   ): Promise<string> {
-    const auth = await this.config.authProvider();
+    const { collection: collectionName } = params || {};
+    const auth = await this.resolveAuth({ collectionName });
 
     const options: CreateUrlOptions = {
       params: extendImageParams(params),
@@ -294,7 +294,7 @@ export class MediaStore {
   }
 
   async getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
-    const auth = await this.config.authProvider({ collectionName });
+    const auth = await this.resolveAuth({ collectionName });
 
     const options: CreateUrlOptions = {
       params: {
@@ -318,7 +318,7 @@ export class MediaStore {
       throw new Error(`artifact ${artifactName} not found`);
     }
 
-    const auth = await this.config.authProvider({ collectionName });
+    const auth = await this.resolveAuth({ collectionName });
 
     const options: CreateUrlOptions = {
       params: { collection: collectionName, 'max-age': FILE_CACHE_MAX_AGE },
@@ -458,7 +458,6 @@ export class MediaStore {
     },
     controller?: AbortController,
   ): Promise<Response> {
-    const { authProvider } = this.config;
     const {
       method,
       endpoint,
@@ -468,14 +467,7 @@ export class MediaStore {
       body,
       clientOptions,
     } = options;
-    let auth: Auth;
-
-    try {
-      auth = await authProvider(authContext);
-    } catch (err) {
-      throw new MediaStoreError('failedAuthProvider', err);
-    }
-
+    const auth = await this.resolveAuth(authContext);
     const response = await request(
       `${auth.baseUrl}${path}`,
       {
@@ -494,6 +486,9 @@ export class MediaStore {
 
     return response;
   }
+
+  resolveAuth = (authContext?: AuthContext) =>
+    resolveAuth(this.config.authProvider, authContext);
 }
 
 function updateMediaRegion(region: string | null) {

@@ -65,10 +65,7 @@ export default function ModalFooter(props: FooterProps) {
   }
 
   return (
-    <footer
-      css={internalFooterStyles}
-      data-testid={testId && `${testId}--footer`}
-    >
+    <div css={internalFooterStyles} data-testid={testId && `${testId}--footer`}>
       {actions &&
         actions.map(({ text, ...rest }, index) => (
           <Button
@@ -81,6 +78,6 @@ export default function ModalFooter(props: FooterProps) {
             {text}
           </Button>
         ))}
-    </footer>
+    </div>
   );
 }

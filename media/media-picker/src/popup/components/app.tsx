@@ -15,7 +15,6 @@ import { ServiceName, State, ServiceFile, SelectedItem } from '../domain';
 import Footer from './footer/footer';
 import Sidebar from './sidebar/sidebar';
 import UploadView from './views/upload/upload';
-import GiphyView from './views/giphy/giphyView';
 import Browser from './views/browser/browser';
 import { Dropzone as DropzonePlaceholder } from './dropzone/dropzone';
 import MainEditorView from './views/editor/mainEditorView';
@@ -217,8 +216,6 @@ export class App extends Component<AppProps, AppState> {
           featureFlags={featureFlags}
         />
       );
-    } else if (selectedServiceName === 'giphy') {
-      return <GiphyView />;
     } else {
       const selectedPlugin = plugins.find(
         plugin => plugin.name === selectedServiceName,

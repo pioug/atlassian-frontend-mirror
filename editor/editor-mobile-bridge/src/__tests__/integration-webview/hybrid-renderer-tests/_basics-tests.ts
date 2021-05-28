@@ -29,6 +29,23 @@ export default async () => {
         page,
         fontSizeAdf,
         '.ak-renderer-document',
+        '24',
+        'renderer',
+      );
+    },
+  );
+
+  MobileTestCase(
+    'Renderer Text: Validate font size larger than 34px is set to max font size of 34px.',
+    {},
+    async client => {
+      const page = await Page.create(client);
+      await loadRenderer(page);
+      await validateFontSizeOverride(
+        page,
+        fontSizeAdf,
+        '.ak-renderer-document',
+        '35',
         'renderer',
       );
     },

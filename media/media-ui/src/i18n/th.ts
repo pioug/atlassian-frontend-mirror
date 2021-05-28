@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'โอ๊ะ! เราไม่สามารถกู้ไฟล์ GIF ใด ๆ คืนมาได้',
   'fabric.media.check_your_network': 'ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ',
+  'fabric.media.click_to_join': 'เข้าร่วม {context}',
+  'fabric.media.click_to_join_description':
+    'คุณได้รับการอนุมัติแล้ว คุณจึงสามารถเข้าร่วม {context} ได้เลยทันที',
   'fabric.media.close': 'ปิด',
   'fabric.media.close_and_reopen': 'ลองปิดไฟล์นี้แล้วเปิดใหม่',
   'fabric.media.connect_account_description':
@@ -73,6 +76,8 @@ export default {
   'fabric.media.error_hint_retry': 'ลองอีกครั้งและเราจะแสดงใหม่อีกครั้ง',
   'fabric.media.error_loading_file': 'เกิดข้อผิดพลาดในการโหลดไฟล์',
   'fabric.media.failed_to_load': 'ไม่สามารถโหลดได้สำเร็จ',
+  'fabric.media.forbidden_description':
+    'คุณไม่มีสิทธิ์เข้าถึงตัวอย่างนี้ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณต้องการสิทธิ์การเข้าถึง',
   'fabric.media.give_feedback': 'ให้ข้อคิดเห็น',
   'fabric.media.image': 'รูปภาพ',
   'fabric.media.image_format_invalid_error':
@@ -109,6 +114,14 @@ export default {
   'fabric.media.preview_unavailable': 'ไม่สามารถดูตัวอย่างได้',
   'fabric.media.recent_uploads': 'รายการอัปโหลดล่าสุด',
   'fabric.media.remove_image': 'ลบรูปภาพออก',
+  'fabric.media.request_access': 'ส่งคำขอเพื่อเข้าถึง',
+  'fabric.media.request_access_description':
+    'ส่งคำขอในการเข้าถึง {context} เพื่อดูตัวอย่างนี้',
+  'fabric.media.request_access_pending': 'การเข้าถึงกำลังรอดำเนินการ',
+  'fabric.media.request_access_pending_description':
+    'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
+  'fabric.media.request_denied_description':
+    'คำขอการเข้าถึงของคุณถูกปฏิเสธ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณยังต้องการสิทธิ์การเข้าถึง',
   'fabric.media.retry': 'ลองอีกครั้ง',
   'fabric.media.save': 'บันทึก',
   'fabric.media.search': 'ค้นหา',
@@ -136,6 +149,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'เรากำลังประสบปัญหาในการโหลดไฟล์ของคุณ',
   'fabric.media.webgl_warning_description':
     'เบราว์เซอร์ของคุณไม่รองรับ WebGL ใช้เบราว์เซอร์ที่เปิดใช้งาน WebGL ในการทำหมายเหตุประกอบรูปภาพ',
+  'fabric.media.zip_entry_load_failed':
+    'เราไม่สามารถโหลดรายการไฟล์ซิปนั้นเพื่อดูตัวอย่างได้',
   'fabric.media.zoom_in': 'ซูมเข้า',
   'fabric.media.zoom_out': 'ซูมออก',
 };

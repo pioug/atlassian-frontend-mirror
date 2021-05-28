@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { AvatarSizeMap, IndicatorSizeType } from './types';
@@ -22,6 +23,7 @@ export const AVATAR_RADIUS: AvatarSizeMap = {
 };
 
 export const BORDER_WIDTH = 2;
+export const ACTIVE_SCALE_FACTOR = 0.9;
 
 export const ICON_SIZES: Record<IndicatorSizeType, number> = {
   small: 12,

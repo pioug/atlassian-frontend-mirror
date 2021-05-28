@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Jaj! Nem sikerült lekérni egyetlen GIF-et sem',
   'fabric.media.check_your_network': 'Ellenőrizze a hálózati kapcsolatot',
+  'fabric.media.click_to_join': 'Csatlakozz a(z) {context} rendszerhez',
+  'fabric.media.click_to_join_description':
+    'Megkaptad a jóváhagyást, ezért azonnal csatlakozhatsz a következő termékhez: {context}.',
   'fabric.media.close': 'Bezárás',
   'fabric.media.close_and_reopen': 'Zárd be, majd nyisd meg újra a fájlt.',
   'fabric.media.connect_account_description':
@@ -74,6 +77,8 @@ export default {
     'Próbálja meg újból, és teszünk még egy kísérletet.',
   'fabric.media.error_loading_file': 'Hiba történt a fájl betöltésekor.',
   'fabric.media.failed_to_load': 'A betöltés nem sikerült',
+  'fabric.media.forbidden_description':
+    'Nincs hozzáférésed ehhez az előnézethez. Lépj kapcsolatba a webhely adminisztrátorával, ha szükséged van hozzáférésre.',
   'fabric.media.give_feedback': 'Visszajelzés küldése',
   'fabric.media.image': 'kép',
   'fabric.media.image_format_invalid_error':
@@ -115,6 +120,14 @@ export default {
   'fabric.media.preview_unavailable': 'Az előnézet nem áll rendelkezésre',
   'fabric.media.recent_uploads': 'Legutóbb feltöltések',
   'fabric.media.remove_image': 'Kép eltávolítása',
+  'fabric.media.request_access': 'Hozzáférés kérése',
+  'fabric.media.request_access_description':
+    'Kérj hozzáférést a következő termékhez az előnézet megtekintése érdekében: {context}.',
+  'fabric.media.request_access_pending': 'Hozzáférés függőben',
+  'fabric.media.request_access_pending_description':
+    'A hozzáférési kérelmed függőben van.',
+  'fabric.media.request_denied_description':
+    'A hozzáférési kérelmedet elutasították. Lépj kapcsolatba a webhely adminisztrátorával, ha továbbra is szükséged van hozzáférésre.',
   'fabric.media.retry': 'Újra',
   'fabric.media.save': 'Mentés',
   'fabric.media.search': 'keresés',
@@ -144,6 +157,8 @@ export default {
     'Probléma merült fel a fájl betöltése során.',
   'fabric.media.webgl_warning_description':
     'A böngészője nem támogatja a WebGL funkciót. A képek jegyzetekkel való ellátásához használjon a WebGL funkcióval kompatibilis böngészőt.',
+  'fabric.media.zip_entry_load_failed':
+    'Nem tudtuk betölteni a ZIP-fájlt az előnézet megtekintése céljából',
   'fabric.media.zoom_in': 'nagyítás',
   'fabric.media.zoom_out': 'kicsinyítés',
 };

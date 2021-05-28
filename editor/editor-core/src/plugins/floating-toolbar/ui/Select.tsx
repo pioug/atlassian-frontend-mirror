@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import Select, { ValueType } from '@atlaskit/select';
 
 export interface RenderOptionsPropsT<T> {
@@ -32,7 +32,7 @@ export interface Props {
 export default function Search(props: Props) {
   const { width = 200 } = props;
   const style = React.useMemo(
-    () => ({ container: (base: CSSProperties) => ({ ...base, width }) }),
+    () => ({ container: (base: any) => ({ ...base, width }) }),
     [width],
   );
 

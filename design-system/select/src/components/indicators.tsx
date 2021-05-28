@@ -7,13 +7,13 @@ import Spinner from '@atlaskit/spinner';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import DownIcon from '@atlaskit/icon/glyph/chevron-down';
 
-export const ClearIndicator: FC<IndicatorProps<any>> = props => (
+export const ClearIndicator: FC<IndicatorProps<any, any>> = props => (
   <components.ClearIndicator {...props}>
     <SelectClearIcon size="small" primaryColor="inherit" label="clear" />
   </components.ClearIndicator>
 );
 
-export const DropdownIndicator: FC<IndicatorProps<any>> = props => (
+export const DropdownIndicator: FC<IndicatorProps<any, any>> = props => (
   <components.DropdownIndicator {...props}>
     <DownIcon label="open" />
   </components.DropdownIndicator>

@@ -5,6 +5,8 @@ import { IntlProvider } from 'react-intl';
 
 import { InlineCardForbiddenView } from '../..';
 
+jest.mock('react-render-image');
+
 const URL =
   'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';
 

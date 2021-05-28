@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Bir sorunla karşılaştık! GIF dosyaları alınamadı',
   'fabric.media.check_your_network': 'Ağ bağlantınızı kontrol edin',
+  'fabric.media.click_to_join': '{context} ürününe katılın',
+  'fabric.media.click_to_join_description':
+    'Onay aldınız, {context} ürününe hemen katılabilirsiniz.',
   'fabric.media.close': 'Kapat',
   'fabric.media.close_and_reopen': 'Bu dosyayı kapatıp yeniden açmayı deneyin.',
   'fabric.media.connect_account_description':
@@ -76,6 +79,8 @@ export default {
   'fabric.media.error_hint_retry': 'Yeniden deneyin, işlemi tekrarlayalım.',
   'fabric.media.error_loading_file': 'Dosya yükleme hatası',
   'fabric.media.failed_to_load': 'Yüklenemedi',
+  'fabric.media.forbidden_description':
+    'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
   'fabric.media.give_feedback': 'Geri bildirim verin',
   'fabric.media.image': 'görsel',
   'fabric.media.image_format_invalid_error':
@@ -113,6 +118,14 @@ export default {
   'fabric.media.preview_unavailable': 'Önizleme kullanılamıyor',
   'fabric.media.recent_uploads': 'En son yüklemeler',
   'fabric.media.remove_image': 'Görseli kaldır',
+  'fabric.media.request_access': 'Erişim talep edin',
+  'fabric.media.request_access_description':
+    'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
+  'fabric.media.request_access_pending': 'Erişim bekleniyor',
+  'fabric.media.request_access_pending_description':
+    'Erişim talebiniz beklemede.',
+  'fabric.media.request_denied_description':
+    'Erişim talebiniz reddedildi. Hâlâ erişim gerekliyse site yöneticisiyle iletişime geçin.',
   'fabric.media.retry': 'Yeniden Dene',
   'fabric.media.save': 'Kaydet',
   'fabric.media.search': 'Arama',
@@ -140,6 +153,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'Dosyanız yüklenirken bir sorun yaşandı.',
   'fabric.media.webgl_warning_description':
     "Tarayıcınız WebGL'yi desteklemiyor. Görsellere not eklemek için WebGL etkinleştirilmiş bir tarayıcı kullanın.",
+  'fabric.media.zip_entry_load_failed':
+    'Önizlenecek zip dosyası öğesi yüklenemedi',
   'fabric.media.zoom_in': 'yaklaştır',
   'fabric.media.zoom_out': 'uzaklaştır',
 };

@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Ops! Não foi possível encontrar nenhum GIF',
   'fabric.media.check_your_network': 'Verifique sua conexão de rede',
+  'fabric.media.click_to_join': 'Entrar no {context}',
+  'fabric.media.click_to_join_description':
+    'Você foi aprovado, então já pode entrar no {context}.',
   'fabric.media.close': 'Fechar',
   'fabric.media.close_and_reopen': 'Tente fechar o arquivo e abri-lo novamente',
   'fabric.media.connect_account_description':
@@ -73,6 +76,8 @@ export default {
   'fabric.media.error_hint_retry': 'Tente outra vez.',
   'fabric.media.error_loading_file': 'Erro ao carregar arquivo',
   'fabric.media.failed_to_load': 'Falha ao carregar',
+  'fabric.media.forbidden_description':
+    'Você não tem acesso a essa visualização. Entre em contato com o administrador do site se precisar de acesso.',
   'fabric.media.give_feedback': 'Enviar feedback',
   'fabric.media.image': 'imagem',
   'fabric.media.image_format_invalid_error':
@@ -113,6 +118,14 @@ export default {
   'fabric.media.preview_unavailable': 'Visualização indisponível',
   'fabric.media.recent_uploads': 'Arquivos carregados recentemente',
   'fabric.media.remove_image': 'Remover imagem',
+  'fabric.media.request_access': 'Solicitar acesso',
+  'fabric.media.request_access_description':
+    'Solicitar acesso a {context} para ver esta visualização.',
+  'fabric.media.request_access_pending': 'Acesso pendente',
+  'fabric.media.request_access_pending_description':
+    'Sua solicitação de acesso está pendente.',
+  'fabric.media.request_denied_description':
+    'Sua solicitação de acesso foi negada. Se ainda precisar de acesso, entre em contato com o administrador do site.',
   'fabric.media.retry': 'Tentar novamente',
   'fabric.media.save': 'Salvar',
   'fabric.media.search': 'pesquisar',
@@ -143,6 +156,8 @@ export default {
     'Estamos com dificuldade para carregar este arquivo',
   'fabric.media.webgl_warning_description':
     'Seu navegador não é compatível com WebGL. Use um navegador compatível com WebGL para fazer anotações em imagens.',
+  'fabric.media.zip_entry_load_failed':
+    'Não foi possível carregar esse item de arquivo ZIP para visualizar',
   'fabric.media.zoom_in': 'mais zoom',
   'fabric.media.zoom_out': 'menos zoom',
 };

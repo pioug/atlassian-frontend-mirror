@@ -57,22 +57,8 @@ export const imagePreview: ImagePreview = {
 export const getFreshMediaProvider = (collectionName = testCollectionName) =>
   storyMediaProviderFactory({
     collectionName,
-    includeUserAuthProvider: true,
+    includeUserAuthProvider: false,
   });
-
-export const waitForAllPickersInitialised = async (
-  pluginState: MediaPluginState,
-) => {
-  let loopBreaker = 0;
-  while (pluginState.pickers.length < 1) {
-    await new Promise(resolve => resolve());
-    if (loopBreaker++ > 100) {
-      throw new Error(
-        'Infinite loop detected. Could not initialise pickers after 100 ticks',
-      );
-    }
-  }
-};
 
 const createEditor = createEditorFactory<MediaPluginState>();
 export const mediaEditor = (

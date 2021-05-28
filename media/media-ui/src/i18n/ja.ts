@@ -30,6 +30,9 @@ export default {
     '申し訳ありません。ファイルを取得できませんでした。',
   'fabric.media.cant_retrieve_gifs': 'GIF を取得できませんでした',
   'fabric.media.check_your_network': 'ネットワーク接続を確認してください',
+  'fabric.media.click_to_join': '{context} に参加する',
+  'fabric.media.click_to_join_description':
+    '承認されているため、今すぐ {context} に参加できます。',
   'fabric.media.close': '閉じる',
   'fabric.media.close_and_reopen':
     'このファイルを閉じてからもう一度開いてみてください。',
@@ -74,6 +77,8 @@ export default {
   'fabric.media.error_loading_file':
     'ファイルの読み込み中にエラーが発生しました',
   'fabric.media.failed_to_load': '読み込めませんでした',
+  'fabric.media.forbidden_description':
+    'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
   'fabric.media.give_feedback': 'フィードバックを送信',
   'fabric.media.image': '画像',
   'fabric.media.image_format_invalid_error':
@@ -113,6 +118,14 @@ export default {
   'fabric.media.preview_unavailable': 'プレビューがありません',
   'fabric.media.recent_uploads': '最近アップロードしたファイル',
   'fabric.media.remove_image': '画像を削除',
+  'fabric.media.request_access': 'アクセスをリクエスト',
+  'fabric.media.request_access_description':
+    'このプレビューを表示するための{context}へのアクセスをリクエストします。',
+  'fabric.media.request_access_pending': 'アクセス保留中',
+  'fabric.media.request_access_pending_description':
+    'アクセス リクエストは保留中です。',
+  'fabric.media.request_denied_description':
+    'アクセス リクエストが拒否されました。アクセスが必要な場合はサイト管理者にお問い合わせください。',
   'fabric.media.retry': '再試行',
   'fabric.media.save': '保存',
   'fabric.media.search': '検索',
@@ -140,6 +153,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'ファイルを読み込めません。',
   'fabric.media.webgl_warning_description':
     'お使いのブラウザーは WebGL に対応していません。画像に注釈をつけるには WebGL 対応ブラウザーをご利用ください。',
+  'fabric.media.zip_entry_load_failed':
+    'プレビューする zip ファイル アイテムを読み込めませんでした',
   'fabric.media.zoom_in': 'ズームイン',
   'fabric.media.zoom_out': 'ズームアウト',
 };

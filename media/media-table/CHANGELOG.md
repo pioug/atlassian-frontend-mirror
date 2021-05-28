@@ -1,5 +1,12 @@
 # @atlaskit/media-table
 
+## 8.0.7
+
+### Patch Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

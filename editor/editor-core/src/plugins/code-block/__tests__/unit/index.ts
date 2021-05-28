@@ -324,5 +324,55 @@ describe('code-block', () => {
       const button = toolbar.items[2] as { onClick: () => boolean };
       expect(button.onClick).toEqual(copyContentToClipboard);
     });
+
+    it('should find the selected language from the language provided', () => {
+      const { editorView } = editor(
+        doc(code_block({ language: 'javascript' })('Some code here')),
+      );
+
+      const createToolbar = getToolbarConfig(false);
+      // @ts-ignore
+      const toolbar = createToolbar(editorView.state, intl, {});
+
+      expect(toolbar?.items).toHaveLength(3);
+      // @ts-ignore
+      expect(toolbar?.items[0].defaultValue).toEqual({
+        label: 'JavaScript',
+        value: 'javascript',
+        alias: ['javascript', 'js'],
+      });
+    });
+
+    it('should find the selected language from the language provided if it is an alias', () => {
+      const { editorView } = editor(
+        doc(code_block({ language: 'js' })('Some code here')),
+      );
+
+      const createToolbar = getToolbarConfig(false);
+      // @ts-ignore
+      const toolbar = createToolbar(editorView.state, intl, {});
+
+      expect(toolbar?.items).toHaveLength(3);
+      // @ts-ignore
+      expect(toolbar?.items[0].defaultValue).toEqual({
+        label: 'JavaScript',
+        value: 'javascript',
+        alias: ['javascript', 'js'],
+      });
+    });
+
+    it('should not find the selected language from the language provided does not exist', () => {
+      const { editorView } = editor(
+        doc(code_block({ language: 'patagonia' })('Some code here')),
+      );
+
+      const createToolbar = getToolbarConfig(false);
+      // @ts-ignore
+      const toolbar = createToolbar(editorView.state, intl, {});
+
+      expect(toolbar?.items).toHaveLength(3);
+      // @ts-ignore
+      expect(toolbar?.items[0].defaultValue).toEqual(undefined);
+    });
   });
 });

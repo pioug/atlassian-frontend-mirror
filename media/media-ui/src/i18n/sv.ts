@@ -29,6 +29,9 @@ export default {
   'fabric.media.cant_retrieve_files': 'Oj då! Vi kunde inte hämta några filer',
   'fabric.media.cant_retrieve_gifs': 'Oj då! Vi kunde inte hämta några GIF:ar',
   'fabric.media.check_your_network': 'Kontrollera din nätverksanslutning',
+  'fabric.media.click_to_join': 'Gå med i {context}',
+  'fabric.media.click_to_join_description':
+    'Du har godkänts, så du kan ansluta till {context} direkt.',
   'fabric.media.close': 'Stäng',
   'fabric.media.close_and_reopen': 'Testa att stänga filen och öppna den igen.',
   'fabric.media.connect_account_description':
@@ -72,6 +75,8 @@ export default {
   'fabric.media.error_hint_retry': 'Försök igen.',
   'fabric.media.error_loading_file': 'Fel vid inläsning av fil',
   'fabric.media.failed_to_load': 'Fel vid inläsning',
+  'fabric.media.forbidden_description':
+    'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
   'fabric.media.give_feedback': 'Ge feedback',
   'fabric.media.image': 'bild',
   'fabric.media.image_format_invalid_error':
@@ -111,6 +116,14 @@ export default {
   'fabric.media.preview_unavailable': 'Förhandsgranskning är otillgänglig',
   'fabric.media.recent_uploads': 'Senaste uppladdningar',
   'fabric.media.remove_image': 'Ta bort bild',
+  'fabric.media.request_access': 'Begär åtkomst',
+  'fabric.media.request_access_description':
+    'Be om åtkomst till {context} för att visa förhandsgranskningen.',
+  'fabric.media.request_access_pending': 'Väntar på åtkomst',
+  'fabric.media.request_access_pending_description':
+    'Din åtkomstförfrågan väntar på svar.',
+  'fabric.media.request_denied_description':
+    'Din åtkomstförfrågan har nekats. Kontakta webbplatsadministratören om du fortfarande behöver åtkomst.',
   'fabric.media.retry': 'Försök igen',
   'fabric.media.save': 'Spara',
   'fabric.media.search': 'Sök',
@@ -139,6 +152,8 @@ export default {
   'fabric.media.viewer_rateLimited': 'Vi kan inte läsa in filen.',
   'fabric.media.webgl_warning_description':
     'Din webbläsare stöder inte WebGL. Använd en webbläsare som har stöd för WebGL för att kommentera bilder.',
+  'fabric.media.zip_entry_load_failed':
+    'Vi kunde inte läsa in zip-filobjektet för förhandsgranskning',
   'fabric.media.zoom_in': 'zooma in',
   'fabric.media.zoom_out': 'zooma ut',
 };

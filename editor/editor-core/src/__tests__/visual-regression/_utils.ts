@@ -397,12 +397,14 @@ export const initCommentEditorWithAdf = async (
   adf: Object,
   device?: Device,
   mode?: 'light' | 'dark',
+  editorProps?: EditorProps,
 ) => {
   await initEditorWithAdf(page, {
     adf,
     appearance: Appearance.comment,
     device,
     mode,
+    editorProps,
   });
 };
 

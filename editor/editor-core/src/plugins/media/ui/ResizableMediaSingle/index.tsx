@@ -223,8 +223,6 @@ export default class ResizableMediaSingle extends React.Component<
       getPos,
       view: { state },
     } = this.props;
-    const { resizedPctWidth } = this.state;
-
     const pos = typeof getPos === 'function' ? getPos() : undefined;
 
     return calcMediaPxWidth({
@@ -235,8 +233,7 @@ export default class ResizableMediaSingle extends React.Component<
       containerWidth: { width: containerWidth, lineLength },
       isFullWidthModeEnabled: fullWidthMode,
       layout: useLayout || layout,
-      pos: pos,
-      resizedPctWidth,
+      pos,
     });
   };
 
@@ -320,7 +317,7 @@ export default class ResizableMediaSingle extends React.Component<
       children,
     } = this.props;
 
-    let initialWidth = this.calcPxWidth(); // width with padding
+    const initialWidth = this.calcPxWidth(); // width with padding
     let ratio: string | undefined;
     if (origWidth) {
       ratio = ((origHeight / origWidth) * 100).toFixed(3);

@@ -5,22 +5,30 @@ import { EnumSelectField, Option } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate, getOptionFromValue } from '../utils';
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 import { formatOptionLabel } from './SelectItem';
 
 export default function SelectField({
   name,
   field,
-  onBlur,
+  onFieldChange,
   autoFocus,
   placeholder,
+  fieldDefaultValue,
 }: {
   name: string;
   field: EnumSelectField;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   autoFocus?: boolean;
   placeholder?: string;
+  fieldDefaultValue?: string | string[];
 }) {
+  //ignore arrays as mutli-value select fields are always clearable
+  const hasValidSignleDefaultValue =
+    !Array.isArray(fieldDefaultValue) && fieldDefaultValue !== undefined;
+
+  const isClearable = !hasValidSignleDefaultValue || field.isMultiple;
+
   return (
     <Field<ValueType<Option>>
       name={name}
@@ -32,24 +40,24 @@ export default function SelectField({
         >
       }
       isRequired={field.isRequired}
-      validate={(value: ValueType<Option>) =>
-        validate<ValueType<Option>>(field, value)
-      }
+      validate={(value: ValueType<Option> | null | undefined) => {
+        return validate<ValueType<Option>>(field, value!);
+      }}
     >
-      {({ fieldProps, error, valid }) => (
+      {({ fieldProps, error }) => (
         <Fragment>
           <Select
             {...fieldProps}
             onChange={value => {
               fieldProps.onChange(value);
-              onBlur(name);
+              onFieldChange(name, true);
             }}
             // @see DST-2386 & ED-12503
             enableAnimation={false}
             // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
             isMulti={(field.isMultiple || false) as false}
             options={field.items || []}
-            isClearable={!field.isRequired}
+            isClearable={isClearable}
             validationState={error ? 'error' : 'default'}
             formatOptionLabel={formatOptionLabel}
             autoFocus={autoFocus}

@@ -43,5 +43,5 @@ export interface CodeBlockProps {
   highlightedEndText?: string;
 }
 
-export type { SupportedLanguages, LanguageAlias } from '../constants';
+export type { SupportedLanguages, LanguageAlias, Language } from '../constants';
 export type { CodeBlockTheme, CodeTheme } from './theme/types';

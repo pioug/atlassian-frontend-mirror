@@ -57,11 +57,15 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
   parameters?: T;
 };
 
+export type DynamicFieldDefinitions<T> = (parameters: T) => FieldDefinition[];
+
 export type ExtensionModuleNode<T extends Parameters = Parameters> = {
   type: 'extension' | 'inlineExtension' | 'bodiedExtension';
   render: () => ExtensionComponentModule<T>;
   update?: UpdateExtension<T>;
-  getFieldsDefinition?: (extensionParameters: T) => Promise<FieldDefinition[]>;
+  getFieldsDefinition?: (
+    extensionParameters: T,
+  ) => Promise<FieldDefinition[] | DynamicFieldDefinitions<T>>;
 };
 
 export type ExtensionModuleNodes<T extends Parameters = Parameters> = {

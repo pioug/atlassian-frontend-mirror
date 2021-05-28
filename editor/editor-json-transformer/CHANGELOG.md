@@ -1,5 +1,23 @@
 # @atlaskit/editor-json-transformer
 
+## 8.6.3
+
+### Patch Changes
+
+- [`566f674ac8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/566f674ac8f) - _Removes_ `allowReferentiality` & `UNSAFE_allowDataConsumer` props from editor props.
+  These can now be toggled via the feature flags prop, e.g.
+
+  ```tsx
+  <Editor
+    featureFlags={{
+      'allow-local-id-generation-on-tables': true,
+      'allow-data-consumer': true,
+    }}
+  />
+  ```
+
+- Updated dependencies
+
 ## 8.6.2
 
 ### Patch Changes

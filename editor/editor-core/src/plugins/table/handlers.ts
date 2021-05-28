@@ -7,8 +7,8 @@ import { isTextInput } from '../../utils/is-text-input';
 
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
-import { TableColumnOrdering, TablePluginState } from './types';
-import { TableSortStep } from './utils/sort-step';
+import { TablePluginState } from './types';
+import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
 // #endregion
 
 const nextTableSorting = (

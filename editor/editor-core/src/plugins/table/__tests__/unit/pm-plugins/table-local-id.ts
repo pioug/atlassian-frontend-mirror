@@ -5,6 +5,7 @@ import { __serializeForClipboard } from 'prosemirror-view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { replaceRaf } from 'raf-stub';
 
 import { handleCut } from '../../../event-handlers';
 
@@ -29,6 +30,9 @@ import { CellSelection } from '@atlaskit/editor-tables';
 
 import { uuid } from '@atlaskit/adf-schema';
 
+replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as any;
+
 const mockUuidGenerated = 'a-mock-uuid';
 const mockUuidGenerate = jest.fn().mockReturnValue(mockUuidGenerated);
 
@@ -43,7 +47,17 @@ describe('table local id plugin', () => {
   // Won't use `createProsemirrorEditorFactory` here, to also cover editorprops
   const createEditor = createEditorFactory<TablePluginState>();
 
-  const editor = (doc: DocBuilder) => {
+  const editor = (
+    doc: DocBuilder,
+    options: {
+      skipRefs: boolean;
+      defaultValue: any;
+    } = {
+      skipRefs: false,
+      defaultValue: undefined,
+    },
+  ) => {
+    const { skipRefs, defaultValue } = options;
     const tableOptions = {
       allowNumberColumn: true,
       allowHeaderRow: true,
@@ -54,12 +68,17 @@ describe('table local id plugin', () => {
     return createEditor({
       doc,
       editorProps: {
+        featureFlags: {
+          'local-id-generation-on-tables': true,
+          'data-consumer-mark': true,
+        },
         allowExpand: true,
         allowLayouts: true,
-        allowReferentiality: true,
         allowTables: tableOptions,
+        defaultValue,
       },
       pluginKey: tablePluginKey,
+      skipRefs,
     });
   };
 
@@ -81,6 +100,125 @@ describe('table local id plugin', () => {
   });
 
   describe('Table localId duplication plugin', () => {
+    describe('table initialisation', () => {
+      it('should generate IDs on multiple tables without IDs', () => {
+        const spy = jest
+          .spyOn(uuid, 'generate')
+          .mockReturnValueOnce(flooFirst)
+          .mockReturnValueOnce(flooSecond);
+        /**
+         * We need to feed in a defaultValue here and skip the ref logic in
+         * createEditor as that setSelection fires off some transaction
+         * which inadvertently triggers our usual "a table is added" checks.
+         *
+         * We want to check that this flow can happen:
+         * 1. load document with pre-existing non-local-id table
+         * 2. immediately use it for charts (without adding a new table to
+         * trigger our "check all table IDs" logic in appendTransaction)
+         */
+
+        const tableAsDefaultValue = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: undefined,
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: '1',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'table',
+              attrs: {
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: undefined,
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: '1',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              content: [],
+            },
+          ],
+        };
+        const { editorView } = editor(doc(), {
+          skipRefs: true,
+          defaultValue: tableAsDefaultValue,
+        });
+        // Ensure we actually initialised with no ID
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            table({ localId: '' })(tr(th()(p('1')))),
+            table({ localId: '' })(tr(th()(p('1')))),
+            p(''),
+          ),
+        );
+        expect(spy).toBeCalledTimes(0);
+
+        // Check we add IDs for existing tables
+        let { state } = editorView;
+        editorView.updateState(state);
+        requestAnimationFrame.step();
+        /**
+         * This one is really only needed if we use the "remove the
+         * `checkIsAddingTable` solution". But who doesn't want to feed the cats
+         */
+        insertText(editorView, 'feed the cats', state.doc.nodeSize - 3);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            table({ localId: flooFirst })(tr(th()(p('1')))),
+            table({ localId: flooSecond })(tr(th()(p('1')))),
+            p('feed the cats'),
+          ),
+        );
+        expect(spy).toBeCalledTimes(2);
+      });
+    });
     describe('basic editing of a table', () => {
       it('should NOT touch/overwrite localIds if inserting text inside a table', () => {
         const { editorView, sel } = editor(

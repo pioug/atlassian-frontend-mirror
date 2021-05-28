@@ -3,6 +3,9 @@ export const TEST_URL = 'https://my.url.com';
 export const TEST_VISIT_URL = 'https://visit.url.com';
 export const TEST_NAME = 'my name';
 export const TEST_STRING = 'foo';
+export const TEST_PREFIX = 'some-mock-prefix';
+export const TEST_EMOJI = '"emoji-id"';
+export const TEST_EMOJI_SANITIZED = 'emoji-id';
 export const TEST_LINK: JsonLd.Primitives.Link = {
   '@type': 'Link',
   href: TEST_URL,
@@ -28,6 +31,11 @@ export const TEST_IMAGE_WITH_LINK: JsonLd.Primitives.Image = {
   '@type': 'Image',
   url: TEST_LINK,
 };
+
+export const TEST_TITLE_EMOJI: JsonLd.Data.BaseData['atlassian:titlePrefix'] = {
+  '@type': 'atlassian:Emoji',
+  text: TEST_EMOJI,
+};
 export const TEST_BASE_DATA: JsonLd.Data.BaseData = {
   ...TEST_OBJECT,
   '@context': {
@@ -36,6 +44,17 @@ export const TEST_BASE_DATA: JsonLd.Data.BaseData = {
     schema: 'http://schema.org/',
   },
 };
+
+export const TEST_DATA_WITH_EMOJI: JsonLd.Data.BaseData = {
+  ...TEST_BASE_DATA,
+  'atlassian:titlePrefix': TEST_TITLE_EMOJI,
+};
+
+export const TEST_DATA_WITH_NO_PREFIX: JsonLd.Data.BaseData = {
+  ...TEST_BASE_DATA,
+  'atlassian:titlePrefix': undefined,
+};
+
 export const TEST_PROJECT: JsonLd.Data.Project = {
   ...TEST_BASE_DATA,
   '@type': 'atlassian:Project',

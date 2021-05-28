@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 import styled from 'styled-components';
 import { N40 } from '@atlaskit/theme/colors';
@@ -7,6 +8,8 @@ import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Button from '@atlaskit/button';
 import { gridSize } from '@atlaskit/theme/constants';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import { messages } from '../messages';
+import { multiply } from '@atlaskit/theme/math';
 
 export const ExpandContainer = styled.div`
   border-bottom: 1px solid ${N40};
@@ -14,7 +17,7 @@ export const ExpandContainer = styled.div`
 
 export const ExpandControl = styled.div`
   display: flex;
-  height: 40px;
+  height: ${multiply(gridSize, 6)}px;
   justify-content: center;
   padding-right: ${gridSize()}px;
 `;
@@ -25,8 +28,8 @@ const ChevronContainer = styled.div`
 
   & > button {
     padding: 0;
-    width: 24px;
-    height: 24px;
+    width: ${multiply(gridSize, 3)}px;
+    height: ${multiply(gridSize, 3)}px;
   }
 `;
 
@@ -39,19 +42,18 @@ const LabelContainer = styled.div`
 
 const ExpandContentContainer = styled.div<{ isHidden: boolean }>`
   display: ${({ isHidden }) => (isHidden ? 'none' : 'block')};
+  margin-top: -${gridSize}px;
 `;
 
 ExpandContentContainer.displayName = 'ExpandContentContainer';
 
-function Expand({
-  field,
-  children,
-  isExpanded = false,
-}: {
+type Props = {
   field: FieldDefinition;
   children: React.ReactNode;
   isExpanded?: boolean;
-}) {
+} & InjectedIntlProps;
+
+function Expand({ field, children, isExpanded = false, intl }: Props) {
   const [expanded, setExpanded] = useState(isExpanded);
 
   return (
@@ -66,9 +68,9 @@ function Expand({
             testId="form-expand-toggle"
           >
             {expanded ? (
-              <ChevronDownIcon label="collapse" />
+              <ChevronDownIcon label={intl.formatMessage(messages.collapse)} />
             ) : (
-              <ChevronRightIcon label="expand" />
+              <ChevronRightIcon label={intl.formatMessage(messages.expand)} />
             )}
           </Button>
         </ChevronContainer>
@@ -80,4 +82,4 @@ function Expand({
   );
 }
 
-export default Expand;
+export default injectIntl(Expand);

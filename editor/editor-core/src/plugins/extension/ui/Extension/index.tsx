@@ -17,7 +17,6 @@ export interface Props {
   providerFactory?: ProviderFactory;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
-  allowReferentiality?: boolean;
   refNode?: ADFEntity;
 }
 

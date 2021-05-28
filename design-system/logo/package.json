@@ -52,10 +52,10 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/code": "^14.0.0",
+    "@atlaskit/code": "^14.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-radio-group": "^8.0.0",
-    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/select": "^14.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^11.2.0",
     "@atlaskit/visual-regression": "*",

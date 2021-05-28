@@ -38,9 +38,8 @@ import {
   CardState,
   NumericalCardDimensions,
 } from '../..';
-import { CardView, CardViewBase } from '../cardView';
-import { LazyContent } from '../../utils/lazyContent';
-import { isIntersectionObserverSupported } from '../../utils/intersectionObserver';
+import { CardView } from '../cardView';
+import { ViewportDetector } from '../../utils/viewportDetector';
 import { getDataURIDimension } from '../../utils/getDataURIDimension';
 import {
   CardPreview,
@@ -51,7 +50,7 @@ import { extendMetadata } from '../../utils/metadata';
 import { isBigger } from '../../utils/dimensionComparer';
 import { createObjectURLCache } from '../../utils/objectURLCache';
 import { getCardStatus, extractCardStatusParams } from './getCardStatus';
-import { InlinePlayer, InlinePlayerBase } from '../inlinePlayer';
+import { InlinePlayer } from '../inlinePlayer';
 import {
   fireMediaCardEvent,
   getFileAttributes,
@@ -64,7 +63,10 @@ import {
   MediaCardError,
   ensureMediaCardError,
 } from '../../errors';
-import { fireOperationalEvent } from './cardAnalytics';
+import {
+  fireOperationalEvent,
+  relevantFeatureFlagNames,
+} from './cardAnalytics';
 
 export type CardWithAnalyticsEventsProps = CardProps & WithAnalyticsEventsProps;
 
@@ -78,9 +80,6 @@ export class CardBase extends Component<
   // Stores last retrieved file state for logging purposes
   private lastFileState?: FileState;
   private lastCardStatusUpdateTimestamp?: number;
-  private intersectionObserver?: IntersectionObserver;
-
-  cardRef: React.RefObject<CardViewBase | InlinePlayerBase> = React.createRef();
 
   subscription?: Subscription;
   static defaultProps: Partial<CardProps> = {
@@ -119,6 +118,7 @@ export class CardBase extends Component<
       isCardVisible: cardPreview ? true : !this.props.isLazy,
       isPlayingFile: false,
       cardPreview,
+      cardRef: null,
     };
   }
 
@@ -129,13 +129,12 @@ export class CardBase extends Component<
   onCopyListener = () => {
     if (typeof window.getSelection === 'function') {
       const selection = window.getSelection();
-
+      const { cardRef } = this.state;
       if (
-        this.cardRef.current &&
-        this.cardRef.current.divRef.current instanceof Node &&
+        cardRef &&
         selection &&
         selection.containsNode &&
-        selection.containsNode(this.cardRef.current.divRef.current, true)
+        selection.containsNode(cardRef, true)
       ) {
         this.fireFileCopiedEvent();
       }
@@ -148,48 +147,11 @@ export class CardBase extends Component<
     return [id, dimensions.height, dimensions.width].join('-');
   };
 
-  // We want to detect when the component enters the viewport so we know when we
-  // can fetch the /image preview
-  private checkIfCardIsInViewport = () => {
-    const { isLazy } = this.props;
-    const target = this.cardRef.current && this.cardRef.current.divRef.current;
-
-    if (!isLazy || !isIntersectionObserverSupported() || !target) {
-      return;
-    }
-
-    const onIntersection: IntersectionObserverCallback = (
-      entries,
-      observer,
-    ) => {
-      for (let entry of entries) {
-        if (entry.isIntersecting) {
-          this.setState({ isCardVisible: true });
-          observer.disconnect();
-          break;
-        }
-      }
-    };
-    // IntersectionObserver uses root and target elements to detect intersections, defaulting root to the viewport
-    this.intersectionObserver = new IntersectionObserver(onIntersection);
-
-    if (target) {
-      this.intersectionObserver.observe(target);
-    }
-  };
-
-  private cleanupCardInViewportObserver = () => {
-    if (this.intersectionObserver) {
-      this.intersectionObserver.disconnect();
-    }
-  };
-
   componentDidMount() {
     this.hasBeenMounted = true;
     this.fireCommencedEvent();
     this.updateStateForIdentifier();
     document.addEventListener('copy', this.onCopyListener);
-    this.checkIfCardIsInViewport();
   }
 
   componentDidUpdate(prevProps: CardProps, prevState: CardState) {
@@ -259,7 +221,6 @@ export class CardBase extends Component<
     this.hasBeenMounted = false;
     this.unsubscribe();
     document.removeEventListener('copy', this.onCopyListener);
-    this.cleanupCardInViewportObserver();
   }
 
   updateStateForIdentifier() {
@@ -284,9 +245,10 @@ export class CardBase extends Component<
 
   private getRequestedDimensions(): NumericalCardDimensions {
     const { dimensions } = this.props;
+    const { cardRef } = this.state;
     const options = {
       dimensions,
-      element: this.cardRef.current && this.cardRef.current.divRef.current,
+      element: cardRef,
     };
     const width = getDataURIDimension('width', options);
     const height = getDataURIDimension('height', options);
@@ -602,6 +564,10 @@ export class CardBase extends Component<
     });
   };
 
+  setRef = (cardRef: HTMLDivElement | null) => {
+    !!cardRef && this.setState({ cardRef });
+  };
+
   renderInlinePlayer = () => {
     const {
       identifier,
@@ -621,7 +587,7 @@ export class CardBase extends Component<
         onError={this.onInlinePlayerError}
         onClick={this.onClick}
         selected={selected}
-        ref={this.cardRef}
+        ref={this.setRef}
         testId={testId}
       />
     );
@@ -717,6 +683,7 @@ export class CardBase extends Component<
         orientation: 1,
       },
       error,
+      cardRef,
     } = this.state;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
@@ -740,19 +707,18 @@ export class CardBase extends Component<
         progress={progress}
         onDisplayImage={onDisplayImage}
         previewOrientation={orientation}
-        ref={this.cardRef}
+        innerRef={this.setRef}
         testId={testId}
         featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
         titleBoxIcon={titleBoxIcon}
       />
     );
-    const shouldUseLazyContent = isLazy && !isIntersectionObserverSupported(); // We use LazyContent for old browsers
 
-    return shouldUseLazyContent ? (
-      <LazyContent placeholder={card} onRender={this.onCardInViewport}>
+    return isLazy ? (
+      <ViewportDetector targetRef={cardRef} onVisible={this.onCardInViewport}>
         {card}
-      </LazyContent>
+      </ViewportDetector>
     ) : (
       card
     );
@@ -822,14 +788,6 @@ export const Card: React.ComponentType<CardWithAnalyticsEventsProps> = withMedia
     component: 'mediaCard',
   },
   {
-    filterFeatureFlags: [
-      'newCardExperience',
-      'poll_intervalMs',
-      'poll_maxAttempts',
-      'poll_backoffFactor',
-      'poll_maxIntervalMs',
-      'poll_maxGlobalFailures',
-      'captions',
-    ],
+    filterFeatureFlags: relevantFeatureFlagNames,
   },
 )(withAnalyticsEvents()(CardBase));

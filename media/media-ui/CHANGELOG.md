@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 16.2.0
+
+### Minor Changes
+
+- [`7cb22b649a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cb22b649a7) - Fix Exif orientation display in MediaImage, add VR tests
+- [`756e94e27a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/756e94e27a5) - [ux] EDM-1953: Provide default icon on the card view on smart link.
+- [`c9dd0243320`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9dd0243320) - [ux] prepend page title with emoji icon for smart link and block card
+
+### Patch Changes
+
+- [`7ded168e0c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ded168e0c2) - Update translation
+- Updated dependencies
+
 ## 16.1.0
 
 ### Minor Changes

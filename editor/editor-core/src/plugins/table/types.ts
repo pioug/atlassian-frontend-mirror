@@ -11,13 +11,9 @@ import {
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
 import { TableSharedCssClassName } from '@atlaskit/editor-common';
+import { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 
 import { INPUT_METHOD } from '../analytics/types/enums';
-
-export enum SortOrder {
-  ASC = 'asc',
-  DESC = 'desc',
-}
 
 export const RESIZE_HANDLE_AREA_DECORATION_GAP = 30;
 export type RowInsertPosition = 'TOP' | 'BOTTOM';
@@ -60,6 +56,7 @@ export interface PluginConfig {
   initialRenderOptimization?: boolean;
   mouseMoveOptimization?: boolean;
   tableOverflowShadowsOptimization?: boolean;
+  allowLocalIdGeneration?: boolean;
 }
 
 export interface ColumnResizingPluginState {
@@ -95,11 +92,6 @@ export interface ColumnResizingPluginState {
  *
  */
 export type CellColumnPositioning = Pick<Rect, 'right' | 'left'>;
-
-export interface TableColumnOrdering {
-  columnIndex: number;
-  order: SortOrder;
-}
 
 export interface TablePluginState {
   editorHasFocus?: boolean;

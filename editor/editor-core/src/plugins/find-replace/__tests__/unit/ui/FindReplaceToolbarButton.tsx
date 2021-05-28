@@ -32,6 +32,7 @@ describe('FindReplaceToolbarButton', () => {
         onFindPrev={jest.fn()}
         onReplace={jest.fn()}
         onReplaceAll={jest.fn()}
+        takeFullWidth={false}
         {...props}
       />,
     );

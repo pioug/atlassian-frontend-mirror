@@ -2,6 +2,7 @@ import type { HTMLProps, ReactNode } from 'react';
 
 export type {
   SupportedLanguages,
+  Language,
   LanguageAlias,
   CodeBlockProps,
 } from './internal/types';

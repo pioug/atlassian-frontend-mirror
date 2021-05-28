@@ -6,6 +6,7 @@ export type {
   CodeProps,
   SupportedLanguages,
   LanguageAlias,
+  Language,
 } from './types';
 
 export { SUPPORTED_LANGUAGES } from './constants';

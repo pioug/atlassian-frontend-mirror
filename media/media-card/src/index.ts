@@ -87,6 +87,7 @@ export interface CardState {
   progress?: number;
   cardPreview?: CardPreview;
   error?: MediaCardError;
+  cardRef: HTMLDivElement | null;
 }
 
 export { CardLoading } from './utils/lightCards/cardLoading';

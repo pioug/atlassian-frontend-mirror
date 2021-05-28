@@ -1,4 +1,7 @@
-import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import {
+  ExtensionManifest,
+  FieldDefinition,
+} from '@atlaskit/editor-common/extensions';
 
 const manifest: ExtensionManifest = {
   title: 'My awesome extension',
@@ -57,6 +60,16 @@ const manifest: ExtensionManifest = {
           parameters: {},
         },
       },
+      {
+        key: 'configError',
+        title: 'Awesome config error',
+        icon: () => import('@atlaskit/icon/glyph/cross'),
+        action: {
+          type: 'node',
+          key: 'configError',
+          parameters: {},
+        },
+      },
     ],
     nodes: {
       default: {
@@ -73,10 +86,116 @@ const manifest: ExtensionManifest = {
         getFieldsDefinition: () =>
           Promise.resolve([
             {
+              name: 'color-picker',
+              label: 'Color Picker',
+              type: 'color',
+              description: 'Pick a color',
+              defaultValue: '#7AB2FF',
+            },
+            {
+              name: 'fieldset-json-group',
+              type: 'fieldset',
+              label: 'json-group',
+              options: {
+                isDynamic: true,
+                transformer: {
+                  type: 'json-group',
+                },
+              },
+              fields: [
+                {
+                  name: 'color-picker-fieldset',
+                  label: 'Color Picker in Fieldset',
+                  type: 'color',
+                  description: 'Pick a color',
+                  defaultValue: '#FF8F73',
+                },
+              ],
+            },
+            {
               name: 'sentence',
               label: 'Sentence',
               isRequired: true,
               type: 'string',
+            },
+            {
+              type: 'enum',
+              label: 'Chart C',
+              name: 'chartSelect',
+              style: 'select',
+              items: [
+                { label: 'Line chart', value: 'line' },
+                { label: 'Bar chart', value: 'bar' },
+                { label: 'World map', value: 'map' },
+              ],
+            },
+            {
+              name: 'expand 1',
+              type: 'expand',
+              label: 'Expand 1',
+              fields: [
+                {
+                  name: 'text-field-1',
+                  type: 'string',
+                  label: 'Free text',
+                  isRequired: true,
+                  description: 'Add some text',
+                  defaultValue: 'I am the default text',
+                },
+                {
+                  name: 'number',
+                  label: 'Enter your number',
+                  isRequired: true,
+                  type: 'number',
+                },
+                {
+                  name: 'free-boolean',
+                  label: 'Free Boolean',
+                  isRequired: true,
+                  type: 'boolean',
+                },
+              ],
+            },
+            {
+              name: 'expand 2',
+              type: 'expand',
+              label: 'Expand 2',
+              fields: [
+                {
+                  name: 'text-field-4',
+                  type: 'string',
+                  label: 'Free text',
+                  isRequired: true,
+                  description: 'Add some text',
+                  defaultValue: 'I am the default text',
+                },
+              ],
+            },
+            {
+              name: 'expand 3',
+              type: 'expand',
+              label: 'Expand 3',
+              fields: [
+                {
+                  type: 'enum',
+                  label: 'Select',
+                  name: 'chartSelectInExpand',
+                  style: 'select',
+                  items: [
+                    { label: 'Line chart', value: 'line' },
+                    { label: 'Bar chart', value: 'bar' },
+                    { label: 'World map', value: 'map' },
+                  ],
+                },
+                {
+                  name: 'text-field-5',
+                  type: 'string',
+                  label: 'Free text',
+                  isRequired: true,
+                  description: 'Add some text',
+                  defaultValue: 'I am the default text',
+                },
+              ],
             },
             {
               name: 'item',
@@ -165,6 +284,35 @@ const manifest: ExtensionManifest = {
               items: [],
             },
           ]),
+      },
+      configError: {
+        type: 'extension',
+        render: () => import('./extension-handler'),
+        update: (data, actions) => {
+          return new Promise(() => {
+            actions!.editInContextPanel(
+              parameters => parameters,
+              parameters => Promise.resolve(parameters),
+            );
+          });
+        },
+        getFieldsDefinition: async () =>
+          [
+            // Intentional; this is missing options to cause an error
+            { name: 'user', label: 'User', type: 'user' },
+          ] as FieldDefinition[],
+      },
+    },
+    fields: {
+      fieldset: {
+        'json-group': {
+          serializer: value => {
+            return JSON.stringify(value);
+          },
+          deserializer: value => {
+            return JSON.parse(value);
+          },
+        },
       },
     },
   },

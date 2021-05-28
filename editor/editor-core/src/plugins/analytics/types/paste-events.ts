@@ -1,4 +1,4 @@
-import { TrackAEP } from './utils';
+import { OperationalAEP, TrackAEP } from './utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -128,6 +128,18 @@ type PasteBaseAEP<Action, Attributes, NonPrivacySafeAttributes> = TrackAEP<
   NonPrivacySafeAttributes
 >;
 
+type PasteBaseOperationalAEP<
+  Action,
+  Attributes,
+  NonPrivacySafeAttributes
+> = OperationalAEP<
+  Action,
+  ACTION_SUBJECT.EDITOR,
+  PASTE_ACTION_SUBJECT_ID,
+  Attributes,
+  NonPrivacySafeAttributes
+>;
+
 type PasteAEP = PasteBaseAEP<
   ACTION.PASTED,
   {
@@ -152,4 +164,14 @@ type PasteAsPlainAEP = PasteBaseAEP<
   undefined
 >;
 
-export type PasteEventPayload = PasteAEP | PasteAsPlainAEP;
+type PastedTimedAEP = PasteBaseOperationalAEP<
+  ACTION.PASTED_TIMED,
+  {
+    pasteIntoNode: PASTE_ACTION_SUBJECT_ID;
+    content: Array<string>;
+    time: number;
+  },
+  undefined
+>;
+
+export type PasteEventPayload = PasteAEP | PasteAsPlainAEP | PastedTimedAEP;

@@ -4,7 +4,7 @@ import { exampleDocument } from '../example-helpers/grid-document';
 import CommentExample from './2-comment';
 
 const mediaProvider = storyMediaProviderFactory({
-  includeUserAuthProvider: true,
+  includeUserAuthProvider: false,
 });
 
 export default function CommentWithResizingExample() {

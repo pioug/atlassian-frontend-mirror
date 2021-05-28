@@ -1,5 +1,6 @@
 export enum ActionSubject {
   EDITOR = 'editor',
+  RENDERER = 'renderer',
 }
 
 export enum ActionSubjectID {

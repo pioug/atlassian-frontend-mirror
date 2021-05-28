@@ -39,7 +39,7 @@ export class JiraCardProvider extends EditorCardProvider {
       };
     }
 
-    // If the URL doesn't look like something we should handle, try native provider.
+    // If the URL doesn't look like something we should handle, try native provider
     return super.resolve(url, appearance);
   }
 }

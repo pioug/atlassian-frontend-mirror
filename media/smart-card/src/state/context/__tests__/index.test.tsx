@@ -37,4 +37,25 @@ describe('useSmartCardContext()', () => {
       }),
     );
   });
+
+  it('provides renderers to consumer', () => {
+    const renderersParams = {
+      renderers: {
+        emoji: (emoji?: string) => <div />,
+        adf: (adf?: string) => <div />,
+      },
+    };
+
+    const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
+      <SmartCardProvider client={new CardClient()} {...renderersParams}>
+        {children}
+      </SmartCardProvider>
+    );
+
+    const { current } = renderHook(() => useSmartLinkContext(), {
+      wrapper,
+    }).result;
+
+    expect(current).toEqual(expect.objectContaining(renderersParams));
+  });
 });

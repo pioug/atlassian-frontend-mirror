@@ -33,79 +33,81 @@ const analyticsAttributes = {
 
 const noop = () => {};
 
-const InnerBreadcrumbs = (props: ThemedBreadcrumbsProps) => {
-  const {
-    defaultExpanded = false,
-    isExpanded,
-    maxItems = defaultMaxItems,
-    itemsBeforeCollapse = 1,
-    itemsAfterCollapse = 1,
-    children = [],
-    testId,
-    onExpand: providedExpanse = noop,
-    analyticsContext,
-    mode = 'light',
-    label = defaultBreadcrumbsLabel,
-    ellipsisLabel = defaultEllipsisLabel,
-  } = props;
+const InnerBreadcrumbs = forwardRef(
+  (props: ThemedBreadcrumbsProps, ref: React.Ref<any>) => {
+    const {
+      defaultExpanded = false,
+      isExpanded,
+      maxItems = defaultMaxItems,
+      itemsBeforeCollapse = 1,
+      itemsAfterCollapse = 1,
+      children = [],
+      testId,
+      onExpand: providedExpanse = noop,
+      analyticsContext,
+      mode = 'light',
+      label = defaultBreadcrumbsLabel,
+      ellipsisLabel = defaultEllipsisLabel,
+    } = props;
 
-  const [expanded, setExpanse] = useState(defaultExpanded);
-  const isControlled = typeof isExpanded !== 'undefined';
-  const handleExpansion = usePlatformLeafEventHandler({
-    fn: (
-      event: React.MouseEvent<Element>,
-      analyticsEvent: UIAnalyticsEvent,
-    ) => {
-      if (!isControlled) {
-        setExpanse(expanded => !expanded);
+    const [expanded, setExpanse] = useState(defaultExpanded);
+    const isControlled = typeof isExpanded !== 'undefined';
+    const handleExpansion = usePlatformLeafEventHandler({
+      fn: (
+        event: React.MouseEvent<Element>,
+        analyticsEvent: UIAnalyticsEvent,
+      ) => {
+        if (!isControlled) {
+          setExpanse(expanded => !expanded);
+        }
+        return providedExpanse(event, analyticsEvent);
+      },
+      action: 'expanded',
+      analyticsData: analyticsContext,
+      ...analyticsAttributes,
+    });
+
+    const shouldExpand = isControlled ? isExpanded : expanded;
+    const renderItemsWithEllipsis = () => {
+      const allItems = childrenArray;
+      // This defends against someone passing weird data, to ensure that if all
+      // items would be shown anyway, we just show all items without the EllipsisItem
+      if (itemsBeforeCollapse + itemsAfterCollapse >= allItems.length) {
+        return allItems;
       }
-      return providedExpanse(event, analyticsEvent);
-    },
-    action: 'expanded',
-    analyticsData: analyticsContext,
-    ...analyticsAttributes,
-  });
 
-  const shouldExpand = isControlled ? isExpanded : expanded;
-  const renderItemsWithEllipsis = () => {
-    const allItems = childrenArray;
-    // This defends against someone passing weird data, to ensure that if all
-    // items would be shown anyway, we just show all items without the EllipsisItem
-    if (itemsBeforeCollapse + itemsAfterCollapse >= allItems.length) {
-      return allItems;
-    }
+      const beforeItems = allItems.slice(0, itemsBeforeCollapse);
+      const afterItems = allItems.slice(
+        allItems.length - itemsAfterCollapse,
+        allItems.length,
+      );
 
-    const beforeItems = allItems.slice(0, itemsBeforeCollapse);
-    const afterItems = allItems.slice(
-      allItems.length - itemsAfterCollapse,
-      allItems.length,
+      return [
+        ...beforeItems,
+        <EllipsisItem
+          key="ellipsis"
+          testId={testId && `${testId}--breadcrumb-ellipsis`}
+          onClick={handleExpansion}
+          label={ellipsisLabel}
+        />,
+        ...afterItems,
+      ];
+    };
+
+    const breadcrumbStyles = useMemo(() => getStyles(mode), [mode]);
+    const childrenArray = toArray(children);
+    const shouldDisplayItems =
+      shouldExpand || (maxItems && childrenArray.length <= maxItems);
+
+    return (
+      <nav aria-label={label} ref={ref}>
+        <ol data-testid={testId} css={breadcrumbStyles}>
+          {shouldDisplayItems ? children : renderItemsWithEllipsis()}
+        </ol>
+      </nav>
     );
-
-    return [
-      ...beforeItems,
-      <EllipsisItem
-        key="ellipsis"
-        testId={testId && `${testId}--breadcrumb-ellipsis`}
-        onClick={handleExpansion}
-        label={ellipsisLabel}
-      />,
-      ...afterItems,
-    ];
-  };
-
-  const breadcrumbStyles = useMemo(() => getStyles(mode), [mode]);
-  const childrenArray = toArray(children);
-  const shouldDisplayItems =
-    shouldExpand || (maxItems && childrenArray.length <= maxItems);
-
-  return (
-    <nav aria-label={label}>
-      <ol data-testid={testId} css={breadcrumbStyles}>
-        {shouldDisplayItems ? children : renderItemsWithEllipsis()}
-      </ol>
-    </nav>
-  );
-};
+  },
+);
 
 const Breadcrumbs = memo(
   forwardRef((props: BreadcrumbsProps, ref: React.Ref<any>) => {

@@ -32,4 +32,5 @@ export type {
   ValueContainerProps,
   ValueType,
   GroupedOptionsType,
+  GroupType,
 } from './types';

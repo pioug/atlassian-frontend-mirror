@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
@@ -68,6 +68,40 @@ describe('Breadcrumbs container', () => {
 
     const ellipsis = getByTestId('breadcrumbs-container--breadcrumb-ellipsis');
     expect(ellipsis).toBeDefined();
+  });
+
+  it('should set the reference on the breadcrumbs', () => {
+    const ref = createRef();
+    const { getByLabelText } = render(
+      <Breadcrumbs testId="breadcrumbs-container" maxItems={2} ref={ref}>
+        <BreadcrumbsItem href="/item" text="Item" />
+        <BreadcrumbsItem href="/item" text="Another item" />
+        <BreadcrumbsItem href="/item" text="A third item" />
+      </Breadcrumbs>,
+    );
+
+    const nav = getByLabelText('Breadcrumbs');
+    expect(nav).toBe(ref.current);
+  });
+
+  it('should accept a function as a reference', () => {
+    let ourNode: HTMLElement | undefined;
+    const { getByLabelText } = render(
+      <Breadcrumbs
+        testId="breadcrumbs-container"
+        maxItems={2}
+        ref={(node: HTMLElement) => {
+          ourNode = node;
+        }}
+      >
+        <BreadcrumbsItem href="/item" text="Item" />
+        <BreadcrumbsItem href="/item" text="Another item" />
+        <BreadcrumbsItem href="/item" text="A third item" />
+      </Breadcrumbs>,
+    );
+
+    const nav = getByLabelText('Breadcrumbs');
+    expect(nav).toBe(ourNode);
   });
 });
 

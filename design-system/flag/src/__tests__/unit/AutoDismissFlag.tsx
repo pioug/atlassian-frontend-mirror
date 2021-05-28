@@ -153,6 +153,61 @@ describe('Auto dismiss flag', () => {
         expect(onDismissedSpy).toBeCalled();
         expect(onDismissedFlagSpy).toBeCalled();
       });
+
+      it('onDismissed provided by FlagGroup should be called when AutoDismissFlag is wrapped in another component', () => {
+        const onDismissedSpy = jest.fn();
+        const FlagWrapper = () => generateAutoDismissFlag();
+
+        render(
+          <FlagGroup onDismissed={onDismissedSpy}>
+            <FlagWrapper />
+          </FlagGroup>,
+        );
+
+        act(() => jest.runTimersToTime(AUTO_DISMISS_SECONDS * 1000));
+        expect(onDismissedSpy).toBeCalled();
+      });
+
+      it('only the first flag in FlagGroup should be dismissed after 8 seconds (when the flag is wrapped in another component)', () => {
+        const onDismissedSpy = jest.fn();
+        const onDismissedFirstFlagSpy = jest.fn();
+        const onDismissedSecondFlagSpy = jest.fn();
+
+        // render two autodismiss flags wrapped inside of another component
+        const { rerender } = render(
+          <FlagGroup onDismissed={onDismissedSpy}>
+            <div>
+              {generateAutoDismissFlag({
+                id: '0',
+                onDismissed: onDismissedFirstFlagSpy,
+              })}
+            </div>
+            <div>
+              {generateAutoDismissFlag({
+                id: '1',
+                onDismissed: onDismissedSecondFlagSpy,
+              })}
+            </div>
+          </FlagGroup>,
+        );
+
+        expect(onDismissedFirstFlagSpy).not.toBeCalled();
+        expect(onDismissedSecondFlagSpy).not.toBeCalled();
+        runTimer();
+        expect(onDismissedFirstFlagSpy).toBeCalled();
+        expect(onDismissedSecondFlagSpy).not.toBeCalled();
+
+        rerender(
+          <FlagGroup>
+            <div>
+              {generateAutoDismissFlag({
+                id: '1',
+                onDismissed: onDismissedSecondFlagSpy,
+              })}
+            </div>
+          </FlagGroup>,
+        );
+      });
     });
   });
 });

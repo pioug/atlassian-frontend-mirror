@@ -12,7 +12,7 @@ afterEach(() => {
 
 test('should ssr then hydrate media-card correctly', async () => {
   const [example] = await getExamplesFor('media-card');
-  const Example = require(example.filePath).default;
+  const Example = require(example.filePath).SSR;
   const elem = document.createElement('div');
   elem.innerHTML = await ssr(example.filePath);
 

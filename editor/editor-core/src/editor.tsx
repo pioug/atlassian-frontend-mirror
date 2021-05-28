@@ -52,6 +52,7 @@ import {
   QuickInsertProvider,
   QuickInsertOptions,
 } from './plugins/quick-insert/types';
+import { createFeatureFlagsFromProps } from './plugins/feature-flags-context/feature-flags-from-props';
 
 export type {
   AllowedBlockTypes,
@@ -577,6 +578,8 @@ export default class Editor extends React.Component<EditorProps, State> {
       analyticsHandler: undefined,
     };
 
+    const featureFlags = createFeatureFlagsFromProps(this.props);
+
     const editor = (
       <FabricEditorAnalyticsContext
         data={{
@@ -690,6 +693,10 @@ export default class Editor extends React.Component<EditorProps, State> {
                                             ?.toolbarMinWidthOverflow
                                         : this.props.UNSAFE_allowUndoRedoButtons
                                     }
+                                    useStickyToolbar={
+                                      this.props.useStickyToolbar
+                                    }
+                                    featureFlags={featureFlags}
                                   />
                                 </BaseTheme>
                               )}

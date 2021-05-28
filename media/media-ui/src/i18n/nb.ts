@@ -30,6 +30,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Beklager. Vi kunne ikke hente noen GIF-bilder',
   'fabric.media.check_your_network': 'Kontroller nettverksforbindelsen',
+  'fabric.media.click_to_join': 'Bli med i {context}',
+  'fabric.media.click_to_join_description':
+    'Du er blitt godkjent, så du kan bli med i {context} med én gang.',
   'fabric.media.close': 'Lukk',
   'fabric.media.close_and_reopen':
     'Prøv å lukke denne filen og åpne den på nytt.',
@@ -74,6 +77,8 @@ export default {
   'fabric.media.error_hint_retry': 'Vent litt, så prøver vi igjen.',
   'fabric.media.error_loading_file': 'Feil ved lasting av feil',
   'fabric.media.failed_to_load': 'Kunne ikke lastes inn',
+  'fabric.media.forbidden_description':
+    'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
   'fabric.media.give_feedback': 'Gi en tilbakemelding',
   'fabric.media.image': 'bilde',
   'fabric.media.image_format_invalid_error':
@@ -114,6 +119,14 @@ export default {
   'fabric.media.preview_unavailable': 'Forhåndsvisning er ikke tilgjengelig',
   'fabric.media.recent_uploads': 'Nylige opplastinger',
   'fabric.media.remove_image': 'Fjern bilde',
+  'fabric.media.request_access': 'Be om tilgang',
+  'fabric.media.request_access_description':
+    'Be om tilgang til {context} for å se denne forhåndsvisningen.',
+  'fabric.media.request_access_pending': 'Venter på tilgang',
+  'fabric.media.request_access_pending_description':
+    'Avventer svar på forespørsel om tilgang',
+  'fabric.media.request_denied_description':
+    'Forespørselen din om tilgang ble avslått. Kontakt administratoren for nettstedet for å be om tilgang.',
   'fabric.media.retry': 'Prøv igjen',
   'fabric.media.save': 'Lagre',
   'fabric.media.search': 'søk',
@@ -142,6 +155,8 @@ export default {
     'Vi har problemer med å laste inn filen din.',
   'fabric.media.webgl_warning_description':
     'Nettleserdin støtter ikke WebGL. Bruk en WebGL-aktivert nettleser til å kommentere bilder.',
+  'fabric.media.zip_entry_load_failed':
+    'Vi kunne ikke laste zip-filelementet for å forhåndsvise',
   'fabric.media.zoom_in': 'Zoom inn',
   'fabric.media.zoom_out': 'Zoom ut',
 };

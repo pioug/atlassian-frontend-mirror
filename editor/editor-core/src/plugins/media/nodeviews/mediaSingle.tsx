@@ -262,6 +262,7 @@ export default class MediaSingleNode extends Component<
       lineLength: this.props.lineLength,
       pctWidth: mediaSingleWidth,
       fullWidthMode,
+      hasFallbackContainer: false,
     };
 
     let canResize = !!this.props.mediaOptions.allowResizing;

@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 77.0.0
+
+### Minor Changes
+
+- [`084abc13201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/084abc13201) - ED-12265 Add unsupport content support to media single
+  ED-12265 Remove `caption` from default schema - Renderer
+
+### Patch Changes
+
+- [`88a1b60b052`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88a1b60b052) - ED-12789 fixed chart macro doesn't respect width adjustment
+- [`f582254da39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f582254da39) - [ME-1434] Set max font size on Hybrid Editor and Renderer.
+  [ME-1450] Fix decision panel overlap.
+- Updated dependencies
+
 ## 76.3.0
 
 ### Minor Changes

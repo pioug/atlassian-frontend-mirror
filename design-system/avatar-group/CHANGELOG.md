@@ -1,5 +1,15 @@
 # @atlaskit/avatar-group
 
+## 8.2.0
+
+### Minor Changes
+
+- [`8f84c89cad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f84c89cad5) - [ux] The styles of overflow button of avatar group has been aligned with default button styles. Also, contrast issue of the button has been fixed.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

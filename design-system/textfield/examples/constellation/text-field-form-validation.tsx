@@ -28,7 +28,6 @@ export default function TextFieldFormValidationExample() {
         <form {...formProps} name="validation-example">
           <Field
             label="Only validates on input = open sesame"
-            isRequired
             name="command"
             validate={validate}
             defaultValue=""

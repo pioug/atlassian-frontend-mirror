@@ -26,8 +26,10 @@ import { SelectionEventPayload } from './selection-events';
 import { CreateLinkInlineDialogEventPayload } from './link-tool-bar-events';
 import { ExtensionEventPayload } from './extension-events';
 import { UnsupportedContentPayload } from '@atlaskit/editor-common';
+import { AvatarEventPayload } from './avatar';
 
 export type AnalyticsEventPayload =
+  | AvatarEventPayload
   | GeneralEventPayload
   | FormatEventPayload
   | SubstituteEventPayload

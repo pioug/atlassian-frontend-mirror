@@ -25,7 +25,7 @@ import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
 import { setTableSize } from '../commands';
 import { getFeatureFlags } from '../../feature-flags-context';
-import type { TableColumnOrdering } from '../types';
+import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import { EmitterEvents } from '../../../extensibility';
 
 const tableAttributes = (node: PmNode, allowLocalId: boolean) => {
@@ -50,7 +50,7 @@ const toDOM = (node: PmNode, props: Props) => {
 
   return [
     'table',
-    tableAttributes(node, props.options?.allowReferentiality ?? false),
+    tableAttributes(node, props.options?.allowLocalIdGeneration ?? false),
     colgroup,
     ['tbody', 0],
   ] as DOMOutputSpec;
@@ -122,7 +122,7 @@ export default class TableView extends ReactNodeView<Props> {
 
     const attrs = tableAttributes(
       node,
-      this.reactComponentProps?.options?.allowReferentiality ?? false,
+      this.reactComponentProps?.options?.allowLocalIdGeneration ?? false,
     );
     (Object.keys(attrs) as Array<keyof typeof attrs>).forEach(attr => {
       this.table!.setAttribute(attr, attrs[attr]);

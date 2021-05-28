@@ -1,15 +1,15 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
-import popup from './popup.png';
 import popupWarning from '../example-helpers/popup-warning';
-
-const CreateImage = (filename: string) => <img src={filename} />;
 
 export default md`
   ${(<AtlassianInternalWarning />)}
 
   ${popupWarning}
+
+  ${createRxjsNotice('Media Picker')}
 
   # Documentation
 
@@ -25,11 +25,6 @@ export default md`
       - [Dropzone](#dropzone)
       - [Clipboard](#clipboard)
       - [Browser](#browser)
-    - [non-React based](#non-react-based):
-      - [Popup (aka. MediaPicker)](#popup)
-  - [Typescript](#typescript)
-    - [AuthProvider Service Example](#authprovider)
-  - [Popup Example](#example)
 
   ### Note:
 
@@ -55,13 +50,9 @@ ${code`
   * **DropZone** - provides a drag &amp; drop area for the user to drag &amp; drop a local file
   * **Clipboard** - provides copy and paste support for the user
 
-  There is also a non-React-based component called **Popup** (aka. MediaPicker) which provides a custom picker UI which supports the following sources:
+  There is also a non-React-based component called MediaPicker which provides a custom picker UI which supports the following sources:
 
   * Local file via native files browser
-  * Local file via drag &amp; drop
-  * GIPHY
-  * Dropbox
-  * Google Drive
 
   <a name="configuring"></a>
   ## Configuring
@@ -81,7 +72,7 @@ ${code`
   authProvider: myAuthProviderFn
 };`}
 
-  Pass it to the React component via the \`mediaClientConfig\` prop, or to the \`MediaPicker\` factory method when using the non-React **Popup** component.
+  Pass it to the React component via the \`mediaClientConfig\` prop.
 
   <a name="auth-provider"></a>
   ### AuthProvider
@@ -132,7 +123,6 @@ type AuthProvider = (context?: AuthContext) => Promise<Auth>;`}
 
   * **uploadParams?**: \`object\` - an object containing the following properties:
     * **collection?**: \`string\` - the collection name to upload file(s) to
-  * **shouldCopyFileToRecents?**: \`boolean\` - whether or not the file(s) should appear in the clients recents collection
 
   There are additional config properties available for each component, they are described with each component below.
 
@@ -322,111 +312,4 @@ function onBrowseFnHandler(browseFn) {
   onPreviewUpdate={onPreviewUpdateFn}
   onError={onErrorHandler}
   onEnd={onEndHandler}
-/>`}
-
-
-
-  <a name="non-react-based"></a>
-  ### Non-React based
-
-  <a name="popup"></a>
-  ### Popup (aka. MediaPicker)
-
-  The \`Popup\` component provides a custom UI which allows the user to select a file from multiple sources, both local and cloud.
-
-  ${CreateImage(popup)}
-
-  It has the following configuration properties, including the [base configuration properties](#component-config):
-
-  * **container?**: \`HTMLElement\` - the DOM element to use as a container
-  * **proxyReactContext?**: \`AppProxyReactContext\` - (advanced, not required on average) an object to use when needing React context from a different tree
-  * **singleSelect?**: \`boolean\` - whether or not to allow multiple or just single selections
-
-  Import the \`MediaPicker\` factory method and pass a \`MediaClientConfig\` object along with a custom configuration object to it. _NOTE: Since
-  the class is code split (will load async on demand) you need to use the \`await\` keyword, or use a promise syntax._
-
-  ${code`import { MediaPicker } from '@atlaskit/media-picker';
-
-const mediaClientConfig = {
-  authProvider: myAuthProviderFn
-};
-
-const popupConfig = {
-  uploadParams: {
-    collection: 'some-collection'
-  }
-};
-
-// es6 using async/await...
-const popup = await MediaPicker(mediaClientConfig, popupConfig);
-doSomethingWith(popup);
-
-// or es5 way with Promises...
-MediaPicker(mediaClientConfig, popupConfig).then(popup => doSomethingWith(popup));`}
-
-You'll then need to subscribe to its events. These events are the same as the React events described above in terms of functionality:
-
-${code`popup.on('uploads-start', onUploadsStartFn);
-popup.on('upload-preview-update', onUploadPreviewHandler);
-popup.on('upload-end', onUploadEndHandler);
-popup.on('upload-error', onUploadErrorHandler);
-popup.on('closed', onClosedHandler);`}
-
-The popup provides the following methods:
-
-* **show(): Promise<void>** - open/show the picker UI
-* **hide(): void** - hide/close the picker UI
-* **cancel(uniqueIdentifier?: string | Promise<string>):  Promise<void>** - cancel all/specific uploads in progress
-* **setUploadParams({ collection: string }): void** - provide upload parameters to specify collection
-* **removeAllListeners(): void** - remove all listeners bound with .on()
-* **emitClosed(): void** - remove all listeners bound with .on()
-* **teardown(): void** - cleanup
-
-  <a name="typescript"></a>
-  ### Typescript
-
-  MediaPicker is fully written in Typescript, and exports all its public types and interfaces.
-  We refer to some of those objects in the docs, if you want to know more about those please have a look into:
-
-  - [packages/media/media-picker/src/domain](https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/packages/media/media-picker/src/domain/)
-  - [packages/media/media-picker/src/popup/domain](https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/packages/media/media-picker/src/popup/domain/)
-
-  <a name="authprovider"></a>
-  ### AuthProvider Service Example
-
-  Media Picker requires a signed JWT for uploading files into the Media API.
-  The token is usually created on the backend by your service with a function similar to this:
-
-  ${code`function createFileStoreToken() {
-  const tolerance = 60 * 1; // 1 minute
-  const now = Math.floor(Date.now() / 1000) - tolerance;
-  return jwt.sign(
-    {
-      access: {
-        'urn:filestore:collection': ['create'],
-        'urn:filestore:collection:test-collection': ['read', 'insert'],
-        'urn:filestore:chunk:*': ['create', 'read'],
-        'urn:filestore:upload': ['create'],
-        'urn:filestore:upload:*': ['read', 'update'],
-      },
-      nbf: now,
-      exp: now + 60 * 60, // 60 minutes
-    },
-    YOUR_SECRET,
-    { issuer: YOUR_CLIENT_ID },
-  );
-}`}
-
-  Please note, that you need access to the upload API filestore:upload to perform requests.
-
-  <a name="example"></a>
-  ### Popup Example
-
-  ${(
-    <Example
-      Component={require('../examples/8-full-flow').default}
-      title="Pop up"
-      source={require('!!raw-loader!../examples/8-full-flow')}
-    />
-  )}
-`;
+/>`}`;

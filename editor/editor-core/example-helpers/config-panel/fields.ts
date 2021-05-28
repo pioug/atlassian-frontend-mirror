@@ -2,42 +2,44 @@ import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 
 export const nativeFields: FieldDefinition[] = [
   {
-    name: 'expand field',
-    type: 'expand',
-    label: 'awesome expand field',
+    type: 'tab-group',
+    label: 'Tab type',
+    name: 'tabGroup',
     fields: [
       {
-        name: 'enum-select',
-        type: 'enum',
-        label: 'Select one',
-        isRequired: true,
-        description: 'Pick one',
-        style: 'select',
-        isMultiple: false,
-        placeholder: 'Selected option goes here',
-        items: [
-          { label: 'Option A', value: 'a' },
-          { label: 'Option B', value: 'b' },
+        type: 'tab',
+        label: 'Tab A',
+        name: 'optionA',
+        fields: [
+          {
+            name: 'expandField',
+            type: 'expand',
+            label: 'awesome expand field',
+            isExpanded: true,
+            fields: [
+              {
+                name: 'textFieldOne',
+                type: 'string',
+                label: 'Free text',
+              },
+            ],
+          },
+          {
+            name: 'textFieldThree',
+            type: 'string',
+            label: 'Free text',
+          },
         ],
       },
       {
-        name: 'enum-select-icon',
-        type: 'enum',
-        label: 'Select with icons',
-        description: 'Pick one',
-        style: 'select',
-        isMultiple: false,
-        items: [
+        type: 'tab',
+        label: 'Tab B',
+        name: 'optionB',
+        fields: [
           {
-            label: 'Option A',
-            value: 'a',
-            description: 'Recommended',
-          },
-          {
-            label:
-              'Option B with a really really really really really really long label',
-            value: 'b',
-            description: 'One of the best options out there',
+            name: 'textFieldTwo',
+            type: 'string',
+            label: 'Free text',
           },
         ],
       },
@@ -446,6 +448,63 @@ export const nativeFields: FieldDefinition[] = [
         ],
       },
     ],
+  },
+  {
+    name: 'expand field',
+    type: 'expand',
+    label: 'awesome expand field',
+    fields: [
+      {
+        name: 'enum-select',
+        type: 'enum',
+        label: 'Select one',
+        isRequired: true,
+        description: 'Pick one',
+        style: 'select',
+        isMultiple: false,
+        placeholder: 'Selected option goes here',
+        items: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+        ],
+      },
+      {
+        name: 'enum-select-icon',
+        type: 'enum',
+        label: 'Select with icons',
+        description: 'Pick one',
+        style: 'select',
+        isMultiple: false,
+        items: [
+          {
+            label: 'Option A',
+            value: 'a',
+            description: 'Recommended',
+          },
+          {
+            label:
+              'Option B with a really really really really really really long label',
+            value: 'b',
+            description: 'One of the best options out there',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'color-picker',
+    label: 'Color Picker',
+    type: 'color',
+    description: 'Pick your color',
+    defaultValue: '#7AB2FF',
+  },
+  {
+    name: 'color-picker-req',
+    label: 'Color Picker Required',
+    type: 'color',
+    isRequired: true,
+    description: 'Pick your color',
+    defaultValue: '#7AB2FF',
   },
 ];
 

@@ -33,7 +33,8 @@ const Opt = ({ children, icon }: any) => (
 );
 
 // return the country name; used for searching
-const getOptionLabel = (opt: OptionType) => opt.name;
+const getOptionLabel = ({ abbr, code, name }: OptionType) =>
+  `${name} (${abbr.toUpperCase()}) +${code}`;
 
 // set the country's abbreviation for the option value, (also searchable)
 const getOptionValue = (opt: OptionType) => opt.abbr;

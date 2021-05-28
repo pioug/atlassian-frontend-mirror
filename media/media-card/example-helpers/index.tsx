@@ -2,11 +2,15 @@
 
 import React from 'react';
 import { FileItem, Identifier } from '@atlaskit/media-client';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import {
+  createStorybookMediaClientConfig,
+  FeatureFlagsWrapper,
+} from '@atlaskit/media-test-helpers';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { SelectableCard } from './selectableCard';
 import { Card, CardAppearance, CardEvent, CardAction } from '../src';
+import { relevantFeatureFlagNames } from '../src/root/card/cardAnalytics';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -111,3 +115,9 @@ export const wrongMediaClientConfig = createStorybookMediaClientConfig({
   authType: 'client',
 });
 export const wrongCollection = 'adfasdf';
+
+export const MainWrapper: React.FC = ({ children }) => (
+  <FeatureFlagsWrapper filterFlags={relevantFeatureFlagNames}>
+    {children}
+  </FeatureFlagsWrapper>
+);

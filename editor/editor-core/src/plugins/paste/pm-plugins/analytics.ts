@@ -15,7 +15,7 @@ import {
   withAnalytics,
 } from '../../analytics';
 import { EditorView } from 'prosemirror-view';
-import { Slice, Node } from 'prosemirror-model';
+import { Slice, Node, Fragment } from 'prosemirror-model';
 import { getPasteSource } from '../util';
 import {
   handlePasteAsPlainText,
@@ -95,7 +95,7 @@ const nodeToActionSubjectId: { [name: string]: PASTE_ACTION_SUBJECT_ID } = {
   taskList: ACTION_SUBJECT_ID.PASTE_TASK_LIST,
 };
 
-function getContent(state: EditorState, slice: Slice): PasteContent {
+export function getContent(state: EditorState, slice: Slice): PasteContent {
   const {
     schema: {
       nodes: { paragraph },
@@ -411,3 +411,39 @@ export const handlePasteLinkOnSelectedTextWithAnalytics = (
       type: PasteTypes.richText,
     }),
   )(slice);
+
+export const createPasteMeasurePayload = (
+  view: EditorView,
+  duration: number,
+  content: Array<string>,
+): AnalyticsEventPayload => {
+  const pasteIntoNode = getActionSubjectId(view);
+  return {
+    action: ACTION.PASTED_TIMED,
+    actionSubject: ACTION_SUBJECT.EDITOR,
+    eventType: EVENT_TYPE.OPERATIONAL,
+    attributes: {
+      pasteIntoNode,
+      content,
+      time: duration,
+    },
+  };
+};
+
+export const getContentNodeTypes = (content: Fragment): string[] => {
+  let nodeTypes = new Set<string>();
+
+  if (content.size) {
+    content.forEach(node => {
+      if (node.content && node.content.size) {
+        nodeTypes = new Set([
+          ...nodeTypes,
+          ...getContentNodeTypes(node.content),
+        ]);
+      }
+      nodeTypes.add(node.type.name);
+    });
+  }
+
+  return Array.from(nodeTypes);
+};

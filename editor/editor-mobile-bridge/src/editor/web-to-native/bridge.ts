@@ -1,6 +1,5 @@
 import { Serialized } from '../../types';
 import { Color as StatusColor } from '@atlaskit/status/element';
-import { CollabAnalyticsEvents } from '../../analytics/collab';
 import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
 export default interface NativeBridge
   extends MentionBridge,
@@ -107,7 +106,7 @@ export interface UndoRedoBridge {
 }
 
 export interface AnalyticsBridge {
-  trackEvent(eventPayload: Serialized<CollabAnalyticsEvents> | string): void;
+  trackEvent(eventPayload: string): void;
 }
 
 export interface SelectionBridge {}

@@ -31,6 +31,9 @@ export default {
   'fabric.media.cant_retrieve_gifs':
     'Ahi, non siamo riusciti a trovare nessuna GIF',
   'fabric.media.check_your_network': 'Controlla la connessione di rete',
+  'fabric.media.click_to_join': 'Unisciti a {context}',
+  'fabric.media.click_to_join_description':
+    'Sei stato approvato; puoi unirti da subito a {context}.',
   'fabric.media.close': 'Chiudi',
   'fabric.media.close_and_reopen': 'Prova a chiudere e riaprire il file.',
   'fabric.media.connect_account_description':
@@ -74,6 +77,8 @@ export default {
   'fabric.media.error_hint_retry': 'Riprova e faremo un altro tentativo.',
   'fabric.media.error_loading_file': 'Errore nel caricamento del file',
   'fabric.media.failed_to_load': 'Caricamento non riuscito',
+  'fabric.media.forbidden_description':
+    "Non hai accesso a questa anteprima. Contatta l'amministratore del sito se devi accedere.",
   'fabric.media.give_feedback': 'Lascia un feedback',
   'fabric.media.image': 'immagine',
   'fabric.media.image_format_invalid_error':
@@ -113,6 +118,14 @@ export default {
   'fabric.media.preview_unavailable': 'Anteprima non disponibile',
   'fabric.media.recent_uploads': 'Caricamenti recenti',
   'fabric.media.remove_image': 'Rimuovi immagine',
+  'fabric.media.request_access': 'Richiedi accesso',
+  'fabric.media.request_access_description':
+    "Richiedi l'accesso a {context} per visualizzare questa anteprima.",
+  'fabric.media.request_access_pending': 'Accesso in sospeso',
+  'fabric.media.request_access_pending_description':
+    'La tua richiesta di accesso è in sospeso.',
+  'fabric.media.request_denied_description':
+    "La tua richiesta di accesso è stata rifiutata. Contatta l'amministratore del sito se devi accedere.",
   'fabric.media.retry': 'Riprova',
   'fabric.media.save': 'Salva',
   'fabric.media.search': 'ricerca',
@@ -142,6 +155,8 @@ export default {
     'Si stanno verificando problemi nel caricamento del tuo file.',
   'fabric.media.webgl_warning_description':
     'Il tuo browser non supporta WebGL. Per annotare le immagini usa un browser compatibile con WebGL.',
+  'fabric.media.zip_entry_load_failed':
+    'Impossibile caricare il file zip da visualizzare in anteprima',
   'fabric.media.zoom_in': 'ingrandisci',
   'fabric.media.zoom_out': 'riduci',
 };

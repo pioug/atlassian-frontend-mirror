@@ -11,7 +11,6 @@ export default () => (
     ]}
     allowExtension={{
       allowAutoSave: true,
-      allowLocalIdGeneration: true,
       allowExtendFloatingToolbars: true,
     }}
     elementBrowser={{

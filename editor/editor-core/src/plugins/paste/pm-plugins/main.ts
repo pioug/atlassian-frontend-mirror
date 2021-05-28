@@ -2,6 +2,7 @@
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
 import { Plugin, PluginKey, EditorState, Transaction } from 'prosemirror-state';
+import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -42,7 +43,8 @@ import {
   transformSingleLineCodeBlockToCodeMark,
 } from '../../code-block/utils';
 import {
-  sendPasteAnalyticsEvent,
+  createPasteMeasurePayload,
+  getContentNodeTypes,
   handlePasteAsPlainTextWithAnalytics,
   handlePasteIntoTaskAndDecisionWithAnalytics,
   handleCodeBlockWithAnalytics,
@@ -53,10 +55,15 @@ import {
   handleExpandWithAnalytics,
   handleSelectedTableWithAnalytics,
   handlePasteLinkOnSelectedTextWithAnalytics,
+  sendPasteAnalyticsEvent,
 } from './analytics';
-import { PasteTypes } from '../../analytics';
-import { insideTable } from '../../../utils';
-import { CardOptions } from '@atlaskit/editor-common';
+import {
+  analyticsPluginKey,
+  DispatchAnalyticsEvent,
+  PasteTypes,
+} from '../../analytics';
+import { insideTable, measurements } from '../../../utils';
+import { CardOptions, measureRender } from '@atlaskit/editor-common';
 import {
   transformSliceToCorrectMediaWrapper,
   unwrapNestedMediaElements,
@@ -100,6 +107,7 @@ function isBackgroundCellAllowed(state: EditorState) {
 
 export function createPlugin(
   schema: Schema,
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
   predictableLists?: boolean,
@@ -193,6 +201,21 @@ export function createPlugin(
         }
 
         const { state } = view;
+        const analyticsPlugin = analyticsPluginKey.getState(state);
+        const pasteTrackingEnabled =
+          analyticsPlugin?.performanceTracking?.pasteTracking?.enabled;
+
+        if (pasteTrackingEnabled) {
+          const content = getContentNodeTypes(slice.content);
+          const pasteId = uuid();
+          const measureName = `${measurements.PASTE}_${pasteId}`;
+          measureRender(measureName, (duration: number) => {
+            const payload = createPasteMeasurePayload(view, duration, content);
+            if (payload) {
+              dispatchAnalyticsEvent(payload);
+            }
+          });
+        }
         // creating a custom dispatch because we want to add a meta whenever we do a paste.
         const dispatch = (tr: Transaction) => {
           // https://product-fabric.atlassian.net/browse/ED-12633

@@ -28,6 +28,9 @@ export default {
   'fabric.media.cant_retrieve_files': '죄송합니다. 파일을 가져올 수 없습니다.',
   'fabric.media.cant_retrieve_gifs': '이런! GIF를 가져올 수 없습니다.',
   'fabric.media.check_your_network': '네트워크 연결을 확인합니다',
+  'fabric.media.click_to_join': '{context}에 가입',
+  'fabric.media.click_to_join_description':
+    '승인되었으므로 바로 {context}에 가입할 수 있습니다.',
   'fabric.media.close': '닫기',
   'fabric.media.close_and_reopen': '이 파일을 닫고 다시 열어 보세요.',
   'fabric.media.connect_account_description':
@@ -67,6 +70,8 @@ export default {
   'fabric.media.error_hint_retry': '작업을 다시 시도하시기 바랍니다.',
   'fabric.media.error_loading_file': '파일 로드 중 오류',
   'fabric.media.failed_to_load': '로드하지 못했습니다',
+  'fabric.media.forbidden_description':
+    '이 미리 보기에 액세스할 수 없습니다. 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
   'fabric.media.give_feedback': '피드백 보내기',
   'fabric.media.image': '이미지',
   'fabric.media.image_format_invalid_error':
@@ -105,6 +110,14 @@ export default {
   'fabric.media.preview_unavailable': '미리 보기를 사용할 수 없음',
   'fabric.media.recent_uploads': '최근 업로드',
   'fabric.media.remove_image': '이미지 제거',
+  'fabric.media.request_access': '액세스 요청',
+  'fabric.media.request_access_description':
+    '이 미리 보기를 보려면 {context}에 액세스를 요청하세요.',
+  'fabric.media.request_access_pending': '액세스 보류 중',
+  'fabric.media.request_access_pending_description':
+    '액세스 요청이 보류 중입니다.',
+  'fabric.media.request_denied_description':
+    '액세스 요청이 거부되었습니다. 계속해서 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
   'fabric.media.retry': '다시 시도',
   'fabric.media.save': '저장',
   'fabric.media.search': '검색',
@@ -131,6 +144,8 @@ export default {
   'fabric.media.viewer_rateLimited': '파일을 로드하는 데 문제가 발생했습니다.',
   'fabric.media.webgl_warning_description':
     '사용하시는 브라우저가 WebGL을 지원하지 않습니다. 이미지를 주석으로 달려면 WebGL을 사용할 수 있는 브라우저를 사용하십시오.',
+  'fabric.media.zip_entry_load_failed':
+    '미리 보려는 zip 파일 항목을 로드할 수 없습니다',
   'fabric.media.zoom_in': '확대',
   'fabric.media.zoom_out': '축소',
 };

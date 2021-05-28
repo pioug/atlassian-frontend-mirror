@@ -1,5 +1,4 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
-import { uuid } from '../../utils/uuid';
 import { getExtensionAttrs } from '../../utils/extensions';
 import { ExtensionAttributes } from './types/extensions';
 import { MarksObject, NoMark } from './types/mark';
@@ -32,9 +31,7 @@ export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition & NoMark;
 export type BodiedExtensionWithMarksDefinition = BodiedExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition>;
 
-const createBodiedExtensionNodeSpec = (
-  allowLocalId: boolean = false,
-): NodeSpec => {
+const createBodiedExtensionNodeSpec = (): NodeSpec => {
   const nodeSpec: NodeSpec = {
     inline: false,
     group: 'block',
@@ -50,6 +47,7 @@ const createBodiedExtensionNodeSpec = (
       parameters: { default: null },
       text: { default: null },
       layout: { default: 'default' },
+      localId: { default: null },
     },
     parseDOM: [
       {
@@ -59,8 +57,7 @@ const createBodiedExtensionNodeSpec = (
       },
       {
         tag: '[data-node-type="bodied-extension"]',
-        getAttrs: domNode =>
-          getExtensionAttrs(domNode as HTMLElement, allowLocalId),
+        getAttrs: domNode => getExtensionAttrs(domNode as HTMLElement),
       },
     ],
     toDOM(node: PMNode) {
@@ -71,17 +68,13 @@ const createBodiedExtensionNodeSpec = (
         'data-text': node.attrs.text,
         'data-parameters': JSON.stringify(node.attrs.parameters),
         'data-layout': node.attrs.layout,
+        'data-local-id:': node.attrs.localId,
       };
       return ['div', attrs, 0];
     },
   };
 
-  if (allowLocalId && nodeSpec.attrs) {
-    nodeSpec.attrs.localId = { default: uuid.generate() };
-  }
-
   return nodeSpec;
 };
 
 export const bodiedExtension = createBodiedExtensionNodeSpec();
-export const bodiedExtensionWithLocalId = createBodiedExtensionNodeSpec(true);

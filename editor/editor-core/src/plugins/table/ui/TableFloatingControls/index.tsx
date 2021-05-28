@@ -4,10 +4,11 @@ import { Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common';
+import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 
 import { hoverRows, selectRow } from '../../commands';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
-import { TableColumnOrdering } from '../../types';
+
 import { isSelectionUpdated } from '../../utils';
 
 import CornerControls from './CornerControls';

@@ -59,7 +59,7 @@ interface TablePluginOptions {
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
-  allowReferentiality?: boolean;
+  allowLocalIdGeneration?: boolean;
 }
 
 const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
@@ -69,7 +69,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
     return [
       {
         name: 'table',
-        node: options?.allowReferentiality ? tableWithLocalId : table,
+        node: options?.allowLocalIdGeneration ? tableWithLocalId : table,
       },
       { name: 'tableHeader', node: tableHeader },
       { name: 'tableRow', node: tableRow },
@@ -88,7 +88,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             wasFullWidthEnabled,
             breakoutEnabled,
             tableOptions,
-            allowReferentiality,
+            allowLocalIdGeneration,
           } = options || ({} as TablePluginOptions);
           return createPlugin(
             dispatch,
@@ -99,7 +99,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             breakoutEnabled,
             fullWidthEnabled,
             wasFullWidthEnabled,
-            allowReferentiality,
+            allowLocalIdGeneration,
           );
         },
       },
@@ -122,7 +122,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       // plugin as it is currently swallowing backspace events inside tables
       {
         name: 'tableKeymap',
-        plugin: () => keymapPlugin(options?.allowReferentiality),
+        plugin: () => keymapPlugin(options?.allowLocalIdGeneration),
       },
       {
         name: 'tableSelectionKeymap',
@@ -140,9 +140,9 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
 
       {
         name: 'tableLocalId',
-        plugin: () =>
-          options && options?.allowReferentiality
-            ? createTableLocalIdPlugin()
+        plugin: ({ dispatch }) =>
+          options && options?.allowLocalIdGeneration
+            ? createTableLocalIdPlugin(dispatch)
             : undefined,
       },
     ];
@@ -291,7 +291,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
           const tr = insert(
             createTable({
               schema: state.schema,
-              allowLocalId: options?.allowReferentiality,
+              allowLocalId: options?.allowLocalIdGeneration,
             }),
           );
           return addAnalytics(state, tr, {

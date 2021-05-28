@@ -20,6 +20,7 @@ export const nestedInExtension = {
             ],
           },
         },
+        localId: 'testId',
         layout: 'default',
       },
       content: [

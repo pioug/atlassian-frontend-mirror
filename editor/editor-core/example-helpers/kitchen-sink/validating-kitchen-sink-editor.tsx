@@ -77,7 +77,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
     return (
       <SmartCardProvider client={smartCardClient}>
         <Editor
-          allowReferentiality={true}
           appearance={appearance}
           quickInsert={{
             provider: this.quickInsertProviderPromise,
@@ -90,7 +89,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowBreakout={true}
           allowJiraIssue={true}
           allowPanel={true}
-          UNSAFE_allowDataConsumer
           allowExtension={{
             allowBreakout: true,
             allowAutoSave: true,
@@ -138,7 +136,12 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           onChange={() => this.onEditorChanged(actions)}
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
-          featureFlags={this.props.featureFlags}
+          featureFlags={{
+            'local-id-generation-on-tables': true,
+            'data-consumer-mark': true,
+            // Spread here as we want to make sure we can still override flags added above
+            ...this.props.featureFlags,
+          }}
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,
           }}

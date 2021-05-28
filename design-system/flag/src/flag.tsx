@@ -13,7 +13,7 @@ import {
   layers,
 } from '@atlaskit/theme/constants';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import { DEFAULT_APPEARANCE } from './constants';
@@ -63,9 +63,8 @@ const Flag = (props: FlagProps) => {
 
   const {
     onDismissed: onDismissedFromFlagGroup,
-    dismissAllowed,
+    isDismissAllowed,
   } = useFlagGroup();
-  const isDismissAllowed = dismissAllowed(id);
 
   const onDismissed = useCallback(
     (id: string | number, analyticsEvent: UIAnalyticsEvent) => {

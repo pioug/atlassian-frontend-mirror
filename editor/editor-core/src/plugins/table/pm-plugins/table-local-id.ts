@@ -10,15 +10,25 @@
  * TODO: https://product-fabric.atlassian.net/browse/ED-12714
  *
  */
-import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { Dispatch } from '../../../event-dispatcher';
+import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { NodeType } from 'prosemirror-model';
+import rafSchedule from 'raf-schd';
+
 import { uuid } from '@atlaskit/adf-schema';
 
 import { stepAdds } from '../../../utils/step';
-import { NodeType } from 'prosemirror-model';
 
-interface TableLocalIdPluginState {}
+interface TableLocalIdPluginState {
+  // One time parse for initial load with existing tables without localIds
+  parsedForLocalIds: boolean;
+}
 
 const pluginKey = new PluginKey<TableLocalIdPluginState>('tableLocalIdPlugin');
+const getPluginState = (
+  state: EditorState,
+): TableLocalIdPluginState | undefined | null =>
+  state && pluginKey.getState(state);
 
 /**
  * Traverses a transaction's steps to see if we're inserting any tables
@@ -30,9 +40,101 @@ const checkIsAddingTable = (transaction: Transaction, nodeType: NodeType) => {
 /**
  * Ensures uniqueness of `localId`s on tables being created or edited
  */
-const createPlugin = () =>
+const createPlugin = (dispatch: Dispatch) =>
   new Plugin<TableLocalIdPluginState>({
     key: pluginKey,
+    state: {
+      init() {
+        return {
+          parsedForLocalIds: false,
+        };
+      },
+      apply(tr, pluginState) {
+        const meta = tr.getMeta(pluginKey);
+        if (meta) {
+          const keys = Object.keys(meta) as Array<
+            keyof TableLocalIdPluginState
+          >;
+          const changed = keys.some(key => {
+            return pluginState[key] !== meta[key];
+          });
+
+          if (changed) {
+            const newState = { ...pluginState, ...meta };
+
+            dispatch(pluginKey, newState);
+            return newState;
+          }
+        }
+
+        return pluginState;
+      },
+    },
+    view: () => {
+      return {
+        /**
+         * Utilise the update cycle for _one_ scan through an initial doc
+         * to ensure existing tables without IDs get them when this plugin is
+         * enabled.
+         *
+         * This entire block can be skipped if we simply remove the `checkIsAddingTable`
+         * check in appendTransaction, but that comes with 2 cons:
+         *
+         * 1. require a transaction before we actually add the local IDs
+         * 2. ever slightly more unncessary checks
+         *
+         * Finally, this never happens in practice when utilising this in
+         * confluence, as the collab/synchrony initialisation process will
+         * trigger a transaction which adds tables, and thus this plugin will
+         * add/dedupe the necessary IDs. But general usage of the editor
+         * without collab should still solve for IDs.
+         */
+        update(editorView) {
+          const { state } = editorView;
+          const pluginState = getPluginState(state);
+          if (!pluginState) {
+            return;
+          }
+          const parsed = pluginState.parsedForLocalIds;
+          if (parsed) {
+            return;
+          }
+
+          const { table } = state.schema.nodes;
+          rafSchedule(() => {
+            const tr = state.tr;
+            let tableIdWasAdded = false;
+            editorView.state.doc.descendants((node, pos) => {
+              const isTable = node.type === table;
+              const localId = node.attrs.localId;
+              if (isTable && !localId) {
+                tableIdWasAdded = true;
+                tr.setNodeMarkup(pos, undefined, {
+                  ...node.attrs,
+                  localId: uuid.generate(),
+                });
+                return false;
+              }
+              /**
+               * Otherwise continue traversing, we can encounter tables nested in
+               * expands/bodiedExtensions
+               */
+              return true;
+            });
+            if (tableIdWasAdded) {
+              tr.setMeta('addToHistory', false);
+              editorView.dispatch(tr);
+            }
+          })();
+
+          editorView.dispatch(
+            state.tr.setMeta(pluginKey, {
+              parsedForLocalIds: true,
+            }),
+          );
+        },
+      };
+    },
     appendTransaction: (transactions, _oldState, newState) => {
       let modified = false;
       const tr = newState.tr;

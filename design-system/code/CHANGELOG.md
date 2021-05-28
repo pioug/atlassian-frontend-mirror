@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 14.1.0
+
+### Minor Changes
+
+- [`aef12f51c46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aef12f51c46) - Add an entry point for constants to expose SUPPORTED_LANGUAGES and export the type of SUPPORTED_LANGUAGES.
+  Splunk SPl has also been added as a supported language.
+
 ## 14.0.1
 
 ### Patch Changes

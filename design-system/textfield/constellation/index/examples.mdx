@@ -4,6 +4,7 @@ order: 0
 
 import TextFieldDefault from '../../examples/constellation/text-field-default';
 import TextFieldForm from '../../examples/constellation/text-field-form';
+import TextFieldFormNativeValidation from '../../examples/constellation/text-field-form-native-validation';
 import TextFieldFormValidation from '../../examples/constellation/text-field-form-validation';
 import TextFieldMaxValue from '../../examples/constellation/text-field-max-value';
 import TextFieldOverrideStyles from '../../examples/constellation/text-field-customisation';
@@ -20,7 +21,16 @@ Text field used with the `Form` component.
 
 <Example Component={TextFieldForm} packageName="@atlaskit/textfield" />
 
-## Validation
+## Native Validation
+
+Validation can display a native error message related to the restrictions of the pattern attribute. Keep this text as short as possible. Use the [writing guidelines](/content/writing-style) for more help. For complicated infomation, provide a link to more information in a new browser tab.
+
+<Example
+  Component={TextFieldFormNativeValidation}
+  packageName="@atlaskit/textfield"
+/>
+
+## Custom Validation
 
 Validation can display an error message related to the restrictions of the field. Keep this text as short as possible. Use the [writing guidelines](/content/writing-style) for more help. For complicated infomation, provide a link to more information in a new browser tab.
 

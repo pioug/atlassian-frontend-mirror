@@ -9,6 +9,8 @@ export type ImageMetaData = {
   type: string;
   width: number;
   height: number;
+  naturalWidth: number;
+  naturalHeight: number;
   tags: ImageMetaDataTags | null;
 };
 

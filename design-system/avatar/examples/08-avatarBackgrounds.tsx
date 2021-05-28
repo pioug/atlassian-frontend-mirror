@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { CSSProperties } from 'react';
 
 import { B500, N0, N20, N800 } from '@atlaskit/theme/colors';

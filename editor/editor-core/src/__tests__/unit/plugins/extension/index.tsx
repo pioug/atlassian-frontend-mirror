@@ -63,6 +63,7 @@ const extensionAttrs = {
       a: 2,
     },
   },
+  localId: 'testId',
 };
 
 describe('extension', () => {
@@ -131,6 +132,28 @@ describe('extension', () => {
       const extensionState = getPluginState(editorView.state);
 
       expect(extensionState.updateExtension).resolves.toBe(updateFn);
+    });
+  });
+
+  describe('localId', () => {
+    it('should generate an unique localId', () => {
+      const { editorView } = editor(
+        doc(
+          bodiedExtension({ ...bodiedExtensionAttrs, localId: '' })(
+            paragraph('a{<>}'),
+          ),
+          bodiedExtension({ ...bodiedExtensionAttrs, localId: '' })(
+            paragraph('a{<>}'),
+          ),
+        ),
+      );
+
+      expect(
+        editorView.state.doc.firstChild?.attrs.localId.length,
+      ).toBeGreaterThan(1);
+      expect(editorView.state.doc.firstChild?.attrs.localId).not.toEqual(
+        editorView.state.doc.lastChild?.attrs.localId,
+      );
     });
   });
 
@@ -478,6 +501,7 @@ describe('extension', () => {
         const updatedExtension = {
           ...extensionAttrs,
           parameters: newMacroParams,
+          localId: 'testId',
         };
 
         const setup = () => {
@@ -763,10 +787,14 @@ describe('extension', () => {
       const { editorView, refs } = editor(
         doc(
           '{firstExtension}',
-          bodiedExtension(bodiedExtensionAttrs)(paragraph('{<>}text')),
+          bodiedExtension({ ...bodiedExtensionAttrs, localId: 'testId1' })(
+            paragraph('{<>}text'),
+          ),
           paragraph('hello'),
           '{secondExtension}',
-          bodiedExtension(bodiedExtensionAttrs)(paragraph('text')),
+          bodiedExtension({ ...bodiedExtensionAttrs, localId: 'testId2' })(
+            paragraph('text'),
+          ),
         ),
       );
 

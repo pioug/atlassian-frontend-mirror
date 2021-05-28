@@ -285,7 +285,7 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
 // prettier-ignore
 export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   font-size: ${editorFontSize}px;
-  line-height: 24px;
+  line-height: 1.5rem;
   color: ${themed({ light: colors.N800, dark: '#B8C7E0' })};
 
   ${fullPageStyles}
@@ -409,16 +409,9 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
   /* Breakout for tables and extensions */
   .${RendererCssClassName.DOCUMENT} > {
-    * .${TableSharedCssClassName.TABLE_CONTAINER},
-    * .${RendererCssClassName.EXTENSION} {
+    * .${TableSharedCssClassName.TABLE_CONTAINER} {
       width: 100% !important;
       left: 0 !important;
-    }
-
-    .${RendererCssClassName.EXTENSION}[data-layout='wide'],
-    .${RendererCssClassName.EXTENSION}[data-layout='full-width']   {
-      margin-left: 50%;
-      transform: translateX(-50%);
     }
 
     * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
@@ -433,7 +426,12 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   .${RendererCssClassName.EXTENSION} {
     margin-top: ${blockNodesVerticalMargin};
   }
-  
+
+  .${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
+      margin-left: 50%;
+      transform: translateX(-50%);
+  }
+
   .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
     overflow-x: auto;
   }

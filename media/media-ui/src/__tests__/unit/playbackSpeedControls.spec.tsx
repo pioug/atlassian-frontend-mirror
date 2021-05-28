@@ -53,7 +53,7 @@ describe('<PlaybackSpeedControls />', () => {
         label: '1.5x',
         value: 1.5,
       },
-      { action: 'select-option' },
+      { action: 'select-option', option: undefined },
     );
 
     expect(onPlaybackSpeedChange).toBeCalledTimes(1);

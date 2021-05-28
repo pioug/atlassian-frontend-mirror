@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { FC, Fragment, ReactNode } from 'react';
 
 import {
@@ -13,18 +14,27 @@ import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './IconWrapper';
 import { AppearanceType, IndicatorSizeType } from './types';
 
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type PresenceType = 'busy' | 'focus' | 'offline' | 'online' | ReactNode;
 
 export interface PresenceProps {
-  /** Used to override the default border color of the presence indicator.
-   Accepts any color argument that the border-color CSS property accepts. */
+  /**
+   * Used to override the default border color of the presence indicator.
+   * Accepts any color argument that the border-color CSS property accepts.
+   */
   borderColor?: string;
-  /** Content to use as a custom presence indicator (usually not required if
-   consuming Presence separate to Avatar). */
+  /**
+   * Content to use as a custom presence indicator (usually not required if
+   * consuming Presence separate to Avatar).
+   */
   children?: ReactNode;
-  /** The type of presence indicator to show */
+  /**
+   * The type of presence indicator to show
+   */
   presence?: PresenceType;
-  /** Test Id */
+  /**
+   * Test Id
+   */
   testId?: string;
 }
 
@@ -73,7 +83,16 @@ function getPresence(presence: PresenceType) {
   }
 }
 
-const Presence: FC<PresenceProps> = ({
+/**
+ * __Avatar presence__
+ *
+ * A presence shows an avatar’s availability.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/avatar-presence/examples)
+ * - [Code](https://atlassian.design/components/avatar/avatar-presence/code)
+ * - [Usage](https://atlassian.design/components/avatar/avatar-presence/usage)
+ */
+const AvatarPresence: FC<PresenceProps> = ({
   borderColor,
   children,
   presence,
@@ -95,7 +114,7 @@ const Presence: FC<PresenceProps> = ({
   </IconWrapper>
 );
 
-export default Presence;
+export default AvatarPresence;
 
 export interface PresenceWrapperProps extends PresenceProps {
   appearance: AppearanceType;
@@ -103,6 +122,11 @@ export interface PresenceWrapperProps extends PresenceProps {
   testId?: string;
 }
 
+/**
+ * __Presence wrapper__
+ *
+ * A presence wrapper is used internally to position presence ontop of the avatar.
+ */
 export const PresenceWrapper: FC<PresenceWrapperProps> = ({
   size,
   appearance,
@@ -125,9 +149,12 @@ export const PresenceWrapper: FC<PresenceWrapperProps> = ({
         width: `${ICON_SIZES[size]}px`,
       }}
     >
-      <Presence borderColor={borderColor} presence={!children && presence}>
+      <AvatarPresence
+        borderColor={borderColor}
+        presence={!children && presence}
+      >
         {children}
-      </Presence>
+      </AvatarPresence>
     </span>
   );
 };

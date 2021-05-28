@@ -2,7 +2,7 @@ import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-ana
 
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 
 import {
   ExtensionManifest,
@@ -88,7 +88,6 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
       }: Pick<MountResult<T>, 'wrapper' | 'trySubmit'>) {
         expect(getFieldErrors(wrapper)).toStrictEqual([]);
         await trySubmit();
-
         expect(onChange).toBeCalledTimes(0);
         expect(getFieldErrors(wrapper)).toStrictEqual(['required']);
       }
@@ -288,6 +287,112 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           expect(onChange).toHaveBeenCalledWith({
             expandField: { textField: 'hello' },
+          });
+        });
+      });
+
+      describe('Tabs', () => {
+        it('should serialize a correct object', async () => {
+          const { wrapper, trySubmit } = await mountWithProviders({
+            ...defaultProps,
+            extensionProvider: createProvider([
+              {
+                type: 'tab-group',
+                label: 'Tab type',
+                name: 'tabGroup',
+                defaultTab: 'optionB',
+                fields: [
+                  {
+                    type: 'tab',
+                    label: 'Tab A',
+                    name: 'optionA',
+                    fields: [
+                      {
+                        name: 'expandField',
+                        type: 'expand',
+                        label: 'awesome expand field',
+                        fields: [
+                          {
+                            name: 'textFieldOne',
+                            type: 'string',
+                            label: 'Free text',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'tab',
+                    label: 'Tab B',
+                    name: 'optionB',
+                    fields: [
+                      {
+                        name: 'textFieldTwo',
+                        type: 'string',
+                        label: 'Free text',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ]),
+          });
+
+          const tab1 = wrapper.find('#configPanelTabs-tabGroup-0');
+          const tab2 = wrapper.find('#configPanelTabs-tabGroup-1');
+
+          // Tab 2 should be selected by default.
+          expect(tab1.prop('aria-selected')).toEqual(false);
+          expect(tab2.prop('aria-selected')).toEqual(true);
+
+          // table 2 should be displayed
+          expect(wrapper.find('#configPanelTabs-tabGroup-0-tab').length).toBe(
+            0,
+          );
+          expect(
+            wrapper.find('#configPanelTabs-tabGroup-1-tab').prop('hidden'),
+          ).toBeUndefined();
+
+          typeInField(
+            wrapper.find('#configPanelTabs-tabGroup-1-tab Textfield input'),
+            'tab 2 text',
+          );
+
+          // click on tab1
+          tab1.simulate('click');
+          wrapper.update();
+
+          expect(
+            wrapper.find('#configPanelTabs-tabGroup-0-tab').prop('hidden'),
+          ).toBeUndefined();
+          expect(
+            wrapper.find('#configPanelTabs-tabGroup-1-tab').prop('hidden'),
+          ).toBe(true);
+
+          wrapper
+            .find('button[data-testid="form-expand-toggle"]')
+            .simulate('click');
+          wrapper.update();
+
+          typeInField(
+            wrapper.find('#configPanelTabs-tabGroup-0-tab Textfield input'),
+            'tab 1 text',
+          );
+
+          tab2.simulate('click');
+          await trySubmit();
+
+          expect(onChange).toHaveBeenCalledWith({
+            tabGroup: {
+              optionA: {
+                expandField: {
+                  textFieldOne: 'tab 1 text',
+                },
+              },
+              optionB: {
+                textFieldTwo: 'tab 2 text',
+              },
+            },
           });
         });
       });
@@ -657,6 +762,78 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           });
         });
 
+        describe('type: color', () => {
+          let mountResult: MountResult<Props>;
+          beforeEach(async () => {
+            mountResult = await mountWithProviders({
+              ...defaultProps,
+              extensionProvider: createProvider([
+                {
+                  label: 'My color field',
+                  type: 'color',
+                  name: 'color-picker',
+                },
+              ]),
+            });
+          });
+
+          afterEach(() => {
+            onChange.mockClear();
+          });
+
+          it('should create a ColorPicker', () => {
+            const { wrapper } = mountResult;
+            const field = wrapper.find('ColorPicker');
+
+            expect(field.length).toBe(1);
+          });
+
+          it('should serialize to an object', async () => {
+            const clickColor = (wrapper: Wrapper<Props>) => {
+              wrapper.find('ColorPicker button').simulate('click');
+              wrapper
+                .find('Color')
+                .findWhere(
+                  (node: ReactWrapper): boolean =>
+                    node.prop('label') === 'Light Blue',
+                )
+                .find('button')
+                .simulate('click');
+            };
+            const { wrapper, trySubmit } = mountResult;
+            clickColor(wrapper);
+            await trySubmit();
+
+            expect(onChange).toHaveBeenCalledWith({
+              'color-picker': '#7AB2FFFF',
+            });
+          });
+
+          describe('prop: isRequired', () => {
+            it('should show error and skip submission if not filled', async () => {
+              const { wrapper, trySubmit } = await mountWithProviders({
+                ...defaultProps,
+                extensionProvider: createProvider([
+                  {
+                    label: 'My color field',
+                    type: 'color',
+                    name: 'color-picker',
+                    isRequired: true,
+                    defaultValue: undefined,
+                  },
+                ]),
+              });
+
+              onChange.mockClear();
+
+              await expectFieldMessageRequiredOnSubmit({
+                wrapper,
+                trySubmit,
+              });
+            });
+          });
+        });
+
         describe('type: boolean', () => {
           async function mountBoolean(attributes?: Partial<BooleanField>) {
             return await mountWithProviders({
@@ -798,9 +975,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               });
             });
 
-            it('cannot be cleared if field is required', async () => {
+            it('cannot be cleared if field is required and defaultValue is set', async () => {
               const { wrapper } = await mountEnumWithProps({
                 isRequired: true,
+                defaultValue: 'b',
               });
 
               expect(await resolveOption(wrapper, 'A')).toBe(true);
@@ -808,6 +986,31 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               const field = wrapper.find('Select');
               const clearButton = field.find('span[aria-label="clear"]');
               expect(clearButton.length).toBe(0);
+            });
+          });
+
+          describe('prop: defaultValue', () => {
+            it('cannot be cleared if defaultValue is set', async () => {
+              const { wrapper } = await mountEnumWithProps({
+                defaultValue: 'b',
+              });
+              expect(await resolveOption(wrapper, 'A')).toBe(true);
+              wrapper.update();
+              const field = wrapper.find('Select');
+              const clearButton = field.find('span[aria-label="clear"]');
+              expect(clearButton.length).toBe(0);
+            });
+
+            it('can be cleared if defaultValue is set but allows multiple values', async () => {
+              const { wrapper } = await mountEnumWithProps({
+                defaultValue: ['b'],
+                isMultiple: true,
+              });
+              expect(await resolveOption(wrapper, 'A')).toBe(true);
+              wrapper.update();
+              const field = wrapper.find('Select');
+              const clearButton = field.find('span[aria-label="clear"]');
+              expect(clearButton.length).toBe(1);
             });
           });
 
@@ -879,7 +1082,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 });
               });
 
-              it('cannot be cleared if field is required', async () => {
+              it('can be cleared if field is required but default value is not set', async () => {
                 const { wrapper } = await mountEnumWithProps({
                   isRequired: true,
                   isMultiple: true,
@@ -889,7 +1092,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 wrapper.update();
                 const field = wrapper.find('Select');
                 const clearButton = field.find('span[aria-label="clear"]');
-                expect(clearButton.length).toBe(0);
+                expect(clearButton.length).toBe(1);
               });
             });
 

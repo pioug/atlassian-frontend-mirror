@@ -1,5 +1,12 @@
 # @atlaskit/media-editor
 
+## 38.1.10
+
+### Patch Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- Updated dependencies
+
 ## 38.1.9
 
 ### Patch Changes

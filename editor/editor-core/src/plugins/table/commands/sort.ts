@@ -17,8 +17,11 @@ import { Command } from '../../../types';
 import { pluginKey } from '../../card/pm-plugins/main';
 import { CardPluginState } from '../../card/types';
 import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
-import { SortOrder, TablePluginState } from '../types';
-import { TableSortStep } from '../utils';
+import { TablePluginState } from '../types';
+import {
+  TableSortStep,
+  TableSortOrder as SortOrder,
+} from '@atlaskit/adf-schema/steps';
 
 function createGetInlineCardTextFromStore(state: EditorState) {
   const cardState = pluginKey.getState(state) as CardPluginState | undefined;

@@ -6,7 +6,7 @@ import { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import * as main from '../../../../pm-plugins/main';
 import { updateState } from '../../../../commands';
 
-const { createProviderHandler } = main;
+const { createExtensionProviderHandler: createProviderHandler } = main;
 
 const fakeView: any = {
   state: {},

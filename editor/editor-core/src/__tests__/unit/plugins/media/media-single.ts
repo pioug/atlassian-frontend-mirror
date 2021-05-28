@@ -3,6 +3,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
+  caption,
   doc,
   p,
   mediaSingle,
@@ -26,6 +27,12 @@ import {
 } from './_utils';
 import { ProviderFactory, richMediaClassName } from '@atlaskit/editor-common';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
+import { processRawValue } from '../../../../utils/document';
+import {
+  createSchema,
+  mediaSingleWithCaption,
+} from '@atlaskit/adf-schema/src/schema';
+import schema from '@atlaskit/editor-test-helpers/schema';
 
 const createMediaState = (
   id: string,
@@ -460,72 +467,507 @@ describe('media-single', () => {
   });
 
   describe('unsupportedBlock', () => {
-    it('allows unsupportedBlock as a child', () => {
-      const contextIdentifierProvider = storyContextIdentifierProviderFactory();
-      const providerFactory = ProviderFactory.create({
-        contextIdentifierProvider,
-      });
-      const { editorView } = createEditor({
-        editorProps: {
-          defaultValue: {
-            version: 1,
-            type: 'doc',
-            content: [
-              {
-                type: 'mediaSingle',
-                content: [
-                  {
-                    type: 'media',
-                    attrs: {
-                      type: 'file',
-                      id: '1234',
-                      collection: 'SampleCollection',
-                    },
+    describe('mediaSingle', () => {
+      it('should not wrap media in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
                   },
-                  {
-                    type: 'caption',
-                    content: [
-                      {
-                        type: 'text',
-                        text: 'Hello World!',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-          allowExtension: true,
-          media: {
-            allowMediaSingle: true,
-          },
-          contextIdentifierProvider,
-        },
-        providerFactory,
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              media({
+                type: 'file',
+                id: '1234',
+                collection: 'SampleCollection',
+              })(),
+            ),
+          ),
+        );
       });
 
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          mediaSingle({ layout: 'center' })(
-            media({
-              id: '1234',
-              type: 'file',
-              collection: 'SampleCollection',
-            })(),
-            unsupportedBlock({
-              originalValue: {
-                content: [
-                  {
-                    text: 'Hello World!',
-                    type: 'text',
+      it('should wrap unknown in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'unknown',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
                   },
-                ],
-                type: 'caption',
-              },
-            })(),
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              unsupportedBlock({
+                originalValue: {
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                  type: 'unknown',
+                },
+              })(),
+            ),
           ),
-        ),
-      );
+        );
+      });
+
+      it('should wrap all unknown nodes in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'unknown',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                },
+                {
+                  type: 'unknown2',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              unsupportedBlock({
+                originalValue: {
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                  type: 'unknown',
+                },
+              })(),
+              unsupportedBlock({
+                originalValue: {
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                  type: 'unknown2',
+                },
+              })(),
+            ),
+          ),
+        );
+      });
+
+      it('should wrap caption in mediaSingle as unsupportedBlock', () => {
+        const nodesConfig = [
+          'doc',
+          'mediaSingle',
+          'media',
+          'text',
+          'unsupportedBlock',
+        ];
+        const schema = createSchema({
+          nodes: nodesConfig,
+        });
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                },
+                {
+                  type: 'caption',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              media({
+                id: '1234',
+                type: 'file',
+                collection: 'SampleCollection',
+              })(),
+              unsupportedBlock({
+                originalValue: {
+                  content: [
+                    {
+                      text: 'Hello World!',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'caption',
+                },
+              })(),
+            ),
+          ),
+        );
+      });
+
+      it('should wrap all unknown nodes in unsupportedBlock and should allow media', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                },
+                {
+                  type: 'unknown',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              media({
+                id: '1234',
+                type: 'file',
+                collection: 'SampleCollection',
+              })(),
+              unsupportedBlock({
+                originalValue: {
+                  content: [
+                    {
+                      text: 'Hello World!',
+                      type: 'text',
+                    },
+                  ],
+                  type: 'unknown',
+                },
+              })(),
+            ),
+          ),
+        );
+      });
+    });
+
+    describe('mediaSingle with captions', () => {
+      const nodesConfig = [
+        'doc',
+        'mediaSingle',
+        'media',
+        'caption',
+        'text',
+        'unsupportedBlock',
+      ];
+      const schema = createSchema({
+        nodes: nodesConfig,
+        customNodeSpecs: { mediaSingle: mediaSingleWithCaption },
+      });
+      it('should not wrap media in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              media({
+                type: 'file',
+                id: '1234',
+                collection: 'SampleCollection',
+              })(),
+            ),
+          ),
+        );
+      });
+
+      it('should wrap unknown in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              attrs: {
+                layout: 'center',
+              },
+              content: [
+                {
+                  type: 'unknown',
+                  attrs: {
+                    id: '1234',
+                    collection: 'SampleCollection',
+                    type: 'file',
+                  },
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              unsupportedBlock({
+                originalValue: {
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                  type: 'unknown',
+                },
+              })(),
+            ),
+          ),
+        );
+      });
+
+      it('should wrap unknown node in unsupportedBlock and not media', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              attrs: {
+                layout: 'center',
+              },
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    id: '1234',
+                    collection: 'SampleCollection',
+                    type: 'file',
+                  },
+                },
+                {
+                  type: 'unknown',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              media({
+                id: '1234',
+                collection: 'SampleCollection',
+                type: 'file',
+              })(),
+              unsupportedBlock({
+                originalValue: {
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                  type: 'unknown',
+                },
+              })(),
+            ),
+          ),
+        );
+      });
+
+      it('should wrap unknown nodes in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              content: [
+                {
+                  type: 'unknown',
+                  attrs: {
+                    type: 'file',
+                    id: '1234',
+                    collection: 'SampleCollection',
+                  },
+                },
+                {
+                  type: 'unknown',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              unsupportedBlock({
+                originalValue: {
+                  attrs: {
+                    id: '1234',
+                    collection: 'SampleCollection',
+                    type: 'file',
+                  },
+                  type: 'unknown',
+                },
+              })(),
+              unsupportedBlock({
+                originalValue: {
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                  type: 'unknown',
+                },
+              })(),
+            ),
+          ),
+        );
+      });
+
+      it('should not wrap media and caption nodes in unsupportedBlock', () => {
+        const result = processRawValue(schema, {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'mediaSingle',
+              attrs: {
+                layout: 'center',
+              },
+              content: [
+                {
+                  type: 'media',
+                  attrs: {
+                    id: '1234',
+                    collection: 'SampleCollection',
+                    type: 'file',
+                  },
+                },
+                {
+                  type: 'caption',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'Hello World!',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toEqualDocument(
+          doc(
+            mediaSingle({ layout: 'center' })(
+              media({
+                id: '1234',
+                collection: 'SampleCollection',
+                type: 'file',
+              })(),
+              caption('Hello World!'),
+            ),
+          ),
+        );
+      });
     });
   });
 });

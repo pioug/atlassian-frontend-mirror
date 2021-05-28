@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import DownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import { PopupSelect, OptionType, OptionsType, ValueType } from '../src';
+import { PopupSelect, OptionType, OptionsType } from '../src';
 
 const options: OptionsType = [
   { label: 'Adelaide', value: 'adelaide' },
@@ -38,11 +38,7 @@ class MultiPopupSelectExample extends Component<{}, State> {
     }));
   }
 
-  onChange = (values: ValueType<OptionType, true>) => {
-    if (!values) {
-      return;
-    }
-
+  onChange = (values: OptionsType<OptionType>) => {
     this.setState({
       values: values,
       valuesString: values.map((option: OptionType) => option.label).join(', '),

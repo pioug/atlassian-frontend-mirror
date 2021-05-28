@@ -17,4 +17,25 @@ type CloseAEP = UIAEP<
   undefined
 >;
 
-export type ConfigPanelEventPayload = OpenAEP | CloseAEP;
+type ConfigPanelCrashedAEP = UIAEP<
+  ACTION.ERRORED,
+  ACTION_SUBJECT.CONFIG_PANEL,
+  undefined,
+  {
+    product: string;
+    browserInfo: string;
+    extensionKey: string;
+    fields: string;
+    error: string;
+    errorInfo?: {
+      componentStack: string;
+    };
+    errorStack?: string;
+  },
+  undefined
+>;
+
+export type ConfigPanelEventPayload =
+  | OpenAEP
+  | CloseAEP
+  | ConfigPanelCrashedAEP;

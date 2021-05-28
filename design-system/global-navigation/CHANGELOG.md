@@ -1,5 +1,16 @@
 # @atlaskit/global-navigation
 
+## 11.0.0
+
+### Major Changes
+
+- [`0799ad66afd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0799ad66afd) - Removes the invite people experiment from the navigation
+
+### Patch Changes
+
+- [`c1977649b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1977649b49) - Removes the invite option from the global navigation
+- Updated dependencies
+
 ## 10.0.7
 
 ### Patch Changes

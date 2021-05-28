@@ -41,9 +41,6 @@ export default class GlobalNavigation extends Component {
     recent: {
       isControlled: false,
     },
-    invite: {
-      isControlled: false,
-    },
   };
 
   isNotificationInbuilt = false;
@@ -56,7 +53,6 @@ export default class GlobalNavigation extends Component {
     helpDrawerWidth: 'wide',
     settingsDrawerWidth: 'wide',
     recentDrawerWidth: 'wide',
-    inviteDrawerWidth: 'wide',
     drawerBackIcon: null,
   };
 
@@ -71,7 +67,6 @@ export default class GlobalNavigation extends Component {
       isHelpDrawerOpen: false,
       isSettingsDrawerOpen: false,
       isRecentDrawerOpen: false,
-      isInviteDrawerOpen: false,
       notificationCount: 0,
     };
 

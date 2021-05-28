@@ -114,7 +114,7 @@ export default function ModalHeader(props: HeaderProps) {
   }
 
   return (
-    <header css={headerStyles} data-testid={testId && `${testId}--header`}>
+    <div css={headerStyles} data-testid={testId && `${testId}--header`}>
       <h1 css={titleStyles}>
         {appearance && (
           <TitleIcon
@@ -130,6 +130,6 @@ export default function ModalHeader(props: HeaderProps) {
           {heading}
         </span>
       </h1>
-    </header>
+    </div>
   );
 }

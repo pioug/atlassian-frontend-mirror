@@ -179,7 +179,6 @@ export const createExtensionAPI = (
         const payload: AnalyticsEventPayload = {
           action: ACTION.INSERTED,
           actionSubject: ACTION_SUBJECT.DOCUMENT,
-          // actionSubjectId: ACTION_SUBJECT_ID.NODE,
           attributes: {
             nodeType: node.type.name,
             inputMethod: INPUT_METHOD.EXTENSION_API,

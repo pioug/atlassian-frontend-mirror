@@ -37,8 +37,19 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('More indicator should match with screenshot', async () => {
+    const image = await takeElementScreenShot(page, moreIndicator);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('More indicator should get opacity onHover', async () => {
     await page.hover(moreIndicator);
+    const image = await takeElementScreenShot(page, moreIndicator);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('More indicator should get outline on focus', async () => {
+    await page.focus(moreIndicator);
     const image = await takeElementScreenShot(page, moreIndicator);
     expect(image).toMatchProdImageSnapshot();
   });

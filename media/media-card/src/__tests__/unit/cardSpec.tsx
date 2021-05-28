@@ -1,3 +1,11 @@
+jest.mock('../../utils/viewportDetector', () => {
+  const actualModule = jest.requireActual('../../utils/viewportDetector');
+  return {
+    __esModule: true,
+    ...actualModule,
+    ViewportDetector: jest.fn(actualModule.ViewportDetector),
+  };
+});
 jest.mock('../../root/card/getCardPreview', () => {
   const actualModule = jest.requireActual('../../root/card/getCardPreview');
   return {
@@ -22,7 +30,6 @@ jest.mock('../../root/card/cardAnalytics', () => {
     fireOperationalEvent: jest.fn(actualModule.fireOperationalEvent),
   };
 });
-jest.mock('../../utils/intersectionObserver');
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import React from 'react';
 import uuid from 'uuid/v4';
@@ -70,12 +77,11 @@ import {
 import { Card, CardBase, CardWithAnalyticsEventsProps } from '../../root/card';
 import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
-import { LazyContent } from '../../utils/lazyContent';
+import { ViewportDetector } from '../../utils/viewportDetector';
 import {
   getCardPreviewFromFileState,
   CardPreview,
 } from '../../root/card/getCardPreview';
-import * as IntersectionObserverUtils from '../../utils/intersectionObserver';
 import { IntlProvider } from 'react-intl';
 import { getFileAttributes } from '../../utils/analytics';
 import { FileAttributesProvider } from '../../utils/fileAttributesContext';
@@ -83,6 +89,17 @@ import { getCardStatus } from '../../root/card/getCardStatus';
 import { fireOperationalEvent } from '../../root/card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
 import { CardStatus } from '../../types';
+
+const mockViewportDetectorOnce = () => {
+  const onVisibleMock = { onVisible: () => {} };
+  asMockFunction(ViewportDetector).mockImplementationOnce(
+    ({ children, onVisible }) => {
+      onVisibleMock.onVisible = onVisible;
+      return <>{children}</>;
+    },
+  );
+  return onVisibleMock;
+};
 
 type AnalyticsHandlerResultType = ReturnType<
   typeof AnalyticsListener.prototype['props']['onEvent']
@@ -109,34 +126,7 @@ describe('Card', () => {
   let defaultFileId: string;
   let fileIdentifier: FileIdentifier;
   let defaultFileState: ProcessedFileState;
-  let isIntersectionObserverSupportedMock: jest.SpyInstance;
   let mediaClient: MediaClient;
-  const observeMock = jest.fn();
-  const disconnectMock = jest.fn();
-  let intersectionTrigger: () => void;
-  const IntersectionObserverMock = jest
-    .fn()
-    .mockImplementation(intersectionCallback => {
-      const entries: Partial<IntersectionObserverEntry>[] = [
-        {
-          isIntersecting: false,
-        },
-        {
-          isIntersecting: true,
-        },
-        {
-          isIntersecting: true,
-        },
-      ];
-
-      intersectionTrigger = () => {
-        intersectionCallback(entries, { disconnect: disconnectMock });
-      };
-      return {
-        observe: observeMock,
-        disconnect: disconnectMock,
-      };
-    });
 
   const defaultCardPreview: Promise<CardPreview> = Promise.resolve({
     dataURI: 'some-data-uri',
@@ -155,7 +145,7 @@ describe('Card', () => {
     asMockFunction(getCardPreviewFromFileState).mockReset();
     asMockFunction(getCardPreviewFromFileState).mockReturnValue(cardPreview);
 
-    props = { isLazy: true, ...props };
+    props = { isLazy: false, ...props };
 
     const component = shallow<
       CardBase,
@@ -164,14 +154,6 @@ describe('Card', () => {
     >(
       <CardBase mediaClient={mediaClient} identifier={identifier} {...props} />,
     );
-
-    if (props.isLazy) {
-      const onLazyContentRender = component.find(LazyContent).props().onRender;
-      if (onLazyContentRender) {
-        onLazyContentRender();
-        component.update();
-      }
-    }
 
     return {
       component,
@@ -228,19 +210,10 @@ describe('Card', () => {
     };
     jest.spyOn(globalMediaEventEmitter, 'emit');
     asMock(getCardPreviewFromFileState).mockReturnValue(defaultCardPreview);
-    (global as any).IntersectionObserver = IntersectionObserverMock;
-    isIntersectionObserverSupportedMock = jest.spyOn(
-      IntersectionObserverUtils,
-      'isIntersectionObserverSupported',
-    );
-    isIntersectionObserverSupportedMock.mockReturnValue(false);
   });
 
   afterEach(() => {
     asMockFunction(getCardPreviewFromFileState).mockReset();
-    isIntersectionObserverSupportedMock.mockReset();
-    observeMock.mockReset();
-    disconnectMock.mockReset();
     jest.restoreAllMocks();
   });
 
@@ -437,7 +410,16 @@ describe('Card', () => {
         onMouseEnter={hoverHandler}
       />,
     );
-    expect(card.find(LazyContent)).toHaveLength(1);
+    const viewportDetector = card.find(ViewportDetector);
+    expect(viewportDetector).toHaveLength(1);
+    expect(viewportDetector.prop('onVisible')).toBeDefined();
+  });
+
+  it('should request metadata when Card is in viewport', () => {
+    const onVisibleMock = mockViewportDetectorOnce();
+    mount(<CardBase mediaClient={mediaClient} identifier={identifier} />);
+    onVisibleMock.onVisible();
+    expect(mediaClient.file.getFileState).toBeCalledTimes(1);
   });
 
   it('should not use lazy load when "isLazy" is false', () => {
@@ -446,29 +428,7 @@ describe('Card', () => {
       isLazy: false,
       onMouseEnter: hoverHandler,
     });
-
-    expect(component.find(LazyContent)).toHaveLength(0);
-  });
-
-  it('should use IntersectionObserver when supported', () => {
-    isIntersectionObserverSupportedMock.mockReturnValue(true);
-    const card = mount(
-      <CardBase mediaClient={mediaClient} identifier={identifier} />,
-    );
-
-    expect(isIntersectionObserverSupportedMock).toBeCalled();
-    expect(card.find(LazyContent)).toHaveLength(0);
-    expect(observeMock).toBeCalled();
-    card.unmount();
-    expect(disconnectMock).toBeCalled();
-  });
-
-  it('should request metadata when Card is intersecting', () => {
-    isIntersectionObserverSupportedMock.mockReturnValue(true);
-    mount(<CardBase mediaClient={mediaClient} identifier={identifier} />);
-    intersectionTrigger();
-    expect(mediaClient.file.getFileState).toBeCalledTimes(1);
-    expect(disconnectMock).toBeCalledTimes(1);
+    expect(component.find(ViewportDetector)).toHaveLength(0);
   });
 
   it('should pass "secondary error" or actual error down to CardView', () => {
@@ -1167,7 +1127,7 @@ describe('Card', () => {
   });
 
   it('should subscribe to file state immediately if the component was remounted', async () => {
-    isIntersectionObserverSupportedMock.mockReturnValue(true);
+    const onVisibleMock = mockViewportDetectorOnce();
     const props = {
       dimensions: { width: 50, height: 50 },
     };
@@ -1182,7 +1142,7 @@ describe('Card', () => {
     // We let the IntersectionObserver kicks in and it should start
     // subscribing to the fileState and populate all the neccesary
     // data to redner the image
-    intersectionTrigger();
+    onVisibleMock.onVisible();
     await flushPromises();
     component.update();
     await flushPromises();
@@ -1633,6 +1593,7 @@ describe('Card', () => {
             mediaClient={mediaClient}
             identifier={identifier}
             featureFlags={featureFlags}
+            isLazy={false}
           />
         </AnalyticsListener>,
       );

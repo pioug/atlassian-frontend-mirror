@@ -24,7 +24,16 @@ export default async () => {
     async client => {
       const page = await Page.create(client);
       await loadEditor(page);
-      await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror');
+      await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '24');
+    },
+  );
+  MobileTestCase(
+    'Editor Text: Validate font size larger than 34px is set to max font size of 34px.',
+    {},
+    async client => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '35');
     },
   );
 };

@@ -33,6 +33,7 @@ type ConfluenceSwitcherProps = WithTheme & {
   recommendationsFeatureFlags?: RecommendationsFeatureFlags;
   joinableSitesDataProvider?: JoinableSitesDataProvider;
   availableProductsDataProvider?: AvailableProductsDataProvider;
+  slackDiscoveryClickHandler?: DiscoverMoreCallback;
   customizeLinks?: CustomizeLinks;
 };
 
@@ -71,6 +72,7 @@ export default (props: ConfluenceSwitcherProps) => (
                     Product.CONFLUENCE,
                     undefined,
                     undefined,
+                    props.slackDiscoveryClickHandler,
                     props.customizeLinks,
                   );
 

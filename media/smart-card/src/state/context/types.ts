@@ -1,6 +1,6 @@
 import { Store } from 'redux';
 import { CardStore, CardConnections } from '../store/types';
-import { CardPlatform } from '../../view/Card';
+import { CardPlatform, CardAppearance } from '../../view/Card';
 import CardClient from '../../client';
 import { LinkPreview } from '../../extractors/common/preview/extractPreview';
 
@@ -21,6 +21,7 @@ export interface CardContext {
       platform?: CardPlatform,
     ) => LinkPreview | undefined;
   };
+  renderers?: CardProviderRenderers;
 }
 
 export interface CardProviderCacheOpts {
@@ -32,9 +33,15 @@ export interface CardProviderStoreOpts {
   initialState: CardStore;
 }
 
+export interface CardProviderRenderers {
+  adf?: (adf: string) => React.ReactNode;
+  emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
+}
+
 export type CardProviderProps = {
   client?: CardClient;
   cacheOptions?: CardProviderCacheOpts;
   storeOptions?: CardProviderStoreOpts;
   children: React.ReactNode;
+  renderers?: CardProviderRenderers;
 } & CardAuthFlowOpts;

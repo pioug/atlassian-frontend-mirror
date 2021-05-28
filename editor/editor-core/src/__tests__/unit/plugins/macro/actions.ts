@@ -11,6 +11,13 @@ import {
   MacroProvider,
 } from '@atlaskit/editor-common/provider-factory';
 
+jest.mock('@atlaskit/adf-schema', () => ({
+  ...jest.requireActual<Object>('@atlaskit/adf-schema'),
+  uuid: {
+    generate: () => 'testId',
+  },
+}));
+
 const macroProvider: MacroProvider = {
   config: {},
   openMacroBrowser: () => {
@@ -61,11 +68,13 @@ describe('macro plugin -> commands -> insert macro from provider', () => {
         bodiedExtension({
           extensionKey: 'fake.extension',
           extensionType: 'atlassian.com.editor',
+          localId: 'testId',
         })(
           extension({
             extensionKey: 'com.fake',
             extensionType: 'com.fake',
             layout: 'default',
+            localId: 'testId',
           })(),
         ),
       ),

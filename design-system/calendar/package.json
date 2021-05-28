@@ -30,7 +30,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/ds-lib": "^1.2.0",
-    "@atlaskit/icon": "^21.5.0",
+    "@atlaskit/icon": "^21.6.0",
     "@atlaskit/locale": "^2.3.0",
     "@atlaskit/theme": "^11.2.0",
     "@babel/runtime": "^7.0.0",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
-    "@atlaskit/select": "^13.2.0",
+    "@atlaskit/select": "^14.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { CardLoading, CardError } from '../src';
 import { StoryList } from '@atlaskit/media-test-helpers';
+import { MainWrapper } from '../example-helpers';
 
 const divStyle = {
   width: '100px',
@@ -40,10 +40,12 @@ const resizedCards = [
 ];
 
 export default () => (
-  <div>
-    <h3>Default size</h3>
-    <StoryList>{defaultCards}</StoryList>
-    <h3>50x50 size</h3>
-    <StoryList>{resizedCards}</StoryList>
-  </div>
+  <MainWrapper>
+    <div>
+      <h3>Default size</h3>
+      <StoryList>{defaultCards}</StoryList>
+      <h3>50x50 size</h3>
+      <StoryList>{resizedCards}</StoryList>
+    </div>
+  </MainWrapper>
 );

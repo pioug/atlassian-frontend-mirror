@@ -8,7 +8,9 @@ import {
 } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractIcon } from '../common/icon';
+import { extractTitlePrefix } from '../common/title-prefix';
 import { extractProvider } from '../common/context';
+import { CardProviderRenderers } from '../../state/context/types';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 
 export const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData) => {
@@ -26,10 +28,12 @@ export const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData) => {
 
 export const extractInlineProps = (
   jsonLd: JsonLd.Data.BaseData,
+  renderers?: CardProviderRenderers,
 ): InlineCardResolvedViewProps => ({
   link: extractLink(jsonLd),
   title: extractTitle(jsonLd),
   lozenge: extractLozenge(jsonLd),
   icon: extractInlineIcon(jsonLd),
   titleTextColor: extractTitleTextColor(jsonLd),
+  titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),
 });

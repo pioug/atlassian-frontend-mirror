@@ -1,28 +1,12 @@
-import {
-  getExampleUrl,
-  pageSelector,
-} from '@atlaskit/visual-regression/helper';
-import { mediaMockQueryOptInFlag } from '@atlaskit/media-test-helpers/media-mock';
 import { waitForResolvedBlockCard } from '@atlaskit/media-integration-test-helpers';
-import { takeSnapshot } from '../__utils__/vr-helpers';
-
-function getURL(testName: string): string {
-  return (
-    getExampleUrl('media', 'media-ui', testName, global.__BASEURL__) +
-    `&${mediaMockQueryOptInFlag}`
-  );
-}
-
-async function setup(url: string) {
-  const { page } = global;
-  await page.goto(url);
-  await page.waitForSelector(pageSelector);
-  return page;
-}
+import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Block Card', () => {
-  it('shows collborators on block cards', async () => {
-    const url = getURL('vr-block-card-collaborators');
+  it.each([
+    ['shows collborators on block cards', 'vr-block-card-collaborators'],
+    ['shows default icon on block cards', 'vr-block-card-default-icon'],
+  ])('%s', async (_: string, testName: string) => {
+    const url = getURL(testName);
     const page = await setup(url);
 
     await waitForResolvedBlockCard(page);

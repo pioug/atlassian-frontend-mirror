@@ -13,8 +13,8 @@ import {
 import {
   TablePluginState,
   PluginConfig,
-  SortOrder,
 } from '../../../../plugins/table/types';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import { sortByColumn } from '../../../../plugins/table/commands';
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
 

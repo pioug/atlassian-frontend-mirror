@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 57.1.0
+
+### Minor Changes
+
+- [`e66cd2fe716`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e66cd2fe716) - ED-12655: added support for config panel tabs
+- [`11b9305ca1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11b9305ca1b) - [ux] ED-12649 add ColorField definition and UI to ConfigPanel
+- [`35645d7d1b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35645d7d1b7) - ED-12762 Prevent nesting of GroupingFields (for now)
+  Added localization for expand field
+- [`5d8e5bd7d50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d8e5bd7d50) - [ux] Added support for dynamic getFieldsDefinition() in Editor Extensions.
+
+  Made changes to the extension config panel fields so it triggers a submit only if the field is "dirty".
+
+### Patch Changes
+
+- [`cda36713f70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cda36713f70) - ED-12738 Validator to wrap the entity into unsupported content for minimum content Length error
+- Updated dependencies
+
 ## 57.0.0
 
 ### Major Changes

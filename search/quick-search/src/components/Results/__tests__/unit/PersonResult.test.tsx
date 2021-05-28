@@ -80,10 +80,16 @@ describe('Person Result', () => {
 
   it('known presence states are still valid', () => {
     personResultWrapper.setProps({ presenceState: 'online' });
-    expect(personResultWrapper.find('Presence').find('svg')).toHaveLength(1);
+    expect(personResultWrapper.find('AvatarPresence').find('svg')).toHaveLength(
+      1,
+    );
     personResultWrapper.setProps({ presenceState: 'offline' });
-    expect(personResultWrapper.find('Presence').find('svg')).toHaveLength(1);
+    expect(personResultWrapper.find('AvatarPresence').find('svg')).toHaveLength(
+      1,
+    );
     personResultWrapper.setProps({ presenceState: 'busy' });
-    expect(personResultWrapper.find('Presence').find('svg')).toHaveLength(1);
+    expect(personResultWrapper.find('AvatarPresence').find('svg')).toHaveLength(
+      1,
+    );
   });
 });

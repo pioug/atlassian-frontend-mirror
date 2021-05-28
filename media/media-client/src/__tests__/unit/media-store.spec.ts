@@ -1,7 +1,6 @@
 jest.mock('../../utils/checkWebpSupport');
-
+jest.mock('../../client/media-store/resolveAuth');
 import { stringify } from 'query-string';
-import { Auth, ClientBasedAuth } from '@atlaskit/media-core';
 import { FetchMock } from 'jest-fetch-mock';
 import {
   CreatedTouchedFile,
@@ -24,6 +23,7 @@ import {
   MediaStoreError,
 } from '../..';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
+import resolveAuth from '../../client/media-store/resolveAuth';
 
 interface ExtendedGlobal extends NodeJS.Global {
   fetch: FetchMock;
@@ -31,8 +31,18 @@ interface ExtendedGlobal extends NodeJS.Global {
 
 const extendedGlobal: ExtendedGlobal = global;
 
+const baseUrl = 'http://some-host';
+const clientId = 'some-client-id';
+const token = 'some-token';
+(resolveAuth as jest.Mock).mockResolvedValue({
+  baseUrl,
+  clientId,
+  token,
+});
+const authProvider = jest.fn();
+let mediaStore: MediaStore;
+
 describe('MediaStore', () => {
-  const baseUrl = 'http://some-host';
   const checkWebpSupportMock = checkWebpSupport as jest.Mock;
 
   afterEach(() => {
@@ -40,9 +50,6 @@ describe('MediaStore', () => {
   });
 
   describe('given auth provider resolves', () => {
-    const clientId = 'some-client-id';
-    const token = 'some-token';
-    const auth: ClientBasedAuth = { clientId, token, baseUrl };
     const data: MediaFile = {
       id: 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6',
       mediaType: 'doc',
@@ -53,16 +60,10 @@ describe('MediaStore', () => {
       artifacts: {},
       representations: {},
     };
-    let authProvider: jest.Mock<Promise<Auth>>;
-    let mediaStore: MediaStore;
 
     beforeEach(() => {
       jest.clearAllMocks();
-      authProvider = jest.fn<Promise<Auth>, any[]>();
-      authProvider.mockResolvedValue(auth);
-      mediaStore = new MediaStore({
-        authProvider,
-      });
+      mediaStore = new MediaStore({ authProvider });
     });
 
     it('should store region from header in sessionStorage', async () => {
@@ -368,7 +369,9 @@ describe('MediaStore', () => {
             },
           },
         );
-        expect(authProvider).toHaveBeenCalledWith({ collectionName });
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+          collectionName,
+        });
       });
 
       it('should fail if response is malformed JSON', async () => {
@@ -470,7 +473,9 @@ describe('MediaStore', () => {
             },
           },
         );
-        expect(authProvider).toHaveBeenCalledWith({ collectionName });
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+          collectionName,
+        });
       });
 
       it('should not return empty files', async () => {
@@ -583,7 +588,7 @@ describe('MediaStore', () => {
             body: JSON.stringify(body),
           },
         );
-        expect(authProvider).toHaveBeenCalledWith({
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
           collectionName: params.collection,
         });
       });
@@ -647,10 +652,13 @@ describe('MediaStore', () => {
 
     describe('getFileImageURL', () => {
       it('should return the file image preview url based on the file id', async () => {
-        const url = await mediaStore.getFileImageURL('1234');
-
+        const collection = 'some-collection';
+        const url = await mediaStore.getFileImageURL('1234', { collection });
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+          collectionName: collection,
+        });
         expect(url).toEqual(
-          `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=some-token`,
+          `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
         );
       });
     });
@@ -961,12 +969,12 @@ describe('MediaStore', () => {
 
       it('should return file url', () => {
         expect(url).toEqual(
-          `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=some-token`,
+          `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
         );
       });
 
-      it('should call authProvider with given collection name', async () => {
-        expect(authProvider).toHaveBeenCalledWith({
+      it('should call resolveAuth with authProvider and given collection name', async () => {
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
           collectionName: 'some-collection-name',
         });
       });
@@ -986,8 +994,11 @@ describe('MediaStore', () => {
         );
 
         expect(url).toEqual(
-          `${baseUrl}/sd-video?client=some-client-id&collection=some-collection&max-age=${FILE_CACHE_MAX_AGE}&token=some-token`,
+          `${baseUrl}/sd-video?client=some-client-id&collection=some-collection&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
         );
+        expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+          collectionName: 'some-collection',
+        });
       });
 
       it('should throw if artifact cant be found', async () => {
@@ -1070,30 +1081,6 @@ describe('MediaStore', () => {
 
         expect.assertions(1);
       });
-    });
-  });
-
-  describe('given auth provider rejects', () => {
-    it('should reject with MediaStoreError', async () => {
-      const error = new Error('auth error');
-      const mediaStore = new MediaStore({
-        authProvider: () => Promise.reject(error),
-      });
-
-      try {
-        await mediaStore.request('/some-path');
-      } catch (err) {
-        if (!isMediaStoreError(err)) {
-          return expect(isMediaStoreError(err)).toBeTruthy();
-        }
-
-        expect(err.attributes).toMatchObject({
-          reason: 'failedAuthProvider',
-          innerError: error,
-        });
-      }
-
-      expect.assertions(1);
     });
   });
 

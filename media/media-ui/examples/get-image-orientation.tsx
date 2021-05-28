@@ -1,6 +1,11 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { getOrientation, getFileInfo } from '../src';
+import {
+  getOrientation,
+  getFileInfo,
+  getCssFromImageOrientation,
+  readImageMetaData,
+} from '../src';
 import {
   InputWrapper,
   PreviewList,
@@ -8,26 +13,19 @@ import {
   Code,
   CloseButton,
   OrientationSelectWrapper,
-  PreviewImageContainer,
 } from '../example-helpers/styled';
 import Lozenge from '@atlaskit/lozenge';
-
-const ORIENT_TRANSFORMS: { [key: number]: string } = {
-  1: 'none',
-  2: 'rotateY(180deg)',
-  3: 'rotate(180deg)',
-  4: 'rotate(180deg) rotateY(180deg)',
-  5: 'rotate(270deg) rotateY(180deg)',
-  6: 'rotate(90deg)',
-  7: 'rotate(90deg) rotateY(180deg)',
-  8: 'rotate(270deg)',
-};
 
 interface ExamplePreview {
   filename: string;
   src: string;
   orientation: number;
   duration: number;
+  width: number;
+  height: number;
+  naturalWidth: number;
+  naturalHeight: number;
+  tags: any;
 }
 
 export interface ExampleState {
@@ -48,12 +46,18 @@ class Example extends React.Component<{}, ExampleState> {
       const startTime = Date.now();
       const fileInfo = await getFileInfo(file);
       const orientation = await getOrientation(file);
+      const imageMetaData = await readImageMetaData(fileInfo);
       const duration = Date.now() - startTime;
       previews.push({
         filename: file.name,
         orientation,
         src: fileInfo.src,
         duration,
+        width: imageMetaData!.width,
+        height: imageMetaData!.height,
+        naturalWidth: imageMetaData!.naturalWidth,
+        naturalHeight: imageMetaData!.naturalHeight,
+        tags: imageMetaData?.tags,
       });
     }
     this.setState({ previews: [...previews] });
@@ -151,21 +155,29 @@ class Example extends React.Component<{}, ExampleState> {
               </Lozenge>
             </p>
             <p>
+              dimensions:{' '}
+              <Lozenge appearance="success" isBold>
+                width: {preview.width}
+                <br />
+                height: {preview.height}
+                <br />
+                naturalWidth: {preview.naturalWidth}
+                <br />
+                naturalHeight: {preview.naturalHeight}
+                <br />
+              </Lozenge>
+            </p>
+            <p>tags: {JSON.stringify(preview.tags)}</p>
+            <p>
               transform:{' '}
               <Lozenge appearance="moved">
-                {ORIENT_TRANSFORMS[orientation]}
+                {getCssFromImageOrientation(orientation)}
               </Lozenge>
             </p>
             <p>
               duration: <Lozenge>{preview.duration}ms</Lozenge>
             </p>
           </div>
-          <PreviewImageContainer>
-            <img
-              src={preview.src}
-              style={{ transform: ORIENT_TRANSFORMS[orientation] }}
-            />
-          </PreviewImageContainer>
           <CloseButton onClick={this.onRemovePreview(i)}>X</CloseButton>
         </PreviewItem>
       );

@@ -210,6 +210,7 @@ describe('Feature Flags from Props', () => {
             predictableLists: true,
             undoRedoButtons: true,
             catchAllTracking: true,
+            showAvatarGroupAsPlugin: false,
             // already using .featureFlags explicitly
             // stickyHeadersOptimization: true,
             // nextEmojiNodeView: true,

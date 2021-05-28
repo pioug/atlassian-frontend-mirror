@@ -1,13 +1,15 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { ButtonProps } from '@atlaskit/button/types';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { Note } from '../examples-util/helpers';
 import Avatar from '../src';
 
-const Btn = (props: CustomThemeButtonProps) => (
+// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+const Btn = (props: ButtonProps) => (
   <span style={{ marginLeft: gridSize() }}>
     <Button type="button" {...props} />
   </span>

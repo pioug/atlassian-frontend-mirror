@@ -29,6 +29,9 @@ export default {
   'fabric.media.cant_retrieve_files': 'Oei! We konden geen bestanden ophalen',
   'fabric.media.cant_retrieve_gifs': "Oei! We konden geen GIF's vinden",
   'fabric.media.check_your_network': 'Controleer je netwerkverbinding',
+  'fabric.media.click_to_join': 'Neem deel aan {context}',
+  'fabric.media.click_to_join_description':
+    'Je bent goedgekeurd, dus je kunt onmiddellijk deelnemen aan {context}.',
   'fabric.media.close': 'Sluiten',
   'fabric.media.close_and_reopen':
     'Probeer dit bestand te sluiten en opnieuw te openen.',
@@ -75,6 +78,8 @@ export default {
   'fabric.media.error_hint_retry': 'Probeer het opnieuw dan doen wij het ook.',
   'fabric.media.error_loading_file': 'Fout bij laden van bestand',
   'fabric.media.failed_to_load': 'Fout bij het laden',
+  'fabric.media.forbidden_description':
+    'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
   'fabric.media.give_feedback': 'Feedback geven',
   'fabric.media.image': 'afbeelding',
   'fabric.media.image_format_invalid_error':
@@ -116,6 +121,14 @@ export default {
   'fabric.media.preview_unavailable': 'Voorbeeld niet beschikbaar',
   'fabric.media.recent_uploads': 'Recente uploads',
   'fabric.media.remove_image': 'Afbeelding verwijderen',
+  'fabric.media.request_access': 'Toegang aanvragen',
+  'fabric.media.request_access_description':
+    'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
+  'fabric.media.request_access_pending': 'Toegang wordt behandeld',
+  'fabric.media.request_access_pending_description':
+    'Je toegangsaanvraag wordt behandeld.',
+  'fabric.media.request_denied_description':
+    'Je toegangsaanvraag is afgewezen. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
   'fabric.media.retry': 'Probeer opnieuw',
   'fabric.media.save': 'Opslaan',
   'fabric.media.search': 'Zoeken',
@@ -145,6 +158,8 @@ export default {
     'We hebben problemen met het laden van je bestand.',
   'fabric.media.webgl_warning_description':
     'Je browser ondersteunt geen WebGL. Gebruik een browser met WebGL-functie om aantekeningen te maken bij afbeeldingen.',
+  'fabric.media.zip_entry_load_failed':
+    'We konden dat zip-bestandsitem niet laden om voor te vertonen',
   'fabric.media.zoom_in': 'inzoomen',
   'fabric.media.zoom_out': 'uitzoomen',
 };

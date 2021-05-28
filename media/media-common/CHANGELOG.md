@@ -1,5 +1,15 @@
 # @atlaskit/media-common
 
+## 2.7.0
+
+### Minor Changes
+
+- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+
+### Patch Changes
+
+- [`6be6879ef6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6be6879ef6d) - Enforce types
+
 ## 2.6.2
 
 ### Patch Changes

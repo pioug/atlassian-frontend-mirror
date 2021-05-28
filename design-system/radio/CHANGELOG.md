@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.1.0
+
+### Minor Changes
+
+- [`7af2427f3a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7af2427f3a8) - [ux] Update form field examples for validation and add a new prop to RadioGroup component
+
 ## 5.0.4
 
 ### Patch Changes

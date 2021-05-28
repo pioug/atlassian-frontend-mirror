@@ -459,6 +459,7 @@ const nestedTables = {
             ],
           },
         },
+        localId: 'testId',
         layout: 'wide',
       },
       content: [

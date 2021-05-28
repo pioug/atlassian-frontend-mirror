@@ -22,6 +22,8 @@ export interface InlineCardResolvedViewProps {
   testId?: string;
   /** The color of the title text only (not including the icon) */
   titleTextColor?: string;
+  /** The Emoji icon prefix that was added to the title text via Add emoji button */
+  titlePrefix?: React.ReactNode;
 }
 
 export class InlineCardResolvedView extends React.Component<
@@ -53,6 +55,7 @@ export class InlineCardResolvedView extends React.Component<
       link,
       testId = 'inline-card-resolved-view',
       titleTextColor,
+      titlePrefix,
     } = this.props;
     return (
       <Frame
@@ -62,6 +65,7 @@ export class InlineCardResolvedView extends React.Component<
         onClick={onClick}
       >
         <IconAndTitleLayout
+          emoji={titlePrefix}
           icon={icon}
           title={title}
           titleTextColor={titleTextColor}

@@ -516,6 +516,10 @@
             "parameters": {},
             "text": {
               "type": "string"
+            },
+            "localId": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -1583,6 +1587,10 @@
                 "full-width",
                 "default"
               ]
+            },
+            "localId": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -1829,9 +1837,6 @@
           },
           {
             "$ref": "#/definitions/heading_with_alignment_node"
-          },
-          {
-            "$ref": "#/definitions/heading_with_indentation_node"
           },
           {
             "$ref": "#/definitions/panel_node"
@@ -2094,6 +2099,10 @@
                 "full-width",
                 "default"
               ]
+            },
+            "localId": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [

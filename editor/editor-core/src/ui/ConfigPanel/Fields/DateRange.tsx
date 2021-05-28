@@ -14,7 +14,7 @@ import {
 import { messages } from '../messages';
 import FieldMessages from '../FieldMessages';
 import { validate, validateRequired } from '../utils';
-import { OnBlur } from '../types';
+import { OnFieldChange } from '../types';
 
 const HorizontalFields = styled.div`
   display: flex;
@@ -43,14 +43,14 @@ const DateField = ({
   parentField,
   scope,
   fieldName,
-  onBlur,
+  onFieldChange,
   intl,
   isRequired,
 }: {
   parentField: DateRangeField;
   scope: string;
   fieldName: 'from' | 'to';
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   isRequired?: boolean;
 } & InjectedIntlProps) => (
   <HorizontalFieldWrapper key={fieldName}>
@@ -72,7 +72,7 @@ const DateField = ({
             {...fieldProps}
             onChange={(date: string) => {
               fieldProps.onChange(date);
-              onBlur(parentField.name);
+              onFieldChange(parentField.name, true);
             }}
             locale={intl.locale}
           />
@@ -86,12 +86,12 @@ const DateField = ({
 const DateRange = function ({
   name,
   field,
-  onBlur,
+  onFieldChange,
   intl,
 }: {
   name: string;
   field: DateRangeField;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   autoFocus?: boolean;
   placeholder?: string;
 } & InjectedIntlProps) {
@@ -115,8 +115,8 @@ const DateRange = function ({
   useEffect(() => {
     // calling onBlur here based on the currentValue changing will ensure that we
     // get the most up to date value after the form has been rendered
-    onBlur(name);
-  }, [currentValue, onBlur, name]);
+    onFieldChange(name, true);
+  }, [currentValue, onFieldChange, name]);
 
   const element = (
     <Fragment>
@@ -132,7 +132,7 @@ const DateRange = function ({
         isRequired={field.isRequired}
         validate={(value?: string) => validate<string>(field, value || '')}
       >
-        {({ fieldProps, error, valid }) => (
+        {({ fieldProps, error }) => (
           <Fragment>
             <RadioGroup
               {...fieldProps}
@@ -161,7 +161,7 @@ const DateRange = function ({
             scope={name}
             parentField={field}
             fieldName="from"
-            onBlur={onBlur}
+            onFieldChange={onFieldChange}
             intl={intl}
             isRequired={field.isRequired}
           />
@@ -169,7 +169,7 @@ const DateRange = function ({
             scope={name}
             parentField={field}
             fieldName="to"
-            onBlur={onBlur}
+            onFieldChange={onFieldChange}
             intl={intl}
             isRequired={field.isRequired}
           />

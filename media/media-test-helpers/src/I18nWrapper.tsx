@@ -44,9 +44,10 @@ export const I18NWrapper = ({ children }: I18NWrapperProps) => {
   const lang = locale.value.substring(0, 2);
   const messages = getMessages(locale.value);
   return (
-    <div style={{ paddingTop: '40px' }}>
-      <p>Use the Select to move between the available languages</p>
-      <LocaleSelect onLocaleChange={setLocale} locales={selectableLocales} />
+    <>
+      <div style={{ marginBottom: 10, marginTop: 10 }}>
+        <LocaleSelect onLocaleChange={setLocale} locales={selectableLocales} />
+      </div>
       <IntlProvider
         locale={lang}
         messages={messages}
@@ -56,6 +57,6 @@ export const I18NWrapper = ({ children }: I18NWrapperProps) => {
       >
         <>{children}</>
       </IntlProvider>
-    </div>
+    </>
   );
 };

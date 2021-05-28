@@ -6,9 +6,12 @@ import {
   Props,
   AtlassianInternalWarning,
 } from '@atlaskit/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
+
+  ${createRxjsNotice('Media Editor')}
   
   This component provides a way to do image annotations.
 

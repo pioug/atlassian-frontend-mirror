@@ -22,8 +22,8 @@ import { pluginKey } from './plugin-key';
 import { SelectOption } from '../floating-toolbar/ui/Select';
 import {
   createLanguageList,
-  DEFAULT_LANGUAGES,
   getLanguageIdentifier,
+  DEFAULT_LANGUAGES,
 } from './language-list';
 
 export const messages = defineMessages({
@@ -62,11 +62,17 @@ export const getToolbarConfig = (
     alias: lang.alias,
   }));
 
+  // If language is not undefined search for it in the value and then search in the aliases
+  const defaultValue = language
+    ? options.find(option => option.value === language) ||
+      options.find(option => option.alias.includes(language as never))
+    : undefined;
+
   const languageSelect: FloatingToolbarSelect<Command> = {
     id: 'editor.codeBlock.languageOptions',
     type: 'select',
     onChange: option => changeLanguage(option.value),
-    defaultValue: options.find(option => option.value === language),
+    defaultValue,
     placeholder: formatMessage(messages.selectLanguage),
     options,
     filterOption: languageListFilter,

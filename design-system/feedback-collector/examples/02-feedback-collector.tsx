@@ -45,11 +45,9 @@ class DisplayFeedback extends Component<{}, State> {
           />
         )}
 
-        {displayFlag && (
-          <FlagGroup onDismissed={this.hideFlag}>
-            <FeedbackFlag />
-          </FlagGroup>
-        )}
+        <FlagGroup onDismissed={this.hideFlag}>
+          {displayFlag && <FeedbackFlag />}
+        </FlagGroup>
       </div>
     );
   }

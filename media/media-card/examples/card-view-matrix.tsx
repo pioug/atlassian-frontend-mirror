@@ -11,6 +11,7 @@ import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl';
 import { Y75 } from '@atlaskit/theme/colors';
+import { MainWrapper } from '../example-helpers';
 
 type WrapperDimensions = {
   width: string;
@@ -102,129 +103,131 @@ class Example extends React.Component<{}, State> {
     }
 
     return (
-      <StyledContainer>
-        <CheckboxesContainer>
-          <Checkbox
-            value="withDataURI"
-            label="Has withDataURI?"
-            isChecked={this.state.withDataURI}
-            onChange={this.onCheckboxChange}
-            name="withDataURI"
-          />
-          <Checkbox
-            value="withMetadata"
-            label="Has withMetadata?"
-            isChecked={this.state.withMetadata}
-            onChange={this.onCheckboxChange}
-            name="withMetadata"
-          />
-          <Checkbox
-            value="disableOverlay"
-            label="Disable overlay?"
-            isChecked={this.state.disableOverlay}
-            onChange={this.onCheckboxChange}
-            name="disableOverlay"
-          />
-          <Checkbox
-            value="selectable"
-            label="Is selectable?"
-            isChecked={this.state.selectable}
-            onChange={this.onCheckboxChange}
-            name="selectable"
-          />
-          <Checkbox
-            value="selected"
-            label="Is selected?"
-            isChecked={this.state.selected}
-            onChange={this.onCheckboxChange}
-            name="selected"
-          />
-          <Checkbox
-            value="hasActions"
-            label="Has Actions?"
-            isChecked={this.state.hasActions}
-            onChange={this.onCheckboxChange}
-            name="hasActions"
-          />
-          <Checkbox
-            value="hasManyActions"
-            label="Has many Actions?"
-            isChecked={this.state.hasManyActions}
-            onChange={this.onCheckboxChange}
-            name="hasManyActions"
-          />
-          <Checkbox
-            value="isExternalImage"
-            label="Is external image?"
-            isChecked={this.state.isExternalImage}
-            onChange={this.onCheckboxChange}
-            name="isExternalImage"
-          />
-          <Checkbox
-            value="useBigCard"
-            label="Use Big Card?"
-            isChecked={this.state.useBigCard}
-            onChange={event => {
-              this.setState({ shouldRenderCard: false }, () =>
-                this.setState({ shouldRenderCard: true }),
-              );
-              this.onCheckboxChange(event);
-            }}
-            name="useBigCard"
-          />
-          <Checkbox
-            value="withBgColorAndIcon"
-            label="Highlight title box?"
-            isChecked={this.state.withBgColorAndIcon}
-            onChange={this.onCheckboxChange}
-            name="withBgColorAndIcon"
-          />
-        </CheckboxesContainer>
-        <StyledTable>
-          <thead>
-            <tr>
-              <th key="first-column" />
-              <th colSpan={statuses.length}>Status</th>
-            </tr>
-            <tr>
-              <th key="first-column">Media Type</th>
-              {statuses.map(status => (
-                <th key={`${status}-column`}>{status}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
-            <IntlProvider locale={'en'}>
-              <>
-                {mediaTypes.map(([mediaType, mimeType]) => (
-                  <tr key={`${mediaType}-row`}>
-                    <th
-                      style={{
-                        textAlign: 'right',
-                        lineHeight: '100%',
-                        verticalAlign: 'middle',
-                      }}
-                    >
-                      {mediaType}
-                    </th>
-                    {statuses.map(status => (
-                      <td key={`${status}-entry-${mediaType}`}>
-                        {this.renderCardImageView(
-                          status,
-                          mediaType,
-                          mimeType,
-                          this.setSelected,
-                        )}
-                      </td>
-                    ))}
-                  </tr>
+      <MainWrapper>
+        <StyledContainer>
+          <CheckboxesContainer>
+            <Checkbox
+              value="withDataURI"
+              label="Has withDataURI?"
+              isChecked={this.state.withDataURI}
+              onChange={this.onCheckboxChange}
+              name="withDataURI"
+            />
+            <Checkbox
+              value="withMetadata"
+              label="Has withMetadata?"
+              isChecked={this.state.withMetadata}
+              onChange={this.onCheckboxChange}
+              name="withMetadata"
+            />
+            <Checkbox
+              value="disableOverlay"
+              label="Disable overlay?"
+              isChecked={this.state.disableOverlay}
+              onChange={this.onCheckboxChange}
+              name="disableOverlay"
+            />
+            <Checkbox
+              value="selectable"
+              label="Is selectable?"
+              isChecked={this.state.selectable}
+              onChange={this.onCheckboxChange}
+              name="selectable"
+            />
+            <Checkbox
+              value="selected"
+              label="Is selected?"
+              isChecked={this.state.selected}
+              onChange={this.onCheckboxChange}
+              name="selected"
+            />
+            <Checkbox
+              value="hasActions"
+              label="Has Actions?"
+              isChecked={this.state.hasActions}
+              onChange={this.onCheckboxChange}
+              name="hasActions"
+            />
+            <Checkbox
+              value="hasManyActions"
+              label="Has many Actions?"
+              isChecked={this.state.hasManyActions}
+              onChange={this.onCheckboxChange}
+              name="hasManyActions"
+            />
+            <Checkbox
+              value="isExternalImage"
+              label="Is external image?"
+              isChecked={this.state.isExternalImage}
+              onChange={this.onCheckboxChange}
+              name="isExternalImage"
+            />
+            <Checkbox
+              value="useBigCard"
+              label="Use Big Card?"
+              isChecked={this.state.useBigCard}
+              onChange={event => {
+                this.setState({ shouldRenderCard: false }, () =>
+                  this.setState({ shouldRenderCard: true }),
+                );
+                this.onCheckboxChange(event);
+              }}
+              name="useBigCard"
+            />
+            <Checkbox
+              value="withBgColorAndIcon"
+              label="Highlight title box?"
+              isChecked={this.state.withBgColorAndIcon}
+              onChange={this.onCheckboxChange}
+              name="withBgColorAndIcon"
+            />
+          </CheckboxesContainer>
+          <StyledTable>
+            <thead>
+              <tr>
+                <th key="first-column" />
+                <th colSpan={statuses.length}>Status</th>
+              </tr>
+              <tr>
+                <th key="first-column">Media Type</th>
+                {statuses.map(status => (
+                  <th key={`${status}-column`}>{status}</th>
                 ))}
-              </>
-            </IntlProvider>
-          </tbody>
-        </StyledTable>
-      </StyledContainer>
+              </tr>
+            </thead>
+            <tbody>
+              {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
+              <IntlProvider locale={'en'}>
+                <>
+                  {mediaTypes.map(([mediaType, mimeType]) => (
+                    <tr key={`${mediaType}-row`}>
+                      <th
+                        style={{
+                          textAlign: 'right',
+                          lineHeight: '100%',
+                          verticalAlign: 'middle',
+                        }}
+                      >
+                        {mediaType}
+                      </th>
+                      {statuses.map(status => (
+                        <td key={`${status}-entry-${mediaType}`}>
+                          {this.renderCardImageView(
+                            status,
+                            mediaType,
+                            mimeType,
+                            this.setSelected,
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </>
+              </IntlProvider>
+            </tbody>
+          </StyledTable>
+        </StyledContainer>
+      </MainWrapper>
     );
   }
 

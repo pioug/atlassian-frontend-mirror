@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.acme.editor",
+        "extensionKey": "block-eh",
+        "text": "Block extension demo",
+        "layout": "default",
+        "localId": ""
+      }
+    }
+  ]
+}

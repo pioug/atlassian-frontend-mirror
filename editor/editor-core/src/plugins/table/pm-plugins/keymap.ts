@@ -24,16 +24,16 @@ import {
 } from '../commands-with-analytics';
 import { addColumnAfter, addColumnBefore } from '../commands/insert';
 
-const createTableWithAnalytics = (allowReferentiality?: boolean) =>
+const createTableWithAnalytics = (allowLocalIdGeneration?: boolean) =>
   withAnalytics({
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId: ACTION_SUBJECT_ID.TABLE,
     attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
     eventType: EVENT_TYPE.TRACK,
-  })(createTable(allowReferentiality));
+  })(createTable(allowLocalIdGeneration));
 
-export function keymapPlugin(allowReferentiality?: boolean): Plugin {
+export function keymapPlugin(allowLocalIdGeneration?: boolean): Plugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -48,7 +48,7 @@ export function keymapPlugin(allowReferentiality?: boolean): Plugin {
   );
   keymaps.bindKeymapWithCommand(
     keymaps.toggleTable.common!,
-    createTableWithAnalytics(allowReferentiality),
+    createTableWithAnalytics(allowLocalIdGeneration),
     list,
   );
   keymaps.bindKeymapWithCommand(

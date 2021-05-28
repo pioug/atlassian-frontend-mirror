@@ -4,22 +4,29 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { DN30, DN900, N30 } from '@atlaskit/theme/colors';
 import { Wrapper as WrapperDefault, padding } from '../styles';
 
-export const Wrapper = styled(WrapperDefault)`
+const dataConsumerSelector = '[data-mark-type="dataConsumer"]';
+export const widerLayoutClassName = 'wider-layout';
+
+export const Wrapper = styled(WrapperDefault)<{ extensionWidth: String }>`
+  cursor: pointer;
+  width: 100%;
+
   .extension-overflow-wrapper:not(.with-body) {
     overflow-x: auto;
   }
 
-  /* extension container breakout, only works on top level */
-  .ProseMirror > [extensiontype] &[data-layout='full-width'],
-  .ProseMirror > [extensiontype] &[data-layout='wide'] {
+  /* extension container breakout, only works on top level*/
+  .ProseMirror
+    > ${dataConsumerSelector}
+    > [extensiontype]
+    &.${widerLayoutClassName},
+    .ProseMirror
+    > [extensiontype]
+    &.${widerLayoutClassName} {
+    width: ${({ extensionWidth }) => `${extensionWidth}`};
     margin-left: 50%;
     transform: translateX(-50%);
   }
-  .ProseMirror > * [extensiontype] &[data-layout='wide'],
-  .ProseMirror > * [extensiontype] &[data-layout='wide'] {
-    width: 100% !important;
-  }
-  cursor: pointer;
 `;
 
 export const Header = styled.div`

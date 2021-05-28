@@ -291,17 +291,19 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       For false just swap "Image" and "Container" in the example above.
      */
     const isImageMoreLandscapyThanContainer = imgRatio > parentRatio;
+    const isImgLandscape = imgWidth > imgHeight;
 
     /*
-    This is two cases we need to cover as described in Example #2 above.
+    This is two cases we need to cover as described in Example #2 above, but only for rotated landscape images.
      */
-    const needToFlipRatioBack =
-      isImageRotated &&
-      ((isFitStrategy && isImageMoreLandscapyThanContainer) ||
-        (isCoverStrategy && !isImageMoreLandscapyThanContainer));
-
-    if (needToFlipRatioBack) {
-      percentSize = `${Math.ceil((1 / imgRatio) * 100)}%`;
+    if (isImageRotated && isImgLandscape) {
+      if (
+        isFitStrategy ||
+        isImageMoreLandscapyThanContainer ||
+        (isCoverStrategy && !isImageMoreLandscapyThanContainer)
+      ) {
+        percentSize = `${Math.ceil((1 / imgRatio) * 100)}%`;
+      }
     }
 
     /*

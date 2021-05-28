@@ -6,20 +6,20 @@ import { NumberField } from '@atlaskit/editor-common/extensions';
 
 import FieldMessages from '../FieldMessages';
 import { validate } from '../utils';
-import { OnBlur, ValidationError } from '../types';
+import { OnFieldChange, ValidationError } from '../types';
 import isNumber from 'is-number';
 
 export default function Number({
   name,
   field,
   autoFocus,
-  onBlur,
+  onFieldChange,
   placeholder,
 }: {
   name: string;
   field: NumberField;
   autoFocus?: boolean;
-  onBlur: OnBlur;
+  onFieldChange: OnFieldChange;
   placeholder?: string;
 }) {
   const { label, description, defaultValue, isRequired } = field;
@@ -46,7 +46,7 @@ export default function Number({
       isRequired={isRequired}
       validate={validateNumber}
     >
-      {({ fieldProps, error, valid }) => {
+      {({ fieldProps, error, meta }) => {
         return (
           <>
             <TextField
@@ -54,7 +54,7 @@ export default function Number({
               autoFocus={autoFocus}
               onBlur={() => {
                 fieldProps.onBlur();
-                onBlur(name);
+                onFieldChange(name, meta.dirty);
               }}
               type="text" // do not change this to type="number", it will return invalid strings as ''
               placeholder={placeholder}

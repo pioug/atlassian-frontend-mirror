@@ -14,6 +14,7 @@ export type MediaClientErrorReason =
   | 'serverUnexpectedError'
   // MediaStoreErrorReason ----------------------------
   | 'failedAuthProvider'
+  | 'tokenExpired'
   // FileFetcherErrorReason ----------------------------
   | 'invalidFileId'
   | 'emptyItems'

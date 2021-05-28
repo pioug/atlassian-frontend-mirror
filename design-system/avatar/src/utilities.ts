@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { MouseEventHandler } from 'react';
 
 export const getLinkProps = (href: string, target?: string) => ({

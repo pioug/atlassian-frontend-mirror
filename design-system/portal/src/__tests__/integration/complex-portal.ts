@@ -50,7 +50,9 @@ BrowserTestCase(
     const modal = await (await page.$(modalPortalSelector)).$(
       parentModalDialogSelector,
     );
-    const modalHeader = await modal.$('header');
+    const modalHeader = await modal.$(
+      '[data-testid="modal-dialog-content--header"]',
+    );
     await modal.waitForDisplayed();
     const isModalExisting = await modal.isExisting();
     const modalHeaderText = await modalHeader.getText();

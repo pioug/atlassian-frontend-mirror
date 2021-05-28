@@ -39,7 +39,8 @@ import {
 } from '../../commands-with-analytics';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { canMergeCells } from '../../transforms';
-import { TableCssClassName as ClassName, SortOrder } from '../../types';
+import { TableCssClassName as ClassName } from '../../types';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import {
   getMergedCellsPositions,
   getSelectedColumnIndexes,

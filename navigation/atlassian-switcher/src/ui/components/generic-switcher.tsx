@@ -59,6 +59,7 @@ export default (props: GenericSwitcherProps) => (
                 props.product,
                 props.adminUrl,
                 undefined,
+                undefined,
                 props.customizeLinks,
               );
               return <Switcher {...props} {...switcherLinks} />;

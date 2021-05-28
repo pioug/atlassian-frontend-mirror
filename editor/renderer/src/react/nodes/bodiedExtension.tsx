@@ -1,4 +1,5 @@
 import React from 'react';
+import { Node as PMNode } from 'prosemirror-model';
 import { RendererContext } from '../types';
 import { Serializer } from '../..';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
@@ -13,14 +14,15 @@ export interface Props {
   providers: ProviderFactory;
   extensionType: string;
   extensionKey: string;
+  path?: PMNode[];
   originalContent?: any;
   parameters?: any;
   content?: any;
   layout?: ExtensionLayout;
 }
 
-const BodiedExtension: React.StatelessComponent<Props> = props => {
-  const { children, layout = 'default' } = props;
+const BodiedExtension: React.FunctionComponent<Props> = props => {
+  const { children, layout = 'default', path = [] } = props;
 
   const removeOverflow = React.Children.toArray<any>(children)
     .map(child => child!.props.nodeType === 'table')
@@ -32,7 +34,14 @@ const BodiedExtension: React.StatelessComponent<Props> = props => {
         try {
           if (result && React.isValidElement(result)) {
             // Return the content directly if it's a valid JSX.Element
-            return renderExtension(result, layout, undefined, removeOverflow);
+            return renderExtension(
+              result,
+              layout,
+              {
+                isTopLevel: path.length < 1,
+              },
+              removeOverflow,
+            );
           }
         } catch (e) {
           /** We don't want this error to block renderer */
@@ -40,7 +49,14 @@ const BodiedExtension: React.StatelessComponent<Props> = props => {
         }
 
         // Always return default content if anything goes wrong
-        return renderExtension(children, layout, undefined, removeOverflow);
+        return renderExtension(
+          children,
+          layout,
+          {
+            isTopLevel: path.length < 1,
+          },
+          removeOverflow,
+        );
       }}
     </ExtensionRenderer>
   );

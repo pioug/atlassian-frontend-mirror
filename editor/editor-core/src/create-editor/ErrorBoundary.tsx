@@ -6,7 +6,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../plugins/analytics';
 import { editorAnalyticsChannel } from '../plugins/analytics/consts';
 
 export type ErrorBoundaryProps = {
-  createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   rethrow?: boolean;
   children: React.ReactNode;

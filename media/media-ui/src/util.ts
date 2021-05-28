@@ -119,6 +119,15 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
+export function readImageNaturalOrientationFromDOM(img: HTMLImageElement) {
+  img.style.position = 'absolute';
+  img.style.visibility = 'hidden';
+  document.body.appendChild(img);
+  const { width, height } = img.getBoundingClientRect();
+  document.body.removeChild(img);
+  return { width, height };
+}
+
 export const findParentByClassname = (
   element: HTMLElement,
   className: string,

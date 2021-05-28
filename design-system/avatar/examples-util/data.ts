@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 export const RANDOM_USERS = [
   { email: 'chaki@me.com', name: 'Chaki Caronni' },
   { email: 'nanop@outlook.com', name: 'Nanop Rgiersig' },

@@ -28,6 +28,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   handleFrameClick,
   handlePreviewAnalytics,
   handleInvoke,
+  renderers,
   isSelected,
   onResolve,
   testId,
@@ -46,7 +47,11 @@ export const BlockCard: FC<BlockCardProps> = ({
     case 'resolving':
       return <BlockCardResolvingView testId={testId} isSelected={isSelected} />;
     case 'resolved':
-      const resolvedViewProps = extractBlockProps(data, extractorOpts);
+      const resolvedViewProps = extractBlockProps(
+        data,
+        extractorOpts,
+        renderers,
+      );
       if (onResolve) {
         onResolve({
           title: resolvedViewProps.title,

@@ -25,6 +25,8 @@ export const bitbucketSchema: Schema = createSchema({
     'tableHeader',
     'tableRow',
     'inlineCard',
+    'unsupportedBlock',
+    'unsupportedInline',
   ],
   marks: [
     'em',

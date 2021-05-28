@@ -20,6 +20,8 @@ export interface RadioGroupProps {
   isDisabled?: boolean;
   /** Sets the required state of all `Radio` elements in the group */
   isRequired?: boolean;
+  /** Sets the invalid state of all `Radio` elements in the group */
+  isInvalid?: boolean;
   /** An array of objects, each object is mapped onto a `Radio` element within the group. Name must be unique to the group. */
   options: OptionsPropType;
   /** Function that gets fired after each invalid event */
@@ -46,6 +48,7 @@ export default function RadioGroup(props: RadioGroupProps) {
     defaultValue,
     isDisabled,
     isRequired,
+    isInvalid,
     onInvalid = noop,
     name,
     analyticsContext,
@@ -82,6 +85,7 @@ export default function RadioGroup(props: RadioGroupProps) {
             key={index}
             onChange={onRadioChange}
             onInvalid={onInvalid}
+            isInvalid={isChecked && isInvalid}
             isChecked={isChecked}
             isRequired={isRequired}
             analyticsContext={analyticsContext}

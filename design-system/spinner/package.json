@@ -32,13 +32,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^20.0.0",
+    "@atlaskit/avatar": "^20.3.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/button": "^15.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^10.0.0",
     "@atlaskit/motion": "^1.0.0",
-    "@atlaskit/select": "^13.0.0",
+    "@atlaskit/select": "^14.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

@@ -185,6 +185,7 @@ describe('cross-flow-links', () => {
   });
 
   describe('getDiscoverSectionLinks', () => {
+    const mockClickHandler = jest.fn();
     it('should return git tools link', () => {
       const result = getDiscoverSectionLinks({
         isEmceeLinkEnabled: true,
@@ -219,6 +220,7 @@ describe('cross-flow-links', () => {
     it('should have a different label for `discover-more` link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({
         isSlackDiscoveryEnabled: true,
+        slackDiscoveryClickHandler: mockClickHandler,
         isEmceeLinkEnabled: true,
         product: Product.CONFLUENCE,
         canManagePermission: true,
@@ -235,6 +237,7 @@ describe('cross-flow-links', () => {
     it('should return slack integration link if isSlackDiscoveryEnabled enabled', () => {
       const result = getDiscoverSectionLinks({
         isSlackDiscoveryEnabled: true,
+        slackDiscoveryClickHandler: mockClickHandler,
         product: Product.CONFLUENCE,
         isEmceeLinkEnabled: true,
         canManagePermission: true,
@@ -244,19 +247,6 @@ describe('cross-flow-links', () => {
       expect(
         result.filter(link => link.key === 'slack-integration'),
       ).toHaveLength(1);
-    });
-
-    it('should not have the slack integration link for unsupported products', () => {
-      const result = getDiscoverSectionLinks({
-        isSlackDiscoveryEnabled: true,
-        isEmceeLinkEnabled: true,
-        canManagePermission: true,
-        canAddProducts: true,
-      });
-
-      expect(
-        result.filter(link => link.key === 'slack-integration'),
-      ).toHaveLength(0);
     });
   });
 });

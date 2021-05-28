@@ -44,7 +44,6 @@ export class ExtensionNode extends ReactNodeView {
     props: {
       providerFactory: ProviderFactory;
       extensionHandlers: ExtensionHandlers;
-      allowReferentiality?: boolean;
     },
     forwardRef: ForwardRef,
   ) {
@@ -56,7 +55,6 @@ export class ExtensionNode extends ReactNodeView {
           providerFactory={props.providerFactory}
           handleContentDOMRef={forwardRef}
           extensionHandlers={props.extensionHandlers}
-          allowReferentiality={props.allowReferentiality}
         />
       </ExtensionNodeWrapper>
     );
@@ -68,7 +66,6 @@ export default function ExtensionNodeView(
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,
-  allowReferentiality?: boolean,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
     return new ExtensionNode(
@@ -80,7 +77,6 @@ export default function ExtensionNodeView(
       {
         providerFactory,
         extensionHandlers,
-        allowReferentiality,
       },
     ).init();
   };

@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-common/extensions';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ContextIdentifierProvider } from '@atlaskit/editor-common';
 
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
@@ -114,7 +115,7 @@ const getUpdateExtensionPromise = async (
   throw new Error('No update method available');
 };
 
-export const createProviderHandler = (view: EditorView) => async (
+export const createExtensionProviderHandler = (view: EditorView) => async (
   name: string,
   provider?: Promise<ExtensionProvider>,
 ) => {
@@ -129,6 +130,22 @@ export const createProviderHandler = (view: EditorView) => async (
   }
 };
 
+export const createContextIdentifierProviderHandler = (
+  view: EditorView,
+) => async (name: string, provider?: Promise<ContextIdentifierProvider>) => {
+  if (name === 'contextIdentifierProvider' && provider) {
+    try {
+      const contextIdentifierProvider = await provider;
+      updateState({ contextIdentifierProvider })(view.state, view.dispatch);
+    } catch {
+      updateState({ contextIdentifierProvider: undefined })(
+        view.state,
+        view.dispatch,
+      );
+    }
+  }
+};
+
 const createPlugin = (
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
@@ -136,7 +153,6 @@ const createPlugin = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   useLongPressSelection: boolean = false,
-  allowReferentiality?: boolean,
 ) => {
   const state = createPluginState(dispatch, {
     layout: 'default',
@@ -148,9 +164,18 @@ const createPlugin = (
     state,
     view: editorView => {
       const domAtPos = editorView.domAtPos.bind(editorView);
-      const providerHandler = createProviderHandler(editorView);
+      const extensionProviderHandler = createExtensionProviderHandler(
+        editorView,
+      );
+      const contextIdentificationProviderHandler = createContextIdentifierProviderHandler(
+        editorView,
+      );
 
-      providerFactory.subscribe('extensionProvider', providerHandler);
+      providerFactory.subscribe('extensionProvider', extensionProviderHandler);
+      providerFactory.subscribe(
+        'contextIdentificationProvider',
+        contextIdentificationProviderHandler,
+      );
 
       return {
         update: view => {
@@ -228,7 +253,14 @@ const createPlugin = (
           return true;
         },
         destroy: () => {
-          providerFactory.unsubscribe('extensionProvider', providerHandler);
+          providerFactory.unsubscribe(
+            'extensionProvider',
+            extensionProviderHandler,
+          );
+          providerFactory.unsubscribe(
+            'contextIdentificationProvider',
+            contextIdentificationProviderHandler,
+          );
         },
       };
     },
@@ -240,21 +272,18 @@ const createPlugin = (
           eventDispatcher,
           providerFactory,
           extensionHandlers,
-          allowReferentiality,
         ),
         bodiedExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
           extensionHandlers,
-          allowReferentiality,
         ),
         inlineExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
           extensionHandlers,
-          allowReferentiality,
         ),
       },
       handleClickOn: createSelectionClickHandler(

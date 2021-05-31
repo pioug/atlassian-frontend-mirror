@@ -99,7 +99,7 @@ const ErrorBoundaryBox = styled.div<WithAppearanceProps>`
   flex-direction: column;
   text-align: center;
 
-  ${props =>
+  ${(props) =>
     props.appearance === 'drawer'
       ? css`
           padding-top: ${16 * gridSize()}px;

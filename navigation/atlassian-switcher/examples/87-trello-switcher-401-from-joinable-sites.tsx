@@ -19,7 +19,7 @@ const JOINABLE_SITES_ENDPOINT =
 const NEW_AVAILABLE_PRODUCTS_ENDPOINT =
   '/proxy/experiment-api/trello-cross-product-join/available-sites';
 
-const mockEndpointsDataTransformer: DataTransformer = originalMockData => {
+const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
   const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
   return {
     ...originalMockData,

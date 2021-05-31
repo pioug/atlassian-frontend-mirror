@@ -25,7 +25,7 @@ class BitbucketSwitcherExample extends React.Component {
   openDrawer = () => {
     mockEndpoints(
       'bitbucket',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           AVAILABLE_PRODUCTS_DATA: {

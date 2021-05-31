@@ -18,7 +18,7 @@ import { JoinableSitesResponse } from '../src/types';
 const customAvailableProductsDataProvider = createAvailableProductsProvider();
 
 const fetchJoinableSites: () => Promise<JoinableSitesResponse> = () =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(
       () =>
         resolve({ sites: mockJoinableSites.sites } as JoinableSitesResponse),

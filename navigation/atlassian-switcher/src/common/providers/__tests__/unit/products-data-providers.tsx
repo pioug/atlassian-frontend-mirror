@@ -13,7 +13,7 @@ import { createProvider } from '../../create-data-provider';
 describe('products-data-providers', () => {
   test('should render using the default provider', () => {
     const wrapper = shallow(
-      <AvailableProductsProvider>{items => items}</AvailableProductsProvider>,
+      <AvailableProductsProvider>{(items) => items}</AvailableProductsProvider>,
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -25,7 +25,7 @@ describe('products-data-providers', () => {
     );
     const wrapper = shallow(
       <AvailableProductsProvider availableProductsDataProvider={customProvider}>
-        {items => items}
+        {(items) => items}
       </AvailableProductsProvider>,
     );
     expect(wrapper).toMatchSnapshot();

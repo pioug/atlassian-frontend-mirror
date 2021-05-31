@@ -108,7 +108,7 @@ const SectionWithLinkItem = (props: SectionProps) => {
 };
 
 export default withAnalyticsContextData<SectionProps, SectionAnalyticsContext>(
-  props =>
+  (props) =>
     analyticsAttributes({
       group: props.sectionId,
       groupItemsCount: React.Children.count(props.children),

@@ -20,29 +20,6 @@ export const onUploadEmoji: OnUploadEmoji = (upload: EmojiUpload) =>
 
 export const onUploadCancelled = () => debug('upload cancelled');
 
-// FIXME FAB-1732 - extract or replace with third-party implementation
-export const toJavascriptString = (obj: any): string => {
-  if (typeof obj === 'object') {
-    if (Array.isArray(obj)) {
-      let arrString = '[\n';
-      for (let i = 0; i < obj.length; i++) {
-        arrString += `  ${toJavascriptString(obj[i])},\n`;
-      }
-      arrString += ']';
-      return arrString;
-    }
-    let objString = '{\n';
-    Object.keys(obj).forEach(key => {
-      objString += `  ${key}: ${toJavascriptString(obj[key])},\n`;
-    });
-    objString += '}';
-    return objString;
-  } else if (typeof obj === 'string') {
-    return `'${obj}'`;
-  }
-  return obj.toString();
-};
-
 export const lorem = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt,
   lorem eu vestibulum sollicitudin, erat nibh ornare purus, et sollicitudin lorem

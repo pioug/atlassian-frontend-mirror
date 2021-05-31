@@ -72,7 +72,7 @@ describe('Atlassian Switcher', () => {
     );
     expect(switcher).toMatchSnapshot();
   });
-  [Product.JIRA, Product.CONFLUENCE].forEach(product => {
+  [Product.JIRA, Product.CONFLUENCE].forEach((product) => {
     describe(`good/bad SLIs for a ${product} switcher`, () => {
       type SLIScenario = {
         scenarioName: string;
@@ -91,7 +91,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `custom links and APS APIs succeed and there is a matching site`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => {
+              mockEndpoints(product, (originalMockData) => {
                 const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
                 return {
                   ...originalMockData,
@@ -158,7 +158,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `custom links and APS APIs succeed but there is no matching site`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => {
+              mockEndpoints(product, (originalMockData) => {
                 const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
                 return {
                   ...originalMockData,
@@ -224,7 +224,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `Custom links API succeeds and APS returns a partial response with an empty list of sites`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => {
+              mockEndpoints(product, (originalMockData) => {
                 const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
                 return {
                   ...originalMockData,
@@ -274,7 +274,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `Custom links API succeeds and APS returns an empty list of sites`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => {
+              mockEndpoints(product, (originalMockData) => {
                 const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
                 return {
                   ...originalMockData,
@@ -324,7 +324,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `custom links API succeeds and APS fails`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => ({
+              mockEndpoints(product, (originalMockData) => ({
                 ...originalMockData,
                 AVAILABLE_PRODUCTS_DATA_ERROR: enrichFetchError(
                   new Error('Error'),
@@ -359,7 +359,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `custom links API fails and APS succeeds`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => ({
+              mockEndpoints(product, (originalMockData) => ({
                 ...originalMockData,
                 CUSTOM_LINKS_DATA_ERROR: enrichFetchError(
                   new Error('Custom Links Error'),
@@ -410,7 +410,7 @@ describe('Atlassian Switcher', () => {
           scenarioName: `custom links API fails and APS fails`,
           input: {
             mockApis: () => {
-              mockEndpoints(product, originalMockData => ({
+              mockEndpoints(product, (originalMockData) => ({
                 ...originalMockData,
                 AVAILABLE_PRODUCTS_DATA_ERROR: enrichFetchError(
                   new Error('Error'),
@@ -447,7 +447,7 @@ describe('Atlassian Switcher', () => {
         },
       ];
 
-      scenarios.forEach(scenario => {
+      scenarios.forEach((scenario) => {
         describe(`- ${scenario.scenarioName}`, () => {
           test(`- the expected outcome: ${JSON.stringify(
             scenario.expect,

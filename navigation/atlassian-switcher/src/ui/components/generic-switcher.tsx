@@ -37,11 +37,11 @@ export default (props: GenericSwitcherProps) => (
   <JoinableSitesProvider
     joinableSitesDataProvider={props.joinableSitesDataProvider}
   >
-    {joinableSites => (
+    {(joinableSites) => (
       <AvailableProductsProvider
         availableProductsDataProvider={props.availableProductsDataProvider}
       >
-        {availableProducts => (
+        {(availableProducts) => (
           <CommonDataProvider
             cloudId={props.cloudId}
             enableRecentContainers={props.features.enableRecentContainers}
@@ -49,7 +49,7 @@ export default (props: GenericSwitcherProps) => (
               ...props.recommendationsFeatureFlags,
             }}
           >
-            {providerResults => {
+            {(providerResults) => {
               const switcherLinks = mapResultsToSwitcherProps(
                 props.cloudId,
                 { ...providerResults, availableProducts, joinableSites },

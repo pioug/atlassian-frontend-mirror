@@ -50,7 +50,7 @@ const extractBlockDetails = (jsonLd: JsonLd.Data.BaseData): LinkDetail[] =>
     extractCommentCount(jsonLd as LinkCommentType),
     extractProgrammingLanguage(jsonLd as LinkProgrammingLanguageType),
     extractSubscriberCount(jsonLd as LinkSubscriberType),
-  ].filter(detail => !!detail) as LinkDetail[];
+  ].filter((detail) => !!detail) as LinkDetail[];
 
 export const extractBlockActions = (
   props: BlockCardResolvedViewProps,

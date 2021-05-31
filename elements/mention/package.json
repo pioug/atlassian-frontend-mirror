@@ -53,6 +53,7 @@
     "@atlaskit/util-data-test": "^15.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/query-string": "^4.3.1",
+    "@types/serialize-javascript": "^5.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "es6-promise": "^4.0.5",
@@ -63,6 +64,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
+    "serialize-javascript": "^5.0.1",
     "typescript": "3.9.6"
   },
   "keywords": [

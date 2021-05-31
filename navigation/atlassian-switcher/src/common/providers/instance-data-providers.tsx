@@ -82,7 +82,7 @@ const fetchPermission = withCached(
     postJson<UserPermissionResponse>(`/gateway/api/permissions/permitted`, {
       permissionId,
       resourceId: `ari:cloud:platform::site/${cloudId}`,
-    }).then(permission => permission.permitted),
+    }).then((permission) => permission.permitted),
 );
 
 export const UserPermissionProvider = withHandleOptionalCloudId(
@@ -94,7 +94,7 @@ export const UserPermissionProvider = withHandleOptionalCloudId(
 const fetchXflowSettings = withCached(({ cloudId }: WithCloudId) =>
   fetchJson<XFlowSettingsResponse>(
     `/gateway/api/site/${cloudId}/setting/xflow`,
-  ).then(xFlowSettings =>
+  ).then((xFlowSettings) =>
     xFlowSettings['product-suggestions-enabled'] !== undefined
       ? xFlowSettings['product-suggestions-enabled']
       : true,

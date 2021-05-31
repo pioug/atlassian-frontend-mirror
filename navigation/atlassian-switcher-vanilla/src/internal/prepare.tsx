@@ -26,7 +26,7 @@ export const prepareAtlassianSwitcher = (
       prefetch(switcherProps);
       hasPrefetched = true;
     },
-    renderAt: container => {
+    renderAt: (container) => {
       return render(switcherProps, analyticsListener, container);
     },
   };

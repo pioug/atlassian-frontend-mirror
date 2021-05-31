@@ -23,7 +23,7 @@ const customResponse = (url: string): ResolveResponse => ({
 });
 
 const customDataFetch = (n: number, url: string): Promise<ResolveResponse> =>
-  new Promise(res => setTimeout(res, n, customResponse(url)));
+  new Promise((res) => setTimeout(res, n, customResponse(url)));
 
 class CustomClient extends Client {
   constructor(private responseDelay: number) {

@@ -124,7 +124,7 @@ export const denormaliseServiceAltRepresentation = (
   altReps?: AltRepresentations,
   meta?: EmojiMeta,
 ): EmojiRepresentation => {
-  return !altReps || altReps === {}
+  return !altReps || Object.keys(altReps).length === 0
     ? undefined
     : denormaliseServiceRepresentation(getAltRepresentation(altReps), meta);
 };

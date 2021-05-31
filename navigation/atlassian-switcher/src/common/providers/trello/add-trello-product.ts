@@ -14,7 +14,7 @@ export const addTrelloProduct = (
     //if trello is in the response there is no need to add it as this will cause duplication and we can return here.
     if (
       availableProducts.data.sites &&
-      availableProducts.data.sites.find(s => s.cloudId === Product.TRELLO)
+      availableProducts.data.sites.find((s) => s.cloudId === Product.TRELLO)
     ) {
       return createResultComplete(availableProducts.data);
     }

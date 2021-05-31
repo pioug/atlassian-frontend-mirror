@@ -181,8 +181,8 @@ export default class Switcher extends React.Component<SwitcherProps> {
     let numberOfSites = firstContentArrived ? 1 : 0;
     if (licensedProductLinks) {
       const uniqueSets: { [key: string]: boolean } = {};
-      licensedProductLinks.forEach(link => {
-        (link.childItems || []).forEach(item => {
+      licensedProductLinks.forEach((link) => {
+        (link.childItems || []).forEach((item) => {
           uniqueSets[item.label] = true;
         });
       });
@@ -202,15 +202,15 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 subject={SWITCHER_SUBJECT}
                 data={{
                   licensedProducts: licensedProductLinks.map(
-                    item => item.productType,
+                    (item) => item.productType,
                   ),
                   suggestedProducts: suggestedProductLinks.map(
-                    item => item.key,
+                    (item) => item.key,
                   ),
-                  adminLinks: adminLinks.map(item => item.key),
-                  fixedLinks: fixedLinks.map(item => item.key),
-                  joinableSiteLinks: joinableSiteLinks.map(item => item.key),
-                  joinableSiteProductLinks: joinableSiteLinks.map(item => ({
+                  adminLinks: adminLinks.map((item) => item.key),
+                  fixedLinks: fixedLinks.map((item) => item.key),
+                  joinableSiteLinks: joinableSiteLinks.map((item) => item.key),
+                  joinableSiteProductLinks: joinableSiteLinks.map((item) => ({
                     cloudId: item.key,
                     product: item.productType,
                   })),
@@ -250,7 +250,7 @@ export default class Switcher extends React.Component<SwitcherProps> {
                 rawProviderResults.addProductsPermission,
                 rawProviderResults.managePermission,
                 [...adminLinks, ...fixedLinks, ...discoverSectionLinks].filter(
-                  item =>
+                  (item) =>
                     item.key === DiscoverLinkItemKeys.DISCOVER_MORE ||
                     item.key === DiscoverLinkItemKeys.GIT_TOOLS,
                 ),

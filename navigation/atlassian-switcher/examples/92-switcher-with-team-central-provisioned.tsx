@@ -15,7 +15,7 @@ class TeamCentralSwitcherExample extends React.Component {
   }
 
   openDrawer = () => {
-    mockEndpoints('jira', originalMockData => {
+    mockEndpoints('jira', (originalMockData) => {
       return {
         ...originalMockData,
         AVAILABLE_PRODUCTS_DATA: {

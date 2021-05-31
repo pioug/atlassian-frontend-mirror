@@ -15,7 +15,7 @@ class StartSwitcherExample extends React.Component {
   }
 
   openDrawer = () => {
-    mockEndpoints('start', originalMockData => {
+    mockEndpoints('start', (originalMockData) => {
       return {
         ...originalMockData,
         AVAILABLE_PRODUCTS_DATA: {

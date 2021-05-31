@@ -18,7 +18,7 @@ class GenericSwitcherExample extends React.Component {
   componentDidMount() {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           RECENT_CONTAINERS_DATA: {

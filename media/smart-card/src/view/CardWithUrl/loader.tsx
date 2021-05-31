@@ -25,7 +25,7 @@ export class CardWithURLRenderer extends React.PureComponent<
   static moduleImporter(target: CardWithURLRenderer) {
     import(
       /* webpackChunkName: "@atlaskit-internal_smartcard-urlcardcontent" */ './component-lazy/index'
-    ).then(module => {
+    ).then((module) => {
       CardWithURLRenderer.CardContent = module.LazyCardWithUrlContent;
       target.forceUpdate();
     });

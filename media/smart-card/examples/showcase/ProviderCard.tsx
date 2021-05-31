@@ -100,7 +100,7 @@ export const ProviderCard = ({
   }, [expanded, resolver, onCollapse, onExpand]);
   const disabled = !(
     config.selectedEntities.length === 0 ||
-    examples.some(example =>
+    examples.some((example) =>
       config.selectedEntities.includes(example.displayName),
     )
   );

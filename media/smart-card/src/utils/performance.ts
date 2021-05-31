@@ -10,7 +10,7 @@ const isPerformanceAPIAvailable = (): boolean => {
       'clearMarks',
       'getEntriesByName',
       'getEntriesByType',
-    ].every(api => !!(performance as any)[api])
+    ].every((api) => !!(performance as any)[api])
   );
 };
 const hasPerformanceAPIAvailable = isPerformanceAPIAvailable();
@@ -23,8 +23,8 @@ export const clearMarks = (id: string) => {
   if (hasPerformanceAPIAvailable) {
     const marks = performance
       .getEntriesByType('mark')
-      .filter(mark => mark.name.includes(id));
-    marks.forEach(mark => performance.clearMarks(mark.name));
+      .filter((mark) => mark.name.includes(id));
+    marks.forEach((mark) => performance.clearMarks(mark.name));
   }
 };
 
@@ -32,8 +32,8 @@ export const clearMeasures = (id: string) => {
   if (hasPerformanceAPIAvailable) {
     const measures = performance
       .getEntriesByType('measure')
-      .filter(measure => measure.name.includes(id));
-    measures.forEach(measure => performance.clearMeasures(measure.name));
+      .filter((measure) => measure.name.includes(id));
+    measures.forEach((measure) => performance.clearMeasures(measure.name));
   }
 };
 

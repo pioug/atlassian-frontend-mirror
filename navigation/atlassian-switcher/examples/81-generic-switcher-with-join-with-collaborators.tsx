@@ -9,7 +9,7 @@ import { JoinableSitesResponse } from '../src/types';
 import mockJoinableSites from '../test-helpers/mockJoinableSites';
 
 const fetchJoinableSites: () => Promise<JoinableSitesResponse> = () =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(
       () =>
         resolve({ sites: mockJoinableSites.sites } as JoinableSitesResponse),
@@ -31,7 +31,7 @@ class GenericSwitcherWithJoinExample extends React.Component {
   }
 
   openDrawer = () => {
-    mockEndpoints('confluence', originalMockData => originalMockData, {
+    mockEndpoints('confluence', (originalMockData) => originalMockData, {
       containers: 1000,
       xflow: 500,
       permitted: 2000,

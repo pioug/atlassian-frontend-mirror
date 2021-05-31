@@ -13,7 +13,7 @@ import { createProviderWithCustomFetchData } from '../../../../common/providers/
 describe('joinable-sites-data-providers', () => {
   test('should render using the default provider', () => {
     const wrapper = shallow(
-      <JoinableSitesProvider>{items => items}</JoinableSitesProvider>,
+      <JoinableSitesProvider>{(items) => items}</JoinableSitesProvider>,
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -25,7 +25,7 @@ describe('joinable-sites-data-providers', () => {
     >('my-joinble-sites-provider', fetchData);
     const wrapper = shallow(
       <JoinableSitesProvider joinableSitesDataProvider={customProvider}>
-        {items => items}
+        {(items) => items}
       </JoinableSitesProvider>,
     );
     expect(wrapper).toMatchSnapshot();

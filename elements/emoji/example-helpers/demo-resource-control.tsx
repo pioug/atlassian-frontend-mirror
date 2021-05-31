@@ -1,5 +1,6 @@
 import React from 'react';
 import { PureComponent, ReactElement } from 'react';
+import serializeJavascript from 'serialize-javascript';
 import {
   EmojiResource,
   EmojiProvider,
@@ -23,29 +24,6 @@ export function getRealEmojiResource() {
   const resource = new EmojiResource(getEmojiConfig());
   return Promise.resolve(resource);
 }
-
-// FIXME FAB-1732 - extract or replace with third-party implementation
-const toJavascriptString = (obj: any): string => {
-  if (typeof obj === 'object') {
-    if (Array.isArray(obj)) {
-      let arrString = '[\n';
-      for (let i = 0; i < obj.length; i++) {
-        arrString += `  ${toJavascriptString(obj[i])},\n`;
-      }
-      arrString += ']';
-      return arrString;
-    }
-    let objString = '{\n';
-    Object.keys(obj).forEach(key => {
-      objString += `  ${key}: ${toJavascriptString(obj[key])},\n`;
-    });
-    objString += '}';
-    return objString;
-  } else if (typeof obj === 'string') {
-    return `'${obj}'`;
-  }
-  return obj.toString();
-};
 
 export interface Props {
   children: ReactElement<any>;
@@ -85,8 +63,8 @@ export default class ResourcedEmojiControl extends PureComponent<Props, State> {
   }
 
   emojiConfigChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // eslint-disable-next-line no-eval
-    const config = eval(`( () => (${event.target.value}) )()`);
+    // eslint-disable-next-line no-new-func
+    const config = new Function('', `return (${event.target.value})`)();
     this.refreshEmoji(config);
   };
 
@@ -110,7 +88,9 @@ export default class ResourcedEmojiControl extends PureComponent<Props, State> {
               rows={15}
               style={{ height: '280px', width: '500px' }}
               onChange={this.emojiConfigChange}
-              defaultValue={toJavascriptString(this.props.emojiConfig)}
+              defaultValue={serializeJavascript(this.props.emojiConfig, {
+                space: 2,
+              }).replace(/\\u002F/g, '/')}
             />
           </p>
         </div>

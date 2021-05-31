@@ -81,7 +81,7 @@ describe('smart-card: unauthorized analytics', () => {
       ${'access_denied'}
     `(
       'should fire connectFailed event when auth fails with errorType = $errorType',
-      async errorType => {
+      async (errorType) => {
         const mockUrl = 'https://https://this.is.the.second.url';
         mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
         const { getByTestId, container } = render(

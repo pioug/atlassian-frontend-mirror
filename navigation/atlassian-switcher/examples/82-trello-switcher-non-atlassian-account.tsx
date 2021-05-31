@@ -16,7 +16,7 @@ import {
   defaultJoinableSitesFetch,
 } from '../src/index';
 
-const mockEndpointsDataTransformer: DataTransformer = originalMockData => {
+const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
   const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
   return {
     ...originalMockData,

@@ -179,7 +179,7 @@ describe('cross-flow-links', () => {
         [],
       );
       expect(
-        result.filter(product => product.key === ProductKey.OPSGENIE),
+        result.filter((product) => product.key === ProductKey.OPSGENIE),
       ).toHaveLength(0);
     });
   });
@@ -198,7 +198,7 @@ describe('cross-flow-links', () => {
       });
 
       expect(
-        result.filter(link => link.key === SHOW_GIT_TOOLS_KEY),
+        result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
       ).toHaveLength(1);
     });
 
@@ -214,7 +214,7 @@ describe('cross-flow-links', () => {
       });
 
       expect(
-        result.filter(link => link.key === SHOW_GIT_TOOLS_KEY),
+        result.filter((link) => link.key === SHOW_GIT_TOOLS_KEY),
       ).toHaveLength(0);
     });
     it('should have a different label for `discover-more` link if isSlackDiscoveryEnabled enabled', () => {
@@ -227,7 +227,9 @@ describe('cross-flow-links', () => {
         canAddProducts: true,
       });
 
-      const discoverMore = result.filter(link => link.key === 'discover-more');
+      const discoverMore = result.filter(
+        (link) => link.key === 'discover-more',
+      );
       const discoverMoreLabel = discoverMore[0]?.label as ReactElement;
 
       expect(discoverMoreLabel.props.defaultMessage).toEqual(
@@ -245,7 +247,7 @@ describe('cross-flow-links', () => {
       });
 
       expect(
-        result.filter(link => link.key === 'slack-integration'),
+        result.filter((link) => link.key === 'slack-integration'),
       ).toHaveLength(1);
     });
   });

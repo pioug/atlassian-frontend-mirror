@@ -29,7 +29,9 @@ interface CrossJoinSectionProps {
   rawProviderResults: ProviderResults & SyntheticProviderResults;
 }
 
-export const CrossJoinSection: FunctionComponent<CrossJoinSectionProps> = props => {
+export const CrossJoinSection: FunctionComponent<CrossJoinSectionProps> = (
+  props,
+) => {
   const {
     appearance,
     joinableSiteLinks = [],

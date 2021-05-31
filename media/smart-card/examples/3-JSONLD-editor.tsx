@@ -51,7 +51,7 @@ class Example extends React.Component<ExampleProps, ExampleState> {
   }
 
   renderExamplesSwitcher = (examples: Array<keyof typeof mockedExamples>) => {
-    return examples.map(exampleId => (
+    return examples.map((exampleId) => (
       <Button key={exampleId} onClick={() => this.handleSetExample(exampleId)}>
         {exampleId}
       </Button>

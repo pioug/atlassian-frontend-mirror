@@ -30,7 +30,7 @@ class InlineDialogSwitcherExample extends Component {
   loadData = () => {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           RECENT_CONTAINERS_DATA: {

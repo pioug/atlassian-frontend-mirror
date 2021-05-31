@@ -126,8 +126,8 @@ export const useSmartCardActions = (
       if (isReloading || hasExpired || !hasData) {
         return connections.client
           .fetchData(resourceUrl)
-          .then(response => handleResolvedLinkResponse(resourceUrl, response))
-          .catch(error => handleResolvedLinkError(resourceUrl, error));
+          .then((response) => handleResolvedLinkResponse(resourceUrl, response))
+          .catch((error) => handleResolvedLinkError(resourceUrl, error));
       }
     },
     [
@@ -150,7 +150,7 @@ export const useSmartCardActions = (
   const reload = useCallback(() => {
     const definitionId = getDefinitionId(details);
     if (definitionId) {
-      getByDefinitionId(definitionId, getState()).map(url =>
+      getByDefinitionId(definitionId, getState()).map((url) =>
         resolve(url, true),
       );
     } else {

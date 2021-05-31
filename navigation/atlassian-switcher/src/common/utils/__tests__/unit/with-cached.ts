@@ -6,7 +6,7 @@ describe('utils/with-cached', () => {
    * Single call
    */
   it('should call original function and resolve to correct value', () => {
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { a: 0 };
     const p0 = wrappedFn(a0);
@@ -17,7 +17,7 @@ describe('utils/with-cached', () => {
   });
 
   it('should NOT have cached value when promise is NOT resolved', () => {
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { a: 0 };
 
@@ -29,7 +29,7 @@ describe('utils/with-cached', () => {
   it('should have cached value when promise is resolved', async () => {
     expect.assertions(2);
 
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { a: 0 };
 
@@ -42,7 +42,7 @@ describe('utils/with-cached', () => {
    * Subsequent calls with the similar arguments
    */
   it('should return same promise for two subsequent calls', () => {
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { foo: 1 };
     const bar1 = { foo: 1 }; // similar object, different instance
@@ -63,7 +63,7 @@ describe('utils/with-cached', () => {
   it('should call original function twice if previous promise is resolved', async () => {
     expect.assertions(4);
 
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const foo = { foo: 1 };
 
@@ -86,7 +86,7 @@ describe('utils/with-cached', () => {
    * Subsequent calls with the different arguments
    */
   it('should return different promises for two subsequent calls', () => {
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { foo: 1 };
     const bar1 = { bar: 1 };
@@ -108,7 +108,7 @@ describe('utils/with-cached', () => {
   it('should have correct cached values for two calls after both promises resolved', async () => {
     expect.assertions(2);
 
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { foo: 1 };
     const bar1 = { bar: 1 };
@@ -126,7 +126,7 @@ describe('utils/with-cached', () => {
   it('should keep cached value if promise is rejected on second call', async () => {
     expect.assertions(3);
 
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
     const a0 = { a: 0 };
 
@@ -148,7 +148,7 @@ describe('utils/with-cached', () => {
   it('should NOT cache error when promise is rejected', async () => {
     expect.assertions(2);
 
-    const fn = jest.fn(a => Promise.reject(new Error()));
+    const fn = jest.fn((a) => Promise.reject(new Error()));
     const wrappedFn = withCached(fn);
     const a0 = { a: 0 };
 
@@ -166,7 +166,7 @@ describe('utils/with-cached', () => {
   it('should reset caches', async () => {
     expect.assertions(4);
 
-    const fn = jest.fn(a => Promise.resolve(a));
+    const fn = jest.fn((a) => Promise.resolve(a));
     const wrappedFn = withCached(fn);
 
     await wrappedFn(1);

@@ -46,7 +46,7 @@ const HTMLPage = () => (
 
 export default class NativeWrapperExample extends React.Component {
   componentWillMount() {
-    mockEndpoints('jira', originalMockData => originalMockData, REQUEST_FAST);
+    mockEndpoints('jira', (originalMockData) => originalMockData, REQUEST_FAST);
   }
 
   componentDidMount() {

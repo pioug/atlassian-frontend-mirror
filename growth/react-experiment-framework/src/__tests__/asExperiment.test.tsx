@@ -659,7 +659,7 @@ describe('asExperiment', () => {
       };
     });
 
-    it('should resolve all experiments', done => {
+    it('should resolve all experiments', (done) => {
       const WrappedComponent = asExperiment(
         componentMap,
         'myExperimentKey',
@@ -700,7 +700,7 @@ describe('asExperiment', () => {
       });
     });
 
-    it('should resolve nested experiments', done => {
+    it('should resolve nested experiments', (done) => {
       const InnerExperimentComponent = asExperiment(
         componentMap,
         'myExperimentKeyTwo',

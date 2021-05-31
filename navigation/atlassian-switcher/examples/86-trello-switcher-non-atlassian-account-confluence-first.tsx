@@ -12,7 +12,7 @@ import { Environment } from '../src/common/utils/environment';
 import { getAvailableProductsUrl } from '../src/common/providers/trello/products-provider';
 import { FakeTrelloChrome } from './helpers/FakeTrelloChrome';
 
-const mockEndpointsDataTransformer: DataTransformer = originalMockData => {
+const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
   const availableProducts = originalMockData.AVAILABLE_PRODUCTS_DATA as AvailableProductsResponse;
   return {
     ...originalMockData,

@@ -101,7 +101,7 @@ class Example extends React.Component<{}, ExampleState> {
 
   getGroupedUrls(mode: GroupingMode): GroupedExampleUrls {
     // Normalize descriptions for each example
-    const urlsWithTitles = exampleUrls.map(example => ({
+    const urlsWithTitles = exampleUrls.map((example) => ({
       ...example,
       title: this.getTitle(mode, example),
     }));
@@ -218,7 +218,7 @@ class Example extends React.Component<{}, ExampleState> {
         <Button isDisabled appearance="link">
           Group by:
         </Button>
-        {Object.keys(GroupingModes).map(mode => (
+        {Object.keys(GroupingModes).map((mode) => (
           <Button
             key={mode}
             isSelected={mode === currentGroupingMode}
@@ -254,7 +254,7 @@ class Example extends React.Component<{}, ExampleState> {
         <Button isDisabled appearance="link">
           Environment:
         </Button>
-        {environments.map(env => (
+        {environments.map((env) => (
           <Button
             key={env}
             isSelected={env === currentEnv}

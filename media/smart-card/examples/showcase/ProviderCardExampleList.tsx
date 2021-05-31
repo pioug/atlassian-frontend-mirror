@@ -12,7 +12,7 @@ export const ProviderCardExampleList = ({
 }): JSX.Element => {
   return (
     <div style={{ marginTop: '24px' }}>
-      {examples.map(example => {
+      {examples.map((example) => {
         return (
           <div key={example.displayName} style={{ marginTop: '24px' }}>
             <h6
@@ -23,7 +23,7 @@ export const ProviderCardExampleList = ({
             >
               {example.displayName}
             </h6>
-            {example.urls.map(url => (
+            {example.urls.map((url) => (
               <p key={url}>
                 <ProviderCardExampleWithErrorBoundary
                   config={config}

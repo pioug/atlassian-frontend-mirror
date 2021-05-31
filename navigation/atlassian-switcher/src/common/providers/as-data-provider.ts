@@ -108,10 +108,10 @@ export default function <P, D>(
 
     componentDidMount() {
       mapPropsToPromise(this.props)
-        .then(result => {
+        .then((result) => {
           this.onResult(result);
         })
-        .catch(error => {
+        .catch((error) => {
           this.onError(error);
         });
     }

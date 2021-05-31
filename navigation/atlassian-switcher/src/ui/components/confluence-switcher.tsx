@@ -41,11 +41,11 @@ export default (props: ConfluenceSwitcherProps) => (
   <JoinableSitesProvider
     joinableSitesDataProvider={props.joinableSitesDataProvider}
   >
-    {joinableSites => (
+    {(joinableSites) => (
       <CustomLinksProvider
         disableCustomLinks={props.features.disableCustomLinks}
       >
-        {customLinks => (
+        {(customLinks) => (
           <AvailableProductsProvider
             availableProductsDataProvider={props.availableProductsDataProvider}
           >
@@ -54,7 +54,7 @@ export default (props: ConfluenceSwitcherProps) => (
                 cloudId={props.cloudId}
                 enableRecentContainers={props.features.enableRecentContainers}
               >
-                {providerResults => {
+                {(providerResults) => {
                   const {
                     showManageLink,
                     ...switcherLinks

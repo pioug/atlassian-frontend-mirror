@@ -20,7 +20,7 @@ class OptionalContainersExample extends React.Component {
   openDrawer = () => {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           LICENSE_INFORMATION_DATA: {

@@ -82,10 +82,10 @@ export const ShowcaseMenu = ({
         <Select
           menuPosition="fixed"
           defaultValue={viewTypeOptions.find(
-            option => option.value === config.appearance,
+            (option) => option.value === config.appearance,
           )}
           options={viewTypeOptions}
-          onChange={evt => {
+          onChange={(evt) => {
             if (evt) {
               onViewTypeChange((evt as ViewTypeOption).value);
             }
@@ -97,10 +97,10 @@ export const ShowcaseMenu = ({
         <Select
           menuPosition="fixed"
           defaultValue={authFlowOptions.find(
-            option => option.value === config.authFlow,
+            (option) => option.value === config.authFlow,
           )}
           options={authFlowOptions}
-          onChange={evt => {
+          onChange={(evt) => {
             if (evt) {
               onAuthFlowChange((evt as AuthFlowOption).value);
             }
@@ -112,10 +112,10 @@ export const ShowcaseMenu = ({
         <Select
           menuPosition="fixed"
           defaultValue={environmentOptions.find(
-            option => option.value === config.environment,
+            (option) => option.value === config.environment,
           )}
           options={environmentOptions}
-          onChange={evt => {
+          onChange={(evt) => {
             if (evt) {
               onEnvironmentChange((evt as EnvironmentOption).value);
             }
@@ -127,14 +127,14 @@ export const ShowcaseMenu = ({
         <Select
           menuPosition="fixed"
           isMulti={true}
-          defaultValue={config.selectedEntities.map(selectedEntity => ({
+          defaultValue={config.selectedEntities.map((selectedEntity) => ({
             label: selectedEntity,
             value: selectedEntity,
           }))}
-          options={entities.map(entity => ({ label: entity, value: entity }))}
-          onChange={evt => {
+          options={entities.map((entity) => ({ label: entity, value: entity }))}
+          onChange={(evt) => {
             if (evt) {
-              onEntityChange((evt as EnvironmentOption[]).map(e => e.value));
+              onEntityChange((evt as EnvironmentOption[]).map((e) => e.value));
             }
           }}
           placeholder="Filter by entity..."

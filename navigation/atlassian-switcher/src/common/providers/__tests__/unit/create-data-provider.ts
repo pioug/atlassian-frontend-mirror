@@ -1,6 +1,6 @@
 describe('create-data-provider', () => {
   const fetchJson = jest.fn().mockReturnValue(Promise.resolve());
-  const withCached = jest.fn().mockImplementation(fn => fn);
+  const withCached = jest.fn().mockImplementation((fn) => fn);
 
   jest.doMock('../../../utils/fetch', () => ({ fetchJson }));
   jest.doMock('../../../utils/with-cached', () => ({ withCached }));

@@ -4,10 +4,10 @@ import parser from 'prettier/parser-babel';
 
 import TextArea from '@atlaskit/textarea';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
-import { builderEval } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import EditorContext from '../src/ui/EditorContext';
 import { DevTools } from '../example-helpers/DevTools';
+import { evaluateDocBuilderExpression } from '../example-helpers/evaluate-doc-builder-expression';
 import WithEditorActions from '../src/ui/WithEditorActions';
 import { EditorActions } from '../src';
 import { ExampleEditor as FullPageEditor } from './5-full-page';
@@ -169,12 +169,13 @@ const buildMarks = (marks: Array<any>, leaf: string): string | undefined => {
 
   const children = buildMarks(marks, leaf);
   if (type.attrs) {
-    const attrs: Record<string, any> = {};
-    type.attrs.map(attrName => {
-      attrs[attrName] = mark.attrs[attrName];
-    });
+    const attrs = type.attrs.reduce<Record<string, any>>((acc, attrName) => {
+      acc[attrName] = mark.attrs[attrName];
+      return acc;
+    }, {});
 
-    const stringAttrs = attrs === {} ? '' : JSON.stringify(attrs);
+    const stringAttrs =
+      Object.keys(attrs).length === 0 ? '' : JSON.stringify(attrs);
     return `${name}(${stringAttrs})(${children || leaf})`;
   }
 
@@ -208,12 +209,13 @@ const nodeToDocBuilder = (node: any): string => {
 
   let leaf = `${name}(${childrenBuilders.join(', ')})`;
   if (type.attrs) {
-    const attrs: Record<string, any> = {};
-    type.attrs.map(attrName => {
-      attrs[attrName] = node.attrs[attrName];
-    });
+    const attrs = type.attrs.reduce<Record<string, any>>((acc, attrName) => {
+      acc[attrName] = node.attrs[attrName];
+      return acc;
+    }, {});
 
-    const stringAttrs = attrs === {} ? '' : JSON.stringify(attrs);
+    const stringAttrs =
+      Object.keys(attrs).length === 0 ? '' : JSON.stringify(attrs);
     leaf = `${name}(${stringAttrs})(${childrenBuilders.join(', ')})`;
   }
 
@@ -297,36 +299,28 @@ export default class Example extends React.Component<any, DocBuilderState> {
   }
 
   private handleDocBuilderChange = (value: string) => {
-    console.log('handleDocBuilderChange');
-    let content;
-    try {
-      content = builderEval(value);
-    } catch (error) {
-      this.setState({ docBuilderValid: false });
-      throw new Error(error);
-    }
-    this.setState({ docBuilderValid: true });
+    const buildDoc = evaluateDocBuilderExpression(value);
+    const docBuilderValid = !(buildDoc instanceof Error);
+    this.setState({ docBuilderValid });
 
-    if (this.editorActions) {
-      this.editorActions.replaceDocument(content(schema).toJSON());
+    if (buildDoc instanceof Error) {
+      console.error(buildDoc);
+    } else {
+      this.editorActions?.replaceDocument(buildDoc(schema).toJSON());
     }
   };
 
   private handleAdfChange = (value: string) => {
-    console.log('handleAdfChange');
     try {
-      if (this.editorActions) {
-        this.editorActions.replaceDocument(value);
-      }
+      this.editorActions?.replaceDocument(value);
+      this.setState({ adfValid: true });
     } catch (error) {
       this.setState({ adfValid: false });
       throw new Error(error);
     }
-    this.setState({ adfValid: true });
   };
 
   private handleEditorChange = () => {
-    console.log('handleEditorChange');
     this.updateFields();
   };
 

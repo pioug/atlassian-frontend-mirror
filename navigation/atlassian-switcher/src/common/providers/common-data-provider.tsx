@@ -34,23 +34,23 @@ export default ({
       cloudId={cloudId}
       enableRecentContainers={enableRecentContainers}
     >
-      {collaborationGraphRecentContainers => (
+      {(collaborationGraphRecentContainers) => (
         <UserPermissionProvider
           cloudId={cloudId}
           permissionId={Permissions.MANAGE}
         >
-          {managePermission => (
+          {(managePermission) => (
             <UserPermissionProvider
               cloudId={cloudId}
               permissionId={Permissions.ADD_PRODUCTS}
             >
-              {addProductsPermission => (
+              {(addProductsPermission) => (
                 <XFlowSettingsProvider cloudId={cloudId}>
-                  {isXFlowEnabled => (
+                  {(isXFlowEnabled) => (
                     <RecommendationsEngineProvider
                       featureFlags={recommendationsFeatureFlags}
                     >
-                      {productRecommendations =>
+                      {(productRecommendations) =>
                         children({
                           managePermission,
                           addProductsPermission,

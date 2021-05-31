@@ -156,7 +156,7 @@ function asUserSiteDataProviderResult(
         };
       }
       const site = availableProductsProvider.data.sites.find(
-        site =>
+        (site) =>
           (cloudId && site.cloudId === cloudId) ||
           (product &&
             isTenantless(product) &&
@@ -243,7 +243,7 @@ export function mapResultsToSwitcherProps(
 
   const hasLoadedJoinableSites = hasLoaded(joinableSites);
 
-  let mapUrl: MapUrl = url => url;
+  let mapUrl: MapUrl = (url) => url;
   let getExtendedAnalyticsAttributes: GetExtendedAnalyticsAttributes = () => ({});
   if (customizeLinks) {
     const originCustomLinks = customizeLinks();

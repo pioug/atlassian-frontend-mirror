@@ -16,7 +16,7 @@ class InlineDialogSwitcherExample extends React.Component {
   openDrawer = () => {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           RECENT_CONTAINERS_DATA: {

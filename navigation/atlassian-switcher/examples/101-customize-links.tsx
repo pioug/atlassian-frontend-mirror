@@ -52,7 +52,7 @@ class ConfluenceSwitcherExample extends React.Component {
                 }
                 return url;
               },
-              getExtendedAnalyticsAttributes: product =>
+              getExtendedAnalyticsAttributes: (product) =>
                 product === SwitcherProductType.CONFLUENCE
                   ? mockExtendedAnalyticsAttributes
                   : {},

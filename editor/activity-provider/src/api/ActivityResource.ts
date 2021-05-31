@@ -80,7 +80,7 @@ export default class ActivityResource implements ActivityProvider {
 
     try {
       const response = await this.recentPromise;
-      return response.data.activities.myActivities.viewed.nodes.map(node => ({
+      return response.data.activities.myActivities.viewed.nodes.map((node) => ({
         objectId: atob(node.object.id),
         name: node.object.name,
         container: this.getContainerName(node.object.containers),
@@ -120,7 +120,7 @@ export default class ActivityResource implements ActivityProvider {
       return [];
     }
 
-    return items.filter(item => {
+    return items.filter((item) => {
       return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }

@@ -56,7 +56,7 @@ export const withCached = <F extends Func>(fn: F): WithCached<F> => {
 
     if (isPromise<Resolve<ReturnType<F>>>(maybePromise)) {
       maybePromise
-        .then(result => {
+        .then((result) => {
           resultCache.set(cacheKey, result);
           setTimeout(
             () => promiseCache.delete(cacheKey),

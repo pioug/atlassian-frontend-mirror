@@ -10,7 +10,7 @@ export const extractPersonCreatedBy = (
     if (Array.isArray(attributedTo)) {
       return attributedTo
         .map(extractPersonFromJsonLd)
-        .filter(item => !!item) as LinkPerson[];
+        .filter((item) => !!item) as LinkPerson[];
     } else {
       const item = extractPersonFromJsonLd(attributedTo);
       if (item) {

@@ -15,7 +15,7 @@ class GenericSwitcherExample extends React.Component {
   }
 
   openDrawer = () => {
-    mockEndpoints('confluence', originalMockData => originalMockData, {
+    mockEndpoints('confluence', (originalMockData) => originalMockData, {
       containers: 1000,
       xflow: 500,
       permitted: 2000,

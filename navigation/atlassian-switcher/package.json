@@ -62,7 +62,7 @@
     "@atlaskit/page": "^12.0.0",
     "@atlaskit/popup": "^1.0.0",
     "@atlaskit/textfield": "^5.0.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
@@ -70,5 +70,5 @@
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

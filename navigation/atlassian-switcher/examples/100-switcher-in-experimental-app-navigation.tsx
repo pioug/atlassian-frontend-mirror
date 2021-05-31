@@ -65,7 +65,7 @@ const AppSwitcherExample = () => {
         </div>
       )}
       zIndex={800}
-      trigger={triggerProps => (
+      trigger={(triggerProps) => (
         <AppSwitcher
           tooltip="Switch to..."
           onClick={toggleAppSwitcher}
@@ -93,7 +93,7 @@ const Navigation = () => (
 
 const SwitcherInExperimentalAppNavigationExample = () => {
   React.useEffect(() => {
-    mockEndpoints('confluence', originalMockData => originalMockData, {
+    mockEndpoints('confluence', (originalMockData) => originalMockData, {
       containers: 1000,
       xflow: 500,
       permitted: 2000,

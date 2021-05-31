@@ -20,7 +20,7 @@ describe('render', () => {
   test('should render the switcher with analytics and intl providers', () => {
     let result;
 
-    renderMock.mockImplementation(content => {
+    renderMock.mockImplementation((content) => {
       result = shallow(<div>{content}</div>);
     });
 

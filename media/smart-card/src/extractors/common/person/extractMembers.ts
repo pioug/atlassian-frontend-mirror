@@ -15,8 +15,8 @@ export const extractMembers = (
       >;
       if (collection.items) {
         return (collection.items as JsonLd.Primitives.Person[])
-          .map(member => extractPersonFromJsonLd(member))
-          .filter(member => !!member) as LinkPerson[];
+          .map((member) => extractPersonFromJsonLd(member))
+          .filter((member) => !!member) as LinkPerson[];
       }
     } else {
       const memberItem = members as

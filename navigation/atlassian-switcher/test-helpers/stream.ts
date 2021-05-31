@@ -45,7 +45,7 @@ function createStream<T>(): Stream<T> {
     if (element) {
       return Promise.resolve(element);
     }
-    return new Promise(accept => {
+    return new Promise((accept) => {
       currentAccept = accept;
     });
   }

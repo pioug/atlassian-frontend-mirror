@@ -6,7 +6,7 @@ jest.mock('../../context', () => ({
   useSmartLinkContext: () => mockUseSmartLinkContext(),
 }));
 
-let mockUseCallback = jest.fn().mockImplementation(fn => fn);
+let mockUseCallback = jest.fn().mockImplementation((fn) => fn);
 jest.mock('react', () => ({
   useCallback: (...args: any) => mockUseCallback(...args),
 }));

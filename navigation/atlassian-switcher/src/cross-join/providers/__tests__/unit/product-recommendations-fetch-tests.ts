@@ -85,7 +85,7 @@ describe('product-recommendations-fetch-test', () => {
     );
 
     return fetchProductRecommendationsInternal('https://example.com').then(
-      joinableSitesResponse => {
+      (joinableSitesResponse) => {
         expect(joinableSitesResponse).toStrictEqual(joinableSitesApiResponse);
       },
     );
@@ -106,7 +106,7 @@ describe('product-recommendations-fetch-test', () => {
     );
 
     return fetchProductRecommendationsInternal('https://example.com').then(
-      joinableSitesResponse => {
+      (joinableSitesResponse) => {
         expect(joinableSitesResponse).toEqual(emptyJoinableSiteResponse);
       },
     );

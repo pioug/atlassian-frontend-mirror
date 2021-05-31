@@ -122,7 +122,7 @@ export const ProviderCategory = ({
         .sort((exampleA, exampleB) =>
           exampleA.resolver.localeCompare(exampleB.resolver),
         )
-        .map(example => (
+        .map((example) => (
           <ProviderCard
             key={example.resolver}
             {...example}

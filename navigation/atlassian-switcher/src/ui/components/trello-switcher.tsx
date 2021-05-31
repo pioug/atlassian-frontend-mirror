@@ -56,7 +56,7 @@ const hasAtlassianProducts = (
 ): boolean => {
   return (
     availableProducts.filter(
-      productLink => productLink.productType !== SwitcherProductType.TRELLO,
+      (productLink) => productLink.productType !== SwitcherProductType.TRELLO,
     ).length > 0
   );
 };
@@ -155,15 +155,15 @@ class TrelloSwitcher extends React.Component<TrelloSwitcherProps> {
       <JoinableSitesProvider
         joinableSitesDataProvider={joinableSitesDataProvider}
       >
-        {joinableSites => (
+        {(joinableSites) => (
           <AvailableProductsProvider
             availableProductsDataProvider={dataProvider}
           >
-            {availableProducts => (
+            {(availableProducts) => (
               <RecommendationsEngineProvider
                 featureFlags={recommendationsFeatureFlags}
               >
-                {productRecommendations => {
+                {(productRecommendations) => {
                   const switcherLinks = mapResultsToSwitcherProps(
                     null,
                     {

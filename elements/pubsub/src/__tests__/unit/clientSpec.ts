@@ -29,7 +29,7 @@ const protocolTypeCombos = [
 ];
 
 describe('Client', () => {
-  protocolTypeCombos.forEach(protocolTypes => {
+  protocolTypeCombos.forEach((protocolTypes) => {
     describe(`with protocols: ${protocolTypes}`, () => {
       let client: Client;
       let protocols: MockProtocol[];
@@ -46,7 +46,7 @@ describe('Client', () => {
 
         protocols = protocolTypes.map(makeAProtocol);
         protocol = protocols.find(
-          protocol => protocol.getType() === 'some-protocol',
+          (protocol) => protocol.getType() === 'some-protocol',
         )!;
 
         client = new Client(
@@ -191,7 +191,7 @@ describe('Client', () => {
             ) as any) as [Request, undefined];
             expect(lastCall).toBeDefined();
 
-            return lastCall[0].json().then(body => {
+            return lastCall[0].json().then((body) => {
               expect(body.channels.length).toEqual(1);
               expect(body.channels[0]).toEqual('ari:cloud:platform::site/667');
             });
@@ -204,7 +204,7 @@ describe('Client', () => {
           expect(protocol.on).toHaveBeenCalledTimes(0);
         });
 
-        it('should subscribe to base events after joining channels', done => {
+        it('should subscribe to base events after joining channels', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',
@@ -218,7 +218,7 @@ describe('Client', () => {
             });
         });
 
-        it('should not unsubscribe from base events after leaving some but not all channels', done => {
+        it('should not unsubscribe from base events after leaving some but not all channels', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',
@@ -232,7 +232,7 @@ describe('Client', () => {
             });
         });
 
-        it('should unsubscribe from base events after leaving all channels', done => {
+        it('should unsubscribe from base events after leaving all channels', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',
@@ -251,7 +251,7 @@ describe('Client', () => {
             });
         });
 
-        it('should resubscribe from base events after leaving all channels and joining channels', done => {
+        it('should resubscribe from base events after leaving all channels and joining channels', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',
@@ -278,7 +278,7 @@ describe('Client', () => {
             });
         });
 
-        it('should receive matching events', done => {
+        it('should receive matching events', (done) => {
           const callback = jest.fn();
           client
             .join([
@@ -294,7 +294,7 @@ describe('Client', () => {
             });
         });
 
-        it('should receive matching events after leaving some but not all channels', done => {
+        it('should receive matching events after leaving some but not all channels', (done) => {
           const callback = jest.fn();
           client
             .join([
@@ -311,7 +311,7 @@ describe('Client', () => {
             });
         });
 
-        it('should not receive a matching event after leaving all channels', done => {
+        it('should not receive a matching event after leaving all channels', (done) => {
           const callback = jest.fn();
           client
             .join([
@@ -343,7 +343,7 @@ describe('Client', () => {
           jest.useRealTimers();
         });
 
-        it('should call subscribe', done => {
+        it('should call subscribe', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',
@@ -364,7 +364,7 @@ describe('Client', () => {
           jest.runTimersToTime(100);
         });
 
-        it('should use exponential retry', done => {
+        it('should use exponential retry', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',
@@ -391,7 +391,7 @@ describe('Client', () => {
           jest.runTimersToTime(100);
         });
 
-        it('should not retry indefinitely', done => {
+        it('should not retry indefinitely', (done) => {
           client
             .join([
               'ari:cloud:platform::site/666',

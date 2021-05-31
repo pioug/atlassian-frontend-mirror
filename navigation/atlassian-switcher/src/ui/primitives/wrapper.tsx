@@ -42,12 +42,12 @@ class SwitcherWrapper extends React.Component<SwitcherWrapperProps> {
     const { appearance, children } = this.props;
 
     const manageButton = React.Children.toArray(children).filter(
-      child =>
+      (child) =>
         React.isValidElement(child) &&
         React.Children.only(child).type === ManageButton,
     );
     const items = React.Children.toArray(children).filter(
-      child =>
+      (child) =>
         React.isValidElement(child) &&
         React.Children.only(child).type !== ManageButton,
     );

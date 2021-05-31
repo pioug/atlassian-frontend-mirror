@@ -20,7 +20,7 @@ class JiraSwitcherExample extends React.Component {
   openDrawer = () => {
     mockEndpoints(
       'jira',
-      originalMockData => ({
+      (originalMockData) => ({
         ...originalMockData,
         AVAILABLE_PRODUCTS_DATA: {
           sites: [

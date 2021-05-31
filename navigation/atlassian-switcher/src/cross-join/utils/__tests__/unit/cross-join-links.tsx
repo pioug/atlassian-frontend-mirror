@@ -22,7 +22,7 @@ describe('cross-join-links', () => {
     it('should return 3 items at maximum', () => {
       const result = getJoinableSiteLinks(
         mockJoinableSites.sites.map(
-          site => Object.assign({}, site, { relevance: 10 }) as JoinableSite,
+          (site) => Object.assign({}, site, { relevance: 10 }) as JoinableSite,
         ),
       );
       expect(result.length).toBe(3);

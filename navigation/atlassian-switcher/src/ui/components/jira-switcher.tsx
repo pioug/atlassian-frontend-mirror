@@ -42,11 +42,11 @@ export default (props: JiraSwitcherProps) => (
   <JoinableSitesProvider
     joinableSitesDataProvider={props.joinableSitesDataProvider}
   >
-    {joinableSites => (
+    {(joinableSites) => (
       <CustomLinksProvider
         disableCustomLinks={props.features.disableCustomLinks}
       >
-        {customLinks => (
+        {(customLinks) => (
           <AvailableProductsProvider
             availableProductsDataProvider={props.availableProductsDataProvider}
           >
@@ -58,7 +58,7 @@ export default (props: JiraSwitcherProps) => (
                   ...props.recommendationsFeatureFlags,
                 }}
               >
-                {providerResults => {
+                {(providerResults) => {
                   const {
                     showManageLink,
                     ...switcherLinks

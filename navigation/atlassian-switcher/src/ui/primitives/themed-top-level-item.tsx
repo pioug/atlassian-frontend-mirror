@@ -29,12 +29,12 @@ const ThemeableToggleStyle = styled(ThemeableItemParent)<ToggleProps>`
 
 export const ItemWrapper = (props: ToggleProps) => (
   <TopLevelItemWrapperTheme.Consumer>
-    {tokens => <ThemeableItemWrapper {...props} tokens={tokens} />}
+    {(tokens) => <ThemeableItemWrapper {...props} tokens={tokens} />}
   </TopLevelItemWrapperTheme.Consumer>
 );
 
 export const Toggle = (props: ToggleProps) => (
   <TopLevelItemWrapperTheme.Consumer>
-    {tokens => <ThemeableToggleStyle {...props} tokens={tokens} />}
+    {(tokens) => <ThemeableToggleStyle {...props} tokens={tokens} />}
   </TopLevelItemWrapperTheme.Consumer>
 );

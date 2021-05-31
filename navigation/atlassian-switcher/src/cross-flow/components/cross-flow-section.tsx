@@ -36,7 +36,9 @@ interface CrossFlowSectionProps {
 
 const noop = () => {};
 
-export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = props => {
+export const CrossFlowSection: FunctionComponent<CrossFlowSectionProps> = (
+  props,
+) => {
   const {
     appearance,
     discoverSectionLinks,

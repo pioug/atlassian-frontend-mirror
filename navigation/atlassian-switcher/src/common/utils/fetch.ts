@@ -17,7 +17,7 @@ export function enrichFetchError(
 }
 
 export const fetchJson = <T>(url: string, init?: RequestInit): Promise<T> =>
-  fetch(url, { credentials: 'include', ...init }).then(response => {
+  fetch(url, { credentials: 'include', ...init }).then((response) => {
     if (response.ok) {
       return response.json();
     }

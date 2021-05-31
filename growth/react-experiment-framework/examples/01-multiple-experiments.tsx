@@ -19,8 +19,9 @@ export const createExperiment = (experimentKey: string) =>
     },
     experimentKey,
     {
-      onError: error => console.log('onError', error.message),
-      onExposure: exposureDetails => console.log('onExposure', exposureDetails),
+      onError: (error) => console.log('onError', error.message),
+      onExposure: (exposureDetails) =>
+        console.log('onExposure', exposureDetails),
     },
     Loader,
   );
@@ -59,8 +60,9 @@ export const createNestedExperiment = (
     },
     experimentKey,
     {
-      onError: error => console.log('onError', error.message),
-      onExposure: exposureDetails => console.log('onExposure', exposureDetails),
+      onError: (error) => console.log('onError', error.message),
+      onExposure: (exposureDetails) =>
+        console.log('onExposure', exposureDetails),
     },
     Loader,
   );

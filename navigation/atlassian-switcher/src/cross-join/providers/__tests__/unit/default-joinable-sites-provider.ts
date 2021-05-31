@@ -21,7 +21,7 @@ describe('default-joinabble-sites-provider', () => {
       createJoinableSitesProvider,
     } = require('../../default-joinable-sites-provider');
     const promise = () =>
-      new Promise(resolve => ({
+      new Promise((resolve) => ({
         sites: [],
       }));
     createJoinableSitesProvider(promise);

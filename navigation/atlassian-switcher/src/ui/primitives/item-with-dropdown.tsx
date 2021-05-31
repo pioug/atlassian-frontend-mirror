@@ -106,7 +106,7 @@ class SwitcherItemWithDropDown extends React.Component<Props, State> {
           </ItemContainer>
           {showChildItems && childItems && (
             <ChildItemsContainer>
-              {childItems.map(item => (
+              {childItems.map((item) => (
                 <SwitcherThemedChildItem
                   icon={
                     <Avatar

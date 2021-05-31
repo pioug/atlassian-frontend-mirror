@@ -71,7 +71,7 @@ export const withAnalyticsContextData = function <P, C>(
   return function (
     WrappedComponent: React.ComponentType<P>,
   ): React.ComponentType<P> {
-    return props => (
+    return (props) => (
       <NavigationAnalyticsContext data={mapPropsToContext(props)}>
         <WrappedComponent {...props} />
       </NavigationAnalyticsContext>
@@ -304,7 +304,7 @@ export const getDiscoverMoreRenderTracker = (
     linksRendered: discoverMoreLink,
     data: {
       ...data,
-      linkItems: discoverMoreLink.map(item => item.key),
+      linkItems: discoverMoreLink.map((item) => item.key),
     },
   });
 };

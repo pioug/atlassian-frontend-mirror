@@ -28,7 +28,7 @@ class InlineDialogSwitcherExample extends React.Component {
   loadData = () => {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           RECENT_CONTAINERS_DATA: {
@@ -57,7 +57,7 @@ class InlineDialogSwitcherExample extends React.Component {
     return (
       this.state.isLoaded && (
         <ThemeBuilder>
-          {theme => (
+          {(theme) => (
             <Container>
               <AtlassianSwitcher
                 product="trello"

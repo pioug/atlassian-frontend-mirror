@@ -218,7 +218,7 @@ const getAvailableProductLinkFromSiteProduct = (
   jwmRebrandEnabled: boolean,
 ): SwitcherItemType => {
   const topSite =
-    connectedSites.find(site => site.isCurrentSite) ||
+    connectedSites.find((site) => site.isCurrentSite) ||
     connectedSites.sort((a, b) => a.siteName.localeCompare(b.siteName))[0];
   const productType = topSite.product.productType;
   const productLinkProperties = jwmRebrandEnabled
@@ -234,7 +234,7 @@ const getAvailableProductLinkFromSiteProduct = (
     childItems:
       connectedSites.length > 1
         ? connectedSites
-            .map(site => ({
+            .map((site) => ({
               href: mapUrl(getProductSiteUrl(site), productType),
               label: site.siteName,
               avatar: site.avatar,
@@ -253,9 +253,9 @@ export const getAvailableProductLinks = (
   },
 ): SwitcherItemType[] => {
   const productsMap: { [key: string]: ConnectedSite[] } = {};
-  availableProducts.sites.forEach(site => {
+  availableProducts.sites.forEach((site) => {
     const { availableProducts, avatar, displayName, url } = site;
-    availableProducts.forEach(product => {
+    availableProducts.forEach((product) => {
       const { productType } = product;
 
       if (!productsMap[productType]) {
@@ -272,7 +272,7 @@ export const getAvailableProductLinks = (
     });
   });
 
-  return PRODUCT_ORDER.map(productType => {
+  return PRODUCT_ORDER.map((productType) => {
     const connectedSites = productsMap[productType];
     return (
       connectedSites &&
@@ -282,7 +282,7 @@ export const getAvailableProductLinks = (
         features.jwmRebrandEnabled,
       )
     );
-  }).filter(link => !!link);
+  }).filter((link) => !!link);
 };
 
 export const getEmceeLink = (
@@ -304,9 +304,9 @@ export const getProvisionedProducts = (
   availableProducts: AvailableProductsResponse,
 ): ProvisionedProducts => {
   const provisionedProducts = {} as ProvisionedProducts;
-  availableProducts.sites.forEach(site =>
+  availableProducts.sites.forEach((site) =>
     site.availableProducts.forEach(
-      product => (provisionedProducts[product.productType] = true),
+      (product) => (provisionedProducts[product.productType] = true),
     ),
   );
   return provisionedProducts;
@@ -322,9 +322,9 @@ export const getCustomLinkItems = (
   ];
   return list
     .filter(
-      customLink => defaultProductCustomLinks.indexOf(customLink.link) === -1,
+      (customLink) => defaultProductCustomLinks.indexOf(customLink.link) === -1,
     )
-    .map(customLink => ({
+    .map((customLink) => ({
       key: customLink.key,
       label: customLink.label,
       Icon: createIcon(WorldIcon),
@@ -341,7 +341,7 @@ export const getRecentLinkItemsCollaborationGraph = (
 ): RecentItemType[] => {
   const isAnyJiraProductActive = Boolean(
     currentSite.products.find(
-      product =>
+      (product) =>
         product.productType === SwitcherProductType.JIRA_BUSINESS ||
         product.productType === SwitcherProductType.JIRA_SERVICE_DESK ||
         product.productType === SwitcherProductType.JIRA_SOFTWARE,
@@ -349,7 +349,7 @@ export const getRecentLinkItemsCollaborationGraph = (
   );
   const isConfluenceActive = Boolean(
     currentSite.products.find(
-      product => product.productType === SwitcherProductType.CONFLUENCE,
+      (product) => product.productType === SwitcherProductType.CONFLUENCE,
     ),
   );
 
@@ -369,7 +369,7 @@ export const getRecentLinkItemsCollaborationGraph = (
       );
     })
     .slice(0, 6)
-    .map(recentLink => ({
+    .map((recentLink) => ({
       key: recentLink.id,
       label: recentLink.containerDetails.name,
       Icon: createImageIcon(recentLink.containerDetails.iconUrl),

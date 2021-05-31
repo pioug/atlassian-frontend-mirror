@@ -130,7 +130,7 @@ export const getSuggestedProductLink = (
   );
 
   return productRecommendations
-    .filter(legacyProduct => {
+    .filter((legacyProduct) => {
       const productKey = TO_SWITCHER_PRODUCT_KEY[legacyProduct.productKey];
 
       const shouldHideOpsGenie =
@@ -143,7 +143,7 @@ export const getSuggestedProductLink = (
         shouldHideOpsGenie
       );
     })
-    .map(legacyProduct => {
+    .map((legacyProduct) => {
       const switcherProductKey =
         TO_SWITCHER_PRODUCT_KEY[legacyProduct.productKey];
 

@@ -54,7 +54,7 @@ export default class CardClient implements CardClientInterface {
       resolvedUrls = await api.request<BatchResponse>(
         'post',
         `${this.resolverUrl}/resolve/batch`,
-        deDuplicatedUrls.map(resourceUrl => ({ resourceUrl })),
+        deDuplicatedUrls.map((resourceUrl) => ({ resourceUrl })),
       );
     } catch (error) {
       // we make sure we return a valid dataloader response by creating an error
@@ -79,7 +79,7 @@ export default class CardClient implements CardClientInterface {
     }
 
     // Reconvert list back into the original order in which it was given to us.
-    return urls.map(originalUrl => map[originalUrl]);
+    return urls.map((originalUrl) => map[originalUrl]);
   }
 
   private createLoader() {

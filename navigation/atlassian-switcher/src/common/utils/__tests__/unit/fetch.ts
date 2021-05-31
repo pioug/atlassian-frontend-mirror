@@ -31,16 +31,16 @@ describe('utils fetch', () => {
     fetchMock.mockReset();
   });
 
-  it('should return response.json() for any fetchJson', done => {
-    fetchJson(REQUEST_URL).then(jsonReponse => {
+  it('should return response.json() for any fetchJson', (done) => {
+    fetchJson(REQUEST_URL).then((jsonReponse) => {
       expect(fetchMock.mock.calls[0][0]).toBe(REQUEST_URL);
       expect(jsonReponse).toBe(RESPONSE_DATA);
       done();
     });
   });
 
-  it('should return response.json() for any postJson', done => {
-    postJson(REQUEST_URL, REQUEST_DATA).then(jsonReponse => {
+  it('should return response.json() for any postJson', (done) => {
+    postJson(REQUEST_URL, REQUEST_DATA).then((jsonReponse) => {
       expect(fetchMock.mock.calls[0][0]).toBe(REQUEST_URL);
       expect(fetchMock.mock.calls[0][1].body).toBe(
         JSON.stringify(REQUEST_DATA),
@@ -50,7 +50,7 @@ describe('utils fetch', () => {
     });
   });
 
-  it('should include credentials options', done => {
+  it('should include credentials options', (done) => {
     fetchJson(REQUEST_URL).then(() => {
       expect(fetchMock.mock.calls[0][1]).toHaveProperty(
         'credentials',
@@ -60,7 +60,7 @@ describe('utils fetch', () => {
     });
   });
 
-  it('should override fetch options', done => {
+  it('should override fetch options', (done) => {
     const customFetchOptions: RequestInit = {
       credentials: 'same-origin',
       headers: {
@@ -74,7 +74,7 @@ describe('utils fetch', () => {
     });
   });
 
-  it('should add credentials:include', done => {
+  it('should add credentials:include', (done) => {
     const customFetchOptions: RequestInit = {
       headers: {
         bla: 'bla',

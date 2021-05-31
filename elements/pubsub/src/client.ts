@@ -75,7 +75,7 @@ export class Client implements ActionablePubSubClient {
 
   join(aris: ARI[]): Promise<PubSubClient> {
     let channelsChanged = false;
-    aris.forEach(ari => {
+    aris.forEach((ari) => {
       if (!this.currentChannels.has(ari)) {
         this.currentChannels.add(ari);
         channelsChanged = true;
@@ -91,7 +91,7 @@ export class Client implements ActionablePubSubClient {
 
   leave(aris: ARI[]): Promise<PubSubClient> {
     let channelsChanged = false;
-    aris.forEach(ari => {
+    aris.forEach((ari) => {
       if (this.currentChannels.has(ari)) {
         this.currentChannels.delete(ari);
         channelsChanged = true;
@@ -134,7 +134,7 @@ export class Client implements ActionablePubSubClient {
 
   private registerProtocols(protocols: Protocol[]) {
     let capabilities: string[] = [];
-    protocols.forEach(protocol => {
+    protocols.forEach((protocol) => {
       this.protocols.set(protocol.getType(), protocol);
 
       capabilities = capabilities.concat(protocol.getCapabilities());
@@ -147,13 +147,13 @@ export class Client implements ActionablePubSubClient {
     const channels = Array.from(this.currentChannels.values());
     if (channels.length === 0) {
       this.currentProtocol = undefined;
-      this.protocols.forEach(protocol => protocol.unsubscribeAll());
+      this.protocols.forEach((protocol) => protocol.unsubscribeAll());
       this.eventEmitter.removeAllListeners();
       this.subscribedToBaseEvents = false;
 
       return Promise.resolve();
     } else if (!this.subscribedToBaseEvents) {
-      this.protocols.forEach(protocol => {
+      this.protocols.forEach((protocol) => {
         protocol.on(EventType.MESSAGE, this.onMessage);
         protocol.on(EventType.ACCESS_DENIED, this.onAccessDenied);
         protocol.on(EventType.NETWORK_UP, this.onNetworkUp);
@@ -162,7 +162,7 @@ export class Client implements ActionablePubSubClient {
       this.subscribedToBaseEvents = true;
     }
 
-    return this.fetchSubscribeProtocol(channels).then(subscribeProtocol => {
+    return this.fetchSubscribeProtocol(channels).then((subscribeProtocol) => {
       const protocolConfig = subscribeProtocol.protocol;
       if (!protocolConfig) {
         logError(

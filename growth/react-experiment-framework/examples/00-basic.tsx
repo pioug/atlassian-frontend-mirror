@@ -18,8 +18,8 @@ export const ExperimentWrapped = asExperiment(
   },
   'myExperimentKey',
   {
-    onError: error => console.log('onError', error.message),
-    onExposure: exposureDetails => console.log('onExposure', exposureDetails),
+    onError: (error) => console.log('onError', error.message),
+    onExposure: (exposureDetails) => console.log('onExposure', exposureDetails),
   },
   Loader,
 );
@@ -28,7 +28,7 @@ const resolveAfterDelay = (
   resolvesTo: ResolvesTo,
   delay = 2000,
 ): Promise<EnrollmentDetails> =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve(resolvesTo);
     }, delay);
@@ -110,7 +110,7 @@ export default class extends Component<{}, State> {
     const { areErrorScenariosActive } = this.state;
     const filteredScenarios = areErrorScenariosActive
       ? scenarios
-      : scenarios.filter(s => !s.hasError);
+      : scenarios.filter((s) => !s.hasError);
     return (
       <table style={{ tableLayout: 'fixed' }}>
         <thead>

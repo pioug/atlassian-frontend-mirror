@@ -10,7 +10,7 @@ export const extractTag = (
     if (typeof tag === 'string') {
       return { text: tag, appearance: 'default' };
     } else if (Array.isArray(tag)) {
-      const tags = tag.map(extractTagItem).filter(item => !!item);
+      const tags = tag.map(extractTagItem).filter((item) => !!item);
       if (tags.length > 0) {
         return tags.shift();
       }

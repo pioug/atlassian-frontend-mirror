@@ -21,7 +21,7 @@ class JiraSwitcherExample extends React.Component {
   openDrawer = (flagValue: string) => {
     mockEndpoints(
       'jira',
-      originalMockData => ({
+      (originalMockData) => ({
         ...originalMockData,
         AVAILABLE_PRODUCTS_DATA: {
           sites: [
@@ -85,7 +85,7 @@ class JiraSwitcherExample extends React.Component {
           Open Control
         </Button>
 
-        {[1, 2, 3, 4, 5, 6].map(num => {
+        {[1, 2, 3, 4, 5, 6].map((num) => {
           return (
             <Button
               type="button"

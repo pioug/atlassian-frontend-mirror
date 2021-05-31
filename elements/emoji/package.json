@@ -62,6 +62,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@types/js-search": "^1.4.0",
     "@types/react-virtualized": "^9.18.12",
+    "@types/serialize-javascript": "^5.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "es6-promise": "^4.0.5",
@@ -72,6 +73,7 @@
     "react-addons-perf": "^15.3.2",
     "react-intl": "^2.6.0",
     "rxjs": "^5.5.0",
+    "serialize-javascript": "^5.0.1",
     "sinon": "^2.2.0",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

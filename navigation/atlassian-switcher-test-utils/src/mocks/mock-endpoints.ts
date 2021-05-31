@@ -90,7 +90,7 @@ export const mockEndpoints = (
   fetchMock.post(
     '/gateway/api/permissions/permitted',
     (_: string, options: { body: string }) =>
-      new Promise(res =>
+      new Promise((res) =>
         setTimeout(
           () =>
             res(
@@ -108,7 +108,7 @@ export const mockEndpoints = (
   fetchMock.get(
     '/gateway/api/site/some-cloud-id/setting/xflow',
     () =>
-      new Promise(res =>
+      new Promise((res) =>
         setTimeout(() => res(XFLOW_SETTINGS), loadTimes && loadTimes.xflow),
       ),
     { method: 'GET', overwriteRoutes: true },
@@ -116,7 +116,7 @@ export const mockEndpoints = (
   fetchMock.post(
     '/gateway/api/collaboration/v1/collaborationgraph/user/container',
     () =>
-      new Promise(res =>
+      new Promise((res) =>
         setTimeout(
           () => res(COLLABORATION_GRAPH_CONTAINERS),
           loadTimes && loadTimes.containers,
@@ -160,7 +160,7 @@ export const mockJoinableSitesEndpoint = (
   fetchMock.post(
     endpoint,
     () =>
-      new Promise(res =>
+      new Promise((res) =>
         setTimeout(
           () => res(JOINABLE_SITES_DATA),
           loadTimes && loadTimes.joinableSites,

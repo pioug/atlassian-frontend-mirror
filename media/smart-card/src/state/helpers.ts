@@ -8,7 +8,7 @@ export const getByDefinitionId = (
   store: CardStore,
 ) => {
   const urls = Object.keys(store);
-  return urls.filter(url => {
+  return urls.filter((url) => {
     const { details } = store[url];
     return details && details.meta.definitionId === definitionId;
   });

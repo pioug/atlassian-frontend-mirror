@@ -209,7 +209,7 @@ export const fetchJsonOrEmptyProductRecommendationsResponse = (
   url: string,
   init?: RequestInit,
 ): Promise<ProductRecommendationsResponse> =>
-  fetch(url, { credentials: 'include', ...init }).then(async response => {
+  fetch(url, { credentials: 'include', ...init }).then(async (response) => {
     const jsonPromise = response.json();
     if (response.ok) {
       return jsonPromise;
@@ -236,7 +236,7 @@ export const fetchProductRecommendationsInternal = (
     {
       method: 'get',
     },
-  ).then(response => {
+  ).then((response) => {
     return convertProductRecommendationsResponseToJoinableSitesResponse(
       response,
     );

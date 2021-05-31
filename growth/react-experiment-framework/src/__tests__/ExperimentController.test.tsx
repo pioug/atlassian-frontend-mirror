@@ -26,7 +26,7 @@ describe('ExperimentController', () => {
         experimentEnrollmentConfig={mockExperimentEnrollmentConfig}
       >
         <ExperimentConsumer>
-          {context => mockContextReceiver(context)}
+          {(context) => mockContextReceiver(context)}
         </ExperimentConsumer>
       </ExperimentController>,
     );
@@ -91,7 +91,7 @@ describe('ExperimentController', () => {
         experimentEnrollmentOptions={mockExperimentEnrollmentOptions}
       >
         <ExperimentConsumer>
-          {context => mockContextReceiver(context)}
+          {(context) => mockContextReceiver(context)}
         </ExperimentConsumer>
       </ExperimentController>,
     );

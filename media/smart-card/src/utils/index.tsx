@@ -34,7 +34,7 @@ export const getIconForFileType = (
   }
 
   const Icon = Loadable({
-    loader: () => importCb().then(module => module.default),
+    loader: () => importCb().then((module) => module.default),
     loading: () => null,
   }) as any; // because we're using dynamic loading here, TS will not be able to infer the type
 

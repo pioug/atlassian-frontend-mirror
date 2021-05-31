@@ -105,7 +105,7 @@ export type IconType = ComponentType<IconProps>;
 export const createIcon = (
   InnerIcon: React.ComponentType<any>,
   defaultProps?: AkIconProps | AkLogoProps,
-): IconType => props => {
+): IconType => (props) => {
   const { backgroundColor, iconElevation, ...iconProps } =
     themes[props.theme] || themes.default;
 
@@ -116,7 +116,7 @@ export const createIcon = (
   );
 };
 
-export const createImageIcon = (url: string): IconType => props => {
+export const createImageIcon = (url: string): IconType => (props) => {
   const { backgroundColor } = themes[props.theme] || themes.default;
 
   return (

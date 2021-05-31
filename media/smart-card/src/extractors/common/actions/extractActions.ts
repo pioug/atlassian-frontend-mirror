@@ -80,15 +80,15 @@ export function extractActions(
 ): ActionProps[] {
   const actions = getActionsFromJsonLd(jsonLd);
   const clientActions = actions.filter(isClientAction);
-  const serverActions = actions.filter(action => !isClientAction(action));
-  const clientActionImpls = clientActions.map(action =>
+  const serverActions = actions.filter((action) => !isClientAction(action));
+  const clientActionImpls = clientActions.map((action) =>
     getClientActionProps(
       jsonLd,
       action as JsonLd.Primitives.ClientAction,
       handler,
     ),
   );
-  const serverActionImpls = serverActions.map(action =>
+  const serverActionImpls = serverActions.map((action) =>
     getServerActionProps(
       jsonLd,
       action as JsonLd.Primitives.ServerAction,

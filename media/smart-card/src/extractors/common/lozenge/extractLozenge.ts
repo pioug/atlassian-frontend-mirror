@@ -27,7 +27,7 @@ export const extractLozenge = (
       const lozengeFromStatus = extractTaskStatus(jsonLdTask);
       const lozengeFromTaskType = extractLozengeFromTaskType(jsonLdTask);
       return lozengeFromTag || lozengeFromStatus || lozengeFromTaskType;
-    } else if (type.some(types => DOC_TYPES.includes(types))) {
+    } else if (type.some((types) => DOC_TYPES.includes(types))) {
       const jsonLdDocument = jsonLd as JsonLd.Data.Document;
       const lozengeFromState = extractState(jsonLdDocument);
       return lozengeFromState;

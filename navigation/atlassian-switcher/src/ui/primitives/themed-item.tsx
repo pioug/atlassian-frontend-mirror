@@ -7,7 +7,7 @@ import { Themed } from '../theme/types';
 
 export default (props: Themed<SwitcherItemProps>) => (
   <ItemTheme.Consumer>
-    {tokens => (
+    {(tokens) => (
       <ThemeProvider theme={{ [itemThemeNamespace]: tokens }}>
         <Item {...props} />
       </ThemeProvider>

@@ -68,7 +68,7 @@ class PubSubEventComponent extends Component<{}, State> {
       url: e.currentTarget.value,
     });
 
-    this.client.leave([this.state.channelInput]).then(_ => {
+    this.client.leave([this.state.channelInput]).then((_) => {
       this.initClient(newUrl);
     });
   };

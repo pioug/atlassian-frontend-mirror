@@ -23,7 +23,7 @@ class ErrorExample extends React.Component {
   openDrawer = (error?: any) => {
     mockEndpoints(
       'jira',
-      originalMockData => {
+      (originalMockData) => {
         return {
           ...originalMockData,
           AVAILABLE_PRODUCTS_DATA: Promise.reject(error),

@@ -22,7 +22,7 @@ export function useSmartLink(
 
   // Register the current card.
   const register = () => {
-    actions.register().catch(err =>
+    actions.register().catch((err) =>
       setState(() => {
         throw err;
       }),

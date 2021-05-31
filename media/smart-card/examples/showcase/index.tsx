@@ -19,8 +19,8 @@ export const SmartLinksShowcase = () => {
 
   useEffect(() => {
     fetch(exampleUrlsJsonPath)
-      .then(r => r.json())
-      .then(exampleUrls => setUrls(exampleUrls as ExampleUrls));
+      .then((r) => r.json())
+      .then((exampleUrls) => setUrls(exampleUrls as ExampleUrls));
   }, []);
 
   useEffect(() => {
@@ -91,15 +91,15 @@ export const SmartLinksShowcase = () => {
           </div>
           <ShowcaseMenu
             config={config}
-            onViewTypeChange={appearance =>
+            onViewTypeChange={(appearance) =>
               handleConfigChange({ ...config, appearance })
             }
-            onAuthFlowChange={authFlow => setConfig({ ...config, authFlow })}
-            onEnvironmentChange={environment =>
+            onAuthFlowChange={(authFlow) => setConfig({ ...config, authFlow })}
+            onEnvironmentChange={(environment) =>
               handleConfigChange({ ...config, environment })
             }
             entities={entities}
-            onEntityChange={selectedEntities =>
+            onEntityChange={(selectedEntities) =>
               handleConfigChange({ ...config, selectedEntities })
             }
           />

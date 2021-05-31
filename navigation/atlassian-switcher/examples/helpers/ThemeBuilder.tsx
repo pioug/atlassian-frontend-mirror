@@ -83,7 +83,7 @@ export default class ThemeBuilder extends React.Component<Props, State> {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     e.persist();
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
       [colorName]: `${e.target.value}`,
     }));
@@ -96,7 +96,7 @@ export default class ThemeBuilder extends React.Component<Props, State> {
           <GridColumn medium={6}>
             <h6>Examples:</h6>
             <PresetList>
-              {colorSchemes.map(preset => {
+              {colorSchemes.map((preset) => {
                 return (
                   <PresetItem
                     onClick={() => this.selectPreset(preset.colorScheme)}
@@ -108,7 +108,7 @@ export default class ThemeBuilder extends React.Component<Props, State> {
               })}
             </PresetList>
             <h6>Customize your own:</h6>
-            {Object.keys(this.state).map(fieldName => (
+            {Object.keys(this.state).map((fieldName) => (
               <Field name={fieldName} label={fieldName}>
                 {({ fieldProps }: any) => {
                   const currentColor = this.state[

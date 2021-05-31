@@ -8,7 +8,7 @@ import mockJoinableSites from '../test-helpers/mockJoinableSites';
 import { FakeTrelloChrome } from './helpers/FakeTrelloChrome';
 
 const fetchJoinableSites: () => Promise<JoinableSitesResponse> = () =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(
       () =>
         resolve({ sites: mockJoinableSites.sites } as JoinableSitesResponse),
@@ -26,7 +26,7 @@ class TrelloSwitcherJoinSectionHighlight extends React.Component {
   };
 
   componentDidMount() {
-    mockEndpoints('veliko', originalMockData => originalMockData, {
+    mockEndpoints('veliko', (originalMockData) => originalMockData, {
       containers: 1000,
       xflow: 500,
       permitted: 2000,

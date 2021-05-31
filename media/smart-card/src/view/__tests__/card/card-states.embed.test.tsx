@@ -193,7 +193,7 @@ describe('smart-card: card states, embed', () => {
               <Card appearance="embed" url={mockUrl} />
             </Provider>,
           );
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 1000));
 
           const forbiddenLink = await waitForElement(() =>
             getByText(/Restricted link/),

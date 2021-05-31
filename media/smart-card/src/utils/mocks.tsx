@@ -133,4 +133,5 @@ export const fakeFactory: any = (
     }
   };
 
-export const waitFor = (time = 1) => new Promise(res => setTimeout(res, time));
+export const waitFor = (time = 1) =>
+  new Promise((res) => setTimeout(res, time));

@@ -20,7 +20,7 @@ function showFeatureFlagVariationForUPaas(
 }
 
 function buildUpaasRecommendation(productKeys: ProductKey[]) {
-  const recs = productKeys.map(productKey => ({ productKey }));
+  const recs = productKeys.map((productKey) => ({ productKey }));
   return [{ productKey: ProductKey.JIRA_SOFTWARE }].concat(recs);
 }
 

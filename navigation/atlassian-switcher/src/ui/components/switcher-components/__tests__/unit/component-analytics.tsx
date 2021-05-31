@@ -153,7 +153,7 @@ describe('Atlassian Switcher - SLIs', () => {
     eventStream = createStream();
   });
   afterEach(() => {
-    immediateIds.forEach(immediateId => window.clearImmediate(immediateId));
+    immediateIds.forEach((immediateId) => window.clearImmediate(immediateId));
   });
 
   describe('Joinable sites rendered SLI', () => {
@@ -919,7 +919,7 @@ describe('Atlassian Switcher - Component Analytics', () => {
     wrapper = mount(<DefaultAtlassianSwitcher onEventFired={eventStream} />);
   });
   afterEach(() => {
-    immediateIds.forEach(immediateId => window.clearImmediate(immediateId));
+    immediateIds.forEach((immediateId) => window.clearImmediate(immediateId));
   });
 
   it('should fire "atlassianSwitcher rendered and "atlassianSwitcher viewed"', async () => {

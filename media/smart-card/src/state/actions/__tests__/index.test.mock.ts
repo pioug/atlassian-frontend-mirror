@@ -1,6 +1,6 @@
 jest.mock('react', () => ({
-  useMemo: jest.fn().mockImplementation(fn => fn()),
-  useCallback: jest.fn().mockImplementation(fn => fn),
+  useMemo: jest.fn().mockImplementation((fn) => fn()),
+  useCallback: jest.fn().mockImplementation((fn) => fn),
 }));
 
 // eslint-disable-next-line no-global-assign

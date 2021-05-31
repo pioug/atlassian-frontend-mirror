@@ -14,7 +14,7 @@ import {
 } from '../src/index';
 import { DEFAULT_AVAILABLE_PRODUCTS_ENDPOINT } from '../src/common/providers/default-available-products-provider';
 
-const mockEndpointsDataTransformer: DataTransformer = originalMockData => {
+const mockEndpointsDataTransformer: DataTransformer = (originalMockData) => {
   return {
     ...originalMockData,
     AVAILABLE_PRODUCTS_DATA: 401,

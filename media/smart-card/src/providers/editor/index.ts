@@ -57,7 +57,7 @@ export class EditorCardProvider implements CardProvider {
       );
       return response.providers.reduce((allSources: string[], provider) => {
         const providerSources = provider.patterns.map(
-          pattern => pattern.source,
+          (pattern) => pattern.source,
         );
         return allSources.concat(providerSources);
       }, []);
@@ -72,7 +72,7 @@ export class EditorCardProvider implements CardProvider {
     const patterns = this.patterns || (await this.fetchPatterns());
     if (patterns) {
       this.patterns = patterns;
-      return patterns.some(pattern => url.match(pattern));
+      return patterns.some((pattern) => url.match(pattern));
     }
 
     return false;

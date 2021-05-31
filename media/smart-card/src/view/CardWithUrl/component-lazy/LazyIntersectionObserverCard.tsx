@@ -21,7 +21,7 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
 
   const onIntersection: IntersectionObserverCallback = useCallback(
     (entries, observer) => {
-      const isVisible = entries.some(entry => entry.isIntersecting);
+      const isVisible = entries.some((entry) => entry.isIntersecting);
       if (isVisible) {
         setIsIntersecting(true);
         observer.disconnect();

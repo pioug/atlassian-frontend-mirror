@@ -42,7 +42,7 @@ export class AnalyticsViewerContainer extends React.Component<Props, State> {
   }
 
   handleOnEvent = (event: UIAnalyticsEvent, channel?: string) => {
-    this.setState(state => ({
+    this.setState((state) => ({
       events: [{ event, channel }, ...state.events],
     }));
   };

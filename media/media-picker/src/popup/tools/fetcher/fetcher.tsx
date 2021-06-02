@@ -129,11 +129,11 @@ export class MediaApiFetcher implements Fetcher {
     }
 
     const stringifiedParams = keys
-      .map(key => {
+      .map((key) => {
         const value = queryParams[key];
         return value !== undefined ? `${key}=${value}` : undefined;
       })
-      .filter(key => !!key)
+      .filter((key) => !!key)
       .join('&');
 
     return `?${stringifiedParams}`;
@@ -172,7 +172,7 @@ export class MediaApiFetcher implements Fetcher {
   ): GiphyData => {
     const { data, pagination } = response;
 
-    const cardModels = data.map(gif => {
+    const cardModels = data.map((gif) => {
       const { id, slug } = gif;
       const { size, url, width, height } = gif.images.fixed_width;
 
@@ -266,7 +266,7 @@ export function flattenAccounts(services: Service[]): ServiceAccountWithType[] {
   return services.reduce(
     (accounts, service) =>
       accounts.concat(
-        service.accounts.map(account => ({
+        service.accounts.map((account) => ({
           ...account,
           type: service.type,
         })),

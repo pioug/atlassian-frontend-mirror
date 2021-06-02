@@ -14,8 +14,8 @@ export class CloudService {
     const win = window.open('', '_blank');
 
     return this.userAuthProvider()
-      .then(auth => {
-        return new Promise<void>(resolve => {
+      .then((auth) => {
+        return new Promise<void>((resolve) => {
           const channelId = uuidV4();
 
           const authParams = mapAuthToQueryParameters(auth);
@@ -49,7 +49,7 @@ export class CloudService {
           });
         });
       })
-      .catch(e => {
+      .catch((e) => {
         if (win) {
           win.close();
         }

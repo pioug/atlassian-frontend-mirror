@@ -46,7 +46,7 @@ class MobileHeaderDemo extends Component<{}, State> {
       <MobileHeader
         drawerState={this.state.drawerState}
         menuIconLabel="Menu"
-        navigation={isOpen => isOpen && <Navigation onResize={() => {}} />}
+        navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
         secondaryContent={
           <ButtonGroup>
             <Button>One</Button>
@@ -56,7 +56,7 @@ class MobileHeaderDemo extends Component<{}, State> {
             />
           </ButtonGroup>
         }
-        sidebar={isOpen =>
+        sidebar={(isOpen) =>
           isOpen && <FakeSideBar>Sidebar goes here...</FakeSideBar>
         }
         pageHeading="Page heading"

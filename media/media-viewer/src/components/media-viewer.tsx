@@ -50,7 +50,7 @@ export class MediaViewer extends Component<MediaViewerProps, MediaViewerState> {
 
     if (dataSourceWithSelectedItem.list) {
       const items: Identifier[] = dataSourceWithSelectedItem.list.map(
-        identifier => ({
+        (identifier) => ({
           ...identifier,
           collectionName: getIdentifierCollection(identifier, collectionName),
         }),

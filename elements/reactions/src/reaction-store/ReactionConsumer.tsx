@@ -65,7 +65,7 @@ export class ReactionConsumer<
   };
 
   componentDidMount() {
-    Promise.resolve(this.props.store).then(store => {
+    Promise.resolve(this.props.store).then((store) => {
       this.setState({ store });
       store.onChange(this.handleOnChange);
     });

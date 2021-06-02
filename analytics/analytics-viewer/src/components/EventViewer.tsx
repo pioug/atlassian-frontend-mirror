@@ -32,7 +32,7 @@ export class EventViewer extends React.PureComponent<
   }
 
   private handleMoreClick = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       showMore: !state.showMore,
     }));
   };
@@ -47,7 +47,7 @@ export class EventViewer extends React.PureComponent<
         <PropertyViewer object={event.payload} property="actionSubjectId" />
         <PropertyViewer object={event.payload} property="type" />
         {this.state.showMore &&
-          Object.keys(event.payload.attributes).map(attribute => (
+          Object.keys(event.payload.attributes).map((attribute) => (
             <PropertyViewer
               key={attribute}
               object={event.payload.attributes}

@@ -137,12 +137,12 @@ export class FolderViewer extends Component<FolderViewerProps, {}> {
 
     const folderItems = items
       .filter(
-        item => item.mimeType.indexOf('application/vnd.google-apps.') === -1,
+        (item) => item.mimeType.indexOf('application/vnd.google-apps.') === -1,
       )
-      .map(item => {
+      .map((item) => {
         const itemIcon = mapMimeTypeToIcon(item.mimeType);
         const availableIds = this.props.selectedItems.map(
-          selectedItem => selectedItem.id,
+          (selectedItem) => selectedItem.id,
         );
         const isSelected = availableIds.indexOf(item.id) > -1;
 
@@ -274,7 +274,7 @@ export default connect<
     currentCursor: view.currentCursor,
     nextCursor: view.nextCursor,
   }),
-  dispatch => ({
+  (dispatch) => ({
     onFolderClick: (serviceName, accountId, path) =>
       dispatch(changeCloudAccountFolder(serviceName, accountId, path)),
     onFileClick: (serviceName, accountId, file) =>

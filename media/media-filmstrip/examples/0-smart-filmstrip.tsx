@@ -57,7 +57,7 @@ class Example extends Component<{}, ExampleState> {
   getItemIndex = (id: string | Promise<string>): number => {
     const { items } = this.state;
     const item = items.find(
-      item => (item.identifier as FileIdentifier).id === id,
+      (item) => (item.identifier as FileIdentifier).id === id,
     );
 
     if (item) {
@@ -169,7 +169,7 @@ class Example extends Component<{}, ExampleState> {
       .upload(uplodableFile)
       .pipe(first())
       .subscribe({
-        next: state => {
+        next: (state) => {
           if (state.status === 'uploading') {
             const { id } = state;
             const { items } = this.state;

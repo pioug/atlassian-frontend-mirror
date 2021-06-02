@@ -17,7 +17,7 @@ const WrappedButtonFunction = withAnalytics(
       {children}
     </button>
   ),
-  fireAnalyticsEvent => ({
+  (fireAnalyticsEvent) => ({
     onClick: () => fireAnalyticsEvent('click'),
   }),
 );

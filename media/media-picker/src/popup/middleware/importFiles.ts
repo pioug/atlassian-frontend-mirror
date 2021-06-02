@@ -98,7 +98,7 @@ export function importFilesMiddleware(
   eventEmitter: PopupUploadEventEmitter,
   wsProvider: WsProvider,
 ): Middleware {
-  return store => (next: Dispatch<State>) => (action: any) => {
+  return (store) => (next: Dispatch<State>) => (action: any) => {
     if (isStartImportAction(action)) {
       importFiles(eventEmitter, store as any, wsProvider);
     }
@@ -139,7 +139,7 @@ const getPreviewByService = (
   if (serviceName === 'giphy') {
     const { giphy } = store.getState();
     const selectedGiphy = giphy.imageCardModels.find(
-      cardModel => cardModel.metadata.id === fileId,
+      (cardModel) => cardModel.metadata.id === fileId,
     );
     if (selectedGiphy) {
       return Promise.resolve<FilePreview>({
@@ -258,7 +258,7 @@ const distributeTenantFileState = (
   tenantFileSubject.next(tenantFileState);
   if (userFileObservable) {
     userFileObservable.subscribe({
-      next: latestUserFileState => {
+      next: (latestUserFileState) => {
         // let's not inherit a "processed" user fileState
         // to not inherit the user artfifacts that we couldn't access later on
         if (isProcessedFileState(latestUserFileState)) {
@@ -278,7 +278,7 @@ const distributeTenantFileState = (
           id: tenantFileState.id,
         });
       },
-      error: error =>
+      error: (error) =>
         eventEmitter.emitUploadError(userSelectedFileId, {
           fileId: userSelectedFileId,
           name: 'metadata_fetch_fail',
@@ -323,13 +323,13 @@ export async function importFiles(
   store.dispatch(hidePopup());
 
   const selectedPluginItems = selectedItems.filter(
-    item => !isKnowServiceName(item),
+    (item) => !isKnowServiceName(item),
   );
   const userAuth = await userMediaClient.config.authProvider();
 
   const selectedUploadFiles = selectedItems
     .filter(isKnowServiceName)
-    .map(item => {
+    .map((item) => {
       const tenantFileId = uuid();
       return mapSelectedItemToSelectedUploadFile(
         item,
@@ -341,7 +341,7 @@ export async function importFiles(
   eventEmitter.emitPluginItemsInserted(selectedPluginItems);
 
   await Promise.all(
-    selectedUploadFiles.map(async selectedUploadFile => {
+    selectedUploadFiles.map(async (selectedUploadFile) => {
       // 1. We convert selectedUploadItems into tenant's fileState
       const tenantFileState = await getTenantFileState(
         store,
@@ -369,7 +369,7 @@ export async function importFiles(
   // 4. Now, when empty file was created we can do all the necessary uploading/copy operations
   // TODO here we don't have actually guarantee that empty file was created.
   // https://product-fabric.atlassian.net/browse/MS-2165
-  selectedUploadFiles.forEach(async selectedUploadFile => {
+  selectedUploadFiles.forEach(async (selectedUploadFile) => {
     const { file, serviceName } = selectedUploadFile;
     const selectedItemId = file.id;
     try {
@@ -510,7 +510,7 @@ const emitPublicEvents = async (
         this.unsubscribe();
       }
     },
-    error: error => dispatchUploadError(fileId, error),
+    error: (error) => dispatchUploadError(fileId, error),
   });
 };
 

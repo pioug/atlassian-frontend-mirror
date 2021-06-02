@@ -181,7 +181,7 @@ describe('CardView New Experience', () => {
 
     (['uploading', 'complete', 'failed-processing', 'error'] as Array<
       CardStatus
-    >).map(status =>
+    >).map((status) =>
       it(`should render a MediaTypeIcon when the dataURI is undefined and the status is ${status}`, () => {
         const metadata: FileDetails = { id: 'some-id', mediaType: 'video' };
         const component = shallowCardViewBase({

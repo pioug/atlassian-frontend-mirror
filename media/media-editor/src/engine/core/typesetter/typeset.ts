@@ -102,19 +102,19 @@ export class Typeset implements Core.TypesetInterop {
   }
 
   bindNormal(fragmentIndex: number): boolean {
-    return this.bindFragmentTexture(fragmentIndex, fragment =>
+    return this.bindFragmentTexture(fragmentIndex, (fragment) =>
       fragment.bindNormal(),
     );
   }
 
   bindStroke(fragmentIndex: number): boolean {
-    return this.bindFragmentTexture(fragmentIndex, fragment =>
+    return this.bindFragmentTexture(fragmentIndex, (fragment) =>
       fragment.bindStroke(),
     );
   }
 
   getXBase(fragmentIndex: number): number {
-    return this.getFragmentCoordinate(fragmentIndex, pos => pos.xbase);
+    return this.getFragmentCoordinate(fragmentIndex, (pos) => pos.xbase);
   }
 
   getYBase(fragmentIndex: number): number {
@@ -125,7 +125,7 @@ export class Typeset implements Core.TypesetInterop {
   }
 
   getXOpposite(fragmentIndex: number): number {
-    return this.getFragmentCoordinate(fragmentIndex, pos => pos.xopposite);
+    return this.getFragmentCoordinate(fragmentIndex, (pos) => pos.xopposite);
   }
 
   getYOpposite(fragmentIndex: number): number {
@@ -147,7 +147,7 @@ export class Typeset implements Core.TypesetInterop {
     // We should not release fragments explicitly because fragments are owned by paragraphs and released when we release paragraphs,
     // fragments are stored here only for convenience.
     this.fragments = [];
-    this.paragraphs.forEach(par => par.unload(this.isContextLost));
+    this.paragraphs.forEach((par) => par.unload(this.isContextLost));
     this.paragraphs = [];
   }
 
@@ -214,7 +214,7 @@ export class Typeset implements Core.TypesetInterop {
     this.paragraphs.forEach((par, parIndex) => {
       const yline = -parIndex * lineHeight;
 
-      par.textFragments.forEach(fragment => {
+      par.textFragments.forEach((fragment) => {
         this.fragments.push({ fragment, yline });
       });
     });
@@ -245,7 +245,7 @@ export class Typeset implements Core.TypesetInterop {
     this.paragraphs.forEach((par, parIndex) => {
       const yline = Math.round(-parIndex * lineHeight);
 
-      par.textCursorPositions.forEach(x => {
+      par.textCursorPositions.forEach((x) => {
         if (index < count - 1) {
           // We must check the limits for not to destroy heap data
           array[index] = Math.round(x);

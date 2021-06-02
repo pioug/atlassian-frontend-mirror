@@ -26,7 +26,7 @@ export const getSelectedIndex = (
   items: Identifier[],
   selectedItem: Identifier,
 ) => {
-  return items.findIndex(item => {
+  return items.findIndex((item) => {
     if (isFileIdentifier(item) && isFileIdentifier(selectedItem)) {
       return item.id === selectedItem.id;
     }

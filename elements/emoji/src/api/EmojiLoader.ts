@@ -21,7 +21,7 @@ export default class EmojiLoader {
    */
   loadEmoji(): Promise<EmojiResponse> {
     const emojisPromise = emojiRequest(this.config);
-    return emojisPromise.then(emojiServiceResponse =>
+    return emojisPromise.then((emojiServiceResponse) =>
       denormaliseEmojiServiceResponse(emojiServiceResponse),
     );
   }

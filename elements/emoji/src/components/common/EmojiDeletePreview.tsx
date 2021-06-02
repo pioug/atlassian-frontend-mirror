@@ -44,7 +44,7 @@ export default class EmojiDeletePreview extends Component<Props, State> {
     const { emoji, onDeleteEmoji, onCloseDelete } = this.props;
     if (!this.state.loading) {
       this.setState({ loading: true });
-      onDeleteEmoji(emoji).then(success => {
+      onDeleteEmoji(emoji).then((success) => {
         if (success) {
           onCloseDelete();
           return;
@@ -81,7 +81,7 @@ export default class EmojiDeletePreview extends Component<Props, State> {
           <div className={styles.previewButtonGroup}>
             {error ? (
               <FormattedMessage {...messages.deleteEmojiFailed}>
-                {message =>
+                {(message) =>
                   !loading ? (
                     <EmojiErrorMessage
                       message={message as string}
@@ -93,7 +93,7 @@ export default class EmojiDeletePreview extends Component<Props, State> {
               </FormattedMessage>
             ) : null}
             <FormattedMessage {...messages.deleteEmojiLabel}>
-              {message => (
+              {(message) => (
                 <RetryableButton
                   className={styles.uploadEmojiButton}
                   retryClassName={styles.uploadRetryButton}

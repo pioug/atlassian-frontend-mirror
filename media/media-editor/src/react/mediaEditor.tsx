@@ -224,7 +224,7 @@ export class MediaEditor extends React.Component<
       () => urlImageLoader(imageUrl),
       this.supplementaryCanvas,
     )
-      .then(imageProvider => {
+      .then((imageProvider) => {
         // We must not create the engine if the component was unmounted or if the image was changed
         if (this.isUnmounted || imageUrl !== this.props.imageUrl) {
           return;
@@ -241,7 +241,7 @@ export class MediaEditor extends React.Component<
         );
 
         const mouseInput = new DefaultMouseInput(this.outputArea);
-        this.toolbar = new DefaultToolbar(params =>
+        this.toolbar = new DefaultToolbar((params) =>
           this.props.onShapeParametersChanged(params),
         );
         const keyboardInput = new DefaultKeyboardInput(
@@ -287,7 +287,7 @@ export class MediaEditor extends React.Component<
 
         this.props.onLoad(imageUrl, loadParameters);
       })
-      .catch(error => this.props.onError(imageUrl, error));
+      .catch((error) => this.props.onError(imageUrl, error));
   }
 
   private unloadEngine(): void {

@@ -675,7 +675,7 @@ describe('Card', () => {
 
     // This will be returned during first ('uploading') next() call
     const firstGetCardPreviewFromFileStatePromise = new Promise<CardPreview>(
-      _resolve => (resolveFirstCardPreviewFromFileState = _resolve),
+      (_resolve) => (resolveFirstCardPreviewFromFileState = _resolve),
     );
     asMockFunction(getCardPreviewFromFileState).mockReturnValueOnce(
       firstGetCardPreviewFromFileStatePromise,

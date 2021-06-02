@@ -46,7 +46,7 @@ const QuizWidget = (props: Props) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.currentTarget.value;
     !props.score
-      ? setCheckedAnswers(prevState => new Map(prevState).set(index, value))
+      ? setCheckedAnswers((prevState) => new Map(prevState).set(index, value))
       : setCheckedAnswers(checkedAnswers);
   };
 
@@ -95,7 +95,7 @@ const QuizWidget = (props: Props) => {
                       label={answer}
                       name={answer}
                       isChecked={answer === checkedAnswer}
-                      onChange={e => onChange(e, currentQuestionNumber)}
+                      onChange={(e) => onChange(e, currentQuestionNumber)}
                     />
                     {props.score && correctAnswer && (
                       <span>

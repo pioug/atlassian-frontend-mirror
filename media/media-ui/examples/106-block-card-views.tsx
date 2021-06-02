@@ -81,7 +81,7 @@ const resolvedCollabProps: CollaboratorListProps = {
       name: 'Cheese',
     },
   ],
-  handleAvatarClick: event => {
+  handleAvatarClick: (event) => {
     event.stopPropagation();
     event.preventDefault();
   },
@@ -94,7 +94,8 @@ const resolvedActionListProps = {
     {
       id: 'like',
       text: 'Like',
-      promise: () => new Promise(resolve => setTimeout(() => resolve(), 2000)),
+      promise: () =>
+        new Promise((resolve) => setTimeout(() => resolve(), 2000)),
     },
     {
       id: 'subscribe',
@@ -123,7 +124,8 @@ const failedActionListProps = {
     {
       id: 'tryagain',
       text: 'Try a different account',
-      promise: () => new Promise(resolve => setTimeout(() => resolve(), 2000)),
+      promise: () =>
+        new Promise((resolve) => setTimeout(() => resolve(), 2000)),
     },
   ],
 };
@@ -135,7 +137,8 @@ const unauthorisedActionListProps = {
       id: 'connect',
       text: 'Connect',
       buttonAppearance: 'default' as Appearance,
-      promise: () => new Promise(resolve => setTimeout(() => resolve(), 2000)),
+      promise: () =>
+        new Promise((resolve) => setTimeout(() => resolve(), 2000)),
     },
   ],
 };

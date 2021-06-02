@@ -35,12 +35,12 @@ export type EmojiInsertionAnalytic = (
   source: 'picker' | 'typeahead',
 ) => AnalyticsEventPayload;
 
-export const insertionSucceeded: EmojiInsertionAnalytic = source =>
+export const insertionSucceeded: EmojiInsertionAnalytic = (source) =>
   createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
     source,
   });
 
-export const insertionFailed: EmojiInsertionAnalytic = source =>
+export const insertionFailed: EmojiInsertionAnalytic = (source) =>
   createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
     source,
   });
@@ -179,7 +179,7 @@ const extractCommonAttributes = (
     spaceInQuery: query ? query.indexOf(' ') !== -1 : false,
     emojiIds: emojiList
       ? emojiList
-          .map(emoji => emoji.id!)
+          .map((emoji) => emoji.id!)
           .filter(Boolean)
           .slice(0, 20)
       : [],
@@ -201,7 +201,7 @@ const getPosition = (
   selectedEmoji: EmojiDescription,
 ): number | undefined => {
   if (emojiList) {
-    const index = emojiList.findIndex(emoji => emoji.id === selectedEmoji.id);
+    const index = emojiList.findIndex((emoji) => emoji.id === selectedEmoji.id);
     return index === -1 ? undefined : index;
   }
   return;

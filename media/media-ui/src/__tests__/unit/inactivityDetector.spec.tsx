@@ -14,7 +14,7 @@ describe('InactivityDetector', () => {
   const setup = () => {
     const component = shallow(
       <InactivityDetector>
-        {triggerActivityCallback => (
+        {(triggerActivityCallback) => (
           <DummyChild showControls={triggerActivityCallback} />
         )}
       </InactivityDetector>,

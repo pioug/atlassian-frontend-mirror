@@ -12,7 +12,7 @@ export const breakpointSize = (
   const defaultValue = keys[0];
   let breakpoint: any;
 
-  keys.forEach(label => {
+  keys.forEach((label) => {
     if (value < sizes[label] && !breakpoint) {
       breakpoint = label;
     }

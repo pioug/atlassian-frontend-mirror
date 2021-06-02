@@ -25,7 +25,7 @@ import { ActionProps, CreateMacro, MacroRendererProps } from './types';
 const noop = () => {};
 
 const Action = styled.span<ActionProps>`
-  color: ${props =>
+  color: ${(props) =>
     props.callToAction
       ? themed({ light: colors.B300, dark: colors.B100 })
       : themed({ light: colors.N90, dark: colors.DN100 })};
@@ -55,7 +55,7 @@ const cardStyles = (componentType: ComponentType<any>) => {
 };
 
 // create standard translated error messages here????
-export const MacroComponent: FC<MacroRendererProps> = props => {
+export const MacroComponent: FC<MacroRendererProps> = (props) => {
   const { createPromise, eventDispatcher, extension, macroWhitelist } = props;
   const { extensionKey, parameters } = extension;
 

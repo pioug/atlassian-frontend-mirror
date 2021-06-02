@@ -53,7 +53,7 @@ describe('ReactionsContainer', () => {
   });
 
   beforeEach(() =>
-    Object.keys(actions).forEach(key => (actions as any)[key].mockClear()),
+    Object.keys(actions).forEach((key) => (actions as any)[key].mockClear()),
   );
 
   describe('stateMapper', () => {

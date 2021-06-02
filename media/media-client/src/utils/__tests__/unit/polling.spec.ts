@@ -4,7 +4,7 @@ import { defaultPollingOptions, PollingFunction } from '../../polling';
 import { isPollingError, PollingError } from '../../polling/errors';
 
 const simulateTimeout = (poll_intervalMs: number) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     window.setTimeout(resolve, poll_intervalMs);
   });
 
@@ -84,7 +84,7 @@ describe('Polling Function', () => {
     );
   });
 
-  it('should not iterate unless .next() called', async done => {
+  it('should not iterate unless .next() called', async (done) => {
     const poll = new PollingFunction(options);
     const executor = jest.fn().mockResolvedValue(undefined);
     poll.execute(executor);
@@ -93,7 +93,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should iterate when .next() called', async done => {
+  it('should iterate when .next() called', async (done) => {
     const poll = new PollingFunction(options);
     const executor = jest.fn().mockImplementation(() => {
       poll.next();
@@ -105,7 +105,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should call onError when max iterations reached', async done => {
+  it('should call onError when max iterations reached', async (done) => {
     const poll = new PollingFunction({
       ...options,
       poll_maxAttempts: 1,
@@ -127,7 +127,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should call onError if executor has exception', async done => {
+  it('should call onError if executor has exception', async (done) => {
     const err = new Error('some-error');
     const poll = new PollingFunction({
       ...options,
@@ -145,7 +145,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should not call executor if poll_maxAttempts is set to zero (hard kill)', async done => {
+  it('should not call executor if poll_maxAttempts is set to zero (hard kill)', async (done) => {
     const poll = new PollingFunction({
       ...options,
       poll_maxAttempts: 0,
@@ -159,7 +159,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should clear timeout if cancel() called', async done => {
+  it('should clear timeout if cancel() called', async (done) => {
     const originalFn = window.clearTimeout;
     const mockClearTimeout = jest.fn();
     window.clearTimeout = mockClearTimeout;
@@ -180,7 +180,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should not call executor if maxFailures has exceeded poll_maxGlobalFailures (hard kill)', async done => {
+  it('should not call executor if maxFailures has exceeded poll_maxGlobalFailures (hard kill)', async (done) => {
     const poll = new PollingFunction({
       ...options,
       poll_maxGlobalFailures: 5,
@@ -206,7 +206,7 @@ describe('Polling Function', () => {
     done();
   });
 
-  it('should increment static failures count when fails', async done => {
+  it('should increment static failures count when fails', async (done) => {
     const poll = new PollingFunction({
       ...options,
     });

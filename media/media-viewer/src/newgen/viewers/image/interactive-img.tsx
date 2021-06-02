@@ -325,7 +325,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 }
 
 export const InteractiveImg = withAnalyticsEvents({
-  onBlanketClicked: createAnalyticsEvent => {
+  onBlanketClicked: (createAnalyticsEvent) => {
     const event = createAnalyticsEvent(createClosedEvent('blanket'));
     event.fire(ANALYTICS_MEDIA_CHANNEL);
   },

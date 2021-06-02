@@ -26,7 +26,7 @@ export class Content extends Component<ContentProps> {
     return (
       <ContentWrapper isSidebarVisible={isSidebarVisible}>
         <InactivityDetector>
-          {triggerActivityCallback => {
+          {(triggerActivityCallback) => {
             const children = React.cloneElement(this.props.children, {
               showControls: triggerActivityCallback,
             });

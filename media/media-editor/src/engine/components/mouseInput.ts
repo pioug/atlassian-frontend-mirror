@@ -42,7 +42,7 @@ export class DefaultMouseInput implements MouseInput {
     positionCalculator?: PositionCalculator,
   ) {
     this.getPosition =
-      positionCalculator || (event => this.defaultPositionCalculator(event));
+      positionCalculator || ((event) => this.defaultPositionCalculator(event));
     this.isDragging = false;
     this.isCapturingInput = false;
     this.inputArea.addEventListener('mousedown', this.mouseDownListener);

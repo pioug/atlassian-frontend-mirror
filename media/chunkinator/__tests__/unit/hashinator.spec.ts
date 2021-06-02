@@ -36,7 +36,7 @@ describe('Hashinator', () => {
     it('should convert blob to hashed blob', () => {
       const blob = new Blob(['1234567890']);
       mockNextDigest('1234567890');
-      return blobToHashedBlob(defaultHasher)(blob).then(hashedBlob => {
+      return blobToHashedBlob(defaultHasher)(blob).then((hashedBlob) => {
         expect(hashedBlob).toEqual({
           blob,
           hash: '31323334353637383930-10',
@@ -75,14 +75,14 @@ describe('Hashinator', () => {
     mockNextDigest('asdfghjkl;');
     mockNextDigest('zxcvbnm,./');
 
-    const blobs = expectedHashedBlobs.map(hashedBlob => hashedBlob.blob);
+    const blobs = expectedHashedBlobs.map((hashedBlob) => hashedBlob.blob);
     const actualObservable = hashinator(of(...blobs), {
       concurrency: 2,
     });
     return actualObservable
       .pipe(toArray<HashedBlob>())
       .toPromise()
-      .then(actualHashedBlobs => {
+      .then((actualHashedBlobs) => {
         expect(actualHashedBlobs).toEqual(expectedHashedBlobs);
       });
   });

@@ -79,7 +79,7 @@ class ReactionsContainerWithoutAnalytics extends React.PureComponent<
   componentDidMount() {
     const { createAnalyticsEvent, store } = this.props;
 
-    Promise.resolve(store).then(_store => {
+    Promise.resolve(store).then((_store) => {
       if (_store.setCreateAnalyticsEvent && createAnalyticsEvent) {
         _store.setCreateAnalyticsEvent(createAnalyticsEvent);
       }

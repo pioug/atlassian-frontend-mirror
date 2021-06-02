@@ -15,14 +15,14 @@ export function probinator(
 ): Observable<ProbedBlob> {
   return hashedBlob$.pipe(
     bufferCount(batchSize),
-    concatMap(hashedBlobs =>
-      prober(hashedBlobs).then(probes =>
+    concatMap((hashedBlobs) =>
+      prober(hashedBlobs).then((probes) =>
         hashedBlobs.map((hashedBlob, index) => ({
           ...hashedBlob,
           exists: probes[index],
         })),
       ),
     ),
-    concatMap(probedBlobs => from(probedBlobs)),
+    concatMap((probedBlobs) => from(probedBlobs)),
   );
 }

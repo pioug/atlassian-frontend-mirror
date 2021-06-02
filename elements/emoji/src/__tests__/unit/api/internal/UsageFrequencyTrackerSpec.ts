@@ -22,7 +22,7 @@ describe('UsageFrequencyTracker', () => {
       expect(() => new Gateway(0)).toThrow(RangeError);
     });
 
-    it('should allow work when none in-flight', async done => {
+    it('should allow work when none in-flight', async (done) => {
       const gateway = new Gateway(1);
       expect(
         gateway.submit(async () => {
@@ -34,7 +34,7 @@ describe('UsageFrequencyTracker', () => {
       ).toEqual(true);
     });
 
-    it('should prevent work when too much in flight', async done => {
+    it('should prevent work when too much in flight', async (done) => {
       const queueSize = 2;
       let doneCounter = 0;
       const doneCollector = async () => {
@@ -68,7 +68,7 @@ describe('UsageFrequencyTracker', () => {
       ).toEqual(false);
     });
 
-    it('should allow more work once in-flight work completes', async done => {
+    it('should allow more work once in-flight work completes', async (done) => {
       const queueSize = 2;
       let completedCounter = 0;
 
@@ -96,7 +96,7 @@ describe('UsageFrequencyTracker', () => {
 
       // now delay, and periodically check if the queued work has had a chance to complete before asserting
       // that more can be queued.
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         const intervalId = window.setInterval(() => {
           if (completedCounter > 0) {
             clearInterval(intervalId);
@@ -145,7 +145,7 @@ describe('UsageFrequencyTracker', () => {
       mockQueue.clear = mockClear;
     });
 
-    it('should do work asynchronously', done => {
+    it('should do work asynchronously', (done) => {
       const tracker = new TestUsageFrequencyTracker(mockQueue);
 
       tracker.recordUsage(grinEmoji);
@@ -155,7 +155,7 @@ describe('UsageFrequencyTracker', () => {
       waitForEnqueue(done);
     });
 
-    it('should record base emoji not skin tone variation', done => {
+    it('should record base emoji not skin tone variation', (done) => {
       const tracker = new TestUsageFrequencyTracker(mockQueue);
       const skinToneEmoji = generateSkinVariation(grinEmoji, 3);
       tracker.recordUsage(skinToneEmoji);

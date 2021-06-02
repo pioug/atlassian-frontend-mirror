@@ -36,7 +36,7 @@ describe('Image Meta Data JPEG parsing', () => {
 
     it('should convert numeric values to string', async () => {
       const tags = await readJPEGExifMetaData(jpegFile);
-      Object.keys(tags).forEach(key =>
+      Object.keys(tags).forEach((key) =>
         expect(typeof tags[key]).not.toBe('number'),
       );
     });

@@ -21,7 +21,7 @@ export default () => (
     onImagePicked={(selectedImage, crop) => {
       console.log('onImagePicked', selectedImage, crop);
     }}
-    onAvatarPicked={selectedAvatar =>
+    onAvatarPicked={(selectedAvatar) =>
       console.log('onAvatarPicked', selectedAvatar)
     }
     onCancel={() => console.log('onCancel')}

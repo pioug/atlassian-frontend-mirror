@@ -55,7 +55,7 @@ export class BricksView extends Component<BricksViewProps, {}> {
     const cards = items.map((item, i) => {
       const { dimensions: actualDimensions, dataURI, name, id } = item;
       const selected = selectedItems.some(
-        item => item.id === id && item.serviceName === pluginName,
+        (item) => item.id === id && item.serviceName === pluginName,
       );
       const dimensions = gridCellScaler({
         ...actualDimensions,

@@ -359,7 +359,7 @@ export class CardBase extends Component<
     this.subscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
-        next: async fileState => {
+        next: async (fileState) => {
           this.lastFileState = fileState;
 
           const thisCardStatusUpdateTimestamp = (performance || Date).now();
@@ -428,7 +428,7 @@ export class CardBase extends Component<
             this.lastCardStatusUpdateTimestamp = thisCardStatusUpdateTimestamp;
           }
         },
-        error: e => {
+        error: (e) => {
           // If file state subscription decides that the card is complete
           // and later there is an error, we won't change the card's status.
           if (this.state.status === 'complete') {

@@ -42,7 +42,7 @@ describe('CardOverlay', () => {
 
     it('should render both error message and alt text', () => {
       const errorMessages = card.find(ErrorMessage).children() as ReactWrapper;
-      expect(errorMessages.map(x => x.text())).toEqual([
+      expect(errorMessages.map((x) => x.text())).toEqual([
         errorMessage,
         altTextMessage,
       ]);

@@ -63,7 +63,7 @@ export class ShowMore extends React.PureComponent<Props> {
       >
         <div className={separatorStyle} />
         <FormattedMessage {...messages.moreEmoji}>
-          {text => (
+          {(text) => (
             <Tooltip content={text}>
               <button
                 className={cx(moreButtonStyle, classNameProp!.button)}

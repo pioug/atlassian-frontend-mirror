@@ -488,7 +488,7 @@ describe('Comment', () => {
           conversationId={mockComment.conversationId}
           comment={mockComment}
           user={user}
-          renderAdditionalCommentActions={CommentAction => [
+          renderAdditionalCommentActions={(CommentAction) => [
             <CommentAction key="create-task">Create Task</CommentAction>,
           ]}
         />,

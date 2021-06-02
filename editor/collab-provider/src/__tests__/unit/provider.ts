@@ -89,7 +89,7 @@ describe('provider unit tests', () => {
     },
   };
 
-  it('should emit connected event when provider is connected via socketIO', async done => {
+  it('should emit connected event when provider is connected via socketIO', async (done) => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
     provider.on('connected', ({ sid }) => {
       expect(sid).toBe('sid-123');
@@ -99,7 +99,7 @@ describe('provider unit tests', () => {
     socket.emit('connected', { sid: 'sid-123' });
   });
 
-  it('should emit init event and trigger sendPresence once provider is connected', async done => {
+  it('should emit init event and trigger sendPresence once provider is connected', async (done) => {
     let expectedSid: any;
     const sid = 'expected-sid-123';
     const userId = 'user-123';
@@ -174,7 +174,7 @@ describe('provider unit tests', () => {
     jest.useRealTimers();
   });
 
-  it('should emit metadata during init', async done => {
+  it('should emit metadata during init', async (done) => {
     const userId = 'user-123';
     const provider = createSocketIOCollabProvider(testProviderConfig);
     provider.on('init', ({ metadata }: any) => {
@@ -182,7 +182,7 @@ describe('provider unit tests', () => {
         title: 'some-random-title',
         editorWidth: 'some-random-width',
       });
-      provider.on('metadata:changed', metadata => {
+      provider.on('metadata:changed', (metadata) => {
         expect(metadata).toEqual({
           title: 'some-random-title',
           editorWidth: 'some-random-width',
@@ -202,9 +202,9 @@ describe('provider unit tests', () => {
     });
   });
 
-  it('should emit metadata when title is changed', async done => {
+  it('should emit metadata when title is changed', async (done) => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
-    provider.on('metadata:changed', metadata => {
+    provider.on('metadata:changed', (metadata) => {
       expect(metadata).toEqual({
         title: 'some-random-title',
       });
@@ -216,9 +216,9 @@ describe('provider unit tests', () => {
     });
   });
 
-  it('should emit metadata when title has changed to empty string', async done => {
+  it('should emit metadata when title has changed to empty string', async (done) => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
-    provider.on('metadata:changed', metadata => {
+    provider.on('metadata:changed', (metadata) => {
       expect(metadata).toEqual({
         title: '',
       });
@@ -230,9 +230,9 @@ describe('provider unit tests', () => {
     });
   });
 
-  it('should emit metadata when editor width is changed', async done => {
+  it('should emit metadata when editor width is changed', async (done) => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
-    provider.on('metadata:changed', metadata => {
+    provider.on('metadata:changed', (metadata) => {
       expect(metadata).toEqual({
         editorWidth: 'some-random-editor-width',
       });
@@ -244,9 +244,9 @@ describe('provider unit tests', () => {
     });
   });
 
-  it('should emit metadata when editor width is changed to empty string', async done => {
+  it('should emit metadata when editor width is changed to empty string', async (done) => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
-    provider.on('metadata:changed', metadata => {
+    provider.on('metadata:changed', (metadata) => {
       expect(metadata).toEqual({
         editorWidth: '',
       });
@@ -258,7 +258,7 @@ describe('provider unit tests', () => {
     });
   });
 
-  it('should not emit empty joined or left presence', async done => {
+  it('should not emit empty joined or left presence', async (done) => {
     const provider = createSocketIOCollabProvider(testProviderConfig);
     let counter = 0;
     provider.on('presence', ({ joined, left }) => {
@@ -326,7 +326,7 @@ describe('provider unit tests', () => {
 
       describe('when analytics payload is missing information', () => {
         beforeEach(() => {
-          (window.requestAnimationFrame as jest.Mock).mockImplementation(cb =>
+          (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
             (cb as Function)(),
           );
         });
@@ -372,7 +372,9 @@ describe('provider unit tests', () => {
         });
 
         it('should fire the analytics events', () => {
-          requestIdleCallbackMock.mockImplementation(cb => (cb as Function)());
+          requestIdleCallbackMock.mockImplementation((cb) =>
+            (cb as Function)(),
+          );
 
           socket.emit('error', stepRejectedError);
           expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(
@@ -388,7 +390,7 @@ describe('provider unit tests', () => {
         });
 
         it('should fire the analytics events', () => {
-          (window.requestAnimationFrame as jest.Mock).mockImplementation(cb =>
+          (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
             (cb as Function)(),
           );
           socket.emit('error', stepRejectedError);
@@ -400,7 +402,7 @@ describe('provider unit tests', () => {
     });
   });
 
-  it('should emit failed_to_save S3 errors to consumer', done => {
+  it('should emit failed_to_save S3 errors to consumer', (done) => {
     const testProviderConfigWithAnalytics = {
       url: `http://provider-url:66661`,
       documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -408,7 +410,7 @@ describe('provider unit tests', () => {
     const provider = createSocketIOCollabProvider(
       testProviderConfigWithAnalytics,
     );
-    provider.on('error', error => {
+    provider.on('error', (error) => {
       expect(error).toEqual({
         status: 500,
         code: 'FAIL_TO_SAVE',
@@ -426,7 +428,7 @@ describe('provider unit tests', () => {
     socket.emit('error', failedOnS3Error);
   });
 
-  it('should emit failed_to_save dynamo errors to consumer', done => {
+  it('should emit failed_to_save dynamo errors to consumer', (done) => {
     const testProviderConfigWithAnalytics = {
       url: `http://provider-url:66661`,
       documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -434,7 +436,7 @@ describe('provider unit tests', () => {
     const provider = createSocketIOCollabProvider(
       testProviderConfigWithAnalytics,
     );
-    provider.on('error', error => {
+    provider.on('error', (error) => {
       expect(error).toEqual({
         status: 500,
         code: 'FAIL_TO_SAVE',
@@ -450,7 +452,7 @@ describe('provider unit tests', () => {
     socket.emit('error', failedOnDynamo);
   });
 
-  it('should emit no permission errors to consumer', done => {
+  it('should emit no permission errors to consumer', (done) => {
     const testProviderConfigWithAnalytics = {
       url: `http://provider-url:66661`,
       documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -458,7 +460,7 @@ describe('provider unit tests', () => {
     const provider = createSocketIOCollabProvider(
       testProviderConfigWithAnalytics,
     );
-    provider.on('error', error => {
+    provider.on('error', (error) => {
       expect(error).toEqual({
         status: 403,
         code: 'NO_PERMISSION_ERROR',
@@ -477,7 +479,7 @@ describe('provider unit tests', () => {
     socket.emit('error', noPermissionError);
   });
 
-  it('should emit catchup failed errors to consumer', done => {
+  it('should emit catchup failed errors to consumer', (done) => {
     const testProviderConfigWithAnalytics = {
       url: `http://provider-url:66661`,
       documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -485,7 +487,7 @@ describe('provider unit tests', () => {
     const provider = createSocketIOCollabProvider(
       testProviderConfigWithAnalytics,
     );
-    provider.on('error', error => {
+    provider.on('error', (error) => {
       expect(error).toEqual({
         status: 500,
         code: 'INTERNAL_SERVICE_ERROR',
@@ -502,7 +504,7 @@ describe('provider unit tests', () => {
     socket.emit('error', catchupError);
   });
 
-  it('should emit 404 errors to consumer', done => {
+  it('should emit 404 errors to consumer', (done) => {
     const testProviderConfigWithAnalytics = {
       url: `http://provider-url:66661`,
       documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -510,7 +512,7 @@ describe('provider unit tests', () => {
     const provider = createSocketIOCollabProvider(
       testProviderConfigWithAnalytics,
     );
-    provider.on('error', error => {
+    provider.on('error', (error) => {
       expect(error).toEqual({
         status: 404,
         code: 'DOCUMENT_NOT_FOUND',

@@ -77,7 +77,7 @@ export default class EmojiUploadPreview extends PureComponent<
             />
           ) : null}
           <FormattedMessage {...messages.addEmojiLabel}>
-            {label => (
+            {(label) => (
               <RetryableButton
                 className={styles.uploadEmojiButton}
                 retryClassName={styles.uploadRetryButton}

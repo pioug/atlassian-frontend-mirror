@@ -34,7 +34,7 @@ export const Action = ({
       appearance={buttonAppearance}
       isLoading={state === 'loading'}
       testId={`button-${id}`}
-      onClick={event => {
+      onClick={(event) => {
         event.stopPropagation();
         event.preventDefault();
         if (state !== 'loading') {

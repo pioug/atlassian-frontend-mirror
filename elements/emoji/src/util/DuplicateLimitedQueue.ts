@@ -87,7 +87,7 @@ export default class DuplicateLimitedQueue<T> {
    * @param items the items to be enqueued, which happens in their presented order.
    */
   protected bulkEnqueue(items: T[]): void {
-    items.map(item => this.enqueueWithoutOrdering(item));
+    items.map((item) => this.enqueueWithoutOrdering(item));
     this.itemsOrderedByFrequency = this.orderItemsByFrequency();
   }
 

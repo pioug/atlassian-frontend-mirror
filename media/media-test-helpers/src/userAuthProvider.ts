@@ -24,7 +24,7 @@ export const userAuthProvider = (): Promise<ClientBasedAuth> => {
   userAuthProviderPromiseCache = fetch(url, {
     method: 'GET',
     credentials: 'include',
-  }).then(response =>
+  }).then((response) =>
     // We leverage the fact, that our internal /toke/tenant API returns data in the same format as Auth
     response.json(),
   );

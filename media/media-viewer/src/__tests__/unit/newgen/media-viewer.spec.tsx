@@ -151,7 +151,7 @@ describe('<MediaViewer />', () => {
 
     const mockSidebarRenderer = jest
       .fn()
-      .mockImplementation(identifier => (
+      .mockImplementation((identifier) => (
         <MySidebarContent identifier={identifier} />
       ));
 

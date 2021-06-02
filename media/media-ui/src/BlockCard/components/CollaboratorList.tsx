@@ -39,12 +39,12 @@ export const CollaboratorList = ({
         appearance="stack"
         size="small"
         data={items}
-        onAvatarClick={event => {
+        onAvatarClick={(event) => {
           event.stopPropagation();
           event.preventDefault();
           handleAvatarClick(event);
         }}
-        onMoreClick={event => {
+        onMoreClick={(event) => {
           event.stopPropagation();
           event.preventDefault();
           handleMoreAvatarsClick(event);

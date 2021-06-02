@@ -39,7 +39,7 @@ export class PredefinedAvatarList extends PureComponent<
   };
 
   UNSAFE_componentWillMount() {
-    this.setState(state => {
+    this.setState((state) => {
       const { avatars } = this.props;
 
       return {

@@ -9,7 +9,7 @@ function generateAvatarIds(start: number, count: number): Array<number> {
 }
 
 export function generateAvatars(count: number): Array<Avatar> {
-  return generateAvatarIds(18831, count).map(id => ({
+  return generateAvatarIds(18831, count).map((id) => ({
     dataURI: `https://jdog.jira-dev.com/secure/viewavatar?avatarId=${id}&avatarType=project`,
   }));
 }

@@ -92,7 +92,7 @@ describe('channel unit tests', () => {
     allExpectedEventNames.forEach(expectValidEventHandler);
   });
 
-  it('should create connected channel as expected', done => {
+  it('should create connected channel as expected', (done) => {
     const channel = getChannel();
 
     channel.on('connected', (data: any) => {
@@ -109,7 +109,7 @@ describe('channel unit tests', () => {
     channel.getSocket()!.emit('connect');
   });
 
-  it('should connect, then disconnect channel as expected', done => {
+  it('should connect, then disconnect channel as expected', (done) => {
     const channel = getChannel();
 
     channel.on('connected', (data: any) => {
@@ -140,7 +140,7 @@ describe('channel unit tests', () => {
     channel.getSocket()!.emit('connect');
   });
 
-  it('should handle receiving initial data', done => {
+  it('should handle receiving initial data', (done) => {
     const channel = getChannel();
 
     channel.on('init', (data: any) => {
@@ -172,7 +172,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving steps:added from server', done => {
+  it('should handle receiving steps:added from server', (done) => {
     const channel = getChannel();
 
     channel.on('steps:added', (data: StepsPayload) => {
@@ -192,7 +192,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving participant:telepointer from server', done => {
+  it('should handle receiving participant:telepointer from server', (done) => {
     const channel = getChannel();
 
     channel.on('participant:telepointer', (data: any) => {
@@ -221,7 +221,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle step-rejected errors', done => {
+  it('should handle step-rejected errors', (done) => {
     const channel = getChannel();
     channel.on('error', (error: ErrorPayload | string) => {
       try {
@@ -242,7 +242,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving participant:joined from server', done => {
+  it('should handle receiving participant:joined from server', (done) => {
     const channel = getChannel();
 
     channel.on('participant:joined', (data: ParticipantPayload) => {
@@ -267,7 +267,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving participant:left from server', done => {
+  it('should handle receiving participant:left from server', (done) => {
     const channel = getChannel();
 
     channel.on('participant:left', (data: any) => {
@@ -292,7 +292,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving participant:updated from server', done => {
+  it('should handle receiving participant:updated from server', (done) => {
     const channel = getChannel();
 
     channel.on('participant:updated', (data: any) => {
@@ -316,7 +316,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving title:changed from server', done => {
+  it('should handle receiving title:changed from server', (done) => {
     const channel = getChannel();
 
     channel.on('title:changed', (data: any) => {
@@ -337,7 +337,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should handle receiving width:changed from server', done => {
+  it('should handle receiving width:changed from server', (done) => {
     const channel = getChannel();
 
     channel.on('width:changed', (data: any) => {
@@ -358,7 +358,7 @@ describe('channel unit tests', () => {
     });
   });
 
-  it('should refresh permissionToken after disconnect', done => {
+  it('should refresh permissionToken after disconnect', (done) => {
     const tokenRefresh = jest.fn().mockResolvedValue('new-token');
     const channel = getChannel({
       ...testChannelConfig,

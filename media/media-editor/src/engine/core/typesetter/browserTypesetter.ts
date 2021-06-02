@@ -20,7 +20,7 @@ export class BrowserTypesetter implements Core.BrowserTypesetterInterop {
   }
 
   unload(): void {
-    this.typesets.forEach(typeset => typeset.unload());
+    this.typesets.forEach((typeset) => typeset.unload());
   }
 
   // Creates a new typeset, returns its index.
@@ -42,10 +42,10 @@ export class BrowserTypesetter implements Core.BrowserTypesetterInterop {
   }
 
   handleContextLost(): void {
-    this.typesets.forEach(typeset => typeset.contextLost());
+    this.typesets.forEach((typeset) => typeset.contextLost());
   }
 
   handleContextRestored(): void {
-    this.typesets.forEach(typeset => typeset.contextRestored());
+    this.typesets.forEach((typeset) => typeset.contextRestored());
   }
 }

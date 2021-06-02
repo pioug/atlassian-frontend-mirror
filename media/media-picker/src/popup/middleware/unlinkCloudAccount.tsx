@@ -17,7 +17,7 @@ export default (fetcher: Fetcher) => (store: Store<State>) => (
 
     userMediaClient.config
       .authProvider()
-      .then(auth => fetcher.unlinkCloudAccount(auth, action.account.id))
+      .then((auth) => fetcher.unlinkCloudAccount(auth, action.account.id))
       .then(() => {
         store.dispatch(unlinkCloudAccount(action.account));
         store.dispatch(changeService(action.account.name));

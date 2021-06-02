@@ -101,7 +101,7 @@ export class MediaStore {
     // [TODO] MS-705: remove after backend adds filter
     // This prevents showing "ghost" files in recents
     const contentsWithoutEmptyFiles = contents.filter(
-      item => item.details.size && item.details.size > 0,
+      (item) => item.details.size && item.details.size > 0,
     );
 
     return {
@@ -364,7 +364,7 @@ export class MediaStore {
     ids: string[],
     collectionName?: string,
   ): Promise<MediaStoreResponse<ItemsPayload>> {
-    const descriptors = ids.map(id => ({
+    const descriptors = ids.map((id) => ({
       type: 'file',
       id,
       collection: collectionName,

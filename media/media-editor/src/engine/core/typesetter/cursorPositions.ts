@@ -95,7 +95,7 @@ const detectCursorPositions = (
   //
   // Finally we set the last cursor position.
   if (direction === 'rtl') {
-    groups.forEach(group => {
+    groups.forEach((group) => {
       cursors[group.startIndex] = group.xmax;
       setInternalCursorPositions(group, rootSpan, cursors);
     });
@@ -103,7 +103,7 @@ const detectCursorPositions = (
     // The text direction is 'rtl', so the text ends at the leftmost position
     cursors[cursorCount - 1] = -totalLength;
   } else {
-    groups.forEach(group => {
+    groups.forEach((group) => {
       cursors[group.startIndex] = group.xmin;
       setInternalCursorPositions(group, rootSpan, cursors);
     });
@@ -243,7 +243,7 @@ export const getGroupStartIndices = (
   baseGroups: Array<GroupBase>,
 ): Array<number> => {
   let index = 0;
-  return baseGroups.map(group => {
+  return baseGroups.map((group) => {
     const groupIndex = index;
     index += group.text.length;
     return groupIndex;
@@ -270,7 +270,7 @@ export const getGroupXMinMax = (
   const xorigin =
     direction === 'rtl' ? parentSpanRect.right : parentSpanRect.left;
 
-  const groupXMinMax = spans.map(span => {
+  const groupXMinMax = spans.map((span) => {
     const rect = span.getBoundingClientRect();
     return {
       xmin: rect.left - xorigin,
@@ -287,7 +287,7 @@ export const createSpansForCharacters = (
   text: Text,
   parent: HTMLSpanElement,
 ): Array<HTMLSpanElement> => {
-  return text.map(character => {
+  return text.map((character) => {
     const span = document.createElement('span');
     span.innerText = character;
     parent.appendChild(span);
@@ -300,7 +300,7 @@ export const createSpansForGroups = (
   baseGroups: Array<GroupBase>,
   parent: HTMLSpanElement,
 ): Array<HTMLSpanElement> => {
-  return baseGroups.map(group => {
+  return baseGroups.map((group) => {
     const span = document.createElement('span');
     span.innerText = group.text.join('');
     parent.appendChild(span);
@@ -311,7 +311,7 @@ export const createSpansForGroups = (
 // Gets the total length of all groups. Sums the lengths of all groups
 export const calculateTotalLength = (groups: Array<Group>): number => {
   return groups
-    .map(group => group.xmax - group.xmin)
+    .map((group) => group.xmax - group.xmin)
     .reduce((prev, curr) => prev + curr, 0);
 };
 
@@ -338,8 +338,8 @@ const setInternalCursorPositions = (
       span,
       cursors,
       group.startIndex,
-      spanWidth => group.xmax - spanWidth, // for 'rtl' groups we calculate from the right side
-      pos => Math.max(pos, group.xmin), // the coordinate grows to the left, it mustn't exceed group.xmin
+      (spanWidth) => group.xmax - spanWidth, // for 'rtl' groups we calculate from the right side
+      (pos) => Math.max(pos, group.xmin), // the coordinate grows to the left, it mustn't exceed group.xmin
     );
   } else {
     putInternalPositions(
@@ -347,8 +347,8 @@ const setInternalCursorPositions = (
       span,
       cursors,
       group.startIndex,
-      spanWidth => group.xmin + spanWidth, // for 'ltr' groups we calculate from the left side
-      pos => Math.min(pos, group.xmax), // the coordinate grows to the right, it mustn't exceed group.xmax
+      (spanWidth) => group.xmin + spanWidth, // for 'ltr' groups we calculate from the left side
+      (pos) => Math.min(pos, group.xmax), // the coordinate grows to the right, it mustn't exceed group.xmax
     );
   }
 

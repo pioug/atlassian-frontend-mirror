@@ -56,7 +56,7 @@ class EmojiView extends Component<EmojiViewProps, EmojiViewState> {
       EmojiView.allResults = results;
     }
 
-    const keys = Object.keys(results).filter(key => key.indexOf(query) > -1);
+    const keys = Object.keys(results).filter((key) => key.indexOf(query) > -1);
     const visibleResults: { [key: string]: string } = {};
 
     keys.forEach((key, index) => {
@@ -73,7 +73,7 @@ class EmojiView extends Component<EmojiViewProps, EmojiViewState> {
   onCardClick = (id: string) => () => {
     const { results } = this.state;
     const { actions } = this.props;
-    const selectedResult = Object.keys(results).find(key => key === id);
+    const selectedResult = Object.keys(results).find((key) => key === id);
     if (!selectedResult) {
       return;
     }
@@ -99,7 +99,7 @@ class EmojiView extends Component<EmojiViewProps, EmojiViewState> {
   renderBricks = () => {
     const { selectedItems } = this.props;
     const { results } = this.state;
-    const items: BrickItem[] = Object.keys(results).map(key => {
+    const items: BrickItem[] = Object.keys(results).map((key) => {
       const identifier: BrickItem = {
         id: key,
         dataURI: results[key],

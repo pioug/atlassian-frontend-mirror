@@ -100,7 +100,7 @@ export default ({
               {({ fieldProps }) => (
                 <FeedbackScoreButtons
                   {...fieldProps}
-                  onChange={score => {
+                  onChange={(score) => {
                     fieldProps.onChange(score);
                     onScoreSelect();
                   }}
@@ -127,7 +127,7 @@ export default ({
                         {...fieldProps}
                         aria-label={textLabel}
                         placeholder={textPlaceholder}
-                        onChange={event => {
+                        onChange={(event) => {
                           fieldProps.onChange(event);
                           onFeedbackChange();
                         }}

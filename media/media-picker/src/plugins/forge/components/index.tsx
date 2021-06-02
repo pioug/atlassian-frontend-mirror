@@ -48,7 +48,7 @@ export const ForgeView = ({
     [name, contextId],
   );
   const onQueryChange: React.FormEventHandler<HTMLInputElement> = useCallback(
-    event => {
+    (event) => {
       setQuery(event.currentTarget.value);
       // @ts-ignore Introduced by unifying under the lodash package and its types in #3237
       onUpdateItems(query);
@@ -58,7 +58,7 @@ export const ForgeView = ({
   const onClick = useCallback(
     (id: string) => () => {
       const resource =
-        items.data && [...items.data.items].find(item => item.url === id);
+        items.data && [...items.data.items].find((item) => item.url === id);
       if (resource) {
         if (resource['@type'] === 'Collection') {
           const id = resource['@id'] || '';

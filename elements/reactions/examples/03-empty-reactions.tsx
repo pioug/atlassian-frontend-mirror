@@ -10,7 +10,7 @@ const containerAri = 'ari:cloud:owner:demo-cloud-id:container/1';
 export default function Example() {
   return (
     <ReactionsExampleWrapper>
-      {store => (
+      {(store) => (
         <div>
           <p>This is a message with some reactions</p>
           <ConnectedReactionsView

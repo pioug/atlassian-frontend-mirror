@@ -88,7 +88,7 @@ class File extends React.Component<FileProps, { addAt?: number }> {
 
     const [conversation] =
       conversations &&
-      conversations.filter(c => c.meta && c.meta.lineNumber === index);
+      conversations.filter((c) => c.meta && c.meta.lineNumber === index);
 
     if (conversation) {
       return (
@@ -128,7 +128,7 @@ class File extends React.Component<FileProps, { addAt?: number }> {
       <div key={index}>
         <Line key={index}>
           <LineNumber>
-            <a href="#" onClick={evt => this.onLineClick(evt, index)}>
+            <a href="#" onClick={(evt) => this.onLineClick(evt, index)}>
               {index}
             </a>
           </LineNumber>
@@ -201,7 +201,7 @@ export class Demo extends React.Component<
     const { provider } = this.props;
     const userId = item.value;
 
-    const [selectedUser] = MOCK_USERS.filter(user => user.id === userId);
+    const [selectedUser] = MOCK_USERS.filter((user) => user.id === userId);
 
     if (userId === undefined) {
       provider.updateUser(undefined);
@@ -229,7 +229,7 @@ export class Demo extends React.Component<
   private renderConversations(conversations: ConversationType[]) {
     const { provider, dataProviders } = this.props;
 
-    return conversations.map(conversation => (
+    return conversations.map((conversation) => (
       <div
         key={conversation.conversationId}
         style={{
@@ -317,7 +317,7 @@ export class Demo extends React.Component<
     const { conversations } = this.state;
     const { provider, dataProviders } = this.props;
     const prConversations = conversations.filter(
-      c => !Object.keys(c.meta).length,
+      (c) => !Object.keys(c.meta).length,
     );
 
     return (
@@ -335,14 +335,16 @@ export class Demo extends React.Component<
           name="main.js"
           code={DUMMY_CODE}
           provider={provider}
-          conversations={conversations.filter(c => c.meta.name === 'main.js')}
+          conversations={conversations.filter((c) => c.meta.name === 'main.js')}
           dataProviders={dataProviders}
         />
         <File
           name="stuff.js"
           code={DUMMY_CODE}
           provider={provider}
-          conversations={conversations.filter(c => c.meta.name === 'stuff.js')}
+          conversations={conversations.filter(
+            (c) => c.meta.name === 'stuff.js',
+          )}
           dataProviders={dataProviders}
         />
       </div>

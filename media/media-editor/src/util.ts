@@ -62,7 +62,7 @@ export const dimensionsSame = (a: Dimensions, b: Dimensions): boolean => {
 export const getUtf32Codes = (text: string): Array<number> => {
   return splitText(
     text,
-    code => code,
+    (code) => code,
     (high, low) => (high - 0xd800) * 0x400 + (low - 0xdc00) + 0x10000,
   );
 };
@@ -74,7 +74,7 @@ export const getUtf32Codes = (text: string): Array<number> => {
 export const getUtf32CodeUnits = (text: string): Array<string> => {
   return splitText(
     text,
-    code => String.fromCharCode(code),
+    (code) => String.fromCharCode(code),
     (high, low) => String.fromCharCode(high, low),
   );
 };

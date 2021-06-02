@@ -93,8 +93,8 @@ export class ArchiveSidebarFolderEntry extends React.Component<
   render() {
     const { root, entries } = this.props;
     const entriesContent = Object.values(entries)
-      .filter(entry => this.isDirectChild(root, entry))
-      .filter(entry => !isMacPrivateFile(entry.name))
+      .filter((entry) => this.isDirectChild(root, entry))
+      .filter((entry) => !isMacPrivateFile(entry.name))
       .map(this.renderEntry);
 
     const archiveSidebarFolder = (

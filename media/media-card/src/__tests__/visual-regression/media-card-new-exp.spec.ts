@@ -23,7 +23,7 @@ describe('Media Card New Experience', () => {
     describe('and metadata', () => {
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(`&dataUri=true&status=${status}`);
           const { image } = await setup(url);
           expect(image).toMatchProdImageSnapshot();
@@ -32,7 +32,7 @@ describe('Media Card New Experience', () => {
 
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'and is selected with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(`&dataUri=true&status=${status}&selected=true`);
           const { image } = await setup(url);
           expect(image).toMatchProdImageSnapshot();
@@ -43,7 +43,7 @@ describe('Media Card New Experience', () => {
     describe('and without metadata', () => {
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(
             `&dataUri=true&disableMetadata=true&status=${status}`,
           );
@@ -54,7 +54,7 @@ describe('Media Card New Experience', () => {
 
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'and is selected with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(
             `&dataUri=true&disableMetadata=true&status=${status}&selected=true`,
           );
@@ -70,7 +70,7 @@ describe('Media Card New Experience', () => {
     describe('but has the metadata', () => {
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(`&status=${status}`);
 
           const { image } = await setup(url);
@@ -80,7 +80,7 @@ describe('Media Card New Experience', () => {
 
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'and is selected with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(`&status=${status}&selected=true`);
 
           const { image } = await setup(url);
@@ -92,7 +92,7 @@ describe('Media Card New Experience', () => {
     describe('and has no metadata', () => {
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(`&disableMetadata=true&status=${status}`);
 
           const { image } = await setup(url);
@@ -102,7 +102,7 @@ describe('Media Card New Experience', () => {
 
       it.each(['uploading', 'complete', 'failed-processing', 'error'])(
         'and is selected with filestate %s',
-        async status => {
+        async (status) => {
           const url = getURL(
             `&disableMetadata=true&status=${status}&selected=true`,
           );

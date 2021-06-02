@@ -100,7 +100,7 @@ it('payload can be updated with a function', () => {
     },
   });
 
-  analyticsEvent.update(payload => ({
+  analyticsEvent.update((payload) => ({
     ...payload,
     a: {
       ...payload.a,

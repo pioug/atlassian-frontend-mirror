@@ -117,7 +117,7 @@ describe('MediaEditor DefaultMouseInput', () => {
   });
 
   it('should report one click if left button is down and up', () => {
-    mouseInput.click.listen(pos => {
+    mouseInput.click.listen((pos) => {
       expect(pos).toEqual(start);
     });
     mouseInput.dragStart.listen(() => {
@@ -149,14 +149,14 @@ describe('MediaEditor DefaultMouseInput', () => {
     mouseInput.click.listen(() => {
       throw new Error('click method should not be called');
     });
-    mouseInput.dragStart.listen(pos => {
+    mouseInput.dragStart.listen((pos) => {
       expect(pos).toEqual(start);
     });
-    mouseInput.dragMove.listen(pos => {
+    mouseInput.dragMove.listen((pos) => {
       expect(pos).toEqual(middle);
       ++moveCounter;
     });
-    mouseInput.dragEnd.listen(pos => {
+    mouseInput.dragEnd.listen((pos) => {
       expect(pos).toEqual(end);
     });
     mouseInput.dragLost.listen(() => {
@@ -241,10 +241,10 @@ describe('MediaEditor DefaultMouseInput', () => {
     mouseInput.click.listen(() => {
       throw new Error('click method should not be called');
     });
-    mouseInput.dragStart.listen(pos => {
+    mouseInput.dragStart.listen((pos) => {
       expect(pos).toEqual(start);
     });
-    mouseInput.dragMove.listen(pos => {
+    mouseInput.dragMove.listen((pos) => {
       expect(pos).toEqual(middle);
     });
     mouseInput.dragEnd.listen(() => {
@@ -272,13 +272,13 @@ describe('MediaEditor DefaultMouseInput', () => {
     mouseInput.click.listen(() => {
       throw new Error('click method should not be called');
     });
-    mouseInput.dragStart.listen(pos => {
+    mouseInput.dragStart.listen((pos) => {
       expect(pos).toEqual(start);
     });
-    mouseInput.dragMove.listen(pos => {
+    mouseInput.dragMove.listen((pos) => {
       expect(pos).toEqual(middle);
     });
-    mouseInput.dragEnd.listen(pos => {
+    mouseInput.dragEnd.listen((pos) => {
       expect(pos).toEqual(end);
     });
     mouseInput.dragLost.listen(() => {

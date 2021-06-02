@@ -23,9 +23,9 @@ describe('MediaEditor Signal', () => {
     }).not.toThrow();
   });
 
-  it('should successfully emit with handler', done => {
+  it('should successfully emit with handler', (done) => {
     const signal = new Signal<SignalData>();
-    signal.listen(data => {
+    signal.listen((data) => {
       expect(data).toEqual(someData);
       done();
     });
@@ -44,12 +44,12 @@ describe('MediaEditor Signal', () => {
     }).not.toThrow();
   });
 
-  it('should call second handler after listen twice', done => {
+  it('should call second handler after listen twice', (done) => {
     const signal = new Signal<SignalData>();
     signal.listen(() => {
       throw new Error('This handler must not be called');
     });
-    signal.listen(data => {
+    signal.listen((data) => {
       expect(data).toEqual(someData);
       done();
     });

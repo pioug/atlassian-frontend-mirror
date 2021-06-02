@@ -86,7 +86,7 @@ describe('Message Parsing for Viewing Emails', () => {
     let text = `TO:\t\t`;
 
     text += object.recipients
-      .map(recipient => `${recipient.name} <${recipient.email}>`)
+      .map((recipient) => `${recipient.name} <${recipient.email}>`)
       .join(', ');
 
     expect(msgToText(buf)).toEqual(formatMessage(text).trim());
@@ -120,7 +120,7 @@ describe('Message Parsing for Viewing Emails', () => {
 
     text += `\nATTACHMENTS:\t${object.attachments
       .map(
-        attachment =>
+        (attachment) =>
           `<${attachment.fileName} (${attachment.contentLength} bytes)>`,
       )
       .join(', ')}`;

@@ -88,7 +88,7 @@ export class Engine {
       shapeDeleter: sd,
     } = this.config;
 
-    [di, ip, mi, tb, ki, ir, sd].forEach(component =>
+    [di, ip, mi, tb, ki, ir, sd].forEach((component) =>
       this.resourceManager.add(component),
     );
   }
@@ -103,58 +103,58 @@ export class Engine {
       undoerRedoer,
     } = this.config;
 
-    drawingArea.resize.listen(size => {
-      this.veCall('resize', ve => ve.resize(size));
+    drawingArea.resize.listen((size) => {
+      this.veCall('resize', (ve) => ve.resize(size));
     });
 
-    mouseInput.click.listen(pos =>
-      this.veCall('click', ve => ve.clickOnce(pos)),
+    mouseInput.click.listen((pos) =>
+      this.veCall('click', (ve) => ve.clickOnce(pos)),
     );
-    mouseInput.dragStart.listen(pos =>
-      this.veCall('drag start', ve => ve.dragStart(pos)),
+    mouseInput.dragStart.listen((pos) =>
+      this.veCall('drag start', (ve) => ve.dragStart(pos)),
     );
-    mouseInput.dragMove.listen(pos =>
-      this.veCall('drag move', ve => ve.dragMove(pos)),
+    mouseInput.dragMove.listen((pos) =>
+      this.veCall('drag move', (ve) => ve.dragMove(pos)),
     );
-    mouseInput.dragEnd.listen(pos =>
-      this.veCall('drag end', ve => ve.dragEnd(pos)),
+    mouseInput.dragEnd.listen((pos) =>
+      this.veCall('drag end', (ve) => ve.dragEnd(pos)),
     );
     mouseInput.dragLost.listen(() =>
-      this.veCall('drag lost', ve => ve.dragLost()),
+      this.veCall('drag lost', (ve) => ve.dragLost()),
     );
 
     toolbar.addShadowChanged.listen(() => {
       // TODO Inform the core about this change
       // https://jira.atlassian.com/browse/FIL-3997
     });
-    toolbar.colorChanged.listen(color =>
-      this.veCall('update color', ve => ve.setColor(hexToRgb(color))),
+    toolbar.colorChanged.listen((color) =>
+      this.veCall('update color', (ve) => ve.setColor(hexToRgb(color))),
     );
-    toolbar.lineWidthChanged.listen(lineWidth =>
-      this.veCall('update line width', ve => ve.setLineWidth(lineWidth)),
+    toolbar.lineWidthChanged.listen((lineWidth) =>
+      this.veCall('update line width', (ve) => ve.setLineWidth(lineWidth)),
     );
-    toolbar.toolChanged.listen(tool =>
-      this.veCall('update tool', ve => ve.setTool(this.toVeTool(tool))),
+    toolbar.toolChanged.listen((tool) =>
+      this.veCall('update tool', (ve) => ve.setTool(this.toVeTool(tool))),
     );
 
-    keyboardInput.characterPressed.listen(code =>
-      this.veCall('add character', ve => ve.addCharacter(code)),
+    keyboardInput.characterPressed.listen((code) =>
+      this.veCall('add character', (ve) => ve.addCharacter(code)),
     );
-    keyboardInput.inputCommand.listen(command =>
-      this.veCall('input command', ve => {
+    keyboardInput.inputCommand.listen((command) =>
+      this.veCall('input command', (ve) => {
         const textCommand = this.toTextCommand(command);
         return ve.textCommand(textCommand);
       }),
     );
 
     shapeDeleter.deleteShape.listen(() =>
-      this.veCall('delete shape', ve => ve.deleteShape()),
+      this.veCall('delete shape', (ve) => ve.deleteShape()),
     );
     undoerRedoer.undo.listen(() => {
-      this.veCall('undo', ve => ve.undo());
+      this.veCall('undo', (ve) => ve.undo());
     });
     undoerRedoer.redo.listen(() => {
-      this.veCall('redo', ve => ve.redo());
+      this.veCall('redo', (ve) => ve.redo());
     });
   }
 
@@ -177,10 +177,10 @@ export class Engine {
     const contextHolder = new ContextHolder(drawingArea);
     this.resourceManager.add(contextHolder);
     contextHolder.contextLost.listen(() => {
-      this.veCall('context lost notification', ve => ve.contextLost());
+      this.veCall('context lost notification', (ve) => ve.contextLost());
     });
-    contextHolder.contextRestored.listen(outputSize => {
-      this.veCall('context restored notification', ve =>
+    contextHolder.contextRestored.listen((outputSize) => {
+      this.veCall('context restored notification', (ve) =>
         ve.contextRestored(outputSize),
       );
     });
@@ -221,7 +221,7 @@ export class Engine {
     this.resourceManager.add(typesetter);
     this.module.browserTypesetter = typesetter;
 
-    const timerFactory = new TimerFactory(id => this.passTimerTick(id));
+    const timerFactory = new TimerFactory((id) => this.passTimerTick(id));
     this.resourceManager.add(timerFactory);
     this.module.timerFactory = timerFactory;
 
@@ -289,7 +289,7 @@ export class Engine {
       );
     }
 
-    this.veCall('render', ve => ve.render());
+    this.veCall('render', (ve) => ve.render());
   }
 
   private veCall(
@@ -360,6 +360,6 @@ export class Engine {
   }
 
   private passTimerTick(id: number): void {
-    this.veCall('pass timer tick', ve => ve.timerTick(id));
+    this.veCall('pass timer tick', (ve) => ve.timerTick(id));
   }
 }

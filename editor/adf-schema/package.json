@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-schema",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

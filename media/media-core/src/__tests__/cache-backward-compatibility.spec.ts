@@ -66,7 +66,7 @@ describe('Cached Value Backward Compatibility', () => {
   ];
 
   const verifyMediaTypeProperty = (base: Object) => {
-    mediaTypes.forEach(mediaType => {
+    mediaTypes.forEach((mediaType) => {
       const fileState = {
         ...base,
         mediaType,
@@ -79,7 +79,7 @@ describe('Cached Value Backward Compatibility', () => {
   };
 
   const verifyRepresentationsProperty = (base: Object) => {
-    representationss.forEach(representations => {
+    representationss.forEach((representations) => {
       const fileState = {
         ...base,
         representations,
@@ -92,7 +92,7 @@ describe('Cached Value Backward Compatibility', () => {
   };
 
   const verifyPreviewProperty = (base: Object) => {
-    filePreviews.forEach(preview => {
+    filePreviews.forEach((preview) => {
       const fileState = {
         ...base,
         preview,
@@ -115,7 +115,7 @@ describe('Cached Value Backward Compatibility', () => {
   };
 
   const verifyArtifactsProperty = (base: Object) => {
-    mediaFileArtifactss.forEach(artifacts => {
+    mediaFileArtifactss.forEach((artifacts) => {
       const fileState = {
         ...base,
         artifacts,

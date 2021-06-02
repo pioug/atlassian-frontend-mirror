@@ -123,10 +123,10 @@ export default connect<
   State
 >(
   ({ editorData }) => ({ editorData }),
-  dispatch => ({
+  (dispatch) => ({
     onShowEditorError: ({ message, retryHandler }) =>
       dispatch(editorShowError(message, retryHandler)),
     onCloseEditor: (selection: Selection) => dispatch(editorClose(selection)),
-    onDeselectFile: fileId => dispatch(deselectItem(fileId)),
+    onDeselectFile: (fileId) => dispatch(deselectItem(fileId)),
   }),
 )(MainEditorView);

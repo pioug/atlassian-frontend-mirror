@@ -324,10 +324,10 @@ export class StatelessUploadView extends Component<
     });
 
     const selectedIds = this.props.selectedItems
-      .filter(item => item.serviceName === 'upload')
-      .map(item => item.id);
+      .filter((item) => item.serviceName === 'upload')
+      .map((item) => item.id);
 
-    return itemsKeys.map(key => {
+    return itemsKeys.map((key) => {
       const item = this.props.uploads[key];
       const { file } = item;
       const mediaType = getMediaTypeFromMimeType(file.metadata.mimeType);
@@ -393,8 +393,8 @@ export class StatelessUploadView extends Component<
     } = this.props;
     const { items } = recents;
     const selectedRecentFiles = selectedItems
-      .filter(item => item.serviceName === 'recent_files')
-      .map(item => item.id);
+      .filter((item) => item.serviceName === 'recent_files')
+      .map((item) => item.id);
     const onClick = ({ mediaItemDetails }: CardEvent) => {
       const fileDetails = mediaItemDetails as FileDetails;
       if (fileDetails) {
@@ -433,7 +433,7 @@ export class StatelessUploadView extends Component<
       }
     };
 
-    return items.map(item => {
+    return items.map((item) => {
       const { id, occurrenceKey, details } = item;
       const selected = selectedRecentFiles.indexOf(id) > -1;
       const actions: CardAction[] = [

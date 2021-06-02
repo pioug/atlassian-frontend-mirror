@@ -63,7 +63,7 @@ describe('NotificationIndicator', () => {
   }
 
   async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
-    return new Promise(tickFinished => {
+    return new Promise((tickFinished) => {
       process.nextTick(() => {
         wrapper.update();
         tickFinished();
@@ -75,7 +75,7 @@ describe('NotificationIndicator', () => {
     notificationLogClient = new MockNotificationLogClient(
       Promise.resolve({ count: 0 }),
     );
-    mockCreateAnalyticsEvent = jest.fn(analytics => {
+    mockCreateAnalyticsEvent = jest.fn((analytics) => {
       return {
         fire: () => null,
       };

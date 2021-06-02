@@ -44,7 +44,7 @@ export const getItemsFromKeys = (
     return prev;
   }, {});
 
-  return dataloaderKeys.map(dataloaderKey => {
+  return dataloaderKeys.map((dataloaderKey) => {
     const { id, collectionName } = dataloaderKey;
     const key = makeCacheKey(id, collectionName);
 
@@ -83,7 +83,7 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
     const items: Array<ResponseFileItem | BatchLoadingErrorResult> = [];
 
     await Promise.all(
-      Object.keys(fileIdsByCollection).map(async collectionNameKey => {
+      Object.keys(fileIdsByCollection).map(async (collectionNameKey) => {
         const fileIds = fileIdsByCollection[collectionNameKey];
         const collectionName =
           collectionNameKey === nonCollectionName
@@ -94,7 +94,7 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
           const response = await mediaStore.getItems(fileIds, collectionName);
           items.push(...response.data.items);
         } catch (error) {
-          fileIds.forEach(fileId => {
+          fileIds.forEach((fileId) => {
             items.push({
               id: fileId,
               collection: collectionName,

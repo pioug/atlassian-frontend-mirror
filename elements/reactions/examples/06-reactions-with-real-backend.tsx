@@ -14,7 +14,7 @@ const client = new ReactionServiceClient(
 
 export default () => (
   <ReactionsExampleWrapper client={client}>
-    {store => (
+    {(store) => (
       <React.Fragment>
         <p>First Comment</p>
         <ConnectedReactionsView

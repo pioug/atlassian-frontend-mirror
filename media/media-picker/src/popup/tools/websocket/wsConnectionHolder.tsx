@@ -43,7 +43,7 @@ export class WsConnectionHolder {
   };
 
   private onWebSocketDataReceived = (data: WsMessageData) => {
-    this.activities.forEach(activity => {
+    this.activities.forEach((activity) => {
       activity.processWebSocketData(data);
     });
   };
@@ -53,7 +53,7 @@ export class WsConnectionHolder {
   };
 
   private closeConnection(): void {
-    this.activities.forEach(activity => {
+    this.activities.forEach((activity) => {
       activity.off('Completed', this.onActivityCompleted);
       activity.connectionLost();
     });

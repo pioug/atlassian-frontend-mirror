@@ -46,7 +46,7 @@ export const mockState: State = {
 export const mockStore = (
   state?: Partial<State>,
 ): jest.Mocked<Store<State>> => ({
-  dispatch: jest.fn().mockImplementation(action => action),
+  dispatch: jest.fn().mockImplementation((action) => action),
   getState: jest.fn().mockReturnValue({
     ...mockState,
     ...state,

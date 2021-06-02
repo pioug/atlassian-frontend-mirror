@@ -40,7 +40,7 @@ describe('CodeViewer Utility Function', () => {
   // testing the direct mapping cases for code items, i.e item with the filename test.c has the language "c"
   it.each(isCodeItemCasesDirectMapping)(
     'should calculate based on the name %p that it IS a Codeviewer item with the language %p',
-    name => {
+    (name) => {
       expect(getLanguageType(name)).toEqual(name.split('.').pop() as string);
       expect(isCodeViewerItem(name)).toEqual(true);
     },

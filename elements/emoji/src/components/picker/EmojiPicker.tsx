@@ -23,7 +23,7 @@ const emojiPickerModuleLoader = () =>
   );
 
 const emojiPickerLoader: () => Promise<ComponentClass<ComponentProps>> = () =>
-  emojiPickerModuleLoader().then(module => module.default);
+  emojiPickerModuleLoader().then((module) => module.default);
 
 export interface Props extends LoadingProps {
   onSelection?: OnEmojiEvent;
@@ -47,7 +47,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
   }
 
   asyncLoadComponent() {
-    emojiPickerLoader().then(component => {
+    emojiPickerLoader().then((component) => {
       EmojiPickerInternal.AsyncLoadedComponent = component;
       this.setAsyncState(component);
     });

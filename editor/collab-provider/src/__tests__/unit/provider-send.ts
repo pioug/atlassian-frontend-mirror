@@ -1,4 +1,4 @@
-jest.mock('lodash/throttle', () => jest.fn(fn => fn));
+jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('prosemirror-collab', () => {
   return {
     sendableSteps: jest.fn(),

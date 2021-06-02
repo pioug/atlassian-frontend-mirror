@@ -26,7 +26,7 @@ describe('TokenManager', () => {
       });
       const addedToken = defaultMediaApiToken();
       tokenManager.addToken('read', addedToken);
-      return tokenManager.getToken('read').then(token => {
+      return tokenManager.getToken('read').then((token) => {
         expect(token).toEqual(addedToken);
       });
     });
@@ -45,7 +45,7 @@ describe('TokenManager', () => {
       const tokenManager = new TokenManager({
         url: siteServiceConfig.url,
       });
-      return tokenManager.getToken('read').then(token => {
+      return tokenManager.getToken('read').then((token) => {
         expect(token).toEqual(expectedToken);
         expect(fetchMock.calls('token-read').length).toEqual(1);
       });
@@ -65,12 +65,12 @@ describe('TokenManager', () => {
       });
       return tokenManager
         .getToken('read')
-        .then(token => {
+        .then((token) => {
           expect(token).toEqual(expectedToken);
           expect(fetchMock.calls('token-read').length).toEqual(1);
           return tokenManager.getToken('read');
         })
-        .then(token => {
+        .then((token) => {
           expect(token).toEqual(expectedToken);
           expect(fetchMock.calls('token-read').length).toEqual(1);
         });
@@ -106,12 +106,12 @@ describe('TokenManager', () => {
 
       return tokenManager
         .getToken('read')
-        .then(token => {
+        .then((token) => {
           expect(token).toEqual(expectedToken1);
           expect(fetchMock.calls('token-read-1').length).toEqual(1);
           return tokenManager.getToken('read', true);
         })
-        .then(token => {
+        .then((token) => {
           expect(token).toEqual(expectedToken2);
           expect(fetchMock.calls('token-read-2').length).toEqual(1);
         });
@@ -137,7 +137,7 @@ describe('TokenManager', () => {
       });
 
       tokenManager.addToken('read', addedToken);
-      return tokenManager.getToken('read').then(token => {
+      return tokenManager.getToken('read').then((token) => {
         expect(token).toEqual(expectedToken);
         expect(fetchMock.calls('token-read').length).toEqual(1);
       });
@@ -174,12 +174,12 @@ describe('TokenManager', () => {
       });
       return tokenManager
         .getToken('read')
-        .then(token => {
+        .then((token) => {
           expect(token).toEqual(expectedReadToken);
           expect(fetchMock.calls('token-read').length).toEqual(1);
           return tokenManager.getToken('upload');
         })
-        .then(token => {
+        .then((token) => {
           expect(token).toEqual(expectedUploadToken);
           expect(fetchMock.calls('token-upload').length).toEqual(1);
         });

@@ -52,7 +52,7 @@ export default function BasicUsage() {
             statement="It is easy to find what I'm looking for in Jira"
             onDismiss={onDismiss}
             getUserHasAnsweredMailingList={() =>
-              new Promise(resolve => {
+              new Promise((resolve) => {
                 console.log(
                   'Discovering if user has previously answered. Result will be:',
                   hasUserAnswered,
@@ -61,13 +61,13 @@ export default function BasicUsage() {
               })
             }
             onMailingListAnswer={(answer: boolean) =>
-              new Promise(resolve => {
+              new Promise((resolve) => {
                 console.log('Did sign up to mailing list:', answer);
                 setTimeout(resolve, 1000);
               })
             }
-            onSubmit={formValues =>
-              new Promise(resolve => {
+            onSubmit={(formValues) =>
+              new Promise((resolve) => {
                 console.log('submitted value', formValues);
                 setTimeout(resolve, 1000);
               })

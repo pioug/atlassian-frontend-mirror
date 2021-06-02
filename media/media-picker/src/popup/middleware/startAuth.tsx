@@ -20,13 +20,13 @@ export const startCloudAccountOAuthFlow = (
     const accounts = cloudService
       .startAuth(redirectUrl, serviceName)
       .then(() => userMediaClient.config.authProvider())
-      .then(auth => fetcher.getServiceList(auth));
+      .then((auth) => fetcher.getServiceList(auth));
 
     store.dispatch(updateServiceList(accounts));
 
     accounts.then((accounts: ServiceAccountWithType[]) => {
       const selectedAccount = accounts.find(
-        account => account.type === serviceName,
+        (account) => account.type === serviceName,
       );
       if (selectedAccount) {
         store.dispatch(changeAccount(serviceName, selectedAccount.id));

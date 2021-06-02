@@ -28,12 +28,12 @@ describe('MediaEditor DrawingArea', () => {
     expect(drawingArea.resize).toBeDefined();
   });
 
-  it('should trigger resize event on setSize', done => {
+  it('should trigger resize event on setSize', (done) => {
     const drawingArea = new DefaultDrawingArea(canvas, size, backColor);
     expect(drawingArea.outputSize).toEqual(size);
 
     const newSize = { width: 500, height: 43, screenScaleFactor: 2 };
-    drawingArea.resize.listen(size => {
+    drawingArea.resize.listen((size) => {
       expect(drawingArea.outputSize).toEqual(newSize);
       expect(size).toEqual(newSize);
       done();

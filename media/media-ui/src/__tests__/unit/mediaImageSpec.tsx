@@ -21,7 +21,7 @@ jest.mock('../../imageMetaData/imageOrientationUtil', () => ({
   isRotated: jest.fn<
     ReturnType<typeof isRotated>,
     Parameters<typeof isRotated>
-  >(orientation => mockIsRotated(orientation)),
+  >((orientation) => mockIsRotated(orientation)),
 }));
 
 describe('MediaImage', () => {

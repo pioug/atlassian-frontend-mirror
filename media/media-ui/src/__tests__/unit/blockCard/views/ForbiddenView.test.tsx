@@ -51,7 +51,7 @@ describe('Block card views - Forbidden', () => {
     const requestAccessContext = {
       descriptiveMessageKey: 'click_to_join_description',
       action: {
-        promise: () => new Promise(resolve => resolve(mockOnClick())),
+        promise: () => new Promise((resolve) => resolve(mockOnClick())),
         id: 'click_to_join',
         text: 'Join to preview',
       },
@@ -75,7 +75,7 @@ describe('Block card views - Forbidden', () => {
     const requestAccessContext = {
       descriptiveMessageKey: 'click_to_join_description',
       action: {
-        promise: () => new Promise(resolve => resolve(mockOnClick())),
+        promise: () => new Promise((resolve) => resolve(mockOnClick())),
         id: 'click_to_join',
         text: 'Join Jira',
       },
@@ -99,7 +99,7 @@ describe('Block card views - Forbidden', () => {
     const requestAccessContext = {
       descriptiveMessageKey: 'request_access_description',
       action: {
-        promise: () => new Promise(resolve => resolve(mockOnClick())),
+        promise: () => new Promise((resolve) => resolve(mockOnClick())),
         id: 'request_access',
         text: 'Request access to preview',
       },
@@ -121,7 +121,7 @@ describe('Block card views - Forbidden', () => {
     const requestAccessContext = {
       descriptiveMessageKey: 'request_access_description',
       action: {
-        promise: () => new Promise(resolve => resolve(mockOnClick())),
+        promise: () => new Promise((resolve) => resolve(mockOnClick())),
         id: 'request_access',
         text: 'Request access',
       },

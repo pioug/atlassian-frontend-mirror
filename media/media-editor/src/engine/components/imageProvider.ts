@@ -34,7 +34,7 @@ export class DefaultImageProvider implements ImageProvider {
     supplementaryCanvas: HTMLCanvasElement,
   ): Promise<DefaultImageProvider> {
     return imageLoader().then(
-      img => new DefaultImageProvider(img, supplementaryCanvas),
+      (img) => new DefaultImageProvider(img, supplementaryCanvas),
     );
   }
 

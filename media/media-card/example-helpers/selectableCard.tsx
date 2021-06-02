@@ -39,7 +39,7 @@ export class SelectableCard extends Component<
   }
 
   private onClick = (): void => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         selected: !prevState.selected,
       };

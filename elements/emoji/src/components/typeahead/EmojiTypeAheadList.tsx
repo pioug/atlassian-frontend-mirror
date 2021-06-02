@@ -199,7 +199,7 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
                 selected={this.isSelectedEmoji(emoji, idx)}
                 onMouseMove={this.selectIndexOnHover}
                 onSelection={this.itemSelected}
-                ref={ref => {
+                ref={(ref) => {
                   if (ref) {
                     this.items[key] = ref;
                   } else {

@@ -58,7 +58,7 @@ export const getDataProviderFactory = (onlyInclude: string[] = []) => {
   const dataProviderFactory = new ProviderFactory();
   (Object.keys(MockDataProviders) as Array<
     keyof typeof MockDataProviders
-  >).forEach(provider => {
+  >).forEach((provider) => {
     if (onlyInclude.length === 0 || onlyInclude.indexOf(provider) !== -1) {
       dataProviderFactory.setProvider(provider, MockDataProviders[provider]);
     }
@@ -152,7 +152,7 @@ export class MockProvider extends AbstractConversationResource {
 
     dispatch({ type: ADD_COMMENT_REQUEST, payload: result });
 
-    await new Promise<void>(resolve => {
+    await new Promise<void>((resolve) => {
       window.setTimeout(() => {
         const errResult = {
           ...result,

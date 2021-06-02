@@ -50,7 +50,7 @@ class Example extends React.Component<{}, State> {
       {
         id: fileId,
         deferredUploadId: touchedFiles.then(
-          touchedFiles => touchedFiles.created[0].uploadId,
+          (touchedFiles) => touchedFiles.created[0].uploadId,
         ),
       },
     );

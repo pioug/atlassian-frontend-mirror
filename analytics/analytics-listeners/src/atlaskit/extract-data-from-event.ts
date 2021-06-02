@@ -38,11 +38,11 @@ export const getExtraAttributes = (event: UIAnalyticsEvent) =>
 
 export const getPackageInfo = (event: UIAnalyticsEvent) =>
   event.context
-    .map(contextItem => ({
+    .map((contextItem) => ({
       packageName: contextItem.packageName,
       packageVersion: contextItem.packageVersion,
     }))
-    .filter(p => p.packageName);
+    .filter((p) => p.packageName);
 
 export const getPackageVersion = (event: UIAnalyticsEvent) =>
   extractFromEventContext('packageVersion', event);
@@ -56,7 +56,7 @@ export function getPackageHierarchy(
   const packages = getPackageInfo(event) || [];
   return (
     packages
-      .map(p =>
+      .map((p) =>
         p.packageVersion
           ? `${p.packageName}@${p.packageVersion}`
           : p.packageName,

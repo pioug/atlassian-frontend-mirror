@@ -74,7 +74,7 @@ export default () => {
       totalItems={NUM_ITEMS}
       isLoading={false}
       pageNumber={1}
-      onSetPage={pageNumber => console.log('onSetPage', pageNumber)}
+      onSetPage={(pageNumber) => console.log('onSetPage', pageNumber)}
       onSort={(key, sortOrder) => console.log('onSort', key, sortOrder)}
       onPreviewOpen={() => console.log('onPreviewOpen')}
       onPreviewClose={() => console.log('onPreviewClose')}

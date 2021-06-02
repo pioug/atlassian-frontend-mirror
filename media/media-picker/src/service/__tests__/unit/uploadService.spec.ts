@@ -92,7 +92,7 @@ describe('UploadService', () => {
       shouldCopyFileToRecents,
     );
 
-    const filesAddedPromise = new Promise<void>(resolve =>
+    const filesAddedPromise = new Promise<void>((resolve) =>
       uploadService.on('files-added', () => resolve()),
     );
 
@@ -226,11 +226,11 @@ describe('UploadService', () => {
       expect(callback).toHaveBeenCalledWith(expectedPayload);
     });
 
-    it('should emit empty file-preview-update if getPreviewFromBlob() fails', done => {
+    it('should emit empty file-preview-update if getPreviewFromBlob() fails', (done) => {
       const { uploadService } = setup();
       const file = { size: 100, name: 'some-filename', type: 'video/mp4' };
 
-      uploadService.on('file-preview-update', payload => {
+      uploadService.on('file-preview-update', (payload) => {
         expect(payload).toMatchObject({
           file: {
             creationDate: expect.any(Number),
@@ -476,7 +476,7 @@ describe('UploadService', () => {
       const filesAddedCallback = jest.fn();
       uploadService.on('files-added', filesAddedCallback);
 
-      return new Promise<void>(resolve => {
+      return new Promise<void>((resolve) => {
         jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
           // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
           //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -587,7 +587,7 @@ describe('UploadService', () => {
       });
 
       return uploadService['copyFileToUsersCollection'](sourceFileId).then(
-        response => {
+        (response) => {
           expect(response).toEqual('some-MediaApi-response');
         },
       );
@@ -637,7 +637,7 @@ describe('UploadService', () => {
       const fileUploadErrorCallback = jest.fn();
       uploadService.on('file-upload-error', fileUploadErrorCallback);
       return uploadService['copyFileToUsersCollection'](sourceFileId).catch(
-        error => {
+        (error) => {
           expect(error).toEqual(new Error('some-error'));
           expect(fileUploadErrorCallback).toHaveBeenCalledWith({
             file: {

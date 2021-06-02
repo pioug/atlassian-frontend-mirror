@@ -182,7 +182,7 @@ export class DefaultKeyboardInput implements KeyboardInput {
   private passText(): void {
     const text = this.hTextArea.value;
     if (text) {
-      getUtf32Codes(text).forEach(code => this.characterPressed.emit(code));
+      getUtf32Codes(text).forEach((code) => this.characterPressed.emit(code));
       this.hTextArea.value = '';
     }
   }

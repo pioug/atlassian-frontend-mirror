@@ -92,7 +92,7 @@ export const findCategoryHeading = (
 const findAllVirtualRows = (component: ReactWrapper) =>
   component.update() &&
   component.findWhere(
-    n =>
+    (n) =>
       n.is(EmojiPickerListSearch) ||
       n.is(EmojiPickerCategoryHeading) ||
       n.is(EmojiPickerEmojiRow),
@@ -107,7 +107,7 @@ export const emojiRowsVisibleInCategory = (
   const rows = findAllVirtualRows(component);
   let foundStart = false;
   let foundEnd = false;
-  return rows.filterWhere(n => {
+  return rows.filterWhere((n) => {
     if (foundEnd) {
       return false;
     }
@@ -132,7 +132,7 @@ const getCategoryButton = (category: CategoryGroupKey, picker: ReactWrapper) =>
   picker
     .find(CategorySelector)
     .findWhere(
-      n => n.name() === 'button' && n.prop('data-category-id') === category,
+      (n) => n.name() === 'button' && n.prop('data-category-id') === category,
     );
 
 export const categoryVisible = (
@@ -188,7 +188,7 @@ export const findSearchInput = (component: ReactWrapper) =>
   component.update() &&
   component
     .find(EmojiPickerListSearch)
-    .findWhere(component => component.name() === 'input');
+    .findWhere((component) => component.name() === 'input');
 
 export const searchInputVisible = (component: ReactWrapper) =>
   findSearchInput(component).length > 0;
@@ -225,7 +225,7 @@ export const findEmojiWithId = (component: ReactWrapper, id: string) =>
   component
     .find(EmojiPickerList)
     .find(Emoji)
-    .filterWhere(emoji => emoji.prop('emoji').id === id);
+    .filterWhere((emoji) => emoji.prop('emoji').id === id);
 
 export const emojiWithIdVisible = (component: ReactWrapper, id: string) =>
   findEmojiWithId(component, id).length > 0;

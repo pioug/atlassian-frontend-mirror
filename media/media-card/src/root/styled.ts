@@ -45,8 +45,9 @@ type InlinePlayerWrapper = {
 };
 
 export const InlinePlayerWrapper = styled.div<InlinePlayerWrapper>`
-  width: ${props => getDimensionsWithDefault(props.dimensions).width || '100%'};
-  height: ${props =>
+  width: ${(props) =>
+    getDimensionsWithDefault(props.dimensions).width || '100%'};
+  height: ${(props) =>
     getDimensionsWithDefault(props.dimensions).height || 'auto'};
   overflow: hidden;
   border-radius: ${borderRadius()}px;

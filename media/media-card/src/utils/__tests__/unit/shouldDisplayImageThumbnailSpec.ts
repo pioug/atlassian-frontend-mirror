@@ -12,13 +12,13 @@ describe('#shouldDisplayImageThumbnail()', () => {
   ];
 
   it('should return false when none of arguments provided', () => {
-    cardStatuses.forEach(cardStatus =>
+    cardStatuses.forEach((cardStatus) =>
       expect(shouldDisplayImageThumbnail(cardStatus, 'file')).toEqual(false),
     );
   });
 
   it('should return false when dataURI is not provided', () => {
-    cardStatuses.forEach(cardStatus =>
+    cardStatuses.forEach((cardStatus) =>
       expect(
         shouldDisplayImageThumbnail(
           cardStatus,
@@ -32,7 +32,7 @@ describe('#shouldDisplayImageThumbnail()', () => {
   });
 
   it('should return false when dataURI exists, but type is a document', () => {
-    cardStatuses.forEach(cardStatus =>
+    cardStatuses.forEach((cardStatus) =>
       expect(
         shouldDisplayImageThumbnail(cardStatus, 'file', 'data-uri', 'doc'),
       ).toEqual(false),
@@ -40,7 +40,7 @@ describe('#shouldDisplayImageThumbnail()', () => {
   });
 
   it('should return false when dataURI exists, but mimeType is undefined', () => {
-    cardStatuses.forEach(cardStatus =>
+    cardStatuses.forEach((cardStatus) =>
       expect(
         shouldDisplayImageThumbnail(cardStatus, 'file', 'data-uri', 'image'),
       ).toEqual(false),
@@ -48,7 +48,7 @@ describe('#shouldDisplayImageThumbnail()', () => {
   });
 
   it('should return true when dataURI exists and type is supported and not a document', () => {
-    cardStatuses.forEach(cardStatus =>
+    cardStatuses.forEach((cardStatus) =>
       expect(
         shouldDisplayImageThumbnail(
           cardStatus,
@@ -62,7 +62,7 @@ describe('#shouldDisplayImageThumbnail()', () => {
   });
 
   it('should return true when dataURI exists and media is external image', () => {
-    cardStatuses.forEach(cardStatus =>
+    cardStatuses.forEach((cardStatus) =>
       expect(
         shouldDisplayImageThumbnail(cardStatus, 'external-image', 'data-uri'),
       ).toEqual(true),
@@ -71,8 +71,8 @@ describe('#shouldDisplayImageThumbnail()', () => {
 
   it('should return false when dataURI exists and type is unsupported and not complete', () => {
     cardStatuses
-      .filter(cardStatus => cardStatus !== 'complete')
-      .forEach(cardStatus =>
+      .filter((cardStatus) => cardStatus !== 'complete')
+      .forEach((cardStatus) =>
         expect(
           shouldDisplayImageThumbnail(
             cardStatus,

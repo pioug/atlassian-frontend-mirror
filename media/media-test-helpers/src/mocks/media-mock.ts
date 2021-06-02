@@ -77,11 +77,11 @@ export class MediaMock {
     [...this.routers, ...this.dbs].forEach(
       this.server.remove.bind(this.server),
     );
-    this.routers.forEach(router => router.reset());
-    this.dbs.forEach(db => db.reset());
+    this.routers.forEach((router) => router.reset());
+    this.dbs.forEach((db) => db.reset());
     this.routers = [];
     this.dbs = [];
-    this.websockets.forEach(ws => ws.stop());
+    this.websockets.forEach((ws) => ws.stop());
     this.websockets = [];
   }
 }
@@ -92,7 +92,7 @@ export type MockFile = MediaFile & { blob?: Blob };
 export function generateFilesFromTestData(
   files: MockFileInputParams[],
 ): MockFile[] {
-  return files.map(file => {
+  return files.map((file) => {
     const {
       processingStatus = 'succeeded',
       dataUri,

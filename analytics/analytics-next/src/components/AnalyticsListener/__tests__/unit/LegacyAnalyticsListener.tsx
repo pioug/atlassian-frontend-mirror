@@ -19,7 +19,7 @@ const FakeModernConsumerButton = memo<FakeConsumerButtonProps>(
 
     const onClick = useCallback(() => {
       const { getAtlaskitAnalyticsEventHandlers } = analyticsContext;
-      getAtlaskitAnalyticsEventHandlers().forEach(fn => fn(event, channel));
+      getAtlaskitAnalyticsEventHandlers().forEach((fn) => fn(event, channel));
     }, [analyticsContext, event, channel]);
 
     return (
@@ -51,7 +51,7 @@ class FakeLegacyConsumerButton extends PureComponent<FakeConsumerButtonProps> {
 
     const { event, channel } = this.props;
 
-    getAtlaskitAnalyticsEventHandlers().forEach(fn => fn(event, channel));
+    getAtlaskitAnalyticsEventHandlers().forEach((fn) => fn(event, channel));
   };
 
   render() {

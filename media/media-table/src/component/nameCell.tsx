@@ -9,7 +9,7 @@ export interface NameCellProps extends TruncateProps {
   mediaType?: MediaType;
 }
 
-export const NameCell: FC<NameCellProps> = props => {
+export const NameCell: FC<NameCellProps> = (props) => {
   const { mediaType, text, ...rest } = props;
 
   return (

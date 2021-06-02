@@ -18,7 +18,7 @@ describe('Browser', () => {
           'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1',
         platform: 'Firefox',
       },
-    ].forEach(mockedNavigator => {
+    ].forEach((mockedNavigator) => {
       const browser = isWebkitSupported(mockedNavigator);
 
       expect(browser).toEqual(false);
@@ -42,7 +42,7 @@ describe('Browser', () => {
           'Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36',
         platform: 'Android',
       },
-    ].forEach(mockedNavigator => {
+    ].forEach((mockedNavigator) => {
       const browser = isWebkitSupported(mockedNavigator);
 
       expect(browser).toEqual(true);

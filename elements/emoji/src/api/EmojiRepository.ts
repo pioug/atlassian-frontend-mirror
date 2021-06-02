@@ -27,7 +27,7 @@ type Token = {
 // FS-1097 - duplicated in mentions - extract at some point into a shared library
 class Tokenizer implements ITokenizer {
   public tokenize(text: string): string[] {
-    return this.tokenizeAsTokens(text).map(token => token.token);
+    return this.tokenizeAsTokens(text).map((token) => token.token);
   }
 
   public tokenizeAsTokens(text: string): Token[] {
@@ -72,7 +72,7 @@ const addAllVariants = (
     // map variations too
     const variations = emoji.skinVariations;
     if (variations) {
-      variations.forEach(variation => addAllVariants(variation, fnKey, map));
+      variations.forEach((variation) => addAllVariants(variation, fnKey, map));
     }
   }
 };
@@ -233,7 +233,7 @@ export default class EmojiRepository {
     if (categoryId === frequentCategory) {
       return this.getFrequentlyUsed();
     } else {
-      return this.all().emojis.filter(emoji => emoji.category === categoryId);
+      return this.all().emojis.filter((emoji) => emoji.category === categoryId);
     }
   }
 
@@ -258,8 +258,8 @@ export default class EmojiRepository {
     const emojiIds = this.usageTracker.getOrder();
 
     let emojiResult = emojiIds
-      .map(id => this.findById(id))
-      .filter(e => e !== undefined) as EmojiDescription[];
+      .map((id) => this.findById(id))
+      .filter((e) => e !== undefined) as EmojiDescription[];
 
     if (options) {
       emojiResult = this.applySearchOptions(emojiResult, '', options);
@@ -311,7 +311,7 @@ export default class EmojiRepository {
     if (asciiEmoji) {
       // Ensures that the same emoji isn't already in the list
       // If it is, we give precedence to the ascii match
-      result = emojis.filter(e => e.id !== asciiEmoji.id);
+      result = emojis.filter((e) => e.id !== asciiEmoji.id);
       result = [asciiEmoji, ...result];
     }
     return result;
@@ -350,7 +350,7 @@ export default class EmojiRepository {
     }
 
     if (options.skinTone) {
-      return emojis.map(emoji => {
+      return emojis.map((emoji) => {
         return getEmojiVariation(emoji, options);
       });
     }
@@ -373,7 +373,7 @@ export default class EmojiRepository {
     this.asciiMap = new Map();
     const categorySet = new Set<CategoryId>();
 
-    this.emojis.forEach(emoji => {
+    this.emojis.forEach((emoji) => {
       categorySet.add(emoji.category as CategoryId);
       this.addToMaps(emoji);
     });
@@ -383,7 +383,7 @@ export default class EmojiRepository {
     }
 
     this.dynamicCategoryList = Array.from(categorySet).filter(
-      category => defaultCategories.indexOf(category) === -1,
+      (category) => defaultCategories.indexOf(category) === -1,
     );
   }
 
@@ -398,7 +398,9 @@ export default class EmojiRepository {
   }
 
   private getAllSearchableEmojis(): EmojiDescription[] {
-    return this.emojis.filter(emojiDescription => emojiDescription.searchable);
+    return this.emojis.filter(
+      (emojiDescription) => emojiDescription.searchable,
+    );
   }
 
   private addToMaps(emoji: EmojiDescription): void {
@@ -409,10 +411,10 @@ export default class EmojiRepository {
     if (typeof emoji.id === 'undefined') {
       emoji.id = EmojiRepository.defaultEmojiWeight.toString();
     }
-    addAllVariants(emoji, e => e.shortName, this.shortNameMap);
-    addAllVariants(emoji, e => e.id, this.idMap);
+    addAllVariants(emoji, (e) => e.shortName, this.shortNameMap);
+    addAllVariants(emoji, (e) => e.id, this.idMap);
     if (emoji.ascii) {
-      emoji.ascii.forEach(a => this.asciiMap.set(a, emoji));
+      emoji.ascii.forEach((a) => this.asciiMap.set(a, emoji));
     }
   }
 

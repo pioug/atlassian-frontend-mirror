@@ -159,7 +159,7 @@ describe('EmbedCard Views', () => {
         descriptiveMessageKey: 'click_to_join_description',
         callToActionMessageKey: 'click_to_join',
         action: {
-          promise: () => new Promise(resolve => resolve(mockOnClick())),
+          promise: () => new Promise((resolve) => resolve(mockOnClick())),
           id: 'click_to_join',
           text: 'Join to preview',
         },
@@ -185,7 +185,7 @@ describe('EmbedCard Views', () => {
         descriptiveMessageKey: 'click_to_join_description',
         callToActionMessageKey: 'click_to_join',
         action: {
-          promise: () => new Promise(resolve => resolve(mockOnClick())),
+          promise: () => new Promise((resolve) => resolve(mockOnClick())),
           id: 'click_to_join',
           text: 'Join Jira',
         },
@@ -211,7 +211,7 @@ describe('EmbedCard Views', () => {
         descriptiveMessageKey: 'request_access_description',
         callToActionMessageKey: 'request_access',
         action: {
-          promise: () => new Promise(resolve => resolve(mockOnClick())),
+          promise: () => new Promise((resolve) => resolve(mockOnClick())),
           id: 'request_access',
           text: 'Request access',
         },
@@ -235,7 +235,7 @@ describe('EmbedCard Views', () => {
         descriptiveMessageKey: 'request_access_description',
         callToActionMessageKey: 'request_access',
         action: {
-          promise: () => new Promise(resolve => resolve(mockOnClick())),
+          promise: () => new Promise((resolve) => resolve(mockOnClick())),
           id: 'request_access',
           text: 'Request access',
         },
@@ -261,7 +261,7 @@ describe('EmbedCard Views', () => {
         descriptiveMessageKey: 'request_access_pending_description',
         callToActionMessageKey: 'request_access_pending',
         action: {
-          promise: () => new Promise(resolve => resolve(mockOnClick())),
+          promise: () => new Promise((resolve) => resolve(mockOnClick())),
           id: 'request_access_pending',
           text: 'Access pending',
         },

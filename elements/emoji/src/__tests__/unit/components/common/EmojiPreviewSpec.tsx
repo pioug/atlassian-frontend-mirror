@@ -163,7 +163,7 @@ describe('<EmojiPreview />', () => {
     };
 
     describe('Upload not supported', () => {
-      it('"Add custom emoji" button should not appear when uploadEnabled is false', async done => {
+      it('"Add custom emoji" button should not appear when uploadEnabled is false', async (done) => {
         const component = mountWithIntl(
           <EmojiPreview
             emoji={emoji}

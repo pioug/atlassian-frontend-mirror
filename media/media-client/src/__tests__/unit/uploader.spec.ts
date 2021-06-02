@@ -81,7 +81,7 @@ describe('Uploader', () => {
     expect(ChunkinatorMock.mock.calls[0][0]).toEqual('file-content');
   });
 
-  it('should use provided file name, collection names and occurrence key when creating the file', done => {
+  it('should use provided file name, collection names and occurrence key when creating the file', (done) => {
     const { mediaStore, ChunkinatorMock, createFileFromUpload } = setup();
 
     ChunkinatorMock.mockImplementation(() =>
@@ -132,7 +132,7 @@ describe('Uploader', () => {
         uploadableFileUpfrontIds,
         {
           onProgress,
-          onUploadFinish: err => (err ? reject(err) : resolve()),
+          onUploadFinish: (err) => (err ? reject(err) : resolve()),
         },
       );
     });
@@ -165,7 +165,7 @@ describe('Uploader', () => {
         uploadableFileUpfrontIds,
         {
           onProgress,
-          onUploadFinish: err => (err ? reject(err) : resolve()),
+          onUploadFinish: (err) => (err ? reject(err) : resolve()),
         },
       );
     });
@@ -189,7 +189,7 @@ describe('Uploader', () => {
         uploadableFileUpfrontIds,
         {
           onProgress: jest.fn(),
-          onUploadFinish: err => (err ? resolve(err) : reject()),
+          onUploadFinish: (err) => (err ? resolve(err) : reject()),
         },
       );
     });
@@ -214,7 +214,7 @@ describe('Uploader', () => {
         uploadableFileUpfrontIds,
         {
           onProgress: jest.fn(),
-          onUploadFinish: err => (err ? resolve(err) : reject()),
+          onUploadFinish: (err) => (err ? resolve(err) : reject()),
         },
       );
     });
@@ -242,13 +242,13 @@ describe('Uploader', () => {
         uploadableFileUpfrontIds,
         {
           onProgress: jest.fn(),
-          onUploadFinish: err => (err ? reject(err) : resolve()),
+          onUploadFinish: (err) => (err ? reject(err) : resolve()),
         },
       );
     });
   });
 
-  it('should not subscribe to Chunkinator Observable if cancel() initially called', done => {
+  it('should not subscribe to Chunkinator Observable if cancel() initially called', (done) => {
     const {
       mediaStore,
       ChunkinatorMock,
@@ -276,7 +276,7 @@ describe('Uploader', () => {
       uploadableFileUpfrontIds,
       {
         onProgress: jest.fn(),
-        onUploadFinish: error => {
+        onUploadFinish: (error) => {
           expect(error).toEqual('canceled');
           expect(chunkinatorCalled).toHaveBeenCalledTimes(0);
           expect(appendChunksToUpload).toHaveBeenCalledTimes(0);
@@ -304,7 +304,7 @@ describe('Uploader', () => {
       uploadableFileUpfrontIds,
       {
         onProgress: jest.fn(),
-        onUploadFinish: error => {
+        onUploadFinish: (error) => {
           expect(error).toEqual('canceled');
           expect(appendChunksToUpload).toHaveBeenCalledTimes(1);
           expect(createFileFromUpload).toHaveBeenCalledTimes(0);

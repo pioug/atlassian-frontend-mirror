@@ -166,7 +166,7 @@ class Example extends React.Component<{}, State> {
               value="useBigCard"
               label="Use Big Card?"
               isChecked={this.state.useBigCard}
-              onChange={event => {
+              onChange={(event) => {
                 this.setState({ shouldRenderCard: false }, () =>
                   this.setState({ shouldRenderCard: true }),
                 );
@@ -190,7 +190,7 @@ class Example extends React.Component<{}, State> {
               </tr>
               <tr>
                 <th key="first-column">Media Type</th>
-                {statuses.map(status => (
+                {statuses.map((status) => (
                   <th key={`${status}-column`}>{status}</th>
                 ))}
               </tr>
@@ -210,7 +210,7 @@ class Example extends React.Component<{}, State> {
                       >
                         {mediaType}
                       </th>
-                      {statuses.map(status => (
+                      {statuses.map((status) => (
                         <td key={`${status}-entry-${mediaType}`}>
                           {this.renderCardImageView(
                             status,

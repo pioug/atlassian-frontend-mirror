@@ -56,7 +56,7 @@ export default connect<BrowserStateProps, BrowserDispatchProps, {}, State>(
     service,
     hasError,
   }),
-  dispatch => ({
+  (dispatch) => ({
     reloadService: (service: ServiceAccountLink) =>
       dispatch(changeService(service.name)),
   }),

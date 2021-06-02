@@ -14,7 +14,7 @@ describe('utils', () => {
       const url = 'http://some-url';
       const { fetch } = setup(blob);
 
-      return fetchBlob(url).then(actualBlob => {
+      return fetchBlob(url).then((actualBlob) => {
         expect(fetch).toBeCalledWith(url);
         expect(actualBlob).toEqual(blob);
       });
@@ -23,7 +23,7 @@ describe('utils', () => {
     it('should resolve original blob given blob', () => {
       const blob = new Blob();
 
-      return fetchBlob(blob).then(actualBlob => {
+      return fetchBlob(blob).then((actualBlob) => {
         expect(actualBlob).toEqual(blob);
       });
     });

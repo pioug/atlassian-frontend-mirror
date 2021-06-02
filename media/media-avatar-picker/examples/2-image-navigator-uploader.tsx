@@ -26,9 +26,11 @@ export default () => (
       <ImageNavigator
         onLoad={onLoad}
         onRemoveImage={() => console.log('onRemoveImage')}
-        onImageError={errorMessage => console.log('onImageError', errorMessage)}
-        onImageLoaded={file => console.log('onImageLoaded', file)}
-        onImageUploaded={file => console.log('onImageLoaded', file)}
+        onImageError={(errorMessage) =>
+          console.log('onImageError', errorMessage)
+        }
+        onImageLoaded={(file) => console.log('onImageLoaded', file)}
+        onImageUploaded={(file) => console.log('onImageLoaded', file)}
       />
       <button onClick={exportImage}>Export</button>
       <img

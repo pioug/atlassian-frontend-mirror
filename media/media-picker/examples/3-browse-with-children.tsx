@@ -152,7 +152,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
           mediaClient={mediaClient}
           browseConfig={browseConfig}
         >
-          {browse => (
+          {(browse) => (
             <Button
               style={{ margin: '5px' }}
               appearance="primary"
@@ -166,7 +166,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
           mediaClient={mediaClient}
           browseConfig={browseConfig}
         >
-          {browse => (
+          {(browse) => (
             <div style={{ margin: '5px' }} onClick={browse}>
               Click me to upload. No, for real.
             </div>

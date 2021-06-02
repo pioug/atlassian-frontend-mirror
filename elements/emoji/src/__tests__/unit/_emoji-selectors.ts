@@ -5,7 +5,7 @@ export function getEmojiTypeAheadItemById(
   itemKey?: string,
 ): ReactWrapper<any, any> {
   return emojiTypeAhead.findWhere(
-    n => n.name() === 'EmojiTypeAheadItem' && n.key() === itemKey,
+    (n) => n.name() === 'EmojiTypeAheadItem' && n.key() === itemKey,
   );
 }
 
@@ -15,7 +15,7 @@ export function getSelectedEmojiTypeAheadItem(
   return (
     emojiTypeAhead.update() &&
     emojiTypeAhead.findWhere(
-      n => n.name() === 'EmojiTypeAheadItem' && n.prop('selected'),
+      (n) => n.name() === 'EmojiTypeAheadItem' && n.prop('selected'),
     )
   );
 }

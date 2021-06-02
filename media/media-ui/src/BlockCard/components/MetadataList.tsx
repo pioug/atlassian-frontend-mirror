@@ -22,7 +22,7 @@ export const MetadataList = ({ items, testId }: MetadataListProps) => {
       }}
       data-testid={testId}
     >
-      {items.map(item => (
+      {items.map((item) => (
         <Metadata key={item.text} {...item} />
       ))}
     </div>

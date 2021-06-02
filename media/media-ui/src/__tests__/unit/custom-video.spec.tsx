@@ -49,7 +49,7 @@ type mockWidthObserver = typeof WidthObserver;
 
 jest.mock('@atlaskit/width-detector', () => {
   return {
-    WidthObserver: (props => {
+    WidthObserver: ((props) => {
       return null;
     }) as mockWidthObserver,
   };
@@ -451,7 +451,7 @@ describe('<CustomMediaPlayer />', () => {
 
   const sourceTypes: CustomMediaPlayerProps['type'][] = ['video', 'audio'];
 
-  sourceTypes.forEach(sourceType => {
+  sourceTypes.forEach((sourceType) => {
     describe('with save last watch time feature', () => {
       it(`should continue play from last watch time for the same ${sourceType} with more than 60 seconds left to play`, () => {
         const { component } = setup({

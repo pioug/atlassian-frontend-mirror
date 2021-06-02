@@ -117,7 +117,7 @@ describe('Image Placer', () => {
       expect(instance.zoomToFit).toHaveBeenCalled();
     });
 
-    it('should provide ImagePlacerAPI when image loads successfully', done => {
+    it('should provide ImagePlacerAPI when image loads successfully', (done) => {
       setup({
         ...defaultProps,
         onImageActions: (api: ImageActions) => {
@@ -267,7 +267,7 @@ describe('Image Placer', () => {
     describe('Applying Constraints', () => {
       describe('Using Constraints', () => {
         it('should snap left/right edges', () => {
-          imageSizes.forEach(imageSize => {
+          imageSizes.forEach((imageSize) => {
             const { instance } = setup(defaultProps, imageSize, imageSize);
             const { visibleBounds } = instance;
             for (let x = -largeSize; x <= largeSize; x += 1) {
@@ -280,7 +280,7 @@ describe('Image Placer', () => {
         });
 
         it('should snap top/bottom edges', () => {
-          imageSizes.forEach(imageSize => {
+          imageSizes.forEach((imageSize) => {
             const { instance } = setup(defaultProps, imageSize, imageSize);
             const { visibleBounds } = instance;
             for (let y = -largeSize; y <= largeSize; y++) {
@@ -295,7 +295,7 @@ describe('Image Placer', () => {
 
       describe('Not Using Constraints', () => {
         it('should snap left edge', () => {
-          imageSizes.forEach(imageSize => {
+          imageSizes.forEach((imageSize) => {
             const { instance } = setup(defaultProps, imageSize, imageSize);
             const { visibleBounds } = instance;
             for (let x = -largeSize; x <= largeSize; x++) {
@@ -307,7 +307,7 @@ describe('Image Placer', () => {
         });
 
         it('should snap top edge', () => {
-          imageSizes.forEach(imageSize => {
+          imageSizes.forEach((imageSize) => {
             const { instance } = setup(defaultProps, imageSize, imageSize);
             const { visibleBounds } = instance;
             for (let y = -largeSize; y <= largeSize; y++) {
@@ -319,7 +319,7 @@ describe('Image Placer', () => {
         });
 
         it('should snap bottom edge', () => {
-          imageSizes.forEach(imageSize => {
+          imageSizes.forEach((imageSize) => {
             const { instance } = setup(defaultProps, imageSize, imageSize);
             const { visibleBounds } = instance;
             for (let y = -largeSize; y <= largeSize; y++) {
@@ -331,7 +331,7 @@ describe('Image Placer', () => {
         });
 
         it('should snap right edge', () => {
-          imageSizes.forEach(imageSize => {
+          imageSizes.forEach((imageSize) => {
             const { instance } = setup(defaultProps, imageSize, imageSize);
             const { visibleBounds } = instance;
             for (let x = -largeSize; x <= largeSize; x++) {
@@ -346,7 +346,7 @@ describe('Image Placer', () => {
 
     describe('Zoom', () => {
       it('should scale image up/down if imageSourceRect different than visibleBounds when using constraints', () => {
-        imageSizes.forEach(imageSize => {
+        imageSizes.forEach((imageSize) => {
           const { instance } = setup(defaultProps, imageSize, imageSize);
           const { imageBounds } = instance;
           expect(imageBounds.width).toEqual(mediumSize);
@@ -355,7 +355,7 @@ describe('Image Placer', () => {
       });
 
       it('should scale image up/down if imageSourceRect different than visibleBounds when not using constraints', () => {
-        imageSizes.forEach(imageSize => {
+        imageSizes.forEach((imageSize) => {
           const { instance } = setup(
             {
               ...defaultProps,
@@ -664,7 +664,7 @@ describe('Image Placer', () => {
       expect(setZoom).toHaveBeenCalledWith(0);
     });
 
-    it('should call onZoomChange during wheel event', done => {
+    it('should call onZoomChange during wheel event', (done) => {
       const { instance } = setup({
         ...defaultProps,
         onZoomChange(zoom: number) {

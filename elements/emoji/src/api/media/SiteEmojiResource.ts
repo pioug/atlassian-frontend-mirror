@@ -93,7 +93,7 @@ export default class SiteEmojiResource {
     progressCallback?: EmojiProgessCallback,
   ): Promise<EmojiDescription> {
     const startTime = Date.now();
-    return this.tokenManager.getToken('upload').then(uploadToken => {
+    return this.tokenManager.getToken('upload').then((uploadToken) => {
       const tokenLoadTime = Date.now() - startTime;
       debug('upload token load time', tokenLoadTime);
       return new Promise<EmojiDescription>((resolve, reject) => {
@@ -114,7 +114,7 @@ export default class SiteEmojiResource {
             collection: collectionName,
           })
           .subscribe({
-            next: state => {
+            next: (state) => {
               if (state.status === 'uploading' && progressCallback) {
                 progressCallback({
                   percent: state.progress * mediaProportionOfProgress,
@@ -129,10 +129,10 @@ export default class SiteEmojiResource {
                   mediaUploadTime,
                 );
                 this.postToEmojiService(upload, state.id)
-                  .then(emoji => {
+                  .then((emoji) => {
                     resolve(emoji);
                   })
-                  .catch(httpError => {
+                  .catch((httpError) => {
                     reject(httpError.reason || httpError);
                   });
               }
@@ -155,7 +155,7 @@ export default class SiteEmojiResource {
       'upload',
     );
     return tokenPromise.then(
-      token => {
+      (token) => {
         return token !== undefined;
       },
       () => {
@@ -174,11 +174,11 @@ export default class SiteEmojiResource {
   findEmoji(emojiId: EmojiId): Promise<OptionalEmojiDescription> {
     const path = `../${emojiId.id}`;
     return emojiRequest(this.siteServiceConfig, { path })
-      .then(serviceResponse => {
+      .then((serviceResponse) => {
         const response = denormaliseEmojiServiceResponse(serviceResponse);
         return response.emojis[0];
       })
-      .catch(error => {
+      .catch((error) => {
         debug('failed to load emoji', emojiId, error);
         return undefined;
       });

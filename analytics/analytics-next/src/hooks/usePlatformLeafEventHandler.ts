@@ -42,7 +42,7 @@ export function usePlatformLeafEventHandler<T>({
   const fnRef = useTrackedRef(fn);
 
   const handler = useCallback<(value: T) => void>(
-    value => {
+    (value) => {
       const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
         action,
         actionSubject: actionSubject || componentName,

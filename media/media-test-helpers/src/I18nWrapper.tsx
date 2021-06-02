@@ -20,7 +20,7 @@ const selectableLocales = defaultLocales.reduce((result, locale) => {
 }, [] as Locale[]);
 
 function addAllLocaleData() {
-  Object.keys(locales).forEach(localeKey => {
+  Object.keys(locales).forEach((localeKey) => {
     const lang = localeKey.substring(0, 2);
     const localeData = require(`react-intl/locale-data/${lang}`);
     addLocaleData(localeData);

@@ -27,7 +27,7 @@ export class Bitmap {
   }
 
   unload(contextLost: boolean): void {
-    this.fragments.forEach(fragment => fragment.unload(contextLost));
+    this.fragments.forEach((fragment) => fragment.unload(contextLost));
   }
 
   get numberOfFragments(): number {
@@ -37,7 +37,7 @@ export class Bitmap {
   getFragmentPosition(fragmentIndex: number): FragmentPosition | null {
     return this.applyToFragment(
       fragmentIndex,
-      fragment => fragment.position,
+      (fragment) => fragment.position,
       null,
     );
   }
@@ -45,7 +45,7 @@ export class Bitmap {
   bindFragment(fragmentIndex: number): boolean {
     return this.applyToFragment(
       fragmentIndex,
-      fragment => fragment.bind(),
+      (fragment) => fragment.bind(),
       false,
     );
   }

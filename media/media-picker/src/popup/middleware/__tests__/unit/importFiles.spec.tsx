@@ -127,7 +127,7 @@ describe('importFiles middleware', () => {
       },
     ) => {
       // Go through all local uploads
-      Object.keys(localUploads).forEach(key => {
+      Object.keys(localUploads).forEach((key) => {
         const { id, mimeType, name, size } = localUploads[key].file.metadata;
         // Find corresponding FileState in the stream cache.
         let userFileStateSubject = getFileStreamsCache().get(id);
@@ -256,7 +256,7 @@ describe('importFiles middleware', () => {
     ).mockImplementation(getFileStateImpl);
     asMock(
       store.getState().tenantMediaClient.file.getCurrentState,
-    ).mockImplementation(id => observableToPromise(getFileStateImpl(id)!));
+    ).mockImplementation((id) => observableToPromise(getFileStateImpl(id)!));
 
     const wsConnectionHolder = mockWsConnectionHolder();
     const mockWsProvider = {
@@ -297,7 +297,7 @@ describe('importFiles middleware', () => {
     actionTypeCheckPredicate: (action: Action) => action is T,
   ): T[] {
     const actions = asMockFunction(store.dispatch).mock.calls.map(
-      args => args[0],
+      (args) => args[0],
     ) as Action[];
     return actions.filter(actionTypeCheckPredicate);
   }
@@ -847,7 +847,7 @@ describe('importFiles middleware', () => {
       return;
     });
 
-    it('emits upload-error when touch fails', done => {
+    it('emits upload-error when touch fails', (done) => {
       const { eventEmitter, mockWsProvider, store } = setup();
       const mockClient = fakeMediaClient();
       const mockError = new Error('network I guess');
@@ -866,7 +866,7 @@ describe('importFiles middleware', () => {
       importFiles(eventEmitter, newStore, mockWsProvider);
     });
 
-    it('emits upload-error when ws provider fails', done => {
+    it('emits upload-error when ws provider fails', (done) => {
       const { eventEmitter, mockWsProvider, store } = setup();
       asMock(mockWsProvider.getWsConnectionHolder).mockImplementation(() => {
         throw mockError;
@@ -880,7 +880,7 @@ describe('importFiles middleware', () => {
       importFiles(eventEmitter, store, mockWsProvider);
     });
 
-    it('emits upload-error when ws openconnection fails', done => {
+    it('emits upload-error when ws openconnection fails', (done) => {
       const {
         eventEmitter,
         wsConnectionHolder,
@@ -899,7 +899,7 @@ describe('importFiles middleware', () => {
       importFiles(eventEmitter, store, mockWsProvider);
     });
 
-    it('emits upload-error when ws send fails', done => {
+    it('emits upload-error when ws send fails', (done) => {
       const {
         eventEmitter,
         wsConnectionHolder,
@@ -1219,7 +1219,7 @@ describe('importFiles middleware', () => {
       });
       const { tenantMediaClient } = store.getState();
       await Promise.all(
-        selectedFiles.map(selectedFile =>
+        selectedFiles.map((selectedFile) =>
           touchSelectedFile(selectedFile.touchFileDescriptor, store),
         ),
       );

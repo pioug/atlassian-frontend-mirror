@@ -20,7 +20,7 @@ const emojiTypeAheadModuleLoader = () =>
 
 const emojiTypeAheadComponentLoader: () => Promise<
   ComponentClass<ComponentProps>
-> = () => emojiTypeAheadModuleLoader().then(module => module.default);
+> = () => emojiTypeAheadModuleLoader().then((module) => module.default);
 
 export interface Props extends EmojiTypeAheadBaseProps, LoadingProps {
   /** CSS selector, or target HTML element */
@@ -72,7 +72,7 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<
   };
 
   asyncLoadComponent() {
-    emojiTypeAheadComponentLoader().then(component => {
+    emojiTypeAheadComponentLoader().then((component) => {
       EmojiTypeahead.AsyncLoadedComponent = component;
       this.setAsyncState(component);
     });

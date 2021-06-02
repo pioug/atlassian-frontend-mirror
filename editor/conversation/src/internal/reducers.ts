@@ -36,7 +36,7 @@ export const getNestedDepth = (
   }
 
   const parent = conversation.comments.find(
-    comment => comment.commentId === parentId,
+    (comment) => comment.commentId === parentId,
   );
 
   if (!parent) {
@@ -54,7 +54,7 @@ const updateComment = (
   comments: Comment[] | undefined,
   newComment: Comment,
 ) => {
-  return (comments || []).map(comment => {
+  return (comments || []).map((comment) => {
     if (
       (newComment.localId && comment.localId === newComment.localId) ||
       comment.commentId === newComment.commentId
@@ -73,7 +73,7 @@ const removeComment = (
   comments: Comment[] | undefined,
   commentToRemove: Comment,
 ) => {
-  return (comments || []).filter(comment => {
+  return (comments || []).filter((comment) => {
     return (
       (commentToRemove.localId &&
         comment.localId !== commentToRemove.localId) ||
@@ -86,7 +86,7 @@ const updateConversation = (
   conversations: Conversation[],
   newConversation: Conversation,
 ) => {
-  return conversations.map(conversation => {
+  return conversations.map((conversation) => {
     if (conversation.localId === newConversation.localId) {
       return newConversation;
     }
@@ -98,7 +98,7 @@ const updateCommentInConversation = (
   conversations: Conversation[],
   newComment: Comment,
 ) => {
-  return conversations.map(conversation => {
+  return conversations.map((conversation) => {
     if (conversation.conversationId === newComment.conversationId) {
       const comments = updateComment(conversation.comments, newComment);
       return {
@@ -114,14 +114,14 @@ const addOrUpdateCommentInConversation = (
   conversations: Conversation[],
   newComment: Comment,
 ) => {
-  return conversations.map(conversation => {
+  return conversations.map((conversation) => {
     if (conversation.conversationId === newComment.conversationId) {
       const { comments = [] } = conversation;
 
       // If the comment already exists, update the existing one
       if (
         newComment.localId &&
-        comments.some(comment => newComment.localId === comment.localId)
+        comments.some((comment) => newComment.localId === comment.localId)
       ) {
         return {
           ...conversation,
@@ -221,7 +221,7 @@ export const reducers = createReducer(initialState, {
           };
         }
 
-        conversation.comments = conversation.comments.map(comment => ({
+        conversation.comments = conversation.comments.map((comment) => ({
           ...comment,
           nestedDepth: getNestedDepth(conversation, comment.parentId),
         }));

@@ -10,7 +10,7 @@ export default function (
 ): State {
   if (action.type === UNLINK_ACCOUNT) {
     const accounts = state.accounts.then((accounts: ServiceAccountWithType[]) =>
-      accounts.slice().filter(account => account.id !== action.account.id),
+      accounts.slice().filter((account) => account.id !== action.account.id),
     );
     return { ...state, accounts };
   } else {

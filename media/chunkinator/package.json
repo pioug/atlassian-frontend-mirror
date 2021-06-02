@@ -37,7 +37,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/media-common": "^2.7.0",
     "@atlaskit/media-test-helpers": "^28.2.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "mockdate": "^3.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
@@ -45,5 +45,5 @@
     "styled-components": "^3.2.6",
     "typescript": "3.9.6"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

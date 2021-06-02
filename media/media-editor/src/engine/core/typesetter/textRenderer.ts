@@ -56,8 +56,8 @@ export const renderText = (
   // We need to check the generated textures. Their amount must be the same and all of them must be valid
   const generationCompleted =
     normalTextures.length === strokeTextures.length &&
-    normalTextures.every(tex => !!tex.texture) &&
-    strokeTextures.every(tex => !!tex.texture);
+    normalTextures.every((tex) => !!tex.texture) &&
+    strokeTextures.every((tex) => !!tex.texture);
   if (!generationCompleted) {
     // An unexpected error occured. We should delete all the textures and return false
     deleteTextures(gl, normalTextures);
@@ -273,7 +273,7 @@ const deleteTextures = (
   gl: WebGLRenderingContext,
   textures: Array<GeneratedTexture>,
 ): void => {
-  textures.forEach(gen => {
+  textures.forEach((gen) => {
     if (gen.texture) {
       gl.deleteTexture(gen.texture);
     }

@@ -56,7 +56,7 @@ export default class TokenManager {
     // request a new token and track the promise for future requests until completed
     tokenDetail.activeTokenRefresh = serviceUtils
       .requestService<MediaApiToken>(this.siteServiceConfig, { path })
-      .then(mediaApiToken => {
+      .then((mediaApiToken) => {
         tokenDetail.activeTokenRefresh = undefined;
         tokenDetail.mediaApiToken = mediaApiToken;
         return mediaApiToken;

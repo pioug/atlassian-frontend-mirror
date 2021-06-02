@@ -89,7 +89,7 @@ describe('MimeType Icon', () => {
         icon: PresentationIcon,
       },
       { mime: 'text/plain', name: '.source-code.c', icon: SourceCodeIcon },
-    ].forEach(doc => {
+    ].forEach((doc) => {
       const component = shallow(
         <MimeTypeIcon mediaType={'doc'} mimeType={doc.mime} name={doc.name} />,
       );

@@ -81,7 +81,7 @@ describe('CollectionFetcher', () => {
   });
 
   describe('getItems()', () => {
-    it('should fetch items from the given collection', done => {
+    it('should fetch items from the given collection', (done) => {
       const { collectionFetcher, contents, getCollectionItems } = setup();
 
       collectionFetcher.getItems(RECENTS_COLLECTION).subscribe({
@@ -93,7 +93,7 @@ describe('CollectionFetcher', () => {
       });
     });
 
-    it('should replace items with the local ones', async done => {
+    it('should replace items with the local ones', async (done) => {
       const { collectionFetcher, getCollectionItems, newItem } = setup();
 
       collectionFetcher.getItems(RECENTS_COLLECTION).subscribe({
@@ -120,7 +120,7 @@ describe('CollectionFetcher', () => {
       });
     });
 
-    it('should populate cache', done => {
+    it('should populate cache', (done) => {
       const { collectionFetcher } = setup();
 
       expect(getFileStreamsCache().size).toEqual(0);
@@ -134,7 +134,7 @@ describe('CollectionFetcher', () => {
       });
     });
 
-    it('should make request with given options', done => {
+    it('should make request with given options', (done) => {
       const { collectionFetcher, getCollectionItems } = setup();
 
       collectionFetcher
@@ -158,7 +158,7 @@ describe('CollectionFetcher', () => {
         });
     });
 
-    it('should update nextInclusiveStartKey every time', async done => {
+    it('should update nextInclusiveStartKey every time', async (done) => {
       const { collectionFetcher, getCollectionItems, contents } = setup();
 
       expect(collectionCache.recents).toBeUndefined();
@@ -185,7 +185,7 @@ describe('CollectionFetcher', () => {
       done();
     });
 
-    it('should call error callback if call to /items fails', done => {
+    it('should call error callback if call to /items fails', (done) => {
       const { collectionFetcher } = setup();
 
       collectionFetcher.mediaStore.getCollectionItems = jest
@@ -204,7 +204,7 @@ describe('CollectionFetcher', () => {
   });
 
   describe('loadNextPage()', () => {
-    it('should update nextInclusiveStartKey', async done => {
+    it('should update nextInclusiveStartKey', async (done) => {
       const { collectionFetcher, getCollectionItems, contents } = setup();
 
       collectionFetcher.getItems(RECENTS_COLLECTION).subscribe({
@@ -228,7 +228,7 @@ describe('CollectionFetcher', () => {
       });
     });
 
-    it('should do nothing if the page is already being fetched', done => {
+    it('should do nothing if the page is already being fetched', (done) => {
       const { collectionFetcher, getCollectionItems } = setup();
 
       collectionFetcher.getItems(RECENTS_COLLECTION).subscribe({
@@ -243,7 +243,7 @@ describe('CollectionFetcher', () => {
       });
     });
 
-    it('should append new items', async done => {
+    it('should append new items', async (done) => {
       const {
         collectionFetcher,
         getCollectionItems,
@@ -274,7 +274,7 @@ describe('CollectionFetcher', () => {
       await collectionFetcher.loadNextPage(RECENTS_COLLECTION);
     });
 
-    it('should not fetch next page items if current page nextInclusiveStartKey is null', done => {
+    it('should not fetch next page items if current page nextInclusiveStartKey is null', (done) => {
       const { collectionFetcher, getCollectionItems } = setup(null);
 
       collectionFetcher.getItems(RECENTS_COLLECTION).subscribe({
@@ -348,9 +348,9 @@ describe('CollectionFetcher', () => {
     it('should propagate the change in cached observable', async () => {
       const { collectionFetcher } = setup();
 
-      const updatedItems = await new Promise(async resolve => {
+      const updatedItems = await new Promise(async (resolve) => {
         collectionCache['some-collection-name'].subject.subscribe({
-          next: items => {
+          next: (items) => {
             resolve(items);
           },
         });

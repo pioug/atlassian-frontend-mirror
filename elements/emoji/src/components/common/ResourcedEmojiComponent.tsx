@@ -55,7 +55,7 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
       this.setState({
         loaded: false,
       });
-      foundEmoji.then(emoji => {
+      foundEmoji.then((emoji) => {
         if (this.ready) {
           // don't update state if component was unmounted
           this.setState({

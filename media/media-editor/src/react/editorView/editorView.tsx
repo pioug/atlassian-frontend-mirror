@@ -244,7 +244,7 @@ export class EditorView extends Component<
 }
 
 function isTool(value: string): value is Tool {
-  return tools.some(tool => tool === value);
+  return tools.some((tool) => tool === value);
 }
 
 export default injectIntl(EditorView);

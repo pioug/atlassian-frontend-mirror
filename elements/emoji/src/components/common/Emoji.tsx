@@ -176,10 +176,10 @@ const renderAsSprite = (props: Props) => {
   return (
     <span
       className={classNames(classes)}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
-      onMouseMove={event => {
+      onMouseMove={(event) => {
         handleMouseMove(props, event);
       }}
       aria-label={emoji.shortName}
@@ -278,10 +278,10 @@ const renderAsImage = (props: Props) => {
   return (
     <span
       className={classNames(classes)}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
-      onMouseMove={event => {
+      onMouseMove={(event) => {
         handleMouseMove(props, event);
       }}
       aria-label={emoji.shortName}

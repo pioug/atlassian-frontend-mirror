@@ -71,10 +71,10 @@ export const objectToQueryString = (json: {
 }): string => {
   return Object.keys(json)
     .filter(
-      attrName =>
+      (attrName) =>
         typeof json[attrName] !== 'undefined' && json[attrName] !== null,
     )
-    .map(key => {
+    .map((key) => {
       const value = json[key];
       if (typeof value === 'undefined' || value === null) {
         return;

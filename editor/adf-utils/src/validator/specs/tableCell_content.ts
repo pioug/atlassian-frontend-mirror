@@ -12,6 +12,7 @@ export default {
       'orderedList',
       'heading_with_no_marks',
       'heading_with_alignment',
+      'heading_with_indentation',
       'panel',
       'blockquote',
       'rule',

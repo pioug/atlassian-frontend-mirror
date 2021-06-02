@@ -12,7 +12,7 @@ const authHeaders = {
 
 const probingFunction = async (hashedBlobs: Chunk[]) => {
   const body = JSON.stringify({
-    chunks: hashedBlobs.map(hashedBlob => `${hashedBlob.hash}`),
+    chunks: hashedBlobs.map((hashedBlob) => `${hashedBlob.hash}`),
   });
 
   const response = await fetch(`${config.host}/chunk/probe`, {
@@ -69,7 +69,7 @@ const appendChunksToUpload = (
   offset: number,
 ) => {
   const body = JSON.stringify({
-    chunks: chunks.map(chunk => chunk.hash),
+    chunks: chunks.map((chunk) => chunk.hash),
     offset,
   });
 
@@ -100,8 +100,8 @@ const createFile = (uploadId: string) => {
       ...authHeaders,
     }),
   })
-    .then(r => r.json())
-    .then(response => {
+    .then((r) => r.json())
+    .then((response) => {
       const fileId = response.data.id;
 
       return fileId;
@@ -117,8 +117,8 @@ const fetchFile = (id: string) => {
       ...authHeaders,
     }),
   })
-    .then(r => r.json())
-    .then(response => {
+    .then((r) => r.json())
+    .then((response) => {
       const { processingStatus } = response.data;
       console.log('processingStatus', id, processingStatus);
 

@@ -98,7 +98,7 @@ export class BrowserCacheStrategy implements EmojiCacheStrategy {
         () =>
           // Image should be cached in browser, if supported it should be accessible from the cache by an <img/>
           // Try to load without via image to confirm this support (this fails in Firefox)
-          new Promise<boolean>(resolve => {
+          new Promise<boolean>((resolve) => {
             const img = new Image();
 
             img.addEventListener('load', () => {
@@ -158,7 +158,7 @@ export class MemoryCacheStrategy implements EmojiCacheStrategy {
     // Not cached, load
     return this.mediaImageLoader
       .loadMediaImage(mediaPath)
-      .then(dataURL => {
+      .then((dataURL) => {
         const loadedEmoji = convertMediaToImageEmoji(emoji, dataURL, useAlt);
         if (dataURL.length <= maxImageSize) {
           // Only cache if not large than max size
@@ -216,7 +216,7 @@ export default class MediaEmojiCache {
     if (isPromise(emojiCache)) {
       // Promise based
       return emojiCache
-        .then(cache => cache.loadEmoji(emoji, useAlt))
+        .then((cache) => cache.loadEmoji(emoji, useAlt))
         .catch(() => undefined);
     }
 
@@ -229,7 +229,7 @@ export default class MediaEmojiCache {
     if (isPromise(emojiCache)) {
       // Promise based
       return emojiCache
-        .then(cache => cache.optimisticRendering())
+        .then((cache) => cache.optimisticRendering())
         .catch(() => false);
     }
 
@@ -245,12 +245,12 @@ export default class MediaEmojiCache {
     this.waitingInitUrls.push(url);
     if (!this.cacheLoading) {
       this.cacheLoading = this.initCache()
-        .then(cache => {
+        .then((cache) => {
           this.cache = cache;
           this.cacheLoading = undefined;
           return cache;
         })
-        .catch(err => {
+        .catch((err) => {
           this.cacheLoading = undefined;
           throw err;
         });
@@ -266,7 +266,7 @@ export default class MediaEmojiCache {
       );
     }
     return BrowserCacheStrategy.supported(url, this.mediaImageLoader)
-      .then(supported => {
+      .then((supported) => {
         this.waitingInitUrls = []; // clear
         this.cacheLoading = undefined;
         if (supported) {

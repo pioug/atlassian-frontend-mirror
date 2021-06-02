@@ -22,7 +22,7 @@ type Props = ListenerProps & {
 };
 
 export default class GenericAnalyticsListener extends React.Component<Props> {
-  listenerHandler: UIAnalyticsEventHandler = event => {
+  listenerHandler: UIAnalyticsEventHandler = (event) => {
     const { client, logger, channel, processEvent } = this.props;
     if (!event.payload) {
       return;

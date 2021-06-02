@@ -29,7 +29,7 @@ export const Wrapper = styled.div<WrapperProps>`
   max-height: 100%;
   max-width: 100%;
 
-  ${props => `
+  ${(props) => `
       width: ${props.dimensions.width};
       height: ${props.dimensions.height};
     `}

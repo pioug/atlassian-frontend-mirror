@@ -11,7 +11,7 @@ import {
 /* eslint-disable react/no-multi-comp */
 const Button = withAnalytics(
   class T extends Component {
-    onClick = e => {
+    onClick = (e) => {
       const { fireAnalyticsEvent, firePrivateAnalyticsEvent } = this.props;
       fireAnalyticsEvent('click');
       firePrivateAnalyticsEvent('private.button.click', { key: 'value' });

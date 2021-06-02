@@ -17,7 +17,7 @@ export const changeCloudAccountFolderMiddleware = (fetcher: Fetcher) => (
 
     userMediaClient.config
       .authProvider()
-      .then(auth =>
+      .then((auth) =>
         fetcher.fetchCloudAccountFolder(
           auth,
           serviceName,
@@ -25,7 +25,7 @@ export const changeCloudAccountFolderMiddleware = (fetcher: Fetcher) => (
           lastPath.id,
         ),
       )
-      .then(folder =>
+      .then((folder) =>
         store.dispatch(
           fileListUpdate(
             accountId,
@@ -37,7 +37,7 @@ export const changeCloudAccountFolderMiddleware = (fetcher: Fetcher) => (
           ),
         ),
       )
-      .catch(error => {
+      .catch((error) => {
         /* TODO: Error Collector */
         if (error.response && error.response.status === 401) {
           store.dispatch(

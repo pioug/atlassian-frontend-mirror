@@ -88,17 +88,17 @@ export const Wrapper: ComponentClass<
 > = styled.a`
   line-height: 16px;
   padding: 1px 0.24em 2px 0.24em;
-  ${props =>
+  ${(props) =>
     props.withoutBackground ? `padding-left: 0; margin-left:-2px;` : ''}
   display: inline;
   box-decoration-break: clone;
   border-radius: ${akBorderRadius()}px;
   color: ${themed({ light: B400, dark: '#4794FF' })};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.withoutBackground
       ? ''
       : themed({ light: 'white', dark: BACKGROUND_COLOR_DARK })};
-  ${props => (props.withoutBackground ? '' : e100())};
+  ${(props) => (props.withoutBackground ? '' : e100())};
   ${isInteractive}
   ${isSelected};
   ${withoutHover}

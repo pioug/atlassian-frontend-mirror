@@ -70,7 +70,7 @@ class Example extends Component<ComponentProps, ComponentState> {
       complete() {
         console.log('stream complete');
       },
-      error: error => {
+      error: (error) => {
         console.log('stream error', error);
         if (error === 'canceled') {
           const stream: FileState = {

@@ -13,7 +13,7 @@ import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 
 async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
-  return new Promise<void>(tickFinished => {
+  return new Promise<void>((tickFinished) => {
     process.nextTick(() => {
       wrapper.update();
       tickFinished();
@@ -114,7 +114,7 @@ const container = document.createElement('div');
       newCardExperience: false,
     },
   },
-].forEach(data => {
+].forEach((data) => {
   describe(`Dropzone with config: ${JSON.stringify(data.config)}`, () => {
     let component: ReactWrapper;
     const { config, expectedContainer, defaultFeatureFlags } = data;
@@ -135,7 +135,7 @@ const container = document.createElement('div');
 
       component = mount(<Dropzone mediaClient={mediaClient} config={config} />); // Must mount after syping
 
-      const events = addEventListenerSpy.mock.calls.map(args => args[0]);
+      const events = addEventListenerSpy.mock.calls.map((args) => args[0]);
       expect(events).toContain('dragover');
       expect(events).toContain('dragleave');
       expect(events).toContain('drop');
@@ -150,13 +150,13 @@ const container = document.createElement('div');
       component = mount(<Dropzone mediaClient={mediaClient} config={config} />); // Must mount after syping
       component.unmount();
 
-      const events = removeEventListenerSpy.mock.calls.map(args => args[0]);
+      const events = removeEventListenerSpy.mock.calls.map((args) => args[0]);
       expect(events).toContain('dragover');
       expect(events).toContain('dragleave');
       expect(events).toContain('drop');
     });
 
-    it('should emit drag-enter for drag over with type "Files" and contain files length', done => {
+    it('should emit drag-enter for drag over with type "Files" and contain files length', (done) => {
       component = mount(
         <Dropzone
           mediaClient={mediaClient}
@@ -171,7 +171,7 @@ const container = document.createElement('div');
       expectedContainer.dispatchEvent(createDragOverEvent());
     });
 
-    it('should not emit drag-enter for drag over with type "Not Files"', done => {
+    it('should not emit drag-enter for drag over with type "Not Files"', (done) => {
       component = mount(
         <Dropzone
           mediaClient={mediaClient}
@@ -188,7 +188,7 @@ const container = document.createElement('div');
       done();
     });
 
-    it('should emit drag-leave for dragleave event', async done => {
+    it('should emit drag-leave for dragleave event', async (done) => {
       component = mount(
         <Dropzone
           mediaClient={mediaClient}
@@ -422,7 +422,7 @@ const container = document.createElement('div');
         expectedContainer.dispatchEvent(createDragLeaveEvent());
 
         // Drag leave has a setTimeout before firing the event we need to offset here
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
 
         expect(handleAnalyticsEvent).toHaveBeenCalledTimes(2);
         expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(

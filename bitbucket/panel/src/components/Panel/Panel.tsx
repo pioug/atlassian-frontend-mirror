@@ -21,7 +21,7 @@ export default class Panel extends PureComponent<Props, State> {
   };
 
   handleChange = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       isExpanded: !prevState.isExpanded,
     }));
   };

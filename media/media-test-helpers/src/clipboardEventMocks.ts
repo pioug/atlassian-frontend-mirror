@@ -49,7 +49,7 @@ export class MockFileList extends Array<File> {
 
   static fromArray(files: File[]) {
     const list = new MockFileList();
-    files.forEach(file => list.push(file));
+    files.forEach((file) => list.push(file));
     return list;
   }
 }

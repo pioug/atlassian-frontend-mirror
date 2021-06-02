@@ -56,7 +56,7 @@ describe('DuplicateLimitedQueue', () => {
         maxDuplicates: 3,
         minUniqueItems: 2,
       }); /// queue size of 6
-      itemsToAdd.slice(0, 6).map(value => queue.enqueue(value));
+      itemsToAdd.slice(0, 6).map((value) => queue.enqueue(value));
 
       let queuedItems = queue.getItemsOrderedByDuplicateCount();
       expect(queuedItems).toHaveLength(6);
@@ -94,7 +94,7 @@ describe('DuplicateLimitedQueue', () => {
         maxDuplicates: 3,
         minUniqueItems: 2,
       });
-      itemsToAdd.map(value => queue.enqueue(value));
+      itemsToAdd.map((value) => queue.enqueue(value));
 
       let queuedItems = queue.getItemsOrderedByDuplicateCount();
       expect(queuedItems).toHaveLength(3);
@@ -122,7 +122,7 @@ describe('DuplicateLimitedQueue', () => {
         maxDuplicates: 3,
         minUniqueItems: 3,
       });
-      itemsToAdd.map(value => queue.enqueue(value));
+      itemsToAdd.map((value) => queue.enqueue(value));
 
       let queuedItems = queue.getItemsOrderedByDuplicateCount();
       expect(queuedItems).toHaveLength(4);
@@ -134,7 +134,7 @@ describe('DuplicateLimitedQueue', () => {
 
       // removed the item we just matched
       equalFrequencyItems = equalFrequencyItems.filter(
-        value => value !== queuedItems[2],
+        (value) => value !== queuedItems[2],
       );
       expect(queuedItems[3]).toEqual(equalFrequencyItems[0]);
     });
@@ -146,7 +146,7 @@ describe('DuplicateLimitedQueue', () => {
         maxDuplicates: 4,
         minUniqueItems: 3,
       });
-      itemsToAdd.map(value => queue.enqueue(value));
+      itemsToAdd.map((value) => queue.enqueue(value));
 
       let queuedItems = queue.getItemsOrderedByDuplicateCount();
       expect(queuedItems).toHaveLength(3);

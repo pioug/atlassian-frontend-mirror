@@ -125,7 +125,7 @@ export class EmojiResource
       const loader = new EmojiLoader(provider);
       const emojis = loader.loadEmoji();
       emojis
-        .then(emojiResponse => {
+        .then((emojiResponse) => {
           emojiResponses[index] = emojiResponse;
           this.initEmojiRepository(emojiResponses);
           this.initSiteEmojiResource(emojiResponse, provider).then(() => {
@@ -134,7 +134,7 @@ export class EmojiResource
             this.refreshLastFilter();
           });
         })
-        .catch(reason => {
+        .catch((reason) => {
           this.activeLoaders--;
           this.notifyError(reason);
         });
@@ -151,7 +151,7 @@ export class EmojiResource
 
   protected initEmojiRepository(emojiResponses: EmojiResponse[]): void {
     let emojis: EmojiDescription[] = [];
-    emojiResponses.forEach(emojiResponse => {
+    emojiResponses.forEach((emojiResponse) => {
       emojis = emojis.concat(emojiResponse.emojis);
     });
     this.emojiRepository = new EmojiRepository(emojis);
@@ -197,10 +197,10 @@ export class EmojiResource
       const result = retry();
       if (isPromise(result)) {
         result
-          .then(response => {
+          .then((response) => {
             resolveReject.resolve(response);
           })
-          .catch(reason => {
+          .catch((reason) => {
             resolveReject.reject(reason);
           });
       } else {
@@ -316,7 +316,7 @@ export class EmojiResource
           // all loaded but not found by id, try server to see if
           // this is a newly uploaded emoji
           if (this.siteEmojiResource) {
-            return this.siteEmojiResource.findEmoji(emojiId).then(emoji => {
+            return this.siteEmojiResource.findEmoji(emojiId).then((emoji) => {
               if (!emoji) {
                 // if not, fallback to searching by shortName to
                 // at least render an alternative
@@ -405,14 +405,14 @@ export class EmojiResource
     if (this.siteEmojiResource && emoji.id) {
       return this.siteEmojiResource
         .deleteEmoji(emoji)
-        .then(success => {
+        .then((success) => {
           if (success && this.emojiRepository) {
             this.emojiRepository.delete(emoji);
             return true;
           }
           return false;
         })
-        .catch(err => {
+        .catch((err) => {
           // eslint-disable-next-line no-console
           console.error('failed to delete site emoji', err);
           return false;
@@ -480,12 +480,12 @@ export default class UploadingEmojiResource
   }
 
   uploadCustomEmoji(upload: EmojiUpload): Promise<EmojiDescription> {
-    return this.isUploadSupported().then(supported => {
+    return this.isUploadSupported().then((supported) => {
       if (!supported || !this.siteEmojiResource) {
         return Promise.reject('No media api support is configured');
       }
 
-      return this.siteEmojiResource.uploadEmoji(upload).then(emoji => {
+      return this.siteEmojiResource.uploadEmoji(upload).then((emoji) => {
         this.addUnknownEmoji(emoji);
         this.refreshLastFilter();
         return emoji;

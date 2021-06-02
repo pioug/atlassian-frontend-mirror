@@ -21,7 +21,7 @@ export const IconMessage: React.FC<InternalIconMessageProps> = ({
   );
 };
 
-export const CreatingPreview: React.FC = props => (
+export const CreatingPreview: React.FC = (props) => (
   <IconMessage
     {...props}
     messageDescriptor={messages.creating_preview}
@@ -29,11 +29,11 @@ export const CreatingPreview: React.FC = props => (
   />
 );
 
-export const PreviewUnavailable: React.FC = props => (
+export const PreviewUnavailable: React.FC = (props) => (
   <IconMessage {...props} messageDescriptor={messages.preview_unavailable} />
 );
 
-export const RateLimited: React.FC = props => (
+export const RateLimited: React.FC = (props) => (
   <IconMessage
     {...props}
     messageDescriptor={messages.preview_rateLimited}
@@ -41,7 +41,7 @@ export const RateLimited: React.FC = props => (
   />
 );
 
-export const PreviewCurrentlyUnavailable: React.FC = props => (
+export const PreviewCurrentlyUnavailable: React.FC = (props) => (
   <IconMessage
     {...props}
     messageDescriptor={messages.preview_currently_unavailable}

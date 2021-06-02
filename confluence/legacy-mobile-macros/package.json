@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/legacy-mobile-macros",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Higher-order components that optionally add Confluence-specific functionality to editor-mobile-bridge",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,10 +15,10 @@
     "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^17.0.0",
-    "@atlaskit/adf-utils": "^13.0.0",
+    "@atlaskit/adf-schema": "^18.0.0",
+    "@atlaskit/adf-utils": "^14.0.0",
     "@atlaskit/button": "^15.1.0",
-    "@atlaskit/editor-common": "57.1.0",
+    "@atlaskit/editor-common": "57.1.1",
     "@atlaskit/icon": "^21.6.0",
     "@atlaskit/logo": "^13.3.0",
     "@atlaskit/spinner": "^15.0.0",
@@ -36,7 +36,7 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
     "react-dom": "^16.8.0",
     "wait-for-expect": "^1.2.0"
@@ -69,5 +69,5 @@
     }
   },
   "af:exports": {},
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

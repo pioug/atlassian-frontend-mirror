@@ -14,7 +14,7 @@ import { getPreviewFromMetadata } from '../../domain/preview';
 import { NonImagePreview, Preview } from '../../types';
 
 export default function (): Middleware {
-  return store => (next: Dispatch<State>) => (action: any) => {
+  return (store) => (next: Dispatch<State>) => (action: any) => {
     if (isGetPreviewAction(action)) {
       getPreview(store as any, action);
     }

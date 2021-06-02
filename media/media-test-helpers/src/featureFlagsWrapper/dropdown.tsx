@@ -74,7 +74,7 @@ const TextFieldItem: React.FC<{
       <Textfield
         name={`media-feature-flag-text-${name}`}
         defaultValue={value}
-        onChange={e => fieldChanged(e.currentTarget.value)}
+        onChange={(e) => fieldChanged(e.currentTarget.value)}
         type={isNumber ? 'number' : 'text'}
       />
     </ItemWrapper>
@@ -146,7 +146,7 @@ const MediaFeatureFlagsDropdown = ({
             filterFlags={filterFlags}
           />
         )}
-        trigger={triggerProps => (
+        trigger={(triggerProps) => (
           <Button
             {...triggerProps}
             isSelected={isOpen}

@@ -140,7 +140,7 @@ export default class EmojiPreview extends PureComponent<Props, State> {
     return (
       <div className={styles.AddCustomEmoji}>
         <FormattedMessage {...messages.addCustomEmojiLabel}>
-          {label => (
+          {(label) => (
             <AkButton
               onClick={onOpenUpload}
               iconBefore={<AddIcon label={label as string} size="small" />}

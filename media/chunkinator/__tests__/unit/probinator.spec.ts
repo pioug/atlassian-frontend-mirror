@@ -12,7 +12,7 @@ describe('Probinator', () => {
       prober: jest
         .fn()
         .mockImplementation((hashedBlobs: HashedBlob[]) =>
-          Promise.resolve(hashedBlobs.map(_ => exists)),
+          Promise.resolve(hashedBlobs.map((_) => exists)),
         ),
     };
   };
@@ -75,7 +75,7 @@ describe('Probinator', () => {
       prober,
     })
       .pipe(
-        tap(probedBlob => {
+        tap((probedBlob) => {
           expect(probedBlob.exists).toEqual(true);
         }),
       )
@@ -90,7 +90,7 @@ describe('Probinator', () => {
       prober,
     })
       .pipe(
-        tap(probedBlob => {
+        tap((probedBlob) => {
           expect(probedBlob.exists).toEqual(false);
         }),
       )
@@ -100,7 +100,7 @@ describe('Probinator', () => {
 
 function createHashedBlob$(count: number): Observable<HashedBlob> {
   return range(0, count).pipe(
-    map(hash => ({
+    map((hash) => ({
       blob: new Blob([]),
       hash: hash.toString(),
     })),

@@ -139,9 +139,9 @@ export class UploadServiceImpl implements UploadService {
 
         const { fileId: id, occurrenceKey } = touchFileDescriptors[i];
         const deferredUploadId = promisedTouchFiles
-          .then(touchedFiles => {
+          .then((touchedFiles) => {
             const touchedFile = touchedFiles.created.find(
-              touchedFile => touchedFile.fileId === id,
+              (touchedFile) => touchedFile.fileId === id,
             );
             if (!touchedFile) {
               // TODO No one seems to be caring about this error
@@ -151,7 +151,7 @@ export class UploadServiceImpl implements UploadService {
             }
             return touchedFile.uploadId;
           })
-          .catch(error => {
+          .catch((error) => {
             // note: any failures in this block will result in an error event being bubbled as required
             if (error instanceof RequestError) {
               const requestError = error as RequestError;
@@ -161,7 +161,7 @@ export class UploadServiceImpl implements UploadService {
               ) {
                 return mediaClient.mediaStore
                   .createUpload(1, collection)
-                  .then(res => {
+                  .then((res) => {
                     return res.data[0].id;
                   });
               }
@@ -219,7 +219,7 @@ export class UploadServiceImpl implements UploadService {
               onFileSuccess(cancellableFileUpload, id);
             }
           },
-          error: error => {
+          error: (error) => {
             this.onFileError(mediaFile, 'upload_fail', error);
           },
         });
@@ -233,7 +233,7 @@ export class UploadServiceImpl implements UploadService {
     );
 
     const mediaFiles = cancellableFileUploads.map(
-      cancellableFileUpload => cancellableFileUpload.mediaFile,
+      (cancellableFileUpload) => cancellableFileUpload.mediaFile,
     );
 
     this.emit('files-added', { files: mediaFiles });
@@ -247,7 +247,7 @@ export class UploadServiceImpl implements UploadService {
         cancellableFileUpload.cancel();
       }
     } else {
-      Object.keys(this.cancellableFilesUploads).forEach(key => {
+      Object.keys(this.cancellableFilesUploads).forEach((key) => {
         const cancellableFileUpload = this.cancellableFilesUploads[key];
         if (cancellableFileUpload.cancel) {
           cancellableFileUpload.cancel();
@@ -278,7 +278,7 @@ export class UploadServiceImpl implements UploadService {
   };
 
   private emitPreviews(cancellableFileUploads: CancellableFileUpload[]) {
-    cancellableFileUploads.forEach(cancellableFileUpload => {
+    cancellableFileUploads.forEach((cancellableFileUpload) => {
       const { file, mediaFile, source } = cancellableFileUpload;
       const { type } = file;
       const mediaType = this.getMediaTypeFromFile(file);
@@ -297,7 +297,7 @@ export class UploadServiceImpl implements UploadService {
           source === LocalFileSource.PastedScreenshot
             ? window.devicePixelRatio
             : undefined,
-        ).then(preview => {
+        ).then((preview) => {
           this.emit('file-preview-update', {
             file: mediaFile,
             preview,
@@ -305,7 +305,7 @@ export class UploadServiceImpl implements UploadService {
         });
       } else {
         getPreviewFromBlob(mediaType, file)
-          .then(preview => {
+          .then((preview) => {
             this.emit('file-preview-update', {
               file: mediaFile,
               preview,
@@ -392,7 +392,7 @@ export class UploadServiceImpl implements UploadService {
     const { collection: sourceCollection } = tenantUploadParams;
     const { authProvider: tenantAuthProvider } = this.tenantMediaClient.config;
     return tenantAuthProvider({ collectionName: sourceCollection }).then(
-      auth => {
+      (auth) => {
         const body: MediaStoreCopyFileWithTokenBody = {
           sourceFile: {
             id: sourceFileId,

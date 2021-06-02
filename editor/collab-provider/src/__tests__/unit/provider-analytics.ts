@@ -46,7 +46,7 @@ describe('#fireAnalyticsEvent', () => {
 
     describe('when analytics payload is missing information', () => {
       beforeEach(() => {
-        (window.requestAnimationFrame as jest.Mock).mockImplementation(cb =>
+        (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
           (cb as Function)(),
         );
       });
@@ -92,7 +92,7 @@ describe('#fireAnalyticsEvent', () => {
       });
 
       it('should fire the analytics events', () => {
-        requestIdleCallbackMock.mockImplementation(cb => (cb as Function)());
+        requestIdleCallbackMock.mockImplementation((cb) => (cb as Function)());
 
         (provider as any).onErrorHandled(stepRejectedError);
         expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
@@ -106,7 +106,7 @@ describe('#fireAnalyticsEvent', () => {
       });
 
       it('should fire the analytics events', () => {
-        (window.requestAnimationFrame as jest.Mock).mockImplementation(cb =>
+        (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
           (cb as Function)(),
         );
         (provider as any).onErrorHandled(stepRejectedError);

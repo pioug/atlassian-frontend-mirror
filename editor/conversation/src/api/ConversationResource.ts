@@ -552,14 +552,14 @@ export class ConversationResource extends AbstractConversationResource {
     }
 
     const [conversation] = state.conversations.filter(
-      c => c.conversationId === conversationId,
+      (c) => c.conversationId === conversationId,
     );
     if (!conversation) {
       return undefined;
     }
 
     const [comment] = (conversation.comments || []).filter(
-      c => c.commentId === commentId,
+      (c) => c.commentId === commentId,
     );
     return {
       ...comment,

@@ -125,7 +125,7 @@ export class SmartMediaEditor extends React.Component<
     const getFileSubscription = mediaClient.file
       .getFileState(id, { collectionName, occurrenceKey })
       .subscribe({
-        next: async state => {
+        next: async (state) => {
           if (state.status === 'error') {
             this.onError(state.message);
             this.getFileUnsubscribeTimeoutId = window.setTimeout(
@@ -163,7 +163,7 @@ export class SmartMediaEditor extends React.Component<
             );
           }
         },
-        error: error => {
+        error: (error) => {
           this.onError(error);
         },
       });
@@ -239,7 +239,7 @@ export class SmartMediaEditor extends React.Component<
       collectionName,
     );
     const deferredUploadId = touchedFiles.then(
-      touchedFiles => touchedFiles.created[0].uploadId,
+      (touchedFiles) => touchedFiles.created[0].uploadId,
     );
     const uploadableFileUpfrontIds = {
       id,
@@ -275,7 +275,7 @@ export class SmartMediaEditor extends React.Component<
     );
 
     const uploadingFileStateSubscription = uploadingFileState.subscribe({
-      next: fileState => {
+      next: (fileState) => {
         if (fileState.status === 'processing') {
           this.copyFileToUserCollection(fileState.id).then(() => {
             if (onFinish) {

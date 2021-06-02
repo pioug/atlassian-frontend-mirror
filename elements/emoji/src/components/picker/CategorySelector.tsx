@@ -39,7 +39,7 @@ const addNewCategories = (
   }
   return oldCategories
     .concat(
-      newCategories.filter(category => !!CategoryDescriptionMap[category]),
+      newCategories.filter((category) => !!CategoryDescriptionMap[category]),
     )
     .sort(sortCategories);
 };
@@ -113,7 +113,7 @@ export default class CategorySelector extends PureComponent<Props, State> {
             return (
               <li key={category.id}>
                 <FormattedMessage {...messages[category.name]}>
-                  {categoryName => (
+                  {(categoryName) => (
                     <button
                       data-category-id={category.id}
                       className={classNames(categoryClasses)}

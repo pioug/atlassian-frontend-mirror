@@ -67,7 +67,7 @@ export const getErrorMessageFromError = (
   error: MediaViewerError,
 ): FormattedMessage.MessageDescriptor | undefined => {
   const matchingRow = errorReasonToMessages.find(
-    row =>
+    (row) =>
       row[0] === getPrimaryErrorReason(error) ||
       row[0] === getSecondaryErrorReason(error),
   );

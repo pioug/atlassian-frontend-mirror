@@ -149,7 +149,7 @@ describe('FileCardImageView', () => {
       shallow(<FileCardImageView status="processing" mediaItemType="file" />),
   };
 
-  Object.keys(renderLoadingContentsCards).forEach(description => {
+  Object.keys(renderLoadingContentsCards).forEach((description) => {
     describe(description, () => {
       let card: ShallowWrapper<FileCardImageViewProps>;
 
@@ -512,7 +512,7 @@ describe('FileCardImageView', () => {
   });
 
   const mediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
-  mediaTypes.forEach(mediaType => {
+  mediaTypes.forEach((mediaType) => {
     it(`should not call onDisplayImage when mediaType is ${mediaType}`, () => {
       shallow(
         <FileCardImageView

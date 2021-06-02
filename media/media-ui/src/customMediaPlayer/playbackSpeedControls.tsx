@@ -56,7 +56,7 @@ export class PlaybackSpeedControls extends Component<
   ];
 
   private popupCustomStyles: StylesConfig = {
-    container: styles => ({ ...styles, backgroundColor: N900 }),
+    container: (styles) => ({ ...styles, backgroundColor: N900 }),
   };
 
   private onResize = (width: number) => {
@@ -83,7 +83,7 @@ export class PlaybackSpeedControls extends Component<
     const { playbackSpeed, intl } = this.props;
     const { popupHeight } = this.state;
     const value = this.speedOptions()[0].options.find(
-      option => option.value === playbackSpeed,
+      (option) => option.value === playbackSpeed,
     );
 
     const popperProps: PopupSelect['props']['popperProps'] = {
@@ -119,7 +119,7 @@ export class PlaybackSpeedControls extends Component<
           maxMenuHeight={popupHeight}
           options={this.speedOptions()}
           value={value}
-          theme={theme => ({
+          theme={(theme) => ({
             ...theme,
             colors: { ...theme.colors, primary25: N600 },
           })}

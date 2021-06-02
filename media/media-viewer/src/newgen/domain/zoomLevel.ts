@@ -27,9 +27,9 @@ export class ZoomLevel {
   get zoomLevels(): number[] {
     return deduplicated(
       sortNumbers(
-        BASE_ZOOM_LEVELS.map(zoomLevel => zoomLevel * this.initialValue).concat(
-          1,
-        ), // make sure 100% is selectable
+        BASE_ZOOM_LEVELS.map(
+          (zoomLevel) => zoomLevel * this.initialValue,
+        ).concat(1), // make sure 100% is selectable
       ),
     ); // and that all levels are ordered
   }

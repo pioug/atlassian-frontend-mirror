@@ -66,12 +66,12 @@ export class InlineCardForbiddenView extends React.Component<
     return (
       <>
         <FormattedMessage {...messages.invalid_permissions}>
-          {formattedMessage => {
+          {(formattedMessage) => {
             return <>{formattedMessage}, </>;
           }}
         </FormattedMessage>
         <FormattedMessage {...messages.try_another_account}>
-          {formattedMessage => {
+          {(formattedMessage) => {
             return (
               <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
             );

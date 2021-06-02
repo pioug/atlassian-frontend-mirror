@@ -7,7 +7,7 @@ import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
 import * as styles from './styles';
 
-const DeleteButton: FC<CustomThemeButtonProps> = props => (
+const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
   <span className={styles.deleteButton}>
     <Button
       iconBefore={

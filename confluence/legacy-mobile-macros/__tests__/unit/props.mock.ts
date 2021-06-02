@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 
 export const createPromise = () => {
   return {
-    submit: () => new Promise(resolve => resolve()),
+    submit: () => new Promise((resolve) => resolve()),
   };
 };
 

@@ -23,7 +23,7 @@ export const ActionList = ({ items }: ActionListProps) => {
   return (
     <div css={mq({ display: 'flex', marginTop: [gs(2), 0] })}>
       <ButtonGroup>
-        {actionsToShow.map(action => (
+        {actionsToShow.map((action) => (
           <Action key={action.id} {...action} />
         ))}
       </ButtonGroup>
@@ -38,7 +38,7 @@ export const ActionList = ({ items }: ActionListProps) => {
             isOpen={isOpen}
             trigger={<Button spacing="compact">...</Button>}
           >
-            {actionsToList.map(actionToList => (
+            {actionsToList.map((actionToList) => (
               <Item key={actionToList.id}>{actionToList.text}</Item>
             ))}
           </DropList>

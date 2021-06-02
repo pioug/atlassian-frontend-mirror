@@ -30,7 +30,7 @@ const defaultOptions: GetCardStatusParams = {
 describe('getCardStatus()', () => {
   it.each([`processing`, `error`, `failed-processing`, `uploading`] as const)(
     'should return the file status based on fileState if is %s',
-    status => {
+    (status) => {
       expect(getCardStatus(status, defaultOptions)).toEqual(status);
     },
   );

@@ -106,7 +106,7 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
 
     if (isPromise<EmojiDescription>(loadedEmoji)) {
       loadedEmoji
-        .then(cachedEmoji => {
+        .then((cachedEmoji) => {
           if (this.mounted) {
             this.setState({
               cachedEmoji,

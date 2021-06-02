@@ -112,7 +112,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
           collectionName: identifier.collectionName,
         })
         .subscribe({
-          next: file => {
+          next: (file) => {
             this.setState({
               item: Outcome.successful(file),
             });
@@ -134,7 +134,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
     return item.match({
       pending: () => DisabledToolbarDownloadButton,
       failed: () => DisabledToolbarDownloadButton,
-      successful: item => (
+      successful: (item) => (
         <ToolbarDownloadButton
           state={item}
           identifier={identifier}
@@ -187,7 +187,7 @@ export class Header extends React.Component<Props & InjectedIntlProps, State> {
   private renderMetadata() {
     const { item } = this.state;
     return item.match({
-      successful: item => this.renderMetadataLayout(item),
+      successful: (item) => this.renderMetadataLayout(item),
       pending: () => null,
       failed: () => null,
     });

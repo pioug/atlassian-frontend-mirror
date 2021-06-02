@@ -31,9 +31,9 @@ const mergePlugins = (
 ) => {
   if (currentPlugins && currentPlugins.length > 0) {
     const newPlugins = incomingPlugins.filter(
-      incomingPlugin =>
+      (incomingPlugin) =>
         !currentPlugins.some(
-          currentPlugin => currentPlugin.name === incomingPlugin.name,
+          (currentPlugin) => currentPlugin.name === incomingPlugin.name,
         ),
     );
     return currentPlugins.concat(newPlugins);

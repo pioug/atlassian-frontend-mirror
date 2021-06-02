@@ -105,7 +105,7 @@ export const createFileSystemDirectoryEntry = (
   fullPath,
   createReader: () => {
     const reader: FileSystemDirectoryReader = {
-      readEntries: resolver => resolver(fileEntries),
+      readEntries: (resolver) => resolver(fileEntries),
     };
     return reader;
   },

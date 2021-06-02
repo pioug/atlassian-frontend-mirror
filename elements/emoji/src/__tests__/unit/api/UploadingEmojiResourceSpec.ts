@@ -116,7 +116,7 @@ describe('UploadingEmojiResource', () => {
         config,
       );
 
-      return emojiResource.isUploadSupported().then(supported => {
+      return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(true);
       });
     });
@@ -135,14 +135,14 @@ describe('UploadingEmojiResource', () => {
         siteEmojiResource,
         config,
       );
-      return emojiResource.isUploadSupported().then(supported => {
+      return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(false);
       });
     });
 
     it('resource has no media support', () => {
       const emojiResource = new TestUploadingEmojiResource();
-      return emojiResource.isUploadSupported().then(supported => {
+      return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(false);
       });
     });
@@ -152,7 +152,7 @@ describe('UploadingEmojiResource', () => {
         sinon.createStubInstance(SiteEmojiResource) as any,
         { allowUpload: false } as EmojiResourceConfig,
       );
-      return emojiResource.isUploadSupported().then(supported => {
+      return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(false);
       });
     });
@@ -191,7 +191,7 @@ describe('UploadingEmojiResource', () => {
 
       const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
 
-      return emojiResource.uploadCustomEmoji(upload).then(emoji => {
+      return emojiResource.uploadCustomEmoji(upload).then((emoji) => {
         expect(uploadEmojiStub.calledWith(upload)).toEqual(true);
         expect(emoji).toEqual(mediaEmoji);
       });
@@ -276,7 +276,7 @@ describe('UploadingEmojiResource', () => {
         config,
       );
       return alwaysPromise(emojiResource.findById(mediaEmoji.id!))
-        .then(emoji => expect(emoji).toEqual(mediaEmoji))
+        .then((emoji) => expect(emoji).toEqual(mediaEmoji))
         .catch(() => expect(true).toEqual(false));
     });
 
@@ -304,12 +304,12 @@ describe('UploadingEmojiResource', () => {
       );
       return emojiResource
         .deleteSiteEmoji(mediaEmoji)
-        .then(result => {
+        .then((result) => {
           expect(result).toEqual(true);
           const emojiPromise = alwaysPromise(
             emojiResource.findById(mediaEmoji.id!),
           );
-          return emojiPromise.then(emoji => expect(emoji).toEqual(undefined));
+          return emojiPromise.then((emoji) => expect(emoji).toEqual(undefined));
         })
         .catch(() => expect(true).toEqual(false));
     });

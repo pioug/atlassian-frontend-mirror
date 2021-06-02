@@ -150,7 +150,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
     if (!hideToneSelector) {
       const toneEmoji = getToneEmoji(emojiProvider);
       if (isPromise<OptionalEmojiDescriptionWithVariations>(toneEmoji)) {
-        toneEmoji.then(emoji => this.setState({ toneEmoji: emoji }));
+        toneEmoji.then((emoji) => this.setState({ toneEmoji: emoji }));
       } else if (toneEmoji === undefined || isEmojiDescription(toneEmoji)) {
         this.setState({ toneEmoji });
       }
@@ -220,7 +220,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       return;
     }
 
-    emojiProvider.findInCategory(categoryId).then(emojisInCategory => {
+    emojiProvider.findInCategory(categoryId).then((emojisInCategory) => {
       const { disableCategories } = this.state;
       if (!disableCategories) {
         let selectedEmoji;
@@ -310,7 +310,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
   private onFrequentEmojiResult = (frequentEmoji: EmojiDescription[]): void => {
     const { query, searchEmojis } = this.state;
     // change the category of each of the featured emoji
-    const recategorised = frequentEmoji.map(emoji => {
+    const recategorised = frequentEmoji.map((emoji) => {
       const clone = JSON.parse(JSON.stringify(emoji));
       clone.category = frequentCategory;
       return clone;
@@ -365,7 +365,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
     // Only enable categories for full emoji list (non-search)
     const disableCategories = !!query;
     if (!disableCategories && emojiToRender.length !== filteredEmojis.length) {
-      this.getDynamicCategories().then(categories => {
+      this.getDynamicCategories().then((categories) => {
         this.onDynamicCategoryChange(categories);
       });
     }
@@ -511,7 +511,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
         emojiId: emojiToDelete && emojiToDelete.id,
       }),
     );
-    return this.props.emojiProvider.deleteSiteEmoji(emoji).then(success => {
+    return this.props.emojiProvider.deleteSiteEmoji(emoji).then((success) => {
       if (success) {
         this.updateEmojis(query, { skinTone: selectedTone });
       }
@@ -596,7 +596,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
     const recordUsageOnSelection = createRecordSelectionDefault(
       emojiProvider,
       this.onSelectWrapper,
-      analytic => this.fireAnalytics(analytic('picker')),
+      (analytic) => this.fireAnalytics(analytic('picker')),
     );
 
     const formattedErrorMessage = uploadErrorMessage ? (

@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({ createAnalyticsEvent, ...props }) => (
 );
 
 const AtlaskitButton = withAnalyticsEvents({
-  onClick: create => {
+  onClick: (create) => {
     create({ action: 'click', version: '1.2.3' }).fire('atlaskit');
     return create({ action: 'click' });
   },
@@ -32,7 +32,7 @@ interface MediaProps {
   ) => void;
 }
 
-const MediaComponent: FC<MediaProps> = props => {
+const MediaComponent: FC<MediaProps> = (props) => {
   const onClick = (
     e: MouseEvent<HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,

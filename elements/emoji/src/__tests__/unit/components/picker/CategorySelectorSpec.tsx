@@ -74,7 +74,7 @@ describe('<CategorySelector />', () => {
     let selectedCategoryId;
     const component = setupComponent({
       dynamicCategories: ['CUSTOM', 'FREQUENT'],
-      onCategorySelected: id => {
+      onCategorySelected: (id) => {
         selectedCategoryId = id;
       },
     });

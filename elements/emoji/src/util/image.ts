@@ -44,7 +44,7 @@ export const checkWebpSupport = (): Promise<boolean> => {
     return Promise.resolve(isWebpSupported);
   }
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const img = new Image();
 
     const checkSupport = () => {
@@ -60,7 +60,7 @@ export const checkWebpSupport = (): Promise<boolean> => {
 };
 
 export const imageAcceptHeader = (): Promise<string> =>
-  checkWebpSupport().then(isWebpSupported => {
+  checkWebpSupport().then((isWebpSupported) => {
     // q=0.8 stands for 'quality factor' => http://stackoverflow.com/a/10496722
     const noWebpAcceptHeader = 'image/*,*/*;q=0.8';
     const webpAcceptHeader = 'image/webp,image/*,*/*;q=0.8';

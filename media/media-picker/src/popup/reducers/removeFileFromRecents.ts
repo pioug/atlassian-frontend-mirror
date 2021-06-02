@@ -12,12 +12,12 @@ export default function removeFileFromRecents(
   }
 
   const selectedItems = state.selectedItems.filter(
-    item => item.id !== action.id,
+    (item) => item.id !== action.id,
   );
 
   const uploads = Object.keys(state.uploads)
     .filter(
-      selectedItemId =>
+      (selectedItemId) =>
         state.uploads[selectedItemId].file.metadata.id !== action.id,
     )
     .reduce(

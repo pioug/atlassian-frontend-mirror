@@ -84,7 +84,7 @@ describe('shouldFetchRemoteFileStates()', () => {
     'application/rtf',
     'application/x-rtf',
     'application/postscript',
-  ])('should fetch remote fileStates for %s', async mimeType =>
+  ])('should fetch remote fileStates for %s', async (mimeType) =>
     expect(await shouldFetchRemoteFileStates('doc', mimeType)).toBeTruthy(),
   );
 
@@ -140,7 +140,7 @@ describe('shouldFetchRemoteFileStates()', () => {
 });
 
 describe('shouldFetchRemoteFileStatesObservable()', () => {
-  it('should resolve result as an Observable', done => {
+  it('should resolve result as an Observable', (done) => {
     const { defaultFilePreview, next } = setup({
       mimeType: 'video/x-matroska',
     });

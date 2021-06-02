@@ -110,7 +110,7 @@ export const generateStoriesForEditableCards = () => {
     options: Array<{ value?: string }>,
     value: string,
   ) => {
-    const optionsWithDefault = options.map(option => ({
+    const optionsWithDefault = options.map((option) => ({
       ...option,
       defaultSelected: option.value === value,
     }));

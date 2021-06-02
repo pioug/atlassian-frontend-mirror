@@ -70,7 +70,7 @@ export const InlineMediaCardInternal: FC<
       .getCurrentState(identifier.id, {
         collectionName: identifier.collectionName,
       })
-      .then(fileState => {
+      .then((fileState) => {
         setFileState(fileState);
       });
   }, [identifier.collectionName, identifier.id, mediaClient.file]);

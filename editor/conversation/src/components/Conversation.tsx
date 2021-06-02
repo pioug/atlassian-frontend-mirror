@@ -70,7 +70,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
 
     @deprecated
   */
-  sendEditorAnalyticsEvent: SendAnalyticsEvent = eventData => {
+  sendEditorAnalyticsEvent: SendAnalyticsEvent = (eventData) => {
     const { createAnalyticsEvent, objectId, containerId } = this.props;
 
     const analyticsEvent = createAnalyticsEvent({
@@ -112,7 +112,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
 
     const { conversationId } = conversation;
 
-    return (comments || []).map(comment => (
+    return (comments || []).map((comment) => (
       <CommentContainer
         key={comment.commentId}
         conversationId={conversationId}
@@ -130,7 +130,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
         onCancel={onCancel}
         onUserClick={onUserClick}
         dataProviders={dataProviders}
-        renderComment={props => (
+        renderComment={(props) => (
           <Comment
             {...props}
             canModerateComment={canModerateComments}
@@ -230,17 +230,24 @@ export default class Conversation extends React.PureComponent<Props, State> {
     }
 
     if (!id && !commentLocalId && onCreateConversation) {
-      onCreateConversation(localId!, value, meta, objectId, containerId, id => {
-        this.sendEditorAnalyticsEvent({
-          actionSubjectId: id,
-          eventType: eventTypes.TRACK,
-          attributes: {
-            nestedDepth: 0,
-          },
-          action: trackEventActions.created,
-          actionSubject: 'comment',
-        });
-      });
+      onCreateConversation(
+        localId!,
+        value,
+        meta,
+        objectId,
+        containerId,
+        (id) => {
+          this.sendEditorAnalyticsEvent({
+            actionSubjectId: id,
+            eventType: eventTypes.TRACK,
+            attributes: {
+              nestedDepth: 0,
+            },
+            action: trackEventActions.created,
+            actionSubject: 'comment',
+          });
+        },
+      );
     } else if (onAddComment) {
       const conversationId = id || conversation!.conversationId;
       onAddComment(
@@ -248,7 +255,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
         conversationId,
         value,
         commentLocalId,
-        id => {
+        (id) => {
           this.sendEditorAnalyticsEvent({
             actionSubjectId: id,
             eventType: eventTypes.TRACK,

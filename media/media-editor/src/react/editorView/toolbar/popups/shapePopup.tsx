@@ -34,7 +34,7 @@ export class ShapePopup extends Component<ShapePopupProps> {
   private renderButtons(): JSX.Element[] {
     const { onPickShape, shape: currentShape } = this.props;
 
-    return shapeTools.map(shape => {
+    return shapeTools.map((shape) => {
       const isSelected = shape === currentShape;
 
       const Icon = toolIcons[shape];

@@ -16,7 +16,7 @@ const extractFieldsFromContext = (fieldsToPick: string[]) => (
   contexts: Record<string, any>[],
 ) =>
   contexts
-    .map(ctx =>
+    .map((ctx) =>
       fieldsToPick.reduce(
         (result, key) =>
           ctx[key] ? merge(result, { [key]: ctx[key] }) : result,

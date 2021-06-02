@@ -51,7 +51,7 @@ export default abstract class LoadingEmojiComponent<
 
   private loadEmojiProvider(futureEmojiProvider: Promise<EmojiProvider>) {
     futureEmojiProvider
-      .then(loadedEmojiProvider => {
+      .then((loadedEmojiProvider) => {
         if (!this.isUnmounted) {
           this.setState({
             loadedEmojiProvider,

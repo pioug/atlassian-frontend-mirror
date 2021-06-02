@@ -184,7 +184,7 @@ export class PDFRenderer extends React.Component<Props, State> {
           />
         </PDFWrapper>
       ),
-      failed: error => {
+      failed: (error) => {
         const { item } = this.props;
         return (
           <ErrorMessage

@@ -62,7 +62,7 @@ export class Paragraph {
   }
 
   private destroy(isContextLost: boolean): void {
-    this.fragments.forEach(fragment => fragment.unload(isContextLost));
+    this.fragments.forEach((fragment) => fragment.unload(isContextLost));
   }
 
   private createFragments(): boolean {

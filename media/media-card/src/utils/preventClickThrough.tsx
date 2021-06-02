@@ -10,7 +10,7 @@ export function PreventClickThrough({
 }: PreventClickThroughProps): JSX.Element {
   return (
     <span
-      onClick={event => {
+      onClick={(event) => {
         event.stopPropagation();
         event.preventDefault();
       }}
@@ -24,7 +24,9 @@ export type CreatePreventClickThrough = <T>(
   onClick: () => void,
 ) => (event: React.MouseEvent<T, MouseEvent>) => void;
 
-export const createPreventClickThrough: CreatePreventClickThrough = onClick => event => {
+export const createPreventClickThrough: CreatePreventClickThrough = (
+  onClick,
+) => (event) => {
   event.stopPropagation();
   event.preventDefault();
   onClick();

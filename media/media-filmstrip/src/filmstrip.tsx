@@ -56,10 +56,10 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
     } = this.props;
 
     const mediaViewerDataSource = shouldOpenMediaViewer
-      ? { list: items.map(item => item.identifier) }
+      ? { list: items.map((item) => item.identifier) }
       : undefined;
 
-    return items.map(item => {
+    return items.map((item) => {
       const key = generateIdentifierKey(item.identifier);
 
       if (!mediaClientConfig) {

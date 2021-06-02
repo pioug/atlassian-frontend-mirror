@@ -104,7 +104,7 @@ export const MarginWrapperSquare: ComponentClass<MarginWrapperProps> = styled.di
   top: 0;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.3);
-  border-width: ${props => props.size}px;
+  border-width: ${(props) => props.size}px;
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
 `;

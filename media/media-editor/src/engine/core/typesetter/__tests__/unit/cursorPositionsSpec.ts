@@ -159,7 +159,9 @@ describe('MediaEditor cursor positions', () => {
       expect(spans[1].innerText).toBe('b');
       expect(spans[2].innerText).toBe('c');
       expect(spans[3].innerText).toBe('d');
-      expect(spans.every(span => span.parentElement === parentSpan)).toBe(true);
+      expect(spans.every((span) => span.parentElement === parentSpan)).toBe(
+        true,
+      );
     });
   });
 
@@ -185,7 +187,9 @@ describe('MediaEditor cursor positions', () => {
       expect(spans[0].innerText).toBe('abcd');
       expect(spans[1].innerText).toBe('e');
       expect(spans[2].innerText).toBe('fg');
-      expect(spans.every(span => span.parentElement === parentSpan)).toBe(true);
+      expect(spans.every((span) => span.parentElement === parentSpan)).toBe(
+        true,
+      );
     });
   });
 
@@ -257,7 +261,7 @@ describe('MediaEditor cursor positions', () => {
         span,
         cursorPositions,
         0,
-        pos => pos + 15,
+        (pos) => pos + 15,
         identicalPos,
       );
 
@@ -294,7 +298,7 @@ describe('MediaEditor cursor positions', () => {
         span,
         cursorPositions,
         0,
-        pos => pos + 15,
+        (pos) => pos + 15,
         identicalPos,
       );
 
@@ -330,8 +334,8 @@ describe('MediaEditor cursor positions', () => {
         span,
         cursorPositions,
         0,
-        pos => pos + 15,
-        pos => Math.min(pos, 53),
+        (pos) => pos + 15,
+        (pos) => Math.min(pos, 53),
       );
 
       expect(cursorPositions).toEqual([-10, 25, 35, 45, 53, 53, -10]);

@@ -69,7 +69,7 @@ function extract(
   const root = newTheme[appearance];
   return Object.keys(root).reduce((acc: { [index: string]: string }, val) => {
     let node = root;
-    [val, state, mode].forEach(item => {
+    [val, state, mode].forEach((item) => {
       if (!node[item]) {
         return;
       }

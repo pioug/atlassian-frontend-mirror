@@ -34,7 +34,7 @@ describe('EmojiUtils', () => {
       expected: { [key: string]: any } = {},
       fields: string[] = [],
     ) => {
-      fields.forEach(field => {
+      fields.forEach((field) => {
         expect(actual[field]).toEqual(expected[field]);
       });
     };

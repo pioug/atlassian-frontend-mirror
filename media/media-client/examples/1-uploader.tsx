@@ -37,7 +37,7 @@ class UploaderExample extends Component<
   };
 
   fetchFile = (id: string) => {
-    store.getFile(id).then(async response => {
+    store.getFile(id).then(async (response) => {
       const fileMetadata = response.data;
       const { processingStatus } = fileMetadata;
 
@@ -139,7 +139,7 @@ class UploaderExample extends Component<
       ],
     });
     const deferredUploadId = deferredTouchedFiles.then(
-      touchedFiles => touchedFiles.data.created[0].uploadId,
+      (touchedFiles) => touchedFiles.data.created[0].uploadId,
     );
 
     const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
@@ -148,7 +148,7 @@ class UploaderExample extends Component<
     };
     const callbacks: UploadFileCallbacks = {
       onProgress: this.onProgress,
-      onUploadFinish: error =>
+      onUploadFinish: (error) =>
         error ? this.onError(error) : this.fetchFile(fileId),
     };
 

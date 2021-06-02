@@ -21,7 +21,7 @@ const emojiUploadModuleLoader = () =>
   );
 
 const emojiUploadLoader: () => Promise<ComponentClass<ComponentProps>> = () =>
-  emojiUploadModuleLoader().then(module => module.default);
+  emojiUploadModuleLoader().then((module) => module.default);
 
 export interface Props extends LoadingProps {
   onUploaderRef?: UploadRefHandler;
@@ -44,7 +44,7 @@ export class EmojiUploaderInternal extends LoadingEmojiComponent<
   }
 
   asyncLoadComponent() {
-    emojiUploadLoader().then(component => {
+    emojiUploadLoader().then((component) => {
       EmojiUploaderInternal.AsyncLoadedComponent = component;
       this.setAsyncState(component);
     });

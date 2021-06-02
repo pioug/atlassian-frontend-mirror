@@ -10,7 +10,7 @@ const containerAri = 'ari:cloud:owner:demo-cloud-id:container/1';
 export default function Example() {
   return (
     <ReactionsExampleWrapper>
-      {store => (
+      {(store) => (
         <div>
           <div style={{ display: 'flex' }}>
             <p>Lorem ipsum dolor sit amet...</p>

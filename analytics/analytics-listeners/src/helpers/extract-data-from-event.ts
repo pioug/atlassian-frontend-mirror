@@ -11,7 +11,7 @@ const extractFromEventContext = (
   contextName: string,
 ): any[] =>
   event.context.reduce((acc, contextItem) => {
-    propertyNames.forEach(propertyName => {
+    propertyNames.forEach((propertyName) => {
       const navContext = contextItem[contextName];
       const navContextProp = navContext ? navContext[propertyName] : null;
       const value = namespacedContextOnly
@@ -47,7 +47,7 @@ export const getExtraAttributes = (
 
 export const getPackageInfo = (event: UIAnalyticsEvent, contextName: string) =>
   event.context
-    .map(contextItem => {
+    .map((contextItem) => {
       const navContext = contextItem[contextName];
       const item = navContext ? navContext : contextItem;
       return {
@@ -55,7 +55,7 @@ export const getPackageInfo = (event: UIAnalyticsEvent, contextName: string) =>
         packageVersion: item.packageVersion,
       };
     })
-    .filter(p => p.packageName);
+    .filter((p) => p.packageName);
 
 export const getPackageVersion = (
   event: UIAnalyticsEvent,

@@ -20,7 +20,7 @@ const moduleLoader = () =>
   );
 
 const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
-  moduleLoader().then(module => module.CodeViewRenderer);
+  moduleLoader().then((module) => module.CodeViewRenderer);
 
 export type Props = {
   mediaClient: MediaClient;

@@ -45,7 +45,7 @@ describe('MediaImageLoader', () => {
       });
       return mediaImageLoader
         .loadMediaImage(mediaEmojiImagePath)
-        .then(dataURL => {
+        .then((dataURL) => {
           expect(isDataURL(dataURL)).toEqual(true);
 
           // Confirm headers
@@ -84,7 +84,7 @@ describe('MediaImageLoader', () => {
       fetchMock
         .mock({
           matcher: `begin:${mediaEmojiImagePath}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolve1 = resolve;
           }),
           name: 'media-emoji-1',
@@ -95,12 +95,12 @@ describe('MediaImageLoader', () => {
           name: 'media-emoji-2',
         });
       const p1 = mediaImageLoader.loadMediaImage(mediaEmojiImagePath);
-      return mediaImageLoader.loadMediaImage(mediaImage2).then(dataURL2 => {
+      return mediaImageLoader.loadMediaImage(mediaImage2).then((dataURL2) => {
         // mediaImage2 should be loaded even though first image is still loading
         expect(isDataURL(dataURL2)).toEqual(true);
         expect(fetchMock.called('media-emoji-1'));
         expect(fetchMock.called('media-emoji-2'));
-        const p1a = p1.then(dataURL1 => {
+        const p1a = p1.then((dataURL1) => {
           expect(isDataURL(dataURL1)).toEqual(true);
         });
         resolve1(blobResponse(blob));
@@ -115,7 +115,7 @@ describe('MediaImageLoader', () => {
       fetchMock.mock({
         matcher: `begin:${mediaEmojiImagePath}`,
         response: () =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             resolvers.push(resolve);
           }),
         name: 'media-emoji',
@@ -158,7 +158,7 @@ describe('MediaImageLoader', () => {
           return Promise.all(p);
         })
         .then((dataURLs: string[]) => {
-          dataURLs.forEach(dataURL => {
+          dataURLs.forEach((dataURL) => {
             expect(isDataURL(dataURL)).toEqual(true);
           });
           expect(mediaImageLoader.getActiveDownloads()).toEqual(0);
@@ -166,7 +166,7 @@ describe('MediaImageLoader', () => {
         });
     });
 
-    it('image Promise rejection when image load fails', done => {
+    it('image Promise rejection when image load fails', (done) => {
       const mediaImageLoader = createMediaImageLoader();
       fetchMock.mock({
         matcher: `begin:${mediaEmojiImagePath}`,
@@ -200,14 +200,14 @@ describe('MediaImageLoader', () => {
         });
       return mediaImageLoader
         .loadMediaImage(mediaEmojiImagePath)
-        .then(dataURL => {
+        .then((dataURL) => {
           expect(isDataURL(dataURL)).toEqual(true);
           expect(fetchMock.calls('media-emoji-403').length).toEqual(1);
           expect(fetchMock.calls('media-emoji').length).toEqual(1);
         });
     });
 
-    it('image Promise rejection when image load fails with 403 twice', done => {
+    it('image Promise rejection when image load fails with 403 twice', (done) => {
       const mediaImageLoader = createMediaImageLoader();
       fetchMock.mock({
         matcher: `begin:${mediaEmojiImagePath}`,
@@ -223,14 +223,14 @@ describe('MediaImageLoader', () => {
         });
     });
 
-    it('image Promise rejection when token load fails', done => {
+    it('image Promise rejection when token load fails', (done) => {
       const tokenError = 'get token failure';
       const tokenManager = createTokenManager(Promise.reject(tokenError));
       const mediaImageLoader = createMediaImageLoader(tokenManager);
       mediaImageLoader
         .loadMediaImage(mediaEmojiImagePath)
         .then(() => done.fail('Promise should be rejected.'))
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(tokenError);
           done();
         });
@@ -255,7 +255,7 @@ describe('MediaImageLoader', () => {
         });
       return mediaImageLoader
         .loadMediaImage(mediaEmojiImagePath)
-        .then(dataURL => {
+        .then((dataURL) => {
           expect(isDataURL(dataURL)).toEqual(true);
           expect(fetchMock.calls('media-emoji-404').length).toEqual(1);
           expect(fetchMock.calls('media-emoji').length).toEqual(1);
@@ -279,7 +279,7 @@ describe('MediaImageLoader', () => {
         });
       return mediaImageLoader
         .loadMediaImage(mediaEmojiImagePath)
-        .then(dataURL => {
+        .then((dataURL) => {
           expect(isDataURL(dataURL)).toEqual(true);
           expect(fetchMock.calls('media-emoji-404').length).toEqual(2);
           expect(fetchMock.calls('media-emoji').length).toEqual(1);
@@ -297,7 +297,7 @@ describe('MediaImageLoader', () => {
         name: 'media-emoji-404',
         repeat: 3,
       });
-      return mediaImageLoader.loadMediaImage(mediaEmojiImagePath).catch(e => {
+      return mediaImageLoader.loadMediaImage(mediaEmojiImagePath).catch((e) => {
         expect(e.message).toEqual(
           'Unable to load media image. Status=404 not found',
         );
@@ -321,7 +321,7 @@ describe('MediaImageLoader', () => {
         });
       return mediaImageLoader
         .loadMediaImage(mediaEmojiImagePath)
-        .then(dataURL => {
+        .then((dataURL) => {
           expect(isDataURL(dataURL)).toEqual(true);
           expect(fetchMock.calls('media-emoji-404').length).toEqual(0);
           expect(fetchMock.calls('media-emoji').length).toEqual(1);

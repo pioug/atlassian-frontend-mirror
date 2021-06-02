@@ -151,9 +151,9 @@ export default class Comment extends React.Component<Props, State> {
     }
 
     if (
-      newComments.some(newComment => {
+      newComments.some((newComment) => {
         const [oldComment] = oldComments.filter(
-          oldComment =>
+          (oldComment) =>
             oldComment.commentId === newComment.commentId ||
             oldComment.localId === newComment.localId,
         );
@@ -460,11 +460,11 @@ export default class Comment extends React.Component<Props, State> {
       return null;
     }
 
-    return comments.map(child => (
+    return comments.map((child) => (
       <CommentContainer
         key={child.localId}
         comment={child}
-        renderComment={props => <Comment {...props} />}
+        renderComment={(props) => <Comment {...props} />}
         {...otherCommentProps}
       />
     ));

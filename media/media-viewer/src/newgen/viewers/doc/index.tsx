@@ -18,7 +18,7 @@ const moduleLoader = () =>
   );
 
 const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
-  moduleLoader().then(module => module.PDFRenderer);
+  moduleLoader().then((module) => module.PDFRenderer);
 
 export type Props = {
   mediaClient: MediaClient;

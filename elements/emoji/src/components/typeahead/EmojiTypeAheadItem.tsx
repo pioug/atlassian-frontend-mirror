@@ -16,7 +16,7 @@ export interface Props {
 
 export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
   // internal, used for callbacks
-  onEmojiSelected: React.MouseEventHandler<HTMLDivElement> = event => {
+  onEmojiSelected: React.MouseEventHandler<HTMLDivElement> = (event) => {
     const { emoji, onSelection } = this.props;
     if (leftClick(event) && onSelection) {
       event.preventDefault();
@@ -24,7 +24,9 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
     }
   };
 
-  onEmojiMenuItemMouseMove: React.MouseEventHandler<HTMLDivElement> = event => {
+  onEmojiMenuItemMouseMove: React.MouseEventHandler<HTMLDivElement> = (
+    event,
+  ) => {
     const { emoji, onMouseMove } = this.props;
     if (onMouseMove) {
       onMouseMove(toEmojiId(emoji), emoji, event);

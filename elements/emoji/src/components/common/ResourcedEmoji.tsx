@@ -22,7 +22,7 @@ const resourcedEmojiModuleLoader = () =>
 
 const resourcedEmojiComponentLoader: () => Promise<
   ComponentClass<ComponentProps>
-> = () => resourcedEmojiModuleLoader().then(module => module.default);
+> = () => resourcedEmojiModuleLoader().then((module) => module.default);
 
 export default class ResourcedEmoji extends LoadingEmojiComponent<
   Props,
@@ -36,7 +36,7 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
   };
 
   asyncLoadComponent() {
-    resourcedEmojiComponentLoader().then(component => {
+    resourcedEmojiComponentLoader().then((component) => {
       ResourcedEmoji.AsyncLoadedComponent = component;
       this.setAsyncState(component);
     });

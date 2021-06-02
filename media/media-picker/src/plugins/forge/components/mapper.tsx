@@ -36,7 +36,7 @@ export const ForgeViewMapper = ({
       return null;
     }
 
-    const brickItems: BrickItem[] = items.data.items.map(item => {
+    const brickItems: BrickItem[] = items.data.items.map((item) => {
       const url = getResourceUrl(item.url) || '';
       const src =
         (item.image &&

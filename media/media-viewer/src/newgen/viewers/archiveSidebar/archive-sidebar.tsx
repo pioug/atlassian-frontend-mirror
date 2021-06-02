@@ -55,7 +55,7 @@ export class ArchiveSidebar extends React.Component<
     const blob = await rejectAfter(() => entry.blob());
     const archive = await rejectAfter(() => unzip(blob));
 
-    Object.values(archive.entries).forEach(zipEntry => {
+    Object.values(archive.entries).forEach((zipEntry) => {
       zipEntry.name =
         this.state.currentArchiveSidebarFolder.name + zipEntry.name;
     });

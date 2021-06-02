@@ -18,7 +18,7 @@ function generateEmptyRows(
 
 export const generateEmptyRow = memoizeOne(
   (headerCells: HeadCellType[]): RowCellType[] => {
-    return headerCells.map(cell => ({
+    return headerCells.map((cell) => ({
       key: cell.key,
       content: '',
     }));

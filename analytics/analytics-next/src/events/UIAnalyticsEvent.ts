@@ -62,7 +62,7 @@ export default class UIAnalyticsEvent extends AnalyticsEvent {
       return;
     }
 
-    this.handlers.forEach(handler => handler(this, channel));
+    this.handlers.forEach((handler) => handler(this, channel));
     this.hasFired = true;
   };
 

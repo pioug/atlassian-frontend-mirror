@@ -41,7 +41,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     this.hasBeenMounted = true;
     const { items, mediaClient } = this.props;
 
-    items.forEach(async item => {
+    items.forEach(async (item) => {
       const {
         identifier: { id, collectionName = '' },
       } = item;
@@ -49,7 +49,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
       const subscription = mediaClient.file
         .getFileState(id, { collectionName })
         .subscribe({
-          next: fileState => {
+          next: (fileState) => {
             const { fileInfoState } = this.state;
 
             if (isProcessedFileState(fileState)) {
@@ -66,7 +66,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   }
 
   private unsubscribe = () => {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     this.subscriptions = [];
   };
 
@@ -82,7 +82,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     const cellValues: RowCellType[] = [];
     const { columns } = this.props;
 
-    columns.cells.forEach(cell => {
+    columns.cells.forEach((cell) => {
       const content =
         cell.key === CELL_KEY_DOWNLOAD ? (
           <DownloadButton onClick={this.onDownloadClick(identifier)} />
@@ -126,14 +126,14 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
   ) => {
     const { items, columns } = this.props;
 
-    const rowValues: RowType[] = items.map(item => {
+    const rowValues: RowType[] = items.map((item) => {
       const { data, identifier, rowProps } = item;
       return {
         cells: this.generateCellValues(data, identifier),
         key: identifier.id,
         tabIndex: 0,
         onClick: this.onRowClick(identifier),
-        onKeyPress: event => {
+        onKeyPress: (event) => {
           if (event.key === 'Enter') {
             this.onRowEnterKeyPressed(identifier);
           }
@@ -249,7 +249,7 @@ export class MediaTable extends Component<MediaTableProps, MediaTableState> {
     }
 
     const dataSource: MediaViewerDataSource = {
-      list: items.map(item => item.identifier),
+      list: items.map((item) => item.identifier),
     };
 
     const collectionName =

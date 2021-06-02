@@ -1839,6 +1839,9 @@
             "$ref": "#/definitions/heading_with_alignment_node"
           },
           {
+            "$ref": "#/definitions/heading_with_indentation_node"
+          },
+          {
             "$ref": "#/definitions/panel_node"
           },
           {

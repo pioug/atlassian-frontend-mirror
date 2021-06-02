@@ -35,7 +35,7 @@ export default class RetryableButton extends Component<Props, {}> {
       this.renderLoading()
     ) : (
       <FormattedMessage {...messages.retryLabel}>
-        {retryLabel => (
+        {(retryLabel) => (
           <AkButton
             className={retryClassName}
             appearance="warning"

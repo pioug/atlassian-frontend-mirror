@@ -46,9 +46,9 @@ class FabricAnalyticsListeners extends React.Component<Props> {
 
     const listeners = (Object.keys(listenerMap) as FabricChannel[])
       .filter(
-        channel => !excludedChannels || excludedChannels.indexOf(channel) < 0,
+        (channel) => !excludedChannels || excludedChannels.indexOf(channel) < 0,
       )
-      .map(channel => listenerMap[channel])
+      .map((channel) => listenerMap[channel])
       .reduce(
         (
           prev: React.ReactNode,

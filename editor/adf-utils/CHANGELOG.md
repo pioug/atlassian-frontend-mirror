@@ -1,5 +1,15 @@
 # @atlaskit/adf-utils
 
+## 14.0.0
+
+### Major Changes
+
+- [`7e6fe5abae9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e6fe5abae9) - revert heading with indentation in table cell content
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Major Changes

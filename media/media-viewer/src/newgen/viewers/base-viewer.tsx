@@ -59,8 +59,8 @@ export abstract class BaseViewer<
   render() {
     return this.state.content.match({
       pending: () => <Spinner />,
-      successful: content => this.renderSuccessful(content),
-      failed: error => {
+      successful: (content) => this.renderSuccessful(content),
+      failed: (error) => {
         const { item } = this.props;
         return (
           <ErrorMessage

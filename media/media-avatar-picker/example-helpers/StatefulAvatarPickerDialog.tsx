@@ -89,7 +89,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
         {isOpen && (
           <AvatarPickerDialog
             avatars={avatars}
-            onAvatarPicked={selectedAvatar => {
+            onAvatarPicked={(selectedAvatar) => {
               console.log('onAvatarPicked:', selectedAvatar);
               this.saveDataURI(selectedAvatar.dataURI);
             }}
@@ -98,7 +98,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
               this.setIsLoading();
               this.saveFileAndCrop(selectedImage);
             }}
-            onImagePickedDataURI={exportedImg => {
+            onImagePickedDataURI={(exportedImg) => {
               console.log('onImagePickedDataURI: ', { dataURI: exportedImg });
               this.setIsLoading();
               this.saveDataURI(exportedImg);

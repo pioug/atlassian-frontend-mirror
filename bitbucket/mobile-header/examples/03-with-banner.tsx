@@ -53,14 +53,14 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
         <MobileHeader
           drawerState={this.state.drawerState}
           menuIconLabel="Menu"
-          navigation={isOpen => isOpen && <Navigation onResize={() => {}} />}
+          navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
           secondaryContent={
             <Button
               iconBefore={<RoomMenuIcon label="Show sidebar" />}
               onClick={this.sidebarOpened}
             />
           }
-          sidebar={isOpen =>
+          sidebar={(isOpen) =>
             isOpen && <FakeSideBar>Sidebar goes here...</FakeSideBar>
           }
           pageHeading="Page heading"

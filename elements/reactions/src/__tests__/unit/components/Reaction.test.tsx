@@ -52,7 +52,7 @@ const renderReaction = (
 );
 
 describe('@atlaskit/reactions/reaction', () => {
-  it('should render emoji with resolved emoji data', done => {
+  it('should render emoji with resolved emoji data', (done) => {
     const reaction = mount(renderReaction(false, 1, () => {}));
 
     waitUntil(() => hasSelector(reaction, Emoji)).then(() => {

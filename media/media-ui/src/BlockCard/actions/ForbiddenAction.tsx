@@ -13,6 +13,6 @@ export const ForbiddenAction = (
 ): ActionProps => ({
   id,
   text: <FormattedMessage {...message} values={{ context }} />,
-  promise: () => new Promise(resolve => resolve(handler())),
+  promise: () => new Promise((resolve) => resolve(handler())),
   buttonAppearance: 'default' as Appearance,
 });

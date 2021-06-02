@@ -31,7 +31,7 @@ export const getMediaFeatureFlags = (
   filter?: Array<keyof MediaFeatureFlags>,
 ): MediaFeatureFlags =>
   mediaFeatureFlagsKeys
-    .filter(flagKey => (filter ? filter.includes(flagKey) : true))
+    .filter((flagKey) => (filter ? filter.includes(flagKey) : true))
     .reduce(
       (result, flagName) => ({
         ...result,

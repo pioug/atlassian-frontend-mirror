@@ -61,7 +61,7 @@ export class InlineCardErroredView extends React.Component<
           onClick={this.handleRetry}
         >
           <FormattedMessage {...messages.try_again}>
-            {formattedMessage => {
+            {(formattedMessage) => {
               return (
                 <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
               );

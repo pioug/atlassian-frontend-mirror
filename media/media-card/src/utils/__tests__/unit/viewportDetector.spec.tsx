@@ -6,7 +6,7 @@ import { LazyContent } from '../../lazyContent';
 const observeMock = jest.fn();
 const disconnectMock = jest.fn();
 let intersectionTrigger: () => void;
-const IntersectionObserverMock = jest.fn(intersectionCallback => {
+const IntersectionObserverMock = jest.fn((intersectionCallback) => {
   const entries: Partial<IntersectionObserverEntry>[] = [
     { isIntersecting: false },
     { isIntersecting: true },

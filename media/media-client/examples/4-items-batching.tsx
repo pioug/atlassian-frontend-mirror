@@ -47,7 +47,7 @@ class Example extends Component<{}, ExampleState> {
 
   fetchItem(id: string, collectionName?: string) {
     context.file.getFileState(id, { collectionName }).subscribe({
-      next: state => {
+      next: (state) => {
         const { fileStates } = this.state;
 
         fileStates[state.id] = state;
@@ -68,7 +68,7 @@ class Example extends Component<{}, ExampleState> {
 
   renderFileState = (): ReactNode => {
     const { fileStates } = this.state;
-    const states = Object.keys(fileStates).map(id => {
+    const states = Object.keys(fileStates).map((id) => {
       let name = '';
       const fileState = fileStates[id];
       if (fileState.status !== 'error') {

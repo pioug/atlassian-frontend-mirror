@@ -37,7 +37,7 @@ export const PanelHeader: FC<
   HTMLProps<HTMLDivElement> & { isFocused?: boolean }
 > = withFocusWithin(styled.div`
   align-items: center;
-  background-color: ${props => props.isFocused && colors.N20};
+  background-color: ${(props) => props.isFocused && colors.N20};
   border-radius: ${borderRadius}px;
   display: flex;
   left: -${gridSize() * 3}px;
@@ -49,7 +49,7 @@ export const PanelHeader: FC<
   width: 100%;
 
   ${ButtonWrapper} {
-    opacity: ${props => props.isFocused && 1};
+    opacity: ${(props) => props.isFocused && 1};
   }
 
   &:hover {

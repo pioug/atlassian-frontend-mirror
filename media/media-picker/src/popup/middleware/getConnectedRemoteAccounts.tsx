@@ -16,7 +16,7 @@ export const getConnectedRemoteAccounts = (fetcher: Fetcher) => (
 
     const servicesList = userMediaClient.config
       .authProvider()
-      .then(auth => fetcher.getServiceList(auth))
+      .then((auth) => fetcher.getServiceList(auth))
       .catch(() => {
         store.dispatch(connectedRemoteAccountsFailed());
 

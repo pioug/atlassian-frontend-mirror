@@ -6,7 +6,7 @@ export const getConversation = (
   conversationId: string,
 ): Conversation | undefined =>
   state.conversations.filter(
-    c => c.conversationId === conversationId || c.localId === conversationId,
+    (c) => c.conversationId === conversationId || c.localId === conversationId,
   )[0];
 
 export const getComments = (
@@ -17,12 +17,14 @@ export const getComments = (
   const conversation = getConversation(state, conversationId);
   if (conversation) {
     if (parentId) {
-      return (conversation.comments || []).filter(c => c.parentId === parentId);
+      return (conversation.comments || []).filter(
+        (c) => c.parentId === parentId,
+      );
     }
 
     return (conversation.comments || [])
       .filter(
-        c =>
+        (c) =>
           (!c.parentId && c.conversationId === conversation.conversationId) ||
           (c.parentId && c.parentId === conversation.conversationId),
       )

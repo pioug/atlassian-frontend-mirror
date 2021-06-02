@@ -671,7 +671,7 @@ describe('<ItemViewer />', () => {
 
     test.each<[MediaType, MediaType]>([['audio', 'video']])(
       'should show error when %s viewer errors',
-      type => {
+      (type) => {
         const state: ProcessedFileState = {
           id: identifier.id,
           mediaType: type,

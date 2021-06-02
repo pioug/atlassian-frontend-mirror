@@ -65,7 +65,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 
   renderCards() {
     const { fileIds } = this.state;
-    const cards = fileIds.map(id => {
+    const cards = fileIds.map((id) => {
       const identifier: FileIdentifier = {
         id,
         mediaItemType: 'file',
@@ -114,7 +114,7 @@ class Example extends Component<ComponentProps, ComponentState> {
     let isIdSaved = false;
 
     const subscription = stream.subscribe({
-      next: state => {
+      next: (state) => {
         const { fileIds } = this.state;
 
         if (!isIdSaved && state.status === 'uploading') {

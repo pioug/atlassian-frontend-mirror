@@ -23,7 +23,7 @@ export class ResourceManager {
 
   releaseAll(): void {
     this.releaseFunctions.reverse();
-    this.releaseFunctions.forEach(fn => fn());
+    this.releaseFunctions.forEach((fn) => fn());
     this.releaseFunctions = [];
   }
 }

@@ -85,7 +85,7 @@ export class InlinePlayerBase extends Component<
     this.subscription = mediaClient.file
       .getFileState(id, { collectionName })
       .subscribe({
-        next: async fileState => {
+        next: async (fileState) => {
           const { fileSrc: existingFileSrc } = this.state;
           // we want to reuse the existing fileSrc to prevent re renders
           if (existingFileSrc) {

@@ -35,7 +35,7 @@ export const FolderViewer = ({
       {items.map((item, index) => {
         const icon = mapMimeTypeToIcon(item['schema:fileFormat'] || '');
         const url = getResourceUrl(item.url);
-        const selectedIds = selectedItems.map(item => item.id);
+        const selectedIds = selectedItems.map((item) => item.id);
         const isSelected = url ? selectedIds.indexOf(url) > -1 : false;
         const key = item['@id'] || index;
 

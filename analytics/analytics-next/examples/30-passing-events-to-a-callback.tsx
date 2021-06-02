@@ -44,7 +44,7 @@ const ButtonBase = ({ createAnalyticsEvent, ...rest }: ButtonBaseProps) => {
 
 const ManualButton = withAnalyticsEvents()(ManualButtonBase);
 const VerboseButton = withAnalyticsEvents({
-  onClick: create => create({ action: 'click' }),
+  onClick: (create) => create({ action: 'click' }),
 })(ButtonBase);
 const ShorthandButton = withAnalyticsEvents({
   onClick: { action: 'click' },

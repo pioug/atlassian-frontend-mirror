@@ -71,7 +71,7 @@ interface ChooseEmojiFileProps {
 }
 
 class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
-  private onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = event => {
+  private onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Escape') {
       this.props.onUploadCancelled();
     }
@@ -92,7 +92,7 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
       <div className={styles.emojiUpload}>
         <div className={styles.uploadChooseFileMessage}>
           <FormattedMessage {...messages.addCustomEmojiLabel}>
-            {message => <h5>{message}</h5>}
+            {(message) => <h5>{message}</h5>}
           </FormattedMessage>
         </div>
         <div className={styles.uploadChooseFileRow}>
@@ -104,9 +104,9 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
               isFitContainerWidthEnabled
             >
               <FormattedMessage {...messages.emojiPlaceholder}>
-                {message => (
+                {(message) => (
                   <FormattedMessage {...messages.emojiNameAriaLabel}>
-                    {ariaLabel => (
+                    {(ariaLabel) => (
                       <input
                         placeholder={message as string}
                         aria-label={ariaLabel as string}
@@ -125,9 +125,9 @@ class ChooseEmojiFile extends PureComponent<ChooseEmojiFileProps, {}> {
           </span>
           <span className={styles.uploadChooseFileBrowse}>
             <FormattedMessage {...messages.emojiChooseFileTitle}>
-              {message => (
+              {(message) => (
                 <FormattedMessage {...messages.emojiChooseFileAriaLabel}>
-                  {ariaLabel => (
+                  {(ariaLabel) => (
                     <FileChooser
                       label={message as string}
                       onChange={onChooseFile}
@@ -229,10 +229,10 @@ export default class EmojiUploadPicker extends PureComponent<Props, State> {
         );
       };
       ImageUtil.getNaturalImageSize(previewImage)
-        .then(size => {
+        .then((size) => {
           notifyUpload(size);
         })
-        .catch(error => {
+        .catch((error) => {
           debug('getNaturalImageSize error', error);
           // Just set arbitrary size, worse case is it may render
           // in wrong aspect ratio in some circumstances.

@@ -295,7 +295,7 @@ describe('FileFetcher', () => {
   });
 
   describe('getFileState()', () => {
-    it('should return an errored observable if we pass an invalid file id', done => {
+    it('should return an errored observable if we pass an invalid file id', (done) => {
       const { fileFetcher } = setup();
 
       fileFetcher
@@ -319,7 +319,7 @@ describe('FileFetcher', () => {
         });
     });
 
-    it('should split calls to /items by collection name', done => {
+    it('should split calls to /items by collection name', (done) => {
       const { fileFetcher, mediaStore, items } = setup();
 
       combineLatest(
@@ -350,13 +350,13 @@ describe('FileFetcher', () => {
       });
     });
 
-    it('should group ids without collection in the same call to /items', done => {
+    it('should group ids without collection in the same call to /items', (done) => {
       const { fileFetcher, mediaStore, items } = setup();
 
       // omit collection from original response
       asMockFunctionResolvedValue(mediaStore.getItems, {
         data: {
-          items: items.map(item => ({
+          items: items.map((item) => ({
             id: item.id,
             type: item.type,
             details: item.details,
@@ -382,7 +382,7 @@ describe('FileFetcher', () => {
       });
     });
 
-    it('should handle failures when fetching items', async done => {
+    it('should handle failures when fetching items', async (done) => {
       const { fileFetcher, mediaStore, items } = setup();
       const next = jest.fn();
       const error = jest.fn();
@@ -434,7 +434,7 @@ describe('FileFetcher', () => {
       });
     });
 
-    it('should create emptyItems error when no item returned', async done => {
+    it('should create emptyItems error when no item returned', async (done) => {
       const { fileFetcher, mediaStore, items } = setup();
 
       mediaStore.getItems.mockImplementation(() =>
@@ -448,7 +448,7 @@ describe('FileFetcher', () => {
       fileFetcher
         .getFileState(items[0].id, { collectionName: items[0].collection })
         .subscribe({
-          error: err => {
+          error: (err) => {
             expect(err).toBeInstanceOf(FileFetcherError);
             expect(err.attributes.reason).toEqual('emptyItems');
             expect(err.attributes.id).toEqual(items[0].id);
@@ -460,7 +460,7 @@ describe('FileFetcher', () => {
       expect.assertions(4);
     });
 
-    it('should return processing file state for empty files', async done => {
+    it('should return processing file state for empty files', async (done) => {
       const { fileFetcher, mediaStore, items } = setup();
       const next = jest.fn();
       const error = jest.fn();
@@ -1310,7 +1310,7 @@ describe('FileFetcher', () => {
       expect.assertions(1);
     });
 
-    it('should fetch remote processing states for files requiring remote preview', done => {
+    it('should fetch remote processing states for files requiring remote preview', (done) => {
       const {
         mediaStore,
         fileFetcher,
@@ -1330,7 +1330,7 @@ describe('FileFetcher', () => {
       });
     });
 
-    it('should not fetch remote processing states for files not requiring remote preview', done => {
+    it('should not fetch remote processing states for files not requiring remote preview', (done) => {
       const {
         mediaStore,
         fileFetcher,
@@ -1350,7 +1350,7 @@ describe('FileFetcher', () => {
       });
     });
 
-    it('should not fetch remote processing states for files not supported by server', done => {
+    it('should not fetch remote processing states for files not supported by server', (done) => {
       const {
         mediaStore,
         fileFetcher,

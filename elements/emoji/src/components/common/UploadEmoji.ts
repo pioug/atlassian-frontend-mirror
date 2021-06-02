@@ -22,7 +22,7 @@ export const uploadEmoji = (
   if (supportsUploadFeature(emojiProvider)) {
     emojiProvider
       .uploadCustomEmoji(upload)
-      .then(emojiDescription => {
+      .then((emojiDescription) => {
         fireAnalytics(
           uploadSucceededEvent({
             duration: Date.now() - startTime,
@@ -30,7 +30,7 @@ export const uploadEmoji = (
         );
         onSuccess(emojiDescription);
       })
-      .catch(err => {
+      .catch((err) => {
         errorSetter(messages.emojiUploadFailed);
         // eslint-disable-next-line no-console
         console.error('Unable to upload emoji', err);

@@ -60,7 +60,7 @@
     "@atlaskit/media-common": "^2.7.0",
     "@atlaskit/media-test-helpers": "^28.7.0",
     "@atlaskit/ssr": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-intl": "^2.6.0",
@@ -68,5 +68,5 @@
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

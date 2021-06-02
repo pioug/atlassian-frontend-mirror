@@ -97,7 +97,7 @@ const commitStep = ({
   userId: string;
   clientId: string;
 }) => {
-  const stepsWithClientAndUserId = steps.map(step => ({
+  const stepsWithClientAndUserId = steps.map((step) => ({
     ...step.toJSON(),
     clientId,
     userId,
@@ -381,7 +381,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
            * the version we received from service. Keep steps that might be
            * newer.
            */
-          this.queue = this.queue.filter(data => data.version > serverVersion);
+          this.queue = this.queue.filter(
+            (data) => data.version > serverVersion,
+          );
           // We are too far behind - replace the entire document
           logger(`Replacing document: ${doc}`);
           logger(`getting metadata: ${metadata}`);
@@ -739,7 +741,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
     const now = new Date().getTime();
 
-    Array.from(this.participants.values()).forEach(p => {
+    Array.from(this.participants.values()).forEach((p) => {
       if (userIds.indexOf(p.userId) !== -1) {
         this.participants.set(p.sessionId, {
           ...p,
@@ -750,12 +752,12 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
     // Filter out participants that's been inactive for more than 5 minutes.
     const left = Array.from(this.participants.values()).filter(
-      p =>
+      (p) =>
         p.sessionId !== this.sessionId &&
         (now - p.lastActive) / 1000 > PARTICIPANT_UPDATE_INTERVAL,
     );
 
-    left.forEach(p => this.participants.delete(p.sessionId));
+    left.forEach((p) => this.participants.delete(p.sessionId));
 
     if (joined.length || left.length) {
       this.emit('presence', {
@@ -771,9 +773,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   };
 
   private emitTelepointersFromSteps(steps: StepJson[]) {
-    steps.forEach(step => {
+    steps.forEach((step) => {
       const [participant] = Array.from(this.participants.values()).filter(
-        p => p.clientId === step.clientId,
+        (p) => p.clientId === step.clientId,
       );
       if (participant) {
         const { stepType, to, from, slice = { content: [] } } = step as any;
@@ -877,7 +879,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 }
 
 function sleep(ms: number) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 }

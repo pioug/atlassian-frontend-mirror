@@ -57,7 +57,7 @@ export class MockReactionsClient implements ReactionClient {
   }
 
   private delayPromise = () =>
-    new Promise(resolve => window.setTimeout(resolve, this.delay));
+    new Promise((resolve) => window.setTimeout(resolve, this.delay));
 
   getReactions(containerAri: string, aris: string[]): Promise<Reactions> {
     return this.delayPromise().then(() =>
@@ -80,7 +80,7 @@ export class MockReactionsClient implements ReactionClient {
 
       if (reactionsMockData) {
         const reaction = reactionsMockData.find(
-          reaction => reaction.emojiId === emojiId,
+          (reaction) => reaction.emojiId === emojiId,
         );
 
         if (reaction) {
@@ -118,7 +118,7 @@ export class MockReactionsClient implements ReactionClient {
       const reactionsMockData = this.mockData[reactionKey];
 
       if (reactionsMockData) {
-        this.mockData[reactionKey] = reactionsMockData.map(reaction => {
+        this.mockData[reactionKey] = reactionsMockData.map((reaction) => {
           if (reaction.emojiId === emojiId) {
             found = true;
             return {
@@ -154,7 +154,7 @@ export class MockReactionsClient implements ReactionClient {
     return this.delayPromise().then(() => {
       const reactionKey = objectReactionKey(containerAri, ari);
       this.mockData[reactionKey] = this.mockData[reactionKey]
-        .map(reaction => {
+        .map((reaction) => {
           if (reaction.emojiId === emojiId) {
             if (reaction.count === 1) {
               return undefined;
@@ -167,7 +167,7 @@ export class MockReactionsClient implements ReactionClient {
           }
           return reaction;
         })
-        .filter(reaction => !!reaction) as ReactionSummary[];
+        .filter((reaction) => !!reaction) as ReactionSummary[];
       return this.mockData[reactionKey];
     });
   }

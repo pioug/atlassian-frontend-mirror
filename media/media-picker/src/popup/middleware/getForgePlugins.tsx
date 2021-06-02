@@ -27,7 +27,7 @@ export const requestForgePlugins = async (store: Store<State>) => {
   try {
     const { providers } = await client.getProviders();
     const availableProviders = providers.filter(
-      provider => !!provider.metadata.supportedViews.length,
+      (provider) => !!provider.metadata.supportedViews.length,
     );
     const pluginsForMediaPicker = availableProviders
       .map(transformForgeProviderToPlugin)

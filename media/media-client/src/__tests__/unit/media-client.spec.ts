@@ -69,7 +69,7 @@ describe('MediaClient', () => {
   };
 
   describe('.file.getFileState()', () => {
-    it('should fetch the file if it doesnt exist locally', done => {
+    it('should fetch the file if it doesnt exist locally', (done) => {
       const { id, mediaClient } = setup();
 
       asMockFunctionResolvedValue(mediaClient.mediaStore.getItems, {
@@ -98,7 +98,7 @@ describe('MediaClient', () => {
           collectionName: 'some-collection',
         })
         .subscribe({
-          next: state => {
+          next: (state) => {
             expect(mediaClient.mediaStore.getItems).toHaveBeenCalledTimes(1);
             expect(mediaClient.mediaStore.getItems).lastCalledWith(
               [id],
@@ -119,7 +119,7 @@ describe('MediaClient', () => {
         });
     });
 
-    it('should poll for changes and return the latest file state', done => {
+    it('should poll for changes and return the latest file state', (done) => {
       const { id, mediaClient } = setup();
       const next = jest.fn();
 
@@ -173,7 +173,7 @@ describe('MediaClient', () => {
       expect(getOrInsertSpy).toHaveBeenLastCalledWith(id, expect.any(Function));
     });
 
-    it('should return local file state while file is still uploading', done => {
+    it('should return local file state while file is still uploading', (done) => {
       const {
         controller,
         mediaClient,
@@ -218,7 +218,7 @@ describe('MediaClient', () => {
       );
     });
 
-    it('should return file state regardless of the state', done => {
+    it('should return file state regardless of the state', (done) => {
       const {
         controller,
         id,
@@ -279,7 +279,7 @@ describe('MediaClient', () => {
   });
 
   describe('.file.upload()', () => {
-    it('should call media-client uploadFile with given arguments', done => {
+    it('should call media-client uploadFile with given arguments', (done) => {
       const {
         mediaClient,
         controller,
@@ -319,7 +319,7 @@ describe('MediaClient', () => {
         });
     });
 
-    it('should generate file id and get deferred uploadId', done => {
+    it('should generate file id and get deferred uploadId', (done) => {
       const { mediaClient, mockUploadFile } = setup();
 
       asMockFunctionResolvedValue(mediaClient.mediaStore.touchFiles, {
@@ -398,7 +398,7 @@ describe('MediaClient', () => {
         };
       });
 
-      return new Promise<void>(resolve => {
+      return new Promise<void>((resolve) => {
         mediaClient.file
           .upload(file, controller, uploadableFileUpfrontIds)
           .subscribe({
@@ -413,7 +413,7 @@ describe('MediaClient', () => {
       });
     });
 
-    it('should emit error when upload fail', done => {
+    it('should emit error when upload fail', (done) => {
       const { mediaClient, mockUploadFile } = setup();
 
       const file: UploadableFile = {
@@ -436,13 +436,13 @@ describe('MediaClient', () => {
           occurrenceKey: 'some-occurrence-key',
         })
         .subscribe({
-          next: fileState => {
+          next: (fileState) => {
             // shouldn't emit any error fileState
             if (isErrorFileState(fileState)) {
               return expect(isErrorFileState(fileState)).toBeFalsy();
             }
           },
-          error: err => {
+          error: (err) => {
             expect(err).toEqual(error);
             done();
           },
@@ -451,7 +451,7 @@ describe('MediaClient', () => {
       expect.assertions(1);
     });
 
-    it('should not emit error fileState when upload cancelled', done => {
+    it('should not emit error fileState when upload cancelled', (done) => {
       const { mediaClient, mockUploadFile } = setup();
 
       const file: UploadableFile = {
@@ -472,7 +472,7 @@ describe('MediaClient', () => {
           occurrenceKey: 'some-occurrence-key',
         })
         .subscribe({
-          next: fileState => {
+          next: (fileState) => {
             // shouldn't emit any error fileState
             if (isErrorFileState(fileState)) {
               return expect(isErrorFileState(fileState)).toBeFalsy();
@@ -485,7 +485,7 @@ describe('MediaClient', () => {
         });
     });
 
-    it('should emit file preview when file is a Blob', done => {
+    it('should emit file preview when file is a Blob', (done) => {
       const { mediaClient, uploadableFileUpfrontIds, mockUploadFile } = setup();
 
       const file: UploadableFile = {
@@ -504,7 +504,7 @@ describe('MediaClient', () => {
       mediaClient.file
         .upload(file, undefined, uploadableFileUpfrontIds)
         .subscribe({
-          next: state => {
+          next: (state) => {
             expect(state).toEqual({
               status: 'uploading',
               id: uploadableFileUpfrontIds.id,

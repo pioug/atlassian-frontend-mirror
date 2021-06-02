@@ -82,10 +82,10 @@ export class StatelessAuth extends Component<AuthProps> {
 }
 
 export default connect<AuthStateProps, AuthDispatchProps, {}, State>(
-  state => ({
+  (state) => ({
     service: state.view.service,
   }),
-  dispatch => ({
+  (dispatch) => ({
     onStartAuth: (serviceName: ServiceName) => dispatch(startAuth(serviceName)),
   }),
 )(StatelessAuth);

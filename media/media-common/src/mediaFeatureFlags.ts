@@ -66,7 +66,7 @@ export function getMediaFeatureFlag<T = boolean>(
 /**
  * do a check for any localStorage overrides, warn user once only
  */
-Object.keys(defaultMediaFeatureFlags).forEach(flagName => {
+Object.keys(defaultMediaFeatureFlags).forEach((flagName) => {
   const localOverride = getLocalMediaFeatureFlag(flagName);
   if (localOverride !== null) {
     // eslint-disable-next-line no-console

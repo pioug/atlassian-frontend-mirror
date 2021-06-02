@@ -92,7 +92,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
 
   private onSuccess = () => {
     const { item } = this.state;
-    item.whenSuccessful(fileItem => {
+    item.whenSuccessful((fileItem) => {
       if (isFileStateItem(fileItem)) {
         const fileAttributes = getFileAttributes(fileItem);
         fireAnalytics(createLoadSucceededEvent(fileAttributes), this.props);
@@ -248,7 +248,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
     const { identifier } = this.props;
 
     return item.match({
-      successful: fileItem => {
+      successful: (fileItem) => {
         if (fileItem === 'external-image') {
           // render an external image
           const { dataURI } = identifier as ExternalImageIdentifier;
@@ -283,7 +283,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         }
       },
       pending: () => <Spinner />,
-      failed: error => this.renderError(error, item.data),
+      failed: (error) => this.renderError(error, item.data),
     });
   }
 
@@ -322,7 +322,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         collectionName: identifier.collectionName,
       })
       .subscribe({
-        next: file => {
+        next: (file) => {
           this.setState({
             item: Outcome.successful(file),
           });

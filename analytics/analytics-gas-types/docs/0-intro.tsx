@@ -24,7 +24,7 @@ export default md`
   import { GasPayload } from '@atlaskit/analytics-gas-types';
 
   export type Props = {
-    onClick: e => void,
+    onClick: (e) => void,
   };
 
   export const DummyComponent: React.StatelessComponent<Props> = (

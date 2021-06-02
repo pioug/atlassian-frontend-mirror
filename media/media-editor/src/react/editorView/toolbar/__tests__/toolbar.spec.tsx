@@ -20,7 +20,7 @@ function simulateClickOnTool(
 ) {
   component
     .find(ToolButton)
-    .findWhere(n => n.prop('tool') === tool)
+    .findWhere((n) => n.prop('tool') === tool)
     .simulate('click');
 }
 
@@ -35,7 +35,7 @@ function simulateClickOnShapePopup(
   component
     .find(ShapePopup)
     .find(Button)
-    .findWhere(n => n.key() === tool)
+    .findWhere((n) => n.key() === tool)
     .simulate('click');
 }
 
@@ -50,7 +50,7 @@ function simulateClickOnColorPopup(
   component
     .find(ColorPopup)
     .find(ColorButton)
-    .findWhere(n => n.prop('color') === color)
+    .findWhere((n) => n.prop('color') === color)
     .simulate('click');
 }
 

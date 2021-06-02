@@ -246,7 +246,7 @@ export class ImageNavigator extends Component<
   }
 
   // Trick to have a nice <input /> appearance
-  onUploadButtonClick: React.MouseEventHandler = e => {
+  onUploadButtonClick: React.MouseEventHandler = (e) => {
     const input = e.currentTarget.querySelector(
       '#image-input',
     ) as HTMLInputElement;

@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/adf-schema": "^17.0.0",
+    "@atlaskit/adf-schema": "^18.0.0",
     "@atlaskit/build-utils": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^144.0.0",

@@ -253,7 +253,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<
         const onSelect = createRecordSelectionDefault(
           this.props.emojiProvider,
           this.props.onSelection,
-          analytic => this.fireAnalyticsEvent(analytic('typeahead')),
+          (analytic) => this.fireAnalyticsEvent(analytic('typeahead')),
         );
         this.fireSelectionEvent(result.emojis[matchIndex], true);
         onSelect(
@@ -312,7 +312,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<
           onSelection(emojiId, emoji, event);
         }
       },
-      analytic => this.fireAnalyticsEvent(analytic('typeahead')),
+      (analytic) => this.fireAnalyticsEvent(analytic('typeahead')),
     );
 
     const { visible, emojis, loading } = this.state;

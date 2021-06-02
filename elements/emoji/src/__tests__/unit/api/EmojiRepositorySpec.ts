@@ -372,7 +372,7 @@ describe('EmojiRepository', () => {
 
       expect(emojis.length).toBeGreaterThan(0);
       expect(
-        emojis.filter(emoji => emoji.shortName === ':police_officer:').length,
+        emojis.filter((emoji) => emoji.shortName === ':police_officer:').length,
       ).toEqual(0);
     });
 
@@ -392,7 +392,7 @@ describe('EmojiRepository', () => {
       const foundCategories = new Set<string>();
       let lastCategory: string;
 
-      emojis.forEach(emoji => {
+      emojis.forEach((emoji) => {
         if (emoji.category !== lastCategory) {
           expect(foundCategories.has(emoji.category)).toEqual(false);
           lastCategory = emoji.category;
@@ -400,7 +400,7 @@ describe('EmojiRepository', () => {
       });
     });
 
-    it('returns frequently used before others except for an exact shortname match', done => {
+    it('returns frequently used before others except for an exact shortname match', (done) => {
       const greenHeart = emojiRepository.findByShortName(':green_heart:');
       const heart = emojiRepository.findByShortName(':heart:');
 
@@ -491,8 +491,9 @@ describe('EmojiRepository', () => {
 
     it('de-dupes ascii match from other matches', () => {
       const emojis = emojiRepository.search(':O').emojis;
-      const openMouthEmojiCount = emojis.filter(e => e.id === openMouthEmoji.id)
-        .length;
+      const openMouthEmojiCount = emojis.filter(
+        (e) => e.id === openMouthEmoji.id,
+      ).length;
       expect(openMouthEmojiCount).toEqual(1);
     });
 
@@ -667,7 +668,7 @@ describe('EmojiRepository', () => {
       const repository = new EmojiRepository(copyEmojis);
       repository.delete(smileyEmoji);
       const peopleEmojis = repository.findInCategory('PEOPLE');
-      peopleEmojis.forEach(emoji =>
+      peopleEmojis.forEach((emoji) =>
         expect(emoji.shortName).not.toEqual(smileyEmoji.shortName),
       );
     });
@@ -689,7 +690,7 @@ describe('EmojiRepository', () => {
       ]);
     });
 
-    it('should return FREQUENT as a category if there is emoji use tracked', done => {
+    it('should return FREQUENT as a category if there is emoji use tracked', (done) => {
       const repository = new EmojiRepository(standardEmojis);
       const heart = repository.findByShortName(':heart:');
 
@@ -721,7 +722,7 @@ describe('EmojiRepository', () => {
   });
 
   describe('getFrequentlyUsed', () => {
-    it('should return frequently used with the correct skin tone', done => {
+    it('should return frequently used with the correct skin tone', (done) => {
       const emojiRepository = newEmojiRepository();
       emojiRepository.used(thumbsupEmoji);
 
@@ -752,7 +753,7 @@ describe('EmojiRepository', () => {
       expect(emoji).toHaveLength(2);
     });
 
-    it('should return frequent emoji on find operations with original category', done => {
+    it('should return frequent emoji on find operations with original category', (done) => {
       const emojiRepository = newEmojiRepository();
       emojiRepository.used(thumbsupEmoji);
 

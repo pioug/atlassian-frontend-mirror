@@ -56,7 +56,7 @@ export function createDatabase(
   database.register('chunk', createChunk);
 
   if (Object.keys(collections).length > 0) {
-    Object.keys(collections).forEach(collectionName => {
+    Object.keys(collections).forEach((collectionName) => {
       database.push('collection', {
         name: collectionName,
         createdAt: Date.now(),

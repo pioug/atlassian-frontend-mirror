@@ -67,7 +67,7 @@ describe('EmojiLoader', () => {
       });
 
       const resource = new EmojiLoader(provider1);
-      return resource.loadEmoji().then(emojiResponse => {
+      return resource.loadEmoji().then((emojiResponse) => {
         checkOrder(providerData1, emojiResponse.emojis);
       });
     });
@@ -82,7 +82,7 @@ describe('EmojiLoader', () => {
       });
 
       const resource = new EmojiLoader(simpleProvider);
-      return resource.loadEmoji().then(emojiResponse => {
+      return resource.loadEmoji().then((emojiResponse) => {
         checkOrder(providerData1, emojiResponse.emojis);
       });
     });
@@ -100,7 +100,7 @@ describe('EmojiLoader', () => {
       };
 
       const resource = new EmojiLoader(provider2);
-      return resource.loadEmoji().then(emojiResponse => {
+      return resource.loadEmoji().then((emojiResponse) => {
         checkOrder(providerData1, emojiResponse.emojis);
       });
     });
@@ -116,7 +116,7 @@ describe('EmojiLoader', () => {
       });
 
       const resource = new EmojiLoader(provider2);
-      return resource.loadEmoji().then(emojiResponse => {
+      return resource.loadEmoji().then((emojiResponse) => {
         checkOrder(providerData1, emojiResponse.emojis);
       });
     });
@@ -133,7 +133,7 @@ describe('EmojiLoader', () => {
       });
 
       const resource = new EmojiLoader(provider2);
-      return resource.loadEmoji().then(emojiResponse => {
+      return resource.loadEmoji().then((emojiResponse) => {
         checkOrder(providerData1, emojiResponse.emojis);
       });
     });
@@ -164,7 +164,7 @@ describe('EmojiLoader', () => {
         });
 
       const resource = new EmojiLoader(provider401);
-      return resource.loadEmoji().then(emojiResponse => {
+      return resource.loadEmoji().then((emojiResponse) => {
         expect(refreshedSecurityProvider.callCount).toEqual(1);
         const firstCall = fetchMock.lastCall('auth');
         // eslint-disable-next-line
@@ -204,7 +204,7 @@ describe('EmojiLoader', () => {
         .then(() => {
           expect(true).toBeFalsy();
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err.code).toEqual(401);
         });
     });

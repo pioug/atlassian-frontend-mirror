@@ -10,7 +10,7 @@ export const checkWebpSupport = (): Promise<boolean> => {
     return Promise.resolve(isSupported);
   }
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const img = new Image();
 
     // Following base64 encoded binary content is in webp format. If browser supports this standard,

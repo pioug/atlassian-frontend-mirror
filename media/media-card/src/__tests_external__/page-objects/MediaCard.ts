@@ -5,7 +5,7 @@ export class MediaCardPageObject {
     return this.cy
       .get('[data-test-media-name]')
       .should('have.length', numOfCards)
-      .each(element => {
+      .each((element) => {
         cy.wrap(element)
           // NOTE: `be.visible` is used to ensure the file is still visible
           // whilst it is being uploaded.

@@ -33,7 +33,7 @@ class Example extends Component<{}, ExampleState> {
 
   renderCards() {
     const { fileIds } = this.state;
-    const cards = fileIds.map(id => {
+    const cards = fileIds.map((id) => {
       const identifier: FileIdentifier = {
         id,
         mediaItemType: 'file',
@@ -65,8 +65,8 @@ class Example extends Component<{}, ExampleState> {
     this.subscription = mediaClient.collection
       .getItems(collectionName)
       .subscribe({
-        next: items => {
-          const fileIds = items.map(item => item.id);
+        next: (items) => {
+          const fileIds = items.map((item) => item.id);
 
           this.setState({
             fileIds,

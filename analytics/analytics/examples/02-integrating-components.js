@@ -5,7 +5,7 @@ import { AnalyticsListener, cleanProps, withAnalytics } from '../src';
 
 /* eslint-disable react/no-multi-comp */
 class Button extends Component {
-  onClick = e => {
+  onClick = (e) => {
     const { fireAnalyticsEvent, firePrivateAnalyticsEvent } = this.props;
     fireAnalyticsEvent('click');
     const { clientX, clientY } = e;

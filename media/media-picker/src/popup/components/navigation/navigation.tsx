@@ -86,7 +86,7 @@ export class Navigation extends Component<NavigationProps, NavigationState> {
     this.mounted = true;
     const { accounts, service } = this.props;
     const availableAccounts = (await accounts).filter(
-      account => account.type === service.name,
+      (account) => account.type === service.name,
     );
     if (this.mounted) {
       this.setState({
@@ -100,7 +100,7 @@ export class Navigation extends Component<NavigationProps, NavigationState> {
 
     if (prevProps.service !== service) {
       const availableAccounts = (await accounts).filter(
-        account => account.type === service.name,
+        (account) => account.type === service.name,
       );
 
       if (this.mounted) {
@@ -230,7 +230,7 @@ export class Navigation extends Component<NavigationProps, NavigationState> {
     const fullPath = [{ id: '', name: serviceName }].concat(path);
     const breadcrumbs = fullPath
       .slice(-2)
-      .map(folderReference => {
+      .map((folderReference) => {
         const index = fullPath.indexOf(folderReference);
         return fullPath.slice(0, index + 1);
       })
@@ -279,12 +279,12 @@ export default connect<
     path: view.path,
     service: view.service,
   }),
-  dispatch => ({
+  (dispatch) => ({
     onChangeAccount: (serviceName, accountId) =>
       dispatch(changeAccount(serviceName, accountId)),
     onChangePath: (serviceName, accountId, path) =>
       dispatch(changeCloudAccountFolder(serviceName, accountId, [...path])),
-    onStartAuth: serviceName => dispatch(startAuth(serviceName)),
+    onStartAuth: (serviceName) => dispatch(startAuth(serviceName)),
     onUnlinkAccount: (serviceName, accountId) =>
       dispatch(
         requestUnlinkCloudAccount({

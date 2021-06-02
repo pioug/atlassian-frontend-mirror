@@ -61,7 +61,7 @@ export class CollectionFetcher {
   }
 
   private populateCache(items: MediaCollectionItem[]) {
-    items.forEach(item => {
+    items.forEach((item) => {
       const fileStream = this.createFileStateObserver(
         item.id,
         item.details as MediaCollectionItemFullDetails,
@@ -74,7 +74,7 @@ export class CollectionFetcher {
   private removeFromCache(id: string, collectionName: string) {
     const collectionCacheIndex = collectionCache[
       collectionName
-    ].items.findIndex(item => item.id === id);
+    ].items.findIndex((item) => item.id === id);
 
     if (collectionCacheIndex === -1) {
       return;
@@ -99,7 +99,7 @@ export class CollectionFetcher {
         ...params,
         details: 'full',
       })
-      .then(items => {
+      .then((items) => {
         const { contents, nextInclusiveStartKey } = items.data;
 
         this.populateCache(contents);
@@ -109,7 +109,7 @@ export class CollectionFetcher {
         collection.nextInclusiveStartKey = nextInclusiveStartKey;
         subject.next(collection.items);
       })
-      .catch(error => subject.error(error));
+      .catch((error) => subject.error(error));
 
     return subject;
   }

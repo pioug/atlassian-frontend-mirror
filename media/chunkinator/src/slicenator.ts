@@ -9,7 +9,7 @@ export const slicenator: Slicenator = (
 ): Observable<Blob> => {
   const totalChunks = Math.ceil(blob.size / chunkSize);
   return range(0, totalChunks).pipe(
-    map(index => {
+    map((index) => {
       return blob.slice(index * chunkSize, (index + 1) * chunkSize);
     }),
   );

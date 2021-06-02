@@ -244,7 +244,7 @@ const mimeTypes: MimeTypesRepresentation[] = [
 export function getMimeIcon(mimeType: string, fileName: string) {
   // based on the mimeType, determine the corresponding icon and label
   const iconInfo = mimeTypes.find(
-    file => file.mimeTypes.indexOf(mimeType) > -1,
+    (file) => file.mimeTypes.indexOf(mimeType) > -1,
   );
 
   //returnthe appropriate icon and its label if we have it

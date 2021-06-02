@@ -74,7 +74,7 @@ export class MemoryReactionsStore implements ReactionsStore {
 
   // batch calls to onChange using the latest state in it.
   private triggerOnChange = batch(() =>
-    this.callbacks.forEach(callback => callback(this.state)),
+    this.callbacks.forEach((callback) => callback(this.state)),
   );
 
   private setReactions = (
@@ -98,7 +98,7 @@ export class MemoryReactionsStore implements ReactionsStore {
     detailedReaction: ReactionSummary,
   ) => {
     const { containerAri, ari, emojiId } = detailedReaction;
-    this.withReaction(reaction => ({
+    this.withReaction((reaction) => ({
       ...reaction,
       users: detailedReaction.users,
     }))(containerAri, ari, emojiId);
@@ -143,9 +143,9 @@ export class MemoryReactionsStore implements ReactionsStore {
     this.withReadyReaction(
       containerAri,
       ari,
-    )(reactionState => {
+    )((reactionState) => {
       let found = false;
-      const reactions = reactionState.reactions.map(reaction => {
+      const reactions = reactionState.reactions.map((reaction) => {
         if (reaction.emojiId === emojiId) {
           found = true;
           const updated = updater(reaction);
@@ -223,7 +223,7 @@ export class MemoryReactionsStore implements ReactionsStore {
       this.withReadyReaction(
         containerAri,
         ari,
-      )(reactionsState => {
+      )((reactionsState) => {
         const reaction: ReactionSummary = reactionsState.reactions.find(
           utils.byEmojiId(emojiId),
         ) || {
@@ -259,7 +259,7 @@ export class MemoryReactionsStore implements ReactionsStore {
 
     this.client
       .addReaction(containerAri, ari, emojiId)
-      .then(reaction => {
+      .then((reaction) => {
         if (this.createAnalyticsEvent) {
           createAndFireSafe(
             this.createAnalyticsEvent,
@@ -268,7 +268,7 @@ export class MemoryReactionsStore implements ReactionsStore {
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (this.createAnalyticsEvent && isRealErrorFromService(error.code)) {
           createAndFireSafe(
             this.createAnalyticsEvent,
@@ -298,7 +298,7 @@ export class MemoryReactionsStore implements ReactionsStore {
     this.client
       .getReactions(containerAri, aris.reduce(utils.flattenAris))
       .then((value: Reactions) => {
-        Object.keys(value).map(ari => {
+        Object.keys(value).map((ari) => {
           const reactionsState = this.getReactionsState(containerAri, ari);
           const reactions =
             reactionsState && reactionsState.status === ReactionStatus.ready
@@ -322,7 +322,7 @@ export class MemoryReactionsStore implements ReactionsStore {
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (this.createAnalyticsEvent && isRealErrorFromService(error.code)) {
           createAndFireSafe(
             this.createAnalyticsEvent,
@@ -355,6 +355,6 @@ export class MemoryReactionsStore implements ReactionsStore {
   };
 
   removeOnChangeListener = (toRemove: OnUpdateCallback): void => {
-    this.callbacks = this.callbacks.filter(callback => callback !== toRemove);
+    this.callbacks = this.callbacks.filter((callback) => callback !== toRemove);
   };
 }

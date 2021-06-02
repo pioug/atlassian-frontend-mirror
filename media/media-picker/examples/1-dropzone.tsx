@@ -57,8 +57,8 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
         const queryParams = `client=${clientId}&token=${token}&limit=5&details=full&sortDirection=desc`;
         return fetch(`${baseUrl}/collection/recents/items?${queryParams}`);
       })
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         const lastItems = data.data.contents;
         this.setState({
           lastItems,
@@ -102,7 +102,7 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
           <Dropzone
             mediaClientConfig={dropzoneMediaClient.config}
             config={config}
-            onUploadsStart={payload => {
+            onUploadsStart={(payload) => {
               this.onUploadsStart(payload);
               onUploadsStart(payload);
             }}

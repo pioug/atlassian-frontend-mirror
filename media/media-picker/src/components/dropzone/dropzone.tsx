@@ -180,7 +180,7 @@ export class DropzoneBase extends LocalUploadComponentReact<
       item.webkitGetAsEntry().isDirectory;
 
     //how many folders are in a single drag and drop event
-    var folderCount = toArray.filter(item => hasFolder(item)).length;
+    var folderCount = toArray.filter((item) => hasFolder(item)).length;
 
     // fires analytic events if number of folders is more than 0
     if (folderCount > 0) {

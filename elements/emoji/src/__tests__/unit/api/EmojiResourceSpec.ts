@@ -122,7 +122,7 @@ class MockOnProviderChange
   private resolvePromises(): void {
     const currentToResolve = this.toResolve;
     this.toResolve = [];
-    currentToResolve.forEach(resolve => {
+    currentToResolve.forEach((resolve) => {
       resolve();
     });
   }
@@ -130,7 +130,7 @@ class MockOnProviderChange
   private resolvePromisesOnResult(result: EmojiSearchResult): void {
     const currentToResolveOnResult = this.toResolveOnResult;
     this.toResolveOnResult = [];
-    currentToResolveOnResult.forEach(resolve => {
+    currentToResolveOnResult.forEach((resolve) => {
       resolve(result);
     });
   }
@@ -152,19 +152,19 @@ class MockOnProviderChange
   }
 
   waitForAnyCall(): Promise<any> {
-    return new Promise<any>(resolve => {
+    return new Promise<any>((resolve) => {
       this.toResolve.push(resolve);
     });
   }
 
   waitForResult(): Promise<EmojiSearchResult> {
-    return new Promise<EmojiSearchResult>(resolve => {
+    return new Promise<EmojiSearchResult>((resolve) => {
       this.toResolveOnResult.push(resolve);
     });
   }
 
   waitForResults(num: number): Promise<EmojiSearchResult> {
-    return new Promise<EmojiSearchResult>(resolve => {
+    return new Promise<EmojiSearchResult>((resolve) => {
       const minCountResolver = (response: EmojiSearchResult) => {
         if (this.resultCalls.length >= num) {
           resolve(response);
@@ -242,7 +242,7 @@ describe('EmojiResource', () => {
 
       const resource = new EmojiResource(config);
       const onChange = new MockOnProviderChange();
-      const filteredPromise = onChange.waitForResult().then(emojiResponse => {
+      const filteredPromise = onChange.waitForResult().then((emojiResponse) => {
         expect(onChange.resultCalls.length).toEqual(1);
         expect(emojiResponse.emojis.length).toEqual(providerData1.length);
         checkOrder(providerData1, emojiResponse.emojis);
@@ -266,7 +266,7 @@ describe('EmojiResource', () => {
       const skinTone = 2;
       const resource = new EmojiResource(config);
       const onChange = new MockOnProviderChange();
-      const filteredPromise = onChange.waitForResult().then(emojiResponse => {
+      const filteredPromise = onChange.waitForResult().then((emojiResponse) => {
         expect(onChange.resultCalls.length).toEqual(1);
         expect(emojiResponse.emojis.length).toEqual(1);
         const expectedSelectedSkinEmoji = (thumbsupEmoji.skinVariations &&
@@ -324,7 +324,7 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
@@ -394,7 +394,7 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
@@ -525,7 +525,7 @@ describe('EmojiResource', () => {
       const resource = new EmojiResource(config);
       return resource
         .deleteSiteEmoji(mediaEmoji)
-        .then(success => expect(success).toEqual(false));
+        .then((success) => expect(success).toEqual(false));
     });
   });
 
@@ -535,7 +535,7 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
@@ -545,7 +545,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: '1f601' }),
       ); // grin
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -557,7 +557,7 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
@@ -567,7 +567,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':grin:' }),
       );
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -579,7 +579,7 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
@@ -589,7 +589,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':grin:', id: 'unknownid' }),
       );
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -603,13 +603,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -621,7 +621,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: '1f601' }),
       ); // grin
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -636,13 +636,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -657,7 +657,7 @@ describe('EmojiResource', () => {
           id: 'atlassian-evilburns',
         }),
       ); // grin
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(evilburnsEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -672,13 +672,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -690,7 +690,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: 'bogus' }),
       ); // does not exist
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
       });
       resolveProvider1!(providerServiceData1);
@@ -719,7 +719,7 @@ describe('EmojiResource', () => {
           id: 'atlassian-evilburns',
         }),
       ); // grin
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(evilburnsEmoji, emoji);
       });
       return done;
@@ -735,7 +735,7 @@ describe('EmojiResource', () => {
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -747,7 +747,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: '1f601' }),
       ); // grin
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
       });
       resolveProvider2!(providerServiceData2);
@@ -764,7 +764,7 @@ describe('EmojiResource', () => {
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -779,7 +779,7 @@ describe('EmojiResource', () => {
           id: 'atlassian-evilburns',
         }),
       ); // grin
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(evilburnsEmoji, emoji);
       });
       resolveProvider2!(providerServiceData2);
@@ -822,7 +822,7 @@ describe('EmojiResource', () => {
       const resource = new EmojiResource(config);
 
       return alwaysPromise(resource.findByEmojiId(missingMediaEmojiId)).then(
-        emoji => {
+        (emoji) => {
           const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
           expect(fetchSiteEmojiCalls.length).toEqual(1);
           expect(emoji).toEqual(missingMediaEmoji);
@@ -870,7 +870,7 @@ describe('EmojiResource', () => {
       };
       const resource = new EmojiResource(config);
 
-      return alwaysPromise(resource.findByEmojiId(standardId)).then(emoji => {
+      return alwaysPromise(resource.findByEmojiId(standardId)).then((emoji) => {
         const fetchStandardEmojiCalls = fetchMock.calls('fetch-standard-emoji');
         expect(fetchStandardEmojiCalls.length).toEqual(1);
         expect(emoji).not.toEqual(undefined);
@@ -918,7 +918,7 @@ describe('EmojiResource', () => {
         shortName: ':media:', // fallback - match existing by shortName (but different id)
       };
 
-      return alwaysPromise(resource.findByEmojiId(emojiId)).then(emoji => {
+      return alwaysPromise(resource.findByEmojiId(emojiId)).then((emoji) => {
         const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
         expect(fetchSiteEmojiCalls.length).toEqual(1);
         expect(emoji).toEqual(mediaEmoji);
@@ -961,7 +961,7 @@ describe('EmojiResource', () => {
         shortName: ':media:', // fallback - match existing by shortName (but different id)
       };
 
-      return alwaysPromise(resource.findByEmojiId(emojiId)).then(emoji => {
+      return alwaysPromise(resource.findByEmojiId(emojiId)).then((emoji) => {
         const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
         expect(fetchSiteEmojiCalls.length).toEqual(0);
         // media url not loaded - url pass through
@@ -986,7 +986,7 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
@@ -994,7 +994,7 @@ describe('EmojiResource', () => {
       const resource = new EmojiResource(defaultApiConfig);
 
       const emojiPromise = alwaysPromise(resource.findById('unknownid'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
       });
       resolveProvider1!(providerServiceData1);
@@ -1006,7 +1006,7 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
@@ -1014,7 +1014,7 @@ describe('EmojiResource', () => {
       const resource = new EmojiResource(defaultApiConfig);
 
       const emojiPromise = alwaysPromise(resource.findById('1f601'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -1028,14 +1028,14 @@ describe('EmojiResource', () => {
 
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: new Promise(resolve => {
+        response: new Promise((resolve) => {
           resolveProvider1 = resolve;
         }),
       });
 
       const resource = new EmojiResource(defaultApiConfig);
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -1049,13 +1049,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1065,7 +1065,7 @@ describe('EmojiResource', () => {
         providers: [provider1, provider2],
       });
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -1080,13 +1080,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1098,7 +1098,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(evilburnsEmoji, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -1113,13 +1113,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1133,7 +1133,7 @@ describe('EmojiResource', () => {
         providers: [provider1, provider2],
       });
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(p2grin, emoji);
       });
       resolveProvider1!(providerServiceData1);
@@ -1151,13 +1151,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1171,7 +1171,7 @@ describe('EmojiResource', () => {
         providers: [provider1, provider2],
       });
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(p2grin, emoji);
       });
       resolveProvider2!({
@@ -1189,13 +1189,13 @@ describe('EmojiResource', () => {
       fetchMock
         .mock({
           matcher: `begin:${provider1.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1205,7 +1205,7 @@ describe('EmojiResource', () => {
         providers: [provider1, provider2],
       });
       const emojiPromise = alwaysPromise(resource.findByShortName(':bogus:'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
       });
       resolveProvider1!(providerServiceData1);
@@ -1231,7 +1231,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(evilburnsEmoji, emoji);
       });
       return done;
@@ -1247,7 +1247,7 @@ describe('EmojiResource', () => {
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1257,7 +1257,7 @@ describe('EmojiResource', () => {
         providers: [provider1, provider2],
       });
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
       });
       resolveProvider2!(providerServiceData2);
@@ -1274,7 +1274,7 @@ describe('EmojiResource', () => {
         })
         .mock({
           matcher: `begin:${provider2.url}`,
-          response: new Promise(resolve => {
+          response: new Promise((resolve) => {
             resolveProvider2 = resolve;
           }),
         });
@@ -1286,7 +1286,7 @@ describe('EmojiResource', () => {
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );
-      const done = emojiPromise.then(emoji => {
+      const done = emojiPromise.then((emoji) => {
         checkEmoji(evilburnsEmoji, emoji);
       });
       resolveProvider2!(providerServiceData2);

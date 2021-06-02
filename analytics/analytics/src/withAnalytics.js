@@ -71,7 +71,7 @@ const withAnalytics = (
       onAnalyticsEvent(`${name}`, data, true);
     };
 
-    getParentAnalyticsData = name => {
+    getParentAnalyticsData = (name) => {
       const { getParentAnalyticsData } = this.context;
       let parentData = {};
       if (
@@ -88,7 +88,7 @@ const withAnalytics = (
       /* eslint-disable no-unused-vars */
       const { analyticsId, analyticsData, ...componentProps } = this.props;
       /* eslint-enable no-unused-vars */
-      Object.keys(this.evaluatedMap).forEach(prop => {
+      Object.keys(this.evaluatedMap).forEach((prop) => {
         const handler = this.evaluatedMap[prop]; // may be eventName or a function
         const originalProp = componentProps[prop];
         componentProps[prop] = (...args) => {

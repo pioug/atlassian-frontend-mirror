@@ -63,7 +63,7 @@ export default (store: MiddlewareAPI<State>) => (next: Dispatch<State>) => (
 
     for (const handler of analyticsActionHandlers) {
       const payloads = handler(action, store) || [];
-      payloads.forEach(payload =>
+      payloads.forEach((payload) =>
         createAndFireAnalyticsEvent(
           atlaskitAnalyticsEventHandlers,
           payload,

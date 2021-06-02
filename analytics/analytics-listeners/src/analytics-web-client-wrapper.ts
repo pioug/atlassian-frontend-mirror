@@ -25,7 +25,7 @@ export const sendEvent = (
       if (isPromise(client)) {
         client
           .then(cb)
-          .catch(e => logger.warn('There was an error sending the event', e));
+          .catch((e) => logger.warn('There was an error sending the event', e));
       } else {
         try {
           cb(client);
@@ -38,7 +38,7 @@ export const sendEvent = (
     switch (event.eventType) {
       case 'ui':
         logger.debug('Sending UI Event via analytics client', gasEvent);
-        withClient(client => client.sendUIEvent(gasEvent as GasPurePayload));
+        withClient((client) => client.sendUIEvent(gasEvent as GasPurePayload));
         break;
 
       case 'operational':
@@ -46,19 +46,21 @@ export const sendEvent = (
           'Sending Operational Event via analytics client',
           gasEvent,
         );
-        withClient(client =>
+        withClient((client) =>
           client.sendOperationalEvent(gasEvent as GasPurePayload),
         );
         break;
 
       case 'track':
         logger.debug('Sending Track Event via analytics client', gasEvent);
-        withClient(client => client.sendTrackEvent(gasEvent as GasPurePayload));
+        withClient((client) =>
+          client.sendTrackEvent(gasEvent as GasPurePayload),
+        );
         break;
 
       case 'screen':
         logger.debug('Sending Screen Event via analytics client', gasEvent);
-        withClient(client =>
+        withClient((client) =>
           client.sendScreenEvent(gasEvent as GasPureScreenEventPayload),
         );
         break;

@@ -60,7 +60,7 @@ it('payload can be updated with a function', () => {
     },
   });
 
-  analyticsEvent.update(payload => ({
+  analyticsEvent.update((payload) => ({
     ...payload,
     d: {
       ...payload.d,

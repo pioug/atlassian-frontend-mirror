@@ -44,7 +44,7 @@ export const readyState = (
   reactions: ReactionSummary[],
 ): ReactionsReadyState => ({
   status: ReactionStatus.ready,
-  reactions: reactions.filter(reaction => reaction.count > 0),
+  reactions: reactions.filter((reaction) => reaction.count > 0),
 });
 
 export const byEmojiId = (emojiId: string) => (reaction: ReactionSummary) =>

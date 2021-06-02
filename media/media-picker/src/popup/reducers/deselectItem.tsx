@@ -12,7 +12,7 @@ export default function deselectItem<A extends Action>(
     if (selectedItems) {
       return {
         ...state,
-        selectedItems: selectedItems.filter(item => item.id !== action.id),
+        selectedItems: selectedItems.filter((item) => item.id !== action.id),
       };
     }
   }

@@ -41,7 +41,7 @@ const FakeModernConsumerButton = memo(() => {
     } = analyticsContext;
 
     const context = getAtlaskitAnalyticsContext();
-    getAtlaskitAnalyticsEventHandlers().forEach(handler => handler(context));
+    getAtlaskitAnalyticsEventHandlers().forEach((handler) => handler(context));
   }, [analyticsContext]);
 
   return (

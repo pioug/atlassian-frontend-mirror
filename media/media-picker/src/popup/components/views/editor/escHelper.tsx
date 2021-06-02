@@ -8,7 +8,7 @@ export class EscHelper {
   private readonly keyDownListener: (event: KeyboardEvent) => void;
 
   constructor(private readonly escHandler: EscHandler) {
-    this.keyDownListener = event => this.onKeyDown(event);
+    this.keyDownListener = (event) => this.onKeyDown(event);
 
     window.addEventListener('keydown', this.keyDownListener);
     window.focus();

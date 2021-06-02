@@ -6,7 +6,8 @@ const toneEmojiShortName = ':raised_hand:';
 const byShortName = (
   emojis: EmojiDescription[],
   shortName: string,
-): EmojiDescription => emojis.filter(emoji => emoji.shortName === shortName)[0];
+): EmojiDescription =>
+  emojis.filter((emoji) => emoji.shortName === shortName)[0];
 
 const toneEmoji = (emojis: EmojiDescription[]) =>
   byShortName(emojis, toneEmojiShortName);

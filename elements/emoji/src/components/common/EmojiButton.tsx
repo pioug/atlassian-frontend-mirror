@@ -29,7 +29,7 @@ export const EmojiButton = (props: Props) => {
   return (
     <button
       className={classNames(classes)}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
     >

@@ -18,7 +18,7 @@ export default function Example() {
       value.length === 0
         ? allEmojis
         : allEmojis.filter(
-            emoji =>
+            (emoji) =>
               emoji.shortName.toLowerCase().indexOf(query.toLowerCase()) > -1,
           ),
     );

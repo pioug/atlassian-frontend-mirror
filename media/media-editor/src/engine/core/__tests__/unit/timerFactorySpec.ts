@@ -32,7 +32,7 @@ describe('MediaEditor TimerFactory', () => {
 
     // TODO: Media migration to new repo - typescript error - void is not assignable to {}
     timerFactory = new TimerFactory(
-      id => {
+      (id) => {
         lastIdTicked = id;
       },
       timerStarter as any,

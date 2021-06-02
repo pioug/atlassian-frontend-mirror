@@ -5,7 +5,7 @@ import { toArray } from 'rxjs/operators/toArray';
 import { from } from 'rxjs/observable/from';
 
 const delayPromise = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('Uploadinator', () => {
   it('returns empty observable for empty input', async () => {
@@ -47,7 +47,7 @@ describe('Uploadinator', () => {
       { blob: new Blob(), hash: 'bar', exists: false },
     ];
 
-    const uploader = jest.fn().mockImplementation(chunk => {
+    const uploader = jest.fn().mockImplementation((chunk) => {
       if (chunk.hash === 'foo') {
         return delayPromise(200);
       } else {
@@ -75,7 +75,7 @@ describe('Uploadinator', () => {
 
     const invocations = new Array<{ ts: number; hash: string }>();
 
-    const uploader = jest.fn().mockImplementation(chunk => {
+    const uploader = jest.fn().mockImplementation((chunk) => {
       invocations.push({ ts: Date.now(), hash: chunk.hash });
       return delayPromise(10);
     });

@@ -73,7 +73,7 @@ export class CodeViewRenderer extends React.Component<Props, State> {
           <CodeBlock language={selectedLanguage} text={src} />
         </CodeViewWrapper>
       ),
-      failed: error => (
+      failed: (error) => (
         <ErrorMessage
           fileId={item.id}
           fileState={item}

@@ -39,7 +39,7 @@ describe('getMediaTypeFromMimeType()', () => {
       'image/heif-sequence',
       'image/heic',
       'image/heic-sequence',
-    ].forEach(mimeType =>
+    ].forEach((mimeType) =>
       expect(getMediaTypeFromMimeType(mimeType)).toEqual('image'),
     );
   });
@@ -106,7 +106,7 @@ describe('getMediaTypeFromMimeType()', () => {
       'application/rtf',
       'application/x-rtf',
       'application/postscript',
-    ].forEach(mimeType =>
+    ].forEach((mimeType) =>
       expect(getMediaTypeFromMimeType(mimeType)).toEqual('doc'),
     );
   });
@@ -133,7 +133,7 @@ describe('getMediaTypeFromMimeType()', () => {
       'audio/wav',
       'audio/x-wav',
       'audio/x-ms-wma',
-    ].forEach(mimeType =>
+    ].forEach((mimeType) =>
       expect(getMediaTypeFromMimeType(mimeType)).toEqual('audio'),
     );
   });
@@ -158,7 +158,7 @@ describe('getMediaTypeFromMimeType()', () => {
       'video/x-ogg',
       'video/webm',
       'video/x-ms-wmv',
-    ].forEach(mimeType =>
+    ].forEach((mimeType) =>
       expect(getMediaTypeFromMimeType(mimeType)).toEqual('video'),
     );
   });
@@ -207,7 +207,7 @@ describe('getMediaTypeFromMimeType()', () => {
       'application/zip',
       'application/x-zoo',
       'application/x-par2',
-    ].forEach(mimeType =>
+    ].forEach((mimeType) =>
       expect(getMediaTypeFromMimeType(mimeType)).toEqual('archive'),
     );
   });

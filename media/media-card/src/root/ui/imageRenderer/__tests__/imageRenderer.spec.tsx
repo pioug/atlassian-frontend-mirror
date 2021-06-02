@@ -214,7 +214,7 @@ describe('ImageRenderer', () => {
     expect(onDisplayImage).toHaveBeenCalledTimes(1);
   });
 
-  nonImageMediaTypes.forEach(mediaType => {
+  nonImageMediaTypes.forEach((mediaType) => {
     it(`should not call onDisplayImage when mediaType is ${mediaType}`, () => {
       shallow(
         <ImageRendererBase

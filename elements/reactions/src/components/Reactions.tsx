@@ -152,7 +152,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
       createReactionSelectionEvent,
       source,
       emojiId,
-      this.props.reactions.find(reaction => reaction.emojiId === emojiId),
+      this.props.reactions.find((reaction) => reaction.emojiId === emojiId),
       this.openTime,
     );
     this.openTime = undefined;

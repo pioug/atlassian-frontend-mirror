@@ -22,7 +22,7 @@ export const getObservableFromFile = (
   callbacks: Callbacks,
 ): Observable<ProbedBlob[]> =>
   fromPromise(fetchBlob(file)).pipe(
-    concatMap(blob => {
+    concatMap((blob) => {
       const { chunkSize } = options;
       const { onProgress } = callbacks;
       const totalChunks = Math.ceil(blob.size / chunkSize);

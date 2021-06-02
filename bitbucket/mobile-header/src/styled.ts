@@ -39,9 +39,9 @@ export const MobileNavSlider = styled.div<{
   isOpen: boolean;
   side: string;
 }>`
-  height: ${props => `calc(100vh - ${props.topOffset}px)`};
+  height: ${(props) => `calc(100vh - ${props.topOffset}px)`};
   position: fixed;
-  top: ${props => props.topOffset}px;
+  top: ${(props) => props.topOffset}px;
   transition: transform 0.2s ease-out;
   z-index: ${layers.slider};
   ${xPositioning};
@@ -61,7 +61,7 @@ export const MobilePageHeaderContent = styled.div`
   height: ${mobileHeaderHeight}px;
   padding: ${gridSize}px;
   position: fixed;
-  top: ${props => props.topOffset}px;
+  top: ${(props) => props.topOffset}px;
   width: 100%;
   z-index: ${layers.header};
 `;
@@ -88,7 +88,7 @@ export const FakeBlanket = styled.div<{
   right: 0;
   top: 0;
   z-index: ${layers.blanket};
-  animation: ${p => (p.isOpen ? opacityIn : opacityOut)} 0.2s ease-out;
+  animation: ${(p) => (p.isOpen ? opacityIn : opacityOut)} 0.2s ease-out;
 `;
 
 // use proper h1 and header styles but for mobile we don't want a top margin

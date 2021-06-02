@@ -38,7 +38,7 @@ import { BulletListDefinition as BulletList } from './bullet-list';
 import { RuleDefinition as Rule } from './rule';
 import {
   HeadingDefinition as Heading,
-  HeadingWithAlignmentDefinition as HeadingWithMarks,
+  HeadingWithMarksDefinition as HeadingWithMarks,
 } from './heading';
 import { CodeBlockDefinition as CodeBlock } from './code-block';
 import { MediaGroupDefinition as MediaGroup } from './media-group';

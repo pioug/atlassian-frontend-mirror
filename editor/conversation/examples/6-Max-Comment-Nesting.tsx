@@ -79,7 +79,7 @@ export default () => {
           <input
             type="checkbox"
             checked={shouldAutoMention}
-            onChange={e => setShouldAutoMention(e.target.checked)}
+            onChange={(e) => setShouldAutoMention(e.target.checked)}
           />{' '}
           Auto mention when replying
         </label>

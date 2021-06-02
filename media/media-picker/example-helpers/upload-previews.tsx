@@ -38,7 +38,7 @@ export class UploadPreviews extends React.Component<
     const { previewsData } = this.state;
     const { files } = event;
 
-    const newPreviewData: PreviewData[] = files.map(file => {
+    const newPreviewData: PreviewData[] = files.map((file) => {
       const { id } = file;
 
       return {

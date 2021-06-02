@@ -95,7 +95,7 @@ describe('SiteEmojiResource', () => {
 
     const setup = () => {
       const uploadFile = jest.fn().mockReturnValue(
-        new Observable(observer => {
+        new Observable((observer) => {
           window.setTimeout(() => {
             // We need it due rxjs sync unsubscription
             observer.next({
@@ -136,7 +136,7 @@ describe('SiteEmojiResource', () => {
 
       const uploadPromise = siteEmojiResource
         .uploadEmoji(upload)
-        .then(emoji => {
+        .then((emoji) => {
           const {
             altRepresentations,
             ...serviceEmoji
@@ -181,7 +181,7 @@ describe('SiteEmojiResource', () => {
 
     it('upload error to media', () => {
       const uploadFile = jest.fn().mockReturnValue(
-        new Observable(observer => {
+        new Observable((observer) => {
           observer.error('upload_fail');
         }),
       );
@@ -209,7 +209,7 @@ describe('SiteEmojiResource', () => {
 
       const uploadPromise = siteEmojiResource
         .uploadEmoji(upload)
-        .catch(error => {
+        .catch((error) => {
           expect(uploadFile).toHaveBeenCalledTimes(1);
           expect(uploadFile).toBeCalledWith({
             collection: 'emoji-collection',
@@ -242,7 +242,7 @@ describe('SiteEmojiResource', () => {
 
       const uploadPromise = siteEmojiResource
         .uploadEmoji(upload)
-        .catch(error => {
+        .catch((error) => {
           expect(uploadFile).toHaveBeenCalledTimes(1);
           expect(uploadFile).toBeCalledWith({
             collection: 'emoji-collection',
@@ -270,7 +270,7 @@ describe('SiteEmojiResource', () => {
 
     it('media progress events', () => {
       const uploadFile = jest.fn().mockReturnValue(
-        new Observable<FileState>(observer => {
+        new Observable<FileState>((observer) => {
           observer.next({
             id: '123',
             name: 'some-name',
@@ -296,7 +296,7 @@ describe('SiteEmojiResource', () => {
       );
 
       let progress: EmojiProgress;
-      const progressCallback: EmojiProgessCallback = progressUpdate => {
+      const progressCallback: EmojiProgessCallback = (progressUpdate) => {
         progress = progressUpdate;
       };
 
@@ -349,9 +349,11 @@ describe('SiteEmojiResource', () => {
         name: 'delete-site-emoji',
       });
 
-      return siteEmojiResource.deleteEmoji(missingMediaEmoji).then(response => {
-        expect(response).toBeTruthy();
-      });
+      return siteEmojiResource
+        .deleteEmoji(missingMediaEmoji)
+        .then((response) => {
+          expect(response).toBeTruthy();
+        });
     });
 
     it('Deleting an emoji works for CUSTOM emoji with dataURL imgPath', () => {
@@ -364,9 +366,11 @@ describe('SiteEmojiResource', () => {
         name: 'delete-site-emoji',
       });
 
-      return siteEmojiResource.deleteEmoji(loadedMediaEmoji).then(response => {
-        expect(response).toBeTruthy();
-      });
+      return siteEmojiResource
+        .deleteEmoji(loadedMediaEmoji)
+        .then((response) => {
+          expect(response).toBeTruthy();
+        });
     });
 
     it('Deleting a custom emoji fails for non-CUSTOM category', () => {
@@ -385,7 +389,7 @@ describe('SiteEmojiResource', () => {
 
       return siteEmojiResource
         .deleteEmoji(emoji)
-        .catch(status => expect(status).toEqual(false));
+        .catch((status) => expect(status).toEqual(false));
     });
 
     it('Deleting a loaded emoji fails for non-dataURL imgPath', () => {
@@ -409,7 +413,7 @@ describe('SiteEmojiResource', () => {
 
       return siteEmojiResource
         .deleteEmoji(emoji)
-        .catch(status => expect(status).toEqual(false));
+        .catch((status) => expect(status).toEqual(false));
     });
   });
 
@@ -432,7 +436,7 @@ describe('SiteEmojiResource', () => {
         name: 'fetch-site-emoji',
       });
 
-      return siteEmojiResource.findEmoji(missingMediaEmojiId).then(emoji => {
+      return siteEmojiResource.findEmoji(missingMediaEmojiId).then((emoji) => {
         expect(emoji).not.toEqual(undefined);
         expect(emoji).toEqual(missingMediaEmoji);
         const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
@@ -458,7 +462,7 @@ describe('SiteEmojiResource', () => {
         name: 'fetch-site-emoji',
       });
 
-      return siteEmojiResource.findEmoji(missingMediaEmojiId).then(emoji => {
+      return siteEmojiResource.findEmoji(missingMediaEmojiId).then((emoji) => {
         expect(emoji).toEqual(undefined);
         const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
         expect(fetchSiteEmojiCalls).toHaveLength(1);
@@ -485,7 +489,7 @@ describe('SiteEmojiResource', () => {
         name: 'fetch-site-emoji',
       });
 
-      return siteEmojiResource.findEmoji(atlassianId).then(emoji => {
+      return siteEmojiResource.findEmoji(atlassianId).then((emoji) => {
         expect(emoji!.shortName).toEqual(atlassianEmoji.shortName);
         const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
         expect(fetchSiteEmojiCalls).toHaveLength(1);
@@ -502,7 +506,7 @@ describe('SiteEmojiResource', () => {
         response: 403,
         name: 'fetch-site-emoji',
       });
-      return siteEmojiResource.findEmoji(missingMediaEmojiId).then(emoji => {
+      return siteEmojiResource.findEmoji(missingMediaEmojiId).then((emoji) => {
         expect(emoji).toEqual(undefined);
         const fetchSiteEmojiCalls = fetchMock.calls('fetch-site-emoji');
         expect(fetchSiteEmojiCalls).toHaveLength(1);

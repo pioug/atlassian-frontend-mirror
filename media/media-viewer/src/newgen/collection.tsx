@@ -75,8 +75,8 @@ export class Collection extends React.Component<Props, State> {
 
     return this.state.items.match({
       pending: () => <Spinner />,
-      successful: items => {
-        const identifiers = items.map(x => toIdentifier(x, collectionName));
+      successful: (items) => {
+        const identifiers = items.map((x) => toIdentifier(x, collectionName));
         const item = defaultSelectedItem
           ? { ...defaultSelectedItem, collectionName }
           : identifiers[0];
@@ -95,7 +95,7 @@ export class Collection extends React.Component<Props, State> {
           />
         );
       },
-      failed: error => {
+      failed: (error) => {
         const { item } = this.state;
         return (
           <ErrorMessage
@@ -118,7 +118,7 @@ export class Collection extends React.Component<Props, State> {
     this.subscription = mediaClient.collection
       .getItems(collectionName, { limit: pageSize })
       .subscribe({
-        next: items => {
+        next: (items) => {
           this.setState({
             items: Outcome.successful(items),
           });
@@ -178,7 +178,7 @@ export class Collection extends React.Component<Props, State> {
     return items.match({
       pending: () => false,
       failed: () => false,
-      successful: items =>
+      successful: (items) =>
         items.length !== 0 && this.isLastItem(selectedItem, items),
     });
   }

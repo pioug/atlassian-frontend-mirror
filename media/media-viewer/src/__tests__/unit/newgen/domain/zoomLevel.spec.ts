@@ -27,7 +27,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'selects the initialValue if no value is selected',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale);
       expect(zoomLevel.value === scale).toBeTruthy();
       return zoomLevel.value === scale;
@@ -37,19 +37,19 @@ describe('ZoomLevel', () => {
   jsc.property(
     'the zoomLevel of 100% does always exist exactly once',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale);
       expect(
-        zoomLevel.zoomLevels.filter(i => i === 1).length === 1,
+        zoomLevel.zoomLevels.filter((i) => i === 1).length === 1,
       ).toBeTruthy();
-      return zoomLevel.zoomLevels.filter(i => i === 1).length === 1;
+      return zoomLevel.zoomLevels.filter((i) => i === 1).length === 1;
     },
   );
 
   jsc.property(
     'zooming in maintains the initialValue',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const original = new ZoomLevel(scale);
       const zoomed = original.zoomIn();
       expect(original.initialValue === zoomed.initialValue).toBeTruthy();
@@ -60,7 +60,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'zooming out maintains the initialValue',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const original = new ZoomLevel(scale);
       const zoomed = original.zoomOut();
       expect(original.initialValue === zoomed.initialValue).toBeTruthy();
@@ -71,7 +71,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'increases the zoom level when zooming in',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale);
       expect(zoomLevel.zoomIn().value > zoomLevel.value).toBeTruthy();
       return zoomLevel.zoomIn().value > zoomLevel.value;
@@ -81,7 +81,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'decreases the zoom level when zooming out',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale);
       expect(zoomLevel.zoomOut().value < zoomLevel.value).toBeTruthy();
       return zoomLevel.zoomOut().value < zoomLevel.value;
@@ -91,7 +91,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'will not increase the zoom level when the maximum is reached',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale).fullyZoomIn();
       expect(zoomLevel.zoomIn().value === zoomLevel.value).toBeTruthy();
       return zoomLevel.zoomIn().value === zoomLevel.value;
@@ -101,7 +101,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'will not decrease the zoom level when the minimum is reached',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale).fullyZoomOut();
       expect(zoomLevel.zoomOut().value === zoomLevel.value).toBeTruthy();
       return zoomLevel.zoomOut().value === zoomLevel.value;
@@ -111,7 +111,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'will report if zooming out is possible',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevelDefault = new ZoomLevel(scale);
       const zoomLevelMin = new ZoomLevel(scale).fullyZoomOut();
       expect(
@@ -124,7 +124,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'will report if zooming in is possible',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevelDefault = new ZoomLevel(scale);
       const zoomLevelMax = new ZoomLevel(scale).fullyZoomIn();
       expect(
@@ -137,7 +137,7 @@ describe('ZoomLevel', () => {
   jsc.property(
     'the percentage will be returned as an integer string',
     scaleGenerator(),
-    scale => {
+    (scale) => {
       const zoomLevel = new ZoomLevel(scale);
       expect(zoomLevel.asPercentage.includes('.')).toBeFalsy();
       return !zoomLevel.asPercentage.includes('.');

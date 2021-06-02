@@ -24,7 +24,7 @@ import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
 
 export const getFilesFromClipboard = (files: FileList) => {
-  return Array.from(files).map(file => {
+  return Array.from(files).map((file) => {
     if (file.type.indexOf('image/') === 0) {
       const name = appendTimestamp(file.name, (file as any).lastModified);
       return new File([file], name, {

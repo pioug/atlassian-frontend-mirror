@@ -15,7 +15,7 @@ const removePlayer = (player: Pausable) => {
 
 export default {
   pauseOthers: (player: Pausable) => {
-    players.forEach(otherPlayer => {
+    players.forEach((otherPlayer) => {
       if (otherPlayer !== player) {
         otherPlayer.pause();
       }

@@ -116,7 +116,7 @@ describe('<InlinePlayer />', () => {
   const update = async (
     component: ReactWrapper<InlinePlayerProps, InlinePlayerState>,
   ) => {
-    await new Promise(resolve => window.setTimeout(resolve));
+    await new Promise((resolve) => window.setTimeout(resolve));
     component.update();
   };
 

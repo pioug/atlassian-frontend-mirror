@@ -78,7 +78,7 @@ export class StatelessSidebar extends Component<SidebarProps> {
 }
 
 export default connect<SidebarStateProps, undefined, SidebarOwnProps, State>(
-  state => ({
+  (state) => ({
     selected: state.view.service.name,
     plugins: state.plugins,
   }),

@@ -141,7 +141,7 @@ describe('<ResourcedEmoji />', () => {
     const config = {
       promiseBuilder: (result: EmojiDescription) => {
         resolverResult = result;
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           resolver = resolve;
         });
       },
@@ -169,7 +169,7 @@ describe('<ResourcedEmoji />', () => {
     const config = {
       promiseBuilder: (result: EmojiDescription) => {
         resolverResult = result;
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           resolver = resolve;
         });
       },
@@ -201,7 +201,7 @@ describe('<ResourcedEmoji />', () => {
     const config = {
       promiseBuilder: (result: EmojiDescription) => {
         resolverResult = result;
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           resolver = resolve;
         });
       },

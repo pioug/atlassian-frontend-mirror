@@ -18,7 +18,7 @@ const Form = () => {
   const handleSubmitButtonClick = useCallback(
     (e: MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
       analyticsEvent
-        .update(payload => ({
+        .update((payload) => ({
           ...payload,
           value,
         }))

@@ -40,7 +40,7 @@ export const createStorybookMediaClientConfig = (
     'urn:filestore:file:*': ['read'],
     'urn:filestore:chunk:*': ['read'],
   };
-  collectionNames.forEach(c => {
+  collectionNames.forEach((c) => {
     scopes[`urn:filestore:collection:${c}`] = ['read', 'update'];
   });
 

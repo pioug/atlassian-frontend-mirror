@@ -126,7 +126,7 @@ export const uploadFile = (
 
   const subscription = from(deferredUploadId)
     .pipe(
-      concatMap(uploadId =>
+      concatMap((uploadId) =>
         chunkinatorObservable.pipe(
           concatMap(() =>
             from(
@@ -142,7 +142,7 @@ export const uploadFile = (
       ),
     )
     .subscribe({
-      error: err => onUploadFinish(err),
+      error: (err) => onUploadFinish(err),
       complete: () => onUploadFinish(),
     });
 
@@ -154,4 +154,4 @@ export const uploadFile = (
   };
 };
 
-const hashedChunks = (chunks: Chunk[]) => chunks.map(chunk => chunk.hash);
+const hashedChunks = (chunks: Chunk[]) => chunks.map((chunk) => chunk.hash);

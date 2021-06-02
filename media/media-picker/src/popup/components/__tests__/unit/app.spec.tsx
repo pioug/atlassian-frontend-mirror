@@ -473,7 +473,7 @@ describe('Connected App', () => {
       folderUploads: true,
     };
     const store: Store<State> = createStore<State>(
-      state => state,
+      (state) => state,
       mockStore({
         view: {
           isVisible: true,

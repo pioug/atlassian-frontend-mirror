@@ -20,7 +20,7 @@ export const files: Array<InternalFile> = [
   },
 ];
 
-export const userCollection: Array<MediaCollectionFile> = files.map(file => ({
+export const userCollection: Array<MediaCollectionFile> = files.map((file) => ({
   id: file.id,
   occurrenceKey: file.occurrenceKey,
   type: 'file',

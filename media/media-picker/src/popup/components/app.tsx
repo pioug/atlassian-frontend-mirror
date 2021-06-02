@@ -135,7 +135,7 @@ export class App extends Component<AppProps, AppState> {
     this.localUploader.on('upload-error', onUploadError);
 
     onStartApp({
-      onCancelUpload: uniqueIdentifier => {
+      onCancelUpload: (uniqueIdentifier) => {
         this.browserRef.current &&
           this.browserRef.current.cancel(uniqueIdentifier);
         this.dropzoneRef.current &&
@@ -218,7 +218,7 @@ export class App extends Component<AppProps, AppState> {
       );
     } else {
       const selectedPlugin = plugins.find(
-        plugin => plugin.name === selectedServiceName,
+        (plugin) => plugin.name === selectedServiceName,
       );
 
       if (selectedPlugin) {

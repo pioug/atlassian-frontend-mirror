@@ -87,7 +87,7 @@ describe('ReactionServiceClient', () => {
   });
 
   it('should get reactions', () =>
-    reactionServiceClient.getReactions(containerAri, aris).then(response => {
+    reactionServiceClient.getReactions(containerAri, aris).then((response) => {
       expect(response).toMatchObject({
         'ari-1': [],
         'ari-2': [],
@@ -105,7 +105,7 @@ describe('ReactionServiceClient', () => {
   it('should get detailed reaction', () =>
     reactionServiceClient
       .getDetailedReaction(containerAri, aris[0], 'smile')
-      .then(response => {
+      .then((response) => {
         expect(response).toMatchObject(getDetailedReactionResponse);
       })
       .then(() => {
@@ -119,7 +119,7 @@ describe('ReactionServiceClient', () => {
   it('should add reaction', () =>
     reactionServiceClient
       .addReaction(containerAri, aris[0], 'smile')
-      .then(response => {
+      .then((response) => {
         expect(response).toMatchObject(addReactionResponse.reactions);
       })
       .then(() => {
@@ -137,7 +137,7 @@ describe('ReactionServiceClient', () => {
   it('should delete reaction', () =>
     reactionServiceClient
       .deleteReaction(containerAri, aris[0], 'smile')
-      .then(response => {
+      .then((response) => {
         expect(response).toMatchObject(deleteReactionResponse.reactions);
       })
       .then(() => {

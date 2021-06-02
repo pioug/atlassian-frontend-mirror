@@ -70,14 +70,14 @@ export const defaultReactionsByShortName: Map<string, EmojiId> = new Map<
   string,
   EmojiId
 >(
-  defaultReactions.map<[string, EmojiId]>(reaction => [
+  defaultReactions.map<[string, EmojiId]>((reaction) => [
     reaction.shortName,
     reaction,
   ]),
 );
 
 export const isDefaultReaction = (emojiId: EmojiId) =>
-  defaultReactions.filter(otherEmojiId => equalEmojiId(otherEmojiId, emojiId))
+  defaultReactions.filter((otherEmojiId) => equalEmojiId(otherEmojiId, emojiId))
     .length > 0;
 
 export interface State {

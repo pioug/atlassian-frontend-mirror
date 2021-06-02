@@ -20,7 +20,7 @@ export function clientTimeoutPromise(timeout: number) {
 }
 
 export function waitPromise(timeout: number) {
-  return new Promise<void>(resolve => setTimeout(resolve, timeout));
+  return new Promise<void>((resolve) => setTimeout(resolve, timeout));
 }
 
 export function isAbortedRequestError(err: any): boolean {

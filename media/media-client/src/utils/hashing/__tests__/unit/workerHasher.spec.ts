@@ -75,12 +75,12 @@ describe('WorkerHasher', () => {
     );
 
     // Execute hash for first blob and verify returned hash
-    const promise1 = hasher.hash(blob1).then(hash => {
+    const promise1 = hasher.hash(blob1).then((hash) => {
       expect(hash).toEqual('some-hash');
     });
 
     // Execute hash for second blob and verify returned hash
-    const promise2 = hasher.hash(blob2).then(hash => {
+    const promise2 = hasher.hash(blob2).then((hash) => {
       expect(hash).toEqual('some-other-hash');
     });
 
@@ -137,7 +137,7 @@ describe('WorkerHasher', () => {
       () => {
         throw new Error('Promise was expected to reject');
       },
-      error => {
+      (error) => {
         expect(error).toEqual('some-error');
       },
     );

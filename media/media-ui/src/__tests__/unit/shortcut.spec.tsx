@@ -9,7 +9,7 @@ describe('Shortcut', () => {
     document.addEventListener = originalEventListener;
   });
 
-  it('should de-register the key event listener on unmount', done => {
+  it('should de-register the key event listener on unmount', (done) => {
     document.removeEventListener = (name: string) => {
       expect(name).toEqual('keydown');
       done();
@@ -24,7 +24,7 @@ describe('Shortcut', () => {
     el.unmount();
   });
 
-  it('should execute handler', done => {
+  it('should execute handler', (done) => {
     mount(
       <div>
         <Shortcut keyCode={37} handler={done} />

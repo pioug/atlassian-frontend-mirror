@@ -272,7 +272,7 @@ export class FileFetcherImpl implements FileFetcher {
     const deferredUploadId = this.touchFiles(
       [touchFileDescriptor],
       collection,
-    ).then(touchedFiles => touchedFiles.created[0].uploadId);
+    ).then((touchedFiles) => touchedFiles.created[0].uploadId);
 
     return {
       id,
@@ -292,7 +292,7 @@ export class FileFetcherImpl implements FileFetcher {
     const subject = createFileStateSubject();
 
     const deferredBlob = fetch(url)
-      .then(response => response.blob())
+      .then((response) => response.blob())
       .catch(() => undefined);
     const preview = new Promise<FilePreview>(async (resolve, reject) => {
       const blob = await deferredBlob;
@@ -424,14 +424,14 @@ export class FileFetcherImpl implements FileFetcher {
       processingSubscription.add(
         shouldFetchRemoteFileStatesObservable(mediaType, mimeType, preview)
           .pipe(
-            concatMap(shouldFetchRemoteFileStates => {
+            concatMap((shouldFetchRemoteFileStates) => {
               if (shouldFetchRemoteFileStates) {
                 return this.createDownloadFileStream(
                   id,
                   collection,
                   occurrenceKey,
                 ).pipe(
-                  map(remoteFileState => ({
+                  map((remoteFileState) => ({
                     // merges base state with remote state
                     ...stateBase,
                     ...remoteFileState,
@@ -582,13 +582,13 @@ export class FileFetcherImpl implements FileFetcher {
           destinationCollectionName,
           occurrenceKey,
         ).subscribe({
-          next: remoteFileState =>
+          next: (remoteFileState) =>
             subject.next({
               ...remoteFileState,
               ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
               ...(!isErrorFileState(remoteFileState) && previewOverride),
             }),
-          error: err => subject.error(err),
+          error: (err) => subject.error(err),
           complete: () => subject.complete(),
         });
       } else if (!isProcessingFileState(copiedFileState)) {

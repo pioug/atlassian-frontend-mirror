@@ -56,7 +56,7 @@ export function editRemoteImage(
       mode: 'full-fit',
       collection: collectionName,
     })
-    .then(imageUrl => {
+    .then((imageUrl) => {
       if (continueRenderingEditor(item.id, store)) {
         store.dispatch(editorShowImage(imageUrl));
       }

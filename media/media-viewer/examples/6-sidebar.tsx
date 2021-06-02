@@ -181,7 +181,7 @@ const Sidebar = (props: SidebarProps) => {
           collectionName: identifier.collectionName,
         })
         .subscribe({
-          next: newFileState => {
+          next: (newFileState) => {
             setFileState(newFileState);
             setStatus('succeed');
           },

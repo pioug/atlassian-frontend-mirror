@@ -119,13 +119,13 @@ class ReactionWithoutAnalytics extends PureComponent<
   componentDidMount() {
     this.mounted = true;
     this.props.emojiProvider
-      .then(emojiResource =>
+      .then((emojiResource) =>
         emojiResource.findByEmojiId({
           shortName: '',
           id: this.props.reaction.emojiId,
         }),
       )
-      .then(foundEmoji => {
+      .then((foundEmoji) => {
         if (foundEmoji && this.mounted) {
           this.setState({
             emojiName: foundEmoji.name,

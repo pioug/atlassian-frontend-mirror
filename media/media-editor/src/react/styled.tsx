@@ -95,7 +95,7 @@ export const ColorSquare: ComponentClass<HTMLAttributes<{}>> = styled.div`
   width: 20px;
   height: 20px;
   margin: 4px;
-  background-color: ${props => props.color || 'transparent'};
+  background-color: ${(props) => props.color || 'transparent'};
   border-radius: 4px;
   border-width: 2px;
   border-color: ${N50A};

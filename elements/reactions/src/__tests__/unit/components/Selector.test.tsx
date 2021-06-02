@@ -44,7 +44,7 @@ describe('@atlaskit/reactions/selector', () => {
 
     expect(emojis.length).toEqual(defaultReactions.length);
 
-    emojis.forEach(emoji => {
+    emojis.forEach((emoji) => {
       expect(isDefaultReaction(emoji.props().emojiId)).toEqual(true);
     });
 

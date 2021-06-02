@@ -138,7 +138,7 @@ export function createApiRouter(
         .find('collectionItem', {
           collectionName,
         })
-        .map(record => record.data);
+        .map((record) => record.data);
 
       const nextInclusiveStartKey =
         contents.length > endIndex ? endIndex : undefined;
@@ -188,7 +188,7 @@ export function createApiRouter(
     let dimensions = Promise.resolve(defaultDimensions);
 
     if (record && record.data.blob && !isSvgFile(record)) {
-      dimensions = new Promise(resolve => {
+      dimensions = new Promise((resolve) => {
         const image = new Image();
         image.src = URL.createObjectURL(record.data.blob);
         image.onload = () =>
@@ -234,7 +234,7 @@ export function createApiRouter(
   /** This function waits for shouldWaitUpload to be false before it resolves the promise.
    * Otherwise it recursively calls itself with a 10ms timeout until it is false.*/
   async function awaitUpload(resolver?: Function) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if ((window as any).mediaMockControlsBackdoor.shouldWaitUpload) {
         setTimeout(() => awaitUpload(resolver || resolve), 10);
         return;
@@ -277,7 +277,7 @@ export function createApiRouter(
     const { createUpTo = '1' } = query;
 
     const records = database.create('upload', Number.parseInt(createUpTo, 10));
-    const data = records.map(record => record.data);
+    const data = records.map((record) => record.data);
 
     return {
       data,
@@ -542,7 +542,7 @@ export function createApiRouter(
     const bodyJson = JSON.parse(body);
     const descriptors: TouchFileDescriptor[] = bodyJson.descriptors;
 
-    const created = descriptors.map(descriptor => {
+    const created = descriptors.map((descriptor) => {
       database.push(
         'collectionItem',
         createEmptyCollectionItem({
@@ -568,7 +568,7 @@ export function createApiRouter(
   });
 
   urlsReturnErrorsTo &&
-    urlsReturnErrorsTo.forEach(url => {
+    urlsReturnErrorsTo.forEach((url) => {
       const return500 = () =>
         new KakapoResponse(500, { message: 'As you wish, master!' });
       router.delete(url, return500);

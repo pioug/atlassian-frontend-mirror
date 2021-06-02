@@ -24,13 +24,13 @@ const MediaDownloadButton = (props: Props & InjectedIntlProps) => {
       appearance="subtle"
       testId="download-button"
       iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
-      onKeyPress={event => event.stopPropagation()}
+      onKeyPress={(event) => event.stopPropagation()}
       onClick={(
         event: React.MouseEvent<HTMLElement>,
         analyticsEvent: UIAnalyticsEvent,
       ) => {
         analyticsEvent
-          .update(payload => ({
+          .update((payload) => ({
             ...payload,
             eventType: 'ui',
             actionSubjectId: 'mediaTableDownload',

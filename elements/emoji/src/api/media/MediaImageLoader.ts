@@ -50,11 +50,11 @@ export default class MediaImageLoader {
       });
       this.processFromQueue();
     })
-      .then(result => {
+      .then((result) => {
         this.pendingRequests.delete(url);
         return result;
       })
-      .catch(error => {
+      .catch((error) => {
         this.pendingRequests.delete(url);
         throw error;
       });
@@ -82,18 +82,18 @@ export default class MediaImageLoader {
       const { url, resolve, reject } = item;
       this.tokenManager
         .getToken('read', false)
-        .then(token => {
+        .then((token) => {
           this.requestMediaEmoji(url, token, true)
-            .then(dataURL => {
+            .then((dataURL) => {
               resolve(dataURL);
               this.completedItem();
             })
-            .catch(error => {
+            .catch((error) => {
               reject(error);
               this.completedItem();
             });
         })
-        .catch(error => {
+        .catch((error) => {
           // Failed to load, just resolve to original emoji
           reject(error);
           this.completedItem();
@@ -107,7 +107,7 @@ export default class MediaImageLoader {
   }
 
   private delay(durationInMillis: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, durationInMillis));
+    return new Promise((resolve) => setTimeout(resolve, durationInMillis));
   }
 
   private requestMediaEmoji(
@@ -116,7 +116,7 @@ export default class MediaImageLoader {
     retryOnAuthError: boolean,
     retriesOnNotFound: number = defaultMaxRetriesOnNotFound,
   ): Promise<DataURL> {
-    return imageAcceptHeader().then(acceptHeader => {
+    return imageAcceptHeader().then((acceptHeader) => {
       // Media REST API: https://media-api-internal.atlassian.io/api.html#file__fileId__image_get
       const options = {
         headers: {
@@ -125,7 +125,7 @@ export default class MediaImageLoader {
           Accept: acceptHeader,
         },
       };
-      return fetch(url, options).then(response => {
+      return fetch(url, options).then((response) => {
         // retry if 404
         if (response.status === 404 && retriesOnNotFound > 0) {
           return this.delay(backoffMaxDelayInMillis / retriesOnNotFound) // backoff strategy
@@ -136,9 +136,9 @@ export default class MediaImageLoader {
           // retry once if 403
           return this.tokenManager
             .getToken('read', true)
-            .then(newToken => this.requestMediaEmoji(url, newToken, false));
+            .then((newToken) => this.requestMediaEmoji(url, newToken, false));
         } else if (response.ok) {
-          return response.blob().then(blob => this.readBlob(blob));
+          return response.blob().then((blob) => this.readBlob(blob));
         }
         throw new Error(
           `Unable to load media image. Status=${response.status} ${response.statusText}`,

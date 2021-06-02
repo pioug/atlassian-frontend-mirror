@@ -27,7 +27,9 @@ describe('withAnalytics', () => {
   describe('wrapping callback props', () => {
     it('should call original callback props', () => {
       const spy = jest.fn();
-      const Button = withAnalytics(props => <button {...cleanProps(props)} />);
+      const Button = withAnalytics((props) => (
+        <button {...cleanProps(props)} />
+      ));
       const button = shallow(<Button onClick={spy} />);
 
       button.simulate('click');
@@ -36,9 +38,12 @@ describe('withAnalytics', () => {
 
     it('should fire analytics events', () => {
       const spy = jest.fn();
-      const Button = withAnalytics(props => <button {...cleanProps(props)} />, {
-        onClick: 'click',
-      });
+      const Button = withAnalytics(
+        (props) => <button {...cleanProps(props)} />,
+        {
+          onClick: 'click',
+        },
+      );
       const listener = mount(
         <AnalyticsListener onEvent={spy}>
           <Button analyticsId="button" />
@@ -53,8 +58,8 @@ describe('withAnalytics', () => {
     it('should fire analytics events when fireAnalyticsEvent is used directly', () => {
       const spy = jest.fn();
       const Button = withAnalytics(
-        props => <button {...cleanProps(props)} />,
-        fireAnalyticsEvent => ({
+        (props) => <button {...cleanProps(props)} />,
+        (fireAnalyticsEvent) => ({
           onClick: () => fireAnalyticsEvent('click'),
         }),
       );
@@ -71,9 +76,12 @@ describe('withAnalytics', () => {
 
     it('should pass eventData to analytics events', () => {
       const spy = jest.fn();
-      const Button = withAnalytics(props => <button {...cleanProps(props)} />, {
-        onClick: 'click',
-      });
+      const Button = withAnalytics(
+        (props) => <button {...cleanProps(props)} />,
+        {
+          onClick: 'click',
+        },
+      );
       const listener = mount(
         <AnalyticsListener onEvent={spy}>
           <Button analyticsId="button" analyticsData={{ foo: 'bar' }} />
@@ -104,7 +112,7 @@ describe('withAnalytics', () => {
     it('should use defaultProps for analyticsId and analyticsData', () => {
       const spy = jest.fn();
       const Button = withAnalytics(
-        props => <button {...cleanProps(props)} />,
+        (props) => <button {...cleanProps(props)} />,
         {
           onClick: 'click',
         },
@@ -127,7 +135,7 @@ describe('withAnalytics', () => {
     it('should override defaultProps with specified analyticsId and analyticsData', () => {
       const spy = jest.fn();
       const Button = withAnalytics(
-        props => <button {...cleanProps(props)} />,
+        (props) => <button {...cleanProps(props)} />,
         {
           onClick: 'click',
         },
@@ -149,9 +157,12 @@ describe('withAnalytics', () => {
 
     it('should not fire analytics if missing analyticsId', () => {
       const spy = jest.fn();
-      const Button = withAnalytics(props => <button {...cleanProps(props)} />, {
-        onClick: 'click',
-      });
+      const Button = withAnalytics(
+        (props) => <button {...cleanProps(props)} />,
+        {
+          onClick: 'click',
+        },
+      );
       const listener = mount(
         <AnalyticsListener onEvent={spy}>
           <Button analyticsData={{ one: 1 }} />

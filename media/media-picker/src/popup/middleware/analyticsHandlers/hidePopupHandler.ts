@@ -14,12 +14,12 @@ export default (action: Action, store: MiddlewareAPI<State>): HandlerResult => {
 
     const serviceNames =
       selectedItems.length > 0
-        ? selectedItems.map(i => i.serviceName)
+        ? selectedItems.map((i) => i.serviceName)
         : undefined;
 
     const files =
       selectedItems.length > 0
-        ? selectedItems.map(item => ({
+        ? selectedItems.map((item) => ({
             serviceName: item.serviceName,
             accountId: item.accountId,
             fileId: item.id,

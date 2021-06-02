@@ -41,7 +41,7 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>`
   bottom: 0px;
   left: 43px;
 
-  ${props =>
+  ${(props) =>
     props.showSlider
       ? `
     &:hover,

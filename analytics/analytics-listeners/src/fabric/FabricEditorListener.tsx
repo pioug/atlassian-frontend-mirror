@@ -27,7 +27,7 @@ export const LEGACY_EDITOR_TAG = 'fabricEditor';
 export default class FabricEditorListener extends React.Component<
   ListenerProps
 > {
-  handleEventWrapper: UIAnalyticsEventHandler = event => {
+  handleEventWrapper: UIAnalyticsEventHandler = (event) => {
     handleEvent(
       event,
       [EDITOR_TAG, LEGACY_EDITOR_TAG],

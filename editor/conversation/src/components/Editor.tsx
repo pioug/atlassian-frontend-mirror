@@ -159,7 +159,7 @@ export default class Editor extends React.Component<Props, State> {
   }
 
   private onFocus = () =>
-    this.setState(prevState => ({ isExpanded: !prevState.isExpanded }));
+    this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
   private onCancel = () => {
     if (this.props.onCancel) {
@@ -298,7 +298,9 @@ export default class Editor extends React.Component<Props, State> {
         <Container>
           {this.renderAvatar()}
           <EditorSection>
-            <WithEditorActions render={actions => this.renderEditor(actions)} />
+            <WithEditorActions
+              render={(actions) => this.renderEditor(actions)}
+            />
           </EditorSection>
         </Container>
       </EditorContext>

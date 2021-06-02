@@ -59,7 +59,7 @@ describe('Browser', () => {
   it('should render with children', () => {
     const browser = mount(
       <Browser mediaClient={mediaClient} config={browseConfig}>
-        {browse => <Button onClick={browse}>Upload</Button>}
+        {(browse) => <Button onClick={browse}>Upload</Button>}
       </Browser>,
     );
     const instance = browser.find(BrowserBase).instance();

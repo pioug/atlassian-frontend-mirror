@@ -152,9 +152,9 @@ function generateDownstreamMessages(
           remoteUploadProgressPayload(tenantFileId, fileSize),
           remoteUploadEndPayload(tenantFileId, userFileId),
         ]).pipe(
-          concatMap(message =>
+          concatMap((message) =>
             of(message).pipe(
-              tap(message =>
+              tap((message) =>
                 sendDownstreamMessage(wsUrl, socket, database, message),
               ),
               delay(delayMessages + Math.random() * DELAY_MESSAGES_VARIATION),

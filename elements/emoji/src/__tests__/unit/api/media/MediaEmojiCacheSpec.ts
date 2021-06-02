@@ -68,7 +68,7 @@ describe('MediaEmojiCache', () => {
       const cache = new TestMediaEmojiCache();
       const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
       if (isPromise(cacheStrategy)) {
-        return cacheStrategy.then(implCache => {
+        return cacheStrategy.then((implCache) => {
           expect(implCache instanceof BrowserCacheStrategy).toEqual(true);
         });
       }
@@ -83,7 +83,7 @@ describe('MediaEmojiCache', () => {
       const cache = new TestMediaEmojiCache();
       const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
       if (isPromise(cacheStrategy)) {
-        return cacheStrategy.then(implCache => {
+        return cacheStrategy.then((implCache) => {
           expect(implCache instanceof MemoryCacheStrategy).toEqual(true);
         });
       }
@@ -98,7 +98,7 @@ describe('MediaEmojiCache', () => {
       const cache = new TestMediaEmojiCache();
       const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
       if (isPromise(cacheStrategy)) {
-        return cacheStrategy.then(implCache => {
+        return cacheStrategy.then((implCache) => {
           expect(implCache instanceof BrowserCacheStrategy).toEqual(true);
           const cacheStrategy2 = cache.callGetCache(mediaEmojiImagePath);
           expect(isPromise(cacheStrategy2)).toEqual(false);
@@ -117,7 +117,7 @@ describe('MediaEmojiCache', () => {
       const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
       if (isPromise(cacheStrategy)) {
         return cacheStrategy
-          .catch(err => {
+          .catch((err) => {
             expect(err).toEqual(
               'Unable to initialise cache based on provided url(s)',
             );
@@ -129,7 +129,7 @@ describe('MediaEmojiCache', () => {
             expect(false).toEqual(true);
             return Promise.reject('unreachable');
           })
-          .then(implCache => {
+          .then((implCache) => {
             expect(implCache instanceof BrowserCacheStrategy).toEqual(true);
           });
       }
@@ -156,7 +156,7 @@ describe('MediaEmojiCache', () => {
       const cache = new TestMediaEmojiCache();
       const emojiPromise = cache.loadEmoji(mediaEmoji);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(loadedMediaEmoji);
           const cachedEmoji = cache.loadEmoji(mediaEmoji);
           if (isPromise(cachedEmoji)) {
@@ -177,7 +177,7 @@ describe('MediaEmojiCache', () => {
       const cache = new TestMediaEmojiCache();
       const emojiPromise = cache.loadEmoji(mediaEmoji);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(undefined);
         });
       }
@@ -201,7 +201,7 @@ describe('MediaEmojiCache', () => {
         mediaEmojiImagePath,
       );
       if (isPromise(optimisticRenderingPromise)) {
-        return optimisticRenderingPromise.then(optimistic => {
+        return optimisticRenderingPromise.then((optimistic) => {
           expect(optimistic).toEqual(true);
           expect(optimisticRenderingStub.callCount).toEqual(1);
           const optimisticRendering = cache.optimisticRendering(
@@ -226,7 +226,7 @@ describe('MediaEmojiCache', () => {
       const cache = new TestMediaEmojiCache();
       const renderingPromise = cache.optimisticRendering(mediaEmojiImagePath);
       if (isPromise(renderingPromise)) {
-        return renderingPromise.then(optimistic => {
+        return renderingPromise.then((optimistic) => {
           expect(optimistic).toEqual(false);
         });
       }
@@ -265,7 +265,7 @@ describe('BrowserCacheStrategy', () => {
       const promise = BrowserCacheStrategy.supported(
         'cheese',
         mockMediaImageLoader,
-      ).then(supported => {
+      ).then((supported) => {
         expect(supported).toEqual(true);
         expect(mockImage.src).toEqual('cheese');
       });
@@ -279,7 +279,7 @@ describe('BrowserCacheStrategy', () => {
       const promise = BrowserCacheStrategy.supported(
         'cheese',
         mockMediaImageLoader,
-      ).then(supported => {
+      ).then((supported) => {
         expect(supported).toEqual(false);
         expect(mockImage.src).toEqual('cheese');
       });
@@ -297,7 +297,7 @@ describe('BrowserCacheStrategy', () => {
       return BrowserCacheStrategy.supported(
         'cheese',
         mockMediaImageLoader,
-      ).then(supported => {
+      ).then((supported) => {
         expect(supported).toEqual(false);
         expect(mockImage.src).toEqual(undefined);
         expect(mockImage.listeners.size).toEqual(0);
@@ -324,7 +324,7 @@ describe('BrowserCacheStrategy', () => {
       const emojiPromise = browserCacheStrategy.loadEmoji(mediaEmoji);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(emoji);
           const cachedEmoji = browserCacheStrategy.loadEmoji(mediaEmoji);
           expect(isPromise(cachedEmoji)).toEqual(false);
@@ -339,7 +339,7 @@ describe('BrowserCacheStrategy', () => {
       const emojiPromise = browserCacheStrategy.loadEmoji(mediaEmoji);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(undefined);
         });
       }
@@ -354,7 +354,7 @@ describe('BrowserCacheStrategy', () => {
       const emojiPromise = browserCacheStrategy.loadEmoji(mediaEmoji);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(emoji);
           const cachedEmoji = browserCacheStrategy.loadEmoji(frequentEmoji);
           expect(isPromise(cachedEmoji)).toEqual(false);
@@ -386,7 +386,7 @@ describe('MemoryCacheStrategy', () => {
       const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(loadedMediaEmoji);
           const cachedEmoji = memoryCacheStrategy.loadEmoji(mediaEmoji);
           expect(isPromise(cachedEmoji)).toEqual(false);
@@ -401,7 +401,7 @@ describe('MemoryCacheStrategy', () => {
       const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(undefined);
         });
       }
@@ -413,7 +413,7 @@ describe('MemoryCacheStrategy', () => {
       const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji, useAlt);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           // loadedAltMediaEmoji has dataURL generated for and set in
           // altRepresentation.imgPath rather than representation.imgPath
           expect(emoji).toEqual(loadedAltMediaEmoji);
@@ -437,7 +437,7 @@ describe('MemoryCacheStrategy', () => {
       const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji);
       expect(isPromise(emojiPromise)).toEqual(true);
       if (isPromise(emojiPromise)) {
-        return emojiPromise.then(emoji => {
+        return emojiPromise.then((emoji) => {
           expect(emoji).toEqual(loadedMediaEmoji);
           const cachedEmoji = memoryCacheStrategy.loadEmoji(frequentEmoji);
           expect(isPromise(cachedEmoji)).toEqual(false);

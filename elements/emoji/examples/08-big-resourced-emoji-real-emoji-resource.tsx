@@ -38,7 +38,7 @@ class ResourcedFilteredEmojiList extends PureComponent<
   UNSAFE_componentWillReceiveProps(nextProps: FilteredProps) {
     if (this.props.emojiProvider !== nextProps.emojiProvider) {
       if (this.props.emojiProvider) {
-        this.props.emojiProvider.then(provider => {
+        this.props.emojiProvider.then((provider) => {
           provider.unsubscribe(this.onProviderChange);
         });
       }
@@ -53,7 +53,7 @@ class ResourcedFilteredEmojiList extends PureComponent<
 
   componentDidMount() {
     if (this.props.emojiProvider) {
-      this.props.emojiProvider.then(provider => {
+      this.props.emojiProvider.then((provider) => {
         provider.subscribe(this.onProviderChange);
         provider.filter('');
       });
@@ -62,7 +62,7 @@ class ResourcedFilteredEmojiList extends PureComponent<
 
   componentWillUnmount() {
     if (this.props.emojiProvider) {
-      this.props.emojiProvider.then(provider => {
+      this.props.emojiProvider.then((provider) => {
         provider.unsubscribe(this.onProviderChange);
       });
     }
@@ -85,7 +85,7 @@ class ResourcedFilteredEmojiList extends PureComponent<
 
     return (
       <p style={{ padding: '10px', lineHeight: '24px' }}>
-        {emojis.map(emoji => (
+        {emojis.map((emoji) => (
           <ResourcedEmoji
             key={emoji.id || `${emoji.shortName}-${emoji.category}`}
             emojiProvider={emojiProvider}
